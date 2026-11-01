@@ -1,0 +1,410 @@
+{
+  "schema_version": 1,
+  "sources": {
+    "yvanchuxiuzhen": {
+      "relative_root": "reference/old-1.18.2-mcreator/1.18.2yvanchuxiuzhen",
+      "registry_counts": {
+        "biome": 68,
+        "block": 1026,
+        "block_entity_type": 76,
+        "enchantment": 84,
+        "entity_type": 267,
+        "feature": 220,
+        "fluid": 10,
+        "item": 1971,
+        "menu": 44,
+        "mob_effect": 77,
+        "particle_type": 312,
+        "sound_event": 150
+      },
+      "player_field_count": 166,
+      "file_count": 26774,
+      "file_bytes": 463577367,
+      "procedure_files": 2108,
+      "unresolved_declarations": [
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "TAILGREENBRISTLEGRASS"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "TAILREED"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ICEBOUNDROCK"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ICEBOUNDROCK_02"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SYLVESTRISSILLWALLWINDOW"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SYLVESTRISSILLWALLWINDOW_02"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "CHESTNUTSILLWALLWINDOW"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "CHESTNUTSILLWALLWINDOW_02"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "BEECHSILLWALLWINDOW"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "BEECHSILLWALLWINDOW_02"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "CYPRESSSILLWALLWINDOW"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "CYPRESSSILLWALLWINDOW_02"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "TOOTHEDSILLWALLWINDOW"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "TOOTHEDSILLWALLWINDOW_02"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "CAMPHORSILLWALLWINDOW"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "CAMPHORSILLWALLWINDOW_02"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "NANMUSILLWALLWINDOW"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "NANMUSILLWALLWINDOW_02"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "GINKGOSILLWALLWINDOW"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "GINKGOSILLWALLWINDOW_02"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ALCHEMY_01"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ALCHEMY_02"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ALCHEMY_03"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ALCHEMY_04"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ALCHEMY_05"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ALCHEMY_06"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ALCHEMY_07"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ALCHEMY_08"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "TREASURE_CHEST_11"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "FABAO_009"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHIPINTAI"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ZHIBUJI"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "CANHE"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SAOSILUN"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "CAIDAOBLOCK"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_001_PLANT_05"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_001_PLANT_06"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_001_PLANT_07"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_001_PLANT_08"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_002_PLANT_05"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_002_PLANT_06"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_002_PLANT_07"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_002_PLANT_08"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_004_PLANT_05"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_004_PLANT_06"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_004_PLANT_07"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_004_PLANT_08"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_005_PLANT_05"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_005_PLANT_06"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_005_PLANT_07"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_005_PLANT_08"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_006_PLANT_05"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_006_PLANT_06"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_006_PLANT_07"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_006_PLANT_08"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_039_PLANT_04"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "IRONBAMBOOTAIL"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "LUOPAN"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "FLAGMOTHER"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "FLAGSON"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "TIANDIYINHANG"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "QIANKUNDAOREN"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "STONEMILL"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "STONEROLLER"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ZHUANGSHITIZI"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "FOODDAGUO"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "FOODDUNGUO"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "FOODZHENGGUO"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "FOODLONGTI"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "SHICAI_05701"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "QIANKUNMENTU"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "LIEXI"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "TREASURE_CHEST_03"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "CHUANCHENG"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "MUGONGTAI"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "GONGFAXVEXI"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "GUANCAI_01"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "ZHUANGSHIQIANTONG"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "TAOLUN"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "BIGGRASS"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "BIGGRASSYINCANG"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "TAILBLADEGRASS"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "TIANDAOFUBEN"
+        },
+        {
+          "file": "src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java",
+          "symbol": "XIULITAI"
+        }
+      ]
+    },
+    "yvanchuxitong": {
+      "relative_root": "reference/1.18.2yvanchuxitong",
+      "registry_counts": {
+        "block": 154,
+        "block_entity_type": 79,
+        "enchantment": 1,
+        "entity_type": 4,
+        "item": 188,
+        "menu": 48,
+        "particle_type": 3
+      },
+      "player_field_count": 17,
+      "file_count": 4849,
+      "file_bytes": 32524370,
+      "procedure_files": 1320,
+      "unresolved_declarations": []
+    }
+  },
+  "limitations": [
+    "静态注册声明、文件及玩家字段清单，不代表行为覆盖或游戏验收。",
+    "物品包含方块物品；实体类型包含投射物和内部形态。",
+    "跨命名空间碰撞按同类注册表计算；最终 ID 映射尚未制定。",
+    "未自动解释过程中的动态注册、字符串表和脚本行为。"
+  ],
+  "cross_namespace_collisions": [
+    {
+      "registry": "menu",
+      "path": "plaque_gui",
+      "legacy_ids": [
+        "yvanchuxiuzhen:plaque_gui",
+        "yvanchuxitong:plaque_gui"
+      ]
+    },
+    {
+      "registry": "particle_type",
+      "path": "lingqi",
+      "legacy_ids": [
+        "yvanchuxiuzhen:lingqi",
+        "yvanchuxitong:lingqi"
+      ]
+    }
+  ],
+  "shared_player_field_names": [
+    "gongfa",
+    "gongfalinshi"
+  ],
+  "source_manifest_sha256": "1bc904c8000a4115b6c7380047333260fb67c36de62f173ff2384a900823f90e"
+}
