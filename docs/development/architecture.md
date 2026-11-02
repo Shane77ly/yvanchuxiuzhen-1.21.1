@@ -11,7 +11,7 @@ updated: 2026-11-02
 
 ## 工程形态
 
-建议一个 Gradle Java 工程、一个 Mod 入口、一个发布 JAR，内部按玩法系统组织。目标为 Minecraft 1.21.1、NeoForge、Java 21；NeoForge 锁定本地已有源码的 21.1.228；开发环境的构建组合见“技术依赖”。
+建议一个 Gradle Java 工程、一个 Mod 入口、一个发布 JAR，内部按玩法系统组织。目标为 Minecraft 1.21.1、NeoForge、Java 21；NeoForge 最低支持 21.1.228，构建使用 21.1.265；开发环境的构建组合见“技术依赖”。
 
 采用直接面向 1.21.1 的分系统重写。注册与资源保留来源映射，规则和状态按实际职责重建；不维护没有交付需求的中间 Minecraft 版本。两个 1.18.2 工程的全部内容都在范围内，分批只是实现顺序，详见 [实施顺序](roadmap.md)。
 
@@ -85,7 +85,7 @@ flowchart TB
 
 ## 技术依赖
 
-开发环境（负责人 2026-11-02 授权先行建立）：Gradle 8.8 wrapper、ModDevGradle 2.0.141、NeoForge 21.1.228、Parchment 1.21.1 / 2024.11.17、Java 21 toolchain。Parchment 版本取自其 maven 元数据中 1.21.1 的最新正式版；ModDevGradle 采用本机已有且已在邻近工程使用的版本，不声称为最新。元数据由 `src/main/templates` 展开，版本与 ID 只在 `gradle.properties` 维护。当前只有加载入口 `net.yvanchuxiuzhen.YvanchuxiuzhenMod`，不注册任何内容。
+开发环境（负责人 2026-11-02 授权先行建立，B0 步骤 1 更新）：Gradle 8.8 wrapper、ModDevGradle 2.0.148、NeoForge 21.1.265（`neoforge.mods.toml` 范围 `[21.1.228,21.2)`，下限为负责人决定的最低支持版本）、Parchment 1.21.1 / 2024.11.17、Java 21 toolchain。NeoForge 与 ModDevGradle 取 2026-11-02 maven 元数据中的最新版；Parchment 版本取自其 maven 元数据中 1.21.1 的最新正式版。元数据由 `src/main/templates` 展开，版本与 ID 只在 `gradle.properties` 维护。当前只有加载入口 `net.yvanchuxiuzhen.YvanchuxiuzhenMod`，不注册任何内容。
 
 GeckoLib 是已发现的真实动画依赖：1.18.2 妖兽类直接实现 `IAnimatable`，还存在 230 个 geo 与 233 个 animation 文件；不能仅依据元数据的 optional 标记忽略。Photon、LDLib、PlayerAnimator 不作为既定依赖。依赖准入、版本声明、更新时机与目标源码位置按[工程结构](engineering.md)的“依赖治理”执行。
 

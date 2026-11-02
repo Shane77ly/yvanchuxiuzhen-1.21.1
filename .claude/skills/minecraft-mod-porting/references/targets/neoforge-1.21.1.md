@@ -1,6 +1,6 @@
 # NeoForge 1.21.1
 
-已核对范围：NeoForge 21.1.228 源码（sources jar 静态阅读），以及一个只含加载入口的开发环境实测。其他 21.1.x 构建可能不同，使用前核对所用构建。源码事实只支撑架构判断，不替代编译和游戏验证。路径相对 NeoForge 源码根。
+已核对范围：NeoForge 21.1.228 源码（sources jar 静态阅读），以及一个只含加载入口的开发环境实测（21.1.228 与 21.1.265 的构建和启动；源码阅读未在 21.1.265 上重做）。其他 21.1.x 构建可能不同，使用前核对所用构建。源码事实只支撑架构判断，不替代编译和游戏验证。路径相对 NeoForge 源码根。
 
 | 机制 | 源码 | 已确认事实 |
 | --- | --- | --- |
@@ -39,6 +39,8 @@
 ## 开发环境（已实测）
 
 2026-11-02 在 Windows + Temurin JDK 21.0.9 上实测：Gradle 8.8 wrapper + ModDevGradle 2.0.141 + NeoForge 21.1.228 完成 `build`，`runServer` 启动至 Done，`runClient` 加载至声音引擎启动。
+
+同日升级后复测：Gradle 8.8 + ModDevGradle 2.0.148 + NeoForge 21.1.265（Gradle 缓存中的 FML 为 4.0.45）完成 `build`，`runServer` 启动至 Done，`runClient` 加载至声音引擎启动，两端日志无 ERROR。升级只改版本号，无需改动入口代码；21.1.265 的构建新增 `net.neoforged.jst:jst-cli-bundle` 约 58 MB 依赖，慢速网络下首次构建的耗时主要在依赖下载。
 
 - Parchment 的 1.21.1 映射使用 `parchment-1.21.1` 制品（同日 maven 元数据最新正式版 2024.11.17）；不要配用其他 Minecraft 版本的 Parchment。
 - 开发运行的专用服务器未要求 eula.txt 即启动完成，不需要替负责人写入 EULA 同意。

@@ -7,7 +7,7 @@ updated: 2026-11-02
 
 # 目标 API 核对
 
-本轮先查阅本地 NeoForge 21.1.228 源码。最初的源码根目录为邻近工程的 `reference/neoforge-21.1.228-sources`（位置见[1.18.2 工程入口](legacy/README.md)）；开发环境建立后，以构建生成的 `build/moddev/artifacts/neoforge-<版本>-sources.jar` 为准，其中另含 Minecraft 源码。
+本轮先查阅本地 NeoForge 21.1.228 源码。最初的源码根目录为邻近工程的 `reference/neoforge-21.1.228-sources`（位置见[1.18.2 工程入口](legacy/README.md)）；开发环境建立后，以构建生成的 `build/moddev/artifacts/neoforge-<版本>-sources.jar` 为准，其中另含 Minecraft 源码。当前构建为 21.1.265；本页与数据文档中依据 21.1.228 源码得出的结论尚未在 21.1.265 源码上复核，依赖该结论编码前以当前 sources jar 核对。
 
 已确认的源码事实以移植技能的 [NeoForge 1.21.1 参考](../../.claude/skills/minecraft-mod-porting/references/targets/neoforge-1.21.1.md)为正文，依据均为本地源码；外部文档检索本轮未返回可用正文。本页记录本项目据此仍需验证的范围。这些证据支撑架构边界，不能替代编译和游戏验证。新项目尚无 Java 实现。
 

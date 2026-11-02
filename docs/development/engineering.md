@@ -120,9 +120,9 @@ tools/porting/                  来源索引、台账检查、资源转换
 | --- | --- |
 | 准入 | 来源玩法确有需要；支持 1.21.1 NeoForge 且仍在维护；许可证允许随 Mod 分发；明确所属系统与端；记录替换代价 |
 | 当前计划 | 仅 GeckoLib（MIT，已核实 4.8.3 元数据；1.21.1 线 2026-11-02 最新 4.9.3）。具体版本在首次接入时按 API 与运行检查选定 |
-| 版本声明 | `gradle.properties` 固定精确版本，不用动态版本；`neoforge.mods.toml` 的范围以固定版本为下限、下一个大版本为上限 |
+| 版本声明 | `gradle.properties` 固定精确版本，不用动态版本；`neoforge.mods.toml` 的范围以最低支持版本为下限、下一个大版本为上限。NeoForge 下限为 21.1.228（负责人 2026-11-02 决定，不要求最新），构建与运行验证使用 21.1.265；低于验证版本的 21.1.x 未逐一运行验证 |
 | 更新时机 | NeoForge、ModDevGradle、GeckoLib 只在批次边界更新；每次更新执行构建、服务端与客户端启动检查、GameTest，并记入月度日志 |
-| 首次更新 | B0 开始时把 NeoForge 与 ModDevGradle 升到当时 21.1.x / 2.0.x 最新版；此时没有内容，代价最低 |
+| 首次更新 | B0 开始时把 NeoForge 与 ModDevGradle 升到当时 21.1.x / 2.0.x 最新版；此时没有内容，代价最低。已于 2026-11-02 完成：NeoForge 21.1.265、ModDevGradle 2.0.148，构建、开发服务端与开发客户端检查通过。负责人说明此后版本不必追最新，只需不低于下限 21.1.228 |
 | 目标源码 | 以 ModDevGradle 生成的 `build/moddev/artifacts/neoforge-<版本>-sources.jar` 为准，已核实其中含 Minecraft 与 NeoForge 源码；FML 等库从 Gradle 缓存读取（本机 GRADLE_USER_HOME 为 `D:\Gradle`） |
 | Mixin / AT | 默认不用；确需时登记目标类、原因与替代方案 |
 | 可选联动 | JEI/EMI 等配方查看等联动只在负责人要求时加入 `compat`，缺失时不影响加载 |

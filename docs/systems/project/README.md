@@ -22,6 +22,7 @@ updated: 2026-11-02
 | 2026-11-02 | 先整理 Git，并明确进度记录与交接更新规则 | 分支改名为 `main`，加入 `.gitattributes`；规则写入 AGENTS.md“进度记录与交接”与[工程结构](../../development/engineering.md)“Git 与会话协作”；作者邮箱改为负责人提供的地址，远端为公开 GitHub 仓库 |
 | 2026-11-02 | Mod ID `yvanchuxiuzhen`、Java 基础包 `net.yvanchuxiuzhen`、license 暂填 All Rights Reserved；先建立开发环境 | 已建立构建与加载入口；license 待逐资产核对后再定 |
 | 2026-11-02 | 批准 [整体架构](../../development/architecture.md)、[工程结构与长期维护](../../development/engineering.md)、[实施路线](../../development/roadmap.md)（main 提交 `3e0585c` 版本）；未决事项（存档导入、界面复刻程度、license、Q01–Q14）不在批准范围；从 `main` 建立 `port/b0-slice`，自 [交接说明](../../development/handoff.md) B0 步骤 1 开始 | 三份文档状态改为 `current`；关口由架构设计阶段进入 B0；goal 仍未授权；B0 进展见[月度记录](logs/2026-11.md)与交接说明“进行中” |
+| 2026-11-02 | NeoForge 版本不必追最新，下限定为 21.1.228 | `neoforge.mods.toml` 范围 `[21.1.228,21.2)`；B0 步骤 1 已将构建升至 21.1.265、ModDevGradle 2.0.148，构建与两端启动检查通过（见[月度记录](logs/2026-11.md)）；[工程结构](../../development/engineering.md)“依赖治理”同步 |
 
 ## 已批准与待裁定
 

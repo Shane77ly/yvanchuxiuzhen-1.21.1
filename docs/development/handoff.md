@@ -16,12 +16,13 @@ updated: 2026-11-02
 | 分支与提交 | 只有 `main`（2026-11-02 由 `codex/architecture` 改名，前缀来自最初创建仓库的工具，不具技术含义）；最新提交以 `git log` 为准 |
 | 已完成 | 两个 1.18.2 工程的全量静态调查与索引；19 个系统调查正文；通用移植技能；开发环境（构建、开发服务端与客户端加载已实测） |
 | 代码 | 只有加载入口 `net.yvanchuxiuzhen.YvanchuxiuzhenMod`，不注册任何内容 |
+| B0 进度 | 步骤 1（依赖升级）已完成；下一步步骤 2（骨架）。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
 | 已批准 | 2026-11-02 负责人批准整体架构、[工程结构与长期维护](engineering.md)、[实施路线](roadmap.md)（`3e0585c` 版本），记录见[项目状态](../systems/project/README.md)；不含存档导入、界面复刻程度、license、Q01–Q14 |
 | 未执行 | 玩法实现、内容注册、资源迁移、1.18.2 实机对照、存档与视觉验收；goal 未授权 |
 
 ## 进行中
 
-B0 架构验证切片：分支 `port/b0-slice`（由批准记录提交后的 `main` 建立），从下方“下一步”步骤 1 开始。会话中断时在此写明最后提交与下一步具体操作；B0 合入 `main` 后删除该条。
+B0 架构验证切片：分支 `port/b0-slice`（由批准记录提交后的 `main` 建立）。步骤 1（依赖升级）已完成，提交见 `git log` 中的 `build: upgrade NeoForge and ModDevGradle`；下一步从步骤 2（骨架）开始。会话中断时在此写明最后提交与下一步具体操作；B0 合入 `main` 后删除该条。
 
 ## 先读顺序
 
@@ -49,7 +50,7 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 | 项 | 值 |
 | --- | --- |
 | JDK | Temurin 21.0.9（`C:\Program Files\Eclipse Adoptium\jdk-21.0.9.10-hotspot`）；另有 JDK 17 可用于运行 1.18.2 工程（未验证） |
-| Gradle | wrapper 8.8；GRADLE_USER_HOME 为 `D:\Gradle` |
+| Gradle | wrapper 8.8；GRADLE_USER_HOME 为 `D:\Gradle`。本机网络约 25–40 KB/s，依赖变化后的首次构建可能需二十分钟以上（2026-11-02 升级到 NeoForge 21.1.265 用时 24 分钟），日志在 `--console=plain` 下不显示下载进度，可看 `D:\Gradle\caches\modules-2\files-2.1` 与 `D:\Gradle\.tmp` 的文件变化判断是否仍在下载 |
 | 来源工作区 | `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-1.21.1`，两个 1.18.2 工程位置见[来源说明](../reference/legacy/README.md) |
 | 目标源码 | 构建后的 `build/moddev/artifacts/neoforge-<版本>-sources.jar`，含 Minecraft 与 NeoForge 源码；FML 在 Gradle 缓存 `net.neoforged.fancymodloader` |
 | 构建 | `./gradlew build` |
@@ -75,7 +76,7 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 
 按顺序执行；每项都要在开发服务端与客户端实际运行，结果写回[工程结构](engineering.md)并去掉对应“待验证”。
 
-1. 依赖：NeoForge 升到当时最新 21.1.x、ModDevGradle 升到最新 2.0.x（2026-11-02 分别为 21.1.265、2.0.148）；构建与启动检查；更新架构“技术依赖”与 AGENTS.md 目标源码版本。
+1. 依赖（已完成 2026-11-02）：NeoForge 21.1.265、ModDevGradle 2.0.148，`neoforge.mods.toml` 下限为负责人决定的 21.1.228；构建与两端启动检查通过；架构“技术依赖”与 AGENTS.md 目标源码版本已更新。此后版本不必追最新，只需不低于 21.1.228。
 2. 骨架：公共入口依次调用各系统的 `<名称>Setup.register`；客户端入口 `@Mod(value = MOD_ID, dist = Dist.CLIENT)` 调用 `<名称>ClientSetup`（含义见[工程结构](engineering.md)“工程形态”）；只建立切片实际用到的包。
 3. ArchUnit：加入测试依赖与[工程结构](engineering.md)的四条规则；临时制造一次违规确认构建失败（不提交该违规）。
 4. 台账：由 `registrations.csv` 与候选归属生成各系统 `ledger/content.csv`；编写 `tools/porting/check_ledger.py`。
