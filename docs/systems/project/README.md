@@ -24,6 +24,10 @@ updated: 2026-11-02
 | 2026-11-02 | 批准 [整体架构](../../development/architecture.md)、[工程结构与长期维护](../../development/engineering.md)、[实施路线](../../development/roadmap.md)（main 提交 `3e0585c` 版本）；未决事项（存档导入、界面复刻程度、license、Q01–Q14）不在批准范围；从 `main` 建立 `port/b0-slice`，自 [交接说明](../../development/handoff.md) B0 步骤 1 开始 | 三份文档状态改为 `current`；关口由架构设计阶段进入 B0；goal 仍未授权；B0 进展见[月度记录](logs/2026-11.md)与交接说明“进行中” |
 | 2026-11-02 | NeoForge 版本不必追最新，下限定为 21.1.228 | `neoforge.mods.toml` 范围 `[21.1.228,21.2)`；B0 步骤 1 已将构建升至 21.1.265、ModDevGradle 2.0.148，构建与两端启动检查通过（见[月度记录](logs/2026-11.md)）；[工程结构](../../development/engineering.md)“依赖治理”同步 |
 
+## 系统设计重审
+
+2026-11-02 负责人指出系统命名与划分不成熟，指示先定系统设计，B0 步骤 2 起暂停。方案见[系统设计](../../development/system-design.md)，待批准；批准前“系统所有权”仍以[架构](../../development/architecture.md)现文为记录，但不据此开始实现。
+
 ## 已批准与待裁定
 
 已批准（2026-11-02）：一个 Gradle 工程、一个发布 JAR、按系统组织；保留两个来源命名空间；功法成长随物品、银行与材料仓归玩家、现场拍卖归方块、学习小游戏独立会话；代码目录、ArchUnit 边界、内容表、资源转换、台账 CSV、依赖治理与分支协作；A～I 全量批次与系统完成条件。正文为 [架构](../../development/architecture.md)、[工程结构](../../development/engineering.md)、[路线](../../development/roadmap.md)。三份文档中标注“待验证”的做法由 B0 实测后写回。
