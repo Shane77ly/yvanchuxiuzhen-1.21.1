@@ -1,0 +1,11 @@
+registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
+item,yvanchuxitong:qiankundai_06,yvanchuxitong,Qiankundai06,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,236,storage,候选,yvanchuxitong:qiankundai_06,待处理,
+item,yvanchuxiuzhen:qiankundai_01,yvanchuxiuzhen,Qiankundai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1936,storage,候选,yvanchuxiuzhen:qiankundai_01,待处理,
+item,yvanchuxiuzhen:qiankundai_02,yvanchuxiuzhen,Qiankundai02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1937,storage,候选,yvanchuxiuzhen:qiankundai_02,待处理,
+item,yvanchuxiuzhen:qiankundai_03,yvanchuxiuzhen,Qiankundai03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1938,storage,候选,yvanchuxiuzhen:qiankundai_03,待处理,
+item,yvanchuxiuzhen:qiankundai_04,yvanchuxiuzhen,Qiankundai04,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1939,storage,候选,yvanchuxiuzhen:qiankundai_04,待处理,
+menu,yvanchuxitong:cailiaodai_gui,yvanchuxitong,CailiaodaiGui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,112,storage,候选,yvanchuxitong:cailiaodai_gui,待处理,
+menu,yvanchuxiuzhen:qiankundai_01_gui,yvanchuxiuzhen,Qiankundai01GUI,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,78,storage,候选,yvanchuxiuzhen:qiankundai_01_gui,待处理,
+menu,yvanchuxiuzhen:qiankundai_02_gui,yvanchuxiuzhen,Qiankundai02GUI,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,79,storage,候选,yvanchuxiuzhen:qiankundai_02_gui,待处理,
+menu,yvanchuxiuzhen:qiankundai_03_gui,yvanchuxiuzhen,Qiankundai03GUI,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,80,storage,候选,yvanchuxiuzhen:qiankundai_03_gui,待处理,
+menu,yvanchuxiuzhen:qiankundai_04_gui,yvanchuxiuzhen,Qiankundai04GUI,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,81,storage,候选,yvanchuxiuzhen:qiankundai_04_gui,待处理,

@@ -1,0 +1,9 @@
+registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
+block,yvanchuxiuzhen:canwutai_block,yvanchuxiuzhen,CanwutaiBlock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2058,gongfa,候选,yvanchuxiuzhen:canwutai_block,待处理,
+block,yvanchuxiuzhen:gongfaxvexi,yvanchuxiuzhen,Gongfaxvexi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1977,gongfa,候选,yvanchuxiuzhen:gongfaxvexi,待处理,
+block_entity_type,yvanchuxiuzhen:canwutai_block,yvanchuxiuzhen,CanwutaiBlock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,177,gongfa,候选,yvanchuxiuzhen:canwutai_block,待处理,
+block_entity_type,yvanchuxiuzhen:gongfaxvexi,yvanchuxiuzhen,Gongfaxvexi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,156,gongfa,候选,yvanchuxiuzhen:gongfaxvexi,待处理,
+item,yvanchuxiuzhen:canwutai_block,yvanchuxiuzhen,CanwutaiBlock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3060,gongfa,候选,yvanchuxiuzhen:canwutai_block,待处理,
+item,yvanchuxiuzhen:gongfaxvexi,yvanchuxiuzhen,Gongfaxvexi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2696,gongfa,候选,yvanchuxiuzhen:gongfaxvexi,待处理,
+menu,yvanchuxitong:gongfaxvexi_gui,yvanchuxitong,GongfaxvexiGui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,101,gongfa,候选,yvanchuxitong:gongfaxvexi_gui,待处理,
+menu,yvanchuxiuzhen:canwutai,yvanchuxiuzhen,Canwutai,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,108,gongfa,候选,yvanchuxiuzhen:canwutai,待处理,

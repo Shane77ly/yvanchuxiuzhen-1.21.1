@@ -100,9 +100,9 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 ## 台账与检查工具
 
-三份台账（内容映射、行为对齐、验收证据）以 CSV 存放在所属系统目录 `docs/systems/<系统>/ledger/` 下的 `content.csv`、`behavior.csv`、`evidence.csv`；Excel 工作簿改为由 CSV 生成的只读审阅视图，不再承载人工列（当前工作簿人工列均为空，切换无数据损失）。内容映射的初始行由 `registrations.csv` 与[归属表](../reference/legacy/inventory/ownership_assignment.csv)生成，每条来源注册一行，放在归属表所写系统的目录，并带归属状态列（候选、已读，含义见[系统设计](system-design.md)“归属判定”）；归属改动时先改归属表，再把行移到新系统。
+三份台账（内容映射、行为对齐、验收证据）以 CSV 存放在所属系统目录 `docs/systems/<系统>/ledger/` 下的 `content.csv`、`behavior.csv`、`evidence.csv`；Excel 工作簿改为由 CSV 生成的只读审阅视图，不再承载人工列（当前工作簿人工列均为空，切换无数据损失）。内容映射由 `tools/porting/build_ledger.py` 从 `registrations.csv`、`element_files.csv` 与[归属表](../reference/legacy/inventory/ownership_assignment.csv)同步：每条来源注册一行，列为 `registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note`；来源列每次重写，人工列（`target_id`、`status`、`note`）按注册保留，新行的 `target_id` 取来源 ID（保留两个命名空间 ID 的决定）。行放在 `owner` 所写单位的目录，归属改动时先改归属表再运行同步，行随之移动；没有编辑器元素的注册（声音事件、画）放在 `docs/systems/project/ledger/`，归属为“待读”，读出所属后在归属表登记。`behavior.csv`、`evidence.csv` 在所属单位出现第一条行为或证据时建立。
 
-`tools/porting/check_ledger.py`（B0 建立）检查：每条来源注册都有行；状态只取约定值；状态高于“待处理”的行归属必须为“已读”；状态为“已注册”及以上的目标 ID 出现在开发服务端导出的注册表中；转换清单覆盖对应资源。状态值：
+`tools/porting/check_ledger.py`（B0 步骤 4 建立）检查：列结构；每条来源注册恰好一行；行所在目录与归属一致；来源列与同步计算一致；状态只取约定值；状态高于“待处理”的行归属必须为“已读”。状态为“已注册”及以上的目标 ID 与开发服务端导出注册表的比对、转换清单覆盖对应资源，在步骤 6 建立注册表导出与资源转换工具时加入。状态值：
 
 | 状态 | 含义 |
 | --- | --- |
