@@ -26,4 +26,10 @@ updated: 2026-11-01
 
 ## 待裁定（Q15）
 
-配方 `skillarrow_10hecheng`（无序配方：5 支箭加一个 `cailiao_044`）产出 5 个 `skill_arrow_10`，该物品在来源中 `stacksTo(1)`。1.18.2 接受超过堆叠上限的配方产物；1.21.1 的配方解析拒绝（报 `Item stack with stack size of 5 was larger than maximum: 1`，2026-11-02 开发服务端实测）。数据转换工具已把它列入 `docs/reference/conversion/data_skipped.csv` 而未生成。选项：产物数量改为 1（改变获得数量）、物品堆叠改为不小于 5（改变物品行为）、按来源 5 个分别发放（需要自定义配方类型）；需要负责人裁定，裁定前不生成。
+配方 `skillarrow_10hecheng`（无序：箭 5 支加光羽 `cailiao_044` 1 个）产出 5 个光灵箭 `skill_arrow_10`，而该物品在来源中 `stacksTo(1)`、`tab(null)`（不在创造栏）。堆叠上限是物品自己的属性，配方产出数量是配方的属性，两者在来源里互相矛盾：1.18.2 不检查，产物是一个数量为 5 的超额堆叠；1.21.1 解析配方时检查“产物数量不得超过该物品的最大堆叠”（`Item stack with stack size of 5 was larger than maximum: 1`，2026-11-02 开发服务端实测），配方因此不加载，已列入 `docs/reference/conversion/data_skipped.csv`。
+
+来源的事实（均读自来源 Java 与配方）：
+- 同系列 `skill_arrow_01`、`03`–`09` 的堆叠是 64，配方产出 4、6、10 个；堆叠为 1 的只有 `02` 与 `10`，`02` 的配方文件 `skillarrow_02hecheng` 产出的是原版箭 4 支。
+- `SkillArrow10Item` 蓄力后释放，发射 `SkillArrow10Entity`，并调用 `hurtAndBreak(1)`；该物品没有设置耐久，按 `ItemStack.hurtAndBreak` 的逻辑不会损耗，即发射不消耗这个物品。
+
+选项（物品自身的堆叠上限保持 1，不为迁就配方而改）：A 配方产出改为 1；B 按来源保留 5 的意图，需要先弄清作者想要的是“一次得到 5 个可重复使用的物品”还是配方数量误填，这一点来源读不出来。需要负责人裁定，裁定前不生成该配方。
