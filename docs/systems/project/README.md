@@ -23,10 +23,11 @@ updated: 2026-11-02
 | 2026-11-02 | Mod ID `yvanchuxiuzhen`、Java 基础包 `net.yvanchuxiuzhen`、license 暂填 All Rights Reserved；先建立开发环境 | 已建立构建与加载入口；license 待逐资产核对后再定 |
 | 2026-11-02 | 批准 [整体架构](../../development/architecture.md)、[工程结构与长期维护](../../development/engineering.md)、[实施路线](../../development/roadmap.md)（main 提交 `3e0585c` 版本）；未决事项（存档导入、界面复刻程度、license、Q01–Q14）不在批准范围；从 `main` 建立 `port/b0-slice`，自 [交接说明](../../development/handoff.md) B0 步骤 1 开始 | 三份文档状态改为 `current`；关口由架构设计阶段进入 B0；goal 仍未授权；B0 进展见[月度记录](logs/2026-11.md)与交接说明“进行中” |
 | 2026-11-02 | NeoForge 版本不必追最新，下限定为 21.1.228 | `neoforge.mods.toml` 范围 `[21.1.228,21.2)`；B0 步骤 1 已将构建升至 21.1.265、ModDevGradle 2.0.148，构建与两端启动检查通过（见[月度记录](logs/2026-11.md)）；[工程结构](../../development/engineering.md)“依赖治理”同步 |
+| 2026-11-02 | 采用[系统设计](../../development/system-design.md)第二版的命名规则；采用收紧后的系统标准与清单，`yihuo` 暂定独立 | 已记入该文“负责人决定”；依赖次序、公开操作清单、归属判定待定，B0 步骤 2 起继续暂停 |
 
 ## 系统设计重审
 
-2026-11-02 负责人指出系统命名与划分不成熟，指示先定系统设计，B0 步骤 2 起暂停。负责人审阅第一版后指出：B0 会话反问归属说明设计不起作用，归属不能靠脚本判定；陶罐、`festival`、`decor`、`treasure`/`town`/`dungeon` 与 `Silk*` 需按具体规则确认。方案已改为[系统设计](../../development/system-design.md)第二版，待批准；批准前“系统所有权”仍以[架构](../../development/architecture.md)现文为记录，但不据此开始实现。
+2026-11-02 负责人指出系统命名与划分不成熟，指示先定系统设计，B0 步骤 2 起暂停。负责人审阅第一版后指出：B0 会话反问归属说明设计不起作用，归属不能靠脚本判定；陶罐、`festival`、`decor`、`treasure`/`town`/`dungeon` 与 `Silk*` 需按具体规则确认。方案已改为[系统设计](../../development/system-design.md)第二版，命名规则与系统清单已决定，其余待定；全部批准前“系统所有权”仍以[架构](../../development/architecture.md)现文为记录，但不据此开始实现。
 
 ## 已批准与待裁定
 

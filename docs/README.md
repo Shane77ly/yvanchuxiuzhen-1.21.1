@@ -17,7 +17,7 @@ updated: 2026-11-02
 | 2 | [范围与保真原则](design/scope.md) | 完整范围、行为保留原则和待裁定事项 |
 | 3 | [整体架构](development/architecture.md)（已批准） | 系统职责、数据所有者、代码组织与实际依赖 |
 | 3a | [工程结构与长期维护](development/engineering.md)（已批准） | 代码目录、边界检查、内容表、资源转换、台账、依赖治理与并行协作 |
-| 3b | [系统设计（重审方案）](development/system-design.md) | 系统定义、归属判定、命名规则、依赖次序、28 个系统与内容族清单、写入收口；第二版，待批准 |
+| 3b | [系统设计（重审方案）](development/system-design.md) | 系统定义、归属判定、命名规则、依赖次序、28 个系统与内容族清单、写入收口；第二版，命名与清单已决定，其余待批准 |
 | 4 | [数据与运行时](development/data-and-runtime.md) | 状态的存储、加载、修改、同步、消费、保存 |
 | 4a | [19 个系统调查正文](systems/README.md) | 每个系统的来源入口、数据归属、操作和待裁定项 |
 | 4b | [公共入口与依赖](development/entry-and-dependency.md) | 全量事件/菜单/消息/命令、跨系统调用方向与动态数据族 |
