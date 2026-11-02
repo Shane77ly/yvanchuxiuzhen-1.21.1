@@ -30,7 +30,7 @@ src/main/java/net/yvanchuxiuzhen/
   platform/                     至少两个系统实际共用的平台适配：内容表加载、注册辅助、payload 登记、codec 工具
   flow/                         跨系统具体流程（闭关、击杀结算、装备重算等）
   panel/                        玩家面板：分页导航框架、HUD 与覆盖层；各页菜单归所属系统
-  family/<内容族>/              内容族：内容表与元素自身行为，没有 api
+  collection/<内容族>/          内容族：内容表与元素自身行为，没有 api
   system/<系统>/
     <名称>Setup.java            启动装配：把本系统的注册器与监听接到总线；公共入口只调用这一类
     api/                        对其他系统公开的查询、操作与值类型
@@ -60,12 +60,12 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 规则写进构建才有约束力。采用 ArchUnit（测试依赖，只检查编译后的类）在 `gradlew check` 中执行：
 
-1. `system.X` 只能依赖其他系统的 `api` 包；`flow`、`panel`、`family` 同样只用 `api`。
+1. `system.X` 只能依赖其他系统的 `api` 包；`flow`、`panel`、`collection` 同样只用 `api`。
 2. `client` 包与客户端入口之外的类不得依赖任何 `client` 包或 `net.minecraft.client`。
 3. `rule` 包不得依赖 `net.minecraft`、`net.neoforged`。
-4. `platform` 不得依赖 `system`、`flow`、`panel` 或 `family`。
+4. `platform` 不得依赖 `system`、`flow`、`panel` 或 `collection`。
 5. `system` 下各系统包之间没有循环依赖。
-6. 除 Mod 入口外，任何类不得依赖 `family` 或 `panel`。
+6. 除 Mod 入口外，任何类不得依赖 `collection` 或 `panel`。
 
 这些是结构守卫，不属于“为每个类写测试”；违反即构建失败。已接入（B0 步骤 3）：`src/test/java/net/yvanchuxiuzhen/ArchitectureTest.java` 用 ArchUnit 核心库在 JUnit 5 中检查，第 2 条的“client 包”包括本项目的 `client` 子包、`net.minecraft.client` 与 `net.neoforged.neoforge.client`；第 3 条在还没有 `rule` 包时允许为空。2026-11-02 为每条规则临时制造一次违规，六条各被检出一次并使构建失败。
 

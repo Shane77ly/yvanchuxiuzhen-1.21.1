@@ -1,4 +1,4 @@
-package net.yvanchuxiuzhen.family.decor;
+package net.yvanchuxiuzhen.collection.decor;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
