@@ -5,7 +5,7 @@ status: draft
 updated: 2026-11-01
 ---
 
-# 维度、投放、场景、副本与城镇：架构调查与提案
+# 世界：架构调查与提案
 
 来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
 ## 1.18.2 状态与生成
@@ -14,13 +14,11 @@ updated: 2026-11-01
 
 `B:WorldbeginProcedure:29–54` 的 worlddata 初始化有开关，但后面的材料/药草/服饰/结构/悬赏字符串赋值在开关之外；每次入口执行都会重写这些定义。`WorldcloseProcedure:26` 只复位 worldchufa。不能把所有这些字符串误判为允许永久在线编辑的世界真值。
 
-`A:PlayerfubentickProcedure:45–142` 使用玩家 tizhiitem 的副本状态、倒计时和坐标，写入副本方块并组织参与玩家。`B:FubenblockGengXinYouXiKeProcedure:51–140` 持有准备、释放敌人等阶段，按 `fybenboci{n}num/mobtagdata{i}` 刷怪。场景实例不等于一张静态结构。
-
 ## 目标所有权与接口提案
 
-定义：维度/群系/生成配置、结构、城镇与副本。实例：维度状态、已生成标志、实例序号、场景参与者/回程点、控制方块和当前波次。MapVariables 的主世界范围和 WorldVariables 的维度范围分别保存。
+定义：维度/群系/生成配置与结构。实例：维度状态与已生成标志。城镇归 [town](../town/architecture.md)，副本归 [dungeon](../dungeon/architecture.md)。MapVariables 的主世界范围和 WorldVariables 的维度范围分别保存。
 
-world 提供投放、场景创建/结束、进入/退出/回程、结构管理操作；creatures 负责生成实体的玩法初始化；quests/economy 消费场景结果。玩家副本身份与回程位置放在玩家 world 数据，场景运行阶段由实例/控制块持有。
+world 提供投放、维度与结构放置、结构管理操作；creature 负责生成实体的玩法初始化。`Weidubianhuan` 中按 `gamemoshi` 恢复游戏模式的分支归 dungeon。
 
 按来源实际触发方式迁移生成。固定坐标目录、管理工具、传送器和场景清理不能被自然生成配置替代。目标具体 Codec/放置 API 在目标构建源码就绪后锁定，不能凭其他版本签名编写。
 
