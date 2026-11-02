@@ -19,6 +19,7 @@ updated: 2026-11-02
 | 2026-11-01 | 使用“1.18.2 版本”的明确表述 | 本项目文档及工作簿统一；来源路径/符号照实记录 |
 | 2026-11-02 | 自建可迭代的通用移植技能，按提案整理技能结构并修改 AGENTS.md；暂不公开 | 已建立 [移植技能](../../../.claude/skills/minecraft-mod-porting/SKILL.md)，AGENTS.md 改为项目档案 + 技能引用；`docs` 中的同类方法正文已迁出，只保留本项目适用与决定；技能未在实施中使用 |
 | 2026-11-02 | 按大型 Mod 长期维护与依赖环境重新设计工程结构与移植流程，并编写交接文档 | 已提交方案：[工程结构](../../development/engineering.md)、[路线](../../development/roadmap.md)、[交接说明](../../development/handoff.md)；待批准 |
+| 2026-11-02 | 先整理 Git，并明确进度记录与交接更新规则 | 分支改名为 `main`，加入 `.gitattributes`；规则写入 AGENTS.md“进度记录与交接”与[工程结构](../../development/engineering.md)“Git 与会话协作”；远端与作者邮箱待负责人决定 |
 | 2026-11-02 | Mod ID `yvanchuxiuzhen`、Java 基础包 `net.yvanchuxiuzhen`、license 暂填 All Rights Reserved；先建立开发环境 | 已建立构建与加载入口；license 待逐资产核对后再定；架构仍未批准 |
 
 ## 待评审提案

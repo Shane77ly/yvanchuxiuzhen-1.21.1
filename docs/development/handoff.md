@@ -13,11 +13,15 @@ updated: 2026-11-02
 
 | 项 | 状态 |
 | --- | --- |
-| 分支与提交 | `codex/architecture`；开发环境提交为 `9810e87`，之后的提交以 `git log` 为准 |
+| 分支与提交 | 只有 `main`（2026-11-02 由 `codex/architecture` 改名，前缀来自最初创建仓库的工具，不具技术含义）；最新提交以 `git log` 为准 |
 | 已完成 | 两个 1.18.2 工程的全量静态调查与索引；19 个系统调查正文；通用移植技能；开发环境（构建、开发服务端与客户端加载已实测） |
 | 代码 | 只有加载入口 `net.yvanchuxiuzhen.YvanchuxiuzhenMod`，不注册任何内容 |
 | 待批准 | 整体架构、[工程结构与长期维护](engineering.md)、[实施路线](roadmap.md) |
 | 未执行 | 玩法实现、内容注册、资源迁移、1.18.2 实机对照、存档与视觉验收 |
+
+## 进行中
+
+无。中断的工作在此写明分支、最后提交和下一步具体操作，完成后删除该条。
 
 ## 先读顺序
 
@@ -53,6 +57,7 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 | 目标源码 | 构建后的 `build/moddev/artifacts/neoforge-<版本>-sources.jar`，含 Minecraft 与 NeoForge 源码；FML 在 Gradle 缓存 `net.neoforged.fancymodloader` |
 | 构建 | `./gradlew build` |
 | 运行 | `./gradlew runServer`、`./gradlew runClient`；运行目录 `run/`（已忽略） |
+| Git | 无远端（备份只在本机）；`.gitattributes` 规定换行；提交作者邮箱当前为 `shenjing@`（无域名），待负责人提供 |
 | 文档与来源检查 | `python -B -X utf8 tools/docs/check_docs.py`；`python -B -X utf8 tools/porting/inventory_legacy.py --check` |
 
 运行检查注意：
@@ -86,10 +91,7 @@ B0 之后按[路线](roadmap.md)进入 B1，再按系统推进。
 
 ## 每次会话的流程
 
-1. 开始：`git status` 确认干净；读 AGENTS.md、本页、所属系统 README 与台账；在 `port/<批次>-<系统>` 分支或独立 worktree 工作。
-2. 执行：按移植技能的系统工作单；遇到来源矛盾先记录并提请裁定。
-3. 结束：更新台账、系统 README、正文与月度日志；运行构建、`check`、台账与文档检查；提交，不留未提交改动。修改移植技能时同样登记月度日志。
-4. 本页的“当前状态”与“下一步”在阶段变化时同步更新。
+按 AGENTS.md 的“进度记录与交接”执行；分支、合并、worktree 与提交格式见[工程结构](engineering.md)的“Git 与会话协作”。工作中按移植技能的系统工作单推进，遇到来源矛盾先记录并提请裁定。
 
 ## 已知陷阱
 
