@@ -1,0 +1,14 @@
+{
+  "block.yvanchuxiuzhen.treasure_chest_04": "Treasure Chest 0 4",
+  "block.yvanchuxiuzhen.treasure_chest_05": "Treasure Chest 0 5",
+  "block.yvanchuxiuzhen.treasure_chest_06": "Treasure Chest 0 6",
+  "block.yvanchuxiuzhen.baoxia": "Baoxia",
+  "item.yvanchuxiuzhen.tiandaobaoxiangitem": "Tiandaobaoxiangitem",
+  "item.yvanchuxiuzhen.treasure_chest_01": "Treasure Chest 0 1",
+  "item.yvanchuxiuzhen.treasure_chest_02": "Treasure Chest 0 2",
+  "item.yvanchuxiuzhen.treasure_chest_1101": "Treasure Chest 1 1 0 1",
+  "tooltip.yvanchuxiuzhen.item.treasure_chest_1101.1": "消耗品",
+  "tooltip.yvanchuxiuzhen.item.treasure_chest_1101.2": "携带此物可打开上锁的宝箱。",
+  "item.yvanchuxiuzhen.baoxiaitem": "Baoxiaitem",
+  "tooltip.yvanchuxiuzhen.item.baoxiaitem.1": "放置后，右键宝匣取出里面的物品。"
+}

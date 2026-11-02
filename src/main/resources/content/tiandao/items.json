@@ -1,0 +1,10 @@
+[
+{"id":"tiandaodimensionblock","factory":"block_item","block":"tiandaodimensionblock","order":321,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
+{"id":"ling_08","factory":"item","order":972,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","durability":0,"pending_hooks":["getDefaultAttributeModifiers","getDestroySpeed","getEnchantmentValue","hurtEnemy","mineBlock","use"]},
+{"id":"tiandaowhiteblock","factory":"block_item","block":"tiandaowhiteblock","order":1057,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
+{"id":"tiandaoduojiegou","factory":"block_item","block":"tiandaoduojiegou","order":1479,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
+{"id":"ling_16","factory":"item","order":1629,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","stack":1,"tooltip":["可以锁住本模组内可以展示物品的展示架。","右键展示框使其锁定。","潜行时右键展示框使其隐形。","右键空气时，周围盔甲架会锁定。","潜行右键空气时，周围盔甲架会隐形。"],"pending_hooks":["use","useOn"]},
+{"id":"tiandaoguding","factory":"block_item","block":"tiandaoguding","order":1681,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
+{"id":"tiandao_np_csetitem","factory":"item","order":1719,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","stack":1,"rarity":"EPIC","tooltip":["潜行右键打开设置面板，预设npc的属性","拿着设置好属性的此物右键npc实体，把此物的属性复制给npc"],"pending_hooks":["createMenu","getDisplayName","getShareTag","initCapabilities","readShareTag","use"]},
+{"id":"tiandaoitemnbt","factory":"block_item","block":"tiandaoitemnbt","order":1940,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"}
+]

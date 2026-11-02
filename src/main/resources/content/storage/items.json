@@ -1,0 +1,7 @@
+[
+{"id":"qiankundai_01","factory":"item","order":975,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["createMenu","getDisplayName","getShareTag","initCapabilities","readShareTag","use"]},
+{"id":"qiankundai_02","factory":"item","order":976,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["createMenu","getDisplayName","getShareTag","initCapabilities","readShareTag","use"]},
+{"id":"qiankundai_03","factory":"item","order":977,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["createMenu","getDisplayName","getShareTag","initCapabilities","readShareTag","use"]},
+{"id":"qiankundai_04","factory":"item","order":978,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["createMenu","getDisplayName","getShareTag","initCapabilities","readShareTag","use"]},
+{"id":"qiankundai_06","factory":"item","order":2238,"tab":"minecraft:tools_and_utilities","pending_hooks":["use"]}
+]

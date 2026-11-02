@@ -1,0 +1,5 @@
+[
+{"id":"chengzhen_antai","factory":"block_item","block":"chengzhen_antai","order":2107,"tab":"minecraft:building_blocks"},
+{"id":"chengzhen_buildblock","factory":"block_item","block":"chengzhen_buildblock","order":2108},
+{"id":"chengzhen_buildblock_item","factory":"item","order":2109,"tab":"minecraft:building_blocks","pending_hooks":["useOn"]}
+]

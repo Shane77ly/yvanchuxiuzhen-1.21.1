@@ -1,0 +1,12 @@
+{
+  "item.yvanchuxiuzhen.dimensiontianqve": "Dimensiontianqve Portal Igniter",
+  "item.yvanchuxiuzhen.dimensionxiuluo": "Dimensionxiuluo Portal Igniter",
+  "item.yvanchuxiuzhen.dimensionrenjian": "Dimensionrenjian Portal Igniter",
+  "item.yvanchuxiuzhen.dimensionyaohun": "Dimensionyaohun Portal Igniter",
+  "item.yvanchuxiuzhen.dimensionwugui": "Dimensionwugui Portal Igniter",
+  "item.yvanchuxiuzhen.dimensiondiling": "Dimensiondiling Portal Igniter",
+  "item.yvanchuxiuzhen.ling_14item": "Ling 1 4item",
+  "tooltip.yvanchuxiuzhen.item.ling_14item.1": "手持此物右键，生成一道指引圆环，跟着圆环走就能找到被封印建筑的坐标，靠近坐标后再次右键，即可解开封印释放建筑。",
+  "tooltip.yvanchuxiuzhen.item.ling_14item.2": "手持此物按住Alt键再右键，可以瞬间返回乾坤道人的道场。",
+  "tooltip.yvanchuxiuzhen.item.ling_14item.3": "手持此物按住Ctrl键再右键，可以立即返回之前的位置。"
+}

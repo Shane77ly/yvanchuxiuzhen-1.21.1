@@ -1,0 +1,14 @@
+[
+{"id":"guchong_01item","factory":"item","order":1774,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["useOn"]},
+{"id":"guchong_02item","factory":"item","order":1775,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"tooltip":["右键把蛊虫养于体内，并获得“千杯不倒”的体质。"],"pending_hooks":["use"]},
+{"id":"guchong_03item","factory":"item","order":1776,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["useOn"]},
+{"id":"guchong_04item","factory":"item","order":1777,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["useOn"]},
+{"id":"taoguan_01item","factory":"item","order":1780,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"tooltip":["手持此物时，潜行右键可以打开蛊罐；右键释放或者收回蛊虫；","可以放置在地上","用泥土或石头，可以把放置的蛊罐隐藏起来","按住alt或者ctrl键时右键放在地上的蛊罐，可以把蛊罐拿起来。","在蛊罐的下方放置泥土或草方块，蛊虫就会自动寻找并袭击动物；","在蛊罐的下方放置石头方块，蛊虫就会击杀范围内的所有实体；","在蛊罐的下方放置木板方块，蛊虫就只会对非npc的怪物进行战斗；","蛊罐的下方方块非土非石非木时，蛊虫就只会试图攻击靠近的玩家。"],"pending_hooks":["use","useOn"]},
+{"id":"taoguan_02item","factory":"item","order":1781,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"tooltip":["手持此物时，潜行右键可以打开蛊罐；右键释放或者收回蛊虫；","可以放置在地上","用泥土或石头，可以把放置的蛊罐隐藏起来","按住alt或者ctrl键时右键放在地上的蛊罐，可以把蛊罐拿起来。","在蛊罐的下方放置泥土或草方块，蛊虫就会自动寻找并袭击动物；","在蛊罐的下方放置石头方块，蛊虫就会击杀范围内的所有实体；","在蛊罐的下方放置木板方块，蛊虫就只会对非npc的怪物进行战斗；","蛊罐的下方方块非土非石非木时，蛊虫就只会试图攻击靠近的玩家。"],"pending_hooks":["use","useOn"]},
+{"id":"taoguan_03item","factory":"item","order":1782,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"tooltip":["手持此物时，潜行右键可以打开蛊罐；右键释放或者收回蛊虫；","可以放置在地上","用泥土或石头，可以把放置的蛊罐隐藏起来","按住alt或者ctrl键时右键放在地上的蛊罐，可以把蛊罐拿起来。","在蛊罐的下方放置泥土或草方块，蛊虫就会自动寻找并袭击动物；","在蛊罐的下方放置石头方块，蛊虫就会击杀范围内的所有实体；","在蛊罐的下方放置木板方块，蛊虫就只会对非npc的怪物进行战斗；","蛊罐的下方方块非土非石非木时，蛊虫就只会试图攻击靠近的玩家。"],"pending_hooks":["use","useOn"]},
+{"id":"chongluan","factory":"item","order":1784,"tab":"yvanchuxiuzhen:tabyvanchu_materials","tooltip":["可以培养成蛊虫的卵，培养方式不同，虫卵长成的成虫就不同。","§a获得方法：用药锄采集草药时，有几率获得。"]},
+{"id":"guchong_05item","factory":"item","order":1926,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"tooltip":["这种蛊虫会记录一个坐标，然后引导使用者寻找。","右键释放蛊虫","右键蛊虫收回"],"pending_hooks":["use"]},
+{"id":"taoguan_01","factory":"block_item","block":"taoguan_01","order":2220},
+{"id":"taoguan_02","factory":"block_item","block":"taoguan_02","order":2221},
+{"id":"taoguan_03","factory":"block_item","block":"taoguan_03","order":2222}
+]

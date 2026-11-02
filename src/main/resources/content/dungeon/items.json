@@ -1,0 +1,4 @@
+[
+{"id":"fubenblock","factory":"block_item","block":"fubenblock","order":2229,"tab":"minecraft:building_blocks"},
+{"id":"fubenentity","factory":"block_item","block":"fubenentity","order":2230,"tab":"minecraft:building_blocks"}
+]

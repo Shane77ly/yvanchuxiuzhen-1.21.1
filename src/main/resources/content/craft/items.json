@@ -1,0 +1,17 @@
+[
+{"id":"silkworm","factory":"item","order":1116,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["useOn"]},
+{"id":"silkwormchrysalis","factory":"item","order":1117,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
+{"id":"silkthread","factory":"item","order":1118,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
+{"id":"silkwormegg","factory":"item","order":1120,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
+{"id":"silkwormgold","factory":"item","order":1122,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["useOn"]},
+{"id":"silkwormchrysalisgold","factory":"item","order":1123,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
+{"id":"silkthreadgold","factory":"item","order":1124,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
+{"id":"silkwormegggold","factory":"item","order":1126,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
+{"id":"silkwormchrysalis_02","factory":"block_item","block":"silkwormchrysalis_02","order":1128},
+{"id":"silkwormchrysalisgold_02","factory":"block_item","block":"silkwormchrysalisgold_02","order":1129},
+{"id":"silkwormchrysalisred","factory":"item","order":1131,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
+{"id":"silkwormchrysalisred_02","factory":"block_item","block":"silkwormchrysalisred_02","order":1132},
+{"id":"silkthreadred","factory":"item","order":1133,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
+{"id":"taopi","factory":"block_item","block":"taopi","order":2223},
+{"id":"taopiitem","factory":"item","order":2224,"stack":1,"pending_hooks":["useOn"]}
+]

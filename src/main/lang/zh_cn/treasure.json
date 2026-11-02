@@ -1,0 +1,14 @@
+{
+  "block.yvanchuxiuzhen.treasure_chest_04": "普通功法书堆",
+  "block.yvanchuxiuzhen.treasure_chest_05": "普通技能书堆",
+  "block.yvanchuxiuzhen.treasure_chest_06": "小钱袋",
+  "block.yvanchuxiuzhen.baoxia": "宝匣",
+  "item.yvanchuxiuzhen.tiandaobaoxiangitem": "天道宝箱设置",
+  "item.yvanchuxiuzhen.treasure_chest_01": "粗布袋子",
+  "item.yvanchuxiuzhen.treasure_chest_02": "小袋子",
+  "item.yvanchuxiuzhen.treasure_chest_1101": "黄铜万能钥匙",
+  "tooltip.yvanchuxiuzhen.item.treasure_chest_1101.1": "消耗品",
+  "tooltip.yvanchuxiuzhen.item.treasure_chest_1101.2": "携带此物可打开上锁的宝箱。",
+  "item.yvanchuxiuzhen.baoxiaitem": "宝匣",
+  "tooltip.yvanchuxiuzhen.item.baoxiaitem.1": "放置后，右键宝匣取出里面的物品。"
+}

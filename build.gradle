@@ -28,6 +28,8 @@ neoForge {
         server {
             server()
             programArgument '--nogui'
+            // 启动完成后导出本 Mod 的方块与物品 ID，供 tools/porting/check_ledger.py 与台账比对。
+            systemProperty 'yvanchuxiuzhen.exportRegistries', layout.buildDirectory.dir('registry-export').get().asFile.absolutePath
         }
     }
 

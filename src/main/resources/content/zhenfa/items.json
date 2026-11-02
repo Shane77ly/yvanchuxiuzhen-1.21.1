@@ -1,0 +1,5 @@
+[
+{"id":"zhenji","factory":"block_item","block":"zhenji","order":2099,"tab":"minecraft:building_blocks"},
+{"id":"zhenyvan","factory":"block_item","block":"zhenyvan","order":2100,"tab":"minecraft:building_blocks"},
+{"id":"zhenyang_01","factory":"item","order":2101,"stack":1,"pending_hooks":["releaseUsing","use"]}
+]

@@ -1,0 +1,11 @@
+[
+{"id":"tiandaobaoxiangitem","factory":"item","order":931,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","stack":1,"pending_hooks":["onEntitySwing","releaseUsing","use"]},
+{"id":"treasure_chest_01","factory":"item","order":968,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["use"]},
+{"id":"treasure_chest_02","factory":"item","order":969,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["use"]},
+{"id":"treasure_chest_1101","factory":"item","order":990,"tab":"yvanchuxiuzhen:tabyvanchu_materials","tooltip":["消耗品","携带此物可打开上锁的宝箱。"]},
+{"id":"treasure_chest_04","factory":"block_item","block":"treasure_chest_04","order":1640,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
+{"id":"treasure_chest_05","factory":"block_item","block":"treasure_chest_05","order":1641,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
+{"id":"treasure_chest_06","factory":"block_item","block":"treasure_chest_06","order":1642,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
+{"id":"baoxia","factory":"block_item","block":"baoxia","order":1759},
+{"id":"baoxiaitem","factory":"item","order":1760,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","tooltip":["放置后，右键宝匣取出里面的物品。"],"pending_hooks":["useOn"]}
+]
