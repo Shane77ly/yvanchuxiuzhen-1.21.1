@@ -72,6 +72,7 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 - 开发运行的专用服务器不要求 eula.txt；不要替负责人写入 EULA 同意。
 - Windows 控制台以系统代码页显示中文 Mod 名时乱码；以 `run/logs/latest.log`（UTF-8）为准。
 - 运行日志、临时脚本放 `tmp/`。
+- 客户端行为由会话自己验证：`./gradlew runSmokeClient`（见[工程结构](engineering.md)“验证基础设施”），结果在 `build/smoke/report.txt`，截图在 `run/screenshots`；不要让负责人手工开客户端复现。
 
 ## 下一步：B1 全量内容身份与资源
 
