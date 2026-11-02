@@ -5,18 +5,18 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.yvanchuxiuzhen.platform.Namespaces;
+import net.yvanchuxiuzhen.platform.ModId;
 
 /**
- * 装饰内容族的启动装配，只在 Mod 构造时调用一次。装饰内容来自原初系统，使用其命名空间。
+ * 装饰内容族的启动装配，只在 Mod 构造时调用一次。
  */
 public final class DecorSetup {
-    private static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Namespaces.XITONG);
-    private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Namespaces.XITONG);
+    private static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ModId.VALUE);
+    private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ModId.VALUE);
     private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
-            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Namespaces.XITONG);
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ModId.VALUE);
     private static final DeferredRegister<MenuType<?>> MENU_TYPES =
-            DeferredRegister.create(Registries.MENU, Namespaces.XITONG);
+            DeferredRegister.create(Registries.MENU, ModId.VALUE);
 
     private DecorSetup() {
     }

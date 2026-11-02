@@ -71,11 +71,14 @@ neoForge.ideSyncTask generateModMetadata
 
 /**
  * 合并按单位拆分的语言与声音片段，使各系统并行修改时不在同一个大文件上冲突：
- * src/main/lang/<命名空间>/<语言>/<单位>.json → assets/<命名空间>/lang/<语言>.json，
- * src/main/sounds/<命名空间>/<单位>.json → assets/<命名空间>/sounds.json。
+ * src/main/lang/<语言>/<单位>.json → assets/<命名空间>/lang/<语言>.json，
+ * src/main/sounds/<单位>.json → assets/<命名空间>/sounds.json；命名空间即 Mod ID。
  * 同一片段内或不同片段之间出现重复键时构建失败。
  */
 abstract class MergeAssetFragments extends DefaultTask {
+    @Input
+    abstract Property<String> getNamespace()
+
     @InputFiles
     @PathSensitive(PathSensitivity.RELATIVE)
     abstract ConfigurableFileCollection getFragments()
@@ -93,10 +96,11 @@ abstract class MergeAssetFragments extends DefaultTask {
     void merge() {
         File out = outputDir.get().asFile
         out.deleteDir()
+        String assets = "assets/${namespace.get()}"
         Map<String, Map<String, Object>> merged = new TreeMap<>()
         Map<String, File> origins = [:]
-        collect(langRoot.get().asFile, 3, merged, origins) { List<String> parts -> "assets/${parts[0]}/lang/${parts[1]}.json" }
-        collect(soundRoot.get().asFile, 2, merged, origins) { List<String> parts -> "assets/${parts[0]}/sounds.json" }
+        collect(langRoot.get().asFile, 2, merged, origins) { List<String> parts -> "${assets}/lang/${parts[0]}.json" }
+        collect(soundRoot.get().asFile, 1, merged, origins) { List<String> parts -> "${assets}/sounds.json" }
         merged.each { String target, Map<String, Object> entries ->
             File file = new File(out, target)
             file.parentFile.mkdirs()
@@ -174,6 +178,7 @@ abstract class MergeAssetFragments extends DefaultTask {
 }
 
 def mergeAssetFragments = tasks.register('mergeAssetFragments', MergeAssetFragments) {
+    namespace = mod_id
     fragments.from('src/main/lang', 'src/main/sounds')
     langRoot = layout.projectDirectory.dir('src/main/lang')
     soundRoot = layout.projectDirectory.dir('src/main/sounds')

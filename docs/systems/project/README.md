@@ -27,6 +27,7 @@ updated: 2026-11-02
 | 2026-11-02 | 依赖规则：系统之间不得相互依赖（构建检查），不设编号次序或依赖表；`combat` 只读 `attribute` 最终值；本命槽位归 `xiulian`，本命培养数据归 `equipment` | 已写入[系统设计](../../development/system-design.md)“依赖规则”；公开操作清单、归属判定待定 |
 | 2026-11-02 | 采用公开操作清单作为每个系统的开工条件；采用“规则决定归属、脚本只给候选”，台账增加归属状态列 | 系统设计全部批准，AGENTS.md“工程边界”写入三条约束；该文“批准后的迁移”已完成（见[月度记录](logs/2026-11.md)），B0 从步骤 2 继续 |
 | 2026-11-02 | 内容族的 Java 包名由 `family` 改为 `collection`；“内容族”这一中文名称不变 | 已改包 `net.yvanchuxiuzhen.collection`、ArchUnit 规则 1、4、6 与[工程结构](../../development/engineering.md)目录及规则 |
+| 2026-11-02 | 全部注册与资源统一使用命名空间 `yvanchuxiuzhen`，原初系统内容不再保留 `yvanchuxitong`（取代已批准架构中的“保留两个命名空间”） | 常量改为 `platform/ModId`；片段路径去掉命名空间一级；台账 477 行 `target_id` 改为统一命名空间，2 处同名冲突暂定改名；[架构](../../development/architecture.md)、[工程结构](../../development/engineering.md)、[范围](../../design/scope.md)等同步（见[月度记录](logs/2026-11.md)） |
 
 ## 系统设计重审
 
@@ -34,7 +35,7 @@ updated: 2026-11-02
 
 ## 已批准与待裁定
 
-已批准（2026-11-02）：一个 Gradle 工程、一个发布 JAR、按系统组织；保留两个来源命名空间；功法成长随物品、银行与材料仓归玩家、现场拍卖归方块、学习小游戏独立会话；代码目录、ArchUnit 边界、内容表、资源转换、台账 CSV、依赖治理与分支协作；A～I 全量批次与系统完成条件。正文为 [架构](../../development/architecture.md)、[工程结构](../../development/engineering.md)、[路线](../../development/roadmap.md)。三份文档中标注“待验证”的做法由 B0 实测后写回。
+已批准（2026-11-02）：一个 Gradle 工程、一个发布 JAR、按系统组织；单一命名空间 `yvanchuxiuzhen`（2026-11-02 由“保留两个来源命名空间”改定）；功法成长随物品、银行与材料仓归玩家、现场拍卖归方块、学习小游戏独立会话；代码目录、ArchUnit 边界、内容表、资源转换、台账 CSV、依赖治理与分支协作；A～I 全量批次与系统完成条件。正文为 [架构](../../development/architecture.md)、[工程结构](../../development/engineering.md)、[路线](../../development/roadmap.md)。三份文档中标注“待验证”的做法由 B0 实测后写回。
 
 仍待负责人裁定：1.18.2 世界与玩家存档是否导入、界面复刻程度、发布 license，以及 [调查问题表](../../reference/legacy/source-survey.md)中的 Q01–Q14（实现所属系统前裁定）。批准范围之外的文档（各系统 `architecture.md`、[数据与运行时](../../development/data-and-runtime.md)等）仍是草案，不能从“已经写入文件”推定已批准；明确采用前不改变对应规则。
 

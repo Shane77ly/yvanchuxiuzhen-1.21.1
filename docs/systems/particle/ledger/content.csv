@@ -1,7 +1,7 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
-particle_type,yvanchuxitong:lingqi,yvanchuxitong,Lingqi,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModParticleTypes.java,19,particle,候选,yvanchuxitong:lingqi,待处理,
-particle_type,yvanchuxitong:yan,yvanchuxitong,Yan,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModParticleTypes.java,18,particle,候选,yvanchuxitong:yan,待处理,
-particle_type,yvanchuxitong:yan_02,yvanchuxitong,Yan02,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModParticleTypes.java,20,particle,候选,yvanchuxitong:yan_02,待处理,
+particle_type,yvanchuxitong:lingqi,yvanchuxitong,Lingqi,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModParticleTypes.java,19,particle,候选,yvanchuxiuzhen:lingqi_xitong,待处理,与原初修真 lingqi 同名：贴图相同，重力 -0.05 且不旋转（原初修真版重力 0、每 tick 旋转）；暂定此 ID，实现时可按语义改名
+particle_type,yvanchuxitong:yan,yvanchuxitong,Yan,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModParticleTypes.java,18,particle,候选,yvanchuxiuzhen:yan,待处理,
+particle_type,yvanchuxitong:yan_02,yvanchuxitong,Yan02,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModParticleTypes.java,20,particle,候选,yvanchuxiuzhen:yan_02,待处理,
 particle_type,yvanchuxiuzhen:basaltlizi,yvanchuxiuzhen,Basaltlizi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModParticleTypes.java,75,particle,候选,yvanchuxiuzhen:basaltlizi,待处理,
 particle_type,yvanchuxiuzhen:bigbangblack,yvanchuxiuzhen,Bigbangblack,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModParticleTypes.java,163,particle,候选,yvanchuxiuzhen:bigbangblack,待处理,
 particle_type,yvanchuxiuzhen:bigbangblue,yvanchuxiuzhen,Bigbangblue,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModParticleTypes.java,177,particle,候选,yvanchuxiuzhen:bigbangblue,待处理,

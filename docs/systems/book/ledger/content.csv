@@ -1,7 +1,7 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
-block,yvanchuxitong:makebook,yvanchuxitong,Makebook,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlocks.java,315,book,候选,yvanchuxitong:makebook,待处理,
-block_entity_type,yvanchuxitong:makebook,yvanchuxitong,Makebook,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlockEntities.java,169,book,候选,yvanchuxitong:makebook,待处理,
-item,yvanchuxitong:makebook,yvanchuxitong,Makebook,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,226,book,候选,yvanchuxitong:makebook,待处理,
+block,yvanchuxitong:makebook,yvanchuxitong,Makebook,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlocks.java,315,book,候选,yvanchuxiuzhen:makebook,待处理,
+block_entity_type,yvanchuxitong:makebook,yvanchuxitong,Makebook,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlockEntities.java,169,book,候选,yvanchuxiuzhen:makebook,待处理,
+item,yvanchuxitong:makebook,yvanchuxitong,Makebook,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,226,book,候选,yvanchuxiuzhen:makebook,待处理,
 item,yvanchuxiuzhen:book_001,yvanchuxiuzhen,Book001,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1699,book,候选,yvanchuxiuzhen:book_001,待处理,
 item,yvanchuxiuzhen:book_002,yvanchuxiuzhen,Book002,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1700,book,候选,yvanchuxiuzhen:book_002,待处理,
 item,yvanchuxiuzhen:book_003,yvanchuxiuzhen,Book003,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1701,book,候选,yvanchuxiuzhen:book_003,待处理,
@@ -38,6 +38,6 @@ item,yvanchuxiuzhen:book_033,yvanchuxiuzhen,Book033,src/main/java/net/mcreator/y
 item,yvanchuxiuzhen:book_034,yvanchuxiuzhen,Book034,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1732,book,候选,yvanchuxiuzhen:book_034,待处理,
 item,yvanchuxiuzhen:book_035,yvanchuxiuzhen,Book035,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1733,book,候选,yvanchuxiuzhen:book_035,待处理,
 item,yvanchuxiuzhen:book_036,yvanchuxiuzhen,Book036,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1734,book,候选,yvanchuxiuzhen:book_036,待处理,
-menu,yvanchuxitong:makebook_gui,yvanchuxitong,MakebookGui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,106,book,候选,yvanchuxitong:makebook_gui,待处理,
+menu,yvanchuxitong:makebook_gui,yvanchuxitong,MakebookGui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,106,book,候选,yvanchuxiuzhen:makebook_gui,待处理,
 menu,yvanchuxiuzhen:book_gui,yvanchuxiuzhen,BookGUI,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,73,book,候选,yvanchuxiuzhen:book_gui,待处理,
 menu,yvanchuxiuzhen:dati_gui,yvanchuxiuzhen,DatiGUI,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,74,book,候选,yvanchuxiuzhen:dati_gui,待处理,

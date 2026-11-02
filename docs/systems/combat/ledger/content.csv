@@ -1,5 +1,5 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
-enchantment,yvanchuxitong:chain,yvanchuxitong,Chain,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModEnchantments.java,18,combat,候选,yvanchuxitong:chain,待处理,
+enchantment,yvanchuxitong:chain,yvanchuxitong,Chain,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModEnchantments.java,18,combat,候选,yvanchuxiuzhen:chain,待处理,
 enchantment,yvanchuxiuzhen:attdef,yvanchuxiuzhen,Attdef,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,107,combat,候选,yvanchuxiuzhen:attdef,待处理,
 enchantment,yvanchuxiuzhen:basalt,yvanchuxiuzhen,Basalt,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,114,combat,候选,yvanchuxiuzhen:basalt,待处理,
 enchantment,yvanchuxiuzhen:beepoison,yvanchuxiuzhen,Beepoison,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,129,combat,候选,yvanchuxiuzhen:beepoison,待处理,
