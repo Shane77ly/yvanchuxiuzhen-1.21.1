@@ -9,6 +9,12 @@ updated: 2026-11-01
 
 各单位的划分、类别与职责以[系统设计](../development/system-design.md)为正文；当前目标接口和数据模型均为待批准提案。数量为[归属表](../reference/legacy/inventory/ownership_assignment.csv)的候选口径，不能当作已移植数或互相独立的功能数。
 
+| 基座 | 中文 | 候选元素 | 已读 | 状态 |
+| --- | --- | ---: | ---: | --- |
+| [`particle`](particle/README.md) | 粒子库 | 307 | 0 | 只有内容台账；没有玩法规则 |
+
+没有编辑器元素的注册（声音事件、画）在[待归属台账](project/ledger/content.csv)。
+
 | 系统 | 中文 | 候选元素 | 已读 | 状态 |
 | --- | --- | ---: | ---: | --- |
 | [`attribute`](attribute/README.md) | 属性 | 9 | 0 | 调查正文已建立；实现及运行验收未开始 |

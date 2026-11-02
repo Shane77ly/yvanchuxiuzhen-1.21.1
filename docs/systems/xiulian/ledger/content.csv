@@ -1,0 +1,9 @@
+registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
+entity_type,yvanchuxiuzhen:jieyvn,yvanchuxiuzhen,Jieyvn,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,551,xiulian,候选,yvanchuxiuzhen:jieyvn,待处理,
+entity_type,yvanchuxiuzhen:tianjie_03,yvanchuxiuzhen,Tianjie03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,555,xiulian,候选,yvanchuxiuzhen:tianjie_03,待处理,
+entity_type,yvanchuxiuzhen:tianjie_05,yvanchuxiuzhen,Tianjie05,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,577,xiulian,候选,yvanchuxiuzhen:tianjie_05,待处理,
+entity_type,yvanchuxiuzhen:tianjie_07,yvanchuxiuzhen,Tianjie07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,687,xiulian,候选,yvanchuxiuzhen:tianjie_07,待处理,
+entity_type,yvanchuxiuzhen:yvanyingchuqiao,yvanchuxiuzhen,Yvanyingchuqiao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1049,xiulian,候选,yvanchuxiuzhen:yvanyingchuqiao,待处理,
+item,yvanchuxiuzhen:jiazubaibaodai,yvanchuxiuzhen,Jiazubaibaodai,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2784,xiulian,已读,yvanchuxiuzhen:jiazubaibaodai,待处理,
+menu,yvanchuxiuzhen:dantian_gui,yvanchuxiuzhen,DantianGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,105,xiulian,候选,yvanchuxiuzhen:dantian_gui,待处理,
+menu,yvanchuxiuzhen:playershengjixianshi,yvanchuxiuzhen,Playershengjixianshi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,106,xiulian,候选,yvanchuxiuzhen:playershengjixianshi,待处理,
