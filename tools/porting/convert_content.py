@@ -187,7 +187,7 @@ def main() -> None:
             icon = source.block_const.get(icon_const) or source.item_const[icon_const]
             tabs.append({'id': name, 'icon': targets[('block' if icon_const in source.block_const else 'item', f'{mod}:{icon}')]})
             for language in LANGUAGES:
-                title = source.lang[language].get(f'itemGroup.{mod}.{name}')
+                title = source.lang[language].get(f'itemGroup.{name}')
                 if title is not None:
                     add_lang('platform', language, f'itemGroup.{NAMESPACE}.{name}', title)
 

@@ -173,6 +173,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 | 纯规则 | JUnit 5，只测易回归公式与已复现问题 | 第一个需要的系统 |
 | 世界内行为 | NeoForge GameTest（独立源集，`gameTestServer` 运行） | 第一个需要的系统建立源集，之后按风险添加 |
 | 加载检查 | 开发服务端启动至 Done、客户端加载至声音引擎启动、日志无 ERROR | 每次依赖更新与批次出口 |
+| 客户端冒烟 | `gradlew runSmokeClient`（源集 `src/smoke`，不进入发布 JAR）：自动建创造世界，放置本 Mod 全部方块状态，核对每个方块与物品有模型、名称与提示文本翻译，打开创造栏并逐栏切换后截图，报告写入 `build/smoke/report.txt`，缺 `DONE` 行表示中途崩溃 | 每次改动内容表、资源、语言或创造栏后由开发者自己运行，不交给负责人手工操作 |
 | 台账与文档 | `check_ledger.py`、`check_docs.py`、`inventory_legacy.py --check` | 每次提交前 |
 
 远端已建立，CI 尚未配置；配置后在 CI 执行构建、`check` 与文档/台账检查。来源工作区不在仓库中，`inventory_legacy.py --check` 只能在有来源的机器上执行。

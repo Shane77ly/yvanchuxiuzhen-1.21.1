@@ -1,0 +1,16 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "yvanchuxiuzhen_smoke"
+version = "0.0.1"
+displayName = "原初修真冒烟检查"
+description = '''开发用的客户端冒烟检查，只在 runSmokeClient 中加载，不进入发布 JAR。'''
+
+[[dependencies."yvanchuxiuzhen_smoke"]]
+modId = "yvanchuxiuzhen"
+type = "required"
+versionRange = "[0,)"
+ordering = "AFTER"
+side = "CLIENT"

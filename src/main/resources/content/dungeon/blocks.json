@@ -1,4 +1,4 @@
 [
 {"id":"fubenblock","factory":"block","material":"METAL","sound":"METAL","states":[],"light_block":15,"fallback_drop":{"item":"self","count":1},"pending_hooks":["createMenu","getDisplayName","getMenuProvider","newBlockEntity","onPlace","tick","triggerEvent","use"]},
-{"id":"fubenentity","factory":"block","material":"METAL","sound":"METAL","strength":[1.0,10.0],"states":["FACING"],"placement":"horizontal","light_block":15,"fallback_drop":{"item":"self","count":1},"pending_hooks":["createMenu","getAnalogOutputSignal","getDisplayName","getMenuProvider","hasAnalogOutputSignal","newBlockEntity","onRemove","triggerEvent","use"]}
+{"id":"fubenentity","factory":"block","material":"METAL","sound":"METAL","strength":[1.0,10.0],"states":["FACING"],"placement":"horizontal","light_block":15,"rotate":true,"fallback_drop":{"item":"self","count":1},"pending_hooks":["createMenu","getAnalogOutputSignal","getDisplayName","getMenuProvider","hasAnalogOutputSignal","newBlockEntity","onRemove","triggerEvent","use"]}
 ]
