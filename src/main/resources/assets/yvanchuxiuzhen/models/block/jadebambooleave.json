@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/jadebamboo_leave",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/jadebamboo_leave",
+    "particle": "yvanchuxiuzhen:block/jadebamboo_leave",
+    "0": "yvanchuxiuzhen:block/jadebamboo_leave"
+  }
+}

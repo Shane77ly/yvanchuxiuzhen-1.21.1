@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/ginkgo_planks",
+    "particle": "yvanchuxiuzhen:block/ginkgo_planks"
+  }
+}

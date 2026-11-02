@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/ancienttimes_leaves",
+    "particle": "yvanchuxiuzhen:block/ancienttimes_leaves"
+  }
+}

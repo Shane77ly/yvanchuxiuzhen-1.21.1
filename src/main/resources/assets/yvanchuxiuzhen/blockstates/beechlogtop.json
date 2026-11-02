@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "yvanchuxiuzhen:block/beechlogtop",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "yvanchuxiuzhen:block/beechlogtop"
+    },
+    "axis=z": {
+      "model": "yvanchuxiuzhen:block/beechlogtop",
+      "x": 90
+    }
+  }
+}

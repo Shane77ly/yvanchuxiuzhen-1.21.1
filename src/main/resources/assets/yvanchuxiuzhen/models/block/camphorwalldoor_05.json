@@ -1,0 +1,9 @@
+{
+  "parent": "yvanchuxiuzhen:custom/camphor_wall_door05",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/camphor_log_top",
+    "particle": "yvanchuxiuzhen:block/camphor_log_top",
+    "0": "yvanchuxiuzhen:block/camphor_log",
+    "1": "yvanchuxiuzhen:block/camphor_log_top"
+  }
+}

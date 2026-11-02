@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/camphor_armchair01",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/camphor_armchair",
+    "particle": "yvanchuxiuzhen:block/camphor_armchair",
+    "0": "yvanchuxiuzhen:block/camphor_armchair"
+  }
+}

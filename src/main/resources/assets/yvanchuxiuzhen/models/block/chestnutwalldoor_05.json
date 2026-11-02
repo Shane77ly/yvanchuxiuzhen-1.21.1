@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/chestnut_wall_door05",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/chestnut_wall",
+    "particle": "yvanchuxiuzhen:block/chestnut_wall",
+    "0": "yvanchuxiuzhen:block/chestnut_wall"
+  }
+}

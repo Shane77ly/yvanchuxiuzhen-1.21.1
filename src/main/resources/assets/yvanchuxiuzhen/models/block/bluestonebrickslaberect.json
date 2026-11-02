@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/bluestonebrick_slab_erect",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/bluestonebrick",
+    "particle": "yvanchuxiuzhen:block/bluestonebrick",
+    "0": "yvanchuxiuzhen:block/bluestonebrick"
+  }
+}

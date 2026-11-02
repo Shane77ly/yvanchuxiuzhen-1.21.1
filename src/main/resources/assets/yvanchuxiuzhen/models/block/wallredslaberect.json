@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/wall_red_slab_erect",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/wall_red",
+    "particle": "yvanchuxiuzhen:block/wall_red",
+    "0": "yvanchuxiuzhen:block/wall_red"
+  }
+}

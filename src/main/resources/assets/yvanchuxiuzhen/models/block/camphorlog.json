@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/camphor_log_top",
+    "up": "yvanchuxiuzhen:block/camphor_log_top",
+    "north": "yvanchuxiuzhen:block/camphor_log",
+    "east": "yvanchuxiuzhen:block/camphor_log",
+    "south": "yvanchuxiuzhen:block/camphor_log",
+    "west": "yvanchuxiuzhen:block/camphor_log",
+    "particle": "yvanchuxiuzhen:block/camphor_log_top"
+  }
+}

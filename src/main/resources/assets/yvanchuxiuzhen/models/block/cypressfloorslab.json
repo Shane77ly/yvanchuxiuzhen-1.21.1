@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/cypress_floor",
+    "top": "yvanchuxiuzhen:block/cypress_floor",
+    "side": "yvanchuxiuzhen:block/cypress_floor"
+  }
+}

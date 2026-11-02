@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/cypress_planks",
+    "top": "yvanchuxiuzhen:block/cypress_planks",
+    "side": "yvanchuxiuzhen:block/cypress_planks"
+  }
+}

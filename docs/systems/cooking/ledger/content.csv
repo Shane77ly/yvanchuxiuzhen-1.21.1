@@ -12,12 +12,12 @@ block,yvanchuxiuzhen:food_005,yvanchuxiuzhen,Food005,src/main/java/net/mcreator/
 block,yvanchuxiuzhen:food_008,yvanchuxiuzhen,Food008,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1642,cooking,候选,yvanchuxiuzhen:food_008,待处理,
 block,yvanchuxiuzhen:food_009,yvanchuxiuzhen,Food009,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1643,cooking,候选,yvanchuxiuzhen:food_009,待处理,
 block,yvanchuxiuzhen:food_010,yvanchuxiuzhen,Food010,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1644,cooking,候选,yvanchuxiuzhen:food_010,待处理,
-block,yvanchuxiuzhen:food_011,yvanchuxiuzhen,Food011,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1645,cooking,候选,yvanchuxiuzhen:food_011,待处理,
+block,yvanchuxiuzhen:food_011,yvanchuxiuzhen,Food011,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1645,cooking,候选,yvanchuxiuzhen:food_011,待处理,来源缺陷：模型 textures.missing 指向空路径 yvanchuxiuzhen:blocks/，部分面在 1.18.2 与 1.21.1 都显示缺失纹理；保持来源，待负责人裁定是否补纹理
 block,yvanchuxiuzhen:food_013,yvanchuxiuzhen,Food013,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1646,cooking,候选,yvanchuxiuzhen:food_013,待处理,
 block,yvanchuxiuzhen:food_014,yvanchuxiuzhen,Food014,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1647,cooking,候选,yvanchuxiuzhen:food_014,待处理,
 block,yvanchuxiuzhen:food_020,yvanchuxiuzhen,Food020,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1648,cooking,候选,yvanchuxiuzhen:food_020,待处理,
 block,yvanchuxiuzhen:food_025,yvanchuxiuzhen,Food025,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1649,cooking,候选,yvanchuxiuzhen:food_025,待处理,
-block,yvanchuxiuzhen:food_027,yvanchuxiuzhen,Food027,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1650,cooking,候选,yvanchuxiuzhen:food_027,待处理,
+block,yvanchuxiuzhen:food_027,yvanchuxiuzhen,Food027,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1650,cooking,候选,yvanchuxiuzhen:food_027,待处理,来源缺陷：同 food_011
 block,yvanchuxiuzhen:food_033,yvanchuxiuzhen,Food033,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1651,cooking,候选,yvanchuxiuzhen:food_033,待处理,
 block,yvanchuxiuzhen:food_035,yvanchuxiuzhen,Food035,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1652,cooking,候选,yvanchuxiuzhen:food_035,待处理,
 block,yvanchuxiuzhen:food_039,yvanchuxiuzhen,Food039,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1653,cooking,候选,yvanchuxiuzhen:food_039,待处理,
@@ -31,7 +31,7 @@ block,yvanchuxiuzhen:food_061,yvanchuxiuzhen,Food061,src/main/java/net/mcreator/
 block,yvanchuxiuzhen:food_062,yvanchuxiuzhen,Food062,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1661,cooking,候选,yvanchuxiuzhen:food_062,待处理,
 block,yvanchuxiuzhen:food_063,yvanchuxiuzhen,Food063,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1662,cooking,候选,yvanchuxiuzhen:food_063,待处理,
 block,yvanchuxiuzhen:food_064,yvanchuxiuzhen,Food064,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1663,cooking,候选,yvanchuxiuzhen:food_064,待处理,
-block,yvanchuxiuzhen:food_066,yvanchuxiuzhen,Food066,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1664,cooking,候选,yvanchuxiuzhen:food_066,待处理,
+block,yvanchuxiuzhen:food_066,yvanchuxiuzhen,Food066,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1664,cooking,候选,yvanchuxiuzhen:food_066,待处理,来源缺陷：同 food_011
 block,yvanchuxiuzhen:food_067,yvanchuxiuzhen,Food067,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1665,cooking,候选,yvanchuxiuzhen:food_067,待处理,
 block,yvanchuxiuzhen:food_068,yvanchuxiuzhen,Food068,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1666,cooking,候选,yvanchuxiuzhen:food_068,待处理,
 block,yvanchuxiuzhen:food_069,yvanchuxiuzhen,Food069,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1667,cooking,候选,yvanchuxiuzhen:food_069,待处理,

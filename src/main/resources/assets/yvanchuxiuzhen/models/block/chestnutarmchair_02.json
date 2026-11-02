@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/chestnut_armchair02",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/chestnut_armchair",
+    "particle": "yvanchuxiuzhen:block/chestnut_armchair",
+    "0": "yvanchuxiuzhen:block/chestnut_armchair"
+  }
+}

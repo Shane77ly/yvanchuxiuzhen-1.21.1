@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/bluestonebrickslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/bluestonebrickslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/bluestonebrickslab_full"
+    }
+  }
+}

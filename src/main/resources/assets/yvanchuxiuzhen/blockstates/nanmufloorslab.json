@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/nanmufloorslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/nanmufloorslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/nanmufloorslab_full"
+    }
+  }
+}

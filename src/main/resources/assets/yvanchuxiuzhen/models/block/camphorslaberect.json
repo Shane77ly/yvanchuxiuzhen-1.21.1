@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/camphor_slab_erect",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/camphor_planks",
+    "particle": "yvanchuxiuzhen:block/camphor_planks",
+    "0": "yvanchuxiuzhen:block/camphor_planks"
+  }
+}

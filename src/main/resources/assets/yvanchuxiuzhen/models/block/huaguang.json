@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/huaguang02",
+    "up": "yvanchuxiuzhen:block/huaguang02",
+    "north": "yvanchuxiuzhen:block/huaguang",
+    "east": "yvanchuxiuzhen:block/huaguang",
+    "south": "yvanchuxiuzhen:block/huaguang",
+    "west": "yvanchuxiuzhen:block/huaguang",
+    "particle": "yvanchuxiuzhen:block/huaguang02"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/privet_0401",
+    "up": "yvanchuxiuzhen:block/privet_0401",
+    "north": "yvanchuxiuzhen:block/privet_0402",
+    "east": "yvanchuxiuzhen:block/privet_0402",
+    "south": "yvanchuxiuzhen:block/privet_0402",
+    "west": "yvanchuxiuzhen:block/privet_0402",
+    "particle": "yvanchuxiuzhen:block/privet_0401"
+  }
+}

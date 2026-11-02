@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/wallredslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/wallredslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/wallredslab_full"
+    }
+  }
+}

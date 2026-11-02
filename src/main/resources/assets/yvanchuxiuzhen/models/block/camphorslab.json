@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/camphor_planks",
+    "top": "yvanchuxiuzhen:block/camphor_planks",
+    "side": "yvanchuxiuzhen:block/camphor_planks"
+  }
+}

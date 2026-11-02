@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/diplidis_diandra",
+    "particle": "yvanchuxiuzhen:block/diplidis_diandra"
+  }
+}

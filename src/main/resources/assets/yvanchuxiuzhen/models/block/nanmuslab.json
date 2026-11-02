@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/nanmu_planks",
+    "top": "yvanchuxiuzhen:block/nanmu_planks",
+    "side": "yvanchuxiuzhen:block/nanmu_planks"
+  }
+}

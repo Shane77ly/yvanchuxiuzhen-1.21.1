@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/treasure_chest_04",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/treasure_chest_04",
+    "particle": "yvanchuxiuzhen:block/treasure_chest_04",
+    "0": "yvanchuxiuzhen:block/treasure_chest_04"
+  }
+}

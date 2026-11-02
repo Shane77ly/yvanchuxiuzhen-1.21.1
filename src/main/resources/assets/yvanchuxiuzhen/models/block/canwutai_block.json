@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/canwutai",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/canwutai",
+    "particle": "yvanchuxiuzhen:block/canwutai",
+    "0": "yvanchuxiuzhen:block/canwutai"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "block/outer_stairs",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/bluestonebrick",
+    "top": "yvanchuxiuzhen:block/bluestonebrick",
+    "side": "yvanchuxiuzhen:block/bluestonebrick"
+  }
+}

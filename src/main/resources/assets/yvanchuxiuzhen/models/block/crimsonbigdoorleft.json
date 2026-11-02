@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/crimson_bigdoor_left",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/crimson_bigdoor",
+    "particle": "yvanchuxiuzhen:block/crimson_bigdoor",
+    "0": "yvanchuxiuzhen:block/crimson_bigdoor"
+  }
+}

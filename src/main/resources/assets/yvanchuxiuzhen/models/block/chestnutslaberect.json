@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/chestnut_slab_erect",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/chestnut_planks",
+    "particle": "yvanchuxiuzhen:block/chestnut_planks",
+    "0": "yvanchuxiuzhen:block/chestnut_planks"
+  }
+}

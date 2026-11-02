@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/cassia_0501",
+    "up": "yvanchuxiuzhen:block/cassia_0501",
+    "north": "yvanchuxiuzhen:block/cassia_0502",
+    "east": "yvanchuxiuzhen:block/cassia_0502",
+    "south": "yvanchuxiuzhen:block/cassia_0502",
+    "west": "yvanchuxiuzhen:block/cassia_0502",
+    "particle": "yvanchuxiuzhen:block/cassia_0501"
+  }
+}

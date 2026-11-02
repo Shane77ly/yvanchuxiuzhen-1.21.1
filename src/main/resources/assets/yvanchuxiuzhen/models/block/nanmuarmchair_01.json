@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/nanmu_armchair01",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/nanmu_armchair",
+    "particle": "yvanchuxiuzhen:block/nanmu_armchair",
+    "0": "yvanchuxiuzhen:block/nanmu_armchair"
+  }
+}

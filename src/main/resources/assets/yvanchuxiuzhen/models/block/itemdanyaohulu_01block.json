@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/item_danyaohulu01block",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/item_danyaohulu01block",
+    "particle": "yvanchuxiuzhen:block/item_danyaohulu01block",
+    "0": "yvanchuxiuzhen:block/item_danyaohulu01block"
+  }
+}

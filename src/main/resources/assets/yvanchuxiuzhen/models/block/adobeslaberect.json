@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/adobe_slab_erect",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/adobe",
+    "particle": "yvanchuxiuzhen:block/adobe",
+    "0": "yvanchuxiuzhen:block/adobe"
+  }
+}

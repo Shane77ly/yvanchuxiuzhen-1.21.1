@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/toothed_slab_erect",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/toothed_planks",
+    "particle": "yvanchuxiuzhen:block/toothed_planks",
+    "0": "yvanchuxiuzhen:block/toothed_planks"
+  }
+}

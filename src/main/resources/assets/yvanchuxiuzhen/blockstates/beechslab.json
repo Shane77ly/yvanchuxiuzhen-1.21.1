@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/beechslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/beechslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/beechslab_full"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/mushroom_blue_01",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/mushroom_blue",
+    "particle": "yvanchuxiuzhen:block/mushroom_blue",
+    "0": "yvanchuxiuzhen:block/mushroom_blue"
+  }
+}

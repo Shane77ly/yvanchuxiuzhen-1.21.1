@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/jungle_bigdoor_right",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/jungle_bigdoor",
+    "particle": "yvanchuxiuzhen:block/jungle_bigdoor",
+    "0": "yvanchuxiuzhen:block/jungle_bigdoor"
+  }
+}

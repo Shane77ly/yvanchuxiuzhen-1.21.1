@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/fabao022",
+  "textures": {
+    "layer0": "yvanchuxiuzhen:item/fabao022"
+  }
+}

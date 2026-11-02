@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "yvanchuxiuzhen:block/camphordoorright__cutout"
+    },
+    "facing=east": {
+      "model": "yvanchuxiuzhen:block/camphordoorright__cutout",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "yvanchuxiuzhen:block/camphordoorright__cutout",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "yvanchuxiuzhen:block/camphordoorright__cutout",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "yvanchuxiuzhen:block/cassia_04",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "yvanchuxiuzhen:block/cassia_04"
+    },
+    "axis=z": {
+      "model": "yvanchuxiuzhen:block/cassia_04",
+      "x": 90
+    }
+  }
+}

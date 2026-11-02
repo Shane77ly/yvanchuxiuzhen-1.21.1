@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/iron_rope",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/iron_rope",
+    "particle": "yvanchuxiuzhen:block/iron_rope",
+    "0": "yvanchuxiuzhen:block/iron_rope"
+  }
+}

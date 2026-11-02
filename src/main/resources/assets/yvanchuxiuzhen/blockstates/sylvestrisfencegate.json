@@ -1,0 +1,80 @@
+{
+  "variants": {
+    "facing=south,in_wall=false,open=false": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate__cutout",
+      "uvlock": true
+    },
+    "facing=west,in_wall=false,open=false": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate__cutout",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=north,in_wall=false,open=false": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate__cutout",
+      "uvlock": true,
+      "y": 180
+    },
+    "facing=east,in_wall=false,open=false": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate__cutout",
+      "uvlock": true,
+      "y": 270
+    },
+    "facing=south,in_wall=false,open=true": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate_open__cutout",
+      "uvlock": true
+    },
+    "facing=west,in_wall=false,open=true": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate_open__cutout",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=north,in_wall=false,open=true": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate_open__cutout",
+      "uvlock": true,
+      "y": 180
+    },
+    "facing=east,in_wall=false,open=true": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate_open__cutout",
+      "uvlock": true,
+      "y": 270
+    },
+    "facing=south,in_wall=true,open=false": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate_wall__cutout",
+      "uvlock": true
+    },
+    "facing=west,in_wall=true,open=false": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate_wall__cutout",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=north,in_wall=true,open=false": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate_wall__cutout",
+      "uvlock": true,
+      "y": 180
+    },
+    "facing=east,in_wall=true,open=false": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate_wall__cutout",
+      "uvlock": true,
+      "y": 270
+    },
+    "facing=south,in_wall=true,open=true": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate_wall_open__cutout",
+      "uvlock": true
+    },
+    "facing=west,in_wall=true,open=true": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate_wall_open__cutout",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=north,in_wall=true,open=true": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate_wall_open__cutout",
+      "uvlock": true,
+      "y": 180
+    },
+    "facing=east,in_wall=true,open=true": {
+      "model": "yvanchuxiuzhen:block/sylvestrisfencegate_wall_open__cutout",
+      "uvlock": true,
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/tripod_02",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/tripod_02",
+    "particle": "yvanchuxiuzhen:block/tripod_02",
+    "0": "yvanchuxiuzhen:block/tripod_02"
+  }
+}

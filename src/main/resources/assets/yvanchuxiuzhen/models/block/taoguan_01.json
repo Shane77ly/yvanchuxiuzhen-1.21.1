@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/taoguan01",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/taoguan_01",
+    "particle": "yvanchuxiuzhen:block/taoguan_01",
+    "0": "yvanchuxiuzhen:block/taoguan_01"
+  }
+}

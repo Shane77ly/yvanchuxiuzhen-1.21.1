@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/sylvestris_armchair02",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/sylvestris_armchair",
+    "particle": "yvanchuxiuzhen:block/sylvestris_armchair",
+    "0": "yvanchuxiuzhen:block/sylvestris_armchair"
+  }
+}

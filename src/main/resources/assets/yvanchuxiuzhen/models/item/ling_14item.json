@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/ling_14.item",
+  "textures": {
+    "layer0": "yvanchuxiuzhen:item/ling14item"
+  }
+}

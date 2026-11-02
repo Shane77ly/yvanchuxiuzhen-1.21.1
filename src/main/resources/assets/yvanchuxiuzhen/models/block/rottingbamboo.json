@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/rotting_bamboo",
+    "particle": "yvanchuxiuzhen:block/rotting_bamboo"
+  }
+}

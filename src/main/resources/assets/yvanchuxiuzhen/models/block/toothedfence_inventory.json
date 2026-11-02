@@ -1,0 +1,7 @@
+{
+  "parent": "block/fence_inventory",
+  "textures": {
+    "texture": "yvanchuxiuzhen:block/toothed_planks",
+    "particle": "yvanchuxiuzhen:block/toothed_planks"
+  }
+}

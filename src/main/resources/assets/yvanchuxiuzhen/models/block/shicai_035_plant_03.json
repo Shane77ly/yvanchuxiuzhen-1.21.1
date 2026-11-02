@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/shicai03503",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/shicai03503",
+    "particle": "yvanchuxiuzhen:block/shicai03503",
+    "0": "yvanchuxiuzhen:block/shicai03503"
+  }
+}

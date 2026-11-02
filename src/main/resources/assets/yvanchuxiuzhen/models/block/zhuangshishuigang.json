@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/zhuangshi_shuigang",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/zhuangshi_shuigang",
+    "particle": "yvanchuxiuzhen:block/zhuangshi_shuigang",
+    "0": "yvanchuxiuzhen:block/zhuangshi_shuigang"
+  }
+}

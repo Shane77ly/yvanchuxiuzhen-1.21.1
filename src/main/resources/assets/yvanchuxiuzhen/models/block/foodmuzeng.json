@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/jiuniangtianguo",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/jiuniangtianguo",
+    "particle": "yvanchuxiuzhen:block/jiuniangtianguo",
+    "0": "yvanchuxiuzhen:block/jiuniangtianguo"
+  }
+}

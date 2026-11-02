@@ -1,0 +1,9 @@
+{
+  "parent": "yvanchuxiuzhen:custom/food059",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/food059",
+    "particle": "yvanchuxiuzhen:block/food059",
+    "0": "yvanchuxiuzhen:block/foodcipan",
+    "1": "yvanchuxiuzhen:block/food059"
+  }
+}

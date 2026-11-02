@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/baoxia",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/baoxia",
+    "particle": "yvanchuxiuzhen:block/baoxia",
+    "0": "yvanchuxiuzhen:block/baoxia"
+  }
+}

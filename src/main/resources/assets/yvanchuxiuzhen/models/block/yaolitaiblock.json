@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/yaolitai",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/yaolitai",
+    "particle": "yvanchuxiuzhen:block/yaolitai",
+    "0": "yvanchuxiuzhen:block/yaolitai"
+  }
+}

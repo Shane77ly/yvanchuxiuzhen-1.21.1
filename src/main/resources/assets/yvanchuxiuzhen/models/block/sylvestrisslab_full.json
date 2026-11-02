@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/sylvestris_planks",
+    "top": "yvanchuxiuzhen:block/sylvestris_planks",
+    "side": "yvanchuxiuzhen:block/sylvestris_planks"
+  }
+}

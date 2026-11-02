@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/xixveshi",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/xixveshi",
+    "particle": "yvanchuxiuzhen:block/xixveshi",
+    "0": "yvanchuxiuzhen:block/xixveshi"
+  }
+}

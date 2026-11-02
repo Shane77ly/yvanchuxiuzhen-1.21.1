@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab_top",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/bluestonebrick",
+    "top": "yvanchuxiuzhen:block/bluestonebrick",
+    "side": "yvanchuxiuzhen:block/bluestonebrick"
+  }
+}

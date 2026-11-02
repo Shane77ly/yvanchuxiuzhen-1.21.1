@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/wall_white_cold",
+    "particle": "yvanchuxiuzhen:block/wall_white_cold"
+  }
+}

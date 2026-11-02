@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "yvanchuxiuzhen:block/strippedbeechlog",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "yvanchuxiuzhen:block/strippedbeechlog"
+    },
+    "axis=z": {
+      "model": "yvanchuxiuzhen:block/strippedbeechlog",
+      "x": 90
+    }
+  }
+}

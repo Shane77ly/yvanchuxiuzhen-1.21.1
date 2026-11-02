@@ -1,0 +1,77 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "yvanchuxiuzhen:block/camphorpane_post__cutout_mipped"
+      }
+    },
+    {
+      "when": {
+        "north": true
+      },
+      "apply": {
+        "model": "yvanchuxiuzhen:block/camphorpane_side__cutout_mipped"
+      }
+    },
+    {
+      "when": {
+        "east": true
+      },
+      "apply": {
+        "model": "yvanchuxiuzhen:block/camphorpane_side__cutout_mipped",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": true
+      },
+      "apply": {
+        "model": "yvanchuxiuzhen:block/camphorpane_side_alt__cutout_mipped"
+      }
+    },
+    {
+      "when": {
+        "west": true
+      },
+      "apply": {
+        "model": "yvanchuxiuzhen:block/camphorpane_side_alt__cutout_mipped",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "north": false
+      },
+      "apply": {
+        "model": "yvanchuxiuzhen:block/camphorpane_noside__cutout_mipped"
+      }
+    },
+    {
+      "when": {
+        "east": false
+      },
+      "apply": {
+        "model": "yvanchuxiuzhen:block/camphorpane_noside_alt__cutout_mipped"
+      }
+    },
+    {
+      "when": {
+        "south": false
+      },
+      "apply": {
+        "model": "yvanchuxiuzhen:block/camphorpane_noside_alt__cutout_mipped",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "west": false
+      },
+      "apply": {
+        "model": "yvanchuxiuzhen:block/camphorpane_noside__cutout_mipped",
+        "y": 270
+      }
+    }
+  ]
+}

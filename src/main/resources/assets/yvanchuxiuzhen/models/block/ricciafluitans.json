@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/riccia_fluitans",
+    "particle": "yvanchuxiuzhen:block/riccia_fluitans"
+  }
+}

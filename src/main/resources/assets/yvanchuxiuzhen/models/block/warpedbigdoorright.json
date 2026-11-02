@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/warped_bigdoor_right",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/warped_bigdoor",
+    "particle": "yvanchuxiuzhen:block/warped_bigdoor",
+    "0": "yvanchuxiuzhen:block/warped_bigdoor"
+  }
+}

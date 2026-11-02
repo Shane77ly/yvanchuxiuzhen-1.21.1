@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "yvanchuxiuzhen:block/renwuweizhuangfangkuai__cutout_mipped"
+    },
+    "facing=east": {
+      "model": "yvanchuxiuzhen:block/renwuweizhuangfangkuai__cutout_mipped",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "yvanchuxiuzhen:block/renwuweizhuangfangkuai__cutout_mipped",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "yvanchuxiuzhen:block/renwuweizhuangfangkuai__cutout_mipped",
+      "y": 270
+    }
+  }
+}

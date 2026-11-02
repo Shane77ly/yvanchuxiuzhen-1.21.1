@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/mangrove_bigdoor_left",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/mangrove_bigdoor",
+    "particle": "yvanchuxiuzhen:block/mangrove_bigdoor",
+    "0": "yvanchuxiuzhen:block/mangrove_bigdoor"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "yvanchuxiuzhen:block/tileimbrexgrey_05__cutout"
+    },
+    "facing=east": {
+      "model": "yvanchuxiuzhen:block/tileimbrexgrey_05__cutout",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "yvanchuxiuzhen:block/tileimbrexgrey_05__cutout",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "yvanchuxiuzhen:block/tileimbrexgrey_05__cutout",
+      "y": 270
+    }
+  }
+}

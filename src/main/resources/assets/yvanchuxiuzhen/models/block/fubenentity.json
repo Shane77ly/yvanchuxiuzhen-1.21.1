@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/fubenentity04",
+    "up": "yvanchuxiuzhen:block/fubenentity03",
+    "north": "yvanchuxiuzhen:block/fubenentity01",
+    "east": "yvanchuxiuzhen:block/fubenentity02",
+    "south": "yvanchuxiuzhen:block/fubenentity02",
+    "west": "yvanchuxiuzhen:block/fubenentity02",
+    "particle": "yvanchuxiuzhen:block/fubenentity04"
+  }
+}

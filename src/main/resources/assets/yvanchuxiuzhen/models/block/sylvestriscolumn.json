@@ -1,0 +1,9 @@
+{
+  "parent": "yvanchuxiuzhen:custom/sylvestris_column",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/stripped_sylvestris_log_top",
+    "particle": "yvanchuxiuzhen:block/stripped_sylvestris_log_top",
+    "0": "yvanchuxiuzhen:block/stripped_sylvestris_log",
+    "1": "yvanchuxiuzhen:block/stripped_sylvestris_log_top"
+  }
+}

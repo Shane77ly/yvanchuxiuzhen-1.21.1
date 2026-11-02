@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/brickwall_black",
+    "up": "yvanchuxiuzhen:block/brickwall_black",
+    "north": "yvanchuxiuzhen:block/brickwall_black",
+    "east": "yvanchuxiuzhen:block/brickwall_black",
+    "south": "yvanchuxiuzhen:block/brickwall_black",
+    "west": "yvanchuxiuzhen:block/brickwall_black",
+    "particle": "yvanchuxiuzhen:block/brickwall_black"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/bluestonebrick_floor",
+    "particle": "yvanchuxiuzhen:block/bluestonebrick_floor"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "yvanchuxiuzhen:block/camphorpressureplate__cutout"
+    },
+    "powered=true": {
+      "model": "yvanchuxiuzhen:block/camphorpressureplate_down__cutout"
+    }
+  }
+}

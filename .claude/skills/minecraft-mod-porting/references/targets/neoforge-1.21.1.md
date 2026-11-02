@@ -55,3 +55,7 @@
 - payload 处理默认在主线程，不再套用其他版本经验加一层异步队列。
 - 来源的伤害前置规则按目标事件阶段逐入口对照，不凭事件名称机械替换。
 - Data Component 的 Codec/StreamCodec、SavedData 工厂、菜单容量、实体生成和渲染注册，在上述 sources jar 的 Minecraft 源码中确认，不凭记忆指定构造签名。
+| 方块模板构造器 | `net/minecraft/world/level/block/DoorBlock.java`、`TrapDoorBlock.java`、`ButtonBlock.java`、`FenceGateBlock.java`、`state/properties/BlockSetType.java` | 21.1.265：门、活板门、按钮的构造器用 `BlockSetType` 的声音覆盖 Properties 的声音，`FenceGateBlock(WoodType, ..)` 同理（另有显式声音的构造器）；需要保留来源音效时派生 `BlockSetType`（`BlockSetType.register`）。`PressurePlateBlock` 的触发范围来自 `BlockSetType.pressurePlateSensitivity` |
+| 方块 Properties | `net/minecraft/world/level/block/state/BlockBehaviour.java` | 21.1.265：1.18.2 的 `Material` 已不存在，颜色用 `mapColor`、可燃用 `ignitedByLava`、可替换用 `replaceable`、推动反应用 `pushReaction`；`noDrops` 改名 `noLootTable`；`getLightBlock`、`getShape`、`getVisualShape`、`propagatesSkylightDown` 为 protected 方法，覆写 `getPistonPushReaction` 须为 public（与 `IBlockExtension` 冲突）；每个方块类必须实现 `codec()` |
+| 模型渲染层 | `net/neoforged/neoforge/client/model/ExtendedBlockModelDeserializer.java`、`geometry/BlockGeometryBakingContext.java` | 21.1.265：模型 JSON 的 `render_type`（如 `minecraft:cutout`）由 NeoForge 读取，沿 parent 链继承，子模型可覆盖；取代 1.18.2 在代码里 `setRenderLayer` |
+| 食物 | `net/minecraft/world/food/FoodProperties.java` | 21.1.265：食物是物品组件，`FoodProperties(nutrition, saturation, canAlwaysEat, eatSeconds, ..)`；1.18.2 的 `saturationMod` 经 `FoodConstants.saturationByModifier` 换算为 saturation，使用时长为 `eatSeconds`（1.18.2 默认 32 tick = 1.6 秒） |

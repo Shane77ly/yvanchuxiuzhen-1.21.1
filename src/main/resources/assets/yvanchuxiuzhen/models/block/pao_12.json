@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/pao12",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/pao1201",
+    "particle": "yvanchuxiuzhen:block/pao1201",
+    "0": "yvanchuxiuzhen:block/pao1201"
+  }
+}

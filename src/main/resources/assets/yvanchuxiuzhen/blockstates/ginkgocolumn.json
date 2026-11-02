@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "yvanchuxiuzhen:block/ginkgocolumn__cutout",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "yvanchuxiuzhen:block/ginkgocolumn__cutout"
+    },
+    "axis=z": {
+      "model": "yvanchuxiuzhen:block/ginkgocolumn__cutout",
+      "x": 90
+    }
+  }
+}

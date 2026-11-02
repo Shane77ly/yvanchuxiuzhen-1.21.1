@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/adobeslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/adobeslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/adobeslab_full"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab_top",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/beech_planks",
+    "top": "yvanchuxiuzhen:block/beech_planks",
+    "side": "yvanchuxiuzhen:block/beech_planks"
+  }
+}

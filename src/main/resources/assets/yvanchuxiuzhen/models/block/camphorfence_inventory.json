@@ -1,0 +1,7 @@
+{
+  "parent": "block/fence_inventory",
+  "textures": {
+    "texture": "yvanchuxiuzhen:block/camphor_planks",
+    "particle": "yvanchuxiuzhen:block/camphor_planks"
+  }
+}

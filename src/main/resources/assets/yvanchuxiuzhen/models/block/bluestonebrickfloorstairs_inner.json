@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/bluestonebrick_floor",
+    "top": "yvanchuxiuzhen:block/bluestonebrick_floor",
+    "side": "yvanchuxiuzhen:block/bluestonebrick_floor"
+  }
+}

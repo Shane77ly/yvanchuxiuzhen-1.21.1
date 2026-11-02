@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/chestnutfloorslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/chestnutfloorslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/chestnutfloorslab_full"
+    }
+  }
+}

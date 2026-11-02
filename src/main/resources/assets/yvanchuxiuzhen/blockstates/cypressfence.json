@@ -1,0 +1,48 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "yvanchuxiuzhen:block/cypressfence_post__cutout"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "yvanchuxiuzhen:block/cypressfence__cutout",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "yvanchuxiuzhen:block/cypressfence__cutout",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "yvanchuxiuzhen:block/cypressfence__cutout",
+        "y": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "yvanchuxiuzhen:block/cypressfence__cutout",
+        "y": 90,
+        "uvlock": true
+      }
+    }
+  ]
+}

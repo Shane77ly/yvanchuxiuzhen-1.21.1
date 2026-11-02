@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/camphorslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/camphorslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/camphorslab_full"
+    }
+  }
+}
