@@ -26,7 +26,7 @@ updated: 2026-11-02
 
 ## 系统设计重审
 
-2026-11-02 负责人指出系统命名与划分不成熟，指示先定系统设计，B0 步骤 2 起暂停。方案见[系统设计](../../development/system-design.md)，待批准；批准前“系统所有权”仍以[架构](../../development/architecture.md)现文为记录，但不据此开始实现。
+2026-11-02 负责人指出系统命名与划分不成熟，指示先定系统设计，B0 步骤 2 起暂停。负责人审阅第一版后指出：B0 会话反问归属说明设计不起作用，归属不能靠脚本判定；陶罐、`festival`、`decor`、`treasure`/`town`/`dungeon` 与 `Silk*` 需按具体规则确认。方案已改为[系统设计](../../development/system-design.md)第二版，待批准；批准前“系统所有权”仍以[架构](../../development/architecture.md)现文为记录，但不据此开始实现。
 
 ## 已批准与待裁定
 
