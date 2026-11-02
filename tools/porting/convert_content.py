@@ -126,6 +126,19 @@ def convert_sounds(sources: dict[str, Source], add_lang) -> list[dict]:
     return rows
 
 
+def convert_advancement_lang(sources: dict[str, Source], add_lang) -> int:
+    """进度的标题与说明文本（键写在进度文件的 translate 字段）写入 platform 的语言片段。"""
+    count = 0
+    for mod, (root, _) in SOURCES.items():
+        for file in sorted((root / f'src/main/resources/data/{mod}/advancements').glob('*.json')):
+            display = json.loads(file.read_text(encoding='utf-8'))['display']
+            for key in (display['title']['translate'], display['description']['translate']):
+                for language in LANGUAGES:
+                    add_lang('platform', language, key, sources[mod].lang[language][key])
+                count += 1
+    return count
+
+
 def main() -> None:
     expected = expected_rows()
     targets = ledger_targets()
@@ -238,6 +251,7 @@ def main() -> None:
                     add_lang('platform', language, f'itemGroup.{NAMESPACE}.{name}', title)
 
     sound_rows = convert_sounds(sources, add_lang)
+    advancement_keys = convert_advancement_lang(sources, add_lang)
 
     units = sorted(set(blocks_by_unit) | set(items_by_unit))
     for unit in units:
@@ -256,7 +270,7 @@ def main() -> None:
         writer.writerow(['registry', 'legacy_id', 'reason'])
         writer.writerows(sorted(skipped))
     print({unit: (len(blocks_by_unit.get(unit, [])), len(items_by_unit.get(unit, []))) for unit in units})
-    print('tabs', len(tabs), 'skipped', len(skipped))
+    print('tabs', len(tabs), 'sounds', len(sound_rows), 'advancement keys', advancement_keys, 'skipped', len(skipped))
 
 
 if __name__ == '__main__':
