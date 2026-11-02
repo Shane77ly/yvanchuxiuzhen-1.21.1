@@ -68,10 +68,6 @@ class Registered:
             return f'成员 {id_} 来源没有登记该 ID（来源标签的悬空引用）'
         return f'成员 {id_} 未登记，由所属系统迁移'
 
-    def exceeds_stack(self, id_: str, count: int) -> bool:
-        """1.21.1 的配方产物不允许超过物品的堆叠上限，来源 1.18.2 允许。只核对内容表声明了上限的本 Mod 物品。"""
-        return count > self.stack.get(id_, 64)
-
     def has(self, kind: str, id_: str) -> bool:
         """本 Mod 的成员必须已登记（实体类型等尚无登记集合的种类一律未登记）；原版成员按语言文件核对，流体等无核对集合的种类不核对。"""
         if id_.startswith(f'{NAMESPACE}:'):
@@ -183,10 +179,13 @@ class Converter:
             if missing is None and not self.registered.has('item', result):
                 missing = f'物品 {result}'
             out['result'] = {'id': result, 'count': source['result']['count']}
-            if missing is None and self.registered.exceeds_stack(result, out['result']['count']):
-                self.skipped.append(('recipe', f'{mod}/{file.relative_to(root).as_posix()}',
-                                     f'产物 {result} 数量 {out["result"]["count"]} 超过堆叠上限 {self.registered.stack[result]}，1.21.1 不接受，待裁定'))
-                return
+            # 1.21.1 的配方产物不允许超过物品的堆叠上限，来源 1.18.2 允许；物品的上限是它自己的属性，按负责人裁定（Q15）
+            # 把配方产物数量降到上限。只核对内容表声明了上限的本 Mod 物品。
+            limit = self.registered.stack.get(result)
+            if missing is None and limit is not None and out['result']['count'] > limit:
+                self.skipped.append(('recipe_count_clamped', f'{mod}/{file.relative_to(root).as_posix()}',
+                                     f'产物 {result} 数量 {out["result"]["count"]} 超过堆叠上限 {limit}，改为 {limit}（Q15 裁定）'))
+                out['result']['count'] = limit
         elif kind in COOKING or kind == 'minecraft:stonecutting':
             out['ingredient'], missing = self.ingredient(source['ingredient'])
             result = self.rename(source['result'])

@@ -458,7 +458,7 @@ recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/foodmuzengh
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/foodzhengguohecheng.json,引用未登记的物品 yvanchuxiuzhen:foodlongti，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/mugongtaihecheng.json,引用未登记的物品 yvanchuxiuzhen:mugongtai，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/saosilunhecheng.json,引用未登记的物品 yvanchuxiuzhen:saosilun，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/skillarrow_10hecheng.json,产物 yvanchuxiuzhen:skill_arrow_10 数量 5 超过堆叠上限 1，1.21.1 不接受，待裁定
+recipe_count_clamped,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/skillarrow_10hecheng.json,产物 yvanchuxiuzhen:skill_arrow_10 数量 5 超过堆叠上限 1，改为 1（Q15 裁定）
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/stonemillhecheng.json,引用未登记的物品 yvanchuxiuzhen:stonemill，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/stonerollerhecheng.json,引用未登记的物品 yvanchuxiuzhen:stoneroller，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/taolunhecheng.json,引用未登记的物品 yvanchuxiuzhen:taolun，由所属系统迁移

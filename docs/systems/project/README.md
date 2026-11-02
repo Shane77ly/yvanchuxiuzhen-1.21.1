@@ -25,6 +25,7 @@ updated: 2026-11-02
 | 2026-11-02 | NeoForge 版本不必追最新，下限定为 21.1.228 | `neoforge.mods.toml` 范围 `[21.1.228,21.2)`；B0 步骤 1 已将构建升至 21.1.265、ModDevGradle 2.0.148，构建与两端启动检查通过（见[月度记录](logs/2026-11.md)）；[工程结构](../../development/engineering.md)“依赖治理”同步 |
 | 2026-11-02 | 采用[系统设计](../../development/system-design.md)第二版的命名规则；采用收紧后的系统标准与清单，`yihuo` 暂定独立 | 已记入该文“负责人决定”；依赖次序、公开操作清单、归属判定待定，B0 步骤 2 起继续暂停 |
 | 2026-11-02 | 依赖规则：系统之间不得相互依赖（构建检查），不设编号次序或依赖表；`combat` 只读 `attribute` 最终值；本命槽位归 `xiulian`，本命培养数据归 `equipment` | 已写入[系统设计](../../development/system-design.md)“依赖规则”；公开操作清单、归属判定待定 |
+| 2026-11-02 | 来源矛盾 Q15：光灵箭 `skill_arrow_10` 的堆叠上限保持 1（物品自身属性），配方 `skillarrow_10hecheng` 的产出由 5 改为 1 | 已记入[技能](../skill/architecture.md)“裁定（Q15）”；转换工具对产物数量超过物品堆叠上限的配方统一降到上限并记录 |
 | 2026-11-02 | 采用公开操作清单作为每个系统的开工条件；采用“规则决定归属、脚本只给候选”，台账增加归属状态列 | 系统设计全部批准，AGENTS.md“工程边界”写入三条约束；该文“批准后的迁移”已完成（见[月度记录](logs/2026-11.md)），B0 从步骤 2 继续 |
 | 2026-11-02 | 内容族的 Java 包名由 `family` 改为 `collection`；“内容族”这一中文名称不变 | 已改包 `net.yvanchuxiuzhen.collection`、ArchUnit 规则 1、4、6 与[工程结构](../../development/engineering.md)目录及规则 |
 | 2026-11-02 | 全部注册与资源统一使用命名空间 `yvanchuxiuzhen`，原初系统内容不再保留 `yvanchuxitong`（取代已批准架构中的“保留两个命名空间”） | 常量改为 `platform/ModId`；片段路径去掉命名空间一级；台账 477 行 `target_id` 改为统一命名空间，2 处同名冲突暂定改名；[架构](../../development/architecture.md)、[工程结构](../../development/engineering.md)、[范围](../../design/scope.md)等同步（见[月度记录](logs/2026-11.md)） |
