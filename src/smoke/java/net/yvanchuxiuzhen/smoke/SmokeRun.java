@@ -174,7 +174,7 @@ final class SmokeRun {
         next();
     }
 
-    /** 第一个花与第一个双格植物的近景；双格植物在下半格上方补放上半格。 */
+    /** 第一个花、第一个双格植物与两个着色方块的近景；双格植物在下半格上方补放上半格。 */
     private void plantCloseups(List<BlockState> states, int columns, int base) {
         boolean flower = false;
         boolean doublePlant = false;
@@ -185,6 +185,11 @@ final class SmokeRun {
             if (!flower && state.getBlock() instanceof FlowerBlock) {
                 flower = true;
                 closeups.add(new Closeup("plant_" + path + ".png", CameraType.FIRST_PERSON, pos.getX() + 0.5, base + 4, pos.getZ() - 3,
+                        0.0F, 54.0F, player -> {
+                }));
+            }
+            if ((path.equals("grassblock") || path.equals("cloudblock")) && closeups.stream().noneMatch(c -> c.name().equals("tint_" + path + ".png"))) {
+                closeups.add(new Closeup("tint_" + path + ".png", CameraType.FIRST_PERSON, pos.getX() + 0.5, base + 4, pos.getZ() - 3,
                         0.0F, 54.0F, player -> {
                 }));
             }
