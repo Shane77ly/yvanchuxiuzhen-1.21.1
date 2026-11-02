@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/tail_reed01",
+    "particle": "yvanchuxiuzhen:block/tail_reed01"
+  }
+}

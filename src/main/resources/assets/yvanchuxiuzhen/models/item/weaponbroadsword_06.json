@@ -1,0 +1,7 @@
+{
+  "parent": "yvanchuxiuzhen:custom/weapon_broadsword_06",
+  "textures": {
+    "0": "yvanchuxiuzhen:block/weapon_broadsword_06",
+    "particle": "yvanchuxiuzhen:item/cailiao049"
+  }
+}

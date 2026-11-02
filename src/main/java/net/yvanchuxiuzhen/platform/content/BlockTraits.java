@@ -26,6 +26,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -231,6 +237,22 @@ public final class BlockTraits {
 
     public PushReaction pushReaction(PushReaction fallback) {
         return row.state().pushReaction().map(PushReaction::valueOf).orElse(fallback);
+    }
+
+    /** 花的炖菜效果。 */
+    public Holder<MobEffect> effect() {
+        ResourceKey<MobEffect> key = ResourceKey.create(Registries.MOB_EFFECT, ResourceLocation.parse(row.behavior().effect().orElseThrow()));
+        return BuiltInRegistries.MOB_EFFECT.getHolderOrThrow(key);
+    }
+
+    public float effectSeconds() {
+        return row.behavior().effectSeconds().orElseThrow();
+    }
+
+    /** 来源 mayPlaceOn 的地面列表；没有覆写时返回 null，沿用 BushBlock 的判定。 */
+    public Boolean mayPlaceOn(BlockState ground) {
+        return row.behavior().ground().map(ids -> ids.stream()
+                .anyMatch(id -> ground.is(BuiltInRegistries.BLOCK.get(ResourceLocation.parse(id))))).orElse(null);
     }
 
     public int flammability() {

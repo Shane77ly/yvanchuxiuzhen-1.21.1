@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "yvanchuxiuzhen:block/biggrass__cutout"
+    },
+    "half=lower": {
+      "model": "yvanchuxiuzhen:block/biggrass_bottom__cutout"
+    }
+  }
+}

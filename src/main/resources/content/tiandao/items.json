@@ -6,5 +6,6 @@
 {"id":"ling_16","factory":"item","order":1629,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","stack":1,"tooltip":["可以锁住本模组内可以展示物品的展示架。","右键展示框使其锁定。","潜行时右键展示框使其隐形。","右键空气时，周围盔甲架会锁定。","潜行右键空气时，周围盔甲架会隐形。"],"pending_hooks":["use","useOn"]},
 {"id":"tiandaoguding","factory":"block_item","block":"tiandaoguding","order":1681,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
 {"id":"tiandao_np_csetitem","factory":"item","order":1719,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","stack":1,"rarity":"EPIC","tooltip":["潜行右键打开设置面板，预设npc的属性","拿着设置好属性的此物右键npc实体，把此物的属性复制给npc"],"pending_hooks":["createMenu","getDisplayName","getShareTag","initCapabilities","readShareTag","use"]},
-{"id":"tiandaoitemnbt","factory":"block_item","block":"tiandaoitemnbt","order":1940,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"}
+{"id":"tiandaoitemnbt","factory":"block_item","block":"tiandaoitemnbt","order":1940,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
+{"id":"tiandaojianzhu","factory":"tool","order":2098,"tab":"minecraft:tools_and_utilities","tool":{"kind":"tiered","tier":{"uses":0,"speed":4.0,"damage_bonus":2.0,"level":1,"enchantability":2}},"pending_hooks":["canPerformAction","getDefaultAttributeModifiers","getDestroySpeed","hurtEnemy","isCorrectToolForDrops","mineBlock","use","useOn"]}
 ]

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/nanmu_sapling",
+    "particle": "yvanchuxiuzhen:block/nanmu_sapling"
+  }
+}

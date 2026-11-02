@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/golden_boiling_grass",
+    "particle": "yvanchuxiuzhen:block/golden_boiling_grass"
+  }
+}

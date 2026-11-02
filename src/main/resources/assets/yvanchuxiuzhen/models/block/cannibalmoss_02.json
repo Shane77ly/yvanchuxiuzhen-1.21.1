@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/cannibal_moss02",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/cannibal_moss01",
+    "particle": "yvanchuxiuzhen:block/cannibal_moss01",
+    "0": "yvanchuxiuzhen:block/cannibal_moss02"
+  }
+}

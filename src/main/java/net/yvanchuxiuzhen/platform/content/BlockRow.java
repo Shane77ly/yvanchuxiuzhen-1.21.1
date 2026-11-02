@@ -100,10 +100,15 @@ public record BlockRow(Identity identity, Physics physics, State state, Behavior
         ).apply(instance, Drop::new));
     }
 
-    /** 可燃、挖掘、掉落与尚未迁移的玩法钩子（仅记录，B1 不实现）。 */
+    /**
+     * 可燃、挖掘、掉落、花的炖菜效果与可种植的地面（ground 为空表示沿用 BushBlock 的泥土类判定）；
+     * plant_type 与 pending_hooks 只记录，B1 不实现。
+     */
     public record Behavior(Optional<Integer> flammability, Optional<Integer> fireSpread, Optional<Harvest> harvest,
                            Optional<Float> enchantPower, Optional<Drop> fallbackDrop,
-                           Optional<Boolean> doubleSlabDropsTwo, Optional<List<String>> pendingHooks) {
+                           Optional<Boolean> doubleSlabDropsTwo, Optional<Boolean> dropLowerOnly,
+                           Optional<String> effect, Optional<Float> effectSeconds, Optional<List<String>> ground,
+                           Optional<String> plantType, Optional<List<String>> pendingHooks) {
         static final MapCodec<Behavior> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.INT.optionalFieldOf("flammability").forGetter(Behavior::flammability),
                 Codec.INT.optionalFieldOf("fire_spread").forGetter(Behavior::fireSpread),
@@ -111,6 +116,11 @@ public record BlockRow(Identity identity, Physics physics, State state, Behavior
                 Codec.FLOAT.optionalFieldOf("enchant_power").forGetter(Behavior::enchantPower),
                 Drop.CODEC.optionalFieldOf("fallback_drop").forGetter(Behavior::fallbackDrop),
                 Codec.BOOL.optionalFieldOf("double_slab_drops_two").forGetter(Behavior::doubleSlabDropsTwo),
+                Codec.BOOL.optionalFieldOf("drop_lower_only").forGetter(Behavior::dropLowerOnly),
+                Codec.STRING.optionalFieldOf("effect").forGetter(Behavior::effect),
+                Codec.FLOAT.optionalFieldOf("effect_seconds").forGetter(Behavior::effectSeconds),
+                Codec.STRING.listOf().optionalFieldOf("ground").forGetter(Behavior::ground),
+                Codec.STRING.optionalFieldOf("plant_type").forGetter(Behavior::plantType),
                 Codec.STRING.listOf().optionalFieldOf("pending_hooks").forGetter(Behavior::pendingHooks)
         ).apply(instance, Behavior::new));
     }

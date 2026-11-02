@@ -8,8 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
+import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.Screenshot;
@@ -18,12 +22,16 @@ import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -35,14 +43,18 @@ import net.minecraft.world.level.LevelSettings;
 import net.minecraft.world.level.WorldDataConfiguration;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.WorldOptions;
 import net.minecraft.world.level.levelgen.presets.WorldPresets;
 import net.neoforged.neoforge.client.gui.CreativeTabsScreenPage;
 
 /**
  * 客户端冒烟检查：建一个创造模式世界，在高空平台放置本 Mod 的全部方块状态，核对每个方块与物品有模型和名称，
- * 打开创造模式物品栏并逐个切换创造栏，截图后写出报告并退出。进程中途崩溃时不会写出 DONE 行。
+ * 另对花、双格植物与每套盔甲的穿戴效果各拍一张近景，再打开创造模式物品栏并逐个切换创造栏，截图后写出报告并退出。
+ * 进程中途崩溃时不会写出 DONE 行。
  */
 final class SmokeRun {
     private static final String MOD = "yvanchuxiuzhen";
@@ -50,6 +62,7 @@ final class SmokeRun {
     private static final int[][] VIEWS = {{14, 0}, {50, 0}, {100, 0}, {30, 40}, {70, 80}, {30, 120}, {90, 160}};
     private final Path output;
     private final List<String> report = new ArrayList<>();
+    private final List<Closeup> closeups = new ArrayList<>();
     private final Minecraft minecraft = Minecraft.getInstance();
     private int ticks;
     private int phase;
@@ -58,6 +71,11 @@ final class SmokeRun {
     private List<CreativeModeTab> tabs;
     private Method selectTab;
     private String pendingShot;
+
+    /** 近景截图：相机所在玩家的位置与朝向，以及在服务端线程上的布置动作。 */
+    private record Closeup(String name, CameraType camera, double x, double y, double z, float yRot, float xRot,
+                           Consumer<ServerPlayer> setup) {
+    }
 
     SmokeRun(String output) {
         this.output = Path.of(output);
@@ -123,6 +141,8 @@ final class SmokeRun {
         }
         int columns = 64;
         int base = 200;
+        plantCloseups(states, columns, base);
+        armorCloseups(base);
         // 世界由服务端线程持有，放置在服务端线程执行并等待完成。
         minecraft.getSingleplayerServer().submit(() -> {
             ServerLevel level = minecraft.getSingleplayerServer().overworld();
@@ -140,27 +160,80 @@ final class SmokeRun {
         next();
     }
 
-    /** 从平台上方俯视几处方块行并截图，隐藏界面以便看清方块。 */
+    /** 第一个花与第一个双格植物的近景；双格植物在下半格上方补放上半格。 */
+    private void plantCloseups(List<BlockState> states, int columns, int base) {
+        boolean flower = false;
+        boolean doublePlant = false;
+        for (int i = 0; i < states.size(); i++) {
+            BlockState state = states.get(i);
+            BlockPos pos = new BlockPos((i % columns) * 2, base + 1, (i / columns) * 2);
+            String path = BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath();
+            if (!flower && state.getBlock() instanceof FlowerBlock) {
+                flower = true;
+                closeups.add(new Closeup("plant_" + path + ".png", CameraType.FIRST_PERSON, pos.getX() + 0.5, base + 4, pos.getZ() - 3,
+                        0.0F, 54.0F, player -> {
+                }));
+            }
+            if (!doublePlant && state.getBlock() instanceof DoublePlantBlock && state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER) {
+                doublePlant = true;
+                closeups.add(new Closeup("plant_" + path + ".png", CameraType.FIRST_PERSON, pos.getX() + 0.5, base + 4, pos.getZ() - 3,
+                        0.0F, 50.0F, player -> player.serverLevel().setBlock(pos.above(),
+                        state.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER), 2)));
+            }
+        }
+    }
+
+    /** 每套盔甲各让玩家穿上全部部件，以三人称正面视角拍照，贴图缺失时显示为紫黑方格。 */
+    private void armorCloseups(int base) {
+        Map<Holder<ArmorMaterial>, List<ItemStack>> sets = new LinkedHashMap<>();
+        for (Item item : BuiltInRegistries.ITEM) {
+            if (item instanceof ArmorItem armor && BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(MOD)) {
+                sets.computeIfAbsent(armor.getMaterial(), material -> new ArrayList<>()).add(new ItemStack(item));
+            }
+        }
+        for (List<ItemStack> set : sets.values()) {
+            String name = "armor_" + BuiltInRegistries.ITEM.getKey(set.get(0).getItem()).getPath() + ".png";
+            closeups.add(new Closeup(name, CameraType.THIRD_PERSON_FRONT, 40, base + 6, 20, 0.0F, 0.0F, player -> {
+                for (EquipmentSlot slot : EquipmentSlot.values()) {
+                    if (slot.isArmor()) {
+                        player.setItemSlot(slot, ItemStack.EMPTY);
+                    }
+                }
+                for (ItemStack piece : set) {
+                    player.setItemSlot(((ArmorItem) piece.getItem()).getEquipmentSlot(), piece);
+                }
+            }));
+        }
+    }
+
+    /** 从平台上方俯视几处方块行，再依次拍近景，隐藏界面以便看清方块。 */
     private void worldShots() {
         int local = ticks - phaseStart;
         int index = local / 70;
         int step = local % 70;
-        if (index >= VIEWS.length) {
+        if (index >= VIEWS.length + closeups.size()) {
             minecraft.options.hideGui = false;
+            minecraft.options.setCameraType(CameraType.FIRST_PERSON);
             next();
             return;
         }
+        Closeup closeup = index < VIEWS.length ? null : closeups.get(index - VIEWS.length);
         if (step == 0) {
             minecraft.options.hideGui = true;
-            int x = VIEWS[index][0];
-            int z = VIEWS[index][1] * 2;
+            minecraft.options.setCameraType(closeup == null ? CameraType.FIRST_PERSON : closeup.camera());
             minecraft.getSingleplayerServer().submit(() -> {
                 ServerPlayer player = minecraft.getSingleplayerServer().getPlayerList().getPlayers().get(0);
-                player.teleportTo(minecraft.getSingleplayerServer().overworld(), x, 208, z - 6, 0.0F, 55.0F);
+                ServerLevel level = minecraft.getSingleplayerServer().overworld();
+                if (closeup == null) {
+                    player.teleportTo(level, VIEWS[index][0], 208, VIEWS[index][1] * 2 - 6, 0.0F, 55.0F);
+                } else {
+                    closeup.setup().accept(player);
+                    player.teleportTo(level, closeup.x(), closeup.y(), closeup.z(), closeup.yRot(), closeup.xRot());
+                }
             }).join();
         }
         if (step == 60) {
-            shot("world_" + index + ".png");
+            shot(closeup == null ? "world_" + index + ".png" : closeup.name());
         }
     }
 

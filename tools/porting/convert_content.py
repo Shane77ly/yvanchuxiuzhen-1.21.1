@@ -16,7 +16,7 @@ from pathlib import Path
 
 from build_ledger import INVENTORY, NAMESPACE, ROOT, expected_rows, read_ledgers
 from legacy_blocks import BASES, parse_block
-from legacy_items import parse_item
+from legacy_items import TOOL_KINDS, parse_armor_material, parse_armor_piece, parse_item, parse_tool
 
 WORKSPACE = Path('D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-1.21.1/reference')
 SOURCES = {
@@ -29,7 +29,8 @@ CONVERSION = ROOT / 'docs/reference/conversion'
 FACTORIES = {'Block': 'block', 'SlabBlock': 'slab', 'StairBlock': 'stairs', 'WallBlock': 'wall', 'LeavesBlock': 'leaves',
              'FenceBlock': 'fence', 'FenceGateBlock': 'fence_gate', 'WoodButtonBlock': 'button',
              'PressurePlateBlock': 'pressure_plate', 'IronBarsBlock': 'pane', 'DoorBlock': 'door',
-             'TrapDoorBlock': 'trapdoor', 'FallingBlock': 'falling'}
+             'TrapDoorBlock': 'trapdoor', 'FallingBlock': 'falling', 'FlowerBlock': 'flower',
+             'DoublePlantBlock': 'double_plant'}
 # 1.18.2 原版创造栏在 1.21.1 的对应；临时对应，待负责人确认。
 VANILLA_TABS = {'TAB_MISC': 'minecraft:tools_and_utilities', 'TAB_DECORATIONS': 'minecraft:building_blocks',
                 'TAB_TOOLS': 'minecraft:tools_and_utilities'}
@@ -49,7 +50,7 @@ class Source:
         tabs_text = (init / f'{self.prefix}ModTabs.java').read_text(encoding='utf-8')
         self.block_class = dict(re.findall(r'register\("(\w+)", \(\) -> new (\w+)\(\)\)', blocks_text))
         self.block_const = {c: p for c, p in re.findall(r'RegistryObject<Block> (\w+) = \w+\.register\("(\w+)"', blocks_text)}
-        self.item_class = dict(re.findall(r'register\("(\w+)", \(\) -> new (\w+Item)\(\)\)', items_text))
+        self.item_class = dict(re.findall(r'register\("(\w+)", \(\) -> new ([\w.]+Item(?:\.\w+)?)\(\)\)', items_text))
         self.item_const = {c: p for c, p in re.findall(r'RegistryObject<Item> (\w+) = \w+\.register\("(\w+)"', items_text)}
         self.block_items = {}
         for const, helper, block, tab in re.findall(r'RegistryObject<Item> (\w+) = (block|doubleBlock)\(\w+\.(\w+), (?:\w+\.)?(\w+)\)', items_text):
@@ -107,6 +108,7 @@ def main() -> None:
     lang: dict[str, dict[str, dict[str, str]]] = defaultdict(lambda: {language: {} for language in LANGUAGES})
     skipped: list[tuple[str, str, str]] = []
     block_tooltips: dict[tuple[str, str], list[str]] = {}
+    armor_materials: dict[tuple[str, str], dict] = {}
 
     def add_lang(unit: str, language: str, key: str, value: str) -> None:
         lang[unit][language][key] = value
@@ -158,13 +160,28 @@ def main() -> None:
             if class_name is None:
                 skipped.append(('item', legacy_id, source.special_item_reason(path)))
                 continue
-            text = source.java('item', class_name)
-            base = re.search(r'public class \w+ extends (\w+)', text).group(1)
-            if base != 'Item':
-                skipped.append(('item', legacy_id, f'物品基类 {base} 由所属系统迁移'))
-                continue
+            outer, _, piece = class_name.partition('.')
+            text = source.java('item', outer)
+            base = re.search(r'public (?:abstract )?class \w+ extends (\w+)', text).group(1)
             try:
-                row = {'id': target, 'factory': 'item', 'order': order, **parse_item(text, source.tabs)}
+                if base == 'Item':
+                    row = {'id': target, 'factory': 'item', 'order': order, **parse_item(text, source.tabs)}
+                elif base in TOOL_KINDS:
+                    row = {'id': target, 'factory': 'tool', 'order': order, **parse_tool(text, base, source.tabs, source.item_const)}
+                elif base == 'ArmorItem' and piece:
+                    material = parse_armor_material(text, source.item_const)
+                    part = parse_armor_piece(text, piece, source.tabs)
+                    texture = part.pop('armor_texture')
+                    multiplier = material.pop('durability_multiplier')
+                    key = (unit, material['id'])
+                    known = armor_materials.setdefault(key, {**material, 'texture': texture})
+                    if known['texture'] != texture:
+                        raise ValueError('同一盔甲材质的部件贴图不一致')
+                    row = {'id': target, 'factory': 'armor', 'order': order, 'armor': {'material': material['id'], 'slot': piece.upper()},
+                           'durability_multiplier': multiplier, **part}
+                else:
+                    skipped.append(('item', legacy_id, f'物品基类 {base} 由所属系统迁移'))
+                    continue
             except ValueError as error:
                 skipped.append(('item', legacy_id, f'{class_name}：{error}'[:200]))
                 continue
@@ -197,6 +214,8 @@ def main() -> None:
             write_rows(CONTENT / unit / 'blocks.json', blocks_by_unit[unit])
         if items_by_unit.get(unit):
             write_rows(CONTENT / unit / 'items.json', items_by_unit[unit])
+    for unit in sorted({u for u, _ in armor_materials}):
+        write_rows(CONTENT / unit / 'armor_materials.json', [m for (u, _), m in sorted(armor_materials.items()) if u == unit])
     write_rows(CONTENT / 'platform' / 'tabs.json', sorted(tabs, key=lambda t: t['id']))
     write_lang(lang)
     CONVERSION.mkdir(parents=True, exist_ok=True)

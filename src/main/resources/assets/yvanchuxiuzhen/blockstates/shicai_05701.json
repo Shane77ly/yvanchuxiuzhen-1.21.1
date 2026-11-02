@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "yvanchuxiuzhen:block/shicai_05701__cutout"
+    },
+    "half=lower": {
+      "model": "yvanchuxiuzhen:block/shicai_05701_bottom__cutout"
+    }
+  }
+}

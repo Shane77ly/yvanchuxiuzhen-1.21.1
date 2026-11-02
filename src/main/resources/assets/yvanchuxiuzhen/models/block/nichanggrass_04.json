@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/nichanggrass04",
+    "particle": "yvanchuxiuzhen:block/nichanggrass04"
+  }
+}

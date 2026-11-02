@@ -175,6 +175,7 @@
 {"id":"food_075","factory":"block_item","block":"food_075","order":1208,"tab":"yvanchuxiuzhen:tabyvanchu_food"},
 {"id":"food_076","factory":"block_item","block":"food_076","order":1209,"tab":"yvanchuxiuzhen:tabyvanchu_food"},
 {"id":"food_077","factory":"item","order":1210,"tab":"yvanchuxiuzhen:tabyvanchu_food","food":{"nutrition":7,"saturation_mod":2.0},"pending_hooks":["finishUsingItem"]},
+{"id":"caidao","factory":"tool","order":1211,"tab":"minecraft:tools_and_utilities","tool":{"kind":"axe","tier":{"uses":0,"speed":4.0,"damage_bonus":2.0,"level":1,"enchantability":2},"damage":1,"attack_speed":-3.0},"tooltip":["对着案板左键开始切菜。"]},
 {"id":"food_078","factory":"item","order":1213,"tab":"yvanchuxiuzhen:tabyvanchu_food","food":{"nutrition":2,"saturation_mod":2.0},"pending_hooks":["finishUsingItem"]},
 {"id":"food_079","factory":"item","order":1214,"tab":"yvanchuxiuzhen:tabyvanchu_food","food":{"nutrition":1,"saturation_mod":1.0},"pending_hooks":["finishUsingItem"]},
 {"id":"food_080","factory":"item","order":1215,"tab":"yvanchuxiuzhen:tabyvanchu_food","food":{"nutrition":1,"saturation_mod":1.0},"pending_hooks":["finishUsingItem"]},

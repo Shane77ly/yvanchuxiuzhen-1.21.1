@@ -82,12 +82,12 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 ### 内容表格式（B1 已实现并实测）
 
-- 位置：`src/main/resources/content/<单位>/blocks.json`、`items.json`，每个文件是行的数组，一行一个对象；创造栏在 `content/platform/tabs.json`。由 `tools/porting/convert_content.py` 生成，系统验收前可重跑。
+- 位置：`src/main/resources/content/<单位>/blocks.json`、`items.json`、`armor_materials.json`（盔甲材质，物品行的 `armor.material` 引用其 `id`），每个文件是行的数组，一行一个对象；创造栏在 `content/platform/tabs.json`。由 `tools/porting/convert_content.py` 生成，系统验收前可重跑。
 - 行：方块行有 `id`、`factory`、`material`、`sound`、`states` 等字段，物品行有 `id`、`factory`、`order`（来源注册顺序）与 `tab`、`stack`、`rarity`、`food`、`tooltip` 等，完整字段见 `platform/content/BlockRow`、`ItemRow` 的 Codec。字段取自来源**生成的 Java**（构造器 Properties 链、状态属性与放置规则、`getShape`、`getLightBlock`、可燃、`canHarvestBlock`、回退掉落），不取编辑器字段名；方块类中玩法钩子（右键、tick、方块实体、菜单等）只记入 `pending_hooks`，B1 不实现。
 - 加载：每个单位的 `<名称>Setup` 持有一个 `ContentTables(单位)`，Mod 构造时读取该单位的内容表，用 Codec 解码并登记到本单位的 `DeferredRegister`。解码失败或含有 Codec 不认识的字段（编码回写后比对键集合）时报出文件与行号并中止启动；未知工厂类型同样中止。
-- 工厂：`platform/content` 提供 13 种方块工厂（普通、含水普通、台阶、楼梯、墙、树叶、栅栏、栅栏门、按钮、压力板、玻璃板、门、活板门、下落）与物品、方块物品、双格方块物品。系统专属类型（工具、盔甲、动画方块等）由所属系统提供，内容需要专属行为时所属系统把该行的工厂换成自己的类型。
+- 工厂：`platform/content` 提供 15 种方块工厂（普通、含水普通、台阶、楼梯、墙、树叶、栅栏、栅栏门、按钮、压力板、玻璃板、门、活板门、下落、花 `flower`、双格植物 `double_plant`）与物品、方块物品、双格方块物品、工具（剑、斧、镐、锹、`TieredItem`，来源的匿名 `Tier` 以 `LegacyTier` 保存，含 1.21.1 已不存在的等级）、盔甲部件（材质来自 `armor_materials.json`，部件耐久为 `ArmorItem.Type.getDurability(durability_multiplier)`，与来源的 `{13, 15, 16, 11}[槽位] × 倍率` 一致）。需要新代码类型的内容（动画方块、GeckoLib 盔甲、使用自定义盔甲模型类的盔甲、桶、刷怪蛋等）由所属系统提供，内容需要专属行为时所属系统把该行的工厂换成自己的类型。
 - 不进内容表：渲染层写在模型 JSON 的 `render_type`（见资源转换）；挖掘等级沿用来源的“工具类 + 等级”判定，在方块的 `canHarvestBlock` 中实现，等级由 Tier 的“不能正确采掘的方块”标签还原（1.21.1 的 Tier 没有等级；自定义等级随工具工厂实现时再登记）。
-- 实测（2026-11-02，NeoForge 21.1.265）：832 个方块与 1,626 个物品（方块物品含在内）登记后，开发服务端启动至 `Done (4.2s)`，日志 ERROR 0 条；开发客户端加载至声音引擎启动，ERROR 0 条。开发服务端按 `build.gradle` 的运行配置导出注册表到 `build/registry-export`，`check_ledger.py` 与台账比对一致。
+- 实测（2026-11-02，NeoForge 21.1.265）：832 个方块与 1,626 个物品（方块物品含在内）登记后，开发服务端启动至 `Done (4.2s)`，日志 ERROR 0 条；开发客户端加载至声音引擎启动，ERROR 0 条。开发服务端按 `build.gradle` 的运行配置导出注册表到 `build/registry-export`，`check_ledger.py` 与台账比对一致。加入植物（295）、工具（102）与盔甲（40 件）后同样实测：1,127 个方块与 2,063 个物品，服务端 `Done (6.7s)`、ERROR 0 条，客户端冒烟检查通过，证据见[冒烟证据](../systems/project/evidence/2026-11-02-smoke/README.md)。
 - 与 1.21.1 构造器的差异：`DoorBlock`、`TrapDoorBlock`、`ButtonBlock` 的构造器会用 `BlockSetType` 的声音覆盖 Properties 的声音，`FenceGateBlock(WoodType, ..)` 同理，因此按 (用途, 基础类型, 音效) 派生 `BlockSetType`、栅栏门用显式声音的构造器，使来源音效保留。
 
 ### B1 范围（2026-11-02 静态盘点，来源为 MCreator 2023.1 的 forge-1.18.2 生成器，全部元素未锁定代码）
@@ -96,14 +96,14 @@ tools/porting/                  来源索引、台账检查、资源转换
 | --- | ---: | --- |
 | 普通方块（`Block`） | 662 | 方块工厂：形状（按朝向旋转的碰撞箱）、朝向方式、含水、透明与透光、亮度、可燃、推动反应、挖掘判定 |
 | 原版模板方块：台阶、楼梯 30/30，树叶 27，门 16，玻璃板 16，压力板 15，按钮、栅栏、栅栏门、活板门各 8，墙 5 | 171 | 对应原版类的工厂 |
-| 植物：`FlowerBlock`、`DoublePlantBlock` | 267 / 28 | 植物工厂 |
+| 植物：`FlowerBlock`、`DoublePlantBlock` | 267 / 28 | 植物工厂（已实现 2026-11-02）：炖菜效果、可种植的地面、形状 |
 | 下落方块（`FallingBlock`） | 1 | 方块工厂 |
 | 带物品栏的方块 | 115 | 按方块登记身份；方块实体、菜单随所属系统 |
 | GeckoLib 动画方块（`BaseEntityBlock`） | 40 | 随所属系统（渲染依赖方块实体与 GeckoLib） |
 | 维度传送门（`NetherPortalBlock`）、流体方块（`LiquidBlock`） | 6 / 5 | 随 `world` 与所属系统（需要维度与流体类型） |
 | 普通物品（`Item`） | 794 个类 | 物品工厂：堆叠、稀有度、防火、食物、提示文本 |
 | 方块物品 | 1,169 | 随方块登记 |
-| 工具（剑 72、斧 11、镐 9、`TieredItem` 9、锹 1）、普通盔甲（18 套） | — | 所属系统提供的工厂，B1 登记身份与属性 |
+| 工具（剑 72、斧 11、镐 9、`TieredItem` 9、锹 1）、普通盔甲（18 套） | — | 工具 102 个与 11 套盔甲（40 件）已登记；其余 7 套（`Clothes08`–`12`、`18`、`20`，28 件）使用自定义盔甲模型类与 `textures/entities` 单文件贴图，随所属系统的客户端模型迁移 |
 | GeckoLib 盔甲与动画物品、桶 | 17 / 4 / 4 | 随所属系统 |
 | 创造栏 | 原初修真 8 个、原初系统 2 个 | 1.21.1 中为注册内容，由 `platform` 登记，物品按来源归入 |
 
@@ -128,7 +128,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 转换工具每次输出一份清单（来源文件、哈希、目标文件），台账检查据此确认没有遗漏。系统验收前可以重跑转换；验收后转换结果成为手工维护的正文，清单保留来源。只有转换无法表达的资源才使用 datagen。
 
-已实现并实测（2026-11-02）：`tools/porting/convert_content.py` 生成内容表与语言片段（方块、物品名称与提示文本、创造栏名称），`tools/porting/convert_assets.py` 迁移方块状态、模型与纹理并输出 `docs/reference/conversion/manifest.csv`（来源、来源 SHA-1、目标）；`docs/reference/conversion/skipped.csv` 列出未生成行的注册及原因（由所属系统迁移的基类、未识别的写法）。资源转换规则：目录 `blocks/`、`items/` 改为 `block/`、`item/`；两个来源命名空间统一，JSON 中的 `parent`、`model`、`textures` 引用同步改写；方块 Java 的 `registerRenderLayer` 写为模型 `render_type`，由生成的子模型 `block/<名>__cutout` 等承载（NeoForge 的 render_type 沿 parent 链继承，方块物品的模型 parent 同步指向子模型）；来源 Blockbench 模型的 `parent` 指向不存在的原版模型（无命名空间，如 `food002`）时丢弃该 parent，1.18.2 与 1.21.1 都回退为缺失模型的父级，不影响模型自身的元素。同一目标路径来自内容不同的来源文件时报错。迁移出 6,309 个文件（约 40 MB），开发客户端加载后模型与纹理警告只剩来源本身的缺陷（3 个方块的 `missing` 纹理指向空路径，已写入台账备注）。尚未转换：配方、方块掉落表（回退掉落与来源掉落表）、标签（含 `mineable`）、进度、结构、声音文件、植物方块（`FlowerBlock`、`DoublePlantBlock`）、方块着色。
+已实现并实测（2026-11-02）：`tools/porting/convert_content.py` 生成内容表与语言片段（方块、物品名称与提示文本、创造栏名称），`tools/porting/convert_assets.py` 迁移方块状态、模型与纹理并输出 `docs/reference/conversion/manifest.csv`（来源、来源 SHA-1、目标）；`docs/reference/conversion/skipped.csv` 列出未生成行的注册及原因（由所属系统迁移的基类、未识别的写法）。资源转换规则：目录 `blocks/`、`items/` 改为 `block/`、`item/`；两个来源命名空间统一，JSON 中的 `parent`、`model`、`textures` 引用同步改写；方块 Java 的 `registerRenderLayer` 写为模型 `render_type`，由生成的子模型 `block/<名>__cutout` 等承载（NeoForge 的 render_type 沿 parent 链继承，方块物品的模型 parent 同步指向子模型）；来源 Blockbench 模型的 `parent` 指向不存在的原版模型（无命名空间，如 `food002`）时丢弃该 parent，1.18.2 与 1.21.1 都回退为缺失模型的父级，不影响模型自身的元素。同一目标路径来自内容不同的来源文件时报错。迁移出 6,309 个文件（约 40 MB），开发客户端加载后模型与纹理警告只剩来源本身的缺陷（3 个方块的 `missing` 纹理指向空路径，已写入台账备注）。盔甲两层贴图 `textures/models/armor/<名>_layer_1.png`、`_layer_2.png` 随 `armor_materials.json` 转换，缺失时计入清单的缺失项。尚未转换：配方、方块掉落表（回退掉落与来源掉落表）、标签（含 `mineable`）、进度、结构、声音文件、方块着色。
 
 语言片段与声音片段由 `build.gradle` 的 `mergeAssetFragments` 任务合并为生成资源 `assets/yvanchuxiuzhen/lang/<语言>.json` 与 `assets/yvanchuxiuzhen/sounds.json`（命名空间取 `mod_id`），同一片段内或不同片段之间的重复键、无效 JSON、不符合上述路径约定的文件都使构建失败；`src/main/resources` 中不再放这两类文件。这样各系统并行修改时不在同一个大文件上冲突。已实测（B0 步骤 5）：两种语言的片段合并进 JAR，转义值往返不变；开发客户端读取了合并后的 `sounds.json`。2026-11-02 改为单一命名空间后重新核对了 JAR 中的输出路径，旧的带命名空间目录的片段路径使构建失败。
 
@@ -173,7 +173,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 | 纯规则 | JUnit 5，只测易回归公式与已复现问题 | 第一个需要的系统 |
 | 世界内行为 | NeoForge GameTest（独立源集，`gameTestServer` 运行） | 第一个需要的系统建立源集，之后按风险添加 |
 | 加载检查 | 开发服务端启动至 Done、客户端加载至声音引擎启动、日志无 ERROR | 每次依赖更新与批次出口 |
-| 客户端冒烟 | `gradlew runSmokeClient`（源集 `src/smoke`，不进入发布 JAR）：自动建创造世界，放置本 Mod 全部方块状态，核对每个方块与物品有模型、名称与提示文本翻译，打开创造栏并逐栏切换后截图，报告写入 `build/smoke/report.txt`，缺 `DONE` 行表示中途崩溃 | 每次改动内容表、资源、语言或创造栏后由开发者自己运行，不交给负责人手工操作 |
+| 客户端冒烟 | `gradlew runSmokeClient`（源集 `src/smoke`，不进入发布 JAR）：自动建创造世界，放置本 Mod 全部方块状态，核对每个方块与物品有模型、名称与提示文本翻译，对花、双格植物与每套盔甲（穿戴后三人称正面视角）各拍一张近景，打开创造栏并逐栏切换后截图，报告写入 `build/smoke/report.txt`，缺 `DONE` 行表示中途崩溃 | 每次改动内容表、资源、语言或创造栏后由开发者自己运行，不交给负责人手工操作 |
 | 台账与文档 | `check_ledger.py`、`check_docs.py`、`inventory_legacy.py --check` | 每次提交前 |
 
 远端已建立，CI 尚未配置；配置后在 CI 执行构建、`check` 与文档/台账检查。来源工作区不在仓库中，`inventory_legacy.py --check` 只能在有来源的机器上执行。

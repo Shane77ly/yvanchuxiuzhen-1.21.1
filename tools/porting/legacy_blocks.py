@@ -10,7 +10,7 @@ import re
 from legacy_items import tooltip_lines
 
 BASES = ('Block', 'SlabBlock', 'StairBlock', 'WallBlock', 'LeavesBlock', 'FenceBlock', 'FenceGateBlock', 'WoodButtonBlock',
-         'PressurePlateBlock', 'IronBarsBlock', 'DoorBlock', 'TrapDoorBlock', 'FallingBlock')
+         'PressurePlateBlock', 'IronBarsBlock', 'DoorBlock', 'TrapDoorBlock', 'FallingBlock', 'FlowerBlock', 'DoublePlantBlock')
 # 类里出现这些覆写说明方块带有玩法行为，B1 只登记身份与基础属性，行为由所属系统迁移。
 BEHAVIOR_HOOKS = ('use', 'onPlace', 'onRemove', 'tick', 'randomTick', 'neighborChanged', 'entityInside', 'setPlacedBy',
                   'wasExploded', 'onDestroyedByPlayer', 'onProjectileHit', 'attack', 'animateTick', 'triggerEvent',
@@ -21,7 +21,14 @@ BEHAVIOR_HOOKS = ('use', 'onPlace', 'onRemove', 'tick', 'randomTick', 'neighborC
 HANDLED = {'getLightBlock', 'propagatesSkylightDown', 'getVisualShape', 'getShape', 'createBlockStateDefinition',
            'getStateForPlacement', 'getFluidState', 'updateShape', 'getDrops', 'getFlammability', 'getFireSpreadSpeed',
            'canHarvestBlock', 'rotate', 'mirror', 'getPistonPushReaction', 'getOffsetType', 'getEnchantPowerBonus',
-           'getExplosionResistance', 'isRandomlyTicking', 'canBeReplaced', 'appendHoverText'}
+           'getExplosionResistance', 'isRandomlyTicking', 'canBeReplaced', 'appendHoverText', 'canSurvive',
+           'getPlantType', 'getEffectDuration', 'mayPlaceOn'}
+EFFECTS = {'MOVEMENT_SLOWDOWN': 'slowness', 'MOVEMENT_SPEED': 'speed', 'DIG_SLOWDOWN': 'mining_fatigue', 'DIG_SPEED': 'haste',
+           'DAMAGE_BOOST': 'strength', 'HARM': 'instant_damage', 'JUMP': 'jump_boost', 'CONFUSION': 'nausea',
+           'DAMAGE_RESISTANCE': 'resistance', 'POISON': 'poison', 'REGENERATION': 'regeneration', 'FIRE_RESISTANCE': 'fire_resistance',
+           'HUNGER': 'hunger', 'LUCK': 'luck', 'UNLUCK': 'unluck', 'WITHER': 'wither', 'HERO_OF_THE_VILLAGE': 'hero_of_the_village',
+           'NIGHT_VISION': 'night_vision', 'GLOWING': 'glowing', 'SATURATION': 'saturation', 'WEAKNESS': 'weakness',
+           'BLINDNESS': 'blindness'}
 
 
 def _balanced(text: str, start: int) -> str:
@@ -215,9 +222,13 @@ def parse_block(source: str, items: dict[str, str], blocks: dict[str, str]) -> d
     if harvest is not None:
         found = re.search(r'instanceof (\w+) tieredItem\)\s*return tieredItem\.getTier\(\)\.getLevel\(\) >= (\d+);', harvest)
         row['harvest'] = {'tool': found.group(1), 'level': int(found.group(2))}
+    if base in ('FlowerBlock', 'DoublePlantBlock'):
+        _parse_plant(source, chain, base, row, blocks)
     drops = _method(source, 'getDrops')
     if drops is not None:
         found = re.search(r'return Collections\.singletonList\(new ItemStack\((.*)\)\);', drops)
+        if 'HALF) != DoubleBlockHalf.LOWER' in drops:
+            row['drop_lower_only'] = True
         expression = found.group(1)
         if re.search(r', state\.getValue\(TYPE\) == SlabType\.DOUBLE \? 2 : 1$', expression):
             expression = expression.rsplit(',', 1)[0]
@@ -236,3 +247,37 @@ def parse_block(source: str, items: dict[str, str], blocks: dict[str, str]) -> d
     if other:
         raise ValueError('覆写未识别：' + ','.join(other))
     return row
+
+
+CANSURVIVE = re.compile(r'BlockPos blockpos = pos\.below\(\);\s*BlockState groundState = worldIn\.getBlockState\(blockpos\);\s*return this\.mayPlaceOn\(groundState, worldIn, blockpos\);')
+CANSURVIVE_DOUBLE = re.compile(r'BlockPos blockpos = pos\.below\(\);\s*BlockState groundState = worldIn\.getBlockState\(blockpos\);\s*if \(blockstate\.getValue\(HALF\) == DoubleBlockHalf\.UPPER\)\s*return groundState\.is\(this\) && groundState\.getValue\(HALF\) == DoubleBlockHalf\.LOWER;\s*else\s*return this\.mayPlaceOn\(groundState, worldIn, blockpos\);')
+
+
+def _parse_plant(source: str, chain: str, base: str, row: dict, blocks: dict[str, str]) -> None:
+    """花与双格植物：效果（炖菜）、可种植的地面、默认偏移；canSurvive 只接受生成器的两种标准写法。"""
+    if base == 'FlowerBlock':
+        effect = re.match(r'(?:MobEffects\.(\w+)), \d+, ', chain)
+        row['effect'] = 'minecraft:' + EFFECTS[effect.group(1)]
+        row['effect_seconds'] = int(re.search(r'return (\d+);', _method(source, 'getEffectDuration')).group(1)) / 20
+    plant = _method(source, 'getPlantType')
+    if plant is not None and 'PlantType.PLAINS' not in plant:
+        # 1.18.2 的 PlantType 只供地面的 canSustainPlant 查询；放置由 mayPlaceOn 决定，这里记录供种植类系统使用。
+        row['plant_type'] = re.search(r'PlantType\.(\w+)', plant).group(1)
+    may = _method(source, 'mayPlaceOn')
+    if may is not None:
+        grounds = []
+        for ref in re.findall(r'groundState\.is\(([^)]*\)?)\)', may.split('return', 1)[1]):
+            if ref.startswith('Blocks.'):
+                grounds.append('minecraft:' + ref.split('.', 1)[1].lower())
+            else:
+                found = re.fullmatch(r'\w+ModBlocks\.(\w+)\.get\(\)', ref)
+                grounds.append(blocks[found.group(1)])
+        if not grounds or re.sub(r'groundState\.is\([^)]*\)?\)|\s|\|\||return|;', '', may):
+            raise ValueError('可种植地面未识别：' + may.strip()[:120])
+        row['ground'] = grounds
+    survive = _method(source, 'canSurvive')
+    if survive is not None:
+        expected = CANSURVIVE_DOUBLE if base == 'DoublePlantBlock' else CANSURVIVE
+        if not expected.search(survive):
+            raise ValueError('canSurvive 未识别：' + survive.strip()[:120])
+    row.setdefault('offset', 'XZ')

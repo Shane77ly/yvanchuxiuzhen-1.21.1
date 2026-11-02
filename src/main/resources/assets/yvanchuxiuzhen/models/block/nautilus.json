@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/nautilus",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/nautilus_shell",
+    "particle": "yvanchuxiuzhen:block/nautilus_shell",
+    "0": "yvanchuxiuzhen:block/nautilus"
+  }
+}

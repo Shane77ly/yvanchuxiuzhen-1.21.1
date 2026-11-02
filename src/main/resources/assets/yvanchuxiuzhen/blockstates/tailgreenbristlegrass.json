@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "yvanchuxiuzhen:block/tailgreenbristlegrass__cutout"
+    },
+    "half=lower": {
+      "model": "yvanchuxiuzhen:block/tailgreenbristlegrass_bottom__cutout"
+    }
+  }
+}

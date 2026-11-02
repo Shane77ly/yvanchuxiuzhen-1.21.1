@@ -1,0 +1,7 @@
+{
+  "parent": "yvanchuxiuzhen:custom/gongjv008",
+  "textures": {
+    "0": "yvanchuxiuzhen:block/gongjv008",
+    "particle": "yvanchuxiuzhen:item/cailiao085"
+  }
+}

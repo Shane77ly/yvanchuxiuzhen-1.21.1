@@ -169,6 +169,17 @@ class Converter:
         self.emit(file, mod, ASSETS / 'blockstates' / f'{target}.json', json_bytes(data))
         return wrappers
 
+    def armor_textures(self, name: str) -> None:
+        """盔甲材质的两层贴图 textures/models/armor/<名>_layer_1.png、_layer_2.png，在两个来源中查找。"""
+        for layer in (1, 2):
+            relative = f'models/armor/{name}_layer_{layer}.png'
+            found = [(mod, self.roots[mod] / mod / 'textures' / relative) for mod in SOURCES if (self.roots[mod] / mod / 'textures' / relative).is_file()]
+            if not found:
+                self.missing.append((relative, '盔甲贴图'))
+                continue
+            mod, file = found[0]
+            self.emit(file, mod, ASSETS / 'textures' / relative, file.read_bytes())
+
     def item(self, mod: str, path: str, target: str, parents: dict[str, str]) -> None:
         file = self.roots[mod] / mod / 'models/item' / f'{path}.json'
         if not file.is_file():
@@ -237,6 +248,11 @@ def main() -> None:
                 mod, path = origin[('item', row['id'])]
                 parents = block_wrappers.get(row['block'], {}) if row['factory'] == 'block_item' else {}
                 converter.item(mod, path, row['id'], parents)
+    for unit in units:
+        file = CONTENT / unit / 'armor_materials.json'
+        if file.is_file():
+            for row in json.loads(file.read_text(encoding='utf-8')):
+                converter.armor_textures(row['texture'])
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
     with MANIFEST.open('w', encoding='utf-8', newline='') as handle:
         writer = csv.writer(handle, lineterminator='\n')

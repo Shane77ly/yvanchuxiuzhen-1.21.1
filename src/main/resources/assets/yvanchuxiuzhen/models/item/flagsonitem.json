@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "yvanchuxiuzhen:item/flag_son_item"
+  }
+}
