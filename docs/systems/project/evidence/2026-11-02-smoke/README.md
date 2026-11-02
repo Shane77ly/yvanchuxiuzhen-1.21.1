@@ -1,6 +1,6 @@
 ---
 topic: smoke-evidence
-role: evidence
+role: record
 status: current
 updated: 2026-11-02
 ---
