@@ -5,7 +5,7 @@
 - 来源：原初修真 `yvanchuxiuzhen`、原初系统 `yvanchuxitong`，均为 MCreator 生成的 1.18.2 / Forge 40.1.0 / Java 17 工程，互为必需依赖。位置、锁定标识与静态证据见 `docs/reference/legacy/README.md`。
 - 目标：Minecraft 1.21.1、NeoForge、Java 21，合并为一个可安装 Mod，内部按系统组织。
 - 范围：全量移植两个 Mod 的全部系统。
-- 目标源码：构建后的 `build/moddev/artifacts/neoforge-<版本>-sources.jar`（含 Minecraft 与 NeoForge 源码，随依赖版本生成）；FML 等库在 Gradle 缓存。邻近工程的 `reference/neoforge-21.1.228-sources` 只在版本相同时作对照。
+- 目标源码：构建后的 `build/moddev/artifacts/neoforge-<版本>-sources.jar`（含 Minecraft 与 NeoForge 源码，随依赖版本生成；当前构建为 NeoForge 21.1.265，最低支持 21.1.228）；FML 等库在 Gradle 缓存。邻近工程的 `reference/neoforge-21.1.228-sources` 只在版本相同时作对照。
 - 非依据：邻近 1.21.1 工程 `yuanchuxiuzhen-1.21.1` 只提供工程参考。
 - 当前关口：B0 架构验证切片（`docs/development/roadmap.md`）。2026-11-02 负责人批准 `docs/development/architecture.md`、`engineering.md`、`roadmap.md`（main 提交 `3e0585c` 版本）并指示自 B0 步骤 1 开始，工作分支 `port/b0-slice`。批准范围仅限这三份文档；存档导入、界面复刻程度、license、来源矛盾 Q01–Q14 以及未列入的文档（含各系统 `architecture.md`、`data-and-runtime.md`）仍为待裁定或草案，对应内容实现前需另行裁定。goal 仍未授权，未经明确批准不创建 goal。
 - 开发环境：Mod ID `yvanchuxiuzhen`，Java 基础包 `net.yvanchuxiuzhen`；构建组合与验证见 `docs/development/architecture.md` 的“技术依赖”。
