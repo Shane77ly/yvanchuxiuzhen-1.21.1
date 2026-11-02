@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0",
+    "1",
+    "2"
+  ],
+  "key": {
+    "0": {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    "1": {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:cailiao_201"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:skill_arrow_07",
+    "count": 6
+  }
+}

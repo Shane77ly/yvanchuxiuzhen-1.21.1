@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:shicai_035"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:shicai_03501",
+    "count": 3
+  }
+}

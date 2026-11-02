@@ -31,6 +31,11 @@
 | 燃料与堆肥 | NeoForge `NeoForgeDataMaps.FURNACE_FUELS`、`COMPOSTABLES` 数据映射 | 来源的燃料、堆肥代码表改为 `data_maps` 数据 |
 | 数据目录 | 单数：`advancement`、`recipe`、`structure`、`loot_table`、`tags/block`、`tags/item`、`tags/entity_type` 等 | 来源复数目录逐类改名 |
 | 配方产物 | `"result": {"count": n, "id": "..."}` | 来源 `item` 字段改为 `id` |
+| 熔炼类与切石配方 | 熔炼、高炉、烟熏、篝火的 `"result": {"id": "..."}`（`experience`、`cookingtime` 保留）；切石的 `"result": {"count": n, "id": "..."}`，不再有顶层 `count`；材料仍是 `{"item"}` 或 `{"tag"}` | 来源的字符串 `result` 与顶层 `count` 逐项改写 |
+| 配方产物数量 | 产物数量大于该物品最大堆叠时解析报 `Item stack with stack size of N was larger than maximum: M`，配方不加载（2026-11-02 开发服务端实测） | 来源允许这类配方（1.18.2 产出超额堆叠），转换时须检出并裁定，不能静默改数量或堆叠 |
+| 战利品表 | 条目引用不存在的物品使整张表报 `Unknown registry key` 并不加载；`match_tool` 的附魔谓词写成 `{"predicates": {"minecraft:enchantments": [{"enchantments": "<附魔>", "levels": {...}}]}}`；`{min, max}` 数量写明 `"type": "minecraft:uniform"`；实体表里的 `apply_bonus` 缺少 `minecraft:tool` 上下文，只给验证警告，表照常加载 | 转换工具改写后 109 张表在开发服务端 ERROR 0 条；掉落效果未在游戏内核对 |
+| 进度 | `display.icon` 为 `{"id": "<物品>"}`（来源是 `{"item": ...}`）；`display.background`、`title`、`criteria` 写法不变 | 8 个进度在开发服务端加载无错误 |
+| 原版 ID 改名 | `scute` 在 1.20.5 改名为 `turtle_scute`；原版语言文件仍保留 `item.minecraft.scute` 旧键 | 判断原版物品是否存在不能用语言键，用 `assets/minecraft/models/item` 与 `blockstates` 的文件；来源数据中出现的改名项登记为显式对应表 |
 
 ## 第三方库（已核实）
 

@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:netherite_boots",
+    "minecraft:diamond_boots",
+    "minecraft:chainmail_boots",
+    "minecraft:golden_boots",
+    "minecraft:leather_boots",
+    "minecraft:iron_boots",
+    "yvanchuxiuzhen:clothes_01_boots",
+    "yvanchuxiuzhen:clothes_02_boots",
+    "yvanchuxiuzhen:clothes_03_boots",
+    "yvanchuxiuzhen:clothes_04_boots",
+    "yvanchuxiuzhen:clothes_06_boots",
+    "yvanchuxiuzhen:clothes_07_boots",
+    "yvanchuxiuzhen:clothes_13_boots",
+    "yvanchuxiuzhen:clothes_14_boots",
+    "yvanchuxiuzhen:clothes_15_boots"
+  ]
+}

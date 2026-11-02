@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    },
+    "4": {
+      "tag": "yvanchuxiuzhen:gaoshipai"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:plaque_08item",
+    "count": 1
+  }
+}

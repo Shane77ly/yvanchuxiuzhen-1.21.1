@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "345"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:string"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:jadebamboolog"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:jadebamboolog"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:jadebamboolog"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:book_022",
+    "count": 1
+  }
+}

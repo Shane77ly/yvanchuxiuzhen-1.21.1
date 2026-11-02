@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:toothedsillwallwindow"
+    },
+    {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:tootheddoorleft",
+    "count": 1
+  }
+}

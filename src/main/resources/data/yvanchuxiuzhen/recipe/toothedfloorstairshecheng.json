@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:toothedfloor"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:toothedfloor"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:toothedfloor"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:toothedfloor"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:toothedfloor"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:toothedfloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:toothedfloorstairs",
+    "count": 4
+  }
+}

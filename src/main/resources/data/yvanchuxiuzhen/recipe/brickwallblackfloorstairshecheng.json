@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:brickwallblackfloor"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:brickwallblackfloor"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:brickwallblackfloor"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:brickwallblackfloor"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:brickwallblackfloor"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:brickwallblackfloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:brickwallblackfloorstairs",
+    "count": 4
+  }
+}

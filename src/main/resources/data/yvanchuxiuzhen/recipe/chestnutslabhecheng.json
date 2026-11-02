@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:chestnutslab",
+    "count": 6
+  }
+}

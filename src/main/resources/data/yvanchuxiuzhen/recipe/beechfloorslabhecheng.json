@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:beechfloor"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:beechfloor"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:beechfloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:beechfloorslab",
+    "count": 6
+  }
+}

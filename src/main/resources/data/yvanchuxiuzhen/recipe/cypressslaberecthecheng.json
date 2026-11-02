@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0",
+    "1",
+    "2"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:cypressplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:cypressplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:cypressplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:cypressslaberect",
+    "count": 6
+  }
+}

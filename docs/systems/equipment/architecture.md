@@ -27,3 +27,7 @@ equipment 拥有器物实例组件与专属槽位；lianqi 计算制作结果后
 交替培养标志是随玩家还是随某件法宝，现有载体明确为玩家；目标如果移入物品组件会改变换法宝行为，必须作为规则变更评审。不得凭“更合理”直接迁移该字段。服饰、动画护甲和渲染效果也在完整范围。
 
 本命槽位（玩家 `benmingfabao`）归 xiulian 丹田，本命培养数据在物品上归本系统（[系统设计](../../development/system-design.md)“依赖规则”）。
+
+## 待裁定（Q16）
+
+`item` 目录有 `Armor01Item` 等 GeckoLib 盔甲类、渲染器与模型，`YvanchuxiuzhenModGeckoLibArmors` 为它们注册渲染器，但 `YvanchuxiuzhenModItems` 没有登记任何 `armor_NN_<部位>`；来源标签 `armor`、`toukui`、`xiongjia`、`kuzi`、`zhanxve` 等引用这些 ID，另有 `yaohua_0101_*`、部分 `clothes_*` 同样悬空，共 50 个 ID，不在来源注册表也不在台账中。数据转换工具把这些标签成员记为“来源没有登记该 ID”并去掉（见 `docs/reference/conversion/data_skipped.csv`）。需要负责人裁定：这些盔甲是否属于范围（登记并迁移 GeckoLib 类），还是按来源实际行为视为未启用；裁定前不登记。

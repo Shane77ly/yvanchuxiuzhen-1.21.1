@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "01",
+    "23"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:clay"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:scorchedwooden"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:scorchedwooden"
+    },
+    "3": {
+      "item": "minecraft:clay"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:brickwallblack",
+    "count": 8
+  }
+}

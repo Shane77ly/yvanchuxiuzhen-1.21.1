@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:chestnutfloor"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:chestnutfloor"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:chestnutfloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:chestnutfloorslab",
+    "count": 6
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:ginkgosillwallwindow_02"
+    },
+    {
+      "item": "yvanchuxiuzhen:ginkgoplanks"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:ginkgodoorleft",
+    "count": 1
+  }
+}

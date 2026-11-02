@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:wallred"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:wallred"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:wallred"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:wallred"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:wallred"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:wallred"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:wallredstairs",
+    "count": 4
+  }
+}

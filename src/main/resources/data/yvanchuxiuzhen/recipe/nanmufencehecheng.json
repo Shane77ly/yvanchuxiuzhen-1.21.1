@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:nanmuplanks"
+    },
+    "1": {
+      "item": "minecraft:stick"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:nanmuplanks"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:nanmuplanks"
+    },
+    "4": {
+      "item": "minecraft:stick"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:nanmuplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:nanmufence",
+    "count": 3
+  }
+}

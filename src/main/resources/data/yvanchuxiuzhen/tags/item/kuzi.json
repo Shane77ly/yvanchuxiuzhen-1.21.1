@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:iron_leggings",
+    "minecraft:golden_leggings",
+    "minecraft:diamond_leggings",
+    "minecraft:chainmail_leggings",
+    "minecraft:leather_leggings",
+    "minecraft:netherite_leggings",
+    "yvanchuxiuzhen:clothes_01_leggings",
+    "yvanchuxiuzhen:clothes_02_leggings",
+    "yvanchuxiuzhen:clothes_03_leggings",
+    "yvanchuxiuzhen:clothes_04_leggings",
+    "yvanchuxiuzhen:clothes_06_leggings",
+    "yvanchuxiuzhen:clothes_07_leggings",
+    "yvanchuxiuzhen:clothes_13_leggings",
+    "yvanchuxiuzhen:clothes_14_leggings",
+    "yvanchuxiuzhen:clothes_15_leggings",
+    "yvanchuxiuzhen:clothes_16_leggings",
+    "yvanchuxiuzhen:clothes_17_leggings"
+  ]
+}

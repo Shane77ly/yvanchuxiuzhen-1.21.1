@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:ginkgofloor"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:ginkgofloor"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:ginkgofloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:ginkgofloorslab",
+    "count": 6
+  }
+}

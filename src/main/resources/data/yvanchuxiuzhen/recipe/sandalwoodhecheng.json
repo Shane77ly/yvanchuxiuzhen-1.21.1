@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:sandalwoodleavesitem"
+    },
+    {
+      "item": "yvanchuxiuzhen:sandalwoodleavesitem"
+    },
+    {
+      "item": "yvanchuxiuzhen:sandalwoodleavesitem"
+    },
+    {
+      "item": "yvanchuxiuzhen:sandalwoodleavesitem"
+    },
+    {
+      "item": "yvanchuxiuzhen:sandalwoodleavesitem"
+    },
+    {
+      "item": "yvanchuxiuzhen:sandalwoodleavesitem"
+    },
+    {
+      "item": "yvanchuxiuzhen:sandalwoodleavesitem"
+    },
+    {
+      "item": "yvanchuxiuzhen:sandalwoodleavesitem"
+    },
+    {
+      "item": "yvanchuxiuzhen:sandalwoodleavesitem"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:sandalwood",
+    "count": 1
+  }
+}

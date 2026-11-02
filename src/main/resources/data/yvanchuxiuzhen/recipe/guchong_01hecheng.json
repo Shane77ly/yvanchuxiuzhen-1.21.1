@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:elm_01"
+    },
+    {
+      "item": "yvanchuxiuzhen:elm_01"
+    },
+    {
+      "item": "yvanchuxiuzhen:elm_01"
+    },
+    {
+      "item": "yvanchuxiuzhen:elm_01"
+    },
+    {
+      "item": "yvanchuxiuzhen:elm_01"
+    },
+    {
+      "item": "yvanchuxiuzhen:elm_01"
+    },
+    {
+      "item": "yvanchuxiuzhen:elm_01"
+    },
+    {
+      "item": "yvanchuxiuzhen:elm_01"
+    },
+    {
+      "item": "yvanchuxiuzhen:elm_01"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:guchong_01item",
+    "count": 1
+  }
+}

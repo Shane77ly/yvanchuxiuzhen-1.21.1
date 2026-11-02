@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "01",
+    "23"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:bluestone"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:cailiao_201"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:cailiao_201"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:bluestone"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:fabao_002",
+    "count": 1
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "item": "minecraft:light_blue_dye"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:wallwhitecold",
+    "count": 8
+  }
+}

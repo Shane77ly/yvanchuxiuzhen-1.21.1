@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:dark_oak_sign",
+    "minecraft:spruce_sign",
+    "minecraft:warped_sign",
+    "minecraft:jungle_sign",
+    "minecraft:birch_sign",
+    "minecraft:acacia_sign",
+    "minecraft:oak_sign",
+    "minecraft:crimson_sign"
+  ]
+}

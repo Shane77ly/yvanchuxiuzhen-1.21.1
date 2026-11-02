@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "yvanchuxiuzhen:wallred"
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:tileimbrexred_01",
+    "count": 1
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "4": {
+      "tag": "yvanchuxiuzhen:gaoshipai"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:plaque_04item",
+    "count": 1
+  }
+}

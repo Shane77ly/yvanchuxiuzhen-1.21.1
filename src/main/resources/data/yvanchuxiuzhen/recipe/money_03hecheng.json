@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:money_04"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:money_03",
+    "count": 10
+  }
+}

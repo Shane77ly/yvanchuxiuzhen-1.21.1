@@ -116,7 +116,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 | 资源 | 处理 |
 | --- | --- |
 | 模型、方块状态、纹理、粒子定义、声音文件 | 复制并校验引用；路径按目标原版目录；`yvanchuxitong` 下的文件移入 `yvanchuxiuzhen`，文件中的 ID 引用一并改写 |
-| 配方、掉落表、标签、进度、结构 | 改单数目录；配方产物改用 `id`/`count`；物品 NBT 改为组件；`yvanchuxitong:` ID（含结构 NBT 的方块调色板）改写为目标 ID |
+| 配方、掉落表、标签、进度、结构 | 改单数目录；配方产物改用 `id`/`count`；物品 NBT 改为组件；`yvanchuxitong:` ID（含结构 NBT 的方块调色板）改写为目标 ID。配方、标签、战利品表、进度已由 `convert_data.py` 实现，结构 NBT 待定 |
 | 代码注册的附魔、群系、地物 | 依来源 Java 的构造参数生成目标数据定义；附魔效果按目标效果组件或战斗系统读取等级重写 |
 | 燃料、堆肥等来源代码表 | 生成 NeoForge 数据映射 |
 | 语言文件 | 拆出机器配置交给所属系统定义；显示文本按系统拆成语言片段；键中的命名空间与改名同步改写 |
@@ -128,7 +128,14 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 转换工具每次输出一份清单（来源文件、哈希、目标文件），台账检查据此确认没有遗漏。系统验收前可以重跑转换；验收后转换结果成为手工维护的正文，清单保留来源。只有转换无法表达的资源才使用 datagen。
 
-已实现并实测（2026-11-02）：`tools/porting/convert_content.py` 生成内容表与语言片段（方块、物品名称与提示文本、创造栏名称），`tools/porting/convert_assets.py` 迁移方块状态、模型与纹理并输出 `docs/reference/conversion/manifest.csv`（来源、来源 SHA-1、目标）；`docs/reference/conversion/skipped.csv` 列出未生成行的注册及原因（由所属系统迁移的基类、未识别的写法）。资源转换规则：目录 `blocks/`、`items/` 改为 `block/`、`item/`；两个来源命名空间统一，JSON 中的 `parent`、`model`、`textures` 引用同步改写；方块 Java 的 `registerRenderLayer` 写为模型 `render_type`，由生成的子模型 `block/<名>__cutout` 等承载（NeoForge 的 render_type 沿 parent 链继承，方块物品的模型 parent 同步指向子模型）；来源 Blockbench 模型的 `parent` 指向不存在的原版模型（无命名空间，如 `food002`）时丢弃该 parent，1.18.2 与 1.21.1 都回退为缺失模型的父级，不影响模型自身的元素。同一目标路径来自内容不同的来源文件时报错。迁移出 6,309 个文件（约 40 MB），开发客户端加载后模型与纹理警告只剩来源本身的缺陷（3 个方块的 `missing` 纹理指向空路径，已写入台账备注）。盔甲两层贴图 `textures/models/armor/<名>_layer_1.png`、`_layer_2.png` 随 `armor_materials.json` 转换，缺失时计入清单的缺失项。尚未转换：配方、方块掉落表（回退掉落与来源掉落表）、标签（含 `mineable`）、进度、结构、声音文件、方块着色。
+已实现并实测（2026-11-02）：`tools/porting/convert_content.py` 生成内容表与语言片段（方块、物品名称与提示文本、创造栏名称），`tools/porting/convert_assets.py` 迁移方块状态、模型与纹理并输出 `docs/reference/conversion/manifest.csv`（来源、来源 SHA-1、目标）；`docs/reference/conversion/skipped.csv` 列出未生成行的注册及原因（由所属系统迁移的基类、未识别的写法）。资源转换规则：目录 `blocks/`、`items/` 改为 `block/`、`item/`；两个来源命名空间统一，JSON 中的 `parent`、`model`、`textures` 引用同步改写；方块 Java 的 `registerRenderLayer` 写为模型 `render_type`，由生成的子模型 `block/<名>__cutout` 等承载（NeoForge 的 render_type 沿 parent 链继承，方块物品的模型 parent 同步指向子模型）；来源 Blockbench 模型的 `parent` 指向不存在的原版模型（无命名空间，如 `food002`）时丢弃该 parent，1.18.2 与 1.21.1 都回退为缺失模型的父级，不影响模型自身的元素。同一目标路径来自内容不同的来源文件时报错。迁移出 6,309 个文件（约 40 MB），开发客户端加载后模型与纹理警告只剩来源本身的缺陷（3 个方块的 `missing` 纹理指向空路径，已写入台账备注）。盔甲两层贴图 `textures/models/armor/<名>_layer_1.png`、`_layer_2.png` 随 `armor_materials.json` 转换，缺失时计入清单的缺失项。尚未转换：来源 Java 中按“掉落表为空时掉落指定物品”写的回退掉落（由方块行承载，不是数据文件）以外的世界数据（维度 8、维度类型 8、群系标签 5、结构 NBT 161）、声音文件、方块着色、界面与进度以外的语言键。
+
+数据转换由 `tools/porting/convert_data.py` 完成（2026-11-02，开发服务端实测）：来源 `data` 下的配方（561）、标签（188 个文件）、战利品表（109：方块 53、实体 56）、进度（8）转为 `src/main/resources/data/yvanchuxiuzhen/` 下的 1.21.1 格式，输出清单 `docs/reference/conversion/data_manifest.csv` 与跳过清单 `data_skipped.csv`（种类、来源文件、原因）。规则：
+- 配方：全部是原版类型（有序、无序、熔炼、高炉、烟熏、篝火、切石），产物与材料按 1.21.1 的写法改写（见移植技能的 NeoForge 1.21.1 参考）；引用本 Mod 尚未登记的物品或标签的配方整条跳过，由所属系统登记内容后重跑本工具补全（23 条：22 条的产物或材料是尚未登记的方块实体类物品，如 `alchemy_01`–`08`、`canhe`、`fooddaguo`、`mugongtai`、`stonemill`，共 20 个物品；另 1 条 `skillarrow_10hecheng` 的产物数量 5 超过该物品堆叠上限 1，待裁定）。
+- 标签：`forge` 命名空间的标签是 Mod 自定义名称（拼音命名，如 `caoyao`、`ranliao`），按“全部注册与资源只用一个命名空间”的决定移到 `yvanchuxiuzhen`，名称不变；`minecraft` 命名空间的标签仍合并进原版标签（两个来源同名的 `mineable/axe`、`mineable/pickaxe` 合并成员）。目录 `blocks`、`items`、`entity_types` 改单数。成员未登记时去掉该成员并记录（321 个待所属系统迁移，99 个是来源自己没有登记的 ID，如 `armor_01_helmet`——来源有 `Armor01Item` 等类和模型，但 `ModItems` 没有登记）；全部成员未登记的标签整个不生成（实体类型标签 15、群系标签 5、流体标签、`danlu`、`yaohuaarmor`）。
+- 战利品表与进度：目录改单数；数量提供器写明类型，`match_tool` 的附魔谓词改新格式；表引用的物品必须已登记，否则整张跳过（0 张）。原版物品 `minecraft:scute` 改名为 `turtle_scute`（对应表 `VANILLA_RENAMES`）。
+- 来源函数 `playerchuansuo.mcfunction` 引用维度 `dimensionrenjian`，随 `world` 迁移。
+- 实测：`runServer` 加载配方 1,828（含原版 1,290）、进度 1,407，战利品表与标签 ERROR 0 条；仅 `organism_11` 实体表三处 `apply_bonus` 缺少 `minecraft:tool` 上下文的验证警告，来源写法如此，保留。
 
 语言片段与声音片段由 `build.gradle` 的 `mergeAssetFragments` 任务合并为生成资源 `assets/yvanchuxiuzhen/lang/<语言>.json` 与 `assets/yvanchuxiuzhen/sounds.json`（命名空间取 `mod_id`），同一片段内或不同片段之间的重复键、无效 JSON、不符合上述路径约定的文件都使构建失败；`src/main/resources` 中不再放这两类文件。这样各系统并行修改时不在同一个大文件上冲突。已实测（B0 步骤 5）：两种语言的片段合并进 JAR，转义值往返不变；开发客户端读取了合并后的 `sounds.json`。2026-11-02 改为单一命名空间后重新核对了 JAR 中的输出路径，旧的带命名空间目录的片段路径使构建失败。
 

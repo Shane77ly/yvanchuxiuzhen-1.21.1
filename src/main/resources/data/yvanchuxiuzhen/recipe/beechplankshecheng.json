@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:beechlog"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:beechplanks",
+    "count": 4
+  }
+}

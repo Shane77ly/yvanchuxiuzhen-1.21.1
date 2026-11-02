@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:sylvestrisfence"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:sylvestrisslab"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:sylvestrisfence"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:sylvestrisarmchair_01",
+    "count": 3
+  }
+}

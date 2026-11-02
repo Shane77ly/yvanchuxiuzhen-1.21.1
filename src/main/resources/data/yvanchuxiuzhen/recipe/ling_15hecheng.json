@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "345",
+    " 7 "
+  ],
+  "key": {
+    "1": {
+      "item": "yvanchuxiuzhen:cailiao_201"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:cailiao_201"
+    },
+    "4": {
+      "item": "minecraft:diamond"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:cailiao_201"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:cailiao_201"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:ling_15",
+    "count": 1
+  }
+}

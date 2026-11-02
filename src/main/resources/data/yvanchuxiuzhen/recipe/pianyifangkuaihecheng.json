@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "345",
+    " 7 "
+  ],
+  "key": {
+    "1": {
+      "item": "yvanchuxiuzhen:money_01"
+    },
+    "3": {
+      "tag": "minecraft:planks"
+    },
+    "4": {
+      "tag": "minecraft:planks"
+    },
+    "5": {
+      "tag": "minecraft:planks"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:money_01"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:pianyifangkuai",
+    "count": 3
+  }
+}

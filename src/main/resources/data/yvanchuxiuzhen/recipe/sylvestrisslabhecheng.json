@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:sylvestrisslab",
+    "count": 6
+  }
+}

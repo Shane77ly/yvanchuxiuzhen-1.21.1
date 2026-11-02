@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    " 7 "
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:cailiao_211"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:cailiao_211"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:cailiao_211"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:cailiao_211"
+    },
+    "4": {
+      "item": "minecraft:stick"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:cailiao_211"
+    },
+    "7": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:hammer",
+    "count": 1
+  }
+}

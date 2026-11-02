@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0",
+    "1",
+    "2"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:camphorfloor"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:camphorfloor"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:camphorfloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:camphorfloorslaberect",
+    "count": 6
+  }
+}

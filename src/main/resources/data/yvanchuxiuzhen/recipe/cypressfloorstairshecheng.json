@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:cypressfloor"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:cypressfloor"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:cypressfloor"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:cypressfloor"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:cypressfloor"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:cypressfloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:cypressfloorstairs",
+    "count": 4
+  }
+}

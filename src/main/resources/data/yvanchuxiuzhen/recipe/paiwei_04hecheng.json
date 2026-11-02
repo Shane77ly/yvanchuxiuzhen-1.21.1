@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    " 4 ",
+    "678"
+  ],
+  "key": {
+    "1": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:paiwei_04item",
+    "count": 1
+  }
+}

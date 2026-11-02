@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:chestnutfence"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:chestnutslab"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:chestnutfence"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:chestnutarmchair_01",
+    "count": 3
+  }
+}

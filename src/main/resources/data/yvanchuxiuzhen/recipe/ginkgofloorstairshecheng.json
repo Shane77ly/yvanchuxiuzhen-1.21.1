@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:ginkgofloor"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:ginkgofloor"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:ginkgofloor"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:ginkgofloor"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:ginkgofloor"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:ginkgofloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:ginkgofloorstairs",
+    "count": 4
+  }
+}

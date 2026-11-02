@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:chestnutsillwallwindow_02"
+    },
+    {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:chestnutdoorleft",
+    "count": 1
+  }
+}

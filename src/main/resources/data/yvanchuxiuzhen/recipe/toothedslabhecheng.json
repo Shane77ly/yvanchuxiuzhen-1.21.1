@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:toothedslab",
+    "count": 6
+  }
+}

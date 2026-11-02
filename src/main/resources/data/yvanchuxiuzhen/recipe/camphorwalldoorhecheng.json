@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:camphorfencegate"
+    },
+    {
+      "item": "yvanchuxiuzhen:camphorfencegate"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:camphorwalldoor_01",
+    "count": 2
+  }
+}

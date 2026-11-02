@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:adobefloor"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:adobefloor"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:adobefloor"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:adobefloor"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:adobefloor"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:adobefloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:adobefloorstairs",
+    "count": 4
+  }
+}

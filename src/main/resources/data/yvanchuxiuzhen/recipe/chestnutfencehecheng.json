@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "1": {
+      "item": "minecraft:stick"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    },
+    "4": {
+      "item": "minecraft:stick"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:chestnutplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:chestnutfence",
+    "count": 3
+  }
+}

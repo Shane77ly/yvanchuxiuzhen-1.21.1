@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:chestnutfloor"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:chestnutfloor"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:chestnutfloor"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:chestnutfloor"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:chestnutfloor"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:chestnutfloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:chestnutfloorstairs",
+    "count": 4
+  }
+}

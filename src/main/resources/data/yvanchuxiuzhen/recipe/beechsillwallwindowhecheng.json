@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "01",
+    "23",
+    "45"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:beechsillwallwindow",
+    "count": 3
+  }
+}

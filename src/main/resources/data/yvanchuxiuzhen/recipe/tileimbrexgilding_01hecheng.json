@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "yvanchuxiuzhen:adobe"
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:tileimbrexgilding_01",
+    "count": 1
+  }
+}

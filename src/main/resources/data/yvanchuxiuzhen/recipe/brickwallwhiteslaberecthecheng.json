@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0",
+    "1",
+    "2"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:brickwallwhite"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:brickwallwhite"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:brickwallwhite"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:brickwallwhiteslaberect",
+    "count": 6
+  }
+}

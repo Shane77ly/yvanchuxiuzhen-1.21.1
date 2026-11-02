@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "4": {
+      "tag": "yvanchuxiuzhen:gaoshipai"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:plaque_05item",
+    "count": 1
+  }
+}

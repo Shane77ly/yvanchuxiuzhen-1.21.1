@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:cypressplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:cypressplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:cypressplanks"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:cypressplanks"
+    },
+    "4": {
+      "tag": "yvanchuxiuzhen:gaoshipai"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:cypressplanks"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:cypressplanks"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:cypressplanks"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:cypressplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:plaque_06item",
+    "count": 1
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "01"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:toothedsillwallwindow"
+    },
+    "1": {
+      "item": "minecraft:paper"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:toothedsillwallwindow_02",
+    "count": 1
+  }
+}

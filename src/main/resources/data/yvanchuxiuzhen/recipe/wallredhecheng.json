@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "item": "minecraft:red_dye"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    {
+      "tag": "yvanchuxiuzhen:stone"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:wallred",
+    "count": 8
+  }
+}

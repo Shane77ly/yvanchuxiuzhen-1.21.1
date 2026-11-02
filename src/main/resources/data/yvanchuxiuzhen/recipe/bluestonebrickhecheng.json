@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:bluestone"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:bluestone"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:bluestone"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:bluestone"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:bluestone"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:bluestone"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:bluestone"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:bluestone"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:bluestone"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:bluestonebrick",
+    "count": 9
+  }
+}

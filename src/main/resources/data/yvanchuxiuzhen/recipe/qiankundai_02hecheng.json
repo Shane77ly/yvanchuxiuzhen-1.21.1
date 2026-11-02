@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0 2",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:cailiao_008"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:cailiao_008"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:cailiao_008"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:cailiao_164"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:cailiao_008"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:cailiao_194"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:cailiao_008"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:cailiao_194"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:qiankundai_02",
+    "count": 1
+  }
+}

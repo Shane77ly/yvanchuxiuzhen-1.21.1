@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "345",
+    " 7 "
+  ],
+  "key": {
+    "1": {
+      "tag": "yvanchuxiuzhen:ranliao"
+    },
+    "3": {
+      "tag": "yvanchuxiuzhen:ranliao"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:cailiao_001"
+    },
+    "5": {
+      "tag": "yvanchuxiuzhen:ranliao"
+    },
+    "7": {
+      "tag": "yvanchuxiuzhen:ranliao"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:lingshoudaizhuanhuanitem",
+    "count": 1
+  }
+}
