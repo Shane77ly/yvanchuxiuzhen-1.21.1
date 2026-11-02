@@ -69,6 +69,119 @@ def generateModMetadata = tasks.register('generateModMetadata', ProcessResources
 sourceSets.main.resources.srcDir generateModMetadata
 neoForge.ideSyncTask generateModMetadata
 
+/**
+ * 合并按单位拆分的语言与声音片段，使各系统并行修改时不在同一个大文件上冲突：
+ * src/main/lang/<命名空间>/<语言>/<单位>.json → assets/<命名空间>/lang/<语言>.json，
+ * src/main/sounds/<命名空间>/<单位>.json → assets/<命名空间>/sounds.json。
+ * 同一片段内或不同片段之间出现重复键时构建失败。
+ */
+abstract class MergeAssetFragments extends DefaultTask {
+    @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
+    abstract ConfigurableFileCollection getFragments()
+
+    @Internal
+    abstract DirectoryProperty getLangRoot()
+
+    @Internal
+    abstract DirectoryProperty getSoundRoot()
+
+    @OutputDirectory
+    abstract DirectoryProperty getOutputDir()
+
+    @TaskAction
+    void merge() {
+        File out = outputDir.get().asFile
+        out.deleteDir()
+        Map<String, Map<String, Object>> merged = new TreeMap<>()
+        Map<String, File> origins = [:]
+        collect(langRoot.get().asFile, 3, merged, origins) { List<String> parts -> "assets/${parts[0]}/lang/${parts[1]}.json" }
+        collect(soundRoot.get().asFile, 2, merged, origins) { List<String> parts -> "assets/${parts[0]}/sounds.json" }
+        merged.each { String target, Map<String, Object> entries ->
+            File file = new File(out, target)
+            file.parentFile.mkdirs()
+            file.setText(groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(entries)) + '\n', 'UTF-8')
+        }
+    }
+
+    private static void collect(File root, int depth, Map<String, Map<String, Object>> merged, Map<String, File> origins, Closure<String> target) {
+        if (!root.directory) {
+            return
+        }
+        List<File> files = []
+        root.eachFileRecurse(groovy.io.FileType.FILES) { files << it }
+        files.sort { it.path }.each { File file ->
+            List<String> parts = root.toPath().relativize(file.toPath()).iterator().collect { it.toString() }
+            if (parts.size() != depth || !file.name.endsWith('.json')) {
+                throw new GradleException("片段路径不符合约定：${file}")
+            }
+            String text = file.getText('UTF-8')
+            Set<String> seen = new HashSet<>()
+            String repeated = topLevelKeys(text).find { key -> !seen.add(key) }
+            if (repeated != null) {
+                throw new GradleException("片段内重复键 ${repeated}：${file}")
+            }
+            Map<String, Object> parsed
+            try {
+                parsed = new groovy.json.JsonSlurper().parseText(text) as Map<String, Object>
+            } catch (groovy.json.JsonException e) {
+                throw new GradleException("片段不是有效的 JSON 对象：${file}", e)
+            }
+            Map<String, Object> entries = merged.computeIfAbsent(target(parts)) { new LinkedHashMap<>() }
+            parsed.each { String key, Object value ->
+                String id = target(parts) + '#' + key
+                if (origins.containsKey(id)) {
+                    throw new GradleException("重复键 ${key}：${origins[id]} 与 ${file}")
+                }
+                origins[id] = file
+                entries[key] = value
+            }
+        }
+    }
+
+    /** 按出现顺序返回顶层对象的键（原文，不解转义），用于发现 JsonSlurper 会静默覆盖的同文件重复键。 */
+    private static List<String> topLevelKeys(String text) {
+        List<String> keys = []
+        int depth = 0
+        int start = -1
+        boolean inString = false
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i)
+            if (inString) {
+                if (c == '\\' as char) {
+                    i++
+                } else if (c == '"' as char) {
+                    inString = false
+                    int next = i + 1
+                    while (next < text.length() && Character.isWhitespace(text.charAt(next))) {
+                        next++
+                    }
+                    if (depth == 1 && next < text.length() && text.charAt(next) == ':' as char) {
+                        keys << text.substring(start + 1, i)
+                    }
+                }
+            } else if (c == '"' as char) {
+                inString = true
+                start = i
+            } else if (c == '{' as char || c == '[' as char) {
+                depth++
+            } else if (c == '}' as char || c == ']' as char) {
+                depth--
+            }
+        }
+        return keys
+    }
+}
+
+def mergeAssetFragments = tasks.register('mergeAssetFragments', MergeAssetFragments) {
+    fragments.from('src/main/lang', 'src/main/sounds')
+    langRoot = layout.projectDirectory.dir('src/main/lang')
+    soundRoot = layout.projectDirectory.dir('src/main/sounds')
+    outputDir = layout.buildDirectory.dir('generated/assetFragments')
+}
+sourceSets.main.resources.srcDir mergeAssetFragments
+neoForge.ideSyncTask mergeAssetFragments
+
 idea {
     module {
         downloadSources = true
