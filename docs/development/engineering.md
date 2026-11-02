@@ -26,7 +26,7 @@ updated: 2026-11-02
 ```text
 src/main/java/net/yvanchuxiuzhen/
   YvanchuxiuzhenMod.java        公共入口：按依赖顺序调用各系统的 <名称>Setup.register
-  YvanchuxiuzhenClient.java     @Mod(value = MOD_ID, dist = Dist.CLIENT) 客户端入口：调用各系统的 <名称>ClientSetup
+  YvanchuxiuzhenClient.java     @Mod(value = Namespaces.XIUZHEN, dist = Dist.CLIENT) 客户端入口：调用各系统的 <名称>ClientSetup
   platform/                     至少两个系统实际共用的平台适配：内容表加载、注册辅助、payload 登记、codec 工具
   flow/                         跨系统具体流程（闭关、击杀结算、装备重算等）
   panel/                        玩家面板：分页导航框架、HUD 与覆盖层；各页菜单归所属系统
@@ -52,7 +52,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 - 本文的“系统”指[系统设计](system-design.md)清单中的 28 个系统，即拥有自身数据与规则的所有权单位；不是 ECS 式运行时系统，也没有“系统注册”框架。内容族与 `panel` 同样有自己的 `<名称>Setup`、内容表、语言片段、文档目录与台账，下文以 `<系统>` 表示的路径同样适用于它们。
 - `<名称>Setup` 只在 Mod 构造时调用一次：登记本系统的 `DeferredRegister`、payload 与事件监听，不持有状态，不实现接口，运行期不再被调用。例如 `AlchemySetup.register(IEventBus modBus)`。装配集中在入口显式调用，使启动顺序与注册范围在一处可见；`DeferredRegister` 本身也需要显式 `register(modBus)`。
 - 系统与内容族的目录名取[系统设计](system-design.md)的标识。简单系统可以平铺，不预建空子包。
-- 客户端代码放在所属系统的 `client` 子包，由客户端入口装配；已核实 FML 4.0.42 的 `@Mod` 提供 `dist` 属性。`@EventBusSubscriber` 的 `bus` 属性在该版本已标记弃用，按事件类型自动选择总线。
+- 客户端代码放在所属系统的 `client` 子包，由客户端入口装配；已实测（NeoForge 21.1.265、FML 4.0.45）专用服务器只构造公共入口，客户端先构造公共入口再构造客户端入口。`@EventBusSubscriber` 的 `bus` 属性在该版本已标记弃用，按事件类型自动选择总线。
 - `platform` 替代原方案的 `shared`：只放平台适配，不放玩法类型；玩法共享值类型放在所有者的 `api`。
 
 ## 边界与自动检查
