@@ -13,16 +13,16 @@ updated: 2026-11-02
 
 | 项 | 状态 |
 | --- | --- |
-| 分支与提交 | `main` 与工作分支 `port/b0-slice`；最新提交以 `git log` 为准 |
+| 分支与提交 | `main` 与工作分支 `port/b1-content`；最新提交以 `git log` 为准 |
 | 已完成 | 两个 1.18.2 工程的全量静态调查与索引；系统调查正文（2026-11-02 按[系统设计](system-design.md)重组为 28 个系统、3 个内容族与玩家面板）；通用移植技能；开发环境（构建、开发服务端与客户端加载已实测） |
-| 代码 | 公共入口与客户端入口；`material`、`skill`、`craft`、`decor` 的 Setup 只登记空注册器，尚未注册任何内容 |
-| B0 进度 | 步骤 1（依赖升级）、步骤 2（骨架）、步骤 3（ArchUnit）、步骤 4（台账）、步骤 5（片段合并）已完成；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
+| 代码 | 公共入口与客户端入口；`material`、`skill`、`craft`、`decor` 的 Setup 只登记空注册器，尚未注册任何内容；ArchUnit、台账工具与片段合并已接入 |
+| 批次进度 | B0 完成步骤 1–5 后按负责人指示结束（2026-11-02），当前执行 B1；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移；命名空间统一为 `yvanchuxiuzhen`。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
 | 已批准 | 2026-11-02 负责人批准整体架构、[工程结构与长期维护](engineering.md)、[实施路线](roadmap.md)（`3e0585c` 版本），记录见[项目状态](../systems/project/README.md)；不含存档导入、界面复刻程度、license、Q01–Q14 |
 | 未执行 | 玩法实现、内容注册、资源迁移、1.18.2 实机对照、存档与视觉验收；goal 未授权 |
 
 ## 进行中
 
-B0 步骤 6（内容表加载）待开始：分支 `port/b0-slice`。步骤 5 已完成并合入 `main`。下一步按下文步骤 6：读来源确认 `cailiao_001` 与一个原初系统物品（目标 ID 为 `yvanchuxiuzhen:<来源路径>`），设计内容表格式与资源转换工具首个类型（含 `yvanchuxitong` 资源移入统一命名空间与 ID 改写），建立注册表导出并补上 `check_ledger.py` 的导出比对与转换清单检查。
+B1 步骤 1（来源格式盘点与内容表格式定稿）待开始：分支 `port/b1-content`，从 `main` 建立。下一步按下文 B1 步骤 1 读 MCreator 元素定义，列出元素类型、字段与工厂类型清单，写入[工程结构](engineering.md)“注册与内容表”。
 
 ## 先读顺序
 
@@ -73,36 +73,38 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 - Windows 控制台以系统代码页显示中文 Mod 名时乱码；以 `run/logs/latest.log`（UTF-8）为准。
 - 运行日志、临时脚本放 `tmp/`。
 
-## 下一步：B0 架构验证切片
+## 下一步：B1 全量内容身份与资源
 
-按顺序执行；每项都要在开发服务端与客户端实际运行，结果写回[工程结构](engineering.md)并去掉对应“待验证”。
+范围与出口见[路线](roadmap.md) B1 行：全部物品、方块、方块物品、声音与创造栏按内容表登记，全部不依赖新代码类型的资源完成转换，结构 NBT 升级方式定案。按顺序执行，每步在开发服务端与客户端实测，结论写回[工程结构](engineering.md)：
 
-1. 依赖（已完成 2026-11-02）：NeoForge 21.1.265、ModDevGradle 2.0.148，`neoforge.mods.toml` 下限为负责人决定的 21.1.228；构建与两端启动检查通过；架构“技术依赖”与 AGENTS.md 目标源码版本已更新。此后版本不必追最新，只需不低于 21.1.228。
-2. 骨架（已完成 2026-11-02）：公共入口 `YvanchuxiuzhenMod` 调用 `material`、`skill`、`craft` 与内容族 `decor` 的 `<名称>Setup.register`，各 Setup 只登记切片所需的注册器（步骤 6、7 填入内容）；客户端入口 `YvanchuxiuzhenClient` 为 `@Mod(value = ModId.VALUE, dist = Dist.CLIENT)`，`<名称>ClientSetup` 随步骤 7 的客户端内容加入；Mod ID 常量在 `platform/ModId`，同时是唯一命名空间。实测：专用服务器只构造公共入口，客户端先公共后客户端，两端日志无 ERROR。
-3. ArchUnit（已完成 2026-11-02）：`ArchitectureTest` 检查[工程结构](engineering.md)的六条规则，随 `gradlew check` 运行；为每条规则临时制造一次违规，六条各检出一次并使构建失败，违规未提交。
-4. 台账（已完成 2026-11-02）：`tools/porting/build_ledger.py` 把 4,867 条来源注册同步到 31 个单位的 `ledger/content.csv` 与 `project` 台账（151 条无编辑器元素：150 个声音事件、1 个画），全部“待处理”；`tools/porting/check_ledger.py` 检查列、覆盖、目录与归属一致、状态值、非“待处理”须“已读”。注册表导出比对与转换清单覆盖在步骤 6 加入。
-5. 语言与声音片段合并（已完成 2026-11-02）：`mergeAssetFragments` 把 `src/main/lang/<语言>/<单位>.json` 与 `src/main/sounds/<单位>.json` 合并为生成资源；跨片段与同片段重复键、无效 JSON、路径不符均使构建失败。仓库中还没有片段文件，第一批由步骤 6 的转换工具生成。
-6. 内容表加载：一个系统的内容表，至少包含两个来源 Mod 各一条真实物品，均注册在 `yvanchuxiuzhen` 命名空间；资源由转换工具迁入。
-7. 运行机制切片，均使用真实来源内容：一个玩家附件（Codec、按[复制策略表](../reference/legacy/inventory/clone_policy.csv)设置死亡复制、同步给本人）；一个 payload；一个方块实体与菜单；一个 GeckoLib 实体（选定 GeckoLib 版本）；一个代码注册转数据定义（附魔或群系）；一个 GameTest（独立源集，确认不进入发布 JAR）；一个 JUnit 规则测试。
-8. 出口：两个来源 Mod 内容的注册、资源和翻译在客户端可见；开发服务端导出注册表与台账一致；检查全部通过；台账如实记录切片内容状态；验证通过、可用于其他移植项目的工程做法按技能维护规则写入移植技能 references；月度日志登记。
+1. 来源格式盘点与内容表格式定稿：以 MCreator 元素定义（`elements/*.mod.json`）为来源，列出 B1 范围的元素类型与字段（编辑器元素：方块 834、植物 295、动画方块 40、流体 5、物品 698、工具 103、远程物品 85、盔甲 18、动画盔甲 17、动画物品 4；方块模板 `blockBase` 为空 663、台阶与楼梯各 30、树叶 27、门与玻璃板各 16、压力板 15、栅栏、栅栏门、活板门、按钮各 8、墙 5；带过程的方块 321、带物品栏的 115）；确定工厂类型清单与内容表字段；划清“不依赖新代码类型”与“随所属系统迁移”（方块实体、菜单、GeckoLib 渲染、实体、粒子提供器、状态效果、附魔、群系、地物）的界线。
+2. 内容表加载器与工厂（`platform`）：Codec 解码，未知工厂类型报出文件与条目，按单位登记到各自的 `DeferredRegister`；创造栏。
+3. 注册表导出与台账比对：开发环境导出注册表，`check_ledger.py` 比对状态为“已注册”及以上的目标 ID。
+4. 资源转换工具：从元素定义与来源资源生成内容表、模型、方块状态、纹理、语言片段、声音片段，以及配方、掉落表、标签、进度的 1.21.1 格式；命名空间改写与同名资源处理；输出转换清单，`check_ledger.py` 检查清单覆盖。
+5. 结构 NBT 升级方式实测定案。
+6. 按单位推进：按[系统设计](system-design.md)“归属判定”读候选归属并改为“已读”，运行转换并登记，开发服务端与客户端核对缺失模型、纹理与翻译，台账改为“已注册”。
+7. 出口：路线 B1 行“本批完成依据”；可复用的工程做法按技能维护规则写入移植技能 references。
 
-### B0 切片选定（初选，2026-11-02）
+### B0 结束时的状态与未完成项去向
 
-枠由路线 B0 行与上列步骤 6、7 规定；下表只是为每个枠选取的来源实物。依据是 `docs/reference/legacy/inventory` 的台账（静态）；所属以[系统设计](system-design.md)与[归属表](../reference/legacy/inventory/ownership_assignment.csv)为准，状态为“候选”的归属动工前按“归属判定”读规则确认。来源行为在各步骤动工前读来源 Java 核实，核实后可调整并改写本表。
+B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[月度记录](../systems/project/logs/2026-11.md)）：
 
-| 枠 | 来源实物 | 所属系统 | 台账依据 | 动工前待核 |
-| --- | --- | --- | --- | --- |
-| 内容表·原初修真 | 物品 `cailiao_001` | material | `registrations.csv` | 资源文件与显示名 |
-| 内容表·原初系统 | 步骤 6 从原初系统 188 个物品中选一个，优先与其他枠同系统者 | 待定 | `registrations.csv` | 同上 |
-| 玩家附件 | PlayerVariables 字段 `colddownGold`：double，初值 0，复制策略 `non_death_only` | skill | `clone_policy.csv`、`state_lifecycle.csv`（读 11、写 4 处） | 同步方式；写入与读取者的实际含义 |
-| payload | `AnjianWMessage`（按键 W，处理过程 `ShenfaWProcedure`） | skill | `network_surfaces.csv` | 处理过程是否读写 `colddownGold`；服务端校验 |
-| 方块实体与菜单 | `yvanchuxitong` 的家具 `Beechfurniture14`：`RandomizableContainerBlockEntity`，27 格，`createMenu` 返回自有菜单 `Beechfurniture14GuiMenu` | decor（内容族） | 来源 `block/entity/Beechfurniture14BlockEntity.java`；全部 115 个方块实体中 35 个返回自有菜单，其余为原版 `ChestMenu` 占位 | 方块、菜单槽位与屏幕资源。归属已读：27 格无槽位过滤，不属于 `storage`。已排除 `Taoguan01`：其方块实体的菜单是原版占位，真实菜单 `Taoguan01GUI` 属另一 Mod 的物品，且方块逻辑是蛊虫认主（归 `guchong`） |
-| GeckoLib 实体 | `Silkwormmoth`：`PathfinderMob`，实现 `IAnimatable`，约 7 KB | craft | `entity_surfaces.csv` | 属性、目标、掉落、几何/动画文件。归属已读：只由蚕盒生成，没有 `creature` 规则 |
-| 代码注册转数据定义 | 原初系统唯一的附魔 `yvanchuxitong:chain`（目标 `yvanchuxiuzhen:chain`） | combat | `registrations.csv` | 实际效果与消费者；若无法用数据驱动附魔表达，改选原初修真的群系 |
+- 依赖：NeoForge 21.1.265、ModDevGradle 2.0.148，`neoforge.mods.toml` 下限为负责人决定的 21.1.228；此后版本不必追最新，只需不低于 21.1.228。
+- 骨架：公共入口调用各单位的 `<名称>Setup.register`，客户端入口 `@Mod(value = ModId.VALUE, dist = Dist.CLIENT)`；Mod ID 常量 `platform/ModId` 同时是唯一命名空间。实测专用服务器只构造公共入口，客户端先公共后客户端。
+- ArchUnit：`ArchitectureTest` 检查[工程结构](engineering.md)六条规则，随 `gradlew check` 运行。
+- 台账：`build_ledger.py` 同步 4,867 条来源注册到 31 个单位与 `project` 台账；`check_ledger.py` 检查列、覆盖、目录与归属、目标 ID 命名空间与唯一性、状态值、非“待处理”须“已读”。
+- 片段合并：`mergeAssetFragments` 把 `src/main/lang/<语言>/<单位>.json` 与 `src/main/sounds/<单位>.json` 合并为生成资源。
 
-GameTest 与 JUnit 针对上述内容中风险最高的两处（`colddownGold` 的死亡/非死亡复制与同步、`Chain` 的效果）选取，待步骤 7 核实后定。
+步骤 6 的内容表、资源转换与注册表导出并入 B1 上列步骤 2–4。步骤 7 的运行机制在首个需要它的系统批次按正式结构实现，在开发服务端与客户端实测后写回[工程结构](engineering.md)。B0 曾选定的来源实物与读过的归属仍可作为首个实例：
 
-B0 之后按[路线](roadmap.md)进入 B1，再按系统推进。
+| 机制 | 曾选实物 | 归属 | 预计批次 |
+| --- | --- | --- | --- |
+| 玩家附件（Codec、按[复制策略表](../reference/legacy/inventory/clone_policy.csv)设置死亡复制、同步给本人） | PlayerVariables 字段 `colddownGold`（double，初值 0，`non_death_only`） | skill | C |
+| payload | `AnjianWMessage`（按键 W，处理过程 `ShenfaWProcedure`） | skill | C |
+| 代码注册转数据定义 | 原初系统唯一的附魔 `yvanchuxitong:chain`（目标 `yvanchuxiuzhen:chain`） | combat | C |
+| GameTest 独立源集（确认不进入发布 JAR）、JUnit 规则测试 | 按首个系统风险最高的流程选取 | — | C |
+| 方块实体与菜单 | 家具 `Beechfurniture14`：`RandomizableContainerBlockEntity`，27 格，自有菜单 `Beechfurniture14GuiMenu`；归属已读（27 格无槽位过滤，不属于 `storage`） | decor | D |
+| GeckoLib 实体（选定 GeckoLib 版本） | `Silkwormmoth`：`PathfinderMob`，实现 `IAnimatable`；归属已读（只由蚕盒生成） | craft | D |
 
 ## 每次会话的流程
 

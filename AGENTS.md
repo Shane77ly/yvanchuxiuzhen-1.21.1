@@ -7,7 +7,7 @@
 - 范围：全量移植两个 Mod 的全部系统。
 - 目标源码：构建后的 `build/moddev/artifacts/neoforge-<版本>-sources.jar`（含 Minecraft 与 NeoForge 源码，随依赖版本生成；当前构建为 NeoForge 21.1.265，最低支持 21.1.228）；FML 等库在 Gradle 缓存。邻近工程的 `reference/neoforge-21.1.228-sources` 只在版本相同时作对照。
 - 非依据：邻近 1.21.1 工程 `yuanchuxiuzhen-1.21.1` 只提供工程参考。
-- 当前关口：B0 架构验证切片（`docs/development/roadmap.md`）。2026-11-02 负责人批准 `docs/development/architecture.md`、`engineering.md`、`roadmap.md`（main 提交 `3e0585c` 版本）并指示自 B0 步骤 1 开始，工作分支 `port/b0-slice`。批准范围仅限这三份文档；存档导入、界面复刻程度、license、来源矛盾 Q01–Q14 以及未列入的文档（含各系统 `architecture.md`、`data-and-runtime.md`）仍为待裁定或草案，对应内容实现前需另行裁定。goal 仍未授权，未经明确批准不创建 goal。2026-11-02 负责人全部批准 `docs/development/system-design.md`（系统划分、归属判定、依赖规则、公开操作清单）；该文“批准后的迁移”已完成，B0 从步骤 2 继续。
+- 当前关口：B1 全量内容身份与资源（`docs/development/roadmap.md`），工作分支 `port/b1-content`。2026-11-02 负责人指示 B0 在框架（步骤 1–5）完成后结束、转入 B1：B0 步骤 6 以全量方式在 B1 实现，步骤 7 的运行机制在首个需要它的系统批次实现并实测（去向见 `docs/development/handoff.md`）。2026-11-02 负责人批准 `docs/development/architecture.md`、`engineering.md`、`roadmap.md`（main 提交 `3e0585c` 版本）。批准范围仅限这三份文档；存档导入、界面复刻程度、license、来源矛盾 Q01–Q14 以及未列入的文档（含各系统 `architecture.md`、`data-and-runtime.md`）仍为待裁定或草案，对应内容实现前需另行裁定。goal 仍未授权，未经明确批准不创建 goal。2026-11-02 负责人全部批准 `docs/development/system-design.md`（系统划分、归属判定、依赖规则、公开操作清单）；该文“批准后的迁移”已完成。
 - 开发环境：Mod ID `yvanchuxiuzhen`，也是全部注册与资源的唯一命名空间（原初系统内容同样使用）；Java 基础包 `net.yvanchuxiuzhen`；构建组合与验证见 `docs/development/architecture.md` 的“技术依赖”。
 - 交接：新会话先读 `docs/development/handoff.md`。
 - 记录位置：内容映射与行为对齐见 `docs/development/content-and-parity.md`，台账 CSV 在 `docs/systems/<系统>/ledger/`（B0 建立），系统规则正文在 `docs/systems/<系统>`，证据与日志按下方“文档”登记。
