@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.smoke;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.Screenshot;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -36,6 +38,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.WorldOptions;
 import net.minecraft.world.level.levelgen.presets.WorldPresets;
+import net.neoforged.neoforge.client.gui.CreativeTabsScreenPage;
 
 /**
  * 客户端冒烟检查：建一个创造模式世界，在高空平台放置本 Mod 的全部方块状态，核对每个方块与物品有模型和名称，
@@ -43,6 +46,8 @@ import net.minecraft.world.level.levelgen.presets.WorldPresets;
  */
 final class SmokeRun {
     private static final String MOD = "yvanchuxiuzhen";
+    /** 俯视位置：x 坐标与方块行号。 */
+    private static final int[][] VIEWS = {{14, 0}, {50, 0}, {100, 0}, {30, 40}, {70, 80}, {30, 120}, {90, 160}};
     private final Path output;
     private final List<String> report = new ArrayList<>();
     private final Minecraft minecraft = Minecraft.getInstance();
@@ -52,6 +57,7 @@ final class SmokeRun {
     private int tabIndex;
     private List<CreativeModeTab> tabs;
     private Method selectTab;
+    private String pendingShot;
 
     SmokeRun(String output) {
         this.output = Path.of(output);
@@ -64,10 +70,11 @@ final class SmokeRun {
                 case 0 -> waitForTitle();
                 case 1 -> waitForWorld();
                 case 2 -> placeBlocks();
-                case 3 -> waitThen(80, this::checkModelsAndNames);
-                case 4 -> waitThen(2, this::openCreative);
-                case 5 -> cycleTabs();
-                case 6 -> waitThen(20, this::finish);
+                case 3 -> worldShots();
+                case 4 -> waitThen(2, this::checkModelsAndNames);
+                case 5 -> waitThen(2, this::openCreative);
+                case 6 -> cycleTabs();
+                case 7 -> waitThen(20, this::finish);
                 default -> {
                 }
             }
@@ -133,6 +140,40 @@ final class SmokeRun {
         next();
     }
 
+    /** 从平台上方俯视几处方块行并截图，隐藏界面以便看清方块。 */
+    private void worldShots() {
+        int local = ticks - phaseStart;
+        int index = local / 70;
+        int step = local % 70;
+        if (index >= VIEWS.length) {
+            minecraft.options.hideGui = false;
+            next();
+            return;
+        }
+        if (step == 0) {
+            minecraft.options.hideGui = true;
+            int x = VIEWS[index][0];
+            int z = VIEWS[index][1] * 2;
+            minecraft.getSingleplayerServer().submit(() -> {
+                ServerPlayer player = minecraft.getSingleplayerServer().getPlayerList().getPlayers().get(0);
+                player.teleportTo(minecraft.getSingleplayerServer().overworld(), x, 208, z - 6, 0.0F, 55.0F);
+            }).join();
+        }
+        if (step == 60) {
+            shot("world_" + index + ".png");
+        }
+    }
+
+    private void shot(String name) {
+        try (NativeImage image = Screenshot.takeScreenshot(minecraft.getMainRenderTarget())) {
+            Path directory = output.resolve("screenshots");
+            Files.createDirectories(directory);
+            image.writeToFile(directory.resolve(name));
+        } catch (IOException exception) {
+            throw new IllegalStateException(exception);
+        }
+    }
+
     private void checkModelsAndNames() {
         BakedModel missing = minecraft.getModelManager().getMissingModel();
         int blocks = 0;
@@ -190,11 +231,16 @@ final class SmokeRun {
         if ((ticks - phaseStart) % 4 != 0) {
             return;
         }
+        if (pendingShot != null) {
+            shot(pendingShot);
+            pendingShot = null;
+        }
         if (tabIndex >= tabs.size()) {
             next();
             return;
         }
         CreativeModeTab tab = tabs.get(tabIndex++);
+        showPageOf(tab);
         selectTab.invoke(minecraft.screen, tab);
         String title = tab.getDisplayName().getString();
         report.add("INFO 创造栏 " + title + " 物品 " + tab.getDisplayItems().size());
@@ -202,8 +248,20 @@ final class SmokeRun {
             report.add("FAIL 创造栏未翻译 " + title);
         }
         if (MOD.equals(BuiltInRegistries.CREATIVE_MODE_TAB.getKey(tab).getNamespace())) {
-            Screenshot.grab(minecraft.gameDirectory, "smoke_tab_" + tabIndex + ".png", minecraft.getMainRenderTarget(), message -> {
-            });
+            pendingShot = "tab_" + BuiltInRegistries.CREATIVE_MODE_TAB.getKey(tab).getPath() + ".png";
+        }
+    }
+
+    /** 切到包含该栏的标签页，否则第二页的栏在截图里不可见。 */
+    private void showPageOf(CreativeModeTab tab) throws ReflectiveOperationException {
+        Field pagesField = CreativeModeInventoryScreen.class.getDeclaredField("pages");
+        Field currentField = CreativeModeInventoryScreen.class.getDeclaredField("currentPage");
+        pagesField.setAccessible(true);
+        currentField.setAccessible(true);
+        for (Object page : (List<?>) pagesField.get(minecraft.screen)) {
+            if (((CreativeTabsScreenPage) page).getVisibleTabs().contains(tab)) {
+                currentField.set(minecraft.screen, page);
+            }
         }
     }
 
