@@ -1,4 +1,4 @@
-"""提取两个旧工程的静态证据；清单不判定玩家行为或移植完成度。"""
+"""提取两个1.18.2 工程的静态证据；清单不判定玩家行为或移植完成度。"""
 
 from __future__ import annotations
 
@@ -30,7 +30,8 @@ DECLARATION = re.compile(
     r'public\s+static\s+final\s+[^;=]+?\s+(\w+)\s*=\s*([^;]+);', re.S
 )
 REGISTRATION = re.compile(r'(?:\w+\.)?register\(\s*"([^"\n]+)"')
-BLOCK_ITEM = re.compile(r'block\(\s*\w+ModBlocks\.(\w+)\s*,')
+BLOCK_ITEM = re.compile(r'(?:block|doubleBlock)\(\s*\w+ModBlocks\.(\w+)\s*,')
+BLOCK_PATH_ITEM = re.compile(r'REGISTRY\.register\(\s*\w+ModBlocks\.(\w+)\.getId\(\)\.getPath\(\)')
 
 
 def csv_text(rows: list[dict], columns: list[str]) -> str:
@@ -53,7 +54,7 @@ def generate(source_workspace: Path) -> dict[str, str]:
         print(f"解析 {mod_id} 注册与字段", flush=True)
         root = source_workspace / relative_root
         if not root.is_dir():
-            raise ValueError(f"旧工程不存在：{root}")
+            raise ValueError(f"1.18.2 工程不存在：{root}")
         java_root = root / "src/main/java/net/mcreator" / mod_id
         init = java_root / "init"
         prefix = "YvanchuxiuzhenMod" if mod_id == "yvanchuxiuzhen" else "YvanchuxitongMod"
@@ -69,6 +70,14 @@ def generate(source_workspace: Path) -> dict[str, str]:
             if not source.exists():
                 continue
             content = source.read_text(encoding="utf-8-sig")
+            if category == "painting_variant":
+                for match in re.finditer(r'new Motive\([^;]+?\.setRegistryName\("([^"\n]+)"\)', content):
+                    registrations.append({
+                        "source_mod": mod_id, "registry": category,
+                        "legacy_id": f"{mod_id}:{match[1]}", "symbol": "",
+                        "declaration_kind": "event_registration", "source_file": source.relative_to(root).as_posix(),
+                        "line": content.count("\n", 0, match.start()) + 1,
+                    })
             if category == "sound_event":
                 for match in re.finditer(r'REGISTRY\.put\(new ResourceLocation\("([^"\n]+)",\s*"([^"\n]+)"\)', content):
                     registrations.append({
@@ -80,7 +89,7 @@ def generate(source_workspace: Path) -> dict[str, str]:
             for declaration in DECLARATION.finditer(content):
                 symbol, expression = declaration[1], declaration[2]
                 match = REGISTRATION.search(expression)
-                block = BLOCK_ITEM.search(expression)
+                block = BLOCK_ITEM.search(expression) or BLOCK_PATH_ITEM.search(expression)
                 if block and category == "item":
                     resource_path = block_ids[block[1]]
                     kind = "block_item"

@@ -2,22 +2,29 @@
 topic: documentation-index
 role: entry
 status: current
-updated: 2026-11-01
+updated: 2026-11-02
 ---
 
-# 架构设计入口
+# 调查与架构评审入口
 
-已确认：完整移植两个旧 Mod；全新独立项目；Minecraft 1.21.1 + NeoForge + Java 21；合并成一个 Mod。当前仅设计与静态基线，游戏实现为零。
+已确认：全新项目，完整移植两个 1.18.2 Mod；目标 Minecraft 1.21.1 + NeoForge + Java 21；一个可安装 Mod，内部按系统组织。当前为调查与方案阶段，架构待批准；开发环境已建立，玩法实现未开始，未启动 goal。
 
-| 阅读顺序 | 文档 | 解决的问题 |
+| 阅读顺序 | 文档 | 用途 |
 | --- | --- | --- |
-| 1 | [范围与保真原则](design/scope.md) | 什么算完整移植，哪些旧工程行为需要裁定 |
-| 2 | [整体架构](development/architecture.md) | 系统边界、依赖方向、包结构、集成方式 |
-| 3 | [数据与运行时](development/data-and-runtime.md) | 存储、加载、修改、同步、消费、保存与生命周期 |
-| 4 | [内容与对齐流程](development/content-and-parity.md) | 注册 ID、资源、数值、菜单、完整性台账 |
-| 5 | [实施与验收顺序](development/roadmap.md) | 如何逐批完成全部范围，避免长期半成品 |
-| 6 | [旧工程证据入口](reference/legacy/README.md) | 注册项、玩家字段和来源文件指纹 |
-| 7 | [目标 API 核对](reference/target-api.md) | 方案使用的本地 NeoForge 依据与待验证点 |
-| 8 | [项目状态与决定](systems/project/README.md) | 已确认事项、待裁定事项、月度记录 |
+| 0 | [移植技能](../.claude/skills/minecraft-mod-porting/SKILL.md) | 通用移植规则、系统工作单与参考的正文（本项目文档只记录适用与决定） |
+| 1 | [1.18.2 版本架构调查](reference/legacy/source-survey.md) | 全量静态规模、关键真实调用链、已核实事实与问题 |
+| 2 | [范围与保真原则](design/scope.md) | 完整范围、行为保留原则和待裁定事项 |
+| 3 | [整体架构提案](development/architecture.md) | 系统职责、数据所有者、代码组织与实际依赖 |
+| 4 | [数据与运行时](development/data-and-runtime.md) | 状态的存储、加载、修改、同步、消费、保存 |
+| 4a | [19 个系统调查正文](systems/README.md) | 每个系统的来源入口、数据归属、操作和待裁定项 |
+| 4b | [公共入口与依赖](development/entry-and-dependency.md) | 全量事件/菜单/消息/命令、跨系统调用方向与动态数据族 |
+| 5 | [编号与变量 Excel](../outputs/01a19713-78e6-72b2-844d-c8e8d0ce7ded/1.18.2-content-register.xlsx) | 内容编号、字段、字典键、过程与菜单的审阅台账 |
+| 6 | [命名与台账](development/naming-and-catalog.md) | 来源身份、新命名、人工列和刷新规则 |
+| 7 | [内容与对齐](development/content-and-parity.md) | 本项目的 ID 决定、台账现状与迁移适用范围 |
+| 8 | [全量实施顺序](development/roadmap.md) | 全部系统工作包、依赖、验收与 goal 启动条件 |
+| 9 | [开发规则](development/coding-policy.md) | 对过度防御代码的检索结论与具体编码/测试约束 |
+| 10 | [文档结构与维护](development/documentation.md) | 正文职责、状态、日志和检查方式 |
+| 11 | [目标 API 依据](reference/target-api.md) | 本地 NeoForge 21.1.228 核对后本项目仍待验证的范围 |
+| 12 | [项目状态与决定](systems/project/README.md) | 已确认事项、本轮完成情况、剩余调查与日志 |
 
-文档按[维护规范](development/documentation.md)维护。新项目没有继承已有工程的移植完成度；静态提取数量也不代表玩家可用内容数量。
+原始来源位置见 [来源入口](reference/legacy/README.md)，机器清单见 [索引说明](reference/legacy/inventory/README.md)。本项目不继承已有移植工程的完成状态。

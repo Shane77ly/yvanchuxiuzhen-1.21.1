@@ -1,0 +1,5 @@
+source_mod,scope,name,java_type,initial_value,source_file,source_line,nbt_key,identity
+yvanchuxiuzhen,WorldVariables,DATA_NAME,String,"""yvanchuxiuzhen_worldvars""",src/main/java/net/mcreator/yvanchuxiuzhen/network/YvanchuxiuzhenModVariables.java,269,,yvanchuxiuzhen/WorldVariables/DATA_NAME
+yvanchuxiuzhen,MapVariables,DATA_NAME,String,"""yvanchuxiuzhen_mapvars""",src/main/java/net/mcreator/yvanchuxiuzhen/network/YvanchuxiuzhenModVariables.java,315,,yvanchuxiuzhen/MapVariables/DATA_NAME
+yvanchuxitong,WorldVariables,DATA_NAME,String,"""yvanchuxitong_worldvars""",src/main/java/net/mcreator/yvanchuxitong/network/YvanchuxitongModVariables.java,120,,yvanchuxitong/WorldVariables/DATA_NAME
+yvanchuxitong,MapVariables,DATA_NAME,String,"""yvanchuxitong_mapvars""",src/main/java/net/mcreator/yvanchuxitong/network/YvanchuxitongModVariables.java,175,,yvanchuxitong/MapVariables/DATA_NAME

@@ -1,0 +1,106 @@
+{
+  "source_version": "1.18.2",
+  "target_version": "1.21.1",
+  "sources": {
+    "yvanchuxiuzhen": {
+      "java_files": 6052,
+      "resources": 14894,
+      "resource_categories": {
+        "": 2,
+        "META-INF": 2,
+        "assets/yvanchuxiuzhen": 1,
+        "assets/yvanchuxiuzhen/animations": 233,
+        "assets/yvanchuxiuzhen/blockstates": 1026,
+        "assets/yvanchuxiuzhen/geo": 230,
+        "assets/yvanchuxiuzhen/lang": 2,
+        "assets/yvanchuxiuzhen/models": 4000,
+        "assets/yvanchuxiuzhen/particles": 312,
+        "assets/yvanchuxiuzhen/sounds": 150,
+        "assets/yvanchuxiuzhen/textures": 7964,
+        "data/forge/tags": 150,
+        "data/minecraft/tags": 18,
+        "data/yvanchuxiuzhen/advancements": 8,
+        "data/yvanchuxiuzhen/dimension": 8,
+        "data/yvanchuxiuzhen/dimension_type": 8,
+        "data/yvanchuxiuzhen/functions": 1,
+        "data/yvanchuxiuzhen/loot_tables": 109,
+        "data/yvanchuxiuzhen/recipes": 521,
+        "data/yvanchuxiuzhen/structures": 149
+      },
+      "states": 181,
+      "constants": 2,
+      "source_root": "reference/old-1.18.2-mcreator/1.18.2yvanchuxiuzhen",
+      "scope_counts": {
+        "PlayerVariables": 166,
+        "WorldVariables": 4,
+        "MapVariables": 11
+      }
+    },
+    "yvanchuxitong": {
+      "java_files": 1822,
+      "resources": 1388,
+      "resource_categories": {
+        "": 3,
+        "META-INF": 2,
+        "assets/yvanchuxitong/blockstates": 154,
+        "assets/yvanchuxitong/lang": 2,
+        "assets/yvanchuxitong/models": 494,
+        "assets/yvanchuxitong/particles": 3,
+        "assets/yvanchuxitong/textures": 658,
+        "data/forge/tags": 18,
+        "data/minecraft/tags": 2,
+        "data/yvanchuxitong/recipes": 40,
+        "data/yvanchuxitong/structures": 12
+      },
+      "states": 30,
+      "constants": 2,
+      "source_root": "reference/1.18.2yvanchuxitong",
+      "scope_counts": {
+        "PlayerVariables": 17,
+        "WorldVariables": 7,
+        "MapVariables": 6
+      }
+    }
+  },
+  "state_count": 211,
+  "constant_count": 4,
+  "registration_count": 4867,
+  "java_count": 7874,
+  "procedure_count": 3428,
+  "call_sites": 7683,
+  "menu_classes": 92,
+  "field_access_candidates": 5752,
+  "nbt_key_candidates": 30945,
+  "literal_key_groups": 2841,
+  "shared_state_names": [
+    "gongfa",
+    "gongfalinshi"
+  ],
+  "procedure_module_candidates": {
+    "unclassified": 1565,
+    "knowledge": 26,
+    "abilities": 358,
+    "combat": 23,
+    "equipment": 61,
+    "gongfa": 48,
+    "npc": 49,
+    "world": 83,
+    "storage": 55,
+    "life": 195,
+    "cultivation": 98,
+    "formations": 26,
+    "talismans": 112,
+    "quests": 76,
+    "creatures": 396,
+    "alchemy": 42,
+    "economy": 139,
+    "refining": 76
+  },
+  "limitations": [
+    "分组来自命名匹配，未人工确认。",
+    "成员访问为候选证据，未作 Java 类型解析。",
+    "无静态调用者不证明不可达；事件、命令、反射与生成入口需另核。",
+    "声明次序仅是表格排列，不能充当原有编号。",
+    "字面量键包含 NBT 与 Map 候选，不含动态拼接键的完整展开；同名键仍需按所属物品、实体或方块分离。"
+  ]
+}

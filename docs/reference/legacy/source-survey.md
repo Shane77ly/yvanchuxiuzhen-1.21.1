@@ -1,0 +1,130 @@
+---
+topic: source-architecture-survey
+role: data
+status: partial
+updated: 2026-11-01
+---
+
+# 1.18.2 版本架构调查
+
+## 范围与证据等级
+
+两个来源工程分别为 `yvanchuxiuzhen` 和 `yvanchuxitong`，元数据均声明版本 0.5.2、Minecraft 1.18.2，且互为必需依赖。构建文件使用 Java 17、Forge 40.1.0、official 1.18.2 mappings、ForgeGradle 5.1.+；修真工程 mcreator.gradle 另依赖 GeckoLib Forge 1.18 的 3.0.57。当前读取的是参考目录内的生成 Java、MCreator 文件及资源，未运行 1.18.2 游戏。
+
+本轮完成全部 Java、MCreator 元素、过程连接调用的静态索引与关键架构调用链核对；没有逐一证明每个过程分支的行为，也没有把已有移植工程的研究结论自动当作本轮验证。文中“已核对”仅指明确列出的源码位置。零调用处、文件存在和命名匹配分别保留其证据边界。
+
+## 规模基线
+
+| 分类 | yvanchuxiuzhen | yvanchuxitong | 合计 |
+| --- | ---: | ---: | ---: |
+| Java 文件 | 6,052 | 1,822 | 7,874 |
+| src/main/resources 文件 | 14,894 | 1,388 | 16,282 |
+| Procedure | 2,108 | 1,320 | 3,428 |
+| 物品注册（含方块物品） | 2,055 | 188 | 2,243 |
+| 方块注册 | 1,026 | 154 | 1,180 |
+| 实体类型注册（含形态/弹体） | 267 | 4 | 271 |
+| 方块实体类型注册 | 76 | 79 | 155 |
+| 菜单注册/菜单类 | 44 | 48 | 92 |
+| 附魔注册 | 84 | 1 | 85 |
+| 状态效果注册 | 77 | 0 | 77 |
+| 群系注册 | 68 | 0 | 68 |
+| Feature 注册 | 220 | 0 | 220 |
+| 流体注册 | 10 | 0 | 10 |
+| 粒子类型注册 | 312 | 3 | 315 |
+| 声音注册 | 150 | 0 | 150 |
+| 画作注册 | 1 | 0 | 1 |
+| 玩家字段 | 166 | 17 | 183 |
+| 维度字段 | 4 | 7 | 11 |
+| 主世界数据字段 | 11 | 6 | 17 |
+
+总计 4,867 条注册声明、211 个状态字段及 4 个独立存档常量。基础索引另记录 7,683 处 Procedure 调用、5,752 处按名字段访问候选和 30,945 处字面量键调用候选。后续按 Mod/作用域解析获得 5,752 处可识别访问，另保留 315 处未解析成员；两个 5,752 的统计口径不同。2,841 个字面量键分组包含 NBT 与普通字典，不是已经确认的状态总量。
+
+资源还包括 8 个维度及 8 个维度类型、161 份结构文件、561 份配方、109 份掉落表、230 份 geo、233 份 animation。结构文件存在不证明每个结构有自然生成入口。
+
+**计数修正**：初次提取遗漏了 84 个方块物品 helper 注册，修真工程物品数已从 1,971 修正为 2,055；初次变量表把 4 个 `DATA_NAME` 常量计入状态，已拆成 211 + 4。以当前生成文件为准。
+
+`yvanchuxitong` 有 133 个 block/entity Java 文件但仅 79 个方块实体注册，还有 5 个 entity Java 文件但 4 个实体注册。不能把所有类直接等同于可运行内容。菜单 `plaque_gui` 和粒子 `lingqi` 在两个命名空间都有同名路径；完整 ID 不冲突，压平命名空间才需要改名处理。
+
+## 全量结构核对结果
+
+7,465 个编辑器元素全部建立来源目录与文件关联，38 个元素标记锁定代码。3,428 个过程的 Blockly 已连接子树与生成 Java 的同 Mod 直接过程调用集合全部一致；192 个过程存在游离调用节点。该对照只比较调用集合，不证明条件、参数和执行次序完全相同。
+
+新增索引包含 531 个注解事件方法、86 个消息类、92 个菜单、22 个命令类、307 个实体相关类和 2,515 处间接入口。类级结构图到达 3,342 个过程，86 个未到达；不将结构可达等同于游戏生效。
+
+动态状态访问按载体及还原表达式形成 630 组，183 个玩家字段有逐项 Clone 策略，211 个字段有生命周期与所有者提案。全部来源元素已有候选归属，19 个系统均有具体入口、载体、接口和待裁定事项。详见 [公共入口与依赖](../../development/entry-and-dependency.md)、[系统导航](../../systems/README.md)、[机器证据索引](inventory/README.md)。
+
+## 系统与实际入口
+
+下表是架构调查，不是全系统验收结论。引用标号对应后面的源码位置表。
+
+| 系统 | 已核对的入口与数据流 | 对架构的约束 / 尚待核对 |
+| --- | --- | --- |
+| 成长与闭关 | [S01] GUI 检查坐下、天数、冷却及本人绑定功法；[S02] tick 根据 `xiuliankaiguan` 分别调用修炼与研习 | 修为、待吸收池、功法经验分开；全体体质/金丹/元婴与雷劫分支仍需逐项核对 |
+| 功法与书籍 | [S03] 书籍写 `belongToMasterUUID`、`ExercisesLevel`；[S04] 装备书写 `ExercisesExp` 并升级 | 绑定和成长属于书籍实例；A 菜单槽与比较缓存已核；B 同名字段未见显式外部消费，另有穴位/星宿学习会话 |
+| 属性和战斗 | [S02] 调属性总计算；[S05] `LivingHurtEvent` 接入敌友与结算；另一 Hurt 监听只声明局部变量 | 分清真正效果与空监听；其他伤害入口/词条需记录目标事件阶段与运算顺序 |
+| 技能、移动、关系 | [S02] 调轻功、飞行、冷却与饰品；Friend 系列调用已索引 | 技能编号/物品、施法状态、好友和队伍不是一个万能 CompoundTag；逐技能成本/命中/表现待核 |
+| 炼器 | [S06] 交互把玩家 `Refiner_LEVEL` 写进共享方块 `RefinerLEVEL`；[S07] 按钮直接调用 LianqiBegin，后者分升级和计算 | 明确职业快照与操作者；全部图纸、材料贡献、成品和词条消费者待逐条对照 |
+| 炼丹 | [S08] `fanhuizhi=0`，生成 Java 未调用等级检查；开炉写进度、经验、炸炉概率数据 | 门槛冲突不能凭名称补回；药效运算、成品与服用单位需单独核对 |
+| 符箓 | [S09] 菜单到绘制；读取方块 `RuneLEVEL+1`，操作纸/墨/成品槽 | 知识、组合、装置状态、成品及释放是不同数据；51 个 itemfulu 编号项逐项保留 |
+| 阵法 | [S10] 阵基要求 `powerneed>0` 且 `power>powerneed`，按触发模式调用效果 | 布阵、供能、触发和效果消费者分开；写伤害字段不等于实际扣血 |
+| 妖兽与生物 | [S11] 寄魂蟹类实现 IAnimatable，受伤、初始化、baseTick 接 Procedure，模型按大小缩放 | 实体族同时包含行为/形态/动画/体型/交互；271 是实体类型数 |
+| 蛊虫、灵兽与培养 | [S12] 蛊虫 tick 用 UUID 查关联实体并更新释放装置状态；灵兽袋过程存在公共清理入口 | 主人/关联实体、装置与实体存档需要明确关系；不因未细读而删减此范围 |
+| 材料与世界配置 | [S13] Worldbegin 初始化维度状态，写材料/药草/结构长字符串，随后载入 NPC 和价格 | 静态定义与世界实例必须分离；材料的炼器、药效、阵法用途分别记录 |
+| 世界/结构/副本 | 8 个维度类、12 个 teleporter 类；[S13] 固定结构清单；结构 NBT 和玩家副本 tick 可定位 | 全部自然投放、固定场景、回程与管理工具需要核对；注册不证明可获得 |
+| 银行与交易 | [S14] 个人 bank 按灵石层级写入；[S15] 商店从语言键解析 productlist，分别处理 1/10/100/1000 钱币和 4 倍级差灵石 | 多货币保留单位；账户归玩家；语言 JSON 中机器配置须迁出 |
+| 现场拍卖 | [S16] 拍卖方块按 paimaijindu 推进，导入 NPC/商品、竞价并清理 | 拍卖是现场装置流程，不能未经确认改成全服市场；成交/离场/卸载待核 |
+| NPC 与任务 | [S17] renwuitem 保存任务游标；按 `%`、`/` 解码，执行选择、NBT 修改、条件、传送、药效、指令和跳转 | 现有任务动作需要等价实现；这是已有内容格式，不是新建通用脚本平台的理由 |
+| 生活生产 | [S18] 装订入口从真实菜单槽 0/1 扣 3/1；锅具、木工、缝纫、作物过程与菜单已索引 | 职业、配方、装置、成品分开；全部生活分支列入批次 D |
+| 特殊容器 | [S19] 乾坤袋菜单建 27 格并尝试绑定物品/实体/方块库存；关闭时未绑定库存归还或掉落 | 乾坤袋容量已核为 27/54/108/220；材料袋另为玩家计数仓，不能统一按物品库存保存 |
+| UI、命令和表现 | 92 菜单类、95 client/gui 文件、22 个命令类，以及独立渲染/模型/粒子文件 | 菜单数不覆盖 HUD/覆盖层；UI 接线、管理权限、显示与实际效果分别追踪 |
+
+## 具体问题与裁定位置
+
+问题在所属系统维护唯一正文，此处只保留索引。全部均未自动修复。
+
+| 编号 | 核对结论 / 评审主题 | 唯一正文 |
+| --- | --- | --- |
+| Q01 | 同名功法字段已按类型分开；实际栏位和学习小游戏分别建模 | [功法](../../systems/gongfa/architecture.md) |
+| Q02 | 制造职业快照与当前玩家/装置绑定，决定多人协作规则 | [炼器](../../systems/refining/architecture.md) |
+| Q03 | 炼丹等级检查在图中为游离块，Java 与已连接图一致；恢复门槛属于行为调整 | [炼丹](../../systems/alchemy/architecture.md) |
+| Q04 | 阵法五行费用倍率缺失、分派名称错配、火2类别错配及部分伤害链未闭合 | [阵法](../../systems/formations/architecture.md) |
+| Q05 | 商店找零变量不一致；明确修正输入与结果 | [经济](../../systems/economy/architecture.md) |
+| Q06 | 世界定义在初始化门外重写，静态定义/实例/管理覆盖需分开 | [世界](../../systems/world/architecture.md) |
+| Q07 | 真实容器绑定、材料仓玩家归属、关闭与死亡后的资产去向 | [容器](../../systems/storage/architecture.md) |
+| Q08 | GeckoLib 实际依赖与元数据 optional 标记不一致 | [整体架构](../../development/architecture.md) |
+| Q09 | 注册、编辑器元素、Java 类和结构可达口径不同 | [公共入口](../../development/entry-and-dependency.md) |
+| Q10 | 动态键已有全量表达式与主要数据族；全部取值域尚未逐项确认 | [公共入口](../../development/entry-and-dependency.md) |
+| Q11 | taskbegin 后分支被前面的 OR 条件覆盖；剧情任意键需保留真实作用域 | [任务](../../systems/quests/architecture.md) |
+| Q12 | 裤装比较标记写入其他槽；主手仅比较 Item 类型 | [属性](../../systems/attributes/architecture.md) |
+| Q13 | 命令伤害与未闭合字段链分开；关系读取及击杀计数时机待裁定 | [战斗](../../systems/combat/architecture.md) |
+| Q14 | 本命成长交替标记在玩家体质载体，迁到物品会改变换装行为 | [装备](../../systems/equipment/architecture.md) |
+
+这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
+
+## 源码位置
+
+以下 A = `reference/old-1.18.2-mcreator/1.18.2yvanchuxiuzhen`，B = `reference/1.18.2yvanchuxitong`，均相对 [来源工作区](README.md)。行号供编辑器定位。
+
+| 标号 | 相对源码位置与本轮核对范围 |
+| --- | --- |
+| S01 | A `src/main/java/net/mcreator/yvanchuxiuzhen/procedures/PlayerGUI06xiulianProcedure.java` 13–31 |
+| S02 | A 同 procedures 目录 `PlayerTickProcedure.java` 32–35、58–88、351–399 |
+| S03 | A 同目录 `BookRightClickProcedure.java` 135–141、245–268 |
+| S04 | A 同目录 `KaishigongfaProcedure.java` 75–118 |
+| S05 | A 同目录 `EntityBeforeHurtProcedure.java` 45–120；`EntityBeforeHurt2Procedure.java` 1–28 |
+| S06 | B `src/main/java/net/mcreator/yvanchuxitong/procedures/Tripod01ZaiFangKuaiShangYouJianProcedure.java` 22–45 |
+| S07 | B `src/main/java/net/mcreator/yvanchuxitong/network/TripodGUIButtonMessage.java` 67–100；procedures `LianqiBeginProcedure.java` 118–122、436 |
+| S08 | B procedures `LiandanBeginProcedure.java` 33–35、445、472–494；全文件检索等级检查调用 |
+| S09 | B network `HuafuGUIButtonMessage.java` 67–99；procedures `HuizhifuluProcedure.java` 96–97、165–255 |
+| S10 | B procedures `ZhenjiGengXinYouXiKeProcedure.java` 23–69 |
+| S11 | A `src/main/java/net/mcreator/yvanchuxiuzhen/entity/Yaoshou017Entity.java` 73–77、127、158–235、271–320 |
+| S12 | A procedures `GuchongtickProcedure.java` 27–106；`LingshoudaiqingkongProcedure` 静态调用索引 |
+| S13 | B procedures `WorldbeginProcedure.java` 29–54 |
+| S14 | B procedures `DepositinbankGoProcedure.java` 29–92；`BankcunchuProcedure.java` 29–115 |
+| S15 | B procedures `ShopBuyProcedure.java` 56、70–76、158–182、257–266 |
+| S16 | B procedures `PaimaiblockGengXinYouXiKeProcedure.java` 30–120 |
+| S17 | B procedures `TaskduihuashijianProcedure.java` 48–59、60–238、555–690 |
+| S18 | B procedures `MakebookxiaohaoProcedure.java` 10–20 |
+| S19 | A `src/main/java/net/mcreator/yvanchuxiuzhen/world/inventory/Qiankundai01GUIMenu.java` 45–83、254–255、372–381 |
+
+全量文件及调用定位见 [索引入口](inventory/README.md)。人工源码核对、自动索引、1.18.2 实机、1.21.1 实机的覆盖分别记录；目前后两项均未执行。

@@ -1,0 +1,52 @@
+{
+  "counts": {
+    "method_calls": 7683,
+    "class_surfaces": 7874,
+    "event_entries": 531,
+    "key_expressions": 40173,
+    "indirect_surfaces": 2515,
+    "typed_field_accesses": 6067,
+    "command_surfaces": 22,
+    "entity_surfaces": 307,
+    "network_surfaces": 86,
+    "clone_policy": 183,
+    "menu_surfaces": 92,
+    "language_payloads": 101,
+    "procedure_reachability": 3428
+  },
+  "dynamic_key_sites": 8429,
+  "dynamic_carriers": {
+    "local_or_other_receiver": 4165,
+    "block_entity_tile_data": 643,
+    "item_tag_expression": 922,
+    "declared_compound_tag": 534,
+    "entity_persistent_data": 2156,
+    "variables_field_expression": 9
+  },
+  "dynamic_state_key_sites": 4264,
+  "inline_key_bindings": 481,
+  "field_resolution": {
+    "unresolved_member": 315,
+    "explicit_player_variables_type": 4014,
+    "capability_lambda_binding": 1451,
+    "explicit_saved_data_receiver": 287
+  },
+  "clone_policy": {
+    "yvanchuxiuzhen": {
+      "all_clone_events": 157,
+      "non_death_only": 9
+    },
+    "yvanchuxitong": {
+      "all_clone_events": 15,
+      "non_death_only": 2
+    }
+  },
+  "structurally_reached_procedures": 3342,
+  "limitations": [
+    "词法扫描不是完整 Java 语义解析。",
+    "可达性使用类级 Procedure 调用，不证明条件可满足或类已注册。",
+    "动态键保留表达式；只有正文人工核对的范围才能视为已展开。",
+    "键访问包含 Map/集合/本地 CompoundTag，按 receiver 形状标记，不能全部当作持久化状态。",
+    "字段访问显式解析不包含任意别名与跨方法返回值；未解析项保留原文。"
+  ]
+}
