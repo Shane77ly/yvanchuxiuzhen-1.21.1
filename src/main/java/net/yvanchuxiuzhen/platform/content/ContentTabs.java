@@ -58,8 +58,12 @@ public final class ContentTabs {
         modBus.addListener(ContentTabs::addToVanillaTabs);
     }
 
+    /** 本 Mod 自己的栏已由 displayItems 填充，事件只处理原版栏，否则同一物品会被加入两次。 */
     private static void addToVanillaTabs(BuildCreativeModeTabContentsEvent event) {
-        sorted(event.getTabKey().location().toString()).forEach(entry -> event.accept(entry.item().get()));
+        ResourceLocation tab = event.getTabKey().location();
+        if (!tab.getNamespace().equals(ModId.VALUE)) {
+            sorted(tab.toString()).forEach(entry -> event.accept(entry.item().get()));
+        }
     }
 
     private static List<Entry> sorted(String tab) {
