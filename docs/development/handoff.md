@@ -95,7 +95,7 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 | 内容表·`yvanchuxitong` | 步骤 6 从该命名空间 188 个物品中选一个，优先与其他枠同系统者 | 待定 | `registrations.csv` | 同上 |
 | 玩家附件 | PlayerVariables 字段 `colddownGold`：double，初值 0，复制策略 `non_death_only` | abilities | `clone_policy.csv`、`state_lifecycle.csv`（读 11、写 4 处） | 同步方式；写入与读取者的实际含义 |
 | payload | `AnjianWMessage`（按键 W，处理过程 `ShenfaWProcedure`） | abilities | `network_surfaces.csv` | 处理过程是否读写 `colddownGold`；服务端校验 |
-| 方块实体与菜单 | `Taoguan01` 方块与 `Taoguan01GUI` | storage | `ownership_proposal.csv` | 方块实体类型与槽数；菜单的方块绑定 |
+| 方块实体与菜单 | `yvanchuxitong` 的家具 `Beechfurniture14`：`RandomizableContainerBlockEntity`，27 格，`createMenu` 返回自有菜单 `Beechfurniture14GuiMenu` | life | 来源 `block/entity/Beechfurniture14BlockEntity.java`；全部 115 个方块实体中 35 个返回自有菜单，其余为原版 `ChestMenu` 占位 | 方块、菜单槽位与屏幕资源；`life` 与 `storage` 的归属（家具箱是否属于特殊容器）待依据[架构](architecture.md)“系统所有权”复核。已排除 `Taoguan01`：其方块实体的菜单是原版占位，真实菜单 `Taoguan01GUI` 属另一 Mod 的物品，且方块逻辑是蛊虫认主 |
 | GeckoLib 实体 | `Silkwormmoth`：`PathfinderMob`，实现 `IAnimatable`，约 7 KB | creatures | `entity_surfaces.csv` | 属性、目标、掉落、几何/动画文件 |
 | 代码注册转数据定义 | 附魔 `yvanchuxitong:chain`（该命名空间唯一的附魔） | combat | `registrations.csv` | 实际效果与消费者；若无法用数据驱动附魔表达，改选 `yvanchuxiuzhen` 的群系 |
 
