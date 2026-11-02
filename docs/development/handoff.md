@@ -15,14 +15,14 @@ updated: 2026-11-02
 | --- | --- |
 | 分支与提交 | `main` 与工作分支 `port/b0-slice`；最新提交以 `git log` 为准 |
 | 已完成 | 两个 1.18.2 工程的全量静态调查与索引；系统调查正文（2026-11-02 按[系统设计](system-design.md)重组为 28 个系统、3 个内容族与玩家面板）；通用移植技能；开发环境（构建、开发服务端与客户端加载已实测） |
-| 代码 | 只有加载入口 `net.yvanchuxiuzhen.YvanchuxiuzhenMod`，不注册任何内容 |
-| B0 进度 | 步骤 1（依赖升级）已完成；[系统设计](system-design.md) 2026-11-02 全部批准，执行其“批准后的迁移”后继续步骤 2。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
+| 代码 | 公共入口与客户端入口；`material`、`skill`、`craft`、`decor` 的 Setup 只登记空注册器，尚未注册任何内容 |
+| B0 进度 | 步骤 1（依赖升级）、步骤 2（骨架）已完成；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
 | 已批准 | 2026-11-02 负责人批准整体架构、[工程结构与长期维护](engineering.md)、[实施路线](roadmap.md)（`3e0585c` 版本），记录见[项目状态](../systems/project/README.md)；不含存档导入、界面复刻程度、license、Q01–Q14 |
 | 未执行 | 玩法实现、内容注册、资源迁移、1.18.2 实机对照、存档与视觉验收；goal 未授权 |
 
 ## 进行中
 
-B0 步骤 2（骨架）待开始：分支 `port/b0-slice`。[系统设计](system-design.md) 2026-11-02 全部批准，其“批准后的迁移”已完成并合入 `main`。下一步按下文步骤 2 建立公共入口与客户端入口，只建立切片实际用到的系统与内容族包（见下文切片表的所属列）。
+B0 步骤 3（ArchUnit）进行中：分支 `port/b0-slice`。步骤 2 已完成并合入 `main`。下一步按下文步骤 3 加入测试依赖与六条结构规则，并临时制造违规确认构建失败。
 
 ## 先读顺序
 
@@ -78,7 +78,7 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 按顺序执行；每项都要在开发服务端与客户端实际运行，结果写回[工程结构](engineering.md)并去掉对应“待验证”。
 
 1. 依赖（已完成 2026-11-02）：NeoForge 21.1.265、ModDevGradle 2.0.148，`neoforge.mods.toml` 下限为负责人决定的 21.1.228；构建与两端启动检查通过；架构“技术依赖”与 AGENTS.md 目标源码版本已更新。此后版本不必追最新，只需不低于 21.1.228。
-2. 骨架：公共入口依次调用各系统的 `<名称>Setup.register`；客户端入口 `@Mod(value = MOD_ID, dist = Dist.CLIENT)` 调用 `<名称>ClientSetup`（含义见[工程结构](engineering.md)“工程形态”）；只建立切片实际用到的包。
+2. 骨架（已完成 2026-11-02）：公共入口 `YvanchuxiuzhenMod` 调用 `material`、`skill`、`craft` 与内容族 `decor` 的 `<名称>Setup.register`，各 Setup 只登记切片所需的注册器（步骤 6、7 填入内容）；客户端入口 `YvanchuxiuzhenClient` 为 `@Mod(value = Namespaces.XIUZHEN, dist = Dist.CLIENT)`，`<名称>ClientSetup` 随步骤 7 的客户端内容加入；命名空间常量在 `platform/Namespaces`。实测：专用服务器只构造公共入口，客户端先公共后客户端，两端日志无 ERROR。
 3. ArchUnit：加入测试依赖与[工程结构](engineering.md)的六条规则；临时制造一次违规确认构建失败（不提交该违规）。
 4. 台账：由 `registrations.csv` 与[归属表](../reference/legacy/inventory/ownership_assignment.csv)生成各系统 `ledger/content.csv`（含归属状态列）；编写 `tools/porting/check_ledger.py`，规则见[工程结构](engineering.md)“台账与检查工具”。
 5. 语言与声音片段合并任务，重复键使构建失败。

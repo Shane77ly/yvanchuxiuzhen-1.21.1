@@ -22,7 +22,7 @@
 | 项 | 事实 | 移植影响 |
 | --- | --- | --- |
 | 目标源码 | ModDevGradle 构建后在 `build/moddev/artifacts/` 生成 `neoforge-<版本>-sources.jar`，含 Minecraft（约 5,000 个 `net/minecraft` 源文件）与 NeoForge 源码 | 版本匹配的目标源码随构建获得；FML 不在其中，需从 Gradle 缓存的 `net.neoforged.fancymodloader:loader` 读取 |
-| `@Mod` | 有 `dist` 属性 | 可用独立的 `@Mod(value, dist = Dist.CLIENT)` 客户端入口隔离客户端装配 |
+| `@Mod` | 有 `dist` 属性；FML 4.0.45 的 `FMLJavaModLanguageProvider` 只选 `dist` 包含当前物理端的类，按覆盖端数降序构造（两端入口先于客户端入口）；`FMLModContainer` 要求每个类恰好一个 public 构造器，可注入 `IEventBus`、`ModContainer`、`FMLModContainer`、`Dist`。NeoForge 21.1.265 实测：专用服务器只构造公共入口，客户端先构造公共入口再构造客户端入口 | 可用独立的 `@Mod(value, dist = Dist.CLIENT)` 客户端入口隔离客户端装配，客户端装配可依赖公共入口已完成的登记 |
 | `@EventBusSubscriber` | `bus` 属性已标记弃用 | 不再按来源 Forge 习惯显式指定总线 |
 | 附魔 | `Enchantment` 为 `record`（描述、定义、互斥集合、效果组件），原版附魔位于 `data/minecraft/enchantment` | 来源中继承 `Enchantment` 的 Java 类改为数据定义；行为改由效果组件或读取附魔等级的玩法代码承担 |
 | 群系与地物 | 位于 `data/<ns>/worldgen/` 数据 | 来源以 Java 构造的群系、已配置/已放置地物改为数据定义；地物类型本身仍代码注册 |
