@@ -7,5 +7,5 @@
 {"id":"tiandaoguding","factory":"block_item","block":"tiandaoguding","order":1681,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
 {"id":"tiandao_np_csetitem","factory":"item","order":1719,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","stack":1,"rarity":"EPIC","tooltip":["潜行右键打开设置面板，预设npc的属性","拿着设置好属性的此物右键npc实体，把此物的属性复制给npc"],"pending_hooks":["createMenu","getDisplayName","getShareTag","initCapabilities","readShareTag","use"]},
 {"id":"tiandaoitemnbt","factory":"block_item","block":"tiandaoitemnbt","order":1940,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
-{"id":"tiandaojianzhu","factory":"tool","order":2098,"tab":"minecraft:tools_and_utilities","tool":{"kind":"tiered","tier":{"uses":0,"speed":4.0,"damage_bonus":2.0,"level":1,"enchantability":2}},"pending_hooks":["canPerformAction","getDefaultAttributeModifiers","getDestroySpeed","hurtEnemy","isCorrectToolForDrops","mineBlock","use","useOn"]}
+{"id":"tiandaojianzhu","factory":"tool","order":2163,"tab":"minecraft:tools_and_utilities","tool":{"kind":"tiered","tier":{"uses":0,"speed":4.0,"damage_bonus":2.0,"level":1,"enchantability":2}},"pending_hooks":["canPerformAction","getDefaultAttributeModifiers","getDestroySpeed","hurtEnemy","isCorrectToolForDrops","mineBlock","use","useOn"]}
 ]

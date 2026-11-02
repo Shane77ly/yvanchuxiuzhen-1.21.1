@@ -35,5 +35,5 @@
 {"id":"book_034","factory":"item","order":777,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["use"]},
 {"id":"book_035","factory":"item","order":778,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["use"]},
 {"id":"book_036","factory":"item","order":779,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["use"]},
-{"id":"makebook","factory":"block_item","block":"makebook","order":2228,"tab":"minecraft:building_blocks","tooltip":["制作书籍的工作台"]}
+{"id":"makebook","factory":"block_item","block":"makebook","order":2293,"tab":"minecraft:building_blocks","tooltip":["制作书籍的工作台"]}
 ]

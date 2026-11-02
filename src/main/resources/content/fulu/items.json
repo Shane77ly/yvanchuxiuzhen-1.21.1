@@ -83,6 +83,6 @@
 {"id":"motiao_0201","factory":"item","order":2042,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["墨条的料坯，在工作台处与青金石一起分割成玄阶墨条。","在铁锅或砂锅中制作，配方：","一个壳类或骨类的11到20级妖兽材料","一个皮类或鳞类的11到20级妖兽材料","一个爪类或牙类的11到20级妖兽材料","烟灰三捧以及朱砂三份"]},
 {"id":"motiao_0301","factory":"item","order":2043,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["墨条的料坯，在工作台处与银元宝一起分割成地阶墨条。","在铁锅或砂锅中制作，配方：","一个壳类或骨类的21到30级妖兽材料","一个皮类或鳞类的21到30级妖兽材料","一个爪类或牙类的21到30级妖兽材料","烟灰三捧以及朱砂三份"]},
 {"id":"motiao_0401","factory":"item","order":2044,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["墨条的料坯，在工作台处与金元宝或金锭一起分割成天阶墨条。","在铁锅或砂锅中制作，配方：","一个壳类或骨类的31到40级妖兽材料","一个皮类或鳞类的31到40级妖兽材料","一个爪类或牙类的31到40级妖兽材料","烟灰三捧以及朱砂三份"]},
-{"id":"huafutai","factory":"block_item","block":"huafutai","order":2106,"tab":"minecraft:building_blocks"},
-{"id":"huafushaohui","factory":"block_item","block":"huafushaohui","order":2242,"tab":"minecraft:building_blocks"}
+{"id":"huafutai","factory":"block_item","block":"huafutai","order":2171,"tab":"minecraft:building_blocks"},
+{"id":"huafushaohui","factory":"block_item","block":"huafushaohui","order":2307,"tab":"minecraft:building_blocks"}
 ]

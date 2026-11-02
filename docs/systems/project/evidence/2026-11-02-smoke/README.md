@@ -13,6 +13,7 @@ updated: 2026-11-02
 - `world_0.png`–`world_6.png`：高空平台上从俯视角度拍摄的方块行。
 - `plant_cassia_02.png`、`plant_tailgreenbristlegrass.png`：第一个花方块与第一个双格植物（补放上半格）的近景，十字模型带透明，贴图正常。
 - `armor_sets.png`：11 套盔甲穿戴后的三人称正面截图，由 11 张 `armor_<套>_<部件>.png` 裁出玩家部分拼成（原图在 `build/smoke/screenshots`，不入库）。每套的两层贴图都显示，没有紫黑缺失方格；`clothes_16`、`clothes_17` 的来源只有胸甲与护腿两个部件。
+- `armor_swing_compare.png`：三人称正面，`clothes_04`（上）与原版铁盔甲（下）在静止与挥臂第 3–6 帧的对照，取自 `swing_*`、`swing_iron_*` 截图（原图在 `build/smoke/screenshots`）。静止的连续帧几乎逐像素一致，没有随帧变化的闪烁；手臂抬起时袖口敞开，能看到袖子内侧面与手臂，原版铁盔甲也有同类现象，`clothes_04` 的内侧面有约 20% 的透明像素（10/48，铁盔甲为 28/48），斑点更明显。
 - `tab_*.png`：本 Mod 的 10 个创造栏（`tab_tabyvanchu_entity` 为空，刷怪蛋随生物系统迁移）。`tab_tabyvanchu_weapon.png` 的“熔融巨剑”提示显示 6 攻击伤害、1 攻击速度，与来源一致（来源 `SwordItem(tier, 3, -3f)`，阶层加成 2.0，基础 1，速度基础 4）。
 
 本次未覆盖：门、按钮、压力板的交互与音效，透明方块的专项核对（植物只看了两个），工具的挖掘与损耗，盔甲的防御与耐久数值，使用自定义模型的 7 套盔甲（未登记），食用与右键等玩法。

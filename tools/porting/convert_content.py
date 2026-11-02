@@ -48,6 +48,10 @@ class Source:
         blocks_text = (init / f'{self.prefix}ModBlocks.java').read_text(encoding='utf-8')
         items_text = (init / f'{self.prefix}ModItems.java').read_text(encoding='utf-8')
         self.items_text = items_text
+        # GeckoLib 盔甲不在 ModItems，由 ModGeckoLibArmors 登记（原初系统没有）。
+        geckolib = init / f'{self.prefix}ModGeckoLibArmors.java'
+        self.geckolib_armor = dict(re.findall(r'register\("(\w+)", \(\) -> new (\w+Item)\(EquipmentSlot',
+                                              geckolib.read_text(encoding='utf-8'))) if geckolib.is_file() else {}
         tabs_text = (init / f'{self.prefix}ModTabs.java').read_text(encoding='utf-8')
         self.block_class = dict(re.findall(r'register\("(\w+)", \(\) -> new (\w+)\(\)\)', blocks_text))
         self.block_const = {c: p for c, p in re.findall(r'RegistryObject<Block> (\w+) = \w+\.register\("(\w+)"', blocks_text)}
@@ -70,6 +74,8 @@ class Source:
 
     def special_item_reason(self, path: str) -> str:
         """专属类注册的物品（动画方块物品、刷怪蛋、盔甲部件、桶等）：返回其实例化的类名。"""
+        if path in self.geckolib_armor:
+            return f'物品类 {self.geckolib_armor[path]}（GeckoLib 盔甲）由所属系统迁移'
         const = next((c for c, p in self.item_const.items() if p == path), None) or path.upper()
         match = re.search(rf'RegistryObject<Item> {const} = [^;]*?new ([\w.]+)\(', self.items_text, re.S)
         if match is None:

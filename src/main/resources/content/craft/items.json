@@ -13,6 +13,6 @@
 {"id":"silkwormchrysalisred","factory":"item","order":1131,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
 {"id":"silkwormchrysalisred_02","factory":"block_item","block":"silkwormchrysalisred_02","order":1132},
 {"id":"silkthreadred","factory":"item","order":1133,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
-{"id":"taopi","factory":"block_item","block":"taopi","order":2223},
-{"id":"taopiitem","factory":"item","order":2224,"stack":1,"pending_hooks":["useOn"]}
+{"id":"taopi","factory":"block_item","block":"taopi","order":2288},
+{"id":"taopiitem","factory":"item","order":2289,"stack":1,"pending_hooks":["useOn"]}
 ]

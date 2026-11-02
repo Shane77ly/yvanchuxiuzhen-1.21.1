@@ -38,6 +38,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.ArmorItem;
@@ -46,6 +47,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.GameType;
@@ -103,10 +105,11 @@ final class SmokeRun {
                 case 1 -> waitForWorld();
                 case 2 -> placeBlocks();
                 case 3 -> worldShots();
-                case 4 -> waitThen(2, this::checkModelsAndNames);
-                case 5 -> waitThen(2, this::openCreative);
-                case 6 -> cycleTabs();
-                case 7 -> waitThen(20, this::finish);
+                case 4 -> swingShots();
+                case 5 -> waitThen(2, this::checkModelsAndNames);
+                case 6 -> waitThen(2, this::openCreative);
+                case 7 -> cycleTabs();
+                case 8 -> waitThen(20, this::finish);
                 default -> {
                 }
             }
@@ -253,6 +256,57 @@ final class SmokeRun {
         }
         if (step == 60) {
             shot(closeup == null ? "world_" + index + ".png" : closeup.name());
+        }
+    }
+
+    /** 先穿 clothes_04、再穿原版铁盔甲，各自挥动手臂，静止时与挥臂过程中逐 tick 截图，用来对比盔甲与手臂重叠处的显示。 */
+    private void swingShots() {
+        int local = ticks - phaseStart;
+        swingSequence(local, "swing_", List.of(equipByPath("clothes_04_")));
+        swingSequence(local - 100, "swing_iron_", List.of(new ItemStack(Items.IRON_HELMET), new ItemStack(Items.IRON_CHESTPLATE),
+                new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Items.IRON_BOOTS)));
+        if (local >= 200) {
+            minecraft.options.hideGui = false;
+            minecraft.options.setCameraType(CameraType.FIRST_PERSON);
+            next();
+        }
+    }
+
+    private static ItemStack[] equipByPath(String prefix) {
+        List<ItemStack> pieces = new ArrayList<>();
+        for (Item item : BuiltInRegistries.ITEM) {
+            if (item instanceof ArmorItem && BuiltInRegistries.ITEM.getKey(item).getPath().startsWith(prefix)) {
+                pieces.add(new ItemStack(item));
+            }
+        }
+        return pieces.toArray(new ItemStack[0]);
+    }
+
+    private void swingSequence(int local, String prefix, List<ItemStack> pieces) {
+        if (local == 1) {
+            minecraft.options.hideGui = true;
+            minecraft.options.setCameraType(CameraType.THIRD_PERSON_FRONT);
+            minecraft.getSingleplayerServer().submit(() -> {
+                ServerPlayer player = minecraft.getSingleplayerServer().getPlayerList().getPlayers().get(0);
+                for (EquipmentSlot slot : EquipmentSlot.values()) {
+                    if (slot.isArmor()) {
+                        player.setItemSlot(slot, ItemStack.EMPTY);
+                    }
+                }
+                for (ItemStack piece : pieces) {
+                    player.setItemSlot(((ArmorItem) piece.getItem()).getEquipmentSlot(), piece);
+                }
+                player.teleportTo(minecraft.getSingleplayerServer().overworld(), 40, 206, 20, 0.0F, 0.0F);
+            }).join();
+        }
+        if (local >= 50 && local < 54) {
+            shot(prefix + "rest_" + (local - 50) + ".png");
+        }
+        if (local == 60) {
+            minecraft.player.swing(InteractionHand.MAIN_HAND);
+        }
+        if (local >= 60 && local < 72) {
+            shot(prefix + (local - 60) + ".png");
         }
     }
 

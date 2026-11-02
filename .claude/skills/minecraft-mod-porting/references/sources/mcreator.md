@@ -14,6 +14,7 @@
 - 方块物品通过物品注册类中的 helper 函数注册；只匹配字面量 `register` 会漏项。
 - 声音可以通过 Map 与 ResourceLocation 注册；只读取 RegistryObject 字段会漏项。
 - Java 类数与注册数不一定一致，不能把全部类等同于可运行内容。
+- 不能按“已知的 `init` 类名后缀”枚举注册类：GeckoLib 盔甲由独立的 `<前缀>ModGeckoLibArmors` 登记（用自己的 `DeferredRegister`，不在 `ModItems`），属性与游戏规则也各有 `ModAttributes`、`ModGameRules`。登记索引应扫描 `init` 下全部含 `register(` 的类，并与全部 `RegistryObject` 声明对账；本项目 2026-11-02 才发现漏扫了 65 件盔甲、2 个属性与 4 个游戏规则。
 
 ## 状态载体
 

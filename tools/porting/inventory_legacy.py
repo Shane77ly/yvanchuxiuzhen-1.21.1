@@ -24,7 +24,7 @@ CATEGORIES = {
     "MobEffects": "mob_effect", "Enchantments": "enchantment",
     "Sounds": "sound_event", "ParticleTypes": "particle_type",
     "Fluids": "fluid", "Biomes": "biome", "Paintings": "painting_variant",
-    "Features": "feature",
+    "Features": "feature", "GeckoLibArmors": "item", "Attributes": "attribute", "GameRules": "game_rule",
 }
 DECLARATION = re.compile(
     r'public\s+static\s+final\s+[^;=]+?\s+(\w+)\s*=\s*([^;]+);', re.S

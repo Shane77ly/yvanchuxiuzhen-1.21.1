@@ -13,7 +13,7 @@ updated: 2026-11-02
 
 | 约束 | 来源 | 对工程的要求 |
 | --- | --- | --- |
-| 规模 | 4,867 条注册（2,243 物品、1,180 方块、271 实体类型、315 粒子、150 声音），16,282 个来源资源文件，28 个系统与 3 个内容族 | 不能一条内容一个手写注册段；资源必须可批量、可复现地转换 |
+| 规模 | 4,938 条注册（2,308 物品、1,180 方块、271 实体类型、315 粒子、150 声音、2 属性、4 游戏规则），16,282 个来源资源文件，28 个系统与 3 个内容族 | 不能一条内容一个手写注册段；资源必须可批量、可复现地转换 |
 | 长期多会话推进 | 负责人以新会话分批移植 | 冲突热点要拆开；每次会话可从仓库状态恢复；规则要能自动检查 |
 | 目标平台变化 | 已核实：1.21.1 的附魔为数据驱动 `record`，群系与地物在 worldgen 数据中，燃料与堆肥为 NeoForge 数据映射，数据目录改为单数（`recipe`、`loot_table`、`tags/item`），配方产物使用 `id` | 来源中以 Java 注册的 85 个附魔、68 个群系和 220 个地物需要“代码注册 → 数据定义”转换 |
 | 依赖生态 | GeckoLib 是唯一已确认的必需库；NeoForge 21.1.x 持续发布补丁（2026-11-02 maven 最新 21.1.265） | 依赖少而固定；版本更新有固定时机和检查 |
@@ -132,12 +132,12 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 数据转换由 `tools/porting/convert_data.py` 完成（2026-11-02，开发服务端实测）：来源 `data` 下的配方（561）、标签（188 个文件）、战利品表（109：方块 53、实体 56）、进度（8）转为 `src/main/resources/data/yvanchuxiuzhen/` 下的 1.21.1 格式，输出清单 `docs/reference/conversion/data_manifest.csv` 与跳过清单 `data_skipped.csv`（种类、来源文件、原因）。规则：
 - 配方：全部是原版类型（有序、无序、熔炼、高炉、烟熏、篝火、切石），产物与材料按 1.21.1 的写法改写（见移植技能的 NeoForge 1.21.1 参考）；引用本 Mod 尚未登记的物品或标签的配方整条跳过，由所属系统登记内容后重跑本工具补全（23 条：22 条的产物或材料是尚未登记的方块实体类物品，如 `alchemy_01`–`08`、`canhe`、`fooddaguo`、`mugongtai`、`stonemill`，共 20 个物品；另 1 条 `skillarrow_10hecheng` 的产物数量 5 超过该物品堆叠上限 1，待裁定）。
-- 标签：`forge` 命名空间的标签是 Mod 自定义名称（拼音命名，如 `caoyao`、`ranliao`），按“全部注册与资源只用一个命名空间”的决定移到 `yvanchuxiuzhen`，名称不变；`minecraft` 命名空间的标签仍合并进原版标签（两个来源同名的 `mineable/axe`、`mineable/pickaxe` 合并成员）。目录 `blocks`、`items`、`entity_types` 改单数。成员未登记时去掉该成员并记录（321 个待所属系统迁移，99 个是来源自己没有登记的 ID，如 `armor_01_helmet`——来源有 `Armor01Item` 等类和模型，但 `ModItems` 没有登记）；全部成员未登记的标签整个不生成（实体类型标签 15、群系标签 5、流体标签、`danlu`、`yaohuaarmor`）。
+- 标签：`forge` 命名空间的标签是 Mod 自定义名称（拼音命名，如 `caoyao`、`ranliao`），按“全部注册与资源只用一个命名空间”的决定移到 `yvanchuxiuzhen`，名称不变；`minecraft` 命名空间的标签仍合并进原版标签（两个来源同名的 `mineable/axe`、`mineable/pickaxe` 合并成员）。目录 `blocks`、`items`、`entity_types` 改单数。成员未登记时去掉该成员并记录（419 个待所属系统迁移，1 个是来源标签自己的悬空引用：`armor` 标签里的 `clothes_110_helmet`）；全部成员未登记的标签整个不生成（实体类型标签 15、群系标签 5、流体标签、`danlu`、`yaohuaarmor`）。
 - 战利品表与进度：目录改单数；数量提供器写明类型，`match_tool` 的附魔谓词改新格式；表引用的物品必须已登记，否则整张跳过（0 张）。原版物品 `minecraft:scute` 改名为 `turtle_scute`（对应表 `VANILLA_RENAMES`）。
 - 声音（2026-11-02）：`convert_content.py` 把来源 `sounds.json` 的 150 个事件写成 `content/platform/sounds.json`（只含事件 ID）与片段 `src/main/sounds/platform.json`（类别、字幕键、文件名），136 条字幕文本写入 `platform` 的语言片段，`convert_assets.py` 复制 150 个 ogg；事件名与文件名可以不同（如事件 `yaoshou01die` 指向 `yaoshou001die.ogg`），按 `sounds.json` 指向的文件复制。`platform/content/ContentSounds` 按内容表登记可变范围的声音事件。声音事件在台账中没有归属单位（放在 `project` 台账），因此由平台登记，所属系统用 ID 取用。实测：服务端导出 150 个声音事件，与台账一致；`runSmokeClient` 核对 150 个事件在客户端都有 `sounds.json` 定义、字幕均已翻译，日志无声音文件缺失；实际播放未试听。
 - 结构 NBT（2026-11-02，`tools/porting/convert_structures.py`）：161 个，全部是 DataVersion 2975（1.18.2 的最终版本），转为 `data/yvanchuxiuzhen/structure/<名>.nbt`，清单 `structure_manifest.csv` 另记每个文件的调色板方块名。**定案：不预先升级，由游戏在加载时升级。** 依据：开发客户端的集成服务端用 `StructureTemplateManager.get` 加载 160 个结构全部成功，旧数据版本在 `readStructure` 里经数据修复器升级，调色板中原版 `minecraft:grass` 33 处变为 `minecraft:short_grass`，没有其他原版方块名变化；最慢的 `chongguanhecun`（3 MB）1.6 秒，其余都在 1 秒内。转换只重写字符串里的 `yvanchuxitong:` 为 `yvanchuxiuzhen:`（方块调色板、方块实体 ID、容器物品 ID，以及方块实体里存放的任务、对话、商品文本中嵌入的 ID，这些文本由所属系统解析）；NBT 的复合与列表没有长度前缀，所以逐标签复制字节、只重写字符串长度，32 MB 的全部文件 30 秒转完，结果可重复。
   - 调色板与方块实体：本 Mod 已登记的方块一个都没有丢；25 种尚未登记的方块（炉、食物锅、石磨、织布机等方块实体类，`mapleresin`）摆放时变成空气，原版没有日志提示，所以所属系统登记方块后要重新核对。摆放 8 个方块实体最多的结构，家具类方块（`beechfurniture_13`、`_14`、`_1501` 等）因为 B1 只登记了方块身份而没有方块实体，容器内容无法落地，随 decor 迁移。
-  - 摆放时的 ERROR：结构里的额框与画带着旧世界的绝对坐标 `TileX/TileY/TileZ`，1.21.1 的 `BlockAttachedEntity.readAdditionalSaveData` 发现它离实体超过 16 格就记 ERROR（本次摆放 74 条），实体位置由摆放代码重设，功能不受影响；容器里的未登记物品（Q16 的悬空盔甲 ID、`luopan`）记 `Tried to load invalid item`。结构随所属系统启用生成时再决定是否在转换中清洗这些坐标。
+  - 摆放时的 ERROR：结构里的额框与画带着旧世界的绝对坐标 `TileX/TileY/TileZ`，1.21.1 的 `BlockAttachedEntity.readAdditionalSaveData` 发现它离实体超过 16 格就记 ERROR（本次摆放 74 条），实体位置由摆放代码重设，功能不受影响；容器里的未登记物品（尚未迁移的 GeckoLib 盔甲、`luopan`）记 `Tried to load invalid item`。结构随所属系统启用生成时再决定是否在转换中清洗这些坐标。
   - `difujiegou`：展开后 304 MB、8,442,357 个方块，其中约 92% 是同一个状态（应为空气）；来源在进入地府维度时 `getOrCreate` 加载它。开发客户端默认堆下加载它在解析 NBT 阶段就 `OutOfMemoryError`（15.9 秒后），与版本升级无关。B1 原样迁入、不处理；如何摆放（压缩掉空气并在摆放前清空区域、拆成多个模板，或提高运行内存要求）随 world 决定。
 - 方块着色（2026-11-02）：来源只有 `cloudblock` 与 `grassblock` 两个方块注册了 `ColorHandlerEvent.Block`（按生物群系草色着色，无世界时用 `GrassColor.get(0.5, 1.0)`），它们的模型继承带 `tintindex` 的 `block/leaves`；由 `collection/decor/client/DecorClientSetup` 在 `RegisterColorHandlersEvent.Block` 注册，客户端入口调用。冒烟检查的近景里 `grassblock` 的灰色贴图（平均 147,147,147）渲染为绿色（84,103,61），着色生效。来源没有物品着色。
 - 来源函数 `playerchuansuo.mcfunction` 引用维度 `dimensionrenjian`，随 `world` 迁移。

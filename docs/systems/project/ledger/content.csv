@@ -1,4 +1,10 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
+attribute,yvanchuxiuzhen:entitydaxiao,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModAttributes.java,24,,待读,yvanchuxiuzhen:entitydaxiao,待处理,
+attribute,yvanchuxiuzhen:yaoshoupifuxianshi,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModAttributes.java,23,,待读,yvanchuxiuzhen:yaoshoupifuxianshi,待处理,
+game_rule,yvanchuxitong:shopsell,yvanchuxitong,,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModGameRules.java,14,,待读,yvanchuxiuzhen:shopsell,待处理,
+game_rule,yvanchuxitong:weaponlevelup,yvanchuxitong,,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModGameRules.java,13,,待读,yvanchuxiuzhen:weaponlevelup,待处理,
+game_rule,yvanchuxiuzhen:jinruyouxichushenxvanze,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModGameRules.java,14,,待读,yvanchuxiuzhen:jinruyouxichushenxvanze,待处理,
+game_rule,yvanchuxiuzhen:linggenlevel,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModGameRules.java,13,,待读,yvanchuxiuzhen:linggenlevel,待处理,
 painting_variant,yvanchuxiuzhen:painting_01,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModPaintings.java,17,,待读,yvanchuxiuzhen:painting_01,待处理,
 sound_event,yvanchuxiuzhen:basalt,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModSounds.java,155,,待读,yvanchuxiuzhen:basalt,待处理,
 sound_event,yvanchuxiuzhen:bowshoot1,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModSounds.java,119,,待读,yvanchuxiuzhen:bowshoot1,待处理,
