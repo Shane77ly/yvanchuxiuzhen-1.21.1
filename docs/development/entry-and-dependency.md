@@ -7,7 +7,7 @@ updated: 2026-11-02
 
 # 公共入口、依赖与动态数据调查
 
-本稿连接 [19 个系统正文](../systems/README.md)与[数据生命周期](data-and-runtime.md)。来源 A/B 的定位方式见系统导航；目标调用方式均为提案。
+本稿连接[系统调查正文](../systems/README.md)与[数据生命周期](data-and-runtime.md)。来源 A/B 的定位方式见系统导航；目标调用方式均为提案。
 
 ## 全量入口的证据范围
 
@@ -45,18 +45,18 @@ NeoForge 接口依据见 [本地源码核对](../reference/target-api.md)。以�
 
 ## 跨系统调用方向
 
-来源 [61 组跨归属调用](../reference/legacy/inventory/module_dependencies.csv)用于发现耦合，不直接成为目标允许依赖。归组基于来源目录和人工例外，仍属提案。
+来源 [66 组跨归属调用](../reference/legacy/inventory/module_dependencies.csv)用于发现耦合，不直接成为目标允许依赖。归组基于来源目录和人工例外，仍属提案。
 
 | 具体流程 | 所有者及调用方向 | 避免互相持有的可写数据 |
 | --- | --- | --- |
-| 装备与属性重算 | 装备/功法/成长产出贡献值 → 协调入口 → attributes 计算并应用 | attributes 不反向修改书籍或玩家成长档案 |
-| 闭关与功法研习 | 闭关流程依模式调用 cultivation 或 gongfa | 书籍经验留在书籍，修为与待吸收池留在玩家 |
-| 施法、符箓与阵法命中 | 所属执行器 → cultivation 扣资源、combat 结算；需要传送/召唤时调用具体 world/creatures 操作 | combat 不读取任意物品标签推断全部技能；效果执行后返回所需结果 |
-| 制造与自动取料 | alchemy/refining/talismans/life → materials 查询、storage 取料 → 产物所属系统构造实例 | 仓储不拥有职业、配方和产物公式 |
-| 击杀、采集和成长 | 实际结算结果 → 具体流程 → quests/cultivation/materials | combat/creatures 不依赖任务脚本细节 |
-| NPC 交互 | npc 提供实例与入口 → economy 或 quests；对话奖励经具体流程调用所属系统 | NPC 不复制玩家账户、任务及仓储数据 |
-| 场景与刷怪 | world 场景流程 → creatures 初始化；结束结果交给任务/成长流程 | 生物不写世界定义目录，场景不复制实体属性公式 |
-| 公共书籍 | knowledge 分派入口 → 功法/技能/图纸/丹方/符箓所属系统 | knowledge 不承担统一永久解锁库 |
+| 装备与属性重算 | 装备/功法/成长产出贡献值 → 协调入口 → attribute 计算并应用 | attribute 不反向修改书籍或玩家成长档案 |
+| 闭关与功法研习 | 闭关流程依模式调用 xiulian 或 gongfa | 书籍经验留在书籍，修为与待吸收池留在玩家 |
+| 施法、符箓与阵法命中 | 所属执行器 → xiulian 扣资源、combat 结算；需要传送/召唤时调用具体 world/creature 操作 | combat 不读取任意物品标签推断全部技能；效果执行后返回所需结果 |
+| 制造与自动取料 | liandan/lianqi/fulu/cooking/craft → material 查询、storage 取料 → 产物所属系统构造实例 | 仓储不拥有职业、配方和产物公式 |
+| 击杀、采集和成长 | 实际结算结果 → 具体流程 → quest/xiulian/material | combat/creature 不依赖任务脚本细节 |
+| NPC 交互 | npc 提供实例与入口 → economy 或 quest；对话奖励经具体流程调用所属系统 | NPC 不复制玩家账户、任务及仓储数据 |
+| 场景与刷怪 | world 场景流程 → creature 初始化；结束结果交给任务/成长流程 | 生物不写世界定义目录，场景不复制实体属性公式 |
+| 公共书籍 | book 分派入口 → 功法/技能/图纸/丹方/符箓所属系统 | book 不承担统一永久解锁库 |
 
 实现中先用明确的方法和返回值；有实际多种实现需求才引入接口。双向玩法关系由具体协调入口完成，不能用全局可写 CompoundTag、服务定位器或通用回调绕开所有权。定义引用内容 ID 和运行时调用服务是不同关系，注册装配统一处理前者。
 
@@ -91,15 +91,15 @@ flowchart TB
 
 | 键族/载体 | 已确认的范围依据 | 目标表示与唯一正文 |
 | --- | --- | --- |
-| `linshijineng{i}` / `jinengjishi{i}` / `jinengqvanzhong{i}`，实体 | 当次条件筛选出的候选数与累计权重；不固定为玩家 16 槽 | 有序候选列表，[生物](../systems/creatures/architecture.md) |
+| `linshijineng{i}` / `jinengjishi{i}` / `jinengqvanzhong{i}`，实体 | 当次条件筛选出的候选数与累计权重；不固定为玩家 16 槽 | 有序候选列表，[生物](../systems/creature/architecture.md) |
 | `cailiaozu…` / `level…pinjie…`，玩家隐藏载体 | 材料 ID、目录序号、等级与品阶组成；显示 45 条不限制总目录 | 玩家材料计数仓，[容器](../systems/storage/architecture.md) |
-| `danyaoxiaoguo{i}` / `danyaolevel{i}` / `danyaotick{i}`，丹药 | 来源数量字段控制列表，保留顺序和运算 | 药效条目列表，[炼丹](../systems/alchemy/architecture.md) |
-| `cailiao00…08`，食谱 | 9 个材料位，另有最多 4 层蒸笼 | 具体器具配方，[生活](../systems/life/architecture.md) |
+| `danyaoxiaoguo{i}` / `danyaolevel{i}` / `danyaotick{i}`，丹药 | 来源数量字段控制列表，保留顺序和运算 | 药效条目列表，[炼丹](../systems/liandan/architecture.md) |
+| `cailiao00…08`，食谱 | 9 个材料位，另有最多 4 层蒸笼 | 具体器具配方，[烹饪](../systems/cooking/architecture.md) |
 | `npc.data.list{n}` 与类型三元组，世界隐藏载体 | 来源按语言键和结束条件逐条读取，含类型/键/值 | NPC 定义及实例覆盖，[NPC](../systems/npc/architecture.md) |
-| 任务步骤、剧情任意键，玩家/实体 | `%` 分步骤、`/` 分参数，条件/跳转/命令另有语义 | 有类型动作与剧情数据域，[任务](../systems/quests/architecture.md) |
+| 任务步骤、剧情任意键，玩家/实体 | `%` 分步骤、`/` 分参数，条件/跳转/命令另有语义 | 有类型动作与剧情数据域，[任务](../systems/quest/architecture.md) |
 | `paiitem{i}` / 拍卖坐标组，方块 | 商品轮次和拍卖阶段控制，不能由 GUI 格数推断总量 | 现场拍卖状态，[经济](../systems/economy/architecture.md) |
-| `fybenboci{n}num` / `mobtagdata{i}`，副本方块 | 当前波次与每波刷怪配置控制 | 场景定义和波次实例，[世界](../systems/world/architecture.md) |
-| 布阵坐标、阵位与目标，阵基/旗 | 当前扫描 88 个位置；源码坐标数组长度 232 不代表全部遍历 | 布局及解析结果，[阵法](../systems/formations/architecture.md) |
+| `fybenboci{n}num` / `mobtagdata{i}`，副本方块 | 当前波次与每波刷怪配置控制 | 场景定义和波次实例，[副本](../systems/dungeon/architecture.md) |
+| 布阵坐标、阵位与目标，阵基/旗 | 当前扫描 88 个位置；源码坐标数组长度 232 不代表全部遍历 | 布局及解析结果，[阵法](../systems/zhenfa/architecture.md) |
 | 学习网格与 `suijishu`，玩家/装置 | 固定随机序列长度 280，起点 (8,8)；游标独立于显示过程数 | 学习会话，[功法](../systems/gongfa/architecture.md) |
 
 完整表达式见 [动态键分组](../reference/legacy/inventory/dynamic_key_catalog.csv)。已知数据族的形状足以确定当前所有权提案；全部 630 组的取值域、任意别名和每条持久化路径尚未逐项人工验证，不能凭该表预先删除键或任意设上限。

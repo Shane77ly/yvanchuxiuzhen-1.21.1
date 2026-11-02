@@ -7,13 +7,13 @@ updated: 2026-11-02
 
 # 工程结构与长期维护
 
-状态：负责人 2026-11-02 批准（main 提交 `3e0585c` 版本）；标注“待验证”的做法由 B0 实测后写回并移除标注，批准不含存档导入、界面复刻程度、license 与 Q01–Q14。玩法所有权与调用方向仍以[整体架构](architecture.md)为正文，本文规定代码与工程如何承载它们。文中“已核实”指本机源码、制品或运行结果；其余为方案或“待验证”。
+状态：负责人 2026-11-02 批准（main 提交 `3e0585c` 版本）；标注“待验证”的做法由 B0 实测后写回并移除标注，批准不含存档导入、界面复刻程度、license 与 Q01–Q14。系统划分、归属判定与依赖规则以[系统设计](system-design.md)为正文（2026-11-02 批准，本文目录名与 ArchUnit 规则随之改写），玩法所有权以[整体架构](architecture.md)为正文，本文规定代码与工程如何承载它们。文中“已核实”指本机源码、制品或运行结果；其余为方案或“待验证”。
 
 ## 设计约束
 
 | 约束 | 来源 | 对工程的要求 |
 | --- | --- | --- |
-| 规模 | 4,867 条注册（2,243 物品、1,180 方块、271 实体类型、315 粒子、150 声音），16,282 个来源资源文件，19 个系统 | 不能一条内容一个手写注册段；资源必须可批量、可复现地转换 |
+| 规模 | 4,867 条注册（2,243 物品、1,180 方块、271 实体类型、315 粒子、150 声音），16,282 个来源资源文件，28 个系统与 3 个内容族 | 不能一条内容一个手写注册段；资源必须可批量、可复现地转换 |
 | 长期多会话推进 | 负责人以新会话分批移植 | 冲突热点要拆开；每次会话可从仓库状态恢复；规则要能自动检查 |
 | 目标平台变化 | 已核实：1.21.1 的附魔为数据驱动 `record`，群系与地物在 worldgen 数据中，燃料与堆肥为 NeoForge 数据映射，数据目录改为单数（`recipe`、`loot_table`、`tags/item`），配方产物使用 `id` | 来源中以 Java 注册的 85 个附魔、68 个群系和 220 个地物需要“代码注册 → 数据定义”转换 |
 | 依赖生态 | GeckoLib 是唯一已确认的必需库；NeoForge 21.1.x 持续发布补丁（2026-11-02 maven 最新 21.1.265） | 依赖少而固定；版本更新有固定时机和检查 |
@@ -29,6 +29,8 @@ src/main/java/net/yvanchuxiuzhen/
   YvanchuxiuzhenClient.java     @Mod(value = MOD_ID, dist = Dist.CLIENT) 客户端入口：调用各系统的 <名称>ClientSetup
   platform/                     至少两个系统实际共用的平台适配：内容表加载、注册辅助、payload 登记、codec 工具
   flow/                         跨系统具体流程（闭关、击杀结算、装备重算等）
+  panel/                        玩家面板：分页导航框架、HUD 与覆盖层；各页菜单归所属系统
+  family/<内容族>/              内容族：内容表与元素自身行为，没有 api
   system/<系统>/
     <名称>Setup.java            启动装配：把本系统的注册器与监听接到总线；公共入口只调用这一类
     api/                        对其他系统公开的查询、操作与值类型
@@ -41,15 +43,15 @@ src/main/java/net/yvanchuxiuzhen/
 src/main/resources/
   assets/yvanchuxiuzhen/  assets/yvanchuxitong/
   data/yvanchuxiuzhen/    data/yvanchuxitong/
-  content/<系统>/               静态内容表（见“注册与内容表”）
-src/main/lang/<命名空间>/<语言>/<系统>.json   语言片段，构建时合并
+  content/<系统或内容族>/        静态内容表（见“注册与内容表”）
+src/main/lang/<命名空间>/<语言>/<系统或内容族>.json   语言片段，构建时合并
 src/gametest/java/              GameTest，只进入开发运行，不进入发布 JAR（待验证）
 tools/porting/                  来源索引、台账检查、资源转换
 ```
 
-- 本文的“系统”指[整体架构](architecture.md)“系统所有权”中的 19 个玩法领域，即拥有自身数据与规则的所有权单位；不是 ECS 式运行时系统，也没有“系统注册”框架。
+- 本文的“系统”指[系统设计](system-design.md)清单中的 28 个系统，即拥有自身数据与规则的所有权单位；不是 ECS 式运行时系统，也没有“系统注册”框架。内容族与 `panel` 同样有自己的 `<名称>Setup`、内容表、语言片段、文档目录与台账，下文以 `<系统>` 表示的路径同样适用于它们。
 - `<名称>Setup` 只在 Mod 构造时调用一次：登记本系统的 `DeferredRegister`、payload 与事件监听，不持有状态，不实现接口，运行期不再被调用。例如 `AlchemySetup.register(IEventBus modBus)`。装配集中在入口显式调用，使启动顺序与注册范围在一处可见；`DeferredRegister` 本身也需要显式 `register(modBus)`。
-- 系统目录名：cultivation、gongfa、attributes、combat、abilities、equipment、materials、alchemy、refining、talismans、formations、creatures、npc、economy、quests、world、life、storage、knowledge。简单系统可以平铺，不预建空子包。
+- 系统与内容族的目录名取[系统设计](system-design.md)的标识。简单系统可以平铺，不预建空子包。
 - 客户端代码放在所属系统的 `client` 子包，由客户端入口装配；已核实 FML 4.0.42 的 `@Mod` 提供 `dist` 属性。`@EventBusSubscriber` 的 `bus` 属性在该版本已标记弃用，按事件类型自动选择总线。
 - `platform` 替代原方案的 `shared`：只放平台适配，不放玩法类型；玩法共享值类型放在所有者的 `api`。
 
@@ -57,10 +59,12 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 规则写进构建才有约束力。采用 ArchUnit（测试依赖，只检查编译后的类）在 `gradlew check` 中执行：
 
-1. `system.X` 只能依赖其他系统的 `api` 包；`flow` 同样只用 `api`。
+1. `system.X` 只能依赖其他系统的 `api` 包；`flow`、`panel`、`family` 同样只用 `api`。
 2. `client` 包与客户端入口之外的类不得依赖任何 `client` 包或 `net.minecraft.client`。
 3. `rule` 包不得依赖 `net.minecraft`、`net.neoforged`。
-4. `platform` 不得依赖 `system` 或 `flow`。
+4. `platform` 不得依赖 `system`、`flow`、`panel` 或 `family`。
+5. `system` 下各系统包之间没有循环依赖。
+6. 除 Mod 入口外，任何类不得依赖 `family` 或 `panel`。
 
 这些是结构守卫，不属于“为每个类写测试”；违反即构建失败。初次接入与规则清单在 B0 完成。
 
@@ -96,9 +100,9 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 ## 台账与检查工具
 
-三份台账（内容映射、行为对齐、验收证据）以 CSV 存放在所属系统目录 `docs/systems/<系统>/ledger/` 下的 `content.csv`、`behavior.csv`、`evidence.csv`；Excel 工作簿改为由 CSV 生成的只读审阅视图，不再承载人工列（当前工作簿人工列均为空，切换无数据损失）。内容映射的初始行由 `registrations.csv` 与候选归属生成，每条来源注册一行；归属尚未确认的行先放在 `docs/systems/project/ledger/`，确认后移到所属系统。
+三份台账（内容映射、行为对齐、验收证据）以 CSV 存放在所属系统目录 `docs/systems/<系统>/ledger/` 下的 `content.csv`、`behavior.csv`、`evidence.csv`；Excel 工作簿改为由 CSV 生成的只读审阅视图，不再承载人工列（当前工作簿人工列均为空，切换无数据损失）。内容映射的初始行由 `registrations.csv` 与[归属表](../reference/legacy/inventory/ownership_assignment.csv)生成，每条来源注册一行，放在归属表所写系统的目录，并带归属状态列（候选、已读，含义见[系统设计](system-design.md)“归属判定”）；归属改动时先改归属表，再把行移到新系统。
 
-`tools/porting/check_ledger.py`（B0 建立）检查：每条来源注册都有行；状态只取约定值；状态为“已注册”及以上的目标 ID 出现在开发服务端导出的注册表中；转换清单覆盖对应资源。状态值：
+`tools/porting/check_ledger.py`（B0 建立）检查：每条来源注册都有行；状态只取约定值；状态高于“待处理”的行归属必须为“已读”；状态为“已注册”及以上的目标 ID 出现在开发服务端导出的注册表中；转换清单覆盖对应资源。状态值：
 
 | 状态 | 含义 |
 | --- | --- |
@@ -144,7 +148,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 | 项 | 规则 |
 | --- | --- |
 | 主分支 | `main` 始终可构建，只接收通过检查的合并。直接提交到 `main` 只限仓库与文档维护；玩法、工具和构建改动走工作分支 |
-| 工作分支 | `port/<批次>-<主题>`（如 `port/b0-slice`、`port/c-cultivation`），工具与文档用 `chore/<主题>`、`docs/<主题>`；分支名不带所用工具的前缀 |
+| 工作分支 | `port/<批次>-<主题>`（如 `port/b0-slice`、`port/c-xiulian`），工具与文档用 `chore/<主题>`、`docs/<主题>`；分支名不带所用工具的前缀 |
 | 合并 | 工作单位完成且构建、`check`、台账与文档检查通过后，用 `git merge --no-ff` 合入 `main` 保留单位边界，合并后删除工作分支 |
 | worktree | 并行会话在仓库同级的 `../worktrees/rebuild-<主题>` 建立独立 worktree；一个分支同时只在一个 worktree 检出；合并后 `git worktree remove` |
 | 提交 | 一个提交只含一个可说明的单位；消息为 `<类型>: <摘要>`，类型取 build、feat、fix、refactor、test、docs、chore；中断时可在工作分支提交 `wip: <摘要>` |

@@ -85,17 +85,17 @@ updated: 2026-11-01
 | 编号 | 核对结论 / 评审主题 | 唯一正文 |
 | --- | --- | --- |
 | Q01 | 同名功法字段已按类型分开；实际栏位和学习小游戏分别建模 | [功法](../../systems/gongfa/architecture.md) |
-| Q02 | 制造职业快照与当前玩家/装置绑定，决定多人协作规则 | [炼器](../../systems/refining/architecture.md) |
-| Q03 | 炼丹等级检查在图中为游离块，Java 与已连接图一致；恢复门槛属于行为调整 | [炼丹](../../systems/alchemy/architecture.md) |
-| Q04 | 阵法五行费用倍率缺失、分派名称错配、火2类别错配及部分伤害链未闭合 | [阵法](../../systems/formations/architecture.md) |
+| Q02 | 制造职业快照与当前玩家/装置绑定，决定多人协作规则 | [炼器](../../systems/lianqi/architecture.md) |
+| Q03 | 炼丹等级检查在图中为游离块，Java 与已连接图一致；恢复门槛属于行为调整 | [炼丹](../../systems/liandan/architecture.md) |
+| Q04 | 阵法五行费用倍率缺失、分派名称错配、火2类别错配及部分伤害链未闭合 | [阵法](../../systems/zhenfa/architecture.md) |
 | Q05 | 商店找零变量不一致；明确修正输入与结果 | [经济](../../systems/economy/architecture.md) |
 | Q06 | 世界定义在初始化门外重写，静态定义/实例/管理覆盖需分开 | [世界](../../systems/world/architecture.md) |
 | Q07 | 真实容器绑定、材料仓玩家归属、关闭与死亡后的资产去向 | [容器](../../systems/storage/architecture.md) |
 | Q08 | GeckoLib 实际依赖与元数据 optional 标记不一致 | [整体架构](../../development/architecture.md) |
 | Q09 | 注册、编辑器元素、Java 类和结构可达口径不同 | [公共入口](../../development/entry-and-dependency.md) |
 | Q10 | 动态键已有全量表达式与主要数据族；全部取值域尚未逐项确认 | [公共入口](../../development/entry-and-dependency.md) |
-| Q11 | taskbegin 后分支被前面的 OR 条件覆盖；剧情任意键需保留真实作用域 | [任务](../../systems/quests/architecture.md) |
-| Q12 | 裤装比较标记写入其他槽；主手仅比较 Item 类型 | [属性](../../systems/attributes/architecture.md) |
+| Q11 | taskbegin 后分支被前面的 OR 条件覆盖；剧情任意键需保留真实作用域 | [任务](../../systems/quest/architecture.md) |
+| Q12 | 裤装比较标记写入其他槽；主手仅比较 Item 类型 | [属性](../../systems/attribute/architecture.md) |
 | Q13 | 命令伤害与未闭合字段链分开；关系读取及击杀计数时机待裁定 | [战斗](../../systems/combat/architecture.md) |
 | Q14 | 本命成长交替标记在玩家体质载体，迁到物品会改变换装行为 | [装备](../../systems/equipment/architecture.md) |
 

@@ -7,7 +7,7 @@
 - 范围：全量移植两个 Mod 的全部系统。
 - 目标源码：构建后的 `build/moddev/artifacts/neoforge-<版本>-sources.jar`（含 Minecraft 与 NeoForge 源码，随依赖版本生成；当前构建为 NeoForge 21.1.265，最低支持 21.1.228）；FML 等库在 Gradle 缓存。邻近工程的 `reference/neoforge-21.1.228-sources` 只在版本相同时作对照。
 - 非依据：邻近 1.21.1 工程 `yuanchuxiuzhen-1.21.1` 只提供工程参考。
-- 当前关口：B0 架构验证切片（`docs/development/roadmap.md`）。2026-11-02 负责人批准 `docs/development/architecture.md`、`engineering.md`、`roadmap.md`（main 提交 `3e0585c` 版本）并指示自 B0 步骤 1 开始，工作分支 `port/b0-slice`。批准范围仅限这三份文档；存档导入、界面复刻程度、license、来源矛盾 Q01–Q14 以及未列入的文档（含各系统 `architecture.md`、`data-and-runtime.md`）仍为待裁定或草案，对应内容实现前需另行裁定。goal 仍未授权，未经明确批准不创建 goal。
+- 当前关口：B0 架构验证切片（`docs/development/roadmap.md`）。2026-11-02 负责人批准 `docs/development/architecture.md`、`engineering.md`、`roadmap.md`（main 提交 `3e0585c` 版本）并指示自 B0 步骤 1 开始，工作分支 `port/b0-slice`。批准范围仅限这三份文档；存档导入、界面复刻程度、license、来源矛盾 Q01–Q14 以及未列入的文档（含各系统 `architecture.md`、`data-and-runtime.md`）仍为待裁定或草案，对应内容实现前需另行裁定。goal 仍未授权，未经明确批准不创建 goal。2026-11-02 负责人全部批准 `docs/development/system-design.md`（系统划分、归属判定、依赖规则、公开操作清单）；该文“批准后的迁移”已完成，B0 从步骤 2 继续。
 - 开发环境：Mod ID `yvanchuxiuzhen`，Java 基础包 `net.yvanchuxiuzhen`；构建组合与验证见 `docs/development/architecture.md` 的“技术依赖”。
 - 交接：新会话先读 `docs/development/handoff.md`。
 - 记录位置：内容映射与行为对齐见 `docs/development/content-and-parity.md`，台账 CSV 在 `docs/systems/<系统>/ledger/`（B0 建立），系统规则正文在 `docs/systems/<系统>`，证据与日志按下方“文档”登记。
@@ -29,6 +29,9 @@
 ## 工程边界
 
 - 按系统组织实现；数据所有者是唯一写入者。跨系统调用使用公开接口，禁止直接修改其他系统的持久化对象。
+- 系统划分、归属与依赖以 `docs/development/system-design.md` 为准：系统之间不得相互依赖（ArchUnit 循环检查）；依赖由职责与数据归属决定，不按来源访问量推导。
+- 内容归属按该文“归属判定”读来源规则确定；目录、名称、元素形态与脚本结果只是候选，候选归属不作为实现依据。
+- 实现一个系统前，在其 README“公开操作”一节列出供其他系统调用的查询与写操作，并对照 `typed_field_accesses.csv` 覆盖全部外部读写点。
 - 公共核心只容纳已出现共享需求的类型和语义，不堆积全部职业、物品或技能逻辑。
 - 服务端保存玩法真值；客户端快照和显示不得反写整份玩家档案。
 - 正式注释使用专业、客观的中文，说明当前职责、数据流、公式、生命周期和边界，不写试错过程及未来维护设想。

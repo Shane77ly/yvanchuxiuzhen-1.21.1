@@ -17,8 +17,9 @@ updated: 2026-11-02
 | 2 | [范围与保真原则](design/scope.md) | 完整范围、行为保留原则和待裁定事项 |
 | 3 | [整体架构](development/architecture.md)（已批准） | 系统职责、数据所有者、代码组织与实际依赖 |
 | 3a | [工程结构与长期维护](development/engineering.md)（已批准） | 代码目录、边界检查、内容表、资源转换、台账、依赖治理与并行协作 |
+| 3b | [系统设计](development/system-design.md)（已批准） | 系统定义、归属判定、命名规则、依赖规则、28 个系统与内容族清单、写入收口与公开操作 |
 | 4 | [数据与运行时](development/data-and-runtime.md) | 状态的存储、加载、修改、同步、消费、保存 |
-| 4a | [19 个系统调查正文](systems/README.md) | 每个系统的来源入口、数据归属、操作和待裁定项 |
+| 4a | [系统调查正文](systems/README.md) | 28 个系统、3 个内容族与玩家面板的来源入口、数据归属、操作和待裁定项 |
 | 4b | [公共入口与依赖](development/entry-and-dependency.md) | 全量事件/菜单/消息/命令、跨系统调用方向与动态数据族 |
 | 5 | [编号与变量 Excel](../outputs/01a19713-78e6-72b2-844d-c8e8d0ce7ded/1.18.2-content-register.xlsx) | 内容编号、字段、字典键、过程与菜单的审阅台账 |
 | 6 | [命名与台账](development/naming-and-catalog.md) | 来源身份、新命名、人工列和刷新规则 |

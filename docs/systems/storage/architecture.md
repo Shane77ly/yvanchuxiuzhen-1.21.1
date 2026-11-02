@@ -5,12 +5,12 @@ status: draft
 updated: 2026-11-01
 ---
 
-# 普通容器、乾坤袋与玩家材料仓：架构调查与提案
+# 储物：架构调查与提案
 
 来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
 ## 已核实的两种不同所有权
 
-乾坤袋菜单的 ItemStackHandler 容量为 27/54/108/220（`A:Qiankundai01…04GUIMenu`）；陶罐菜单为 1/4/9。菜单生成模板还能绑定手持物品、实体或方块，实际入口决定所有者。来源 `stillValid` 直接返回 true 的情况要结合真实绑定重写。
+乾坤袋菜单的 ItemStackHandler 容量为 27/54/108/220（`A:Qiankundai01…04GUIMenu`）。蛊罐归 guchong，见[蛊虫](../guchong/architecture.md)。菜单生成模板还能绑定手持物品、实体或方块，实际入口决定所有者。来源 `stillValid` 直接返回 true 的情况要结合真实绑定重写。
 
 **材料袋不是普通随物品保存的 46 格容器。** `B:CailiaodaiGuicunruProcedure:30–123` 把数量写到玩家 `renwuitem`；该字段由 `PlayerJoinGameProcedure:40–44` 创建为隐藏铁锭。其菜单 46 格承担 1 个输入与 45 个分页显示，目录数值按材料 ID、等级、品阶保存。
 
