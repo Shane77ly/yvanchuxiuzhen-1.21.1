@@ -43,8 +43,9 @@ updated: 2026-11-01
 | [indirect_surfaces.csv](indirect_surfaces.csv)、[language_payloads.csv](language_payloads.csv) | 2,515 间接入口；101 长文本/分隔文本候选，不全是机器配置 |
 | [key_expressions.csv](key_expressions.csv)、[dynamic_keys.csv](dynamic_keys.csv)、[dynamic_state_keys.csv](dynamic_state_keys.csv) | 40,173 键调用，动态语法及可识别载体子集；保留匿名 helper 实参还原 |
 | [typed_field_accesses.csv](typed_field_accesses.csv)、[clone_policy.csv](clone_policy.csv)、[state_lifecycle.csv](state_lifecycle.csv) | 显式类型/作用域匹配、183 复制策略与 211 字段生命周期 |
-| [ownership_proposal.csv](ownership_proposal.csv)、[class_ownership.csv](class_ownership.csv)、[system_coverage.csv](system_coverage.csv) | 全量元素与 Java 候选归属；不是批准后的目标映射 |
-| [module_dependencies.csv](module_dependencies.csv)、[dynamic_key_catalog.csv](dynamic_key_catalog.csv) | 61 组来源依赖、630 个载体/表达式分组 |
+| [ownership_assignment.csv](ownership_assignment.csv) | 人工维护的元素归属：`已读` 行按[系统设计](../../../development/system-design.md)“归属判定”读过来源规则，`候选` 行是批量归组结果；不是生成结果 |
+| [ownership_proposal.csv](ownership_proposal.csv)、[class_ownership.csv](class_ownership.csv)、[system_coverage.csv](system_coverage.csv) | 由归属表推导的元素、Java 类与系统汇总；候选行不作为实现依据 |
+| [module_dependencies.csv](module_dependencies.csv)、[dynamic_key_catalog.csv](dynamic_key_catalog.csv) | 66 组来源依赖、630 个载体/表达式分组 |
 | [architecture_workbook.json](architecture_workbook.json) | 新增架构工作表的生成输入 |
 
 ## 生成顺序
@@ -58,6 +59,6 @@ python -B -X utf8 tools/porting/catalog_source_design.py
 python -B -X utf8 tools/porting/build_architecture_catalog.py
 ```
 
-读取源码的工具默认定位同级 `yuanchuxiuzhen-1.21.1`，支持 `--source-workspace <path>`；归属整理器读取前序 CSV。按上述顺序生成，源数据没有变化时复用已有结果。生成结果不手动写入目标实现结论；Excel 黄色人工列按 [命名与台账](../../../development/naming-and-catalog.md)维护。
+读取源码的工具默认定位同级 `yuanchuxiuzhen-1.21.1`，支持 `--source-workspace <path>`；归属整理器读取前序 CSV 与人工维护的 `ownership_assignment.csv`；归属表缺少某个元素时直接报错。读过来源规则后在归属表中修改归属并把状态改为 `已读`，再重新运行归属整理器。按上述顺序生成，源数据没有变化时复用已有结果。生成结果不手动写入目标实现结论；Excel 黄色人工列按 [命名与台账](../../../development/naming-and-catalog.md)维护。
 
 同命名空间中的完整 ID 才是身份；不同命名空间的同名路径不直接构成冲突。自动分组与字段访问数量仅用于检索。动态键、命令、资源及未解析类型的跨调用需要继续人工核对，不能把“没搜到”写成“功能不存在”。

@@ -45,7 +45,7 @@ NeoForge 接口依据见 [本地源码核对](../reference/target-api.md)。以�
 
 ## 跨系统调用方向
 
-来源 [61 组跨归属调用](../reference/legacy/inventory/module_dependencies.csv)用于发现耦合，不直接成为目标允许依赖。归组基于来源目录和人工例外，仍属提案。
+来源 [66 组跨归属调用](../reference/legacy/inventory/module_dependencies.csv)用于发现耦合，不直接成为目标允许依赖。归组基于来源目录和人工例外，仍属提案。
 
 | 具体流程 | 所有者及调用方向 | 避免互相持有的可写数据 |
 | --- | --- | --- |
