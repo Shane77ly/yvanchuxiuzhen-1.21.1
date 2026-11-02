@@ -137,7 +137,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 | 加载检查 | 开发服务端启动至 Done、客户端加载至声音引擎启动、日志无 ERROR | 每次依赖更新与批次出口 |
 | 台账与文档 | `check_ledger.py`、`check_docs.py`、`inventory_legacy.py --check` | 每次提交前 |
 
-仓库当前没有远端；建立远端后在 CI 执行构建、`check` 与文档/台账检查。来源工作区不在仓库中，`inventory_legacy.py --check` 只能在有来源的机器上执行。
+远端已建立，CI 尚未配置；配置后在 CI 执行构建、`check` 与文档/台账检查。来源工作区不在仓库中，`inventory_legacy.py --check` 只能在有来源的机器上执行。
 
 ## Git 与会话协作
 
@@ -150,7 +150,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 | 提交 | 一个提交只含一个可说明的单位；消息为 `<类型>: <摘要>`，类型取 build、feat、fix、refactor、test、docs、chore；中断时可在工作分支提交 `wip: <摘要>` |
 | 历史 | 推送到远端后不改写 `main` 历史，不 force push |
 | 换行 | 由 `.gitattributes` 规定：文本 LF，Windows 批处理 CRLF，二进制不转换；不依赖各机器的 `core.autocrlf` |
-| 远端 | 当前无远端，备份只在本机；是否建立由负责人决定 |
+| 远端 | `origin` 为 GitHub `Shane77ly/yvanchuxiuzhen-1.21.1`，公开仓库（负责人 2026-11-02 确认以公开方式推送）；`main` 与已合并结果推送到远端 |
 
 冲突热点已按系统拆分：注册、内容表、语言片段、声音片段、台账、系统文档与日志；入口类每个系统只占一行装配。会话开始与结束、进度记录和交接更新的规则见 AGENTS.md 的“进度记录与交接”。
 

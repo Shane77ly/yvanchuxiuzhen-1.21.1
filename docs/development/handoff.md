@@ -57,7 +57,7 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 | 目标源码 | 构建后的 `build/moddev/artifacts/neoforge-<版本>-sources.jar`，含 Minecraft 与 NeoForge 源码；FML 在 Gradle 缓存 `net.neoforged.fancymodloader` |
 | 构建 | `./gradlew build` |
 | 运行 | `./gradlew runServer`、`./gradlew runClient`；运行目录 `run/`（已忽略） |
-| Git | 无远端（备份只在本机）；`.gitattributes` 规定换行；提交作者邮箱当前为 `shenjing@`（无域名），待负责人提供 |
+| Git | `origin` = https://github.com/Shane77ly/yvanchuxiuzhen-1.21.1 （公开）；凭据由 Git Credential Manager 保存的 `Shane77ly` 账户提供，走 HTTPS（本机未配置 GitHub SSH）；提交作者 `Lix <207489130@qq.com>`；`.gitattributes` 规定换行 |
 | 文档与来源检查 | `python -B -X utf8 tools/docs/check_docs.py`；`python -B -X utf8 tools/porting/inventory_legacy.py --check` |
 
 运行检查注意：
