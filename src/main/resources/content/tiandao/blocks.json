@@ -1,0 +1,7 @@
+[
+{"id":"tiandaodimensionblock","factory":"block","material":"WOOD","map_color":"GOLD","sound":"WOOD","light":15,"states":[],"light_block":15,"fallback_drop":{"item":"minecraft:air","count":1}},
+{"id":"tiandaowhiteblock","factory":"block","material":"STONE","sound":"STONE","no_drops":true,"states":[],"light_block":15},
+{"id":"tiandaoduojiegou","factory":"block","material":"METAL","sound":"METAL","no_occlusion":true,"redstone_conductor":false,"states":[],"light_block":15,"empty_visual_shape":true,"fallback_drop":{"item":"self","count":1},"pending_hooks":["getMenuProvider","newBlockEntity","onPlace","tick","triggerEvent"]},
+{"id":"tiandaoguding","factory":"block","material":"STONE","sound":"STONE","no_drops":true,"states":[],"light_block":15},
+{"id":"tiandaoitemnbt","factory":"block","material":"STONE","sound":"STONE","no_drops":true,"states":[],"light_block":15,"pending_hooks":["createMenu","getAnalogOutputSignal","getDisplayName","getMenuProvider","hasAnalogOutputSignal","newBlockEntity","onRemove","triggerEvent","use"]}
+]

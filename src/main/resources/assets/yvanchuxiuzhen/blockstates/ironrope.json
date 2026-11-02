@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "yvanchuxiuzhen:block/ironrope__cutout",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "yvanchuxiuzhen:block/ironrope__cutout"
+    },
+    "axis=z": {
+      "model": "yvanchuxiuzhen:block/ironrope__cutout",
+      "x": 90
+    }
+  }
+}

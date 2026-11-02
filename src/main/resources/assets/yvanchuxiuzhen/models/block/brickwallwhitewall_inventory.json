@@ -1,0 +1,7 @@
+{
+  "parent": "block/wall_inventory",
+  "textures": {
+    "wall": "yvanchuxiuzhen:block/brickwall_white",
+    "particle": "yvanchuxiuzhen:block/brickwall_white"
+  }
+}

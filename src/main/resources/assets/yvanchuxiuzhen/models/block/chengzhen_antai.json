@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/chengzhen_antai",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/chengzhen_antai",
+    "particle": "yvanchuxiuzhen:block/chengzhen_antai",
+    "0": "yvanchuxiuzhen:block/chengzhen_antai"
+  }
+}

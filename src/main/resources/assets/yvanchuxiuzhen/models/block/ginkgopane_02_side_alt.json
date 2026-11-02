@@ -1,0 +1,7 @@
+{
+  "parent": "block/template_glass_pane_side_alt",
+  "textures": {
+    "edge": "yvanchuxiuzhen:block/ginkgo_trapdoor",
+    "pane": "yvanchuxiuzhen:block/ginkgo_trapdoor"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/peach_log_top",
+    "up": "yvanchuxiuzhen:block/peach_log_top",
+    "north": "yvanchuxiuzhen:block/peach_log",
+    "east": "yvanchuxiuzhen:block/peach_log",
+    "south": "yvanchuxiuzhen:block/peach_log",
+    "west": "yvanchuxiuzhen:block/peach_log",
+    "particle": "yvanchuxiuzhen:block/peach_log_top"
+  }
+}

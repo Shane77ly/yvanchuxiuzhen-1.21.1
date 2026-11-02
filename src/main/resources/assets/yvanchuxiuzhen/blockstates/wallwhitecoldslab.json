@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/wallwhitecoldslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/wallwhitecoldslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/wallwhitecoldslab_full"
+    }
+  }
+}

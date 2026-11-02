@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/cailiao237fireblock",
+    "particle": "yvanchuxiuzhen:block/cailiao237fireblock"
+  }
+}

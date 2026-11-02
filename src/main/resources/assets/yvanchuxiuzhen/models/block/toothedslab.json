@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/toothed_planks",
+    "top": "yvanchuxiuzhen:block/toothed_planks",
+    "side": "yvanchuxiuzhen:block/toothed_planks"
+  }
+}

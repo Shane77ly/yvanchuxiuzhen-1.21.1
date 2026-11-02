@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/cypressslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/cypressslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/cypressslab_full"
+    }
+  }
+}

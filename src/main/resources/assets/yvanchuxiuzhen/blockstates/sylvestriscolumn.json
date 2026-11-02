@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "yvanchuxiuzhen:block/sylvestriscolumn__cutout",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "yvanchuxiuzhen:block/sylvestriscolumn__cutout"
+    },
+    "axis=z": {
+      "model": "yvanchuxiuzhen:block/sylvestriscolumn__cutout",
+      "x": 90
+    }
+  }
+}

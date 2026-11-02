@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/paimaiblock",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/paimaiblock",
+    "particle": "yvanchuxiuzhen:block/paimaiblock",
+    "0": "yvanchuxiuzhen:block/paimaiblock"
+  }
+}

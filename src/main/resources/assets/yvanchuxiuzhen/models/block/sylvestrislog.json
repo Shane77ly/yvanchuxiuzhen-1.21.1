@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/sylvestris_log_top",
+    "up": "yvanchuxiuzhen:block/sylvestris_log_top",
+    "north": "yvanchuxiuzhen:block/sylvestris_log",
+    "east": "yvanchuxiuzhen:block/sylvestris_log",
+    "south": "yvanchuxiuzhen:block/sylvestris_log",
+    "west": "yvanchuxiuzhen:block/sylvestris_log",
+    "particle": "yvanchuxiuzhen:block/sylvestris_log_top"
+  }
+}

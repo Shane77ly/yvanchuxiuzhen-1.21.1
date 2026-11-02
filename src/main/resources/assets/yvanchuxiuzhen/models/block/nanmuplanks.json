@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/nanmu_planks",
+    "particle": "yvanchuxiuzhen:block/nanmu_planks"
+  }
+}

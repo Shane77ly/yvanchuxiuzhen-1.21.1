@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/nanmu_door_left",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/nanmu_door",
+    "particle": "yvanchuxiuzhen:block/nanmu_door",
+    "0": "yvanchuxiuzhen:block/nanmu_door"
+  }
+}

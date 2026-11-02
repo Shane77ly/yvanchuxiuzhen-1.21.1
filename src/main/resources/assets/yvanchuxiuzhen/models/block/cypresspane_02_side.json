@@ -1,0 +1,7 @@
+{
+  "parent": "block/template_glass_pane_side",
+  "textures": {
+    "edge": "yvanchuxiuzhen:block/cypress_planks",
+    "pane": "yvanchuxiuzhen:block/cypress_pane02"
+  }
+}

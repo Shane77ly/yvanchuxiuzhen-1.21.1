@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/toothed_log_top",
+    "up": "yvanchuxiuzhen:block/toothed_log_top",
+    "north": "yvanchuxiuzhen:block/toothed_log",
+    "east": "yvanchuxiuzhen:block/toothed_log",
+    "south": "yvanchuxiuzhen:block/toothed_log",
+    "west": "yvanchuxiuzhen:block/toothed_log",
+    "particle": "yvanchuxiuzhen:block/toothed_log_top"
+  }
+}

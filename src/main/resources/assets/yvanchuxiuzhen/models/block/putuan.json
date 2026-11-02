@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/putuan",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/putuan",
+    "particle": "yvanchuxiuzhen:block/putuan",
+    "0": "yvanchuxiuzhen:block/putuan"
+  }
+}

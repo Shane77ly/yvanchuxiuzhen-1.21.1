@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/elm_03",
+    "particle": "yvanchuxiuzhen:block/elm_03"
+  }
+}

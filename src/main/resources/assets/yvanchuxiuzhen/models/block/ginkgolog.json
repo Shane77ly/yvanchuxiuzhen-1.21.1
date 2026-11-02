@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/ginkgo_log_top",
+    "up": "yvanchuxiuzhen:block/ginkgo_log_top",
+    "north": "yvanchuxiuzhen:block/ginkgo_log",
+    "east": "yvanchuxiuzhen:block/ginkgo_log",
+    "south": "yvanchuxiuzhen:block/ginkgo_log",
+    "west": "yvanchuxiuzhen:block/ginkgo_log",
+    "particle": "yvanchuxiuzhen:block/ginkgo_log_top"
+  }
+}

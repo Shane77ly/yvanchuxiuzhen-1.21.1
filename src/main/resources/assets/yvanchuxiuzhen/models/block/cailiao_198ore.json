@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/lingshi0803",
+    "up": "yvanchuxiuzhen:block/lingshi0803",
+    "north": "yvanchuxiuzhen:block/lingshi0803",
+    "east": "yvanchuxiuzhen:block/lingshi0803",
+    "south": "yvanchuxiuzhen:block/lingshi0803",
+    "west": "yvanchuxiuzhen:block/lingshi0803",
+    "particle": "yvanchuxiuzhen:block/lingshi0803"
+  }
+}

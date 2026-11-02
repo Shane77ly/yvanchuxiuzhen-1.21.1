@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/mushroom_pinkwhite_02",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/mushroom_pinkwhite",
+    "particle": "yvanchuxiuzhen:block/mushroom_pinkwhite",
+    "0": "yvanchuxiuzhen:block/mushroom_pinkwhite"
+  }
+}

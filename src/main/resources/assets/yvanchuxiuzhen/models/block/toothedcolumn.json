@@ -1,0 +1,9 @@
+{
+  "parent": "yvanchuxiuzhen:custom/toothed_column",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/stripped_toothed_log_top",
+    "particle": "yvanchuxiuzhen:block/stripped_toothed_log_top",
+    "0": "yvanchuxiuzhen:block/stripped_toothed_log",
+    "1": "yvanchuxiuzhen:block/stripped_toothed_log_top"
+  }
+}

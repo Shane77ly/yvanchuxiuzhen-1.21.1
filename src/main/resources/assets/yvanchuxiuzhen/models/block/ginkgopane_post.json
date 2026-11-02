@@ -1,0 +1,7 @@
+{
+  "parent": "block/template_glass_pane_post",
+  "textures": {
+    "edge": "yvanchuxiuzhen:block/ginkgo_pane",
+    "pane": "yvanchuxiuzhen:block/ginkgo_pane"
+  }
+}

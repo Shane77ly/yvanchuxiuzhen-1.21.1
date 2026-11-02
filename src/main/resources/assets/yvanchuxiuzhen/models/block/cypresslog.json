@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/cypress_log_top",
+    "up": "yvanchuxiuzhen:block/cypress_log_top",
+    "north": "yvanchuxiuzhen:block/cypress_log",
+    "east": "yvanchuxiuzhen:block/cypress_log",
+    "south": "yvanchuxiuzhen:block/cypress_log",
+    "west": "yvanchuxiuzhen:block/cypress_log",
+    "particle": "yvanchuxiuzhen:block/cypress_log_top"
+  }
+}

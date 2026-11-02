@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/dark_oak_bigdoor_left",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/dark_oak_bigdoor",
+    "particle": "yvanchuxiuzhen:block/dark_oak_bigdoor",
+    "0": "yvanchuxiuzhen:block/dark_oak_bigdoor"
+  }
+}

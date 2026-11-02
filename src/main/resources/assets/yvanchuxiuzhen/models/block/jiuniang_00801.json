@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/jiuniang00801",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/jiuniang00801",
+    "particle": "yvanchuxiuzhen:block/jiuniang00801",
+    "0": "yvanchuxiuzhen:block/jiuniang00801"
+  }
+}

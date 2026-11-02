@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/beech_furniture32",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/beech_furniture32",
+    "particle": "yvanchuxiuzhen:block/beech_furniture32",
+    "0": "yvanchuxiuzhen:block/beech_furniture32"
+  }
+}

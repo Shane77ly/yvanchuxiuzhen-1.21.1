@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/beech_armchair02",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/beech_armchair",
+    "particle": "yvanchuxiuzhen:block/beech_armchair",
+    "0": "yvanchuxiuzhen:block/beech_armchair"
+  }
+}

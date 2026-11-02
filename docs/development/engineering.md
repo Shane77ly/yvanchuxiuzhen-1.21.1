@@ -80,7 +80,34 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 全部注册使用命名空间 `yvanchuxiuzhen`（负责人 2026-11-02 决定）：原初系统的注册保留来源路径，只换命名空间。两个来源在同一注册表下同名的只有菜单 `plaque_gui` 与粒子类型 `lingqi`，读来源后确认两边行为不同，原初系统一侧暂定为 `plaque_gui_xitong`、`lingqi_xitong`，所属单位实现时可按语义改名。目标 ID 的命名空间与唯一性由台账检查保证。
 
-内容表格式与启动耗时在 B1 实现时定稿。
+### 内容表格式（B1 已实现并实测）
+
+- 位置：`src/main/resources/content/<单位>/blocks.json`、`items.json`，每个文件是行的数组，一行一个对象；创造栏在 `content/platform/tabs.json`。由 `tools/porting/convert_content.py` 生成，系统验收前可重跑。
+- 行：方块行有 `id`、`factory`、`material`、`sound`、`states` 等字段，物品行有 `id`、`factory`、`order`（来源注册顺序）与 `tab`、`stack`、`rarity`、`food`、`tooltip` 等，完整字段见 `platform/content/BlockRow`、`ItemRow` 的 Codec。字段取自来源**生成的 Java**（构造器 Properties 链、状态属性与放置规则、`getShape`、`getLightBlock`、可燃、`canHarvestBlock`、回退掉落），不取编辑器字段名；方块类中玩法钩子（右键、tick、方块实体、菜单等）只记入 `pending_hooks`，B1 不实现。
+- 加载：每个单位的 `<名称>Setup` 持有一个 `ContentTables(单位)`，Mod 构造时读取该单位的内容表，用 Codec 解码并登记到本单位的 `DeferredRegister`。解码失败或含有 Codec 不认识的字段（编码回写后比对键集合）时报出文件与行号并中止启动；未知工厂类型同样中止。
+- 工厂：`platform/content` 提供 13 种方块工厂（普通、含水普通、台阶、楼梯、墙、树叶、栅栏、栅栏门、按钮、压力板、玻璃板、门、活板门、下落）与物品、方块物品、双格方块物品。系统专属类型（工具、盔甲、动画方块等）由所属系统提供，内容需要专属行为时所属系统把该行的工厂换成自己的类型。
+- 不进内容表：渲染层写在模型 JSON 的 `render_type`（见资源转换）；挖掘等级沿用来源的“工具类 + 等级”判定，在方块的 `canHarvestBlock` 中实现，等级由 Tier 的“不能正确采掘的方块”标签还原（1.21.1 的 Tier 没有等级；自定义等级随工具工厂实现时再登记）。
+- 实测（2026-11-02，NeoForge 21.1.265）：832 个方块与 1,626 个物品（方块物品含在内）登记后，开发服务端启动至 `Done (4.2s)`，日志 ERROR 0 条；开发客户端加载至声音引擎启动，ERROR 0 条。开发服务端按 `build.gradle` 的运行配置导出注册表到 `build/registry-export`，`check_ledger.py` 与台账比对一致。
+- 与 1.21.1 构造器的差异：`DoorBlock`、`TrapDoorBlock`、`ButtonBlock` 的构造器会用 `BlockSetType` 的声音覆盖 Properties 的声音，`FenceGateBlock(WoodType, ..)` 同理，因此按 (用途, 基础类型, 音效) 派生 `BlockSetType`、栅栏门用显式声音的构造器，使来源音效保留。
+
+### B1 范围（2026-11-02 静态盘点，来源为 MCreator 2023.1 的 forge-1.18.2 生成器，全部元素未锁定代码）
+
+| 来源形态 | 数量 | B1 处理 |
+| --- | ---: | --- |
+| 普通方块（`Block`） | 662 | 方块工厂：形状（按朝向旋转的碰撞箱）、朝向方式、含水、透明与透光、亮度、可燃、推动反应、挖掘判定 |
+| 原版模板方块：台阶、楼梯 30/30，树叶 27，门 16，玻璃板 16，压力板 15，按钮、栅栏、栅栏门、活板门各 8，墙 5 | 171 | 对应原版类的工厂 |
+| 植物：`FlowerBlock`、`DoublePlantBlock` | 267 / 28 | 植物工厂 |
+| 下落方块（`FallingBlock`） | 1 | 方块工厂 |
+| 带物品栏的方块 | 115 | 按方块登记身份；方块实体、菜单随所属系统 |
+| GeckoLib 动画方块（`BaseEntityBlock`） | 40 | 随所属系统（渲染依赖方块实体与 GeckoLib） |
+| 维度传送门（`NetherPortalBlock`）、流体方块（`LiquidBlock`） | 6 / 5 | 随 `world` 与所属系统（需要维度与流体类型） |
+| 普通物品（`Item`） | 794 个类 | 物品工厂：堆叠、稀有度、防火、食物、提示文本 |
+| 方块物品 | 1,169 | 随方块登记 |
+| 工具（剑 72、斧 11、镐 9、`TieredItem` 9、锹 1）、普通盔甲（18 套） | — | 所属系统提供的工厂，B1 登记身份与属性 |
+| GeckoLib 盔甲与动画物品、桶 | 17 / 4 / 4 | 随所属系统 |
+| 创造栏 | 原初修真 8 个、原初系统 2 个 | 1.21.1 中为注册内容，由 `platform` 登记，物品按来源归入 |
+
+带过程的方块（321 个元素）、物品的使用与右键过程、方块矿物生成（45 个元素）不在 B1，随所属系统迁移；B1 的“已注册”只表示身份、资源与基础属性就位。
 
 ## 资源转换管线
 
@@ -100,6 +127,8 @@ tools/porting/                  来源索引、台账检查、资源转换
 两个来源在 `assets`、`data` 下相对路径相同的文件有 60 个：57 个字节相同，只迁入一份；其余 3 个是两份语言文件与 `particles/lingqi.json`，前者按键合并（同名键只有 `plaque_gui` 的界面文本），后者随粒子改名分开。转换工具遇到相对路径相同而内容不同、又没有改名登记的文件时报错。
 
 转换工具每次输出一份清单（来源文件、哈希、目标文件），台账检查据此确认没有遗漏。系统验收前可以重跑转换；验收后转换结果成为手工维护的正文，清单保留来源。只有转换无法表达的资源才使用 datagen。
+
+已实现并实测（2026-11-02）：`tools/porting/convert_content.py` 生成内容表与语言片段（方块、物品名称与提示文本、创造栏名称），`tools/porting/convert_assets.py` 迁移方块状态、模型与纹理并输出 `docs/reference/conversion/manifest.csv`（来源、来源 SHA-1、目标）；`docs/reference/conversion/skipped.csv` 列出未生成行的注册及原因（由所属系统迁移的基类、未识别的写法）。资源转换规则：目录 `blocks/`、`items/` 改为 `block/`、`item/`；两个来源命名空间统一，JSON 中的 `parent`、`model`、`textures` 引用同步改写；方块 Java 的 `registerRenderLayer` 写为模型 `render_type`，由生成的子模型 `block/<名>__cutout` 等承载（NeoForge 的 render_type 沿 parent 链继承，方块物品的模型 parent 同步指向子模型）；来源 Blockbench 模型的 `parent` 指向不存在的原版模型（无命名空间，如 `food002`）时丢弃该 parent，1.18.2 与 1.21.1 都回退为缺失模型的父级，不影响模型自身的元素。同一目标路径来自内容不同的来源文件时报错。迁移出 6,309 个文件（约 40 MB），开发客户端加载后模型与纹理警告只剩来源本身的缺陷（3 个方块的 `missing` 纹理指向空路径，已写入台账备注）。尚未转换：配方、方块掉落表（回退掉落与来源掉落表）、标签（含 `mineable`）、进度、结构、声音文件、植物方块（`FlowerBlock`、`DoublePlantBlock`）、方块着色。
 
 语言片段与声音片段由 `build.gradle` 的 `mergeAssetFragments` 任务合并为生成资源 `assets/yvanchuxiuzhen/lang/<语言>.json` 与 `assets/yvanchuxiuzhen/sounds.json`（命名空间取 `mod_id`），同一片段内或不同片段之间的重复键、无效 JSON、不符合上述路径约定的文件都使构建失败；`src/main/resources` 中不再放这两类文件。这样各系统并行修改时不在同一个大文件上冲突。已实测（B0 步骤 5）：两种语言的片段合并进 JAR，转义值往返不变；开发客户端读取了合并后的 `sounds.json`。2026-11-02 改为单一命名空间后重新核对了 JAR 中的输出路径，旧的带命名空间目录的片段路径使构建失败。
 

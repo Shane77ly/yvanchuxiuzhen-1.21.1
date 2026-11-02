@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "yvanchuxiuzhen:block/food_001__cutout"
+    },
+    "facing=east": {
+      "model": "yvanchuxiuzhen:block/food_001__cutout",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "yvanchuxiuzhen:block/food_001__cutout",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "yvanchuxiuzhen:block/food_001__cutout",
+      "y": 270
+    }
+  }
+}

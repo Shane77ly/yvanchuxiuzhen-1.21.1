@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/plaque06block",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/plaque0601",
+    "particle": "yvanchuxiuzhen:block/plaque0601",
+    "0": "yvanchuxiuzhen:block/plaque0601"
+  }
+}

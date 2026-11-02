@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/tile_imbrex_green08",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/tile_imbrex_green02",
+    "particle": "yvanchuxiuzhen:block/tile_imbrex_green02",
+    "0": "yvanchuxiuzhen:block/tile_imbrex_green02"
+  }
+}

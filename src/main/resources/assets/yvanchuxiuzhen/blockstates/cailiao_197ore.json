@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "yvanchuxiuzhen:block/cailiao_197ore"
+    },
+    "facing=east": {
+      "model": "yvanchuxiuzhen:block/cailiao_197ore",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "yvanchuxiuzhen:block/cailiao_197ore",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "yvanchuxiuzhen:block/cailiao_197ore",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/yvnpen",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/yvnpen",
+    "particle": "yvanchuxiuzhen:block/yvnpen",
+    "0": "yvanchuxiuzhen:block/yvnpen"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "yvanchuxiuzhen:custom/beech_column",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/stripped_beech_log_top",
+    "particle": "yvanchuxiuzhen:block/stripped_beech_log_top",
+    "0": "yvanchuxiuzhen:block/beech_column01",
+    "1": "yvanchuxiuzhen:block/beech_column02"
+  }
+}

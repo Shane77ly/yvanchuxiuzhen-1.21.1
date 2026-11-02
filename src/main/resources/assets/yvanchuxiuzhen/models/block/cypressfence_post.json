@@ -1,0 +1,7 @@
+{
+  "parent": "block/fence_post",
+  "textures": {
+    "texture": "yvanchuxiuzhen:block/cypress_planks",
+    "particle": "yvanchuxiuzhen:block/cypress_planks"
+  }
+}

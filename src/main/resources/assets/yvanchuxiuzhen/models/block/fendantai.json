@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/fendantai",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/fendantai",
+    "particle": "yvanchuxiuzhen:block/fendantai",
+    "0": "yvanchuxiuzhen:block/fendantai"
+  }
+}

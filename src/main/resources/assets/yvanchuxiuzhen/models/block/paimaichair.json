@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/paimaichair",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/paimaichair",
+    "particle": "yvanchuxiuzhen:block/paimaichair",
+    "0": "yvanchuxiuzhen:block/paimaichair"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/brickwall_black_slab_erect",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/brickwall_black",
+    "particle": "yvanchuxiuzhen:block/brickwall_black",
+    "0": "yvanchuxiuzhen:block/brickwall_black"
+  }
+}

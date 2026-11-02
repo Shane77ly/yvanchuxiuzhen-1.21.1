@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/cailiao16801",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/cailiao16801",
+    "particle": "yvanchuxiuzhen:block/cailiao16801",
+    "0": "yvanchuxiuzhen:block/cailiao16801"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "facing=east,half=lower,hinge=left,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom__cutout_mipped"
+    },
+    "facing=south,half=lower,hinge=left,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom__cutout_mipped",
+      "y": 90
+    },
+    "facing=west,half=lower,hinge=left,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom__cutout_mipped",
+      "y": 180
+    },
+    "facing=north,half=lower,hinge=left,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom__cutout_mipped",
+      "y": 270
+    },
+    "facing=east,half=lower,hinge=right,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom_hinge__cutout_mipped"
+    },
+    "facing=south,half=lower,hinge=right,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom_hinge__cutout_mipped",
+      "y": 90
+    },
+    "facing=west,half=lower,hinge=right,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom_hinge__cutout_mipped",
+      "y": 180
+    },
+    "facing=north,half=lower,hinge=right,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom_hinge__cutout_mipped",
+      "y": 270
+    },
+    "facing=east,half=lower,hinge=left,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom_hinge__cutout_mipped",
+      "y": 90
+    },
+    "facing=south,half=lower,hinge=left,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom_hinge__cutout_mipped",
+      "y": 180
+    },
+    "facing=west,half=lower,hinge=left,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom_hinge__cutout_mipped",
+      "y": 270
+    },
+    "facing=north,half=lower,hinge=left,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom_hinge__cutout_mipped"
+    },
+    "facing=east,half=lower,hinge=right,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom__cutout_mipped",
+      "y": 270
+    },
+    "facing=south,half=lower,hinge=right,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom__cutout_mipped"
+    },
+    "facing=west,half=lower,hinge=right,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom__cutout_mipped",
+      "y": 90
+    },
+    "facing=north,half=lower,hinge=right,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_bottom__cutout_mipped",
+      "y": 180
+    },
+    "facing=east,half=upper,hinge=left,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top__cutout_mipped"
+    },
+    "facing=south,half=upper,hinge=left,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top__cutout_mipped",
+      "y": 90
+    },
+    "facing=west,half=upper,hinge=left,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top__cutout_mipped",
+      "y": 180
+    },
+    "facing=north,half=upper,hinge=left,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top__cutout_mipped",
+      "y": 270
+    },
+    "facing=east,half=upper,hinge=right,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top_hinge__cutout_mipped"
+    },
+    "facing=south,half=upper,hinge=right,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top_hinge__cutout_mipped",
+      "y": 90
+    },
+    "facing=west,half=upper,hinge=right,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top_hinge__cutout_mipped",
+      "y": 180
+    },
+    "facing=north,half=upper,hinge=right,open=false": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top_hinge__cutout_mipped",
+      "y": 270
+    },
+    "facing=east,half=upper,hinge=left,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top_hinge__cutout_mipped",
+      "y": 90
+    },
+    "facing=south,half=upper,hinge=left,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top_hinge__cutout_mipped",
+      "y": 180
+    },
+    "facing=west,half=upper,hinge=left,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top_hinge__cutout_mipped",
+      "y": 270
+    },
+    "facing=north,half=upper,hinge=left,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top_hinge__cutout_mipped"
+    },
+    "facing=east,half=upper,hinge=right,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top__cutout_mipped",
+      "y": 270
+    },
+    "facing=south,half=upper,hinge=right,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top__cutout_mipped"
+    },
+    "facing=west,half=upper,hinge=right,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top__cutout_mipped",
+      "y": 90
+    },
+    "facing=north,half=upper,hinge=right,open=true": {
+      "model": "yvanchuxiuzhen:block/chestnutsillwallwindow_top__cutout_mipped",
+      "y": 180
+    }
+  }
+}

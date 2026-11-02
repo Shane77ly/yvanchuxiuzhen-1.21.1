@@ -1,0 +1,9 @@
+{
+  "parent": "yvanchuxiuzhen:custom/nanmu_column",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/nanmu_column01",
+    "particle": "yvanchuxiuzhen:block/nanmu_column01",
+    "0": "yvanchuxiuzhen:block/nanmu_column01",
+    "1": "yvanchuxiuzhen:block/nanmu_column02"
+  }
+}

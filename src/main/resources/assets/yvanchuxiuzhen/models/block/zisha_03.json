@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/zisha03",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/zisha03",
+    "particle": "yvanchuxiuzhen:block/zisha03",
+    "0": "yvanchuxiuzhen:block/zisha03"
+  }
+}

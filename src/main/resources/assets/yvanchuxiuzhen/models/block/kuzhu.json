@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/kuzhu",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/kuzhu",
+    "particle": "yvanchuxiuzhen:block/kuzhu",
+    "0": "yvanchuxiuzhen:block/kuzhu"
+  }
+}

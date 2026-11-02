@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/beech_furniture1301",
+    "particle": "yvanchuxiuzhen:block/beech_furniture1301"
+  }
+}

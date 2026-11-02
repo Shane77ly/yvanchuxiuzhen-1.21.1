@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/maple_leaves",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/maple_leaves",
+    "particle": "yvanchuxiuzhen:block/maple_leaves",
+    "0": "yvanchuxiuzhen:block/maple_leaves"
+  }
+}

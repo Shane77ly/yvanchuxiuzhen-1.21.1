@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/zhenxianpoluo",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/zhenxianpoluo",
+    "particle": "yvanchuxiuzhen:block/zhenxianpoluo",
+    "0": "yvanchuxiuzhen:block/zhenxianpoluo"
+  }
+}

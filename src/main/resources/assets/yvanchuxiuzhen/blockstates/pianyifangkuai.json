@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "yvanchuxiuzhen:block/pianyifangkuai__translucent"
+    },
+    "facing=east": {
+      "model": "yvanchuxiuzhen:block/pianyifangkuai__translucent",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "yvanchuxiuzhen:block/pianyifangkuai__translucent",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "yvanchuxiuzhen:block/pianyifangkuai__translucent",
+      "y": 270
+    }
+  }
+}

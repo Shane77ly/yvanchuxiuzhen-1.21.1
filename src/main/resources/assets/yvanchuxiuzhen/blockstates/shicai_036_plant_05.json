@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "yvanchuxiuzhen:block/shicai_036_plant_05__cutout"
+    },
+    "facing=east": {
+      "model": "yvanchuxiuzhen:block/shicai_036_plant_05__cutout",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "yvanchuxiuzhen:block/shicai_036_plant_05__cutout",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "yvanchuxiuzhen:block/shicai_036_plant_05__cutout",
+      "y": 270
+    }
+  }
+}

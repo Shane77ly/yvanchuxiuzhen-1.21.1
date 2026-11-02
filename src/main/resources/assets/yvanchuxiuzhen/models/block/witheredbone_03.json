@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/withered_bone_03",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/withered_bone_01",
+    "particle": "yvanchuxiuzhen:block/withered_bone_01",
+    "0": "yvanchuxiuzhen:block/withered_bone_01"
+  }
+}

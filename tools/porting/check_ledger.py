@@ -1,17 +1,54 @@
 """检查内容台账，规则见 docs/development/engineering.md“台账与检查工具”。发现问题时以退出码 1 结束。
 
 检查项：列结构；每条来源注册恰好一行；行所在目录与归属一致；来源列与 build_ledger.py 的计算一致；
-目标 ID 使用唯一命名空间且在同一注册表内不重复；状态只取约定值；状态高于“待处理”的行归属必须为“已读”。
+目标 ID 使用唯一命名空间且在同一注册表内不重复；状态只取约定值；状态高于“待处理”的行归属必须为“已读”；
+状态高于“待处理”的方块与物品行必须出现在开发服务端的注册表导出中，导出里的每个 ID 都必须是台账的目标 ID。
+导出由 `gradlew runServer` 写入 build/registry-export。方块行的方块状态与物品行的物品模型必须登记在转换清单
+docs/reference/conversion/manifest.csv 中，且目标文件存在。
 """
 from __future__ import annotations
 
 import sys
 from collections import Counter
+from pathlib import Path
 
 from build_ledger import (COLUMNS, MANUAL, NAMESPACE, ROOT, STATUSES, UNASSIGNED, expected_rows, ledger_dir,
-                          read_ledgers)
+                          read_csv, read_ledgers)
 
+EXPORT = ROOT / 'build/registry-export'
+MANIFEST = ROOT / 'docs/reference/conversion/manifest.csv'
+ASSET_TARGET = {'block': 'src/main/resources/assets/yvanchuxiuzhen/blockstates/{}.json',
+                'item': 'src/main/resources/assets/yvanchuxiuzhen/models/item/{}.json'}
+EXPORTED_REGISTRIES = ('block', 'item')
 SOURCE_COLUMNS = [column for column in COLUMNS if column not in MANUAL]
+
+
+def check_manifest(status_by_target: dict) -> list[str]:
+    """状态高于“待处理”的方块与物品行，其资源必须由转换工具产出并登记。"""
+    manifest = {row['target'] for row in read_csv(MANIFEST)} if MANIFEST.is_file() else set()
+    issues = []
+    for (registry, target), status in sorted(status_by_target.items()):
+        if status == STATUSES[0] or registry not in ASSET_TARGET:
+            continue
+        file = ASSET_TARGET[registry].format(target.split(':', 1)[1])
+        if file not in manifest or not (ROOT / file).is_file():
+            issues.append(f'{registry} {target} 状态为 {status}，但 {file} 不在转换清单或不存在')
+    return issues
+
+
+def check_export(targets: Counter, status_by_target: dict) -> list[str]:
+    """比对开发服务端导出的注册表与台账。"""
+    registered = {key for key, status in status_by_target.items() if status != STATUSES[0] and key[0] in EXPORTED_REGISTRIES}
+    if not EXPORT.is_dir():
+        return [f'台账有 {len(registered)} 行状态高于“待处理”，但没有注册表导出 {EXPORT.relative_to(ROOT).as_posix()}，先运行 gradlew runServer'] if registered else []
+    issues = []
+    for registry in EXPORTED_REGISTRIES:
+        exported = set(Path(EXPORT / f'{registry}.txt').read_text(encoding='utf-8').split())
+        known = {target for (kind, target) in targets if kind == registry}
+        issues += [f'导出的 {registry} {id_} 不是台账的目标 ID' for id_ in sorted(exported - known)]
+        issues += [f'台账 {registry} {id_} 状态高于“待处理”但不在注册表导出中' for kind, id_ in sorted(registered) if kind == registry and id_ not in exported]
+        print(f'注册表导出 {registry}：{len(exported)} 个')
+    return issues
 
 
 def check() -> list[str]:
@@ -19,6 +56,7 @@ def check() -> list[str]:
     issues = []
     seen = Counter()
     targets = Counter()
+    status_by_target = {}
     status_counts = Counter()
     for path, rows in read_ledgers().items():
         unit = path.parent.parent.name
@@ -30,6 +68,7 @@ def check() -> list[str]:
             key = (row['registry'], row['legacy_id'])
             seen[key] += 1
             targets[(row['registry'], row['target_id'])] += 1
+            status_by_target[(row['registry'], row['target_id'])] = row['status']
             status_counts[row['status']] += 1
             if key not in expected:
                 issues.append(f'{where}: 不是来源注册 {key}')
@@ -45,6 +84,8 @@ def check() -> list[str]:
                 issues.append(f'{where}: 来源列 {",".join(stale)} 与归属表不一致，运行 build_ledger.py 同步')
             if unit != ledger_dir(expected[key]):
                 issues.append(f'{where}: 应在 {ledger_dir(expected[key])} 的台账（{UNASSIGNED} 只放没有归属的注册）')
+    issues += check_export(targets, status_by_target)
+    issues += check_manifest(status_by_target)
     issues += [f'缺少来源注册 {key}' for key in expected if key not in seen]
     issues += [f'来源注册重复 {count} 行：{key}' for key, count in seen.items() if count > 1]
     issues += [f'目标 ID 重复 {count} 行：{key}，在 target_id 中改名并在 note 说明' for key, count in targets.items() if count > 1]

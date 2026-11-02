@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/beech_floor",
+    "top": "yvanchuxiuzhen:block/beech_floor",
+    "side": "yvanchuxiuzhen:block/beech_floor"
+  }
+}

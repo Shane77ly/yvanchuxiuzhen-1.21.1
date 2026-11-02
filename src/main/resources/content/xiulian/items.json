@@ -1,0 +1,3 @@
+[
+{"id":"jiazubaibaodai","factory":"item","order":1758,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"rarity":"EPIC","fire_resistant":true,"tooltip":["家族族长给你的宝袋，每隔一段时间可以取出一些东西。"],"pending_hooks":["use"]}
+]

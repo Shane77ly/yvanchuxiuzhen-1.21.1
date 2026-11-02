@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "yvanchuxiuzhen:block/ancienttimeswood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "yvanchuxiuzhen:block/ancienttimeswood"
+    },
+    "axis=z": {
+      "model": "yvanchuxiuzhen:block/ancienttimeswood",
+      "x": 90
+    }
+  }
+}

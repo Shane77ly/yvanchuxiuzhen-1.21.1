@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/brickwallblackslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/brickwallblackslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/brickwallblackslab_full"
+    }
+  }
+}

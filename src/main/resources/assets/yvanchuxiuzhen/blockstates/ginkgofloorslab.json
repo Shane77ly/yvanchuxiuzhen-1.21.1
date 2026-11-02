@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/ginkgofloorslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/ginkgofloorslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/ginkgofloorslab_full"
+    }
+  }
+}

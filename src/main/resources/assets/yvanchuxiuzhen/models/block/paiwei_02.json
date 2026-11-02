@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/paiwei02",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/paiwei02",
+    "particle": "yvanchuxiuzhen:block/paiwei02",
+    "0": "yvanchuxiuzhen:block/paiwei02"
+  }
+}

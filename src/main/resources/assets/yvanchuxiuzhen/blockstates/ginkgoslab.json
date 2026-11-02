@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/ginkgoslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/ginkgoslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/ginkgoslab_full"
+    }
+  }
+}

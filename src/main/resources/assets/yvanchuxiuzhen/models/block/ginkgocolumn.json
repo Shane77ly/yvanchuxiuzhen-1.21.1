@@ -1,0 +1,9 @@
+{
+  "parent": "yvanchuxiuzhen:custom/ginkgo_column",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/ginkgo_column01",
+    "particle": "yvanchuxiuzhen:block/ginkgo_column01",
+    "0": "yvanchuxiuzhen:block/ginkgo_column01",
+    "1": "yvanchuxiuzhen:block/ginkgo_column02"
+  }
+}

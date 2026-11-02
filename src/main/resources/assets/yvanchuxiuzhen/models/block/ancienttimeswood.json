@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/ancienttimes_wood_top",
+    "up": "yvanchuxiuzhen:block/ancienttimes_wood_top",
+    "north": "yvanchuxiuzhen:block/ancienttimes_wood",
+    "east": "yvanchuxiuzhen:block/ancienttimes_wood",
+    "south": "yvanchuxiuzhen:block/ancienttimes_wood",
+    "west": "yvanchuxiuzhen:block/ancienttimes_wood",
+    "particle": "yvanchuxiuzhen:block/ancienttimes_wood_top"
+  }
+}

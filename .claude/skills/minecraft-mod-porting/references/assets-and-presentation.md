@@ -59,3 +59,10 @@ PowerShell 复制带通配符的资源时使用 `Copy-Item -Path`；`-LiteralPat
 - 核对全部维度、群系、结构 NBT、出生与自然生成、矿物/药草/材料供给、宝箱与商店、传送回程。
 - 结构文件存在不证明有自然生成入口。
 - 自然获取线路未接通时，不能因命令可以生成物品而标记玩法完成。
+
+## 资源目录与模型引用迁移（MCreator 1.18.2 到 NeoForge 1.21.1，已用于全量方块与物品）
+
+- 纹理目录 `blocks/`、`items/` 在 1.21.1 的图集配置中是 `block/`、`item/`，须改目录并同步改写模型 JSON 中 `textures` 与 `parent`、blockstate 中 `model` 的引用；没有命名空间的引用按 `minecraft` 解析。
+- 来源 Blockbench 导出的模型常含无命名空间的 `parent`（如与文件同名的 `food002`），指向不存在的原版模型：旧版本回退为缺失模型的父级，不影响自身 elements；迁移时丢弃该 parent 可消除加载警告。判断是否存在，对照目标版本的原版资源包（`client-extra` 制品）而不是来源工程。
+- 渲染层由模型 JSON 的 `render_type` 声明并沿 parent 链继承：为需要非实心渲染层的方块生成子模型（`parent` 指向原模型，加 `render_type`），blockstate 与方块物品模型改引用子模型，原模型可被多个方块共用。
+- 模型 `textures` 中指向空路径的键（来源缺陷）在新旧版本都显示缺失纹理；保持来源并登记，不自行补。

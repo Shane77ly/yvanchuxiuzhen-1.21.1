@@ -1,0 +1,7 @@
+{
+  "parent": "block/template_orientable_trapdoor_bottom",
+  "textures": {
+    "texture": "yvanchuxiuzhen:block/cypress_trapdoor",
+    "particle": "yvanchuxiuzhen:block/cypress_trapdoor"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/parasol_leaves",
+    "particle": "yvanchuxiuzhen:block/parasol_leaves"
+  }
+}

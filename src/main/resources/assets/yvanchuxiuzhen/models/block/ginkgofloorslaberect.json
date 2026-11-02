@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/ginkgo_floor_slab_erect",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/ginkgo_floor",
+    "particle": "yvanchuxiuzhen:block/ginkgo_floor",
+    "0": "yvanchuxiuzhen:block/ginkgo_floor"
+  }
+}

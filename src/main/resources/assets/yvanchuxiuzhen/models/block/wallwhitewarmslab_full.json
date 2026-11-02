@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/wall_white_warm",
+    "top": "yvanchuxiuzhen:block/wall_white_warm",
+    "side": "yvanchuxiuzhen:block/wall_white_warm"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "yvanchuxiuzhen:block/chestnutfloorpressureplate__cutout"
+    },
+    "powered=true": {
+      "model": "yvanchuxiuzhen:block/chestnutfloorpressureplate_down__cutout"
+    }
+  }
+}

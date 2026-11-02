@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "yvanchuxiuzhen:block/laurel_05",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "yvanchuxiuzhen:block/laurel_05"
+    },
+    "axis=z": {
+      "model": "yvanchuxiuzhen:block/laurel_05",
+      "x": 90
+    }
+  }
+}

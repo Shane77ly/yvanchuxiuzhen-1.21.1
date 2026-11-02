@@ -1,0 +1,7 @@
+{
+  "parent": "block/template_glass_pane_side_alt",
+  "textures": {
+    "edge": "yvanchuxiuzhen:block/nanmu_planks",
+    "pane": "yvanchuxiuzhen:block/nanmu_pane02"
+  }
+}

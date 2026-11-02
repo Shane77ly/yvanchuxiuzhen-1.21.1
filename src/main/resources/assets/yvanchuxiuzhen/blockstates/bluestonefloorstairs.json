@@ -1,0 +1,209 @@
+{
+  "variants": {
+    "facing=east,half=bottom,shape=straight": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs"
+    },
+    "facing=west,half=bottom,shape=straight": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,half=bottom,shape=straight": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=north,half=bottom,shape=straight": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=east,half=bottom,shape=inner_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner"
+    },
+    "facing=west,half=bottom,shape=inner_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,half=bottom,shape=inner_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=north,half=bottom,shape=inner_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=east,half=bottom,shape=inner_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,half=bottom,shape=inner_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=south,half=bottom,shape=inner_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner"
+    },
+    "facing=north,half=bottom,shape=inner_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=east,half=top,shape=straight": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs",
+      "x": 180,
+      "uvlock": true
+    },
+    "facing=west,half=top,shape=straight": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs",
+      "x": 180,
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,half=top,shape=straight": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs",
+      "x": 180,
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=north,half=top,shape=straight": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs",
+      "x": 180,
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=east,half=top,shape=outer_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "x": 180,
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,half=top,shape=outer_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "x": 180,
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=south,half=top,shape=outer_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "x": 180,
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=north,half=top,shape=outer_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "x": 180,
+      "uvlock": true
+    },
+    "facing=east,half=top,shape=outer_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "x": 180,
+      "uvlock": true
+    },
+    "facing=west,half=top,shape=outer_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "x": 180,
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,half=top,shape=outer_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "x": 180,
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=north,half=top,shape=outer_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "x": 180,
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=east,half=top,shape=inner_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "x": 180,
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,half=top,shape=inner_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "x": 180,
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=south,half=top,shape=inner_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "x": 180,
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=north,half=top,shape=inner_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "x": 180,
+      "uvlock": true
+    },
+    "facing=east,half=top,shape=inner_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "x": 180,
+      "uvlock": true
+    },
+    "facing=west,half=top,shape=inner_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "x": 180,
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,half=top,shape=inner_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "x": 180,
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=north,half=top,shape=inner_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_inner",
+      "x": 180,
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=east,half=bottom,shape=outer_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer"
+    },
+    "facing=west,half=bottom,shape=outer_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,half=bottom,shape=outer_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=north,half=bottom,shape=outer_right": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=east,half=bottom,shape=outer_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,half=bottom,shape=outer_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=south,half=bottom,shape=outer_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer"
+    },
+    "facing=north,half=bottom,shape=outer_left": {
+      "model": "yvanchuxiuzhen:block/bluestonefloorstairs_outer",
+      "y": 180,
+      "uvlock": true
+    }
+  }
+}

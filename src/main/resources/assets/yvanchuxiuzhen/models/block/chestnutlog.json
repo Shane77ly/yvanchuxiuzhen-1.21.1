@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/chestnut_log_top",
+    "up": "yvanchuxiuzhen:block/chestnut_log_top",
+    "north": "yvanchuxiuzhen:block/chestnut_log",
+    "east": "yvanchuxiuzhen:block/chestnut_log",
+    "south": "yvanchuxiuzhen:block/chestnut_log",
+    "west": "yvanchuxiuzhen:block/chestnut_log",
+    "particle": "yvanchuxiuzhen:block/chestnut_log_top"
+  }
+}

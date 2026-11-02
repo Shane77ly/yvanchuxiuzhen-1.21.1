@@ -1,0 +1,7 @@
+{
+  "parent": "block/wall_inventory",
+  "textures": {
+    "wall": "yvanchuxiuzhen:block/bluestone",
+    "particle": "yvanchuxiuzhen:block/bluestone"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/camphor_floor",
+    "particle": "yvanchuxiuzhen:block/camphor_floor"
+  }
+}

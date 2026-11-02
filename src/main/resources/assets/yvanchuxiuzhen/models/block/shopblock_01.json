@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/shopblock01",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/shopblock01",
+    "particle": "yvanchuxiuzhen:block/shopblock01",
+    "0": "yvanchuxiuzhen:block/shopblock01"
+  }
+}

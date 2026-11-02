@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/maple_log",
+    "particle": "yvanchuxiuzhen:block/maple_log"
+  }
+}

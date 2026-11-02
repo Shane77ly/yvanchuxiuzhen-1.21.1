@@ -1,0 +1,9 @@
+{
+  "parent": "yvanchuxiuzhen:custom/chestnut_column",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/stripped_chestnut_log_top",
+    "particle": "yvanchuxiuzhen:block/stripped_chestnut_log_top",
+    "0": "yvanchuxiuzhen:block/chestnut_column01",
+    "1": "yvanchuxiuzhen:block/chestnut_column02"
+  }
+}

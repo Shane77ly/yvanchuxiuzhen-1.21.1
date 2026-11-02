@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "yvanchuxiuzhen:block/shicai_040_plant_01__cutout"
+    },
+    "facing=east": {
+      "model": "yvanchuxiuzhen:block/shicai_040_plant_01__cutout",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "yvanchuxiuzhen:block/shicai_040_plant_01__cutout",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "yvanchuxiuzhen:block/shicai_040_plant_01__cutout",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "yvanchuxiuzhen:block/shicai_040_plant_01__cutout",
+      "x": 270
+    },
+    "facing=down": {
+      "model": "yvanchuxiuzhen:block/shicai_040_plant_01__cutout",
+      "x": 90
+    }
+  }
+}

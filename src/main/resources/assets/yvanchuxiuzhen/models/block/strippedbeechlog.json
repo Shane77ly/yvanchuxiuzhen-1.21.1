@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "yvanchuxiuzhen:block/stripped_beech_log_top",
+    "up": "yvanchuxiuzhen:block/stripped_beech_log_top",
+    "north": "yvanchuxiuzhen:block/stripped_beech_log",
+    "east": "yvanchuxiuzhen:block/stripped_beech_log",
+    "south": "yvanchuxiuzhen:block/stripped_beech_log",
+    "west": "yvanchuxiuzhen:block/stripped_beech_log",
+    "particle": "yvanchuxiuzhen:block/stripped_beech_log_top"
+  }
+}

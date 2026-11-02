@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "yvanchuxiuzhen:block/cypresspressureplate__cutout"
+    },
+    "powered=true": {
+      "model": "yvanchuxiuzhen:block/cypresspressureplate_down__cutout"
+    }
+  }
+}

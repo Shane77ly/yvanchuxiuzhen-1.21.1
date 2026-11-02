@@ -1,0 +1,9 @@
+{
+  "parent": "yvanchuxiuzhen:custom/cypress_column",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/stripped_cypress_log_top",
+    "particle": "yvanchuxiuzhen:block/stripped_cypress_log_top",
+    "0": "yvanchuxiuzhen:block/stripped_cypress_log",
+    "1": "yvanchuxiuzhen:block/stripped_cypress_log_top"
+  }
+}

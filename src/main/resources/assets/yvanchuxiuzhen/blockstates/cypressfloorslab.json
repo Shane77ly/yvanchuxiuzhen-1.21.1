@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "yvanchuxiuzhen:block/cypressfloorslab"
+    },
+    "type=top": {
+      "model": "yvanchuxiuzhen:block/cypressfloorslab_top"
+    },
+    "type=double": {
+      "model": "yvanchuxiuzhen:block/cypressfloorslab_full"
+    }
+  }
+}

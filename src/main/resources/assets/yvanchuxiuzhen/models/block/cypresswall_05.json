@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/cypress_wall05",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/cypress_wall",
+    "particle": "yvanchuxiuzhen:block/cypress_wall",
+    "0": "yvanchuxiuzhen:block/cypress_wall"
+  }
+}

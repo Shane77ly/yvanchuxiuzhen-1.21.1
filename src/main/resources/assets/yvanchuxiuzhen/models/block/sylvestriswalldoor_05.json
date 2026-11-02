@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/sylvestris_wall_door05",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/sylvestris_wall",
+    "particle": "yvanchuxiuzhen:block/sylvestris_wall",
+    "0": "yvanchuxiuzhen:block/sylvestris_wall"
+  }
+}

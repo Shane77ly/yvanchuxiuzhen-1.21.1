@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "yvanchuxiuzhen:block/junglebigdoorleft__cutout"
+    },
+    "facing=east": {
+      "model": "yvanchuxiuzhen:block/junglebigdoorleft__cutout",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "yvanchuxiuzhen:block/junglebigdoorleft__cutout",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "yvanchuxiuzhen:block/junglebigdoorleft__cutout",
+      "y": 270
+    }
+  }
+}

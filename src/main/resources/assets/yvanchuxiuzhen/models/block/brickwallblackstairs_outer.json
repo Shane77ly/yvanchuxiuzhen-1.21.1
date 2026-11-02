@@ -1,0 +1,8 @@
+{
+  "parent": "block/outer_stairs",
+  "textures": {
+    "bottom": "yvanchuxiuzhen:block/brickwall_black",
+    "top": "yvanchuxiuzhen:block/brickwall_black",
+    "side": "yvanchuxiuzhen:block/brickwall_black"
+  }
+}

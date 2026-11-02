@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/toothed_armchair02",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/toothed_armchair",
+    "particle": "yvanchuxiuzhen:block/toothed_armchair",
+    "0": "yvanchuxiuzhen:block/toothed_armchair"
+  }
+}

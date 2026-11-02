@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/foodtiepan",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/foodtiepan",
+    "particle": "yvanchuxiuzhen:block/foodtiepan",
+    "0": "yvanchuxiuzhen:block/foodtiepan"
+  }
+}

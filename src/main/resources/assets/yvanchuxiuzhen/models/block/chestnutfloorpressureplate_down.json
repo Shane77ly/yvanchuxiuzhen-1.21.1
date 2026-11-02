@@ -1,0 +1,6 @@
+{
+  "parent": "block/pressure_plate_down",
+  "textures": {
+    "texture": "yvanchuxiuzhen:block/chestnut_floor"
+  }
+}

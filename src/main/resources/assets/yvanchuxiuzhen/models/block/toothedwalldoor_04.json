@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/toothed_wall_door04",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/toothed_wall",
+    "particle": "yvanchuxiuzhen:block/toothed_wall",
+    "0": "yvanchuxiuzhen:block/toothed_wall"
+  }
+}

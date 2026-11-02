@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/makebook",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/makebook",
+    "particle": "yvanchuxiuzhen:block/makebook",
+    "0": "yvanchuxiuzhen:block/makebook"
+  }
+}

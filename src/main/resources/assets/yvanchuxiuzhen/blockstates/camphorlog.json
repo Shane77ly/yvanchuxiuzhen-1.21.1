@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "yvanchuxiuzhen:block/camphorlog",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "yvanchuxiuzhen:block/camphorlog"
+    },
+    "axis=z": {
+      "model": "yvanchuxiuzhen:block/camphorlog",
+      "x": 90
+    }
+  }
+}

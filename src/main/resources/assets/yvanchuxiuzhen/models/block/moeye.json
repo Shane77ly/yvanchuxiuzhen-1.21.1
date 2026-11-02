@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/mo_eye",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/mo_eye",
+    "particle": "yvanchuxiuzhen:block/mo_eye",
+    "0": "yvanchuxiuzhen:block/mo_eye"
+  }
+}
