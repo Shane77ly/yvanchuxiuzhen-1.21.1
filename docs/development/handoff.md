@@ -85,6 +85,22 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 7. 运行机制切片，均使用真实来源内容：一个玩家附件（Codec、按[复制策略表](../reference/legacy/inventory/clone_policy.csv)设置死亡复制、同步给本人）；一个 payload；一个方块实体与菜单；一个 GeckoLib 实体（选定 GeckoLib 版本）；一个代码注册转数据定义（附魔或群系）；一个 GameTest（独立源集，确认不进入发布 JAR）；一个 JUnit 规则测试。
 8. 出口：两个命名空间的注册、资源和翻译在客户端可见；开发服务端导出注册表与台账一致；检查全部通过；台账如实记录切片内容状态；验证通过、可用于其他移植项目的工程做法按技能维护规则写入移植技能 references；月度日志登记。
 
+### B0 切片选定（初选，2026-11-02）
+
+枠由路线 B0 行与上列步骤 6、7 规定；下表只是为每个枠选取的来源实物。依据是 `docs/reference/legacy/inventory` 的台账（静态）；所属系统以[整体架构](architecture.md)“系统所有权”为准，台账 `ownership_proposal.csv` 的归属只是候选分组（例如陶罐方块被分到 `creatures`），不作依据。来源行为在各步骤动工前读来源 Java 核实，核实后可调整并改写本表。
+
+| 枠 | 来源实物 | 所属系统 | 台账依据 | 动工前待核 |
+| --- | --- | --- | --- | --- |
+| 内容表·`yvanchuxiuzhen` | 物品 `cailiao_001` | materials | `registrations.csv` | 资源文件与显示名 |
+| 内容表·`yvanchuxitong` | 步骤 6 从该命名空间 188 个物品中选一个，优先与其他枠同系统者 | 待定 | `registrations.csv` | 同上 |
+| 玩家附件 | PlayerVariables 字段 `colddownGold`：double，初值 0，复制策略 `non_death_only` | abilities | `clone_policy.csv`、`state_lifecycle.csv`（读 11、写 4 处） | 同步方式；写入与读取者的实际含义 |
+| payload | `AnjianWMessage`（按键 W，处理过程 `ShenfaWProcedure`） | abilities | `network_surfaces.csv` | 处理过程是否读写 `colddownGold`；服务端校验 |
+| 方块实体与菜单 | `Taoguan01` 方块与 `Taoguan01GUI` | storage | `ownership_proposal.csv` | 方块实体类型与槽数；菜单的方块绑定 |
+| GeckoLib 实体 | `Silkwormmoth`：`PathfinderMob`，实现 `IAnimatable`，约 7 KB | creatures | `entity_surfaces.csv` | 属性、目标、掉落、几何/动画文件 |
+| 代码注册转数据定义 | 附魔 `yvanchuxitong:chain`（该命名空间唯一的附魔） | combat | `registrations.csv` | 实际效果与消费者；若无法用数据驱动附魔表达，改选 `yvanchuxiuzhen` 的群系 |
+
+GameTest 与 JUnit 针对上述内容中风险最高的两处（`colddownGold` 的死亡/非死亡复制与同步、`Chain` 的效果）选取，待步骤 7 核实后定。
+
 B0 之后按[路线](roadmap.md)进入 B1，再按系统推进。
 
 ## 每次会话的流程
