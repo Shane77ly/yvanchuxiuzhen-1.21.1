@@ -26,7 +26,7 @@ updated: 2026-11-02
 ```text
 src/main/java/net/yvanchuxiuzhen/
   YvanchuxiuzhenMod.java        公共入口：按依赖顺序调用各系统的 <名称>Setup.register
-  YvanchuxiuzhenClient.java     @Mod(value = Namespaces.XIUZHEN, dist = Dist.CLIENT) 客户端入口：调用各系统的 <名称>ClientSetup
+  YvanchuxiuzhenClient.java     @Mod(value = ModId.VALUE, dist = Dist.CLIENT) 客户端入口：调用各系统的 <名称>ClientSetup
   platform/                     至少两个系统实际共用的平台适配：内容表加载、注册辅助、payload 登记、codec 工具
   flow/                         跨系统具体流程（闭关、击杀结算、装备重算等）
   panel/                        玩家面板：分页导航框架、HUD 与覆盖层；各页菜单归所属系统
@@ -41,11 +41,11 @@ src/main/java/net/yvanchuxiuzhen/
     client/                     屏幕、HUD、按键、渲染、模型、粒子；<名称>ClientSetup 为本系统客户端装配
   compat/<modid>/               可选联动；当前无计划
 src/main/resources/
-  assets/yvanchuxiuzhen/  assets/yvanchuxitong/
-  data/yvanchuxiuzhen/    data/yvanchuxitong/
+  assets/yvanchuxiuzhen/        唯一命名空间，与 Mod ID 相同
+  data/yvanchuxiuzhen/
   content/<系统或内容族>/        静态内容表（见“注册与内容表”）
-src/main/lang/<命名空间>/<语言>/<系统或内容族>.json   语言片段，构建时合并
-src/main/sounds/<命名空间>/<系统或内容族>.json        声音事件片段，构建时合并
+src/main/lang/<语言>/<系统或内容族>.json   语言片段，构建时合并
+src/main/sounds/<系统或内容族>.json        声音事件片段，构建时合并
 src/gametest/java/              GameTest，只进入开发运行，不进入发布 JAR（待验证）
 tools/porting/                  来源索引、台账检查、资源转换
 ```
@@ -73,12 +73,14 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 同质内容（普通材料、装饰方块、家具、普通物品等）由所属系统的静态内容表声明，在 Mod 构造时用 Codec 解码并登记到该系统的 `DeferredRegister`：
 
-- 每行包含命名空间、路径、工厂类型和必要属性（堆叠、稀有度、方块属性、创造栏）。工厂类型由所属系统的代码提供，未知类型在启动时报出文件与条目，不回退为普通物品。
+- 每行包含路径（命名空间固定为 Mod ID）、工厂类型和必要属性（堆叠、稀有度、方块属性、创造栏）。工厂类型由所属系统的代码提供，未知类型在启动时报出文件与条目，不回退为普通物品。
 - 有专属行为的物品、方块、实体在所属系统用 Java 显式注册；它们仍在台账中登记。
-- 每个系统按注册表类型持有自己的 `DeferredRegister`，`yvanchuxitong` 内容使用该命名空间的注册器；不存在全项目集中注册类。
+- 每个系统按注册表类型持有自己的 `DeferredRegister`，命名空间均为 `ModId.VALUE`；不存在全项目集中注册类。
 - 代码需要引用的条目通过所属系统 `api` 暴露的持有者访问。
 
-内容表格式、启动耗时及两个命名空间并存的实际行为在 B0 验证后定稿。
+全部注册使用命名空间 `yvanchuxiuzhen`（负责人 2026-11-02 决定）：原初系统的注册保留来源路径，只换命名空间。两个来源在同一注册表下同名的只有菜单 `plaque_gui` 与粒子类型 `lingqi`，读来源后确认两边行为不同，原初系统一侧暂定为 `plaque_gui_xitong`、`lingqi_xitong`，所属单位实现时可按语义改名。目标 ID 的命名空间与唯一性由台账检查保证。
+
+内容表格式与启动耗时在 B0 验证后定稿。
 
 ## 资源转换管线
 
@@ -86,24 +88,26 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 | 资源 | 处理 |
 | --- | --- |
-| 模型、方块状态、纹理、粒子定义、声音文件 | 复制并校验引用；路径按目标原版目录 |
-| 配方、掉落表、标签、进度、结构 | 改单数目录；配方产物改用 `id`/`count`；物品 NBT 改为组件 |
+| 模型、方块状态、纹理、粒子定义、声音文件 | 复制并校验引用；路径按目标原版目录；`yvanchuxitong` 下的文件移入 `yvanchuxiuzhen`，文件中的 ID 引用一并改写 |
+| 配方、掉落表、标签、进度、结构 | 改单数目录；配方产物改用 `id`/`count`；物品 NBT 改为组件；`yvanchuxitong:` ID（含结构 NBT 的方块调色板）改写为目标 ID |
 | 代码注册的附魔、群系、地物 | 依来源 Java 的构造参数生成目标数据定义；附魔效果按目标效果组件或战斗系统读取等级重写 |
 | 燃料、堆肥等来源代码表 | 生成 NeoForge 数据映射 |
-| 语言文件 | 拆出机器配置交给所属系统定义；显示文本按系统拆成语言片段 |
+| 语言文件 | 拆出机器配置交给所属系统定义；显示文本按系统拆成语言片段；键中的命名空间与改名同步改写 |
 | `sounds.json` | 按系统片段合并 |
 | GeckoLib 几何与动画 | 文件后缀与 `geo`/`animations` 目录约定沿用（已核实 GeckoLib 4.8.3 的加载器识别 `.geo.json`、`.animation.json` 与 `animations`）；控制器代码按 GeckoLib 4 重写 |
 | 结构 NBT | 旧 DataVersion 由游戏加载时升级还是预先升级，B1 实测后决定 |
 
+两个来源在 `assets`、`data` 下相对路径相同的文件有 60 个：57 个字节相同，只迁入一份；其余 3 个是两份语言文件与 `particles/lingqi.json`，前者按键合并（同名键只有 `plaque_gui` 的界面文本），后者随粒子改名分开。转换工具遇到相对路径相同而内容不同、又没有改名登记的文件时报错。
+
 转换工具每次输出一份清单（来源文件、哈希、目标文件），台账检查据此确认没有遗漏。系统验收前可以重跑转换；验收后转换结果成为手工维护的正文，清单保留来源。只有转换无法表达的资源才使用 datagen。
 
-语言片段与声音片段由 `build.gradle` 的 `mergeAssetFragments` 任务合并为生成资源 `assets/<命名空间>/lang/<语言>.json` 与 `assets/<命名空间>/sounds.json`，同一片段内或不同片段之间的重复键、无效 JSON、不符合上述路径约定的文件都使构建失败；`src/main/resources` 中不再放这两类文件。这样各系统并行修改时不在同一个大文件上冲突。已实测（B0 步骤 5）：两个命名空间与两种语言的片段合并进 JAR，转义值往返不变；开发客户端读取了合并后的 `sounds.json`。
+语言片段与声音片段由 `build.gradle` 的 `mergeAssetFragments` 任务合并为生成资源 `assets/yvanchuxiuzhen/lang/<语言>.json` 与 `assets/yvanchuxiuzhen/sounds.json`（命名空间取 `mod_id`），同一片段内或不同片段之间的重复键、无效 JSON、不符合上述路径约定的文件都使构建失败；`src/main/resources` 中不再放这两类文件。这样各系统并行修改时不在同一个大文件上冲突。已实测（B0 步骤 5）：两种语言的片段合并进 JAR，转义值往返不变；开发客户端读取了合并后的 `sounds.json`。2026-11-02 改为单一命名空间后重新核对了 JAR 中的输出路径，旧的带命名空间目录的片段路径使构建失败。
 
 ## 台账与检查工具
 
-三份台账（内容映射、行为对齐、验收证据）以 CSV 存放在所属系统目录 `docs/systems/<系统>/ledger/` 下的 `content.csv`、`behavior.csv`、`evidence.csv`；Excel 工作簿改为由 CSV 生成的只读审阅视图，不再承载人工列（当前工作簿人工列均为空，切换无数据损失）。内容映射由 `tools/porting/build_ledger.py` 从 `registrations.csv`、`element_files.csv` 与[归属表](../reference/legacy/inventory/ownership_assignment.csv)同步：每条来源注册一行，列为 `registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note`；来源列每次重写，人工列（`target_id`、`status`、`note`）按注册保留，新行的 `target_id` 取来源 ID（保留两个命名空间 ID 的决定）。行放在 `owner` 所写单位的目录，归属改动时先改归属表再运行同步，行随之移动；没有编辑器元素的注册（声音事件、画）放在 `docs/systems/project/ledger/`，归属为“待读”，读出所属后在归属表登记。`behavior.csv`、`evidence.csv` 在所属单位出现第一条行为或证据时建立。
+三份台账（内容映射、行为对齐、验收证据）以 CSV 存放在所属系统目录 `docs/systems/<系统>/ledger/` 下的 `content.csv`、`behavior.csv`、`evidence.csv`；Excel 工作簿改为由 CSV 生成的只读审阅视图，不再承载人工列（当前工作簿人工列均为空，切换无数据损失）。内容映射由 `tools/porting/build_ledger.py` 从 `registrations.csv`、`element_files.csv` 与[归属表](../reference/legacy/inventory/ownership_assignment.csv)同步：每条来源注册一行，列为 `registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note`；来源列每次重写，人工列（`target_id`、`status`、`note`）按注册保留，新行的 `target_id` 取 `yvanchuxiuzhen:<来源路径>`；同名冲突在 `target_id` 中改名并在 `note` 说明。行放在 `owner` 所写单位的目录，归属改动时先改归属表再运行同步，行随之移动；没有编辑器元素的注册（声音事件、画）放在 `docs/systems/project/ledger/`，归属为“待读”，读出所属后在归属表登记。`behavior.csv`、`evidence.csv` 在所属单位出现第一条行为或证据时建立。
 
-`tools/porting/check_ledger.py`（B0 步骤 4 建立）检查：列结构；每条来源注册恰好一行；行所在目录与归属一致；来源列与同步计算一致；状态只取约定值；状态高于“待处理”的行归属必须为“已读”。状态为“已注册”及以上的目标 ID 与开发服务端导出注册表的比对、转换清单覆盖对应资源，在步骤 6 建立注册表导出与资源转换工具时加入。状态值：
+`tools/porting/check_ledger.py`（B0 步骤 4 建立）检查：列结构；每条来源注册恰好一行；行所在目录与归属一致；来源列与同步计算一致；`target_id` 的命名空间为 `yvanchuxiuzhen` 且同一注册表内不重复；状态只取约定值；状态高于“待处理”的行归属必须为“已读”。状态为“已注册”及以上的目标 ID 与开发服务端导出注册表的比对、转换清单覆盖对应资源，在步骤 6 建立注册表导出与资源转换工具时加入。状态值：
 
 | 状态 | 含义 |
 | --- | --- |

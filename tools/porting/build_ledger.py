@@ -2,6 +2,7 @@
 
 每条来源注册一行。来源列（注册位置、编辑器元素、归属）每次按 registrations.csv、element_files.csv 与
 ownership_assignment.csv 重写；人工列（target_id、status、note）按 (registry, legacy_id) 保留。
+新行的 target_id 为唯一命名空间下的来源路径；同名冲突在 target_id 中人工改名。
 归属改变时行移到新单位的台账。没有编辑器元素的注册（声音事件等）放在 project 台账，归属为“待读”。
 """
 from __future__ import annotations
@@ -15,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 INVENTORY = ROOT / 'docs/reference/legacy/inventory'
 SYSTEMS = ROOT / 'docs/systems'
 UNASSIGNED = 'project'
+NAMESPACE = 'yvanchuxiuzhen'
 COLUMNS = ['registry', 'legacy_id', 'source_mod', 'element', 'source_file', 'line',
            'owner', 'ownership', 'target_id', 'status', 'note']
 MANUAL = ('target_id', 'status', 'note')
@@ -88,6 +90,10 @@ def ledger_dir(row: dict[str, str]) -> str:
     return row['owner'] or UNASSIGNED
 
 
+def default_target(legacy_id: str) -> str:
+    return f'{NAMESPACE}:{legacy_id.split(":", 1)[1]}'
+
+
 def read_ledgers() -> dict[Path, list[dict[str, str]]]:
     return {path: read_csv(path) for path in sorted(SYSTEMS.glob('*/ledger/content.csv'))}
 
@@ -111,7 +117,7 @@ def main() -> None:
             manual[key] = {column: row[column] for column in MANUAL}
     grouped: dict[str, list[dict[str, str]]] = defaultdict(list)
     for key, row in sorted(expected.items()):
-        row.update(manual.get(key, {'target_id': row['legacy_id'], 'status': STATUSES[0], 'note': ''}))
+        row.update(manual.get(key, {'target_id': default_target(row['legacy_id']), 'status': STATUSES[0], 'note': ''}))
         grouped[ledger_dir(row)].append(row)
     for path in SYSTEMS.glob('*/ledger/content.csv'):
         if path.parent.parent.name not in grouped:

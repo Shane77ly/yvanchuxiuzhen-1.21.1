@@ -15,7 +15,7 @@ updated: 2026-11-02
 
 采用直接面向 1.21.1 的分系统重写。注册与资源保留来源映射，规则和状态按实际职责重建；不维护没有交付需求的中间 Minecraft 版本。两个 1.18.2 工程的全部内容都在范围内，分批只是实现顺序，详见 [实施顺序](roadmap.md)。
 
-建议保留 `yvanchuxiuzhen` 与 `yvanchuxitong` 两个资源命名空间，使用一个 Mod 元数据入口。负责人 2026-11-02 确定 Mod ID 为 `yvanchuxiuzhen`、Java 基础包为 `net.yvanchuxiuzhen`；元数据 license 暂填 `All Rights Reserved`，待逐资产许可核对后再定，不视为最终授权决定。编号与含义分别记录，Java 名称采用可理解的语义名；遇到语义未核实的内容，暂保留来源编号。详见 [命名与台账](naming-and-catalog.md)。
+全部注册与资源使用一个命名空间 `yvanchuxiuzhen`，与 Mod ID 相同；原初系统的内容由 `yvanchuxitong:<路径>` 改为 `yvanchuxiuzhen:<路径>`（负责人 2026-11-02 决定，取代原“保留两个命名空间”）。两个来源同名的注册与资源按[工程结构](engineering.md)“注册与内容表”“资源转换管线”处理；1.18.2 ID 只在决定导入存档后以注册表别名承接。负责人 2026-11-02 确定 Mod ID 为 `yvanchuxiuzhen`、Java 基础包为 `net.yvanchuxiuzhen`；元数据 license 暂填 `All Rights Reserved`，待逐资产许可核对后再定，不视为最终授权决定。编号与含义分别记录，Java 名称采用可理解的语义名；遇到语义未核实的内容，暂保留来源编号。详见 [命名与台账](naming-and-catalog.md)。
 
 ## 源码调查直接决定的边界
 
