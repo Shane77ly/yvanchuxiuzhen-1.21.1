@@ -7,10 +7,10 @@
 - 范围：全量移植两个 Mod 的全部系统。
 - 目标源码：构建后的 `build/moddev/artifacts/neoforge-<版本>-sources.jar`（含 Minecraft 与 NeoForge 源码，随依赖版本生成）；FML 等库在 Gradle 缓存。邻近工程的 `reference/neoforge-21.1.228-sources` 只在版本相同时作对照。
 - 非依据：邻近 1.21.1 工程 `yuanchuxiuzhen-1.21.1` 只提供工程参考。
-- 当前关口：独立重建的整体架构设计阶段。负责人尚未批准架构，也未授权启动 goal；先调查并提交具体方案，未经明确批准不开始游戏实现或 goal。2026-11-02 负责人授权先建立开发环境，范围仅限构建与加载入口，不含玩法内容；同日要求重新设计工程结构与移植流程，方案见 `docs/development/engineering.md` 与 `roadmap.md`，待批准。
+- 当前关口：B0 架构验证切片（`docs/development/roadmap.md`）。2026-11-02 负责人批准 `docs/development/architecture.md`、`engineering.md`、`roadmap.md`（main 提交 `3e0585c` 版本）并指示自 B0 步骤 1 开始，工作分支 `port/b0-slice`。批准范围仅限这三份文档；存档导入、界面复刻程度、license、来源矛盾 Q01–Q14 以及未列入的文档（含各系统 `architecture.md`、`data-and-runtime.md`）仍为待裁定或草案，对应内容实现前需另行裁定。goal 仍未授权，未经明确批准不创建 goal。
 - 开发环境：Mod ID `yvanchuxiuzhen`，Java 基础包 `net.yvanchuxiuzhen`；构建组合与验证见 `docs/development/architecture.md` 的“技术依赖”。
 - 交接：新会话先读 `docs/development/handoff.md`。
-- 记录位置：内容映射与行为对齐见 `docs/development/content-and-parity.md`，台账 CSV 在 `docs/systems/<系统>/ledger/`（方案待批准），系统规则正文在 `docs/systems/<系统>`，证据与日志按下方“文档”登记。
+- 记录位置：内容映射与行为对齐见 `docs/development/content-and-parity.md`，台账 CSV 在 `docs/systems/<系统>/ledger/`（B0 建立），系统规则正文在 `docs/systems/<系统>`，证据与日志按下方“文档”登记。
 
 ## 移植方法
 

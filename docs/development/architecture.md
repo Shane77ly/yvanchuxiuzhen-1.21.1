@@ -1,13 +1,13 @@
 ---
 topic: public
 role: architecture
-status: draft
+status: current
 updated: 2026-11-02
 ---
 
-# 整体架构提案
+# 整体架构
 
-状态：待负责人评审。以下是完整移植的组织方案；当前只有开发环境与加载入口，没有玩法代码。调查证据见 [1.18.2 版本架构调查](../reference/legacy/source-survey.md)。
+状态：负责人 2026-11-02 批准（main 提交 `3e0585c` 版本）。批准不含存档导入、界面复刻程度、license 与来源矛盾 Q01–Q14，这些仍待裁定；文中“建议”表述在本文范围内按已采用执行，与之相关的未决事项除外。当前只有开发环境与加载入口，没有玩法代码。调查证据见 [1.18.2 版本架构调查](../reference/legacy/source-survey.md)。
 
 ## 工程形态
 

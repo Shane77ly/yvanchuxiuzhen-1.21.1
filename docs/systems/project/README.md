@@ -15,18 +15,19 @@ updated: 2026-11-02
 | 2026-11-01 | Minecraft 1.21.1 + NeoForge + Java 21，合为一个 Mod | 已建立 Gradle 开发环境并通过构建与加载检查；未注册内容 |
 | 2026-11-01 | 编号/变量 Excel、全量范围、标准开发文档 | 工作簿与文档已建立，逐条语义及目标映射待评审 |
 | 2026-11-01 | 不做无需求的防御封装，不写无意义断言测试 | 已写入开发规则；本轮无游戏测试代码 |
-| 2026-11-01 | 当前不要开 goal，方案尚未通过 | 本轮未创建或恢复 goal；等待明确批准与启动指令 |
+| 2026-11-01 | 当前不要开 goal，方案尚未通过 | 本轮未创建或恢复 goal；2026-11-02 架构批准不含启动 goal，仍等待明确启动指令 |
 | 2026-11-01 | 使用“1.18.2 版本”的明确表述 | 本项目文档及工作簿统一；来源路径/符号照实记录 |
 | 2026-11-02 | 自建可迭代的通用移植技能，按提案整理技能结构并修改 AGENTS.md；暂不公开 | 已建立 [移植技能](../../../.claude/skills/minecraft-mod-porting/SKILL.md)，AGENTS.md 改为项目档案 + 技能引用；`docs` 中的同类方法正文已迁出，只保留本项目适用与决定；技能未在实施中使用 |
-| 2026-11-02 | 按大型 Mod 长期维护与依赖环境重新设计工程结构与移植流程，并编写交接文档 | 已提交方案：[工程结构](../../development/engineering.md)、[路线](../../development/roadmap.md)、[交接说明](../../development/handoff.md)；待批准 |
+| 2026-11-02 | 按大型 Mod 长期维护与依赖环境重新设计工程结构与移植流程，并编写交接文档 | 已提交方案：[工程结构](../../development/engineering.md)、[路线](../../development/roadmap.md)、[交接说明](../../development/handoff.md)；工程结构与路线已于 2026-11-02 批准（见下一行） |
 | 2026-11-02 | 先整理 Git，并明确进度记录与交接更新规则 | 分支改名为 `main`，加入 `.gitattributes`；规则写入 AGENTS.md“进度记录与交接”与[工程结构](../../development/engineering.md)“Git 与会话协作”；作者邮箱改为负责人提供的地址，远端为公开 GitHub 仓库 |
-| 2026-11-02 | Mod ID `yvanchuxiuzhen`、Java 基础包 `net.yvanchuxiuzhen`、license 暂填 All Rights Reserved；先建立开发环境 | 已建立构建与加载入口；license 待逐资产核对后再定；架构仍未批准 |
+| 2026-11-02 | Mod ID `yvanchuxiuzhen`、Java 基础包 `net.yvanchuxiuzhen`、license 暂填 All Rights Reserved；先建立开发环境 | 已建立构建与加载入口；license 待逐资产核对后再定 |
+| 2026-11-02 | 批准 [整体架构](../../development/architecture.md)、[工程结构与长期维护](../../development/engineering.md)、[实施路线](../../development/roadmap.md)（main 提交 `3e0585c` 版本）；未决事项（存档导入、界面复刻程度、license、Q01–Q14）不在批准范围；从 `main` 建立 `port/b0-slice`，自 [交接说明](../../development/handoff.md) B0 步骤 1 开始 | 三份文档状态改为 `current`；关口由架构设计阶段进入 B0；goal 仍未授权；B0 进展见[月度记录](logs/2026-11.md)与交接说明“进行中” |
 
-## 待评审提案
+## 已批准与待裁定
 
-一个 Gradle 工程、按系统组织，状态由所属系统修改；保留两个来源命名空间；功法成长随物品、银行与材料仓归玩家、现场拍卖归方块、学习小游戏独立会话；按全量批次迁移与验收。详见 [架构](../../development/architecture.md)。以上均为建议，不能从“已经写入文件”推定已批准。
+已批准（2026-11-02）：一个 Gradle 工程、一个发布 JAR、按系统组织；保留两个来源命名空间；功法成长随物品、银行与材料仓归玩家、现场拍卖归方块、学习小游戏独立会话；代码目录、ArchUnit 边界、内容表、资源转换、台账 CSV、依赖治理与分支协作；A～I 全量批次与系统完成条件。正文为 [架构](../../development/architecture.md)、[工程结构](../../development/engineering.md)、[路线](../../development/roadmap.md)。三份文档中标注“待验证”的做法由 B0 实测后写回。
 
-范围决策包括存档转换、界面复刻程度、具体依赖，以及 [调查问题表](../../reference/legacy/source-survey.md)中的源码冲突。明确采用前不改变对应规则。
+仍待负责人裁定：1.18.2 世界与玩家存档是否导入、界面复刻程度、发布 license，以及 [调查问题表](../../reference/legacy/source-survey.md)中的 Q01–Q14（实现所属系统前裁定）。批准范围之外的文档（各系统 `architecture.md`、[数据与运行时](../../development/data-and-runtime.md)等）仍是草案，不能从“已经写入文件”推定已批准；明确采用前不改变对应规则。
 
 ## 已完成与剩余
 
