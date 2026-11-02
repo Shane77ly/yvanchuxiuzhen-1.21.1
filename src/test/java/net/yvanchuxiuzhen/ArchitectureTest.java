@@ -16,7 +16,7 @@ import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.sli
 
 /**
  * 工程结构守卫，对应 docs/development/engineering.md“边界与自动检查”的六条规则；违反时 gradlew check 失败。
- * 所属单位按包划分：system.&lt;系统&gt;、family.&lt;内容族&gt;、panel、flow、platform 与根包中的两个 Mod 入口。
+ * 所属单位按包划分：system.&lt;系统&gt;、collection.&lt;内容族&gt;、panel、flow、platform 与根包中的两个 Mod 入口。
  */
 class ArchitectureTest {
     private static final String ROOT = "net.yvanchuxiuzhen";
@@ -26,10 +26,10 @@ class ArchitectureTest {
             .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
             .importPackages(ROOT);
 
-    /** 规则 1：系统之间只依赖对方的 api 包；flow、panel、family 依赖系统时同样只用 api。 */
+    /** 规则 1：系统之间只依赖对方的 api 包；flow、panel、collection 依赖系统时同样只用 api。 */
     @Test
     void otherSystemsAreReachedOnlyThroughApi() {
-        classes().that().resideInAnyPackage(ROOT + ".system..", ROOT + ".flow..", ROOT + ".panel..", ROOT + ".family..")
+        classes().that().resideInAnyPackage(ROOT + ".system..", ROOT + ".flow..", ROOT + ".panel..", ROOT + ".collection..")
                 .should(dependOnOtherSystemsOnlyThroughApi())
                 .check(CLASSES);
     }
@@ -58,7 +58,7 @@ class ArchitectureTest {
     void platformDoesNotDependOnGameplay() {
         noClasses().that().resideInAPackage(ROOT + ".platform..")
                 .should().dependOnClassesThat()
-                .resideInAnyPackage(ROOT + ".system..", ROOT + ".flow..", ROOT + ".panel..", ROOT + ".family..")
+                .resideInAnyPackage(ROOT + ".system..", ROOT + ".flow..", ROOT + ".panel..", ROOT + ".collection..")
                 .check(CLASSES);
     }
 
@@ -70,9 +70,9 @@ class ArchitectureTest {
 
     /** 规则 6：除两个 Mod 入口外，任何类不依赖其他内容族或玩家面板。 */
     @Test
-    void familiesAndPanelAreNotDependedOn() {
+    void collectionsAndPanelAreNotDependedOn() {
         classes().that().doNotHaveFullyQualifiedName(COMMON_ENTRY).and().doNotHaveFullyQualifiedName(CLIENT_ENTRY)
-                .should(notDependOnOtherFamiliesOrPanel())
+                .should(notDependOnOtherCollectionsOrPanel())
                 .check(CLASSES);
     }
 
@@ -92,14 +92,14 @@ class ArchitectureTest {
         };
     }
 
-    private static ArchCondition<JavaClass> notDependOnOtherFamiliesOrPanel() {
+    private static ArchCondition<JavaClass> notDependOnOtherCollectionsOrPanel() {
         return new ArchCondition<>("不依赖其他内容族或玩家面板") {
             @Override
             public void check(JavaClass origin, ConditionEvents events) {
                 String from = unitOf(origin.getPackageName());
                 for (Dependency dependency : origin.getDirectDependenciesFromSelf()) {
                     String to = unitOf(dependency.getTargetClass().getPackageName());
-                    if (to != null && (to.startsWith("family.") || to.equals("panel")) && !to.equals(from)) {
+                    if (to != null && (to.startsWith("collection.") || to.equals("panel")) && !to.equals(from)) {
                         events.add(SimpleConditionEvent.violated(dependency, dependency.getDescription()));
                     }
                 }
@@ -112,7 +112,7 @@ class ArchitectureTest {
         return packageName.equals(api) || packageName.startsWith(api + ".");
     }
 
-    /** 返回包所属单位，如 system.skill、family.decor、panel，根包为空串；项目外的包返回 null。 */
+    /** 返回包所属单位，如 system.skill、collection.decor、panel，根包为空串；项目外的包返回 null。 */
     private static String unitOf(String packageName) {
         if (packageName.equals(ROOT)) {
             return "";
@@ -121,7 +121,7 @@ class ArchitectureTest {
             return null;
         }
         String[] parts = packageName.substring(ROOT.length() + 1).split("\\.");
-        if ((parts[0].equals("system") || parts[0].equals("family")) && parts.length > 1) {
+        if ((parts[0].equals("system") || parts[0].equals("collection")) && parts.length > 1) {
             return parts[0] + "." + parts[1];
         }
         return parts[0];

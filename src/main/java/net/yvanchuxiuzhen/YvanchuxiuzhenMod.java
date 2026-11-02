@@ -2,7 +2,7 @@ package net.yvanchuxiuzhen;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
-import net.yvanchuxiuzhen.family.decor.DecorSetup;
+import net.yvanchuxiuzhen.collection.decor.DecorSetup;
 import net.yvanchuxiuzhen.platform.Namespaces;
 import net.yvanchuxiuzhen.system.craft.CraftSetup;
 import net.yvanchuxiuzhen.system.material.MaterialSetup;
