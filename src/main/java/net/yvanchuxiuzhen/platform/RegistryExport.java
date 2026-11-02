@@ -13,7 +13,7 @@ import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
 /**
  * 开发运行用的注册表导出：设置系统属性 {@value #PROPERTY} 为目录时，专用服务器启动完成后
- * 把本 Mod 命名空间下的方块与物品 ID 写入该目录，供 {@code tools/porting/check_ledger.py} 与台账比对。
+ * 把本 Mod 命名空间下的方块、物品与声音事件 ID 写入该目录，供 {@code tools/porting/check_ledger.py} 与台账比对。
  * 发布环境不设置该属性，监听器不登记。
  */
 public final class RegistryExport {
@@ -34,6 +34,7 @@ public final class RegistryExport {
             Files.createDirectories(directory);
             write(directory.resolve("block.txt"), BuiltInRegistries.BLOCK);
             write(directory.resolve("item.txt"), BuiltInRegistries.ITEM);
+            write(directory.resolve("sound_event.txt"), BuiltInRegistries.SOUND_EVENT);
         } catch (IOException exception) {
             throw new IllegalStateException("无法写出注册表导出 " + directory, exception);
         }

@@ -2,7 +2,7 @@
 
 检查项：列结构；每条来源注册恰好一行；行所在目录与归属一致；来源列与 build_ledger.py 的计算一致；
 目标 ID 使用唯一命名空间且在同一注册表内不重复；状态只取约定值；状态高于“待处理”的行归属必须为“已读”；
-状态高于“待处理”的方块与物品行必须出现在开发服务端的注册表导出中，导出里的每个 ID 都必须是台账的目标 ID。
+状态高于“待处理”的方块、物品与声音事件行必须出现在开发服务端的注册表导出中，导出里的每个 ID 都必须是台账的目标 ID。
 导出由 `gradlew runServer` 写入 build/registry-export。方块行的方块状态与物品行的物品模型必须登记在转换清单
 docs/reference/conversion/manifest.csv 中，且目标文件存在；数据转换清单 data_manifest.csv（配方、标签、战利品表、进度）的目标文件必须存在，
 并且没有同一来源文件既已转换又整体跳过。
@@ -22,7 +22,7 @@ DATA_MANIFEST = ROOT / 'docs/reference/conversion/data_manifest.csv'
 DATA_SKIPPED = ROOT / 'docs/reference/conversion/data_skipped.csv'
 ASSET_TARGET = {'block': 'src/main/resources/assets/yvanchuxiuzhen/blockstates/{}.json',
                 'item': 'src/main/resources/assets/yvanchuxiuzhen/models/item/{}.json'}
-EXPORTED_REGISTRIES = ('block', 'item')
+EXPORTED_REGISTRIES = ('block', 'item', 'sound_event')
 SOURCE_COLUMNS = [column for column in COLUMNS if column not in MANUAL]
 
 

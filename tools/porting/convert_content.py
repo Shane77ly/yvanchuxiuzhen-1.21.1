@@ -25,6 +25,7 @@ SOURCES = {
 }
 CONTENT = ROOT / 'src/main/resources/content'
 LANG = ROOT / 'src/main/lang'
+SOUNDS = ROOT / 'src/main/sounds'
 CONVERSION = ROOT / 'docs/reference/conversion'
 FACTORIES = {'Block': 'block', 'SlabBlock': 'slab', 'StairBlock': 'stairs', 'WallBlock': 'wall', 'LeavesBlock': 'leaves',
              'FenceBlock': 'fence', 'FenceGateBlock': 'fence_gate', 'WoodButtonBlock': 'button',
@@ -95,6 +96,34 @@ def write_lang(unit_entries: dict[str, dict[str, dict[str, str]]]) -> None:
             path = LANG / language / f'{unit}.json'
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(json.dumps(entries, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+
+
+def convert_sounds(sources: dict[str, Source], add_lang) -> list[dict]:
+    """声音事件：内容表只登记事件 ID，声音文件（可与事件名不同）、类别与字幕由 sounds.json 片段声明，字幕文本写入 platform 的语言片段。"""
+    rows: list[dict] = []
+    fragment: dict[str, dict] = {}
+    for mod, (root, _) in SOURCES.items():
+        file = root / f'src/main/resources/assets/{mod}/sounds.json'
+        if not file.is_file():
+            continue
+        for event, definition in json.loads(file.read_text(encoding='utf-8')).items():
+            if event in fragment:
+                raise ValueError(f'声音事件 {event} 在两个来源中重复')
+            for sound in definition['sounds']:
+                if not sound['name'].startswith(f'{mod}:'):
+                    raise ValueError(f'声音事件 {event} 引用了其他命名空间的文件 {sound["name"]}')
+            fragment[event] = {**definition, 'sounds': [{**sound, 'name': f'{NAMESPACE}:{sound["name"].split(":", 1)[1]}'} for sound in definition['sounds']]}
+            rows.append({'id': event})
+            subtitle = definition.get('subtitle')
+            if subtitle:
+                for language in LANGUAGES:
+                    text = sources[mod].lang[language].get(subtitle)
+                    if text is not None:
+                        add_lang('platform', language, subtitle, text)
+    SOUNDS.mkdir(parents=True, exist_ok=True)
+    text = json.dumps(fragment, ensure_ascii=False, indent=2) + '\n'
+    (SOUNDS / 'platform.json').write_text(text, encoding='utf-8', newline='\n')
+    return rows
 
 
 def main() -> None:
@@ -208,6 +237,8 @@ def main() -> None:
                 if title is not None:
                     add_lang('platform', language, f'itemGroup.{NAMESPACE}.{name}', title)
 
+    sound_rows = convert_sounds(sources, add_lang)
+
     units = sorted(set(blocks_by_unit) | set(items_by_unit))
     for unit in units:
         if blocks_by_unit.get(unit):
@@ -217,6 +248,7 @@ def main() -> None:
     for unit in sorted({u for u, _ in armor_materials}):
         write_rows(CONTENT / unit / 'armor_materials.json', [m for (u, _), m in sorted(armor_materials.items()) if u == unit])
     write_rows(CONTENT / 'platform' / 'tabs.json', sorted(tabs, key=lambda t: t['id']))
+    write_rows(CONTENT / 'platform' / 'sounds.json', sound_rows)
     write_lang(lang)
     CONVERSION.mkdir(parents=True, exist_ok=True)
     with (CONVERSION / 'skipped.csv').open('w', encoding='utf-8', newline='') as handle:

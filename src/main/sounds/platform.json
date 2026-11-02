@@ -1,0 +1,1488 @@
+{
+  "levelup": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:levelup",
+        "stream": false
+      }
+    ]
+  },
+  "littlelevelup": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:littlelevelup",
+        "stream": false
+      }
+    ]
+  },
+  "ice1": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:ice1",
+        "stream": false
+      }
+    ]
+  },
+  "gedang": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:gedang",
+        "stream": false
+      }
+    ]
+  },
+  "fabao001": {
+    "category": "neutral",
+    "subtitle": "subtitles.fabao001",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:fabao001",
+        "stream": false
+      }
+    ]
+  },
+  "fulushifang": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:fulushifang",
+        "stream": false
+      }
+    ]
+  },
+  "organism11": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:organism11",
+        "stream": false
+      }
+    ]
+  },
+  "pao0801": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:pao0801",
+        "stream": false
+      }
+    ]
+  },
+  "pao0802": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:pao0802",
+        "stream": false
+      }
+    ]
+  },
+  "pao0902": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:pao0902",
+        "stream": false
+      }
+    ]
+  },
+  "pao0903": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:pao0903",
+        "stream": false
+      }
+    ]
+  },
+  "pao1001": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:pao1001",
+        "stream": false
+      }
+    ]
+  },
+  "pao1101": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:pao1101",
+        "stream": false
+      }
+    ]
+  },
+  "pao1201": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:pao1201",
+        "stream": false
+      }
+    ]
+  },
+  "guchong01": {
+    "category": "neutral",
+    "subtitle": "subtitles.guchong01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:guchong01",
+        "stream": false
+      }
+    ]
+  },
+  "guchong03": {
+    "category": "neutral",
+    "subtitle": "subtitles.guchong03",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:guchong03",
+        "stream": false
+      }
+    ]
+  },
+  "yaoqiantong": {
+    "category": "neutral",
+    "subtitle": "subtitles.yaoqiantong",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoqiantong",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou01die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou01die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou001die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou001skill03": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou001skill03",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou001skill03",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou006attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou006attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou006attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou006die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou006die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou006die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou006walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou006walk",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou006walk",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou009attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou009attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou009attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou009die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou009die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou009die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou006idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou006idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou006idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou012walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou012walk",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou012walk",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou013die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou013die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou013die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou013attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou013attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou013attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou013idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou013idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou013idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou014attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou014attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou014attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou014die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou014die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou014die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou014idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou014idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou014idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou014walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou014walk",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou014walk",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou015attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou015attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou015attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou015die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou015die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou015die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou015idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou015idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou015idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou016attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou016attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou016attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou016die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou016die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou016die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou012attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou012attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou012attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou012die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou012die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou012die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou012idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou012idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou012idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou017attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou017attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou017attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou017die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou017die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou017die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou017idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou017idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou017idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou017walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou017walk",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou017walk",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou018attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou018attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou018attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou018die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou018die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou018die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou021attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou021attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou021attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou021die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou021die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou021die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou021idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou021idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou021idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou025attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou025attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou025attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou025die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou025die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou025die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou025idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou025idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou025idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou029idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou029idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou029idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou032attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou032attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou032attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou032die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou032die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou032die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou032idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou032idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou032idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou032walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou032walk",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou032walk",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou035attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou035attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou035attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou035die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou035die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou035die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou035idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou035idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou035idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou035walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou035walk",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou035walk",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou036attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou036attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou036attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou036die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou036die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou036dieogg",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou036idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou036idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou036idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou036walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou036walk",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou036walk",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou037die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou037die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou037die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou037idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou037idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou037idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou040idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou040idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou040idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou041fly": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou041fly",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou041fly",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou045idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou045idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou045idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou046attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou046attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou046attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou046die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou046die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou046die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou046idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou046idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou046idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou046walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou046walk",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou046walk",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou047idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou047idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou047idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou047walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou047walk",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou047walk",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou048attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou048attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou048attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou048die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou048die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou048die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou048walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou048walk",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou048walk",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou050attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou050attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou050attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou050die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou050die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou050die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou050idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou050idle",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou050idle",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou050walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou050walk",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou050walk",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou054attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou054attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou054attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou054die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou054die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou054die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou054walk": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou054walk",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou054walk",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou019attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou019attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou019attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou019die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou019die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou019die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou020attacked": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou020attacked",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou020attacked",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou020die": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou020die",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou020die",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou012skill01": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou012skill01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou012skill01",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou012skill02": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou012skill02",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou012skill02",
+        "stream": false
+      }
+    ]
+  },
+  "tongyong_baoqi": {
+    "category": "hostile",
+    "subtitle": "subtitles.tongyong_baoqi",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:tongyong_baoqi",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou015skill01": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou015skill01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou015skill01",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou015skill02": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou015skill02",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou015skill02",
+        "stream": false
+      }
+    ]
+  },
+  "bowxvliman": {
+    "category": "neutral",
+    "subtitle": "subtitles.bowxvliman",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowxvliman",
+        "stream": false
+      }
+    ]
+  },
+  "bowxvli": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowxvli",
+        "stream": false
+      }
+    ]
+  },
+  "bowshoot1": {
+    "category": "neutral",
+    "subtitle": "subtitles.bowshoot1",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowshoot1",
+        "stream": false
+      }
+    ]
+  },
+  "bowshoot3": {
+    "category": "neutral",
+    "subtitle": "subtitles.bowshoot3",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowshoot3",
+        "stream": false
+      }
+    ]
+  },
+  "bowshoot4": {
+    "category": "neutral",
+    "subtitle": "subtitles.bowshoot4",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowshoot4",
+        "stream": false
+      }
+    ]
+  },
+  "bowshoot5": {
+    "category": "neutral",
+    "subtitle": "subtitles.bowshoot5",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowshoot5",
+        "stream": false
+      }
+    ]
+  },
+  "bowshoot6": {
+    "category": "neutral",
+    "subtitle": "subtitles.bowshoot6",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowshoot6",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou054skill02": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou054skill02",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou054skill02",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou054skill0101": {
+    "category": "neutral",
+    "subtitle": "subtitles.yaoshou054skill0101",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou054skill0101",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou054skill0102": {
+    "category": "neutral",
+    "subtitle": "subtitles.yaoshou054skill0102",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou054skill0102",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou054skill0103": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou054skill0103",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou054skill0103",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou053skill01": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou053skill01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou053skill01",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou053skill03": {
+    "category": "neutral",
+    "subtitle": "subtitles.yaoshou053skill03",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou053skill03",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou053skill05": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou053skill05",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou053skill05",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou011skill02": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou011skill02",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou011skill02",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou011skill03": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou011skill03",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou011skill03",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou011skill05": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou011skill05",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou011skill05",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou048skill01": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou048skill01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou048skill01",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou048skill02": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou048skill02",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou048skill02",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou050skill02": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou050skill02",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou050skill02",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou039skill01": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou039skill01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou039skill01",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou037skill01": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou037skill01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou037skill01",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou037skill02": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou037skill02",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou037skill02",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou036skill01": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou036skill01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou036skill01",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou035skill01": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou035skill01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou035skill01",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou033skill01": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou033skill01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou033skill01",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou033skill02": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou033skill02",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou033skill02",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou033skill0102": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou033skill0102",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou033skill0102",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou027skill01": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou027skill01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou027skill01",
+        "stream": false
+      }
+    ]
+  },
+  "npcskill010101": {
+    "category": "neutral",
+    "subtitle": "subtitles.npcskill010101",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:npcskill010101",
+        "stream": false
+      }
+    ]
+  },
+  "npcskill010102": {
+    "category": "neutral",
+    "subtitle": "subtitles.npcskill010102",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:npcskill010102",
+        "stream": false
+      }
+    ]
+  },
+  "npcskill010103": {
+    "category": "neutral",
+    "subtitle": "subtitles.npcskill010103",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:npcskill010103",
+        "stream": false
+      }
+    ]
+  },
+  "npcskill010104": {
+    "category": "neutral",
+    "subtitle": "subtitles.npcskill010104",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:npcskill010104",
+        "stream": false
+      }
+    ]
+  },
+  "npcskill010105": {
+    "category": "neutral",
+    "subtitle": "subtitles.npcskill010105",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:npcskill010105",
+        "stream": false
+      }
+    ]
+  },
+  "npcskill010106": {
+    "category": "neutral",
+    "subtitle": "subtitles.npcskill010106",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:npcskill010106",
+        "stream": false
+      }
+    ]
+  },
+  "npcskill010107": {
+    "category": "neutral",
+    "subtitle": "subtitles.npcskill010107",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:npcskill010107",
+        "stream": false
+      }
+    ]
+  },
+  "npcskill010108": {
+    "category": "neutral",
+    "subtitle": "subtitles.npcskill010108",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:npcskill010108",
+        "stream": false
+      }
+    ]
+  },
+  "npcskill0101huikong": {
+    "category": "neutral",
+    "subtitle": "subtitles.npcskill0101huikong",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:npcskill0101huikong",
+        "stream": false
+      }
+    ]
+  },
+  "basalt": {
+    "category": "neutral",
+    "subtitle": "subtitles.basalt",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:basalt",
+        "stream": false
+      }
+    ]
+  },
+  "yaohua": {
+    "category": "neutral",
+    "subtitle": "subtitles.yaohua",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaohua",
+        "stream": false
+      }
+    ]
+  },
+  "jinengzibao": {
+    "category": "neutral",
+    "subtitle": "subtitles.jinengzibao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:jinengzibao",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou007skill01": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou007skill01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou007skill01",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou007skill03": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou007skill03",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou007skill03",
+        "stream": false
+      }
+    ]
+  },
+  "yaoshou007skill02": {
+    "category": "hostile",
+    "subtitle": "subtitles.yaoshou007skill02",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoshou007skill02",
+        "stream": false
+      }
+    ]
+  },
+  "effect_001yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_001yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_001yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "effect_002yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_002yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_002yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "effect_003yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_003yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_003yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "effect_004yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_004yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_004yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "effect_005yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_005yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_005yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "effect_006yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_006yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_006yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "effect_007yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_007yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_007yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "fireshoot": {
+    "category": "neutral",
+    "subtitle": "subtitles.fireshoot",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:fire1",
+        "stream": false
+      }
+    ]
+  },
+  "flybegin": {
+    "category": "neutral",
+    "subtitle": "subtitles.flybegin",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:flybegin",
+        "stream": false
+      }
+    ]
+  },
+  "flyspeeedbegin": {
+    "category": "neutral",
+    "subtitle": "subtitles.flyspeeedbegin",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:flyspeeedbegin",
+        "stream": false
+      }
+    ]
+  }
+}

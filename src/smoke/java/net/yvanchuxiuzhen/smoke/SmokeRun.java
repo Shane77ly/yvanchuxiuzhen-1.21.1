@@ -21,12 +21,14 @@ import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.sounds.WeighedSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.flag.FeatureFlags;
@@ -286,7 +288,20 @@ final class SmokeRun {
                 }
             }
         }
-        report.add("INFO 已核对方块 " + blocks + " 物品 " + items);
+        int sounds = 0;
+        for (SoundEvent sound : BuiltInRegistries.SOUND_EVENT) {
+            if (!sound.getLocation().getNamespace().equals(MOD)) {
+                continue;
+            }
+            sounds++;
+            WeighedSoundEvents definition = minecraft.getSoundManager().getSoundEvent(sound.getLocation());
+            if (definition == null) {
+                report.add("FAIL 声音事件没有 sounds.json 定义 " + sound.getLocation());
+            } else if (definition.getSubtitle() != null && definition.getSubtitle().getString().startsWith("subtitles.")) {
+                report.add("FAIL 声音字幕未翻译 " + definition.getSubtitle().getString());
+            }
+        }
+        report.add("INFO 已核对方块 " + blocks + " 物品 " + items + " 声音事件 " + sounds);
     }
 
     private void openCreative() throws IllegalStateException {
