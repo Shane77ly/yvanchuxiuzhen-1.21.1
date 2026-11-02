@@ -16,13 +16,13 @@ updated: 2026-11-02
 | 分支与提交 | `main` 与工作分支 `port/b0-slice`；最新提交以 `git log` 为准 |
 | 已完成 | 两个 1.18.2 工程的全量静态调查与索引；系统调查正文（2026-11-02 按[系统设计](system-design.md)重组为 28 个系统、3 个内容族与玩家面板）；通用移植技能；开发环境（构建、开发服务端与客户端加载已实测） |
 | 代码 | 公共入口与客户端入口；`material`、`skill`、`craft`、`decor` 的 Setup 只登记空注册器，尚未注册任何内容 |
-| B0 进度 | 步骤 1（依赖升级）、步骤 2（骨架）、步骤 3（ArchUnit）、步骤 4（台账）已完成；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
+| B0 进度 | 步骤 1（依赖升级）、步骤 2（骨架）、步骤 3（ArchUnit）、步骤 4（台账）、步骤 5（片段合并）已完成；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
 | 已批准 | 2026-11-02 负责人批准整体架构、[工程结构与长期维护](engineering.md)、[实施路线](roadmap.md)（`3e0585c` 版本），记录见[项目状态](../systems/project/README.md)；不含存档导入、界面复刻程度、license、Q01–Q14 |
 | 未执行 | 玩法实现、内容注册、资源迁移、1.18.2 实机对照、存档与视觉验收；goal 未授权 |
 
 ## 进行中
 
-B0 步骤 5（语言与声音片段合并）待开始：分支 `port/b0-slice`。步骤 4 已完成并合入 `main`。下一步按下文步骤 5 编写 Gradle 合并任务，重复键使构建失败。
+B0 步骤 6（内容表加载）待开始：分支 `port/b0-slice`。步骤 5 已完成并合入 `main`。下一步按下文步骤 6：读来源确认 `cailiao_001` 与一个 `yvanchuxitong` 物品，设计内容表格式与资源转换工具首个类型，建立注册表导出并补上 `check_ledger.py` 的导出比对与转换清单检查。
 
 ## 先读顺序
 
@@ -81,7 +81,7 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 2. 骨架（已完成 2026-11-02）：公共入口 `YvanchuxiuzhenMod` 调用 `material`、`skill`、`craft` 与内容族 `decor` 的 `<名称>Setup.register`，各 Setup 只登记切片所需的注册器（步骤 6、7 填入内容）；客户端入口 `YvanchuxiuzhenClient` 为 `@Mod(value = Namespaces.XIUZHEN, dist = Dist.CLIENT)`，`<名称>ClientSetup` 随步骤 7 的客户端内容加入；命名空间常量在 `platform/Namespaces`。实测：专用服务器只构造公共入口，客户端先公共后客户端，两端日志无 ERROR。
 3. ArchUnit（已完成 2026-11-02）：`ArchitectureTest` 检查[工程结构](engineering.md)的六条规则，随 `gradlew check` 运行；为每条规则临时制造一次违规，六条各检出一次并使构建失败，违规未提交。
 4. 台账（已完成 2026-11-02）：`tools/porting/build_ledger.py` 把 4,867 条来源注册同步到 31 个单位的 `ledger/content.csv` 与 `project` 台账（151 条无编辑器元素：150 个声音事件、1 个画），全部“待处理”；`tools/porting/check_ledger.py` 检查列、覆盖、目录与归属一致、状态值、非“待处理”须“已读”。注册表导出比对与转换清单覆盖在步骤 6 加入。
-5. 语言与声音片段合并任务，重复键使构建失败。
+5. 语言与声音片段合并（已完成 2026-11-02）：`mergeAssetFragments` 把 `src/main/lang/<命名空间>/<语言>/<单位>.json` 与 `src/main/sounds/<命名空间>/<单位>.json` 合并为生成资源；跨片段与同片段重复键、无效 JSON、路径不符均使构建失败。仓库中还没有片段文件，第一批由步骤 6 的转换工具生成。
 6. 内容表加载：一个系统的内容表，至少包含两个命名空间各一条真实来源物品；资源由转换工具迁入。
 7. 运行机制切片，均使用真实来源内容：一个玩家附件（Codec、按[复制策略表](../reference/legacy/inventory/clone_policy.csv)设置死亡复制、同步给本人）；一个 payload；一个方块实体与菜单；一个 GeckoLib 实体（选定 GeckoLib 版本）；一个代码注册转数据定义（附魔或群系）；一个 GameTest（独立源集，确认不进入发布 JAR）；一个 JUnit 规则测试。
 8. 出口：两个命名空间的注册、资源和翻译在客户端可见；开发服务端导出注册表与台账一致；检查全部通过；台账如实记录切片内容状态；验证通过、可用于其他移植项目的工程做法按技能维护规则写入移植技能 references；月度日志登记。

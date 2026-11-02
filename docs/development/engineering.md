@@ -45,6 +45,7 @@ src/main/resources/
   data/yvanchuxiuzhen/    data/yvanchuxitong/
   content/<系统或内容族>/        静态内容表（见“注册与内容表”）
 src/main/lang/<命名空间>/<语言>/<系统或内容族>.json   语言片段，构建时合并
+src/main/sounds/<命名空间>/<系统或内容族>.json        声音事件片段，构建时合并
 src/gametest/java/              GameTest，只进入开发运行，不进入发布 JAR（待验证）
 tools/porting/                  来源索引、台账检查、资源转换
 ```
@@ -96,7 +97,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 转换工具每次输出一份清单（来源文件、哈希、目标文件），台账检查据此确认没有遗漏。系统验收前可以重跑转换；验收后转换结果成为手工维护的正文，清单保留来源。只有转换无法表达的资源才使用 datagen。
 
-语言片段与 `sounds.json` 片段由 Gradle 任务合并到生成资源目录，重复键使构建失败。这样各系统并行修改时不在同一个大文件上冲突。
+语言片段与声音片段由 `build.gradle` 的 `mergeAssetFragments` 任务合并为生成资源 `assets/<命名空间>/lang/<语言>.json` 与 `assets/<命名空间>/sounds.json`，同一片段内或不同片段之间的重复键、无效 JSON、不符合上述路径约定的文件都使构建失败；`src/main/resources` 中不再放这两类文件。这样各系统并行修改时不在同一个大文件上冲突。已实测（B0 步骤 5）：两个命名空间与两种语言的片段合并进 JAR，转义值往返不变；开发客户端读取了合并后的 `sounds.json`。
 
 ## 台账与检查工具
 
