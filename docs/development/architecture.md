@@ -63,7 +63,7 @@ flowchart TB
 
 ## 技术依赖
 
-开发环境（负责人 2026-11-02 授权先行建立，B0 步骤 1 更新）：Gradle 8.8 wrapper、ModDevGradle 2.0.148、NeoForge 21.1.265（`neoforge.mods.toml` 范围 `[21.1.228,21.2)`，下限为负责人决定的最低支持版本）、Parchment 1.21.1 / 2024.11.17、Java 21 toolchain。NeoForge 与 ModDevGradle 取 2026-11-02 maven 元数据中的最新版；Parchment 版本取自其 maven 元数据中 1.21.1 的最新正式版。元数据由 `src/main/templates` 展开，版本与 ID 只在 `gradle.properties` 维护。当前只有加载入口 `net.yvanchuxiuzhen.YvanchuxiuzhenMod`，不注册任何内容。
+开发环境（负责人 2026-11-02 授权先行建立，B0 步骤 1 更新）：Gradle 8.8 wrapper、ModDevGradle 2.0.148、NeoForge 21.1.265（`neoforge.mods.toml` 范围 `[21.1.228,21.2)`，下限为负责人决定的最低支持版本）、Parchment 1.21.1 / 2024.11.17、Java 21 toolchain。NeoForge 与 ModDevGradle 取 2026-11-02 maven 元数据中的最新版；Parchment 版本取自其 maven 元数据中 1.21.1 的最新正式版。元数据由 `src/main/templates` 展开，版本与 ID 只在 `gradle.properties` 维护。当前有公共入口与客户端入口，各 Setup 只登记空注册器。测试类路径另有 ArchUnit 1.5.1、JUnit Jupiter 5.10.2 与 JUnit Platform Launcher 1.10.2，版本在 `gradle.properties` 维护，不进入发布 JAR。
 
 GeckoLib 是已发现的真实动画依赖：1.18.2 妖兽类直接实现 `IAnimatable`，还存在 230 个 geo 与 233 个 animation 文件；不能仅依据元数据的 optional 标记忽略。Photon、LDLib、PlayerAnimator 不作为既定依赖。依赖准入、版本声明、更新时机与目标源码位置按[工程结构](engineering.md)的“依赖治理”执行。
 

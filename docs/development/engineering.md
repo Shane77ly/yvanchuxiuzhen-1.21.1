@@ -66,7 +66,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 5. `system` 下各系统包之间没有循环依赖。
 6. 除 Mod 入口外，任何类不得依赖 `family` 或 `panel`。
 
-这些是结构守卫，不属于“为每个类写测试”；违反即构建失败。初次接入与规则清单在 B0 完成。
+这些是结构守卫，不属于“为每个类写测试”；违反即构建失败。已接入（B0 步骤 3）：`src/test/java/net/yvanchuxiuzhen/ArchitectureTest.java` 用 ArchUnit 核心库在 JUnit 5 中检查，第 2 条的“client 包”包括本项目的 `client` 子包、`net.minecraft.client` 与 `net.neoforged.neoforge.client`；第 3 条在还没有 `rule` 包时允许为空。2026-11-02 为每条规则临时制造一次违规，六条各被检出一次并使构建失败。
 
 ## 注册与内容表
 
@@ -135,7 +135,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 | 层 | 工具 | 接入时机 |
 | --- | --- | --- |
-| 结构守卫 | ArchUnit | B0 |
+| 结构守卫 | ArchUnit 1.5.1（JUnit 5.10.2 运行） | B0 步骤 3 已接入 |
 | 纯规则 | JUnit 5，只测易回归公式与已复现问题 | 第一个需要的系统 |
 | 世界内行为 | NeoForge GameTest（独立源集，`gameTestServer` 运行） | B0 建立一个，之后按风险添加 |
 | 加载检查 | 开发服务端启动至 Done、客户端加载至声音引擎启动、日志无 ERROR | 每次依赖更新与批次出口 |
