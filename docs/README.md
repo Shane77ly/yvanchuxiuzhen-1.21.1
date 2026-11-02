@@ -12,9 +12,11 @@ updated: 2026-11-02
 | 阅读顺序 | 文档 | 用途 |
 | --- | --- | --- |
 | 0 | [移植技能](../.claude/skills/minecraft-mod-porting/SKILL.md) | 通用移植规则、系统工作单与参考的正文（本项目文档只记录适用与决定） |
+| ★ | [交接说明](development/handoff.md) | 新会话入口：当前状态、阅读顺序、环境事实与下一步 |
 | 1 | [1.18.2 版本架构调查](reference/legacy/source-survey.md) | 全量静态规模、关键真实调用链、已核实事实与问题 |
 | 2 | [范围与保真原则](design/scope.md) | 完整范围、行为保留原则和待裁定事项 |
 | 3 | [整体架构提案](development/architecture.md) | 系统职责、数据所有者、代码组织与实际依赖 |
+| 3a | [工程结构与长期维护](development/engineering.md) | 代码目录、边界检查、内容表、资源转换、台账、依赖治理与并行协作 |
 | 4 | [数据与运行时](development/data-and-runtime.md) | 状态的存储、加载、修改、同步、消费、保存 |
 | 4a | [19 个系统调查正文](systems/README.md) | 每个系统的来源入口、数据归属、操作和待裁定项 |
 | 4b | [公共入口与依赖](development/entry-and-dependency.md) | 全量事件/菜单/消息/命令、跨系统调用方向与动态数据族 |

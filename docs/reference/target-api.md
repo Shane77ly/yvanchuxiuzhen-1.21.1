@@ -7,7 +7,7 @@ updated: 2026-11-02
 
 # 目标 API 核对
 
-本轮先查阅本地 NeoForge 21.1.228 源码。源码根目录为邻近工程的 `reference/neoforge-21.1.228-sources`；其绝对位置由[1.18.2 工程入口](legacy/README.md)的来源工作区定位。
+本轮先查阅本地 NeoForge 21.1.228 源码。最初的源码根目录为邻近工程的 `reference/neoforge-21.1.228-sources`（位置见[1.18.2 工程入口](legacy/README.md)）；开发环境建立后，以构建生成的 `build/moddev/artifacts/neoforge-<版本>-sources.jar` 为准，其中另含 Minecraft 源码。
 
 已确认的源码事实以移植技能的 [NeoForge 1.21.1 参考](../../.claude/skills/minecraft-mod-porting/references/targets/neoforge-1.21.1.md)为正文，依据均为本地源码；外部文档检索本轮未返回可用正文。本页记录本项目据此仍需验证的范围。这些证据支撑架构边界，不能替代编译和游戏验证。新项目尚无 Java 实现。
 
@@ -24,6 +24,6 @@ updated: 2026-11-02
 | 伤害入口 | 1.18.2 每个攻击前置规则应放在哪个阶段，逐入口对照 |
 | 伤害应用与结果 | 词条、反击、击杀奖励使用对应阶段 |
 
-本地 `reference/vanilla-1.21.1` 是数据参考，不能假定其中存在完整 Minecraft Java 源码。本轮只设计数据归属，不凭空指定未核实构造签名。
+邻近工程的 `reference/vanilla-1.21.1` 只是数据参考；Minecraft Java 源码以构建生成的 sources jar 为准，上表待验证项可据此逐项核对。本轮只设计数据归属，不凭空指定未核实构造签名。
 
 基础构建组合已解析并通过构建与客户端/专用服务器加载检查，见[架构](../development/architecture.md)“技术依赖”；不声称为最新版本。第三方库的具体组合仍须在[阶段 B](../development/roadmap.md)按实际需求解析和启动验证。

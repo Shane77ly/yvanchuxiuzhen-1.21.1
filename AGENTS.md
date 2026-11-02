@@ -5,11 +5,12 @@
 - 来源：原初修真 `yvanchuxiuzhen`、原初系统 `yvanchuxitong`，均为 MCreator 生成的 1.18.2 / Forge 40.1.0 / Java 17 工程，互为必需依赖。位置、锁定标识与静态证据见 `docs/reference/legacy/README.md`。
 - 目标：Minecraft 1.21.1、NeoForge、Java 21，合并为一个可安装 Mod，内部按系统组织。
 - 范围：全量移植两个 Mod 的全部系统。
-- 目标源码：`../yuanchuxiuzhen-1.21.1/reference/neoforge-21.1.228-sources`；换机器后显式配置等价源码位置。
+- 目标源码：构建后的 `build/moddev/artifacts/neoforge-<版本>-sources.jar`（含 Minecraft 与 NeoForge 源码，随依赖版本生成）；FML 等库在 Gradle 缓存。邻近工程的 `reference/neoforge-21.1.228-sources` 只在版本相同时作对照。
 - 非依据：邻近 1.21.1 工程 `yuanchuxiuzhen-1.21.1` 只提供工程参考。
-- 当前关口：独立重建的整体架构设计阶段。负责人尚未批准架构，也未授权启动 goal；先调查并提交具体方案，未经明确批准不开始游戏实现或 goal。2026-11-02 负责人授权先建立开发环境，范围仅限构建与加载入口，不含玩法内容。
+- 当前关口：独立重建的整体架构设计阶段。负责人尚未批准架构，也未授权启动 goal；先调查并提交具体方案，未经明确批准不开始游戏实现或 goal。2026-11-02 负责人授权先建立开发环境，范围仅限构建与加载入口，不含玩法内容；同日要求重新设计工程结构与移植流程，方案见 `docs/development/engineering.md` 与 `roadmap.md`，待批准。
 - 开发环境：Mod ID `yvanchuxiuzhen`，Java 基础包 `net.yvanchuxiuzhen`；构建组合与验证见 `docs/development/architecture.md` 的“技术依赖”。
-- 记录位置：内容映射与行为对齐见 `docs/development/content-and-parity.md`，系统规则正文在 `docs/systems/<系统>`，证据与日志按下方“文档”登记。
+- 交接：新会话先读 `docs/development/handoff.md`。
+- 记录位置：内容映射与行为对齐见 `docs/development/content-and-parity.md`，台账 CSV 在 `docs/systems/<系统>/ledger/`（方案待批准），系统规则正文在 `docs/systems/<系统>`，证据与日志按下方“文档”登记。
 
 ## 移植方法
 

@@ -7,7 +7,7 @@ updated: 2026-11-02
 
 # 整体架构提案
 
-状态：待负责人评审。以下是完整移植的组织方案，没有游戏代码实现。调查证据见 [1.18.2 版本架构调查](../reference/legacy/source-survey.md)。
+状态：待负责人评审。以下是完整移植的组织方案；当前只有开发环境与加载入口，没有玩法代码。调查证据见 [1.18.2 版本架构调查](../reference/legacy/source-survey.md)。
 
 ## 工程形态
 
@@ -79,38 +79,15 @@ flowchart TB
 
 实际事件/菜单/消息/命令、跨系统依赖方向、动态数据族和客户端隔离统一在 [公共入口与依赖](entry-and-dependency.md)维护。
 
-基础类型、编码和库存操作只有在实际复用后进入 `shared`。重复的材料数据可以抽成定义；不同的 Boss 行为、特殊功法和生产规则保留明确实现，不能为了通用化丢失例外。
+重复的材料数据可以抽成定义；不同的 Boss 行为、特殊功法和生产规则保留明确实现，不能为了通用化丢失例外。玩法共享值类型放在所有者系统的 `api`，平台适配只在至少两个系统实际共用后进入 `platform`。
 
-```text
-src/main/java/<项目包>/
-  ModMain.java                    注册与生命周期装配
-  shared/                         已确认共用的类型与工具
-  gameplay/                       确实跨系统的具体流程
-  systems/<system>/               本系统内容、数据、规则和行为
-    data/                         定义、实例、序列化（按需要拆分）
-    content/                      物品、方块、实体及注册
-    menu/                         服务端菜单和操作入口
-    ...                           简单系统直接平铺，复杂系统按职责拆分
-  client/<system>/                屏幕、HUD、按键、模型、动画和粒子
-src/main/resources/
-  assets/yvanchuxiuzhen/          保留来源资源身份
-  assets/yvanchuxitong/
-  data/yvanchuxiuzhen/
-  data/yvanchuxitong/
-tools/porting/                    编号/变量提取、资源映射、批处理
-tools/docs/                       文档与导出维护
-docs/                            设计、开发指南、系统正文及证据
-```
-
-目录表示批准后的目标布局，本轮没有创建 Java 空壳。注册接线按系统声明，入口类负责装配；不把所有注册项或全部 tick 行为放进一个巨型类。公共代码的签名与静态初始化不得引用客户端类。
+代码目录、客户端入口、边界自动检查、内容表、资源转换、台账工具与并行协作规则以[工程结构与长期维护](engineering.md)为正文。入口类只按依赖顺序调用各系统装配，不把所有注册项或全部 tick 行为放进一个巨型类；公共代码的签名与静态初始化不得引用客户端类。
 
 ## 技术依赖
 
-开发环境（负责人 2026-11-02 授权先行建立）：Gradle 8.8 wrapper、ModDevGradle 2.0.141、NeoForge 21.1.228、Parchment 1.21.1 / 2024.11.17、Java 21 toolchain。Parchment 版本取自其 maven 元数据中 1.21.1 的最新正式版；ModDevGradle 采用本机已有且已在邻近工程使用的版本，不声称为最新。元数据由 `src/main/templates` 展开，版本与 ID 只在 `gradle.properties` 维护。当前只有加载入口 `net.yvanchuxiuzhen.YvanchuxiuzhenMod`，不注册任何内容；第三方库在所属系统实施时按实际需求加入。
+开发环境（负责人 2026-11-02 授权先行建立）：Gradle 8.8 wrapper、ModDevGradle 2.0.141、NeoForge 21.1.228、Parchment 1.21.1 / 2024.11.17、Java 21 toolchain。Parchment 版本取自其 maven 元数据中 1.21.1 的最新正式版；ModDevGradle 采用本机已有且已在邻近工程使用的版本，不声称为最新。元数据由 `src/main/templates` 展开，版本与 ID 只在 `gradle.properties` 维护。当前只有加载入口 `net.yvanchuxiuzhen.YvanchuxiuzhenMod`，不注册任何内容。
 
-GeckoLib 是已发现的真实动画依赖：1.18.2 妖兽类直接实现 `IAnimatable`，还存在 230 个 geo 与 233 个 animation 文件。建议采用支持目标版本的 GeckoLib 并迁移动画控制器；具体版本和运行验证待构建阶段锁定，不能仅依据元数据的 optional 标记忽略依赖。
-
-Photon、LDLib、PlayerAnimator 不作为既定依赖。若完整恢复某项表现确实需要这些库，应先记录来源效果、所需能力及具体兼容版本，再纳入方案。原生菜单和渲染能够承担的内容直接使用目标 API。
+GeckoLib 是已发现的真实动画依赖：1.18.2 妖兽类直接实现 `IAnimatable`，还存在 230 个 geo 与 233 个 animation 文件；不能仅依据元数据的 optional 标记忽略。Photon、LDLib、PlayerAnimator 不作为既定依赖。依赖准入、版本声明、更新时机与目标源码位置按[工程结构](engineering.md)的“依赖治理”执行。
 
 方案代价主要是重新梳理字符串配置、分离状态所有权、重写跨端入口与迁移实体动画。收益是能逐项核对行为且可定位改动影响。新增抽象数量不作为架构质量或移植进度指标。
 

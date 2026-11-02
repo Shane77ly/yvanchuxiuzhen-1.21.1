@@ -15,6 +15,27 @@
 | 伤害入口 | `event/entity/living/LivingIncomingDamageEvent.java` | 发生于无敌检查之后、减伤之前，可取消并读取 DamageContainer |
 | 伤害应用与结果 | `event/entity/living/LivingDamageEvent.java` 的 Pre/Post | Pre 在护甲/药水减伤后、吸收前，可修改伤害；Post 在生命变化后提供结果 |
 
+## 加载器与数据格式（已核实）
+
+2026-11-02 依据 FML 4.0.42 字节码、ModDevGradle 生成的 `neoforge-21.1.228-sources.jar` 与原版资源制品核对：
+
+| 项 | 事实 | 移植影响 |
+| --- | --- | --- |
+| 目标源码 | ModDevGradle 构建后在 `build/moddev/artifacts/` 生成 `neoforge-<版本>-sources.jar`，含 Minecraft（约 5,000 个 `net/minecraft` 源文件）与 NeoForge 源码 | 版本匹配的目标源码随构建获得；FML 不在其中，需从 Gradle 缓存的 `net.neoforged.fancymodloader:loader` 读取 |
+| `@Mod` | 有 `dist` 属性 | 可用独立的 `@Mod(value, dist = Dist.CLIENT)` 客户端入口隔离客户端装配 |
+| `@EventBusSubscriber` | `bus` 属性已标记弃用 | 不再按来源 Forge 习惯显式指定总线 |
+| 附魔 | `Enchantment` 为 `record`（描述、定义、互斥集合、效果组件），原版附魔位于 `data/minecraft/enchantment` | 来源中继承 `Enchantment` 的 Java 类改为数据定义；行为改由效果组件或读取附魔等级的玩法代码承担 |
+| 群系与地物 | 位于 `data/<ns>/worldgen/` 数据 | 来源以 Java 构造的群系、已配置/已放置地物改为数据定义；地物类型本身仍代码注册 |
+| 燃料与堆肥 | NeoForge `NeoForgeDataMaps.FURNACE_FUELS`、`COMPOSTABLES` 数据映射 | 来源的燃料、堆肥代码表改为 `data_maps` 数据 |
+| 数据目录 | 单数：`advancement`、`recipe`、`structure`、`loot_table`、`tags/block`、`tags/item`、`tags/entity_type` 等 | 来源复数目录逐类改名 |
+| 配方产物 | `"result": {"count": n, "id": "..."}` | 来源 `item` 字段改为 `id` |
+
+## 第三方库（已核实）
+
+| 库 | 事实 |
+| --- | --- |
+| GeckoLib（`software.bernie.geckolib:geckolib-neoforge-1.21.1`） | Cloudsmith maven 元数据含 4.6–4.9.3（2026-11-02）；4.8.3 的 `neoforge.mods.toml` 声明 MIT、NeoForge `[21.1.150,)`；加载器识别 `.geo.json`、`.animation.json` 与 `animations` 目录。GeckoLib 3 的 `IAnimatable` 由 4.x 的 `GeoEntity`/`GeoAnimatable` 等接口取代，控制器代码需重写 |
+
 ## 开发环境（已实测）
 
 2026-11-02 在 Windows + Temurin JDK 21.0.9 上实测：Gradle 8.8 wrapper + ModDevGradle 2.0.141 + NeoForge 21.1.228 完成 `build`，`runServer` 启动至 Done，`runClient` 加载至声音引擎启动。
@@ -29,5 +50,4 @@
 - 附件已提供同步时，不另建同内容的 payload；可变对象修改后的通知和保存仍须验证。
 - payload 处理默认在主线程，不再套用其他版本经验加一层异步队列。
 - 来源的伤害前置规则按目标事件阶段逐入口对照，不凭事件名称机械替换。
-- `@EventBusSubscriber` 等 FML 注解不在 NeoForge sources jar 内，需另查 FML 源码。
-- Data Component 的 Codec/StreamCodec、SavedData 工厂、菜单容量、实体生成和渲染注册，在目标开发环境解析出的 Minecraft 源码中确认，不凭记忆指定构造签名。
+- Data Component 的 Codec/StreamCodec、SavedData 工厂、菜单容量、实体生成和渲染注册，在上述 sources jar 的 Minecraft 源码中确认，不凭记忆指定构造签名。

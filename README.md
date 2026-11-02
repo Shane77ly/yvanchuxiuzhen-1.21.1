@@ -11,4 +11,4 @@ updated: 2026-11-01
 
 当前交付为架构设计、1.18.2 工程静态清单和开发环境（Gradle 构建与 Mod 加载入口），尚未创建玩法实现。架构建议均待评审，不把设计稿视为已实现功能。
 
-从[文档总入口](docs/README.md)开始；开发约束见 [AGENTS.md](AGENTS.md)。
+新会话从[交接说明](docs/development/handoff.md)开始，文档总入口为 [docs/README.md](docs/README.md)；开发约束见 [AGENTS.md](AGENTS.md)。
