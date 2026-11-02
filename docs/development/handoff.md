@@ -22,7 +22,7 @@ updated: 2026-11-02
 
 ## 进行中
 
-B0 步骤 6（内容表加载）待开始：分支 `port/b0-slice`。步骤 5 已完成并合入 `main`。下一步按下文步骤 6：读来源确认 `cailiao_001` 与一个 `yvanchuxitong` 物品，设计内容表格式与资源转换工具首个类型，建立注册表导出并补上 `check_ledger.py` 的导出比对与转换清单检查。
+B0 步骤 6（内容表加载）待开始：分支 `port/b0-slice`。步骤 5 已完成并合入 `main`。下一步按下文步骤 6：读来源确认 `cailiao_001` 与一个 `yvanchuxitong` 物品，设计内容表格式与资源转换工具首个类型，建立注册表导出并补上 `check_ledger.py` 的导出比对与转换清单检查。开始前先确认负责人对原初系统内容命名空间的裁定（见下表），它决定 `yvanchuxitong` 物品的目标 ID 与台账 `target_id` 默认值。
 
 ## 先读顺序
 
@@ -42,6 +42,7 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 | 事项 | 当前方案 | 位置 |
 | --- | --- | --- |
 | 1.18.2 世界与玩家存档是否导入 | 未承诺 | [范围](../design/scope.md) |
+| 原初系统内容保留 `yvanchuxitong` 命名空间，还是统一为 `yvanchuxiuzhen` | 已批准的架构为保留；2026-11-02 重新提请，利弊见[月度记录](../systems/project/logs/2026-11.md) | [架构](architecture.md) |
 | 界面复刻程度 | 保留全部操作与反馈，布局另评审 | [范围](../design/scope.md) |
 | 发布 license | 暂填 All Rights Reserved | [架构](architecture.md) |
 | 来源矛盾 Q01–Q14 | 逐项裁定，实现所属系统前解决 | [调查问题表](../reference/legacy/source-survey.md) |
