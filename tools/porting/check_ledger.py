@@ -5,7 +5,7 @@
 状态高于“待处理”的方块、物品与声音事件行必须出现在开发服务端的注册表导出中，导出里的每个 ID 都必须是台账的目标 ID。
 导出由 `gradlew runServer` 写入 build/registry-export。方块行的方块状态与物品行的物品模型必须登记在转换清单
 docs/reference/conversion/manifest.csv 中，且目标文件存在；数据转换清单 data_manifest.csv（配方、标签、战利品表、进度）的目标文件必须存在，
-并且没有同一来源文件既已转换又整体跳过。
+并且没有同一来源文件既已转换又整体跳过；结构清单 structure_manifest.csv 的目标文件同样必须存在。
 """
 from __future__ import annotations
 
@@ -20,6 +20,7 @@ EXPORT = ROOT / 'build/registry-export'
 MANIFEST = ROOT / 'docs/reference/conversion/manifest.csv'
 DATA_MANIFEST = ROOT / 'docs/reference/conversion/data_manifest.csv'
 DATA_SKIPPED = ROOT / 'docs/reference/conversion/data_skipped.csv'
+STRUCTURE_MANIFEST = ROOT / 'docs/reference/conversion/structure_manifest.csv'
 ASSET_TARGET = {'block': 'src/main/resources/assets/yvanchuxiuzhen/blockstates/{}.json',
                 'item': 'src/main/resources/assets/yvanchuxiuzhen/models/item/{}.json'}
 EXPORTED_REGISTRIES = ('block', 'item', 'sound_event')
@@ -44,6 +45,7 @@ def check_data_manifest() -> list[str]:
     if not DATA_MANIFEST.is_file():
         return []
     manifest = read_csv(DATA_MANIFEST)
+    manifest += read_csv(STRUCTURE_MANIFEST) if STRUCTURE_MANIFEST.is_file() else []
     issues = [f'数据转换清单的目标 {row["target"]} 不存在' for row in manifest if not (ROOT / row['target']).is_file()]
     converted = {row['source'] for row in manifest}
     for row in read_csv(DATA_SKIPPED):
