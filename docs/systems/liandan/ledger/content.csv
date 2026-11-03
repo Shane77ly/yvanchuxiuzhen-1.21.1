@@ -63,6 +63,7 @@ item,yvanchuxiuzhen:alchemy_05,yvanchuxiuzhen,Alchemy05,src/main/java/net/mcreat
 item,yvanchuxiuzhen:alchemy_06,yvanchuxiuzhen,Alchemy06,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1952,liandan,候选,yvanchuxiuzhen:alchemy_06,待处理,
 item,yvanchuxiuzhen:alchemy_07,yvanchuxiuzhen,Alchemy07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1954,liandan,候选,yvanchuxiuzhen:alchemy_07,待处理,
 item,yvanchuxiuzhen:alchemy_08,yvanchuxiuzhen,Alchemy08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1956,liandan,候选,yvanchuxiuzhen:alchemy_08,待处理,
+item,yvanchuxiuzhen:duedan,yvanchuxiuzhen,Duedan,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2793,liandan,已读,yvanchuxiuzhen:duedan,待处理,
 menu,yvanchuxitong:baicaojian,yvanchuxitong,Baicaojian,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,104,liandan,候选,yvanchuxiuzhen:baicaojian,待处理,
 menu,yvanchuxitong:fendan_gui,yvanchuxitong,FendanGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,74,liandan,候选,yvanchuxiuzhen:fendan_gui,待处理,
 menu,yvanchuxitong:hedan_gui,yvanchuxitong,HedanGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,75,liandan,候选,yvanchuxiuzhen:hedan_gui,待处理,

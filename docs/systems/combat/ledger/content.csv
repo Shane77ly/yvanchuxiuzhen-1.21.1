@@ -1,4 +1,7 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
+block,yvanchuxiuzhen:bedrock_01,yvanchuxiuzhen,Bedrock01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2053,combat,已读,yvanchuxiuzhen:bedrock_01,待处理,
+block,yvanchuxiuzhen:bedrock_02,yvanchuxiuzhen,Bedrock02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2054,combat,已读,yvanchuxiuzhen:bedrock_02,待处理,
+block,yvanchuxiuzhen:bedrock_03,yvanchuxiuzhen,Bedrock03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2055,combat,已读,yvanchuxiuzhen:bedrock_03,待处理,
 block,yvanchuxiuzhen:cauldronduyao,yvanchuxiuzhen,Cauldronduyao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2012,combat,已读,yvanchuxiuzhen:cauldronduyao,待处理,
 block_entity_type,yvanchuxiuzhen:cauldronduyao,yvanchuxiuzhen,Cauldronduyao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,171,combat,已读,yvanchuxiuzhen:cauldronduyao,待处理,
 enchantment,yvanchuxitong:chain,yvanchuxitong,Chain,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModEnchantments.java,18,combat,候选,yvanchuxiuzhen:chain,待处理,
@@ -88,6 +91,9 @@ enchantment,yvanchuxiuzhen:zhongshang,yvanchuxiuzhen,Zhongshang,src/main/java/ne
 enchantment,yvanchuxiuzhen:zimu,yvanchuxiuzhen,Zimu,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,160,combat,候选,yvanchuxiuzhen:zimu,待处理,
 entity_type,yvanchuxiuzhen:murenzhuang,yvanchuxiuzhen,Murenzhuang,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1027,combat,候选,yvanchuxiuzhen:murenzhuang,待处理,
 entity_type,yvanchuxiuzhen:shanghaifanwei,yvanchuxiuzhen,Shanghaifanwei,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,747,combat,候选,yvanchuxiuzhen:shanghaifanwei,待处理,
+item,yvanchuxiuzhen:bedrock_01,yvanchuxiuzhen,Bedrock01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3013,combat,已读,yvanchuxiuzhen:bedrock_01,待处理,
+item,yvanchuxiuzhen:bedrock_02,yvanchuxiuzhen,Bedrock02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3014,combat,已读,yvanchuxiuzhen:bedrock_02,待处理,
+item,yvanchuxiuzhen:bedrock_03,yvanchuxiuzhen,Bedrock03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3015,combat,已读,yvanchuxiuzhen:bedrock_03,待处理,
 item,yvanchuxiuzhen:cauldronduyao,yvanchuxiuzhen,Cauldronduyao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2828,combat,已读,yvanchuxiuzhen:cauldronduyao,待处理,
 item,yvanchuxiuzhen:murenzhuangitem,yvanchuxiuzhen,Murenzhuangitem,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2967,combat,候选,yvanchuxiuzhen:murenzhuangitem,待处理,
 menu,yvanchuxiuzhen:murenzhuang_gui,yvanchuxiuzhen,MurenzhuangGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,101,combat,候选,yvanchuxiuzhen:murenzhuang_gui,待处理,
