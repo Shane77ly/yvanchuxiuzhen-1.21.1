@@ -13,7 +13,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.client.BirthScreen;
-import net.yvanchuxiuzhen.system.xiulian.network.BirthButtonPayload;
+import net.yvanchuxiuzhen.system.xiulian.network.XiulianButtonPayload;
 
 /**
  * 修炼系统的实机检查：开启出身规则后按登录流程随机灵根与体质并打开出身界面（截图），经网络按钮锁定、随机、切换出身，
@@ -31,7 +31,7 @@ final class XiulianCheck extends SystemCheck {
     }
 
     private static void press(int button) {
-        PacketDistributor.sendToServer(new BirthButtonPayload(button));
+        PacketDistributor.sendToServer(new XiulianButtonPayload(button));
     }
 
     @Override

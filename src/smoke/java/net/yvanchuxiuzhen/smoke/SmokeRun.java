@@ -168,10 +168,10 @@ final class SmokeRun {
             List<String> names = only.isEmpty() ? List.of("relation", "attribute", "xiulian") : List.of(only.split(","));
             systemChecks = new ArrayList<>();
             for (String name : names) {
-                systemChecks.add(switch (name) {
-                    case "relation" -> new RelationCheck(report, levelId, this::shot);
-                    case "attribute" -> new AttributeCheck(report, levelId);
-                    case "xiulian" -> new XiulianCheck(report, levelId, this::shot);
+                systemChecks.addAll(switch (name) {
+                    case "relation" -> List.of(new RelationCheck(report, levelId, this::shot));
+                    case "attribute" -> List.of(new AttributeCheck(report, levelId));
+                    case "xiulian" -> List.of(new XiulianCheck(report, levelId, this::shot), new XiulianProgressCheck(report, levelId, this::shot));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }

@@ -8,7 +8,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianMenus;
 import net.yvanchuxiuzhen.system.xiulian.data.XiulianAttachments;
-import net.yvanchuxiuzhen.system.xiulian.network.BirthButtonPayload;
+import net.yvanchuxiuzhen.system.xiulian.network.XiulianButtonPayload;
 
 /**
  * 修炼系统的启动装配，只在 Mod 构造时调用一次。
@@ -26,9 +26,12 @@ public final class XiulianSetup {
         XiulianRules.register();
         modBus.addListener(XiulianSetup::registerPayloads);
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent event) -> BirthSelection.onLogin((ServerPlayer) event.getEntity()));
+        NeoForge.EVENT_BUS.addListener(CultivationTick::onLogin);
+        NeoForge.EVENT_BUS.addListener(CultivationTick::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(Delayed::onServerTick);
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {
-        event.registrar("1").playToServer(BirthButtonPayload.TYPE, BirthButtonPayload.STREAM_CODEC, BirthButtonPayload::handle);
+        event.registrar("1").playToServer(XiulianButtonPayload.TYPE, XiulianButtonPayload.STREAM_CODEC, XiulianButtonPayload::handle);
     }
 }

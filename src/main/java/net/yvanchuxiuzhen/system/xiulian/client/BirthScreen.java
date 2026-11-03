@@ -17,7 +17,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.content.BirthMenu;
-import net.yvanchuxiuzhen.system.xiulian.network.BirthButtonPayload;
+import net.yvanchuxiuzhen.system.xiulian.network.XiulianButtonPayload;
 
 /**
  * 出身界面（来源 {@code PlayerJoinGUIScreen}，文字过程 {@code Jointxt1}–{@code 14}、星 {@code Starxianshi01}–{@code 05}），
@@ -53,7 +53,7 @@ public final class BirthScreen extends AbstractContainerScreen<BirthMenu> {
 
     private void addButton(int x, int y, int width, int height, String name, int button) {
         addRenderableWidget(new TextureButton(leftPos + x, topPos + y, width, height, texture("atlas/" + name), width, height * 2,
-                pressed -> PacketDistributor.sendToServer(new BirthButtonPayload(button))));
+                pressed -> PacketDistributor.sendToServer(new XiulianButtonPayload(button))));
     }
 
     @Override

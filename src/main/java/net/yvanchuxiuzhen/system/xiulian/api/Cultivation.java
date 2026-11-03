@@ -21,6 +21,8 @@ import net.yvanchuxiuzhen.system.xiulian.data.XiulianAttachments;
 public final class Cultivation {
     /** 灵根与阴阳变化后作为基础层贡献提交给 attribute 的来源键。 */
     public static final String ROOTS_SOURCE = "xiulian:roots";
+    /** 属性成长（来源写入 {@code health_Max} 等基础字段的累计量）作为基础层贡献提交给 attribute 的来源键。 */
+    public static final String GROWTH_SOURCE = "xiulian:growth";
     private static final Set<CultivationValue> ROOTS = EnumSet.of(CultivationValue.ROOT_GOLD, CultivationValue.ROOT_WATER,
             CultivationValue.ROOT_TREE, CultivationValue.ROOT_FIRE, CultivationValue.ROOT_SOIL, CultivationValue.YINYANG);
 
@@ -101,6 +103,24 @@ public final class Cultivation {
     public static void setTizhiString(ServerPlayer player, String key, String value) {
         player.getData(XiulianAttachments.CULTIVATION).tizhi().putString(key, value);
         player.syncData(XiulianAttachments.CULTIVATION);
+    }
+
+    /** 主修功法信息，由 gongfa 在功法栏变化、功法升级与登录时提交。 */
+    public static MainTechnique mainTechnique(Player player) {
+        return player.getData(XiulianAttachments.CULTIVATION).mainTechnique();
+    }
+
+    public static void setMainTechnique(ServerPlayer player, MainTechnique technique) {
+        player.getData(XiulianAttachments.CULTIVATION).setMainTechnique(technique);
+        player.syncData(XiulianAttachments.CULTIVATION);
+    }
+
+    /** 给基础属性加成长量（升级修正、境界修正、属性点、单项提升），累计后提交给 attribute。 */
+    public static void addGrowth(ServerPlayer player, Stat stat, double delta) {
+        CultivationData data = player.getData(XiulianAttachments.CULTIVATION);
+        data.growth().merge(stat, delta, Double::sum);
+        player.syncData(XiulianAttachments.CULTIVATION);
+        PlayerAttributes.setContribution(player, GROWTH_SOURCE, new Contribution(Layer.BASE, data.growth()));
     }
 
     /** 灵根值对应 attribute 的五行灵根项（来源中五行系数读 {@code body_*} 与 {@code yinyang}）。 */

@@ -13,13 +13,16 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
+import net.yvanchuxiuzhen.system.xiulian.api.MainTechnique;
 
 /**
  * 玩家的修炼档案：境界、修为、灵力与神识、灵根与阴阳、罡煞与功德、雷劫、血脉、属性点、寿元、出身与体质、
  * 闭关天数，本命法宝槽（来源 {@code benmingfabao}），以及体质与修正值的键值存储（来源隐藏载体 {@code tizhiitem} 的物品标签，
- * 键见 {@code docs/systems/xiulian/ledger/tizhiitem_keys.csv}）。存档只写与初始值不同的项。
+ * 键见 {@code docs/systems/xiulian/ledger/tizhiitem_keys.csv}），属性成长（来源写入基础属性字段的累计量，提交给 attribute），
+ * 以及 gongfa 提交的主修功法信息。存档只写与初始值不同的项。
  * 对象可变，修改后由调用方 {@code syncData} 同步给本人。
  */
 public final class CultivationData {
@@ -30,6 +33,11 @@ public final class CultivationData {
     private static final Codec<CultivationValue> VALUE_CODEC = Codec.STRING.comapFlatMap(
             id -> VALUES_BY_ID.containsKey(id) ? DataResult.success(VALUES_BY_ID.get(id)) : DataResult.error(() -> "未知修炼数值项 " + id),
             CultivationValue::id);
+    private static final Map<String, Stat> STATS_BY_ID = Arrays.stream(Stat.values())
+            .collect(Collectors.toUnmodifiableMap(Stat::id, Function.identity()));
+    private static final Codec<Stat> STAT_CODEC = Codec.STRING.comapFlatMap(
+            id -> STATS_BY_ID.containsKey(id) ? DataResult.success(STATS_BY_ID.get(id)) : DataResult.error(() -> "未知属性项 " + id),
+            Stat::id);
     private static final Codec<CultivationText> TEXT_CODEC = Codec.STRING.comapFlatMap(
             id -> TEXTS_BY_ID.containsKey(id) ? DataResult.success(TEXTS_BY_ID.get(id)) : DataResult.error(() -> "未知修炼文本项 " + id),
             CultivationText::id);
@@ -38,7 +46,9 @@ public final class CultivationData {
             Codec.unboundedMap(TEXT_CODEC, Codec.STRING).fieldOf("texts").forGetter(CultivationData::changedTexts),
             Codec.BOOL.fieldOf("thunder_open").forGetter(CultivationData::thunderOpen),
             ItemStack.OPTIONAL_CODEC.fieldOf("benming").forGetter(CultivationData::benming),
-            CompoundTag.CODEC.fieldOf("tizhi").forGetter(CultivationData::tizhi)
+            CompoundTag.CODEC.fieldOf("tizhi").forGetter(CultivationData::tizhi),
+            Codec.unboundedMap(STAT_CODEC, Codec.DOUBLE).fieldOf("growth").forGetter(CultivationData::growth),
+            MainTechnique.CODEC.fieldOf("main_technique").forGetter(CultivationData::mainTechnique)
     ).apply(instance, CultivationData::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, CultivationData> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC);
 
@@ -47,13 +57,15 @@ public final class CultivationData {
     private boolean thunderOpen;
     private ItemStack benming;
     private final CompoundTag tizhi;
+    private final Map<Stat, Double> growth = new EnumMap<>(Stat.class);
+    private MainTechnique mainTechnique;
 
     public CultivationData() {
-        this(Map.of(), Map.of(), false, ItemStack.EMPTY, new CompoundTag());
+        this(Map.of(), Map.of(), false, ItemStack.EMPTY, new CompoundTag(), Map.of(), MainTechnique.NONE);
     }
 
     private CultivationData(Map<CultivationValue, Double> values, Map<CultivationText, String> texts, boolean thunderOpen, ItemStack benming,
-                            CompoundTag tizhi) {
+                            CompoundTag tizhi, Map<Stat, Double> growth, MainTechnique mainTechnique) {
         for (CultivationValue value : CultivationValue.values()) {
             this.values.put(value, values.getOrDefault(value, value.initial()));
         }
@@ -63,6 +75,8 @@ public final class CultivationData {
         this.thunderOpen = thunderOpen;
         this.benming = benming;
         this.tizhi = tizhi.copy();
+        this.growth.putAll(growth);
+        this.mainTechnique = mainTechnique;
     }
 
     private Map<CultivationValue, Double> changedValues() {
@@ -115,6 +129,19 @@ public final class CultivationData {
 
     public void setBenming(ItemStack benming) {
         this.benming = benming;
+    }
+
+    /** 属性成长：升级修正、境界修正与属性点加到基础属性上的累计量，按属性项。 */
+    public Map<Stat, Double> growth() {
+        return growth;
+    }
+
+    public MainTechnique mainTechnique() {
+        return mainTechnique;
+    }
+
+    public void setMainTechnique(MainTechnique mainTechnique) {
+        this.mainTechnique = mainTechnique;
     }
 
     /** 体质与修正值；键与类型沿用来源，未写入的键读作 0、false 或空串。 */
