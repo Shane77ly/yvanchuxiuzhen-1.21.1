@@ -14,7 +14,12 @@
 - 方块物品通过物品注册类中的 helper 函数注册；只匹配字面量 `register` 会漏项。
 - 声音可以通过 Map 与 ResourceLocation 注册；只读取 RegistryObject 字段会漏项。
 - Java 类数与注册数不一定一致，不能把全部类等同于可运行内容。
-- 不能按“已知的 `init` 类名后缀”枚举注册类：GeckoLib 盔甲由独立的 `<前缀>ModGeckoLibArmors` 登记（用自己的 `DeferredRegister`，不在 `ModItems`），属性与游戏规则也各有 `ModAttributes`、`ModGameRules`。登记索引应扫描 `init` 下全部含 `register(` 的类，并与全部 `RegistryObject` 声明对账；本项目 2026-11-02 才发现漏扫了 65 件盔甲、2 个属性与 4 个游戏规则。
+- 不能按“已知的 `init` 类名后缀”枚举注册类：GeckoLib 盔甲由独立的 `<前缀>ModGeckoLibArmors` 登记（用自己的 `DeferredRegister`，不在 `ModItems`），属性与游戏规则也各有 `ModAttributes`、`ModGameRules`。登记索引应扫描 `init` 下全部含 `register(` 的类，并与全部 `RegistryObject` 声明对账。
+- 编辑器元素的触发属性（如 `onRightClicked`、`onTickUpdate`、`onBonemealSuccess`）以过程名指向 `procedures/<名>Procedure.java`；元素间共用的过程（同一模板的门、作物、种植）常以首个元素命名，按名称分组前先去掉元素名。实体定义里的声音字段与 GeckoLib 动画里的声音关键帧也会引用声音，确认“没有播放者”前要一并检查。
+
+## 快照
+
+工程目录中可能留有作者的整体压缩包、`build/libs` 下的构建 JAR 与 `.mcreator/FullBackup*.zip`。来源目录被其他工具操作过时，用它们做来源完整性核对的基线。
 
 ## 状态载体
 

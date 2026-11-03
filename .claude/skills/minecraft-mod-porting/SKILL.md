@@ -59,7 +59,7 @@ description: 将已有 Minecraft Mod 移植到其他游戏版本或加载器，�
 
 | 作业 | 读取 |
 | --- | --- |
-| 台账、来源身份、规则记录、定义与数值迁移 | [references/parity-ledgers.md](references/parity-ledgers.md) |
+| 台账、来源身份与完整性、归属阅读、规则记录、定义与数值迁移 | [references/parity-ledgers.md](references/parity-ledgers.md) |
 | 验证方式选择与证据登记 | [references/verification.md](references/verification.md) |
 | 菜单、资源、实体、粒子、声音、世界内容 | [references/assets-and-presentation.md](references/assets-and-presentation.md) |
 | 多个来源 Mod 合并为一个 | [references/multi-mod-merge.md](references/multi-mod-merge.md) |
