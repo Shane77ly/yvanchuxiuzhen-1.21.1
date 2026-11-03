@@ -39,6 +39,10 @@ def element_index() -> tuple[dict[tuple[str, str], set[str]], dict[tuple[str, st
         if row['registry_name']:
             by_registry_name[(row['source_mod'], row['registry_name'])].add(row['element'])
         by_lower_name[(row['source_mod'], row['element'].lower())] = row['element']
+    # 属性、游戏规则等元素没有独立的生成文件，不在 element_files.csv 中，按元素定义的注册名补入。
+    for row in read_csv(INVENTORY / 'source_elements.csv'):
+        if row['registry_name'] and (row['source_mod'], row['element'].lower()) not in by_lower_name:
+            by_registry_name[(row['source_mod'], row['registry_name'])].add(row['element'])
     return by_registry_name, by_lower_name
 
 

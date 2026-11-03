@@ -8,7 +8,8 @@
 | 注册表别名 | `net/neoforged/neoforge/registries/IRegistryExtension.java`、`net/minecraft/core/MappedRegistry.java` | 21.1.265：`addAlias(from, to)` 使查找 `from`（且其不存在）时解析为 `to`，支持链式；`MappedRegistry` 按名与按键查找经过 `resolve`。区块、物品与玩家数据读取中的实际效果未实测 |
 | 物品创建者 Mod | `net/neoforged/neoforge/common/CommonHooks.java` 的 `getDefaultCreatorModId` | 21.1.265：默认以物品注册名的命名空间作为创建者 Mod ID（原版附魔书按附魔命名空间）；物品可覆盖 `IItemExtension.getCreatorModId` |
 | 玩家数据与死亡 | `net/neoforged/neoforge/attachment/AttachmentType.java` | 附件类型需注册；可序列化实体附件默认不在死亡时复制，可通过 copyOnDeath 选择复制；方块/区块变更需相应标脏 |
-| 附件同步 | 同文件 `Builder.sync` 及 `attachment/IAttachmentHolder.java` 的 syncData | 支持自定义同步处理器、StreamCodec 与接收玩家过滤；完整 codec 方案每次写完整数据 |
+| 附件同步 | 同文件 `Builder.sync` 及 `attachment/IAttachmentHolder.java` 的 syncData | 支持自定义同步处理器、StreamCodec 与接收玩家过滤；完整 codec 方案每次写完整数据。21.1.228 与 21.1.265 的 sources jar 都有 `AttachmentSync`。21.1.265：实体的 `setData` 与首次 `getData` 创建默认值时自动同步；玩家本人的初次同步由 NeoForge 在登录（`PlayerList`）、重生（`PlayerList.respawn`，在 Clone 事件之后）与换维度（`ServerPlayer`）时发送；接收过滤写 `(holder, player) -> holder == player` 即只发本人。实测（21.1.265 开发客户端）：不可变值经 `setData` 写回后，客户端在提交、死亡重生、退出重进后都收到本人数据 |
+| 原版属性基础值 | `net/minecraft/server/level/ServerPlayer.java` 的 `restoreFrom`，`net/minecraft/world/entity/LivingEntity.java` 的 `onAttributeUpdated` | 21.1.265：`restoreFrom` 在死亡与非死亡复制时都 `assignBaseValues`，`setBaseValue` 写入的基础值跨死亡保留，随后把生命设为新上限；玩家存档也保存基础值。最大生命降低时，当前生命在下一次属性刷新时压到新上限。实测同上 |
 | 物品组件注册 | `registries/DeferredRegister.java` 的 registerComponentType | 有 DataComponentType 专用 builder 注册入口 |
 | 实体复制事件 | `net/neoforged/neoforge/event/entity/player/PlayerEvent.java` 的 Clone | 提供原对象和是否死亡信息；复制不限于普通死亡 |
 | 网络注册 | `net/neoforged/neoforge/network/event/RegisterPayloadHandlersEvent.java` | payload 注册发生于 Mod 总线；使用前需登记；单人内存连接也序列化 |
@@ -56,6 +57,7 @@
 - 开发运行的专用服务器未要求 eula.txt 即启动完成，不需要替负责人写入 EULA 同意。
 - `runServer` 启动后等待控制台输入，不会自行结束；终止 Gradle 任务后，wrapper 与游戏 Java 进程可能残留，需按命令行查找并结束。
 - Windows 控制台按系统代码页显示非 ASCII 的 Mod 名称时会乱码；`run/logs/latest.log` 为 UTF-8，以日志文件核对显示名。
+- 客户端自动化退出存档时，`Minecraft.disconnect` 在等待集成服务端关闭期间循环调用 `runTick`，`ClientTickEvent` 会嵌套触发；脚本在调用前置忙标志，嵌套的 tick 不推进。重新进入用 `WorldOpenFlows.openWorld(存档目录名, 失败回调)`（21.1.265 实测）。
 
 ## 使用注意
 

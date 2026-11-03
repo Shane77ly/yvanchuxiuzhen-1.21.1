@@ -13,18 +13,25 @@ updated: 2026-11-03
 
 | 项 | 状态 |
 | --- | --- |
-| 分支与提交 | `main` 与工作分支 `port/c-attribute`；最新提交以 `git log` 为准 |
+| 分支与提交 | `main` 与工作分支 `port/c-relation`；最新提交以 `git log` 为准 |
 | 已完成 | 两个 1.18.2 工程的全量静态调查与索引；系统调查正文（2026-11-02 按[系统设计](system-design.md)重组为 28 个系统、3 个内容族与玩家面板）；通用移植技能；开发环境（构建、开发服务端与客户端加载已实测） |
-| 代码 | 公共入口与客户端入口；`platform/content` 的内容表加载器与工厂（15 种方块、物品、工具、盔甲）按单位登记 1,127 个方块、2,063 个物品与 150 个声音事件，29 个有内容的单位各有一个 `<名称>Setup`；ArchUnit、台账工具、归属证据工具、片段合并与客户端冒烟检查已接入 |
-| 批次进度 | B0 完成步骤 1–5 后按负责人指示结束（2026-11-02），B1 于 2026-11-03 出口核对并经负责人认可后结束，当前执行 C（从 attribute 开始）；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移；命名空间统一为 `yvanchuxiuzhen`。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
+| 代码 | 公共入口与客户端入口；attribute 系统（贡献汇总、玩家附件、原版属性写入，2026-11-03）；`platform/content` 的内容表加载器与工厂（15 种方块、物品、工具、盔甲）按单位登记 1,127 个方块、2,063 个物品与 150 个声音事件，29 个有内容的单位各有一个 `<名称>Setup`；ArchUnit、台账工具、归属证据工具、片段合并与客户端冒烟检查已接入 |
+| 批次进度 | B0 完成步骤 1–5 后按负责人指示结束（2026-11-02），B1 于 2026-11-03 出口核对并经负责人认可后结束，当前执行 C：attribute 2026-11-03 完成并合入 `main`，下一个是 relation；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移；命名空间统一为 `yvanchuxiuzhen`。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
 | 已批准 | 2026-11-02 负责人批准整体架构、[工程结构与长期维护](engineering.md)、[实施路线](roadmap.md)（`3e0585c` 版本），记录见[项目状态](../systems/project/README.md)；不含存档导入、界面复刻程度、license、Q01–Q14 |
-| 未执行 | 玩法实现、1.18.2 实机对照、存档与视觉验收；B1 归属结论的负责人审阅；goal 未授权 |
+| 未执行 | attribute 以外的玩法实现、1.18.2 实机对照、存档与视觉验收；goal 未授权 |
 
 ## 进行中
 
-C 玩家与战斗核心，第一个系统 attribute（分支 `port/c-attribute`）。B1 的结果与出口核对见[项目状态](../systems/project/README.md)“B1 出口核对”与[路线](roadmap.md)“B1 实施步骤”；B1 范围内需要新代码类型的 298 行（`skipped.csv`）与其余语言键随所属系统迁移。盔甲挥臂闪烁与药草疑似缺失两项反馈由负责人指示暂缓（2026-11-03）。
+C 玩家与战斗核心，当前系统 relation（分支 `port/c-relation`，从 `main` 建立；最新提交以 `git log` 为准）。负责人 2026-11-03 指示：按路线自动推进并完成客户端测试；途中问题记入文档、之后统一处理；遇到无法继续的重大问题时立即停下商议。B1 范围内需要新代码类型的 298 行（`skipped.csv`）与其余语言键随所属系统迁移。盔甲挥臂闪烁与药草疑似缺失两项反馈由负责人指示暂缓（2026-11-03）。
 
-attribute 开工步骤（AGENTS.md“工程边界”与[路线](roadmap.md)“系统工作单与验证”）：先按[系统设计](system-design.md)“归属判定”读 attribute 候选元素与类，确认其职责（基础属性、贡献汇总、派生值，含灵根与功法的五行加成和抗性；修炼、功法、装备向它提交贡献，它不读取这些系统）；在 `docs/systems/attribute/README.md`“公开操作”列出供其他系统调用的查询与写操作，并对照 `docs/reference/legacy/inventory/typed_field_accesses.csv` 覆盖全部外部读写点；B0 未做的运行机制（玩家附件等，见下文“B0 结束时的状态与未完成项去向”）在首个需要它的系统按正式结构实现并实测。
+attribute 已完成（2026-11-03，合入 `main`）：Q17 裁定实际属性计入炼器数值、Q18 暂按来源行为待再议；实现与验证见[属性](../systems/attribute/README.md)。留待其他系统：重算粒子 `tiangandizhi` 随 particle；提交贡献的真实路径随 xiulian、gongfa、equipment、fulu、economy；equipment 去掉妖化防具的生命修饰符（见[装备](../systems/equipment/architecture.md)末节）。
+
+下一步具体操作（relation）：
+1. 读 relation 的候选元素归属（[归属表](../reference/legacy/inventory/ownership_assignment.csv)中 owner 为 relation 的 84 个，已读 3 个），用 `tools/porting/ownership_evidence.py` 列出证据，读后改为“已读”并运行 `build_ledger.py`、`build_architecture_catalog.py`。
+2. 在 [relation README](../systems/relation/README.md)“公开操作”列出供其他系统调用的查询与写操作，对照 `typed_field_accesses.csv` 覆盖全部外部读写点；来源矛盾写入正文与[调查问题表](../reference/legacy/source-survey.md)，裁定前按来源行为实现。
+3. 实现：数据所有权、玩家附件或 SavedData、菜单与 payload（payload 是 B0 步骤 7 遗留机制，首个实例按[工程结构](engineering.md)正式结构实现并实测后写回）。
+4. 验证：易回归规则用 JUnit；在 `runSmokeClient` 中增加 relation 的实机检查（参照 `src/smoke/.../AttributeCheck.java`，`-PsmokeOnly=<系统>` 单独运行），开发服务端启动无 ERROR。
+5. 完成后更新 README、正文、月度日志与本页，合入 `main`，再建 `port/c-gongfa`。
 
 ## 先读顺序
 
@@ -76,9 +83,9 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 - 运行日志、临时脚本放 `tmp/`。
 - 客户端行为由会话自己验证：`./gradlew runSmokeClient`（见[工程结构](engineering.md)“验证基础设施”），结果在 `build/smoke/report.txt`，截图在 `run/screenshots`；不要让负责人手工开客户端复现。
 
-## 下一步：B1 全量内容身份与资源
+## 下一步：C 玩家与战斗核心
 
-范围、出口条件与逐步状态的正文在[路线](roadmap.md)“B1 实施步骤”。出口条件已核对，待负责人审阅；进展与下一步具体操作见上文“进行中”。
+范围与出口在[路线](roadmap.md)“批次和出口”的 C 行：依次完成 attribute → relation → gongfa → xiulian → combat → skill → yihuo → equipment，每个系统按移植技能的系统工作单推进，完成后合入 `main` 再开下一个系统的分支。当前进展与具体操作见上文“进行中”。B1 已于 2026-11-03 结束，结果见[项目状态](../systems/project/README.md)“B1 出口核对”。
 
 ### B0 结束时的状态与未完成项去向
 
@@ -94,10 +101,10 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 
 | 机制 | 曾选实物 | 归属 | 预计批次 |
 | --- | --- | --- | --- |
-| 玩家附件（Codec、按[复制策略表](../reference/legacy/inventory/clone_policy.csv)设置死亡复制、同步给本人） | PlayerVariables 字段 `colddownGold`（double，初值 0，`non_death_only`） | skill | C |
+| 玩家附件（Codec、按[复制策略表](../reference/legacy/inventory/clone_policy.csv)设置死亡复制、同步给本人） | 2026-11-03 由 attribute 的贡献附件先实现并实测（做法见[工程结构](engineering.md)“数据与存档契约”）；原选实物 `colddownGold`（`non_death_only`，非死亡复制）随 skill 迁移 | attribute | C 已完成 |
 | payload | `AnjianWMessage`（按键 W，处理过程 `ShenfaWProcedure`） | skill | C |
 | 代码注册转数据定义 | 原初系统唯一的附魔 `yvanchuxitong:chain`（目标 `yvanchuxiuzhen:chain`） | combat | C |
-| GameTest 独立源集（确认不进入发布 JAR）、JUnit 规则测试 | 按首个系统风险最高的流程选取 | — | C |
+| GameTest 独立源集（确认不进入发布 JAR）、JUnit 规则测试 | JUnit 已由 attribute 接入（2026-11-03）；GameTest 按首个需要世界内自动化的系统选取 | — | C |
 | 方块实体与菜单 | 家具 `Beechfurniture14`：`RandomizableContainerBlockEntity`，27 格，自有菜单 `Beechfurniture14GuiMenu`；归属已读（27 格无槽位过滤，不属于 `storage`） | decor | D |
 | GeckoLib 实体（选定 GeckoLib 版本） | `Silkwormmoth`：`PathfinderMob`，实现 `IAnimatable`；归属已读（只由蚕盒生成） | craft | D |
 

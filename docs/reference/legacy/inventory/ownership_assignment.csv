@@ -1815,7 +1815,7 @@ yvanchuxiuzhen,SkillFire06DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireski
 yvanchuxiuzhen,SkillFire06DangShiTiBeiShaSiShi,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillFire06,animatedentity,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillFire06shifang,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shujvtongbu,procedure,~/systemset,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Shujvtongbu,procedure,~/systemset,xiulian,已读,C attribute 归属阅读：PlayerTick 调用，把当前灵力、神识、修为（不超过上限）与灵力、神识上限写入实体 NBT synchronous*；两个来源中没有读取者，写入无效果
 yvanchuxiuzhen,SkillFire07DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillFire07,animatedentity,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillFire08DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3368,7 +3368,7 @@ yvanchuxiuzhen,Tileimbrexgilding01hecheng,recipe,~/decorate/buildingblocks,decor
 yvanchuxiuzhen,Tileimbrexgilding05hecheng,recipe,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tileimbrexgilding09hecheng,recipe,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tileimbrexgilding10hecheng,recipe,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playershuxingjisuan,procedure,~/systemset,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Playershuxingjisuan,procedure,~/systemset,attribute,已读,C attribute 归属阅读：空过程（只声明局部变量），两个来源中没有调用者，无行为
 yvanchuxiuzhen,Oxygen,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Oxygenxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Oxygentubiao,overlay,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3894,9 +3894,9 @@ yvanchuxiuzhen,Caoyao,tag,~/tag,platform,候选,第一版批量归组（目录�
 yvanchuxiuzhen,Book,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudaiqingli,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudaiqingkong,procedure,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
-yvanchuxiuzhen,ShuxingjisuanZong,procedure,~/systemset,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingjisuan,procedure,~/systemset,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingjisuan2,procedure,~/systemset,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ShuxingjisuanZong,procedure,~/systemset,equipment,已读,C attribute 归属阅读：每 tick 比较四件防具与主手和快照 kuijia1–4、wuqilinshi（bubianzhi 标记与物品种类），变化时触发重算；是装备变化检测，目标由 equipment 监听装备变化并提交贡献
+yvanchuxiuzhen,Shuxingjisuan,procedure,~/systemset,attribute,已读,C attribute 归属阅读：由防具、饰品、主修功法与附魔求九项派生值、移速与冷却缩减，写最大生命与移速基础值；读取装备与功法的部分改由提交者提交贡献
+yvanchuxiuzhen,Shuxingjisuan2,procedure,~/systemset,attribute,已读,C attribute 归属阅读：由手持武器炼器数值与主修功法求攻击三项派生值，写攻击伤害基础值
 yvanchuxiuzhen,Playerhuifu,procedure,~/systemset,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Basaltlizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhongdulizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4368,9 +4368,9 @@ yvanchuxiuzhen,Gongjvchan,animatedentity,~/tool,equipment,候选,第一版批量
 yvanchuxiuzhen,GongjvchuDangShiTiGengXinKeShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongjvchu,animatedentity,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GongjvfuDangYouJianDianJiShiTi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Entitydaxiao,attribute,~/entity/yaoshou,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Entitydaxiao,attribute,~/entity/yaoshou,creature,已读,C attribute 归属阅读：实体属性 entitydaxiao（0.7–10），只加给妖兽、修者与桃木精，由生成、灵兽袋收放与修者身高过程读写，决定实体体型
 yvanchuxiuzhen,Yaoshoudaxiaoxianshi,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,Yaoshoupifuxianshi,attribute,~/entity/yaoshou,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshoupifuxianshi,attribute,~/entity/yaoshou,creature,已读,C attribute 归属阅读：实体属性 yaoshoupifuxianshi（1–5），只加给 yaoshou_001、002 与修者，生成时随机、灵兽袋收放时保存，决定皮肤变体
 yvanchuxiuzhen,Yaoshoupifuxvanze,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,EntityJoinGame,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshoudaxiaoshezhi,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
@@ -5233,7 +5233,7 @@ yvanchuxiuzhen,Yaohua0101,animatedarmor,~/weapon/armor,equipment,已读,B1 归�
 yvanchuxiuzhen,Yaohua,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaohuabuwei0,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaohuaarmor,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponshuxing,procedure,~/systemset,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Weaponshuxing,procedure,~/systemset,equipment,已读,C attribute 归属阅读：ItemAttributeModifierEvent 中按部位给 forge:yaohuaarmor 防具加 lianqizong 的生命、击退抗性、攻速、移速修饰符，是妖化防具自身的物品属性
 yvanchuxiuzhen,Jinengyaohua,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaohuabuwei1,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaohuabuwei2,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5864,7 +5864,7 @@ yvanchuxitong,LianqiBegin,procedure,~/yvanchulianqi,lianqi,候选,第一版批�
 yvanchuxitong,LianqiTick,procedure,~/yvanchulianqi,lianqi,已读,B1 归属阅读：随 Tripod01 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Tuzhilianzhi,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,LianqiLEVEL,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Attributexianshi,procedure,~/yvanchulianqi,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Attributexianshi,procedure,~/yvanchulianqi,equipment,已读,C attribute 归属阅读：ItemAttributeModifierEvent 中给主手 forge:yispear（weaponspear_01–09）加 forge:attack_range +2，是长枪自身的物品属性
 yvanchuxitong,TiandaoGongfaGUI,gui,~/gongfa,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Lianqizidongfangru,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Lianqituzhibaocun,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）

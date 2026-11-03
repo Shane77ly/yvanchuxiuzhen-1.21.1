@@ -9,6 +9,8 @@ entity_type,yvanchuxiuzhen:tianjie_07,yvanchuxiuzhen,Tianjie07,src/main/java/net
 entity_type,yvanchuxiuzhen:yvanyingchuqiao,yvanchuxiuzhen,Yvanyingchuqiao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1049,xiulian,候选,yvanchuxiuzhen:yvanyingchuqiao,待处理,
 fluid,yvanchuxiuzhen:flowing_xveliu,yvanchuxiuzhen,Xveliu,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFluids.java,33,xiulian,已读,yvanchuxiuzhen:flowing_xveliu,待处理,
 fluid,yvanchuxiuzhen:xveliu,yvanchuxiuzhen,Xveliu,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFluids.java,32,xiulian,已读,yvanchuxiuzhen:xveliu,待处理,
+game_rule,yvanchuxiuzhen:jinruyouxichushenxvanze,yvanchuxiuzhen,Jinruyouxichushenxvanze,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModGameRules.java,14,xiulian,候选,yvanchuxiuzhen:jinruyouxichushenxvanze,待处理,
+game_rule,yvanchuxiuzhen:linggenlevel,yvanchuxiuzhen,Linggenlevel,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModGameRules.java,13,xiulian,候选,yvanchuxiuzhen:linggenlevel,待处理,
 item,yvanchuxitong:xixveshi,yvanchuxitong,Xixveshi,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,196,xiulian,已读,yvanchuxiuzhen:xixveshi,已注册,
 item,yvanchuxiuzhen:jiazubaibaodai,yvanchuxiuzhen,Jiazubaibaodai,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2784,xiulian,已读,yvanchuxiuzhen:jiazubaibaodai,已注册,
 item,yvanchuxiuzhen:ling_09,yvanchuxiuzhen,Ling09,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1934,xiulian,已读,yvanchuxiuzhen:ling_09,已注册,

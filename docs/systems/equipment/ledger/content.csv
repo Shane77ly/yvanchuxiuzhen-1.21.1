@@ -26,6 +26,7 @@ entity_type,yvanchuxiuzhen:projectile_fabao_010huoyan,yvanchuxiuzhen,Fabao010huo
 entity_type,yvanchuxiuzhen:projectile_fabao_014,yvanchuxiuzhen,Fabao014,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,757,equipment,已读,yvanchuxiuzhen:projectile_fabao_014,待处理,
 entity_type,yvanchuxiuzhen:projectile_fuchen,yvanchuxiuzhen,Fuchen,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,549,equipment,已读,yvanchuxiuzhen:projectile_fuchen,待处理,
 entity_type,yvanchuxiuzhen:projectile_gongjvshechu,yvanchuxiuzhen,Gongjvshechu,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1007,equipment,已读,yvanchuxiuzhen:projectile_gongjvshechu,待处理,
+game_rule,yvanchuxitong:weaponlevelup,yvanchuxitong,Weaponlevelup,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModGameRules.java,13,equipment,候选,yvanchuxiuzhen:weaponlevelup,待处理,
 item,yvanchuxiuzhen:armor_01_boots,yvanchuxiuzhen,Armor01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModGeckoLibArmors.java,99,equipment,已读,yvanchuxiuzhen:armor_01_boots,待处理,
 item,yvanchuxiuzhen:armor_01_chestplate,yvanchuxiuzhen,Armor01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModGeckoLibArmors.java,97,equipment,已读,yvanchuxiuzhen:armor_01_chestplate,待处理,
 item,yvanchuxiuzhen:armor_01_helmet,yvanchuxiuzhen,Armor01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModGeckoLibArmors.java,95,equipment,已读,yvanchuxiuzhen:armor_01_helmet,待处理,
