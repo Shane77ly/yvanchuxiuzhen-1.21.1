@@ -1,4 +1,6 @@
 [
+{"id":"fabao_00901","factory":"item","order":1056,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","stack":1,"pending_hooks":["useOn"]},
+{"id":"tiandaowhiteblock","factory":"block_item","block":"tiandaowhiteblock","order":1057,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
 {"id":"fubenblock","factory":"block_item","block":"fubenblock","order":2294,"tab":"minecraft:building_blocks"},
 {"id":"fubenentity","factory":"block_item","block":"fubenentity","order":2295,"tab":"minecraft:building_blocks"}
 ]

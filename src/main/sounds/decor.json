@@ -1,0 +1,12 @@
+{
+  "yaoqiantong": {
+    "category": "neutral",
+    "subtitle": "subtitles.yaoqiantong",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaoqiantong",
+        "stream": false
+      }
+    ]
+  }
+}

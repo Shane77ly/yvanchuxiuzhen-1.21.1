@@ -404,7 +404,6 @@
   "block.yvanchuxiuzhen.sprucebigdoorright": "云杉木门",
   "block.yvanchuxiuzhen.warpedbigdoorleft": "诡异木门",
   "block.yvanchuxiuzhen.warpedbigdoorright": "诡异木门",
-  "block.yvanchuxiuzhen.cauldronduyao": "盛满毒药的炼药锅",
   "block.yvanchuxiuzhen.youbosoil": "幽波土",
   "block.yvanchuxiuzhen.rottingsoil": "腐土",
   "block.yvanchuxiuzhen.brokenbonepile": "碎骨堆",
@@ -514,6 +513,12 @@
   "block.yvanchuxiuzhen.zisha_01": "紫砂壶",
   "block.yvanchuxiuzhen.zisha_02": "紫砂茶杯",
   "block.yvanchuxiuzhen.zisha_03": "香炉",
+  "item.yvanchuxiuzhen.hammer": "建筑锤",
+  "tooltip.yvanchuxiuzhen.item.hammer.1": "右键瓦片使其上升",
+  "tooltip.yvanchuxiuzhen.item.hammer.2": "左键瓦片使其下降",
+  "item.yvanchuxiuzhen.ling_07": "令牌",
+  "item.yvanchuxiuzhen.ling_17": "梦之羽毛",
+  "tooltip.yvanchuxiuzhen.item.ling_17.1": "愿你不忘初心，砥砺前行！",
   "item.yvanchuxiuzhen.guaqian_01": "大吉",
   "item.yvanchuxiuzhen.guaqian_02": "中吉",
   "item.yvanchuxiuzhen.guaqian_03": "小吉",
@@ -523,6 +528,7 @@
   "item.yvanchuxiuzhen.guaqian_07": "大凶",
   "tooltip.yvanchuxiuzhen.item.plaque_01item.1": "手持斧子右键此匾额进行文字编辑。",
   "tooltip.yvanchuxiuzhen.item.plaque_02item.1": "手持斧子右键此匾额进行文字编辑。",
+  "item.yvanchuxiuzhen.tiandaojianzhu": "天道铺设瓦片神笔",
   "item.yvanchuxiuzhen.zhuangshitulongitem_01": "空的笼子",
   "item.yvanchuxiuzhen.zhuangshitulongitem_02": "兔子笼",
   "item.yvanchuxiuzhen.zhuangshitulongitem_03": "鸡笼",
@@ -544,5 +550,6 @@
   "item.yvanchuxiuzhen.paiwei_06item": "柏木玉石牌位",
   "item.yvanchuxiuzhen.paiwei_07item": "柞木牌位",
   "item.yvanchuxiuzhen.paiwei_08item": "香樟牌位",
-  "item.yvanchuxiuzhen.paiwei_09item": "银杏牌位"
+  "item.yvanchuxiuzhen.paiwei_09item": "银杏牌位",
+  "subtitles.yaoqiantong": "签筒摇晃"
 }

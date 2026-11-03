@@ -13,7 +13,6 @@
   "item.yvanchuxiuzhen.skill_light_02": "Skill Light 0 2",
   "item.yvanchuxiuzhen.skill_light_04": "Skill Light 0 4",
   "item.yvanchuxiuzhen.skill_rock_01": "Skill Rock 0 1",
-  "item.yvanchuxiuzhen.xvejing": "Xvejing",
   "item.yvanchuxiuzhen.skill_arrow_01": "Skill Arrow 0 1",
   "item.yvanchuxiuzhen.skill_arrow_02": "Skill Arrow 0 2",
   "item.yvanchuxiuzhen.skill_arrow_03": "Skill Arrow 0 3",
@@ -27,5 +26,9 @@
   "item.yvanchuxiuzhen.skill_water_0101": "Skill Water 0 1 0 1",
   "item.yvanchuxiuzhen.lingwentexiao": "Lingwentexiao",
   "item.yvanchuxiuzhen.danhuo": "Danhuo",
-  "tooltip.yvanchuxiuzhen.item.danhuo.1": "可以放置一团丹火，用于炼丹、炼器。"
+  "tooltip.yvanchuxiuzhen.item.danhuo.1": "可以放置一团丹火，用于炼丹、炼器。",
+  "subtitles.yaohua": "妖化变身",
+  "subtitles.jinengzibao": "自爆",
+  "subtitles.flybegin": "起飞",
+  "subtitles.flyspeeedbegin": "加速飞行"
 }

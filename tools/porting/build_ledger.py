@@ -1,9 +1,10 @@
 """由来源注册与归属表同步各单位的内容台账 docs/systems/<单位>/ledger/content.csv。
 
-每条来源注册一行。来源列（注册位置、编辑器元素、归属）每次按 registrations.csv、element_files.csv 与
-ownership_assignment.csv 重写；人工列（target_id、status、note）按 (registry, legacy_id) 保留。
+每条来源注册一行。来源列（注册位置、编辑器元素、归属）每次按 registrations.csv、element_files.csv、
+ownership_assignment.csv 与 registration_ownership.csv 重写；人工列（target_id、status、note）按 (registry, legacy_id) 保留。
 新行的 target_id 为唯一命名空间下的来源路径；同名冲突在 target_id 中人工改名。
-归属改变时行移到新单位的台账。没有编辑器元素的注册（声音事件等）放在 project 台账，归属为“待读”。
+归属改变时行移到新单位的台账。没有编辑器元素的注册（声音事件等）按 registration_ownership.csv 归属，
+其中尚未登记的放在 project 台账，归属为“待读”。
 """
 from __future__ import annotations
 
@@ -65,12 +66,13 @@ def source_element(registration: dict[str, str], by_registry_name, by_lower_name
 def expected_rows() -> dict[tuple[str, str], dict[str, str]]:
     """按来源与归属表计算每条注册的来源列。"""
     assignment = {(r['source_mod'], r['element']): r for r in read_csv(INVENTORY / 'ownership_assignment.csv')}
+    registration_owner = {(r['registry'], r['legacy_id']): r for r in read_csv(INVENTORY / 'registration_ownership.csv')}
     by_registry_name, by_lower_name = element_index()
     rows = {}
     for registration in read_csv(INVENTORY / 'registrations.csv'):
         element = source_element(registration, by_registry_name, by_lower_name)
-        assigned = assignment[(registration['source_mod'], element)] if element else None
         key = (registration['registry'], registration['legacy_id'])
+        assigned = assignment[(registration['source_mod'], element)] if element else registration_owner.get(key)
         if key in rows:
             raise ValueError(f'来源注册重复：{key}')
         rows[key] = {

@@ -2,7 +2,7 @@
 topic: legacy-source/inventory
 role: data
 status: generated
-updated: 2026-11-01
+updated: 2026-11-03
 ---
 
 # 1.18.2 版本静态索引
@@ -44,6 +44,7 @@ updated: 2026-11-01
 | [key_expressions.csv](key_expressions.csv)、[dynamic_keys.csv](dynamic_keys.csv)、[dynamic_state_keys.csv](dynamic_state_keys.csv) | 40,173 键调用，动态语法及可识别载体子集；保留匿名 helper 实参还原 |
 | [typed_field_accesses.csv](typed_field_accesses.csv)、[clone_policy.csv](clone_policy.csv)、[state_lifecycle.csv](state_lifecycle.csv) | 显式类型/作用域匹配、183 复制策略与 211 字段生命周期 |
 | [ownership_assignment.csv](ownership_assignment.csv) | 人工维护的元素归属：`已读` 行按[系统设计](../../../development/system-design.md)“归属判定”读过来源规则，`候选` 行是批量归组结果；不是生成结果 |
+| [registration_ownership.csv](registration_ownership.csv) | 人工维护的无编辑器元素注册归属（当前为 150 个声音事件），`evidence` 写明播放者；`build_ledger.py` 据此把台账行放入所属单位 |
 | [ownership_proposal.csv](ownership_proposal.csv)、[class_ownership.csv](class_ownership.csv)、[system_coverage.csv](system_coverage.csv) | 由归属表推导的元素、Java 类与系统汇总；候选行不作为实现依据 |
 | [module_dependencies.csv](module_dependencies.csv)、[dynamic_key_catalog.csv](dynamic_key_catalog.csv) | 66 组来源依赖、630 个载体/表达式分组 |
 | [architecture_workbook.json](architecture_workbook.json) | 新增架构工作表的生成输入 |

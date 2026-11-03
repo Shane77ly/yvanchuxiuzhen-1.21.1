@@ -1,5 +1,17 @@
 {
+  "block.yvanchuxiuzhen.cauldronduyao": "盛满毒药的炼药锅",
+  "block.yvanchuxiuzhen.bedrock_01": "破碎的基岩",
+  "block.yvanchuxiuzhen.bedrock_02": "破碎的基岩",
+  "block.yvanchuxiuzhen.bedrock_03": "破碎的基岩",
   "item.yvanchuxiuzhen.murenzhuangitem": "木人桩",
   "tooltip.yvanchuxiuzhen.item.murenzhuangitem.1": "可以放置一个练习用的木人桩。",
-  "tooltip.yvanchuxiuzhen.item.murenzhuangitem.2": "对着木人桩潜行右键可打开设置面板。"
+  "tooltip.yvanchuxiuzhen.item.murenzhuangitem.2": "对着木人桩潜行右键可打开设置面板。",
+  "subtitles.basalt": "玄武附魔触发",
+  "subtitles.effect_001yinxiao": "眩晕",
+  "subtitles.effect_002yinxiao": "沉默",
+  "subtitles.effect_003yinxiao": "剧痛",
+  "subtitles.effect_004yinxiao": "流血",
+  "subtitles.effect_005yinxiao": "无力",
+  "subtitles.effect_006yinxiao": "发抖",
+  "subtitles.effect_007yinxiao": "重伤"
 }

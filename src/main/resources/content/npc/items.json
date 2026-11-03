@@ -1,0 +1,3 @@
+[
+{"id":"tiandao_np_csetitem","factory":"item","order":1719,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","stack":1,"rarity":"EPIC","tooltip":["潜行右键打开设置面板，预设npc的属性","拿着设置好属性的此物右键npc实体，把此物的属性复制给npc"],"pending_hooks":["createMenu","getDisplayName","getShareTag","initCapabilities","readShareTag","use"]}
+]

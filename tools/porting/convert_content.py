@@ -104,31 +104,40 @@ def write_lang(unit_entries: dict[str, dict[str, dict[str, str]]]) -> None:
             path.write_text(json.dumps(entries, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
 
 
-def convert_sounds(sources: dict[str, Source], add_lang) -> list[dict]:
-    """声音事件：内容表只登记事件 ID，声音文件（可与事件名不同）、类别与字幕由 sounds.json 片段声明，字幕文本写入 platform 的语言片段。"""
-    rows: list[dict] = []
-    fragment: dict[str, dict] = {}
+def convert_sounds(sources: dict[str, Source], add_lang, expected) -> dict[str, list[dict]]:
+    """声音事件按台账 owner 分到所属单位：内容表 content/<单位>/sounds.json 只登记事件 ID，声音文件（可与事件名不同）、
+    类别与字幕由片段 src/main/sounds/<单位>.json 声明，字幕文本写入该单位的语言片段。"""
+    rows: dict[str, list[dict]] = defaultdict(list)
+    fragments: dict[str, dict[str, dict]] = defaultdict(dict)
+    seen: set[str] = set()
     for mod, (root, _) in SOURCES.items():
         file = root / f'src/main/resources/assets/{mod}/sounds.json'
         if not file.is_file():
             continue
         for event, definition in json.loads(file.read_text(encoding='utf-8')).items():
-            if event in fragment:
+            if event in seen:
                 raise ValueError(f'声音事件 {event} 在两个来源中重复')
+            seen.add(event)
             for sound in definition['sounds']:
                 if not sound['name'].startswith(f'{mod}:'):
                     raise ValueError(f'声音事件 {event} 引用了其他命名空间的文件 {sound["name"]}')
-            fragment[event] = {**definition, 'sounds': [{**sound, 'name': f'{NAMESPACE}:{sound["name"].split(":", 1)[1]}'} for sound in definition['sounds']]}
-            rows.append({'id': event})
+            unit = expected[('sound_event', f'{mod}:{event}')]['owner']
+            if not unit:
+                raise ValueError(f'声音事件 {mod}:{event} 没有归属，先在 registration_ownership.csv 登记')
+            fragments[unit][event] = {**definition, 'sounds': [{**sound, 'name': f'{NAMESPACE}:{sound["name"].split(":", 1)[1]}'} for sound in definition['sounds']]}
+            rows[unit].append({'id': event})
             subtitle = definition.get('subtitle')
             if subtitle:
                 for language in LANGUAGES:
                     text = sources[mod].lang[language].get(subtitle)
                     if text is not None:
-                        add_lang('platform', language, subtitle, text)
+                        add_lang(unit, language, subtitle, text)
     SOUNDS.mkdir(parents=True, exist_ok=True)
-    text = json.dumps(fragment, ensure_ascii=False, indent=2) + '\n'
-    (SOUNDS / 'platform.json').write_text(text, encoding='utf-8', newline='\n')
+    for stale in SOUNDS.glob('*.json'):
+        stale.unlink()
+    for unit, fragment in fragments.items():
+        text = json.dumps(fragment, ensure_ascii=False, indent=2) + '\n'
+        (SOUNDS / f'{unit}.json').write_text(text, encoding='utf-8', newline='\n')
     return rows
 
 
@@ -256,10 +265,14 @@ def main() -> None:
                 if title is not None:
                     add_lang('platform', language, f'itemGroup.{NAMESPACE}.{name}', title)
 
-    sound_rows = convert_sounds(sources, add_lang)
+    sound_rows = convert_sounds(sources, add_lang, expected)
     advancement_keys = convert_advancement_lang(sources, add_lang)
 
     units = sorted(set(blocks_by_unit) | set(items_by_unit))
+    for stale in CONTENT.glob('*/sounds.json'):
+        stale.unlink()
+    for unit, unit_rows in sound_rows.items():
+        write_rows(CONTENT / unit / 'sounds.json', unit_rows)
     for unit in units:
         if blocks_by_unit.get(unit):
             write_rows(CONTENT / unit / 'blocks.json', blocks_by_unit[unit])
@@ -268,7 +281,6 @@ def main() -> None:
     for unit in sorted({u for u, _ in armor_materials}):
         write_rows(CONTENT / unit / 'armor_materials.json', [m for (u, _), m in sorted(armor_materials.items()) if u == unit])
     write_rows(CONTENT / 'platform' / 'tabs.json', sorted(tabs, key=lambda t: t['id']))
-    write_rows(CONTENT / 'platform' / 'sounds.json', sound_rows)
     write_lang(lang)
     CONVERSION.mkdir(parents=True, exist_ok=True)
     with (CONVERSION / 'skipped.csv').open('w', encoding='utf-8', newline='') as handle:
@@ -276,7 +288,7 @@ def main() -> None:
         writer.writerow(['registry', 'legacy_id', 'reason'])
         writer.writerows(sorted(skipped))
     print({unit: (len(blocks_by_unit.get(unit, [])), len(items_by_unit.get(unit, []))) for unit in units})
-    print('tabs', len(tabs), 'sounds', len(sound_rows), 'advancement keys', advancement_keys, 'skipped', len(skipped))
+    print('tabs', len(tabs), 'sounds', sum(len(r) for r in sound_rows.values()), 'advancement keys', advancement_keys, 'skipped', len(skipped))
 
 
 if __name__ == '__main__':

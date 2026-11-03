@@ -88,7 +88,6 @@
   "item.yvanchuxiuzhen.fabao_006": "Fabao 0 0 6",
   "item.yvanchuxiuzhen.fabao_007": "Fabao 0 0 7",
   "item.yvanchuxiuzhen.fabao_008": "Fabao 0 0 8",
-  "item.yvanchuxiuzhen.fabao_00901": "Fabao 0 0 9 0 1",
   "item.yvanchuxiuzhen.fabao_010huoyan": "Fabao 0 1 0huoyan",
   "item.yvanchuxiuzhen.fabao_010": "Fabao 0 1 0",
   "tooltip.yvanchuxiuzhen.item.fabao_010.1": "鼠标右键点击释放存储的火焰，潜行状态下鼠标右键点击吸收前方一定范围的火焰。",
@@ -181,8 +180,8 @@
   "tooltip.yvanchuxiuzhen.item.fabao_016.1": "用此刀攻击生物，使其流血。",
   "tooltip.yvanchuxiuzhen.item.fabao_016.2": "只能对没有修为的生物放血。",
   "tooltip.yvanchuxiuzhen.item.fabao_016.3": "潜行状态下手持此物右键，即可采集自身的精血。",
+  "item.yvanchuxiuzhen.jingxve": "Jingxve",
   "item.yvanchuxiuzhen.fabao_017": "Fabao 0 1 7",
-  "item.yvanchuxiuzhen.fabao_018": "Fabao 0 1 8",
   "item.yvanchuxiuzhen.gongjvshechu": "Gongjvshechu",
   "item.yvanchuxiuzhen.clothes_07_helmet": "Clothes 0 7 头盔",
   "item.yvanchuxiuzhen.clothes_07_chestplate": "Clothes 0 7 胸甲",
@@ -207,5 +206,12 @@
   "item.yvanchuxiuzhen.gongjv_001": "Gongjv 0 0 1",
   "tooltip.yvanchuxiuzhen.item.gongjv_001.1": "手持镰刀右键，即可清理大范围杂草。",
   "item.yvanchuxiuzhen.fabao_021": "Fabao 0 2 1",
-  "item.yvanchuxiuzhen.fabao_022": "Fabao 0 2 2"
+  "item.yvanchuxiuzhen.fabao_022": "Fabao 0 2 2",
+  "subtitles.fabao001": "板砖砸落",
+  "subtitles.bowxvliman": "满蓄力",
+  "subtitles.bowshoot1": "射箭",
+  "subtitles.bowshoot3": "能量箭",
+  "subtitles.bowshoot4": "鸣镝箭",
+  "subtitles.bowshoot5": "旋风箭",
+  "subtitles.bowshoot6": "火箭"
 }

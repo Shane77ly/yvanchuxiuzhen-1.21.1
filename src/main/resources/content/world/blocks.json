@@ -1,0 +1,3 @@
+[
+{"id":"tiandaodimensionblock","factory":"block","material":"WOOD","map_color":"GOLD","sound":"WOOD","light":15,"states":[],"light_block":15,"fallback_drop":{"item":"minecraft:air","count":1}}
+]

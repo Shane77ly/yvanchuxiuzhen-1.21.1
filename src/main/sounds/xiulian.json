@@ -1,0 +1,20 @@
+{
+  "levelup": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:levelup",
+        "stream": false
+      }
+    ]
+  },
+  "littlelevelup": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:littlelevelup",
+        "stream": false
+      }
+    ]
+  }
+}

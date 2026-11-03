@@ -9,6 +9,8 @@
   "block.yvanchuxiuzhen.itemdanyaohulu_06block": "玉瓶",
   "block.yvanchuxiuzhen.fendantai": "分丹台",
   "block.yvanchuxiuzhen.yaolitaiblock": "药理台",
+  "item.yvanchuxiuzhen.duedan": "毒厄丹",
+  "tooltip.yvanchuxiuzhen.item.duedan.1": "可以让服用此丹的动物变成僵尸，并且僵尸将拥有练气一层的实力。",
   "item.yvanchuxiuzhen.itemdanyaohulu_01": "葫芦",
   "item.yvanchuxiuzhen.itemdanyaohulu_02": "瓷瓶",
   "item.yvanchuxiuzhen.itemdanyaohulu_03": "精致葫芦",

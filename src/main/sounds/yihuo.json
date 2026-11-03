@@ -1,0 +1,12 @@
+{
+  "fireshoot": {
+    "category": "neutral",
+    "subtitle": "subtitles.fireshoot",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:fire1",
+        "stream": false
+      }
+    ]
+  }
+}

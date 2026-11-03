@@ -53,7 +53,9 @@ updated: 2026-11-02
 | 汇总 | `panel` | 只显示各系统数据；可依赖所有系统的 `api`，不被系统依赖 |
 | 内容族 | `decor`、`festival`、`tiandao` | 元素自身行为的集合，没有 `api`；可依赖系统的 `api`，任何代码不得依赖它，其他系统只通过注册 ID 或标签引用其内容 |
 
-只有字段没有玩法的概念不立系统：傀儡、御鬼、御虫、血道目前只确认了副职业等级字段，归 `profession`，发现完整玩法再评估。
+只有字段没有玩法的概念不立系统：傀儡、御鬼、御虫目前只确认了副职业等级字段，归 `profession`，发现完整玩法再评估。
+
+血道（2026-11-03 B1 归属阅读，按负责人指示据实改写）：副职业字段 `blood_LEVEL`、`blood_experience` 归 `profession`，来源中只由 `/yvanchu` 命令（`YvanchuGo`、`YvanchuGo2`）、副职业升级 `FuzhiyeLevelUp` 与浮生丹 `Fulutexiao37` 的重置写入，玩法中没有经验来源。另有一条不经过这两个字段的血道玩法：带流血效果 `effect_004` 的实体站在吸血石 `xixveshi` 上时为其充血（`Effect004ZaiXiaoGuoChiXuShiMeiKeFaSheng` 写方块实体 `xveyetianchong`），满 100 在上方生成血流 `xveliu`（`XixveshiGengXinYouXiKe`）；主修功法为御血术、汲血功、地血大法或血魔祭魂秘法时，修炼者周围 3×3×3 内有血流则每次得血精 `xvejing` 1 个并额外 +5（`Kaishixiulian`）；主修血魔祭魂秘法时攻击另得血精 2 个（`EntityHurt`）。血精右键回复 2 点生命，也是木甑蒸馏的配料（`Muzengzhengliu`）与桃树苗变血桃树苗的材料之一（`PeachsaplingDangZhiWuBeiYouJianDianJiShi`）。这条链的规则都是修炼公式与功法攻击效果中按功法名的分支，唯一的跨操作状态是吸血石自身的充血量，不满足立系统的第 1 条；吸血石、血流、血精归 `xiulian`。
 
 ### 争议分组的读取结论
 

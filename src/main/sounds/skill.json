@@ -1,0 +1,51 @@
+{
+  "gedang": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:gedang",
+        "stream": false
+      }
+    ]
+  },
+  "yaohua": {
+    "category": "neutral",
+    "subtitle": "subtitles.yaohua",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:yaohua",
+        "stream": false
+      }
+    ]
+  },
+  "jinengzibao": {
+    "category": "neutral",
+    "subtitle": "subtitles.jinengzibao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:jinengzibao",
+        "stream": false
+      }
+    ]
+  },
+  "flybegin": {
+    "category": "neutral",
+    "subtitle": "subtitles.flybegin",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:flybegin",
+        "stream": false
+      }
+    ]
+  },
+  "flyspeeedbegin": {
+    "category": "neutral",
+    "subtitle": "subtitles.flyspeeedbegin",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:flyspeeedbegin",
+        "stream": false
+      }
+    ]
+  }
+}

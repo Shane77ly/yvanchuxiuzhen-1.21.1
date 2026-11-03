@@ -1,4 +1,12 @@
 {
+  "block.yvanchuxiuzhen.xixveshi": "Xixveshi",
+  "item.yvanchuxiuzhen.xvejing": "Xvejing",
+  "item.yvanchuxiuzhen.ling_09": "Ling 0 9",
+  "item.yvanchuxiuzhen.ling_10": "Ling 1 0",
+  "item.yvanchuxiuzhen.ling_11": "Ling 1 1",
   "item.yvanchuxiuzhen.jiazubaibaodai": "Jiazubaibaodai",
-  "tooltip.yvanchuxiuzhen.item.jiazubaibaodai.1": "家族族长给你的宝袋，每隔一段时间可以取出一些东西。"
+  "tooltip.yvanchuxiuzhen.item.jiazubaibaodai.1": "家族族长给你的宝袋，每隔一段时间可以取出一些东西。",
+  "item.yvanchuxiuzhen.ling_18": "Ling 1 8",
+  "tooltip.yvanchuxiuzhen.item.ling_18.1": "一件古老的传承灵物，里面存放着什么东西？",
+  "tooltip.yvanchuxiuzhen.item.ling_18.2": "§7（据说是老祖宗喝醉了后做的，所以别抱有太大期待。）"
 }

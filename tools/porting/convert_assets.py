@@ -263,9 +263,10 @@ def main() -> None:
         if file.is_file():
             for row in json.loads(file.read_text(encoding='utf-8')):
                 converter.armor_textures(row['texture'])
-    for definition in json.loads((ROOT / 'src/main/sounds/platform.json').read_text(encoding='utf-8')).values():
-        for sound in definition['sounds']:
-            converter.sound(sound['name'].split(':', 1)[1])
+    for fragment in sorted((ROOT / 'src/main/sounds').glob('*.json')):
+        for definition in json.loads(fragment.read_text(encoding='utf-8')).values():
+            for sound in definition['sounds']:
+                converter.sound(sound['name'].split(':', 1)[1])
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
     with MANIFEST.open('w', encoding='utf-8', newline='') as handle:
         writer = csv.writer(handle, lineterminator='\n')

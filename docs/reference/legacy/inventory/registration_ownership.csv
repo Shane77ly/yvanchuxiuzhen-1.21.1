@@ -1,0 +1,151 @@
+source_mod,registry,legacy_id,owner,status,evidence
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:basalt,combat,已读,B1 归属阅读：只由 DamageDefense、ManaDefense、Zhilingdefence 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:bowshoot1,equipment,已读,B1 归属阅读：只由 Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:bowshoot3,equipment,已读,B1 归属阅读：只由 Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:bowshoot4,equipment,已读,B1 归属阅读：只由 Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:bowshoot5,equipment,已读,B1 归属阅读：弓的射击声；妖兽技能复用（播放者：creature 的 Npcskill0115；equipment 的 Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi）
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:bowshoot6,equipment,已读,B1 归属阅读：只由 Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:bowxvli,equipment,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应弓
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:bowxvliman,equipment,已读,B1 归属阅读：只由 Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:effect_001yinxiao,combat,已读,B1 归属阅读：只由 Effect001DangYaoShuiXiaoGuoKaiShiYingYongShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:effect_002yinxiao,combat,已读,B1 归属阅读：只由 Effect002DangYaoShuiXiaoGuoKaiShiYingYongShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:effect_003yinxiao,combat,已读,B1 归属阅读：只由 Effect003DangYaoShuiXiaoGuoKaiShiYingYongShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:effect_004yinxiao,combat,已读,B1 归属阅读：只由 Effect004DangYaoShuiXiaoGuoKaiShiYingYongShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:effect_005yinxiao,combat,已读,B1 归属阅读：只由 Effect005DangYaoShuiXiaoGuoKaiShiYingYongShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:effect_006yinxiao,combat,已读,B1 归属阅读：只由 Effect006DangYaoShuiXiaoGuoKaiShiYingYongShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:effect_007yinxiao,combat,已读,B1 归属阅读：只由 Effect007DangYaoShuiXiaoGuoKaiShiYingYongShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:fabao001,equipment,已读,B1 归属阅读：只由 Fabao001DangTouSheWuSheZhongCiFangKuai、Fabao001DangTouZhiWuJiZhongShiTiShi、Fabao002DangTouSheWuSheZhongCiFangKuai、Fabao002DangTouZhiWuJiZhongShiTiShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:fireshoot,yihuo,已读,B1 归属阅读：异火投掷声；覆火葫芦投出异火时复用（播放者：equipment 的 Fabao010huoyan；yihuo 的 Cailiao221、Cailiao222、Cailiao223）
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:flybegin,skill,已读,B1 归属阅读：只由 FanjianAnXiaAnJianShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:flyspeeedbegin,skill,已读,B1 归属阅读：只由 ShenfaW 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:fulushifang,fulu,已读,B1 归属阅读：符箓释放声；生物技能复用（播放者：creature 的 Npcskill0203、Npcskill0301、Npcskill0302；fulu 的 Itemfulu01DangYouJianDianJiKongQiShiShiTiDeWeiZhi、Itemfulu02DangYouJianDianJiKongQiShiShiTiDeWeiZhi、Itemfulu04DangYouJianDianJiKongQiShiShiTiDeWeiZhi）
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:gedang,skill,已读,B1 归属阅读：只由 Gedang 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:guchong01,guchong,已读,B1 归属阅读：只由 Guchong01DangShiTiGengXinKeShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:guchong03,guchong,已读,B1 归属阅读：只由 Guchong03 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:ice1,creature,已读,B1 归属阅读：妖兽冰系技能声；冰类植物复用（播放者：creature 的 Npcskill0112、Npcskill0113、Yaoshou054bingzhuishu；plant 的 OpticalprismDangShengWuWanJiaYuZhiWuXiangZhuangShi）
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:jinengzibao,skill,已读,B1 归属阅读：只由 Jinengzibao 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:levelup,xiulian,已读,B1 归属阅读：只由 LEVELup 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:littlelevelup,xiulian,已读,B1 归属阅读：修为提升提示声；全局入口在升级时调用（播放者：flow 的 EntityDeath；xiulian 的 LEVELup）
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:npcskill010101,creature,已读,B1 归属阅读：只由 Npcskill0106、Npcskill0111 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:npcskill010102,creature,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应妖兽或修士技能
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:npcskill010103,creature,已读,B1 归属阅读：只由 Npcskill0103 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:npcskill010104,creature,已读,B1 归属阅读：只由 Npcskill0104、Npcskill0105、Npcskill0114 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:npcskill010105,creature,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应妖兽或修士技能
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:npcskill010106,creature,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应妖兽或修士技能
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:npcskill010107,creature,已读,B1 归属阅读：只由 Npcskill0108、Npcskill0116 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:npcskill010108,creature,已读,B1 归属阅读：只由 Npcskill0101、Npcskill0107、Npcskill0109、Npcskill0110 等 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:npcskill0101huikong,creature,已读,B1 归属阅读：只由 Npcskill0101、Npcskill0102、Npcskill0104、Npcskill0105 等 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:organism11,creature,已读,B1 归属阅读：只由 Organism11 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:pao0801,festival,已读,B1 归属阅读：只由 Pao01DangTouSheWuSheZhongCiFangKuai、Pao0401DangShiTiGengXinKeShi、Pao0501DangShiTiGengXinKeShi、Pao08DangTouSheWuSheZhongCiFangKuai 等 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:pao0802,festival,已读,B1 归属阅读：只由 Pao08 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:pao0902,festival,已读,B1 归属阅读：只由 Pao0901DangShiTiGengXinKeShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:pao0903,festival,已读,B1 归属阅读：只由 Pao0901DangShiTiGengXinKeShi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:pao1001,festival,已读,B1 归属阅读：只由 Pao10GengXinYouXiKe 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:pao1101,festival,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应花炮 pao
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:pao1201,festival,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应花炮 pao
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:tongyong_baoqi,creature,已读,B1 归属阅读：只由 Yaoshou011baoqi 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaohua,skill,已读,B1 归属阅读：只由 Jinengyaohua 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoqiantong,decor,已读,B1 归属阅读：只由 ZhuangshiqiantongZaiFangKuaiShangYouJian 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou001skill03,creature,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应妖兽或修士技能
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou006attacked,creature,已读,B1 归属阅读：只由 Yaoshou006 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou006die,creature,已读,B1 归属阅读：只由 Yaoshou006 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou006idle,creature,已读,B1 归属阅读：只由 Yaoshou006 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou006walk,creature,已读,B1 归属阅读：只由 Yaoshou006 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou007skill01,creature,已读,B1 归属阅读：只由 Yaoshou007langhao、Yaoshou008langhao、Yaoshou008zhaohuanxiaolang 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou007skill02,creature,已读,B1 归属阅读：只由 Yaoshou007siyao、Yaoshou008siyao 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou007skill03,creature,已读,B1 归属阅读：只由 Yaoshou007feipu、Yaoshou008feipu 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou009attacked,creature,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应妖兽或修士技能
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou009die,creature,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应妖兽或修士技能
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou011skill02,creature,已读,B1 归属阅读：只由 Npcskill0115、Npcskill0116、Npcskill0201、Npcskill0205 等 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou011skill03,creature,已读,B1 归属阅读：只由 Yaoshou011erlianji 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou011skill05,creature,已读,B1 归属阅读：只由 Yaoshou011houjiao 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou012attacked,creature,已读,B1 归属阅读：只由 Yaoshou012、Yaoshou026、Yaoshou037 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou012die,creature,已读,B1 归属阅读：只由 Yaoshou012、Yaoshou026 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou012idle,creature,已读,B1 归属阅读：只由 Yaoshou012、Yaoshou026 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou012skill01,creature,已读,B1 归属阅读：只由 Yaoshou012huxiao 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou012skill02,creature,已读,B1 归属阅读：只由 Yaoshou012saowei、Yaoshou026saowei 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou012walk,creature,已读,B1 归属阅读：只由 Yaoshou012、Yaoshou013、Yaoshou026、Yaoshou037 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou013attacked,creature,已读,B1 归属阅读：只由 Yaoshou013 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou013die,creature,已读,B1 归属阅读：只由 Yaoshou013 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou013idle,creature,已读,B1 归属阅读：只由 Yaoshou013 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou014attacked,creature,已读,B1 归属阅读：只由 Yaoshou014、Yaoshou047 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou014die,creature,已读,B1 归属阅读：只由 Yaoshou014、Yaoshou047 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou014idle,creature,已读,B1 归属阅读：只由 Yaoshou014 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou014walk,creature,已读,B1 归属阅读：只由 Yaoshou012feipu、Yaoshou012fuyaozhishang、Yaoshou012houtiao、Yaoshou012tianhupuyao 等 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou015attacked,creature,已读,B1 归属阅读：只由 Yaoshou015、Yaoshou024 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou015die,creature,已读,B1 归属阅读：只由 Yaoshou015、Yaoshou024 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou015idle,creature,已读,B1 归属阅读：只由 Yaoshou015、Yaoshou024 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou015skill01,creature,已读,B1 归属阅读：只由 Yaoshou015tanshetangdao、Yaoshou024tanshetangdao 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou015skill02,creature,已读,B1 归属阅读：只由 Yaoshou015lianxvgengzhua、Yaoshou024lianxvgengzhua 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou016attacked,creature,已读,B1 归属阅读：只由 Yaoshou016、Yaoshou038 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou016die,creature,已读,B1 归属阅读：只由 Yaoshou016、Yaoshou038 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou017attacked,creature,已读,B1 归属阅读：只由 Yaoshou017、Yaoshou01701 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou017die,creature,已读,B1 归属阅读：只由 Yaoshou017、Yaoshou01701 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou017idle,creature,已读,B1 归属阅读：只由 Yaoshou017、Yaoshou01701 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou017walk,creature,已读,B1 归属阅读：只由 Yaoshou017、Yaoshou01701 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou018attacked,creature,已读,B1 归属阅读：只由 Yaoshou018 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou018die,creature,已读,B1 归属阅读：只由 Yaoshou018 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou019attacked,creature,已读,B1 归属阅读：只由 Yaoshou019 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou019die,creature,已读,B1 归属阅读：只由 Yaoshou019 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou01die,creature,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应妖兽或修士技能
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou020attacked,creature,已读,B1 归属阅读：只由 Yaoshou020 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou020die,creature,已读,B1 归属阅读：只由 Yaoshou020 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou021attacked,creature,已读,B1 归属阅读：只由 Yaoshou021、Yaoshou042 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou021die,creature,已读,B1 归属阅读：只由 Yaoshou021、Yaoshou042 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou021idle,creature,已读,B1 归属阅读：只由 Yaoshou021、Yaoshou042 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou025attacked,creature,已读,B1 归属阅读：只由 Yaoshou025 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou025die,creature,已读,B1 归属阅读：只由 Yaoshou025 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou025idle,creature,已读,B1 归属阅读：只由 Yaoshou025 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou027skill01,creature,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应妖兽或修士技能
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou029idle,creature,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应妖兽或修士技能
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou032attacked,creature,已读,B1 归属阅读：只由 Yaoshou032 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou032die,creature,已读,B1 归属阅读：只由 Yaoshou032 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou032idle,creature,已读,B1 归属阅读：只由 Yaoshou032 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou032walk,creature,已读,B1 归属阅读：只由 Yaoshou032 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou033skill01,creature,已读,B1 归属阅读：妖兽 yaoshou_033 的技能声；战斗过程按 ID 复用（播放者：combat 的 Duyao21ZaiXiaoGuoChiXuShiMeiKeFaSheng；creature 的 Yaoshou053chuibai）
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou033skill0102,creature,已读,B1 归属阅读：只由 Yaoshou033baoziduwu、Yaoshou033hunluanduwu 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou033skill02,creature,已读,B1 归属阅读：只由 Yaoshou033fangdutaopao 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou035attacked,creature,已读,B1 归属阅读：只由 Yaoshou035 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou035die,creature,已读,B1 归属阅读：只由 Yaoshou035 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou035idle,creature,已读,B1 归属阅读：只由 Yaoshou035 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou035skill01,creature,已读,B1 归属阅读：只由 Yaoshou035donghe、Yaoshou035zhaohuanxiaohou 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou035walk,creature,已读,B1 归属阅读：只由 Yaoshou035 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou036attacked,creature,已读,B1 归属阅读：只由 Yaoshou036、Yaoshou043 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou036die,creature,已读,B1 归属阅读：只由 Yaoshou036、Yaoshou043 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou036idle,creature,已读,B1 归属阅读：只由 Yaoshou036、Yaoshou043 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou036skill01,creature,已读,B1 归属阅读：来源中没有任何代码、元素定义或动画播放它；按名称对应妖兽或修士技能
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou036walk,creature,已读,B1 归属阅读：只由 Yaoshou036、Yaoshou043 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou037die,creature,已读,B1 归属阅读：只由 Yaoshou037 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou037idle,creature,已读,B1 归属阅读：只由 Yaoshou037 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou037skill01,creature,已读,B1 归属阅读：只由 Yaoshou037houjiao 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou037skill02,creature,已读,B1 归属阅读：只由 Yaoshou037feipu 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou039skill01,creature,已读,B1 归属阅读：只由 Yaoshou037guangshan、Yaoshou039guangshan 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou040idle,creature,已读,B1 归属阅读：只由 Yaoshou040 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou041fly,creature,已读,B1 归属阅读：只由 Yaoshou041 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou045idle,creature,已读,B1 归属阅读：只由 Yaoshou045 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou046attacked,creature,已读,B1 归属阅读：只由 Yaoshou046 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou046die,creature,已读,B1 归属阅读：只由 Yaoshou046 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou046idle,creature,已读,B1 归属阅读：只由 Yaoshou046 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou046walk,creature,已读,B1 归属阅读：只由 Yaoshou046 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou047idle,creature,已读,B1 归属阅读：只由 Yaoshou047 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou047walk,creature,已读,B1 归属阅读：只由 Yaoshou047 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou048attacked,creature,已读,B1 归属阅读：只由 Yaoshou048 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou048die,creature,已读,B1 归属阅读：只由 Yaoshou048 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou048skill01,creature,已读,B1 归属阅读：只由 Yaoshou031shuiliu、Yaoshou048jiliu 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou048skill02,creature,已读,B1 归属阅读：只由 Yaoshou048gundong 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou048walk,creature,已读,B1 归属阅读：只由 Yaoshou012feipu、Yaoshou012huxiao、Yaoshou012saowei、Yaoshou012tianhupuyao 等 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou050attacked,creature,已读,B1 归属阅读：只由 Yaoshou050 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou050die,creature,已读,B1 归属阅读：只由 Yaoshou050 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou050idle,creature,已读,B1 归属阅读：只由 Yaoshou018、Yaoshou050 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou050skill02,creature,已读,B1 归属阅读：只由 Yaoshou050canghenyiji 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou050walk,creature,已读,B1 归属阅读：只由 Yaoshou019、Yaoshou020、Yaoshou025、Yaoshou033 等 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou053skill01,creature,已读,B1 归属阅读：只由 Yaoshou053bingshunshen 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou053skill03,creature,已读,B1 归属阅读：只由 Yaoshou053bingji 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou053skill05,creature,已读,B1 归属阅读：只由 Yaoshou053bingshanshen 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou054attacked,creature,已读,B1 归属阅读：只由 Yaoshou054 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou054die,creature,已读,B1 归属阅读：只由 Yaoshou054 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou054skill0101,creature,已读,B1 归属阅读：只由 Yaoshou054jvedongkaojin、Yaoshou054jvedonglikai 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou054skill0102,creature,已读,B1 归属阅读：只由 Yaoshou054jvedongkaojin、Yaoshou054jvedonglikai 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou054skill0103,creature,已读,B1 归属阅读：只由 Yaoshou054jvedongkaojin、Yaoshou054jvedonglikai 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou054skill02,creature,已读,B1 归属阅读：只由 Yaoshou054bingzhua 播放
+yvanchuxiuzhen,sound_event,yvanchuxiuzhen:yaoshou054walk,creature,已读,B1 归属阅读：只由 Yaoshou054 播放

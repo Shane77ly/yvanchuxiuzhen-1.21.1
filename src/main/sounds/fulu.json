@@ -1,0 +1,11 @@
+{
+  "fulushifang": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:fulushifang",
+        "stream": false
+      }
+    ]
+  }
+}

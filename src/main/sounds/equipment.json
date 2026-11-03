@@ -1,0 +1,81 @@
+{
+  "fabao001": {
+    "category": "neutral",
+    "subtitle": "subtitles.fabao001",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:fabao001",
+        "stream": false
+      }
+    ]
+  },
+  "bowxvliman": {
+    "category": "neutral",
+    "subtitle": "subtitles.bowxvliman",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowxvliman",
+        "stream": false
+      }
+    ]
+  },
+  "bowxvli": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowxvli",
+        "stream": false
+      }
+    ]
+  },
+  "bowshoot1": {
+    "category": "neutral",
+    "subtitle": "subtitles.bowshoot1",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowshoot1",
+        "stream": false
+      }
+    ]
+  },
+  "bowshoot3": {
+    "category": "neutral",
+    "subtitle": "subtitles.bowshoot3",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowshoot3",
+        "stream": false
+      }
+    ]
+  },
+  "bowshoot4": {
+    "category": "neutral",
+    "subtitle": "subtitles.bowshoot4",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowshoot4",
+        "stream": false
+      }
+    ]
+  },
+  "bowshoot5": {
+    "category": "neutral",
+    "subtitle": "subtitles.bowshoot5",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowshoot5",
+        "stream": false
+      }
+    ]
+  },
+  "bowshoot6": {
+    "category": "neutral",
+    "subtitle": "subtitles.bowshoot6",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:bowshoot6",
+        "stream": false
+      }
+    ]
+  }
+}
