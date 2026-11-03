@@ -176,17 +176,17 @@ yvanchuxiuzhen,Cailiao186,item,~/item/DemonBeastInnerPill,material,已读,B1 归
 yvanchuxiuzhen,Cailiao187,item,~/item/DemonBeastInnerPill,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 equipment 的 Shipinpeifang2；flow 的 RightClickEntity、Worldbegin；lianqi 的 LianqiLEVELUP；treasure 的 BaoxiangYaodancailiao；xiulian 的 Jindanhuoqv01、Jindanhuoqv02、Jindanhuoqv03、Jindanhuoqv04 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao188,item,~/item/DemonBeastInnerPill,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 equipment 的 Shipinpeifang2；flow 的 RightClickEntity、Worldbegin；lianqi 的 LianqiLEVELUP；treasure 的 BaoxiangYaodancailiao；xiulian 的 Jindanhuoqv01、Jindanhuoqv02、Jindanhuoqv03、Jindanhuoqv04 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao189,item,~/item/DemonBeastInnerPill,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 equipment 的 Shipinpeifang2；flow 的 RightClickEntity、Worldbegin；lianqi 的 LianqiLEVELUP；treasure 的 BaoxiangYaodancailiao；xiulian 的 Jindanhuoqv01、Jindanhuoqv02、Jindanhuoqv03、Jindanhuoqv04 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
-yvanchuxiuzhen,Cailiao190,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao191,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao192,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao193,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao194,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao195,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao196,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao197,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao198,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao199,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao200,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Cailiao190,item,~/item/Lingshi,economy,已读,B1 归属阅读：货币或灵石：无过程；被 festival 的 Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi；flow 的 Worldbegin 按 ID 引用（奖励、价格、阵基与飞行器的灵石消耗、合成），不赋予它规则
+yvanchuxiuzhen,Cailiao191,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao192,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao193,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao194,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao195,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao196,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao197,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao198,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao199,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao200,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
 yvanchuxiuzhen,Cailiao191hecheng,recipe,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao192hecheng,recipe,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao193hecheng,recipe,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -203,27 +203,27 @@ yvanchuxiuzhen,Cailiao196fenjie,recipe,~/item/Lingshi,economy,候选,第一版�
 yvanchuxiuzhen,Cailiao197fenjie,recipe,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao198fenjie,recipe,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao199fenjie,recipe,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao191WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao192WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao193WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao194WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao195WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao196WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao197WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao198WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao199WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao200WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Cailiao191WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,已读,B1 归属阅读：随 Cailiao191 读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao192WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,已读,B1 归属阅读：随 Cailiao192 读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao193WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,已读,B1 归属阅读：随 Cailiao193 读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao194WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,已读,B1 归属阅读：随 Cailiao194 读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao195WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,已读,B1 归属阅读：随 Cailiao195 读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao196WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,已读,B1 归属阅读：随 Cailiao196 读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao197WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,已读,B1 归属阅读：随 Cailiao197 读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao198WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,已读,B1 归属阅读：随 Cailiao198 读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao199WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,已读,B1 归属阅读：随 Cailiao199 读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao200WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,已读,B1 归属阅读：随 Cailiao200 读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
 yvanchuxiuzhen,Cailiao190hecheng,recipe,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,YvanchuBlock,tab,~/systemset/classification,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao191ore,block,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao192ore,block,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao193ore,block,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao194ore,block,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao195ore,block,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao196ore,block,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao197ore,block,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao198ore,block,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao199ore,block,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Cailiao191ore,block,~/item/Lingshi,economy,已读,B1 归属阅读：货币或灵石：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cailiao192ore,block,~/item/Lingshi,economy,已读,B1 归属阅读：货币或灵石：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cailiao193ore,block,~/item/Lingshi,economy,已读,B1 归属阅读：货币或灵石：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cailiao194ore,block,~/item/Lingshi,economy,已读,B1 归属阅读：货币或灵石：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cailiao195ore,block,~/item/Lingshi,economy,已读,B1 归属阅读：货币或灵石：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cailiao196ore,block,~/item/Lingshi,economy,已读,B1 归属阅读：货币或灵石：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cailiao197ore,block,~/item/Lingshi,economy,已读,B1 归属阅读：货币或灵石：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cailiao198ore,block,~/item/Lingshi,economy,已读,B1 归属阅读：货币或灵石：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cailiao199ore,block,~/item/Lingshi,economy,已读,B1 归属阅读：货币或灵石：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Cailiao201,item,~/item/metal,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 creature 的 TaomujingDangShiTiGengXinKeShi、Ycxzboss04DangShiTiGengXinKeShi；economy 的 Putongchushouanniu、Putongshougoushuaxin；equipment 的 Fabao016、Gongjv001、Gongjv011、Shipinpeifang2、Shipinpeifang3、Weaponbroadsword01、Weaponepee01、Weaponlongbow01、Weaponspear01、Weaponspeedbow01、Weaponsword01；flow 的 Worldbegin；lianqi 的 Jingliancailiao、LianqiBegin、LianqiLEVELUP、Qvchu；npc 的 Businessman07ShiTiChuShiShengChengShi；treasure 的 BaoxiangJinshucailiao；xiulian 的 PlayerJoin02 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao202,item,~/item/metal,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；equipment 的 Gongjv012、Shipinpeifang1、Shipinpeifang2、Shipinpeifang3、Weaponbroadsword02、Weaponepee02、Weaponlongbow02、Weaponspear02、Weaponspeedbow02、Weaponsword02；flow 的 Worldbegin；lianqi 的 LianqiLEVELUP、Qvchu；npc 的 Businessman07ShiTiChuShiShengChengShi；treasure 的 BaoxiangJinshucailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao203,item,~/item/metal,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 equipment 的 Gongjv013、Shipinpeifang1、Shipinpeifang2、Shipinpeifang3、Weaponbroadsword03、Weaponepee03、Weaponlongbow03、Weaponspear03、Weaponspeedbow03、Weaponsword03；flow 的 Worldbegin；lianqi 的 Jingliancailiao、LianqiBegin、LianqiLEVELUP、Qvchu；treasure 的 BaoxiangJinshucailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
@@ -260,100 +260,100 @@ yvanchuxiuzhen,Cailiao236particle,particle,~/item/fire,particle,候选,第一版
 yvanchuxiuzhen,Cailiao237particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao238particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao239particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao221fireblockFangZhiFangKuaiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao221fireblockGengXinYouXiKe,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao221fireblockDangShiTiZaiFangKuaiZhongPengZhuangShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao221fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao222fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao223fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao224fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao225fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao226fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao227fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao228fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao229fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao231fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao232fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao233fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao234fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao235fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao236fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao237fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao238fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao239fireblock,block,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao221KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao221DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao221DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao221TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao221,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao222DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao222DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao222TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao222,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao223DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao223DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao223TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao223,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao224DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao224DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao224TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao224,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao225DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao225DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao225TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao225,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao226DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao226DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao226TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao226,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao227DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao227DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao227TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao227,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao228DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao228DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao228TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao228,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao229DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao229DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao229TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao229,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao231DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao231DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao231TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao231,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao232DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao232DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao232TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao232,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao233DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao233DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao233TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao233,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao234DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao234DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao234TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao234,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao235DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao235DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao235TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao235,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao236DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao236DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao236TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao236,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao237DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao237DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao237TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao237,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao238DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao238DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao238TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao238,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao239DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao239DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao239TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao239,rangeditem,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Cailiao221fireblockFangZhiFangKuaiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221fireblock 读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao221fireblockGengXinYouXiKe,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221fireblock 读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao221fireblockDangShiTiZaiFangKuaiZhongPengZhuangShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221fireblock 读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao221fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao222fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao223fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao224fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao225fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao226fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao227fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao228fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao229fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao231fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao232fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao233fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao234fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao235fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao236fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao237fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao238fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao239fireblock,block,~/item/fire,yihuo,已读,B1 归属阅读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
+yvanchuxiuzhen,Cailiao221KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao221DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao221DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao221TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao221,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao222DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao222 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao222DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao222 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao222TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao222 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao222,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao223DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao223 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao223DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao223 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao223TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao223 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao223,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao224DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao224 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao224DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao224 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao224TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao224 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao224,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao225DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao225 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao225DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao225 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao225TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao225 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao225,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao226DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao226 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao226DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao226 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao226TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao226 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao226,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao227DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao227 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao227DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao227 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao227TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao227 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao227,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao228DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao228 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao228DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao228 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao228TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao228 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao228,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao229DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao229 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao229DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao229 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao229TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao229 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao229,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao231DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao231 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao231DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao231 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao231TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao231 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao231,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao232DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao232 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao232DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao232 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao232TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao232 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao232,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao233DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao233 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao233DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao233 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao233TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao233 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao233,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao234DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao234 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao234DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao234 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao234TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao234 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao234,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao235DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao235 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao235DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao235 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao235TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao235 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao235,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao236DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao236 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao236DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao236 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao236TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao236 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao236,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao237DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao237 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao237DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao237 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao237TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao237 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao237,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao238DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao238 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao238DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao238 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao238TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao238 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao238,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao239DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao239 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao239DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao239 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao239TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao239 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
+yvanchuxiuzhen,Cailiao239,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
 yvanchuxiuzhen,Phoenix,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Longdignified,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tigerdignified,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1309,43 +1309,43 @@ yvanchuxiuzhen,Ginkgoarmchair01,block,~/decorate/buildingblocks,decor,已读,B1 
 yvanchuxiuzhen,Ginkgoarmchair02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
 yvanchuxiuzhen,Ginkgoarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Ginkgoarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
 yvanchuxiuzhen,Ginkgoarmchairplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Ginkgoarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
-yvanchuxiuzhen,BookRightClick,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book001,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book002,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book003,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book004,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book005,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book006,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book007,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book008,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book009,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book010,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book011,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book012,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book013,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book014,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book015,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book016,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book017,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book018,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book019,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book020,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book021,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book022,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book023,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book024,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book025,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book026,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book027,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book028,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book029,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book030,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book031,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book032,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book033,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book034,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book035,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Book036,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,BookRightClick,procedure,~/item/book,book,已读,B1 归属阅读：随 Book001 读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book001,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book002,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book003,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book004,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book005,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book006,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book007,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book008,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book009,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book010,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book011,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book012,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book013,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book014,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book015,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book016,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book017,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book018,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book019,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book020,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book021,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book022,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book023,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book024,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book025,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book026,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book027,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book028,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book029,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book030,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book031,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book032,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book033,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book034,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book035,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
+yvanchuxiuzhen,Book036,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
 yvanchuxiuzhen,Swordsmanship01DangShiTiGengXinKeShi,procedure,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Swordsmanship01,animatedentity,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Swordsmanship01chufa,procedure,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -2756,13 +2756,13 @@ yvanchuxiuzhen,ZizhijiancefankuiGO,procedure,~/systemset/zhiling,flow,候选,第
 yvanchuxiuzhen,Zizhijiancefankui,command,~/systemset/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ling11DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,xiulian,已读,B1 归属阅读：随 Ling11 读：远古石盘：出身“流浪侠客”的初始物品（PlayerJoin02），右键用粒子指向世界变量 chuansongzhen 记录的传送阵
 yvanchuxiuzhen,Ling11,item,~/item/zawu,xiulian,已读,B1 归属阅读：远古石盘：出身“流浪侠客”的初始物品（PlayerJoin02），右键用粒子指向世界变量 chuansongzhen 记录的传送阵
-yvanchuxiuzhen,Ling12DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ling12,item,~/tool/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ling13DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ling13,item,~/tool/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Ling12DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool/yinhang,economy,已读,B1 归属阅读：随 Ling12 读：通宝玉：认主后存取各级灵石并显示余额，属银行
+yvanchuxiuzhen,Ling12,item,~/tool/yinhang,economy,已读,B1 归属阅读：通宝玉：认主后存取各级灵石并显示余额，属银行
+yvanchuxiuzhen,Ling13DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool/yinhang,economy,已读,B1 归属阅读：随 Ling13 读：通宝玉：认主后存取各级灵石并显示余额，属银行
+yvanchuxiuzhen,Ling13,item,~/tool/yinhang,economy,已读,B1 归属阅读：通宝玉：认主后存取各级灵石并显示余额，属银行
 yvanchuxiuzhen,Bank,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TiandiyinhangZaiFangKuaiShangYouJian,procedure,~/tool/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tiandiyinhang,animatedblock,~/tool/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,TiandiyinhangZaiFangKuaiShangYouJian,procedure,~/tool/yinhang,economy,已读,B1 归属阅读：随 Tiandiyinhang 读：商店与天地银行方块：打开商店与银行界面、刷新与取出，属商店与银行
+yvanchuxiuzhen,Tiandiyinhang,animatedblock,~/tool/yinhang,economy,已读,B1 归属阅读：商店与天地银行方块：打开商店与银行界面、刷新与取出，属商店与银行
 yvanchuxiuzhen,QiankundaorenZaiFangKuaiShangYouJian,procedure,~/tool/xvnlong,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,QiankundaorenGengXinYouXiKe,procedure,~/tool/xvnlong,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qiankundaoren,animatedblock,~/tool/xvnlong,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5385,8 +5385,8 @@ yvanchuxiuzhen,Taomujinglist,loottable,~/item/lingmu,creature,候选,第一版�
 yvanchuxiuzhen,Cailiao243,item,~/item/zawu,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 craft 的 ZhibujiZaiFangKuaiShangYouJian；flow 的 Worldbegin 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,TaomujingDangShiTiBeiShaSiShi,procedure,~/item/lingmu,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Saplings,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao210WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao210,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Cailiao210WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,已读,B1 归属阅读：随 Cailiao210 读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
+yvanchuxiuzhen,Cailiao210,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石与灵晶：货币身份；服用时增加灵力等（写入经 xiulian 的操作），属灵石货币
 yvanchuxiuzhen,Gongjv,tag,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao003DangTouSheWuSheZhongCiFangKuai2,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao003 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao004hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5426,7 +5426,7 @@ yvanchuxiuzhen,Canwutaidengjiwenben,procedure,~/tool/canwutai,gongfa,候选,第�
 yvanchuxiuzhen,Canwutaishuaxin,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Canwudianji,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Canwutaifangru,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Huoyanxiaoshipanding,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Huoyanxiaoshipanding,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221fireblock 读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
 yvanchuxiuzhen,Canwutaihecheng,recipe,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Book022hecheng,recipe,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Book032hecheng,recipe,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5711,16 +5711,16 @@ yvanchuxiuzhen,Cailiao16702,item,~/item/gemstone,material,已读,B1 归属阅读
 yvanchuxiuzhen,Cailiao16802,item,~/item/gemstone,material,已读,B1 归属阅读：璞玉：右键辨识为对应宝石 cailiao_161–169，写入等级与随机品阶（Cailiaopinjie），潜行时批量；有机遇编号时触发 Cailiaoyvshiqiyv 奇遇奖励（材料或妖兽），属材料辨识
 yvanchuxiuzhen,Cailiao16902,item,~/item/gemstone,material,已读,B1 归属阅读：璞玉：右键辨识为对应宝石 cailiao_161–169，写入等级与随机品阶（Cailiaopinjie），潜行时批量；有机遇编号时触发 Cailiaoyvshiqiyv 奇遇奖励（材料或妖兽），属材料辨识
 yvanchuxiuzhen,Cailiaoyvshiqiyv,procedure,~/item/gemstone,material,已读,B1 归属阅读：随 Cailiao16102 读：璞玉：右键辨识为对应宝石 cailiao_161–169，写入等级与随机品阶（Cailiaopinjie），潜行时批量；有机遇编号时触发 Cailiaoyvshiqiyv 奇遇奖励（材料或妖兽），属材料辨识
-yvanchuxiuzhen,Cailiao19101DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao19101,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao19201,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao19301,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao19401,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao19501,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao19601,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao19701,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao19801,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao19901,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Cailiao19101DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/Lingshi,economy,已读,B1 归属阅读：随 Cailiao19101 读：灵石原矿：右键开出对应等级灵石，属灵石货币
+yvanchuxiuzhen,Cailiao19101,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石原矿：右键开出对应等级灵石，属灵石货币
+yvanchuxiuzhen,Cailiao19201,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石原矿：右键开出对应等级灵石，属灵石货币
+yvanchuxiuzhen,Cailiao19301,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石原矿：右键开出对应等级灵石，属灵石货币
+yvanchuxiuzhen,Cailiao19401,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石原矿：右键开出对应等级灵石，属灵石货币
+yvanchuxiuzhen,Cailiao19501,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石原矿：右键开出对应等级灵石，属灵石货币
+yvanchuxiuzhen,Cailiao19601,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石原矿：右键开出对应等级灵石，属灵石货币
+yvanchuxiuzhen,Cailiao19701,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石原矿：右键开出对应等级灵石，属灵石货币
+yvanchuxiuzhen,Cailiao19801,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石原矿：右键开出对应等级灵石，属灵石货币
+yvanchuxiuzhen,Cailiao19901,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石原矿：右键开出对应等级灵石，属灵石货币
 yvanchuxiuzhen,Leijie0101,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Leijie0102,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Leijie0103,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6165,10 +6165,10 @@ yvanchuxitong,Renwujixv,procedure,~/duihua,quest,候选,第一版批量归组（
 yvanchuxitong,ShopGUI,gui,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopGUIopen,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopGUIDangZheGeJieMianDaKaiShi,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Money01,item,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Money02,item,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Money03,item,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Money04,item,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Money01,item,~/shop,economy,已读,B1 归属阅读：货币或灵石：无过程；被 festival 的 Fuqi02TouKuiShiJianMeiYouXiKe、Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi；npc 的 Businessman01ShiTiChuShiShengChengShi；quest 的 Xvanshangzhuizongheji；treasure 的 TreasureChest06ZaiFangKuaiShangYouJian 按 ID 引用（奖励、价格、阵基与飞行器的灵石消耗、合成），不赋予它规则
+yvanchuxitong,Money02,item,~/shop,economy,已读,B1 归属阅读：货币或灵石：无过程；被 festival 的 Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi；material 的 Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhi；npc 的 Businessman01ShiTiChuShiShengChengShi；quest 的 Xvanshangzhuizongheji 按 ID 引用（奖励、价格、阵基与飞行器的灵石消耗、合成），不赋予它规则
+yvanchuxitong,Money03,item,~/shop,economy,已读,B1 归属阅读：货币或灵石：无过程；被 festival 的 Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi；material 的 Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhi；npc 的 Businessman01ShiTiChuShiShengChengShi 按 ID 引用（奖励、价格、阵基与飞行器的灵石消耗、合成），不赋予它规则
+yvanchuxitong,Money04,item,~/shop,economy,已读,B1 归属阅读：货币或灵石：无过程；被 festival 的 Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi；material 的 Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhi；npc 的 Businessman01ShiTiChuShiShengChengShi 按 ID 引用（奖励、价格、阵基与飞行器的灵石消耗、合成），不赋予它规则
 yvanchuxitong,Shopjiagetxt01,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shopjiagetxt02,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shopjiagetxt03,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7111,7 +7111,7 @@ yvanchuxitong,ZhenxianpoluoGuiDangZheGeJieMianBeiGuanBi,procedure,~/yvanchulianq
 yvanchuxitong,Zhenxianpoluozhizuo,procedure,~/yvanchulianqi/fangzhiji,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Zhenxianpoluohecheng,recipe,~/yvanchulianqi/fangzhiji,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,MakebookGui,gui,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Makebook,block,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Makebook,block,~/zawu/makebook,book,已读,B1 归属阅读：装订台：方块绑定装订界面 MakebookGui，在界面中把书写内容装订为书籍，属装订
 yvanchuxitong,Makebookshuaxin,procedure,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Makebookxiaohao,procedure,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Makebookqingchu,procedure,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7316,18 +7316,18 @@ yvanchuxitong,Qiankundaihecheng,recipe,~/zawu/cailiaodai,storage,候选,第一�
 yvanchuxitong,BaoxiangBupi,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Yihuoshujvfuyv,procedure,,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Paimaihang,gui,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PaimaiblockFangKuaiShiTiXuanRanShi,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PaimaiblockGengXinYouXiKe,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paimaiblock,block,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PaimaichairZaiFangKuaiShangYouJian,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PaimaichairFangZhiFangKuaiShi,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PaimaichairDangFangKuaiBeiWanJiaPoPiShi,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PaimaichairDangFangKuaiBeiBaoZhaPoPiShi,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paimaichair,block,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Ling20DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Ling20,item,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PaimaiblockFangKuaiShiTiXuanRanShi,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,PaimaiblockGengXinYouXiKe,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,Paimaiblock,block,~/shop/paimaihang,economy,已读,B1 归属阅读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,PaimaichairZaiFangKuaiShangYouJian,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaichair 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,PaimaichairFangZhiFangKuaiShi,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaichair 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,PaimaichairDangFangKuaiBeiWanJiaPoPiShi,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaichair 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,PaimaichairDangFangKuaiBeiBaoZhaPoPiShi,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaichair 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,Paimaichair,block,~/shop/paimaihang,economy,已读,B1 归属阅读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,Ling20DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Ling20 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,Ling20,item,~/shop/paimaihang,economy,已读,B1 归属阅读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
 yvanchuxitong,Lore02,procedure,,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PaimaiblockZaiFangKuaiShangYouJian,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PaimaiblockZaiFangKuaiShangYouJian,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
 yvanchuxitong,PaimaihangDangZheGeJieMianBeiGuanBi,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Paimaifangkuaigui,gui,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Paimaihuiname,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7368,14 +7368,14 @@ yvanchuxitong,Xianshiwenben20,procedure,~/shop/paimaihang,economy,候选,第一�
 yvanchuxitong,Armor,tag,~/yvanchulianqi/tiandao,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Npcshujvjiaru,procedure,~/chengzhen/npcshujvjiaru,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Worldclose,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PaimaiDaorunpc,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Goodsdaoru,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jingpaiyiyvan,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jingpaiyiyvanqingchu,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beitiaoxinhuayv,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,TiaoxinChujia,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Duihuafenhang,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Fangqijingjiaduihua,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PaimaiDaorunpc,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,Goodsdaoru,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,Jingpaiyiyvan,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,Jingpaiyiyvanqingchu,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,Beitiaoxinhuayv,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,TiaoxinChujia,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,Duihuafenhang,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
+yvanchuxitong,Fangqijingjiaduihua,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
 yvanchuxitong,Jiesuocaoyao,procedure,~/zhiling,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Jiesuocailiao,procedure,~/zhiling,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,YvanchuGo,procedure,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7435,14 +7435,14 @@ yvanchuxitong,ShopblockGuisetset,procedure,~/shop/shopblock,economy,候选,第�
 yvanchuxitong,ShopblockGuisetshuoming,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopblockGui,gui,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopblockGuigoumai,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Shopblock01FangKuaiShiTiXuanRanShi,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Shopblock01DangFangKuaiBeiShuiFangZhiShi,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Shopblock01ZaiFangKuaiShangYouJian,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Shopblock01,block,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Shopblock01FangKuaiShiTiXuanRanShi,procedure,~/shop/shopblock,economy,已读,B1 归属阅读：随 Shopblock01 读：商店与天地银行方块：打开商店与银行界面、刷新与取出，属商店与银行
+yvanchuxitong,Shopblock01DangFangKuaiBeiShuiFangZhiShi,procedure,~/shop/shopblock,economy,已读,B1 归属阅读：随 Shopblock01 读：商店与天地银行方块：打开商店与银行界面、刷新与取出，属商店与银行
+yvanchuxitong,Shopblock01ZaiFangKuaiShangYouJian,procedure,~/shop/shopblock,economy,已读,B1 归属阅读：随 Shopblock01 读：商店与天地银行方块：打开商店与银行界面、刷新与取出，属商店与银行
+yvanchuxitong,Shopblock01,block,~/shop/shopblock,economy,已读,B1 归属阅读：商店与天地银行方块：打开商店与银行界面、刷新与取出，属商店与银行
 yvanchuxitong,Shopblockguijiagexianshi,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shopblock01huishou,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopblockGuiDangZheGeJieMianDaKaiShi,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Shopblockshuaxin,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Shopblockshuaxin,procedure,~/shop/shopblock,economy,已读,B1 归属阅读：随 Shopblock01 读：商店与天地银行方块：打开商店与银行界面、刷新与取出，属商店与银行
 yvanchuxitong,Shopblockshengyv,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shopblockshuaxinshuaxin,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shopdanrenxiangouxianshi,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7463,4 +7463,4 @@ yvanchuxitong,Shopshuaxintickup1,procedure,~/shop/shopblock,economy,候选,第�
 yvanchuxitong,Shopshuaxintickup2,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shopshuaxintickup3,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shopshuaxintickup4,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Shopblockqvchu,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Shopblockqvchu,procedure,~/shop/shopblock,economy,已读,B1 归属阅读：随 Shopblock01 读：商店与天地银行方块：打开商店与银行界面、刷新与取出，属商店与银行
