@@ -1,4 +1,4 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
-item,yvanchuxiuzhen:ling_15,yvanchuxiuzhen,Ling15,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2624,relation,候选,yvanchuxiuzhen:ling_15,待处理,
+item,yvanchuxiuzhen:ling_15,yvanchuxiuzhen,Ling15,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2624,relation,已读,yvanchuxiuzhen:ling_15,待处理,
 menu,yvanchuxiuzhen:friendgui,yvanchuxiuzhen,Friendgui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,104,relation,候选,yvanchuxiuzhen:friendgui,待处理,
 menu,yvanchuxiuzhen:zuduiteam_gui,yvanchuxiuzhen,ZuduiteamGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,87,relation,候选,yvanchuxiuzhen:zuduiteam_gui,待处理,
