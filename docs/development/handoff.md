@@ -18,15 +18,16 @@ updated: 2026-11-03
 | 代码 | 公共入口与客户端入口；`platform/content` 的内容表加载器与工厂（15 种方块、物品、工具、盔甲）按单位登记 1,127 个方块、2,063 个物品与 150 个声音事件，29 个有内容的单位各有一个 `<名称>Setup`；ArchUnit、台账工具、归属证据工具、片段合并与客户端冒烟检查已接入 |
 | 批次进度 | B0 完成步骤 1–5 后按负责人指示结束（2026-11-02），B1 于 2026-11-03 出口核对并经负责人认可后结束，当前执行 C（从 attribute 开始）；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移；命名空间统一为 `yvanchuxiuzhen`。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
 | 已批准 | 2026-11-02 负责人批准整体架构、[工程结构与长期维护](engineering.md)、[实施路线](roadmap.md)（`3e0585c` 版本），记录见[项目状态](../systems/project/README.md)；不含存档导入、界面复刻程度、license、Q01–Q14 |
-| 未执行 | 玩法实现、1.18.2 实机对照、存档与视觉验收；B1 归属结论的负责人审阅；goal 未授权 |
+| 未执行 | 玩法实现、1.18.2 实机对照、存档与视觉验收；goal 未授权 |
 
 ## 进行中
 
 C 玩家与战斗核心，第一个系统 attribute（分支 `port/c-attribute`，最新提交以 `git log` 为准）。B1 的结果与出口核对见[项目状态](../systems/project/README.md)“B1 出口核对”与[路线](roadmap.md)“B1 实施步骤”；B1 范围内需要新代码类型的 298 行（`skipped.csv`）与其余语言键随所属系统迁移。盔甲挥臂闪烁与药草疑似缺失两项反馈由负责人指示暂缓（2026-11-03）。
 
-attribute 已完成：来源计算链与 24 个属性字段全部外部读写点的静态核对、五行加成公式，写入[属性](../systems/attribute/architecture.md)“来源事实核对”；[公开操作](../systems/attribute/README.md)已定稿（查询最终值、提交与清除贡献、五行系数）。待裁定 Q17（炼器数值计入显示与战斗结算、但实际生命上限只在妖化防具生效、近战伤害不含武器数值）与 Q18（受击方同属性功法使伤害增加），裁定前按来源行为实现。
+attribute 已完成：来源计算链与 24 个属性字段全部外部读写点的静态核对、五行加成公式，写入[属性](../systems/attribute/architecture.md)“来源事实核对”；[公开操作](../systems/attribute/README.md)已定稿（查询最终值、提交与清除贡献、五行系数）。待裁定 Q17（炼器数值计入显示与战斗结算、但实际生命上限只在妖化防具生效、近战伤害不含武器数值）与 Q18（受击方同属性功法使伤害增加），裁定前按来源行为实现。2026-11-03 已用算例与选项向负责人说明两项（算例、选项与建议写在[属性](../systems/attribute/architecture.md)“来源问题”），负责人尚未答复。
 
 下一步具体操作：
+0. 会话开始先确认负责人是否已裁定 Q17、Q18；已裁定则写入项目状态、问题表与属性正文后按裁定实现。未答复时照常做下面各步，实现按来源行为，把这两处写成可单独替换的公式项（Q17：实际生命与攻击基础值是否计入炼器数值；Q18：功法五行项的符号与读取对象）。
 1. 读 attribute 的 9 个候选元素的归属（`Shuxingjisuan*`、`Weaponshuxing`、`Shujvtongbu`、`Playershuxingjisuan`、`Attributexianshi`，以及妖兽的实体属性 `Entitydaxiao`、`Yaoshoupifuxianshi`——后两者可能属于 creature），写入归属表与台账。
 2. 实现：`system/attribute/api` 的查询与贡献接口；玩家附件保存各来源贡献与派生值（Codec，死亡复制策略按 `clone_policy.csv` 的对应字段，同步给本人，这是 B0 步骤 7 遗留机制的首个实例）；按装备变化与贡献变化重算，派生值写入原版属性（核对 NeoForge 21.1.265 的属性修饰符与装备变化事件 API）。
 3. 针对性验证：派生公式的独立算例（JUnit）、开发服务端与 `runSmokeClient` 中穿戴与重登后的属性值。
@@ -81,9 +82,9 @@ AGENTS.md 的“当前关口”写明架构未批准时，只能做调查、文�
 - 运行日志、临时脚本放 `tmp/`。
 - 客户端行为由会话自己验证：`./gradlew runSmokeClient`（见[工程结构](engineering.md)“验证基础设施”），结果在 `build/smoke/report.txt`，截图在 `run/screenshots`；不要让负责人手工开客户端复现。
 
-## 下一步：B1 全量内容身份与资源
+## 下一步：C 玩家与战斗核心
 
-范围、出口条件与逐步状态的正文在[路线](roadmap.md)“B1 实施步骤”。出口条件已核对，待负责人审阅；进展与下一步具体操作见上文“进行中”。
+范围与出口在[路线](roadmap.md)“批次和出口”的 C 行：依次完成 attribute → relation → gongfa → xiulian → combat → skill → yihuo → equipment，每个系统按移植技能的系统工作单推进，完成后合入 `main` 再开下一个系统的分支。当前进展与具体操作见上文“进行中”。B1 已于 2026-11-03 结束，结果见[项目状态](../systems/project/README.md)“B1 出口核对”。
 
 ### B0 结束时的状态与未完成项去向
 
