@@ -11,6 +11,7 @@ import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.xiulian.BirthSelection;
+import net.yvanchuxiuzhen.system.xiulian.LevelUp;
 import net.yvanchuxiuzhen.system.xiulian.SkillPoints;
 import net.yvanchuxiuzhen.system.xiulian.data.CultivationData;
 import net.yvanchuxiuzhen.system.xiulian.data.XiulianAttachments;
@@ -130,6 +131,11 @@ public final class Cultivation {
     /** 分配一个属性点（面板第 2 页的加点按钮）；属性点不足或该项已达当前境界上限时只提示。 */
     public static void spendSkillPoint(ServerPlayer player, SkillPoint point) {
         SkillPoints.spend(player, point);
+    }
+
+    /** 层数对应的境界名（如 1 为“练气一层”，41 以上为“化神”）。 */
+    public static String realmName(int level) {
+        return LevelUp.realmName(level);
     }
 
     /** 管理命令 {@code /yvanchu … chongzhilinggen}：五行灵根重新随机 0–9 并重算阴阳。 */

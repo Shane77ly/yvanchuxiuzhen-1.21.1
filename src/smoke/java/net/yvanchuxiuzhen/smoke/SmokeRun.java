@@ -174,7 +174,7 @@ final class SmokeRun {
                     case "xiulian" -> List.of(new XiulianCheck(report, levelId, this::shot), new XiulianProgressCheck(report, levelId, this::shot),
                             new DantianCheck(report, levelId, this::shot), new BloodPathCheck(report, levelId, this::shot),
                             new XiulianOperationsCheck(report, levelId));
-                    case "gongfa" -> List.of(new GongfaCheck(report, levelId));
+                    case "gongfa" -> List.of(new GongfaCheck(report, levelId), new ComprehensionCheck(report, levelId, this::shot));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }

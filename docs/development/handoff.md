@@ -31,7 +31,8 @@ C 玩家与战斗核心，下一个系统 gongfa（分支 `port/c-gongfa`，从 
 
 gongfa 进度（分阶段在本分支提交）：
 - 阶段 1 已提交（wip）：功法定义 67 本、功法书组件、研习、功法栏与提交、功法修炼与闭关经验、升级成长、提示文本、书架藏宝；冒烟 `GongfaCheck` 22 项通过；Q26。
-- 阶段 2 起：参悟台（`yvanchuxiuzhen:canwutai_block` 方块实体与菜单 `canwutai`，来源 `tool/canwutai` 16 个元素）；之后星宿穴位学习小游戏（原初系统 `gongfaxvexi` 方块与菜单 `gongfaxvexi_gui`，415 个显示过程由会话状态计算，见架构“目标所有权”）。
+- 阶段 2 已提交（wip）：参悟台（方块实体、菜单 `canwutai`、参悟与继承）；冒烟 `ComprehensionCheck` 通过；Q27。
+- 阶段 3：星宿穴位学习小游戏（原初系统 `gongfaxvexi` 方块与菜单 `gongfaxvexi_gui`，415 个显示过程由会话状态计算，见架构“目标所有权”）。
 
 下一步具体操作（gongfa；做法同前三个系统）：
 1. 读 gongfa 的候选元素归属（[归属表](../reference/legacy/inventory/ownership_assignment.csv)），用 `tools/porting/ownership_evidence.py` 列证据，读后改为“已读”并运行 `build_ledger.py`、`build_architecture_catalog.py`。

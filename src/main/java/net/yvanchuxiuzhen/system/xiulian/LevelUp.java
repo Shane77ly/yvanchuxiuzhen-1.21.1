@@ -48,6 +48,11 @@ public final class LevelUp {
     private LevelUp() {
     }
 
+    /** 层数对应的境界名；41 层以上同 41 层（化神）。 */
+    public static String realmName(int level) {
+        return REALM_NAMES.get(Math.min(level, 41));
+    }
+
     /** 层数 20、30、40 与 41 以上修为圆满时需要渡雷劫（来源 {@code Jiancelevel}）。 */
     public static boolean needsTribulation(double level) {
         return level == 20 || level == 30 || level == 40 || level >= 41;
@@ -80,7 +85,7 @@ public final class LevelUp {
             correct(player, "LevelupCorrect");
         }
         int level = (int) Cultivation.get(player, CultivationValue.LEVEL_NUMBER);
-        Cultivation.set(player, CultivationText.LEVEL_NAME, REALM_NAMES.get(Math.min(level, 41)));
+        Cultivation.set(player, CultivationText.LEVEL_NAME, realmName(level));
         String advance = "";
         switch (level) {
             case 1 -> {

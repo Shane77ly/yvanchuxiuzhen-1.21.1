@@ -96,8 +96,7 @@ public final class TechniqueRules {
             player.displayClientMessage(Component.literal(hint), false);
             return;
         }
-        stack.set(GongfaData.TECHNIQUE.get(), grown(new TechniqueBook(book.definition(), Optional.of(player.getUUID()),
-                player.getDisplayName().getString(), 1, book.exp(), book.values())));
+        stack.set(GongfaData.TECHNIQUE.get(), grown(book.withOwner(player.getUUID(), player.getDisplayName().getString()).withProgress(1, book.exp())));
         player.displayClientMessage(Component.literal("§6研习成功！"), false);
         player.closeContainer();
         NeoForge.EVENT_BUS.post(new TechniqueStudiedEvent(player, book.definition().name()));
@@ -115,7 +114,7 @@ public final class TechniqueRules {
         for (TechniqueStat stat : TechniqueStat.values()) {
             values.add(stat.value(book.level(), book.definition().tier(stat)));
         }
-        return new TechniqueBook(book.definition(), book.owner(), book.ownerName(), book.level(), book.exp(), values);
+        return book.withValues(values);
     }
 
     /** 放入或取出功法栏的书，随后提交主修功法信息与属性贡献。 */
@@ -169,7 +168,7 @@ public final class TechniqueRules {
             player.displayClientMessage(Component.literal("§6功法升级到" + WHOLE.format(level) + "重天"), false);
             levelled = true;
         }
-        TechniqueBook updated = new TechniqueBook(book.definition(), book.owner(), book.ownerName(), level, exp, book.values());
+        TechniqueBook updated = book.withProgress(level, exp);
         ItemStack stack = Techniques.slot(player).copy();
         stack.set(GongfaData.TECHNIQUE.get(), levelled ? grown(updated) : updated);
         setSlot(player, stack);

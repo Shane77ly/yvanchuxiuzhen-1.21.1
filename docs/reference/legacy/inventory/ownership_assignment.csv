@@ -5411,21 +5411,21 @@ yvanchuxiuzhen,PlayerGui08xiulian,procedure,~/GUI,panel,候选,第一版批量�
 yvanchuxiuzhen,Kaishigongfa,procedure,~/systemset,gongfa,已读,C gongfa 归属阅读：xiuliankaiguan 为“功法”时每秒的功法修炼（监听 xiulian 的 CultivationSecondEvent）
 yvanchuxiuzhen,Mutanshaolian,recipe,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Mutanshaolian2,recipe,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canwutai,gui,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Canwutai,gui,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
 yvanchuxiuzhen,CanwutaiBlock,block,~/tool/canwutai,gongfa,已读,B1 归属阅读：功法：参悟台与功法学习方块
 yvanchuxiuzhen,CanwutaiBlockFangZhiFangKuaiShi,procedure,~/tool/canwutai,gongfa,已读,B1 归属阅读：随 CanwutaiBlock 读：功法：参悟台与功法学习方块
-yvanchuxiuzhen,Canwutaiwenben1,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canwutaiwenben2,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canwutaiwenben3,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canwutaiqiehuan,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canwufangshi,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canwuanniu,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canwutaicanwugongshi,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canwutaijingyangongshi,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canwutaidengjiwenben,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canwutaishuaxin,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canwudianji,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canwutaifangru,procedure,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Canwutaiwenben1,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
+yvanchuxiuzhen,Canwutaiwenben2,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
+yvanchuxiuzhen,Canwutaiwenben3,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
+yvanchuxiuzhen,Canwutaiqiehuan,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
+yvanchuxiuzhen,Canwufangshi,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
+yvanchuxiuzhen,Canwuanniu,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
+yvanchuxiuzhen,Canwutaicanwugongshi,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
+yvanchuxiuzhen,Canwutaijingyangongshi,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
+yvanchuxiuzhen,Canwutaidengjiwenben,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
+yvanchuxiuzhen,Canwutaishuaxin,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
+yvanchuxiuzhen,Canwudianji,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
+yvanchuxiuzhen,Canwutaifangru,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
 yvanchuxiuzhen,Huoyanxiaoshipanding,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221fireblock 读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
 yvanchuxiuzhen,Canwutaihecheng,recipe,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Book022hecheng,recipe,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）

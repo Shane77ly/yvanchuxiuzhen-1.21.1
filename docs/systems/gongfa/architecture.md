@@ -36,6 +36,13 @@ updated: 2026-11-01
 - 修炼：监听 xiulian 的 `CultivationSecondEvent`（“功法”开关的功法修炼，见 `TechniqueRules.train`）与 `CultivationExperienceEvent`（闭关吸纳元气 × 1.5 给功法经验，不检查研习者）。升级条件：层数低于境界层数 + `LevelNumberCorrect` 且低于 40；所需经验 = 层数² × 品阶 × 10。
 - 提示文本（`TechniqueTooltip`，来源 `ItemLore` 功法分支与 `GongfaLore`）。
 - 来源中 `Gongfashuaxin`、`Gongfashuaxin2` 没有调用者，不迁移。
+- 验证：冒烟 `GongfaCheck`（研习条件、提交、闭关经验与升级、提示文本、书架藏宝）与 `ComprehensionCheck`（放置说明、右键界面、参悟、切换、两次继承与 Q27），共 36 项符合，日志 ERROR 0 条，截图 `gongfa_comprehension.png`。
+
+### 阶段 2：参悟台
+
+- 方块（`ComprehensionTableBlock`，内容表方块工厂 `gongfa:canwutai_block`）：放置时写入参悟模式与初始说明，右键打开参悟界面，拆除时掉出槽内物品，比较器按槽内物品输出。方块实体（`ComprehensionTableBlockEntity`）保存一格物品、模式、三行说明与可继承经验并同步给客户端。来源的槽位经漏斗可放入任何物品，目标只接受功法书（界面的槽位来源已限定为功法书；其他物品会让参悟规则读到空字段）。
+- 规则（`Comprehension`）：模式切换、刷新说明、参悟（寿元 参悟次数² × 品阶 + 20，所需境界降一层并改写境界文字，只能由第一个参悟者继续）、继承（经验 × (0.5 + 品阶差 × 0.02)，Q27）。参悟后槽内物品写回为数量 1。境界文字经 xiulian 公开操作 `Cultivation.realmName`。
+- 界面（`ComprehensionScreen`）：客户端菜单使用一格临时容器，内容随菜单同步，文字读取菜单所指位置的方块实体。
 
 ## 裁定与验证
 
