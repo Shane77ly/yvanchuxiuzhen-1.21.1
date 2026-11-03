@@ -29,6 +29,10 @@ C 玩家与战斗核心，下一个系统 gongfa（分支 `port/c-gongfa`，从 
 - relation：敌友判定、团队与阵营、好友与申请界面；Q19、Q20；见[关系](../systems/relation/README.md)。留待其他系统：方块实体的敌友判定随首个调用者；好友行境界名随 xiulian。
 - xiulian：修炼档案与公开操作、出身、修炼推进与突破、闭关、金丹元婴、丹田界面、血道、加点、灵根重置、升仙令与家族令牌；Q21–Q25；见[修炼](../systems/xiulian/README.md)。留待其他系统：雷劫过程随 combat 的伤害入口（会话决定，轻微）；远古石盘随 world 的传送阵位置与 particle；传承灵物、家族百宝袋随 material 与 fulu 的实例数据；妖丹实例等级条件随 material；境界提升与血流滴落粒子随 particle；本命培养与进度提交随 equipment；面板加点与丹田按钮、返回分页随 panel；`/yvanchu` 灵根子命令、出身发放物品与 `keepInventory` 随 flow；被闪电击中的功法效果随 gongfa；元婴出窍随 skill。
 
+gongfa 进度（分阶段在本分支提交）：
+- 阶段 1 已提交（wip）：功法定义 67 本、功法书组件、研习、功法栏与提交、功法修炼与闭关经验、升级成长、提示文本、书架藏宝；冒烟 `GongfaCheck` 22 项通过；Q26。
+- 阶段 2 起：参悟台（`yvanchuxiuzhen:canwutai_block` 方块实体与菜单 `canwutai`，来源 `tool/canwutai` 16 个元素）；之后星宿穴位学习小游戏（原初系统 `gongfaxvexi` 方块与菜单 `gongfaxvexi_gui`，415 个显示过程由会话状态计算，见架构“目标所有权”）。
+
 下一步具体操作（gongfa；做法同前三个系统）：
 1. 读 gongfa 的候选元素归属（[归属表](../reference/legacy/inventory/ownership_assignment.csv)），用 `tools/porting/ownership_evidence.py` 列证据，读后改为“已读”并运行 `build_ledger.py`、`build_architecture_catalog.py`。
 2. 在 [gongfa README](../systems/gongfa/README.md)“公开操作”列出查询与写操作，对照 `typed_field_accesses.csv` 覆盖外部读写点。gongfa 依赖 xiulian：主修功法信息经 `Cultivation.setMainTechnique` 提交（名字、五行、品阶、层数、是否本人所有）；闭关给功法加经验与“功法”开关的推进监听 xiulian 的 `CultivationExperienceEvent`、`CultivationSecondEvent`；功法加成与五行、层数按 [attribute 公开操作](../systems/attribute/README.md)提交贡献（主修功法加成只在本人所有时计入，五行项不检查）；被闪电击中的雷系功法效果 `EntityThunder` 已归 gongfa。

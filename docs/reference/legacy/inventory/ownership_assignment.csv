@@ -1506,7 +1506,7 @@ yvanchuxiuzhen,Tileimbrexgilding08,block,~/decorate/buildingblocks,decor,已读,
 yvanchuxiuzhen,Tileimbrexgilding09,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Tileimbrexgilding10,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Technique,command,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TechniqueGO,procedure,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,TechniqueGO,procedure,~/systemset/zhiling,gongfa,已读,C gongfa 归属阅读：管理命令 /technique 按参数生成功法书；目标为公开操作 Techniques.createBook，命令本身归 flow
 yvanchuxiuzhen,ShenfaW,procedure,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,AnjianW,keybind,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shenfazhiling,procedure,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1914,31 +1914,31 @@ yvanchuxiuzhen,Lingshi06tag,tag,~/tag/baoxiang,treasure,候选,第一版批量�
 yvanchuxiuzhen,Lingshi07tag,tag,~/tag/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshi08tag,tag,~/tag/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshi09tag,tag,~/tag/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongfashuxingjisuan,procedure,~/item/book,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaHealthUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaHealthrecUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaPowermaxUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaPowerrecUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaSoulmaxUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaSoulrecUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaAttackUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaDefenseUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaManaattUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaManadefUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaSoulattUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaSouldefUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaSpeedUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongfashuaxin,procedure,~/systemset,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongfalist01,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Gongfashuxingjisuan,procedure,~/item/book,gongfa,已读,C gongfa 归属阅读：研习时写研习者与层数 1，按档位算十三项加成（等于层数 1 的成长值）
+yvanchuxiuzhen,GongfaHealthUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,GongfaHealthrecUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,GongfaPowermaxUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,GongfaPowerrecUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,GongfaSoulmaxUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,GongfaSoulrecUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,GongfaAttackUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,GongfaDefenseUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,GongfaManaattUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,GongfaManadefUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,GongfaSoulattUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,GongfaSouldefUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,GongfaSpeedUp,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：功法升级后按层数分段与档位重算一项加成（TechniqueStat）
+yvanchuxiuzhen,Gongfashuaxin,procedure,~/systemset,gongfa,已读,C gongfa 归属阅读：功法属性刷新，来源中没有调用者，不迁移（有效链为 PlayerTick 的属性计算）
+yvanchuxiuzhen,Gongfalist01,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：藏宝功法表，按随机数给一本功法书（定义提取为 content/gongfa/techniques.json）
 yvanchuxiuzhen,EntityThunder,procedure,~/systemset,gongfa,已读,C xiulian 归属阅读：玩家被闪电击中时按主修功法名（雷脉功、五雷炼体诀、九霄真雷功）给效果，是功法的特殊效果
-yvanchuxiuzhen,Gongfalist02,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongfalist03,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,BookGiveGongfa,procedure,~/item/book,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongfalist04,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongfalist05,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongfalist06,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongfalist07,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongfalist08,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Gongfalist02,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：藏宝功法表，按随机数给一本功法书（定义提取为 content/gongfa/techniques.json）
+yvanchuxiuzhen,Gongfalist03,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：藏宝功法表，按随机数给一本功法书（定义提取为 content/gongfa/techniques.json）
+yvanchuxiuzhen,BookGiveGongfa,procedure,~/item/book,gongfa,已读,C gongfa 归属阅读：书架藏宝“功法书”按藏宝等级取第 1–8 表给书；目标为公开操作 Techniques.giveTreasureBook，由 book 的右键调用
+yvanchuxiuzhen,Gongfalist04,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：藏宝功法表，按随机数给一本功法书（定义提取为 content/gongfa/techniques.json）
+yvanchuxiuzhen,Gongfalist05,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：藏宝功法表，按随机数给一本功法书（定义提取为 content/gongfa/techniques.json）
+yvanchuxiuzhen,Gongfalist06,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：藏宝功法表，按随机数给一本功法书（定义提取为 content/gongfa/techniques.json）
+yvanchuxiuzhen,Gongfalist07,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：藏宝功法表，按随机数给一本功法书（定义提取为 content/gongfa/techniques.json）
+yvanchuxiuzhen,Gongfalist08,procedure,~/systemset/gongfa,gongfa,已读,C gongfa 归属阅读：藏宝功法表，按随机数给一本功法书（定义提取为 content/gongfa/techniques.json）
 yvanchuxiuzhen,XvejingDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/skill/jineng/xvedaoskill,xiulian,已读,B1 归属阅读：随 Xvejing 读：血精：右键回复 2 点生命；由血道修炼（Kaishixiulian 在血流旁修炼）与血魔祭魂秘法攻击（EntityHurt）产出，与血流、吸血石同属血道修炼
 yvanchuxiuzhen,Xvejing,item,~/skill/jineng/xvedaoskill,xiulian,已读,B1 归属阅读：血精：右键回复 2 点生命；由血道修炼（Kaishixiulian 在血流旁修炼）与血魔祭魂秘法攻击（EntityHurt）产出，与血流、吸血石同属血道修炼
 yvanchuxiuzhen,Cailiao200hecheng,recipe,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1959,7 +1959,7 @@ yvanchuxiuzhen,Qiankundai03,item,~/item/zawu/qiankundai,storage,已读,B1 归属
 yvanchuxiuzhen,Qiankundai04,item,~/item/zawu/qiankundai,storage,已读,B1 归属阅读：储物：乾坤袋与材料袋的容器；本元素无过程
 yvanchuxiuzhen,Jinenglistzong,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ItemLore,procedure,~/systemset,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongfaLore,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,GongfaLore,procedure,~/systemset,gongfa,已读,C gongfa 归属阅读：功法书提示文本的六组加成与功法栏档位比较颜色（ItemLore 的功法分支调用）
 yvanchuxiuzhen,Jinengget01,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jinengget02,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Alchemy01ZaiFangKuaiShangYouJian,procedure,~/tool/liandanlu,liandan,已读,B1 归属阅读：随 Alchemy01 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
@@ -3372,7 +3372,7 @@ yvanchuxiuzhen,Playershuxingjisuan,procedure,~/systemset,attribute,已读,C attr
 yvanchuxiuzhen,Oxygen,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Oxygenxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Oxygentubiao,overlay,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongfashuaxin2,procedure,~/systemset,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Gongfashuaxin2,procedure,~/systemset,gongfa,已读,C gongfa 归属阅读：功法属性刷新，来源中没有调用者，不迁移（有效链为 PlayerTick 的属性计算）
 yvanchuxiuzhen,PlayerLeaveGame,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guiguai01ShiTiChuShiShengChengShi,procedure,~/entity/guiguai/guiguai01,creature,已读,B1 归属阅读：随 Guiguai01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Guiguai01DangShiTiGengXinKeShi,procedure,~/entity/guiguai/guiguai01,creature,已读,B1 归属阅读：随 Guiguai01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
@@ -5408,7 +5408,7 @@ yvanchuxiuzhen,PlayerGUI08,gui,~/GUI,panel,候选,第一版批量归组（目录
 yvanchuxiuzhen,Qiehuan03,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui08jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui08xiulian,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Kaishigongfa,procedure,~/systemset,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Kaishigongfa,procedure,~/systemset,gongfa,已读,C gongfa 归属阅读：xiuliankaiguan 为“功法”时每秒的功法修炼（监听 xiulian 的 CultivationSecondEvent）
 yvanchuxiuzhen,Mutanshaolian,recipe,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Mutanshaolian2,recipe,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Canwutai,gui,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）

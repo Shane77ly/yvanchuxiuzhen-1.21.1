@@ -24,6 +24,19 @@ updated: 2026-11-01
 
 接口分别为绑定书籍、装备/取出、推进研习、参悟、创建/操作学习会话、读取属性贡献。装备界面跨功法和技能的操作由具体协调入口完成；菜单关闭与取出必须以真实物品去向验证。
 
+## 实现进度（2026-11-03）
+
+### 阶段 1：功法定义、书、研习、功法栏与成长
+
+- 定义：`tools/porting/extract_techniques.py` 从 `Gongfalist01`–`08` 提取 67 本功法（物品、名字、品阶、所需境界、灵根要求、简介、五行值、十三项档位）与各表的随机上限，`TechniqueLibrary` 读取。书架藏宝按藏宝等级取第 1–8 表（Q26）。
+- 书：物品组件 `yvanchuxiuzhen:technique`（`TechniqueBook`），显示名为功法名；来源 NBT 键与字段的对应见类注释。
+- 研习（`TechniqueRules.study`，来源 `BookRightClick` 的研习分支与 `Gongfashuxingjisuan`）：已研习、他人已研习、境界不足时只提示；灵根要求含“无”或为空直接可学，含“五”须五行灵根都至少 1，否则按金水木火土阴阳功业罡煞逐字判定，任一满足即可，提示取最后一个不满足的。成功后层数 1、按档位算出十三项加成，关闭当前界面并发出 `TechniqueStudiedEvent`（行尸御火、真言吒雷诀附赠的技能由 skill 处理）。研习时重置答题计数 `daduishuliang` 属 book 的右键流程。
+- 成长（`TechniqueStat`）：十三项加成 = 分段基础值(层数) × 档位系数（0.6–1.4），除移速外向上取整；研习初值等于层数 1 的值（JUnit `TechniqueStatTest`）。
+- 功法栏：玩家附件 `technique_slot`（死亡复制，只同步本人）。变化时提交 xiulian 主修功法信息与 attribute 加成层贡献 `gongfa:main`。
+- 修炼：监听 xiulian 的 `CultivationSecondEvent`（“功法”开关的功法修炼，见 `TechniqueRules.train`）与 `CultivationExperienceEvent`（闭关吸纳元气 × 1.5 给功法经验，不检查研习者）。升级条件：层数低于境界层数 + `LevelNumberCorrect` 且低于 40；所需经验 = 层数² × 品阶 × 10。
+- 提示文本（`TechniqueTooltip`，来源 `ItemLore` 功法分支与 `GongfaLore`）。
+- 来源中 `Gongfashuaxin`、`Gongfashuaxin2` 没有调用者，不迁移。
+
 ## 裁定与验证
 
 `Gongfashuaxin/2` 未从当前结构入口图到达；不能仅因它们做增减属性就选作目标主链，当前有效链包括 PlayerTick 的 `Shuxingjisuan/2`。学习会话同时写玩家/装置后的多人覆盖行为需明确目标操作规则。数值、实例转移、重登、普通死亡、参悟和小游戏成功/失败分别对照。
