@@ -2,12 +2,6 @@ package net.yvanchuxiuzhen.smoke;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.DeathScreen;
-import net.minecraft.client.gui.screens.GenericMessageScreen;
-import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -23,105 +17,73 @@ import net.yvanchuxiuzhen.system.attribute.api.Stat;
  * 撤销一项贡献后当前生命压到新上限；死亡重生与退出重进后贡献与原版属性保持。
  * 数值取 docs/systems/attribute/architecture.md 的 Q17、Q18 算例。
  */
-final class AttributeCheck {
-    private final Minecraft minecraft = Minecraft.getInstance();
-    private final List<String> report;
-    private final String levelId;
-    private int step;
-    private int stepStart;
-    private boolean busy;
-
+final class AttributeCheck extends SystemCheck {
     AttributeCheck(List<String> report, String levelId) {
-        this.report = report;
-        this.levelId = levelId;
+        super("属性", report, levelId);
     }
 
-    /** 每个客户端 tick 调用一次，全部检查完成时返回 true。退出存档期间客户端会嵌套调用 tick，此时不推进。 */
-    boolean tick(int ticks) {
-        if (busy) {
-            return false;
-        }
-        int local = ticks - stepStart;
+    @Override
+    protected boolean step(int step, int local) {
         switch (step) {
-            case 0 -> {
-                onServer(this::submitContributions);
-                advance(ticks);
-            }
+            case 0 -> onServer(this::submitContributions);
             case 1 -> {
-                if (local >= 20) {
-                    checkClient("提交后", 35, 13);
-                    onServer(player -> {
-                        player.setHealth(35);
-                        PlayerAttributes.clearContribution(player, "smoke:ornament");
-                    });
-                    advance(ticks);
+                if (local < 20) {
+                    return false;
                 }
+                checkClient("提交后", 35, 13);
+                onServer(player -> {
+                    player.setHealth(35);
+                    PlayerAttributes.clearContribution(player, "smoke:ornament");
+                });
             }
             case 2 -> {
-                if (local >= 20) {
-                    onServer(player -> {
-                        expect("撤销饰品后 最终生命上限", 30, PlayerAttributes.value(player, Stat.HEALTH_MAX));
-                        expect("撤销饰品后 原版最大生命", 30, player.getMaxHealth());
-                        expect("撤销饰品后 当前生命压到上限", 30, player.getHealth());
-                        player.kill();
-                    });
-                    advance(ticks);
+                if (local < 20) {
+                    return false;
                 }
+                onServer(player -> {
+                    expect("撤销饰品后 最终生命上限", 30, PlayerAttributes.value(player, Stat.HEALTH_MAX));
+                    expect("撤销饰品后 原版最大生命", 30, player.getMaxHealth());
+                    expect("撤销饰品后 当前生命压到上限", 30, player.getHealth());
+                });
+                kill();
             }
             case 3 -> {
-                if (minecraft.screen instanceof DeathScreen && local >= 20) {
-                    minecraft.player.respawn();
-                    advance(ticks);
-                } else if (local > 200) {
-                    report.add("FAIL 属性 没有出现死亡界面");
-                    return true;
-                }
+                return respawned(local);
             }
             case 4 -> {
-                if (local >= 40) {
-                    onServer(player -> {
-                        expect("重生后 最终生命上限", 30, PlayerAttributes.value(player, Stat.HEALTH_MAX));
-                        expect("重生后 原版最大生命", 30, player.getMaxHealth());
-                        expect("重生后 当前生命", 30, player.getHealth());
-                        expect("重生后 原版攻击伤害基础值", 13, player.getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue());
-                        // 存档前把原版基础值改成过时的值，重进后应由登录时的重新写入恢复。
-                        player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20);
-                    });
-                    checkClient("重生后", 30, 13);
-                    busy = true;
-                    minecraft.level.disconnect();
-                    minecraft.disconnect(new GenericMessageScreen(Component.literal("saving")));
-                    minecraft.setScreen(new TitleScreen());
-                    busy = false;
-                    advance(ticks);
+                if (local < 40) {
+                    return false;
                 }
+                onServer(player -> {
+                    expect("重生后 最终生命上限", 30, PlayerAttributes.value(player, Stat.HEALTH_MAX));
+                    expect("重生后 原版最大生命", 30, player.getMaxHealth());
+                    expect("重生后 当前生命", 30, player.getHealth());
+                    expect("重生后 原版攻击伤害基础值", 13, player.getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue());
+                    // 存档前把原版基础值改成过时的值，重进后应由登录时的重新写入恢复。
+                    player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20);
+                });
+                checkClient("重生后", 30, 13);
+                leaveWorld();
             }
             case 5 -> {
-                if (minecraft.screen instanceof TitleScreen && local >= 20) {
-                    minecraft.createWorldOpenFlows().openWorld(levelId, () -> report.add("FAIL 属性 无法重新打开存档 " + levelId));
-                    advance(ticks);
-                }
+                return reopened(local);
             }
             case 6 -> {
-                if (minecraft.player != null && minecraft.getSingleplayerServer() != null && local >= 100) {
-                    onServer(player -> {
-                        expect("重进后 最终生命上限", 30, PlayerAttributes.value(player, Stat.HEALTH_MAX));
-                        expect("重进后 原版最大生命", 30, player.getMaxHealth());
-                        expect("重进后 攻击基础值", 5, PlayerAttributes.baseValue(player, Stat.ATTACK));
-                        expect("重进后 原版攻击伤害基础值", 13, player.getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue());
-                    });
-                    checkClient("重进后", 30, 13);
-                    return true;
-                } else if (local > 1200) {
-                    report.add("FAIL 属性 重新打开存档超时");
-                    return true;
+                if (!inWorld(local)) {
+                    return false;
                 }
+                onServer(player -> {
+                    expect("重进后 最终生命上限", 30, PlayerAttributes.value(player, Stat.HEALTH_MAX));
+                    expect("重进后 原版最大生命", 30, player.getMaxHealth());
+                    expect("重进后 攻击基础值", 5, PlayerAttributes.baseValue(player, Stat.ATTACK));
+                    expect("重进后 原版攻击伤害基础值", 13, player.getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue());
+                });
+                checkClient("重进后", 30, 13);
+                finish();
             }
-            default -> {
-                return true;
-            }
+            default -> finish();
         }
-        return false;
+        return true;
     }
 
     /** Q17：防具与武器的炼器数值计入原版最大生命与攻击伤害；Q18：受击方同属性功法加到伤害上。 */
@@ -153,19 +115,5 @@ final class AttributeCheck {
         expect(label + " 客户端 最终生命上限", health, PlayerAttributes.value(minecraft.player, Stat.HEALTH_MAX));
         expect(label + " 客户端 原版最大生命", health, minecraft.player.getMaxHealth());
         expect(label + " 客户端 最终攻击", attack, PlayerAttributes.value(minecraft.player, Stat.ATTACK));
-    }
-
-    private void onServer(Consumer<ServerPlayer> action) {
-        minecraft.getSingleplayerServer().submit(() -> action.accept(minecraft.getSingleplayerServer().getPlayerList().getPlayers().get(0))).join();
-    }
-
-    private void advance(int ticks) {
-        step++;
-        stepStart = ticks;
-    }
-
-    private void expect(String label, double expected, double actual) {
-        String line = "属性 " + label + " 期望 " + expected + " 实际 " + actual;
-        report.add((Math.abs(expected - actual) < 1e-6 ? "INFO " : "FAIL ") + line);
     }
 }

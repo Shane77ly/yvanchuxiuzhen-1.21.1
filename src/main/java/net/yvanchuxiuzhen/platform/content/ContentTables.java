@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.stream.IntStream;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -35,7 +36,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 /**
  * 一个系统或内容族的内容表加载器：读取 {@code content/<单位>/blocks.json}、{@code items.json} 与 {@code sounds.json}，
  * 解码后登记到本单位的 DeferredRegister，并把带创造栏的物品交给 {@link ContentTabs}。声音事件为可变范围事件，
- * 与来源的 {@code new SoundEvent(位置)} 一致。
+ * 与来源的 {@code new SoundEvent(位置)} 一致。物品行的工厂名不是内置类型时，查本单位用 {@link #itemFactory} 登记的工厂。
  */
 public final class ContentTables {
     private final String unit;
@@ -43,9 +44,16 @@ public final class ContentTables {
     private final DeferredRegister.Items items = DeferredRegister.createItems(ModId.VALUE);
     private final DeferredRegister<ArmorMaterial> armorMaterials = DeferredRegister.create(Registries.ARMOR_MATERIAL, ModId.VALUE);
     private final DeferredRegister<SoundEvent> sounds = DeferredRegister.create(Registries.SOUND_EVENT, ModId.VALUE);
+    private final Map<String, BiFunction<Item.Properties, List<Component>, Item>> itemFactories = new HashMap<>();
 
     public ContentTables(String unit) {
         this.unit = unit;
+    }
+
+    /** 登记本单位的专属物品类型；须在 {@link #register} 之前调用。工厂收到行的物品属性与提示文本。 */
+    public ContentTables itemFactory(String factory, BiFunction<Item.Properties, List<Component>, Item> creator) {
+        itemFactories.put(factory, creator);
+        return this;
     }
 
     public void register(IEventBus modBus) {
@@ -93,7 +101,13 @@ public final class ContentTables {
                 yield items.register(row.id(), () -> new ContentArmorItem(material, type,
                         properties(row).durability(type.getDurability(row.durabilityMultiplier().orElseThrow())), tooltip));
             }
-            default -> throw new IllegalStateException("未知物品工厂 " + row.factory() + "：" + row.id());
+            default -> {
+                BiFunction<Item.Properties, List<Component>, Item> creator = itemFactories.get(row.factory());
+                if (creator == null) {
+                    throw new IllegalStateException("未知物品工厂 " + row.factory() + "：" + row.id());
+                }
+                yield items.register(row.id(), () -> creator.apply(properties(row), tooltip));
+            }
         };
         row.tab().ifPresent(tab -> ContentTabs.add(tab, row.order(), holder));
     }

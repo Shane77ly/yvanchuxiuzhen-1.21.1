@@ -1,3 +1,3 @@
 [
-{"id":"ling_15","factory":"item","order":1628,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"tooltip":["为此物重新命名后，手持此物潜行状态右键即可为团队重新命名。","主手持此物右键玩家，可以邀请其入团队。"],"pending_hooks":["use"]}
+{"id":"ling_15","factory":"relation:ling_15","order":1628,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"tooltip":["为此物重新命名后，手持此物潜行状态右键即可为团队重新命名。","主手持此物右键玩家，可以邀请其入团队。"],"pending_hooks":["use"]}
 ]

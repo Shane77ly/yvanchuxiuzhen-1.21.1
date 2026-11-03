@@ -70,8 +70,8 @@ import net.neoforged.neoforge.client.gui.CreativeTabsScreenPage;
  * 客户端冒烟检查：建一个创造模式世界，在高空平台放置本 Mod 的全部方块状态，核对每个方块与物品有模型和名称，
  * 加载全部结构模板（旧数据版本在加载时升级）并摆放方块实体最多的几个，记录调色板中的方块名；
  * 另对花、双格植物与每套盔甲的穿戴效果各拍一张近景，再打开创造模式物品栏并逐个切换创造栏并截图；
- * 最后做属性系统的实机检查（{@link AttributeCheck}，含死亡重生与退出重进），写出报告并退出。
- * 系统属性 yvanchuxiuzhen.smoke.only=attribute 时进入世界后只做属性检查。
+ * 最后依次做各系统的实机检查（{@link RelationCheck}、{@link AttributeCheck}，各含死亡重生与退出重进），写出报告并退出。
+ * 系统属性 yvanchuxiuzhen.smoke.only 为逗号分隔的系统标识（如 relation,attribute）时，进入世界后只做这些系统的检查。
  * 进程中途崩溃时不会写出 DONE 行。
  */
 final class SmokeRun {
@@ -90,7 +90,7 @@ final class SmokeRun {
     private Method selectTab;
     private String pendingShot;
     private String levelId;
-    private AttributeCheck attributeCheck;
+    private List<SystemCheck> systemChecks;
 
     /** 近景截图：相机所在玩家的位置与朝向，以及在服务端线程上的布置动作。 */
     private record Closeup(String name, CameraType camera, double x, double y, double z, float yRot, float xRot,
@@ -113,7 +113,7 @@ final class SmokeRun {
                 case 5 -> waitThen(2, this::checkModelsAndNames);
                 case 6 -> waitThen(2, this::openCreative);
                 case 7 -> cycleTabs();
-                case 8 -> checkAttributes();
+                case 8 -> checkSystems();
                 case 9 -> waitThen(20, this::finish);
                 default -> {
                 }
@@ -151,19 +151,30 @@ final class SmokeRun {
         if (minecraft.player != null && minecraft.level != null && minecraft.getSingleplayerServer() != null
                 && ticks - phaseStart > 100) {
             next();
-            if ("attribute".equals(System.getProperty("yvanchuxiuzhen.smoke.only"))) {
+            if (!System.getProperty("yvanchuxiuzhen.smoke.only", "").isEmpty()) {
                 phase = 8;
             }
         }
     }
 
-    private void checkAttributes() {
-        if (attributeCheck == null) {
+    private void checkSystems() {
+        if (systemChecks == null) {
             minecraft.setScreen(null);
-            attributeCheck = new AttributeCheck(report, levelId);
+            String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
+            List<String> names = only.isEmpty() ? List.of("relation", "attribute") : List.of(only.split(","));
+            systemChecks = new ArrayList<>();
+            for (String name : names) {
+                systemChecks.add(switch (name) {
+                    case "relation" -> new RelationCheck(report, levelId, this::shot);
+                    case "attribute" -> new AttributeCheck(report, levelId);
+                    default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
+                });
+            }
         }
-        if (attributeCheck.tick(ticks)) {
+        if (systemChecks.isEmpty()) {
             next();
+        } else if (systemChecks.get(0).tick(ticks)) {
+            systemChecks.remove(0);
         }
     }
 
