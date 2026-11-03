@@ -2,7 +2,7 @@
 topic: attribute
 role: entry
 status: partial
-updated: 2026-11-02
+updated: 2026-11-03
 ---
 
 # 属性
@@ -17,6 +17,14 @@ updated: 2026-11-02
 
 ## 公开操作
 
-未编写。实现本系统前在此列出供其他系统调用的查询与写操作，并对照 `typed_field_accesses.csv` 覆盖全部外部读写点（开工条件）。
+草案（2026-11-03）：已对照 `typed_field_accesses.csv` 覆盖下列字段的全部外部读写点（来源事实见[架构与调查正文](architecture.md)“来源事实核对”）；五行加成与抗性部分未读，读完后定稿。
+
+| 操作 | 形式 | 调用者（来源中的读写点） |
+| --- | --- | --- |
+| 查询最终值 | `value(玩家, 属性)`：生命、灵力、神识的上限与回复，物理、法术、神识的攻击与防御，冷却缩减，移速 | combat 伤害与防御结算、xiulian 回复与金丹元婴、skill 冷却与消耗、equipment 速射弓与法宝、relation 好友信息、gongfa 学习台、economy 魂灵晶、全局重生、panel 显示 |
+| 提交贡献 | `setContribution(玩家, 来源键, 各属性加值)`；同一来源键覆盖上次的值 | xiulian（境界与修为成长、单项提升）、gongfa（主修功法）、equipment（防具与武器的炼器数值、饰品、附魔）、fulu（浮生丹重置）、economy（血灵晶） |
+| 清除贡献 | `clearContribution(玩家, 来源键)` | 同上；卸下装备、取消主修、重置时 |
+
+本系统在贡献变化后重算，结果写入实体属性并同步给本人；不读取其他系统的状态。
 
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
