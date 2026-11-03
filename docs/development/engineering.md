@@ -192,7 +192,7 @@ B1 步骤 6 结果（2026-11-03）：方块与物品行对应的 2,211 个元素
 | 纯规则 | JUnit 5，只测易回归公式与已复现问题，随 `gradlew check` 运行 | 已接入（attribute 的 `AttributeTotalsTest`，2026-11-03） |
 | 世界内行为 | NeoForge GameTest（独立源集，`gameTestServer` 运行） | 第一个需要的系统建立源集，之后按风险添加 |
 | 加载检查 | 开发服务端启动至 Done、客户端加载至声音引擎启动、日志无 ERROR | 每次依赖更新与批次出口 |
-| 客户端冒烟 | `gradlew runSmokeClient`（源集 `src/smoke`，不进入发布 JAR）：自动建创造世界，放置本 Mod 全部方块状态，核对每个方块与物品有模型、名称与提示文本翻译，对花、双格植物与每套盔甲（穿戴后三人称正面视角）各拍一张近景，打开创造栏并逐栏切换后截图，最后依次做各系统的实机检查（`src/smoke/.../SystemCheck` 的子类：relation、attribute，各含死亡重生与退出重进，可截图），报告写入 `build/smoke/report.txt`，缺 `DONE` 行表示中途崩溃；`-PsmokeOnly=relation,attribute` 时进入世界后只做所列系统的检查 | 每次改动内容表、资源、语言或创造栏后由开发者自己运行，不交给负责人手工操作 |
+| 客户端冒烟 | `gradlew runSmokeClient`（源集 `src/smoke`，不进入发布 JAR）：自动建创造世界，放置本 Mod 全部方块状态，核对每个方块与物品有模型、名称与提示文本翻译，对花、双格植物与每套盔甲（穿戴后三人称正面视角）各拍一张近景，打开创造栏并逐栏切换后截图，最后依次做各系统的实机检查（`src/smoke/.../SystemCheck` 的子类：relation、attribute、xiulian，各含死亡重生与退出重进，可截图；冒烟世界创建时关闭出身规则 `jinruyouxichushenxvanze`，修炼检查中再开启），报告写入 `build/smoke/report.txt`，缺 `DONE` 行表示中途崩溃；`-PsmokeOnly=relation,attribute` 时进入世界后只做所列系统的检查 | 每次改动内容表、资源、语言或创造栏后由开发者自己运行，不交给负责人手工操作 |
 | 台账与文档 | `check_ledger.py`、`check_docs.py`、`inventory_legacy.py --check` | 每次提交前 |
 
 远端已建立，CI 尚未配置；配置后在 CI 执行构建、`check` 与文档/台账检查。来源工作区不在仓库中，`inventory_legacy.py --check` 只能在有来源的机器上执行。

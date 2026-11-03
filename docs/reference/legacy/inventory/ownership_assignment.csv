@@ -1661,29 +1661,29 @@ yvanchuxiuzhen,Xvanxiang4,procedure,~/item/book,book,候选,第一版批量归�
 yvanchuxiuzhen,DatiGUIwenzi6,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,WorldTick,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlaySleep,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerJoinGUI,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt1,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt2,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt3,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt4,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt5,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt6,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt7,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt8,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt9,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lock1,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lock2,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lock3,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lock4,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lock5,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Suijikaijv,procedure,~/GUI,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt10,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt11,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,BirthUp,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Birthdown,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt12,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt13,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerJoinGUIDangZheGeJieMianBeiGuanBi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerJoinGUI,gui,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt1,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt2,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt3,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt4,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt5,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt6,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt7,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt8,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt9,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Lock1,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Lock2,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Lock3,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Lock4,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Lock5,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Suijikaijv,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt10,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt11,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,BirthUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Birthdown,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt12,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Jointxt13,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,PlayerJoinGUIDangZheGeJieMianBeiGuanBi,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
 yvanchuxiuzhen,Flyskilltexiao,procedure,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,FlyskillTick,procedure,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyskillkaishitexiao,procedure,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1725,11 +1725,11 @@ yvanchuxiuzhen,ColddownTreexianshi,procedure,~/skill/jineng,skill,候选,第一�
 yvanchuxiuzhen,ColddownFirexianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ColddownSoilxianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ColddownYinyangxianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starxianshi01,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starxianshi02,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starxianshi03,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starxianshi04,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starxianshi05,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Starxianshi01,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Starxianshi02,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Starxianshi03,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Starxianshi04,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
+yvanchuxiuzhen,Starxianshi05,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
 yvanchuxiuzhen,SkillGold01TouZhiWuFeiXingTick,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillGold01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillGold01,rangeditem,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -3053,7 +3053,7 @@ yvanchuxiuzhen,QiankunmentuGui,gui,~/tool/xvnlong,npc,候选,第一版批量归�
 yvanchuxiuzhen,MentuRenwuweizhi,procedure,~/tool/xvnlong,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,MentuRenwuqiehuan,procedure,~/tool/xvnlong,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Playerchuansuo,function,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerJoin02,procedure,~/GUI,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerJoin02,procedure,~/GUI,flow,已读,C xiulian 归属阅读：出身界面关闭 2 tick 后执行；按出身发放宝箱、功法书、技能书、图纸、武器、灵石等多个系统的物品，部分出身执行函数 playerchuansuo 传送，最后按体质写 tizhiitem 修正；体质部分由 xiulian 的 BirthSelection.close 实现，其余待相关系统实现后由 flow 接入
 yvanchuxiuzhen,Yijichushishengcheng,procedure,~/GUI,world,已读,B1 归属阅读：随 Dimensionrenjian 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
 yvanchuxiuzhen,Gongjv011,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Gongjv012,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
@@ -5401,7 +5401,7 @@ yvanchuxiuzhen,Yinxianshi,procedure,~/GUI,panel,候选,第一版批量归组（�
 yvanchuxiuzhen,Yangxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yinyangneirong,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Benmingfabaotisheng,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jointxt14,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jointxt14,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
 yvanchuxiuzhen,Daduan,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jinenglengqvejiance,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGUI08,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5810,7 +5810,7 @@ yvanchuxiuzhen,NeedsDiamondTool,tag,~/tag,platform,候选,第一版批量归组�
 yvanchuxiuzhen,Shijiaoshujv,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lookentitylevel,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lookentityname,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinruyouxichushenxvanze,gamerule,~/systemset,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jinruyouxichushenxvanze,gamerule,~/systemset,xiulian,已读,C xiulian 归属阅读：PlayerJoinGame 与 Suijikaijv 读取，决定首次进入时是否随机灵根并打开出身界面、随机灵根上限
 yvanchuxiuzhen,Fulutick2,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,CaishenyeZiRanShiTiShengChengTiaoJian,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Caishenye 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Hammerhecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5825,7 +5825,7 @@ yvanchuxiuzhen,Businessman11ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,
 yvanchuxiuzhen,Businessman11,livingentity,~/entity/npc,npc,已读,B1 归属阅读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Businessman10DangShiTiGengXinKeShi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman10 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Suijijiegou01FuJiaDeShengChengTiaoJian,procedure,~/decorate/jiegou/suijijiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Linggenlevel,gamerule,~/systemset,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Linggenlevel,gamerule,~/systemset,xiulian,已读,C xiulian 归属阅读：PlayerJoinGame 与 Suijikaijv 读取，决定首次进入时是否随机灵根并打开出身界面、随机灵根上限
 yvanchuxitong,Yvanchulianqi,tab,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,TripodGUI,gui,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,LianqiGuiCao01,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）

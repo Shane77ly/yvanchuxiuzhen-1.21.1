@@ -30,7 +30,7 @@ C 玩家与战斗核心，当前系统 xiulian（分支 `port/c-xiulian`，从 `
 
 xiulian 进度（分阶段在本分支提交）：
 - 阶段 1 已提交（wip）：玩家附件 `cultivation`（`CultivationData`：42 个来源字段，初值同来源，死亡复制，只同步本人）与公开操作 `Cultivation`（查询、加减、赋值；灵根与阴阳变化时向 attribute 提交 `xiulian:roots` 基础层贡献）。来源中外部写入只有“加减、乘后写回、赋值”三种，均不在写入处截断上限。
-- 阶段 2 待做：登录初始化（`PlayerJoinGame` 中 xiulian 的部分：灵根全为 0 且游戏规则 `jinruyouxichushenxvanze` 为真时按 `linggenlevel` 随机五行灵根、阴阳 = 金 + 火 − 木 − 水、随机 1–10 选体质（来源列了 12 种，11、12 取不到，记为来源问题）、打开出身界面 `PlayerJoinGUI`；`tizhiitem` 载体与每日修为额度 `dailyexperience`/`dayjilu`）；两个游戏规则登记；`PlayerJoinGame` 每次登录把原版 `keepInventory` 设为真（归属待读，可能属 flow）。
+- 阶段 2 已提交（wip）：游戏规则、首次进入的灵根与体质随机、出身界面与体质生效，冒烟检查 34 项通过；`tizhiitem` 由本系统整体保管（键表 `docs/systems/xiulian/ledger/tizhiitem_keys.csv`）；按出身发放物品的 `PlayerJoin02` 其余部分归 flow，待物品所属系统实现。原计划内容：登录初始化（`PlayerJoinGame` 中 xiulian 的部分：灵根全为 0 且游戏规则 `jinruyouxichushenxvanze` 为真时按 `linggenlevel` 随机五行灵根、阴阳 = 金 + 火 − 木 − 水、随机 1–10 选体质（来源列了 12 种，11、12 取不到，记为来源问题）、打开出身界面 `PlayerJoinGUI`；`tizhiitem` 载体与每日修为额度 `dailyexperience`/`dayjilu`）；两个游戏规则登记；`PlayerJoinGame` 每次登录把原版 `keepInventory` 设为真（归属待读，可能属 flow）。
 - 阶段 3 起：`PlayerTick` 的修炼与恢复（`Kaishixiulian`、`Playerhuifu`、日收益）、升级与突破（`LEVELup`、`LevelupCorrect`、`RealmupCorrect`，改为向 attribute 提交成长贡献）、升级界面 `playershengjixianshi`、丹田界面 `dantian_gui`（金丹、元婴）、雷劫（实体 `tianjie_03/05/07`、`jieyvn` 与 `yvanyingchuqiao` 为 GeckoLib 动画实体，需先接入 GeckoLib）、血道（`xixveshi` 方块实体、`xveliu` 流体与桶）、物品 `ling_09/10/11/18`、`xvejing`、`jiazubaibaodai`。
 
 下一步具体操作（xiulian，之后 gongfa；做法同 attribute、relation）：

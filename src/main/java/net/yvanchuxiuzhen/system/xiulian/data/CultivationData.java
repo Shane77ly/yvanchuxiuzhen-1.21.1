@@ -8,6 +8,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -17,7 +18,8 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /**
  * 玩家的修炼档案：境界、修为、灵力与神识、灵根与阴阳、罡煞与功德、雷劫、血脉、属性点、寿元、出身与体质、
- * 闭关天数，以及本命法宝槽（来源 {@code benmingfabao}）。存档只写与初始值不同的项。
+ * 闭关天数，本命法宝槽（来源 {@code benmingfabao}），以及体质与修正值的键值存储（来源隐藏载体 {@code tizhiitem} 的物品标签，
+ * 键见 {@code docs/systems/xiulian/ledger/tizhiitem_keys.csv}）。存档只写与初始值不同的项。
  * 对象可变，修改后由调用方 {@code syncData} 同步给本人。
  */
 public final class CultivationData {
@@ -35,7 +37,8 @@ public final class CultivationData {
             Codec.unboundedMap(VALUE_CODEC, Codec.DOUBLE).fieldOf("values").forGetter(CultivationData::changedValues),
             Codec.unboundedMap(TEXT_CODEC, Codec.STRING).fieldOf("texts").forGetter(CultivationData::changedTexts),
             Codec.BOOL.fieldOf("thunder_open").forGetter(CultivationData::thunderOpen),
-            ItemStack.OPTIONAL_CODEC.fieldOf("benming").forGetter(CultivationData::benming)
+            ItemStack.OPTIONAL_CODEC.fieldOf("benming").forGetter(CultivationData::benming),
+            CompoundTag.CODEC.fieldOf("tizhi").forGetter(CultivationData::tizhi)
     ).apply(instance, CultivationData::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, CultivationData> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC);
 
@@ -43,12 +46,14 @@ public final class CultivationData {
     private final Map<CultivationText, String> texts = new EnumMap<>(CultivationText.class);
     private boolean thunderOpen;
     private ItemStack benming;
+    private final CompoundTag tizhi;
 
     public CultivationData() {
-        this(Map.of(), Map.of(), false, ItemStack.EMPTY);
+        this(Map.of(), Map.of(), false, ItemStack.EMPTY, new CompoundTag());
     }
 
-    private CultivationData(Map<CultivationValue, Double> values, Map<CultivationText, String> texts, boolean thunderOpen, ItemStack benming) {
+    private CultivationData(Map<CultivationValue, Double> values, Map<CultivationText, String> texts, boolean thunderOpen, ItemStack benming,
+                            CompoundTag tizhi) {
         for (CultivationValue value : CultivationValue.values()) {
             this.values.put(value, values.getOrDefault(value, value.initial()));
         }
@@ -57,6 +62,7 @@ public final class CultivationData {
         }
         this.thunderOpen = thunderOpen;
         this.benming = benming;
+        this.tizhi = tizhi.copy();
     }
 
     private Map<CultivationValue, Double> changedValues() {
@@ -109,5 +115,10 @@ public final class CultivationData {
 
     public void setBenming(ItemStack benming) {
         this.benming = benming;
+    }
+
+    /** 体质与修正值；键与类型沿用来源，未写入的键读作 0、false 或空串。 */
+    public CompoundTag tizhi() {
+        return tizhi;
     }
 }

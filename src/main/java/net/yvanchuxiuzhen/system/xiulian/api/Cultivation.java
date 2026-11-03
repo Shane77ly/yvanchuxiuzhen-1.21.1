@@ -72,6 +72,37 @@ public final class Cultivation {
         player.syncData(XiulianAttachments.CULTIVATION);
     }
 
+    /**
+     * 体质与修正值（来源 {@code tizhiitem} 的标签，键见 {@code docs/systems/xiulian/ledger/tizhiitem_keys.csv}）。
+     * 其他系统读取修正值（如 {@code GoldAttCorrectPercentage}）与写入自己的键都经这里。
+     */
+    public static double tizhiDouble(Player player, String key) {
+        return player.getData(XiulianAttachments.CULTIVATION).tizhi().getDouble(key);
+    }
+
+    public static void setTizhiDouble(ServerPlayer player, String key, double value) {
+        player.getData(XiulianAttachments.CULTIVATION).tizhi().putDouble(key, value);
+        player.syncData(XiulianAttachments.CULTIVATION);
+    }
+
+    public static boolean tizhiBoolean(Player player, String key) {
+        return player.getData(XiulianAttachments.CULTIVATION).tizhi().getBoolean(key);
+    }
+
+    public static void setTizhiBoolean(ServerPlayer player, String key, boolean value) {
+        player.getData(XiulianAttachments.CULTIVATION).tizhi().putBoolean(key, value);
+        player.syncData(XiulianAttachments.CULTIVATION);
+    }
+
+    public static String tizhiString(Player player, String key) {
+        return player.getData(XiulianAttachments.CULTIVATION).tizhi().getString(key);
+    }
+
+    public static void setTizhiString(ServerPlayer player, String key, String value) {
+        player.getData(XiulianAttachments.CULTIVATION).tizhi().putString(key, value);
+        player.syncData(XiulianAttachments.CULTIVATION);
+    }
+
     /** 灵根值对应 attribute 的五行灵根项（来源中五行系数读 {@code body_*} 与 {@code yinyang}）。 */
     private static void submitRoots(ServerPlayer player) {
         CultivationData data = player.getData(XiulianAttachments.CULTIVATION);
