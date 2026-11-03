@@ -944,16 +944,16 @@ yvanchuxiuzhen,Shicai01003,plant,~/plant/tree,plant,已读,B1 归属阅读：作
 yvanchuxiuzhen,Shicai01002list,loottable,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shicai00907,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shicai01004,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor01,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Armor01,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 npc 的 Businessman07ShiTiChuShiShengChengShi；quest 的 Renwubuding；treasure 的 BaoxiangHujia；world 的 Jiegoubuding 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,YvanchuWeapon,tab,~/systemset/classification,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor02,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor03,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor04,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor05,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor06,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor07,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor08,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor09,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Armor02,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 dungeon 的 Zhenyaotashengchengbuchong；npc 的 Businessman07ShiTiChuShiShengChengShi；quest 的 Renwubuding；treasure 的 BaoxiangHujia；world 的 Jiegoubuding 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Armor03,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 dungeon 的 Zhenyaotashengchengbuchong；treasure 的 BaoxiangHujia；xiulian 的 JiazubaibaodaiDangYouJianDianJiKongQiShiShiTiDeWeiZhi 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Armor04,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 dungeon 的 Zhenyaotashengchengbuchong；treasure 的 BaoxiangHujia 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Armor05,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 dungeon 的 Zhenyaotashengchengbuchong；treasure 的 BaoxiangHujia 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Armor06,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangHujia 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Armor07,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangHujia；world 的 SealreleaseGo 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Armor08,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangHujia；world 的 SealreleaseGo 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Armor09,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 world 的 SealreleaseGo 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Yaoshou001ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou001,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou001list,loottable,~/entity/yaoshou/yaoshou001,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Sylvestrisplanks,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
@@ -1358,34 +1358,34 @@ yvanchuxiuzhen,Smanship,command,~/systemset/zhiling,skill,候选,第一版批量
 yvanchuxiuzhen,SmanshipGO,procedure,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Swordsmanship04,animatedentity,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Swordsmanship04chufa,procedure,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponsword01,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponsword02,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponsword03,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponsword04,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponsword05,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponsword06,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponsword07,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponsword08,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponsword09,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponwoodsword01,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponwoodsword02,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponwoodsword03,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponwoodsword04,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponwoodsword05,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponwoodsword06,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponwoodsword07,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponwoodsword08,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponwoodsword09,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jvjianhuiwu,procedure,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponepee01,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponepee02,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponepee03,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponepee04,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponepee05,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponepee06,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponepee07,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponepee08,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponepee09,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Weaponsword01,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponsword02,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponsword03,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponsword04,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponsword05,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponsword06,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponsword07,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponsword08,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponsword09,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponwoodsword01,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponwoodsword02,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponwoodsword03,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponwoodsword04,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponwoodsword05,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponwoodsword06,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponwoodsword07,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponwoodsword08,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponwoodsword09,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Jvjianhuiwu,procedure,~/weapon/sword,equipment,已读,B1 归属阅读：随 Weaponepee01 读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponepee01,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponepee02,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponepee03,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponepee04,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponepee05,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponepee06,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponepee07,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponepee08,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponepee09,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Adobe,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Adobeslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Adobestairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
@@ -1523,25 +1523,25 @@ yvanchuxiuzhen,AnjianSpace,keybind,~/skill/shenfa,skill,候选,第一版批量�
 yvanchuxiuzhen,Flyinginstrument01DangYouJianDianJiShiTi,procedure,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyinginstrument01,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyinginstrument01DangShiTiGengXinKeShi,procedure,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyinginstrument0101DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyinginstrument0101,item,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument0101DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：随 Flyinginstrument0101 读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
+yvanchuxiuzhen,Flyinginstrument0101,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,Lingshi,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyinginstrument,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Entitybereborn,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyinginstrument02,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyinginstrument0201,item,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument0201,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,Flyinginstrument03,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyinginstrument0301,item,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument0301,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,Flyinginstrument04,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyinginstrument0401,item,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument0401,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,Flyinginstrument05,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyinginstrument0501,item,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument0501,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,Flyinginstrument06,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyinginstrument0601,item,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument0601,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,Flyinginstrument07,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyinginstrument0701,item,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument0701,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,Flyinginstrument08,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyinginstrument0801,item,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument0801,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,Teamxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gui0301,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gui0301anniu,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1996,16 +1996,16 @@ yvanchuxiuzhen,LiziliziGo,procedure,~/systemset/zhiling,flow,候选,第一版批
 yvanchuxiuzhen,Flyskill06,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,FanjianAnXiaAnJianShi,procedure,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fanjian,keybind,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Spearhuiwu,procedure,~/weapon/spear,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspear01,tool,~/weapon/spear,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspear02,tool,~/weapon/spear,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspear03,tool,~/weapon/spear,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspear04,tool,~/weapon/spear,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspear05,tool,~/weapon/spear,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspear06,tool,~/weapon/spear,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspear07,tool,~/weapon/spear,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspear08,tool,~/weapon/spear,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspear09,tool,~/weapon/spear,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Spearhuiwu,procedure,~/weapon/spear,equipment,已读,B1 归属阅读：随 Weaponspear01 读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspear01,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspear02,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspear03,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspear04,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspear05,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspear06,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspear07,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspear08,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspear09,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Xvlilizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillArrow01KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillArrow01DangTouSheWuSheZhongCiFangKuai,procedure,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -2052,53 +2052,53 @@ yvanchuxiuzhen,SkillArrow08skill,procedure,~/skill/jineng/arrowskill,skill,候�
 yvanchuxiuzhen,SkillArrow09skill,procedure,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillArrow10skill,procedure,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillArrow00skill,procedure,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspeedbow01DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi,procedure,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspeedbow01,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspeedbow02,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspeedbow03,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspeedbow04,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspeedbow05,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspeedbow06,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspeedbow07,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspeedbow08,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponspeedbow09,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponlongbow01,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Weaponspeedbow01DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/bow,equipment,已读,B1 归属阅读：随 Weaponlongbow01 读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi,procedure,~/weapon/bow,equipment,已读,B1 归属阅读：随 Weaponlongbow01 读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspeedbow01,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspeedbow02,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspeedbow03,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspeedbow04,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspeedbow05,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspeedbow06,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspeedbow07,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspeedbow08,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponspeedbow09,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponlongbow01,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Erspeedbow,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Erlongbow,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponlongbow02,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponlongbow03,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponlongbow04,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponlongbow05,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponlongbow06,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponlongbow07,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponlongbow08,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponlongbow09,tool,~/weapon/bow,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Weaponlongbow02,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponlongbow03,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponlongbow04,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponlongbow05,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponlongbow06,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponlongbow07,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponlongbow08,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponlongbow09,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Lingqi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,FuchenTouZhiWuFeiXingTick,procedure,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fuchen,rangeditem,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponhossu01DangShiTiHuiDongWuPinShi,procedure,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponhossu01,tool,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponhossu01DangGongJuChuXianZaiShouZhongShi,procedure,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponhossu02,tool,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponhossu03,tool,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponhossu04,tool,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponhossu05,tool,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponhossu06,tool,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponhossu07,tool,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponhossu08,tool,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponhossu09,tool,~/weapon/hossu,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponbroadsword01DangShiTiHuiDongWuPinShi,procedure,~/weapon/knife,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponbroadsword01,tool,~/weapon/knife,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponbroadsword02,tool,~/weapon/knife,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponbroadsword03,tool,~/weapon/knife,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponbroadsword04,tool,~/weapon/knife,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponbroadsword05,tool,~/weapon/knife,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponbroadsword06,tool,~/weapon/knife,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponbroadsword07,tool,~/weapon/knife,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponbroadsword08,tool,~/weapon/knife,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Weaponbroadsword09,tool,~/weapon/knife,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyingitemnbtshezhi,procedure,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,FuchenTouZhiWuFeiXingTick,procedure,~/weapon/hossu,equipment,已读,B1 归属阅读：随 Fuchen 读：拂尘：投掷物飞行中按敌友判定施加效果，属武器
+yvanchuxiuzhen,Fuchen,rangeditem,~/weapon/hossu,equipment,已读,B1 归属阅读：拂尘：投掷物飞行中按敌友判定施加效果，属武器
+yvanchuxiuzhen,Weaponhossu01DangShiTiHuiDongWuPinShi,procedure,~/weapon/hossu,equipment,已读,B1 归属阅读：随 Weaponhossu01 读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponhossu01,tool,~/weapon/hossu,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponhossu01DangGongJuChuXianZaiShouZhongShi,procedure,~/weapon/hossu,equipment,已读,B1 归属阅读：随 Weaponhossu01 读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponhossu02,tool,~/weapon/hossu,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponhossu03,tool,~/weapon/hossu,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponhossu04,tool,~/weapon/hossu,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponhossu05,tool,~/weapon/hossu,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponhossu06,tool,~/weapon/hossu,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponhossu07,tool,~/weapon/hossu,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponhossu08,tool,~/weapon/hossu,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponhossu09,tool,~/weapon/hossu,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponbroadsword01DangShiTiHuiDongWuPinShi,procedure,~/weapon/knife,skill,已读,B1 归属阅读：大刀挥动：按武器技栏 wuqiskill 的剑法名分派到 Swordsmanship01–04chufa，与 Swordhuiwu 同为武器技触发；拆归 skill
+yvanchuxiuzhen,Weaponbroadsword01,tool,~/weapon/knife,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponbroadsword02,tool,~/weapon/knife,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponbroadsword03,tool,~/weapon/knife,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponbroadsword04,tool,~/weapon/knife,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponbroadsword05,tool,~/weapon/knife,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponbroadsword06,tool,~/weapon/knife,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponbroadsword07,tool,~/weapon/knife,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponbroadsword08,tool,~/weapon/knife,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Weaponbroadsword09,tool,~/weapon/knife,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Flyingitemnbtshezhi,procedure,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：随 Flyinginstrument0101 读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,JieyvnDangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jieyvn,animatedentity,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jiancelevel,procedure,~/systemset/LEVELup,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -2106,55 +2106,55 @@ yvanchuxiuzhen,ThunderBegin,procedure,~/systemset/leijie,xiulian,候选,第一�
 yvanchuxiuzhen,Tianjie01,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tianjie03DangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tianjie03,animatedentity,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao001DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao001DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao001,rangeditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao001TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao001KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao002DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao002DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao002,rangeditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao003DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao003TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao003,rangeditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao004,rangeditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao005DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao005DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao005TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao005,rangeditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao004DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao005KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao006KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao006DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao006DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao006TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao006,rangeditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao007KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao007DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao007DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao007TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao007,rangeditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao008KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao008DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao008DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao008TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao008,rangeditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao009ZaiFangKuaiShangYouJian,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao009,animatedblock,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao00901DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao00901,item,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao001DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao001 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao001DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao001 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao001,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao001TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao001 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao001KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao001 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao002DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao002 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao002DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao002 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao002,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao003DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao003 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao003TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao003 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao003,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao004,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao005DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao005 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao005DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao005 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao005TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao005 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao005,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao004DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao004 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao005KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao005 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao006KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao006 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao006DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao006 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao006DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao006 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao006TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao006 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao006,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao007KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao007 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao007DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao007 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao007DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao007 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao007TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao007 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao007,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao008KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao008 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao008DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao008 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao008DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao008 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao008TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao008 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao008,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao009ZaiFangKuaiShangYouJian,procedure,~/weapon/fabao,dungeon,已读,B1 归属阅读：随 Fabao009 读：画里乾坤：放置后右键进入专属维度 fabao_009weidu 并记下返回位置，进入时由 Fabao009weidu 放置副本（已读归 dungeon），非主人不能收起；是玩家副本入口
+yvanchuxiuzhen,Fabao009,animatedblock,~/weapon/fabao,dungeon,已读,B1 归属阅读：画里乾坤：放置后右键进入专属维度 fabao_009weidu 并记下返回位置，进入时由 Fabao009weidu 放置副本（已读归 dungeon），非主人不能收起；是玩家副本入口
+yvanchuxiuzhen,Fabao00901DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/weapon/fabao,dungeon,已读,B1 归属阅读：随 Fabao00901 读：画里乾坤：放置后右键进入专属维度 fabao_009weidu 并记下返回位置，进入时由 Fabao009weidu 放置副本（已读归 dungeon），非主人不能收起；是玩家副本入口
+yvanchuxiuzhen,Fabao00901,item,~/weapon/fabao,dungeon,已读,B1 归属阅读：画里乾坤：放置后右键进入专属维度 fabao_009weidu 并记下返回位置，进入时由 Fabao009weidu 放置副本（已读归 dungeon），非主人不能收起；是玩家副本入口
 yvanchuxiuzhen,Tiandaowhiteblock,block,~/Dimension,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao009weidu,dimension,~/Dimension,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao009GengXinYouXiKe,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao009GengXinYouXiKe,procedure,~/weapon/fabao,dungeon,已读,B1 归属阅读：随 Fabao009 读：画里乾坤：放置后右键进入专属维度 fabao_009weidu 并记下返回位置，进入时由 Fabao009weidu 放置副本（已读归 dungeon），非主人不能收起；是玩家副本入口
 yvanchuxiuzhen,Tiandaochunbaikongjian,biome,~/biome,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao009weiduDangWanJiaJinRuWeiDuShi,procedure,~/Dimension,dungeon,已读,系统设计·已读裁定：进入画里乾坤时放置 fuben00x，写 fubenweizhi 与副本坐标
 yvanchuxiuzhen,Weidubianhuan,procedure,~/Dimension,world,已读,系统设计·已读裁定：拆分支：按 gamemoshi 恢复游戏模式的分支归 dungeon
-yvanchuxiuzhen,Fabao010huoyanTouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao010huoyanDangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao010huoyanDangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao010huoyan,rangeditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao010DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao010,item,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao010huoyanTouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao010huoyan 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao010huoyanDangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao010huoyan 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao010huoyanDangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao010huoyan 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao010huoyan,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao010DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao010 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao010,item,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Alchemy01hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Alchemy02hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Alchemy03hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -2166,49 +2166,49 @@ yvanchuxiuzhen,Alchemy08hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版
 yvanchuxiuzhen,Fabao003hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tianjie05DangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tianjie05,animatedentity,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Headornaments01,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Headornaments02,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Headornaments03,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Headornaments04,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Headornaments05,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Headornaments06,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Headornaments07,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Headornaments08,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Headornaments09,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Necklaceornaments01,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Necklaceornaments02,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Necklaceornaments03,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Necklaceornaments04,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Necklaceornaments05,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Necklaceornaments06,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Necklaceornaments07,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Necklaceornaments08,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Necklaceornaments09,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Handornaments01,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Handornaments02,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Handornaments03,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Handornaments04,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Handornaments05,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Handornaments06,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Handornaments07,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Handornaments08,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Handornaments09,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beltornaments01,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beltornaments02,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beltornaments03,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beltornaments04,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beltornaments05,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beltornaments06,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beltornaments07,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beltornaments08,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beltornaments09,item,~/weapon/jewelry,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shipintai,animatedblock,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Headornaments01,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Headornaments02,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Headornaments03,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Headornaments04,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Headornaments05,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Headornaments06,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Headornaments07,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Headornaments08,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Headornaments09,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Necklaceornaments01,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Necklaceornaments02,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Necklaceornaments03,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Necklaceornaments04,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Necklaceornaments05,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Necklaceornaments06,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Necklaceornaments07,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Necklaceornaments08,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Necklaceornaments09,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Handornaments01,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Handornaments02,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Handornaments03,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Handornaments04,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Handornaments05,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Handornaments06,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Handornaments07,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Handornaments08,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Handornaments09,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beltornaments01,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Beltornaments02,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Beltornaments03,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Beltornaments04,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Beltornaments05,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Beltornaments06,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Beltornaments07,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Beltornaments08,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Beltornaments09,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Shipintai,animatedblock,~/weapon/jewelry/shipintaiGUI,equipment,已读,B1 归属阅读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,GUIshipintai,gui,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shipintaixianshi,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ShipintaiGUIpagedown,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ShipintaiGUIpageup,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Hecheng,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ShipintaiFangZhiFangKuaiShi,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ShipintaiFangZhiFangKuaiShi,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,B1 归属阅读：随 Shipintai 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,ZhibujiZaiFangKuaiShangYouJian,procedure,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ZhibujiGengXinYouXiKe,procedure,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhibuji,animatedblock,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3055,24 +3055,24 @@ yvanchuxiuzhen,MentuRenwuqiehuan,procedure,~/tool/xvnlong,npc,候选,第一版�
 yvanchuxiuzhen,Playerchuansuo,function,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerJoin02,procedure,~/GUI,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yijichushishengcheng,procedure,~/GUI,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv011,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv012,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv013,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv014,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv015,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv016,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv017,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv018,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv019,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv021,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv022,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv023,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv024,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv025,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv026,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv027,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv028,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv029,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Gongjv011,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv012,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv013,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv014,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv015,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv016,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv017,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv018,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv019,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv021,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv022,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv023,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv024,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv025,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv026,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv027,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv028,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Gongjv029,tool,~/tool,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Gongjvhecheng011,recipe,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongjvhecheng012,recipe,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongjvhecheng013,recipe,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3543,7 +3543,7 @@ yvanchuxiuzhen,Headornaments,tag,~/tag,platform,候选,第一版批量归组（�
 yvanchuxiuzhen,Necklaceornaments,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Handornaments,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Beltornaments,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor10,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Armor10,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Arrowpoisonwood01,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Teamleave,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Annualfleabanehecheng,recipe,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3567,38 +3567,38 @@ yvanchuxiuzhen,Qingjiaoxianshi,procedure,~/tool,decor,候选,第一版批量归�
 yvanchuxiuzhen,Addfivexianshi,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Plaqueguiqingxieanniu,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Plaqueguiaddfive,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv008DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv008,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Gongjv008DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/tool,equipment,已读,B1 归属阅读：随 Gongjv008 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
+yvanchuxiuzhen,Gongjv008,tool,~/tool,equipment,已读,B1 归属阅读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,Tiandaoguding,block,~/decorate/jiegou,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongfashuxingjiyv,procedure,~/item/book,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GongfaxvexiGengXinYouXiKe,procedure,~/item/book,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongfaxvexi,animatedblock,~/item/book,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GongfaxvexiZaiFangKuaiShangYouJian,procedure,~/item/book,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tiangandizhi2,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao011DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao011,tool,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor11,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao011DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao011 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao011,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Armor11,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Effect032ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect032,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao012DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao012,tool,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao013DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao013,tool,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao012DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao012 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao012,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao013DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao013 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao013,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fenyan,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao014DangYuanChengWuPinShiYongShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao014TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao014DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao014,rangeditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao015,tool,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao014DangYuanChengWuPinShiYongShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao014 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao014TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao014 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao014DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao014 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao014,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao015,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 RightClickEntity 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Organism12DangYouJianDianJiShiTi,procedure,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Organism12,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Organism12ShiTiChuShiShengChengShi,procedure,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes01,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes02,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes03,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes04,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes05,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes06,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Clothes01,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 decor 的 Guancai01GengXinYouXiKe；flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes02,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 decor 的 Guancai01GengXinYouXiKe；flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes03,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes04,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes05,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 decor 的 Guancai01GengXinYouXiKe；flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes06,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Businessman21,animatedentity,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman22,animatedentity,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman21DangShiTiGengXinKeShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3769,8 +3769,8 @@ yvanchuxiuzhen,Duyao19,potioneffect,~/effect,combat,候选,第一版批量归组
 yvanchuxiuzhen,Duedanhecheng,recipe,~/item/zawu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Sawtooth,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Xveliu,fluid,~/decorate,xiulian,已读,B1 归属阅读：血流只在修炼规则中有意义：Kaishixiulian 修炼御血、汲血功、地血大法、血魔祭魂秘法时检测周围 3×3×3 是否有血流，有则给血晶并额外 +5；Xixveshi 只负责产出
-yvanchuxiuzhen,Fabao016DangShiTiBeiGongJuJiZhongShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao016,tool,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao016DangShiTiBeiGongJuJiZhongShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao016 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao016,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao016hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fishing,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Foodblockyoujian,procedure,~/item/food,cooking,已读,B1 归属阅读：随 Food001 读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
@@ -3795,7 +3795,7 @@ yvanchuxiuzhen,Moshou002DangShiTiGengXinKeShi,procedure,~/entity/tianmo,creature
 yvanchuxiuzhen,Painting01,painting,~/decorate/painting,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PaiweiGui,gui,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SetPaiwei,procedure,~/tool,decor,已读,系统设计·已读裁定：牌位界面的写入过程，写 plaquetxt
-yvanchuxiuzhen,Fabao016DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao016DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao016 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Jingxve,item,~/item/zawu,equipment,已读,B1 归属阅读：精血：筑基期（LEVELnumber ≥ 11）以本人精血使副手武器或法宝认主，写 belongToMasterUUID；蛊罐与桃树苗按 ID 另作材料使用
 yvanchuxiuzhen,Guchong01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong01item,item,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3817,8 +3817,8 @@ yvanchuxiuzhen,Chongshicao,plant,~/plant/ordinaryplants,plant,已读,B1 归属�
 yvanchuxiuzhen,Huxiangtunshi,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongtunshi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongyesheng,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao017DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao017,item,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao017DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao017 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
+yvanchuxiuzhen,Fabao017,item,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao01701DangShiTiGengXinKeShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao01701,animatedentity,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao017hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3840,8 +3840,8 @@ yvanchuxiuzhen,Qiankundai04GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,
 yvanchuxiuzhen,Taoguan,tag,~/tag,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,GuchongshifangGUI,gui,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,GuchongshifangOpen,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao018,animateditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,guchong,已读,B1 归属阅读：随 Fabao018 读：蛊笛：召回周围 forge:guchongentity 蛊虫并打开蛊虫释放界面 GuchongshifangGUI（GuchongshifangOpen 已读归 guchong），物品栏中须有 forge:taoguan 蛊罐
+yvanchuxiuzhen,Fabao018,animateditem,~/weapon/fabao,guchong,已读,B1 归属阅读：蛊笛：召回周围 forge:guchongentity 蛊虫并打开蛊虫释放界面 GuchongshifangGUI（GuchongshifangOpen 已读归 guchong），物品栏中须有 forge:taoguan 蛊罐
 yvanchuxiuzhen,GuchongshifangGUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,Guchonguiup,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,Guchonguidown,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
@@ -4360,9 +4360,9 @@ yvanchuxiuzhen,Itemfulu48,item,~/item/huafu,fulu,候选,第一版批量归组（
 yvanchuxiuzhen,Jianceshuye,procedure,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GongjvgaoDangShiTiGengXinKeShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongjvgao,animatedentity,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongjvshechuDangTouSheWuSheZhongCiFangKuai,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongjvshechuTouZhiWuFeiXingTick,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjvshechu,rangeditem,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,GongjvshechuDangTouSheWuSheZhongCiFangKuai,procedure,~/tool,equipment,已读,B1 归属阅读：随 Gongjvshechu 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
+yvanchuxiuzhen,GongjvshechuTouZhiWuFeiXingTick,procedure,~/tool,equipment,已读,B1 归属阅读：随 Gongjvshechu 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
+yvanchuxiuzhen,Gongjvshechu,rangeditem,~/tool,equipment,已读,B1 归属阅读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,GongjvchanDangShiTiGengXinKeShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongjvchan,animatedentity,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GongjvchuDangShiTiGengXinKeShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4479,17 +4479,17 @@ yvanchuxiuzhen,Npcskill0304,procedure,~/entity/tongyongjinengskill,creature,候�
 yvanchuxiuzhen,Npcskill0305,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Npcskill0306,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Murenzhuanghecheng,recipe,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes07,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes08,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes09,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes10,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes11,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes12,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Clothes07,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes08,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes09,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes10,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes11,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes12,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Cailiao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes13,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Clothes13,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Freezeimmunewearables,tag,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes14,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes15,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Clothes14,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes15,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Chengjiu001,achievement,~/chengjiu,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Chengjiu002,achievement,~/chengjiu,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Chengjiu003,achievement,~/chengjiu,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4533,8 +4533,8 @@ yvanchuxiuzhen,Guchong05DangYouJianDianJiShiTi,procedure,~/entity/guchong,guchon
 yvanchuxiuzhen,Guchong05,livingentity,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong05zhizuo,recipe,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ling19,item,~/item/zawu,material,已读,B1 归属阅读：云清令：没有过程，只出现在结构 yvnqingpai 的容器中，无规则可读，保留候选归属
-yvanchuxiuzhen,Clothes16,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes17,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Clothes16,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Clothes17,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Yaoshou006list,loottable,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou021list,loottable,~/entity/yaoshou/yaoshou021,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaodan,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4552,13 +4552,13 @@ yvanchuxiuzhen,PlayerGui04jieshao,procedure,~/GUI,panel,候选,第一版批量�
 yvanchuxiuzhen,PlayerGui05jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui06jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui07jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv001DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjv001,tool,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Gongjv001DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool,equipment,已读,B1 归属阅读：随 Gongjv001 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
+yvanchuxiuzhen,Gongjv001,tool,~/tool,equipment,已读,B1 归属阅读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,Gongjv001hecheng,recipe,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jinengxvkong,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Vegetable,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Seed,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao014KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao014KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao014 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Duyao05DangXiaoGuoJieShuShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Duyao07DangXiaoGuoJieShuShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Duyao20DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4752,10 +4752,10 @@ yvanchuxiuzhen,Fulutexiao45DangTouSheWuSheZhongCiFangKuai,procedure,~/item/huafu
 yvanchuxiuzhen,Chuwu,tag,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jinzhifangru,procedure,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillGold0201,animatedentity,~/skill/jineng/goldskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor12,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Armor13,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao021,animateditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao022,animateditem,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Armor12,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Armor13,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Fabao021,animateditem,~/weapon/fabao,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Fabao022,animateditem,~/weapon/fabao,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,SkillGold0201DangShiTiGengXinKeShi,procedure,~/skill/jineng/goldskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Brokenwhite,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Brokenlightgray,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5228,8 +5228,8 @@ yvanchuxiuzhen,Yvanchu,command,~/systemset/zhiling,flow,候选,第一版批量�
 yvanchuxiuzhen,YvanchuGo,procedure,~/systemset/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,YvanchuGo2,procedure,~/systemset/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,YvanchuGo3,procedure,~/systemset/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaohua0101TouKuiShiJianMeiYouXiKe,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaohua0101,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaohua0101TouKuiShiJianMeiYouXiKe,procedure,~/weapon/armor,equipment,已读,B1 归属阅读：随 Yaohua0101 读：妖化盔甲：头盔每刻维持妖化效果，结束时 Yaohuajieshu 复原，属防具
+yvanchuxiuzhen,Yaohua0101,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：妖化盔甲：头盔每刻维持妖化效果，结束时 Yaohuajieshu 复原，属防具
 yvanchuxiuzhen,Yaohua,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaohuabuwei0,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaohuaarmor,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5238,7 +5238,7 @@ yvanchuxiuzhen,Jinengyaohua,procedure,~/skill/jineng/jinengGui,skill,候选,第�
 yvanchuxiuzhen,Yaohuabuwei1,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaohuabuwei2,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaohuabuwe3,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaohuajieshu,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaohuajieshu,procedure,~/weapon/armor,equipment,已读,B1 归属阅读：随 Yaohua0101 读：妖化盔甲：头盔每刻维持妖化效果，结束时 Yaohuajieshu 复原，属防具
 yvanchuxiuzhen,Jinengzibao,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zibaoshanghai,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yvanyingchuqiao,animatedentity,~/skill/jineng/jinengGui/yvanyingchuqiao,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5388,7 +5388,7 @@ yvanchuxiuzhen,Saplings,tag,~/tag,platform,候选,第一版批量归组（目录
 yvanchuxiuzhen,Cailiao210WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao210,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongjv,tag,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao003DangTouSheWuSheZhongCiFangKuai2,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao003DangTouSheWuSheZhongCiFangKuai2,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao003 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao004hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao005hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao006hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5814,9 +5814,9 @@ yvanchuxiuzhen,Jinruyouxichushenxvanze,gamerule,~/systemset,xiulian,候选,第�
 yvanchuxiuzhen,Fulutick2,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,CaishenyeZiRanShiTiShengChengTiaoJian,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Hammerhecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes18,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes19,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Clothes20,armor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Clothes18,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 npc 的 Businessman10 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes19,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 npc 的 Businessman11ShiTiChuShiShengChengShi 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
+yvanchuxiuzhen,Clothes20,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 npc 的 Businessman09 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Businessman09ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman09,livingentity,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman10ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）

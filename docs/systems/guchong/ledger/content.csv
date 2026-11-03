@@ -13,6 +13,7 @@ item,yvanchuxitong:taoguan_01,yvanchuxitong,Taoguan01,src/main/java/net/mcreator
 item,yvanchuxitong:taoguan_02,yvanchuxitong,Taoguan02,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,219,guchong,候选,yvanchuxiuzhen:taoguan_02,待处理,
 item,yvanchuxitong:taoguan_03,yvanchuxitong,Taoguan03,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,220,guchong,候选,yvanchuxiuzhen:taoguan_03,待处理,
 item,yvanchuxiuzhen:chongluan,yvanchuxiuzhen,Chongluan,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2815,guchong,已读,yvanchuxiuzhen:chongluan,待处理,
+item,yvanchuxiuzhen:fabao_018,yvanchuxiuzhen,Fabao018,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2814,guchong,已读,yvanchuxiuzhen:fabao_018,待处理,
 item,yvanchuxiuzhen:guchong_01item,yvanchuxiuzhen,Guchong01item,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2805,guchong,候选,yvanchuxiuzhen:guchong_01item,待处理,
 item,yvanchuxiuzhen:guchong_02item,yvanchuxiuzhen,Guchong02item,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2806,guchong,候选,yvanchuxiuzhen:guchong_02item,待处理,
 item,yvanchuxiuzhen:guchong_03item,yvanchuxiuzhen,Guchong03item,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2807,guchong,候选,yvanchuxiuzhen:guchong_03item,待处理,

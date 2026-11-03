@@ -319,7 +319,7 @@ yvanchuxiuzhen,BiggrassyincangDisplayItem,src/main/java/net/mcreator/yvanchuxiuz
 yvanchuxiuzhen,CaidaoblockDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/CaidaoblockDisplayItem.java,block/display,cooking,source_element_metadata
 yvanchuxiuzhen,CanheDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/CanheDisplayItem.java,block/display,craft,source_element_metadata
 yvanchuxiuzhen,ChuanchengDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/ChuanchengDisplayItem.java,block/display,fulu,source_element_metadata
-yvanchuxiuzhen,Fabao009DisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/Fabao009DisplayItem.java,block/display,equipment,source_element_metadata
+yvanchuxiuzhen,Fabao009DisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/Fabao009DisplayItem.java,block/display,dungeon,source_element_metadata
 yvanchuxiuzhen,FlagmotherDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/FlagmotherDisplayItem.java,block/display,zhenfa,source_element_metadata
 yvanchuxiuzhen,FlagsonDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/FlagsonDisplayItem.java,block/display,zhenfa,source_element_metadata
 yvanchuxiuzhen,FooddaguoDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/FooddaguoDisplayItem.java,block/display,cooking,source_element_metadata
@@ -385,7 +385,7 @@ yvanchuxiuzhen,CanheTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/e
 yvanchuxiuzhen,CanwutaiBlockBlockEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/CanwutaiBlockBlockEntity.java,block/entity,gongfa,source_element_metadata
 yvanchuxiuzhen,CauldronduyaoBlockEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/CauldronduyaoBlockEntity.java,block/entity,combat,source_element_metadata
 yvanchuxiuzhen,ChuanchengTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/ChuanchengTileEntity.java,block/entity,fulu,source_element_metadata
-yvanchuxiuzhen,Fabao009TileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/Fabao009TileEntity.java,block/entity,equipment,source_element_metadata
+yvanchuxiuzhen,Fabao009TileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/Fabao009TileEntity.java,block/entity,dungeon,source_element_metadata
 yvanchuxiuzhen,FlagmotherTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/FlagmotherTileEntity.java,block/entity,zhenfa,source_element_metadata
 yvanchuxiuzhen,FlagsonTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/FlagsonTileEntity.java,block/entity,zhenfa,source_element_metadata
 yvanchuxiuzhen,FooddaguoTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/FooddaguoTileEntity.java,block/entity,cooking,source_element_metadata
@@ -429,7 +429,7 @@ yvanchuxiuzhen,ZhibujiTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block
 yvanchuxiuzhen,ZhuangshiqiantongTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/ZhuangshiqiantongTileEntity.java,block/entity,decor,source_element_metadata
 yvanchuxiuzhen,ZhuangshitiziTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/ZhuangshitiziTileEntity.java,block/entity,decor,source_element_metadata
 yvanchuxiuzhen,EvilspirittreeBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/EvilspirittreeBlock.java,block,plant,source_element_metadata
-yvanchuxiuzhen,Fabao009Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Fabao009Block.java,block,equipment,source_element_metadata
+yvanchuxiuzhen,Fabao009Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Fabao009Block.java,block,dungeon,source_element_metadata
 yvanchuxiuzhen,FlagmotherBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/FlagmotherBlock.java,block,zhenfa,source_element_metadata
 yvanchuxiuzhen,FlagsonBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/FlagsonBlock.java,block,zhenfa,source_element_metadata
 yvanchuxiuzhen,Food001Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Food001Block.java,block,cooking,source_element_metadata
@@ -600,8 +600,8 @@ yvanchuxiuzhen,CanheBlockModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/m
 yvanchuxiuzhen,CanheDisplayModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/CanheDisplayModel.java,block/model,craft,source_element_metadata
 yvanchuxiuzhen,ChuanchengBlockModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/ChuanchengBlockModel.java,block/model,fulu,source_element_metadata
 yvanchuxiuzhen,ChuanchengDisplayModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/ChuanchengDisplayModel.java,block/model,fulu,source_element_metadata
-yvanchuxiuzhen,Fabao009BlockModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/Fabao009BlockModel.java,block/model,equipment,source_element_metadata
-yvanchuxiuzhen,Fabao009DisplayModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/Fabao009DisplayModel.java,block/model,equipment,source_element_metadata
+yvanchuxiuzhen,Fabao009BlockModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/Fabao009BlockModel.java,block/model,dungeon,source_element_metadata
+yvanchuxiuzhen,Fabao009DisplayModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/Fabao009DisplayModel.java,block/model,dungeon,source_element_metadata
 yvanchuxiuzhen,FlagmotherBlockModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/FlagmotherBlockModel.java,block/model,zhenfa,source_element_metadata
 yvanchuxiuzhen,FlagmotherDisplayModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/FlagmotherDisplayModel.java,block/model,zhenfa,source_element_metadata
 yvanchuxiuzhen,FlagsonBlockModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/FlagsonBlockModel.java,block/model,zhenfa,source_element_metadata
@@ -758,8 +758,8 @@ yvanchuxiuzhen,CanheDisplayItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhe
 yvanchuxiuzhen,CanheTileRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/CanheTileRenderer.java,block/renderer,craft,source_element_metadata
 yvanchuxiuzhen,ChuanchengDisplayItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/ChuanchengDisplayItemRenderer.java,block/renderer,fulu,source_element_metadata
 yvanchuxiuzhen,ChuanchengTileRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/ChuanchengTileRenderer.java,block/renderer,fulu,source_element_metadata
-yvanchuxiuzhen,Fabao009DisplayItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/Fabao009DisplayItemRenderer.java,block/renderer,equipment,source_element_metadata
-yvanchuxiuzhen,Fabao009TileRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/Fabao009TileRenderer.java,block/renderer,equipment,source_element_metadata
+yvanchuxiuzhen,Fabao009DisplayItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/Fabao009DisplayItemRenderer.java,block/renderer,dungeon,source_element_metadata
+yvanchuxiuzhen,Fabao009TileRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/Fabao009TileRenderer.java,block/renderer,dungeon,source_element_metadata
 yvanchuxiuzhen,FlagmotherDisplayItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/FlagmotherDisplayItemRenderer.java,block/renderer,zhenfa,source_element_metadata
 yvanchuxiuzhen,FlagmotherTileRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/FlagmotherTileRenderer.java,block/renderer,zhenfa,source_element_metadata
 yvanchuxiuzhen,FlagsonDisplayItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/FlagsonDisplayItemRenderer.java,block/renderer,zhenfa,source_element_metadata
@@ -2894,7 +2894,7 @@ yvanchuxiuzhen,Fabao005Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao
 yvanchuxiuzhen,Fabao006Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao006Item.java,item,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao007Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao007Item.java,item,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao008Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao008Item.java,item,equipment,source_element_metadata
-yvanchuxiuzhen,Fabao00901Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao00901Item.java,item,equipment,source_element_metadata
+yvanchuxiuzhen,Fabao00901Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao00901Item.java,item,dungeon,source_element_metadata
 yvanchuxiuzhen,Fabao010huoyanItem,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao010huoyanItem.java,item,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao010Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao010Item.java,item,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao011Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao011Item.java,item,equipment,source_element_metadata
@@ -2904,7 +2904,7 @@ yvanchuxiuzhen,Fabao014Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao
 yvanchuxiuzhen,Fabao015Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao015Item.java,item,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao016Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao016Item.java,item,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao017Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao017Item.java,item,equipment,source_element_metadata
-yvanchuxiuzhen,Fabao018Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao018Item.java,item,equipment,source_element_metadata
+yvanchuxiuzhen,Fabao018Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao018Item.java,item,guchong,source_element_metadata
 yvanchuxiuzhen,Fabao021Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao021Item.java,item,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao022Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Fabao022Item.java,item,equipment,source_element_metadata
 yvanchuxiuzhen,FlagmotheritemItem,src/main/java/net/mcreator/yvanchuxiuzhen/item/FlagmotheritemItem.java,item,zhenfa,source_element_metadata
@@ -3156,7 +3156,7 @@ yvanchuxiuzhen,Armor12Model,src/main/java/net/mcreator/yvanchuxiuzhen/item/model
 yvanchuxiuzhen,Armor13Model,src/main/java/net/mcreator/yvanchuxiuzhen/item/model/Armor13Model.java,item/model,equipment,source_element_metadata
 yvanchuxiuzhen,Clothes05Model,src/main/java/net/mcreator/yvanchuxiuzhen/item/model/Clothes05Model.java,item/model,equipment,source_element_metadata
 yvanchuxiuzhen,Clothes19Model,src/main/java/net/mcreator/yvanchuxiuzhen/item/model/Clothes19Model.java,item/model,equipment,source_element_metadata
-yvanchuxiuzhen,Fabao018ItemModel,src/main/java/net/mcreator/yvanchuxiuzhen/item/model/Fabao018ItemModel.java,item/model,equipment,source_element_metadata
+yvanchuxiuzhen,Fabao018ItemModel,src/main/java/net/mcreator/yvanchuxiuzhen/item/model/Fabao018ItemModel.java,item/model,guchong,source_element_metadata
 yvanchuxiuzhen,Fabao021ItemModel,src/main/java/net/mcreator/yvanchuxiuzhen/item/model/Fabao021ItemModel.java,item/model,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao022ItemModel,src/main/java/net/mcreator/yvanchuxiuzhen/item/model/Fabao022ItemModel.java,item/model,equipment,source_element_metadata
 yvanchuxiuzhen,Fuqi02Model,src/main/java/net/mcreator/yvanchuxiuzhen/item/model/Fuqi02Model.java,item/model,festival,source_element_metadata
@@ -3199,7 +3199,7 @@ yvanchuxiuzhen,Qiankundai01Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Q
 yvanchuxiuzhen,Qiankundai02Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Qiankundai02Item.java,item,storage,source_element_metadata
 yvanchuxiuzhen,Qiankundai03Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Qiankundai03Item.java,item,storage,source_element_metadata
 yvanchuxiuzhen,Qiankundai04Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Qiankundai04Item.java,item,storage,source_element_metadata
-yvanchuxiuzhen,Fabao018ItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/item/renderer/Fabao018ItemRenderer.java,item/renderer,equipment,source_element_metadata
+yvanchuxiuzhen,Fabao018ItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/item/renderer/Fabao018ItemRenderer.java,item/renderer,guchong,source_element_metadata
 yvanchuxiuzhen,Fabao021ItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/item/renderer/Fabao021ItemRenderer.java,item/renderer,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao022ItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/item/renderer/Fabao022ItemRenderer.java,item/renderer,equipment,source_element_metadata
 yvanchuxiuzhen,Ling14itemItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/item/renderer/Ling14itemItemRenderer.java,item/renderer,world,source_element_metadata
@@ -3975,10 +3975,10 @@ yvanchuxiuzhen,Fabao008DangTouSheWuSheZhongCiFangKuaiProcedure,src/main/java/net
 yvanchuxiuzhen,Fabao008DangTouZhiWuJiZhongShiTiShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao008DangTouZhiWuJiZhongShiTiShiProcedure.java,procedures,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao008KeYiShiYongYuanChengWuPinDeTiaoJianProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao008KeYiShiYongYuanChengWuPinDeTiaoJianProcedure.java,procedures,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao008TouZhiWuFeiXingTickProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao008TouZhiWuFeiXingTickProcedure.java,procedures,equipment,source_element_metadata
-yvanchuxiuzhen,Fabao00901DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao00901DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure.java,procedures,equipment,source_element_metadata
-yvanchuxiuzhen,Fabao009GengXinYouXiKeProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao009GengXinYouXiKeProcedure.java,procedures,equipment,source_element_metadata
+yvanchuxiuzhen,Fabao00901DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao00901DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure.java,procedures,dungeon,source_element_metadata
+yvanchuxiuzhen,Fabao009GengXinYouXiKeProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao009GengXinYouXiKeProcedure.java,procedures,dungeon,source_element_metadata
 yvanchuxiuzhen,Fabao009weiduDangWanJiaJinRuWeiDuShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao009weiduDangWanJiaJinRuWeiDuShiProcedure.java,procedures,dungeon,source_element_metadata
-yvanchuxiuzhen,Fabao009ZaiFangKuaiShangYouJianProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao009ZaiFangKuaiShangYouJianProcedure.java,procedures,equipment,source_element_metadata
+yvanchuxiuzhen,Fabao009ZaiFangKuaiShangYouJianProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao009ZaiFangKuaiShangYouJianProcedure.java,procedures,dungeon,source_element_metadata
 yvanchuxiuzhen,Fabao010DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao010DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java,procedures,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao010huoyanDangTouSheWuSheZhongCiFangKuaiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao010huoyanDangTouSheWuSheZhongCiFangKuaiProcedure.java,procedures,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao010huoyanDangTouZhiWuJiZhongShiTiShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao010huoyanDangTouZhiWuJiZhongShiTiShiProcedure.java,procedures,equipment,source_element_metadata
@@ -3994,7 +3994,7 @@ yvanchuxiuzhen,Fabao016DangShiTiBeiGongJuJiZhongShiProcedure,src/main/java/net/m
 yvanchuxiuzhen,Fabao016DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao016DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java,procedures,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao01701DangShiTiGengXinKeShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao01701DangShiTiGengXinKeShiProcedure.java,procedures,equipment,source_element_metadata
 yvanchuxiuzhen,Fabao017DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao017DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java,procedures,equipment,source_element_metadata
-yvanchuxiuzhen,Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java,procedures,equipment,source_element_metadata
+yvanchuxiuzhen,Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java,procedures,guchong,source_element_metadata
 yvanchuxiuzhen,FabaotouzhiwuProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/FabaotouzhiwuProcedure.java,procedures,equipment,source_element_metadata
 yvanchuxiuzhen,FanjianAnXiaAnJianShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/FanjianAnXiaAnJianShiProcedure.java,procedures,skill,source_element_metadata
 yvanchuxiuzhen,FindTheEnemyProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/FindTheEnemyProcedure.java,procedures,relation,source_element_metadata
@@ -5185,7 +5185,7 @@ yvanchuxiuzhen,WarpedbigdoorleftDangFangKuaiBeiShuiFangZhiShiProcedure,src/main/
 yvanchuxiuzhen,WarpedbigdoorleftZaiFangKuaiShangYouJianProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/WarpedbigdoorleftZaiFangKuaiShangYouJianProcedure.java,procedures,decor,source_element_metadata
 yvanchuxiuzhen,WaterneirongProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/WaterneirongProcedure.java,procedures,panel,source_element_metadata
 yvanchuxiuzhen,WaterxianshiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/WaterxianshiProcedure.java,procedures,panel,source_element_metadata
-yvanchuxiuzhen,Weaponbroadsword01DangShiTiHuiDongWuPinShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Weaponbroadsword01DangShiTiHuiDongWuPinShiProcedure.java,procedures,equipment,source_element_metadata
+yvanchuxiuzhen,Weaponbroadsword01DangShiTiHuiDongWuPinShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Weaponbroadsword01DangShiTiHuiDongWuPinShiProcedure.java,procedures,skill,source_element_metadata
 yvanchuxiuzhen,Weaponhossu01DangGongJuChuXianZaiShouZhongShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Weaponhossu01DangGongJuChuXianZaiShouZhongShiProcedure.java,procedures,equipment,source_element_metadata
 yvanchuxiuzhen,Weaponhossu01DangShiTiHuiDongWuPinShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Weaponhossu01DangShiTiHuiDongWuPinShiProcedure.java,procedures,equipment,source_element_metadata
 yvanchuxiuzhen,WeaponshuxingProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/WeaponshuxingProcedure.java,procedures,attribute,source_element_metadata
