@@ -1942,7 +1942,7 @@ yvanchuxiuzhen,Gongfalist08,procedure,~/systemset/gongfa,gongfa,候选,第一版
 yvanchuxiuzhen,XvejingDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/skill/jineng/xvedaoskill,xiulian,已读,B1 归属阅读：随 Xvejing 读：血精：右键回复 2 点生命；由血道修炼（Kaishixiulian 在血流旁修炼）与血魔祭魂秘法攻击（EntityHurt）产出，与血流、吸血石同属血道修炼
 yvanchuxiuzhen,Xvejing,item,~/skill/jineng/xvedaoskill,xiulian,已读,B1 归属阅读：血精：右键回复 2 点生命；由血道修炼（Kaishixiulian 在血流旁修炼）与血魔祭魂秘法攻击（EntityHurt）产出，与血流、吸血石同属血道修炼
 yvanchuxiuzhen,Cailiao200hecheng,recipe,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ling07,item,~/item/zawu,material,候选,已读来源：令牌，创造栏“原初物品”，没有过程，来源中没有任何代码、数据、结构或语言载荷使用它；material 只是“~/item/zawu”目录的批量候选，规则无法判定，待负责人裁定
+yvanchuxiuzhen,Ling07,item,~/item/zawu,decor,已读,负责人裁定（2026-11-03）：令牌在来源中没有任何使用者与获取途径，作为无规则、只按 ID 引用的元素归内容族 decor
 yvanchuxiuzhen,Ling08DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,tiandao,已读,B1 归属阅读：随 Ling08 读：天道：生存模式不可得的通用管理工具（穿梭令、物品锁、物品 NBT 编辑器、固定方块、多结构生成器）
 yvanchuxiuzhen,Ling08,tool,~/item/zawu,tiandao,已读,B1 归属阅读：天道：生存模式不可得的通用管理工具（穿梭令、物品锁、物品 NBT 编辑器、固定方块、多结构生成器）
 yvanchuxiuzhen,Ling09DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,xiulian,已读,B1 归属阅读：随 Ling09 读：升仙令：出身“他乡故知”的初始物品（PlayerJoin02），使用后在 tizhiitem 记 shengxianling 并漂浮，进入人间时 Yijichushishengcheng 据此安置并给乾坤袋
@@ -3647,7 +3647,7 @@ yvanchuxiuzhen,Gaojirenwu7,procedure,~/tool,quest,候选,第一版批量归组�
 yvanchuxiuzhen,Gaojirenwu8,procedure,~/tool,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gaojirenwu9,procedure,~/tool,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gaojirenwu10,procedure,~/tool,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ling17,item,~/item/zawu,material,候选,已读来源：梦之羽毛，史诗稀有度、堆叠 1，提示“愿你不忘初心，砥砺前行！”，创造栏“原初物品”，没有过程，来源中没有任何使用者；material 只是目录批量候选，规则无法判定，待负责人裁定
+yvanchuxiuzhen,Ling17,item,~/item/zawu,decor,已读,负责人裁定（2026-11-03）：梦之羽毛（提示“愿你不忘初心，砥砺前行！”）在来源中没有任何使用者与获取途径，作为无规则、只按 ID 引用的元素归内容族 decor
 yvanchuxiuzhen,Acaciabigdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
 yvanchuxiuzhen,Acaciabigdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
 yvanchuxiuzhen,Acaciabigdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Acaciabigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
@@ -4532,7 +4532,7 @@ yvanchuxiuzhen,Guchong05DangShiTiGengXinKeShi,procedure,~/entity/guchong,guchong
 yvanchuxiuzhen,Guchong05DangYouJianDianJiShiTi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong05,livingentity,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong05zhizuo,recipe,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ling19,item,~/item/zawu,material,候选,已读来源：云清令，提示“云清派身份牌”，创造栏“原初物品”，没有过程，只出现在结构 yvnqingpai 的容器中；material 只是目录批量候选，规则无法判定，待负责人裁定
+yvanchuxiuzhen,Ling19,item,~/item/zawu,world,已读,负责人裁定（2026-11-03）：云清令（提示“云清派身份牌”）无过程、无配方，只出现在结构 yvnqingpai 的容器中，随结构投放归 world
 yvanchuxiuzhen,Clothes16,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Clothes17,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Yaoshou006list,loottable,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）

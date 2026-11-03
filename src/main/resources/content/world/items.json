@@ -6,5 +6,6 @@
 {"id":"dimensionyaohun","factory":"item","order":325,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","durability":64,"pending_hooks":["useOn"]},
 {"id":"dimensionwugui","factory":"item","order":326,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","durability":64,"pending_hooks":["useOn"]},
 {"id":"dimensiondiling","factory":"item","order":327,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","durability":64,"pending_hooks":["useOn"]},
-{"id":"ling_14item","factory":"item","order":1647,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"fire_resistant":true,"tooltip":["手持此物右键，生成一道指引圆环，跟着圆环走就能找到被封印建筑的坐标，靠近坐标后再次右键，即可解开封印释放建筑。","手持此物按住Alt键再右键，可以瞬间返回乾坤道人的道场。","手持此物按住Ctrl键再右键，可以立即返回之前的位置。"],"pending_hooks":["getContainerItem","getFactory","getItemStackRenderer","hasCraftingRemainingItem","initializeClient","registerControllers","use"]}
+{"id":"ling_14item","factory":"item","order":1647,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"fire_resistant":true,"tooltip":["手持此物右键，生成一道指引圆环，跟着圆环走就能找到被封印建筑的坐标，靠近坐标后再次右键，即可解开封印释放建筑。","手持此物按住Alt键再右键，可以瞬间返回乾坤道人的道场。","手持此物按住Ctrl键再右键，可以立即返回之前的位置。"],"pending_hooks":["getContainerItem","getFactory","getItemStackRenderer","hasCraftingRemainingItem","initializeClient","registerControllers","use"]},
+{"id":"ling_19","factory":"item","order":1927,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"rarity":"UNCOMMON","tooltip":["云清派身份牌"]}
 ]

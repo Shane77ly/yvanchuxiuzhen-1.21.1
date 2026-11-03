@@ -3104,7 +3104,7 @@ yvanchuxiuzhen,Jiuniang006Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ji
 yvanchuxiuzhen,Jiuniang007Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Jiuniang007Item.java,item,cooking,source_element_metadata
 yvanchuxiuzhen,Jiuniang008Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Jiuniang008Item.java,item,cooking,source_element_metadata
 yvanchuxiuzhen,Laurel01Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Laurel01Item.java,item,cooking,source_element_metadata
-yvanchuxiuzhen,Ling07Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling07Item.java,item,material,source_element_metadata
+yvanchuxiuzhen,Ling07Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling07Item.java,item,decor,source_element_metadata
 yvanchuxiuzhen,Ling08Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling08Item.java,item,tiandao,source_element_metadata
 yvanchuxiuzhen,Ling09Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling09Item.java,item,xiulian,source_element_metadata
 yvanchuxiuzhen,Ling10Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling10Item.java,item,xiulian,source_element_metadata
@@ -3114,9 +3114,9 @@ yvanchuxiuzhen,Ling13Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling13I
 yvanchuxiuzhen,Ling14itemItem,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling14itemItem.java,item,world,source_element_metadata
 yvanchuxiuzhen,Ling15Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling15Item.java,item,relation,source_element_metadata
 yvanchuxiuzhen,Ling16Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling16Item.java,item,tiandao,source_element_metadata
-yvanchuxiuzhen,Ling17Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling17Item.java,item,material,source_element_metadata
+yvanchuxiuzhen,Ling17Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling17Item.java,item,decor,source_element_metadata
 yvanchuxiuzhen,Ling18Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling18Item.java,item,xiulian,source_element_metadata
-yvanchuxiuzhen,Ling19Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling19Item.java,item,material,source_element_metadata
+yvanchuxiuzhen,Ling19Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Ling19Item.java,item,world,source_element_metadata
 yvanchuxiuzhen,Lingshoudai00Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Lingshoudai00Item.java,item,creature,source_element_metadata
 yvanchuxiuzhen,Lingshoudai01Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Lingshoudai01Item.java,item,creature,source_element_metadata
 yvanchuxiuzhen,Lingshoudai02Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Lingshoudai02Item.java,item,creature,source_element_metadata
