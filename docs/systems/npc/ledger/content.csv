@@ -55,7 +55,7 @@ item,yvanchuxiuzhen:mamian_spawn_egg,yvanchuxiuzhen,Mamian,src/main/java/net/mcr
 item,yvanchuxiuzhen:niutou_spawn_egg,yvanchuxiuzhen,Niutou,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2878,npc,已读,yvanchuxiuzhen:niutou_spawn_egg,待处理,
 item,yvanchuxiuzhen:qiankundaoren,yvanchuxiuzhen,Qiankundaoren,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2480,npc,已读,yvanchuxiuzhen:qiankundaoren,待处理,
 item,yvanchuxiuzhen:qiankunmentu,yvanchuxiuzhen,Qiankunmentu,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2600,npc,已读,yvanchuxiuzhen:qiankunmentu,待处理,
-item,yvanchuxiuzhen:tiandao_np_csetitem,yvanchuxiuzhen,TiandaoNPCsetitem,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2744,npc,已读,yvanchuxiuzhen:tiandao_np_csetitem,待处理,
+item,yvanchuxiuzhen:tiandao_np_csetitem,yvanchuxiuzhen,TiandaoNPCsetitem,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2744,npc,已读,yvanchuxiuzhen:tiandao_np_csetitem,已注册,
 item,yvanchuxiuzhen:wuchangbai_spawn_egg,yvanchuxiuzhen,Wuchangbai,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2874,npc,已读,yvanchuxiuzhen:wuchangbai_spawn_egg,待处理,
 item,yvanchuxiuzhen:wuchanghei_spawn_egg,yvanchuxiuzhen,Wuchanghei,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2876,npc,已读,yvanchuxiuzhen:wuchanghei_spawn_egg,待处理,
 item,yvanchuxiuzhen:yanwang_spawn_egg,yvanchuxiuzhen,Yanwang,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2872,npc,已读,yvanchuxiuzhen:yanwang_spawn_egg,待处理,

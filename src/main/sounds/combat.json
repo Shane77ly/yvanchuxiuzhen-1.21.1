@@ -1,0 +1,82 @@
+{
+  "basalt": {
+    "category": "neutral",
+    "subtitle": "subtitles.basalt",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:basalt",
+        "stream": false
+      }
+    ]
+  },
+  "effect_001yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_001yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_001yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "effect_002yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_002yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_002yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "effect_003yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_003yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_003yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "effect_004yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_004yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_004yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "effect_005yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_005yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_005yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "effect_006yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_006yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_006yinxiao",
+        "stream": false
+      }
+    ]
+  },
+  "effect_007yinxiao": {
+    "category": "neutral",
+    "subtitle": "subtitles.effect_007yinxiao",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:effect_007yinxiao",
+        "stream": false
+      }
+    ]
+  }
+}

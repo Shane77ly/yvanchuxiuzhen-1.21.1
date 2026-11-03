@@ -12,6 +12,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.FoodConstants;
 import net.minecraft.world.food.FoodProperties;
@@ -32,14 +33,16 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.yvanchuxiuzhen.platform.ModId;
 
 /**
- * 一个系统或内容族的内容表加载器：读取 {@code content/<单位>/blocks.json} 与 {@code items.json}，
- * 解码后登记到本单位的 DeferredRegister，并把带创造栏的物品交给 {@link ContentTabs}。
+ * 一个系统或内容族的内容表加载器：读取 {@code content/<单位>/blocks.json}、{@code items.json} 与 {@code sounds.json}，
+ * 解码后登记到本单位的 DeferredRegister，并把带创造栏的物品交给 {@link ContentTabs}。声音事件为可变范围事件，
+ * 与来源的 {@code new SoundEvent(位置)} 一致。
  */
 public final class ContentTables {
     private final String unit;
     private final DeferredRegister.Blocks blocks = DeferredRegister.createBlocks(ModId.VALUE);
     private final DeferredRegister.Items items = DeferredRegister.createItems(ModId.VALUE);
     private final DeferredRegister<ArmorMaterial> armorMaterials = DeferredRegister.create(Registries.ARMOR_MATERIAL, ModId.VALUE);
+    private final DeferredRegister<SoundEvent> sounds = DeferredRegister.create(Registries.SOUND_EVENT, ModId.VALUE);
 
     public ContentTables(String unit) {
         this.unit = unit;
@@ -57,9 +60,13 @@ public final class ContentTables {
         for (ItemRow row : ContentFiles.read("content/" + unit + "/items.json", ItemRow.CODEC)) {
             registerItem(row, registered, materials);
         }
+        for (SoundRow row : ContentFiles.read("content/" + unit + "/sounds.json", SoundRow.CODEC)) {
+            sounds.register(row.id(), () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, row.id())));
+        }
         blocks.register(modBus);
         items.register(modBus);
         armorMaterials.register(modBus);
+        sounds.register(modBus);
     }
 
     private void registerItem(ItemRow row, Map<String, DeferredBlock<Block>> registered, Map<String, Holder<ArmorMaterial>> materials) {

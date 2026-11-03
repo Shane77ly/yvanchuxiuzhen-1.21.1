@@ -13,7 +13,6 @@
 {"id":"skill_light_02","factory":"item","order":959,"stack":1,"pending_hooks":["releaseUsing","use"]},
 {"id":"skill_light_04","factory":"item","order":960,"stack":1,"pending_hooks":["releaseUsing","use"]},
 {"id":"skill_rock_01","factory":"item","order":961,"stack":1,"pending_hooks":["releaseUsing","use"]},
-{"id":"xvejing","factory":"item","order":970,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["use"]},
 {"id":"skill_arrow_01","factory":"item","order":1000,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","pending_hooks":["releaseUsing","use"]},
 {"id":"skill_arrow_02","factory":"item","order":1001,"stack":1,"pending_hooks":["releaseUsing","use"]},
 {"id":"skill_arrow_03","factory":"item","order":1002,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","pending_hooks":["releaseUsing","use"]},

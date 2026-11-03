@@ -13,7 +13,6 @@
   "item.yvanchuxiuzhen.skill_light_02": "定魄神光",
   "item.yvanchuxiuzhen.skill_light_04": "幻光术",
   "item.yvanchuxiuzhen.skill_rock_01": "飞石术",
-  "item.yvanchuxiuzhen.xvejing": "血精",
   "item.yvanchuxiuzhen.skill_arrow_01": "练习木箭",
   "item.yvanchuxiuzhen.skill_arrow_02": "飞灵箭",
   "item.yvanchuxiuzhen.skill_arrow_03": "鸣镝箭",
@@ -27,5 +26,9 @@
   "item.yvanchuxiuzhen.skill_water_0101": "Skill Water 0 1 0 1",
   "item.yvanchuxiuzhen.lingwentexiao": "灵纹",
   "item.yvanchuxiuzhen.danhuo": "丹火",
-  "tooltip.yvanchuxiuzhen.item.danhuo.1": "可以放置一团丹火，用于炼丹、炼器。"
+  "tooltip.yvanchuxiuzhen.item.danhuo.1": "可以放置一团丹火，用于炼丹、炼器。",
+  "subtitles.yaohua": "妖化变身",
+  "subtitles.jinengzibao": "自爆",
+  "subtitles.flybegin": "起飞",
+  "subtitles.flyspeeedbegin": "加速飞行"
 }

@@ -19,6 +19,7 @@ import net.yvanchuxiuzhen.system.guchong.GuchongSetup;
 import net.yvanchuxiuzhen.system.liandan.LiandanSetup;
 import net.yvanchuxiuzhen.system.lianqi.LianqiSetup;
 import net.yvanchuxiuzhen.system.material.MaterialSetup;
+import net.yvanchuxiuzhen.system.npc.NpcSetup;
 import net.yvanchuxiuzhen.system.plant.PlantSetup;
 import net.yvanchuxiuzhen.system.quest.QuestSetup;
 import net.yvanchuxiuzhen.system.relation.RelationSetup;
@@ -32,7 +33,6 @@ import net.yvanchuxiuzhen.system.yihuo.YihuoSetup;
 import net.yvanchuxiuzhen.system.zhenfa.ZhenfaSetup;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.RegistryExport;
-import net.yvanchuxiuzhen.platform.content.ContentSounds;
 import net.yvanchuxiuzhen.platform.content.ContentTabs;
 
 /**
@@ -44,7 +44,6 @@ public final class YvanchuxiuzhenMod {
     public YvanchuxiuzhenMod(IEventBus modBus) {
         RegistryExport.register();
         ContentTabs.register(modBus);
-        ContentSounds.register(modBus);
         BookSetup.register(modBus);
         CombatSetup.register(modBus);
         CookingSetup.register(modBus);
@@ -59,6 +58,7 @@ public final class YvanchuxiuzhenMod {
         LiandanSetup.register(modBus);
         LianqiSetup.register(modBus);
         MaterialSetup.register(modBus);
+        NpcSetup.register(modBus);
         PlantSetup.register(modBus);
         QuestSetup.register(modBus);
         RelationSetup.register(modBus);

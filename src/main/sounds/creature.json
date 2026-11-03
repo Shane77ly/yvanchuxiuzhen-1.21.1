@@ -1,22 +1,4 @@
 {
-  "levelup": {
-    "category": "neutral",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:levelup",
-        "stream": false
-      }
-    ]
-  },
-  "littlelevelup": {
-    "category": "neutral",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:littlelevelup",
-        "stream": false
-      }
-    ]
-  },
   "ice1": {
     "category": "neutral",
     "sounds": [
@@ -26,132 +8,11 @@
       }
     ]
   },
-  "gedang": {
-    "category": "neutral",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:gedang",
-        "stream": false
-      }
-    ]
-  },
-  "fabao001": {
-    "category": "neutral",
-    "subtitle": "subtitles.fabao001",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:fabao001",
-        "stream": false
-      }
-    ]
-  },
-  "fulushifang": {
-    "category": "neutral",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:fulushifang",
-        "stream": false
-      }
-    ]
-  },
   "organism11": {
     "category": "neutral",
     "sounds": [
       {
         "name": "yvanchuxiuzhen:organism11",
-        "stream": false
-      }
-    ]
-  },
-  "pao0801": {
-    "category": "neutral",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:pao0801",
-        "stream": false
-      }
-    ]
-  },
-  "pao0802": {
-    "category": "neutral",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:pao0802",
-        "stream": false
-      }
-    ]
-  },
-  "pao0902": {
-    "category": "neutral",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:pao0902",
-        "stream": false
-      }
-    ]
-  },
-  "pao0903": {
-    "category": "neutral",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:pao0903",
-        "stream": false
-      }
-    ]
-  },
-  "pao1001": {
-    "category": "neutral",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:pao1001",
-        "stream": false
-      }
-    ]
-  },
-  "pao1101": {
-    "category": "neutral",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:pao1101",
-        "stream": false
-      }
-    ]
-  },
-  "pao1201": {
-    "category": "neutral",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:pao1201",
-        "stream": false
-      }
-    ]
-  },
-  "guchong01": {
-    "category": "neutral",
-    "subtitle": "subtitles.guchong01",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:guchong01",
-        "stream": false
-      }
-    ]
-  },
-  "guchong03": {
-    "category": "neutral",
-    "subtitle": "subtitles.guchong03",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:guchong03",
-        "stream": false
-      }
-    ]
-  },
-  "yaoqiantong": {
-    "category": "neutral",
-    "subtitle": "subtitles.yaoqiantong",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:yaoqiantong",
         "stream": false
       }
     ]
@@ -946,75 +807,6 @@
       }
     ]
   },
-  "bowxvliman": {
-    "category": "neutral",
-    "subtitle": "subtitles.bowxvliman",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:bowxvliman",
-        "stream": false
-      }
-    ]
-  },
-  "bowxvli": {
-    "category": "neutral",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:bowxvli",
-        "stream": false
-      }
-    ]
-  },
-  "bowshoot1": {
-    "category": "neutral",
-    "subtitle": "subtitles.bowshoot1",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:bowshoot1",
-        "stream": false
-      }
-    ]
-  },
-  "bowshoot3": {
-    "category": "neutral",
-    "subtitle": "subtitles.bowshoot3",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:bowshoot3",
-        "stream": false
-      }
-    ]
-  },
-  "bowshoot4": {
-    "category": "neutral",
-    "subtitle": "subtitles.bowshoot4",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:bowshoot4",
-        "stream": false
-      }
-    ]
-  },
-  "bowshoot5": {
-    "category": "neutral",
-    "subtitle": "subtitles.bowshoot5",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:bowshoot5",
-        "stream": false
-      }
-    ]
-  },
-  "bowshoot6": {
-    "category": "neutral",
-    "subtitle": "subtitles.bowshoot6",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:bowshoot6",
-        "stream": false
-      }
-    ]
-  },
   "yaoshou054skill02": {
     "category": "hostile",
     "subtitle": "subtitles.yaoshou054skill02",
@@ -1325,36 +1117,6 @@
       }
     ]
   },
-  "basalt": {
-    "category": "neutral",
-    "subtitle": "subtitles.basalt",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:basalt",
-        "stream": false
-      }
-    ]
-  },
-  "yaohua": {
-    "category": "neutral",
-    "subtitle": "subtitles.yaohua",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:yaohua",
-        "stream": false
-      }
-    ]
-  },
-  "jinengzibao": {
-    "category": "neutral",
-    "subtitle": "subtitles.jinengzibao",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:jinengzibao",
-        "stream": false
-      }
-    ]
-  },
   "yaoshou007skill01": {
     "category": "hostile",
     "subtitle": "subtitles.yaoshou007skill01",
@@ -1381,106 +1143,6 @@
     "sounds": [
       {
         "name": "yvanchuxiuzhen:yaoshou007skill02",
-        "stream": false
-      }
-    ]
-  },
-  "effect_001yinxiao": {
-    "category": "neutral",
-    "subtitle": "subtitles.effect_001yinxiao",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:effect_001yinxiao",
-        "stream": false
-      }
-    ]
-  },
-  "effect_002yinxiao": {
-    "category": "neutral",
-    "subtitle": "subtitles.effect_002yinxiao",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:effect_002yinxiao",
-        "stream": false
-      }
-    ]
-  },
-  "effect_003yinxiao": {
-    "category": "neutral",
-    "subtitle": "subtitles.effect_003yinxiao",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:effect_003yinxiao",
-        "stream": false
-      }
-    ]
-  },
-  "effect_004yinxiao": {
-    "category": "neutral",
-    "subtitle": "subtitles.effect_004yinxiao",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:effect_004yinxiao",
-        "stream": false
-      }
-    ]
-  },
-  "effect_005yinxiao": {
-    "category": "neutral",
-    "subtitle": "subtitles.effect_005yinxiao",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:effect_005yinxiao",
-        "stream": false
-      }
-    ]
-  },
-  "effect_006yinxiao": {
-    "category": "neutral",
-    "subtitle": "subtitles.effect_006yinxiao",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:effect_006yinxiao",
-        "stream": false
-      }
-    ]
-  },
-  "effect_007yinxiao": {
-    "category": "neutral",
-    "subtitle": "subtitles.effect_007yinxiao",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:effect_007yinxiao",
-        "stream": false
-      }
-    ]
-  },
-  "fireshoot": {
-    "category": "neutral",
-    "subtitle": "subtitles.fireshoot",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:fire1",
-        "stream": false
-      }
-    ]
-  },
-  "flybegin": {
-    "category": "neutral",
-    "subtitle": "subtitles.flybegin",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:flybegin",
-        "stream": false
-      }
-    ]
-  },
-  "flyspeeedbegin": {
-    "category": "neutral",
-    "subtitle": "subtitles.flyspeeedbegin",
-    "sounds": [
-      {
-        "name": "yvanchuxiuzhen:flyspeeedbegin",
         "stream": false
       }
     ]

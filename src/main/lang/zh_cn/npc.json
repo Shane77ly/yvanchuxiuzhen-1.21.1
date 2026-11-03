@@ -1,0 +1,5 @@
+{
+  "item.yvanchuxiuzhen.tiandao_np_csetitem": "天道NPC设置",
+  "tooltip.yvanchuxiuzhen.item.tiandao_np_csetitem.1": "潜行右键打开设置面板，预设npc的属性",
+  "tooltip.yvanchuxiuzhen.item.tiandao_np_csetitem.2": "拿着设置好属性的此物右键npc实体，把此物的属性复制给npc"
+}

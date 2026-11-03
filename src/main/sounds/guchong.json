@@ -1,0 +1,22 @@
+{
+  "guchong01": {
+    "category": "neutral",
+    "subtitle": "subtitles.guchong01",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:guchong01",
+        "stream": false
+      }
+    ]
+  },
+  "guchong03": {
+    "category": "neutral",
+    "subtitle": "subtitles.guchong03",
+    "sounds": [
+      {
+        "name": "yvanchuxiuzhen:guchong03",
+        "stream": false
+      }
+    ]
+  }
+}

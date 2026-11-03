@@ -1,6 +1,4 @@
 {
-  "block.yvanchuxiuzhen.tiandaodimensionblock": "Tiandaodimensionblock",
-  "block.yvanchuxiuzhen.tiandaowhiteblock": "Tiandaowhiteblock",
   "block.yvanchuxiuzhen.tiandaoduojiegou": "Tiandaoduojiegou",
   "block.yvanchuxiuzhen.tiandaoguding": "Tiandaoguding",
   "block.yvanchuxiuzhen.tiandaoitemnbt": "Tiandaoitemnbt",
@@ -10,9 +8,5 @@
   "tooltip.yvanchuxiuzhen.item.ling_16.2": "右键展示框使其锁定。",
   "tooltip.yvanchuxiuzhen.item.ling_16.3": "潜行时右键展示框使其隐形。",
   "tooltip.yvanchuxiuzhen.item.ling_16.4": "右键空气时，周围盔甲架会锁定。",
-  "tooltip.yvanchuxiuzhen.item.ling_16.5": "潜行右键空气时，周围盔甲架会隐形。",
-  "item.yvanchuxiuzhen.tiandao_np_csetitem": "Tiandao NP Csetitem",
-  "tooltip.yvanchuxiuzhen.item.tiandao_np_csetitem.1": "潜行右键打开设置面板，预设npc的属性",
-  "tooltip.yvanchuxiuzhen.item.tiandao_np_csetitem.2": "拿着设置好属性的此物右键npc实体，把此物的属性复制给npc",
-  "item.yvanchuxiuzhen.tiandaojianzhu": "Tiandaojianzhu"
+  "tooltip.yvanchuxiuzhen.item.ling_16.5": "潜行右键空气时，周围盔甲架会隐形。"
 }

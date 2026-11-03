@@ -1,0 +1,3 @@
+[
+{"id":"xixveshi","factory":"block","material":"STONE","sound":"STONE","strength":[1.0,10.0],"no_occlusion":true,"requires_tool":true,"redstone_conductor":false,"states":[],"light_block":0,"skylight":"always","empty_visual_shape":true,"harvest":{"tool":"TieredItem","level":1},"fallback_drop":{"item":"self","count":1},"pending_hooks":["getMenuProvider","newBlockEntity","onPlace","tick","triggerEvent"]}
+]

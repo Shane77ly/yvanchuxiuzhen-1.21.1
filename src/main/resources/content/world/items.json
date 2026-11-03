@@ -1,4 +1,5 @@
 [
+{"id":"tiandaodimensionblock","factory":"block_item","block":"tiandaodimensionblock","order":321,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},
 {"id":"dimensiontianqve","factory":"item","order":322,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","durability":64,"pending_hooks":["useOn"]},
 {"id":"dimensionxiuluo","factory":"item","order":323,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","durability":64,"pending_hooks":["useOn"]},
 {"id":"dimensionrenjian","factory":"item","order":324,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","durability":64,"pending_hooks":["useOn"]},
