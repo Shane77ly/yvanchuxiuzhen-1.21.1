@@ -33,7 +33,9 @@ xiulian 进度（分阶段在本分支提交）：
 - 阶段 2 已提交（wip）：游戏规则、首次进入的灵根与体质随机、出身界面与体质生效，冒烟检查 34 项通过；`tizhiitem` 由本系统整体保管（键表 `docs/systems/xiulian/ledger/tizhiitem_keys.csv`）；按出身发放物品的 `PlayerJoin02` 其余部分归 flow，待物品所属系统实现。原计划内容：登录初始化（`PlayerJoinGame` 中 xiulian 的部分：灵根全为 0 且游戏规则 `jinruyouxichushenxvanze` 为真时按 `linggenlevel` 随机五行灵根、阴阳 = 金 + 火 − 木 − 水、随机 1–10 选体质（来源列了 12 种，11、12 取不到，记为来源问题）、打开出身界面 `PlayerJoinGUI`；`tizhiitem` 载体与每日修为额度 `dailyexperience`/`dayjilu`）；两个游戏规则登记；`PlayerJoinGame` 每次登录把原版 `keepInventory` 设为真（归属待读，可能属 flow）。
 - 阶段 3 已提交（wip）：每秒推进、修为吸收与每日上限、突破与升级界面、雷劫开启标记、恢复、闭关修炼（经事件交给 gongfa 加功法经验）；冒烟 `XiulianProgressCheck` 通过。
 - 冒烟退出偶发停在 `Saving worlds`：`SystemCheck.leaveWorld` 改为等区块待办任务清空后断开，连续 8 次未复现（见月度记录）。
-- 阶段 4 起：丹田界面 `dantian_gui`（金丹、元婴）、雷劫（实体 `tianjie_03/05/07`、`jieyvn` 与 `yvanyingchuqiao` 为 GeckoLib 动画实体，需先接入 GeckoLib）、血道（`xixveshi` 方块实体、`xveliu` 流体与桶）、物品 `ling_09/10/11/18`、`xvejing`、`jiazubaibaodai`。
+- 阶段 4（一）已提交（wip）：金丹（21 层）与元婴（31 层）、丹田界面（体质列表与翻页、本命槽、本命培养进度显示、返回按钮发出 `DantianReturnEvent`）；冒烟 `DantianCheck` 通过；Q23–Q25。
+- 运行约定（负责人 2026-11-03）：变换工具、Gradle 与冒烟检查逐个运行，不同时进行（负责人的 VS Code 两次因内存不足崩溃，均在大批文件写入之后）。
+- 阶段 4 其余：雷劫（实体 `tianjie_03/05/07`、`jieyvn` 与 `yvanyingchuqiao` 为 GeckoLib 动画实体，需先接入 GeckoLib）、血道（`xixveshi` 方块实体、`xveliu` 流体与桶）、物品 `ling_09/10/11/18`、`xvejing`、`jiazubaibaodai`。
 
 下一步具体操作（xiulian，之后 gongfa；做法同 attribute、relation）：
 0. xiulian 的公开操作须包含：境界、灵根、功德、罡煞、寿元、闭关状态的查询与扣减，向 attribute 提交基础层贡献（成长与灵根），以及接收 gongfa 提交的主修功法信息（名字、品阶、是否本人所有）。

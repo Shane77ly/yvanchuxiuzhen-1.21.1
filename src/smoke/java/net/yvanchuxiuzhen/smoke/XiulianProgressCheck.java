@@ -132,7 +132,7 @@ final class XiulianProgressCheck extends SystemCheck {
                     seat.moveTo(player.getX(), player.getY(), player.getZ());
                     player.serverLevel().addFreshEntity(seat);
                     player.startRiding(seat, true);
-                    Cultivation.setMainTechnique(player, new MainTechnique(true, true, "聚元功", 2, 3));
+                    Cultivation.setMainTechnique(player, new MainTechnique(true, true, "聚元功", "无", 2, 3));
                     Cultivation.set(player, CultivationValue.CULTIVATION_DAYS, 3);
                     Cultivation.set(player, CultivationValue.CULTIVATION_COOLDOWN, 0);
                     Cultivation.setTizhiString(player, "xiuliankaiguan", "修炼");

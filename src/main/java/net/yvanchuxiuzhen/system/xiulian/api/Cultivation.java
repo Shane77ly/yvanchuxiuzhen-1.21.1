@@ -115,6 +115,16 @@ public final class Cultivation {
         player.syncData(XiulianAttachments.CULTIVATION);
     }
 
+    /** 本命槽内物品的培养进度，由 equipment 在培养本命法宝时提交，供丹田界面显示。 */
+    public static BenmingProgress benmingProgress(Player player) {
+        return player.getData(XiulianAttachments.CULTIVATION).benmingProgress();
+    }
+
+    public static void setBenmingProgress(ServerPlayer player, BenmingProgress progress) {
+        player.getData(XiulianAttachments.CULTIVATION).setBenmingProgress(progress);
+        player.syncData(XiulianAttachments.CULTIVATION);
+    }
+
     /** 给基础属性加成长量（升级修正、境界修正、属性点、单项提升），累计后提交给 attribute。 */
     public static void addGrowth(ServerPlayer player, Stat stat, double delta) {
         CultivationData data = player.getData(XiulianAttachments.CULTIVATION);

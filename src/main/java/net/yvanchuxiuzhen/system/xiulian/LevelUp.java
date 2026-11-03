@@ -20,7 +20,8 @@ import net.yvanchuxiuzhen.system.xiulian.content.LevelUpMenu;
 /**
  * 境界提升（来源 {@code LEVELup}、{@code LevelupCorrect}、{@code RealmupCorrect}）。
  * 层数不超过 41 时加 1 并得属性点 5 + ⌊新层数 × 0.1⌋，再按体质等写入的 {@code LevelupCorrect*} 修正成长；
- * 进入 1、11、21、31、41 层与 41 层以上时加寿元，11、21、31 与 41 层以上另按 {@code RealmupCorrect*} 修正成长。
+ * 进入 1、11、21、31、41 层与 41 层以上时加寿元，11、21、31 与 41 层以上另按 {@code RealmupCorrect*} 修正成长；
+ * 进入 21 层凝结金丹、31 层孕育元婴（{@link GoldenCore}）。
  * 结束后把变化写成升级界面的 10 行文字，20 tick 后（记分项 {@code zdzttick} 为 0 时）打开升级界面。
  */
 public final class LevelUp {
@@ -95,11 +96,13 @@ public final class LevelUp {
                 advance = "进阶结丹";
                 Cultivation.add(player, CultivationValue.LIFETIME, 73000);
                 correct(player, "RealmupCorrect");
+                GoldenCore.formCore(player);
             }
             case 31 -> {
                 advance = "进阶元婴";
                 Cultivation.add(player, CultivationValue.LIFETIME, 146000);
                 correct(player, "RealmupCorrect");
+                GoldenCore.formNascentSoul(player);
             }
             default -> {
                 if (level >= 41) {

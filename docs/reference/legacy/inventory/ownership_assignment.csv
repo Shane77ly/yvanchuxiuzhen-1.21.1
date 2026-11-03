@@ -5076,108 +5076,108 @@ yvanchuxiuzhen,EntityHurt3,procedure,~/systemset,combat,候选,第一版批量�
 yvanchuxiuzhen,Effect035,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect035ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect036,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DantianGui,gui,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,DantianGui,gui,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
 yvanchuxiuzhen,Dakaidantiangui,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dantianguanbianniu,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dantianbenmingxianshi,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dantianfangzhileixing,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Dantianguanbianniu,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字；返回按钮按 dangqianGUI 回到面板分页，改为发出 DantianReturnEvent 由面板处理
+yvanchuxiuzhen,Dantianbenmingxianshi,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Dantianfangzhileixing,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
 yvanchuxiuzhen,Dantianbenmingfabao,procedure,~/GUI/dantian,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dantianguiopen,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dantianguiclose,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DantianGuiDangZheGeJieMianDaKaiShi,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dantianyoudongxi,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanname,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhipaixv,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhixianshi1,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhixianshi2,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhixianshi3,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhixianshi4,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhixianshi5,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhixianshi6,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhixianshi7,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhixianshi8,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhixianshi9,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhidianji1,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhidianji2,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhidianji3,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhidianji4,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhidianji5,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhidianji6,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhidianji7,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhidianji8,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhidianji9,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhipagenumber,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhipageup,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhipagedown,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tizhifanye,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chushenshuoming,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dantianbenmingname,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dantianbenminglevel,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dantianbenmingexp,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dantianbenminganniu,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Dantianguiopen,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Dantianguiclose,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,DantianGuiDangZheGeJieMianDaKaiShi,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Dantianyoudongxi,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanname,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhipaixv,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhixianshi1,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhixianshi2,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhixianshi3,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhixianshi4,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhixianshi5,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhixianshi6,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhixianshi7,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhixianshi8,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhixianshi9,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhidianji1,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhidianji2,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhidianji3,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhidianji4,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhidianji5,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhidianji6,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhidianji7,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhidianji8,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhidianji9,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhipagenumber,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhipageup,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhipagedown,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Tizhifanye,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Chushenshuoming,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Dantianbenmingname,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Dantianbenminglevel,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Dantianbenmingexp,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Dantianbenminganniu,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
 yvanchuxiuzhen,JingxveDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,equipment,已读,B1 归属阅读：随 Jingxve 读：精血：筑基期（LEVELnumber ≥ 11）以本人精血使副手武器或法宝认主，写 belongToMasterUUID；蛊罐与桃树苗按 ID 另作材料使用
-yvanchuxiuzhen,Dantianwupingaibian,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dantianwupingaibian2,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Dantianwupingaibian,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田本命槽放入物品时检查结丹期的过程，来源中没有调用者（Dantianwupingaibian2 只调用 Dantianwupingaibian，本身无调用者），不迁移
+yvanchuxiuzhen,Dantianwupingaibian2,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田本命槽放入物品时检查结丹期的过程，来源中没有调用者（Dantianwupingaibian2 只调用 Dantianwupingaibian，本身无调用者），不迁移
 yvanchuxiuzhen,LevelupCorrect,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：按 tizhiitem 的 LevelupCorrect* 修正成长、寿元、属性点、修为效率与道途
 yvanchuxiuzhen,RealmupCorrect,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：大境界时按 RealmupCorrect* 修正，同 LevelupCorrect
 yvanchuxiuzhen,Daojiaweapon,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fojiaoweapon,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Rujiaweapon,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fulujinglineed,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu01 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Jindanxianshi001,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi002,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi003,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi004,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi005,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi006,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi007,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi008,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi009,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi010,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi011,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi012,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi013,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi014,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi015,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi016,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi017,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi018,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi019,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi020,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi021,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi022,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi023,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi024,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi025,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi026,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi027,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi028,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi029,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi030,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi031,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi032,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi033,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanxianshi034,procedure,~/GUI/dantian/jindan,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvanyingxianshi001,procedure,~/GUI/dantian/yvanying,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvanyingxianshi002,procedure,~/GUI/dantian/yvanying,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvanyingxianshi003,procedure,~/GUI/dantian/yvanying,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvanyingxianshi004,procedure,~/GUI/dantian/yvanying,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvanyingxianshi005,procedure,~/GUI/dantian/yvanying,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvanyingxianshi006,procedure,~/GUI/dantian/yvanying,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvanyingxianshi007,procedure,~/GUI/dantian/yvanying,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvanyingxianshi008,procedure,~/GUI/dantian/yvanying,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Killentitypointsgold,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Killentitypointswater,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Killentitypointstree,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Killentitypointsfire,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Killentitypointssoil,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Killentityshuoming,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanhuoqv01,procedure,~/systemset/LEVELup,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanhuoqv02,procedure,~/systemset/LEVELup,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanhuoqv03,procedure,~/systemset/LEVELup,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanhuoqv04,procedure,~/systemset/LEVELup,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jindanhuoqv05,procedure,~/systemset/LEVELup,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvanyinghuoqv01,procedure,~/systemset/LEVELup,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jindanxianshi001,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi002,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi003,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi004,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi005,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi006,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi007,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi008,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi009,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi010,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi011,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi012,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi013,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi014,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi015,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi016,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi017,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi018,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi019,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi020,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi021,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi022,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi023,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi024,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi025,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi026,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi027,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi028,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi029,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi030,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi031,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi032,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi033,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanxianshi034,procedure,~/GUI/dantian/jindan,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Yvanyingxianshi001,procedure,~/GUI/dantian/yvanying,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Yvanyingxianshi002,procedure,~/GUI/dantian/yvanying,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Yvanyingxianshi003,procedure,~/GUI/dantian/yvanying,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Yvanyingxianshi004,procedure,~/GUI/dantian/yvanying,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Yvanyingxianshi005,procedure,~/GUI/dantian/yvanying,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Yvanyingxianshi006,procedure,~/GUI/dantian/yvanying,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Yvanyingxianshi007,procedure,~/GUI/dantian/yvanying,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Yvanyingxianshi008,procedure,~/GUI/dantian/yvanying,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Killentitypointsgold,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Killentitypointswater,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Killentitypointstree,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Killentitypointsfire,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Killentitypointssoil,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Killentityshuoming,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
+yvanchuxiuzhen,Jindanhuoqv01,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：进入 21 层（LEVELup）凝结金丹，按灵根、主修功法五行品阶层数、灵力上限、本命槽妖丹、生命上限与五行属性熟练度判定金丹，写 tizhiopen_101–134 与修正值
+yvanchuxiuzhen,Jindanhuoqv02,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：进入 21 层（LEVELup）凝结金丹，按灵根、主修功法五行品阶层数、灵力上限、本命槽妖丹、生命上限与五行属性熟练度判定金丹，写 tizhiopen_101–134 与修正值
+yvanchuxiuzhen,Jindanhuoqv03,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：进入 21 层（LEVELup）凝结金丹，按灵根、主修功法五行品阶层数、灵力上限、本命槽妖丹、生命上限与五行属性熟练度判定金丹，写 tizhiopen_101–134 与修正值
+yvanchuxiuzhen,Jindanhuoqv04,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：进入 21 层（LEVELup）凝结金丹，按灵根、主修功法五行品阶层数、灵力上限、本命槽妖丹、生命上限与五行属性熟练度判定金丹，写 tizhiopen_101–134 与修正值
+yvanchuxiuzhen,Jindanhuoqv05,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：进入 21 层（LEVELup）凝结金丹，按灵根、主修功法五行品阶层数、灵力上限、本命槽妖丹、生命上限与五行属性熟练度判定金丹，写 tizhiopen_101–134 与修正值
+yvanchuxiuzhen,Yvanyinghuoqv01,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：进入 31 层（LEVELup）孕育元婴，按金丹种类、灵根、主修功法与五行属性熟练度判定，写 tizhiopen_201–208 与修正值
 yvanchuxiuzhen,Stripwhite,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Striplightgray,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Stripdarkgrey,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5400,7 +5400,7 @@ yvanchuxiuzhen,Noentity,tag,~/tag,platform,候选,第一版批量归组（目录
 yvanchuxiuzhen,Yinxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yangxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yinyangneirong,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Benmingfabaotisheng,procedure,~/GUI/dantian,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Benmingfabaotisheng,procedure,~/GUI/dantian,equipment,已读,C xiulian 归属阅读：本命法宝每升一级交替给法宝的 lianqizong 加法术或神识攻击，由本命培养 Dantianbenmingfabao（PlayerTick）调用；本命培养数据归 equipment（系统设计“本命”）
 yvanchuxiuzhen,Jointxt14,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
 yvanchuxiuzhen,Daduan,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jinenglengqvejiance,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）

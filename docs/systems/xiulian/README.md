@@ -9,10 +9,10 @@ updated: 2026-11-03
 
 标识 `xiulian`，类别：系统。职责：境界、修为、灵力、寿元、出身、灵根体质、丹田、金丹元婴、本命槽位、雷劫、轮回（[系统设计](../../development/system-design.md)）。
 
-当前阶段：实现中（分支 `port/c-xiulian`，分阶段提交）。已完成：修炼档案附件与公开操作、灵根提交 attribute、两个游戏规则、首次进入的灵根与体质随机、出身界面（锁定、随机、出身切换、关闭后体质生效），开发客户端检查通过。未完成：修炼与恢复、升级与突破、丹田（金丹、元婴）、雷劫、血道、相关物品，见交接说明“进行中”。B1 已登记的内容身份见台账。
+当前阶段：实现中（分支 `port/c-xiulian`，分阶段提交）。已完成：修炼档案附件与公开操作、灵根提交 attribute、两个游戏规则、首次进入的灵根与体质随机、出身界面、修炼推进与恢复、升级与突破、闭关修炼、金丹与元婴、丹田界面，开发客户端检查通过。未完成：雷劫过程、元婴出窍、轮回、血道、相关物品，见交接说明“进行中”。B1 已登记的内容身份见台账。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
-- 候选归属 197 个元素，其中 48 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
+- 候选归属 196 个元素，其中 160 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
@@ -30,8 +30,11 @@ updated: 2026-11-03
 | 加减、赋值 | `add(玩家, 项, 增量)`、`set(玩家, 项, 值)`、`set(玩家, 文本项, 文本)`；乘法由调用方读后赋值 | 经济、异火、技能、战斗、装备、功法、符箓、流程等 |
 | 雷劫开关 | `thunderOpen`、`setThunderOpen` | 流程、世界、符箓、技能 |
 | 本命槽位 | `benming`、`setBenming` | equipment |
+| 丹田界面 | `Dantian.open`；返回按钮发出 `DantianReturnEvent`（取消时不关闭界面） | panel |
+| 本命培养进度 | `benmingProgress`、`setBenmingProgress`（`BenmingProgress`：认主、等级、经验、所需经验，供丹田界面显示） | equipment |
+| 主修功法 | `mainTechnique`、`setMainTechnique`（`MainTechnique`：有无、本人所有、名字、五行、品阶、层数） | gongfa |
 | 体质与修正值 | `tizhiDouble/Boolean/String` 与对应的 `set`：来源隐藏载体 `tizhiitem` 的键值（335 个键及读写系统见 [tizhiitem_keys.csv](ledger/tizhiitem_keys.csv)） | 战斗（属性修正）、技能（冷却与消耗修正）、流程（重生修正）、装备（武器培养速度）等 |
 
-约定：写操作只在服务端调用，写入后同步给本人；灵根与阴阳变化时自动向 attribute 提交基础层贡献 `xiulian:roots`。`tizhiitem` 由本系统整体保管（会话决定，2026-11-03，评估为轻微）：其中蛊虫、战斗、副本等系统自己写入的键，在这些系统实现时可移到各自的数据。尚未提供、待后续阶段补充：接收 gongfa 提交的主修功法信息；修为获得与吸收、突破、闭关的流程操作。
+约定：写操作只在服务端调用，写入后同步给本人；灵根与阴阳变化时自动向 attribute 提交基础层贡献 `xiulian:roots`。`tizhiitem` 由本系统整体保管（会话决定，2026-11-03，评估为轻微）：其中蛊虫、战斗、副本等系统自己写入的键，在这些系统实现时可移到各自的数据。尚未提供、待后续阶段补充：雷劫与轮回的流程操作。
 
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。

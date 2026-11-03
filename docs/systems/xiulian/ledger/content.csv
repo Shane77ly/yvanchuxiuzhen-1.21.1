@@ -19,7 +19,7 @@ item,yvanchuxiuzhen:ling_11,yvanchuxiuzhen,Ling11,src/main/java/net/mcreator/yva
 item,yvanchuxiuzhen:ling_18,yvanchuxiuzhen,Ling18,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2787,xiulian,已读,yvanchuxiuzhen:ling_18,已注册,
 item,yvanchuxiuzhen:xvejing,yvanchuxiuzhen,Xvejing,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1931,xiulian,已读,yvanchuxiuzhen:xvejing,已注册,
 item,yvanchuxiuzhen:xveliu_bucket,yvanchuxiuzhen,Xveliu,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2794,xiulian,已读,yvanchuxiuzhen:xveliu_bucket,待处理,
-menu,yvanchuxiuzhen:dantian_gui,yvanchuxiuzhen,DantianGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,105,xiulian,候选,yvanchuxiuzhen:dantian_gui,待处理,
+menu,yvanchuxiuzhen:dantian_gui,yvanchuxiuzhen,DantianGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,105,xiulian,已读,yvanchuxiuzhen:dantian_gui,行为已迁移,
 menu,yvanchuxiuzhen:player_join_gui,yvanchuxiuzhen,PlayerJoinGUI,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,75,xiulian,已读,yvanchuxiuzhen:player_join_gui,行为已迁移,
 menu,yvanchuxiuzhen:playershengjixianshi,yvanchuxiuzhen,Playershengjixianshi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,106,xiulian,已读,yvanchuxiuzhen:playershengjixianshi,行为已迁移,
 sound_event,yvanchuxiuzhen:levelup,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModSounds.java,21,xiulian,已读,yvanchuxiuzhen:levelup,行为已迁移,

@@ -4,7 +4,8 @@
 src/main/resources/content/<单位>/blocks.json、items.json，名称与提示文本写入 src/main/lang/<语言>/<单位>.json。
 遇到不由内容表承载的类（有专属基类的物品、动画方块、流体、传送门、未识别写法）不生成行，记入跳过清单，
 由所属系统迁移时处理。所属系统给内容表的行换用自己的物品类型时，登记在 docs/reference/conversion/factory_overrides.csv；
-菜单的台账行不再是“待处理”后，来源中该菜单的界面文本键（gui.<命名空间>.<菜单>.*）写入所属单位的语言片段。
+菜单的台账行不再是“待处理”后，来源中该菜单的界面文本键（gui.<命名空间>.<菜单>.*）写入所属单位的语言片段；
+其余由系统代码直接引用的语言键按 docs/reference/conversion/lang_prefixes.csv 的键前缀写入所属单位的语言片段。
 工具可重复运行，输出只取决于来源与台账。
 """
 from __future__ import annotations
@@ -174,6 +175,19 @@ def convert_menu_lang(sources: dict[str, Source], add_lang) -> int:
     return count
 
 
+def convert_prefix_lang(sources: dict[str, Source], add_lang) -> int:
+    """系统代码直接引用的语言键（docs/reference/conversion/lang_prefixes.csv：所属单位、来源、键前缀）原样写入所属单位的语言片段。"""
+    count = 0
+    with (CONVERSION / 'lang_prefixes.csv').open(encoding='utf-8') as handle:
+        for row in csv.DictReader(handle):
+            for language in LANGUAGES:
+                for key, value in sources[row['source_mod']].lang[language].items():
+                    if key.startswith(row['prefix']):
+                        add_lang(row['owner'], language, key, value)
+                        count += 1
+    return count
+
+
 def factory_overrides() -> dict[str, str]:
     """所属系统换用的物品工厂：目标路径 → 工厂名（docs/reference/conversion/factory_overrides.csv）。"""
     with (CONVERSION / 'factory_overrides.csv').open(encoding='utf-8') as handle:
@@ -297,6 +311,7 @@ def main() -> None:
     sound_rows = convert_sounds(sources, add_lang, expected)
     advancement_keys = convert_advancement_lang(sources, add_lang)
     menu_keys = convert_menu_lang(sources, add_lang)
+    prefix_keys = convert_prefix_lang(sources, add_lang)
 
     units = sorted(set(blocks_by_unit) | set(items_by_unit))
     for stale in CONTENT.glob('*/sounds.json'):
@@ -318,7 +333,7 @@ def main() -> None:
         writer.writerow(['registry', 'legacy_id', 'reason'])
         writer.writerows(sorted(skipped))
     print({unit: (len(blocks_by_unit.get(unit, [])), len(items_by_unit.get(unit, []))) for unit in units})
-    print('tabs', len(tabs), 'sounds', sum(len(r) for r in sound_rows.values()), 'advancement keys', advancement_keys, 'menu keys', menu_keys, 'skipped', len(skipped))
+    print('tabs', len(tabs), 'sounds', sum(len(r) for r in sound_rows.values()), 'advancement keys', advancement_keys, 'menu keys', menu_keys, 'prefix keys', prefix_keys, 'skipped', len(skipped))
 
 
 if __name__ == '__main__':

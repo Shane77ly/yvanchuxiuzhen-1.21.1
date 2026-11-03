@@ -171,7 +171,8 @@ final class SmokeRun {
                 systemChecks.addAll(switch (name) {
                     case "relation" -> List.of(new RelationCheck(report, levelId, this::shot));
                     case "attribute" -> List.of(new AttributeCheck(report, levelId));
-                    case "xiulian" -> List.of(new XiulianCheck(report, levelId, this::shot), new XiulianProgressCheck(report, levelId, this::shot));
+                    case "xiulian" -> List.of(new XiulianCheck(report, levelId, this::shot), new XiulianProgressCheck(report, levelId, this::shot),
+                            new DantianCheck(report, levelId, this::shot));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }
@@ -548,6 +549,7 @@ final class SmokeRun {
         phase = 99;
         try {
             Files.createDirectories(output);
+            report.add((minecraft.mouseHandler.isMouseGrabbed() ? "FAIL" : "INFO") + " 检查期间不捕获鼠标");
             report.add("DONE");
             Files.write(output.resolve("report.txt"), report, StandardCharsets.UTF_8);
         } catch (IOException exception) {
