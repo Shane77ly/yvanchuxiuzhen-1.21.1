@@ -34,6 +34,7 @@ updated: 2026-11-03
 | 2026-11-03 | 盔甲挥臂时“一瞬闪烁”与药草疑似缺失两项反馈暂缓 | 不再追查；已有测量与核对结论保留在[月度记录](logs/2026-11.md)2026-11-02 两条，恢复时从那里继续 |
 | 2026-11-03 | 血道按实际确认的内容改写 | [系统设计](../../development/system-design.md)“什么是系统”与[副职业](../profession/architecture.md)改为：副职业字段只由命令、升级与重置写入；吸血石、血流、血精构成的血道玩法是修炼与功法攻击的分支，归 `xiulian`，不立系统 |
 | 2026-11-03 | 无规则物品的归属：云清令 `ling_19` 归 world；令牌 `ling_07`、梦之羽毛 `ling_17` 归内容族 decor | 已改归属表、台账与内容表；读完来源后规则无法判定，按“归属判定”第 5 条提请后裁定 |
+| 2026-11-03 | 认可 B1 归属阅读结果（含读后改变归属的元素）与出口核对，B1 结束，进入 C | `port/b1-content` 合入 `main`；关口改为 C，工作分支 `port/c-attribute`；AGENTS.md 当前关口、[路线](../../development/roadmap.md)、[交接说明](../../development/handoff.md)同步 |
 
 ## 系统设计重审
 
@@ -68,6 +69,6 @@ updated: 2026-11-03
 | 5 口径 | 各单位 README 写明“已注册”只表示身份、资源与基础属性就位，玩法未实现、未验收 |
 | 6 技能 | 来源完整性、归属阅读、无编辑器元素的注册写入移植技能 `references/parity-ledgers.md`，MCreator 触发属性与快照写入 `references/sources/mcreator.md`，按单位登记声音写入 `references/assets-and-presentation.md` |
 
-结论：出口条件 1–6 已满足，待负责人审阅后合入 `main` 并转入 C。
+结论：出口条件 1–6 已满足；负责人 2026-11-03 认可，B1 结束。
 
 本轮检查结果见 [月度记录](logs/2026-11.md)，导航见 [文档入口](../../README.md)和 [变更索引](changes.md)。
