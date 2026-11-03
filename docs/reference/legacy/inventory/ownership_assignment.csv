@@ -918,20 +918,20 @@ yvanchuxiuzhen,Treejiegou12,structure,~/plant/tree,plant,候选,第一版批量�
 yvanchuxiuzhen,Peach01,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,HuaguangshengchengZaiJieGouCunDangShengChengShi,procedure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Huaguangshengcheng,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism01,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism02,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism03,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism04,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism05,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Organism01,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
+yvanchuxiuzhen,Organism02,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
+yvanchuxiuzhen,Organism03,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
+yvanchuxiuzhen,Organism04,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
+yvanchuxiuzhen,Organism05,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
 yvanchuxiuzhen,YvanchuEntity,tab,~/systemset/classification,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism06,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism07,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism08,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Organism06,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
+yvanchuxiuzhen,Organism07,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
+yvanchuxiuzhen,Organism08,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,FlashIce,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism08DangShiTiGengXinKeShi,procedure,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism09,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism10DangShiTiGengXinKeShi,procedure,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism10,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Organism08DangShiTiGengXinKeShi,procedure,~/entity/environment,creature,已读,B1 归属阅读：随 Organism08 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Organism09,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
+yvanchuxiuzhen,Organism10DangShiTiGengXinKeShi,procedure,~/entity/environment,creature,已读,B1 归属阅读：随 Organism10 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Organism10,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Shicai00902,block,~/plant/tree,plant,已读,B1 归属阅读：作物成熟阶段或收获物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Shicai00903,block,~/plant/tree,plant,已读,B1 归属阅读：作物成熟阶段或收获物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Shicai00904DangGuFenChengGongShiYong,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Shicai00904 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
@@ -954,7 +954,7 @@ yvanchuxiuzhen,Armor06,animatedarmor,~/weapon/armor,equipment,已读,B1 归属�
 yvanchuxiuzhen,Armor07,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangHujia；world 的 SealreleaseGo 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Armor08,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangHujia；world 的 SealreleaseGo 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Armor09,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 world 的 SealreleaseGo 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
-yvanchuxiuzhen,Yaoshou001ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou001,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou001ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou001list,loottable,~/entity/yaoshou/yaoshou001,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Sylvestrisplanks,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Sylvestrisslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
@@ -1578,14 +1578,14 @@ yvanchuxiuzhen,Yaoshoucailiao6,tag,~/tag/baoxiang,treasure,候选,第一版批�
 yvanchuxiuzhen,Yaoshoucailiao7,tag,~/tag/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshoucailiao8,tag,~/tag/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Openbaoxiang,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou001DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou001,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou001DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Wuqi,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshoushuxingjisuan,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshoushuxingjisuan,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Guiguai01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Yaoshoudaxiao,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,YaoshouLEVELxianshi,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,YaoshouLEVELxianshi,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Guiguai01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Yaoshouxvnfu,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshouxingge,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshouxingge,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Yaoshouhudong,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao20101,block,~/item/metal,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Cailiao20301,block,~/item/metal,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；只在配方、标签或战利品表中出现
@@ -1857,35 +1857,35 @@ yvanchuxiuzhen,GedangDangShiTiBeiShaSiShi,procedure,~/skill/jineng,skill,候选,
 yvanchuxiuzhen,Gedang,animatedentity,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,JinengqvxiaoAnXiaAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jinengqvxiao,keybind,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou001DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou001,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,EntityTeamShezhi,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou001,animatedentity,~/entity/yaoshou/yaoshou001,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou001DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,EntityTeamShezhi,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Guiguai01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Yaoshou001,animatedentity,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou,tag,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou002ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou002,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou002DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou002,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou002DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou002,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou002,animatedentity,~/entity/yaoshou/yaoshou002,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou002ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou002,creature,已读,B1 归属阅读：随 Yaoshou002 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou002DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou002,creature,已读,B1 归属阅读：随 Yaoshou002 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou002DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou002,creature,已读,B1 归属阅读：随 Yaoshou002 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou002,animatedentity,~/entity/yaoshou/yaoshou002,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou002list,loottable,~/entity/yaoshou/yaoshou002,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou003ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou003DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou003DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou003,animatedentity,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou003ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou003,creature,已读,B1 归属阅读：随 Yaoshou003 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou003DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou003,creature,已读,B1 归属阅读：随 Yaoshou003 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou003DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou003,creature,已读,B1 归属阅读：随 Yaoshou003 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou003,animatedentity,~/entity/yaoshou/yaoshou003,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou003list,loottable,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,YaoshouHealth30,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou004ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou004,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou004DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou004,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou004DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou004,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou004,animatedentity,~/entity/yaoshou/yaoshou004,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou004ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou004,creature,已读,B1 归属阅读：随 Yaoshou004 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou004DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou004,creature,已读,B1 归属阅读：随 Yaoshou004 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou004DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou004,creature,已读,B1 归属阅读：随 Yaoshou004 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou004,animatedentity,~/entity/yaoshou/yaoshou004,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou004list,loottable,~/entity/yaoshou/yaoshou004,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou005ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou005,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou005DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou005,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou005DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou005,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou005,animatedentity,~/entity/yaoshou/yaoshou005,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou005ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou005,creature,已读,B1 归属阅读：随 Yaoshou005 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou005DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou005,creature,已读,B1 归属阅读：随 Yaoshou005 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou005DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou005,creature,已读,B1 归属阅读：随 Yaoshou005 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou005,animatedentity,~/entity/yaoshou/yaoshou005,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou005list,loottable,~/entity/yaoshou/yaoshou005,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou006ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou006DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou006DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou006,animatedentity,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou006ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：随 Yaoshou006 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou006DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：随 Yaoshou006 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou006DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：随 Yaoshou006 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou006,animatedentity,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,PlayerGUI06,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGUI06shouming,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGUI06tianshu,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -2719,7 +2719,7 @@ yvanchuxiuzhen,Arrowpoisonwood,block,~/plant/tree,plant,已读,B1 归属阅读�
 yvanchuxiuzhen,Arrowpoisonwoodleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Tripterygiumwilfordii,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,Tripterygiumwilfordiiitem,item,~/item/herbmedicine,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 economy 的 Caoyaojiage；flow 的 Worldbegin；plant 的 Tripterygiumwilfordii 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
-yvanchuxiuzhen,Yaoshou007,animatedentity,~/entity/yaoshou/yaoshou007,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou007,animatedentity,~/entity/yaoshou/yaoshou007,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,JiantouDangWanJiaYuGaiShiTiFaShengPengZhuangShi,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jiantou,animatedentity,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Buzhencailiao,tag,~/tag/zhenfatag,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -2965,10 +2965,10 @@ yvanchuxiuzhen,Food083hecheng3,recipe,~/item/food,cooking,候选,第一版批量
 yvanchuxiuzhen,Food060hecheng,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food060hecheng2,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food060hecheng3,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism11,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Organism11,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Organism11list,loottable,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism11DangShiTiShouShangShi,procedure,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism11DangShiTiGengXinKeShi,procedure,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Organism11DangShiTiShouShangShi,procedure,~/entity/environment,creature,已读,B1 归属阅读：随 Organism11 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Organism11DangShiTiGengXinKeShi,procedure,~/entity/environment,creature,已读,B1 归属阅读：随 Organism11 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Pao01DangTouSheWuSheZhongCiFangKuai,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Pao01,rangeditem,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Pao02DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3374,10 +3374,10 @@ yvanchuxiuzhen,Oxygenxianshi,procedure,~/GUI,panel,候选,第一版批量归组�
 yvanchuxiuzhen,Oxygentubiao,overlay,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongfashuaxin2,procedure,~/systemset,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerLeaveGame,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai01ShiTiChuShiShengChengShi,procedure,~/entity/guiguai/guiguai01,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai01DangShiTiGengXinKeShi,procedure,~/entity/guiguai/guiguai01,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai01DangShiTiBeiShaSiShi,procedure,~/entity/guiguai/guiguai01,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai01,animatedentity,~/entity/guiguai/guiguai01,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guiguai01ShiTiChuShiShengChengShi,procedure,~/entity/guiguai/guiguai01,creature,已读,B1 归属阅读：随 Guiguai01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai01DangShiTiGengXinKeShi,procedure,~/entity/guiguai/guiguai01,creature,已读,B1 归属阅读：随 Guiguai01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai01DangShiTiBeiShaSiShi,procedure,~/entity/guiguai/guiguai01,creature,已读,B1 归属阅读：随 Guiguai01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai01,animatedentity,~/entity/guiguai/guiguai01,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,LiexiGengXinYouXiKe,procedure,~/decorate/jiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,LiexiFangZhiFangKuaiShi,procedure,~/decorate/jiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Liexi,animatedblock,~/decorate/jiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3397,48 +3397,48 @@ yvanchuxiuzhen,Ling16,item,~/item/zawu,tiandao,候选,第一版批量归组（�
 yvanchuxiuzhen,Ling16DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/item/zawu,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ling16DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ling15hecheng,recipe,~/item/zawu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai02ShiTiChuShiShengChengShi,procedure,~/entity/guiguai/guiguai02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai02DangShiTiGengXinKeShi,procedure,~/entity/guiguai/guiguai02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai02DangShiTiBeiShaSiShi,procedure,~/entity/guiguai/guiguai02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai02,animatedentity,~/entity/guiguai/guiguai02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou007ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou007,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou008ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou008,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou008DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou008,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou008DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou008,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou008,animatedentity,~/entity/yaoshou/yaoshou008,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou007DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou007,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou007DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou007,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou009ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou009,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou009DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou009,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou009DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou009,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou009,animatedentity,~/entity/yaoshou/yaoshou009,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou010ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou010,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou010DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou010,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou010DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou010,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou011ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou011,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou011DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou011,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou011DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou011,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou011,animatedentity,~/entity/yaoshou/yaoshou011,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou015ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou015,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou015DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou015,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou015DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou015,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou015,animatedentity,~/entity/yaoshou/yaoshou015,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou016ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou016,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou016DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou016,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou016DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou016,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou016,animatedentity,~/entity/yaoshou/yaoshou016,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou019ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou019,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou019,animatedentity,~/entity/yaoshou/yaoshou019,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou019DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou019,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou019DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou019,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou020ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou020,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou020,animatedentity,~/entity/yaoshou/yaoshou020,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou020DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou020,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou020DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou020,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou022ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou022,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou022DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou022,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou022DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou022,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou022,animatedentity,~/entity/yaoshou/yaoshou022,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guiguai02ShiTiChuShiShengChengShi,procedure,~/entity/guiguai/guiguai02,creature,已读,B1 归属阅读：随 Guiguai02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai02DangShiTiGengXinKeShi,procedure,~/entity/guiguai/guiguai02,creature,已读,B1 归属阅读：随 Guiguai02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai02DangShiTiBeiShaSiShi,procedure,~/entity/guiguai/guiguai02,creature,已读,B1 归属阅读：随 Guiguai02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai02,animatedentity,~/entity/guiguai/guiguai02,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Yaoshou007ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou007,creature,已读,B1 归属阅读：随 Yaoshou007 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou008ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou008,creature,已读,B1 归属阅读：随 Yaoshou008 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou008DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou008,creature,已读,B1 归属阅读：随 Yaoshou008 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou008DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou008,creature,已读,B1 归属阅读：随 Yaoshou008 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou008,animatedentity,~/entity/yaoshou/yaoshou008,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou007DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou007,creature,已读,B1 归属阅读：随 Yaoshou007 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou007DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou007,creature,已读,B1 归属阅读：随 Yaoshou007 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou009ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou009,creature,已读,B1 归属阅读：随 Yaoshou009 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou009DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou009,creature,已读,B1 归属阅读：随 Yaoshou009 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou009DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou009,creature,已读,B1 归属阅读：随 Yaoshou009 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou009,animatedentity,~/entity/yaoshou/yaoshou009,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou010ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou010,creature,已读,B1 归属阅读：随 Yaoshou010 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou010DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou010,creature,已读,B1 归属阅读：随 Yaoshou010 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou010DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou010,creature,已读,B1 归属阅读：随 Yaoshou010 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou011ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou011,creature,已读,B1 归属阅读：随 Yaoshou011 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou011DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou011,creature,已读,B1 归属阅读：随 Yaoshou011 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou011DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou011,creature,已读,B1 归属阅读：随 Yaoshou011 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou011,animatedentity,~/entity/yaoshou/yaoshou011,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou015ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou015,creature,已读,B1 归属阅读：随 Yaoshou015 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou015DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou015,creature,已读,B1 归属阅读：随 Yaoshou015 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou015DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou015,creature,已读,B1 归属阅读：随 Yaoshou015 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou015,animatedentity,~/entity/yaoshou/yaoshou015,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou016ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou016,creature,已读,B1 归属阅读：随 Yaoshou016 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou016DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou016,creature,已读,B1 归属阅读：随 Yaoshou016 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou016DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou016,creature,已读,B1 归属阅读：随 Yaoshou016 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou016,animatedentity,~/entity/yaoshou/yaoshou016,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou019ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou019,creature,已读,B1 归属阅读：随 Yaoshou019 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou019,animatedentity,~/entity/yaoshou/yaoshou019,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou019DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou019,creature,已读,B1 归属阅读：随 Yaoshou019 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou019DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou019,creature,已读,B1 归属阅读：随 Yaoshou019 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou020ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou020,creature,已读,B1 归属阅读：随 Yaoshou020 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou020,animatedentity,~/entity/yaoshou/yaoshou020,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou020DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou020,creature,已读,B1 归属阅读：随 Yaoshou020 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou020DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou020,creature,已读,B1 归属阅读：随 Yaoshou020 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou022ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou022,creature,已读,B1 归属阅读：随 Yaoshou022 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou022DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou022,creature,已读,B1 归属阅读：随 Yaoshou022 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou022DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou022,creature,已读,B1 归属阅读：随 Yaoshou022 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou022,animatedentity,~/entity/yaoshou/yaoshou022,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,TreasureChest03ZaiFangKuaiShangYouJian,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,TreasureChest03GengXinYouXiKe,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,TreasureChest03,animatedblock,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3469,7 +3469,7 @@ yvanchuxiuzhen,Yaoshou011list,loottable,~/entity/yaoshou/yaoshou011,creature,候
 yvanchuxiuzhen,Yaoshou015list,loottable,~/entity/yaoshou/yaoshou015,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou016list,loottable,~/entity/yaoshou/yaoshou016,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou022list,loottable,~/entity/yaoshou/yaoshou022,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou022DangShiTiBeiShaSiShi,procedure,~/entity/yaoshou/yaoshou022,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou022DangShiTiBeiShaSiShi,procedure,~/entity/yaoshou/yaoshou022,creature,已读,B1 归属阅读：随 Yaoshou022 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Businessman06ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman06DangYouJianDianJiShiTi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman06,animatedentity,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3490,23 +3490,23 @@ yvanchuxiuzhen,Yaoshou020list,loottable,~/entity/yaoshou/yaoshou020,creature,候
 yvanchuxiuzhen,Itemfulu47DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Itemfulu47,item,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman04DangYouJianDianJiShiTi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss01ShiTiChuShiShengChengShi,procedure,~/entity/boss/ycxzboss01,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss01DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss01,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss01DangShiTiShouShangShi,procedure,~/entity/boss/ycxzboss01,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss01,animatedentity,~/entity/boss/ycxzboss01,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Ycxzboss01ShiTiChuShiShengChengShi,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Ycxzboss01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Ycxzboss01DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Ycxzboss01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Ycxzboss01DangShiTiShouShangShi,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Ycxzboss01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Ycxzboss01,animatedentity,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,ShanghaifanweiDangShiTiGengXinKeShi,procedure,~/skill/jineng,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shanghaifanwei,animatedentity,~/skill/jineng,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcshuxingjisuan,procedure,~/entity/boss/ycxzboss01,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Npcshuxingjisuan,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,ZhuangshitiziDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Zhuangshitizi 读：装饰梯：放置过程只改本方块
 yvanchuxiuzhen,Mugongtai,animatedblock,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Mugongtaihecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,MugongtaiFangZhiFangKuaiShi,procedure,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,MugongtaiGengXinYouXiKe,procedure,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss02ShiTiChuShiShengChengShi,procedure,~/entity/boss/ycxzboss02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss02DangShiTiShouShangShi,procedure,~/entity/boss/ycxzboss02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss02DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss02,animatedentity,~/entity/boss/ycxzboss02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss02tick2,procedure,~/entity/boss/ycxzboss02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Ycxzboss02ShiTiChuShiShengChengShi,procedure,~/entity/boss/ycxzboss02,creature,已读,B1 归属阅读：随 Ycxzboss02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Ycxzboss02DangShiTiShouShangShi,procedure,~/entity/boss/ycxzboss02,creature,已读,B1 归属阅读：随 Ycxzboss02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Ycxzboss02DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss02,creature,已读,B1 归属阅读：随 Ycxzboss02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Ycxzboss02,animatedentity,~/entity/boss/ycxzboss02,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Ycxzboss02tick2,procedure,~/entity/boss/ycxzboss02,creature,已读,B1 归属阅读：随 Ycxzboss02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Ycxzboss0201DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ycxzboss0201,animatedentity,~/entity/boss/ycxzboss02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao162,item,~/item/gemstone,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 dungeon 的 Zhenyaotashengchengbuchong；economy 的 Putongchushouanniu、Putongshougoushuaxin；equipment 的 Shipinpeifang1、Shipinpeifang3、Shipinpeifang4；flow 的 Worldbegin；treasure 的 BaoxiangBaoshicailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
@@ -3590,9 +3590,9 @@ yvanchuxiuzhen,Fabao014TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,�
 yvanchuxiuzhen,Fabao014DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao014 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao014,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao015,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 RightClickEntity 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
-yvanchuxiuzhen,Organism12DangYouJianDianJiShiTi,procedure,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism12,animatedentity,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Organism12ShiTiChuShiShengChengShi,procedure,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Organism12DangYouJianDianJiShiTi,procedure,~/entity/environment,creature,已读,B1 归属阅读：随 Organism12 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Organism12,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Organism12ShiTiChuShiShengChengShi,procedure,~/entity/environment,creature,已读,B1 归属阅读：随 Organism12 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Clothes01,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 decor 的 Guancai01GengXinYouXiKe；flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Clothes02,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 decor 的 Guancai01GengXinYouXiKe；flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Clothes03,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
@@ -3613,7 +3613,7 @@ yvanchuxiuzhen,Businessman27,livingentity,~/entity/npc,npc,候选,第一版批�
 yvanchuxiuzhen,Businessman28,livingentity,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman29,livingentity,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman30,livingentity,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npclevelxianshi,procedure,~/entity/boss/ycxzboss01,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Npclevelxianshi,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Businessman01ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman02ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman03ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3753,10 +3753,10 @@ yvanchuxiuzhen,BaoxiaitemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,
 yvanchuxiuzhen,Baoxiaitem,item,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,xiulian,已读,B1 归属阅读：随 Ling18 读：传承灵物：出身“落魄家族”的初始物品（PlayerJoin02），多次开启依次发放材料、符箓、乾坤袋、飞行法器等
 yvanchuxiuzhen,Ling18,item,~/item/zawu,xiulian,已读,B1 归属阅读：传承灵物：出身“落魄家族”的初始物品（PlayerJoin02），多次开启依次发放材料、符箓、乾坤袋、飞行法器等
-yvanchuxiuzhen,Guiguai03ShiTiChuShiShengChengShi,procedure,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai03DangShiTiShouShangShi,procedure,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai03DangShiTiGengXinKeShi,procedure,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai03,animatedentity,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guiguai03ShiTiChuShiShengChengShi,procedure,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai03DangShiTiShouShangShi,procedure,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai03DangShiTiGengXinKeShi,procedure,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai03,animatedentity,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Guancai01GengXinYouXiKe,procedure,~/decorate,creature,已读,B1 归属阅读：随 Guancai01 读：棺材：8 格内有生存模式玩家时播放动画并一次性生成“被炼化的僵尸”（350 生命、28 攻击，写 attack_Def 等防御值，随机穿 clothes_01/02），是怪物生成点
 yvanchuxiuzhen,Guancai01,animatedblock,~/decorate,creature,已读,B1 归属阅读：棺材：8 格内有生存模式玩家时播放动画并一次性生成“被炼化的僵尸”（350 生命、28 攻击，写 attack_Def 等防御值，随机穿 clothes_01/02），是怪物生成点
 yvanchuxiuzhen,Fushengdan,item,~/item/zawu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3777,21 +3777,21 @@ yvanchuxiuzhen,Foodblockyoujian,procedure,~/item/food,cooking,已读,B1 归属�
 yvanchuxiuzhen,Businessman08ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman08DangShiTiGengXinKeShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman08,animatedentity,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Moshou001ShiTiChuShiShengChengShi,procedure,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Moshou001DangShiTiShouShangShi,procedure,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Moshou001,animatedentity,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Moshou002ShiTiChuShiShengChengShi,procedure,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Moshou002DangShiTiShouShangShi,procedure,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Moshou002,animatedentity,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Moshou003ShiTiChuShiShengChengShi,procedure,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Moshou003DangShiTiShouShangShi,procedure,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Moshou003,animatedentity,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Moshou001ShiTiChuShiShengChengShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Moshou001DangShiTiShouShangShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Moshou001,animatedentity,~/entity/tianmo,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Moshou002ShiTiChuShiShengChengShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou002 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Moshou002DangShiTiShouShangShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou002 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Moshou002,animatedentity,~/entity/tianmo,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Moshou003ShiTiChuShiShengChengShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou003 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Moshou003DangShiTiShouShangShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou003 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Moshou003,animatedentity,~/entity/tianmo,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Cailiao17701,item,~/item/zawu,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 craft 的 ZhibujiZaiFangKuaiShangYouJian；creature 的 Moshou001DangShiTiBeiShaSiShi 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao17801,item,~/item/zawu,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 craft 的 ZhibujiZaiFangKuaiShangYouJian；creature 的 Moshou001DangShiTiBeiShaSiShi 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
-yvanchuxiuzhen,Moshou001DangYouJianDianJiShiTi,procedure,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Moshou001DangShiTiBeiShaSiShi,procedure,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Moshou001DangShiTiGengXinKeShi,procedure,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Moshou002DangShiTiGengXinKeShi,procedure,~/entity/tianmo,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Moshou001DangYouJianDianJiShiTi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Moshou001DangShiTiBeiShaSiShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Moshou001DangShiTiGengXinKeShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Moshou002DangShiTiGengXinKeShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou002 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Painting01,painting,~/decorate/painting,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PaiweiGui,gui,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SetPaiwei,procedure,~/tool,decor,已读,系统设计·已读裁定：牌位界面的写入过程，写 plaquetxt
@@ -3883,17 +3883,17 @@ yvanchuxiuzhen,Taolun,animatedblock,~/tool,craft,候选,第一版批量归组（
 yvanchuxiuzhen,Zhuangshiqiantonghecheng,recipe,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Taolunhecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,TaolunDangWanJiaKaiShiPoPiShi,procedure,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Entityjingyanjisuan,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Entityjingyanjisuan,procedure,~/entity,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Entitylevelup,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,EntityLevelName,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,YaoshoushuxingUp,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GuchongshuxingUp,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai01,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Lingshoudai01,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
 yvanchuxiuzhen,Lingshoushouna,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Caoyao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Book,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudaiqingli,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudaiqingkong,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Lingshoudaiqingkong,procedure,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,ShuxingjisuanZong,procedure,~/systemset,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shuxingjisuan,procedure,~/systemset,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shuxingjisuan2,procedure,~/systemset,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4057,155 +4057,155 @@ yvanchuxiuzhen,Wuchanghei,animatedentity,~/entity/npc/difu,npc,候选,第一版�
 yvanchuxiuzhen,Niutou,animatedentity,~/entity/npc/difu,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Mamian,animatedentity,~/entity/npc/difu,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Entityhuifu,procedure,~/systemset,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou010,animatedentity,~/entity/yaoshou/yaoshou010,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou012DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou012DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou012ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou012,animatedentity,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou013DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou013,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou013DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou013,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou013ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou013,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou013,animatedentity,~/entity/yaoshou/yaoshou013,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou014DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou014,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou014DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou014,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou014ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou014,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou014,animatedentity,~/entity/yaoshou/yaoshou014,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017,animatedentity,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou010,animatedentity,~/entity/yaoshou/yaoshou010,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou012DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou012,creature,已读,B1 归属阅读：随 Yaoshou012 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou012DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou012,creature,已读,B1 归属阅读：随 Yaoshou012 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou012ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou012,creature,已读,B1 归属阅读：随 Yaoshou012 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou012,animatedentity,~/entity/yaoshou/yaoshou012,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou013DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou013,creature,已读,B1 归属阅读：随 Yaoshou013 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou013DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou013,creature,已读,B1 归属阅读：随 Yaoshou013 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou013ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou013,creature,已读,B1 归属阅读：随 Yaoshou013 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou013,animatedentity,~/entity/yaoshou/yaoshou013,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou014DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou014,creature,已读,B1 归属阅读：随 Yaoshou014 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou014DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou014,creature,已读,B1 归属阅读：随 Yaoshou014 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou014ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou014,creature,已读,B1 归属阅读：随 Yaoshou014 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou014,animatedentity,~/entity/yaoshou/yaoshou014,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017,animatedentity,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou01701DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou01701DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou01701ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou01701,animatedentity,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou018DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou018,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou018DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou018,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou018ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou018,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou018,animatedentity,~/entity/yaoshou/yaoshou018,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou021DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou021,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou021DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou021,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou021ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou021,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou021,animatedentity,~/entity/yaoshou/yaoshou021,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou023DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou023,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou023DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou023,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou023ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou023,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou023,animatedentity,~/entity/yaoshou/yaoshou023,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou024DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou024,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou024DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou024,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou024ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou024,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou024,animatedentity,~/entity/yaoshou/yaoshou024,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou025DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou025,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou025DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou025,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou025ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou025,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou025,animatedentity,~/entity/yaoshou/yaoshou025,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou026DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou026,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou026DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou026,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou026ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou026,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou026,animatedentity,~/entity/yaoshou/yaoshou026,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou027DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou027,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou027DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou027,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou027ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou027,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou027,animatedentity,~/entity/yaoshou/yaoshou027,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou028DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou028,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou028DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou028,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou028ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou028,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou028,animatedentity,~/entity/yaoshou/yaoshou028,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou029DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou029,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou029DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou029,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou029ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou029,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou029,animatedentity,~/entity/yaoshou/yaoshou029,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou030DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou030,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou030DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou030,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou030ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou030,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou030,animatedentity,~/entity/yaoshou/yaoshou030,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou031DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou031,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou031DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou031,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou031ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou031,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou031,animatedentity,~/entity/yaoshou/yaoshou031,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou032DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou032,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou032DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou032,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou032ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou032,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou032,animatedentity,~/entity/yaoshou/yaoshou032,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou033DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou033,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou033DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou033,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou033ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou033,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou033,animatedentity,~/entity/yaoshou/yaoshou033,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou035DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou035,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou035DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou035,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou035ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou035,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou035,animatedentity,~/entity/yaoshou/yaoshou035,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou036DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou036,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou036DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou036,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou036ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou036,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou036,animatedentity,~/entity/yaoshou/yaoshou036,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou037DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou037DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou037ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou037,animatedentity,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou038DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou038,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou038DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou038,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou038ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou038,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou038,animatedentity,~/entity/yaoshou/yaoshou038,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou039DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou039,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou039DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou039,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou039ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou039,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou039,animatedentity,~/entity/yaoshou/yaoshou039,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040,animatedentity,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou041DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou041,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou041DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou041,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou041ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou041,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou041,animatedentity,~/entity/yaoshou/yaoshou041,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou042DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou042,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou042DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou042,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou042ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou042,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou042,animatedentity,~/entity/yaoshou/yaoshou042,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou043DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou043,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou043DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou043,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou043ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou043,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou043,animatedentity,~/entity/yaoshou/yaoshou043,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou045DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou045,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou045DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou045,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou045ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou045,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou045,animatedentity,~/entity/yaoshou/yaoshou045,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou046DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou046,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou046DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou046,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou046ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou046,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou046,animatedentity,~/entity/yaoshou/yaoshou046,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou047DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou047,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou047DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou047,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou047ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou047,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou047,animatedentity,~/entity/yaoshou/yaoshou047,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou048DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou048,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou048DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou048,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou048ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou048,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou048,animatedentity,~/entity/yaoshou/yaoshou048,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou049DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou049,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou049DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou049,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou049ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou049,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou049,animatedentity,~/entity/yaoshou/yaoshou049,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou050DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou050,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou050DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou050,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou050ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou050,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou050,animatedentity,~/entity/yaoshou/yaoshou050,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou051DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou051,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou051DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou051,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou051ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou051,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou051,animatedentity,~/entity/yaoshou/yaoshou051,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou052DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou052,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou052DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou052,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou052ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou052,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou052,animatedentity,~/entity/yaoshou/yaoshou052,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053,animatedentity,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou054DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou054,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou054DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou054,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou054ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou054,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou054,animatedentity,~/entity/yaoshou/yaoshou054,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou018DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou018,creature,已读,B1 归属阅读：随 Yaoshou018 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou018DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou018,creature,已读,B1 归属阅读：随 Yaoshou018 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou018ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou018,creature,已读,B1 归属阅读：随 Yaoshou018 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou018,animatedentity,~/entity/yaoshou/yaoshou018,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou021DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou021,creature,已读,B1 归属阅读：随 Yaoshou021 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou021DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou021,creature,已读,B1 归属阅读：随 Yaoshou021 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou021ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou021,creature,已读,B1 归属阅读：随 Yaoshou021 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou021,animatedentity,~/entity/yaoshou/yaoshou021,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou023DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou023,creature,已读,B1 归属阅读：随 Yaoshou023 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou023DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou023,creature,已读,B1 归属阅读：随 Yaoshou023 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou023ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou023,creature,已读,B1 归属阅读：随 Yaoshou023 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou023,animatedentity,~/entity/yaoshou/yaoshou023,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou024DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou024,creature,已读,B1 归属阅读：随 Yaoshou024 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou024DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou024,creature,已读,B1 归属阅读：随 Yaoshou024 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou024ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou024,creature,已读,B1 归属阅读：随 Yaoshou024 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou024,animatedentity,~/entity/yaoshou/yaoshou024,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou025DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou025,creature,已读,B1 归属阅读：随 Yaoshou025 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou025DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou025,creature,已读,B1 归属阅读：随 Yaoshou025 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou025ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou025,creature,已读,B1 归属阅读：随 Yaoshou025 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou025,animatedentity,~/entity/yaoshou/yaoshou025,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou026DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou026,creature,已读,B1 归属阅读：随 Yaoshou026 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou026DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou026,creature,已读,B1 归属阅读：随 Yaoshou026 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou026ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou026,creature,已读,B1 归属阅读：随 Yaoshou026 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou026,animatedentity,~/entity/yaoshou/yaoshou026,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou027DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou027,creature,已读,B1 归属阅读：随 Yaoshou027 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou027DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou027,creature,已读,B1 归属阅读：随 Yaoshou027 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou027ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou027,creature,已读,B1 归属阅读：随 Yaoshou027 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou027,animatedentity,~/entity/yaoshou/yaoshou027,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou028DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou028,creature,已读,B1 归属阅读：随 Yaoshou028 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou028DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou028,creature,已读,B1 归属阅读：随 Yaoshou028 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou028ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou028,creature,已读,B1 归属阅读：随 Yaoshou028 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou028,animatedentity,~/entity/yaoshou/yaoshou028,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou029DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou029,creature,已读,B1 归属阅读：随 Yaoshou029 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou029DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou029,creature,已读,B1 归属阅读：随 Yaoshou029 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou029ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou029,creature,已读,B1 归属阅读：随 Yaoshou029 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou029,animatedentity,~/entity/yaoshou/yaoshou029,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou030DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou030,creature,已读,B1 归属阅读：随 Yaoshou030 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou030DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou030,creature,已读,B1 归属阅读：随 Yaoshou030 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou030ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou030,creature,已读,B1 归属阅读：随 Yaoshou030 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou030,animatedentity,~/entity/yaoshou/yaoshou030,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou031DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou031,creature,已读,B1 归属阅读：随 Yaoshou031 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou031DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou031,creature,已读,B1 归属阅读：随 Yaoshou031 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou031ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou031,creature,已读,B1 归属阅读：随 Yaoshou031 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou031,animatedentity,~/entity/yaoshou/yaoshou031,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou032DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou032,creature,已读,B1 归属阅读：随 Yaoshou032 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou032DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou032,creature,已读,B1 归属阅读：随 Yaoshou032 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou032ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou032,creature,已读,B1 归属阅读：随 Yaoshou032 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou032,animatedentity,~/entity/yaoshou/yaoshou032,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou033DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou033,creature,已读,B1 归属阅读：随 Yaoshou033 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou033DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou033,creature,已读,B1 归属阅读：随 Yaoshou033 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou033ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou033,creature,已读,B1 归属阅读：随 Yaoshou033 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou033,animatedentity,~/entity/yaoshou/yaoshou033,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou035DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou035,creature,已读,B1 归属阅读：随 Yaoshou035 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou035DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou035,creature,已读,B1 归属阅读：随 Yaoshou035 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou035ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou035,creature,已读,B1 归属阅读：随 Yaoshou035 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou035,animatedentity,~/entity/yaoshou/yaoshou035,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou036DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou036,creature,已读,B1 归属阅读：随 Yaoshou036 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou036DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou036,creature,已读,B1 归属阅读：随 Yaoshou036 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou036ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou036,creature,已读,B1 归属阅读：随 Yaoshou036 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou036,animatedentity,~/entity/yaoshou/yaoshou036,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou037DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou037DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou037ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou037,animatedentity,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou038DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou038,creature,已读,B1 归属阅读：随 Yaoshou038 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou038DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou038,creature,已读,B1 归属阅读：随 Yaoshou038 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou038ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou038,creature,已读,B1 归属阅读：随 Yaoshou038 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou038,animatedentity,~/entity/yaoshou/yaoshou038,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou039DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou039,creature,已读,B1 归属阅读：随 Yaoshou039 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou039DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou039,creature,已读,B1 归属阅读：随 Yaoshou039 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou039ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou039,creature,已读,B1 归属阅读：随 Yaoshou039 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou039,animatedentity,~/entity/yaoshou/yaoshou039,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou040DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou040DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou040ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou040,animatedentity,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou041DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou041,creature,已读,B1 归属阅读：随 Yaoshou041 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou041DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou041,creature,已读,B1 归属阅读：随 Yaoshou041 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou041ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou041,creature,已读,B1 归属阅读：随 Yaoshou041 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou041,animatedentity,~/entity/yaoshou/yaoshou041,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou042DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou042,creature,已读,B1 归属阅读：随 Yaoshou042 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou042DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou042,creature,已读,B1 归属阅读：随 Yaoshou042 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou042ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou042,creature,已读,B1 归属阅读：随 Yaoshou042 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou042,animatedentity,~/entity/yaoshou/yaoshou042,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou043DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou043,creature,已读,B1 归属阅读：随 Yaoshou043 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou043DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou043,creature,已读,B1 归属阅读：随 Yaoshou043 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou043ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou043,creature,已读,B1 归属阅读：随 Yaoshou043 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou043,animatedentity,~/entity/yaoshou/yaoshou043,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou045DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou045,creature,已读,B1 归属阅读：随 Yaoshou045 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou045DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou045,creature,已读,B1 归属阅读：随 Yaoshou045 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou045ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou045,creature,已读,B1 归属阅读：随 Yaoshou045 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou045,animatedentity,~/entity/yaoshou/yaoshou045,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou046DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou046,creature,已读,B1 归属阅读：随 Yaoshou046 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou046DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou046,creature,已读,B1 归属阅读：随 Yaoshou046 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou046ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou046,creature,已读,B1 归属阅读：随 Yaoshou046 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou046,animatedentity,~/entity/yaoshou/yaoshou046,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou047DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou047,creature,已读,B1 归属阅读：随 Yaoshou047 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou047DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou047,creature,已读,B1 归属阅读：随 Yaoshou047 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou047ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou047,creature,已读,B1 归属阅读：随 Yaoshou047 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou047,animatedentity,~/entity/yaoshou/yaoshou047,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou048DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou048DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou048ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou048,animatedentity,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou049DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou049,creature,已读,B1 归属阅读：随 Yaoshou049 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou049DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou049,creature,已读,B1 归属阅读：随 Yaoshou049 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou049ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou049,creature,已读,B1 归属阅读：随 Yaoshou049 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou049,animatedentity,~/entity/yaoshou/yaoshou049,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou050DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou050,creature,已读,B1 归属阅读：随 Yaoshou050 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou050DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou050,creature,已读,B1 归属阅读：随 Yaoshou050 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou050ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou050,creature,已读,B1 归属阅读：随 Yaoshou050 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou050,animatedentity,~/entity/yaoshou/yaoshou050,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou051DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou051,creature,已读,B1 归属阅读：随 Yaoshou051 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou051DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou051,creature,已读,B1 归属阅读：随 Yaoshou051 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou051ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou051,creature,已读,B1 归属阅读：随 Yaoshou051 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou051,animatedentity,~/entity/yaoshou/yaoshou051,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou052DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou052,creature,已读,B1 归属阅读：随 Yaoshou052 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou052DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou052,creature,已读,B1 归属阅读：随 Yaoshou052 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou052ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou052,creature,已读,B1 归属阅读：随 Yaoshou052 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou052,animatedentity,~/entity/yaoshou/yaoshou052,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053,animatedentity,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou054DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou054,creature,已读,B1 归属阅读：随 Yaoshou054 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou054DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou054,creature,已读,B1 归属阅读：随 Yaoshou054 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou054ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou054,creature,已读,B1 归属阅读：随 Yaoshou054 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou054,animatedentity,~/entity/yaoshou/yaoshou054,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou012list,loottable,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou013list,loottable,~/entity/yaoshou/yaoshou013,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou014list,loottable,~/entity/yaoshou/yaoshou014,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4244,8 +4244,8 @@ yvanchuxiuzhen,Yaoshou052list,loottable,~/entity/yaoshou/yaoshou052,creature,候
 yvanchuxiuzhen,Yaoshou053list,loottable,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou054list,loottable,~/entity/yaoshou/yaoshou054,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhengtuochuan,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou014skill03TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou014,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou014skill03,rangeditem,~/entity/yaoshou/yaoshou014,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou014skill03TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou014,creature,已读,B1 归属阅读：随 Yaoshou014skill03 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou014skill03,rangeditem,~/entity/yaoshou/yaoshou014,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yinbo,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Skillwind05DangShiTiGengXinKeShi,procedure,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Skillwind05,animatedentity,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4369,11 +4369,11 @@ yvanchuxiuzhen,GongjvchuDangShiTiGengXinKeShi,procedure,~/tool,equipment,候选,
 yvanchuxiuzhen,Gongjvchu,animatedentity,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GongjvfuDangYouJianDianJiShiTi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Entitydaxiao,attribute,~/entity/yaoshou,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshoudaxiaoxianshi,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshoudaxiaoxianshi,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Yaoshoupifuxianshi,attribute,~/entity/yaoshou,attribute,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshoupifuxvanze,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshoupifuxvanze,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,EntityJoinGame,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshoudaxiaoshezhi,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshoudaxiaoshezhi,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Effect033ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect033,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect033lizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4381,62 +4381,62 @@ yvanchuxiuzhen,Jiangzhipanding,procedure,~/entity/yaoshou,creature,候选,第一
 yvanchuxiuzhen,Effect034DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect034,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jiancejiangzhichenmo,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou048skill01DangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou048,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou048skill01TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou048,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou048skill01,rangeditem,~/entity/yaoshou/yaoshou048,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou046skill01,rangeditem,~/entity/yaoshou/yaoshou046,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou048skill01DangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048skill01 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou048skill01TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048skill01 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou048skill01,rangeditem,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou046skill01,rangeditem,~/entity/yaoshou/yaoshou046,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
 yvanchuxiuzhen,Yaoshou040skill03,particle,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040skill0301TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040skill0301DangTouSheWuSheZhongCiFangKuai,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040skill0301DangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040skill0301,rangeditem,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou040skill0301TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040skill0301 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou040skill0301DangTouSheWuSheZhongCiFangKuai,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040skill0301 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou040skill0301DangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040skill0301 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou040skill0301,rangeditem,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou040skill02,animatedentity,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou040skill0201,particle,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou040skill02DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou033skill01,particle,~/entity/yaoshou/yaoshou033,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou027ShiTiZhuiLuoShi,procedure,~/entity/yaoshou/yaoshou027,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017skill03TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017skill03DangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017skill03,rangeditem,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xiuzheshengao,procedure,~/entity/lulin,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xiuzhe0101ShiTiChuShiShengChengShi,procedure,~/entity/lulin/xiuzhe0101,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xiuzhe0101DangShiTiShouShangShi,procedure,~/entity/lulin/xiuzhe0101,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xiuzhe0101DangShiTiGengXinKeShi,procedure,~/entity/lulin/xiuzhe0101,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xiuzhe0101,animatedentity,~/entity/lulin/xiuzhe0101,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0101,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0102,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0103,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0104,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0105,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0106,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0107,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0108,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0109,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0110,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0111,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou027ShiTiZhuiLuoShi,procedure,~/entity/yaoshou/yaoshou027,creature,已读,B1 归属阅读：随 Yaoshou027 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017skill03TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017skill03 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017skill03DangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017skill03 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017skill03,rangeditem,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Xiuzheshengao,procedure,~/entity/lulin,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Xiuzhe0101ShiTiChuShiShengChengShi,procedure,~/entity/lulin/xiuzhe0101,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Xiuzhe0101DangShiTiShouShangShi,procedure,~/entity/lulin/xiuzhe0101,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Xiuzhe0101DangShiTiGengXinKeShi,procedure,~/entity/lulin/xiuzhe0101,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Xiuzhe0101,animatedentity,~/entity/lulin/xiuzhe0101,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0101,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0102,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0103,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0104,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0105,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0106,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0107,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0108,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0109,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0110,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0111,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Dajigan01,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0112,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0113,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0114,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0115,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0116,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Npcskill0112,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0113,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0114,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0115,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0116,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Xiuzhe,tag,~/entity/lulin,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0201,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0202,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0203,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0204,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0205,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0206,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0207,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0208,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0209,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0210,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0211,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xiuzheshengaoxianshi,procedure,~/entity/lulin,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xiuzhepifu,procedure,~/entity/lulin,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xiuzheshuxingsuiji,procedure,~/entity/lulin,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xiuzhe0101jinengliebiao,procedure,~/entity/lulin/xiuzhe0101,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xiuzhe0101jinengshifang,procedure,~/entity/lulin/xiuzhe0101,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Npcskill0201,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0202,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0203,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0204,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0205,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0206,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0207,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0208,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0209,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0210,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0211,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Xiuzheshengaoxianshi,procedure,~/entity/lulin,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Xiuzhepifu,procedure,~/entity/lulin,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Xiuzheshuxingsuiji,procedure,~/entity/lulin,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Xiuzhe0101jinengliebiao,procedure,~/entity/lulin/xiuzhe0101,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Xiuzhe0101jinengshifang,procedure,~/entity/lulin/xiuzhe0101,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,CanjianAnXiaAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,CanjianSongKaiAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Canjian,keybind,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4456,7 +4456,7 @@ yvanchuxiuzhen,Food084hecheng,recipe,~/item/food,cooking,候选,第一版批量�
 yvanchuxiuzhen,Food084hecheng2,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food084hecheng3,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/monstermaterial,combat,已读,B1 归属阅读：淬毒功能：青藤毒素等 cailiao_141–146 右键时给副手武器附加对应毒药附魔（sinomeninevine 等，combat 的附魔）并在炼器记录 lianqizong 中登记 fumo 条目；材料本身仍是编号材料，此过程按“拆分支”归 combat
-yvanchuxiuzhen,Npcskill0301,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Npcskill0301,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,MurenzhuangDangShiTiShouShangShi,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Murenzhuang,animatedentity,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,MurenzhuangitemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4473,11 +4473,11 @@ yvanchuxiuzhen,Murenzhuangsetmanadef,procedure,~/tool/murenzhuang,combat,候选,
 yvanchuxiuzhen,Murenzhuangsetsouldef,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Murenzhuangdel,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fulubagua,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0302,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0303,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0304,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0305,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Npcskill0306,procedure,~/entity/tongyongjinengskill,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Npcskill0302,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0303,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0304,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0305,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Npcskill0306,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Murenzhuanghecheng,recipe,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Clothes07,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Clothes08,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
@@ -5256,25 +5256,25 @@ yvanchuxiuzhen,Suijicailiao01,procedure,~/entity/npc,npc,候选,第一版批量�
 yvanchuxiuzhen,Businessman03DangShiTiGengXinKeShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jiegoubuding,procedure,~/decorate/jiegou/buildlist,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshoucailiaoteshu,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss04,animatedentity,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss04ShiTiChuShiShengChengShi,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss04DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss04DangShiTiShouShangShi,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill01,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill02,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill03,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill04,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill05,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill06,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill07,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill08,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill09,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill10,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill11,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill12,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill13,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill14,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Boss04skill15,procedure,~/entity/boss/ycxzboss04,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Ycxzboss04,animatedentity,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Ycxzboss04ShiTiChuShiShengChengShi,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Ycxzboss04DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Ycxzboss04DangShiTiShouShangShi,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill01,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill02,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill03,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill04,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill05,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill06,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill07,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill08,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill09,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill10,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill11,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill12,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill13,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill14,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Boss04skill15,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Cassia04ranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cassia03ranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cassia05ranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5373,17 +5373,17 @@ yvanchuxiuzhen,Cailiao241,item,~/item/lingmu,material,已读,B1 归属阅读：�
 yvanchuxiuzhen,Cailiao242,item,~/item/lingmu,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 flow 的 Teshucailiaodiaoluo、Worldbegin；treasure 的 BaoxiangLingmucailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao241hecheng,recipe,~/item/lingmu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Taomu,tag,~/item/lingmu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TaomujingShiTiChuShiShengChengShi,procedure,~/item/lingmu,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TaomujingDangShiTiShouShangShi,procedure,~/item/lingmu,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TaomujingDangShiTiGengXinKeShi,procedure,~/item/lingmu,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Taomujing,animatedentity,~/item/lingmu,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,TaomujingShiTiChuShiShengChengShi,procedure,~/item/lingmu,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,TaomujingDangShiTiShouShangShi,procedure,~/item/lingmu,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,TaomujingDangShiTiGengXinKeShi,procedure,~/item/lingmu,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Taomujing,animatedentity,~/item/lingmu,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,PeachsaplingxveGengXinYouXiKe,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Peachsaplingxve 读：血桃树苗：随机刻满足条件时变为桃木精 taomujing，由普通桃树苗右键转来
 yvanchuxiuzhen,Peachsaplingxve,plant,~/plant/tree,plant,已读,B1 归属阅读：血桃树苗：随机刻满足条件时变为桃木精 taomujing，由普通桃树苗右键转来
 yvanchuxiuzhen,PeachsaplingDangZhiWuBeiYouJianDianJiShi,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Peachsapling 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
 yvanchuxiuzhen,Teshucailiaodiaoluo,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Taomujinglist,loottable,~/item/lingmu,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao243,item,~/item/zawu,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 craft 的 ZhibujiZaiFangKuaiShangYouJian；flow 的 Worldbegin 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
-yvanchuxiuzhen,TaomujingDangShiTiBeiShaSiShi,procedure,~/item/lingmu,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,TaomujingDangShiTiBeiShaSiShi,procedure,~/item/lingmu,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Saplings,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao210WanJiaWanChengShiYongWuPinShi,procedure,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao210,item,~/item/Lingshi,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5431,24 +5431,24 @@ yvanchuxiuzhen,Canwutaihecheng,recipe,~/tool/canwutai,gongfa,候选,第一版批
 yvanchuxiuzhen,Book022hecheng,recipe,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Book032hecheng,recipe,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudai,tag,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai02,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudaiyoujian,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai03,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai04,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai05,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai06,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai07,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai08,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai09,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai10,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai11,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai12,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai13,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai14,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai15,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai16,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai00DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudai00,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Lingshoudai02,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudaiyoujian,procedure,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：随 Lingshoudai01 读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai03,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai04,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai05,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai06,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai07,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai08,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai09,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai10,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai11,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai12,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai13,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai14,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai15,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai16,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai00DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：随 Lingshoudai00 读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
+yvanchuxiuzhen,Lingshoudai00,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
 yvanchuxiuzhen,Lingshoudai00hecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudai01hecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudai02hecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5468,237 +5468,237 @@ yvanchuxiuzhen,Lingshoudai15hecheng,recipe,~/item/zawu/lingshoudai,creature,候�
 yvanchuxiuzhen,Lingshoudai16hecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudaizhuanhuan,gui,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ranliao,tag,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudaizhuanhuanitem,item,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Lingshoudaizhuanhuanitem,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
 yvanchuxiuzhen,Lingshoudairanse,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudaizhuanhuanhecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,FriendpandingEtoS,procedure,~/systemset/zhiling/shanghai,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Entityjinengjieshu,procedure,~/entity,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou001skillzhagen,procedure,~/entity/yaoshou/yaoshou001,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou001skillzhengtuo,procedure,~/entity/yaoshou/yaoshou001,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou001skillfagong,procedure,~/entity/yaoshou/yaoshou001,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou002lianhuanbianta,procedure,~/entity/yaoshou/yaoshou002,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaioshou002skillfengpiao,procedure,~/entity/yaoshou/yaoshou002,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou002skillchongci,procedure,~/entity/yaoshou/yaoshou002,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou002skillzengfufagong,procedure,~/entity/yaoshou/yaoshou002,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou002skillzhagen,procedure,~/entity/yaoshou/yaoshou002,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou002skillhuafen,procedure,~/entity/yaoshou/yaoshou002,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou003skilldatiao,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou003skillchongci,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou003skillchicao,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou003skillhoudeng,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou001skillzhagen,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou001skillzhengtuo,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Guiguai02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Yaoshou001skillfagong,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou002lianhuanbianta,procedure,~/entity/yaoshou/yaoshou002,creature,已读,B1 归属阅读：随 Yaoshou002 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaioshou002skillfengpiao,procedure,~/entity/yaoshou/yaoshou002,creature,已读,B1 归属阅读：随 Yaoshou002 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou002skillchongci,procedure,~/entity/yaoshou/yaoshou002,creature,已读,B1 归属阅读：随 Yaoshou002 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou002skillzengfufagong,procedure,~/entity/yaoshou/yaoshou002,creature,已读,B1 归属阅读：随 Yaoshou002 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou002skillzhagen,procedure,~/entity/yaoshou/yaoshou002,creature,已读,B1 归属阅读：随 Yaoshou002 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou002skillhuafen,procedure,~/entity/yaoshou/yaoshou002,creature,已读,B1 归属阅读：随 Yaoshou002 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou003skilldatiao,procedure,~/entity/yaoshou/yaoshou003,creature,已读,B1 归属阅读：随 Yaoshou003 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou003skillchongci,procedure,~/entity/yaoshou/yaoshou003,creature,已读,B1 归属阅读：随 Yaoshou003 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou003skillchicao,procedure,~/entity/yaoshou/yaoshou003,creature,已读,B1 归属阅读：随 Yaoshou003 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou003skillhoudeng,procedure,~/entity/yaoshou/yaoshou003,creature,已读,B1 归属阅读：随 Yaoshou003 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou003skillhoudengjiance,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou003skillzuoqiantiao,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou003skillyouqiantiao,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou003skilldading,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou003skillzhendi,procedure,~/entity/yaoshou/yaoshou003,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou004yemanchongzhuang,procedure,~/entity/yaoshou/yaoshou004,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou004chicao,procedure,~/entity/yaoshou/yaoshou004,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou004jingangding,procedure,~/entity/yaoshou/yaoshou004,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou004jianta,procedure,~/entity/yaoshou/yaoshou004,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou004luanbaitou,procedure,~/entity/yaoshou/yaoshou004,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou005chongfeng,procedure,~/entity/yaoshou/yaoshou005,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou005zhanhou,procedure,~/entity/yaoshou/yaoshou005,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou005gaogaogongqi,procedure,~/entity/yaoshou/yaoshou005,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou005liaoyaluantu,procedure,~/entity/yaoshou/yaoshou005,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou005shengruleigu,procedure,~/entity/yaoshou/yaoshou005,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou006chixia,procedure,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou006fangyv,procedure,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou003skillzuoqiantiao,procedure,~/entity/yaoshou/yaoshou003,creature,已读,B1 归属阅读：随 Yaoshou003 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou003skillyouqiantiao,procedure,~/entity/yaoshou/yaoshou003,creature,已读,B1 归属阅读：随 Yaoshou003 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou003skilldading,procedure,~/entity/yaoshou/yaoshou003,creature,已读,B1 归属阅读：随 Yaoshou003 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou003skillzhendi,procedure,~/entity/yaoshou/yaoshou003,creature,已读,B1 归属阅读：随 Yaoshou003 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou004yemanchongzhuang,procedure,~/entity/yaoshou/yaoshou004,creature,已读,B1 归属阅读：随 Yaoshou004 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou004chicao,procedure,~/entity/yaoshou/yaoshou004,creature,已读,B1 归属阅读：随 Yaoshou004 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou004jingangding,procedure,~/entity/yaoshou/yaoshou004,creature,已读,B1 归属阅读：随 Yaoshou004 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou004jianta,procedure,~/entity/yaoshou/yaoshou004,creature,已读,B1 归属阅读：随 Yaoshou004 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou004luanbaitou,procedure,~/entity/yaoshou/yaoshou004,creature,已读,B1 归属阅读：随 Yaoshou004 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou005chongfeng,procedure,~/entity/yaoshou/yaoshou005,creature,已读,B1 归属阅读：随 Yaoshou005 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou005zhanhou,procedure,~/entity/yaoshou/yaoshou005,creature,已读,B1 归属阅读：随 Yaoshou005 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou005gaogaogongqi,procedure,~/entity/yaoshou/yaoshou005,creature,已读,B1 归属阅读：随 Yaoshou005 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou005liaoyaluantu,procedure,~/entity/yaoshou/yaoshou005,creature,已读,B1 归属阅读：随 Yaoshou005 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou005shengruleigu,procedure,~/entity/yaoshou/yaoshou005,creature,已读,B1 归属阅读：随 Yaoshou005 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou006chixia,procedure,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：随 Yaoshou006 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou006fangyv,procedure,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：随 Yaoshou006 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou006fangyvzitai,procedure,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou006fangyvzitai2,procedure,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou006feipu,procedure,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou006chengfengqv,procedure,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou006suifenglai,procedure,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou007feipu,procedure,~/entity/yaoshou/yaoshou007,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou007siyao,procedure,~/entity/yaoshou/yaoshou007,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou007langhao,procedure,~/entity/yaoshou/yaoshou007,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou008feipu,procedure,~/entity/yaoshou/yaoshou008,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou008siyao,procedure,~/entity/yaoshou/yaoshou008,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou008langhao,procedure,~/entity/yaoshou/yaoshou008,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou008zhaohuanxiaolang,procedure,~/entity/yaoshou/yaoshou008,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou009suyou,procedure,~/entity/yaoshou/yaoshou009,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou009pochuan,procedure,~/entity/yaoshou/yaoshou009,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou009tuoxiaqv,procedure,~/entity/yaoshou/yaoshou009,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou010fennu,procedure,~/entity/yaoshou/yaoshou010,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou010feipushuaiwei,procedure,~/entity/yaoshou/yaoshou010,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou010shuaiwei,procedure,~/entity/yaoshou/yaoshou010,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou010feipu,procedure,~/entity/yaoshou/yaoshou010,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou010feicuan,procedure,~/entity/yaoshou/yaoshou010,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou011feipu,procedure,~/entity/yaoshou/yaoshou011,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou011yemanchongzhuang,procedure,~/entity/yaoshou/yaoshou011,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou011houjiao,procedure,~/entity/yaoshou/yaoshou011,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou011erlianji,procedure,~/entity/yaoshou/yaoshou011,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou011zhendi,procedure,~/entity/yaoshou/yaoshou011,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou011zhaoyanpaiji,procedure,~/entity/yaoshou/yaoshou011,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou011baoqi,procedure,~/entity/yaoshou/yaoshou011,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou012feipu,procedure,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou012fuyaozhishang,procedure,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou012huxiao,procedure,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou012saowei,procedure,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou012tianhupuyao,procedure,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou012houtiao,procedure,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou012zuotiao,procedure,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou012youtiao,procedure,~/entity/yaoshou/yaoshou012,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou013taoziwuqi,rangeditem,~/entity/yaoshou/yaoshou013,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou013touzhitaozi,procedure,~/entity/yaoshou/yaoshou013,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou013chetui,procedure,~/entity/yaoshou/yaoshou013,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou013zuohuanghuang,procedure,~/entity/yaoshou/yaoshou013,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou013youhuanghuang,procedure,~/entity/yaoshou/yaoshou013,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou013houhuanghuang,procedure,~/entity/yaoshou/yaoshou013,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou015feipu,procedure,~/entity/yaoshou/yaoshou015,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou015xiangzuotiao,procedure,~/entity/yaoshou/yaoshou015,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou015xiangyoutiao,procedure,~/entity/yaoshou/yaoshou015,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou015tanshetangdao,procedure,~/entity/yaoshou/yaoshou015,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou015lianxvgengzhua,procedure,~/entity/yaoshou/yaoshou015,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou015nitai,procedure,~/entity/yaoshou/yaoshou015,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou016qiandi,procedure,~/entity/yaoshou/yaoshou016,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou016pensheduye,procedure,~/entity/yaoshou/yaoshou016,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou016duyeTouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou016,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou016duyeDangTouSheWuSheZhongCiFangKuai,procedure,~/entity/yaoshou/yaoshou016,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou016duyeDangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou016,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou016duye,rangeditem,~/entity/yaoshou/yaoshou016,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017shuiqiushu,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017hunlingpaomo,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017xvanzhuanpenshe,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017zouwei,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017taopao,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017tuokeertao,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou017suoke,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou006feipu,procedure,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：随 Yaoshou006 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou006chengfengqv,procedure,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：随 Yaoshou006 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou006suifenglai,procedure,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：随 Yaoshou006 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou007feipu,procedure,~/entity/yaoshou/yaoshou007,creature,已读,B1 归属阅读：随 Yaoshou007 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou007siyao,procedure,~/entity/yaoshou/yaoshou007,creature,已读,B1 归属阅读：随 Yaoshou007 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou007langhao,procedure,~/entity/yaoshou/yaoshou007,creature,已读,B1 归属阅读：随 Yaoshou007 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou008feipu,procedure,~/entity/yaoshou/yaoshou008,creature,已读,B1 归属阅读：随 Yaoshou008 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou008siyao,procedure,~/entity/yaoshou/yaoshou008,creature,已读,B1 归属阅读：随 Yaoshou008 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou008langhao,procedure,~/entity/yaoshou/yaoshou008,creature,已读,B1 归属阅读：随 Yaoshou008 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou008zhaohuanxiaolang,procedure,~/entity/yaoshou/yaoshou008,creature,已读,B1 归属阅读：随 Yaoshou008 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou009suyou,procedure,~/entity/yaoshou/yaoshou009,creature,已读,B1 归属阅读：随 Yaoshou009 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou009pochuan,procedure,~/entity/yaoshou/yaoshou009,creature,已读,B1 归属阅读：随 Yaoshou009 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou009tuoxiaqv,procedure,~/entity/yaoshou/yaoshou009,creature,已读,B1 归属阅读：随 Yaoshou009 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou010fennu,procedure,~/entity/yaoshou/yaoshou010,creature,已读,B1 归属阅读：随 Yaoshou010 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou010feipushuaiwei,procedure,~/entity/yaoshou/yaoshou010,creature,已读,B1 归属阅读：随 Yaoshou010 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou010shuaiwei,procedure,~/entity/yaoshou/yaoshou010,creature,已读,B1 归属阅读：随 Yaoshou010 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou010feipu,procedure,~/entity/yaoshou/yaoshou010,creature,已读,B1 归属阅读：随 Yaoshou010 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou010feicuan,procedure,~/entity/yaoshou/yaoshou010,creature,已读,B1 归属阅读：随 Yaoshou010 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou011feipu,procedure,~/entity/yaoshou/yaoshou011,creature,已读,B1 归属阅读：随 Yaoshou011 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou011yemanchongzhuang,procedure,~/entity/yaoshou/yaoshou011,creature,已读,B1 归属阅读：随 Yaoshou011 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou011houjiao,procedure,~/entity/yaoshou/yaoshou011,creature,已读,B1 归属阅读：随 Yaoshou011 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou011erlianji,procedure,~/entity/yaoshou/yaoshou011,creature,已读,B1 归属阅读：随 Yaoshou011 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou011zhendi,procedure,~/entity/yaoshou/yaoshou011,creature,已读,B1 归属阅读：随 Yaoshou011 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou011zhaoyanpaiji,procedure,~/entity/yaoshou/yaoshou011,creature,已读,B1 归属阅读：随 Yaoshou011 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou011baoqi,procedure,~/entity/yaoshou/yaoshou011,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Yaoshou012feipu,procedure,~/entity/yaoshou/yaoshou012,creature,已读,B1 归属阅读：随 Yaoshou012 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou012fuyaozhishang,procedure,~/entity/yaoshou/yaoshou012,creature,已读,B1 归属阅读：随 Yaoshou012 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou012huxiao,procedure,~/entity/yaoshou/yaoshou012,creature,已读,B1 归属阅读：随 Yaoshou012 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou012saowei,procedure,~/entity/yaoshou/yaoshou012,creature,已读,B1 归属阅读：随 Yaoshou012 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou012tianhupuyao,procedure,~/entity/yaoshou/yaoshou012,creature,已读,B1 归属阅读：随 Yaoshou012 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou012houtiao,procedure,~/entity/yaoshou/yaoshou012,creature,已读,B1 归属阅读：随 Yaoshou012 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou012zuotiao,procedure,~/entity/yaoshou/yaoshou012,creature,已读,B1 归属阅读：随 Yaoshou012 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou012youtiao,procedure,~/entity/yaoshou/yaoshou012,creature,已读,B1 归属阅读：随 Yaoshou012 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou013taoziwuqi,rangeditem,~/entity/yaoshou/yaoshou013,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
+yvanchuxiuzhen,Yaoshou013touzhitaozi,procedure,~/entity/yaoshou/yaoshou013,creature,已读,B1 归属阅读：随 Yaoshou013 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou013chetui,procedure,~/entity/yaoshou/yaoshou013,creature,已读,B1 归属阅读：随 Yaoshou013 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou013zuohuanghuang,procedure,~/entity/yaoshou/yaoshou013,creature,已读,B1 归属阅读：随 Yaoshou013 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou013youhuanghuang,procedure,~/entity/yaoshou/yaoshou013,creature,已读,B1 归属阅读：随 Yaoshou013 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou013houhuanghuang,procedure,~/entity/yaoshou/yaoshou013,creature,已读,B1 归属阅读：随 Yaoshou013 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou015feipu,procedure,~/entity/yaoshou/yaoshou015,creature,已读,B1 归属阅读：随 Yaoshou015 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou015xiangzuotiao,procedure,~/entity/yaoshou/yaoshou015,creature,已读,B1 归属阅读：随 Yaoshou015 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou015xiangyoutiao,procedure,~/entity/yaoshou/yaoshou015,creature,已读,B1 归属阅读：随 Yaoshou015 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou015tanshetangdao,procedure,~/entity/yaoshou/yaoshou015,creature,已读,B1 归属阅读：随 Yaoshou015 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou015lianxvgengzhua,procedure,~/entity/yaoshou/yaoshou015,creature,已读,B1 归属阅读：随 Yaoshou015 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou015nitai,procedure,~/entity/yaoshou/yaoshou015,creature,已读,B1 归属阅读：随 Yaoshou015 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou016qiandi,procedure,~/entity/yaoshou/yaoshou016,creature,已读,B1 归属阅读：随 Yaoshou016 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou016pensheduye,procedure,~/entity/yaoshou/yaoshou016,creature,已读,B1 归属阅读：随 Yaoshou016 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou016duyeTouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou016,creature,已读,B1 归属阅读：随 Yaoshou016duye 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou016duyeDangTouSheWuSheZhongCiFangKuai,procedure,~/entity/yaoshou/yaoshou016,creature,已读,B1 归属阅读：随 Yaoshou016duye 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou016duyeDangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou016,creature,已读,B1 归属阅读：随 Yaoshou016duye 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou016duye,rangeditem,~/entity/yaoshou/yaoshou016,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017shuiqiushu,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017hunlingpaomo,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017xvanzhuanpenshe,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017zouwei,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017taopao,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017tuokeertao,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou017suoke,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou017zhangke,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou018jvansuogundong,procedure,~/entity/yaoshou/yaoshou018,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou018taopao,procedure,~/entity/yaoshou/yaoshou018,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou018tiaoyvegundong,procedure,~/entity/yaoshou/yaoshou018,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou019taopao,procedure,~/entity/yaoshou/yaoshou019,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou019yinshen,procedure,~/entity/yaoshou/yaoshou019,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou020fenshen,procedure,~/entity/yaoshou/yaoshou020,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshoujinkong,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou022taopao,procedure,~/entity/yaoshou/yaoshou022,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou022tanshetaopao,procedure,~/entity/yaoshou/yaoshou022,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou022penyv,procedure,~/entity/yaoshou/yaoshou022,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou024feipu,procedure,~/entity/yaoshou/yaoshou024,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou024tanshetangdao,procedure,~/entity/yaoshou/yaoshou024,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou024lianxvgengzhua,procedure,~/entity/yaoshou/yaoshou024,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou024dianling,procedure,~/entity/yaoshou/yaoshou024,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou025taopao,procedure,~/entity/yaoshou/yaoshou025,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou025shuiqiushu,procedure,~/entity/yaoshou/yaoshou025,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou026puyao,procedure,~/entity/yaoshou/yaoshou026,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou026saowei,procedure,~/entity/yaoshou/yaoshou026,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou026feipu,procedure,~/entity/yaoshou/yaoshou026,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou026huoyanpenshe,procedure,~/entity/yaoshou/yaoshou026,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou026huoyanzhang,procedure,~/entity/yaoshou/yaoshou026,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou026huoyanTouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou026,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou026huoyanDangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou026,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou026huoyan,rangeditem,~/entity/yaoshou/yaoshou026,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou027liandazadi,procedure,~/entity/yaoshou/yaoshou027,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou027taopao,procedure,~/entity/yaoshou/yaoshou027,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou028penshuijiasu,procedure,~/entity/yaoshou/yaoshou028,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou028shuiqiangTouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou028,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou028shuiqiangDangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou028,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou028shuiqiang,rangeditem,~/entity/yaoshou/yaoshou028,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou028shuiliu,procedure,~/entity/yaoshou/yaoshou028,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou029yvyou,procedure,~/entity/yaoshou/yaoshou029,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou029xiachen,procedure,~/entity/yaoshou/yaoshou029,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xiuzhe0101pugong,procedure,~/entity/lulin/xiuzhe0101,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai03sanlianji,procedure,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai03lipi,procedure,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai03xiongbao,procedure,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai03hengsao,procedure,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai03chongci,procedure,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai03shunshen,procedure,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai03zhaohuanguihuo,procedure,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou018jvansuogundong,procedure,~/entity/yaoshou/yaoshou018,creature,已读,B1 归属阅读：随 Yaoshou018 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou018taopao,procedure,~/entity/yaoshou/yaoshou018,creature,已读,B1 归属阅读：随 Yaoshou018 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou018tiaoyvegundong,procedure,~/entity/yaoshou/yaoshou018,creature,已读,B1 归属阅读：随 Yaoshou018 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou019taopao,procedure,~/entity/yaoshou/yaoshou019,creature,已读,B1 归属阅读：随 Yaoshou019 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou019yinshen,procedure,~/entity/yaoshou/yaoshou019,creature,已读,B1 归属阅读：随 Yaoshou019 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou020fenshen,procedure,~/entity/yaoshou/yaoshou020,creature,已读,B1 归属阅读：随 Yaoshou020 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshoujinkong,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Yaoshou012 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou022taopao,procedure,~/entity/yaoshou/yaoshou022,creature,已读,B1 归属阅读：随 Yaoshou022 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou022tanshetaopao,procedure,~/entity/yaoshou/yaoshou022,creature,已读,B1 归属阅读：随 Yaoshou022 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou022penyv,procedure,~/entity/yaoshou/yaoshou022,creature,已读,B1 归属阅读：随 Yaoshou022 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou024feipu,procedure,~/entity/yaoshou/yaoshou024,creature,已读,B1 归属阅读：随 Yaoshou024 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou024tanshetangdao,procedure,~/entity/yaoshou/yaoshou024,creature,已读,B1 归属阅读：随 Yaoshou024 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou024lianxvgengzhua,procedure,~/entity/yaoshou/yaoshou024,creature,已读,B1 归属阅读：随 Yaoshou024 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou024dianling,procedure,~/entity/yaoshou/yaoshou024,creature,已读,B1 归属阅读：随 Yaoshou024 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou025taopao,procedure,~/entity/yaoshou/yaoshou025,creature,已读,B1 归属阅读：随 Yaoshou025 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou025shuiqiushu,procedure,~/entity/yaoshou/yaoshou025,creature,已读,B1 归属阅读：随 Yaoshou025 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou026puyao,procedure,~/entity/yaoshou/yaoshou026,creature,已读,B1 归属阅读：随 Yaoshou026 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou026saowei,procedure,~/entity/yaoshou/yaoshou026,creature,已读,B1 归属阅读：随 Yaoshou026 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou026feipu,procedure,~/entity/yaoshou/yaoshou026,creature,已读,B1 归属阅读：随 Yaoshou026 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou026huoyanpenshe,procedure,~/entity/yaoshou/yaoshou026,creature,已读,B1 归属阅读：随 Yaoshou026 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou026huoyanzhang,procedure,~/entity/yaoshou/yaoshou026,creature,已读,B1 归属阅读：随 Yaoshou026 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou026huoyanTouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou026,creature,已读,B1 归属阅读：随 Yaoshou026huoyan 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou026huoyanDangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou026,creature,已读,B1 归属阅读：随 Yaoshou026huoyan 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou026huoyan,rangeditem,~/entity/yaoshou/yaoshou026,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou027liandazadi,procedure,~/entity/yaoshou/yaoshou027,creature,已读,B1 归属阅读：随 Yaoshou027 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou027taopao,procedure,~/entity/yaoshou/yaoshou027,creature,已读,B1 归属阅读：随 Yaoshou027 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou028penshuijiasu,procedure,~/entity/yaoshou/yaoshou028,creature,已读,B1 归属阅读：随 Yaoshou028 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou028shuiqiangTouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou028,creature,已读,B1 归属阅读：随 Yaoshou028shuiqiang 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou028shuiqiangDangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou028,creature,已读,B1 归属阅读：随 Yaoshou028shuiqiang 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou028shuiqiang,rangeditem,~/entity/yaoshou/yaoshou028,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou028shuiliu,procedure,~/entity/yaoshou/yaoshou028,creature,已读,B1 归属阅读：随 Yaoshou028 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou029yvyou,procedure,~/entity/yaoshou/yaoshou029,creature,已读,B1 归属阅读：随 Yaoshou029 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou029xiachen,procedure,~/entity/yaoshou/yaoshou029,creature,已读,B1 归属阅读：随 Yaoshou029 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Xiuzhe0101pugong,procedure,~/entity/lulin/xiuzhe0101,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai03sanlianji,procedure,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai03lipi,procedure,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai03xiongbao,procedure,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai03hengsao,procedure,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai03chongci,procedure,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai03shunshen,procedure,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai03zhaohuanguihuo,procedure,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Zxczxc,procedure,~/entity/guiguai/guiguai02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai02DangShiTiShouShangShi,procedure,~/entity/guiguai/guiguai02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guiguai02DangYouJianDianJiShiTi,procedure,~/entity/guiguai/guiguai02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guiguai02DangShiTiShouShangShi,procedure,~/entity/guiguai/guiguai02,creature,已读,B1 归属阅读：随 Guiguai02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
+yvanchuxiuzhen,Guiguai02DangYouJianDianJiShiTi,procedure,~/entity/guiguai/guiguai02,creature,已读,B1 归属阅读：随 Guiguai02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Skillyin01DangShiTiShouShangShi,procedure,~/skill/jineng/yinskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Skill01siwangyongbao,procedure,~/skill/jineng/yinskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Skillyin01penshenianye,procedure,~/skill/jineng/yinskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Skillyin01konghe,procedure,~/skill/jineng/yinskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou054jvedonglikai,procedure,~/entity/yaoshou/yaoshou054,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou054jvedongkaojin,procedure,~/entity/yaoshou/yaoshou054,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou054bingzhuishu,procedure,~/entity/yaoshou/yaoshou054,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou054bingzhua,procedure,~/entity/yaoshou/yaoshou054,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053bingshunshen,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053bingzhua,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053bingji,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053chuibai,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053bingshanshen,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053bingyv,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053xianghoutiao,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053xiangzuotiao,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053xiangyoutiao,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053bingtianxvedi,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou054jvedonglikai,procedure,~/entity/yaoshou/yaoshou054,creature,已读,B1 归属阅读：随 Yaoshou054 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou054jvedongkaojin,procedure,~/entity/yaoshou/yaoshou054,creature,已读,B1 归属阅读：随 Yaoshou054 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou054bingzhuishu,procedure,~/entity/yaoshou/yaoshou054,creature,已读,B1 归属阅读：随 Yaoshou054 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou054bingzhua,procedure,~/entity/yaoshou/yaoshou054,creature,已读,B1 归属阅读：随 Yaoshou054 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053bingshunshen,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053bingzhua,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053bingji,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053chuibai,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou052 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053bingshanshen,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053bingyv,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053xianghoutiao,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053xiangzuotiao,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053xiangyoutiao,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou053bingtianxvedi,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Snow,particle,~/entity/yaoshou/yaoshou053,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou053baofengxveZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou053baofengxve,potioneffect,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou050shucuan,procedure,~/entity/yaoshou/yaoshou050,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou050canghenyiji,procedure,~/entity/yaoshou/yaoshou050,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou050shucuan,procedure,~/entity/yaoshou/yaoshou050,creature,已读,B1 归属阅读：随 Yaoshou050 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou050canghenyiji,procedure,~/entity/yaoshou/yaoshou050,creature,已读,B1 归属阅读：随 Yaoshou050 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou050safengentityDangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou050,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou050safengentity,animatedentity,~/entity/yaoshou/yaoshou050,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou050safeng,procedure,~/entity/yaoshou/yaoshou050,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou051bingjipaiji,procedure,~/entity/yaoshou/yaoshou051,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou049xveyin,procedure,~/entity/yaoshou/yaoshou049,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou048jiliu,procedure,~/entity/yaoshou/yaoshou048,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou048gundong,procedure,~/entity/yaoshou/yaoshou048,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou048suoke,procedure,~/entity/yaoshou/yaoshou048,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou048shuiqiushu,procedure,~/entity/yaoshou/yaoshou048,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou046feijian,procedure,~/entity/yaoshou/yaoshou046,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou046baoliefeijian,procedure,~/entity/yaoshou/yaoshou046,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou046lici,procedure,~/entity/yaoshou/yaoshou046,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou045qianchong,procedure,~/entity/yaoshou/yaoshou045,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou045zhongzhongyikou,procedure,~/entity/yaoshou/yaoshou045,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou045gaogaojvqi,procedure,~/entity/yaoshou/yaoshou045,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou043feipu,procedure,~/entity/yaoshou/yaoshou043,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou043yinlei,procedure,~/entity/yaoshou/yaoshou043,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou043shunlei,procedure,~/entity/yaoshou/yaoshou043,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou043polei,procedure,~/entity/yaoshou/yaoshou043,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou043siwangfangun,procedure,~/entity/yaoshou/yaoshou043,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou041feipu,procedure,~/entity/yaoshou/yaoshou041,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou041feiguolai,procedure,~/entity/yaoshou/yaoshou041,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040wanzhangguangmang,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040luoyang,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040youliguang,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040guangzhu,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou039guangshan,procedure,~/entity/yaoshou/yaoshou039,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou039youliguang,procedure,~/entity/yaoshou/yaoshou039,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou038jvshelongjvan,procedure,~/entity/yaoshou/yaoshou038,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou038fangxve,procedure,~/entity/yaoshou/yaoshou038,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou037houjiao,procedure,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou037feipu,procedure,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou037luolei,procedure,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou037dousoujingshen,procedure,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou037guangshan,procedure,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou050safeng,procedure,~/entity/yaoshou/yaoshou050,creature,已读,B1 归属阅读：随 Yaoshou050 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou051bingjipaiji,procedure,~/entity/yaoshou/yaoshou051,creature,已读,B1 归属阅读：随 Yaoshou051 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou049xveyin,procedure,~/entity/yaoshou/yaoshou049,creature,已读,B1 归属阅读：随 Yaoshou049 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou048jiliu,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou048gundong,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou048suoke,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou048shuiqiushu,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou046feijian,procedure,~/entity/yaoshou/yaoshou046,creature,已读,B1 归属阅读：随 Yaoshou046 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou046baoliefeijian,procedure,~/entity/yaoshou/yaoshou046,creature,已读,B1 归属阅读：随 Yaoshou046 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou046lici,procedure,~/entity/yaoshou/yaoshou046,creature,已读,B1 归属阅读：随 Yaoshou046 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou045qianchong,procedure,~/entity/yaoshou/yaoshou045,creature,已读,B1 归属阅读：随 Yaoshou045 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou045zhongzhongyikou,procedure,~/entity/yaoshou/yaoshou045,creature,已读,B1 归属阅读：随 Yaoshou045 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou045gaogaojvqi,procedure,~/entity/yaoshou/yaoshou045,creature,已读,B1 归属阅读：随 Yaoshou045 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou043feipu,procedure,~/entity/yaoshou/yaoshou043,creature,已读,B1 归属阅读：随 Yaoshou036 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou043yinlei,procedure,~/entity/yaoshou/yaoshou043,creature,已读,B1 归属阅读：随 Yaoshou043 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou043shunlei,procedure,~/entity/yaoshou/yaoshou043,creature,已读,B1 归属阅读：随 Yaoshou043 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou043polei,procedure,~/entity/yaoshou/yaoshou043,creature,已读,B1 归属阅读：随 Yaoshou043 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou043siwangfangun,procedure,~/entity/yaoshou/yaoshou043,creature,已读,B1 归属阅读：随 Yaoshou036 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou041feipu,procedure,~/entity/yaoshou/yaoshou041,creature,已读,B1 归属阅读：随 Yaoshou041 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou041feiguolai,procedure,~/entity/yaoshou/yaoshou041,creature,已读,B1 归属阅读：随 Yaoshou041 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou040wanzhangguangmang,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou040luoyang,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou040youliguang,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou040guangzhu,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou039guangshan,procedure,~/entity/yaoshou/yaoshou039,creature,已读,B1 归属阅读：随 Yaoshou039 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou039youliguang,procedure,~/entity/yaoshou/yaoshou039,creature,已读,B1 归属阅读：随 Yaoshou039 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou038jvshelongjvan,procedure,~/entity/yaoshou/yaoshou038,creature,已读,B1 归属阅读：随 Yaoshou038 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou038fangxve,procedure,~/entity/yaoshou/yaoshou038,creature,已读,B1 归属阅读：随 Yaoshou038 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou037houjiao,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou037feipu,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou037luolei,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou037dousoujingshen,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou037guangshan,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou037leibaoxiaoguoZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou037leibaoxiaoguo,potioneffect,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou037leibao,procedure,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou037tiaoyve,procedure,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou036yaosui,procedure,~/entity/yaoshou/yaoshou036,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou036shuaiwei,procedure,~/entity/yaoshou/yaoshou036,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou037leibao,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou037tiaoyve,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou036yaosui,procedure,~/entity/yaoshou/yaoshou036,creature,已读,B1 归属阅读：随 Yaoshou036 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou036shuaiwei,procedure,~/entity/yaoshou/yaoshou036,creature,已读,B1 归属阅读：随 Yaoshou036 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou036heizexiaoguoZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/entity/yaoshou/yaoshou036,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou036heizexiaoguo,potioneffect,~/entity/yaoshou/yaoshou036,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou036heize,procedure,~/entity/yaoshou/yaoshou036,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou035donghe,procedure,~/entity/yaoshou/yaoshou035,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou035feipu,procedure,~/entity/yaoshou/yaoshou035,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou035zhaohuanxiaohou,procedure,~/entity/yaoshou/yaoshou035,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou033taopao,procedure,~/entity/yaoshou/yaoshou033,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou033fangdutaopao,procedure,~/entity/yaoshou/yaoshou033,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou033baoziduwu,procedure,~/entity/yaoshou/yaoshou033,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou033hunluanduwu,procedure,~/entity/yaoshou/yaoshou033,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou031shuiliu,procedure,~/entity/yaoshou/yaoshou031,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou031shuiqiushu,procedure,~/entity/yaoshou/yaoshou031,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou047yewu,procedure,~/entity/yaoshou/yaoshou047,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou047donghe,procedure,~/entity/yaoshou/yaoshou047,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou047yeti,procedure,~/entity/yaoshou/yaoshou047,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou047luanyv,procedure,~/entity/yaoshou/yaoshou047,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou047feili,procedure,~/entity/yaoshou/yaoshou047,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou030luanwu,procedure,~/entity/yaoshou/yaoshou030,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou030jinxvanfeng,procedure,~/entity/yaoshou/yaoshou030,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou023huixvanguangdan,procedure,~/entity/yaoshou/yaoshou023,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou023caiyvhongzha,procedure,~/entity/yaoshou/yaoshou023,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou023baodanDangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou023,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou023baodanDangTouSheWuSheZhongCiFangKuai,procedure,~/entity/yaoshou/yaoshou023,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou023baodan,rangeditem,~/entity/yaoshou/yaoshou023,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou014heifeng,procedure,~/entity/yaoshou/yaoshou014,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou014feiyv,procedure,~/entity/yaoshou/yaoshou014,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou027feipu,procedure,~/entity/yaoshou/yaoshou027,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou036heize,procedure,~/entity/yaoshou/yaoshou036,creature,已读,B1 归属阅读：随 Yaoshou036 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou035donghe,procedure,~/entity/yaoshou/yaoshou035,creature,已读,B1 归属阅读：随 Yaoshou035 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou035feipu,procedure,~/entity/yaoshou/yaoshou035,creature,已读,B1 归属阅读：随 Yaoshou035 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou035zhaohuanxiaohou,procedure,~/entity/yaoshou/yaoshou035,creature,已读,B1 归属阅读：随 Yaoshou035 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou033taopao,procedure,~/entity/yaoshou/yaoshou033,creature,已读,B1 归属阅读：随 Yaoshou033 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou033fangdutaopao,procedure,~/entity/yaoshou/yaoshou033,creature,已读,B1 归属阅读：随 Yaoshou033 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou033baoziduwu,procedure,~/entity/yaoshou/yaoshou033,creature,已读,B1 归属阅读：随 Yaoshou033 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou033hunluanduwu,procedure,~/entity/yaoshou/yaoshou033,creature,已读,B1 归属阅读：随 Yaoshou033 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou031shuiliu,procedure,~/entity/yaoshou/yaoshou031,creature,已读,B1 归属阅读：随 Yaoshou031 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou031shuiqiushu,procedure,~/entity/yaoshou/yaoshou031,creature,已读,B1 归属阅读：随 Yaoshou031 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou047yewu,procedure,~/entity/yaoshou/yaoshou047,creature,已读,B1 归属阅读：随 Yaoshou014 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou047donghe,procedure,~/entity/yaoshou/yaoshou047,creature,已读,B1 归属阅读：随 Yaoshou047 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou047yeti,procedure,~/entity/yaoshou/yaoshou047,creature,已读,B1 归属阅读：随 Yaoshou047 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou047luanyv,procedure,~/entity/yaoshou/yaoshou047,creature,已读,B1 归属阅读：随 Yaoshou014 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou047feili,procedure,~/entity/yaoshou/yaoshou047,creature,已读,B1 归属阅读：随 Yaoshou014 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou030luanwu,procedure,~/entity/yaoshou/yaoshou030,creature,已读,B1 归属阅读：随 Yaoshou030 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou030jinxvanfeng,procedure,~/entity/yaoshou/yaoshou030,creature,已读,B1 归属阅读：随 Yaoshou030 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou023huixvanguangdan,procedure,~/entity/yaoshou/yaoshou023,creature,已读,B1 归属阅读：随 Yaoshou023 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou023caiyvhongzha,procedure,~/entity/yaoshou/yaoshou023,creature,已读,B1 归属阅读：随 Yaoshou023 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou023baodanDangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou023,creature,已读,B1 归属阅读：随 Yaoshou023baodan 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou023baodanDangTouSheWuSheZhongCiFangKuai,procedure,~/entity/yaoshou/yaoshou023,creature,已读,B1 归属阅读：随 Yaoshou023baodan 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou023baodan,rangeditem,~/entity/yaoshou/yaoshou023,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou014heifeng,procedure,~/entity/yaoshou/yaoshou014,creature,已读,B1 归属阅读：随 Yaoshou014 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou014feiyv,procedure,~/entity/yaoshou/yaoshou014,creature,已读,B1 归属阅读：随 Yaoshou014 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
+yvanchuxiuzhen,Yaoshou027feipu,procedure,~/entity/yaoshou/yaoshou027,creature,已读,B1 归属阅读：随 Yaoshou027 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Book030hecheng,recipe,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao16102DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/gemstone,material,已读,B1 归属阅读：随 Cailiao16102 读：璞玉：右键辨识为对应宝石 cailiao_161–169，写入等级与随机品阶（Cailiaopinjie），潜行时批量；有机遇编号时触发 Cailiaoyvshiqiyv 奇遇奖励（材料或妖兽），属材料辨识
 yvanchuxiuzhen,Cailiao16102,item,~/item/gemstone,material,已读,B1 归属阅读：璞玉：右键辨识为对应宝石 cailiao_161–169，写入等级与随机品阶（Cailiaopinjie），潜行时批量；有机遇编号时触发 Cailiaoyvshiqiyv 奇遇奖励（材料或妖兽），属材料辨识
