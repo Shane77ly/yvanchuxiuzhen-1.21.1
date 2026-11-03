@@ -13,39 +13,28 @@ updated: 2026-11-03
 
 | 项 | 状态 |
 | --- | --- |
-| 分支与提交 | `main` 与工作分支 `port/c-xiulian`；最新提交以 `git log` 为准 |
+| 分支与提交 | `main` 与工作分支 `port/c-gongfa`；最新提交以 `git log` 为准 |
 | 已完成 | 两个 1.18.2 工程的全量静态调查与索引；系统调查正文（2026-11-02 按[系统设计](system-design.md)重组为 28 个系统、3 个内容族与玩家面板）；通用移植技能；开发环境（构建、开发服务端与客户端加载已实测） |
-| 代码 | 公共入口与客户端入口；attribute 系统（贡献汇总、玩家附件、原版属性写入，2026-11-03）；relation 系统（敌友判定、团队、好友与申请界面、按钮 payload，2026-11-03）；`platform/content` 的内容表加载器与工厂（15 种方块、物品、工具、盔甲）按单位登记 1,127 个方块、2,063 个物品与 150 个声音事件，29 个有内容的单位各有一个 `<名称>Setup`；ArchUnit、台账工具、归属证据工具、片段合并与客户端冒烟检查已接入 |
-| 批次进度 | B0 完成步骤 1–5 后按负责人指示结束（2026-11-02），B1 于 2026-11-03 出口核对并经负责人认可后结束，当前执行 C：attribute、relation 2026-11-03 完成并合入 `main`，下一个是 xiulian（会话按依赖方向调到 gongfa 之前，见[功法](../systems/gongfa/README.md)“依赖方向”）；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移；命名空间统一为 `yvanchuxiuzhen`。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
+| 代码 | 公共入口与客户端入口；attribute 系统（贡献汇总、玩家附件、原版属性写入，2026-11-03）；relation 系统（敌友判定、团队、好友与申请界面、按钮 payload，2026-11-03）；xiulian 系统（修炼档案、出身、修炼推进与突破、金丹元婴、丹田界面、血道，2026-11-03）；`platform/content` 的内容表加载器与工厂（15 种方块、物品、工具、盔甲）按单位登记 1,127 个方块、2,063 个物品与 150 个声音事件，29 个有内容的单位各有一个 `<名称>Setup`；ArchUnit、台账工具、归属证据工具、片段合并与客户端冒烟检查已接入 |
+| 批次进度 | B0 完成步骤 1–5 后按负责人指示结束（2026-11-02），B1 于 2026-11-03 出口核对并经负责人认可后结束，当前执行 C：attribute、relation、xiulian 2026-11-03 完成并合入 `main`（xiulian 按依赖方向调到 gongfa 之前，见[功法](../systems/gongfa/README.md)“依赖方向”），下一个是 gongfa；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移；命名空间统一为 `yvanchuxiuzhen`。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
 | 已批准 | 2026-11-02 负责人批准整体架构、[工程结构与长期维护](engineering.md)、[实施路线](roadmap.md)（`3e0585c` 版本），记录见[项目状态](../systems/project/README.md)；不含存档导入、界面复刻程度、license、Q01–Q14 |
-| 未执行 | attribute、relation 以外的玩法实现、1.18.2 实机对照、存档与视觉验收；goal 未授权 |
+| 未执行 | attribute、relation、xiulian 以外的玩法实现、1.18.2 实机对照、存档与视觉验收；goal 未授权 |
 
 ## 进行中
 
-C 玩家与战斗核心，当前系统 xiulian（分支 `port/c-xiulian`，从 `main` 建立；gongfa 开工时发现依赖方向，改为先做 xiulian；最新提交以 `git log` 为准）。负责人 2026-11-03 指示（/loop）：每完成一个路线步骤即提交、合入 `main` 并进入下一步，直到移植完成或出现重大问题；判断不定的问题先评估影响，轻微的记入文档后继续，重大的停下商议；客户端测试由会话自己完成。B1 范围内需要新代码类型的 298 行（`skipped.csv`）与其余语言键随所属系统迁移。盔甲挥臂闪烁与药草疑似缺失两项反馈由负责人指示暂缓（2026-11-03）。
+C 玩家与战斗核心，下一个系统 gongfa（分支 `port/c-gongfa`，从 `main` 建立；最新提交以 `git log` 为准）。负责人 2026-11-03 指示（/loop）：每完成一个路线步骤即提交、合入 `main` 并进入下一步，直到移植完成或出现重大问题；判断不定的问题先评估影响，轻微的记入文档后继续，重大的停下商议；客户端测试由会话自己完成。运行约定（负责人 2026-11-03）：变换工具、Gradle、开发服务端与冒烟检查逐个运行，不同时进行（负责人的 VS Code 两次因内存不足崩溃，均在大批文件写入之后）。B1 范围内需要新代码类型的行（`skipped.csv`）与其余语言键随所属系统迁移。盔甲挥臂闪烁与药草疑似缺失两项反馈由负责人指示暂缓（2026-11-03）。
 
 已完成（2026-11-03，均已合入 `main`）：
 - attribute：Q17 裁定实际属性计入炼器数值，Q18 暂按来源行为待再议；见[属性](../systems/attribute/README.md)。留待其他系统：重算粒子随 particle；提交贡献的真实路径随 xiulian、gongfa、equipment、fulu、economy；equipment 去掉妖化防具的生命修饰符。
-- relation：敌友判定、团队与阵营、好友与申请界面；Q19（好友功能来源缺陷，保持来源行为）与 Q20（改团队名入口不可达，`gui_0301` 待裁定）；见[关系](../systems/relation/README.md)。留待其他系统：方块实体的敌友判定随首个调用者；好友行境界名随 xiulian。
+- relation：敌友判定、团队与阵营、好友与申请界面；Q19、Q20；见[关系](../systems/relation/README.md)。留待其他系统：方块实体的敌友判定随首个调用者；好友行境界名随 xiulian。
+- xiulian：修炼档案与公开操作、出身、修炼推进与突破、闭关、金丹元婴、丹田界面、血道、加点、灵根重置、升仙令与家族令牌；Q21–Q25；见[修炼](../systems/xiulian/README.md)。留待其他系统：雷劫过程随 combat 的伤害入口（会话决定，轻微）；远古石盘随 world 的传送阵位置与 particle；传承灵物、家族百宝袋随 material 与 fulu 的实例数据；妖丹实例等级条件随 material；境界提升与血流滴落粒子随 particle；本命培养与进度提交随 equipment；面板加点与丹田按钮、返回分页随 panel；`/yvanchu` 灵根子命令、出身发放物品与 `keepInventory` 随 flow；被闪电击中的功法效果随 gongfa；元婴出窍随 skill。
 
-xiulian 进度（分阶段在本分支提交）：
-- 阶段 1 已提交（wip）：玩家附件 `cultivation`（`CultivationData`：42 个来源字段，初值同来源，死亡复制，只同步本人）与公开操作 `Cultivation`（查询、加减、赋值；灵根与阴阳变化时向 attribute 提交 `xiulian:roots` 基础层贡献）。来源中外部写入只有“加减、乘后写回、赋值”三种，均不在写入处截断上限。
-- 阶段 2 已提交（wip）：游戏规则、首次进入的灵根与体质随机、出身界面与体质生效，冒烟检查 34 项通过；`tizhiitem` 由本系统整体保管（键表 `docs/systems/xiulian/ledger/tizhiitem_keys.csv`）；按出身发放物品的 `PlayerJoin02` 其余部分归 flow，待物品所属系统实现。原计划内容：登录初始化（`PlayerJoinGame` 中 xiulian 的部分：灵根全为 0 且游戏规则 `jinruyouxichushenxvanze` 为真时按 `linggenlevel` 随机五行灵根、阴阳 = 金 + 火 − 木 − 水、随机 1–10 选体质（来源列了 12 种，11、12 取不到，记为来源问题）、打开出身界面 `PlayerJoinGUI`；`tizhiitem` 载体与每日修为额度 `dailyexperience`/`dayjilu`）；两个游戏规则登记；`PlayerJoinGame` 每次登录把原版 `keepInventory` 设为真（归属待读，可能属 flow）。
-- 阶段 3 已提交（wip）：每秒推进、修为吸收与每日上限、突破与升级界面、雷劫开启标记、恢复、闭关修炼（经事件交给 gongfa 加功法经验）；冒烟 `XiulianProgressCheck` 通过。
-- 冒烟退出偶发停在 `Saving worlds`：`SystemCheck.leaveWorld` 改为等区块待办任务清空后断开，连续 8 次未复现（见月度记录）。
-- 阶段 4（一）已提交（wip）：金丹（21 层）与元婴（31 层）、丹田界面（体质列表与翻页、本命槽、本命培养进度显示、返回按钮发出 `DantianReturnEvent`）；冒烟 `DantianCheck` 通过；Q23–Q25。
-- 运行约定（负责人 2026-11-03）：变换工具、Gradle 与冒烟检查逐个运行，不同时进行（负责人的 VS Code 两次因内存不足崩溃，均在大批文件写入之后）。
-- 阶段 4（二）已提交（wip）：血道（吸血石方块实体与血池渲染、血流流体与桶、血精）；冒烟 `BloodPathCheck` 通过。platform 增加方块工厂覆盖，资源工具增加 `system_assets.csv`。
-- 雷劫过程推迟到 combat 实现伤害入口之后（会话决定，轻微；见[修炼架构](../systems/xiulian/architecture.md)“阶段 4（二）”）。
-- 阶段 4 其余：雷劫（实体 `tianjie_03/05/07`、`jieyvn` 与 `yvanyingchuqiao` 为 GeckoLib 动画实体，需先接入 GeckoLib）、血道（`xixveshi` 方块实体、`xveliu` 流体与桶）、物品 `ling_09/10/11/18`、`xvejing`、`jiazubaibaodai`。
-
-下一步具体操作（xiulian，之后 gongfa；做法同 attribute、relation）：
-0. xiulian 的公开操作须包含：境界、灵根、功德、罡煞、寿元、闭关状态的查询与扣减，向 attribute 提交基础层贡献（成长与灵根），以及接收 gongfa 提交的主修功法信息（名字、品阶、是否本人所有）。
-1. 读 xiulian（之后 gongfa）的候选元素归属（[归属表](../reference/legacy/inventory/ownership_assignment.csv)），用 `tools/porting/ownership_evidence.py` 列证据，读后改为“已读”并运行 `build_ledger.py`、`build_architecture_catalog.py`。
-2. 在 [gongfa README](../systems/gongfa/README.md)“公开操作”列出查询与写操作，对照 `typed_field_accesses.csv` 覆盖外部读写点；功法加成与五行、层数按 [attribute 公开操作](../systems/attribute/README.md)提交贡献（主修功法加成只在 `belongToMasterUUID` 为本人时计入，五行项不检查）。
-3. 实现：数据所有权、附件或物品组件、菜单与 payload（参照 relation 的 `network`、`client`）；界面贴图登记 `screen_textures.csv`，专属物品类型登记 `factory_overrides.csv`。
-4. 验证：易回归规则用 JUnit；在 `src/smoke/.../` 新增 `SystemCheck` 子类并加入 `SmokeRun.checkSystems`（`-PsmokeOnly=gongfa` 单独运行），开发服务端启动无 ERROR。
-5. 完成后更新 README、正文、月度日志与本页，合入 `main`，再建 `port/c-xiulian`。
+下一步具体操作（gongfa；做法同前三个系统）：
+1. 读 gongfa 的候选元素归属（[归属表](../reference/legacy/inventory/ownership_assignment.csv)），用 `tools/porting/ownership_evidence.py` 列证据，读后改为“已读”并运行 `build_ledger.py`、`build_architecture_catalog.py`。
+2. 在 [gongfa README](../systems/gongfa/README.md)“公开操作”列出查询与写操作，对照 `typed_field_accesses.csv` 覆盖外部读写点。gongfa 依赖 xiulian：主修功法信息经 `Cultivation.setMainTechnique` 提交（名字、五行、品阶、层数、是否本人所有）；闭关给功法加经验与“功法”开关的推进监听 xiulian 的 `CultivationExperienceEvent`、`CultivationSecondEvent`；功法加成与五行、层数按 [attribute 公开操作](../systems/attribute/README.md)提交贡献（主修功法加成只在本人所有时计入，五行项不检查）；被闪电击中的雷系功法效果 `EntityThunder` 已归 gongfa。
+3. 实现：数据所有权、附件或物品组件、菜单与 payload；界面贴图登记 `screen_textures.csv`，专属方块或物品类型登记 `factory_overrides.csv`（`registry` 列区分方块与物品），系统自注册内容的资源登记 `system_assets.csv`，系统代码直接引用的语言键登记 `lang_prefixes.csv`。
+4. 验证：易回归规则用 JUnit；在 `src/smoke/.../` 新增 `SystemCheck` 子类并加入 `SmokeRun.checkSystems`（`-PsmokeOnly=gongfa` 单独运行，PowerShell 中含逗号的参数加引号），开发服务端启动无 ERROR。
+5. 完成后更新 README、正文、月度日志与本页，合入 `main`，再建下一个系统的分支（combat）。
 
 ## 先读顺序
 

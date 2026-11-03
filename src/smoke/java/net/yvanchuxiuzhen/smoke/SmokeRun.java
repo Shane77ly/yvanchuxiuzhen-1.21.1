@@ -172,7 +172,8 @@ final class SmokeRun {
                     case "relation" -> List.of(new RelationCheck(report, levelId, this::shot));
                     case "attribute" -> List.of(new AttributeCheck(report, levelId));
                     case "xiulian" -> List.of(new XiulianCheck(report, levelId, this::shot), new XiulianProgressCheck(report, levelId, this::shot),
-                            new DantianCheck(report, levelId, this::shot), new BloodPathCheck(report, levelId, this::shot));
+                            new DantianCheck(report, levelId, this::shot), new BloodPathCheck(report, levelId, this::shot),
+                            new XiulianOperationsCheck(report, levelId));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }

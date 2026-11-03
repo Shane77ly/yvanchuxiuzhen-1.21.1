@@ -67,6 +67,14 @@ updated: 2026-11-01
 - 血精（`BloodEssenceItem`，物品工厂 `xiulian:xvejing`）：右键回复 2 点生命并消耗 1 个。闭关修炼在血流旁产出血精（`Cultivating`，阶段 3）。
 - 雷劫（会话决定 2026-11-03，评估为轻微，记录后继续）：开启标记之后的劫云、七种天雷与天劫实体经 `/lightninglanding` 与 `/shanghai` 进入 combat 的伤害结算，并用到彩色闪电实体、particle 的粒子与 GeckoLib 动画实体。combat 依赖本系统，本系统不能调用 combat，因此雷劫过程在 combat 实现伤害入口之后迁移；在此之前生存模式修为圆满只开启雷劫标记，不出现劫云。
 
+### 阶段 4（三）：加点、灵根重置与出身物品；完成
+
+- 加点（`SkillPoints`，来源 `HealthMaxUp` 等六个过程，面板第 2 页按钮）：见类注释；成长作为 attribute 基础层贡献，原版属性随之重算。
+- 灵根重置（来源 `Rebirthinxiuxianfalse`、`Rebirthinxiuxiantrue`，管理命令 `/yvanchu` 的子命令，命令归 flow）：随机 0–9 或全为 9。
+- 升仙令（`AscensionTokenItem`）与家族令牌（`ClanTokenItem`）：见类注释。远古石盘读 world 的传送阵位置并发 particle 的粒子，传承灵物与家族百宝袋发放带 material、fulu 实例数据的物品，随这些系统的数据接入。
+- 读后改变归属：元婴出窍（`Yvanyingchuqiao` 等 6 个元素）是技能界面施展的技能，归 skill；被闪电击中时按主修功法给效果的 `EntityThunder` 归 gongfa；境界提升粒子留在本系统，随 particle 接入。
+- 完成核对（2026-11-03）：`gradlew check`、`check_ledger.py`、`check_docs.py` 通过；开发服务端启动 ERROR 0 条；冒烟 relation、attribute、xiulian 共 175 项全部符合（其中 xiulian 131 项），日志 ERROR 0 条。
+
 ### 来源问题
 
 - Q22（轻微，记录后继续）：境界名来源以服务端语言翻译语言键 `levelnameNN` 后存入，单人游戏随客户端语言、专用服务器为英文；目标统一存中文名（与初值“凡人”一致）。升级文字第 9 行法术防御增加时写的是“旧值 − 新值”，第 10 行神识攻防沿用“物理攻击”“物理防御”标签，按来源保留。
@@ -81,4 +89,5 @@ updated: 2026-11-01
 - 阶段 4（一）的 `DantianCheck`（2026-11-03）：五行各 9、主修“无”五行 31 品 15 层、灵力上限 3000 时进入 21 层得金丹 105（冷却修正 −0.2、体质数 +1）；功法层数 15 进入 31 层得普通元婴 201（本命培养速度 +1、体质数不变）；本命槽接受妖丹、拒绝石头；丹田界面打开后本命槽为本命法宝、体质列表与页码、元婴名、本命显示标记；取出物品后按返回按钮关闭界面，本命槽清空。`-PsmokeOnly=xiulian` 77 项全部符合，日志 ERROR 0 条，截图 `xiulian_dantian.png`。
 - 阶段 4（二）的 `BloodPathCheck`（2026-11-03）：吸血石充血 150 后放出一格血流、剩 50，血流属于水标签，腥桶已注册，血精回复 2 点生命并消耗 1 个；截图 `xiulian_bloodstone.png` 中血流按半透明红色贴图流动。`-PsmokeOnly=xiulian` 85 项全部符合。
 - 冒烟检查在新建世界后约 10 秒内死亡并退出存档时，偶发集成服务端停在 `Saving worlds`（停止流程等待某个区块的保存条件，区块工作线程空闲），客户端随之卡住；xiulian 与 attribute 检查都出现过（2026-11-03 共 9 次运行中 3 次）。冒烟检查改为等区块待办任务连续 40 tick 为 0 后再退出，此后连续 8 次未复现，见[月度记录](../project/logs/2026-11.md)。
+- `XiulianOperationsCheck`：加点（生命、灵力，属性点不足与超上限不分配）、灵根提升至最大与重置、升仙令，13 项符合。
 - 未执行：1.18.2 版本实机对照；多人场景。

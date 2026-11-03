@@ -117,6 +117,24 @@ public final class BirthSelection {
         Cultivation.setTizhiDouble(player, "tizhinumber", Cultivation.tizhiDouble(player, "tizhinumber") + 1);
     }
 
+    /** 管理命令重置灵根（来源 {@code Rebirthinxiuxianfalse}）：五行各取 0–9 的随机整数（不读游戏规则），重算阴阳。 */
+    public static void resetRoots(ServerPlayer player) {
+        for (CultivationValue root : ROOTS) {
+            Cultivation.set(player, root, Mth.nextInt(player.getRandom(), 0, 9));
+        }
+        updateYinyang(player);
+        player.displayClientMessage(Component.literal("已重新随机灵根"), false);
+    }
+
+    /** 管理命令灵根提升至最大（来源 {@code Rebirthinxiuxiantrue}）：五行各为 9，阴阳为 0。 */
+    public static void maximizeRoots(ServerPlayer player) {
+        for (CultivationValue root : ROOTS) {
+            Cultivation.set(player, root, 9);
+        }
+        Cultivation.set(player, CultivationValue.YINYANG, 0);
+        player.displayClientMessage(Component.literal("已为灵根提升至最大值！"), false);
+    }
+
     private static void rollRoot(ServerPlayer player, CultivationValue root) {
         RandomSource random = player.getRandom();
         Cultivation.set(player, root, Mth.nextInt(random, 0, player.serverLevel().getGameRules().getInt(XiulianRules.ROOT_LEVEL)));

@@ -10,6 +10,8 @@ import net.yvanchuxiuzhen.system.attribute.api.Contribution;
 import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.xiulian.BirthSelection;
+import net.yvanchuxiuzhen.system.xiulian.SkillPoints;
 import net.yvanchuxiuzhen.system.xiulian.data.CultivationData;
 import net.yvanchuxiuzhen.system.xiulian.data.XiulianAttachments;
 
@@ -123,6 +125,21 @@ public final class Cultivation {
     public static void setBenmingProgress(ServerPlayer player, BenmingProgress progress) {
         player.getData(XiulianAttachments.CULTIVATION).setBenmingProgress(progress);
         player.syncData(XiulianAttachments.CULTIVATION);
+    }
+
+    /** 分配一个属性点（面板第 2 页的加点按钮）；属性点不足或该项已达当前境界上限时只提示。 */
+    public static void spendSkillPoint(ServerPlayer player, SkillPoint point) {
+        SkillPoints.spend(player, point);
+    }
+
+    /** 管理命令 {@code /yvanchu … chongzhilinggen}：五行灵根重新随机 0–9 并重算阴阳。 */
+    public static void resetRoots(ServerPlayer player) {
+        BirthSelection.resetRoots(player);
+    }
+
+    /** 管理命令 {@code /yvanchu … chongzhilinggenmax}：五行灵根全为 9，阴阳为 0。 */
+    public static void maximizeRoots(ServerPlayer player) {
+        BirthSelection.maximizeRoots(player);
     }
 
     /** 给基础属性加成长量（升级修正、境界修正、属性点、单项提升），累计后提交给 attribute。 */

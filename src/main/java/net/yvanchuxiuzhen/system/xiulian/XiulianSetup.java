@@ -7,8 +7,10 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
+import net.yvanchuxiuzhen.system.xiulian.content.AscensionTokenItem;
 import net.yvanchuxiuzhen.system.xiulian.content.BloodEssenceItem;
 import net.yvanchuxiuzhen.system.xiulian.content.BloodStoneBlock;
+import net.yvanchuxiuzhen.system.xiulian.content.ClanTokenItem;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianBlockEntities;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianFluids;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianMenus;
@@ -21,7 +23,9 @@ import net.yvanchuxiuzhen.system.xiulian.network.XiulianButtonPayload;
 public final class XiulianSetup {
     private static final ContentTables CONTENT = new ContentTables("xiulian")
             .blockFactory("xiulian:xixveshi", traits -> ContentBlock.create(traits, BloodStoneBlock::new))
-            .itemFactory("xiulian:xvejing", BloodEssenceItem::new);
+            .itemFactory("xiulian:xvejing", BloodEssenceItem::new)
+            .itemFactory("xiulian:ling_09", AscensionTokenItem::new)
+            .itemFactory("xiulian:ling_10", ClanTokenItem::new);
 
     private XiulianSetup() {
     }

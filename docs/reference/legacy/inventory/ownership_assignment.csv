@@ -508,12 +508,12 @@ yvanchuxiuzhen,OpenGUI02,procedure,~/GUI,panel,候选,第一版批量归组（�
 yvanchuxiuzhen,OpenGUI03,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,OpenGUI04,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,OpenGUI05,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,HealthMaxUp,procedure,~/GUI,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PowerMaxUp,procedure,~/GUI,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SoulMaxUp,procedure,~/GUI,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,AttackUp,procedure,~/GUI,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ManaUp,procedure,~/GUI,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SoulUp,procedure,~/GUI,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,HealthMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
+yvanchuxiuzhen,PowerMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
+yvanchuxiuzhen,SoulMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
+yvanchuxiuzhen,AttackUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
+yvanchuxiuzhen,ManaUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
+yvanchuxiuzhen,SoulUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
 yvanchuxiuzhen,GUI04pageup,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GUI04pagedown,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GUI04pagenum,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1930,7 +1930,7 @@ yvanchuxiuzhen,GongfaSouldefUp,procedure,~/systemset/gongfa,gongfa,候选,第一
 yvanchuxiuzhen,GongfaSpeedUp,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongfashuaxin,procedure,~/systemset,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongfalist01,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,EntityThunder,procedure,~/systemset,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,EntityThunder,procedure,~/systemset,gongfa,已读,C xiulian 归属阅读：玩家被闪电击中时按主修功法名（雷脉功、五雷炼体诀、九霄真雷功）给效果，是功法的特殊效果
 yvanchuxiuzhen,Gongfalist02,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongfalist03,procedure,~/systemset/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,BookGiveGongfa,procedure,~/item/book,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -2099,13 +2099,13 @@ yvanchuxiuzhen,Weaponbroadsword07,tool,~/weapon/knife,equipment,已读,B1 归属
 yvanchuxiuzhen,Weaponbroadsword08,tool,~/weapon/knife,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponbroadsword09,tool,~/weapon/knife,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Flyingitemnbtshezhi,procedure,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：随 Flyinginstrument0101 读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
-yvanchuxiuzhen,JieyvnDangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jieyvn,animatedentity,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,JieyvnDangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Jieyvn,animatedentity,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,Jiancelevel,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：层数 20、30、40 与 41 以上修为圆满时需渡雷劫
-yvanchuxiuzhen,ThunderBegin,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tianjie01,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tianjie03DangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tianjie03,animatedentity,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ThunderBegin,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Tianjie01,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Tianjie03DangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Tianjie03,animatedentity,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,Fabao001DangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao001 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao001DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao001 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao001,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
@@ -2164,8 +2164,8 @@ yvanchuxiuzhen,Alchemy06hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版
 yvanchuxiuzhen,Alchemy07hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Alchemy08hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao003hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tianjie05DangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tianjie05,animatedentity,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Tianjie05DangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Tianjie05,animatedentity,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,Headornaments01,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Headornaments02,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Headornaments03,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
@@ -3034,8 +3034,8 @@ yvanchuxiuzhen,Caishenye,animatedentity,~/item/jieri,festival,已读,B1 归属�
 yvanchuxiuzhen,Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Fuqi06 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Fuqi06,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,CaishenyeDangYouJianDianJiShiTi,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Caishenye 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Tianjie07DangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tianjie07,animatedentity,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Tianjie07DangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Tianjie07,animatedentity,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,ManaDamage,procedure,~/systemset/damage,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ManaDefense,procedure,~/systemset/damage,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman01,animatedentity,~/entity/npc,npc,已读,B1 归属阅读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
@@ -3381,7 +3381,7 @@ yvanchuxiuzhen,Guiguai01,animatedentity,~/entity/guiguai/guiguai01,creature,已�
 yvanchuxiuzhen,LiexiGengXinYouXiKe,procedure,~/decorate/jiegou,world,已读,B1 归属阅读：随 Liexi 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
 yvanchuxiuzhen,LiexiFangZhiFangKuaiShi,procedure,~/decorate/jiegou,world,已读,B1 归属阅读：随 Liexi 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
 yvanchuxiuzhen,Liexi,animatedblock,~/decorate/jiegou,world,已读,B1 归属阅读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
-yvanchuxiuzhen,JieyvnDangShiTiBeiShaSiShi,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,JieyvnDangShiTiBeiShaSiShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,PlayerGUI07,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qiehuan01,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qiehuan02,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4499,8 +4499,8 @@ yvanchuxiuzhen,Chengjiu006,achievement,~/chengjiu,quest,候选,第一版批量�
 yvanchuxiuzhen,Chengjiu007,achievement,~/chengjiu,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Chengjiu008,achievement,~/chengjiu,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGoTojiegou,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Rebirthinxiuxianfalse,procedure,~/systemset/zhiling,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Rebirthinxiuxiantrue,procedure,~/systemset/zhiling,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Rebirthinxiuxianfalse,procedure,~/systemset/zhiling,xiulian,已读,C xiulian 归属阅读：管理命令 /yvanchu 的 chongzhilinggen、chongzhilinggenmax 子命令重置灵根（随机 0–9 或全为 9）；目标为公开操作 Cultivation.resetRoots、maximizeRoots，命令归 flow
+yvanchuxiuzhen,Rebirthinxiuxiantrue,procedure,~/systemset/zhiling,xiulian,已读,C xiulian 归属阅读：管理命令 /yvanchu 的 chongzhilinggen、chongzhilinggenmax 子命令重置灵根（随机 0–9 或全为 9）；目标为公开操作 Cultivation.resetRoots、maximizeRoots，命令归 flow
 yvanchuxiuzhen,TiandaofubenZaiFangKuaiShangYouJian,procedure,~/fuben,dungeon,已读,系统设计·已读裁定：非创造模式打开 FubenopenMenu，是玩家副本入口
 yvanchuxiuzhen,Fubenname,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fubenid,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5215,8 +5215,8 @@ yvanchuxiuzhen,Uplevelxianshi8,procedure,~/GUI/playeruplevel,xiulian,已读,C xi
 yvanchuxiuzhen,Uplevelxianshi9,procedure,~/GUI/playeruplevel,xiulian,已读,C xiulian 归属阅读：升级界面第 n 行文字（tizhiitem.uplevelxianshi<n>）
 yvanchuxiuzhen,Uplevelxianshi10,procedure,~/GUI/playeruplevel,xiulian,已读,C xiulian 归属阅读：升级界面第 n 行文字（tizhiitem.uplevelxianshi<n>）
 yvanchuxiuzhen,PlayershengjixianshiGuanbi,procedure,~/GUI/playeruplevel,xiulian,已读,C xiulian 归属阅读：升级界面关闭按钮
-yvanchuxiuzhen,Jingjietishengtexiao2,procedure,~/systemset/LEVELup,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jingjietishengtexiao1,procedure,~/systemset/LEVELup,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jingjietishengtexiao2,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：境界提升（LEVELup）时的粒子表现，粒子类型随 particle 接入
+yvanchuxiuzhen,Jingjietishengtexiao1,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：境界提升（LEVELup）时的粒子表现，粒子类型随 particle 接入
 yvanchuxiuzhen,Fireskill,procedure,~/item/fire,yihuo,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Huoyan,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ingot,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5241,13 +5241,13 @@ yvanchuxiuzhen,Yaohuabuwe3,procedure,~/weapon/armor,equipment,候选,第一版�
 yvanchuxiuzhen,Yaohuajieshu,procedure,~/weapon/armor,equipment,已读,B1 归属阅读：随 Yaohua0101 读：妖化盔甲：头盔每刻维持妖化效果，结束时 Yaohuajieshu 复原，属防具
 yvanchuxiuzhen,Jinengzibao,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zibaoshanghai,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvanyingchuqiao,animatedentity,~/skill/jineng/jinengGui/yvanyingchuqiao,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yvanyingchuqiao,animatedentity,~/skill/jineng/jinengGui/yvanyingchuqiao,skill,已读,C xiulian 归属阅读：元婴出窍是技能（技能界面 Jinengchuqiao 施展，元婴期起、消耗神识，切换旁观模式并留下肉身实体，归窍时恢复），本系统只提供境界与神识的查询和扣减
 yvanchuxiuzhen,Jinengchuqiao,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvanyingchuqiaotick,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chuqiaosiwang,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,YvanyingchuqiaoDangShiTiShouShangShi,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,YvanyingchuqiaoDangShiTiBeiShaSiShi,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvanyingguiqiao,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yvanyingchuqiaotick,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,skill,已读,C xiulian 归属阅读：元婴出窍是技能（技能界面 Jinengchuqiao 施展，元婴期起、消耗神识，切换旁观模式并留下肉身实体，归窍时恢复），本系统只提供境界与神识的查询和扣减
+yvanchuxiuzhen,Chuqiaosiwang,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,skill,已读,C xiulian 归属阅读：元婴出窍是技能（技能界面 Jinengchuqiao 施展，元婴期起、消耗神识，切换旁观模式并留下肉身实体，归窍时恢复），本系统只提供境界与神识的查询和扣减
+yvanchuxiuzhen,YvanyingchuqiaoDangShiTiShouShangShi,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,skill,已读,C xiulian 归属阅读：元婴出窍是技能（技能界面 Jinengchuqiao 施展，元婴期起、消耗神识，切换旁观模式并留下肉身实体，归窍时恢复），本系统只提供境界与神识的查询和扣减
+yvanchuxiuzhen,YvanyingchuqiaoDangShiTiBeiShaSiShi,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,skill,已读,C xiulian 归属阅读：元婴出窍是技能（技能界面 Jinengchuqiao 施展，元婴期起、消耗神识，切换旁观模式并留下肉身实体，归窍时恢复），本系统只提供境界与神识的查询和扣减
+yvanchuxiuzhen,Yvanyingguiqiao,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,skill,已读,C xiulian 归属阅读：元婴出窍是技能（技能界面 Jinengchuqiao 施展，元婴期起、消耗神识，切换旁观模式并留下肉身实体，归窍时恢复），本系统只提供境界与神识的查询和扣减
 yvanchuxiuzhen,Jinengsaomiao,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,DanhuoDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/skill/jineng/jinengGui/danhuo,skill,已读,B1 归属阅读：随 Danhuo 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,Danhuo,item,~/skill/jineng/jinengGui/danhuo,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -5721,14 +5721,14 @@ yvanchuxiuzhen,Cailiao19601,item,~/item/Lingshi,economy,已读,B1 归属阅读�
 yvanchuxiuzhen,Cailiao19701,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石原矿：右键开出对应等级灵石，属灵石货币
 yvanchuxiuzhen,Cailiao19801,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石原矿：右键开出对应等级灵石，属灵石货币
 yvanchuxiuzhen,Cailiao19901,item,~/item/Lingshi,economy,已读,B1 归属阅读：灵石原矿：右键开出对应等级灵石，属灵石货币
-yvanchuxiuzhen,Leijie0101,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Leijie0102,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Leijie0103,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Leijie0104,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Leijie0105,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Leijie0106,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Leijie0107,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tianjie07DangShiTiBeiShaSiShi,procedure,~/systemset/leijie,xiulian,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Leijie0101,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Leijie0102,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Leijie0103,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Leijie0104,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Leijie0105,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Leijie0106,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Leijie0107,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
+yvanchuxiuzhen,Tianjie07DangShiTiBeiShaSiShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,Taomuitem,tag,~/item/lingmu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect001DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect002DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
