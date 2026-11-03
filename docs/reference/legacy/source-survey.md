@@ -102,6 +102,7 @@ updated: 2026-11-01
 | Q14 | 本命成长交替标记在玩家体质载体，迁到物品会改变换装行为 | [装备](../../systems/equipment/architecture.md) |
 | Q15 | 配方 `skillarrow_10hecheng` 一次产出 5 个最大堆叠为 1 的 `skill_arrow_10`，1.21.1 拒绝此类配方；2026-11-02 已裁定：物品保持 1，配方产出改为 1 | [技能](../../systems/skill/architecture.md) |
 | Q17 | 防具与武器的炼器数值（`lianqizong.health_Max`、`attack_num`）计入显示值与战斗结算，但实际最大生命只在妖化防具上生效、近战伤害基础值不含武器数值；待裁定 | [属性](../../systems/attribute/architecture.md) |
+| Q18 | 伤害结算把受击方主修功法与伤害同属性的五行值 × 层数 / 4 加到伤害上（功法五行值全为正），受击方修同属性功法反而受伤更多；系统设计称其为“抗性”；待裁定 | [属性](../../systems/attribute/architecture.md) |
 
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 

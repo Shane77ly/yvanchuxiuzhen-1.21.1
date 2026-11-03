@@ -66,4 +66,12 @@ updated: 2026-11-03
 
 - Q17（待裁定）：防具 `lianqizong.health_Max` 计入 `health_Max_display`，但实际最大生命只在妖化防具上通过修饰符生效；武器 `lianqizong.attack_num` 计入 `attack_Num_display`，但不进入 `ATTACK_DAMAGE`。界面显示与实际属性不一致；战斗系统读的是 `*_display`（伤害与防御按显示值结算），原版生命上限与近战伤害按实际属性。
 - `ShuxingjisuanZong` 腿部分支把新标记写到已存的靴子快照 `kuijia4`，而不是 `kuijia3`（第 84–86 行）。只影响是否触发重算，不影响算出的值；目标按装备变化事件重算，不复制该标记机制。
-- 未读：灵根与功法的五行加成和抗性目前在 combat 的 `DamageIntegration` 中计算，按系统设计归本系统，定稿公开操作前读。
+- Q18（待裁定）：见下节，受击方主修功法与来袭伤害同属性时，功法五行值使伤害增加，而系统设计称其为“抗性”。
+
+### 五行加成（combat 的 `DamageIntegration`，按系统设计由本系统计算）
+
+伤害值 = （攻击方基础 `mana_Att`（不是 `mana_Att_display`）+ 主手物品 NBT `mana_Att` + 受击方待结算的 `ManaAttackDamage` + 主手 `manaatt` 附魔等级 × 2 + 主手属性附魔 `shuxingatt_<n>` 等级²）×（攻击方灵根 `body_<五行>` × 0.1 + 受击方 `Damage_multiplier`）+ 受击方主修功法 `Exercises<五行>` × 受击方功法 `ExercisesLevel` / 4。
+
+- 伤害属性取受击方 NBT `damagetype`：金、水、木、火、土分别对应 `body_Gold`/`ExercisesGold`、`body_Water`/`ExercisesWater`、`body_Tree`/`ExercisesTree`、`body_Fire`/`ExercisesFire`、`body_Soil`/`ExercisesSoil`；光、雷借用火，暗借用土，冰借用水，风借用木；阴、阳用攻击方 `yinyang`，附魔等级取 4 次方，没有功法项；其他类型不变。
+- 之后：攻击方带效果 `effect_013` 时加（等级 + 1）²；主手 `critical` 附魔以等级 × 2% 的概率使伤害 ×（1 + 等级 × 0.1）；最后把 `Damage_multiplier` 复位为 1（≤ 0 时先置 1）。
+- 来源中功法的五行值全部为正（`Gongfalist*` 中 56 处赋值），所以受击方主修同属性功法时受到的伤害增加（Q18）。
