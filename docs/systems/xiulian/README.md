@@ -9,7 +9,7 @@ updated: 2026-11-03
 
 标识 `xiulian`，类别：系统。职责：境界、修为、灵力、寿元、出身、灵根体质、丹田、金丹元婴、本命槽位、雷劫、轮回（[系统设计](../../development/system-design.md)）。
 
-当前阶段：实现中（分支 `port/c-xiulian`，分阶段提交）。已完成：修炼档案附件与公开操作、灵根提交 attribute、两个游戏规则、首次进入的灵根与体质随机、出身界面、修炼推进与恢复、升级与突破、闭关修炼、金丹与元婴、丹田界面，开发客户端检查通过。未完成：雷劫过程、元婴出窍、轮回、血道、相关物品，见交接说明“进行中”。B1 已登记的内容身份见台账。
+当前阶段：实现中（分支 `port/c-xiulian`，分阶段提交）。已完成：修炼档案附件与公开操作、灵根提交 attribute、两个游戏规则、首次进入的灵根与体质随机、出身界面、修炼推进与恢复、升级与突破、闭关修炼、金丹与元婴、丹田界面、血道（吸血石、血流、血精），开发客户端检查通过。未完成：雷劫过程（待 combat 的伤害入口，见架构“阶段 4（二）”）、元婴出窍、轮回、出身物品，见交接说明“进行中”。B1 已登记的内容身份见台账。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
 - 候选归属 196 个元素，其中 160 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
@@ -33,6 +33,7 @@ updated: 2026-11-03
 | 丹田界面 | `Dantian.open`；返回按钮发出 `DantianReturnEvent`（取消时不关闭界面） | panel |
 | 本命培养进度 | `benmingProgress`、`setBenmingProgress`（`BenmingProgress`：认主、等级、经验、所需经验，供丹田界面显示） | equipment |
 | 主修功法 | `mainTechnique`、`setMainTechnique`（`MainTechnique`：有无、本人所有、名字、五行、品阶、层数） | gongfa |
+| 吸血石 | `BloodStone.addBlood`、`blood`（流血效果给脚下的吸血石加充血量） | combat |
 | 体质与修正值 | `tizhiDouble/Boolean/String` 与对应的 `set`：来源隐藏载体 `tizhiitem` 的键值（335 个键及读写系统见 [tizhiitem_keys.csv](ledger/tizhiitem_keys.csv)） | 战斗（属性修正）、技能（冷却与消耗修正）、流程（重生修正）、装备（武器培养速度）等 |
 
 约定：写操作只在服务端调用，写入后同步给本人；灵根与阴阳变化时自动向 attribute 提交基础层贡献 `xiulian:roots`。`tizhiitem` 由本系统整体保管（会话决定，2026-11-03，评估为轻微）：其中蛊虫、战斗、副本等系统自己写入的键，在这些系统实现时可移到各自的数据。尚未提供、待后续阶段补充：雷劫与轮回的流程操作。

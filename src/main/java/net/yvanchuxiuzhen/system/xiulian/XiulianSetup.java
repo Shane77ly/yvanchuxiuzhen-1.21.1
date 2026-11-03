@@ -6,6 +6,11 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
+import net.yvanchuxiuzhen.system.xiulian.content.BloodEssenceItem;
+import net.yvanchuxiuzhen.system.xiulian.content.BloodStoneBlock;
+import net.yvanchuxiuzhen.system.xiulian.content.XiulianBlockEntities;
+import net.yvanchuxiuzhen.system.xiulian.content.XiulianFluids;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianMenus;
 import net.yvanchuxiuzhen.system.xiulian.data.XiulianAttachments;
 import net.yvanchuxiuzhen.system.xiulian.network.XiulianButtonPayload;
@@ -14,13 +19,17 @@ import net.yvanchuxiuzhen.system.xiulian.network.XiulianButtonPayload;
  * 修炼系统的启动装配，只在 Mod 构造时调用一次。
  */
 public final class XiulianSetup {
-    private static final ContentTables CONTENT = new ContentTables("xiulian");
+    private static final ContentTables CONTENT = new ContentTables("xiulian")
+            .blockFactory("xiulian:xixveshi", traits -> ContentBlock.create(traits, BloodStoneBlock::new))
+            .itemFactory("xiulian:xvejing", BloodEssenceItem::new);
 
     private XiulianSetup() {
     }
 
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
+        XiulianFluids.register(modBus);
+        XiulianBlockEntities.register(modBus);
         XiulianAttachments.register(modBus);
         XiulianMenus.register(modBus);
         XiulianRules.register();

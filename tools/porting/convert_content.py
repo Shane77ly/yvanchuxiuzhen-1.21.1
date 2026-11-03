@@ -3,7 +3,7 @@
 读取两个来源的方块、物品注册与生成 Java，按台账 owner 把每条注册写入所属单位的
 src/main/resources/content/<单位>/blocks.json、items.json，名称与提示文本写入 src/main/lang/<语言>/<单位>.json。
 遇到不由内容表承载的类（有专属基类的物品、动画方块、流体、传送门、未识别写法）不生成行，记入跳过清单，
-由所属系统迁移时处理。所属系统给内容表的行换用自己的物品类型时，登记在 docs/reference/conversion/factory_overrides.csv；
+由所属系统迁移时处理。所属系统给内容表的行换用自己的方块或物品类型时，登记在 docs/reference/conversion/factory_overrides.csv；
 菜单的台账行不再是“待处理”后，来源中该菜单的界面文本键（gui.<命名空间>.<菜单>.*）写入所属单位的语言片段；
 其余由系统代码直接引用的语言键按 docs/reference/conversion/lang_prefixes.csv 的键前缀写入所属单位的语言片段。
 工具可重复运行，输出只取决于来源与台账。
@@ -188,10 +188,10 @@ def convert_prefix_lang(sources: dict[str, Source], add_lang) -> int:
     return count
 
 
-def factory_overrides() -> dict[str, str]:
-    """所属系统换用的物品工厂：目标路径 → 工厂名（docs/reference/conversion/factory_overrides.csv）。"""
+def factory_overrides() -> dict[tuple[str, str], str]:
+    """所属系统换用的方块或物品工厂：(注册表, 目标路径) → 工厂名（docs/reference/conversion/factory_overrides.csv）。"""
     with (CONVERSION / 'factory_overrides.csv').open(encoding='utf-8') as handle:
-        return {row['target_id'].split(':', 1)[1]: row['factory'] for row in csv.DictReader(handle)}
+        return {(row['registry'], row['target_id'].split(':', 1)[1]): row['factory'] for row in csv.DictReader(handle)}
 
 
 def main() -> None:
@@ -228,7 +228,8 @@ def main() -> None:
             skipped.append(('block', legacy_id, f'{class_name}：{error}'.replace('\n', ' ')[:200]))
             continue
         block_tooltips[(mod, path)] = row.pop('tooltip', [])
-        blocks_by_unit[unit].append({'id': target, 'factory': FACTORIES[row.pop('base')], **row})
+        factory = FACTORIES[row.pop('base')]
+        blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:
             name = source.lang[language].get(f'block.{mod}.{path}')
             if name is not None:
@@ -287,8 +288,8 @@ def main() -> None:
                 name = source.lang[language].get(f'item.{mod}.{path}')
                 if name is not None:
                     add_lang(unit, language, f'item.{NAMESPACE}.{target}', name)
-        if target in overrides:
-            row['factory'] = overrides[target]
+        if ('item', target) in overrides:
+            row['factory'] = overrides[('item', target)]
         items_by_unit[unit].append(row)
         for number, line in enumerate(row.get('tooltip', []), start=1):
             for language in LANGUAGES:

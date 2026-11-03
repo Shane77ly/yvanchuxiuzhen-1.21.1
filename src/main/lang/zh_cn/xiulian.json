@@ -297,5 +297,8 @@
   "tizhi.shuoming.tizhiopen_003": "金属性技能攻击力增加5%。",
   "tizhi.shuoming.tizhiopen_004": "水属性技能攻击力增加5%。",
   "tizhi.shuoming.tizhiopen_010": "冰属性技能攻击力增加5%；冰属性抗性增加5%。",
-  "tizhi.shuoming.tizhiopen_011": "风属性技能攻击力增加5%；风属性抗性增加5%。"
+  "tizhi.shuoming.tizhiopen_011": "风属性技能攻击力增加5%；风属性抗性增加5%。",
+  "block.yvanchuxiuzhen.xveliu": "腥流",
+  "item.yvanchuxiuzhen.xveliu_bucket": "腥桶",
+  "fluid.yvanchuxiuzhen.xveliu": "腥流"
 }

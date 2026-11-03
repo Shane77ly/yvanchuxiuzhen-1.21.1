@@ -1,2 +1,4 @@
-target_id,factory,owner,reason
-yvanchuxiuzhen:ling_15,relation:ling_15,relation,团队招募令的使用与右键玩家行为（RecruitmentItem）
+registry,target_id,factory,owner,reason
+item,yvanchuxiuzhen:ling_15,relation:ling_15,relation,团队招募令的使用与右键玩家行为（RecruitmentItem）
+block,yvanchuxiuzhen:xixveshi,xiulian:xixveshi,xiulian,吸血石的方块实体与每 20 tick 产出血流（BloodStoneBlock）
+item,yvanchuxiuzhen:xvejing,xiulian:xvejing,xiulian,血精右键回复生命（BloodEssenceItem）

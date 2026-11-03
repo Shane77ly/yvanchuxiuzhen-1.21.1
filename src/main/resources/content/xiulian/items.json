@@ -1,5 +1,5 @@
 [
-{"id":"xvejing","factory":"item","order":970,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["use"]},
+{"id":"xvejing","factory":"xiulian:xvejing","order":970,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["use"]},
 {"id":"ling_09","factory":"item","order":973,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["use"]},
 {"id":"ling_10","factory":"item","order":974,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["use"]},
 {"id":"ling_11","factory":"item","order":1495,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["use"]},

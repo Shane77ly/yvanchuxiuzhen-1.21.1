@@ -35,6 +35,8 @@ xiulian 进度（分阶段在本分支提交）：
 - 冒烟退出偶发停在 `Saving worlds`：`SystemCheck.leaveWorld` 改为等区块待办任务清空后断开，连续 8 次未复现（见月度记录）。
 - 阶段 4（一）已提交（wip）：金丹（21 层）与元婴（31 层）、丹田界面（体质列表与翻页、本命槽、本命培养进度显示、返回按钮发出 `DantianReturnEvent`）；冒烟 `DantianCheck` 通过；Q23–Q25。
 - 运行约定（负责人 2026-11-03）：变换工具、Gradle 与冒烟检查逐个运行，不同时进行（负责人的 VS Code 两次因内存不足崩溃，均在大批文件写入之后）。
+- 阶段 4（二）已提交（wip）：血道（吸血石方块实体与血池渲染、血流流体与桶、血精）；冒烟 `BloodPathCheck` 通过。platform 增加方块工厂覆盖，资源工具增加 `system_assets.csv`。
+- 雷劫过程推迟到 combat 实现伤害入口之后（会话决定，轻微；见[修炼架构](../systems/xiulian/architecture.md)“阶段 4（二）”）。
 - 阶段 4 其余：雷劫（实体 `tianjie_03/05/07`、`jieyvn` 与 `yvanyingchuqiao` 为 GeckoLib 动画实体，需先接入 GeckoLib）、血道（`xixveshi` 方块实体、`xveliu` 流体与桶）、物品 `ling_09/10/11/18`、`xvejing`、`jiazubaibaodai`。
 
 下一步具体操作（xiulian，之后 gongfa；做法同 attribute、relation）：
