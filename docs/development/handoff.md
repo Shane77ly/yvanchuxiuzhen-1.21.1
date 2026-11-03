@@ -22,9 +22,14 @@ updated: 2026-11-03
 
 ## 进行中
 
-C 玩家与战斗核心，第一个系统 attribute（分支 `port/c-attribute`）。B1 的结果与出口核对见[项目状态](../systems/project/README.md)“B1 出口核对”与[路线](roadmap.md)“B1 实施步骤”；B1 范围内需要新代码类型的 298 行（`skipped.csv`）与其余语言键随所属系统迁移。盔甲挥臂闪烁与药草疑似缺失两项反馈由负责人指示暂缓（2026-11-03）。
+C 玩家与战斗核心，第一个系统 attribute（分支 `port/c-attribute`，最新提交以 `git log` 为准）。B1 的结果与出口核对见[项目状态](../systems/project/README.md)“B1 出口核对”与[路线](roadmap.md)“B1 实施步骤”；B1 范围内需要新代码类型的 298 行（`skipped.csv`）与其余语言键随所属系统迁移。盔甲挥臂闪烁与药草疑似缺失两项反馈由负责人指示暂缓（2026-11-03）。
 
-attribute 开工步骤（AGENTS.md“工程边界”与[路线](roadmap.md)“系统工作单与验证”）：先按[系统设计](system-design.md)“归属判定”读 attribute 候选元素与类，确认其职责（基础属性、贡献汇总、派生值，含灵根与功法的五行加成和抗性；修炼、功法、装备向它提交贡献，它不读取这些系统）；在 `docs/systems/attribute/README.md`“公开操作”列出供其他系统调用的查询与写操作，并对照 `docs/reference/legacy/inventory/typed_field_accesses.csv` 覆盖全部外部读写点；B0 未做的运行机制（玩家附件等，见下文“B0 结束时的状态与未完成项去向”）在首个需要它的系统按正式结构实现并实测。
+attribute 已完成：来源计算链与 24 个属性字段全部外部读写点的静态核对、五行加成公式，写入[属性](../systems/attribute/architecture.md)“来源事实核对”；[公开操作](../systems/attribute/README.md)已定稿（查询最终值、提交与清除贡献、五行系数）。待裁定 Q17（炼器数值计入显示与战斗结算、但实际生命上限只在妖化防具生效、近战伤害不含武器数值）与 Q18（受击方同属性功法使伤害增加），裁定前按来源行为实现。
+
+下一步具体操作：
+1. 读 attribute 的 9 个候选元素的归属（`Shuxingjisuan*`、`Weaponshuxing`、`Shujvtongbu`、`Playershuxingjisuan`、`Attributexianshi`，以及妖兽的实体属性 `Entitydaxiao`、`Yaoshoupifuxianshi`——后两者可能属于 creature），写入归属表与台账。
+2. 实现：`system/attribute/api` 的查询与贡献接口；玩家附件保存各来源贡献与派生值（Codec，死亡复制策略按 `clone_policy.csv` 的对应字段，同步给本人，这是 B0 步骤 7 遗留机制的首个实例）；按装备变化与贡献变化重算，派生值写入原版属性（核对 NeoForge 21.1.265 的属性修饰符与装备变化事件 API）。
+3. 针对性验证：派生公式的独立算例（JUnit）、开发服务端与 `runSmokeClient` 中穿戴与重登后的属性值。
 
 ## 先读顺序
 
