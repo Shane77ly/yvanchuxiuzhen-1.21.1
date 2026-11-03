@@ -206,7 +206,7 @@ yvanchuxiuzhen,Cassia02Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Cas
 yvanchuxiuzhen,Cassia03Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Cassia03Block.java,block,plant,source_element_metadata
 yvanchuxiuzhen,Cassia04Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Cassia04Block.java,block,plant,source_element_metadata
 yvanchuxiuzhen,Cassia05Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Cassia05Block.java,block,plant,source_element_metadata
-yvanchuxiuzhen,CauldronduyaoBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/CauldronduyaoBlock.java,block,decor,source_element_metadata
+yvanchuxiuzhen,CauldronduyaoBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/CauldronduyaoBlock.java,block,combat,source_element_metadata
 yvanchuxiuzhen,Chestnutarmchair01Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Chestnutarmchair01Block.java,block,decor,source_element_metadata
 yvanchuxiuzhen,Chestnutarmchair02Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Chestnutarmchair02Block.java,block,decor,source_element_metadata
 yvanchuxiuzhen,ChestnutbuttonBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/ChestnutbuttonBlock.java,block,decor,source_element_metadata
@@ -327,7 +327,7 @@ yvanchuxiuzhen,FooddunguoDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/b
 yvanchuxiuzhen,FoodlongtiDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/FoodlongtiDisplayItem.java,block/display,cooking,source_element_metadata
 yvanchuxiuzhen,FoodzhengguoDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/FoodzhengguoDisplayItem.java,block/display,cooking,source_element_metadata
 yvanchuxiuzhen,GongfaxvexiDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/GongfaxvexiDisplayItem.java,block/display,gongfa,source_element_metadata
-yvanchuxiuzhen,Guancai01DisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/Guancai01DisplayItem.java,block/display,decor,source_element_metadata
+yvanchuxiuzhen,Guancai01DisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/Guancai01DisplayItem.java,block/display,creature,source_element_metadata
 yvanchuxiuzhen,LiexiDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/LiexiDisplayItem.java,block/display,world,source_element_metadata
 yvanchuxiuzhen,LuopanDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/LuopanDisplayItem.java,block/display,zhenfa,source_element_metadata
 yvanchuxiuzhen,MugongtaiDisplayItem,src/main/java/net/mcreator/yvanchuxiuzhen/block/display/MugongtaiDisplayItem.java,block/display,craft,source_element_metadata
@@ -383,7 +383,7 @@ yvanchuxiuzhen,Cailiao238fireblockBlockEntity,src/main/java/net/mcreator/yvanchu
 yvanchuxiuzhen,Cailiao239fireblockBlockEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/Cailiao239fireblockBlockEntity.java,block/entity,yihuo,source_element_metadata
 yvanchuxiuzhen,CanheTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/CanheTileEntity.java,block/entity,craft,source_element_metadata
 yvanchuxiuzhen,CanwutaiBlockBlockEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/CanwutaiBlockBlockEntity.java,block/entity,gongfa,source_element_metadata
-yvanchuxiuzhen,CauldronduyaoBlockEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/CauldronduyaoBlockEntity.java,block/entity,decor,source_element_metadata
+yvanchuxiuzhen,CauldronduyaoBlockEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/CauldronduyaoBlockEntity.java,block/entity,combat,source_element_metadata
 yvanchuxiuzhen,ChuanchengTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/ChuanchengTileEntity.java,block/entity,fulu,source_element_metadata
 yvanchuxiuzhen,Fabao009TileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/Fabao009TileEntity.java,block/entity,equipment,source_element_metadata
 yvanchuxiuzhen,FlagmotherTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/FlagmotherTileEntity.java,block/entity,zhenfa,source_element_metadata
@@ -394,7 +394,7 @@ yvanchuxiuzhen,FoodlongtiTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/bl
 yvanchuxiuzhen,FoodmuzengBlockEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/FoodmuzengBlockEntity.java,block/entity,cooking,source_element_metadata
 yvanchuxiuzhen,FoodzhengguoTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/FoodzhengguoTileEntity.java,block/entity,cooking,source_element_metadata
 yvanchuxiuzhen,GongfaxvexiTileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/GongfaxvexiTileEntity.java,block/entity,gongfa,source_element_metadata
-yvanchuxiuzhen,Guancai01TileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/Guancai01TileEntity.java,block/entity,decor,source_element_metadata
+yvanchuxiuzhen,Guancai01TileEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/Guancai01TileEntity.java,block/entity,creature,source_element_metadata
 yvanchuxiuzhen,Itemfulu15BlockEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/Itemfulu15BlockEntity.java,block/entity,fulu,source_element_metadata
 yvanchuxiuzhen,Jiuniang00101BlockEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/Jiuniang00101BlockEntity.java,block/entity,cooking,source_element_metadata
 yvanchuxiuzhen,Jiuniang00201BlockEntity,src/main/java/net/mcreator/yvanchuxiuzhen/block/entity/Jiuniang00201BlockEntity.java,block/entity,cooking,source_element_metadata
@@ -521,7 +521,7 @@ yvanchuxiuzhen,GoldenboilinggrassBlock,src/main/java/net/mcreator/yvanchuxiuzhen
 yvanchuxiuzhen,GongfaxvexiBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/GongfaxvexiBlock.java,block,gongfa,source_element_metadata
 yvanchuxiuzhen,GrassblockBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/GrassblockBlock.java,block,decor,source_element_metadata
 yvanchuxiuzhen,GreenbristlegrassBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/GreenbristlegrassBlock.java,block,plant,source_element_metadata
-yvanchuxiuzhen,Guancai01Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Guancai01Block.java,block,decor,source_element_metadata
+yvanchuxiuzhen,Guancai01Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Guancai01Block.java,block,creature,source_element_metadata
 yvanchuxiuzhen,HiganbanaBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/HiganbanaBlock.java,block,plant,source_element_metadata
 yvanchuxiuzhen,HotoilBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/HotoilBlock.java,block,decor,source_element_metadata
 yvanchuxiuzhen,HuaguangBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/HuaguangBlock.java,block,plant,source_element_metadata
@@ -616,8 +616,8 @@ yvanchuxiuzhen,FoodzhengguoBlockModel,src/main/java/net/mcreator/yvanchuxiuzhen/
 yvanchuxiuzhen,FoodzhengguoDisplayModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/FoodzhengguoDisplayModel.java,block/model,cooking,source_element_metadata
 yvanchuxiuzhen,GongfaxvexiBlockModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/GongfaxvexiBlockModel.java,block/model,gongfa,source_element_metadata
 yvanchuxiuzhen,GongfaxvexiDisplayModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/GongfaxvexiDisplayModel.java,block/model,gongfa,source_element_metadata
-yvanchuxiuzhen,Guancai01BlockModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/Guancai01BlockModel.java,block/model,decor,source_element_metadata
-yvanchuxiuzhen,Guancai01DisplayModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/Guancai01DisplayModel.java,block/model,decor,source_element_metadata
+yvanchuxiuzhen,Guancai01BlockModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/Guancai01BlockModel.java,block/model,creature,source_element_metadata
+yvanchuxiuzhen,Guancai01DisplayModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/Guancai01DisplayModel.java,block/model,creature,source_element_metadata
 yvanchuxiuzhen,LiexiBlockModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/LiexiBlockModel.java,block/model,world,source_element_metadata
 yvanchuxiuzhen,LiexiDisplayModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/LiexiDisplayModel.java,block/model,world,source_element_metadata
 yvanchuxiuzhen,LuopanBlockModel,src/main/java/net/mcreator/yvanchuxiuzhen/block/model/LuopanBlockModel.java,block/model,zhenfa,source_element_metadata
@@ -774,8 +774,8 @@ yvanchuxiuzhen,FoodzhengguoDisplayItemRenderer,src/main/java/net/mcreator/yvanch
 yvanchuxiuzhen,FoodzhengguoTileRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/FoodzhengguoTileRenderer.java,block/renderer,cooking,source_element_metadata
 yvanchuxiuzhen,GongfaxvexiDisplayItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/GongfaxvexiDisplayItemRenderer.java,block/renderer,gongfa,source_element_metadata
 yvanchuxiuzhen,GongfaxvexiTileRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/GongfaxvexiTileRenderer.java,block/renderer,gongfa,source_element_metadata
-yvanchuxiuzhen,Guancai01DisplayItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/Guancai01DisplayItemRenderer.java,block/renderer,decor,source_element_metadata
-yvanchuxiuzhen,Guancai01TileRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/Guancai01TileRenderer.java,block/renderer,decor,source_element_metadata
+yvanchuxiuzhen,Guancai01DisplayItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/Guancai01DisplayItemRenderer.java,block/renderer,creature,source_element_metadata
+yvanchuxiuzhen,Guancai01TileRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/Guancai01TileRenderer.java,block/renderer,creature,source_element_metadata
 yvanchuxiuzhen,LiexiDisplayItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/LiexiDisplayItemRenderer.java,block/renderer,world,source_element_metadata
 yvanchuxiuzhen,LiexiTileRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/LiexiTileRenderer.java,block/renderer,world,source_element_metadata
 yvanchuxiuzhen,LuopanDisplayItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/LuopanDisplayItemRenderer.java,block/renderer,zhenfa,source_element_metadata
@@ -1288,7 +1288,7 @@ yvanchuxiuzhen,Witheredbone04Block,src/main/java/net/mcreator/yvanchuxiuzhen/blo
 yvanchuxiuzhen,Witheredbone05Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Witheredbone05Block.java,block,plant,source_element_metadata
 yvanchuxiuzhen,Witheredbone06Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Witheredbone06Block.java,block,plant,source_element_metadata
 yvanchuxiuzhen,XiulitaiBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/XiulitaiBlock.java,block,lianqi,source_element_metadata
-yvanchuxiuzhen,XveliuBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/XveliuBlock.java,block,decor,source_element_metadata
+yvanchuxiuzhen,XveliuBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/XveliuBlock.java,block,xiulian,source_element_metadata
 yvanchuxiuzhen,Yanhui01Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Yanhui01Block.java,block,fulu,source_element_metadata
 yvanchuxiuzhen,Yanhui02Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Yanhui02Block.java,block,fulu,source_element_metadata
 yvanchuxiuzhen,Yanhui03Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Yanhui03Block.java,block,fulu,source_element_metadata
@@ -2487,7 +2487,7 @@ yvanchuxiuzhen,HotoilFluid,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/Hotoi
 yvanchuxiuzhen,QuicksandFluid,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/QuicksandFluid.java,fluid,decor,source_element_metadata
 yvanchuxiuzhen,WatercloudFluid,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/WatercloudFluid.java,fluid,decor,source_element_metadata
 yvanchuxiuzhen,WenqvanFluid,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/WenqvanFluid.java,fluid,plant,source_element_metadata
-yvanchuxiuzhen,XveliuFluid,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/XveliuFluid.java,fluid,decor,source_element_metadata
+yvanchuxiuzhen,XveliuFluid,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/XveliuFluid.java,fluid,xiulian,source_element_metadata
 yvanchuxiuzhen,ArmorAnimationFactory,src/main/java/net/mcreator/yvanchuxiuzhen/init/ArmorAnimationFactory.java,init,platform,infrastructure_package_review
 yvanchuxiuzhen,EntityAnimationFactory,src/main/java/net/mcreator/yvanchuxiuzhen/init/EntityAnimationFactory.java,init,platform,infrastructure_package_review
 yvanchuxiuzhen,ItemAnimationFactory,src/main/java/net/mcreator/yvanchuxiuzhen/init/ItemAnimationFactory.java,init,platform,infrastructure_package_review
@@ -3435,7 +3435,7 @@ yvanchuxiuzhen,Weaponwoodsword08Item,src/main/java/net/mcreator/yvanchuxiuzhen/i
 yvanchuxiuzhen,Weaponwoodsword09Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Weaponwoodsword09Item.java,item,equipment,source_element_metadata
 yvanchuxiuzhen,WenqvanItem,src/main/java/net/mcreator/yvanchuxiuzhen/item/WenqvanItem.java,item,plant,source_element_metadata
 yvanchuxiuzhen,XvejingItem,src/main/java/net/mcreator/yvanchuxiuzhen/item/XvejingItem.java,item,skill,source_element_metadata
-yvanchuxiuzhen,XveliuItem,src/main/java/net/mcreator/yvanchuxiuzhen/item/XveliuItem.java,item,decor,source_element_metadata
+yvanchuxiuzhen,XveliuItem,src/main/java/net/mcreator/yvanchuxiuzhen/item/XveliuItem.java,item,xiulian,source_element_metadata
 yvanchuxiuzhen,YanhuiitemItem,src/main/java/net/mcreator/yvanchuxiuzhen/item/YanhuiitemItem.java,item,fulu,source_element_metadata
 yvanchuxiuzhen,Yaohua0101Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Yaohua0101Item.java,item,equipment,source_element_metadata
 yvanchuxiuzhen,Yaoshou013taoziwuqiItem,src/main/java/net/mcreator/yvanchuxiuzhen/item/Yaoshou013taoziwuqiItem.java,item,creature,source_element_metadata
@@ -3796,7 +3796,7 @@ yvanchuxiuzhen,Canwutaiwenben1Procedure,src/main/java/net/mcreator/yvanchuxiuzhe
 yvanchuxiuzhen,Canwutaiwenben2Procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Canwutaiwenben2Procedure.java,procedures,gongfa,source_element_metadata
 yvanchuxiuzhen,Canwutaiwenben3Procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Canwutaiwenben3Procedure.java,procedures,gongfa,source_element_metadata
 yvanchuxiuzhen,Cassia02DangGuFenChengGongShiYongProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Cassia02DangGuFenChengGongShiYongProcedure.java,procedures,plant,source_element_metadata
-yvanchuxiuzhen,CauldronduyaoZaiFangKuaiShangYouJianProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/CauldronduyaoZaiFangKuaiShangYouJianProcedure.java,procedures,decor,source_element_metadata
+yvanchuxiuzhen,CauldronduyaoZaiFangKuaiShangYouJianProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/CauldronduyaoZaiFangKuaiShangYouJianProcedure.java,procedures,combat,source_element_metadata
 yvanchuxiuzhen,Chestnutarmchair01FangZhiFangKuaiShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Chestnutarmchair01FangZhiFangKuaiShiProcedure.java,procedures,decor,source_element_metadata
 yvanchuxiuzhen,ChestnutarmchairplaceProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/ChestnutarmchairplaceProcedure.java,procedures,decor,source_element_metadata
 yvanchuxiuzhen,ChestnutchestnutDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/ChestnutchestnutDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure.java,procedures,cooking,source_element_metadata
@@ -4196,7 +4196,7 @@ yvanchuxiuzhen,GongjvfuDangYouJianDianJiShiTiProcedure,src/main/java/net/mcreato
 yvanchuxiuzhen,GongjvgaoDangShiTiGengXinKeShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/GongjvgaoDangShiTiGengXinKeShiProcedure.java,procedures,equipment,source_element_metadata
 yvanchuxiuzhen,GongjvshechuDangTouSheWuSheZhongCiFangKuaiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/GongjvshechuDangTouSheWuSheZhongCiFangKuaiProcedure.java,procedures,equipment,source_element_metadata
 yvanchuxiuzhen,GongjvshechuTouZhiWuFeiXingTickProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/GongjvshechuTouZhiWuFeiXingTickProcedure.java,procedures,equipment,source_element_metadata
-yvanchuxiuzhen,Guancai01GengXinYouXiKeProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Guancai01GengXinYouXiKeProcedure.java,procedures,decor,source_element_metadata
+yvanchuxiuzhen,Guancai01GengXinYouXiKeProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Guancai01GengXinYouXiKeProcedure.java,procedures,creature,source_element_metadata
 yvanchuxiuzhen,GuanghuanDangShiTiGengXinKeShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/GuanghuanDangShiTiGengXinKeShiProcedure.java,procedures,world,source_element_metadata
 yvanchuxiuzhen,GuanxiangProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/GuanxiangProcedure.java,procedures,panel,source_element_metadata
 yvanchuxiuzhen,Guchong01DangShiTiBeiShaSiShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Guchong01DangShiTiBeiShaSiShiProcedure.java,procedures,guchong,source_element_metadata
@@ -4361,7 +4361,7 @@ yvanchuxiuzhen,Jindanxianshi031Procedure,src/main/java/net/mcreator/yvanchuxiuzh
 yvanchuxiuzhen,Jindanxianshi032Procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Jindanxianshi032Procedure.java,procedures,xiulian,source_element_metadata
 yvanchuxiuzhen,Jindanxianshi033Procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Jindanxianshi033Procedure.java,procedures,xiulian,source_element_metadata
 yvanchuxiuzhen,Jindanxianshi034Procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Jindanxianshi034Procedure.java,procedures,xiulian,source_element_metadata
-yvanchuxiuzhen,JinduliebiaoProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/JinduliebiaoProcedure.java,procedures,decor,source_element_metadata
+yvanchuxiuzhen,JinduliebiaoProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/JinduliebiaoProcedure.java,procedures,combat,source_element_metadata
 yvanchuxiuzhen,JinengchuqiaoProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/JinengchuqiaoProcedure.java,procedures,skill,source_element_metadata
 yvanchuxiuzhen,JinengdanhuoProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/JinengdanhuoProcedure.java,procedures,skill,source_element_metadata
 yvanchuxiuzhen,Jinengget01Procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Jinengget01Procedure.java,procedures,skill,source_element_metadata

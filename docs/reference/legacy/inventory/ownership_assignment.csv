@@ -752,7 +752,7 @@ yvanchuxiuzhen,Bitegrass01DangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/pla
 yvanchuxiuzhen,Bitegrass01,plant,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Bitegrass02GengXinYouXiKe,procedure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Bitegrass02,plant,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Scorchedsoil,block,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Scorchedsoil,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Scorchedgrass,plant,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ThundergrassGengXinYouXiKe,procedure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Thundergrass,plant,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -777,15 +777,15 @@ yvanchuxiuzhen,Rockpile01,feature,~/plant/ordinaryplants,plant,候选,第一版�
 yvanchuxiuzhen,Barrenstonestingshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ricciafluitansshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Nautilus,plant,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Loess,block,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Loess,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Witheredshrubshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Diplidisdiandrashengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Rushesshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestone,block,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Bluestone,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Bluestoneshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Icelakeshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomesand01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Quicksand,fluid,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Quicksand,fluid,~/decorate,decor,已读,B1 归属阅读：无过程；world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Biomesand02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomesand03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomesand04,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -956,359 +956,359 @@ yvanchuxiuzhen,Armor08,animatedarmor,~/weapon/armor,equipment,候选,第一版�
 yvanchuxiuzhen,Armor09,animatedarmor,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou001ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou001,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou001list,loottable,~/entity/yaoshou/yaoshou001,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisplanks,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisfence,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisfencegate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestristrapdoor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Sylvestrisplanks,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrisslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrisstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrisslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrisfence,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrisfencegate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestristrapdoor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrisdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestrisdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
 yvanchuxiuzhen,Wooddoor,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,BlockPlace,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisdoorplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SylvestrisdoorrightZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrissillwallwindow,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrissillwallwindow02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrispressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisbutton,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswalldoor01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswalldoor02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswalldoor03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswalldoor04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswalldoor05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswalldoor06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Sylvestrisdoorplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sylvestrisdoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,SylvestrisdoorrightZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sylvestrisdoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestrissillwallwindow,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrissillwallwindow02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrispressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrisbutton,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestriswalldoor01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswalldoor02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswalldoor03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswalldoor04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswalldoor05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswalldoor06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
 yvanchuxiuzhen,Walldoor,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswalldoor01ZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswalldoorzidong,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswalldoor01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswall01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswall02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswall03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswall04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswall05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswall06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Sylvestriswalldoor01ZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sylvestriswalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswalldoorzidong,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sylvestriswalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswalldoor01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sylvestriswalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswall01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswall02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswall03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswall04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswall05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswall06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
 yvanchuxiuzhen,Sylwall,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriswallplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrispane,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrispane02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisfloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisfloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisfloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisfloorslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Sylvestriswall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sylvestriswall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestriswallplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sylvestriswall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestrispane,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrispane02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrisfloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrisfloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrisfloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrisfloorslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Fences,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestriscolumn,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisarmchair01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisarmchair02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisarmchairplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutplanks,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutfence,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutfencegate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnuttrapdoor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutdoorplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutsillwallwindow,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutsillwallwindow02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ChestnutdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutpressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutbutton,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwalldoor01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwalldoor02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwalldoor03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwalldoor04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwalldoor05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwalldoor06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwalldoor01ZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwalldoor01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwalldoorzidong,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwall01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwall02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwall03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwall04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwall05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwall06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Sylvestriscolumn,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Sylvestrisarmchair01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestrisarmchair02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestrisarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sylvestrisarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestrisarmchairplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sylvestrisarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutplanks,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutfence,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutfencegate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnuttrapdoor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutdoorplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Chestnutdoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutsillwallwindow,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutsillwallwindow02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,ChestnutdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Chestnutdoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Chestnutdoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Sylvestrisdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sylvestrisdoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutpressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutbutton,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutwalldoor01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwalldoor02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwalldoor03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwalldoor04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwalldoor05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwalldoor06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwalldoor01ZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Chestnutwalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwalldoor01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Chestnutwalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwalldoorzidong,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Chestnutwalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwall01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwall02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwall03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwall04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwall05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwall06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
 yvanchuxiuzhen,Chewall,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutwallplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutpane,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutpane02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutfloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutfloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutfloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutfloorslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutfloorpressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutcolumn,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutarmchair01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutarmchair02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutarmchairplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechplanks,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechfence,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechfencegate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechtrapdoor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechdoorplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,BeechdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechsillwallwindow,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechsillwallwindow02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechpressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechbutton,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwalldoor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwalldoor02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwalldoor03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwalldoor04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwalldoor05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwalldoor06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,BeechwalldoorFangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,BeechwalldoorZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwalldoorzidong,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwall01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwall02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwall03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwall04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwall05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwall06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechwallplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Chestnutwall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Chestnutwall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutwallplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Chestnutwall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutpane,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutpane02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutfloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutfloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutfloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutfloorslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutfloorpressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutcolumn,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Chestnutarmchair01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutarmchair02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Chestnutarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Chestnutarmchairplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Chestnutarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Beechplanks,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxiuzhen,Beechslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechfence,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechfencegate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechtrapdoor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Beechdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Beechdoorplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Beechdoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,BeechdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Beechdoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Beechdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Beechdoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Beechsillwallwindow,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechsillwallwindow02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechpressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechbutton,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechwalldoor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Beechwalldoor02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Beechwalldoor03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Beechwalldoor04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Beechwalldoor05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Beechwalldoor06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,BeechwalldoorFangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Beechwalldoor 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,BeechwalldoorZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Beechwalldoor 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Beechwalldoorzidong,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Beechwalldoor 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Beechwall01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Beechwall02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Beechwall03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Beechwall04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Beechwall05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Beechwall06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Beechwall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Beechwall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Beechwallplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Beechwall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
 yvanchuxiuzhen,Beewall,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechpane,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechpane02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechfloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechfloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechfloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechfloorslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechfloorpressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechcolumn,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beecharmchair01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beecharmchair02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beecharmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beecharmchairplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressplanks,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressfence,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressfencegate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresstrapdoor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressdoorplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,CypressdoorrightZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresssillwallwindow,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresssillwallwindow02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresspressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressbutton,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswalldoor01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswalldoor02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswalldoor03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswalldoor04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswalldoor05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswalldoor06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswalldoor01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswalldoor01ZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswalldoorzidong,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswall01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswall02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswall03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswall04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswall05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswall06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresswallplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Beechpane,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechpane02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechfloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechfloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechfloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechfloorslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechfloorpressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beechcolumn,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Beecharmchair01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Beecharmchair02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Beecharmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Beecharmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Beecharmchairplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Beecharmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Cypressplanks,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypressslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypressstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypressslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypressfence,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypressfencegate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypresstrapdoor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypressdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Cypressdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Cypressdoorplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Cypressdoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Cypressdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Cypressdoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,CypressdoorrightZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Cypressdoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Cypresssillwallwindow,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypresssillwallwindow02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypresspressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypressbutton,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypresswalldoor01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswalldoor02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswalldoor03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswalldoor04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswalldoor05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswalldoor06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswalldoor01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Cypresswalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswalldoor01ZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Cypresswalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswalldoorzidong,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Cypresswalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswall01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswall02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswall03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswall04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswall05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswall06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Cypresswall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Cypresswallplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Cypresswall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
 yvanchuxiuzhen,Cypwall,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresspane,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresspane02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressfloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressfloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressfloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresscolumn,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressarmchair01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressarmchair02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressarmchairplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressfloorslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedplanks,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedfence,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedfencegate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedtrapdoor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tootheddoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tootheddoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tootheddoorplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tootheddoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TootheddoorrightZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedsillwallwindow,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedsillwallwindow02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedpressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedbutton,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressfloorpressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwalldoor01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwalldoor02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwalldoor03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwalldoor04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwalldoor05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwalldoor06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwalldoor01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwalldoor01ZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwalldoorzidong,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwall01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwall02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwall03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwall04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwall05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwall06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedwallplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Cypresspane,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypresspane02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypressfloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypressfloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypressfloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypresscolumn,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypressarmchair01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Cypressarmchair02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Cypressarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Cypressarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Cypressarmchairplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Cypressarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Cypressfloorslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedplanks,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedfence,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedfencegate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedtrapdoor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tootheddoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Tootheddoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Tootheddoorplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Tootheddoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Tootheddoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Tootheddoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,TootheddoorrightZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Tootheddoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Toothedsillwallwindow,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedsillwallwindow02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedpressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedbutton,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Cypressfloorpressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedwalldoor01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwalldoor02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwalldoor03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwalldoor04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwalldoor05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwalldoor06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwalldoor01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Toothedwalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwalldoor01ZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Toothedwalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwalldoorzidong,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Toothedwalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwall01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwall02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwall03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwall04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwall05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwall06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Toothedwall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Toothedwallplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Toothedwall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
 yvanchuxiuzhen,Toowall,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedpane,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedpane02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedfloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedfloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedfloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedfloorslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedfloorpressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedcolumn,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedarmchair01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedarmchair02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedarmchairplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorplanks,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorfence,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorfencegate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphortrapdoor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphordoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphordoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,CamphordoorrightZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphordoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphordoorplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorsillwallwindow,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorsillwallwindow02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorpressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorbutton,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwalldoor01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwalldoor02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwalldoor03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwalldoor04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwalldoor05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwalldoor06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwalldoor01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwalldoor01ZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwalldoorzidong,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwall01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwall02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwall03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwall04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwall05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwall06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorwallplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorpane,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorpane02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorfloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorfloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorfloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorfloorslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorfloorpressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorcolumn,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Toothedpane,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedpane02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedfloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedfloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedfloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedfloorslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedfloorpressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedcolumn,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Toothedarmchair01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Toothedarmchair02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Toothedarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Toothedarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Toothedarmchairplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Toothedarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Camphorplanks,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorfence,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorfencegate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphortrapdoor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphordoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Camphordoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,CamphordoorrightZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Camphordoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Camphordoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Camphordoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Camphordoorplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Camphordoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Camphorsillwallwindow,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorsillwallwindow02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorpressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorbutton,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorwalldoor01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwalldoor02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwalldoor03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwalldoor04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwalldoor05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwalldoor06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwalldoor01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Camphorwalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwalldoor01ZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Camphorwalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwalldoorzidong,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Camphorwalldoor01 读：墙门：放置、开合与自动关闭（*walldoorzidong）只改本木种墙门与墙标签方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwall01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwall02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwall03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwall04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwall05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwall06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Camphorwall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Camphorwallplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Camphorwall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Camphorpane,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorpane02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorfloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorfloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorfloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorfloorslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorfloorpressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Camphorcolumn,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Camwall,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorarmchair01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorarmchair02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorarmchairplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuplanks,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmustairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmufence,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmufencegate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmutrapdoor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmudoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmudoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,NanmudoorrightZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmudoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmudoorplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmusillwallwindow,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmusillwallwindow02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmupressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmubutton,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuwall01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuwall02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuwall03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuwall04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuwall05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuwall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuwallplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuwall04DangPiLinFangKuaiGengXinShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Camphorarmchair01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Camphorarmchair02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Camphorarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Camphorarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Camphorarmchairplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Camphorarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Nanmuplanks,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmuslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmustairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmuslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmufence,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmufencegate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmutrapdoor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmudoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Nanmudoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,NanmudoorrightZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Nanmudoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Nanmudoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Nanmudoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Nanmudoorplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Nanmudoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Nanmusillwallwindow,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmusillwallwindow02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmupressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmubutton,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmuwall01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Nanmuwall02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Nanmuwall03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Nanmuwall04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Nanmuwall05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Nanmuwall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Nanmuwall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Nanmuwallplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Nanmuwall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Nanmuwall04DangPiLinFangKuaiGengXinShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Nanmuwall04 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
 yvanchuxiuzhen,Nanwall,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmupane,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmupane02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmufloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmufloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmufloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmufloorslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmufloorpressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmucolumn,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuarmchair01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuarmchair02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuarmchairplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgoplanks,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgoslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgostairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgoslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgofence,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgofencegate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgotrapdoor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgodoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgodoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GinkgodoorrightZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgodoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgodoorplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgosillwallwindow,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgosillwallwindow02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgopressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgobutton,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgowall01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgowall02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgowall03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgowall04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgowall05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgowall06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgowall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgowallplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Nanmupane,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmupane02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmufloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmufloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmufloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmufloorslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmufloorpressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmucolumn,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Nanmuarmchair01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Nanmuarmchair02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Nanmuarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Nanmuarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Nanmuarmchairplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Nanmuarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgoplanks,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgoslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgostairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgoslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgofence,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgofencegate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgotrapdoor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgodoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgodoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,GinkgodoorrightZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Ginkgodoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgodoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Ginkgodoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgodoorplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Ginkgodoorleft 读：木门：放置（*doorplace）与开合过程只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgosillwallwindow,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgosillwallwindow02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgopressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgobutton,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgowall01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgowall02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgowall03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgowall04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgowall05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgowall06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgowall01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Ginkgowall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgowallplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Ginkgowall01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
 yvanchuxiuzhen,Ginwall,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgopane,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgopane02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgofloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgofloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgofloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgofloorslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgofloorpressureplate,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgocolumn,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgoarmchair01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgoarmchair02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgoarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgoarmchairplace,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Ginkgopane,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgopane02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgofloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；dungeon 的生成或可生长地面判断按 ID 引用，不赋予它规则
+yvanchuxiuzhen,Ginkgofloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgofloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgofloorslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgofloorpressureplate,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgocolumn,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Ginkgoarmchair01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgoarmchair02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgoarmchair01FangZhiFangKuaiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Ginkgoarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
+yvanchuxiuzhen,Ginkgoarmchairplace,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Ginkgoarmchair01 读：墙与扶手椅：多格放置（*wallplace）与邻接更新只改本木种系列方块；同模板按木种复制
 yvanchuxiuzhen,BookRightClick,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Book001,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Book002,item,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1386,125 +1386,125 @@ yvanchuxiuzhen,Weaponepee06,tool,~/weapon/sword,equipment,候选,第一版批量
 yvanchuxiuzhen,Weaponepee07,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Weaponepee08,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Weaponepee09,tool,~/weapon/sword,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Adobe,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Adobeslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Adobestairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Adobewall,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Adobeslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Adobefloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Adobefloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Adobefloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestoneslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonestairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonewall,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestoneslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonefloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonefloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonefloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonebrick,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonebrickslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonebrickstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonebrickwall,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonebrickslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonebrickfloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonebrickfloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bluestonebrickfloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallred,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallredslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallredstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallredslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallwhite,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallwhiteslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallwhitestairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallwhiteslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallwhitewarm,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallwhitewarmslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallwhitewarmstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallwhitewarmslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallwhitecold,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallwhitecoldslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallwhitecoldstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wallwhitecoldslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallwhite,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallwhiteslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallwhitestairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallwhitewall,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallwhiteslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallwhitefloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallwhitefloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallwhitefloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallblack,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallblackslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallblackstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallblackwall,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallblackslaberect,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallblackfloor,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallblackfloorslab,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brickwallblackfloorstairs,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Adobe,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Adobeslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Adobestairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Adobewall,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Adobeslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Adobefloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Adobefloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Adobefloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestoneslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonestairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonewall,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestoneslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonefloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonefloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonefloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonebrick,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonebrickslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonebrickstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonebrickwall,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonebrickslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonebrickfloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonebrickfloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Bluestonebrickfloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallred,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallredslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallredstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallredslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallwhite,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallwhiteslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallwhitestairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallwhiteslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallwhitewarm,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallwhitewarmslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallwhitewarmstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallwhitewarmslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallwhitecold,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallwhitecoldslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallwhitecoldstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Wallwhitecoldslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallwhite,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallwhiteslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallwhitestairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallwhitewall,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallwhiteslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallwhitefloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallwhitefloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallwhitefloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallblack,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallblackslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallblackstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallblackwall,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallblackslaberect,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallblackfloor,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallblackfloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Brickwallblackfloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,HammerDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Hammer,tool,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblack01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblack02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblack03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblack04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblack05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblack06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblack07,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblack08,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblack09,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblack10,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Tileimbrexblack01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblack02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblack03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblack04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblack05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblack06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblack07,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblack08,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblack09,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblack10,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,LeftClickBlock,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Wapian,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgrey01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgrey02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgrey03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgrey04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgrey05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgrey06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgrey07,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgrey08,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgrey09,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgrey10,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblue01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblue02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblue03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblue04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblue05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblue06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblue07,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblue08,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblue09,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexblue10,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgreen01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgreen02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgreen03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgreen04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgreen05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgreen06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgreen07,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgreen08,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgreen09,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgreen10,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexred01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexred02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexred03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexred04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexred05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexred06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexred07,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexred08,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexred09,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexred10,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgilding01,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgilding02,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgilding03,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgilding04,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgilding05,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgilding06,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgilding07,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgilding08,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgilding09,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tileimbrexgilding10,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Tileimbrexgrey01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgrey02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgrey03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgrey04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgrey05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgrey06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgrey07,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgrey08,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgrey09,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgrey10,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblue01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblue02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblue03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblue04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblue05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblue06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblue07,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblue08,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblue09,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexblue10,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgreen01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgreen02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgreen03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgreen04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgreen05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgreen06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgreen07,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgreen08,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgreen09,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgreen10,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexred01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexred02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexred03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexred04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexred05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexred06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexred07,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexred08,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexred09,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexred10,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgilding01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgilding02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgilding03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgilding04,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgilding05,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgilding06,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgilding07,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgilding08,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgilding09,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Tileimbrexgilding10,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Technique,command,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,TechniqueGO,procedure,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ShenfaW,procedure,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1637,8 +1637,8 @@ yvanchuxiuzhen,Bookwenzi10,procedure,~/item/book,book,候选,第一版批量归�
 yvanchuxiuzhen,Bookwenzi11,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao161,item,~/item/gemstone,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao16101,block,~/item/gemstone,material,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cloudblock,block,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Soulstone,block,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Cloudblock,block,~/decorate,decor,已读,B1 归属阅读：无过程；world 的生成或可生长地面判断按 ID 引用，不赋予它规则
+yvanchuxiuzhen,Soulstone,block,~/decorate,decor,已读,B1 归属阅读：无过程；world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Biometianqve01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biometianqve02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biometianqve03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1967,11 +1967,11 @@ yvanchuxiuzhen,Alchemy01FangZhiFangKuaiShi,procedure,~/tool/liandanlu,liandan,�
 yvanchuxiuzhen,Alchemy01GengXinYouXiKe,procedure,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Alchemy01,animatedblock,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Danlu,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Watercloud,fluid,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,YvnpenGengXinYouXiKe,procedure,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,YvnpenHongShiDianYuanKaiQiShi,procedure,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,YvnpenHongShiDianYuanGuanBiShi,procedure,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvnpen,block,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Watercloud,fluid,~/decorate,decor,已读,B1 归属阅读：云盆：红石开关在上方放置或移除水云 watercloud
+yvanchuxiuzhen,YvnpenGengXinYouXiKe,procedure,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：随 Yvnpen 读：云盆：红石开关在上方放置或移除水云 watercloud
+yvanchuxiuzhen,YvnpenHongShiDianYuanKaiQiShi,procedure,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：随 Yvnpen 读：云盆：红石开关在上方放置或移除水云 watercloud
+yvanchuxiuzhen,YvnpenHongShiDianYuanGuanBiShi,procedure,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：随 Yvnpen 读：云盆：红石开关在上方放置或移除水云 watercloud
+yvanchuxiuzhen,Yvnpen,block,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：云盆：红石开关在上方放置或移除水云 watercloud
 yvanchuxiuzhen,Alchemy02FangZhiFangKuaiShi,procedure,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Alchemy02,animatedblock,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Alchemy03FangZhiFangKuaiShi,procedure,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -2917,7 +2917,7 @@ yvanchuxiuzhen,Fulu,tag,~/tag,platform,候选,第一版批量归组（目录、�
 yvanchuxiuzhen,Fulutexiao44,animatedentity,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fulutexiao44DangShiTiGengXinKeShi,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fulutexiao44DangYouJianDianJiShiTi,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhuangshitizi,animatedblock,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Zhuangshitizi,animatedblock,~/decorate/buildingblocks,decor,已读,B1 归属阅读：装饰梯：放置过程只改本方块
 yvanchuxiuzhen,Stone,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Wool,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,FooddaguoZaiFangKuaiShangYouJian,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3497,7 +3497,7 @@ yvanchuxiuzhen,Ycxzboss01,animatedentity,~/entity/boss/ycxzboss01,creature,候�
 yvanchuxiuzhen,ShanghaifanweiDangShiTiGengXinKeShi,procedure,~/skill/jineng,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shanghaifanwei,animatedentity,~/skill/jineng,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Npcshuxingjisuan,procedure,~/entity/boss/ycxzboss01,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ZhuangshitiziDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ZhuangshitiziDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Zhuangshitizi 读：装饰梯：放置过程只改本方块
 yvanchuxiuzhen,Mugongtai,animatedblock,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Mugongtaihecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,MugongtaiFangZhiFangKuaiShi,procedure,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3648,51 +3648,51 @@ yvanchuxiuzhen,Gaojirenwu8,procedure,~/tool,quest,候选,第一版批量归组�
 yvanchuxiuzhen,Gaojirenwu9,procedure,~/tool,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gaojirenwu10,procedure,~/tool,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ling17,item,~/item/zawu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Acaciabigdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Acaciabigdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Acaciabigdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,AcaciabigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,AcaciabigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Birchbigdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Birchbigdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Birchbigdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,BirchbigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,BirchbigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Crimsonbigdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Crimsonbigdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Crimsonbigdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,CrimsonbigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,CrimsonbigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Darkoakbigdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Darkoakbigdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Darkoakbigdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DarkoakbigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DarkoakbigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Junglebigdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Junglebigdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Junglebigdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JunglebigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JunglebigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Mangrovebigdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Mangrovebigdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Mangrovebigdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,MangrovebigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,MangrovebigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Oakbigdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Oakbigdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Oakbigdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,OakbigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,OakbigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sprucebigdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sprucebigdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sprucebigdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SprucebigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SprucebigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Warpedbigdoorleft,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Warpedbigdoorright,block,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Warpedbigdoorclick,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,WarpedbigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,WarpedbigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Acaciabigdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Acaciabigdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Acaciabigdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Acaciabigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,AcaciabigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Acaciabigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,AcaciabigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Acaciabigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Birchbigdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Birchbigdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Birchbigdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Birchbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,BirchbigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Birchbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,BirchbigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Birchbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Crimsonbigdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Crimsonbigdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Crimsonbigdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Crimsonbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,CrimsonbigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Crimsonbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,CrimsonbigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Crimsonbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Darkoakbigdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Darkoakbigdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Darkoakbigdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Darkoakbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,DarkoakbigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Darkoakbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,DarkoakbigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Darkoakbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Junglebigdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Junglebigdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Junglebigdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Junglebigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,JunglebigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Junglebigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,JunglebigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Junglebigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Mangrovebigdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Mangrovebigdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Mangrovebigdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Mangrovebigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,MangrovebigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Mangrovebigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,MangrovebigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Mangrovebigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Oakbigdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Oakbigdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Oakbigdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Oakbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,OakbigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Oakbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,OakbigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Oakbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Sprucebigdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Sprucebigdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Sprucebigdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sprucebigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,SprucebigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sprucebigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,SprucebigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Sprucebigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Warpedbigdoorleft,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Warpedbigdoorright,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,Warpedbigdoorclick,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Warpedbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,WarpedbigdoorleftZaiFangKuaiShangYouJian,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Warpedbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
+yvanchuxiuzhen,WarpedbigdoorleftDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Warpedbigdoorleft 读：双格大门：放置与开合过程（如 AcaciabigdoorleftZaiFangKuaiShangYouJian）只改本木种左右门方块；同模板按木种复制
 yvanchuxiuzhen,Acaciabigdoorhecheng,recipe,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Birchbigdoorhecheng,recipe,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Crimsonbigdoorhecheng,recipe,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3757,8 +3757,8 @@ yvanchuxiuzhen,Guiguai03ShiTiChuShiShengChengShi,procedure,~/entity/guiguai/guig
 yvanchuxiuzhen,Guiguai03DangShiTiShouShangShi,procedure,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guiguai03DangShiTiGengXinKeShi,procedure,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guiguai03,animatedentity,~/entity/guiguai/guiguai03,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guancai01GengXinYouXiKe,procedure,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guancai01,animatedblock,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guancai01GengXinYouXiKe,procedure,~/decorate,creature,已读,B1 归属阅读：随 Guancai01 读：棺材：8 格内有生存模式玩家时播放动画并一次性生成“被炼化的僵尸”（350 生命、28 攻击，写 attack_Def 等防御值，随机穿 clothes_01/02），是怪物生成点
+yvanchuxiuzhen,Guancai01,animatedblock,~/decorate,creature,已读,B1 归属阅读：棺材：8 格内有生存模式玩家时播放动画并一次性生成“被炼化的僵尸”（350 生命、28 攻击，写 attack_Def 等防御值，随机穿 clothes_01/02），是怪物生成点
 yvanchuxiuzhen,Fushengdan,item,~/item/zawu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,DuedanWanJiaWanChengShiYongWuPinShi,procedure,~/item/zawu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Duedan,item,~/item/zawu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3768,7 +3768,7 @@ yvanchuxiuzhen,Duyao19DangXiaoGuoJieShuShi,procedure,~/effect,combat,候选,第�
 yvanchuxiuzhen,Duyao19,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Duedanhecheng,recipe,~/item/zawu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Sawtooth,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xveliu,fluid,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Xveliu,fluid,~/decorate,xiulian,已读,B1 归属阅读：血流只在修炼规则中有意义：Kaishixiulian 修炼御血、汲血功、地血大法、血魔祭魂秘法时检测周围 3×3×3 是否有血流，有则给血晶并额外 +5；Xixveshi 只负责产出
 yvanchuxiuzhen,Fabao016DangShiTiBeiGongJuJiZhongShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao016,tool,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao016hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3868,16 +3868,16 @@ yvanchuxiuzhen,Guchongtick,procedure,~/entity/guchong,guchong,候选,第一版�
 yvanchuxiuzhen,Fabao018hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong01hecheng,recipe,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Chongluan,item,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,ZhuangshiqiantongZaiFangKuaiShangYouJian,procedure,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhuangshiqiantong,animatedblock,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qianyvn,procedure,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guaqian01,item,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guaqian02,item,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guaqian03,item,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guaqian04,item,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guaqian05,item,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guaqian06,item,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guaqian07,item,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ZhuangshiqiantongZaiFangKuaiShangYouJian,procedure,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：随 Zhuangshiqiantong 读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
+yvanchuxiuzhen,Zhuangshiqiantong,animatedblock,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
+yvanchuxiuzhen,Qianyvn,procedure,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：随 Zhuangshiqiantong 读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
+yvanchuxiuzhen,Guaqian01,item,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
+yvanchuxiuzhen,Guaqian02,item,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
+yvanchuxiuzhen,Guaqian03,item,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
+yvanchuxiuzhen,Guaqian04,item,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
+yvanchuxiuzhen,Guaqian05,item,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
+yvanchuxiuzhen,Guaqian06,item,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
+yvanchuxiuzhen,Guaqian07,item,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
 yvanchuxiuzhen,TaolunZaiFangKuaiShangYouJian,procedure,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Taolun,animatedblock,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhuangshiqiantonghecheng,recipe,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3901,10 +3901,10 @@ yvanchuxiuzhen,Playerhuifu,procedure,~/systemset,xiulian,候选,第一版批量�
 yvanchuxiuzhen,Basaltlizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhongdulizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabaotouzhiwu,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,CauldronduyaoZaiFangKuaiShangYouJian,procedure,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cauldronduyao,block,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,CauldronduyaoZaiFangKuaiShangYouJian,procedure,~/decorate,combat,已读,B1 归属阅读：随 Cauldronduyao 读：淬毒功能：RightClickBlock 中“水炼药锅 + forge:duyaofumo 材料”分支把炼药锅换成本方块并由 Jinduliebiao 记下待附毒药附魔，右键时给手持武器附加 beepoison 等 8 种附魔（combat 的附魔）；该分支随本功能拆归 combat
+yvanchuxiuzhen,Cauldronduyao,block,~/decorate,combat,已读,B1 归属阅读：淬毒功能：RightClickBlock 中“水炼药锅 + forge:duyaofumo 材料”分支把炼药锅换成本方块并由 Jinduliebiao 记下待附毒药附魔，右键时给手持武器附加 beepoison 等 8 种附魔（combat 的附魔）；该分支随本功能拆归 combat
 yvanchuxiuzhen,Duyao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinduliebiao,procedure,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jinduliebiao,procedure,~/decorate,combat,已读,B1 归属阅读：随 Cauldronduyao 读：按手持 forge:duyaofumo 材料（cailiao_096、141 等 8 种）在炼药锅方块实体记下待附的毒药附魔，属淬毒功能
 yvanchuxiuzhen,Duyaofumo,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,EntityBeforeHurt2,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qiankundai01hecheng,recipe,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3972,11 +3972,11 @@ yvanchuxiuzhen,Biomebaichuan02,biome,~/biome,world,候选,第一版批量归组�
 yvanchuxiuzhen,Biomebaichuan03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SoulgrassDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Soulgrass,plant,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Youbosoil,block,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Youbosoil,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Biomeyoumeng01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomeyoumeng02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomeyoumeng03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Rottingsoil,block,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Rottingsoil,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Biomeshijve01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomeshijve02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomeshijve03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4001,11 +4001,11 @@ yvanchuxiuzhen,Biomediling05,biome,~/biome,world,候选,第一版批量归组（
 yvanchuxiuzhen,Biomediling06,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomediling07,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomediling08,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenbonepile,block,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Brokenbonepile,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Brokenbonepilediaoluo,loottable,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Higanbana,plant,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,HotoilDangShengWuWanJiaPengZhuangFangKuaiShi,procedure,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Hotoil,fluid,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,HotoilDangShengWuWanJiaPengZhuangFangKuaiShi,procedure,~/decorate,decor,已读,B1 归属阅读：随 Hotoil 读：热油：接触时按“火”写入伤害参数，经共享伤害入口结算，属元素自身行为；生成由地物 Hotoilshengcheng
+yvanchuxiuzhen,Hotoil,fluid,~/decorate,decor,已读,B1 归属阅读：热油：接触时按“火”写入伤害参数，经共享伤害入口结算，属元素自身行为；生成由地物 Hotoilshengcheng
 yvanchuxiuzhen,Hotoilshengcheng,feature,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Hotoillizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Rouchuan01,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4029,9 +4029,9 @@ yvanchuxiuzhen,TailbladegrassDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/
 yvanchuxiuzhen,Bladegrasstree01,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Bladegrasstree02,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Bladegrasstree03,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Swampsilt,block,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Swampsilt,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Swampsiltdiwu,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Grassblock,block,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Grassblock,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Witheredbone01DangShiTiZaiFangKuaiZhongPengZhuangShi,procedure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Witheredbone01,block,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Witheredbone02,block,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5997,24 +5997,24 @@ yvanchuxitong,Effectxianshi10,procedure,~/yvanchuliandan/liandangongzuotai,liand
 yvanchuxitong,Effectxianshi11,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Effectxianshi12,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Danyaonamexianshi,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0101,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0102,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0103,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Plaque0101,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0102,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0103,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,PlaqueGUI,gui,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,PlaqueGUIanniu,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PlaquejiaziZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PlaquejiaziZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：随 Paiwei01 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,PlaqueGUIqingxieanniu,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Qingjiaoxianshi,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,PlaqueTXTxianshi,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Colouritem,tag,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Jiaodujiaozheng,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque01itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque01item,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque02itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque02item,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0201,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0202,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0203,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Plaque01itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：随 Plaque01item 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque01item,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque02itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：随 Plaque02item 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque02item,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0201,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0202,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0203,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,LiandanLVjiance,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Jingyanhuoqv,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Baoxiangzong,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6329,58 +6329,58 @@ yvanchuxitong,ChengzhenBuildJiance,procedure,~/chengzhen,town,候选,第一版�
 yvanchuxitong,ChengzhenbuildGuiDangZheGeJieMianDaKaiShi,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ObtainatowncenterscrollGo,procedure,~/zhiling,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Obtainatowncenterscroll,command,~/zhiling,town,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ZhuangshiTulong01ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ZhuangshiTulong01,block,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ZhuangshiTulong02FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ZhuangshiTulong02DangShiTiZaiFangKuaiZhongPengZhuangShi,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ZhuangshiTulong02ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ZhuangshiTulong02GengXinYouXiKe,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ZhuangshiTulong02,block,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhuangshitulongitem01DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhuangshitulongitem01,item,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhuangshitulongitem02,item,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhuangshitulongitem03,item,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ZhuangshiTulong01ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 ZhuangshiTulong01 读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
+yvanchuxitong,ZhuangshiTulong01,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
+yvanchuxitong,ZhuangshiTulong02FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 ZhuangshiTulong02 读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
+yvanchuxitong,ZhuangshiTulong02DangShiTiZaiFangKuaiZhongPengZhuangShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 ZhuangshiTulong02 读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
+yvanchuxitong,ZhuangshiTulong02ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 ZhuangshiTulong02 读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
+yvanchuxitong,ZhuangshiTulong02GengXinYouXiKe,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 ZhuangshiTulong02 读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
+yvanchuxitong,ZhuangshiTulong02,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
+yvanchuxitong,Zhuangshitulongitem01DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Zhuangshitulongitem01 读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
+yvanchuxitong,Zhuangshitulongitem01,item,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
+yvanchuxitong,Zhuangshitulongitem02,item,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
+yvanchuxitong,Zhuangshitulongitem03,item,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
 yvanchuxitong,Zhuangshitulonghecheng,recipe,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhuangshishuigang,block,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhuangshishuigangtwo,block,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Zhuangshishuigang,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxitong,Zhuangshishuigangtwo,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxitong,Plaque01itemhecheng,recipe,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Olaque02itemhecheng,recipe,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhuangshishuigangbig,block,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque03itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque03item,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque04itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque04item,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque05itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque05item,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque06itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque06item,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque07itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque07item,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque08itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque08item,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque09itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque09item,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0301,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0302,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0303,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0401,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0402,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0403,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0501,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0502,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0503,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0601,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0602,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0603,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0701,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0702,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0703,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0801,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0802,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0803,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0901,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0902,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Plaque0903,block,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Zhuangshishuigangbig,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
+yvanchuxitong,Plaque03itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：随 Plaque03item 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque03item,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque04itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：随 Plaque04item 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque04item,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque05itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：随 Plaque05item 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque05item,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque06itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：随 Plaque06item 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque06item,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque07itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：随 Plaque07item 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque07item,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque08itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：随 Plaque08item 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque08item,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque09itemFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：随 Plaque09item 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque09item,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0301,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0302,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0303,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0401,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0402,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0403,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0501,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0502,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0503,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0601,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0602,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0603,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0701,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0702,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0703,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0801,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0802,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0803,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0901,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0902,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Plaque0903,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,Tieguoshicai01txt,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tieguoshicai02txt,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tieguoshicai03txt,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6405,84 +6405,84 @@ yvanchuxitong,EntityTick,procedure,,flow,候选,第一版批量归组（目录�
 yvanchuxitong,Tripod01ZaiFangKuaiShangYouJian,procedure,~/yvanchulianqi/dinglu,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,SearchingforstructureGo,procedure,~/xvnzhanyiji,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Searchingforstructure,command,~/xvnzhanyiji,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PianyifangkuaiFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PianyifangkuaiZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Pianyifangkuai,block,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PianyifangkuaiFangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Pianyifangkuai 读：偏移展示方块：放取 1 格展示物品，只改本方块
+yvanchuxitong,PianyifangkuaiZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Pianyifangkuai 读：偏移展示方块：放取 1 格展示物品，只改本方块
+yvanchuxitong,Pianyifangkuai,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：偏移展示方块：放取 1 格展示物品，只改本方块
 yvanchuxitong,Pianyifangkuaihecheng,recipe,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Yvanchufurniture,tab,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture01,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture02,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture03,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture03FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture01,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture02,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture03,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture03FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture03 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture03GUI,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture03FangZhiFangKuaiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture04,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture05,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture03FangZhiFangKuaiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture03 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture04,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture05,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Shitiyizi,livingentity,~/zhuangshiwu/jiajv,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture06ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture06FangZhiFangKuaiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture06DangFangKuaiBeiWanJiaPoPiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture06,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture07,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture08,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture09,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture10,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture11,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture12,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture06ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture06 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture06FangZhiFangKuaiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture06 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture06DangFangKuaiBeiWanJiaPoPiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture06 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture06,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture07,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture08,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture09,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture10,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture11,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture12,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture13Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture13,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture13,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture14Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,系统设计·已读裁定：27 格无槽位过滤，没有 storage 的规则
 yvanchuxitong,Beechfurniture14,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,系统设计·已读裁定：27 格无槽位过滤，没有 storage 的规则
 yvanchuxitong,Beechfurniture15Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1501FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1501,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1502,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1503,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1504,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1505,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture1501FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1501 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1501,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1502,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1503,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1504,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1505,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture15qiehuan,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1601FangZhiFangKuaiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1601,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1602,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1603,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1604,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture1601FangZhiFangKuaiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1601 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1601,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1602,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1603,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1604,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurnitureshiliu,tag,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture16gengxin,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1701DangFangKuaiBeiShuiFangZhiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1701,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1702,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1703,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1704,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture16gengxin,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1601 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1701DangFangKuaiBeiShuiFangZhiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1701 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1701,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1702,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1703,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture1704,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurnitureshiqi,tag,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture17gengxin,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture17gengxin,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1701 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture18Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture18,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture19,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture20,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture21,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture22,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture23,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture24,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture2501DangFangKuaiBeiShuiFangZhiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture2501,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture2502,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture2601,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture2602,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture26DangFangKuaiBeiShuiFangZhiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture26,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture18,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture19,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture20,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture21,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture22,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture23,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture24,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture2501DangFangKuaiBeiShuiFangZhiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture2501 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture2501,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture2502,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture2601,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture2602,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture26DangFangKuaiBeiShuiFangZhiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture26 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture26,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniturepingfeng,tag,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture26gengxin,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture2603,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture2701,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture2702,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture2703,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture2704,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture28,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture29FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture29,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture30,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture31,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture32,block,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture26gengxin,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture26 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture2603,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture2701,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture2702,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture2703,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture2704,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture28,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture29FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture29 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture29,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture30,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture31,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture32,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,MujiangGui,gui,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,MujiangGuiDangZheGeJieMianDaKaiShi,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,MujiangGuixvanze,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6534,10 +6534,10 @@ yvanchuxitong,Mujiangneed3,procedure,~/mujiangtai,craft,候选,第一版批量�
 yvanchuxitong,Mujiangneed4,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Mujiangtaijianzao,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shitiputuan,livingentity,~/zhuangshiwu/jiajv,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PutuanZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PutuanFangZhiFangKuaiShi,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PutuanDangFangKuaiBeiWanJiaPoPiShi,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Putuan,block,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PutuanZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Putuan 读：蒲团：放置时生成座位实体 shitiputuan，供坐下
+yvanchuxitong,PutuanFangZhiFangKuaiShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Putuan 读：蒲团：放置时生成座位实体 shitiputuan，供坐下
+yvanchuxitong,PutuanDangFangKuaiBeiWanJiaPoPiShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Putuan 读：蒲团：放置时生成座位实体 shitiputuan，供坐下
+yvanchuxitong,Putuan,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：蒲团：放置时生成座位实体 shitiputuan，供坐下
 yvanchuxitong,Putuanhecheng,recipe,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Itemdanyaohulu01hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Itemdanyaohulu03hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6994,11 +6994,11 @@ yvanchuxitong,XixveshiFangKuaiShiTiXuanRanShi,procedure,~/zawu,material,候选,�
 yvanchuxitong,Xixveshi,block,~/zawu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,XixveshiGengXinYouXiKe,procedure,~/zawu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Xixveshihecheng,recipe,~/zawu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei01FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei01,block,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Paiwei01FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：随 Paiwei01 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei01,block,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,Paiweiblock,tag,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei01item,item,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Paiwei01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：随 Paiwei01item 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei01item,item,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,Yan,particle,,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Gaoshipai,tag,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Plaque03itemhecheng,recipe,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7008,29 +7008,29 @@ yvanchuxitong,Plaque06itemhecheng,recipe,~/zhuangshiwu/plaque,decor,候选,第�
 yvanchuxitong,Plaque07itemhecheng,recipe,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Plaque08itemhecheng,recipe,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Plaque09itemhecheng,recipe,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei02,block,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei02item,item,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei03,block,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei03item,item,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei04,block,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei04item,item,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei05,block,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei05item,item,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei06,block,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei06item,item,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei07,block,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei07item,item,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei08,block,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei08item,item,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei09,block,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paiwei09item,item,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zisha01ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zisha01,block,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zisha01FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zisha02,block,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zisha01DangFangKuaiBeiShuiFangZhiShi,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zisha03GengXinYouXiKe,procedure,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zisha03,block,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Paiwei02,block,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei02item,item,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei03,block,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei03item,item,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei04,block,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei04item,item,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei05,block,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei05item,item,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei06,block,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei06item,item,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei07,block,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei07item,item,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei08,block,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei08item,item,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei09,block,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Paiwei09item,item,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
+yvanchuxitong,Zisha01ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Zisha01 读：紫砂茶具：放取茶杯 zisha_02、冒烟粒子，只改本方块物品栏
+yvanchuxitong,Zisha01,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：紫砂茶具：放取茶杯 zisha_02、冒烟粒子，只改本方块物品栏
+yvanchuxitong,Zisha01FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Zisha01 读：紫砂茶具：放取茶杯 zisha_02、冒烟粒子，只改本方块物品栏
+yvanchuxitong,Zisha02,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：紫砂茶具：放取茶杯 zisha_02、冒烟粒子，只改本方块物品栏
+yvanchuxitong,Zisha01DangFangKuaiBeiShuiFangZhiShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Zisha01 读：紫砂茶具：放取茶杯 zisha_02、冒烟粒子，只改本方块物品栏
+yvanchuxitong,Zisha03GengXinYouXiKe,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Zisha03 读：紫砂茶具：放取茶杯 zisha_02、冒烟粒子，只改本方块物品栏
+yvanchuxitong,Zisha03,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：紫砂茶具：放取茶杯 zisha_02、冒烟粒子，只改本方块物品栏
 yvanchuxitong,Yan02,particle,,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Taoguan01FangKuaiShiTiXuanRanShi,procedure,~/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Taoguan01ZaiFangKuaiShangYouJian,procedure,~/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7092,8 +7092,8 @@ yvanchuxitong,PlayerJoinGame,procedure,,flow,候选,第一版批量归组（目�
 yvanchuxitong,ShipinGo,procedure,~/zhiling,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shipin,command,~/zhiling,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Beechfurniture15GuiDangZheGeJieMianBeiGuanBi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture1501ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture03ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture1501ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1501 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture03ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture03 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Guchongshuxing,procedure,~/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shopwenti,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,QiancailubookDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）

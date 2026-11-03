@@ -2,7 +2,7 @@
 topic: engineering
 role: architecture
 status: current
-updated: 2026-11-02
+updated: 2026-11-03
 ---
 
 # 工程结构与长期维护
@@ -158,6 +158,8 @@ tools/porting/                  来源索引、台账检查、资源转换
 | 行为已迁移 | 入口到消费者已实现，静态核对完成 |
 | 已验收 | 按验证参考完成所需运行验证 |
 | 批准调整 | 负责人批准的行为调整或合并，附决定链接 |
+
+归属阅读（B1 步骤 6 起）：`tools/porting/ownership_evidence.py` 按候选单位输出 `build/ownership/<单位>.jsonl`，每个元素列出触发过程及其调用闭包、引用它的其他代码（带该代码元素的候选单位）、引用它的配方、标签、战利品表、进度、函数与语言文件。它只给出“该读什么”，不判定归属。阅读后在[归属表](../reference/legacy/inventory/ownership_assignment.csv)把元素改为“已读”，`evidence` 写明读到的规则；读同一元素时一并读过的过程元素按同一结论登记。随后运行 `build_ledger.py` 同步台账（行随归属移动），再运行 `build_architecture_catalog.py` 重建由归属推导的类归属与覆盖表。
 
 ## 数据与存档契约
 

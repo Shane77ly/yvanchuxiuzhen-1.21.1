@@ -1,4 +1,6 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
+block,yvanchuxiuzhen:guancai_01,yvanchuxiuzhen,Guancai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2007,creature,已读,yvanchuxiuzhen:guancai_01,待处理,
+block_entity_type,yvanchuxiuzhen:guancai_01,yvanchuxiuzhen,Guancai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,167,creature,已读,yvanchuxiuzhen:guancai_01,待处理,
 entity_type,yvanchuxiuzhen:guiguai_01,yvanchuxiuzhen,Guiguai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,695,creature,候选,yvanchuxiuzhen:guiguai_01,待处理,
 entity_type,yvanchuxiuzhen:guiguai_02,yvanchuxiuzhen,Guiguai02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,699,creature,候选,yvanchuxiuzhen:guiguai_02,待处理,
 entity_type,yvanchuxiuzhen:guiguai_03,yvanchuxiuzhen,Guiguai03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,785,creature,候选,yvanchuxiuzhen:guiguai_03,待处理,
@@ -89,6 +91,7 @@ entity_type,yvanchuxiuzhen:ycxzboss_01,yvanchuxiuzhen,Ycxzboss01,src/main/java/n
 entity_type,yvanchuxiuzhen:ycxzboss_02,yvanchuxiuzhen,Ycxzboss02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,749,creature,候选,yvanchuxiuzhen:ycxzboss_02,待处理,
 entity_type,yvanchuxiuzhen:ycxzboss_0201,yvanchuxiuzhen,Ycxzboss0201,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,753,creature,候选,yvanchuxiuzhen:ycxzboss_0201,待处理,
 entity_type,yvanchuxiuzhen:ycxzboss_04,yvanchuxiuzhen,Ycxzboss04,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1053,creature,候选,yvanchuxiuzhen:ycxzboss_04,待处理,
+item,yvanchuxiuzhen:guancai_01,yvanchuxiuzhen,Guancai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2790,creature,已读,yvanchuxiuzhen:guancai_01,待处理,
 item,yvanchuxiuzhen:guiguai_01_spawn_egg,yvanchuxiuzhen,Guiguai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2620,creature,候选,yvanchuxiuzhen:guiguai_01_spawn_egg,待处理,
 item,yvanchuxiuzhen:guiguai_02_spawn_egg,yvanchuxiuzhen,Guiguai02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2626,creature,候选,yvanchuxiuzhen:guiguai_02_spawn_egg,待处理,
 item,yvanchuxiuzhen:guiguai_03_spawn_egg,yvanchuxiuzhen,Guiguai03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2788,creature,候选,yvanchuxiuzhen:guiguai_03_spawn_egg,待处理,
