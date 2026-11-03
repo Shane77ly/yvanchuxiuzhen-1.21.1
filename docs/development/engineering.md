@@ -166,6 +166,7 @@ B1 步骤 6 结果（2026-11-03）：方块与物品行对应的 2,211 个元素
 ## 数据与存档契约
 
 - 附件、组件、SavedData 与 payload 一律使用 Codec / StreamCodec，同一定义承担存盘与网络。
+- 玩家附件（2026-11-03 attribute 实测，NeoForge 21.1.265）：所属系统 `data` 包持有 `DeferredRegister<AttachmentType<?>>`，附件值不可变，修改时生成新值经 `setData` 写回，写回即由 NeoForge 同步；`serialize(Codec)` 存档，按[复制策略表](../reference/legacy/inventory/clone_policy.csv)对 `all_clone_events` 字段使用 `copyOnDeath()`，只给本人看的数据用 `sync((holder, player) -> holder == player, StreamCodec)`。客户端冒烟检查核对了提交后同步、死亡重生与退出重进后的服务端与客户端值。附件已同步时不另建同内容的 payload。
 - 首个对外版本发布之前，存档格式可以直接修改，不写兼容分支；发布之后，注册 ID 与持久化格式是契约，变更必须附迁移和旧存档副本验证。
 - 1.18.2 世界与玩家存档是否导入仍待负责人决定，不在本结构中预设转换器。
 
@@ -187,10 +188,10 @@ B1 步骤 6 结果（2026-11-03）：方块与物品行对应的 2,211 个元素
 | 层 | 工具 | 接入时机 |
 | --- | --- | --- |
 | 结构守卫 | ArchUnit 1.5.1（JUnit 5.10.2 运行） | B0 步骤 3 已接入 |
-| 纯规则 | JUnit 5，只测易回归公式与已复现问题 | 第一个需要的系统 |
+| 纯规则 | JUnit 5，只测易回归公式与已复现问题，随 `gradlew check` 运行 | 已接入（attribute 的 `AttributeTotalsTest`，2026-11-03） |
 | 世界内行为 | NeoForge GameTest（独立源集，`gameTestServer` 运行） | 第一个需要的系统建立源集，之后按风险添加 |
 | 加载检查 | 开发服务端启动至 Done、客户端加载至声音引擎启动、日志无 ERROR | 每次依赖更新与批次出口 |
-| 客户端冒烟 | `gradlew runSmokeClient`（源集 `src/smoke`，不进入发布 JAR）：自动建创造世界，放置本 Mod 全部方块状态，核对每个方块与物品有模型、名称与提示文本翻译，对花、双格植物与每套盔甲（穿戴后三人称正面视角）各拍一张近景，打开创造栏并逐栏切换后截图，报告写入 `build/smoke/report.txt`，缺 `DONE` 行表示中途崩溃 | 每次改动内容表、资源、语言或创造栏后由开发者自己运行，不交给负责人手工操作 |
+| 客户端冒烟 | `gradlew runSmokeClient`（源集 `src/smoke`，不进入发布 JAR）：自动建创造世界，放置本 Mod 全部方块状态，核对每个方块与物品有模型、名称与提示文本翻译，对花、双格植物与每套盔甲（穿戴后三人称正面视角）各拍一张近景，打开创造栏并逐栏切换后截图，最后做各系统的实机检查（attribute：提交贡献、同步、死亡重生、退出重进），报告写入 `build/smoke/report.txt`，缺 `DONE` 行表示中途崩溃；`-PsmokeOnly=attribute` 时进入世界后只做该系统的检查 | 每次改动内容表、资源、语言或创造栏后由开发者自己运行，不交给负责人手工操作 |
 | 台账与文档 | `check_ledger.py`、`check_docs.py`、`inventory_legacy.py --check` | 每次提交前 |
 
 远端已建立，CI 尚未配置；配置后在 CI 执行构建、`check` 与文档/台账检查。来源工作区不在仓库中，`inventory_legacy.py --check` 只能在有来源的机器上执行。

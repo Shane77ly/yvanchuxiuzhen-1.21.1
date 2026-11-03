@@ -1,4 +1,6 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
+attribute,yvanchuxiuzhen:entitydaxiao,yvanchuxiuzhen,Entitydaxiao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModAttributes.java,24,creature,已读,yvanchuxiuzhen:entitydaxiao,待处理,
+attribute,yvanchuxiuzhen:yaoshoupifuxianshi,yvanchuxiuzhen,Yaoshoupifuxianshi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModAttributes.java,23,creature,已读,yvanchuxiuzhen:yaoshoupifuxianshi,待处理,
 block,yvanchuxiuzhen:guancai_01,yvanchuxiuzhen,Guancai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2007,creature,已读,yvanchuxiuzhen:guancai_01,待处理,
 block_entity_type,yvanchuxiuzhen:guancai_01,yvanchuxiuzhen,Guancai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,167,creature,已读,yvanchuxiuzhen:guancai_01,待处理,
 entity_type,yvanchuxiuzhen:guiguai_01,yvanchuxiuzhen,Guiguai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,695,creature,已读,yvanchuxiuzhen:guiguai_01,待处理,

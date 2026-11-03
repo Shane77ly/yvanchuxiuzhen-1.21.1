@@ -27,3 +27,7 @@ creature 提供生成初始化、驯服/主人查询、采集、收纳/释放和
 ## 完整验收
 
 逐实体族验证自然投放、刷怪蛋/命令/副本生成、属性、技能、形态切换、碰撞箱/视觉大小、掉落采集、驯养和移除。离线主人/袋被移动的行为需依据来源明确，不预设离线召回系统。静态 AI 索引不等于已验证寻路和战斗观感。
+
+## 实体属性（2026-11-03 attribute 归属阅读）
+
+来源的两个属性注册 `entitydaxiao`（体型，0.7–10，默认 1）与 `yaoshoupifuxianshi`（皮肤变体，1–5，默认 1）归本系统，台账行已移入本系统。`EntityAttributeModificationEvent` 把前者加给妖兽 `yaoshou_001`–`054`（缺 034、044）、`yaoshou_01701`、修者 `xiuzhe_0101` 与桃木精，后者加给 `yaoshou_001`、`002` 与 `xiuzhe_0101`；由生成、灵兽袋收放（`Lingshoushouna`、`Lingshoudaiyoujian`）与修者身高过程读写。

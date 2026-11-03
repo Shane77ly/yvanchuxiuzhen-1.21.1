@@ -100,10 +100,10 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 
 | 机制 | 曾选实物 | 归属 | 预计批次 |
 | --- | --- | --- | --- |
-| 玩家附件（Codec、按[复制策略表](../reference/legacy/inventory/clone_policy.csv)设置死亡复制、同步给本人） | PlayerVariables 字段 `colddownGold`（double，初值 0，`non_death_only`） | skill | C |
+| 玩家附件（Codec、按[复制策略表](../reference/legacy/inventory/clone_policy.csv)设置死亡复制、同步给本人） | 2026-11-03 由 attribute 的贡献附件先实现并实测（做法见[工程结构](engineering.md)“数据与存档契约”）；原选实物 `colddownGold`（`non_death_only`，非死亡复制）随 skill 迁移 | attribute | C 已完成 |
 | payload | `AnjianWMessage`（按键 W，处理过程 `ShenfaWProcedure`） | skill | C |
 | 代码注册转数据定义 | 原初系统唯一的附魔 `yvanchuxitong:chain`（目标 `yvanchuxiuzhen:chain`） | combat | C |
-| GameTest 独立源集（确认不进入发布 JAR）、JUnit 规则测试 | 按首个系统风险最高的流程选取 | — | C |
+| GameTest 独立源集（确认不进入发布 JAR）、JUnit 规则测试 | JUnit 已由 attribute 接入（2026-11-03）；GameTest 按首个需要世界内自动化的系统选取 | — | C |
 | 方块实体与菜单 | 家具 `Beechfurniture14`：`RandomizableContainerBlockEntity`，27 格，自有菜单 `Beechfurniture14GuiMenu`；归属已读（27 格无槽位过滤，不属于 `storage`） | decor | D |
 | GeckoLib 实体（选定 GeckoLib 版本） | `Silkwormmoth`：`PathfinderMob`，实现 `IAnimatable`；归属已读（只由蚕盒生成） | craft | D |
 

@@ -35,6 +35,7 @@ updated: 2026-11-03
 | 2026-11-03 | 血道按实际确认的内容改写 | [系统设计](../../development/system-design.md)“什么是系统”与[副职业](../profession/architecture.md)改为：副职业字段只由命令、升级与重置写入；吸血石、血流、血精构成的血道玩法是修炼与功法攻击的分支，归 `xiulian`，不立系统 |
 | 2026-11-03 | 无规则物品的归属：云清令 `ling_19` 归 world；令牌 `ling_07`、梦之羽毛 `ling_17` 归内容族 decor | 已改归属表、台账与内容表；读完来源后规则无法判定，按“归属判定”第 5 条提请后裁定 |
 | 2026-11-03 | 认可 B1 归属阅读结果（含读后改变归属的元素）与出口核对，B1 结束，进入 C | `port/b1-content` 合入 `main`；关口改为 C，工作分支 `port/c-attribute`；AGENTS.md 当前关口、[路线](../../development/roadmap.md)、[交接说明](../../development/handoff.md)同步 |
+| 2026-11-03 | Q17：防具与武器的炼器数值计入实际属性（最大生命、攻击伤害），与显示一致；Q18：受击方同属性功法使伤害增加的来源行为暂时保持，记录为待处理问题，之后再议；按路线自动推进并完成客户端测试，途中问题记入文档，重大问题时停下商议 | Q17 按选项 b 实现于 attribute（`VanillaAttributes`），妖化防具的生命修饰符随 equipment 去掉；Q18 保持来源公式，[调查问题表](../../reference/legacy/source-survey.md)标为“暂按来源、待再议”；见[属性](../attribute/architecture.md)“来源问题” |
 
 ## 系统设计重审
 

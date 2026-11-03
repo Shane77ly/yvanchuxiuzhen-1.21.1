@@ -31,3 +31,11 @@ equipment 拥有器物实例组件与专属槽位；lianqi 计算制作结果后
 ## 来源登记位置
 
 GeckoLib 盔甲（`Armor01Item`–`Armor13Item`、`Fuqi02Item`、`Clothes05Item`、`Clothes19Item`、`Yaohua0101Item`，共 65 件，`Armor10Item` 只有胸甲）不在 `ModItems`，由 `YvanchuxiuzhenModGeckoLibArmors` 用独立的注册器登记，渲染器与动画由 `ModGeckoLibArmors`、`ArmorAnimationFactory` 装配。2026-11-02 之前的登记索引漏扫了这个类，现已补入台账（装备 61 件、`festival` 4 件）；它们随 GeckoLib 的引入迁移。
+
+## 向 attribute 提交属性贡献（2026-11-03 attribute 归属阅读）
+
+attribute 的归属阅读把下列元素归入本系统，实现时按 [attribute 公开操作](../attribute/README.md)提交加成层贡献：
+
+- `ShuxingjisuanZong`：来源每 tick 比较四件防具与主手和快照 `kuijia1`–`4`、`wuqilinshi`（`bubianzhi` 随机标记与物品种类），变化时重算。目标监听装备变化，按当前装备提交防具 `lianqizong.<属性>`、饰品物品 NBT `<属性>`、四件防具的附魔（`dawn` → 生命回复，`powerup` → 灵力回复，`attdef` → 物理防御，`manadef` → 法术防御）、`colddown` 附魔等级 × 0.01（四件防具与四个饰品槽）与手持武器（`forge:wuqi` 或 `forge:fabao`）`lianqizong.attack_num`、`mana_Att`、`soul_Att`；同种物品组件变化也要重新提交。登录与重生时按当前装备重新提交（贡献随附件跨越死亡保留）。
+- `Weaponshuxing`：妖化防具（`forge:yaohuaarmor`，按部位带 `toukui`、`xiongjia`、`kuzi`、`zhanxve`）的物品修饰符。Q17 裁定后最大生命已含防具炼器数值，`lianqizong.health_Max` 的生命修饰符不再添加，否则重复计入；击退抗性、攻速、移速三项（按基础值乘算）保留。
+- `Attributexianshi`（原初系统）：主手长枪 `weaponspear_01`–`09`（`forge:yispear`）的 `forge:attack_range` +2；1.21.1 中对应的原版属性实现时核对。

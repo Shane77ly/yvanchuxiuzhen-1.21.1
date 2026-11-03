@@ -1116,4 +1116,5 @@ menu,yvanchuxitong:beechfurniture_18_gui,yvanchuxitong,Beechfurniture18Gui,src/m
 menu,yvanchuxitong:plaque_gui,yvanchuxitong,PlaqueGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,77,decor,候选,yvanchuxiuzhen:plaque_gui_xitong,待处理,与原初修真 plaque_gui 同名：界面与贴图相同，控件坐标、按钮消息与文本过程不同；暂定此 ID，实现 decor 时决定合并或改名
 menu,yvanchuxiuzhen:paiwei_gui,yvanchuxiuzhen,PaiweiGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,94,decor,候选,yvanchuxiuzhen:paiwei_gui,待处理,
 menu,yvanchuxiuzhen:plaque_gui,yvanchuxiuzhen,PlaqueGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,90,decor,候选,yvanchuxiuzhen:plaque_gui,待处理,
+painting_variant,yvanchuxiuzhen:painting_01,yvanchuxiuzhen,Painting01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModPaintings.java,17,decor,候选,yvanchuxiuzhen:painting_01,待处理,
 sound_event,yvanchuxiuzhen:yaoqiantong,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModSounds.java,37,decor,已读,yvanchuxiuzhen:yaoqiantong,已注册,

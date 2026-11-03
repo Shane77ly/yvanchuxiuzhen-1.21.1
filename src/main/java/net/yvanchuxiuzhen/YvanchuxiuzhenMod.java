@@ -5,6 +5,7 @@ import net.neoforged.fml.common.Mod;
 import net.yvanchuxiuzhen.collection.decor.DecorSetup;
 import net.yvanchuxiuzhen.collection.festival.FestivalSetup;
 import net.yvanchuxiuzhen.collection.tiandao.TiandaoSetup;
+import net.yvanchuxiuzhen.system.attribute.AttributeSetup;
 import net.yvanchuxiuzhen.system.book.BookSetup;
 import net.yvanchuxiuzhen.system.combat.CombatSetup;
 import net.yvanchuxiuzhen.system.cooking.CookingSetup;
@@ -44,6 +45,7 @@ public final class YvanchuxiuzhenMod {
     public YvanchuxiuzhenMod(IEventBus modBus) {
         RegistryExport.register();
         ContentTabs.register(modBus);
+        AttributeSetup.register(modBus);
         BookSetup.register(modBus);
         CombatSetup.register(modBus);
         CookingSetup.register(modBus);

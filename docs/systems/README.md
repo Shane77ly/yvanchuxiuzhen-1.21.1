@@ -13,21 +13,21 @@ updated: 2026-11-01
 | --- | --- | ---: | ---: | --- |
 | [`particle`](particle/README.md) | 粒子库 | 307 | 0 | 只有内容台账；没有玩法规则 |
 
-没有编辑器元素的注册（声音事件、画）在[待归属台账](project/ledger/content.csv)。
+没有编辑器元素的注册（声音事件）按[注册归属表](../reference/legacy/inventory/registration_ownership.csv)归属；尚未确定归属的注册放在 `project/ledger/content.csv`，当前没有。
 
 | 系统 | 中文 | 候选元素 | 已读 | 状态 |
 | --- | --- | ---: | ---: | --- |
-| [`attribute`](attribute/README.md) | 属性 | 9 | 0 | 调查正文已建立；实现及运行验收未开始 |
+| [`attribute`](attribute/README.md) | 属性 | 3 | 3 | 公开操作、贡献汇总与附件已实现，开发客户端检查通过；提交系统的真实路径未验证 |
 | [`relation`](relation/README.md) | 关系 | 84 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`material`](material/README.md) | 材料 | 372 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`storage`](storage/README.md) | 储物 | 116 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`profession`](profession/README.md) | 副职业 | 21 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`gongfa`](gongfa/README.md) | 功法 | 475 | 0 | 调查正文已建立；实现及运行验收未开始 |
-| [`xiulian`](xiulian/README.md) | 修炼 | 155 | 2 | 调查正文已建立；实现及运行验收未开始 |
+| [`xiulian`](xiulian/README.md) | 修炼 | 170 | 17 | 调查正文已建立；实现及运行验收未开始 |
 | [`combat`](combat/README.md) | 战斗 | 248 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`skill`](skill/README.md) | 技能 | 375 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`yihuo`](yihuo/README.md) | 异火 | 97 | 0 | 调查正文已建立；实现及运行验收未开始 |
-| [`equipment`](equipment/README.md) | 装备 | 337 | 0 | 调查正文已建立；实现及运行验收未开始 |
+| [`equipment`](equipment/README.md) | 装备 | 334 | 253 | 调查正文已建立；实现及运行验收未开始 |
 | [`plant`](plant/README.md) | 植物 | 812 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`cooking`](cooking/README.md) | 烹饪 | 322 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`liandan`](liandan/README.md) | 炼丹 | 150 | 0 | 调查正文已建立；实现及运行验收未开始 |
@@ -38,7 +38,7 @@ updated: 2026-11-01
 | [`treasure`](treasure/README.md) | 宝箱 | 114 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`town`](town/README.md) | 城镇 | 36 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`dungeon`](dungeon/README.md) | 副本 | 43 | 8 | 调查正文已建立；实现及运行验收未开始 |
-| [`creature`](creature/README.md) | 生物 | 703 | 0 | 调查正文已建立；实现及运行验收未开始 |
+| [`creature`](creature/README.md) | 生物 | 707 | 585 | 调查正文已建立；实现及运行验收未开始 |
 | [`guchong`](guchong/README.md) | 蛊虫 | 71 | 35 | 调查正文已建立；实现及运行验收未开始 |
 | [`npc`](npc/README.md) | 修士 | 72 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`zhenfa`](zhenfa/README.md) | 阵法 | 59 | 0 | 调查正文已建立；实现及运行验收未开始 |
