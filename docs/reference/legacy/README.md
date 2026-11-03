@@ -2,7 +2,7 @@
 topic: legacy-source
 role: entry
 status: partial
-updated: 2026-11-01
+updated: 2026-11-03
 ---
 
 # 1.18.2 工程来源
@@ -27,6 +27,19 @@ updated: 2026-11-01
 | 职业跨 Mod 调用 | 系统侧 `src/main/java/net/mcreator/yvanchuxitong/procedures/Tripod01ZaiFangKuaiShangYouJianProcedure.java:43` | 从修真玩家能力读取 Refiner_LEVEL，再写入鼎炉 RefinerLEVEL |
 | 方块物品注册 | 两侧 `init/*ModItems.java` 的 block 辅助函数 | 物品清单需要解析方块引用，不能只匹配字面量 register |
 | 声音注册 | 修真侧 `init/YvanchuxiuzhenModSounds.java` | 使用 Map 与 ResourceLocation 注册，不能只读取 RegistryObject 字段 |
+
+## 来源完整性核对（2026-11-03）
+
+两个 1.18.2 工程目录在来源工作区中被 `.gitignore` 排除，没有版本历史。核对以工程内的整体压缩包为基线（原初修真 `1.18.2yvanchuxiuzhen.zip`，2025-08-23；原初系统 `1.18.2yvanchuxitong.zip`，2025-10-21），按路径与 CRC32 比较 `src`、`elements`、`models` 与 Gradle 文件：
+
+| 差异 | 原初修真 | 原初系统 | 判断 |
+| --- | ---: | ---: | --- |
+| 压缩包之后修改或新增，日期 2025-08 至 2025-11 | 元素定义、生成 Java、语言、配方等约 290 个 | 6 个 | 作者在 MCreator 中继续开发：元素定义与生成代码同步变化，早于来源复制进 `reference`（2026-04-30）与邻近工程首个提交（2026-05-02）；作者 2025-11-08 构建的 `build/libs/modid-1.0.jar` 含其中新增的 `Clothes18Item`、`Businessman10Entity` 等 |
+| 新增，日期 2026-04-30 至 2026-05-24 | 1,125 个 | 0 | 邻近工程的 Codex 作业放入的草稿：`textures/codex_work`、`_codex_cutouts`、`_codex_cutouts64`、`generated_herb_tests`、`_tmp_*.py`、HUD 与界面试作图、拼版图、`textures/items` 中名称含 `codex`、`imagegen` 的书籍与火球术图标；作者的 jar 中没有任何这类文件 |
+| 修改，日期 2026 | 0 | 0 | 没有发现 Codex 改动已有来源文件 |
+| 压缩包中有而现在缺失 | 0 | 0 | 没有删除 |
+
+结论：本项目以当前来源目录为准；2026 年新增的 1,125 个文件不是来源内容，不迁移，转换清单中没有引用它们。比较只覆盖上列目录，不含 `run`、`build` 与 `.mcreator`。
 
 ## 静态基线与限制
 
