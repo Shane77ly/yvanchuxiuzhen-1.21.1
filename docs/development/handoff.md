@@ -28,6 +28,11 @@ C 玩家与战斗核心，当前系统 xiulian（分支 `port/c-xiulian`，从 `
 - attribute：Q17 裁定实际属性计入炼器数值，Q18 暂按来源行为待再议；见[属性](../systems/attribute/README.md)。留待其他系统：重算粒子随 particle；提交贡献的真实路径随 xiulian、gongfa、equipment、fulu、economy；equipment 去掉妖化防具的生命修饰符。
 - relation：敌友判定、团队与阵营、好友与申请界面；Q19（好友功能来源缺陷，保持来源行为）与 Q20（改团队名入口不可达，`gui_0301` 待裁定）；见[关系](../systems/relation/README.md)。留待其他系统：方块实体的敌友判定随首个调用者；好友行境界名随 xiulian。
 
+xiulian 进度（分阶段在本分支提交）：
+- 阶段 1 已提交（wip）：玩家附件 `cultivation`（`CultivationData`：42 个来源字段，初值同来源，死亡复制，只同步本人）与公开操作 `Cultivation`（查询、加减、赋值；灵根与阴阳变化时向 attribute 提交 `xiulian:roots` 基础层贡献）。来源中外部写入只有“加减、乘后写回、赋值”三种，均不在写入处截断上限。
+- 阶段 2 待做：登录初始化（`PlayerJoinGame` 中 xiulian 的部分：灵根全为 0 且游戏规则 `jinruyouxichushenxvanze` 为真时按 `linggenlevel` 随机五行灵根、阴阳 = 金 + 火 − 木 − 水、随机 1–10 选体质（来源列了 12 种，11、12 取不到，记为来源问题）、打开出身界面 `PlayerJoinGUI`；`tizhiitem` 载体与每日修为额度 `dailyexperience`/`dayjilu`）；两个游戏规则登记；`PlayerJoinGame` 每次登录把原版 `keepInventory` 设为真（归属待读，可能属 flow）。
+- 阶段 3 起：`PlayerTick` 的修炼与恢复（`Kaishixiulian`、`Playerhuifu`、日收益）、升级与突破（`LEVELup`、`LevelupCorrect`、`RealmupCorrect`，改为向 attribute 提交成长贡献）、升级界面 `playershengjixianshi`、丹田界面 `dantian_gui`（金丹、元婴）、雷劫（实体 `tianjie_03/05/07`、`jieyvn` 与 `yvanyingchuqiao` 为 GeckoLib 动画实体，需先接入 GeckoLib）、血道（`xixveshi` 方块实体、`xveliu` 流体与桶）、物品 `ling_09/10/11/18`、`xvejing`、`jiazubaibaodai`。
+
 下一步具体操作（xiulian，之后 gongfa；做法同 attribute、relation）：
 0. xiulian 的公开操作须包含：境界、灵根、功德、罡煞、寿元、闭关状态的查询与扣减，向 attribute 提交基础层贡献（成长与灵根），以及接收 gongfa 提交的主修功法信息（名字、品阶、是否本人所有）。
 1. 读 xiulian（之后 gongfa）的候选元素归属（[归属表](../reference/legacy/inventory/ownership_assignment.csv)），用 `tools/porting/ownership_evidence.py` 列证据，读后改为“已读”并运行 `build_ledger.py`、`build_architecture_catalog.py`。
