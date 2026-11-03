@@ -14,13 +14,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-/** 读取类路径中的内容表文件，行解码失败或含有 Codec 不认识的字段时报出文件与行号并中止启动。 */
-final class ContentFiles {
+/**
+ * 读取类路径中的内容表文件（一个 JSON 数组，一个元素一行），行解码失败或含有 Codec 不认识的字段时报出文件与行号并中止启动。
+ * 系统自己的数据表（如功法定义）也经此读取。
+ */
+public final class ContentFiles {
     private ContentFiles() {
     }
 
     /** 文件不存在时返回空列表：单位只在有对应内容时才有 blocks.json 或 items.json。 */
-    static <T> List<T> read(String path, Codec<T> codec) {
+    public static <T> List<T> read(String path, Codec<T> codec) {
         try (InputStream stream = ContentFiles.class.getResourceAsStream("/" + path)) {
             if (stream == null) {
                 return List.of();

@@ -167,6 +167,7 @@ B1 步骤 6 结果（2026-11-03）：方块与物品行对应的 2,211 个元素
 
 - 附件、组件、SavedData 与 payload 一律使用 Codec / StreamCodec，同一定义承担存盘与网络。
 - 玩家附件（2026-11-03 attribute 实测，NeoForge 21.1.265）：所属系统 `data` 包持有 `DeferredRegister<AttachmentType<?>>`，附件值不可变，修改时生成新值经 `setData` 写回，写回即由 NeoForge 同步；`serialize(Codec)` 存档，按[复制策略表](../reference/legacy/inventory/clone_policy.csv)对 `all_clone_events` 字段使用 `copyOnDeath()`，只给本人看的数据用 `sync((holder, player) -> holder == player, StreamCodec)`。客户端冒烟检查核对了提交后同步、死亡重生与退出重进后的服务端与客户端值。附件已同步时不另建同内容的 payload。
+- 物品组件（2026-11-03 gongfa 首例，NeoForge 21.1.265）：所属系统 `data` 包用 `DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ModId.VALUE)` 登记，`persistent(Codec)` 存档、`networkSynchronized(StreamCodec)` 同步；组件值是不可变记录，修改时 `stack.set` 写入新值。来源物品 NBT 的键在记录中改为语义字段，字段与来源键的对应写在记录的类注释。系统自己的数据表（如功法定义）经 `platform/content/ContentFiles.read` 读取，与内容表同样逐行校验。
 - payload（2026-11-03 relation 实测）：所属系统 `network` 包定义 `record ... implements CustomPacketPayload`（`Type` 以 Mod ID 为命名空间，`StreamCodec` 编码），`<名称>Setup` 在 Mod 总线的 `RegisterPayloadHandlersEvent` 中 `registrar("1").playToServer(...)` 登记；处理在服务端主线程，按发送者当前打开的菜单与按钮范围校验后分派，不符时不处理。界面显示用的数据由附件同步，payload 只承载操作。
 - 首个对外版本发布之前，存档格式可以直接修改，不写兼容分支；发布之后，注册 ID 与持久化格式是契约，变更必须附迁移和旧存档副本验证。
 - 1.18.2 世界与玩家存档是否导入仍待负责人决定，不在本结构中预设转换器。
