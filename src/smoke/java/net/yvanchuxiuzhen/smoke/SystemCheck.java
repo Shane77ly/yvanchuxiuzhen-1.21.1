@@ -21,6 +21,8 @@ abstract class SystemCheck {
     private int step;
     private int stepStart;
     private boolean busy;
+    private boolean leaving;
+    private int settledTicks;
     private boolean done;
 
     SystemCheck(String name, List<String> report, String levelId) {
@@ -35,6 +37,10 @@ abstract class SystemCheck {
     /** 每个客户端 tick 调用一次，全部检查完成时返回 true。退出存档期间客户端会嵌套调用 tick，此时不推进。 */
     final boolean tick(int ticks) {
         if (busy) {
+            return false;
+        }
+        if (leaving) {
+            disconnectWhenSettled();
             return false;
         }
         if (!done && step(step, ticks - stepStart)) {
@@ -70,8 +76,23 @@ abstract class SystemCheck {
         return false;
     }
 
-    /** 保存并退出到标题界面。 */
+    /**
+     * 保存并退出到标题界面。集成服务端的区块待办任务连续 40 tick 为 0 后才断开：新建世界后很快退出时，
+     * 停止流程偶发停在 {@code Saving worlds} 等待某个区块的保存条件（见 docs/systems/project/logs/2026-11.md）。
+     */
     protected final void leaveWorld() {
+        leaving = true;
+        settledTicks = 0;
+    }
+
+    private void disconnectWhenSettled() {
+        int[] pending = new int[1];
+        onServer(player -> pending[0] = player.server.overworld().getChunkSource().getPendingTasksCount());
+        settledTicks = pending[0] == 0 ? settledTicks + 1 : 0;
+        if (settledTicks < 40) {
+            return;
+        }
+        leaving = false;
         busy = true;
         minecraft.level.disconnect();
         minecraft.disconnect(new GenericMessageScreen(Component.literal("saving")));

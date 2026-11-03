@@ -201,6 +201,7 @@ yvanchuxiuzhen/src/main/resources/data/minecraft/tags/blocks/needs_diamond_tool.
 yvanchuxiuzhen/src/main/resources/data/minecraft/tags/blocks/needs_iron_tool.json,8a23702b05296c8af5014d6aa6e9265ded85c7d9,src/main/resources/data/minecraft/tags/block/needs_iron_tool.json
 yvanchuxiuzhen/src/main/resources/data/minecraft/tags/blocks/needs_stone_tool.json,5d84ddcce3fc321b5e8e33d14aa1387452c65065,src/main/resources/data/minecraft/tags/block/needs_stone_tool.json
 yvanchuxiuzhen/src/main/resources/data/minecraft/tags/blocks/saplings.json,7cdd7edbe5940ae08588264b413ae6906e194397,src/main/resources/data/minecraft/tags/block/saplings.json
+yvanchuxiuzhen/src/main/resources/data/minecraft/tags/fluids/water.json,f71b61565e31b7b5195316d905a3d98592daa1fb,src/main/resources/data/minecraft/tags/fluid/water.json
 yvanchuxiuzhen/src/main/resources/data/minecraft/tags/items/freeze_immune_wearables.json,c0816dbc05b51a3048d220eb4810a4fce6127a3b,src/main/resources/data/minecraft/tags/item/freeze_immune_wearables.json
 yvanchuxiuzhen/src/main/resources/data/minecraft/tags/items/planks.json,c10aeb47dd3e07aacbd5cbc9966726d66a6fe271,src/main/resources/data/minecraft/tags/item/planks.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/advancements/chengjiu_001.json,1b1d9c7618ab2bdf23cc0accfe0447e9bec2e26e,src/main/resources/data/yvanchuxiuzhen/advancement/chengjiu_001.json

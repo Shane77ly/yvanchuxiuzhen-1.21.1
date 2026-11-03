@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -36,7 +37,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 /**
  * 一个系统或内容族的内容表加载器：读取 {@code content/<单位>/blocks.json}、{@code items.json} 与 {@code sounds.json}，
  * 解码后登记到本单位的 DeferredRegister，并把带创造栏的物品交给 {@link ContentTabs}。声音事件为可变范围事件，
- * 与来源的 {@code new SoundEvent(位置)} 一致。物品行的工厂名不是内置类型时，查本单位用 {@link #itemFactory} 登记的工厂。
+ * 与来源的 {@code new SoundEvent(位置)} 一致。行的工厂名不是内置类型时，查本单位用 {@link #blockFactory}、{@link #itemFactory} 登记的工厂。
  */
 public final class ContentTables {
     private final String unit;
@@ -44,10 +45,17 @@ public final class ContentTables {
     private final DeferredRegister.Items items = DeferredRegister.createItems(ModId.VALUE);
     private final DeferredRegister<ArmorMaterial> armorMaterials = DeferredRegister.create(Registries.ARMOR_MATERIAL, ModId.VALUE);
     private final DeferredRegister<SoundEvent> sounds = DeferredRegister.create(Registries.SOUND_EVENT, ModId.VALUE);
+    private final Map<String, Function<BlockTraits, Block>> blockFactories = new HashMap<>();
     private final Map<String, BiFunction<Item.Properties, List<Component>, Item>> itemFactories = new HashMap<>();
 
     public ContentTables(String unit) {
         this.unit = unit;
+    }
+
+    /** 登记本单位的专属方块类型；须在 {@link #register} 之前调用。工厂收到该行解析后的 {@link BlockTraits}。 */
+    public ContentTables blockFactory(String factory, Function<BlockTraits, Block> creator) {
+        blockFactories.put(factory, creator);
+        return this;
     }
 
     /** 登记本单位的专属物品类型；须在 {@link #register} 之前调用。工厂收到行的物品属性与提示文本。 */
@@ -59,7 +67,7 @@ public final class ContentTables {
     public void register(IEventBus modBus) {
         Map<String, DeferredBlock<Block>> registered = new HashMap<>();
         for (BlockRow row : ContentFiles.read("content/" + unit + "/blocks.json", BlockRow.CODEC)) {
-            registered.put(row.id(), blocks.register(row.id(), () -> ContentBlocks.create(row)));
+            registered.put(row.id(), blocks.register(row.id(), () -> ContentBlocks.create(row, blockFactories)));
         }
         Map<String, Holder<ArmorMaterial>> materials = new HashMap<>();
         for (ArmorMaterialRow row : ContentFiles.read("content/" + unit + "/armor_materials.json", ArmorMaterialRow.CODEC)) {

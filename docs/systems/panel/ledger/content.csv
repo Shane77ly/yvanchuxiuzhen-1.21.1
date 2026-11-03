@@ -7,4 +7,3 @@ menu,yvanchuxiuzhen:player_gui_05,yvanchuxiuzhen,PlayerGUI05,src/main/java/net/m
 menu,yvanchuxiuzhen:player_gui_06,yvanchuxiuzhen,PlayerGUI06,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,76,panel,候选,yvanchuxiuzhen:player_gui_06,待处理,
 menu,yvanchuxiuzhen:player_gui_07,yvanchuxiuzhen,PlayerGUI07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,86,panel,候选,yvanchuxiuzhen:player_gui_07,待处理,
 menu,yvanchuxiuzhen:player_gui_08,yvanchuxiuzhen,PlayerGUI08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,107,panel,候选,yvanchuxiuzhen:player_gui_08,待处理,
-menu,yvanchuxiuzhen:player_join_gui,yvanchuxiuzhen,PlayerJoinGUI,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,75,panel,候选,yvanchuxiuzhen:player_join_gui,待处理,

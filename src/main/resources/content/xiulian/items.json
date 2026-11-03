@@ -1,7 +1,7 @@
 [
-{"id":"xvejing","factory":"item","order":970,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["use"]},
-{"id":"ling_09","factory":"item","order":973,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["use"]},
-{"id":"ling_10","factory":"item","order":974,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["use"]},
+{"id":"xvejing","factory":"xiulian:xvejing","order":970,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["use"]},
+{"id":"ling_09","factory":"xiulian:ling_09","order":973,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["use"]},
+{"id":"ling_10","factory":"xiulian:ling_10","order":974,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["use"]},
 {"id":"ling_11","factory":"item","order":1495,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["use"]},
 {"id":"jiazubaibaodai","factory":"item","order":1758,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"rarity":"EPIC","fire_resistant":true,"tooltip":["家族族长给你的宝袋，每隔一段时间可以取出一些东西。"],"pending_hooks":["use"]},
 {"id":"ling_18","factory":"item","order":1761,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"tooltip":["一件古老的传承灵物，里面存放着什么东西？","§7（据说是老祖宗喝醉了后做的，所以别抱有太大期待。）"],"pending_hooks":["use"]},

@@ -58,6 +58,7 @@ entity_type,yvanchuxiuzhen:swordsmanship_02,yvanchuxiuzhen,Swordsmanship02,src/m
 entity_type,yvanchuxiuzhen:swordsmanship_03,yvanchuxiuzhen,Swordsmanship03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,371,skill,候选,yvanchuxiuzhen:swordsmanship_03,待处理,
 entity_type,yvanchuxiuzhen:swordsmanship_04,yvanchuxiuzhen,Swordsmanship04,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,373,skill,候选,yvanchuxiuzhen:swordsmanship_04,待处理,
 entity_type,yvanchuxiuzhen:xvkongliexi,yvanchuxiuzhen,Xvkongliexi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,819,skill,候选,yvanchuxiuzhen:xvkongliexi,待处理,
+entity_type,yvanchuxiuzhen:yvanyingchuqiao,yvanchuxiuzhen,Yvanyingchuqiao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1049,skill,已读,yvanchuxiuzhen:yvanyingchuqiao,待处理,
 item,yvanchuxiuzhen:danhuo,yvanchuxiuzhen,Danhuo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3050,skill,已读,yvanchuxiuzhen:danhuo,已注册,
 item,yvanchuxiuzhen:lingwentexiao,yvanchuxiuzhen,Lingwentexiao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3049,skill,已读,yvanchuxiuzhen:lingwentexiao,已注册,
 item,yvanchuxiuzhen:skill_arrow_01,yvanchuxiuzhen,SkillArrow01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1970,skill,已读,yvanchuxiuzhen:skill_arrow_01,已注册,

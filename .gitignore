@@ -10,3 +10,5 @@ __pycache__/
 .vscode/
 *.iml
 node_modules/
+hs_err_pid*.log
+replay_pid*.log

@@ -9,7 +9,7 @@ updated: 2026-11-03
 
 本路线覆盖两个 1.18.2 Mod 的全部范围。各批次完成整个所属系统及其内容，不把抽样功能作为交付范围。技术检查可以先定位某个 API 问题，但抽样通过不能抵消剩余内容。
 
-负责人 2026-11-02 批准本路线、[整体架构](architecture.md)与[工程结构与长期维护](engineering.md)（main 提交 `3e0585c` 版本），批准不含存档导入、界面复刻程度、license 与 Q01–Q14。A 已完成。B0 完成步骤 1–5（依赖升级、骨架、ArchUnit、台账、片段合并）后，负责人 2026-11-02 指示结束 B0、转入 B1（工作分支 `port/b1-content`）：B0 的内容表加载、资源转换与注册表导出以全量方式在 B1 实现；玩家附件、payload、方块实体与菜单、GeckoLib 实体、代码注册转数据定义、GameTest 与 JUnit 规则测试，在首个需要该机制的系统批次按正式结构实现并实测，结论写回[工程结构](engineering.md)。进度以[交接说明](handoff.md)为准。2026-11-02 批准的[系统设计](system-design.md)改写了 C～G 的系统名与顺序。2026-11-03 负责人决定 B1 内一次读完全部方块、物品与声音事件的归属，B1 出口不变；同日 B1 出口核对获负责人认可，B1 结束，转入 C；attribute、relation 同日完成并合入 `main`，下一个 gongfa（工作分支 `port/c-gongfa`）。没有 goal 任务。
+负责人 2026-11-02 批准本路线、[整体架构](architecture.md)与[工程结构与长期维护](engineering.md)（main 提交 `3e0585c` 版本），批准不含存档导入、界面复刻程度、license 与 Q01–Q14。A 已完成。B0 完成步骤 1–5（依赖升级、骨架、ArchUnit、台账、片段合并）后，负责人 2026-11-02 指示结束 B0、转入 B1（工作分支 `port/b1-content`）：B0 的内容表加载、资源转换与注册表导出以全量方式在 B1 实现；玩家附件、payload、方块实体与菜单、GeckoLib 实体、代码注册转数据定义、GameTest 与 JUnit 规则测试，在首个需要该机制的系统批次按正式结构实现并实测，结论写回[工程结构](engineering.md)。进度以[交接说明](handoff.md)为准。2026-11-02 批准的[系统设计](system-design.md)改写了 C～G 的系统名与顺序。2026-11-03 负责人决定 B1 内一次读完全部方块、物品与声音事件的归属，B1 出口不变；同日 B1 出口核对获负责人认可，B1 结束，转入 C；attribute、relation 同日完成并合入 `main`。同日会话按依赖方向把 C 内顺序调整为 xiulian 先于 gongfa（gongfa 依赖 xiulian 的公开操作，理由见[功法](../systems/gongfa/README.md)“依赖方向”），下一个 xiulian（工作分支 `port/c-xiulian`）。没有 goal 任务。
 
 ## 批次和出口
 
@@ -18,7 +18,7 @@ updated: 2026-11-03
 | A 调查和方案 | 来源身份、全部注册/文件/状态/过程/编辑器图索引、关键调用链、系统调查正文（2026-11-02 按[系统设计](system-design.md)重组）、公共入口与依赖、工程结构、待裁定问题和开发文档 | 两个参考工程 | 提案可追踪到源码；负责人明确批准架构与范围后才能进入实现（2026-11-02 已批准架构、工程结构与路线） |
 | B0 架构验证切片 | 依赖升到当时最新补丁；代码骨架与客户端入口；ArchUnit 规则；台账 CSV 与 `check_ledger.py`；语言/声音片段合并；内容表加载；资源转换工具首个类型；一个玩家附件（Codec、死亡复制、同步）、一个 payload、一个方块实体与菜单、一个 GeckoLib 实体、一个代码注册转数据定义、一个 GameTest、一个 JUnit 规则测试 | A 批准 | 每项在开发服务端与客户端实际运行；两个来源 Mod 的内容在统一命名空间下的注册、资源与翻译实测；验证结果写回[工程结构](engineering.md)并移除对应“待验证” |
 | B1 全量内容身份与资源 | 全部物品、方块、方块物品、声音、创造栏按内容表登记；全部不依赖新代码类型的资源转换（模型、纹理、方块状态、配方、掉落、标签、进度、结构、语言、声音）；结构 NBT 升级方式定案 | B0 | 台账每条相关来源注册为“已注册”或“批准调整”；开发服务端导出的注册表与台账一致；服务端与客户端启动日志无缺失模型/纹理/翻译；不把“已注册”计为玩法完成 |
-| C 玩家与战斗核心 | 依次完成 attribute → relation → gongfa → xiulian → combat → skill → yihuo → equipment 的全部内容、行为与数值；`panel` 的分页框架随首个分页建立 | B1 | 每条玩法和数值表有入口及消费者；保存/死亡/重登与目标事件阶段验证 |
+| C 玩家与战斗核心 | 依次完成 attribute → relation → xiulian → gongfa → combat → skill → yihuo → equipment 的全部内容、行为与数值（2026-11-03 会话按依赖方向把 xiulian 调到 gongfa 之前）；`panel` 的分页框架随首个分页建立 | B1 | 每条玩法和数值表有入口及消费者；保存/死亡/重登与目标事件阶段验证 |
 | D 材料和生产 | 先 material、storage、profession；再 liandan、lianqi、fulu、plant、cooking、craft 与内容族 decor、festival，可并行 | C 所需契约 | 全部输入/产物去向、职业进度、失败与装置生命周期完成 |
 | E 世界和生物 | world（含群系/地物的代码转数据定义与地物类型）→ creature（实体类型、AI、形态、动画、采集、驯养）→ guchong、dungeon、treasure | C；D 的 materials | 生存获取链闭合；模型/动画/体型/伤害/掉落与实际运行记录对应 |
 | F NPC、经济、任务 | npc → economy → quest → town、book | C；D、E 的实际消费者 | 获取、消费、扣款、发奖和推进均接通；现场多人交互与保存恢复核对 |

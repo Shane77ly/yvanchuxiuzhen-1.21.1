@@ -41,6 +41,8 @@
 | 旧结构 NBT | `StructureTemplateManager.readStructure` 按文件里的 DataVersion 用数据修复器升级；DataVersion 2975（1.18.2）的结构可直接加载，调色板里的原版 `grass` 变为 `short_grass`（2026-11-02 实测，160 个结构）。调色板里不存在的方块名静默变成空气，没有日志 | 不必预先升级，只需把来源命名空间改写成目标命名空间；登记新方块后重新核对调色板 |
 | 结构里的额框与画 | NBT 中保存旧世界的绝对坐标 `TileX/Y/Z`，`BlockAttachedEntity` 读取时离实体超过 16 格即记 ERROR，实体位置仍由摆放代码重设 | 摆放结构会产生这类 ERROR 日志，功能不受影响 |
 | 超大结构 | 展开后 304 MB、844 万方块的模板在默认堆下解析 NBT 即 `OutOfMemoryError`（`CompoundTag` 每个方块一个哈希表） | 内容里大部分是空气的模板需要压缩、分段或提高内存，不能依赖原样加载 |
+| 流体与水 | NeoForge 21.1.265 把实体的 `FluidTags.WATER` 判断（`isInWater`、`isEyeInFluid` 等）改为判断水的流体类型；自定义流体列入 `minecraft:water` 标签不再让实体按水处理。游泳、溺水、灭火、摔落、载船、湿润耕地由 `FluidType.Properties` 决定 | 来源靠水标签获得水行为的流体，按需设置流体类型属性；标签仍影响其他按标签判断的逻辑。流体贴图在 `RegisterClientExtensionsEvent` 登记，渲染层用 `ItemBlockRenderTypes.setRenderLayer(Fluid, ..)`（未弃用） |
+| 桶模型 | 1.18.2 Forge 的 `"loader": "forge:bucket"`、`"parent": "forge:item/bucket_drip"` 改为 `"loader": "neoforge:fluid_container"`、`"parent": "neoforge:item/bucket_drip"`，`fluid` 字段不变 | 资源转换遇到桶模型时改写加载器，不复制 forge 命名空间的父模型 |
 | 原版 ID 改名 | `scute` 在 1.20.5 改名为 `turtle_scute`；原版语言文件仍保留 `item.minecraft.scute` 旧键 | 判断原版物品是否存在不能用语言键，用 `assets/minecraft/models/item` 与 `blockstates` 的文件；来源数据中出现的改名项登记为显式对应表 |
 
 ## 第三方库（已核实）
@@ -59,6 +61,9 @@
 - 开发运行的专用服务器未要求 eula.txt 即启动完成，不需要替负责人写入 EULA 同意。
 - `runServer` 启动后等待控制台输入，不会自行结束；终止 Gradle 任务后，wrapper 与游戏 Java 进程可能残留，需按命令行查找并结束。
 - Windows 控制台按系统代码页显示非 ASCII 的 Mod 名称时会乱码；`run/logs/latest.log` 为 UTF-8，以日志文件核对显示名。
+- 客户端在窗口活动且没有打开界面时捕获鼠标（`MouseHandler.grabMouse` 只检查 `Minecraft.isWindowActive()`）。自动化的客户端运行在每 tick 开始时 `setWindowActive(false)` 并关闭失去焦点暂停，就不会占用开发者的鼠标；窗口启动时取得键盘焦点是操作系统行为，无法由模组避免。
+- 新建世界后很快退出时，集成服务端的停止流程可能在“等待区块工作完成”的循环中空转（某个区块尚有加载或光照待办，`isReadyForSaving` 一直为假）。自动化退出前等 `ServerChunkCache.getPendingTasksCount()` 连续一段时间为 0。
+- 本机内存不足时 Gradle wrapper 的 JVM 会在工作目录写 `hs_err_pid*.log`、`replay_pid*.log`；这类文件应被版本控制忽略。资源转换一次重写数千个文件后紧接构建，会给编辑器的文件监视带来很大压力，重型任务逐个运行。
 - 客户端自动化退出存档时，`Minecraft.disconnect` 在等待集成服务端关闭期间循环调用 `runTick`，`ClientTickEvent` 会嵌套触发；脚本在调用前置忙标志，嵌套的 tick 不推进。重新进入用 `WorldOpenFlows.openWorld(存档目录名, 失败回调)`（21.1.265 实测）。
 
 ## 使用注意

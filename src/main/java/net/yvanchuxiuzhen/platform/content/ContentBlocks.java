@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.platform.content;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
@@ -22,17 +23,18 @@ import net.yvanchuxiuzhen.platform.content.block.ContentTrapDoor;
 import net.yvanchuxiuzhen.platform.content.block.ContentWall;
 import net.yvanchuxiuzhen.platform.content.block.WaterloggedContentBlock;
 
-/** 按内容表行的工厂类型创建方块；未知工厂类型直接报错，不回退为普通方块。 */
+/** 按内容表行的工厂类型创建方块；不是内置类型时用所属单位登记的工厂，都没有时直接报错，不回退为普通方块。 */
 final class ContentBlocks {
     private static final Map<String, BlockSetType> SET_TYPES = new HashMap<>();
 
     private ContentBlocks() {
     }
 
-    static Block create(BlockRow row) {
+    static Block create(BlockRow row, Map<String, Function<BlockTraits, Block>> unitFactories) {
         BlockTraits traits = new BlockTraits(row);
         String factory = row.identity().factory();
-        if (!factory.equals("block") && (!row.state().states().isEmpty() || row.state().placement().isPresent())) {
+        if (!factory.equals("block") && !unitFactories.containsKey(factory)
+                && (!row.state().states().isEmpty() || row.state().placement().isPresent())) {
             throw new IllegalArgumentException("原版模板方块不应带自定义状态：" + row.id());
         }
         return switch (factory) {
@@ -54,7 +56,13 @@ final class ContentBlocks {
                     row.identity().material().equals("WOOD") ? BlockSetType.OAK : BlockSetType.STONE));
             case "door" -> new ContentDoor(traits, setType(row, "door", metalOr(row)));
             case "trapdoor" -> new ContentTrapDoor(traits, setType(row, "trapdoor", metalOr(row)));
-            default -> throw new IllegalArgumentException("未知方块工厂 " + factory + "：" + row.id());
+            default -> {
+                Function<BlockTraits, Block> creator = unitFactories.get(factory);
+                if (creator == null) {
+                    throw new IllegalArgumentException("未知方块工厂 " + factory + "：" + row.id());
+                }
+                yield creator.apply(traits);
+            }
         };
     }
 

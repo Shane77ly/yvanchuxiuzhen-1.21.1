@@ -65,13 +65,14 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.levelgen.presets.WorldPresets;
 import net.neoforged.neoforge.client.gui.CreativeTabsScreenPage;
+import net.yvanchuxiuzhen.system.xiulian.XiulianRules;
 
 /**
  * 客户端冒烟检查：建一个创造模式世界，在高空平台放置本 Mod 的全部方块状态，核对每个方块与物品有模型和名称，
  * 加载全部结构模板（旧数据版本在加载时升级）并摆放方块实体最多的几个，记录调色板中的方块名；
  * 另对花、双格植物与每套盔甲的穿戴效果各拍一张近景，再打开创造模式物品栏并逐个切换创造栏并截图；
- * 最后依次做各系统的实机检查（{@link RelationCheck}、{@link AttributeCheck}，各含死亡重生与退出重进），写出报告并退出。
- * 系统属性 yvanchuxiuzhen.smoke.only 为逗号分隔的系统标识（如 relation,attribute）时，进入世界后只做这些系统的检查。
+ * 最后依次做各系统的实机检查（{@link RelationCheck}、{@link AttributeCheck}、{@link XiulianCheck}，各含死亡重生与退出重进），写出报告并退出。
+ * 系统属性 yvanchuxiuzhen.smoke.only 为逗号分隔的系统标识（如 relation,attribute,xiulian）时，进入世界后只做这些系统的检查。
  * 进程中途崩溃时不会写出 DONE 行。
  */
 final class SmokeRun {
@@ -138,8 +139,11 @@ final class SmokeRun {
 
     private void waitForTitle() {
         if (minecraft.screen instanceof TitleScreen && minecraft.getOverlay() == null) {
+            // 关闭首次进入的出身界面，免得内容检查期间弹出；修炼检查中再开启。
+            GameRules rules = new GameRules();
+            rules.getRule(XiulianRules.BIRTH_SELECTION).set(false, null);
             LevelSettings settings = new LevelSettings("smoke", GameType.CREATIVE, false, Difficulty.PEACEFUL, true,
-                    new GameRules(), WorldDataConfiguration.DEFAULT);
+                    rules, WorldDataConfiguration.DEFAULT);
             levelId = "smoke" + System.currentTimeMillis();
             minecraft.createWorldOpenFlows().createFreshLevel(levelId, settings,
                     WorldOptions.defaultWithRandomSeed(), WorldPresets::createNormalWorldDimensions, minecraft.screen);
@@ -161,12 +165,15 @@ final class SmokeRun {
         if (systemChecks == null) {
             minecraft.setScreen(null);
             String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
-            List<String> names = only.isEmpty() ? List.of("relation", "attribute") : List.of(only.split(","));
+            List<String> names = only.isEmpty() ? List.of("relation", "attribute", "xiulian") : List.of(only.split(","));
             systemChecks = new ArrayList<>();
             for (String name : names) {
-                systemChecks.add(switch (name) {
-                    case "relation" -> new RelationCheck(report, levelId, this::shot);
-                    case "attribute" -> new AttributeCheck(report, levelId);
+                systemChecks.addAll(switch (name) {
+                    case "relation" -> List.of(new RelationCheck(report, levelId, this::shot));
+                    case "attribute" -> List.of(new AttributeCheck(report, levelId));
+                    case "xiulian" -> List.of(new XiulianCheck(report, levelId, this::shot), new XiulianProgressCheck(report, levelId, this::shot),
+                            new DantianCheck(report, levelId, this::shot), new BloodPathCheck(report, levelId, this::shot),
+                            new XiulianOperationsCheck(report, levelId));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }
@@ -543,6 +550,7 @@ final class SmokeRun {
         phase = 99;
         try {
             Files.createDirectories(output);
+            report.add((minecraft.mouseHandler.isMouseGrabbed() ? "FAIL" : "INFO") + " 检查期间不捕获鼠标");
             report.add("DONE");
             Files.write(output.resolve("report.txt"), report, StandardCharsets.UTF_8);
         } catch (IOException exception) {

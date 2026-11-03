@@ -31,13 +31,10 @@ tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchu
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_quicksand 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:watercloud 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_watercloud 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:xveliu 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_xveliu 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:wenqvan 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_wenqvan 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:hotoil 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_hotoil 未登记，由所属系统迁移
-tag,src/main/resources/data/minecraft/tags/fluid/water.json,成员全部未登记，整个标签未生成，随所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json,成员 yvanchuxiuzhen:alchemy_07 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json,成员 yvanchuxiuzhen:alchemy_06 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json,成员 yvanchuxiuzhen:alchemy_05 未登记，由所属系统迁移

@@ -34,11 +34,6 @@ final class RelationCheck extends SystemCheck {
         this.screenshots = screenshots;
     }
 
-    /** 截图由 SmokeRun 提供。 */
-    interface Screenshots {
-        void take(String name);
-    }
-
     private PlayerRelation client() {
         return minecraft.player.getData(RelationAttachments.PLAYER);
     }
