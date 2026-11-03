@@ -1,4 +1,5 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
-item,yvanchuxiuzhen:ling_15,yvanchuxiuzhen,Ling15,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2624,relation,已读,yvanchuxiuzhen:ling_15,已注册,
-menu,yvanchuxiuzhen:friendgui,yvanchuxiuzhen,Friendgui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,104,relation,候选,yvanchuxiuzhen:friendgui,待处理,
-menu,yvanchuxiuzhen:zuduiteam_gui,yvanchuxiuzhen,ZuduiteamGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,87,relation,候选,yvanchuxiuzhen:zuduiteam_gui,待处理,
+item,yvanchuxiuzhen:ling_15,yvanchuxiuzhen,Ling15,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2624,relation,已读,yvanchuxiuzhen:ling_15,行为已迁移,
+menu,yvanchuxiuzhen:friendgui,yvanchuxiuzhen,Friendgui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,104,relation,已读,yvanchuxiuzhen:friendgui,行为已迁移,
+menu,yvanchuxiuzhen:gui_0301,yvanchuxiuzhen,Gui0301,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,71,relation,已读,yvanchuxiuzhen:gui_0301,待处理,打开它的 Gui03anniu 在生成代码中没有调用者，入口不可达（Q20），未迁移
+menu,yvanchuxiuzhen:zuduiteam_gui,yvanchuxiuzhen,ZuduiteamGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,87,relation,已读,yvanchuxiuzhen:zuduiteam_gui,行为已迁移,

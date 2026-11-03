@@ -38,7 +38,7 @@ neoForge {
             systemProperty 'yvanchuxiuzhen.smoke', layout.buildDirectory.dir('smoke').get().asFile.absolutePath
             // -PheavyStructures=true 时连 24 MB 的 difujiegou 一起加载，用于测量旧结构的升级耗时。
             systemProperty 'yvanchuxiuzhen.smoke.heavy', providers.gradleProperty('heavyStructures').getOrElse('false')
-            // -PsmokeOnly=attribute 时进入世界后只做属性系统的检查。
+            // -PsmokeOnly=relation,attribute 时进入世界后只做所列系统的检查。
             systemProperty 'yvanchuxiuzhen.smoke.only', providers.gradleProperty('smokeOnly').getOrElse('')
         }
         server {

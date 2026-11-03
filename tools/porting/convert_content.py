@@ -3,7 +3,9 @@
 读取两个来源的方块、物品注册与生成 Java，按台账 owner 把每条注册写入所属单位的
 src/main/resources/content/<单位>/blocks.json、items.json，名称与提示文本写入 src/main/lang/<语言>/<单位>.json。
 遇到不由内容表承载的类（有专属基类的物品、动画方块、流体、传送门、未识别写法）不生成行，记入跳过清单，
-由所属系统迁移时处理。工具可重复运行，输出只取决于来源与台账。
+由所属系统迁移时处理。所属系统给内容表的行换用自己的物品类型时，登记在 docs/reference/conversion/factory_overrides.csv；
+菜单的台账行不再是“待处理”后，来源中该菜单的界面文本键（gui.<命名空间>.<菜单>.*）写入所属单位的语言片段。
+工具可重复运行，输出只取决于来源与台账。
 """
 from __future__ import annotations
 
@@ -154,8 +156,33 @@ def convert_advancement_lang(sources: dict[str, Source], add_lang) -> int:
     return count
 
 
+def convert_menu_lang(sources: dict[str, Source], add_lang) -> int:
+    """已迁移菜单的界面文本键 gui.<命名空间>.<菜单路径>.* 写入台账所属单位的语言片段，命名空间统一。"""
+    count = 0
+    for rows in read_ledgers().values():
+        for row in rows:
+            if row['registry'] != 'menu' or row['status'] == '待处理':
+                continue
+            mod, path = row['legacy_id'].split(':', 1)
+            prefix = f'gui.{mod}.{path}.'
+            target = f'gui.{NAMESPACE}.{row["target_id"].split(":", 1)[1]}.'
+            for language in LANGUAGES:
+                for key, value in sources[mod].lang[language].items():
+                    if key.startswith(prefix):
+                        add_lang(row['owner'], language, target + key[len(prefix):], value)
+                        count += 1
+    return count
+
+
+def factory_overrides() -> dict[str, str]:
+    """所属系统换用的物品工厂：目标路径 → 工厂名（docs/reference/conversion/factory_overrides.csv）。"""
+    with (CONVERSION / 'factory_overrides.csv').open(encoding='utf-8') as handle:
+        return {row['target_id'].split(':', 1)[1]: row['factory'] for row in csv.DictReader(handle)}
+
+
 def main() -> None:
     expected = expected_rows()
+    overrides = factory_overrides()
     targets = ledger_targets()
     sources = {mod: Source(mod) for mod in SOURCES}
     registrations = [r for r in csv.DictReader((INVENTORY / 'registrations.csv').open(encoding='utf-8'))
@@ -246,6 +273,8 @@ def main() -> None:
                 name = source.lang[language].get(f'item.{mod}.{path}')
                 if name is not None:
                     add_lang(unit, language, f'item.{NAMESPACE}.{target}', name)
+        if target in overrides:
+            row['factory'] = overrides[target]
         items_by_unit[unit].append(row)
         for number, line in enumerate(row.get('tooltip', []), start=1):
             for language in LANGUAGES:
@@ -267,6 +296,7 @@ def main() -> None:
 
     sound_rows = convert_sounds(sources, add_lang, expected)
     advancement_keys = convert_advancement_lang(sources, add_lang)
+    menu_keys = convert_menu_lang(sources, add_lang)
 
     units = sorted(set(blocks_by_unit) | set(items_by_unit))
     for stale in CONTENT.glob('*/sounds.json'):
@@ -288,7 +318,7 @@ def main() -> None:
         writer.writerow(['registry', 'legacy_id', 'reason'])
         writer.writerows(sorted(skipped))
     print({unit: (len(blocks_by_unit.get(unit, [])), len(items_by_unit.get(unit, []))) for unit in units})
-    print('tabs', len(tabs), 'sounds', sum(len(r) for r in sound_rows.values()), 'advancement keys', advancement_keys, 'skipped', len(skipped))
+    print('tabs', len(tabs), 'sounds', sum(len(r) for r in sound_rows.values()), 'advancement keys', advancement_keys, 'menu keys', menu_keys, 'skipped', len(skipped))
 
 
 if __name__ == '__main__':

@@ -472,7 +472,7 @@ yvanchuxiuzhen,Shuxingatt12,enchantment,~/enchanting,combat,候选,第一版批�
 yvanchuxiuzhen,DamageDefense,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Miss,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ExclamationMark,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,FindTheEnemy,procedure,~/systemset,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,FindTheEnemy,procedure,~/systemset,combat,已读,C relation 归属阅读：LivingSetAttackTargetEvent 中，目标未带 findtheenemy 标记时在攻击方头顶发感叹号粒子并给目标加标记（EntityTick 400 tick 后无目标时清除）；与敌友数据无关，是所有生物锁定目标的通用反馈
 yvanchuxiuzhen,DamageXiaoguo,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Manaxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Soulxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1543,9 +1543,9 @@ yvanchuxiuzhen,Flyinginstrument0701,item,~/weapon/Flyinginstrument,equipment,已
 yvanchuxiuzhen,Flyinginstrument08,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyinginstrument0801,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,Teamxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gui0301,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gui0301anniu,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gui03anniu,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Gui0301,gui,~/GUI,relation,已读,C relation 归属阅读：改团队名称的界面 Gui0301（输入框 teamname，确定后写 team 并提示）；打开它的 Gui03anniu 在生成代码中没有调用者，整条入口不可达
+yvanchuxiuzhen,Gui0301anniu,procedure,~/GUI,relation,已读,C relation 归属阅读：改团队名称的界面 Gui0301（输入框 teamname，确定后写 team 并提示）；打开它的 Gui03anniu 在生成代码中没有调用者，整条入口不可达
+yvanchuxiuzhen,Gui03anniu,procedure,~/GUI,relation,已读,C relation 归属阅读：改团队名称的界面 Gui0301（输入框 teamname，确定后写 team 并提示）；打开它的 Gui03anniu 在生成代码中没有调用者，整条入口不可达
 yvanchuxiuzhen,RightClickEntity,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,TiandaobaoxiangGUIxianshi01,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,TiandaobaoxiangGuixianshi02,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3386,13 +3386,13 @@ yvanchuxiuzhen,PlayerGUI07,gui,~/GUI,panel,候选,第一版批量归组（目录
 yvanchuxiuzhen,Qiehuan01,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qiehuan02,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guanxiang,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ling15DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu/ling15,relation,已读,B1 归属阅读：随 Ling15 读：关系：团队招募令发起组队
-yvanchuxiuzhen,Ling15,item,~/item/zawu/ling15,relation,已读,B1 归属阅读：关系：团队招募令发起组队
-yvanchuxiuzhen,Zuduitext,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ZuduiteamYes,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ZuduiteamNo,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ZuduiteamGui,gui,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,CloseteamGui,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Ling15DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：团队招募令；潜行使用时刷新并打开好友界面，主手持有右键玩家时向对方发好友申请并打开申请界面
+yvanchuxiuzhen,Ling15,item,~/item/zawu/ling15,relation,已读,C relation 归属阅读：团队招募令；潜行使用时刷新并打开好友界面，主手持有右键玩家时向对方发好友申请并打开申请界面
+yvanchuxiuzhen,Zuduitext,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友申请界面 ZuduiteamGui 及其按钮，读写玩家 friendlist 中的待处理申请与双方好友列表
+yvanchuxiuzhen,ZuduiteamYes,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友申请界面 ZuduiteamGui 及其按钮，读写玩家 friendlist 中的待处理申请与双方好友列表
+yvanchuxiuzhen,ZuduiteamNo,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友申请界面 ZuduiteamGui 及其按钮，读写玩家 friendlist 中的待处理申请与双方好友列表
+yvanchuxiuzhen,ZuduiteamGui,gui,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友申请界面 ZuduiteamGui 及其按钮，读写玩家 friendlist 中的待处理申请与双方好友列表
+yvanchuxiuzhen,CloseteamGui,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：ZuduiteamGui 关闭时把实体 NBT linshiteam、teamzudui 置空；两个来源中没有读取这两个键的代码，无效果
 yvanchuxiuzhen,Ling16,item,~/item/zawu,tiandao,已读,B1 归属阅读：天道：生存模式不可得的通用管理工具（穿梭令、物品锁、物品 NBT 编辑器、固定方块、多结构生成器）
 yvanchuxiuzhen,Ling16DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/item/zawu,tiandao,已读,B1 归属阅读：随 Ling16 读：天道：生存模式不可得的通用管理工具（穿梭令、物品锁、物品 NBT 编辑器、固定方块、多结构生成器）
 yvanchuxiuzhen,Ling16DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,tiandao,已读,B1 归属阅读：随 Ling16 读：天道：生存模式不可得的通用管理工具（穿梭令、物品锁、物品 NBT 编辑器、固定方块、多结构生成器）
@@ -4669,83 +4669,83 @@ yvanchuxiuzhen,Fireentity,tag,~/tag,platform,候选,第一版批量归组（目�
 yvanchuxiuzhen,Soilentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhilingdefence,procedure,~/systemset/zhiling/shanghai,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Entityxvnfu,procedure,~/systemset,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendgui,gui,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendname1,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendname2,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendname3,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendname4,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendname5,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendname6,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendname7,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendname8,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendname9,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendname10,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendonline1,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendonline2,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendonline3,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendonline4,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendonline5,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendonline6,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendonline7,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendonline8,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendonline9,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendonline10,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendstar1,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendstar2,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendstar3,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendstar4,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendstar5,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendstar6,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendstar7,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendstar8,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendstar9,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Friendstar10,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Friendgui,gui,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendname1,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendname2,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendname3,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendname4,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendname5,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendname6,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendname7,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendname8,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendname9,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendname10,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendonline1,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendonline2,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendonline3,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendonline4,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendonline5,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendonline6,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendonline7,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendonline8,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendonline9,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendonline10,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendstar1,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendstar2,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendstar3,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendstar4,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendstar5,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendstar6,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendstar7,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendstar8,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendstar9,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Friendstar10,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
 yvanchuxiuzhen,Friendshuaxin,procedure,~/item/zawu/ling15,relation,已读,B1 归属阅读：随 Ling15 读：关系：团队招募令发起组队
-yvanchuxiuzhen,PlayeruiPageup,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayeruiPagedown,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pagenumber,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanze1,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanze2,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanze3,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanze4,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanze5,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanze6,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanze7,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanze8,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanze9,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanze10,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playernamedisplayer,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playerhealthdisplay,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playerpowerdisplay,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playersouldisplay,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playerattackdisplay,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playermanadisplay,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playersoulattdisplay,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruientity,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playershoucang,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playershoucangxianshi,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanzedisplayer1,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanzedisplayer2,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanzedisplayer3,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanzedisplayer4,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanzedisplayer5,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanzedisplayer6,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanzedisplayer7,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanzedisplayer8,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanzedisplayer9,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruixvanzedisplayer10,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruidel,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruipailieup,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeruipailiedown,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ling15RightClickEntity,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playeraddplayer,procedure,~/item/zawu/ling15,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,FriendpandingStoE,procedure,~/systemset/zhiling/shanghai,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,FriendpandingBtoE,procedure,~/systemset/zhiling/shanghai,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,FriendpandingEtoE,procedure,~/systemset/zhiling/shanghai,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,FriendpandingStoEe,procedure,~/systemset/zhiling/shanghai,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayeruiPageup,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,PlayeruiPagedown,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Pagenumber,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanze1,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanze2,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanze3,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanze4,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanze5,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanze6,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanze7,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanze8,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanze9,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanze10,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playernamedisplayer,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playerhealthdisplay,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playerpowerdisplay,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playersouldisplay,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playerattackdisplay,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playermanadisplay,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playersoulattdisplay,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruientity,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playershoucang,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playershoucangxianshi,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanzedisplayer1,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanzedisplayer2,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanzedisplayer3,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanzedisplayer4,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanzedisplayer5,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanzedisplayer6,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanzedisplayer7,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanzedisplayer8,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanzedisplayer9,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruixvanzedisplayer10,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruidel,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruipailieup,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Playeruipailiedown,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
+yvanchuxiuzhen,Ling15RightClickEntity,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：团队招募令；潜行使用时刷新并打开好友界面，主手持有右键玩家时向对方发好友申请并打开申请界面
+yvanchuxiuzhen,Playeraddplayer,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：按好友界面输入框中的名字找在线玩家并提示；生成代码中没有调用者（界面上的输入框没有对应按钮），不可达
+yvanchuxiuzhen,FriendpandingStoE,procedure,~/systemset/zhiling/shanghai,relation,已读,C relation 归属阅读：敌友判定，判定方的 friendlist（玩家为 PlayerVariables.friendlist 物品标签，其他实体为实体 NBT，方块为方块实体数据）中以对方 team 为键的布尔值
+yvanchuxiuzhen,FriendpandingBtoE,procedure,~/systemset/zhiling/shanghai,relation,已读,C relation 归属阅读：敌友判定，判定方的 friendlist（玩家为 PlayerVariables.friendlist 物品标签，其他实体为实体 NBT，方块为方块实体数据）中以对方 team 为键的布尔值
+yvanchuxiuzhen,FriendpandingEtoE,procedure,~/systemset/zhiling/shanghai,relation,已读,C relation 归属阅读：敌友判定，判定方的 friendlist（玩家为 PlayerVariables.friendlist 物品标签，其他实体为实体 NBT，方块为方块实体数据）中以对方 team 为键的布尔值
+yvanchuxiuzhen,FriendpandingStoEe,procedure,~/systemset/zhiling/shanghai,relation,已读,C relation 归属阅读：敌友判定，判定方的 friendlist（玩家为 PlayerVariables.friendlist 物品标签，其他实体为实体 NBT，方块为方块实体数据）中以对方 team 为键的布尔值
 yvanchuxiuzhen,Fulutexiao46DangTouSheWuSheZhongCiFangKuai,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao46 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Fulutexiao17DangTouSheWuSheZhongCiFangKuai,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao17 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,FriendpandingBtoEe,procedure,~/systemset/zhiling/shanghai,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,FriendpandingBtoEe,procedure,~/systemset/zhiling/shanghai,relation,已读,C relation 归属阅读：敌友判定，判定方的 friendlist（玩家为 PlayerVariables.friendlist 物品标签，其他实体为实体 NBT，方块为方块实体数据）中以对方 team 为键的布尔值
 yvanchuxiuzhen,Fulutexiao29DangTouSheWuSheZhongCiFangKuai,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao29 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Fulutexiao32DangTouSheWuSheZhongCiFangKuai,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao32 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Fulutexiao45DangTouSheWuSheZhongCiFangKuai,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao45 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
@@ -5471,7 +5471,7 @@ yvanchuxiuzhen,Ranliao,tag,~/item/zawu/lingshoudai,creature,候选,第一版批�
 yvanchuxiuzhen,Lingshoudaizhuanhuanitem,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
 yvanchuxiuzhen,Lingshoudairanse,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudaizhuanhuanhecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,FriendpandingEtoS,procedure,~/systemset/zhiling/shanghai,relation,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,FriendpandingEtoS,procedure,~/systemset/zhiling/shanghai,relation,已读,C relation 归属阅读：敌友判定，判定方的 friendlist（玩家为 PlayerVariables.friendlist 物品标签，其他实体为实体 NBT，方块为方块实体数据）中以对方 team 为键的布尔值
 yvanchuxiuzhen,Entityjinengjieshu,procedure,~/entity,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou001skillzhagen,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou001skillzhengtuo,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Guiguai02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋

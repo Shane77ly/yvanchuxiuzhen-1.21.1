@@ -40,3 +40,7 @@ updated: 2026-11-01
 ## 待裁定与验收
 
 `EntityBeforeHurtProcedure:102–110` 与 `ShanghaiGoProcedure:132–134` 的非玩家攻击玩家分支混用了双方数据来源，需独立裁定。前者、命令路径、阵法字段链不能强行合成一套推测公式。伤害阶段映射见公共目标 API 证据；目标版本运行时还要验证护甲、吸收、无敌帧、友军和击杀归属。
+
+## relation 归属阅读转来的元素（2026-11-03）
+
+- `FindTheEnemy`：`LivingSetAttackTargetEvent` 中，目标的 NBT 没有 `findtheenemy` 标记时，在攻击方头顶 0.5 格处发一个 `exclamation_mark` 粒子并给目标加标记；`EntityTick` 每 400 tick 检查一次，目标此时没有锁定对象则清除标记。适用于所有生物，与敌友数据无关。粒子由 particle 登记。

@@ -1313,7 +1313,7 @@ yvanchuxiuzhen,FoodmuzengGuiScreen,src/main/java/net/mcreator/yvanchuxiuzhen/cli
 yvanchuxiuzhen,FriendguiScreen,src/main/java/net/mcreator/yvanchuxiuzhen/client/gui/FriendguiScreen.java,client/gui,relation,source_element_metadata
 yvanchuxiuzhen,FubenopenScreen,src/main/java/net/mcreator/yvanchuxiuzhen/client/gui/FubenopenScreen.java,client/gui,dungeon,source_element_metadata
 yvanchuxiuzhen,GuchongshifangGUIScreen,src/main/java/net/mcreator/yvanchuxiuzhen/client/gui/GuchongshifangGUIScreen.java,client/gui,guchong,source_element_metadata
-yvanchuxiuzhen,Gui0301Screen,src/main/java/net/mcreator/yvanchuxiuzhen/client/gui/Gui0301Screen.java,client/gui,panel,source_element_metadata
+yvanchuxiuzhen,Gui0301Screen,src/main/java/net/mcreator/yvanchuxiuzhen/client/gui/Gui0301Screen.java,client/gui,relation,source_element_metadata
 yvanchuxiuzhen,GUIshipintaiScreen,src/main/java/net/mcreator/yvanchuxiuzhen/client/gui/GUIshipintaiScreen.java,client/gui,equipment,source_element_metadata
 yvanchuxiuzhen,JinengGuiScreen,src/main/java/net/mcreator/yvanchuxiuzhen/client/gui/JinengGuiScreen.java,client/gui,skill,source_element_metadata
 yvanchuxiuzhen,LingshoudaizhuanhuanScreen,src/main/java/net/mcreator/yvanchuxiuzhen/client/gui/LingshoudaizhuanhuanScreen.java,client/gui,creature,source_element_metadata
@@ -3466,7 +3466,7 @@ yvanchuxiuzhen,FriendguiButtonMessage,src/main/java/net/mcreator/yvanchuxiuzhen/
 yvanchuxiuzhen,FubenopenButtonMessage,src/main/java/net/mcreator/yvanchuxiuzhen/network/FubenopenButtonMessage.java,network,dungeon,source_element_metadata
 yvanchuxiuzhen,GanjianMessage,src/main/java/net/mcreator/yvanchuxiuzhen/network/GanjianMessage.java,network,skill,source_element_metadata
 yvanchuxiuzhen,GuchongshifangGUIButtonMessage,src/main/java/net/mcreator/yvanchuxiuzhen/network/GuchongshifangGUIButtonMessage.java,network,guchong,source_element_metadata
-yvanchuxiuzhen,Gui0301ButtonMessage,src/main/java/net/mcreator/yvanchuxiuzhen/network/Gui0301ButtonMessage.java,network,panel,source_element_metadata
+yvanchuxiuzhen,Gui0301ButtonMessage,src/main/java/net/mcreator/yvanchuxiuzhen/network/Gui0301ButtonMessage.java,network,relation,source_element_metadata
 yvanchuxiuzhen,GuicaidanMessage,src/main/java/net/mcreator/yvanchuxiuzhen/network/GuicaidanMessage.java,network,flow,source_element_metadata
 yvanchuxiuzhen,GUIshipintaiButtonMessage,src/main/java/net/mcreator/yvanchuxiuzhen/network/GUIshipintaiButtonMessage.java,network,equipment,source_element_metadata
 yvanchuxiuzhen,JinengGuiButtonMessage,src/main/java/net/mcreator/yvanchuxiuzhen/network/JinengGuiButtonMessage.java,network,skill,source_element_metadata
@@ -3997,7 +3997,7 @@ yvanchuxiuzhen,Fabao017DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure,src/main
 yvanchuxiuzhen,Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java,procedures,guchong,source_element_metadata
 yvanchuxiuzhen,FabaotouzhiwuProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/FabaotouzhiwuProcedure.java,procedures,equipment,source_element_metadata
 yvanchuxiuzhen,FanjianAnXiaAnJianShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/FanjianAnXiaAnJianShiProcedure.java,procedures,skill,source_element_metadata
-yvanchuxiuzhen,FindTheEnemyProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/FindTheEnemyProcedure.java,procedures,relation,source_element_metadata
+yvanchuxiuzhen,FindTheEnemyProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/FindTheEnemyProcedure.java,procedures,combat,source_element_metadata
 yvanchuxiuzhen,FireneirongProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/FireneirongProcedure.java,procedures,panel,source_element_metadata
 yvanchuxiuzhen,FireskillProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/FireskillProcedure.java,procedures,yihuo,source_element_metadata
 yvanchuxiuzhen,FirexianshiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/FirexianshiProcedure.java,procedures,panel,source_element_metadata
@@ -4235,8 +4235,8 @@ yvanchuxiuzhen,GuchongxvnfuProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/p
 yvanchuxiuzhen,GuchongyeshengProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/GuchongyeshengProcedure.java,procedures,guchong,source_element_metadata
 yvanchuxiuzhen,GuchongyeshuProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/GuchongyeshuProcedure.java,procedures,guchong,source_element_metadata
 yvanchuxiuzhen,GudingweizhinpcProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/GudingweizhinpcProcedure.java,procedures,npc,source_element_metadata
-yvanchuxiuzhen,Gui0301anniuProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Gui0301anniuProcedure.java,procedures,panel,source_element_metadata
-yvanchuxiuzhen,Gui03anniuProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Gui03anniuProcedure.java,procedures,panel,source_element_metadata
+yvanchuxiuzhen,Gui0301anniuProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Gui0301anniuProcedure.java,procedures,relation,source_element_metadata
+yvanchuxiuzhen,Gui03anniuProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Gui03anniuProcedure.java,procedures,relation,source_element_metadata
 yvanchuxiuzhen,GUI04gongfanameProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/GUI04gongfanameProcedure.java,procedures,panel,source_element_metadata
 yvanchuxiuzhen,GUI04pagedownProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/GUI04pagedownProcedure.java,procedures,panel,source_element_metadata
 yvanchuxiuzhen,GUI04pagenumProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/GUI04pagenumProcedure.java,procedures,panel,source_element_metadata
@@ -6003,7 +6003,7 @@ yvanchuxiuzhen,FoodmuzengGuiMenu,src/main/java/net/mcreator/yvanchuxiuzhen/world
 yvanchuxiuzhen,FriendguiMenu,src/main/java/net/mcreator/yvanchuxiuzhen/world/inventory/FriendguiMenu.java,world/inventory,relation,source_element_metadata
 yvanchuxiuzhen,FubenopenMenu,src/main/java/net/mcreator/yvanchuxiuzhen/world/inventory/FubenopenMenu.java,world/inventory,dungeon,source_element_metadata
 yvanchuxiuzhen,GuchongshifangGUIMenu,src/main/java/net/mcreator/yvanchuxiuzhen/world/inventory/GuchongshifangGUIMenu.java,world/inventory,guchong,source_element_metadata
-yvanchuxiuzhen,Gui0301Menu,src/main/java/net/mcreator/yvanchuxiuzhen/world/inventory/Gui0301Menu.java,world/inventory,panel,source_element_metadata
+yvanchuxiuzhen,Gui0301Menu,src/main/java/net/mcreator/yvanchuxiuzhen/world/inventory/Gui0301Menu.java,world/inventory,relation,source_element_metadata
 yvanchuxiuzhen,GUIshipintaiMenu,src/main/java/net/mcreator/yvanchuxiuzhen/world/inventory/GUIshipintaiMenu.java,world/inventory,equipment,source_element_metadata
 yvanchuxiuzhen,JinengGuiMenu,src/main/java/net/mcreator/yvanchuxiuzhen/world/inventory/JinengGuiMenu.java,world/inventory,skill,source_element_metadata
 yvanchuxiuzhen,LingshoudaizhuanhuanMenu,src/main/java/net/mcreator/yvanchuxiuzhen/world/inventory/LingshoudaizhuanhuanMenu.java,world/inventory,creature,source_element_metadata

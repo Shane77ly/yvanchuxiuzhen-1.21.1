@@ -3,6 +3,7 @@
 按内容表中的 ID 追溯来源：方块读 blockstates/<路径>.json，物品读 models/item/<路径>.json，递归复制 parent 与引用的模型，
 再复制模型引用的纹理。目录 blocks/、items/ 改为 1.21.1 的 block/、item/，两个来源命名空间统一为 yvanchuxiuzhen，
 JSON 中的引用同步改写。方块 Java 通过 registerRenderLayer 声明的渲染层写成模型的 render_type（NeoForge 读取）。
+已迁移界面使用的贴图按 docs/reference/conversion/screen_textures.csv（所属单位、来源纹理 ID）复制。
 每个输出文件登记到 docs/reference/conversion/manifest.csv（来源路径、来源哈希、目标路径）。
 同一目标路径来自内容不同的来源文件时报错。
 """
@@ -263,6 +264,9 @@ def main() -> None:
         if file.is_file():
             for row in json.loads(file.read_text(encoding='utf-8')):
                 converter.armor_textures(row['texture'])
+    with (ROOT / 'docs/reference/conversion/screen_textures.csv').open(encoding='utf-8') as handle:
+        for row in csv.DictReader(handle):
+            converter.copy_texture(row['texture'], row['texture'].split(':', 1)[0])
     for fragment in sorted((ROOT / 'src/main/sounds').glob('*.json')):
         for definition in json.loads(fragment.read_text(encoding='utf-8')).values():
             for sound in definition['sounds']:

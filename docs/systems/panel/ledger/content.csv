@@ -1,5 +1,4 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
-menu,yvanchuxiuzhen:gui_0301,yvanchuxiuzhen,Gui0301,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,71,panel,候选,yvanchuxiuzhen:gui_0301,待处理,
 menu,yvanchuxiuzhen:player_gui_01,yvanchuxiuzhen,PlayerGUI01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,67,panel,候选,yvanchuxiuzhen:player_gui_01,待处理,
 menu,yvanchuxiuzhen:player_gui_02,yvanchuxiuzhen,PlayerGUI02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,66,panel,候选,yvanchuxiuzhen:player_gui_02,待处理,
 menu,yvanchuxiuzhen:player_gui_03,yvanchuxiuzhen,PlayerGUI03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,68,panel,候选,yvanchuxiuzhen:player_gui_03,待处理,

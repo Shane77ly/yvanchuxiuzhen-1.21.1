@@ -18,13 +18,13 @@ updated: 2026-11-01
 | 系统 | 中文 | 候选元素 | 已读 | 状态 |
 | --- | --- | ---: | ---: | --- |
 | [`attribute`](attribute/README.md) | 属性 | 3 | 3 | 公开操作、贡献汇总与附件已实现，开发客户端检查通过；提交系统的真实路径未验证 |
-| [`relation`](relation/README.md) | 关系 | 84 | 0 | 调查正文已建立；实现及运行验收未开始 |
+| [`relation`](relation/README.md) | 关系 | 86 | 86 | 敌友判定、团队、好友与申请界面已实现，开发客户端检查通过；两人流程与改名入口（Q20）未完成 |
 | [`material`](material/README.md) | 材料 | 372 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`storage`](storage/README.md) | 储物 | 116 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`profession`](profession/README.md) | 副职业 | 21 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`gongfa`](gongfa/README.md) | 功法 | 475 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`xiulian`](xiulian/README.md) | 修炼 | 170 | 17 | 调查正文已建立；实现及运行验收未开始 |
-| [`combat`](combat/README.md) | 战斗 | 248 | 0 | 调查正文已建立；实现及运行验收未开始 |
+| [`combat`](combat/README.md) | 战斗 | 258 | 12 | 调查正文已建立；实现及运行验收未开始 |
 | [`skill`](skill/README.md) | 技能 | 375 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`yihuo`](yihuo/README.md) | 异火 | 97 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`equipment`](equipment/README.md) | 装备 | 334 | 253 | 调查正文已建立；实现及运行验收未开始 |
@@ -54,7 +54,7 @@ updated: 2026-11-01
 
 | 汇总 | 中文 | 候选元素 | 已读 | 状态 |
 | --- | --- | ---: | ---: | --- |
-| [`panel`](panel/README.md) | 玩家面板 | 124 | 0 | 调查正文已建立；实现及运行验收未开始 |
+| [`panel`](panel/README.md) | 玩家面板 | 121 | 0 | 调查正文已建立；实现及运行验收未开始 |
 
 跨系统流程、客户端呈现和平台注册不是额外玩法模块，其入口、依赖、延迟行为及代码隔离见 [公共入口调查](../development/entry-and-dependency.md)。
 
