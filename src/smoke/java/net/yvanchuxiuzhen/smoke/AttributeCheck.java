@@ -79,6 +79,12 @@ final class AttributeCheck extends SystemCheck {
                     expect("重进后 原版攻击伤害基础值", 13, player.getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue());
                 });
                 checkClient("重进后", 30, 13);
+                // 后续系统的检查从干净的贡献开始。
+                onServer(player -> {
+                    for (String source : new String[] {"smoke:growth", "smoke:equipment", "smoke:gongfa"}) {
+                        PlayerAttributes.clearContribution(player, source);
+                    }
+                });
                 finish();
             }
             default -> finish();

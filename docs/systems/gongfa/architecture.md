@@ -44,6 +44,11 @@ updated: 2026-11-01
 - 规则（`Comprehension`）：模式切换、刷新说明、参悟（寿元 参悟次数² × 品阶 + 20，所需境界降一层并改写境界文字，只能由第一个参悟者继续）、继承（经验 × (0.5 + 品阶差 × 0.02)，Q27）。参悟后槽内物品写回为数量 1。境界文字经 xiulian 公开操作 `Cultivation.realmName`。
 - 界面（`ComprehensionScreen`）：客户端菜单使用一格临时容器，内容随菜单同步，文字读取菜单所指位置的方块实体。
 
+### 阶段 3：学习小游戏的可达性；完成
+
+- 读后结论（Q28）：研习台 `yvanchuxiuzhen:gongfaxvexi`（GeckoLib 动画方块）与原初系统的界面 `gongfaxvexi_gui`（415 个显示过程与 14 个规则过程）在来源中不可达：研习台物品 `tab(null)`、没有配方，409 个结构与全部代码都不放置它；研习台槽位的书与 `booklevellinshi` 没有写入者；界面只在菜单登记中构造，右键研习台的分支（原初系统 `PlayerRightClickBlock`）打开的是 `TripodGUI`。按 Q20 的先例记录待裁定，不迁移；研习成功过程 `Gongfashuxingjiyv` 与研习（`Techniques.study`）结果相同。
+- 完成核对（2026-11-03）：归属 478 个元素全部已读；`gradlew check`（含 JUnit）、`check_ledger.py`、`check_docs.py` 通过；开发服务端启动 ERROR 0 条；冒烟 relation、attribute、xiulian、gongfa 共 209 项全部符合（gongfa 34 项），日志 ERROR 0 条。
+
 ## 裁定与验证
 
 `Gongfashuaxin/2` 未从当前结构入口图到达；不能仅因它们做增减属性就选作目标主链，当前有效链包括 PlayerTick 的 `Shuxingjisuan/2`。学习会话同时写玩家/装置后的多人覆盖行为需明确目标操作规则。数值、实例转移、重登、普通死亡、参悟和小游戏成功/失败分别对照。

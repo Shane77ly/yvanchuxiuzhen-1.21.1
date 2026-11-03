@@ -3570,10 +3570,10 @@ yvanchuxiuzhen,Plaqueguiaddfive,procedure,~/tool,decor,候选,第一版批量归
 yvanchuxiuzhen,Gongjv008DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/tool,equipment,已读,B1 归属阅读：随 Gongjv008 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,Gongjv008,tool,~/tool,equipment,已读,B1 归属阅读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,Tiandaoguding,block,~/decorate/jiegou,tiandao,已读,B1 归属阅读：天道：生存模式不可得的通用管理工具（穿梭令、物品锁、物品 NBT 编辑器、固定方块、多结构生成器）；本元素无过程，被 flow 的 BlockDestroy 按 ID 引用，不赋予它规则
-yvanchuxiuzhen,Gongfashuxingjiyv,procedure,~/item/book,gongfa,已读,B1 归属阅读：随 Gongfaxvexi 读：功法：参悟台与功法学习方块
-yvanchuxiuzhen,GongfaxvexiGengXinYouXiKe,procedure,~/item/book,gongfa,已读,B1 归属阅读：随 Gongfaxvexi 读：功法：参悟台与功法学习方块
-yvanchuxiuzhen,Gongfaxvexi,animatedblock,~/item/book,gongfa,已读,B1 归属阅读：功法：参悟台与功法学习方块
-yvanchuxiuzhen,GongfaxvexiZaiFangKuaiShangYouJian,procedure,~/item/book,gongfa,已读,B1 归属阅读：随 Gongfaxvexi 读：功法：参悟台与功法学习方块
+yvanchuxiuzhen,Gongfashuxingjiyv,procedure,~/item/book,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移；此元素为研习台本身及其右键、刷新与研习成功过程
+yvanchuxiuzhen,GongfaxvexiGengXinYouXiKe,procedure,~/item/book,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移；此元素为研习台本身及其右键、刷新与研习成功过程
+yvanchuxiuzhen,Gongfaxvexi,animatedblock,~/item/book,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移；此元素为研习台本身及其右键、刷新与研习成功过程
+yvanchuxiuzhen,GongfaxvexiZaiFangKuaiShangYouJian,procedure,~/item/book,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移；此元素为研习台本身及其右键、刷新与研习成功过程
 yvanchuxiuzhen,Tiangandizhi2,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao011DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao011 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao011,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
@@ -5427,7 +5427,7 @@ yvanchuxiuzhen,Canwutaishuaxin,procedure,~/tool/canwutai,gongfa,已读,C gongfa 
 yvanchuxiuzhen,Canwudianji,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
 yvanchuxiuzhen,Canwutaifangru,procedure,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的参悟界面（放置时初始化说明，模式切换、刷新说明、参悟降低所需境界与继承经验）
 yvanchuxiuzhen,Huoyanxiaoshipanding,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221fireblock 读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
-yvanchuxiuzhen,Canwutaihecheng,recipe,~/tool/canwutai,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Canwutaihecheng,recipe,~/tool/canwutai,gongfa,已读,C gongfa 归属阅读：参悟台的合成配方，由 convert_data.py 转换为数据配方
 yvanchuxiuzhen,Book022hecheng,recipe,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Book032hecheng,recipe,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudai,tag,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6550,435 +6550,435 @@ yvanchuxitong,RenwuweizhuangfangkuaiZaiFangKuaiShangYouJian,procedure,~/duihua/r
 yvanchuxitong,Renwuweizhuangfangkuai,block,~/duihua/renwuweizhuangkuai,quest,已读,B1 归属阅读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示
 yvanchuxitong,RenwuweizhuangfangkuaiDangFangKuaiBeiShuiFangZhiShi,procedure,~/duihua/renwuweizhuangkuai,quest,已读,B1 归属阅读：随 Renwuweizhuangfangkuai 读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示
 yvanchuxitong,Plaqueblock,tag,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,GongfaxvexiGui,gui,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xveweinamexianshi,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xveweijieshaoxianshi,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xveweineedxianshi,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xveweimubiaonumxianshi,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xveweipowerxianshi,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,GongfaxvexiGuiDangZheGeJieMianDaKaiShi,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Linshizuobiao,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu01,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu02,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu03,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu04,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu05,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu06,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu07,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu08,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu09,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu10,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu11,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu12,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu13,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu14,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu15,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu16,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu17,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu18,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu19,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu20,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu21,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu22,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu23,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu24,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu25,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu26,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu27,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xingxiu28,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei001,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei002,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei003,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei004,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei005,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei006,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei007,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei008,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei009,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei010,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei011,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei012,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei013,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei014,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei015,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei016,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei017,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei018,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei019,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei020,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei021,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei022,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei023,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei024,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei025,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei026,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei027,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei028,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei029,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei030,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei031,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei032,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei033,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei034,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei035,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei036,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei037,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei038,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei039,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei040,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei041,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei042,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei043,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei044,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei045,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei046,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei047,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei048,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei049,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei050,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei051,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei052,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei053,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei054,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei055,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei056,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei057,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei058,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei059,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei060,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei061,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei062,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei063,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei064,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei065,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei066,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei067,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei068,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei069,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei070,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei071,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei072,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei073,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei074,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei075,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei076,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei077,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei078,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei079,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei080,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei081,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei082,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei083,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei084,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei085,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei086,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei087,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei088,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei089,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei090,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei091,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei092,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei093,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei094,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei095,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei096,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei097,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei098,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei099,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei100,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei101,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei102,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei103,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei104,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei105,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei106,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei107,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei108,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei109,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei110,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei111,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei112,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei113,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvewei114,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,FangxiangUp,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xianshifangxiang,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,FangxiangDown,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,FangxiangLeft,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,FangxiangRight,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu01,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu02,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu03,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu04,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu05,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu06,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu07,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu08,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu09,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu10,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu11,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu12,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu13,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu14,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu15,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu16,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu17,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu18,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu19,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu20,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu21,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu22,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu23,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu24,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu25,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu26,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu27,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu28,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu29,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu30,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu31,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu32,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu33,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu34,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu35,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu36,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu37,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu38,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu39,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu40,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu41,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu42,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu43,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu44,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu45,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu46,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu47,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu48,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu49,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu50,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Teshu51,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao001,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao002,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao003,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao004,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao005,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao006,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao007,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao008,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao009,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao010,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao011,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao012,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao013,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao014,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao015,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao016,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao017,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao018,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao019,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao020,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao021,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao022,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao023,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao024,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao025,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao026,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao027,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao028,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao029,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao030,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao031,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao032,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao033,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao034,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao035,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao036,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao037,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao038,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao039,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao040,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao041,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao042,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao043,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao044,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao045,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao046,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao047,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao048,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao049,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao050,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao051,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao052,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao053,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao054,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao055,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao056,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao057,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao058,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao059,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao060,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao061,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao062,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao063,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao064,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao065,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao066,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao067,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao068,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao069,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao070,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao071,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao072,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao073,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao074,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao075,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao076,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao077,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao078,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao079,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao080,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao081,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao082,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao083,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao084,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao085,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao086,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao087,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao088,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao089,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao090,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao091,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao092,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao093,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao094,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao095,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao096,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao097,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao098,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao099,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao100,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao101,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao102,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao103,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao104,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao105,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao106,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao107,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao108,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao109,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao110,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao111,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao119,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao120,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao121,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao122,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao123,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao124,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao125,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao126,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao127,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao128,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao129,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao130,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao131,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao132,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao133,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao134,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao135,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao136,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao137,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao138,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao139,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao140,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao141,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao142,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao143,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao144,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao145,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao146,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao147,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao148,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao149,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao150,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao151,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao152,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao153,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao154,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao155,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao156,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao157,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao158,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao159,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao160,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao161,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao162,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao163,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao164,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao165,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao166,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao167,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao168,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao169,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao170,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao171,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao172,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao173,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao174,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao175,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao176,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao177,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao178,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao179,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao180,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao181,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao182,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao183,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao184,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao185,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao186,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao187,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao188,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao189,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao190,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao191,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao192,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao193,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao194,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao195,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao196,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao197,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao198,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao199,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao200,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zuobiao201,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan01,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan02,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan03,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan04,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan05,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan06,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan07,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan08,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan09,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan10,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan11,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan12,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan13,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan14,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan15,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan16,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan17,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan18,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan19,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan20,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan21,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan22,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan23,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan24,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan25,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan26,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan27,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mubiaokaiguan28,procedure,~/gongfa/xianshi,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Kaishixvexi,procedure,~/gongfa,gongfa,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,GongfaxvexiGui,gui,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xveweinamexianshi,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xveweijieshaoxianshi,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xveweineedxianshi,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xveweimubiaonumxianshi,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xveweipowerxianshi,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,GongfaxvexiGuiDangZheGeJieMianDaKaiShi,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Linshizuobiao,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu01,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu02,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu03,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu04,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu05,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu06,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu07,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu08,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu09,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu10,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu11,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu12,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu13,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu14,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu15,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu16,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu17,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu18,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu19,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu20,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu21,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu22,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu23,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu24,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu25,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu26,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu27,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xingxiu28,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei001,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei002,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei003,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei004,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei005,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei006,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei007,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei008,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei009,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei010,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei011,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei012,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei013,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei014,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei015,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei016,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei017,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei018,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei019,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei020,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei021,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei022,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei023,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei024,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei025,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei026,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei027,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei028,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei029,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei030,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei031,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei032,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei033,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei034,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei035,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei036,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei037,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei038,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei039,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei040,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei041,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei042,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei043,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei044,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei045,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei046,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei047,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei048,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei049,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei050,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei051,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei052,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei053,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei054,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei055,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei056,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei057,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei058,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei059,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei060,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei061,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei062,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei063,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei064,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei065,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei066,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei067,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei068,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei069,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei070,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei071,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei072,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei073,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei074,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei075,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei076,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei077,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei078,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei079,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei080,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei081,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei082,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei083,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei084,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei085,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei086,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei087,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei088,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei089,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei090,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei091,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei092,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei093,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei094,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei095,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei096,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei097,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei098,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei099,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei100,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei101,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei102,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei103,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei104,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei105,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei106,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei107,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei108,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei109,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei110,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei111,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei112,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei113,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xvewei114,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,FangxiangUp,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Xianshifangxiang,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,FangxiangDown,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,FangxiangLeft,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,FangxiangRight,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu01,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu02,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu03,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu04,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu05,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu06,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu07,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu08,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu09,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu10,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu11,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu12,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu13,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu14,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu15,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu16,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu17,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu18,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu19,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu20,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu21,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu22,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu23,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu24,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu25,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu26,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu27,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu28,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu29,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu30,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu31,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu32,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu33,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu34,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu35,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu36,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu37,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu38,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu39,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu40,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu41,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu42,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu43,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu44,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu45,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu46,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu47,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu48,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu49,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu50,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Teshu51,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao001,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao002,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao003,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao004,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao005,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao006,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao007,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao008,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao009,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao010,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao011,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao012,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao013,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao014,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao015,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao016,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao017,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao018,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao019,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao020,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao021,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao022,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao023,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao024,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao025,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao026,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao027,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao028,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao029,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao030,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao031,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao032,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao033,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao034,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao035,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao036,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao037,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao038,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao039,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao040,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao041,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao042,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao043,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao044,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao045,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao046,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao047,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao048,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao049,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao050,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao051,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao052,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao053,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao054,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao055,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao056,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao057,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao058,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao059,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao060,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao061,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao062,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao063,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao064,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao065,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao066,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao067,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao068,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao069,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao070,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao071,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao072,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao073,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao074,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao075,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao076,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao077,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao078,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao079,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao080,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao081,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao082,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao083,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao084,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao085,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao086,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao087,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao088,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao089,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao090,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao091,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao092,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao093,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao094,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao095,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao096,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao097,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao098,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao099,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao100,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao101,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao102,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao103,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao104,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao105,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao106,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao107,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao108,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao109,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao110,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao111,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao119,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao120,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao121,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao122,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao123,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao124,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao125,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao126,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao127,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao128,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao129,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao130,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao131,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao132,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao133,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao134,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao135,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao136,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao137,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao138,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao139,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao140,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao141,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao142,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao143,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao144,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao145,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao146,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao147,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao148,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao149,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao150,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao151,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao152,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao153,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao154,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao155,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao156,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao157,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao158,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao159,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao160,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao161,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao162,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao163,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao164,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao165,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao166,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao167,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao168,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao169,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao170,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao171,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao172,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao173,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao174,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao175,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao176,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao177,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao178,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao179,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao180,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao181,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao182,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao183,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao184,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao185,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao186,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao187,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao188,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao189,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao190,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao191,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao192,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao193,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao194,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao195,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao196,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao197,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao198,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao199,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao200,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Zuobiao201,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan01,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan02,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan03,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan04,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan05,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan06,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan07,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan08,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan09,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan10,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan11,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan12,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan13,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan14,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan15,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan16,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan17,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan18,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan19,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan20,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan21,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan22,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan23,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan24,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan25,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan26,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan27,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Mubiaokaiguan28,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
+yvanchuxitong,Kaishixvexi,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
 yvanchuxitong,BankGUIshougou2,gui,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Putongshougoushuaxin,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Putongchushouanniu,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
