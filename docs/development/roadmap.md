@@ -2,14 +2,14 @@
 topic: implementation-roadmap
 role: guide
 status: current
-updated: 2026-11-02
+updated: 2026-11-03
 ---
 
 # 全量实施与验收顺序
 
 本路线覆盖两个 1.18.2 Mod 的全部范围。各批次完成整个所属系统及其内容，不把抽样功能作为交付范围。技术检查可以先定位某个 API 问题，但抽样通过不能抵消剩余内容。
 
-负责人 2026-11-02 批准本路线、[整体架构](architecture.md)与[工程结构与长期维护](engineering.md)（main 提交 `3e0585c` 版本），批准不含存档导入、界面复刻程度、license 与 Q01–Q14。A 已完成。B0 完成步骤 1–5（依赖升级、骨架、ArchUnit、台账、片段合并）后，负责人 2026-11-02 指示结束 B0、转入 B1（工作分支 `port/b1-content`）：B0 的内容表加载、资源转换与注册表导出以全量方式在 B1 实现；玩家附件、payload、方块实体与菜单、GeckoLib 实体、代码注册转数据定义、GameTest 与 JUnit 规则测试，在首个需要该机制的系统批次按正式结构实现并实测，结论写回[工程结构](engineering.md)。进度以[交接说明](handoff.md)为准。2026-11-02 批准的[系统设计](system-design.md)改写了 C～G 的系统名与顺序。没有 goal 任务。
+负责人 2026-11-02 批准本路线、[整体架构](architecture.md)与[工程结构与长期维护](engineering.md)（main 提交 `3e0585c` 版本），批准不含存档导入、界面复刻程度、license 与 Q01–Q14。A 已完成。B0 完成步骤 1–5（依赖升级、骨架、ArchUnit、台账、片段合并）后，负责人 2026-11-02 指示结束 B0、转入 B1（工作分支 `port/b1-content`）：B0 的内容表加载、资源转换与注册表导出以全量方式在 B1 实现；玩家附件、payload、方块实体与菜单、GeckoLib 实体、代码注册转数据定义、GameTest 与 JUnit 规则测试，在首个需要该机制的系统批次按正式结构实现并实测，结论写回[工程结构](engineering.md)。进度以[交接说明](handoff.md)为准。2026-11-02 批准的[系统设计](system-design.md)改写了 C～G 的系统名与顺序。2026-11-03 负责人决定 B1 内一次读完全部方块、物品与声音事件的归属，B1 出口不变。没有 goal 任务。
 
 ## 批次和出口
 

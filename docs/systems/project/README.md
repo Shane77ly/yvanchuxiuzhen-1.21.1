@@ -2,7 +2,7 @@
 topic: project
 role: entry
 status: current
-updated: 2026-11-02
+updated: 2026-11-03
 ---
 
 # 项目状态与决定
@@ -30,6 +30,8 @@ updated: 2026-11-02
 | 2026-11-02 | 内容族的 Java 包名由 `family` 改为 `collection`；“内容族”这一中文名称不变 | 已改包 `net.yvanchuxiuzhen.collection`、ArchUnit 规则 1、4、6 与[工程结构](../../development/engineering.md)目录及规则 |
 | 2026-11-02 | 全部注册与资源统一使用命名空间 `yvanchuxiuzhen`，原初系统内容不再保留 `yvanchuxitong`（取代已批准架构中的“保留两个命名空间”） | 常量改为 `platform/ModId`；片段路径去掉命名空间一级；台账 477 行 `target_id` 改为统一命名空间，2 处同名冲突暂定改名；[架构](../../development/architecture.md)、[工程结构](../../development/engineering.md)、[范围](../../design/scope.md)等同步（见[月度记录](logs/2026-11.md)） |
 | 2026-11-02 | 不再做小规模切片：B0 在框架完成后结束，进入下一阶段并建立新分支 | B0 以步骤 1–5 结束，关口改为 B1，工作分支 `port/b1-content`；B0 步骤 6 以全量方式并入 B1，步骤 7 的运行机制在首个需要它的系统批次实现并实测（去向见[交接说明](../../development/handoff.md)）；AGENTS.md 当前关口、[路线](../../development/roadmap.md)、[工程结构](../../development/engineering.md)同步 |
+| 2026-11-03 | B1 步骤 6 采用方案 A：在 B1 内一次读完全部方块、物品与声音事件的归属，不推迟到各系统批次 | 路线 B1 出口不变；范围为台账 3,638 行（方块 1,180、物品 2,308、声音事件 150），对应 2,211 个编辑器元素，其中 1,203 个带过程；进度见[交接说明](../../development/handoff.md)“进行中” |
+| 2026-11-03 | 盔甲挥臂时“一瞬闪烁”与药草疑似缺失两项反馈暂缓 | 不再追查；已有测量与核对结论保留在[月度记录](logs/2026-11.md)2026-11-02 两条，恢复时从那里继续 |
 
 ## 系统设计重审
 
