@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "01"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:beechplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:beechpressureplate",
+    "count": 1
+  }
+}

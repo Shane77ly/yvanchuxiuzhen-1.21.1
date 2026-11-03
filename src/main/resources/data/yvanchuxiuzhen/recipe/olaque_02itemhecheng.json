@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:nanmuplanks"
+    },
+    "1": {
+      "item": "minecraft:gold_nugget"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:nanmuplanks"
+    },
+    "3": {
+      "item": "minecraft:gold_nugget"
+    },
+    "4": {
+      "tag": "yvanchuxiuzhen:gaoshipai"
+    },
+    "5": {
+      "item": "minecraft:gold_nugget"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:nanmuplanks"
+    },
+    "7": {
+      "item": "minecraft:gold_nugget"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:nanmuplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:plaque_02item",
+    "count": 1
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:deepslate"
+    },
+    "1": {
+      "item": "minecraft:deepslate"
+    },
+    "2": {
+      "item": "minecraft:deepslate"
+    },
+    "3": {
+      "item": "minecraft:deepslate"
+    },
+    "4": {
+      "item": "minecraft:chiseled_stone_bricks"
+    },
+    "5": {
+      "item": "minecraft:deepslate"
+    },
+    "6": {
+      "item": "minecraft:deepslate"
+    },
+    "7": {
+      "item": "minecraft:deepslate"
+    },
+    "8": {
+      "item": "minecraft:deepslate"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:xixveshi",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:beechfence"
+    },
+    {
+      "item": "yvanchuxiuzhen:beechfence"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:beechwall_01",
+    "count": 2
+  }
+}

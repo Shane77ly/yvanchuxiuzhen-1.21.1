@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  2",
+    "34 ",
+    " 7 "
+  ],
+  "key": {
+    "2": {
+      "item": "yvanchuxiuzhen:cailiao_201"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:cailiao_211"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:cailiao_201"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:cailiao_211"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:fabao_007",
+    "count": 1
+  }
+}

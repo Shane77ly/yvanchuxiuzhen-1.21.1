@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 12",
+    "345",
+    "67 "
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:paper"
+    },
+    "2": {
+      "tag": "yvanchuxiuzhen:logsitem"
+    },
+    "3": {
+      "item": "minecraft:paper"
+    },
+    "4": {
+      "item": "minecraft:paper"
+    },
+    "5": {
+      "item": "minecraft:paper"
+    },
+    "6": {
+      "tag": "yvanchuxiuzhen:logsitem"
+    },
+    "7": {
+      "item": "minecraft:paper"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:book_032",
+    "count": 1
+  }
+}

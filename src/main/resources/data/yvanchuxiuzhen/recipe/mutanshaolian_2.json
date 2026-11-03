@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "tag": "yvanchuxiuzhen:logsitem"
+  },
+  "experience": 1,
+  "cookingtime": 100,
+  "result": {
+    "id": "minecraft:charcoal"
+  }
+}

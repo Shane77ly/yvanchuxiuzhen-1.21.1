@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:dingxiangflower"
+    },
+    {
+      "item": "yvanchuxiuzhen:dingxiangflower"
+    },
+    {
+      "item": "yvanchuxiuzhen:dingxiangflower"
+    },
+    {
+      "item": "yvanchuxiuzhen:dingxiangflower"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:dingxiangflowerdry",
+    "count": 2
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0 2",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:cailiao_214"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:cailiao_214"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:cailiao_204"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:cailiao_194"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:cailiao_204"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:cailiao_204"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:cailiao_204"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:cailiao_204"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:tripod_04",
+    "count": 1
+  }
+}

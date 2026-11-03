@@ -1,0 +1,7 @@
+{
+  "parent": "yvanchuxiuzhen:custom/hammer",
+  "textures": {
+    "0": "yvanchuxiuzhen:block/hammer",
+    "particle": "yvanchuxiuzhen:item/shicai027"
+  }
+}

@@ -12,7 +12,7 @@ updated: 2026-11-01
 | 文件 | 内容 |
 | --- | --- |
 | [summary.json](summary.json) | 注册计数、来源清单哈希、同路径项和提取限制 |
-| [registrations.csv](registrations.csv) | 4,867 条注册声明、来源 ID、Java 符号、文件与行号 |
+| [registrations.csv](registrations.csv) | 4,938 条注册声明、来源 ID、Java 符号、文件与行号 |
 | [content_catalog.csv](content_catalog.csv) | 加入中文语言名、原有数字标记、编号族；模块匹配仅为候选 |
 | [player_fields.csv](player_fields.csv) | 原始玩家字段提取结果 |
 | [variables_detailed.csv](variables_detailed.csv) | 211 个玩家/维度/主世界数据字段，初值、存档键和读写候选 |

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "yvanchuxiuzhen:cailiao_215raw"
+  },
+  "experience": 2,
+  "cookingtime": 200,
+  "result": {
+    "id": "yvanchuxiuzhen:cailiao_215melt"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "01",
+    "23"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:brick"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:cailiao_161"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:cailiao_161"
+    },
+    "3": {
+      "item": "minecraft:brick"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:fabao_001",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:sylvestrissillwallwindow"
+    },
+    {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:sylvestrisdoorleft",
+    "count": 1
+  }
+}

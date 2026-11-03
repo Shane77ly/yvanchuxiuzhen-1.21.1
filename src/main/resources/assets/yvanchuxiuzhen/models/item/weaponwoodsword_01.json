@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "yvanchuxiuzhen:item/weapon_wood_sword_01"
+  }
+}

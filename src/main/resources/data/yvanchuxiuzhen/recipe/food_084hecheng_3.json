@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "yvanchuxiuzhen:shicai_060"
+  },
+  "experience": 1,
+  "cookingtime": 300,
+  "result": {
+    "id": "yvanchuxiuzhen:food_084"
+  }
+}

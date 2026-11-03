@@ -1,0 +1,7 @@
+{
+  "parent": "yvanchuxiuzhen:custom/weapon_spear_04",
+  "textures": {
+    "0": "yvanchuxiuzhen:block/weapon_spear_04",
+    "particle": "yvanchuxiuzhen:item/weapon_sword_04"
+  }
+}

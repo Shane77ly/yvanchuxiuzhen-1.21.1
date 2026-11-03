@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 12",
+    "345",
+    "6  "
+  ],
+  "key": {
+    "1": {
+      "item": "yvanchuxiuzhen:cailiao_201"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:cailiao_201"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:cailiao_201"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:cailiao_211"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:cailiao_211"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:cailiao_211"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:fabao_008",
+    "count": 1
+  }
+}

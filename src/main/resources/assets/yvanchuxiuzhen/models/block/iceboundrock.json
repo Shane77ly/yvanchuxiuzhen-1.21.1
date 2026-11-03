@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/icebound_rock02",
+    "particle": "yvanchuxiuzhen:block/icebound_rock02"
+  }
+}

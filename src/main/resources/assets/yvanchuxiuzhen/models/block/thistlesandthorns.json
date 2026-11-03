@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/thistles_and_thorns",
+    "particle": "yvanchuxiuzhen:block/thistles_and_thorns"
+  }
+}

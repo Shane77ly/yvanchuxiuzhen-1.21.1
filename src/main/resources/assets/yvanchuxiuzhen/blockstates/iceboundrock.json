@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "yvanchuxiuzhen:block/iceboundrock__cutout"
+    },
+    "half=lower": {
+      "model": "yvanchuxiuzhen:block/iceboundrock_bottom__cutout"
+    }
+  }
+}

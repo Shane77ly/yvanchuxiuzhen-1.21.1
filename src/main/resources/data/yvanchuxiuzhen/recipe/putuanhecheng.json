@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "3 5",
+    " 7 "
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:wheat"
+    },
+    "3": {
+      "item": "minecraft:wheat"
+    },
+    "5": {
+      "item": "minecraft:wheat"
+    },
+    "7": {
+      "item": "minecraft:wheat"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:putuan",
+    "count": 1
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/shicai0050602",
+    "particle": "yvanchuxiuzhen:block/shicai0050602"
+  }
+}

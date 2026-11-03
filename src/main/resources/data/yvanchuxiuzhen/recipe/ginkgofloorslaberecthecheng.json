@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0",
+    "1",
+    "2"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:ginkgofloor"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:ginkgofloor"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:ginkgofloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:ginkgofloorslaberect",
+    "count": 6
+  }
+}

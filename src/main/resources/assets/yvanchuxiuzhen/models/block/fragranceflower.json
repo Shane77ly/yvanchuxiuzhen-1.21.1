@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/fragrance_flower",
+    "particle": "yvanchuxiuzhen:block/fragrance_flower"
+  }
+}

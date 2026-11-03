@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:beechfence"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:beechslab"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:beechfence"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:beecharmchair_01",
+    "count": 3
+  }
+}

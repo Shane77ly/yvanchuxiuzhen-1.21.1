@@ -1,0 +1,7 @@
+{
+  "parent": "yvanchuxiuzhen:custom/weapon_longbow_09",
+  "textures": {
+    "0": "yvanchuxiuzhen:block/weapon_longbow_09",
+    "particle": "yvanchuxiuzhen:item/cailiao189"
+  }
+}

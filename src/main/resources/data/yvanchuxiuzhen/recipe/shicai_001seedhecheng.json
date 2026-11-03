@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:shicai_001seed"
+    },
+    {
+      "item": "yvanchuxiuzhen:shicai_001seed"
+    },
+    {
+      "item": "yvanchuxiuzhen:shicai_001seed"
+    },
+    {
+      "item": "yvanchuxiuzhen:shicai_001seed"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:shicai_001",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:camphorsillwallwindow"
+    },
+    {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:camphordoorleft",
+    "count": 1
+  }
+}

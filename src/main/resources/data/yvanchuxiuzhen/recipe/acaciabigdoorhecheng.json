@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:acacia_door"
+    },
+    {
+      "item": "minecraft:acacia_planks"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:acaciabigdoorleft",
+    "count": 1
+  }
+}

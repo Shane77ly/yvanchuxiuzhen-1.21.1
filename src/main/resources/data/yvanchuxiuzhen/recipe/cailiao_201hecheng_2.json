@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "yvanchuxiuzhen:cailiao_201raw"
+  },
+  "experience": 5,
+  "cookingtime": 100,
+  "result": {
+    "id": "yvanchuxiuzhen:cailiao_201melt"
+  }
+}

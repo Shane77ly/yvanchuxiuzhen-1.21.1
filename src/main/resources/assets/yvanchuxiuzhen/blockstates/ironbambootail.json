@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "yvanchuxiuzhen:block/ironbambootail__cutout"
+    },
+    "half=lower": {
+      "model": "yvanchuxiuzhen:block/ironbambootail_bottom__cutout"
+    }
+  }
+}

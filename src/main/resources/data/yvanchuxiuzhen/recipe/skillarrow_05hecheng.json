@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0",
+    "1",
+    "2"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:cailiao_213"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:cailiao_211"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:cailiao_211"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:skill_arrow_05",
+    "count": 10
+  }
+}

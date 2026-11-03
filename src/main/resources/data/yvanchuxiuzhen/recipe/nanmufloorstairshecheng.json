@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:nanmufloor"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:nanmufloor"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:nanmufloor"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:nanmufloor"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:nanmufloor"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:nanmufloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:nanmufloorstairs",
+    "count": 4
+  }
+}

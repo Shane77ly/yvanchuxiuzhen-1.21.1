@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:cypresssillwallwindow_02"
+    },
+    {
+      "item": "yvanchuxiuzhen:cypressplanks"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:cypressdoorleft",
+    "count": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:guchong_05item"
+    }
+  ],
+  "result": {
+    "id": "minecraft:phantom_membrane",
+    "count": 1
+  }
+}

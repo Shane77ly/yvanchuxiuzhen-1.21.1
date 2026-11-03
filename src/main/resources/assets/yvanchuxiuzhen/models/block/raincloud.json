@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/rain_cloud",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/rain_cloud_item",
+    "particle": "yvanchuxiuzhen:block/rain_cloud_item",
+    "0": "yvanchuxiuzhen:block/rain_cloud"
+  }
+}

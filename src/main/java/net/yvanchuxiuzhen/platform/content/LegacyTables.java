@@ -68,10 +68,13 @@ final class LegacyTables {
     }
 
     /**
-     * 1.18.2 的 {@code Tier.getLevel()}：木、金 0，石 1，铁 2，钻石 3，下界合金 4。1.21.1 的 Tier 不再有等级，
-     * 按其不能正确采掘的方块标签还原；其他 Mod 的工具等级同样按所用的原版标签归类。
+     * 1.18.2 的 {@code Tier.getLevel()}：木、金 0，石 1，铁 2，钻石 3，下界合金 4。1.21.1 的 Tier 不再有等级：
+     * 本 Mod 的工具用 {@link LegacyTier} 保存来源等级，其他 Tier 按其不能正确采掘的方块标签还原。
      */
     static int toolLevel(Tier tier) {
+        if (tier instanceof LegacyTier legacy) {
+            return legacy.level();
+        }
         if (tier.getIncorrectBlocksForDrops() == BlockTags.INCORRECT_FOR_NETHERITE_TOOL) {
             return 4;
         }

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    " 4 ",
+    " 7 "
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:cailiao_212"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:cailiao_212"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:cailiao_212"
+    },
+    "4": {
+      "item": "minecraft:stick"
+    },
+    "7": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:gongjv_022",
+    "count": 1
+  }
+}

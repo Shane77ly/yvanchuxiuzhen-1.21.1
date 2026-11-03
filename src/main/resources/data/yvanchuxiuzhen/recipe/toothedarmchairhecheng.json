@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:toothedfence"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:toothedslab"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:toothedfence"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:toothedarmchair_01",
+    "count": 3
+  }
+}

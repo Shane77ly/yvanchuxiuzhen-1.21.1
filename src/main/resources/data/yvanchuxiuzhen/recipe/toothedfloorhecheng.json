@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    },
+    {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    },
+    {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    },
+    {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:toothedfloor",
+    "count": 4
+  }
+}

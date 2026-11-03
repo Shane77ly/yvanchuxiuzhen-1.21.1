@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0",
+    "1",
+    "2"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:adobe"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:adobe"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:adobe"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:adobeslaberect",
+    "count": 6
+  }
+}

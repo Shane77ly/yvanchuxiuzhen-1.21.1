@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "01",
+    "23"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:loess"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:loess"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:loess"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:loess"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:adobe",
+    "count": 4
+  }
+}

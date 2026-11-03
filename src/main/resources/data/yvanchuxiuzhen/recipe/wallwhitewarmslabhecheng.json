@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:wallwhitewarm"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:wallwhitewarm"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:wallwhitewarm"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:wallwhitewarmslab",
+    "count": 6
+  }
+}

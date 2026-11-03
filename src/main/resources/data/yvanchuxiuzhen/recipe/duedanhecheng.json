@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:xvejing"
+    },
+    "2": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:xvejing"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:cailiao_181"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:xvejing"
+    },
+    "6": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:xvejing"
+    },
+    "8": {
+      "item": "minecraft:rotten_flesh"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:duedan",
+    "count": 1
+  }
+}

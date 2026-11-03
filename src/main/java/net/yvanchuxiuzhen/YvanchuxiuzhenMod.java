@@ -32,6 +32,7 @@ import net.yvanchuxiuzhen.system.yihuo.YihuoSetup;
 import net.yvanchuxiuzhen.system.zhenfa.ZhenfaSetup;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.RegistryExport;
+import net.yvanchuxiuzhen.platform.content.ContentSounds;
 import net.yvanchuxiuzhen.platform.content.ContentTabs;
 
 /**
@@ -43,6 +44,7 @@ public final class YvanchuxiuzhenMod {
     public YvanchuxiuzhenMod(IEventBus modBus) {
         RegistryExport.register();
         ContentTabs.register(modBus);
+        ContentSounds.register(modBus);
         BookSetup.register(modBus);
         CombatSetup.register(modBus);
         CookingSetup.register(modBus);

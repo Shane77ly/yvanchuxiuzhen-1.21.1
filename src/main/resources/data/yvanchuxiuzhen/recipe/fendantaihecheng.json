@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "345",
+    "6 8"
+  ],
+  "key": {
+    "1": {
+      "tag": "yvanchuxiuzhen:pingguan"
+    },
+    "3": {
+      "tag": "minecraft:planks"
+    },
+    "4": {
+      "tag": "minecraft:planks"
+    },
+    "5": {
+      "tag": "minecraft:planks"
+    },
+    "6": {
+      "item": "minecraft:stick"
+    },
+    "8": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:fendantai",
+    "count": 1
+  }
+}

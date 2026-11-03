@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0",
+    "1",
+    "2"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:wallred"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:wallred"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:wallred"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:wallredslaberect",
+    "count": 6
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:book_022"
+    },
+    {
+      "item": "yvanchuxiuzhen:cailiao_199"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:canwutai_block",
+    "count": 1
+  }
+}

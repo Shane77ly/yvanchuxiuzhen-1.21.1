@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "01",
+    "23"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:camphorplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:camphorfloor",
+    "count": 4
+  }
+}

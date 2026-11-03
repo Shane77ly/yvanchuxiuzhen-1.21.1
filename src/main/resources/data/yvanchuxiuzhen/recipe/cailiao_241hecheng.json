@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "tag": "yvanchuxiuzhen:taomuitem"
+    },
+    "1": {
+      "tag": "yvanchuxiuzhen:taomuitem"
+    },
+    "2": {
+      "tag": "yvanchuxiuzhen:taomuitem"
+    },
+    "3": {
+      "tag": "yvanchuxiuzhen:taomuitem"
+    },
+    "4": {
+      "tag": "yvanchuxiuzhen:taomuitem"
+    },
+    "5": {
+      "tag": "yvanchuxiuzhen:taomuitem"
+    },
+    "6": {
+      "tag": "yvanchuxiuzhen:taomuitem"
+    },
+    "7": {
+      "tag": "yvanchuxiuzhen:taomuitem"
+    },
+    "8": {
+      "tag": "yvanchuxiuzhen:taomuitem"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:cailiao_241",
+    "count": 1
+  }
+}

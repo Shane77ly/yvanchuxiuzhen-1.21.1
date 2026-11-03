@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0",
+    "1",
+    "2"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:ginkgoplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:ginkgoplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:ginkgoplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:ginkgoslaberect",
+    "count": 6
+  }
+}

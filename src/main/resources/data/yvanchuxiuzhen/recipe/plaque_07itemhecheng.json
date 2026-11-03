@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    },
+    "4": {
+      "tag": "yvanchuxiuzhen:gaoshipai"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:toothedplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:plaque_07item",
+    "count": 1
+  }
+}

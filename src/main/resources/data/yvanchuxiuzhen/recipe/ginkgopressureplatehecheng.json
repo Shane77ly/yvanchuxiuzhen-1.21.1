@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "01"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:ginkgoplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:ginkgoplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:ginkgopressureplate",
+    "count": 1
+  }
+}

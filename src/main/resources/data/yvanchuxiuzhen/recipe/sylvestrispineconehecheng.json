@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:sylvestrispinecone"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:sylvestrispinenut",
+    "count": 4
+  }
+}

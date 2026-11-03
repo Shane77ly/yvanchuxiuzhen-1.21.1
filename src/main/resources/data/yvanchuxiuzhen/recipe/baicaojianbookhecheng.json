@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "yvanchuxiuzhen:caoyao"
+    },
+    {
+      "item": "minecraft:book"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:baicaojianbook",
+    "count": 1
+  }
+}

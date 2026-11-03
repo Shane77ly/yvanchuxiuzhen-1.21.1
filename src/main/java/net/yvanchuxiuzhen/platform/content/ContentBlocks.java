@@ -9,8 +9,10 @@ import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.platform.content.block.ContentButton;
 import net.yvanchuxiuzhen.platform.content.block.ContentDoor;
 import net.yvanchuxiuzhen.platform.content.block.ContentFalling;
+import net.yvanchuxiuzhen.platform.content.block.ContentDoublePlant;
 import net.yvanchuxiuzhen.platform.content.block.ContentFence;
 import net.yvanchuxiuzhen.platform.content.block.ContentFenceGate;
+import net.yvanchuxiuzhen.platform.content.block.ContentFlower;
 import net.yvanchuxiuzhen.platform.content.block.ContentLeaves;
 import net.yvanchuxiuzhen.platform.content.block.ContentPane;
 import net.yvanchuxiuzhen.platform.content.block.ContentPressurePlate;
@@ -45,6 +47,8 @@ final class ContentBlocks {
             case "fence_gate" -> new ContentFenceGate(traits);
             case "pane" -> new ContentPane(traits);
             case "falling" -> new ContentFalling(traits);
+            case "flower" -> new ContentFlower(traits);
+            case "double_plant" -> new ContentDoublePlant(traits);
             case "button" -> new ContentButton(traits, setType(row, "button", BlockSetType.OAK));
             case "pressure_plate" -> new ContentPressurePlate(traits, setType(row, "plate",
                     row.identity().material().equals("WOOD") ? BlockSetType.OAK : BlockSetType.STONE));

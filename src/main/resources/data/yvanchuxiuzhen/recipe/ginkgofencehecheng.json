@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:ginkgoplanks"
+    },
+    "1": {
+      "item": "minecraft:stick"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:ginkgoplanks"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:ginkgoplanks"
+    },
+    "4": {
+      "item": "minecraft:stick"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:ginkgoplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:ginkgofence",
+    "count": 3
+  }
+}

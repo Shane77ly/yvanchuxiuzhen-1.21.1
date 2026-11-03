@@ -276,5 +276,5 @@
 {"id":"cailiao_204melt","factory":"item","order":2029,"tab":"yvanchuxiuzhen:tabyvanchu_materials","tooltip":["注入灵力（鼠标右键）以固定成锭"],"pending_hooks":["use"]},
 {"id":"cailiao_212melt","factory":"item","order":2030,"tab":"yvanchuxiuzhen:tabyvanchu_materials","tooltip":["注入灵力（鼠标右键）以固定成锭"],"pending_hooks":["use"]},
 {"id":"cailiao_214melt","factory":"item","order":2031,"tab":"yvanchuxiuzhen:tabyvanchu_materials","tooltip":["注入灵力（鼠标右键）以固定成锭"],"pending_hooks":["use"]},
-{"id":"xixveshi","factory":"block_item","block":"xixveshi","order":2198,"tab":"minecraft:building_blocks"}
+{"id":"xixveshi","factory":"block_item","block":"xixveshi","order":2263,"tab":"minecraft:building_blocks"}
 ]

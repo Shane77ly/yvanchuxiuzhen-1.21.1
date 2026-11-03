@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "01",
+    "23"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:cobblestone"
+    },
+    "1": {
+      "item": "minecraft:diorite"
+    },
+    "2": {
+      "item": "minecraft:diorite"
+    },
+    "3": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:fabao_004",
+    "count": 4
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    " 4 ",
+    "678"
+  ],
+  "key": {
+    "1": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:paiwei_03item",
+    "count": 1
+  }
+}

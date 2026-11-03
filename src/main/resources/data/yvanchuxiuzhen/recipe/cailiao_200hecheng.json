@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:xvejing"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:xvejing"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:xvejing"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:xvejing"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:cailiao_196"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:xvejing"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:xvejing"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:xvejing"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:xvejing"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:cailiao_200",
+    "count": 1
+  }
+}

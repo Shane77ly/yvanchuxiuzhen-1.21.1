@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/chinese_violet",
+    "particle": "yvanchuxiuzhen:block/chinese_violet"
+  }
+}

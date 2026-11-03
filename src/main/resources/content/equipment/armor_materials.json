@@ -1,0 +1,13 @@
+[
+{"id":"clothes_01","defense":[1,2,2,1],"enchantability":9,"toughness":0.0,"knockback":0.0,"repair":["cailiao_171"],"texture":"_clothes01"},
+{"id":"clothes_02","defense":[1,2,2,1],"enchantability":15,"toughness":0.0,"knockback":0.0,"repair":["cailiao_171"],"texture":"_clothes02"},
+{"id":"clothes_03","defense":[1,2,2,1],"enchantability":20,"toughness":0.0,"knockback":0.0,"repair":["cailiao_171"],"texture":"_clothes03"},
+{"id":"clothes_04","defense":[1,2,2,1],"enchantability":15,"toughness":0.0,"knockback":0.0,"texture":"_clothes04"},
+{"id":"clothes_06","defense":[2,3,4,2],"enchantability":30,"toughness":2.0,"knockback":0.0,"repair":["cailiao_171"],"texture":"_clothes06"},
+{"id":"clothes_07","defense":[1,1,2,1],"enchantability":15,"toughness":0.0,"knockback":0.0,"texture":"_clothes07"},
+{"id":"clothes_13","defense":[1,1,2,1],"enchantability":25,"toughness":0.0,"knockback":0.0,"texture":"_clothes13"},
+{"id":"clothes_14","defense":[1,1,2,1],"enchantability":25,"toughness":0.0,"knockback":0.0,"texture":"_clothes14"},
+{"id":"clothes_15","defense":[1,1,2,1],"enchantability":25,"toughness":0.0,"knockback":0.0,"texture":"_clothes15"},
+{"id":"clothes_16","defense":[1,1,2,1],"enchantability":25,"toughness":0.0,"knockback":0.0,"texture":"_clothes16"},
+{"id":"clothes_17","defense":[1,1,2,1],"enchantability":25,"toughness":0.0,"knockback":0.0,"texture":"_clothes17"}
+]

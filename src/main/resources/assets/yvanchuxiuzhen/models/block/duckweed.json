@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/duckweed",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/duckweed",
+    "particle": "yvanchuxiuzhen:block/duckweed",
+    "0": "yvanchuxiuzhen:block/duckweed"
+  }
+}

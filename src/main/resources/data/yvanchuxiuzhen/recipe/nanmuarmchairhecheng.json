@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:nanmufence"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:nanmuslab"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:nanmufence"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:nanmuarmchair_01",
+    "count": 3
+  }
+}

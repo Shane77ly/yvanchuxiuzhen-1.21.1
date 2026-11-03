@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:cassia_01"
+    },
+    {
+      "item": "yvanchuxiuzhen:shicai_010"
+    },
+    {
+      "item": "yvanchuxiuzhen:shicai_01901"
+    },
+    {
+      "item": "yvanchuxiuzhen:shicai_009"
+    },
+    {
+      "item": "yvanchuxiuzhen:dingxiangflowerdry"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:tiaowei_07",
+    "count": 3
+  }
+}

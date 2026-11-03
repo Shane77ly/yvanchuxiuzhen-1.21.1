@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "yvanchuxiuzhen:shicai_032"
+  },
+  "experience": 1,
+  "cookingtime": 100,
+  "result": {
+    "id": "yvanchuxiuzhen:food_060"
+  }
+}

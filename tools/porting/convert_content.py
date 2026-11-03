@@ -16,7 +16,7 @@ from pathlib import Path
 
 from build_ledger import INVENTORY, NAMESPACE, ROOT, expected_rows, read_ledgers
 from legacy_blocks import BASES, parse_block
-from legacy_items import parse_item
+from legacy_items import TOOL_KINDS, parse_armor_material, parse_armor_piece, parse_item, parse_tool
 
 WORKSPACE = Path('D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-1.21.1/reference')
 SOURCES = {
@@ -25,11 +25,13 @@ SOURCES = {
 }
 CONTENT = ROOT / 'src/main/resources/content'
 LANG = ROOT / 'src/main/lang'
+SOUNDS = ROOT / 'src/main/sounds'
 CONVERSION = ROOT / 'docs/reference/conversion'
 FACTORIES = {'Block': 'block', 'SlabBlock': 'slab', 'StairBlock': 'stairs', 'WallBlock': 'wall', 'LeavesBlock': 'leaves',
              'FenceBlock': 'fence', 'FenceGateBlock': 'fence_gate', 'WoodButtonBlock': 'button',
              'PressurePlateBlock': 'pressure_plate', 'IronBarsBlock': 'pane', 'DoorBlock': 'door',
-             'TrapDoorBlock': 'trapdoor', 'FallingBlock': 'falling'}
+             'TrapDoorBlock': 'trapdoor', 'FallingBlock': 'falling', 'FlowerBlock': 'flower',
+             'DoublePlantBlock': 'double_plant'}
 # 1.18.2 原版创造栏在 1.21.1 的对应；临时对应，待负责人确认。
 VANILLA_TABS = {'TAB_MISC': 'minecraft:tools_and_utilities', 'TAB_DECORATIONS': 'minecraft:building_blocks',
                 'TAB_TOOLS': 'minecraft:tools_and_utilities'}
@@ -46,10 +48,14 @@ class Source:
         blocks_text = (init / f'{self.prefix}ModBlocks.java').read_text(encoding='utf-8')
         items_text = (init / f'{self.prefix}ModItems.java').read_text(encoding='utf-8')
         self.items_text = items_text
+        # GeckoLib 盔甲不在 ModItems，由 ModGeckoLibArmors 登记（原初系统没有）。
+        geckolib = init / f'{self.prefix}ModGeckoLibArmors.java'
+        self.geckolib_armor = dict(re.findall(r'register\("(\w+)", \(\) -> new (\w+Item)\(EquipmentSlot',
+                                              geckolib.read_text(encoding='utf-8'))) if geckolib.is_file() else {}
         tabs_text = (init / f'{self.prefix}ModTabs.java').read_text(encoding='utf-8')
         self.block_class = dict(re.findall(r'register\("(\w+)", \(\) -> new (\w+)\(\)\)', blocks_text))
         self.block_const = {c: p for c, p in re.findall(r'RegistryObject<Block> (\w+) = \w+\.register\("(\w+)"', blocks_text)}
-        self.item_class = dict(re.findall(r'register\("(\w+)", \(\) -> new (\w+Item)\(\)\)', items_text))
+        self.item_class = dict(re.findall(r'register\("(\w+)", \(\) -> new ([\w.]+Item(?:\.\w+)?)\(\)\)', items_text))
         self.item_const = {c: p for c, p in re.findall(r'RegistryObject<Item> (\w+) = \w+\.register\("(\w+)"', items_text)}
         self.block_items = {}
         for const, helper, block, tab in re.findall(r'RegistryObject<Item> (\w+) = (block|doubleBlock)\(\w+\.(\w+), (?:\w+\.)?(\w+)\)', items_text):
@@ -68,6 +74,8 @@ class Source:
 
     def special_item_reason(self, path: str) -> str:
         """专属类注册的物品（动画方块物品、刷怪蛋、盔甲部件、桶等）：返回其实例化的类名。"""
+        if path in self.geckolib_armor:
+            return f'物品类 {self.geckolib_armor[path]}（GeckoLib 盔甲）由所属系统迁移'
         const = next((c for c, p in self.item_const.items() if p == path), None) or path.upper()
         match = re.search(rf'RegistryObject<Item> {const} = [^;]*?new ([\w.]+)\(', self.items_text, re.S)
         if match is None:
@@ -96,6 +104,47 @@ def write_lang(unit_entries: dict[str, dict[str, dict[str, str]]]) -> None:
             path.write_text(json.dumps(entries, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
 
 
+def convert_sounds(sources: dict[str, Source], add_lang) -> list[dict]:
+    """声音事件：内容表只登记事件 ID，声音文件（可与事件名不同）、类别与字幕由 sounds.json 片段声明，字幕文本写入 platform 的语言片段。"""
+    rows: list[dict] = []
+    fragment: dict[str, dict] = {}
+    for mod, (root, _) in SOURCES.items():
+        file = root / f'src/main/resources/assets/{mod}/sounds.json'
+        if not file.is_file():
+            continue
+        for event, definition in json.loads(file.read_text(encoding='utf-8')).items():
+            if event in fragment:
+                raise ValueError(f'声音事件 {event} 在两个来源中重复')
+            for sound in definition['sounds']:
+                if not sound['name'].startswith(f'{mod}:'):
+                    raise ValueError(f'声音事件 {event} 引用了其他命名空间的文件 {sound["name"]}')
+            fragment[event] = {**definition, 'sounds': [{**sound, 'name': f'{NAMESPACE}:{sound["name"].split(":", 1)[1]}'} for sound in definition['sounds']]}
+            rows.append({'id': event})
+            subtitle = definition.get('subtitle')
+            if subtitle:
+                for language in LANGUAGES:
+                    text = sources[mod].lang[language].get(subtitle)
+                    if text is not None:
+                        add_lang('platform', language, subtitle, text)
+    SOUNDS.mkdir(parents=True, exist_ok=True)
+    text = json.dumps(fragment, ensure_ascii=False, indent=2) + '\n'
+    (SOUNDS / 'platform.json').write_text(text, encoding='utf-8', newline='\n')
+    return rows
+
+
+def convert_advancement_lang(sources: dict[str, Source], add_lang) -> int:
+    """进度的标题与说明文本（键写在进度文件的 translate 字段）写入 platform 的语言片段。"""
+    count = 0
+    for mod, (root, _) in SOURCES.items():
+        for file in sorted((root / f'src/main/resources/data/{mod}/advancements').glob('*.json')):
+            display = json.loads(file.read_text(encoding='utf-8'))['display']
+            for key in (display['title']['translate'], display['description']['translate']):
+                for language in LANGUAGES:
+                    add_lang('platform', language, key, sources[mod].lang[language][key])
+                count += 1
+    return count
+
+
 def main() -> None:
     expected = expected_rows()
     targets = ledger_targets()
@@ -107,6 +156,7 @@ def main() -> None:
     lang: dict[str, dict[str, dict[str, str]]] = defaultdict(lambda: {language: {} for language in LANGUAGES})
     skipped: list[tuple[str, str, str]] = []
     block_tooltips: dict[tuple[str, str], list[str]] = {}
+    armor_materials: dict[tuple[str, str], dict] = {}
 
     def add_lang(unit: str, language: str, key: str, value: str) -> None:
         lang[unit][language][key] = value
@@ -158,13 +208,28 @@ def main() -> None:
             if class_name is None:
                 skipped.append(('item', legacy_id, source.special_item_reason(path)))
                 continue
-            text = source.java('item', class_name)
-            base = re.search(r'public class \w+ extends (\w+)', text).group(1)
-            if base != 'Item':
-                skipped.append(('item', legacy_id, f'物品基类 {base} 由所属系统迁移'))
-                continue
+            outer, _, piece = class_name.partition('.')
+            text = source.java('item', outer)
+            base = re.search(r'public (?:abstract )?class \w+ extends (\w+)', text).group(1)
             try:
-                row = {'id': target, 'factory': 'item', 'order': order, **parse_item(text, source.tabs)}
+                if base == 'Item':
+                    row = {'id': target, 'factory': 'item', 'order': order, **parse_item(text, source.tabs)}
+                elif base in TOOL_KINDS:
+                    row = {'id': target, 'factory': 'tool', 'order': order, **parse_tool(text, base, source.tabs, source.item_const)}
+                elif base == 'ArmorItem' and piece:
+                    material = parse_armor_material(text, source.item_const)
+                    part = parse_armor_piece(text, piece, source.tabs)
+                    texture = part.pop('armor_texture')
+                    multiplier = material.pop('durability_multiplier')
+                    key = (unit, material['id'])
+                    known = armor_materials.setdefault(key, {**material, 'texture': texture})
+                    if known['texture'] != texture:
+                        raise ValueError('同一盔甲材质的部件贴图不一致')
+                    row = {'id': target, 'factory': 'armor', 'order': order, 'armor': {'material': material['id'], 'slot': piece.upper()},
+                           'durability_multiplier': multiplier, **part}
+                else:
+                    skipped.append(('item', legacy_id, f'物品基类 {base} 由所属系统迁移'))
+                    continue
             except ValueError as error:
                 skipped.append(('item', legacy_id, f'{class_name}：{error}'[:200]))
                 continue
@@ -191,13 +256,19 @@ def main() -> None:
                 if title is not None:
                     add_lang('platform', language, f'itemGroup.{NAMESPACE}.{name}', title)
 
+    sound_rows = convert_sounds(sources, add_lang)
+    advancement_keys = convert_advancement_lang(sources, add_lang)
+
     units = sorted(set(blocks_by_unit) | set(items_by_unit))
     for unit in units:
         if blocks_by_unit.get(unit):
             write_rows(CONTENT / unit / 'blocks.json', blocks_by_unit[unit])
         if items_by_unit.get(unit):
             write_rows(CONTENT / unit / 'items.json', items_by_unit[unit])
+    for unit in sorted({u for u, _ in armor_materials}):
+        write_rows(CONTENT / unit / 'armor_materials.json', [m for (u, _), m in sorted(armor_materials.items()) if u == unit])
     write_rows(CONTENT / 'platform' / 'tabs.json', sorted(tabs, key=lambda t: t['id']))
+    write_rows(CONTENT / 'platform' / 'sounds.json', sound_rows)
     write_lang(lang)
     CONVERSION.mkdir(parents=True, exist_ok=True)
     with (CONVERSION / 'skipped.csv').open('w', encoding='utf-8', newline='') as handle:
@@ -205,7 +276,7 @@ def main() -> None:
         writer.writerow(['registry', 'legacy_id', 'reason'])
         writer.writerows(sorted(skipped))
     print({unit: (len(blocks_by_unit.get(unit, [])), len(items_by_unit.get(unit, []))) for unit in units})
-    print('tabs', len(tabs), 'skipped', len(skipped))
+    print('tabs', len(tabs), 'sounds', len(sound_rows), 'advancement keys', advancement_keys, 'skipped', len(skipped))
 
 
 if __name__ == '__main__':

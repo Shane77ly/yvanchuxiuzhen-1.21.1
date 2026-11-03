@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "yvanchuxiuzhen:block/green_bristlegrass",
+    "particle": "yvanchuxiuzhen:block/green_bristlegrass"
+  }
+}

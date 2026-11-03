@@ -1,0 +1,9 @@
+{
+  "parent": "yvanchuxiuzhen:custom/higanbana",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/higanbana1",
+    "particle": "yvanchuxiuzhen:block/higanbana1",
+    "0": "yvanchuxiuzhen:block/higanbana1",
+    "1": "yvanchuxiuzhen:block/higanbana2"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "4": {
+      "tag": "yvanchuxiuzhen:gaoshipai"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:plaque_03item",
+    "count": 1
+  }
+}

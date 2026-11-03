@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:adobe"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:adobe"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:adobe"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:adobe"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:adobe"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:adobe"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:adobestairs",
+    "count": 4
+  }
+}

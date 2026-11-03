@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "01",
+    "23",
+    "45"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:sylvestrisplanks"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:sylvestrissillwallwindow",
+    "count": 3
+  }
+}

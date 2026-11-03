@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "yvanchuxiuzhen:shicai_060"
+  },
+  "experience": 1,
+  "cookingtime": 200,
+  "result": {
+    "id": "yvanchuxiuzhen:food_084"
+  }
+}

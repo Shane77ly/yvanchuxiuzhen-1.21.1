@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "yvanchuxiuzhen:block/tailreed__cutout"
+    },
+    "half=lower": {
+      "model": "yvanchuxiuzhen:block/tailreed_bottom__cutout"
+    }
+  }
+}

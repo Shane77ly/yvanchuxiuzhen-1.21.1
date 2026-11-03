@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:beechfloor"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:beechfloor"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:beechfloor"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:beechfloor"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:beechfloor"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:beechfloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:beechfloorstairs",
+    "count": 4
+  }
+}

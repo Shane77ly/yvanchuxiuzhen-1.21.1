@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:adobefloor"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:adobefloor"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:adobefloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:adobefloorslab",
+    "count": 6
+  }
+}

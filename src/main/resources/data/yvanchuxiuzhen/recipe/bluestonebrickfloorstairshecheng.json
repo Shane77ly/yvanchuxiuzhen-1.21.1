@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:bluestonebrickfloor"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:bluestonebrickfloor"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:bluestonebrickfloor"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:bluestonebrickfloor"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:bluestonebrickfloor"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:bluestonebrickfloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:bluestonebrickfloorstairs",
+    "count": 4
+  }
+}

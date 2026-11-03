@@ -1,0 +1,8 @@
+{
+  "parent": "yvanchuxiuzhen:custom/androsace01",
+  "textures": {
+    "all": "yvanchuxiuzhen:block/androsace01",
+    "particle": "yvanchuxiuzhen:block/androsace01",
+    "0": "yvanchuxiuzhen:block/androsace"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "yvanchuxiuzhen:cailiao_199"
+    }
+  ],
+  "result": {
+    "id": "yvanchuxiuzhen:cailiao_198",
+    "count": 4
+  }
+}

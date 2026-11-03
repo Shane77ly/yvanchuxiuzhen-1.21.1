@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:camphorfence"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:camphorslab"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:camphorfence"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:camphorarmchair_01",
+    "count": 3
+  }
+}

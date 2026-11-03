@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:camphorfloor"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:camphorfloor"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:camphorfloor"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:camphorfloor"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:camphorfloor"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:camphorfloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:camphorfloorstairs",
+    "count": 4
+  }
+}

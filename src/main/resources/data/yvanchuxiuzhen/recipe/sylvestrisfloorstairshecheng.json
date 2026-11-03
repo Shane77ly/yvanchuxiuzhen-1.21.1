@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:sylvestrisfloor"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:sylvestrisfloor"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:sylvestrisfloor"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:sylvestrisfloor"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:sylvestrisfloor"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:sylvestrisfloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:sylvestrisfloorstairs",
+    "count": 4
+  }
+}

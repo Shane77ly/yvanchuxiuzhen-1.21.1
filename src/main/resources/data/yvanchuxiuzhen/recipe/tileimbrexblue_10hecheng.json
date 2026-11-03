@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "yvanchuxiuzhen:bluestonebrick"
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:tileimbrexblue_10",
+    "count": 1
+  }
+}

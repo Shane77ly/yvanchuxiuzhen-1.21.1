@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:sylvestrisfloor"
+    },
+    "1": {
+      "item": "yvanchuxiuzhen:sylvestrisfloor"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:sylvestrisfloor"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:sylvestrisfloorslab",
+    "count": 6
+  }
+}
