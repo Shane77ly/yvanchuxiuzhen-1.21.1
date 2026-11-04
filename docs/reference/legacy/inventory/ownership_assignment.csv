@@ -1,24 +1,24 @@
 source_mod,element,type,folder,owner,status,evidence
 yvanchuxiuzhen,LEVELup,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：境界提升（层数、属性点、升级与境界修正、寿元、境界名、声音、闭关冷却、升级文字与界面）
 yvanchuxiuzhen,PlayerTick,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,EntityBeforeHurt,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DamageIntegration,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Icedef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Golddef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Waterdef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Treedef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Firedef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Soildef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Attdef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Manadef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Colddown,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Breakfree,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Powerup,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dodge,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dawn,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Basalt,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flying,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Haoyu,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,EntityBeforeHurt,procedure,~/systemset,combat,已读,C combat 归属阅读：LivingHurtEvent 免伤、闪避、物理伤害公式、吸血、符箓复活；见战斗架构“伤害主链的归属阅读”
+yvanchuxiuzhen,DamageIntegration,procedure,~/systemset,combat,已读,C combat 归属阅读：另一版伤害计算，经持久化键传值，无调用者与订阅，不可达（Q31）
+yvanchuxiuzhen,Icedef,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（DamageDefense, ManaDefense, Zhilingdefence）"
+yvanchuxiuzhen,Golddef,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（DamageDefense, ManaDefense, Zhilingdefence）"
+yvanchuxiuzhen,Waterdef,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（DamageDefense, ManaDefense, Zhilingdefence）"
+yvanchuxiuzhen,Treedef,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（DamageDefense, ManaDefense, Zhilingdefence）"
+yvanchuxiuzhen,Firedef,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（DamageDefense, ManaDefense, Zhilingdefence）"
+yvanchuxiuzhen,Soildef,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（DamageDefense, ManaDefense, Zhilingdefence）"
+yvanchuxiuzhen,Attdef,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityBeforeHurt），另被 attribute 读取
+yvanchuxiuzhen,Manadef,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（ManaDefense, Zhilingdefence），另被 attribute 读取"
+yvanchuxiuzhen,Colddown,enchantment,~/enchanting,attribute,已读,C combat 归属阅读：附魔空壳类；attribute 的 Shuxingjisuan 把护甲与饰品等级折成冷却缩减，玩法含义在 attribute
+yvanchuxiuzhen,Breakfree,enchantment,~/enchanting,combat,已读,C combat 归属阅读：挣脱，附魔定义在本系统登记；缩短缓慢效果的规则在 flow 的 PlayerTick 调用的 Effectslownessget（读取护甲与饰品的等级），行为随 flow 迁移
+yvanchuxiuzhen,Powerup,enchantment,~/enchanting,attribute,已读,C combat 归属阅读：附魔空壳类；attribute 的 Shuxingjisuan 把四件护甲等级加进回灵，玩法含义在 attribute
+yvanchuxiuzhen,Dodge,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityBeforeHurt, ShanghaiGo）"
+yvanchuxiuzhen,Dawn,enchantment,~/enchanting,attribute,已读,C combat 归属阅读：附魔空壳类；attribute 的 Shuxingjisuan 把四件护甲等级加进回血，玩法含义在 attribute
+yvanchuxiuzhen,Basalt,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（DamageDefense, EntityBeforeHurt, ManaDefense, Zhilingdefence）"
+yvanchuxiuzhen,Flying,enchantment,~/enchanting,skill,已读,C combat 归属阅读：附魔空壳类；skill 的 FlyskillTick 按等级减少飞行灵力消耗，玩法含义在 skill
+yvanchuxiuzhen,Haoyu,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt）
 yvanchuxiuzhen,EntityDeath,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,YvanchuMaterials,tab,~/systemset/classification,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao001,item,~/item/monstermaterial,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 cooking 的 Muzengzhengliu；dungeon 的 TiandaofubenFangZhiFangKuaiShi；economy 的 Putongchushouanniu、Putongshougoushuaxin；flow 的 Worldbegin；lianqi 的 LianqiLEVELUP；npc 的 Businessman07ShiTiChuShiShengChengShi；treasure 的 BaoxiangYaoshoucailiao；world 的 SealreleaseGo 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
@@ -354,126 +354,126 @@ yvanchuxiuzhen,Cailiao239DangTouSheWuSheZhongCiFangKuai,procedure,~/item/fire,yi
 yvanchuxiuzhen,Cailiao239DangTouZhiWuJiZhongShiTiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao239 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
 yvanchuxiuzhen,Cailiao239TouZhiWuFeiXingTick,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao239 读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
 yvanchuxiuzhen,Cailiao239,rangeditem,~/item/fire,yihuo,已读,B1 归属阅读：异火：投掷条件、飞行、命中实体与方块的效果（经 /shanghai 伤害入口与敌友判定），属异火的投掷与命中效果
-yvanchuxiuzhen,Phoenix,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Longdignified,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tigerdignified,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingatt01,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingatt02,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingatt03,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingatt04,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingatt05,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Manaatt,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Soulatt,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ghost,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fluorescence,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beepoison,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Firepoison,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Redrefining,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Spore,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sinomeninevine,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Coldtoxin,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cautery,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Snakevenom,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Vampire,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Critical,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect001ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect001,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect002,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect003ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect003,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect004ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect004,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Phoenix,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt）
+yvanchuxiuzhen,Longdignified,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt）
+yvanchuxiuzhen,Tigerdignified,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt）
+yvanchuxiuzhen,Shuxingatt01,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
+yvanchuxiuzhen,Shuxingatt02,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
+yvanchuxiuzhen,Shuxingatt03,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
+yvanchuxiuzhen,Shuxingatt04,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
+yvanchuxiuzhen,Shuxingatt05,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
+yvanchuxiuzhen,Manaatt,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（DamageIntegration, ManaDamage, Zhilingdamage）"
+yvanchuxiuzhen,Soulatt,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（SoulAttjisuan, Zhilingdamage）"
+yvanchuxiuzhen,Ghost,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：【武器/法宝】召唤的鬼物伤害增加（附魔等级）^2点 
+yvanchuxiuzhen,Fluorescence,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt），另被 equipment 读取
+yvanchuxiuzhen,Beepoison,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（CauldronduyaoZaiFangKuaiShangYouJian, EntityHurt），另被 equipment 读取"
+yvanchuxiuzhen,Firepoison,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi, CauldronduyaoZaiFangKuaiShangYouJian, EntityHurt），另被 equipment 读取"
+yvanchuxiuzhen,Redrefining,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi, CauldronduyaoZaiFangKuaiShangYouJian, EntityHurt），另被 equipment 读取"
+yvanchuxiuzhen,Spore,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（CauldronduyaoZaiFangKuaiShangYouJian, EntityHurt），另被 equipment 读取"
+yvanchuxiuzhen,Sinomeninevine,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi, CauldronduyaoZaiFangKuaiShangYouJian, EntityHurt），另被 equipment 读取"
+yvanchuxiuzhen,Coldtoxin,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi, CauldronduyaoZaiFangKuaiShangYouJian, EntityHurt），另被 equipment 读取"
+yvanchuxiuzhen,Cautery,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi, CauldronduyaoZaiFangKuaiShangYouJian, EntityHurt），另被 equipment 读取"
+yvanchuxiuzhen,Snakevenom,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi, CauldronduyaoZaiFangKuaiShangYouJian, EntityHurt），另被 equipment 读取"
+yvanchuxiuzhen,Vampire,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityBeforeHurt, EntityHurt）"
+yvanchuxiuzhen,Critical,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（DamageIntegration, EntityBeforeHurt, ManaDamage, SoulAttjisuan）"
+yvanchuxiuzhen,Effect001ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect001,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect002,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect003ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect003,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect004ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：流血（周期扣血、给吸血石充血、见血封喉缩短周期）
+yvanchuxiuzhen,Effect004,potioneffect,~/effect,combat,已读,C combat 归属阅读：流血（周期扣血、给吸血石充血、见血封喉缩短周期）
 yvanchuxiuzhen,Xvedi,particle,~/effect,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect005ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect005,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect006ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect006,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect007ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect007,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect008DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect008,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect009ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect009,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect010ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect010,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect011ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect011,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect012ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect012,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect013,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect014ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect014,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect015ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect015,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect016ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect016,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect017ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect017,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect018ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect018,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect019ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect019,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect020,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect021ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect021,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect022,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect023ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect023,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect024ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect024,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao01ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao01,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao02ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao02,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao03ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao03,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao04ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao04,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao05ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao05,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao06ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao06,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao07ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao07,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao08ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao08,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao09ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao09,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao10ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao10,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao11ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao11,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao12ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao12,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao13ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao13,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao14ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao14,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao15ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao15,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao16,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect005ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect005,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect006ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect006,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect007ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect007,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect008DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect008,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect009ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect009,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect010ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect010,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect011ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect011,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect012ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect012,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect013,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果标记，没有自身过程；等级由伤害结算读取（effect_013 法术伤害提高、effect_020 精力伤害提高、effect_022 雷劫抗性、effect_036 手下留情）
+yvanchuxiuzhen,Effect014ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect014,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect015ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect015,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect016ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect016,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect017ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect017,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect018ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect018,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect019ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect019,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect020,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果标记，没有自身过程；等级由伤害结算读取（effect_013 法术伤害提高、effect_020 精力伤害提高、effect_022 雷劫抗性、effect_036 手下留情）
+yvanchuxiuzhen,Effect021ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect021,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect022,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果标记，没有自身过程；等级由伤害结算读取（effect_013 法术伤害提高、effect_020 精力伤害提高、effect_022 雷劫抗性、effect_036 手下留情）
+yvanchuxiuzhen,Effect023ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,yihuo,候选,C combat 归属改判（读取者统计，未读过程内容）：阳火炙烤、阴火灼烧，由异火造成，读取者主要是异火的过程
+yvanchuxiuzhen,Effect023,potioneffect,~/effect,yihuo,候选,C combat 归属改判（读取者统计，未读过程内容）：阳火炙烤、阴火灼烧，由异火造成，读取者主要是异火的过程
+yvanchuxiuzhen,Effect024ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,yihuo,候选,C combat 归属改判（读取者统计，未读过程内容）：阳火炙烤、阴火灼烧，由异火造成，读取者主要是异火的过程
+yvanchuxiuzhen,Effect024,potioneffect,~/effect,yihuo,候选,C combat 归属改判（读取者统计，未读过程内容）：阳火炙烤、阴火灼烧，由异火造成，读取者主要是异火的过程
+yvanchuxiuzhen,Duyao01ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao01,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao02ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao02,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao03ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao03,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao04ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao04,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao05ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao05,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao06ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao06,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao07ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao07,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao08ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao08,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao09ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao09,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao10ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao10,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao11ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao11,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao12ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao12,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao13ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao13,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao14ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao14,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao15ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao15,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao16,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药标记，没有自身过程；等级由伤害结算读取（duyao_16 火毒、duyao_18 见血封喉）
 yvanchuxiuzhen,Sporelizi,particle,~/effect,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao17ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao17,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Duyao17ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao17,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
 yvanchuxiuzhen,PlayerGUI01,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerNamexianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Healthxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Powerxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jingshenxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Attackxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,EntityHurt,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingatt06,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingatt07,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingatt08,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingatt09,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingatt10,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingatt11,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuxingatt12,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DamageDefense,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,EntityHurt,procedure,~/systemset,combat,已读,C combat 归属阅读：LivingAttackEvent 命中处理——药毒、附魔命中效果（毒药类、haoyu、phoenix 等）、战斗状态记分板、功法特效、驯服宠物的攻击目标；调用 EntityHurt2、EntityHurt3
+yvanchuxiuzhen,Shuxingatt06,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
+yvanchuxiuzhen,Shuxingatt07,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
+yvanchuxiuzhen,Shuxingatt08,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
+yvanchuxiuzhen,Shuxingatt09,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
+yvanchuxiuzhen,Shuxingatt10,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
+yvanchuxiuzhen,Shuxingatt11,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
+yvanchuxiuzhen,Shuxingatt12,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
+yvanchuxiuzhen,DamageDefense,procedure,~/systemset,combat,已读,C combat 归属阅读：另一版防御计算，无调用者与订阅，不可达（Q31）
 yvanchuxiuzhen,Miss,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ExclamationMark,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,FindTheEnemy,procedure,~/systemset,combat,已读,C relation 归属阅读：LivingSetAttackTargetEvent 中，目标未带 findtheenemy 标记时在攻击方头顶发感叹号粒子并给目标加标记（EntityTick 400 tick 后无目标时清除）；与敌友数据无关，是所有生物锁定目标的通用反馈
-yvanchuxiuzhen,DamageXiaoguo,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,DamageXiaoguo,procedure,~/systemset,combat,已读,C combat 归属阅读：空方法，无调用者（Q31）
 yvanchuxiuzhen,Manaxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Soulxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Vigorousxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -544,8 +544,8 @@ yvanchuxiuzhen,GUI04qinggongname,procedure,~/GUI,panel,候选,第一版批量归
 yvanchuxiuzhen,GUIflyname,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,EntityTick,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerJoinGame,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SoulDefjisuan,procedure,~/systemset/damage,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SoulAttjisuan,procedure,~/systemset/damage,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SoulDefjisuan,procedure,~/systemset/damage,combat,已读,C combat 归属阅读：另一版神识防御计算，无调用者与订阅，不可达（Q31）
+yvanchuxiuzhen,SoulAttjisuan,procedure,~/systemset/damage,combat,已读,C combat 归属阅读：另一版神识攻击计算，无调用者与订阅，不可达（Q31）
 yvanchuxiuzhen,YvanchuFood,tab,~/systemset/classification,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cassia01,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Cassia02DangGuFenChengGongShiYong,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Cassia02 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
@@ -1692,19 +1692,19 @@ yvanchuxiuzhen,Flyskill,command,~/systemset/zhiling,skill,候选,第一版批量
 yvanchuxiuzhen,Flyskill02,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyskill03,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyskill04,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect01,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect02,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect03,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect04,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect05,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect06,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect07,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect08DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect08DangXiaoGuoJieShuShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect08,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect09DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect09DangXiaoGuoJieShuShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect09,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Skilleffect01,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect02,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect03,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect04,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect05,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect06,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect07,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect08DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
+yvanchuxiuzhen,Skilleffect08DangXiaoGuoJieShuShi,procedure,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
+yvanchuxiuzhen,Skilleffect08,potioneffect,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
+yvanchuxiuzhen,Skilleffect09DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
+yvanchuxiuzhen,Skilleffect09DangXiaoGuoJieShuShi,procedure,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
+yvanchuxiuzhen,Skilleffect09,potioneffect,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
 yvanchuxiuzhen,TabanjianAnXiaAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tabanjian,keybind,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,AnjianZAnXiaAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1801,7 +1801,7 @@ yvanchuxiuzhen,Skillwind01,rangeditem,~/skill/jineng/windskill,skill,已读,B1 �
 yvanchuxiuzhen,Skillwind02DangShiTiGengXinKeShi,procedure,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Skillwind02,animatedentity,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Skillwind02shifang,procedure,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillwind04,potioneffect,~/skill/jineng/windskill,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Skillwind04,potioneffect,~/skill/jineng/windskill,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
 yvanchuxiuzhen,SkillFire01TouZhiWuFeiXingTick,procedure,~/skill/jineng/fireskill,skill,已读,B1 归属阅读：随 SkillFire01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillFire01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/fireskill,skill,已读,B1 归属阅读：随 SkillFire01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillFire01,rangeditem,~/skill/jineng/fireskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -1898,9 +1898,9 @@ yvanchuxiuzhen,PlayerGUI06anniu06,procedure,~/GUI,panel,候选,第一版批量�
 yvanchuxiuzhen,PlayerGUI06xiulian,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,OpenGUI06,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Kaishixiulian,procedure,~/systemset,xiulian,已读,C xiulian 归属阅读：闭关修炼每天推进（天数、寿元、吸纳元气与额外修为、闭关冷却），其中给主修功法加经验的部分改为发出事件由 gongfa 处理
-yvanchuxiuzhen,Effect025,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect026,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect027,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect025,potioneffect,~/effect,xiulian,已读,C combat 归属阅读（改判后确认）：修炼加持标记，没有自身过程，等级由 xiulian 的修炼过程与烹饪读取
+yvanchuxiuzhen,Effect026,potioneffect,~/effect,xiulian,已读,C combat 归属阅读（改判后确认）：修炼加持标记，没有自身过程，等级由 xiulian 的修炼过程与烹饪读取
+yvanchuxiuzhen,Effect027,potioneffect,~/effect,xiulian,已读,C combat 归属阅读（改判后确认）：修炼加持标记，没有自身过程，等级由 xiulian 的修炼过程与烹饪读取
 yvanchuxiuzhen,TreasureChestGUI,gui,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,TreasureChest01DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/baoxiang,treasure,已读,B1 归属阅读：随 TreasureChest01 读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
 yvanchuxiuzhen,TreasureChest01,item,~/baoxiang,treasure,已读,B1 归属阅读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
@@ -2691,13 +2691,13 @@ yvanchuxiuzhen,Panzhuang,tag,~/item/food,cooking,候选,第一版批量归组（
 yvanchuxiuzhen,Wanzhuang,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Dapenzhuang,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tiepanzhuang,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect028,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect029,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect028,potioneffect,~/effect,cooking,已读,C combat 归属阅读（改判后确认）：食用主食、菜肴、汤水标记，没有自身过程，由烹饪的食用过程读写
+yvanchuxiuzhen,Effect029,potioneffect,~/effect,cooking,已读,C combat 归属阅读（改判后确认）：食用主食、菜肴、汤水标记，没有自身过程，由烹饪的食用过程读写
 yvanchuxiuzhen,Zhushi,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Caipin,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tangshui,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Chadian,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect030,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect030,potioneffect,~/effect,cooking,已读,C combat 归属阅读（改判后确认）：食用主食、菜肴、汤水标记，没有自身过程，由烹饪的食用过程读写
 yvanchuxiuzhen,ThistlesandthornsDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Thistlesandthorns 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Thistlesandthorns,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Ancienttimeswood,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；被 world 的 Biomesand01 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
@@ -3036,8 +3036,8 @@ yvanchuxiuzhen,Fuqi06,item,~/item/jieri,festival,已读,B1 归属阅读：节日
 yvanchuxiuzhen,CaishenyeDangYouJianDianJiShiTi,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Caishenye 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Tianjie07DangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,Tianjie07,animatedentity,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
-yvanchuxiuzhen,ManaDamage,procedure,~/systemset/damage,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ManaDefense,procedure,~/systemset/damage,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ManaDamage,procedure,~/systemset/damage,combat,已读,C combat 归属阅读：另一版灵力伤害计算，无调用者与订阅，不可达（Q31）
+yvanchuxiuzhen,ManaDefense,procedure,~/systemset/damage,combat,已读,C combat 归属阅读：另一版灵力防御计算，无调用者与订阅，不可达（Q31）
 yvanchuxiuzhen,Businessman01,animatedentity,~/entity/npc,npc,已读,B1 归属阅读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Businessman01DangYouJianDianJiShiTi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman01 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Businessman02DangYouJianDianJiShiTi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman02 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
@@ -3455,8 +3455,8 @@ yvanchuxiuzhen,Businessman04,animatedentity,~/entity/npc,npc,已读,B1 归属阅
 yvanchuxiuzhen,Businessman04night,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman05,animatedentity,~/entity/npc,npc,已读,B1 归属阅读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Businessman05DangYouJianDianJiShiTi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman05 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
-yvanchuxiuzhen,Effect031ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect031,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect031ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,cooking,候选,C combat 归属改判（读取者统计，未读过程内容）：食用与辟谷状态，只被烹饪的食用过程读取（效果自身过程是辟谷的每刻处理）
+yvanchuxiuzhen,Effect031,potioneffect,~/effect,cooking,候选,C combat 归属改判（读取者统计，未读过程内容）：食用与辟谷状态，只被烹饪的食用过程读取（效果自身过程是辟谷的每刻处理）
 yvanchuxiuzhen,GuanghuanDangShiTiGengXinKeShi,procedure,~/decorate/jiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guanghuan,animatedentity,~/decorate/jiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ling14DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/decorate/jiegou,world,已读,B1 归属阅读：随 Ling14item 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
@@ -3494,8 +3494,8 @@ yvanchuxiuzhen,Ycxzboss01ShiTiChuShiShengChengShi,procedure,~/entity/boss/ycxzbo
 yvanchuxiuzhen,Ycxzboss01DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Ycxzboss01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Ycxzboss01DangShiTiShouShangShi,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Ycxzboss01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Ycxzboss01,animatedentity,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,ShanghaifanweiDangShiTiGengXinKeShi,procedure,~/skill/jineng,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shanghaifanwei,animatedentity,~/skill/jineng,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ShanghaifanweiDangShiTiGengXinKeShi,procedure,~/skill/jineng,skill,候选,C combat 归属改判（读过更新过程）：技能伤害范围指示实体，由技能与妖兽技能生成，按 jinengname 倒计时消失，控雷阵到期经 /lightninglanding 落雷；玩法含义在 skill，随 skill 迁移（动画实体用 GeckoLib，基础设施已随木人桩建立）
+yvanchuxiuzhen,Shanghaifanwei,animatedentity,~/skill/jineng,skill,候选,C combat 归属改判（读过更新过程）：技能伤害范围指示实体，由技能与妖兽技能生成，按 jinengname 倒计时消失，控雷阵到期经 /lightninglanding 落雷；玩法含义在 skill，随 skill 迁移（动画实体用 GeckoLib，基础设施已随木人桩建立）
 yvanchuxiuzhen,Npcshuxingjisuan,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,ZhuangshitiziDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Zhuangshitizi 读：装饰梯：放置过程只改本方块
 yvanchuxiuzhen,Mugongtai,animatedblock,~/tool,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
@@ -3578,8 +3578,8 @@ yvanchuxiuzhen,Tiangandizhi2,particle,~/lizi,particle,候选,第一版批量归�
 yvanchuxiuzhen,Fabao011DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao011 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao011,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Armor11,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Effect032ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect032,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect032ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：幻音（每 20 刻在身边随机位置播放 20 种原版声音之一）
+yvanchuxiuzhen,Effect032,potioneffect,~/effect,combat,已读,C combat 归属阅读：幻音（每 20 刻在身边随机位置播放 20 种原版声音之一）
 yvanchuxiuzhen,Fabao012DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao012 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao012,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao013DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao013 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
@@ -3762,12 +3762,12 @@ yvanchuxiuzhen,Guancai01,animatedblock,~/decorate,creature,已读,B1 归属阅�
 yvanchuxiuzhen,Fushengdan,item,~/item/zawu,fulu,已读,B1 归属阅读：浮生丹：服用时触发符箓效果 Fulutexiao37，效果属符箓
 yvanchuxiuzhen,DuedanWanJiaWanChengShiYongWuPinShi,procedure,~/item/zawu,liandan,已读,B1 归属阅读：随 Duedan 读：毒厄丹：对生物使用时施加毒药效果 duyao_19（RightClickEntity 分支），自己服用得剧痛、无力、发抖；属毒药
 yvanchuxiuzhen,Duedan,item,~/item/zawu,liandan,已读,B1 归属阅读：毒厄丹：对生物使用时施加毒药效果 duyao_19（RightClickEntity 分支），自己服用得剧痛、无力、发抖；属毒药
-yvanchuxiuzhen,Duyao18,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao19DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao19DangXiaoGuoJieShuShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao19,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Duyao18,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药标记，没有自身过程；等级由伤害结算读取（duyao_16 火毒、duyao_18 见血封喉）
+yvanchuxiuzhen,Duyao19DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao19DangXiaoGuoJieShuShi,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao19,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
 yvanchuxiuzhen,Duedanhecheng,recipe,~/item/zawu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sawtooth,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Sawtooth,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt）
 yvanchuxiuzhen,Xveliu,fluid,~/decorate,xiulian,已读,B1 归属阅读：血流只在修炼规则中有意义：Kaishixiulian 修炼御血术、汲血功、地血大法、血魔祭魂秘法时检测周围 3×3×3 是否有血流，有则给血晶并额外 +5；Xixveshi 只负责产出
 yvanchuxiuzhen,Fabao016DangShiTiBeiGongJuJiZhongShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao016 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao016,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
@@ -3814,7 +3814,7 @@ yvanchuxiuzhen,Guchong04ShiTiChuShiShengChengShi,procedure,~/entity/guchong,guch
 yvanchuxiuzhen,Guchong04,animatedentity,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongxvnfu,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Chongshicao,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 economy 的 Caoyaojiage；flow 的 Worldbegin 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Huxiangtunshi,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Huxiangtunshi,potioneffect,~/effect,guchong,已读,C combat 归属阅读（改判后确认）：蛊虫吞噬标记，没有自身过程，读取者是蛊虫
 yvanchuxiuzhen,Guchongtunshi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongyesheng,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao017DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao017 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
@@ -3901,12 +3901,12 @@ yvanchuxiuzhen,Playerhuifu,procedure,~/systemset,xiulian,已读,C xiulian 归属
 yvanchuxiuzhen,Basaltlizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhongdulizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabaotouzhiwu,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,CauldronduyaoZaiFangKuaiShangYouJian,procedure,~/decorate,combat,已读,B1 归属阅读：随 Cauldronduyao 读：淬毒功能：RightClickBlock 中“水炼药锅 + forge:duyaofumo 材料”分支把炼药锅换成本方块并由 Jinduliebiao 记下待附毒药附魔，右键时给手持武器附加 beepoison 等 8 种附魔（combat 的附魔）；该分支随本功能拆归 combat
-yvanchuxiuzhen,Cauldronduyao,block,~/decorate,combat,已读,B1 归属阅读：淬毒功能：RightClickBlock 中“水炼药锅 + forge:duyaofumo 材料”分支把炼药锅换成本方块并由 Jinduliebiao 记下待附毒药附魔，右键时给手持武器附加 beepoison 等 8 种附魔（combat 的附魔）；该分支随本功能拆归 combat
+yvanchuxiuzhen,CauldronduyaoZaiFangKuaiShangYouJian,procedure,~/decorate,lianqi,已读,C combat 归属改判：淬毒（炼药锅记录毒药材料、右键武器或空手右键材料给副手武器加毒药附魔）写入物品 lianqizong 的附魔记录 fumo{序号}、fumozongshu（lianqi 的工艺数据），玩法含义在 lianqi；毒药附魔的效果仍在 combat。
+yvanchuxiuzhen,Cauldronduyao,block,~/decorate,lianqi,已读,C combat 归属改判：淬毒（炼药锅记录毒药材料、右键武器或空手右键材料给副手武器加毒药附魔）写入物品 lianqizong 的附魔记录 fumo{序号}、fumozongshu（lianqi 的工艺数据），玩法含义在 lianqi；毒药附魔的效果仍在 combat。
 yvanchuxiuzhen,Duyao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinduliebiao,procedure,~/decorate,combat,已读,B1 归属阅读：随 Cauldronduyao 读：按手持 forge:duyaofumo 材料（cailiao_096、141 等 8 种）在炼药锅方块实体记下待附的毒药附魔，属淬毒功能
+yvanchuxiuzhen,Jinduliebiao,procedure,~/decorate,lianqi,已读,C combat 归属改判：淬毒（炼药锅记录毒药材料、右键武器或空手右键材料给副手武器加毒药附魔）写入物品 lianqizong 的附魔记录 fumo{序号}、fumozongshu（lianqi 的工艺数据），玩法含义在 lianqi；毒药附魔的效果仍在 combat。
 yvanchuxiuzhen,Duyaofumo,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,EntityBeforeHurt2,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,EntityBeforeHurt2,procedure,~/systemset,combat,已读,C combat 归属阅读：订阅了 LivingHurtEvent 但只有局部声明，无作用（Q31）
 yvanchuxiuzhen,Qiankundai01hecheng,recipe,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qiankundai02hecheng,recipe,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qiankundai03hecheng,recipe,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4354,7 +4354,7 @@ yvanchuxiuzhen,Yaoshou054skill01panding,procedure,~/entity/yaoshou/yaoshou054,cr
 yvanchuxiuzhen,GongjvfuDangShiTiGengXinKeShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GongjvfuDangSiWangShiJianDaoShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongjvfu,animatedentity,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Kailing,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Kailing,enchantment,~/enchanting,equipment,已读,C combat 归属阅读：附魔空壳类；玩家右键时让斧镐铲锄自动开采（flow 的 PlayerRightClick 发起，equipment 的工具射出等读取），玩法含义在 equipment
 yvanchuxiuzhen,Itemfulu48DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu48 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu48,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Jianceshuye,procedure,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4374,12 +4374,12 @@ yvanchuxiuzhen,Yaoshoupifuxianshi,attribute,~/entity/yaoshou,creature,已读,C a
 yvanchuxiuzhen,Yaoshoupifuxvanze,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,EntityJoinGame,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshoudaxiaoshezhi,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,Effect033ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect033,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect033ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：僵直，自身过程只在每刻生成粒子 effect_033lizi
+yvanchuxiuzhen,Effect033,potioneffect,~/effect,combat,已读,C combat 归属阅读：僵直，自身过程只在每刻生成粒子 effect_033lizi
 yvanchuxiuzhen,Effect033lizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jiangzhipanding,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect034DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect034,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect034DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：逃跑（妖兽被打到 8 层时向身后跑开并加速、沉默）
+yvanchuxiuzhen,Effect034,potioneffect,~/effect,combat,已读,C combat 归属阅读：逃跑（妖兽被打到 8 层时向身后跑开并加速、沉默）
 yvanchuxiuzhen,Jiancejiangzhichenmo,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou048skill01DangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048skill01 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou048skill01TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048skill01 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
@@ -4455,30 +4455,30 @@ yvanchuxiuzhen,Food084,item,~/item/food,cooking,已读,B1 归属阅读：食材�
 yvanchuxiuzhen,Food084hecheng,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food084hecheng2,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food084hecheng3,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/monstermaterial,combat,已读,B1 归属阅读：淬毒功能：青藤毒素等 cailiao_141–146 右键时给副手武器附加对应毒药附魔（sinomeninevine 等，combat 的附魔）并在炼器记录 lianqizong 中登记 fumo 条目；材料本身仍是编号材料，此过程按“拆分支”归 combat
+yvanchuxiuzhen,Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/monstermaterial,lianqi,已读,C combat 归属改判：淬毒（炼药锅记录毒药材料、右键武器或空手右键材料给副手武器加毒药附魔）写入物品 lianqizong 的附魔记录 fumo{序号}、fumozongshu（lianqi 的工艺数据），玩法含义在 lianqi；毒药附魔的效果仍在 combat。
 yvanchuxiuzhen,Npcskill0301,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,MurenzhuangDangShiTiShouShangShi,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Murenzhuang,animatedentity,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,MurenzhuangDangShiTiShouShangShi,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：受击处理（按战利品表选动画、下一刻报告伤害并回满生命）
+yvanchuxiuzhen,Murenzhuang,animatedentity,~/tool/murenzhuang,combat,已读,C combat 归属阅读：木人桩动画实体（GeckoLib）：1024 点生命、无 AI、不受推挤，免疫药水云、跌落、仙人掌、溺水、凋零；受击时按战利品表 entities/suijizhanlipin 随机一件材料选 attacked01–05 动画，下一刻向玩家报告伤害并回满生命；潜行右键打开设置界面；死亡 20 刻后掉出木人桩物品
 yvanchuxiuzhen,MurenzhuangitemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/tool/murenzhuang,combat,已读,B1 归属阅读：随 Murenzhuangitem 读：战斗：木人桩放置与受击统计
 yvanchuxiuzhen,Murenzhuangitem,item,~/tool/murenzhuang,combat,已读,B1 归属阅读：战斗：木人桩放置与受击统计
-yvanchuxiuzhen,MurenzhuangDangSiWangShiJianDaoShi,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,MurenzhuangDangYouJianDianJiShiTi,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,MurenzhuangGui,gui,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Murenzhuangattdef,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Murenzhuangmanadef,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Murenzhuangsouldef,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,MurenzhuangGuiDangZheGeJieMianBeiGuanBi,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Murenzhuangsetattdef,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Murenzhuangsetmanadef,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Murenzhuangsetsouldef,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Murenzhuangdel,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,MurenzhuangDangSiWangShiJianDaoShi,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：死亡掉落木人桩物品
+yvanchuxiuzhen,MurenzhuangDangYouJianDianJiShiTi,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：潜行右键打开设置界面并装入当前装备
+yvanchuxiuzhen,MurenzhuangGui,gui,~/tool/murenzhuang,combat,已读,C combat 归属阅读：木人桩设置界面：四格装备槽、三个防御输入框与设置按钮（物理、法术、神识防御基值）、拿走木人桩按钮
+yvanchuxiuzhen,Murenzhuangattdef,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：界面标签：物理防御基值
+yvanchuxiuzhen,Murenzhuangmanadef,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：界面标签：法术防御基值
+yvanchuxiuzhen,Murenzhuangsouldef,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：界面标签：神识防御基值
+yvanchuxiuzhen,MurenzhuangGuiDangZheGeJieMianBeiGuanBi,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：关闭界面时把四格装备穿到木人桩上
+yvanchuxiuzhen,Murenzhuangsetattdef,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：设置按钮：木人桩的物理防御基值
+yvanchuxiuzhen,Murenzhuangsetmanadef,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：设置按钮：法术防御基值
+yvanchuxiuzhen,Murenzhuangsetsouldef,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：设置按钮：神识防御基值
+yvanchuxiuzhen,Murenzhuangdel,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：拿走木人桩按钮：退回装备槽物品、移除木人桩、给玩家一个木人桩物品
 yvanchuxiuzhen,Fulubagua,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Npcskill0302,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Npcskill0303,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Npcskill0304,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Npcskill0305,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Npcskill0306,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,Murenzhuanghecheng,recipe,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Murenzhuanghecheng,recipe,~/tool/murenzhuang,combat,已读,C combat 归属阅读：木人桩合成配方（已由数据转换迁移）
 yvanchuxiuzhen,Clothes07,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Clothes08,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Clothes09,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 flow 的 Worldbegin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
@@ -4559,13 +4559,13 @@ yvanchuxiuzhen,Jinengxvkong,procedure,~/skill/jineng/jinengGui,skill,候选,第�
 yvanchuxiuzhen,Vegetable,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Seed,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao014KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao014 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
-yvanchuxiuzhen,Duyao05DangXiaoGuoJieShuShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao07DangXiaoGuoJieShuShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao20DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao20ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao20,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao21ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Duyao21,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Duyao05DangXiaoGuoJieShuShi,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao07DangXiaoGuoJieShuShi,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao20DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao20ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao20,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
+yvanchuxiuzhen,Duyao21ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：曼陀罗（每 40 刻阴属性固定伤害并把毒药与负面效果传给周围生物）
+yvanchuxiuzhen,Duyao21,potioneffect,~/effect,combat,已读,C combat 归属阅读：曼陀罗（每 40 刻阴属性固定伤害并把毒药与负面效果传给周围生物）
 yvanchuxiuzhen,Flyinginstrument01DangShiTiBeiShaSiShi,procedure,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Xiulitai,animatedblock,~/tool/xiulitai,lianqi,已读,B1 归属阅读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台；本元素无过程，被 flow 的 PlayerRightClickBlock 按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Flyfabao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4592,7 +4592,7 @@ yvanchuxiuzhen,Qianwangweidu,procedure,~/Dimension,world,候选,第一版批量�
 yvanchuxiuzhen,Xiangshang,procedure,~/Dimension,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao206hecheng,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao218hecheng,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chuanshi,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Chuanshi,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（见战斗架构），另被 flow、fulu 读取
 yvanchuxiuzhen,Bedrock01,block,~/item/metal,combat,已读,B1 归属阅读：破碎的基岩：LeftClickBlock 中带穿石附魔 chuanshi 的镐把基岩变为 bedrock_01，破坏后依次变为 bedrock_02、bedrock_03；只作为穿石附魔的挖掘阶段存在
 yvanchuxiuzhen,Bedrock02,block,~/item/metal,combat,已读,B1 归属阅读：破碎的基岩：LeftClickBlock 中带穿石附魔 chuanshi 的镐把基岩变为 bedrock_01，破坏后依次变为 bedrock_02、bedrock_03；只作为穿石附魔的挖掘阶段存在
 yvanchuxiuzhen,Bedrock03,block,~/item/metal,combat,已读,B1 归属阅读：破碎的基岩：LeftClickBlock 中带穿石附魔 chuanshi 的镐把基岩变为 bedrock_01，破坏后依次变为 bedrock_02、bedrock_03；只作为穿石附魔的挖掘阶段存在
@@ -4659,15 +4659,15 @@ yvanchuxiuzhen,Cailiao217hecheng,recipe,~/item/metal,material,候选,第一版�
 yvanchuxiuzhen,Cailiao219hecheng,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ShipuGo,procedure,~/systemset/zhiling,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shipu,command,~/systemset/zhiling,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ShanghaiGo,procedure,~/systemset/zhiling/shanghai,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shanghai,command,~/systemset/zhiling/shanghai,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhilingdamage,procedure,~/systemset/zhiling/shanghai,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ShanghaiGo,procedure,~/systemset/zhiling/shanghai,combat,已读,C combat 归属阅读：/shanghai 的灵力与神识伤害结算、闪避、符箓复活、击杀统计
+yvanchuxiuzhen,Shanghai,command,~/systemset/zhiling/shanghai,combat,已读,C combat 归属阅读：命令 /shanghai 的注册，调用 ShanghaiGo
+yvanchuxiuzhen,Zhilingdamage,procedure,~/systemset/zhiling/shanghai,combat,已读,C combat 归属阅读：/shanghai 攻击量（灵力或神识攻击、五行体质与功法、手持附魔、相生相克、暴击）
 yvanchuxiuzhen,Goldentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Waterentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Treeentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fireentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Soilentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhilingdefence,procedure,~/systemset/zhiling/shanghai,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Zhilingdefence,procedure,~/systemset/zhiling/shanghai,combat,已读,C combat 归属阅读：/shanghai 防御（护甲附魔、玩家与生物防御、玄武岩）；体质修正读空物品不生效（Q29）
 yvanchuxiuzhen,Entityxvnfu,procedure,~/systemset,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Friendgui,gui,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
 yvanchuxiuzhen,Friendname1,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
@@ -4987,42 +4987,42 @@ yvanchuxiuzhen,SkillFire01DangTouSheWuSheZhongCiFangKuai,procedure,~/skill/jinen
 yvanchuxiuzhen,SkillLight02DangTouSheWuSheZhongCiFangKuai,procedure,~/skill/jineng/lightskill,skill,已读,B1 归属阅读：随 SkillLight02 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillRock01TouZhiWuFeiXingTick,procedure,~/skill/jineng/rockskill,skill,已读,B1 归属阅读：随 SkillRock01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillRock01DangTouSheWuSheZhongCiFangKuai,procedure,~/skill/jineng/rockskill,skill,已读,B1 归属阅读：随 SkillRock01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
-yvanchuxiuzhen,Qishi,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingwen,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Liuyan,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pojia,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yvnxvan,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chenmo,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingtikiller,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jvtong,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhongshang,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qingyv,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shuangsheng,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zimu,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Liuqing,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Criticalatt,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Iceexplosion,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Confine,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiling,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Summoningspeed,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Threaten,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nofly,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starsky,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chaos,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thegreatvoid,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Firearmor,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Icearmor,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Discharge,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pool,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyingskill,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guard,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jet,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Charm,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Souldef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sounddef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lightdef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderdef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Winddef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Qishi,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2）
+yvanchuxiuzhen,Lingwen,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2），另被 skill 读取
+yvanchuxiuzhen,Liuyan,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2）
+yvanchuxiuzhen,Pojia,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityBeforeHurt, EntityHurt2）"
+yvanchuxiuzhen,Yvnxvan,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2）
+yvanchuxiuzhen,Chenmo,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2）
+yvanchuxiuzhen,Lingtikiller,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2），另被 creature 读取
+yvanchuxiuzhen,Jvtong,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2）
+yvanchuxiuzhen,Zhongshang,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2）
+yvanchuxiuzhen,Qingyv,enchantment,~/enchanting,equipment,已读,C combat 归属阅读：附魔空壳类；equipment 的弓出现在手中时按等级延长箭的飞行距离，玩法含义在 equipment
+yvanchuxiuzhen,Shuangsheng,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：【武器/法宝】当副手的物品和主手一致时，额外增加（附魔等级）点真实伤害
+yvanchuxiuzhen,Zimu,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：【武器/法宝】如果法宝是一主多辅的结构，则增加玩家综合控制力
+yvanchuxiuzhen,Liuqing,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt3）
+yvanchuxiuzhen,Criticalatt,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityBeforeHurt, Zhilingdamage）"
+yvanchuxiuzhen,Iceexplosion,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt3）
+yvanchuxiuzhen,Confine,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2）
+yvanchuxiuzhen,Qiling,enchantment,~/enchanting,equipment,已读,C combat 归属阅读：附魔空壳类；equipment 的 Dantianbenmingfabao 以它判断可培炼成本命法宝（xiulian 的 Dantianfangzhileixing 同样读取），玩法含义在 equipment
+yvanchuxiuzhen,Summoningspeed,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：【武器/法宝】提高召唤灵体的召唤速度，并增加灵体的血量
+yvanchuxiuzhen,Threaten,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt3）
+yvanchuxiuzhen,Nofly,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt3）
+yvanchuxiuzhen,Starsky,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt3）
+yvanchuxiuzhen,Chaos,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt3）
+yvanchuxiuzhen,Thegreatvoid,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt3）
+yvanchuxiuzhen,Firearmor,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2）
+yvanchuxiuzhen,Icearmor,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2）
+yvanchuxiuzhen,Discharge,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2）
+yvanchuxiuzhen,Pool,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt2）
+yvanchuxiuzhen,Flyingskill,enchantment,~/enchanting,skill,已读,C combat 归属阅读：附魔空壳类；skill 的 ShenfaTick 按等级加快身法冷却，玩法含义在 skill
+yvanchuxiuzhen,Guard,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：【护甲】提高格挡的综合效果
+yvanchuxiuzhen,Jet,enchantment,~/enchanting,skill,已读,C combat 归属阅读：附魔空壳类；skill 的 ShenfaW 按等级提高起飞速度，玩法含义在 skill
+yvanchuxiuzhen,Charm,enchantment,~/enchanting,fulu,已读,C combat 归属阅读：附魔空壳类；fulu 的 Itemfulu18 命中妖兽时按等级提高驯服几率，玩法含义在 fulu
+yvanchuxiuzhen,Souldef,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（SoulDefjisuan, Zhilingdefence）"
+yvanchuxiuzhen,Sounddef,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（SoulDefjisuan, Zhilingdefence）"
+yvanchuxiuzhen,Lightdef,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（ManaDefense, Zhilingdefence）"
+yvanchuxiuzhen,Thunderdef,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（ManaDefense, Zhilingdefence）"
+yvanchuxiuzhen,Winddef,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（ManaDefense, Zhilingdefence）"
 yvanchuxiuzhen,Skillarrow08fudu,procedure,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao201hecheng2,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao205hecheng2,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5064,7 +5064,7 @@ yvanchuxiuzhen,Cailiao216melt,item,~/item/metal,material,已读,B1 归属阅读�
 yvanchuxiuzhen,Cailiao217melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
 yvanchuxiuzhen,Cailiao218melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
 yvanchuxiuzhen,Cailiao219melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
-yvanchuxiuzhen,EntityHurt2,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,EntityHurt2,procedure,~/systemset,combat,已读,C combat 归属阅读：命中时的护甲附魔（烈焰甲、寒冰甲、放电、池鱼）与武器附魔（流焰、禁锢、眩晕、沉默、剧痛、重伤等）；召唤 skill 实体的 qishi、lingwen 随 skill 订阅 HitEvent
 yvanchuxiuzhen,LingwentexiaoTouZhiWuFeiXingTick,procedure,~/skill/fumotexiao,skill,已读,B1 归属阅读：随 Lingwentexiao 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,LingwentexiaoDangTouZhiWuJiZhongShiTiShi,procedure,~/skill/fumotexiao,skill,已读,B1 归属阅读：随 Lingwentexiao 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,Lingwentexiao,rangeditem,~/skill/fumotexiao,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -5072,10 +5072,10 @@ yvanchuxiuzhen,Suijizhanlipin,loottable,,flow,候选,第一版批量归组（目
 yvanchuxiuzhen,Lingwentexiao2DangShiTiGengXinKeShi,procedure,~/skill/fumotexiao,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingwentexiao2,animatedentity,~/skill/fumotexiao,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Linghunentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,EntityHurt3,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect035,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect035ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect036,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,EntityHurt3,procedure,~/systemset,combat,已读,C combat 归属阅读：命中时的武器附魔（冰爆、留情、威慑、禁空、混沌、太虚）；发射 fulu 实体的 starsky 随 fulu 订阅 HitEvent
+yvanchuxiuzhen,Effect035,potioneffect,~/effect,skill,已读,C combat 归属阅读：禁空，过程取消飞行、重置体质飞行键与 skill 的飞行状态 flybegin，玩法含义在 skill
+yvanchuxiuzhen,Effect035ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,skill,已读,C combat 归属阅读：禁空，过程取消飞行、重置体质飞行键与 skill 的飞行状态 flybegin，玩法含义在 skill
+yvanchuxiuzhen,Effect036,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果标记，没有自身过程；等级由伤害结算读取（effect_013 法术伤害提高、effect_020 精力伤害提高、effect_022 雷劫抗性、effect_036 手下留情）
 yvanchuxiuzhen,DantianGui,gui,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
 yvanchuxiuzhen,Dakaidantiangui,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Dantianguanbianniu,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字；返回按钮按 dangqianGUI 回到面板分页，改为发出 DantianReturnEvent 由面板处理
@@ -5730,13 +5730,13 @@ yvanchuxiuzhen,Leijie0106,procedure,~/systemset/leijie,xiulian,已读,C xiulian 
 yvanchuxiuzhen,Leijie0107,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,Tianjie07DangShiTiBeiShaSiShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,Taomuitem,tag,~/item/lingmu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect001DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect002DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect003DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect004DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect005DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect006DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect007DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect001DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect002DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect003DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect004DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：流血（周期扣血、给吸血石充血、见血封喉缩短周期）
+yvanchuxiuzhen,Effect005DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect006DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect007DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Nichanggrassseed,item,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：霓裳草：种子种下后逐级生长（符箓 Itemfulu30 可催熟一级），成熟时 Nichanggrassyaoshou 按群系从 yaoshou_003 等引来妖兽并以附近玩家或生物为仇恨目标；妖兽按 ID 引用
 yvanchuxiuzhen,Nichanggrass01GengXinYouXiKe,procedure,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：随 Nichanggrass01 读：霓裳草：种子种下后逐级生长（符箓 Itemfulu30 可催熟一级），成熟时 Nichanggrassyaoshou 按群系从 yaoshou_003 等引来妖兽并以附近玩家或生物为仇恨目标；妖兽按 ID 引用
 yvanchuxiuzhen,Nichanggrass01,plant,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：霓裳草：种子种下后逐级生长（符箓 Itemfulu30 可催熟一级），成熟时 Nichanggrassyaoshou 按群系从 yaoshou_003 等引来妖兽并以附近玩家或生物为仇恨目标；妖兽按 ID 引用
@@ -5766,7 +5766,7 @@ yvanchuxiuzhen,Cailiao202melt,item,~/item/metal,material,已读,B1 归属阅读�
 yvanchuxiuzhen,Cailiao204melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
 yvanchuxiuzhen,Cailiao212melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
 yvanchuxiuzhen,Cailiao214melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
-yvanchuxiuzhen,Effect037,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect037,potioneffect,~/effect,creature,已读,C combat 归属阅读（改判后确认）：妖兽升级标记，没有自身过程，读取者是妖兽战胜敌人后的经验过程
 yvanchuxiuzhen,Foodmuzengpeifang,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui04gongfazhuangbei,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui04qinggongzhuangbei,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5931,8 +5931,8 @@ yvanchuxitong,LiandanYaojixiaoguo,procedure,~/yvanchuliandan,liandan,候选,第�
 yvanchuxitong,LiandanBegin,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,LightningLanding,command,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,LightningLandingGo,procedure,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Chain,enchantment,~/fumo,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ChainProcedure,procedure,~/fumo,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Chain,enchantment,~/fumo,combat,已读,C combat 归属阅读：原初系统唯一的附魔，连锁采集由 ChainProcedure 读取等级（随 combat 迁移，代码注册转数据定义的首个实例）
+yvanchuxitong,ChainProcedure,procedure,~/fumo,combat,已读,C combat 归属阅读：连锁采集的方块破坏订阅（BlockEvent.BreakEvent），随 Chain 附魔读
 yvanchuxitong,PlayerRightClickBlock,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Itemdanyaohulu01DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：随 Itemdanyaohulu01 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Itemdanyaohulu01,item,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识

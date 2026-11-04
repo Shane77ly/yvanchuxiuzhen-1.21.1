@@ -213,5 +213,11 @@
   "subtitles.bowshoot3": "能量箭",
   "subtitles.bowshoot4": "鸣镝箭",
   "subtitles.bowshoot5": "旋风箭",
-  "subtitles.bowshoot6": "火箭"
+  "subtitles.bowshoot6": "火箭",
+  "enchantment.yvanchuxiuzhen.kailing": "开灵",
+  "enchantment.yvanchuxiuzhen.kailing.desc": "【斧、镐、铲、锄】可以让工具拥有自动开采的能力。",
+  "enchantment.yvanchuxiuzhen.qiling": "启灵",
+  "enchantment.yvanchuxiuzhen.qiling.desc": "【武器/法宝】只有拥有此附魔的武器/法宝才可以培炼成本命法宝，附魔等级越高武器/法宝灵性就越高",
+  "enchantment.yvanchuxiuzhen.qingyv": "轻羽",
+  "enchantment.yvanchuxiuzhen.qingyv.desc": "【武器/法宝】可以让本模组的弓射出的箭飞行更远的距离"
 }

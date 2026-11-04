@@ -23,7 +23,7 @@ DATA_SKIPPED = ROOT / 'docs/reference/conversion/data_skipped.csv'
 STRUCTURE_MANIFEST = ROOT / 'docs/reference/conversion/structure_manifest.csv'
 ASSET_TARGET = {'block': 'src/main/resources/assets/yvanchuxiuzhen/blockstates/{}.json',
                 'item': 'src/main/resources/assets/yvanchuxiuzhen/models/item/{}.json'}
-EXPORTED_REGISTRIES = ('block', 'item', 'sound_event')
+EXPORTED_REGISTRIES = ('block', 'item', 'sound_event', 'mob_effect', 'entity_type', 'menu', 'enchantment')
 SOURCE_COLUMNS = [column for column in COLUMNS if column not in MANUAL]
 
 

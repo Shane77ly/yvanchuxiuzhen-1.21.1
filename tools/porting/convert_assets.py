@@ -5,7 +5,7 @@
 JSON 中的引用同步改写。方块 Java 通过 registerRenderLayer 声明的渲染层写成模型的 render_type（NeoForge 读取）。
 已迁移界面使用的贴图按 docs/reference/conversion/screen_textures.csv（所属单位、来源纹理 ID）复制；
 所属系统自己注册的方块、物品（不在内容表中）与其另需的纹理按 docs/reference/conversion/system_assets.csv
-（所属单位、种类 block/item/texture、目标 ID 或来源纹理 ID）迁移。来源桶模型的 forge:bucket 加载器改写为 neoforge:fluid_container。
+（所属单位、种类 block/item/texture/geo/animation、目标 ID 或来源纹理 ID）迁移，geo、animation 是 GeckoLib 的几何与动画文件。来源桶模型的 forge:bucket 加载器改写为 neoforge:fluid_container。
 每个输出文件登记到 docs/reference/conversion/manifest.csv（来源路径、来源哈希、目标路径）。
 同一目标路径来自内容不同的来源文件时报错。
 """
@@ -102,6 +102,15 @@ class Converter:
         meta = file.with_name(file.name + '.mcmeta')
         if meta.is_file():
             self.emit(meta, mod, target.with_name(target.name + '.mcmeta'), meta.read_bytes())
+
+    def copy_plain(self, ref: str, folder: str, suffix: str, default_mod: str) -> None:
+        """原样迁移 GeckoLib 的几何（geo/<名>.geo.json）与动画（animations/<名>.animation.json）。"""
+        located = self.source_file(ref, folder, suffix, default_mod)
+        file, mod = located
+        if not file.is_file():
+            self.missing.append((ref, folder))
+            return
+        self.emit(file, mod, ASSETS / folder / file.name, file.read_bytes())
 
     def copy_model(self, ref: str, default_mod: str) -> None:
         located = self.source_file(ref, 'models', '.json', default_mod)
@@ -277,6 +286,10 @@ def main() -> None:
         for row in csv.DictReader(handle):
             if row['kind'] == 'texture':
                 converter.copy_texture(row['id'], row['id'].split(':', 1)[0])
+                continue
+            if row['kind'] in ('geo', 'animation'):
+                folder, suffix = ('geo', '.geo.json') if row['kind'] == 'geo' else ('animations', '.animation.json')
+                converter.copy_plain(row['id'], folder, suffix, row['id'].split(':', 1)[0])
                 continue
             target = row['id'].split(':', 1)[1]
             mod, path = origin[(row['kind'], target)]

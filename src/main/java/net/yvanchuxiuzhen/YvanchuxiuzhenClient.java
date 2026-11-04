@@ -5,6 +5,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.yvanchuxiuzhen.collection.decor.client.DecorClientSetup;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.client.CombatClientSetup;
 import net.yvanchuxiuzhen.system.gongfa.client.GongfaClientSetup;
 import net.yvanchuxiuzhen.system.relation.client.RelationClientSetup;
 import net.yvanchuxiuzhen.system.xiulian.client.XiulianClientSetup;
@@ -16,6 +17,7 @@ import net.yvanchuxiuzhen.system.xiulian.client.XiulianClientSetup;
 @Mod(value = ModId.VALUE, dist = Dist.CLIENT)
 public final class YvanchuxiuzhenClient {
     public YvanchuxiuzhenClient(IEventBus modBus) {
+        CombatClientSetup.register(modBus);
         DecorClientSetup.register(modBus);
         GongfaClientSetup.register(modBus);
         RelationClientSetup.register(modBus);

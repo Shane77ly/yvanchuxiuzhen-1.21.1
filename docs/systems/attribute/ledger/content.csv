@@ -1,0 +1,4 @@
+registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
+enchantment,yvanchuxiuzhen:colddown,yvanchuxiuzhen,Colddown,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,109,attribute,已读,yvanchuxiuzhen:colddown,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
+enchantment,yvanchuxiuzhen:dawn,yvanchuxiuzhen,Dawn,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,113,attribute,已读,yvanchuxiuzhen:dawn,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
+enchantment,yvanchuxiuzhen:powerup,yvanchuxiuzhen,Powerup,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,111,attribute,已读,yvanchuxiuzhen:powerup,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移

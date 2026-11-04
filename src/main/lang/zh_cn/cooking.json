@@ -221,5 +221,11 @@
   "tooltip.yvanchuxiuzhen.item.jiuniang_008.2": "§b为修习血道功法者提高修为。",
   "item.yvanchuxiuzhen.shicai_060": "小肉",
   "item.yvanchuxiuzhen.food_084": "烤小肉",
-  "item.yvanchuxiuzhen.chulishicai": "处理好的食材"
+  "item.yvanchuxiuzhen.chulishicai": "处理好的食材",
+  "effect.yvanchuxiuzhen.effect_028": "食用主食",
+  "effect.yvanchuxiuzhen.effect_028.description": "如果在拥有“食用主食”、“食用菜肴”、“食用汤水”时，食用糕点，则会获得增益效果“幸运”。 ",
+  "effect.yvanchuxiuzhen.effect_029": "食用菜肴",
+  "effect.yvanchuxiuzhen.effect_029.description": "如果在拥有“食用主食”、“食用菜肴”、“食用汤水”时，食用糕点，则会获得增益效果“幸运”。 ",
+  "effect.yvanchuxiuzhen.effect_030": "食用汤水",
+  "effect.yvanchuxiuzhen.effect_030.description": "如果在拥有“食用主食”、“食用菜肴”、“食用汤水”时，食用糕点，则会获得增益效果“幸运”。 "
 }

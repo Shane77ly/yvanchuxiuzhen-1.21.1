@@ -89,4 +89,6 @@ item,yvanchuxiuzhen:cailiao_238,yvanchuxiuzhen,Cailiao238,src/main/java/net/mcre
 item,yvanchuxiuzhen:cailiao_238fireblock,yvanchuxiuzhen,Cailiao238fireblock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1155,yihuo,已读,yvanchuxiuzhen:cailiao_238fireblock,已注册,
 item,yvanchuxiuzhen:cailiao_239,yvanchuxiuzhen,Cailiao239,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1174,yihuo,已读,yvanchuxiuzhen:cailiao_239,已注册,
 item,yvanchuxiuzhen:cailiao_239fireblock,yvanchuxiuzhen,Cailiao239fireblock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1156,yihuo,已读,yvanchuxiuzhen:cailiao_239fireblock,已注册,
+mob_effect,yvanchuxiuzhen:effect_023,yvanchuxiuzhen,Effect023,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,116,yihuo,候选,yvanchuxiuzhen:effect_023,待处理,
+mob_effect,yvanchuxiuzhen:effect_024,yvanchuxiuzhen,Effect024,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,117,yihuo,候选,yvanchuxiuzhen:effect_024,待处理,
 sound_event,yvanchuxiuzhen:fireshoot,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModSounds.java,168,yihuo,已读,yvanchuxiuzhen:fireshoot,已注册,

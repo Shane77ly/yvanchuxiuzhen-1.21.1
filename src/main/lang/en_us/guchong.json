@@ -43,5 +43,7 @@
   "tooltip.yvanchuxiuzhen.item.guchong_05item.2": "右键释放蛊虫",
   "tooltip.yvanchuxiuzhen.item.guchong_05item.3": "右键蛊虫收回",
   "subtitles.guchong01": "鼓上骚发出挑衅",
-  "subtitles.guchong03": "虫鸣"
+  "subtitles.guchong03": "虫鸣",
+  "effect.yvanchuxiuzhen.huxiangtunshi": "蛊虫吞噬",
+  "effect.yvanchuxiuzhen.huxiangtunshi.description": ""
 }

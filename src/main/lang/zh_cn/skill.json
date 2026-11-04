@@ -30,5 +30,21 @@
   "subtitles.yaohua": "妖化变身",
   "subtitles.jinengzibao": "自爆",
   "subtitles.flybegin": "起飞",
-  "subtitles.flyspeeedbegin": "加速飞行"
+  "subtitles.flyspeeedbegin": "加速飞行",
+  "enchantment.yvanchuxiuzhen.flying": "轻身",
+  "enchantment.yvanchuxiuzhen.flying.desc": "【护甲/饰品】减少飞行消耗百分之（附魔等级*5）的灵力",
+  "enchantment.yvanchuxiuzhen.flyingskill": "轻身",
+  "enchantment.yvanchuxiuzhen.flyingskill.desc": "【护甲】些微增加身法的冷却速度",
+  "enchantment.yvanchuxiuzhen.jet": "激射",
+  "enchantment.yvanchuxiuzhen.jet.desc": "【护甲】提高飞行技能起飞时的速度",
+  "effect.yvanchuxiuzhen.effect_035": "禁空",
+  "effect.yvanchuxiuzhen.effect_035.description": "禁空状态下，无法飞行。",
+  "effect.yvanchuxiuzhen.skilleffect_01": "金系技能冷却",
+  "effect.yvanchuxiuzhen.skilleffect_02": "水系技能冷却",
+  "effect.yvanchuxiuzhen.skilleffect_03": "木系技能冷却",
+  "effect.yvanchuxiuzhen.skilleffect_04": "火系技能冷却",
+  "effect.yvanchuxiuzhen.skilleffect_05": "土系技能冷却",
+  "effect.yvanchuxiuzhen.skilleffect_06": "阴阳技能冷却",
+  "effect.yvanchuxiuzhen.skilleffect_07": "战斗状态",
+  "effect.yvanchuxiuzhen.skillwind_04": "飞行消耗减少"
 }
