@@ -31,6 +31,7 @@ public final class SkillEntities {
         RockEntities.register(SKILLS);
         ThunderEntities.register(SKILLS);
         WaterEntities.register(SKILLS);
+        WaterFormations.register(SKILLS);
         WindEntities.register(SKILLS);
     }
 

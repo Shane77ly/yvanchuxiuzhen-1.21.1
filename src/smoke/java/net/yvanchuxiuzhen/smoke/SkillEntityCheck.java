@@ -8,6 +8,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -19,6 +20,7 @@ import net.minecraft.world.phys.AABB;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillCasting;
 import net.yvanchuxiuzhen.system.skill.SkillSelection;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
@@ -38,7 +40,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
  * 火焰护盾给抗火、火焰漩涡与火龙卷生成实体并在 20 刻时伤人点燃；实体到时消失。
  */
 final class SkillEntityCheck extends SystemCheck {
-    private enum Kind { BALL, IGNITE, CONTROL, SHIELD, COLUMN, ROLL, METEOR, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_NORMAL, GOLD_BIND, GOLD_ARC, GOLD_SKY, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, LIGHT_KILL, WIND_GATHER, WIND_MOVE, WIND_DRIFT, WIND_CLOUD, THUNDER_PALM, THUNDER_ROLL, THUNDER_FIELD, WATER_WHIP, WATER_JET, WATER_DRAGON }
+    private enum Kind { BALL, IGNITE, CONTROL, SHIELD, COLUMN, ROLL, METEOR, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_NORMAL, GOLD_BIND, GOLD_ARC, GOLD_SKY, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, LIGHT_KILL, WIND_GATHER, WIND_MOVE, WIND_DRIFT, WIND_CLOUD, THUNDER_PALM, THUNDER_ROLL, THUNDER_FIELD, WATER_WHIP, WATER_JET, WATER_DRAGON, ORB_FLOAT, ORB_BURST, ORB_TURN, ORB_DROP, ORB_SNEAK, SPIRIT, HEAL }
 
     private record Case(String body, String name, Kind kind, String entity, boolean sneak) {
         Case(String body, String name, Kind kind, String entity) {
@@ -64,14 +66,27 @@ final class SkillEntityCheck extends SystemCheck {
             new Case("火", "掌心雷", Kind.THUNDER_PALM, "skill_thunder_08"), new Case("火", "地滚雷", Kind.THUNDER_ROLL, "skill_thunder_08"),
             new Case("火", "惊雷阵", Kind.THUNDER_FIELD, "skill_thunder_10"),
             new Case("水", "水蛇鞭", Kind.WATER_WHIP, "skill_water_01"), new Case("水", "激流波", Kind.WATER_JET, "skill_water_01"),
-            new Case("水", "水龙吟", Kind.WATER_DRAGON, "skill_water_02"));
+            new Case("水", "水龙吟", Kind.WATER_DRAGON, "skill_water_02"),
+            new Case("水", "空浮球", Kind.ORB_FLOAT, "skill_water_04"), new Case("水", "空浮球", Kind.ORB_BURST, "skill_water_04"),
+            new Case("水", "空浮球", Kind.ORB_TURN, "skill_water_04"), new Case("水", "陨河术", Kind.ORB_DROP, "skill_water_04"),
+            new Case("水", "陨河术", Kind.ORB_SNEAK, "skill_water_04", true), new Case("水", "水灵阵", Kind.SPIRIT, "skill_water_06"),
+            new Case("水", "玲珑阵", Kind.HEAL, "skill_water_07"));
     private static final double HEALTH = 100;
     private static final int WAIT = 70;
 
     /** 造成伤害的检查：灵力伤害有 1% 的闪避随机数为 0，没有伤害时同一技能重试一次。 */
     private static final Set<Kind> DAMAGING = EnumSet.of(Kind.BALL, Kind.METEOR, Kind.COLUMN, Kind.ROLL, Kind.HAND_ONE, Kind.HAND_TWO, Kind.HAMMER_ONE,
             Kind.HAMMER_TWO, Kind.GOLD_NORMAL, Kind.GOLD_BIND, Kind.GOLD_SKY, Kind.ICE_FIELD, Kind.ICE_SPIKE, Kind.LIGHT_BURST, Kind.THUNDER_PALM,
-            Kind.THUNDER_FIELD, Kind.WATER_WHIP, Kind.WATER_JET, Kind.WATER_DRAGON);
+            Kind.THUNDER_FIELD, Kind.WATER_WHIP, Kind.WATER_JET, Kind.WATER_DRAGON, Kind.ORB_FLOAT, Kind.ORB_BURST, Kind.ORB_DROP, Kind.ORB_SNEAK, Kind.SPIRIT);
+
+    /** 水灵阵 40 刻后才开始放水灵弹，玲珑阵 60 刻后才第一次回血，等待时间相应加长。 */
+    private static int waitTicks(Kind kind) {
+        return switch (kind) {
+            case SPIRIT -> 110;
+            case HEAL -> 90;
+            default -> WAIT;
+        };
+    }
 
     private IronGolem golem;
     private BlockPos firePos;
@@ -171,18 +186,24 @@ final class SkillEntityCheck extends SystemCheck {
                 expect(spell.name() + " 已选中", spell.name(), Skills.book(Skills.selected(player)).map(SkillBook::name).orElse(""));
                 switch (spell.kind()) {
                     case LIGHT_KILL -> golem = placeGolem(player, player.getX() + 3, player.getY(), player.getZ(), 5);
-                    case IGNITE, COLUMN, ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_BIND, GOLD_SKY, GOLD_NORMAL, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, WIND_GATHER, WIND_MOVE, THUNDER_PALM, THUNDER_ROLL, THUNDER_FIELD, WATER_WHIP, WATER_JET, WATER_DRAGON -> golem = placeGolem(player,
+                    case IGNITE, COLUMN, ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_BIND, GOLD_SKY, GOLD_NORMAL, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, WIND_GATHER, WIND_MOVE, THUNDER_PALM, THUNDER_ROLL, THUNDER_FIELD, WATER_WHIP, WATER_JET, WATER_DRAGON, ORB_FLOAT, ORB_BURST, ORB_TURN, ORB_SNEAK, SPIRIT -> golem = placeGolem(player,
                             player.getX() + switch (spell.kind()) {
                                 case IGNITE, GOLD_BIND, GOLD_SKY, ICE_FIELD, THUNDER_FIELD -> 4;
                                 case WIND_GATHER, WIND_MOVE -> 5;
                                 case WATER_WHIP -> 3.5;
                                 case WATER_JET -> 2.5;
                                 case WATER_DRAGON -> 7;
+                                case ORB_FLOAT, ORB_BURST, ORB_SNEAK -> 3;
+                                case SPIRIT -> 4;
                                 case THUNDER_PALM, THUNDER_ROLL -> 3;
                                 case GOLD_NORMAL, GOLD_CTRL, LIGHT_FLASH, LIGHT_BURST, LIGHT_KILL -> 3;
                                 case ICE_SPIKE -> 1.5;
                                 default -> 5;
                             }, player.getY(), player.getZ());
+                    case HEAL -> {
+                        golem = placeGolem(player, player.getX() + 1, player.getY(), player.getZ(), 50);
+                        Relations.setTeam(golem, Relations.team(player));
+                    }
                     case CONTROL -> {
                         BlockPos center = ProjectileSupport.lookBlock(player, 4);
                         firePos = center.immutable();
@@ -211,7 +232,7 @@ final class SkillEntityCheck extends SystemCheck {
                 onServer(player -> {
                     List<SkillEntity> found = player.serverLevel().getEntitiesOfClass(SkillEntity.class, new AABB(player.blockPosition()).inflate(24));
                     Kind kind = spell.kind();
-                    if (kind == Kind.BALL || kind == Kind.METEOR) {
+                    if (kind == Kind.BALL || kind == Kind.METEOR || kind == Kind.ORB_DROP) {
                         SkillEntity ball = found.get(0);
                         ready[0] = ball.getPersistentData().getBoolean("kaishi");
                         if (ready[0]) {
@@ -225,6 +246,16 @@ final class SkillEntityCheck extends SystemCheck {
                         }
                     } else if (kind == Kind.GOLD_CTRL) {
                         expectTrue(spell.name() + " 金轮是 Ctrl 式", !found.isEmpty() && found.get(0).getPersistentData().getString("mode").equals("金刚轮ctrl"));
+                    } else if (kind == Kind.ORB_BURST) {
+                        player.setShiftKeyDown(true);
+                        player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
+                        SkillCasting.onRightClick(player);
+                    } else if (kind == Kind.ORB_TURN) {
+                        player.connection.teleport(player.getX(), player.getY(), player.getZ(), 0, 0);
+                        ModifierKeys.update(player, true, false);
+                        player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
+                        SkillCasting.onRightClick(player);
+                        expectTrue(spell.name() + " Ctrl 转向施放者朝向 " + found.get(0).getYRot(), Math.abs(Mth.wrapDegrees(found.get(0).getYRot())) < 1);
                     } else if (kind == Kind.WATER_JET) {
                         expectTrue(spell.name() + " 放出小水弹", !player.serverLevel().getEntitiesOfClass(SkillProjectile.class, new AABB(player.blockPosition()).inflate(24)).isEmpty());
                     } else if (kind == Kind.WIND_GATHER) {
@@ -258,7 +289,7 @@ final class SkillEntityCheck extends SystemCheck {
                 }
             }
             default -> {
-                if (local < WAIT) {
+                if (local < waitTicks(spell.kind())) {
                     return false;
                 }
                 boolean[] retry = {false};
@@ -315,6 +346,18 @@ final class SkillEntityCheck extends SystemCheck {
                             expectTrue(spell.name() + " 记下追踪目标", !Cultivation.tizhiString(player, "mubiaouid").isEmpty());
                         }
                         case THUNDER_FIELD -> expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                        case ORB_FLOAT -> {
+                            expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                            expectTrue(spell.name() + " 收为乘客", golem.getVehicle() instanceof SkillEntity);
+                        }
+                        case ORB_BURST, ORB_SNEAK, ORB_DROP -> {
+                            expectTrue(spell.name() + " " + spell.kind() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                            expectTrue(spell.name() + " " + spell.kind() + " 到时消失", player.serverLevel().getEntitiesOfClass(SkillEntity.class, new AABB(player.blockPosition()).inflate(64)).isEmpty());
+                        }
+                        case ORB_TURN -> {
+                        }
+                        case SPIRIT -> expectTrue(spell.name() + " 水灵弹伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                        case HEAL -> expectTrue(spell.name() + " 友方回血 " + golem.getHealth(), golem.getHealth() > 50);
                         case LIGHT_BURST -> expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
                         case LIGHT_KILL -> expectTrue(spell.name() + " 低血直接清零", golem.isDeadOrDying());
                         case ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO -> {

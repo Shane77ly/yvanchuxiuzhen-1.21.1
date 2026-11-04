@@ -11,10 +11,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -50,6 +52,7 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
     private double multiplier;
     private String damageType = "";
     private String skillName = "";
+    private float hitboxScale = 1;
 
     public SkillEntity(EntityType<SkillEntity> type, Level level, EntityModelRow model, EntitySkill skill) {
         super(type, level);
@@ -99,6 +102,17 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
         this.multiplier = multiplier;
         this.damageType = damageType;
         this.skillName = skillName;
+    }
+
+    /** 按倍数放大碰撞箱（来源重写 {@code getDimensions} 乘以实体里记下的比例）；放入世界之前设置，进入世界时按此尺寸生成。 */
+    public void setHitboxScale(float scale) {
+        hitboxScale = scale;
+        refreshDimensions();
+    }
+
+    @Override
+    protected EntityDimensions getDefaultDimensions(Pose pose) {
+        return super.getDefaultDimensions(pose).scale(hitboxScale);
     }
 
     /** 攻击者；已离线或不在本维度时为空。 */
@@ -196,6 +210,7 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
         tag.putDouble("multiplier", multiplier);
         tag.putString("damage_type", damageType);
         tag.putString("skill_name", skillName);
+        tag.putFloat("hitbox_scale", hitboxScale);
         if (attacker != null) {
             tag.putUUID("attacker", attacker);
         }
@@ -209,7 +224,8 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
         multiplier = tag.getDouble("multiplier");
         damageType = tag.getString("damage_type");
         skillName = tag.getString("skill_name");
-        attacker = tag.hasUUID("attacker") ? tag.getUUID("attacker") : null;
+        setHitboxScale(tag.contains("hitbox_scale") ? tag.getFloat("hitbox_scale") : 1);
+        attacker =tag.hasUUID("attacker") ? tag.getUUID("attacker") : null;
     }
 
     @Override

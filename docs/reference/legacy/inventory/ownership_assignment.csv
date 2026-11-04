@@ -1748,21 +1748,21 @@ yvanchuxiuzhen,SkillWater02shifang,procedure,~/skill/jineng/waterskill,skill,已
 yvanchuxiuzhen,SkillWater03TouZhiWuFeiXingTick,procedure,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：随 SkillWater03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillWater03DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：随 SkillWater03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillWater03,rangeditem,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
-yvanchuxiuzhen,SkillWater04DangShiTiGengXinKeShi,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater04,animatedentity,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater04shifang,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillWater04DangShiTiGengXinKeShi,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系后半——空浮球、陨河术（碰撞箱按模式缩放，收乘客、引爆）、水灵阵（持续放水灵弹）、玲珑阵（群体回血）的施放与实体刻过程
+yvanchuxiuzhen,SkillWater04,animatedentity,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系后半——空浮球、陨河术（碰撞箱按模式缩放，收乘客、引爆）、水灵阵（持续放水灵弹）、玲珑阵（群体回血）的施放与实体刻过程
+yvanchuxiuzhen,SkillWater04shifang,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系后半——空浮球、陨河术（碰撞箱按模式缩放，收乘客、引爆）、水灵阵（持续放水灵弹）、玲珑阵（群体回血）的施放与实体刻过程
 yvanchuxiuzhen,SkillWater05TouZhiWuFeiXingTick,procedure,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：随 SkillWater05 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillWater05DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：随 SkillWater05 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillWater05,rangeditem,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
-yvanchuxiuzhen,SkillWater04PengZhuangXiangChiDu,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater06ShiTiChuShiShengChengShi,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater06DangShiTiGengXinKeShi,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater06,animatedentity,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater06shifang,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater07ShiTiChuShiShengChengShi,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater07DangShiTiGengXinKeShi,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater07,animatedentity,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater07shifang,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillWater04PengZhuangXiangChiDu,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系后半——空浮球、陨河术（碰撞箱按模式缩放，收乘客、引爆）、水灵阵（持续放水灵弹）、玲珑阵（群体回血）的施放与实体刻过程
+yvanchuxiuzhen,SkillWater06ShiTiChuShiShengChengShi,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系后半——空浮球、陨河术（碰撞箱按模式缩放，收乘客、引爆）、水灵阵（持续放水灵弹）、玲珑阵（群体回血）的施放与实体刻过程
+yvanchuxiuzhen,SkillWater06DangShiTiGengXinKeShi,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系后半——空浮球、陨河术（碰撞箱按模式缩放，收乘客、引爆）、水灵阵（持续放水灵弹）、玲珑阵（群体回血）的施放与实体刻过程
+yvanchuxiuzhen,SkillWater06,animatedentity,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系后半——空浮球、陨河术（碰撞箱按模式缩放，收乘客、引爆）、水灵阵（持续放水灵弹）、玲珑阵（群体回血）的施放与实体刻过程
+yvanchuxiuzhen,SkillWater06shifang,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系后半——空浮球、陨河术（碰撞箱按模式缩放，收乘客、引爆）、水灵阵（持续放水灵弹）、玲珑阵（群体回血）的施放与实体刻过程
+yvanchuxiuzhen,SkillWater07ShiTiChuShiShengChengShi,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系后半——空浮球、陨河术（碰撞箱按模式缩放，收乘客、引爆）、水灵阵（持续放水灵弹）、玲珑阵（群体回血）的施放与实体刻过程
+yvanchuxiuzhen,SkillWater07DangShiTiGengXinKeShi,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系后半——空浮球、陨河术（碰撞箱按模式缩放，收乘客、引爆）、水灵阵（持续放水灵弹）、玲珑阵（群体回血）的施放与实体刻过程
+yvanchuxiuzhen,SkillWater07,animatedentity,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系后半——空浮球、陨河术（碰撞箱按模式缩放，收乘客、引爆）、水灵阵（持续放水灵弹）、玲珑阵（群体回血）的施放与实体刻过程
+yvanchuxiuzhen,SkillWater07shifang,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系后半——空浮球、陨河术（碰撞箱按模式缩放，收乘客、引爆）、水灵阵（持续放水灵弹）、玲珑阵（群体回血）的施放与实体刻过程
 yvanchuxiuzhen,SkillIce01TouZhiWuFeiXingTick,procedure,~/skill/jineng/iceskill,skill,已读,B1 归属阅读：随 SkillIce01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillIce01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/iceskill,skill,已读,B1 归属阅读：随 SkillIce01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillIce01,rangeditem,~/skill/jineng/iceskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
