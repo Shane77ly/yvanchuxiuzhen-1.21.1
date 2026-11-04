@@ -248,6 +248,8 @@
   "effect.yvanchuxiuzhen.effect_021.description": "【瞬时效果】增加（效果等级）次可为精神攻击加点的机会，但不会增加分配的属性点，也不是直接增加精神攻击。 ",
   "effect.yvanchuxiuzhen.effect_022": "雷劫抗性",
   "effect.yvanchuxiuzhen.effect_022.description": "渡劫时，可以减少（效果等级）点雷劫伤害，并增加（效果等级^2）点雷属性防御。",
+  "effect.yvanchuxiuzhen.effect_032": "幻音",
+  "effect.yvanchuxiuzhen.effect_032.description": "不断有敌对生物的声音在周围响起。 ",
   "effect.yvanchuxiuzhen.effect_033": "僵直",
   "effect.yvanchuxiuzhen.effect_033.description": "僵直状态下，无法进行任何操作，不能释放技能也无法进行普攻。 ",
   "effect.yvanchuxiuzhen.effect_034": "逃跑",

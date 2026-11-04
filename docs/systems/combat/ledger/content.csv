@@ -130,7 +130,7 @@ mob_effect,yvanchuxiuzhen:effect_019,yvanchuxiuzhen,Effect019,src/main/java/net/
 mob_effect,yvanchuxiuzhen:effect_020,yvanchuxiuzhen,Effect020,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,113,combat,已读,yvanchuxiuzhen:effect_020,已注册,
 mob_effect,yvanchuxiuzhen:effect_021,yvanchuxiuzhen,Effect021,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,114,combat,已读,yvanchuxiuzhen:effect_021,行为已迁移,
 mob_effect,yvanchuxiuzhen:effect_022,yvanchuxiuzhen,Effect022,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,115,combat,已读,yvanchuxiuzhen:effect_022,已注册,
-mob_effect,yvanchuxiuzhen:effect_032,yvanchuxiuzhen,Effect032,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,156,combat,候选,yvanchuxiuzhen:effect_032,待处理,
+mob_effect,yvanchuxiuzhen:effect_032,yvanchuxiuzhen,Effect032,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,156,combat,已读,yvanchuxiuzhen:effect_032,行为已迁移,
 mob_effect,yvanchuxiuzhen:effect_033,yvanchuxiuzhen,Effect033,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,161,combat,已读,yvanchuxiuzhen:effect_033,已注册,每刻粒子 effect_033lizi 随 particle；僵直的限制由 creature、skill 等读取等级的过程承担
 mob_effect,yvanchuxiuzhen:effect_034,yvanchuxiuzhen,Effect034,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,162,combat,已读,yvanchuxiuzhen:effect_034,行为已迁移,
 mob_effect,yvanchuxiuzhen:effect_036,yvanchuxiuzhen,Effect036,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,166,combat,已读,yvanchuxiuzhen:effect_036,已注册,

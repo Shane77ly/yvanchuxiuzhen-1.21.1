@@ -42,6 +42,7 @@
 {"id":"effect_020","category":"BENEFICIAL","color":-10027162},
 {"id":"effect_021","category":"BENEFICIAL","color":-10027162},
 {"id":"effect_022","category":"BENEFICIAL","color":-103},
+{"id":"effect_032","category":"HARMFUL","color":-6750208},
 {"id":"effect_033","category":"HARMFUL","color":-10092544},
 {"id":"effect_034","category":"NEUTRAL","color":-13382656},
 {"id":"effect_036","category":"BENEFICIAL","color":-154}

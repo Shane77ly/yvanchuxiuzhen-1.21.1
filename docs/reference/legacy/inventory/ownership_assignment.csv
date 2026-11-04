@@ -3578,8 +3578,8 @@ yvanchuxiuzhen,Tiangandizhi2,particle,~/lizi,particle,候选,第一版批量归�
 yvanchuxiuzhen,Fabao011DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao011 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao011,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Armor11,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Effect032ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect032,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect032ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：幻音（每 20 刻在身边随机位置播放 20 种原版声音之一）
+yvanchuxiuzhen,Effect032,potioneffect,~/effect,combat,已读,C combat 归属阅读：幻音（每 20 刻在身边随机位置播放 20 种原版声音之一）
 yvanchuxiuzhen,Fabao012DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao012 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao012,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao013DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao013 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝

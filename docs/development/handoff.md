@@ -22,7 +22,7 @@ updated: 2026-11-03
 
 ## 进行中
 
-C 玩家与战斗核心，下一个系统 combat（分支 `port/c-combat`，从 `main` 建立；最新提交以 `git log` 为准）。负责人 2026-11-03 指示（/loop）：每完成一个路线步骤即提交、合入 `main` 并进入下一步，直到移植完成或出现重大问题；判断不定的问题先评估影响，轻微的记入文档后继续，重大的停下商议；客户端测试由会话自己完成。运行约定（负责人 2026-11-03）：变换工具、Gradle、开发服务端与冒烟检查逐个运行，不同时进行（负责人的 VS Code 两次因内存不足崩溃，均在大批文件写入之后）。B1 范围内需要新代码类型的行（`skipped.csv`）与其余语言键随所属系统迁移。盔甲挥臂闪烁与药草疑似缺失两项反馈由负责人指示暂缓（2026-11-03）。
+C 玩家与战斗核心，当前系统 combat（分支 `port/c-combat`，从 `main` 建立，进行中；最新提交以 `git log` 为准）。负责人 2026-11-03 指示（/loop）：每完成一个路线步骤即提交、合入 `main` 并进入下一步，直到移植完成或出现重大问题；判断不定的问题先评估影响，轻微的记入文档后继续，重大的停下商议；客户端测试由会话自己完成。运行约定（负责人 2026-11-03）：变换工具、Gradle、开发服务端与冒烟检查逐个运行，不同时进行（负责人的 VS Code 两次因内存不足崩溃，均在大批文件写入之后）。B1 范围内需要新代码类型的行（`skipped.csv`）与其余语言键随所属系统迁移。盔甲挥臂闪烁与药草疑似缺失两项反馈由负责人指示暂缓（2026-11-03）。
 
 已完成（2026-11-03，均已合入 `main`）：
 - attribute：Q17 裁定实际属性计入炼器数值，Q18 暂按来源行为待再议；见[属性](../systems/attribute/README.md)。留待其他系统：重算粒子随 particle；提交贡献的真实路径随 xiulian、gongfa、equipment、fulu、economy；equipment 去掉妖化防具的生命修饰符。
@@ -30,12 +30,16 @@ C 玩家与战斗核心，下一个系统 combat（分支 `port/c-combat`，从 
 - gongfa：功法定义 67 本、功法书组件、研习、功法栏与提交、功法修炼与闭关经验、升级成长、提示文本、书架藏宝、参悟台（参悟与继承）；Q26–Q28；见[功法](../systems/gongfa/README.md)。留待其他系统：书的右键（研习、书架藏宝、答题计数重置）随 book；研习附赠技能（监听 `TechniqueStudiedEvent`）随 skill；`/technique` 命令随 flow；功法页放入取出随 panel；被闪电击中的功法效果 `EntityThunder` 需要 combat 的效果。
 - xiulian：修炼档案与公开操作、出身、修炼推进与突破、闭关、金丹元婴、丹田界面、血道、加点、灵根重置、升仙令与家族令牌；Q21–Q25；见[修炼](../systems/xiulian/README.md)。留待其他系统：雷劫过程随 combat 的伤害入口（会话决定，轻微）；远古石盘随 world 的传送阵位置与 particle；传承灵物、家族百宝袋随 material 与 fulu 的实例数据；妖丹实例等级条件随 material；境界提升与血流滴落粒子随 particle；本命培养与进度提交随 equipment；面板加点与丹田按钮、返回分页随 panel；`/yvanchu` 灵根子命令、出身发放物品与 `keepInventory` 随 flow；被闪电击中的功法效果随 gongfa；元婴出窍随 skill。
 
-下一步具体操作（combat；做法同前四个系统）：
-1. 读 combat 的候选元素归属（[归属表](../reference/legacy/inventory/ownership_assignment.csv)），用 `tools/porting/ownership_evidence.py` 列证据，读后改为“已读”并运行 `build_ledger.py`、`build_architecture_catalog.py`。
-2. 在 combat README“公开操作”列出查询与写操作，对照 `typed_field_accesses.csv` 覆盖外部读写点。combat 只读 attribute 最终值；其他系统以伤害类型造成伤害，combat 在伤害事件中结算（来源 209 处经 `/shanghai`，另有 `/lightninglanding`）；状态效果与受伤扣减灵力、神识用 xiulian 的扣减操作；功法五行值、层数与名字经 `Techniques.main`。伤害入口确定后迁移 xiulian 推迟的雷劫过程（见[修炼架构](../systems/xiulian/architecture.md)“阶段 4（二）”）；流血效果给吸血石充血用 `BloodStone.addBlood`；附魔 `yvanchuxitong:chain` 是“代码注册转数据定义”的首个实例（见下文 B0 表）。
-3. 实现：数据所有权、附件或物品组件、菜单与 payload；专属方块或物品类型登记 `factory_overrides.csv`，系统自注册内容的资源登记 `system_assets.csv`，语言键登记 `lang_prefixes.csv`，系统数据表经 `ContentFiles.read`。
-4. 验证：易回归规则用 JUnit；新增 `SystemCheck` 子类并加入 `SmokeRun.checkSystems`（`-PsmokeOnly=combat`；PowerShell 中含逗号的参数加引号），开发服务端启动无 ERROR。
-5. 完成后更新 README、正文、月度日志与本页，合入 `main` 并推送，再建下一个系统的分支（skill）。
+combat 本轮已实现（2026-11-04，分支 `port/c-combat`，未合入 `main`，系统尚未完成）：伤害主链归属阅读与 Q29–Q34；85 个附魔转数据定义并按标签表达类别；状态效果登记基础（`effects.json`、`EffectBehavior`）与已迁移的 47 个效果中的 `effect_001`–`022` 大部分、`004`、`032`、`034`、`036`、毒药 `duyao_01`–`21`；伤害结算（`Shanghai.deal`、`/shanghai`、`HurtHandler`、四个伤害类型）；命中附魔、连锁采集、穿石（破碎的基岩）；公开操作写在[战斗 README](../systems/combat/README.md)，设计与五个借用事件（`DamageImmunityEvent`、`LethalDamageEvent`、`ArmorStatEvent`、`HitEvent`、`EffectExperienceEvent`、`GatherExperienceEvent`）写在[战斗架构](../systems/combat/architecture.md)“目标方案”各节；实机检查 `CombatCheck` 31 项。
+
+combat 的剩余项（顺序为建议）：
+1. 淬毒（炼药锅 `cauldronduyao`）：`CauldronduyaoZaiFangKuaiShangYouJian`、`Jinduliebiao`、`Cailiao141–146…` 右键给副手武器加毒药附魔；方块实体与菜单（读法同伤害过程，用 `tools/porting/read_procedure.py`）。
+2. 木人桩（`Murenzhuang`：动画实体、界面 `MurenzhuangGui`、11 个过程、合成配方）：需要首次接入 GeckoLib（版本在首次接入时按 API 与运行检查选定，见[工程结构](engineering.md)“依赖治理”）。
+3. `Shanghaifanwei`（动画实体）与其更新过程：读后判定归属（可能归 skill）。
+4. xiulian 推迟的雷劫过程（19 个元素，经 `/lightninglanding`、`/shanghai`，需要彩色闪电实体、粒子与 GeckoLib 实体）。
+5. 收尾：台账里 `qishi`、`lingwen`、`starsky`（随 skill、fulu 订阅 `HitEvent`）、`breakfree`（随 flow）、`ghost`、`guard`、`shuangsheng`、`summoningspeed`、`zimu`（来源没有读取过程）保持“已注册”；全部读完后更新 README、月度日志与本页，运行 `gradlew check`、冒烟 `-PsmokeOnly=combat`、开发服务端，合入 `main` 并推送，再建 skill 的分支。
+
+验证习惯（会话内）：改 Java 或内容表后依次运行 `convert_content.py`（内容表与语言片段）、`gradlew runSmokeClient -PsmokeOnly=combat`（含编译）、`gradlew check`、`gradlew runServer`（刷新注册表导出，再运行 `check_ledger.py`）；Gradle 与客户端一次只跑一个。
 
 ## 先读顺序
 
