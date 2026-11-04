@@ -123,3 +123,24 @@ updated: 2026-11-01
 - 原初修真的 84 个附魔类与原初系统的 `chain` 都是只有稀有度、类别、槽位和 `isTradeable`/`isTreasureOnly` 覆盖的空壳类，没有 `getMaxLevel` 等覆盖（1.18.2 默认最高 1 级）；效果全部由上述订阅过程读取手持物或四件护甲的等级。原初修真 84 个中武器类（`EnchantmentCategory.WEAPON`）51 个、护甲类 28 个、可损坏类 3 个、挖掘类 2 个；83 个普通稀有度、1 个 `sawtooth` 少见；`isTradeable` 返回否 45 个、`isTreasureOnly` 返回是 2 个（`kailing`、`sawtooth`）。
 - `EntityHurt2` 包含：防具附魔 `firearmor`、`icearmor`、`discharge`、`pool`（概率为四件护甲等级之和 %，命中后对以受击者为中心、边长 5 的方体内非友好目标发 `/shanghai`，固定伤害，基础量为等级之和 × 2）；武器附魔 `qishi`（召唤 `skillyin_01`）、`lingwen`、`liuyan`、`pojia`、`yvnxvan`、`chenmo`、`lingtikiller`、`jvtong`、`zhongshang`、`confine` 等；`EntityHurt3` 包含 `iceexplosion`、`liuqing`、`threaten`、`nofly`、`starsky` 等。其中 `lingtikiller` 取了 `zhongshang` 的等级、`lingwen` 的消耗取了 `qishi` 的等级、`liuqing` 的时长使用未赋值的 `fumolevel`（Q32）。
 - 这些过程调用的实体与粒子（`skill_rock_03`、`skillyin_01`、`lingwentexiao_2`、`zhongdulizi`、`miss` 等）属于 skill、particle，登记后随所属系统接入。
+
+## 目标方案：附魔数据定义与等级查询（2026-11-04 已实现，会话决定）
+
+来源 85 个附魔（原初修真 84、原初系统 `chain`）转为数据包定义，规则见[工程结构](../../development/engineering.md)“资源转换管线”的附魔条目，工具 `tools/porting/convert_enchantments.py`。
+
+| 1.18.2 版本 | 1.21.1 版本 |
+| --- | --- |
+| `Enchantment` 子类、稀有度 | `data/yvanchuxiuzhen/enchantment/<名>.json`，权重 10（普通）或 5（少见）、铁砧代价 1 或 2 |
+| 类别 WEAPON、ARMOR、DIGGER、BREAKABLE | 物品标签 `yvanchuxiuzhen:enchantable/weapon`、`armor`、`digger`、`breakable` |
+| 最高等级（默认 1，`chain` 为 3） | `max_level`；游戏内其他过程可直接写入更高等级，查询读到的就是写入的等级 |
+| `isTreasureOnly`、`isTradeable`、默认可发现 | `minecraft` 命名空间附魔标签（`treasure`/`non_treasure`/`in_enchanting_table`、`tradeable`、`on_random_loot`） |
+| `getItemEnchantmentLevel(附魔, 物品)` | `Enchants.level/mainHand/slot/armorSum`（`system/combat/api/Enchants`），附魔按注册表键 `Enchants.key("dodge")` 取得 |
+
+留待其他系统：原版附魔（锋利、保护等）适用于本 Mod 武器、盔甲、挖掘工具，需要把这些物品加入 `minecraft:enchantable/*` 等原版标签，随 equipment 迁移；来源的 1.18.2 `Enchantment.slots` 为空，附魔不参与按槽位生效的数据效果，行为由读取等级的玩法代码承担。
+
+### 附魔的归属阅读（2026-11-04）
+
+85 个附魔都是空壳类，归属按读取等级并赋予含义的规则判定（读取者清单由脚本对全部过程的 `YvanchuxiuzhenModEnchantments.*` 引用统计）：
+
+- 留在本系统 75 个：伤害主链与命中附魔读取的全部（`*def`、`shuxingatt_01–12`、`manaatt`、`soulatt`、`critical*`、`dodge`、`basalt`、`pojia`、`vampire`、毒药类、`EntityHurt2`/`EntityHurt3` 的武器与护甲附魔），`attdef`、`manadef`（防御公式在本系统，attribute 的显示值另按等级线性相加）、`breakfree`（flow 的 `Effectslownessget` 缩短原版缓慢效果）、`chuanshi`（破碎的基岩）、`lingtikiller`、`lingwen`、`chain`，以及来源没有读取过程的 `ghost`、`guard`、`shuangsheng`、`summoningspeed`、`zimu`（只保留说明文本）。
+- 改归 skill：`flying`（`FlyskillTick`）、`flyingskill`（`ShenfaTick`）、`jet`（`ShenfaW`）；attribute：`dawn`、`powerup`、`colddown`（`Shuxingjisuan` 折入回血、回灵与冷却缩减）；equipment：`qiling`（本命法宝培炼条件）、`qingyv`（弓）、`kailing`（工具自动开采）；fulu：`charm`（`Itemfulu18` 驯服几率）。

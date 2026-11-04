@@ -30,5 +30,11 @@
   "subtitles.yaohua": "妖化变身",
   "subtitles.jinengzibao": "自爆",
   "subtitles.flybegin": "起飞",
-  "subtitles.flyspeeedbegin": "加速飞行"
+  "subtitles.flyspeeedbegin": "加速飞行",
+  "enchantment.yvanchuxiuzhen.flying": "Flying",
+  "enchantment.yvanchuxiuzhen.flying.desc": "",
+  "enchantment.yvanchuxiuzhen.flyingskill": "Flyingskill",
+  "enchantment.yvanchuxiuzhen.flyingskill.desc": "",
+  "enchantment.yvanchuxiuzhen.jet": "Jet",
+  "enchantment.yvanchuxiuzhen.jet.desc": ""
 }

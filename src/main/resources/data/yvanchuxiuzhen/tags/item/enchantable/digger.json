@@ -1,0 +1,30 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:pickaxes",
+    "#minecraft:axes",
+    "#minecraft:shovels",
+    "#minecraft:hoes",
+    "yvanchuxiuzhen:caidao",
+    "yvanchuxiuzhen:gongjv_011",
+    "yvanchuxiuzhen:gongjv_012",
+    "yvanchuxiuzhen:gongjv_013",
+    "yvanchuxiuzhen:gongjv_014",
+    "yvanchuxiuzhen:gongjv_015",
+    "yvanchuxiuzhen:gongjv_016",
+    "yvanchuxiuzhen:gongjv_017",
+    "yvanchuxiuzhen:gongjv_018",
+    "yvanchuxiuzhen:gongjv_019",
+    "yvanchuxiuzhen:gongjv_021",
+    "yvanchuxiuzhen:gongjv_022",
+    "yvanchuxiuzhen:gongjv_023",
+    "yvanchuxiuzhen:gongjv_024",
+    "yvanchuxiuzhen:gongjv_025",
+    "yvanchuxiuzhen:gongjv_026",
+    "yvanchuxiuzhen:gongjv_027",
+    "yvanchuxiuzhen:gongjv_028",
+    "yvanchuxiuzhen:gongjv_029",
+    "yvanchuxiuzhen:gongjv_008",
+    "yvanchuxiuzhen:gongjv_001"
+  ]
+}

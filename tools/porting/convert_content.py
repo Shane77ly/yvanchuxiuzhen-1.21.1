@@ -5,6 +5,7 @@ src/main/resources/content/<单位>/blocks.json、items.json，名称与提示�
 遇到不由内容表承载的类（有专属基类的物品、动画方块、流体、传送门、未识别写法）不生成行，记入跳过清单，
 由所属系统迁移时处理。所属系统给内容表的行换用自己的方块或物品类型时，登记在 docs/reference/conversion/factory_overrides.csv；
 菜单的台账行不再是“待处理”后，来源中该菜单的界面文本键（gui.<命名空间>.<菜单>.*）写入所属单位的语言片段；
+已登记附魔的名称与说明键同样按台账所属单位写入；
 其余由系统代码直接引用的语言键按 docs/reference/conversion/lang_prefixes.csv 的键前缀写入所属单位的语言片段。
 工具可重复运行，输出只取决于来源与台账。
 """
@@ -175,6 +176,27 @@ def convert_menu_lang(sources: dict[str, Source], add_lang) -> int:
     return count
 
 
+def convert_enchantment_lang(sources: dict[str, Source], add_lang) -> int:
+    """已登记附魔的名称键与说明键 enchantment.<命名空间>.<名称>[.desc] 写入台账所属单位的语言片段，命名空间统一。
+    说明键可能在另一个来源的语言文件中（原初系统的 chain 说明在原初修真的语言文件里）。"""
+    count = 0
+    for rows in read_ledgers().values():
+        for row in rows:
+            if row['registry'] != 'enchantment' or row['status'] == '待处理':
+                continue
+            mod, path = row['legacy_id'].split(':', 1)
+            target = f'enchantment.{NAMESPACE}.{row["target_id"].split(":", 1)[1]}'
+            for language in LANGUAGES:
+                for suffix in ('', '.desc'):
+                    for source in sources.values():
+                        text = source.lang[language].get(f'enchantment.{mod}.{path}{suffix}')
+                        if text is not None:
+                            add_lang(row['owner'], language, target + suffix, text)
+                            count += 1
+                            break
+    return count
+
+
 def convert_prefix_lang(sources: dict[str, Source], add_lang) -> int:
     """系统代码直接引用的语言键（docs/reference/conversion/lang_prefixes.csv：所属单位、来源、键前缀）原样写入所属单位的语言片段。"""
     count = 0
@@ -312,6 +334,7 @@ def main() -> None:
     sound_rows = convert_sounds(sources, add_lang, expected)
     advancement_keys = convert_advancement_lang(sources, add_lang)
     menu_keys = convert_menu_lang(sources, add_lang)
+    enchantment_keys = convert_enchantment_lang(sources, add_lang)
     prefix_keys = convert_prefix_lang(sources, add_lang)
 
     units = sorted(set(blocks_by_unit) | set(items_by_unit))
@@ -334,7 +357,7 @@ def main() -> None:
         writer.writerow(['registry', 'legacy_id', 'reason'])
         writer.writerows(sorted(skipped))
     print({unit: (len(blocks_by_unit.get(unit, [])), len(items_by_unit.get(unit, []))) for unit in units})
-    print('tabs', len(tabs), 'sounds', sum(len(r) for r in sound_rows.values()), 'advancement keys', advancement_keys, 'menu keys', menu_keys, 'prefix keys', prefix_keys, 'skipped', len(skipped))
+    print('tabs', len(tabs), 'sounds', sum(len(r) for r in sound_rows.values()), 'advancement keys', advancement_keys, 'menu keys', menu_keys, 'enchantment keys', enchantment_keys, 'prefix keys', prefix_keys, 'skipped', len(skipped))
 
 
 if __name__ == '__main__':

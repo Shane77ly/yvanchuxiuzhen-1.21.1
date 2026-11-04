@@ -1,4 +1,7 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
+enchantment,yvanchuxiuzhen:flying,yvanchuxiuzhen,Flying,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,115,skill,已读,yvanchuxiuzhen:flying,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
+enchantment,yvanchuxiuzhen:flyingskill,yvanchuxiuzhen,Flyingskill,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,176,skill,已读,yvanchuxiuzhen:flyingskill,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
+enchantment,yvanchuxiuzhen:jet,yvanchuxiuzhen,Jet,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,178,skill,已读,yvanchuxiuzhen:jet,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
 entity_type,yvanchuxiuzhen:gedang,yvanchuxiuzhen,Gedang,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,501,skill,候选,yvanchuxiuzhen:gedang,待处理,
 entity_type,yvanchuxiuzhen:lingwentexiao_2,yvanchuxiuzhen,Lingwentexiao2,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1047,skill,候选,yvanchuxiuzhen:lingwentexiao_2,待处理,
 entity_type,yvanchuxiuzhen:projectile_lingwentexiao,yvanchuxiuzhen,Lingwentexiao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1045,skill,已读,yvanchuxiuzhen:projectile_lingwentexiao,待处理,

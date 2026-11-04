@@ -1,6 +1,9 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
 block,yvanchuxiuzhen:shipintai,yvanchuxiuzhen,Shipintai,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1619,equipment,已读,yvanchuxiuzhen:shipintai,待处理,
 block_entity_type,yvanchuxiuzhen:shipintai,yvanchuxiuzhen,Shipintai,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,123,equipment,已读,yvanchuxiuzhen:shipintai,待处理,
+enchantment,yvanchuxiuzhen:kailing,yvanchuxiuzhen,Kailing,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,147,equipment,已读,yvanchuxiuzhen:kailing,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
+enchantment,yvanchuxiuzhen:qiling,yvanchuxiuzhen,Qiling,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,165,equipment,已读,yvanchuxiuzhen:qiling,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
+enchantment,yvanchuxiuzhen:qingyv,yvanchuxiuzhen,Qingyv,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,158,equipment,已读,yvanchuxiuzhen:qingyv,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
 entity_type,yvanchuxiuzhen:fabao_01701,yvanchuxiuzhen,Fabao01701,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,815,equipment,候选,yvanchuxiuzhen:fabao_01701,待处理,
 entity_type,yvanchuxiuzhen:flyinginstrument_01,yvanchuxiuzhen,Flyinginstrument01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,375,equipment,候选,yvanchuxiuzhen:flyinginstrument_01,待处理,
 entity_type,yvanchuxiuzhen:flyinginstrument_02,yvanchuxiuzhen,Flyinginstrument02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,379,equipment,候选,yvanchuxiuzhen:flyinginstrument_02,待处理,
