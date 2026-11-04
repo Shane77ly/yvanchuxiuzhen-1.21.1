@@ -10,5 +10,6 @@ public final class CombatEffects {
     public static void register(ContentTables tables) {
         ControlEffects.register(tables);
         CultivationEffects.register(tables);
+        PoisonEffects.register(tables);
     }
 }

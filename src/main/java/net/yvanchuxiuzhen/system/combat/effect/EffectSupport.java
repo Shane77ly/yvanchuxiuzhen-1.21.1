@@ -18,7 +18,7 @@ final class EffectSupport {
     private EffectSupport() {
     }
 
-    private static Holder<MobEffect> holder(String effect) {
+    static Holder<MobEffect> holder(String effect) {
         return BuiltInRegistries.MOB_EFFECT.getHolderOrThrow(
                 ResourceKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, effect)));
     }

@@ -117,6 +117,7 @@ updated: 2026-11-01
 | Q30 | 物理伤害与 `/shanghai` 结算的疑似错误：① 破甲系数 `pojia` 初值 0，没有 `pojia` 附魔时受击者基础物理防御与护甲 `lianqizong.attack_Def` 乘 0 后不计入，只有附魔 `attdef` 与 `basalt` 起作用；② 暴击结算值紧接着被物理公式覆盖，暴击只有粒子；③ 物理攻击量乘的 `AttackAttCorrectPercentage` 读的是受击者体质而不是攻击者；④ 法术防御的护甲项读 `lianqizong.mana_Att`（神识项读 `soul_Def`）；⑤ `/shanghai` 没有“任一方团队为空则不免伤”的判断，而 `LivingHurtEvent` 有；⑥ `/shanghai` 闪避随机数为 0 时即使没有闪避附魔也使伤害无效（约 1/101）；⑦ 吸血在 `LivingAttackEvent` 与 `LivingHurtEvent` 各回复一次。评估为轻微，保持来源行为，待裁定（与 Q13 的关系读取、击杀计数时机同属战斗） | [战斗](../../systems/combat/architecture.md) |
 | Q31 | `DamageIntegration`、`DamageDefense`、`ManaDamage`、`ManaDefense`、`SoulAttjisuan`、`SoulDefjisuan`、`DamageXiaoguo`、`EntityBeforeHurt2` 没有过程调用者、事件订阅或元素触发（后两者是空壳），经受击者持久化键 `ManaAttackDamage`、`ManaAttackUUID`、`damagetype`、`Damage_multiplier` 传值的另一版伤害计算不可达。评估为轻微：不迁移，待裁定（与 Q13 的未闭合字段链同属一处） | [战斗](../../systems/combat/architecture.md) |
 | Q32 | 命中附魔的疑似错误：毒药类与 `sawtooth` 的效果时长为“已有同效果剩余 tick × 20 + 600”；`lingtikiller` 取 `zhongshang` 的等级，`lingwen` 的灵力消耗取 `qishi` 的等级；`liuqing` 的时长使用此前分支才赋值的 `fumolevel`（单独触发时时长为 0）。评估为轻微，保持来源行为，待裁定 | [战斗](../../systems/combat/architecture.md) |
+| Q33 | 状态效果的疑似错误：`duyao_13` 的伤害读 `duyao_01` 的等级；`duyao_20`（尸毒）对玩家的伤害先乘体质放大再被赋值覆盖，放大不生效；`duyao_21`（曼陀罗）与 `duyao_20` 共用计数键 `duyao20tick`，伤害读 `duyao_07` 的等级；`effect_010`、`effect_017` 的说明文本写“每两秒恢复等级 × 5”，实际每秒恢复 (等级 + 1) × 10；`duyao_09`（番木鳖）把体质放大乘在目标生命上而不是伤害上。评估为轻微，保持来源行为，待裁定 | [战斗](../../systems/combat/architecture.md) |
 
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 
