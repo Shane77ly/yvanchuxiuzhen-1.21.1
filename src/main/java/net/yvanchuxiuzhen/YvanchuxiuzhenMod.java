@@ -34,6 +34,7 @@ import net.yvanchuxiuzhen.system.yihuo.YihuoSetup;
 import net.yvanchuxiuzhen.system.zhenfa.ZhenfaSetup;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.RegistryExport;
+import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.platform.content.ContentTabs;
 
 /**
@@ -44,6 +45,7 @@ import net.yvanchuxiuzhen.platform.content.ContentTabs;
 public final class YvanchuxiuzhenMod {
     public YvanchuxiuzhenMod(IEventBus modBus) {
         RegistryExport.register();
+        ModifierKeys.register(modBus);
         ContentTabs.register(modBus);
         AttributeSetup.register(modBus);
         BookSetup.register(modBus);

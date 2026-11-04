@@ -32,6 +32,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 public final class ElementProjectiles {
     private static final Map<String, ProjectileSkill> SKILLS = Map.ofEntries(
                 Map.entry("projectile_skill_gold_01", new GoldBolt()),
+                Map.entry("projectile_skill_gold_03", new GoldWheel()),
                 Map.entry("projectile_skill_water_03", new WaterOrb()),
                 Map.entry("projectile_skill_water_05", new WaterSpirit()),
                 Map.entry("projectile_skill_water_0101", new WaterSeeker()),
@@ -57,6 +58,7 @@ public final class ElementProjectiles {
     public static void register(ContentTables tables) {
         SKILLS.forEach((id, skill) -> tables.<SkillProjectile>entity(id, (type, level) -> new SkillProjectile(type, level, skill)));
         release("金", "projectile_skill_gold_01", 0, 5, "金芒术", "碎裂金芒");
+        release("金", "projectile_skill_gold_03", 0, 0, "捆妖轮", "金弧轮", "天堑金轮");
         release("水", "projectile_skill_water_03", 1, 0, "水球术");
         release("水", "projectile_skill_water_05", 0, 0, "水灵弹");
         release("水", "projectile_skill_ice_01", 0, 0, "冰锥术", "连锥术");

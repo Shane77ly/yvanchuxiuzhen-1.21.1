@@ -1733,12 +1733,12 @@ yvanchuxiuzhen,Starxianshi05,procedure,~/GUI,xiulian,已读,C xiulian 归属阅�
 yvanchuxiuzhen,SkillGold01TouZhiWuFeiXingTick,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillGold01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillGold01,rangeditem,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
-yvanchuxiuzhen,SkillGold0101,particle,~/skill/jineng/goldskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillGold02,procedure,~/skill/jineng/goldskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillGold0101,particle,~/skill/jineng/goldskill,particle,已读,C skill 归属阅读：金芒术飞行时的拖尾粒子定义，没有过程；粒子定义归 particle，金芒术弹体引用它（目前只保留原版粒子）
+yvanchuxiuzhen,SkillGold02,procedure,~/skill/jineng/goldskill,skill,已读,C skill 归属阅读：金系的金轮实体（八种模式）与金刚轮施放，金轮弹体的捆妖轮、金弧轮、天堑金轮；金轮跟随的对象是施放者或弹体或被捆的目标；Alt 式的牵引范围按来源公式逐步缩小
 yvanchuxiuzhen,Jinenglist01,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
 yvanchuxiuzhen,SkillGold03TouZhiWuFeiXingTick,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillGold03DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
-yvanchuxiuzhen,SkillGold03,rangeditem,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
+yvanchuxiuzhen,SkillGold03,rangeditem,~/skill/jineng/goldskill,skill,已读,C skill 归属阅读：金系的金轮实体（八种模式）与金刚轮施放，金轮弹体的捆妖轮、金弧轮、天堑金轮；金轮跟随的对象是施放者或弹体或被捆的目标；Alt 式的牵引范围按来源公式逐步缩小
 yvanchuxiuzhen,SkillWater01DangShiTiGengXinKeShi,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillWater01,animatedentity,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillWater01shifang,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4751,12 +4751,12 @@ yvanchuxiuzhen,Fulutexiao32DangTouSheWuSheZhongCiFangKuai,procedure,~/item/huafu
 yvanchuxiuzhen,Fulutexiao45DangTouSheWuSheZhongCiFangKuai,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao45 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Chuwu,tag,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jinzhifangru,procedure,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillGold0201,animatedentity,~/skill/jineng/goldskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillGold0201,animatedentity,~/skill/jineng/goldskill,skill,已读,C skill 归属阅读：金系的金轮实体（八种模式）与金刚轮施放，金轮弹体的捆妖轮、金弧轮、天堑金轮；金轮跟随的对象是施放者或弹体或被捆的目标；Alt 式的牵引范围按来源公式逐步缩小
 yvanchuxiuzhen,Armor12,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Armor13,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Fabao021,animateditem,~/weapon/fabao,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Fabao022,animateditem,~/weapon/fabao,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,SkillGold0201DangShiTiGengXinKeShi,procedure,~/skill/jineng/goldskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillGold0201DangShiTiGengXinKeShi,procedure,~/skill/jineng/goldskill,skill,已读,C skill 归属阅读：金系的金轮实体（八种模式）与金刚轮施放，金轮弹体的捆妖轮、金弧轮、天堑金轮；金轮跟随的对象是施放者或弹体或被捆的目标；Alt 式的牵引范围按来源公式逐步缩小
 yvanchuxiuzhen,Brokenwhite,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Brokenlightgray,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Brokendarkgrey,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4973,7 +4973,7 @@ yvanchuxiuzhen,Thunderpurple,particle,~/lizi/thunder,particle,候选,第一版�
 yvanchuxiuzhen,Thunderdeeppurple,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Thundergolden,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Thunderskyblue,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillGold0201DangSiWangShiJianDaoShi,procedure,~/skill/jineng/goldskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillGold0201DangSiWangShiJianDaoShi,procedure,~/skill/jineng/goldskill,skill,已读,C skill 归属阅读：金系的金轮实体（八种模式）与金刚轮施放，金轮弹体的捆妖轮、金弧轮、天堑金轮；金轮跟随的对象是施放者或弹体或被捆的目标；Alt 式的牵引范围按来源公式逐步缩小
 yvanchuxiuzhen,SkillWater0101TouZhiWuFeiXingTick,procedure,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：随 SkillWater0101 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillWater0101DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：随 SkillWater0101 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillWater0101,rangeditem,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品

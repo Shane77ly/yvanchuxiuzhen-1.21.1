@@ -15,6 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.skill.SkillCasting;
 import net.yvanchuxiuzhen.system.skill.SkillSelection;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
@@ -24,6 +25,7 @@ import net.yvanchuxiuzhen.system.skill.data.SkillCooldowns;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
+import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
 import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -33,7 +35,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
  * 火焰护盾给抗火、火焰漩涡与火龙卷生成实体并在 20 刻时伤人点燃；实体到时消失。
  */
 final class SkillEntityCheck extends SystemCheck {
-    private enum Kind { BALL, IGNITE, CONTROL, SHIELD, COLUMN, ROLL, METEOR, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO }
+    private enum Kind { BALL, IGNITE, CONTROL, SHIELD, COLUMN, ROLL, METEOR, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_NORMAL, GOLD_BIND, GOLD_ARC, GOLD_SKY, GOLD_CTRL }
 
     private record Case(String body, String name, Kind kind, String entity, boolean sneak) {
         Case(String body, String name, Kind kind, String entity) {
@@ -47,7 +49,10 @@ final class SkillEntityCheck extends SystemCheck {
             new Case("火", "火焰漩涡", Kind.COLUMN, "skill_fire_07"), new Case("火", "火龙卷", Kind.COLUMN, "skill_fire_08"),
             new Case("土", "滚石术", Kind.ROLL, "skill_rock_02"), new Case("土", "天外陨石", Kind.METEOR, "skill_rock_03"),
             new Case("土", "化石手", Kind.HAND_ONE, "skill_rock_04"), new Case("土", "化石手", Kind.HAND_TWO, "skill_rock_04", true),
-            new Case("土", "巨石锤", Kind.HAMMER_ONE, "skill_rock_05"), new Case("土", "巨石锤", Kind.HAMMER_TWO, "skill_rock_05", true));
+            new Case("土", "巨石锤", Kind.HAMMER_ONE, "skill_rock_05"), new Case("土", "巨石锤", Kind.HAMMER_TWO, "skill_rock_05", true),
+            new Case("金", "金刚轮", Kind.GOLD_NORMAL, "skill_gold_0201"), new Case("金", "捆妖轮", Kind.GOLD_BIND, null),
+            new Case("金", "金弧轮", Kind.GOLD_ARC, null), new Case("金", "天堑金轮", Kind.GOLD_SKY, null),
+            new Case("金", "金刚轮", Kind.GOLD_CTRL, "skill_gold_0201"));
     private static final double HEALTH = 100;
     private static final int WAIT = 70;
 
@@ -59,7 +64,11 @@ final class SkillEntityCheck extends SystemCheck {
     }
 
     private static ItemStack book(ServerPlayer player, Case spell) {
-        String cooldowns = spell.body().equals("土") ? "0 0 0 0 1 0 0 0 0 0 100 0" : "0 0 0 1 0 0 0 0 0 100 0 0";
+        String cooldowns = switch (spell.body()) {
+            case "土" -> "0 0 0 0 1 0 0 0 0 0 100 0";
+            case "金" -> "1 0 0 0 0 0 100 0 0 0 0 0";
+            default -> "0 0 0 1 0 0 0 0 0 100 0 0";
+        };
         String arguments = "yvanchuxiuzhen:book_003 " + spell.name() + " 1 1 " + spell.body() + " x 无 3 1 0 0 " + cooldowns;
         ItemStack stack = Skills.createBook(SkillKind.SPELL, List.of(arguments.split(" ")));
         stack.set(SkillData.SKILL.get(), Skills.book(stack).orElseThrow().withOwner(player.getUUID(), player.getName().getString()));
@@ -102,6 +111,7 @@ final class SkillEntityCheck extends SystemCheck {
                 player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
                 player.removeEffect(MobEffects.FIRE_RESISTANCE);
                 player.setShiftKeyDown(false);
+                ModifierKeys.update(player, false, false);
             });
             finish();
             return true;
@@ -114,13 +124,20 @@ final class SkillEntityCheck extends SystemCheck {
                 Cultivation.set(player, CultivationValue.POWER, 1000);
                 player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
                 player.setShiftKeyDown(spell.sneak());
+                ModifierKeys.update(player, spell.kind() == Kind.GOLD_CTRL, false);
                 player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SWORD));
                 Skills.setSpell(player, 1, book(player, spell));
                 SkillSelection.clear(player);
                 SkillSelection.select(player, 1);
                 expect(spell.name() + " 已选中", spell.name(), Skills.book(Skills.selected(player)).map(SkillBook::name).orElse(""));
                 switch (spell.kind()) {
-                    case IGNITE, COLUMN, ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO -> golem = placeGolem(player, player.getX() + (spell.kind() == Kind.IGNITE ? 4 : 5), player.getY(), player.getZ());
+                    case IGNITE, COLUMN, ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_BIND, GOLD_SKY, GOLD_NORMAL, GOLD_CTRL -> golem = placeGolem(player,
+                            player.getX() + switch (spell.kind()) {
+                                case IGNITE, GOLD_BIND, GOLD_SKY -> 4;
+                                case GOLD_NORMAL -> 3;
+                                case GOLD_CTRL -> 3;
+                                default -> 5;
+                            }, player.getY(), player.getZ());
                     case CONTROL -> {
                         BlockPos center = ProjectileSupport.lookBlock(player, 4);
                         firePos = center.immutable();
@@ -155,6 +172,15 @@ final class SkillEntityCheck extends SystemCheck {
                         if (ready[0]) {
                             golem = placeGolem(player, ball.getX(), ball.getY(), ball.getZ());
                         }
+                    } else if (kind == Kind.GOLD_ARC || kind == Kind.GOLD_BIND) {
+                        expectTrue(spell.name() + " 生成金轮实体", !found.isEmpty());
+                        if (kind == Kind.GOLD_BIND) {
+                            ready[0] = golem.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) || local > 20;
+                            expectTrue(spell.name() + " 目标缓慢（命中后）", !ready[0] || golem.hasEffect(MobEffects.MOVEMENT_SLOWDOWN));
+                        }
+                    } else if (kind == Kind.GOLD_CTRL) {
+                        expectTrue(spell.name() + " 金轮向前飞并把目标推开（无 AI 的目标只记下速度） " + golem.getDeltaMovement(),
+                                !found.isEmpty() && found.get(0).getPersistentData().getString("mode").equals("金刚轮ctrl") && golem.getDeltaMovement().x > 0.5);
                     } else if (kind == Kind.COLUMN || kind == Kind.ROLL) {
                         golem.moveTo(found.get(0).getX() + 1.5, found.get(0).getY(), found.get(0).getZ());
                     } else if (kind == Kind.HAND_ONE) {
@@ -190,6 +216,9 @@ final class SkillEntityCheck extends SystemCheck {
                             expectTrue(spell.name() + " 点燃目标", golem.getRemainingFireTicks() > 0);
                         }
                         case SHIELD -> expectTrue(spell.name() + " 获得抗火", player.hasEffect(MobEffects.FIRE_RESISTANCE));
+                        case GOLD_NORMAL, GOLD_SKY -> expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                        case GOLD_BIND -> expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                        case GOLD_ARC -> expectTrue(spell.name() + " 弹体到时消失", player.serverLevel().getEntitiesOfClass(SkillProjectile.class, new AABB(player.blockPosition()).inflate(64)).isEmpty());
                         case ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO -> {
                             expectTrue(spell.name() + " " + spell.kind() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
                             if (spell.kind() != Kind.ROLL) {

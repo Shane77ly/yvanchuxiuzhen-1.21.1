@@ -25,6 +25,7 @@ public final class SkillEntities {
 
     static {
         FireEntities.register(SKILLS);
+        GoldEntities.register(SKILLS);
         RockEntities.register(SKILLS);
     }
 

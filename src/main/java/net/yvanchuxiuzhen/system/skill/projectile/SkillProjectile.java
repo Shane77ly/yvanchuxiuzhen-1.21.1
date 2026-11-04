@@ -141,6 +141,10 @@ public final class SkillProjectile extends AbstractArrow implements ItemSupplier
         return ++ticks;
     }
 
+    public int ticks() {
+        return ticks;
+    }
+
     public double mana() {
         return mana;
     }

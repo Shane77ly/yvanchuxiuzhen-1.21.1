@@ -1534,7 +1534,7 @@ yvanchuxiuzhen,PhotosphereskyblueParticle,src/main/java/net/mcreator/yvanchuxiuz
 yvanchuxiuzhen,PhotospherewhiteParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/PhotospherewhiteParticle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,PhotosphereyellowParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/PhotosphereyellowParticle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,PoplarleavesliziParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/PoplarleavesliziParticle.java,client/particle,particle,source_element_metadata
-yvanchuxiuzhen,SkillGold0101Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/SkillGold0101Particle.java,client/particle,skill,source_element_metadata
+yvanchuxiuzhen,SkillGold0101Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/SkillGold0101Particle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,SmallexplosionblackParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/SmallexplosionblackParticle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,SmallexplosionblueParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/SmallexplosionblueParticle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,SmallexplosioncrimsonParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/SmallexplosioncrimsonParticle.java,client/particle,particle,source_element_metadata
