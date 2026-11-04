@@ -22,7 +22,7 @@ updated: 2026-11-04
 
 ## 进行中
 
-C 玩家与战斗核心，combat 已完成并合入 `main`，下一个系统 skill（分支 `port/c-skill`，从 `main` 建立；最新提交以 `git log` 为准）。负责人 2026-11-03 指示（/loop）：每完成一个路线步骤即提交、合入 `main` 并进入下一步，直到移植完成或出现重大问题；判断不定的问题先评估影响，轻微的记入文档后继续，重大的停下商议；客户端测试由会话自己完成。运行约定（负责人 2026-11-03）：变换工具、Gradle、开发服务端与冒烟检查逐个运行，不同时进行（负责人的 VS Code 两次因内存不足崩溃，均在大批文件写入之后）。B1 范围内需要新代码类型的行（`skipped.csv`）与其余语言键随所属系统迁移。盔甲挥臂闪烁与药草疑似缺失两项反馈由负责人指示暂缓（2026-11-03）。
+C 玩家与战斗核心，combat 已完成并合入 `main`，当前系统 skill（分支 `port/c-skill`，从 `main` 建立；最新提交以 `git log` 为准）：2026-11-04 第 1 阶段“框架”完成（技能书、技能栏与选择、施放与冷却、命令、藏宝与附赠、霸体与禁施；Q36–Q39；冒烟 85 项），按五个阶段分批提交，阶段表见[技能架构](../systems/skill/architecture.md)“迁移阶段”；skill 全部阶段完成后才合入 `main`。负责人 2026-11-03 指示（/loop）：每完成一个路线步骤即提交、合入 `main` 并进入下一步，直到移植完成或出现重大问题；判断不定的问题先评估影响，轻微的记入文档后继续，重大的停下商议；客户端测试由会话自己完成。运行约定（负责人 2026-11-03）：变换工具、Gradle、开发服务端与冒烟检查逐个运行，不同时进行（负责人的 VS Code 两次因内存不足崩溃，均在大批文件写入之后）。B1 范围内需要新代码类型的行（`skipped.csv`）与其余语言键随所属系统迁移。盔甲挥臂闪烁与药草疑似缺失两项反馈由负责人指示暂缓（2026-11-03）。
 
 已完成（2026-11-03，均已合入 `main`）：
 - attribute：Q17 裁定实际属性计入炼器数值，Q18 暂按来源行为待再议；见[属性](../systems/attribute/README.md)。留待其他系统：重算粒子随 particle；提交贡献的真实路径随 xiulian、gongfa、equipment、fulu、economy；equipment 去掉妖化防具的生命修饰符。
@@ -34,13 +34,14 @@ combat（2026-11-04 完成，合入 `main`）：伤害主链归属阅读与 Q29�
 
 xiulian 推迟的雷劫过程（`ThunderBegin`、劫云实体 `Jieyvn`、天劫实体 `Tianjie03/05/07`、七种天雷 `Leijie0101–0107`、`Jiancelevel`、`Playerhuifu`，约 130 KB 源码，经 `/lightninglanding` 与 `/shanghai`）现在可以迁移：伤害入口、GeckoLib 与实体内容表已具备，彩色闪电实体与 particle 的粒子是前置；建议在 skill 之后、粒子提供器建立时一并完成，或单开分支 `port/c-xiulian-tribulation`。
 
-下一步具体操作（skill；做法同前几个系统）：
-1. 读 skill 的候选元素归属（[归属表](../reference/legacy/inventory/ownership_assignment.csv)），用 `tools/porting/ownership_evidence.py` 列证据（只覆盖方块与物品，其余按过程名用 `tools/porting/read_procedure.py` 读），读后改为“已读”并运行 `build_ledger.py`、`build_architecture_catalog.py`。
-2. 在 skill README“公开操作”列出查询与写操作，对照 `typed_field_accesses.csv` 覆盖外部读写点；skill 读 attribute 的冷却与消耗、xiulian 的灵力扣减，伤害经 combat 的 `Shanghai.deal`，不直接依赖 combat 的内部类。
-3. 实现与验证同 combat（`SystemCheck` 子类加入 `SmokeRun.checkSystems`，`-PsmokeOnly=skill`；GeckoLib 实体沿用木人桩的做法）。
-4. 完成后更新 README、正文、月度日志与本页，合入 `main` 并推送，再建 yihuo 的分支。
+下一步具体操作（skill 第 2 阶段“弹体技能”；做法同前几个系统）：
+1. 读阶段 2 的元素：14 个元素弹体技能（`SkillGold01/03`、`Water03/05/0101`、`Ice01–03`、`Tree01`、`Wind01`、`Fire01`、`Light01/02/04`、`Rock01`）的刻、命中实体、命中方块过程，10 种技能箭（`SkillArrow01–10` 与 `ArrowSkillchufa`、`Skillarrow0Nhecheng` 配方、箭种选择按钮 6–16 与 `arrowlinshi`）。`tools/porting/read_procedure.py`（`DIFF=1` 对同模板族）读，读完用 `mark_ownership.py` 标已读，再运行 `build_ledger.py`、`build_architecture_catalog.py`；台账状态用 `mark_ledger.py`。
+2. 实现弹体实体基础：内容表增加非生物实体（箭类，`AbstractArrow`）的工厂与实体表字段，`SkillProjectile` 持有技能名与计时，按技能登记刻、命中实体、命中方块钩子；伤害经 `Shanghai.deal`，敌友经 `Relations`；施放过程登记到 `SkillReleases`（首字加技能名，见 `Jinenglist01` 的分派表）。注意：命中时读取的是发射者当前所选技能的 `jinengmanaatt`、`jinengshanghai`，不是发射时的快照（来源如此）。
+3. 阶段 3–5 依次：实体技能（GeckoLib 动画实体沿用木人桩）、身法轻功武器技与按键、界面与 HUD；公开操作中 `arrowlinshi` 与 fulu 重置在对应阶段补进 `Skills`。
+4. skill 全部阶段完成后更新 README、正文、月度日志与本页，合入 `main` 并推送，再建 yihuo 的分支。
+5. 另有两项小事：gongfa 补 `/technique` 命令（权限 1，按参数生成功法书，`TechniqueGO` 已读，需要 `TechniqueLibrary` 的参数解析）；`PlayerRightClick` 的开灵附魔分支（工具射出）归 equipment。
 
-验证习惯（会话内）：改 Java 或内容表后依次运行 `convert_content.py`（内容表与语言片段）、`gradlew runSmokeClient -PsmokeOnly=combat`（含编译）、`gradlew check`、`gradlew runServer`（刷新注册表导出，再运行 `check_ledger.py`）；Gradle 与客户端一次只跑一个。
+验证习惯（会话内）：改 Java 或内容表后依次运行 `convert_content.py`（内容表与语言片段）、`gradlew runSmokeClient -PsmokeOnly=<系统>`（含编译）、`gradlew check`、`gradlew runServer`（刷新注册表导出，再运行 `check_ledger.py`）；Gradle 与客户端一次只跑一个。
 
 ## 先读顺序
 

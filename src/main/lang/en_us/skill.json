@@ -46,5 +46,19 @@
   "effect.yvanchuxiuzhen.skilleffect_05": "土系技能冷却",
   "effect.yvanchuxiuzhen.skilleffect_06": "阴阳技能冷却",
   "effect.yvanchuxiuzhen.skilleffect_07": "战斗状态",
-  "effect.yvanchuxiuzhen.skillwind_04": "飞行消耗减少"
+  "effect.yvanchuxiuzhen.skilleffect_08": "霸体状态",
+  "effect.yvanchuxiuzhen.skilleffect_08.description": "",
+  "effect.yvanchuxiuzhen.skilleffect_09": "施法中，无法移动",
+  "effect.yvanchuxiuzhen.skilleffect_09.description": "施法时，本体无法移动也无法释放其它法术。 ",
+  "effect.yvanchuxiuzhen.skillwind_04": "飞行消耗减少",
+  "key.yvanchuxiuzhen.jinengqvxiao": "Jinengqvxiao",
+  "key.yvanchuxiuzhen.tabanjian": "Tabanjian",
+  "key.yvanchuxiuzhen.ganjian": "Ganjian",
+  "key.yvanchuxiuzhen.canjian": "Canjian",
+  "key.yvanchuxiuzhen.fanjian": "Fanjian",
+  "key.yvanchuxiuzhen.anjian_w": "Anjian W",
+  "key.yvanchuxiuzhen.anjian_space": "Anjian Space",
+  "key.yvanchuxiuzhen.anjian_s": "Anjian S",
+  "key.yvanchuxiuzhen.anjian_a": "Anjian A",
+  "key.yvanchuxiuzhen.anjian_d": "Anjian D"
 }

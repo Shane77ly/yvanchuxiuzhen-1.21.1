@@ -7,5 +7,7 @@
 {"id":"skilleffect_05","category":"NEUTRAL","color":-39169},
 {"id":"skilleffect_06","category":"NEUTRAL","color":-1},
 {"id":"skilleffect_07","category":"NEUTRAL","color":-39322},
+{"id":"skilleffect_08","category":"BENEFICIAL","color":-13312},
+{"id":"skilleffect_09","category":"NEUTRAL","color":-1},
 {"id":"skillwind_04","category":"BENEFICIAL","color":-3342388}
 ]

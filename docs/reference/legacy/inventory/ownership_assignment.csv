@@ -1354,8 +1354,8 @@ yvanchuxiuzhen,Swordsmanship02,animatedentity,~/skill/swordsmanship,skill,候选
 yvanchuxiuzhen,Swordsmanship02chufa,procedure,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Swordsmanship03,animatedentity,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Swordsmanship03chufa,procedure,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smanship,command,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SmanshipGO,procedure,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Smanship,command,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
+yvanchuxiuzhen,SmanshipGO,procedure,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
 yvanchuxiuzhen,Swordsmanship04,animatedentity,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Swordsmanship04chufa,procedure,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Weaponsword01,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
@@ -1505,12 +1505,12 @@ yvanchuxiuzhen,Tileimbrexgilding07,block,~/decorate/buildingblocks,decor,已读,
 yvanchuxiuzhen,Tileimbrexgilding08,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Tileimbrexgilding09,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Tileimbrexgilding10,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Technique,command,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Technique,command,~/systemset/zhiling,gongfa,已读,C skill 归属阅读：/technique 命令（权限 1）是 TechniqueGO 的入口，按参数生成功法书；与 /jineng 不同，功法书生成归 gongfa，命令在 gongfa 补做
 yvanchuxiuzhen,TechniqueGO,procedure,~/systemset/zhiling,gongfa,已读,C gongfa 归属阅读：管理命令 /technique 按参数生成功法书；目标为公开操作 Techniques.createBook，命令本身归 flow
 yvanchuxiuzhen,ShenfaW,procedure,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,AnjianW,keybind,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shenfazhiling,procedure,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shenfa,command,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Shenfazhiling,procedure,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
+yvanchuxiuzhen,Shenfa,command,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
 yvanchuxiuzhen,ShenfaTick,procedure,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ShenfaS,procedure,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,AnjianS,keybind,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1687,8 +1687,8 @@ yvanchuxiuzhen,PlayerJoinGUIDangZheGeJieMianBeiGuanBi,procedure,~/GUI,xiulian,�
 yvanchuxiuzhen,Flyskilltexiao,procedure,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,FlyskillTick,procedure,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyskillkaishitexiao,procedure,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,FlyskillGO,procedure,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyskill,command,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,FlyskillGO,procedure,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
+yvanchuxiuzhen,Flyskill,command,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
 yvanchuxiuzhen,Flyskill02,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyskill03,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyskill04,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1699,27 +1699,27 @@ yvanchuxiuzhen,Skilleffect04,potioneffect,~/effect,skill,已读,C combat 归属�
 yvanchuxiuzhen,Skilleffect05,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
 yvanchuxiuzhen,Skilleffect06,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
 yvanchuxiuzhen,Skilleffect07,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
-yvanchuxiuzhen,Skilleffect08DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
-yvanchuxiuzhen,Skilleffect08DangXiaoGuoJieShuShi,procedure,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
-yvanchuxiuzhen,Skilleffect08,potioneffect,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
-yvanchuxiuzhen,Skilleffect09DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
-yvanchuxiuzhen,Skilleffect09DangXiaoGuoJieShuShi,procedure,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
-yvanchuxiuzhen,Skilleffect09,potioneffect,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
-yvanchuxiuzhen,TabanjianAnXiaAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tabanjian,keybind,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,AnjianZAnXiaAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,AnjianXAnXiaAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,AnjianCAnXiaAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,AnjianVAnXiaAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerRightClick,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Colddownjisuan,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Skilleffect08DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,skill,已读,C skill 归属阅读：霸体（击退抗性基础值 +10 并附加同时长发光，结束还原）与施法中禁施（移动速度基础值 −10，结束还原），成对加减
+yvanchuxiuzhen,Skilleffect08DangXiaoGuoJieShuShi,procedure,~/effect,skill,已读,C skill 归属阅读：霸体（击退抗性基础值 +10 并附加同时长发光，结束还原）与施法中禁施（移动速度基础值 −10，结束还原），成对加减
+yvanchuxiuzhen,Skilleffect08,potioneffect,~/effect,skill,已读,C skill 归属阅读：霸体（击退抗性基础值 +10 并附加同时长发光，结束还原）与施法中禁施（移动速度基础值 −10，结束还原），成对加减
+yvanchuxiuzhen,Skilleffect09DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,skill,已读,C skill 归属阅读：霸体（击退抗性基础值 +10 并附加同时长发光，结束还原）与施法中禁施（移动速度基础值 −10，结束还原），成对加减
+yvanchuxiuzhen,Skilleffect09DangXiaoGuoJieShuShi,procedure,~/effect,skill,已读,C skill 归属阅读：霸体（击退抗性基础值 +10 并附加同时长发光，结束还原）与施法中禁施（移动速度基础值 −10，结束还原），成对加减
+yvanchuxiuzhen,Skilleffect09,potioneffect,~/effect,skill,已读,C skill 归属阅读：霸体（击退抗性基础值 +10 并附加同时长发光，结束还原）与施法中禁施（移动速度基础值 −10，结束还原），成对加减
+yvanchuxiuzhen,TabanjianAnXiaAnJianShi,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：技能栏的页与选择，按键序号 1–4 选当前页的技能、再按同键取消，Tab 翻页，B 取消；Z、X、C、V 过程由技能界面的四个技能按钮触发（按钮 0–3）
+yvanchuxiuzhen,Tabanjian,keybind,~/skill/jineng,skill,已读,C skill 归属阅读：技能栏的页与选择，按键序号 1–4 选当前页的技能、再按同键取消，Tab 翻页，B 取消；Z、X、C、V 过程由技能界面的四个技能按钮触发（按钮 0–3）
+yvanchuxiuzhen,AnjianZAnXiaAnJianShi,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：技能栏的页与选择，按键序号 1–4 选当前页的技能、再按同键取消，Tab 翻页，B 取消；Z、X、C、V 过程由技能界面的四个技能按钮触发（按钮 0–3）
+yvanchuxiuzhen,AnjianXAnXiaAnJianShi,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：技能栏的页与选择，按键序号 1–4 选当前页的技能、再按同键取消，Tab 翻页，B 取消；Z、X、C、V 过程由技能界面的四个技能按钮触发（按钮 0–3）
+yvanchuxiuzhen,AnjianCAnXiaAnJianShi,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：技能栏的页与选择，按键序号 1–4 选当前页的技能、再按同键取消，Tab 翻页，B 取消；Z、X、C、V 过程由技能界面的四个技能按钮触发（按钮 0–3）
+yvanchuxiuzhen,AnjianVAnXiaAnJianShi,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：技能栏的页与选择，按键序号 1–4 选当前页的技能、再按同键取消，Tab 翻页，B 取消；Z、X、C、V 过程由技能界面的四个技能按钮触发（按钮 0–3）
+yvanchuxiuzhen,PlayerRightClick,procedure,~/systemset,skill,已读,C skill 归属阅读：右键物品的入口，由两个分支组成——开灵附魔的工具射出（归 equipment，随其迁移）与手持武器施放所选技能（归 skill，已迁移到 SkillCasting）；入口监听按系统拆开
+yvanchuxiuzhen,Colddownjisuan,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
 yvanchuxiuzhen,ZhilingZhuanhuan,procedure,~/systemset/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jineng,command,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGO,procedure,~/systemset/zhiling,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxiaohao,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jineng,command,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
+yvanchuxiuzhen,JinengGO,procedure,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
+yvanchuxiuzhen,Jinengxiaohao,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
 yvanchuxiuzhen,ColddownGoldxianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Colddownxianshi,overlay,~/skill/jineng,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Colddownplayertick,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Colddownplayertick,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
 yvanchuxiuzhen,ColddownWaterxianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ColddownTreexianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ColddownFirexianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1735,7 +1735,7 @@ yvanchuxiuzhen,SkillGold01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/g
 yvanchuxiuzhen,SkillGold01,rangeditem,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillGold0101,particle,~/skill/jineng/goldskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillGold02,procedure,~/skill/jineng/goldskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinenglist01,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jinenglist01,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
 yvanchuxiuzhen,SkillGold03TouZhiWuFeiXingTick,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillGold03DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillGold03,rangeditem,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -1855,8 +1855,8 @@ yvanchuxiuzhen,SkillRock05shifang,procedure,~/skill/jineng/rockskill,skill,候�
 yvanchuxiuzhen,GedangDangShiTiGengXinKeShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GedangDangShiTiBeiShaSiShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gedang,animatedentity,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengqvxiaoAnXiaAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengqvxiao,keybind,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,JinengqvxiaoAnXiaAnJianShi,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：技能栏的页与选择，按键序号 1–4 选当前页的技能、再按同键取消，Tab 翻页，B 取消；Z、X、C、V 过程由技能界面的四个技能按钮触发（按钮 0–3）
+yvanchuxiuzhen,Jinengqvxiao,keybind,~/skill/jineng,skill,已读,C skill 归属阅读：技能栏的页与选择，按键序号 1–4 选当前页的技能、再按同键取消，Tab 翻页，B 取消；Z、X、C、V 过程由技能界面的四个技能按钮触发（按钮 0–3）
 yvanchuxiuzhen,Yaoshou001DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,EntityTeamShezhi,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Guiguai01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Yaoshou001,animatedentity,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
@@ -1957,11 +1957,11 @@ yvanchuxiuzhen,Qiankundai01,item,~/item/zawu/qiankundai,storage,已读,B1 归属
 yvanchuxiuzhen,Qiankundai02,item,~/item/zawu/qiankundai,storage,已读,B1 归属阅读：储物：乾坤袋与材料袋的容器；本元素无过程，被 material 的 Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhi 按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Qiankundai03,item,~/item/zawu/qiankundai,storage,已读,B1 归属阅读：储物：乾坤袋与材料袋的容器；本元素无过程
 yvanchuxiuzhen,Qiankundai04,item,~/item/zawu/qiankundai,storage,已读,B1 归属阅读：储物：乾坤袋与材料袋的容器；本元素无过程
-yvanchuxiuzhen,Jinenglistzong,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jinenglistzong,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：藏宝技能书，书架藏宝按 1–13 随机取一本，13 本的参数在 content/skill/treasure_books.json（extract_skill_books.py 提取）
 yvanchuxiuzhen,ItemLore,procedure,~/systemset,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GongfaLore,procedure,~/systemset,gongfa,已读,C gongfa 归属阅读：功法书提示文本的六组加成与功法栏档位比较颜色（ItemLore 的功法分支调用）
-yvanchuxiuzhen,Jinengget01,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengget02,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jinengget01,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：藏宝技能书，书架藏宝按 1–13 随机取一本，13 本的参数在 content/skill/treasure_books.json（extract_skill_books.py 提取）
+yvanchuxiuzhen,Jinengget02,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：藏宝技能书，书架藏宝按 1–13 随机取一本，13 本的参数在 content/skill/treasure_books.json（extract_skill_books.py 提取）
 yvanchuxiuzhen,Alchemy01ZaiFangKuaiShangYouJian,procedure,~/tool/liandanlu,liandan,已读,B1 归属阅读：随 Alchemy01 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxiuzhen,Alchemy01FangZhiFangKuaiShi,procedure,~/tool/liandanlu,liandan,已读,B1 归属阅读：随 Alchemy01 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxiuzhen,Alchemy01GengXinYouXiKe,procedure,~/tool/liandanlu,liandan,已读,B1 归属阅读：随 Alchemy01 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
@@ -2019,7 +2019,7 @@ yvanchuxiuzhen,Yibow,tag,~/tag,platform,候选,第一版批量归组（目录、
 yvanchuxiuzhen,Yihossu,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yiqimen,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yifabao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jiancewuqi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jiancewuqi,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
 yvanchuxiuzhen,ArrowHUD,overlay,~/skill/jineng/jinengGui/arrowhud,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillArrow01skill,procedure,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillArrowxinruzhishui,potioneffect,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4345,7 +4345,7 @@ yvanchuxiuzhen,Xvliman,particle,~/lizi,particle,候选,第一版批量归组（�
 yvanchuxiuzhen,Jibo,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lianzhaoxianshi,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lianzhaoanniu,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lianzhaoxitong,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Lianzhaoxitong,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
 yvanchuxiuzhen,Jinengxvanze01,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jinengxvanze02,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jinengxvanze03,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5403,7 +5403,7 @@ yvanchuxiuzhen,Yinyangneirong,procedure,~/GUI,panel,候选,第一版批量归组
 yvanchuxiuzhen,Benmingfabaotisheng,procedure,~/GUI/dantian,equipment,已读,C xiulian 归属阅读：本命法宝每升一级交替给法宝的 lianqizong 加法术或神识攻击，由本命培养 Dantianbenmingfabao（PlayerTick）调用；本命培养数据归 equipment（系统设计“本命”）
 yvanchuxiuzhen,Jointxt14,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
 yvanchuxiuzhen,Daduan,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinenglengqvejiance,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jinenglengqvejiance,procedure,~/skill/jineng/jinengGui,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
 yvanchuxiuzhen,PlayerGUI08,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qiehuan03,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui08jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）

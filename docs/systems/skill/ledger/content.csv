@@ -102,8 +102,8 @@ mob_effect,yvanchuxiuzhen:skilleffect_04,yvanchuxiuzhen,Skilleffect04,src/main/j
 mob_effect,yvanchuxiuzhen:skilleffect_05,yvanchuxiuzhen,Skilleffect05,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,139,skill,已读,yvanchuxiuzhen:skilleffect_05,已注册,
 mob_effect,yvanchuxiuzhen:skilleffect_06,yvanchuxiuzhen,Skilleffect06,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,140,skill,已读,yvanchuxiuzhen:skilleffect_06,已注册,
 mob_effect,yvanchuxiuzhen:skilleffect_07,yvanchuxiuzhen,Skilleffect07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,141,skill,已读,yvanchuxiuzhen:skilleffect_07,已注册,
-mob_effect,yvanchuxiuzhen:skilleffect_08,yvanchuxiuzhen,Skilleffect08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,142,skill,候选,yvanchuxiuzhen:skilleffect_08,待处理,
-mob_effect,yvanchuxiuzhen:skilleffect_09,yvanchuxiuzhen,Skilleffect09,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,143,skill,候选,yvanchuxiuzhen:skilleffect_09,待处理,
+mob_effect,yvanchuxiuzhen:skilleffect_08,yvanchuxiuzhen,Skilleffect08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,142,skill,已读,yvanchuxiuzhen:skilleffect_08,行为已迁移,霸体与施法中的属性成对加减由 SkillEffects 承担，冒烟检查核对了加上、刷新、移除与到期
+mob_effect,yvanchuxiuzhen:skilleffect_09,yvanchuxiuzhen,Skilleffect09,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,143,skill,已读,yvanchuxiuzhen:skilleffect_09,行为已迁移,霸体与施法中的属性成对加减由 SkillEffects 承担，冒烟检查核对了加上、刷新、移除与到期
 mob_effect,yvanchuxiuzhen:skillwind_04,yvanchuxiuzhen,Skillwind04,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,145,skill,已读,yvanchuxiuzhen:skillwind_04,已注册,
 particle_type,yvanchuxiuzhen:skill_gold_0101,yvanchuxiuzhen,SkillGold0101,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModParticleTypes.java,53,skill,候选,yvanchuxiuzhen:skill_gold_0101,待处理,
 sound_event,yvanchuxiuzhen:flybegin,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModSounds.java,169,skill,已读,yvanchuxiuzhen:flybegin,已注册,

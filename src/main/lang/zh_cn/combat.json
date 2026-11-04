@@ -28,6 +28,8 @@
   "enchantment.yvanchuxiuzhen.basalt.desc": "【护甲】被攻击时有百分之（附魔等级）几率触发，减免物理或法术（附魔等级*2）点的伤害 ",
   "enchantment.yvanchuxiuzhen.beepoison": "蜂毒",
   "enchantment.yvanchuxiuzhen.beepoison.desc": "【武器/法宝】攻击时百分之（附魔等级）的几率让敌人获得（附魔等级）级蜂毒 ",
+  "enchantment.yvanchuxiuzhen.breakfree": "挣脱",
+  "enchantment.yvanchuxiuzhen.breakfree.desc": "【护甲/饰品】当你被敌人加上减速效果时，减少减速效果持续时间（附魔等级）秒 ",
   "enchantment.yvanchuxiuzhen.cautery": "烙毒",
   "enchantment.yvanchuxiuzhen.cautery.desc": "【武器/法宝】攻击时百分之（附魔等级）的几率让敌人获得（附魔等级）级烙毒 ",
   "enchantment.yvanchuxiuzhen.chaos": "混沌气息",

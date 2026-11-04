@@ -120,6 +120,10 @@ updated: 2026-11-01
 | Q33 | 状态效果的疑似错误：`duyao_13` 的伤害读 `duyao_01` 的等级；`duyao_20`（尸毒）对玩家的伤害先乘体质放大再被赋值覆盖，放大不生效；`duyao_21`（曼陀罗）与 `duyao_20` 共用计数键 `duyao20tick`，伤害读 `duyao_07` 的等级；`effect_010`、`effect_017` 的说明文本写“每两秒恢复等级 × 5”，实际每秒恢复 (等级 + 1) × 10；`duyao_09`（番木鳖）把体质放大乘在目标生命上而不是伤害上。评估为轻微，保持来源行为，待裁定 | [战斗](../../systems/combat/architecture.md) |
 | Q34 | 灵力、神识伤害的死亡消息：来源语言键写成 `death.attacklinglidamage.player`、`death.attackjinglidamage.player`（缺一个点，且 `lingli` 多一个 `l`），伤害消息 ID 是 `linglidamage`、`jinglidamage`（有来源者时加 `.player`），实际死亡消息键 `death.attack.linglidamage.player` 找不到译文，玩家看到原始键。评估为轻微，保持来源行为（语言键原样迁移），待裁定 | [战斗](../../systems/combat/architecture.md) |
 | Q35 | 淬毒炼药锅 `CauldronduyaoZaiFangKuaiShangYouJian` 的条件前后不一致：蜂毒（`beepoison`）要求武器还没有该附魔，其余七种毒药要求武器已经有该附魔（再附为 1 级）；右键空气的 `Cailiao141…146` 则要求副手武器没有该附魔。评估为轻微，保持来源行为，随 lianqi 迁移时裁定 | [炼器](../../systems/lianqi/architecture.md) |
+| Q36 | 技能冷却计算的疑似错误：`Colddownjisuan` 中增量变量 `linshicolddown` 在六个分组之间不重置，某组两个条件都不满足时沿用上一组的增量；阴阳组的“冷却不超过上限”比较读取的是土组冷却 `colddownSoil`（其余组读各自的）。评估为轻微，保持来源行为，随 skill 迁移 | [技能](../../systems/skill/architecture.md) |
+| Q37 | `/jineng` 命令没有权限要求（`/shenfa`、`/smanship`、`/flyskill`、`/technique` 都要求权限 1），任何玩家都能给自己生成任意参数的技能书。评估为中等偏轻（只有作者的测试命令在用），保持来源行为，待负责人裁定是否补权限 | [技能](../../systems/skill/architecture.md) |
+| Q38 | `Jiancewuqi` 的“武器太重”检查读取的是所选技能书的 `lianqizong.weightnum`，不是手持武器的，技能书没有该键，条件永远不成立，提示“武器太重了！无法正常释放技能”不会出现。评估为轻微，保持来源行为（不实现这条永不成立的检查），随 equipment 与 lianqi 的武器数据迁移时裁定 | [技能](../../systems/skill/architecture.md) |
+| Q39 | 技能选择的提示文字对调：施法中禁施（`skilleffect_09`）且未沉默时显示“沉默中”，沉默（`effect_002`）时显示“冷却中”；按键 Z（第 1 键）的选择不检查禁施与沉默，X、C、V 检查。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
 
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 
