@@ -34,10 +34,11 @@ combat（2026-11-04 完成，合入 `main`）：伤害主链归属阅读与 Q29�
 
 xiulian 推迟的雷劫过程（`ThunderBegin`、劫云实体 `Jieyvn`、天劫实体 `Tianjie03/05/07`、七种天雷 `Leijie0101–0107`、`Jiancelevel`、`Playerhuifu`，约 130 KB 源码，经 `/lightninglanding` 与 `/shanghai`）现在可以迁移：伤害入口、GeckoLib 与实体内容表已具备，彩色闪电实体与 particle 的粒子是前置；建议在 skill 之后、粒子提供器建立时一并完成，或单开分支 `port/c-xiulian-tribulation`。
 
-下一步具体操作（skill 第 2 阶段“弹体技能”；做法同前几个系统）：
-1. 读阶段 2 的元素：14 个元素弹体技能（`SkillGold01/03`、`Water03/05/0101`、`Ice01–03`、`Tree01`、`Wind01`、`Fire01`、`Light01/02/04`、`Rock01`）的刻、命中实体、命中方块过程，10 种技能箭（`SkillArrow01–10` 与 `ArrowSkillchufa`、`Skillarrow0Nhecheng` 配方、箭种选择按钮 6–16 与 `arrowlinshi`）。`tools/porting/read_procedure.py`（`DIFF=1` 对同模板族）读，读完用 `mark_ownership.py` 标已读，再运行 `build_ledger.py`、`build_architecture_catalog.py`；台账状态用 `mark_ledger.py`。
-2. 实现弹体实体基础：内容表增加非生物实体（箭类，`AbstractArrow`）的工厂与实体表字段，`SkillProjectile` 持有技能名与计时，按技能登记刻、命中实体、命中方块钩子；伤害经 `Shanghai.deal`，敌友经 `Relations`；施放过程登记到 `SkillReleases`（首字加技能名，见 `Jinenglist01` 的分派表）。注意：命中时读取的是发射者当前所选技能的 `jinengmanaatt`、`jinengshanghai`，不是发射时的快照（来源如此）。
-3. 阶段 3–5 依次：实体技能（GeckoLib 动画实体沿用木人桩）、身法轻功武器技与按键、界面与 HUD；公开操作中 `arrowlinshi` 与 fulu 重置在对应阶段补进 `Skills`。
+下一步具体操作（skill；做法同前几个系统）：
+0. 已提交（分支 `port/c-skill`）：第 1 阶段框架（`7e838e9`）、第 2 阶段元素弹体 14 个与 `SpellDamage`（`ccf3246`）；冒烟 `-PsmokeOnly=skill` 148 项。读过程用 `TERSE=1`（去样板）、`DIFF=1`（同模板族只看差异）。
+1. 第 3 阶段“实体技能”先建基础：35 个动画实体（`Swordsmanship01–04`、`SkillWater01/02/04/06/07`、`Ice04/05`、`Tree04/05/06`、`Skillwind02/05/06`、`Fire02/06/07/08`、`Thunder08/10`、`Light03`、`Rock02–05`、`Gold0201`、`Skillyin01`、`Gedang`、`Shanghaifanwei`、`Xvkongliexi`、`Lingwentexiao2`、`Yvanyingchuqiao`）共用一个模板（来源 `PathfinderMob` + `IAnimatable`：同步的 `ANIMATION`、`TEXTURE` 字符串，`setAnimation(名)` 一次性播放，默认循环 idle，部分有空中循环动画，`Skillyin01` 有 walk、die、swim、sprint；刻过程 `…DangShiTiGengXinKeShi`，部分有被杀死、受伤、初始生成过程）。做法：写提取工具 `tools/porting/extract_entity_models.py` 从 `entity/model/*Model.java`、`entity/layer/*Layer.java`、`client/renderer/*Renderer.java` 与实体类取几何、动画、头部骨骼、发光层纹理、阴影、默认循环动画，生成 `content/skill/entity_models.json` 并维护 `system_assets.csv` 的 skill 行（几何、动画、`setTexture` 引用到的纹理）；Java 侧一个 `SkillEntity`（GeckoLib，沿用木人桩）加按实体 ID 登记的行为表（刻、被杀、受伤、初始生成）、属性表（生命、移速、是否无 AI），客户端一个通用渲染器与发光层（`RenderType.eyes`）。先做 `Fire02`、`Rock02`、`Water01` 三个验证基础，再按元素逐族做施放与行为（读各族 `…shifang`、`…DangShiTiGengXinKeShi`）。
+2. 阶段 2 余项：10 种技能箭（`SkillArrow01–10`，命中过程 `SkillArrow01DangTouZhiWuJiZhongShiTiShi` 387 行按 `jinengName`/实体类型分支，含“箭雨”）、箭种选择按钮 6–16 与 `arrowlinshi`、`Lingwentexiao`、`SkillGold03`（依赖 `SkillGold0201`）；`SkillWater0101` 等调用者迁移后核对。
+3. 阶段 4–5：身法、轻功、武器技与按键（W、S、A、D、空格、F、`ShenfaTick`、`FlyskillTick`）、技能界面与 HUD。
 4. skill 全部阶段完成后更新 README、正文、月度日志与本页，合入 `main` 并推送，再建 yihuo 的分支。
 5. 另有两项小事：gongfa 补 `/technique` 命令（权限 1，按参数生成功法书，`TechniqueGO` 已读，需要 `TechniqueLibrary` 的参数解析）；`PlayerRightClick` 的开灵附魔分支（工具射出）归 equipment。
 
