@@ -3,3 +3,5 @@ xiulian,yvanchuxiuzhen,tizhi.
 xiulian,yvanchuxiuzhen,block.yvanchuxiuzhen.xveliu
 xiulian,yvanchuxiuzhen,item.yvanchuxiuzhen.xveliu_bucket
 xiulian,yvanchuxiuzhen,fluid.yvanchuxiuzhen.xveliu
+combat,yvanchuxiuzhen,death.attackjinglidamage
+combat,yvanchuxiuzhen,death.attacklinglidamage

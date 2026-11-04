@@ -210,6 +210,8 @@
   "effect.yvanchuxiuzhen.effect_002.description": "仅针对模组内实体和玩家，一段时间内无法释放火焰、法宝和技能。",
   "effect.yvanchuxiuzhen.effect_003": "剧痛",
   "effect.yvanchuxiuzhen.effect_003.description": "每隔4秒震动一下视角，效果等级越高，每次震动的震动次数越多。",
+  "effect.yvanchuxiuzhen.effect_004": "流血",
+  "effect.yvanchuxiuzhen.effect_004.description": "每隔一段时间就会减少2点血量，无视任何防御。效果等级越高，流血间隔越短。一些血道魔修，会制作专门放血的刀，在吸血石上给生灵放血。可以用瞬间治疗快速愈合伤口，以达到止血的目的。",
   "effect.yvanchuxiuzhen.effect_005": "无力",
   "effect.yvanchuxiuzhen.effect_005.description": "主手的物品将掉落在地上。 ",
   "effect.yvanchuxiuzhen.effect_006": "发抖",
@@ -246,6 +248,12 @@
   "effect.yvanchuxiuzhen.effect_021.description": "【瞬时效果】增加（效果等级）次可为精神攻击加点的机会，但不会增加分配的属性点，也不是直接增加精神攻击。 ",
   "effect.yvanchuxiuzhen.effect_022": "雷劫抗性",
   "effect.yvanchuxiuzhen.effect_022.description": "渡劫时，可以减少（效果等级）点雷劫伤害，并增加（效果等级^2）点雷属性防御。",
+  "effect.yvanchuxiuzhen.effect_033": "僵直",
+  "effect.yvanchuxiuzhen.effect_033.description": "僵直状态下，无法进行任何操作，不能释放技能也无法进行普攻。 ",
+  "effect.yvanchuxiuzhen.effect_034": "逃跑",
+  "effect.yvanchuxiuzhen.effect_034.description": "妖兽在被连续击打数次后，会尝试逃跑，拉开与攻击者的距离。 ",
   "effect.yvanchuxiuzhen.effect_036": "手下留情",
-  "effect.yvanchuxiuzhen.effect_036.description": "效果时间内，受到的非真实伤害都会为该实体保留最少1滴血量。"
+  "effect.yvanchuxiuzhen.effect_036.description": "效果时间内，受到的非真实伤害都会为该实体保留最少1滴血量。",
+  "death.attackjinglidamage.player": "死于精力攻击",
+  "death.attacklinglidamage.player": "死于灵力攻击"
 }

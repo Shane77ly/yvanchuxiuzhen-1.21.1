@@ -208,6 +208,8 @@
   "effect.yvanchuxiuzhen.effect_002.description": "",
   "effect.yvanchuxiuzhen.effect_003": "sharp pain",
   "effect.yvanchuxiuzhen.effect_003.description": "",
+  "effect.yvanchuxiuzhen.effect_004": "bleed",
+  "effect.yvanchuxiuzhen.effect_004.description": "",
   "effect.yvanchuxiuzhen.effect_005": "unable",
   "effect.yvanchuxiuzhen.effect_005.description": "",
   "effect.yvanchuxiuzhen.effect_006": "tremble",
@@ -244,6 +246,12 @@
   "effect.yvanchuxiuzhen.effect_021.description": "",
   "effect.yvanchuxiuzhen.effect_022": "insulation",
   "effect.yvanchuxiuzhen.effect_022.description": "",
+  "effect.yvanchuxiuzhen.effect_033": "僵直",
+  "effect.yvanchuxiuzhen.effect_033.description": "",
+  "effect.yvanchuxiuzhen.effect_034": "逃跑",
+  "effect.yvanchuxiuzhen.effect_034.description": "",
   "effect.yvanchuxiuzhen.effect_036": "手下留情",
-  "effect.yvanchuxiuzhen.effect_036.description": ""
+  "effect.yvanchuxiuzhen.effect_036.description": "",
+  "death.attackjinglidamage.player": "",
+  "death.attacklinglidamage.player": ""
 }

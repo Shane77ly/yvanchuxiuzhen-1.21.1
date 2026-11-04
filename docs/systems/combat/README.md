@@ -18,6 +18,19 @@ updated: 2026-11-03
 
 ## 公开操作
 
-未编写。实现本系统前在此列出供其他系统调用的查询与写操作，并对照 `typed_field_accesses.csv` 覆盖全部外部读写点（开工条件）。
+已对照 `typed_field_accesses.csv` 与 `nbt_key_calls.csv` 中战斗相关字段的外部读写点（`ManaAttackDamage` 等未闭合的字段链见[架构](architecture.md)Q13、Q31，不迁移）。代码在 `system/combat/api` 与 `system/combat/damage`。
+
+| 操作 | 形式 | 调用者（来源中的读写点） |
+| --- | --- | --- |
+| 造成灵力或神识伤害 | `Shanghai.deal(ServerLevel, 受击者, Request(类别, 攻击者UUID或空, 是否固定, 基础量, 倍率))`；命令 `/shanghai <类别> <攻击者UUID或无> <true或false> <基础量> <倍率>`（无权限要求，对命令执行者生效） | 技能、符箓、妖兽、法宝、蛊虫、异火、装备等的 209 处命令调用；本系统的护甲与武器附魔、毒药 |
+| 附魔等级 | `Enchants.level / mainHand / slot / armorSum / armorSquares`，附魔按路径名取键 `Enchants.key("dodge")` | 本系统的伤害过程；attribute 的显示值按等级线性折入（自行读取物品） |
+| 状态效果查询与施加 | `StatusEffects.amplifier / has / remove / add / holder`，效果按路径名（如 `effect_036`）指定 | 全部读取或施加状态效果的系统（creature 约 280 处、skill、fulu、equipment、liandan 等） |
+| 效果的行为登记 | `ContentTables.effectBehavior(效果ID, 行为)`（`EffectBehavior`：开始、每刻、客户端每刻） | 效果归其他系统的行为（`effect_035` 归 skill，`yaoshou_*` 归 creature，`fulutexiao_*` 归 fulu） |
+| 向其他系统借用规则的事件 | `DamageImmunityEvent`（creature 的防御姿态免伤）、`LethalDamageEvent`（fulu 的 `itemfulu_16` 复活）、`ArmorStatEvent`（lianqi、equipment 提供四件护甲的炼器数值）、`HitEvent`（gongfa 的命中特效、creature 对妖兽的打断）、`EffectExperienceEvent`（creature 给妖兽加修为） | 监听者在对应系统迁移时订阅 |
+
+约定：
+
+- 本系统只读 attribute 的最终值（攻击、防御、灵根与功法五行系数）和 xiulian 的体质键、灵力、精力、境界；非玩家实体的攻击防御读实体持久化数据里来源的键（`mana_Att`、`soul_Att`、`mana_Def`、`soul_Def`、`attack_Def`、`LEVELnumber`），写入方是各自的生成过程（随 creature、skill 定为实体属性）。
+- 伤害在 `LivingIncomingDamageEvent` 中结算（命中处理在前、受伤处理在后），没有攻击者的伤害不处理。
 
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。

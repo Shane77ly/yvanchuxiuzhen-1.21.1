@@ -111,7 +111,7 @@ mob_effect,yvanchuxiuzhen:duyao_21,yvanchuxiuzhen,Duyao21,src/main/java/net/mcre
 mob_effect,yvanchuxiuzhen:effect_001,yvanchuxiuzhen,Effect001,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,95,combat,已读,yvanchuxiuzhen:effect_001,行为已迁移,
 mob_effect,yvanchuxiuzhen:effect_002,yvanchuxiuzhen,Effect002,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,94,combat,已读,yvanchuxiuzhen:effect_002,行为已迁移,
 mob_effect,yvanchuxiuzhen:effect_003,yvanchuxiuzhen,Effect003,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,96,combat,已读,yvanchuxiuzhen:effect_003,行为已迁移,
-mob_effect,yvanchuxiuzhen:effect_004,yvanchuxiuzhen,Effect004,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,97,combat,候选,yvanchuxiuzhen:effect_004,待处理,
+mob_effect,yvanchuxiuzhen:effect_004,yvanchuxiuzhen,Effect004,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,97,combat,已读,yvanchuxiuzhen:effect_004,行为已迁移,血滴与血烟粒子 xvedi、smokered 随 particle
 mob_effect,yvanchuxiuzhen:effect_005,yvanchuxiuzhen,Effect005,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,98,combat,已读,yvanchuxiuzhen:effect_005,行为已迁移,
 mob_effect,yvanchuxiuzhen:effect_006,yvanchuxiuzhen,Effect006,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,99,combat,已读,yvanchuxiuzhen:effect_006,行为已迁移,
 mob_effect,yvanchuxiuzhen:effect_007,yvanchuxiuzhen,Effect007,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,100,combat,已读,yvanchuxiuzhen:effect_007,行为已迁移,
@@ -140,9 +140,8 @@ mob_effect,yvanchuxiuzhen:effect_029,yvanchuxiuzhen,Effect029,src/main/java/net/
 mob_effect,yvanchuxiuzhen:effect_030,yvanchuxiuzhen,Effect030,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,152,combat,候选,yvanchuxiuzhen:effect_030,待处理,
 mob_effect,yvanchuxiuzhen:effect_031,yvanchuxiuzhen,Effect031,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,155,combat,候选,yvanchuxiuzhen:effect_031,待处理,
 mob_effect,yvanchuxiuzhen:effect_032,yvanchuxiuzhen,Effect032,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,156,combat,候选,yvanchuxiuzhen:effect_032,待处理,
-mob_effect,yvanchuxiuzhen:effect_033,yvanchuxiuzhen,Effect033,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,161,combat,候选,yvanchuxiuzhen:effect_033,待处理,
-mob_effect,yvanchuxiuzhen:effect_034,yvanchuxiuzhen,Effect034,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,162,combat,候选,yvanchuxiuzhen:effect_034,待处理,
-mob_effect,yvanchuxiuzhen:effect_035,yvanchuxiuzhen,Effect035,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,165,combat,候选,yvanchuxiuzhen:effect_035,待处理,
+mob_effect,yvanchuxiuzhen:effect_033,yvanchuxiuzhen,Effect033,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,161,combat,已读,yvanchuxiuzhen:effect_033,已注册,每刻粒子 effect_033lizi 随 particle；僵直的限制由 creature、skill 等读取等级的过程承担
+mob_effect,yvanchuxiuzhen:effect_034,yvanchuxiuzhen,Effect034,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,162,combat,已读,yvanchuxiuzhen:effect_034,行为已迁移,
 mob_effect,yvanchuxiuzhen:effect_036,yvanchuxiuzhen,Effect036,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,166,combat,已读,yvanchuxiuzhen:effect_036,已注册,
 mob_effect,yvanchuxiuzhen:effect_037,yvanchuxiuzhen,Effect037,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,170,combat,候选,yvanchuxiuzhen:effect_037,待处理,
 mob_effect,yvanchuxiuzhen:huxiangtunshi,yvanchuxiuzhen,Huxiangtunshi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,159,combat,候选,yvanchuxiuzhen:huxiangtunshi,待处理,

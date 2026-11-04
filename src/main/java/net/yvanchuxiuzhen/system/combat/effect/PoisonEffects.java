@@ -13,11 +13,10 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.GameType;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -78,7 +77,7 @@ final class PoisonEffects {
             void apply(LivingEntity entity, int amplifier) {
                 hurt(entity, scale(entity, 4 * (1 + amplifier)));
                 entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 20));
-                entity.addEffect(new MobEffectInstance(EffectSupport.holder("effect_006"), 20, 1));
+                entity.addEffect(new MobEffectInstance(StatusEffects.holder("effect_006"), 20, 1));
             }
         });
         tables.effectBehavior("duyao_11", new Periodic("duyao11tick", amp -> 20) {
@@ -96,7 +95,7 @@ final class PoisonEffects {
             @Override
             double damage(LivingEntity entity, int amplifier) {
                 // 来源取的是 duyao_01 的等级，不是自己的等级（Q32）。
-                return 4 * (1 + EffectSupport.amplifier(entity, "duyao_01"));
+                return 4 * (1 + StatusEffects.amplifier(entity, "duyao_01"));
             }
         });
         tables.effectBehavior("duyao_14", new Periodic("duyao14tick", amp -> 1200) {
@@ -116,22 +115,11 @@ final class PoisonEffects {
             @Override
             public void started(LivingEntity entity, int amplifier) {
                 for (String effect : new String[] {"effect_001", "effect_003", "effect_005", "effect_006"}) {
-                    entity.addEffect(new MobEffectInstance(EffectSupport.holder(effect), 1200, 2));
+                    entity.addEffect(new MobEffectInstance(StatusEffects.holder(effect), 1200, 2));
                 }
             }
         });
         tables.effectBehavior("duyao_20", new Corpse());
-    }
-
-    /** 周期型毒药允许作用的对象：存活，玩家不在创造和旁观模式，或其他生物。 */
-    static boolean eligible(LivingEntity entity) {
-        if (!entity.isAlive()) {
-            return false;
-        }
-        if (entity instanceof ServerPlayer player) {
-            return player.gameMode.getGameModeForPlayer() != GameType.CREATIVE && player.gameMode.getGameModeForPlayer() != GameType.SPECTATOR;
-        }
-        return entity instanceof Mob;
     }
 
     /** 伤害按体质 {@code PoisonEffectPercentage} 放大（只对玩家，该项为 0 时不放大）。 */
@@ -179,7 +167,7 @@ final class PoisonEffects {
 
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {
-            if (eligible(entity) && EffectSupport.every(entity, counter, period.applyAsInt(amplifier)) && !resisted(entity)) {
+            if (EffectSupport.eligible(entity) && EffectSupport.every(entity, counter, period.applyAsInt(amplifier)) && !resisted(entity)) {
                 apply(entity, amplifier);
             }
             return true;
@@ -198,9 +186,9 @@ final class PoisonEffects {
 
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {
-            if (eligible(entity) && !resisted(entity)) {
+            if (EffectSupport.eligible(entity) && !resisted(entity)) {
                 apply(entity, amplifier);
-                EffectSupport.remove(entity, effect);
+                StatusEffects.remove(entity, effect);
             }
             return true;
         }
@@ -214,7 +202,7 @@ final class PoisonEffects {
 
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {
-            if (eligible(entity) && EffectSupport.every(entity, "Duyao05tick", 40) && !resisted(entity)) {
+            if (EffectSupport.eligible(entity) && EffectSupport.every(entity, "Duyao05tick", 40) && !resisted(entity)) {
                 double level;
                 if (entity instanceof Player player) {
                     double stored = Cultivation.tizhiDouble(player, "Duyao05level");
@@ -237,7 +225,7 @@ final class PoisonEffects {
     private static final class Step implements EffectBehavior {
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {
-            if (!eligible(entity) || !EffectSupport.every(entity, "duyao06tick", 5)) {
+            if (!EffectSupport.eligible(entity) || !EffectSupport.every(entity, "duyao06tick", 5)) {
                 return true;
             }
             var data = entity.getPersistentData();
@@ -272,7 +260,7 @@ final class PoisonEffects {
     private static final class DayDeath implements EffectBehavior {
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {
-            if (!eligible(entity) || !EffectSupport.every(entity, "duyao07tick", 20)) {
+            if (!EffectSupport.eligible(entity) || !EffectSupport.every(entity, "duyao07tick", 20)) {
                 return true;
             }
             if (entity instanceof ServerPlayer player) {
@@ -292,7 +280,7 @@ final class PoisonEffects {
                 } else {
                     entity.getPersistentData().putDouble("duyao07level", level);
                 }
-                entity.addEffect(new MobEffectInstance(EffectSupport.holder("effect_002"), 40, 0, false, false));
+                entity.addEffect(new MobEffectInstance(StatusEffects.holder("effect_002"), 40, 0, false, false));
             }
             return true;
         }
@@ -302,7 +290,7 @@ final class PoisonEffects {
     private static final class MaxHealthDrain implements EffectBehavior {
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {
-            if (eligible(entity)) {
+            if (EffectSupport.eligible(entity)) {
                 double target = Math.max(scale(entity, entity.getMaxHealth() - 10 * (1 + amplifier)), 1);
                 if (entity.getHealth() > target) {
                     entity.setHealth((float) target);
@@ -316,10 +304,10 @@ final class PoisonEffects {
     private static final class ColdPoison implements EffectBehavior {
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {
-            if (eligible(entity)) {
+            if (EffectSupport.eligible(entity)) {
                 entity.setTicksFrozen(entity.getTicksFrozen() + 1);
                 if (EffectSupport.every(entity, "duyao12", 80)) {
-                    entity.addEffect(new MobEffectInstance(EffectSupport.holder("effect_006"), 20, 1));
+                    entity.addEffect(new MobEffectInstance(StatusEffects.holder("effect_006"), 20, 1));
                 }
             }
             return true;
@@ -333,8 +321,8 @@ final class PoisonEffects {
 
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {
-            if (eligible(entity) && EffectSupport.every(entity, "duyao17tick", 100)) {
-                entity.addEffect(new MobEffectInstance(POOL.get(Mth.nextInt(entity.getRandom(), 1, 7) - 1), 100, EffectSupport.amplifier(entity, "duyao_17")));
+            if (EffectSupport.eligible(entity) && EffectSupport.every(entity, "duyao17tick", 100)) {
+                entity.addEffect(new MobEffectInstance(POOL.get(Mth.nextInt(entity.getRandom(), 1, 7) - 1), 100, StatusEffects.amplifier(entity, "duyao_17")));
             }
             return true;
         }
@@ -356,7 +344,7 @@ final class PoisonEffects {
 
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {
-            if (!eligible(entity) || !EffectSupport.every(entity, "duyao20tick", 80)) {
+            if (!EffectSupport.eligible(entity) || !EffectSupport.every(entity, "duyao20tick", 80)) {
                 return true;
             }
             if (entity.hasEffect(MobEffects.HEAL) || entity.hasEffect(MobEffects.REGENERATION)) {

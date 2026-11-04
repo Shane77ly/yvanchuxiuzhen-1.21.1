@@ -200,3 +200,22 @@ updated: 2026-11-01
 | `duyao_16`、`duyao_18` | 标记，等级由伤害结算读取 |
 
 `duyao_21`（曼陀罗）经 `/shanghai` 结算，随伤害结算迁移。
+
+## 目标方案：伤害结算（2026-11-04 已实现，会话决定）
+
+| 来源 | 目标 |
+| --- | --- |
+| `EntityHurt`（`LivingAttackEvent`）、`EntityBeforeHurt`（`LivingHurtEvent`） | 1.21.1 版本两个事件合并为 `LivingIncomingDamageEvent`：`HurtHandler` 先执行 `AttackStage`（命中处理）再执行 `HurtStage`（受伤处理），都要求有攻击者；`AttackStage` 的伤害量取原值，与来源一致 |
+| `/shanghai` 的 `ShanghaiGo` 及两个计算过程 | `Shanghai.deal`（`damage/Shanghai`），命令 `ShanghaiCommand` 只解析参数；类别 `DamageCategory`（14 种，含“无”）承载各类别的灵根、体质键、武器附魔、护甲附魔、相克族 |
+| `DamageSource("linglidamage")` 等四种来源 | 数据包伤害类型 `linglidamage`、`linglidamage_player`、`jinglidamage`、`jinglidamage_player`（消息 ID 与来源一致，`exhaustion` 为 0），加入标签 `minecraft:bypasses_armor`；`CombatDamageTypes.source` 构造（死亡消息键与译文对不上，Q34） |
+| 记分板 `suijishu` | 来源每次先写随机数再读回，只是借用；改为局部随机数 |
+| 玩家变量、体质物品 | attribute 的最终值与基础值、xiulian 的体质键（`Cultivation.tizhiDouble/setTizhiDouble`）、灵力精力与境界（`Cultivation.get/set`） |
+| 敌友判定 | relation 的 `Relations.team/isFriendly`；`/shanghai` 与受伤处理按攻击方、受击方是否玩家分四种组合，规则同上文“伤害主链”（来源把受击玩家的数据来源与攻击者的混用，生物攻击玩家不会判为友方） |
+| 妖兽防御姿态 `Yaoshou006fangyvzitai*` | `DamageImmunityEvent`，creature 订阅 |
+| 符箓 `itemfulu_16` 复活（三处） | `LethalDamageEvent`，fulu 订阅；监听者让受击者存活后伤害作废 |
+| 护甲 `lianqizong` 的 `attack_Def`、`soul_Def`、`mana_Att` | `ArmorStatEvent`，equipment 或 lianqi 订阅 |
+| 命中后的功法特效、妖兽被打断 | `HitEvent`（`heavy` 表示伤害量不小于最大生命的 1/16），gongfa、creature 订阅；本系统自己执行僵直 `effect_033`、逃跑层数 `effect_034`、驯服宠物的攻击目标 |
+| 实体标签 `forge:*entity`、`forge:yaoshou`、`forge:xiuzhe`、`npcentity`、`jiunpc` | `yvanchuxiuzhen:` 命名空间的实体类型标签（随登记该实体的系统生成；没有成员时标签不存在，判断为否） |
+| `MobType.UNDEAD` | 实体类型标签 `minecraft:undead` |
+
+已实现命中附魔：`haoyu`、`phoenix`、`longdignified`、`tigerdignified`、`sawtooth`、`fluorescence`、八种毒药附魔、`vampire`。`EntityHurt2`、`EntityHurt3` 的武器与护甲附魔（`firearmor`、`icearmor`、`discharge`、`pool`、`qishi`、`lingwen`、`liuyan`、`pojia` 的标记、`yvnxvan`、`chenmo`、`lingtikiller`、`jvtong`、`zhongshang`、`confine`、`iceexplosion`、`liuqing`、`threaten`、`nofly`、`starsky` 等）尚未迁移。粒子（`miss`、`zhongdulizi`、`basaltlizi`、`xvedi`、`smokered`、`effect_033lizi`）随 particle 迁移。

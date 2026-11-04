@@ -11,5 +11,6 @@ public final class CombatEffects {
         ControlEffects.register(tables);
         CultivationEffects.register(tables);
         PoisonEffects.register(tables);
+        BattleEffects.register(tables);
     }
 }

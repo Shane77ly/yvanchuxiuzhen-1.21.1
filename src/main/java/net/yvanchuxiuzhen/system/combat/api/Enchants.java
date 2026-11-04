@@ -51,4 +51,14 @@ public final class Enchants {
         }
         return sum;
     }
+
+    /** 头、胸、腿、脚四件护甲各自等级的平方之和（不是等级之和的平方）。 */
+    public static int armorSquares(LivingEntity holder, ResourceKey<Enchantment> enchantment) {
+        int sum = 0;
+        for (EquipmentSlot slot : ARMOR) {
+            int level = slot(holder, slot, enchantment);
+            sum += level * level;
+        }
+        return sum;
+    }
 }

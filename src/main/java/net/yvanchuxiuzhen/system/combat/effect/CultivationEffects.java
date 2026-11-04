@@ -14,6 +14,7 @@ import net.yvanchuxiuzhen.platform.content.EffectBehavior;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.EffectExperienceEvent;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -51,7 +52,7 @@ final class CultivationEffects {
                 Cultivation.add(player, counter, -(amplifier + 1));
                 player.displayClientMessage(Component.literal("可多为" + label + "升级" + (amplifier + 1) + "次"), false);
             }
-            EffectSupport.remove(entity, effect);
+            StatusEffects.remove(entity, effect);
             return true;
         }
     }
@@ -65,7 +66,7 @@ final class CultivationEffects {
         public boolean tick(LivingEntity entity, int amplifier) {
             if (instant) {
                 restore(entity, Math.pow(amplifier + 1, 2) * 100);
-                EffectSupport.remove(entity, effect);
+                StatusEffects.remove(entity, effect);
             } else if (EffectSupport.every(entity, counterKey, period)) {
                 restore(entity, (amplifier + 1) * 10);
             }
@@ -85,7 +86,7 @@ final class CultivationEffects {
         public boolean tick(LivingEntity entity, int amplifier) {
             if (instant) {
                 grant(entity, Math.pow((amplifier + 1) * factor, 2), true);
-                EffectSupport.remove(entity, effect);
+                StatusEffects.remove(entity, effect);
             } else if (EffectSupport.every(entity, counterKey, period)) {
                 grant(entity, Math.pow((amplifier + 1) * factor, 2), false);
             }

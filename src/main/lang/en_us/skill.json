@@ -36,5 +36,7 @@
   "enchantment.yvanchuxiuzhen.flyingskill": "Flyingskill",
   "enchantment.yvanchuxiuzhen.flyingskill.desc": "",
   "enchantment.yvanchuxiuzhen.jet": "Jet",
-  "enchantment.yvanchuxiuzhen.jet.desc": ""
+  "enchantment.yvanchuxiuzhen.jet.desc": "",
+  "effect.yvanchuxiuzhen.effect_035": "禁空",
+  "effect.yvanchuxiuzhen.effect_035.description": ""
 }

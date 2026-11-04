@@ -22,6 +22,7 @@
 {"id":"effect_001","category":"HARMFUL","color":-16764058},
 {"id":"effect_002","category":"HARMFUL","color":-10066330},
 {"id":"effect_003","category":"HARMFUL","color":-3407872},
+{"id":"effect_004","category":"HARMFUL","color":-3407872},
 {"id":"effect_005","category":"HARMFUL","color":-10066432},
 {"id":"effect_006","category":"HARMFUL","color":-16764058},
 {"id":"effect_007","category":"HARMFUL","color":-10092493},
@@ -40,5 +41,7 @@
 {"id":"effect_020","category":"BENEFICIAL","color":-10027162},
 {"id":"effect_021","category":"BENEFICIAL","color":-10027162},
 {"id":"effect_022","category":"BENEFICIAL","color":-103},
+{"id":"effect_033","category":"HARMFUL","color":-10092544},
+{"id":"effect_034","category":"NEUTRAL","color":-13382656},
 {"id":"effect_036","category":"BENEFICIAL","color":-154}
 ]

@@ -90,6 +90,7 @@ item,yvanchuxiuzhen:skill_water_03,yvanchuxiuzhen,SkillWater03,src/main/java/net
 item,yvanchuxiuzhen:skill_water_05,yvanchuxiuzhen,SkillWater05,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1906,skill,已读,yvanchuxiuzhen:skill_water_05,已注册,
 item,yvanchuxiuzhen:skillwind_01,yvanchuxiuzhen,Skillwind01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1911,skill,已读,yvanchuxiuzhen:skillwind_01,已注册,
 menu,yvanchuxiuzhen:jineng_gui,yvanchuxiuzhen,JinengGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,100,skill,候选,yvanchuxiuzhen:jineng_gui,待处理,
+mob_effect,yvanchuxiuzhen:effect_035,yvanchuxiuzhen,Effect035,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,165,skill,已读,yvanchuxiuzhen:effect_035,已注册,禁空的过程读写 skill 的飞行状态，随 skill 迁移
 mob_effect,yvanchuxiuzhen:skill_arrow_0601,yvanchuxiuzhen,SkillArrow0601,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,160,skill,候选,yvanchuxiuzhen:skill_arrow_0601,待处理,
 mob_effect,yvanchuxiuzhen:skill_arrowxinruzhishui,yvanchuxiuzhen,SkillArrowxinruzhishui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,149,skill,候选,yvanchuxiuzhen:skill_arrowxinruzhishui,待处理,
 mob_effect,yvanchuxiuzhen:skill_tree_03,yvanchuxiuzhen,SkillTree03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,144,skill,候选,yvanchuxiuzhen:skill_tree_03,待处理,

@@ -381,8 +381,8 @@ yvanchuxiuzhen,Effect001,potioneffect,~/effect,combat,已读,C combat 归属阅�
 yvanchuxiuzhen,Effect002,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect003ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect003,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
-yvanchuxiuzhen,Effect004ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect004,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect004ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：流血（周期扣血、给吸血石充血、见血封喉缩短周期）
+yvanchuxiuzhen,Effect004,potioneffect,~/effect,combat,已读,C combat 归属阅读：流血（周期扣血、给吸血石充血、见血封喉缩短周期）
 yvanchuxiuzhen,Xvedi,particle,~/effect,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect005ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect005,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
@@ -4374,12 +4374,12 @@ yvanchuxiuzhen,Yaoshoupifuxianshi,attribute,~/entity/yaoshou,creature,已读,C a
 yvanchuxiuzhen,Yaoshoupifuxvanze,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,EntityJoinGame,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshoudaxiaoshezhi,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,Effect033ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect033,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect033ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：僵直，自身过程只在每刻生成粒子 effect_033lizi
+yvanchuxiuzhen,Effect033,potioneffect,~/effect,combat,已读,C combat 归属阅读：僵直，自身过程只在每刻生成粒子 effect_033lizi
 yvanchuxiuzhen,Effect033lizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jiangzhipanding,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect034DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect034,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect034DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：逃跑（妖兽被打到 8 层时向身后跑开并加速、沉默）
+yvanchuxiuzhen,Effect034,potioneffect,~/effect,combat,已读,C combat 归属阅读：逃跑（妖兽被打到 8 层时向身后跑开并加速、沉默）
 yvanchuxiuzhen,Jiancejiangzhichenmo,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou048skill01DangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048skill01 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou048skill01TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048skill01 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
@@ -5073,8 +5073,8 @@ yvanchuxiuzhen,Lingwentexiao2DangShiTiGengXinKeShi,procedure,~/skill/fumotexiao,
 yvanchuxiuzhen,Lingwentexiao2,animatedentity,~/skill/fumotexiao,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Linghunentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,EntityHurt3,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect035,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect035ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect035,potioneffect,~/effect,skill,已读,C combat 归属阅读：禁空，过程取消飞行、重置体质飞行键与 skill 的飞行状态 flybegin，玩法含义在 skill
+yvanchuxiuzhen,Effect035ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,skill,已读,C combat 归属阅读：禁空，过程取消飞行、重置体质飞行键与 skill 的飞行状态 flybegin，玩法含义在 skill
 yvanchuxiuzhen,Effect036,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果标记，没有自身过程；等级由伤害结算读取（effect_013 法术伤害提高、effect_020 精力伤害提高、effect_022 雷劫抗性、effect_036 手下留情）
 yvanchuxiuzhen,DantianGui,gui,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
 yvanchuxiuzhen,Dakaidantiangui,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5733,7 +5733,7 @@ yvanchuxiuzhen,Taomuitem,tag,~/item/lingmu,material,候选,第一版批量归组
 yvanchuxiuzhen,Effect001DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect002DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect003DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
-yvanchuxiuzhen,Effect004DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect004DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：流血（周期扣血、给吸血石充血、见血封喉缩短周期）
 yvanchuxiuzhen,Effect005DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect006DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect007DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”

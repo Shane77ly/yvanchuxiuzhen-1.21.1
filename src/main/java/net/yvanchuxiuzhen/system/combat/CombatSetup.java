@@ -2,10 +2,12 @@ package net.yvanchuxiuzhen.system.combat;
 
 import net.neoforged.bus.api.IEventBus;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.system.combat.damage.HurtHandler;
+import net.yvanchuxiuzhen.system.combat.damage.ShanghaiCommand;
 import net.yvanchuxiuzhen.system.combat.effect.CombatEffects;
 
 /**
- * 战斗系统的启动装配，只在 Mod 构造时调用一次。
+ * 战斗系统的启动装配，只在 Mod 构造时调用一次。登记状态效果的行为、伤害事件处理与命令 {@code /shanghai}。
  */
 public final class CombatSetup {
     private static final ContentTables CONTENT = new ContentTables("combat");
@@ -16,5 +18,7 @@ public final class CombatSetup {
     public static void register(IEventBus modBus) {
         CombatEffects.register(CONTENT);
         CONTENT.register(modBus);
+        HurtHandler.register();
+        ShanghaiCommand.register();
     }
 }
