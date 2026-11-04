@@ -35,11 +35,10 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * 技能动画实体（来源 MCreator 动画实体 {@code SkillXxxEntity}，35 种共用）：无敌的占位生物，不被推挤，不接受药水云、药水弹、跌落、仙人掌、
  * 溺水的伤害，死亡 20 刻后移除。每种实体的生命、移速等属性与模型来自 {@link EntityModelRow}，行为由 {@link EntitySkill} 承担。
  * 来源在 {@code getPersistentData} 里放的施放信息（{@code AttackUUID}、{@code AttackDamage}、{@code Damage_multiplier}、{@code damagetype}、
- * {@code jinengName}）改为字段，其余各技能私有的计数与标记仍用 {@code getPersistentData}。纹理名同步给客户端（默认透明的 {@code kong}），
+ * {@code jinengName}）改为字段，其余各技能私有的计数与标记仍用 {@code getPersistentData}。纹理名同步给客户端（默认值是该实体在来源里定义的纹理），
  * 过程动画 {@link #setAnimation} 同步名字给客户端，由 GeckoLib 的 {@code procedure} 控制器播放一次，之后回到默认循环动画。
  */
 public final class SkillEntity extends PathfinderMob implements GeoEntity {
-    public static final String DEFAULT_TEXTURE = "kong";
     private static final String NO_ANIMATION = "empty";
     private static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(SkillEntity.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(SkillEntity.class, EntityDataSerializers.STRING);
@@ -61,6 +60,7 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
         xpReward = 0;
         setNoAi(model.noAi());
         setPersistenceRequired();
+        setTexture(model.texture());
     }
 
     public static AttributeSupplier.Builder createAttributes(EntityModelRow model) {
@@ -71,7 +71,7 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(TEXTURE, DEFAULT_TEXTURE);
+        builder.define(TEXTURE, "");
         builder.define(ANIMATION, NO_ANIMATION);
     }
 

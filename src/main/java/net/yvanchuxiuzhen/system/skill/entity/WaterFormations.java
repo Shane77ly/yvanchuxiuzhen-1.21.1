@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.skill.entity;
 import java.util.Map;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,7 +13,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
-import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
@@ -39,10 +37,6 @@ final class WaterFormations {
         SkillReleases.register(WATER, (caster, book) -> formation(caster, book, "skill_water_07", false), "玲珑阵");
     }
 
-    private static boolean isOrb(Entity entity) {
-        return BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getPath().equals("skill_water_04");
-    }
-
     private static SkillEntity newOrb(ServerPlayer caster, SkillBook book, String mode, float scale) {
         ServerLevel level = (ServerLevel) caster.level();
         SkillEntity orb = SkillEntities.summon(level, caster, "skill_water_04", WATER, (int) book.manaAttack(), (int) book.damageMultiplier(), book.name());
@@ -63,7 +57,7 @@ final class WaterFormations {
             boolean alt = ModifierKeys.alt(caster);
             if (caster.isShiftKeyDown() || ctrl || alt) {
                 for (Entity other : ProjectileSupport.around(level, caster.position(), 16)) {
-                    if (isOrb(other) && other instanceof SkillEntity orb && caster.getUUID().equals(orb.attacker())) {
+                    if (SkillEntities.is(other, "skill_water_04") && other instanceof SkillEntity orb && caster.getUUID().equals(orb.attacker())) {
                         if (caster.isShiftKeyDown()) {
                             orb.getPersistentData().putBoolean("baolie", true);
                         } else if (ctrl) {
@@ -116,10 +110,6 @@ final class WaterFormations {
         SkillEntities.spawn(level, formation, true);
     }
 
-    private static boolean pullable(Entity entity) {
-        return !(entity instanceof LivingEntity living && StatusEffects.has(living, "skilleffect_08"));
-    }
-
     /** 已有乘客就把对方向外抛开，否则让对方骑上来。 */
     private static void carry(SkillEntity self, Entity other, double horizontal, double vertical) {
         if (!self.isVehicle()) {
@@ -139,7 +129,7 @@ final class WaterFormations {
             }
         }
         for (Entity other : ProjectileSupport.around(level, center, 2)) {
-            if ((other instanceof Player || other instanceof Mob) && !ProjectileSupport.friendly(self, other) && pullable(other)) {
+            if ((other instanceof Player || other instanceof Mob) && !ProjectileSupport.friendly(self, other) && SkillEntities.movable(other)) {
                 carry(self, other, horizontal, vertical);
             }
         }
@@ -160,7 +150,7 @@ final class WaterFormations {
                 for (Entity other : ProjectileSupport.around(level, self.position(), 5)) {
                     if (!ProjectileSupport.friendly(self, other)) {
                         SkillEntities.strike(self, other);
-                        if (pullable(other)) {
+                        if (SkillEntities.movable(other)) {
                             other.setDeltaMovement(new Vec3((other.getX() - self.getX()) * 0.4, 0.5, (other.getZ() - self.getZ()) * 0.4));
                         }
                     }

@@ -36,7 +36,12 @@ public final class ProjectileSupport {
 
     /** 以 {@code center} 为中心、半边长 {@code inflate} 的盒内全部实体，按到中心的距离从近到远（来源 {@code getEntitiesOfClass} 加排序）。 */
     public static List<Entity> around(ServerLevel level, Vec3 center, double inflate) {
-        return level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(inflate), entity -> true).stream()
+        return around(level, center, inflate, inflate, inflate);
+    }
+
+    /** 同 {@link #around(ServerLevel, Vec3, double)}，三个方向的半边长分别给出。 */
+    public static List<Entity> around(ServerLevel level, Vec3 center, double inflateX, double inflateY, double inflateZ) {
+        return level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(inflateX, inflateY, inflateZ), entity -> true).stream()
                 .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList();
     }
 

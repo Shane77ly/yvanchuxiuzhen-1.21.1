@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
@@ -40,7 +41,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
  * 火焰护盾给抗火、火焰漩涡与火龙卷生成实体并在 20 刻时伤人点燃；实体到时消失。
  */
 final class SkillEntityCheck extends SystemCheck {
-    private enum Kind { BALL, IGNITE, CONTROL, SHIELD, COLUMN, ROLL, METEOR, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_NORMAL, GOLD_BIND, GOLD_ARC, GOLD_SKY, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, LIGHT_KILL, WIND_GATHER, WIND_MOVE, WIND_DRIFT, WIND_CLOUD, THUNDER_PALM, THUNDER_ROLL, THUNDER_FIELD, WATER_WHIP, WATER_JET, WATER_DRAGON, ORB_FLOAT, ORB_BURST, ORB_TURN, ORB_DROP, ORB_SNEAK, SPIRIT, HEAL }
+    private enum Kind { BALL, IGNITE, CONTROL, SHIELD, COLUMN, ROLL, METEOR, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_NORMAL, GOLD_BIND, GOLD_ARC, GOLD_SKY, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, LIGHT_KILL, WIND_GATHER, WIND_MOVE, WIND_DRIFT, WIND_CLOUD, THUNDER_PALM, THUNDER_ROLL, THUNDER_FIELD, WATER_WHIP, WATER_JET, WATER_DRAGON, ORB_FLOAT, ORB_BURST, ORB_TURN, ORB_DROP, ORB_SNEAK, SPIRIT, HEAL, TREE_TANGLE, TREE_SWORD, TREE_SWORD_SNEAK, TREE_SWORD_CTRL, TREE_SWORD_ALT, TREE_SEED, TREE_LADDER, TREE_HEDGE, TREE_LASH, TREE_BACK, TREE_GROUND }
 
     private record Case(String body, String name, Kind kind, String entity, boolean sneak) {
         Case(String body, String name, Kind kind, String entity) {
@@ -70,14 +71,21 @@ final class SkillEntityCheck extends SystemCheck {
             new Case("水", "空浮球", Kind.ORB_FLOAT, "skill_water_04"), new Case("水", "空浮球", Kind.ORB_BURST, "skill_water_04"),
             new Case("水", "空浮球", Kind.ORB_TURN, "skill_water_04"), new Case("水", "陨河术", Kind.ORB_DROP, "skill_water_04"),
             new Case("水", "陨河术", Kind.ORB_SNEAK, "skill_water_04", true), new Case("水", "水灵阵", Kind.SPIRIT, "skill_water_06"),
-            new Case("水", "玲珑阵", Kind.HEAL, "skill_water_07"));
+            new Case("水", "玲珑阵", Kind.HEAL, "skill_water_07"),
+            new Case("木", "乱枝", Kind.TREE_TANGLE, "skill_tree_04"), new Case("木", "灰木剑", Kind.TREE_SWORD, "skill_tree_04"),
+            new Case("木", "灰木剑", Kind.TREE_SWORD_SNEAK, "skill_tree_04", true), new Case("木", "灰木剑", Kind.TREE_SWORD_CTRL, "skill_tree_04"),
+            new Case("木", "灰木剑", Kind.TREE_SWORD_ALT, "skill_tree_04"), new Case("木", "乱木之种", Kind.TREE_SEED, "skill_tree_04"),
+            new Case("木", "灰木树梯", Kind.TREE_LADDER, "skill_tree_04"), new Case("木", "木篱术", Kind.TREE_HEDGE, "skill_tree_05"),
+            new Case("木", "毒蔓鞭", Kind.TREE_LASH, "skill_tree_06"), new Case("木", "回身鞭", Kind.TREE_BACK, "skill_tree_06"),
+            new Case("木", "地蔓鞭", Kind.TREE_GROUND, "skill_tree_06"));
     private static final double HEALTH = 100;
     private static final int WAIT = 70;
 
     /** 造成伤害的检查：灵力伤害有 1% 的闪避随机数为 0，没有伤害时同一技能重试一次。 */
     private static final Set<Kind> DAMAGING = EnumSet.of(Kind.BALL, Kind.METEOR, Kind.COLUMN, Kind.ROLL, Kind.HAND_ONE, Kind.HAND_TWO, Kind.HAMMER_ONE,
             Kind.HAMMER_TWO, Kind.GOLD_NORMAL, Kind.GOLD_BIND, Kind.GOLD_SKY, Kind.ICE_FIELD, Kind.ICE_SPIKE, Kind.LIGHT_BURST, Kind.THUNDER_PALM,
-            Kind.THUNDER_FIELD, Kind.WATER_WHIP, Kind.WATER_JET, Kind.WATER_DRAGON, Kind.ORB_FLOAT, Kind.ORB_BURST, Kind.ORB_DROP, Kind.ORB_SNEAK, Kind.SPIRIT);
+            Kind.THUNDER_FIELD, Kind.WATER_WHIP, Kind.WATER_JET, Kind.WATER_DRAGON, Kind.ORB_FLOAT, Kind.ORB_BURST, Kind.ORB_DROP, Kind.ORB_SNEAK, Kind.SPIRIT, Kind.TREE_SWORD, Kind.TREE_SWORD_SNEAK, Kind.TREE_SWORD_CTRL,
+            Kind.TREE_SWORD_ALT, Kind.TREE_SEED, Kind.TREE_LASH, Kind.TREE_BACK, Kind.TREE_GROUND);
 
     /** 水灵阵 40 刻后才开始放水灵弹，玲珑阵 60 刻后才第一次回血，等待时间相应加长。 */
     private static int waitTicks(Kind kind) {
@@ -178,7 +186,7 @@ final class SkillEntityCheck extends SystemCheck {
                 Cultivation.set(player, CultivationValue.POWER, 1000);
                 player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
                 player.setShiftKeyDown(spell.sneak());
-                ModifierKeys.update(player, spell.kind() == Kind.GOLD_CTRL, false);
+                ModifierKeys.update(player, spell.kind() == Kind.GOLD_CTRL || spell.kind() == Kind.TREE_SWORD_CTRL, spell.kind() == Kind.TREE_SWORD_ALT);
                 player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SWORD));
                 Skills.setSpell(player, 1, book(player, spell));
                 SkillSelection.clear(player);
@@ -186,9 +194,10 @@ final class SkillEntityCheck extends SystemCheck {
                 expect(spell.name() + " 已选中", spell.name(), Skills.book(Skills.selected(player)).map(SkillBook::name).orElse(""));
                 switch (spell.kind()) {
                     case LIGHT_KILL -> golem = placeGolem(player, player.getX() + 3, player.getY(), player.getZ(), 5);
-                    case IGNITE, COLUMN, ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_BIND, GOLD_SKY, GOLD_NORMAL, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, WIND_GATHER, WIND_MOVE, THUNDER_PALM, THUNDER_ROLL, THUNDER_FIELD, WATER_WHIP, WATER_JET, WATER_DRAGON, ORB_FLOAT, ORB_BURST, ORB_TURN, ORB_SNEAK, SPIRIT -> golem = placeGolem(player,
+                    case IGNITE, COLUMN, ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_BIND, GOLD_SKY, GOLD_NORMAL, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, WIND_GATHER, WIND_MOVE, THUNDER_PALM, THUNDER_ROLL, THUNDER_FIELD, WATER_WHIP, WATER_JET, WATER_DRAGON, ORB_FLOAT, ORB_BURST, ORB_TURN, ORB_SNEAK, SPIRIT, TREE_TANGLE, TREE_SWORD, TREE_SWORD_SNEAK, TREE_SWORD_CTRL, TREE_SWORD_ALT, TREE_SEED, TREE_LASH, TREE_BACK -> golem = placeGolem(player,
                             player.getX() + switch (spell.kind()) {
-                                case IGNITE, GOLD_BIND, GOLD_SKY, ICE_FIELD, THUNDER_FIELD -> 4;
+                                case IGNITE, GOLD_BIND, GOLD_SKY, ICE_FIELD, THUNDER_FIELD, TREE_SEED -> 4;
+                                case TREE_SWORD_SNEAK, TREE_SWORD_CTRL, TREE_SWORD_ALT, TREE_LASH, TREE_BACK -> 3;
                                 case WIND_GATHER, WIND_MOVE -> 5;
                                 case WATER_WHIP -> 3.5;
                                 case WATER_JET -> 2.5;
@@ -218,6 +227,13 @@ final class SkillEntityCheck extends SystemCheck {
                 if (spell.entity() != null) {
                     List<SkillEntity> spawned = player.serverLevel().getEntitiesOfClass(SkillEntity.class, new AABB(player.blockPosition()).inflate(24));
                     expectTrue(spell.name() + " 生成实体", !spawned.isEmpty());
+                    if (spell.kind() == Kind.TREE_LADDER) {
+                        expectTrue(spell.name() + " 把自己抛起 " + player.getDeltaMovement(), player.getDeltaMovement().y > 1);
+                        expectTrue(spell.name() + " 缓降", player.hasEffect(MobEffects.SLOW_FALLING));
+                        player.setDeltaMovement(Vec3.ZERO);
+                    } else if (spell.kind() == Kind.TREE_HEDGE) {
+                        expect(spell.name() + " 生成九道木篱", 9, spawned.size());
+                    }
                     if (spell.kind() == Kind.HAND_TWO) {
                         SkillEntities.turn(spawned.get(0), -90, 0);
                         golem.moveTo(spawned.get(0).getX() + 1.5, spawned.get(0).getY(), spawned.get(0).getZ() + 0.5);
@@ -246,6 +262,11 @@ final class SkillEntityCheck extends SystemCheck {
                         }
                     } else if (kind == Kind.GOLD_CTRL) {
                         expectTrue(spell.name() + " 金轮是 Ctrl 式", !found.isEmpty() && found.get(0).getPersistentData().getString("mode").equals("金刚轮ctrl"));
+                    } else if (kind == Kind.TREE_TANGLE) {
+                        expectTrue(spell.name() + " 目标缓慢", golem.hasEffect(MobEffects.MOVEMENT_SLOWDOWN));
+                    } else if (kind == Kind.TREE_GROUND) {
+                        SkillEntity vine = found.get(0);
+                        golem = placeGolem(player, vine.getX(), vine.getY(), vine.getZ() - 2.5);
                     } else if (kind == Kind.ORB_BURST) {
                         player.setShiftKeyDown(true);
                         player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
@@ -346,6 +367,19 @@ final class SkillEntityCheck extends SystemCheck {
                             expectTrue(spell.name() + " 记下追踪目标", !Cultivation.tizhiString(player, "mubiaouid").isEmpty());
                         }
                         case THUNDER_FIELD -> expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                        case TREE_TANGLE, TREE_LADDER -> {
+                        }
+                        case TREE_SWORD, TREE_SWORD_SNEAK, TREE_SWORD_CTRL, TREE_LASH, TREE_BACK, TREE_GROUND ->
+                                expectTrue(spell.name() + " " + spell.kind() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                        case TREE_SWORD_ALT -> {
+                            expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                            expectTrue(spell.name() + " 流血", golem.hasEffect(StatusEffects.holder("effect_004")));
+                        }
+                        case TREE_SEED -> {
+                            expectTrue(spell.name() + " 爆裂伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                            expectTrue(spell.name() + " 到时消失", player.serverLevel().getEntitiesOfClass(SkillEntity.class, new AABB(player.blockPosition()).inflate(64)).isEmpty());
+                        }
+                        case TREE_HEDGE -> expect(spell.name() + " 木篱留在原处（Q44）", 9, player.serverLevel().getEntitiesOfClass(SkillEntity.class, new AABB(player.blockPosition()).inflate(64)).size());
                         case ORB_FLOAT -> {
                             expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
                             expectTrue(spell.name() + " 收为乘客", golem.getVehicle() instanceof SkillEntity);

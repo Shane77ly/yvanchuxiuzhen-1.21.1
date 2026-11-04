@@ -4,10 +4,10 @@
 - `entity/model/<名>Model.java`：几何文件、动画文件、头部骨骼（`getBone`），纹理固定为 `textures/entities/<实体的 TEXTURE 字符串>.png`；
 - `entity/layer/<名>Layer.java`：可选的发光层，用 `RenderType.eyes` 再画一遍同一几何，纹理固定；
 - `client/renderer/<名>Renderer.java`：阴影半径；
-- `entity/<名>Entity.java`：默认循环动画（`movementPredicate` 在没有过程动画时播放，取最后一个无条件的）、离地时的循环动画、
+- `entity/<名>Entity.java`：默认纹理（`define(TEXTURE, …)`）、默认循环动画（`movementPredicate` 在没有过程动画时播放，取最后一个无条件的）、离地时的循环动画、
   五项生物属性（移速、生命、护甲、攻击、跟踪范围）、是否无 AI。`Skillyin01` 另有 walk、die、swim、sprint 的条件动画，由 Java 侧单独实现。
 输出 src/main/resources/content/skill/entity_models.json（一行一个实体，键为注册 ID），并重写
-docs/reference/conversion/system_assets.csv 中归 skill 的行：几何、动画，以及纹理（默认纹理 `kong`、发光层纹理、
+docs/reference/conversion/system_assets.csv 中归 skill 的行：几何、动画，以及纹理（各实体的默认纹理、发光层纹理、
 技能过程里 `setTexture("…")` 引用到的纹理）。工具可重复运行，输出只取决于来源。
 """
 from __future__ import annotations
@@ -25,8 +25,6 @@ BASE = SOURCES[MOD][0] / f'src/main/java/net/mcreator/{MOD}'
 OUTPUT = ROOT / 'src/main/resources/content/skill/entity_models.json'
 ASSETS = ROOT / 'docs/reference/conversion/system_assets.csv'
 OWNERSHIP = ROOT / 'docs/reference/legacy/inventory/ownership_assignment.csv'
-DEFAULT_TEXTURE = 'kong'
-
 
 def read(path) -> str:
     return path.read_text(encoding='utf-8-sig') if path.exists() else ''
@@ -59,6 +57,7 @@ def parse(name: str) -> dict:
         'geo': re.search(r'geo/([\w]+)\.geo\.json"', model)[1],
         'animation': re.search(r'animations/([\w]+)\.animation\.json"', model)[1],
         'shadow': float(re.search(r'shadowRadius = ([\d.]+)f', renderer)[1]),
+        'texture': re.search(r'define\(TEXTURE, "(\w+)"\)', entity)[1],
     }
     head = re.search(r'getBone\("(\w+)"\)', model)
     if head:
@@ -92,7 +91,7 @@ def main() -> None:
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text('[\n' + ',\n'.join(json.dumps({'id': key, **value}, ensure_ascii=False, separators=(',', ':'))
                                        for key, value in sorted(rows.items())) + '\n]\n', encoding='utf-8', newline='\n')
-    textures = {DEFAULT_TEXTURE} | referenced_textures() | {row['glow'] for row in rows.values() if 'glow' in row}
+    textures = {row['texture'] for row in rows.values()} | referenced_textures() | {row['glow'] for row in rows.values() if 'glow' in row}
     with ASSETS.open(encoding='utf-8', newline='') as handle:
         kept = [row for row in csv.reader(handle) if row and row[0] != 'skill']
     kept += [['skill', 'geo', f'{NAMESPACE}:{row["geo"]}'] for row in rows.values()]

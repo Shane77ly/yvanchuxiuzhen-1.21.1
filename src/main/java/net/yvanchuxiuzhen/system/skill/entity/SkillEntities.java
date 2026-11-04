@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.skill.entity;
 
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -12,6 +13,7 @@ import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
@@ -30,6 +32,7 @@ public final class SkillEntities {
         LightEntities.register(SKILLS);
         RockEntities.register(SKILLS);
         ThunderEntities.register(SKILLS);
+        TreeEntities.register(SKILLS);
         WaterEntities.register(SKILLS);
         WaterFormations.register(SKILLS);
         WindEntities.register(SKILLS);
@@ -95,6 +98,16 @@ public final class SkillEntities {
         if (other instanceof LivingEntity living) {
             SpellDamage.dealRounded((ServerLevel) self.level(), living, DamageCategory.byLabel(self.damageType()), self.attacker(), false, self.attackDamage(), self.multiplier());
         }
+    }
+
+    /** 实体是不是登记为 {@code id} 的技能实体。 */
+    public static boolean is(Entity entity, String id) {
+        return BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getPath().equals(id);
+    }
+
+    /** 没有霸体状态的实体才会被技能的抛起、牵引、击飞改变速度；非生物（掉落物等）总会被改变。 */
+    public static boolean movable(Entity entity) {
+        return !(entity instanceof LivingEntity living && StatusEffects.has(living, "skilleffect_08"));
     }
 
     /** 设置朝向并同步身体、头部与上一刻的朝向，使转向不被插值抹平（来源的“转向”样板）。 */

@@ -11,7 +11,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
@@ -78,10 +77,6 @@ final class WindEntities {
         caster.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 40, 0));
     }
 
-    private static boolean pullable(Entity other) {
-        return !(other instanceof LivingEntity living && StatusEffects.has(living, "skilleffect_08"));
-    }
-
     /**
      * 风团。聚风化气：沿记下的朝向与俯仰角以 0.1 的速度飞行，把 4 格内的非友方实体（无霸体）拉向自己；200 刻后爆发，对 4 格内的非友方实体造成风系伤害并抛起，
      * 再过 14 刻消失。聚风术：原地把 4 格内的全部实体（不分敌友，无霸体）拉向自己，200 刻后消失。
@@ -97,7 +92,7 @@ final class WindEntities {
                 self.setDeltaMovement(new Vec3(-0.1 * Math.sin(yaw), -0.1 * Math.sin(pitch), 0.1 * Math.cos(yaw)));
                 level.sendParticles(ParticleTypes.CLOUD, self.getX(), self.getY(), self.getZ(), 4, 0, 0, 0, 0.2);
                 for (Entity other : ProjectileSupport.around(level, self.position(), 4)) {
-                    if (!ProjectileSupport.friendly(self, other) && pullable(other)) {
+                    if (!ProjectileSupport.friendly(self, other) && SkillEntities.movable(other)) {
                         other.setDeltaMovement(self.position().subtract(other.position()).scale(0.3));
                     }
                 }
@@ -107,7 +102,7 @@ final class WindEntities {
                     for (Entity other : ProjectileSupport.around(level, self.position(), 4)) {
                         if (!ProjectileSupport.friendly(self, other)) {
                             SkillEntities.strike(self, other);
-                            if (pullable(other)) {
+                            if (SkillEntities.movable(other)) {
                                 other.setDeltaMovement(new Vec3((other.getX() - self.getX()) * 0.6, 1, (other.getZ() - self.getZ()) * 0.6));
                             }
                         }
@@ -121,7 +116,7 @@ final class WindEntities {
             } else {
                 level.sendParticles(ParticleTypes.CLOUD, self.getX(), self.getY(), self.getZ(), 4, 0, 0, 0, 0.2);
                 for (Entity other : ProjectileSupport.around(level, self.position(), 4)) {
-                    if (pullable(other)) {
+                    if (SkillEntities.movable(other)) {
                         other.setDeltaMovement(self.position().subtract(other.position()).scale(0.4));
                     }
                 }
