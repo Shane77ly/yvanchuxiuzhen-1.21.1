@@ -33,4 +33,6 @@ updated: 2026-11-03
 - 本系统只读 attribute 的最终值（攻击、防御、灵根与功法五行系数）和 xiulian 的体质键、灵力、精力、境界；非玩家实体的攻击防御读实体持久化数据里来源的键（`mana_Att`、`soul_Att`、`mana_Def`、`soul_Def`、`attack_Def`、`LEVELnumber`），写入方是各自的生成过程（随 creature、skill 定为实体属性）。
 - 伤害在 `LivingIncomingDamageEvent` 中结算（命中处理在前、受伤处理在后），没有攻击者的伤害不处理。
 
+实现状态：附魔 85 个已转数据定义；状态效果已迁移 `effect_001`–`022`（除标记外）、`004`、`034`、`036` 标记、毒药 `duyao_01`–`20`（除 `21`）；灵力、神识伤害结算与受伤、命中处理（除 `EntityHurt2`、`EntityHurt3` 的附魔分支）已实现并经 `CombatCheck` 15 项实机检查；其余状态效果、`EntityHurt2`/`EntityHurt3`、木人桩、破碎的基岩、淬毒、连锁采集、雷劫尚未实现。
+
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。

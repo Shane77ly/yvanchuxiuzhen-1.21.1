@@ -165,7 +165,7 @@ final class SmokeRun {
         if (systemChecks == null) {
             minecraft.setScreen(null);
             String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
-            List<String> names = only.isEmpty() ? List.of("relation", "attribute", "xiulian", "gongfa") : List.of(only.split(","));
+            List<String> names = only.isEmpty() ? List.of("relation", "attribute", "xiulian", "gongfa", "combat") : List.of(only.split(","));
             systemChecks = new ArrayList<>();
             for (String name : names) {
                 systemChecks.addAll(switch (name) {
@@ -175,6 +175,7 @@ final class SmokeRun {
                             new DantianCheck(report, levelId, this::shot), new BloodPathCheck(report, levelId, this::shot),
                             new XiulianOperationsCheck(report, levelId));
                     case "gongfa" -> List.of(new GongfaCheck(report, levelId), new ComprehensionCheck(report, levelId, this::shot));
+                    case "combat" -> List.of(new CombatCheck(report, levelId));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }
