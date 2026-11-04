@@ -141,5 +141,7 @@
   "subtitles.npcskill0101huikong": "挥空",
   "subtitles.yaoshou007skill01": "狼嚎",
   "subtitles.yaoshou007skill03": "狼飞扑",
-  "subtitles.yaoshou007skill02": "狼撕咬"
+  "subtitles.yaoshou007skill02": "狼撕咬",
+  "effect.yvanchuxiuzhen.effect_037": "妖兽升级",
+  "effect.yvanchuxiuzhen.effect_037.description": "仅对妖兽有效，在此期间内，增加妖兽战胜敌人后的经验获取，每级增加20%的额外经验。"
 }

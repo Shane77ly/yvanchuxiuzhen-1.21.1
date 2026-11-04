@@ -6,7 +6,7 @@ enchantment,yvanchuxitong:chain,yvanchuxitong,Chain,src/main/java/net/mcreator/y
 enchantment,yvanchuxiuzhen:attdef,yvanchuxiuzhen,Attdef,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,107,combat,已读,yvanchuxiuzhen:attdef,行为已迁移,
 enchantment,yvanchuxiuzhen:basalt,yvanchuxiuzhen,Basalt,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,114,combat,已读,yvanchuxiuzhen:basalt,行为已迁移,
 enchantment,yvanchuxiuzhen:beepoison,yvanchuxiuzhen,Beepoison,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,129,combat,已读,yvanchuxiuzhen:beepoison,行为已迁移,
-enchantment,yvanchuxiuzhen:breakfree,yvanchuxiuzhen,Breakfree,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,110,combat,已读,yvanchuxiuzhen:breakfree,待处理,
+enchantment,yvanchuxiuzhen:breakfree,yvanchuxiuzhen,Breakfree,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,110,combat,已读,yvanchuxiuzhen:breakfree,已注册,数据定义与语言键就位；缩短缓慢效果的规则在 flow 的 Effectslownessget，行为随 flow 迁移
 enchantment,yvanchuxiuzhen:cautery,yvanchuxiuzhen,Cautery,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,135,combat,已读,yvanchuxiuzhen:cautery,行为已迁移,
 enchantment,yvanchuxiuzhen:chaos,yvanchuxiuzhen,Chaos,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,170,combat,已读,yvanchuxiuzhen:chaos,行为已迁移,
 enchantment,yvanchuxiuzhen:chenmo,yvanchuxiuzhen,Chenmo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,154,combat,已读,yvanchuxiuzhen:chenmo,行为已迁移,
@@ -78,7 +78,6 @@ enchantment,yvanchuxiuzhen:yvnxvan,yvanchuxiuzhen,Yvnxvan,src/main/java/net/mcre
 enchantment,yvanchuxiuzhen:zhongshang,yvanchuxiuzhen,Zhongshang,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,157,combat,已读,yvanchuxiuzhen:zhongshang,行为已迁移,
 enchantment,yvanchuxiuzhen:zimu,yvanchuxiuzhen,Zimu,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,160,combat,已读,yvanchuxiuzhen:zimu,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
 entity_type,yvanchuxiuzhen:murenzhuang,yvanchuxiuzhen,Murenzhuang,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1027,combat,已读,yvanchuxiuzhen:murenzhuang,行为已迁移,
-entity_type,yvanchuxiuzhen:shanghaifanwei,yvanchuxiuzhen,Shanghaifanwei,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,747,combat,候选,yvanchuxiuzhen:shanghaifanwei,待处理,
 item,yvanchuxiuzhen:bedrock_01,yvanchuxiuzhen,Bedrock01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3013,combat,已读,yvanchuxiuzhen:bedrock_01,行为已迁移,
 item,yvanchuxiuzhen:bedrock_02,yvanchuxiuzhen,Bedrock02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3014,combat,已读,yvanchuxiuzhen:bedrock_02,行为已迁移,
 item,yvanchuxiuzhen:bedrock_03,yvanchuxiuzhen,Bedrock03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3015,combat,已读,yvanchuxiuzhen:bedrock_03,行为已迁移,

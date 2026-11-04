@@ -1,3 +1,11 @@
 [
-{"id":"effect_035","category":"HARMFUL","color":-10066330}
+{"id":"effect_035","category":"HARMFUL","color":-10066330},
+{"id":"skilleffect_01","category":"NEUTRAL","color":-256},
+{"id":"skilleffect_02","category":"NEUTRAL","color":-10053121},
+{"id":"skilleffect_03","category":"NEUTRAL","color":-10027162},
+{"id":"skilleffect_04","category":"NEUTRAL","color":-39322},
+{"id":"skilleffect_05","category":"NEUTRAL","color":-39169},
+{"id":"skilleffect_06","category":"NEUTRAL","color":-1},
+{"id":"skilleffect_07","category":"NEUTRAL","color":-39322},
+{"id":"skillwind_04","category":"BENEFICIAL","color":-3342388}
 ]

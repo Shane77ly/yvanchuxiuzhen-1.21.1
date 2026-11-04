@@ -1,8 +1,8 @@
 ---
 topic: combat
 role: architecture
-status: draft
-updated: 2026-11-01
+status: current
+updated: 2026-11-04
 ---
 
 # 战斗：架构调查与提案

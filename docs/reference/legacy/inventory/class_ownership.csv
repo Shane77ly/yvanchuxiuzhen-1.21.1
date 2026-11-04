@@ -1797,7 +1797,7 @@ yvanchuxiuzhen,Pao0501Renderer,src/main/java/net/mcreator/yvanchuxiuzhen/client/
 yvanchuxiuzhen,Pao0601Renderer,src/main/java/net/mcreator/yvanchuxiuzhen/client/renderer/Pao0601Renderer.java,client/renderer,festival,source_element_metadata
 yvanchuxiuzhen,Pao08Renderer,src/main/java/net/mcreator/yvanchuxiuzhen/client/renderer/Pao08Renderer.java,client/renderer,festival,source_element_metadata
 yvanchuxiuzhen,Pao0901Renderer,src/main/java/net/mcreator/yvanchuxiuzhen/client/renderer/Pao0901Renderer.java,client/renderer,festival,source_element_metadata
-yvanchuxiuzhen,ShanghaifanweiRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/client/renderer/ShanghaifanweiRenderer.java,client/renderer,combat,source_element_metadata
+yvanchuxiuzhen,ShanghaifanweiRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/client/renderer/ShanghaifanweiRenderer.java,client/renderer,skill,source_element_metadata
 yvanchuxiuzhen,SilkwormentitygoldRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/client/renderer/SilkwormentitygoldRenderer.java,client/renderer,craft,source_element_metadata
 yvanchuxiuzhen,SilkwormentityRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/client/renderer/SilkwormentityRenderer.java,client/renderer,craft,source_element_metadata
 yvanchuxiuzhen,SilkwormmothgoldRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/client/renderer/SilkwormmothgoldRenderer.java,client/renderer,craft,source_element_metadata
@@ -2122,7 +2122,7 @@ yvanchuxiuzhen,GuanghuanLayer,src/main/java/net/mcreator/yvanchuxiuzhen/entity/l
 yvanchuxiuzhen,Guiguai01Layer,src/main/java/net/mcreator/yvanchuxiuzhen/entity/layer/Guiguai01Layer.java,entity/layer,creature,source_element_metadata
 yvanchuxiuzhen,Guiguai02Layer,src/main/java/net/mcreator/yvanchuxiuzhen/entity/layer/Guiguai02Layer.java,entity/layer,creature,source_element_metadata
 yvanchuxiuzhen,Lingwentexiao2Layer,src/main/java/net/mcreator/yvanchuxiuzhen/entity/layer/Lingwentexiao2Layer.java,entity/layer,skill,source_element_metadata
-yvanchuxiuzhen,ShanghaifanweiLayer,src/main/java/net/mcreator/yvanchuxiuzhen/entity/layer/ShanghaifanweiLayer.java,entity/layer,combat,source_element_metadata
+yvanchuxiuzhen,ShanghaifanweiLayer,src/main/java/net/mcreator/yvanchuxiuzhen/entity/layer/ShanghaifanweiLayer.java,entity/layer,skill,source_element_metadata
 yvanchuxiuzhen,SkillFire08Layer,src/main/java/net/mcreator/yvanchuxiuzhen/entity/layer/SkillFire08Layer.java,entity/layer,skill,source_element_metadata
 yvanchuxiuzhen,SkillGold0201Layer,src/main/java/net/mcreator/yvanchuxiuzhen/entity/layer/SkillGold0201Layer.java,entity/layer,skill,source_element_metadata
 yvanchuxiuzhen,SkillLight03Layer,src/main/java/net/mcreator/yvanchuxiuzhen/entity/layer/SkillLight03Layer.java,entity/layer,skill,source_element_metadata
@@ -2212,7 +2212,7 @@ yvanchuxiuzhen,Organism12Model,src/main/java/net/mcreator/yvanchuxiuzhen/entity/
 yvanchuxiuzhen,Pao0401Model,src/main/java/net/mcreator/yvanchuxiuzhen/entity/model/Pao0401Model.java,entity/model,festival,source_element_metadata
 yvanchuxiuzhen,Pao0501Model,src/main/java/net/mcreator/yvanchuxiuzhen/entity/model/Pao0501Model.java,entity/model,festival,source_element_metadata
 yvanchuxiuzhen,Pao0601Model,src/main/java/net/mcreator/yvanchuxiuzhen/entity/model/Pao0601Model.java,entity/model,festival,source_element_metadata
-yvanchuxiuzhen,ShanghaifanweiModel,src/main/java/net/mcreator/yvanchuxiuzhen/entity/model/ShanghaifanweiModel.java,entity/model,combat,source_element_metadata
+yvanchuxiuzhen,ShanghaifanweiModel,src/main/java/net/mcreator/yvanchuxiuzhen/entity/model/ShanghaifanweiModel.java,entity/model,skill,source_element_metadata
 yvanchuxiuzhen,SilkwormentitygoldModel,src/main/java/net/mcreator/yvanchuxiuzhen/entity/model/SilkwormentitygoldModel.java,entity/model,craft,source_element_metadata
 yvanchuxiuzhen,SilkwormentityModel,src/main/java/net/mcreator/yvanchuxiuzhen/entity/model/SilkwormentityModel.java,entity/model,craft,source_element_metadata
 yvanchuxiuzhen,SilkwormmothgoldModel,src/main/java/net/mcreator/yvanchuxiuzhen/entity/model/SilkwormmothgoldModel.java,entity/model,craft,source_element_metadata
@@ -2341,7 +2341,7 @@ yvanchuxiuzhen,Pao0601Entity,src/main/java/net/mcreator/yvanchuxiuzhen/entity/Pa
 yvanchuxiuzhen,Pao08Entity,src/main/java/net/mcreator/yvanchuxiuzhen/entity/Pao08Entity.java,entity,festival,source_element_metadata
 yvanchuxiuzhen,Pao0901Entity,src/main/java/net/mcreator/yvanchuxiuzhen/entity/Pao0901Entity.java,entity,festival,source_element_metadata
 yvanchuxiuzhen,Pao13Entity,src/main/java/net/mcreator/yvanchuxiuzhen/entity/Pao13Entity.java,entity,festival,source_element_metadata
-yvanchuxiuzhen,ShanghaifanweiEntity,src/main/java/net/mcreator/yvanchuxiuzhen/entity/ShanghaifanweiEntity.java,entity,combat,source_element_metadata
+yvanchuxiuzhen,ShanghaifanweiEntity,src/main/java/net/mcreator/yvanchuxiuzhen/entity/ShanghaifanweiEntity.java,entity,skill,source_element_metadata
 yvanchuxiuzhen,SilkwormentityEntity,src/main/java/net/mcreator/yvanchuxiuzhen/entity/SilkwormentityEntity.java,entity,craft,source_element_metadata
 yvanchuxiuzhen,SilkwormentitygoldEntity,src/main/java/net/mcreator/yvanchuxiuzhen/entity/SilkwormentitygoldEntity.java,entity,craft,source_element_metadata
 yvanchuxiuzhen,SilkwormmothEntity,src/main/java/net/mcreator/yvanchuxiuzhen/entity/SilkwormmothEntity.java,entity,craft,source_element_metadata
@@ -4812,7 +4812,7 @@ yvanchuxiuzhen,Setjiegou01Procedure,src/main/java/net/mcreator/yvanchuxiuzhen/pr
 yvanchuxiuzhen,SetPaiweiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/SetPaiweiProcedure.java,procedures,decor,source_element_metadata
 yvanchuxiuzhen,SetrenwuProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/SetrenwuProcedure.java,procedures,quest,source_element_metadata
 yvanchuxiuzhen,ShangdianshuaxinfuyvProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/ShangdianshuaxinfuyvProcedure.java,procedures,world,source_element_metadata
-yvanchuxiuzhen,ShanghaifanweiDangShiTiGengXinKeShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/ShanghaifanweiDangShiTiGengXinKeShiProcedure.java,procedures,combat,source_element_metadata
+yvanchuxiuzhen,ShanghaifanweiDangShiTiGengXinKeShiProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/ShanghaifanweiDangShiTiGengXinKeShiProcedure.java,procedures,skill,source_element_metadata
 yvanchuxiuzhen,ShanghaiGoProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/ShanghaiGoProcedure.java,procedures,combat,source_element_metadata
 yvanchuxiuzhen,ShenfaAProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/ShenfaAProcedure.java,procedures,skill,source_element_metadata
 yvanchuxiuzhen,ShenfaDProcedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/ShenfaDProcedure.java,procedures,skill,source_element_metadata

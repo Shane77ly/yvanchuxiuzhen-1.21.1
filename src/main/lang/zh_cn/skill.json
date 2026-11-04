@@ -38,5 +38,13 @@
   "enchantment.yvanchuxiuzhen.jet": "激射",
   "enchantment.yvanchuxiuzhen.jet.desc": "【护甲】提高飞行技能起飞时的速度",
   "effect.yvanchuxiuzhen.effect_035": "禁空",
-  "effect.yvanchuxiuzhen.effect_035.description": "禁空状态下，无法飞行。"
+  "effect.yvanchuxiuzhen.effect_035.description": "禁空状态下，无法飞行。",
+  "effect.yvanchuxiuzhen.skilleffect_01": "金系技能冷却",
+  "effect.yvanchuxiuzhen.skilleffect_02": "水系技能冷却",
+  "effect.yvanchuxiuzhen.skilleffect_03": "木系技能冷却",
+  "effect.yvanchuxiuzhen.skilleffect_04": "火系技能冷却",
+  "effect.yvanchuxiuzhen.skilleffect_05": "土系技能冷却",
+  "effect.yvanchuxiuzhen.skilleffect_06": "阴阳技能冷却",
+  "effect.yvanchuxiuzhen.skilleffect_07": "战斗状态",
+  "effect.yvanchuxiuzhen.skillwind_04": "飞行消耗减少"
 }

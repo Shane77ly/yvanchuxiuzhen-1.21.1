@@ -1692,13 +1692,13 @@ yvanchuxiuzhen,Flyskill,command,~/systemset/zhiling,skill,候选,第一版批量
 yvanchuxiuzhen,Flyskill02,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyskill03,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyskill04,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skilleffect01,potioneffect,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
-yvanchuxiuzhen,Skilleffect02,potioneffect,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
-yvanchuxiuzhen,Skilleffect03,potioneffect,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
-yvanchuxiuzhen,Skilleffect04,potioneffect,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
-yvanchuxiuzhen,Skilleffect05,potioneffect,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
-yvanchuxiuzhen,Skilleffect06,potioneffect,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
-yvanchuxiuzhen,Skilleffect07,potioneffect,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
+yvanchuxiuzhen,Skilleffect01,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect02,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect03,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect04,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect05,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect06,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
+yvanchuxiuzhen,Skilleffect07,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
 yvanchuxiuzhen,Skilleffect08DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
 yvanchuxiuzhen,Skilleffect08DangXiaoGuoJieShuShi,procedure,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
 yvanchuxiuzhen,Skilleffect08,potioneffect,~/effect,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
@@ -1801,7 +1801,7 @@ yvanchuxiuzhen,Skillwind01,rangeditem,~/skill/jineng/windskill,skill,已读,B1 �
 yvanchuxiuzhen,Skillwind02DangShiTiGengXinKeShi,procedure,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Skillwind02,animatedentity,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Skillwind02shifang,procedure,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillwind04,potioneffect,~/skill/jineng/windskill,skill,候选,C combat 归属改判（读取者统计，未读过程内容）：技能冷却、战斗状态、霸体与施法状态，读取者主要是技能与妖兽技能的施法过程
+yvanchuxiuzhen,Skillwind04,potioneffect,~/skill/jineng/windskill,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
 yvanchuxiuzhen,SkillFire01TouZhiWuFeiXingTick,procedure,~/skill/jineng/fireskill,skill,已读,B1 归属阅读：随 SkillFire01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillFire01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/fireskill,skill,已读,B1 归属阅读：随 SkillFire01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillFire01,rangeditem,~/skill/jineng/fireskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -1898,9 +1898,9 @@ yvanchuxiuzhen,PlayerGUI06anniu06,procedure,~/GUI,panel,候选,第一版批量�
 yvanchuxiuzhen,PlayerGUI06xiulian,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,OpenGUI06,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Kaishixiulian,procedure,~/systemset,xiulian,已读,C xiulian 归属阅读：闭关修炼每天推进（天数、寿元、吸纳元气与额外修为、闭关冷却），其中给主修功法加经验的部分改为发出事件由 gongfa 处理
-yvanchuxiuzhen,Effect025,potioneffect,~/effect,xiulian,候选,C combat 归属改判（读取者统计，未读过程内容）：修炼加持标记，只被 xiulian 的修炼过程与烹饪读取
-yvanchuxiuzhen,Effect026,potioneffect,~/effect,xiulian,候选,C combat 归属改判（读取者统计，未读过程内容）：修炼加持标记，只被 xiulian 的修炼过程与烹饪读取
-yvanchuxiuzhen,Effect027,potioneffect,~/effect,xiulian,候选,C combat 归属改判（读取者统计，未读过程内容）：修炼加持标记，只被 xiulian 的修炼过程与烹饪读取
+yvanchuxiuzhen,Effect025,potioneffect,~/effect,xiulian,已读,C combat 归属阅读（改判后确认）：修炼加持标记，没有自身过程，等级由 xiulian 的修炼过程与烹饪读取
+yvanchuxiuzhen,Effect026,potioneffect,~/effect,xiulian,已读,C combat 归属阅读（改判后确认）：修炼加持标记，没有自身过程，等级由 xiulian 的修炼过程与烹饪读取
+yvanchuxiuzhen,Effect027,potioneffect,~/effect,xiulian,已读,C combat 归属阅读（改判后确认）：修炼加持标记，没有自身过程，等级由 xiulian 的修炼过程与烹饪读取
 yvanchuxiuzhen,TreasureChestGUI,gui,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,TreasureChest01DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/baoxiang,treasure,已读,B1 归属阅读：随 TreasureChest01 读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
 yvanchuxiuzhen,TreasureChest01,item,~/baoxiang,treasure,已读,B1 归属阅读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
@@ -2691,13 +2691,13 @@ yvanchuxiuzhen,Panzhuang,tag,~/item/food,cooking,候选,第一版批量归组（
 yvanchuxiuzhen,Wanzhuang,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Dapenzhuang,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tiepanzhuang,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect028,potioneffect,~/effect,cooking,候选,C combat 归属改判（读取者统计，未读过程内容）：食用与辟谷状态，只被烹饪的食用过程读取（效果自身过程是辟谷的每刻处理）
-yvanchuxiuzhen,Effect029,potioneffect,~/effect,cooking,候选,C combat 归属改判（读取者统计，未读过程内容）：食用与辟谷状态，只被烹饪的食用过程读取（效果自身过程是辟谷的每刻处理）
+yvanchuxiuzhen,Effect028,potioneffect,~/effect,cooking,已读,C combat 归属阅读（改判后确认）：食用主食、菜肴、汤水标记，没有自身过程，由烹饪的食用过程读写
+yvanchuxiuzhen,Effect029,potioneffect,~/effect,cooking,已读,C combat 归属阅读（改判后确认）：食用主食、菜肴、汤水标记，没有自身过程，由烹饪的食用过程读写
 yvanchuxiuzhen,Zhushi,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Caipin,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tangshui,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Chadian,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect030,potioneffect,~/effect,cooking,候选,C combat 归属改判（读取者统计，未读过程内容）：食用与辟谷状态，只被烹饪的食用过程读取（效果自身过程是辟谷的每刻处理）
+yvanchuxiuzhen,Effect030,potioneffect,~/effect,cooking,已读,C combat 归属阅读（改判后确认）：食用主食、菜肴、汤水标记，没有自身过程，由烹饪的食用过程读写
 yvanchuxiuzhen,ThistlesandthornsDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Thistlesandthorns 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Thistlesandthorns,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Ancienttimeswood,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；被 world 的 Biomesand01 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
@@ -3494,8 +3494,8 @@ yvanchuxiuzhen,Ycxzboss01ShiTiChuShiShengChengShi,procedure,~/entity/boss/ycxzbo
 yvanchuxiuzhen,Ycxzboss01DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Ycxzboss01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Ycxzboss01DangShiTiShouShangShi,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Ycxzboss01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Ycxzboss01,animatedentity,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,ShanghaifanweiDangShiTiGengXinKeShi,procedure,~/skill/jineng,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shanghaifanwei,animatedentity,~/skill/jineng,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ShanghaifanweiDangShiTiGengXinKeShi,procedure,~/skill/jineng,skill,候选,C combat 归属改判（读过更新过程）：技能伤害范围指示实体，由技能与妖兽技能生成，按 jinengname 倒计时消失，控雷阵到期经 /lightninglanding 落雷；玩法含义在 skill，随 skill 迁移（动画实体用 GeckoLib，基础设施已随木人桩建立）
+yvanchuxiuzhen,Shanghaifanwei,animatedentity,~/skill/jineng,skill,候选,C combat 归属改判（读过更新过程）：技能伤害范围指示实体，由技能与妖兽技能生成，按 jinengname 倒计时消失，控雷阵到期经 /lightninglanding 落雷；玩法含义在 skill，随 skill 迁移（动画实体用 GeckoLib，基础设施已随木人桩建立）
 yvanchuxiuzhen,Npcshuxingjisuan,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,ZhuangshitiziDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Zhuangshitizi 读：装饰梯：放置过程只改本方块
 yvanchuxiuzhen,Mugongtai,animatedblock,~/tool,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
@@ -3814,7 +3814,7 @@ yvanchuxiuzhen,Guchong04ShiTiChuShiShengChengShi,procedure,~/entity/guchong,guch
 yvanchuxiuzhen,Guchong04,animatedentity,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongxvnfu,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Chongshicao,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 economy 的 Caoyaojiage；flow 的 Worldbegin 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Huxiangtunshi,potioneffect,~/effect,guchong,候选,C combat 归属改判（读取者统计，未读过程内容）：蛊虫吞噬，只对蛊虫有效，读取者是蛊虫
+yvanchuxiuzhen,Huxiangtunshi,potioneffect,~/effect,guchong,已读,C combat 归属阅读（改判后确认）：蛊虫吞噬标记，没有自身过程，读取者是蛊虫
 yvanchuxiuzhen,Guchongtunshi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongyesheng,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao017DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao017 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
@@ -4457,7 +4457,7 @@ yvanchuxiuzhen,Food084hecheng2,recipe,~/item/food,cooking,候选,第一版批量
 yvanchuxiuzhen,Food084hecheng3,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/monstermaterial,lianqi,已读,C combat 归属改判：淬毒（炼药锅记录毒药材料、右键武器或空手右键材料给副手武器加毒药附魔）写入物品 lianqizong 的附魔记录 fumo{序号}、fumozongshu（lianqi 的工艺数据），玩法含义在 lianqi；毒药附魔的效果仍在 combat。
 yvanchuxiuzhen,Npcskill0301,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,MurenzhuangDangShiTiShouShangShi,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,MurenzhuangDangShiTiShouShangShi,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：受击处理（按战利品表选动画、下一刻报告伤害并回满生命）
 yvanchuxiuzhen,Murenzhuang,animatedentity,~/tool/murenzhuang,combat,已读,C combat 归属阅读：木人桩动画实体（GeckoLib）：1024 点生命、无 AI、不受推挤，免疫药水云、跌落、仙人掌、溺水、凋零；受击时按战利品表 entities/suijizhanlipin 随机一件材料选 attacked01–05 动画，下一刻向玩家报告伤害并回满生命；潜行右键打开设置界面；死亡 20 刻后掉出木人桩物品
 yvanchuxiuzhen,MurenzhuangitemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/tool/murenzhuang,combat,已读,B1 归属阅读：随 Murenzhuangitem 读：战斗：木人桩放置与受击统计
 yvanchuxiuzhen,Murenzhuangitem,item,~/tool/murenzhuang,combat,已读,B1 归属阅读：战斗：木人桩放置与受击统计
@@ -5766,7 +5766,7 @@ yvanchuxiuzhen,Cailiao202melt,item,~/item/metal,material,已读,B1 归属阅读�
 yvanchuxiuzhen,Cailiao204melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
 yvanchuxiuzhen,Cailiao212melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
 yvanchuxiuzhen,Cailiao214melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
-yvanchuxiuzhen,Effect037,potioneffect,~/effect,creature,候选,C combat 归属改判（读取者统计，未读过程内容）：妖兽升级，只对妖兽生效，读取者是妖兽战胜敌人后的经验过程
+yvanchuxiuzhen,Effect037,potioneffect,~/effect,creature,已读,C combat 归属阅读（改判后确认）：妖兽升级标记，没有自身过程，读取者是妖兽战胜敌人后的经验过程
 yvanchuxiuzhen,Foodmuzengpeifang,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui04gongfazhuangbei,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui04qinggongzhuangbei,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5932,7 +5932,7 @@ yvanchuxitong,LiandanBegin,procedure,~/yvanchuliandan,liandan,候选,第一版�
 yvanchuxitong,LightningLanding,command,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,LightningLandingGo,procedure,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Chain,enchantment,~/fumo,combat,已读,C combat 归属阅读：原初系统唯一的附魔，连锁采集由 ChainProcedure 读取等级（随 combat 迁移，代码注册转数据定义的首个实例）
-yvanchuxitong,ChainProcedure,procedure,~/fumo,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ChainProcedure,procedure,~/fumo,combat,已读,C combat 归属阅读：连锁采集的方块破坏订阅（BlockEvent.BreakEvent），随 Chain 附魔读
 yvanchuxitong,PlayerRightClickBlock,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Itemdanyaohulu01DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：随 Itemdanyaohulu01 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Itemdanyaohulu01,item,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识

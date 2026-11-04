@@ -221,5 +221,11 @@
   "tooltip.yvanchuxiuzhen.item.jiuniang_008.2": "§b为修习血道功法者提高修为。",
   "item.yvanchuxiuzhen.shicai_060": "Shicai 0 6 0",
   "item.yvanchuxiuzhen.food_084": "Food 0 8 4",
-  "item.yvanchuxiuzhen.chulishicai": "Chulishicai"
+  "item.yvanchuxiuzhen.chulishicai": "Chulishicai",
+  "effect.yvanchuxiuzhen.effect_028": "食用主食",
+  "effect.yvanchuxiuzhen.effect_028.description": "",
+  "effect.yvanchuxiuzhen.effect_029": "食用菜肴",
+  "effect.yvanchuxiuzhen.effect_029.description": "",
+  "effect.yvanchuxiuzhen.effect_030": "食用汤水",
+  "effect.yvanchuxiuzhen.effect_030.description": ""
 }
