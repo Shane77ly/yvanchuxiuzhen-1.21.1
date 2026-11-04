@@ -33,7 +33,7 @@ C 玩家与战斗核心，当前系统 combat（分支 `port/c-combat`，从 `ma
 combat 本轮已实现（2026-11-04，分支 `port/c-combat`，未合入 `main`，系统尚未完成）：伤害主链归属阅读与 Q29–Q34；85 个附魔转数据定义并按标签表达类别；状态效果登记基础（`effects.json`、`EffectBehavior`）与已迁移的 47 个效果中的 `effect_001`–`022` 大部分、`004`、`032`、`034`、`036`、毒药 `duyao_01`–`21`；伤害结算（`Shanghai.deal`、`/shanghai`、`HurtHandler`、四个伤害类型）；命中附魔、连锁采集、穿石（破碎的基岩）；公开操作写在[战斗 README](../systems/combat/README.md)，设计与五个借用事件（`DamageImmunityEvent`、`LethalDamageEvent`、`ArmorStatEvent`、`HitEvent`、`EffectExperienceEvent`、`GatherExperienceEvent`）写在[战斗架构](../systems/combat/architecture.md)“目标方案”各节；实机检查 `CombatCheck` 31 项。
 
 combat 的剩余项（顺序为建议）：
-1. 淬毒（炼药锅 `cauldronduyao`）：`CauldronduyaoZaiFangKuaiShangYouJian`、`Jinduliebiao`、`Cailiao141–146…` 右键给副手武器加毒药附魔；方块实体与菜单（读法同伤害过程，用 `tools/porting/read_procedure.py`）。
+1. （已改判）淬毒归 lianqi，见[战斗架构](../systems/combat/architecture.md)“淬毒的归属”。
 2. 木人桩（`Murenzhuang`：动画实体、界面 `MurenzhuangGui`、11 个过程、合成配方）：需要首次接入 GeckoLib（版本在首次接入时按 API 与运行检查选定，见[工程结构](engineering.md)“依赖治理”）。
 3. `Shanghaifanwei`（动画实体）与其更新过程：读后判定归属（可能归 skill）。
 4. xiulian 推迟的雷劫过程（19 个元素，经 `/lightninglanding`、`/shanghai`，需要彩色闪电实体、粒子与 GeckoLib 实体）。

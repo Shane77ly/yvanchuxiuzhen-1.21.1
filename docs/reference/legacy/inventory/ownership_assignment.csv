@@ -3901,10 +3901,10 @@ yvanchuxiuzhen,Playerhuifu,procedure,~/systemset,xiulian,已读,C xiulian 归属
 yvanchuxiuzhen,Basaltlizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhongdulizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabaotouzhiwu,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,CauldronduyaoZaiFangKuaiShangYouJian,procedure,~/decorate,combat,已读,B1 归属阅读：随 Cauldronduyao 读：淬毒功能：RightClickBlock 中“水炼药锅 + forge:duyaofumo 材料”分支把炼药锅换成本方块并由 Jinduliebiao 记下待附毒药附魔，右键时给手持武器附加 beepoison 等 8 种附魔（combat 的附魔）；该分支随本功能拆归 combat
-yvanchuxiuzhen,Cauldronduyao,block,~/decorate,combat,已读,B1 归属阅读：淬毒功能：RightClickBlock 中“水炼药锅 + forge:duyaofumo 材料”分支把炼药锅换成本方块并由 Jinduliebiao 记下待附毒药附魔，右键时给手持武器附加 beepoison 等 8 种附魔（combat 的附魔）；该分支随本功能拆归 combat
+yvanchuxiuzhen,CauldronduyaoZaiFangKuaiShangYouJian,procedure,~/decorate,lianqi,已读,C combat 归属改判：淬毒（炼药锅记录毒药材料、右键武器或空手右键材料给副手武器加毒药附魔）写入物品 lianqizong 的附魔记录 fumo{序号}、fumozongshu（lianqi 的工艺数据），玩法含义在 lianqi；毒药附魔的效果仍在 combat。
+yvanchuxiuzhen,Cauldronduyao,block,~/decorate,lianqi,已读,C combat 归属改判：淬毒（炼药锅记录毒药材料、右键武器或空手右键材料给副手武器加毒药附魔）写入物品 lianqizong 的附魔记录 fumo{序号}、fumozongshu（lianqi 的工艺数据），玩法含义在 lianqi；毒药附魔的效果仍在 combat。
 yvanchuxiuzhen,Duyao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinduliebiao,procedure,~/decorate,combat,已读,B1 归属阅读：随 Cauldronduyao 读：按手持 forge:duyaofumo 材料（cailiao_096、141 等 8 种）在炼药锅方块实体记下待附的毒药附魔，属淬毒功能
+yvanchuxiuzhen,Jinduliebiao,procedure,~/decorate,lianqi,已读,C combat 归属改判：淬毒（炼药锅记录毒药材料、右键武器或空手右键材料给副手武器加毒药附魔）写入物品 lianqizong 的附魔记录 fumo{序号}、fumozongshu（lianqi 的工艺数据），玩法含义在 lianqi；毒药附魔的效果仍在 combat。
 yvanchuxiuzhen,Duyaofumo,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,EntityBeforeHurt2,procedure,~/systemset,combat,已读,C combat 归属阅读：订阅了 LivingHurtEvent 但只有局部声明，无作用（Q31）
 yvanchuxiuzhen,Qiankundai01hecheng,recipe,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4455,7 +4455,7 @@ yvanchuxiuzhen,Food084,item,~/item/food,cooking,已读,B1 归属阅读：食材�
 yvanchuxiuzhen,Food084hecheng,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food084hecheng2,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food084hecheng3,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/monstermaterial,combat,已读,B1 归属阅读：淬毒功能：青藤毒素等 cailiao_141–146 右键时给副手武器附加对应毒药附魔（sinomeninevine 等，combat 的附魔）并在炼器记录 lianqizong 中登记 fumo 条目；材料本身仍是编号材料，此过程按“拆分支”归 combat
+yvanchuxiuzhen,Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/monstermaterial,lianqi,已读,C combat 归属改判：淬毒（炼药锅记录毒药材料、右键武器或空手右键材料给副手武器加毒药附魔）写入物品 lianqizong 的附魔记录 fumo{序号}、fumozongshu（lianqi 的工艺数据），玩法含义在 lianqi；毒药附魔的效果仍在 combat。
 yvanchuxiuzhen,Npcskill0301,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,MurenzhuangDangShiTiShouShangShi,procedure,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Murenzhuang,animatedentity,~/tool/murenzhuang,combat,候选,第一版批量归组（目录、元素名与元素类型规则）

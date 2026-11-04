@@ -24,6 +24,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.Contribution;
+import net.yvanchuxiuzhen.system.attribute.api.DamageElement;
 import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
@@ -211,8 +212,14 @@ final class CombatCheck extends SystemCheck {
 
         golem = golem(player, 100);
         damage = hit(player, golem, new Shanghai.Request(DamageCategory.FIRE, player.getUUID(), false, 4, 1));
-        // 攻击量 = ((4 + 法术攻击 6) × 1 × (1 + 火灵根 0.3) 倍率 + 功法 5×8/4)：10 × 1.3 + 10 = 23，总量 23²/(23+3)
-        near("玩家火伤害 23²/(23+3)", 23.0 * 23 / 26, damage);
+        // 攻击量 = ((4 + 法术攻击) × (1 + 体质法术修正) + 体质火修正) × (1 + 体质火修正百分比) × (1 + 火灵根系数) + 功法项。
+        // 单独运行时灵根系数 0.3、功法项 10、体质修正为 0，攻击量 23；全部系统检查连续运行时玩家带着前面检查留下的灵根与体质，
+        // 所以输入取自实际的属性与体质，只核对公式。
+        double attackBase = (4 + PlayerAttributes.value(player, Stat.MANA_ATT)) * (Cultivation.tizhiDouble(player, "ManaattAttCorrectPercentage") + 1);
+        attackBase = (attackBase + Cultivation.tizhiDouble(player, "FireAttCorrect")) * (Cultivation.tizhiDouble(player, "FireAttCorrectPercentage") + 1);
+        double attack = attackBase * (1 + PlayerAttributes.elementCoefficient(player, DamageElement.FIRE))
+                + PlayerAttributes.receivedElementBonus(player, DamageElement.FIRE);
+        near("玩家火伤害 攻击量 " + attack, attack * attack / (attack + 3), damage);
         expectTrue("重击上僵直", StatusEffects.has(golem, "effect_033"));
         golem.discard();
 

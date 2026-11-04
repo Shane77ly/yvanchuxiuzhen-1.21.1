@@ -1,5 +1,4 @@
 [
-{"id":"cauldronduyao","factory":"block_item","block":"cauldronduyao","order":1795},
 {"id":"murenzhuangitem","factory":"item","order":1889,"tab":"yvanchuxiuzhen:tabyvanchu_block","tooltip":["可以放置一个练习用的木人桩。","对着木人桩潜行右键可打开设置面板。"],"pending_hooks":["useOn"]},
 {"id":"bedrock_01","factory":"block_item","block":"bedrock_01","order":1934},
 {"id":"bedrock_02","factory":"block_item","block":"bedrock_02","order":1935},
