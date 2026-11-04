@@ -1,0 +1,327 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.lingwen2.one": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"lingwen1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 360, 0]
+						}
+					}
+				},
+				"lingwen2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lingwen3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lingwen4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lingwen5": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lingwen6": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.lingwen2.two": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"lingwen1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 360, 0]
+						}
+					}
+				},
+				"lingwen2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 180, 0]
+						},
+						"1.0": {
+							"vector": [0, 540, 0]
+						}
+					}
+				},
+				"lingwen3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lingwen4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lingwen5": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lingwen6": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.lingwen2.three": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"lingwen1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 360, 0]
+						}
+					}
+				},
+				"lingwen2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 120, 0]
+						},
+						"1.0": {
+							"vector": [0, 480, 0]
+						}
+					}
+				},
+				"lingwen3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 240, 0]
+						},
+						"1.0": {
+							"vector": [0, 600, 0]
+						}
+					}
+				},
+				"lingwen4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lingwen5": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lingwen6": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.lingwen2.four": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"lingwen1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 360, 0]
+						}
+					}
+				},
+				"lingwen2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 90, 0]
+						},
+						"1.0": {
+							"vector": [0, 450, 0]
+						}
+					}
+				},
+				"lingwen3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 180, 0]
+						},
+						"1.0": {
+							"vector": [0, 540, 0]
+						}
+					}
+				},
+				"lingwen4": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 270, 0]
+						},
+						"1.0": {
+							"vector": [0, 630, 0]
+						}
+					}
+				},
+				"lingwen5": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"lingwen6": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.lingwen2.five": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"lingwen1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 360, 0]
+						}
+					}
+				},
+				"lingwen2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 72, 0]
+						},
+						"1.0": {
+							"vector": [0, 432, 0]
+						}
+					}
+				},
+				"lingwen3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 144, 0]
+						},
+						"1.0": {
+							"vector": [0, 504, 0]
+						}
+					}
+				},
+				"lingwen4": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 216, 0]
+						},
+						"1.0": {
+							"vector": [0, 576, 0]
+						}
+					}
+				},
+				"lingwen5": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 288, 0]
+						},
+						"1.0": {
+							"vector": [0, 648, 0]
+						}
+					}
+				},
+				"lingwen6": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.lingwen2.six": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"lingwen1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 360, 0]
+						}
+					}
+				},
+				"lingwen2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 60, 0]
+						},
+						"1.0": {
+							"vector": [0, 420, 0]
+						}
+					}
+				},
+				"lingwen3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 120, 0]
+						},
+						"1.0": {
+							"vector": [0, 480, 0]
+						}
+					}
+				},
+				"lingwen4": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 180, 0]
+						},
+						"1.0": {
+							"vector": [0, 540, 0]
+						}
+					}
+				},
+				"lingwen5": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 240, 0]
+						},
+						"1.0": {
+							"vector": [0, 600, 0]
+						}
+					}
+				},
+				"lingwen6": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 300, 0]
+						},
+						"1.0": {
+							"vector": [0, 660, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

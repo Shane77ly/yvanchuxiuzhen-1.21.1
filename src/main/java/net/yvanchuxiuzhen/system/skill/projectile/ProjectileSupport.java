@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -62,6 +63,17 @@ public final class ProjectileSupport {
     /** 方块破碎的声音与粒子（来源 {@code levelEvent(2001, 位置, 方块状态编号)}）。 */
     public static void breakEffect(ServerLevel level, Vec3 at, BlockState state) {
         level.levelEvent(BLOCK_BREAK_EVENT, BlockPos.containing(at), Block.getId(state));
+    }
+
+    /** 从眼睛沿视线看 {@code distance} 格内碰到的方块位置，没有碰到时为视线终点所在的方块（来源 {@code level.clip(ClipContext(OUTLINE, NONE))}）。 */
+    public static BlockPos lookBlock(Entity viewer, double distance) {
+        Vec3 eye = viewer.getEyePosition(1f);
+        return viewer.level().clip(new ClipContext(eye, eye.add(viewer.getViewVector(1f).scale(distance)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, viewer)).getBlockPos();
+    }
+
+    /** 点燃：在已有的剩余燃烧秒数（整数除法）上再加 {@code seconds} 秒（来源 {@code setSecondsOnFire(round(剩余刻 / 20) + n)}）。 */
+    public static void ignite(Entity target, int seconds) {
+        target.igniteForSeconds(target.getRemainingFireTicks() / 20 + seconds);
     }
 
     /**

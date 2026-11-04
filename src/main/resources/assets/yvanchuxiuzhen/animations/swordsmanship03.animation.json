@@ -1,0 +1,170 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.swordsmanship03.idle": {
+			"loop": true,
+			"bones": {
+				"jvjian": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"baozhazong": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.swordsmanship03.skill1": {
+			"animation_length": 0.76,
+			"bones": {
+				"jvjian": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [90, 0, 0],
+							"easing": "easeInQuad"
+						}
+					},
+					"position": {
+						"0.72": {
+							"vector": [0, 0, 0]
+						},
+						"0.76": {
+							"vector": [0, 0, -59]
+						}
+					},
+					"scale": {
+						"0.72": {
+							"vector": [1, 1, 1]
+						},
+						"0.76": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"jvjian2": {
+					"rotation": {
+						"0.0": {
+							"vector": [-32.5, 0, 0]
+						},
+						"0.36": {
+							"vector": [0, 0, 0],
+							"easing": "easeInQuad"
+						}
+					}
+				},
+				"feng1": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 0]
+						},
+						"0.12": {
+							"vector": [1, 1, 1]
+						},
+						"0.36": {
+							"vector": [1, 1, 1]
+						},
+						"0.44": {
+							"vector": [1, 1, 0]
+						}
+					}
+				},
+				"feng2": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 0]
+						},
+						"0.12": {
+							"vector": [1, 1, 1]
+						},
+						"0.36": {
+							"vector": [1, 1, 1]
+						},
+						"0.44": {
+							"vector": [1, 1, 0]
+						}
+					}
+				},
+				"feng3": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 0]
+						},
+						"0.12": {
+							"vector": [1, 1, 1]
+						},
+						"0.36": {
+							"vector": [1, 1, 1]
+						},
+						"0.44": {
+							"vector": [1, 1, 0]
+						}
+					}
+				},
+				"baozhazong": {
+					"position": {
+						"0.36": {
+							"vector": [0, -1, -50]
+						},
+						"0.56": {
+							"vector": [0, -1, -50]
+						}
+					}
+				},
+				"bao1": {
+					"position": {
+						"0.36": {
+							"vector": [0, 0, 0]
+						},
+						"0.56": {
+							"vector": [0, 1, 0]
+						}
+					},
+					"scale": {
+						"0.32": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [1, 1, 1]
+						},
+						"0.56": {
+							"vector": [3, 3, 3]
+						},
+						"0.6": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"bao2": {
+					"position": {
+						"0.52": {
+							"vector": [0, 0, 0]
+						},
+						"0.72": {
+							"vector": [0, 1, 0]
+						}
+					},
+					"scale": {
+						"0.48": {
+							"vector": [0, 0, 0]
+						},
+						"0.52": {
+							"vector": [1, 1, 1]
+						},
+						"0.72": {
+							"vector": [3, 3, 3]
+						},
+						"0.76": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

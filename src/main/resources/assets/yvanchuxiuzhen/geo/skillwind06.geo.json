@@ -1,0 +1,183 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.skillwind06",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 7,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "heifeng1",
+					"parent": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "heifeng101",
+					"parent": "heifeng1",
+					"pivot": [0, 0, -6],
+					"cubes": [
+						{
+							"origin": [0, 0, -6],
+							"size": [16, 8, 0],
+							"uv": {
+								"north": {"uv": [0, 0], "uv_size": [16, 8]},
+								"east": {"uv": [0, 0], "uv_size": [0, 8]},
+								"south": {"uv": [0, 0], "uv_size": [0, 0]},
+								"west": {"uv": [0, 0], "uv_size": [0, 8]},
+								"up": {"uv": [16, 0], "uv_size": [-16, 0]},
+								"down": {"uv": [16, 0], "uv_size": [-16, 0]}
+							}
+						}
+					]
+				},
+				{
+					"name": "heifeng102",
+					"parent": "heifeng101",
+					"pivot": [16, 0, -6],
+					"cubes": [
+						{
+							"origin": [16, 0, -6],
+							"size": [16, 8, 0],
+							"uv": {
+								"north": {"uv": [16, 0], "uv_size": [16, 8]},
+								"east": {"uv": [0, 0], "uv_size": [0, 8]},
+								"south": {"uv": [0, 0], "uv_size": [0, 0]},
+								"west": {"uv": [0, 0], "uv_size": [0, 8]},
+								"up": {"uv": [16, 0], "uv_size": [-16, 0]},
+								"down": {"uv": [16, 0], "uv_size": [-16, 0]}
+							}
+						}
+					]
+				},
+				{
+					"name": "heifeng103",
+					"parent": "heifeng102",
+					"pivot": [32, 0, -6],
+					"cubes": [
+						{
+							"origin": [32, 0, -6],
+							"size": [16, 8, 0],
+							"uv": {
+								"north": {"uv": [32, 0], "uv_size": [16, 8]},
+								"east": {"uv": [0, 0], "uv_size": [0, 8]},
+								"south": {"uv": [0, 0], "uv_size": [0, 0]},
+								"west": {"uv": [0, 0], "uv_size": [0, 8]},
+								"up": {"uv": [16, 0], "uv_size": [-16, 0]},
+								"down": {"uv": [16, 0], "uv_size": [-16, 0]}
+							}
+						}
+					]
+				},
+				{
+					"name": "heifeng104",
+					"parent": "heifeng103",
+					"pivot": [48, 0, -6],
+					"cubes": [
+						{
+							"origin": [48, 0, -6],
+							"size": [16, 8, 0],
+							"uv": {
+								"north": {"uv": [48, 0], "uv_size": [16, 8]},
+								"east": {"uv": [0, 0], "uv_size": [0, 8]},
+								"south": {"uv": [0, 0], "uv_size": [0, 0]},
+								"west": {"uv": [0, 0], "uv_size": [0, 8]},
+								"up": {"uv": [16, 0], "uv_size": [-16, 0]},
+								"down": {"uv": [16, 0], "uv_size": [-16, 0]}
+							}
+						}
+					]
+				},
+				{
+					"name": "heifeng2",
+					"parent": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "heifeng201",
+					"parent": "heifeng2",
+					"pivot": [0, 0, -6],
+					"cubes": [
+						{
+							"origin": [0, 0, -6],
+							"size": [16, 8, 0],
+							"uv": {
+								"north": {"uv": [0, 0], "uv_size": [16, 8]},
+								"east": {"uv": [0, 0], "uv_size": [0, 8]},
+								"south": {"uv": [0, 0], "uv_size": [0, 0]},
+								"west": {"uv": [0, 0], "uv_size": [0, 8]},
+								"up": {"uv": [16, 0], "uv_size": [-16, 0]},
+								"down": {"uv": [16, 0], "uv_size": [-16, 0]}
+							}
+						}
+					]
+				},
+				{
+					"name": "heifeng202",
+					"parent": "heifeng201",
+					"pivot": [16, 0, -6],
+					"cubes": [
+						{
+							"origin": [16, 0, -6],
+							"size": [16, 8, 0],
+							"uv": {
+								"north": {"uv": [16, 0], "uv_size": [16, 8]},
+								"east": {"uv": [0, 0], "uv_size": [0, 8]},
+								"south": {"uv": [0, 0], "uv_size": [0, 0]},
+								"west": {"uv": [0, 0], "uv_size": [0, 8]},
+								"up": {"uv": [16, 0], "uv_size": [-16, 0]},
+								"down": {"uv": [16, 0], "uv_size": [-16, 0]}
+							}
+						}
+					]
+				},
+				{
+					"name": "heifeng203",
+					"parent": "heifeng202",
+					"pivot": [32, 0, -6],
+					"cubes": [
+						{
+							"origin": [32, 0, -6],
+							"size": [16, 8, 0],
+							"uv": {
+								"north": {"uv": [32, 0], "uv_size": [16, 8]},
+								"east": {"uv": [0, 0], "uv_size": [0, 8]},
+								"south": {"uv": [0, 0], "uv_size": [0, 0]},
+								"west": {"uv": [0, 0], "uv_size": [0, 8]},
+								"up": {"uv": [16, 0], "uv_size": [-16, 0]},
+								"down": {"uv": [16, 0], "uv_size": [-16, 0]}
+							}
+						}
+					]
+				},
+				{
+					"name": "heifeng204",
+					"parent": "heifeng203",
+					"pivot": [48, 0, -6],
+					"cubes": [
+						{
+							"origin": [48, 0, -6],
+							"size": [16, 8, 0],
+							"uv": {
+								"north": {"uv": [48, 0], "uv_size": [16, 8]},
+								"east": {"uv": [0, 0], "uv_size": [0, 8]},
+								"south": {"uv": [0, 0], "uv_size": [0, 0]},
+								"west": {"uv": [0, 0], "uv_size": [0, 8]},
+								"up": {"uv": [16, 0], "uv_size": [-16, 0]},
+								"down": {"uv": [16, 0], "uv_size": [-16, 0]}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

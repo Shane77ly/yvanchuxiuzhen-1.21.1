@@ -1,8 +1,10 @@
 package net.yvanchuxiuzhen.system.skill.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import java.util.function.Supplier;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -10,6 +12,9 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
+import net.yvanchuxiuzhen.system.skill.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
+import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
 import net.yvanchuxiuzhen.system.skill.network.SkillActionPayload;
 import net.yvanchuxiuzhen.system.skill.projectile.ElementProjectiles;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
@@ -38,10 +43,16 @@ public final class SkillClientSetup {
         event.register(NEXT_PAGE);
     }
 
-    /** 技能弹体按对应物品的图标渲染（来源弹体实现 {@code ItemSupplier}）。 */
+    /** 技能弹体按对应物品的图标渲染（来源弹体实现 {@code ItemSupplier}），技能动画实体用 GeckoLib 渲染（台账中已登记的）。 */
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         for (String id : ElementProjectiles.ids()) {
             event.registerEntityRenderer(SkillSetup.<SkillProjectile>entityType(id).get(), ThrownItemRenderer::new);
+        }
+        for (EntityModelRow row : SkillEntities.models().values()) {
+            Supplier<EntityType<SkillEntity>> type = SkillSetup.<SkillEntity>entityType(row.id());
+            if (type != null) {
+                event.registerEntityRenderer(type.get(), context -> new SkillEntityRenderer(context, row));
+            }
         }
     }
 

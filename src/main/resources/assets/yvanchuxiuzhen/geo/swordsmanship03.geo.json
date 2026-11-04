@@ -1,0 +1,85 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.swordsmanship03",
+				"texture_width": 44,
+				"texture_height": 42,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 4,
+				"visible_bounds_offset": [0, 1, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "jvjian",
+					"parent": "zong",
+					"pivot": [0, -24, 0]
+				},
+				{
+					"name": "jvjian2",
+					"parent": "jvjian",
+					"pivot": [0, 8, 0],
+					"cubes": [
+						{"origin": [-1, 36, -0.5], "size": [2, 1, 1], "pivot": [0, 36.5, 0], "rotation": [-45, 0, 0], "uv": [16, 22]},
+						{"origin": [-1, 8, -3], "size": [2, 22, 6], "uv": [0, 0]},
+						{"origin": [-1, 30, -3], "size": [2, 7, 1], "pivot": [0, 30, -3], "rotation": [-20, 0, 0], "uv": [16, 0]},
+						{"origin": [-1, 30, 2], "size": [2, 7, 1], "pivot": [0, 30, 3], "rotation": [20, 0, 0], "uv": [16, 0]},
+						{"origin": [-1, 30, -2], "size": [2, 2, 4], "inflate": 0.05, "uv": [16, 8]},
+						{"origin": [-1, 32, -1.5], "size": [2, 2, 3], "inflate": 0.05, "uv": [16, 14]},
+						{"origin": [-1, 34, -0.5], "size": [2, 2, 1], "inflate": 0.05, "uv": [16, 19]}
+					]
+				},
+				{
+					"name": "feng1",
+					"parent": "jvjian2",
+					"pivot": [0, 37, 0],
+					"cubes": [
+						{"origin": [0, 29, 0], "size": [0, 8, 22], "uv": [0, 6]}
+					]
+				},
+				{
+					"name": "feng2",
+					"parent": "jvjian2",
+					"pivot": [0, 27, 3],
+					"cubes": [
+						{"origin": [0, 21, 3], "size": [0, 6, 16], "uv": [0, 20]}
+					]
+				},
+				{
+					"name": "feng3",
+					"parent": "jvjian2",
+					"pivot": [0, 18, 3],
+					"cubes": [
+						{"origin": [0, 13, 3], "size": [0, 5, 11], "uv": [22, -11]}
+					]
+				},
+				{
+					"name": "baozhazong",
+					"parent": "zong",
+					"pivot": [0, -24, 0]
+				},
+				{
+					"name": "bao1",
+					"parent": "baozhazong",
+					"pivot": [0, -23, 0],
+					"cubes": [
+						{"origin": [-4.5, -23, -4.5], "size": [9, 0, 9], "uv": [13, 19]}
+					]
+				},
+				{
+					"name": "bao2",
+					"parent": "baozhazong",
+					"pivot": [0, -23, 0],
+					"cubes": [
+						{"origin": [-4.5, -23, -4.5], "size": [9, 0, 9], "uv": [13, 19]}
+					]
+				}
+			]
+		}
+	]
+}

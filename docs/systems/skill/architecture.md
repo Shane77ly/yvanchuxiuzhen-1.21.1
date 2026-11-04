@@ -38,7 +38,7 @@ updated: 2026-11-01
 | --- | --- | --- |
 | 1 框架 | 技能书、技能栏与选择、施放与冷却、命令、藏宝与附赠、霸体与禁施 | 完成 |
 | 2 弹体技能 | 弹体实体基础（`SkillProjectile`、`ProjectileSkill`）与 14 个元素弹体技能（金芒术、水球术、水灵弹、冰锥术、破碎冰矛、飞羽冰花、拈花飞叶、风弹术、火球术、光弹术、定魄神光、幻光术、飞石术及生命感知；水系小水弹 `Water0101` 待调用者）；`SkillGold03`（依赖动画实体）归阶段 3；10 种技能箭、箭种选择、`Lingwentexiao` 待做 | 进行中：元素弹体完成 |
-| 3 实体技能 | 12 系的动画实体技能（水冰木风火雷光土阴金）与各自的施放过程 | 未开始 |
+| 3 实体技能 | 35 个动画实体（`SkillEntity` 通用模板 + 按实体登记的行为）与 12 系的施放过程 | 进行中：基础与火系（大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷）完成；火鸟术（可驯服 AI 实体）、水、冰、木、风、雷、光、土、阴、金、剑法待做 |
 | 4 身法、轻功、武器技 | 按键输入（W、S、A、D、空格、F）、身法与轻功的刻推进、剑法、`Effect035` 禁空 | 未开始 |
 | 5 界面与表现 | 技能界面（四技能按钮、翻页、箭种轮盘）、冷却与格挡 HUD、技能界面六个功能按钮（扫描、丹火、妖化、虚空、自爆、出窍）、格挡实体、粒子 | 未开始 |
 
@@ -65,4 +65,12 @@ updated: 2026-11-01
 - 敌友的判定方总是发射者（`Friendpanding*` 六个变体只是参数次序）；伤害经 combat 的 `SpellDamage`。
 - Q40 记录拈花飞叶的取值键错误等；飞羽冰花沿侧向圆弧飞行（每刻转 20 度，计时每刻加两次），正前方的目标打不到。
 - 自定义粒子（`SMALLEXPLOSION*`、`FLASH_ICE`、`SMOKELIGHTGRAY`、`SKILL_GOLD_0101`、`PEACHFLOWERLIZI`）随 particle 迁移，弹体只保留原版粒子。
+
+阶段 3 的实现要点（2026-11-04 起）：
+
+- 35 个动画实体除 `SkillFire06`（火鸟）与 `Skillyin01`（起尸，两者继承 `TamableAnimal` 带 AI 目标）外共用 `SkillEntity`（`PathfinderMob` + GeckoLib）。表现与属性由 `tools/porting/extract_entity_models.py` 从来源的 Model、Layer、Renderer 与实体类提取为 `content/skill/entity_models.json`（几何、动画、头部骨骼、发光层、阴影、默认与离地循环动画、动画清单、五项属性、是否无 AI），并维护 `system_assets.csv` 的 skill 行；实体行为按实体 ID 登记在 `SkillEntities`（`EntitySkill`：刻、初始生成、被杀、受伤），内容表只登记台账已迁移的实体。
+- 来源放在 `getPersistentData` 的施放信息（`AttackUUID`、`AttackDamage`、`Damage_multiplier`、`damagetype`、`jinengName`）改为字段，随存档；各技能私有的计数（`tick`、`tick2`、`kaishi` 等）仍用 `getPersistentData`，与来源一致。实体继承施放者的团队与友方集合，敌友的判定方是实体自己（`EtoE(entity, 其他)`）或施放者（施放过程内）。
+- 过程动画 `setAnimation(名)` 用 GeckoLib 的触发动画（`procedure` 控制器，登记动画文件中的全部名字），播放一次后回到默认循环；纹理名同步给客户端（默认透明的 `kong`），发光层以 `RenderType.eyes` 重画同一几何。
+- 伤害经 `SpellDamage.dealRounded`（来源把攻击量与倍率经 `DecimalFormat("0")` 取整）；来源拼出命令字符串的调用，经 `SpellDamage.command` 复现同样的解析（Q41）。
+- 火系：`FireEntities`（大火球、火焰漩涡、火龙卷的实体刻过程，引火、控火术、火焰护盾的施放过程）。
 

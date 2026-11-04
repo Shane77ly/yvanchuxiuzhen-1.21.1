@@ -12,5 +12,8 @@
 {"id":"projectile_skill_water_0101","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},
 {"id":"projectile_skill_water_03","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},
 {"id":"projectile_skill_water_05","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},
-{"id":"projectile_skillwind_01","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false}
+{"id":"projectile_skillwind_01","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},
+{"id":"skill_fire_02","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true},
+{"id":"skill_fire_07","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true},
+{"id":"skill_fire_08","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true}
 ]

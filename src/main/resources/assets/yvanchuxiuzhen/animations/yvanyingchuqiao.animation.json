@@ -1,0 +1,81 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.yvanyingchuqiao.idle": {
+			"loop": true,
+			"animation_length": 0.12,
+			"bones": {
+				"zong": {
+					"position": {
+						"vector": [0, -11, 0]
+					}
+				},
+				"rightarmup": {
+					"rotation": {
+						"vector": [-35, 25, 2.5]
+					},
+					"position": {
+						"vector": [0, -1, 0]
+					}
+				},
+				"rightarmdown": {
+					"rotation": {
+						"vector": [-25, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"leftarmup": {
+					"rotation": {
+						"vector": [-35, -25, -2.5]
+					},
+					"position": {
+						"vector": [0, -1, 0]
+					}
+				},
+				"leftarmdown": {
+					"rotation": {
+						"vector": [-25, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"rightlegup": {
+					"rotation": {
+						"vector": [-90, 60, 0]
+					},
+					"position": {
+						"vector": [0, 1, -2]
+					}
+				},
+				"rightlegdown": {
+					"rotation": {
+						"vector": [1, 0, -145]
+					},
+					"position": {
+						"vector": [1, 1, 0]
+					}
+				},
+				"leftlegup": {
+					"rotation": {
+						"vector": [-90, -60, 0]
+					},
+					"position": {
+						"vector": [0, 1, -2]
+					}
+				},
+				"leftlegdown": {
+					"rotation": {
+						"vector": [1, 0, 145]
+					},
+					"position": {
+						"vector": [-1, 1, 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

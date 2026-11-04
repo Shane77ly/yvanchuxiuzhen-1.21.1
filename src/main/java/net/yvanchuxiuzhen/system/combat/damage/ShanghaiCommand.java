@@ -5,6 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import java.util.UUID;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.common.NeoForge;
@@ -35,7 +36,16 @@ public final class ShanghaiCommand {
         if (!(entity instanceof LivingEntity target)) {
             return 0;
         }
-        String[] words = context.getInput().trim().split("\\s+");
+        execute(context.getSource().getLevel(), target, context.getInput());
+        return 0;
+    }
+
+    /**
+     * 按命令行文字（含命令名在内的完整输入）结算一次伤害。来源里别的系统用字符串拼出命令再执行，拼接的某一项为空时空白合并，
+     * 后面的参数整体前移；其他系统用这个入口复现同样的解析，见 {@code SpellDamage.command}。
+     */
+    public static void execute(ServerLevel level, LivingEntity target, String input) {
+        String[] words = input.trim().split("\\s+");
         String attackerWord = word(words, 2);
         UUID attacker = null;
         if (!(attackerWord.equals("无") || attackerWord.equals("wu") || attackerWord.equals("no") || attackerWord.equals("false"))) {
@@ -43,12 +53,11 @@ public final class ShanghaiCommand {
                 attacker = UUID.fromString(attackerWord);
             } catch (IllegalArgumentException exception) {
                 // 来源按这个字符串查不到实体，随后对空来源取数据而抛出异常，命令失败，没有伤害。
-                return 0;
+                return;
             }
         }
-        Shanghai.deal(context.getSource().getLevel(), target, new Shanghai.Request(
+        Shanghai.deal(level, target, new Shanghai.Request(
                 DamageCategory.byLabel(word(words, 1)), attacker, word(words, 3).equals("true"), number(word(words, 4)), number(word(words, 5))));
-        return 0;
     }
 
     private static String word(String[] words, int index) {

@@ -1,0 +1,116 @@
+"""从 1.18.2 来源提取技能动画实体的模型表现（C skill 阶段 3）。
+
+每个动画实体（MCreator 的 animated entity，GeckoLib 3）由四处生成代码决定表现：
+- `entity/model/<名>Model.java`：几何文件、动画文件、头部骨骼（`getBone`），纹理固定为 `textures/entities/<实体的 TEXTURE 字符串>.png`；
+- `entity/layer/<名>Layer.java`：可选的发光层，用 `RenderType.eyes` 再画一遍同一几何，纹理固定；
+- `client/renderer/<名>Renderer.java`：阴影半径；
+- 动画文件的动画名清单（过程用 `setAnimation(名)` 一次性播放其中之一，目标侧用 GeckoLib 的触发动画，需要事先登记全部名字）；
+- `entity/<名>Entity.java`：默认循环动画（`movementPredicate` 在没有过程动画时播放，取最后一个无条件的）、离地时的循环动画、
+  五项生物属性（移速、生命、护甲、攻击、跟踪范围）、是否无 AI。`Skillyin01` 另有 walk、die、swim、sprint 的条件动画，由 Java 侧单独实现。
+输出 src/main/resources/content/skill/entity_models.json（一行一个实体，键为注册 ID），并重写
+docs/reference/conversion/system_assets.csv 中归 skill 的行：几何、动画，以及纹理（默认纹理 `kong`、发光层纹理、
+技能过程里 `setTexture("…")` 引用到的纹理）。工具可重复运行，输出只取决于来源。
+"""
+from __future__ import annotations
+
+import csv
+import io
+import json
+import re
+
+from build_ledger import NAMESPACE, ROOT
+from convert_content import SOURCES
+
+MOD = 'yvanchuxiuzhen'
+BASE = SOURCES[MOD][0] / f'src/main/java/net/mcreator/{MOD}'
+OUTPUT = ROOT / 'src/main/resources/content/skill/entity_models.json'
+ASSETS = ROOT / 'docs/reference/conversion/system_assets.csv'
+OWNERSHIP = ROOT / 'docs/reference/legacy/inventory/ownership_assignment.csv'
+DEFAULT_TEXTURE = 'kong'
+
+
+def read(path) -> str:
+    return path.read_text(encoding='utf-8-sig') if path.exists() else ''
+
+
+def squash(text: str) -> str:
+    return re.sub(r'\s+', ' ', text)
+
+
+def skill_entities() -> list[str]:
+    with OWNERSHIP.open(encoding='utf-8', newline='') as handle:
+        return [row['element'] for row in csv.DictReader(handle)
+                if row['owner'] == 'skill' and row['type'] == 'animatedentity' and row['source_mod'] == MOD]
+
+
+def registry_ids() -> dict[str, str]:
+    text = read(BASE / 'init/YvanchuxiuzhenModEntities.java')
+    return {cls: path for cls, path in re.findall(r'RegistryObject<EntityType<(\w+)Entity>> \w+ = register\("(\w+)"', text)}
+
+
+def parse(name: str) -> dict:
+    model = read(BASE / f'entity/model/{name}Model.java')
+    layer = read(BASE / f'entity/layer/{name}Layer.java')
+    renderer = read(BASE / f'client/renderer/{name}Renderer.java')
+    entity = read(BASE / f'entity/{name}Entity.java')
+    predicate = re.search(r'PlayState movementPredicate\(.*?\n\t\}\n', entity, re.S)
+    steps = re.findall(r'(?:if \(([^{]*?)\) \{ )?event\.getController\(\)\.setAnimation\(new AnimationBuilder\(\)\.addAnimation\("([\w.]+)", EDefaultLoopTypes\.(\w+)\)\)',
+                       squash(predicate[0]).replace('if (this.animationprocedure.equals("empty")) { ', '')) if predicate else []
+    row: dict = {
+        'geo': re.search(r'geo/([\w]+)\.geo\.json"', model)[1],
+        'animation': re.search(r'animations/([\w]+)\.animation\.json"', model)[1],
+        'shadow': float(re.search(r'shadowRadius = ([\d.]+)f', renderer)[1]),
+    }
+    head = re.search(r'getBone\("(\w+)"\)', model)
+    if head:
+        row['head'] = head[1]
+    glow = re.search(r'textures/entities/(\w+)\.png', layer)
+    if glow:
+        row['glow'] = glow[1]
+    airborne = [animation for condition, animation, _ in steps if condition and '!this.isOnGround()' in condition]
+    base = [(animation, loop) for condition, animation, loop in steps if not condition]
+    if airborne:
+        row['air'] = airborne[0]
+    row['idle'] = base[-1][0]
+    for key, attribute in (('speed', 'MOVEMENT_SPEED'), ('health', 'MAX_HEALTH'), ('armor', 'ARMOR'), ('attack', 'ATTACK_DAMAGE'), ('follow', 'FOLLOW_RANGE')):
+        row[key] = float(re.search(rf'Attributes\.{attribute}, ([\d.]+)', entity)[1])
+    row['no_ai'] = 'setNoAi(true)' in entity
+    file = SOURCES[MOD][0] / f'src/main/resources/assets/{MOD}/animations/{row["animation"]}.animation.json'
+    row['animations'] = sorted(json.loads(file.read_text(encoding='utf-8-sig'))['animations'])
+    return row
+
+
+def referenced_textures() -> set[str]:
+    found = set()
+    for path in (BASE / 'procedures').glob('*.java'):
+        found.update(re.findall(r'setTexture\("([^"]+)"\)', read(path)))
+    return found
+
+
+def main() -> None:
+    ids = registry_ids()
+    rows = {}
+    for name in skill_entities():
+        rows[ids[name]] = parse(name)
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text('[\n' + ',\n'.join(json.dumps({'id': key, **value}, ensure_ascii=False, separators=(',', ':'))
+                                       for key, value in sorted(rows.items())) + '\n]\n', encoding='utf-8', newline='\n')
+    textures = {DEFAULT_TEXTURE} | referenced_textures() | {row['glow'] for row in rows.values() if 'glow' in row}
+    with ASSETS.open(encoding='utf-8', newline='') as handle:
+        kept = [row for row in csv.reader(handle) if row and row[0] != 'skill']
+    kept += [['skill', 'geo', f'{NAMESPACE}:{row["geo"]}'] for row in rows.values()]
+    kept += [['skill', 'animation', f'{NAMESPACE}:{row["animation"]}'] for row in rows.values()]
+    kept += [['skill', 'texture', f'{NAMESPACE}:entities/{texture}'] for texture in sorted(textures)]
+    seen, unique = set(), []
+    for row in kept:
+        if tuple(row) not in seen:
+            seen.add(tuple(row))
+            unique.append(row)
+    out = io.StringIO(newline='')
+    csv.writer(out, lineterminator='\n').writerows(unique)
+    ASSETS.write_text(out.getvalue(), encoding='utf-8', newline='')
+    print('entity_models', len(rows), 'textures', len(textures))
+
+
+if __name__ == '__main__':
+    main()

@@ -1805,22 +1805,22 @@ yvanchuxiuzhen,Skillwind04,potioneffect,~/skill/jineng/windskill,skill,已读,C 
 yvanchuxiuzhen,SkillFire01TouZhiWuFeiXingTick,procedure,~/skill/jineng/fireskill,skill,已读,B1 归属阅读：随 SkillFire01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillFire01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/fireskill,skill,已读,B1 归属阅读：随 SkillFire01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillFire01,rangeditem,~/skill/jineng/fireskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
-yvanchuxiuzhen,SkillFire02DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillFire02,animatedentity,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillFire02shifang,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillFire03,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillFire04,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillFire05,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillFire02DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
+yvanchuxiuzhen,SkillFire02,animatedentity,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
+yvanchuxiuzhen,SkillFire02shifang,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
+yvanchuxiuzhen,SkillFire03,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
+yvanchuxiuzhen,SkillFire04,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
+yvanchuxiuzhen,SkillFire05,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
 yvanchuxiuzhen,SkillFire06DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillFire06DangShiTiBeiShaSiShi,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillFire06,animatedentity,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillFire06shifang,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shujvtongbu,procedure,~/systemset,xiulian,已读,C attribute 归属阅读：PlayerTick 调用，把当前灵力、神识、修为（不超过上限）与灵力、神识上限写入实体 NBT synchronous*；两个来源中没有读取者，写入无效果
-yvanchuxiuzhen,SkillFire07DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillFire07,animatedentity,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillFire08DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillFire08,animatedentity,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillFire07shifang,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillFire07DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
+yvanchuxiuzhen,SkillFire07,animatedentity,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
+yvanchuxiuzhen,SkillFire08DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
+yvanchuxiuzhen,SkillFire08,animatedentity,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
+yvanchuxiuzhen,SkillFire07shifang,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
 yvanchuxiuzhen,SkillThunder08DangShiTiGengXinKeShi,procedure,~/skill/jineng/thunderskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillThunder08,animatedentity,~/skill/jineng/thunderskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillThunder08shifang,procedure,~/skill/jineng/thunderskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）

@@ -1,0 +1,556 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.swordsmanship04.idle": {
+			"loop": true,
+			"bones": {
+				"zong": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.swordsmanship04.skill1": {
+			"animation_length": 0.6,
+			"bones": {
+				"weiliu": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.12": {
+							"vector": [1, 1, 1.5]
+						},
+						"0.24": {
+							"vector": [1, 1, 1.55]
+						},
+						"0.36": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"yvanyan1": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [0, 0, 32]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.12": {
+							"vector": [1.5, 1.5, 1.5]
+						},
+						"0.36": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyan2": {
+					"position": {
+						"0.12": {
+							"vector": [0, 0, 0]
+						},
+						"0.48": {
+							"vector": [0, 0, 32]
+						}
+					},
+					"scale": {
+						"0.12": {
+							"vector": [0, 0, 0]
+						},
+						"0.24": {
+							"vector": [1.5, 1.5, 1.5]
+						},
+						"0.48": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyan3": {
+					"position": {
+						"0.24": {
+							"vector": [0, 0, 0]
+						},
+						"0.6": {
+							"vector": [0, 0, 32]
+						}
+					},
+					"scale": {
+						"0.24": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [1.5, 1.5, 1.5]
+						},
+						"0.6": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyanzong2": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, -16]
+						},
+						"0.6": {
+							"vector": [0, 0, -50]
+						}
+					}
+				},
+				"cijizong": {
+					"rotation": {
+						"vector": [15, 0, 0]
+					},
+					"position": {
+						"vector": [0, 12, 0]
+					}
+				},
+				"cijizong2": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [0, 0, -56],
+							"easing": "easeOutQuad"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.12": {
+							"vector": [1.2, 1.2, 1.2]
+						},
+						"0.24": {
+							"vector": [1, 1, 1]
+						},
+						"0.36": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyanzong": {
+					"rotation": {
+						"vector": [15, 0, 0]
+					},
+					"position": {
+						"vector": [0, 12, 0]
+					}
+				}
+			}
+		},
+		"animation.swordsmanship04.skill2": {
+			"animation_length": 0.6,
+			"bones": {
+				"weiliu": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.12": {
+							"vector": [1, 1, 1.5]
+						},
+						"0.24": {
+							"vector": [1, 1, 1.55]
+						},
+						"0.36": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"yvanyan1": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [0, 0, 32]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.12": {
+							"vector": [1.5, 1.5, 1.5]
+						},
+						"0.36": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyan2": {
+					"position": {
+						"0.12": {
+							"vector": [0, 0, 0]
+						},
+						"0.48": {
+							"vector": [0, 0, 32]
+						}
+					},
+					"scale": {
+						"0.12": {
+							"vector": [0, 0, 0]
+						},
+						"0.24": {
+							"vector": [1.5, 1.5, 1.5]
+						},
+						"0.48": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyan3": {
+					"position": {
+						"0.24": {
+							"vector": [0, 0, 0]
+						},
+						"0.6": {
+							"vector": [0, 0, 32]
+						}
+					},
+					"scale": {
+						"0.24": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [1.5, 1.5, 1.5]
+						},
+						"0.6": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyanzong2": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, -16]
+						},
+						"0.6": {
+							"vector": [0, 0, -50]
+						}
+					}
+				},
+				"cijizong": {
+					"rotation": {
+						"vector": [-15, 0, 0]
+					},
+					"position": {
+						"vector": [0, -12, 0]
+					}
+				},
+				"cijizong2": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [0, 0, -56],
+							"easing": "easeOutQuad"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.12": {
+							"vector": [1.2, 1.2, 1.2]
+						},
+						"0.24": {
+							"vector": [1, 1, 1]
+						},
+						"0.36": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyanzong": {
+					"rotation": {
+						"vector": [-15, 0, 0]
+					},
+					"position": {
+						"vector": [0, -12, 0]
+					}
+				}
+			}
+		},
+		"animation.swordsmanship04.skill3": {
+			"animation_length": 0.6,
+			"bones": {
+				"weiliu": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.12": {
+							"vector": [1, 1, 1.5]
+						},
+						"0.24": {
+							"vector": [1, 1, 1.55]
+						},
+						"0.36": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"yvanyan1": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [0, 0, 32]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.12": {
+							"vector": [1.5, 1.5, 1.5]
+						},
+						"0.36": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyan2": {
+					"position": {
+						"0.12": {
+							"vector": [0, 0, 0]
+						},
+						"0.48": {
+							"vector": [0, 0, 32]
+						}
+					},
+					"scale": {
+						"0.12": {
+							"vector": [0, 0, 0]
+						},
+						"0.24": {
+							"vector": [1.5, 1.5, 1.5]
+						},
+						"0.48": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyan3": {
+					"position": {
+						"0.24": {
+							"vector": [0, 0, 0]
+						},
+						"0.6": {
+							"vector": [0, 0, 32]
+						}
+					},
+					"scale": {
+						"0.24": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [1.5, 1.5, 1.5]
+						},
+						"0.6": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyanzong2": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, -16]
+						},
+						"0.6": {
+							"vector": [0, 0, -50]
+						}
+					}
+				},
+				"cijizong": {
+					"rotation": {
+						"vector": [0, -15, 0]
+					},
+					"position": {
+						"vector": [-12, 0, 0]
+					}
+				},
+				"cijizong2": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [0, 0, -56],
+							"easing": "easeOutQuad"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.12": {
+							"vector": [1.2, 1.2, 1.2]
+						},
+						"0.24": {
+							"vector": [1, 1, 1]
+						},
+						"0.36": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyanzong": {
+					"rotation": {
+						"vector": [0, -15, 0]
+					},
+					"position": {
+						"vector": [-12, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.swordsmanship04.skill4": {
+			"animation_length": 0.6,
+			"bones": {
+				"weiliu": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.12": {
+							"vector": [1, 1, 1.5]
+						},
+						"0.24": {
+							"vector": [1, 1, 1.55]
+						},
+						"0.36": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"yvanyan1": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [0, 0, 32]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.12": {
+							"vector": [1.5, 1.5, 1.5]
+						},
+						"0.36": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyan2": {
+					"position": {
+						"0.12": {
+							"vector": [0, 0, 0]
+						},
+						"0.48": {
+							"vector": [0, 0, 32]
+						}
+					},
+					"scale": {
+						"0.12": {
+							"vector": [0, 0, 0]
+						},
+						"0.24": {
+							"vector": [1.5, 1.5, 1.5]
+						},
+						"0.48": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyan3": {
+					"position": {
+						"0.24": {
+							"vector": [0, 0, 0]
+						},
+						"0.6": {
+							"vector": [0, 0, 32]
+						}
+					},
+					"scale": {
+						"0.24": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [1.5, 1.5, 1.5]
+						},
+						"0.6": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyanzong2": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, -16]
+						},
+						"0.6": {
+							"vector": [0, 0, -50]
+						}
+					}
+				},
+				"cijizong": {
+					"rotation": {
+						"vector": [0, 15, 0]
+					},
+					"position": {
+						"vector": [12, 0, 0]
+					}
+				},
+				"cijizong2": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [0, 0, -56],
+							"easing": "easeOutQuad"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.12": {
+							"vector": [1.2, 1.2, 1.2]
+						},
+						"0.24": {
+							"vector": [1, 1, 1]
+						},
+						"0.36": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"yvanyanzong": {
+					"rotation": {
+						"vector": [0, 15, 0]
+					},
+					"position": {
+						"vector": [12, 0, 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

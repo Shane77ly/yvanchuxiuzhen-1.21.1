@@ -18,6 +18,7 @@ import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStudiedEvent;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 import net.yvanchuxiuzhen.system.skill.effect.SkillEffects;
+import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.skill.projectile.ElementProjectiles;
 import net.yvanchuxiuzhen.system.skill.network.SkillActionPayload;
 
@@ -39,6 +40,7 @@ public final class SkillSetup {
     public static void register(IEventBus modBus) {
         SkillEffects.register(CONTENT);
         ElementProjectiles.register(CONTENT);
+        SkillEntities.register(CONTENT);
         CONTENT.register(modBus);
         SkillData.register(modBus);
         modBus.addListener(SkillSetup::registerPayloads);
