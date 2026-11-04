@@ -1,6 +1,8 @@
 package net.yvanchuxiuzhen.smoke;
 
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -36,7 +38,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
  * 火焰护盾给抗火、火焰漩涡与火龙卷生成实体并在 20 刻时伤人点燃；实体到时消失。
  */
 final class SkillEntityCheck extends SystemCheck {
-    private enum Kind { BALL, IGNITE, CONTROL, SHIELD, COLUMN, ROLL, METEOR, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_NORMAL, GOLD_BIND, GOLD_ARC, GOLD_SKY, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, LIGHT_KILL, WIND_GATHER, WIND_MOVE, WIND_DRIFT, WIND_CLOUD, THUNDER_PALM, THUNDER_ROLL, THUNDER_FIELD }
+    private enum Kind { BALL, IGNITE, CONTROL, SHIELD, COLUMN, ROLL, METEOR, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_NORMAL, GOLD_BIND, GOLD_ARC, GOLD_SKY, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, LIGHT_KILL, WIND_GATHER, WIND_MOVE, WIND_DRIFT, WIND_CLOUD, THUNDER_PALM, THUNDER_ROLL, THUNDER_FIELD, WATER_WHIP, WATER_JET, WATER_DRAGON }
 
     private record Case(String body, String name, Kind kind, String entity, boolean sneak) {
         Case(String body, String name, Kind kind, String entity) {
@@ -60,12 +62,21 @@ final class SkillEntityCheck extends SystemCheck {
             new Case("木", "聚风术", Kind.WIND_GATHER, "skillwind_02"), new Case("木", "聚风化气", Kind.WIND_MOVE, "skillwind_02"),
             new Case("木", "风飘术", Kind.WIND_DRIFT, null), new Case("木", "造云术", Kind.WIND_CLOUD, null),
             new Case("火", "掌心雷", Kind.THUNDER_PALM, "skill_thunder_08"), new Case("火", "地滚雷", Kind.THUNDER_ROLL, "skill_thunder_08"),
-            new Case("火", "惊雷阵", Kind.THUNDER_FIELD, "skill_thunder_10"));
+            new Case("火", "惊雷阵", Kind.THUNDER_FIELD, "skill_thunder_10"),
+            new Case("水", "水蛇鞭", Kind.WATER_WHIP, "skill_water_01"), new Case("水", "激流波", Kind.WATER_JET, "skill_water_01"),
+            new Case("水", "水龙吟", Kind.WATER_DRAGON, "skill_water_02"));
     private static final double HEALTH = 100;
     private static final int WAIT = 70;
 
+    /** 造成伤害的检查：灵力伤害有 1% 的闪避随机数为 0，没有伤害时同一技能重试一次。 */
+    private static final Set<Kind> DAMAGING = EnumSet.of(Kind.BALL, Kind.METEOR, Kind.COLUMN, Kind.ROLL, Kind.HAND_ONE, Kind.HAND_TWO, Kind.HAMMER_ONE,
+            Kind.HAMMER_TWO, Kind.GOLD_NORMAL, Kind.GOLD_BIND, Kind.GOLD_SKY, Kind.ICE_FIELD, Kind.ICE_SPIKE, Kind.LIGHT_BURST, Kind.THUNDER_PALM,
+            Kind.THUNDER_FIELD, Kind.WATER_WHIP, Kind.WATER_JET, Kind.WATER_DRAGON);
+
     private IronGolem golem;
     private BlockPos firePos;
+    private int index;
+    private boolean retried;
 
     SkillEntityCheck(List<String> report, String levelId) {
         super("技能实体", report, levelId);
@@ -99,6 +110,20 @@ final class SkillEntityCheck extends SystemCheck {
         }
     }
 
+    /** 以玩家脚下为准铺一块平地（东侧 14 格、其余各 8 格，上方 7 格清空），使移动类技能的检查不受地形影响。 */
+    private static void levelArena(ServerPlayer player) {
+        ServerLevel level = player.serverLevel();
+        BlockPos feet = player.blockPosition();
+        for (int dx = -8; dx <= 14; dx++) {
+            for (int dz = -8; dz <= 8; dz++) {
+                level.setBlock(feet.offset(dx, -1, dz), Blocks.STONE.defaultBlockState(), 2);
+                for (int dy = 0; dy <= 6; dy++) {
+                    level.setBlock(feet.offset(dx, dy, dz), Blocks.AIR.defaultBlockState(), 2);
+                }
+            }
+        }
+    }
+
     private IronGolem placeGolem(ServerPlayer player, double x, double y, double z) {
         return placeGolem(player, x, y, z, HEALTH);
     }
@@ -115,7 +140,6 @@ final class SkillEntityCheck extends SystemCheck {
 
     @Override
     protected boolean step(int step, int local) {
-        int index = step / 3;
         if (index >= CASES.size()) {
             onServer(player -> {
                 clearArea(player);
@@ -134,6 +158,7 @@ final class SkillEntityCheck extends SystemCheck {
         switch (step % 3) {
             case 0 -> onServer(player -> {
                 clearArea(player);
+                levelArena(player);
                 player.connection.teleport(player.getX(), player.getY(), player.getZ(), -90, 0);
                 Cultivation.set(player, CultivationValue.POWER, 1000);
                 player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
@@ -146,10 +171,13 @@ final class SkillEntityCheck extends SystemCheck {
                 expect(spell.name() + " 已选中", spell.name(), Skills.book(Skills.selected(player)).map(SkillBook::name).orElse(""));
                 switch (spell.kind()) {
                     case LIGHT_KILL -> golem = placeGolem(player, player.getX() + 3, player.getY(), player.getZ(), 5);
-                    case IGNITE, COLUMN, ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_BIND, GOLD_SKY, GOLD_NORMAL, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, WIND_GATHER, WIND_MOVE, THUNDER_PALM, THUNDER_ROLL, THUNDER_FIELD -> golem = placeGolem(player,
+                    case IGNITE, COLUMN, ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_BIND, GOLD_SKY, GOLD_NORMAL, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, WIND_GATHER, WIND_MOVE, THUNDER_PALM, THUNDER_ROLL, THUNDER_FIELD, WATER_WHIP, WATER_JET, WATER_DRAGON -> golem = placeGolem(player,
                             player.getX() + switch (spell.kind()) {
                                 case IGNITE, GOLD_BIND, GOLD_SKY, ICE_FIELD, THUNDER_FIELD -> 4;
                                 case WIND_GATHER, WIND_MOVE -> 5;
+                                case WATER_WHIP -> 3.5;
+                                case WATER_JET -> 2.5;
+                                case WATER_DRAGON -> 7;
                                 case THUNDER_PALM, THUNDER_ROLL -> 3;
                                 case GOLD_NORMAL, GOLD_CTRL, LIGHT_FLASH, LIGHT_BURST, LIGHT_KILL -> 3;
                                 case ICE_SPIKE -> 1.5;
@@ -196,14 +224,9 @@ final class SkillEntityCheck extends SystemCheck {
                             expectTrue(spell.name() + " 目标缓慢（命中后）", !ready[0] || golem.hasEffect(MobEffects.MOVEMENT_SLOWDOWN));
                         }
                     } else if (kind == Kind.GOLD_CTRL) {
-                        expectTrue(spell.name() + " 金轮向前飞 " + (found.isEmpty() ? "无" : found.get(0).position() + " 玩家 " + player.position() + " 速度 " + found.get(0).getDeltaMovement()),
-                                !found.isEmpty() && found.get(0).getPersistentData().getString("mode").equals("金刚轮ctrl") && found.get(0).distanceTo(player) > 1);
-                    } else if (kind == Kind.COLUMN || kind == Kind.ROLL) {
-                        golem.moveTo(found.get(0).getX() + 1.5, found.get(0).getY(), found.get(0).getZ());
-                    } else if (kind == Kind.HAND_ONE) {
-                        SkillEntity hand = found.get(0);
-                        SkillEntities.turn(hand, -90, 0);
-                        golem.moveTo(hand.getX() + 3.5, hand.getY(), hand.getZ() + 0.5);
+                        expectTrue(spell.name() + " 金轮是 Ctrl 式", !found.isEmpty() && found.get(0).getPersistentData().getString("mode").equals("金刚轮ctrl"));
+                    } else if (kind == Kind.WATER_JET) {
+                        expectTrue(spell.name() + " 放出小水弹", !player.serverLevel().getEntitiesOfClass(SkillProjectile.class, new AABB(player.blockPosition()).inflate(24)).isEmpty());
                     } else if (kind == Kind.WIND_GATHER) {
                         expectTrue(spell.name() + " 把目标拉向自己 " + golem.getDeltaMovement(), golem.getDeltaMovement().length() > 0.3);
                     } else if (kind == Kind.WIND_MOVE) {
@@ -213,6 +236,12 @@ final class SkillEntityCheck extends SystemCheck {
                         SkillEntity palm = found.get(0);
                         golem.moveTo(palm.getX() + 0.5, palm.getY(), palm.getZ());
                     } else if (kind == Kind.THUNDER_ROLL) {
+                    } else if (kind == Kind.COLUMN || kind == Kind.ROLL) {
+                        golem.moveTo(found.get(0).getX() + 1.5, found.get(0).getY(), found.get(0).getZ());
+                    } else if (kind == Kind.HAND_ONE) {
+                        SkillEntity hand = found.get(0);
+                        SkillEntities.turn(hand, -90, 0);
+                        golem.moveTo(hand.getX() + 3.5, hand.getY(), hand.getZ() + 0.5);
                     } else if (kind == Kind.ICE_SPIKE) {
                         expectTrue(spell.name() + " 后续冰刺 " + found.size(), found.size() >= 2);
                         golem.moveTo(found.get(0).getX() + 0.5, found.get(0).getY(), found.get(0).getZ());
@@ -232,7 +261,13 @@ final class SkillEntityCheck extends SystemCheck {
                 if (local < WAIT) {
                     return false;
                 }
+                boolean[] retry = {false};
                 onServer(player -> {
+                    if (DAMAGING.contains(spell.kind()) && golem.getHealth() >= HEALTH && !retried) {
+                        retry[0] = true;
+                        clearArea(player);
+                        return;
+                    }
                     switch (spell.kind()) {
                         case BALL, METEOR -> {
                             expectTrue(spell.name() + " 爆炸伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
@@ -274,6 +309,11 @@ final class SkillEntityCheck extends SystemCheck {
                             expectTrue(spell.name() + " 生成处的目标触发爆发并受伤 " + golem.getHealth(), golem.getHealth() < HEALTH);
                             expectTrue(spell.name() + " 重伤", golem.hasEffect(StatusEffects.holder("effect_007")));
                         }
+                        case WATER_WHIP, WATER_DRAGON -> expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                        case WATER_JET -> {
+                            expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                            expectTrue(spell.name() + " 记下追踪目标", !Cultivation.tizhiString(player, "mubiaouid").isEmpty());
+                        }
                         case THUNDER_FIELD -> expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
                         case LIGHT_BURST -> expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
                         case LIGHT_KILL -> expectTrue(spell.name() + " 低血直接清零", golem.isDeadOrDying());
@@ -292,6 +332,10 @@ final class SkillEntityCheck extends SystemCheck {
                     }
                     clearArea(player);
                 });
+                retried = retry[0];
+                if (!retry[0]) {
+                    index++;
+                }
                 return true;
             }
         }

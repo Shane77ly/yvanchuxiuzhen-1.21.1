@@ -1739,12 +1739,12 @@ yvanchuxiuzhen,Jinenglist01,procedure,~/skill/jineng,skill,已读,C skill 归属
 yvanchuxiuzhen,SkillGold03TouZhiWuFeiXingTick,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillGold03DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillGold03,rangeditem,~/skill/jineng/goldskill,skill,已读,C skill 归属阅读：金系的金轮实体（八种模式）与金刚轮施放，金轮弹体的捆妖轮、金弧轮、天堑金轮；金轮跟随的对象是施放者或弹体或被捆的目标；Alt 式的牵引范围按来源公式逐步缩小
-yvanchuxiuzhen,SkillWater01DangShiTiGengXinKeShi,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater01,animatedentity,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater01shifang,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater02DangShiTiGengXinKeShi,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater02,animatedentity,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillWater02shifang,procedure,~/skill/jineng/waterskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillWater01DangShiTiGengXinKeShi,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系实体技能水蛇鞭、水连鞭、激流波（鞭影实体按潜行、Ctrl、Alt 分式，激流波另放九枚小水弹并记录追踪目标）与水龙吟；施放过程里的延时放弹经 SkillDelays
+yvanchuxiuzhen,SkillWater01,animatedentity,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系实体技能水蛇鞭、水连鞭、激流波（鞭影实体按潜行、Ctrl、Alt 分式，激流波另放九枚小水弹并记录追踪目标）与水龙吟；施放过程里的延时放弹经 SkillDelays
+yvanchuxiuzhen,SkillWater01shifang,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系实体技能水蛇鞭、水连鞭、激流波（鞭影实体按潜行、Ctrl、Alt 分式，激流波另放九枚小水弹并记录追踪目标）与水龙吟；施放过程里的延时放弹经 SkillDelays
+yvanchuxiuzhen,SkillWater02DangShiTiGengXinKeShi,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系实体技能水蛇鞭、水连鞭、激流波（鞭影实体按潜行、Ctrl、Alt 分式，激流波另放九枚小水弹并记录追踪目标）与水龙吟；施放过程里的延时放弹经 SkillDelays
+yvanchuxiuzhen,SkillWater02,animatedentity,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系实体技能水蛇鞭、水连鞭、激流波（鞭影实体按潜行、Ctrl、Alt 分式，激流波另放九枚小水弹并记录追踪目标）与水龙吟；施放过程里的延时放弹经 SkillDelays
+yvanchuxiuzhen,SkillWater02shifang,procedure,~/skill/jineng/waterskill,skill,已读,C skill 归属阅读：水系实体技能水蛇鞭、水连鞭、激流波（鞭影实体按潜行、Ctrl、Alt 分式，激流波另放九枚小水弹并记录追踪目标）与水龙吟；施放过程里的延时放弹经 SkillDelays
 yvanchuxiuzhen,SkillWater03TouZhiWuFeiXingTick,procedure,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：随 SkillWater03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillWater03DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：随 SkillWater03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillWater03,rangeditem,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品

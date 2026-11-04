@@ -45,6 +45,7 @@ public final class SkillSetup {
         SkillData.register(modBus);
         modBus.addListener(SkillSetup::registerPayloads);
         SkillCommands.register();
+        SkillDelays.register();
         NeoForge.EVENT_BUS.addListener(SkillSetup::onRightClickItem);
         NeoForge.EVENT_BUS.addListener(SkillSetup::onPlayerTick);
         NeoForge.EVENT_BUS.addListener((TechniqueStudiedEvent event) -> grantBonus(event.player(), event.technique()));

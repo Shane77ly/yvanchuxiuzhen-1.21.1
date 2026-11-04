@@ -45,6 +45,7 @@ TURN = re.compile(r'\{\s*Entity _ent = (\w+);\s*_ent\.setYRot\((.*?)\);\s*_ent\.
 AREA = re.compile(r'List<Entity> _entfound = world\.getEntitiesOfClass\(Entity\.class, new AABB\(_center, _center\)\.inflate\((.*?)\), e -> true\)\.stream\(\)\.sorted\(.*?\)\s*\.collect\(Collectors\.toList\(\)\);', re.S)
 CMD = re.compile(r'\{\s*Entity _ent = (\w+);\s*if \(!_ent\.level\.isClientSide\(\) && _ent\.getServer\(\) != null\)\s*_ent\.getServer\(\)\.getCommands\(\)\.performCommand\(_ent\.createCommandSourceStack\(\)\.withSuppressedOutput\(\)\.withPermission\(4\),\s*\((.*?)\)\);\s*\}', re.S)
 FRIENDS = re.compile(r'if \((\w+) instanceof Player\) \{\s*friendlistitem = \1\.PV\.friendlist\);\s*friendlist = \(friendlistitem\.getOrCreateTag\(\)\)\.getCompound\("friendlist"\);\s*team = \1\.PV\.team;\s*\} else \{\s*friendlist = \(\1\.getPersistentData\(\)\)\.getCompound\("friendlist"\);\s*team = \1\.getPersistentData\(\)\.getString\("team"\);\s*\}', re.S)
+DELAY = re.compile(r'new Object\(\) \{\s*private int ticks = 0;.*?private void run\(\) \{(.*?)MinecraftForge\.EVENT_BUS\.unregister\(this\);\s*\}\s*\}\.start\(world, (\d+)\);', re.S)
 ARROW = re.compile(r'new Object\(\) \{\s*public Projectile getArrow\([^)]*\) \{\s*AbstractArrow entityToSpawn = new (\w+)\([^;]*;(?:.*?)return entityToSpawn;\s*\}\s*\}\.getArrow\(', re.S)
 
 
@@ -92,6 +93,7 @@ def condense(text: str) -> str:
     text = AREA.sub(lambda m: f'_entfound = AREA(_center, r={m[1]});', text)
     text = CMD.sub(lambda m: f'CMD({m[1]}: {re.sub(chr(10) + " *", " ", m[2])});', text)
     text = FRIENDS.sub(lambda m: f'FRIENDS-AND-TEAM({m[1]}) -> friendlist, team;', text)
+    text = DELAY.sub(lambda m: f'DELAY({m[2]}) {{{m[1]}}};', text)
     text = ARROW.sub(lambda m: f'ARROW({m[1]})(', text)
     text = text.replace('.getPersistentData()', '.PD').replace('(entity.PD)', 'entity.PD')
     text = re.sub(r'new java\.text\.DecimalFormat\("0"\)\.format\(([^()]*(?:\([^()]*\))?[^()]*)\)', r'fmt0(\1)', text)
