@@ -35,7 +35,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
  * 火焰护盾给抗火、火焰漩涡与火龙卷生成实体并在 20 刻时伤人点燃；实体到时消失。
  */
 final class SkillEntityCheck extends SystemCheck {
-    private enum Kind { BALL, IGNITE, CONTROL, SHIELD, COLUMN, ROLL, METEOR, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_NORMAL, GOLD_BIND, GOLD_ARC, GOLD_SKY, GOLD_CTRL }
+    private enum Kind { BALL, IGNITE, CONTROL, SHIELD, COLUMN, ROLL, METEOR, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_NORMAL, GOLD_BIND, GOLD_ARC, GOLD_SKY, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST, LIGHT_KILL }
 
     private record Case(String body, String name, Kind kind, String entity, boolean sneak) {
         Case(String body, String name, Kind kind, String entity) {
@@ -52,7 +52,10 @@ final class SkillEntityCheck extends SystemCheck {
             new Case("土", "巨石锤", Kind.HAMMER_ONE, "skill_rock_05"), new Case("土", "巨石锤", Kind.HAMMER_TWO, "skill_rock_05", true),
             new Case("金", "金刚轮", Kind.GOLD_NORMAL, "skill_gold_0201"), new Case("金", "捆妖轮", Kind.GOLD_BIND, null),
             new Case("金", "金弧轮", Kind.GOLD_ARC, null), new Case("金", "天堑金轮", Kind.GOLD_SKY, null),
-            new Case("金", "金刚轮", Kind.GOLD_CTRL, "skill_gold_0201"));
+            new Case("金", "金刚轮", Kind.GOLD_CTRL, "skill_gold_0201"),
+            new Case("水", "冰天雪地", Kind.ICE_FIELD, "skill_ice_04"), new Case("水", "裂冰斩", Kind.ICE_SPIKE, "skill_ice_05"),
+            new Case("火", "闪光术", Kind.LIGHT_FLASH, "skill_light_03"), new Case("火", "万丈光芒", Kind.LIGHT_BURST, "skill_light_03"),
+            new Case("火", "万丈光芒", Kind.LIGHT_KILL, "skill_light_03"));
     private static final double HEALTH = 100;
     private static final int WAIT = 70;
 
@@ -67,6 +70,7 @@ final class SkillEntityCheck extends SystemCheck {
         String cooldowns = switch (spell.body()) {
             case "土" -> "0 0 0 0 1 0 0 0 0 0 100 0";
             case "金" -> "1 0 0 0 0 0 100 0 0 0 0 0";
+            case "水" -> "0 1 0 0 0 0 0 100 0 0 0 0";
             default -> "0 0 0 1 0 0 0 0 0 100 0 0";
         };
         String arguments = "yvanchuxiuzhen:book_003 " + spell.name() + " 1 1 " + spell.body() + " x 无 3 1 0 0 " + cooldowns;
@@ -90,11 +94,15 @@ final class SkillEntityCheck extends SystemCheck {
     }
 
     private IronGolem placeGolem(ServerPlayer player, double x, double y, double z) {
+        return placeGolem(player, x, y, z, HEALTH);
+    }
+
+    private IronGolem placeGolem(ServerPlayer player, double x, double y, double z, double health) {
         ServerLevel level = player.serverLevel();
         IronGolem placed = EntityType.IRON_GOLEM.create(level);
         placed.moveTo(x, y, z, 0, 0);
         placed.setNoAi(true);
-        placed.setHealth((float) HEALTH);
+        placed.setHealth((float) health);
         level.addFreshEntity(placed);
         return placed;
     }
@@ -131,11 +139,12 @@ final class SkillEntityCheck extends SystemCheck {
                 SkillSelection.select(player, 1);
                 expect(spell.name() + " 已选中", spell.name(), Skills.book(Skills.selected(player)).map(SkillBook::name).orElse(""));
                 switch (spell.kind()) {
-                    case IGNITE, COLUMN, ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_BIND, GOLD_SKY, GOLD_NORMAL, GOLD_CTRL -> golem = placeGolem(player,
+                    case LIGHT_KILL -> golem = placeGolem(player, player.getX() + 3, player.getY(), player.getZ(), 5);
+                    case IGNITE, COLUMN, ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO, GOLD_BIND, GOLD_SKY, GOLD_NORMAL, GOLD_CTRL, ICE_FIELD, ICE_SPIKE, LIGHT_FLASH, LIGHT_BURST -> golem = placeGolem(player,
                             player.getX() + switch (spell.kind()) {
-                                case IGNITE, GOLD_BIND, GOLD_SKY -> 4;
-                                case GOLD_NORMAL -> 3;
-                                case GOLD_CTRL -> 3;
+                                case IGNITE, GOLD_BIND, GOLD_SKY, ICE_FIELD -> 4;
+                                case GOLD_NORMAL, GOLD_CTRL, LIGHT_FLASH, LIGHT_BURST, LIGHT_KILL -> 3;
+                                case ICE_SPIKE -> 1.5;
                                 default -> 5;
                             }, player.getY(), player.getZ());
                     case CONTROL -> {
@@ -187,6 +196,9 @@ final class SkillEntityCheck extends SystemCheck {
                         SkillEntity hand = found.get(0);
                         SkillEntities.turn(hand, -90, 0);
                         golem.moveTo(hand.getX() + 3.5, hand.getY(), hand.getZ() + 0.5);
+                    } else if (kind == Kind.ICE_SPIKE) {
+                        expectTrue(spell.name() + " 后续冰刺 " + found.size(), found.size() >= 2);
+                        golem.moveTo(found.get(0).getX() + 0.5, found.get(0).getY(), found.get(0).getZ());
                     } else if (kind == Kind.HAMMER_ONE || kind == Kind.HAMMER_TWO) {
                         golem.moveTo(found.get(0).getX() + 1, found.get(0).getY(), found.get(0).getZ());
                     }
@@ -219,6 +231,19 @@ final class SkillEntityCheck extends SystemCheck {
                         case GOLD_NORMAL, GOLD_SKY -> expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
                         case GOLD_BIND -> expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
                         case GOLD_ARC -> expectTrue(spell.name() + " 弹体到时消失", player.serverLevel().getEntitiesOfClass(SkillProjectile.class, new AABB(player.blockPosition()).inflate(64)).isEmpty());
+                        case ICE_FIELD, ICE_SPIKE -> {
+                            expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                            if (spell.kind() == Kind.ICE_SPIKE) {
+                                expectTrue(spell.name() + " 冷冻 " + golem.getTicksFrozen(), golem.getTicksFrozen() > 0);
+                                expectTrue(spell.name() + " 冰刺到时消失", player.serverLevel().getEntitiesOfClass(SkillEntity.class, new AABB(player.blockPosition()).inflate(64)).isEmpty());
+                            }
+                        }
+                        case LIGHT_FLASH -> {
+                            expectTrue(spell.name() + " 致盲", golem.hasEffect(MobEffects.BLINDNESS));
+                            expectTrue(spell.name() + " 到时消失", player.serverLevel().getEntitiesOfClass(SkillEntity.class, new AABB(player.blockPosition()).inflate(64)).isEmpty());
+                        }
+                        case LIGHT_BURST -> expectTrue(spell.name() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
+                        case LIGHT_KILL -> expectTrue(spell.name() + " 低血直接清零", golem.isDeadOrDying());
                         case ROLL, HAND_ONE, HAND_TWO, HAMMER_ONE, HAMMER_TWO -> {
                             expectTrue(spell.name() + " " + spell.kind() + " 伤人 " + golem.getHealth(), golem.getHealth() < HEALTH);
                             if (spell.kind() != Kind.ROLL) {

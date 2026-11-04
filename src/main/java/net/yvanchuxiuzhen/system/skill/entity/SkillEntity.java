@@ -90,7 +90,11 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
 
     /** 记下施放信息：攻击者、攻击量、伤害倍率、伤害类别标签与技能名（来源各 {@code …shifang} 写入的几个键）。 */
     public void configure(Entity attacker, double attackDamage, double multiplier, String damageType, String skillName) {
-        this.attacker = attacker.getUUID();
+        configure(attacker.getUUID(), attackDamage, multiplier, damageType, skillName);
+    }
+
+    public void configure(UUID attacker, double attackDamage, double multiplier, String damageType, String skillName) {
+        this.attacker = attacker;
         this.attackDamage = attackDamage;
         this.multiplier = multiplier;
         this.damageType = damageType;

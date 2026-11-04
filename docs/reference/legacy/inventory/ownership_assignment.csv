@@ -1771,14 +1771,14 @@ yvanchuxiuzhen,SkillIce02,rangeditem,~/skill/jineng/iceskill,skill,已读,B1 归
 yvanchuxiuzhen,SkillIce03TouZhiWuFeiXingTick,procedure,~/skill/jineng/iceskill,skill,已读,B1 归属阅读：随 SkillIce03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillIce03DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/iceskill,skill,已读,B1 归属阅读：随 SkillIce03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillIce03,rangeditem,~/skill/jineng/iceskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
-yvanchuxiuzhen,SkillIce04ShiTiChuShiShengChengShi,procedure,~/skill/jineng/iceskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillIce04DangShiTiGengXinKeShi,procedure,~/skill/jineng/iceskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillIce04,animatedentity,~/skill/jineng/iceskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillIce04shifang,procedure,~/skill/jineng/iceskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillIce05ShiTiChuShiShengChengShi,procedure,~/skill/jineng/iceskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillIce05DangShiTiGengXinKeShi,procedure,~/skill/jineng/iceskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillIce05,animatedentity,~/skill/jineng/iceskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillIce05shifang,procedure,~/skill/jineng/iceskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillIce04ShiTiChuShiShengChengShi,procedure,~/skill/jineng/iceskill,skill,已读,C skill 归属阅读：冰系实体技能冰天雪地、裂冰斩（攻击量与倍率截成整数记在实体上，裂冰斩的攻击量同时是后续冰刺的剩余根数）与光系实体技能闪光术、万丈光芒
+yvanchuxiuzhen,SkillIce04DangShiTiGengXinKeShi,procedure,~/skill/jineng/iceskill,skill,已读,C skill 归属阅读：冰系实体技能冰天雪地、裂冰斩（攻击量与倍率截成整数记在实体上，裂冰斩的攻击量同时是后续冰刺的剩余根数）与光系实体技能闪光术、万丈光芒
+yvanchuxiuzhen,SkillIce04,animatedentity,~/skill/jineng/iceskill,skill,已读,C skill 归属阅读：冰系实体技能冰天雪地、裂冰斩（攻击量与倍率截成整数记在实体上，裂冰斩的攻击量同时是后续冰刺的剩余根数）与光系实体技能闪光术、万丈光芒
+yvanchuxiuzhen,SkillIce04shifang,procedure,~/skill/jineng/iceskill,skill,已读,C skill 归属阅读：冰系实体技能冰天雪地、裂冰斩（攻击量与倍率截成整数记在实体上，裂冰斩的攻击量同时是后续冰刺的剩余根数）与光系实体技能闪光术、万丈光芒
+yvanchuxiuzhen,SkillIce05ShiTiChuShiShengChengShi,procedure,~/skill/jineng/iceskill,skill,已读,C skill 归属阅读：冰系实体技能冰天雪地、裂冰斩（攻击量与倍率截成整数记在实体上，裂冰斩的攻击量同时是后续冰刺的剩余根数）与光系实体技能闪光术、万丈光芒
+yvanchuxiuzhen,SkillIce05DangShiTiGengXinKeShi,procedure,~/skill/jineng/iceskill,skill,已读,C skill 归属阅读：冰系实体技能冰天雪地、裂冰斩（攻击量与倍率截成整数记在实体上，裂冰斩的攻击量同时是后续冰刺的剩余根数）与光系实体技能闪光术、万丈光芒
+yvanchuxiuzhen,SkillIce05,animatedentity,~/skill/jineng/iceskill,skill,已读,C skill 归属阅读：冰系实体技能冰天雪地、裂冰斩（攻击量与倍率截成整数记在实体上，裂冰斩的攻击量同时是后续冰刺的剩余根数）与光系实体技能闪光术、万丈光芒
+yvanchuxiuzhen,SkillIce05shifang,procedure,~/skill/jineng/iceskill,skill,已读,C skill 归属阅读：冰系实体技能冰天雪地、裂冰斩（攻击量与倍率截成整数记在实体上，裂冰斩的攻击量同时是后续冰刺的剩余根数）与光系实体技能闪光术、万丈光芒
 yvanchuxiuzhen,SkillTree01TouZhiWuFeiXingTick,procedure,~/skill/jineng/treeskill,skill,已读,B1 归属阅读：随 SkillTree01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillTree01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/treeskill,skill,已读,B1 归属阅读：随 SkillTree01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillTree01,rangeditem,~/skill/jineng/treeskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -1834,9 +1834,9 @@ yvanchuxiuzhen,SkillLight01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/
 yvanchuxiuzhen,SkillLight01,rangeditem,~/skill/jineng/lightskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillLight02DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/lightskill,skill,已读,B1 归属阅读：随 SkillLight02 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillLight02,rangeditem,~/skill/jineng/lightskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
-yvanchuxiuzhen,SkillLight03DangShiTiGengXinKeShi,procedure,~/skill/jineng/lightskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillLight03,animatedentity,~/skill/jineng/lightskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillLight03shifang,procedure,~/skill/jineng/lightskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillLight03DangShiTiGengXinKeShi,procedure,~/skill/jineng/lightskill,skill,已读,C skill 归属阅读：冰系实体技能冰天雪地、裂冰斩（攻击量与倍率截成整数记在实体上，裂冰斩的攻击量同时是后续冰刺的剩余根数）与光系实体技能闪光术、万丈光芒
+yvanchuxiuzhen,SkillLight03,animatedentity,~/skill/jineng/lightskill,skill,已读,C skill 归属阅读：冰系实体技能冰天雪地、裂冰斩（攻击量与倍率截成整数记在实体上，裂冰斩的攻击量同时是后续冰刺的剩余根数）与光系实体技能闪光术、万丈光芒
+yvanchuxiuzhen,SkillLight03shifang,procedure,~/skill/jineng/lightskill,skill,已读,C skill 归属阅读：冰系实体技能冰天雪地、裂冰斩（攻击量与倍率截成整数记在实体上，裂冰斩的攻击量同时是后续冰刺的剩余根数）与光系实体技能闪光术、万丈光芒
 yvanchuxiuzhen,SkillLight04TouZhiWuFeiXingTick,procedure,~/skill/jineng/lightskill,skill,已读,B1 归属阅读：随 SkillLight04 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillLight04DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/lightskill,skill,已读,B1 归属阅读：随 SkillLight04 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillLight04,rangeditem,~/skill/jineng/lightskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品

@@ -26,6 +26,8 @@ public final class SkillEntities {
     static {
         FireEntities.register(SKILLS);
         GoldEntities.register(SKILLS);
+        IceEntities.register(SKILLS);
+        LightEntities.register(SKILLS);
         RockEntities.register(SKILLS);
     }
 
@@ -58,6 +60,14 @@ public final class SkillEntities {
         SkillEntity entity = SkillSetup.<SkillEntity>entityType(id).get().create(level);
         entity.configure(owner, attackDamage, multiplier, damageType, skillName);
         Relations.copyAllegiance(owner, entity);
+        return entity;
+    }
+
+    /** 由 {@code parent} 召唤同一攻击者的后续实体（继承 {@code parent} 的团队与友方集合，类别与技能名同 {@code parent}）。 */
+    public static SkillEntity chain(SkillEntity parent, String id, double attackDamage) {
+        SkillEntity entity = SkillSetup.<SkillEntity>entityType(id).get().create((ServerLevel) parent.level());
+        entity.configure(parent.attacker(), attackDamage, parent.multiplier(), parent.damageType(), parent.skillName());
+        Relations.copyAllegiance(parent, entity);
         return entity;
     }
 
