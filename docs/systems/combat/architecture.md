@@ -144,3 +144,31 @@ updated: 2026-11-01
 
 - 留在本系统 75 个：伤害主链与命中附魔读取的全部（`*def`、`shuxingatt_01–12`、`manaatt`、`soulatt`、`critical*`、`dodge`、`basalt`、`pojia`、`vampire`、毒药类、`EntityHurt2`/`EntityHurt3` 的武器与护甲附魔），`attdef`、`manadef`（防御公式在本系统，attribute 的显示值另按等级线性相加）、`breakfree`（flow 的 `Effectslownessget` 缩短原版缓慢效果）、`chuanshi`（破碎的基岩）、`lingtikiller`、`lingwen`、`chain`，以及来源没有读取过程的 `ghost`、`guard`、`shuangsheng`、`summoningspeed`、`zimu`（只保留说明文本）。
 - 改归 skill：`flying`（`FlyskillTick`）、`flyingskill`（`ShenfaTick`）、`jet`（`ShenfaW`）；attribute：`dawn`、`powerup`、`colddown`（`Shuxingjisuan` 折入回血、回灵与冷却缩减）；equipment：`qiling`（本命法宝培炼条件）、`qingyv`（弓）、`kailing`（工具自动开采）；fulu：`charm`（`Itemfulu18` 驯服几率）。
+
+## 状态效果（2026-11-04 起分批迁移）
+
+77 个状态效果的类都只有类别、颜色和三个钩子（开始 `addAttributeModifiers`、每刻 `applyEffectTick`、结束 `removeAttributeModifiers`），`isDurationEffectTick` 恒为真，行为全在同名过程中。归属按赋予含义的规则判定（读取者清单由脚本统计 `YvanchuxiuzhenModMobEffects.*` 的引用）：`effect_001`–`022`、`036`、`duyao_*`、`effect_023`–`024`、`032`–`035` 留在本系统；其余待读取时按下列已判定的方向调整：`effect_025`–`027` 归 xiulian（修炼加持）、`effect_028`–`031` 归 cooking、`effect_037` 归 creature、`huxiangtunshi` 归 guchong、`skilleffect_01`–`09` 与 `skillwind_04` 归 skill。
+
+### 目标方案
+
+- 登记走内容表 `content/<单位>/effects.json`（`id`、`category`、`color`），行为由所属系统用 `ContentTables.effectBehavior(id, 行为)` 登记，没有登记的效果只是标记，供其他过程读取等级。名称与说明语言键由 `convert_content.py` 按台账所属单位写入（`effect.<命名空间>.<名称>[.description]`）。
+- 行为接口 `EffectBehavior`：`started`（效果加上，以及已有效果被刷新且数值有变化而重新应用时，判断与 `MobEffectInstance.update` 一致，在 `MobEffectEvent.Added` 中分发，只在服务端）、`tick`（服务端每刻）、`clientTick`（客户端实体每刻，仅用于转动视角这类来源在两端都执行的表现）。结束钩子在第一个需要它的效果（`skilleffect_08`、`skilleffect_09`）迁移时加入。
+- 来源对实体持久化数据写的计数（`effect003tick`、`effect010`、`duyao01tick` 等）保持原键存在实体的持久化数据中；玩家数据的读写走 xiulian 的公开操作与 attribute 的最终值。
+
+### 已迁移（第 1 批，22 个）
+
+| 效果 | 行为 |
+| --- | --- |
+| `effect_001` 眩晕 | 开始播放 `effect_001yinxiao`；每刻水平转 5 × (等级 + 1) 度、俯仰随机 ±10 度，生物停止寻路（两端） |
+| `effect_002` 沉默 | 开始播放 `effect_002yinxiao`；等级由技能、法宝、火焰释放的过程读取 |
+| `effect_003` 剧痛 | 开始播放音效；计数到 80–89 刻时每刻抖动视角（两端），到 90 清零 |
+| `effect_005` 无力 | 开始播放音效；每刻丢出主手物品（拾取延迟 10 × (等级 + 1) 刻），桃木精与第四个 Boss 除外 |
+| `effect_006` 发抖 | 开始播放音效；每刻水平随机抖动 ±3 × (等级 + 1) 度（两端） |
+| `effect_007` 重伤 | 开始播放音效；每刻把当前生命压到 最大生命 − 4 × (等级 + 1)（至少 1） |
+| `effect_008/009/012/014/019/021` | 瞬时：把对应的已加点次数减 (等级 + 1)（可再加点的次数增加），提示后移除；对应血量上限、物理攻击、灵力上限、法术攻击、精力上限、精神攻击 |
+| `effect_010/017` | 每 20 刻在当前灵力（精力）低于最终上限时恢复 10 × (等级 + 1)（说明文本写“每两秒 5 × 等级”，实际与之不符，保持来源） |
+| `effect_011/018` | 瞬时：当前值低于最终上限时恢复 (等级 + 1)² × 100，移除 |
+| `effect_015/016` | 持续型每 40 刻、瞬时型一次增加待吸收修为 ((等级 + 1) × 5)² 与 ((等级 + 1) × 20)²，玩家直接加，妖兽发出 `EffectExperienceEvent`（creature 订阅） |
+| `effect_013/020/022/036` | 标记，等级由伤害结算读取 |
+
+留待其他系统：`EffectExperienceEvent` 随 creature 订阅；实体 `ycxzboss_04`、`taomujing`（无力的豁免）按路径名判断，随 creature 登记生效；说明文本与实现不符的 `effect_010/017` 按评估为轻微记录，不修改。

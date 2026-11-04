@@ -376,47 +376,47 @@ yvanchuxiuzhen,Cautery,enchantment,~/enchanting,combat,已读,"C combat 归属�
 yvanchuxiuzhen,Snakevenom,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi, CauldronduyaoZaiFangKuaiShangYouJian, EntityHurt），另被 equipment 读取"
 yvanchuxiuzhen,Vampire,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityBeforeHurt, EntityHurt）"
 yvanchuxiuzhen,Critical,enchantment,~/enchanting,combat,已读,"C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（DamageIntegration, EntityBeforeHurt, ManaDamage, SoulAttjisuan）"
-yvanchuxiuzhen,Effect001ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect001,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect002,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect003ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect003,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect001ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect001,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect002,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect003ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect003,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect004ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect004,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Xvedi,particle,~/effect,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect005ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect005,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect006ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect006,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect007ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect007,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect008DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect008,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect009ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect009,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect010ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect010,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect011ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect011,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect012ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect012,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect013,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect014ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect014,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect015ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect015,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect016ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect016,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect017ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect017,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect018ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect018,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect019ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect019,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect020,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect021ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect021,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect022,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect005ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect005,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect006ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect006,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect007ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect007,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect008DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect008,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect009ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect009,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect010ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect010,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect011ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect011,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect012ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect012,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect013,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果标记，没有自身过程；等级由伤害结算读取（effect_013 法术伤害提高、effect_020 精力伤害提高、effect_022 雷劫抗性、effect_036 手下留情）
+yvanchuxiuzhen,Effect014ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect014,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect015ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect015,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect016ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect016,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect017ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect017,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect018ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect018,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect019ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect019,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect020,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果标记，没有自身过程；等级由伤害结算读取（effect_013 法术伤害提高、effect_020 精力伤害提高、effect_022 雷劫抗性、effect_036 手下留情）
+yvanchuxiuzhen,Effect021ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect021,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect022,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果标记，没有自身过程；等级由伤害结算读取（effect_013 法术伤害提高、effect_020 精力伤害提高、effect_022 雷劫抗性、effect_036 手下留情）
 yvanchuxiuzhen,Effect023ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect023,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect024ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5075,7 +5075,7 @@ yvanchuxiuzhen,Linghunentity,tag,~/tag,platform,候选,第一版批量归组（�
 yvanchuxiuzhen,EntityHurt3,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect035,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect035ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect036,potioneffect,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect036,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果标记，没有自身过程；等级由伤害结算读取（effect_013 法术伤害提高、effect_020 精力伤害提高、effect_022 雷劫抗性、effect_036 手下留情）
 yvanchuxiuzhen,DantianGui,gui,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字
 yvanchuxiuzhen,Dakaidantiangui,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Dantianguanbianniu,procedure,~/GUI/dantian,xiulian,已读,C xiulian 归属阅读：丹田界面 DantianGui（由面板按钮 Dakaidantiangui 打开）的显示或按钮：体质列表与翻页、金丹与元婴图和名字、本命槽（关闭时写回 benmingfabao）、本命培养进度与五行属性熟练度显示、说明文字；返回按钮按 dangqianGUI 回到面板分页，改为发出 DantianReturnEvent 由面板处理
@@ -5730,13 +5730,13 @@ yvanchuxiuzhen,Leijie0106,procedure,~/systemset/leijie,xiulian,已读,C xiulian 
 yvanchuxiuzhen,Leijie0107,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,Tianjie07DangShiTiBeiShaSiShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,Taomuitem,tag,~/item/lingmu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect001DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect002DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect003DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect001DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect002DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect003DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect004DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect005DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect006DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Effect007DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect005DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect006DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
+yvanchuxiuzhen,Effect007DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Nichanggrassseed,item,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：霓裳草：种子种下后逐级生长（符箓 Itemfulu30 可催熟一级），成熟时 Nichanggrassyaoshou 按群系从 yaoshou_003 等引来妖兽并以附近玩家或生物为仇恨目标；妖兽按 ID 引用
 yvanchuxiuzhen,Nichanggrass01GengXinYouXiKe,procedure,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：随 Nichanggrass01 读：霓裳草：种子种下后逐级生长（符箓 Itemfulu30 可催熟一级），成熟时 Nichanggrassyaoshou 按群系从 yaoshou_003 等引来妖兽并以附近玩家或生物为仇恨目标；妖兽按 ID 引用
 yvanchuxiuzhen,Nichanggrass01,plant,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：霓裳草：种子种下后逐级生长（符箓 Itemfulu30 可催熟一级），成熟时 Nichanggrassyaoshou 按群系从 yaoshou_003 等引来妖兽并以附近玩家或生物为仇恨目标；妖兽按 ID 引用

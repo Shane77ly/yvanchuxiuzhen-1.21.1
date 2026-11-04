@@ -16,6 +16,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.food.FoodConstants;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
@@ -35,7 +37,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.yvanchuxiuzhen.platform.ModId;
 
 /**
- * 一个系统或内容族的内容表加载器：读取 {@code content/<单位>/blocks.json}、{@code items.json} 与 {@code sounds.json}，
+ * 一个系统或内容族的内容表加载器：读取 {@code content/<单位>/blocks.json}、{@code items.json}、{@code effects.json} 与 {@code sounds.json}，
  * 解码后登记到本单位的 DeferredRegister，并把带创造栏的物品交给 {@link ContentTabs}。声音事件为可变范围事件，
  * 与来源的 {@code new SoundEvent(位置)} 一致。行的工厂名不是内置类型时，查本单位用 {@link #blockFactory}、{@link #itemFactory} 登记的工厂。
  */
@@ -44,9 +46,11 @@ public final class ContentTables {
     private final DeferredRegister.Blocks blocks = DeferredRegister.createBlocks(ModId.VALUE);
     private final DeferredRegister.Items items = DeferredRegister.createItems(ModId.VALUE);
     private final DeferredRegister<ArmorMaterial> armorMaterials = DeferredRegister.create(Registries.ARMOR_MATERIAL, ModId.VALUE);
+    private final DeferredRegister<MobEffect> effects = DeferredRegister.create(Registries.MOB_EFFECT, ModId.VALUE);
     private final DeferredRegister<SoundEvent> sounds = DeferredRegister.create(Registries.SOUND_EVENT, ModId.VALUE);
     private final Map<String, Function<BlockTraits, Block>> blockFactories = new HashMap<>();
     private final Map<String, BiFunction<Item.Properties, List<Component>, Item>> itemFactories = new HashMap<>();
+    private final Map<String, EffectBehavior> effectBehaviors = new HashMap<>();
 
     public ContentTables(String unit) {
         this.unit = unit;
@@ -61,6 +65,12 @@ public final class ContentTables {
     /** 登记本单位的专属物品类型；须在 {@link #register} 之前调用。工厂收到行的物品属性与提示文本。 */
     public ContentTables itemFactory(String factory, BiFunction<Item.Properties, List<Component>, Item> creator) {
         itemFactories.put(factory, creator);
+        return this;
+    }
+
+    /** 登记本单位一个状态效果的行为；须在 {@link #register} 之前调用。没有登记的效果只是标记。 */
+    public ContentTables effectBehavior(String id, EffectBehavior behavior) {
+        effectBehaviors.put(id, behavior);
         return this;
     }
 
@@ -79,9 +89,18 @@ public final class ContentTables {
         for (SoundRow row : ContentFiles.read("content/" + unit + "/sounds.json", SoundRow.CODEC)) {
             sounds.register(row.id(), () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, row.id())));
         }
+        List<EffectRow> effectRows = ContentFiles.read("content/" + unit + "/effects.json", EffectRow.CODEC);
+        for (EffectRow row : effectRows) {
+            effects.register(row.id(), () -> new ContentEffect(MobEffectCategory.valueOf(row.category()), row.color(),
+                    effectBehaviors.getOrDefault(row.id(), new EffectBehavior() { })));
+        }
+        if (!effectRows.isEmpty()) {
+            ContentEffects.install();
+        }
         blocks.register(modBus);
         items.register(modBus);
         armorMaterials.register(modBus);
+        effects.register(modBus);
         sounds.register(modBus);
     }
 

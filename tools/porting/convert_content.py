@@ -5,7 +5,7 @@ src/main/resources/content/<单位>/blocks.json、items.json，名称与提示�
 遇到不由内容表承载的类（有专属基类的物品、动画方块、流体、传送门、未识别写法）不生成行，记入跳过清单，
 由所属系统迁移时处理。所属系统给内容表的行换用自己的方块或物品类型时，登记在 docs/reference/conversion/factory_overrides.csv；
 菜单的台账行不再是“待处理”后，来源中该菜单的界面文本键（gui.<命名空间>.<菜单>.*）写入所属单位的语言片段；
-已登记附魔的名称与说明键同样按台账所属单位写入；
+已登记附魔与状态效果的名称、说明键以及状态效果表（content/<单位>/effects.json）同样按台账所属单位写入；
 其余由系统代码直接引用的语言键按 docs/reference/conversion/lang_prefixes.csv 的键前缀写入所属单位的语言片段。
 工具可重复运行，输出只取决于来源与台账。
 """
@@ -176,25 +176,43 @@ def convert_menu_lang(sources: dict[str, Source], add_lang) -> int:
     return count
 
 
-def convert_enchantment_lang(sources: dict[str, Source], add_lang) -> int:
-    """已登记附魔的名称键与说明键 enchantment.<命名空间>.<名称>[.desc] 写入台账所属单位的语言片段，命名空间统一。
+# 台账注册表对应的语言键：(键前缀, 说明键后缀)。名称键为 <前缀>.<命名空间>.<名称>。
+REGISTRY_LANG = {'enchantment': ('enchantment', '.desc'), 'mob_effect': ('effect', '.description')}
+
+
+def convert_registry_lang(sources: dict[str, Source], add_lang) -> int:
+    """已登记附魔与状态效果的名称键和说明键写入台账所属单位的语言片段，命名空间统一。
     说明键可能在另一个来源的语言文件中（原初系统的 chain 说明在原初修真的语言文件里）。"""
     count = 0
     for rows in read_ledgers().values():
         for row in rows:
-            if row['registry'] != 'enchantment' or row['status'] == '待处理':
+            if row['registry'] not in REGISTRY_LANG or row['status'] == '待处理':
                 continue
+            prefix, description = REGISTRY_LANG[row['registry']]
             mod, path = row['legacy_id'].split(':', 1)
-            target = f'enchantment.{NAMESPACE}.{row["target_id"].split(":", 1)[1]}'
+            target = f'{prefix}.{NAMESPACE}.{row["target_id"].split(":", 1)[1]}'
             for language in LANGUAGES:
-                for suffix in ('', '.desc'):
+                for suffix in ('', description):
                     for source in sources.values():
-                        text = source.lang[language].get(f'enchantment.{mod}.{path}{suffix}')
+                        text = source.lang[language].get(f'{prefix}.{mod}.{path}{suffix}')
                         if text is not None:
                             add_lang(row['owner'], language, target + suffix, text)
                             count += 1
                             break
     return count
+
+
+def convert_effects(sources: dict[str, Source]) -> dict[str, list[dict]]:
+    """已登记状态效果的内容表行（ID、类别、颜色），取自来源 MobEffect 子类的构造器。"""
+    result: dict[str, list[dict]] = defaultdict(list)
+    for rows in read_ledgers().values():
+        for row in rows:
+            if row['registry'] != 'mob_effect' or row['status'] == '待处理':
+                continue
+            text = sources[row['source_mod']].java('potion', f'{row["element"]}MobEffect')
+            header = re.search(r'super\(MobEffectCategory\.(\w+), (-?\d+)\)', text)
+            result[row['owner']].append({'id': row['target_id'].split(':', 1)[1], 'category': header[1], 'color': int(header[2])})
+    return result
 
 
 def convert_prefix_lang(sources: dict[str, Source], add_lang) -> int:
@@ -334,12 +352,15 @@ def main() -> None:
     sound_rows = convert_sounds(sources, add_lang, expected)
     advancement_keys = convert_advancement_lang(sources, add_lang)
     menu_keys = convert_menu_lang(sources, add_lang)
-    enchantment_keys = convert_enchantment_lang(sources, add_lang)
+    registry_keys = convert_registry_lang(sources, add_lang)
+    effect_rows = convert_effects(sources)
     prefix_keys = convert_prefix_lang(sources, add_lang)
 
     units = sorted(set(blocks_by_unit) | set(items_by_unit))
-    for stale in CONTENT.glob('*/sounds.json'):
+    for stale in (*CONTENT.glob('*/sounds.json'), *CONTENT.glob('*/effects.json')):
         stale.unlink()
+    for unit, unit_rows in effect_rows.items():
+        write_rows(CONTENT / unit / 'effects.json', sorted(unit_rows, key=lambda r: r['id']))
     for unit, unit_rows in sound_rows.items():
         write_rows(CONTENT / unit / 'sounds.json', unit_rows)
     for unit in units:
@@ -357,7 +378,7 @@ def main() -> None:
         writer.writerow(['registry', 'legacy_id', 'reason'])
         writer.writerows(sorted(skipped))
     print({unit: (len(blocks_by_unit.get(unit, [])), len(items_by_unit.get(unit, []))) for unit in units})
-    print('tabs', len(tabs), 'sounds', sum(len(r) for r in sound_rows.values()), 'advancement keys', advancement_keys, 'menu keys', menu_keys, 'enchantment keys', enchantment_keys, 'prefix keys', prefix_keys, 'skipped', len(skipped))
+    print('tabs', len(tabs), 'sounds', sum(len(r) for r in sound_rows.values()), 'advancement keys', advancement_keys, 'menu keys', menu_keys, 'registry keys', registry_keys, 'prefix keys', prefix_keys, 'skipped', len(skipped))
 
 
 if __name__ == '__main__':

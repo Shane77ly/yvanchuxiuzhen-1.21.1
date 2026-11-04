@@ -9,7 +9,7 @@ updated: 2026-11-03
 
 标识 `combat`，类别：系统。职责：伤害结算（读 attribute 最终值）、通用状态效果、附魔、木人桩（[系统设计](../../development/system-design.md)）。
 
-当前阶段：B1 已登记本单位不依赖新代码类型的内容身份与资源（台账“已注册”：方块 4、物品 5、声音事件 8），只表示身份、资源与基础属性就位；玩法尚未实现，未进行游戏验收。
+当前阶段：B1 已登记本单位不依赖新代码类型的内容身份与资源（台账“已注册”：方块 4、物品 5、声音事件 8）；C 阶段进行中：附魔 85 个已转为数据定义，状态效果第 1 批 22 个已迁移（见[架构](architecture.md)“状态效果”），伤害结算、其余状态效果、木人桩尚未实现，未进行游戏验收。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
 - 候选归属 258 个元素，其中 26 个已读（伤害主链 14 个，见[架构](architecture.md)“伤害主链的归属阅读”）；85 个附魔读后 75 个留在本系统，10 个改归 skill（`flying`、`flyingskill`、`jet`）、attribute（`dawn`、`powerup`、`colddown`）、equipment（`qiling`、`qingyv`、`kailing`）、fulu（`charm`）；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
