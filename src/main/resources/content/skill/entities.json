@@ -24,5 +24,10 @@
 {"id":"skill_rock_02","category":"MONSTER","width":1.5,"height":1.5,"tracking_range":64,"update_interval":3,"fire_immune":false},
 {"id":"skill_rock_03","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":false},
 {"id":"skill_rock_04","category":"MONSTER","width":0.5,"height":1.0,"tracking_range":64,"update_interval":3,"fire_immune":false},
-{"id":"skill_rock_05","category":"MONSTER","width":1.0,"height":1.0,"tracking_range":64,"update_interval":3,"fire_immune":false}
+{"id":"skill_rock_05","category":"MONSTER","width":1.0,"height":1.0,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"skill_thunder_08","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true},
+{"id":"skill_thunder_10","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true},
+{"id":"skillwind_02","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true},
+{"id":"skillwind_05","category":"MONSTER","width":0.6,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"skillwind_06","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":false}
 ]

@@ -1798,9 +1798,9 @@ yvanchuxiuzhen,SkillTree06shifang,procedure,~/skill/jineng/treeskill,skill,候�
 yvanchuxiuzhen,Skillwind01TouZhiWuFeiXingTick,procedure,~/skill/jineng/windskill,skill,已读,B1 归属阅读：随 Skillwind01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,Skillwind01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/windskill,skill,已读,B1 归属阅读：随 Skillwind01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,Skillwind01,rangeditem,~/skill/jineng/windskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
-yvanchuxiuzhen,Skillwind02DangShiTiGengXinKeShi,procedure,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillwind02,animatedentity,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillwind02shifang,procedure,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Skillwind02DangShiTiGengXinKeShi,procedure,~/skill/jineng/windskill,skill,已读,C skill 归属阅读：风系实体技能聚风术、聚风化气、风飘术、造云术；Skillwind05、Skillwind06 由妖兽技能放出，实体行为在 skill，放出方式随 creature
+yvanchuxiuzhen,Skillwind02,animatedentity,~/skill/jineng/windskill,skill,已读,C skill 归属阅读：风系实体技能聚风术、聚风化气、风飘术、造云术；Skillwind05、Skillwind06 由妖兽技能放出，实体行为在 skill，放出方式随 creature
+yvanchuxiuzhen,Skillwind02shifang,procedure,~/skill/jineng/windskill,skill,已读,C skill 归属阅读：风系实体技能聚风术、聚风化气、风飘术、造云术；Skillwind05、Skillwind06 由妖兽技能放出，实体行为在 skill，放出方式随 creature
 yvanchuxiuzhen,Skillwind04,potioneffect,~/skill/jineng/windskill,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
 yvanchuxiuzhen,SkillFire01TouZhiWuFeiXingTick,procedure,~/skill/jineng/fireskill,skill,已读,B1 归属阅读：随 SkillFire01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillFire01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/fireskill,skill,已读,B1 归属阅读：随 SkillFire01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -1821,14 +1821,14 @@ yvanchuxiuzhen,SkillFire07,animatedentity,~/skill/jineng/fireskill,skill,已读,
 yvanchuxiuzhen,SkillFire08DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
 yvanchuxiuzhen,SkillFire08,animatedentity,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
 yvanchuxiuzhen,SkillFire07shifang,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
-yvanchuxiuzhen,SkillThunder08DangShiTiGengXinKeShi,procedure,~/skill/jineng/thunderskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillThunder08,animatedentity,~/skill/jineng/thunderskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillThunder08shifang,procedure,~/skill/jineng/thunderskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillThunder09shifang,procedure,~/skill/jineng/thunderskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillThunder10ShiTiChuShiShengChengShi,procedure,~/skill/jineng/thunderskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillThunder10DangShiTiGengXinKeShi,procedure,~/skill/jineng/thunderskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillThunder10,animatedentity,~/skill/jineng/thunderskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillThunder10shifang,procedure,~/skill/jineng/thunderskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillThunder08DangShiTiGengXinKeShi,procedure,~/skill/jineng/thunderskill,skill,已读,C skill 归属阅读：雷系实体技能掌心雷、地滚雷、惊雷阵；地滚雷无转向、前进方向随机；爆发判定比较实体 getPersistentData 里的队伍名，玩家恒为空串
+yvanchuxiuzhen,SkillThunder08,animatedentity,~/skill/jineng/thunderskill,skill,已读,C skill 归属阅读：雷系实体技能掌心雷、地滚雷、惊雷阵；地滚雷无转向、前进方向随机；爆发判定比较实体 getPersistentData 里的队伍名，玩家恒为空串
+yvanchuxiuzhen,SkillThunder08shifang,procedure,~/skill/jineng/thunderskill,skill,已读,C skill 归属阅读：雷系实体技能掌心雷、地滚雷、惊雷阵；地滚雷无转向、前进方向随机；爆发判定比较实体 getPersistentData 里的队伍名，玩家恒为空串
+yvanchuxiuzhen,SkillThunder09shifang,procedure,~/skill/jineng/thunderskill,skill,已读,C skill 归属阅读：天雷术与五雷轰顶在视线处经 /lightninglanding 命令落白色雷（五雷为中心与四方各一道），命令与彩色闪电实体随雷劫迁移，施放过程等它具备后补
+yvanchuxiuzhen,SkillThunder10ShiTiChuShiShengChengShi,procedure,~/skill/jineng/thunderskill,skill,已读,C skill 归属阅读：雷系实体技能掌心雷、地滚雷、惊雷阵；地滚雷无转向、前进方向随机；爆发判定比较实体 getPersistentData 里的队伍名，玩家恒为空串
+yvanchuxiuzhen,SkillThunder10DangShiTiGengXinKeShi,procedure,~/skill/jineng/thunderskill,skill,已读,C skill 归属阅读：雷系实体技能掌心雷、地滚雷、惊雷阵；地滚雷无转向、前进方向随机；爆发判定比较实体 getPersistentData 里的队伍名，玩家恒为空串
+yvanchuxiuzhen,SkillThunder10,animatedentity,~/skill/jineng/thunderskill,skill,已读,C skill 归属阅读：雷系实体技能掌心雷、地滚雷、惊雷阵；地滚雷无转向、前进方向随机；爆发判定比较实体 getPersistentData 里的队伍名，玩家恒为空串
+yvanchuxiuzhen,SkillThunder10shifang,procedure,~/skill/jineng/thunderskill,skill,已读,C skill 归属阅读：雷系实体技能掌心雷、地滚雷、惊雷阵；地滚雷无转向、前进方向随机；爆发判定比较实体 getPersistentData 里的队伍名，玩家恒为空串
 yvanchuxiuzhen,SkillLight01TouZhiWuFeiXingTick,procedure,~/skill/jineng/lightskill,skill,已读,B1 归属阅读：随 SkillLight01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillLight01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/lightskill,skill,已读,B1 归属阅读：随 SkillLight01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillLight01,rangeditem,~/skill/jineng/lightskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -4247,10 +4247,10 @@ yvanchuxiuzhen,Zhengtuochuan,procedure,~/entity/yaoshou,creature,候选,第一�
 yvanchuxiuzhen,Yaoshou014skill03TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou014,creature,已读,B1 归属阅读：随 Yaoshou014skill03 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou014skill03,rangeditem,~/entity/yaoshou/yaoshou014,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yinbo,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillwind05DangShiTiGengXinKeShi,procedure,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillwind05,animatedentity,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillwind06DangShiTiGengXinKeShi,procedure,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillwind06,animatedentity,~/skill/jineng/windskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Skillwind05DangShiTiGengXinKeShi,procedure,~/skill/jineng/windskill,skill,已读,C skill 归属阅读：风系实体技能聚风术、聚风化气、风飘术、造云术；Skillwind05、Skillwind06 由妖兽技能放出，实体行为在 skill，放出方式随 creature
+yvanchuxiuzhen,Skillwind05,animatedentity,~/skill/jineng/windskill,skill,已读,C skill 归属阅读：风系实体技能聚风术、聚风化气、风飘术、造云术；Skillwind05、Skillwind06 由妖兽技能放出，实体行为在 skill，放出方式随 creature
+yvanchuxiuzhen,Skillwind06DangShiTiGengXinKeShi,procedure,~/skill/jineng/windskill,skill,已读,C skill 归属阅读：风系实体技能聚风术、聚风化气、风飘术、造云术；Skillwind05、Skillwind06 由妖兽技能放出，实体行为在 skill，放出方式随 creature
+yvanchuxiuzhen,Skillwind06,animatedentity,~/skill/jineng/windskill,skill,已读,C skill 归属阅读：风系实体技能聚风术、聚风化气、风飘术、造云术；Skillwind05、Skillwind06 由妖兽技能放出，实体行为在 skill，放出方式随 creature
 yvanchuxiuzhen,Npcentity,tag,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,JinengGui,gui,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,JinengGuiDangZheGeJieMianDaKaiShi,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）

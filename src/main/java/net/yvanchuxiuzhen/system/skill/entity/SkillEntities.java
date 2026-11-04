@@ -29,6 +29,8 @@ public final class SkillEntities {
         IceEntities.register(SKILLS);
         LightEntities.register(SKILLS);
         RockEntities.register(SKILLS);
+        ThunderEntities.register(SKILLS);
+        WindEntities.register(SKILLS);
     }
 
     private SkillEntities() {
