@@ -1,8 +1,8 @@
 source_mod,element,type,folder,owner,status,evidence
 yvanchuxiuzhen,LEVELup,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：境界提升（层数、属性点、升级与境界修正、寿元、境界名、声音、闭关冷却、升级文字与界面）
 yvanchuxiuzhen,PlayerTick,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,EntityBeforeHurt,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DamageIntegration,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,EntityBeforeHurt,procedure,~/systemset,combat,已读,C combat 归属阅读：LivingHurtEvent 免伤、闪避、物理伤害公式、吸血、符箓复活；见战斗架构“伤害主链的归属阅读”
+yvanchuxiuzhen,DamageIntegration,procedure,~/systemset,combat,已读,C combat 归属阅读：另一版伤害计算，经持久化键传值，无调用者与订阅，不可达（Q31）
 yvanchuxiuzhen,Icedef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Golddef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Waterdef,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -461,7 +461,7 @@ yvanchuxiuzhen,Healthxianshi,procedure,~/GUI,panel,候选,第一版批量归组�
 yvanchuxiuzhen,Powerxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jingshenxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Attackxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,EntityHurt,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,EntityHurt,procedure,~/systemset,combat,已读,C combat 归属阅读：LivingAttackEvent 命中处理——药毒、附魔命中效果（毒药类、haoyu、phoenix 等）、战斗状态记分板、功法特效、驯服宠物的攻击目标；调用 EntityHurt2、EntityHurt3
 yvanchuxiuzhen,Shuxingatt06,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shuxingatt07,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shuxingatt08,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -469,11 +469,11 @@ yvanchuxiuzhen,Shuxingatt09,enchantment,~/enchanting,combat,候选,第一版批�
 yvanchuxiuzhen,Shuxingatt10,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shuxingatt11,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shuxingatt12,enchantment,~/enchanting,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DamageDefense,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,DamageDefense,procedure,~/systemset,combat,已读,C combat 归属阅读：另一版防御计算，无调用者与订阅，不可达（Q31）
 yvanchuxiuzhen,Miss,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ExclamationMark,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,FindTheEnemy,procedure,~/systemset,combat,已读,C relation 归属阅读：LivingSetAttackTargetEvent 中，目标未带 findtheenemy 标记时在攻击方头顶发感叹号粒子并给目标加标记（EntityTick 400 tick 后无目标时清除）；与敌友数据无关，是所有生物锁定目标的通用反馈
-yvanchuxiuzhen,DamageXiaoguo,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,DamageXiaoguo,procedure,~/systemset,combat,已读,C combat 归属阅读：空方法，无调用者（Q31）
 yvanchuxiuzhen,Manaxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Soulxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Vigorousxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -544,8 +544,8 @@ yvanchuxiuzhen,GUI04qinggongname,procedure,~/GUI,panel,候选,第一版批量归
 yvanchuxiuzhen,GUIflyname,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,EntityTick,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerJoinGame,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SoulDefjisuan,procedure,~/systemset/damage,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SoulAttjisuan,procedure,~/systemset/damage,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SoulDefjisuan,procedure,~/systemset/damage,combat,已读,C combat 归属阅读：另一版神识防御计算，无调用者与订阅，不可达（Q31）
+yvanchuxiuzhen,SoulAttjisuan,procedure,~/systemset/damage,combat,已读,C combat 归属阅读：另一版神识攻击计算，无调用者与订阅，不可达（Q31）
 yvanchuxiuzhen,YvanchuFood,tab,~/systemset/classification,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cassia01,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Cassia02DangGuFenChengGongShiYong,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Cassia02 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
@@ -3036,8 +3036,8 @@ yvanchuxiuzhen,Fuqi06,item,~/item/jieri,festival,已读,B1 归属阅读：节日
 yvanchuxiuzhen,CaishenyeDangYouJianDianJiShiTi,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Caishenye 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Tianjie07DangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,Tianjie07,animatedentity,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
-yvanchuxiuzhen,ManaDamage,procedure,~/systemset/damage,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ManaDefense,procedure,~/systemset/damage,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ManaDamage,procedure,~/systemset/damage,combat,已读,C combat 归属阅读：另一版灵力伤害计算，无调用者与订阅，不可达（Q31）
+yvanchuxiuzhen,ManaDefense,procedure,~/systemset/damage,combat,已读,C combat 归属阅读：另一版灵力防御计算，无调用者与订阅，不可达（Q31）
 yvanchuxiuzhen,Businessman01,animatedentity,~/entity/npc,npc,已读,B1 归属阅读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Businessman01DangYouJianDianJiShiTi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman01 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Businessman02DangYouJianDianJiShiTi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman02 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
@@ -3906,7 +3906,7 @@ yvanchuxiuzhen,Cauldronduyao,block,~/decorate,combat,已读,B1 归属阅读：�
 yvanchuxiuzhen,Duyao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jinduliebiao,procedure,~/decorate,combat,已读,B1 归属阅读：随 Cauldronduyao 读：按手持 forge:duyaofumo 材料（cailiao_096、141 等 8 种）在炼药锅方块实体记下待附的毒药附魔，属淬毒功能
 yvanchuxiuzhen,Duyaofumo,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,EntityBeforeHurt2,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,EntityBeforeHurt2,procedure,~/systemset,combat,已读,C combat 归属阅读：订阅了 LivingHurtEvent 但只有局部声明，无作用（Q31）
 yvanchuxiuzhen,Qiankundai01hecheng,recipe,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qiankundai02hecheng,recipe,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qiankundai03hecheng,recipe,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4659,15 +4659,15 @@ yvanchuxiuzhen,Cailiao217hecheng,recipe,~/item/metal,material,候选,第一版�
 yvanchuxiuzhen,Cailiao219hecheng,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ShipuGo,procedure,~/systemset/zhiling,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shipu,command,~/systemset/zhiling,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ShanghaiGo,procedure,~/systemset/zhiling/shanghai,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shanghai,command,~/systemset/zhiling/shanghai,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhilingdamage,procedure,~/systemset/zhiling/shanghai,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ShanghaiGo,procedure,~/systemset/zhiling/shanghai,combat,已读,C combat 归属阅读：/shanghai 的灵力与神识伤害结算、闪避、符箓复活、击杀统计
+yvanchuxiuzhen,Shanghai,command,~/systemset/zhiling/shanghai,combat,已读,C combat 归属阅读：命令 /shanghai 的注册，调用 ShanghaiGo
+yvanchuxiuzhen,Zhilingdamage,procedure,~/systemset/zhiling/shanghai,combat,已读,C combat 归属阅读：/shanghai 攻击量（灵力或神识攻击、五行体质与功法、手持附魔、相生相克、暴击）
 yvanchuxiuzhen,Goldentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Waterentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Treeentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fireentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Soilentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhilingdefence,procedure,~/systemset/zhiling/shanghai,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Zhilingdefence,procedure,~/systemset/zhiling/shanghai,combat,已读,C combat 归属阅读：/shanghai 防御（护甲附魔、玩家与生物防御、玄武岩）；体质修正读空物品不生效（Q29）
 yvanchuxiuzhen,Entityxvnfu,procedure,~/systemset,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Friendgui,gui,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
 yvanchuxiuzhen,Friendname1,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友界面 Friendgui 的显示或按钮过程，读写玩家 friendlist 中的好友列表、分页与选中项
