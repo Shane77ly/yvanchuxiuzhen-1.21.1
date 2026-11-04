@@ -4,7 +4,7 @@
 实体 UUID 查找、体质物品键读取、游戏模式判断、播放声音、符箓复活块等 MCreator 样板折叠成短写法。
 折叠后的短写法只在这里使用（如 `ench(ENCH.X, main(e))`、`e.PV.字段`），原文以来源文件为准。
 
-用法：`python -B -X utf8 tools/porting/read_procedure.py <过程名>...`，名称不含 `Procedure` 后缀也可；环境变量 `DIFF=1` 时只完整输出第一个过程，其余只输出与它的行差异（读同模板的一族过程）；
+用法：`python -B -X utf8 tools/porting/read_procedure.py <过程名>...`，名称不含 `Procedure` 后缀也可；环境变量 `TERSE=1` 去掉局部变量声明、空判断、生成样板行以缩短输出；环境变量 `DIFF=1` 时只完整输出第一个过程，其余只输出与它的行差异（读同模板的一族过程）；
 前缀 `t:` 读原初系统的文件；环境变量 `DEPTH=1` 在每行前显示花括号深度，用来核对分支嵌套。
 """
 from __future__ import annotations
@@ -109,6 +109,13 @@ def condense(text: str) -> str:
     return text
 
 
+TERSE_DROP = re.compile(r'^\s*(?:(?:double|int|boolean|String|ItemStack|CompoundTag|Entity|List<\w+>)\s+\w+\s*=\s*[^;(]*(?:\(\))?;|if \(\w+ == null(?: \|\| \w+ == null)*\)|return;|if \(_\w+ instanceof Mob _mobForSpawning\)|_mobForSpawning\.finalizeSpawn\(.*|public static \w+ execute\(.*|public class \w+ \{|\s*)\s*$')
+
+
+def tersely(body: str) -> str:
+    return chr(10).join(line for line in body.splitlines() if not TERSE_DROP.match(line))
+
+
 def main() -> None:
     first = None
     for name in sys.argv[1:]:
@@ -120,6 +127,8 @@ def main() -> None:
             found = list(root.rglob(name + 'Procedure.java'))
         for path in found:
             body = condense(path.read_text(encoding='utf-8-sig'))
+            if os.environ.get('TERSE'):
+                body = tersely(body)
             if os.environ.get('DIFF'):
                 if first is None:
                     first = body.splitlines()

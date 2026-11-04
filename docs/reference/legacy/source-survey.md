@@ -124,6 +124,7 @@ updated: 2026-11-01
 | Q37 | `/jineng` 命令没有权限要求（`/shenfa`、`/smanship`、`/flyskill`、`/technique` 都要求权限 1），任何玩家都能给自己生成任意参数的技能书。评估为中等偏轻（只有作者的测试命令在用），保持来源行为，待负责人裁定是否补权限 | [技能](../../systems/skill/architecture.md) |
 | Q38 | `Jiancewuqi` 的“武器太重”检查读取的是所选技能书的 `lianqizong.weightnum`，不是手持武器的，技能书没有该键，条件永远不成立，提示“武器太重了！无法正常释放技能”不会出现。评估为轻微，保持来源行为（不实现这条永不成立的检查），随 equipment 与 lianqi 的武器数据迁移时裁定 | [技能](../../systems/skill/architecture.md) |
 | Q39 | 技能选择的提示文字对调：施法中禁施（`skilleffect_09`）且未沉默时显示“沉默中”，沉默（`effect_002`）时显示“冷却中”；按键 Z（第 1 键）的选择不检查禁施与沉默，X、C、V 检查。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q40 | 拈花飞叶（`SkillTree01`）命中时用 `AttackDamage` 作攻击量，而它只在弹体消失那一刻从所选技能的 `ManaAttackDamage` 取值（技能书没有这个键，是 `jinengmanaatt`），命中时始终为 0，灵力伤害不会生效，只剩箭本身的伤害；`Ice02`（破碎冰矛）、`Light02`（定魄神光）复用 `Ice01`、`Light01` 的刻过程；飞羽冰花沿侧向圆弧飞行、计时每刻加两次，正前方的目标打不到。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
 
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 

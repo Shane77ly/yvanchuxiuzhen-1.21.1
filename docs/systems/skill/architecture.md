@@ -37,7 +37,7 @@ updated: 2026-11-01
 | 阶段 | 内容 | 状态 |
 | --- | --- | --- |
 | 1 框架 | 技能书、技能栏与选择、施放与冷却、命令、藏宝与附赠、霸体与禁施 | 完成 |
-| 2 弹体技能 | 弹体实体基础（箭类实体、飞行与命中钩子）与 14 个元素弹体技能、10 种技能箭、箭种选择 | 未开始 |
+| 2 弹体技能 | 弹体实体基础（`SkillProjectile`、`ProjectileSkill`）与 14 个元素弹体技能（金芒术、水球术、水灵弹、冰锥术、破碎冰矛、飞羽冰花、拈花飞叶、风弹术、火球术、光弹术、定魄神光、幻光术、飞石术及生命感知；水系小水弹 `Water0101` 待调用者）；`SkillGold03`（依赖动画实体）归阶段 3；10 种技能箭、箭种选择、`Lingwentexiao` 待做 | 进行中：元素弹体完成 |
 | 3 实体技能 | 12 系的动画实体技能（水冰木风火雷光土阴金）与各自的施放过程 | 未开始 |
 | 4 身法、轻功、武器技 | 按键输入（W、S、A、D、空格、F）、身法与轻功的刻推进、剑法、`Effect035` 禁空 | 未开始 |
 | 5 界面与表现 | 技能界面（四技能按钮、翻页、箭种轮盘）、冷却与格挡 HUD、技能界面六个功能按钮（扫描、丹火、妖化、虚空、自爆、出窍）、格挡实体、粒子 | 未开始 |
@@ -57,4 +57,12 @@ updated: 2026-11-01
 - 规则：`SkillSelection`（页与选择）、`SkillCasting`（施放、冷却、连招）、`SkillStudy`（研习，灵根要求复用 xiulian 的 `RootRequirement`，gongfa 一并改用）、`SkillLibrary`（命令参数解析、藏宝与附赠表）、`SkillReleases`（技能名到施放过程的分派表）。
 - 跨系统：战斗状态记分板抽成 combat 的 `FightingState`；状态效果的结束钩子 `EffectBehavior.ended` 补进内容表框架（到期、移除、刷新前）；武器数值经 `WeaponStatEvent`。
 - 数据表：`tools/porting/extract_skill_books.py` 提取 `content/skill/treasure_books.json`（13 本）与 `studied_bonuses.json`（2 条）。
+
+阶段 2 的实现要点：
+
+- `SkillProjectile` 继承 `AbstractArrow`，基础伤害 0.1（发射时可改）、无拾取；1.21.1 的箭没有击退与穿透的设置方法，覆盖 `doKnockback`、`getPierceLevel`；计时、攻击量、倍率、技能名、转角、方向在实体字段上（来源放在 `getPersistentData`）；停在方块里时消失；行为只在服务端、有发射者时调用。内容表用 `ContentTables.entity` 登记，工厂带 `ProjectileSkill`。
+- 命中取值有两种：多数在第一刻记下发射者所选技能的攻击量与倍率；金芒术在命中时现读发射者当前所选技能（连招换技能后会变）。发射者不是玩家时攻击量取其 `LEVELnumber`。
+- 敌友的判定方总是发射者（`Friendpanding*` 六个变体只是参数次序）；伤害经 combat 的 `SpellDamage`。
+- Q40 记录拈花飞叶的取值键错误等；飞羽冰花沿侧向圆弧飞行（每刻转 20 度，计时每刻加两次），正前方的目标打不到。
+- 自定义粒子（`SMALLEXPLOSION*`、`FLASH_ICE`、`SMOKELIGHTGRAY`、`SKILL_GOLD_0101`、`PEACHFLOWERLIZI`）随 particle 迁移，弹体只保留原版粒子。
 

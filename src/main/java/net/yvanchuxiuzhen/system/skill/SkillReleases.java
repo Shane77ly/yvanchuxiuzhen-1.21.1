@@ -22,7 +22,7 @@ public final class SkillReleases {
     }
 
     /** 登记首字为 {@code bodyMark} 的若干技能名共用的施放过程。 */
-    static void register(String bodyMark, Release release, String... names) {
+    public static void register(String bodyMark, Release release, String... names) {
         for (String name : names) {
             BY_NAME.put(bodyMark + name, release);
         }
