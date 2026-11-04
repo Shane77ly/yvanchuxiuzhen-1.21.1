@@ -219,3 +219,9 @@ updated: 2026-11-01
 | `MobType.UNDEAD` | 实体类型标签 `minecraft:undead` |
 
 已实现命中附魔：`AttackStage` 中的 `haoyu`、`phoenix`、`longdignified`、`tigerdignified`、`sawtooth`、`fluorescence`、八种毒药附魔、`vampire`；`HitEnchantments` 中来源 `EntityHurt2`、`EntityHurt3` 的防具附魔 `firearmor`、`icearmor`、`discharge`、`pool`（概率为四件护甲等级之和 %，命中后对以受击者为中心边长 5 的方体内非友好生物发固定伤害，基础量为等级之和 × 2）和武器附魔 `liuyan`、`iceexplosion`（概率 等级 %，范围内非友好生物受 等级 × 4、倍率 0.2 的完整结算，围一圈粒子）、`pojia` 的 `caijinumber` 标记、`yvnxvan`、`chenmo`、`jvtong`、`zhongshang`、`nofly`、`threaten`、`confine`（概率 等级 × 2%）、`lingtikiller`、`liuqing`、`chaos`、`thegreatvoid`。召唤其他系统实体的 `qishi`、`lingwen`（skill）与 `starsky`（fulu）随各自系统订阅 `HitEvent`。粒子（`miss`、`zhongdulizi`、`basaltlizi`、`xvedi`、`smokered`、`effect_033lizi`、`smallexplosion*`、`flash_ice`、`thunderdeeppurple`、`starlightblue`、`smokedeeporange`）随 particle 迁移。
+
+## 连锁采集与穿石（2026-11-04 已实现，会话决定）
+
+- **连锁采集**（`chain`，原初系统的 `ChainProcedure`，`enchant/ChainMining`）：`BlockEvent.BreakEvent` 中，主手工具对被挖方块有效且有 `chain` 时，从该方块按 3×3×3 邻域展开挖掉相同方块，展开条目不超过 附魔等级 × 5 + 1（条目可重复，来源如此）；每挖一块工具损耗 1 点；掉落不带工具，不受时运与精准采集影响，掉在被挖的方块位置。矿石（`c:ores` 与本 Mod 命名空间的 `ores`，后者收有来源 `forge:ores` 中本 Mod 的矿石）按玩家持久化数据的 `collection_LEVEL`（采集等级，随 profession 写入）以 等级 × 0.5% 的概率额外掉 3 份、等级 % 概率额外掉 2 份，每个矿石 2 点采集经验，经 `GatherExperienceEvent` 交给 profession（来源执行命令 `collection experience add`）。
+- **穿石**（`chuanshi`，`enchant/BedrockCracking`）：主手镐带穿石时左键方块给自己急迫 II（100 刻）；点到基岩且其下不是虚空空气时把基岩换成 `bedrock_01`，镐损耗 10 点。`bedrock_01`、`bedrock_02` 由 `CrackedBedrockBlock` 在被玩家破坏后原位变成下一阶段，`bedrock_03` 破坏后掉出基岩（内容表的兜底掉落）。
+- 来源 `LeftClickBlock` 的这段在 flow 的过程里，每次左键末尾还把玩家变量 `collection_LEVEL` 抄进持久化数据，由 profession 写入时直接维护持久化数据即可。

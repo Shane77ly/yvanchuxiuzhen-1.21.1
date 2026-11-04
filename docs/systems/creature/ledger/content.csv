@@ -198,6 +198,7 @@ item,yvanchuxiuzhen:ycxzboss_01_spawn_egg,yvanchuxiuzhen,Ycxzboss01,src/main/jav
 item,yvanchuxiuzhen:ycxzboss_02_spawn_egg,yvanchuxiuzhen,Ycxzboss02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2667,creature,已读,yvanchuxiuzhen:ycxzboss_02_spawn_egg,待处理,
 item,yvanchuxiuzhen:ycxzboss_04_spawn_egg,yvanchuxiuzhen,Ycxzboss04,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3051,creature,已读,yvanchuxiuzhen:ycxzboss_04_spawn_egg,待处理,
 menu,yvanchuxiuzhen:lingshoudaizhuanhuan,yvanchuxiuzhen,Lingshoudaizhuanhuan,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,109,creature,候选,yvanchuxiuzhen:lingshoudaizhuanhuan,待处理,
+mob_effect,yvanchuxiuzhen:effect_037,yvanchuxiuzhen,Effect037,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,170,creature,候选,yvanchuxiuzhen:effect_037,待处理,
 mob_effect,yvanchuxiuzhen:yaoshou_036heizexiaoguo,yvanchuxiuzhen,Yaoshou036heizexiaoguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,169,creature,候选,yvanchuxiuzhen:yaoshou_036heizexiaoguo,待处理,
 mob_effect,yvanchuxiuzhen:yaoshou_037leibaoxiaoguo,yvanchuxiuzhen,Yaoshou037leibaoxiaoguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,168,creature,候选,yvanchuxiuzhen:yaoshou_037leibaoxiaoguo,待处理,
 mob_effect,yvanchuxiuzhen:yaoshou_053baofengxve,yvanchuxiuzhen,Yaoshou053baofengxve,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,167,creature,候选,yvanchuxiuzhen:yaoshou_053baofengxve,待处理,

@@ -21,5 +21,8 @@ item,yvanchuxiuzhen:xveliu_bucket,yvanchuxiuzhen,Xveliu,src/main/java/net/mcreat
 menu,yvanchuxiuzhen:dantian_gui,yvanchuxiuzhen,DantianGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,105,xiulian,已读,yvanchuxiuzhen:dantian_gui,行为已迁移,
 menu,yvanchuxiuzhen:player_join_gui,yvanchuxiuzhen,PlayerJoinGUI,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,75,xiulian,已读,yvanchuxiuzhen:player_join_gui,行为已迁移,
 menu,yvanchuxiuzhen:playershengjixianshi,yvanchuxiuzhen,Playershengjixianshi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,106,xiulian,已读,yvanchuxiuzhen:playershengjixianshi,行为已迁移,
+mob_effect,yvanchuxiuzhen:effect_025,yvanchuxiuzhen,Effect025,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,146,xiulian,候选,yvanchuxiuzhen:effect_025,待处理,
+mob_effect,yvanchuxiuzhen:effect_026,yvanchuxiuzhen,Effect026,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,147,xiulian,候选,yvanchuxiuzhen:effect_026,待处理,
+mob_effect,yvanchuxiuzhen:effect_027,yvanchuxiuzhen,Effect027,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,148,xiulian,候选,yvanchuxiuzhen:effect_027,待处理,
 sound_event,yvanchuxiuzhen:levelup,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModSounds.java,21,xiulian,已读,yvanchuxiuzhen:levelup,行为已迁移,
 sound_event,yvanchuxiuzhen:littlelevelup,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModSounds.java,22,xiulian,已读,yvanchuxiuzhen:littlelevelup,行为已迁移,

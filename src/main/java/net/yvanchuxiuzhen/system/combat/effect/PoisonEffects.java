@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.function.IntUnaryOperator;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -14,9 +16,14 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.combat.damage.Shanghai;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -25,7 +32,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
  * 到达周期后玩家按体质 {@code PoisonLoseEfficacyPercentage} 的概率免疫本周期（只有周期型的伤害类毒药检查），
  * 伤害按体质 {@code PoisonEffectPercentage} 放大，再直接扣减当前生命（不经伤害结算）。
  * 周期计数、累积层数存在实体持久化数据（玩家的累积层数存在体质物品，即 xiulian 的体质键）。
- * {@code duyao_21} 经伤害命令结算，随伤害结算迁移；{@code duyao_16}、{@code duyao_18} 是标记，等级由伤害结算读取。
+ * {@code duyao_16}、{@code duyao_18} 是标记，等级由伤害结算读取。
  */
 final class PoisonEffects {
     private PoisonEffects() {
@@ -120,6 +127,7 @@ final class PoisonEffects {
             }
         });
         tables.effectBehavior("duyao_20", new Corpse());
+        tables.effectBehavior("duyao_21", new Mandrake());
     }
 
     /** 伤害按体质 {@code PoisonEffectPercentage} 放大（只对玩家，该项为 0 时不放大）。 */
@@ -360,6 +368,52 @@ final class PoisonEffects {
                 hurt(entity, amplifier + 1 + level);
             }
             return true;
+        }
+    }
+
+    /**
+     * 曼陀罗：与尸毒共用周期计数 {@code duyao20tick}（来源如此，Q33），每 40 刻受 (番木鳖等级 + 1) × 12 点阴属性固定伤害
+     * （伤害量按 {@code DecimalFormat("0")} 取整），并把自己身上的毒药与部分原版负面效果按剩余时长和等级传给
+     * 周围边长 12 的方体内没有伤害吸收的生物。
+     */
+    private static final class Mandrake extends Periodic {
+        private static final List<Holder<MobEffect>> VANILLA = List.of(MobEffects.MOVEMENT_SLOWDOWN, MobEffects.DIG_SLOWDOWN, MobEffects.CONFUSION,
+                MobEffects.BLINDNESS, MobEffects.HUNGER, MobEffects.WEAKNESS, MobEffects.POISON, MobEffects.WITHER);
+
+        Mandrake() {
+            super("duyao20tick", amp -> 40);
+        }
+
+        @Override
+        void apply(LivingEntity entity, int amplifier) {
+            if (!(entity.level() instanceof ServerLevel level)) {
+                return;
+            }
+            double damage = scale(entity, (StatusEffects.amplifier(entity, "duyao_07") + 1) * 12);
+            level.sendParticles(ParticleTypes.REVERSE_PORTAL, entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(), 40, 0, 0, 0, 1);
+            level.playSound(null, entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(),
+                    BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "yaoshou033skill01")), SoundSource.NEUTRAL, 1, 1);
+            Shanghai.deal(level, entity, new Shanghai.Request(DamageCategory.YIN, null, true, Math.rint(damage), 1));
+            Vec3 center = entity.position();
+            for (LivingEntity other : level.getEntitiesOfClass(LivingEntity.class, new AABB(center, center).inflate(6))) {
+                if (!other.hasEffect(MobEffects.ABSORPTION)) {
+                    spread(entity, other);
+                }
+            }
+        }
+
+        private static void spread(LivingEntity from, LivingEntity to) {
+            for (int number = 1; number <= 20; number++) {
+                copy(from, to, StatusEffects.holder(String.format("duyao_%02d", number)));
+            }
+            VANILLA.forEach(effect -> copy(from, to, effect));
+        }
+
+        private static void copy(LivingEntity from, LivingEntity to, Holder<MobEffect> effect) {
+            MobEffectInstance instance = from.getEffect(effect);
+            if (instance != null) {
+                to.addEffect(new MobEffectInstance(effect, instance.getDuration(), instance.getAmplifier()));
+            }
         }
     }
 }

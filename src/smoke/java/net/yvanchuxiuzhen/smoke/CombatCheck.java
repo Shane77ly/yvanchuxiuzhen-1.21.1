@@ -2,7 +2,11 @@ package net.yvanchuxiuzhen.smoke;
 
 import java.util.List;
 import java.util.Map;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -11,8 +15,14 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.Contribution;
 import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
@@ -33,6 +43,8 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
  */
 final class CombatCheck extends SystemCheck {
     private IronGolem poisoned;
+    private IronGolem mandrake;
+    private IronGolem bystander;
 
     CombatCheck(List<String> report, String levelId) {
         super("战斗", report, levelId);
@@ -59,7 +71,11 @@ final class CombatCheck extends SystemCheck {
                 }
                 onServer(player -> {
                     near("断肠 100 刻后 生命", 100 - 8, poisoned.getHealth());
+                    near("曼陀罗 两个周期的阴伤害 2 × 12²/(12+3)", 100 - 2 * 144.0 / 15, mandrake.getHealth());
+                    expectTrue("曼陀罗把烙毒传给身边的生物", bystander.hasEffect(StatusEffects.holder("duyao_14")));
                     poisoned.discard();
+                    mandrake.discard();
+                    bystander.discard();
                     clean(player);
                 });
                 finish();
@@ -96,17 +112,63 @@ final class CombatCheck extends SystemCheck {
     }
 
     private void clean(ServerPlayer player) {
-        for (String effect : List.of("effect_013", "effect_008", "effect_011")) {
+        for (String effect : List.of("effect_013", "effect_008", "effect_011", "duyao_14")) {
             StatusEffects.remove(player, effect);
         }
         PlayerAttributes.clearContribution(player, "smoke:combat");
         PlayerAttributes.clearContribution(player, "smoke:combat_gongfa");
     }
 
+    private ItemStack enchanted(ServerLevel level, Item item, Map<String, Integer> levels) {
+        ItemStack stack = new ItemStack(item);
+        levels.forEach((name, value) -> stack.enchant(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchants.key(name)), value));
+        return stack;
+    }
+
     private ItemStack enchanted(ServerLevel level, Map<String, Integer> levels) {
-        ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
-        levels.forEach((name, value) -> sword.enchant(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchants.key(name)), value));
-        return sword;
+        return enchanted(level, Items.DIAMOND_SWORD, levels);
+    }
+
+    /** 连锁采集一次挖掉相连的同种方块；穿石把基岩换成破碎的基岩，之后每次破坏降一级。 */
+    private void blocks(ServerPlayer player, ServerLevel level) {
+        BlockPos base = player.blockPosition().offset(8, 0, 0);
+        for (int x = 0; x < 2; x++) {
+            for (int y = 0; y < 2; y++) {
+                for (int z = 0; z < 2; z++) {
+                    level.setBlock(base.offset(x, y, z), Blocks.STONE.defaultBlockState(), Block.UPDATE_ALL);
+                }
+            }
+        }
+        player.setItemInHand(InteractionHand.MAIN_HAND, enchanted(level, Items.DIAMOND_PICKAXE, Map.of("chain", 1)));
+        player.gameMode.destroyBlock(base);
+        int left = 0;
+        for (int x = 0; x < 2; x++) {
+            for (int y = 0; y < 2; y++) {
+                for (int z = 0; z < 2; z++) {
+                    left += level.getBlockState(base.offset(x, y, z)).is(Blocks.STONE) ? 1 : 0;
+                }
+            }
+        }
+        expect("连锁采集 2×2×2 石头挖掉一块后剩余", 0, left);
+        expectTrue("连锁采集损耗镐的耐久", player.getMainHandItem().getDamageValue() > 1);
+
+        BlockPos rock = base.offset(0, 0, 4);
+        level.setBlock(rock.below(), Blocks.STONE.defaultBlockState(), Block.UPDATE_ALL);
+        level.setBlock(rock, Blocks.BEDROCK.defaultBlockState(), Block.UPDATE_ALL);
+        player.setItemInHand(InteractionHand.MAIN_HAND, enchanted(level, Items.DIAMOND_PICKAXE, Map.of("chuanshi", 1)));
+        NeoForge.EVENT_BUS.post(new PlayerInteractEvent.LeftClickBlock(player, rock, Direction.UP, PlayerInteractEvent.LeftClickBlock.Action.START));
+        expect("穿石 基岩变为", "bedrock_01", level.getBlockState(rock).getBlock() == BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "bedrock_01")) ? "bedrock_01" : "其他");
+        expectTrue("穿石 给自己急迫", player.hasEffect(MobEffects.DIG_SPEED));
+        expect("穿石 镐损耗 10 点", 10, player.getMainHandItem().getDamageValue());
+        for (String stage : List.of("bedrock_02", "bedrock_03")) {
+            player.gameMode.destroyBlock(rock);
+            expect("破坏后升一级", stage, level.getBlockState(rock).getBlock() == BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, stage)) ? stage : "其他");
+        }
+        player.gameMode.destroyBlock(rock);
+        expectTrue("第三阶段破坏后消失", level.getBlockState(rock).isAir());
+        player.removeEffect(MobEffects.DIG_SPEED);
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        level.setBlock(rock.below(), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
     }
 
     /** 命中附魔：护甲附魔对受击者身边的非友好生物发固定火伤害；主手附魔的控制效果与灵体杀手（取重伤的等级）。 */
@@ -139,7 +201,7 @@ final class CombatCheck extends SystemCheck {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             player.setItemSlot(slot, ItemStack.EMPTY);
         }
-        PlayerAttributes.setContribution(player, "smoke:combat", new Contribution(Layer.BASE, Map.of(Stat.MANA_ATT, 5.0, Stat.SOUL_ATT, 2.0, Stat.ROOT_FIRE, 3.0)));
+        PlayerAttributes.setContribution(player, "smoke:combat", new Contribution(Layer.BASE, Map.of(Stat.MANA_ATT, 5.0, Stat.SOUL_ATT, 2.0, Stat.ROOT_FIRE, 3.0, Stat.POWER_MAX, 500.0)));
         PlayerAttributes.setContribution(player, "smoke:combat_gongfa", new Contribution(Layer.BONUS, Map.of(Stat.GONGFA_FIRE, 5.0, Stat.GONGFA_LEVEL, 8.0)));
 
         IronGolem golem = golem(player, 100);
@@ -197,6 +259,7 @@ final class CombatCheck extends SystemCheck {
         golem.discard();
 
         enchantments(player, level);
+        blocks(player, level);
 
         Cultivation.set(player, CultivationValue.POWER, 5);
         Cultivation.set(player, CultivationValue.SKILL_POINTS_HEALTH_MAX, 5);
@@ -205,5 +268,10 @@ final class CombatCheck extends SystemCheck {
 
         poisoned = golem(player, 100);
         poisoned.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_01"), 400, 1));
+        mandrake = golem(player, 100);
+        mandrake.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_21"), 400, 0));
+        mandrake.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_14"), 400, 0));
+        bystander = golem(player, 100);
+        bystander.moveTo(mandrake.getX() + 2, mandrake.getY(), mandrake.getZ(), 0, 0);
     }
 }

@@ -26,5 +26,6 @@ menu,yvanchuxiuzhen:guchongshifang_gui,yvanchuxiuzhen,GuchongshifangGUI,src/main
 menu,yvanchuxiuzhen:taoguan_01_gui,yvanchuxiuzhen,Taoguan01GUI,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,95,guchong,已读,yvanchuxiuzhen:taoguan_01_gui,待处理,
 menu,yvanchuxiuzhen:taoguan_02_gui,yvanchuxiuzhen,Taoguan02GUI,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,96,guchong,已读,yvanchuxiuzhen:taoguan_02_gui,待处理,
 menu,yvanchuxiuzhen:taoguan_03_gui,yvanchuxiuzhen,Taoguan03GUI,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,97,guchong,已读,yvanchuxiuzhen:taoguan_03_gui,待处理,
+mob_effect,yvanchuxiuzhen:huxiangtunshi,yvanchuxiuzhen,Huxiangtunshi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,159,guchong,候选,yvanchuxiuzhen:huxiangtunshi,待处理,
 sound_event,yvanchuxiuzhen:guchong01,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModSounds.java,35,guchong,已读,yvanchuxiuzhen:guchong01,已注册,
 sound_event,yvanchuxiuzhen:guchong03,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModSounds.java,36,guchong,已读,yvanchuxiuzhen:guchong03,已注册,
