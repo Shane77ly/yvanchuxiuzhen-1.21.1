@@ -5,7 +5,9 @@ import java.util.Map;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -19,6 +21,7 @@ import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.combat.damage.Shanghai;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -100,6 +103,37 @@ final class CombatCheck extends SystemCheck {
         PlayerAttributes.clearContribution(player, "smoke:combat_gongfa");
     }
 
+    private ItemStack enchanted(ServerLevel level, Map<String, Integer> levels) {
+        ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
+        levels.forEach((name, value) -> sword.enchant(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchants.key(name)), value));
+        return sword;
+    }
+
+    /** 命中附魔：护甲附魔对受击者身边的非友好生物发固定火伤害；主手附魔的控制效果与灵体杀手（取重伤的等级）。 */
+    private void enchantments(ServerPlayer player, ServerLevel level) {
+        IronGolem wearer = golem(player, 100);
+        Relations.setTeam(wearer, "smoketeam");
+        Relations.addFriendlyTeam(wearer, "smoketeam");
+        wearer.setItemSlot(EquipmentSlot.HEAD, enchanted(level, Map.of("firearmor", 100)));
+        IronGolem neighbour = golem(player, 100);
+        neighbour.moveTo(wearer.getX() + 1, wearer.getY(), wearer.getZ(), 0, 0);
+        float playerHealth = player.getHealth();
+        hit(player, wearer, new Shanghai.Request(DamageCategory.NONE, player.getUUID(), true, 6, 1));
+        expectTrue("烈焰甲 100 级 身边的非友好生物被固定火伤害击杀", !neighbour.isAlive());
+        expectTrue("烈焰甲 穿戴者自己是友方，不受自己的火伤害", wearer.getHealth() > 90);
+        expect("烈焰甲 范围外的玩家不受伤", playerHealth, player.getHealth());
+        wearer.discard();
+        neighbour.discard();
+
+        player.setItemInHand(InteractionHand.MAIN_HAND, enchanted(level, Map.of("threaten", 100, "lingtikiller", 1, "zhongshang", 1)));
+        IronGolem target = golem(player, 100);
+        hit(player, target, new Shanghai.Request(DamageCategory.NONE, player.getUUID(), true, 6, 1));
+        expectTrue("威慑 100 级 目标失明", target.hasEffect(MobEffects.BLINDNESS));
+        expectTrue("灵体杀手取重伤的等级 1 × 2 点，加上伤害 4，至少损失 6 点生命 实际 " + target.getHealth(), target.getHealth() <= 94 + 1e-3);
+        target.discard();
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+    }
+
     private void damage(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
         for (EquipmentSlot slot : EquipmentSlot.values()) {
@@ -161,6 +195,8 @@ final class CombatCheck extends SystemCheck {
         }
         near("命令 /shanghai 无 无 true 6 1", 4, before - golem.getHealth());
         golem.discard();
+
+        enchantments(player, level);
 
         Cultivation.set(player, CultivationValue.POWER, 5);
         Cultivation.set(player, CultivationValue.SKILL_POINTS_HEALTH_MAX, 5);

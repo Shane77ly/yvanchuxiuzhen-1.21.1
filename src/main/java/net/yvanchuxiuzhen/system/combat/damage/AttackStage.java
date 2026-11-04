@@ -138,6 +138,9 @@ final class AttackStage {
         if (vampire != 0) {
             attacker.setHealth((float) (attacker.getHealth() + amount * vampire * 5 * 0.01));
         }
+        if (victim.level() instanceof ServerLevel level) {
+            HitEnchantments.run(level, victim, attacker);
+        }
     }
 
     /** 来源的叠加时长：已有同效果的剩余刻数 × 20 + 600（Q32）。 */

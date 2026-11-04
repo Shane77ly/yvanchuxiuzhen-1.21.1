@@ -5064,7 +5064,7 @@ yvanchuxiuzhen,Cailiao216melt,item,~/item/metal,material,已读,B1 归属阅读�
 yvanchuxiuzhen,Cailiao217melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
 yvanchuxiuzhen,Cailiao218melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
 yvanchuxiuzhen,Cailiao219melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
-yvanchuxiuzhen,EntityHurt2,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,EntityHurt2,procedure,~/systemset,combat,已读,C combat 归属阅读：命中时的护甲附魔（烈焰甲、寒冰甲、放电、池鱼）与武器附魔（流焰、禁锢、眩晕、沉默、剧痛、重伤等）；召唤 skill 实体的 qishi、lingwen 随 skill 订阅 HitEvent
 yvanchuxiuzhen,LingwentexiaoTouZhiWuFeiXingTick,procedure,~/skill/fumotexiao,skill,已读,B1 归属阅读：随 Lingwentexiao 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,LingwentexiaoDangTouZhiWuJiZhongShiTiShi,procedure,~/skill/fumotexiao,skill,已读,B1 归属阅读：随 Lingwentexiao 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,Lingwentexiao,rangeditem,~/skill/fumotexiao,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -5072,7 +5072,7 @@ yvanchuxiuzhen,Suijizhanlipin,loottable,,flow,候选,第一版批量归组（目
 yvanchuxiuzhen,Lingwentexiao2DangShiTiGengXinKeShi,procedure,~/skill/fumotexiao,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingwentexiao2,animatedentity,~/skill/fumotexiao,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Linghunentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,EntityHurt3,procedure,~/systemset,combat,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,EntityHurt3,procedure,~/systemset,combat,已读,C combat 归属阅读：命中时的武器附魔（冰爆、留情、威慑、禁空、混沌、太虚）；发射 fulu 实体的 starsky 随 fulu 订阅 HitEvent
 yvanchuxiuzhen,Effect035,potioneffect,~/effect,skill,已读,C combat 归属阅读：禁空，过程取消飞行、重置体质飞行键与 skill 的飞行状态 flybegin，玩法含义在 skill
 yvanchuxiuzhen,Effect035ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,skill,已读,C combat 归属阅读：禁空，过程取消飞行、重置体质飞行键与 skill 的飞行状态 flybegin，玩法含义在 skill
 yvanchuxiuzhen,Effect036,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果标记，没有自身过程；等级由伤害结算读取（effect_013 法术伤害提高、effect_020 精力伤害提高、effect_022 雷劫抗性、effect_036 手下留情）
