@@ -229,3 +229,19 @@ updated: 2026-11-01
 ## 淬毒的归属（2026-11-04 改判）
 
 淬毒（炼药锅 `cauldronduyao` 记录毒药材料，右键武器附毒，或空手右键 `cailiao_141`–`146` 给副手武器附毒）读写物品 `lianqizong` 里的附魔记录 `fumo{序号}`、`fumozongshu`、`fumo{序号}num`（lianqi 的工艺数据），玩法含义在 lianqi，方块 `cauldronduyao`、过程 `CauldronduyaoZaiFangKuaiShangYouJian`、`Jinduliebiao`、`Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi` 改归 lianqi；毒药附魔的效果仍在本系统（`AttackStage`）。来源条件前后不一致，记 Q35。
+
+## 木人桩（2026-11-04 已实现，会话决定）
+
+来源 `Murenzhuang`（GeckoLib 动画实体，MCreator 生成）、`Murenzhuangitem`、界面 `MurenzhuangGui`、11 个过程与合成配方。目标：
+
+| 来源 | 目标 |
+| --- | --- |
+| `MurenzhuangEntity`（`PathfinderMob` + `IAnimatable`，MONSTER，0.5 × 2，跟踪范围 64、更新间隔 3） | `WoodenDummyEntity`（`GeoEntity`），实体类型经 `entities.json` 登记；1024 点生命、无 AI、持久、不被推挤；受击先 `react`：按战利品表 `entities/suijizhanlipin` 随机取一件材料，`cailiao_191`–`199` 对应 attacked01–05 动画并 `triggerAnim("main", …)`，下一刻（`tick`）向攻击的玩家报告 `伤害：<最大生命 − 当前生命>` 并回满生命；不接受药水云、跌落、仙人掌、溺水、凋零；死亡 20 刻后掉出木人桩物品 |
+| 动画控制器 `movement`、`procedure` 与同步数据 `ANIMATION`、`animationprocedure` | 单个控制器 `main`：待机循环，受击动画用 `triggerableAnim` 触发，播完回到待机 |
+| `MurenzhuangitemItem` 右键方块 | `WoodenDummyItem.useOn`：点方块上表面且上方是空气时在其上放置一个木人桩，朝向与玩家相反，消耗一个（创造模式不消耗，与原版物品使用一致） |
+| 界面 `MurenzhuangGuiMenu`/`Screen`、`MurenzhuangGuiButtonMessage` | `DummyMenu`（四格装备槽 7/25/43/61, 10 与玩家物品栏）、`DummyScreen`（三个输入框、三个设置按钮、拿走木人桩按钮，坐标与贴图沿用来源）、`DummyButtonPayload`；打开时把木人桩的三项防御基值抄进玩家体质的 `attack_Def`、`mana_Def`、`soul_Def`，标签据此显示（来源如此）；关闭时把四格装备穿回木人桩；来源靠体质键 `chufauuid` 在 2 格内找木人桩，目标由菜单记实体编号 |
+| `Murenzhuangdel` | 拿走木人桩：退回装备槽物品、移除木人桩、给玩家一个木人桩物品并关闭界面 |
+
+实机检查（`CombatCheck`）：物品放置、受击 6²/(6+0)、下一刻回满生命、设置物理与法术防御并在数字无法解析时置 0、装备槽的头盔关闭后穿在木人桩上、拿走木人桩；截图 `combat_dummy.png` 目视确认 GeckoLib 模型、待机姿态与“伤害：6.0”报告。
+
+GeckoLib 首次接入（版本 4.9.3）的做法写入[工程结构](../../development/engineering.md)“依赖治理”，目标版本 API 事实写入移植技能的 NeoForge 1.21.1 参考。

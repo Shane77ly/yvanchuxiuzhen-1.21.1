@@ -14,10 +14,14 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.NeoForge;
@@ -31,6 +35,10 @@ import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.combat.CombatSetup;
+import net.yvanchuxiuzhen.system.combat.content.DummyMenu;
+import net.yvanchuxiuzhen.system.combat.content.WoodenDummyEntity;
+import net.yvanchuxiuzhen.system.combat.content.WoodenDummyItem;
 import net.yvanchuxiuzhen.system.combat.damage.Shanghai;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -44,11 +52,16 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
  */
 final class CombatCheck extends SystemCheck {
     private IronGolem poisoned;
+    private long effectsStart;
     private IronGolem mandrake;
     private IronGolem bystander;
 
-    CombatCheck(List<String> report, String levelId) {
+    private final Screenshots screenshots;
+    private WoodenDummyEntity dummy;
+
+    CombatCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("战斗", report, levelId);
+        this.screenshots = screenshots;
     }
 
     @Override
@@ -67,7 +80,9 @@ final class CombatCheck extends SystemCheck {
                 });
             }
             case 2 -> {
-                if (local < 110) {
+                long[] now = new long[1];
+                onServer(player -> now[0] = player.serverLevel().getGameTime());
+                if (now[0] - effectsStart < 105) {
                     return false;
                 }
                 onServer(player -> {
@@ -78,12 +93,75 @@ final class CombatCheck extends SystemCheck {
                     mandrake.discard();
                     bystander.discard();
                     clean(player);
+                    dummy(player);
+                });
+            }
+            case 3 -> {
+                if (local < 5) {
+                    return false;
+                }
+                onServer(player -> expect("木人桩受击后下一刻回满生命", 1024, dummy.getHealth()));
+            }
+            case 4 -> {
+                if (local < 40) {
+                    return false;
+                }
+                screenshots.take("combat_dummy.png");
+                onServer(player -> {
+                    expect("木人桩受击后回满生命", 1024, dummy.getHealth());
+                    dummy.discard();
                 });
                 finish();
             }
             default -> finish();
         }
         return true;
+    }
+
+    /** 木人桩：用物品放置，受击后下一刻回满生命；设置界面按钮、装备槽与拿走木人桩（留一个用于截图）。 */
+    private void dummy(ServerPlayer player) {
+        ServerLevel level = player.serverLevel();
+        BlockPos ground = player.blockPosition().offset(0, 0, 4);
+        level.setBlock(ground.above(), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        level.setBlock(ground, Blocks.STONE.defaultBlockState(), Block.UPDATE_ALL);
+        ItemStack item = new ItemStack(WoodenDummyItem.item(), 2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, item);
+        player.gameMode.useItemOn(player, level, item, InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(ground).add(0, 0.5, 0), Direction.UP, ground, false));
+        List<WoodenDummyEntity> found = level.getEntitiesOfClass(WoodenDummyEntity.class, new AABB(ground).inflate(2));
+        expect("木人桩物品放置出一个木人桩", 1, found.size());
+        expect("放置消耗一个木人桩物品（创造模式不消耗）", player.isCreative() ? 2 : 1, player.getMainHandItem().getCount());
+        dummy = found.get(0);
+        expect("木人桩最大生命", 1024, dummy.getMaxHealth());
+        dummy.getPersistentData().putDouble("mana_Def", 0);
+        double dealt = hit(player, dummy, new Shanghai.Request(DamageCategory.NONE, player.getUUID(), true, 6, 1));
+        near("木人桩受击 6²/(6+0)", 6, dealt);
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+
+        DummyMenu.open(player, dummy);
+        expectTrue("潜行右键打开设置界面", player.containerMenu instanceof DummyMenu);
+        DummyMenu menu = (DummyMenu) player.containerMenu;
+        menu.press(player, 0, "12.5");
+        menu.press(player, 1, "7");
+        menu.press(player, 2, "不是数字");
+        expect("设置物理防御基值", 12.5, dummy.getPersistentData().getDouble("attack_Def"));
+        expect("设置法术防御基值", 7, dummy.getPersistentData().getDouble("mana_Def"));
+        expect("数字解析失败设为 0", 0, dummy.getPersistentData().getDouble("soul_Def"));
+        expect("界面标签读到玩家体质里的物理防御基值", 12.5, Cultivation.tizhiDouble(player, "attack_Def"));
+        menu.getSlot(0).set(new ItemStack(Items.IRON_HELMET));
+        player.closeContainer();
+        expect("关闭界面后头盔穿在木人桩上", Items.IRON_HELMET, dummy.getItemBySlot(EquipmentSlot.HEAD).getItem());
+
+        WoodenDummyEntity second = CombatSetup.<WoodenDummyEntity>entityType("murenzhuang").get().create(level);
+        second.moveTo(ground.getX() + 3.5, ground.getY() + 1, ground.getZ() + 0.5, 0, 0);
+        level.addFreshEntity(second);
+        DummyMenu.open(player, second);
+        ((DummyMenu) player.containerMenu).press(player, 3, "");
+        expectTrue("拿走木人桩后木人桩被移除", second.isRemoved());
+        expectTrue("拿走木人桩后玩家得到一个木人桩物品", player.getInventory().contains(new ItemStack(WoodenDummyItem.item())));
+        expectTrue("拿走木人桩后界面关闭", !(player.containerMenu instanceof DummyMenu));
+        player.getInventory().clearContent();
+        player.connection.teleport(ground.getX() + 0.5, ground.getY() + 1, ground.getZ() - 4, 0, 5);
     }
 
     private void near(String label, double expected, double actual) {
@@ -103,7 +181,7 @@ final class CombatCheck extends SystemCheck {
     }
 
     /** 结算并返回造成的伤害；闪避随机数为 0 时重试。 */
-    private double hit(ServerPlayer player, IronGolem golem, Shanghai.Request request) {
+    private double hit(ServerPlayer player, LivingEntity golem, Shanghai.Request request) {
         double before = golem.getHealth();
         for (int attempt = 0; attempt < 5 && golem.getHealth() == before; attempt++) {
             golem.invulnerableTime = 0;
@@ -273,6 +351,7 @@ final class CombatCheck extends SystemCheck {
         player.addEffect(new MobEffectInstance(StatusEffects.holder("effect_011"), 100, 0));
         player.addEffect(new MobEffectInstance(StatusEffects.holder("effect_008"), 100, 1));
 
+        effectsStart = level.getGameTime();
         poisoned = golem(player, 100);
         poisoned.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_01"), 400, 1));
         mandrake = golem(player, 100);

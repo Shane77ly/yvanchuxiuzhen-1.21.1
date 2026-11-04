@@ -7,3 +7,4 @@ item,yvanchuxiuzhen:ling_10,xiulian:ling_10,xiulian,家族令牌右键显示说�
 block,yvanchuxiuzhen:canwutai_block,gongfa:canwutai_block,gongfa,参悟台的方块实体与参悟界面（ComprehensionTableBlock）
 block,yvanchuxiuzhen:bedrock_01,combat:bedrock_01,combat,破碎的基岩第一阶段：被玩家破坏后变成第二阶段（CrackedBedrockBlock）
 block,yvanchuxiuzhen:bedrock_02,combat:bedrock_02,combat,破碎的基岩第二阶段：被玩家破坏后变成第三阶段（CrackedBedrockBlock）
+item,yvanchuxiuzhen:murenzhuangitem,combat:murenzhuangitem,combat,木人桩物品右键方块上表面放置木人桩（WoodenDummyItem）

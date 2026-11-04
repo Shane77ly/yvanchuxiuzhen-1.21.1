@@ -34,7 +34,7 @@ combat 本轮已实现（2026-11-04，分支 `port/c-combat`，未合入 `main`�
 
 combat 的剩余项（顺序为建议）：
 1. （已改判）淬毒归 lianqi，见[战斗架构](../systems/combat/architecture.md)“淬毒的归属”。
-2. 木人桩（`Murenzhuang`：动画实体、界面 `MurenzhuangGui`、11 个过程、合成配方）：需要首次接入 GeckoLib（版本在首次接入时按 API 与运行检查选定，见[工程结构](engineering.md)“依赖治理”）。
+2. （已完成 2026-11-04）木人桩与 GeckoLib 首次接入，见[战斗架构](../systems/combat/architecture.md)“木人桩”。
 3. `Shanghaifanwei`（动画实体）与其更新过程：读后判定归属（可能归 skill）。
 4. xiulian 推迟的雷劫过程（19 个元素，经 `/lightninglanding`、`/shanghai`，需要彩色闪电实体、粒子与 GeckoLib 实体）。
 5. 收尾：台账里 `qishi`、`lingwen`、`starsky`（随 skill、fulu 订阅 `HitEvent`）、`breakfree`（随 flow）、`ghost`、`guard`、`shuangsheng`、`summoningspeed`、`zimu`（来源没有读取过程）保持“已注册”；全部读完后更新 README、月度日志与本页，运行 `gradlew check`、冒烟 `-PsmokeOnly=combat`、开发服务端，合入 `main` 并推送，再建 skill 的分支。

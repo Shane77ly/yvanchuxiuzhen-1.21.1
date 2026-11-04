@@ -14,7 +14,7 @@ import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
 /**
  * 开发运行用的注册表导出：设置系统属性 {@value #PROPERTY} 为目录时，专用服务器启动完成后
- * 把本 Mod 命名空间下的方块、物品、声音事件、状态效果与附魔（数据包定义，取自服务端注册表）ID 写入该目录，供 {@code tools/porting/check_ledger.py} 与台账比对。
+ * 把本 Mod 命名空间下的方块、物品、声音事件、状态效果、实体类型、菜单类型与附魔（数据包定义，取自服务端注册表）ID 写入该目录，供 {@code tools/porting/check_ledger.py} 与台账比对。
  * 发布环境不设置该属性，监听器不登记。
  */
 public final class RegistryExport {
@@ -37,6 +37,8 @@ public final class RegistryExport {
             write(directory.resolve("item.txt"), BuiltInRegistries.ITEM);
             write(directory.resolve("sound_event.txt"), BuiltInRegistries.SOUND_EVENT);
             write(directory.resolve("mob_effect.txt"), BuiltInRegistries.MOB_EFFECT);
+            write(directory.resolve("entity_type.txt"), BuiltInRegistries.ENTITY_TYPE);
+            write(directory.resolve("menu.txt"), BuiltInRegistries.MENU);
             write(directory.resolve("enchantment.txt"), event.getServer().registryAccess().registryOrThrow(Registries.ENCHANTMENT));
         } catch (IOException exception) {
             throw new IllegalStateException("无法写出注册表导出 " + directory, exception);

@@ -1,4 +1,5 @@
 source,source_sha1,target
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/murenzhuang.animation.json,f64eaeae63a7e8dd99e55ac4a9bb3c1e5ede9e86,src/main/resources/assets/yvanchuxiuzhen/animations/murenzhuang.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/acaciabigdoorleft.json,b9d0b8eda9398f2e3d8baa6b9324504f7a8240e6,src/main/resources/assets/yvanchuxiuzhen/blockstates/acaciabigdoorleft.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/acaciabigdoorright.json,ce6aac3af98ef5ec8028fe406b72bff9ba109d00,src/main/resources/assets/yvanchuxiuzhen/blockstates/acaciabigdoorright.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/adobe.json,6f71f350db7db3a0e213baee8007d9d88f9153c5,src/main/resources/assets/yvanchuxiuzhen/blockstates/adobe.json
@@ -1127,6 +1128,7 @@ yvanchuxitong/src/main/resources/assets/yvanchuxitong/blockstates/zhuangshishuig
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/blockstates/zisha_01.json,687382339a86d2de4f50fc3f66f31ab361d08b6c,src/main/resources/assets/yvanchuxiuzhen/blockstates/zisha_01.json
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/blockstates/zisha_02.json,1cfdcb391f0caab171dfc671476cbe4f7d2ac186,src/main/resources/assets/yvanchuxiuzhen/blockstates/zisha_02.json
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/blockstates/zisha_03.json,41d96a4306260e7e33412d0f58a44639afdc6dd5,src/main/resources/assets/yvanchuxiuzhen/blockstates/zisha_03.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/murenzhuang.geo.json,c6898f182273902508f11ef956c47c30e4fdee8f,src/main/resources/assets/yvanchuxiuzhen/geo/murenzhuang.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/block/acaciabigdoorleft.json,a73b8915db5d0d9a11f0ff11e65079bc1bbcba16,src/main/resources/assets/yvanchuxiuzhen/models/block/acaciabigdoorleft.json
 (generated),,src/main/resources/assets/yvanchuxiuzhen/models/block/acaciabigdoorleft__cutout.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/block/acaciabigdoorright.json,3cb41263f5cd857785717f8980b5ab7809e31622,src/main/resources/assets/yvanchuxiuzhen/models/block/acaciabigdoorright.json
@@ -7463,6 +7465,7 @@ yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/blocks/zhuangshi_
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/blocks/zhuangshi_tulong.png,146c832f1db04a5b6c18348e98e68740093a6aaa,src/main/resources/assets/yvanchuxiuzhen/textures/block/zhuangshi_tulong.png
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/blocks/zisha.png,aec4071e1f62f91383bf1c95b60bf1ef4223b467,src/main/resources/assets/yvanchuxiuzhen/textures/block/zisha.png
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/blocks/zisha03.png,bb573335d2e8d2d36ce2231274577e4283db9e04,src/main/resources/assets/yvanchuxiuzhen/textures/block/zisha03.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/murenzhuang.png,1cb566d15e3788037451d556841749598b430cba,src/main/resources/assets/yvanchuxiuzhen/textures/entities/murenzhuang.png
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/items/baicaojian.png,6f214706f955c567815d120a8c947914c10576c2,src/main/resources/assets/yvanchuxiuzhen/textures/item/baicaojian.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/items/baoxiaitem.png,a6d43eb8af080f130ef75af47fb9f70961e0fffd,src/main/resources/assets/yvanchuxiuzhen/textures/item/baoxiaitem.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/items/beltornaments01.png,25ce1b0eccc016d4cddd3b7a50e8019123fb4c23,src/main/resources/assets/yvanchuxiuzhen/textures/item/beltornaments01.png
@@ -8455,6 +8458,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/friendg
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/friendguixvanze.png,a7dce2d63f95e6775827b8040ebecf849cc657c9,src/main/resources/assets/yvanchuxiuzhen/textures/screens/friendguixvanze.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/friendjiajing03.png,0c3e6f2f587e7c1c11b526f31e33291a5901c2b2,src/main/resources/assets/yvanchuxiuzhen/textures/screens/friendjiajing03.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/levelupxianshi.png,a1f182fe129a45188099b3def73264f14a013d9d,src/main/resources/assets/yvanchuxiuzhen/textures/screens/levelupxianshi.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/murenzhuang_gui.png,94799bec140332a92aa91ff07f164dd4f8b1f190,src/main/resources/assets/yvanchuxiuzhen/textures/screens/murenzhuang_gui.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/playerbegin.png,348a6bbdeab6ffc7afb9fa3a58d0d61f573c1b6a,src/main/resources/assets/yvanchuxiuzhen/textures/screens/playerbegin.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/shipintaigui05.png,d50ae1007cc3866eeca742bac7fef37cca5c758f,src/main/resources/assets/yvanchuxiuzhen/textures/screens/shipintaigui05.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/star.png,602c070988e024402a417caa3a910d82fd355038,src/main/resources/assets/yvanchuxiuzhen/textures/screens/star.png
