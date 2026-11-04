@@ -15,5 +15,9 @@
 {"id":"projectile_skillwind_01","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},
 {"id":"skill_fire_02","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true},
 {"id":"skill_fire_07","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true},
-{"id":"skill_fire_08","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true}
+{"id":"skill_fire_08","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true},
+{"id":"skill_rock_02","category":"MONSTER","width":1.5,"height":1.5,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"skill_rock_03","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"skill_rock_04","category":"MONSTER","width":0.5,"height":1.0,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"skill_rock_05","category":"MONSTER","width":1.0,"height":1.0,"tracking_range":64,"update_interval":3,"fire_immune":false}
 ]

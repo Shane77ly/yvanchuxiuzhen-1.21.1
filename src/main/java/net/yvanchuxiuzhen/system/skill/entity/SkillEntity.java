@@ -34,12 +34,13 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * 溺水的伤害，死亡 20 刻后移除。每种实体的生命、移速等属性与模型来自 {@link EntityModelRow}，行为由 {@link EntitySkill} 承担。
  * 来源在 {@code getPersistentData} 里放的施放信息（{@code AttackUUID}、{@code AttackDamage}、{@code Damage_multiplier}、{@code damagetype}、
  * {@code jinengName}）改为字段，其余各技能私有的计数与标记仍用 {@code getPersistentData}。纹理名同步给客户端（默认透明的 {@code kong}），
- * 过程动画 {@link #setAnimation} 经 GeckoLib 触发，播放一次后回到默认循环动画。
+ * 过程动画 {@link #setAnimation} 同步名字给客户端，由 GeckoLib 的 {@code procedure} 控制器播放一次，之后回到默认循环动画。
  */
 public final class SkillEntity extends PathfinderMob implements GeoEntity {
     public static final String DEFAULT_TEXTURE = "kong";
+    private static final String NO_ANIMATION = "empty";
     private static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(SkillEntity.class, EntityDataSerializers.STRING);
-    private static final String PROCEDURE = "procedure";
+    private static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(SkillEntity.class, EntityDataSerializers.STRING);
 
     private final EntityModelRow model;
     private final EntitySkill skill;
@@ -68,6 +69,7 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(TEXTURE, DEFAULT_TEXTURE);
+        builder.define(ANIMATION, NO_ANIMATION);
     }
 
     public String texture() {
@@ -78,9 +80,12 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
         entityData.set(TEXTURE, texture);
     }
 
-    /** 播放一次过程动画（来源 {@code setAnimation}），随后回到默认循环动画。 */
+    /**
+     * 设置过程动画（来源 {@code setAnimation}）：同步给客户端播放一次，随后回到默认循环动画。放入世界之前设置也有效；
+     * 与当前值相同的名字不会再次播放（来源如此）。
+     */
     public void setAnimation(String animation) {
-        triggerAnim(PROCEDURE, animation);
+        entityData.set(ANIMATION, animation);
     }
 
     /** 记下施放信息：攻击者、攻击量、伤害倍率、伤害类别标签与技能名（来源各 {@code …shifang} 写入的几个键）。 */
@@ -209,11 +214,10 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
             String loop = model.air().isPresent() && !onGround() ? model.air().get() : model.idle();
             return state.setAndContinue(RawAnimation.begin().thenLoop(loop));
         }));
-        AnimationController<SkillEntity> procedure = new AnimationController<>(this, PROCEDURE, 0, state -> PlayState.STOP);
-        for (String name : model.animations()) {
-            procedure.triggerableAnim(name, RawAnimation.begin().thenPlay(name));
-        }
-        controllers.add(procedure);
+        controllers.add(new AnimationController<SkillEntity>(this, "procedure", 0, state -> {
+            String requested = entityData.get(ANIMATION);
+            return requested.equals(NO_ANIMATION) ? PlayState.STOP : state.setAndContinue(RawAnimation.begin().thenPlay(requested));
+        }));
     }
 
     @Override

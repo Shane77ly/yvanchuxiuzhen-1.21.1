@@ -1842,16 +1842,16 @@ yvanchuxiuzhen,SkillLight04DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/
 yvanchuxiuzhen,SkillLight04,rangeditem,~/skill/jineng/lightskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillRock01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/rockskill,skill,已读,B1 归属阅读：随 SkillRock01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillRock01,rangeditem,~/skill/jineng/rockskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
-yvanchuxiuzhen,SkillRock02DangShiTiGengXinKeShi,procedure,~/skill/jineng/rockskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillRock02,animatedentity,~/skill/jineng/rockskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillRock02shifang,procedure,~/skill/jineng/rockskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillRock03DangShiTiGengXinKeShi,procedure,~/skill/jineng/rockskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillRock03,animatedentity,~/skill/jineng/rockskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillRock04DangShiTiGengXinKeShi,procedure,~/skill/jineng/rockskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillRock04,animatedentity,~/skill/jineng/rockskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillRock05DangShiTiGengXinKeShi,procedure,~/skill/jineng/rockskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillRock05,animatedentity,~/skill/jineng/rockskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillRock05shifang,procedure,~/skill/jineng/rockskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillRock02DangShiTiGengXinKeShi,procedure,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
+yvanchuxiuzhen,SkillRock02,animatedentity,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
+yvanchuxiuzhen,SkillRock02shifang,procedure,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
+yvanchuxiuzhen,SkillRock03DangShiTiGengXinKeShi,procedure,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
+yvanchuxiuzhen,SkillRock03,animatedentity,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
+yvanchuxiuzhen,SkillRock04DangShiTiGengXinKeShi,procedure,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
+yvanchuxiuzhen,SkillRock04,animatedentity,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
+yvanchuxiuzhen,SkillRock05DangShiTiGengXinKeShi,procedure,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
+yvanchuxiuzhen,SkillRock05,animatedentity,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
+yvanchuxiuzhen,SkillRock05shifang,procedure,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
 yvanchuxiuzhen,GedangDangShiTiGengXinKeShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GedangDangShiTiBeiShaSiShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gedang,animatedentity,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）

@@ -4,7 +4,6 @@
 - `entity/model/<名>Model.java`：几何文件、动画文件、头部骨骼（`getBone`），纹理固定为 `textures/entities/<实体的 TEXTURE 字符串>.png`；
 - `entity/layer/<名>Layer.java`：可选的发光层，用 `RenderType.eyes` 再画一遍同一几何，纹理固定；
 - `client/renderer/<名>Renderer.java`：阴影半径；
-- 动画文件的动画名清单（过程用 `setAnimation(名)` 一次性播放其中之一，目标侧用 GeckoLib 的触发动画，需要事先登记全部名字）；
 - `entity/<名>Entity.java`：默认循环动画（`movementPredicate` 在没有过程动画时播放，取最后一个无条件的）、离地时的循环动画、
   五项生物属性（移速、生命、护甲、攻击、跟踪范围）、是否无 AI。`Skillyin01` 另有 walk、die、swim、sprint 的条件动画，由 Java 侧单独实现。
 输出 src/main/resources/content/skill/entity_models.json（一行一个实体，键为注册 ID），并重写
@@ -75,8 +74,6 @@ def parse(name: str) -> dict:
     for key, attribute in (('speed', 'MOVEMENT_SPEED'), ('health', 'MAX_HEALTH'), ('armor', 'ARMOR'), ('attack', 'ATTACK_DAMAGE'), ('follow', 'FOLLOW_RANGE')):
         row[key] = float(re.search(rf'Attributes\.{attribute}, ([\d.]+)', entity)[1])
     row['no_ai'] = 'setNoAi(true)' in entity
-    file = SOURCES[MOD][0] / f'src/main/resources/assets/{MOD}/animations/{row["animation"]}.animation.json'
-    row['animations'] = sorted(json.loads(file.read_text(encoding='utf-8-sig'))['animations'])
     return row
 
 

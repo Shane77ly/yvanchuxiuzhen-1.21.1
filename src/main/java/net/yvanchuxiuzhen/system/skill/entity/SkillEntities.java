@@ -10,10 +10,11 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
-import net.yvanchuxiuzhen.system.skill.api.Skills;
 
 /**
  * 技能动画实体的登记与召唤。实体行为由各元素族登记到 {@link #SKILLS}（实体 ID → {@link EntitySkill}）；模型、属性取自
@@ -24,6 +25,7 @@ public final class SkillEntities {
 
     static {
         FireEntities.register(SKILLS);
+        RockEntities.register(SKILLS);
     }
 
     private SkillEntities() {
@@ -64,6 +66,20 @@ public final class SkillEntities {
             entity.finalizeSpawn(level, level.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         }
         level.addFreshEntity(entity);
+    }
+
+    /** 实体对 {@code other} 造成自己记下的类别、攻击量与倍率的灵力伤害；{@code other} 不是生物时没有效果。 */
+    public static void strike(SkillEntity self, Entity other) {
+        if (other instanceof LivingEntity living) {
+            SpellDamage.deal((ServerLevel) self.level(), living, DamageCategory.byLabel(self.damageType()), self.attacker(), false, self.attackDamage(), self.multiplier());
+        }
+    }
+
+    /** 同 {@link #strike}，攻击量与倍率先取整（来源经 {@code DecimalFormat("0")} 拼进命令的调用）。 */
+    public static void strikeRounded(SkillEntity self, Entity other) {
+        if (other instanceof LivingEntity living) {
+            SpellDamage.dealRounded((ServerLevel) self.level(), living, DamageCategory.byLabel(self.damageType()), self.attacker(), false, self.attackDamage(), self.multiplier());
+        }
     }
 
     /** 设置朝向并同步身体、头部与上一刻的朝向，使转向不被插值抹平（来源的“转向”样板）。 */

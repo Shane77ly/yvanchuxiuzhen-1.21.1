@@ -12,7 +12,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
-import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
@@ -126,9 +125,7 @@ final class FireEntities {
                 if (explosionParticles) {
                     level.sendParticles(ParticleTypes.FLAME, other.getX(), other.getY() + other.getBbHeight() / 2, other.getZ(), 10, 0, 0, 0, 1);
                 }
-                if (other instanceof LivingEntity living) {
-                    SpellDamage.dealRounded(level, living, DamageCategory.byLabel(self.damageType()), self.attacker(), false, self.attackDamage(), self.multiplier());
-                }
+                SkillEntities.strikeRounded(self, other);
                 ProjectileSupport.ignite(other, 5);
             }
         }
