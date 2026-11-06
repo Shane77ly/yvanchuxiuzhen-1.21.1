@@ -1346,18 +1346,18 @@ yvanchuxiuzhen,Book033,item,~/item/book,book,已读,B1 归属阅读：书籍：�
 yvanchuxiuzhen,Book034,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
 yvanchuxiuzhen,Book035,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
 yvanchuxiuzhen,Book036,item,~/item/book,book,已读,B1 归属阅读：书籍：功法、技能、丹方、法宝说明与公共文本共用的书籍载体；BookRightClick 按物品 NBT 分支，textdisplay 文本阅读属 book，功法书与研习分支经 gongfa 的 BookGiveGongfa 等、技能书分支经 skill 的 Jinenglistzong
-yvanchuxiuzhen,Swordsmanship01DangShiTiGengXinKeShi,procedure,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Swordsmanship01,animatedentity,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Swordsmanship01chufa,procedure,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Swordhuiwu,procedure,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Swordsmanship02,animatedentity,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Swordsmanship02chufa,procedure,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Swordsmanship03,animatedentity,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Swordsmanship03chufa,procedure,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Swordsmanship01DangShiTiGengXinKeShi,procedure,~/skill/swordsmanship,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
+yvanchuxiuzhen,Swordsmanship01,animatedentity,~/skill/swordsmanship,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
+yvanchuxiuzhen,Swordsmanship01chufa,procedure,~/skill/swordsmanship,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
+yvanchuxiuzhen,Swordhuiwu,procedure,~/skill/swordsmanship,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
+yvanchuxiuzhen,Swordsmanship02,animatedentity,~/skill/swordsmanship,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
+yvanchuxiuzhen,Swordsmanship02chufa,procedure,~/skill/swordsmanship,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
+yvanchuxiuzhen,Swordsmanship03,animatedentity,~/skill/swordsmanship,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
+yvanchuxiuzhen,Swordsmanship03chufa,procedure,~/skill/swordsmanship,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
 yvanchuxiuzhen,Smanship,command,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
 yvanchuxiuzhen,SmanshipGO,procedure,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
-yvanchuxiuzhen,Swordsmanship04,animatedentity,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Swordsmanship04chufa,procedure,~/skill/swordsmanship,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Swordsmanship04,animatedentity,~/skill/swordsmanship,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
+yvanchuxiuzhen,Swordsmanship04chufa,procedure,~/skill/swordsmanship,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
 yvanchuxiuzhen,Weaponsword01,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponsword02,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponsword03,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
@@ -1376,7 +1376,7 @@ yvanchuxiuzhen,Weaponwoodsword06,tool,~/weapon/sword,equipment,已读,B1 归属�
 yvanchuxiuzhen,Weaponwoodsword07,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponwoodsword08,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponwoodsword09,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
-yvanchuxiuzhen,Jvjianhuiwu,procedure,~/weapon/sword,equipment,已读,B1 归属阅读：随 Weaponepee01 读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Jvjianhuiwu,procedure,~/weapon/sword,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
 yvanchuxiuzhen,Weaponepee01,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponepee02,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponepee03,tool,~/weapon/sword,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
@@ -1996,7 +1996,7 @@ yvanchuxiuzhen,LiziliziGo,procedure,~/systemset/zhiling,flow,候选,第一版批
 yvanchuxiuzhen,Flyskill06,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,FanjianAnXiaAnJianShi,procedure,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fanjian,keybind,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Spearhuiwu,procedure,~/weapon/spear,equipment,已读,B1 归属阅读：随 Weaponspear01 读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
+yvanchuxiuzhen,Spearhuiwu,procedure,~/weapon/spear,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
 yvanchuxiuzhen,Weaponspear01,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponspear02,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponspear03,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理

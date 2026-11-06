@@ -83,6 +83,7 @@ final class SkillProjectileCheck extends SystemCheck {
         if (step % 2 == 0) {
             onServer(player -> {
                 clearArea(player);
+                Arena.level(player);
                 ServerLevel level = player.serverLevel();
                 player.connection.teleport(player.getX(), player.getY(), player.getZ(), -90, 0);
                 golem = EntityType.IRON_GOLEM.create(level);

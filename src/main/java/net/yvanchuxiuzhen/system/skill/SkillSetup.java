@@ -14,6 +14,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.platform.content.ItemSwingEvent;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStudiedEvent;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
@@ -24,7 +25,7 @@ import net.yvanchuxiuzhen.system.skill.network.SkillActionPayload;
 
 /**
  * 技能系统的启动装配，只在 Mod 构造时调用一次：内容表、技能书组件与玩家附件、技能按键与生成命令的服务端处理、
- * 右键施放、每刻推进冷却，以及研习指定功法后附赠技能。
+ * 右键施放、挥动武器触发武器技、每刻推进冷却，以及研习指定功法后附赠技能。
  */
 public final class SkillSetup {
     private static final ContentTables CONTENT = new ContentTables("skill");
@@ -48,6 +49,7 @@ public final class SkillSetup {
         SkillDelays.register();
         NeoForge.EVENT_BUS.addListener(SkillSetup::onRightClickItem);
         NeoForge.EVENT_BUS.addListener(SkillSetup::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener((ItemSwingEvent event) -> WeaponArts.onSwing(event));
         NeoForge.EVENT_BUS.addListener((TechniqueStudiedEvent event) -> grantBonus(event.player(), event.technique()));
     }
 
@@ -64,6 +66,7 @@ public final class SkillSetup {
     private static void onPlayerTick(PlayerTickEvent.Post event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             SkillCasting.tick(player);
+            WeaponArts.tick(player);
         }
     }
 

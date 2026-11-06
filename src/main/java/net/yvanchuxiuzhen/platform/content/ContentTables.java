@@ -210,7 +210,7 @@ public final class ContentTables {
             int damage = tool.damage().get();
             float speed = tool.attackSpeed().orElseThrow();
             return switch (tool.kind()) {
-                case "sword" -> new ContentSword(tier, properties.attributes(SwordItem.createAttributes(tier, damage, speed)), tooltip);
+                case "sword" -> new ContentSword(tier, properties.attributes(SwordItem.createAttributes(tier, damage, speed)), tooltip, tool.swing().orElse(false));
                 case "axe" -> new ContentAxe(tier, properties.attributes(AxeItem.createAttributes(tier, damage, speed)), tooltip);
                 case "pickaxe" -> new ContentPickaxe(tier, properties.attributes(PickaxeItem.createAttributes(tier, damage, speed)), tooltip);
                 case "shovel" -> new ContentShovel(tier, properties.attributes(ShovelItem.createAttributes(tier, damage, speed)), tooltip);
@@ -220,7 +220,7 @@ public final class ContentTables {
         if (!tool.kind().equals("tiered")) {
             throw new IllegalStateException("工具 " + row.id() + " 缺少攻击参数");
         }
-        return new ContentTieredItem(tier, properties, tooltip);
+        return new ContentTieredItem(tier, properties, tooltip, tool.swing().orElse(false));
     }
 
     private static ArmorMaterial armorMaterial(ArmorMaterialRow row) {

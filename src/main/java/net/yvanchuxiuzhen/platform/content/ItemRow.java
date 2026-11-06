@@ -59,13 +59,17 @@ public record ItemRow(String id, String factory, int order, Optional<String> blo
         ).apply(instance, LegacyTierRow::new));
     }
 
-    /** 工具：kind 为 sword、axe、pickaxe、shovel 或 tiered；damage 与 attack_speed 是来源构造器的攻击参数（tiered 没有）。 */
-    public record Tool(String kind, LegacyTierRow tier, Optional<Integer> damage, Optional<Float> attackSpeed) {
+    /**
+     * 工具：kind 为 sword、axe、pickaxe、shovel 或 tiered；damage 与 attack_speed 是来源构造器的攻击参数（tiered 没有）；
+     * swing 为真表示来源覆写了 {@code onEntitySwing}，挥动时由平台发出 {@link ItemSwingEvent}。
+     */
+    public record Tool(String kind, LegacyTierRow tier, Optional<Integer> damage, Optional<Float> attackSpeed, Optional<Boolean> swing) {
         static final Codec<Tool> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.STRING.fieldOf("kind").forGetter(Tool::kind),
                 LegacyTierRow.CODEC.fieldOf("tier").forGetter(Tool::tier),
                 Codec.INT.optionalFieldOf("damage").forGetter(Tool::damage),
-                Codec.FLOAT.optionalFieldOf("attack_speed").forGetter(Tool::attackSpeed)
+                Codec.FLOAT.optionalFieldOf("attack_speed").forGetter(Tool::attackSpeed),
+                Codec.BOOL.optionalFieldOf("swing").forGetter(Tool::swing)
         ).apply(instance, Tool::new));
     }
 

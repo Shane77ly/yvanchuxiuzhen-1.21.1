@@ -8,7 +8,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -67,15 +66,10 @@ final class ThunderEntities {
         SkillEntities.spawn(level, field, true);
     }
 
-    /** 来源比较的是实体 {@code getPersistentData} 里的队伍名：玩家的队伍不在这里，恒为空串。 */
-    private static String persistentTeam(Entity entity) {
-        return entity instanceof Player ? "" : Relations.team(entity);
-    }
-
     /**
      * 掌心雷：第 4 刻对 1.5 格内的非友方实体造成一次雷系伤害（取整）并沉默 100 刻，第 8 刻后消失。
      * 地滚雷：沿朝向以 0.1 的速度滚动，200 刻后对 5 格内的非友方实体造成雷系伤害并施加重伤 300 刻后消失；
-     * 滚动中 1.5 格内出现队伍名与自己不同的实体（玩家恒为空串，包括施放者本人）时提前爆发，伤害取整。
+     * 滚动中 1.5 格内出现队伍名与自己不同的实体时提前爆发（来源比较 {@code getPersistentData} 里的队伍名，玩家的值由登录与每秒的恢复过程与其团队保持一致，施放者本人与同队实体不触发），伤害取整。
      */
     private static final class PalmThunder implements EntitySkill {
         @Override
@@ -99,7 +93,7 @@ final class ThunderEntities {
                     self.discard();
                 }
                 for (Entity other : ProjectileSupport.around(level, center, 1.5)) {
-                    if (!persistentTeam(other).equals(persistentTeam(self))) {
+                    if (!Relations.team(other).equals(Relations.team(self))) {
                         scratch.putBoolean("kaishi", true);
                     }
                 }

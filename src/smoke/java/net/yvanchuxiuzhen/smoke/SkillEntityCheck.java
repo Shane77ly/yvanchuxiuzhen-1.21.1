@@ -133,20 +133,6 @@ final class SkillEntityCheck extends SystemCheck {
         }
     }
 
-    /** 以玩家脚下为准铺一块平地（东侧 14 格、其余各 8 格，上方 7 格清空），使移动类技能的检查不受地形影响。 */
-    private static void levelArena(ServerPlayer player) {
-        ServerLevel level = player.serverLevel();
-        BlockPos feet = player.blockPosition();
-        for (int dx = -8; dx <= 14; dx++) {
-            for (int dz = -8; dz <= 8; dz++) {
-                level.setBlock(feet.offset(dx, -1, dz), Blocks.STONE.defaultBlockState(), 2);
-                for (int dy = 0; dy <= 6; dy++) {
-                    level.setBlock(feet.offset(dx, dy, dz), Blocks.AIR.defaultBlockState(), 2);
-                }
-            }
-        }
-    }
-
     private IronGolem placeGolem(ServerPlayer player, double x, double y, double z) {
         return placeGolem(player, x, y, z, HEALTH);
     }
@@ -181,7 +167,7 @@ final class SkillEntityCheck extends SystemCheck {
         switch (step % 3) {
             case 0 -> onServer(player -> {
                 clearArea(player);
-                levelArena(player);
+                Arena.level(player);
                 player.connection.teleport(player.getX(), player.getY(), player.getZ(), -90, 0);
                 Cultivation.set(player, CultivationValue.POWER, 1000);
                 player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
