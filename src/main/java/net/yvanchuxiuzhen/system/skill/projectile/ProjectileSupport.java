@@ -86,12 +86,18 @@ public final class ProjectileSupport {
      * 基础伤害、击退与穿透由参数给出。
      */
     public static SkillProjectile shoot(ServerLevel level, Entity shooter, String id, Vec3 origin, Vec3 direction, double baseDamage, int knockback, int pierce) {
+        return shoot(level, shooter, id, origin, direction, baseDamage, knockback, pierce, 0);
+    }
+
+    /** 同 {@link #shoot(ServerLevel, Entity, String, Vec3, Vec3, double, int, int)}，{@code inaccuracy} 是箭的散布参数。 */
+    public static SkillProjectile shoot(ServerLevel level, Entity shooter, String id, Vec3 origin, Vec3 direction, double baseDamage, int knockback, int pierce,
+                                        float inaccuracy) {
         EntityType<SkillProjectile> type = SkillSetup.<SkillProjectile>entityType(id).get();
         SkillProjectile projectile = type.create(level).launchedWith(knockback, pierce);
         projectile.setOwner(shooter);
         projectile.setBaseDamage(baseDamage);
         projectile.setPos(origin);
-        projectile.shoot(direction.x, direction.y, direction.z, 1, 0);
+        projectile.shoot(direction.x, direction.y, direction.z, 1, inaccuracy);
         level.addFreshEntity(projectile);
         return projectile;
     }

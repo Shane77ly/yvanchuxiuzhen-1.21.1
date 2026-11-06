@@ -5069,8 +5069,8 @@ yvanchuxiuzhen,LingwentexiaoTouZhiWuFeiXingTick,procedure,~/skill/fumotexiao,ski
 yvanchuxiuzhen,LingwentexiaoDangTouZhiWuJiZhongShiTiShi,procedure,~/skill/fumotexiao,skill,已读,B1 归属阅读：随 Lingwentexiao 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,Lingwentexiao,rangeditem,~/skill/fumotexiao,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,Suijizhanlipin,loottable,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingwentexiao2DangShiTiGengXinKeShi,procedure,~/skill/fumotexiao,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingwentexiao2,animatedentity,~/skill/fumotexiao,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Lingwentexiao2DangShiTiGengXinKeShi,procedure,~/skill/fumotexiao,skill,已读,C skill 归属阅读：灵纹特效实体（跟随主人、按数量播放动画、每 20 刻射出灵纹弹）；灵纹附魔的命中段在 EntityHurt2 中，由 skill 订阅命中事件承担（附魔本身与 EntityHurt2 其余部分仍归 combat）
+yvanchuxiuzhen,Lingwentexiao2,animatedentity,~/skill/fumotexiao,skill,已读,C skill 归属阅读：灵纹特效实体（跟随主人、按数量播放动画、每 20 刻射出灵纹弹）；灵纹附魔的命中段在 EntityHurt2 中，由 skill 订阅命中事件承担（附魔本身与 EntityHurt2 其余部分仍归 combat）
 yvanchuxiuzhen,Linghunentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,EntityHurt3,procedure,~/systemset,combat,已读,C combat 归属阅读：命中时的武器附魔（冰爆、留情、威慑、禁空、混沌、太虚）；发射 fulu 实体的 starsky 随 fulu 订阅 HitEvent
 yvanchuxiuzhen,Effect035,potioneffect,~/effect,skill,已读,C combat 归属阅读：禁空，过程取消飞行、重置体质飞行键与 skill 的飞行状态 flybegin，玩法含义在 skill

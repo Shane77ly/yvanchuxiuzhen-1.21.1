@@ -1,8 +1,6 @@
 package net.yvanchuxiuzhen.smoke;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -26,21 +24,16 @@ import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
  * 各式的挑起、震开、范围伤害与跃起只作用于非同队的目标；技能书类别不对、剑类武器要求的本人研习、非剑类武器、出手冷却都会拒绝出手，
  * 剑影到时消失，连击窗口结束后式数归零。
  */
-final class SwordArtCheck extends SystemCheck {
+final class SwordArtCheck extends ActionCheck {
     private static final double HEALTH = 100;
     private static final String[] NAMES = {"中平剑法", "柔云剑法", "拜年剑法", "弱鸡剑法"};
 
-    private record Action(int ticks, Consumer<ServerPlayer> run) {
-    }
-
-    private final List<Action> actions;
     private IronGolem target;
     private IronGolem friend;
-    private int executed = -1;
 
     SwordArtCheck(List<String> report, String levelId) {
         super("剑法", report, levelId);
-        actions = Arrays.asList(
+        script(
                 new Action(12, this::arena),
                 new Action(2, player -> {
                     stage(player, "weaponsword_01", 1, "剑", true, 1);
@@ -235,22 +228,10 @@ final class SwordArtCheck extends SystemCheck {
     }
 
     @Override
-    protected boolean step(int step, int local) {
-        if (step >= actions.size()) {
-            onServer(player -> {
-                clearArea(player);
-                Skills.setWeaponArt(player, ItemStack.EMPTY);
-                player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-                data(player).putDouble("swordsmanshipnum", 0);
-            });
-            finish();
-            return true;
-        }
-        Action action = actions.get(step);
-        if (executed != step) {
-            executed = step;
-            onServer(action.run());
-        }
-        return local >= action.ticks();
+    protected void cleanup(ServerPlayer player) {
+        clearArea(player);
+        Skills.setWeaponArt(player, ItemStack.EMPTY);
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        data(player).putDouble("swordsmanshipnum", 0);
     }
 }

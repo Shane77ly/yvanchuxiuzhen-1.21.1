@@ -129,6 +129,7 @@ updated: 2026-11-01
 | Q42 | 巨石锤（`SkillRock05`）类型一与类型二落地攻击里 20% 的眩晕（`effect_001`）加给了实体自己（`entity`）而不是受击者（`entityiterator`）；化石手（`SkillRock04`）按实体自己的朝向取 3.5 格或 1 格处作为攻击中心，而生成时朝向是随机的，攻击方向随机。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
 | Q43 | 雷系两处疑似疏漏（2026-11-05 更正：此前认为地滚雷比较的队伍名对玩家恒为空串、施放者本人走近也会触发，这是错的——登录过程 `PlayerJoinGame` 与每秒一次的 `Playerhuifu` 都把玩家变量 `team` 写入玩家的 `getPersistentData`，所以玩家的值就是其团队名，施放者本人与同队实体不会触发）：地滚雷（`SkillThunder08`）生成时没有转向，前进方向是随机朝向；`Skillwind02` 的聚风术（非聚风化气）不分敌友拉扯 4 格内全部实体。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
 | Q44 | 木系四处疑似疏漏：木篱术（`SkillTree05shifang`）放出九道木篱时只 `addFreshEntity`、没有走 `finalizeSpawn`，木篱的状态停在空串，实体刻过程不会让它展开、收起或消失，施放出的木篱永久留在世界里直到被打死（只有 `/summon` 之类走初始生成的才会进入阶段）；回身鞭（`SkillTree06`）只把带霸体（`skilleffect_08`）的目标抛起，与其他技能“无霸体才位移”相反；乱枝（`SkillTree04shifang`）潜行只给友方枝条写一个无处读取的 `baolie` 标记，没有效果；灰木树梯在实体刻里计数加了两次，存在时间是 26 刻而不是 52 刻。评估为轻微（木篱每次放 9 个永久实体，可被击杀或命令清除），保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q45 | 灵纹附魔（`EntityHurt2` 中读主手 `lingwen` 的一段）两处疑似疏漏：数量与灵力消耗用的是起尸诀附魔 `qishi` 的等级（`fumolevel`，没有起尸诀时为 0），灵纹附魔自己的等级只在灵纹弹的攻击量（等级 × 4）里用；扣的灵力是受击者 `entity` 的，不是攻击者 `sourceentity` 的（非玩家受击者视为 0 灵力，所以只有 `qishi` 等级为 0 时才会生成，同时带起尸诀附魔的武器打到怪物时灵纹不会触发）；另外生成的灵纹特效把计数 `lingwennum`、`friendnumber`、`belongToMasterUUID` 写进攻击者好友列表物品的 NBT（`getCompound` 取到的是同一个标签对象，又原样 `put` 进实体），好友列表里会残留这几项，下一只从残留值接着数。评估为轻微，保持来源行为（残留的计数不复现，每只从 1 起） | [技能](../../systems/skill/architecture.md) |
 
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 

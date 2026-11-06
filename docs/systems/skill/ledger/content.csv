@@ -3,8 +3,8 @@ enchantment,yvanchuxiuzhen:flying,yvanchuxiuzhen,Flying,src/main/java/net/mcreat
 enchantment,yvanchuxiuzhen:flyingskill,yvanchuxiuzhen,Flyingskill,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,176,skill,已读,yvanchuxiuzhen:flyingskill,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
 enchantment,yvanchuxiuzhen:jet,yvanchuxiuzhen,Jet,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,178,skill,已读,yvanchuxiuzhen:jet,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
 entity_type,yvanchuxiuzhen:gedang,yvanchuxiuzhen,Gedang,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,501,skill,候选,yvanchuxiuzhen:gedang,待处理,
-entity_type,yvanchuxiuzhen:lingwentexiao_2,yvanchuxiuzhen,Lingwentexiao2,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1047,skill,候选,yvanchuxiuzhen:lingwentexiao_2,待处理,
-entity_type,yvanchuxiuzhen:projectile_lingwentexiao,yvanchuxiuzhen,Lingwentexiao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1045,skill,已读,yvanchuxiuzhen:projectile_lingwentexiao,待处理,
+entity_type,yvanchuxiuzhen:lingwentexiao_2,yvanchuxiuzhen,Lingwentexiao2,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1047,skill,已读,yvanchuxiuzhen:lingwentexiao_2,行为已迁移,灵纹特效与灵纹弹（LingwenEntities、LingwenBolt、LingwenHit）；Q45
+entity_type,yvanchuxiuzhen:projectile_lingwentexiao,yvanchuxiuzhen,Lingwentexiao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1045,skill,已读,yvanchuxiuzhen:projectile_lingwentexiao,行为已迁移,灵纹特效与灵纹弹（LingwenEntities、LingwenBolt、LingwenHit）；Q45
 entity_type,yvanchuxiuzhen:projectile_skill_arrow_01,yvanchuxiuzhen,SkillArrow01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,529,skill,已读,yvanchuxiuzhen:projectile_skill_arrow_01,待处理,
 entity_type,yvanchuxiuzhen:projectile_skill_arrow_02,yvanchuxiuzhen,SkillArrow02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,531,skill,已读,yvanchuxiuzhen:projectile_skill_arrow_02,待处理,
 entity_type,yvanchuxiuzhen:projectile_skill_arrow_03,yvanchuxiuzhen,SkillArrow03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,533,skill,已读,yvanchuxiuzhen:projectile_skill_arrow_03,待处理,
@@ -64,7 +64,7 @@ entity_type,yvanchuxiuzhen:swordsmanship_04,yvanchuxiuzhen,Swordsmanship04,src/m
 entity_type,yvanchuxiuzhen:xvkongliexi,yvanchuxiuzhen,Xvkongliexi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,819,skill,候选,yvanchuxiuzhen:xvkongliexi,待处理,
 entity_type,yvanchuxiuzhen:yvanyingchuqiao,yvanchuxiuzhen,Yvanyingchuqiao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1049,skill,已读,yvanchuxiuzhen:yvanyingchuqiao,待处理,
 item,yvanchuxiuzhen:danhuo,yvanchuxiuzhen,Danhuo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3050,skill,已读,yvanchuxiuzhen:danhuo,已注册,
-item,yvanchuxiuzhen:lingwentexiao,yvanchuxiuzhen,Lingwentexiao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3049,skill,已读,yvanchuxiuzhen:lingwentexiao,已注册,
+item,yvanchuxiuzhen:lingwentexiao,yvanchuxiuzhen,Lingwentexiao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3049,skill,已读,yvanchuxiuzhen:lingwentexiao,行为已迁移,灵纹特效与灵纹弹（LingwenEntities、LingwenBolt、LingwenHit）；Q45
 item,yvanchuxiuzhen:skill_arrow_01,yvanchuxiuzhen,SkillArrow01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1970,skill,已读,yvanchuxiuzhen:skill_arrow_01,已注册,
 item,yvanchuxiuzhen:skill_arrow_02,yvanchuxiuzhen,SkillArrow02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1971,skill,已读,yvanchuxiuzhen:skill_arrow_02,已注册,
 item,yvanchuxiuzhen:skill_arrow_03,yvanchuxiuzhen,SkillArrow03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1972,skill,已读,yvanchuxiuzhen:skill_arrow_03,已注册,

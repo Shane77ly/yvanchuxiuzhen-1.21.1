@@ -30,6 +30,7 @@ public final class SkillEntities {
         GoldEntities.register(SKILLS);
         IceEntities.register(SKILLS);
         LightEntities.register(SKILLS);
+        LingwenEntities.register(SKILLS);
         RockEntities.register(SKILLS);
         SwordEntities.register(SKILLS);
         ThunderEntities.register(SKILLS);

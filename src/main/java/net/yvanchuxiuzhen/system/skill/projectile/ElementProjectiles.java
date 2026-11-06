@@ -26,7 +26,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 
 /**
  * 五行与光、风、冰的技能弹体（来源 {@code SkillGold01}、{@code SkillWater03/05/0101}、{@code SkillIce01–03}、{@code SkillTree01}、
- * {@code Skillwind01}、{@code SkillFire01}、{@code SkillLight01/02/04}、{@code SkillRock01} 的弹体过程与 {@code Jinenglist01} 中对应的施放）。
+ * {@code Skillwind01}、{@code SkillFire01}、{@code SkillLight01/02/04}、{@code SkillRock01} 的弹体过程与 {@code Jinenglist01} 中对应的施放），以及灵纹弹 {@link LingwenBolt}（由灵纹特效实体射出，没有施放入口）。
  * 来源的自定义粒子（{@code SMALLEXPLOSION*}、{@code FLASH_ICE}、{@code SMOKELIGHTGRAY}、{@code SKILL_GOLD_0101}）随 particle 迁移，这里只保留原版粒子。
  */
 public final class ElementProjectiles {
@@ -45,7 +45,8 @@ public final class ElementProjectiles {
                 Map.entry("projectile_skill_light_01", new LightBullet()),
                 Map.entry("projectile_skill_light_02", new SoulLight()),
                 Map.entry("projectile_skill_light_04", new PhantomLight()),
-                Map.entry("projectile_skill_rock_01", new FlyingStone()));
+                Map.entry("projectile_skill_rock_01", new FlyingStone()),
+                Map.entry("projectile_lingwentexiao", new LingwenBolt()));
 
     private ElementProjectiles() {
     }
