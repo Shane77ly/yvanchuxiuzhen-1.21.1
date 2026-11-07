@@ -185,6 +185,7 @@ final class SmokeRun {
                     case "skillui" -> List.of(new SkillUiCheck(report, levelId, this::shot));
                     case "skillremainder" -> List.of(new SkillRemainderCheck(report, levelId));
                     case "particle" -> List.of(new ParticleLibraryCheck(report, levelId, this::shot));
+                    case "skillparticle" -> List.of(new SkillParticleCheck(report, levelId, this::shot));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }

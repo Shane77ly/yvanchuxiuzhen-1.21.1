@@ -20,6 +20,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -27,7 +28,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 /**
  * 五行与光、风、冰的技能弹体（来源 {@code SkillGold01}、{@code SkillWater03/05/0101}、{@code SkillIce01–03}、{@code SkillTree01}、
  * {@code Skillwind01}、{@code SkillFire01}、{@code SkillLight01/02/04}、{@code SkillRock01} 的弹体过程与 {@code Jinenglist01} 中对应的施放），以及灵纹弹 {@link LingwenBolt}（由灵纹特效实体射出，没有施放入口）。
- * 来源的自定义粒子（{@code SMALLEXPLOSION*}、{@code FLASH_ICE}、{@code SMOKELIGHTGRAY}、{@code SKILL_GOLD_0101}）随 particle 迁移，这里只保留原版粒子。
+ * 原版与自定义粒子均按来源过程的条件、顺序和参数由服务端发送。
  */
 public final class ElementProjectiles {
     private static final Map<String, ProjectileSkill> SKILLS = Map.ofEntries(
@@ -120,6 +121,7 @@ public final class ElementProjectiles {
     private static final class GoldBolt implements ProjectileSkill {
         @Override
         public void tick(SkillProjectile projectile, Entity owner) {
+            ProjectileSupport.burst(projectile, "skill_gold_0101");
             if (projectile.begin()) {
                 boolean shattering = owner instanceof Player player && Skills.book(Skills.selected(player)).filter(book -> book.name().equals("碎裂金芒")).isPresent();
                 projectile.setSkillName(shattering ? "碎裂金芒" : "金芒术");
@@ -160,6 +162,7 @@ public final class ElementProjectiles {
         @Override
         public void hitEntity(SkillProjectile projectile, Entity target, Entity owner) {
             burst(projectile, ParticleTypes.SPLASH, 10, 0, 0.5, 0);
+            ProjectileSupport.burst(projectile, "smallexplosionblue");
             if (hostile(owner, target)) {
                 ProjectileSupport.deal((ServerLevel) projectile.level(), target, owner, "水", projectile.mana(), projectile.multiplier());
             }
@@ -168,6 +171,7 @@ public final class ElementProjectiles {
         @Override
         public void hitBlock(SkillProjectile projectile, BlockHitResult hit, Entity owner) {
             burst(projectile, ParticleTypes.SPLASH, 10, 0, 0.5, 0);
+            ProjectileSupport.burst(projectile, "smallexplosionblue");
         }
     }
 
@@ -210,6 +214,7 @@ public final class ElementProjectiles {
         @Override
         public void hitEntity(SkillProjectile projectile, Entity target, Entity owner) {
             burst(projectile, ParticleTypes.SPLASH, 10, 0, 0.5, 0);
+            ProjectileSupport.burst(projectile, "smallexplosionlightblue");
             if (hostile(owner, target)) {
                 ProjectileSupport.deal((ServerLevel) projectile.level(), target, owner, "水", projectile.mana(), projectile.multiplier());
             }
@@ -218,6 +223,7 @@ public final class ElementProjectiles {
         @Override
         public void hitBlock(SkillProjectile projectile, BlockHitResult hit, Entity owner) {
             burst(projectile, ParticleTypes.SPLASH, 10, 0, 0.5, 0);
+            ProjectileSupport.burst(projectile, "smallexplosionlightblue");
         }
     }
 
@@ -253,6 +259,7 @@ public final class ElementProjectiles {
     private static final class IceCone implements ProjectileSkill {
         @Override
         public void tick(SkillProjectile projectile, Entity owner) {
+            burst(projectile, Particles.type("flash_ice"), 2, 0.2, 0, 0.3);
             if (projectile.begin()) {
                 projectile.snapshot(owner, 1, 1, 1);
             }
@@ -274,6 +281,7 @@ public final class ElementProjectiles {
     /** 敌方目标：去除霸体（只有冰锥术）、冰系伤害、叠加冷冻刻数。 */
     private static void freeze(SkillProjectile projectile, Entity target, Entity owner, int ticks) {
         if (hostile(owner, target)) {
+            ProjectileSupport.burst(projectile, "smallexplosionskyblue");
             if (target instanceof LivingEntity living && StatusEffects.has(living, "skilleffect_08")) {
                 StatusEffects.remove(living, "skilleffect_08");
             }
@@ -296,6 +304,7 @@ public final class ElementProjectiles {
             ServerLevel level = (ServerLevel) projectile.level();
             ProjectileSupport.breakEffect(level, projectile.position(), Blocks.ICE.defaultBlockState());
             if (hostile(owner, target)) {
+                ProjectileSupport.burst(projectile, "smallexplosionskyblue");
                 ProjectileSupport.deal(level, target, owner, "冰", projectile.mana(), projectile.multiplier());
                 target.setTicksFrozen(target.getTicksFrozen() + 120);
                 scatter(level, owner, target.position());
@@ -369,6 +378,13 @@ public final class ElementProjectiles {
                 }
             }
         }
+
+        @Override
+        public void hitEntity(SkillProjectile projectile, Entity target, Entity owner) {
+            if (hostile(owner, target)) {
+                ProjectileSupport.burst(projectile, "smallexplosiongreen");
+            }
+        }
     }
 
     /** 风弹术：10 刻消失，命中风系伤害。 */
@@ -386,6 +402,7 @@ public final class ElementProjectiles {
         public void hitEntity(SkillProjectile projectile, Entity target, Entity owner) {
             burst(projectile, ParticleTypes.CLOUD, 5, 0, 0.1, 0);
             if (hostile(owner, target)) {
+                ProjectileSupport.burst(projectile, "smallexplosionwhite");
                 ProjectileSupport.deal((ServerLevel) projectile.level(), target, owner, "风", projectile.mana(), projectile.multiplier());
             }
         }
@@ -417,10 +434,12 @@ public final class ElementProjectiles {
             if (projectile.skillName().equals("火球术")) {
                 for (Entity other : ProjectileSupport.around(level, projectile.position(), 2)) {
                     if (hostile(owner, other)) {
+                        ProjectileSupport.burst(projectile, "smallexplosionred");
                         ProjectileSupport.deal(level, other, owner, "火", projectile.mana(), projectile.multiplier());
                     }
                 }
             } else if (hostile(owner, target)) {
+                ProjectileSupport.burst(projectile, "smallexplosionred");
                 ProjectileSupport.deal(level, target, owner, "火", projectile.mana(), projectile.multiplier());
             }
         }
@@ -445,6 +464,7 @@ public final class ElementProjectiles {
         @Override
         public void hitEntity(SkillProjectile projectile, Entity target, Entity owner) {
             if (hostile(owner, target)) {
+                ProjectileSupport.burst(projectile, "smallexplosionlightyellow");
                 ProjectileSupport.deal((ServerLevel) projectile.level(), target, owner, "光", projectile.mana(), projectile.multiplier());
             }
         }
@@ -456,6 +476,7 @@ public final class ElementProjectiles {
         public void hitEntity(SkillProjectile projectile, Entity target, Entity owner) {
             burst(projectile, ParticleTypes.FLASH, 1, 0, 0, 0);
             if (hostile(owner, target)) {
+                ProjectileSupport.burst(projectile, "smallexplosionlightblue");
                 ProjectileSupport.deal((ServerLevel) projectile.level(), target, owner, "光", projectile.mana(), projectile.multiplier());
                 if (target instanceof LivingEntity living) {
                     living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 600, 20));
@@ -482,6 +503,7 @@ public final class ElementProjectiles {
         @Override
         public void hitEntity(SkillProjectile projectile, Entity target, Entity owner) {
             if (hostile(owner, target)) {
+                ProjectileSupport.burst(projectile, "smallexplosionlightpurple");
                 ProjectileSupport.deal((ServerLevel) projectile.level(), target, owner, "光", projectile.mana(), projectile.multiplier());
             }
         }
@@ -491,6 +513,7 @@ public final class ElementProjectiles {
     private static final class FlyingStone implements ProjectileSkill {
         @Override
         public void tick(SkillProjectile projectile, Entity owner) {
+            burst(projectile, Particles.type("smokelightgray"), 2, 0.2, 0, 0.3);
             if (!projectile.saved()) {
                 projectile.snapshot(owner, 1, 1, 1);
                 projectile.markSaved();
@@ -501,6 +524,7 @@ public final class ElementProjectiles {
         public void hitEntity(SkillProjectile projectile, Entity target, Entity owner) {
             ProjectileSupport.breakEffect((ServerLevel) projectile.level(), projectile.position(), Blocks.STONE.defaultBlockState());
             if (hostile(owner, target)) {
+                ProjectileSupport.burst(projectile, "smallexplosionlightgray");
                 ProjectileSupport.deal((ServerLevel) projectile.level(), target, owner, "土", projectile.mana(), projectile.multiplier());
             }
             projectile.discard();

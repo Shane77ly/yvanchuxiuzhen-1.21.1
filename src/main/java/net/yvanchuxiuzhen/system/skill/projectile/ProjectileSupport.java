@@ -16,6 +16,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
@@ -63,6 +64,16 @@ public final class ProjectileSupport {
 
     public static void particles(ServerLevel level, ParticleOptions particle, Vec3 at, int count, double spreadX, double spreadY, double spreadZ, double speed) {
         level.sendParticles(particle, at.x, at.y, at.z, count, spreadX, spreadY, spreadZ, speed);
+    }
+
+    /** 来源常用的单枚自定义粒子：在实体坐标发送，不增加偏移或速度。 */
+    public static void burst(Entity at, String id) {
+        burst(at, id, 0);
+    }
+
+    /** 同上，生成高度相对实体脚下增加 {@code lift}。 */
+    public static void burst(Entity at, String id, double lift) {
+        particles((ServerLevel) at.level(), Particles.type(id), at.position().add(0, lift, 0), 1, 0, 0, 0, 0);
     }
 
     /** 方块破碎的声音与粒子（来源 {@code levelEvent(2001, 位置, 方块状态编号)}）。 */

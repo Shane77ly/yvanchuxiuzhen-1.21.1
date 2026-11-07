@@ -29,11 +29,12 @@ import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 
-/** 十种技能箭的飞行与命中过程；模式仅在首刻消费发射者的箭技能标记时选取，箭雨的新箭不继承模式。 */
+/** 十种技能箭的飞行与命中过程；有模式的箭在首刻消费发射者标记，第 02 箭只推进自身轨迹与寿命。 */
 public final class SkillArrows {
     private SkillArrows() {
     }
@@ -106,7 +107,8 @@ public final class SkillArrows {
 
         private void initialize(SkillProjectile arrow, Entity owner) {
             CompoundTag data = arrow.getPersistentData();
-            if (data.getBoolean("jilu")) {
+            // 来源第 02 箭只推进重力与寿命，不消费玩家的箭种施放标记。
+            if (kind == 2 || data.getBoolean("jilu")) {
                 return;
             }
             if (owner instanceof ServerPlayer player && Cultivation.tizhiBoolean(player, "arrowskill")) {
@@ -115,7 +117,7 @@ public final class SkillArrows {
                 boolean full = Cultivation.tizhiBoolean(player, "manxvli");
                 boolean sneak = player.isShiftKeyDown();
                 String selected = switch (kind) {
-                    case 1, 2, 8, 10 -> control ? "箭雨" : alt && full ? "增伤" : "";
+                    case 1, 8, 10 -> control ? "箭雨" : alt && full ? "增伤" : "";
                     case 3 -> sneak ? "响箭" : control ? "铃箭" : alt ? "音爆箭" : "打草惊蛇";
                     case 4 -> sneak ? "旋风箭" : control ? "风压箭" : alt ? "飓风箭" : "";
                     case 5 -> sneak ? "爆燃" : control ? "爆炎" : alt && full ? "增伤" : "";
@@ -125,7 +127,7 @@ public final class SkillArrows {
                     default -> throw new IllegalStateException("技能箭类型：" + kind);
                 };
                 data.putString("jinengName", selected);
-                if ((kind == 1 || kind == 2 || kind == 10) && selected.equals("增伤")
+                if ((kind == 1 || kind == 10) && selected.equals("增伤")
                         || selected.equals("飓风箭") || selected.equals("漩涡")) {
                     arrow.setBaseDamage(arrow.getBaseDamage() * 1.5);
                 }
@@ -149,10 +151,12 @@ public final class SkillArrows {
             switch (kind) {
                 case 2 -> {
                     arrow.setNoGravity(true);
+                    ProjectileSupport.particles(level, Particles.type("lingqi"), arrow.position(), 2, .02, .02, .02, 0);
                     CompoundTag data = arrow.getPersistentData();
                     int ticks = data.getInt("xiaoshitick") + 1;
                     data.putInt("xiaoshitick", ticks >= 20 ? 0 : ticks);
                     if (ticks >= 20) {
+                        ProjectileSupport.particles(level, Particles.type("lingqi"), arrow.position(), 20, 0, 0, 0, 1);
                         arrow.discard();
                     }
                 }
@@ -166,6 +170,9 @@ public final class SkillArrows {
                 case 8 -> ProjectileSupport.particles(level, ParticleTypes.FALLING_OBSIDIAN_TEAR, arrow.position(), 2, .1, .1, .1, 0);
                 case 9 -> waterFlight(arrow);
                 default -> { }
+            }
+            if ((kind == 1 || kind == 8) && mode(arrow).equals("增伤")) {
+                ProjectileSupport.burst(arrow, "jibo");
             }
         }
 
@@ -223,7 +230,10 @@ public final class SkillArrows {
             boolean enemy = !ProjectileSupport.friendly(owner, target);
             switch (kind) {
                 case 2 -> {
-                    if (enemy) damage(arrow, target, owner, "无", multiplier);
+                    if (enemy) {
+                        ProjectileSupport.burst(arrow, "smallexplosionskyblue");
+                        damage(arrow, target, owner, "无", multiplier);
+                    }
                 }
                 case 3 -> {
                     if (enemy && !mode.equals("音爆箭")) damage(arrow, target, owner, "音波", multiplier);
@@ -232,6 +242,7 @@ public final class SkillArrows {
                 case 4 -> {
                     if (mode.equals("风压箭")) windPressure(arrow, owner);
                     else if (enemy) {
+                        ProjectileSupport.burst(arrow, "smallexplosionlightblue");
                         damage(arrow, target, owner, "风", multiplier);
                         if (SkillEntities.movable(target)) target.setDeltaMovement(0, 1.5, 0);
                     }
@@ -239,6 +250,7 @@ public final class SkillArrows {
                 case 5 -> {
                     if (mode.equals("爆燃") || mode.equals("爆炎")) fireArea(arrow, owner);
                     else if (enemy) {
+                        ProjectileSupport.burst(arrow, "smallexplosionred");
                         damage(arrow, target, owner, "火", multiplier);
                         burn(target);
                     }
@@ -262,13 +274,17 @@ public final class SkillArrows {
                     if (enemy) {
                         if (target.onGround()) slow(target, 120, 1);
                         if (mode.equals("坎坷路") || mode.equals("飞沙走石")) earthArea(arrow, owner);
-                        else damage(arrow, target, owner, "土", multiplier);
+                        else {
+                            ProjectileSupport.burst(arrow, "smallexplosiondeeporange");
+                            damage(arrow, target, owner, "土", multiplier);
+                        }
                     }
                 }
                 case 8 -> {
                     if (enemy) {
                         target.getPersistentData().putDouble("Damage_multiplier", mode.equals("增伤") ? 1.2 : .8);
                         if (target instanceof LivingEntity living) StatusEffects.add(living, "duyao_11", 600, 1);
+                        ProjectileSupport.burst(arrow, "smallexplosionblack");
                         damage(arrow, target, owner, "暗", multiplier);
                     }
                 }
@@ -279,6 +295,7 @@ public final class SkillArrows {
                             if (mode.equals("暗流") && SkillEntities.movable(target)) target.setDeltaMovement(owner.getLookAngle().scale(3));
                             else if (mode.equals("漩涡")) slow(target, 200, 20);
                         }
+                        ProjectileSupport.burst(arrow, "smallexplosionblue");
                         damage(arrow, target, owner, "水", multiplier);
                     }
                 }
@@ -292,6 +309,7 @@ public final class SkillArrows {
         @Override
         public void hitBlock(SkillProjectile arrow, BlockHitResult hit, Entity owner) {
             switch (kind) {
+                case 2 -> ProjectileSupport.particles((ServerLevel) arrow.level(), Particles.type("xvlilizi"), arrow.position(), 10, 0, 0, 0, 1);
                 case 3 -> sound(arrow, owner);
                 case 4 -> { if (mode(arrow).equals("风压箭")) windPressure(arrow, owner); }
                 case 5 -> fireArea(arrow, owner);
@@ -321,6 +339,9 @@ public final class SkillArrows {
 
         private static void sound(SkillProjectile arrow, Entity owner) {
             String mode = mode(arrow);
+            if (mode.equals("音爆箭")) {
+                ProjectileSupport.burst(arrow, "yinbo");
+            }
             for (Entity target : ProjectileSupport.around((ServerLevel) arrow.level(), arrow.position(), 8)) {
                 boolean friendly = ProjectileSupport.friendly(owner, target);
                 if (mode.equals("音爆箭") && !friendly) damage(arrow, target, owner, "音波", 1);
@@ -334,6 +355,7 @@ public final class SkillArrows {
         private static void windPressure(SkillProjectile arrow, Entity owner) {
             ProjectileSupport.particles((ServerLevel) arrow.level(), ParticleTypes.CLOUD, arrow.position(), 40, 0, 0, 0, 1);
             for (Entity target : enemies(arrow, owner, 5)) {
+                ProjectileSupport.burst(target, "smallexplosionlightblue", target.getBbHeight() / 2);
                 damage(arrow, target, owner, "风", .3);
                 if (SkillEntities.movable(target)) target.setDeltaMovement(new Vec3(target.getX() - arrow.getX(), .2, target.getZ() - arrow.getZ()));
             }
@@ -357,7 +379,10 @@ public final class SkillArrows {
             }
             for (Entity target : enemies(arrow, owner, 2.5)) {
                 if (mode.equals("爆燃")) burn(target);
-                else damage(arrow, target, owner, "火", .5);
+                else {
+                    ProjectileSupport.burst(target, "smallexplosionred", target.getBbHeight() / 2);
+                    damage(arrow, target, owner, "火", .5);
+                }
             }
         }
 
@@ -381,7 +406,10 @@ public final class SkillArrows {
                 }
             } else if (mode.equals("飞沙走石")) {
                 ProjectileSupport.particles((ServerLevel) arrow.level(), ParticleTypes.CRIT, arrow.position(), 20, 2.5, 1, 2.5, 1);
-                for (Entity target : enemies(arrow, owner, 2.5)) damage(arrow, target, owner, "土", .4);
+                for (Entity target : enemies(arrow, owner, 2.5)) {
+                    ProjectileSupport.burst(target, "smallexplosiondeeporange", target.getBbHeight() / 2);
+                    damage(arrow, target, owner, "土", .4);
+                }
             }
         }
 
