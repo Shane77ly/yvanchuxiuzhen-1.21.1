@@ -17,7 +17,7 @@ item,yvanchuxiuzhen:skill_arrow_06,skill:arrow,skill,保留蓄力动画；来源
 item,yvanchuxiuzhen:skill_arrow_07,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
 item,yvanchuxiuzhen:skill_arrow_08,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
 item,yvanchuxiuzhen:skill_arrow_09,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
-item,yvanchuxiuzhen:skill_arrow_10,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
+item,yvanchuxiuzhen:skill_arrow_10,skill:light_arrow,skill,光灵箭保留来源UseAnim.NONE；使用72000刻且释放条件恒为假（SkillArrowItem）
 item,yvanchuxiuzhen:fuchen,equipment:fuchen,equipment,隐藏弹体物品的使用与松开即发射（FuchenItem）
 item,yvanchuxiuzhen:weaponhossu_02,equipment:weaponhossu_02,equipment,拂尘的多用途工具行为与挥动入口（HossuItem）
 item,yvanchuxiuzhen:weaponhossu_03,equipment:weaponhossu_03,equipment,拂尘的多用途工具行为与挥动入口（HossuItem）

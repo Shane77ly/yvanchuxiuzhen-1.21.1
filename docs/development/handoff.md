@@ -49,7 +49,7 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 
 **本批进展与下次开工的第一步（2026-11-07）**：
 
-- 当前分支 `port/c-skill`，本批前一提交 `6bd4658`；本批实现与记录在同一提交，最后提交以 `git log -1` 为准。完整移植 goal 已由负责人恢复 active，继续原路线。`.eclipse/` 是用户的 IDE 配置，保留且不提交。
+- 当前分支 `port/c-skill`，本批前一提交 `f61dc0c`；本批实现与记录在同一提交，最后提交以 `git log -1` 为准。完整移植 goal 已由负责人恢复 active，继续原路线。`.eclipse/` 是用户的 IDE 配置，保留且不提交。
 - 正式 `xvkong` 空气噪声维度、同名类型与 `xvkongqvnxi` 群系已按1.18.2版本实际代码接入，保留实际overworld效果绑定；smoke同ID平坦基岩替身及生成副本已删除。转换、群系语言键与服务端动态注册表导出接入现有管线；world106/19已读。规则见[世界正文](../systems/world/architecture.md#正式虚空维度2026-11-07)。
 - 本批没有新增Test、专项选择器或修改旧专项。负责人再次强调来源核对优先、没有必要不写Test；曾暂停时留下当前改动未提交，现按“继续做”恢复。本批build/ArchUnit通过；补入群系语言后的一次专服加载至Done，原生命令确认正式虚空群系和空气区块，移除强加载后stop保存四世界并正常退出，ERROR0，群系导出1个。证据为 `tmp/world-void-{build,content,server}.log`；自然裂隙往返与视觉未验收。
 - 上一丹火/炙烤批次已提交：来源放置回放已核实，唯一旧专项7项中2项通过、5项失败，新增脚本与选择器已撤下，不恢复或刷通过；炉鼎消费者仍待D阶段。记录见[异火正文](../systems/yihuo/architecture.md)。
@@ -65,7 +65,8 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 - 裂隙与伤害范围独立生命周期批次（分支`port/c-skill`，前一提交`e75460d`；本批实现与记录同一提交，最后提交以`git log -1`为准）：完整核对两个来源类、裂隙起手/更新/碰撞与范围更新、九份creature过程十二个生成块，恢复aiStep挥臂及无重力时序、baseTick后尺寸刷新、无声；范围补生成初始化、水中呼吸和仅实体阻挡。build compileSmokeJava与ArchUnit通过。仅一次内置`voidrift,damagearea`客户端，裂隙12项通过，范围5项通过1项失败，DONE、四世界正常保存退出、ERROR/FATAL0；失败是本轮误断言首刻下落，补核NoAI门槛后恢复位置断言并仅编译、未重跑。没有新增Test类、选择器或检查项目；FML配置按原字节还原。规则与边界见[生命周期正文](../systems/skill/architecture.md#虚空裂隙与伤害范围独立生命周期复核2026-11-07)，证据`tmp/void-area-parity-{source-audit.log,build.log,client.log,report.txt,check-compile.log}`，客户端已退出。
 - 丹火调用链复核批次（分支`port/c-skill`，前一提交`0577ac0`；本批记录与台账同一提交，最后提交以`git log -1`为准）：核对召唤/自然使用、18种火块的放置/计划刻/接触、18个方块实体及两种炙烤过程，已实现部分未发现新差异。补正18个方块实体台账为“已注册”；独立类型装配已核，现有导出不含该注册表，未取得逐类型实机证据。静态证据`tmp/yihuo-chain-source-audit.log`、`tmp/yihuo-family-audit.log`，范围见[异火正文](../systems/yihuo/architecture.md#丹火调用链复核2026-11-07)。本批只改文档与台账，没有新增或修改Test、没有运行游戏，原失败证据继续保留。
 - 状态效果生命周期批次（分支 `port/c-skill`，前一提交 `6bd4658`；本批代码与记录同一提交，最后提交以 `git log -1` 为准）：核清七个标记效果和风飘减耗，修复共享效果在原生写入前执行开始/结束的错误，现交给原生属性钩子，覆盖普通/强制施加及隐藏弱效果恢复。build compileSmokeJava/ArchUnit通过，仅一次已有内置combat场景53项全部通过并DONE，四世界正常保存退出、ERROR/FATAL0；仅补8项真实Bug回归，没有新增Test类或选择器。FML配置按原字节还原，客户端已退出。依据和限制见[状态效果正文](../systems/skill/architecture.md#状态效果身份与原生生命周期复核2026-11-07)，证据 `tmp/effect-hooks-{source-audit.log,build.log,client.log,report.txt,config-restore.log}`。本轮未运行专服，未逐一实机验证全部效果。
-- 下一步：状态效果身份、风飘消费者及共享生命周期已核清；整理skill五阶段尚缺的具体入口，优先核对已经实现入口中的来源差异并直接移植。丹火已实现部分不重复审，炉鼎真实消费者随D阶段，范围的creature真实调用者随creature，六个自定义返回维度随E阶段。客户端只用内置runSmokeClient已有场景，不使用Computer Use、不新增无必要Test或重跑整套旧神通；完整视觉、多人及两版本对照仍待验收，skill未完成，不合main。
+- 技能箭物品逐类复核批次（分支 `port/c-skill`，前一提交 `f61dc0c`；本批代码与记录同一提交，最后提交以 `git log -1` 为准）：完整读取十种来源物品和共同恒假释放条件，恢复第10箭UseAnim.NONE，第01–09箭SPEAR、72000刻使用时长保持；同类按明确工厂参数装配，覆盖表与生成内容表同步。build/ArchUnit通过，已有内置skillarrow场景十二项通过并DONE，四世界正常保存退出、ERROR/FATAL0；没有新增或修改任何检查代码。FML配置已原字节还原。手持动画本身未逐项实机查看，具体范围见[物品正文](../systems/skill/architecture.md#技能箭物品使用动画逐类复核2026-11-07)，证据 `tmp/arrow-items-*`。
+- 下一步：已从完整来源 `SkillFire01Entity` 与其飞行过程定位共用 `SkillProjectile` 的保存缺口：来源攻击量、倍率、技能名和刻数存于实体持久化数据，目标改为普通字段却没有保存/读取覆盖；无重力载入后不会重新取值。继续逐个字段及击退/穿透、命中后箭数的原生调用链核对并直接修复，不重新审丹火/标记效果或重跑整套旧神通。丹火炉鼎消费者随D阶段，范围的creature实际调用者和六个返回维度随E阶段；完整视觉、多人及两版本对照仍待验收，skill未完成、不合main。
 
 **此前已完成的检查与历史定位**：
 - 已运行一次 skill 冒烟（`gradlew runSmokeClient -PsmokeOnly=skill`）：报告以 `DONE` 结束，精简后的 `CorpseCheck` 28 项全部符合；其余检查也完成。`LingwenCheck` 的数量 1/2 差异已由 Q48 解释为来源同序的首刻命中时序，不再重复整套冒烟。

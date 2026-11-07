@@ -22,7 +22,7 @@
 {"id":"skill_arrow_07","factory":"skill:arrow","order":1006,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","pending_hooks":["releaseUsing","use"]},
 {"id":"skill_arrow_08","factory":"skill:arrow","order":1007,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","pending_hooks":["releaseUsing","use"]},
 {"id":"skill_arrow_09","factory":"skill:arrow","order":1008,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","pending_hooks":["releaseUsing","use"]},
-{"id":"skill_arrow_10","factory":"skill:arrow","order":1009,"stack":1,"pending_hooks":["releaseUsing","use"]},
+{"id":"skill_arrow_10","factory":"skill:light_arrow","order":1009,"stack":1,"pending_hooks":["releaseUsing","use"]},
 {"id":"skill_water_0101","factory":"item","order":1955,"durability":100,"pending_hooks":["releaseUsing","use"]},
 {"id":"lingwentexiao","factory":"item","order":1970,"stack":1,"pending_hooks":["releaseUsing","use"]},
 {"id":"danhuo","factory":"skill:dan_fire","order":1971,"stack":1,"tooltip":["可以放置一团丹火，用于炼丹、炼器。"],"pending_hooks":["useOn"]}

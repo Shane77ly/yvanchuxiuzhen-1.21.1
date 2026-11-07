@@ -223,14 +223,14 @@ Q62：逐项读取35个来源动画资源中的实际名字，仅伤害范围默
 
 ## 技能箭与箭种选择（2026-11-07）
 
-来源为 `SkillArrow01–10Entity`、对应飞行过程、共用的实体命中过程（551 行）与方块命中过程，以及技能界面按钮 6–16。真实发射者是 equipment 的 `Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi`；十个箭物品保留右键使用、矛式蓄力动画和 72000 刻使用时长，但其 `releaseUsing` 条件过程恒为假，不发射也不损耗。`SkillArrow00–10skill` 与 `ArrowSkillchufa` 的孤立入口及 `skill_arrowxinruzhishui` 已完成静态核对，见“剩余元素与入口核对”，不新接正常施放。
+来源为 `SkillArrow01–10Entity`、对应飞行过程、共用的实体命中过程（551 行）与方块命中过程，以及技能界面按钮 6–16。真实发射者是 equipment 的 `Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi`；十个箭物品保留右键使用和 72000 刻使用时长；第 01–09 箭使用矛式动画，第 10 箭为 `UseAnim.NONE`，但其 `releaseUsing` 条件过程恒为假，不发射也不损耗。`SkillArrow00–10skill` 与 `ArrowSkillchufa` 的孤立入口及 `skill_arrowxinruzhishui` 已完成静态核对，见“剩余元素与入口核对”，不新接正常施放。
 
 `Skills.createArrow` 返回尚未加入世界的箭；equipment 负责基础箭伤、位置、速度、蓄力、资源消耗和修饰键输入。创建时写入来源的 `arrowskill`、`manxvli` 标记，第一次飞行刻在箭基类命中之后消费并清空，模式只选一次。潜行优先于 Ctrl，Ctrl 优先于 Alt；满蓄力限制仅用于相应增伤分支。箭雨通过普通实体工厂生成新箭，保留基础箭伤、不继承模式。箭的模式、计时、无限与掉落标记使用实体持久数据；击退、穿透另外随箭保存。
 
 | 箭 | 飞行模式与主要命中行为 |
 | --- | --- |
 | 01 | Ctrl 箭雨；Alt 满蓄力令基础箭伤乘 1.5；仅有普通箭伤 |
-| 02 | 继承 01 模式；无重力、20 刻消失；命中追加无属性灵力伤害，不掉落 |
+| 02 | 不初始化或消费发射者的箭技能标记；无重力、20 刻消失；命中追加无属性灵力伤害，不掉落 |
 | 03 | 响箭吸引友方、铃箭吸引敌方、音爆箭在半边长 8 的盒内伤害；默认打草惊蛇使敌方生物以射手为目标 |
 | 04 | 旋风箭每刻拉扯；风压箭命中范围推开并造成 0.3 倍风伤；飓风箭每刻范围风伤且基础箭伤乘 1.5 |
 | 05 | 爆燃范围叠加阳火炙烤，爆炎范围 0.5 倍火伤；普通命中火伤并叠加 400 刻炙烤，等级封顶 2 |
@@ -332,3 +332,9 @@ Q54：`SkillGold0201DangSiWangShiJianDaoShiProcedure` 中虽有黄色破碎粒�
 原先共享效果在 `MobEffectEvent.Added` 中执行开始/结束，但NeoForge21.1.265该事件发生在原生效果写入/更新之前。首次霸体现读自身为空，附加发光为零刻；刷新读到旧时长。来源开始过程在原生属性钩子内执行，写入后能读自身，逃跑 `effect_034` 还会读取等级并移除自己。目标现使用 `ContentEffect.addAttributeModifiers/removeAttributeModifiers` 执行 `EffectBehavior.started/ended`；`Applicable` 覆盖普通和强制施加，到期/移除事件及服务端效果刻只绑定实体上下文。刷新与隐藏弱效果恢复由原生先移除再添加属性，不在事件中模拟更新。属性表弱键及弱实体引用不保留卸载实体；载入不重放开始过程。`InnerExplosion` 自有原生桥接保持独立。通用机制的精确源码依据见[移植参考](../../../.claude/skills/minecraft-mod-porting/references/targets/neoforge-1.21.1.md)。1.18.2原生映射源码载体为Forge40.3.11，另核对来源精确Forge40.1.0的 `LivingEntity` 补丁，未将前者称为40.1.0完整映射源码。
 
 `build compileSmokeJava` 与ArchUnit通过；仅一次项目内置 `runSmokeClient -PsmokeOnly=combat`，53项战斗检查全部通过，报告DONE，客户端保存四世界并正常退出、ERROR/FATAL为零。在已有 `CombatCheck` 中仅补8项真实Bug回归：首次80刻发光、刷新240刻、抗性不重复、无效弱施加不重放、批量清除还原、强制施加、隐藏弱效果恢复及时长、恢复后清除还原；没有新增Test类或选择器、没有重跑整套skill。开发FML配置finally按原字节恢复，SHA256一致。证据为 `tmp/effect-hooks-{source-audit.log,build.log,client.log,report.txt,config-restore.log}`。本轮未运行专用服务器、未对每个效果逐一实机验证；多人、完整视觉、1.18.2版本实机与两版本对照未执行，skill仍未完成。
+
+## 技能箭物品使用动画逐类复核（2026-11-07）
+
+完整核对1.18.2版本 `SkillArrow01–10Item` 和共同释放条件过程：第01–09箭为 `UseAnim.SPEAR`，第10箭实际为 `UseAnim.NONE`；第02和10箭堆叠上限一且不在创造栏，其余箭的属性保持来源。十种物品均开始使用当前手物品，使用时长72000刻，释放条件恒为假。原先 `SkillArrowItem` 错把第10箭也统一为矛式，现由所属系统的 `skill:arrow` 和 `skill:light_arrow` 工厂传入各自原生动画，仍使用同一个物品类；转换覆盖表和生成内容表同步。目标NeoForge21.1.265的 `Item.getUseAnimation/getUseDuration/releaseUsing` 与 `UseAnim` 已核对。源码路径、行号和SHA256见 `tmp/arrow-items-source-audit.log`。
+
+转换只改变第10箭的一行工厂配置，`build` 含ArchUnit通过；沿用已有 `runSmokeClient -PsmokeOnly=skillarrow`，12项全部通过并DONE，四世界正常保存退出、ERROR/FATAL0，没有新增或修改任何检查代码、Test类或选择器。该场景证明新工厂可随真实客户端加载及原有箭选择、命中、掉落和内爆/保存主路径可运行，未逐项查看手持动画；动画差异本轮为静态源码核对与实际装配证据，完整视觉及两版本对照未验收。FML配置finally按原字节还原、SHA256一致。证据 `tmp/arrow-items-{convert.log,build.log,client.log,report.txt,config-restore.log}`；本轮未运行专用服务器，skill仍未完成。

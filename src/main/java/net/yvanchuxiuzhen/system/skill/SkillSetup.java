@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -50,7 +51,8 @@ public final class SkillSetup {
     }
 
     public static void register(IEventBus modBus) {
-        CONTENT.itemFactory("skill:arrow", SkillArrowItem::new);
+        CONTENT.itemFactory("skill:arrow", (properties, tooltip) -> new SkillArrowItem(properties, tooltip, UseAnim.SPEAR));
+        CONTENT.itemFactory("skill:light_arrow", (properties, tooltip) -> new SkillArrowItem(properties, tooltip, UseAnim.NONE));
         CONTENT.itemFactory("skill:dan_fire", DanFireItem::new);
         SkillEffects.register(CONTENT);
         ElementProjectiles.register(CONTENT);

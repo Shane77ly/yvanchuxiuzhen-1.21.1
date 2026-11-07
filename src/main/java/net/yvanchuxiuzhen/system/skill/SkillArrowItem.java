@@ -11,10 +11,13 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
 
-/** 技能箭物品保留来源的蓄力动画；来源释放条件恒为假，结束使用不发射、不损耗。 */
+/** 技能箭物品按种类保留来源使用动画；来源释放条件恒为假，结束使用不发射、不损耗。 */
 public final class SkillArrowItem extends ContentItem {
-    public SkillArrowItem(Properties properties, List<Component> tooltip) {
+    private final UseAnim animation;
+
+    public SkillArrowItem(Properties properties, List<Component> tooltip, UseAnim animation) {
         super(properties, tooltip);
+        this.animation = animation;
     }
 
     @Override
@@ -25,7 +28,7 @@ public final class SkillArrowItem extends ContentItem {
 
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.SPEAR;
+        return animation;
     }
 
     @Override
