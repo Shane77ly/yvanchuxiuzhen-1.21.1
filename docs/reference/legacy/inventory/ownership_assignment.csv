@@ -242,24 +242,24 @@ yvanchuxiuzhen,Cailiao216,item,~/item/metal,material,已读,B1 归属阅读：�
 yvanchuxiuzhen,Cailiao217,item,~/item/metal,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 equipment 的 Gongjv027、Weaponbroadsword07、Weaponepee07、Weaponlongbow07、Weaponspear07、Weaponspeedbow07、Weaponsword07；flow 的 Worldbegin；lianqi 的 LianqiLEVELUP、Qvchu；treasure 的 BaoxiangJinshucailiao；world 的 SealreleaseGo 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao218,item,~/item/metal,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 equipment 的 Gongjv028、Weaponbroadsword08、Weaponepee08、Weaponlongbow08、Weaponspear08、Weaponspeedbow08、Weaponsword08；flow 的 Worldbegin；lianqi 的 LianqiLEVELUP、Qvchu；treasure 的 BaoxiangJinshucailiao；world 的 SealreleaseGo 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao219,item,~/item/metal,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 craft 的 ZhibujiZaiFangKuaiShangYouJian；equipment 的 Gongjv029、Weaponbroadsword09、Weaponepee09、Weaponlongbow09、Weaponspear09、Weaponspeedbow09、Weaponsword09；flow 的 Worldbegin；lianqi 的 LianqiLEVELUP、Qvchu；world 的 SealreleaseGo 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
-yvanchuxiuzhen,Cailiao221particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao222particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao223particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao224particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao225particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao226particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao227particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao228particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao229particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao231particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao232particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao233particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao234particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao235particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao236particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao237particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao238particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cailiao239particle,particle,~/item/fire,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Cailiao221particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao222particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao223particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao224particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao225particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao226particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao227particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao228particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao229particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao231particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao232particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao233particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao234particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao235particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao236particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao237particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao238particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Cailiao239particle,particle,~/item/fire,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Cailiao221fireblockFangZhiFangKuaiShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221fireblock 读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
 yvanchuxiuzhen,Cailiao221fireblockGengXinYouXiKe,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221fireblock 读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
 yvanchuxiuzhen,Cailiao221fireblockDangShiTiZaiFangKuaiZhongPengZhuangShi,procedure,~/item/fire,yihuo,已读,B1 归属阅读：随 Cailiao221fireblock 读：异火火块：放置、按敌友判定灼烧接触者（FriendpandingBtoE）、熄灭判定 Huoyanxiaoshipanding，属异火火块
@@ -383,7 +383,7 @@ yvanchuxiuzhen,Effect003ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat
 yvanchuxiuzhen,Effect003,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect004ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：流血（周期扣血、给吸血石充血、见血封喉缩短周期）
 yvanchuxiuzhen,Effect004,potioneffect,~/effect,combat,已读,C combat 归属阅读：流血（周期扣血、给吸血石充血、见血封喉缩短周期）
-yvanchuxiuzhen,Xvedi,particle,~/effect,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Xvedi,particle,~/effect,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Effect005ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect005,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect006ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
@@ -452,7 +452,7 @@ yvanchuxiuzhen,Duyao14,potioneffect,~/effect,combat,已读,C combat 归属阅读
 yvanchuxiuzhen,Duyao15ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
 yvanchuxiuzhen,Duyao15,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
 yvanchuxiuzhen,Duyao16,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药标记，没有自身过程；等级由伤害结算读取（duyao_16 火毒、duyao_18 见血封喉）
-yvanchuxiuzhen,Sporelizi,particle,~/effect,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Sporelizi,particle,~/effect,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Duyao17ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
 yvanchuxiuzhen,Duyao17,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
 yvanchuxiuzhen,PlayerGUI01,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -470,8 +470,8 @@ yvanchuxiuzhen,Shuxingatt10,enchantment,~/enchanting,combat,已读,C combat 归�
 yvanchuxiuzhen,Shuxingatt11,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
 yvanchuxiuzhen,Shuxingatt12,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
 yvanchuxiuzhen,DamageDefense,procedure,~/systemset,combat,已读,C combat 归属阅读：另一版防御计算，无调用者与订阅，不可达（Q31）
-yvanchuxiuzhen,Miss,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ExclamationMark,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Miss,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,ExclamationMark,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,FindTheEnemy,procedure,~/systemset,combat,已读,C relation 归属阅读：LivingSetAttackTargetEvent 中，目标未带 findtheenemy 标记时在攻击方头顶发感叹号粒子并给目标加标记（EntityTick 400 tick 后无目标时清除）；与敌友数据无关，是所有生物锁定目标的通用反馈
 yvanchuxiuzhen,DamageXiaoguo,procedure,~/systemset,combat,已读,C combat 归属阅读：空方法，无调用者（Q31）
 yvanchuxiuzhen,Manaxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -580,7 +580,7 @@ yvanchuxiuzhen,Peachsapling,plant,~/plant/tree,plant,已读,B1 归属阅读：�
 yvanchuxiuzhen,Peachleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；被 world 的 Biomepeach01 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,Peachleaveslist,loottable,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Peachflower,block,~/plant/tree,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Peachflowerlizi,particle,~/plant/tree,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Peachflowerlizi,particle,~/plant/tree,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,PeachflowerKeHuDuanXianShiSuiJiKe,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Peachflower 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Elm03list,loottable,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cassia03list,loottable,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -644,7 +644,7 @@ yvanchuxiuzhen,Ginkgoleaves,block,~/plant/tree,plant,已读,B1 归属阅读：�
 yvanchuxiuzhen,Ginkgoleaveslist,loottable,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ginkgolog,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；被 flow 的 RightClickBlock；world 的 Biomelong01 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,Ginkgologtop,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；被 flow 的 RightClickBlock 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Ginkgoleaveslizi,particle,~/plant/tree,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Ginkgoleaveslizi,particle,~/plant/tree,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,GinkgoleavesGengXinYouXiKe,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Ginkgoleaves 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
 yvanchuxiuzhen,Mapleresinitem,item,~/item/herbmedicine,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 dungeon 的 Zhenyaotashengchengbuchong；economy 的 Caoyaojiage；flow 的 Worldbegin；plant 的 Mapleresin；treasure 的 BaoxiangCaoyao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,MaplesaplingDangGuFenChengGongShiYong,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Maplesapling 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
@@ -653,14 +653,14 @@ yvanchuxiuzhen,Mapleleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树
 yvanchuxiuzhen,Mapleleaveslist,loottable,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Maplelog,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；被 world 的 Biomeautumn01 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,Mapleresin,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Mapleleaveslizi,particle,~/plant/tree,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Mapleleaveslizi,particle,~/plant/tree,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,MapleleavesGengXinYouXiKe,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Mapleleaves 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
 yvanchuxiuzhen,PoplarsaplingDangGuFenChengGongShiYong,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Poplarsapling 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
 yvanchuxiuzhen,Poplarsapling,plant,~/plant/tree,plant,已读,B1 归属阅读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
 yvanchuxiuzhen,PoplarleavesGengXinYouXiKe,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Poplarleaves 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
 yvanchuxiuzhen,Poplarleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
 yvanchuxiuzhen,Poplarleavesyellow,block,~/plant/tree,plant,已读,B1 归属阅读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
-yvanchuxiuzhen,Poplarleaveslizi,particle,~/plant/tree,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Poplarleaveslizi,particle,~/plant/tree,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Poplarleaveslist,loottable,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Poplarleavesyellowlist,loottable,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Poplarlog,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
@@ -717,9 +717,9 @@ yvanchuxiuzhen,Biomestone03,biome,~/biome,world,候选,第一版批量归组（�
 yvanchuxiuzhen,Biomewinter01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomewinter02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomewinter03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wind01,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wind02,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wind03,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Wind01,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Wind02,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Wind03,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Annualfleabane,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,Greenbristlegrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,Morningglory,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
@@ -736,7 +736,7 @@ yvanchuxiuzhen,Androsace02,plant,~/plant/ordinaryplants,plant,已读,B1 归属�
 yvanchuxiuzhen,Lamiumamplexicaule,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,Asiaticdayflower,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 dungeon 的 Zhenyaotashengchengbuchong；economy 的 Caoyaojiage；flow 的 Worldbegin；treasure 的 BaoxiangCaoyao、BaoxiangLiandantuzhi 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,Jadefairy,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Opticalprismlizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Opticalprismlizi,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,OpticalprismDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Opticalprism 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Opticalprism,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Cannibalmoss,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
@@ -927,7 +927,7 @@ yvanchuxiuzhen,YvanchuEntity,tab,~/systemset/classification,platform,候选,第�
 yvanchuxiuzhen,Organism06,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
 yvanchuxiuzhen,Organism07,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
 yvanchuxiuzhen,Organism08,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,FlashIce,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,FlashIce,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Organism08DangShiTiGengXinKeShi,procedure,~/entity/environment,creature,已读,B1 归属阅读：随 Organism08 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Organism09,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
 yvanchuxiuzhen,Organism10DangShiTiGengXinKeShi,procedure,~/entity/environment,creature,已读,B1 归属阅读：随 Organism10 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
@@ -1646,7 +1646,7 @@ yvanchuxiuzhen,Biometianqve04,biome,~/biome,world,候选,第一版批量归组�
 yvanchuxiuzhen,Biometianqve05,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biometianqve06,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biometianqve07,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tiangandizhi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Tiangandizhi,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,DatiGUI,gui,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,DatiGUIwenzi1,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,DatiGUIwenzi2,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1689,9 +1689,9 @@ yvanchuxiuzhen,FlyskillTick,procedure,~/skill/flyskill,skill,已读,C skill 身�
 yvanchuxiuzhen,Flyskillkaishitexiao,procedure,~/skill/flyskill,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
 yvanchuxiuzhen,FlyskillGO,procedure,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
 yvanchuxiuzhen,Flyskill,command,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
-yvanchuxiuzhen,Flyskill02,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyskill03,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyskill04,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyskill02,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Flyskill03,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Flyskill04,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Skilleffect01,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
 yvanchuxiuzhen,Skilleffect02,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
 yvanchuxiuzhen,Skilleffect03,potioneffect,~/effect,skill,已读,C combat 归属阅读（改判后确认）：技能冷却、战斗状态与飞行消耗标记，没有自身过程（来源没有读取者，可能由技能动态拼接效果名）
@@ -1733,7 +1733,7 @@ yvanchuxiuzhen,Starxianshi05,procedure,~/GUI,xiulian,已读,C xiulian 归属阅�
 yvanchuxiuzhen,SkillGold01TouZhiWuFeiXingTick,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillGold01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillGold01,rangeditem,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
-yvanchuxiuzhen,SkillGold0101,particle,~/skill/jineng/goldskill,particle,已读,C skill 归属阅读：金芒术飞行时的拖尾粒子定义，没有过程；粒子定义归 particle，金芒术弹体引用它（目前只保留原版粒子）
+yvanchuxiuzhen,SkillGold0101,particle,~/skill/jineng/goldskill,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,SkillGold02,procedure,~/skill/jineng/goldskill,skill,已读,C skill 归属阅读：金系的金轮实体（八种模式）与金刚轮施放，金轮弹体的捆妖轮、金弧轮、天堑金轮；金轮跟随的对象是施放者或弹体或被捆的目标；Alt 式的牵引范围按来源公式逐步缩小
 yvanchuxiuzhen,Jinenglist01,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
 yvanchuxiuzhen,SkillGold03TouZhiWuFeiXingTick,procedure,~/skill/jineng/goldskill,skill,已读,B1 归属阅读：随 SkillGold03 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -1991,9 +1991,9 @@ yvanchuxiuzhen,TreasureChest11FangZhiFangKuaiShi,procedure,~/baoxiang,treasure,�
 yvanchuxiuzhen,TreasureChest11GengXinYouXiKe,procedure,~/baoxiang,treasure,已读,B1 归属阅读：随 TreasureChest11 读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
 yvanchuxiuzhen,TreasureChest11,animatedblock,~/baoxiang,treasure,已读,B1 归属阅读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
 yvanchuxiuzhen,TreasureChest1101,item,~/baoxiang,treasure,已读,B1 归属阅读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置；本元素无过程，被 npc 的 Businessman07ShiTiChuShiShengChengShi 按 ID 引用，不赋予它规则
-yvanchuxiuzhen,Flyskill05,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyskill05,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,LiziliziGo,procedure,~/systemset/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyskill06,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyskill06,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,FanjianAnXiaAnJianShi,procedure,~/skill/flyskill,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
 yvanchuxiuzhen,Fanjian,keybind,~/skill/flyskill,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
 yvanchuxiuzhen,Spearhuiwu,procedure,~/weapon/spear,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
@@ -2006,7 +2006,7 @@ yvanchuxiuzhen,Weaponspear06,tool,~/weapon/spear,equipment,已读,B1 归属阅�
 yvanchuxiuzhen,Weaponspear07,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponspear08,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponspear09,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
-yvanchuxiuzhen,Xvlilizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Xvlilizi,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,SkillArrow01KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/skill/jineng/arrowskill,skill,已读,B1 归属阅读：随 SkillArrow01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillArrow01DangTouSheWuSheZhongCiFangKuai,procedure,~/skill/jineng/arrowskill,skill,已读,B1 归属阅读：随 SkillArrow01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillArrow01DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/arrowskill,skill,已读,B1 归属阅读：随 SkillArrow01 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -2074,7 +2074,7 @@ yvanchuxiuzhen,Weaponlongbow06,tool,~/weapon/bow,equipment,已读,B1 归属阅�
 yvanchuxiuzhen,Weaponlongbow07,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponlongbow08,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponlongbow09,tool,~/weapon/bow,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
-yvanchuxiuzhen,Lingqi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Lingqi,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,FuchenTouZhiWuFeiXingTick,procedure,~/weapon/hossu,equipment,已读,B1 归属阅读：随 Fuchen 读：拂尘：投掷物飞行中按敌友判定施加效果，属武器
 yvanchuxiuzhen,Fuchen,rangeditem,~/weapon/hossu,equipment,已读,B1 归属阅读：拂尘：投掷物飞行中按敌友判定施加效果，属武器
 yvanchuxiuzhen,Weaponhossu01DangShiTiHuiDongWuPinShi,procedure,~/weapon/hossu,equipment,已读,B1 归属阅读：随 Weaponhossu01 读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
@@ -2275,7 +2275,7 @@ yvanchuxiuzhen,Food002,block,~/item/food,cooking,已读,B1 归属阅读：菜品
 yvanchuxiuzhen,Food003,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
 yvanchuxiuzhen,Fooditemshiyong,procedure,~/item/food,cooking,已读,B1 归属阅读：随 Food004 读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
 yvanchuxiuzhen,Food004,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Steam,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Steam,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Foodblock,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food005,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
 yvanchuxiuzhen,Food006,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
@@ -2807,7 +2807,7 @@ yvanchuxiuzhen,Itemfulu10KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/item/hu
 yvanchuxiuzhen,Itemfulu10TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu10 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu10DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu10 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu10,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Fulutexiao11,particle,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fulutexiao11,particle,~/item/huafu,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Itemfulu11,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu12,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Fulutexiao46TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao46 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
@@ -2843,7 +2843,7 @@ yvanchuxiuzhen,Itemfulu22,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓
 yvanchuxiuzhen,Itemfulu23DangWuPinZaiBeiBaoZhongMeiKeFaSheng,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu23 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu23,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu24,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Fulutexiao21,particle,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fulutexiao21,particle,~/item/huafu,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Itemfulu25,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu25DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu25 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Fulutexiao26DangShiTiGengXinKeShi,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -2867,7 +2867,7 @@ yvanchuxiuzhen,Fulutexiao32TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已�
 yvanchuxiuzhen,Fulutexiao32DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao32 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Fulutexiao32,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu32,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Fulutexiao33,particle,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fulutexiao33,particle,~/item/huafu,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Itemfulu33TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu33 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu33DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu33 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu33,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
@@ -2888,7 +2888,7 @@ yvanchuxiuzhen,Itemfulu38,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓
 yvanchuxiuzhen,Itemfulu39,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu40DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu40 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu40,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Fulutexiao40,particle,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fulutexiao40,particle,~/item/huafu,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Fulutexiao41ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fulutexiao41,potioneffect,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Itemfulu41TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu41 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
@@ -2974,13 +2974,13 @@ yvanchuxiuzhen,Pao01,rangeditem,~/item/jieri,festival,已读,B1 归属阅读：�
 yvanchuxiuzhen,Pao02DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao02 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao02DangWuPinZaiShouShangMeiKeFaSheng,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao02 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao02,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao0201,particle,~/item/jieri,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0301,particle,~/item/jieri,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0302,particle,~/item/jieri,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0303,particle,~/item/jieri,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0304,particle,~/item/jieri,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0305,particle,~/item/jieri,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0306,particle,~/item/jieri,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Pao0201,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Pao0301,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Pao0302,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Pao0303,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Pao0304,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Pao0305,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Pao0306,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Pao03DangWuPinZaiShouShangMeiKeFaSheng,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao03 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao03,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao0401DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3007,7 +3007,7 @@ yvanchuxiuzhen,Pao09,item,~/item/jieri,festival,已读,B1 归属阅读：节日�
 yvanchuxiuzhen,Pao10ZaiFangKuaiShangYouJian,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao10 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao10GengXinYouXiKe,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao10 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao10,block,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao1001,particle,~/item/jieri,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Pao1001,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Pao11GengXinYouXiKe,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao11 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao11,block,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao12GengXinYouXiKe,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao12 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
@@ -3015,11 +3015,11 @@ yvanchuxiuzhen,Pao12,block,~/item/jieri,festival,已读,B1 归属阅读：节日
 yvanchuxiuzhen,Pao13TouZhiWuFeiXingTick,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao13 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao13,rangeditem,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Fuqi01,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励；本元素无过程，被 equipment 的 Shipintick 按 ID 引用，不赋予它规则
-yvanchuxiuzhen,Fuqi0101,particle,~/item/jieri,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fuqi0101,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Shipintick,procedure,~/systemset,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fuqi02TouKuiShiJianMeiYouXiKe,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Fuqi02 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Fuqi02,animatedarmor,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Fuqi0201,particle,~/item/jieri,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fuqi0201,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Fuqi0301DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fuqi0301,animatedentity,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fuqi03DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Fuqi03 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
@@ -3574,7 +3574,7 @@ yvanchuxiuzhen,Gongfashuxingjiyv,procedure,~/item/book,gongfa,已读,C gongfa �
 yvanchuxiuzhen,GongfaxvexiGengXinYouXiKe,procedure,~/item/book,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移；此元素为研习台本身及其右键、刷新与研习成功过程
 yvanchuxiuzhen,Gongfaxvexi,animatedblock,~/item/book,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移；此元素为研习台本身及其右键、刷新与研习成功过程
 yvanchuxiuzhen,GongfaxvexiZaiFangKuaiShangYouJian,procedure,~/item/book,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移；此元素为研习台本身及其右键、刷新与研习成功过程
-yvanchuxiuzhen,Tiangandizhi2,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Tiangandizhi2,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Fabao011DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao011 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao011,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Armor11,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
@@ -3584,7 +3584,7 @@ yvanchuxiuzhen,Fabao012DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapo
 yvanchuxiuzhen,Fabao012,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao013DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao013 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao013,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
-yvanchuxiuzhen,Fenyan,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fenyan,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Fabao014DangYuanChengWuPinShiYongShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao014 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao014TouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao014 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao014DangTouZhiWuJiZhongShiTiShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao014 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
@@ -3898,8 +3898,8 @@ yvanchuxiuzhen,ShuxingjisuanZong,procedure,~/systemset,equipment,已读,C attrib
 yvanchuxiuzhen,Shuxingjisuan,procedure,~/systemset,attribute,已读,C attribute 归属阅读：由防具、饰品、主修功法与附魔求九项派生值、移速与冷却缩减，写最大生命与移速基础值；读取装备与功法的部分改由提交者提交贡献
 yvanchuxiuzhen,Shuxingjisuan2,procedure,~/systemset,attribute,已读,C attribute 归属阅读：由手持武器炼器数值与主修功法求攻击三项派生值，写攻击伤害基础值
 yvanchuxiuzhen,Playerhuifu,procedure,~/systemset,xiulian,已读,C xiulian 归属阅读：每秒恢复生命、灵力、神识（战斗与雷劫中四分之一）
-yvanchuxiuzhen,Basaltlizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhongdulizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Basaltlizi,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Zhongdulizi,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Fabaotouzhiwu,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,CauldronduyaoZaiFangKuaiShangYouJian,procedure,~/decorate,lianqi,已读,C combat 归属改判：淬毒（炼药锅记录毒药材料、右键武器或空手右键材料给副手武器加毒药附魔）写入物品 lianqizong 的附魔记录 fumo{序号}、fumozongshu（lianqi 的工艺数据），玩法含义在 lianqi；毒药附魔的效果仍在 combat。
 yvanchuxiuzhen,Cauldronduyao,block,~/decorate,lianqi,已读,C combat 归属改判：淬毒（炼药锅记录毒药材料、右键武器或空手右键材料给副手武器加毒药附魔）写入物品 lianqizong 的附魔记录 fumo{序号}、fumozongshu（lianqi 的工艺数据），玩法含义在 lianqi；毒药附魔的效果仍在 combat。
@@ -4007,7 +4007,7 @@ yvanchuxiuzhen,Higanbana,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅�
 yvanchuxiuzhen,HotoilDangShengWuWanJiaPengZhuangFangKuaiShi,procedure,~/decorate,decor,已读,B1 归属阅读：随 Hotoil 读：热油：接触时按“火”写入伤害参数，经共享伤害入口结算，属元素自身行为；生成由地物 Hotoilshengcheng
 yvanchuxiuzhen,Hotoil,fluid,~/decorate,decor,已读,B1 归属阅读：热油：接触时按“火”写入伤害参数，经共享伤害入口结算，属元素自身行为；生成由地物 Hotoilshengcheng
 yvanchuxiuzhen,Hotoilshengcheng,feature,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Hotoillizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Hotoillizi,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Rouchuan01,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Rouchuan02,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Rouchuan03,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4246,7 +4246,7 @@ yvanchuxiuzhen,Yaoshou054list,loottable,~/entity/yaoshou/yaoshou054,creature,候
 yvanchuxiuzhen,Zhengtuochuan,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou014skill03TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou014,creature,已读,B1 归属阅读：随 Yaoshou014skill03 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou014skill03,rangeditem,~/entity/yaoshou/yaoshou014,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
-yvanchuxiuzhen,Yinbo,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yinbo,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Skillwind05DangShiTiGengXinKeShi,procedure,~/skill/jineng/windskill,skill,已读,C skill 归属阅读：风系实体技能聚风术、聚风化气、风飘术、造云术；Skillwind05、Skillwind06 由妖兽技能放出，实体行为在 skill，放出方式随 creature
 yvanchuxiuzhen,Skillwind05,animatedentity,~/skill/jineng/windskill,skill,已读,C skill 归属阅读：风系实体技能聚风术、聚风化气、风飘术、造云术；Skillwind05、Skillwind06 由妖兽技能放出，实体行为在 skill，放出方式随 creature
 yvanchuxiuzhen,Skillwind06DangShiTiGengXinKeShi,procedure,~/skill/jineng/windskill,skill,已读,C skill 归属阅读：风系实体技能聚风术、聚风化气、风飘术、造云术；Skillwind05、Skillwind06 由妖兽技能放出，实体行为在 skill，放出方式随 creature
@@ -4341,8 +4341,8 @@ yvanchuxiuzhen,Skillarrow07hecheng,recipe,~/skill/jineng/arrowskill,skill,已读
 yvanchuxiuzhen,Skillarrow09hecheng,recipe,~/skill/jineng/arrowskill,skill,已读,逐项核对十个技能箭配方，来源材料、形状与数量均保留；02 产出普通箭，07/08 标签统一到项目命名空间，10 产出按已裁定 Q15 调为 1；B1 已转换。
 yvanchuxiuzhen,Skillarrow10hecheng,recipe,~/skill/jineng/arrowskill,skill,已读,逐项核对十个技能箭配方，来源材料、形状与数量均保留；02 产出普通箭，07/08 标签统一到项目命名空间，10 产出按已裁定 Q15 调为 1；B1 已转换。
 yvanchuxiuzhen,Skillarrow08hecheng,recipe,~/skill/jineng/arrowskill,skill,已读,逐项核对十个技能箭配方，来源材料、形状与数量均保留；02 产出普通箭，07/08 标签统一到项目命名空间，10 产出按已裁定 Q15 调为 1；B1 已转换。
-yvanchuxiuzhen,Xvliman,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jibo,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Xvliman,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Jibo,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Lianzhaoxianshi,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Lianzhaoanniu,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Lianzhaoxitong,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
@@ -4376,7 +4376,7 @@ yvanchuxiuzhen,EntityJoinGame,procedure,~/systemset,flow,候选,第一版批量�
 yvanchuxiuzhen,Yaoshoudaxiaoshezhi,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Effect033ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：僵直，自身过程只在每刻生成粒子 effect_033lizi
 yvanchuxiuzhen,Effect033,potioneffect,~/effect,combat,已读,C combat 归属阅读：僵直，自身过程只在每刻生成粒子 effect_033lizi
-yvanchuxiuzhen,Effect033lizi,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Effect033lizi,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Jiangzhipanding,procedure,~/entity/yaoshou,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effect034DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：逃跑（妖兽被打到 8 层时向身后跑开并加速、沉默）
 yvanchuxiuzhen,Effect034,potioneffect,~/effect,combat,已读,C combat 归属阅读：逃跑（妖兽被打到 8 层时向身后跑开并加速、沉默）
@@ -4385,15 +4385,15 @@ yvanchuxiuzhen,Yaoshou048skill01DangTouZhiWuJiZhongShiTiShi,procedure,~/entity/y
 yvanchuxiuzhen,Yaoshou048skill01TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：随 Yaoshou048skill01 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou048skill01,rangeditem,~/entity/yaoshou/yaoshou048,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou046skill01,rangeditem,~/entity/yaoshou/yaoshou046,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
-yvanchuxiuzhen,Yaoshou040skill03,particle,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou040skill03,particle,~/entity/yaoshou/yaoshou040,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Yaoshou040skill0301TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040skill0301 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou040skill0301DangTouSheWuSheZhongCiFangKuai,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040skill0301 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou040skill0301DangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040skill0301 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou040skill0301,rangeditem,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou040skill02,animatedentity,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou040skill0201,particle,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou040skill0201,particle,~/entity/yaoshou/yaoshou040,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Yaoshou040skill02DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou033skill01,particle,~/entity/yaoshou/yaoshou033,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou033skill01,particle,~/entity/yaoshou/yaoshou033,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Yaoshou027ShiTiZhuiLuoShi,procedure,~/entity/yaoshou/yaoshou027,creature,已读,B1 归属阅读：随 Yaoshou027 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou017skill03TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017skill03 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou017skill03DangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017skill03 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
@@ -4414,7 +4414,7 @@ yvanchuxiuzhen,Npcskill0108,procedure,~/entity/tongyongjinengskill,creature,已�
 yvanchuxiuzhen,Npcskill0109,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Npcskill0110,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Npcskill0111,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,Dajigan01,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Dajigan01,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Npcskill0112,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Npcskill0113,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Npcskill0114,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
@@ -4472,7 +4472,7 @@ yvanchuxiuzhen,Murenzhuangsetattdef,procedure,~/tool/murenzhuang,combat,已读,C
 yvanchuxiuzhen,Murenzhuangsetmanadef,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：设置按钮：法术防御基值
 yvanchuxiuzhen,Murenzhuangsetsouldef,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：设置按钮：神识防御基值
 yvanchuxiuzhen,Murenzhuangdel,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：拿走木人桩按钮：退回装备槽物品、移除木人桩、给玩家一个木人桩物品
-yvanchuxiuzhen,Fulubagua,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fulubagua,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Npcskill0302,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Npcskill0303,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Npcskill0304,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
@@ -4527,7 +4527,7 @@ yvanchuxiuzhen,TiandaofubenGengXinYouXiKe,procedure,~/fuben,dungeon,已读,系�
 yvanchuxiuzhen,DimensiondilingDangWanJiaJinRuWeiDuShi,procedure,~/Dimension,world,已读,B1 归属阅读：随 Dimensiondiling 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
 yvanchuxiuzhen,Guchong05itemDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/entity/guchong,guchong,已读,B1 归属阅读：随 Guchong05item 读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
 yvanchuxiuzhen,Guchong05item,item,~/entity/guchong,guchong,已读,B1 归属阅读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
-yvanchuxiuzhen,Guchong05lizi,particle,~/entity/guchong,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guchong05lizi,particle,~/entity/guchong,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Guchong05DangShiTiGengXinKeShi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong05DangYouJianDianJiShiTi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong05,livingentity,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4757,222 +4757,222 @@ yvanchuxiuzhen,Armor13,animatedarmor,~/weapon/armor,equipment,已读,B1 归属�
 yvanchuxiuzhen,Fabao021,animateditem,~/weapon/fabao,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Fabao022,animateditem,~/weapon/fabao,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,SkillGold0201DangShiTiGengXinKeShi,procedure,~/skill/jineng/goldskill,skill,已读,C skill 归属阅读：金系的金轮实体（八种模式）与金刚轮施放，金轮弹体的捆妖轮、金弧轮、天堑金轮；金轮跟随的对象是施放者或弹体或被捆的目标；Alt 式的牵引范围按来源公式逐步缩小
-yvanchuxiuzhen,Brokenwhite,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenlightgray,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokendarkgrey,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenblack,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenlightred,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenred,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokencrimson,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenlightorange,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenorange,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokendeeporange,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenlightyellow,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenyellow,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokendarkyellow,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenlightgreen,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokengreen,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokendarkgreen,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenlightblue,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenblue,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokendarkblue,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenlightpurple,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenpurple,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokendeeppurple,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokengolden,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Brokenskyblue,particle,~/lizi/broken,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokewhite,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokelightgray,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokedarkgrey,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokeblack,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokelightred,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokered,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokecrimson,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokelightorange,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokeorange,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokedeeporange,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokelightyellow,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokeyellow,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokedarkyellow,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokelightgreen,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokegreen,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokedarkgreen,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokelightblue,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokeblue,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokedarkblue,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokelightpurple,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokepurple,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokedeeppurple,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokegolden,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smokeskyblue,particle,~/lizi/smoke,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionwhite,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionlightgray,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosiondarkgrey,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionblack,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionlightred,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionred,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosioncrimson,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionlightorange,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionorange,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosiondeeporange,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionlightyellow,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionyellow,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosiondarkyellow,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionlightgreen,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosiongreen,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosiondarkgreen,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionlightblue,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionblue,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosiondarkblue,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionlightpurple,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionpurple,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosiondeeppurple,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosiongolden,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Smallexplosionskyblue,particle,~/lizi/small_explosion,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangwhite,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbanglightgray,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangdarkgrey,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangblack,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbanglightred,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangred,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangcrimson,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbanglightorange,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangorange,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangdeeporange,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbanglightyellow,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangyellow,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangdarkyellow,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbanglightgreen,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbanggreen,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangdarkgreen,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbanglightblue,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangblue,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangdarkblue,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbanglightpurple,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangpurple,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangdeeppurple,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbanggolden,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bigbangskyblue,particle,~/lizi/big_bang,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearwhite,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearlightgray,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappeardarkgrey,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearblack,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearlightred,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearred,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearcrimson,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearlightorange,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearorange,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappeardeeporange,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearlightyellow,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearyellow,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappeardarkyellow,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearlightgreen,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappeargreen,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappeardarkgreen,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearlightblue,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearblue,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappeardarkblue,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearlightpurple,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearpurple,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappeardeeppurple,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappeargolden,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Disappearskyblue,particle,~/lizi/disappear,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospherewhite,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospherelightgray,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospheredarkgrey,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photosphereblack,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospherelightred,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospherered,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospherecrimson,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospherelightorange,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photosphereorange,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospheredeeporange,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospherelightyellow,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photosphereyellow,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospheredarkyellow,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospherelightgreen,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospheregreen,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospheredarkgreen,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospherelightblue,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photosphereblue,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospheredarkblue,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospherelightpurple,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospherepurple,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospheredeeppurple,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photospheregolden,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Photosphereskyblue,particle,~/lizi/photosphere,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starwhite,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starlightgray,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stardarkgrey,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starblack,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starlightred,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starred,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starcrimson,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starlightorange,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starorange,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stardeeporange,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starlightyellow,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Staryellow,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stardarkyellow,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starlightgreen,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stargreen,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stardarkgreen,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starlightblue,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starblue,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stardarkblue,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starlightpurple,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starpurple,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stardeeppurple,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stargolden,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Starskyblue,particle,~/lizi/star,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindwhite,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindlightgray,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwinddarkgrey,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindblack,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindlightred,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindred,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindcrimson,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindlightorange,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindorange,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwinddeeporange,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindlightyellow,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindyellow,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwinddarkyellow,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindlightgreen,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindgreen,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwinddarkgreen,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindlightblue,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindblue,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwinddarkblue,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindlightpurple,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindpurple,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwinddeeppurple,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindgolden,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Whirlwindskyblue,particle,~/lizi/whirlwind,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderwhite,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderlightgray,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderdarkgrey,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderblack,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderlightred,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderred,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thundercrimson,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderlightorange,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderorange,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderdeeporange,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderlightyellow,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderyellow,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderdarkyellow,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderlightgreen,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thundergreen,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderdarkgreen,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderlightblue,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderblue,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderdarkblue,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderlightpurple,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderpurple,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderdeeppurple,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thundergolden,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Thunderskyblue,particle,~/lizi/thunder,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Brokenwhite,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenlightgray,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokendarkgrey,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenblack,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenlightred,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenred,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokencrimson,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenlightorange,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenorange,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokendeeporange,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenlightyellow,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenyellow,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokendarkyellow,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenlightgreen,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokengreen,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokendarkgreen,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenlightblue,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenblue,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokendarkblue,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenlightpurple,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenpurple,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokendeeppurple,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokengolden,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Brokenskyblue,particle,~/lizi/broken,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokewhite,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokelightgray,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokedarkgrey,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokeblack,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokelightred,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokered,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokecrimson,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokelightorange,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokeorange,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokedeeporange,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokelightyellow,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokeyellow,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokedarkyellow,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokelightgreen,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokegreen,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokedarkgreen,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokelightblue,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokeblue,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokedarkblue,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokelightpurple,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokepurple,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokedeeppurple,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokegolden,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smokeskyblue,particle,~/lizi/smoke,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionwhite,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionlightgray,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosiondarkgrey,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionblack,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionlightred,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionred,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosioncrimson,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionlightorange,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionorange,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosiondeeporange,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionlightyellow,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionyellow,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosiondarkyellow,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionlightgreen,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosiongreen,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosiondarkgreen,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionlightblue,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionblue,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosiondarkblue,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionlightpurple,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionpurple,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosiondeeppurple,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosiongolden,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Smallexplosionskyblue,particle,~/lizi/small_explosion,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangwhite,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbanglightgray,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangdarkgrey,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangblack,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbanglightred,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangred,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangcrimson,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbanglightorange,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangorange,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangdeeporange,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbanglightyellow,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangyellow,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangdarkyellow,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbanglightgreen,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbanggreen,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangdarkgreen,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbanglightblue,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangblue,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangdarkblue,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbanglightpurple,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangpurple,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangdeeppurple,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbanggolden,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Bigbangskyblue,particle,~/lizi/big_bang,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearwhite,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearlightgray,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappeardarkgrey,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearblack,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearlightred,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearred,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearcrimson,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearlightorange,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearorange,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappeardeeporange,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearlightyellow,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearyellow,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappeardarkyellow,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearlightgreen,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappeargreen,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappeardarkgreen,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearlightblue,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearblue,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappeardarkblue,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearlightpurple,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearpurple,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappeardeeppurple,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappeargolden,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Disappearskyblue,particle,~/lizi/disappear,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospherewhite,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospherelightgray,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospheredarkgrey,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photosphereblack,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospherelightred,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospherered,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospherecrimson,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospherelightorange,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photosphereorange,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospheredeeporange,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospherelightyellow,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photosphereyellow,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospheredarkyellow,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospherelightgreen,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospheregreen,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospheredarkgreen,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospherelightblue,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photosphereblue,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospheredarkblue,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospherelightpurple,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospherepurple,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospheredeeppurple,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photospheregolden,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Photosphereskyblue,particle,~/lizi/photosphere,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starwhite,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starlightgray,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stardarkgrey,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starblack,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starlightred,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starred,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starcrimson,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starlightorange,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starorange,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stardeeporange,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starlightyellow,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Staryellow,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stardarkyellow,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starlightgreen,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stargreen,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stardarkgreen,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starlightblue,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starblue,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stardarkblue,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starlightpurple,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starpurple,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stardeeppurple,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stargolden,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Starskyblue,particle,~/lizi/star,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindwhite,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindlightgray,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwinddarkgrey,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindblack,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindlightred,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindred,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindcrimson,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindlightorange,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindorange,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwinddeeporange,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindlightyellow,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindyellow,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwinddarkyellow,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindlightgreen,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindgreen,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwinddarkgreen,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindlightblue,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindblue,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwinddarkblue,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindlightpurple,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindpurple,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwinddeeppurple,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindgolden,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Whirlwindskyblue,particle,~/lizi/whirlwind,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderwhite,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderlightgray,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderdarkgrey,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderblack,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderlightred,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderred,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thundercrimson,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderlightorange,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderorange,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderdeeporange,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderlightyellow,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderyellow,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderdarkyellow,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderlightgreen,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thundergreen,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderdarkgreen,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderlightblue,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderblue,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderdarkblue,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderlightpurple,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderpurple,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderdeeppurple,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thundergolden,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Thunderskyblue,particle,~/lizi/thunder,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,SkillGold0201DangSiWangShiJianDaoShi,procedure,~/skill/jineng/goldskill,skill,已读,C skill 归属阅读：金系的金轮实体（八种模式）与金刚轮施放，金轮弹体的捆妖轮、金弧轮、天堑金轮；金轮跟随的对象是施放者或弹体或被捆的目标；Alt 式的牵引范围按来源公式逐步缩小
 yvanchuxiuzhen,SkillWater0101TouZhiWuFeiXingTick,procedure,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：随 SkillWater0101 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,SkillWater0101DangTouZhiWuJiZhongShiTiShi,procedure,~/skill/jineng/waterskill,skill,已读,B1 归属阅读：随 SkillWater0101 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
@@ -5178,30 +5178,30 @@ yvanchuxiuzhen,Jindanhuoqv03,procedure,~/systemset/LEVELup,xiulian,已读,C xiul
 yvanchuxiuzhen,Jindanhuoqv04,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：进入 21 层（LEVELup）凝结金丹，按灵根、主修功法五行品阶层数、灵力上限、本命槽妖丹、生命上限与五行属性熟练度判定金丹，写 tizhiopen_101–134 与修正值
 yvanchuxiuzhen,Jindanhuoqv05,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：进入 21 层（LEVELup）凝结金丹，按灵根、主修功法五行品阶层数、灵力上限、本命槽妖丹、生命上限与五行属性熟练度判定金丹，写 tizhiopen_101–134 与修正值
 yvanchuxiuzhen,Yvanyinghuoqv01,procedure,~/systemset/LEVELup,xiulian,已读,C xiulian 归属阅读：进入 31 层（LEVELup）孕育元婴，按金丹种类、灵根、主修功法与五行属性熟练度判定，写 tizhiopen_201–208 与修正值
-yvanchuxiuzhen,Stripwhite,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Striplightgray,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripdarkgrey,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripblack,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Striplightred,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripred,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripcrimson,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Striplightorange,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Striporange,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripdeeporange,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Striplightyellow,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripyellow,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripdarkyellow,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Striplightgreen,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripgreen,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripdarkgreen,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Striplightblue,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripblue,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripdarkblue,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Striplightpurple,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Strippurple,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripdeeppurple,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripgolden,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stripskyblue,particle,~/lizi/strip,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Stripwhite,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Striplightgray,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripdarkgrey,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripblack,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Striplightred,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripred,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripcrimson,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Striplightorange,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Striporange,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripdeeporange,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Striplightyellow,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripyellow,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripdarkyellow,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Striplightgreen,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripgreen,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripdarkgreen,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Striplightblue,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripblue,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripdarkblue,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Striplightpurple,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Strippurple,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripdeeppurple,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripgolden,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
+yvanchuxiuzhen,Stripskyblue,particle,~/lizi/strip,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Playershengjixianshi,gui,~/GUI/playeruplevel,xiulian,已读,C xiulian 归属阅读：升级界面（10 行升级文字与关闭按钮）
 yvanchuxiuzhen,Uplevelxianshiqingchu,procedure,~/GUI/playeruplevel,xiulian,已读,C xiulian 归属阅读：清空升级文字
 yvanchuxiuzhen,Uplevelxianshi1,procedure,~/GUI/playeruplevel,xiulian,已读,C xiulian 归属阅读：升级界面第 n 行文字（tizhiitem.uplevelxianshi<n>）
@@ -5402,7 +5402,7 @@ yvanchuxiuzhen,Yangxianshi,procedure,~/GUI,panel,候选,第一版批量归组（
 yvanchuxiuzhen,Yinyangneirong,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Benmingfabaotisheng,procedure,~/GUI/dantian,equipment,已读,C xiulian 归属阅读：本命法宝每升一级交替给法宝的 lianqizong 加法术或神识攻击，由本命培养 Dantianbenmingfabao（PlayerTick）调用；本命培养数据归 equipment（系统设计“本命”）
 yvanchuxiuzhen,Jointxt14,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
-yvanchuxiuzhen,Daduan,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Daduan,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Jinenglengqvejiance,procedure,~/skill/jineng/jinengGui,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
 yvanchuxiuzhen,PlayerGUI08,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qiehuan03,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5626,7 +5626,7 @@ yvanchuxiuzhen,Yaoshou053xianghoutiao,procedure,~/entity/yaoshou/yaoshou053,crea
 yvanchuxiuzhen,Yaoshou053xiangzuotiao,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou053xiangyoutiao,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou053bingtianxvedi,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
-yvanchuxiuzhen,Snow,particle,~/entity/yaoshou/yaoshou053,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Snow,particle,~/entity/yaoshou/yaoshou053,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Yaoshou053baofengxveZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou053baofengxve,potioneffect,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou050shucuan,procedure,~/entity/yaoshou/yaoshou050,creature,已读,B1 归属阅读：随 Yaoshou050 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
@@ -6109,7 +6109,7 @@ yvanchuxitong,Zhenjineng06,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅�
 yvanchuxitong,Zhenjineng07,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅读：随 Zhenji 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxitong,Zhenjineng08,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅读：随 Zhenji 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxitong,ZhenjiZaiFangKuaiShangYouJian,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅读：随 Zhenji 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
-yvanchuxitong,Lingqi,particle,,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Lingqi,particle,,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxitong,DuihuaGUI01,gui,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,DuihuaGUI02,gui,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Duihuashijian,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6999,7 +6999,7 @@ yvanchuxitong,Paiwei01,block,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读�
 yvanchuxitong,Paiweiblock,tag,~/zhuangshiwu/paiwei,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Paiwei01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：随 Paiwei01item 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,Paiwei01item,item,~/zhuangshiwu/paiwei,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
-yvanchuxitong,Yan,particle,,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Yan,particle,,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxitong,Gaoshipai,tag,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Plaque03itemhecheng,recipe,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Plaque04itemhecheng,recipe,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7031,7 +7031,7 @@ yvanchuxitong,Zisha02,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：�
 yvanchuxitong,Zisha01DangFangKuaiBeiShuiFangZhiShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Zisha01 读：紫砂茶具：放取茶杯 zisha_02、冒烟粒子，只改本方块物品栏
 yvanchuxitong,Zisha03GengXinYouXiKe,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Zisha03 读：紫砂茶具：放取茶杯 zisha_02、冒烟粒子，只改本方块物品栏
 yvanchuxitong,Zisha03,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：紫砂茶具：放取茶杯 zisha_02、冒烟粒子，只改本方块物品栏
-yvanchuxitong,Yan02,particle,,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Yan02,particle,,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxitong,Taoguan01FangKuaiShiTiXuanRanShi,procedure,~/guchong,guchong,已读,B1 归属阅读：随 Taoguan01 读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
 yvanchuxitong,Taoguan01ZaiFangKuaiShangYouJian,procedure,~/guchong,guchong,已读,B1 归属阅读：随 Taoguan01 读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
 yvanchuxitong,Taoguan01,block,~/guchong,guchong,已读,B1 归属阅读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体

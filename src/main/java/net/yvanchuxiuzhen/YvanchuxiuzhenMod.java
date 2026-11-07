@@ -21,6 +21,7 @@ import net.yvanchuxiuzhen.system.liandan.LiandanSetup;
 import net.yvanchuxiuzhen.system.lianqi.LianqiSetup;
 import net.yvanchuxiuzhen.system.material.MaterialSetup;
 import net.yvanchuxiuzhen.system.npc.NpcSetup;
+import net.yvanchuxiuzhen.system.particle.ParticleSetup;
 import net.yvanchuxiuzhen.system.plant.PlantSetup;
 import net.yvanchuxiuzhen.system.quest.QuestSetup;
 import net.yvanchuxiuzhen.system.relation.RelationSetup;
@@ -47,6 +48,7 @@ public final class YvanchuxiuzhenMod {
         RegistryExport.register();
         ModifierKeys.register(modBus);
         ContentTabs.register(modBus);
+        ParticleSetup.register(modBus);
         AttributeSetup.register(modBus);
         BookSetup.register(modBus);
         CombatSetup.register(modBus);

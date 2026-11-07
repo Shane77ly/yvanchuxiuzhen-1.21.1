@@ -1486,10 +1486,10 @@ yvanchuxiuzhen,Flyskill04Particle,src/main/java/net/mcreator/yvanchuxiuzhen/clie
 yvanchuxiuzhen,Flyskill05Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Flyskill05Particle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,Flyskill06Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Flyskill06Particle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,FulubaguaParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/FulubaguaParticle.java,client/particle,particle,source_element_metadata
-yvanchuxiuzhen,Fulutexiao11Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Fulutexiao11Particle.java,client/particle,fulu,source_element_metadata
-yvanchuxiuzhen,Fulutexiao21Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Fulutexiao21Particle.java,client/particle,fulu,source_element_metadata
-yvanchuxiuzhen,Fulutexiao33Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Fulutexiao33Particle.java,client/particle,fulu,source_element_metadata
-yvanchuxiuzhen,Fulutexiao40Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Fulutexiao40Particle.java,client/particle,fulu,source_element_metadata
+yvanchuxiuzhen,Fulutexiao11Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Fulutexiao11Particle.java,client/particle,particle,source_element_metadata
+yvanchuxiuzhen,Fulutexiao21Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Fulutexiao21Particle.java,client/particle,particle,source_element_metadata
+yvanchuxiuzhen,Fulutexiao33Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Fulutexiao33Particle.java,client/particle,particle,source_element_metadata
+yvanchuxiuzhen,Fulutexiao40Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Fulutexiao40Particle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,Fuqi0101Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Fuqi0101Particle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,Fuqi0201Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Fuqi0201Particle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,GinkgoleavesliziParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/GinkgoleavesliziParticle.java,client/particle,particle,source_element_metadata
@@ -1690,9 +1690,9 @@ yvanchuxiuzhen,Wind03Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/p
 yvanchuxiuzhen,XvediParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/XvediParticle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,XvliliziParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/XvliliziParticle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,XvlimanParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/XvlimanParticle.java,client/particle,particle,source_element_metadata
-yvanchuxiuzhen,Yaoshou033skill01Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Yaoshou033skill01Particle.java,client/particle,creature,source_element_metadata
-yvanchuxiuzhen,Yaoshou040skill0201Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Yaoshou040skill0201Particle.java,client/particle,creature,source_element_metadata
-yvanchuxiuzhen,Yaoshou040skill03Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Yaoshou040skill03Particle.java,client/particle,creature,source_element_metadata
+yvanchuxiuzhen,Yaoshou033skill01Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Yaoshou033skill01Particle.java,client/particle,particle,source_element_metadata
+yvanchuxiuzhen,Yaoshou040skill0201Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Yaoshou040skill0201Particle.java,client/particle,particle,source_element_metadata
+yvanchuxiuzhen,Yaoshou040skill03Particle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/Yaoshou040skill03Particle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,YinboParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/YinboParticle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,ZhongduliziParticle,src/main/java/net/mcreator/yvanchuxiuzhen/client/particle/ZhongduliziParticle.java,client/particle,particle,source_element_metadata
 yvanchuxiuzhen,Armor01ArmorRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/client/renderer/Armor01ArmorRenderer.java,client/renderer,equipment,source_element_metadata

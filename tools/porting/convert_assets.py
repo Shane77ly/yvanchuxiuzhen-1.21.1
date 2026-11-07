@@ -9,6 +9,7 @@ JSON 中的引用同步改写。方块 Java 通过 registerRenderLayer 声明的
 每个输出文件登记到 docs/reference/conversion/manifest.csv（来源路径、来源哈希、目标路径）。
 同一目标路径来自内容不同的来源文件时报错。
 已登记状态效果的图标按来源注册 ID 读取 textures/mob_effect，按台账目标 ID 写入同一图集目录。
+已登记粒子的 JSON 与全部 sprite 按来源注册 ID 读取，目标 JSON ID 跟随台账，纹理引用统一命名空间并保留帧顺序。
 """
 from __future__ import annotations
 
@@ -211,6 +212,18 @@ class Converter:
             return
         self.emit(file, mod, ASSETS / 'textures/mob_effect' / f'{target}.png', file.read_bytes())
 
+    def particle(self, mod: str, path: str, target: str) -> None:
+        """粒子 JSON 的 sprite 引用不含 particle/ 前缀，图集从 textures/particle 读取。"""
+        file = self.roots[mod] / mod / 'particles' / f'{path}.json'
+        data = json.loads(file.read_text(encoding='utf-8'))
+        textures = []
+        for ref in data['textures']:
+            namespace, name = ref.split(':', 1)
+            self.copy_texture(f'{namespace}:particle/{name}', mod)
+            textures.append(f'{NAMESPACE if namespace in SOURCES else namespace}:{name}')
+        data['textures'] = textures
+        self.emit(file, mod, ASSETS / 'particles' / f'{target}.json', json_bytes(data))
+
     def item(self, mod: str, path: str, target: str, parents: dict[str, str]) -> None:
         file = self.roots[mod] / mod / 'models/item' / f'{path}.json'
         if not file.is_file():
@@ -255,6 +268,7 @@ def main() -> None:
     converter = Converter()
     origin: dict[tuple[str, str], tuple[str, str]] = {}
     effects: list[dict] = []
+    particles: list[dict] = []
     for rows in read_ledgers().values():
         for row in rows:
             if row['registry'] in ('block', 'item'):
@@ -262,6 +276,8 @@ def main() -> None:
                 origin[(row['registry'], row['target_id'].split(':', 1)[1])] = (mod, path)
             elif row['registry'] == 'mob_effect' and row['status'] != '待处理':
                 effects.append(row)
+            elif row['registry'] == 'particle_type' and row['status'] != '待处理':
+                particles.append(row)
     layers = {}
     for mod, (root, prefix) in SOURCES.items():
         text = (root / f'src/main/java/net/mcreator/{mod}/init/{prefix}ModBlocks.java').read_text(encoding='utf-8')
@@ -294,6 +310,9 @@ def main() -> None:
     for row in effects:
         mod, path = row['legacy_id'].split(':', 1)
         converter.effect_icon(mod, path, row['target_id'].split(':', 1)[1])
+    for row in particles:
+        mod, path = row['legacy_id'].split(':', 1)
+        converter.particle(mod, path, row['target_id'].split(':', 1)[1])
     with (ROOT / 'docs/reference/conversion/screen_textures.csv').open(encoding='utf-8') as handle:
         for row in csv.DictReader(handle):
             converter.copy_texture(row['texture'], row['texture'].split(':', 1)[0])

@@ -135,8 +135,4 @@ menu,yvanchuxitong:huafushaohui_gui,yvanchuxitong,HuafushaohuiGui,src/main/java/
 menu,yvanchuxiuzhen:chuancheng_gui,yvanchuxiuzhen,ChuanchengGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,88,fulu,已读,yvanchuxiuzhen:chuancheng_gui,待处理,
 mob_effect,yvanchuxiuzhen:fulutexiao_18,yvanchuxiuzhen,Fulutexiao18,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,153,fulu,候选,yvanchuxiuzhen:fulutexiao_18,待处理,
 mob_effect,yvanchuxiuzhen:fulutexiao_41,yvanchuxiuzhen,Fulutexiao41,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,154,fulu,候选,yvanchuxiuzhen:fulutexiao_41,待处理,
-particle_type,yvanchuxiuzhen:fulutexiao_11,yvanchuxiuzhen,Fulutexiao11,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModParticleTypes.java,59,fulu,候选,yvanchuxiuzhen:fulutexiao_11,待处理,
-particle_type,yvanchuxiuzhen:fulutexiao_21,yvanchuxiuzhen,Fulutexiao21,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModParticleTypes.java,60,fulu,候选,yvanchuxiuzhen:fulutexiao_21,待处理,
-particle_type,yvanchuxiuzhen:fulutexiao_33,yvanchuxiuzhen,Fulutexiao33,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModParticleTypes.java,61,fulu,候选,yvanchuxiuzhen:fulutexiao_33,待处理,
-particle_type,yvanchuxiuzhen:fulutexiao_40,yvanchuxiuzhen,Fulutexiao40,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModParticleTypes.java,62,fulu,候选,yvanchuxiuzhen:fulutexiao_40,待处理,
 sound_event,yvanchuxiuzhen:fulushifang,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModSounds.java,26,fulu,已读,yvanchuxiuzhen:fulushifang,已注册,

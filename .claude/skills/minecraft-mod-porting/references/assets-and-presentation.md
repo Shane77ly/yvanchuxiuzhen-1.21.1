@@ -23,6 +23,14 @@
 - 服务端触发核对类型、时机、数量、坐标偏移和速度。
 - 不用外观相近的粒子替代来源粒子 ID。
 
+MCreator 1.18.2 贴图粒子模板的参数化迁移（已核对构造、提供器、tick 和光照方法，并静态对照 NeoForge 21.1.265 的 `Particle`、`TextureSheetParticle`、`ParticleEngine`）：
+
+- `quadSize *= scale` 乘的是原生基类随机尺寸，不能改成固定尺寸。输入速度、碰撞宽高与重力分别保留；来源使用不带速度的基类构造器时，不改用会随机扰动速度的重载。
+- 随机寿命 `max(1, L + nextInt(2J) - J)` 的整数范围是 −J 至 J−1；旋转更新保留父类 tick 之后的顺序和弧度单位。
+- `setSpriteFromAge` 初始化与随后 `(age / frameTicks) % frames + 1`、分母 `frames` 的推进是两种取帧方式，不能统一改成按寿命线性播放。逐项核对随机初始 sprite、循环帧、渲染层和是否覆写全亮。
+- 纯贴图粒子使用 `RegisterParticleProvidersEvent.registerSpriteSet` 接入原生引擎。引擎在资源重载时清空活动粒子并重新绑定 SpriteSet；没有独立顶点提交与活动索引时，继续使用该生命周期。
+- 多来源同名粒子即使图片相同，提供器参数也可能不同。先比较实际类；同路径图片只在字节一致时复用，JSON 帧序和不同提供器分别保留。
+
 检查 JSON 引用的 sprite 是否齐全（PowerShell，替换命名空间和路径；无输出表示齐全）：
 
 ```powershell

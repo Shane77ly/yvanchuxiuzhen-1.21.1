@@ -9,6 +9,7 @@ import net.yvanchuxiuzhen.platform.client.ModifierKeysClient;
 import net.yvanchuxiuzhen.system.combat.client.CombatClientSetup;
 import net.yvanchuxiuzhen.system.gongfa.client.GongfaClientSetup;
 import net.yvanchuxiuzhen.system.panel.client.PanelClientSetup;
+import net.yvanchuxiuzhen.system.particle.client.ParticleClientSetup;
 import net.yvanchuxiuzhen.system.relation.client.RelationClientSetup;
 import net.yvanchuxiuzhen.system.skill.client.SkillClientSetup;
 import net.yvanchuxiuzhen.system.xiulian.client.XiulianClientSetup;
@@ -21,6 +22,7 @@ import net.yvanchuxiuzhen.system.xiulian.client.XiulianClientSetup;
 public final class YvanchuxiuzhenClient {
     public YvanchuxiuzhenClient(IEventBus modBus) {
         ModifierKeysClient.register();
+        ParticleClientSetup.register(modBus);
         CombatClientSetup.register(modBus);
         DecorClientSetup.register(modBus);
         GongfaClientSetup.register(modBus);
