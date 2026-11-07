@@ -371,6 +371,6 @@ SkillProjectile的显示物品由各注册工厂按来源提供：三种冰弹�
 
 火球命中循环按来源保留：每个范围内非友方对象触发一次粒子，但伤害请求引用直接命中目标；Q63记录该来源行为。水灵阵即使找不到主人仍生成无主人水弹；`WaterSeeker` 使用目标版本 `UndashedUuid.fromStringLenient` 对齐来源 authlib 的宽松 UUID 解析，无效值只保留当前速度。拈花飞叶到期时补写来源的 `AttackDamage` 与 `Damage_multiplier`，命中读取这两个持久字段并请求木系伤害；常规书缺少前一个键时按来源结果为零。
 
-两处金轮生成沿来源调用 `finalizeSpawn`，非玩家金轮模式读取主人 `friendlist.jinengName` 的左旋、右旋和天堑分支，目标保留这些模式、角度与动画。来源将该好友列表子标签作为共享引用并原位写入金轮字段，现阶段只完成模式与生命周期对齐，共享附加字段副作用及其真实消费者仍待继续核对，不能宣称已闭合。
+两处金轮生成沿来源调用 `finalizeSpawn`，非玩家金轮模式读取主人 `friendlist.jinengName` 的左旋、右旋和天堑分支，目标保留这些模式、角度与动画。来源将该好友列表子标签作为共享引用并原位写入金轮字段；已逐项核对 skill 归属的实际消费者，金轮、灵纹、冰系、木系和水系使用的状态均由目标实体或技能本地字段承载。灵纹命中过程写入好友列表物品的计数属于来源副作用，按 Q45 保持当前项目取舍，不复现残留计数。`GuanghuanDangShiTiGengXinKeShiProcedure` 属于 world 系统，其共享字段消费者留给 world 批次，skill 不重复实现。
 
 验证：`build compileSmokeJava`（含ArchUnit）通过；沿用项目内置 `runSmokeClient -PsmokeOnly=skillparticle`，同一检查场景的8项全部为INFO并以`DONE`结束，覆盖原生物品使用/松手生成、火球直接目标与邻近傀儡、无主人水球落地粒子、弹体保存重读与速度/伤害入口。四个世界正常保存退出，ERROR/FATAL为0，FML配置原字节恢复（`tmp/projectile-behavior-config-restore.log`），最终报告与日志见 `tmp/projectile-behavior-report.txt`、`tmp/projectile-behavior-client.log`。本次未逐类自然操作16种物品、未运行专用服务器、未做1.18.2版本实机或两版本对照；skill仍进行中，不合main。
