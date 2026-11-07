@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.relation.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,6 +39,10 @@ public final class Allegiance {
 
     public boolean isFriendly(String otherTeam) {
         return friendlyTeams.contains(otherTeam);
+    }
+
+    public Set<String> friendlyTeams() {
+        return Collections.unmodifiableSet(friendlyTeams);
     }
 
     public void setFriendly(String otherTeam, boolean friendly) {

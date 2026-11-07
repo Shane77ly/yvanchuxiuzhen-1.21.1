@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.relation.api;
 
+import java.util.Set;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.yvanchuxiuzhen.system.relation.data.Allegiance;
@@ -22,6 +23,20 @@ public final class Relations {
     /** {@code judge} 是否把 {@code other} 视为友方。 */
     public static boolean isFriendly(Entity judge, Entity other) {
         return allegiance(judge).isFriendly(team(other));
+    }
+
+    /** 友方集合的只读视图；来源丹火直接持有原表引用，重载前随主人关系变化。 */
+    public static Set<String> friendlyTeams(Entity owner) {
+        return allegiance(owner).friendlyTeams();
+    }
+
+    public static boolean isFriendly(Set<String> friendlyTeams, Entity other) {
+        return friendlyTeams.contains(team(other));
+    }
+
+    /** 来源直接读取实体 NBT team 的路径；玩家的能力团队与本体实体字段分别保存。 */
+    public static String entityTeam(Entity entity) {
+        return entity.getData(RelationAttachments.ENTITY).team();
     }
 
     /** 召唤物、投射物等继承 {@code owner} 的团队与友方集合（来源复制施放者的 team 与 friendlist）。 */

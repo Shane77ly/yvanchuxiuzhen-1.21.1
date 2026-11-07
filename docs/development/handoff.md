@@ -44,8 +44,14 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 
 2026-11-07 负责人澄清：饰品堆叠与 GUI 完整性消息是询问，并未要求插入完整 GUI 开发批次。会话曾误读并编写加点、装配与修炼分页草稿，现已备份到 `tmp/gui-draft-withdrawn-20261107-200122/` 并撤回全部相关未提交代码，源码恢复至已推送的 `c6f6f5a`。合法单件饰品运行验收仍未执行，GUI 保持部分实现。继续遵守原路线：当前 skill 收口及所需 yihuo 炙烤/丹火、world 正式维度依赖与视觉核对；profession、cooking、dungeon 依各自批次推进，不能为补页面提前展开。界面随所属系统同步接入，H 是全量终核；skill 未完成，不合 main。
 
-**下次开工的第一步**（先于下面的条目）：
-- `git status` 应干净，位于 `port/c-skill`（唯一未跟踪项 `.eclipse/` 是 IDE 的启动配置，不属于本项目提交）。
+**本批进展与下次开工的第一步（2026-11-07）**：
+- 当前分支 `port/c-skill`，本批前一提交 `e3a5a44`；本批实现与记录在同一工作提交，最后提交以 `git log -1` 为准。完整移植 goal 已按负责人最新指令恢复 active，继续原路线。`.eclipse/` 是用户的 IDE 配置，保留且不提交。
+- 丹火与炙烤依赖代码已接回：skill 的物品 useOn 调用 yihuo，18种火块保留独立方块实体、燃料/计划刻/接触/保存及方向能力；两个持续效果保留来源伤害与粒子顺序。relation 提供实体团队及友方只读视图。正文见[异火](../systems/yihuo/architecture.md)。炉鼎供热事件尚无D阶段消费者，不算完整供热链。
+- 证据：唯一一次 yihuo 专项7项中2项通过、5项失败；燃料期望误读原生放置回放，生命检查超过原生上限。修正检查后 build/ArchUnit与检查源集编译通过，未重跑。专用服务器一次启动至Done，原生stop正常保存并退出，ERROR0。原报告保留在 `tmp/yihuo-report.txt`，构建和专服在 `tmp/yihuo-final-build.log`、`tmp/yihuo-server.log`。
+- 负责人再次强调没有必要不写Test、优先按1.18.2代码核对移植。新增 `YihuoCheck` 与选择器已撤下，备份 `tmp/yihuo-check-withdrawn-20261107.java`；不继续修检查刷通过。后续按[开发规则](coding-policy.md)选择必要验证。
+- 下一步：先用 CodeGraph 定向查看 `VoidRift` 与 world 的维度入口，再核对1.18.2版本对应维度/传送调用，接回 skill 所需正式维度依赖；其余世界主体仍按E阶段推进。skill 尚未完成、不合main；GUI仍为部分实现，不插入整套分页开发。
+
+**此前已完成的检查与历史定位**：
 - 已运行一次 skill 冒烟（`gradlew runSmokeClient -PsmokeOnly=skill`）：报告以 `DONE` 结束，精简后的 `CorpseCheck` 28 项全部符合；其余检查也完成。`LingwenCheck` 的数量 1/2 差异已由 Q48 解释为来源同序的首刻命中时序，不再重复整套冒烟。
 - 虚空裂隙的实体、传送与公开入口已实现，`VoidRiftCheck` 12 项通过（`-PsmokeOnly=voidrift`，往返使用 smoke 测试维度，正式维度仍随 world）；本次不再重复。伤害范围实体与 `Skills.showDamageArea` 已实现，`DamageAreaCheck` 6 项通过；九处 creature 生成者仍待接入，控雷阵落雷已接回。元婴出窍的实体与 `Skills.toggleYuanying` 已实现，`YuanyingCheck` 5 项通过；菜单按钮与出窍粒子已接入，视觉认可待核。十种技能箭与服务端选择已实现；弓入口随 equipment、轮盘已在阶段 5 接入，阳火炙烤持续行为随 yihuo。身法与轻功 7 项针对性检查已通过，不重复运行。阶段 5 的界面、五个功能入口、C 格挡和技能 HUD 已部分实现；一次 skillui 检查 9 项中 8 项通过，首项检查时序修正后仅编译，未重跑。剩余 26 项已核清，满天花雨已补齐且两项检查一次通过；315种粒子的提供器与完整资源已登记并通过粒子专项检查，元素弹体、灵纹弹和技能箭的粒子发出处已接回，动画实体、生命感知、轻功、研习、出窍和自爆的有效粒子调用也已接回；共享落雷命令与彩色闪电已接回天雷术、五雷轰顶和控雷阵；完整雷劫主路径已通过；下一步处理 equipment/yihuo/world 依赖与视觉收口。
 - 本机有一个小陷阱：在 bash 的 here-document 里写含引号的长 Python 脚本会因引号错位而整段不执行，改用 Write 写到暂存目录再运行。

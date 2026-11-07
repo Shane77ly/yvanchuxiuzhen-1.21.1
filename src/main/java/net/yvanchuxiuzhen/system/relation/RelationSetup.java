@@ -50,6 +50,7 @@ public final class RelationSetup {
             }
             allegiance.setTeam(team.toString());
         }
+        player.getData(RelationAttachments.ENTITY).setTeam(allegiance.team());
         allegiance.setFriendly(allegiance.team(), true);
         player.syncData(RelationAttachments.PLAYER);
     }
