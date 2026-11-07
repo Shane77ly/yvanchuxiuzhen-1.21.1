@@ -74,7 +74,9 @@ public final class SkillSetup {
     private static void onPlayerTick(PlayerTickEvent.Post event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             SkillCasting.tick(player);
+            SkillMovement.tick(player);
             WeaponArts.tick(player);
+            SkillFlight.tick(player);
             Yuanying.tick(player);
         }
     }

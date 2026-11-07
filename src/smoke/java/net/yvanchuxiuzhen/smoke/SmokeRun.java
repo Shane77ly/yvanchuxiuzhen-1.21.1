@@ -176,11 +176,12 @@ final class SmokeRun {
                             new XiulianOperationsCheck(report, levelId));
                     case "gongfa" -> List.of(new GongfaCheck(report, levelId), new ComprehensionCheck(report, levelId, this::shot));
                     case "combat" -> List.of(new CombatCheck(report, levelId, this::shot));
-                    case "skill" -> List.of(new SkillCheck(report, levelId), new SkillProjectileCheck(report, levelId), new SkillEntityCheck(report, levelId), new SwordArtCheck(report, levelId), new LingwenCheck(report, levelId), new FireBirdCheck(report, levelId), new CorpseCheck(report, levelId), new VoidRiftCheck(report, levelId), new DamageAreaCheck(report, levelId), new YuanyingCheck(report, levelId), new SkillArrowCheck(report, levelId));
+                    case "skill" -> List.of(new SkillCheck(report, levelId), new SkillProjectileCheck(report, levelId), new SkillEntityCheck(report, levelId), new SwordArtCheck(report, levelId), new LingwenCheck(report, levelId), new FireBirdCheck(report, levelId), new CorpseCheck(report, levelId), new VoidRiftCheck(report, levelId), new DamageAreaCheck(report, levelId), new YuanyingCheck(report, levelId), new SkillArrowCheck(report, levelId), new SkillMovementCheck(report, levelId));
                     case "voidrift" -> List.of(new VoidRiftCheck(report, levelId));
                     case "damagearea" -> List.of(new DamageAreaCheck(report, levelId));
                     case "yuanying" -> List.of(new YuanyingCheck(report, levelId));
                     case "skillarrow" -> List.of(new SkillArrowCheck(report, levelId));
+                    case "skillmovement" -> List.of(new SkillMovementCheck(report, levelId));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }

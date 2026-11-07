@@ -7,6 +7,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.skill.SkillFlight;
 
 /**
  * 技能系统的状态效果行为。{@code skilleffect_01}–{@code 07} 在来源中没有自身过程，只作标记，不登记行为。
@@ -22,8 +23,17 @@ public final class SkillEffects {
     public static void register(ContentTables tables) {
         tables.effectBehavior("skilleffect_08", new Unyielding());
         tables.effectBehavior("skilleffect_09", new Casting());
+        tables.effectBehavior("effect_035", new NoFlight());
         tables.effectFactory("skill_arrow_0601", InnerExplosion::new);
         InnerExplosion.install();
+    }
+
+    private static final class NoFlight implements EffectBehavior {
+        @Override
+        public boolean tick(LivingEntity entity, int amplifier) {
+            SkillFlight.forbid(entity);
+            return true;
+        }
     }
 
     /** 霸体：击退抗性基础值 +10，并附加与本效果同时长的发光（无粒子）；结束时还原。 */

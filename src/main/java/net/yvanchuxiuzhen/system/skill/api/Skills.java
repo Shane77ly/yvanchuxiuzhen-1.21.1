@@ -12,6 +12,7 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.system.skill.SkillLibrary;
 import net.yvanchuxiuzhen.system.skill.ArrowSelection;
 import net.yvanchuxiuzhen.system.skill.SkillStudy;
+import net.yvanchuxiuzhen.system.skill.SkillFlight;
 import net.yvanchuxiuzhen.system.skill.data.SkillCooldowns;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 import net.yvanchuxiuzhen.system.skill.data.SkillState;
@@ -68,6 +69,19 @@ public final class Skills {
 
     public static void setFlight(ServerPlayer player, ItemStack stack) {
         player.setData(SkillData.STATE, state(player).withFlight(stack));
+    }
+
+    /** 来源 flybegin，供界面、飞行装备与重置入口查询或写入；原生飞行能力由具体操作负责。 */
+    public static boolean flying(Player player) {
+        return player.getData(SkillData.FLYING);
+    }
+
+    public static void setFlying(ServerPlayer player, boolean flying) {
+        player.setData(SkillData.FLYING, flying);
+    }
+
+    public static void toggleFlight(ServerPlayer player) {
+        SkillFlight.toggle(player);
     }
 
     /** 武器技槽（来源 {@code wuqiskill}）。 */

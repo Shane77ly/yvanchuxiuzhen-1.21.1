@@ -1507,19 +1507,19 @@ yvanchuxiuzhen,Tileimbrexgilding09,block,~/decorate/buildingblocks,decor,已读,
 yvanchuxiuzhen,Tileimbrexgilding10,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Technique,command,~/systemset/zhiling,gongfa,已读,C skill 归属阅读：/technique 命令（权限 1）是 TechniqueGO 的入口，按参数生成功法书；与 /jineng 不同，功法书生成归 gongfa，命令在 gongfa 补做
 yvanchuxiuzhen,TechniqueGO,procedure,~/systemset/zhiling,gongfa,已读,C gongfa 归属阅读：管理命令 /technique 按参数生成功法书；目标为公开操作 Techniques.createBook，命令本身归 flow
-yvanchuxiuzhen,ShenfaW,procedure,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,AnjianW,keybind,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ShenfaW,procedure,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
+yvanchuxiuzhen,AnjianW,keybind,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
 yvanchuxiuzhen,Shenfazhiling,procedure,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
 yvanchuxiuzhen,Shenfa,command,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
-yvanchuxiuzhen,ShenfaTick,procedure,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ShenfaS,procedure,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,AnjianS,keybind,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ShenfaA,procedure,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,AnjianA,keybind,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ShenfaD,procedure,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,AnjianD,keybind,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shenfaspace,procedure,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,AnjianSpace,keybind,~/skill/shenfa,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ShenfaTick,procedure,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
+yvanchuxiuzhen,ShenfaS,procedure,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
+yvanchuxiuzhen,AnjianS,keybind,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
+yvanchuxiuzhen,ShenfaA,procedure,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
+yvanchuxiuzhen,AnjianA,keybind,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
+yvanchuxiuzhen,ShenfaD,procedure,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
+yvanchuxiuzhen,AnjianD,keybind,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
+yvanchuxiuzhen,Shenfaspace,procedure,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
+yvanchuxiuzhen,AnjianSpace,keybind,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
 yvanchuxiuzhen,Flyinginstrument01DangYouJianDianJiShiTi,procedure,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyinginstrument01,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyinginstrument01DangShiTiGengXinKeShi,procedure,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1684,9 +1684,9 @@ yvanchuxiuzhen,Birthdown,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读�
 yvanchuxiuzhen,Jointxt12,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
 yvanchuxiuzhen,Jointxt13,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
 yvanchuxiuzhen,PlayerJoinGUIDangZheGeJieMianBeiGuanBi,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
-yvanchuxiuzhen,Flyskilltexiao,procedure,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,FlyskillTick,procedure,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyskillkaishitexiao,procedure,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyskilltexiao,procedure,~/skill/flyskill,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
+yvanchuxiuzhen,FlyskillTick,procedure,~/skill/flyskill,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
+yvanchuxiuzhen,Flyskillkaishitexiao,procedure,~/skill/flyskill,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
 yvanchuxiuzhen,FlyskillGO,procedure,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
 yvanchuxiuzhen,Flyskill,command,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
 yvanchuxiuzhen,Flyskill02,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1994,8 +1994,8 @@ yvanchuxiuzhen,TreasureChest1101,item,~/baoxiang,treasure,已读,B1 归属阅读
 yvanchuxiuzhen,Flyskill05,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,LiziliziGo,procedure,~/systemset/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyskill06,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,FanjianAnXiaAnJianShi,procedure,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fanjian,keybind,~/skill/flyskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,FanjianAnXiaAnJianShi,procedure,~/skill/flyskill,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
+yvanchuxiuzhen,Fanjian,keybind,~/skill/flyskill,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
 yvanchuxiuzhen,Spearhuiwu,procedure,~/weapon/spear,skill,已读,C skill 归属阅读：剑法（中平、柔云、拜年、弱鸡）的剑影实体、出手过程与武器挥动触发；挥动剑类武器时按武器技栏 wuqiskill 的剑法名分派出手（Swordhuiwu、Jvjianhuiwu、Spearhuiwu、Weaponbroadsword01DangShiTiHuiDongWuPinShi 四个触发只在要求本人研习与否上不同），不是武器自身效果；改判 Jvjianhuiwu、Spearhuiwu 自 equipment
 yvanchuxiuzhen,Weaponspear01,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理
 yvanchuxiuzhen,Weaponspear02,tool,~/weapon/spear,equipment,已读,B1 归属阅读：武器：本身的攻击、射击、蓄力与挥动效果；剑、枪、巨剑挥动时触发的剑法由 skill 的武器技（Swordhuiwu 等）处理

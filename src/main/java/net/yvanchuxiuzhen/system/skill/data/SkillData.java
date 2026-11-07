@@ -1,8 +1,10 @@
 package net.yvanchuxiuzhen.system.skill.data;
 
+import com.mojang.serialization.Codec;
 import java.util.function.Supplier;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -12,7 +14,7 @@ import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 
 /**
  * 技能系统的数据登记：书上的技能实例组件 {@code skill}，玩家的技能装配与选择 {@code skill_state}（来源全部克隆事件复制）、
- * 冷却 {@code skill_cooldown}（来源仅非死亡克隆复制）；二者只同步给本人。
+ * 冷却 {@code skill_cooldown}（来源仅非死亡克隆复制）、飞行开关 {@code skill_flying}（来源全部克隆事件复制）；只同步给本人。
  */
 public final class SkillData {
     private static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ModId.VALUE);
@@ -30,6 +32,13 @@ public final class SkillData {
             .builder(() -> SkillCooldowns.EMPTY)
             .serialize(SkillCooldowns.CODEC)
             .sync((holder, player) -> holder == player, SkillCooldowns.STREAM_CODEC)
+            .build());
+    /** 来源 flybegin：持久化并在全部克隆事件复制，只同步给本人。 */
+    public static final Supplier<AttachmentType<Boolean>> FLYING = ATTACHMENTS.register("skill_flying", () -> AttachmentType
+            .builder(() -> false)
+            .serialize(Codec.BOOL)
+            .copyOnDeath()
+            .sync((holder, player) -> holder == player, ByteBufCodecs.BOOL)
             .build());
 
     private SkillData() {
