@@ -306,7 +306,8 @@ def main() -> None:
         file = CONTENT / unit / 'armor_materials.json'
         if file.is_file():
             for row in json.loads(file.read_text(encoding='utf-8')):
-                converter.armor_textures(row['texture'])
+                if not row.get('animated', False):
+                    converter.armor_textures(row['texture'])
     for row in effects:
         mod, path = row['legacy_id'].split(':', 1)
         converter.effect_icon(mod, path, row['target_id'].split(':', 1)[1])

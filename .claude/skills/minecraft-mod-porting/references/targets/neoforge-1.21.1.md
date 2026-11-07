@@ -4,6 +4,8 @@
 
 | 机制 | 源码 | 已确认事实 |
 | --- | --- | --- |
+| 动画护甲 | GeckoLib 4.9.3 `GeoItem`、`GeoRenderProvider`、`InternalUtil.tryRenderGeoArmorPiece` 与 `GeoArmorRenderer` | NeoForge 21.1.265：护甲物品实现 GeoItem，客户端提供 getGeoArmorRenderer；库在实际护甲层渲染前调用完整 prepForRender，无需调用已废弃的四参数重载。默认绑定 armorHead/Body/RightArm/LeftArm/RightLeg/LeftLeg/RightBoot/LeftBoot，半透明需覆写 getRenderType。公共物品类不引用客户端渲染器，由客户端装配提供实例。此处为精确版本静态源码核对，运行证据随使用批次登记 |
+| 玩家完整物品能力 | `items/wrapper/PlayerInvWrapper.java` 与各分槽 wrapper | 21.1.265：完整包装按主背包36格、护甲4格、副手1格组成；来源使用完整 ItemHandler 统计空位时，不能改为仅统计主背包。物品给予再单独使用原生 giveItemToPlayer，空位预检与实际接收容器是不同语义 |
 | 延迟注册/命名空间 | `net/neoforged/neoforge/registries/DeferredRegister.java` | create/createItems/createBlocks 的 namespace 参数用于构造注册 ID；21.1.265 只检查非空，不要求与 Mod ID 一致 |
 | 注册表别名 | `net/neoforged/neoforge/registries/IRegistryExtension.java`、`net/minecraft/core/MappedRegistry.java` | 21.1.265：`addAlias(from, to)` 使查找 `from`（且其不存在）时解析为 `to`，支持链式；`MappedRegistry` 按名与按键查找经过 `resolve`。区块、物品与玩家数据读取中的实际效果未实测 |
 | 物品创建者 Mod | `net/neoforged/neoforge/common/CommonHooks.java` 的 `getDefaultCreatorModId` | 21.1.265：默认以物品注册名的命名空间作为创建者 Mod ID（原版附魔书按附魔命名空间）；物品可覆盖 `IItemExtension.getCreatorModId` |

@@ -235,10 +235,6 @@ item,yvanchuxiuzhen:xiulitai,物品类 XiulitaiDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:xiuzhe_0101_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:xveliu_bucket,物品基类 BucketItem 由所属系统迁移
 item,yvanchuxiuzhen:yanwang_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:yaohua_0101_boots,物品类 Yaohua0101Item（GeckoLib 盔甲）由所属系统迁移
-item,yvanchuxiuzhen:yaohua_0101_chestplate,物品类 Yaohua0101Item（GeckoLib 盔甲）由所属系统迁移
-item,yvanchuxiuzhen:yaohua_0101_helmet,物品类 Yaohua0101Item（GeckoLib 盔甲）由所属系统迁移
-item,yvanchuxiuzhen:yaohua_0101_leggings,物品类 Yaohua0101Item（GeckoLib 盔甲）由所属系统迁移
 item,yvanchuxiuzhen:yaoshou_001_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:yaoshou_002_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:yaoshou_003_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移

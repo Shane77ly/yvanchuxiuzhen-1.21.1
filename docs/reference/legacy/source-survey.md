@@ -148,6 +148,8 @@ updated: 2026-11-07
 
 | Q57 | 18 把弓都是 `SwordItem`，选中时共用 `Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi`；其蓄力读取 `synchronizedata.rightclicking`，右键过程为空。两个来源 `src` 与 `elements` 全检未找到有效写入者，B 的 `Zxc` 只有未绑定的编辑器实验块且含 `rifhtclicking` 拼写。按来源迁移条件流程，保留自然右键断链，不新增鼠标同步或改成原版弓；人工注入标记的验证不能宣称自然入口可用。影响仅弓入口，其他移植继续；修复取舍待裁定 | [装备](../../systems/equipment/architecture.md) |
 
+| Q58 | 妖化提示与实际流程有差异：`Jinengyaohua` 只查五个体质标记，没有额外境界门槛；`Yaohua` 用包含护甲和副手的完整41格物品能力统计空位，旧甲移入背包、放不下沿原生给予逻辑掉落；`Yaohuajieshu` 不自动穿回旧甲，延迟回调直接清空当时的槽内物品。影响仅变身入口，评估轻微，保留来源流程、顺序及后果，不增设恢复或库存规则 | [装备](../../systems/equipment/architecture.md) |
+
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 
 ## 源码位置

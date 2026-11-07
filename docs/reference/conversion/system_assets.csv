@@ -1,4 +1,7 @@
 owner,kind,id
+equipment,geo,yvanchuxiuzhen:yaohua_0101
+equipment,animation,yvanchuxiuzhen:yaohua_0101
+equipment,texture,yvanchuxiuzhen:items/yaohua_0101
 xiulian,block,yvanchuxiuzhen:xveliu
 xiulian,item,yvanchuxiuzhen:xveliu_bucket
 xiulian,texture,yvanchuxiuzhen:blocks/xveliu

@@ -196,5 +196,9 @@
 {"id":"clothes_17_leggings","factory":"armor","order":1931,"armor":{"material":"clothes_17","slot":"LEGGINGS"},"durability_multiplier":10,"tab":"yvanchuxiuzhen:tabyvanchu_weapon"},
 {"id":"gongjv_001","factory":"tool","order":1932,"tab":"minecraft:tools_and_utilities","tool":{"kind":"axe","tier":{"uses":278,"speed":4.0,"damage_bonus":3.0,"level":1,"enchantability":2,"repair":["cailiao_201"]},"damage":1,"attack_speed":-3.0},"tooltip":["手持镰刀右键，即可清理大范围杂草。"],"pending_hooks":["use"]},
 {"id":"fabao_021","factory":"item","order":1953,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","stack":1,"pending_hooks":["getFactory","getItemStackRenderer","initializeClient","registerControllers"]},
-{"id":"fabao_022","factory":"item","order":1954,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","durability":80,"pending_hooks":["getDefaultAttributeModifiers","getFactory","getItemStackRenderer","initializeClient","registerControllers"]}
+{"id":"fabao_022","factory":"item","order":1954,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","durability":80,"pending_hooks":["getDefaultAttributeModifiers","getFactory","getItemStackRenderer","initializeClient","registerControllers"]},
+{"id":"yaohua_0101_helmet","factory":"equipment:yaohua_0101_helmet","order":2113,"armor":{"material":"yaohua_0101","slot":"HELMET"},"durability_multiplier":25},
+{"id":"yaohua_0101_chestplate","factory":"equipment:yaohua_0101_chestplate","order":2114,"armor":{"material":"yaohua_0101","slot":"CHESTPLATE"},"durability_multiplier":25},
+{"id":"yaohua_0101_leggings","factory":"equipment:yaohua_0101_leggings","order":2115,"armor":{"material":"yaohua_0101","slot":"LEGGINGS"},"durability_multiplier":25},
+{"id":"yaohua_0101_boots","factory":"equipment:yaohua_0101_boots","order":2116,"armor":{"material":"yaohua_0101","slot":"BOOTS"},"durability_multiplier":25}
 ]

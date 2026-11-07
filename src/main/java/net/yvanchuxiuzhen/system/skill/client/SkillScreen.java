@@ -43,6 +43,7 @@ public final class SkillScreen extends AbstractContainerScreen<SkillMenu> {
         }
         addButton(390, 132, 43, 26, "lianzhaoanniu01", 17, "连招");
         addButton(395, 346, 32, 32, "jinengxvkong01", 18, "虚空裂隙");
+        addButton(395, 275, 32, 32, "jinengyaohua01", 19, "妖化");
         addButton(483, 345, 32, 32, "jinengzibao01", 20, "自爆");
         addButton(395, 310, 32, 32, "jinengchuqiao01", 21, "元婴出窍");
         addButton(395, 239, 32, 32, "jinengsaomiao01", 22, "神识扫描");

@@ -20,7 +20,7 @@ from pathlib import Path
 
 from build_ledger import INVENTORY, NAMESPACE, ROOT, expected_rows, read_ledgers
 from legacy_blocks import BASES, parse_block
-from legacy_items import TOOL_KINDS, parse_armor_material, parse_armor_piece, parse_item, parse_tool
+from legacy_items import TOOL_KINDS, parse_armor_material, parse_armor_piece, parse_item, parse_item_properties, parse_tool
 
 WORKSPACE = Path('D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-1.21.1/reference')
 SOURCES = {
@@ -323,6 +323,24 @@ def main() -> None:
                 row['tooltip'] = block_tooltips[(mod, path)]
         else:
             class_name = source.item_class.get(path)
+            if class_name is None and path in source.geckolib_armor and ('item', target) in overrides:
+                class_name = source.geckolib_armor[path]
+                text = source.java('item', class_name)
+                material = parse_armor_material(text, source.item_const)
+                multiplier = material.pop('durability_multiplier')
+                armor_materials[(unit, material['id'])] = {**material, 'texture': material['id'], 'animated': True}
+                slot = {'helmet': 'HELMET', 'chestplate': 'CHESTPLATE', 'leggings': 'LEGGINGS', 'boots': 'BOOTS'}[path.rsplit('_', 1)[1]]
+                gecko_init = (source.root / f'src/main/java/net/mcreator/{mod}/init/{source.prefix}ModGeckoLibArmors.java').read_text(encoding='utf-8')
+                properties = re.search(rf'register\("{re.escape(path)}", \(\) -> new \w+\(EquipmentSlot\.\w+, (new Item\.Properties\(\).*?)\)\);', gecko_init).group(1)
+                row = {'id': target, 'factory': overrides[('item', target)], 'order': order,
+                       'armor': {'material': material['id'], 'slot': slot}, 'durability_multiplier': multiplier,
+                       **parse_item_properties(properties, source.tabs)}
+                items_by_unit[unit].append(row)
+                for language in LANGUAGES:
+                    name = source.lang[language].get(f'item.{mod}.{path}')
+                    if name is not None:
+                        add_lang(unit, language, f'item.{NAMESPACE}.{target}', name)
+                continue
             if class_name is None:
                 skipped.append(('item', legacy_id, source.special_item_reason(path)))
                 continue

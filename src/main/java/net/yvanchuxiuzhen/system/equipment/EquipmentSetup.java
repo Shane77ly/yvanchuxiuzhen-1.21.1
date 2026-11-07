@@ -2,14 +2,17 @@ package net.yvanchuxiuzhen.system.equipment;
 
 import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ArmorItem;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.ItemRow;
 import net.yvanchuxiuzhen.platform.content.LegacyTier;
+import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
 import net.yvanchuxiuzhen.system.equipment.content.HossuItem;
+import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fuchen;
 
 /**
@@ -22,17 +25,31 @@ public final class EquipmentSetup {
     }
 
     public static void register(IEventBus modBus) {
+        EquipmentData.register(modBus);
         CONTENT.itemFactory("equipment:fuchen", FuchenItem::new);
         for (ItemRow row : ContentFiles.read("content/equipment/items.json", ItemRow.CODEC)) {
             if (row.factory().startsWith("equipment:weaponhossu_")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
                 CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new HossuItem(tier, properties, tooltip));
             }
+            if (row.factory().startsWith("equipment:yaohua_0101_")) {
+                ItemRow.Armor armor = row.armor().orElseThrow();
+                ArmorItem.Type type = ArmorItem.Type.valueOf(armor.slot());
+                CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new DemonArmorItem(CONTENT.armorMaterial(armor.material()), type,
+                        properties.durability(type.getDurability(row.durabilityMultiplier().orElseThrow()))));
+            }
         }
         CONTENT.entity(Fuchen.ID, Fuchen::new);
         CONTENT.register(modBus);
         NeoForge.EVENT_BUS.addListener(EquipmentWeapons::tick);
         NeoForge.EVENT_BUS.addListener(EquipmentWeapons::swing);
+        NeoForge.EVENT_BUS.addListener(DemonTransformation::request);
+        NeoForge.EVENT_BUS.addListener(DemonTransformation::tick);
+        NeoForge.EVENT_BUS.addListener(DemonTransformation::endTick);
+        NeoForge.EVENT_BUS.addListener(DemonTransformation::stopped);
+        NeoForge.EVENT_BUS.addListener(EquipmentAttributes::tick);
+        NeoForge.EVENT_BUS.addListener(EquipmentAttributes::armorStat);
+        NeoForge.EVENT_BUS.addListener(EquipmentAttributes::modifiers);
     }
 
     public static Supplier<EntityType<Fuchen>> fuchenType() {

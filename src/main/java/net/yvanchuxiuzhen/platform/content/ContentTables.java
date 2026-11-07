@@ -51,6 +51,7 @@ import net.yvanchuxiuzhen.platform.ModId;
  */
 public final class ContentTables {
     private final String unit;
+    private final Map<String, Holder<ArmorMaterial>> materials = new HashMap<>();
     private final DeferredRegister.Blocks blocks = DeferredRegister.createBlocks(ModId.VALUE);
     private final DeferredRegister.Items items = DeferredRegister.createItems(ModId.VALUE);
     private final DeferredRegister<ArmorMaterial> armorMaterials = DeferredRegister.create(Registries.ARMOR_MATERIAL, ModId.VALUE);
@@ -112,12 +113,16 @@ public final class ContentTables {
         return (Supplier<EntityType<T>>) (Supplier<?>) entityTypes.get(id);
     }
 
+    /** 本单位已登记的护甲材质，供专属护甲工厂复用来源内容表。工厂在物品注册阶段调用。 */
+    public Holder<ArmorMaterial> armorMaterial(String id) {
+        return materials.get(id);
+    }
+
     public void register(IEventBus modBus) {
         Map<String, DeferredBlock<Block>> registered = new HashMap<>();
         for (BlockRow row : ContentFiles.read("content/" + unit + "/blocks.json", BlockRow.CODEC)) {
             registered.put(row.id(), blocks.register(row.id(), () -> ContentBlocks.create(row, blockFactories)));
         }
-        Map<String, Holder<ArmorMaterial>> materials = new HashMap<>();
         for (ArmorMaterialRow row : ContentFiles.read("content/" + unit + "/armor_materials.json", ArmorMaterialRow.CODEC)) {
             materials.put(row.id(), armorMaterials.register(row.id(), () -> armorMaterial(row)));
         }
@@ -239,7 +244,7 @@ public final class ContentTables {
         byType.put(ArmorItem.Type.HELMET, defense.get(3));
         return new ArmorMaterial(byType, row.enchantability(), BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.EMPTY),
                 () -> LegacyTier.ingredient(row.repair().orElse(List.of())),
-                List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, row.texture()))),
+                row.animated() ? List.of() : List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, row.texture()))),
                 row.toughness(), row.knockback());
     }
 
