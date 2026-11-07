@@ -167,6 +167,18 @@ Q62：逐项读取35个来源动画资源中的实际名字，仅伤害范围默
 
 本批没有新增或修改Test、选择器或断言。最终`build compileSmokeJava`（含ArchUnit）通过；沿用现有`runSmokeClient -PsmokeOnly=damagearea`，六项全部通过并DONE，四个世界正常保存退出，日志ERROR/FATAL均为0。该场景确认共享模型配置加载及伤害范围既有路径；完整过程切换、同名重播、尸体三个控制器的动态表现、多人、1.18.2版本实机和两版本对照仍未验收。证据为`tmp/skill-animation-build.log`、`tmp/skill-animation-client.log`和`tmp/skill-animation-report.txt`。
 
+## 动画实体渲染逐类复核（2026-11-07）
+
+已逐类读取35个1.18.2版本技能实体的Model、Layer、Renderer与尺寸覆写，并补核共享渲染器的四个雷劫实体。来源GeckoLib3.0.57、目标4.9.3的`GeoEntityRenderer`死亡旋转默认均为90度。技能中24个渲染器明确覆写0度，目标现逐类接回；其余11个（四种剑影、水龙、树梯、毒蔓鞭、天外陨石、化石手、金刚轮与灵纹特效）继续继承默认，不统一关闭侧翻。
+
+模型表以`rendering`组合阴影半径、等比渲染缩放与可选死亡旋转覆写；根记录仍为16字段，来源没有覆写的旋转字段保持缺省，运行时委托库。35个技能模型渲染缩放均为1；共享的劫云为3、化灵雷龙为4，地滚雷和九霄雷柱为1，四个雷劫渲染器均关闭死亡侧翻。`AnimatedEntityRenderer.withScale`只在主渲染前应用，发光层沿用外层变换，不重复放大。渲染缩放不参与碰撞尺寸。
+
+八个技能模型包含视线骨骼：中平/柔云/弱鸡剑影、毒蔓鞭、格挡与金刚轮使用`zong`，火鸟与尸体使用`head`。俯仰、头身偏航的符号与两个精确库版本一致，仍叠加到当前骨骼旋转；暂停且实体未允许暂停播放时不追加视线旋转。目标库冻结动画时间后仍可能调用自定义骨骼方法，故显式保留来源暂停条件。其余模型不增加头部动作。七个技能发光层的固定纹理和几何已逐项核对，沿用`eyes`及无受伤覆盖；主体均为来源的半透明渲染。来源库在`isInvisibleTo(当前玩家)`为真时跳过主体、仍独立处理发光层，默认颜色为白色；目标现保留同一可见性门槛与颜色，不引入4.9.3默认的旁观者透明度差异。
+
+35个来源实体在`baseTick`过程之后刷新尺寸；其中34个固定比例1，空浮球从`friendlist.pengzhuangxiang`读取。已核对唯一实际写入者`SkillWater04shifang`：空浮球2、潜行陨河1、普通陨河3，生成后无其他比例写入者。目标共用实体现按来源在基础刻技能过程之后`refreshDimensions`，设置比例只记值，保留首刻过程执行前仍为初始尺寸的顺序。比例随实体保存，未补造来源没有的客户端尺寸同步。四个雷劫实体的碰撞尺寸另核为劫云3、雷龙2、其余1，原实现保留。
+
+静态证据`tmp/skill-render-source-audit.log`收录全部类体、分组差异与尺寸方法，精确库源码在`tmp/skill-render-source/`及`tmp/skill-render-target/`。最终`build compileSmokeJava`（含ArchUnit）通过。沿用现有`runSmokeClient -PsmokeOnly=tribulation`，唯一进入世界的一次检查五项全部通过并DONE，四世界正常保存退出、ERROR/FATAL0；劫云截图已查看，模型可见。首次启动在FML4.0.45早期窗口字体初始化处阻塞，尚未进入游戏；核对该版本源码后仅临时关闭开发目录的earlyWindowControl，退出后已按原字节还原并核对哈希。没有新增或修改测试、选择器或断言。证据为`tmp/skill-render-final-build.log`、`tmp/skill-render-client.log`、`tmp/skill-render-report.txt`、`tmp/skill-render-cloud.png`和`tmp/skill-render-startup-failure.log`。该场景不覆盖死亡侧翻、隐身/旁观者、暂停/恢复、空浮球尺寸边界或全部模型，两版本视觉对照仍未验收。
+
 ## 伤害范围（2026-11-07）
 
 来源实体 `Shanghaifanwei` 是由 creature 的九处妖兽技能生成的动画范围提示，不是独立的伤害结算入口。`ShanghaifanweiDangShiTiGengXinKeShiProcedure` 每刻读取持久数据中的小写键 `jinengname`：普通提示把 `daojishi` 减一并在不大于零时移除；`惊蛰闻雷` 计满 40 刻移除；`控雷阵` 计满 20 刻以 `AttackDamage`、`AttackUUID`、`team` 拼出 `lightninglanding` 命令后移除。范围内的伤害、击退、效果和粒子由生成者过程负责。

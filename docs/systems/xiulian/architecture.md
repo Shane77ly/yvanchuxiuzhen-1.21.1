@@ -114,6 +114,8 @@ updated: 2026-11-07
 
 地滚雷生命 20，以原三角公式飞向保存坐标；接近两格、遇雨水或触地后两刻放魂火、直径 5/倍率 2 雷伤，允许生物破坏时强度 4 爆炸，移除后在 1/11/21 刻继续粒子。雷柱追随存活目标，每 10 刻直径 3/倍率 0.7 雷伤，320 刻消散。雷龙生命 40、尺寸放大 2 倍：徘徊 40 刻、下坠，160 刻到期或距玩家高度不超过 2 后进入结束，下一分支执行直径 12/倍率 5 雷伤与 1/6/11/16/21/26 刻粒子；仅其死亡时发独立碎片、1 刻移除。免疫与火焰属性分别按四个来源实体保留。
 
+共享渲染复核（2026-11-07）：四个来源Renderer均明确关闭死亡侧翻，劫云渲染缩放3倍、雷龙4倍、地滚雷和雷柱1倍，现由模型表`rendering`与共享渲染器接回。以上是渲染尺寸，独立于劫云3倍和雷龙2倍的碰撞尺寸；阴影与固定eyes发光层保持逐类配置，发光层不重复放大。静态证据为`tmp/skill-render-source-audit.log`，精确GeckoLib3.0.57和4.9.3源码分别在`tmp/skill-render-source/`和`tmp/skill-render-target/`。本批没有修改雷劫时序、伤害或新增测试；最终build/ArchUnit及检查源集编译通过，现有tribulation五项通过并DONE，四世界正常保存退出、ERROR/FATAL0，劫云截图可见。首次字体初始化阻塞、运行配置还原及详细证据见[技能渲染复核](../skill/architecture.md#动画实体渲染逐类复核2026-11-07)。完整视觉及两版本对照仍未验收。
+
 Q56（轻微，保持来源行为）：`ThunderBegin` 的负功德分支只消耗每满 50 的负功德，局部 `gongdeyeli` 没有加到雷数，`meritslight` 实际仍为 0；正功德抵消旧雷数的循环上界每次读取正在减少的旧雷数，例如旧雷数 2、功德 100 时只抵消一次。云每五刻发现玩家死亡只清玩家开关，清最大组数与增加失败雷数误写了云的玩家能力对象，玩家这两项不变；云被杀的独立过程则正确清最大组数并给玩家失败雷数加 1。`tiaoguo` 清标记并宣布成功、设置进阶和清开关/最大组数，但没有清云序列或移除云，后续仍会放雷；玩家离开本维度时云移除，玩家状态不补写。以上分支均不新增修正或终止。
 
 验证：`build compileSmokeJava`（含 ArchUnit）通过；仅一次 `runSmokeClient -PsmokeOnly=tribulation`，5 项主路径断言全部符合并 `DONE`，覆盖满修为自然开始、功德动态抵消、真实云 tick 的范围雷伤、序列成功、三类实体的生成与结束、劫云被杀失败。客户端正常保存退出，日志 ERROR 0；劫云截图已查看，模型可见。专用服务器一次启动到 Done，ERROR 0，导出实体 67 个，使用原生 `stop` 正常保存退出。证据在 `tmp/tribulation-build.log`、`tmp/tribulation-check-compile.log`、`tmp/tribulation-smoke.log`、`tmp/tribulation-report.txt`、`tmp/tribulation-server.log` 与 `build/smoke/screenshots/tribulation-cloud.png`。未重跑旧神通；未执行 1.18.2 版本实机、两版本对照、多人、全分支时序与完整视觉认可。

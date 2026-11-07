@@ -11,16 +11,16 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 
 /**
  * 动画实体的表现与属性（各系统的 {@code entity_models.json}，由 {@code extract_entity_models.py} 从来源的
- * Model、Layer、Renderer 与 Entity 类提取）：GeckoLib 几何与动画文件名（不含后缀）、阴影半径、默认纹理、头部骨骼、发光层纹理、
+ * Model、Layer、Renderer 与 Entity 类提取）：GeckoLib 几何与动画文件名（不含后缀）、渲染配置、默认纹理、头部骨骼、发光层纹理、
  * 默认循环动画与离地时的循环动画、生物属性、是否无 AI，以及来源的导航、重力、伤害免疫、死亡与动画过渡时序。
  */
-public record EntityModelRow(String id, String geo, String animation, float shadow, String texture, Optional<String> head, Optional<String> glow, String idle,
+public record EntityModelRow(String id, String geo, String animation, Rendering rendering, String texture, Optional<String> head, Optional<String> glow, String idle,
                              Optional<String> air, double speed, double health, double armor, double attack, double follow, boolean noAi, Lifecycle lifecycle) {
     public static final Codec<EntityModelRow> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(EntityModelRow::id),
             Codec.STRING.fieldOf("geo").forGetter(EntityModelRow::geo),
             Codec.STRING.fieldOf("animation").forGetter(EntityModelRow::animation),
-            Codec.FLOAT.fieldOf("shadow").forGetter(EntityModelRow::shadow),
+            Rendering.CODEC.fieldOf("rendering").forGetter(EntityModelRow::rendering),
             Codec.STRING.fieldOf("texture").forGetter(EntityModelRow::texture),
             Codec.STRING.optionalFieldOf("head").forGetter(EntityModelRow::head),
             Codec.STRING.optionalFieldOf("glow").forGetter(EntityModelRow::glow),
@@ -44,6 +44,15 @@ public record EntityModelRow(String id, String geo, String animation, float shad
     public AttributeSupplier.Builder attributes() {
         return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, speed).add(Attributes.MAX_HEALTH, health).add(Attributes.ARMOR, armor)
                 .add(Attributes.ATTACK_DAMAGE, attack).add(Attributes.FOLLOW_RANGE, follow);
+    }
+
+    /** 来源渲染器的阴影、等比缩放及可选死亡旋转覆写；未覆写时保留 GeckoLib 的旋转。 */
+    public record Rendering(float shadow, float scale, Optional<Float> deathRotation) {
+        public static final Codec<Rendering> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Codec.FLOAT.fieldOf("shadow").forGetter(Rendering::shadow),
+                Codec.FLOAT.fieldOf("scale").forGetter(Rendering::scale),
+                Codec.FLOAT.optionalFieldOf("death_rotation").forGetter(Rendering::deathRotation)
+        ).apply(instance, Rendering::new));
     }
 
     /** 来源实体类的运动、伤害免疫、死亡与动画配置；零刻死亡条件按来源保留。 */

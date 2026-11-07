@@ -117,10 +117,9 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
         return cast;
     }
 
-    /** 按倍数放大碰撞箱（来源重写 {@code getDimensions} 乘以实体里记下的比例）；放入世界之前设置，进入世界时按此尺寸生成。 */
+    /** 记下碰撞箱比例；按来源在每次基础刻的技能过程之后刷新尺寸。 */
     public void setHitboxScale(float scale) {
         hitboxScale = scale;
-        refreshDimensions();
     }
 
     @Override
@@ -234,6 +233,7 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
         if (!level().isClientSide()) {
             skill.tick(this);
         }
+        refreshDimensions();
     }
 
     @Override

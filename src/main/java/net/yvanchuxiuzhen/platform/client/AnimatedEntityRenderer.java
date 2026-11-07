@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.platform.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -20,16 +21,21 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
+import software.bernie.geckolib.util.Color;
 
 /**
  * 动画实体的渲染（来源各 Renderer、Model 与 Layer）：GeckoLib 几何与动画由模型表给出，
  * 纹理是实体当前的纹理名（{@code textures/entities/<名>.png}），半透明渲染；有头部骨骼的实体让它随视线转动；
- * 有发光层的实体再用 {@code RenderType.eyes} 以固定纹理画一遍同一几何。
+ * 有发光层的实体再用 {@code RenderType.eyes} 以固定纹理画一遍同一几何。阴影、缩放与死亡旋转按来源配置。
  */
 public final class AnimatedEntityRenderer<T extends Entity & GeoAnimatable & AnimatedLook> extends GeoEntityRenderer<T> {
+    private final EntityModelRow.Rendering rendering;
+
     public AnimatedEntityRenderer(EntityRendererProvider.Context context, EntityModelRow row) {
         super(context, new Model<>(row));
-        shadowRadius = row.shadow();
+        rendering = row.rendering();
+        shadowRadius = rendering.shadow();
+        withScale(rendering.scale());
         row.glow().ifPresent(glow -> addRenderLayer(new Glow<>(this, entityTexture(glow))));
     }
 
@@ -39,7 +45,17 @@ public final class AnimatedEntityRenderer<T extends Entity & GeoAnimatable & Ani
 
     @Override
     public RenderType getRenderType(T entity, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
-        return RenderType.entityTranslucent(texture);
+        return entity.isInvisibleTo(Minecraft.getInstance().player) ? null : RenderType.entityTranslucent(texture);
+    }
+
+    @Override
+    public Color getRenderColor(T entity, float partialTick, int packedLight) {
+        return Color.WHITE;
+    }
+
+    @Override
+    protected float getDeathMaxRotation(T entity) {
+        return rendering.deathRotation().orElse(super.getDeathMaxRotation(entity));
     }
 
     private static final class Model<T extends Entity & GeoAnimatable & AnimatedLook> extends GeoModel<T> {
@@ -67,6 +83,9 @@ public final class AnimatedEntityRenderer<T extends Entity & GeoAnimatable & Ani
         @Override
         public void setCustomAnimations(T animatable, long instanceId, AnimationState<T> state) {
             super.setCustomAnimations(animatable, instanceId, state);
+            if (Minecraft.getInstance().isPaused() && !animatable.shouldPlayAnimsWhileGamePaused()) {
+                return;
+            }
             row.head().flatMap(this::getBone).ifPresent(head -> {
                 EntityModelData data = state.getData(DataTickets.ENTITY_MODEL_DATA);
                 head.setRotX(head.getRotX() + data.headPitch() * Mth.DEG_TO_RAD);

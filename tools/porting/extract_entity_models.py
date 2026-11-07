@@ -3,7 +3,7 @@
 每个动画实体（MCreator 的 animated entity，GeckoLib 3）由四处生成代码决定表现：
 - `entity/model/<名>Model.java`：几何文件、动画文件、头部骨骼（`getBone`），纹理固定为 `textures/entities/<实体的 TEXTURE 字符串>.png`；
 - `entity/layer/<名>Layer.java`：可选的发光层，用 `RenderType.eyes` 再画一遍同一几何，纹理固定；
-- `client/renderer/<名>Renderer.java`：阴影半径；
+- `client/renderer/<名>Renderer.java`：阴影半径、等比渲染缩放及死亡旋转覆写；
 - `entity/<名>Entity.java`：默认纹理（`define(TEXTURE, …)`）、默认循环动画（`movementPredicate` 在没有过程动画时播放，取最后一个无条件的）、离地时的循环动画、
   五项生物属性（移速、生命、护甲、攻击、跟踪范围）、是否无 AI、导航/固定无重力/飞行与游泳速度/水下呼吸/水流推动/死亡移除刻数、摔落处理、伤害免疫和动画过渡刻数。`Skillyin01` 另有 walk、die、swim、sprint 的条件动画和挥臂控制器，由 Java 侧单独实现。
 输出 src/main/resources/content/<系统>/entity_models.json（一行一个实体，键为注册 ID），并重写
@@ -71,9 +71,15 @@ def parse(name: str) -> dict:
     row: dict = {
         'geo': re.search(r'geo/([\w]+)\.geo\.json"', model)[1],
         'animation': re.search(r'animations/([\w]+)\.animation\.json"', model)[1],
-        'shadow': float(re.search(r'shadowRadius = ([\d.]+)f', renderer)[1]),
+        'rendering': {
+            'shadow': float(re.search(r'shadowRadius = ([\d.]+)f', renderer)[1]),
+            'scale': float(re.search(r'stack.scale\(([\d.]+)f, \1f, \1f\);', renderer)[1]),
+        },
         'texture': re.search(r'define\(TEXTURE, "(\w+)"\)', entity)[1],
     }
+    death_rotation = re.search(r'protected float getDeathMaxRotation\([^}]+return ([\d.]+)F;', renderer)
+    if death_rotation:
+        row['rendering']['death_rotation'] = float(death_rotation[1])
     head = re.search(r'getBone\("(\w+)"\)', model)
     if head:
         row['head'] = head[1]
