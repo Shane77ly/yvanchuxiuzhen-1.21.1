@@ -64,3 +64,9 @@ updated: 2026-11-08
 按 1.18.2 版本 `Fabao011DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure` 接回普通与潜行右键。普通右键以视线五格命中的方块坐标为中心，在半径四格范围内按距离处理实体；潜行右键以玩家坐标为中心，在半径五格范围内处理实体。敌对目标造成风属性法术伤害 `5 × 1.2`，并按来源以 `(目标位置 - 玩家位置) × 0.5` 的水平速度和 `0.5` 的垂直速度击退；带 `skilleffect_08` 的生物仍受伤害但不被击退。普通与潜行冷却分别为100和200刻，`effect_002` 沉默时不执行。
 
 本批仅新增法宝专用物品行为，复用 relation 的敌友判定和 combat 的 `SpellDamage` 公开入口；未新增 Test 类、冒烟选择器或 Computer Use。`gradlew build`、`runSmokeClient -PsmokeOnly=equipmentweapon`、专用服务端启动至 `Done` 后原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 均通过；客户端和服务端日志未见 `ERROR/FATAL`。客户端 smoke 只作为注册、资源加载和启动回归，不替代风场范围、伤害、击退、冷却和沉默分支的完整自然操作验收；1.18.2 实机、两版本对照、多人及完整视觉验收未执行。
+
+## 覆情法宝（`fabao_012`，2026-11-08）
+
+按 1.18.2 版本 `Fabao012DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure` 接回普通与潜行右键。两条分支都以视线四格命中的方块坐标为中心，扫描半径四格；普通右键发送爱心与焚烟粒子，使范围内动物进入200刻发情状态，冷却200刻。潜行右键发送焚烟粒子，对敌对生物添加 `effect_032` 1200刻，冷却600刻；`effect_002` 沉默时不执行。来源潜行分支只按敌友关系筛选，普通动物分支不做敌友筛选。
+
+本批未新增 Test 类、冒烟选择器或 Computer Use。`gradlew build`、`runSmokeClient -PsmokeOnly=equipmentweapon`、专用服务端启动至 `Done` 后原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 均通过；客户端和服务端日志未见 `ERROR/FATAL`。smoke 只作注册、资源加载和启动回归，不替代普通发情、潜行幻术、冷却和沉默分支的完整自然操作验收；1.18.2 实机、两版本对照、多人及完整视觉验收未执行。

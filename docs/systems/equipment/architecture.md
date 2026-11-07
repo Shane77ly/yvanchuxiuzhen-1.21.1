@@ -238,3 +238,11 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 目标使用 `Fabao011Item` 专用 `ContentSword` 工厂保留原有剑属性，敌友判定调用 `Relations.isFriendly`，伤害调用 combat 公开接口；没有直接读写其他系统持久化字段。
 
 验证范围：本批未新增 Test 类、冒烟选择器或 Computer Use。`gradlew build`、`runSmokeClient -PsmokeOnly=equipmentweapon`、专用服务端启动至 `Done` 后原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 均通过；客户端与服务端日志未见 `ERROR/FATAL`。该 smoke 只作注册、资源加载和公共客户端启动回归，不替代风场自然操作与两版本对照验收。
+
+## 覆情法宝（`fabao_012`，2026-11-08）
+
+来源入口是 `Fabao012DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`。普通与潜行均以视线四格的 `ClipContext.OUTLINE/NONE` 方块坐标为中心、使用 `AABB.inflate(4)` 查找实体。普通分支广播爱心和 `fenyan` 粒子，对所有范围内 `Animal` 调用 `setInLoveTime(200)`；潜行分支广播 `fenyan` 粒子，只对 `Relations.isFriendly` 为假的 `LivingEntity` 添加 `effect_032` 1200刻、等级0。入口的 `effect_002` 沉默限制和普通/潜行200/600刻冷却均保持来源。
+
+目标使用 `Fabao012Item` 专用 `ContentSword` 工厂；状态效果与粒子分别调用 combat、particle 的公开接口，不直接写其他系统数据。
+
+验证：本批未新增 Test 类、冒烟选择器或 Computer Use。`gradlew build`、`runSmokeClient -PsmokeOnly=equipmentweapon`、专用服务端启动至 `Done` 后原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 均通过；客户端与服务端日志未见 `ERROR/FATAL`。smoke 只作注册、资源加载和公共客户端启动回归，不替代普通发情、潜行幻术、冷却和沉默分支的完整自然操作验收。

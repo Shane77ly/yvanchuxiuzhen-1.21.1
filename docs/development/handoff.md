@@ -224,4 +224,4 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 
 本批完成后继续按路线推进 skill 收口及其后的 yihuo、equipment 依赖批次；不新增 Test、专项选择器或 Computer Use 流程。
 
-当前继续处理 equipment 法宝批次。本批已按1.18.2版本源码接回 `fabao_011` 的普通/潜行风场、风属性法术伤害、击退、沉默限制和100/200刻冷却，使用项目内置客户端入口验证，不使用 Computer Use，不新增无必要 Test。`gradlew build`、`runSmokeClient -PsmokeOnly=equipmentweapon`、专用服务端启动/原生 `stop`、文档检查与台账检查均通过；下一步继续逐行核对并移植 `fabao_012`。
+当前继续处理 equipment 法宝批次。本批 `fabao_011` 已按1.18.2版本源码接回并完成构建、内置客户端 smoke、专用服务端和文档/台账检查；随后已接回 `fabao_012` 的普通动物发情、潜行敌对实体幻术、粒子、沉默限制和200/600刻冷却。下一步运行本批完整构建、`runSmokeClient -PsmokeOnly=equipmentweapon`、专用服务端与文档/台账检查并提交，然后继续 `fabao_013`。
