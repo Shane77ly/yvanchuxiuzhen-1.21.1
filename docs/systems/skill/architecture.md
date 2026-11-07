@@ -359,7 +359,7 @@ Q54：`SkillGold0201DangSiWangShiJianDaoShiProcedure` 中虽有黄色破碎粒�
 
 SkillProjectile的显示物品由各注册工厂按来源提供：三种冰弹、灵纹弹、金轮与水灵阵水弹返回空栈；飞叶返回cailiao_087；其余九类使用本体物品。十种技能箭显式传空栈，去掉仅覆写空栈的内部Arrow子类。原生箭内部保存所需的默认物品与实际拾取规则沿用此前实现。system_assets.csv登记四张贴图，convert_assets.py通过并仅在manifest增加四行；转换仍报来源已登记的空纹理和fabao021/022缺失，没有新增缺失。
 
-静态证据为tmp/projectile-lifecycle-source-audit.log、tmp/projectile-lifecycle-differences.log及tmp/projectile-lifecycle-model-audit.log。前两者收集16个完整实体类及39个实际绑定过程；39个过程尚未全部逐行复核，实际发射消费者与helper调用链继续核对，不能以已收集代替已核实完整行为。目标API依据为NeoForge21.1.265的EntityRenderer、EntityRendererProvider、ThrownItemRenderer、ModelPart、模型构建器及EntityRenderersEvent。
+静态证据为tmp/projectile-lifecycle-source-audit.log、tmp/projectile-lifecycle-differences.log及tmp/projectile-lifecycle-model-audit.log。前两者收集16个完整实体类及39个实际绑定过程；随后按光、土、木、水、风、灵纹及金、冰分组逐行复核全部过程，确认目标的命中、方块命中、计时、追踪、粒子、伤害与生成分支均与1.18.2实际代码相符，没有新增代码差异。实际自然施放与视觉仍按下述范围验收，不能以静态复核替代实机行为。目标API依据为NeoForge21.1.265的EntityRenderer、EntityRendererProvider、ThrownItemRenderer、ModelPart、模型构建器及EntityRenderersEvent。
 
 验证：build compileSmokeJava和ArchUnit通过。沿用内置runSmokeClient的skillparticle选择器，只在已有场景加一项真实共享入口Bug回归及模型截图，没有新增Test类或选择器。首轮原五项通过、新撞墙检查失败；仅增加诊断后的同场景六项通过，水球入地并移除、自定义粒子数1，服务端经过5刻。首轮失败原因未被日志锁定，不能归咎于玩法或声称已确定为收包延迟。检查随后改为最多40个客户端刻等待粒子到达，并将原生入地标记加入必要条件；最终六项全部通过并DONE，四世界保存并正常退出，三次ERROR/FATAL均为0、开发FML配置均finally原字节还原且SHA256相同。最终截图已查看，四个模型可见；完整自然施放、多人、1.18.2版本实机及两版本对照未执行，本轮未运行专用服务器，未重跑整套skill或旧神通。
 
