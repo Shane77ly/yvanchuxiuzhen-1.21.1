@@ -223,3 +223,5 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 当前分支仍为 `port/c-skill`，`.eclipse/` 为用户 IDE 配置，保留且不提交。本批按1.18.2版本实际源码接回开灵附魔的右键工具入口、`projectile_gongjvshechu` 弹体、`gongjvfu`、`gongjvgao`、`gongjvchan`、`gongjvchu` 四种工具机及其 GeckoLib 模型、动画和贴图。首刻冻结主人/工具/等级，命中方块或16刻到期生成工具机；斧、镐、锄、铲状态机按来源扫描、移动、采集和寿命过程实现。`gradlew build`、文档检查、台账检查和既有 `runSmokeClient -PsmokeOnly=equipmentweapon` 已通过；客户端正常保存退出，专用服务器正常 `stop`，实体导出 91 个。现有客户端检查不替代四类工具机自然操作专项，1.18.2 实机、两版本对照、多人及完整视觉仍待后续。
 
 本批完成后继续按路线推进 skill 收口及其后的 yihuo、equipment 依赖批次；不新增 Test、专项选择器或 Computer Use 流程。
+
+当前继续处理 equipment 法宝批次。本批已按1.18.2版本源码接回 `fabao_011` 的普通/潜行风场、风属性法术伤害、击退、沉默限制和100/200刻冷却，使用项目内置客户端入口验证，不使用 Computer Use，不新增无必要 Test。`gradlew build`、`runSmokeClient -PsmokeOnly=equipmentweapon`、专用服务端启动/原生 `stop`、文档检查与台账检查均通过；下一步继续逐行核对并移植 `fabao_012`。

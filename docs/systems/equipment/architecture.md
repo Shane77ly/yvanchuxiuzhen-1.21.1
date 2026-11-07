@@ -230,3 +230,11 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 ### 验证范围
 
 静态核对依据为 `PlayerRightClickProcedure`、`GongjvshechuEntity`、`GongjvshechuTouZhiWuFeiXingTickProcedure`、`GongjvshechuDangTouSheWuSheZhongCiFangKuaiProcedure`、四个工具机 tick 过程和 `JianceshuyeProcedure`；目标 API 按 NeoForge 21.1.265 源码改写。`gradlew build`、`check_docs.py` 与 `check_ledger.py` 已通过。沿用现有 `runSmokeClient -PsmokeOnly=equipmentweapon`，五项既有弓与拂尘检查全部符合并以 `DONE` 结束，客户端正常保存退出且未见 `ERROR/FATAL`；该检查只证明新增实体注册、客户端装配和公共启动未阻塞，不替代工具机四类自然操作的专项验收。专用服务器启动至 `Done`，原生 `stop` 后全部维度正常保存退出，ERROR 0，实体导出 91 个。未执行1.18.2实机、两版本对照、多人及完整视觉验收。
+
+## 覆风法宝（`fabao_011`，2026-11-08）
+
+来源入口是 `Fabao011DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`。普通右键先沿玩家视线五格取 `ClipContext.OUTLINE/NONE` 的方块坐标，再以该坐标为中心 `AABB.inflate(4)` 查找实体；潜行右键直接以玩家坐标为中心 `AABB.inflate(5)` 查找。两条分支都按来源顺序处理敌对实体，调用 `SpellDamage.deal` 造成 `DamageCategory.WIND`、固定基础量5、倍率1.2的法术伤害，并把水平位移设为目标与玩家坐标差的0.5倍、垂直位移设为0.5。`skilleffect_08` 只跳过击退，`effect_002` 在入口处阻止整次施放。冷却使用实际物品栈，普通100刻、潜行200刻。
+
+目标使用 `Fabao011Item` 专用 `ContentSword` 工厂保留原有剑属性，敌友判定调用 `Relations.isFriendly`，伤害调用 combat 公开接口；没有直接读写其他系统持久化字段。
+
+验证范围：本批未新增 Test 类、冒烟选择器或 Computer Use。`gradlew build`、`runSmokeClient -PsmokeOnly=equipmentweapon`、专用服务端启动至 `Done` 后原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 均通过；客户端与服务端日志未见 `ERROR/FATAL`。该 smoke 只作注册、资源加载和公共客户端启动回归，不替代风场自然操作与两版本对照验收。
