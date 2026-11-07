@@ -55,7 +55,7 @@ updated: 2026-11-07
 
 - 数据：`SkillBook` 物品组件（公共字段加数值表与文本表，键沿用来源，四类共用）；`SkillState` 附件（技能栏 16 槽、身法、轻功、武器技、页、选择、连招开关，死亡复制，同步给本人）；`SkillCooldowns` 附件（六分组，来源仅非死亡克隆复制，同步给本人）。
 - 规则：`SkillSelection`（页与选择）、`SkillCasting`（施放、冷却、连招）、`SkillStudy`（研习，灵根要求复用 xiulian 的 `RootRequirement`，gongfa 一并改用）、`SkillLibrary`（命令参数解析、藏宝与附赠表）、`SkillReleases`（技能名到施放过程的分派表）。
-- 跨系统：战斗状态记分板抽成 combat 的 `FightingState`；状态效果的结束钩子 `EffectBehavior.ended` 补进内容表框架（到期、移除、刷新前）；武器数值经 `WeaponStatEvent`。
+- 跨系统：战斗状态记分板抽成 combat 的 `FightingState`；状态效果的结束钩子 `EffectBehavior.ended` 补进内容表框架（到期、移除与刷新重应用；2026-11-07 改由原生属性钩子执行，见本文状态效果复核）；武器数值经 `WeaponStatEvent`。
 - 数据表：`tools/porting/extract_skill_books.py` 提取 `content/skill/treasure_books.json`（13 本）与 `studied_bonuses.json`（2 条）。
 
 阶段 2 的实现要点：
@@ -324,3 +324,11 @@ Q54：`SkillGold0201DangSiWangShiJianDaoShiProcedure` 中虽有黄色破碎粒�
 共享落雷验证（2026-11-07）：仅一次 `-PsmokeOnly=lightning`，四项中三项通过并 `DONE`，范围雷伤、红色同步/渲染器及控雷阵命令均走真实世界路径。两个技能入口的合并断言失败，检查辅助方法连续选同槽导致第二次取消；已在选择前清空并编译，未重跑，不能记为两个入口实机通过。截图早于有效画面，完整视觉待核。build（含 ArchUnit）通过，专用服务器启动、全部世界保存及正常退出通过，ERROR 0，实体导出为 63 个。该共享落雷批次未执行完整 xiulian 雷劫，后续实现与验证见完整雷劫批次。
 
 2026-11-07 雷劫批次：动画模型记录 `EntityModelRow`、纹理接口 `AnimatedLook` 和 `AnimatedEntityRenderer` 已移到 platform，供 skill 与 xiulian 共用；技能动画控制和玩法仍在 skill。本批不重跑旧神通套件，依赖关系由构建中的 ArchUnit 检查。
+
+## 状态效果身份与原生生命周期复核（2026-11-07）
+
+完整读取1.18.2版本 `Skilleffect01–09MobEffect`、`Skillwind04MobEffect`、霸体/禁施的开始与结束过程、风飘施放和飞行减耗，并检索两个来源的全部生成Java引用。`skilleffect_01`–`07` 的类只声明类别、颜色、描述ID和恒真刻判断，没有自身过程；生成Java除注册外未找到自然施加者或消费者，可读资源仅见语言键。保留登记身份与图标，不根据名称添加冷却/战斗行为。`skillwind_04` 由风飘术施加1200刻、等级为截整攻击量；飞行减耗读取等级加一、减后最低为一，再继续附魔折扣与掠空规则。目标 `WindEntities.drift`、`SkillFlight.tick` 与此相符。
+
+原先共享效果在 `MobEffectEvent.Added` 中执行开始/结束，但NeoForge21.1.265该事件发生在原生效果写入/更新之前。首次霸体现读自身为空，附加发光为零刻；刷新读到旧时长。来源开始过程在原生属性钩子内执行，写入后能读自身，逃跑 `effect_034` 还会读取等级并移除自己。目标现使用 `ContentEffect.addAttributeModifiers/removeAttributeModifiers` 执行 `EffectBehavior.started/ended`；`Applicable` 覆盖普通和强制施加，到期/移除事件及服务端效果刻只绑定实体上下文。刷新与隐藏弱效果恢复由原生先移除再添加属性，不在事件中模拟更新。属性表弱键及弱实体引用不保留卸载实体；载入不重放开始过程。`InnerExplosion` 自有原生桥接保持独立。通用机制的精确源码依据见[移植参考](../../../.claude/skills/minecraft-mod-porting/references/targets/neoforge-1.21.1.md)。1.18.2原生映射源码载体为Forge40.3.11，另核对来源精确Forge40.1.0的 `LivingEntity` 补丁，未将前者称为40.1.0完整映射源码。
+
+`build compileSmokeJava` 与ArchUnit通过；仅一次项目内置 `runSmokeClient -PsmokeOnly=combat`，53项战斗检查全部通过，报告DONE，客户端保存四世界并正常退出、ERROR/FATAL为零。在已有 `CombatCheck` 中仅补8项真实Bug回归：首次80刻发光、刷新240刻、抗性不重复、无效弱施加不重放、批量清除还原、强制施加、隐藏弱效果恢复及时长、恢复后清除还原；没有新增Test类或选择器、没有重跑整套skill。开发FML配置finally按原字节恢复，SHA256一致。证据为 `tmp/effect-hooks-{source-audit.log,build.log,client.log,report.txt,config-restore.log}`。本轮未运行专用服务器、未对每个效果逐一实机验证；多人、完整视觉、1.18.2版本实机与两版本对照未执行，skill仍未完成。

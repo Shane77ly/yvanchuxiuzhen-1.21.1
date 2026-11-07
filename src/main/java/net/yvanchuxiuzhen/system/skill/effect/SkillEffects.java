@@ -11,7 +11,7 @@ import net.yvanchuxiuzhen.system.skill.SkillFlight;
 
 /**
  * 技能系统的状态效果行为。{@code skilleffect_01}–{@code 07} 在来源中没有自身过程，只作标记，不登记行为。
- * 修改属性基础值的效果成对生效：开始时加减，结束（到期、被移除、被刷新前）时还原。
+ * 修改属性基础值的效果成对生效：开始时加减，结束（到期、被移除、刷新重应用或隐藏效果接替）时还原。
  */
 public final class SkillEffects {
     /** 霸体与禁施改的属性基础值幅度。 */

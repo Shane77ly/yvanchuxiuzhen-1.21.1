@@ -18,6 +18,8 @@ updated: 2026-11-07
 
 弓与拂尘依赖批次已于 2026-11-07 由 equipment 接回，构建与一次五项专项通过；弓保留来源 Q57 右键断链，人工标记不代表自然入口可用，详见[装备正文](../equipment/architecture.md)。妖化已接回第19号菜单按钮、四件护甲、实例属性与计时消散，规则及证据见[妖化](../equipment/architecture.md#妖化2026-11-07)。品阶已通过宝箱成品生产者与 equipment 监听接入格挡（见[成品](../equipment/architecture.md#宝箱成品与品阶2026-11-07)）；饰品飞行减耗已接回并通过合法单件运行检查；丹火与炙烤代码已由 yihuo 接入，但一次运行存在失败且新增检查脚本已撤下，证据见[异火正文](../yihuo/architecture.md#本批验证2026-11-07)。正式虚空数据已由 world 接回，其他六个自定义返回维度随 E 阶段；自然裂隙往返及完整视觉仍待完成。
 
+状态效果复核（2026-11-07）：七个标记效果及风飘减耗的实际来源已核清；修复共享开始/结束提前于原生写入的错误，首次霸体、刷新、强制施加与隐藏恢复使用原生属性钩子。build/ArchUnit通过，已有内置combat场景53项全部通过并DONE、正常保存退出，其中8项针对本次真实Bug；没有新增Test类或选择器。规则与证据边界见[状态效果正文](architecture.md#状态效果身份与原生生命周期复核2026-11-07)，skill仍进行中，不合main。
+
 ## 公开操作
 
 已对照 `typed_field_accesses.csv` 汇总技能字段的外部读写（本系统以外）：panel 读写技能栏 16 槽（各 48 处）、页 `jinengweizhi`（读 29 写 4）、身法 `qinggong`、轻功 `flyjineng`、武器技 `wuqiskill`；fulu 重置全部技能字段（各 1 处写）；equipment 读箭种选择 `arrowlinshi`（24 读 2 写）与武器技 `wuqiskill`（14 读）。代码为 `system/skill/api/Skills`；箭种选择与写入已提供；完整重置随对应阶段补充。

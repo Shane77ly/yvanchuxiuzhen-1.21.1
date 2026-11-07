@@ -15,6 +15,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -55,6 +56,9 @@ final class CombatCheck extends SystemCheck {
     private long effectsStart;
     private IronGolem mandrake;
     private IronGolem bystander;
+    private IronGolem effectLifecycle;
+    private double resistanceBefore;
+    private long lifecycleStart;
 
     private final Screenshots screenshots;
     private WoodenDummyEntity dummy;
@@ -69,10 +73,19 @@ final class CombatCheck extends SystemCheck {
         switch (step) {
             case 0 -> onServer(this::damage);
             case 1 -> {
-                if (local < 5) {
+                long[] now = new long[1];
+                onServer(player -> now[0] = player.serverLevel().getGameTime());
+                if (now[0] - lifecycleStart < 6) {
                     return false;
                 }
                 onServer(player -> {
+                    MobEffectInstance unyielding = effectLifecycle.getEffect(StatusEffects.holder("skilleffect_08"));
+                    MobEffectInstance glowing = effectLifecycle.getEffect(MobEffects.GLOWING);
+                    expectTrue("强霸体结束后恢复隐藏弱效果并重新附加同刻发光", unyielding != null && unyielding.getAmplifier() == 0
+                            && glowing != null && Math.abs(unyielding.getDuration() - glowing.getDuration()) <= 1);
+                    effectLifecycle.removeAllEffects();
+                    expect("清除恢复后的霸体还原击退抗性", resistanceBefore, effectLifecycle.getAttribute(Attributes.KNOCKBACK_RESISTANCE).getBaseValue());
+                    effectLifecycle.discard();
                     expect("瞬间灵力恢复 灵力", 105, Cultivation.get(player, CultivationValue.POWER));
                     expectTrue("瞬间灵力恢复后效果移除", !StatusEffects.has(player, "effect_011"));
                     expect("永久生命 已加点次数", 3, Cultivation.get(player, CultivationValue.SKILL_POINTS_HEALTH_MAX));
@@ -275,8 +288,32 @@ final class CombatCheck extends SystemCheck {
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
     }
 
+    /** 原生属性钩子的时序回归：首次/刷新现读时长、弱效果不重放开始、强制施加和隐藏效果恢复。 */
+    private void effectLifecycle(ServerPlayer player) {
+        effectLifecycle = golem(player, 100);
+        effectLifecycle.moveTo(player.getX() - 32, player.getY(), player.getZ(), 0, 0);
+        resistanceBefore = effectLifecycle.getAttribute(Attributes.KNOCKBACK_RESISTANCE).getBaseValue();
+        effectLifecycle.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 80, 0));
+        expect("首次霸体写入后发光时长为80刻", 80, effectLifecycle.getEffect(MobEffects.GLOWING).getDuration());
+        effectLifecycle.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 240, 1));
+        expect("刷新霸体按更新后的240刻附加发光", 240, effectLifecycle.getEffect(MobEffects.GLOWING).getDuration());
+        expect("刷新霸体先还原再应用，击退抗性只增加一次", resistanceBefore + 10,
+                effectLifecycle.getAttribute(Attributes.KNOCKBACK_RESISTANCE).getBaseValue());
+        effectLifecycle.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 40, 0));
+        expect("无效弱施加不重放开始过程", 240, effectLifecycle.getEffect(MobEffects.GLOWING).getDuration());
+        effectLifecycle.removeAllEffects();
+        expect("批量清除霸体还原击退抗性", resistanceBefore, effectLifecycle.getAttribute(Attributes.KNOCKBACK_RESISTANCE).getBaseValue());
+        effectLifecycle.forceAddEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 80, 0), null);
+        expect("原生强制施加同样执行开始钩子", 80, effectLifecycle.getEffect(MobEffects.GLOWING).getDuration());
+        effectLifecycle.removeAllEffects();
+        effectLifecycle.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 3, 1));
+        effectLifecycle.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 120, 0));
+        lifecycleStart = player.serverLevel().getGameTime();
+    }
+
     private void damage(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
+        effectLifecycle(player);
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             player.setItemSlot(slot, ItemStack.EMPTY);
         }

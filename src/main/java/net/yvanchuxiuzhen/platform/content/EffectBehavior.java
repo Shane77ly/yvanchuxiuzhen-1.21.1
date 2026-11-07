@@ -14,7 +14,7 @@ public interface EffectBehavior {
     default void started(LivingEntity entity, int amplifier) {
     }
 
-    /** 效果结束；{@code amplifier} 是结束的那个效果实例的等级。 */
+    /** 效果结束；刷新重应用取更新后的等级，移除与到期取被移除实例的等级。 */
     default void ended(LivingEntity entity, int amplifier) {
     }
 

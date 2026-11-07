@@ -164,7 +164,7 @@ updated: 2026-11-07
 ### 目标方案
 
 - 登记走内容表 `content/<单位>/effects.json`（`id`、`category`、`color`），行为由所属系统用 `ContentTables.effectBehavior(id, 行为)` 登记，没有登记的效果只是标记，供其他过程读取等级。名称与说明语言键由 `convert_content.py` 按台账所属单位写入（`effect.<命名空间>.<名称>[.description]`）。
-- 行为接口 `EffectBehavior`：`started`（效果加上，以及已有效果被刷新且数值有变化而重新应用时，判断与 `MobEffectInstance.update` 一致，在 `MobEffectEvent.Added` 中分发，只在服务端）、`tick`（服务端每刻）、`clientTick`（客户端实体每刻，仅用于转动视角这类来源在两端都执行的表现）。`ended`（对应 `removeAttributeModifiers`，2026-11-04 随 `skilleffect_08`、`skilleffect_09` 加入）：效果到期（`MobEffectEvent.Expired`）、被移除（`MobEffectEvent.Remove`，取其他监听者都不取消之后）以及已有效果被刷新前先调用，只在服务端；`MobEffectInstance` 隐藏效果接替时的强制更新不经这些事件，尚无效果依赖。
+- 行为接口 `EffectBehavior`：`started` 与 `ended` 由 `ContentEffect` 的原生属性添加/移除钩子执行，普通施加、刷新、强制施加和隐藏弱效果恢复均遵循原生顺序；`ContentEffects` 的事件及服务端效果刻只绑定实体上下文。`tick` 为服务端每刻，`clientTick` 为客户端每刻。2026-11-07 修正此前在写入前事件中执行开始/结束的时序错误；共享机制和本轮回归证据见[技能状态效果正文](../skill/architecture.md#状态效果身份与原生生命周期复核2026-11-07)。
 - 来源对实体持久化数据写的计数（`effect003tick`、`effect010`、`duyao01tick` 等）保持原键存在实体的持久化数据中；玩家数据的读写走 xiulian 的公开操作与 attribute 的最终值。
 
 ### 已迁移（第 1 批，22 个）
