@@ -66,6 +66,8 @@ public final class SkillEntities {
         tables.<VoidRift>livingEntity(VoidRift.ID, (type, level) -> new VoidRift(type, level, rift), () -> VoidRift.attributes(rift));
         EntityModelRow area = models.get(DamageArea.ID);
         tables.<DamageArea>livingEntity(DamageArea.ID, (type, level) -> new DamageArea(type, level, area), () -> DamageArea.attributes(area));
+        EntityModelRow yuanying = models.get(Yuanying.ID);
+        tables.<Yuanying>livingEntity(Yuanying.ID, (type, level) -> new Yuanying(type, level, yuanying), () -> Yuanying.attributes(yuanying));
     }
 
     /** 以施放者所选技能的攻击量、伤害倍率与名字召唤（尚未放入世界）；实体继承施放者的团队与友方集合。 */

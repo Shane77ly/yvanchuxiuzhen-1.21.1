@@ -14,6 +14,7 @@ import net.yvanchuxiuzhen.system.skill.data.SkillCooldowns;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 import net.yvanchuxiuzhen.system.skill.data.SkillState;
 import net.yvanchuxiuzhen.system.skill.entity.DamageArea;
+import net.yvanchuxiuzhen.system.skill.entity.Yuanying;
 import net.yvanchuxiuzhen.system.skill.entity.VoidRift;
 
 /**
@@ -103,5 +104,10 @@ public final class Skills {
     /** 显示伤害范围；普通提示的技能名为空，控雷阵与惊蛰闻雷使用各自的计时分支。 */
     public static void showDamageArea(Entity owner, Vec3 at, String animation, String skillName, double duration, double attackDamage) {
         DamageArea.show(owner, at, animation, skillName, duration, attackDamage);
+    }
+
+    /** 技能界面的元婴按钮：达到元婴期时出窍，再次调用归窍。 */
+    public static void toggleYuanying(ServerPlayer player) {
+        Yuanying.toggle(player);
     }
 }

@@ -117,3 +117,13 @@ Q49：裂隙是整实体单次使用；未找到目标世界时也会消费，�
 目标 `DamageArea` 复用 `EntityModelRow`、`SkillLook`、`SkillAnimations` 与统一渲染器，保留无 AI、无重力、飞行导航、流体不推动、保存倒计时与来源伤害免疫。`Skills.showDamageArea` 是 creature 可调用的公开入口：普通提示复制施放者阵营，控雷阵与惊蛰闻雷只设置团队和自身计时；控雷阵的命令调用保留在实体刻过程中，实际落雷等待 xiulian 的雷劫系统迁移。
 
 当前只完成实体与公开入口，尚未把九处 creature 生成者改接到该入口，因此台账的 `Shanghaifanwei` 保持“已注册”。`DamageAreaCheck` 的 6 项针对性检查核对了实体位置、阵营、免疫、普通倒计时、惊蛰闻雷边界和保存重读；生成者伤害/效果及控雷阵落雷未在本步重复伪造验证。
+
+## 元婴出窍（2026-11-07）
+
+来源入口是 `A:JinengchuqiaoProcedure`，由技能界面的出窍按钮调用，不经过技能书施放。雷劫开启、境界（`LEVELnumber + LevelNumberCorrect >= 31`）、法宝 009 维度和旁观模式按来源顺序限制；首次出窍扣除 `LEVELnumber × 2` 神识，保存本体坐标与原游戏模式，设置 `tizhiitem` 的 `yvanyingchuqiao` 标记并把玩家切换为旁观模式。公开入口为 `Skills.toggleYuanying`，阶段 5 再接回完整按钮流程。
+
+目标 `Yuanying` 复用技能实体的模型表、GeckoLib 动画和统一渲染器，记录本体 UUID，复制本体阵营与友方集合，继承生命上限及三项防御值，并执行一次 `finalizeSpawn`。生成时把附近生物对本体的当前目标，以及无当前目标时持久数据中的 `gongjizhe`/`linshigongjizhe`，迁移到元婴。元婴受伤时先把本体生命同步为受击前的元婴生命；元婴死亡时恢复原游戏模式、清除出窍标记并杀死本体。
+
+`Yuanying.tick` 按来源每刻计算 `境界 + 本体坐标距离 + 非空方块时的境界 × 3` 神识消耗，非创造模式设置 40 刻传送冷却并扣除神识；扣除后不足下一刻消耗时立即归窍。归窍通过 xiulian 的体质公开操作读取坐标与模式，传送本体、清除附近属于该 UUID 的元婴并恢复模式。`chuqiaoX/Y/Z`、`chuqiaoqianzhuangtai` 和出窍标记均由 xiulian 附件保存。
+
+针对性检查入口为 `gradlew runSmokeClient -PsmokeOnly=yuanying`，`YuanyingCheck` 的 5 项检查覆盖境界门槛、初次扣神识与实体生成、持续消耗、受伤同步、归窍和神识不足。来源的 `starblue`、`starskyblue` 出窍粒子仍待 particle 系统迁移；技能按钮、视觉认可、多人交互和 1.18.2 版本实机对照未执行。

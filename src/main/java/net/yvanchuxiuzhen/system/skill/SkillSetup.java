@@ -22,6 +22,7 @@ import net.yvanchuxiuzhen.system.skill.data.SkillData;
 import net.yvanchuxiuzhen.system.skill.effect.SkillEffects;
 import net.yvanchuxiuzhen.system.skill.entity.Corpses;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
+import net.yvanchuxiuzhen.system.skill.entity.Yuanying;
 import net.yvanchuxiuzhen.system.skill.projectile.ElementProjectiles;
 import net.yvanchuxiuzhen.system.skill.network.SkillActionPayload;
 
@@ -71,6 +72,7 @@ public final class SkillSetup {
         if (event.getEntity() instanceof ServerPlayer player) {
             SkillCasting.tick(player);
             WeaponArts.tick(player);
+            Yuanying.tick(player);
         }
     }
 
