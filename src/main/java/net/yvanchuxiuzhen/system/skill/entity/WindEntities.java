@@ -14,16 +14,18 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
+import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 
 /**
  * 风系的实体技能与施放（来源 {@code Skillwind02}、{@code Skillwind02shifang}、{@code Skillwind05}、{@code Skillwind06}）：
  * 聚风术、聚风化气、风飘术、造云术。{@code Skillwind05}（按 {@code endtick} 到时消失）与 {@code Skillwind06}（追踪 {@code mubiaoUUID} 的风刃）
- * 由妖兽技能放出，由 creature 迁移时写入 {@code AttackDamage} 等字段，实体行为在这里。
+ * 由妖兽技能通过公开操作放出；本系统保存攻击量、目标和存在刻数，并负责实体行为。
  */
-final class WindEntities {
+public final class WindEntities {
     private static final String WIND = "风";
 
     private WindEntities() {
@@ -37,6 +39,28 @@ final class WindEntities {
         SkillReleases.register("木", (caster, book) -> gather(caster, book, true), "聚风化气");
         SkillReleases.register("木", (caster, book) -> drift(caster, book), "风飘术");
         SkillReleases.register("木", (caster, book) -> cloud(caster), "造云术");
+    }
+
+    /** 妖兽爆气的风波：在施放者脚下随机朝向生成，继承敌友关系，播放波动动画并存在八刻。 */
+    public static void showBurst(Entity caster) {
+        ServerLevel level = (ServerLevel) caster.level();
+        SkillEntity wave = SkillSetup.<SkillEntity>entityType("skillwind_05").get().create(level);
+        wave.moveTo(caster.getX(), caster.getY(), caster.getZ(), level.getRandom().nextFloat() * 360F, 0);
+        Relations.copyAllegiance(caster, wave);
+        wave.setAnimation("animation.skillwind05.bodong04");
+        wave.getPersistentData().putDouble("endtick", 8);
+        SkillEntities.spawn(level, wave, true);
+    }
+
+    /** 妖兽黑风的追踪风刃：攻击量由调用者计算，倍率为一，初始朝向目标脚下，最长累计追踪二百刻。 */
+    public static void launchBlade(Entity caster, Entity target, double attackDamage) {
+        ServerLevel level = (ServerLevel) caster.level();
+        SkillEntity blade = SkillEntities.summon(level, caster, "skillwind_06", WIND, attackDamage, 1, "");
+        blade.moveTo(caster.getX(), caster.getY() + 1, caster.getZ(), level.getRandom().nextFloat() * 360F, 0);
+        blade.getPersistentData().putString("mubiaoUUID", target.getStringUUID());
+        blade.getPersistentData().putDouble("endtick", 200);
+        blade.lookAt(EntityAnchorArgument.Anchor.EYES, target.position());
+        SkillEntities.spawn(level, blade, true);
     }
 
     /** 聚风术、聚风化气：在视线 6 格处（向上找空位，最多 6 格）生成风团；聚风化气另记下施放者的朝向与俯仰角，风团沿它飞行。 */

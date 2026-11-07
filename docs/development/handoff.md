@@ -46,11 +46,13 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 
 **本批进展与下次开工的第一步（2026-11-07）**：
 
-- 当前分支 `port/c-skill`，本批前一提交 `cbaebfd`；本批实现与记录在同一提交，最后提交以 `git log -1` 为准。完整移植 goal 已由负责人恢复 active，继续原路线。`.eclipse/` 是用户的 IDE 配置，保留且不提交。
+- 当前分支 `port/c-skill`，本批前一提交 `e87d7ae`；本批实现与记录在同一提交，最后提交以 `git log -1` 为准。完整移植 goal 已由负责人恢复 active，继续原路线。`.eclipse/` 是用户的 IDE 配置，保留且不提交。
 - 正式 `xvkong` 空气噪声维度、同名类型与 `xvkongqvnxi` 群系已按1.18.2版本实际代码接入，保留实际overworld效果绑定；smoke同ID平坦基岩替身及生成副本已删除。转换、群系语言键与服务端动态注册表导出接入现有管线；world106/19已读。规则见[世界正文](../systems/world/architecture.md#正式虚空维度2026-11-07)。
 - 本批没有新增Test、专项选择器或修改旧专项。负责人再次强调来源核对优先、没有必要不写Test；曾暂停时留下当前改动未提交，现按“继续做”恢复。本批build/ArchUnit通过；补入群系语言后的一次专服加载至Done，原生命令确认正式虚空群系和空气区块，移除强加载后stop保存四世界并正常退出，ERROR0，群系导出1个。证据为 `tmp/world-void-{build,content,server}.log`；自然裂隙往返与视觉未验收。
 - 上一丹火/炙烤批次已提交：来源放置回放已核实，唯一旧专项7项中2项通过、5项失败，新增脚本与选择器已撤下，不恢复或刷通过；炉鼎消费者仍待D阶段。记录见[异火正文](../systems/yihuo/architecture.md)。
-- 下一步：当前正式维度依赖已提交（最新号以git log为准），接着从 `SkillScreen`、`PanelClientSetup` 与对应来源界面/覆盖层核对skill剩余差异及实际可见表现；其他六个自定义返回维度和世界主体仍按E阶段推进。skill尚未完成，不合main；GUI仍为部分实现，不插入整套分页开发。
+- 本批已逐项核对 `SkillScreen`、HUD与来源界面/按钮/显示过程，未发现需修改的差异。使用现有 `runSmokeClient -PsmokeOnly=skillui` 九项全部通过，缩放1的真实菜单与HUD截图已查看，开发设置已还原；现有 `accessories` 合法单件14项全部通过，补齐保存/死亡复制/重登后操作和飞行减耗。两次客户端均正常保存四世界、ERROR0，没有新增或修改检查代码。证据为 `tmp/skill-ui-native-{client.log,report.txt,menu.png,hud.png}` 与 `tmp/accessory-native-{client.log,report.txt}`。此前误用Computer Use已停止，普通客户端在标题页正常退出、未入世界；负责人明确沿用项目内置客户端验证。
+- `Skills.showWindBurst/launchWindBlade` 已按妖兽011爆气和014黑风生成过程接回；skill拥有风波八刻、风刃攻击者/攻击量/倍率一/目标/二百刻上限及初始化。creature 仍需在自身时序调用，风刃1.5倍法攻由调用者计算。build/ArchUnit通过（`tmp/skill-wind-api-build.log`），没有新增专项，未将接口编译视为自然妖兽入口验收。
+- 下一步：核对skill台账剩余未验收行与真实入口，优先完成正式虚空裂隙往返和有效动画/表现的必要验收，丹火操作仍按yihuo正文保留未验收；其他六个自定义返回维度和世界主体按E阶段。skill尚未完成，不合main；GUI仍为部分实现，不插入整套分页开发，不恢复已撤下的YihuoCheck。转换、Gradle与客户端逐个运行，当前客户端均已退出。
 
 **此前已完成的检查与历史定位**：
 - 已运行一次 skill 冒烟（`gradlew runSmokeClient -PsmokeOnly=skill`）：报告以 `DONE` 结束，精简后的 `CorpseCheck` 28 项全部符合；其余检查也完成。`LingwenCheck` 的数量 1/2 差异已由 Q48 解释为来源同序的首刻命中时序，不再重复整套冒烟。
@@ -64,7 +66,7 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 2. 阶段 2：十种技能箭的实体、模式、命中、掉落、原生模型、内爆效果与服务端箭种选择已实现（Q50；共用实体命中过程实际 551 行）；`Lingwentexiao` 已随灵纹实现。待接入：equipment 的弓蓄力/发射/扣资源与 Ctrl/Alt 输入、yihuo 的炙烤持续行为；自定义粒子已接回。`SkillArrow00–10skill` 已核对为孤立过程，`ArrowSkillchufa` 仅有游离 Blockly 引用；`skill_arrowxinruzhishui` 已登记有益标记身份，未形成自然入口（Q53）。本批 `skillarrow` 冒烟 12 项全部通过并以 `DONE` 结束；最后 `build`、检查源集编译、开发服务端启动（ERROR 0 条）、台账与来源指纹检查通过。第 08 箭云命令后续静态修正已编译，该分支未运行；弓与完整炙烤链未验收。下一步为下条阶段 4–5。
 3. 阶段 4 身法与轻功：`SkillMovement`、`SkillFlight`、W/S/A/D/空格/F 按下沿、每刻冷却、掠空与二十刻耗灵力、禁空已实现，7 项针对性检查一次全部通过（`-PsmokeOnly=skillmovement`），`build`、台账与文档检查通过；专用服务端启动到 Done、ERROR 0 条，未重跑旧神通。饰品飞行减耗由 equipment 监听 `FlightEnchantmentEvent`，有效轻功粒子已接回。阶段 5 已部分实现：G 键原生无槽技能菜单、四技能/翻页/十一箭种/连招、虚空/出窍/扫描/丹火/自爆、C 格挡显示与 Gedang 八刻移除，panel 的六组冷却/格挡/弓蓄力 HUD。Q52 记录扫描无粒子、自爆立即死亡和背景值 6 无写入者；保留来源行为。格挡不减伤，品阶经 `WeaponStatEvent` 的 `lianqizong.item_level_num`，lianqi/equipment 监听尚未接入。妖化已由 equipment 接回（规则和证据见下述批次），丹火放置随 yihuo，出窍和自爆的有效粒子已接回。
 4. 阶段 5 验证：仅一次 `-PsmokeOnly=skillui`，8/9 项通过并 `DONE`；首项检查早于客户端菜单打开（后续菜单按钮主路径正常），已拆开发按键与初始化、后移截图，仅重新编译未重跑。HUD 已查看，默认小窗口右侧冷却裁切；菜单截图早于界面，布局视觉认可尚未完成。最后 `build compileSmokeJava`、ArchUnit、专用服务端启动、台账、文档与来源指纹检查通过；服务端终端仍不转发 stop，任务经中断结束，未验证优雅停服。上一实现提交为 `df8f929`；本批代码与本页同一提交，最新提交号以 `git log -1` 为准。skill 归属 401/401 已读；满天花雨补齐五枚扇形飞叶，`skillremainder` 两项一次通过并 DONE。第 08 箭合成过程只显示111、不附毒（Q53）；十配方已逐项核对。70 个已登记效果的来源图标已进入资源转换；build（含 ArchUnit）与专用服务端启动/正常停服通过，效果导出增至70。粒子库前置已完成类型与提供器登记，弹体侧粒子已接回，其余有效 skill 发出处已接回，完整雷劫已在后续批次接回，下一步处理 equipment/yihuo/world 依赖及视觉认可；不得据此宣称 skill 完成。
-5. creature 迁移时：妖兽技能放出 `skillwind_05`、`skillwind_06`，需要 skill 提供 api 放出技能实体（写入攻击量、攻击者、`mubiaoUUID`、`endtick`），尚未提供。
+5. creature 迁移时：妖兽技能通过已提供的 `Skills.showWindBurst/launchWindBlade` 放出 `skillwind_05/06`，不直接写技能实体字段；调用者承担爆气的击退/粒子/声音和黑风1.5倍法攻及第8/32/44刻施放，skill承担生成和生命周期。
 6. skill 全部阶段完成后更新 README、正文、月度日志与本页，合入 `main` 并推送，再建 yihuo 的分支。另有两项小事：gongfa 补 `/technique` 命令；`PlayerRightClick` 的开灵附魔分支归 equipment。
 
 粒子库前置（2026-11-07，本批前一实现提交 `3406d99`；本批提交号以 `git log -1` 为准）：315个来源粒子全部已读并登记原生提供器、参数、JSON及3625张独立贴图。particle归属315/315已读，creature705/586已读，fulu230/154已读；七个纯粒子归属已转入particle。仅一次 `-PsmokeOnly=particle` 两项通过并DONE，截图样本可见；build与ArchUnit、专用服务端启动/正常停服通过，ERROR0、导出315个粒子，台账核对无问题。证据为 `tmp/particle-{build,smoke,server}.log`、`tmp/particle-report.txt` 和 `build/smoke/screenshots/particle-library.png`。粒子台账保持“已注册”，弹体侧发出处随后已接回，动画实体、生命感知、轻功、研习、出窍与自爆的有效调用也已接回，全量视觉与两版本对照未执行。后续按来源逐处区分服务端 `sendParticles` 和客户端 `addParticle`；服务端原本为空的 `Level.addParticle` 不改成广播。

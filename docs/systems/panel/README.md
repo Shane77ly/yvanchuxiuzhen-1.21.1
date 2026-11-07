@@ -18,6 +18,10 @@ updated: 2026-11-07
 
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
 
+HUD 后续核对（2026-11-07）：现有 `skillui` 九项通过；缩放 1 的真实截图可见六行冷却、格挡和蓄力，开发设置已还原。未修改检查代码，具体证据与限制见[HUD正文](architecture.md#已实现技能-hud2026-11-07)。
+
+现有 `accessories` 合法单件14项已通过，补齐K键、两页和丹田往返、死亡记页、重登后再打开的运行证据；其他分页和临时队伍仍未完成，详见[导航正文](architecture.md#已实现k-键与两页导航2026-11-07)。
+
 ## 公开操作
 
 panel 拥有 `dangqianGUI`，只向本人同步并在全部克隆事件保留。按键只传打开请求；服务端按记住的分页打开属性汇总或调用 `Equipment.openAccessories`，监听 `AccessoryPageEvent` 及 `DantianReturnEvent`。属性汇总同时显示 attribute 与 xiulian 的公开快照，作为导航框架的只读内容；饰品菜单归 equipment。汇总面板不持有玩法档案。其余四分页及临时队伍显示/退出随所属系统继续迁移。

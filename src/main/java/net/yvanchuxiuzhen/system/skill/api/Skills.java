@@ -20,6 +20,7 @@ import net.yvanchuxiuzhen.system.skill.content.SkillMenus;
 import net.yvanchuxiuzhen.system.skill.entity.DamageArea;
 import net.yvanchuxiuzhen.system.skill.entity.Yuanying;
 import net.yvanchuxiuzhen.system.skill.entity.VoidRift;
+import net.yvanchuxiuzhen.system.skill.entity.WindEntities;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillArrows;
 
 /**
@@ -168,5 +169,15 @@ public final class Skills {
     /** 技能界面的元婴按钮：达到元婴期时出窍，再次调用归窍。 */
     public static void toggleYuanying(ServerPlayer player) {
         Yuanying.toggle(player);
+    }
+
+    /** 妖兽爆气使用的八刻风波；只生成技能实体，爆气的击退、声音与粒子由调用者处理。 */
+    public static void showWindBurst(Entity caster) {
+        WindEntities.showBurst(caster);
+    }
+
+    /** 妖兽黑风使用的追踪风刃；调用者传入攻击量，技能系统记录攻击者、目标及二百刻上限。 */
+    public static void launchWindBlade(Entity caster, Entity target, double attackDamage) {
+        WindEntities.launchBlade(caster, target, attackDamage);
     }
 }

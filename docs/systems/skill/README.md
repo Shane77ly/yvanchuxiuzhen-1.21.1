@@ -16,7 +16,7 @@ updated: 2026-11-07
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
-弓与拂尘依赖批次已于 2026-11-07 由 equipment 接回，构建与一次五项专项通过；弓保留来源 Q57 右键断链，人工标记不代表自然入口可用，详见[装备正文](../equipment/architecture.md)。妖化已接回第19号菜单按钮、四件护甲、实例属性与计时消散，规则及证据见[妖化](../equipment/architecture.md#妖化2026-11-07)。品阶已通过宝箱成品生产者与 equipment 监听接入格挡（见[成品](../equipment/architecture.md#宝箱成品与品阶2026-11-07)）；饰品飞行减耗已接回；丹火与炙烤代码已由 yihuo 接入，但一次运行存在失败且新增检查脚本已撤下，证据见[异火正文](../yihuo/architecture.md#本批验证2026-11-07)。正式虚空数据已由 world 接回，其他六个自定义返回维度随 E 阶段；合法饰品运行验收、自然裂隙往返及完整视觉仍待完成。
+弓与拂尘依赖批次已于 2026-11-07 由 equipment 接回，构建与一次五项专项通过；弓保留来源 Q57 右键断链，人工标记不代表自然入口可用，详见[装备正文](../equipment/architecture.md)。妖化已接回第19号菜单按钮、四件护甲、实例属性与计时消散，规则及证据见[妖化](../equipment/architecture.md#妖化2026-11-07)。品阶已通过宝箱成品生产者与 equipment 监听接入格挡（见[成品](../equipment/architecture.md#宝箱成品与品阶2026-11-07)）；饰品飞行减耗已接回并通过合法单件运行检查；丹火与炙烤代码已由 yihuo 接入，但一次运行存在失败且新增检查脚本已撤下，证据见[异火正文](../yihuo/architecture.md#本批验证2026-11-07)。正式虚空数据已由 world 接回，其他六个自定义返回维度随 E 阶段；自然裂隙往返及完整视觉仍待完成。
 
 ## 公开操作
 
@@ -29,7 +29,7 @@ updated: 2026-11-07
 | 当前选择 | `selected(玩家)`；页、按键序号、技能栏序号与连招开关在 `state(玩家)` | panel、HUD |
 | 箭种选择 | `arrow(玩家)`、`arrowChoice(玩家)`、`canSelectArrow(玩家, 序号)`、`selectArrow(玩家, 序号)`；`setArrow(玩家, 物品, 序号)` 供重置 | equipment、技能界面与 HUD；选择请求由服务端验证库存或灵力 |
 | 轻功开关 | `flying(玩家)`、`setFlying(玩家, 值)`、`toggleFlight(玩家)`；写入值本身不改原生能力，开关操作按来源条件处理能力与掠空状态 | 轻功按键、equipment、fulu 重置 |
-| 飞行减耗的饰品附魔 | `FlightEnchantmentEvent`：查询四个饰品槽的 `flying` 附魔等级之和；监听者 `add` | equipment；当前只接入四件护甲，饰品随 equipment 提交 |
+| 飞行减耗的饰品附魔 | `FlightEnchantmentEvent`：查询四个饰品槽的 `flying` 附魔等级之和；监听者 `add` | equipment 已提交保存后的四槽；菜单关闭前替换的新物品不提前计入，四甲由 skill 直接查询 |
 | 创建技能箭 | `createArrow(玩家, 箭种 1–10, 击退, 穿透, Ctrl, Alt, 满蓄力, 无限)` → 尚未加入世界的 `AbstractArrow` | equipment 设置伤害、位置和速度后加入世界；弓的蓄力与扣资源随 equipment |
 | 冷却 | `cooldown(玩家, 分组)` | panel、HUD |
 | 格挡显示 | `guardRemaining(玩家)` → 剩余刻数，只同步本人；不参与伤害减免 | panel、HUD |
@@ -40,6 +40,7 @@ updated: 2026-11-07
 | 书架藏宝 | `giveTreasureBook(玩家)`：13 本随机一本 | book（书架藏宝右键，需藏宝等级不低于 1） |
 | 开启虚空裂隙 | `openVoidRift(玩家)`：境界含修正达到 31 时关闭菜单，在视线五格处生成裂隙 | 技能界面虚空按钮（阶段 5） |
 | 显示伤害范围 | `showDamageArea(施放者, 坐标, 动画, 技能名, 持续刻数, 攻击量)`；普通提示的技能名为空，控雷阵与惊蛰闻雷按自身计时 | creature 的蓄力、控雷阵与惊蛰闻雷（生成者随 creature，控雷阵已调用 combat 共享落雷命令） |
+| 妖兽风技能实体 | `showWindBurst(施放者)` 生成八刻风波；`launchWindBlade(施放者, 目标, 攻击量)` 生成追踪风刃，倍率一、计时上限二百刻 | creature 的 `Yaoshou011baoqi`、`Yaoshou014heifeng`；调用者处理自身动作、攻击量和施放时序，不直接写技能实体状态 |
 | 元婴出窍/归窍 | `toggleYuanying(玩家)`：达到元婴期时扣神识并出窍，再次调用或神识不足时归窍 | 技能界面出窍按钮（阶段 5） |
 | 武器数值 | 事件 `WeaponStatEvent(武器, 键)`，监听者 `add` | equipment 已提供成品的 `lianqizong.item_level_num`；根字段 `mana_Att` 的真实生产者仍待对应系统，不使用嵌套炼器法攻替代 |
 | 研习附赠 | 监听 gongfa 的 `TechniqueStudiedEvent`，“行尸御火”“真言吒雷诀”各附赠一本技能书 | gongfa（事件） |
@@ -47,6 +48,10 @@ updated: 2026-11-07
 约定：技能书的技能名与灵根要求首字决定施放过程（`SkillReleases`，对应来源 `Jinenglist01`）；施放扣灵力、累加冷却、进入战斗状态（`FightingState`）；伤害经 combat 的 `Shanghai.deal`；敌友经 relation。
 
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
+
+界面后续核对（2026-11-07）：来源按钮、坐标、贴图与显示条件已逐项核对；沿用现有 `runSmokeClient -PsmokeOnly=skillui`，未新增或修改检查，9 项全部通过，四世界正常保存退出、ERROR 0。GUI 缩放 1 的真实菜单和 HUD 截图已查看，四技能区、轮盘、功能按钮和六行冷却可见，结束后还原开发设置。证据及仍未验收的范围见[界面正文](architecture.md#技能界面格挡与功能入口2026-11-07阶段-5-部分实现)；skill 仍未完成，不合 main。
+
+其余本批进展：现有 `accessories` 合法单件检查14项通过，已覆盖饰品保存、死亡复制、重登后操作和飞行减耗；风技能两个公开生成入口已补齐并构建通过。妖兽的实际施放者仍随 creature，未将接口构建视为自然入口验收。
 
 技能箭本批验证（2026-11-07）：`-PsmokeOnly=skillarrow` 的 12 项针对性检查全部通过，以 `DONE` 结束；最后的 `build`（含 ArchUnit）通过。第 08 箭落地方块的无效药水云命令在该次冒烟后按来源静态核对修正，已编译，未运行该分支；补入整套 skill 检查入口后只编译检查源集，未重跑旧神通。
 

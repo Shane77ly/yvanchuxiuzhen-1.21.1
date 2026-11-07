@@ -192,3 +192,5 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 专用服务器一次到 Done，原生 `stop` 正常保存全部世界并退出，ERROR 0；菜单导出10个，包含 `player_gui_01/03`，物品数保持2068。两张旧截图只用于布局和贴图可见性，图中的数量3来自上述非法检查数据，不能代表正常饰品玩法；零层检查玩家显示未翻译的 `levelname00`，没有擅自夹到其他境界。完整视觉未认可。
 
 证据：`tmp/accessory-{build,smoke,server}.log`、`tmp/accessory-report.txt`、`tmp/accessory-check-compile.log`、`tmp/accessory-stacking-audit.log` 与两张旧截图。GUI 当前仅部分实现：属性页和饰品页已接主路径，但两页的其他分页按钮、饰品临时队伍显示/退出未接；`GUIshipintai` 制作台亦未实现。其余页面随所属系统逐项闭合，不能留到最后统一补或宣称当前 GUI 已验收。合法单件穿戴、重登后实际操作、多人、完整视觉、1.18.2版本实机及两版本对照未完成。菜单台账仅标“已注册”并注明部分行为，不升级整套饰品物品的迁移状态。
+
+后续合法单件验收（2026-11-07）：沿用现有 `runSmokeClient -PsmokeOnly=accessories`，未修改检查代码，14项全部通过并 `DONE`。真实 `/shipin` 生成上限一的单件，K键打开属性/饰品页，实际Shift搬移、关闭保存及本人同步、根法攻和属性提交、七级飞行减耗、头顶容器绑定、丹田往返、死亡复制、退出重登和重登后再打开均通过。两次退出均保存全部世界，客户端ERROR0，证据为 `tmp/accessory-native-{client.log,report.txt}`。本次补齐合法数据下的上述路径证据；其他分页、临时队伍、制作台、多人和两版本对照仍未完成，菜单及整套饰品物品状态不升级为完整验收。

@@ -20,6 +20,8 @@ updated: 2026-11-07
 
 饰品依赖批次已实现，验证见[四饰品槽与飞行减耗](architecture.md#四饰品槽与飞行减耗2026-11-07)：`Equipment.openAccessories` 打开本系统四槽菜单，`Equipment.accessories` 返回已保存四槽的副本；关闭回写只由 equipment 执行。初始化与菜单共用的物品引用只保留在本系统内部。导航经 `AccessoryPageEvent` 请求汇总面板，equipment 不依赖 panel。对照 `typed_field_accesses.csv` 的 `PlayerGUI03` 开关过程与 `Shipintick`：四槽归 equipment；`tizhiitem.shipintick` 经 `Cultivation` 逐键读写；飞行附魔经 `FlightEnchantmentEvent` 提供给 skill；九项根属性与冷却缩减提交 attribute。`Equipment.properties` 查询 `/shipin` 的显式根属性，与成品的嵌套炼器数据分开保存；根 `mana_Att` 经 `WeaponStatEvent` 提供给 skill。
 
+后续合法单件验收（2026-11-07）：未修改检查代码，沿用现有 `accessories` 的14项全部通过，补齐自然菜单搬移、保存同步、死亡复制、重登后操作和技能飞行减耗；正常保存退出、ERROR0。证据与剩余范围见上述正文，equipment 及GUI仍为部分实现。
+
 成品生成契约已接入：`Equipment.createProduct(注册表, 参数表)` 构造单件成品，`Equipment.product(物品)` 查询类型化品阶、说明、原料数值及附魔记录；装备实例由本系统唯一写入。treasure 负责 `/lianqi` 的权限、坐标容器与掉落，依赖方向为 treasure → equipment。主手三攻击按 `wuqi/fabao` 标签提交 attribute；只为 `WeaponStatEvent` 的品阶查询提供值，根字段法攻不以炼器法攻替代。末次成品专项六项全部符合并 DONE，规则和证据见[宝箱成品与品阶](architecture.md#宝箱成品与品阶2026-11-07)。
 
 弓与拂尘的选中推进、挥动和隐藏弹体物品的使用由本系统接收。妖化批次使用类型化 `EquipmentStats` 组件保存四件防具的来源数值，向 attribute 的加成层提交六项属性；监听 combat 的 `ArmorStatEvent` 查询防御，监听 skill 的 `DemonTransformationEvent` 执行变身。饰品穿戴页已接回；饰品制作台、其他装备实例与本命培养仍未完成，不能据本批标记整个系统完成。
