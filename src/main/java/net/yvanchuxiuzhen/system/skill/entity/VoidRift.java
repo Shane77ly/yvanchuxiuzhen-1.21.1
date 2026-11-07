@@ -52,10 +52,12 @@ public final class VoidRift extends PathfinderMob implements GeoEntity, Animated
 
     private final EntityModelRow model;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
+    private final SkillAnimations animationState;
 
     public VoidRift(EntityType<VoidRift> type, Level level, EntityModelRow model) {
         super(type, level);
         this.model = model;
+        animationState = new SkillAnimations(model.lifecycle().animationTransitionTicks());
         xpReward = 0;
         setNoAi(true);
         setPersistenceRequired();
@@ -206,7 +208,7 @@ public final class VoidRift extends PathfinderMob implements GeoEntity, Animated
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        SkillAnimations.register(controllers, this, model, () -> SkillAnimations.NONE);
+        animationState.register(controllers, this, model);
     }
 
     @Override

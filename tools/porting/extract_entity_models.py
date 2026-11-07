@@ -5,7 +5,7 @@
 - `entity/layer/<名>Layer.java`：可选的发光层，用 `RenderType.eyes` 再画一遍同一几何，纹理固定；
 - `client/renderer/<名>Renderer.java`：阴影半径；
 - `entity/<名>Entity.java`：默认纹理（`define(TEXTURE, …)`）、默认循环动画（`movementPredicate` 在没有过程动画时播放，取最后一个无条件的）、离地时的循环动画、
-  五项生物属性（移速、生命、护甲、攻击、跟踪范围）、是否无 AI、导航/固定无重力/飞行与游泳速度/水下呼吸/水流推动/死亡移除刻数、摔落处理和伤害免疫。`Skillyin01` 另有 walk、die、swim、sprint 的条件动画，由 Java 侧单独实现。
+  五项生物属性（移速、生命、护甲、攻击、跟踪范围）、是否无 AI、导航/固定无重力/飞行与游泳速度/水下呼吸/水流推动/死亡移除刻数、摔落处理、伤害免疫和动画过渡刻数。`Skillyin01` 另有 walk、die、swim、sprint 的条件动画和挥臂控制器，由 Java 侧单独实现。
 输出 src/main/resources/content/<系统>/entity_models.json（一行一个实体，键为注册 ID），并重写
 docs/reference/conversion/system_assets.csv 中归该系统的几何、动画与实体纹理行（默认纹理、发光层纹理、
 相关过程里 `setTexture("…")` 引用到的纹理）；保留其他类型的资源行。工具可重复运行，输出只取决于来源。
@@ -101,7 +101,11 @@ def parse(name: str) -> dict:
         'ignores_fall_damage': bool(re.search(r'public boolean causeFallDamage\([^}]*return false;', entity)),
         'damage_immunities': [immunity for condition in re.findall(r'if \((.*?)\)\s*return false;', hurt[1] if hurt else '')
                               for immunity in DAMAGE_IMMUNITIES[condition]],
+        'animation_transition_ticks': int(re.search(r'new AnimationController<>\(this, "movement", (\d+),', entity)[1]),
     }
+    death_animation = re.search(r'if \(this.isDeadOrDying\(\)\) \{\s*event.getController\(\).setAnimation\(new AnimationBuilder\(\).addAnimation\("([^"]+)", EDefaultLoopTypes.PLAY_ONCE\)', predicate[0])
+    if death_animation:
+        row['lifecycle']['death_animation'] = death_animation[1]
     flying_speed = re.search(r'Attributes.FLYING_SPEED, ([\d.]+)', entity)
     if flying_speed:
         row['lifecycle']['flying_speed'] = float(flying_speed[1])

@@ -12,7 +12,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 /**
  * 动画实体的表现与属性（各系统的 {@code entity_models.json}，由 {@code extract_entity_models.py} 从来源的
  * Model、Layer、Renderer 与 Entity 类提取）：GeckoLib 几何与动画文件名（不含后缀）、阴影半径、默认纹理、头部骨骼、发光层纹理、
- * 默认循环动画与离地时的循环动画、生物属性、是否无 AI，以及来源的导航、重力、伤害免疫和死亡移除时序。
+ * 默认循环动画与离地时的循环动画、生物属性、是否无 AI，以及来源的导航、重力、伤害免疫、死亡与动画过渡时序。
  */
 public record EntityModelRow(String id, String geo, String animation, float shadow, String texture, Optional<String> head, Optional<String> glow, String idle,
                              Optional<String> air, double speed, double health, double armor, double attack, double follow, boolean noAi, Lifecycle lifecycle) {
@@ -46,10 +46,10 @@ public record EntityModelRow(String id, String geo, String animation, float shad
                 .add(Attributes.ATTACK_DAMAGE, attack).add(Attributes.FOLLOW_RANGE, follow);
     }
 
-    /** 来源实体类的运动、伤害免疫与死亡配置；零刻死亡条件按来源保留。 */
+    /** 来源实体类的运动、伤害免疫、死亡与动画配置；零刻死亡条件按来源保留。 */
     public record Lifecycle(Navigation navigation, boolean noGravity, Optional<Double> flyingSpeed, Optional<Double> swimSpeed,
                             boolean breathesUnderwater, boolean pushedByFluid, int deathTicks, boolean ignoresFallDamage,
-                            List<DamageImmunity> damageImmunities) {
+                            List<DamageImmunity> damageImmunities, int animationTransitionTicks, Optional<String> deathAnimation) {
         public static final Codec<Lifecycle> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Navigation.CODEC.fieldOf("navigation").forGetter(Lifecycle::navigation),
                 Codec.BOOL.fieldOf("no_gravity").forGetter(Lifecycle::noGravity),
@@ -59,7 +59,9 @@ public record EntityModelRow(String id, String geo, String animation, float shad
                 Codec.BOOL.fieldOf("pushed_by_fluid").forGetter(Lifecycle::pushedByFluid),
                 Codec.INT.fieldOf("death_ticks").forGetter(Lifecycle::deathTicks),
                 Codec.BOOL.fieldOf("ignores_fall_damage").forGetter(Lifecycle::ignoresFallDamage),
-                DamageImmunity.CODEC.listOf().fieldOf("damage_immunities").forGetter(Lifecycle::damageImmunities)
+                DamageImmunity.CODEC.listOf().fieldOf("damage_immunities").forGetter(Lifecycle::damageImmunities),
+                Codec.INT.fieldOf("animation_transition_ticks").forGetter(Lifecycle::animationTransitionTicks),
+                Codec.STRING.optionalFieldOf("death_animation").forGetter(Lifecycle::deathAnimation)
         ).apply(instance, Lifecycle::new));
     }
 

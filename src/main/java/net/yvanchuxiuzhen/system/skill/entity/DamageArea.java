@@ -42,10 +42,12 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
     private static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(DamageArea.class, EntityDataSerializers.STRING);
     private final EntityModelRow model;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
+    private final SkillAnimations animationState;
 
     public DamageArea(EntityType<DamageArea> type, Level level, EntityModelRow model) {
         super(type, level);
         this.model = model;
+        animationState = new SkillAnimations(model.lifecycle().animationTransitionTicks());
         xpReward = 0;
         setNoAi(true);
         setPersistenceRequired();
@@ -81,11 +83,17 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(ANIMATION, SkillAnimations.NONE);
+        builder.define(ANIMATION, SkillAnimations.NO_REQUEST);
     }
 
     public void setAnimation(String animation) {
         entityData.set(ANIMATION, animation);
+    }
+
+    @Override
+    public void tick() {
+        animationState.tick(entityData, ANIMATION);
+        super.tick();
     }
 
     @Override
@@ -167,7 +175,7 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        SkillAnimations.register(controllers, this, model, () -> entityData.get(ANIMATION));
+        animationState.register(controllers, this, model);
     }
 
     @Override

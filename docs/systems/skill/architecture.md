@@ -68,13 +68,12 @@ updated: 2026-11-07
 
 阶段 3 的实现要点（2026-11-04 起）：
 
-- 35 个动画实体除 `SkillFire06`（火鸟）与 `Skillyin01`（起尸，两者继承 `TamableAnimal` 带 AI 目标，见下文“可驯服实体”）、`Xvkongliexi`（虚空裂隙，见下文）、`Shanghaifanwei`（伤害范围提示，见下文）外共用 `SkillEntity`（`PathfinderMob` + GeckoLib）。表现与属性由 `tools/porting/extract_entity_models.py` 从来源的 Model、Layer、Renderer 与实体类提取为 `content/skill/entity_models.json`（几何、动画、头部骨骼、发光层、阴影、默认与离地循环动画、动画清单、五项属性、是否无 AI），并维护 `system_assets.csv` 的 skill 行；实体行为按实体 ID 登记在 `SkillEntities`（`EntitySkill`：刻、初始生成、被杀、受伤），内容表只登记台账已迁移的实体。
+- 35 个动画实体除 `SkillFire06`（火鸟）与 `Skillyin01`（起尸，两者继承 `TamableAnimal` 带 AI 目标，见下文“可驯服实体”）、`Xvkongliexi`（虚空裂隙，见下文）、`Shanghaifanwei`（伤害范围提示，见下文）、`Yvanyingchuqiao`（元婴出窍，见下文）外共用 `SkillEntity`（`PathfinderMob` + GeckoLib）。表现与属性由 `tools/porting/extract_entity_models.py` 从来源的 Model、Layer、Renderer 与实体类提取为 `content/skill/entity_models.json`（几何、动画、头部骨骼、发光层、阴影、默认与离地循环动画、五项属性、是否无 AI 及生命周期配置），并维护 `system_assets.csv` 的 skill 行；实体行为按实体 ID 登记在 `SkillEntities`（`EntitySkill`：刻、初始生成、被杀），内容表只登记台账已迁移的实体。
 - 来源放在 `getPersistentData` 的施放信息（`AttackUUID`、`AttackDamage`、`Damage_multiplier`、`damagetype`、`jinengName`）改为字段，随存档；各技能私有的计数（`tick`、`tick2`、`kaishi` 等）仍用 `getPersistentData`，与来源一致。实体继承施放者的团队与友方集合，敌友的判定方是实体自己（`EtoE(entity, 其他)`）或施放者（施放过程内）。
-- 过程动画 `setAnimation(名)` 用 GeckoLib 的触发动画（`procedure` 控制器，登记动画文件中的全部名字），播放一次后回到默认循环；纹理名同步给客户端（默认值是实体类里 `define(TEXTURE, …)` 的纹理，由提取工具写入 `entity_models.json`；金刚轮等少数默认透明的 `kong`，其余默认纹理均为可见贴图），发光层以 `RenderType.eyes` 重画同一几何。
+- 过程动画 `setAnimation(名)` 经同步字段、逐刻消费与本地控制器播放一次后恢复默认动画，规则见[过程动画回核](#过程动画调用链与控制器复核2026-11-07)；纹理名同步给客户端（默认值是实体类里 `define(TEXTURE, …)` 的纹理，由提取工具写入 `entity_models.json`；金刚轮等少数默认透明的 `kong`，其余默认纹理均为可见贴图），发光层以 `RenderType.eyes` 重画同一几何。
 - 伤害经 `SpellDamage.dealRounded`（来源把攻击量与倍率经 `DecimalFormat("0")` 取整）；来源拼出命令字符串的调用，经 `SpellDamage.command` 复现同样的解析（Q41）。
 - 火系：`FireEntities`（大火球、火焰漩涡、火龙卷的实体刻过程，引火、控火术、火焰护盾的施放过程）。
 - 土系：`RockEntities`（滚石术、天外陨石、化石手、巨石锤）。化石手与巨石锤按 `dangqianleixing`（类型一、类型二）和 `jindu`/`zhuangtai` 分段推进，潜行施放为类型二并播放对应动画；Q42 记录巨石锤的眩晕加给自己与化石手攻击方向随机。
-- 过程动画改为同步的 `ANIMATION` 字符串（来源 `setAnimation` 在放入世界之前调用，触发动画会丢失），客户端的 `procedure` 控制器按名字播放一次。
 - 金系：`GoldEntities`（金轮实体八种模式、金刚轮施放）与 `GoldWheel`（金轮弹体：捆妖轮、金弧轮、天堑金轮，第一刻生成跟随自己的金轮）。金轮的跟随对象记在实体的 `master`（施放者、弹体或被捆目标）。金刚轮的 Ctrl、Alt 式读玩家变量 `lctrl`、`lalt`，来源由 flow 的 Ctrl、Alt 键过程写入、多个系统读取：落在 `platform/input/ModifierKeys`（玩家附件，客户端每刻查看左 Ctrl、左 Alt 变化时通知服务端，不入存档），避免系统依赖 flow。无 AI 的生物（如冒烟检查里的目标）不会按速度移动，推开类效果只能核对速度。
 - 冰系：`IceEntities`（冰天雪地、裂冰斩）。两种实体把攻击量与倍率截成整数记下（来源 `friendlist.putInt`）；裂冰斩的攻击量同时是后续冰刺的剩余根数，每根 3 刻后在推进方向生成下一根（`SkillEntities.chain`），初始生成过程（`finalizeSpawn`）设置“开始”状态与展开动画。
 - 光系：`LightEntities`（闪光术、万丈光芒）；万丈光芒对生命低于最大生命 10% 的直接清零，立即发一组光爆，之后在 2、4、6、8 刻各补一组（合计五组），回调保留原实体并现读位置。
@@ -86,8 +85,8 @@ updated: 2026-11-07
 - 剑法：`SwordEntities`（四种剑影实体与出手）与 `WeaponArts`（触发与计数）。挥动剑类武器时，平台的 `ItemSwingEvent`（内容表工具行 `tool.swing`，见[工程结构](../../development/engineering.md)）交给 `WeaponArts`：武器技槽里要是类别为“剑”或“三尺青锋”的武器技，剑、木剑、阔剑要求书已由本人研习（来源比较 `belongToMasterUUID`），重剑与枪不要求（来源如此，四个触发过程只在这一条上不同）；出手冷却 10 刻，连击窗口 30 刻内式数加一、超过 `smanshipnumMax` 回到第 1 式，窗口结束归零，三个计数放在玩家的 `getPersistentData`（来源 `swordsmanshiptick`、`smanshipcolddown`、`swordsmanshipnum`，在 `WeaponArts.tick` 里随玩家刻推进）。出手在挥剑者处生成对应剑影（中平剑法高 1 格，其余 1.5 格），按式数播放动画 `animation.swordsmanshipNN.skillN`，再按剑法结算：中平剑法第 3 式挑起、第 5 式 3 格内伤害（攻击力 100%）、第 6 式跃起并伤害（150%）；柔云剑法第 1 式震开、第 2 与 4 式身边伤害（70%）、第 6 式挑起；拜年剑法第 1 式伤害（50%）；弱鸡剑法每式挑起。范围效果比较的是 `getPersistentData` 里的团队名（玩家的值与其团队一致），名字不同的实体都受影响，包括非生物；伤害是挥剑者攻击力属性乘以倍率的玩家攻击伤害，经 combat 的伤害管线。来源的“跃起”写在挥剑者所在一侧（客户端），这里改为服务端设置速度并通知客户端。非玩家没有武器技槽，来源里它们的挥动只改自己的计数而没有效果，不处理。剑影存在 13 刻后消失。
 - 灵纹：`LingwenHit`（订阅 combat 的 `HitEvent`，主手武器带灵纹附魔时命中非友方目标）、`LingwenEntities`（灵纹特效实体 `lingwentexiao_2`）与 `LingwenBolt`（灵纹弹 `projectile_lingwentexiao`）。命中时：攻击者 2 格内已有灵纹特效，则属于自己且不足 6 枚的各加一枚，否则在攻击者处生成一个（数量 1）；灵纹特效跟随主人、按数量播放 `two`–`six` 动画，每 20 刻检查 10 格内最近的非友方实体，找到时沿主人的视线（不是朝目标）射出一枚散布 20 的灵纹弹并减一枚，每 100 刻自然减一枚，归零消失；灵纹弹第一刻取主人主手灵纹附魔等级 × 4 作攻击量，命中非友方生物造成无属性的固定伤害（取整，来源为主人），20 刻后消失。来源以起尸诀附魔 `qishi` 的等级作 `fumolevel`、从受击者身上扣灵力、计数写进好友列表物品的 NBT（Q45，保持来源行为，残留计数不复现）。灵纹弹的箭基类命中先于自身刻过程，首刻命中时攻击量可能尚未写入，因此来源会出现一次或两次 `HitEvent`，数量分别为 1 或 2（Q48）；`qishi` 的命中段（召唤起尸诀）随 `Skillyin01`。
 - 默认纹理：来源每个实体类 `define(TEXTURE, …)` 的纹理各不相同（只有金刚轮、灵纹特效 2、伤害范围用透明的 `kong`）；提取工具现在把它写入 `entity_models.json` 的 `texture`，实体构造时设置，`SkillEntity` 不再统一用 `kong`。此前所有实体的默认纹理都是透明的，实机画面核对（阶段 5）要特别确认各实体可见。
-- 可驯服实体：`TamedSkillEntity`（继承 `TamableAnimal` 的抽象基类，`SkillEntity` 是 `PathfinderMob`，二者不能共用类）。与 `SkillEntity` 共用的部分各有一个类：`SkillCast`（攻击者、攻击量、倍率、类别标签、技能名及其存档与结算，`SkillEntity` 的同名访问器也转给它）、`SkillAnimations`（`main` 默认循环与 `procedure` 过程动画两个控制器）、`AnimatedLook`（渲染所需纹理名，`AnimatedEntityRenderer` 按它泛化）。可驯服实体的行为（寻路、目标、刻过程）直接写在具体实体类里，不经 `EntitySkill` 表；来源 `isFood` 恒为假，所以没有繁殖与喂食驯服，`getBreedOffspring` 仅为满足抽象方法；来源重写的右键交互 `mobInteract` 在没有可喂食物品时等价于父类（只在客户端对主人多返回一次成功），不复制。具体实体类的构造里才能定下移动控制与导航：`createNavigation` 在父类构造期间调用，不能读子类字段。
-- 火鸟术：`FireBird`（`skill_fire_06`，施放过程 `FireBird.release`）。施放时在施放者上方 1.5 格生成，朝向随机后转向施放者朝向，以施放者为主人（`tame`）、继承其团队，不走 `finalizeSpawn`。无重力（首个实体刻的 `aiStep` 起设置）、飞行移动控制（转向上限 10、悬停）与飞行导航、免疫药水云、药水弹、仙人掌，无跌落伤害，受击与死亡声音是通用的；属性在模型表（移速 0.4、生命 10、攻击 3、跟踪 16）之外加飞行速度 0.4。目标选择：主人攻击的目标；行为选择：主人被攻击的目标（来源把 `OwnerHurtByTargetGoal` 加在行为选择器而不是目标选择器，Q46）、跟随主人（速度 3，离主人 10 格以上出发，停在 2 格内）、自定义追击（有目标且没有在移动时飞向目标眼睛，包围盒相交时冲撞，4 格内持续修正落点）。每刻过程（服务端）：寿命计数到 1200 刻消失；每 40 刻设一次飞行动画（同名不重播，所以只播一次，Q46）；有目标时每刻沿自己的朝向以 0.2 的速度前冲（各分量都没有乘 cos(俯仰)，Q46）；1.5 格内出现非友方实体后记下“开始”，之后累计 3 刻爆发——对 2.5 格内的非友方实体造成火系伤害（攻击量与倍率取整）并点燃 5 秒，20 个火焰粒子，然后消失。寿命到期的同一刻，其后的探测与爆发仍按来源次序执行；被杀死时发粒子并立即消失。爆发时对每个敌方目标在半高处发一枚 `smallexplosionred`。
+- 可驯服实体：`TamedSkillEntity`（继承 `TamableAnimal` 的抽象基类，`SkillEntity` 是 `PathfinderMob`，二者不能共用类）。与 `SkillEntity` 共用的部分各有一个类：`SkillCast`（攻击者、攻击量、倍率、类别标签、技能名及其存档与结算，`SkillEntity` 的同名访问器也转给它）、`SkillAnimations`（`movement` 默认动画与 `procedure` 过程动画两个控制器及逐刻请求消费）、`AnimatedLook`（渲染所需纹理名，`AnimatedEntityRenderer` 按它泛化）。可驯服实体的行为（寻路、目标、刻过程）直接写在具体实体类里，不经 `EntitySkill` 表；来源 `isFood` 恒为假，所以没有繁殖与喂食驯服，`getBreedOffspring` 仅为满足抽象方法；来源重写的右键交互 `mobInteract` 在没有可喂食物品时等价于父类（只在客户端对主人多返回一次成功），不复制。具体实体类的构造里才能定下移动控制与导航：`createNavigation` 在父类构造期间调用，不能读子类字段。
+- 火鸟术：`FireBird`（`skill_fire_06`，施放过程 `FireBird.release`）。施放时在施放者上方 1.5 格生成，朝向随机后转向施放者朝向，以施放者为主人（`tame`）、继承其团队，不走 `finalizeSpawn`。无重力（首个实体刻的 `aiStep` 起设置）、飞行移动控制（转向上限 10、悬停）与飞行导航、免疫药水云、药水弹、仙人掌，无跌落伤害，受击与死亡声音是通用的；属性在模型表（移速 0.4、生命 10、攻击 3、跟踪 16）之外加飞行速度 0.4。目标选择：主人攻击的目标；行为选择：主人被攻击的目标（来源把 `OwnerHurtByTargetGoal` 加在行为选择器而不是目标选择器，Q46）、跟随主人（速度 3，离主人 10 格以上出发，停在 2 格内）、自定义追击（有目标且没有在移动时飞向目标眼睛，包围盒相交时冲撞，4 格内持续修正落点）。每刻过程（服务端）：寿命计数到 1200 刻消失；每 40 刻请求一次飞行动画（同步值逐刻消费后复位，允许后续同名请求；此前Q46的“只播一次”误判已撤销）；有目标时每刻沿自己的朝向以 0.2 的速度前冲（各分量都没有乘 cos(俯仰)，Q46）；1.5 格内出现非友方实体后记下“开始”，之后累计 3 刻爆发——对 2.5 格内的非友方实体造成火系伤害（攻击量与倍率取整）并点燃 5 秒，20 个火焰粒子，然后消失。寿命到期的同一刻，其后的探测与爆发仍按来源次序执行；被杀死时发粒子并立即消失。爆发时对每个敌方目标在半高处发一枚 `smallexplosionred`。
 - 起尸诀：`Corpse`（`skillyin_01`，亡灵，实体类型标签 `minecraft:undead`）、`CorpseAi`（技能状态机）、`Corpses`（放出、成长与附魔命中）。
   - 状态与战斗数值沿用来源放在尸体 `getPersistentData` 的键（combat 的伤害结算读 `mana_Att`、`LEVELnumber` 等，`Corpse.empower` 按等级写入：攻击 `4 + 2 × 等级`、生命 `40 + 20 × 等级`，`attack_Def`、`mana_Def` 取攻击的 60%，`soul_Att` 取 20%，`soul_Def` 取攻击）。技能状态机不用 `SkillCast`（普攻与阴系技能的攻击者是尸体自己，攻击量取 `attack_Num` 与 `LEVELnumber`）。
   - 技能状态机每刻（服务端，存活时）：计数 `entitytick` 加一；空闲时目标 `gongjizhe` 取最近伤害自己的非友方 `linshigongjizhe`；目标存在且存活时，空闲则选下一个技能，否则推进当前技能；目标死亡清空目标并复位；目标不在维度里时每 40 刻随机走几步（“清除自身”期间不走）；存续计数 `cunxvtick` 到 600 且空闲时播放死亡动画并进入“清除自身”，再过 40 刻冒烟消失。
@@ -95,7 +94,7 @@ updated: 2026-11-07
   - 技能：靠近（1.5 倍速走向目标，40 刻结束）；挣脱（`Yaoshou001skillzhengtuo`，妖兽共用：准备 20 刻后脱离骑乘并朝视线向前跳起，30 刻结束，`CorpseAi.breakFree`）；普攻（1 刻后对视线 `0.5 + 宽度/2` 格处周围 1 格内非友方造成以尸体为来源的玩家式攻击伤害 `attack_Num`，4 刻结束）；死亡拥抱（前冲 14 刻、每刻 0.4 格，20 刻时对前方 3 格处周围半格内非友方缓慢 20 并造成阴系伤害，40 刻结束，Q47）；恐吓（动画，20 刻结束）；喷射粘液（自身霸体 56 刻，40 刻后对前方 3 格处周围 1.5 格内非友方施 `100 × LEVELnumber` 刻毒药 20 并造成阴系伤害，60 刻结束）。阴系伤害攻击量取 `LEVELnumber`、倍率 1，均取整。
   - 放出：技能“起尸诀”在施放者四角各放一只（等级 `ceil(品阶 × 0.5)`，自脚下一格起向上最多找 10 格的空位），记下施放时所选的技能栏序号；附魔 `qishi` 命中时随机数小于附魔等级则放出一只（等级为附魔等级 × 2，位置在攻击者周围随机试 4 次，经初始生成，没有技能栏序号）。来源的 `qishijveweizhi` 先写进玩家体质物品再读回，体质物品里的同名键没有别的读者，这里直接取技能栏序号。1.18.2 的 `PLANT`、`REPLACEABLE_PLANT` 材质在 1.21.1 不存在，植物位置改为可替换方块标签与灌木类方块。
   - 成长：尸体杀死实体时（`awardKillScore`），在尸体所在维度找到主人，取技能栏里记下序号的书；是“起尸诀”且品阶低于 40 时修为 `jinengExp` 加被杀实体的 `LEVELnumber`；修为达到 `品阶 × 30` 时扣除该值、书的 `LEVELnumber` 加一，品阶文字 `belongTopinjietext` 按新等级改写（存在书的 `texts` 里，显示该书的页面应优先于由品阶数值推出的文字），品阶数值不变（Q47）。
-  - 动画：移动控制器按移动、濒死、水中、疾跑、待机依次选择走路、死亡、游泳、跑步、待机动画，另有过程动画控制器；来源的“攻击”控制器只在原版挥臂时播放，这里的攻击是过程动画，不设该控制器。受击时空闲则播放受击动画，被打断标记 `beidaduan`（creature 的重击打断设置）清除过程动画。
+  - 动画：默认控制器只在无过程动画时运行；非激进状态的移动优先走路，再依次判断濒死、水中、疾跑、激进且移动，最后待机。死亡明确PLAY_ONCE。独立attacking控制器保留原版挥臂触发与十五刻标记，在停止时重载并播放一次攻击动画，不把它合并进技能过程动画。受击时空闲则播放受击动画，被打断标记 `beidaduan`（creature 的重击打断设置）清除过程动画。
   - 声音：环境、脚步取僵尸村民，受伤、死亡取僵尸马。持久，不会远离玩家后消失；免疫凋零伤害。
 
 ## 虚空裂隙（2026-11-07）
@@ -150,7 +149,23 @@ Q49：裂隙是整实体单次使用；未找到目标世界时也会消费，�
 
 静态证据为`tmp/skill-entity-immunity-source-audit.log`。本批没有新增或修改Test、选择器、断言。最终`build compileSmokeJava`（含ArchUnit）通过；仅沿用未修改的`runSmokeClient -PsmokeOnly=damagearea`，六项全部通过并DONE，客户端保存四个世界后正常退出，日志ERROR0。该检查覆盖共享免疫入口、位置/阵营、计时与保存重读，加载时解析全部39行模型配置；没有据此验收各实体的动态受伤边界或完整视觉。证据为`tmp/skill-entity-immunity-build.log`、`tmp/skill-entity-immunity-client.log`及`tmp/skill-entity-immunity-report.txt`。逐类动态受伤边界、完整视觉、多人、1.18.2版本实机及两版本对照尚未执行。
 
-过程动画继续核对：35个来源`procedurePredicate`模板相同，`EntityAnimationFactory.onEntityTick`先消费同步动画名并复位为`undefined`，再由本地`animationprocedure`控制播放；不能仅凭实体的`setAnimation`方法断定同名请求不会重播。目标`SkillAnimations`的默认/过程叠加、完成恢复及四刻过渡仍待按完整调用链和GeckoLib4.9.3修正，本批未改动画代码。
+该免疫批次随后定位到过程动画的完整调用链；当时尚未修改动画代码。消费、默认/过程切换、完成恢复与逐类过渡差异已在下一节接回。
+
+## 过程动画调用链与控制器复核（2026-11-07）
+
+完整读取35个来源实体的`movementPredicate`、`procedurePredicate`、控制器登记与全部对应`EntityAnimationFactory.onEntityTick`分支；尸体另有`attackingPredicate`。库行为以来源声明的GeckoLib3.0.57源码制品、目标依赖GeckoLib4.9.3源码制品核对，未使用邻近工程的其他GeckoLib版本。
+
+来源同步字段的空请求值为`undefined`，本地过程空值为`empty`。每刻先取同步请求，复位同步字段，再写入本地过程名；目标由实体`tick`开头调用各实例的`SkillAnimations.tick`，随后推进原生实体刻与自身技能。请求不进入存档，也不由客户端反写玩法。相隔刻的同名请求能够再次到达；播放中的过程不因同名请求立即重启，新名字也等待当前控制器停止后处理。火鸟每40刻的请求保留，Q46曾遗漏工厂而得出的“只播一次”结论已撤销，Q46其余两项来源行为不变。
+
+默认movement控制器只在本地过程为empty时运行；procedure控制器停止且存在请求名时显式以`Animation.LoopType.PLAY_ONCE`设置动画，完成后清本地名并`forceAnimationReset`，允许之后再播同名。GeckoLib4.9.3的`RawAnimation.thenPlay`采用JSON默认循环，不等同于来源的显式PLAY_ONCE，现不再用于过程动画。没有增加中断当前过程、请求队列、重试或动画兜底；来源恒false的loop及不可达lastloop分支没有变成新玩法。
+
+过渡刻数从来源控制器登记提取到`lifecycle.animation_transition_ticks`：skill三十个实体为0刻，`skill_fire_06`、`skill_fire_07`、`skill_water_02`、`skillyin_01`和`yvanyingchuqiao`为4刻。不是按全部实体统一为0或4刻。水灵阵与惊雷阵的默认控制器在濒死时明确播放close一次，其余时循环idle；尸体的条件动画和独立原版挥臂控制器见上文可驯服实体，二者共享的aiStep按来源推进挥臂时间。金轮和掌心雷原有离地循环分支保留。
+
+skill共35行与共享Codec的xiulian四行已重新生成；xiulian本批只同步模型数据格式，雷劫自身控制器未修改。虚空裂隙的来源过程没有动画请求调用者，保留其默认循环，无新增同步入口。静态证据`tmp/skill-animation-source-audit.log`包含35个实体的谓词与工厂分支；库源码位于`tmp/skill-animation-source/`、`tmp/skill-animation-target/`。
+
+Q62：逐项读取35个来源动画资源中的实际名字，仅伤害范围默认请求的`animation.ycxzboss_01.idle`不在其绑定的动画文件中。该引用按来源保留，不猜测替换；生成者传入的具体范围动画独立处理。默认可见回退未做两版本实机核对。
+
+本批没有新增或修改Test、选择器或断言。最终`build compileSmokeJava`（含ArchUnit）通过；沿用现有`runSmokeClient -PsmokeOnly=damagearea`，六项全部通过并DONE，四个世界正常保存退出，日志ERROR/FATAL均为0。该场景确认共享模型配置加载及伤害范围既有路径；完整过程切换、同名重播、尸体三个控制器的动态表现、多人、1.18.2版本实机和两版本对照仍未验收。证据为`tmp/skill-animation-build.log`、`tmp/skill-animation-client.log`和`tmp/skill-animation-report.txt`。
 
 ## 伤害范围（2026-11-07）
 

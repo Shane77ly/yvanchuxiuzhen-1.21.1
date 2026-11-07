@@ -49,11 +49,13 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
     private static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(Yuanying.class, EntityDataSerializers.STRING);
     private final EntityModelRow model;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
+    private final SkillAnimations animationState;
     private UUID ownerUuid;
 
     public Yuanying(EntityType<Yuanying> type, Level level, EntityModelRow model) {
         super(type, level);
         this.model = model;
+        animationState = new SkillAnimations(model.lifecycle().animationTransitionTicks());
         xpReward = 0;
         setPersistenceRequired();
         moveControl = new FlyingMoveControl(this, 10, true);
@@ -229,11 +231,17 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(ANIMATION, SkillAnimations.NONE);
+        builder.define(ANIMATION, SkillAnimations.NO_REQUEST);
     }
 
     public void setAnimation(String animation) {
         entityData.set(ANIMATION, animation);
+    }
+
+    @Override
+    public void tick() {
+        animationState.tick(entityData, ANIMATION);
+        super.tick();
     }
 
     @Override
@@ -243,7 +251,7 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        SkillAnimations.register(controllers, this, model, () -> entityData.get(ANIMATION));
+        animationState.register(controllers, this, model);
     }
 
     @Override

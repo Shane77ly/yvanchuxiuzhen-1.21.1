@@ -30,10 +30,12 @@ public abstract class TamedSkillEntity extends TamableAnimal implements GeoEntit
     private final EntityModelRow model;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private final SkillCast cast = new SkillCast();
+    protected final SkillAnimations animationState;
 
     protected TamedSkillEntity(EntityType<? extends TamedSkillEntity> type, Level level, EntityModelRow model) {
         super(type, level);
         this.model = model;
+        animationState = new SkillAnimations(model.lifecycle().animationTransitionTicks());
         xpReward = 0;
         setTexture(model.texture());
     }
@@ -42,7 +44,7 @@ public abstract class TamedSkillEntity extends TamableAnimal implements GeoEntit
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(TEXTURE, "");
-        builder.define(ANIMATION, SkillAnimations.NONE);
+        builder.define(ANIMATION, SkillAnimations.NO_REQUEST);
     }
 
     @Override
@@ -54,14 +56,21 @@ public abstract class TamedSkillEntity extends TamableAnimal implements GeoEntit
         entityData.set(TEXTURE, texture);
     }
 
-    /** 设置过程动画（来源 {@code setAnimation}），语义同 {@link SkillEntity#setAnimation}：同步给客户端播放一次，与当前值相同的名字不会再次播放。 */
+    /** 设置待消费的过程动画请求，消费与播放语义同 {@link SkillEntity#setAnimation}。 */
     public void setAnimation(String animation) {
         entityData.set(ANIMATION, animation);
     }
 
-    /** 当前同步的过程动画名（{@code empty} 表示没有）。 */
-    protected final String requestedAnimation() {
-        return entityData.get(ANIMATION);
+    @Override
+    public void tick() {
+        animationState.tick(entityData, ANIMATION);
+        super.tick();
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        updateSwingTime();
     }
 
     protected final EntityModelRow model() {
@@ -106,7 +115,7 @@ public abstract class TamedSkillEntity extends TamableAnimal implements GeoEntit
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        SkillAnimations.register(controllers, this, model, this::requestedAnimation);
+        animationState.register(controllers, this, model);
     }
 
     @Override

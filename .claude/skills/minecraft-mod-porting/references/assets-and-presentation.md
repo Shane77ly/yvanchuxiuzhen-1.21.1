@@ -67,7 +67,7 @@ PowerShell 复制带通配符的资源时使用 `Copy-Item -Path`；`-LiteralPat
 - 共用实体基类前，逐类核对导航、移动控制、重力、飞行/游泳属性、水下呼吸、水流推动与死亡移除时序。已核对MCreator 1.18.2动画实体同时存在地面、飞行和水中导航模板；水中导航还带匿名移动控制，不能只替换导航对象。同模板在替换类名后比较完整方法，再复用。
 - `tickDeath`按实际递增与比较顺序移植；来源若先递增再比较零，不能按“死亡零刻”解释成立即移除。技能过程主动移除与原生死亡阶段分别登记。
 - 伤害免疫逐类读取完整`hurt`，区分`getDirectEntity()`、间接攻击者、类型/标签和`getMsgId()`条件；没有覆写就保留继承行为。`causeFallDamage(false)`与空`checkFallDamage`也要单独迁移，不能用hurt中的FALL拒绝替代。已静态核对NeoForge21.1.265的`LivingEntity`：原生摔落流程会先处理事件、声音及落地逻辑，再调用hurt；旧`DamageSource.ANVIL`对应`DamageTypes.FALLING_ANVIL`，爆炸条件使用`DamageTypeTags.IS_EXPLOSION`。
-- 受击动画不打断进行中的技能动画；中断技能时同步清理动画状态。
+- 受击、默认与技能动画的打断、共存和恢复条件按来源谓词处理，不自行统一。已核对MCreator 1.18.2与GeckoLib3.0.57的动画工厂会逐刻消费同步名字、复位undefined并写入本地过程名；仅看setAnimation不能判断同名请求是否会再播。迁移到GeckoLib4.9.3时，`RawAnimation.thenPlay`采用JSON默认循环，来源显式PLAY_ONCE应使用`then(名字, Animation.LoopType.PLAY_ONCE)`；完成后的重载对应`AnimationController.forceAnimationReset`。逐类读取控制器过渡刻数和默认动画条件，不从同族实体推断。
 - 刷怪蛋除物品注册外，还要核对物品模型、翻译和创造模式物品栏收录。
 
 ## 世界内容

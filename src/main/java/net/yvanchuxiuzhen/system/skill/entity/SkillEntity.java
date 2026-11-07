@@ -46,6 +46,7 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
     private final EntityModelRow model;
     private final EntitySkill skill;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
+    private final SkillAnimations animationState;
     private final SkillCast cast = new SkillCast();
     private final boolean fixedNoGravity;
     private float hitboxScale = 1;
@@ -54,6 +55,7 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
         super(type, level);
         this.model = model;
         this.skill = skill;
+        animationState = new SkillAnimations(model.lifecycle().animationTransitionTicks());
         fixedNoGravity = model.lifecycle().noGravity();
         switch (model.lifecycle().navigation()) {
             case GROUND -> { }
@@ -77,7 +79,7 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(TEXTURE, "");
-        builder.define(ANIMATION, SkillAnimations.NONE);
+        builder.define(ANIMATION, SkillAnimations.NO_REQUEST);
     }
 
     @Override
@@ -90,11 +92,16 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
     }
 
     /**
-     * 设置过程动画（来源 {@code setAnimation}）：同步给客户端播放一次，随后回到默认循环动画。放入世界之前设置也有效；
-     * 与当前值相同的名字不会再次播放（来源如此）。
+     * 设置待消费的过程动画请求；每刻消费后同步字段复位，过程播放一次后恢复默认动画。
      */
     public void setAnimation(String animation) {
         entityData.set(ANIMATION, animation);
+    }
+
+    @Override
+    public void tick() {
+        animationState.tick(entityData, ANIMATION);
+        super.tick();
     }
 
     /** 记下施放信息：攻击者、攻击量、伤害倍率、伤害类别标签与技能名（来源各 {@code …shifang} 写入的几个键）。 */
@@ -255,7 +262,7 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        SkillAnimations.register(controllers, this, model, () -> entityData.get(ANIMATION));
+        animationState.register(controllers, this, model);
     }
 
     @Override
