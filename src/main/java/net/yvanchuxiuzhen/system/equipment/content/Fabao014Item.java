@@ -53,9 +53,11 @@ public final class Fabao014Item extends ContentItem {
         Fabao014 projectile = Fabao014.shoot(player.serverLevel(), player);
         projectile.pickup = AbstractArrow.Pickup.DISALLOWED;
         stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(player.getUsedItemHand()));
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        data.putBoolean("sneak", player.isShiftKeyDown());
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        if (player.isShiftKeyDown()) {
+            CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+            data.putBoolean("sneak", true);
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        }
         player.getCooldowns().addCooldown(this, player.isShiftKeyDown() ? 300 : 80);
     }
 
