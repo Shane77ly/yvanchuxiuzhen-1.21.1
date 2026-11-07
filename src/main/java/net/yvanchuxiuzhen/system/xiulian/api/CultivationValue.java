@@ -19,8 +19,12 @@ public enum CultivationValue {
     EXPERIENCE_HINDER("experience_hinder", 1),
     /** {@code power}，当前灵力。 */
     POWER("power", 20),
+    /** {@code power_display}，每秒恢复前复制的面板灵力。 */
+    POWER_DISPLAY("power_display", 0),
     /** {@code soul}，当前神识（精力）。 */
     SOUL("soul", 20),
+    /** {@code soul_display}，每秒恢复前复制的面板精力。 */
+    SOUL_DISPLAY("soul_display", 0),
     /** {@code skill_points} */
     SKILL_POINTS("skill_points", 0),
     /** {@code body_Gold} */

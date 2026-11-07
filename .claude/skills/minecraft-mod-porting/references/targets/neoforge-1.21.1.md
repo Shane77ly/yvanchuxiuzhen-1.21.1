@@ -77,6 +77,7 @@
 - 来源的伤害前置规则按目标事件阶段逐入口对照，不凭事件名称机械替换。
 - 物品组件用 `DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, modid)` 与 `registerComponentType(名, b -> b.persistent(Codec).networkSynchronized(StreamCodec))` 登记；无参版本 `createDataComponents(modid)` 已弃用。物品栈作为玩家附件时用 `ItemStack.OPTIONAL_CODEC` 存档、`ItemStack.OPTIONAL_STREAM_CODEC` 同步。
 - 方块容器的菜单在客户端用临时容器（如 `SimpleContainer`），内容随菜单同步，只把方块位置写进打开数据；方块刚放置的同一 tick 打开界面时客户端还没有方块实体。
+- NeoForge 21.1.265 的 `IMenuTypeExtension.create` 可读取额外菜单数据，`IPlayerExtension.openMenu(provider, BlockPos)` 写入方块位置；需要来源坐标绑定时两端使用同一打开数据。`ServerPlayer.doCloseContainer` 先调用旧菜单 `removed` 再切回背包菜单，关闭保存可直接在旧菜单生命周期内完成。依据上述三个源码及实际菜单注册路径核对；运行证据另行登记。
 - Data Component 的 Codec/StreamCodec、SavedData 工厂、菜单容量、实体生成和渲染注册，在上述 sources jar 的 Minecraft 源码中确认，不凭记忆指定构造签名。
 | 方块模板构造器 | `net/minecraft/world/level/block/DoorBlock.java`、`TrapDoorBlock.java`、`ButtonBlock.java`、`FenceGateBlock.java`、`state/properties/BlockSetType.java` | 21.1.265：门、活板门、按钮的构造器用 `BlockSetType` 的声音覆盖 Properties 的声音，`FenceGateBlock(WoodType, ..)` 同理（另有显式声音的构造器）；需要保留来源音效时派生 `BlockSetType`（`BlockSetType.register`）。`PressurePlateBlock` 的触发范围来自 `BlockSetType.pressurePlateSensitivity` |
 | 方块 Properties | `net/minecraft/world/level/block/state/BlockBehaviour.java` | 21.1.265：1.18.2 的 `Material` 已不存在，颜色用 `mapColor`、可燃用 `ignitedByLava`、可替换用 `replaceable`、推动反应用 `pushReaction`；`noDrops` 改名 `noLootTable`；`getLightBlock`、`getShape`、`getVisualShape`、`propagatesSkylightDown` 为 protected 方法，覆写 `getPistonPushReaction` 须为 public（与 `IBlockExtension` 冲突）；每个方块类必须实现 `codec()` |

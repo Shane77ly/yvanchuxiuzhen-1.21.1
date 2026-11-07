@@ -1,6 +1,8 @@
-package net.yvanchuxiuzhen.system.panel.client;
+package net.yvanchuxiuzhen.panel.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -8,13 +10,28 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.yvanchuxiuzhen.panel.PanelNavigation;
+import net.yvanchuxiuzhen.panel.network.OpenPanelPayload;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.skill.api.SkillElement;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import org.lwjgl.glfw.GLFW;
 
 /** 玩家 HUD 的装配与绘制。技能冷却、格挡和弓蓄力只读取本人同步数据，不在渲染回调推进玩法。 */
 public final class PanelClientSetup {
+    private static final KeyMapping MENU = new KeyMapping("key.yvanchuxiuzhen.guicaidan", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, "key.categories.misc") {
+        @Override
+        public void setDown(boolean value) {
+            boolean pressed = value && !isDown();
+            super.setDown(value);
+            Minecraft minecraft = Minecraft.getInstance();
+            if (pressed && minecraft.player != null && minecraft.screen == null) PacketDistributor.sendToServer(new OpenPanelPayload());
+        }
+    };
     private static final String[] COOLDOWN_NAMES = {"金", "水", "木", "火", "土", "阴阳"};
     private static final int[] COOLDOWN_COLORS = {-154, -10053121, -10027162, -39322, -39169, -1};
 
@@ -23,6 +40,8 @@ public final class PanelClientSetup {
 
     public static void register(IEventBus modBus) {
         modBus.addListener(PanelClientSetup::registerLayers);
+        modBus.addListener((RegisterKeyMappingsEvent event) -> event.register(MENU));
+        modBus.addListener((RegisterMenuScreensEvent event) -> event.register(PanelNavigation.ATTRIBUTES.get(), AttributeScreen::new));
     }
 
     private static void registerLayers(RegisterGuiLayersEvent event) {

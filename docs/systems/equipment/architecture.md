@@ -164,3 +164,31 @@ Q59：`BaoxiangChengpin` 写 `lianqizong.mana_Att`，而 `PlayerRightClick` 的�
 `build compileSmokeJava`（含ArchUnit）通过，`runSmokeClient -PsmokeOnly=equipmentproduct` 首次六项全部符合并DONE；复核补齐独立护甲整数后，再次构建及同一成品专项六项全部符合并DONE。覆盖无容器/占槽/权限拒绝、武器和附魔分支、保存重读与原料取整、真实属性不重复及倍率、品阶格挡/根法攻区分/客户端组件与提示、撤除贡献。两次客户端均ERROR0、正常保存全部世界退出，未重跑旧神通。专用服务器一次到Done、原生stop正常保存退出，ERROR0；该服务器检查在补齐护甲整数前运行，未重复启动。
 
 证据：`tmp/equipment-product-{build,smoke,server}.log`、`tmp/equipment-product-final-{build,smoke}.log`、`tmp/equipment-product-{initial-report,report}.txt`。本批未增加注册物品，更新的是两个奖励命令/过程的归属证据；原内容台账状态不因此升级。未执行1.18.2实机、两版本对照、多人、玩家退出重进和完整视觉；宝箱奖励总表、炼器炉次、根法攻生产者与饰品自然入口仍待迁移。
+
+## 四饰品槽与飞行减耗（2026-11-07）
+
+### 来源、导航与槽位生命周期
+
+已静态读取 `A:PlayerGUI03` 的菜单、界面与按钮消息、开启/关闭过程、`Shipintick`，以及 `B:ShipinCommand/ShipinGo`；同时核对 `PlayerGUI01`、K 键入口、`OpenGUI01/03`、显示过程、`Playerhuifu` 与两份玩家能力的复制规则。目标核对 NeoForge 21.1.265 的 `IMenuTypeExtension`、`IPlayerExtension.openMenu`、`ServerPlayer.doCloseContainer`、原生按钮消息、`Slot/SlotItemHandler` 及 `AbstractContainerMenu.moveItemStackTo` 源码。
+
+K 键与记住分页归 panel，四槽菜单 `player_gui_03`、物品与关闭保存归 equipment。菜单在玩家 `(x,y+1,z)` 打开并传入实际方块坐标；有方块物品能力时绑定该能力，否则使用四槽临时容器。菜单共有四个饰品槽和36个背包槽。四类共36件来源饰品的物品构造均为 `stacksTo(1)`，目标内容表均为 `stack:1`，正常取得和穿戴每件只能一件；容器槽容量不代表物品可堆叠数量。原生菜单负责物品同步与按钮身份验证。
+
+服务端第一次 Post tick 才初始化：依保存字段顺序取原物品对象，直接把数量设为1，再交给菜单。这里保留来源的共享引用：原位数量修改可被保存字段读到；换成另一对象时，直到关闭菜单才把四槽新引用写回。公开查询一律给副本，其他系统不能绕过装备所有者修改真值。四槽附件使用 Codec 随玩家存盘、全部克隆事件复制并只同步本人；菜单槽位单独走原生同步。关闭不返还或掉落四槽物品。绑定方块容器时，首次初始化会覆盖其前四槽，此后共享同一能力，按来源保留。
+
+Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/beltornaments`，但保存字段顺序为头饰、项坠、腰佩、手饰；来源说明却称第三格为腰佩。保留标签、显示文字和保存字段三者的实际关系，重开不调换物品。来源首刻的数量归1也保留。影响限于饰品页，评估轻微，已登记调查表；没有自行交换槽位或补物品标签。Shift 搬移保留来源的标签检查，包括向已有堆叠合并时的 `mayPlace`。
+
+### 根字段生产与属性消费
+
+`/shipin` 无权限门槛，按空白拆参，返回0；物品 ID 转小写并统一原初系统命名空间。前六项为物品、名字、说明、类型、品阶文字、品阶整数，名字/说明为“无”时不写对应值。之后最多三组“键、类型、值”，前一组键为空时停止；`str/char` 写字符串，`int` 截断，`double` 保留小数，其他组解释为附魔的命名空间、路径与等级。先写固定字段，再顺序写动态键，所以动态键能覆盖固定字段；`EquipmentProperties` 保留未知键、三种类型与覆盖结果。数值转换失败取0是来源输入规则。物品在命令坐标加 `(0.5,0.8,0.5)` 掉落，拾取延迟10刻。
+
+每个已保存饰品槽计一次根字段贡献，不乘堆叠数量：生命/灵力/神识上限与恢复、三防共九项；四槽 `colddown` 每级提供0.01冷却缩减。四件护甲的 `dawn/powerup/attdef/manadef` 分别增加生命恢复、灵力恢复、物防、法防，`colddown` 同样每级0.01。与既有炼器贡献一起提交 attribute 的加成层，实际贡献变化时才写回。根 `mana_Att` 的真实 `/shipin` 生产者已接入 `WeaponStatEvent`，延续 Q59 与嵌套 `lianqizong.mana_Att` 分离；其他根值生产者仍随所属系统迁移。未为根字段新增来源没有的装备 Tooltip。
+
+`FlightEnchantmentEvent` 汇总已保存四槽的 `flying` 等级，复用 skill 的原消耗公式；槽内替换尚未关闭时不提前把新物品计入。腰佩保存字段为 `fuqi_01` 时，按世界日时间每10刻在玩家Y+1广播2个 `fuqi_0101` 粒子，时间倒退重置计时，`shipintick` 仍由 xiulian 保管。该物品不在腰佩标签中，未补入标签。
+
+### 验证范围
+
+`build compileSmokeJava`（含 ArchUnit）通过；仅一次 `runSmokeClient -PsmokeOnly=accessories`。原报告记录12项符合，随后“重新打开存档超时”并以 `DONE` 结束，重登后两项未执行。负责人指出截图堆叠问题后复核发现：检查代码曾手动 `setCount(3)` 伪造超过饰品上限的堆叠，并把它用于搬移与保存断言；这些结果不能证明合法饰品的自然穿戴路径，相关通过结论撤回。36件饰品的来源构造与目标内容表已逐件静态核对，均为上限1，检查改为合法单件并核对实际物品上限；没有修改正确的物品堆叠配置。目标源码还显示重开含实验性设置的存档会进入 `BackupConfirmScreen`，已补该检查处理。两项检查代码修正后只编译，未重跑；本批合法单件的穿戴/保存实机验收仍未完成。原运行退出前全部世界正常保存，客户端 ERROR 0。
+
+专用服务器一次到 Done，原生 `stop` 正常保存全部世界并退出，ERROR 0；菜单导出10个，包含 `player_gui_01/03`，物品数保持2068。两张旧截图只用于布局和贴图可见性，图中的数量3来自上述非法检查数据，不能代表正常饰品玩法；零层检查玩家显示未翻译的 `levelname00`，没有擅自夹到其他境界。完整视觉未认可。
+
+证据：`tmp/accessory-{build,smoke,server}.log`、`tmp/accessory-report.txt`、`tmp/accessory-check-compile.log`、`tmp/accessory-stacking-audit.log` 与两张旧截图。GUI 当前仅部分实现：属性页和饰品页已接主路径，但两页的其他分页按钮、饰品临时队伍显示/退出未接；`GUIshipintai` 制作台亦未实现。其余页面随所属系统逐项闭合，不能留到最后统一补或宣称当前 GUI 已验收。合法单件穿戴、重登后实际操作、多人、完整视觉、1.18.2版本实机及两版本对照未完成。菜单台账仅标“已注册”并注明部分行为，不升级整套饰品物品的迁移状态。

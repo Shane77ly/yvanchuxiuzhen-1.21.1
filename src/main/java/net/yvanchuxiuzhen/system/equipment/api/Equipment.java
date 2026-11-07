@@ -3,7 +3,10 @@ package net.yvanchuxiuzhen.system.equipment.api;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.yvanchuxiuzhen.system.equipment.Accessories;
 import net.yvanchuxiuzhen.system.equipment.EquipmentProducts;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 
@@ -18,5 +21,17 @@ public final class Equipment {
 
     public static Optional<EquipmentProduct> product(ItemStack stack) {
         return Optional.ofNullable(stack.get(EquipmentData.PRODUCT.get()));
+    }
+
+    public static EquipmentProperties properties(ItemStack stack) {
+        return stack.getOrDefault(EquipmentData.PROPERTIES.get(), EquipmentProperties.EMPTY);
+    }
+
+    public static AccessoryInventory accessories(Player player) {
+        return player.getData(EquipmentData.ACCESSORIES).snapshot();
+    }
+
+    public static void openAccessories(ServerPlayer player) {
+        Accessories.open(player);
     }
 }

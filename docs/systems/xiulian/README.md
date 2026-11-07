@@ -42,6 +42,8 @@ updated: 2026-11-07
 
 约定：写操作只在服务端调用，写入后同步给本人；灵根与阴阳变化时自动向 attribute 提交基础层贡献 `xiulian:roots`。`tizhiitem` 由本系统整体保管（会话决定，2026-11-03，评估为轻微）：其中蛊虫、战斗、副本等系统自己写入的键，在这些系统实现时可移到各自的数据。尚未提供、待后续阶段补充：轮回的流程操作。
 
+2026-11-07 为属性汇总页接回 `CultivationValue.POWER_DISPLAY/SOUL_DISPLAY`：存活玩家每秒恢复前复制当前资源，随修炼档案保存并同步本人；panel 只查询这两个来源显示值。
+
 雷劫依赖方向为 combat → xiulian。xiulian 生成劫云与天雷实体、推进渡劫状态、筛选范围内的敌方并发出上述具体事件；combat 订阅后调用共享落雷和伤害入口。xiulian 不导入 combat，固定效果 `effect_022` 的等级按注册键从玩家当前效果读取。实体表现复用 platform 的模型记录、外观接口与 GeckoLib 渲染器；xiulian 不依赖 skill。
 
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。

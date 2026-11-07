@@ -455,12 +455,12 @@ yvanchuxiuzhen,Duyao16,potioneffect,~/effect,combat,已读,C combat 归属阅读
 yvanchuxiuzhen,Sporelizi,particle,~/effect,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Duyao17ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
 yvanchuxiuzhen,Duyao17,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
-yvanchuxiuzhen,PlayerGUI01,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerNamexianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Healthxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Powerxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jingshenxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Attackxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI01,gui,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,PlayerNamexianshi,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,Healthxianshi,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,Powerxianshi,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,Jingshenxianshi,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,Attackxianshi,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,EntityHurt,procedure,~/systemset,combat,已读,C combat 归属阅读：LivingAttackEvent 命中处理——药毒、附魔命中效果（毒药类、haoyu、phoenix 等）、战斗状态记分板、功法特效、驯服宠物的攻击目标；调用 EntityHurt2、EntityHurt3
 yvanchuxiuzhen,Shuxingatt06,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
 yvanchuxiuzhen,Shuxingatt07,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类，来源没有读取等级的过程（无消费者），说明文本：
@@ -474,22 +474,22 @@ yvanchuxiuzhen,Miss,particle,~/lizi,particle,已读,逐项读取 client/particle
 yvanchuxiuzhen,ExclamationMark,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,FindTheEnemy,procedure,~/systemset,combat,已读,C relation 归属阅读：LivingSetAttackTargetEvent 中，目标未带 findtheenemy 标记时在攻击方头顶发感叹号粒子并给目标加标记（EntityTick 400 tick 后无目标时清除）；与敌友数据无关，是所有生物锁定目标的通用反馈
 yvanchuxiuzhen,DamageXiaoguo,procedure,~/systemset,combat,已读,C combat 归属阅读：空方法，无调用者（Q31）
-yvanchuxiuzhen,Manaxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Soulxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Vigorousxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Meritsxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GuicaidanAnXiaAnJianShi,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guicaidan,keybind,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Manaxianshi,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,Soulxianshi,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,Vigorousxianshi,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,Meritsxianshi,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,GuicaidanAnXiaAnJianShi,procedure,,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,Guicaidan,keybind,,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,Goldxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Waterxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Treexianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Firexianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Soilxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Goldneirong,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Waterneirong,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Treeneirong,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fireneirong,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Soilneirong,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Goldneirong,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,Waterneirong,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,Treeneirong,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,Fireneirong,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
+yvanchuxiuzhen,Soilneirong,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,PlayerGUI02,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,HealthUpxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PowerUpxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -498,14 +498,14 @@ yvanchuxiuzhen,Att01xianshi,procedure,~/GUI,panel,候选,第一版批量归组�
 yvanchuxiuzhen,Att02xianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Att03xianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Pointsxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI03DangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI03DangZheGeJieMianBeiGuanBi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI03,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI03DangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/GUI,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
+yvanchuxiuzhen,PlayerGUI03DangZheGeJieMianBeiGuanBi,procedure,~/GUI,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
+yvanchuxiuzhen,PlayerGUI03,gui,~/GUI,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxiuzhen,PlayerGUI04,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGUI05,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,OpenGUI01,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,OpenGUI01,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,OpenGUI02,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,OpenGUI03,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,OpenGUI03,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,OpenGUI04,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,OpenGUI05,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,HealthMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
@@ -3016,7 +3016,7 @@ yvanchuxiuzhen,Pao13TouZhiWuFeiXingTick,procedure,~/item/jieri,festival,已读,B
 yvanchuxiuzhen,Pao13,rangeditem,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Fuqi01,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励；本元素无过程，被 equipment 的 Shipintick 按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Fuqi0101,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
-yvanchuxiuzhen,Shipintick,procedure,~/systemset,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Shipintick,procedure,~/systemset,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxiuzhen,Fuqi02TouKuiShiJianMeiYouXiKe,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Fuqi02 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Fuqi02,animatedarmor,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Fuqi0201,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
@@ -4545,9 +4545,9 @@ yvanchuxiuzhen,Suijijiegou04,structure,~/decorate/jiegou/suijijiegou,world,候�
 yvanchuxiuzhen,Suijijiegou05,structure,~/decorate/jiegou/suijijiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Suijijiegou06,structure,~/decorate/jiegou/suijijiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongjv008hecheng,recipe,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui01jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGui01jieshao,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,PlayerGui02jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui03jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGui03jieshao,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,PlayerGui04jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui05jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui06jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5399,7 +5399,7 @@ yvanchuxiuzhen,Fabao002hecheng,recipe,~/weapon/fabao,equipment,候选,第一版�
 yvanchuxiuzhen,Noentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yinxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yangxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yinyangneirong,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yinyangneirong,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,Benmingfabaotisheng,procedure,~/GUI/dantian,equipment,已读,C xiulian 归属阅读：本命法宝每升一级交替给法宝的 lianqizong 加法术或神识攻击，由本命培养 Dantianbenmingfabao（PlayerTick）调用；本命培养数据归 equipment（系统设计“本命”）
 yvanchuxiuzhen,Jointxt14,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
 yvanchuxiuzhen,Daduan,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
@@ -7089,8 +7089,8 @@ yvanchuxitong,Baicaojianbookhecheng,recipe,~/yvanchuliandan/baicaojian,liandan,�
 yvanchuxitong,Fendantaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Yaolitaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,PlayerJoinGame,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ShipinGo,procedure,~/zhiling,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Shipin,command,~/zhiling,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ShipinGo,procedure,~/zhiling,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
+yvanchuxitong,Shipin,command,~/zhiling,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxitong,Beechfurniture15GuiDangZheGeJieMianBeiGuanBi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Beechfurniture1501ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1501 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture03ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture03 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物

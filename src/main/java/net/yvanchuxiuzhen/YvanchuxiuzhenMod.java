@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import net.yvanchuxiuzhen.panel.PanelNavigation;
 import net.yvanchuxiuzhen.collection.decor.DecorSetup;
 import net.yvanchuxiuzhen.collection.festival.FestivalSetup;
 import net.yvanchuxiuzhen.collection.tiandao.TiandaoSetup;
@@ -48,6 +49,7 @@ public final class YvanchuxiuzhenMod {
         RegistryExport.register();
         ModifierKeys.register(modBus);
         ContentTabs.register(modBus);
+        PanelNavigation.register(modBus);
         ParticleSetup.register(modBus);
         AttributeSetup.register(modBus);
         BookSetup.register(modBus);

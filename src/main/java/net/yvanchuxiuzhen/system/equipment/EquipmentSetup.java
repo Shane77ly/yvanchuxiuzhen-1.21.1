@@ -11,6 +11,7 @@ import net.yvanchuxiuzhen.platform.content.ItemRow;
 import net.yvanchuxiuzhen.platform.content.LegacyTier;
 import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
+import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.HossuItem;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fuchen;
@@ -26,6 +27,7 @@ public final class EquipmentSetup {
 
     public static void register(IEventBus modBus) {
         EquipmentData.register(modBus);
+        EquipmentMenus.register(modBus);
         CONTENT.itemFactory("equipment:fuchen", FuchenItem::new);
         for (ItemRow row : ContentFiles.read("content/equipment/items.json", ItemRow.CODEC)) {
             if (row.factory().startsWith("equipment:weaponhossu_")) {
@@ -42,6 +44,9 @@ public final class EquipmentSetup {
         CONTENT.entity(Fuchen.ID, Fuchen::new);
         CONTENT.register(modBus);
         NeoForge.EVENT_BUS.addListener(EquipmentWeapons::tick);
+        NeoForge.EVENT_BUS.addListener(AccessoryCommand::register);
+        NeoForge.EVENT_BUS.addListener(Accessories::tick);
+        NeoForge.EVENT_BUS.addListener(Accessories::flight);
         NeoForge.EVENT_BUS.addListener(EquipmentWeapons::swing);
         NeoForge.EVENT_BUS.addListener(DemonTransformation::request);
         NeoForge.EVENT_BUS.addListener(DemonTransformation::tick);

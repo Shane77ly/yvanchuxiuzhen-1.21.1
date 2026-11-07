@@ -7,14 +7,23 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProduct;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 
-/** 装备数值、成品记录与妖化头盔计时随物品保存、同步；卸下头盔暂停，不另存玩家变身副本。 */
+/** 装备实例组件随物品保存、同步；四饰品附件随玩家保存、死亡复制并只同步本人。 */
 public final class EquipmentData {
+    private static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ModId.VALUE);
+    public static final Supplier<AttachmentType<AccessoryData>> ACCESSORIES = ATTACHMENTS.register("accessories", () -> AttachmentType
+            .builder(() -> new AccessoryData()).serialize(AccessoryData.CODEC).copyOnDeath()
+            .sync((holder, player) -> holder == player, ByteBufCodecs.fromCodecWithRegistries(AccessoryData.CODEC)).build());
     private static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ModId.VALUE);
+    public static final Supplier<DataComponentType<EquipmentProperties>> PROPERTIES = COMPONENTS.registerComponentType("equipment_properties",
+            builder -> builder.persistent(EquipmentProperties.CODEC).networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(EquipmentProperties.CODEC)));
     public static final Supplier<DataComponentType<EquipmentStats>> STATS = COMPONENTS.registerComponentType("equipment_stats",
             builder -> builder.persistent(EquipmentStats.CODEC).networkSynchronized(EquipmentStats.STREAM_CODEC));
     public static final Supplier<DataComponentType<EquipmentProduct>> PRODUCT = COMPONENTS.registerComponentType("equipment_product",
@@ -35,6 +44,7 @@ public final class EquipmentData {
     }
 
     public static void register(IEventBus modBus) {
+        ATTACHMENTS.register(modBus);
         COMPONENTS.register(modBus);
     }
 }

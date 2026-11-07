@@ -21,16 +21,19 @@ import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.ArmorStatEvent;
+import net.yvanchuxiuzhen.system.combat.api.Enchants;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProduct;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.skill.api.WeaponStatEvent;
 
-/** 护甲和主手的炼器数值提交加成层；Q17 的生命、物攻只计一次，其余原生修饰随物品生效。 */
+/** 护甲、主手炼器值及已保存饰品提交加成层；Q17 的生命、物攻只计一次，其余原生修饰随物品生效。 */
 public final class EquipmentAttributes {
     private static final Map<ServerPlayer, Snapshot> PREVIOUS = new WeakHashMap<>();
 
-    private record Snapshot(Contribution armor, Contribution weapon) {
+    private record Snapshot(Contribution armor, Contribution weapon, Contribution accessories) {
     }
 
     private EquipmentAttributes() {
@@ -47,6 +50,11 @@ public final class EquipmentAttributes {
             values.merge(Stat.ATTACK_DEF, (double) stats.physicalDefense(), Double::sum);
             values.merge(Stat.MANA_DEF, (double) stats.spellDefense(), Double::sum);
             values.merge(Stat.SOUL_DEF, (double) stats.soulDefense(), Double::sum);
+            values.merge(Stat.HEALTH_REC, (double) Enchants.level(player, stack, Enchants.key("dawn")), Double::sum);
+            values.merge(Stat.POWER_REC, (double) Enchants.level(player, stack, Enchants.key("powerup")), Double::sum);
+            values.merge(Stat.ATTACK_DEF, (double) Enchants.level(player, stack, Enchants.key("attdef")), Double::sum);
+            values.merge(Stat.MANA_DEF, (double) Enchants.level(player, stack, Enchants.key("manadef")), Double::sum);
+            values.merge(Stat.COOLDOWN_REDUCTION, Enchants.level(player, stack, Enchants.key("colddown")) * .01, Double::sum);
         }
         Contribution armor = new Contribution(Layer.BONUS, values);
         ItemStack held = player.getMainHandItem();
@@ -54,9 +62,25 @@ public final class EquipmentAttributes {
                 ? held.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY) : EquipmentStats.EMPTY;
         Contribution weapon = new Contribution(Layer.BONUS, Map.of(Stat.ATTACK, (double) weaponStats.physicalAttack(),
                 Stat.MANA_ATT, (double) weaponStats.spellAttack(), Stat.SOUL_ATT, (double) weaponStats.soulAttack()));
-        Snapshot previous = PREVIOUS.put(player, new Snapshot(armor, weapon));
+        Map<Stat, Double> accessoryValues = new EnumMap<>(Stat.class);
+        for (ItemStack stack : Equipment.accessories(player).items()) {
+            EquipmentProperties properties = Equipment.properties(stack);
+            accessoryValues.merge(Stat.HEALTH_MAX, properties.number("health_Max"), Double::sum);
+            accessoryValues.merge(Stat.HEALTH_REC, properties.number("health_Rec"), Double::sum);
+            accessoryValues.merge(Stat.POWER_MAX, properties.number("power_Max"), Double::sum);
+            accessoryValues.merge(Stat.POWER_REC, properties.number("power_Rec"), Double::sum);
+            accessoryValues.merge(Stat.SOUL_MAX, properties.number("soul_Max"), Double::sum);
+            accessoryValues.merge(Stat.SOUL_REC, properties.number("soul_Rec"), Double::sum);
+            accessoryValues.merge(Stat.ATTACK_DEF, properties.number("attack_Def"), Double::sum);
+            accessoryValues.merge(Stat.MANA_DEF, properties.number("mana_Def"), Double::sum);
+            accessoryValues.merge(Stat.SOUL_DEF, properties.number("soul_Def"), Double::sum);
+            accessoryValues.merge(Stat.COOLDOWN_REDUCTION, Enchants.level(player, stack, Enchants.key("colddown")) * .01, Double::sum);
+        }
+        Contribution accessories = new Contribution(Layer.BONUS, accessoryValues);
+        Snapshot previous = PREVIOUS.put(player, new Snapshot(armor, weapon, accessories));
         if (previous == null || !armor.equals(previous.armor())) PlayerAttributes.setContribution(player, "equipment:armor", armor);
         if (previous == null || !weapon.equals(previous.weapon())) PlayerAttributes.setContribution(player, "equipment:weapon", weapon);
+        if (previous == null || !accessories.equals(previous.accessories())) PlayerAttributes.setContribution(player, "equipment:accessories", accessories);
     }
 
     static void armorStat(ArmorStatEvent event) {
@@ -76,6 +100,8 @@ public final class EquipmentAttributes {
         if (event.key().equals("lianqizong.item_level_num")) {
             EquipmentProduct product = event.weapon().get(EquipmentData.PRODUCT.get());
             if (product != null) event.add(product.level());
+        } else if (event.key().equals("mana_Att")) {
+            event.add(Equipment.properties(event.weapon()).number("mana_Att"));
         }
     }
 
