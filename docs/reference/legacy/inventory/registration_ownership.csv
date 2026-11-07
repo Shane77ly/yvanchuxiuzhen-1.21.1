@@ -1,4 +1,5 @@
 source_mod,registry,legacy_id,owner,status,evidence
+yvanchuxitong,entity_type,yvanchuxitong:colorful_lightning_bolt,combat,已读,实体自身Register声明且主入口挂接；由LightningLandingGo生成并同步颜色；范围雷伤的共享表现归combat。
 yvanchuxiuzhen,sound_event,yvanchuxiuzhen:basalt,combat,已读,B1 归属阅读：只由 DamageDefense、ManaDefense、Zhilingdefence 播放
 yvanchuxiuzhen,sound_event,yvanchuxiuzhen:bowshoot1,equipment,已读,B1 归属阅读：只由 Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi 播放
 yvanchuxiuzhen,sound_event,yvanchuxiuzhen:bowshoot3,equipment,已读,B1 归属阅读：只由 Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi 播放

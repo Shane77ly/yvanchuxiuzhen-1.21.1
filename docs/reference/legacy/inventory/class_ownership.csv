@@ -6392,7 +6392,7 @@ yvanchuxitong,Modelzhenjineng01,src/main/java/net/mcreator/yvanchuxitong/client/
 yvanchuxitong,LingqiParticle,src/main/java/net/mcreator/yvanchuxitong/client/particle/LingqiParticle.java,client/particle,particle,source_element_metadata
 yvanchuxitong,Yan02Particle,src/main/java/net/mcreator/yvanchuxitong/client/particle/Yan02Particle.java,client/particle,particle,source_element_metadata
 yvanchuxitong,YanParticle,src/main/java/net/mcreator/yvanchuxitong/client/particle/YanParticle.java,client/particle,particle,source_element_metadata
-yvanchuxitong,ColorfulLightningBoltRenderer,src/main/java/net/mcreator/yvanchuxitong/client/renderer/entity/ColorfulLightningBoltRenderer.java,client/renderer/entity,panel,infrastructure_package_review
+yvanchuxitong,ColorfulLightningBoltRenderer,src/main/java/net/mcreator/yvanchuxitong/client/renderer/entity/ColorfulLightningBoltRenderer.java,client/renderer/entity,combat,manual_class_review
 yvanchuxitong,ShitiputuanRenderer,src/main/java/net/mcreator/yvanchuxitong/client/renderer/ShitiputuanRenderer.java,client/renderer,decor,source_element_metadata
 yvanchuxitong,ShitiyiziRenderer,src/main/java/net/mcreator/yvanchuxitong/client/renderer/ShitiyiziRenderer.java,client/renderer,decor,source_element_metadata
 yvanchuxitong,ZhenfashitiRenderer,src/main/java/net/mcreator/yvanchuxitong/client/renderer/ZhenfashitiRenderer.java,client/renderer,zhenfa,source_element_metadata
@@ -6402,7 +6402,7 @@ yvanchuxitong,BaoxiangsetCommand,src/main/java/net/mcreator/yvanchuxitong/comman
 yvanchuxitong,FuwuqiminglingCommand,src/main/java/net/mcreator/yvanchuxitong/command/FuwuqiminglingCommand.java,command,flow,source_element_metadata
 yvanchuxitong,GrindCommand,src/main/java/net/mcreator/yvanchuxitong/command/GrindCommand.java,command,liandan,source_element_metadata
 yvanchuxitong,LianqiCommand,src/main/java/net/mcreator/yvanchuxitong/command/LianqiCommand.java,command,treasure,source_element_metadata
-yvanchuxitong,LightningLandingCommand,src/main/java/net/mcreator/yvanchuxitong/command/LightningLandingCommand.java,command,flow,source_element_metadata
+yvanchuxitong,LightningLandingCommand,src/main/java/net/mcreator/yvanchuxitong/command/LightningLandingCommand.java,command,combat,source_element_metadata
 yvanchuxitong,ObtainatowncenterscrollCommand,src/main/java/net/mcreator/yvanchuxitong/command/ObtainatowncenterscrollCommand.java,command,town,source_element_metadata
 yvanchuxitong,RenjiansealreleaseCommand,src/main/java/net/mcreator/yvanchuxitong/command/RenjiansealreleaseCommand.java,command,world,source_element_metadata
 yvanchuxitong,SearchingforstructureCommand,src/main/java/net/mcreator/yvanchuxitong/command/SearchingforstructureCommand.java,command,world,source_element_metadata
@@ -6410,7 +6410,7 @@ yvanchuxitong,ShipinCommand,src/main/java/net/mcreator/yvanchuxitong/command/Shi
 yvanchuxitong,TaskduihuaCommand,src/main/java/net/mcreator/yvanchuxitong/command/TaskduihuaCommand.java,command,quest,source_element_metadata
 yvanchuxitong,YvanchuCommand,src/main/java/net/mcreator/yvanchuxitong/command/YvanchuCommand.java,command,flow,source_element_metadata
 yvanchuxitong,ChainEnchantment,src/main/java/net/mcreator/yvanchuxitong/enchantment/ChainEnchantment.java,enchantment,combat,source_element_metadata
-yvanchuxitong,ColorfulLightningBoltEntity,src/main/java/net/mcreator/yvanchuxitong/entity/ColorfulLightningBoltEntity.java,entity,platform,infrastructure_package_review
+yvanchuxitong,ColorfulLightningBoltEntity,src/main/java/net/mcreator/yvanchuxitong/entity/ColorfulLightningBoltEntity.java,entity,combat,manual_class_review
 yvanchuxitong,ShitiputuanEntity,src/main/java/net/mcreator/yvanchuxitong/entity/ShitiputuanEntity.java,entity,decor,source_element_metadata
 yvanchuxitong,ShitiyiziEntity,src/main/java/net/mcreator/yvanchuxitong/entity/ShitiyiziEntity.java,entity,decor,source_element_metadata
 yvanchuxitong,ZhenfashitiEntity,src/main/java/net/mcreator/yvanchuxitong/entity/ZhenfashitiEntity.java,entity,zhenfa,source_element_metadata
@@ -6905,7 +6905,7 @@ yvanchuxitong,LianqituzhibaocunProcedure,src/main/java/net/mcreator/yvanchuxiton
 yvanchuxitong,LianqitypeProcedure,src/main/java/net/mcreator/yvanchuxitong/procedures/LianqitypeProcedure.java,procedures,lianqi,source_element_metadata
 yvanchuxitong,LianqiuplevelProcedure,src/main/java/net/mcreator/yvanchuxitong/procedures/LianqiuplevelProcedure.java,procedures,lianqi,source_element_metadata
 yvanchuxitong,LianqizidongfangruProcedure,src/main/java/net/mcreator/yvanchuxitong/procedures/LianqizidongfangruProcedure.java,procedures,lianqi,source_element_metadata
-yvanchuxitong,LightningLandingGoProcedure,src/main/java/net/mcreator/yvanchuxitong/procedures/LightningLandingGoProcedure.java,procedures,flow,source_element_metadata
+yvanchuxitong,LightningLandingGoProcedure,src/main/java/net/mcreator/yvanchuxitong/procedures/LightningLandingGoProcedure.java,procedures,combat,source_element_metadata
 yvanchuxitong,Ling20DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure,src/main/java/net/mcreator/yvanchuxitong/procedures/Ling20DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure.java,procedures,economy,source_element_metadata
 yvanchuxitong,LingshichushouProcedure,src/main/java/net/mcreator/yvanchuxitong/procedures/LingshichushouProcedure.java,procedures,economy,source_element_metadata
 yvanchuxitong,LinshiceshiliandanProcedure,src/main/java/net/mcreator/yvanchuxitong/procedures/LinshiceshiliandanProcedure.java,procedures,liandan,source_element_metadata

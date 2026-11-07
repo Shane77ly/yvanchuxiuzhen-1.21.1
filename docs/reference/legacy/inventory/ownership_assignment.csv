@@ -5929,8 +5929,8 @@ yvanchuxitong,Tripod0801,item,~/yvanchulianqi/dinglu,lianqi,已读,B1 归属阅�
 yvanchuxitong,LiandanGUI,gui,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,LiandanYaojixiaoguo,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,LiandanBegin,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LightningLanding,command,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LightningLandingGo,procedure,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,LightningLanding,command,~/zhiling,combat,已读,已读LightningLanding命令、LightningLandingGo与彩色闪电实体及主入口绑定：按命令原坐标结算共享范围雷伤，队伍仅参数占位；skill与xiulian只提供生成参数，归combat。
+yvanchuxitong,LightningLandingGo,procedure,~/zhiling,combat,已读,已读LightningLanding命令、LightningLandingGo与彩色闪电实体及主入口绑定：按命令原坐标结算共享范围雷伤，队伍仅参数占位；skill与xiulian只提供生成参数，归combat。
 yvanchuxitong,Chain,enchantment,~/fumo,combat,已读,C combat 归属阅读：原初系统唯一的附魔，连锁采集由 ChainProcedure 读取等级（随 combat 迁移，代码注册转数据定义的首个实例）
 yvanchuxitong,ChainProcedure,procedure,~/fumo,combat,已读,C combat 归属阅读：连锁采集的方块破坏订阅（BlockEvent.BreakEvent），随 Chain 附魔读
 yvanchuxitong,PlayerRightClickBlock,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）

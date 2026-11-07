@@ -12,6 +12,7 @@ import net.yvanchuxiuzhen.system.combat.content.CrackedBedrockBlock;
 import net.yvanchuxiuzhen.system.combat.content.WoodenDummyEntity;
 import net.yvanchuxiuzhen.system.combat.content.WoodenDummyItem;
 import net.yvanchuxiuzhen.system.combat.damage.HurtHandler;
+import net.yvanchuxiuzhen.system.combat.damage.LightningLanding;
 import net.yvanchuxiuzhen.system.combat.damage.ShanghaiCommand;
 import net.yvanchuxiuzhen.system.combat.effect.CombatEffects;
 import net.yvanchuxiuzhen.system.combat.enchant.BedrockCracking;
@@ -19,7 +20,7 @@ import net.yvanchuxiuzhen.system.combat.enchant.ChainMining;
 import net.yvanchuxiuzhen.system.combat.network.DummyButtonPayload;
 
 /**
- * 战斗系统的启动装配，只在 Mod 构造时调用一次。登记状态效果的行为、伤害事件处理与命令 {@code /shanghai}、连锁采集与穿石。
+ * 战斗系统的启动装配：状态效果、伤害事件、伤害与范围落雷命令、共享彩色闪电、连锁采集与穿石。
  */
 public final class CombatSetup {
     private static final ContentTables CONTENT = new ContentTables("combat")
@@ -43,6 +44,7 @@ public final class CombatSetup {
         modBus.addListener(CombatSetup::registerPayloads);
         HurtHandler.register();
         ShanghaiCommand.register();
+        LightningLanding.register(modBus);
         ChainMining.register();
         BedrockCracking.register();
     }

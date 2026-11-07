@@ -4937,3 +4937,4 @@ yvanchuxitong,particle_type,yvanchuxitong:lingqi,LINGQI,literal_registration,src
 yvanchuxitong,particle_type,yvanchuxitong:yan_02,YAN_02,literal_registration,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModParticleTypes.java,20,,,02,yan_#,unclassified,,
 yvanchuxitong,game_rule,yvanchuxitong:weaponlevelup,WEAPONLEVELUP,literal_registration,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModGameRules.java,13,,,,weaponlevelup,cultivation,,
 yvanchuxitong,game_rule,yvanchuxitong:shopsell,SHOPSELL,literal_registration,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModGameRules.java,14,,,,shopsell,economy,,
+yvanchuxitong,entity_type,yvanchuxitong:colorful_lightning_bolt,COLORFUL_LIGHTNING_BOLT,literal_registration,src/main/java/net/mcreator/yvanchuxitong/entity/ColorfulLightningBoltEntity.java,41,,,,colorful_lightning_bolt,unclassified,,

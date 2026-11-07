@@ -77,6 +77,7 @@ enchantment,yvanchuxiuzhen:winddef,yvanchuxiuzhen,Winddef,src/main/java/net/mcre
 enchantment,yvanchuxiuzhen:yvnxvan,yvanchuxiuzhen,Yvnxvan,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,153,combat,已读,yvanchuxiuzhen:yvnxvan,行为已迁移,
 enchantment,yvanchuxiuzhen:zhongshang,yvanchuxiuzhen,Zhongshang,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,157,combat,已读,yvanchuxiuzhen:zhongshang,行为已迁移,
 enchantment,yvanchuxiuzhen:zimu,yvanchuxiuzhen,Zimu,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,160,combat,已读,yvanchuxiuzhen:zimu,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
+entity_type,yvanchuxitong:colorful_lightning_bolt,yvanchuxitong,,src/main/java/net/mcreator/yvanchuxitong/entity/ColorfulLightningBoltEntity.java,41,combat,已读,yvanchuxiuzhen:colorful_lightning_bolt,行为已迁移,共享LightningLanding命令、颜色同步和原生渲染已实现；范围雷伤、颜色同步与控雷阵三项通过；视觉待核，完整雷劫未接入
 entity_type,yvanchuxiuzhen:murenzhuang,yvanchuxiuzhen,Murenzhuang,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1027,combat,已读,yvanchuxiuzhen:murenzhuang,行为已迁移,
 item,yvanchuxiuzhen:bedrock_01,yvanchuxiuzhen,Bedrock01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3013,combat,已读,yvanchuxiuzhen:bedrock_01,行为已迁移,
 item,yvanchuxiuzhen:bedrock_02,yvanchuxiuzhen,Bedrock02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3014,combat,已读,yvanchuxiuzhen:bedrock_02,行为已迁移,

@@ -9,6 +9,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
@@ -17,7 +18,7 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 
 /**
  * 雷系的实体技能与施放（来源 {@code SkillThunder08}、{@code SkillThunder10} 及对应的 {@code …shifang}、{@code …DangShiTiGengXinKeShi}）：
- * 掌心雷、地滚雷、惊雷阵。天雷术与五雷轰顶经 {@code /lightninglanding} 命令落雷，随彩色闪电实体（雷劫）一起迁移。
+ * 掌心雷、地滚雷、惊雷阵；天雷术与五雷轰顶经共享落雷入口生成白色闪电并结算范围雷伤。
  * 掌心雷和地滚雷命中发出紫色爆发，惊雷阵命中发出黄色爆发。
  */
 final class ThunderEntities {
@@ -31,6 +32,29 @@ final class ThunderEntities {
         skills.put("skill_thunder_10", new ThunderField());
         SkillReleases.register("火", (caster, book) -> palmThunder(caster, book), "掌心雷", "地滚雷");
         SkillReleases.register("火", (caster, book) -> thunderField(caster, book), "惊雷阵");
+        SkillReleases.register("火", ThunderEntities::lightning, "天雷术", "五雷轰顶");
+    }
+
+    /** 视线六格处上下找落点六次；五雷轰顶依次在中心、东西南北三格各落一次。 */
+    private static void lightning(ServerPlayer caster, SkillBook book) {
+        ServerLevel level = caster.serverLevel();
+        BlockPos target = ProjectileSupport.lookBlock(caster, 6);
+        for (int index = 0; index < 6; index++) {
+            if (!level.isEmptyBlock(target)) {
+                target = target.above();
+            } else if (level.isEmptyBlock(target.below())) {
+                target = target.below();
+            } else {
+                break;
+            }
+        }
+        String input = "lightninglanding " + book.manaAttack() + " " + caster.getStringUUID() + " " + book.damageMultiplier()
+                + " " + Relations.team(caster) + " 4 白色";
+        for (BlockPos offset : book.name().equals("五雷轰顶")
+                ? new BlockPos[]{BlockPos.ZERO, new BlockPos(3, 0, 0), new BlockPos(-3, 0, 0), new BlockPos(0, 0, 3), new BlockPos(0, 0, -3)}
+                : new BlockPos[]{BlockPos.ZERO}) {
+            Lightning.command(level, Vec3.atLowerCornerOf(target.offset(offset)), input);
+        }
     }
 
     /** 掌心雷、地滚雷：在视线 3 格处（向上找空位，最多 3 格）生成；地滚雷无重力。生成时不转向，地滚雷的前进方向就是随机朝向。 */

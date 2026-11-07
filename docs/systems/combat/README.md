@@ -2,7 +2,7 @@
 topic: combat
 role: entry
 status: current
-updated: 2026-11-04
+updated: 2026-11-07
 ---
 
 # 战斗
@@ -22,6 +22,7 @@ updated: 2026-11-04
 
 | 操作 | 形式 | 调用者（来源中的读写点） |
 | --- | --- | --- |
+| 共享范围落雷 | `Lightning.command(level, 原坐标, 完整命令文本)`；命令 `/lightninglanding <攻击量> <攻击者UUID> <倍率> <队伍占位> <范围直径> <颜色> [独立]`；同步颜色的原生闪电负责显示，范围内的 Mob/Player 经 `/shanghai` 结算雷伤 | skill 的天雷术、五雷轰顶、控雷阵与 xiulian 的雷劫；队伍词只占位，缺失时按来源空白分词前移 |
 | 造成灵力或神识伤害 | 其他系统经 `SpellDamage.deal(level, 受击者, 类别, 攻击者, 是否固定, 基础量, 倍率)`（`dealRounded` 先把基础量与倍率取整，对应来源用 `DecimalFormat("0")` 格式化的调用）；本系统内 `Shanghai.deal(ServerLevel, 受击者, Request(类别, 攻击者UUID或空, 是否固定, 基础量, 倍率))`；命令 `/shanghai <类别> <攻击者UUID或无> <true或false> <基础量> <倍率>`（无权限要求，对命令执行者生效） | 技能、符箓、妖兽、法宝、蛊虫、异火、装备等的 209 处命令调用；本系统的护甲与武器附魔、毒药 |
 | 附魔等级 | `Enchants.level / mainHand / slot / armorSum / armorSquares`，附魔按路径名取键 `Enchants.key("dodge")` | 本系统的伤害过程；attribute 的显示值按等级线性折入（自行读取物品） |
 | 状态效果查询与施加 | `StatusEffects.amplifier / has / remove / add / holder`，效果按路径名（如 `effect_036`）指定 | 全部读取或施加状态效果的系统（creature 约 280 处、skill、fulu、equipment、liandan 等） |
@@ -35,3 +36,5 @@ updated: 2026-11-04
 
 
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
+
+共享落雷验证（2026-11-07）：仅一次 `-PsmokeOnly=lightning`，四项中三项通过并 `DONE`，范围雷伤、红色同步/渲染器及控雷阵命令均走真实世界路径。两个技能入口的合并断言失败，检查辅助方法连续选同槽导致第二次取消；已在选择前清空并编译，未重跑，不能记为两个入口实机通过。截图早于有效画面，完整视觉待核。build（含 ArchUnit）通过，专用服务器启动、全部世界保存及正常退出通过，ERROR 0，实体导出为 63 个。完整 xiulian 雷劫未执行。

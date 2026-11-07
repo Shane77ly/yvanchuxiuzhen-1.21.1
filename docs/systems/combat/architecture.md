@@ -2,7 +2,7 @@
 topic: combat
 role: architecture
 status: current
-updated: 2026-11-04
+updated: 2026-11-07
 ---
 
 # 战斗：架构调查与提案
@@ -32,6 +32,14 @@ updated: 2026-11-04
 以上来自全量键接收者索引和实际源码复核，仍不排除运行时脚本的动态键操作。`/shanghai` 直接以命令参数输入，不能自动视为所有实体伤害键的统一消费者。保真验收需要分别覆盖命令路径、原生攻击和这些未闭合路径。
 
 ## 目标所有权与接口提案
+
+### 共享落雷（2026-11-07）
+
+`B:LightningLandingCommand` 无权限限制、允许无参数并返回 0；`LightningLandingGo` 先生成彩色闪电，再以命令原坐标为中心、范围直径除二扩展 AABB，按距离排序，对 Mob/Player 执行 `shanghai 雷`。颜色支持灰、黄、金、红、血、绿、天蓝、海蓝、紫、黑，其余为白，均为不透明 ARGB。独立伤害只在第七个参数为“独立”时开启。队伍词只占位，空词前移结果见 Q55；不改写来源参数语义。
+
+`ColoredLightningBolt`、`LightningLanding` 与 `Lightning.command` 承担共享落雷，命令与彩色闪电归 combat。实体坐标取原坐标向下取整后的底部中心，设置 `visualOnly=true` 与原生 damage=0.1；雷伤另经 `/shanghai`。保留原生闪电生命周期、声音及避雷针/铜交互，注册为不保存、零尺寸、追踪范围 16、最大更新间隔。客户端复用精确目标 NeoForge 21.1.265 的 `LightningBoltRenderer` 几何，通过 `VertexConsumerWrapper` 替换同步颜色与 alpha；未另写客户端玩法。技能只提供落点与次数；xiulian 雷劫完整流程仍未迁移。
+
+来源实体在自身 `Register` 嵌套类注册，`B:YvanchuxitongMod.java:61` 实际挂接事件总线；此前提取器仅扫 init 而漏记。已补齐注册、人工归属与类覆盖表，来源注册总数为 4939，来源文件指纹未变。
 
 敌友判定调用 relation 的查询。伤害入口明确攻击者、受击者、来源、类别、基础量及来源效果。把免伤/目标过滤、伤害变换、实际承伤后的效果分到目标事件对应阶段；禁止同时在入口和事件中重复计算同一份伤害。
 

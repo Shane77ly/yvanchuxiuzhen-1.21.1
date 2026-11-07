@@ -64,13 +64,20 @@ def main():
     for row in read('element_files'):
         file_owners[(row['source_mod'],row['generated_file'])].add(element_map[(row['source_mod'],row['element'])]['proposed_owner'])
     classes=[];class_map={}
+    class_reviews={(r['source_mod'],r['class']):r for r in read('class_ownership_overrides')}
     for row in read('java_files'):
         owners=file_owners[(row['source_mod'],row['source_file'])]
         if not owners:owners={'panel' if '/client/' in row['source_file'] or '/entity/model/' in row['source_file'] else 'platform'}
         row={k:row[k] for k in ('source_mod','class','source_file','package_area')}
         row['proposed_owner']=' / '.join(sorted(owners))
         row['basis']='source_element_metadata' if file_owners[(row['source_mod'],row['source_file'])] else 'infrastructure_package_review'
+        review=class_reviews.get((row['source_mod'],row['class']))
+        if review:
+            row['proposed_owner']=review['owner']
+            row['basis']='manual_class_review'
         classes.append(row);class_map[(row['source_mod'],row['class'])]=row
+    if set(class_reviews)-set(class_map):
+        raise ValueError(f'人工类归属中存在来源没有的类：{sorted(set(class_reviews)-set(class_map))}')
     dependencies=defaultdict(list)
     for row in read('method_calls'):
         a=class_map[(row['source_mod'],row['class'])]['proposed_owner']

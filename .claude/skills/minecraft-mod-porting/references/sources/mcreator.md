@@ -15,6 +15,7 @@
 - 声音可以通过 Map 与 ResourceLocation 注册；只读取 RegistryObject 字段会漏项。
 - Java 类数与注册数不一定一致，不能把全部类等同于可运行内容。
 - 不能按“已知的 `init` 类名后缀”枚举注册类：GeckoLib 盔甲由独立的 `<前缀>ModGeckoLibArmors` 登记（用自己的 `DeferredRegister`，不在 `ModItems`），属性与游戏规则也各有 `ModAttributes`、`ModGameRules`。登记索引应扫描 `init` 下全部含 `register(` 的类，并与全部 `RegistryObject` 声明对账。
+- 手写实体还可能在自身嵌套类声明 `DeferredRegister` 和 `RegistryObject`，再由 Mod 主入口把该注册器接到事件总线。已在本范围的 Forge 40.1.0 工程核实这一结构；注册扫描要覆盖 `init` 外声明，并分别确认主入口绑定、生成者与客户端渲染登记，不能因缺少编辑器元素而漏记。
 - 属性、游戏规则、画、创造栏、物品扩展（燃料、堆肥）等元素没有自己的生成类，内容写在共用的 `init/<前缀>Mod<类型>.java` 中；按生成文件把注册对回元素会漏掉它们，要改用元素定义里的注册名。
 - 编辑器元素的触发属性（如 `onRightClicked`、`onTickUpdate`、`onBonemealSuccess`）以过程名指向 `procedures/<名>Procedure.java`；元素间共用的过程（同一模板的门、作物、种植）常以首个元素命名，按名称分组前先去掉元素名。实体定义里的声音字段与 GeckoLib 动画里的声音关键帧也会引用声音，确认“没有播放者”前要一并检查。
 
