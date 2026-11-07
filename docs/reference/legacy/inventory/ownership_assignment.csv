@@ -6397,8 +6397,8 @@ yvanchuxitong,Baoxiang0102,procedure,~/baoxiang,treasure,候选,第一版批量�
 yvanchuxitong,Linshiceshiliandan,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,BaoxiangsetGo,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Baoxiangset,command,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BaoxiangChengpin,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Lianqi,command,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,BaoxiangChengpin,procedure,~/baoxiang,treasure,已读,C skill依赖：LianqiCommand以权限1调用BaoxiangChengpin；奖励成品经命令坐标容器槽0生成并在原坐标掉落，装备类型/品阶/实例数值由equipment公开构造，奖励表仍归treasure
+yvanchuxitong,Lianqi,command,~/baoxiang,treasure,已读,C skill依赖：LianqiCommand以权限1调用BaoxiangChengpin；奖励成品经命令坐标容器槽0生成并在原坐标掉落，装备类型/品阶/实例数值由equipment公开构造，奖励表仍归treasure
 yvanchuxitong,FudangetGo,procedure,~/zhiling,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,FutougetGo,procedure,~/zhiling,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,EntityTick,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）

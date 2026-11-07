@@ -22,11 +22,16 @@ import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.ArmorStatEvent;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentProduct;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
+import net.yvanchuxiuzhen.system.skill.api.WeaponStatEvent;
 
-/** 四件护甲的器物数值提交加成层；Q17 的生命只计一次，攻速、移速及抗性保留原版乘基础值修饰。 */
+/** 护甲和主手的炼器数值提交加成层；Q17 的生命、物攻只计一次，其余原生修饰随物品生效。 */
 public final class EquipmentAttributes {
-    private static final Map<ServerPlayer, Contribution> PREVIOUS = new WeakHashMap<>();
+    private static final Map<ServerPlayer, Snapshot> PREVIOUS = new WeakHashMap<>();
+
+    private record Snapshot(Contribution armor, Contribution weapon) {
+    }
 
     private EquipmentAttributes() {
     }
@@ -43,10 +48,15 @@ public final class EquipmentAttributes {
             values.merge(Stat.MANA_DEF, (double) stats.spellDefense(), Double::sum);
             values.merge(Stat.SOUL_DEF, (double) stats.soulDefense(), Double::sum);
         }
-        Contribution contribution = new Contribution(Layer.BONUS, values);
-        if (!contribution.equals(PREVIOUS.put(player, contribution))) {
-            PlayerAttributes.setContribution(player, "equipment:armor", contribution);
-        }
+        Contribution armor = new Contribution(Layer.BONUS, values);
+        ItemStack held = player.getMainHandItem();
+        EquipmentStats weaponStats = held.is(tag("wuqi")) || held.is(tag("fabao"))
+                ? held.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY) : EquipmentStats.EMPTY;
+        Contribution weapon = new Contribution(Layer.BONUS, Map.of(Stat.ATTACK, (double) weaponStats.physicalAttack(),
+                Stat.MANA_ATT, (double) weaponStats.spellAttack(), Stat.SOUL_ATT, (double) weaponStats.soulAttack()));
+        Snapshot previous = PREVIOUS.put(player, new Snapshot(armor, weapon));
+        if (previous == null || !armor.equals(previous.armor())) PlayerAttributes.setContribution(player, "equipment:armor", armor);
+        if (previous == null || !weapon.equals(previous.weapon())) PlayerAttributes.setContribution(player, "equipment:weapon", weapon);
     }
 
     static void armorStat(ArmorStatEvent event) {
@@ -55,10 +65,17 @@ public final class EquipmentAttributes {
             event.add(switch (event.key()) {
                 case "attack_Def" -> stats.physicalDefense();
                 case "soul_Def" -> stats.soulDefense();
-                // 来源伤害链在法术护甲项读取 mana_Att；本批妖化防具没有写入该项。
-                case "mana_Att" -> 0;
+                // 来源伤害链的法术护甲项实际读取 mana_Att，不能替换成 mana_Def。
+                case "mana_Att" -> stats.spellAttack();
                 default -> throw new IllegalArgumentException("护甲查询项：" + event.key());
             });
+        }
+    }
+
+    static void weaponStat(WeaponStatEvent event) {
+        if (event.key().equals("lianqizong.item_level_num")) {
+            EquipmentProduct product = event.weapon().get(EquipmentData.PRODUCT.get());
+            if (product != null) event.add(product.level());
         }
     }
 

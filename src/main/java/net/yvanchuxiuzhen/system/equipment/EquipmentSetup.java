@@ -49,6 +49,7 @@ public final class EquipmentSetup {
         NeoForge.EVENT_BUS.addListener(DemonTransformation::stopped);
         NeoForge.EVENT_BUS.addListener(EquipmentAttributes::tick);
         NeoForge.EVENT_BUS.addListener(EquipmentAttributes::armorStat);
+        NeoForge.EVENT_BUS.addListener(EquipmentAttributes::weaponStat);
         NeoForge.EVENT_BUS.addListener(EquipmentAttributes::modifiers);
     }
 

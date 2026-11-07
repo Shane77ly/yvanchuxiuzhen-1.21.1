@@ -16,7 +16,7 @@ updated: 2026-11-07
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
-弓与拂尘依赖批次已于 2026-11-07 由 equipment 接回，构建与一次五项专项通过；弓保留来源 Q57 右键断链，人工标记不代表自然入口可用，详见[装备正文](../equipment/architecture.md)。妖化已接回第19号菜单按钮、四件护甲、实例属性与计时消散，规则及证据见[妖化](../equipment/architecture.md#妖化2026-11-07)。其余品阶、饰品飞行减耗、yihuo/world 依赖及完整视觉仍待完成。
+弓与拂尘依赖批次已于 2026-11-07 由 equipment 接回，构建与一次五项专项通过；弓保留来源 Q57 右键断链，人工标记不代表自然入口可用，详见[装备正文](../equipment/architecture.md)。妖化已接回第19号菜单按钮、四件护甲、实例属性与计时消散，规则及证据见[妖化](../equipment/architecture.md#妖化2026-11-07)。品阶已通过宝箱成品生产者与 equipment 监听接入格挡（见[成品](../equipment/architecture.md#宝箱成品与品阶2026-11-07)）；饰品飞行减耗、yihuo/world 依赖及完整视觉仍待完成。
 
 ## 公开操作
 
@@ -41,7 +41,7 @@ updated: 2026-11-07
 | 开启虚空裂隙 | `openVoidRift(玩家)`：境界含修正达到 31 时关闭菜单，在视线五格处生成裂隙 | 技能界面虚空按钮（阶段 5） |
 | 显示伤害范围 | `showDamageArea(施放者, 坐标, 动画, 技能名, 持续刻数, 攻击量)`；普通提示的技能名为空，控雷阵与惊蛰闻雷按自身计时 | creature 的蓄力、控雷阵与惊蛰闻雷（生成者随 creature，控雷阵已调用 combat 共享落雷命令） |
 | 元婴出窍/归窍 | `toggleYuanying(玩家)`：达到元婴期时扣神识并出窍，再次调用或神识不足时归窍 | 技能界面出窍按钮（阶段 5） |
-| 武器数值 | 事件 `WeaponStatEvent(武器, 键)`，监听者 `add` | lianqi、equipment 提供武器的 `mana_Att` 与格挡所用 `lianqizong.item_level_num`；品阶监听尚未接入 |
+| 武器数值 | 事件 `WeaponStatEvent(武器, 键)`，监听者 `add` | equipment 已提供成品的 `lianqizong.item_level_num`；根字段 `mana_Att` 的真实生产者仍待对应系统，不使用嵌套炼器法攻替代 |
 | 研习附赠 | 监听 gongfa 的 `TechniqueStudiedEvent`，“行尸御火”“真言吒雷诀”各附赠一本技能书 | gongfa（事件） |
 
 约定：技能书的技能名与灵根要求首字决定施放过程（`SkillReleases`，对应来源 `Jinenglist01`）；施放扣灵力、累加冷却、进入战斗状态（`FightingState`）；伤害经 combat 的 `Shanghai.deal`；敌友经 relation。

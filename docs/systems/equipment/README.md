@@ -18,6 +18,8 @@ updated: 2026-11-07
 
 ## 公开操作
 
+成品生成契约已接入：`Equipment.createProduct(注册表, 参数表)` 构造单件成品，`Equipment.product(物品)` 查询类型化品阶、说明、原料数值及附魔记录；装备实例由本系统唯一写入。treasure 负责 `/lianqi` 的权限、坐标容器与掉落，依赖方向为 treasure → equipment。主手三攻击按 `wuqi/fabao` 标签提交 attribute；只为 `WeaponStatEvent` 的品阶查询提供值，根字段法攻不以炼器法攻替代。末次成品专项六项全部符合并 DONE，规则和证据见[宝箱成品与品阶](architecture.md#宝箱成品与品阶2026-11-07)。
+
 弓与拂尘的选中推进、挥动和隐藏弹体物品的使用由本系统接收。妖化批次使用类型化 `EquipmentStats` 组件保存四件防具的来源数值，向 attribute 的加成层提交六项属性；监听 combat 的 `ArmorStatEvent` 查询防御，监听 skill 的 `DemonTransformationEvent` 执行变身。后续完整装备实例、饰品槽位与本命培养仍未实现，不能据本批标记整个系统完成。
 
 妖化对照 `typed_field_accesses.csv` 的 `Jinengyaohua`、四个 `Yaohuabuwei` 过程与 `Yaohua`：`LEVELnumber` 和五个体质标记通过 `Cultivation.get/tizhiBoolean` 查询，冷却只通过 `Cultivation.tizhiDouble/setTizhiDouble` 读写；xiulian 已有每秒递减入口。物品数值、头盔计时与装备贡献由本系统唯一写入；服务端搬移背包和护甲，客户端只显示。来源没有自动穿回旧防具，旧防具移入背包；结束依次清空当前护甲槽。

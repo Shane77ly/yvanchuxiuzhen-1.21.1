@@ -38,7 +38,9 @@ equipment 弓与拂尘依赖批次（2026-11-07，提交 `26c461e`）：18 把�
 
 equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提交以 `git log -1` 为准）：第19号按钮通过 `DemonTransformationEvent` 请求 equipment，四件动画护甲、实例六项数值及三项倍率、旧甲入背包、头盔保存与佩戴计时、分刻清槽均已接回，沿用 xiulian 的120秒冷却递减。Q58保持来源41格空位统计、没有额外境界门槛、不自动穿回及延迟清空当前槽；Q17生命只计入统一贡献一次。首次客户端在动画字段严格校验处中断，字段契约修正后 build/ArchUnit通过；仅一次进入世界的 `-PsmokeOnly=demon` 四项全部符合并DONE，客户端正常保存退出、ERROR 0。专用服务器一次到Done并原生stop正常保存退出、ERROR 0，物品导出2068个。截图已查看，模型可见；完整视觉、多人、死亡/重登和两版本实机对照未执行。证据在 `tmp/demon-{build,smoke,server}.log`、`tmp/demon-smoke-startup-failure.log`、`tmp/demon-report.txt`、`tmp/demon-check-compile.log` 与 `build/smoke/screenshots/equipment-demon-armor.png`。
 
-下一步先沿已取得的 CodeGraph 入口与实际来源核对品阶/`mana_Att` 的生产者（大部分为炼器，不能补恒零监听），再做四饰品槽的自然穿戴入口与飞行减耗。饰品自然入口在 `PlayerGUI03` 玩家面板，`GUIshipintai` 是制作台；须同时迁移槽位保存与关闭回写。其后接 yihuo 的炙烤/丹火与 world 正式维度，继续视觉收口；本批不重跑已通过的旧神通，skill仍未完成，不合main。
+成品生产与品阶已接回（2026-11-07，前一提交`0e2da02`，本批以`git log -1`为准），规则见[装备](../systems/equipment/architecture.md#宝箱成品与品阶2026-11-07)。`/lianqi` 实为 treasure 的容器奖励入口，equipment 构造类型化实例并把品阶提交格挡；Q59 保持嵌套炼器法攻与根法攻的区别，根值生产者主要为灵兽袋、蛊罐与部分法宝，不能补恒零监听或用炼器法攻替代。末次build/ArchUnit与成品专项六项全部符合并DONE；专用服务器一次正常启动/原生stop保存退出，客户端和专服ERROR0。初次专项六项已通过，复核补齐独立护甲整数后只再次验证本批组件，未重跑旧神通；服务器是在该补齐前运行。证据在`tmp/equipment-product-{build,smoke,server}.log`、`tmp/equipment-product-final-{build,smoke}.log`和`tmp/equipment-product-report.txt`。
+
+下一步做四饰品槽的自然穿戴入口与飞行减耗。自然入口在 `PlayerGUI03` 玩家面板，`GUIshipintai` 是制作台；须同时迁移槽位保存与关闭回写。已读来源中槽2要求手饰标签却存入腰带字段，槽3要求腰带标签却存入手饰字段，实施时登记并保留来源，不静默交换；开界面首tick初始化、关闭才回写的生命周期不能省略。其后接 yihuo 的炙烤/丹火与 world 正式维度，继续视觉收口；本批不重跑已通过的旧神通，skill仍未完成，不合main。
 
 **下次开工的第一步**（先于下面的条目）：
 - `git status` 应干净，位于 `port/c-skill`（唯一未跟踪项 `.eclipse/` 是 IDE 的启动配置，不属于本项目提交）。

@@ -5,6 +5,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
 import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
 
@@ -14,6 +15,7 @@ public final class EquipmentClientSetup {
     }
 
     public static void register(IEventBus modBus) {
+        NeoForge.EVENT_BUS.addListener(EquipmentTooltip::tooltip);
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
                 event.registerEntityRenderer(EquipmentSetup.fuchenType().get(), ThrownItemRenderer::new));
         modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {

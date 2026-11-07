@@ -191,7 +191,7 @@ G 键技能界面、轮盘、HUD 与 C 键已在阶段 5 接入，见下节；�
 
 `SkillMenus` 注册来源 `jineng_gui`，`SkillMenu` 没有物品槽；G 键只请求服务端打开本人菜单。`SkillScreen` 使用原生菜单屏幕、来源 500×500 布局和贴图，按钮经 `handleInventoryButtonClick` 发送。目标 21.1.265 的 `ServerGamePacketListenerImpl.handleContainerButtonClick` 验证当前容器 ID、非旁观者及 `stillValid`，再由 `SkillMenu.clickMenuButton` 分派：0–3 四技能，4/5 翻页，6–16 十一箭种，17 连招，18 虚空，19 妖化，20 自爆，21 出窍，22 扫描，23 丹火。妖化请求由 equipment 监听并执行装备生命周期。名称与五行底图只显示本人研习的书；底图取最先达到一秒冷却的五行分组，阴阳不着色。来源数值 6 的背景没有写入者（Q52）。
 
-`SkillGuard` 保留来源 `Canjian` 的按下/松开：冷却未大于零时，主手品阶除二加 20；副手在 `dunpai` 标签中时用两手品阶之和除二加 21，冷却设为 20 刻。松开把显示计时清零，每刻分别递减计时和冷却。真值仍在玩家实体的 `canjianjishi`、`canjianjishicolddown` 持久数据，不改变来源克隆策略；`skill_guard` 附件只把显示值同步给本人。品阶经已有 `WeaponStatEvent` 查询 `lianqizong.item_level_num`；lianqi/equipment 尚无该监听者，当前为零。`Gedang` 实体保留模型、无重力与八刻移除，但来源没有生成者，C 键也不生成它；格挡计时没有任何伤害消费者，不增设减伤。
+`SkillGuard` 保留来源 `Canjian` 的按下/松开：冷却未大于零时，主手品阶除二加 20；副手在 `dunpai` 标签中时用两手品阶之和除二加 21，冷却设为 20 刻。松开把显示计时清零，每刻分别递减计时和冷却。真值仍在玩家实体的 `canjianjishi`、`canjianjishicolddown` 持久数据，不改变来源克隆策略；`skill_guard` 附件只把显示值同步给本人。品阶经已有 `WeaponStatEvent` 查询 `lianqizong.item_level_num`，equipment 已接入[成品生产与品阶监听](../equipment/architecture.md#宝箱成品与品阶2026-11-07)。`Gedang` 实体保留模型、无重力与八刻移除，但来源没有生成者，C 键也不生成它；格挡计时没有任何伤害消费者，不增设减伤。
 
 `SkillMenuActions` 的所有条件、扣费和物品产出在服务端执行。丹火要求含修正境界至少 11，消耗未修正境界编号的两倍灵力；给出的 `danhuo` 物品在 `DataComponents.CUSTOM_DATA` 中保存 `power` 和 `ManaAttackUUID`，供后续 yihuo 的放置、火力合并及火焰方块流程读取。当前只迁移召唤，物品台账仍为“已注册”。扫描同样要求含修正境界至少 11，消耗未修正境界编号两倍的神识并关闭菜单；来源的定时扫描在服务端调用空的 `Level.addParticle`，无可见粒子或其他扫描效果（Q52），不补造新功能。
 
