@@ -17,6 +17,7 @@
 - 目标版本可能改变资源和数据包目录名。按目标版本原版数据的实际目录放置，并在项目内保持一致；不机械照搬来源路径。
 - 状态效果图标不能只搬入编辑器指定的原图。已核对 NeoForge 21.1.265 的 `MobEffectTextureManager.get` 按效果注册键读取 sprite，原版 `atlases/mob_effects.json` 扫描 `textures/mob_effect`；应复制来源实际按注册 ID 命名的图标，目标 ID 改名时同步改文件名。
 - 实体类型清单区分本体、形态、弹体和纯视觉实体，不把实体类型总数当作生物种数。
+- MCreator 1.18.2 箭类弹体逐类核对实际注册的渲染器及 `ItemSupplier.getItem()`，不按弹体 ID 推导显示物品；来源可能返回空栈、其他材料物品或使用独立 Java 模型。模型的 `setupAnim` 只有在实际渲染链调用时才生效，不因方法存在而补入调用。已对照来源原生模型渲染器及 NeoForge 21.1.265 的 `EntityRenderer`、`ThrownItemRenderer`、`ModelPart`；几何、部件姿态、纹理坐标、旋转顺序、渲染层和颜色分别保持来源语义。
 
 ## 粒子
 

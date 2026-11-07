@@ -7,6 +7,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -15,9 +16,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -58,7 +61,7 @@ public final class ElementProjectiles {
     }
 
     public static void register(ContentTables tables) {
-        SKILLS.forEach((id, skill) -> tables.<SkillProjectile>entity(id, (type, level) -> new SkillProjectile(type, level, skill)));
+        SKILLS.forEach((id, skill) -> tables.<SkillProjectile>entity(id, (type, level) -> new SkillProjectile(type, level, skill, icon(id))));
         release("金", "projectile_skill_gold_01", 0, 5, "金芒术", "碎裂金芒");
         release("金", "projectile_skill_gold_03", 0, 0, "捆妖轮", "金弧轮", "天堑金轮");
         release("水", "projectile_skill_water_03", 1, 0, "水球术");
@@ -91,6 +94,16 @@ public final class ElementProjectiles {
         }, "生命感知");
         SkillReleases.register("土", (caster, book) -> ProjectileSupport.shootFromEyes((ServerLevel) caster.level(), caster, "projectile_skill_rock_01",
                 book.manaAttack(), 1, 0), "飞石术");
+    }
+
+    /** 来源 ItemSupplier 的实际显示物品；专用模型及两种纯粒子弹体返回空栈。 */
+    private static ItemStack icon(String id) {
+        return switch (id) {
+            case "projectile_skill_ice_01", "projectile_skill_ice_02", "projectile_skill_ice_03",
+                    "projectile_lingwentexiao", "projectile_skill_gold_03", "projectile_skill_water_0101" -> ItemStack.EMPTY;
+            case "projectile_skill_tree_01" -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "cailiao_087")));
+            default -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, id.substring("projectile_".length()))));
+        };
     }
 
     /** 施放：从眼睛下 0.1 格朝视线发射一枚基础伤害 0.1 的弹体（来源 {@code Jinenglist01}）。 */
@@ -170,7 +183,7 @@ public final class ElementProjectiles {
         }
 
         @Override
-        public void hitBlock(SkillProjectile projectile, BlockHitResult hit, Entity owner) {
+        public void hitBlock(SkillProjectile projectile, BlockHitResult hit) {
             burst(projectile, ParticleTypes.SPLASH, 10, 0, 0.5, 0);
             ProjectileSupport.burst(projectile, "smallexplosionblue");
         }
@@ -222,7 +235,7 @@ public final class ElementProjectiles {
         }
 
         @Override
-        public void hitBlock(SkillProjectile projectile, BlockHitResult hit, Entity owner) {
+        public void hitBlock(SkillProjectile projectile, BlockHitResult hit) {
             burst(projectile, ParticleTypes.SPLASH, 10, 0, 0.5, 0);
             ProjectileSupport.burst(projectile, "smallexplosionlightblue");
         }
@@ -274,7 +287,7 @@ public final class ElementProjectiles {
         }
 
         @Override
-        public void hitBlock(SkillProjectile projectile, BlockHitResult hit, Entity owner) {
+        public void hitBlock(SkillProjectile projectile, BlockHitResult hit) {
             ProjectileSupport.breakEffect((ServerLevel) projectile.level(), projectile.position(), Blocks.ICE.defaultBlockState());
         }
     }
@@ -313,7 +326,11 @@ public final class ElementProjectiles {
         }
 
         @Override
-        public void hitBlock(SkillProjectile projectile, BlockHitResult hit, Entity owner) {
+        public void hitBlock(SkillProjectile projectile, BlockHitResult hit) {
+            Entity owner = projectile.getOwner();
+            if (owner == null) {
+                return;
+            }
             ServerLevel level = (ServerLevel) projectile.level();
             ProjectileSupport.breakEffect(level, projectile.position(), Blocks.ICE.defaultBlockState());
             scatter(level, owner, projectile.position());
@@ -353,7 +370,7 @@ public final class ElementProjectiles {
         }
 
         @Override
-        public void hitBlock(SkillProjectile projectile, BlockHitResult hit, Entity owner) {
+        public void hitBlock(SkillProjectile projectile, BlockHitResult hit) {
             ProjectileSupport.breakEffect((ServerLevel) projectile.level(), projectile.position(), Blocks.ICE.defaultBlockState());
         }
     }
@@ -409,7 +426,7 @@ public final class ElementProjectiles {
         }
 
         @Override
-        public void hitBlock(SkillProjectile projectile, BlockHitResult hit, Entity owner) {
+        public void hitBlock(SkillProjectile projectile, BlockHitResult hit) {
             burst(projectile, ParticleTypes.CLOUD, 5, 0, 0.1, 0);
         }
     }
@@ -446,7 +463,7 @@ public final class ElementProjectiles {
         }
 
         @Override
-        public void hitBlock(SkillProjectile projectile, BlockHitResult hit, Entity owner) {
+        public void hitBlock(SkillProjectile projectile, BlockHitResult hit) {
             burst(projectile, ParticleTypes.FLAME, 10, 0, 0.4, 0);
         }
     }
@@ -486,7 +503,7 @@ public final class ElementProjectiles {
         }
 
         @Override
-        public void hitBlock(SkillProjectile projectile, BlockHitResult hit, Entity owner) {
+        public void hitBlock(SkillProjectile projectile, BlockHitResult hit) {
             burst(projectile, ParticleTypes.FLASH, 1, 0, 0, 0);
         }
     }
@@ -532,7 +549,7 @@ public final class ElementProjectiles {
         }
 
         @Override
-        public void hitBlock(SkillProjectile projectile, BlockHitResult hit, Entity owner) {
+        public void hitBlock(SkillProjectile projectile, BlockHitResult hit) {
             ProjectileSupport.breakEffect((ServerLevel) projectile.level(), projectile.position(), Blocks.STONE.defaultBlockState());
             projectile.discard();
         }

@@ -60,7 +60,7 @@ updated: 2026-11-08
 
 阶段 2 的实现要点：
 
-- `SkillProjectile` 继承 `AbstractArrow`，基础伤害 0.1（发射时可改）、无拾取；1.21.1 的箭没有击退与穿透的设置方法，覆盖 `doKnockback`、`getPierceLevel`；计时、攻击量、倍率、技能名、转角、方向在实体字段上（来源放在 `getPersistentData`）；停在方块里时消失；行为只在服务端、有发射者时调用。内容表用 `ContentTables.entity` 登记，工厂带 `ProjectileSkill`。
+- `SkillProjectile` 继承 `AbstractArrow`，基础伤害 0.1（发射时可改）、无拾取；1.21.1 的箭没有击退与穿透的设置方法，覆盖 `doKnockback`、`getPierceLevel`；计时、攻击量、倍率、技能名、转角、方向在实体字段上（来源放在 `getPersistentData`）；停在方块里时消失；行为只在服务端调用，飞行和实体命中要求发射者，方块命中的发射者条件按具体过程保留（见下文弹体落地复核）。内容表用 `ContentTables.entity` 登记，工厂带 `ProjectileSkill`。
 - 命中取值有两种：多数在第一刻记下发射者所选技能的攻击量与倍率；金芒术在命中时现读发射者当前所选技能（连招换技能后会变）。发射者不是玩家时攻击量取其 `LEVELnumber`。
 - 敌友的判定方总是发射者（`Friendpanding*` 六个变体只是参数次序）；伤害经 combat 的 `SpellDamage`。
 - Q40 记录拈花飞叶的取值键错误等；飞羽冰花沿侧向圆弧飞行（每刻转 20 度，计时每刻加两次），正前方的目标打不到。
@@ -350,3 +350,17 @@ Q54：`SkillGold0201DangSiWangShiJianDaoShiProcedure` 中虽有黄色破碎粒�
 验证：build compileSmokeJava及ArchUnit通过。已有skillparticle场景只补三项真实保存/命中Bug回归，共五项全部通过，覆盖原生实体保存重读、飞羽冰花下一刻从3推进至5且角度45减至25，以及共用火球真实命中不留插箭。首轮同时运行已有skillarrow，十一项通过、箭雨一项失败；报告DONE、四世界保存退出、ERROR/FATAL0。只给原箭雨断言增加诊断后复跑，实际剩17支，主箭已命中、模式为箭雨、服务端经过12刻；退出阶段另有两条ClosedChannelException错误，四世界仍保存完成。读取该失败存档确认场地上方Y=76–86处存在155个橡树叶和4个原木：通用场地只清空脚上7格，而箭雨生成在命中点上方16格，存活数检查受未清理树冠干扰。
 
 仅将SkillArrowCheck本场景的清空高度延长到脚上18格，保留20支、主人和非递归断言；最终只运行skillarrow，十二项全部通过、实测箭雨20支、DONE、四世界保存并正常退出、ERROR/FATAL0。没有新增Test类或选择器，没有重跑整套skill。三次FML配置都finally按原字节恢复，SHA256相同。首轮、诊断和最终结果分别在tmp/projectile-state-{first,arrow,final}-{client.log,report.txt,config-restore.log}，场地证据tmp/projectile-state-rain-world-audit.log，构建tmp/projectile-state-build.log。未运行专用服务器，未逐类实机验证全部弹体；完整视觉、多人、1.18.2版本实机和两版本对照未执行，skill仍未完成。
+
+## 弹体落地条件与原生模型复核（2026-11-08）
+
+按16个非技能箭弹体的实际实体类、显示物品与渲染注册逐类核对，完整读取本批九个落地方块过程。火球、水球、水灵弹、冰锥、冰花、定魄神光、飞石与风弹的方块命中过程只接收弹体，不要求主人；目标此前被共用入口的主人条件提前拦截。现由服务端直接分派方块命中，冰矛与十种技能箭在各自过程内保留来源的主人条件，飞行和实体命中的主人条件继续保留。冰矛无主人时不破冰、不散射六枚冰锥。
+
+来源将Ice01、Ice02、Ice03与Lingwentexiao注册为独立Java模型渲染器，其余十二类使用ThrownItemRenderer。现接回四个原生模型与对应textures/entities贴图，四个几何方法的全部表达式、部件层级、姿态及UV逐项机械比对一致，立方体数分别为3、9、91、1，纹理与来源逐字节一致。SkillProjectileRenderer由原技能箭渲染器复用，保持偏航减90度、俯仰加90度的旋转顺序、entityCutout、NO_OVERLAY和来源1/16透明度；技能箭原有几何继续由SkillArrowModels提供。冰花setupAnim虽设置zong.xRot，但来源渲染器只调用renderToBuffer，故未补入动画调用。
+
+SkillProjectile的显示物品由各注册工厂按来源提供：三种冰弹、灵纹弹、金轮与水灵阵水弹返回空栈；飞叶返回cailiao_087；其余九类使用本体物品。十种技能箭显式传空栈，去掉仅覆写空栈的内部Arrow子类。原生箭内部保存所需的默认物品与实际拾取规则沿用此前实现。system_assets.csv登记四张贴图，convert_assets.py通过并仅在manifest增加四行；转换仍报来源已登记的空纹理和fabao021/022缺失，没有新增缺失。
+
+静态证据为tmp/projectile-lifecycle-source-audit.log、tmp/projectile-lifecycle-differences.log及tmp/projectile-lifecycle-model-audit.log。前两者收集16个完整实体类及39个实际绑定过程；39个过程尚未全部逐行复核，实际发射消费者与helper调用链继续核对，不能以已收集代替已核实完整行为。目标API依据为NeoForge21.1.265的EntityRenderer、EntityRendererProvider、ThrownItemRenderer、ModelPart、模型构建器及EntityRenderersEvent。
+
+验证：build compileSmokeJava和ArchUnit通过。沿用内置runSmokeClient的skillparticle选择器，只在已有场景加一项真实共享入口Bug回归及模型截图，没有新增Test类或选择器。首轮原五项通过、新撞墙检查失败；仅增加诊断后的同场景六项通过，水球入地并移除、自定义粒子数1，服务端经过5刻。首轮失败原因未被日志锁定，不能归咎于玩法或声称已确定为收包延迟。检查随后改为最多40个客户端刻等待粒子到达，并将原生入地标记加入必要条件；最终六项全部通过并DONE，四世界保存并正常退出，三次ERROR/FATAL均为0、开发FML配置均finally原字节还原且SHA256相同。最终截图已查看，四个模型可见；完整自然施放、多人、1.18.2版本实机及两版本对照未执行，本轮未运行专用服务器，未重跑整套skill或旧神通。
+
+首轮、诊断和最终证据分别为tmp/projectile-lifecycle-{first,diagnostic}-{client.log,report.txt,config-restore.log}与tmp/projectile-lifecycle-{client.log,report.txt,config-restore.log}；构建、转换及失败存档检查为tmp/projectile-lifecycle-{build,assets,world-audit}.log，截图build/smoke/screenshots/skill-projectile-models.png。skill仍进行中，不合main。

@@ -68,14 +68,21 @@ public final class SkillClientSetup {
         event.register(SkillMenus.SKILL.get(), SkillScreen::new);
     }
 
-    /** 元素弹体按对应物品图标渲染，技能箭用原生模型，技能动画实体用 GeckoLib。 */
+    /** 按来源分别装配物品弹体、原生模型弹体和 GeckoLib 动画实体。 */
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         for (String id : ElementProjectiles.ids()) {
-            event.registerEntityRenderer(SkillSetup.<SkillProjectile>entityType(id).get(), ThrownItemRenderer::new);
+            String model = SkillProjectileModels.MODELS.get(id);
+            if (model == null) {
+                event.registerEntityRenderer(SkillSetup.<SkillProjectile>entityType(id).get(), ThrownItemRenderer::new);
+            } else {
+                event.registerEntityRenderer(SkillSetup.<SkillProjectile>entityType(id).get(),
+                        context -> new SkillProjectileRenderer(context, model, "entities/" + model));
+            }
         }
         for (int kind = 1; kind <= 10; kind++) {
             int number = kind;
-            event.registerEntityRenderer(SkillSetup.<SkillProjectile>entityType(SkillArrows.id(kind)).get(), context -> new SkillArrowRenderer(context, number));
+            event.registerEntityRenderer(SkillSetup.<SkillProjectile>entityType(SkillArrows.id(kind)).get(), context ->
+                    new SkillProjectileRenderer(context, "skill_arrow_%02d".formatted(number), "entity/skillarrow%02d01".formatted(number)));
         }
         for (EntityModelRow row : SkillEntities.models().values()) {
             registerAnimated(event, row);
@@ -83,9 +90,12 @@ public final class SkillClientSetup {
     }
 
     private static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        for (String model : SkillProjectileModels.MODELS.values()) {
+            event.registerLayerDefinition(SkillProjectileRenderer.layer(model), () -> SkillProjectileModels.layer(model));
+        }
         for (int kind = 1; kind <= 10; kind++) {
             int number = kind;
-            event.registerLayerDefinition(SkillArrowRenderer.layer(kind), () -> SkillArrowModels.layer(number));
+            event.registerLayerDefinition(SkillProjectileRenderer.layer("skill_arrow_%02d".formatted(kind)), () -> SkillArrowModels.layer(number));
         }
     }
 

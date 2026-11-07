@@ -7870,6 +7870,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/gedang
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/jieyvn02.png,9ea295db6894b31c9d91a345daef613ec55092d3,src/main/resources/assets/yvanchuxiuzhen/textures/entities/jieyvn02.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/jinengchuqiaoentity.png,905dcb7b42295aad408856507513e695ac85d76c,src/main/resources/assets/yvanchuxiuzhen/textures/entities/jinengchuqiaoentity.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/kong.png,925e2658c997da021b7b8ae6e02a1b78290c1697,src/main/resources/assets/yvanchuxiuzhen/textures/entities/kong.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/lingwen.png,710ebd1ecd477ac5b6a7d16dd990f55d5ef6b440,src/main/resources/assets/yvanchuxiuzhen/textures/entities/lingwen.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/lingwen2.png,f4677374d4fd9b79b6549677939c4437135b9afc,src/main/resources/assets/yvanchuxiuzhen/textures/entities/lingwen2.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/murenzhuang.png,1cb566d15e3788037451d556841749598b430cba,src/main/resources/assets/yvanchuxiuzhen/textures/entities/murenzhuang.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/shanghaifanwei.png,2d146d3d9a482853db8c707f9907aa61913464d8,src/main/resources/assets/yvanchuxiuzhen/textures/entities/shanghaifanwei.png
@@ -7878,6 +7879,9 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillf
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillfire07.png,b811bf125475ea560dcb96ae0a3e0bc4a8606ce1,src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillfire07.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillfire08.png,2835a5084b5c0a15ca1598cb459ab3813b269748,src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillfire08.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillgold02.png,7316da639e260f42201712323c7ddffb54a4b330,src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillgold02.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillice01.png,01b7fb19c17158609ba2c05affdd787071ae11a5,src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillice01.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillice02.png,9a6e11e4bcc520b8d52298d74dbc82e6db51f91d,src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillice02.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillice03.png,2990636b93351ee9af4bbcd52a51ca3ca7968c22,src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillice03.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillice04.png,daa56d9b385155b18edefe1dfc30865bbd8fb0c7,src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillice04.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillice05.png,20505bd0ec76d61a3dc37084b07283ea2143606f,src/main/resources/assets/yvanchuxiuzhen/textures/entities/skillice05.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/skilllight03.png,0022dec86eb5a8322f5bbfc3af4bffa6bec15128,src/main/resources/assets/yvanchuxiuzhen/textures/entities/skilllight03.png

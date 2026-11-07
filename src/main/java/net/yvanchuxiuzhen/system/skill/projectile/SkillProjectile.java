@@ -1,8 +1,6 @@
 package net.yvanchuxiuzhen.system.skill.projectile;
 
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -18,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 
@@ -41,11 +38,10 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
     private boolean reversed;
     private boolean saved;
 
-    public SkillProjectile(EntityType<SkillProjectile> type, Level level, ProjectileSkill skill) {
+    public SkillProjectile(EntityType<SkillProjectile> type, Level level, ProjectileSkill skill, ItemStack icon) {
         super(type, level);
         this.skill = skill;
-        String id = BuiltInRegistries.ENTITY_TYPE.getKey(type).getPath();
-        this.icon = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, id.substring("projectile_".length()))));
+        this.icon = icon;
         setBaseDamage(0.1);
         setCritArrow(false);
         setSilent(true);
@@ -154,9 +150,8 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
     @Override
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
-        Entity owner = getOwner();
-        if (owner != null && level() instanceof ServerLevel) {
-            skill.hitBlock(this, result, owner);
+        if (level() instanceof ServerLevel) {
+            skill.hitBlock(this, result);
         }
     }
 

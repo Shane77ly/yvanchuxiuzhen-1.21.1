@@ -14,19 +14,19 @@ import net.minecraft.util.Mth;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
 
-/** 技能箭的原生模型渲染：沿箭的偏航与俯仰旋转，保留来源的 1/16 透明度。 */
-final class SkillArrowRenderer extends EntityRenderer<SkillProjectile> {
+/** 技能弹体与技能箭的原生模型渲染：沿弹体的偏航与俯仰旋转，保留来源的 1/16 透明度。 */
+final class SkillProjectileRenderer extends EntityRenderer<SkillProjectile> {
     private final ResourceLocation texture;
     private final ModelPart model;
 
-    SkillArrowRenderer(EntityRendererProvider.Context context, int kind) {
+    SkillProjectileRenderer(EntityRendererProvider.Context context, String modelId, String texturePath) {
         super(context);
-        model = context.bakeLayer(layer(kind));
-        texture = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "textures/entity/skillarrow%02d01.png".formatted(kind));
+        model = context.bakeLayer(layer(modelId));
+        texture = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "textures/" + texturePath + ".png");
     }
 
-    static ModelLayerLocation layer(int kind) {
-        return new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "skill_arrow_%02d".formatted(kind)), "main");
+    static ModelLayerLocation layer(String modelId) {
+        return new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, modelId), "main");
     }
 
     @Override

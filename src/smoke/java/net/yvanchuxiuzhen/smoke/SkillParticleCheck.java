@@ -1,22 +1,27 @@
 package net.yvanchuxiuzhen.smoke;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.level.block.Blocks;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 
-/** 弹体粒子广播、第02箭施放标记，以及共用弹体保存与命中箭数的针对性检查。 */
+/** 弹体粒子、保存、命中箭数与无主人落地的针对性检查，并截取来源专用模型。 */
 final class SkillParticleCheck extends SystemCheck {
     private final Consumer<String> shot;
     private SkillProjectile spirit;
     private SkillProjectile gold;
     private SkillProjectile fire;
     private IronGolem target;
+    private SkillProjectile ownerless;
+    private final List<SkillProjectile> models = new ArrayList<>();
     private long launchedAt;
     private int before;
 
@@ -50,13 +55,53 @@ final class SkillParticleCheck extends SystemCheck {
             });
             return true;
         }
-        if (local < 8) {
+        if (step == 2) {
+            if (local < 40 || libraryParticles() > 0) {
+                return false;
+            }
+            onServer(player -> {
+                ownerless = SkillSetup.<SkillProjectile>entityType("projectile_skill_water_03").get().create(player.serverLevel());
+                ownerless.setPos(player.position().add(0, 1.5, 5));
+                ownerless.setNoGravity(true);
+                ownerless.shoot(0, 0, 1, 1, 0);
+                player.serverLevel().setBlock(BlockPos.containing(player.position().add(0, 1.5, 7)), Blocks.STONE.defaultBlockState(), 3);
+                player.serverLevel().addFreshEntity(ownerless);
+                String[] ids = {"projectile_skill_ice_01", "projectile_skill_ice_02", "projectile_skill_ice_03",
+                        "projectile_lingwentexiao", "projectile_skill_tree_01"};
+                for (int i = 0; i < ids.length; i++) {
+                    SkillProjectile model = SkillSetup.<SkillProjectile>entityType(ids[i]).get().create(player.serverLevel());
+                    model.setPos(player.position().add((i - 2) * 2, 2, 5));
+                    model.setNoGravity(true);
+                    player.serverLevel().addFreshEntity(model);
+                    models.add(model);
+                }
+                launchedAt = player.serverLevel().getGameTime();
+            });
+            return true;
+        }
+        if (local < (step == 3 ? 5 : 8)) {
             return false;
         }
         long[] serverTime = {0};
         onServer(player -> serverTime[0] = player.serverLevel().getGameTime());
-        if (serverTime[0] - launchedAt < 8) {
+        if (serverTime[0] - launchedAt < (step == 3 ? 5 : 8)) {
             return false;
+        }
+        if (step == 3) {
+            int particles = libraryParticles();
+            if (particles == 0 && local < 40) {
+                return false;
+            }
+            onServer(player -> {
+                boolean inGround = ownerless.saveWithoutId(new CompoundTag()).getBoolean("inGround");
+                expectTrue("无主人水球真实撞墙后仍广播来源落地粒子；移除=" + ownerless.isRemoved()
+                        + "，入地=" + inGround + "，位置=" + ownerless.position() + "，自定义粒子数=" + particles
+                        + "，服务端经过刻数=" + (player.serverLevel().getGameTime() - launchedAt), ownerless.isRemoved() && inGround && particles > 0);
+            });
+            shot.accept("skill-projectile-models.png");
+            onServer(player -> models.forEach(SkillProjectile::discard));
+            finish();
+            return true;
         }
         expectTrue("弹体的自定义粒子从服务端广播到真实客户端提供器", libraryParticles() > before);
         onServer(player -> {
@@ -72,7 +117,7 @@ final class SkillParticleCheck extends SystemCheck {
             fire.discard();
             target.discard();
         });
-        finish();
+        minecraft.particleEngine.iterateParticles(particle -> particle.remove());
         return true;
     }
 

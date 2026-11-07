@@ -14,14 +14,12 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
@@ -46,7 +44,7 @@ public final class SkillArrows {
     public static void register(ContentTables tables) {
         for (int kind = 1; kind <= 10; kind++) {
             int number = kind;
-            tables.<SkillProjectile>entity(id(kind), (type, level) -> new Arrow(type, level, number));
+            tables.<SkillProjectile>entity(id(kind), (type, level) -> new SkillProjectile(type, level, new Behavior(number), ItemStack.EMPTY));
         }
     }
 
@@ -60,18 +58,6 @@ public final class SkillArrows {
         Cultivation.setTizhiBoolean(owner, "arrowskill", true);
         Cultivation.setTizhiBoolean(owner, "manxvli", fullCharge);
         return arrow;
-    }
-
-    /** 技能箭不提供物品模型，拾取由命中方块过程生成物品；共用生命周期由 SkillProjectile 承担。 */
-    private static final class Arrow extends SkillProjectile {
-        private Arrow(EntityType<SkillProjectile> type, Level level, int kind) {
-            super(type, level, new Behavior(kind));
-        }
-
-        @Override
-        public ItemStack getItem() {
-            return ItemStack.EMPTY;
-        }
     }
 
     private record Behavior(int kind) implements ProjectileSkill {
@@ -281,7 +267,11 @@ public final class SkillArrows {
         }
 
         @Override
-        public void hitBlock(SkillProjectile arrow, BlockHitResult hit, Entity owner) {
+        public void hitBlock(SkillProjectile arrow, BlockHitResult hit) {
+            Entity owner = arrow.getOwner();
+            if (owner == null) {
+                return;
+            }
             switch (kind) {
                 case 2 -> ProjectileSupport.particles((ServerLevel) arrow.level(), Particles.type("xvlilizi"), arrow.position(), 10, 0, 0, 0, 1);
                 case 3 -> sound(arrow, owner);
