@@ -6,6 +6,7 @@
 - src/main/resources/data/yvanchuxiuzhen/advancement/<名>.json
 - src/main/resources/data/<yvanchuxiuzhen|minecraft>/tags/<种类>/<路径>.json
 - src/main/resources/data/yvanchuxiuzhen/enchantment/<名>.json 与附魔相关标签（convert_enchantments.py）
+- 已核对的维度、维度类型、群系与洞穴可替换标签（convert_world.py）
 - docs/reference/conversion/data_manifest.csv（来源、来源 SHA-1、目标）
 - docs/reference/conversion/data_skipped.csv（未转换的文件或条目及原因）
 
@@ -23,6 +24,7 @@ from pathlib import Path
 from build_ledger import NAMESPACE, ROOT, read_ledgers
 from convert_content import CONTENT, CONVERSION, SOURCES
 from convert_enchantments import generate as generate_enchantments
+from convert_world import generate as generate_world
 
 DATA = ROOT / 'src/main/resources/data'
 MANIFEST = CONVERSION / 'data_manifest.csv'
@@ -315,6 +317,7 @@ class Converter:
         for target in generated:
             self.write(target, self.tags[target], self.tag_origin[target])
         generate_enchantments(self)
+        generate_world(self)
         CONVERSION.mkdir(parents=True, exist_ok=True)
         with MANIFEST.open('w', encoding='utf-8', newline='') as handle:
             writer = csv.writer(handle, lineterminator='\n')

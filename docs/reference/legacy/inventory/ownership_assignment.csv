@@ -3939,8 +3939,8 @@ yvanchuxiuzhen,WenqvanKeHuDuanXianShiSuiJiKe,procedure,~/plant/ordinaryplants,pl
 yvanchuxiuzhen,WenqvanDangShengWuWanJiaPengZhuangFangKuaiShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Wenqvan 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Wenqvan,fluid,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Wenqvandiwu,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xvkongqvnxi,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xvkong,dimension,~/Dimension,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Xvkongqvnxi,biome,~/biome,world,已读,已读XvkongDimension与XvkongqvnxiBiome、维度/类型JSON及技能裂隙传送引用；world拥有正式空气噪声维度和无生成群系，实际效果绑定overworld，Fixers全局CAVE/CANYON加入AIR；返回编号weidu归xiulian公开操作
+yvanchuxiuzhen,Xvkong,dimension,~/Dimension,world,已读,已读XvkongDimension与XvkongqvnxiBiome、维度/类型JSON及技能裂隙传送引用；world拥有正式空气噪声维度和无生成群系，实际效果绑定overworld，Fixers全局CAVE/CANYON加入AIR；返回编号weidu归xiulian公开操作
 yvanchuxiuzhen,XvkongliexiDangShiTiGengXinKeShi,procedure,~/skill/texiao,skill,已读,Jinengxvkong 的元婴门槛与视线生成；Xvkongliexi 的无重力实体、32/332 刻生命周期及单次碰撞传送；返回编号经 tizhiitem.weidu 保存，维度身份归 world
 yvanchuxiuzhen,Xvkongliexi,animatedentity,~/skill/texiao,skill,已读,Jinengxvkong 的元婴门槛与视线生成；Xvkongliexi 的无重力实体、32/332 刻生命周期及单次碰撞传送；返回编号经 tizhiitem.weidu 保存，维度身份归 world
 yvanchuxiuzhen,XvkongliexiDangWanJiaYuGaiShiTiFaShengPengZhuangShi,procedure,~/skill/texiao,skill,已读,Jinengxvkong 的元婴门槛与视线生成；Xvkongliexi 的无重力实体、32/332 刻生命周期及单次碰撞传送；返回编号经 tizhiitem.weidu 保存，维度身份归 world

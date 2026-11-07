@@ -178,11 +178,12 @@ def convert_menu_lang(sources: dict[str, Source], add_lang) -> int:
 
 
 # 台账注册表对应的语言键：(键前缀, 说明键后缀)。名称键为 <前缀>.<命名空间>.<名称>。
-REGISTRY_LANG = {'enchantment': ('enchantment', '.desc'), 'mob_effect': ('effect', '.description'), 'entity_type': ('entity', None)}
+REGISTRY_LANG = {'enchantment': ('enchantment', '.desc'), 'mob_effect': ('effect', '.description'),
+                 'entity_type': ('entity', None), 'biome': ('biome', None)}
 
 
 def convert_registry_lang(sources: dict[str, Source], add_lang) -> int:
-    """已登记附魔与状态效果的名称键和说明键写入台账所属单位的语言片段，命名空间统一。
+    """已登记附魔、状态效果、实体与群系的名称键和说明键写入台账所属单位的语言片段，命名空间统一。
     说明键可能在另一个来源的语言文件中（原初系统的 chain 说明在原初修真的语言文件里）。"""
     count = 0
     for rows in read_ledgers().values():

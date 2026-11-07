@@ -45,11 +45,12 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 2026-11-07 负责人澄清：饰品堆叠与 GUI 完整性消息是询问，并未要求插入完整 GUI 开发批次。会话曾误读并编写加点、装配与修炼分页草稿，现已备份到 `tmp/gui-draft-withdrawn-20261107-200122/` 并撤回全部相关未提交代码，源码恢复至已推送的 `c6f6f5a`。合法单件饰品运行验收仍未执行，GUI 保持部分实现。继续遵守原路线：当前 skill 收口及所需 yihuo 炙烤/丹火、world 正式维度依赖与视觉核对；profession、cooking、dungeon 依各自批次推进，不能为补页面提前展开。界面随所属系统同步接入，H 是全量终核；skill 未完成，不合 main。
 
 **本批进展与下次开工的第一步（2026-11-07）**：
-- 当前分支 `port/c-skill`，本批前一提交 `e3a5a44`；本批实现与记录在同一工作提交，最后提交以 `git log -1` 为准。完整移植 goal 已按负责人最新指令恢复 active，继续原路线。`.eclipse/` 是用户的 IDE 配置，保留且不提交。
-- 丹火与炙烤依赖代码已接回：skill 的物品 useOn 调用 yihuo，18种火块保留独立方块实体、燃料/计划刻/接触/保存及方向能力；两个持续效果保留来源伤害与粒子顺序。relation 提供实体团队及友方只读视图。正文见[异火](../systems/yihuo/architecture.md)。炉鼎供热事件尚无D阶段消费者，不算完整供热链。
-- 证据：唯一一次 yihuo 专项7项中2项通过、5项失败；燃料期望误读原生放置回放，生命检查超过原生上限。修正检查后 build/ArchUnit与检查源集编译通过，未重跑。专用服务器一次启动至Done，原生stop正常保存并退出，ERROR0。原报告保留在 `tmp/yihuo-report.txt`，构建和专服在 `tmp/yihuo-final-build.log`、`tmp/yihuo-server.log`。
-- 负责人再次强调没有必要不写Test、优先按1.18.2代码核对移植。新增 `YihuoCheck` 与选择器已撤下，备份 `tmp/yihuo-check-withdrawn-20261107.java`；不继续修检查刷通过。后续按[开发规则](coding-policy.md)选择必要验证。
-- 下一步：先用 CodeGraph 定向查看 `VoidRift` 与 world 的维度入口，再核对1.18.2版本对应维度/传送调用，接回 skill 所需正式维度依赖；其余世界主体仍按E阶段推进。skill 尚未完成、不合main；GUI仍为部分实现，不插入整套分页开发。
+
+- 当前分支 `port/c-skill`，本批前一提交 `cbaebfd`；本批实现与记录在同一提交，最后提交以 `git log -1` 为准。完整移植 goal 已由负责人恢复 active，继续原路线。`.eclipse/` 是用户的 IDE 配置，保留且不提交。
+- 正式 `xvkong` 空气噪声维度、同名类型与 `xvkongqvnxi` 群系已按1.18.2版本实际代码接入，保留实际overworld效果绑定；smoke同ID平坦基岩替身及生成副本已删除。转换、群系语言键与服务端动态注册表导出接入现有管线；world106/19已读。规则见[世界正文](../systems/world/architecture.md#正式虚空维度2026-11-07)。
+- 本批没有新增Test、专项选择器或修改旧专项。负责人再次强调来源核对优先、没有必要不写Test；曾暂停时留下当前改动未提交，现按“继续做”恢复。本批build/ArchUnit通过；补入群系语言后的一次专服加载至Done，原生命令确认正式虚空群系和空气区块，移除强加载后stop保存四世界并正常退出，ERROR0，群系导出1个。证据为 `tmp/world-void-{build,content,server}.log`；自然裂隙往返与视觉未验收。
+- 上一丹火/炙烤批次已提交：来源放置回放已核实，唯一旧专项7项中2项通过、5项失败，新增脚本与选择器已撤下，不恢复或刷通过；炉鼎消费者仍待D阶段。记录见[异火正文](../systems/yihuo/architecture.md)。
+- 下一步：当前正式维度依赖已提交（最新号以git log为准），接着从 `SkillScreen`、`PanelClientSetup` 与对应来源界面/覆盖层核对skill剩余差异及实际可见表现；其他六个自定义返回维度和世界主体仍按E阶段推进。skill尚未完成，不合main；GUI仍为部分实现，不插入整套分页开发。
 
 **此前已完成的检查与历史定位**：
 - 已运行一次 skill 冒烟（`gradlew runSmokeClient -PsmokeOnly=skill`）：报告以 `DONE` 结束，精简后的 `CorpseCheck` 28 项全部符合；其余检查也完成。`LingwenCheck` 的数量 1/2 差异已由 Q48 解释为来源同序的首刻命中时序，不再重复整套冒烟。
@@ -58,7 +59,7 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 - `port/c-skill` 已推送到 `origin/port/c-skill`；`.eclipse/` 仍是唯一未跟踪的 IDE 配置文件。
 
 下一步具体操作（skill；做法同前几个系统）：
-0. 已提交（分支 `port/c-skill`，最新提交以 `git log` 为准）：第 1 阶段框架；第 2 阶段元素弹体 14 个；第 3 阶段动画实体基础与火、土、金、冰、光、风、雷、水（水蛇鞭、水连鞭、激流波、水龙吟、空浮球、陨河术、水灵阵、玲珑阵）、木（乱枝、灰木剑、乱木之种、灰木树梯、木篱术、毒蔓鞭、回身鞭、地蔓鞭）、剑法（`SwordEntities`、`WeaponArts`；平台 `ItemSwingEvent` 触发，2026-11-05）、灵纹（`LingwenHit`、`LingwenEntities`、`LingwenBolt`；Q45）、火鸟术（`FireBird`，基类 `TamedSkillEntity`；2026-11-07；Q46）、起尸诀（`Corpse`、`CorpseAi`、`Corpses`；2026-11-07；Q47）；虚空裂隙实体、生命周期与传送（`VoidRift`、`Skills.openVoidRift`；2026-11-07；Q49；按钮随阶段 5，正式维度随 world）；冒烟 `-PsmokeOnly=skill`（`SkillCheck`、`SkillProjectileCheck`、`SkillEntityCheck`、`SwordArtCheck`、`LingwenCheck`、`FireBirdCheck`、`CorpseCheck`；`Arena` 平地由后四者共用，此前弹体检查在不平地形上整批失败；动作列表类检查继承 `ActionCheck`）。读过程用 `TERSE=1`（去样板）、`DIFF=1`（同模板族）；新增元素族的做法见 `entity/FireEntities` 等：`SkillEntities.register` 里登记行为表，`SkillReleases.register` 登记施放，`mark_ownership.py`、`build_ledger.py`、`mark_ledger.py 已注册`、`convert_content.py`，冒烟加用例，再标 `行为已迁移`。
+0. 已提交（分支 `port/c-skill`，最新提交以 `git log` 为准）：第 1 阶段框架；第 2 阶段元素弹体 14 个；第 3 阶段动画实体基础与火、土、金、冰、光、风、雷、水（水蛇鞭、水连鞭、激流波、水龙吟、空浮球、陨河术、水灵阵、玲珑阵）、木（乱枝、灰木剑、乱木之种、灰木树梯、木篱术、毒蔓鞭、回身鞭、地蔓鞭）、剑法（`SwordEntities`、`WeaponArts`；平台 `ItemSwingEvent` 触发，2026-11-05）、灵纹（`LingwenHit`、`LingwenEntities`、`LingwenBolt`；Q45）、火鸟术（`FireBird`，基类 `TamedSkillEntity`；2026-11-07；Q46）、起尸诀（`Corpse`、`CorpseAi`、`Corpses`；2026-11-07；Q47）；虚空裂隙实体、生命周期与传送（`VoidRift`、`Skills.openVoidRift`；2026-11-07；Q49；按钮随阶段 5，正式维度随 world）；冒烟 `-PsmokeOnly=skill`（`SkillCheck`、`SkillProjectileCheck`、`SkillEntityCheck`、`SwordArtCheck`、`LingwenCheck`、`FireBirdCheck`、`CorpseCheck`；`Arena` 平地由后四者共用，此前弹体检查在不平地形上整批失败；动作列表类检查继承 `ActionCheck`）。读过程用 `TERSE=1`（去样板）、`DIFF=1`（同模板族）；新增元素族的做法见 `entity/FireEntities` 等：`SkillEntities.register` 里登记行为表，`SkillReleases.register` 登记施放，`mark_ownership.py`、`build_ledger.py`、`mark_ledger.py 已注册`、`convert_content.py`，按必要性选择验证并记录证据，再标 `行为已迁移`。
 1. 第 3 阶段余项（按元素）：伤害范围实体与 `Skills.showDamageArea`、元婴出窍与 `Skills.toggleYuanying` 已实现；九处 creature 生成者与 `控雷阵` 经 `/lightninglanding` 的落雷已接回，生成者随 creature，元婴出窍和死亡粒子已接回。天雷术、五雷轰顶已接入 combat 共享落雷，两个入口的合并检查因选择取消失败，检查修正后仅编译。拂尘 `Weaponhossu01DangShiTiHuiDongWuPinShi` 的发射已由 equipment 接回，本批五项专项通过。可驯服实体（火鸟、尸体）已完成，基类与共用件见[技能架构](../systems/skill/architecture.md)“可驯服实体”；尸体的 `CorpseAi.breakFree` 与 `finish` 对应妖兽共用的 `Yaoshou001skillzhengtuo`、`Entityjinengjieshu`，creature 迁移时再决定是否公开。
 2. 阶段 2：十种技能箭的实体、模式、命中、掉落、原生模型、内爆效果与服务端箭种选择已实现（Q50；共用实体命中过程实际 551 行）；`Lingwentexiao` 已随灵纹实现。待接入：equipment 的弓蓄力/发射/扣资源与 Ctrl/Alt 输入、yihuo 的炙烤持续行为；自定义粒子已接回。`SkillArrow00–10skill` 已核对为孤立过程，`ArrowSkillchufa` 仅有游离 Blockly 引用；`skill_arrowxinruzhishui` 已登记有益标记身份，未形成自然入口（Q53）。本批 `skillarrow` 冒烟 12 项全部通过并以 `DONE` 结束；最后 `build`、检查源集编译、开发服务端启动（ERROR 0 条）、台账与来源指纹检查通过。第 08 箭云命令后续静态修正已编译，该分支未运行；弓与完整炙烤链未验收。下一步为下条阶段 4–5。
 3. 阶段 4 身法与轻功：`SkillMovement`、`SkillFlight`、W/S/A/D/空格/F 按下沿、每刻冷却、掠空与二十刻耗灵力、禁空已实现，7 项针对性检查一次全部通过（`-PsmokeOnly=skillmovement`），`build`、台账与文档检查通过；专用服务端启动到 Done、ERROR 0 条，未重跑旧神通。饰品飞行减耗由 equipment 监听 `FlightEnchantmentEvent`，有效轻功粒子已接回。阶段 5 已部分实现：G 键原生无槽技能菜单、四技能/翻页/十一箭种/连招、虚空/出窍/扫描/丹火/自爆、C 格挡显示与 Gedang 八刻移除，panel 的六组冷却/格挡/弓蓄力 HUD。Q52 记录扫描无粒子、自爆立即死亡和背景值 6 无写入者；保留来源行为。格挡不减伤，品阶经 `WeaponStatEvent` 的 `lianqizong.item_level_num`，lianqi/equipment 监听尚未接入。妖化已由 equipment 接回（规则和证据见下述批次），丹火放置随 yihuo，出窍和自爆的有效粒子已接回。
@@ -70,9 +71,9 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 
 注意（2026-11-04 发现并修正）：此前 `SkillEntity` 默认纹理统一为透明的 `kong`，现在改为各实体来源 `define(TEXTURE, …)` 的纹理（`entity_models.json` 的 `texture`）；冒烟检查看不到画面，阶段 5 实机核对动画实体时要确认各实体可见、动画与碰撞箱（空浮球、陨河术有碰撞箱放大）正确。
 
-测试要精简（负责人 2026-11-07 指示）：冒烟每步只写主路径的少量断言，整套每步只运行一次，不逐功能细测，纯检查代码的修正不重跑整套（改好、编译、如实写明未运行）。`LingwenCheck` 的 1/2 差异已记录为 Q48，检查改为接受来源顺序产生的两种结果；本次不再重复整套冒烟。
+测试按必要性选择（负责人2026-11-07最新强调）：优先核对1.18.2版本实际源码并直接移植，没有必要不写Test，不为每批新增专项；必要时才做编译、加载或关键路径验收。已存在检查的纯脚本修正不重跑整套，编译并如实写明未运行。`LingwenCheck` 的 1/2 差异已记录为 Q48，检查改为接受来源顺序产生的两种结果；本次不再重复整套冒烟。
 
-验证习惯（会话内）：按改动选择必要检查；内容表变化时运行 `convert_content.py`，新玩法只运行对应的小范围冒烟（含编译），不重复已通过的旧神通。纯检查代码修正只编译并记录未重跑。构建含结构检查；注册变化时启动一次服务端刷新导出，再运行 `check_ledger.py`。转换工具、Gradle 与游戏进程逐个运行。终端需向服务端发送 stop 时，`exec_command` 使用 `tty=true` 保留可写输入，并使用 `--no-configuration-cache --init-script tools/porting/server_stdin.init.gradle` 接通标准输入；2026-11-07 已实测正常保存、停服与任务成功退出。
+验证习惯（会话内）：按改动选择必要检查；内容表变化时运行 `convert_content.py`，新玩法先完成来源核对，再按风险选择必要验证，不默认新增专项或重复已通过的旧神通。纯检查代码修正只编译并记录未重跑。构建含结构检查；注册变化时启动一次服务端刷新导出，再运行 `check_ledger.py`。转换工具、Gradle 与游戏进程逐个运行。终端需向服务端发送 stop 时，`exec_command` 使用 `tty=true` 保留可写输入，并使用 `--no-configuration-cache --init-script tools/porting/server_stdin.init.gradle` 接通标准输入；2026-11-07 已实测正常保存、停服与任务成功退出。
 
 其余 skill 粒子批次（2026-11-07，前一实现提交 `5f374c4`，本批提交号以 `git log -1` 为准）：有效来源粒子调用已接回，Q54 保留未绑定的金轮死亡过程。仅一次 `-PsmokeOnly=skillvisual` 两项通过并 `DONE`，客户端正常保存退出；血雾截图可见，光爆仅确认客户端后续粒子计数，截图未捕获可见效果。build、ArchUnit、台账与文档检查通过。证据在 `tmp/skill-other-particles-{build,smoke}.log`、`tmp/skill-other-particles-report.txt`。共享落雷与完整 xiulian 雷劫已在后续批次接回，下一步处理 equipment/yihuo/world 依赖与视觉认可。skill 仍未完成，不重复旧神通套件。
 

@@ -70,6 +70,8 @@ PowerShell 复制带通配符的资源时使用 `Copy-Item -Path`；`-LiteralPat
 ## 世界内容
 
 - 核对全部维度、群系、结构 NBT、出生与自然生成、矿物/药草/材料供给、宝箱与商店、传送回程。
+- 维度表现以 `dimension_type` 实际绑定的 `effects` 为准；来源客户端登记同名特效不代表被使用。正式维度接入时移除验证源集中同ID的替身，避免运行仍被测试数据覆盖。
+- MCreator 1.18.2 的维度 Fixers 可能修改全局 CAVE/CANYON 可替换集合。迁移前查清作用范围；已核对 NeoForge21.1.265 的 `Carvers` 与 `WorldCarver.canReplaceBlock`：原版 cave、cave_extra_underground、canyon 共用 `minecraft:overworld_carver_replaceables` 标签，nether_cave使用另一标签，不能误把修改限制为某个维度，也不能扩到下界雕刻器。
 - 结构文件存在不证明有自然生成入口。
 - 自然获取线路未接通时，不能因命令可以生成物品而标记玩法完成。
 

@@ -909,6 +909,8 @@ yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/enchantment/ZimuEnchant
 yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/enchantment/ZimuEnchantment.java,0e2f81efded5ecba5612f0decd512ec9e9bd0fa2,src/main/resources/data/yvanchuxiuzhen/tags/item/enchantable/breakable.json
 yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/enchantment/ZimuEnchantment.java,0e2f81efded5ecba5612f0decd512ec9e9bd0fa2,src/main/resources/data/yvanchuxiuzhen/tags/item/enchantable/digger.json
 yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/enchantment/ZimuEnchantment.java,0e2f81efded5ecba5612f0decd512ec9e9bd0fa2,src/main/resources/data/yvanchuxiuzhen/tags/item/enchantable/weapon.json
+yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/world/biome/XvkongqvnxiBiome.java,42f8b6a10fd6b9eaa1acd79c6b5f29c72ef86196,src/main/resources/data/yvanchuxiuzhen/worldgen/biome/xvkongqvnxi.json
+yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/world/dimension/XvkongDimension.java,d9ab09f717d2fba4943deef5ad8e159a10178c55,src/main/resources/data/minecraft/tags/block/overworld_carver_replaceables.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/beewall.json,8512d3794af6677a0222e6af2a444d9eebd37c64,src/main/resources/data/yvanchuxiuzhen/tags/block/beewall.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/blockfire.json,06e390991cb0041be80b2e18aeebba8c752a7ce3,src/main/resources/data/yvanchuxiuzhen/tags/block/blockfire.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/camwall.json,7334693f4abe9355fff4363884585f99730e38e0,src/main/resources/data/yvanchuxiuzhen/tags/block/camwall.json
@@ -1065,6 +1067,8 @@ yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/advancements/chengjiu_005.
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/advancements/chengjiu_006.json,29769ecc919b324b4af7113f95c1e4769d07961c,src/main/resources/data/yvanchuxiuzhen/advancement/chengjiu_006.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/advancements/chengjiu_007.json,58abdb352a718df461099d40fc0c34e55f591146,src/main/resources/data/yvanchuxiuzhen/advancement/chengjiu_007.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/advancements/chengjiu_008.json,31cc56fcc5a91db5cbf9d6c70dc26572347f979f,src/main/resources/data/yvanchuxiuzhen/advancement/chengjiu_008.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/dimension/xvkong.json,189f00fe9c103bf63f06cd6cd63bed1588c52785,src/main/resources/data/yvanchuxiuzhen/dimension/xvkong.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/dimension_type/xvkong.json,947d0de8725913fe0028dd4ddaff6bba0088e88f,src/main/resources/data/yvanchuxiuzhen/dimension_type/xvkong.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/loot_tables/blocks/beechleaves.json,2ad5d4f137302f9bbb98a5c05e90358615c6f4f2,src/main/resources/data/yvanchuxiuzhen/loot_table/blocks/beechleaves.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/loot_tables/blocks/bladegrass.json,14580065baf1d2b5219eb167b7e99bece2062762,src/main/resources/data/yvanchuxiuzhen/loot_table/blocks/bladegrass.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/loot_tables/blocks/brokenbonepile.json,21c4b05fbe6c6a95d9f010b56fe37d5d59f9ff8f,src/main/resources/data/yvanchuxiuzhen/loot_table/blocks/brokenbonepile.json

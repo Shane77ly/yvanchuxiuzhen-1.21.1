@@ -65,7 +65,7 @@ biome,yvanchuxiuzhen:biomewinter_03,yvanchuxiuzhen,Biomewinter03,src/main/java/n
 biome,yvanchuxiuzhen:biomeyoumeng_01,yvanchuxiuzhen,Biomeyoumeng01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBiomes.java,138,world,候选,yvanchuxiuzhen:biomeyoumeng_01,待处理,
 biome,yvanchuxiuzhen:biomeyoumeng_02,yvanchuxiuzhen,Biomeyoumeng02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBiomes.java,139,world,候选,yvanchuxiuzhen:biomeyoumeng_02,待处理,
 biome,yvanchuxiuzhen:biomeyoumeng_03,yvanchuxiuzhen,Biomeyoumeng03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBiomes.java,140,world,候选,yvanchuxiuzhen:biomeyoumeng_03,待处理,
-biome,yvanchuxiuzhen:xvkongqvnxi,yvanchuxiuzhen,Xvkongqvnxi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBiomes.java,134,world,候选,yvanchuxiuzhen:xvkongqvnxi,待处理,
+biome,yvanchuxiuzhen:xvkongqvnxi,yvanchuxiuzhen,Xvkongqvnxi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBiomes.java,134,world,已读,yvanchuxiuzhen:xvkongqvnxi,已注册,正式空气噪声虚空与群系已按来源转换；build/ArchUnit及一次专服正式维度、区块生成与stop保存退出通过，ERROR0；自然裂隙往返、视觉和两版本对照未验收，见world正文
 block,yvanchuxiuzhen:dimensiondiling_portal,yvanchuxiuzhen,Dimensiondiling,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1159,world,已读,yvanchuxiuzhen:dimensiondiling_portal,待处理,
 block,yvanchuxiuzhen:dimensionrenjian_portal,yvanchuxiuzhen,Dimensionrenjian,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1156,world,已读,yvanchuxiuzhen:dimensionrenjian_portal,待处理,
 block,yvanchuxiuzhen:dimensiontianqve_portal,yvanchuxiuzhen,Dimensiontianqve,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1154,world,已读,yvanchuxiuzhen:dimensiontianqve_portal,待处理,
