@@ -61,6 +61,13 @@ neoForge {
 
 neoForge.addModdingDependenciesTo(sourceSets.smoke)
 
+// 自动化检查与测试维度只在 smokeClient 中加载。
+neoForge.runs.configureEach {
+    if (name != 'smokeClient') {
+        loadedMods.set([neoForge.mods.getByName(project.mod_id)])
+    }
+}
+
 repositories {
     maven {
         name = 'GeckoLib'

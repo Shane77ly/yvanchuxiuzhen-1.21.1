@@ -2,7 +2,7 @@
 topic: project
 role: entry
 status: current
-updated: 2026-11-04
+updated: 2026-11-07
 ---
 
 # 项目状态与决定
@@ -37,6 +37,7 @@ updated: 2026-11-04
 | 2026-11-03 | 认可 B1 归属阅读结果（含读后改变归属的元素）与出口核对，B1 结束，进入 C | `port/b1-content` 合入 `main`；关口改为 C，工作分支 `port/c-attribute`；AGENTS.md 当前关口、[路线](../../development/roadmap.md)、[交接说明](../../development/handoff.md)同步 |
 | 2026-11-03 | 按路线循环推进：每完成一个步骤即提交、合入 `main` 并进入下一步，直到移植完成或出现重大问题；判断不定的问题先评估影响，轻微的记入文档后继续，重大的停下商议 | 已执行：relation 完成后直接进入 gongfa；Q19、Q20 按此评估为轻微并记录 |
 | 2026-11-03 | Q17：防具与武器的炼器数值计入实际属性（最大生命、攻击伤害），与显示一致；Q18：受击方同属性功法使伤害增加的来源行为暂时保持，记录为待处理问题，之后再议；按路线自动推进并完成客户端测试，途中问题记入文档，重大问题时停下商议 | Q17 按选项 b 实现于 attribute（`VanillaAttributes`），妖化防具的生命修饰符随 equipment 去掉；Q18 保持来源公式，[调查问题表](../../reference/legacy/source-survey.md)标为“暂按来源、待再议”；见[属性](../attribute/architecture.md)“来源问题” |
+| 2026-11-07 | 推送 `port/c-skill`；开工先用 CodeGraph 理解项目组织、阅读并遵守移植技能；检查保持精简，不重复运行已验证神通的整套检查 | 分支已推送；本次以虚空裂隙为工作单位，单独通过 `voidrift` 选择器验证；不重跑整套 skill 冒烟 |
 
 ## 系统设计重审
 

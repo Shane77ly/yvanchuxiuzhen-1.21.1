@@ -38,7 +38,7 @@ updated: 2026-11-07
 | --- | --- | --- |
 | 1 框架 | 技能书、技能栏与选择、施放与冷却、命令、藏宝与附赠、霸体与禁施 | 完成 |
 | 2 弹体技能 | 弹体实体基础（`SkillProjectile`、`ProjectileSkill`）与 14 个元素弹体技能（金芒术、水球术、水灵弹、冰锥术、破碎冰矛、飞羽冰花、拈花飞叶、风弹术、火球术、光弹术、定魄神光、幻光术、飞石术及生命感知；水系小水弹 `Water0101` 待调用者）；`SkillGold03`（依赖动画实体）归阶段 3；10 种技能箭、箭种选择、`Lingwentexiao` 待做 | 进行中：元素弹体完成 |
-| 3 实体技能 | 35 个动画实体（`SkillEntity` 通用模板 + 按实体登记的行为）与 12 系的施放过程 | 进行中：基础、火系（大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷）、土系（滚石术、天外陨石、化石手、巨石锤）、金系（金刚轮四式、捆妖轮、金弧轮、天堑金轮）、冰系（冰天雪地、裂冰斩）、光系（闪光术、万丈光芒）、风系（聚风术、聚风化气、风飘术、造云术）、雷系（掌心雷、地滚雷、惊雷阵）与水系（水蛇鞭、水连鞭、激流波、水龙吟、空浮球、陨河术、水灵阵、玲珑阵）与木系（乱枝、灰木剑、乱木之种、灰木树梯、木篱术、毒蔓鞭、回身鞭、地蔓鞭）完成，剑法（中平、柔云、拜年、弱鸡）完成；灵纹（命中生成的灵纹特效与灵纹弹）完成；火鸟术（可驯服飞行实体）与起尸诀（阴，可驯服亡灵实体）完成；虚空裂隙、伤害范围、元婴出窍待做；天雷术、五雷轰顶等待 `/lightninglanding`（雷劫） |
+| 3 实体技能 | 35 个动画实体（`SkillEntity` 通用模板 + 按实体登记的行为）与 12 系的施放过程 | 进行中：基础、火系（大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷）、土系（滚石术、天外陨石、化石手、巨石锤）、金系（金刚轮四式、捆妖轮、金弧轮、天堑金轮）、冰系（冰天雪地、裂冰斩）、光系（闪光术、万丈光芒）、风系（聚风术、聚风化气、风飘术、造云术）、雷系（掌心雷、地滚雷、惊雷阵）与水系（水蛇鞭、水连鞭、激流波、水龙吟、空浮球、陨河术、水灵阵、玲珑阵）与木系（乱枝、灰木剑、乱木之种、灰木树梯、木篱术、毒蔓鞭、回身鞭、地蔓鞭）完成，剑法（中平、柔云、拜年、弱鸡）完成；灵纹（命中生成的灵纹特效与灵纹弹）完成；火鸟术（可驯服飞行实体）与起尸诀（阴，可驯服亡灵实体）完成；虚空裂隙的实体与传送已实现（正式维度随 world、按钮随阶段 5）；伤害范围、元婴出窍待做；天雷术、五雷轰顶等待 `/lightninglanding`（雷劫） |
 | 4 身法、轻功、武器技 | 按键输入（W、S、A、D、空格、F）、身法与轻功的刻推进、剑法、`Effect035` 禁空 | 未开始 |
 | 5 界面与表现 | 技能界面（四技能按钮、翻页、箭种轮盘）、冷却与格挡 HUD、技能界面六个功能按钮（扫描、丹火、妖化、虚空、自爆、出窍）、格挡实体、粒子 | 未开始 |
 
@@ -68,7 +68,7 @@ updated: 2026-11-07
 
 阶段 3 的实现要点（2026-11-04 起）：
 
-- 35 个动画实体除 `SkillFire06`（火鸟）与 `Skillyin01`（起尸，两者继承 `TamableAnimal` 带 AI 目标，见下文“可驯服实体”）外共用 `SkillEntity`（`PathfinderMob` + GeckoLib）。表现与属性由 `tools/porting/extract_entity_models.py` 从来源的 Model、Layer、Renderer 与实体类提取为 `content/skill/entity_models.json`（几何、动画、头部骨骼、发光层、阴影、默认与离地循环动画、动画清单、五项属性、是否无 AI），并维护 `system_assets.csv` 的 skill 行；实体行为按实体 ID 登记在 `SkillEntities`（`EntitySkill`：刻、初始生成、被杀、受伤），内容表只登记台账已迁移的实体。
+- 35 个动画实体除 `SkillFire06`（火鸟）与 `Skillyin01`（起尸，两者继承 `TamableAnimal` 带 AI 目标，见下文“可驯服实体”）、`Xvkongliexi`（虚空裂隙，见下文）外共用 `SkillEntity`（`PathfinderMob` + GeckoLib）。表现与属性由 `tools/porting/extract_entity_models.py` 从来源的 Model、Layer、Renderer 与实体类提取为 `content/skill/entity_models.json`（几何、动画、头部骨骼、发光层、阴影、默认与离地循环动画、动画清单、五项属性、是否无 AI），并维护 `system_assets.csv` 的 skill 行；实体行为按实体 ID 登记在 `SkillEntities`（`EntitySkill`：刻、初始生成、被杀、受伤），内容表只登记台账已迁移的实体。
 - 来源放在 `getPersistentData` 的施放信息（`AttackUUID`、`AttackDamage`、`Damage_multiplier`、`damagetype`、`jinengName`）改为字段，随存档；各技能私有的计数（`tick`、`tick2`、`kaishi` 等）仍用 `getPersistentData`，与来源一致。实体继承施放者的团队与友方集合，敌友的判定方是实体自己（`EtoE(entity, 其他)`）或施放者（施放过程内）。
 - 过程动画 `setAnimation(名)` 用 GeckoLib 的触发动画（`procedure` 控制器，登记动画文件中的全部名字），播放一次后回到默认循环；纹理名同步给客户端（默认值是实体类里 `define(TEXTURE, …)` 的纹理，由提取工具写入 `entity_models.json`；金刚轮等少数默认透明的 `kong`，其余默认纹理均为可见贴图），发光层以 `RenderType.eyes` 重画同一几何。
 - 伤害经 `SpellDamage.dealRounded`（来源把攻击量与倍率经 `DecimalFormat("0")` 取整）；来源拼出命令字符串的调用，经 `SpellDamage.command` 复现同样的解析（Q41）。
@@ -98,3 +98,14 @@ updated: 2026-11-07
   - 动画：移动控制器按移动、濒死、水中、疾跑、待机依次选择走路、死亡、游泳、跑步、待机动画，另有过程动画控制器；来源的“攻击”控制器只在原版挥臂时播放，这里的攻击是过程动画，不设该控制器。受击时空闲则播放受击动画，被打断标记 `beidaduan`（creature 的重击打断设置）清除过程动画。
   - 声音：环境、脚步取僵尸村民，受伤、死亡取僵尸马。持久，不会远离玩家后消失；免疫凋零伤害。
 
+## 虚空裂隙（2026-11-07）
+
+来源入口是 `A:JinengGuiButtonMessage` 的按钮 18 → `JinengxvkongProcedure`，不经过技能书或普通施放。境界 `LEVELnumber + tizhiitem.LevelNumberCorrect >= 31` 时关闭菜单，沿视线五格取方块整数坐标，清除该点三轴各八格内的旧裂隙，再以玩家水平朝向加 180 度生成；不足时只提示。来源实体 `XvkongliexiEntity` 无 AI、无重力，保留其飞行导航、伤害免疫列表和原有推挤行为。
+
+目标使用独立实体 `VoidRift`，复用 `EntityModelRow`、`SkillLook`、`SkillAnimations` 与客户端渲染器；由 `Skills.openVoidRift` 提供按钮共用的服务端入口。生命周期见 `A:XvkongliexiDangShiTiGengXinKeShiProcedure`：每刻十个白灰粒子，32 刻可进入，332 刻移除并发出四十个云粒子。`xiaoshitick`、`keyijinru`、`shifouyichuanyve` 保留在实体持久数据中，随存档保存。
+
+传送见 `A:XvkongliexiDangWanJiaYuGaiShiTiFaShengPengZhuangShiProcedure`：返回编号 1–9 依次为主世界、下界、末地、天阙、修罗、人间、妖魂、无归、地灵；读写 `weidu` 通过 xiulian 的 `Cultivation` 公开操作。进入使用裂隙的三轴坐标分别除以 50 后 `Math.round`，返回三轴乘以 50，保留朝向；例如裂隙 `(125, 101, -75)` 进入 `(3, 2, -1)`，再在该点返回为 `(150, 100, -50)`。目标 21.1.265 的 `ServerPlayer.teleportTo` 经 `changeDimension` 同步能力、状态效果与附件，传送后的事件 1032 按来源保留。
+
+Q49：裂隙是整实体单次使用；未找到目标世界时也会消费，返回编号在查找目标之前清零；未识别的进入维度不传送但也消费。以上保持来源行为。正式 `xvkong` 与其余维度由 world 迁移，按钮在阶段 5 接入，不能将本步登记为完整玩家路径已验收。
+
+针对性检查入口为 `gradlew runSmokeClient -PsmokeOnly=voidrift`，只运行 `VoidRiftCheck`。smoke 源集提供平坦的 `xvkong` 测试维度，用于验证真实跨维度进入和碰撞返回，不代表正式维度的地形、群系与表现已迁移；测试资源不进入发布 JAR。运行结果与未执行范围见项目月度记录。

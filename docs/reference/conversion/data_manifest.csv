@@ -16,6 +16,7 @@ yvanchuxitong/src/main/resources/data/forge/tags/blocks/danludinglu.json,c49479a
 yvanchuxitong/src/main/resources/data/forge/tags/blocks/dinglu.json,faf89690fca8e4d88355fba09f5795dfbb4faab3,src/main/resources/data/yvanchuxiuzhen/tags/block/dinglu.json
 yvanchuxitong/src/main/resources/data/forge/tags/blocks/paiweiblock.json,4c14d3337c76e62da70db288eaffcb0b2a25c976,src/main/resources/data/yvanchuxiuzhen/tags/block/paiweiblock.json
 yvanchuxitong/src/main/resources/data/forge/tags/blocks/plaqueblock.json,33737bb173231d66816040dfb8a5ce4136c3f7fe,src/main/resources/data/yvanchuxiuzhen/tags/block/plaqueblock.json
+yvanchuxitong/src/main/resources/data/forge/tags/entity_types/noentity.json,426c1a54cd0d5381889de240301967aa8e09967b,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json
 yvanchuxitong/src/main/resources/data/forge/tags/items/armor.json,df2c423ff0b20815a73a8a658b53fb098f58c1f2,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json
 yvanchuxitong/src/main/resources/data/forge/tags/items/colouritem.json,9bc4d8ebc72db797f17ff263d00f4f70929a0d9d,src/main/resources/data/yvanchuxiuzhen/tags/item/colouritem.json
 yvanchuxitong/src/main/resources/data/forge/tags/items/dahuozhuangzhi.json,f452eef6ba214f57f12d2ba5dc5b6571a78c9688,src/main/resources/data/yvanchuxiuzhen/tags/item/dahuozhuangzhi.json
@@ -932,6 +933,7 @@ yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/wapian.json,df89aa767ed
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/wooddoor.json,35316e0fd56c7679da0e7fc6af19d0f6271845e8,src/main/resources/data/yvanchuxiuzhen/tags/block/wooddoor.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/yanhui.json,e6fdaa1a44e2422c164fbcd53da2a93e461ca4b7,src/main/resources/data/yvanchuxiuzhen/tags/block/yanhui.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/yvanchuzuowu.json,da9f0799e5ec843cd1138dc3a50ef038ff6752fc,src/main/resources/data/yvanchuxiuzhen/tags/block/yvanchuzuowu.json
+yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/noentity.json,e22b890c47ea5b9dbf2992ae847cf4153763ce6a,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/items/bank.json,fc5662856c5ca1e559f44d3e9f577a571338f604,src/main/resources/data/yvanchuxiuzhen/tags/item/bank.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/items/beltornaments.json,7b88d86202dfdf5ac40223960e7ca77668be2ce4,src/main/resources/data/yvanchuxiuzhen/tags/item/beltornaments.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/items/book.json,01a5830e425ceefdf8cf34adebe8cab4a3994851,src/main/resources/data/yvanchuxiuzhen/tags/item/book.json

@@ -62,6 +62,8 @@ public final class SkillEntities {
         tables.<FireBird>livingEntity(FireBird.ID, (type, level) -> new FireBird(type, level, bird), () -> FireBird.attributes(bird));
         EntityModelRow corpse = models.get(Corpse.ID);
         tables.<Corpse>livingEntity(Corpse.ID, (type, level) -> new Corpse(type, level, corpse), corpse::attributes);
+        EntityModelRow rift = models.get(VoidRift.ID);
+        tables.<VoidRift>livingEntity(VoidRift.ID, (type, level) -> new VoidRift(type, level, rift), () -> VoidRift.attributes(rift));
     }
 
     /** 以施放者所选技能的攻击量、伤害倍率与名字召唤（尚未放入世界）；实体继承施放者的团队与友方集合。 */

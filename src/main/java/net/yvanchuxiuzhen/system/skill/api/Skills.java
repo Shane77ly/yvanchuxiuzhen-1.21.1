@@ -11,6 +11,7 @@ import net.yvanchuxiuzhen.system.skill.SkillStudy;
 import net.yvanchuxiuzhen.system.skill.data.SkillCooldowns;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 import net.yvanchuxiuzhen.system.skill.data.SkillState;
+import net.yvanchuxiuzhen.system.skill.entity.VoidRift;
 
 /**
  * 技能系统的公开操作。技能书实例（{@link SkillBook}）在书的物品组件上；技能栏、身法槽、轻功槽、武器技槽、当前选择与连招开关在玩家附件
@@ -89,5 +90,10 @@ public final class Skills {
     /** 书架藏宝里的技能书（来源 {@code Jinenglistzong}）：在 13 本中随机给一本。 */
     public static void giveTreasureBook(ServerPlayer player) {
         ItemHandlerHelper.giveItemToPlayer(player, SkillLibrary.treasure(player.getRandom()));
+    }
+
+    /** 技能界面的虚空按钮：境界含修正达到 31 时，在视线五格处开启虚空裂隙。 */
+    public static void openVoidRift(ServerPlayer player) {
+        VoidRift.open(player);
     }
 }

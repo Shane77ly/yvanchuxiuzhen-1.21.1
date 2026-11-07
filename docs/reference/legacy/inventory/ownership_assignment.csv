@@ -3941,9 +3941,9 @@ yvanchuxiuzhen,Wenqvan,fluid,~/plant/ordinaryplants,plant,已读,B1 归属阅读
 yvanchuxiuzhen,Wenqvandiwu,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Xvkongqvnxi,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Xvkong,dimension,~/Dimension,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,XvkongliexiDangShiTiGengXinKeShi,procedure,~/skill/texiao,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xvkongliexi,animatedentity,~/skill/texiao,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,XvkongliexiDangWanJiaYuGaiShiTiFaShengPengZhuangShi,procedure,~/skill/texiao,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,XvkongliexiDangShiTiGengXinKeShi,procedure,~/skill/texiao,skill,已读,Jinengxvkong 的元婴门槛与视线生成；Xvkongliexi 的无重力实体、32/332 刻生命周期及单次碰撞传送；返回编号经 tizhiitem.weidu 保存，维度身份归 world
+yvanchuxiuzhen,Xvkongliexi,animatedentity,~/skill/texiao,skill,已读,Jinengxvkong 的元婴门槛与视线生成；Xvkongliexi 的无重力实体、32/332 刻生命周期及单次碰撞传送；返回编号经 tizhiitem.weidu 保存，维度身份归 world
+yvanchuxiuzhen,XvkongliexiDangWanJiaYuGaiShiTiFaShengPengZhuangShi,procedure,~/skill/texiao,skill,已读,Jinengxvkong 的元婴门槛与视线生成；Xvkongliexi 的无重力实体、32/332 刻生命周期及单次碰撞传送；返回编号经 tizhiitem.weidu 保存，维度身份归 world
 yvanchuxiuzhen,Zhuzidaoyv01,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhuzidaoyv02,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhuzidaoyv03,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4555,7 +4555,7 @@ yvanchuxiuzhen,PlayerGui07jieshao,procedure,~/GUI,panel,候选,第一版批量�
 yvanchuxiuzhen,Gongjv001DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool,equipment,已读,B1 归属阅读：随 Gongjv001 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,Gongjv001,tool,~/tool,equipment,已读,B1 归属阅读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,Gongjv001hecheng,recipe,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvkong,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jinengxvkong,procedure,~/skill/jineng/jinengGui,skill,已读,Jinengxvkong 的元婴门槛与视线生成；Xvkongliexi 的无重力实体、32/332 刻生命周期及单次碰撞传送；返回编号经 tizhiitem.weidu 保存，维度身份归 world
 yvanchuxiuzhen,Vegetable,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Seed,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao014KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao014 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
