@@ -16,6 +16,8 @@ updated: 2026-11-07
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
+弓与拂尘依赖批次已于 2026-11-07 由 equipment 接回，构建与一次五项专项通过；弓保留来源 Q57 右键断链，人工标记不代表自然入口可用，详见[装备正文](../equipment/architecture.md)。其余品阶、饰品飞行减耗、妖化、yihuo/world 依赖及完整视觉仍待完成。
+
 ## 公开操作
 
 已对照 `typed_field_accesses.csv` 汇总技能字段的外部读写（本系统以外）：panel 读写技能栏 16 槽（各 48 处）、页 `jinengweizhi`（读 29 写 4）、身法 `qinggong`、轻功 `flyjineng`、武器技 `wuqiskill`；fulu 重置全部技能字段（各 1 处写）；equipment 读箭种选择 `arrowlinshi`（24 读 2 写）与武器技 `wuqiskill`（14 读）。代码为 `system/skill/api/Skills`；箭种选择与写入已提供；完整重置随对应阶段补充。

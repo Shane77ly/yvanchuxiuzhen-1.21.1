@@ -146,6 +146,8 @@ updated: 2026-11-07
 
 | Q56 | 雷劫的负功德不增加雷数、正功德抵消的循环上界随扣减变化；玩家死亡分支误写云的玩家能力，跳过只标成功而未清云序列，离维度移除云未补玩家状态。依据 `ThunderBegin`、劫云刻过程与实际绑定的死亡过程，评估轻微，保留来源行为，细节见修炼正文 | [修炼](../../systems/xiulian/architecture.md) |
 
+| Q57 | 18 把弓都是 `SwordItem`，选中时共用 `Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi`；其蓄力读取 `synchronizedata.rightclicking`，右键过程为空。两个来源 `src` 与 `elements` 全检未找到有效写入者，B 的 `Zxc` 只有未绑定的编辑器实验块且含 `rifhtclicking` 拼写。按来源迁移条件流程，保留自然右键断链，不新增鼠标同步或改成原版弓；人工注入标记的验证不能宣称自然入口可用。影响仅弓入口，其他移植继续；修复取舍待裁定 | [装备](../../systems/equipment/architecture.md) |
+
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 
 ## 源码位置

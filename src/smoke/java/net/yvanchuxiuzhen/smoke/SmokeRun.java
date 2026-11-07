@@ -188,6 +188,7 @@ final class SmokeRun {
                     case "skillvisual" -> List.of(new SkillVisualCheck(report, levelId, this::shot));
                     case "lightning" -> List.of(new LightningCheck(report, levelId, this::shot));
                     case "tribulation" -> List.of(new TribulationCheck(report, levelId, this::shot));
+                    case "equipmentweapon" -> List.of(new EquipmentWeaponCheck(report, levelId));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }
