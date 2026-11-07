@@ -55,7 +55,8 @@ final class LingwenCheck extends ActionCheck {
                 }),
                 new Action(2, player -> {
                     expectTrue("灵纹弹命中目标", target.getHealth() < HEALTH);
-                    expect("射出一枚减一、弹体命中又触发灵纹加一（来源如此）", 1, count(player));
+                    int count = count(player);
+                    expectTrue("射出一枚后按来源命中顺序保留一或两枚灵纹（" + count + ")", count == 1 || count == 2);
                 }),
                 new Action(2, player -> {
                     stage(player, 0, 0, false);

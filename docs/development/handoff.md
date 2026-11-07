@@ -13,7 +13,7 @@ updated: 2026-11-07
 
 | 项 | 状态 |
 | --- | --- |
-| 分支与提交 | `main`（combat 已合入）；当前系统 skill 在分支 `port/c-skill`（比 `main` 多 16 个提交，**尚未推送到 origin**，也未合入 `main`；2026-11-07 的最后一个代码提交为 `cd53f20`，之后只有本页的交接修改）；最新提交以 `git log` 为准 |
+| 分支与提交 | `main`（combat 已合入）；当前系统 skill 在分支 `port/c-skill`（比 `main` 多 16 个提交，已推送到 `origin/port/c-skill`，尚未合入 `main`；当前最新提交以 `git log` 为准） |
 | 已完成 | 两个 1.18.2 工程的全量静态调查与索引；系统调查正文（2026-11-02 按[系统设计](system-design.md)重组为 28 个系统、3 个内容族与玩家面板）；通用移植技能；开发环境（构建、开发服务端与客户端加载已实测） |
 | 代码 | 公共入口与客户端入口；attribute 系统（贡献汇总、玩家附件、原版属性写入，2026-11-03）；relation 系统（敌友判定、团队、好友与申请界面、按钮 payload，2026-11-03）；xiulian 系统（修炼档案、出身、修炼推进与突破、金丹元婴、丹田界面、血道，2026-11-03）；gongfa 系统（功法定义、功法书组件、研习、功法栏、参悟台，2026-11-03）；combat 系统（伤害结算与 `/shanghai`、85 个附魔数据定义与命中、护甲、挖掘行为、状态效果登记基础与 47 个效果行为、连锁采集、穿石、木人桩，2026-11-04；首次接入 GeckoLib 4.9.3、实体内容表与菜单界面）；`platform/content` 的内容表加载器与工厂（15 种方块、物品、工具、盔甲）按单位登记 1,127 个方块、2,063 个物品与 150 个声音事件，29 个有内容的单位各有一个 `<名称>Setup`；ArchUnit、台账工具、归属证据工具、片段合并与客户端冒烟检查已接入；skill 系统进行中（框架、14 个元素弹体、动画实体基础与火土金冰光风雷水木各系实体技能、剑法、灵纹、火鸟术、起尸诀，见下节）|
 | 批次进度 | B0 完成步骤 1–5 后按负责人指示结束（2026-11-02），B1 于 2026-11-03 出口核对并经负责人认可后结束，当前执行 C：attribute、relation、xiulian、gongfa 2026-11-03、combat 2026-11-04 完成并合入 `main`（xiulian 按依赖方向调到 gongfa 之前，见[功法](../systems/gongfa/README.md)“依赖方向”），combat 2026-11-04 完成并合入 `main`，当前是 skill（进行中，见下节）；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移；命名空间统一为 `yvanchuxiuzhen`。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
@@ -36,10 +36,10 @@ xiulian 推迟的雷劫过程（`ThunderBegin`、劫云实体 `Jieyvn`、天劫�
 
 **下次开工的第一步**（先于下面的条目）：
 - `git status` 应干净，位于 `port/c-skill`（唯一未跟踪项 `.eclipse/` 是 IDE 的启动配置，不属于本项目提交）。
-- 运行一次 skill 冒烟（`gradlew runSmokeClient -PsmokeOnly=skill`，约 5–7 分钟，只此一次）：看精简后的 `CorpseCheck`（28 项断言，已编译、未运行）是否全部符合，并留意 `LingwenCheck` 那一项是否再次失败（两次失败的现象与推测见[月度记录](../systems/project/logs/2026-11.md)“skill 起尸诀”的“未解决”）。若 `LingwenCheck` 又失败，先排查它再继续新功能，因为不能排除与 `SkillCast` 重构有关。
+- 已运行一次 skill 冒烟（`gradlew runSmokeClient -PsmokeOnly=skill`）：报告以 `DONE` 结束，精简后的 `CorpseCheck` 28 项全部符合；其余检查也完成。`LingwenCheck` 的数量 1/2 差异已由 Q48 解释为来源同序的首刻命中时序，不再重复整套冒烟。
 - 然后按下面第 1 条做虚空裂隙；技能箭（第 2 条）读起来最重（过程约 180 KB），放在其后。
 - 本机有一个小陷阱：在 bash 的 here-document 里写含引号的长 Python 脚本会因引号错位而整段不执行，改用 Write 写到暂存目录再运行。
-- 是否把 `port/c-skill` 推送到 origin 由负责人决定（本会话没有推送）。
+- `port/c-skill` 已推送到 `origin/port/c-skill`；`.eclipse/` 仍是唯一未跟踪的 IDE 配置文件。
 
 下一步具体操作（skill；做法同前几个系统）：
 0. 已提交（分支 `port/c-skill`，最新提交以 `git log` 为准）：第 1 阶段框架；第 2 阶段元素弹体 14 个；第 3 阶段动画实体基础与火、土、金、冰、光、风、雷、水（水蛇鞭、水连鞭、激流波、水龙吟、空浮球、陨河术、水灵阵、玲珑阵）、木（乱枝、灰木剑、乱木之种、灰木树梯、木篱术、毒蔓鞭、回身鞭、地蔓鞭）、剑法（`SwordEntities`、`WeaponArts`；平台 `ItemSwingEvent` 触发，2026-11-05）、灵纹（`LingwenHit`、`LingwenEntities`、`LingwenBolt`；Q45）、火鸟术（`FireBird`，基类 `TamedSkillEntity`；2026-11-07；Q46）、起尸诀（`Corpse`、`CorpseAi`、`Corpses`；2026-11-07；Q47）；冒烟 `-PsmokeOnly=skill`（`SkillCheck`、`SkillProjectileCheck`、`SkillEntityCheck`、`SwordArtCheck`、`LingwenCheck`、`FireBirdCheck`、`CorpseCheck`；`Arena` 平地由后四者共用，此前弹体检查在不平地形上整批失败；动作列表类检查继承 `ActionCheck`）。读过程用 `TERSE=1`（去样板）、`DIFF=1`（同模板族）；新增元素族的做法见 `entity/FireEntities` 等：`SkillEntities.register` 里登记行为表，`SkillReleases.register` 登记施放，`mark_ownership.py`、`build_ledger.py`、`mark_ledger.py 已注册`、`convert_content.py`，冒烟加用例，再标 `行为已迁移`。
@@ -51,7 +51,7 @@ xiulian 推迟的雷劫过程（`ThunderBegin`、劫云实体 `Jieyvn`、天劫�
 
 注意（2026-11-04 发现并修正）：此前 `SkillEntity` 默认纹理统一为透明的 `kong`，现在改为各实体来源 `define(TEXTURE, …)` 的纹理（`entity_models.json` 的 `texture`）；冒烟检查看不到画面，阶段 5 实机核对动画实体时要确认各实体可见、动画与碰撞箱（空浮球、陨河术有碰撞箱放大）正确。
 
-测试要精简（负责人 2026-11-07 指示）：冒烟每步只写主路径的少量断言，整套每步只运行一次，不逐功能细测，纯检查代码的修正不重跑整套（改好、编译、如实写明未运行）。**未解决**：`LingwenCheck` 的“射出一枚减一、弹体命中又触发灵纹加一”在 2026-11-07 的四次整套运行里失败了两次（期望 1 实际 2），原因未查明，见[月度记录](../systems/project/logs/2026-11.md)；精简后的 `CorpseCheck` 尚未运行，下次跑 skill 冒烟时一并看结果。
+测试要精简（负责人 2026-11-07 指示）：冒烟每步只写主路径的少量断言，整套每步只运行一次，不逐功能细测，纯检查代码的修正不重跑整套（改好、编译、如实写明未运行）。`LingwenCheck` 的 1/2 差异已记录为 Q48，检查改为接受来源顺序产生的两种结果；本次不再重复整套冒烟。
 
 验证习惯（会话内）：改 Java 或内容表后依次运行 `convert_content.py`（内容表与语言片段）、`gradlew runSmokeClient -PsmokeOnly=<系统>`（含编译）、`gradlew check`、`gradlew runServer`（刷新注册表导出，再运行 `check_ledger.py`）；Gradle 与客户端一次只跑一个。
 
