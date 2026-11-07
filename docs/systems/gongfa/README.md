@@ -2,14 +2,14 @@
 topic: gongfa
 role: entry
 status: partial
-updated: 2026-11-03
+updated: 2026-11-08
 ---
 
 # 功法
 
 标识 `gongfa`，类别：系统。职责：功法书、研习、参悟、星宿穴位学习（[系统设计](../../development/system-design.md)）。
 
-当前阶段：完成（2026-11-03 合入 `main`），留待其他系统的部分见交接说明“已完成”。已完成：功法定义（67 本，`content/gongfa/techniques.json`）、功法书实例组件、研习、功法栏与提交、功法修炼与闭关经验、升级成长、提示文本、书架藏宝给书、参悟台（参悟与继承），开发客户端检查通过。星宿穴位学习小游戏在来源中不可达，未迁移（Q28，待裁定）。
+当前阶段：完成（2026-11-08 补齐 `/technique` 命令），留待其他系统的部分见交接说明“已完成”。已完成：功法定义（67 本，`content/gongfa/techniques.json`）、功法书实例组件、研习、功法栏与提交、功法修炼与闭关经验、升级成长、提示文本、书架藏宝给书、参悟台（参悟与继承）、管理命令 `/technique`，开发客户端检查通过。星宿穴位学习小游戏在来源中不可达，未迁移（Q28，待裁定）。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
 - 候选归属 478 个元素，全部已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
@@ -30,7 +30,7 @@ updated: 2026-11-03
 | 查询功法栏 | `slot(玩家)`、`main(玩家)` | combat（五行值、层数、名字）、panel、flow、cooking |
 | 放入、取出功法栏 | `setSlot(玩家, 物品)`，随后提交 xiulian 主修功法信息与 attribute 加成层贡献 `gongfa:main` | panel、fulu、flow |
 | 研习 | `study(玩家, 书)`：境界与灵根条件、记下研习者、层数 1；成功后发出 `TechniqueStudiedEvent` | book（右键）；skill 监听事件附赠技能 |
-| 生成功法书 | `createBook(TechniqueDefinition)` | flow（`/technique` 命令）、material 等给书的玩法 |
+| 生成功法书 | `createBook(TechniqueDefinition)` | flow、material 等给书的玩法；`/technique` 命令由本系统注册 |
 | 书架藏宝 | `giveTreasureBook(玩家, 藏宝等级)` | book（书架藏宝右键） |
 
 约定：功法栏的书升级、放入或取出后自动重新提交；十三项加成只在本人研习时计入，五行与层数不检查研习者。

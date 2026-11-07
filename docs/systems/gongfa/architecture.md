@@ -24,7 +24,7 @@ updated: 2026-11-01
 
 接口分别为绑定书籍、装备/取出、推进研习、参悟、创建/操作学习会话、读取属性贡献。装备界面跨功法和技能的操作由具体协调入口完成；菜单关闭与取出必须以真实物品去向验证。
 
-## 实现进度（2026-11-03）
+## 实现进度（2026-11-08）
 
 ### 阶段 1：功法定义、书、研习、功法栏与成长
 
@@ -35,6 +35,7 @@ updated: 2026-11-01
 - 功法栏：玩家附件 `technique_slot`（死亡复制，只同步本人）。变化时提交 xiulian 主修功法信息与 attribute 加成层贡献 `gongfa:main`。
 - 修炼：监听 xiulian 的 `CultivationSecondEvent`（“功法”开关的功法修炼，见 `TechniqueRules.train`）与 `CultivationExperienceEvent`（闭关吸纳元气 × 1.5 给功法经验，不检查研习者）。升级条件：层数低于境界层数 + `LevelNumberCorrect` 且低于 40；所需经验 = 层数² × 品阶 × 10。
 - 提示文本（`TechniqueTooltip`，来源 `ItemLore` 功法分支与 `GongfaLore`）。
+- 管理命令（`TechniqueCommands`，来源 `TechniqueCommand` 与 `TechniqueGOProcedure`）：权限 1、贪婪字符串参数、承载物品 ID/名称/品阶/境界/灵根/简介、五行数值与十二项档位按来源顺序写入 `TechniqueDefinition`；第十三项移速档位保持空字符串；书在命令坐标生成并设置 10 刻拾取延迟。数值解析失败为 0，缺失文本为空，无效承载物不生成书。
 - 来源中 `Gongfashuaxin`、`Gongfashuaxin2` 没有调用者，不迁移。
 - 验证：冒烟 `GongfaCheck`（研习条件、提交、闭关经验与升级、提示文本、书架藏宝）与 `ComprehensionCheck`（放置说明、右键界面、参悟、切换、两次继承与 Q27），共 36 项符合，日志 ERROR 0 条，截图 `gongfa_comprehension.png`。
 

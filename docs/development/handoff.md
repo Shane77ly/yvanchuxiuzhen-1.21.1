@@ -30,7 +30,7 @@ C 玩家与战斗核心，combat 已完成并合入 `main`，当前系统 skill�
 已完成（2026-11-03，均已合入 `main`）：
 - attribute：Q17 裁定实际属性计入炼器数值，Q18 暂按来源行为待再议；见[属性](../systems/attribute/README.md)。留待其他系统：重算粒子随 particle；提交贡献的真实路径随 xiulian、gongfa、equipment、fulu、economy；equipment 已在本批去掉妖化防具的重复生命修饰符，六项数值进入统一属性加成层。
 - relation：敌友判定、团队与阵营、好友与申请界面；Q19、Q20；见[关系](../systems/relation/README.md)。留待其他系统：方块实体的敌友判定随首个调用者；好友行境界名随 xiulian。
-- gongfa：功法定义 67 本、功法书组件、研习、功法栏与提交、功法修炼与闭关经验、升级成长、提示文本、书架藏宝、参悟台（参悟与继承）；Q26–Q28；见[功法](../systems/gongfa/README.md)。留待其他系统：书的右键（研习、书架藏宝、答题计数重置）随 book；研习附赠技能（监听 `TechniqueStudiedEvent`）随 skill；`/technique` 命令随 flow；功法页放入取出随 panel；被闪电击中的功法效果 `EntityThunder` 需要 combat 的效果。
+- gongfa：功法定义 67 本、功法书组件、研习、功法栏与提交、功法修炼与闭关经验、升级成长、提示文本、书架藏宝、参悟台（参悟与继承）及 `/technique` 管理命令；Q26–Q28；见[功法](../systems/gongfa/README.md)。留待其他系统：书的右键（研习、书架藏宝、答题计数重置）随 book；研习附赠技能（监听 `TechniqueStudiedEvent`）随 skill；功法页放入取出随 panel；被闪电击中的功法效果 `EntityThunder` 需要 combat 的效果。
 - xiulian：修炼档案与公开操作、出身、修炼推进与突破、闭关、金丹元婴、丹田界面、血道、加点、灵根重置、升仙令与家族令牌；Q21–Q25；见[修炼](../systems/xiulian/README.md)。留待其他系统：雷劫过程原随 combat 推迟，已于 2026-11-07 在当前分支接回（见下文）；远古石盘随 world 的传送阵位置与 particle；传承灵物、家族百宝袋随 material 与 fulu 的实例数据；妖丹实例等级条件随 material；境界提升与血流滴落粒子随 particle；本命培养与进度提交随 equipment；面板加点与丹田按钮、返回分页随 panel；`/yvanchu` 灵根子命令、出身发放物品与 `keepInventory` 随 flow；被闪电击中的功法效果随 gongfa；元婴出窍随 skill。
 
 combat（2026-11-04 完成，合入 `main`）：伤害主链归属阅读与 Q29–Q35；85 个附魔转数据定义并按标签表达类别；状态效果登记基础（`effects.json`、`EffectBehavior`）与 47 个效果的行为；伤害结算（`Shanghai.deal`、`/shanghai`、`HurtHandler`、四个伤害类型）；命中附魔、连锁采集、穿石（破碎的基岩）；木人桩（GeckoLib 首次接入、实体内容表 `entities.json`、设置界面）；公开操作写在[战斗 README](../systems/combat/README.md)，设计、借用事件（`DamageImmunityEvent`、`LethalDamageEvent`、`ArmorStatEvent`、`HitEvent`、`EffectExperienceEvent`、`GatherExperienceEvent`）与各节写在[战斗架构](../systems/combat/architecture.md)；开发客户端 `CombatCheck` 46 项，全系统冒烟 254 项全部符合。留待其他系统：自定义粒子随 particle 登记后接入发出处；`qishi`、`lingwen`（skill）、`starsky`（fulu）订阅 `HitEvent`；`breakfree` 随 flow；淬毒归 lianqi（Q35）；伤害范围指示实体 `Shanghaifanwei` 归 skill；`effect_023`、`024` 归 yihuo，`effect_035` 等归 skill、xiulian、cooking、creature、guchong（登记为标记）。
@@ -87,7 +87,7 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 3. 阶段 4 身法与轻功：`SkillMovement`、`SkillFlight`、W/S/A/D/空格/F 按下沿、每刻冷却、掠空与二十刻耗灵力、禁空已实现，7 项针对性检查一次全部通过（`-PsmokeOnly=skillmovement`），`build`、台账与文档检查通过；专用服务端启动到 Done、ERROR 0 条，未重跑旧神通。饰品飞行减耗由 equipment 监听 `FlightEnchantmentEvent`，有效轻功粒子已接回。阶段 5 已部分实现：G 键原生无槽技能菜单、四技能/翻页/十一箭种/连招、虚空/出窍/扫描/丹火/自爆、C 格挡显示与 Gedang 八刻移除，panel 的六组冷却/格挡/弓蓄力 HUD。Q52 记录扫描无粒子、自爆立即死亡和背景值 6 无写入者；保留来源行为。格挡不减伤，品阶经 `WeaponStatEvent` 的 `lianqizong.item_level_num`，lianqi/equipment 监听尚未接入。妖化已由 equipment 接回（规则和证据见下述批次），丹火放置随 yihuo，出窍和自爆的有效粒子已接回。
 4. 阶段 5 验证：仅一次 `-PsmokeOnly=skillui`，8/9 项通过并 `DONE`；首项检查早于客户端菜单打开（后续菜单按钮主路径正常），已拆开发按键与初始化、后移截图，仅重新编译未重跑。HUD 已查看，默认小窗口右侧冷却裁切；菜单截图早于界面，布局视觉认可尚未完成。最后 `build compileSmokeJava`、ArchUnit、专用服务端启动、台账、文档与来源指纹检查通过；服务端终端仍不转发 stop，任务经中断结束，未验证优雅停服。上一实现提交为 `df8f929`；本批代码与本页同一提交，最新提交号以 `git log -1` 为准。skill 归属 401/401 已读；满天花雨补齐五枚扇形飞叶，`skillremainder` 两项一次通过并 DONE。第 08 箭合成过程只显示111、不附毒（Q53）；十配方已逐项核对。70 个已登记效果的来源图标已进入资源转换；build（含 ArchUnit）与专用服务端启动/正常停服通过，效果导出增至70。粒子库前置已完成类型与提供器登记，弹体侧粒子已接回，其余有效 skill 发出处已接回，完整雷劫已在后续批次接回，下一步处理 equipment/yihuo/world 依赖及视觉认可；不得据此宣称 skill 完成。
 5. creature 迁移时：妖兽技能通过已提供的 `Skills.showWindBurst/launchWindBlade` 放出 `skillwind_05/06`，不直接写技能实体字段；调用者承担爆气的击退/粒子/声音和黑风1.5倍法攻及第8/32/44刻施放，skill承担生成和生命周期。
-6. skill 全部阶段完成后更新 README、正文、月度日志与本页，合入 `main` 并推送，再建 yihuo 的分支。另有两项小事：gongfa 补 `/technique` 命令；`PlayerRightClick` 的开灵附魔分支归 equipment。
+6. skill 全部阶段完成后更新 README、正文、月度日志与本页，合入 `main` 并推送，再建 yihuo 的分支。剩余跨系统小事为 `PlayerRightClick` 的开灵附魔分支归 equipment。
 
 粒子库前置（2026-11-07，本批前一实现提交 `3406d99`；本批提交号以 `git log -1` 为准）：315个来源粒子全部已读并登记原生提供器、参数、JSON及3625张独立贴图。particle归属315/315已读，creature705/586已读，fulu230/154已读；七个纯粒子归属已转入particle。仅一次 `-PsmokeOnly=particle` 两项通过并DONE，截图样本可见；build与ArchUnit、专用服务端启动/正常停服通过，ERROR0、导出315个粒子，台账核对无问题。证据为 `tmp/particle-{build,smoke,server}.log`、`tmp/particle-report.txt` 和 `build/smoke/screenshots/particle-library.png`。粒子台账保持“已注册”，弹体侧发出处随后已接回，动画实体、生命感知、轻功、研习、出窍与自爆的有效调用也已接回，全量视觉与两版本对照未执行。后续按来源逐处区分服务端 `sendParticles` 和客户端 `addParticle`；服务端原本为空的 `Level.addParticle` 不改成广播。
 
@@ -203,3 +203,7 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 ## 2026-11-08 异火材料投掷批次
 
 按1.18.2版本源码接回 `cailiao_221`–`229`、`231`–`239` 共18种材料物品、对应投掷实体、灵力/沉默/连续施放冷却、无重力8刻寿命、粒子、实体命中灼烧、潜行放置火块及非潜行补燃料；实体使用原生 `ThrownItemRenderer`。`build` 通过；沿用项目内置 `runSmokeClient -PsmokeOnly=skillparticle`，客户端进入世界、报告 `DONE`、四维度正常保存退出、未新增 Test 或选择器。该验证只覆盖公共注册、资源加载和客户端启动，不宣称18种材料完整自然施放、命中、获取消费、武器触发、多人或视觉已验收。未完成项见[异火正文](../systems/yihuo/architecture.md#异火材料投掷物2026-11-08)。
+
+## 2026-11-08 功法 `/technique` 命令批次
+
+按 1.18.2 版本 `TechniqueCommand` 与 `TechniqueGOProcedure` 接回权限 1 的 `/technique`：贪婪字符串参数按 0–22 号顺序生成未研习功法书，承载物品、名称、品阶、所需境界、灵根要求、简介、五行值和十二项档位均保留来源顺序，第十三项移速档位保持空字符串；数值解析失败为 0，缺失文本为空，无效承载物不生成书。书在命令坐标掉落，拾取延迟 10 刻。`gradlew compileJava` 已通过；本批完成后运行完整 build、既有 `runSmokeClient -PsmokeOnly=skillui`、文档检查和台账检查，未新增 Test 或冒烟选择器。
