@@ -12,11 +12,17 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ItemSwingEvent;
@@ -25,6 +31,8 @@ import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fuchen;
+import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
+import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -68,6 +76,18 @@ final class EquipmentWeapons {
         }
     }
 
+    static void rightClick(PlayerInteractEvent.RightClickItem event) {
+        if (!(event.getEntity() instanceof ServerPlayer player) || event.getHand() != player.getUsedItemHand()
+                || Enchants.mainHand(player, Enchants.key("kailing")) == 0 || player.gameMode.getGameModeForPlayer() == GameType.ADVENTURE) {
+            return;
+        }
+        ToolMachineEntity.Kind kind = toolKind(player.getMainHandItem());
+        if (kind != null) {
+            KailingProjectile.shoot(player.serverLevel(), player, kind);
+            player.getCooldowns().addCooldown(player.getMainHandItem().getItem(), 100);
+        }
+    }
+
     static void swing(ItemSwingEvent event) {
         ResourceLocation id = BuiltInRegistries.ITEM.getKey(event.stack().getItem());
         if (!(event.entity() instanceof ServerPlayer player) || !id.getNamespace().equals(ModId.VALUE) || !HOSSUS.contains(id.getPath())) {
@@ -84,6 +104,13 @@ final class EquipmentWeapons {
 
     private static boolean rightClicking(Player player) {
         return player.getPersistentData().getCompound("synchronizedata").getBoolean("rightclicking");
+    }
+
+    private static ToolMachineEntity.Kind toolKind(ItemStack stack) {
+        return stack.getItem() instanceof AxeItem ? ToolMachineEntity.Kind.AXE
+                : stack.getItem() instanceof PickaxeItem ? ToolMachineEntity.Kind.PICKAXE
+                : stack.getItem() instanceof HoeItem ? ToolMachineEntity.Kind.HOE
+                : stack.getItem() instanceof ShovelItem ? ToolMachineEntity.Kind.SHOVEL : null;
     }
 
     private static boolean available(Player player, ItemStack selected) {

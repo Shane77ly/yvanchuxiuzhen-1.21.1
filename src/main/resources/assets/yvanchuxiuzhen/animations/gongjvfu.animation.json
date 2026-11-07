@@ -1,0 +1,135 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.gongjvfu.idle": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"zong": {
+					"rotation": {
+						"vector": [0, 0, -52.5]
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 2, 0],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"xvanzhuan": {
+					"rotation": {
+						"0.0": {
+							"vector": [5, 0, 0],
+							"easing": "easeInOutQuad"
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [5, 0, 0],
+							"easing": "easeInOutQuad"
+						}
+					},
+					"position": {
+						"vector": [5, -6, 0]
+					}
+				}
+			}
+		},
+		"animation.gongjvfu.attack": {
+			"animation_length": 0.6,
+			"bones": {
+				"zong": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -75]
+						},
+						"0.24": {
+							"vector": [0, 0, -75]
+						},
+						"0.52": {
+							"vector": [0, 0, -75]
+						},
+						"0.6": {
+							"vector": [0, 0, -75]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [7, 6, 0]
+						},
+						"0.52": {
+							"vector": [7, 6, 14],
+							"easing": "easeInOutQuad"
+						},
+						"0.6": {
+							"vector": [7, 6, 0]
+						}
+					}
+				},
+				"xvanzhuan": {
+					"rotation": {
+						"0.0": {
+							"vector": [30, 0, 0]
+						},
+						"0.24": {
+							"vector": [45, 0, 0]
+						},
+						"0.52": {
+							"vector": [-90, 0, 0]
+						},
+						"0.6": {
+							"vector": [30, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.24": {
+							"vector": [0, 4, 0]
+						},
+						"0.52": {
+							"vector": [0, 0, 0]
+						},
+						"0.6": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.gongjvfu.attack02": {
+			"animation_length": 1,
+			"bones": {
+				"zong": {
+					"rotation": {
+						"vector": [0, 0, -60]
+					},
+					"position": {
+						"vector": [0, 8, 0]
+					}
+				},
+				"xvanzhuan": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [1440, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

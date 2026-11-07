@@ -2,7 +2,7 @@
 topic: equipment
 role: architecture
 status: partial
-updated: 2026-11-07
+updated: 2026-11-08
 ---
 
 # 装备、法宝、本命与饰品：架构调查与提案
@@ -194,3 +194,23 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 证据：`tmp/accessory-{build,smoke,server}.log`、`tmp/accessory-report.txt`、`tmp/accessory-check-compile.log`、`tmp/accessory-stacking-audit.log` 与两张旧截图。GUI 当前仅部分实现：属性页和饰品页已接主路径，但两页的其他分页按钮、饰品临时队伍显示/退出未接；`GUIshipintai` 制作台亦未实现。其余页面随所属系统逐项闭合，不能留到最后统一补或宣称当前 GUI 已验收。合法单件穿戴、重登后实际操作、多人、完整视觉、1.18.2版本实机及两版本对照未完成。菜单台账仅标“已注册”并注明部分行为，不升级整套饰品物品的迁移状态。
 
 后续合法单件验收（2026-11-07）：沿用现有 `runSmokeClient -PsmokeOnly=accessories`，未修改检查代码，14项全部通过并 `DONE`。真实 `/shipin` 生成上限一的单件，K键打开属性/饰品页，实际Shift搬移、关闭保存及本人同步、根法攻和属性提交、七级飞行减耗、头顶容器绑定、丹田往返、死亡复制、退出重登和重登后再打开均通过。两次退出均保存全部世界，客户端ERROR0，证据为 `tmp/accessory-native-{client.log,report.txt}`。本次补齐合法数据下的上述路径证据；其他分页、临时队伍、制作台、多人和两版本对照仍未完成，菜单及整套饰品物品状态不升级为完整验收。
+
+## 开灵工具机与弹体（2026-11-08）
+
+### 来源调用链与冻结字段
+
+来源入口为 `PlayerRightClickProcedure.onRightClickItem` 的 `RightClickItem` 事件。开灵等级非零且主手为 `AxeItem`、`PickaxeItem`、`HoeItem` 或 `ShovelItem` 时，冒险模式被排除；服务端生成 `GongjvshechuEntity`，伤害为 `0.1`、速度为 `1`，位置为 `getEyeY() - 0.1`，并写入物品100刻冷却。`GongjvshechuTouZhiWuFeiXingTickProcedure` 在首个有效主人 tick 写入 `zhurenuuid`、`gongjvleixing`、`fumodengji` 并关闭重力，随后计数到16刻调用 `GongjvshechuDangTouSheWuSheZhongCiFangKuaiProcedure`；命中方块路径同样生成工具机并播放闪光。
+
+目标 `KailingProjectile` 在首个服务端 tick 冻结主人主手的工具类别和开灵等级，持久化 `ticks`、`enchantLevel`、类别、初始化和生成标记。命中与16刻到期共用一次生成保护，工具机创建时写入主人 UUID、附着方向、等级、寿命上限和中心坐标，随后以 `MOB_SUMMONED` 完成 Mob 初始化。
+
+### 四种工具机状态机
+
+`GongjvfuDangShiTiGengXinKeShiProcedure` 的斧过程保留 `寻找 → 寻路 → 采集 → 触点`，扫描范围为 `8 × fumodengji`，命中等待11刻；目标不可达时按来源每10刻调整垂直移动，邻近叶片时进入3×3×3清理并等待20刻，无目标20刻后结束。寿命达到 `fumodengji × 2400` 时使用来源的材料粒子和火焰，斧的来源缺省寿命初始化 `fumodengji × 400` 也保留。
+
+`GongjvgaoDangShiTiGengXinKeShiProcedure` 的镐过程保留按附着方向的首目标、四向螺旋搜索、移动、准备、挖掘和结束；每轮达到25个目标后从中心重新开始。来源以 `STONE`、`ICE`、`CLAY` 材料判定，目标用镐可采掘标签、冰标签和黏土块表达；挖掘等待5刻。锄和铲过程共用来源的土地扫描与移动时序，移动阶段始终位于目标方块上方；锄按 `TOP_SNOW`、`DIRT`、`GRASS`、`SAND` 材料集合，铲按 `DIRT`、`GRASS` 集合，完成后清除植物并把目标设为湿润度7的耕地。来源过程中斧与镐在寿命上限为0时写入 `fumodengji × 400`，锄和铲不补写该缺省值。
+
+主人 UUID 非空时，镐、锄、铲只在主人在线时执行来源的掉落与破坏；主人为空时按来源在目标位置掉落。来源1.18.2的 `PLANT`、`REPLACEABLE_PLANT` 材质在目标用可替换方块标签与 `BushBlock` 表达，未扩展为额外植物规则。
+
+### 验证范围
+
+静态核对依据为 `PlayerRightClickProcedure`、`GongjvshechuEntity`、`GongjvshechuTouZhiWuFeiXingTickProcedure`、`GongjvshechuDangTouSheWuSheZhongCiFangKuaiProcedure`、四个工具机 tick 过程和 `JianceshuyeProcedure`；目标 API 按 NeoForge 21.1.265 源码改写。`gradlew build`、`check_docs.py` 与 `check_ledger.py` 已通过。沿用现有 `runSmokeClient -PsmokeOnly=equipmentweapon`，五项既有弓与拂尘检查全部符合并以 `DONE` 结束，客户端正常保存退出且未见 `ERROR/FATAL`；该检查只证明新增实体注册、客户端装配和公共启动未阻塞，不替代工具机四类自然操作的专项验收。专用服务器启动至 `Done`，原生 `stop` 后全部维度正常保存退出，ERROR 0，实体导出 91 个。未执行1.18.2实机、两版本对照、多人及完整视觉验收。

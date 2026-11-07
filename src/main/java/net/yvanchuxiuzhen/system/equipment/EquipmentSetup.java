@@ -9,12 +9,15 @@ import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.ItemRow;
 import net.yvanchuxiuzhen.platform.content.LegacyTier;
+import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.HossuItem;
+import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fuchen;
+import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
 
 /**
  * 装备系统的启动装配，只在 Mod 构造时调用一次。
@@ -42,8 +45,22 @@ public final class EquipmentSetup {
             }
         }
         CONTENT.entity(Fuchen.ID, Fuchen::new);
+        for (EntityModelRow model : ContentFiles.read("content/equipment/entity_models.json", EntityModelRow.CODEC)) {
+            ToolMachineEntity.Kind kind = switch (model.id()) {
+                case "gongjvfu" -> ToolMachineEntity.Kind.AXE;
+                case "gongjvgao" -> ToolMachineEntity.Kind.PICKAXE;
+                case "gongjvchan" -> ToolMachineEntity.Kind.HOE;
+                case "gongjvchu" -> ToolMachineEntity.Kind.SHOVEL;
+                default -> null;
+            };
+            if (kind != null) {
+                CONTENT.<ToolMachineEntity>livingEntity(model.id(), (type, level) -> new ToolMachineEntity(type, level, model, kind), () -> ToolMachineEntity.attributes(model));
+            }
+        }
+        CONTENT.<KailingProjectile>entity(KailingProjectile.ID, KailingProjectile::new);
         CONTENT.register(modBus);
         NeoForge.EVENT_BUS.addListener(EquipmentWeapons::tick);
+        NeoForge.EVENT_BUS.addListener(EquipmentWeapons::rightClick);
         NeoForge.EVENT_BUS.addListener(AccessoryCommand::register);
         NeoForge.EVENT_BUS.addListener(Accessories::tick);
         NeoForge.EVENT_BUS.addListener(Accessories::flight);
@@ -60,5 +77,13 @@ public final class EquipmentSetup {
 
     public static Supplier<EntityType<Fuchen>> fuchenType() {
         return CONTENT.entityType(Fuchen.ID);
+    }
+
+    public static Supplier<EntityType<KailingProjectile>> kailingProjectileType() {
+        return CONTENT.entityType(KailingProjectile.ID);
+    }
+
+    public static Supplier<EntityType<ToolMachineEntity>> toolMachineType(ToolMachineEntity.Kind kind) {
+        return CONTENT.entityType(kind.id());
     }
 }

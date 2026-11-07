@@ -54,6 +54,7 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 - 本批没有新增Test、专项选择器或修改旧专项。负责人再次强调来源核对优先、没有必要不写Test；曾暂停时留下当前改动未提交，现按“继续做”恢复。本批build/ArchUnit通过；补入群系语言后的一次专服加载至Done，原生命令确认正式虚空群系和空气区块，移除强加载后stop保存四世界并正常退出，ERROR0，群系导出1个。证据为 `tmp/world-void-{build,content,server}.log`；自然裂隙往返与视觉未验收。
 - 上一丹火/炙烤批次已提交：来源放置回放已核实，唯一旧专项7项中2项通过、5项失败，新增脚本与选择器已撤下，不恢复或刷通过；炉鼎消费者仍待D阶段。记录见[异火正文](../systems/yihuo/architecture.md)。
 - 本批已逐项核对 `SkillScreen`、HUD与来源界面/按钮/显示过程，未发现需修改的差异。使用现有 `runSmokeClient -PsmokeOnly=skillui` 九项全部通过，缩放1的真实菜单与HUD截图已查看，开发设置已还原；现有 `accessories` 合法单件14项全部通过，补齐保存/死亡复制/重登后操作和飞行减耗。两次客户端均正常保存四世界、ERROR0，没有新增或修改检查代码。证据为 `tmp/skill-ui-native-{client.log,report.txt,menu.png,hud.png}` 与 `tmp/accessory-native-{client.log,report.txt}`。此前误用Computer Use已停止，普通客户端在标题页正常退出、未入世界；负责人明确沿用项目内置客户端验证。
+- 开灵工具机与弹体已按1.18.2版本实际源码接回，未新增Test、冒烟选择器或Computer Use。`gradlew build`、`check_docs.py`、`check_ledger.py`通过；沿用现有`runSmokeClient -PsmokeOnly=equipmentweapon`的五项既有弓与拂尘检查全部符合并`DONE`，客户端正常保存退出、未见`ERROR/FATAL`。专用服务器一次启动至`Done`并经原生`stop`正常保存退出，实体导出91个；该客户端检查仅作为注册/装配/启动回归，不替代四类工具机自然操作专项。1.18.2实机、两版本对照、多人及完整视觉仍未执行，规则见[装备开灵工具机](../systems/equipment/architecture.md#开灵工具机与弹体2026-11-08)。
 - `Skills.showWindBurst/launchWindBlade` 已按妖兽011爆气和014黑风生成过程接回；skill拥有风波八刻、风刃攻击者/攻击量/倍率一/目标/二百刻上限及初始化。creature 仍需在自身时序调用，风刃1.5倍法攻由调用者计算。build/ArchUnit通过（`tmp/skill-wind-api-build.log`），没有新增专项，未将接口编译视为自然妖兽入口验收。
 - 正式虚空下现有`voidrift`检查12项通过并DONE，四世界正常保存退出、ERROR0。进入人工推进后直接调用碰撞方法，返回由真实玩家碰撞触发；完整自然操作和裂隙视觉未验收。证据在`tmp/voidrift-formal-{client.log,report.txt}`，本轮没有修改检查逻辑。
 - 新核对35个动画实体的运动与死亡源码，按来源接回30个共用实体的十九个飞行导航、九个水中导航、两个地面导航及属性、流体、死亡时序，尸体恢复40刻死亡移除；共享模型表的xiulian四行同步生成。最终build/ArchUnit及检查源集编译通过，现有`skillvisual`两项通过并DONE，四世界正常保存退出、ERROR0，光爆与血雾截图均有可见样本；不覆盖逐类水中运动、死亡边界或完整视觉。规则及`tmp/skill-entity-lifecycle-*`证据见[实体复核](../systems/skill/architecture.md#动画实体运动与死亡时序复核2026-11-07)，当前客户端已退出。
@@ -207,3 +208,9 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 ## 2026-11-08 功法 `/technique` 命令批次
 
 按 1.18.2 版本 `TechniqueCommand` 与 `TechniqueGOProcedure` 接回权限 1 的 `/technique`：贪婪字符串参数按 0–22 号顺序生成未研习功法书，承载物品、名称、品阶、所需境界、灵根要求、简介、五行值和十二项档位均保留来源顺序，第十三项移速档位保持空字符串；数值解析失败为 0，缺失文本为空，无效承载物不生成书。书在命令坐标掉落，拾取延迟 10 刻。`gradlew compileJava` 已通过；本批完成后运行完整 build、既有 `runSmokeClient -PsmokeOnly=skillui`、文档检查和台账检查，未新增 Test 或冒烟选择器。
+
+## 2026-11-08 开灵工具机批次
+
+当前分支仍为 `port/c-skill`，`.eclipse/` 为用户 IDE 配置，保留且不提交。本批按1.18.2版本实际源码接回开灵附魔的右键工具入口、`projectile_gongjvshechu` 弹体、`gongjvfu`、`gongjvgao`、`gongjvchan`、`gongjvchu` 四种工具机及其 GeckoLib 模型、动画和贴图。首刻冻结主人/工具/等级，命中方块或16刻到期生成工具机；斧、镐、锄、铲状态机按来源扫描、移动、采集和寿命过程实现。`gradlew build`、文档检查、台账检查和既有 `runSmokeClient -PsmokeOnly=equipmentweapon` 已通过；客户端正常保存退出，专用服务器正常 `stop`，实体导出 91 个。现有客户端检查不替代四类工具机自然操作专项，1.18.2 实机、两版本对照、多人及完整视觉仍待后续。
+
+本批完成后继续按路线推进 skill 收口及其后的 yihuo、equipment 依赖批次；不新增 Test、专项选择器或 Computer Use 流程。

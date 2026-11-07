@@ -4351,22 +4351,22 @@ yvanchuxiuzhen,Jinengxvanze02,procedure,~/skill/jineng/jinengGui,skill,已读,�
 yvanchuxiuzhen,Jinengxvanze03,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Jinengxvanze04,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Yaoshou054skill01panding,procedure,~/entity/yaoshou/yaoshou054,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongjvfuDangShiTiGengXinKeShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,GongjvfuDangShiTiGengXinKeShi,procedure,~/tool,equipment,已读,2026-11-08 equipment 逐行核对并接回斧工具机状态机
 yvanchuxiuzhen,GongjvfuDangSiWangShiJianDaoShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjvfu,animatedentity,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Gongjvfu,animatedentity,~/tool,equipment,已读,2026-11-08 equipment 接回斧工具机实体、模型和客户端渲染
 yvanchuxiuzhen,Kailing,enchantment,~/enchanting,equipment,已读,C combat 归属阅读：附魔空壳类；玩家右键时让斧镐铲锄自动开采（flow 的 PlayerRightClick 发起，equipment 的工具射出等读取），玩法含义在 equipment
 yvanchuxiuzhen,Itemfulu48DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu48 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu48,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Jianceshuye,procedure,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongjvgaoDangShiTiGengXinKeShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjvgao,animatedentity,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,GongjvgaoDangShiTiGengXinKeShi,procedure,~/tool,equipment,已读,2026-11-08 equipment 逐行核对并接回镐工具机状态机
+yvanchuxiuzhen,Gongjvgao,animatedentity,~/tool,equipment,已读,2026-11-08 equipment 接回镐工具机实体、模型和客户端渲染
 yvanchuxiuzhen,GongjvshechuDangTouSheWuSheZhongCiFangKuai,procedure,~/tool,equipment,已读,B1 归属阅读：随 Gongjvshechu 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,GongjvshechuTouZhiWuFeiXingTick,procedure,~/tool,equipment,已读,B1 归属阅读：随 Gongjvshechu 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,Gongjvshechu,rangeditem,~/tool,equipment,已读,B1 归属阅读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
-yvanchuxiuzhen,GongjvchanDangShiTiGengXinKeShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjvchan,animatedentity,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GongjvchuDangShiTiGengXinKeShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gongjvchu,animatedentity,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,GongjvchanDangShiTiGengXinKeShi,procedure,~/tool,equipment,已读,2026-11-08 equipment 逐行核对并接回锄工具机状态机
+yvanchuxiuzhen,Gongjvchan,animatedentity,~/tool,equipment,已读,2026-11-08 equipment 接回锄工具机实体、模型和客户端渲染
+yvanchuxiuzhen,GongjvchuDangShiTiGengXinKeShi,procedure,~/tool,equipment,已读,2026-11-08 equipment 逐行核对并接回铲工具机状态机
+yvanchuxiuzhen,Gongjvchu,animatedentity,~/tool,equipment,已读,2026-11-08 equipment 接回铲工具机实体、模型和客户端渲染
 yvanchuxiuzhen,GongjvfuDangYouJianDianJiShiTi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Entitydaxiao,attribute,~/entity/yaoshou,creature,已读,C attribute 归属阅读：实体属性 entitydaxiao（0.7–10），只加给妖兽、修者与桃木精，由生成、灵兽袋收放与修者身高过程读写，决定实体体型
 yvanchuxiuzhen,Yaoshoudaxiaoxianshi,procedure,~/entity/yaoshou,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
