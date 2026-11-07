@@ -14,6 +14,8 @@ updated: 2026-11-07
 
 战斗状态还使用记分板 `zdztbegin/zdzttick`（`EntityHurtProcedure:79–98`）。这些状态不能因未列入 Variables 而丢失。
 
+元婴出窍调用链复核（2026-11-07）：`FightingState`新增已有状态的清除操作，两个分数同时写0；skill每二十刻耗神前调用mark，耗神不足自动归窍前调用clear，手动归窍不清除，依据为 `YvanyingchuqiaotickProcedure`。最终build/ArchUnit通过；沿用现有出窍5项及技能界面9项全部通过，战斗分数清除本身仅有静态核对证据，详见[元婴正文](../skill/architecture.md#元婴出窍2026-11-07)。
+
 77 个状态效果、85 个附魔注册及伤害命令均在范围。402 处命令执行调用另有索引，包含效果、粒子及自定义命令路径，不能只沿 `.execute` 静态调用追伤害。
 
 ## 实际命令链与未闭合的字段链

@@ -189,13 +189,17 @@ Q62：逐项读取35个来源动画资源中的实际名字，仅伤害范围默
 
 ## 元婴出窍（2026-11-07）
 
-来源入口是 `A:JinengchuqiaoProcedure`，由技能界面的出窍按钮调用，不经过技能书施放。雷劫开启、境界（`LEVELnumber + LevelNumberCorrect >= 31`）、法宝 009 维度和旁观模式按来源顺序限制；首次出窍扣除 `LEVELnumber × 2` 神识，保存本体坐标与原游戏模式，设置 `tizhiitem` 的 `yvanyingchuqiao` 标记并把玩家切换为旁观模式。公开入口为 `Skills.toggleYuanying`，阶段 5 再接回完整按钮流程。
+来源入口是 `A:JinengchuqiaoProcedure`，由技能界面的出窍按钮调用，不经过技能书施放。雷劫开启、境界（`LEVELnumber + LevelNumberCorrect >= 31`）、法宝 009 维度和旁观模式按来源顺序限制；首次出窍扣除 `LEVELnumber × 2` 神识，创造模式只豁免余额门槛、同样扣费。保存本体坐标与原游戏模式，设置 `tizhiitem` 的 `yvanyingchuqiao` 标记并把玩家切换为旁观模式。公开入口为 `Skills.toggleYuanying`，菜单第21号按钮已接入；原模式内部使用英文值，恢复只处理来源实际保存的创造、冒险与生存三种模式，不为其他值补默认模式。
 
-目标 `Yuanying` 复用技能实体的模型表、GeckoLib 动画和统一渲染器，记录本体 UUID，复制本体阵营与友方集合，继承生命上限及三项防御值，并执行一次 `finalizeSpawn`。生成时把附近生物对本体的当前目标，以及无当前目标时持久数据中的 `gongjizhe`/`linshigongjizhe`，迁移到元婴。元婴受伤时先把本体生命同步为受击前的元婴生命；元婴死亡时恢复原游戏模式、清除出窍标记并杀死本体。
+目标 `Yuanying` 复用技能实体的模型表、GeckoLib 动画和统一渲染器，记录本体 UUID，复制本体阵营与友方集合，继承生命上限及三项防御值。生成时同步当前及旧头部/身体朝向，先以玩家精确位置点AABB扩16格并按距离排序，把生物对本体的当前目标，以及无当前目标时持久数据中的 `gongjizhe`/`linshigongjizhe`，迁移到元婴，随后 `finalizeSpawn` 并加入世界。元婴受伤时只在当前世界玩家中找主人，先把主人生命同步为受击前的元婴生命；死亡同样只处理当前世界主人，恢复原游戏模式、清除出窍标记并杀死主人，不跨维度查全服玩家。
 
-`Yuanying.tick` 按来源每刻计算 `境界 + 本体坐标距离 + 非空方块时的境界 × 3` 神识消耗，非创造模式设置 40 刻传送冷却并扣除神识；扣除后不足下一刻消耗时立即归窍。归窍通过 xiulian 的体质公开操作读取坐标与模式，传送本体、清除附近属于该 UUID 的元婴并恢复模式。`chuqiaoX/Y/Z`、`chuqiaoqianzhuangtai` 和出窍标记均由 xiulian 附件保存。
+完整重读 `A:PlayerTickProcedure:64–86` 后修正此前“每刻耗神”的误判：耗神位于世界时间达到 `jishiqi + 20` 的分支，现监听既有 `CultivationSecondEvent`，在吸收和恢复前计算 `境界 + 本体坐标距离 + 非空方块时的境界 × 3`。先经combat的 `FightingState.mark` 写战斗状态；非创造模式余额足够时设置40刻传送冷却并扣费，扣后不足同一次算出的需求时，或扣前已经不足时，经 `FightingState.clear` 同时清两个战斗分数并归窍。手动归窍不清战斗状态。归窍先传送到保存坐标，再以精确位置点AABB扩2格、按距离排序移除第一个属于该UUID的元婴，恢复模式。`chuqiaoX/Y/Z`、`chuqiaoqianzhuangtai` 和出窍标记均由xiulian附件保存。
+
+独立实体按完整 `YvanyingchuqiaoEntity` 恢复原生地面导航与移动控制，去掉目标误加的飞行速度属性和两项摔落免疫钩子；保留原生重力和20刻死亡移除。基础刻之后刷新尺寸，`aiStep` 后推进挥臂时间，受伤/死亡声音分别为 `entity.generic.hurt/death`。来源 `PlayerTick:59–63` 的持续紫烟也已接回：出窍期间每刻在玩家脚下发送两枚 `smokedeeppurple`，扩散各0.2、速度0，与每二十刻耗神分别挂载。精确目标源码核对为NeoForge21.1.265的 `Mob`、`LivingEntity`、`Entity.moveTo` 和原生菜单按钮处理器；静态证据见 `tmp/yuanying-parity-source-audit.log`。
 
 针对性检查入口为 `gradlew runSmokeClient -PsmokeOnly=yuanying`，`YuanyingCheck` 的 5 项检查覆盖境界门槛、初次扣神识与实体生成、持续消耗、受伤同步、归窍和神识不足。来源的 `starblue` 20 枚、`starskyblue` 10 枚出窍粒子已在生成元婴前于玩家头顶发出；元婴死亡时在脚下发 `brokendarkblue` 20 枚，三者速度均为 0.5。技能菜单按钮已接入；视觉认可、多人交互和 1.18.2 版本实机对照未执行。
+
+本轮完整调用链修正后，最终 `build compileSmokeJava`（含ArchUnit）通过，沿用现有 `runSmokeClient -PsmokeOnly=yuanying,skillui`，出窍5项、技能界面9项全部通过并DONE；四世界正常保存退出、ERROR/FATAL0。没有新增Test类、选择器或检查项目；既有出窍检查把等待对齐到20刻周期并固定、还原计时基准，补足进入场景的神识，原归窍断言改走旁观状态真实屏幕按钮及网络。技能界面检查未修改，覆盖新按钮消息的翻页、选择、轮盘、丹火、扫描及自爆。临时关闭FML早期窗口，退出后配置按原字节还原且哈希一致。日志在 `tmp/yuanying-parity-{final-build.log,client.log,report.txt}`；自爆死亡至重生期间仍有32条未知实体附件同步警告，此前同一界面场景有31条，本批未处理该已有问题。创造起手、跨维度主人隔离、元婴死亡、自然摔落与完整粒子/声音尚无本轮实机证据，未执行多人或两版本对照。
 
 ## 技能箭与箭种选择（2026-11-07）
 
@@ -258,7 +262,7 @@ G 键技能界面、轮盘、HUD 与 C 键已在阶段 5 接入，见下节；�
 
 ## 技能界面、格挡与功能入口（2026-11-07，阶段 5 部分实现）
 
-`SkillMenus` 注册来源 `jineng_gui`，`SkillMenu` 没有物品槽；G 键只请求服务端打开本人菜单。`SkillScreen` 使用原生菜单屏幕、来源 500×500 布局和贴图，按钮经 `handleInventoryButtonClick` 发送。目标 21.1.265 的 `ServerGamePacketListenerImpl.handleContainerButtonClick` 验证当前容器 ID、非旁观者及 `stillValid`，再由 `SkillMenu.clickMenuButton` 分派：0–3 四技能，4/5 翻页，6–16 十一箭种，17 连招，18 虚空，19 妖化，20 自爆，21 出窍，22 扫描，23 丹火。妖化请求由 equipment 监听并执行装备生命周期。名称与五行底图只显示本人研习的书；底图取最先达到一秒冷却的五行分组，阴阳不着色。来源数值 6 的背景没有写入者（Q52）。
+`SkillMenus` 注册来源 `jineng_gui`，`SkillMenu` 没有物品槽；G 键只请求服务端打开本人菜单。`SkillScreen` 使用原生菜单屏幕、来源500×500布局和贴图，按钮由 `SkillButtonPayload(容器ID, 按钮)` 发送。目标21.1.265的原生 `handleContainerButtonClick` 会拒绝旁观者，出窍后无法经该路径归窍；来源 `JinengGuiButtonMessage` 允许旁观者，故按来源使用自定义消息，并核对发送者当前确为SkillMenu、容器ID匹配、`stillValid`。`SkillMenu.clickMenuButton` 验证0–23范围并分派：0–3四技能，4/5翻页，6–16十一箭种，17连招，18虚空，19妖化，20自爆，21出窍，22扫描，23丹火。妖化请求由equipment监听并执行装备生命周期。名称与五行底图只显示本人研习的书；底图取最先达到一秒冷却的五行分组，阴阳不着色。来源数值6的背景没有写入者（Q52）。
 
 `SkillGuard` 保留来源 `Canjian` 的按下/松开：冷却未大于零时，主手品阶除二加 20；副手在 `dunpai` 标签中时用两手品阶之和除二加 21，冷却设为 20 刻。松开把显示计时清零，每刻分别递减计时和冷却。真值仍在玩家实体的 `canjianjishi`、`canjianjishicolddown` 持久数据，不改变来源克隆策略；`skill_guard` 附件只把显示值同步给本人。品阶经已有 `WeaponStatEvent` 查询 `lianqizong.item_level_num`，equipment 已接入[成品生产与品阶监听](../equipment/architecture.md#宝箱成品与品阶2026-11-07)。`Gedang` 实体保留模型、无重力与八刻移除，但来源没有生成者，C 键也不生成它；格挡计时没有任何伤害消费者，不增设减伤。
 

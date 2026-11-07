@@ -12,6 +12,8 @@ updated: 2026-11-07
 
 `A:PlayerTickProcedure:64–86` 按世界时间间隔区分修炼和功法研习，之后计算属性、副本、本命法宝及元婴出窍。`experience`、`experience_Stand`、`experience_Max` 分别参与已有修为、待吸收修为和突破门槛；不可合并成一个经验字段。日收益上限来自主世界 `dailyexperience`，已用额度放在玩家 `tizhiitem` 中（同文件 97–155）。
 
+2026-11-07完整出窍调用链复核后，skill已监听既有 `CultivationSecondEvent`，在吸收与恢复前按来源每二十刻耗神；xiulian不依赖skill，也不新增计时器。该事件同时继续由gongfa推进功法修炼。最终build/ArchUnit与既有出窍5项、界面9项通过，范围见[元婴正文](../skill/architecture.md#元婴出窍2026-11-07)。
+
 `A:LEVELupProcedure` 实际调用金丹、元婴、境界修正和升级表现。职业升级有独立 `FuzhiyeLevelUpProcedure`；只有职业字段存在并不证明对应职业拥有完整生产流程。
 
 玩家能力类的 166 个字段中，157 个在所有 Clone 事件复制；六种 `colddown*`、`gongjian`、`gongjianjineng`、`chuansongitem` 共 9 个只在非死亡复制。另一个 Mod 是 15 + 2，后两项为 `bankceshi1/2`。这是普通 Clone 的源码规则，不覆盖轮回符的主动重置。见全量 [生命周期台账](../../reference/legacy/inventory/state_lifecycle.csv)。

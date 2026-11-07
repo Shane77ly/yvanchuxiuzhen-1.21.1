@@ -22,6 +22,13 @@ public final class FightingState {
         score(scoreboard, "zdzttick", entity, entity.getLastHurtByMobTimestamp());
     }
 
+    /** 元婴出窍耗神不足时，按来源同时清除战斗开关与受击时间。 */
+    public static void clear(LivingEntity entity) {
+        Scoreboard scoreboard = entity.level().getScoreboard();
+        score(scoreboard, "zdztbegin", entity, 0);
+        score(scoreboard, "zdzttick", entity, 0);
+    }
+
     private static void score(Scoreboard scoreboard, String name, Entity holder, int value) {
         Objective objective = scoreboard.getObjective(name);
         if (objective == null) {

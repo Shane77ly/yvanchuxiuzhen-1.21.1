@@ -31,10 +31,12 @@ import net.yvanchuxiuzhen.system.skill.entity.Yuanying;
 import net.yvanchuxiuzhen.system.skill.projectile.ElementProjectiles;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillArrows;
 import net.yvanchuxiuzhen.system.skill.network.SkillActionPayload;
+import net.yvanchuxiuzhen.system.skill.network.SkillButtonPayload;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
 
 /**
  * 技能系统的启动装配，只在 Mod 构造时调用一次：内容表、技能书组件与玩家附件、技能按键与生成命令的服务端处理、
- * 右键施放、挥动武器触发武器技、每刻推进冷却，以及研习指定功法后附赠技能。
+ * 右键施放、挥动武器触发武器技、每刻推进冷却与出窍粒子、每二十刻出窍耗神，以及研习指定功法后附赠技能。
  */
 public final class SkillSetup {
     private static final ContentTables CONTENT = new ContentTables("skill");
@@ -67,10 +69,13 @@ public final class SkillSetup {
         NeoForge.EVENT_BUS.addListener((HitEvent event) -> LingwenHit.onHit(event));
         NeoForge.EVENT_BUS.addListener((HitEvent event) -> Corpses.onHit(event));
         NeoForge.EVENT_BUS.addListener((TechniqueStudiedEvent event) -> grantBonus(event.player(), event.technique()));
+        NeoForge.EVENT_BUS.addListener((CultivationSecondEvent event) -> Yuanying.tick(event.player()));
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {
-        event.registrar("1").playToServer(SkillActionPayload.TYPE, SkillActionPayload.STREAM_CODEC, SkillActionPayload::handle);
+        event.registrar("1")
+                .playToServer(SkillActionPayload.TYPE, SkillActionPayload.STREAM_CODEC, SkillActionPayload::handle)
+                .playToServer(SkillButtonPayload.TYPE, SkillButtonPayload.STREAM_CODEC, SkillButtonPayload::handle);
     }
 
     private static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
@@ -86,7 +91,7 @@ public final class SkillSetup {
             SkillGuard.tick(player);
             WeaponArts.tick(player);
             SkillFlight.tick(player);
-            Yuanying.tick(player);
+            Yuanying.playerTick(player);
         }
     }
 

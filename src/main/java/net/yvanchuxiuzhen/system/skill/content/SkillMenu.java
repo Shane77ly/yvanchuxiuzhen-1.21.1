@@ -11,7 +11,7 @@ import net.yvanchuxiuzhen.system.skill.SkillSelection;
 import net.yvanchuxiuzhen.system.skill.api.DemonTransformationEvent;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 
-/** 来源 JinengGuiMenu 没有物品槽。按钮经原生菜单消息绑定当前容器，在服务端执行选择、翻页与功能入口。 */
+/** 来源 JinengGuiMenu 没有物品槽。按钮消息绑定当前容器，在服务端执行选择、翻页与功能入口。 */
 public final class SkillMenu extends AbstractContainerMenu {
     public SkillMenu(int id, Inventory inventory) {
         super(SkillMenus.SKILL.get(), id);

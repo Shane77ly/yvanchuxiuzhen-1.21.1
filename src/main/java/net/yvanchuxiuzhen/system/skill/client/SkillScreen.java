@@ -9,12 +9,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.SkillElement;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.skill.content.SkillMenu;
+import net.yvanchuxiuzhen.system.skill.network.SkillButtonPayload;
 
 /** 技能选择界面：来源四象按钮、四页、十一箭种轮盘、连招与功能按钮；数据取本人附件，操作走当前菜单消息。 */
 public final class SkillScreen extends AbstractContainerScreen<SkillMenu> {
@@ -52,7 +54,7 @@ public final class SkillScreen extends AbstractContainerScreen<SkillMenu> {
 
     private void addButton(int x, int y, int width, int height, String texture, int id, String name) {
         Button button = new TextureButton(leftPos + x, topPos + y, width, height, texture("atlas/imagebutton_" + texture), width, height * 2,
-                pressed -> minecraft.gameMode.handleInventoryButtonClick(menu.containerId, id));
+                pressed -> PacketDistributor.sendToServer(new SkillButtonPayload(menu.containerId, id)));
         button.setMessage(Component.literal(name));
         addRenderableWidget(button);
     }

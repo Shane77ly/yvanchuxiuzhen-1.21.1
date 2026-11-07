@@ -14,8 +14,8 @@ import net.yvanchuxiuzhen.system.skill.SkillGuard;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 
 /**
- * 技能按键与界面按钮（客户端 → 服务端，来源各 {@code Anjian*}、{@code Tabanjian}、{@code Jinengqvxiao} 按键消息与
- * {@code JinengGuiButtonMessage}）。动作由服务端按自己的状态执行，客户端不传任何状态。
+ * 技能按键与快捷选择（客户端 → 服务端，来源各 {@code Anjian*}、{@code Tabanjian}、{@code Jinengqvxiao} 按键消息）。
+ * 动作由服务端按自己的状态执行，客户端不传任何状态；技能菜单按钮另由 {@link SkillButtonPayload} 处理。
  */
 public record SkillActionPayload(Action action) implements CustomPacketPayload {
     public static final Type<SkillActionPayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "skill_action"));
