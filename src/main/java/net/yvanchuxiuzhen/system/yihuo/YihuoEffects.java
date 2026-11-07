@@ -40,6 +40,10 @@ public final class YihuoEffects {
         RESET_INVULNERABILITY.clear();
     }
 
+    static void resetInvulnerabilityNextTick(LivingEntity entity) {
+        RESET_INVULNERABILITY.add(entity);
+    }
+
     private record Burning(boolean yang) implements EffectBehavior {
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {

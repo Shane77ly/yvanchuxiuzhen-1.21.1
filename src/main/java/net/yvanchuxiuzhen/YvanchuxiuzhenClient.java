@@ -13,6 +13,7 @@ import net.yvanchuxiuzhen.panel.client.PanelClientSetup;
 import net.yvanchuxiuzhen.system.particle.client.ParticleClientSetup;
 import net.yvanchuxiuzhen.system.relation.client.RelationClientSetup;
 import net.yvanchuxiuzhen.system.skill.client.SkillClientSetup;
+import net.yvanchuxiuzhen.system.yihuo.client.YihuoClientSetup;
 import net.yvanchuxiuzhen.system.xiulian.client.XiulianClientSetup;
 
 /**
@@ -31,6 +32,7 @@ public final class YvanchuxiuzhenClient {
         PanelClientSetup.register(modBus);
         RelationClientSetup.register(modBus);
         SkillClientSetup.register(modBus);
+        YihuoClientSetup.register(modBus);
         XiulianClientSetup.register(modBus);
     }
 }
