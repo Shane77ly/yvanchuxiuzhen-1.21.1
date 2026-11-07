@@ -53,6 +53,7 @@ public final class SkillSetup {
     public static void register(IEventBus modBus) {
         CONTENT.itemFactory("skill:arrow", (properties, tooltip) -> new SkillArrowItem(properties, tooltip, UseAnim.SPEAR));
         CONTENT.itemFactory("skill:light_arrow", (properties, tooltip) -> new SkillArrowItem(properties, tooltip, UseAnim.NONE));
+        CONTENT.itemFactory("skill:projectile", SkillProjectileItem::new);
         CONTENT.itemFactory("skill:dan_fire", DanFireItem::new);
         SkillEffects.register(CONTENT);
         ElementProjectiles.register(CONTENT);

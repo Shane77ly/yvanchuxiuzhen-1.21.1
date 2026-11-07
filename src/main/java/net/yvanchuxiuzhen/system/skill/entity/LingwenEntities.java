@@ -55,7 +55,7 @@ final class LingwenEntities {
                     if (!ProjectileSupport.friendly(self, other)) {
                         if (owner != null) {
                             ProjectileSupport.shoot(level, owner, "projectile_lingwentexiao", new Vec3(owner.getX(), owner.getEyeY() - 0.1, owner.getZ()),
-                                    owner.getLookAngle(), 0.1, 0, 0, SCATTER);
+                                    owner.getLookAngle(), 0.1F, 0, 0, SCATTER);
                         }
                         count--;
                         data.putInt("lingwennum", count);

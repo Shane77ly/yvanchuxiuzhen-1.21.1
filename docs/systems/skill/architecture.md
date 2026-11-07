@@ -364,3 +364,13 @@ SkillProjectile的显示物品由各注册工厂按来源提供：三种冰弹�
 验证：build compileSmokeJava和ArchUnit通过。沿用内置runSmokeClient的skillparticle选择器，只在已有场景加一项真实共享入口Bug回归及模型截图，没有新增Test类或选择器。首轮原五项通过、新撞墙检查失败；仅增加诊断后的同场景六项通过，水球入地并移除、自定义粒子数1，服务端经过5刻。首轮失败原因未被日志锁定，不能归咎于玩法或声称已确定为收包延迟。检查随后改为最多40个客户端刻等待粒子到达，并将原生入地标记加入必要条件；最终六项全部通过并DONE，四世界保存并正常退出，三次ERROR/FATAL均为0、开发FML配置均finally原字节还原且SHA256相同。最终截图已查看，四个模型可见；完整自然施放、多人、1.18.2版本实机及两版本对照未执行，本轮未运行专用服务器，未重跑整套skill或旧神通。
 
 首轮、诊断和最终证据分别为tmp/projectile-lifecycle-{first,diagnostic}-{client.log,report.txt,config-restore.log}与tmp/projectile-lifecycle-{client.log,report.txt,config-restore.log}；构建、转换及失败存档检查为tmp/projectile-lifecycle-{build,assets,world-audit}.log，截图build/smoke/screenshots/skill-projectile-models.png。skill仍进行中，不合main。
+
+## 弹体实际过程与发射入口复核（2026-11-08）
+
+按1.18.2版本实际实体类、物品类、`Jinenglist01Procedure`、灵纹/冰矛/满天花雨/激流波/水灵阵及来源静态 `shoot` 调用逐项核对。16种非技能箭物品的 `releaseUsing` 均为有效入口，目标用统一 `skill:projectile` 工厂按物品 ID 接回使用、松手、耐久、显示物品、击退、暴击、声音及发射速度；十种技能箭的恒假条件没有套用到这16种物品。玩家技能施放的速度与基础伤害按实际过程保留：风弹术0.7、定魄神光3、幻光术0.2、飞石术1.2，其余该入口速度1；物品松手入口中 `skill_light_02` 与 `skill_water_05` 的速度为4，其余为2，`skill_water_0101` 的基础伤害为1，其余为0.1。
+
+火球命中循环按来源保留：每个范围内非友方对象触发一次粒子，但伤害请求引用直接命中目标；Q63记录该来源行为。水灵阵即使找不到主人仍生成无主人水弹；`WaterSeeker` 使用目标版本 `UndashedUuid.fromStringLenient` 对齐来源 authlib 的宽松 UUID 解析，无效值只保留当前速度。拈花飞叶到期时补写来源的 `AttackDamage` 与 `Damage_multiplier`，命中读取这两个持久字段并请求木系伤害；常规书缺少前一个键时按来源结果为零。
+
+两处金轮生成沿来源调用 `finalizeSpawn`，非玩家金轮模式读取主人 `friendlist.jinengName` 的左旋、右旋和天堑分支，目标保留这些模式、角度与动画。来源将该好友列表子标签作为共享引用并原位写入金轮字段，现阶段只完成模式与生命周期对齐，共享附加字段副作用及其真实消费者仍待继续核对，不能宣称已闭合。
+
+验证：`build compileSmokeJava`（含ArchUnit）通过；沿用项目内置 `runSmokeClient -PsmokeOnly=skillparticle`，同一检查场景的8项全部为INFO并以`DONE`结束，覆盖原生物品使用/松手生成、火球直接目标与邻近傀儡、无主人水球落地粒子、弹体保存重读与速度/伤害入口。四个世界正常保存退出，ERROR/FATAL为0，FML配置原字节恢复（`tmp/projectile-behavior-config-restore.log`），最终报告与日志见 `tmp/projectile-behavior-report.txt`、`tmp/projectile-behavior-client.log`。本次未逐类自然操作16种物品、未运行专用服务器、未做1.18.2版本实机或两版本对照；skill仍进行中，不合main。

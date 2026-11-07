@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.skill.projectile;
 
+import com.mojang.util.UndashedUuid;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -25,6 +26,7 @@ import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
+import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 
@@ -62,14 +64,14 @@ public final class ElementProjectiles {
 
     public static void register(ContentTables tables) {
         SKILLS.forEach((id, skill) -> tables.<SkillProjectile>entity(id, (type, level) -> new SkillProjectile(type, level, skill, icon(id))));
-        release("金", "projectile_skill_gold_01", 0, 5, "金芒术", "碎裂金芒");
-        release("金", "projectile_skill_gold_03", 0, 0, "捆妖轮", "金弧轮", "天堑金轮");
-        release("水", "projectile_skill_water_03", 1, 0, "水球术");
-        release("水", "projectile_skill_water_05", 0, 0, "水灵弹");
-        release("水", "projectile_skill_ice_01", 0, 0, "冰锥术", "连锥术");
-        release("水", "projectile_skill_ice_02", 1, 0, "破碎冰矛");
-        release("水", "projectile_skill_ice_03", 1, 0, "飞羽冰花");
-        release("木", "projectile_skill_tree_01", 1, 0, "拈花飞叶");
+        release("金", "projectile_skill_gold_01", 1, 0, 5, "金芒术", "碎裂金芒");
+        release("金", "projectile_skill_gold_03", 1, 0, 0, "捆妖轮", "金弧轮", "天堑金轮");
+        release("水", "projectile_skill_water_03", 1, 1, 0, "水球术");
+        release("水", "projectile_skill_water_05", 1, 0, 0, "水灵弹");
+        release("水", "projectile_skill_ice_01", 1, 0, 0, "冰锥术", "连锥术");
+        release("水", "projectile_skill_ice_02", 1, 1, 0, "破碎冰矛");
+        release("水", "projectile_skill_ice_03", 1, 1, 0, "飞羽冰花");
+        release("木", "projectile_skill_tree_01", 1, 1, 0, "拈花飞叶");
         SkillReleases.register("木", (caster, book) -> {
             double angle = caster.getYRot() + 90 - 30;
             double vertical = 5 * Math.sin(-caster.getXRot() * (Math.PI / 180));
@@ -82,18 +84,18 @@ public final class ElementProjectiles {
                 angle += 15;
             }
         }, "满天花雨");
-        release("木", "projectile_skillwind_01", 2, 0, "风弹术");
-        release("火", "projectile_skill_fire_01", 2, 0, "火球术", "连环火球术");
-        release("火", "projectile_skill_light_01", 0, 10, "光弹术");
-        release("火", "projectile_skill_light_02", 0, 0, "定魄神光");
-        release("火", "projectile_skill_light_04", 0, 2, "幻光术");
+        release("木", "projectile_skillwind_01", 0.7F, 2, 0, "风弹术");
+        release("火", "projectile_skill_fire_01", 1, 2, 0, "火球术", "连环火球术");
+        release("火", "projectile_skill_light_01", 1, 0, 10, "光弹术");
+        release("火", "projectile_skill_light_02", 3, 0, 0, "定魄神光");
+        release("火", "projectile_skill_light_04", 0.2F, 0, 2, "幻光术");
         SkillReleases.register("木", (caster, book) -> {
             caster.addEffect(new MobEffectInstance(StatusEffects.holder("skill_tree_03"), 600, 1));
             ProjectileSupport.particles(caster.serverLevel(), Particles.type("peachflowerlizi"), caster.position().add(0, 1, 0), 20, 0, 0, 0, 0.1);
             caster.displayClientMessage(Component.literal("§630秒内，拈花飞叶技能自动追踪敌方实体！"), false);
         }, "生命感知");
         SkillReleases.register("土", (caster, book) -> ProjectileSupport.shootFromEyes((ServerLevel) caster.level(), caster, "projectile_skill_rock_01",
-                book.manaAttack(), 1, 0), "飞石术");
+                (float) book.manaAttack(), 1, 0, 1.2F), "飞石术");
     }
 
     /** 来源 ItemSupplier 的实际显示物品；专用模型及两种纯粒子弹体返回空栈。 */
@@ -107,8 +109,8 @@ public final class ElementProjectiles {
     }
 
     /** 施放：从眼睛下 0.1 格朝视线发射一枚基础伤害 0.1 的弹体（来源 {@code Jinenglist01}）。 */
-    private static void release(String body, String id, int knockback, int pierce, String... names) {
-        SkillReleases.register(body, (caster, book) -> ProjectileSupport.shootFromEyes((ServerLevel) caster.level(), caster, id, 0.1, knockback, pierce), names);
+    private static void release(String body, String id, float speed, int knockback, int pierce, String... names) {
+        SkillReleases.register(body, (caster, book) -> ProjectileSupport.shootFromEyes((ServerLevel) caster.level(), caster, id, 0.1F, knockback, pierce, speed), names);
     }
 
     private static boolean hostile(Entity owner, Entity other) {
@@ -254,7 +256,14 @@ public final class ElementProjectiles {
                 projectile.discard();
             } else if (ticks >= 5 && owner instanceof Player player) {
                 String target = Cultivation.tizhiString(player, "mubiaouid");
-                Entity found = target.isEmpty() ? null : ((ServerLevel) projectile.level()).getEntity(UUID.fromString(target));
+                UUID targetId;
+                try {
+                    targetId = UndashedUuid.fromStringLenient(target);
+                } catch (IllegalArgumentException exception) {
+                    // 来源对无效目标 UUID 保持当前飞行速度。
+                    return;
+                }
+                Entity found = ((ServerLevel) projectile.level()).getEntity(targetId);
                 if (found != null) {
                     homeIn(projectile, found.position(), 0.4);
                 }
@@ -339,7 +348,7 @@ public final class ElementProjectiles {
         private static void scatter(ServerLevel level, Entity owner, Vec3 at) {
             for (int index = 0; index < 6; index++) {
                 Vec3 direction = new Vec3(Mth.nextDouble(level.random, -5, 5), 0, Mth.nextDouble(level.random, -5, 5));
-                ProjectileSupport.shoot(level, owner, "projectile_skill_ice_01", at, direction, 0.1, 0, 0);
+                ProjectileSupport.shoot(level, owner, "projectile_skill_ice_01", at, direction, 0.1F, 0, 0);
             }
         }
     }
@@ -377,8 +386,8 @@ public final class ElementProjectiles {
 
     /**
      * 拈花飞叶：10 刻消失；发射者带“生命感知”（{@code skill_tree_03}）时第 4 刻起追踪 3 格内最近的敌方玩家或生物。
-     * 来源命中时用 {@code AttackDamage} 作攻击量，而它只在消失那一刻从所选技能的 {@code ManaAttackDamage}（技能书没有这个键）取值，
-     * 命中时始终为 0，灵力伤害不会生效，只有箭本身的伤害（Q40）。
+     * {@code AttackDamage} 与 {@code Damage_multiplier} 只在到期时从所选书写入；攻击量键为 {@code ManaAttackDamage}。
+     * 常规技能书不生产该键，正常飞行期间也未写入这两个值；命中仍按弹体实际保存的值请求木系伤害（Q40）。
      */
     private static final class TreeLeaf implements ProjectileSkill {
         @Override
@@ -386,6 +395,9 @@ public final class ElementProjectiles {
             projectile.begin();
             int ticks = projectile.advance();
             if (ticks >= 10) {
+                SkillBook book = owner instanceof Player player ? Skills.book(Skills.selected(player)).orElse(null) : null;
+                projectile.getPersistentData().putDouble("AttackDamage", book == null ? 0 : book.number("ManaAttackDamage"));
+                projectile.getPersistentData().putDouble("Damage_multiplier", book == null ? 0 : book.damageMultiplier());
                 projectile.discard();
             } else if (ticks >= 4 && owner instanceof LivingEntity living && StatusEffects.has(living, "skill_tree_03")) {
                 for (Entity other : ProjectileSupport.around((ServerLevel) projectile.level(), projectile.position(), 3)) {
@@ -401,6 +413,8 @@ public final class ElementProjectiles {
         public void hitEntity(SkillProjectile projectile, Entity target, Entity owner) {
             if (hostile(owner, target)) {
                 ProjectileSupport.burst(projectile, "smallexplosiongreen");
+                ProjectileSupport.deal((ServerLevel) projectile.level(), target, owner, "木",
+                        projectile.getPersistentData().getDouble("AttackDamage"), projectile.getPersistentData().getDouble("Damage_multiplier"));
             }
         }
     }
@@ -431,7 +445,7 @@ public final class ElementProjectiles {
         }
     }
 
-    /** 火球术与连环火球术：10 刻消失；火球术命中时对 2 格内的全部非友方实体造成火系伤害，连环火球术只伤命中的目标。 */
+    /** 火球术按 2 格内非友方实体数，对直接命中目标重复请求火伤；连环火球术对非友方直接目标请求一次。两者 10 刻消失。 */
     private static final class Fireball implements ProjectileSkill {
         @Override
         public void tick(SkillProjectile projectile, Entity owner) {
@@ -453,7 +467,7 @@ public final class ElementProjectiles {
                 for (Entity other : ProjectileSupport.around(level, projectile.position(), 2)) {
                     if (hostile(owner, other)) {
                         ProjectileSupport.burst(projectile, "smallexplosionred");
-                        ProjectileSupport.deal(level, other, owner, "火", projectile.mana(), projectile.multiplier());
+                        ProjectileSupport.deal(level, target, owner, "火", projectile.mana(), projectile.multiplier());
                     }
                 }
             } else if (hostile(owner, target)) {

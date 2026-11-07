@@ -244,9 +244,7 @@ final class WaterFormations {
                     double x = Mth.nextDouble(level.random, -3, 3);
                     double y = Mth.nextDouble(level.random, 1, 4);
                     double z = Mth.nextDouble(level.random, -3, 3);
-                    if (caster != null) {
-                        ProjectileSupport.shoot(level, caster, "projectile_skill_water_05", self.position().add(x, y, z), new Vec3(-x, -(y - 2), -z), 0.1, 0, 0);
-                    }
+                    ProjectileSupport.shoot(level, caster, "projectile_skill_water_05", self.position().add(x, y, z), new Vec3(-x, -(y - 2), -z), 0.1F, 0, 0);
                     scratch.putDouble("tick2", 0);
                 }
             } else if (stage.equals("收尾")) {

@@ -108,7 +108,7 @@ final class WaterEntities {
     /** 从施放者所在位置向随机方向放出一枚小水弹。 */
     private static void droplet(ServerLevel level, ServerPlayer caster) {
         Vec3 direction = new Vec3(Mth.nextDouble(level.random, -1, 1), Mth.nextDouble(level.random, 0, 1), Mth.nextDouble(level.random, -1, 1));
-        ProjectileSupport.shoot(level, caster, "projectile_skill_water_0101", caster.position(), direction, 0.1, 0, 0);
+        ProjectileSupport.shoot(level, caster, "projectile_skill_water_0101", caster.position(), direction, 0.1F, 0, 0);
     }
 
     /** 水龙吟：在视线 7 格处（向上以半格为步找空位，最多 7 次）生成水龙，朝向同施放者。 */

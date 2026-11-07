@@ -3,27 +3,35 @@ package net.yvanchuxiuzhen.smoke;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import net.minecraft.client.ParticleStatus;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 
-/** 弹体粒子、保存、命中箭数与无主人落地的针对性检查，并截取来源专用模型。 */
+/** 复用真实弹体场景，核对粒子、保存、命中对象、物品松手入口与无主人落地，并截取来源专用模型。 */
 final class SkillParticleCheck extends SystemCheck {
     private final Consumer<String> shot;
     private SkillProjectile spirit;
     private SkillProjectile gold;
     private SkillProjectile fire;
     private IronGolem target;
+    private IronGolem bystander;
     private SkillProjectile ownerless;
     private final List<SkillProjectile> models = new ArrayList<>();
     private long launchedAt;
     private int before;
+    private ParticleStatus particleStatus;
 
     SkillParticleCheck(List<String> report, String levelId, Consumer<String> shot) {
         super("技能弹体粒子", report, levelId);
@@ -33,6 +41,8 @@ final class SkillParticleCheck extends SystemCheck {
     @Override
     protected boolean step(int step, int local) {
         if (step == 0) {
+            particleStatus = minecraft.options.particles().get();
+            minecraft.options.particles().set(ParticleStatus.ALL);
             before = libraryParticles();
             onServer(player -> {
                 Arena.level(player);
@@ -100,6 +110,7 @@ final class SkillParticleCheck extends SystemCheck {
             });
             shot.accept("skill-projectile-models.png");
             onServer(player -> models.forEach(SkillProjectile::discard));
+            minecraft.options.particles().set(particleStatus);
             finish();
             return true;
         }
@@ -109,6 +120,7 @@ final class SkillParticleCheck extends SystemCheck {
                     && spirit.getPersistentData().getString("jinengName").isEmpty()
                     && Cultivation.tizhiBoolean(player, "arrowskill") && Cultivation.tizhiBoolean(player, "manxvli"));
             expectTrue("共用火球弹体真实命中后不留下生物身上的箭", target.getHealth() < 100 && target.getArrowCount() == 0);
+            expectTrue("火球范围循环只伤直接命中目标，邻近非友方傀儡保持满血", bystander.getHealth() == 100);
         });
         shot.accept("skill-projectile-particles.png");
         onServer(player -> {
@@ -116,6 +128,7 @@ final class SkillParticleCheck extends SystemCheck {
             gold.discard();
             fire.discard();
             target.discard();
+            bystander.discard();
         });
         minecraft.particleEngine.iterateParticles(particle -> particle.remove());
         return true;
@@ -127,6 +140,26 @@ final class SkillParticleCheck extends SystemCheck {
         target.setPos(player.position().add(8, 0, 0));
         target.getPersistentData().putDouble("LEVELnumber", 17);
         player.serverLevel().addFreshEntity(target);
+        bystander = EntityType.IRON_GOLEM.create(player.serverLevel());
+        bystander.setNoAi(true);
+        bystander.setPos(target.position().add(0, 0, 1.7));
+        player.serverLevel().addFreshEntity(bystander);
+
+        ItemStack previousHand = player.getMainHandItem();
+        GameType previousMode = player.gameMode.getGameModeForPlayer();
+        player.setGameMode(GameType.SURVIVAL);
+        ItemStack water = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", "skill_water_0101")));
+        player.setItemInHand(InteractionHand.MAIN_HAND, water);
+        water.getItem().use(player.level(), player, InteractionHand.MAIN_HAND);
+        player.releaseUsingItem();
+        List<SkillProjectile> released = player.serverLevel().getEntitiesOfClass(SkillProjectile.class, player.getBoundingBox().inflate(2),
+                entity -> entity.getType() == SkillSetup.<SkillProjectile>entityType("projectile_skill_water_0101").get());
+        expectTrue("隐藏水弹经原生松手生成一枚基础伤害1、速度2的弹体，并消耗一点耐久",
+                released.size() == 1 && released.getFirst().getBaseDamage() == 1
+                        && Math.abs(released.getFirst().getDeltaMovement().length() - 2) < 0.00001 && water.getDamageValue() == 1);
+        released.forEach(SkillProjectile::discard);
+        player.setItemInHand(InteractionHand.MAIN_HAND, previousHand);
+        player.setGameMode(previousMode);
 
         SkillProjectile flower = SkillSetup.<SkillProjectile>entityType("projectile_skill_ice_03").get().create(player.serverLevel());
         flower.setOwner(player);

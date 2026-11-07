@@ -103,19 +103,25 @@ public final class ProjectileSupport {
     /** 同 {@link #shoot(ServerLevel, Entity, String, Vec3, Vec3, double, int, int)}，{@code inaccuracy} 是箭的散布参数。 */
     public static SkillProjectile shoot(ServerLevel level, Entity shooter, String id, Vec3 origin, Vec3 direction, double baseDamage, int knockback, int pierce,
                                         float inaccuracy) {
+        return shoot(level, shooter, id, origin, direction, baseDamage, knockback, pierce, 1, inaccuracy);
+    }
+
+    /** 按实际发射入口设置速度与散布，弹体自身的飞行过程随后逐刻推进。 */
+    public static SkillProjectile shoot(ServerLevel level, Entity shooter, String id, Vec3 origin, Vec3 direction, double baseDamage, int knockback, int pierce,
+                                        float speed, float inaccuracy) {
         EntityType<SkillProjectile> type = SkillSetup.<SkillProjectile>entityType(id).get();
         SkillProjectile projectile = type.create(level).launchedWith(knockback, pierce);
         projectile.setOwner(shooter);
         projectile.setBaseDamage(baseDamage);
         projectile.setPos(origin);
-        projectile.shoot(direction.x, direction.y, direction.z, 1, inaccuracy);
+        projectile.shoot(direction.x, direction.y, direction.z, speed, inaccuracy);
         level.addFreshEntity(projectile);
         return projectile;
     }
 
-    /** 从施放者眼睛下 0.1 格处朝视线方向发射（来源各技能施放过程中的弹体生成）。 */
-    public static SkillProjectile shootFromEyes(ServerLevel level, Entity shooter, String id, double baseDamage, int knockback, int pierce) {
+    /** 从眼睛下 0.1 格处发射，速度由具体施放入口给出。 */
+    public static SkillProjectile shootFromEyes(ServerLevel level, Entity shooter, String id, double baseDamage, int knockback, int pierce, float speed) {
         Vec3 origin = new Vec3(shooter.getX(), shooter.getEyeY() - 0.1, shooter.getZ());
-        return shoot(level, shooter, id, origin, shooter.getLookAngle(), baseDamage, knockback, pierce);
+        return shoot(level, shooter, id, origin, shooter.getLookAngle(), baseDamage, knockback, pierce, speed, 0);
     }
 }

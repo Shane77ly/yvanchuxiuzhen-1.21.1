@@ -124,7 +124,7 @@ updated: 2026-11-07
 | Q37 | `/jineng` 命令没有权限要求（`/shenfa`、`/smanship`、`/flyskill`、`/technique` 都要求权限 1），任何玩家都能给自己生成任意参数的技能书。评估为中等偏轻（只有作者的测试命令在用），保持来源行为，待负责人裁定是否补权限 | [技能](../../systems/skill/architecture.md) |
 | Q38 | `Jiancewuqi` 的“武器太重”检查读取的是所选技能书的 `lianqizong.weightnum`，不是手持武器的，技能书没有该键，条件永远不成立，提示“武器太重了！无法正常释放技能”不会出现。评估为轻微，保持来源行为（不实现这条永不成立的检查），随 equipment 与 lianqi 的武器数据迁移时裁定 | [技能](../../systems/skill/architecture.md) |
 | Q39 | 技能选择的提示文字对调：施法中禁施（`skilleffect_09`）且未沉默时显示“沉默中”，沉默（`effect_002`）时显示“冷却中”；按键 Z（第 1 键）的选择不检查禁施与沉默，X、C、V 检查。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
-| Q40 | 拈花飞叶（`SkillTree01`）命中时用 `AttackDamage` 作攻击量，而它只在弹体消失那一刻从所选技能的 `ManaAttackDamage` 取值（技能书没有这个键，是 `jinengmanaatt`），命中时始终为 0，灵力伤害不会生效，只剩箭本身的伤害；`Ice02`（破碎冰矛）、`Light02`（定魄神光）复用 `Ice01`、`Light01` 的刻过程；飞羽冰花沿侧向圆弧飞行、计时每刻加两次，正前方的目标打不到。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q40 | 拈花飞叶（`SkillTree01`）命中时读取弹体的 `AttackDamage` 与 `Damage_multiplier`；来源只在弹体到期时从所选技能的 `ManaAttackDamage`、`jinengshanghai` 写入这两个键，常规技能书通常不产生前一个键，因此通常为 0，但不能删掉来源写入与命中请求。`Ice02`（破碎冰矛）、`Light02`（定魄神光）复用 `Ice01`、`Light01` 的刻过程；飞羽冰花沿侧向圆弧飞行、计时每刻加两次，正前方的目标打不到。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
 | Q41 | 控火术（`SkillFire04`）用施放者自己 `getPersistentData` 里的 `AttackUUID` 拼 `/shanghai` 命令，玩家没有这个键，命令行里这一项为空串，空白合并后参数整体前移，实际按“无攻击者、基础量 = 伤害倍率、倍率 0”结算，伤害极小。评估为轻微，保持来源行为（经 `SpellDamage.command` 复现同样的命令解析） | [技能](../../systems/skill/architecture.md) |
 | Q42 | 巨石锤（`SkillRock05`）类型一与类型二落地攻击里 20% 的眩晕（`effect_001`）加给了实体自己（`entity`）而不是受击者（`entityiterator`）；化石手（`SkillRock04`）按实体自己的朝向取 3.5 格或 1 格处作为攻击中心，而生成时朝向是随机的，攻击方向随机。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
 | Q43 | 雷系两处疑似疏漏（2026-11-05 更正：此前认为地滚雷比较的队伍名对玩家恒为空串、施放者本人走近也会触发，这是错的——登录过程 `PlayerJoinGame` 与每秒一次的 `Playerhuifu` 都把玩家变量 `team` 写入玩家的 `getPersistentData`，所以玩家的值就是其团队名，施放者本人与同队实体不会触发）：地滚雷（`SkillThunder08`）生成时没有转向，前进方向是随机朝向；`Skillwind02` 的聚风术（非聚风化气）不分敌友拉扯 4 格内全部实体。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
@@ -156,6 +156,7 @@ updated: 2026-11-07
 
 | Q61 | 火箭施加阳火没有写持续来源UUID，普通炙烤命令可能因空参数失效或沿用先前接触来源；阴阳爆燃只遍历Mob且不按受燃者友方预筛，实际命令仍执行combat敌友判定。丹火给已有火补燃料不验归属，普通火无方块实体也消耗物品；放置共用玩家友方表引用，重载后分开，并读取登录时复制的实体团队。影响限上述路径，评估轻微，保留来源载体、调用顺序与结果；不补箭射手、不加归属校验、不擅改为冻结快照 | [异火](../../systems/yihuo/architecture.md) |
 | Q62 | `ShanghaifanweiEntity.movementPredicate` 默认请求 `animation.ycxzboss_01.idle`，但其绑定的 `shanghaifanwei.animation.json` 不含该动画；动态范围过程提供的有效动画另行播放。静态核对35个来源默认/离地/濒死名称，仅该默认名缺失。影响限范围提示默认待机，评估轻微，保留实际引用，不替换为猜测动画；1.18.2实机及目标可见回退未验收 | [技能](../../systems/skill/architecture.md#过程动画调用链与控制器复核2026-11-07) |
+| Q63 | `SkillFire01` 的火球命中过程遍历弹体周围 2 格的非友方对象；循环变量只控制粒子次数，伤害请求仍把直接命中目标作为目标，因此邻近对象不会因该循环额外受伤。评估轻微，按来源保留；目标已补入相同的循环与目标引用，内置客户端回归覆盖直接目标与邻近傀儡 | [技能](../../systems/skill/architecture.md#弹体实际过程与发射入口复核2026-11-08) |
 
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 
