@@ -11,7 +11,13 @@ updated: 2026-11-08
 
 ## 1.18.2 数据与入口
 
-归属范围为101个元素，2026-11-07全部完成归属阅读，逐分支实现与运行另记。B 的 `YihuoshujvfuyvProcedure:22–58` 从材料目录连续读取19条，以来源固定值 `jindumax = 6` 初始化材料辨识；该过程与 A 的 `FireskillProcedure` 武器触发尚未迁移。不从邻近重做工程继承“18种异火”的范围划分。
+归属范围为101个元素，2026-11-07全部完成归属阅读，逐分支实现与运行另记。B 的 `YihuoshujvfuyvProcedure:22–58` 从材料目录连续读取19条，以来源固定值 `jindumax = 6` 初始化材料辨识；该过程已由 material 的登录公开入口接回。A 的 `FireskillProcedure` 另行核对后确认是孤立过程，不存在运行时入口，不向目标添加未被来源调用的武器触发。不从邻近重做工程继承“18种异火”的范围划分。
+
+## 武器触发来源核对（2026-11-08）
+
+`FireskillProcedure` 的事件块为 `no_ext_trigger`，源码仅包含自身 `execute(LevelAccessor, Entity)` 方法；来源索引的 `procedure_reachability.csv` 将其标为 `False`，`procedure_calls.csv` 只记录它对 `FriendpandingStoEeProcedure` 的内部调用，未发现事件注解、物品回调或其他非过程类调用者。它的逻辑是 10% 概率检查主手 `cailiao_221` 或 `lianqizong.fenglei`，在半径 4.5 的范围内对不友好实体执行固定的 `/shanghai 火 <UUID> false 5 1`，并发出两组粒子；由于没有调用者，这条分支在 1.18.2 版本也不会自然执行。
+
+本次保持来源可达性：不把该孤立过程接入 combat 命中事件、物品右键或玩家刻更新，不新增伪造的武器入口，也不为不可达代码新增测试。后续若在来源工程中发现新的真实调用者，再按调用者所属系统重新划分数据所有权与事件阶段。
 
 本批实际调用链：
 
