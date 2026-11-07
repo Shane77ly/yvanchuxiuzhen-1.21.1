@@ -54,7 +54,8 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 - `Skills.showWindBurst/launchWindBlade` 已按妖兽011爆气和014黑风生成过程接回；skill拥有风波八刻、风刃攻击者/攻击量/倍率一/目标/二百刻上限及初始化。creature 仍需在自身时序调用，风刃1.5倍法攻由调用者计算。build/ArchUnit通过（`tmp/skill-wind-api-build.log`），没有新增专项，未将接口编译视为自然妖兽入口验收。
 - 正式虚空下现有`voidrift`检查12项通过并DONE，四世界正常保存退出、ERROR0。进入人工推进后直接调用碰撞方法，返回由真实玩家碰撞触发；完整自然操作和裂隙视觉未验收。证据在`tmp/voidrift-formal-{client.log,report.txt}`，本轮没有修改检查逻辑。
 - 新核对35个动画实体的运动与死亡源码，按来源接回30个共用实体的十九个飞行导航、九个水中导航、两个地面导航及属性、流体、死亡时序，尸体恢复40刻死亡移除；共享模型表的xiulian四行同步生成。最终build/ArchUnit及检查源集编译通过，现有`skillvisual`两项通过并DONE，四世界正常保存退出、ERROR0，光爆与血雾截图均有可见样本；不覆盖逐类水中运动、死亡边界或完整视觉。规则及`tmp/skill-entity-lifecycle-*`证据见[实体复核](../systems/skill/architecture.md#动画实体运动与死亡时序复核2026-11-07)，当前客户端已退出。
-- 下一步：先按1.18.2版本逐类修正`SkillEntity.hurt`遗漏的伤害免疫条件，再核对过程动画与实际表现，不为每批新增Test或选择器。丹火操作仍按yihuo正文保留未验收；其他六个自定义返回维度和世界主体按E阶段。skill尚未完成，不合main；GUI仍为部分实现，不插入整套分页开发，不恢复已撤下的YihuoCheck。转换、Gradle与客户端逐个运行。
+- 本批以前一提交`d40d303`继续，按完整hurt方法恢复30个共用实体的逐类免疫，并恢复十九个共用实体的独立摔落钩子；风波/风刃没有hurt覆写，树梯有三叉戟而无仙人掌免疫。裂隙和伤害范围改读同一来源数据，原十四项免疫保持；移除无实际调用需求的共用受伤空回调，三个独立实体不改受伤流程。共享模型表共39行同步生成。静态证据在`tmp/skill-entity-immunity-source-audit.log`，规则及验证边界见[免疫正文](../systems/skill/architecture.md#动画实体逐类伤害免疫2026-11-07)。最终build/ArchUnit及检查源集编译通过；现有`damagearea`六项通过并DONE，四世界正常保存退出、ERROR0。日志与报告为`tmp/skill-entity-immunity-{build.log,client.log,report.txt}`；不覆盖全部实体动态边界，客户端已退出。
+- 下一步：沿35个来源实体→`EntityAnimationFactory.onEntityTick`→GeckoLib控制器的完整路径修正过程动画。已确认来源逐刻消费同步名字后复位`undefined`，本地过程结束恢复`empty`；当前目标直接长期读取同步名字，且`thenPlay`使用动画JSON默认循环，不能凭原来的同名说明继续。精确GeckoLib4.9.3源码已解压到`tmp/skill-animation-target/`。不为每批新增Test或选择器。丹火操作仍按yihuo正文保留未验收；其他六个自定义返回维度和世界主体按E阶段。skill尚未完成，不合main；GUI仍为部分实现，不插入整套分页开发，不恢复已撤下的YihuoCheck。转换、Gradle与客户端逐个运行。
 
 **此前已完成的检查与历史定位**：
 - 已运行一次 skill 冒烟（`gradlew runSmokeClient -PsmokeOnly=skill`）：报告以 `DONE` 结束，精简后的 `CorpseCheck` 28 项全部符合；其余检查也完成。`LingwenCheck` 的数量 1/2 差异已由 Q48 解释为来源同序的首刻命中时序，不再重复整套冒烟。

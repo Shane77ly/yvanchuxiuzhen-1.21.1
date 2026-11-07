@@ -5,7 +5,7 @@
 - `entity/layer/<名>Layer.java`：可选的发光层，用 `RenderType.eyes` 再画一遍同一几何，纹理固定；
 - `client/renderer/<名>Renderer.java`：阴影半径；
 - `entity/<名>Entity.java`：默认纹理（`define(TEXTURE, …)`）、默认循环动画（`movementPredicate` 在没有过程动画时播放，取最后一个无条件的）、离地时的循环动画、
-  五项生物属性（移速、生命、护甲、攻击、跟踪范围）、是否无 AI、导航/固定无重力/飞行与游泳速度/水下呼吸/水流推动/死亡移除刻数。`Skillyin01` 另有 walk、die、swim、sprint 的条件动画，由 Java 侧单独实现。
+  五项生物属性（移速、生命、护甲、攻击、跟踪范围）、是否无 AI、导航/固定无重力/飞行与游泳速度/水下呼吸/水流推动/死亡移除刻数、摔落处理和伤害免疫。`Skillyin01` 另有 walk、die、swim、sprint 的条件动画，由 Java 侧单独实现。
 输出 src/main/resources/content/<系统>/entity_models.json（一行一个实体，键为注册 ID），并重写
 docs/reference/conversion/system_assets.csv 中归该系统的几何、动画与实体纹理行（默认纹理、发光层纹理、
 相关过程里 `setTexture("…")` 引用到的纹理）；保留其他类型的资源行。工具可重复运行，输出只取决于来源。
@@ -25,6 +25,21 @@ MOD = 'yvanchuxiuzhen'
 BASE = SOURCES[MOD][0] / f'src/main/java/net/mcreator/{MOD}'
 ASSETS = ROOT / 'docs/reference/conversion/system_assets.csv'
 OWNERSHIP = ROOT / 'docs/reference/legacy/inventory/ownership_assignment.csv'
+DAMAGE_IMMUNITIES = {
+    'source.getDirectEntity() instanceof AbstractArrow': ['arrow'],
+    'source.getDirectEntity() instanceof Player': ['player'],
+    'source.getDirectEntity() instanceof ThrownPotion || source.getDirectEntity() instanceof AreaEffectCloud': ['potion', 'area_effect_cloud'],
+    'source == DamageSource.FALL': ['fall'],
+    'source == DamageSource.CACTUS': ['cactus'],
+    'source == DamageSource.DROWN': ['drown'],
+    'source == DamageSource.LIGHTNING_BOLT': ['lightning'],
+    'source.isExplosion()': ['explosion'],
+    'source.getMsgId().equals("trident")': ['trident'],
+    'source == DamageSource.ANVIL': ['anvil'],
+    'source == DamageSource.DRAGON_BREATH': ['dragon_breath'],
+    'source == DamageSource.WITHER': ['wither'],
+    'source.getMsgId().equals("witherSkull")': ['wither_skull'],
+}
 
 def read(path) -> str:
     return path.read_text(encoding='utf-8-sig') if path.exists() else ''
@@ -76,12 +91,16 @@ def parse(name: str) -> dict:
     navigation = re.search(r'return new (\w+PathNavigation)\(this, world\)', entity)
     gravity = re.search(r'public void setNoGravity\(boolean \w+\) \{\s*super.setNoGravity\((true|false)\);', entity)
     death = re.search(r'protected void tickDeath\(\).*?this.deathTime == (\d+)', entity, re.S)
+    hurt = re.search(r'public boolean hurt\(DamageSource source, float amount\) \{(.*?)\n\t\}', entity, re.S)
     row['lifecycle'] = {
         'navigation': {'FlyingPathNavigation': 'flying', 'WaterBoundPathNavigation': 'water'}[navigation[1]] if navigation else 'ground',
         'no_gravity': gravity is not None and gravity[1] == 'true',
         'breathes_underwater': bool(re.search(r'public boolean canBreatheUnderwater\(\) \{\s*return true;', entity)),
         'pushed_by_fluid': not bool(re.search(r'public boolean isPushedByFluid\(\) \{\s*return false;', entity)),
         'death_ticks': int(death[1]),
+        'ignores_fall_damage': bool(re.search(r'public boolean causeFallDamage\([^}]*return false;', entity)),
+        'damage_immunities': [immunity for condition in re.findall(r'if \((.*?)\)\s*return false;', hurt[1] if hurt else '')
+                              for immunity in DAMAGE_IMMUNITIES[condition]],
     }
     flying_speed = re.search(r'Attributes.FLYING_SPEED, ([\d.]+)', entity)
     if flying_speed:

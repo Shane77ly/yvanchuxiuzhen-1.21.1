@@ -121,7 +121,7 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        return !SkillImmunity.rejectsMarkerDamage(source) && super.hurt(source, amount);
+        return !SkillImmunity.rejectsDamage(model.lifecycle().damageImmunities(), source) && super.hurt(source, amount);
     }
 
     @Override

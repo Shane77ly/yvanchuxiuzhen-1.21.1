@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.skill.entity;
 
 import java.util.UUID;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -8,8 +9,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -20,9 +19,9 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.FluidType;
@@ -34,8 +33,8 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 /**
- * 技能动画实体的公共实现（来源 MCreator 动画实体 {@code SkillXxxEntity} 等）：不被推挤，不接受药水云、药水弹、跌落、仙人掌、
- * 溺水的伤害。每种实体的属性、导航、固定无重力与死亡移除刻数来自 {@link EntityModelRow}，行为由 {@link EntitySkill} 承担。
+ * 技能动画实体的公共实现（来源 MCreator 动画实体 {@code SkillXxxEntity} 等）：不被推挤；每种实体的属性、导航、固定无重力、
+ * 伤害免疫与死亡移除刻数来自 {@link EntityModelRow}，行为由 {@link EntitySkill} 承担。
  * 来源在 {@code getPersistentData} 里放的施放信息（{@code AttackUUID}、{@code AttackDamage}、{@code Damage_multiplier}、{@code damagetype}、
  * {@code jinengName}）改为字段，其余各技能私有的计数与标记仍用 {@code getPersistentData}。纹理名同步给客户端（默认值是该实体在来源里定义的纹理），
  * 过程动画 {@link #setAnimation} 同步名字给客户端，由 GeckoLib 的 {@code procedure} 控制器播放一次，之后回到默认循环动画。
@@ -192,15 +191,19 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (source.getDirectEntity() instanceof ThrownPotion || source.getDirectEntity() instanceof AreaEffectCloud || source.is(DamageTypes.FALL)
-                || source.is(DamageTypes.CACTUS) || source.is(DamageTypes.DROWN)) {
-            return false;
+        return !SkillImmunity.rejectsDamage(model.lifecycle().damageImmunities(), source) && super.hurt(source, amount);
+    }
+
+    @Override
+    public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {
+        return !model.lifecycle().ignoresFallDamage() && super.causeFallDamage(distance, multiplier, source);
+    }
+
+    @Override
+    protected void checkFallDamage(double movement, boolean onGround, BlockState block, BlockPos pos) {
+        if (!model.lifecycle().ignoresFallDamage()) {
+            super.checkFallDamage(movement, onGround, block, pos);
         }
-        boolean hurt = super.hurt(source, amount);
-        if (hurt && !level().isClientSide()) {
-            skill.hurt(this, source, amount);
-        }
-        return hurt;
     }
 
     @Override

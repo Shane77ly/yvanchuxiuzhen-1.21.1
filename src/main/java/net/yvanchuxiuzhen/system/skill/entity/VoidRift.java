@@ -162,7 +162,7 @@ public final class VoidRift extends PathfinderMob implements GeoEntity, Animated
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (SkillImmunity.rejectsMarkerDamage(source)) {
+        if (SkillImmunity.rejectsDamage(model.lifecycle().damageImmunities(), source)) {
             return false;
         }
         return super.hurt(source, amount);

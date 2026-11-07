@@ -120,9 +120,37 @@ Q49：裂隙是整实体单次使用；未找到目标世界时也会消费，�
 
 死亡时序按来源先递增再比较：格挡5刻、水灵阵40刻，其余通常20刻；裂冰斩、万丈光芒与风波/风刃的零刻条件原样保留，不解释为立即移除。可驯服实体也读取来源时长，尸体由错误的20刻改回40刻，火鸟仍为20刻。这些是实体死亡阶段，与技能自身到期或命中后主动移除分别处理。
 
-本轮仅接回运动与死亡配置；复核还发现共用`hurt`的伤害免疫条件没有逐类保留，下一步按来源实际条件修正，不能把本批视为35个实体全部对齐。来源摘要在`tmp/skill-entity-lifecycle-source-audit.log`；精确目标依据为21.1.265的`Mob`、`LivingEntity`、`MoveControl`、`FlyingMoveControl`、两种导航与流体扩展。没有新增Test或专项选择器，现有裂隙检查仅修正过时的说明注释。
+该批仅接回运动与死亡配置；复核发现的逐类`hurt`偏差已在下节修正，仍不能据此将35个实体全部表现标为对齐。来源摘要在`tmp/skill-entity-lifecycle-source-audit.log`；精确目标依据为21.1.265的`Mob`、`LivingEntity`、`MoveControl`、`FlyingMoveControl`、两种导航与流体扩展。没有新增Test或专项选择器，现有裂隙检查仅修正过时的说明注释。
 
 最终`build compileSmokeJava`（含ArchUnit）通过。沿用未修改的`-PsmokeOnly=skillvisual`，延迟光爆与血雾的两项检查通过并DONE，四个世界正常保存退出、ERROR0；本次两张截图均捕获可见粒子样本。它验证当前共用实体能够加载并执行该光爆路径，不覆盖九种水中移动或各实体死亡边界，逐类动态验收、完整视觉、多人和1.18.2版本实机对照未执行。证据在`tmp/skill-entity-lifecycle-final-build.log`、`tmp/skill-entity-lifecycle-client.log`、`tmp/skill-entity-lifecycle-report.txt`与`tmp/skill-entity-lifecycle-{light,flight}.png`。
+
+## 动画实体逐类伤害免疫（2026-11-07）
+
+重新读取35个skill来源实体与四个共享模型表的xiulian实体的完整`hurt`、`causeFallDamage`、`checkFallDamage`。共用`SkillEntity`原先统一拒绝药水弹、药水云、跌落、仙人掌与溺水，既漏掉来源免疫，也给部分实体增加了免疫。现由既有提取器在`lifecycle.damage_immunities`保存实际条件，平台只声明数据，`SkillImmunity`在skill内判定；裂隙与伤害范围也读取自身来源配置，原有十四项条件不变。没有受伤过程的30个共用实体移除空`EntitySkill.hurt`回调，尸体和元婴的独立受伤流程保留。
+
+| 来源实体ID | hurt拒绝条件 |
+| --- | --- |
+| `gedang`、`skill_rock_04/05`、`skill_tree_05` | 跌落、仙人掌、溺水 |
+| `skill_fire_02` | 药水弹/云、跌落、仙人掌 |
+| `skill_gold_0201`、`skill_ice_05` | 药水弹/云、跌落、仙人掌、溺水 |
+| `skill_ice_04` | 上一行条件加闪电 |
+| `skill_rock_02` | 跌落、仙人掌、溺水、铁砧 |
+| `skill_rock_03` | 跌落、仙人掌、铁砧 |
+| `skill_tree_04` | 跌落、溺水、三叉戟；没有仙人掌免疫 |
+| `skill_water_04` | 药水弹/云、跌落、仙人掌、铁砧 |
+| `skill_water_06` | 药水弹/云、跌落、仙人掌、溺水、铁砧 |
+| `skill_fire_06`（独立火鸟） | 药水弹/云、仙人掌；自然摔落由独立钩子关闭，本批未改 |
+| `skill_fire_07/08` | 完整十四项集合减溺水 |
+| `skillwind_05/06` | 继承原生hurt，不追加免疫；自然摔落由独立钩子关闭 |
+| `lingwentexiao_2`、`skill_light_03`、`skill_thunder_08/10`、`skill_tree_06`、`skill_water_01/02/07`、`skillwind_02`、`swordsmanship_01–04`、`xvkongliexi`、`shanghaifanwei` | 箭、玩家、药水弹、药水云、跌落、仙人掌、溺水、闪电、爆炸、三叉戟、铁砧、龙息、凋零、凋零头颅 |
+
+箭、玩家、药水弹和云仍检查`getDirectEntity()`；不改用间接施放者。目标21.1.265的类型对应在`DamageSource`、`DamageTypes`、`DamageTypeTags`核对：铁砧为`FALLING_ANVIL`，爆炸为`IS_EXPLOSION`，三叉戟与凋零头颅保留原`getMsgId()`字面值。
+
+来源的十九个共用实体同时覆写`causeFallDamage`返回false与空`checkFallDamage`，以必填`ignores_fall_damage`保存这对实际模板；其余十一个继续原生摔落流程，之后才由各自hurt条件判断伤害。不把自然摔落免疫等同于拒绝直接传入的FALL伤害，也不额外抑制原生落地事件。火鸟、尸体、元婴继续自身实现，xiulian四行仅同步必填数据格式，本批未改雷劫行为。
+
+静态证据为`tmp/skill-entity-immunity-source-audit.log`。本批没有新增或修改Test、选择器、断言。最终`build compileSmokeJava`（含ArchUnit）通过；仅沿用未修改的`runSmokeClient -PsmokeOnly=damagearea`，六项全部通过并DONE，客户端保存四个世界后正常退出，日志ERROR0。该检查覆盖共享免疫入口、位置/阵营、计时与保存重读，加载时解析全部39行模型配置；没有据此验收各实体的动态受伤边界或完整视觉。证据为`tmp/skill-entity-immunity-build.log`、`tmp/skill-entity-immunity-client.log`及`tmp/skill-entity-immunity-report.txt`。逐类动态受伤边界、完整视觉、多人、1.18.2版本实机及两版本对照尚未执行。
+
+过程动画继续核对：35个来源`procedurePredicate`模板相同，`EntityAnimationFactory.onEntityTick`先消费同步动画名并复位为`undefined`，再由本地`animationprocedure`控制播放；不能仅凭实体的`setAnimation`方法断定同名请求不会重播。目标`SkillAnimations`的默认/过程叠加、完成恢复及四刻过渡仍待按完整调用链和GeckoLib4.9.3修正，本批未改动画代码。
 
 ## 伤害范围（2026-11-07）
 
