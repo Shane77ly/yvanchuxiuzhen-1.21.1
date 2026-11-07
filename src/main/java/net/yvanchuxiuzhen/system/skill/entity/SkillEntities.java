@@ -9,7 +9,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
@@ -74,7 +77,7 @@ public final class SkillEntities {
         for (EntityModelRow row : models.values()) {
             EntitySkill skill = SKILLS.get(row.id());
             if (skill != null) {
-                tables.<SkillEntity>livingEntity(row.id(), (type, level) -> new SkillEntity(type, level, row, skill), row::attributes);
+                tables.<SkillEntity>livingEntity(row.id(), (type, level) -> new SkillEntity(type, level, row, skill), () -> attributes(row));
             }
         }
         EntityModelRow bird = models.get(FireBird.ID);
@@ -87,6 +90,13 @@ public final class SkillEntities {
         tables.<DamageArea>livingEntity(DamageArea.ID, (type, level) -> new DamageArea(type, level, area), () -> DamageArea.attributes(area));
         EntityModelRow yuanying = models.get(Yuanying.ID);
         tables.<Yuanying>livingEntity(Yuanying.ID, (type, level) -> new Yuanying(type, level, yuanying), () -> Yuanying.attributes(yuanying));
+    }
+
+    private static AttributeSupplier.Builder attributes(EntityModelRow row) {
+        AttributeSupplier.Builder attributes = row.attributes();
+        row.lifecycle().flyingSpeed().ifPresent(speed -> attributes.add(Attributes.FLYING_SPEED, speed));
+        row.lifecycle().swimSpeed().ifPresent(speed -> attributes.add(NeoForgeMod.SWIM_SPEED, speed));
+        return attributes;
     }
 
     /** 以施放者所选技能的攻击量、伤害倍率与名字召唤（尚未放入世界）；实体继承施放者的团队与友方集合。 */

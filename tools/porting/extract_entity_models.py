@@ -5,7 +5,7 @@
 - `entity/layer/<名>Layer.java`：可选的发光层，用 `RenderType.eyes` 再画一遍同一几何，纹理固定；
 - `client/renderer/<名>Renderer.java`：阴影半径；
 - `entity/<名>Entity.java`：默认纹理（`define(TEXTURE, …)`）、默认循环动画（`movementPredicate` 在没有过程动画时播放，取最后一个无条件的）、离地时的循环动画、
-  五项生物属性（移速、生命、护甲、攻击、跟踪范围）、是否无 AI。`Skillyin01` 另有 walk、die、swim、sprint 的条件动画，由 Java 侧单独实现。
+  五项生物属性（移速、生命、护甲、攻击、跟踪范围）、是否无 AI、导航/固定无重力/飞行与游泳速度/水下呼吸/水流推动/死亡移除刻数。`Skillyin01` 另有 walk、die、swim、sprint 的条件动画，由 Java 侧单独实现。
 输出 src/main/resources/content/<系统>/entity_models.json（一行一个实体，键为注册 ID），并重写
 docs/reference/conversion/system_assets.csv 中归该系统的几何、动画与实体纹理行（默认纹理、发光层纹理、
 相关过程里 `setTexture("…")` 引用到的纹理）；保留其他类型的资源行。工具可重复运行，输出只取决于来源。
@@ -73,6 +73,22 @@ def parse(name: str) -> dict:
     for key, attribute in (('speed', 'MOVEMENT_SPEED'), ('health', 'MAX_HEALTH'), ('armor', 'ARMOR'), ('attack', 'ATTACK_DAMAGE'), ('follow', 'FOLLOW_RANGE')):
         row[key] = float(re.search(rf'Attributes\.{attribute}, ([\d.]+)', entity)[1])
     row['no_ai'] = 'setNoAi(true)' in entity
+    navigation = re.search(r'return new (\w+PathNavigation)\(this, world\)', entity)
+    gravity = re.search(r'public void setNoGravity\(boolean \w+\) \{\s*super.setNoGravity\((true|false)\);', entity)
+    death = re.search(r'protected void tickDeath\(\).*?this.deathTime == (\d+)', entity, re.S)
+    row['lifecycle'] = {
+        'navigation': {'FlyingPathNavigation': 'flying', 'WaterBoundPathNavigation': 'water'}[navigation[1]] if navigation else 'ground',
+        'no_gravity': gravity is not None and gravity[1] == 'true',
+        'breathes_underwater': bool(re.search(r'public boolean canBreatheUnderwater\(\) \{\s*return true;', entity)),
+        'pushed_by_fluid': not bool(re.search(r'public boolean isPushedByFluid\(\) \{\s*return false;', entity)),
+        'death_ticks': int(death[1]),
+    }
+    flying_speed = re.search(r'Attributes.FLYING_SPEED, ([\d.]+)', entity)
+    if flying_speed:
+        row['lifecycle']['flying_speed'] = float(flying_speed[1])
+    swim_speed = re.search(r'ForgeMod.SWIM_SPEED.get\(\), ([\d.]+)', entity)
+    if swim_speed:
+        row['lifecycle']['swim_speed'] = float(swim_speed[1])
     return row
 
 

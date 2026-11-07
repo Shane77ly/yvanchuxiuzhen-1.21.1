@@ -17,9 +17,15 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.fluids.FluidType;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -29,7 +35,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 /**
  * 技能动画实体的公共实现（来源 MCreator 动画实体 {@code SkillXxxEntity} 等）：不被推挤，不接受药水云、药水弹、跌落、仙人掌、
- * 溺水的伤害，死亡 20 刻后移除。每种实体的生命、移速等属性与模型来自 {@link EntityModelRow}，行为由 {@link EntitySkill} 承担。
+ * 溺水的伤害。每种实体的属性、导航、固定无重力与死亡移除刻数来自 {@link EntityModelRow}，行为由 {@link EntitySkill} 承担。
  * 来源在 {@code getPersistentData} 里放的施放信息（{@code AttackUUID}、{@code AttackDamage}、{@code Damage_multiplier}、{@code damagetype}、
  * {@code jinengName}）改为字段，其余各技能私有的计数与标记仍用 {@code getPersistentData}。纹理名同步给客户端（默认值是该实体在来源里定义的纹理），
  * 过程动画 {@link #setAnimation} 同步名字给客户端，由 GeckoLib 的 {@code procedure} 控制器播放一次，之后回到默认循环动画。
@@ -42,12 +48,26 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
     private final EntitySkill skill;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private final SkillCast cast = new SkillCast();
+    private final boolean fixedNoGravity;
     private float hitboxScale = 1;
 
     public SkillEntity(EntityType<SkillEntity> type, Level level, EntityModelRow model, EntitySkill skill) {
         super(type, level);
         this.model = model;
         this.skill = skill;
+        fixedNoGravity = model.lifecycle().noGravity();
+        switch (model.lifecycle().navigation()) {
+            case GROUND -> { }
+            case WATER -> {
+                navigation = new WaterBoundPathNavigation(this, level);
+                setPathfindingMalus(PathType.WATER, 0);
+                moveControl = new SkillWaterMoveControl(this);
+            }
+            case FLYING -> {
+                navigation = new FlyingPathNavigation(this, level);
+                moveControl = new FlyingMoveControl(this, 10, true);
+            }
+        }
         xpReward = 0;
         setNoAi(model.noAi());
         setPersistenceRequired();
@@ -146,6 +166,31 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
     }
 
     @Override
+    public boolean canDrownInFluidType(FluidType type) {
+        return !(type == NeoForgeMod.WATER_TYPE.value() && model.lifecycle().breathesUnderwater()) && super.canDrownInFluidType(type);
+    }
+
+    @Override
+    public boolean isPushedByFluid() {
+        return model.lifecycle().pushedByFluid() && super.isPushedByFluid();
+    }
+
+    @Override
+    public void setNoGravity(boolean noGravity) {
+        super.setNoGravity(fixedNoGravity || noGravity);
+    }
+
+    /** 来源飞行实体在原生移动之后保持无重力，地面与水中导航实体保留技能过程设置的重力。 */
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        updateSwingTime();
+        if (fixedNoGravity) {
+            setNoGravity(true);
+        }
+    }
+
+    @Override
     public boolean hurt(DamageSource source, float amount) {
         if (source.getDirectEntity() instanceof ThrownPotion || source.getDirectEntity() instanceof AreaEffectCloud || source.is(DamageTypes.FALL)
                 || source.is(DamageTypes.CACTUS) || source.is(DamageTypes.DROWN)) {
@@ -184,7 +229,7 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
     @Override
     protected void tickDeath() {
         ++deathTime;
-        if (deathTime == 20) {
+        if (deathTime == model.lifecycle().deathTicks()) {
             remove(RemovalReason.KILLED);
         }
     }

@@ -17,7 +17,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /**
- * 虚空裂隙的门槛、生命周期与跨维度往返。smoke 资源提供平坦的 xvkong 测试维度，只验证传送，正式维度地形随 world 迁移。
+ * 虚空裂隙的门槛、生命周期与正式虚空维度下的传送行为；进入直接调用碰撞方法，返回由真实玩家碰撞触发。
  * 计时边界在一次服务端动作内推进，避免用客户端等待刻数推断实体的精确年龄。
  */
 final class VoidRiftCheck extends ActionCheck {

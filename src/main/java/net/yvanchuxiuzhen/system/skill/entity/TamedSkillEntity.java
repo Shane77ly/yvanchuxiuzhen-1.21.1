@@ -85,7 +85,7 @@ public abstract class TamedSkillEntity extends TamableAnimal implements GeoEntit
     @Override
     protected void tickDeath() {
         ++deathTime;
-        if (deathTime == 20) {
+        if (deathTime == model.lifecycle().deathTicks()) {
             remove(RemovalReason.KILLED);
         }
     }

@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.platform.content.entity;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -10,10 +11,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 /**
  * 动画实体的表现与属性（各系统的 {@code entity_models.json}，由 {@code extract_entity_models.py} 从来源的
  * Model、Layer、Renderer 与 Entity 类提取）：GeckoLib 几何与动画文件名（不含后缀）、阴影半径、默认纹理、头部骨骼、发光层纹理、
- * 默认循环动画与离地时的循环动画，以及生物属性（移速、生命、护甲、攻击、跟踪范围）和是否无 AI。
+ * 默认循环动画与离地时的循环动画、生物属性、是否无 AI，以及来源的导航、重力和死亡移除时序。
  */
 public record EntityModelRow(String id, String geo, String animation, float shadow, String texture, Optional<String> head, Optional<String> glow, String idle,
-                             Optional<String> air, double speed, double health, double armor, double attack, double follow, boolean noAi) {
+                             Optional<String> air, double speed, double health, double armor, double attack, double follow, boolean noAi, Lifecycle lifecycle) {
     public static final Codec<EntityModelRow> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(EntityModelRow::id),
             Codec.STRING.fieldOf("geo").forGetter(EntityModelRow::geo),
@@ -29,7 +30,8 @@ public record EntityModelRow(String id, String geo, String animation, float shad
             Codec.DOUBLE.fieldOf("armor").forGetter(EntityModelRow::armor),
             Codec.DOUBLE.fieldOf("attack").forGetter(EntityModelRow::attack),
             Codec.DOUBLE.fieldOf("follow").forGetter(EntityModelRow::follow),
-            Codec.BOOL.fieldOf("no_ai").forGetter(EntityModelRow::noAi)
+            Codec.BOOL.fieldOf("no_ai").forGetter(EntityModelRow::noAi),
+            Lifecycle.CODEC.fieldOf("lifecycle").forGetter(EntityModelRow::lifecycle)
     ).apply(instance, EntityModelRow::new));
 
     /** 默认循环动画：有离地动画的实体离地时用它。 */
@@ -41,5 +43,35 @@ public record EntityModelRow(String id, String geo, String animation, float shad
     public AttributeSupplier.Builder attributes() {
         return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, speed).add(Attributes.MAX_HEALTH, health).add(Attributes.ARMOR, armor)
                 .add(Attributes.ATTACK_DAMAGE, attack).add(Attributes.FOLLOW_RANGE, follow);
+    }
+
+    /** 来源实体类的原生运动配置与死亡移除刻数；零刻条件按来源保留，不改成二十刻。 */
+    public record Lifecycle(Navigation navigation, boolean noGravity, Optional<Double> flyingSpeed, Optional<Double> swimSpeed,
+                            boolean breathesUnderwater, boolean pushedByFluid, int deathTicks) {
+        public static final Codec<Lifecycle> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Navigation.CODEC.fieldOf("navigation").forGetter(Lifecycle::navigation),
+                Codec.BOOL.fieldOf("no_gravity").forGetter(Lifecycle::noGravity),
+                Codec.DOUBLE.optionalFieldOf("flying_speed").forGetter(Lifecycle::flyingSpeed),
+                Codec.DOUBLE.optionalFieldOf("swim_speed").forGetter(Lifecycle::swimSpeed),
+                Codec.BOOL.fieldOf("breathes_underwater").forGetter(Lifecycle::breathesUnderwater),
+                Codec.BOOL.fieldOf("pushed_by_fluid").forGetter(Lifecycle::pushedByFluid),
+                Codec.INT.fieldOf("death_ticks").forGetter(Lifecycle::deathTicks)
+        ).apply(instance, Lifecycle::new));
+    }
+
+    public enum Navigation implements StringRepresentable {
+        GROUND("ground"), WATER("water"), FLYING("flying");
+
+        public static final Codec<Navigation> CODEC = StringRepresentable.fromEnum(Navigation::values);
+        private final String name;
+
+        Navigation(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String getSerializedName() {
+            return name;
+        }
     }
 }

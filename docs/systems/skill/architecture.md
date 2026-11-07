@@ -108,7 +108,21 @@ updated: 2026-11-07
 
 Q49：裂隙是整实体单次使用；未找到目标世界时也会消费，返回编号在查找目标之前清零；未识别的进入维度不传送但也消费。以上保持来源行为。按钮已在阶段5接入；正式 `xvkong` 数据已由 world 于2026-11-07接回，其余六个自定义返回维度仍随E阶段迁移，不能将本步登记为完整玩家路径已验收。
 
-此前 `gradlew runSmokeClient -PsmokeOnly=voidrift` 的12项检查使用过平坦 `xvkong` 测试替身，只是当时传送逻辑的运行证据。正式虚空批次已删除该覆盖，主源集使用来源的空气噪声维度；本批未重跑或改写该专项。正式维度规则、加载证据与未验收范围见[世界正文](../world/architecture.md#正式虚空维度2026-11-07)。
+此前12项检查使用过平坦 `xvkong` 测试替身。2026-11-07删除覆盖后，沿用现有 `gradlew runSmokeClient -PsmokeOnly=voidrift`，正式空气噪声维度下12项全部通过并 `DONE`，四个世界正常保存退出，日志ERROR为0。进入由检查推进 `baseTick` 后直接调用 `playerTouch`，返回由玩家与裂隙重叠后的真实玩家碰撞触发；它证明正式维度下既有传送、返回、存档与计时检查通过，不代表完整自然菜单操作往返或裂隙视觉已验收。本次没有修改检查逻辑。证据在 `tmp/voidrift-formal-client.log` 与 `tmp/voidrift-formal-report.txt`；正式维度规则见[世界正文](../world/architecture.md#正式虚空维度2026-11-07)。
+
+## 动画实体运动与死亡时序复核（2026-11-07）
+
+重新读取35个来源动画实体的构造、导航、`aiStep`、属性与`tickDeath`，发现共用`SkillEntity`曾把30个实体统一为地面导航，遗漏固定无重力、飞行/游泳速度、水下呼吸与水流推动差异，并统一二十刻死亡移除。来源的九段水中移动控制在替换类名后完全相同，不以水系名称判断导航类型。
+
+`extract_entity_models.py`现从实体类提取`lifecycle`，与原有模型表一起生成；skill的35行和共享同一Codec的xiulian四行均重新生成。`SkillEntity`消费自身配置：十九个飞行导航实体保留`FlyingMoveControl(10, true)`与来源的强制无重力；九个水中导航实体保留水路径代价零和`SkillWaterMoveControl`，水中每刻速度加`(0, 0.005, 0)`，朝目标转向，离水速度乘0.05；其余两个保留原生地面导航。飞行/游泳速度只在来源声明时加入属性。
+
+水下呼吸按NeoForge21.1.265的`canDrownInFluidType`实现，仅对水类型关闭溺水，其余类型仍由原生规则判断；水流推动保留来源`isPushedByFluid`返回值。固定无重力在`aiStep`原生移动之后设置，并保留来源对外部`setNoGravity(false)`的覆盖；可变重力的空浮球、金轮等继续由自身技能过程设置。
+
+死亡时序按来源先递增再比较：格挡5刻、水灵阵40刻，其余通常20刻；裂冰斩、万丈光芒与风波/风刃的零刻条件原样保留，不解释为立即移除。可驯服实体也读取来源时长，尸体由错误的20刻改回40刻，火鸟仍为20刻。这些是实体死亡阶段，与技能自身到期或命中后主动移除分别处理。
+
+本轮仅接回运动与死亡配置；复核还发现共用`hurt`的伤害免疫条件没有逐类保留，下一步按来源实际条件修正，不能把本批视为35个实体全部对齐。来源摘要在`tmp/skill-entity-lifecycle-source-audit.log`；精确目标依据为21.1.265的`Mob`、`LivingEntity`、`MoveControl`、`FlyingMoveControl`、两种导航与流体扩展。没有新增Test或专项选择器，现有裂隙检查仅修正过时的说明注释。
+
+最终`build compileSmokeJava`（含ArchUnit）通过。沿用未修改的`-PsmokeOnly=skillvisual`，延迟光爆与血雾的两项检查通过并DONE，四个世界正常保存退出、ERROR0；本次两张截图均捕获可见粒子样本。它验证当前共用实体能够加载并执行该光爆路径，不覆盖九种水中移动或各实体死亡边界，逐类动态验收、完整视觉、多人和1.18.2版本实机对照未执行。证据在`tmp/skill-entity-lifecycle-final-build.log`、`tmp/skill-entity-lifecycle-client.log`、`tmp/skill-entity-lifecycle-report.txt`与`tmp/skill-entity-lifecycle-{light,flight}.png`。
 
 ## 伤害范围（2026-11-07）
 

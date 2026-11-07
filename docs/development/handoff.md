@@ -46,13 +46,15 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 
 **本批进展与下次开工的第一步（2026-11-07）**：
 
-- 当前分支 `port/c-skill`，本批前一提交 `e87d7ae`；本批实现与记录在同一提交，最后提交以 `git log -1` 为准。完整移植 goal 已由负责人恢复 active，继续原路线。`.eclipse/` 是用户的 IDE 配置，保留且不提交。
+- 当前分支 `port/c-skill`，本批前一提交 `0107a9c`；本批实现与记录在同一提交，最后提交以 `git log -1` 为准。完整移植 goal 已由负责人恢复 active，继续原路线。`.eclipse/` 是用户的 IDE 配置，保留且不提交。
 - 正式 `xvkong` 空气噪声维度、同名类型与 `xvkongqvnxi` 群系已按1.18.2版本实际代码接入，保留实际overworld效果绑定；smoke同ID平坦基岩替身及生成副本已删除。转换、群系语言键与服务端动态注册表导出接入现有管线；world106/19已读。规则见[世界正文](../systems/world/architecture.md#正式虚空维度2026-11-07)。
 - 本批没有新增Test、专项选择器或修改旧专项。负责人再次强调来源核对优先、没有必要不写Test；曾暂停时留下当前改动未提交，现按“继续做”恢复。本批build/ArchUnit通过；补入群系语言后的一次专服加载至Done，原生命令确认正式虚空群系和空气区块，移除强加载后stop保存四世界并正常退出，ERROR0，群系导出1个。证据为 `tmp/world-void-{build,content,server}.log`；自然裂隙往返与视觉未验收。
 - 上一丹火/炙烤批次已提交：来源放置回放已核实，唯一旧专项7项中2项通过、5项失败，新增脚本与选择器已撤下，不恢复或刷通过；炉鼎消费者仍待D阶段。记录见[异火正文](../systems/yihuo/architecture.md)。
 - 本批已逐项核对 `SkillScreen`、HUD与来源界面/按钮/显示过程，未发现需修改的差异。使用现有 `runSmokeClient -PsmokeOnly=skillui` 九项全部通过，缩放1的真实菜单与HUD截图已查看，开发设置已还原；现有 `accessories` 合法单件14项全部通过，补齐保存/死亡复制/重登后操作和飞行减耗。两次客户端均正常保存四世界、ERROR0，没有新增或修改检查代码。证据为 `tmp/skill-ui-native-{client.log,report.txt,menu.png,hud.png}` 与 `tmp/accessory-native-{client.log,report.txt}`。此前误用Computer Use已停止，普通客户端在标题页正常退出、未入世界；负责人明确沿用项目内置客户端验证。
 - `Skills.showWindBurst/launchWindBlade` 已按妖兽011爆气和014黑风生成过程接回；skill拥有风波八刻、风刃攻击者/攻击量/倍率一/目标/二百刻上限及初始化。creature 仍需在自身时序调用，风刃1.5倍法攻由调用者计算。build/ArchUnit通过（`tmp/skill-wind-api-build.log`），没有新增专项，未将接口编译视为自然妖兽入口验收。
-- 下一步：核对skill台账剩余未验收行与真实入口，优先完成正式虚空裂隙往返和有效动画/表现的必要验收，丹火操作仍按yihuo正文保留未验收；其他六个自定义返回维度和世界主体按E阶段。skill尚未完成，不合main；GUI仍为部分实现，不插入整套分页开发，不恢复已撤下的YihuoCheck。转换、Gradle与客户端逐个运行，当前客户端均已退出。
+- 正式虚空下现有`voidrift`检查12项通过并DONE，四世界正常保存退出、ERROR0。进入人工推进后直接调用碰撞方法，返回由真实玩家碰撞触发；完整自然操作和裂隙视觉未验收。证据在`tmp/voidrift-formal-{client.log,report.txt}`，本轮没有修改检查逻辑。
+- 新核对35个动画实体的运动与死亡源码，按来源接回30个共用实体的十九个飞行导航、九个水中导航、两个地面导航及属性、流体、死亡时序，尸体恢复40刻死亡移除；共享模型表的xiulian四行同步生成。最终build/ArchUnit及检查源集编译通过，现有`skillvisual`两项通过并DONE，四世界正常保存退出、ERROR0，光爆与血雾截图均有可见样本；不覆盖逐类水中运动、死亡边界或完整视觉。规则及`tmp/skill-entity-lifecycle-*`证据见[实体复核](../systems/skill/architecture.md#动画实体运动与死亡时序复核2026-11-07)，当前客户端已退出。
+- 下一步：先按1.18.2版本逐类修正`SkillEntity.hurt`遗漏的伤害免疫条件，再核对过程动画与实际表现，不为每批新增Test或选择器。丹火操作仍按yihuo正文保留未验收；其他六个自定义返回维度和世界主体按E阶段。skill尚未完成，不合main；GUI仍为部分实现，不插入整套分页开发，不恢复已撤下的YihuoCheck。转换、Gradle与客户端逐个运行。
 
 **此前已完成的检查与历史定位**：
 - 已运行一次 skill 冒烟（`gradlew runSmokeClient -PsmokeOnly=skill`）：报告以 `DONE` 结束，精简后的 `CorpseCheck` 28 项全部符合；其余检查也完成。`LingwenCheck` 的数量 1/2 差异已由 Q48 解释为来源同序的首刻命中时序，不再重复整套冒烟。
