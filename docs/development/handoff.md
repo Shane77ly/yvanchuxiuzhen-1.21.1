@@ -209,6 +209,10 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 
 按 1.18.2 版本 `FireskillProcedure` 源码和来源可达性索引核对：该过程使用 `no_ext_trigger`，没有事件注解、物品回调或其他非过程类调用者；`procedure_reachability.csv` 标记为 `False`。它只在自身被调用时以 10% 概率检查主手 `cailiao_221` 或 `lianqizong.fenglei`，再执行固定范围火伤。目标保持来源可达性，不把孤立过程接入 combat、物品使用或玩家刻更新，也不新增对应 Test。结论已写入[异火正文](../systems/yihuo/architecture.md#武器触发来源核对2026-11-08)。下一步继续核对异火获取/消费的真实所属系统；炉鼎热量消费者仍留到 D 阶段。
 
+## 2026-11-08 异火材料灵力不足反馈
+
+按1.18.2版本 `Cailiao221KeYiShiYongYuanChengWuPinDeTiaoJianProcedure` 逐行复核18种材料的共用条件分支，发现目标灵力不足时遗漏来源红色玩家提示；已在 `YihuoItem` 扣费前补回，`cailiao_234` 的检查8点/扣80点来源差异保持。`gradlew build` 和项目内置 `runSmokeClient -PsmokeOnly=skillparticle` 通过，报告 `DONE`，客户端真实进入世界并正常保存退出，日志无 `ERROR/FATAL`。该场景只作加载回归，不作为提示自然交互验收；未新增 Test、选择器或断言。下一步继续按路线核对异火获取/消费的真实所属系统，炉鼎热量消费者仍留到 D 阶段。
+
 ## 2026-11-08 功法 `/technique` 命令批次
 
 按 1.18.2 版本 `TechniqueCommand` 与 `TechniqueGOProcedure` 接回权限 1 的 `/technique`：贪婪字符串参数按 0–22 号顺序生成未研习功法书，承载物品、名称、品阶、所需境界、灵根要求、简介、五行值和十二项档位均保留来源顺序，第十三项移速档位保持空字符串；数值解析失败为 0，缺失文本为空，无效承载物不生成书。书在命令坐标掉落，拾取延迟 10 刻。`gradlew compileJava` 已通过；本批完成后运行完整 build、既有 `runSmokeClient -PsmokeOnly=skillui`、文档检查和台账检查，未新增 Test 或冒烟选择器。

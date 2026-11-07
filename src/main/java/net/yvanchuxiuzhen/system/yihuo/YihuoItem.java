@@ -97,6 +97,7 @@ public final class YihuoItem extends ContentItem {
             return true;
         }
         if (Cultivation.get(player, CultivationValue.POWER) < requiredPower) {
+            player.displayClientMessage(Component.literal("§4灵力不足" + (int) requiredPower + "点！"), false);
             return false;
         }
         Cultivation.add(player, CultivationValue.POWER, -cost);
