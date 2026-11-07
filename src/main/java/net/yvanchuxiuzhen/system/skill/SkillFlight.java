@@ -13,6 +13,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.skill.api.FlightEnchantmentEvent;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
@@ -178,6 +179,8 @@ public final class SkillFlight {
         String effect = book == null ? "" : book.text("flyskilltexiao");
         if (effect.equals("云雾") || effect.equals("两行云雾") || effect.equals("拔空术")) {
             cloudRing(player, 72, 5, 1, 1, .2);
+        } else if (effect.equals("血雾")) {
+            player.serverLevel().sendParticles(Particles.type("flyskill_06"), player.getX(), player.getY(), player.getZ(), 30, 0, 0, 0, 2);
         } else if (effect.equals("火花")) {
             player.serverLevel().sendParticles(ParticleTypes.FLAME, player.getX(), player.getY(), player.getZ(), 20, 0, 0, 0, .5);
         }
@@ -187,6 +190,17 @@ public final class SkillFlight {
         String effect = book == null ? "" : book.text("flyskilltexiao");
         switch (effect) {
             case "云雾" -> player.serverLevel().sendParticles(ParticleTypes.CLOUD, player.getX(), player.getY() - .2, player.getZ(), 10, .4, .2, .4, .05);
+            case "黄色祥云", "蓝色祥云", "红色祥云" -> {
+                String id = switch (effect) {
+                    case "黄色祥云" -> "flyskill_02";
+                    case "蓝色祥云" -> "flyskill_03";
+                    default -> "flyskill_04";
+                };
+                player.serverLevel().sendParticles(Particles.type(id), player.getX(), player.getY() - .2, player.getZ(), 2, .5, .2, .5, 0);
+            }
+            case "血光" -> player.serverLevel().sendParticles(Particles.type("flyskill_05"), player.getX(), player.getY(), player.getZ(), 1, 0, 0, 0, 0);
+            case "血雾" -> player.serverLevel().sendParticles(Particles.type("flyskill_06"), player.getX(), player.getY() + 1, player.getZ(), 10, 1, 1, 1, 0);
+            case "疾风" -> player.serverLevel().sendParticles(Particles.type("wind_03"), player.getX(), player.getY() + 1, player.getZ(), 2, 2, 2, 2, 0);
             case "两行云雾" -> {
                 for (int offset : new int[]{90, -90}) {
                     player.serverLevel().sendParticles(ParticleTypes.CLOUD, player.getX() + Math.cos(player.getYRot() + offset), player.getY() + 1,

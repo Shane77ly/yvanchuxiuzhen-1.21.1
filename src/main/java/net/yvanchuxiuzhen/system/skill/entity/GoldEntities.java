@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
@@ -17,7 +18,7 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
  * 金系的金轮实体与金刚轮施放（来源 {@code SkillGold0201}、{@code SkillGold02}）。金轮实体按模式（来源放在 {@code friendlist.jinengName}）
  * 分八种：金刚轮的正常、潜行、Ctrl、Alt 四式，金弧轮的左旋与右旋、天堑金轮、捆妖轮、捆妖轮锁住；后四种由金轮弹体
  * （{@code SkillGold03}，见 {@link net.yvanchuxiuzhen.system.skill.projectile.GoldWheel}）生成并跟随它。模式、跟随对象（{@code belongToMasterUUID}）
- * 与角度记在实体的 {@code getPersistentData} 里。自定义粒子（{@code BROKENYELLOW}）随 particle 迁移。
+ * 与角度记在实体的 {@code getPersistentData} 里；各模式到期时发出黄色破碎粒子。
  */
 public final class GoldEntities {
     public static final String ID = "skill_gold_0201";
@@ -144,6 +145,7 @@ public final class GoldEntities {
             CompoundTag scratch = self.getPersistentData();
             scratch.putDouble("tick", scratch.getDouble("tick") + 1);
             if (scratch.getDouble("tick") >= lifetime) {
+                ProjectileSupport.particles((ServerLevel) self.level(), Particles.type("brokenyellow"), self.position().add(0, 1, 0), 30, 1, 0, 1, 0.2);
                 self.discard();
                 scratch.putDouble("tick", 0);
             }

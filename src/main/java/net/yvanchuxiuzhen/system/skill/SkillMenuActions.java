@@ -25,6 +25,7 @@ import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -83,6 +84,7 @@ public final class SkillMenuActions {
         level.playSound(null, player.getX(), middleY(player), player.getZ(),
                 BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "jinengzibao")), SoundSource.NEUTRAL, 1, 1);
         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 20));
+        level.sendParticles(Particles.type("whirlwindlightgray"), player.getX(), middleY(player), player.getZ(), 1, 0, 0, 0, 0);
         // 回调捕获原玩家与世界，保留死亡、离线或重生后仍对原对象现读坐标和境界的来源顺序。
         SkillDelays.after(30, () -> {
             level.sendParticles(ParticleTypes.FLASH, player.getX(), middleY(player), player.getZ(), 1, 0, 0, 0, 0);
@@ -91,6 +93,9 @@ public final class SkillMenuActions {
         });
         for (int delay : new int[]{35, 40, 45}) {
             SkillDelays.after(delay, () -> blast(level, player));
+        }
+        for (int delay = 30; delay <= 48; delay += 2) {
+            SkillDelays.after(delay, () -> explosionParticles(level, player));
         }
         player.closeContainer();
         double count = Cultivation.tizhiDouble(player, "zibaonumber") + 1;
@@ -104,6 +109,9 @@ public final class SkillMenuActions {
 
     private static void blast(ServerLevel level, ServerPlayer player) {
         Vec3 center = new Vec3(player.getX(), middleY(player), player.getZ());
+        for (String id : new String[]{"smokeyellow", "smokegolden", "smokeorange"}) {
+            level.sendParticles(Particles.type(id), center.x, center.y, center.z, 20, 0, 0, 0, 1);
+        }
         level.sendParticles(ParticleTypes.FLAME, center.x, center.y, center.z, 60, 0, 0, 0, 1);
         double damage = (Cultivation.get(player, CultivationValue.LEVEL_NUMBER) - 20) * 10 + 10;
         for (Entity target : level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(16))) {
@@ -115,6 +123,18 @@ public final class SkillMenuActions {
         for (int angle = 0; angle < 360; angle += 6) {
             level.sendParticles(ParticleTypes.FLAME, center.x + 2 * Math.cos(angle), center.y, center.z + 2 * Math.sin(angle),
                     0, .5 * Math.cos(angle), 0, .5 * Math.sin(angle), .5);
+        }
+    }
+
+    /** 自爆从第 30 到第 48 刻每两刻发出六色爆发，数量在回调中按原玩家对象的当前境界计算。 */
+    private static void explosionParticles(ServerLevel level, ServerPlayer player) {
+        double realm = Cultivation.get(player, CultivationValue.LEVEL_NUMBER);
+        Vec3 center = new Vec3(player.getX(), middleY(player), player.getZ());
+        for (String id : new String[]{"bigbangyellow", "bigbangred", "bigbangorange"}) {
+            level.sendParticles(Particles.type(id), center.x, center.y, center.z, (int) Math.round(realm / 2), 16, 16, 16, 0);
+        }
+        for (String id : new String[]{"smallexplosionyellow", "smallexplosionorange", "smallexplosionred"}) {
+            level.sendParticles(Particles.type(id), center.x, center.y, center.z, (int) Math.round(realm * 2), 16, 16, 16, 0);
         }
     }
 

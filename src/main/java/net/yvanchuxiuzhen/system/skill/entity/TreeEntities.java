@@ -17,6 +17,7 @@ import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.SkillElement;
@@ -27,8 +28,7 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 /**
  * 木系的实体技能与施放（来源 {@code SkillTree04/05/06} 及对应的 {@code …shifang}、{@code …ShiTiChuShiShengChengShi}、{@code …DangShiTiGengXinKeShi}）：
  * 乱枝、灰木剑、乱木之种、灰木树梯共用 {@code skill_tree_04}（以技能名区分模式，攻击量与倍率截成整数记下），木篱术是 {@code skill_tree_05}，
- * 毒蔓鞭、回身鞭、地蔓鞭是 {@code skill_tree_06}。自定义粒子（{@code BROKENDEEPORANGE}、{@code SMALLEXPLOSIONDEEPORANGE}、
- * {@code SMALLEXPLOSIONDARKGREEN}、{@code CAILIAO_233PARTICLE}）随 particle 迁移。
+ * 毒蔓鞭、回身鞭、地蔓鞭是 {@code skill_tree_06}。命中与消散粒子分别沿各模式的计时触发。
  */
 final class TreeEntities {
     private static final String TREE = "木";
@@ -236,6 +236,7 @@ final class TreeEntities {
     private static void strikeAround(SkillEntity self, Vec3 center, double inflate, double bleedChance) {
         for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), center, inflate)) {
             if (!ProjectileSupport.friendly(self, other)) {
+                ProjectileSupport.burst(other, "smallexplosiondeeporange", other.getBbHeight() / 2);
                 SkillEntities.strike(self, other);
                 if (Math.random() < bleedChance) {
                     bleed(other, self);
@@ -248,6 +249,7 @@ final class TreeEntities {
     private static void strikeAndLift(SkillEntity self, Vec3 center, double inflate, double horizontal, double vertical) {
         for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), center, inflate)) {
             if (!ProjectileSupport.friendly(self, other)) {
+                ProjectileSupport.burst(other, "smallexplosiondeeporange", other.getBbHeight() / 2);
                 SkillEntities.strike(self, other);
             }
             if (SkillEntities.movable(other)) {
@@ -274,6 +276,7 @@ final class TreeEntities {
                 case "乱枝正常" -> {
                     scratch.putDouble("tick2", scratch.getDouble("tick2") - 1);
                     if (tick >= 140) {
+                        ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 10, 0.5, 3, 0.5, 0.2);
                         self.discard();
                     }
                     if (scratch.getDouble("tick2") <= 0) {
@@ -288,6 +291,7 @@ final class TreeEntities {
                 case "灰木剑正常" -> {
                     String stage = scratch.getString("jieduan");
                     if (tick >= 20) {
+                        ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 20, 3, 1, 3, 0.2);
                         self.discard();
                     } else if (tick >= 12 && stage.equals("第二下")) {
                         strikeAround(self, ahead(self, 4.5), 4.5, 0.2);
@@ -299,6 +303,7 @@ final class TreeEntities {
                 }
                 case "灰木剑潜行" -> {
                     if (tick >= 25) {
+                        ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 20, 3, 1, 3, 0.2);
                         self.discard();
                     } else if (tick >= 10 && !scratch.getBoolean("kaishi")) {
                         strikeAndLift(self, ahead(self, 3), 3.75, 1, 0.5);
@@ -307,6 +312,7 @@ final class TreeEntities {
                 }
                 case "灰木剑ctrl" -> {
                     if (tick >= 20) {
+                        ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 20, 3, 1, 3, 0.2);
                         self.discard();
                     } else if (tick >= 8 && !scratch.getBoolean("kaishi")) {
                         strikeAndLift(self, ahead(self, 2.5), 2.5, 0, 1);
@@ -316,6 +322,7 @@ final class TreeEntities {
                 }
                 case "灰木剑alt" -> {
                     if (tick >= 20) {
+                        ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 20, 3, 1, 3, 0.2);
                         self.discard();
                     } else if (tick >= 4 && !scratch.getBoolean("kaishi")) {
                         strikeAround(self, ahead(self, 1.5), 1.75, 1);
@@ -342,10 +349,12 @@ final class TreeEntities {
                 }
                 case "爆裂" -> {
                     if (tick >= 20) {
+                        ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 20, 3, 1, 3, 0);
                         self.discard();
                     }
                     for (Entity other : ProjectileSupport.around(level, self.position(), 2.5)) {
                         if (other instanceof LivingEntity living && (other instanceof Player || other instanceof Mob) && !ProjectileSupport.friendly(self, other)) {
+                            ProjectileSupport.burst(other, "smallexplosiondeeporange", other.getBbHeight() / 2);
                             SpellDamage.deal(level, living, DamageCategory.byLabel(self.damageType()), self.attacker(), false, self.attackDamage() + 1, self.multiplier() / 4);
                             if (living.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
                                 slow(living, 100, 2);
@@ -356,6 +365,7 @@ final class TreeEntities {
                 case "灰木树梯" -> {
                     scratch.putDouble("tick", scratch.getDouble("tick") + 1);
                     if (scratch.getDouble("tick") >= 52) {
+                        ProjectileSupport.particles(level, Particles.type("brokendeeporange"), self.position(), 20, 0, 0, 0, 1);
                         self.discard();
                     }
                 }
@@ -406,6 +416,7 @@ final class TreeEntities {
     }
 
     private static void sting(SkillEntity self, Entity other) {
+        ProjectileSupport.burst(other, "smallexplosiondarkgreen", other.getBbHeight() / 2);
         ProjectileSupport.particles((ServerLevel) self.level(), ParticleTypes.CRIT, other.position(), 10, 0, 0, 0, 1);
         SkillEntities.strikeRounded(self, other);
     }
@@ -511,6 +522,7 @@ final class TreeEntities {
                     sting(self, other);
                 }
             }
+            ProjectileSupport.particles(level, Particles.type("cailiao_233particle"), center, 10, 0, 1, 0, 0.1);
         }
     }
 }

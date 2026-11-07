@@ -28,6 +28,7 @@ import net.minecraft.world.phys.AABB;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -129,6 +130,8 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, SkillLoo
         Cultivation.setTizhiDouble(player, "chuqiaoY", player.getY());
         Cultivation.setTizhiDouble(player, "chuqiaoZ", player.getZ());
         Cultivation.setTizhiString(player, "chuqiaoqianzhuangtai", mode(player.gameMode.getGameModeForPlayer()));
+        player.serverLevel().sendParticles(Particles.type("starblue"), player.getX(), player.getY() + player.getBbHeight(), player.getZ(), 20, 0, 0, 0, 0.5);
+        player.serverLevel().sendParticles(Particles.type("starskyblue"), player.getX(), player.getY() + player.getBbHeight(), player.getZ(), 10, 0, 0, 0, 0.5);
         spawn(player);
         player.setGameMode(GameType.SPECTATOR);
         Cultivation.setTizhiBoolean(player, "yvanyingchuqiao", true);
@@ -190,6 +193,9 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, SkillLoo
     @Override
     public void die(DamageSource source) {
         super.die(source);
+        if (level() instanceof ServerLevel level) {
+            level.sendParticles(Particles.type("brokendarkblue"), getX(), getY(), getZ(), 20, 0, 0, 0, 0.5);
+        }
         ServerPlayer player = owner();
         if (player != null) {
             Cultivation.setTizhiBoolean(player, "yvanyingchuqiao", false);

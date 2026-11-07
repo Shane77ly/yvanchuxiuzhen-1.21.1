@@ -18,7 +18,7 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 /**
  * 雷系的实体技能与施放（来源 {@code SkillThunder08}、{@code SkillThunder10} 及对应的 {@code …shifang}、{@code …DangShiTiGengXinKeShi}）：
  * 掌心雷、地滚雷、惊雷阵。天雷术与五雷轰顶经 {@code /lightninglanding} 命令落雷，随彩色闪电实体（雷劫）一起迁移。
- * 自定义粒子（{@code SMALLEXPLOSIONPURPLE}、{@code SMALLEXPLOSIONYELLOW}）随 particle 迁移。
+ * 掌心雷和地滚雷命中发出紫色爆发，惊雷阵命中发出黄色爆发。
  */
 final class ThunderEntities {
     private static final String THUNDER = "雷";
@@ -85,6 +85,7 @@ final class ThunderEntities {
                 if (scratch.getDouble("tick") >= 200) {
                     for (Entity other : ProjectileSupport.around(level, center, 5)) {
                         if (!ProjectileSupport.friendly(self, other)) {
+                            ProjectileSupport.burst(other, "smallexplosionpurple", other.getBbHeight() / 2);
                             SkillEntities.strike(self, other);
                             wound(other);
                         }
@@ -100,6 +101,7 @@ final class ThunderEntities {
                 if (scratch.getBoolean("kaishi")) {
                     for (Entity other : ProjectileSupport.around(level, center, 5)) {
                         if (!ProjectileSupport.friendly(self, other)) {
+                            ProjectileSupport.burst(other, "smallexplosionpurple", other.getBbHeight() / 2);
                             SkillEntities.strikeRounded(self, other);
                             wound(other);
                         }
@@ -114,6 +116,7 @@ final class ThunderEntities {
                 } else if (scratch.getDouble("tick") >= 4 && !scratch.getBoolean("kaishi")) {
                     for (Entity other : ProjectileSupport.around(level, center, 1.5)) {
                         if (!ProjectileSupport.friendly(self, other)) {
+                            ProjectileSupport.burst(other, "smallexplosionpurple", other.getBbHeight() / 2);
                             SkillEntities.strikeRounded(self, other);
                             if (other instanceof LivingEntity living) {
                                 living.addEffect(new MobEffectInstance(StatusEffects.holder("effect_002"), 100, 0));
@@ -164,6 +167,7 @@ final class ThunderEntities {
                 if (scratch.getDouble("tick2") >= 20) {
                     for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), self.position(), 3)) {
                         if (!ProjectileSupport.friendly(self, other)) {
+                            ProjectileSupport.burst(other, "smallexplosionyellow", other.getBbHeight() / 2);
                             SkillEntities.strikeRounded(self, other);
                         }
                     }

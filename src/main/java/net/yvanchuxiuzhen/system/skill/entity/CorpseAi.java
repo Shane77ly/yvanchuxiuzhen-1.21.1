@@ -251,6 +251,7 @@ final class CorpseAi {
         } else if (phase(self).equals("前冲") && ticks(self) >= 20) {
             for (Entity other : around(self, 0.5)) {
                 if (!ProjectileSupport.friendly(self, other)) {
+                    ProjectileSupport.burst(other, "smallexplosiondarkgrey", other.getBbHeight() / 2);
                     if (other instanceof LivingEntity living) {
                         living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 20));
                     }
@@ -295,6 +296,7 @@ final class CorpseAi {
                     if (other instanceof LivingEntity living) {
                         living.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_20"), (int) (100 * data.getDouble("LEVELnumber")), 1));
                     }
+                    ProjectileSupport.burst(other, "smallexplosionlightblue", other.getBbHeight() / 2);
                     yinDamage(level, self, other);
                 }
             }

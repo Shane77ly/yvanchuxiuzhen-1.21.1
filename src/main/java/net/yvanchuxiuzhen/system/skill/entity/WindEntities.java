@@ -13,6 +13,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
@@ -20,7 +21,7 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 /**
  * 风系的实体技能与施放（来源 {@code Skillwind02}、{@code Skillwind02shifang}、{@code Skillwind05}、{@code Skillwind06}）：
  * 聚风术、聚风化气、风飘术、造云术。{@code Skillwind05}（按 {@code endtick} 到时消失）与 {@code Skillwind06}（追踪 {@code mubiaoUUID} 的风刃）
- * 由妖兽技能放出，由 creature 迁移时写入 {@code AttackDamage} 等字段，实体行为在这里。自定义粒子（{@code SMALLEXPLOSIONBLACK}、{@code SMOKEBLACK}）随 particle 迁移。
+ * 由妖兽技能放出，由 creature 迁移时写入 {@code AttackDamage} 等字段，实体行为在这里。
  */
 final class WindEntities {
     private static final String WIND = "风";
@@ -183,6 +184,7 @@ final class WindEntities {
                     if (scratch.getDouble("tick02") >= 10) {
                         for (Entity other : ProjectileSupport.around(level, self.position(), (self.getBbWidth() + 2) / 2)) {
                             if (!ProjectileSupport.friendly(self, other)) {
+                                ProjectileSupport.burst(other, "smallexplosionblack", other.getBbHeight() / 2);
                                 SkillEntities.strike(self, other);
                             }
                         }
@@ -194,6 +196,7 @@ final class WindEntities {
                 if (scratch.getDouble("tick02") >= 14) {
                     scratch.putDouble("tick02", 0);
                     level.sendParticles(ParticleTypes.LARGE_SMOKE, self.getX(), self.getY(), self.getZ(), 12, 0, 0, 0, 0.3);
+                    ProjectileSupport.particles(level, Particles.type("smokeblack"), self.position(), 12, 0, 0, 0, 0.3);
                     self.discard();
                 }
             }

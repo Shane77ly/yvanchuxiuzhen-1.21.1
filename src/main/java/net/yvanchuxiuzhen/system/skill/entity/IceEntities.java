@@ -20,7 +20,7 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 /**
  * 冰系的实体技能与施放（来源 {@code SkillIce04}、{@code SkillIce05} 及对应的 {@code …shifang}、{@code …ShiTiChuShiShengChengShi}、
  * {@code …DangShiTiGengXinKeShi}）：冰天雪地、裂冰斩。两种实体把攻击量与倍率截成整数记下（来源写进 {@code friendlist} 的 {@code putInt}）。
- * 自定义粒子（{@code SMALLEXPLOSIONSKYBLUE}、{@code SMALLEXPLOSIONWHITE}）随 particle 迁移。
+ * 冰天雪地每次命中逐目标随机选择天蓝色或白色爆发粒子。
  */
 final class IceEntities {
     private static final String ICE = "冰";
@@ -94,6 +94,7 @@ final class IceEntities {
                 if (scratch.getDouble("tick2") >= 20) {
                     for (Entity other : ProjectileSupport.around(level, self.position(), 3)) {
                         if (!ProjectileSupport.friendly(self, other)) {
+                            ProjectileSupport.burst(other, Math.random() < 0.5 ? "smallexplosionskyblue" : "smallexplosionwhite", other.getBbHeight() / 2);
                             SkillEntities.strike(self, other);
                         }
                     }

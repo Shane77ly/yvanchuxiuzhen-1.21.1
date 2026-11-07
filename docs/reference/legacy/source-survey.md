@@ -140,6 +140,8 @@ updated: 2026-11-07
 
 | Q53 | `Skillarrow08fudu` 的合成事件没有附毒逻辑：仅在产物为第 08 箭时，将第二合成格的物品文本截去前两字符，再与 `cailiao_141` 比较，成立时显示 `111`。1.21.1 的 `Item.toString` 多了命名空间，目标显式构造来源的数量加路径文本，保留两位数量时无法匹配的结果；1.18.2 文本格式以缓存 Forge 40.3.0 静态对照，不称锁定 40.1.0 实机证据。`SkillArrow00–10skill` 没有有效事件、Java 或资源调用入口；`ArrowSkillchufa` 只被 `AnjianZ` 未连接触发器的游离 Blockly 块引用，生成 Java 不调用，故其施加的“心如止水”也没有自然入口或行为消费者。评估轻微，保留效果身份与图标，不增设附毒、箭技或效果入口 | [技能](../../systems/skill/architecture.md) |
 
+| Q54 | 金轮死亡粒子过程 `SkillGold0201DangSiWangShiJianDaoShiProcedure` 未绑定实际入口：生成实体 `SkillGold0201Entity.tickDeath`（207–212 行）只在二十刻移除并掉经验，`SkillGold0201.mod.json` 没有对应触发；全来源 Java、JSON、XML 与工作区文件仅有过程自身和元素清单登记。过程名不能证明触发有效。评估轻微，保留来源实际行为，不给目标新增死亡粒子钩子；各模式刻过程的有效到期粒子已接回 | [技能](../../systems/skill/architecture.md) |
+
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 
 ## 源码位置

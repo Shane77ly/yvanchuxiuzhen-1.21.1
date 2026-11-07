@@ -17,7 +17,7 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 
 /**
  * 土系的实体技能与施放（来源 {@code SkillRock02–05} 及 {@code SkillRock02shifang}、{@code SkillRock05shifang}、
- * {@code …DangShiTiGengXinKeShi}）：滚石术、天外陨石、化石手、巨石锤。自定义粒子（{@code SMALLEXPLOSIONDEEPORANGE}）随 particle 迁移。
+ * {@code …DangShiTiGengXinKeShi}）：滚石术、天外陨石、化石手、巨石锤。
  */
 final class RockEntities {
     private static final String EARTH = "土";
@@ -80,6 +80,9 @@ final class RockEntities {
     private static void crush(SkillEntity self, Vec3 center, double inflate, double woundChance) {
         for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), center, inflate)) {
             if (!ProjectileSupport.friendly(self, other)) {
+                if (woundChance > 0) {
+                    ProjectileSupport.burst(other, "smallexplosiondeeporange", other.getBbHeight() / 2);
+                }
                 if (woundChance > 0 && Math.random() < woundChance && other instanceof LivingEntity living) {
                     living.addEffect(new MobEffectInstance(StatusEffects.holder("effect_007"), 1200, 1));
                 }
@@ -104,6 +107,7 @@ final class RockEntities {
             if (scratch.getDouble("tick2") >= 12) {
                 for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), self.position(), 2)) {
                     if (!ProjectileSupport.friendly(self, other)) {
+                        ProjectileSupport.burst(other, "smallexplosiondeeporange", other.getBbHeight() / 2);
                         SkillEntities.strike(self, other);
                         if (other instanceof LivingEntity living) {
                             living.addEffect(new MobEffectInstance(StatusEffects.holder("effect_007"), 1200, 1));
@@ -168,6 +172,7 @@ final class RockEntities {
                     smoke(self, center, 20, 0.5, 0.4);
                     for (Entity other : ProjectileSupport.around(level, center, 2)) {
                         if (!ProjectileSupport.friendly(self, other)) {
+                            ProjectileSupport.burst(other, "smallexplosiondeeporange", other.getBbHeight() / 2);
                             if (Math.random() < 0.3 && other instanceof LivingEntity living) {
                                 living.addEffect(new MobEffectInstance(StatusEffects.holder("effect_007"), 1200, 1));
                             }
@@ -235,6 +240,7 @@ final class RockEntities {
         private static void hammer(SkillEntity self, boolean stun) {
             for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), self.position(), 2)) {
                 if (!ProjectileSupport.friendly(self, other)) {
+                    ProjectileSupport.burst(other, "smallexplosiondeeporange", other.getBbHeight() / 2);
                     SkillEntities.strike(self, other);
                     if (stun && Math.random() < 0.2) {
                         self.addEffect(new MobEffectInstance(StatusEffects.holder("effect_001"), 600, 0));

@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.system.skill.entity;
 import java.util.Map;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
@@ -20,7 +22,7 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 /**
  * 水系的空浮球、陨河术、水灵阵、玲珑阵（来源 {@code SkillWater04/06/07} 及对应的 {@code …shifang}、{@code …ShiTiChuShiShengChengShi}、
  * {@code …DangShiTiGengXinKeShi}、{@code SkillWater04PengZhuangXiangChiDu}）。实体把攻击量与倍率截成整数记下；
- * 空浮球与陨河术的碰撞箱按模式缩放。自定义粒子随 particle 迁移。
+ * 空浮球与陨河术的碰撞箱按模式缩放，命中与到期分别发送水系爆发和破碎粒子。
  */
 final class WaterFormations {
     private static final String WATER = "水";
@@ -125,6 +127,7 @@ final class WaterFormations {
         Vec3 center = self.position().add(0, 1, 0);
         for (Entity other : ProjectileSupport.around(level, center, 3)) {
             if (!ProjectileSupport.friendly(self, other)) {
+                ProjectileSupport.burst(other, "smallexplosionblue", other.getBbHeight() / 2);
                 SkillEntities.strike(self, other);
             }
         }
@@ -147,8 +150,10 @@ final class WaterFormations {
             CompoundTag scratch = self.getPersistentData();
             String mode = scratch.getString("mode");
             if (scratch.getBoolean("baolie")) {
+                ProjectileSupport.particles(level, Particles.type("brokenblue"), self.position().add(0, self.getBbHeight() / 2, 0), 30, 0, 0, 0, 1);
                 for (Entity other : ProjectileSupport.around(level, self.position(), 5)) {
                     if (!ProjectileSupport.friendly(self, other)) {
+                        ProjectileSupport.burst(other, "smallexplosionblue", other.getBbHeight() / 2);
                         SkillEntities.strike(self, other);
                         if (SkillEntities.movable(other)) {
                             other.setDeltaMovement(new Vec3((other.getX() - self.getX()) * 0.4, 0.5, (other.getZ() - self.getZ()) * 0.4));
@@ -160,6 +165,7 @@ final class WaterFormations {
                 self.setDeltaMovement(new Vec3(self.getLookAngle().x * 0.2, 0, self.getLookAngle().z * 0.2));
                 scratch.putDouble("tick", scratch.getDouble("tick") + 1);
                 if (scratch.getDouble("tick") >= 120) {
+                    ProjectileSupport.particles(level, Particles.type("brokenblue"), self.position().add(0, self.getBbHeight() / 2, 0), 20, 1, 1, 1, 0.2);
                     self.discard();
                 }
                 scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
@@ -175,8 +181,11 @@ final class WaterFormations {
                 if (scratch.getBoolean("kaishi")) {
                     scratch.putDouble("tick", scratch.getDouble("tick") + 1);
                     if (scratch.getDouble("tick") >= 5) {
+                        ProjectileSupport.particles(level, ParticleTypes.SPLASH, self.position().add(0, 0.6, 0), 40, 3, 3, 3, 1);
+                        ProjectileSupport.particles(level, Particles.type("brokenblue"), self.position().add(0, self.getBbHeight() / 2, 0), 30, 0.5, 0.5, 0.5, 1);
                         for (Entity other : ProjectileSupport.around(level, self.position().add(0, 0.6, 0), 6)) {
                             if (!ProjectileSupport.friendly(self, other)) {
+                                ProjectileSupport.burst(other, "smallexplosionblue", other.getBbHeight() / 2);
                                 SkillEntities.strike(self, other);
                                 other.setDeltaMovement(new Vec3((other.getX() - self.getX()) * 0.6, 0.5, (other.getZ() - self.getZ()) * 0.6));
                             }
@@ -191,6 +200,7 @@ final class WaterFormations {
                 scratch.putDouble("tick", scratch.getDouble("tick") + 1);
                 if (scratch.getDouble("tick") >= 40) {
                     scratch.putDouble("tick", 0);
+                    ProjectileSupport.particles(level, Particles.type("brokenblue"), self.position().add(0, self.getBbHeight() / 2, 0), 20, 0, 0, 0, 1);
                     self.discard();
                 }
                 scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);

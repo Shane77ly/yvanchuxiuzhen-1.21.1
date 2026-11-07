@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
@@ -21,7 +22,7 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 /**
  * 火系的实体技能与施放（来源 {@code SkillFire02/03/04/05/07/08} 与对应的 {@code …shifang}、{@code …DangShiTiGengXinKeShi}）：
  * 大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷；火鸟术（{@code SkillFire06}）是带 AI 的可驯服实体，见 {@link FireBird}。
- * 来源的自定义粒子（{@code SMALLEXPLOSIONRED}、{@code BROKEN*}）随 particle 迁移。
+ * 命中粒子在目标半高处发出，火焰漩涡到期时另发出三种破碎粒子。
  */
 final class FireEntities {
     private static final String FIRE = "火";
@@ -83,6 +84,7 @@ final class FireEntities {
                     level.sendParticles(fire ? ParticleTypes.FLAME : ParticleTypes.SOUL_FIRE_FLAME, pos.getX(), pos.getY(), pos.getZ(), 16, 0, 0, 0, 0.5);
                     for (Entity other : ProjectileSupport.around(level, Vec3.atLowerCornerOf(pos), 2.5)) {
                         if (!ProjectileSupport.friendly(caster, other)) {
+                            ProjectileSupport.burst(other, "smallexplosionred", other.getBbHeight() / 2);
                             if (other instanceof LivingEntity living) {
                                 SpellDamage.command(level, living, "shanghai " + FIRE + " " + attackUuid + " false " + values[0] + " " + values[1]);
                             }
@@ -123,8 +125,10 @@ final class FireEntities {
         ServerLevel level = (ServerLevel) self.level();
         for (Entity other : ProjectileSupport.around(level, center, inflate)) {
             if (!ProjectileSupport.friendly(self, other)) {
+                ProjectileSupport.burst(other, "smallexplosionred", other.getBbHeight() / 2);
                 if (explosionParticles) {
-                    level.sendParticles(ParticleTypes.FLAME, other.getX(), other.getY() + other.getBbHeight() / 2, other.getZ(), 10, 0, 0, 0, 1);
+                    double y = SkillEntities.is(self, "skill_fire_08") ? other.getY() : other.getY() + other.getBbHeight() / 2;
+                    level.sendParticles(ParticleTypes.FLAME, other.getX(), y, other.getZ(), 10, 0, 0, 0, 1);
                 }
                 SkillEntities.strikeRounded(self, other);
                 ProjectileSupport.ignite(other, 5);
@@ -174,6 +178,10 @@ final class FireEntities {
             scratch.putDouble("tick", scratch.getDouble("tick") + 1);
             if (scratch.getDouble("tick") >= 400) {
                 level.sendParticles(ParticleTypes.FLAME, self.getX(), self.getY() + self.getBbHeight() / 3, self.getZ(), 20, 0, 0, 0, 0.8);
+                Vec3 at = self.position().add(0, self.getBbHeight() / 3, 0);
+                for (String id : new String[]{"brokenorange", "brokenlightorange", "brokengolden"}) {
+                    ProjectileSupport.particles(level, Particles.type(id), at, 10, 2, 2, 2, 0.8);
+                }
                 self.discard();
             }
         }

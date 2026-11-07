@@ -86,6 +86,7 @@ public final class ElementProjectiles {
         release("火", "projectile_skill_light_04", 0, 2, "幻光术");
         SkillReleases.register("木", (caster, book) -> {
             caster.addEffect(new MobEffectInstance(StatusEffects.holder("skill_tree_03"), 600, 1));
+            ProjectileSupport.particles(caster.serverLevel(), Particles.type("peachflowerlizi"), caster.position().add(0, 1, 0), 20, 0, 0, 0, 0.1);
             caster.displayClientMessage(Component.literal("§630秒内，拈花飞叶技能自动追踪敌方实体！"), false);
         }, "生命感知");
         SkillReleases.register("土", (caster, book) -> ProjectileSupport.shootFromEyes((ServerLevel) caster.level(), caster, "projectile_skill_rock_01",

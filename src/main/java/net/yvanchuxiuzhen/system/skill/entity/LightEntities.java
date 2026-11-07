@@ -8,13 +8,15 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
+import net.yvanchuxiuzhen.system.skill.SkillDelays;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 
 /**
  * 光系的实体技能与施放（来源 {@code SkillLight03}、{@code SkillLight03shifang}）：闪光术、万丈光芒。
- * 来源在万丈光芒里另用延时任务补三次光爆粒子（自定义粒子 {@code BIGBANGLIGHTYELLOW}、{@code SMALLEXPLOSIONLIGHTYELLOW}），随 particle 迁移。
+ * 万丈光芒立即发出一组光爆，再于 2、4、6、8 刻各补一组；回调保留原实体，执行时现读位置。
  */
 final class LightEntities {
     private static final String LIGHT = "光";
@@ -57,6 +59,7 @@ final class LightEntities {
             } else if (self.skillName().equals("万丈光芒")) {
                 for (Entity other : ProjectileSupport.around(level, self.position(), 8)) {
                     if (!ProjectileSupport.friendly(self, other)) {
+                        ProjectileSupport.burst(other, "smallexplosionlightyellow", other.getBbHeight() / 2);
                         if (other instanceof LivingEntity living && living.getHealth() < living.getMaxHealth() * 0.1) {
                             living.setHealth(0);
                         } else {
@@ -67,9 +70,18 @@ final class LightEntities {
                         }
                     }
                 }
+                flashParticles(level, self);
+                for (int delay : new int[]{2, 4, 6, 8}) {
+                    SkillDelays.after(delay, () -> flashParticles(level, self));
+                }
             }
             scratch.putDouble("tick", 0);
             self.discard();
+        }
+
+        private static void flashParticles(ServerLevel level, SkillEntity self) {
+            ProjectileSupport.particles(level, Particles.type("bigbanglightyellow"), self.position().add(0, self.getBbHeight() / 2, 0), 2, 6, 6, 6, 0);
+            ProjectileSupport.particles(level, Particles.type("smallexplosionlightyellow"), self.position().add(0, self.getBbHeight() / 2, 0), 4, 6, 6, 6, 0);
         }
     }
 }

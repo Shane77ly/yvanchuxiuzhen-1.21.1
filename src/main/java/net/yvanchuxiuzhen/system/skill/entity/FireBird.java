@@ -178,6 +178,7 @@ public final class FireBird extends TamedSkillEntity {
             if (scratch.getDouble("tick3") >= BURST_DELAY) {
                 for (Entity other : ProjectileSupport.around(level, position(), 2.5)) {
                     if (!ProjectileSupport.friendly(this, other)) {
+                        ProjectileSupport.burst(other, "smallexplosionred", other.getBbHeight() / 2);
                         cast().strikeRounded(level, other);
                         ProjectileSupport.ignite(other, 5);
                     }
