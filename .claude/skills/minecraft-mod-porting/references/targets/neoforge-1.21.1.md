@@ -42,6 +42,7 @@
 | 结构里的额框与画 | NBT 中保存旧世界的绝对坐标 `TileX/Y/Z`，`BlockAttachedEntity` 读取时离实体超过 16 格即记 ERROR，实体位置仍由摆放代码重设 | 摆放结构会产生这类 ERROR 日志，功能不受影响 |
 | 超大结构 | 展开后 304 MB、844 万方块的模板在默认堆下解析 NBT 即 `OutOfMemoryError`（`CompoundTag` 每个方块一个哈希表） | 内容里大部分是空气的模板需要压缩、分段或提高内存，不能依赖原样加载 |
 | 流体与水 | NeoForge 21.1.265 把实体的 `FluidTags.WATER` 判断（`isInWater`、`isEyeInFluid` 等）改为判断水的流体类型；自定义流体列入 `minecraft:water` 标签不再让实体按水处理。游泳、溺水、灭火、摔落、载船、湿润耕地由 `FluidType.Properties` 决定 | 来源靠水标签获得水行为的流体，按需设置流体类型属性；标签仍影响其他按标签判断的逻辑。流体贴图在 `RegisterClientExtensionsEvent` 登记，渲染层用 `ItemBlockRenderTypes.setRenderLayer(Fluid, ..)`（未弃用） |
+| 实体水下呼吸 | 21.1.265 的 `LivingEntity.canBreatheUnderwater()` 是 `final`，读取 `EntityTypeTags.CAN_BREATHE_UNDER_WATER`（`minecraft:can_breathe_under_water`）；其弃用说明指向 `canDrownInFluidType` | 来源覆写水下呼吸的方法不能原样移植；原版水中的呼吸能力可用该实体类型标签表达，涉及自定义流体时另核对 `FluidType` 的溺水规则 |
 | 桶模型 | 1.18.2 Forge 的 `"loader": "forge:bucket"`、`"parent": "forge:item/bucket_drip"` 改为 `"loader": "neoforge:fluid_container"`、`"parent": "neoforge:item/bucket_drip"`，`fluid` 字段不变 | 资源转换遇到桶模型时改写加载器，不复制 forge 命名空间的父模型 |
 | 原版 ID 改名 | `scute` 在 1.20.5 改名为 `turtle_scute`；原版语言文件仍保留 `item.minecraft.scute` 旧键 | 判断原版物品是否存在不能用语言键，用 `assets/minecraft/models/item` 与 `blockstates` 的文件；来源数据中出现的改名项登记为显式对应表 |
 

@@ -3,14 +3,17 @@ package net.yvanchuxiuzhen.system.skill.api;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.system.skill.SkillLibrary;
 import net.yvanchuxiuzhen.system.skill.SkillStudy;
 import net.yvanchuxiuzhen.system.skill.data.SkillCooldowns;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 import net.yvanchuxiuzhen.system.skill.data.SkillState;
+import net.yvanchuxiuzhen.system.skill.entity.DamageArea;
 import net.yvanchuxiuzhen.system.skill.entity.VoidRift;
 
 /**
@@ -95,5 +98,10 @@ public final class Skills {
     /** 技能界面的虚空按钮：境界含修正达到 31 时，在视线五格处开启虚空裂隙。 */
     public static void openVoidRift(ServerPlayer player) {
         VoidRift.open(player);
+    }
+
+    /** 显示伤害范围；普通提示的技能名为空，控雷阵与惊蛰闻雷使用各自的计时分支。 */
+    public static void showDamageArea(Entity owner, Vec3 at, String animation, String skillName, double duration, double attackDamage) {
+        DamageArea.show(owner, at, animation, skillName, duration, attackDamage);
     }
 }

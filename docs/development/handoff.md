@@ -37,13 +37,13 @@ xiulian 推迟的雷劫过程（`ThunderBegin`、劫云实体 `Jieyvn`、天劫�
 **下次开工的第一步**（先于下面的条目）：
 - `git status` 应干净，位于 `port/c-skill`（唯一未跟踪项 `.eclipse/` 是 IDE 的启动配置，不属于本项目提交）。
 - 已运行一次 skill 冒烟（`gradlew runSmokeClient -PsmokeOnly=skill`）：报告以 `DONE` 结束，精简后的 `CorpseCheck` 28 项全部符合；其余检查也完成。`LingwenCheck` 的数量 1/2 差异已由 Q48 解释为来源同序的首刻命中时序，不再重复整套冒烟。
-- 虚空裂隙的实体、传送与公开入口已实现，`VoidRiftCheck` 12 项通过（`-PsmokeOnly=voidrift`，往返使用 smoke 测试维度，正式维度仍随 world）；本次不再重复。直接按下面第 1 条继续伤害范围、元婴出窍，再做第 2 条技能箭。
+- 虚空裂隙的实体、传送与公开入口已实现，`VoidRiftCheck` 12 项通过（`-PsmokeOnly=voidrift`，往返使用 smoke 测试维度，正式维度仍随 world）；本次不再重复。伤害范围实体与 `Skills.showDamageArea` 已实现，`DamageAreaCheck` 6 项通过；九处 creature 生成者与雷劫落雷仍待对应系统接入。下一步先做元婴出窍，再做第 2 条技能箭。
 - 本机有一个小陷阱：在 bash 的 here-document 里写含引号的长 Python 脚本会因引号错位而整段不执行，改用 Write 写到暂存目录再运行。
 - `port/c-skill` 已推送到 `origin/port/c-skill`；`.eclipse/` 仍是唯一未跟踪的 IDE 配置文件。
 
 下一步具体操作（skill；做法同前几个系统）：
 0. 已提交（分支 `port/c-skill`，最新提交以 `git log` 为准）：第 1 阶段框架；第 2 阶段元素弹体 14 个；第 3 阶段动画实体基础与火、土、金、冰、光、风、雷、水（水蛇鞭、水连鞭、激流波、水龙吟、空浮球、陨河术、水灵阵、玲珑阵）、木（乱枝、灰木剑、乱木之种、灰木树梯、木篱术、毒蔓鞭、回身鞭、地蔓鞭）、剑法（`SwordEntities`、`WeaponArts`；平台 `ItemSwingEvent` 触发，2026-11-05）、灵纹（`LingwenHit`、`LingwenEntities`、`LingwenBolt`；Q45）、火鸟术（`FireBird`，基类 `TamedSkillEntity`；2026-11-07；Q46）、起尸诀（`Corpse`、`CorpseAi`、`Corpses`；2026-11-07；Q47）；虚空裂隙实体、生命周期与传送（`VoidRift`、`Skills.openVoidRift`；2026-11-07；Q49；按钮随阶段 5，正式维度随 world）；冒烟 `-PsmokeOnly=skill`（`SkillCheck`、`SkillProjectileCheck`、`SkillEntityCheck`、`SwordArtCheck`、`LingwenCheck`、`FireBirdCheck`、`CorpseCheck`；`Arena` 平地由后四者共用，此前弹体检查在不平地形上整批失败；动作列表类检查继承 `ActionCheck`）。读过程用 `TERSE=1`（去样板）、`DIFF=1`（同模板族）；新增元素族的做法见 `entity/FireEntities` 等：`SkillEntities.register` 里登记行为表，`SkillReleases.register` 登记施放，`mark_ownership.py`、`build_ledger.py`、`mark_ledger.py 已注册`、`convert_content.py`，冒烟加用例，再标 `行为已迁移`。
-1. 第 3 阶段余项（按元素）：`Shanghaifanwei`（伤害范围，`控雷阵` 经 `/lightninglanding` 落雷，随雷劫）、`Yvanyingchuqiao`（元婴出窍，归 skill 的按钮过程，读写 xiulian 的神识与 `tizhiitem` 的出窍键）。天雷术、五雷轰顶等待 `/lightninglanding`（雷劫）。拂尘 `Weaponhossu01DangShiTiHuiDongWuPinShi` 的发射随 equipment（挥动事件已有，监听尚无）。可驯服实体（火鸟、尸体）已完成，基类与共用件见[技能架构](../systems/skill/architecture.md)“可驯服实体”；尸体的 `CorpseAi.breakFree` 与 `finish` 对应妖兽共用的 `Yaoshou001skillzhengtuo`、`Entityjinengjieshu`，creature 迁移时再决定是否公开。
+1. 第 3 阶段余项（按元素）：伤害范围实体与 `Skills.showDamageArea` 已实现，九处 creature 生成者与 `控雷阵` 经 `/lightninglanding` 的落雷随对应系统接入；`Yvanyingchuqiao`（元婴出窍，归 skill 的按钮过程，读写 xiulian 的神识与 `tizhiitem` 的出窍键）下一项实现。天雷术、五雷轰顶等待 `/lightninglanding`（雷劫）。拂尘 `Weaponhossu01DangShiTiHuiDongWuPinShi` 的发射随 equipment（挥动事件已有，监听尚无）。可驯服实体（火鸟、尸体）已完成，基类与共用件见[技能架构](../systems/skill/architecture.md)“可驯服实体”；尸体的 `CorpseAi.breakFree` 与 `finish` 对应妖兽共用的 `Yaoshou001skillzhengtuo`、`Entityjinengjieshu`，creature 迁移时再决定是否公开。
 2. 阶段 2 余项：10 种技能箭（`SkillArrow01–10`，命中过程 `SkillArrow01DangTouZhiWuJiZhongShiTiShi` 387 行按 `jinengName`/实体类型分支，含“箭雨”）、箭种选择按钮 6–16 与 `arrowlinshi`、`Lingwentexiao` 弹体。
 3. 阶段 4–5：身法、轻功、武器技与按键（W、S、A、D、空格、F、`ShenfaTick`、`FlyskillTick`）、技能界面与 HUD（`JinengGui` 77 个过程、`arrowhud` 10 个、技能界面六个功能按钮）。
 4. creature 迁移时：妖兽技能放出 `skillwind_05`、`skillwind_06`，需要 skill 提供 api 放出技能实体（写入攻击量、攻击者、`mubiaoUUID`、`endtick`），尚未提供。

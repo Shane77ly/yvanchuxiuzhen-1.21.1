@@ -3494,8 +3494,8 @@ yvanchuxiuzhen,Ycxzboss01ShiTiChuShiShengChengShi,procedure,~/entity/boss/ycxzbo
 yvanchuxiuzhen,Ycxzboss01DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Ycxzboss01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Ycxzboss01DangShiTiShouShangShi,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Ycxzboss01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Ycxzboss01,animatedentity,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,ShanghaifanweiDangShiTiGengXinKeShi,procedure,~/skill/jineng,skill,候选,C combat 归属改判（读过更新过程）：技能伤害范围指示实体，由技能与妖兽技能生成，按 jinengname 倒计时消失，控雷阵到期经 /lightninglanding 落雷；玩法含义在 skill，随 skill 迁移（动画实体用 GeckoLib，基础设施已随木人桩建立）
-yvanchuxiuzhen,Shanghaifanwei,animatedentity,~/skill/jineng,skill,候选,C combat 归属改判（读过更新过程）：技能伤害范围指示实体，由技能与妖兽技能生成，按 jinengname 倒计时消失，控雷阵到期经 /lightninglanding 落雷；玩法含义在 skill，随 skill 迁移（动画实体用 GeckoLib，基础设施已随木人桩建立）
+yvanchuxiuzhen,ShanghaifanweiDangShiTiGengXinKeShi,procedure,~/skill/jineng,skill,已读,C skill 来源核对：伤害范围是由九处 creature 技能生成的无重力动画提示；普通分支按 daojishi 消失，惊蛰闻雷 40 刻、控雷阵 20 刻后按原命令调用落雷；伤害结算与生成者仍归 creature
+yvanchuxiuzhen,Shanghaifanwei,animatedentity,~/skill/jineng,skill,已读,C skill 来源核对：伤害范围是由九处 creature 技能生成的无重力动画提示；普通分支按 daojishi 消失，惊蛰闻雷 40 刻、控雷阵 20 刻后按原命令调用落雷；伤害结算与生成者仍归 creature
 yvanchuxiuzhen,Npcshuxingjisuan,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,ZhuangshitiziDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Zhuangshitizi 读：装饰梯：放置过程只改本方块
 yvanchuxiuzhen,Mugongtai,animatedblock,~/tool,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
