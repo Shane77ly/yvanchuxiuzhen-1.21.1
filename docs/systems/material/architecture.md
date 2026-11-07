@@ -1,8 +1,8 @@
 ---
 topic: material
 role: architecture
-status: draft
-updated: 2026-11-01
+status: partial
+updated: 2026-11-08
 ---
 
 # 材料、采集与辨识：架构调查与提案
@@ -25,3 +25,11 @@ updated: 2026-11-01
 ## 验证与范围
 
 来源注册与目录都要覆盖，包含矿物、妖兽材料、灵木、宝石、异火等。采集掉落、材料生成等级与品阶、辨识扣料和生产消费者必须形成完整路径。当前没有批准重新计算材料权重或贡献预算。
+
+## 2026-11-08 基础目录与实例载体
+
+从锁定的 1.18.2 材料目录提取 225 条 `cailiao_*` 定义，写入 `content/material/definitions.json`。目标目录保留材料 ID、固定重量、经验、属性条目、特殊效果条目和特殊标记；资源由 `ContentFiles` 在 Mod 启动时用 Codec 解码，重复 ID 或未知字段直接中止启动。材料物品的 `cailiaolevel/cailiaopinjie` 改为 `material_instance` 组件，玩家 `playercailiaojiexi` 改为 `material_analysis` 附件，附件按来源玩家变量在死亡时复制并只同步本人。
+
+`YihuoshujvfuyvProcedure:22–58` 的登录入口由 yihuo 通过 `Materials.initializeYihuo` 调用，覆盖 `cailiao_221`–`cailiao_239` 的 19 个目录 ID，并按来源固定写入 `jindumax = 6`，使用一次性标记避免重复初始化。当前材料定义把固定重量/经验与属性、特殊效果分开保存，`entryCount()` 只统计结构化属性和特殊效果；原始目录三元组的完整顺序、逐条显示与扣料仍待材料辨识与 storage 批次接回，不能把本批初始化当作完整辨识验收。
+
+验证证据：`gradlew build` 通过，包含 ArchUnit；沿用现有 `gradlew runSmokeClient -PsmokeOnly=skillparticle` 进入真实 1.21.1 客户端世界，资源加载、登录、保存退出完成，报告含 `DONE`，客户端日志 `ERROR=0`、`FATAL=0`。该已有选择器只证明公共资源和登录生命周期没有启动回归，不替代材料界面、扣料或两版本对照；本批没有新增 Test 类或冒烟选择器。

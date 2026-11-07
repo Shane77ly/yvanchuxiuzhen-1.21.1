@@ -2,7 +2,7 @@
 topic: systems-index
 role: entry
 status: current
-updated: 2026-11-01
+updated: 2026-11-08
 ---
 
 # 全量系统架构调查
@@ -19,7 +19,7 @@ updated: 2026-11-01
 | --- | --- | ---: | ---: | --- |
 | [`attribute`](attribute/README.md) | 属性 | 3 | 3 | 公开操作、贡献汇总与附件已实现，开发客户端检查通过；提交系统的真实路径未验证 |
 | [`relation`](relation/README.md) | 关系 | 86 | 86 | 敌友判定、团队、好友与申请界面已实现，开发客户端检查通过；两人流程与改名入口（Q20）未完成 |
-| [`material`](material/README.md) | 材料 | 372 | 0 | 调查正文已建立；实现及运行验收未开始 |
+| [`material`](material/README.md) | 材料 | 372 | 0 | 225 条目录定义、实例组件、辨识附件与异火登录初始化已接入；辨识界面、扣料和生产消费未完成 |
 | [`storage`](storage/README.md) | 储物 | 116 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`profession`](profession/README.md) | 副职业 | 21 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`gongfa`](gongfa/README.md) | 功法 | 475 | 0 | 调查正文已建立；实现及运行验收未开始 |
