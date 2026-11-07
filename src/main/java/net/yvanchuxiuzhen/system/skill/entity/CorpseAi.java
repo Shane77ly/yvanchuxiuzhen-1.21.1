@@ -109,17 +109,22 @@ final class CorpseAi {
 
     /** 技能结束复位（来源 {@code Entityjinengjieshu}）。 */
     static void finish(Entity self) {
+        finishSkill(self);
+        self.getPersistentData().putDouble("entitytick2", 0);
+    }
+
+    /** 死亡拥抱、恐吓与粘液的结束分支只清技能、阶段和主计时。 */
+    private static void finishSkill(Entity self) {
         CompoundTag data = self.getPersistentData();
         data.putString("jineng", "");
         data.putString("jinengjinxing", "");
         data.putDouble("entitytick", 0);
-        data.putDouble("entitytick2", 0);
     }
 
     /**
-     * 选择下一个技能：先转向目标，按身上的状态列出可选技能——被骑乘中只有“挣脱”；不被骑乘时没有沉默（{@code effect_002}）与僵直（{@code effect_033}）才有
+     * 选择下一个技能：先转向目标，按身上的状态列出可选技能——骑乘其他实体时只有“挣脱”；未骑乘时没有沉默（{@code effect_002}）与僵直（{@code effect_033}）才有
      * “靠近”（距离大于 3 格）或四个近身技能；没有僵直且距离小于 3 格时再加一个“普攻”（所以沉默中只有普攻，没有沉默时普攻权重翻倍）。
-     * 距离是两个包围盒之间的距离。按权重抽出后记下技能与等待刻数，等待刻数到了才开始；没有可选技能（僵直中）则每刻重新判断。
+     * 距离取中心距减去双方半宽。按权重抽出后记下技能与等待刻数，等待刻数到了才开始；没有可选技能（僵直中）则每刻重新判断。
      */
     private static void choose(Corpse self, Entity target) {
         CompoundTag data = self.getPersistentData();
@@ -131,18 +136,20 @@ final class CorpseAi {
             List<Option> options = new ArrayList<>();
             if (self.isPassenger()) {
                 options.add(new Option(BREAK_FREE, 10, 100));
-            } else if (!silenced && !stiff) {
-                if (distance > 3) {
-                    options.add(new Option(APPROACH, 5, 30));
-                } else {
-                    options.add(new Option(STRIKE, 10, 20));
-                    options.add(new Option(SPRAY, 5, 30));
-                    options.add(new Option(HUG, 10, 30));
-                    options.add(new Option(INTIMIDATE, 10, 30));
+            } else {
+                if (!silenced && !stiff) {
+                    if (distance > 3) {
+                        options.add(new Option(APPROACH, 5, 30));
+                    } else {
+                        options.add(new Option(STRIKE, 10, 20));
+                        options.add(new Option(SPRAY, 5, 30));
+                        options.add(new Option(HUG, 10, 30));
+                        options.add(new Option(INTIMIDATE, 10, 30));
+                    }
                 }
-            }
-            if (!stiff && distance < 3) {
-                options.add(new Option(STRIKE, 10, 20));
+                if (!stiff && distance < 3) {
+                    options.add(new Option(STRIKE, 10, 20));
+                }
             }
             int total = options.stream().mapToInt(Option::weight).sum();
             int roll = Mth.nextInt(self.getRandom(), 1, total);
@@ -263,7 +270,7 @@ final class CorpseAi {
             lookAt(self, target);
             self.setDeltaMovement(new Vec3(self.getLookAngle().x * 0.4, 0, self.getLookAngle().z * 0.4));
         } else if (phase(self).equals("结束") && ticks(self) >= 40) {
-            finish(self);
+            finishSkill(self);
         }
     }
 
@@ -274,7 +281,7 @@ final class CorpseAi {
             self.setAnimation("animation.skillyin01.skill01");
             setPhase(self, "结束");
         } else if (phase(self).equals("结束") && ticks(self) >= 20) {
-            finish(self);
+            finishSkill(self);
         }
     }
 
@@ -302,7 +309,7 @@ final class CorpseAi {
             }
             setPhase(self, "结束");
         } else if (phase(self).equals("结束") && ticks(self) >= 60) {
-            finish(self);
+            finishSkill(self);
         }
     }
 

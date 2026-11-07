@@ -14,6 +14,7 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -39,7 +40,7 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
  * {@code SkillFire06DangShiTiBeiShaSiShi}）：无重力的飞行实体，跟随主人，主人攻击或被攻击的目标成为它的目标，追上目标后冲撞；
  * 身边 1.5 格内出现非友方实体后 3 刻爆发，对 2.5 格内的非友方实体造成火系伤害（攻击量与倍率取整）并点燃 5 秒，然后消失；
  * 寿命 1200 刻。免疫药水云、药水弹与仙人掌，不受跌落伤害，不会被喂食驯服（见 {@link TamedSkillEntity}）。
- * 来源的爆发粒子 {@code SMALLEXPLOSIONRED} 随 particle 迁移。
+ * 爆发时向每个敌方目标半高处发送一枚红色爆发粒子。
  */
 public final class FireBird extends TamedSkillEntity {
     public static final String ID = "skill_fire_06";
@@ -69,6 +70,7 @@ public final class FireBird extends TamedSkillEntity {
         bird.moveTo(caster.getX(), caster.getY() + 1.5, caster.getZ(), level.getRandom().nextFloat() * 360F, 0);
         SkillEntities.turn(bird, caster.getYRot(), 0);
         bird.tame(caster);
+        bird.finalizeSpawn(level, level.getCurrentDifficultyAt(bird.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(bird);
     }
 
@@ -143,6 +145,7 @@ public final class FireBird extends TamedSkillEntity {
         if (!level().isClientSide()) {
             tickSkill();
         }
+        refreshDimensions();
     }
 
     private void burstParticles() {

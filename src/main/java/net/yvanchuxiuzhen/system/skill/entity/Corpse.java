@@ -96,7 +96,7 @@ public final class Corpse extends TamedSkillEntity {
         if (!level().isClientSide()) {
             CorpseAi.hurt(this, source.getEntity());
         }
-        if (source.is(DamageTypes.WITHER) || source.is(DamageTypes.WITHER_SKULL)) {
+        if (source.is(DamageTypes.WITHER) || source.getMsgId().equals("witherSkull")) {
             return false;
         }
         return super.hurt(source, amount);
@@ -116,6 +116,7 @@ public final class Corpse extends TamedSkillEntity {
         if (!level().isClientSide()) {
             CorpseAi.tick(this);
         }
+        refreshDimensions();
     }
 
     /** 按来源顺序登记默认移动、原版挥臂与过程动画三个控制器。 */

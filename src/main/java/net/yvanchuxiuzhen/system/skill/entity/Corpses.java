@@ -79,6 +79,7 @@ public final class Corpses {
             Corpse corpse = create(level, caster, rank);
             corpse.moveTo(x, y, z, level.getRandom().nextFloat() * 360F, 0);
             corpse.getPersistentData().putDouble("qishijveweizhi", Skills.state(caster).selectedSlot());
+            corpse.finalizeSpawn(level, level.getCurrentDifficultyAt(corpse.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
             level.addFreshEntity(corpse);
         }
     }
@@ -140,6 +141,6 @@ public final class Corpses {
         }
         double level = book.number("LEVELnumber") + 1;
         SkillBook next = book.withNumber("jinengExp", experience - needed).withNumber("LEVELnumber", level);
-        return level >= 1 && level <= 40 ? next.withText("belongTopinjietext", SkillText.grade(level)) : next;
+        return level >= 1 && level <= 40 && level == Math.floor(level) ? next.withText("belongTopinjietext", SkillText.grade(level)) : next;
     }
 }

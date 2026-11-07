@@ -70,6 +70,8 @@ PowerShell 复制带通配符的资源时使用 `Copy-Item -Path`；`-LiteralPat
 - 受击、默认与技能动画的打断、共存和恢复条件按来源谓词处理，不自行统一。已核对MCreator 1.18.2与GeckoLib3.0.57的动画工厂会逐刻消费同步名字、复位undefined并写入本地过程名；仅看setAnimation不能判断同名请求是否会再播。迁移到GeckoLib4.9.3时，`RawAnimation.thenPlay`采用JSON默认循环，来源显式PLAY_ONCE应使用`then(名字, Animation.LoopType.PLAY_ONCE)`；完成后的重载对应`AnimationController.forceAnimationReset`。逐类读取控制器过渡刻数和默认动画条件，不从同族实体推断。
 - 渲染器逐类核对缩放、阴影、死亡旋转覆写和发光层；渲染缩放与碰撞箱缩放分别记录。已核对GeckoLib3.0.57与4.9.3的死亡旋转默认均为90度，来源只有部分实体覆写为0，不能统一替换。4.9.3的`withScale`在主渲染前缩放，发光层`reRender`沿用外层变换而不重复缩放。头部骨骼的暂停条件也按来源保留；4.9.3的`GeoModel.handleAnimations`冻结时间后仍可能调用`setCustomAnimations`，不能依赖动画时钟代替自定义骨骼的暂停条件。
 - 刷怪蛋除物品注册外，还要核对物品模型、翻译和创造模式物品栏收录。
+- 施放生成、刷怪蛋与后代生成分别核对 `finalizeSpawn` 的参数和位置；不能由 `isFood` 恒为假推断 `getBreedOffspring` 没有运行入口。已读取 NeoForge21.1.265 的 `SpawnEggItem.spawnOffspringFromSpawnEgg`：对 `AgeableMob` 调用后代方法，随后设幼年、放置并加入世界；来源后代方法中的初始化仍须保留。
+- 简化没有食物的驯服实体交互时，仍逐端核对主人、非主人、未驯服、刷怪蛋与持久化分支。技能候选按完整条件嵌套迁移，`isPassenger` 表示实体正在骑乘其他实体，不与实体承载乘客混用；独立结束过程与通用结束过程分别核对实际清除的键。
 
 ## 世界内容
 
