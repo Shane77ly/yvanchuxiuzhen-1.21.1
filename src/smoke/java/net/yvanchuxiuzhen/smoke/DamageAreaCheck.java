@@ -10,7 +10,7 @@ import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.skill.entity.DamageArea;
 
-/** 伤害范围的实际悬浮、免疫与计时存档边界；控雷阵的落雷留待雷劫命令接入后验证。 */
+/** 伤害范围的悬浮、免疫与计时存档边界；控雷阵落雷由已有落雷场景验证。 */
 final class DamageAreaCheck extends ActionCheck {
     private DamageArea area;
     private Vec3 at;
@@ -24,7 +24,7 @@ final class DamageAreaCheck extends ActionCheck {
                     area = nearby(player).get(0);
                 }),
                 new Action(4, player -> {
-                    expectTrue("范围提示悬浮并继承施放者阵营", area.position().equals(at)
+                    expectTrue("范围提示保持位置、首个 aiStep 后关闭重力并继承施放者阵营", area.position().equals(at) && area.isNoGravity()
                             && Relations.team(area).equals(Relations.team(player)) && Relations.isFriendly(area, player));
                     float health = area.getHealth();
                     expectTrue("拒绝玩家与环境伤害，普通伤害仍可生效", !area.hurt(player.damageSources().playerAttack(player), 1)

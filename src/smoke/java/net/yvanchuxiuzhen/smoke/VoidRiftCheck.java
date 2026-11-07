@@ -59,8 +59,8 @@ final class VoidRiftCheck extends ActionCheck {
                     Cultivation.setTizhiDouble(player, "LevelNumberCorrect", 1);
                     Skills.openVoidRift(player);
                     VoidRift first = nearby(player).get(0);
-                    expectTrue("体质修正达到门槛，按视线方块坐标与反向生成",
-                            first.position().equals(new Vec3(125, 101, -75)) && first.getYRot() == 90 && first.isNoGravity());
+                    expectTrue("体质修正达到门槛，按视线方块坐标与反向生成，初始仍有重力",
+                            first.position().equals(new Vec3(125, 101, -75)) && first.getYRot() == 90 && !first.isNoGravity());
                     distant = spawn(player.serverLevel(), new Vec3(150, 101, -75));
                     Skills.openVoidRift(player);
                     entrance = nearby(player).get(0);

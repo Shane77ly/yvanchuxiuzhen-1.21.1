@@ -56,6 +56,8 @@ PowerShell 复制带通配符的资源时使用 `Copy-Item -Path`；`-LiteralPat
 
 来源可能跨编号复用声音（例如一个实体使用另一编号实体的脚步声）。核对声音注册、`sounds.json`、`.ogg` 文件和实体中的实际调用，不因编号不同而遗漏。
 
+空声音ID也要核对注册表语义。已静态核对Forge40.1.0的`GameData`与`ForgeRegistry`：声音注册表没有默认项，未注册的空路径返回null；NeoForge21.1.265的`LivingEntity`默认受伤/死亡声音却是通用声音，省略来源的空声音覆写会增加声音，应显式返回null。
+
 声音事件名与文件名可以不同，按 `sounds.json` 指向的文件复制。合并多个来源时，声音事件按归属拆到各单位的内容表与 `sounds.json` 片段，字幕文本随事件进入同一单位的语言片段，构建时合并；转换工具遇到没有归属的事件报错。验证时核对导出的声音事件数、客户端每个事件都有定义且字幕已翻译；实际播放另行试听。
 
 ## 实体
@@ -65,6 +67,7 @@ PowerShell 复制带通配符的资源时使用 `Copy-Item -Path`；`-LiteralPat
 - 来源的等待队列迁为明确的 tick 门控，不压缩为单帧执行。
 - 依赖视线向量的技能先在服务端设定朝向。
 - 共用实体基类前，逐类核对导航、移动控制、重力、飞行/游泳属性、水下呼吸、水流推动与死亡移除时序。已核对MCreator 1.18.2动画实体同时存在地面、飞行和水中导航模板；水中导航还带匿名移动控制，不能只替换导航对象。同模板在替换类名后比较完整方法，再复用。
+- 无重力的设置位置按构造器与`aiStep`实际顺序保留；首次`aiStep`后关闭重力不等于首次必然下落。已核对1.18.2原生`Mob`的NoAI/骑乘控制门槛及Forge40.1.0补丁、NeoForge21.1.265的`Entity.isControlledByLocalInstance`与`LivingEntity.travel`：两版本的无AI、无控制者生物都跳过原生travel，不能仅凭重力标志推导位移。
 - `tickDeath`按实际递增与比较顺序移植；来源若先递增再比较零，不能按“死亡零刻”解释成立即移除。技能过程主动移除与原生死亡阶段分别登记。
 - 伤害免疫逐类读取完整`hurt`，区分`getDirectEntity()`、间接攻击者、类型/标签和`getMsgId()`条件；没有覆写就保留继承行为。`causeFallDamage(false)`与空`checkFallDamage`也要单独迁移，不能用hurt中的FALL拒绝替代。已静态核对NeoForge21.1.265的`LivingEntity`：原生摔落流程会先处理事件、声音及落地逻辑，再调用hurt；旧`DamageSource.ANVIL`对应`DamageTypes.FALLING_ANVIL`，爆炸条件使用`DamageTypeTags.IS_EXPLOSION`。
 - 受击、默认与技能动画的打断、共存和恢复条件按来源谓词处理，不自行统一。已核对MCreator 1.18.2与GeckoLib3.0.57的动画工厂会逐刻消费同步名字、复位undefined并写入本地过程名；仅看setAnimation不能判断同名请求是否会再播。迁移到GeckoLib4.9.3时，`RawAnimation.thenPlay`采用JSON默认循环，来源显式PLAY_ONCE应使用`then(名字, Animation.LoopType.PLAY_ONCE)`；完成后的重载对应`AnimationController.forceAnimationReset`。逐类读取控制器过渡刻数和默认动画条件，不从同族实体推断。

@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
@@ -61,7 +62,6 @@ public final class VoidRift extends PathfinderMob implements GeoEntity, Animated
         xpReward = 0;
         setNoAi(true);
         setPersistenceRequired();
-        setNoGravity(true);
         moveControl = new FlyingMoveControl(this, 10, true);
     }
 
@@ -107,6 +107,7 @@ public final class VoidRift extends PathfinderMob implements GeoEntity, Animated
                 state.putDouble("xiaoshitick", 0);
             }
         }
+        refreshDimensions();
     }
 
     @Override
@@ -173,6 +174,23 @@ public final class VoidRift extends PathfinderMob implements GeoEntity, Animated
     @Override
     protected PathNavigation createNavigation(Level level) {
         return new FlyingPathNavigation(this, level);
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return null;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return null;
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        updateSwingTime();
+        setNoGravity(true);
     }
 
     @Override

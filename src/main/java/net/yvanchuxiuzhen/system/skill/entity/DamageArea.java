@@ -10,9 +10,11 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -20,10 +22,12 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.fluids.FluidType;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -51,7 +55,6 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
         xpReward = 0;
         setNoAi(true);
         setPersistenceRequired();
-        setNoGravity(true);
         moveControl = new FlyingMoveControl(this, 10, true);
     }
 
@@ -77,6 +80,7 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
             state.putDouble("AttackDamage", attackDamage);
             state.putString("AttackUUID", owner.getStringUUID());
         }
+        area.finalizeSpawn(level, level.getCurrentDifficultyAt(area.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(area);
     }
 
@@ -99,9 +103,13 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
     @Override
     public void baseTick() {
         super.baseTick();
-        if (!(level() instanceof ServerLevel level)) {
-            return;
+        if (level() instanceof ServerLevel level) {
+            tickSkill(level);
         }
+        refreshDimensions();
+    }
+
+    private void tickSkill(ServerLevel level) {
         CompoundTag state = getPersistentData();
         String skill = state.getString("jinengname");
         if (skill.equals("控雷阵") || skill.equals("惊蛰闻雷")) {
@@ -135,6 +143,33 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
     @Override
     protected PathNavigation createNavigation(Level level) {
         return new FlyingPathNavigation(this, level);
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return null;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return null;
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        updateSwingTime();
+        setNoGravity(true);
+    }
+
+    @Override
+    public boolean canDrownInFluidType(FluidType type) {
+        return type != NeoForgeMod.WATER_TYPE.value() && super.canDrownInFluidType(type);
+    }
+
+    @Override
+    public boolean checkSpawnObstruction(LevelReader level) {
+        return level.isUnobstructed(this);
     }
 
     @Override
