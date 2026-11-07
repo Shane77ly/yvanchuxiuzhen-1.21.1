@@ -26,7 +26,7 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 /**
- * 技能动画实体（来源 MCreator 动画实体 {@code SkillXxxEntity}，35 种共用）：无敌的占位生物，不被推挤，不接受药水云、药水弹、跌落、仙人掌、
+ * 技能动画实体的公共实现（来源 MCreator 动画实体 {@code SkillXxxEntity} 等）：不被推挤，不接受药水云、药水弹、跌落、仙人掌、
  * 溺水的伤害，死亡 20 刻后移除。每种实体的生命、移速等属性与模型来自 {@link EntityModelRow}，行为由 {@link EntitySkill} 承担。
  * 来源在 {@code getPersistentData} 里放的施放信息（{@code AttackUUID}、{@code AttackDamage}、{@code Damage_multiplier}、{@code damagetype}、
  * {@code jinengName}）改为字段，其余各技能私有的计数与标记仍用 {@code getPersistentData}。纹理名同步给客户端（默认值是该实体在来源里定义的纹理），

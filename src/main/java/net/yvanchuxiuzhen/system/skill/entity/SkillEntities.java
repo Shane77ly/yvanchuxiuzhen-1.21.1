@@ -5,6 +5,7 @@ import java.util.Map;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
@@ -37,6 +38,23 @@ public final class SkillEntities {
         WaterFormations.register(SKILLS);
         WindEntities.register(SKILLS);
         Corpses.register();
+        SKILLS.put("gedang", new EntitySkill() {
+            @Override
+            public void tick(SkillEntity self) {
+                self.setNoGravity(true);
+                double tick = self.getPersistentData().getDouble("tick") + 1;
+                self.getPersistentData().putDouble("tick", tick);
+                if (tick >= 8) {
+                    self.getPersistentData().putDouble("tick", 0);
+                    self.discard();
+                }
+            }
+
+            @Override
+            public void died(SkillEntity self, DamageSource source) {
+                self.discard();
+            }
+        });
     }
 
     private SkillEntities() {

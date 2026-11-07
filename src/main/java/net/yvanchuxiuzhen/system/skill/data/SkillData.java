@@ -40,6 +40,11 @@ public final class SkillData {
             .copyOnDeath()
             .sync((holder, player) -> holder == player, ByteBufCodecs.BOOL)
             .build());
+    /** 格挡计时的本人快照，真值及存盘沿用实体 canjianjishi，不参与玩家克隆。 */
+    public static final Supplier<AttachmentType<Double>> GUARD_REMAINING = ATTACHMENTS.register("skill_guard", () -> AttachmentType
+            .builder(() -> 0.0)
+            .sync((holder, player) -> holder == player, ByteBufCodecs.DOUBLE)
+            .build());
 
     private SkillData() {
     }

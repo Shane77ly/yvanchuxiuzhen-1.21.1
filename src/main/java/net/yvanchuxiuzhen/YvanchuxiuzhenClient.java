@@ -8,6 +8,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.ModifierKeysClient;
 import net.yvanchuxiuzhen.system.combat.client.CombatClientSetup;
 import net.yvanchuxiuzhen.system.gongfa.client.GongfaClientSetup;
+import net.yvanchuxiuzhen.system.panel.client.PanelClientSetup;
 import net.yvanchuxiuzhen.system.relation.client.RelationClientSetup;
 import net.yvanchuxiuzhen.system.skill.client.SkillClientSetup;
 import net.yvanchuxiuzhen.system.xiulian.client.XiulianClientSetup;
@@ -23,6 +24,7 @@ public final class YvanchuxiuzhenClient {
         CombatClientSetup.register(modBus);
         DecorClientSetup.register(modBus);
         GongfaClientSetup.register(modBus);
+        PanelClientSetup.register(modBus);
         RelationClientSetup.register(modBus);
         SkillClientSetup.register(modBus);
         XiulianClientSetup.register(modBus);

@@ -1717,14 +1717,14 @@ yvanchuxiuzhen,ZhilingZhuanhuan,procedure,~/systemset/zhiling,flow,候选,第一
 yvanchuxiuzhen,Jineng,command,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
 yvanchuxiuzhen,JinengGO,procedure,~/systemset/zhiling,skill,已读,C skill 归属阅读：技能书生成命令（/jineng 无权限要求，/smanship、/shenfa、/flyskill 权限 1），按参数写技能书实例；目标为公开操作 Skills.createBook 与 SkillCommands
 yvanchuxiuzhen,Jinengxiaohao,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
-yvanchuxiuzhen,ColddownGoldxianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Colddownxianshi,overlay,~/skill/jineng,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ColddownGoldxianshi,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Colddownxianshi,overlay,~/skill/jineng,panel,已读,阶段5已读：技能冷却固定坐标、格挡十帧与蓄力十帧HUD，仅汇总skill与xiulian的本人状态。
 yvanchuxiuzhen,Colddownplayertick,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
-yvanchuxiuzhen,ColddownWaterxianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ColddownTreexianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ColddownFirexianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ColddownSoilxianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ColddownYinyangxianshi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ColddownWaterxianshi,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,ColddownTreexianshi,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,ColddownFirexianshi,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,ColddownSoilxianshi,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,ColddownYinyangxianshi,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Starxianshi01,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
 yvanchuxiuzhen,Starxianshi02,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
 yvanchuxiuzhen,Starxianshi03,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
@@ -1852,9 +1852,9 @@ yvanchuxiuzhen,SkillRock04,animatedentity,~/skill/jineng/rockskill,skill,已读,
 yvanchuxiuzhen,SkillRock05DangShiTiGengXinKeShi,procedure,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
 yvanchuxiuzhen,SkillRock05,animatedentity,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
 yvanchuxiuzhen,SkillRock05shifang,procedure,~/skill/jineng/rockskill,skill,已读,C skill 归属阅读：土系实体技能，滚石术、天外陨石、化石手、巨石锤的施放过程与实体刻过程；巨石锤的眩晕加给了实体自己（Q42）
-yvanchuxiuzhen,GedangDangShiTiGengXinKeShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GedangDangShiTiBeiShaSiShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gedang,animatedentity,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,GedangDangShiTiGengXinKeShi,procedure,~/skill/jineng,skill,已读,阶段5来源核对：C键只设置格挡显示与冷却计时，无减伤读取；Gedang无生成者，八刻消失、死亡立即移除。炼器品阶由公开数值事件查询。
+yvanchuxiuzhen,GedangDangShiTiBeiShaSiShi,procedure,~/skill/jineng,skill,已读,阶段5来源核对：C键只设置格挡显示与冷却计时，无减伤读取；Gedang无生成者，八刻消失、死亡立即移除。炼器品阶由公开数值事件查询。
+yvanchuxiuzhen,Gedang,animatedentity,~/skill/jineng,skill,已读,阶段5来源核对：C键只设置格挡显示与冷却计时，无减伤读取；Gedang无生成者，八刻消失、死亡立即移除。炼器品阶由公开数值事件查询。
 yvanchuxiuzhen,JinengqvxiaoAnXiaAnJianShi,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：技能栏的页与选择，按键序号 1–4 选当前页的技能、再按同键取消，Tab 翻页，B 取消；Z、X、C、V 过程由技能界面的四个技能按钮触发（按钮 0–3）
 yvanchuxiuzhen,Jinengqvxiao,keybind,~/skill/jineng,skill,已读,C skill 归属阅读：技能栏的页与选择，按键序号 1–4 选当前页的技能、再按同键取消，Tab 翻页，B 取消；Z、X、C、V 过程由技能界面的四个技能按钮触发（按钮 0–3）
 yvanchuxiuzhen,Yaoshou001DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
@@ -2020,7 +2020,7 @@ yvanchuxiuzhen,Yihossu,tag,~/tag,platform,候选,第一版批量归组（目录�
 yvanchuxiuzhen,Yiqimen,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yifabao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jiancewuqi,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
-yvanchuxiuzhen,ArrowHUD,overlay,~/skill/jineng/jinengGui/arrowhud,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ArrowHUD,overlay,~/skill/jineng/jinengGui/arrowhud,panel,已读,阶段5已读：技能冷却固定坐标、格挡十帧与蓄力十帧HUD，仅汇总skill与xiulian的本人状态。
 yvanchuxiuzhen,SkillArrow01skill,procedure,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SkillArrowxinruzhishui,potioneffect,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ArrowSkillchufa,procedure,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4252,83 +4252,83 @@ yvanchuxiuzhen,Skillwind05,animatedentity,~/skill/jineng/windskill,skill,已读,
 yvanchuxiuzhen,Skillwind06DangShiTiGengXinKeShi,procedure,~/skill/jineng/windskill,skill,已读,C skill 归属阅读：风系实体技能聚风术、聚风化气、风飘术、造云术；Skillwind05、Skillwind06 由妖兽技能放出，实体行为在 skill，放出方式随 creature
 yvanchuxiuzhen,Skillwind06,animatedentity,~/skill/jineng/windskill,skill,已读,C skill 归属阅读：风系实体技能聚风术、聚风化气、风飘术、造云术；Skillwind05、Skillwind06 由妖兽技能放出，实体行为在 skill，放出方式随 creature
 yvanchuxiuzhen,Npcentity,tag,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGui,gui,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuiDangZheGeJieMianDaKaiShi,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing01left,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing01up,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing01down,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing01right,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing02left,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing02up,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing02down,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing02right,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing03left,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing03up,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing03down,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing03right,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing04left,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing04up,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing04down,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing04right,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing05left,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing05up,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing05down,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing05right,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing00left,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing00up,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing00down,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuishuxing00right,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GanjianAnXiaAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ganjian,keybind,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengname01xianshi,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengname02xianshi,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengname03xianshi,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengname04xianshi,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuiPageUp,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,JinengGuiPageDown,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxianshi01,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxianshi02,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxianshi03,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxianshi04,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxianshi05,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxianshi06,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxianshi07,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxianshi08,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxianshi09,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxianshi10,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxianshi11,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowanniu01,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowanniu02,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowanniu03,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowanniu04,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowanniu05,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowanniu06,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowanniu07,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowanniu08,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowanniu09,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowanniu10,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowanniu11,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxvanze01,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxvanze02,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxvanze03,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxvanze04,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxvanze05,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxvanze06,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxvanze07,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxvanze08,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxvanze09,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxvanze10,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengguiarrowxvanze11,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvlijieduan01,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvlijieduan02,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvlijieduan03,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvlijieduan04,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvlijieduan05,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvlijieduan06,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvlijieduan07,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvlijieduan08,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvlijieduan09,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvlijieduan10,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,JinengGui,gui,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuiDangZheGeJieMianDaKaiShi,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing01left,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing01up,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing01down,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing01right,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing02left,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing02up,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing02down,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing02right,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing03left,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing03up,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing03down,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing03right,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing04left,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing04up,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing04down,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing04right,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing05left,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing05up,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing05down,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing05right,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing00left,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing00up,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing00down,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuishuxing00right,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,GanjianAnXiaAnJianShi,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Ganjian,keybind,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengname01xianshi,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengname02xianshi,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengname03xianshi,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengname04xianshi,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuiPageUp,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,JinengGuiPageDown,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxianshi01,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxianshi02,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxianshi03,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxianshi04,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxianshi05,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxianshi06,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxianshi07,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxianshi08,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxianshi09,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxianshi10,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxianshi11,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowanniu01,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowanniu02,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowanniu03,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowanniu04,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowanniu05,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowanniu06,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowanniu07,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowanniu08,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowanniu09,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowanniu10,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowanniu11,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxvanze01,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxvanze02,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxvanze03,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxvanze04,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxvanze05,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxvanze06,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxvanze07,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxvanze08,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxvanze09,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxvanze10,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengguiarrowxvanze11,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvlijieduan01,procedure,~/skill/jineng/jinengGui/arrowhud,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvlijieduan02,procedure,~/skill/jineng/jinengGui/arrowhud,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvlijieduan03,procedure,~/skill/jineng/jinengGui/arrowhud,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvlijieduan04,procedure,~/skill/jineng/jinengGui/arrowhud,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvlijieduan05,procedure,~/skill/jineng/jinengGui/arrowhud,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvlijieduan06,procedure,~/skill/jineng/jinengGui/arrowhud,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvlijieduan07,procedure,~/skill/jineng/jinengGui/arrowhud,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvlijieduan08,procedure,~/skill/jineng/jinengGui/arrowhud,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvlijieduan09,procedure,~/skill/jineng/jinengGui/arrowhud,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvlijieduan10,procedure,~/skill/jineng/jinengGui/arrowhud,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,SkillArrow0601DangXiaoGuoJieShuShi,procedure,~/skill/jineng/arrowskill,skill,已读,技能箭内爆效果：由第06箭内爆命中叠加；结束过程按效果等级结算虚空伤害，归skill。
 yvanchuxiuzhen,SkillArrow0601,potioneffect,~/skill/jineng/arrowskill,skill,已读,技能箭内爆效果：由第06箭内爆命中叠加；结束过程按效果等级结算虚空伤害，归skill。
 yvanchuxiuzhen,Skillarrow01hecheng,recipe,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4343,13 +4343,13 @@ yvanchuxiuzhen,Skillarrow10hecheng,recipe,~/skill/jineng/arrowskill,skill,候选
 yvanchuxiuzhen,Skillarrow08hecheng,recipe,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Xvliman,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jibo,particle,~/lizi,particle,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lianzhaoxianshi,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lianzhaoanniu,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Lianzhaoxianshi,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Lianzhaoanniu,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Lianzhaoxitong,procedure,~/skill/jineng,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
-yvanchuxiuzhen,Jinengxvanze01,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvanze02,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvanze03,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinengxvanze04,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jinengxvanze01,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvanze02,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvanze03,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Jinengxvanze04,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Yaoshou054skill01panding,procedure,~/entity/yaoshou/yaoshou054,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GongjvfuDangShiTiGengXinKeShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,GongjvfuDangSiWangShiJianDaoShi,procedure,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4437,19 +4437,19 @@ yvanchuxiuzhen,Xiuzhepifu,procedure,~/entity/lulin,creature,已读,B1 归属阅�
 yvanchuxiuzhen,Xiuzheshuxingsuiji,procedure,~/entity/lulin,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Xiuzhe0101jinengliebiao,procedure,~/entity/lulin/xiuzhe0101,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Xiuzhe0101jinengshifang,procedure,~/entity/lulin/xiuzhe0101,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,CanjianAnXiaAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,CanjianSongKaiAnJianShi,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Canjian,keybind,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gedang01,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gedang02,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gedang03,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gedang04,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gedang05,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gedang06,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gedang07,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gedang08,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gedang09,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gedang10,procedure,~/skill/jineng,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,CanjianAnXiaAnJianShi,procedure,~/skill/jineng,skill,已读,阶段5来源核对：C键只设置格挡显示与冷却计时，无减伤读取；Gedang无生成者，八刻消失、死亡立即移除。炼器品阶由公开数值事件查询。
+yvanchuxiuzhen,CanjianSongKaiAnJianShi,procedure,~/skill/jineng,skill,已读,阶段5来源核对：C键只设置格挡显示与冷却计时，无减伤读取；Gedang无生成者，八刻消失、死亡立即移除。炼器品阶由公开数值事件查询。
+yvanchuxiuzhen,Canjian,keybind,~/skill/jineng,skill,已读,阶段5来源核对：C键只设置格挡显示与冷却计时，无减伤读取；Gedang无生成者，八刻消失、死亡立即移除。炼器品阶由公开数值事件查询。
+yvanchuxiuzhen,Gedang01,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Gedang02,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Gedang03,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Gedang04,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Gedang05,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Gedang06,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Gedang07,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Gedang08,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Gedang09,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Gedang10,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Dunpai,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food084,item,~/item/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Food084hecheng,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5239,19 +5239,19 @@ yvanchuxiuzhen,Yaohuabuwei1,procedure,~/weapon/armor,equipment,候选,第一版�
 yvanchuxiuzhen,Yaohuabuwei2,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaohuabuwe3,procedure,~/weapon/armor,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaohuajieshu,procedure,~/weapon/armor,equipment,已读,B1 归属阅读：随 Yaohua0101 读：妖化盔甲：头盔每刻维持妖化效果，结束时 Yaohuajieshu 复原，属防具
-yvanchuxiuzhen,Jinengzibao,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zibaoshanghai,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jinengzibao,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
+yvanchuxiuzhen,Zibaoshanghai,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Yvanyingchuqiao,animatedentity,~/skill/jineng/jinengGui/yvanyingchuqiao,skill,已读,C xiulian 归属阅读：元婴出窍是技能（技能界面 Jinengchuqiao 施展，元婴期起、消耗神识，切换旁观模式并留下肉身实体，归窍时恢复），本系统只提供境界与神识的查询和扣减
-yvanchuxiuzhen,Jinengchuqiao,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jinengchuqiao,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Yvanyingchuqiaotick,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,skill,已读,C xiulian 归属阅读：元婴出窍是技能（技能界面 Jinengchuqiao 施展，元婴期起、消耗神识，切换旁观模式并留下肉身实体，归窍时恢复），本系统只提供境界与神识的查询和扣减
 yvanchuxiuzhen,Chuqiaosiwang,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,skill,已读,C xiulian 归属阅读：元婴出窍是技能（技能界面 Jinengchuqiao 施展，元婴期起、消耗神识，切换旁观模式并留下肉身实体，归窍时恢复），本系统只提供境界与神识的查询和扣减
 yvanchuxiuzhen,YvanyingchuqiaoDangShiTiShouShangShi,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,skill,已读,C xiulian 归属阅读：元婴出窍是技能（技能界面 Jinengchuqiao 施展，元婴期起、消耗神识，切换旁观模式并留下肉身实体，归窍时恢复），本系统只提供境界与神识的查询和扣减
 yvanchuxiuzhen,YvanyingchuqiaoDangShiTiBeiShaSiShi,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,skill,已读,C xiulian 归属阅读：元婴出窍是技能（技能界面 Jinengchuqiao 施展，元婴期起、消耗神识，切换旁观模式并留下肉身实体，归窍时恢复），本系统只提供境界与神识的查询和扣减
 yvanchuxiuzhen,Yvanyingguiqiao,procedure,~/skill/jineng/jinengGui/yvanyingchuqiao,skill,已读,C xiulian 归属阅读：元婴出窍是技能（技能界面 Jinengchuqiao 施展，元婴期起、消耗神识，切换旁观模式并留下肉身实体，归窍时恢复），本系统只提供境界与神识的查询和扣减
-yvanchuxiuzhen,Jinengsaomiao,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jinengsaomiao,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,DanhuoDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/skill/jineng/jinengGui/danhuo,skill,已读,B1 归属阅读：随 Danhuo 读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
 yvanchuxiuzhen,Danhuo,item,~/skill/jineng/jinengGui/danhuo,skill,已读,B1 归属阅读：技能：技能箭、五行法术、灵纹等施放投射物的飞行与命中，丹火等技能物品
-yvanchuxiuzhen,Jinengdanhuo,procedure,~/skill/jineng/jinengGui,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jinengdanhuo,procedure,~/skill/jineng/jinengGui,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Suijicailiao01,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman03DangShiTiGengXinKeShi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman03 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Jiegoubuding,procedure,~/decorate/jiegou/buildlist,world,候选,第一版批量归组（目录、元素名与元素类型规则）

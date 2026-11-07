@@ -19,6 +19,7 @@ import net.yvanchuxiuzhen.system.combat.api.HitEvent;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStudiedEvent;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
+import net.yvanchuxiuzhen.system.skill.content.SkillMenus;
 import net.yvanchuxiuzhen.system.skill.effect.SkillEffects;
 import net.yvanchuxiuzhen.system.skill.entity.Corpses;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
@@ -50,6 +51,7 @@ public final class SkillSetup {
         SkillEntities.register(CONTENT);
         CONTENT.register(modBus);
         SkillData.register(modBus);
+        SkillMenus.register(modBus);
         modBus.addListener(SkillSetup::registerPayloads);
         SkillCommands.register();
         SkillDelays.register();
@@ -75,6 +77,7 @@ public final class SkillSetup {
         if (event.getEntity() instanceof ServerPlayer player) {
             SkillCasting.tick(player);
             SkillMovement.tick(player);
+            SkillGuard.tick(player);
             WeaponArts.tick(player);
             SkillFlight.tick(player);
             Yuanying.tick(player);

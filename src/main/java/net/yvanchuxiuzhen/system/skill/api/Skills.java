@@ -16,6 +16,7 @@ import net.yvanchuxiuzhen.system.skill.SkillFlight;
 import net.yvanchuxiuzhen.system.skill.data.SkillCooldowns;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 import net.yvanchuxiuzhen.system.skill.data.SkillState;
+import net.yvanchuxiuzhen.system.skill.content.SkillMenus;
 import net.yvanchuxiuzhen.system.skill.entity.DamageArea;
 import net.yvanchuxiuzhen.system.skill.entity.Yuanying;
 import net.yvanchuxiuzhen.system.skill.entity.VoidRift;
@@ -82,6 +83,16 @@ public final class Skills {
 
     public static void toggleFlight(ServerPlayer player) {
         SkillFlight.toggle(player);
+    }
+
+    /** C 键的剩余格挡显示刻数，只有来源计时与 HUD 语义。 */
+    public static double guardRemaining(Player player) {
+        return player.getData(SkillData.GUARD_REMAINING);
+    }
+
+    /** G 键或其他系统的导航入口，打开本人的无槽技能选择菜单。 */
+    public static void openMenu(ServerPlayer player) {
+        SkillMenus.open(player);
     }
 
     /** 武器技槽（来源 {@code wuqiskill}）。 */

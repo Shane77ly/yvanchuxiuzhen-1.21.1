@@ -10,6 +10,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.skill.SkillSelection;
 import net.yvanchuxiuzhen.system.skill.SkillMovement;
+import net.yvanchuxiuzhen.system.skill.SkillGuard;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 
 /**
@@ -25,7 +26,7 @@ public record SkillActionPayload(Action action) implements CustomPacketPayload {
     public enum Action {
         SELECT_1, SELECT_2, SELECT_3, SELECT_4, CANCEL, NEXT_PAGE, PAGE_UP, PAGE_DOWN, TOGGLE_COMBO,
         ARROW_1, ARROW_2, ARROW_3, ARROW_4, ARROW_5, ARROW_6, ARROW_7, ARROW_8, ARROW_9, ARROW_10, ARROW_11,
-        MOVE_W, MOVE_S, MOVE_A, MOVE_D, JUMP, TOGGLE_FLIGHT
+        MOVE_W, MOVE_S, MOVE_A, MOVE_D, JUMP, TOGGLE_FLIGHT, OPEN_MENU, GUARD_PRESS, GUARD_RELEASE
     }
 
     @Override
@@ -55,6 +56,9 @@ public record SkillActionPayload(Action action) implements CustomPacketPayload {
             case MOVE_D -> SkillMovement.press(player, SkillMovement.Input.D);
             case JUMP -> SkillMovement.press(player, SkillMovement.Input.JUMP);
             case TOGGLE_FLIGHT -> Skills.toggleFlight(player);
+            case OPEN_MENU -> Skills.openMenu(player);
+            case GUARD_PRESS -> SkillGuard.press(player);
+            case GUARD_RELEASE -> SkillGuard.release(player);
         }
     }
 }

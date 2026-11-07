@@ -10,8 +10,10 @@ import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
+import net.yvanchuxiuzhen.system.skill.content.SkillMenus;
 import net.yvanchuxiuzhen.system.skill.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.skill.entity.SkillLook;
@@ -35,6 +37,8 @@ public final class SkillClientSetup {
     private static final KeyMapping RIGHT = new ActionKey("anjian_d", GLFW.GLFW_KEY_D, SkillActionPayload.Action.MOVE_D);
     private static final KeyMapping JUMP = new ActionKey("anjian_space", GLFW.GLFW_KEY_SPACE, SkillActionPayload.Action.JUMP);
     private static final KeyMapping FLIGHT = new ActionKey("fanjian", GLFW.GLFW_KEY_F, SkillActionPayload.Action.TOGGLE_FLIGHT);
+    private static final KeyMapping MENU = new ActionKey("ganjian", GLFW.GLFW_KEY_G, SkillActionPayload.Action.OPEN_MENU);
+    private static final KeyMapping GUARD = new ActionKey("canjian", GLFW.GLFW_KEY_C, SkillActionPayload.Action.GUARD_PRESS, SkillActionPayload.Action.GUARD_RELEASE);
 
     private SkillClientSetup() {
     }
@@ -43,6 +47,7 @@ public final class SkillClientSetup {
         modBus.addListener(SkillClientSetup::registerKeys);
         modBus.addListener(SkillClientSetup::registerRenderers);
         modBus.addListener(SkillClientSetup::registerLayers);
+        modBus.addListener(SkillClientSetup::registerScreens);
     }
 
     private static void registerKeys(RegisterKeyMappingsEvent event) {
@@ -54,6 +59,12 @@ public final class SkillClientSetup {
         event.register(RIGHT);
         event.register(JUMP);
         event.register(FLIGHT);
+        event.register(MENU);
+        event.register(GUARD);
+    }
+
+    private static void registerScreens(RegisterMenuScreensEvent event) {
+        event.register(SkillMenus.SKILL.get(), SkillScreen::new);
     }
 
     /** 元素弹体按对应物品图标渲染，技能箭用原生模型，技能动画实体用 GeckoLib。 */
@@ -87,19 +98,28 @@ public final class SkillClientSetup {
     /** 保留来源 setDown 的按下沿语义，长按产生的键盘重复事件不重复施放，也不消费原版移动键。 */
     private static final class ActionKey extends KeyMapping {
         private final SkillActionPayload.Action action;
+        private final SkillActionPayload.Action releaseAction;
 
         private ActionKey(String name, int key, SkillActionPayload.Action action) {
+            this(name, key, action, null);
+        }
+
+        private ActionKey(String name, int key, SkillActionPayload.Action action, SkillActionPayload.Action releaseAction) {
             super("key.yvanchuxiuzhen." + name, InputConstants.Type.KEYSYM, key, CATEGORY);
             this.action = action;
+            this.releaseAction = releaseAction;
         }
 
         @Override
         public void setDown(boolean value) {
             boolean pressed = value && !isDown();
+            boolean released = !value && isDown();
             super.setDown(value);
             Minecraft minecraft = Minecraft.getInstance();
             if (pressed && minecraft.player != null && minecraft.screen == null) {
                 PacketDistributor.sendToServer(new SkillActionPayload(action));
+            } else if (released && releaseAction != null && minecraft.player != null) {
+                PacketDistributor.sendToServer(new SkillActionPayload(releaseAction));
             }
         }
     }
