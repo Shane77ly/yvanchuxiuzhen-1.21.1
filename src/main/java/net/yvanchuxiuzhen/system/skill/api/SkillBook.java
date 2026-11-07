@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.system.skill.api;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -82,5 +83,17 @@ public record SkillBook(SkillKind kind, String name, double grade, double level,
 
     public SkillBook withOwner(UUID player, String playerName) {
         return new SkillBook(kind, name, grade, level, body, intro, Optional.of(player), playerName, numbers, texts);
+    }
+
+    public SkillBook withNumber(String key, double value) {
+        Map<String, Double> next = new HashMap<>(numbers);
+        next.put(key, value);
+        return new SkillBook(kind, name, grade, level, body, intro, owner, ownerName, Map.copyOf(next), texts);
+    }
+
+    public SkillBook withText(String key, String value) {
+        Map<String, String> next = new HashMap<>(texts);
+        next.put(key, value);
+        return new SkillBook(kind, name, grade, level, body, intro, owner, ownerName, numbers, Map.copyOf(next));
     }
 }

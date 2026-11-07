@@ -41,6 +41,7 @@
 {"id":"skillwind_02","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true},
 {"id":"skillwind_05","category":"MONSTER","width":0.6,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":false},
 {"id":"skillwind_06","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"skillyin_01","category":"MONSTER","width":0.6,"height":1.9,"tracking_range":64,"update_interval":3,"fire_immune":false},
 {"id":"swordsmanship_01","category":"MONSTER","width":1.0,"height":0.2,"tracking_range":64,"update_interval":3,"fire_immune":true},
 {"id":"swordsmanship_02","category":"MONSTER","width":0.8,"height":0.2,"tracking_range":64,"update_interval":3,"fire_immune":true},
 {"id":"swordsmanship_03","category":"MONSTER","width":1.0,"height":0.2,"tracking_range":64,"update_interval":3,"fire_immune":true},

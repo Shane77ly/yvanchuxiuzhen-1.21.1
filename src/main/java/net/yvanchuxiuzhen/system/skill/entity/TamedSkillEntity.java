@@ -57,6 +57,15 @@ public abstract class TamedSkillEntity extends TamableAnimal implements GeoEntit
         entityData.set(ANIMATION, animation);
     }
 
+    /** 当前同步的过程动画名（{@code empty} 表示没有）。 */
+    protected final String requestedAnimation() {
+        return entityData.get(ANIMATION);
+    }
+
+    protected final EntityModelRow model() {
+        return model;
+    }
+
     public SkillCast cast() {
         return cast;
     }
@@ -95,7 +104,7 @@ public abstract class TamedSkillEntity extends TamableAnimal implements GeoEntit
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        SkillAnimations.register(controllers, this, model, () -> entityData.get(ANIMATION));
+        SkillAnimations.register(controllers, this, model, this::requestedAnimation);
     }
 
     @Override

@@ -4584,10 +4584,10 @@ yvanchuxiuzhen,Shipintaitishi03,procedure,~/weapon/jewelry/shipintaiGUI,equipmen
 yvanchuxiuzhen,Shipintaitishi04,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Effectslownessget,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SealreleaseGo,procedure,~/decorate/jiegou/buildlist,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillyin01,animatedentity,~/skill/jineng/yinskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillyin01DangShiTiGengXinKeShi,procedure,~/skill/jineng/yinskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillyin01shifang,procedure,~/skill/jineng/yinskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillyin01DangZheGeShiTiShaSiLingGeShiTi,procedure,~/skill/jineng/yinskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Skillyin01,animatedentity,~/skill/jineng/yinskill,skill,已读,C skill 归属阅读：起尸诀（可驯服亡灵实体：技能状态机、四角放出、杀死实体让书升级；状态复位 Entityjinengjieshu 与妖兽共用同一组 getPersistentData 键）
+yvanchuxiuzhen,Skillyin01DangShiTiGengXinKeShi,procedure,~/skill/jineng/yinskill,skill,已读,C skill 归属阅读：起尸诀（可驯服亡灵实体：技能状态机、四角放出、杀死实体让书升级；状态复位 Entityjinengjieshu 与妖兽共用同一组 getPersistentData 键）
+yvanchuxiuzhen,Skillyin01shifang,procedure,~/skill/jineng/yinskill,skill,已读,C skill 归属阅读：起尸诀（可驯服亡灵实体：技能状态机、四角放出、杀死实体让书升级；状态复位 Entityjinengjieshu 与妖兽共用同一组 getPersistentData 键）
+yvanchuxiuzhen,Skillyin01DangZheGeShiTiShaSiLingGeShiTi,procedure,~/skill/jineng/yinskill,skill,已读,C skill 归属阅读：起尸诀（可驯服亡灵实体：技能状态机、四角放出、杀死实体让书升级；状态复位 Entityjinengjieshu 与妖兽共用同一组 getPersistentData 键）
 yvanchuxiuzhen,Qianwangweidu,procedure,~/Dimension,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Xiangshang,procedure,~/Dimension,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao206hecheng,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5472,7 +5472,7 @@ yvanchuxiuzhen,Lingshoudaizhuanhuanitem,item,~/item/zawu/lingshoudai,creature,�
 yvanchuxiuzhen,Lingshoudairanse,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudaizhuanhuanhecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,FriendpandingEtoS,procedure,~/systemset/zhiling/shanghai,relation,已读,C relation 归属阅读：敌友判定，判定方的 friendlist（玩家为 PlayerVariables.friendlist 物品标签，其他实体为实体 NBT，方块为方块实体数据）中以对方 team 为键的布尔值
-yvanchuxiuzhen,Entityjinengjieshu,procedure,~/entity,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Entityjinengjieshu,procedure,~/entity,skill,已读,C skill 归属阅读：起尸诀（可驯服亡灵实体：技能状态机、四角放出、杀死实体让书升级；状态复位 Entityjinengjieshu 与妖兽共用同一组 getPersistentData 键）
 yvanchuxiuzhen,Yaoshou001skillzhagen,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou001skillzhengtuo,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Guiguai02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Yaoshou001skillfagong,procedure,~/entity/yaoshou/yaoshou001,creature,已读,B1 归属阅读：随 Yaoshou001 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
@@ -5608,10 +5608,10 @@ yvanchuxiuzhen,Guiguai03zhaohuanguihuo,procedure,~/entity/guiguai/guiguai03,crea
 yvanchuxiuzhen,Zxczxc,procedure,~/entity/guiguai/guiguai02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guiguai02DangShiTiShouShangShi,procedure,~/entity/guiguai/guiguai02,creature,已读,B1 归属阅读：随 Guiguai02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Guiguai02DangYouJianDianJiShiTi,procedure,~/entity/guiguai/guiguai02,creature,已读,B1 归属阅读：随 Guiguai02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,Skillyin01DangShiTiShouShangShi,procedure,~/skill/jineng/yinskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skill01siwangyongbao,procedure,~/skill/jineng/yinskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillyin01penshenianye,procedure,~/skill/jineng/yinskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Skillyin01konghe,procedure,~/skill/jineng/yinskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Skillyin01DangShiTiShouShangShi,procedure,~/skill/jineng/yinskill,skill,已读,C skill 归属阅读：起尸诀（可驯服亡灵实体：技能状态机、四角放出、杀死实体让书升级；状态复位 Entityjinengjieshu 与妖兽共用同一组 getPersistentData 键）
+yvanchuxiuzhen,Skill01siwangyongbao,procedure,~/skill/jineng/yinskill,skill,已读,C skill 归属阅读：起尸诀（可驯服亡灵实体：技能状态机、四角放出、杀死实体让书升级；状态复位 Entityjinengjieshu 与妖兽共用同一组 getPersistentData 键）
+yvanchuxiuzhen,Skillyin01penshenianye,procedure,~/skill/jineng/yinskill,skill,已读,C skill 归属阅读：起尸诀（可驯服亡灵实体：技能状态机、四角放出、杀死实体让书升级；状态复位 Entityjinengjieshu 与妖兽共用同一组 getPersistentData 键）
+yvanchuxiuzhen,Skillyin01konghe,procedure,~/skill/jineng/yinskill,skill,已读,C skill 归属阅读：起尸诀（可驯服亡灵实体：技能状态机、四角放出、杀死实体让书升级；状态复位 Entityjinengjieshu 与妖兽共用同一组 getPersistentData 键）
 yvanchuxiuzhen,Yaoshou054jvedonglikai,procedure,~/entity/yaoshou/yaoshou054,creature,已读,B1 归属阅读：随 Yaoshou054 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou054jvedongkaojin,procedure,~/entity/yaoshou/yaoshou054,creature,已读,B1 归属阅读：随 Yaoshou054 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou054bingzhuishu,procedure,~/entity/yaoshou/yaoshou054,creature,已读,B1 归属阅读：随 Yaoshou054 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
