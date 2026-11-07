@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -26,7 +27,7 @@ import net.yvanchuxiuzhen.system.skill.api.Skills;
  * “是否无重力”判断第一刻），发射者不是玩家时用发射者的 {@code LEVELnumber} 作攻击量。弹体击退与穿透等级由发射方式决定，
  * 1.21.1 的箭没有这两项的设置方法，这里覆盖读取它们的方法。
  */
-public final class SkillProjectile extends AbstractArrow implements ItemSupplier {
+public class SkillProjectile extends AbstractArrow implements ItemSupplier {
     private final ProjectileSkill skill;
     private final ItemStack icon;
     private int knockback;
@@ -56,6 +57,11 @@ public final class SkillProjectile extends AbstractArrow implements ItemSupplier
         return this;
     }
 
+    /** 在发射时的穿透等级上追加等级。 */
+    public void addPiercing(int levels) {
+        pierce += levels;
+    }
+
     @Override
     public ItemStack getItem() {
         return icon;
@@ -63,6 +69,12 @@ public final class SkillProjectile extends AbstractArrow implements ItemSupplier
 
     @Override
     protected ItemStack getDefaultPickupItem() {
+        // 1.21.1 的箭存档要求内部物品非空；实际拾取仍返回空物品，落地行为由技能负责。
+        return new ItemStack(Items.ARROW);
+    }
+
+    @Override
+    protected ItemStack getPickupItem() {
         return ItemStack.EMPTY;
     }
 

@@ -5,10 +5,12 @@ import java.util.Optional;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.system.skill.SkillLibrary;
+import net.yvanchuxiuzhen.system.skill.ArrowSelection;
 import net.yvanchuxiuzhen.system.skill.SkillStudy;
 import net.yvanchuxiuzhen.system.skill.data.SkillCooldowns;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
@@ -16,6 +18,7 @@ import net.yvanchuxiuzhen.system.skill.data.SkillState;
 import net.yvanchuxiuzhen.system.skill.entity.DamageArea;
 import net.yvanchuxiuzhen.system.skill.entity.Yuanying;
 import net.yvanchuxiuzhen.system.skill.entity.VoidRift;
+import net.yvanchuxiuzhen.system.skill.projectile.SkillArrows;
 
 /**
  * 技能系统的公开操作。技能书实例（{@link SkillBook}）在书的物品组件上；技能栏、身法槽、轻功槽、武器技槽、当前选择与连招开关在玩家附件
@@ -74,6 +77,37 @@ public final class Skills {
 
     public static void setWeaponArt(ServerPlayer player, ItemStack stack) {
         player.setData(SkillData.STATE, state(player).withWeaponArt(stack));
+    }
+
+    /** 当前箭种的物品表示与轮盘序号 1–11；没有选择时物品为空、序号为 0。 */
+    public static ItemStack arrow(Player player) {
+        return state(player).arrow();
+    }
+
+    public static int arrowChoice(Player player) {
+        return state(player).arrowChoice();
+    }
+
+    /** 重置或写入箭种选择，不扣资源。 */
+    public static void setArrow(ServerPlayer player, ItemStack stack, int choice) {
+        player.setData(SkillData.STATE, state(player).withArrow(stack.copy(), choice));
+    }
+
+    public static boolean canSelectArrow(Player player, int choice) {
+        return ArrowSelection.available(player, choice);
+    }
+
+    public static boolean selectArrow(ServerPlayer player, int choice) {
+        return ArrowSelection.select(player, choice);
+    }
+
+    /**
+     * 创建尚未加入世界的技能箭，类型为 1–10。调用者设置基础伤害、位置和速度后加入世界，并负责弓的蓄力与消耗。
+     * 修饰键由调用者提供；箭在首次飞行刻消费箭技能与满蓄力标记，按来源顺序选择模式。
+     */
+    public static AbstractArrow createArrow(ServerPlayer owner, int kind, int knockback, int pierce, boolean control, boolean alt,
+                                             boolean fullCharge, boolean infinity) {
+        return SkillArrows.create(owner, kind, knockback, pierce, control, alt, fullCharge, infinity);
     }
 
     /** 某一冷却分组的剩余刻数（来源 {@code colddownGold} 等）。 */

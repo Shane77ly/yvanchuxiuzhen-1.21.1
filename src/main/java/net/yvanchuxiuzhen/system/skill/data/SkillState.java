@@ -15,14 +15,15 @@ import net.minecraft.world.item.ItemStack;
  * （来源 {@code jineng01}–{@code jineng16}、{@code jinengweizhi}），另有身法 {@code qinggong}、轻功 {@code flyjineng}、
  * 武器技 {@code wuqiskill} 各一槽。当前选择：{@code selected} 是所选技能书（{@code jinengxvanze}），{@code selectedKey} 是选择它的
  * 按键序号 1–4（{@code jinengxvanzeshuzhi}），{@code selectedSlot} 是它在技能栏的序号 1–16（{@code jinengshijixvanze}，0 表示没有），
- * {@code combo} 是连招开关（{@code jinenglianzhao}）。值不可变，修改时生成新值写回附件。
+ * {@code combo} 是连招开关（{@code jinenglianzhao}）；{@code arrow} 与 {@code arrowChoice} 是箭种选择（{@code arrowlinshi}、其标签 {@code arrowxvanze}）。
+ * 值不可变，修改时生成新值写回附件。
  */
 public record SkillState(List<ItemStack> spells, ItemStack movement, ItemStack flight, ItemStack weaponArt, int page, ItemStack selected,
-                         int selectedKey, int selectedSlot, boolean combo) {
+                         int selectedKey, int selectedSlot, boolean combo, ItemStack arrow, int arrowChoice) {
     public static final int SPELL_SLOTS = 16;
     public static final int PAGE_SIZE = 4;
     public static final SkillState EMPTY = new SkillState(Collections.nCopies(SPELL_SLOTS, ItemStack.EMPTY), ItemStack.EMPTY, ItemStack.EMPTY,
-            ItemStack.EMPTY, 1, ItemStack.EMPTY, 0, 0, false);
+            ItemStack.EMPTY, 1, ItemStack.EMPTY, 0, 0, false, ItemStack.EMPTY, 0);
 
     public static final Codec<SkillState> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ItemStack.OPTIONAL_CODEC.listOf(SPELL_SLOTS, SPELL_SLOTS).fieldOf("spells").forGetter(SkillState::spells),
@@ -33,7 +34,9 @@ public record SkillState(List<ItemStack> spells, ItemStack movement, ItemStack f
             ItemStack.OPTIONAL_CODEC.fieldOf("selected").forGetter(SkillState::selected),
             Codec.INT.fieldOf("selected_key").forGetter(SkillState::selectedKey),
             Codec.INT.fieldOf("selected_slot").forGetter(SkillState::selectedSlot),
-            Codec.BOOL.fieldOf("combo").forGetter(SkillState::combo)
+            Codec.BOOL.fieldOf("combo").forGetter(SkillState::combo),
+            ItemStack.OPTIONAL_CODEC.optionalFieldOf("arrow", ItemStack.EMPTY).forGetter(SkillState::arrow),
+            Codec.INT.optionalFieldOf("arrow_choice", 0).forGetter(SkillState::arrowChoice)
     ).apply(instance, SkillState::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, SkillState> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC);
 
@@ -45,34 +48,38 @@ public record SkillState(List<ItemStack> spells, ItemStack movement, ItemStack f
     public SkillState withSpell(int slot, ItemStack stack) {
         List<ItemStack> next = new ArrayList<>(spells);
         next.set(slot - 1, stack);
-        return new SkillState(next, movement, flight, weaponArt, page, selected, selectedKey, selectedSlot, combo);
+        return new SkillState(next, movement, flight, weaponArt, page, selected, selectedKey, selectedSlot, combo, arrow, arrowChoice);
     }
 
     public SkillState withMovement(ItemStack stack) {
-        return new SkillState(spells, stack, flight, weaponArt, page, selected, selectedKey, selectedSlot, combo);
+        return new SkillState(spells, stack, flight, weaponArt, page, selected, selectedKey, selectedSlot, combo, arrow, arrowChoice);
     }
 
     public SkillState withFlight(ItemStack stack) {
-        return new SkillState(spells, movement, stack, weaponArt, page, selected, selectedKey, selectedSlot, combo);
+        return new SkillState(spells, movement, stack, weaponArt, page, selected, selectedKey, selectedSlot, combo, arrow, arrowChoice);
     }
 
     public SkillState withWeaponArt(ItemStack stack) {
-        return new SkillState(spells, movement, flight, stack, page, selected, selectedKey, selectedSlot, combo);
+        return new SkillState(spells, movement, flight, stack, page, selected, selectedKey, selectedSlot, combo, arrow, arrowChoice);
     }
 
     public SkillState withPage(int next) {
-        return new SkillState(spells, movement, flight, weaponArt, next, selected, selectedKey, selectedSlot, combo);
+        return new SkillState(spells, movement, flight, weaponArt, next, selected, selectedKey, selectedSlot, combo, arrow, arrowChoice);
     }
 
     public SkillState withSelection(ItemStack stack, int key, int slot) {
-        return new SkillState(spells, movement, flight, weaponArt, page, stack, key, slot, combo);
+        return new SkillState(spells, movement, flight, weaponArt, page, stack, key, slot, combo, arrow, arrowChoice);
     }
 
     public SkillState withKey(int key) {
-        return new SkillState(spells, movement, flight, weaponArt, page, selected, key, selectedSlot, combo);
+        return new SkillState(spells, movement, flight, weaponArt, page, selected, key, selectedSlot, combo, arrow, arrowChoice);
     }
 
     public SkillState withCombo(boolean next) {
-        return new SkillState(spells, movement, flight, weaponArt, page, selected, selectedKey, selectedSlot, next);
+        return new SkillState(spells, movement, flight, weaponArt, page, selected, selectedKey, selectedSlot, next, arrow, arrowChoice);
+    }
+
+    public SkillState withArrow(ItemStack stack, int choice) {
+        return new SkillState(spells, movement, flight, weaponArt, page, selected, selectedKey, selectedSlot, combo, stack, choice);
     }
 }

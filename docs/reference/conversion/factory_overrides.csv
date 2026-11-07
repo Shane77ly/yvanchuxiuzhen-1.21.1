@@ -8,3 +8,13 @@ block,yvanchuxiuzhen:canwutai_block,gongfa:canwutai_block,gongfa,参悟台的方
 block,yvanchuxiuzhen:bedrock_01,combat:bedrock_01,combat,破碎的基岩第一阶段：被玩家破坏后变成第二阶段（CrackedBedrockBlock）
 block,yvanchuxiuzhen:bedrock_02,combat:bedrock_02,combat,破碎的基岩第二阶段：被玩家破坏后变成第三阶段（CrackedBedrockBlock）
 item,yvanchuxiuzhen:murenzhuangitem,combat:murenzhuangitem,combat,木人桩物品右键方块上表面放置木人桩（WoodenDummyItem）
+item,yvanchuxiuzhen:skill_arrow_01,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
+item,yvanchuxiuzhen:skill_arrow_02,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
+item,yvanchuxiuzhen:skill_arrow_03,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
+item,yvanchuxiuzhen:skill_arrow_04,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
+item,yvanchuxiuzhen:skill_arrow_05,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
+item,yvanchuxiuzhen:skill_arrow_06,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
+item,yvanchuxiuzhen:skill_arrow_07,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
+item,yvanchuxiuzhen:skill_arrow_08,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
+item,yvanchuxiuzhen:skill_arrow_09,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）
+item,yvanchuxiuzhen:skill_arrow_10,skill:arrow,skill,保留蓄力动画；来源释放条件恒为假（SkillArrowItem）

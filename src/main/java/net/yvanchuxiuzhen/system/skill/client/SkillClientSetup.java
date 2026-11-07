@@ -18,6 +18,7 @@ import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.skill.entity.SkillLook;
 import net.yvanchuxiuzhen.system.skill.network.SkillActionPayload;
 import net.yvanchuxiuzhen.system.skill.projectile.ElementProjectiles;
+import net.yvanchuxiuzhen.system.skill.projectile.SkillArrows;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
 import org.lwjgl.glfw.GLFW;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -37,6 +38,7 @@ public final class SkillClientSetup {
     public static void register(IEventBus modBus) {
         modBus.addListener(SkillClientSetup::registerKeys);
         modBus.addListener(SkillClientSetup::registerRenderers);
+        modBus.addListener(SkillClientSetup::registerLayers);
         NeoForge.EVENT_BUS.addListener(SkillClientSetup::onClientTick);
     }
 
@@ -45,13 +47,24 @@ public final class SkillClientSetup {
         event.register(NEXT_PAGE);
     }
 
-    /** 技能弹体按对应物品的图标渲染（来源弹体实现 {@code ItemSupplier}），技能动画实体用 GeckoLib 渲染（台账中已登记的）。 */
+    /** 元素弹体按对应物品图标渲染，技能箭用原生模型，技能动画实体用 GeckoLib。 */
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         for (String id : ElementProjectiles.ids()) {
             event.registerEntityRenderer(SkillSetup.<SkillProjectile>entityType(id).get(), ThrownItemRenderer::new);
         }
+        for (int kind = 1; kind <= 10; kind++) {
+            int number = kind;
+            event.registerEntityRenderer(SkillSetup.<SkillProjectile>entityType(SkillArrows.id(kind)).get(), context -> new SkillArrowRenderer(context, number));
+        }
         for (EntityModelRow row : SkillEntities.models().values()) {
             registerAnimated(event, row);
+        }
+    }
+
+    private static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        for (int kind = 1; kind <= 10; kind++) {
+            int number = kind;
+            event.registerLayerDefinition(SkillArrowRenderer.layer(kind), () -> SkillArrowModels.layer(number));
         }
     }
 

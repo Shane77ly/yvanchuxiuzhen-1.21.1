@@ -60,6 +60,7 @@ public final class ContentTables {
     private final Map<String, Function<BlockTraits, Block>> blockFactories = new HashMap<>();
     private final Map<String, BiFunction<Item.Properties, List<Component>, Item>> itemFactories = new HashMap<>();
     private final Map<String, EffectBehavior> effectBehaviors = new HashMap<>();
+    private final Map<String, Function<EffectRow, MobEffect>> effectFactories = new HashMap<>();
     private final Map<String, EntityType.EntityFactory<?>> entityFactories = new HashMap<>();
     private final Map<String, Supplier<AttributeSupplier.Builder>> entityAttributes = new HashMap<>();
     private final Map<String, DeferredHolder<EntityType<?>, EntityType<?>>> entityTypes = new HashMap<>();
@@ -83,6 +84,12 @@ public final class ContentTables {
     /** 登记本单位一个状态效果的行为；须在 {@link #register} 之前调用。没有登记的效果只是标记。 */
     public ContentTables effectBehavior(String id, EffectBehavior behavior) {
         effectBehaviors.put(id, behavior);
+        return this;
+    }
+
+    /** 登记需要原生状态效果钩子的效果类型；其余效果继续使用行为表。 */
+    public ContentTables effectFactory(String id, Function<EffectRow, MobEffect> factory) {
+        effectFactories.put(id, factory);
         return this;
     }
 
@@ -122,8 +129,8 @@ public final class ContentTables {
         }
         List<EffectRow> effectRows = ContentFiles.read("content/" + unit + "/effects.json", EffectRow.CODEC);
         for (EffectRow row : effectRows) {
-            effects.register(row.id(), () -> new ContentEffect(MobEffectCategory.valueOf(row.category()), row.color(),
-                    effectBehaviors.getOrDefault(row.id(), new EffectBehavior() { })));
+            effects.register(row.id(), () -> effectFactories.containsKey(row.id()) ? effectFactories.get(row.id()).apply(row)
+                    : new ContentEffect(MobEffectCategory.valueOf(row.category()), row.color(), effectBehaviors.getOrDefault(row.id(), new EffectBehavior() { })));
         }
         if (!effectRows.isEmpty()) {
             ContentEffects.install();

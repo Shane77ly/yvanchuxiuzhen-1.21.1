@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.skill.SkillSelection;
+import net.yvanchuxiuzhen.system.skill.api.Skills;
 
 /**
  * 技能按键与界面按钮（客户端 → 服务端，来源各 {@code Anjian*}、{@code Tabanjian}、{@code Jinengqvxiao} 按键消息与
@@ -19,9 +20,10 @@ public record SkillActionPayload(Action action) implements CustomPacketPayload {
     public static final StreamCodec<RegistryFriendlyByteBuf, SkillActionPayload> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.idMapper(index -> Action.values()[index], Action::ordinal), SkillActionPayload::action, SkillActionPayload::new);
 
-    /** 选择当前页第 1–4 个键的技能（技能界面内的 Z、X、C、V）、取消选择（B）、下一页（Tab）、上一页与下一页按钮、连招开关。 */
+    /** 当前页技能、取消、翻页、连招与十一项箭种选择。 */
     public enum Action {
-        SELECT_1, SELECT_2, SELECT_3, SELECT_4, CANCEL, NEXT_PAGE, PAGE_UP, PAGE_DOWN, TOGGLE_COMBO
+        SELECT_1, SELECT_2, SELECT_3, SELECT_4, CANCEL, NEXT_PAGE, PAGE_UP, PAGE_DOWN, TOGGLE_COMBO,
+        ARROW_1, ARROW_2, ARROW_3, ARROW_4, ARROW_5, ARROW_6, ARROW_7, ARROW_8, ARROW_9, ARROW_10, ARROW_11
     }
 
     @Override
@@ -43,6 +45,8 @@ public record SkillActionPayload(Action action) implements CustomPacketPayload {
             case PAGE_UP -> SkillSelection.turnPage(player, 1);
             case PAGE_DOWN -> SkillSelection.turnPage(player, -1);
             case TOGGLE_COMBO -> SkillSelection.toggleCombo(player);
+            case ARROW_1, ARROW_2, ARROW_3, ARROW_4, ARROW_5, ARROW_6, ARROW_7, ARROW_8, ARROW_9, ARROW_10, ARROW_11 ->
+                    Skills.selectArrow(player, payload.action().ordinal() - Action.ARROW_1.ordinal() + 1);
         }
     }
 }

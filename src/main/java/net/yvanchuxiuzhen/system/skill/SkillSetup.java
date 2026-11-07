@@ -24,6 +24,7 @@ import net.yvanchuxiuzhen.system.skill.entity.Corpses;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.skill.entity.Yuanying;
 import net.yvanchuxiuzhen.system.skill.projectile.ElementProjectiles;
+import net.yvanchuxiuzhen.system.skill.projectile.SkillArrows;
 import net.yvanchuxiuzhen.system.skill.network.SkillActionPayload;
 
 /**
@@ -42,8 +43,10 @@ public final class SkillSetup {
     }
 
     public static void register(IEventBus modBus) {
+        CONTENT.itemFactory("skill:arrow", SkillArrowItem::new);
         SkillEffects.register(CONTENT);
         ElementProjectiles.register(CONTENT);
+        SkillArrows.register(CONTENT);
         SkillEntities.register(CONTENT);
         CONTENT.register(modBus);
         SkillData.register(modBus);

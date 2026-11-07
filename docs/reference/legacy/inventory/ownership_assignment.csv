@@ -417,8 +417,8 @@ yvanchuxiuzhen,Effect020,potioneffect,~/effect,combat,已读,C combat 归属阅�
 yvanchuxiuzhen,Effect021ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect021,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果（控制与修炼类）：开始过程播放音效，每刻过程转动视角、掉落主手、限制生命、增加加点机会或恢复灵力精力、增加修为；见战斗架构“状态效果”
 yvanchuxiuzhen,Effect022,potioneffect,~/effect,combat,已读,C combat 归属阅读：状态效果标记，没有自身过程；等级由伤害结算读取（effect_013 法术伤害提高、effect_020 精力伤害提高、effect_022 雷劫抗性、effect_036 手下留情）
-yvanchuxiuzhen,Effect023ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,yihuo,候选,C combat 归属改判（读取者统计，未读过程内容）：阳火炙烤、阴火灼烧，由异火造成，读取者主要是异火的过程
-yvanchuxiuzhen,Effect023,potioneffect,~/effect,yihuo,候选,C combat 归属改判（读取者统计，未读过程内容）：阳火炙烤、阴火灼烧，由异火造成，读取者主要是异火的过程
+yvanchuxiuzhen,Effect023ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,yihuo,已读,阳火炙烤：火箭与异火共同施加的燃烧状态；本批登记跨系统引用的效果身份，持续伤害及阴阳火联动随yihuo迁移。
+yvanchuxiuzhen,Effect023,potioneffect,~/effect,yihuo,已读,阳火炙烤：火箭与异火共同施加的燃烧状态；本批登记跨系统引用的效果身份，持续伤害及阴阳火联动随yihuo迁移。
 yvanchuxiuzhen,Effect024ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,yihuo,候选,C combat 归属改判（读取者统计，未读过程内容）：阳火炙烤、阴火灼烧，由异火造成，读取者主要是异火的过程
 yvanchuxiuzhen,Effect024,potioneffect,~/effect,yihuo,候选,C combat 归属改判（读取者统计，未读过程内容）：阳火炙烤、阴火灼烧，由异火造成，读取者主要是异火的过程
 yvanchuxiuzhen,Duyao01ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
@@ -4329,8 +4329,8 @@ yvanchuxiuzhen,Jinengxvlijieduan07,procedure,~/skill/jineng/jinengGui/arrowhud,s
 yvanchuxiuzhen,Jinengxvlijieduan08,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jinengxvlijieduan09,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jinengxvlijieduan10,procedure,~/skill/jineng/jinengGui/arrowhud,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillArrow0601DangXiaoGuoJieShuShi,procedure,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillArrow0601,potioneffect,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillArrow0601DangXiaoGuoJieShuShi,procedure,~/skill/jineng/arrowskill,skill,已读,技能箭内爆效果：由第06箭内爆命中叠加；结束过程按效果等级结算虚空伤害，归skill。
+yvanchuxiuzhen,SkillArrow0601,potioneffect,~/skill/jineng/arrowskill,skill,已读,技能箭内爆效果：由第06箭内爆命中叠加；结束过程按效果等级结算虚空伤害，归skill。
 yvanchuxiuzhen,Skillarrow01hecheng,recipe,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Skillarrow02hecheng,recipe,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Skillarrow03hecheng,recipe,~/skill/jineng/arrowskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）

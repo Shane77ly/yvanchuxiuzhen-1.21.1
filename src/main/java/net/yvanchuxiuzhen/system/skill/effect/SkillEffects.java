@@ -22,6 +22,8 @@ public final class SkillEffects {
     public static void register(ContentTables tables) {
         tables.effectBehavior("skilleffect_08", new Unyielding());
         tables.effectBehavior("skilleffect_09", new Casting());
+        tables.effectFactory("skill_arrow_0601", InnerExplosion::new);
+        InnerExplosion.install();
     }
 
     /** 霸体：击退抗性基础值 +10，并附加与本效果同时长的发光（无粒子）；结束时还原。 */
