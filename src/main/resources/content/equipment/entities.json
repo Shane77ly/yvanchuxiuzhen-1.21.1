@@ -1,6 +1,7 @@
 [
 {"id":"projectile_fuchen","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},
 {"id":"projectile_fabao_010huoyan","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},
+{"id":"projectile_fabao_014","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},
 {"id":"projectile_gongjvshechu","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},
 {"id":"gongjvfu","category":"CREATURE","width":0.7,"height":1.0,"tracking_range":64,"update_interval":3,"fire_immune":true},
 {"id":"gongjvgao","category":"MONSTER","width":0.8,"height":0.8,"tracking_range":64,"update_interval":3,"fire_immune":true},

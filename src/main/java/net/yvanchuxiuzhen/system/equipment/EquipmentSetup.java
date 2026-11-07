@@ -15,6 +15,7 @@ import net.yvanchuxiuzhen.system.equipment.content.Fabao010Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao010huoyanItem;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao011Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao012Item;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao014Item;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.HossuItem;
@@ -23,6 +24,7 @@ import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fabao010huoyan;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fuchen;
 import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
+import net.yvanchuxiuzhen.system.equipment.projectile.Fabao014;
 
 /**
  * 装备系统的启动装配，只在 Mod 构造时调用一次。
@@ -47,6 +49,9 @@ public final class EquipmentSetup {
             if (row.factory().equals("equipment:fabao_012")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
                 CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Fabao012Item(tier, properties, tooltip));
+            }
+            if (row.factory().equals("equipment:fabao_014")) {
+                CONTENT.itemFactory(row.factory(), Fabao014Item::new);
             }
             if (row.factory().startsWith("equipment:weaponhossu_")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
@@ -74,6 +79,7 @@ public final class EquipmentSetup {
             }
         }
         CONTENT.<KailingProjectile>entity(KailingProjectile.ID, KailingProjectile::new);
+        CONTENT.<Fabao014>entity(Fabao014.ID, Fabao014::new);
         CONTENT.register(modBus);
         NeoForge.EVENT_BUS.addListener(EquipmentWeapons::tick);
         NeoForge.EVENT_BUS.addListener(EquipmentWeapons::rightClick);
@@ -97,6 +103,10 @@ public final class EquipmentSetup {
 
     public static Supplier<EntityType<KailingProjectile>> kailingProjectileType() {
         return CONTENT.entityType(KailingProjectile.ID);
+    }
+
+    public static Supplier<EntityType<Fabao014>> fabao014Type() {
+        return CONTENT.entityType(Fabao014.ID);
     }
 
     public static Supplier<EntityType<Fabao010huoyan>> fabao010FireType() {

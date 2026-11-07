@@ -246,3 +246,15 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 目标使用 `Fabao012Item` 专用 `ContentSword` 工厂；状态效果与粒子分别调用 combat、particle 的公开接口，不直接写其他系统数据。
 
 验证：本批未新增 Test 类、冒烟选择器或 Computer Use。`gradlew build`、`runSmokeClient -PsmokeOnly=equipmentweapon`、专用服务端启动至 `Done` 后原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 均通过；客户端与服务端日志未见 `ERROR/FATAL`。smoke 只作注册、资源加载和公共客户端启动回归，不替代普通发情、潜行幻术、冷却和沉默分支的完整自然操作验收。
+
+## 明光镜法宝（2026-11-08）
+
+### 来源行为与目标实现
+
+来源入口由 `Fabao014Item` 的 `use`、`releaseUsing` 与四个绑定过程组成。右键只开始使用；松开时先检查 `effect_002`，再比较玩家当前 `power` 与 `mana_Att_display`，满足时扣除后者、消耗一点耐久并生成 `Fabao014Entity`。发射参数为视线方向、速度 `2`、散布 `0`，弹体禁止拾取；普通右键冷却 `80` 刻，潜行右键冷却 `300` 刻。
+
+目标 `Fabao014` 使用 `AbstractArrow` 保留来源的无拾取弹体结构和空音效结果。首个更新刻读取主人主手物品 `sneak` 标签并写入弹体持久数据，随后关闭重力；每刻在弹体位置上方 `0.3` 广播两枚 `cailiao_229particle`，计数达到 `20` 时服务端移除，插入方块也移除。命中后先按 relation 判定敌对；潜行弹体对生物广播一枚 `fulutexiao_33` 并添加原版缓慢效果 `100` 刻、等级 `20`，随后对生物提交 combat 的光属性法术伤害 `10 × 1.1`。`mana_Att_display` 在目标由 attribute 的 `PlayerAttributes.value(player, Stat.MANA_ATT)` 提供，当前灵力由 xiulian 的 `Cultivation` 提供。
+
+### 验证范围
+
+静态依据为 1.18.2 版本五个 `Fabao014*` Java 文件；目标 API 按 NeoForge 21.1.265 源码改写。未新增 Test 类、冒烟选择器、断言或 Computer Use。`gradlew build`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 通过；沿用 `runSmokeClient -PsmokeOnly=equipmentweapon` 报告 `DONE`，客户端和专用服务端均正常保存退出，日志无 `ERROR/FATAL`。这些检查仅作注册、资源加载和启动回归；自然发射、命中、灵力扣除、冷却、视觉、1.18.2 实机、两版本对照与多人验收未执行。
