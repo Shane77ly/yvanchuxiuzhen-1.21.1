@@ -224,8 +224,13 @@ def convert_entities(sources: dict[str, Source]) -> dict[str, list[dict]]:
         for row in rows:
             if row['registry'] != 'entity_type' or row['status'] == '待处理':
                 continue
+            # 此实体由来源自身嵌套 Register 注册，目标同样独立登记 noSave 与最大更新间隔，不进入内容表。
+            if row['legacy_id'] == 'yvanchuxitong:colorful_lightning_bolt':
+                continue
             mod, path = row['legacy_id'].split(':', 1)
             match = re.search(rf'register\("{path}",\s*EntityType\.Builder\.<\w+>of\(\w+::new, MobCategory\.(\w+)\)(.*?)\)\);', sources[mod].entities_text, re.S)
+            if match is None:
+                raise ValueError(f'无法提取实体构建器：{row["legacy_id"]}，来源 {row["source_file"]}')
             chain = match[2]
             size = re.search(r'\.sized\(([\d.]+)f?,\s*([\d.]+)f?', chain)
             tracking = re.search(r'setTrackingRange\((\d+)\)', chain)

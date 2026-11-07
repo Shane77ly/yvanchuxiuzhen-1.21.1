@@ -10,6 +10,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
+import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -21,7 +23,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * 与 {@link SkillEntity} 共用施放信息 {@link SkillCast}、纹理名与过程动画的同步和 GeckoLib 控制器；模型与属性取自 {@link EntityModelRow}。
  * 没有可喂食的物品（来源 {@code isFood} 恒为假），所以不会进入繁殖，也无法靠喂食驯服。
  */
-public abstract class TamedSkillEntity extends TamableAnimal implements GeoEntity, SkillLook {
+public abstract class TamedSkillEntity extends TamableAnimal implements GeoEntity, AnimatedLook {
     private static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(TamedSkillEntity.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(TamedSkillEntity.class, EntityDataSerializers.STRING);
 

@@ -86,7 +86,7 @@ updated: 2026-11-07
 - 剑法：`SwordEntities`（四种剑影实体与出手）与 `WeaponArts`（触发与计数）。挥动剑类武器时，平台的 `ItemSwingEvent`（内容表工具行 `tool.swing`，见[工程结构](../../development/engineering.md)）交给 `WeaponArts`：武器技槽里要是类别为“剑”或“三尺青锋”的武器技，剑、木剑、阔剑要求书已由本人研习（来源比较 `belongToMasterUUID`），重剑与枪不要求（来源如此，四个触发过程只在这一条上不同）；出手冷却 10 刻，连击窗口 30 刻内式数加一、超过 `smanshipnumMax` 回到第 1 式，窗口结束归零，三个计数放在玩家的 `getPersistentData`（来源 `swordsmanshiptick`、`smanshipcolddown`、`swordsmanshipnum`，在 `WeaponArts.tick` 里随玩家刻推进）。出手在挥剑者处生成对应剑影（中平剑法高 1 格，其余 1.5 格），按式数播放动画 `animation.swordsmanshipNN.skillN`，再按剑法结算：中平剑法第 3 式挑起、第 5 式 3 格内伤害（攻击力 100%）、第 6 式跃起并伤害（150%）；柔云剑法第 1 式震开、第 2 与 4 式身边伤害（70%）、第 6 式挑起；拜年剑法第 1 式伤害（50%）；弱鸡剑法每式挑起。范围效果比较的是 `getPersistentData` 里的团队名（玩家的值与其团队一致），名字不同的实体都受影响，包括非生物；伤害是挥剑者攻击力属性乘以倍率的玩家攻击伤害，经 combat 的伤害管线。来源的“跃起”写在挥剑者所在一侧（客户端），这里改为服务端设置速度并通知客户端。非玩家没有武器技槽，来源里它们的挥动只改自己的计数而没有效果，不处理。剑影存在 13 刻后消失。
 - 灵纹：`LingwenHit`（订阅 combat 的 `HitEvent`，主手武器带灵纹附魔时命中非友方目标）、`LingwenEntities`（灵纹特效实体 `lingwentexiao_2`）与 `LingwenBolt`（灵纹弹 `projectile_lingwentexiao`）。命中时：攻击者 2 格内已有灵纹特效，则属于自己且不足 6 枚的各加一枚，否则在攻击者处生成一个（数量 1）；灵纹特效跟随主人、按数量播放 `two`–`six` 动画，每 20 刻检查 10 格内最近的非友方实体，找到时沿主人的视线（不是朝目标）射出一枚散布 20 的灵纹弹并减一枚，每 100 刻自然减一枚，归零消失；灵纹弹第一刻取主人主手灵纹附魔等级 × 4 作攻击量，命中非友方生物造成无属性的固定伤害（取整，来源为主人），20 刻后消失。来源以起尸诀附魔 `qishi` 的等级作 `fumolevel`、从受击者身上扣灵力、计数写进好友列表物品的 NBT（Q45，保持来源行为，残留计数不复现）。灵纹弹的箭基类命中先于自身刻过程，首刻命中时攻击量可能尚未写入，因此来源会出现一次或两次 `HitEvent`，数量分别为 1 或 2（Q48）；`qishi` 的命中段（召唤起尸诀）随 `Skillyin01`。
 - 默认纹理：来源每个实体类 `define(TEXTURE, …)` 的纹理各不相同（只有金刚轮、灵纹特效 2、伤害范围用透明的 `kong`）；提取工具现在把它写入 `entity_models.json` 的 `texture`，实体构造时设置，`SkillEntity` 不再统一用 `kong`。此前所有实体的默认纹理都是透明的，实机画面核对（阶段 5）要特别确认各实体可见。
-- 可驯服实体：`TamedSkillEntity`（继承 `TamableAnimal` 的抽象基类，`SkillEntity` 是 `PathfinderMob`，二者不能共用类）。与 `SkillEntity` 共用的部分各有一个类：`SkillCast`（攻击者、攻击量、倍率、类别标签、技能名及其存档与结算，`SkillEntity` 的同名访问器也转给它）、`SkillAnimations`（`main` 默认循环与 `procedure` 过程动画两个控制器）、`SkillLook`（渲染所需纹理名，`SkillEntityRenderer` 按它泛化）。可驯服实体的行为（寻路、目标、刻过程）直接写在具体实体类里，不经 `EntitySkill` 表；来源 `isFood` 恒为假，所以没有繁殖与喂食驯服，`getBreedOffspring` 仅为满足抽象方法；来源重写的右键交互 `mobInteract` 在没有可喂食物品时等价于父类（只在客户端对主人多返回一次成功），不复制。具体实体类的构造里才能定下移动控制与导航：`createNavigation` 在父类构造期间调用，不能读子类字段。
+- 可驯服实体：`TamedSkillEntity`（继承 `TamableAnimal` 的抽象基类，`SkillEntity` 是 `PathfinderMob`，二者不能共用类）。与 `SkillEntity` 共用的部分各有一个类：`SkillCast`（攻击者、攻击量、倍率、类别标签、技能名及其存档与结算，`SkillEntity` 的同名访问器也转给它）、`SkillAnimations`（`main` 默认循环与 `procedure` 过程动画两个控制器）、`AnimatedLook`（渲染所需纹理名，`AnimatedEntityRenderer` 按它泛化）。可驯服实体的行为（寻路、目标、刻过程）直接写在具体实体类里，不经 `EntitySkill` 表；来源 `isFood` 恒为假，所以没有繁殖与喂食驯服，`getBreedOffspring` 仅为满足抽象方法；来源重写的右键交互 `mobInteract` 在没有可喂食物品时等价于父类（只在客户端对主人多返回一次成功），不复制。具体实体类的构造里才能定下移动控制与导航：`createNavigation` 在父类构造期间调用，不能读子类字段。
 - 火鸟术：`FireBird`（`skill_fire_06`，施放过程 `FireBird.release`）。施放时在施放者上方 1.5 格生成，朝向随机后转向施放者朝向，以施放者为主人（`tame`）、继承其团队，不走 `finalizeSpawn`。无重力（首个实体刻的 `aiStep` 起设置）、飞行移动控制（转向上限 10、悬停）与飞行导航、免疫药水云、药水弹、仙人掌，无跌落伤害，受击与死亡声音是通用的；属性在模型表（移速 0.4、生命 10、攻击 3、跟踪 16）之外加飞行速度 0.4。目标选择：主人攻击的目标；行为选择：主人被攻击的目标（来源把 `OwnerHurtByTargetGoal` 加在行为选择器而不是目标选择器，Q46）、跟随主人（速度 3，离主人 10 格以上出发，停在 2 格内）、自定义追击（有目标且没有在移动时飞向目标眼睛，包围盒相交时冲撞，4 格内持续修正落点）。每刻过程（服务端）：寿命计数到 1200 刻消失；每 40 刻设一次飞行动画（同名不重播，所以只播一次，Q46）；有目标时每刻沿自己的朝向以 0.2 的速度前冲（各分量都没有乘 cos(俯仰)，Q46）；1.5 格内出现非友方实体后记下“开始”，之后累计 3 刻爆发——对 2.5 格内的非友方实体造成火系伤害（攻击量与倍率取整）并点燃 5 秒，20 个火焰粒子，然后消失。寿命到期的同一刻，其后的探测与爆发仍按来源次序执行；被杀死时发粒子并立即消失。爆发时对每个敌方目标在半高处发一枚 `smallexplosionred`。
 - 起尸诀：`Corpse`（`skillyin_01`，亡灵，实体类型标签 `minecraft:undead`）、`CorpseAi`（技能状态机）、`Corpses`（放出、成长与附魔命中）。
   - 状态与战斗数值沿用来源放在尸体 `getPersistentData` 的键（combat 的伤害结算读 `mana_Att`、`LEVELnumber` 等，`Corpse.empower` 按等级写入：攻击 `4 + 2 × 等级`、生命 `40 + 20 × 等级`，`attack_Def`、`mana_Def` 取攻击的 60%，`soul_Att` 取 20%，`soul_Def` 取攻击）。技能状态机不用 `SkillCast`（普攻与阴系技能的攻击者是尸体自己，攻击量取 `attack_Num` 与 `LEVELnumber`）。
@@ -102,7 +102,7 @@ updated: 2026-11-07
 
 来源入口是 `A:JinengGuiButtonMessage` 的按钮 18 → `JinengxvkongProcedure`，不经过技能书或普通施放。境界 `LEVELnumber + tizhiitem.LevelNumberCorrect >= 31` 时关闭菜单，沿视线五格取方块整数坐标，清除该点三轴各八格内的旧裂隙，再以玩家水平朝向加 180 度生成；不足时只提示。来源实体 `XvkongliexiEntity` 无 AI、无重力，保留其飞行导航、伤害免疫列表和原有推挤行为。
 
-目标使用独立实体 `VoidRift`，复用 `EntityModelRow`、`SkillLook`、`SkillAnimations` 与客户端渲染器；由 `Skills.openVoidRift` 提供按钮共用的服务端入口。生命周期见 `A:XvkongliexiDangShiTiGengXinKeShiProcedure`：每刻十个白灰粒子，32 刻可进入，332 刻移除并发出四十个云粒子。`xiaoshitick`、`keyijinru`、`shifouyichuanyve` 保留在实体持久数据中，随存档保存。
+目标使用独立实体 `VoidRift`，复用 `EntityModelRow`、`AnimatedLook`、`SkillAnimations` 与客户端渲染器；由 `Skills.openVoidRift` 提供按钮共用的服务端入口。生命周期见 `A:XvkongliexiDangShiTiGengXinKeShiProcedure`：每刻十个白灰粒子，32 刻可进入，332 刻移除并发出四十个云粒子。`xiaoshitick`、`keyijinru`、`shifouyichuanyve` 保留在实体持久数据中，随存档保存。
 
 传送见 `A:XvkongliexiDangWanJiaYuGaiShiTiFaShengPengZhuangShiProcedure`：返回编号 1–9 依次为主世界、下界、末地、天阙、修罗、人间、妖魂、无归、地灵；读写 `weidu` 通过 xiulian 的 `Cultivation` 公开操作。进入使用裂隙的三轴坐标分别除以 50 后 `Math.round`，返回三轴乘以 50，保留朝向；例如裂隙 `(125, 101, -75)` 进入 `(3, 2, -1)`，再在该点返回为 `(150, 100, -50)`。目标 21.1.265 的 `ServerPlayer.teleportTo` 经 `changeDimension` 同步能力、状态效果与附件，传送后的事件 1032 按来源保留。
 
@@ -114,7 +114,7 @@ Q49：裂隙是整实体单次使用；未找到目标世界时也会消费，�
 
 来源实体 `Shanghaifanwei` 是由 creature 的九处妖兽技能生成的动画范围提示，不是独立的伤害结算入口。`ShanghaifanweiDangShiTiGengXinKeShiProcedure` 每刻读取持久数据中的小写键 `jinengname`：普通提示把 `daojishi` 减一并在不大于零时移除；`惊蛰闻雷` 计满 40 刻移除；`控雷阵` 计满 20 刻以 `AttackDamage`、`AttackUUID`、`team` 拼出 `lightninglanding` 命令后移除。范围内的伤害、击退、效果和粒子由生成者过程负责。
 
-目标 `DamageArea` 复用 `EntityModelRow`、`SkillLook`、`SkillAnimations` 与统一渲染器，保留无 AI、无重力、飞行导航、流体不推动、保存倒计时与来源伤害免疫。`Skills.showDamageArea` 是 creature 可调用的公开入口：普通提示复制施放者阵营，控雷阵与惊蛰闻雷只设置团队和自身计时；控雷阵的命令调用保留在实体刻过程中，实际落雷已由 combat 的共享命令接回，生成者仍随 creature。
+目标 `DamageArea` 复用 `EntityModelRow`、`AnimatedLook`、`SkillAnimations` 与统一渲染器，保留无 AI、无重力、飞行导航、流体不推动、保存倒计时与来源伤害免疫。`Skills.showDamageArea` 是 creature 可调用的公开入口：普通提示复制施放者阵营，控雷阵与惊蛰闻雷只设置团队和自身计时；控雷阵的命令调用保留在实体刻过程中，实际落雷已由 combat 的共享命令接回，生成者仍随 creature。
 
 当前只完成实体与公开入口，尚未把九处 creature 生成者改接到该入口，因此台账的 `Shanghaifanwei` 保持“已注册”。`DamageAreaCheck` 的 6 项针对性检查核对了实体位置、阵营、免疫、普通倒计时、惊蛰闻雷边界和保存重读；生成者伤害/效果及控雷阵落雷未在本步重复伪造验证。
 
@@ -226,4 +226,6 @@ Q54：`SkillGold0201DangSiWangShiJianDaoShiProcedure` 中虽有黄色破碎粒�
 
 `A:SkillThunder09shifangProcedure` 实际由“火”分组分派；在视线六格的方块位置上下找地面，最多六次。天雷术在中心落一道，五雷轰顶依次在中心、X+3、X−3、Z+3、Z−3 落五道；白色、直径 4、攻击量与倍率取技能书，施放者 UUID 与团队取公开操作。`ThunderEntities` 调用 combat 的 `Lightning.command`，范围伤害、同步颜色和原生闪电生命周期归 combat；队伍占位的来源解析问题见 Q55 和[战斗正文](../combat/architecture.md)。控雷阵原有计时命令也已接回。
 
-共享落雷验证（2026-11-07）：仅一次 `-PsmokeOnly=lightning`，四项中三项通过并 `DONE`，范围雷伤、红色同步/渲染器及控雷阵命令均走真实世界路径。两个技能入口的合并断言失败，检查辅助方法连续选同槽导致第二次取消；已在选择前清空并编译，未重跑，不能记为两个入口实机通过。截图早于有效画面，完整视觉待核。build（含 ArchUnit）通过，专用服务器启动、全部世界保存及正常退出通过，ERROR 0，实体导出为 63 个。完整 xiulian 雷劫未执行。
+共享落雷验证（2026-11-07）：仅一次 `-PsmokeOnly=lightning`，四项中三项通过并 `DONE`，范围雷伤、红色同步/渲染器及控雷阵命令均走真实世界路径。两个技能入口的合并断言失败，检查辅助方法连续选同槽导致第二次取消；已在选择前清空并编译，未重跑，不能记为两个入口实机通过。截图早于有效画面，完整视觉待核。build（含 ArchUnit）通过，专用服务器启动、全部世界保存及正常退出通过，ERROR 0，实体导出为 63 个。该共享落雷批次未执行完整 xiulian 雷劫，后续实现与验证见完整雷劫批次。
+
+2026-11-07 雷劫批次：动画模型记录 `EntityModelRow`、纹理接口 `AnimatedLook` 和 `AnimatedEntityRenderer` 已移到 platform，供 skill 与 xiulian 共用；技能动画控制和玩法仍在 skill。本批不重跑旧神通套件，依赖关系由构建中的 ArchUnit 检查。

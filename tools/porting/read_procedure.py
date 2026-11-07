@@ -45,7 +45,7 @@ TURN = re.compile(r'\{\s*Entity _ent = (\w+);\s*_ent\.setYRot\((.*?)\);\s*_ent\.
 AREA = re.compile(r'List<Entity> _entfound = world\.getEntitiesOfClass\(Entity\.class, new AABB\(_center, _center\)\.inflate\((.*?)\), e -> true\)\.stream\(\)\.sorted\(.*?\)\s*\.collect\(Collectors\.toList\(\)\);', re.S)
 CMD = re.compile(r'\{\s*Entity _ent = (\w+);\s*if \(!_ent\.level\.isClientSide\(\) && _ent\.getServer\(\) != null\)\s*_ent\.getServer\(\)\.getCommands\(\)\.performCommand\(_ent\.createCommandSourceStack\(\)\.withSuppressedOutput\(\)\.withPermission\(4\),\s*\((.*?)\)\);\s*\}', re.S)
 FRIENDS = re.compile(r'if \((\w+) instanceof Player\) \{\s*friendlistitem = \1\.PV\.friendlist\);\s*friendlist = \(friendlistitem\.getOrCreateTag\(\)\)\.getCompound\("friendlist"\);\s*team = \1\.PV\.team;\s*\} else \{\s*friendlist = \(\1\.getPersistentData\(\)\)\.getCompound\("friendlist"\);\s*team = \1\.getPersistentData\(\)\.getString\("team"\);\s*\}', re.S)
-DELAY = re.compile(r'new Object\(\) \{\s*private int ticks = 0;.*?private void run\(\) \{(.*?)MinecraftForge\.EVENT_BUS\.unregister\(this\);\s*\}\s*\}\.start\(world, (\d+)\);', re.S)
+DELAY = re.compile(r'new Object\(\) \{\s*private int ticks = 0;(?:(?!new Object\(\)).)*?private void run\(\) \{(.*?)MinecraftForge\.EVENT_BUS\.unregister\(this\);\s*\}\s*\}\.start\(world, ([^;\r\n]+?)\);', re.S)
 ARROW = re.compile(r'new Object\(\) \{\s*public Projectile getArrow\([^)]*\) \{\s*AbstractArrow entityToSpawn = new (\w+)\([^;]*;(?:.*?)return entityToSpawn;\s*\}\s*\}\.getArrow\(', re.S)
 
 

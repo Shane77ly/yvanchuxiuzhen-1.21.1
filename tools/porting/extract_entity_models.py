@@ -1,4 +1,4 @@
-"""从 1.18.2 来源提取技能动画实体的模型表现（C skill 阶段 3）。
+"""从 1.18.2 来源提取指定系统动画实体的模型表现（默认 skill，--owner xiulian 可提取雷劫实体）。
 
 每个动画实体（MCreator 的 animated entity，GeckoLib 3）由四处生成代码决定表现：
 - `entity/model/<名>Model.java`：几何文件、动画文件、头部骨骼（`getBone`），纹理固定为 `textures/entities/<实体的 TEXTURE 字符串>.png`；
@@ -6,12 +6,13 @@
 - `client/renderer/<名>Renderer.java`：阴影半径；
 - `entity/<名>Entity.java`：默认纹理（`define(TEXTURE, …)`）、默认循环动画（`movementPredicate` 在没有过程动画时播放，取最后一个无条件的）、离地时的循环动画、
   五项生物属性（移速、生命、护甲、攻击、跟踪范围）、是否无 AI。`Skillyin01` 另有 walk、die、swim、sprint 的条件动画，由 Java 侧单独实现。
-输出 src/main/resources/content/skill/entity_models.json（一行一个实体，键为注册 ID），并重写
-docs/reference/conversion/system_assets.csv 中归 skill 的行：几何、动画，以及纹理（各实体的默认纹理、发光层纹理、
-技能过程里 `setTexture("…")` 引用到的纹理）。工具可重复运行，输出只取决于来源。
+输出 src/main/resources/content/<系统>/entity_models.json（一行一个实体，键为注册 ID），并重写
+docs/reference/conversion/system_assets.csv 中归该系统的几何、动画与实体纹理行（默认纹理、发光层纹理、
+相关过程里 `setTexture("…")` 引用到的纹理）；保留其他类型的资源行。工具可重复运行，输出只取决于来源。
 """
 from __future__ import annotations
 
+import argparse
 import csv
 import io
 import json
@@ -22,7 +23,6 @@ from convert_content import SOURCES
 
 MOD = 'yvanchuxiuzhen'
 BASE = SOURCES[MOD][0] / f'src/main/java/net/mcreator/{MOD}'
-OUTPUT = ROOT / 'src/main/resources/content/skill/entity_models.json'
 ASSETS = ROOT / 'docs/reference/conversion/system_assets.csv'
 OWNERSHIP = ROOT / 'docs/reference/legacy/inventory/ownership_assignment.csv'
 
@@ -34,10 +34,10 @@ def squash(text: str) -> str:
     return re.sub(r'\s+', ' ', text)
 
 
-def skill_entities() -> list[str]:
+def animated_entities(owner: str) -> list[str]:
     with OWNERSHIP.open(encoding='utf-8', newline='') as handle:
         return [row['element'] for row in csv.DictReader(handle)
-                if row['owner'] == 'skill' and row['type'] == 'animatedentity' and row['source_mod'] == MOD]
+                if row['owner'] == owner and row['type'] == 'animatedentity' and row['source_mod'] == MOD]
 
 
 def registry_ids() -> dict[str, str]:
@@ -76,27 +76,35 @@ def parse(name: str) -> dict:
     return row
 
 
-def referenced_textures() -> set[str]:
+def referenced_textures(names: list[str]) -> set[str]:
     found = set()
     for path in (BASE / 'procedures').glob('*.java'):
-        found.update(re.findall(r'setTexture\("([^"]+)"\)', read(path)))
+        text = read(path)
+        if not names or any(name + 'Entity' in text for name in names):
+            found.update(re.findall(r'setTexture\("([^"]+)"\)', text))
     return found
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--owner', choices=('skill', 'xiulian'), default='skill')
+    owner = parser.parse_args().owner
+    output = ROOT / f'src/main/resources/content/{owner}/entity_models.json'
     ids = registry_ids()
     rows = {}
-    for name in skill_entities():
+    names = animated_entities(owner)
+    for name in names:
         rows[ids[name]] = parse(name)
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text('[\n' + ',\n'.join(json.dumps({'id': key, **value}, ensure_ascii=False, separators=(',', ':'))
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text('[\n' + ',\n'.join(json.dumps({'id': key, **value}, ensure_ascii=False, separators=(',', ':'))
                                        for key, value in sorted(rows.items())) + '\n]\n', encoding='utf-8', newline='\n')
-    textures = {row['texture'] for row in rows.values()} | referenced_textures() | {row['glow'] for row in rows.values() if 'glow' in row}
+    textures = {row['texture'] for row in rows.values()} | referenced_textures(names if owner != 'skill' else []) | {row['glow'] for row in rows.values() if 'glow' in row}
     with ASSETS.open(encoding='utf-8', newline='') as handle:
-        kept = [row for row in csv.reader(handle) if row and row[0] != 'skill']
-    kept += [['skill', 'geo', f'{NAMESPACE}:{row["geo"]}'] for row in rows.values()]
-    kept += [['skill', 'animation', f'{NAMESPACE}:{row["animation"]}'] for row in rows.values()]
-    kept += [['skill', 'texture', f'{NAMESPACE}:entities/{texture}'] for texture in sorted(textures)]
+        kept = [row for row in csv.reader(handle) if row and (row[0] != owner or row[1] not in ('geo', 'animation')
+                and not (row[1] == 'texture' and row[2].startswith(f'{NAMESPACE}:entities/')))]
+    kept += [[owner, 'geo', f'{NAMESPACE}:{row["geo"]}'] for row in rows.values()]
+    kept += [[owner, 'animation', f'{NAMESPACE}:{row["animation"]}'] for row in rows.values()]
+    kept += [[owner, 'texture', f'{NAMESPACE}:entities/{texture}'] for texture in sorted(textures)]
     seen, unique = set(), []
     for row in kept:
         if tuple(row) not in seen:

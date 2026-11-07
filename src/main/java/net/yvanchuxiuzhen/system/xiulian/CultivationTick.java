@@ -17,12 +17,13 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
+import net.yvanchuxiuzhen.system.xiulian.tribulation.Tribulations;
 
 /**
  * 修炼的每秒推进（来源 {@code PlayerTick} 中以世界时间 {@code dayTime} 与 {@code tizhiitem.jishiqi} 相差 20 为间隔的部分）：
  * 闭关修炼、发出 {@link CultivationSecondEvent}、吸收待吸收修为（受每日上限约束）、妖化冷却、阳寿已尽提示、
  * 修为圆满时突破或开启雷劫、闭关冷却、恢复。世界时间倒退时重设计时基准。
- * 雷劫的过程（来源 {@code ThunderBegin}）与阳寿已尽 40 tick 后的轮回（来源 {@code Fulutexiao37}）尚未迁移，此处只置雷劫标记、发提示。
+ * 雷劫经 {@code ThunderBegin} 对应过程生成劫云；阳寿已尽 40 tick 后的轮回（来源 {@code Fulutexiao37}）尚未迁移。
  */
 public final class CultivationTick {
     private static final Set<ResourceKey<Level>> NO_BREAKTHROUGH = Set.of(
@@ -135,6 +136,7 @@ public final class CultivationTick {
                 Cultivation.set(player, CultivationValue.EXPERIENCE, max - 1);
             } else if (!player.isCreative() && LevelUp.needsTribulation(Cultivation.get(player, CultivationValue.LEVEL_NUMBER))) {
                 Cultivation.setThunderOpen(player, true);
+                Tribulations.begin(player);
                 Cultivation.set(player, CultivationValue.EXPERIENCE, 1);
                 player.displayClientMessage(Component.literal("雷劫开始！"), false);
             } else {

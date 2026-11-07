@@ -21,11 +21,13 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
+import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -42,7 +44,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * 元婴出窍实体（来源 {@code YvanyingchuqiaoEntity}）：记录本体 UUID，受伤时把本体生命同步到受击前的元婴生命，
  * 被杀时结束出窍并杀死本体。出窍条件、神识消耗、返回位置和游戏模式由技能入口维护。
  */
-public final class Yuanying extends PathfinderMob implements GeoEntity, SkillLook {
+public final class Yuanying extends PathfinderMob implements GeoEntity, AnimatedLook {
     public static final String ID = "yvanyingchuqiao";
     private static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(Yuanying.class, EntityDataSerializers.STRING);
     private final EntityModelRow model;

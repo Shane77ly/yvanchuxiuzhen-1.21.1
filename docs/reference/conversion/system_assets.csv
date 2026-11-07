@@ -123,3 +123,16 @@ skill,texture,yvanchuxiuzhen:entities/yaoshou00203
 skill,texture,yvanchuxiuzhen:entities/yaoshou00204
 skill,texture,yvanchuxiuzhen:entities/yaoshou00205
 skill,texture,yvanchuxiuzhen:entities/yaoshou00702
+xiulian,geo,yvanchuxiuzhen:jieyvn
+xiulian,geo,yvanchuxiuzhen:tianjie03
+xiulian,geo,yvanchuxiuzhen:tianjie05
+xiulian,geo,yvanchuxiuzhen:tianjie07
+xiulian,animation,yvanchuxiuzhen:jieyvn
+xiulian,animation,yvanchuxiuzhen:tianjie03
+xiulian,animation,yvanchuxiuzhen:tianjie05
+xiulian,animation,yvanchuxiuzhen:tianjie07
+xiulian,texture,yvanchuxiuzhen:entities/jieyvn02
+xiulian,texture,yvanchuxiuzhen:entities/kong
+xiulian,texture,yvanchuxiuzhen:entities/tianjie03
+xiulian,texture,yvanchuxiuzhen:entities/tianjie05
+xiulian,texture,yvanchuxiuzhen:entities/tianjie0701

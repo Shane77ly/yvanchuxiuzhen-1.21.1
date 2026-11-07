@@ -1,4 +1,4 @@
-package net.yvanchuxiuzhen.system.skill.client;
+package net.yvanchuxiuzhen.platform.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -10,8 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.yvanchuxiuzhen.platform.ModId;
-import net.yvanchuxiuzhen.system.skill.entity.EntityModelRow;
-import net.yvanchuxiuzhen.system.skill.entity.SkillLook;
+import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
+import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
@@ -22,12 +22,12 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 /**
- * 技能动画实体的渲染（来源各 {@code SkillXxxRenderer}、{@code SkillXxxModel}、{@code SkillXxxLayer}）：GeckoLib 几何与动画由模型表给出，
+ * 动画实体的渲染（来源各 Renderer、Model 与 Layer）：GeckoLib 几何与动画由模型表给出，
  * 纹理是实体当前的纹理名（{@code textures/entities/<名>.png}），半透明渲染；有头部骨骼的实体让它随视线转动；
  * 有发光层的实体再用 {@code RenderType.eyes} 以固定纹理画一遍同一几何。
  */
-final class SkillEntityRenderer<T extends Entity & GeoAnimatable & SkillLook> extends GeoEntityRenderer<T> {
-    SkillEntityRenderer(EntityRendererProvider.Context context, EntityModelRow row) {
+public final class AnimatedEntityRenderer<T extends Entity & GeoAnimatable & AnimatedLook> extends GeoEntityRenderer<T> {
+    public AnimatedEntityRenderer(EntityRendererProvider.Context context, EntityModelRow row) {
         super(context, new Model<>(row));
         shadowRadius = row.shadow();
         row.glow().ifPresent(glow -> addRenderLayer(new Glow<>(this, entityTexture(glow))));
@@ -42,7 +42,7 @@ final class SkillEntityRenderer<T extends Entity & GeoAnimatable & SkillLook> ex
         return RenderType.entityTranslucent(texture);
     }
 
-    private static final class Model<T extends Entity & GeoAnimatable & SkillLook> extends GeoModel<T> {
+    private static final class Model<T extends Entity & GeoAnimatable & AnimatedLook> extends GeoModel<T> {
         private final EntityModelRow row;
 
         Model(EntityModelRow row) {
@@ -76,7 +76,7 @@ final class SkillEntityRenderer<T extends Entity & GeoAnimatable & SkillLook> ex
     }
 
     /** 发光层：以固定纹理、{@code eyes} 渲染类型重画几何。 */
-    private static final class Glow<T extends Entity & GeoAnimatable & SkillLook> extends GeoRenderLayer<T> {
+    private static final class Glow<T extends Entity & GeoAnimatable & AnimatedLook> extends GeoRenderLayer<T> {
         private final ResourceLocation texture;
 
         Glow(GeoEntityRenderer<T> renderer, ResourceLocation texture) {

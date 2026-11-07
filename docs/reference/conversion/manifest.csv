@@ -1,6 +1,7 @@
 source,source_sha1,target
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/chuansongmen.animation.json,aebce37c2e68581b7d33f1328567c556b9aa8e5a,src/main/resources/assets/yvanchuxiuzhen/animations/chuansongmen.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/gedang.animation.json,4d3ef11f5b880e299f6590b913a0a880c6a2f3b2,src/main/resources/assets/yvanchuxiuzhen/animations/gedang.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/jieyvn.animation.json,63f3098bd53fa09fa76bf8698a5116bfbfc18cab,src/main/resources/assets/yvanchuxiuzhen/animations/jieyvn.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/lingwen2.animation.json,53a4c8b27f57fad30a91bbd149d86c556879aba9,src/main/resources/assets/yvanchuxiuzhen/animations/lingwen2.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/murenzhuang.animation.json,f64eaeae63a7e8dd99e55ac4a9bb3c1e5ede9e86,src/main/resources/assets/yvanchuxiuzhen/animations/murenzhuang.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/shanghaifanwei.animation.json,349784e3632a21ffdd9d95f3ab27eb7440293e56,src/main/resources/assets/yvanchuxiuzhen/animations/shanghaifanwei.animation.json
@@ -34,6 +35,9 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/swordsmanship
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/swordsmanship02.animation.json,1184165095b9ea7654ba0685b83353dc514463b3,src/main/resources/assets/yvanchuxiuzhen/animations/swordsmanship02.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/swordsmanship03.animation.json,3d2e3c0021ee803515539f971fa4051ba0316315,src/main/resources/assets/yvanchuxiuzhen/animations/swordsmanship03.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/swordsmanship04.animation.json,80887d44b9a07f3f74ed76cfd60ce088f456b06f,src/main/resources/assets/yvanchuxiuzhen/animations/swordsmanship04.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/tianjie03.animation.json,3e164159ddfd4f33cd4ff2fcbf17bc483fe0ce9c,src/main/resources/assets/yvanchuxiuzhen/animations/tianjie03.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/tianjie05.animation.json,806ca68e730da0ff43ba861c32a5fb7b9bf03b8e,src/main/resources/assets/yvanchuxiuzhen/animations/tianjie05.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/tianjie07.animation.json,aad32b398a9fe66dc15bc4ae575eaa0894887dae,src/main/resources/assets/yvanchuxiuzhen/animations/tianjie07.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/yvanyingchuqiao.animation.json,fc8ccfc92277572543c5c6f284c963ca0327b0fe,src/main/resources/assets/yvanchuxiuzhen/animations/yvanyingchuqiao.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/acaciabigdoorleft.json,b9d0b8eda9398f2e3d8baa6b9324504f7a8240e6,src/main/resources/assets/yvanchuxiuzhen/blockstates/acaciabigdoorleft.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/acaciabigdoorright.json,ce6aac3af98ef5ec8028fe406b72bff9ba109d00,src/main/resources/assets/yvanchuxiuzhen/blockstates/acaciabigdoorright.json
@@ -1165,6 +1169,7 @@ yvanchuxitong/src/main/resources/assets/yvanchuxitong/blockstates/zisha_02.json,
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/blockstates/zisha_03.json,41d96a4306260e7e33412d0f58a44639afdc6dd5,src/main/resources/assets/yvanchuxiuzhen/blockstates/zisha_03.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/chuansongmen.geo.json,16a714420923783df259a1e2492cd652b84c3367,src/main/resources/assets/yvanchuxiuzhen/geo/chuansongmen.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/gedang.geo.json,6a0be2ea64ea694a070fa91082a5b6b51db25492,src/main/resources/assets/yvanchuxiuzhen/geo/gedang.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/jieyvn.geo.json,1cadf964dc2e6d384a9fe657d5c1915d9d381abb,src/main/resources/assets/yvanchuxiuzhen/geo/jieyvn.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/lingwen2.geo.json,a599621b76f68911691db0a61bc5864a5447f8c9,src/main/resources/assets/yvanchuxiuzhen/geo/lingwen2.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/murenzhuang.geo.json,c6898f182273902508f11ef956c47c30e4fdee8f,src/main/resources/assets/yvanchuxiuzhen/geo/murenzhuang.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/shanghaifanwei.geo.json,4187a0b5553a60e17eefa5112cd3b40e9d46238a,src/main/resources/assets/yvanchuxiuzhen/geo/shanghaifanwei.geo.json
@@ -1198,6 +1203,9 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/swordsmanship01.geo.
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/swordsmanship02.geo.json,2ea112d37ad4206662a62b0e4962e7fc7e436507,src/main/resources/assets/yvanchuxiuzhen/geo/swordsmanship02.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/swordsmanship03.geo.json,39d16234472255329e88d1a3ba049e3d074eb95a,src/main/resources/assets/yvanchuxiuzhen/geo/swordsmanship03.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/swordsmanship04.geo.json,0b4a6a14fd57edca3efb0bd3b2b4e0579338944d,src/main/resources/assets/yvanchuxiuzhen/geo/swordsmanship04.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/tianjie03.geo.json,50ad46b8222c767a90bc33734858ffff6693f467,src/main/resources/assets/yvanchuxiuzhen/geo/tianjie03.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/tianjie05.geo.json,1630ec2f52d4899b87114d062e0b22b6d1074835,src/main/resources/assets/yvanchuxiuzhen/geo/tianjie05.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/tianjie07.geo.json,e77e768a67f7fb224410cfc82b218d92447ca263,src/main/resources/assets/yvanchuxiuzhen/geo/tianjie07.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/yvanyingchuqiao.geo.json,ebf6cf9fed35cfe14bd8a47a265d449922b43abc,src/main/resources/assets/yvanchuxiuzhen/geo/yvanyingchuqiao.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/block/acaciabigdoorleft.json,a73b8915db5d0d9a11f0ff11e65079bc1bbcba16,src/main/resources/assets/yvanchuxiuzhen/models/block/acaciabigdoorleft.json
 (generated),,src/main/resources/assets/yvanchuxiuzhen/models/block/acaciabigdoorleft__cutout.json
@@ -7853,6 +7861,7 @@ yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/blocks/zisha03.pn
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/chuansongmen.png,b46cf6cd4e1e1fb9cf5c285a14ae347fbabe0135,src/main/resources/assets/yvanchuxiuzhen/textures/entities/chuansongmen.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/chuansongmenfaguang.png,03f0159c319c6d86ca6d81c8268972332abf93f2,src/main/resources/assets/yvanchuxiuzhen/textures/entities/chuansongmenfaguang.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/gedang.png,5c23720e72a5e60567340da1f49c446e4c4fc531,src/main/resources/assets/yvanchuxiuzhen/textures/entities/gedang.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/jieyvn02.png,9ea295db6894b31c9d91a345daef613ec55092d3,src/main/resources/assets/yvanchuxiuzhen/textures/entities/jieyvn02.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/jinengchuqiaoentity.png,905dcb7b42295aad408856507513e695ac85d76c,src/main/resources/assets/yvanchuxiuzhen/textures/entities/jinengchuqiaoentity.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/kong.png,925e2658c997da021b7b8ae6e02a1b78290c1697,src/main/resources/assets/yvanchuxiuzhen/textures/entities/kong.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/lingwen2.png,f4677374d4fd9b79b6549677939c4437135b9afc,src/main/resources/assets/yvanchuxiuzhen/textures/entities/lingwen2.png
@@ -7885,6 +7894,9 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/swords
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/swordsmanship02.png,244465c37043e918284bf648584a2e6495a7c6eb,src/main/resources/assets/yvanchuxiuzhen/textures/entities/swordsmanship02.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/swordsmanship03.png,0749e2ab516fa21f80ad5305237a05422e30b6ea,src/main/resources/assets/yvanchuxiuzhen/textures/entities/swordsmanship03.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/swordsmanship04.png,949b6a40ca8fad0f62d113a72b8438d7dc9cc0d4,src/main/resources/assets/yvanchuxiuzhen/textures/entities/swordsmanship04.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/tianjie03.png,ba8a7f6e927d820abdaeba3627db6dd230f3e4f2,src/main/resources/assets/yvanchuxiuzhen/textures/entities/tianjie03.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/tianjie05.png,3a6732089378ec435fd847cbb39a8e4ca24d14e2,src/main/resources/assets/yvanchuxiuzhen/textures/entities/tianjie05.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/tianjie0701.png,e795385716a16080fe5c88059a99f93aa7ed143d,src/main/resources/assets/yvanchuxiuzhen/textures/entities/tianjie0701.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/xiuzhe0101.png,b39c9c425c81eb9e480c2db70256b45a1f72664d,src/main/resources/assets/yvanchuxiuzhen/textures/entities/xiuzhe0101.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/xiuzhe0102.png,4a0aff740bb64937eb5b1e92237fa9a0f270454f,src/main/resources/assets/yvanchuxiuzhen/textures/entities/xiuzhe0102.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/xiuzhe0103.png,6cec0c1a2a46844c279ea5ea82c606ff988f04ca,src/main/resources/assets/yvanchuxiuzhen/textures/entities/xiuzhe0103.png

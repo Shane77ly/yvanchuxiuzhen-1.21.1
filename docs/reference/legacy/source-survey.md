@@ -144,6 +144,8 @@ updated: 2026-11-07
 
 | Q55 | `/lightninglanding` 以空白拆分完整命令，队伍词虽未被结算过程消费，却占据第四个参数。调用方的团队为空时，范围直径和颜色前移，范围会把颜色文字解析为 0，颜色回到白色；这不是“玩家团队恒为空”，登录与 `Playerhuifu` 会写入玩家实际团队。依据 `B:LightningLandingCommand`、`LightningLandingGo`、`A:SkillThunder09shifang` 与 `Playerhuifu:26`。评估轻微，保持来源参数次序和空词消失行为，不补占位词或默认范围 | [战斗](../../systems/combat/architecture.md) |
 
+| Q56 | 雷劫的负功德不增加雷数、正功德抵消的循环上界随扣减变化；玩家死亡分支误写云的玩家能力，跳过只标成功而未清云序列，离维度移除云未补玩家状态。依据 `ThunderBegin`、劫云刻过程与实际绑定的死亡过程，评估轻微，保留来源行为，细节见修炼正文 | [修炼](../../systems/xiulian/architecture.md) |
+
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 
 ## 源码位置

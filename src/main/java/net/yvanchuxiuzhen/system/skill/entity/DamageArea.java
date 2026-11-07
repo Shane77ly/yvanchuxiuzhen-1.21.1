@@ -24,6 +24,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
+import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
+import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -35,7 +37,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * 伤害范围提示（来源 {@code Shanghaifanwei}）：动画显示判定范围，普通提示按倒计时移除，惊蛰闻雷存续 40 刻。
  * 控雷阵在第 20 刻以该实体的位置和持久数据调用落雷命令；其余技能的伤害由各自的生成者结算。
  */
-public final class DamageArea extends PathfinderMob implements GeoEntity, SkillLook {
+public final class DamageArea extends PathfinderMob implements GeoEntity, AnimatedLook {
     public static final String ID = "shanghaifanwei";
     private static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(DamageArea.class, EntityDataSerializers.STRING);
     private final EntityModelRow model;

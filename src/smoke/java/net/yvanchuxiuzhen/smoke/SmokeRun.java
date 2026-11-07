@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.smoke;
 
+import com.mojang.blaze3d.platform.NativeImage;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -17,7 +18,6 @@ import java.util.TreeMap;
 import java.util.function.Consumer;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
-import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.Screenshot;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -40,7 +40,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
@@ -60,10 +59,10 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.WorldOptions;
+import net.minecraft.world.level.levelgen.presets.WorldPresets;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
-import net.minecraft.world.level.levelgen.presets.WorldPresets;
 import net.neoforged.neoforge.client.gui.CreativeTabsScreenPage;
 import net.yvanchuxiuzhen.system.xiulian.XiulianRules;
 
@@ -188,6 +187,7 @@ final class SmokeRun {
                     case "skillparticle" -> List.of(new SkillParticleCheck(report, levelId, this::shot));
                     case "skillvisual" -> List.of(new SkillVisualCheck(report, levelId, this::shot));
                     case "lightning" -> List.of(new LightningCheck(report, levelId, this::shot));
+                    case "tribulation" -> List.of(new TribulationCheck(report, levelId, this::shot));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }

@@ -12,11 +12,12 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
+import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
+import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.content.SkillMenus;
-import net.yvanchuxiuzhen.system.skill.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
-import net.yvanchuxiuzhen.system.skill.entity.SkillLook;
 import net.yvanchuxiuzhen.system.skill.network.SkillActionPayload;
 import net.yvanchuxiuzhen.system.skill.projectile.ElementProjectiles;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillArrows;
@@ -88,10 +89,10 @@ public final class SkillClientSetup {
         }
     }
 
-    private static <T extends Entity & GeoAnimatable & SkillLook> void registerAnimated(EntityRenderersEvent.RegisterRenderers event, EntityModelRow row) {
+    private static <T extends Entity & GeoAnimatable & AnimatedLook> void registerAnimated(EntityRenderersEvent.RegisterRenderers event, EntityModelRow row) {
         Supplier<EntityType<T>> type = SkillSetup.entityType(row.id());
         if (type != null) {
-            event.registerEntityRenderer(type.get(), context -> new SkillEntityRenderer<T>(context, row));
+            event.registerEntityRenderer(type.get(), context -> new AnimatedEntityRenderer<T>(context, row));
         }
     }
 

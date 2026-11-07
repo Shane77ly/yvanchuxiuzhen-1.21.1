@@ -27,6 +27,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
+import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -39,7 +41,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * 虚空裂隙（来源 {@code Xvkongliexi}）：无重力的传送实体，32 刻后可进入、332 刻后消失。
  * 是否可进入、是否已使用与寿命计数保存在实体的持久数据；一次碰撞消耗整道裂隙，返回维度编号经 xiulian 的体质公开操作保存。
  */
-public final class VoidRift extends PathfinderMob implements GeoEntity, SkillLook {
+public final class VoidRift extends PathfinderMob implements GeoEntity, AnimatedLook {
     public static final String ID = "xvkongliexi";
     private static final ResourceKey<Level> VOID = dimension("yvanchuxiuzhen:xvkong");
     private static final Map<Double, ResourceKey<Level>> ORIGINS = Map.of(

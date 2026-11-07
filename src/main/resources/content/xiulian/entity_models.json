@@ -1,0 +1,6 @@
+[
+{"id":"jieyvn","geo":"jieyvn","animation":"jieyvn","shadow":20.0,"texture":"jieyvn02","idle":"animation.model.idle","speed":0.3,"health":800.0,"armor":0.0,"attack":3.0,"follow":16.0,"no_ai":false},
+{"id":"tianjie_03","geo":"tianjie03","animation":"tianjie03","shadow":0.3,"texture":"tianjie03","glow":"tianjie03","idle":"animation.skillThunder08.idle","speed":0.3,"health":20.0,"armor":0.0,"attack":3.0,"follow":16.0,"no_ai":false},
+{"id":"tianjie_05","geo":"tianjie05","animation":"tianjie05","shadow":0.01,"texture":"tianjie05","glow":"tianjie05","idle":"animation.model.idle","speed":0.3,"health":500.0,"armor":0.0,"attack":3.0,"follow":16.0,"no_ai":false},
+{"id":"tianjie_07","geo":"tianjie07","animation":"tianjie07","shadow":0.1,"texture":"kong","glow":"tianjie0701","idle":"animation.model.idle","speed":0.3,"health":40.0,"armor":0.0,"attack":3.0,"follow":16.0,"no_ai":false}
+]

@@ -1,4 +1,4 @@
-package net.yvanchuxiuzhen.system.skill.entity;
+package net.yvanchuxiuzhen.platform.content.entity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -8,7 +8,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
 /**
- * 技能动画实体的表现与属性（{@code content/skill/entity_models.json}，由 {@code extract_entity_models.py} 从来源的
+ * 动画实体的表现与属性（各系统的 {@code entity_models.json}，由 {@code extract_entity_models.py} 从来源的
  * Model、Layer、Renderer 与 Entity 类提取）：GeckoLib 几何与动画文件名（不含后缀）、阴影半径、默认纹理、头部骨骼、发光层纹理、
  * 默认循环动画与离地时的循环动画，以及生物属性（移速、生命、护甲、攻击、跟踪范围）和是否无 AI。
  */

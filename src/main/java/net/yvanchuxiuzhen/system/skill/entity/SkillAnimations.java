@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.system.skill.entity;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import net.minecraft.world.entity.Entity;
+import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
