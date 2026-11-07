@@ -20,7 +20,7 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 
 /**
  * 火系的实体技能与施放（来源 {@code SkillFire02/03/04/05/07/08} 与对应的 {@code …shifang}、{@code …DangShiTiGengXinKeShi}）：
- * 大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷。火鸟术（{@code SkillFire06}）是带 AI 的可驯服实体，另行迁移。
+ * 大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷；火鸟术（{@code SkillFire06}）是带 AI 的可驯服实体，见 {@link FireBird}。
  * 来源的自定义粒子（{@code SMALLEXPLOSIONRED}、{@code BROKEN*}）随 particle 迁移。
  */
 final class FireEntities {
@@ -37,6 +37,7 @@ final class FireEntities {
         SkillReleases.register(FIRE, (caster, book) -> igniteFront(caster), "引火");
         SkillReleases.register(FIRE, (caster, book) -> controlFire(caster, book), "控火术");
         SkillReleases.register(FIRE, (caster, book) -> shield(caster, book), "火焰护盾");
+        FireBird.register();
         SkillReleases.register(FIRE, (caster, book) -> summonColumn(caster, book, "skill_fire_07", 6), "火焰漩涡");
         SkillReleases.register(FIRE, (caster, book) -> summonColumn(caster, book, "skill_fire_08", 5), "火龙卷");
     }

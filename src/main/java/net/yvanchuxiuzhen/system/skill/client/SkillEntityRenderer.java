@@ -8,9 +8,11 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.skill.entity.EntityModelRow;
-import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
+import net.yvanchuxiuzhen.system.skill.entity.SkillLook;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.constant.DataTickets;
@@ -24,11 +26,11 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  * 纹理是实体当前的纹理名（{@code textures/entities/<名>.png}），半透明渲染；有头部骨骼的实体让它随视线转动；
  * 有发光层的实体再用 {@code RenderType.eyes} 以固定纹理画一遍同一几何。
  */
-final class SkillEntityRenderer extends GeoEntityRenderer<SkillEntity> {
+final class SkillEntityRenderer<T extends Entity & GeoAnimatable & SkillLook> extends GeoEntityRenderer<T> {
     SkillEntityRenderer(EntityRendererProvider.Context context, EntityModelRow row) {
-        super(context, new Model(row));
+        super(context, new Model<>(row));
         shadowRadius = row.shadow();
-        row.glow().ifPresent(glow -> addRenderLayer(new Glow(this, entityTexture(glow))));
+        row.glow().ifPresent(glow -> addRenderLayer(new Glow<>(this, entityTexture(glow))));
     }
 
     private static ResourceLocation entityTexture(String name) {
@@ -36,11 +38,11 @@ final class SkillEntityRenderer extends GeoEntityRenderer<SkillEntity> {
     }
 
     @Override
-    public RenderType getRenderType(SkillEntity entity, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
+    public RenderType getRenderType(T entity, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
         return RenderType.entityTranslucent(texture);
     }
 
-    private static final class Model extends GeoModel<SkillEntity> {
+    private static final class Model<T extends Entity & GeoAnimatable & SkillLook> extends GeoModel<T> {
         private final EntityModelRow row;
 
         Model(EntityModelRow row) {
@@ -48,22 +50,22 @@ final class SkillEntityRenderer extends GeoEntityRenderer<SkillEntity> {
         }
 
         @Override
-        public ResourceLocation getModelResource(SkillEntity entity) {
+        public ResourceLocation getModelResource(T entity) {
             return ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "geo/" + row.geo() + ".geo.json");
         }
 
         @Override
-        public ResourceLocation getTextureResource(SkillEntity entity) {
+        public ResourceLocation getTextureResource(T entity) {
             return entityTexture(entity.texture());
         }
 
         @Override
-        public ResourceLocation getAnimationResource(SkillEntity entity) {
+        public ResourceLocation getAnimationResource(T entity) {
             return ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "animations/" + row.animation() + ".animation.json");
         }
 
         @Override
-        public void setCustomAnimations(SkillEntity animatable, long instanceId, AnimationState<SkillEntity> state) {
+        public void setCustomAnimations(T animatable, long instanceId, AnimationState<T> state) {
             super.setCustomAnimations(animatable, instanceId, state);
             row.head().flatMap(this::getBone).ifPresent(head -> {
                 EntityModelData data = state.getData(DataTickets.ENTITY_MODEL_DATA);
@@ -74,16 +76,16 @@ final class SkillEntityRenderer extends GeoEntityRenderer<SkillEntity> {
     }
 
     /** 发光层：以固定纹理、{@code eyes} 渲染类型重画几何。 */
-    private static final class Glow extends GeoRenderLayer<SkillEntity> {
+    private static final class Glow<T extends Entity & GeoAnimatable & SkillLook> extends GeoRenderLayer<T> {
         private final ResourceLocation texture;
 
-        Glow(GeoEntityRenderer<SkillEntity> renderer, ResourceLocation texture) {
+        Glow(GeoEntityRenderer<T> renderer, ResourceLocation texture) {
             super(renderer);
             this.texture = texture;
         }
 
         @Override
-        public void render(PoseStack poseStack, SkillEntity animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource,
+        public void render(PoseStack poseStack, T animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource,
                 VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
             RenderType glow = RenderType.eyes(texture);
             getRenderer().reRender(bakedModel, poseStack, bufferSource, animatable, glow, bufferSource.getBuffer(glow), partialTick, packedLight,

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import java.util.function.Supplier;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
@@ -14,11 +15,12 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
-import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
+import net.yvanchuxiuzhen.system.skill.entity.SkillLook;
 import net.yvanchuxiuzhen.system.skill.network.SkillActionPayload;
 import net.yvanchuxiuzhen.system.skill.projectile.ElementProjectiles;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
 import org.lwjgl.glfw.GLFW;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 
 /**
  * 技能系统的客户端装配：技能按键。B 取消选择（来源 {@code Jinengqvxiao}），Tab 翻页（来源 {@code Tabanjian}）；
@@ -49,10 +51,14 @@ public final class SkillClientSetup {
             event.registerEntityRenderer(SkillSetup.<SkillProjectile>entityType(id).get(), ThrownItemRenderer::new);
         }
         for (EntityModelRow row : SkillEntities.models().values()) {
-            Supplier<EntityType<SkillEntity>> type = SkillSetup.<SkillEntity>entityType(row.id());
-            if (type != null) {
-                event.registerEntityRenderer(type.get(), context -> new SkillEntityRenderer(context, row));
-            }
+            registerAnimated(event, row);
+        }
+    }
+
+    private static <T extends Entity & GeoAnimatable & SkillLook> void registerAnimated(EntityRenderersEvent.RegisterRenderers event, EntityModelRow row) {
+        Supplier<EntityType<T>> type = SkillSetup.entityType(row.id());
+        if (type != null) {
+            event.registerEntityRenderer(type.get(), context -> new SkillEntityRenderer<T>(context, row));
         }
     }
 

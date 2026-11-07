@@ -1811,10 +1811,10 @@ yvanchuxiuzhen,SkillFire02shifang,procedure,~/skill/jineng/fireskill,skill,已�
 yvanchuxiuzhen,SkillFire03,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
 yvanchuxiuzhen,SkillFire04,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
 yvanchuxiuzhen,SkillFire05,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
-yvanchuxiuzhen,SkillFire06DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillFire06DangShiTiBeiShaSiShi,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillFire06,animatedentity,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SkillFire06shifang,procedure,~/skill/jineng/fireskill,skill,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,SkillFire06DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火鸟术（可驯服飞行实体：跟随主人、冲撞目标、近身 3 刻后爆发，1200 刻寿命；施放过程在火鸟术技能名下生成）
+yvanchuxiuzhen,SkillFire06DangShiTiBeiShaSiShi,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火鸟术（可驯服飞行实体：跟随主人、冲撞目标、近身 3 刻后爆发，1200 刻寿命；施放过程在火鸟术技能名下生成）
+yvanchuxiuzhen,SkillFire06,animatedentity,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火鸟术（可驯服飞行实体：跟随主人、冲撞目标、近身 3 刻后爆发，1200 刻寿命；施放过程在火鸟术技能名下生成）
+yvanchuxiuzhen,SkillFire06shifang,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火鸟术（可驯服飞行实体：跟随主人、冲撞目标、近身 3 刻后爆发，1200 刻寿命；施放过程在火鸟术技能名下生成）
 yvanchuxiuzhen,Shujvtongbu,procedure,~/systemset,xiulian,已读,C attribute 归属阅读：PlayerTick 调用，把当前灵力、神识、修为（不超过上限）与灵力、神识上限写入实体 NBT synchronous*；两个来源中没有读取者，写入无效果
 yvanchuxiuzhen,SkillFire07DangShiTiGengXinKeShi,procedure,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移
 yvanchuxiuzhen,SkillFire07,animatedentity,~/skill/jineng/fireskill,skill,已读,C skill 归属阅读：火系实体技能，大火球、引火、控火术、火焰护盾、火焰漩涡、火龙卷的施放过程与实体刻过程；火鸟术（带 AI 的可驯服实体）另行迁移

@@ -13,22 +13,16 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 /**
@@ -38,19 +32,14 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * {@code jinengName}）改为字段，其余各技能私有的计数与标记仍用 {@code getPersistentData}。纹理名同步给客户端（默认值是该实体在来源里定义的纹理），
  * 过程动画 {@link #setAnimation} 同步名字给客户端，由 GeckoLib 的 {@code procedure} 控制器播放一次，之后回到默认循环动画。
  */
-public final class SkillEntity extends PathfinderMob implements GeoEntity {
-    private static final String NO_ANIMATION = "empty";
+public final class SkillEntity extends PathfinderMob implements GeoEntity, SkillLook {
     private static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(SkillEntity.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(SkillEntity.class, EntityDataSerializers.STRING);
 
     private final EntityModelRow model;
     private final EntitySkill skill;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
-    private UUID attacker;
-    private double attackDamage;
-    private double multiplier;
-    private String damageType = "";
-    private String skillName = "";
+    private final SkillCast cast = new SkillCast();
     private float hitboxScale = 1;
 
     public SkillEntity(EntityType<SkillEntity> type, Level level, EntityModelRow model, EntitySkill skill) {
@@ -63,18 +52,14 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
         setTexture(model.texture());
     }
 
-    public static AttributeSupplier.Builder createAttributes(EntityModelRow model) {
-        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, model.speed()).add(Attributes.MAX_HEALTH, model.health())
-                .add(Attributes.ARMOR, model.armor()).add(Attributes.ATTACK_DAMAGE, model.attack()).add(Attributes.FOLLOW_RANGE, model.follow());
-    }
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(TEXTURE, "");
-        builder.define(ANIMATION, NO_ANIMATION);
+        builder.define(ANIMATION, SkillAnimations.NONE);
     }
 
+    @Override
     public String texture() {
         return entityData.get(TEXTURE);
     }
@@ -97,11 +82,11 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
     }
 
     public void configure(UUID attacker, double attackDamage, double multiplier, String damageType, String skillName) {
-        this.attacker = attacker;
-        this.attackDamage = attackDamage;
-        this.multiplier = multiplier;
-        this.damageType = damageType;
-        this.skillName = skillName;
+        cast.configure(attacker, attackDamage, multiplier, damageType, skillName);
+    }
+
+    public SkillCast cast() {
+        return cast;
     }
 
     /** 按倍数放大碰撞箱（来源重写 {@code getDimensions} 乘以实体里记下的比例）；放入世界之前设置，进入世界时按此尺寸生成。 */
@@ -117,27 +102,27 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
 
     /** 攻击者；已离线或不在本维度时为空。 */
     public Entity attackerEntity() {
-        return attacker == null || !(level() instanceof ServerLevel server) ? null : server.getEntity(attacker);
+        return level() instanceof ServerLevel server ? cast.attackerEntity(server) : null;
     }
 
     public UUID attacker() {
-        return attacker;
+        return cast.attacker();
     }
 
     public double attackDamage() {
-        return attackDamage;
+        return cast.attackDamage();
     }
 
     public double multiplier() {
-        return multiplier;
+        return cast.multiplier();
     }
 
     public String damageType() {
-        return damageType;
+        return cast.damageType();
     }
 
     public String skillName() {
-        return skillName;
+        return cast.skillName();
     }
 
     @Override
@@ -206,38 +191,21 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity {
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putString("texture", texture());
-        tag.putDouble("attack_damage", attackDamage);
-        tag.putDouble("multiplier", multiplier);
-        tag.putString("damage_type", damageType);
-        tag.putString("skill_name", skillName);
+        cast.save(tag);
         tag.putFloat("hitbox_scale", hitboxScale);
-        if (attacker != null) {
-            tag.putUUID("attacker", attacker);
-        }
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         setTexture(tag.getString("texture"));
-        attackDamage = tag.getDouble("attack_damage");
-        multiplier = tag.getDouble("multiplier");
-        damageType = tag.getString("damage_type");
-        skillName = tag.getString("skill_name");
+        cast.load(tag);
         setHitboxScale(tag.contains("hitbox_scale") ? tag.getFloat("hitbox_scale") : 1);
-        attacker =tag.hasUUID("attacker") ? tag.getUUID("attacker") : null;
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<SkillEntity>(this, "main", 0, state -> {
-            String loop = model.air().isPresent() && !onGround() ? model.air().get() : model.idle();
-            return state.setAndContinue(RawAnimation.begin().thenLoop(loop));
-        }));
-        controllers.add(new AnimationController<SkillEntity>(this, "procedure", 0, state -> {
-            String requested = entityData.get(ANIMATION);
-            return requested.equals(NO_ANIMATION) ? PlayState.STOP : state.setAndContinue(RawAnimation.begin().thenPlay(requested));
-        }));
+        SkillAnimations.register(controllers, this, model, () -> entityData.get(ANIMATION));
     }
 
     @Override

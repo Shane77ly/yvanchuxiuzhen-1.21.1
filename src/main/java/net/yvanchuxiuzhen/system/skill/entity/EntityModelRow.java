@@ -3,6 +3,9 @@ package net.yvanchuxiuzhen.system.skill.entity;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 
 /**
  * 技能动画实体的表现与属性（{@code content/skill/entity_models.json}，由 {@code extract_entity_models.py} 从来源的
@@ -28,4 +31,15 @@ public record EntityModelRow(String id, String geo, String animation, float shad
             Codec.DOUBLE.fieldOf("follow").forGetter(EntityModelRow::follow),
             Codec.BOOL.fieldOf("no_ai").forGetter(EntityModelRow::noAi)
     ).apply(instance, EntityModelRow::new));
+
+    /** 默认循环动画：有离地动画的实体离地时用它。 */
+    public String loop(boolean onGround) {
+        return air.isPresent() && !onGround ? air.get() : idle;
+    }
+
+    /** 生物属性：移速、生命、护甲、攻击、跟踪范围。 */
+    public AttributeSupplier.Builder attributes() {
+        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, speed).add(Attributes.MAX_HEALTH, health).add(Attributes.ARMOR, armor)
+                .add(Attributes.ATTACK_DAMAGE, attack).add(Attributes.FOLLOW_RANGE, follow);
+    }
 }

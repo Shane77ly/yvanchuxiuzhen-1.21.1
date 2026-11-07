@@ -11,8 +11,6 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
-import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
-import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
@@ -52,12 +50,15 @@ public final class SkillEntities {
     }
 
     public static void register(ContentTables tables) {
-        for (EntityModelRow row : models().values()) {
+        Map<String, EntityModelRow> models = models();
+        for (EntityModelRow row : models.values()) {
             EntitySkill skill = SKILLS.get(row.id());
             if (skill != null) {
-                tables.<SkillEntity>livingEntity(row.id(), (type, level) -> new SkillEntity(type, level, row, skill), () -> SkillEntity.createAttributes(row));
+                tables.<SkillEntity>livingEntity(row.id(), (type, level) -> new SkillEntity(type, level, row, skill), row::attributes);
             }
         }
+        EntityModelRow bird = models.get(FireBird.ID);
+        tables.<FireBird>livingEntity(FireBird.ID, (type, level) -> new FireBird(type, level, bird), () -> FireBird.attributes(bird));
     }
 
     /** 以施放者所选技能的攻击量、伤害倍率与名字召唤（尚未放入世界）；实体继承施放者的团队与友方集合。 */
@@ -90,16 +91,12 @@ public final class SkillEntities {
 
     /** 实体对 {@code other} 造成自己记下的类别、攻击量与倍率的灵力伤害；{@code other} 不是生物时没有效果。 */
     public static void strike(SkillEntity self, Entity other) {
-        if (other instanceof LivingEntity living) {
-            SpellDamage.deal((ServerLevel) self.level(), living, DamageCategory.byLabel(self.damageType()), self.attacker(), false, self.attackDamage(), self.multiplier());
-        }
+        self.cast().strike((ServerLevel) self.level(), other);
     }
 
     /** 同 {@link #strike}，攻击量与倍率先取整（来源经 {@code DecimalFormat("0")} 拼进命令的调用）。 */
     public static void strikeRounded(SkillEntity self, Entity other) {
-        if (other instanceof LivingEntity living) {
-            SpellDamage.dealRounded((ServerLevel) self.level(), living, DamageCategory.byLabel(self.damageType()), self.attacker(), false, self.attackDamage(), self.multiplier());
-        }
+        self.cast().strikeRounded((ServerLevel) self.level(), other);
     }
 
     /** 实体是不是登记为 {@code id} 的技能实体。 */
