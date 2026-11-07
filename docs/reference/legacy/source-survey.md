@@ -138,6 +138,8 @@ updated: 2026-11-07
 | Q51 | 身法双击窗口触发后不清空，十刻内后续按下仍可触发，冷却只检查追加前不超过上限；W 的移速效果不受位移冷却限制。轻功的 superjet 先清零再读扣费，因此喷射实际不额外扣灵力；flying 附魔减耗系数仅在大于零时使用，等级总和达到 20 后恢复全额耗费。起飞的拔空术速度 2 会立即被外层开关速度 0.5 覆盖；圆环和两行云雾把角度数值直接作弧度。依据 ShenfaW/S/A/D/space、ShenfaTick、FlyskillTick、Flyskillkaishitexiao 与 FanjianAnXiaAnJianShi，评估轻微，保持来源顺序和结果 | [技能](../../systems/skill/architecture.md) |
 | Q52 | 技能界面三处来源疑点：神识扫描在服务端定时回调中调用 `Level.addParticle`，该空方法不发送粒子，实际只有扣神识和关闭菜单；自爆先安排延迟爆炸与火伤，随后当下扣寿元并杀死玩家，死亡后回调仍执行；四技能背景的数值 6 没有写入者。依据 `Jinengsaomiao`、`Jinengzibao`、`JinengGuiDangZheGeJieMianDaKaiShi` 及显示过程；扫描的空方法另以缓存 1.18.2 / Forge 40.3.0 源码与目标 21.1.265 源码核对，非锁定 40.1.0 实机证据。评估轻微，保持来源顺序，不补造扫描或背景效果 | [技能](../../systems/skill/architecture.md) |
 
+| Q53 | `Skillarrow08fudu` 的合成事件没有附毒逻辑：仅在产物为第 08 箭时，将第二合成格的物品文本截去前两字符，再与 `cailiao_141` 比较，成立时显示 `111`。1.21.1 的 `Item.toString` 多了命名空间，目标显式构造来源的数量加路径文本，保留两位数量时无法匹配的结果；1.18.2 文本格式以缓存 Forge 40.3.0 静态对照，不称锁定 40.1.0 实机证据。`SkillArrow00–10skill` 没有有效事件、Java 或资源调用入口；`ArrowSkillchufa` 只被 `AnjianZ` 未连接触发器的游离 Blockly 块引用，生成 Java 不调用，故其施加的“心如止水”也没有自然入口或行为消费者。评估轻微，保留效果身份与图标，不增设附毒、箭技或效果入口 | [技能](../../systems/skill/architecture.md) |
+
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 
 ## 源码位置

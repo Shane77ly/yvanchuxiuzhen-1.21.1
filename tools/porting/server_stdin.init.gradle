@@ -1,0 +1,8 @@
+// 将开发服务端控制台输入接入原生 stop 命令；仅用于本次 Gradle 运行。
+allprojects {
+    tasks.withType(JavaExec).configureEach {
+        if (name == 'runServer') {
+            standardInput = System.in
+        }
+    }
+}

@@ -8,6 +8,7 @@ JSON 中的引用同步改写。方块 Java 通过 registerRenderLayer 声明的
 （所属单位、种类 block/item/texture/geo/animation、目标 ID 或来源纹理 ID）迁移，geo、animation 是 GeckoLib 的几何与动画文件。来源桶模型的 forge:bucket 加载器改写为 neoforge:fluid_container。
 每个输出文件登记到 docs/reference/conversion/manifest.csv（来源路径、来源哈希、目标路径）。
 同一目标路径来自内容不同的来源文件时报错。
+已登记状态效果的图标按来源注册 ID 读取 textures/mob_effect，按台账目标 ID 写入同一图集目录。
 """
 from __future__ import annotations
 
@@ -202,6 +203,14 @@ class Converter:
         mod, file = found[0]
         self.emit(file, mod, ASSETS / relative, file.read_bytes())
 
+    def effect_icon(self, mod: str, path: str, target: str) -> None:
+        """状态效果图标按注册 ID 从 mob_effect 图集读取，目标路径跟随台账映射。"""
+        file = self.roots[mod] / mod / 'textures/mob_effect' / f'{path}.png'
+        if not file.is_file():
+            self.missing.append((f'{mod}:{path}', '状态效果图标'))
+            return
+        self.emit(file, mod, ASSETS / 'textures/mob_effect' / f'{target}.png', file.read_bytes())
+
     def item(self, mod: str, path: str, target: str, parents: dict[str, str]) -> None:
         file = self.roots[mod] / mod / 'models/item' / f'{path}.json'
         if not file.is_file():
@@ -245,11 +254,14 @@ def json_bytes(data) -> bytes:
 def main() -> None:
     converter = Converter()
     origin: dict[tuple[str, str], tuple[str, str]] = {}
+    effects: list[dict] = []
     for rows in read_ledgers().values():
         for row in rows:
             if row['registry'] in ('block', 'item'):
                 mod, path = row['legacy_id'].split(':', 1)
                 origin[(row['registry'], row['target_id'].split(':', 1)[1])] = (mod, path)
+            elif row['registry'] == 'mob_effect' and row['status'] != '待处理':
+                effects.append(row)
     layers = {}
     for mod, (root, prefix) in SOURCES.items():
         text = (root / f'src/main/java/net/mcreator/{mod}/init/{prefix}ModBlocks.java').read_text(encoding='utf-8')
@@ -279,6 +291,9 @@ def main() -> None:
         if file.is_file():
             for row in json.loads(file.read_text(encoding='utf-8')):
                 converter.armor_textures(row['texture'])
+    for row in effects:
+        mod, path = row['legacy_id'].split(':', 1)
+        converter.effect_icon(mod, path, row['target_id'].split(':', 1)[1])
     with (ROOT / 'docs/reference/conversion/screen_textures.csv').open(encoding='utf-8') as handle:
         for row in csv.DictReader(handle):
             converter.copy_texture(row['texture'], row['texture'].split(':', 1)[0])

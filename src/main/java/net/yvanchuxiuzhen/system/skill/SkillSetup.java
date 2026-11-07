@@ -2,6 +2,8 @@ package net.yvanchuxiuzhen.system.skill;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -10,9 +12,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.ItemSwingEvent;
 import net.yvanchuxiuzhen.system.combat.api.HitEvent;
@@ -57,6 +61,7 @@ public final class SkillSetup {
         SkillDelays.register();
         NeoForge.EVENT_BUS.addListener(SkillSetup::onRightClickItem);
         NeoForge.EVENT_BUS.addListener(SkillSetup::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(SkillSetup::onCrafted);
         NeoForge.EVENT_BUS.addListener((ItemSwingEvent event) -> WeaponArts.onSwing(event));
         NeoForge.EVENT_BUS.addListener((HitEvent event) -> LingwenHit.onHit(event));
         NeoForge.EVENT_BUS.addListener((HitEvent event) -> Corpses.onHit(event));
@@ -81,6 +86,19 @@ public final class SkillSetup {
             WeaponArts.tick(player);
             SkillFlight.tick(player);
             Yuanying.tick(player);
+        }
+    }
+
+    /** 来源 Skillarrow08fudu 只比较合成格第二槽的物品文本并发送消息，不写入毒性数据。 */
+    private static void onCrafted(PlayerEvent.ItemCraftedEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player
+                && BuiltInRegistries.ITEM.getKey(event.getCrafting().getItem()).toString().equals(ModId.VALUE + ":skill_arrow_08")) {
+            ItemStack material = event.getInventory().getItem(1);
+            // 1.18.2 的 Item.toString 只有路径；保留来源截去前两个字符的次序与两位数量时的空格。
+            String text = material.getCount() + " " + BuiltInRegistries.ITEM.getKey(material.getItem()).getPath();
+            if ((ModId.VALUE + ":" + text.substring(2)).equals(ModId.VALUE + ":cailiao_141")) {
+                player.displayClientMessage(Component.literal("111"), false);
+            }
         }
     }
 

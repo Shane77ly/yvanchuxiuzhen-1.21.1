@@ -66,6 +66,18 @@ public final class ElementProjectiles {
         release("水", "projectile_skill_ice_02", 1, 0, "破碎冰矛");
         release("水", "projectile_skill_ice_03", 1, 0, "飞羽冰花");
         release("木", "projectile_skill_tree_01", 1, 0, "拈花飞叶");
+        SkillReleases.register("木", (caster, book) -> {
+            double angle = caster.getYRot() + 90 - 30;
+            double vertical = 5 * Math.sin(-caster.getXRot() * (Math.PI / 180));
+            for (int index = 0; index < 5; index++) {
+                double cosine = Math.cos(angle * (Math.PI / 180));
+                double sine = Math.sin(angle * (Math.PI / 180));
+                Vec3 origin = caster.position().add(cosine, 1.5, sine);
+                Vec3 direction = new Vec3(3 * cosine, vertical, 3 * sine);
+                ProjectileSupport.shoot(caster.serverLevel(), caster, "projectile_skill_tree_01", origin, direction, 2, 1, 0).setSilent(true);
+                angle += 15;
+            }
+        }, "满天花雨");
         release("木", "projectile_skillwind_01", 2, 0, "风弹术");
         release("火", "projectile_skill_fire_01", 2, 0, "火球术", "连环火球术");
         release("火", "projectile_skill_light_01", 0, 10, "光弹术");
