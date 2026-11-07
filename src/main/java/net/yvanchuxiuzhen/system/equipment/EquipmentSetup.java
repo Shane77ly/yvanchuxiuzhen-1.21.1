@@ -11,11 +11,14 @@ import net.yvanchuxiuzhen.platform.content.ItemRow;
 import net.yvanchuxiuzhen.platform.content.LegacyTier;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao010Item;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao010huoyanItem;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.HossuItem;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
+import net.yvanchuxiuzhen.system.equipment.projectile.Fabao010huoyan;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fuchen;
 import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
 
@@ -32,6 +35,8 @@ public final class EquipmentSetup {
         EquipmentData.register(modBus);
         EquipmentMenus.register(modBus);
         CONTENT.itemFactory("equipment:fuchen", FuchenItem::new);
+        CONTENT.itemFactory("equipment:fabao_010", Fabao010Item::new);
+        CONTENT.itemFactory("equipment:fabao_010huoyan", Fabao010huoyanItem::new);
         for (ItemRow row : ContentFiles.read("content/equipment/items.json", ItemRow.CODEC)) {
             if (row.factory().startsWith("equipment:weaponhossu_")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
@@ -45,6 +50,7 @@ public final class EquipmentSetup {
             }
         }
         CONTENT.entity(Fuchen.ID, Fuchen::new);
+        CONTENT.entity(Fabao010huoyan.ID, Fabao010huoyan::new);
         for (EntityModelRow model : ContentFiles.read("content/equipment/entity_models.json", EntityModelRow.CODEC)) {
             ToolMachineEntity.Kind kind = switch (model.id()) {
                 case "gongjvfu" -> ToolMachineEntity.Kind.AXE;
@@ -81,6 +87,10 @@ public final class EquipmentSetup {
 
     public static Supplier<EntityType<KailingProjectile>> kailingProjectileType() {
         return CONTENT.entityType(KailingProjectile.ID);
+    }
+
+    public static Supplier<EntityType<Fabao010huoyan>> fabao010FireType() {
+        return CONTENT.entityType(Fabao010huoyan.ID);
     }
 
     public static Supplier<EntityType<ToolMachineEntity>> toolMachineType(ToolMachineEntity.Kind kind) {

@@ -94,6 +94,22 @@ Q57：弓读取实体 `synchronizedata.rightclicking`，绑定的右键过程为
 
 证据：`tmp/equipment-server.log`、`tmp/equipment-build.log`、`tmp/equipment-smoke.log`、`tmp/equipment-report.txt`、`tmp/equipment-family-source.txt`。1.18.2 实机、两版本对照、多人、完整声音及视觉验收未执行；人工标记不代表来源自然右键入口可用。妖化见下节；品阶、饰品飞行减耗与其他装备功能留待后续批次。
 
+## 覆火葫芦（2026-11-08）
+
+### 来源行为与数据
+
+来源入口为 `Fabao010DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure` 的物品右键过程。普通右键按 `fire10num` 到 `fire1num` 逆序选择最高可用等级；十级至二级分别消耗 `256/128/64/32/16/8/4/2/1` 灵力，一级不消耗，高等级不足时回退低等级；没有火焰提示“空”，有火焰但全部不足提示“您的灵力不足！”。发射速度为 `0.6`、散布参数为 `10`、基础伤害为 `0.1`，二级至十级调用对应材料实体，一级调用普通火焰实体。
+
+潜行右键以视线前方五格的方块为中心扫描 `-4` 至 `3` 的三个坐标偏移，共 `8×8×8` 个位置。普通火与灵魂火为一级；`cailiao_221`–`229`、`231`–`239` 对应二级至十级。法宝等级门槛为 `1/6/11/16/21/26/31/36/41`，吸收后将方块清为空气并增加对应火焰数量。目标用类型化 `FabaoFireData` 组件保存十个数量，服务端是唯一真值。
+
+### 目标实现
+
+`Fabao010Item` 接收普通与潜行右键，调用 yihuo 的 `absorbFire`、`fabaoAbsorptionGrade` 和 `shootMaterial` 公开接口；不直接修改异火持久对象。`Fabao010huoyan` 为 `AbstractArrow` 弹体，保持无重力、火焰粒子、十刻寿命、插地移除、命中方块上方放置普通火和来源命中后的 `ManaAttackDamage` 等字段写入。隐藏 `fabao_010huoyan` 物品松开发射同一弹体，速度 `2`、散布 `0`、禁止拾取并扣一点耐久。两个物品使用专用工厂，弹体登记为 `projectile_fabao_010huoyan`。
+
+### 验证范围
+
+静态核对依据为上述 1.18.2 版本过程；目标 API 按 NeoForge 21.1.265 源码改写。`gradlew build`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 通过。沿用现有 `runSmokeClient -PsmokeOnly=equipmentweapon`，五项既有弓与拂尘检查全部 `DONE`，客户端正常保存退出，`run/logs/latest.log` 未见 `ERROR/FATAL`。该 smoke 只证明新增物品、实体注册和客户端装配未阻塞启动，不替代覆火葫芦吸收、发射、命中、组件存档和视觉的专项验收。未执行 1.18.2 实机、两版本对照、多人及完整视觉验收。
+
 ## 妖化（2026-11-07）
 
 ### 来源与入口

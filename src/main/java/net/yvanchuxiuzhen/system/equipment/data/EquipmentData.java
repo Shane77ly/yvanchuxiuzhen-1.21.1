@@ -14,6 +14,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProduct;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
+import net.yvanchuxiuzhen.system.equipment.api.FabaoFireData;
 
 /** 装备实例组件随物品保存、同步；四饰品附件随玩家保存、死亡复制并只同步本人。 */
 public final class EquipmentData {
@@ -28,6 +29,8 @@ public final class EquipmentData {
             builder -> builder.persistent(EquipmentStats.CODEC).networkSynchronized(EquipmentStats.STREAM_CODEC));
     public static final Supplier<DataComponentType<EquipmentProduct>> PRODUCT = COMPONENTS.registerComponentType("equipment_product",
             builder -> builder.persistent(EquipmentProduct.CODEC).networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(EquipmentProduct.CODEC)));
+    public static final Supplier<DataComponentType<FabaoFireData>> FABAO_FIRE = COMPONENTS.registerComponentType("fabao_fire",
+            builder -> builder.persistent(FabaoFireData.CODEC).networkSynchronized(ByteBufCodecs.fromCodec(FabaoFireData.CODEC)));
     public static final Supplier<DataComponentType<DemonTimer>> DEMON_TIMER = COMPONENTS.registerComponentType("demon_timer",
             builder -> builder.persistent(DemonTimer.CODEC).networkSynchronized(ByteBufCodecs.fromCodec(DemonTimer.CODEC)));
 

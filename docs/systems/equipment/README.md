@@ -52,3 +52,9 @@ updated: 2026-11-08
 四种工具机分别复现来源的持久状态机：斧按 `8 × 开灵等级` 扫描日志、寻路、11刻采集和3×3×3树叶清理；镐按附着方向螺旋搜索石质、冰或黏土方块，每轮最多处理25个目标；锄和铲扫描地面并在5刻后清除植物、改为湿润度7的耕地。工具机寿命使用来源的 `fumodengji × 2400`，斧与镐保留来源过程中的 `×400` 缺省初始化。所有状态字段随实体持久化，采集掉落由服务端按来源主人条件处理。
 
 本批未新增 Test 类、冒烟选择器或 Computer Use 流程。`gradlew build`、`check_docs.py` 与 `check_ledger.py` 均通过；沿用项目现有的 `runSmokeClient -PsmokeOnly=equipmentweapon`，五项既有弓与拂尘检查全部符合并以 `DONE` 结束，客户端正常保存退出，未见 `ERROR/FATAL`。该既有检查用于确认新增实体注册、客户端装配和公共启动不阻塞，不替代工具机四类自然操作的专项验收。专用服务器启动至 `Done` 后以原生 `stop` 正常保存退出，实体导出 91 个；证据为 `build/smoke/report.txt`、`run/logs/latest.log` 与 `build/registry-export/entity_type.txt`。
+
+## 覆火葫芦（2026-11-08）
+
+按 1.18.2 版本 `Fabao010DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure` 逐行接回 `fabao_010`：普通右键从十级到一级选择最高可用火焰，十级至二级灵力消耗为 `256/128/64/32/16/8/4/2/1`，一级不消耗；高等级灵力不足时继续尝试低等级。潜行右键以视线五格方块为中心扫描 `8×8×8`，普通火、灵魂火和 `cailiao_221`–`229`、`231`–`239` 分别吸收为一级至十级火焰，并按法宝等级门槛限制。火焰数量使用 `FabaoFireData` 组件保存，普通火焰由 `Fabao010huoyan` 弹体释放；弹体保持无重力、十刻寿命、火焰粒子、命中方块上方放置普通火及来源命中字段写入。隐藏物品松开发射速度为 `2`、散布为 `0`，禁止拾取并保留来源耐久消耗。
+
+本批未新增 Test 类、冒烟选择器或 Computer Use。`gradlew build`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 通过；沿用 `runSmokeClient -PsmokeOnly=equipmentweapon`，既有五项弓与拂尘检查全部 `DONE`，客户端正常保存退出，日志未见 `ERROR/FATAL`。该客户端检查仅证明覆火葫芦的注册、资源加载和公共客户端启动不阻塞，不替代火焰吸收、发射、命中与存档的完整自然操作验收。1.18.2 实机、两版本对照、多人及完整视觉验收未执行。
