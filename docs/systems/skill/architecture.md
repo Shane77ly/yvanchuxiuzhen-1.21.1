@@ -2,7 +2,7 @@
 topic: skill
 role: architecture
 status: draft
-updated: 2026-11-07
+updated: 2026-11-08
 ---
 
 # 技能：架构调查与提案
@@ -225,7 +225,7 @@ Q62：逐项读取35个来源动画资源中的实际名字，仅伤害范围默
 
 来源为 `SkillArrow01–10Entity`、对应飞行过程、共用的实体命中过程（551 行）与方块命中过程，以及技能界面按钮 6–16。真实发射者是 equipment 的 `Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi`；十个箭物品保留右键使用和 72000 刻使用时长；第 01–09 箭使用矛式动画，第 10 箭为 `UseAnim.NONE`，但其 `releaseUsing` 条件过程恒为假，不发射也不损耗。`SkillArrow00–10skill` 与 `ArrowSkillchufa` 的孤立入口及 `skill_arrowxinruzhishui` 已完成静态核对，见“剩余元素与入口核对”，不新接正常施放。
 
-`Skills.createArrow` 返回尚未加入世界的箭；equipment 负责基础箭伤、位置、速度、蓄力、资源消耗和修饰键输入。创建时写入来源的 `arrowskill`、`manxvli` 标记，第一次飞行刻在箭基类命中之后消费并清空，模式只选一次。潜行优先于 Ctrl，Ctrl 优先于 Alt；满蓄力限制仅用于相应增伤分支。箭雨通过普通实体工厂生成新箭，保留基础箭伤、不继承模式。箭的模式、计时、无限与掉落标记使用实体持久数据；击退、穿透另外随箭保存。
+`Skills.createArrow` 返回尚未加入世界的箭；equipment 负责基础箭伤、位置、速度、蓄力、资源消耗和修饰键输入。创建时写入来源的 `arrowskill`、`manxvli` 标记，第一次飞行刻在箭基类命中之后消费并清空，模式只选一次。潜行优先于 Ctrl，Ctrl 优先于 Alt；满蓄力限制仅用于相应增伤分支。箭雨通过普通实体工厂生成新箭，保留基础箭伤、不继承模式。箭的模式、计时、无限与掉落标记使用实体持久数据；穿透使用原生PierceLevel保存并读回共用弹体字段，击退按1.18.2版本原生行为不保存。
 
 | 箭 | 飞行模式与主要命中行为 |
 | --- | --- |
@@ -338,3 +338,15 @@ Q54：`SkillGold0201DangSiWangShiJianDaoShiProcedure` 中虽有黄色破碎粒�
 完整核对1.18.2版本 `SkillArrow01–10Item` 和共同释放条件过程：第01–09箭为 `UseAnim.SPEAR`，第10箭实际为 `UseAnim.NONE`；第02和10箭堆叠上限一且不在创造栏，其余箭的属性保持来源。十种物品均开始使用当前手物品，使用时长72000刻，释放条件恒为假。原先 `SkillArrowItem` 错把第10箭也统一为矛式，现由所属系统的 `skill:arrow` 和 `skill:light_arrow` 工厂传入各自原生动画，仍使用同一个物品类；转换覆盖表和生成内容表同步。目标NeoForge21.1.265的 `Item.getUseAnimation/getUseDuration/releaseUsing` 与 `UseAnim` 已核对。源码路径、行号和SHA256见 `tmp/arrow-items-source-audit.log`。
 
 转换只改变第10箭的一行工厂配置，`build` 含ArchUnit通过；沿用已有 `runSmokeClient -PsmokeOnly=skillarrow`，12项全部通过并DONE，四世界正常保存退出、ERROR/FATAL0，没有新增或修改任何检查代码、Test类或选择器。该场景证明新工厂可随真实客户端加载及原有箭选择、命中、掉落和内爆/保存主路径可运行，未逐项查看手持动画；动画差异本轮为静态源码核对与实际装配证据，完整视觉及两版本对照未验收。FML配置finally按原字节还原、SHA256一致。证据 `tmp/arrow-items-{convert.log,build.log,client.log,report.txt,config-restore.log}`；本轮未运行专用服务器，skill仍未完成。
+
+## 共用弹体保存与命中箭数复核（2026-11-08）
+
+1.18.2版本的火球飞行过程将攻击量、倍率、技能名和计时写入实体持久数据；飞羽冰花与金轮的方向/角度、飞石的初始化标记同样如此。Forge40.1.0的Entity补丁把持久数据复制到ForgeData并在载入时恢复；原生NoGravity也保存，不能依赖重读后再次触发初始化。目标此前把这些值改为普通字段却未保存，载入已初始化的弹体会丢失数值和进度。现在由共用SkillProjectile写入skillProjectile复合标签：ticks对应tick、mana对应jinengmanaatt、multiplier对应jinengshanghai、skillName对应jinengName、angle对应jiaodu、reversed对应fangxiang、saved对应baocun。仍留在原生持久数据中的其他键继续由NeoForge保存。
+
+穿透仍保存为原生PierceLevel；NeoForge21.1.265的原生读取写私有字段，共用类覆盖getter使用自己的字段，现同步读回。1.18.2原生AbstractArrow不保存击退等级，撤掉技能箭此前额外保存的skillArrowKnockback，不向共用标签增加击退；依据是Forge40.3.11映射载体的完整保存/读取方法，并核对精确来源Forge40.1.0补丁无此项改动，未把映射载体冒称40.1.0完整源码。
+
+逐个核对26个对应来源箭类的doPostHurtEffects，全部在super之后无条件减一箭数。目标此前仅十种技能箭做了减回，现统一放到共用类，删除技能箭重复钩子；不增加穿透条件或数值钳制。静态证据为tmp/projectile-state-source-audit.log，含来源方法、四个飞行过程相关保存字段、来源精确补丁、原生保存/命中链与SHA256；这不表示26类完整生命周期已逐类复核。
+
+验证：build compileSmokeJava及ArchUnit通过。已有skillparticle场景只补三项真实保存/命中Bug回归，共五项全部通过，覆盖原生实体保存重读、飞羽冰花下一刻从3推进至5且角度45减至25，以及共用火球真实命中不留插箭。首轮同时运行已有skillarrow，十一项通过、箭雨一项失败；报告DONE、四世界保存退出、ERROR/FATAL0。只给原箭雨断言增加诊断后复跑，实际剩17支，主箭已命中、模式为箭雨、服务端经过12刻；退出阶段另有两条ClosedChannelException错误，四世界仍保存完成。读取该失败存档确认场地上方Y=76–86处存在155个橡树叶和4个原木：通用场地只清空脚上7格，而箭雨生成在命中点上方16格，存活数检查受未清理树冠干扰。
+
+仅将SkillArrowCheck本场景的清空高度延长到脚上18格，保留20支、主人和非递归断言；最终只运行skillarrow，十二项全部通过、实测箭雨20支、DONE、四世界保存并正常退出、ERROR/FATAL0。没有新增Test类或选择器，没有重跑整套skill。三次FML配置都finally按原字节恢复，SHA256相同。首轮、诊断和最终结果分别在tmp/projectile-state-{first,arrow,final}-{client.log,report.txt,config-restore.log}，场地证据tmp/projectile-state-rain-world-audit.log，构建tmp/projectile-state-build.log。未运行专用服务器，未逐类实机验证全部弹体；完整视觉、多人、1.18.2版本实机和两版本对照未执行，skill仍未完成。

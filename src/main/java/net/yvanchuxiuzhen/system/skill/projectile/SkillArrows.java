@@ -62,41 +62,15 @@ public final class SkillArrows {
         return arrow;
     }
 
-    /** 技能箭不增加插在生物身上的箭数，拾取由命中方块过程生成物品；击退与穿透随箭保存。 */
+    /** 技能箭不提供物品模型，拾取由命中方块过程生成物品；共用生命周期由 SkillProjectile 承担。 */
     private static final class Arrow extends SkillProjectile {
-        private int launchKnockback;
-
         private Arrow(EntityType<SkillProjectile> type, Level level, int kind) {
             super(type, level, new Behavior(kind));
         }
 
         @Override
-        public SkillProjectile launchedWith(int knockback, int pierce) {
-            launchKnockback = knockback;
-            return super.launchedWith(knockback, pierce);
-        }
-
-        @Override
         public ItemStack getItem() {
             return ItemStack.EMPTY;
-        }
-
-        @Override
-        protected void doPostHurtEffects(LivingEntity target) {
-            super.doPostHurtEffects(target);
-            target.setArrowCount(target.getArrowCount() - 1);
-        }
-
-        @Override
-        public void addAdditionalSaveData(CompoundTag tag) {
-            super.addAdditionalSaveData(tag);
-            tag.putInt("skillArrowKnockback", launchKnockback);
-        }
-
-        @Override
-        public void readAdditionalSaveData(CompoundTag tag) {
-            super.readAdditionalSaveData(tag);
-            launchedWith(tag.getInt("skillArrowKnockback"), tag.getByte("PierceLevel"));
         }
     }
 

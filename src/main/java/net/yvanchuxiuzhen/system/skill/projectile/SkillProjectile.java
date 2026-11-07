@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.skill.projectile;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -81,6 +82,41 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
     @Override
     public byte getPierceLevel() {
         return pierce;
+    }
+
+    @Override
+    protected void doPostHurtEffects(LivingEntity target) {
+        super.doPostHurtEffects(target);
+        target.setArrowCount(target.getArrowCount() - 1);
+    }
+
+    /** 来源实体持久化数据中的施放快照、计时与轨迹；穿透继续使用原生 PierceLevel。 */
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        CompoundTag state = new CompoundTag();
+        state.putInt("ticks", ticks);
+        state.putDouble("mana", mana);
+        state.putDouble("multiplier", multiplier);
+        state.putString("skillName", skillName);
+        state.putDouble("angle", angle);
+        state.putBoolean("reversed", reversed);
+        state.putBoolean("saved", saved);
+        tag.put("skillProjectile", state);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        CompoundTag state = tag.getCompound("skillProjectile");
+        ticks = state.getInt("ticks");
+        mana = state.getDouble("mana");
+        multiplier = state.getDouble("multiplier");
+        skillName = state.getString("skillName");
+        angle = state.getDouble("angle");
+        reversed = state.getBoolean("reversed");
+        saved = state.getBoolean("saved");
+        pierce = tag.getByte("PierceLevel");
     }
 
     @Override

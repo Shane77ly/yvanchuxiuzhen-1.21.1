@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.smoke;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
@@ -35,6 +37,7 @@ final class SkillArrowCheck extends ActionCheck {
     private boolean originalSneak;
     private IronGolem target;
     private AbstractArrow arrow;
+    private long rainLaunchedAt;
 
     SkillArrowCheck(List<String> report, String levelId) {
         super("技能箭", report, levelId);
@@ -50,6 +53,11 @@ final class SkillArrowCheck extends ActionCheck {
                     p.getInventory().clearContent();
                     p.setShiftKeyDown(false);
                     Arena.level(p);
+                    // 箭雨从命中点上方16格落下，清空通用地面场地之外的空中路径。
+                    BlockPos feet = p.blockPosition();
+                    for (BlockPos pos : BlockPos.betweenClosed(feet.offset(-8, 7, -8), feet.offset(14, 18, 8))) {
+                        p.serverLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+                    }
                     Skills.setArrow(p, ItemStack.EMPTY, 0);
                     Cultivation.set(p, CultivationValue.LEVEL_NUMBER, 20);
                     Cultivation.set(p, CultivationValue.POWER, 0);
@@ -77,11 +85,14 @@ final class SkillArrowCheck extends ActionCheck {
                     expectTrue("火箭沿真实弹道命中并附加燃烧状态", target.getHealth() < 100 && StatusEffects.has(target, "effect_023"));
                     clear(p);
                     target(p);
-                    shot(p, 1, true, false, p.position().add(1, 1, 0), new Vec3(1, 0, 0), 1);
+                    arrow = shot(p, 1, true, false, p.position().add(1, 1, 0), new Vec3(1, 0, 0), 1);
+                    rainLaunchedAt = p.serverLevel().getGameTime();
                 }),
                 new Action(8, p -> {
                     List<SkillProjectile> rain = arrows(p).stream().filter(a -> a.getOwner() == target).toList();
-                    expectTrue("命中实体的箭雨产生二十支新箭，射手为受击者且未继承箭雨模式",
+                    expectTrue("命中实体的箭雨产生二十支新箭，射手为受击者且未继承箭雨模式；实际数量=" + rain.size()
+                                    + "，主箭模式=" + arrow.getPersistentData().getString("jinengName") + "，主箭位置=" + arrow.position()
+                                    + "，主箭移除=" + arrow.isRemoved() + "，服务端经过刻数=" + (p.serverLevel().getGameTime() - rainLaunchedAt),
                             rain.size() == 20 && rain.stream().allMatch(a -> a.getPersistentData().getString("jinengName").isEmpty()));
                     clear(p);
                     shot(p, 10, false, false, p.position().add(3, 3, 0), new Vec3(0, -1, 0), .1);

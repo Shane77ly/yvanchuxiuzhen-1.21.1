@@ -22,6 +22,7 @@
 | 服务端重载 | `net/neoforged/neoforge/event/AddReloadListenerEvent.java` | 游戏事件总线提供重载监听器；此时内建和动态注册表已冻结；监听器得到 registry lookup |
 | 伤害入口 | `event/entity/living/LivingIncomingDamageEvent.java` | 发生于无敌检查之后、减伤之前，可取消并读取 DamageContainer |
 | 伤害应用与结果 | `event/entity/living/LivingDamageEvent.java` 的 Pre/Post | Pre 在护甲/药水减伤后、吸收前，可修改伤害；Post 在生命变化后提供结果 |
+| 箭实体穿透与存档 | `world/entity/projectile/AbstractArrow.java` 的 add/readAdditionalSaveData | 21.1.265：保存穿透时调用 getPierceLevel，读取时写原生私有字段；子类覆盖 getter 使用独立字段时也须读回 PierceLevel。1.18.2 原生箭保存穿透、不保存击退，依据为 Forge40.3.11 映射源码中的完整保存/读取方法与 Forge40.1.0 的 AbstractArrow 补丁（无此项差异）；迁移时不额外增加击退存档行为 |
 
 ## 加载器与数据格式（已核实）
 
