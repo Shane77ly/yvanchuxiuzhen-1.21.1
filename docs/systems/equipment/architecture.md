@@ -30,7 +30,7 @@ equipment 拥有器物实例组件与专属槽位；lianqi 计算制作结果后
 
 ## 来源登记位置
 
-GeckoLib 盔甲（`Armor01Item`–`Armor13Item`、`Fuqi02Item`、`Clothes05Item`、`Clothes19Item`、`Yaohua0101Item`，共 65 件，`Armor10Item` 只有胸甲）不在 `ModItems`，由 `YvanchuxiuzhenModGeckoLibArmors` 用独立的注册器登记，渲染器与动画由 `ModGeckoLibArmors`、`ArmorAnimationFactory` 装配。2026-11-02 之前的登记索引漏扫了这个类，现已补入台账（装备 61 件、`festival` 4 件）；它们随 GeckoLib 的引入迁移。
+GeckoLib 盔甲（`Armor01Item`–`Armor13Item`、`Fuqi02Item`、`Clothes05Item`、`Clothes19Item`、`Yaohua0101Item`，共 65 件，`Armor10Item` 只有胸甲）不在 `ModItems`，由 `YvanchuxiuzhenModGeckoLibArmors` 用独立的注册器登记，渲染器与动画由 `ModGeckoLibArmors`、`ArmorAnimationFactory` 装配。2026-11-02 之前的登记索引漏扫了这个类，现已补入台账（装备 61 件、`festival` 4 件）。四件妖化护甲见[妖化](#妖化2026-11-07)，其余装备 57 件见[动画防具](#动画防具2026-11-08)；`Fuqi02` 四件属于 festival，不计入本批。
 
 ## 向 attribute 提交属性贡献（2026-11-03 attribute 归属阅读）
 
@@ -285,21 +285,21 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 ### 来源行为与目标实现
 
-`Fabao022Item` 没有自定义使用或实体过程，但覆写主手属性：`ATTACK_DAMAGE` 加法修正为 `-2`，`ATTACK_SPEED` 加法修正为 `-2.4`；物品耐久为 `80`。目标 `Fabao022Item` 通过 `ItemAttributeModifiers` 与 equipment 专用工厂写入同样的主手属性。来源 GeckoLib 的 `fabao022` 几何、动画、纹理和第一人称渲染逻辑不属于服务端玩法，目标尚未接入。
+`Fabao022Item` 没有自定义使用或实体过程，但覆写主手属性：`ATTACK_DAMAGE` 加法修正为 `-2`，`ATTACK_SPEED` 加法修正为 `-2.4`；物品耐久为 `80`。目标 `Fabao022Item` 通过 `ItemAttributeModifiers` 与 equipment 专用工厂写入同样的主手属性，并接入共用 `AnimatedFabaoItem` 与 `AnimatedFabaoRenderer`；来源几何、动画、纹理及实际可达渲染路径见[动画资源](#文王鼓与赶仙鞭动画资源2026-11-08)。
 
 ### 验证范围
 
-静态依据为 1.18.2 版本 `Fabao022Item.java`；目标依据为 NeoForge 21.1.265 的属性组件 API。未新增 Test 或冒烟选择器；本批完整 build 与既有 `runSmokeClient -PsmokeOnly=equipmentweapon` 均通过，报告为 `DONE`，客户端正常保存退出且日志无 `ERROR/FATAL`。检查只覆盖注册、资源加载和启动，不替代属性自然查看、完整视觉、1.18.2 实机或两版本对照。
+静态依据为 1.18.2 版本 `Fabao022Item.java` 及模型/渲染类；目标依据为 NeoForge 21.1.265 的属性组件 API 与 GeckoLib 4.9.3 的物品渲染 API。此前物品属性批次的 build 与既有 `equipmentweapon` smoke 已通过；本次动画资源批次的构建和运行结果另在上述动画资源节登记，不沿用此前结果宣称新资源验证通过。
 
 ## 文王鼓法宝（2026-11-08）
 
 ### 来源行为与目标实现
 
-`Fabao021Item` 只有客户端 GeckoLib 物品模型、动画控制器和第一人称渲染钩子，没有自定义右键、命中、属性、耐久或实体过程。目标 `fabao_021` 普通物品表项保留单件堆叠、创造栏归属和服务端无额外行为；来源几何、动画、纹理和第一人称渲染尚未接入。
+`Fabao021Item` 只有客户端 GeckoLib 物品模型、动画控制器和渲染钩子，没有自定义右键、命中、属性、耐久或实体过程。目标 `Fabao021Item` 通过共用 `AnimatedFabaoItem` 与 `AnimatedFabaoRenderer` 接入来源模型和 idle 动画；仍保留单件堆叠、创造栏归属和服务端无额外行为，渲染取舍与资源路径见[动画资源](#文王鼓与赶仙鞭动画资源2026-11-08)。
 
 ### 验证范围
 
-静态依据为 1.18.2 版本 `Fabao021Item.java` 及其模型/渲染类；目标依据为 equipment 内容表。未新增代码、Test 或冒烟选择器，本批未运行客户端；完整物品视觉、1.18.2 实机和两版本对照未执行。
+静态依据为 1.18.2 版本 `Fabao021Item.java` 及其模型/渲染类；目标依据为 equipment 内容表与 GeckoLib 4.9.3 的物品渲染 API。本次动画资源批次的构建、运行结果与未验收范围统一登记在上述动画资源节。
 
 ## 飞行法器（2026-11-08）
 
@@ -369,3 +369,78 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 最终运行内置 `runSmokeClient -PsmokeOnly=equipmentweapon`，`EquipmentWeaponCheck` 五项既有弓与拂尘检查全为 `INFO`、`0 FAIL`、`DONE`；客户端正常保存 overworld、nether、end、xvkong 四维度后退出。专用服务器一次启动至 `Done`，导出109个实体，包含本批八种法宝弹体；Gradle 未转发标准输入，停服由现有工具调用原生 `MinecraftServer.halt(false)`，四维度正常保存并退出，未把键入但未转发的 `stop` 算作生效命令。客户端与专服日志均为 `ERROR/FATAL=0`，证据为 `tmp/fabao-smoke.log`、`tmp/fabao-report.txt`、`tmp/fabao-client-latest.log`、`tmp/fabao-server-latest.log` 与 `build/registry-export/entity_type.txt`。
 
 上述运行结果只作注册、资源加载和公共启动回归；本批逐类自然发射、实体/方块命中、冷却、回收字段、临时附件与弹体存档重载/死亡复制、完整视觉、1.18.2 实机、两版本对照与多人验收未执行。
+
+## 动画防具（2026-11-08）
+
+### 来源范围与材料
+
+本批来源为 `A:YvanchuxiuzhenModGeckoLibArmors` 登记的 `armor_01`–`armor_09`、`armor_11`–`armor_13` 各四件，`armor_10_chestplate` 一件，以及 `clothes_05`、`clothes_19` 各四件，共57件；范围逐行对照本系统台账与 `ownership_assignment.csv`，不按来源类索引推导归属。这15族的 `onArmorTick` 均为空。`Businessman11` 出生穿戴四件 `clothes_19`、`Guancai01` 给生成生物穿戴四件 `clothes_05` 等外部入口按各自所属系统接续，不能用本批物品注册代替获取和穿戴入口验收。`Fuqi02` 四件及其胸甲计时、粒子与发奖归festival，留待该内容族实施。
+
+以下防御数组与耐久基数均按靴子、护腿、胸甲、头盔顺序；每槽耐久为 `13/15/16/11 × 耐久倍率`。所有族的击退抗性为0、来源装备声音为空注册查询；空修理材料以“无”表示。`armor_10` 只登记胸甲，其他三个数组值仅是来源材料定义，不新增对应物品。
+
+| 族 | 耐久倍率 | 防御 | 附魔值 | 韧性 | 修理材料 | 循环动画 |
+| --- | ---: | --- | ---: | ---: | --- | --- |
+| `armor_01` | 15 | `2/4/5/2` | 9 | 0 | 无 | `animation.armor01.idle` |
+| `armor_02` | 20 | `2/3/5/2` | 9 | 0 | 无 | `animation.armor02.idle` |
+| `armor_03` | 25 | `2/3/5/2` | 9 | 0 | 无 | `animation.armor03.idle` |
+| `armor_04` | 30 | `2/3/5/2` | 9 | 0 | 无 | `animation.armor04.idle` |
+| `armor_05` | 35 | `2/3/5/2` | 9 | 0 | 无 | `animation.armor05.idle` |
+| `armor_06` | 40 | `2/3/5/2` | 9 | 0 | 无 | `animation.armor06.idle` |
+| `armor_07` | 45 | `2/3/5/2` | 9 | 0 | 无 | `animation.armor07.idle` |
+| `armor_08` | 50 | `2/3/5/2` | 9 | 0 | 无 | `animation.armor08.idle` |
+| `armor_09` | 55 | `2/3/5/2` | 9 | 0 | 无 | `animation.armor09.idle` |
+| `armor_10` | 20 | `2/5/8/2` | 25 | 0.2 | `cailiao_171` | `animation.armor10.idle` |
+| `armor_11` | 25 | `4/6/8/4` | 9 | 0 | 无 | `animation.Armor11.idle` |
+| `armor_12` | 25 | `1/2/3/1` | 30 | 2 | 无 | `animation.Armor12.idle` |
+| `armor_13` | 25 | `1/4/5/1` | 30 | 2 | 无 | `animation.Armor13.idle` |
+| `clothes_05` | 3 | `1/2/2/1` | 10 | 0 | `cailiao_171` | `animation.clothes05.idle` |
+| `clothes_19` | 5 | `1/3/4/1` | 15 | 0 | 无 | `animation.clothes17.idle` |
+
+### 动画、资源与实际触发
+
+来源各族包含过渡5刻的 idle 和 procedure 控制器；idle 在过程名为 `empty` 时循环。procedure 只在过程名非 `empty` 且控制器为 `STOPPED` 时设置显式 `PLAY_ONCE`，设置后仍为 `STOPPED` 才清空过程名并复位重载，按来源顺序保留。15份动画文件均只定义表中一个 idle 动画。`ArmorAnimationFactory` 是真实的玩家 END tick 事件消费者：读取护甲物品非空 `geckoAnim` 字符串、双端清空并仅客户端写入过程名。两个1.18.2工程源码中未找到非空写入者，这只限制内部触发路径的结论，已有非空物品实例输入与过程控制器仍须保留，不据此删除事件入口。`Armor11`–`13` 的动画名保留大小写。
+
+来源渲染器均使用 `entityTranslucent`。`armor_12`、`armor_13`、`clothes_19` 绑定 `armorHead/armorBody/armorRightArm/armorLeftArm/armorRightLeg/armorLeftLeg/armorRightBoot/armorLeftBoot`；其他族绑定 `head/body/rightarm/leftarm/rightleg/leftleg/rightboot/leftboot`。`clothes_05` 使用 `clothes05` 的几何、动画和纹理；`clothes_19` 的几何和动画指向 `clothes17`，纹理独立指向 `clothes19.png`。资源按模型类实际路径接入，不按物品编号推导。
+
+### 目标实现
+
+目标以 `EquipmentGeoArmorItem` 承载57件物品，由 `EquipmentArmorVisual` 读取 `content/equipment/armor_models.json` 的15组表现定义，`EquipmentGeoArmorRenderer` 按各组八个骨骼名装配原生人形姿态。`EquipmentSetup` 从内容表保留部位、材料与耐久倍率，客户端装配注入 `GeoRenderProvider`。`extract_equipment_armors.py` 已输出57件物品、15族材料与表现、名称和159项资源，并登记资源清单、工厂覆写及移除这57条旧跳过记录。
+
+重新运行数据转换后，恢复来源 `armor/toukui/xiongjia/kuzi/zhanxve` 五个总类和槽位标签的现有成员；护甲总标签本批新增45件，包括 `armor_01`–`armor_11` 的41件与 `clothes_05` 四件，各部位进入对应槽位标签。来源未包含 `armor_12`、`armor_13` 和 `clothes_19`，不自行补入。本批没有生成新的防具配方。
+
+本批15族没有额外穿戴玩法过程。`EquipmentAnimations` 在 `PlayerTickEvent.Post` 按头、胸、腿、脚顺序消费动画护甲 `CUSTOM_DATA.geckoAnim`，双侧清空非空请求，仅客户端把名字提交给对应物品单例的过程槽；已有四件妖化护甲也接入同一入口与过渡5刻的两控制器。目标使用显式 `Animation.LoopType.PLAY_ONCE`，避免 `thenPlay` 沿动画JSON的默认循环模式。动画请求只读写本系统物品数据，没有跨系统玩家字段写入。
+
+NeoForge21.1.265的 `ArmorItem` 保留四槽耐久基数。GeckoLib4.9.3的 `GeoArmorRenderer` 提供八个部位getter、按槽可见性和原生姿态变换；逐项对照3.0.57的 `fitToBiped`，对应部位偏移一致，几何不重写坐标。这些是精确版本静态API核对。
+
+57件物品台账登记“行为已迁移”，真实 `geckoAnim` 事件消费和过程控制器已按来源补回。构建、资源转换、公共客户端与专用服务端结果及未验收范围统一见[本批验证](#验证边界)；这些结果不代表57件新防具的自然穿戴或完整视觉验收。
+
+## 文王鼓与赶仙鞭动画资源（2026-11-08）
+
+### 来源有效入口与目标实现
+
+来源两个物品的 idle 控制器过渡为0，在曾获得显示上下文且 `animationprocedure` 为 `empty` 时循环。目标由 `AnimatedFabaoItem` 提供 `GeoItem` 缓存和 `idleController`，由 `AnimatedFabaoRenderer.renderByItem` 在完成首次渲染后开启 idle；`GeoRenderProvider` 仅由客户端装配。渲染器保留来源 `entityTranslucent`，持物和 GUI 变换沿用来源 `displaysettings/fabao021`、`displaysettings/fabao022` 父模型的 `display` 参数。
+
+| 物品 | 几何 | 动画文件 / 循环 | 纹理 |
+| --- | --- | --- | --- |
+| `fabao_021` | `geo/fabao021.geo.json` | `animations/fabao021.animation.json` / `animation.fabao021.idle` | `textures/item/fabao021.png` |
+| `fabao_022` | `geo/fabao022.geo.json` | `animations/fabao022.animation.json` / `animation.fabao022.idle` | `textures/item/fabao022.png` |
+
+`fabao021` 的0.2秒 idle 没有骨骼轨道；`fabao022` 的1.2秒 idle 旋转 `sheng1`–`sheng9`。来源 `ItemAnimationFactory` 是真实的玩家 START tick 事件消费者：任一手为动画物品时依次处理主副手，非护甲的非空 `geckoAnim` 均清空；客户端分派到 `Ling14item`、`Fabao018`、`Fabao021`、`Fabao022` 四种物品，写入过程名并将主副手当前帧和前一帧共四个持物高度字段均设为1。两个1.18.2工程未找到非空写入者，已有非空物品实例输入入口仍保留。
+
+目标 `EquipmentAnimations.tickItems` 在 `PlayerTickEvent.Pre` 保留该主副手顺序和双侧标签清空；本批只实现021/022两件 `AnimatedFabaoItem` 的过程分派，018和 `Ling14item` 留待所属批次。两件法宝各自的请求通过客户端提供者调用 `EquipmentItemAnimationClient`，把NeoForge21.1.265主副手当前帧和前一帧共四个持物高度字段设为1。两件法宝的 `procedureController` 过渡为0，非空过程名使idle停止；按来源 `STOPPED` 条件设置显式 `PLAY_ONCE`，设置后仍为 `STOPPED` 才清空并 `forceAnimationReset`。该过程名属于物品单例，不能改成每栈独立过程槽。
+
+来源骨骼自定义指令队列没有注册消费，动画JSON也没有指令；模板的 `renderArms/shouldAllowHandRender` 无实际调用，`getUniqueID` 也不是 GeckoLib 3.0.57 使用的 `getInstanceId` 入口。这些模板不用于补造新的骨骼指令消费者、手部屏蔽或额外视角变换，和上段已经挂载的玩家刻事件分别处理。
+
+来源物品模型父链中的 `builtin/entity` 必须保留。NeoForge 21.1.265 的 `ModelBakery.loadBlockModel` 直接提供该内建模型，`BlockModel.bake` 据此创建 `BuiltInModel` 并进入自定义物品渲染；它没有对应包内JSON。`convert_assets.py` 原先按JSON是否存在删除父级，本批修正为保留 `builtin/generated`、`builtin/entity`、`builtin/missing`。资源提取器 `extract_animated_fabao.py` 从两个模型类登记六条来源引用，再由通用转换器原样复制几何、动画与纹理。
+
+### 验证边界
+
+静态核对已覆盖1.18.2版本两个物品、模型、渲染器、动画JSON和 `ItemAnimationFactory`，以及GeckoLib4.9.3的 `GeoItem`、`GeoRenderProvider`、`GeoItemRenderer`、`GeoModel` 和NeoForge21.1.265模型烘焙入口。提取器已登记六项资源，通用转换输出12929个文件、91个丢弃父级。日志5条来源引用缺失中，3条是既有空 `blocks/`，另2条是两个 `displaysettings` 的particle纹理在1.18.2资源里写为 `item/fabao021`、`item/fabao022`，实际文件位于 `items/`；目标转换已生成两张 `textures/item` PNG，模型与渲染器最终引用均有实际资源，不能把该来源路径诊断写成目标缺图。证据为 `tmp/animated-equipment-assets.log`。
+
+完整 `gradlew build` 通过，包含既有test/check与ArchUnit，证据为 `tmp/animated-equipment-build.log`。本批未新增或修改Test类、冒烟检查断言和选择器，也未使用Computer Use。内置 `runSmokeClient -PsmokeOnly=equipmentweapon,demon` 的五项既有弓/拂尘检查和四项既有妖化检查共九项均为 `INFO`、`0 FAIL`、`DONE`；客户端保存overworld、nether、end、xvkong四维度后正常退出，`ERROR/FATAL=0`。证据为 `tmp/animated-equipment-smoke.log`、`tmp/animated-equipment-report.txt` 和 `tmp/animated-equipment-client-latest.log`。
+
+已查看 `build/smoke/screenshots/equipment-demon-armor.png`，仅确认护甲架上的既有妖化模型可见；它没有展示57件新防具或两件法宝。客户端的 `armor10` 来源贴图为56×35像素，加载时将mipmap限制为0的WARN保留登记，未修改来源尺寸，也不是ERROR。
+
+专用服务器一次启动至 `Done`，本次TTY与init脚本成功转发标准输入，执行原生 `stop` 后正常保存四维度并退出，`ERROR/FATAL=0`；证据为 `tmp/animated-equipment-server-latest.log`。注册导出物品2125个、实体109个，来源指纹检查退出码0，证据为 `tmp/equipment-animated-inventory.log`。本批文档、台账和差异检查由主会话在四文档收口后统一执行。
+
+上述运行只作公共注册、资源加载和既有场景回归。57件新防具的逐件自然穿戴、两件法宝自然持物、非空 `geckoAnim` 请求与单次动画恢复、存档重载、第一人称/第三人称/GUI完整视觉、1.18.2实机、两版本对照和多人验收未执行；不能以既有九项检查或妖化截图替代这些专项。

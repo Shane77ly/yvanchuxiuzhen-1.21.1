@@ -132,7 +132,8 @@ class Converter:
         parent = data.get('parent')
         if parent is not None and (':' not in parent or parent.startswith('minecraft:')):
             vanilla = f'assets/minecraft/models/{parent.split(":")[-1]}.json'
-            if vanilla not in self.vanilla_models:
+            # ModelBakery 直接提供这三个内建模型，它们不对应资源包内的 JSON 文件。
+            if parent.split(':')[-1] not in ('builtin/generated', 'builtin/entity', 'builtin/missing') and vanilla not in self.vanilla_models:
                 # 来源模型（Blockbench 导出）的 parent 指向不存在的原版模型：两个版本都回退为缺失模型的父级，不影响自身的 elements。
                 self.dropped_parents.append((ref, parent))
                 del data['parent']

@@ -8,7 +8,9 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
+import net.yvanchuxiuzhen.system.equipment.content.AnimatedFabaoItem;
 import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
+import net.yvanchuxiuzhen.system.equipment.content.EquipmentGeoArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
@@ -36,6 +38,8 @@ public final class EquipmentClientSetup {
         modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
             for (var item : BuiltInRegistries.ITEM) {
                 if (item instanceof DemonArmorItem armor) armor.setRenderProvider(new DemonArmorRenderer.Provider());
+                if (item instanceof EquipmentGeoArmorItem armor) armor.setRenderProvider(new EquipmentGeoArmorRenderer.Provider());
+                if (item instanceof AnimatedFabaoItem fabao) fabao.setRenderProvider(new AnimatedFabaoRenderer.Provider());
             }
         }));
     }

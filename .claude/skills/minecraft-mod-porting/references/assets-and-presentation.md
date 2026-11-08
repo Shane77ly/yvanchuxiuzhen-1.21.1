@@ -14,6 +14,7 @@
 ## 资源
 
 - 核对模型父链、纹理、blockstate 全状态、动画、音效、粒子、翻译与字体；持物、落地、背包、方块世界表现分别验收。
+- 模型父级不能只按资源包内 JSON 是否存在判定。已核对 NeoForge 21.1.265 的 `ModelBakery.loadBlockModel` 直接提供 `builtin/generated`、`builtin/entity`、`builtin/missing`，其中 `BlockModel.bake` 通过 `builtin/entity` 的根标记创建 `BuiltInModel`，再进入自定义物品渲染；转换时删去该父级会使 GeckoLib 物品渲染入口失效。
 - 目标版本可能改变资源和数据包目录名。按目标版本原版数据的实际目录放置，并在项目内保持一致；不机械照搬来源路径。
 - 状态效果图标不能只搬入编辑器指定的原图。已核对 NeoForge 21.1.265 的 `MobEffectTextureManager.get` 按效果注册键读取 sprite，原版 `atlases/mob_effects.json` 扫描 `textures/mob_effect`；应复制来源实际按注册 ID 命名的图标，目标 ID 改名时同步改文件名。
 - 实体类型清单区分本体、形态、弹体和纯视觉实体，不把实体类型总数当作生物种数。

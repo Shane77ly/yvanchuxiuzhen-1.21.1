@@ -1,0 +1,10 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.fabao021.idle": {
+			"loop": true,
+			"animation_length": 0.2
+		}
+	},
+	"geckolib_format_version": 2
+}

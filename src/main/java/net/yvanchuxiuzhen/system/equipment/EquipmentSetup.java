@@ -11,12 +11,14 @@ import net.yvanchuxiuzhen.platform.content.ItemRow;
 import net.yvanchuxiuzhen.platform.content.LegacyTier;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
+import net.yvanchuxiuzhen.system.equipment.content.EquipmentGeoArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao010Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao010huoyanItem;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao011Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao012Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao014Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao016Item;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao021Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao022Item;
 import net.yvanchuxiuzhen.system.equipment.content.FabaoProjectileItem;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
@@ -73,6 +75,9 @@ public final class EquipmentSetup {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
                 CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Fabao016Item(tier, properties, tooltip));
             }
+            if (row.factory().equals("equipment:fabao_021")) {
+                CONTENT.itemFactory(row.factory(), Fabao021Item::new);
+            }
             if (row.factory().equals("equipment:fabao_022")) {
                 CONTENT.itemFactory(row.factory(), Fabao022Item::new);
             }
@@ -85,6 +90,13 @@ public final class EquipmentSetup {
                 ArmorItem.Type type = ArmorItem.Type.valueOf(armor.slot());
                 CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new DemonArmorItem(CONTENT.armorMaterial(armor.material()), type,
                         properties.durability(type.getDurability(row.durabilityMultiplier().orElseThrow()))));
+            }
+            if (row.factory().startsWith("equipment:armor_") || row.factory().startsWith("equipment:clothes_05_")
+                    || row.factory().startsWith("equipment:clothes_19_")) {
+                ItemRow.Armor armor = row.armor().orElseThrow();
+                ArmorItem.Type type = ArmorItem.Type.valueOf(armor.slot());
+                CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new EquipmentGeoArmorItem(CONTENT.armorMaterial(armor.material()), type,
+                        properties.durability(type.getDurability(row.durabilityMultiplier().orElseThrow())), armor.material(), tooltip));
             }
         }
         CONTENT.entity(Fuchen.ID, Fuchen::new);
@@ -113,6 +125,8 @@ public final class EquipmentSetup {
             CONTENT.<FabaoProjectile>entity(kind.entityId(), (type, level) -> new FabaoProjectile(type, level, kind));
         }
         CONTENT.register(modBus);
+        NeoForge.EVENT_BUS.addListener(EquipmentAnimations::tickItems);
+        NeoForge.EVENT_BUS.addListener(EquipmentAnimations::tickArmor);
         NeoForge.EVENT_BUS.addListener(EquipmentWeapons::tick);
         NeoForge.EVENT_BUS.addListener(EquipmentWeapons::rightClick);
         NeoForge.EVENT_BUS.addListener(AccessoryCommand::register);
