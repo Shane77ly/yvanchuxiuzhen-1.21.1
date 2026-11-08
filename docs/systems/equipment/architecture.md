@@ -290,3 +290,13 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 ### 验证范围
 
 静态依据为 1.18.2 版本 `Fabao022Item.java`；目标依据为 NeoForge 21.1.265 的属性组件 API。未新增 Test 或冒烟选择器；本批完整 build 与既有 `runSmokeClient -PsmokeOnly=equipmentweapon` 均通过，报告为 `DONE`，客户端正常保存退出且日志无 `ERROR/FATAL`。检查只覆盖注册、资源加载和启动，不替代属性自然查看、完整视觉、1.18.2 实机或两版本对照。
+
+## 文王鼓法宝（2026-11-08）
+
+### 来源行为与目标实现
+
+`Fabao021Item` 只有客户端 GeckoLib 物品模型、动画控制器和第一人称渲染钩子，没有自定义右键、命中、属性、耐久或实体过程。目标 `fabao_021` 普通物品表项保留单件堆叠、创造栏归属和服务端无额外行为；来源几何、动画、纹理和第一人称渲染尚未接入。
+
+### 验证范围
+
+静态依据为 1.18.2 版本 `Fabao021Item.java` 及其模型/渲染类；目标依据为 equipment 内容表。未新增代码、Test 或冒烟选择器，本批未运行客户端；完整物品视觉、1.18.2 实机和两版本对照未执行。
