@@ -13,6 +13,7 @@ public final class LianqiSetup {
     }
 
     public static void register(IEventBus modBus) {
+        LianqiRules.register();
         CONTENT.register(modBus);
     }
 }

@@ -23,6 +23,7 @@ block_entity_type,yvanchuxitong:tripod_08,yvanchuxitong,Tripod08,src/main/java/n
 block_entity_type,yvanchuxitong:zhenxianpoluo,yvanchuxitong,Zhenxianpoluo,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlockEntities.java,168,lianqi,已读,yvanchuxiuzhen:zhenxianpoluo,待处理,
 block_entity_type,yvanchuxiuzhen:cauldronduyao,yvanchuxiuzhen,Cauldronduyao,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,171,lianqi,已读,yvanchuxiuzhen:cauldronduyao,待处理,
 block_entity_type,yvanchuxiuzhen:xiulitai,yvanchuxiuzhen,Xiulitai,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,175,lianqi,已读,yvanchuxiuzhen:xiulitai,待处理,
+game_rule,yvanchuxitong:weaponlevelup,yvanchuxitong,Weaponlevelup,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModGameRules.java,13,lianqi,已读,yvanchuxiuzhen:weaponlevelup,已注册,目标已注册 LianqiRules.WEAPON_LEVEL_UP，保留 weaponlevelup/MISC/默认 true；LianqiBegin 升级消费者、命令切换与实际炼器炉行为随D阶段实现。
 item,yvanchuxitong:tiandaotuzhitai,yvanchuxitong,Tiandaotuzhitai,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,54,lianqi,已读,yvanchuxiuzhen:tiandaotuzhitai,已注册,
 item,yvanchuxitong:tripod_01,yvanchuxitong,Tripod01,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,55,lianqi,已读,yvanchuxiuzhen:tripod_01,已注册,
 item,yvanchuxitong:tripod_02,yvanchuxitong,Tripod02,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,56,lianqi,已读,yvanchuxiuzhen:tripod_02,已注册,

@@ -7205,7 +7205,7 @@ yvanchuxitong,Shougouselljisuan,procedure,~/shop/yinhang,economy,候选,第一�
 yvanchuxitong,Shopsell,gamerule,~/zhiling,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,FuwuqiminglingGo,procedure,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Fuwuqimingling,command,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Weaponlevelup,gamerule,~/zhiling,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Weaponlevelup,gamerule,~/zhiling,lianqi,已读,1.18.2版本原初系统 YvanchuxitongModGameRules.java:13 将 weaponlevelup 注册为 MISC 布尔规则、默认 true；LianqiBeginProcedure 读取其炼器升级门槛，归 lianqi。
 yvanchuxitong,Playerrightclickwithitem,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Uidshengcheng,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shuaxin,procedure,~/yvanchulianqi/tiandao,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）

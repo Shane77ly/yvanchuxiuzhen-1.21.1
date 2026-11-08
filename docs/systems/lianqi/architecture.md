@@ -10,6 +10,8 @@ updated: 2026-11-01
 来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
 ## 1.18.2 调用与载体
 
+来源 `YvanchuxitongModGameRules:13` 注册 `weaponlevelup` 为 `MISC` 类布尔规则，默认值为真。`LianqiBeginProcedure` 在升级分支读取该规则；关闭时向玩家提示炼器鼎禁止升级，开启时继续检查输入和材料。该注册归 lianqi，不能放在 equipment；规则消费者随炼器炉批次实现。
+
 `B:Tripod01ZaiFangKuaiShangYouJianProcedure:43–44` 将交互玩家职业复制到装置；按钮调用 `LianqiBegin`，后者区分升级与制作。`LianqijisuanProcedure:48–176` 从图纸和 9 个材料位置读取材料表，按等级、品阶、重量与贡献类别累计器物属性。
 
 `LianqiTickProcedure:28–152` 处理燃料时间、炉次进度、灵力消耗，完成后区分矿石、精炼、升级和一般制作，并处理失败与延迟炸鼎。`lianqiTick/lianqiTickMax/lianpower/firepower` 由方块拥有。
@@ -19,6 +21,8 @@ updated: 2026-11-01
 ## 目标所有权与接口提案
 
 lianqi 拥有图纸定义、炉次与职业进度；material 提供材料信息和实例；equipment 构造或变更成品。接口为配方预览、开始制作/升级/熔炼/精炼、推进、完成/失败、修理。预览和执行共用实际计算规则，但不得让预览扣料或推进职业。
+
+目标已先登记 `LianqiRules.WEAPON_LEVEL_UP`，保持来源注册名、类别和默认值。命令切换及 `LianqiBegin` 的升级门槛必须在炼器炉消费者接回时一并实现；在此之前台账状态只提升到“已注册”。
 
 一次炉次保存所用图纸、输入、职业取值和结果必要数据；菜单绑定当前玩家与真实装置。修改装置或实例后按所属对象保存，属性变更通知消费者重算。目标不建立通用事务引擎。
 
