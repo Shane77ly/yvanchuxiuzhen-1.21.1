@@ -32,6 +32,12 @@ equipment 拥有器物实例组件与专属槽位；lianqi 计算制作结果后
 
 GeckoLib 盔甲（`Armor01Item`–`Armor13Item`、`Fuqi02Item`、`Clothes05Item`、`Clothes19Item`、`Yaohua0101Item`，共 65 件，`Armor10Item` 只有胸甲）不在 `ModItems`，由 `YvanchuxiuzhenModGeckoLibArmors` 用独立的注册器登记，渲染器与动画由 `ModGeckoLibArmors`、`ArmorAnimationFactory` 装配。2026-11-02 之前的登记索引漏扫了这个类，现已补入台账（装备 61 件、`festival` 4 件）。四件妖化护甲见[妖化](#妖化2026-11-07)，其余装备 57 件见[动画防具](#动画防具2026-11-08)；`Fuqi02` 四件属于 festival，不计入本批。
 
+## 普通服装 08–12、18、20（2026-11-08）
+
+本批接回来源 `Clothes08`–`Clothes12`、`Clothes18`、`Clothes20` 的 28 件物品。来源 1.18.2 参数按 `BOOTS, LEGGINGS, CHESTPLATE, HELMET` 核对为：08 `[1,1,2,1]`、附魔 15、耐久倍率 5；09 `[1,1,2,1]`、附魔 25、耐久倍率 10；10 `[1,1,2,1]`、附魔 30、耐久倍率 5；11/12 `[1,1,2,1]`、附魔 30、耐久倍率 10；18 `[1,3,5,1]`、附魔 15、耐久倍率 5；20 `[1,3,4,1]`、附魔 15、耐久倍率 5。全部 toughness、knockback 为 0，来源未配置修理材料。
+
+目标使用 `factory: armor` 与 `ContentTables` 通用 `ArmorItem` 工厂，注册到原有武器创造栏；来源同时提供 `models/item` 图标模型、`textures/items/clothesXXYY.png` 图标和 `textures/entities/clothesXX.png` 穿戴纹理，已分别转换到目标资源目录。来源未提供标准 `models/armor` 两层文件，因此本批以实体纹理作为普通 armor 层资源，同时保留来源实体纹理供后续自定义模型批次使用。自定义模型、GeckoLib 渲染与视觉对照尚未在本批验收，不能以普通防具注册替代完整视觉迁移。
+
 ## 向 attribute 提交属性贡献（2026-11-03 attribute 归属阅读）
 
 attribute 的归属阅读把下列元素归入本系统，实现时按 [attribute 公开操作](../attribute/README.md)提交加成层贡献：
@@ -230,6 +236,12 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 ### 验证范围
 
 静态核对依据为 `PlayerRightClickProcedure`、`GongjvshechuEntity`、`GongjvshechuTouZhiWuFeiXingTickProcedure`、`GongjvshechuDangTouSheWuSheZhongCiFangKuaiProcedure`、四个工具机 tick 过程和 `JianceshuyeProcedure`；目标 API 按 NeoForge 21.1.265 源码改写。`gradlew build`、`check_docs.py` 与 `check_ledger.py` 已通过。沿用现有 `runSmokeClient -PsmokeOnly=equipmentweapon`，五项既有弓与拂尘检查全部符合并以 `DONE` 结束，客户端正常保存退出且未见 `ERROR/FATAL`；该检查只证明新增实体注册、客户端装配和公共启动未阻塞，不替代工具机四类自然操作的专项验收。专用服务器启动至 `Done`，原生 `stop` 后全部维度正常保存退出，ERROR 0，实体导出 91 个。未执行1.18.2实机、两版本对照、多人及完整视觉验收。
+
+### 镰刀右键清理（2026-11-08）
+
+来源 `Gongjv001Item` 与 `Gongjv001DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`：物品为匿名斧型工具，耐久278、挖掘速度4、攻击加成3、等级1、附魔值2、攻击力1、攻击速度-3，修理材料为 `cailiao_201`。右键过程以玩家脚下整格坐标为原点，按 `x=-8..7`、`y=-4..3`、`z=-8..7` 扫描；来源 `Material.PLANT` 与 `REPLACEABLE_PLANT` 在目标按内容表 `TraitedBlock` 的材质值、原版 `BushBlock`/`VineBlock`/`GrowingPlantBlock` 以及 `flowers`、`crops` 标签映射，不直接使用包含空气、水、岩浆、雪和火的 `BlockTags.REPLACEABLE`。匹配方块先以原点作为掉落位置调用 `Block.dropResources`，再无掉落破坏，并设置物品10刻冷却；目标只在服务端执行世界修改。
+
+静态依据为1.18.2版本两个来源Java文件，目标依据为NeoForge 21.1.265的 `ContentAxe`、方块掉落API与项目既有植物材质映射。未新增Test、冒烟选择器或Computer Use；沿用现有 `equipmentweapon` 客户端入口做构建与注册/启动回归。镰刀自然范围清理、耐久/冷却、1.18.2实机、两版本对照、多人及完整视觉仍未执行。
 
 ## 覆风法宝（`fabao_011`，2026-11-08）
 

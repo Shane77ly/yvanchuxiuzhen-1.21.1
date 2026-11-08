@@ -192,8 +192,11 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
     }
 
     static void returnToBody(ServerPlayer player) {
-        player.connection.teleport(Cultivation.tizhiDouble(player, "chuqiaoX"), Cultivation.tizhiDouble(player, "chuqiaoY"),
-                Cultivation.tizhiDouble(player, "chuqiaoZ"), player.getYRot(), player.getXRot());
+        double x = Cultivation.tizhiDouble(player, "chuqiaoX");
+        double y = Cultivation.tizhiDouble(player, "chuqiaoY");
+        double z = Cultivation.tizhiDouble(player, "chuqiaoZ");
+        player.teleportTo(player.serverLevel(), x, y, z, player.getYRot(), player.getXRot());
+        player.connection.teleport(x, y, z, player.getYRot(), player.getXRot());
         Vec3 center = player.position();
         for (Yuanying body : player.serverLevel().getEntitiesOfClass(Yuanying.class, new AABB(center, center).inflate(2)).stream()
                 .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList()) {

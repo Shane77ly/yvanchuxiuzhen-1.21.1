@@ -24,6 +24,7 @@ import net.yvanchuxiuzhen.system.equipment.content.Fabao021Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao022Item;
 import net.yvanchuxiuzhen.system.equipment.content.FabaoProjectileItem;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
+import net.yvanchuxiuzhen.system.equipment.content.Gongjv001Item;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentBlockEntities;
 import net.yvanchuxiuzhen.system.equipment.content.JewelryTableBlock;
@@ -88,6 +89,10 @@ public final class EquipmentSetup {
             }
             if (row.factory().equals("equipment:fabao_022")) {
                 CONTENT.itemFactory(row.factory(), Fabao022Item::new);
+            }
+            if (row.factory().equals("equipment:gongjv_001")) {
+                LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
+                CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Gongjv001Item(tier, properties, tooltip));
             }
             if (row.factory().startsWith("equipment:weaponhossu_")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
