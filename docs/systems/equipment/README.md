@@ -12,7 +12,7 @@ updated: 2026-11-08
 当前阶段：B1 已登记本单位不依赖新代码类型的内容身份与资源（物品 198、声音事件 8）。C 的 skill 依赖批次已接回 18 把弓的来源条件流程、九把拂尘的挥动与选中冷却、隐藏拂尘物品及弹体；构建与 ArchUnit 通过，弓与拂尘客户端专项一次五项全部符合。弓自然右键保留 Q57 断链，人工注入标记只验证条件分支。妖化四件护甲、菜单请求、装备实例数值与贡献、头盔计时及动画渲染已实现，验证见[妖化](architecture.md#妖化2026-11-07)。其余57件动画防具的材料、部位数值、半透明模型、idle与实例过程动画已接回，验证见[动画防具](architecture.md#动画防具2026-11-08)。开灵附魔的工具右键入口、弹体和四种工具机已按来源过程接回，验证见[开灵工具机](architecture.md#开灵工具机与弹体2026-11-08)。8 个飞行法器的物品字段、实体、骑乘飞行、充灵力、取回、死亡掉落和 GeckoLib 资源已按来源过程接回，验证见[飞行法器](architecture.md#飞行法器2026-11-08)。覆火、覆风、覆情、文王鼓、明心镜、明光镜、血刀与赶仙鞭法宝入口及弹体/物品行为已按 1.18.2 版本源码接回，验证见[法宝](architecture.md#明光镜法宝2026-11-08)、[文王鼓法宝](architecture.md#文王鼓法宝2026-11-08)、[明心镜法宝](architecture.md#明心镜法宝2026-11-08)、[赶仙鞭法宝](architecture.md#赶仙鞭法宝2026-11-08)与[血刀法宝](architecture.md#血刀法宝2026-11-08)。`fabao_001`–`008` 的共享物品入口、八种弹体注册与命中分派已接入，来源字段、回收分支与客户端模型已按静态核对接回，见[投掷法宝](architecture.md#投掷法宝fabao_0010082026-11-08)。本命培养的事件入口、经验组件、升级属性与进度提交已按来源接回，验证见[本命培养](architecture.md#本命培养2026-11-08)。其他装备玩法、完整表现及两版本对照尚未完成，不能把本批状态作为整个系统验收；弓与拂尘规则见[正文](architecture.md#弓与拂尘2026-11-07)。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
-- 归属范围 339 个元素，其中 282 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
+- 归属范围 339 个元素，其中 295 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
@@ -24,7 +24,9 @@ updated: 2026-11-08
 
 成品生成契约已接入：`Equipment.createProduct(注册表, 参数表)` 构造单件成品，`Equipment.product(物品)` 查询类型化品阶、说明、原料数值及附魔记录；装备实例由本系统唯一写入。treasure 负责 `/lianqi` 的权限、坐标容器与掉落，依赖方向为 treasure → equipment。主手三攻击按 `wuqi/fabao` 标签提交 attribute；只为 `WeaponStatEvent` 的品阶查询提供值，根字段法攻不以炼器法攻替代。末次成品专项六项全部符合并 DONE，规则和证据见[宝箱成品与品阶](architecture.md#宝箱成品与品阶2026-11-07)。
 
-弓与拂尘的选中推进、挥动和隐藏弹体物品的使用由本系统接收。妖化批次使用类型化 `EquipmentStats` 组件保存四件防具的来源数值，向 attribute 的加成层提交六项属性；监听 combat 的 `ArmorStatEvent` 查询防御，监听 skill 的 `DemonTransformationEvent` 执行变身。饰品穿戴页与本命培养入口已接回；饰品制作台、其他装备实例、完整表现和两版本对照仍未完成，不能据本批标记整个系统完成。
+弓与拂尘的选中推进、挥动和隐藏弹体物品的使用由本系统接收。妖化批次使用类型化 `EquipmentStats` 组件保存四件防具的来源数值，向 attribute 的加成层提交六项属性；监听 combat 的 `ArmorStatEvent` 查询防御，监听 skill 的 `DemonTransformationEvent` 执行变身。饰品穿戴页、本命培养与饰品制作台入口已接回，制作台本批构建、客户端专项与专服通过，规则见[正文](architecture.md#饰品制作台2026-11-08)。其他装备实例、完整表现和两版本对照仍未完成，不能据本批标记整个系统完成。
+
+制作台库存、类别、动画请求与36条配方由equipment持有；`JewelryCrafting.craft/hints` 供本系统菜单调用，根字段成品沿用 `EquipmentData.PROPERTIES` 与 `Equipment.properties`，不扩展 `Equipment.createProduct` 的嵌套炼器语义。跨系统材料只查询已注册身份；既有四饰品槽继续汇总属性与冷却附魔，不新增公开写接口或第二套属性计算。按钮请求按当前玩家、实际菜单、真实制作台与操作范围验证，服务端唯一修改库存。
 
 妖化对照 `typed_field_accesses.csv` 的 `Jinengyaohua`、四个 `Yaohuabuwei` 过程与 `Yaohua`：`LEVELnumber` 和五个体质标记通过 `Cultivation.get/tizhiBoolean` 查询，冷却只通过 `Cultivation.tizhiDouble/setTizhiDouble` 读写；xiulian 已有每秒递减入口。物品数值、头盔计时与装备贡献由本系统唯一写入；服务端搬移背包和护甲，客户端只显示。来源没有自动穿回旧防具，旧防具移入背包；结束依次清空当前护甲槽。
 
@@ -114,3 +116,9 @@ updated: 2026-11-08
 按 1.18.2 版本八个物品类、八个实体类及绑定的使用条件、飞行、实体命中和方块命中过程核对。目标使用 `FabaoProjectileItem` 与 `FabaoProjectile` 承载共用入口和逐类分派，分别登记 `fabao_001`–`008` 与 `projectile_fabao_001`–`008`；物品自身作为弹药，非创造模式每次消耗一件。`001`–`003` 在松开右键时发射，`004`–`008` 在使用刻发射；`001/002/008` 的主手攻击属性、逐类速度、基础箭伤害、击退和冷却按来源核对，规则见上述正文。
 
 来源临时栈、最后一件消耗、九毒、逐类伤害与回收分支、毒域延迟及四个专用模型已按源码接回，八件物品与八种弹体登记“行为已迁移”。最终 `gradlew build`（含 ArchUnit）、`check_docs.py`、`check_ledger.py` 与差异空白检查通过；内置 `runSmokeClient -PsmokeOnly=equipmentweapon` 五项既有弓与拂尘检查全部 `INFO`、`0 FAIL`、`DONE`，客户端正常保存四维度并退出。专服一次启动至 `Done`，导出109个实体，调用原生 `MinecraftServer.halt(false)` 正常保存四维度退出；客户端与专服日志 `ERROR/FATAL=0`。证据为 `tmp/fabao-final-build.log`、`tmp/fabao-smoke.log`、`tmp/fabao-report.txt`、`tmp/fabao-client-latest.log` 与 `tmp/fabao-server-latest.log`。本批未新增或修改 Test、检查、选择器，也未使用 Computer Use；公共 smoke 只覆盖注册、资源加载和启动回归，本批逐类自然发射/命中/冷却/回收、存档重载、完整视觉、1.18.2 实机、两版本对照和多人验收未执行。
+
+## 饰品制作台（2026-11-08）
+
+本批静态核对已覆盖 `shipintai` 方块、持久四槽、`gu_ishipintai` 菜单与屏幕、按钮消息、初始化与翻页、四类36条配方、聊天提示、根字段Tooltip、Geo动画和二维物品模型。完整配方、结果覆盖、全部槽自动化、三类第七档品质文字、根小数数值和结构获取链边界只在[正文](architecture.md#饰品制作台2026-11-08)维护。
+
+目标制作台、服务端菜单请求与客户端原生表现已接线，13个来源元素归属已读。结构转换已处理161份资源、改写1117处持久数据键，数据转换输出1680个文件；最终 `gradlew build compileSmokeJava` 含既有test/check与ArchUnit通过。唯一一次 `accessories` 客户端检查22项全部 `INFO`、`DONE`，其中8项覆盖真实开台、单件输入与结果拒插、头簪01/02消耗/根字段/附魔同步、80刻内覆盖、四类翻页与关闭重开；四维度正常保存退出。客户端有1条Yggdrasil公钥联网 `Connection reset` ERROR，未见本Mod异常。专服一次到 `Done`，原生 `stop` 正常保存四维度退出，服务器日志无ERROR/FATAL；证据在[正文](architecture.md#本批验证范围)登记。四条制作台台账登记“行为已迁移”，36件饰品保持“已注册”并补齐成品生产及实际验证备注。其他34配方自然制作、自动化、制作台重登、破坏、完整动画/Tooltip/视觉、1.18.2 版本实机、两版本对照和多人专项未执行。

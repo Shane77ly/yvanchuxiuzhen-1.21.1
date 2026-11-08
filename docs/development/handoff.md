@@ -22,11 +22,11 @@ updated: 2026-11-08
 
 ## 进行中
 
-equipment 动画防具批次（2026-11-08，前一提交 `32d983c`；本批代码与本页同一提交，最新提交以 `git log` 为准）：按实际归属接回57件防具（49件 `Armor01`–`13`、`Clothes05` 与 `Clothes19` 各4件）及文王鼓、赶仙鞭的动画表现；福气服仍归festival。15组材质、骨骼与资源从1.18.2版本提取；两个真实玩家刻事件的 `geckoAnim` 消费、单例过程槽、显式单次播放与两件法宝持物高度已保留，既有妖化四件也补齐过程控制器。通用转换器保留 `builtin/entity` 等原生内建父级，恢复自定义物品渲染入口。规则见[装备正文](../systems/equipment/architecture.md#动画防具2026-11-08)。
+equipment 饰品制作台批次（2026-11-08，前一提交 `031c88d`；本批代码与本页同一提交，最新提交以 `git log` 为准）：四槽持久库存、类别翻页、36条即时配方、成品根字段与饰品Tooltip、来源原生界面和Geo动画已接回。保留结果覆盖、动画期间再次合成、第七档品质文字差异、二维物品图标、全部方向四槽自动化与自身掉落回落。转换来源结构时补齐加载器持久键适配，161份结构共1117处直接 `nbt.ForgeData` 改为 `NeoForgeData`；DataVersion和业务字段保持来源。规则及证据边界见[装备正文](../systems/equipment/architecture.md#饰品制作台2026-11-08)。
 
-本批 `build`（含既有test/check与ArchUnit）通过；仅一次内置 `runSmokeClient '-PsmokeOnly=equipmentweapon,demon'`，九项全部符合并DONE，客户端正常保存四维度退出、ERROR/FATAL为0。妖化护甲架截图已查看，模型可见；该场景不覆盖57件新护甲和两件动画物品的逐类自然操作、实例请求和完整视觉。专服一次启动至Done后执行原生 `stop`，四维度正常保存退出、ERROR/FATAL为0，物品导出2125个、实体109个。证据为 `tmp/animated-equipment-{build.log,smoke.log,report.txt,client-latest.log,server-latest.log}`；来源指纹检查已通过。本批未新增Test、断言、选择器或Computer Use；1.18.2实机、两版本对照与多人未执行。
+本批最终 `build compileSmokeJava`（含既有test/check与ArchUnit）通过；仅一次内置 `runSmokeClient '-PsmokeOnly=accessories'`，22项全部符合并DONE（既有饰品14项、制作台8项），包括真实右键开台和槽位点击、两档头簪的消费/根字段/附魔双端同步、80刻内覆盖、翻页与关闭重开；客户端正常保存四维度退出，仅一条Yggdrasil公钥请求Connection reset联网ERROR。专服一次启动至Done后原生 `stop`，四维度正常保存退出、无ERROR/FATAL，导出方块1129、物品2126、菜单11、实体109。证据为 `tmp/jewelry-{build-final.log,client.log,report.txt,client-latest.log,server-latest.log}`。本批未新增Test类、选择器或Computer Use，仅扩展既有 `AccessoryCheck` 的库存/网络路径；其余34配方逐条、自动化、制作台存档重登、破坏掉落、完整视觉、1.18.2实机、两版本对照与多人未执行。
 
-当前继续在 `port/c-skill` 推进，skill尚未完成、不合main。下一步按 `tmp/jewelry-table-source-audit.md` 与锁定来源接回饰品制作台：四槽持久库存、类别翻页、36种即时配方、成品字段和饰品Tooltip；保持覆盖结果槽、第七档品质文本差异、二维物品图标和真实动画。`fabao_013` 仍等正式人间维度；`fabao_017`/`01701` 等动画实体及蛊虫收纳；018归guchong、`Ling14item`归world，完整依赖核对在 `tmp/remaining-animated-items-source-audit.md`，随各自系统接续。`.eclipse/` 为用户配置，保留且不提交。
+当前继续在 `port/c-skill` 推进，skill尚未完成、不合main。负责人已授权子agent加速，采用同工作树分文件协作，运行工具仍逐个执行。下一步按 `tmp/skill-exit-audit-20261108.md` 和 `tmp/skill-study-entry-audit-20261108.md` 接回技能书自然研习及 `PlayerGUI04` 八槽装配、四页切换、关闭回写和01/03页导航；不得把公开API已实现或检查直接赋值当成自然入口已接通，不展开02加点及其他系统副页。`fabao_013` 的正式人间维度、`fabao_017`/`01701` 的动画实体及蛊虫收纳继续随各自系统接续。`.eclipse/` 为用户配置，保留且不提交。
 
 负责人2026-11-07补充goal续接要求：①按roadmap直接推进；②当前从C阶段继续实现并测试验收；③目标覆盖两个Mod的全部范围及后续阶段；④若反复压缩已造成上下文丢失，及时开新会话，把这四点完整设为goal继续循环。新会话先核对本页、当前分支与最后提交，接续未完成操作，保留无必要不新增Test、内置客户端验证及逐个运行的约定。
 

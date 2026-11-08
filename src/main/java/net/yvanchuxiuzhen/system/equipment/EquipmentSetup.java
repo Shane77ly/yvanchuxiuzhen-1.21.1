@@ -5,10 +5,12 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ArmorItem;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.ItemRow;
 import net.yvanchuxiuzhen.platform.content.LegacyTier;
+import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentGeoArmorItem;
@@ -23,11 +25,14 @@ import net.yvanchuxiuzhen.system.equipment.content.Fabao022Item;
 import net.yvanchuxiuzhen.system.equipment.content.FabaoProjectileItem;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
+import net.yvanchuxiuzhen.system.equipment.content.EquipmentBlockEntities;
+import net.yvanchuxiuzhen.system.equipment.content.JewelryTableBlock;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentItem;
 import net.yvanchuxiuzhen.system.equipment.content.HossuItem;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
+import net.yvanchuxiuzhen.system.equipment.network.JewelryTableButtonPayload;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fabao010huoyan;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fuchen;
 import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
@@ -39,7 +44,8 @@ import net.yvanchuxiuzhen.system.equipment.projectile.FabaoPoisonFields;
  * 装备系统的启动装配，只在 Mod 构造时调用一次。
  */
 public final class EquipmentSetup {
-    private static final ContentTables CONTENT = new ContentTables("equipment");
+    private static final ContentTables CONTENT = new ContentTables("equipment")
+            .blockFactory("equipment:shipintai", traits -> ContentBlock.create(traits, JewelryTableBlock::new));
 
     private EquipmentSetup() {
     }
@@ -47,6 +53,8 @@ public final class EquipmentSetup {
     public static void register(IEventBus modBus) {
         EquipmentData.register(modBus);
         EquipmentMenus.register(modBus);
+        EquipmentBlockEntities.register(modBus);
+        modBus.addListener(EquipmentSetup::registerPayloads);
         CONTENT.itemFactory("equipment:fuchen", FuchenItem::new);
         CONTENT.itemFactory("equipment:fabao_010", Fabao010Item::new);
         CONTENT.itemFactory("equipment:fabao_010huoyan", Fabao010huoyanItem::new);
@@ -144,6 +152,10 @@ public final class EquipmentSetup {
         NeoForge.EVENT_BUS.addListener(BenmingCultivation::onCultivationSecond);
         NeoForge.EVENT_BUS.addListener(FabaoPoisonFields::tick);
         NeoForge.EVENT_BUS.addListener(FabaoPoisonFields::stopped);
+    }
+
+    private static void registerPayloads(RegisterPayloadHandlersEvent event) {
+        event.registrar("1").playToServer(JewelryTableButtonPayload.TYPE, JewelryTableButtonPayload.STREAM_CODEC, JewelryTableButtonPayload::handle);
     }
 
     public static Supplier<EntityType<Fuchen>> fuchenType() {

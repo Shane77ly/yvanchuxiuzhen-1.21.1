@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/shipintai.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/shipintai"
+  }
+}

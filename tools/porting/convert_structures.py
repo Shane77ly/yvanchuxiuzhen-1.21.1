@@ -1,11 +1,12 @@
 """把两个 1.18.2 来源的结构 NBT 迁入 1.21.1 数据包。
 
 输出：
-- src/main/resources/data/yvanchuxiuzhen/structure/<名>.nbt（GZip，其余内容与来源一致，DataVersion 保持 2975）
+- src/main/resources/data/yvanchuxiuzhen/structure/<名>.nbt（GZip，DataVersion 保持 2975）
 - docs/reference/conversion/structure_manifest.csv（来源、来源 SHA-1、目标、调色板中的方块名）
 
-唯一的改写是把字符串值里出现的来源命名空间（`yvanchuxitong:`）换成本 Mod 的命名空间，覆盖方块调色板、方块实体 ID、
+把字符串值里出现的来源命名空间（`yvanchuxitong:`）换成本 Mod 的命名空间，覆盖方块调色板、方块实体 ID、
 容器内物品 ID，以及方块实体里存放的任务、对话、商品等机械设定文本中嵌入的 ID（这些文本由所属系统解析）。
+实体/方块实体 nbt 的直接子键 ForgeData 改为 NeoForgeData，使来源结构保存的自定义字段进入目标持久数据。
 NBT 没有复合与列表的长度前缀，只有字符串带长度，因此按标签逐个走一遍，原样复制字节，遇到需要改写的字符串时重写其长度。
 规则见 docs/development/engineering.md“资源转换管线”。
 """
@@ -35,6 +36,7 @@ class Rewriter:
         self.out = bytearray()
         self.palette_names: set[str] = set()
         self.in_palette = 0
+        self.persistent_data_tags = 0
 
     def copy(self, count: int) -> None:
         self.out += self.data[self.position:self.position + count]
@@ -79,8 +81,15 @@ class Rewriter:
                 if kind == 0:
                     return
                 length = struct.unpack_from('>H', data, self.position)[0]
-                name = data[self.position + 2:self.position + 2 + length].decode('utf-8', 'replace')
-                self.copy(2 + length)
+                raw_name = data[self.position + 2:self.position + 2 + length]
+                name = raw_name.decode('utf-8', 'replace')
+                if key == 'nbt' and kind == 10 and name == 'ForgeData':
+                    self.position += 2 + length
+                    converted_name = b'NeoForgeData'
+                    self.out += struct.pack('>H', len(converted_name)) + converted_name
+                    self.persistent_data_tags += 1
+                else:
+                    self.copy(2 + length)
                 self.payload(kind, name)
         else:
             raise ValueError(f'未知 NBT 标签类型 {tag}')
@@ -100,6 +109,7 @@ class Rewriter:
 
 def main() -> None:
     manifest = []
+    persistent_data_tags = 0
     targets: dict[str, str] = {}
     DATA.mkdir(parents=True, exist_ok=True)
     for mod, (root, _) in SOURCES.items():
@@ -112,6 +122,7 @@ def main() -> None:
             raw = gzip.decompress(source)
             rewriter = Rewriter(raw)
             rewritten = rewriter.run()
+            persistent_data_tags += rewriter.persistent_data_tags
             remaining = rewritten.count(b'yvanchuxitong')
             if remaining:
                 print(f'{file.name}: 改写后仍有 {remaining} 处 yvanchuxitong（不是“命名空间:”形式）')
@@ -124,7 +135,7 @@ def main() -> None:
         writer = csv.writer(handle, lineterminator='\n')
         writer.writerow(['source', 'source_sha1', 'target', 'palette_names'])
         writer.writerows(manifest)
-    print('structures', len(manifest))
+    print('structures', len(manifest), 'persistent_data_tags', persistent_data_tags)
 
 
 if __name__ == '__main__':

@@ -2203,11 +2203,11 @@ yvanchuxiuzhen,Beltornaments07,item,~/weapon/jewelry,equipment,已读,B1 归属�
 yvanchuxiuzhen,Beltornaments08,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 treasure 的 BaoxiangShipin 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Beltornaments09,item,~/weapon/jewelry,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Shipintai,animatedblock,~/weapon/jewelry/shipintaiGUI,equipment,已读,B1 归属阅读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
-yvanchuxiuzhen,GUIshipintai,gui,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shipintaixianshi,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ShipintaiGUIpagedown,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ShipintaiGUIpageup,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Hecheng,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,GUIshipintai,gui,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
+yvanchuxiuzhen,Shipintaixianshi,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
+yvanchuxiuzhen,ShipintaiGUIpagedown,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
+yvanchuxiuzhen,ShipintaiGUIpageup,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
+yvanchuxiuzhen,Hecheng,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
 yvanchuxiuzhen,ShipintaiFangZhiFangKuaiShi,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,B1 归属阅读：随 Shipintai 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,ZhibujiZaiFangKuaiShangYouJian,procedure,~/tool,craft,已读,B1 归属阅读：随 Zhibuji 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,ZhibujiGengXinYouXiKe,procedure,~/tool,craft,已读,B1 归属阅读：随 Zhibuji 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
@@ -3534,10 +3534,10 @@ yvanchuxiuzhen,Cailiao176,item,~/item/zawu,material,已读,B1 归属阅读：编
 yvanchuxiuzhen,Cailiao177,item,~/item/zawu,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 craft 的 ZhibujiZaiFangKuaiShangYouJian；equipment 的 Shipinpeifang4；flow 的 Worldbegin；treasure 的 BaoxiangBupi；world 的 SealreleaseGo 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao178,item,~/item/zawu,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 craft 的 ZhibujiZaiFangKuaiShangYouJian；equipment 的 Shipinpeifang4；flow 的 Worldbegin；treasure 的 BaoxiangBupi；world 的 SealreleaseGo 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao179,item,~/item/zawu,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 craft 的 ZhibujiZaiFangKuaiShangYouJian；equipment 的 Shipinpeifang4；flow 的 Worldbegin；treasure 的 BaoxiangBupi；world 的 SealreleaseGo 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
-yvanchuxiuzhen,Shipinpeifang1,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shipinpeifang2,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shipinpeifang3,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shipinpeifang4,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Shipinpeifang1,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
+yvanchuxiuzhen,Shipinpeifang2,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
+yvanchuxiuzhen,Shipinpeifang3,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
+yvanchuxiuzhen,Shipinpeifang4,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
 yvanchuxiuzhen,Jewelry,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Headornaments,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Necklaceornaments,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4578,10 +4578,10 @@ yvanchuxiuzhen,Cailiaolevelsix,tag,~/tag/baoxiang,treasure,候选,第一版批�
 yvanchuxiuzhen,Cailiaolevelseven,tag,~/tag/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiaoleveleight,tag,~/tag/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiaolevelnine,tag,~/tag/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shipintaitishi01,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shipintaitishi02,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shipintaitishi03,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shipintaitishi04,procedure,~/weapon/jewelry/shipintaiGUI,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Shipintaitishi01,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
+yvanchuxiuzhen,Shipintaitishi02,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
+yvanchuxiuzhen,Shipintaitishi03,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
+yvanchuxiuzhen,Shipintaitishi04,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
 yvanchuxiuzhen,Effectslownessget,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SealreleaseGo,procedure,~/decorate/jiegou/buildlist,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Skillyin01,animatedentity,~/skill/jineng/yinskill,skill,已读,C skill 归属阅读：起尸诀（可驯服亡灵实体：技能状态机、四角放出、杀死实体让书升级；状态复位 Entityjinengjieshu 与妖兽共用同一组 getPersistentData 键）

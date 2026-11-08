@@ -126,6 +126,7 @@
 {"id":"beltornaments_07","factory":"item","order":1093,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","stack":1},
 {"id":"beltornaments_08","factory":"item","order":1094,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","stack":1},
 {"id":"beltornaments_09","factory":"item","order":1095,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","stack":1},
+{"id":"shipintai","factory":"block_item","block":"shipintai","order":1096,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"gongjv_011","factory":"tool","order":1608,"tab":"minecraft:tools_and_utilities","tool":{"kind":"axe","tier":{"uses":700,"speed":5.0,"damage_bonus":2.0,"level":1,"enchantability":14,"repair":["cailiao_201"]},"damage":1,"attack_speed":-3.0}},
 {"id":"gongjv_012","factory":"tool","order":1609,"tab":"minecraft:tools_and_utilities","tool":{"kind":"axe","tier":{"uses":1200,"speed":7.0,"damage_bonus":2.0,"level":4,"enchantability":14,"repair":["cailiao_202"]},"damage":1,"attack_speed":-3.0}},
 {"id":"gongjv_013","factory":"tool","order":1610,"tab":"minecraft:tools_and_utilities","tool":{"kind":"axe","tier":{"uses":2200,"speed":9.0,"damage_bonus":2.0,"level":5,"enchantability":14,"repair":["cailiao_203"]},"damage":1,"attack_speed":-3.0}},

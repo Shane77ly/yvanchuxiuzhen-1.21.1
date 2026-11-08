@@ -1,6 +1,6 @@
 # 菜单、资源与表现对齐
 
-已核对范围：菜单、资源和世界内容条目来自两个 MCreator 生成的 1.18.2 Forge Mod 的调查阶段；实体、粒子、声音和刷怪蛋条目来自一次 MCreator + GeckoLib 来源到 NeoForge 1.21.1 的实体移植实践。
+已核对范围：菜单、资源和世界内容条目来自两个 MCreator 生成的 1.18.2 Forge Mod 的调查阶段；实体、粒子、声音和刷怪蛋条目来自一次 MCreator + GeckoLib 来源到 NeoForge 1.21.1 的实体移植实践；结构持久数据键对照 Forge40.1.0 与 NeoForge21.1.265 精确源码。
 
 ## 菜单与界面
 
@@ -84,6 +84,7 @@ PowerShell 复制带通配符的资源时使用 `Copy-Item -Path`；`-LiteralPat
 - 维度表现以 `dimension_type` 实际绑定的 `effects` 为准；来源客户端登记同名特效不代表被使用。正式维度接入时移除验证源集中同ID的替身，避免运行仍被测试数据覆盖。
 - MCreator 1.18.2 的维度 Fixers 可能修改全局 CAVE/CANYON 可替换集合。迁移前查清作用范围；已核对 NeoForge21.1.265 的 `Carvers` 与 `WorldCarver.canReplaceBlock`：原版 cave、cave_extra_underground、canyon 共用 `minecraft:overworld_carver_replaceables` 标签，nether_cave使用另一标签，不能误把修改限制为某个维度，也不能扩到下界雕刻器。
 - 结构文件存在不证明有自然生成入口。
+- 来源结构的实体与方块实体 NBT 还须核对加载器保存键。已对照 Forge 1.18.2-40.1.0 的 `BlockEntity.java.patch` 与 NeoForge 21.1.265 的 `BlockEntity.loadAdditional/saveAdditional`、`Entity.saveWithoutId/load`：自定义持久数据由 `ForgeData` 改为 `NeoForgeData`，原版 DataFixer 不负责此加载器键。转换来源结构时改写 `nbt` 的直接子复合标签名，保留内部业务键与值；不能只重写注册 ID，也不应为此在玩法类增加旧存档兼容分支。
 - 自然获取线路未接通时，不能因命令可以生成物品而标记玩法完成。
 
 ## 资源目录与模型引用迁移（MCreator 1.18.2 到 NeoForge 1.21.1，已用于全量方块与物品）

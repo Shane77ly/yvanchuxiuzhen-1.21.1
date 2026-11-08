@@ -125,3 +125,5 @@ item,yvanchuxiuzhen:clothes_19_helmet,equipment:clothes_19_helmet,equipment,来�
 item,yvanchuxiuzhen:clothes_19_chestplate,equipment:clothes_19_chestplate,equipment,来源动画护甲的材质、部位、骨骼模型与循环动画（EquipmentGeoArmorItem）
 item,yvanchuxiuzhen:clothes_19_leggings,equipment:clothes_19_leggings,equipment,来源动画护甲的材质、部位、骨骼模型与循环动画（EquipmentGeoArmorItem）
 item,yvanchuxiuzhen:clothes_19_boots,equipment:clothes_19_boots,equipment,来源动画护甲的材质、部位、骨骼模型与循环动画（EquipmentGeoArmorItem）
+block,yvanchuxiuzhen:shipintai,equipment:shipintai,equipment,饰品台方块实体、四槽菜单与类别动画
+item,yvanchuxiuzhen:shipintai,block_item,equipment,来源普通二维图标，复用原生方块物品

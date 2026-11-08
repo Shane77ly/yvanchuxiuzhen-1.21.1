@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.equipment.client;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -10,16 +11,21 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 
-/** 成品提示对应 Lore 的装备分支；Q17 移入统一贡献的生命与物攻在此显示。 */
+/** 装备成品提示读取炼器实例，饰品提示读取根字段中的品质、类型与恢复和上限数值。 */
 final class EquipmentTooltip {
     private EquipmentTooltip() {
     }
 
     static void tooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
+        if (tagged(stack, "jewelry")) {
+            jewelry(event.getToolTip(), Equipment.properties(stack));
+            return;
+        }
         boolean weapon = tagged(stack, "wuqi") || tagged(stack, "fabao");
         boolean armor = tagged(stack, "toukui") || tagged(stack, "xiongjia") || tagged(stack, "kuzi") || tagged(stack, "zhanxve");
         if (!weapon && !armor) return;
@@ -46,6 +52,21 @@ final class EquipmentTooltip {
                 lines.add(Component.literal("§f" + product.description().substring(start, Math.min(start + 24, product.description().length()))));
             }
         });
+    }
+
+    private static void jewelry(List<Component> lines, EquipmentProperties properties) {
+        if (properties.text("fabaotype").isEmpty()) return;
+        lines.add(Component.literal("§6" + properties.text("item_level")));
+        lines.add(Component.literal("§6" + properties.text("fabaotype")));
+        nonzero(lines, "血量恢复", properties.number("health_Rec"));
+        nonzero(lines, "灵力上限", properties.number("power_Max"));
+        nonzero(lines, "灵力恢复", properties.number("power_Rec"));
+        nonzero(lines, "精力上限", properties.number("soul_Max"));
+        nonzero(lines, "精力恢复", properties.number("soul_Rec"));
+    }
+
+    private static void nonzero(List<Component> lines, String name, double value) {
+        if (value != 0) lines.add(Component.literal("§b" + name + "+" + new DecimalFormat("0").format(value)));
     }
 
     private static void positive(List<Component> lines, String name, int value) {

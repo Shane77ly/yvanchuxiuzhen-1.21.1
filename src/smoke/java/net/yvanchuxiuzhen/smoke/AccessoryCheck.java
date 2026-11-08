@@ -8,14 +8,18 @@ import java.util.function.Consumer;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.BackupConfirmScreen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.RegistryOps;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.inventory.ClickType;
@@ -23,13 +27,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.panel.PanelNavigation;
 import net.yvanchuxiuzhen.panel.PlayerPanelMenu;
 import net.yvanchuxiuzhen.panel.client.AttributeScreen;
+import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.Contribution;
 import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
@@ -39,7 +46,10 @@ import net.yvanchuxiuzhen.system.equipment.api.AccessoryInventory;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties;
 import net.yvanchuxiuzhen.system.equipment.client.AccessoryScreen;
+import net.yvanchuxiuzhen.system.equipment.client.JewelryTableScreen;
 import net.yvanchuxiuzhen.system.equipment.content.AccessoryMenu;
+import net.yvanchuxiuzhen.system.equipment.content.JewelryTableBlockEntity;
+import net.yvanchuxiuzhen.system.equipment.content.JewelryTableMenu;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.data.AccessoryData;
 import net.yvanchuxiuzhen.system.skill.SkillFlight;
@@ -53,7 +63,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.content.DantianMenu;
 import net.yvanchuxiuzhen.system.xiulian.network.XiulianButtonPayload;
 
-/** 仅验证饰品生产、自然菜单、保存边界和新接入的飞行附魔，不重复身法或神通检查。 */
+/** 饰品生产、佩戴与制作台的自然菜单、库存保存和本人同步，以及饰品飞行附魔的实机检查。 */
 final class AccessoryCheck extends SystemCheck {
     private static final String CONTRIBUTION = "smoke:accessories";
     private static final CultivationValue[] VALUES = {CultivationValue.POWER, CultivationValue.SOUL, CultivationValue.POWER_DISPLAY, CultivationValue.SOUL_DISPLAY};
@@ -70,6 +80,9 @@ final class AccessoryCheck extends SystemCheck {
     private int entered = -1;
     private boolean gliding;
     private BlockPos chest;
+    private BlockPos jewelryPos;
+    private BlockState jewelryState;
+    private long firstJewelryCraft;
 
     AccessoryCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("accessories", report, levelId);
@@ -190,6 +203,98 @@ final class AccessoryCheck extends SystemCheck {
             case 16 -> action(step, local, 10, p -> {
                 expectTrue("重登后K仍打开饰品页，已保存四槽实际装入客户端", p.containerMenu instanceof AccessoryMenu && minecraft.screen instanceof AccessoryScreen
                         && ItemStack.isSameItemSameComponents(minecraft.player.containerMenu.slots.get(2).getItem(), products.get(2)));
+                p.closeContainer();
+                jewelryPos = p.blockPosition().offset(2, 1, 0);
+                jewelryState = p.serverLevel().getBlockState(jewelryPos);
+                p.serverLevel().setBlockAndUpdate(jewelryPos,
+                        BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "shipintai")).defaultBlockState());
+                p.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                p.getInventory().setItem(9, jewelryItem("cailiao_088", 2));
+                p.getInventory().setItem(10, jewelryItem("cailiao_191", 2));
+                p.getInventory().setItem(11, jewelryItem("cailiao_161", 2));
+                p.getInventory().setItem(12, new ItemStack(Items.EMERALD));
+                p.inventoryMenu.broadcastChanges();
+            });
+            case 17 -> action(step, local, 10, p -> openJewelry());
+            case 18 -> action(step, local, 10, p -> {
+                expectTrue("真实方块右键经网络打开饰品制作台与头簪类别", p.containerMenu instanceof JewelryTableMenu
+                        && minecraft.screen instanceof JewelryTableScreen && p.containerMenu.slots.size() == 40
+                        && ((JewelryTableMenu) p.containerMenu).category().equals("头簪"));
+                minecraft.execute(() -> fillJewelry(true));
+            });
+            case 19 -> action(step, local, 10, p -> {
+                JewelryTableBlockEntity table = (JewelryTableBlockEntity) p.serverLevel().getBlockEntity(jewelryPos);
+                expectTrue("真实槽点击每个输入只放一件并保留背包余件，结果槽拒绝放入", table.getItem(0).getCount() == 1
+                        && table.getItem(1).getCount() == 1 && table.getItem(2).getCount() == 1 && table.getItem(3).isEmpty()
+                        && p.containerMenu.slots.get(0).getMaxStackSize() == 1 && !p.containerMenu.slots.get(3).mayPlace(jewelryItem("cailiao_088", 1))
+                        && p.getInventory().getItem(9).getCount() == 1 && p.getInventory().getItem(10).getCount() == 1
+                        && p.getInventory().getItem(11).getCount() == 1 && p.containerMenu.getCarried().isEmpty());
+                firstJewelryCraft = p.serverLevel().getGameTime();
+                minecraft.execute(() -> pressJewelry(0));
+            });
+            case 20 -> action(step, local, 10, p -> {
+                JewelryTableBlockEntity table = (JewelryTableBlockEntity) p.serverLevel().getBlockEntity(jewelryPos);
+                ItemStack result = table.getItem(3);
+                EquipmentProperties properties = Equipment.properties(result);
+                ItemStack clientResult = minecraft.player.containerMenu.slots.get(3).getItem();
+                expectTrue("屏幕合成按钮消费三个输入，头簪根字段小数与冷却附魔完整同步", result.is(jewelryItem("headornaments_01", 1).getItem())
+                        && table.getItem(0).isEmpty() && table.getItem(1).isEmpty() && table.getItem(2).isEmpty()
+                        && properties.number("item_level_num") == 4 && properties.text("item_level").equals("黄阶四级")
+                        && properties.fields().get("item_level_num").kind() == EquipmentProperties.Kind.DOUBLE
+                        && properties.text("fabaotype").equals("头饰") && properties.text("tuzhiname").equals(result.getDisplayName().getString())
+                        && properties.text("fabaoid").equals("yvanchuxiuzhen:headornaments_01")
+                        && Enchants.level(p, result, Enchants.key("colddown")) == 1 && ItemStack.matches(result, clientResult)
+                        && Enchants.level(minecraft.player, clientResult, Enchants.key("colddown")) == 1
+                        && minecraft.player.containerMenu.slots.get(0).getItem().isEmpty()
+                        && minecraft.player.containerMenu.slots.get(1).getItem().isEmpty()
+                        && minecraft.player.containerMenu.slots.get(2).getItem().isEmpty());
+                p.getInventory().setItem(9, jewelryItem("cailiao_202", 1));
+                p.getInventory().setItem(10, jewelryItem("cailiao_192", 1));
+                p.getInventory().setItem(11, jewelryItem("cailiao_162", 1));
+                p.containerMenu.broadcastChanges();
+            });
+            case 21 -> action(step, local, 10, p -> minecraft.execute(() -> {
+                fillJewelry(false);
+                pressJewelry(0);
+            }));
+            case 22 -> action(step, local, 10, p -> {
+                JewelryTableBlockEntity table = (JewelryTableBlockEntity) p.serverLevel().getBlockEntity(jewelryPos);
+                ItemStack result = table.getItem(3);
+                expectTrue("四秒内可再次合成并覆盖未取出的头簪，二档成品与消费同步", p.serverLevel().getGameTime() - firstJewelryCraft < 80
+                        && result.is(jewelryItem("headornaments_02", 1).getItem()) && result.getCount() == 1
+                        && Equipment.properties(result).number("item_level_num") == 9 && Enchants.level(p, result, Enchants.key("colddown")) == 2
+                        && table.getItem(0).isEmpty() && table.getItem(1).isEmpty() && table.getItem(2).isEmpty()
+                        && ItemStack.matches(result, minecraft.player.containerMenu.slots.get(3).getItem()));
+                minecraft.execute(() -> pressJewelry(1));
+            });
+            case 23 -> action(step, local, 10, p -> {
+                expectTrue("下翻按钮由头簪进入项坠且类别同步到客户端", ((JewelryTableMenu) p.containerMenu).category().equals("项坠")
+                        && ((JewelryTableMenu) minecraft.player.containerMenu).category().equals("项坠"));
+                minecraft.execute(() -> {
+                    for (int i = 0; i < 3; i++) pressJewelry(1);
+                    pressJewelry(2);
+                });
+            });
+            case 24 -> action(step, local, 10, p -> {
+                expectTrue("下翻经过手镯腰佩回到头簪，上翻回到腰佩且双端一致", ((JewelryTableMenu) p.containerMenu).category().equals("腰佩")
+                        && ((JewelryTableMenu) minecraft.player.containerMenu).category().equals("腰佩"));
+                minecraft.execute(() -> {
+                    int id = minecraft.player.containerMenu.containerId;
+                    minecraft.gameMode.handleInventoryMouseClick(id, 7, 0, ClickType.PICKUP, minecraft.player);
+                    minecraft.gameMode.handleInventoryMouseClick(id, 0, 0, ClickType.PICKUP, minecraft.player);
+                    minecraft.player.closeContainer();
+                });
+            });
+            case 25 -> action(step, local, 10, p -> openJewelry());
+            case 26 -> action(step, local, 10, p -> {
+                JewelryTableBlockEntity table = (JewelryTableBlockEntity) p.serverLevel().getBlockEntity(jewelryPos);
+                expectTrue("关闭后自然右键重开保留未消费输入、覆盖后成品和类别，客户端库存一致", p.containerMenu instanceof JewelryTableMenu
+                        && minecraft.screen instanceof JewelryTableScreen && table.category().equals("腰佩")
+                        && table.getItem(0).is(Items.EMERALD) && table.getItem(0).getCount() == 1
+                        && table.getItem(3).is(jewelryItem("headornaments_02", 1).getItem())
+                        && ItemStack.matches(table.getItem(0), minecraft.player.containerMenu.slots.get(0).getItem())
+                        && ItemStack.matches(table.getItem(3), minecraft.player.containerMenu.slots.get(3).getItem())
+                        && ((JewelryTableMenu) minecraft.player.containerMenu).category().equals("腰佩"));
                 cleanup(p);
             });
             default -> {
@@ -264,6 +369,45 @@ final class AccessoryCheck extends SystemCheck {
                 .map(child -> (Button) child).findFirst().orElseThrow().onPress());
     }
 
+    private static ItemStack jewelryItem(String name, int count) {
+        return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, name)), count);
+    }
+
+    private void openJewelry() {
+        minecraft.execute(() -> minecraft.gameMode.useItemOn(minecraft.player, InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(jewelryPos), Direction.UP, jewelryPos, false)));
+    }
+
+    /** 通过玩家背包槽搬运三种材料，并在持有余件时实际点击结果槽。仅在客户端线程调用。 */
+    private void fillJewelry(boolean checkResult) {
+        int id = minecraft.player.containerMenu.containerId;
+        for (int slot = 0; slot < 3; slot++) {
+            minecraft.gameMode.handleInventoryMouseClick(id, 4 + slot, 0, ClickType.PICKUP, minecraft.player);
+            minecraft.gameMode.handleInventoryMouseClick(id, slot, 0, ClickType.PICKUP, minecraft.player);
+            if (slot == 0 && checkResult) {
+                minecraft.gameMode.handleInventoryMouseClick(id, 3, 0, ClickType.PICKUP, minecraft.player);
+                expectTrue("客户端真实点击结果槽拒绝材料且保留鼠标余件", minecraft.player.containerMenu.slots.get(3).getItem().isEmpty()
+                        && minecraft.player.containerMenu.getCarried().is(jewelryItem("cailiao_088", 1).getItem())
+                        && minecraft.player.containerMenu.getCarried().getCount() == 1);
+            }
+            minecraft.gameMode.handleInventoryMouseClick(id, 4 + slot, 0, ClickType.PICKUP, minecraft.player);
+        }
+    }
+
+    /** 按来源按钮坐标点击真实屏幕，经过控件发送按钮消息。仅在客户端线程调用。 */
+    private void pressJewelry(int button) {
+        JewelryTableScreen screen = (JewelryTableScreen) minecraft.screen;
+        int x = screen.getGuiLeft() + switch (button) {
+            case 0 -> 105;
+            case 1 -> 64;
+            case 2 -> 110;
+            default -> throw new IllegalArgumentException("饰品台检查按钮：" + button);
+        };
+        int y = screen.getGuiTop() + (button == 0 ? 74 : 57);
+        screen.mouseClicked(x, y, 0);
+        screen.mouseReleased(x, y, 0);
+    }
+
     private static boolean near(double a, double b) {
         return Math.abs(a - b) < 1e-7;
     }
@@ -275,6 +419,8 @@ final class AccessoryCheck extends SystemCheck {
 
     private void cleanup(ServerPlayer p) {
         p.closeContainer();
+        ((Container) p.serverLevel().getBlockEntity(jewelryPos)).clearContent();
+        p.serverLevel().setBlockAndUpdate(jewelryPos, jewelryState);
         p.setGameMode(gameMode);
         p.setData(EquipmentData.ACCESSORIES, new AccessoryData(original));
         p.setData(PanelNavigation.PAGE, page);

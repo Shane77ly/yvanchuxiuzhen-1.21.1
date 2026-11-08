@@ -7,7 +7,7 @@ updated: 2026-11-08
 
 # 装备、法宝、本命与饰品：架构调查与提案
 
-来源事实与目标方案分别陈述。前半的完整系统方案尚未整体采用；本页末尾单独记录已按批准系统设计实施的弓与拂尘、妖化、宝箱成品批次。源码定位采用 [系统导航](../README.md)的 A/B 规则。
+来源事实与目标方案分别陈述。前半的完整系统方案尚未整体采用；本页后续各节单独记录按批准系统设计实施的批次及各自验证边界。源码定位采用 [系统导航](../README.md)的 A/B 规则。
 ## 1.18.2 实例与调用
 
 装备包括基础 Item 类型、炼器生成的 `lianqizong`、原生附魔、耐久和实例词条，不能只迁移注册类。饰品有四个独立玩家槽；本命法宝保存到 `benmingfabao`，属性比较用的 `kuijia1…4/wuqilinshi` 是另一种职责。
@@ -197,7 +197,7 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 `/shipin` 无权限门槛，按空白拆参，返回0；物品 ID 转小写并统一原初系统命名空间。前六项为物品、名字、说明、类型、品阶文字、品阶整数，名字/说明为“无”时不写对应值。之后最多三组“键、类型、值”，前一组键为空时停止；`str/char` 写字符串，`int` 截断，`double` 保留小数，其他组解释为附魔的命名空间、路径与等级。先写固定字段，再顺序写动态键，所以动态键能覆盖固定字段；`EquipmentProperties` 保留未知键、三种类型与覆盖结果。数值转换失败取0是来源输入规则。物品在命令坐标加 `(0.5,0.8,0.5)` 掉落，拾取延迟10刻。
 
-每个已保存饰品槽计一次根字段贡献，不乘堆叠数量：生命/灵力/神识上限与恢复、三防共九项；四槽 `colddown` 每级提供0.01冷却缩减。四件护甲的 `dawn/powerup/attdef/manadef` 分别增加生命恢复、灵力恢复、物防、法防，`colddown` 同样每级0.01。与既有炼器贡献一起提交 attribute 的加成层，实际贡献变化时才写回。根 `mana_Att` 的真实 `/shipin` 生产者已接入 `WeaponStatEvent`，延续 Q59 与嵌套 `lianqizong.mana_Att` 分离；其他根值生产者仍随所属系统迁移。未为根字段新增来源没有的装备 Tooltip。
+每个已保存饰品槽计一次根字段贡献，不乘堆叠数量：生命/灵力/神识上限与恢复、三防共九项；四槽 `colddown` 每级提供0.01冷却缩减。四件护甲的 `dawn/powerup/attdef/manadef` 分别增加生命恢复、灵力恢复、物防、法防，`colddown` 同样每级0.01。与既有炼器贡献一起提交 attribute 的加成层，实际贡献变化时才写回。根 `mana_Att` 的真实 `/shipin` 生产者已接入 `WeaponStatEvent`，延续 Q59 与嵌套 `lianqizong.mana_Att` 分离；其他根值生产者仍随所属系统迁移。饰品根字段提示的来源分支与目标接线见[饰品制作台](#饰品制作台2026-11-08)。
 
 `FlightEnchantmentEvent` 汇总已保存四槽的 `flying` 等级，复用 skill 的原消耗公式；槽内替换尚未关闭时不提前把新物品计入。腰佩保存字段为 `fuqi_01` 时，按世界日时间每10刻在玩家Y+1广播2个 `fuqi_0101` 粒子，时间倒退重置计时，`shipintick` 仍由 xiulian 保管。该物品不在腰佩标签中，未补入标签。
 
@@ -207,9 +207,9 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 专用服务器一次到 Done，原生 `stop` 正常保存全部世界并退出，ERROR 0；菜单导出10个，包含 `player_gui_01/03`，物品数保持2068。两张旧截图只用于布局和贴图可见性，图中的数量3来自上述非法检查数据，不能代表正常饰品玩法；零层检查玩家显示未翻译的 `levelname00`，没有擅自夹到其他境界。完整视觉未认可。
 
-证据：`tmp/accessory-{build,smoke,server}.log`、`tmp/accessory-report.txt`、`tmp/accessory-check-compile.log`、`tmp/accessory-stacking-audit.log` 与两张旧截图。GUI 当前仅部分实现：属性页和饰品页已接主路径，但两页的其他分页按钮、饰品临时队伍显示/退出未接；`GUIshipintai` 制作台亦未实现。其余页面随所属系统逐项闭合，不能留到最后统一补或宣称当前 GUI 已验收。合法单件穿戴、重登后实际操作、多人、完整视觉、1.18.2版本实机及两版本对照未完成。菜单台账仅标“已注册”并注明部分行为，不升级整套饰品物品的迁移状态。
+证据：`tmp/accessory-{build,smoke,server}.log`、`tmp/accessory-report.txt`、`tmp/accessory-check-compile.log`、`tmp/accessory-stacking-audit.log` 与两张旧截图。该次GUI仅部分实现：属性页和饰品页已接主路径，但两页的其他分页按钮、饰品临时队伍显示/退出未接；`GUIshipintai` 制作台当时未实现，后续进度见[制作台批次](#饰品制作台2026-11-08)。其余页面随所属系统逐项闭合，不能留到最后统一补或宣称当前GUI已验收。该次合法单件穿戴、重登后实际操作、多人、完整视觉、1.18.2 版本实机及两版本对照未完成。菜单台账仅标“已注册”并注明部分行为，不升级整套饰品物品的迁移状态。
 
-后续合法单件验收（2026-11-07）：沿用现有 `runSmokeClient -PsmokeOnly=accessories`，未修改检查代码，14项全部通过并 `DONE`。真实 `/shipin` 生成上限一的单件，K键打开属性/饰品页，实际Shift搬移、关闭保存及本人同步、根法攻和属性提交、七级飞行减耗、头顶容器绑定、丹田往返、死亡复制、退出重登和重登后再打开均通过。两次退出均保存全部世界，客户端ERROR0，证据为 `tmp/accessory-native-{client.log,report.txt}`。本次补齐合法数据下的上述路径证据；其他分页、临时队伍、制作台、多人和两版本对照仍未完成，菜单及整套饰品物品状态不升级为完整验收。
+后续合法单件验收（2026-11-07）：沿用现有 `runSmokeClient -PsmokeOnly=accessories`，未修改检查代码，14项全部通过并 `DONE`。真实 `/shipin` 生成上限一的单件，K键打开属性/饰品页，实际Shift搬移、关闭保存及本人同步、根法攻和属性提交、七级飞行减耗、头顶容器绑定、丹田往返、死亡复制、退出重登和重登后再打开均通过。两次退出均保存全部世界，客户端ERROR0，证据为 `tmp/accessory-native-{client.log,report.txt}`。本次补齐合法数据下的上述路径证据；当批没有覆盖其他分页、临时队伍、制作台、多人和两版本对照，菜单及整套饰品物品状态不升级为完整验收。制作台后续批次见[本页正文](#饰品制作台2026-11-08)。
 
 ## 开灵工具机与弹体（2026-11-08）
 
@@ -444,3 +444,118 @@ NeoForge21.1.265的 `ArmorItem` 保留四槽耐久基数。GeckoLib4.9.3的 `Geo
 专用服务器一次启动至 `Done`，本次TTY与init脚本成功转发标准输入，执行原生 `stop` 后正常保存四维度并退出，`ERROR/FATAL=0`；证据为 `tmp/animated-equipment-server-latest.log`。注册导出物品2125个、实体109个，来源指纹检查退出码0，证据为 `tmp/equipment-animated-inventory.log`。本批文档、台账和差异检查由主会话在四文档收口后统一执行。
 
 上述运行只作公共注册、资源加载和既有场景回归。57件新防具的逐件自然穿戴、两件法宝自然持物、非空 `geckoAnim` 请求与单次动画恢复、存档重载、第一人称/第三人称/GUI完整视觉、1.18.2实机、两版本对照和多人验收未执行；不能以既有九项检查或妖化截图替代这些专项。
+
+## 饰品制作台（2026-11-08）
+
+### 来源入口、获取与所有权
+
+来源为 `A:ShipintaiBlock`、`ShipintaiTileEntity`、`GUIshipintaiMenu/Screen`、`GUIshipintaiButtonMessage`，以及放置、显示、翻页、`Hecheng`、四个 `Shipinpeifang` 和四个 `Shipintaitishi` 过程。`ItemLoreProcedure:91–110` 是饰品根字段的真实提示消费者。方块、方块实体与物品 ID 均为 `yvanchuxiuzhen:shipintai`，菜单为 `yvanchuxiuzhen:gu_ishipintai`。本批已接回制作台及36种既有饰品的自然成品生成；13个来源元素归属已读，资源/数据/结构转换、完整构建、客户端专项与专服运行通过，范围见本节末尾。
+
+物品登记在来源方块创造栏，未找到制作台合成配方或独立loot JSON。静态扫描全部149份结构，仅 `structures/yvnqingpai.nbt` 含一台：结构大小 `[67,70,70]`、局部坐标 `[17,36,25]`、北向、动画0、库存空，`ForgeData.shipintainame` 为“腰佩”。来源权限1的 `/yvanchu` 经 `unlock/sealrelease` 选择“云清派”，在 `(-882,141,-267)` 无旋转放置结构，台位于 `(-865,177,-242)`。这条结构与管理命令链随 world/flow 后续批次接续；本批不能据创造栏登记断言制作台只能通过创造模式获取，也不声称自然获取链已验收。
+
+目标结构资源转换器按实体/方块实体条目的直接 `nbt` 子compound，把 `ForgeData` 键改为 `NeoForgeData`，使预设类别进入目标 `getPersistentData()`。本批已重新转换两来源共161份结构、改写1117处持久数据键，保留compound内部字段。转换规则正文位于[工程规则](../../development/engineering.md)的资源转换管线，可复用结论同步维护到移植技能的资源参考；这项结构资源格式适配不替代上述世界与管理命令链验收。
+
+equipment 唯一持有制作台库存、类别、动画请求与成品根组件。58种配方输入已有注册身份，其中material49种、economy9种；只查询既有物品，不增加材料副本或跨系统状态写入。`typed_field_accesses.csv` 未登记这些制作台过程的玩家字段读写；其实际对象是方块实体和物品根NBT。成品沿用 `EquipmentData.PROPERTIES` / `EquipmentProperties`，外部读取继续使用 `Equipment.properties`。`Equipment.createProduct` 的嵌套炼器语义、四饰品槽保存和既有属性汇总不扩展为另一套实现。
+
+### 方块、四槽库存与菜单
+
+方块木音效、硬度5、抗性20、`noOcclusion`，不传红石，透天光且遮光0。水平朝向默认北，放置时朝向与玩家相反；`animation` 为0–5整数属性。来源方块层登记cutout，Geo实际使用 `entityTranslucent`。形状为下表三个盒的并集，坐标单位为1/16方块，包含伸出方块边界的侧台。
+
+| 朝向 | 盒1 | 盒2 | 盒3 |
+| --- | --- | --- | --- |
+| 南及默认分支 | `(2,0,0)–(14,11,7)` | `(4,11,1)–(12,14,6)` | `(-8,0,2)–(2,10,12)` |
+| 北 | `(2,0,9)–(14,11,16)` | `(4,11,10)–(12,14,15)` | `(14,0,4)–(24,10,14)` |
+| 东 | `(0,0,2)–(7,11,14)` | `(1,11,4)–(6,14,12)` | `(2,0,14)–(12,10,24)` |
+| 西 | `(9,0,2)–(16,11,14)` | `(10,11,4)–(15,14,12)` | `(4,0,-8)–(14,10,2)` |
+
+放置过程仅在 `shipintainame` 为空时，由服务端初始化“头簪”并按flags3同步。右键服务端按真实BlockPos打开标题字面量 `Shipintai` 的菜单，两侧返回SUCCESS，没有方块玩法tick。方块实体继承 `RandomizableContainerBlockEntity`，保留战利品表、4个持久栈及完整更新包/tag，容器上限为1。所有面和无方向物品能力都访问同一持久库存，全部4槽均可自动化放入/取出，包括结果槽3；`canPlaceItem` 为true。
+
+自然打开菜单只携带BlockPos，绑定真实台子。来源通用菜单另有物品、实体及临时四槽分支，但未找到本台相应自然入口。槽0/1/2位于 `(43,66)`、`(61,66)`、`(79,66)`，接受任意物品；槽3位于 `(115,66)`，GUI拒绝放入而允许取出。自定义槽Shift反向并入玩家库存；玩家先尝试四个自定义槽，结果槽由 `mayPlace=false` 拒插，再在背包/快捷栏之间搬移。关闭绑定菜单保留库存，替换或破坏方块掉出库存并更新比较器，比较器依容器充满度计算；`getDrops` 在父类结果为空时回落制作台自身物品，掉落物品不携带库存或类别。
+
+Forge40.1.0精确源码的 `BaseContainerBlockEntity` 补丁与 `InvWrapper` 证明null方向能力仍绑定同一容器，来源自然菜单与配方没有该处断链。显示名方括号与原生容器细节另以同Minecraft1.18.2的Forge40.3.0源码交叉读取，仅作为静态补充，未冒充40.1.0实机证据。
+
+### 类别、服务端按钮与同步适配
+
+类别字符串 `shipintainame` 保存在方块实体持久数据。下翻顺序为“头簪或空→项坠→手镯→腰佩→头簪”；上翻为“头簪或空→腰佩→手镯→项坠→头簪”。未知非空类别不翻页，合成仅精确匹配四个已知类别，空与未知类别均不合成。按钮0合成，1下翻，2上翻，3–6分别向聊天栏发送头簪、项坠、手镯、腰佩的九条来源配方文字；提示不耗物、不依赖当前类别，也不生成额外奖励。
+
+来源屏幕同时发包与本地执行，四个配方过程没有显式服务端guard；来源消息只检查区块已加载，`stillValid` 恒true。目标按项目[开发规则](../../development/coding-policy.md)采用服务端真值：`JewelryTableButtonPayload` 验证当前玩家的实际菜单、实际制作台与操作范围，屏幕七个按钮只发送请求。合成只修改服务端库存；成功后无条件发送方块更新，使同类别重复合成也重新同步库存和动画状态。此为已确定的网络与跨端适配，不继承任意坐标触发。
+
+目标 `JewelryTableBlockEntity` 保留来源容器基类及 `WorldlyContainer`；类别通过 `getPersistentData()` 的 `shipintainame` 保存，由NeoForge持久数据槽承载。`EquipmentBlockEntities` 注册同ID方块实体及 `Capabilities.ItemHandler.BLOCK`，无方向使用 `InvWrapper`，六个方向使用 `SidedInvWrapper`；`EquipmentMenus` 通过 `IMenuTypeExtension` 注册原ID菜单，`EquipmentSetup` 接入专属方块工厂与服务端消息。服务端菜单直接持有真实台子，客户端四槽使用原生菜单同步，类别从方块实体快照读取。消息仅携带0–6按钮编号，坐标取发送者当前菜单；请求同时核对当前方块实体与容器引用及原生容器有效范围。
+
+### 全部36条配方
+
+表中三个输入数字均补齐为 `yvanchuxiuzhen:cailiao_NNN`，输出均在 `yvanchuxiuzhen` 命名空间。严格按槽0、1、2的物品身份匹配，每槽消耗1件，立即生成1件；没有额外数量、职业、等级、灵力、费用、时间、随机或失败门槛。不检查结果槽是否为空，直接覆盖槽3已有物品；动画期间仍可再次合成。
+
+| 类别 | 输出ID | 槽0 | 槽1 | 槽2 | 品质文字 | `item_level_num` | 效果 |
+| --- | --- | --- | --- | --- | --- | ---: | --- |
+| 头簪 | `headornaments_01` | 088 | 191 | 161 | 黄阶四级 | 4 | `colddown` 1级 |
+| 头簪 | `headornaments_02` | 202 | 192 | 162 | 黄阶九级 | 9 | `colddown` 2级 |
+| 头簪 | `headornaments_03` | 203 | 193 | 098 | 玄阶四级 | 14 | `colddown` 3级 |
+| 头簪 | `headornaments_04` | 204 | 194 | 106 | 玄阶九级 | 19 | `colddown` 4级 |
+| 头簪 | `headornaments_05` | 205 | 195 | 111 | 地阶四级 | 24 | `colddown` 5级 |
+| 头簪 | `headornaments_06` | 206 | 196 | 117 | 地阶九级 | 29 | `colddown` 6级 |
+| 头簪 | `headornaments_07` | 207 | 197 | 128 | 天阶四级 | 34 | `colddown` 7级 |
+| 头簪 | `headornaments_08` | 208 | 198 | 137 | 天阶九级 | 39 | `colddown` 8级 |
+| 头簪 | `headornaments_09` | 209 | 199 | 169 | 超品 | 44 | `colddown` 9级 |
+| 项坠 | `necklaceornaments_01` | 201 | 191 | 181 | 黄阶四级 | 4 | `health_Rec=1` |
+| 项坠 | `necklaceornaments_02` | 202 | 192 | 182 | 黄阶九级 | 9 | `health_Rec=2` |
+| 项坠 | `necklaceornaments_03` | 203 | 193 | 183 | 玄阶四级 | 14 | `health_Rec=3` |
+| 项坠 | `necklaceornaments_04` | 204 | 194 | 184 | 玄阶九级 | 19 | `health_Rec=4` |
+| 项坠 | `necklaceornaments_05` | 205 | 195 | 185 | 地阶四级 | 24 | `health_Rec=5` |
+| 项坠 | `necklaceornaments_06` | 206 | 196 | 186 | 地阶九级 | 29 | `health_Rec=6` |
+| 项坠 | `necklaceornaments_07` | 207 | 197 | 187 | 玄阶四级 | 34 | `health_Rec=7` |
+| 项坠 | `necklaceornaments_08` | 208 | 198 | 188 | 天阶九级 | 39 | `health_Rec=8` |
+| 项坠 | `necklaceornaments_09` | 209 | 199 | 189 | 超品 | 44 | `health_Rec=9` |
+| 手镯 | `handornaments_01` | 201 | 191 | 161 | 黄阶四级 | 4 | `power_Rec/soul_Rec` 各2 |
+| 手镯 | `handornaments_02` | 202 | 192 | 162 | 黄阶九级 | 9 | `power_Rec/soul_Rec` 各4 |
+| 手镯 | `handornaments_03` | 203 | 193 | 102 | 玄阶四级 | 14 | `power_Rec/soul_Rec` 各6 |
+| 手镯 | `handornaments_04` | 204 | 194 | 107 | 玄阶九级 | 19 | `power_Rec/soul_Rec` 各8 |
+| 手镯 | `handornaments_05` | 205 | 195 | 110 | 地阶四级 | 24 | `power_Rec/soul_Rec` 各10 |
+| 手镯 | `handornaments_06` | 206 | 196 | 116 | 地阶九级 | 29 | `power_Rec/soul_Rec` 各12 |
+| 手镯 | `handornaments_07` | 207 | 197 | 123 | 玄阶四级 | 34 | `power_Rec/soul_Rec` 各14 |
+| 手镯 | `handornaments_08` | 208 | 198 | 140 | 天阶九级 | 39 | `power_Rec/soul_Rec` 各16 |
+| 手镯 | `handornaments_09` | 209 | 199 | 169 | 超品 | 44 | `power_Rec/soul_Rec` 各18 |
+| 腰佩 | `beltornaments_01` | 171 | 191 | 161 | 黄阶四级 | 4 | `power_Max/soul_Max` 各80 |
+| 腰佩 | `beltornaments_02` | 172 | 192 | 162 | 黄阶九级 | 9 | `power_Max/soul_Max` 各160 |
+| 腰佩 | `beltornaments_03` | 173 | 193 | 163 | 玄阶四级 | 14 | `power_Max/soul_Max` 各240 |
+| 腰佩 | `beltornaments_04` | 174 | 194 | 164 | 玄阶九级 | 19 | `power_Max/soul_Max` 各320 |
+| 腰佩 | `beltornaments_05` | 175 | 195 | 165 | 地阶四级 | 24 | `power_Max/soul_Max` 各400 |
+| 腰佩 | `beltornaments_06` | 176 | 196 | 166 | 地阶九级 | 29 | `power_Max/soul_Max` 各480 |
+| 腰佩 | `beltornaments_07` | 177 | 197 | 167 | 玄阶四级 | 34 | `power_Max/soul_Max` 各560 |
+| 腰佩 | `beltornaments_08` | 178 | 198 | 168 | 天阶九级 | 39 | `power_Max/soul_Max` 各640 |
+| 腰佩 | `beltornaments_09` | 179 | 199 | 169 | 超品 | 44 | `power_Max/soul_Max` 各720 |
+
+项坠、手镯、腰佩第七档的“玄阶四级”是来源实际文字，数值仍为34；头簪第七档为“天阶四级”。`JewelryCrafting` 私有定义这36条固定规则和36条来源提示，不另建通用配方框架。公开的 `craft(JewelryTableBlockEntity)` 与 `hints(ServerPlayer,int)` 仅供本系统菜单调用，提示编号1–4依次对应四类；成功后写结果、依次扣三个输入，最后提交动画1/2/3/4。
+
+### 根字段、提示与后续消费
+
+`item_level` 为字符串，`item_level_num` 及效果均按来源 `putDouble` 写为 `EquipmentProperties.Value.decimal`；头饰冷却缩减是原生 `colddown` 附魔。公共字段还包括 `tuzhiname = getDisplayName().getString()`（保留方括号）、输出注册ID `fabaoid`、四类 `fabaotype` 与下表长说明。它们保存到根组件，不写入 `lianqizong`。
+
+| 类别 | `fabaotype` | `fabaoshuoming` |
+| --- | --- | --- |
+| 头簪 | 头饰 | 头饰类饰品，一般注重冷却缩减。 |
+| 项坠 | 项坠 | 项坠类饰品，一般注重血量恢复速度。 |
+| 手镯 | 手饰 | 手饰类饰品，一般注重灵力与精力的恢复速度。 |
+| 腰佩 | 腰饰 | 腰饰类饰品，一般注重增加灵力与精力的上限。 |
+
+`EquipmentTooltip` 在已有事件入口按迁移后的 `jewelry` 标签识别物品，根 `fabaotype` 非空时显示金色品质和类型，再依“血量恢复、灵力上限、灵力恢复、精力上限、精力恢复”顺序显示非零数值，使用 `DecimalFormat("0")`，负值也按来源带加号显示。该分支不显示长说明。书籍辨识对根名称、类型、说明的读取随book后续批次保留，制作台不复制书籍流程。已保存四饰品槽的属性与附魔继续由既有 `EquipmentAttributes` 每件计一次，不乘数量。
+
+### 原生界面、模型与动画
+
+目标 `JewelryTableScreen` 继承Minecraft原生 `AbstractContainerScreen<JewelryTableMenu>`，通过 `menu.category()` 读取类别，七个 `TextureButton` 仅发送 `JewelryTableButtonPayload`。界面176×166，类别白字位于 `(79,53)`。来源背景为 `textures/screens/shipintaigui.png`；槽底图01/02/03/04在x42/60/78/114、y65；背包条05宽162、高18，实际x为6、y为141/119/101/83；类别框06在 `(69,52)`、36×10。合成按钮在 `(96,65)`、18×18，翻页按钮分别在 `(60,52)`、`(106,52)`、8×10，四个提示按钮均x=-21、y75/95/115/135、18×18。按钮使用来源实际atlas：`imagebutton_shipintaiguianniu01`、`imagebutton_gui0401down01/up01`、`imagebutton_shipintaiguitishi01/03/05/07`；未引用原PNG不新增交互。
+
+`JewelryTableRenderer` 继承 `GeoBlockRenderer<JewelryTableBlockEntity>`，内嵌私有模型，朝向由Gecko读取方块状态。Geo来源为 `geo/shipintai.geo.json`、`animations/shipintai.animation.json` 与 `textures/blocks/shipintai.png`，目标按资源目录转换使用 `textures/block/shipintai.png`，保留半透明层、32×32纹理及几何边界。`extract_jewelry_table_assets.py` 登记上述3项与屏幕14项引用，屏幕资源保持 `textures/screens/` 路径；转换执行结果另见验证记录。来源有效物品模型 `models/item/shipintai.json` 的parent为 `item/generated`、layer0为 `items/shipintai02`，目标保留二维图标，使用转换后的 `textures/item/shipintai02.png`。来源生成的DisplayItem/Model/Renderer类不是常规物品实际进入Geo渲染的依据。
+
+界面与渲染已静态读取目标NeoForge21.1.265精确源码的 `AbstractContainerScreen`、`AbstractButton/Button`、`GuiGraphics`，以及GeckoLib4.9.3精确源码的 `GeoBlockRenderer`、`GeoModel`、`GeoRenderer`。原生 `onClose` 已调用 `closeContainer`，不重复实现ESC关闭；这些API核对不代表完整界面或模型视觉验收。
+
+两个控制器过渡均为0：默认控制器在状态0时循环动画“0”；过程控制器在状态非0且 `STOPPED` 时设置显式 `PLAY_ONCE`，设置后按来源 `STOPPED` 条件把客户端本地方块状态复位0并重载。动画资源只有0–4，时长均4秒，0循环、1–4单次；允许的状态5未找到生产者或资源。来源没有80刻服务端动画定时器，目标也不补造；服务端保持来源动画状态，重复合成靠明确方块更新重新同步，库存始终由服务端持有。
+
+### 本批验证范围
+
+已完成静态来源核对：方块、持久容器、菜单、屏幕、消息、初始化与翻页、36条配方、36条聊天提示、饰品根字段提示、有效物品模型与Geo动画，并保留结构获取链的所属边界。目标制作台注册、菜单、网络、方块能力与资源均已接线；结构转换结果如上。数据转换输出1680个文件，剩余跳过为tag18、tag_value259、recipe22、recipe_count_clamped1、function1。最终 `gradlew build compileSmokeJava` 通过，包含既有test/check及ArchUnit，证据为 `tmp/jewelry-build-final.log`。四条制作台台账登记“行为已迁移”，36件饰品保持“已注册”、补记制作台成品生成与根字段实现，未把本批视为整套饰品验收。
+
+本批扩展既有 `AccessoryCheck` 的8项制作台场景，复用 `accessories` 选择器，没有新增Test类或选择器。唯一一次 `runSmokeClient -PsmokeOnly=accessories` 完成，原14项饰品页场景与8项制作台场景共22项均为 `INFO`、`DONE`，客户端正常保存四维度退出。制作台覆盖真实方块 `useItemOn` 打开、实际槽点击验证输入上限1及结果槽拒插、头簪01/02三输入各扣1、根小数类型/方括号名称/附魔双端同步、80刻内覆盖未领取结果、四类翻页双端同步及关闭重开后的库存/类别保持。证据为 `tmp/jewelry-client.log`、`tmp/jewelry-report.txt` 与 `tmp/jewelry-client-latest.log`。客户端日志记录1条Yggdrasil公钥联网 `Connection reset` ERROR，未见本Mod异常；不登记为日志ERROR0。
+
+专用服务器一次启动至 `Done (1.250s)`，执行原生 `stop` 后四维度全部正常保存，Gradle `BUILD SUCCESSFUL in 1m 37s`，服务器日志无ERROR/FATAL；证据为 `tmp/jewelry-server-latest.log`。本批未使用Computer Use，最终文档、台账、来源指纹与差异检查由主会话串行执行。
+
+其他34条配方逐条自然制作、自然放置、所有方向及结果槽自动化、制作台重登、破坏掉落、方向、完整动画、Tooltip与完整视觉未执行；1.18.2 版本实机、两版本对照与多人验收未执行。22项检查中的既有饰品页重登与死亡复制不替代制作台存档重载，也不替代这些未覆盖场景。

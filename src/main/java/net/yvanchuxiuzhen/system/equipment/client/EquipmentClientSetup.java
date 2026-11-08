@@ -12,6 +12,7 @@ import net.yvanchuxiuzhen.system.equipment.content.AnimatedFabaoItem;
 import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentGeoArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
+import net.yvanchuxiuzhen.system.equipment.content.EquipmentBlockEntities;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
 import net.yvanchuxiuzhen.system.equipment.projectile.FabaoProjectile;
@@ -19,14 +20,19 @@ import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 
-/** 装备弹体的客户端装配；拂尘的物品图标为空，本体不可见，轨迹由粒子显示。 */
+/** 装备菜单、动画物品、护甲、装置与弹体的客户端装配。 */
 public final class EquipmentClientSetup {
     private EquipmentClientSetup() {
     }
 
     public static void register(IEventBus modBus) {
         NeoForge.EVENT_BUS.addListener(EquipmentTooltip::tooltip);
-        modBus.addListener((RegisterMenuScreensEvent event) -> event.register(EquipmentMenus.ACCESSORIES.get(), AccessoryScreen::new));
+        modBus.addListener((RegisterMenuScreensEvent event) -> {
+            event.register(EquipmentMenus.ACCESSORIES.get(), AccessoryScreen::new);
+            event.register(EquipmentMenus.JEWELRY_TABLE.get(), JewelryTableScreen::new);
+        });
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
+                event.registerBlockEntityRenderer(EquipmentBlockEntities.JEWELRY_TABLE.get(), JewelryTableRenderer::new));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
                 event.registerEntityRenderer(EquipmentSetup.fuchenType().get(), ThrownItemRenderer::new));
         modBus.addListener(EquipmentClientSetup::registerToolRenderers);

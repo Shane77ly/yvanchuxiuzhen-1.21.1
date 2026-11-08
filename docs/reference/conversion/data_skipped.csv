@@ -5,7 +5,6 @@ tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_str
 tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/shipwreck.json,群系标签引用本 Mod 的群系，随 world 迁移
 tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/shipwreck_beached.json,群系标签引用本 Mod 的群系，随 world 迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:treasure_chest_11 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:shipintai 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:zhibuji 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:canhe 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:saosilun 未登记，由所属系统迁移
