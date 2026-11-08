@@ -224,4 +224,4 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 
 本批完成后继续按路线推进 skill 收口及其后的 yihuo、equipment 依赖批次；不新增 Test、专项选择器或 Computer Use 流程。
 
-当前继续处理 equipment 法宝批次。本批 `fabao_011`、`fabao_012`、`fabao_014` 与 `fabao_016` 已按 1.18.2 版本源码接回；`fabao_016` 的完整构建、内置 `runSmokeClient -PsmokeOnly=equipmentweapon`、文档与台账检查均通过，客户端报告 `DONE`、正常保存退出，待本提交完成后继续。`fabao_013` 仍因来源 `dimensionrenjian` 尚未有目标正式维度映射而暂缓，之后继续下一个不依赖该维度的法宝批次。所有客户端验证沿用项目自带入口，不使用 Computer Use；不新增无必要测试。
+当前继续处理 equipment 法宝批次。本批 `fabao_011`、`fabao_012`、`fabao_014` 与 `fabao_016` 已按 1.18.2 版本源码接回；`fabao_016` 的完整构建、内置 `runSmokeClient -PsmokeOnly=equipmentweapon`、文档与台账检查均通过，客户端报告 `DONE`、正常保存退出，已提交 `0a47d01`。下一步继续核对并移植下一个不依赖正式 `dimensionrenjian` 映射的法宝；`fabao_013` 仍暂缓。所有客户端验证沿用项目自带入口，不使用 Computer Use；不新增无必要测试。
