@@ -2,7 +2,7 @@
 topic: cooking
 role: architecture
 status: draft
-updated: 2026-11-02
+updated: 2026-11-08
 ---
 
 # 烹饪：架构调查与提案
@@ -22,3 +22,9 @@ updated: 2026-11-02
 ## 验收
 
 各设备槽数、燃料/火源、容器、消耗与产物不混用；拆除、取出和卸载恢复有自己的规则。
+
+## 辟谷效果依赖（2026-11-08 已实现）
+
+炼丹药草目录引用的 `yvanchuxiuzhen:effect_031` 归 cooking。已读取 `A:Effect031MobEffect:11–28` 和 `Effect031ZaiXiaoGuoChiXuShiMeiKeFaSheng:6–18`：效果为 BENEFICIAL，颜色 -13210，每刻处理，与等级无关。玩家饥饿值低于20时，实体持久 `baoshidu` 加一；累计至少15即将饥饿值加一、计时归零，不改饱和度。饱食时暂停计时，开始/移除效果不清计时；非玩家按饥饿值0继续计时和清零，不执行玩家食物写入。
+
+1.21.1版本通过既有 `ContentTables` 和 `FastingEffect` 在服务端推进。炼丹沿用原版效果命令施加状态，烹饪独占计时和食物写入，不形成炼丹直接写烹饪数据的接口。已读精确 NeoForge 21.1.265 `FoodData#setFoodLevel`，该操作仅写饥饿值。原生玩家同步承担客户端显示。本批构建与运行证据见[本月记录](logs/2026-11.md)，不据此标记其他烹饪玩法已实现。

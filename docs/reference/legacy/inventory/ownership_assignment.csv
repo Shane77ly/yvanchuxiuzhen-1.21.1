@@ -3455,8 +3455,8 @@ yvanchuxiuzhen,Businessman04,animatedentity,~/entity/npc,npc,已读,B1 归属阅
 yvanchuxiuzhen,Businessman04night,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman05,animatedentity,~/entity/npc,npc,已读,B1 归属阅读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Businessman05DangYouJianDianJiShiTi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman05 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
-yvanchuxiuzhen,Effect031ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,cooking,候选,C combat 归属改判（读取者统计，未读过程内容）：食用与辟谷状态，只被烹饪的食用过程读取（效果自身过程是辟谷的每刻处理）
-yvanchuxiuzhen,Effect031,potioneffect,~/effect,cooking,候选,C combat 归属改判（读取者统计，未读过程内容）：食用与辟谷状态，只被烹饪的食用过程读取（效果自身过程是辟谷的每刻处理）
+yvanchuxiuzhen,Effect031ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,cooking,已读,读取 A:Effect031MobEffect 与每刻过程：辟谷按实体 baoshidu 每15刻补1饥饿值，饱食暂停；由 cooking 所有，炼丹经原生效果注册表施加。
+yvanchuxiuzhen,Effect031,potioneffect,~/effect,cooking,已读,读取 A:Effect031MobEffect 与每刻过程：辟谷按实体 baoshidu 每15刻补1饥饿值，饱食暂停；由 cooking 所有，炼丹经原生效果注册表施加。
 yvanchuxiuzhen,GuanghuanDangShiTiGengXinKeShi,procedure,~/decorate/jiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guanghuan,animatedentity,~/decorate/jiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ling14DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/decorate/jiegou,world,已读,B1 归属阅读：随 Ling14item 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹

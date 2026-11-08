@@ -13,6 +13,7 @@ public final class CookingSetup {
     }
 
     public static void register(IEventBus modBus) {
+        CONTENT.effectBehavior("effect_031", new FastingEffect());
         CONTENT.register(modBus);
     }
 }

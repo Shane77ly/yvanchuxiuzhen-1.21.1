@@ -285,4 +285,4 @@ menu,yvanchuxiuzhen:longti_gui,yvanchuxiuzhen,LongtiGui,src/main/java/net/mcreat
 mob_effect,yvanchuxiuzhen:effect_028,yvanchuxiuzhen,Effect028,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,150,cooking,已读,yvanchuxiuzhen:effect_028,已注册,
 mob_effect,yvanchuxiuzhen:effect_029,yvanchuxiuzhen,Effect029,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,151,cooking,已读,yvanchuxiuzhen:effect_029,已注册,
 mob_effect,yvanchuxiuzhen:effect_030,yvanchuxiuzhen,Effect030,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,152,cooking,已读,yvanchuxiuzhen:effect_030,已注册,
-mob_effect,yvanchuxiuzhen:effect_031,yvanchuxiuzhen,Effect031,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,155,cooking,候选,yvanchuxiuzhen:effect_031,待处理,
+mob_effect,yvanchuxiuzhen:effect_031,yvanchuxiuzhen,Effect031,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,155,cooking,已读,yvanchuxiuzhen:effect_031,行为已迁移,辟谷每15刻补1饥饿值、饱食暂停、保留实体计时与饱和度；构建通过，内置客户端实际服用/辟谷生效与双端同步样本通过，见architecture.md。

@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.system.liandan.client;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlockItem;
@@ -15,6 +16,7 @@ public final class LiandanClientSetup {
     }
 
     public static void register(IEventBus modBus) {
+        NeoForge.EVENT_BUS.addListener(MedicineTooltip::onTooltip);
         modBus.addListener((RegisterMenuScreensEvent event) -> event.register(LiandanMenus.ALCHEMY.get(), AlchemyScreen::new));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             for (var type : LiandanBlockEntities.ALCHEMY) event.registerBlockEntityRenderer(type.get(), AlchemyRenderer::new);

@@ -12,6 +12,8 @@ import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlock;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlockItem;
 import net.yvanchuxiuzhen.system.liandan.content.LiandanBlockEntities;
 import net.yvanchuxiuzhen.system.liandan.content.LiandanMenus;
+import net.yvanchuxiuzhen.system.liandan.content.MedicineContainerBlock;
+import net.yvanchuxiuzhen.system.liandan.content.MedicineContainerItem;
 import net.yvanchuxiuzhen.system.liandan.network.AlchemyButtonPayload;
 
 /**
@@ -19,7 +21,10 @@ import net.yvanchuxiuzhen.system.liandan.network.AlchemyButtonPayload;
  */
 public final class LiandanSetup {
     private static final ContentTables CONTENT = new ContentTables("liandan")
-            .blockFactory("liandan:alchemy", traits -> ContentBlock.create(traits, AlchemyBlock::new));
+            .blockFactory("liandan:alchemy", traits -> ContentBlock.create(traits, AlchemyBlock::new))
+            .blockFactory("liandan:medicine_container", MedicineContainerBlock::create)
+            .itemFactory("liandan:medicine_container", (properties, tooltip) -> new MedicineContainerItem(properties, tooltip, true))
+            .itemFactory("liandan:medicine_container_empty_box", (properties, tooltip) -> new MedicineContainerItem(properties, tooltip, false));
 
     private LiandanSetup() {
     }
@@ -38,6 +43,7 @@ public final class LiandanSetup {
         NeoForge.EVENT_BUS.addListener(AlchemyRuntime::rightClick);
         NeoForge.EVENT_BUS.addListener(AlchemyRuntime::heat);
         NeoForge.EVENT_BUS.addListener(AlchemyRuntime::exhausted);
+        NeoForge.EVENT_BUS.addListener(MedicineFeeding::onInteract);
     }
 
     private static void payloads(RegisterPayloadHandlersEvent event) {

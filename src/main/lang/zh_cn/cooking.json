@@ -227,5 +227,7 @@
   "effect.yvanchuxiuzhen.effect_029": "食用菜肴",
   "effect.yvanchuxiuzhen.effect_029.description": "如果在拥有“食用主食”、“食用菜肴”、“食用汤水”时，食用糕点，则会获得增益效果“幸运”。 ",
   "effect.yvanchuxiuzhen.effect_030": "食用汤水",
-  "effect.yvanchuxiuzhen.effect_030.description": "如果在拥有“食用主食”、“食用菜肴”、“食用汤水”时，食用糕点，则会获得增益效果“幸运”。 "
+  "effect.yvanchuxiuzhen.effect_030.description": "如果在拥有“食用主食”、“食用菜肴”、“食用汤水”时，食用糕点，则会获得增益效果“幸运”。 ",
+  "effect.yvanchuxiuzhen.effect_031": "辟谷",
+  "effect.yvanchuxiuzhen.effect_031.description": "在此状态下不会感到饥饿。 "
 }

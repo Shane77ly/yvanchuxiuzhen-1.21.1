@@ -15,8 +15,14 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -26,6 +32,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -66,12 +73,29 @@ final class EquipmentProductCheck extends ActionCheck {
     private ProfessionProgress alchemyProfession;
     private CompoundTag medicine;
     private int selected;
+    private GameType gameMode;
+    private final CompoundTag food = new CompoundTag();
+    private double fastingTimer;
+    private boolean hadFastingTimer;
+    private final List<MobEffectInstance> effects = new ArrayList<>();
+    private boolean shiftKey;
+    private int brewedCount;
+    private BlockPos bottlePos;
+    private BlockState bottleBlock;
+    private ItemStack bottledMedicine;
+    private Cow feedingTarget;
 
     EquipmentProductCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("equipmentproduct", report, levelId);
         script(
                 new Action(4, p -> {
                     inventory = new ArrayList<>();
+                    gameMode = p.gameMode.getGameModeForPlayer();
+                    p.getFoodData().addAdditionalSaveData(food);
+                    hadFastingTimer = p.getPersistentData().contains("baoshidu");
+                    fastingTimer = p.getPersistentData().getDouble("baoshidu");
+                    effects.addAll(p.getActiveEffects().stream().map(MobEffectInstance::new).toList());
+                    shiftKey = minecraft.options.keyShift.isDown();
                     for (int i = 0; i < p.getInventory().getContainerSize(); i++) inventory.add(p.getInventory().getItem(i).copy());
                     p.getInventory().clearContent();
                     oldGuard = p.getPersistentData().getDouble("canjianjishicolddown");
@@ -231,10 +255,102 @@ final class EquipmentProductCheck extends ActionCheck {
                         minecraft.gameMode.handleInventoryMouseClick(minecraft.player.containerMenu.containerId, 9, 0, ClickType.QUICK_MOVE, minecraft.player);
                     });
                 }),
-                new Action(4, p -> expectTrue("Shift取丹清空结果槽且经验只领取一次，并同步玩家", furnace(p).getItem(9).isEmpty()
+                new Action(4, p -> {
+                    expectTrue("Shift取丹清空结果槽且经验只领取一次，并同步玩家", furnace(p).getItem(9).isEmpty()
                         && p.getInventory().items.stream().anyMatch(stack -> stack.is(alchemyItem("itemdanyaohulu_0401", 1).getItem()))
                         && Professions.experience(p, Profession.ALCHEMY) == 3 && Professions.experience(minecraft.player, Profession.ALCHEMY) == 3
-                        && furnace(p).getPersistentData().getInt("jingyanhuoqv") == 0)));
+                        && furnace(p).getPersistentData().getInt("jingyanhuoqv") == 0);
+                    p.closeContainer();
+                    p.setGameMode(GameType.SURVIVAL);
+                    p.removeAllEffects();
+                    ItemStack result = p.getInventory().items.stream().filter(stack -> stack.is(alchemyItem("itemdanyaohulu_0401", 1).getItem()))
+                            .findFirst().orElseThrow();
+                    brewedCount = data(result).getInt("danyaonum");
+                    p.getInventory().removeItemNoUpdate(p.getInventory().findSlotMatchingItem(result));
+                    p.getInventory().setItem(4, result);
+                    p.inventoryMenu.broadcastChanges();
+                    sneak(false);
+                }),
+                new Action(6, p -> useMedicine()),
+                new Action(4, p -> {
+                    ItemStack used = p.getMainHandItem();
+                    expectTrue("自然成丹右键扣一颗，喝空换04空盒且双方持物一致", (brewedCount == 1
+                            ? used.is(alchemyItem("itemdanyaohulu_04", 1).getItem()) && !used.has(DataComponents.CUSTOM_DATA)
+                            : used.is(alchemyItem("itemdanyaohulu_0401", 1).getItem()) && data(used).getInt("danyaonum") == brewedCount - 1)
+                            && ItemStack.matches(used, minecraft.player.getMainHandItem()));
+                    p.getInventory().clearContent();
+                    ItemStack bottle = alchemyItem("itemdanyaohulu_01", 2);
+                    CompoundTag contents = new CompoundTag();
+                    contents.putInt("danyaonum", 2);
+                    String[] names = {"speed", "resistance", "yvanchuxiuzhen:effect_031", "glowing", "night_vision"};
+                    int[] levels = {199, 900, 100, 0, 100};
+                    for (int i = 0; i < names.length; i++) {
+                        contents.putString("danyaoxiaoguo" + i, names[i]);
+                        contents.putInt("danyaolevel" + i, levels[i]);
+                        contents.putInt("danyaotick" + i, 201);
+                    }
+                    bottle.set(DataComponents.CUSTOM_DATA, CustomData.of(contents));
+                    bottle.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
+                    p.getInventory().setItem(4, bottle);
+                    p.getFoodData().setFoodLevel(10);
+                    p.getFoodData().setSaturation(0);
+                    p.getPersistentData().putDouble("baoshidu", 14);
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useMedicine()),
+                new Action(4, p -> {
+                    expectTrue("多瓶首次右键只合并，保留组件并返一个同ID空瓶", p.getMainHandItem().getCount() == 1
+                            && data(p.getMainHandItem()).getInt("danyaonum") == 4 && !p.hasEffect(MobEffects.MOVEMENT_SPEED)
+                            && Boolean.TRUE.equals(p.getMainHandItem().get(DataComponents.ENCHANTMENT_GLINT_OVERRIDE))
+                            && p.getInventory().items.stream().anyMatch(stack -> stack.is(alchemyItem("itemdanyaohulu_01", 1).getItem())
+                                    && !stack.has(DataComponents.CUSTOM_DATA))
+                            && ItemStack.matches(p.getMainHandItem(), minecraft.player.getMainHandItem()));
+                    useMedicine();
+                }),
+                new Action(6, p -> {
+                    MobEffectInstance speed = p.getEffect(MobEffects.MOVEMENT_SPEED);
+                    MobEffectInstance resistance = p.getEffect(MobEffects.DAMAGE_RESISTANCE);
+                    expectTrue("实际服用按整数药效施加、抗性封顶三级，零等级截断，辟谷补饥饿且同步", data(p.getMainHandItem()).getInt("danyaonum") == 3
+                            && speed != null && speed.getAmplifier() == 0 && speed.getDuration() > 180 && speed.getDuration() <= 200
+                            && resistance != null && resistance.getAmplifier() == 2 && p.hasEffect(fasting())
+                            && !p.hasEffect(MobEffects.NIGHT_VISION) && p.getFoodData().getFoodLevel() >= 11
+                            && minecraft.player.hasEffect(fasting()) && ItemStack.matches(p.getMainHandItem(), minecraft.player.getMainHandItem()));
+                    bottledMedicine = p.getMainHandItem().copy();
+                    bottlePos = alchemyPos.below().offset(1, 0, 0);
+                    bottleBlock = p.serverLevel().getBlockState(bottlePos);
+                    p.serverLevel().setBlockAndUpdate(bottlePos, Blocks.AIR.defaultBlockState());
+                    sneak(true);
+                }),
+                new Action(6, p -> useBlock(4, bottlePos.below())),
+                new Action(6, p -> {
+                    Container bottle = (Container) p.serverLevel().getBlockEntity(bottlePos);
+                    Container restored = (Container) BlockEntity.loadStatic(bottlePos, p.serverLevel().getBlockState(bottlePos),
+                            ((BlockEntity) bottle).saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("潜行真实放置扣瓶，单槽保存重读与客户端保留完整丹药组件", p.getMainHandItem().isEmpty()
+                            && ItemStack.matches(bottledMedicine, bottle.getItem(0)) && ItemStack.matches(bottledMedicine, restored.getItem(0))
+                            && ItemStack.matches(bottledMedicine, ((Container) minecraft.level.getBlockEntity(bottlePos)).getItem(0)));
+                    sneak(false);
+                }),
+                new Action(6, p -> useBlock(4, bottlePos)),
+                new Action(4, p -> {
+                    expectTrue("空手右键拾回一瓶并移除方块，丹数与组件保持且同步", p.serverLevel().isEmptyBlock(bottlePos)
+                        && p.getInventory().items.stream().anyMatch(stack -> ItemStack.matches(stack, bottledMedicine))
+                        && minecraft.player.getInventory().items.stream().anyMatch(stack -> ItemStack.matches(stack, bottledMedicine)));
+                    p.getInventory().setItem(4, bottledMedicine.copy());
+                    p.inventoryMenu.broadcastChanges();
+                    feedingTarget = EntityType.COW.create(p.serverLevel());
+                    feedingTarget.setNoAi(true);
+                    feedingTarget.setNoGravity(true);
+                    feedingTarget.setPos(p.position().add(0, 0, 2));
+                    p.serverLevel().addFreshEntity(feedingTarget);
+                    sneak(true);
+                }),
+                new Action(6, p -> minecraft.execute(() -> minecraft.gameMode.interact(minecraft.player,
+                        minecraft.level.getEntity(feedingTarget.getId()), InteractionHand.MAIN_HAND))),
+                new Action(4, p -> expectTrue("潜行实际喂药作用于目标，抗性不套自服上限并只扣主手一颗", feedingTarget.hasEffect(MobEffects.DAMAGE_RESISTANCE)
+                        && feedingTarget.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() == 8
+                        && data(p.getMainHandItem()).getInt("danyaonum") == 2
+                        && ItemStack.matches(p.getMainHandItem(), minecraft.player.getMainHandItem()))));
     }
 
     private static ItemStack alchemyItem(String id, int count) {
@@ -243,6 +359,27 @@ final class EquipmentProductCheck extends ActionCheck {
 
     private AlchemyBlockEntity furnace(ServerPlayer player) {
         return (AlchemyBlockEntity) player.serverLevel().getBlockEntity(alchemyPos);
+    }
+
+    private static CompoundTag data(ItemStack stack) {
+        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    }
+
+    private static Holder<MobEffect> fasting() {
+        return BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "effect_031")).orElseThrow();
+    }
+
+    private void useMedicine() {
+        minecraft.execute(() -> {
+            minecraft.player.getInventory().selected = 4;
+            minecraft.gameMode.useItem(minecraft.player, InteractionHand.MAIN_HAND);
+        });
+    }
+
+    private void sneak(boolean down) {
+        minecraft.execute(() -> {
+            if (minecraft.options.keyShift.isDown() != down) minecraft.options.keyShift.setDown(down || minecraft.options.toggleCrouch().get());
+        });
     }
 
     private void useBlock(int hotbar, BlockPos pos) {
@@ -273,6 +410,15 @@ final class EquipmentProductCheck extends ActionCheck {
     @Override
     protected void cleanup(ServerPlayer player) {
         player.closeContainer();
+        player.setGameMode(gameMode);
+        player.removeAllEffects();
+        for (MobEffectInstance effect : effects) player.addEffect(effect);
+        player.getFoodData().readAdditionalSaveData(food);
+        if (hadFastingTimer) player.getPersistentData().putDouble("baoshidu", fastingTimer);
+        else player.getPersistentData().remove("baoshidu");
+        sneak(shiftKey);
+        if (bottlePos != null) player.serverLevel().setBlockAndUpdate(bottlePos, bottleBlock);
+        if (feedingTarget != null) feedingTarget.discard();
         furnace(player).clearContent();
         for (int below = 0; below < 3; below++) player.serverLevel().setBlockAndUpdate(alchemyPos.below(below), alchemyBlocks.get(below));
         player.getData(ProfessionAttachments.PROGRESS).set(Profession.ALCHEMY, alchemyProfession);
