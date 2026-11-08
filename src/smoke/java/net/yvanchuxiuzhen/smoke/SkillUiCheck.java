@@ -6,18 +6,29 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.panel.PanelNavigation;
 import net.yvanchuxiuzhen.panel.PlayerPanelMenu;
@@ -27,6 +38,7 @@ import net.yvanchuxiuzhen.system.attribute.api.Contribution;
 import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.equipment.api.AccessoryInventory;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.client.AccessoryScreen;
@@ -36,6 +48,7 @@ import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueDefinition;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStat;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
@@ -51,8 +64,10 @@ import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationExperienceEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
+import net.yvanchuxiuzhen.system.yihuo.FireBlockEntity;
+import net.yvanchuxiuzhen.system.yihuo.api.FireHeatEvent;
 
-/** 自然研习、装配页与选择页的客户端主路径、库存同步，以及格挡显示和自爆的死亡后延迟。 */
+/** 自然研习与藏宝、装配页与选择页、丹火使用与炙烤，以及格挡显示和自爆的死亡后延迟。 */
 final class SkillUiCheck extends ActionCheck {
     private static final String CONTRIBUTION = "smoke:skill_ui";
     private static final String[] TIZHI = {"LevelNumberCorrect", "lagongtick", "zibaonumber", "zibaokouchu"};
@@ -61,21 +76,48 @@ final class SkillUiCheck extends ActionCheck {
     private final double[] oldValues = new double[VALUES.length];
     private final List<ItemStack> inventory = new ArrayList<>();
     private final List<ItemStack> learned = new ArrayList<>();
+    private final List<ItemStack> fireHotbar = new ArrayList<>();
+    private final List<Cow> fireTargets = new ArrayList<>();
+    private final List<Long> heatTicks = new ArrayList<>();
     private SkillState original;
     private SkillCooldowns cooldowns;
     private AccessoryInventory accessories;
     private ItemStack technique;
     private ItemStack studiedTechnique;
+    private ItemStack treasureHotbar;
     private GameType gameMode;
     private SkillEntity guard;
     private BlockPos marker;
+    private ServerLevel fireLevel;
+    private BlockPos firePos;
+    private BlockPos foreignFirePos;
+    private BlockPos vanillaFirePos;
+    private BlockPos campfirePos;
+    private Cow fireYang;
+    private Cow fireYin;
+    private Cow fireMissingSource;
     private int panelPage;
     private int selectedSlot;
+    private int fireSelectedSlot;
+    private int treasureSelectedSlot;
+    private int[] treasureBefore;
     private double answerCount;
     private double techniqueExperience;
+    private double heatAmount;
     private boolean hadAnswerCount;
     private boolean shiftKey;
     private boolean sneaking;
+    private boolean foreignFireRejected;
+    private boolean unitHeat = true;
+    private boolean treasureValid;
+    private String treasureResult;
+    private final Consumer<FireHeatEvent> fireHeat = event -> {
+        if (event.level() == fireLevel && event.pos().equals(firePos.above())) {
+            heatTicks.add(event.level().getGameTime());
+            heatAmount += event.amount();
+            unitHeat &= event.amount() == 1;
+        }
+    };
 
     SkillUiCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("技能界面", report, levelId);
@@ -313,9 +355,152 @@ final class SkillUiCheck extends ActionCheck {
                 new Action(8, p -> click("召唤丹火")),
                 new Action(8, p -> {
                     ItemStack fire = p.getInventory().items.stream().filter(s -> s.is(item("danhuo").getItem())).findFirst().orElseThrow();
-                    expectTrue("丹火按钮扣费并给出本人和火力数据", Cultivation.get(p, CultivationValue.POWER) == 178
+                    expectTrue("丹火按钮扣费并给出本人和火力数据" + " 实际灵力=" + Cultivation.get(p, CultivationValue.POWER)
+                                    + "，数量=" + fire.getCount() + "，物品数据=" + fire.get(DataComponents.CUSTOM_DATA).copyTag(), Cultivation.get(p, CultivationValue.POWER) == 178
+                            && fire.getCount() == 1 && fire.getMaxStackSize() == 1 && inventorySynced(p)
                             && fire.get(DataComponents.CUSTOM_DATA).copyTag().getDouble("power") == 22
                             && fire.get(DataComponents.CUSTOM_DATA).copyTag().getString("ManaAttackUUID").equals(p.getStringUUID()) && !(p.containerMenu instanceof SkillMenu));
+                    fireSelectedSlot = p.getInventory().selected;
+                    p.getInventory().removeItemNoUpdate(p.getInventory().items.indexOf(fire));
+                    for (int slot = 4; slot <= 7; slot++) fireHotbar.add(p.getInventory().getItem(slot).copy());
+                    p.getInventory().setItem(4, fire);
+                    ItemStack foreign = fire.copy();
+                    CompoundTag tags = foreign.get(DataComponents.CUSTOM_DATA).copyTag();
+                    tags.putString("ManaAttackUUID", "00000000-0000-0000-0000-000000000003");
+                    tags.putDouble("power", 7);
+                    foreign.set(DataComponents.CUSTOM_DATA, CustomData.of(tags));
+                    p.getInventory().setItem(5, foreign);
+                    p.getInventory().setItem(6, fire.copy());
+                    p.getInventory().setItem(7, fire.copy());
+                    fireLevel = p.serverLevel();
+                    firePos = p.blockPosition().offset(2, 0, 0);
+                    foreignFirePos = firePos.offset(0, 0, 1);
+                    vanillaFirePos = p.blockPosition().offset(0, 0, 2);
+                    campfirePos = p.blockPosition().offset(-2, 0, 0);
+                    fireLevel.setBlockAndUpdate(vanillaFirePos, Blocks.FIRE.defaultBlockState());
+                    fireLevel.setBlockAndUpdate(campfirePos, Blocks.CAMPFIRE.defaultBlockState());
+                    NeoForge.EVENT_BUS.addListener(fireHeat);
+                    p.setGameMode(GameType.SURVIVAL);
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(4, p -> minecraft.execute(() -> useFire(4, firePos.below()))),
+                new Action(4, p -> {
+                    BlockEntity serverFire = fireLevel.getBlockEntity(firePos);
+                    BlockEntity clientFire = minecraft.level.getBlockEntity(firePos);
+                    CompoundTag data = serverFire == null ? new CompoundTag() : serverFire.getPersistentData();
+                    CompoundTag clientData = clientFire == null ? new CompoundTag() : clientFire.getPersistentData();
+                    boolean spent = p.getInventory().getItem(4).isEmpty() && minecraft.player.getInventory().getItem(4).isEmpty();
+                    expectTrue("本人丹火经客户端放置并同步燃料与身份 实际燃料=" + fuel(serverFire) + "/" + fuel(clientFire)
+                                    + "，累计供热=" + heatAmount + "，已消费=" + spent + "，UUID=" + data.getString("ManaAttackUUID") + "/" + clientData.getString("ManaAttackUUID")
+                                    + "，团队=" + data.getString("team") + "/" + clientData.getString("team"),
+                            serverFire instanceof FireBlockEntity && fuel(serverFire) + heatAmount == 10 && fuel(clientFire) == fuel(serverFire)
+                                    && spent && data.getString("ManaAttackUUID").equals(p.getStringUUID()) && data.getString("team").equals(Relations.entityTeam(p))
+                                    && clientData.getString("ManaAttackUUID").equals(p.getStringUUID()) && clientData.getString("team").equals(Relations.entityTeam(p)));
+                    minecraft.execute(() -> useFire(5, foreignFirePos.below()));
+                }),
+                new Action(4, p -> {
+                    foreignFireRejected = fireLevel.isEmptyBlock(foreignFirePos) && p.getInventory().getItem(5).getCount() == 1
+                            && minecraft.player.getInventory().getItem(5).getCount() == 1;
+                    minecraft.execute(() -> {
+                        useFire(5, firePos);
+                        useFire(6, vanillaFirePos);
+                        useFire(7, campfirePos);
+                    });
+                }),
+                new Action(44, p -> {
+                    boolean spent = true;
+                    for (int slot = 5; slot <= 7; slot++) spent &= p.getInventory().getItem(slot).isEmpty() && minecraft.player.getInventory().getItem(slot).isEmpty();
+                    double fireFuel = fuel(fireLevel.getBlockEntity(firePos));
+                    double clientFuel = fuel(minecraft.level.getBlockEntity(firePos));
+                    double campFuel = fuel(fireLevel.getBlockEntity(campfirePos));
+                    expectTrue("异主拒绝新放但可补料，普通火与营火消费并同步 实际拒绝=" + foreignFireRejected + "，已消费=" + spent
+                                    + "，燃料=" + fireFuel + "/" + clientFuel + "，累计供热=" + heatAmount + "，营火=" + campFuel,
+                            foreignFireRejected && spent && inventorySynced(p) && fireFuel + heatAmount == 17 && clientFuel == fireFuel && campFuel == 22);
+                    fireLevel.removeBlock(vanillaFirePos, false);
+                    fireLevel.removeBlock(campfirePos, false);
+                }),
+                new Action(4, p -> {
+                    boolean regular = heatTicks.size() >= 2;
+                    for (int i = 1; i < heatTicks.size(); i++) regular &= heatTicks.get(i) - heatTicks.get(i - 1) == 20;
+                    double fireFuel = fuel(fireLevel.getBlockEntity(firePos));
+                    expectTrue("自然计划刻每二十刻扣一燃料并提交等量热量 实际游戏刻=" + heatTicks + "，热量=" + heatAmount + "，燃料=" + fireFuel,
+                            regular && unitHeat && heatAmount == heatTicks.size() && fireFuel + heatAmount == 17);
+                    NeoForge.EVENT_BUS.unregister(fireHeat);
+                    fireLevel.removeBlock(firePos, false);
+                    fireYang = fireCow(firePos.offset(4, 0, 0));
+                    fireYin = fireCow(firePos.offset(4, 0, 4));
+                    fireMissingSource = fireCow(firePos.offset(-4, 0, 4));
+                    burn(fireYang, "effect_023", 1, "yanghuotick", p.getStringUUID());
+                    burn(fireYin, "effect_024", 0, "yinhuotick", p.getStringUUID());
+                    burn(fireMissingSource, "effect_023", 0, "yanghuotick", "");
+                }),
+                new Action(4, p -> {
+                    double yangDamage = 500 - fireYang.getHealth();
+                    double yinDamage = 500 - fireYin.getHealth();
+                    double missingDamage = 500 - fireMissingSource.getHealth();
+                    expectTrue("自然效果刻阳火十六阴火八，阳火清无敌且空来源无伤害 实际生命差=" + yangDamage + "/" + yinDamage + "/" + missingDamage
+                                    + "，无敌时间=" + fireYang.invulnerableTime + "/" + fireYin.invulnerableTime,
+                            yangDamage == 16 && yinDamage == 8 && missingDamage == 0 && fireYang.invulnerableTime == 0 && fireYin.invulnerableTime > 0);
+                    for (Cow target : fireTargets) {
+                        StatusEffects.remove(target, "effect_023");
+                        StatusEffects.remove(target, "effect_024");
+                        target.setHealth(500);
+                        target.invulnerableTime = 0;
+                        target.setDeltaMovement(Vec3.ZERO);
+                        target.getRandom().setSeed(1);
+                    }
+                    fireYin.setPos(fireYang.position().add(1, 0, 0));
+                    Relations.setTeam(fireYin, "smoke_fire_neighbor");
+                    Relations.addFriendlyTeam(fireYang, "smoke_fire_neighbor");
+                    StatusEffects.add(fireYang, "effect_024", 200, 2);
+                    fireYang.getPersistentData().putDouble("yinhuotick", 0);
+                    burn(fireYang, "effect_023", 1, "yanghuotick", fireMissingSource.getStringUUID());
+                }),
+                new Action(8, p -> {
+                    double yangDamage = 500 - fireYang.getHealth();
+                    double neighborDamage = 500 - fireYin.getHealth();
+                    boolean removed = !StatusEffects.has(fireYang, "effect_023") && !StatusEffects.has(fireYang, "effect_024");
+                    expectTrue("阴阳爆燃波及受燃者友方Mob并移除双效果 实际生命差=" + yangDamage + "/" + neighborDamage + "，双效果已移除=" + removed,
+                            yangDamage == 50 && neighborDamage == 50 && removed);
+                    clearFireScene(p);
+                    treasureHotbar = p.getInventory().getItem(8).copy();
+                    treasureSelectedSlot = p.getInventory().selected;
+                    stageTreasure(p, "技能书", 0);
+                }),
+                new Action(8, p -> useBook(8)),
+                new Action(8, p -> {
+                    int[] delta = treasureCounts(p);
+                    Arrays.setAll(delta, i -> delta[i] - treasureBefore[i]);
+                    int left = p.getInventory().getItem(8).getCount();
+                    boolean synced = inventorySynced(p);
+                    treasureValid = left == 1 && Arrays.equals(delta, new int[]{-1, 0, 0}) && synced;
+                    treasureResult = "技能零级=" + Arrays.toString(delta) + "，余量=" + left + "，同步=" + synced;
+                    stageTreasure(p, "技能书", 1);
+                }),
+                new Action(8, p -> useBook(8)),
+                new Action(8, p -> {
+                    int[] delta = treasureCounts(p);
+                    Arrays.setAll(delta, i -> delta[i] - treasureBefore[i]);
+                    int left = p.getInventory().getItem(8).getCount();
+                    boolean synced = inventorySynced(p);
+                    treasureValid &= left == 1 && Arrays.equals(delta, new int[]{0, 1, 0}) && synced;
+                    treasureResult += "；技能一级=" + Arrays.toString(delta) + "，余量=" + left + "，同步=" + synced;
+                    stageTreasure(p, "功法书", 1);
+                }),
+                new Action(8, p -> useBook(8)),
+                new Action(8, p -> {
+                    int[] delta = treasureCounts(p);
+                    Arrays.setAll(delta, i -> delta[i] - treasureBefore[i]);
+                    int left = p.getInventory().getItem(8).getCount();
+                    boolean synced = inventorySynced(p);
+                    expectTrue("藏宝自然右键各消费一本，技能零级无奖励、一级只新增一本未绑定书、功法一级只新增一本未研习功法 实际总量/未绑定技能/未研习功法变化："
+                                    + treasureResult + "；功法一级=" + Arrays.toString(delta) + "，余量=" + left + "，同步=" + synced,
+                            treasureValid && left == 1 && Arrays.equals(delta, new int[]{0, 0, 1}) && synced);
+                    p.getInventory().setItem(8, treasureHotbar);
+                    p.getInventory().selected = treasureSelectedSlot;
+                    p.getInventory().setChanged();
+                    p.inventoryMenu.broadcastChanges();
+                    minecraft.execute(() -> minecraft.player.getInventory().selected = treasureSelectedSlot);
                     key("ganjian", true);
                     key("ganjian", false);
                 }),
@@ -383,6 +568,80 @@ final class SkillUiCheck extends ActionCheck {
         });
     }
 
+    private void stageTreasure(ServerPlayer player, String type, double level) {
+        ItemStack stack = item("book_006").copyWithCount(2);
+        CompoundTag data = new CompoundTag();
+        data.putString("TreasureTypeBig", "书架");
+        data.putString("TreasureTypeSmall", type);
+        data.putDouble("TreasureLEVEL", level);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        player.getInventory().setItem(8, stack);
+        treasureBefore = treasureCounts(player);
+        player.getInventory().setChanged();
+        player.inventoryMenu.broadcastChanges();
+    }
+
+    /** 按物品数量统计，避免随机奖励合并入已有栈时误按格数计算。 */
+    private static int[] treasureCounts(ServerPlayer player) {
+        int[] counts = new int[3];
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            ItemStack stack = player.getInventory().getItem(slot);
+            counts[0] += stack.getCount();
+            if (Skills.book(stack).filter(book -> book.owner().isEmpty()).isPresent()) counts[1] += stack.getCount();
+            if (Techniques.book(stack).filter(book -> book.owner().isEmpty()).isPresent()) counts[2] += stack.getCount();
+        }
+        return counts;
+    }
+
+    /** 客户端选择热栏并发送真实方块使用包。 */
+    private void useFire(int hotbar, BlockPos pos) {
+        minecraft.player.getInventory().selected = hotbar;
+        minecraft.gameMode.useItemOn(minecraft.player, InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(pos).add(0, .5, 0), Direction.UP, pos, false));
+    }
+
+    private static double fuel(BlockEntity block) {
+        return block == null ? Double.NaN : block.getPersistentData().getDouble("power");
+    }
+
+    private Cow fireCow(BlockPos pos) {
+        Cow target = EntityType.COW.create(fireLevel);
+        target.setNoAi(true);
+        target.setNoGravity(true);
+        target.setSilent(true);
+        target.setPos(pos.getX() + .5, pos.getY(), pos.getZ() + .5);
+        target.getAttribute(Attributes.MAX_HEALTH).setBaseValue(500);
+        target.setHealth(500);
+        fireLevel.addFreshEntity(target);
+        fireTargets.add(target);
+        return target;
+    }
+
+    /** 效果与计时是前置数据；伤害由下一次自然实体刻结算。 */
+    private static void burn(Cow target, String effect, int amplifier, String timer, String attacker) {
+        target.getPersistentData().putString("fireAttackUUID", attacker);
+        target.getPersistentData().putDouble(timer, 19);
+        target.invulnerableTime = 0;
+        target.getRandom().setSeed(1);
+        StatusEffects.add(target, effect, 200, amplifier);
+    }
+
+    private void clearFireScene(ServerPlayer player) {
+        if (fireLevel == null) return;
+        NeoForge.EVENT_BUS.unregister(fireHeat);
+        for (Cow target : fireTargets) target.discard();
+        fireTargets.clear();
+        for (BlockPos pos : List.of(firePos, foreignFirePos, vanillaFirePos, campfirePos)) fireLevel.removeBlock(pos, false);
+        for (int i = 0; i < fireHotbar.size(); i++) player.getInventory().setItem(4 + i, fireHotbar.get(i));
+        fireHotbar.clear();
+        player.setGameMode(gameMode);
+        player.getInventory().selected = fireSelectedSlot;
+        player.getInventory().setChanged();
+        player.inventoryMenu.broadcastChanges();
+        minecraft.execute(() -> minecraft.player.getInventory().selected = fireSelectedSlot);
+        fireLevel = null;
+    }
+
     /** 客户端普通点击拿起整栈、右键放入一本，再把鼠标余本放回原热栏。 */
     private void equipOneSpell() {
         int id = minecraft.player.containerMenu.containerId;
@@ -415,6 +674,7 @@ final class SkillUiCheck extends ActionCheck {
 
     @Override
     protected void cleanup(ServerPlayer p) {
+        clearFireScene(p);
         p.closeContainer();
         p.setGameMode(gameMode);
         p.getInventory().clearContent();

@@ -2,12 +2,15 @@ package net.yvanchuxiuzhen.system.book.content;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
@@ -16,7 +19,7 @@ import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 
 /**
- * 公共书载体的潜行研习入口（来源 {@code BookRightClick}）：按业务实例分派功法与四类技能，成功后清零答题计数。
+ * 公共书载体的自然使用入口（来源 {@code BookRightClick}）：分派书架藏宝与潜行研习，保留文本、图纸和丹方的优先级。
  */
 public final class StudyBookItem extends ContentItem {
     public StudyBookItem(Properties properties, List<Component> tooltip) {
@@ -28,11 +31,31 @@ public final class StudyBookItem extends ContentItem {
         InteractionResultHolder<ItemStack> result = super.use(level, player, hand);
         ItemStack stack = result.getObject();
         // 来源比较主手与调用栈的物品类型，副手持相同书载体时也满足入口条件。
-        if (player instanceof ServerPlayer serverPlayer && player.isShiftKeyDown()
-                && player.getMainHandItem().getItem() == stack.getItem()) {
+        if (!(player instanceof ServerPlayer serverPlayer) || player.getMainHandItem().getItem() != stack.getItem()) {
+            return result;
+        }
+        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        if (!data.getString("textdisplay").isEmpty()) {
+            return result;
+        }
+        if (data.getString("TreasureTypeBig").equals("书架")) {
+            openTreasure(serverPlayer, stack, data);
+        } else if (data.getString("fabaotype").isEmpty() && data.getString("danyaoname").isEmpty() && player.isShiftKeyDown()) {
             study(serverPlayer, stack);
         }
         return result;
+    }
+
+    private static void openTreasure(ServerPlayer player, ItemStack stack, CompoundTag data) {
+        if (data.getString("TreasureTypeSmall").equals("功法书")) {
+            Techniques.giveTreasureBook(player, data.getDouble("TreasureLEVEL"));
+            stack.shrink(1);
+        } else if (data.getString("TreasureTypeSmall").equals("技能书")) {
+            if (data.getDouble("TreasureLEVEL") >= 1) {
+                Skills.giveTreasureBook(player);
+            }
+            stack.shrink(1);
+        }
     }
 
     private static void study(ServerPlayer player, ItemStack stack) {

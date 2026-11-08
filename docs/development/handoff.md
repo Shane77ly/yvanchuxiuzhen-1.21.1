@@ -22,17 +22,21 @@ updated: 2026-11-08
 
 ## 进行中
 
+自然入口与异火主路径收口（2026-11-08，前一提交 `4b9ff36d`；本批代码与本页同一提交，最新提交以 `git log` 为准）：book已接书架藏宝真实右键，保留分派优先级、等级、随机表及先发书后减一；完整build通过，现有skillui唯一一次35项全INFO、0FAIL、DONE，1分34秒正常保存四维度退出、ERROR/FATAL0。新增五组丹火实际使用/双端同步/计划刻/炙烤/爆燃和一组藏宝库存检查均通过；未恢复YihuoCheck或选择器，未用Computer Use。日志仍有32条未知实体附件同步WARN，与错误分开登记。本批未另跑专服。证据 `tmp/skill-natural-exit-{build.log,client.log,latest.log,report.txt}`。书架载体由检查构造后真实use，获得链未验收；持续效果由受控前置后自然实体刻结算，不代表18材料自然命中全链。来源31623文件指纹通过，台账4939行和文档88篇均0问题，差异空白检查通过。
+
+现有lightning已另一次4项全过，直接调用服务端生产施放方法，未走客户端useItem网络；旧辅助选择失败不再作为当前缺陷。异火剩余获取/消费已按宝箱、任务、传承灵物、红包、材料、经济与装置所有者登记，本次静态未发现新的yihuo自有可实施缺口，见[异火正文](../systems/yihuo/architecture.md#外部获得与消费去向2026-11-08)。
+
 公共书自然研习与功法技能装配批次（2026-11-08，前一提交 `ff623ac`；本批代码与本页同一提交，最新提交以 `git log` 为准）：36种书载体已接回潜行右键，04八槽装配、四页保存/载入、01/03导航与K记忆已接回；跨页沿用旧菜单坐标再上移一格，开窗栈共享保留功法与起尸诀成长。book只负责分派与成功清答题计数，skill/gongfa继续各自写真值。规则见[书籍](../systems/book/architecture.md#自然研习入口2026-11-08)、[装配页](../systems/skill/architecture.md#共用功法与技能装配页2026-11-08)与[导航](../systems/panel/architecture.md#三页导航与装配页归属2026-11-08)。
 
 本批 `build compileSmokeJava`（含既有test/check/ArchUnit）通过；仅一次项目内置 `runSmokeClient '-PsmokeOnly=skillui'`，29项玩法检查全部INFO、0FAIL、DONE，四维度正常保存退出、ERROR/FATAL0。已验证自然研习、整栈绑定、原生点击/Shift装配、前两页保存与关闭重开、K记忆和功法开窗成长不回滚。专服一次到 `Done (1.360s)` 后原生 `stop`，四维度正常保存退出、ERROR/FATAL0，菜单导出12个。证据在 `tmp/study-loadout-{build.log,client.log,client-latest.log,report.txt,server-latest.log}`；04截图已查看，布局样本可见，完整缩放和两版本视觉未认可。来源31623份文件未变，最终台账4939行零问题。
 
-下一步按[skill出口剩余范围](../systems/skill/architecture.md#出口剩余范围2026-11-08)处理本系统真实缺口与未闭合验证：先收取本批并行来源审计，再闭合已有lightning两个右键入口及丹火/炙烤有效运行证据；不恢复撤下的YihuoCheck，不新建专项选择器。炉鼎消费者随D，creature生产者和六个正式返回维度随E。完整四页循环、头顶容器、延迟竞争、起尸诀开窗成长、04死亡/断线/重登、灵根/他人/副手分支、完整视觉、1.18.2版本实机、两版本和多人未验收。当前仍为 `port/c-skill`，skill未完成，不合 `main`；`.eclipse/`保留且不提交。
+下一步按[skill出口剩余范围](../systems/skill/architecture.md#出口剩余范围2026-11-08)，先核对元婴跨维度、死亡/重登与轻功死亡恢复的来源和现有验证覆盖，再处理被确认的生命周期差异；沿用现有客户端入口，不重跑旧神通整套。lightning四项与丹火/炙烤五组已有有效通过，不继续反复修旧专项。炉鼎消费者随D，creature生产者和六个正式返回维度随E。完整四页循环、头顶容器、延迟竞争、起尸诀开窗成长、04死亡/断线/重登、灵根/他人/副手分支、完整视觉、1.18.2版本实机、两版本和多人未验收。当前仍为 `port/c-skill`，skill未完成，不合 `main`；`.eclipse/`保留且不提交。
 
 equipment 饰品制作台批次（2026-11-08，前一提交 `031c88d`；本批代码与本页同一提交，最新提交以 `git log` 为准）：四槽持久库存、类别翻页、36条即时配方、成品根字段与饰品Tooltip、来源原生界面和Geo动画已接回。保留结果覆盖、动画期间再次合成、第七档品质文字差异、二维物品图标、全部方向四槽自动化与自身掉落回落。转换来源结构时补齐加载器持久键适配，161份结构共1117处直接 `nbt.ForgeData` 改为 `NeoForgeData`；DataVersion和业务字段保持来源。规则及证据边界见[装备正文](../systems/equipment/architecture.md#饰品制作台2026-11-08)。
 
 本批最终 `build compileSmokeJava`（含既有test/check与ArchUnit）通过；仅一次内置 `runSmokeClient '-PsmokeOnly=accessories'`，22项全部符合并DONE（既有饰品14项、制作台8项），包括真实右键开台和槽位点击、两档头簪的消费/根字段/附魔双端同步、80刻内覆盖、翻页与关闭重开；客户端正常保存四维度退出，仅一条Yggdrasil公钥请求Connection reset联网ERROR。专服一次启动至Done后原生 `stop`，四维度正常保存退出、无ERROR/FATAL，导出方块1129、物品2126、菜单11、实体109。证据为 `tmp/jewelry-{build-final.log,client.log,report.txt,client-latest.log,server-latest.log}`。本批未新增Test类、选择器或Computer Use，仅扩展既有 `AccessoryCheck` 的库存/网络路径；其余34配方逐条、自动化、制作台存档重登、破坏掉落、完整视觉、1.18.2实机、两版本对照与多人未执行。
 
-当前继续在 `port/c-skill` 推进，skill尚未完成、不合main。负责人已授权子agent加速，采用同工作树分文件协作，运行工具仍逐个执行。下一步按 `tmp/skill-exit-audit-20261108.md` 和 `tmp/skill-study-entry-audit-20261108.md` 接回技能书自然研习及 `PlayerGUI04` 八槽装配、四页切换、关闭回写和01/03页导航；不得把公开API已实现或检查直接赋值当成自然入口已接通，不展开02加点及其他系统副页。`fabao_013` 的正式人间维度、`fabao_017`/`01701` 的动画实体及蛊虫收纳继续随各自系统接续。`.eclipse/` 为用户配置，保留且不提交。
+当前继续在 `port/c-skill` 推进，skill尚未完成、不合main。负责人已授权子agent加速，采用同工作树分文件协作，运行工具仍逐个执行。此前待接的技能书自然研习与 `PlayerGUI04` 八槽装配、翻页、关闭回写和01/03导航已于 `4b9ff36d` 完成，证据见上文；当前操作以本页顶部下一步为准，不展开02加点及其他系统副页。`fabao_013` 的正式人间维度、`fabao_017`/`01701` 的动画实体及蛊虫收纳继续随各自系统接续。`.eclipse/` 为用户配置，保留且不提交。
 
 负责人2026-11-07补充goal续接要求：①按roadmap直接推进；②当前从C阶段继续实现并测试验收；③目标覆盖两个Mod的全部范围及后续阶段；④若反复压缩已造成上下文丢失，及时开新会话，把这四点完整设为goal继续循环。新会话先核对本页、当前分支与最后提交，接续未完成操作，保留无必要不新增Test、内置客户端验证及逐个运行的约定。
 
@@ -94,7 +98,7 @@ equipment 妖化依赖批次（2026-11-07，前一提交 `26c461e`；本批提�
 - 本机有一个小陷阱：在 bash 的 here-document 里写含引号的长 Python 脚本会因引号错位而整段不执行，改用 Write 写到暂存目录再运行。
 - `port/c-skill` 已推送到 `origin/port/c-skill`；`.eclipse/` 仍是唯一未跟踪的 IDE 配置文件。
 
-下一步具体操作（skill；做法同前几个系统）：
+早期分阶段操作记录（下列状态保留当时证据；当前操作与后续有效运行以上文及系统正文为准）：
 0. 已提交（分支 `port/c-skill`，最新提交以 `git log` 为准）：第 1 阶段框架；第 2 阶段元素弹体 14 个；第 3 阶段动画实体基础与火、土、金、冰、光、风、雷、水（水蛇鞭、水连鞭、激流波、水龙吟、空浮球、陨河术、水灵阵、玲珑阵）、木（乱枝、灰木剑、乱木之种、灰木树梯、木篱术、毒蔓鞭、回身鞭、地蔓鞭）、剑法（`SwordEntities`、`WeaponArts`；平台 `ItemSwingEvent` 触发，2026-11-05）、灵纹（`LingwenHit`、`LingwenEntities`、`LingwenBolt`；Q45）、火鸟术（`FireBird`，基类 `TamedSkillEntity`；2026-11-07；Q46）、起尸诀（`Corpse`、`CorpseAi`、`Corpses`；2026-11-07；Q47）；虚空裂隙实体、生命周期与传送（`VoidRift`、`Skills.openVoidRift`；2026-11-07；Q49；按钮随阶段 5，正式维度随 world）；冒烟 `-PsmokeOnly=skill`（`SkillCheck`、`SkillProjectileCheck`、`SkillEntityCheck`、`SwordArtCheck`、`LingwenCheck`、`FireBirdCheck`、`CorpseCheck`；`Arena` 平地由后四者共用，此前弹体检查在不平地形上整批失败；动作列表类检查继承 `ActionCheck`）。读过程用 `TERSE=1`（去样板）、`DIFF=1`（同模板族）；新增元素族的做法见 `entity/FireEntities` 等：`SkillEntities.register` 里登记行为表，`SkillReleases.register` 登记施放，`mark_ownership.py`、`build_ledger.py`、`mark_ledger.py 已注册`、`convert_content.py`，按必要性选择验证并记录证据，再标 `行为已迁移`。
 1. 第 3 阶段余项（按元素）：伤害范围实体与 `Skills.showDamageArea`、元婴出窍与 `Skills.toggleYuanying` 已实现；九处 creature 生成者与 `控雷阵` 经 `/lightninglanding` 的落雷已接回，生成者随 creature，元婴出窍和死亡粒子已接回。天雷术、五雷轰顶已接入 combat 共享落雷，两个入口的合并检查因选择取消失败，检查修正后仅编译。拂尘 `Weaponhossu01DangShiTiHuiDongWuPinShi` 的发射已由 equipment 接回，本批五项专项通过。可驯服实体（火鸟、尸体）已完成，基类与共用件见[技能架构](../systems/skill/architecture.md)“可驯服实体”；尸体的 `CorpseAi.breakFree` 与 `finish` 对应妖兽共用的 `Yaoshou001skillzhengtuo`、`Entityjinengjieshu`，creature 迁移时再决定是否公开。
 2. 阶段 2：十种技能箭的实体、模式、命中、掉落、原生模型、内爆效果与服务端箭种选择已实现（Q50；共用实体命中过程实际 551 行）；`Lingwentexiao` 已随灵纹实现。待接入：equipment 的弓蓄力/发射/扣资源与 Ctrl/Alt 输入、yihuo 的炙烤持续行为；自定义粒子已接回。`SkillArrow00–10skill` 已核对为孤立过程，`ArrowSkillchufa` 仅有游离 Blockly 引用；`skill_arrowxinruzhishui` 已登记有益标记身份，未形成自然入口（Q53）。本批 `skillarrow` 冒烟 12 项全部通过并以 `DONE` 结束；最后 `build`、检查源集编译、开发服务端启动（ERROR 0 条）、台账与来源指纹检查通过。第 08 箭云命令后续静态修正已编译，该分支未运行；弓与完整炙烤链未验收。下一步为下条阶段 4–5。

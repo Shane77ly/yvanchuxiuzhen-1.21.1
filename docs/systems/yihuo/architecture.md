@@ -7,7 +7,7 @@ updated: 2026-11-08
 
 # 异火：来源规则与实现边界
 
-本系统进行中。本批接回 skill 所需的炙烤持续效果、丹火火块，以及18种异火材料物品和投掷实体；不代表完整获取链、武器触发或炉鼎生产已经完成。源码定位采用 [系统导航](../README.md)的 A/B 规则。
+本系统进行中。本批接回 skill 所需的炙烤持续效果、丹火火块，以及18种异火材料物品和投掷实体；外部获取与装置消费链随所属系统接回，完整交互与视觉仍待验收。源码定位采用 [系统导航](../README.md)的 A/B 规则。
 
 ## 1.18.2 数据与入口
 
@@ -71,9 +71,26 @@ NeoForge 21.1.265 的 `BlockEntity.saveAdditional` 保存持久数据副本，�
 
 本轮未发现上述已实现玩法需要新增修改。修正台账中18个火块方块实体仍为“待处理”的遗漏，改为“已注册”，依据为 `YihuoBlockEntities` 的独立类型注册及 `YihuoSetup` 装配；现有注册表导出不含 `block_entity_type`，不能把台账检查通过写成18个类型逐项实机验证。静态证据为 `tmp/yihuo-chain-source-audit.log` 和 `tmp/yihuo-family-audit.log`。本轮仅更新核对记录与台账，未新增或修改Test、未运行客户端或专用服务器；原专项失败和上文未验收范围继续保留。
 
+## 外部获得与消费去向（2026-11-08）
+
+本轮依据锁定1.18.2版本生成Java与数据标签，核对既有丹火、火块、炙烤和18材料实现之外的剩余入口。未发现新的 yihuo 自有可立即实施缺口；以下获取与消费流程尚待各所有者接回，不据此升级系统完成状态。
+
+| 获取流程与所有者 | 具体来源与产物 |
+| --- | --- |
+| [宝箱](../treasure/README.md) | B `BaoxiangYihuocailiaoProcedure:17–96` 经 `BaoxiangCailiao:23` 或 `Baoxiangzong:110–111` 返回奖励描述：级别≤1为 `cailiao_221/231`，2至7依次为 `222/232` 至 `227/237`，≥8为 `228/238`；材料等级5至40，品阶另行随机。该表没有229/239分支。 |
+| [任务](../quest/README.md) | B `PlayerRightClickBlockProcedure:271` 构造乾坤道人任务七的动作文本，扣10个 `cailiao_193`、给1个 `cailiao_221`；实际发放由任务步骤与动作解释流程执行。 |
+| [修炼](../xiulian/README.md) | A `Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:184–191` 在传承灵物 `yikaiqi=22` 时给1个 `cailiao_222`，材料等级10、品阶4；完整开启顺序随传承灵物接回。 |
+| [节日内容族](../festival/README.md) | A `Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:49,186` 的大红包随机奖励分别给1个 `cailiao_221` 或 `cailiao_231`；奖励掉落与红包消耗属于其完整奖励流程。 |
+
+[material](../material/README.md) 管理目录、辨识进度、辨识界面及其扣料；19条异火辨识登录初始化已通过 `Materials.initializeYihuo` 接回。[storage](../storage/README.md) 的材料袋须保留 B `Cailiaodaishaixvan:12–14` 对 `huoyan` 的排除，B `Xiulitaixiuli:66,188` 同样排除异火作为修理材料，后者随 [lianqi](../lianqi/README.md)。这些排除分支不构成待补的异火消耗入口。
+
+[economy](../economy/README.md) 的 B `Shougouselljisuan:349–350` 按 `huoyan` 标签调用 `Yihuochushou` 返回两族同级估价，未改变异火状态。[fulu](../fulu/README.md) 的 `HuafushaohuiZaiFangKuaiShangYouJian:33` 按 `huoyvan` 标签接受火源；[craft](../craft/README.md) 的 `TaopiZaiFangKuaiShangYouJian:62–67` 按 `dahuozhuangzhi` 标签启动烧炼；[zhenfa](../zhenfa/README.md) 的 `Zhenfajiance4:120–121` 按 `buzhenfire` 累计火行阵元。标签已登记，装置与流程状态由对应系统写入；烧符台、陶坯的火块渲染引用不视为物品产出。
+
+[liandan](../liandan/README.md)、[lianqi](../lianqi/README.md) 等D阶段炉鼎所有者按上文 `FireHeatEvent/FireExhaustedEvent` 契约消费热量与决定保留火块。符箓、NPC等来源的炙烤施加与移除随其施放流程接回，跨系统效果操作沿用 `StatusEffects`。`Fireskill` 按上文来源不可达结论保留，不列为待补的自然武器入口。
+
 ## 未完成
 
-材料辨识初始化已在 2026-11-08 通过 material 的 `Materials.initializeYihuo` 接入登录事件，实际目录与玩家附件仍由 material 所有；武器触发和完整获取消费链随异火主体继续。炉鼎所有者随 D 阶段接供热事件。1.18.2 版本实机、两版本对照、完整视觉与多人未执行。
+材料右键的灵力和耐久消耗已实现；尚未接回的是上述辨识、外部获取、交易及装置等所属链。旧专项失败保留为历史记录，本次自然链检查及仍未覆盖的范围见下文。1.18.2 版本实机、两版本对照、完整视觉与多人未执行。
 
 ## 异火材料投掷物（2026-11-08）
 
@@ -81,7 +98,7 @@ NeoForge 21.1.265 的 `BlockEntity.saveAdditional` 保存持久数据副本，�
 
 每次成功施放生成对应 `projectile_cailiao_<编号>`，扣除物品1点耐久，无重力飞行，服务端每刻广播4枚对应粒子，累计8刻移除。命中实体先按 relation 敌友判定；非友方按火块同一来源字段写入 `fireteam`/`fireAttackUUID`，火伤基础量为 `3 × (等级 + 1)`、倍率1.5，再施加阳火 `effect_023` 或阴火 `effect_024`，在已有效果时增加200刻。编号221–226及236按来源延后一刻清受击无敌时间，其余命中立即清除。目标使用原生 `ThrownItemRenderer` 显示材料物品模型。
 
-潜行命中方块时仅在上方为空气的位置放置对应火块，并以10倍燃料初始化施放者身份；非潜行命中 `blockfire` 标签方块时增加相应燃料。实体注册、客户端渲染装配和内容表已接回，但完整获取链、武器触发、炉鼎消费及多人/两版本实机仍未完成。
+潜行命中方块时仅在上方为空气的位置放置对应火块，并以10倍燃料初始化施放者身份；非潜行命中 `blockfire` 标签方块时增加相应燃料。实体注册、客户端渲染装配和内容表已接回；外部获取与炉鼎消费随上文所属系统接回，完整操作、多人和两版本实机仍未验收。
 
 本轮按1.18.2版本源码完成静态核对，`gradlew build` 通过；沿用项目自带 `runSmokeClient -PsmokeOnly=skillparticle`，客户端真实进入世界，报告以 `DONE` 结束并正常保存四个维度退出，未新增 Test、选择器或断言。该 smoke 结果只证明新增注册、客户端装配、资源加载和公共端启动未阻塞，不作为18种材料投掷/命中全路径的实机通过证据。
 
@@ -93,8 +110,24 @@ NeoForge 21.1.265 的 `BlockEntity.saveAdditional` 保存持久数据副本，�
 
 ## 本批验证（2026-11-07）
 
-仅一次 `-PsmokeOnly=yihuo`：7项中2项通过、5项失败，报告虽有 `DONE`，不能记为专项通过。通过项为方块实体保存重读/方向零槽能力/共享友方与接触燃料，以及无炉鼎消费方时的耗尽移除。其余丹火燃料、客户端同步、计划刻守恒、普通炙烤伤害与阴阳爆燃尚未获得通过证据。
+当次唯一一次 `-PsmokeOnly=yihuo`：7项中2项通过、5项聚合失败，报告虽有 `DONE`，不能记为当次专项通过。通过项为方块实体保存重读/方向零槽能力/共享友方与接触燃料，以及无炉鼎消费方时的耗尽移除。其余丹火燃料、客户端同步、计划刻守恒、普通炙烤伤害与阴阳爆燃在当次未获得通过证据；后续有限样本的通过范围见下节。
 
-失败中的检查错误已定位：丹火放置后的燃料应为10，补7后的守恒基数应为17；检查牛的2000生命超过原生最大生命属性1024的上限。更正检查后 `build compileSmokeJava`（含 ArchUnit）通过，未重跑本专项或旧神通，不能补记为运行通过。负责人随后再次强调不写无必要的 Test、优先按1.18.2版本代码核对移植；本批新增的 `YihuoCheck` 及选择器入口已撤下，脚本备份于 `tmp/yihuo-check-withdrawn-20261107.java`，原失败报告保留。后续以源码核对和必要的实际验收推进，不以修检查脚本作为移植工作。
+当次检查把丹火自然放置及补7后的燃料误作22/29，实际应为10/17；检查牛的2000生命超过原生最大生命属性1024的上限。这些预期与场景错误、以及缺少子条件诊断的5项聚合FAIL，不能认定为对应玩法Bug。更正检查后当时仅 `build compileSmokeJava`（含 ArchUnit）通过，未重跑该专项或旧神通，不能倒改原运行结果。负责人随后再次强调不写无必要的 Test、优先按1.18.2版本代码核对移植；新增的 `YihuoCheck` 及选择器入口已撤下，脚本备份于 `tmp/yihuo-check-withdrawn-20261107.java`，原失败报告保留。
 
 专用服务器一次启动至 `Done`，原生 `stop` 正常保存全部世界并退出，任务成功、ERROR为0。它证明当前注册与公共端加载能够完成，不证明炙烤伤害、丹火操作、完整供热链或视觉已验收。证据：`tmp/yihuo-report.txt`、`tmp/yihuo-smoke.log`、`tmp/yihuo-final-build.log`、`tmp/yihuo-server.log`。
+
+## 丹火与炙烤主路径复验（2026-11-08）
+
+本次 `gradlew build` 在1分36秒通过，包含既有check与ArchUnit；唯一一次现有 `runSmokeClient -PsmokeOnly=skillui` 在1分34秒完成，35项玩法检查全部INFO、0FAIL、DONE。客户端正常保存主世界、下界、末地与正式虚空后退出，ERROR/FATAL为0；日志有unknown entity附件同步WARN。证据为 `tmp/skill-natural-exit-build.log`、`tmp/skill-natural-exit-client.log`、`tmp/skill-natural-exit-latest.log`、`tmp/skill-natural-exit-report.txt`。
+
+其中五组火链检查得到以下实际结果：
+
+| 路径 | 本次有限样本 |
+| --- | --- |
+| 本人丹火自然放置 | 由真实客户端 `useItemOn` 放置221火块；双方燃料10，施放者UUID、团队一致，物品已消费。 |
+| 异主与补燃料 | 异主拒绝新放但可向既有火补7，双方燃料17；向普通火使用会消费物品，营火燃料为22。 |
+| 自然计划刻 | 两次实际游戏刻为 `[416,436]`，每20刻扣1；`FireHeatEvent` 累计热量2，燃料降至15。该观测不代替真实炉鼎消费。 |
+| 普通炙烤 | 受控500生命牛预置效果与计时后由自然效果刻推进，阳火/阴火/空来源生命差分别为16/8/0；阳火和阴火处理后的无敌时间分别为0/17。 |
+| 阴阳爆燃 | 预置阳火等级1、阴火等级2及计时后由自然效果刻推进，两个Mob各损失50生命，双效果移除。 |
+
+本次未改 yihuo 生产公式，未恢复 `YihuoCheck`、专项选择器或使用Computer Use。两个持续效果按源码实现与上述行为证据登记“行为已迁移”，不表示完整验收。火块继续登记“已注册”：221自然放置、同步和计划刻只是有限样本，未逐项操作18类；普通效果与爆燃的预置场景也不能证明火块接触或18材料自然命中全链。炉鼎消费者仍随D阶段。本批未运行专用服务器，未执行1.18.2版本实机、两版本对照、完整视觉与多人。
