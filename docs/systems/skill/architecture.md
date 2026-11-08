@@ -336,9 +336,9 @@ Q54：`SkillGold0201DangSiWangShiJianDaoShiProcedure` 中虽有黄色破碎粒�
 
 当次历史验证（2026-11-07）：一次 `lightning` 检查3过1失败，报告DONE。范围雷伤、红色同步/渲染器及控雷阵命令通过；两个技能的合并断言因辅助方法连续选同槽、第二次取消而失败，随后在选择前清空并编译。该次build（含ArchUnit）及专服正常保存退出通过、ERROR0、实体导出63个；早期截图不能认可完整视觉，完整xiulian雷劫未在该次运行。原始失败保留于 `tmp/lightning-report.txt`，已由下述后续通过覆盖，不再列作未闭合专项。
 
-后续运行（2026-11-08）：主会话未修改检查、未新增Test类或选择器，仅一次沿用现有 `runSmokeClient -PsmokeOnly=lightning`，4项全部INFO、0FAIL、DONE；额外鼠标不捕获INFO不计玩法项。58秒正常结束，四个世界全部保存，客户端日志ERROR/FATAL0，证据 `tmp/skill-exit-lightning-{client.log,latest.log,report.txt}`。通过范围为共享命令居中、范围内独立雷伤、红色数据到真实客户端渲染器且不追加原生雷击伤害、五雷十字五点与天雷单点生成、控雷阵到期命令及移除。
+后续运行（2026-11-08）：主会话未新增Test类或选择器，沿用现有 `runSmokeClient -PsmokeOnly=lightning`。检查先由服务端准备技能书与金剑，再由客户端 `useItem` 发包，服务端 `PlayerInteractEvent.RightClickItem` 接收并施放；十字五点和单道天雷、共享命令、独立雷伤、红色渲染、控雷阵到期均通过，报告4项INFO、0FAIL、DONE，四个世界正常保存，客户端ERROR/FATAL0。证据 `build/smoke/report.txt` 与本次运行日志 `tmp/skill-exit-lightning-{client.log,latest.log,report.txt}`。
 
-该检查的 `LightningCheck.cast` 人工创建并绑定技能书、写槽和选择后，直接在服务端调用生产 `SkillCasting.onRightClick`；未从客户端 `useItem` 发包，也未通过本批04装配。报告沿用的“真实右键入口”标签只证明生产施放方法和真实世界生成链，不升级为完整自然右键/网络验收。本次未新增构建、专服或逐项视觉检查；完整粒子声音、自然操作、1.18.2版本实机、两版本对照和多人仍未验收。
+本次只验证目标版本客户端自然右键网络入口及既有生产链，未通过04装配页、未执行1.18.2版本实机、两版本对照、多人及完整粒子声音视觉验收；Q55队伍参数取舍仍按战斗正文保留。
 
 2026-11-07 雷劫批次：动画模型记录 `EntityModelRow`、纹理接口 `AnimatedLook` 和 `AnimatedEntityRenderer` 已移到 platform，供 skill 与 xiulian 共用；技能动画控制和玩法仍在 skill。本批不重跑旧神通套件，依赖关系由构建中的 ArchUnit 检查。
 
@@ -454,7 +454,7 @@ button0/1先把当前四技能保存到旧页，再通过 `Skills.turnPage` 减/
 
 | 范围 | 当前状态与去向 |
 | --- | --- |
-| 天雷术/五雷轰顶 | 后续现有lightning四项全过，旧辅助选择失败已覆盖；直接调用生产服务端施放方法，客户端自然useItem网络仍未验收，详见[落雷正文](#天雷术与五雷轰顶2026-11-07) |
+| 天雷术/五雷轰顶 | 现有lightning四项全过；天雷术与五雷轰顶已用客户端自然useItem经服务端右键事件验证，1.18.2版本实机、两版本对照、多人和完整表现仍待验收，详见[落雷正文](#天雷术与五雷轰顶2026-11-07) |
 | 丹火与炙烤 | 现有skillui的丹火真实使用/双端库存、计划刻与受控持续效果五组通过，旧失败转为历史，见[复验](../yihuo/architecture.md#丹火与炙烤主路径复验2026-11-08)；18材料逐类、接触全链与视觉未全验，炉鼎消费者随D |
 | 伤害范围与妖兽风技能 | 公开实体/API已实现，九处creature范围生产者及两个妖兽施放时序随E阶段creature |
 | 裂隙返回维度 | 正式虚空已有12项有限检查；`dimensiontianqve/xiuluo/renjian/yaohun/wugui/diling`六维度随world，完整自然往返未验收 |

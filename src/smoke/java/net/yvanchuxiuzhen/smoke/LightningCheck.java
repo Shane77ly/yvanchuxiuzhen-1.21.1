@@ -14,7 +14,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.content.ColoredLightningBolt;
-import net.yvanchuxiuzhen.system.skill.SkillCasting;
 import net.yvanchuxiuzhen.system.skill.SkillSelection;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
@@ -74,49 +73,77 @@ final class LightningCheck extends SystemCheck {
             });
             return true;
         }
-        if (!clientColor) {
-            for (var entity : minecraft.level.entitiesForRendering()) {
-                if (entity instanceof ColoredLightningBolt bolt && bolt.color() == 0xffff0000) {
-                    clientColor = minecraft.getEntityRenderDispatcher().getRenderer(bolt).getClass().getSimpleName().equals("ColoredLightningRenderer");
-                    break;
+        if (step == 2) {
+            if (!clientColor) {
+                for (var entity : minecraft.level.entitiesForRendering()) {
+                    if (entity instanceof ColoredLightningBolt bolt && bolt.color() == 0xffff0000) {
+                        clientColor = minecraft.getEntityRenderDispatcher().getRenderer(bolt).getClass().getSimpleName().equals("ColoredLightningRenderer");
+                        break;
+                    }
                 }
+            } else if (!captured) {
+                shot.accept("lightning-red.png");
+                captured = true;
             }
-        } else if (!captured) {
-            shot.accept("lightning-red.png");
-            captured = true;
+            if (local < 8) return false;
+            onServer(player -> {
+                expectTrue("颜色实际同步并装配原生渲染，显示闪电没有再追加原生雷击伤害", clientColor && inside.getHealth() == afterDamage);
+                inside.discard();
+                outside.discard();
+                bolts(player).forEach(ColoredLightningBolt::discard);
+                player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SWORD));
+                player.getInventory().setChanged();
+                player.inventoryMenu.broadcastChanges();
+                player.setData(SkillData.STATE, SkillState.EMPTY);
+                Cultivation.set(player, CultivationValue.POWER, 1000);
+                prepareCast(player, "五雷轰顶");
+            });
+            return true;
         }
-        if (local < 8) return false;
-        onServer(player -> {
-            expectTrue("颜色实际同步并装配原生渲染，显示闪电没有再追加原生雷击伤害", clientColor && inside.getHealth() == afterDamage);
-            inside.discard();
-            outside.discard();
-            bolts(player).forEach(ColoredLightningBolt::discard);
-            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SWORD));
-            player.setData(SkillData.STATE, SkillState.EMPTY);
-            Cultivation.set(player, CultivationValue.POWER, 1000);
-            cast(player, "五雷轰顶");
-            List<ColoredLightningBolt> five = bolts(player);
-            Set<BlockPos> positions = five.stream().map(ColoredLightningBolt::blockPosition).collect(Collectors.toSet());
-            boolean cross = five.size() == 5 && five.stream().allMatch(bolt -> bolt.color() == -1)
-                    && positions.size() == 5 && positions.stream().anyMatch(center -> Set.of(center, center.east(3), center.west(3), center.south(3), center.north(3)).equals(positions));
-            five.forEach(ColoredLightningBolt::discard);
-            cast(player, "天雷术");
-            expectTrue("真实右键入口分别放出十字五雷与单道天雷", cross && bolts(player).size() == 1);
-            bolts(player).forEach(ColoredLightningBolt::discard);
-            Vec3 at = player.position().add(0, 0, 6);
-            Skills.showDamageArea(player, at, "animation.shanghaifanwei.shiliuge3", "控雷阵", 20, 4);
-            DamageArea area = player.serverLevel().getEntitiesOfClass(DamageArea.class, new AABB(at, at).inflate(1)).getFirst();
-            area.getPersistentData().putDouble("jishiqi", 19);
-            area.baseTick();
-            expectTrue("控雷阵结束时调用已登记落雷命令并移除提示", area.isRemoved() && bolts(player).size() == 1);
-            bolts(player).forEach(ColoredLightningBolt::discard);
-            player.setData(SkillData.STATE, state);
-            player.setData(SkillData.COOLDOWNS, cooldowns);
-            player.setItemInHand(InteractionHand.MAIN_HAND, hand);
-            Cultivation.set(player, CultivationValue.POWER, power);
-        });
-        finish();
-        return true;
+        if (step == 3) {
+            if (local < 10) return false;
+            minecraft.gameMode.useItem(minecraft.player, InteractionHand.MAIN_HAND);
+            return true;
+        }
+        if (step == 4) {
+            if (local < 10) return false;
+            onServer(player -> {
+                List<ColoredLightningBolt> five = bolts(player);
+                Set<BlockPos> positions = five.stream().map(ColoredLightningBolt::blockPosition).collect(Collectors.toSet());
+                boolean cross = five.size() == 5 && five.stream().allMatch(bolt -> bolt.color() == -1)
+                        && positions.size() == 5 && positions.stream().anyMatch(center -> Set.of(center, center.east(3), center.west(3), center.south(3), center.north(3)).equals(positions));
+                expectTrue("客户端自然右键经服务端入口放出十字五雷", cross);
+                five.forEach(ColoredLightningBolt::discard);
+                prepareCast(player, "天雷术");
+            });
+            return true;
+        }
+        if (step == 5) {
+            if (local < 10) return false;
+            minecraft.gameMode.useItem(minecraft.player, InteractionHand.MAIN_HAND);
+            return true;
+        }
+        if (step == 6) {
+            if (local < 10) return false;
+            onServer(player -> {
+                expectTrue("客户端自然右键经服务端入口放出单道天雷", bolts(player).size() == 1);
+                bolts(player).forEach(ColoredLightningBolt::discard);
+                Vec3 at = player.position().add(0, 0, 6);
+                Skills.showDamageArea(player, at, "animation.shanghaifanwei.shiliuge3", "控雷阵", 20, 4);
+                DamageArea area = player.serverLevel().getEntitiesOfClass(DamageArea.class, new AABB(at, at).inflate(1)).getFirst();
+                area.getPersistentData().putDouble("jishiqi", 19);
+                area.baseTick();
+                expectTrue("控雷阵结束时调用已登记落雷命令并移除提示", area.isRemoved() && bolts(player).size() == 1);
+                bolts(player).forEach(ColoredLightningBolt::discard);
+                player.setData(SkillData.STATE, state);
+                player.setData(SkillData.COOLDOWNS, cooldowns);
+                player.setItemInHand(InteractionHand.MAIN_HAND, hand);
+                Cultivation.set(player, CultivationValue.POWER, power);
+            });
+            finish();
+            return true;
+        }
+        return false;
     }
 
     private static Pig pig(ServerPlayer player, Vec3 position) {
@@ -131,7 +158,7 @@ final class LightningCheck extends SystemCheck {
         return player.serverLevel().getEntitiesOfClass(ColoredLightningBolt.class, player.getBoundingBox().inflate(32));
     }
 
-    private static void cast(ServerPlayer player, String name) {
+    private static void prepareCast(ServerPlayer player, String name) {
         ItemStack book = Skills.createBook(SkillKind.SPELL, List.of(("yvanchuxiuzhen:book_003 " + name
                 + " 1 1 火 x 无 3 1 0 0 1 0 0 0 0 0 100 0 0 0 0 0").split(" ")));
         book.set(SkillData.SKILL.get(), Skills.book(book).orElseThrow().withOwner(player.getUUID(), player.getName().getString()));
@@ -139,6 +166,5 @@ final class LightningCheck extends SystemCheck {
         Skills.setSpell(player, 1, book);
         SkillSelection.select(player, 1);
         player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
-        SkillCasting.onRightClick(player);
     }
 }
