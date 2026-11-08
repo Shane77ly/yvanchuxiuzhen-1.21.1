@@ -22,6 +22,12 @@ updated: 2026-11-08
 
 ## 进行中
 
+公共书自然研习与功法技能装配批次（2026-11-08，前一提交 `ff623ac`；本批代码与本页同一提交，最新提交以 `git log` 为准）：36种书载体已接回潜行右键，04八槽装配、四页保存/载入、01/03导航与K记忆已接回；跨页沿用旧菜单坐标再上移一格，开窗栈共享保留功法与起尸诀成长。book只负责分派与成功清答题计数，skill/gongfa继续各自写真值。规则见[书籍](../systems/book/architecture.md#自然研习入口2026-11-08)、[装配页](../systems/skill/architecture.md#共用功法与技能装配页2026-11-08)与[导航](../systems/panel/architecture.md#三页导航与装配页归属2026-11-08)。
+
+本批 `build compileSmokeJava`（含既有test/check/ArchUnit）通过；仅一次项目内置 `runSmokeClient '-PsmokeOnly=skillui'`，29项玩法检查全部INFO、0FAIL、DONE，四维度正常保存退出、ERROR/FATAL0。已验证自然研习、整栈绑定、原生点击/Shift装配、前两页保存与关闭重开、K记忆和功法开窗成长不回滚。专服一次到 `Done (1.360s)` 后原生 `stop`，四维度正常保存退出、ERROR/FATAL0，菜单导出12个。证据在 `tmp/study-loadout-{build.log,client.log,client-latest.log,report.txt,server-latest.log}`；04截图已查看，布局样本可见，完整缩放和两版本视觉未认可。来源31623份文件未变，最终台账4939行零问题。
+
+下一步按[skill出口剩余范围](../systems/skill/architecture.md#出口剩余范围2026-11-08)处理本系统真实缺口与未闭合验证：先收取本批并行来源审计，再闭合已有lightning两个右键入口及丹火/炙烤有效运行证据；不恢复撤下的YihuoCheck，不新建专项选择器。炉鼎消费者随D，creature生产者和六个正式返回维度随E。完整四页循环、头顶容器、延迟竞争、起尸诀开窗成长、04死亡/断线/重登、灵根/他人/副手分支、完整视觉、1.18.2版本实机、两版本和多人未验收。当前仍为 `port/c-skill`，skill未完成，不合 `main`；`.eclipse/`保留且不提交。
+
 equipment 饰品制作台批次（2026-11-08，前一提交 `031c88d`；本批代码与本页同一提交，最新提交以 `git log` 为准）：四槽持久库存、类别翻页、36条即时配方、成品根字段与饰品Tooltip、来源原生界面和Geo动画已接回。保留结果覆盖、动画期间再次合成、第七档品质文字差异、二维物品图标、全部方向四槽自动化与自身掉落回落。转换来源结构时补齐加载器持久键适配，161份结构共1117处直接 `nbt.ForgeData` 改为 `NeoForgeData`；DataVersion和业务字段保持来源。规则及证据边界见[装备正文](../systems/equipment/architecture.md#饰品制作台2026-11-08)。
 
 本批最终 `build compileSmokeJava`（含既有test/check与ArchUnit）通过；仅一次内置 `runSmokeClient '-PsmokeOnly=accessories'`，22项全部符合并DONE（既有饰品14项、制作台8项），包括真实右键开台和槽位点击、两档头簪的消费/根字段/附魔双端同步、80刻内覆盖、翻页与关闭重开；客户端正常保存四维度退出，仅一条Yggdrasil公钥请求Connection reset联网ERROR。专服一次启动至Done后原生 `stop`，四维度正常保存退出、无ERROR/FATAL，导出方块1129、物品2126、菜单11、实体109。证据为 `tmp/jewelry-{build-final.log,client.log,report.txt,client-latest.log,server-latest.log}`。本批未新增Test类、选择器或Computer Use，仅扩展既有 `AccessoryCheck` 的库存/网络路径；其余34配方逐条、自动化、制作台存档重登、破坏掉落、完整视觉、1.18.2实机、两版本对照与多人未执行。

@@ -16,7 +16,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.RootRequirement;
 /**
  * 技能书的研习（来源 {@code BookRightClick} 研习分支，功法书、技能书、武器技书、身法书、轻功书共用）：
  * 已被本人或他人研习时只提示；境界不低于书的要求且满足灵根要求时，书记下研习者，关闭当前界面并提示研习成功。
- * 研习成功时发送两种天干地支粒子和闪光；对弈计数清零（{@code daduishuliang}）随 book 系统迁移。
+ * 研习成功时发送两种天干地支粒子和闪光；答题计数（{@code daduishuliang}）由 book 的自然研习入口在成功后清零。
  */
 public final class SkillStudy {
     private SkillStudy() {

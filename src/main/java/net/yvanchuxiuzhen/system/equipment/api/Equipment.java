@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.equipment.api;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -33,5 +34,10 @@ public final class Equipment {
 
     public static void openAccessories(ServerPlayer player) {
         Accessories.open(player);
+    }
+
+    /** 在指定的最终打开坐标创建饰品页，保留跨页导航沿旧菜单坐标向上累加的行为。 */
+    public static void openAccessories(ServerPlayer player, BlockPos pos) {
+        Accessories.open(player, pos);
     }
 }

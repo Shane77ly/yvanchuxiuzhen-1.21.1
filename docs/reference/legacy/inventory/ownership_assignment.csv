@@ -501,12 +501,12 @@ yvanchuxiuzhen,Pointsxianshi,procedure,~/GUI,panel,候选,第一版批量归组�
 yvanchuxiuzhen,PlayerGUI03DangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/GUI,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxiuzhen,PlayerGUI03DangZheGeJieMianBeiGuanBi,procedure,~/GUI,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxiuzhen,PlayerGUI03,gui,~/GUI,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
-yvanchuxiuzhen,PlayerGUI04,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI04,gui,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
 yvanchuxiuzhen,PlayerGUI05,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,OpenGUI01,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,OpenGUI02,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,OpenGUI03,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
-yvanchuxiuzhen,OpenGUI04,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,OpenGUI04,procedure,~/GUI,panel,已读,2026-11-08逐读OpenGUI04与玩家页导航调用链；入口记忆dangqianGUI并委托skill公开装配菜单，panel不写功法或技能存档
 yvanchuxiuzhen,OpenGUI05,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,HealthMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
 yvanchuxiuzhen,PowerMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
@@ -514,11 +514,11 @@ yvanchuxiuzhen,SoulMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读�
 yvanchuxiuzhen,AttackUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
 yvanchuxiuzhen,ManaUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
 yvanchuxiuzhen,SoulUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
-yvanchuxiuzhen,GUI04pageup,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GUI04pagedown,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GUI04pagenum,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI04DangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI04DangZheGeJieMianBeiGuanBi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,GUI04pageup,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
+yvanchuxiuzhen,GUI04pagedown,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
+yvanchuxiuzhen,GUI04pagenum,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
+yvanchuxiuzhen,PlayerGUI04DangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
+yvanchuxiuzhen,PlayerGUI04DangZheGeJieMianBeiGuanBi,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
 yvanchuxiuzhen,ZhiyeTXT01,procedure,~/GUI,profession,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ZhiyeTXT02,procedure,~/GUI,profession,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ZhiyeTXT03,procedure,~/GUI,profession,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -539,9 +539,9 @@ yvanchuxiuzhen,ZhiyeTXT17,procedure,~/GUI,profession,候选,第一版批量归�
 yvanchuxiuzhen,ZhiyeTXT18,procedure,~/GUI,profession,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ZhiyeTXT19,procedure,~/GUI,profession,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,ZhiyeTXT20,procedure,~/GUI,profession,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GUI04gongfaname,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GUI04qinggongname,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GUIflyname,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,GUI04gongfaname,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
+yvanchuxiuzhen,GUI04qinggongname,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
+yvanchuxiuzhen,GUIflyname,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
 yvanchuxiuzhen,EntityTick,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerJoinGame,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SoulDefjisuan,procedure,~/systemset/damage,combat,已读,C combat 归属阅读：另一版神识防御计算，无调用者与订阅，不可达（Q31）
@@ -4548,7 +4548,7 @@ yvanchuxiuzhen,Gongjv008hecheng,recipe,~/tool,equipment,候选,第一版批量�
 yvanchuxiuzhen,PlayerGui01jieshao,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,PlayerGui02jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui03jieshao,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
-yvanchuxiuzhen,PlayerGui04jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGui04jieshao,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
 yvanchuxiuzhen,PlayerGui05jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui06jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui07jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5768,11 +5768,11 @@ yvanchuxiuzhen,Cailiao212melt,item,~/item/metal,material,已读,B1 归属阅读�
 yvanchuxiuzhen,Cailiao214melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
 yvanchuxiuzhen,Effect037,potioneffect,~/effect,creature,已读,C combat 归属阅读（改判后确认）：妖兽升级标记，没有自身过程，读取者是妖兽战胜敌人后的经验过程
 yvanchuxiuzhen,Foodmuzengpeifang,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui04gongfazhuangbei,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui04qinggongzhuangbei,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui04feixingjineng,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui04jifazhuangbei,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui04jinengzhuangbei1,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGui04gongfazhuangbei,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
+yvanchuxiuzhen,PlayerGui04qinggongzhuangbei,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
+yvanchuxiuzhen,PlayerGui04feixingjineng,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
+yvanchuxiuzhen,PlayerGui04jifazhuangbei,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
+yvanchuxiuzhen,PlayerGui04jinengzhuangbei1,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
 yvanchuxiuzhen,Chushoucailiao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shangdianshuaxinfuyv,procedure,~/decorate/jiegou/buildlist,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,RushesFangZhiFangKuaiShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Ricciafluitans 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责

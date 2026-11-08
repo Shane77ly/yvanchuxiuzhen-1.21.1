@@ -123,7 +123,7 @@ public final class Corpses {
             if (!player.getStringUUID().equals(master)) {
                 continue;
             }
-            ItemStack stack = Skills.spell(player, slot).copy();
+            ItemStack stack = Skills.spell(player, slot);
             Optional<SkillBook> found = Skills.book(stack).filter(book -> book.name().equals(SPELL) && book.grade() < 40);
             if (found.isPresent()) {
                 stack.set(SkillData.SKILL.get(), advance(found.get(), killed.getPersistentData().getDouble("LEVELnumber")));

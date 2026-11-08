@@ -98,5 +98,12 @@
   "key.yvanchuxiuzhen.anjian_space": "Anjian Space",
   "key.yvanchuxiuzhen.anjian_s": "Anjian S",
   "key.yvanchuxiuzhen.anjian_a": "Anjian A",
-  "key.yvanchuxiuzhen.anjian_d": "Anjian D"
+  "key.yvanchuxiuzhen.anjian_d": "Anjian D",
+  "gui.yvanchuxiuzhen.player_gui_04.label_gong_fa_yu_ji_neng": "功法与技能",
+  "gui.yvanchuxiuzhen.player_gui_04.label_wu_qi_fa_men": "武器法门",
+  "gui.yvanchuxiuzhen.player_gui_04.label_xiu_lian": "修炼",
+  "gui.yvanchuxiuzhen.player_gui_04.label_fu_zhi_ye": "副职业",
+  "gui.yvanchuxiuzhen.player_gui_04.label_shu_xing_xian_shi": "属性显示",
+  "gui.yvanchuxiuzhen.player_gui_04.label_shu_xing_jia_dian": "属性加点",
+  "gui.yvanchuxiuzhen.player_gui_04.label_shi_pin_zhuang_bei": "饰品装备"
 }

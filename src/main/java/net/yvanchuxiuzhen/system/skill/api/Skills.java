@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.skill.api;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -10,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.system.skill.SkillLibrary;
+import net.yvanchuxiuzhen.system.skill.SkillSelection;
 import net.yvanchuxiuzhen.system.skill.ArrowSelection;
 import net.yvanchuxiuzhen.system.skill.SkillStudy;
 import net.yvanchuxiuzhen.system.skill.SkillFlight;
@@ -94,6 +96,21 @@ public final class Skills {
     /** G 键或其他系统的导航入口，打开本人的无槽技能选择菜单。 */
     public static void openMenu(ServerPlayer player) {
         SkillMenus.open(player);
+    }
+
+    /** 玩家面板的功法与技能八槽装配页，物品真值在关闭或技能翻页时交回所属系统。 */
+    public static void openLoadout(ServerPlayer player) {
+        SkillMenus.openLoadout(player);
+    }
+
+    /** 在指定的最终打开坐标创建装配页；跨页导航先将上一菜单坐标向上移一格。 */
+    public static void openLoadout(ServerPlayer player, BlockPos pos) {
+        SkillMenus.openLoadout(player, pos);
+    }
+
+    /** 四页技能循环翻页，不改当前已选技能、连招、箭种和冷却；装配菜单先保存旧页四槽。 */
+    public static void turnPage(ServerPlayer player, int step) {
+        SkillSelection.turnPage(player, step);
     }
 
     /** 武器技槽（来源 {@code wuqiskill}）。 */

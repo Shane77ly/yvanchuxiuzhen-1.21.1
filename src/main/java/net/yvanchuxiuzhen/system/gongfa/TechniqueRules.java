@@ -6,6 +6,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -21,6 +22,7 @@ import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStat;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStudiedEvent;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.gongfa.data.GongfaData;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.api.MainTechnique;
@@ -63,6 +65,9 @@ public final class TechniqueRules {
             player.displayClientMessage(Component.literal(unmet.get()), false);
             return;
         }
+        player.serverLevel().sendParticles(Particles.type("tiangandizhi"), player.getX(), player.getY() + 1, player.getZ(), 20, 0, 0, 0, 1);
+        player.serverLevel().sendParticles(Particles.type("tiangandizhi_2"), player.getX(), player.getY(), player.getZ(), 20, 2, 0, 2, 0);
+        player.serverLevel().sendParticles(ParticleTypes.FLASH, player.getX(), player.getY(), player.getZ(), 1, 0, 0, 0, 0);
         stack.set(GongfaData.TECHNIQUE.get(), grown(book.withOwner(player.getUUID(), player.getDisplayName().getString()).withProgress(1, book.exp())));
         player.displayClientMessage(Component.literal("§6研习成功！"), false);
         player.closeContainer();
@@ -130,9 +135,10 @@ public final class TechniqueRules {
             levelled = true;
         }
         TechniqueBook updated = book.withProgress(level, exp);
-        ItemStack stack = Techniques.slot(player).copy();
+        ItemStack stack = Techniques.slot(player);
         stack.set(GongfaData.TECHNIQUE.get(), levelled ? grown(updated) : updated);
-        setSlot(player, stack);
+        player.setData(GongfaData.SLOT, stack);
+        submit(player);
     }
 
     /** 闭关修炼每天吸纳元气后，主修功法得经验 = 吸纳的元气 × 1.5（来源 {@code Kaishixiulian}，不检查研习者）。 */

@@ -66,6 +66,7 @@ public final class SkillClientSetup {
 
     private static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(SkillMenus.SKILL.get(), SkillScreen::new);
+        event.register(SkillMenus.LOADOUT.get(), SkillLoadoutScreen::new);
     }
 
     /** 按来源分别装配物品弹体、原生模型弹体和 GeckoLib 动画实体。 */

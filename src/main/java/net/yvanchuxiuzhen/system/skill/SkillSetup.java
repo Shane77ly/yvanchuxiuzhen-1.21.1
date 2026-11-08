@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerContainerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -25,6 +26,7 @@ import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStudiedEvent;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 import net.yvanchuxiuzhen.system.skill.content.SkillMenus;
+import net.yvanchuxiuzhen.system.skill.content.SkillLoadoutMenu;
 import net.yvanchuxiuzhen.system.skill.effect.SkillEffects;
 import net.yvanchuxiuzhen.system.skill.entity.Corpses;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
@@ -68,6 +70,7 @@ public final class SkillSetup {
         NeoForge.EVENT_BUS.addListener(SkillSetup::onRightClickItem);
         NeoForge.EVENT_BUS.addListener(SkillSetup::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(SkillSetup::onCrafted);
+        NeoForge.EVENT_BUS.addListener(SkillSetup::onMenuOpened);
         NeoForge.EVENT_BUS.addListener((ItemSwingEvent event) -> WeaponArts.onSwing(event));
         NeoForge.EVENT_BUS.addListener((HitEvent event) -> LingwenHit.onHit(event));
         NeoForge.EVENT_BUS.addListener((HitEvent event) -> Corpses.onHit(event));
@@ -95,6 +98,14 @@ public final class SkillSetup {
             WeaponArts.tick(player);
             SkillFlight.tick(player);
             Yuanying.playerTick(player);
+        }
+    }
+
+    private static void onMenuOpened(PlayerContainerEvent.Open event) {
+        if (event.getEntity() instanceof ServerPlayer player && event.getContainer() instanceof SkillLoadoutMenu) {
+            SkillDelays.after(2, () -> {
+                if (player.containerMenu instanceof SkillLoadoutMenu menu) menu.initialize(player);
+            });
         }
     }
 

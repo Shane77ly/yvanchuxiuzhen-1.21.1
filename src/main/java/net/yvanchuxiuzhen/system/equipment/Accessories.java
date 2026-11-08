@@ -22,7 +22,10 @@ public final class Accessories {
     }
 
     public static void open(ServerPlayer player) {
-        BlockPos pos = BlockPos.containing(player.getX(), player.getY() + 1, player.getZ());
+        open(player, player.blockPosition().above());
+    }
+
+    public static void open(ServerPlayer player, BlockPos pos) {
         player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new AccessoryMenu(id, inventory, pos),
                 Component.literal("PlayerGUI03")), pos);
     }

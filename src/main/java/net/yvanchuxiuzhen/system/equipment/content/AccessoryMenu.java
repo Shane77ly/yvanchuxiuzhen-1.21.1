@@ -26,10 +26,12 @@ import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 /** 饰品四槽首刻装入、关闭保存；槽2收手饰却存腰佩，槽3收腰佩却存手饰，保留来源 Q60。 */
 public final class AccessoryMenu extends AbstractContainerMenu {
     private static final List<String> TAGS = List.of("headornaments", "necklaceornaments", "handornaments", "beltornaments");
+    private final BlockPos pos;
     private boolean initialized;
 
     public AccessoryMenu(int id, Inventory inventory, BlockPos pos) {
         super(EquipmentMenus.ACCESSORIES.get(), id);
+        this.pos = pos.immutable();
         IItemHandler bound = inventory.player.level().getCapability(Capabilities.ItemHandler.BLOCK, pos, null);
         IItemHandler items = bound == null ? new ItemStackHandler(4) : bound;
         for (int index = 0; index < 4; index++) {
@@ -66,8 +68,8 @@ public final class AccessoryMenu extends AbstractContainerMenu {
     @Override
     public boolean clickMenuButton(Player player, int button) {
         if (!(player instanceof ServerPlayer serverPlayer)) return false;
-        if (button == 0) {
-            NeoForge.EVENT_BUS.post(new AccessoryPageEvent(serverPlayer));
+        if (button == 0 || button == 2) {
+            NeoForge.EVENT_BUS.post(new AccessoryPageEvent(serverPlayer, button == 0 ? 1 : 4, pos));
             return true;
         }
         if (button == 6) {
