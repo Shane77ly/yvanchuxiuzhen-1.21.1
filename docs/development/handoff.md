@@ -224,4 +224,4 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 
 本批完成后继续按路线推进 skill 收口及其后的 yihuo、equipment 依赖批次；不新增 Test、专项选择器或 Computer Use 流程。
 
-当前继续处理 equipment 法宝批次。本批 `fabao_011`、`fabao_012`、`fabao_014`、`fabao_015`、`fabao_016` 与 `fabao_022` 已按 1.18.2 版本源码接回；`fabao_016` 的完整构建、内置 `runSmokeClient -PsmokeOnly=equipmentweapon`、文档与台账检查均通过，客户端报告 `DONE`、正常保存退出，代码提交为 `0a47d01`。`fabao_015` 已完成静态对照；`fabao_022` 的属性实现、完整 build、内置客户端 smoke、文档与台账检查均通过，待本批提交完成后继续。`fabao_017` 依赖动画实体和蛊虫收纳链，暂留待其依赖系统闭合，`fabao_013` 仍暂缓。所有客户端验证沿用项目自带入口，不使用 Computer Use；不新增无必要测试。
+当前继续处理 equipment 法宝批次。本批 `fabao_011`、`fabao_012`、`fabao_014`、`fabao_015`、`fabao_016` 与 `fabao_022` 已按 1.18.2 版本源码接回；`fabao_016` 的完整构建、内置 `runSmokeClient -PsmokeOnly=equipmentweapon`、文档与台账检查均通过，客户端报告 `DONE`、正常保存退出，代码提交为 `0a47d01`。`fabao_015` 已完成静态对照；`fabao_022` 的属性实现、完整 build、内置客户端 smoke、文档与台账检查均通过，已提交 `e6e6fe9`。下一步继续处理不依赖正式 `dimensionrenjian` 映射的法宝；`fabao_017` 依赖动画实体和蛊虫收纳链，暂留待其依赖系统闭合，`fabao_013` 仍暂缓。所有客户端验证沿用项目自带入口，不使用 Computer Use；不新增无必要测试。
