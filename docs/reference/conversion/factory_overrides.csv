@@ -1,4 +1,8 @@
 registry,target_id,factory,owner,reason
+item,yvanchuxiuzhen:qiankundai_01,qiankundai_01,storage,27格乾坤袋物品库存与右键菜单
+item,yvanchuxiuzhen:qiankundai_02,qiankundai_02,storage,54格乾坤袋物品库存与右键菜单
+item,yvanchuxiuzhen:qiankundai_03,qiankundai_03,storage,108格乾坤袋物品库存与右键菜单
+item,yvanchuxiuzhen:qiankundai_04,qiankundai_04,storage,220格乾坤袋物品库存与右键菜单
 item,yvanchuxiuzhen:fabao_021,equipment:fabao_021,equipment,文王鼓的GeckoLib物品模型与来源待机动画
 item,yvanchuxiuzhen:fabao_022,equipment:fabao_022,equipment,赶仙鞭主手属性与GeckoLib物品模型和待机动画
 item,yvanchuxiuzhen:ling_15,relation:ling_15,relation,团队招募令的使用与右键玩家行为（RecruitmentItem）

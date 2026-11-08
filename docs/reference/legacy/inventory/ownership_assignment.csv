@@ -1949,10 +1949,10 @@ yvanchuxiuzhen,Ling09DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/za
 yvanchuxiuzhen,Ling09,item,~/item/zawu,xiulian,已读,B1 归属阅读：升仙令：出身“他乡故知”的初始物品（PlayerJoin02），使用后在 tizhiitem 记 shengxianling 并漂浮，进入人间时 Yijichushishengcheng 据此安置并给乾坤袋
 yvanchuxiuzhen,Ling10DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,xiulian,已读,B1 归属阅读：随 Ling10 读：家族令牌：出身“世家纨绔”的初始物品（PlayerJoin02），右键只显示说明文字
 yvanchuxiuzhen,Ling10,item,~/item/zawu,xiulian,已读,B1 归属阅读：家族令牌：出身“世家纨绔”的初始物品（PlayerJoin02），右键只显示说明文字
-yvanchuxiuzhen,Qiankundai01GUI,gui,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiankundai02GUI,gui,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiankundai03GUI,gui,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiankundai04GUI,gui,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Qiankundai01GUI,gui,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
+yvanchuxiuzhen,Qiankundai02GUI,gui,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
+yvanchuxiuzhen,Qiankundai03GUI,gui,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
+yvanchuxiuzhen,Qiankundai04GUI,gui,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
 yvanchuxiuzhen,Qiankundai01,item,~/item/zawu/qiankundai,storage,已读,B1 归属阅读：储物：乾坤袋与材料袋的容器；本元素无过程，被 festival 的 Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi；material 的 Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhi；xiulian 的 PlayerJoin02 按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Qiankundai02,item,~/item/zawu/qiankundai,storage,已读,B1 归属阅读：储物：乾坤袋与材料袋的容器；本元素无过程，被 material 的 Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhi 按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Qiankundai03,item,~/item/zawu/qiankundai,storage,已读,B1 归属阅读：储物：乾坤袋与材料袋的容器；本元素无过程
@@ -3833,10 +3833,10 @@ yvanchuxiuzhen,Taoguan02GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/i
 yvanchuxiuzhen,Taoguan03GUI,gui,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,Taoguan03item,item,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,Taoguan03GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Qiankundai01GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiankundai02GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiankundai03GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiankundai04GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Qiankundai01GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
+yvanchuxiuzhen,Qiankundai02GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
+yvanchuxiuzhen,Qiankundai03GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
+yvanchuxiuzhen,Qiankundai04GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
 yvanchuxiuzhen,Taoguan,tag,~/tag,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,GuchongshifangGUI,gui,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,GuchongshifangOpen,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
@@ -4749,8 +4749,8 @@ yvanchuxiuzhen,FriendpandingBtoEe,procedure,~/systemset/zhiling/shanghai,relatio
 yvanchuxiuzhen,Fulutexiao29DangTouSheWuSheZhongCiFangKuai,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao29 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Fulutexiao32DangTouSheWuSheZhongCiFangKuai,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao32 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Fulutexiao45DangTouSheWuSheZhongCiFangKuai,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao45 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Chuwu,tag,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinzhifangru,procedure,~/item/zawu/qiankundai,storage,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Chuwu,tag,~/item/zawu/qiankundai,storage,已读,A:Chuwu标签列出四档乾坤袋与两种藏宝箱；四档菜单以Jinzhifangru排除此标签，物品库存能力另按同档袋过滤
+yvanchuxiuzhen,Jinzhifangru,procedure,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
 yvanchuxiuzhen,SkillGold0201,animatedentity,~/skill/jineng/goldskill,skill,已读,C skill 归属阅读：金系的金轮实体（八种模式）与金刚轮施放，金轮弹体的捆妖轮、金弧轮、天堑金轮；金轮跟随的对象是施放者或弹体或被捆的目标；Alt 式的牵引范围按来源公式逐步缩小
 yvanchuxiuzhen,Armor12,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Armor13,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现

@@ -1,4 +1,8 @@
 owner,texture
+storage,yvanchuxiuzhen:screens/qiankundai_01_gui
+storage,yvanchuxiuzhen:screens/qiankundai_02_gui
+storage,yvanchuxiuzhen:screens/qiankundai_03_gui
+storage,yvanchuxiuzhen:screens/qiankundai_04_gui
 relation,yvanchuxiuzhen:screens/friendgui
 relation,yvanchuxiuzhen:screens/zaixiandisplay
 relation,yvanchuxiuzhen:screens/friendguixvanze

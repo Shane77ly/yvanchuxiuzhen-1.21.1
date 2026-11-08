@@ -3,6 +3,8 @@ package net.yvanchuxiuzhen.smoke;
 import java.util.List;
 import java.util.function.Consumer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.BackupConfirmScreen;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -103,7 +105,12 @@ abstract class SystemCheck {
     /** 标题界面出现后重新打开同一存档，返回 true。 */
     protected final boolean reopened(int local) {
         if (minecraft.screen instanceof TitleScreen && local >= 20) {
-            minecraft.createWorldOpenFlows().openWorld(levelId, () -> fail("无法重新打开存档 " + levelId));
+            busy = true;
+            try {
+                minecraft.createWorldOpenFlows().openWorld(levelId, () -> fail("无法重新打开存档 " + levelId));
+            } finally {
+                busy = false;
+            }
             return true;
         }
         return false;
@@ -111,11 +118,25 @@ abstract class SystemCheck {
 
     /** 重新进入世界并等待 100 tick 后返回 true；超时记失败并结束。 */
     protected final boolean inWorld(int local) {
+        if (minecraft.screen instanceof BackupConfirmScreen screen
+                && screen.getTitle().equals(Component.translatable("selectWorld.backupQuestion.experimental"))) {
+            report.add("INFO " + name + " 重进遇到原生实验性世界提示，点击不备份并继续");
+            Button proceed = screen.children().stream().filter(child -> child instanceof Button button
+                            && button.getMessage().equals(Component.translatable("selectWorld.backupJoinSkipButton")))
+                    .map(child -> (Button) child).findFirst().orElseThrow();
+            busy = true;
+            try {
+                proceed.onPress();
+            } finally {
+                busy = false;
+            }
+        }
         if (minecraft.player != null && minecraft.getSingleplayerServer() != null && local >= 100) {
             return true;
         }
         if (local > 1200) {
-            fail("重新打开存档超时");
+            fail("重新打开存档超时，当前界面：" + (minecraft.screen == null ? "无" : minecraft.screen.getClass().getSimpleName()
+                    + " / " + minecraft.screen.getTitle().getString()));
             finish();
         }
         return false;
