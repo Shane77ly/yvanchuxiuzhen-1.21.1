@@ -22,7 +22,7 @@ updated: 2026-11-08
 
 ## 进行中
 
-元婴生命周期与普通重生收口（2026-11-08）：按1.18.2版本来源补回有来源实体致死时先归窍再扣365寿元、普通 `PlayerRespawnEvent` 的资源/寿元公式，并修正书架藏宝创造模式仍应消耗一件载体的偏离。`compileSmokeJava`、既有 `runSmokeClient -PsmokeOnly=skillui`（29项）和 `-PsmokeOnly=yuanying`（5项）均通过；没有新增Test或专项入口。普通重生完整实机、元婴死亡/跨维度/重登路径仍未专项验收。证据以 `build/smoke/report.txt` 与本页项目日志为准。
+元婴生命周期与普通重生收口（2026-11-08）：按1.18.2版本来源补回有来源实体致死时先归窍再扣365寿元、普通 `PlayerRespawnEvent` 的资源/寿元公式，并修正书架藏宝创造模式仍应消耗一件载体的偏离。`compileSmokeJava`、既有 `runSmokeClient -PsmokeOnly=skillui`（29项）和 `-PsmokeOnly=yuanying`（5项）均通过；本次另运行既有 `runSmokeClient -PsmokeOnly=xiulian`，重生资源断言按来源公式通过（灵力4、寿元9970），但退出后重开步骤仍在客户端服务器已销毁后触发既有 harness 空指针，不能作为生产逻辑失败。没有新增Test或专项入口。普通重生完整实机、元婴死亡/跨维度/重登路径仍未专项验收。证据以 `build/smoke/report.txt`、`run/logs/latest.log` 与本页项目日志为准。
 
 自然入口与异火主路径收口（2026-11-08，前一提交 `4b9ff36d`；本批代码与本页同一提交，最新提交以 `git log` 为准）：book已接书架藏宝真实右键，保留分派优先级、等级、随机表及先发书后减一；完整build通过，现有skillui唯一一次35项全INFO、0FAIL、DONE，1分34秒正常保存四维度退出、ERROR/FATAL0。新增五组丹火实际使用/双端同步/计划刻/炙烤/爆燃和一组藏宝库存检查均通过；未恢复YihuoCheck或选择器，未用Computer Use。日志仍有32条未知实体附件同步WARN，与错误分开登记。本批未另跑专服。证据 `tmp/skill-natural-exit-{build.log,client.log,latest.log,report.txt}`。书架载体由检查构造后真实use，获得链未验收；持续效果由受控前置后自然实体刻结算，不代表18材料自然命中全链。来源31623文件指纹通过，台账4939行和文档88篇均0问题，差异空白检查通过。
 

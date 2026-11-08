@@ -148,8 +148,8 @@ final class XiulianCheck extends SystemCheck {
 
     private void checkKept(String label, ServerPlayer player) {
         expect(label + " 体质", constitution, Cultivation.get(player, CultivationText.CONSTITUTION));
-        expect(label + " 灵力", 15, Cultivation.get(player, CultivationValue.POWER));
-        expect(label + " 寿元", 10000, Cultivation.get(player, CultivationValue.LIFETIME));
+        expect(label + " 灵力", 4, Cultivation.get(player, CultivationValue.POWER));
+        expect(label + " 寿元", 9970, Cultivation.get(player, CultivationValue.LIFETIME));
         expect(label + " 体质计数", 1, Cultivation.tizhiDouble(player, "tizhinumber"));
         expect(label + " 火灵根系数", Cultivation.get(player, CultivationValue.ROOT_FIRE) * 0.1, PlayerAttributes.elementCoefficient(player, DamageElement.FIRE));
         expectTrue(label + " 未重开出身界面", !(minecraft.screen instanceof BirthScreen));
