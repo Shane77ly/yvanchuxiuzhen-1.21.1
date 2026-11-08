@@ -178,7 +178,7 @@ item,yvanchuxiuzhen:fabao_011,yvanchuxiuzhen,Fabao011,src/main/java/net/mcreator
 item,yvanchuxiuzhen:fabao_012,yvanchuxiuzhen,Fabao012,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2698,equipment,已读,yvanchuxiuzhen:fabao_012,行为已迁移,普通右键动物发情、潜行右键敌对实体幻术、粒子、沉默限制与200/600刻冷却已接回；完整自然操作与两版本对照未验收
 item,yvanchuxiuzhen:fabao_013,yvanchuxiuzhen,Fabao013,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2699,equipment,已读,yvanchuxiuzhen:fabao_013,已注册,
 item,yvanchuxiuzhen:fabao_014,yvanchuxiuzhen,Fabao014,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2700,equipment,已读,yvanchuxiuzhen:fabao_014,行为已迁移,松开右键的沉默与灵力条件、扣费、耐久、普通/潜行冷却和弹体发射已接回；完整自然操作与两版本对照未验收
-item,yvanchuxiuzhen:fabao_015,yvanchuxiuzhen,Fabao015,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2701,equipment,已读,yvanchuxiuzhen:fabao_015,已注册,
+item,yvanchuxiuzhen:fabao_015,yvanchuxiuzhen,Fabao015,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2701,equipment,已读,yvanchuxiuzhen:fabao_015,行为已迁移,来源只有原生剑构造；目标通用 ContentSword 参数与来源逐项一致，无自定义使用/命中过程
 item,yvanchuxiuzhen:fabao_016,yvanchuxiuzhen,Fabao016,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2795,equipment,已读,yvanchuxiuzhen:fabao_016,行为已迁移,命中流血、创造模式分支、潜行采血、精血物品字段与来源异常的默认炼器等级已接回；客户端 smoke 仅作注册/启动回归，完整自然操作与视觉未验收
 item,yvanchuxiuzhen:fabao_017,yvanchuxiuzhen,Fabao017,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2810,equipment,已读,yvanchuxiuzhen:fabao_017,已注册,
 item,yvanchuxiuzhen:fabao_021,yvanchuxiuzhen,Fabao021,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3032,equipment,已读,yvanchuxiuzhen:fabao_021,已注册,

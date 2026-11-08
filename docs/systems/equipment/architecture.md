@@ -259,6 +259,16 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 静态依据为 1.18.2 版本五个 `Fabao014*` Java 文件；目标 API 按 NeoForge 21.1.265 源码改写。未新增 Test 类、冒烟选择器、断言或 Computer Use。`gradlew build`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 通过；沿用 `runSmokeClient -PsmokeOnly=equipmentweapon` 报告 `DONE`，客户端和专用服务端均正常保存退出，日志无 `ERROR/FATAL`。这些检查仅作注册、资源加载和启动回归；自然发射、命中、灵力扣除、冷却、视觉、1.18.2 实机、两版本对照与多人验收未执行。
 
+## 明心镜法宝（2026-11-08）
+
+### 来源行为与目标实现
+
+`Fabao015Item` 只有 `SwordItem` 构造器，没有自定义使用、命中或实体过程。目标 `items.json` 的通用 `tool` 工厂通过 `ContentSword` 生成同一类剑，参数与来源逐项一致：耐久 `200`、速度 `4`、攻击加成 `-1`、等级 `1`、附魔值 `2`、攻击力 `3`、攻击速度 `-3`，修理材料为空。
+
+### 验证范围
+
+静态依据为 1.18.2 版本 `Fabao015Item.java`；目标依据为 `ContentTables.tool`、`ContentSword` 与 equipment 内容表。未新增代码、Test 类、冒烟选择器或 Computer Use；本批只做静态对照，未运行客户端，物品显示、1.18.2 实机和两版本对照未执行。
+
 ## 血刀法宝（2026-11-08）
 
 ### 来源行为与目标实现
