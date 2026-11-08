@@ -117,6 +117,7 @@ public final class EquipmentSetup {
         NeoForge.EVENT_BUS.addListener(EquipmentAttributes::armorStat);
         NeoForge.EVENT_BUS.addListener(EquipmentAttributes::weaponStat);
         NeoForge.EVENT_BUS.addListener(EquipmentAttributes::modifiers);
+        NeoForge.EVENT_BUS.addListener(BenmingCultivation::onCultivationSecond);
     }
 
     public static Supplier<EntityType<Fuchen>> fuchenType() {

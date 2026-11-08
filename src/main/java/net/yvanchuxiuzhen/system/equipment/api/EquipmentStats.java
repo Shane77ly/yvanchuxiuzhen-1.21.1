@@ -16,6 +16,17 @@ public record EquipmentStats(int health, int power, int soul, int physicalDefens
         this(health, power, soul, physicalDefense, spellDefense, soulDefense, knockbackResistance, attackSpeed, moveSpeed, 0, 0, 0, 0);
     }
     public static final EquipmentStats EMPTY = new EquipmentStats(0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+    public EquipmentStats addSpellAttack(int amount) {
+        return new EquipmentStats(health, power, soul, physicalDefense, spellDefense, soulDefense,
+                knockbackResistance, attackSpeed, moveSpeed, physicalAttack, spellAttack + amount, soulAttack, armor);
+    }
+
+    public EquipmentStats addSoulAttack(int amount) {
+        return new EquipmentStats(health, power, soul, physicalDefense, spellDefense, soulDefense,
+                knockbackResistance, attackSpeed, moveSpeed, physicalAttack, spellAttack, soulAttack + amount, armor);
+    }
+
     public static final Codec<EquipmentStats> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("health").forGetter(EquipmentStats::health),
             Codec.INT.fieldOf("power").forGetter(EquipmentStats::power),

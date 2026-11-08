@@ -229,3 +229,9 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 ## 2026-11-08 飞行法器批次
 
 `port/c-skill` 在 `cdb8758` 之后接回 8 个飞行法器的专用物品工厂、共享实体、字段存档、骑乘飞行、充灵力、取回、死亡掉落、乘客偏移及 GeckoLib 资源。首次专用服务端启动发现实体模型表有记录但 `entities.json` 缺少 8 个实体，已补齐来源尺寸和 `MONSTER` 类别；修复后 `gradlew build`、专用服务端启动至 `Done`、原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 通过，服务端导出 101 个实体且台账 0 项问题。项目内置 `runSmokeClient -PsmokeOnly=equipmentweapon` 五项既有弓与拂尘检查全部 `DONE`，客户端正常进入世界并保存退出，日志无 `ERROR/FATAL`。未新增 Test、冒烟选择器、断言或 Computer Use；内置客户端检查只覆盖注册、资源加载和启动回归，不替代飞行法器自然操作、完整视觉、多人、1.18.2 实机及两版本对照验收。下一步为提交本批并继续 equipment 及后续依赖批次。
+
+## 2026-11-08 本命培养批次
+
+当前分支仍为 `port/c-skill`，继续按 1.18.2 版本来源过程推进 equipment。本批接回 `DantianbenmingfabaoProcedure`、`BenmingfabaotishengProcedure`、`DantianbenmingexpProcedure` 与 `DantianbenmingxianshiProcedure` 的实际调用链：修炼每秒事件触发、结丹期门槛、启灵与体质培养速度、单次一级上限、耐久消耗、法术/精神攻击交替升级、物品组件保存及丹田进度提交均已实现；补回经验上限为 0 时的来源初始化顺序。
+
+本批未新增 Test、冒烟选择器、断言或 Computer Use。验证沿用项目自带 `runSmokeClient -PsmokeOnly=equipmentweapon`，仅用于注册、资源加载和客户端启动回归；完整本命培养自然行为、存档重载、1.18.2 实机、两版本对照、多人和完整界面视觉仍待专项验收。下一步提交本批并继续 equipment 未闭合内容。

@@ -314,3 +314,17 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 ### 验证范围
 
 静态依据为上述 1.18.2 版本过程与 8 个实体类；目标 API 按 NeoForge 21.1.265 源码改写。未新增 Test 类、冒烟选择器、断言或 Computer Use。首次专用服务端启动发现 8 个实体已写入模型表但遗漏 `entities.json`，导致属性事件取不到注册句柄；补齐原来源尺寸与 `MONSTER` 类别后，`gradlew build`、专用服务端启动至 `Done`、原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 均通过。服务端导出 101 个实体，含 8 个飞行法器；内置 `runSmokeClient -PsmokeOnly=equipmentweapon` 的五项既有弓与拂尘检查全部 `DONE`，客户端正常进入世界并保存退出，客户端与服务端日志未见 `ERROR/FATAL`。这些检查只用于注册、资源加载和公共启动回归，不替代飞行法器召唤、骑乘、充能、取回、死亡掉落、视觉、1.18.2 实机、两版本对照和多人专项验收。
+
+## 本命培养（2026-11-08）
+
+### 来源行为与目标实现
+
+来源入口为 `DantianbenmingfabaoProcedure`，由修炼每秒推进调用；只有境界达到结丹期（`LEVELnumber >= 21`）且本命槽有物品时推进。经验增量为器灵附魔等级加体质中的通用、短兵器、长兵器、远程、道家、佛家和儒家培养速度。经验达到当前上限时只提升一级，上限重算为 `2000 + 等级 × 2000`；每次培养消耗一点耐久。升级按玩家体质标志交替增加本命器物的法术攻击和精神攻击，并同步回本命槽与丹田界面进度。
+
+目标用 `BenmingData` 物品组件保存等级、经验和经验上限，用 `EquipmentStats` 的法术攻击/精神攻击字段承载升级结果。`BenmingCultivation` 监听已有 `CultivationSecondEvent`，通过 `Cultivation` 公开操作读取境界与体质键、提交本命物品和 `BenmingProgress`；装备属性层按主手物品消费两项攻击值。已有组件但经验上限不大于 0 时先按来源公式初始化，再计算本次经验。
+
+本命槽的物品接受条件、打开/关闭和显示标志仍由 xiulian 的 `DantianActions` 持有；equipment 不直接修改修炼附件内部对象。
+
+### 验证范围
+
+静态依据为 1.18.2 版本 `DantianbenmingfabaoProcedure`、`BenmingfabaotishengProcedure`、`DantianbenmingexpProcedure` 与 `DantianbenmingxianshiProcedure`；目标 API 按 NeoForge 21.1.265 源码核对。未新增 Test 类、冒烟选择器、断言或 Computer Use。使用项目自带 `runSmokeClient -PsmokeOnly=equipmentweapon` 做注册、资源加载和公共客户端启动回归，既有弓与拂尘五项报告 `DONE`，客户端正常保存退出且日志无 `ERROR/FATAL`；该 smoke 不替代本命培养的境界门槛、经验升级、耐久消耗、属性交替、存档重载和完整界面专项验收。完整行为专项、1.18.2 实机、两版本对照、多人与完整视觉仍未执行。
