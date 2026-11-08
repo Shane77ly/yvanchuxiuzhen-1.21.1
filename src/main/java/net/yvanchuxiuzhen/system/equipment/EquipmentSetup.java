@@ -17,6 +17,7 @@ import net.yvanchuxiuzhen.system.equipment.content.Fabao011Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao012Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao014Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao016Item;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao022Item;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.HossuItem;
@@ -57,6 +58,9 @@ public final class EquipmentSetup {
             if (row.factory().equals("equipment:fabao_016")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
                 CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Fabao016Item(tier, properties, tooltip));
+            }
+            if (row.factory().equals("equipment:fabao_022")) {
+                CONTENT.itemFactory(row.factory(), Fabao022Item::new);
             }
             if (row.factory().startsWith("equipment:weaponhossu_")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());

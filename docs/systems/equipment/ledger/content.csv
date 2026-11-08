@@ -182,7 +182,7 @@ item,yvanchuxiuzhen:fabao_015,yvanchuxiuzhen,Fabao015,src/main/java/net/mcreator
 item,yvanchuxiuzhen:fabao_016,yvanchuxiuzhen,Fabao016,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2795,equipment,已读,yvanchuxiuzhen:fabao_016,行为已迁移,命中流血、创造模式分支、潜行采血、精血物品字段与来源异常的默认炼器等级已接回；客户端 smoke 仅作注册/启动回归，完整自然操作与视觉未验收
 item,yvanchuxiuzhen:fabao_017,yvanchuxiuzhen,Fabao017,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2810,equipment,已读,yvanchuxiuzhen:fabao_017,已注册,
 item,yvanchuxiuzhen:fabao_021,yvanchuxiuzhen,Fabao021,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3032,equipment,已读,yvanchuxiuzhen:fabao_021,已注册,
-item,yvanchuxiuzhen:fabao_022,yvanchuxiuzhen,Fabao022,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3033,equipment,已读,yvanchuxiuzhen:fabao_022,已注册,
+item,yvanchuxiuzhen:fabao_022,yvanchuxiuzhen,Fabao022,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3033,equipment,已读,yvanchuxiuzhen:fabao_022,行为已迁移,主手攻击力-2、攻击速度-2.4与80耐久已接回；来源GeckoLib物品视觉未接入
 item,yvanchuxiuzhen:flyinginstrument_0101,yvanchuxiuzhen,Flyinginstrument0101,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1878,equipment,已读,yvanchuxiuzhen:flyinginstrument_0101,已注册,
 item,yvanchuxiuzhen:flyinginstrument_0201,yvanchuxiuzhen,Flyinginstrument0201,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1879,equipment,已读,yvanchuxiuzhen:flyinginstrument_0201,已注册,
 item,yvanchuxiuzhen:flyinginstrument_0301,yvanchuxiuzhen,Flyinginstrument0301,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1880,equipment,已读,yvanchuxiuzhen:flyinginstrument_0301,已注册,

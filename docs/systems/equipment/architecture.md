@@ -280,3 +280,13 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 ### 验证范围
 
 静态依据为 1.18.2 版本三个 `Fabao016*` Java 文件；目标 API 按 NeoForge 21.1.265 源码改写。未新增 Test 类、冒烟选择器、断言或 Computer Use。`gradlew build`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 通过；沿用 `runSmokeClient -PsmokeOnly=equipmentweapon` 报告 `DONE`，客户端正常进入世界并保存退出。该检查仅作注册、资源加载和启动回归；血刀命中、流血、潜行采血、物品 NBT、视觉、1.18.2 实机、两版本对照与多人验收未执行。
+
+## 赶仙鞭法宝（2026-11-08）
+
+### 来源行为与目标实现
+
+`Fabao022Item` 没有自定义使用或实体过程，但覆写主手属性：`ATTACK_DAMAGE` 加法修正为 `-2`，`ATTACK_SPEED` 加法修正为 `-2.4`；物品耐久为 `80`。目标 `Fabao022Item` 通过 `ItemAttributeModifiers` 与 equipment 专用工厂写入同样的主手属性。来源 GeckoLib 的 `fabao022` 几何、动画、纹理和第一人称渲染逻辑不属于服务端玩法，目标尚未接入。
+
+### 验证范围
+
+静态依据为 1.18.2 版本 `Fabao022Item.java`；目标依据为 NeoForge 21.1.265 的属性组件 API。未新增 Test 或冒烟选择器；本批完整 build 与既有 `runSmokeClient -PsmokeOnly=equipmentweapon` 均通过，报告为 `DONE`，客户端正常保存退出且日志无 `ERROR/FATAL`。检查只覆盖注册、资源加载和启动，不替代属性自然查看、完整视觉、1.18.2 实机或两版本对照。
