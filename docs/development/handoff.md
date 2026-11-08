@@ -225,3 +225,7 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 本批完成后继续按路线推进 skill 收口及其后的 yihuo、equipment 依赖批次；不新增 Test、专项选择器或 Computer Use 流程。
 
 当前继续处理 equipment 法宝批次。本批 `fabao_011`、`fabao_012`、`fabao_014`、`fabao_015`、`fabao_016`、`fabao_021` 与 `fabao_022` 已按 1.18.2 版本源码接回；`fabao_016` 的完整构建、内置 `runSmokeClient -PsmokeOnly=equipmentweapon`、文档与台账检查均通过，客户端报告 `DONE`、正常保存退出，代码提交为 `0a47d01`。`fabao_015` 已完成静态对照；`fabao_021` 已完成无服务端玩法差异的静态对照；`fabao_022` 的属性实现、完整 build、内置客户端 smoke、文档与台账检查均通过，已提交 `e6e6fe9`。下一步继续处理不依赖正式 `dimensionrenjian` 映射的法宝；`fabao_017` 依赖动画实体和蛊虫收纳链，暂留待其依赖系统闭合，`fabao_013` 仍暂缓。所有客户端验证沿用项目自带入口，不使用 Computer Use；不新增无必要测试。
+
+## 2026-11-08 飞行法器批次
+
+`port/c-skill` 在 `cdb8758` 之后接回 8 个飞行法器的专用物品工厂、共享实体、字段存档、骑乘飞行、充灵力、取回、死亡掉落、乘客偏移及 GeckoLib 资源。首次专用服务端启动发现实体模型表有记录但 `entities.json` 缺少 8 个实体，已补齐来源尺寸和 `MONSTER` 类别；修复后 `gradlew build`、专用服务端启动至 `Done`、原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 通过，服务端导出 101 个实体且台账 0 项问题。项目内置 `runSmokeClient -PsmokeOnly=equipmentweapon` 五项既有弓与拂尘检查全部 `DONE`，客户端正常进入世界并保存退出，日志无 `ERROR/FATAL`。未新增 Test、冒烟选择器、断言或 Computer Use；内置客户端检查只覆盖注册、资源加载和启动回归，不替代飞行法器自然操作、完整视觉、多人、1.18.2 实机及两版本对照验收。下一步为提交本批并继续 equipment 及后续依赖批次。

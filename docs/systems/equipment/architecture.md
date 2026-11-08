@@ -300,3 +300,17 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 ### 验证范围
 
 静态依据为 1.18.2 版本 `Fabao021Item.java` 及其模型/渲染类；目标依据为 equipment 内容表。未新增代码、Test 或冒烟选择器，本批未运行客户端；完整物品视觉、1.18.2 实机和两版本对照未执行。
+
+## 飞行法器（2026-11-08）
+
+### 来源行为与目标实现
+
+按 1.18.2 版本 `FlyingitemnbtshezhiProcedure`、`Flyinginstrument0101DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`、`Flyinginstrument01DangYouJianDianJiShiTiProcedure`、`Flyinginstrument01DangShiTiGengXinKeShiProcedure` 与 `Flyinginstrument01DangShiTiBeiShaSiShiProcedure` 逐行接回 8 个飞行法器。物品首次右键写入 `flyitemID`、`flyname`、`flyentityID`、`health_Max`、`health`、`power_Max`、`power`、`speed_num`，召唤对应实体、复制玩家关系、设置生命并清空手持槽；已有字段的物品保留当前生命和灵力。
+
+目标使用 `FlyingInstrumentItem` 专用工厂和 `FlyingInstrumentEntity` 共享实体，字段保存在物品 `CUSTOM_DATA` 与实体持久数据中。实体潜行右键按来源保存当前字段并取回物品；普通右键按 `lingshi` 标签和 `cailiao_191`–`199` 的 `1/4/16/64/256/1024/4096/16384/65536` 灵力值充能，手持 `hammer` 恢复 1 点生命，否则玩家骑乘。实体刻更新保留水中上浮、空气下落、骑乘能量门槛、`flying` 按视线移动、法器灵力优先扣除及 `jinkong` 复位；来源实体的药水、区域效果云、摔落、仙人掌和溺水免疫、20刻死亡移除、乘客高度偏移均已接回。
+
+8 个实体的 GeckoLib 几何、动画与实体纹理已从 1.18.2 版本资源接入 `assets/yvanchuxiuzhen/geo`、`animations` 与 `textures/entities`，并通过装备实体模型表与现有 `AnimatedEntityRenderer` 注册。01/02/03 的乘客偏移为 `-0.2`，05 为 `-0.7`，06 为 `0.1`，07 为 `-0.3`，04/08 沿用原生偏移。
+
+### 验证范围
+
+静态依据为上述 1.18.2 版本过程与 8 个实体类；目标 API 按 NeoForge 21.1.265 源码改写。未新增 Test 类、冒烟选择器、断言或 Computer Use。首次专用服务端启动发现 8 个实体已写入模型表但遗漏 `entities.json`，导致属性事件取不到注册句柄；补齐原来源尺寸与 `MONSTER` 类别后，`gradlew build`、专用服务端启动至 `Done`、原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 均通过。服务端导出 101 个实体，含 8 个飞行法器；内置 `runSmokeClient -PsmokeOnly=equipmentweapon` 的五项既有弓与拂尘检查全部 `DONE`，客户端正常进入世界并保存退出，客户端与服务端日志未见 `ERROR/FATAL`。这些检查只用于注册、资源加载和公共启动回归，不替代飞行法器召唤、骑乘、充能、取回、死亡掉落、视觉、1.18.2 实机、两版本对照和多人专项验收。

@@ -20,6 +20,8 @@ import net.yvanchuxiuzhen.system.equipment.content.Fabao016Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao022Item;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
+import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
+import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentItem;
 import net.yvanchuxiuzhen.system.equipment.content.HossuItem;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
@@ -43,6 +45,11 @@ public final class EquipmentSetup {
         CONTENT.itemFactory("equipment:fuchen", FuchenItem::new);
         CONTENT.itemFactory("equipment:fabao_010", Fabao010Item::new);
         CONTENT.itemFactory("equipment:fabao_010huoyan", Fabao010huoyanItem::new);
+        for (String itemId : new String[]{"flyinginstrument_0101", "flyinginstrument_0201", "flyinginstrument_0301", "flyinginstrument_0401",
+                "flyinginstrument_0501", "flyinginstrument_0601", "flyinginstrument_0701", "flyinginstrument_0801"}) {
+            CONTENT.itemFactory("equipment:" + itemId, (properties, tooltip) ->
+                    new FlyingInstrumentItem(FlyingInstrumentItem.definition(itemId), properties, tooltip));
+        }
         for (ItemRow row : ContentFiles.read("content/equipment/items.json", ItemRow.CODEC)) {
             if (row.factory().equals("equipment:fabao_011")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
@@ -76,6 +83,12 @@ public final class EquipmentSetup {
         CONTENT.entity(Fuchen.ID, Fuchen::new);
         CONTENT.entity(Fabao010huoyan.ID, Fabao010huoyan::new);
         for (EntityModelRow model : ContentFiles.read("content/equipment/entity_models.json", EntityModelRow.CODEC)) {
+            if (model.id().startsWith("flyinginstrument_")) {
+                FlyingInstrumentItem.Definition definition = FlyingInstrumentItem.definitionByEntity(model.id());
+                CONTENT.<FlyingInstrumentEntity>livingEntity(model.id(), (type, level) -> new FlyingInstrumentEntity(type, level, model, definition),
+                        () -> FlyingInstrumentEntity.attributes(model));
+                continue;
+            }
             ToolMachineEntity.Kind kind = switch (model.id()) {
                 case "gongjvfu" -> ToolMachineEntity.Kind.AXE;
                 case "gongjvgao" -> ToolMachineEntity.Kind.PICKAXE;
@@ -124,5 +137,9 @@ public final class EquipmentSetup {
 
     public static Supplier<EntityType<ToolMachineEntity>> toolMachineType(ToolMachineEntity.Kind kind) {
         return CONTENT.entityType(kind.id());
+    }
+
+    public static Supplier<EntityType<FlyingInstrumentEntity>> flyingInstrumentType(String id) {
+        return CONTENT.entityType(id);
     }
 }

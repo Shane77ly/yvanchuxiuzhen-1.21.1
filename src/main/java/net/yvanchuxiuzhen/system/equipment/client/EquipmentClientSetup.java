@@ -10,8 +10,10 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
 import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
+import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
 import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
+import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 
 /** 装备弹体的客户端装配；拂尘的物品图标为空，本体不可见，轨迹由粒子显示。 */
@@ -36,6 +38,12 @@ public final class EquipmentClientSetup {
         for (ToolMachineEntity.Kind kind : ToolMachineEntity.Kind.values()) {
             EntityModelRow row = EquipmentModels.model(kind.id());
             event.registerEntityRenderer(EquipmentSetup.toolMachineType(kind).get(), context -> new AnimatedEntityRenderer<>(context, row));
+        }
+        for (EntityModelRow row : ContentFiles.read("content/equipment/entity_models.json", EntityModelRow.CODEC)) {
+            if (row.id().startsWith("flyinginstrument_")) {
+                event.registerEntityRenderer(EquipmentSetup.<FlyingInstrumentEntity>flyingInstrumentType(row.id()).get(),
+                        context -> new AnimatedEntityRenderer<>(context, row));
+            }
         }
         event.registerEntityRenderer(EquipmentSetup.kailingProjectileType().get(), ThrownItemRenderer::new);
     }

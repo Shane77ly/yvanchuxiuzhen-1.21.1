@@ -1521,26 +1521,26 @@ yvanchuxiuzhen,AnjianD,keybind,~/skill/shenfa,skill,已读,C skill 身法轻功�
 yvanchuxiuzhen,Shenfaspace,procedure,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
 yvanchuxiuzhen,AnjianSpace,keybind,~/skill/shenfa,skill,已读,C skill 身法轻功：已读按键映射与消息、ShenfaTick、五种身法输入、F飞行开关与FlyskillTick/声画；服务端迁移窗口、共享冷却、掠空、耗灵力和禁空，保留来源顺序。
 yvanchuxiuzhen,Flyinginstrument01DangYouJianDianJiShiTi,procedure,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyinginstrument01,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument01,animatedentity,~/weapon/Flyinginstrument,equipment,已读,C equipment 飞行法器：实体生命周期、模型与客户端渲染已核对并接入共享飞行法器实体
 yvanchuxiuzhen,Flyinginstrument01DangShiTiGengXinKeShi,procedure,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyinginstrument0101DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：随 Flyinginstrument0101 读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,Flyinginstrument0101,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,Lingshi,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Flyinginstrument,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Entitybereborn,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Flyinginstrument02,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument02,animatedentity,~/weapon/Flyinginstrument,equipment,已读,C equipment 飞行法器：实体生命周期、模型与客户端渲染已核对并接入共享飞行法器实体
 yvanchuxiuzhen,Flyinginstrument0201,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
-yvanchuxiuzhen,Flyinginstrument03,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument03,animatedentity,~/weapon/Flyinginstrument,equipment,已读,C equipment 飞行法器：实体生命周期、模型与客户端渲染已核对并接入共享飞行法器实体
 yvanchuxiuzhen,Flyinginstrument0301,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
-yvanchuxiuzhen,Flyinginstrument04,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument04,animatedentity,~/weapon/Flyinginstrument,equipment,已读,C equipment 飞行法器：实体生命周期、模型与客户端渲染已核对并接入共享飞行法器实体
 yvanchuxiuzhen,Flyinginstrument0401,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
-yvanchuxiuzhen,Flyinginstrument05,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument05,animatedentity,~/weapon/Flyinginstrument,equipment,已读,C equipment 飞行法器：实体生命周期、模型与客户端渲染已核对并接入共享飞行法器实体
 yvanchuxiuzhen,Flyinginstrument0501,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
-yvanchuxiuzhen,Flyinginstrument06,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument06,animatedentity,~/weapon/Flyinginstrument,equipment,已读,C equipment 飞行法器：实体生命周期、模型与客户端渲染已核对并接入共享飞行法器实体
 yvanchuxiuzhen,Flyinginstrument0601,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
-yvanchuxiuzhen,Flyinginstrument07,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument07,animatedentity,~/weapon/Flyinginstrument,equipment,已读,C equipment 飞行法器：实体生命周期、模型与客户端渲染已核对并接入共享飞行法器实体
 yvanchuxiuzhen,Flyinginstrument0701,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
-yvanchuxiuzhen,Flyinginstrument08,animatedentity,~/weapon/Flyinginstrument,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Flyinginstrument08,animatedentity,~/weapon/Flyinginstrument,equipment,已读,C equipment 飞行法器：实体生命周期、模型与客户端渲染已核对并接入共享飞行法器实体
 yvanchuxiuzhen,Flyinginstrument0801,item,~/weapon/Flyinginstrument,equipment,已读,B1 归属阅读：飞行法器：右键召出飞行器实体并写入物品数据（Flyingitemnbtshezhi），属飞行法器
 yvanchuxiuzhen,Teamxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gui0301,gui,~/GUI,relation,已读,C relation 归属阅读：改团队名称的界面 Gui0301（输入框 teamname，确定后写 team 并提示）；打开它的 Gui03anniu 在生成代码中没有调用者，整条入口不可达

@@ -1,0 +1,77 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.flyinginstrument03",
+				"texture_width": 44,
+				"texture_height": 64,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "yezi1",
+					"parent": "zong",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-5, 0, -6], "size": [10, 2, 12], "uv": [0, 0]},
+						{"origin": [-11, 0, -6], "size": [6, 2, 12], "pivot": [-5, 0, 0], "rotation": [0, 0, 25], "uv": [0, 14]},
+						{"origin": [5, 0, -6], "size": [6, 2, 12], "pivot": [5, 0, 0], "rotation": [0, 0, -25], "uv": [0, 14], "mirror": true}
+					]
+				},
+				{
+					"name": "yezi2",
+					"parent": "zong",
+					"pivot": [0, 0, -6],
+					"rotation": [10, 0, 0],
+					"cubes": [
+						{"origin": [5, 0, -14], "size": [6, 2, 8], "pivot": [5, 0, -6], "rotation": [-35, 0, -25], "uv": [0, 38], "mirror": true},
+						{"origin": [-11, 0, -14], "size": [6, 2, 8], "pivot": [-5, 0, -6], "rotation": [-35, 0, 25], "uv": [0, 38]},
+						{"origin": [-4, 0, -14], "size": [8, 2, 8], "pivot": [0, 0, -6], "rotation": [-35, 0, 0], "uv": [0, 28]}
+					]
+				},
+				{
+					"name": "yezi3",
+					"parent": "yezi2",
+					"pivot": [0, 5, -12],
+					"rotation": [10, 0, 0],
+					"cubes": [
+						{"origin": [3, 6.5, -18], "size": [5, 2, 6], "pivot": [8, 7, -12], "rotation": [-62.5, 0, -25], "uv": [0, 56], "mirror": true},
+						{"origin": [-8, 6.5, -18], "size": [5, 2, 6], "pivot": [-8, 7, -12], "rotation": [-62.5, 0, 25], "uv": [0, 56]},
+						{"origin": [-3.5, 4.4, -18.3], "size": [7, 2, 6], "pivot": [0, 4.5, -12], "rotation": [-60, 0, 0], "uv": [0, 48]},
+						{"origin": [-4, 8, -15.4], "size": [8, 8, 2], "pivot": [0, 12, -14], "rotation": [10, -10, 45], "uv": [24, 14]}
+					]
+				},
+				{
+					"name": "yezi4",
+					"parent": "zong",
+					"pivot": [0, 0, 6],
+					"rotation": [-10, 0, 0],
+					"cubes": [
+						{"origin": [4.5, 2.5, 6], "size": [6, 2, 8], "pivot": [10.5, 2.5, 6], "rotation": [35, 0, -25], "uv": [0, 38], "mirror": true},
+						{"origin": [-10.5, 2.5, 6], "size": [6, 2, 8], "pivot": [-10.5, 2.5, 6], "rotation": [35, 0, 25], "uv": [0, 38]},
+						{"origin": [-4, 0, 6], "size": [8, 2, 8], "pivot": [0, 0, 6], "rotation": [35, 0, 0], "uv": [0, 28]}
+					]
+				},
+				{
+					"name": "yezi5",
+					"parent": "yezi4",
+					"pivot": [0, 5, 12],
+					"rotation": [-10, 0, 0],
+					"cubes": [
+						{"origin": [3, 6.5, 12], "size": [5, 2, 6], "pivot": [8, 7, 12], "rotation": [62.5, 0, -25], "uv": [0, 56], "mirror": true},
+						{"origin": [-8, 6.5, 12], "size": [5, 2, 6], "pivot": [-8, 7, 12], "rotation": [62.5, 0, 25], "uv": [0, 56]},
+						{"origin": [-3.5, 4.4, 11.7], "size": [7, 2, 6], "pivot": [0, 4.5, 12], "rotation": [60, 0, 0], "uv": [0, 48]},
+						{"origin": [-4, 8, 13.4], "size": [8, 8, 2], "pivot": [0, 12, 14], "rotation": [-10, 10, 45], "uv": [24, 14]}
+					]
+				}
+			]
+		}
+	]
+}
