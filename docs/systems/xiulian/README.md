@@ -2,7 +2,7 @@
 topic: xiulian
 role: entry
 status: partial
-updated: 2026-11-07
+updated: 2026-11-08
 ---
 
 # 修炼
@@ -50,3 +50,9 @@ updated: 2026-11-07
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
 
 2026-11-07 共享渲染复核已恢复劫云3倍、化灵雷龙4倍渲染缩放，四个雷劫渲染器均按来源关闭死亡侧翻；碰撞尺寸分别仍为3、2、1、1倍。最终build/ArchUnit通过，现有雷劫五项通过并DONE、正常保存退出，劫云截图可见；规则与证据边界见[完整雷劫](architecture.md#完整雷劫2026-11-07)。完整视觉和两版本对照仍未验收。
+
+## 普通重生（2026-11-08）
+
+已接回来源 `Entitybereborn` 的普通 `PlayerRespawnEvent` 入口（目标 `Rebirth`）。重生后按目标属性最终值的 20% 设置生命，并按 `RebirthCorrectHealth*`、`RebirthCorrectPower*`、`RebirthCorrectJingli*` 先加固定值、再乘百分比；灵力与神识写入修炼档案。待吸收修为先加 `RebirthCorrectExperience`，再按 `RebirthCorrectExperiencePercentage` 相乘。寿元每次先减 30 天，再应用来源修正并发送原文案消息。
+
+来源寿元分支在 `RebirthCorrectLifetime` 非零时误读 `RebirthCorrectJingli`，目标保留这一行为；没有把它改为同名寿元键。游戏模式恢复、复活维度切换、20 刻后的属性重算仍属其他入口，本次没有并入。`compileSmokeJava` 已通过；现有 `yuanying` 客户端入口与普通重生无直接断言，本批未宣称普通重生的完整实机验收。来源公式和实现边界见[架构正文](architecture.md#普通重生2026-11-08)。

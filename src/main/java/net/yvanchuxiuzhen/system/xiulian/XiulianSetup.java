@@ -48,6 +48,7 @@ public final class XiulianSetup {
         XiulianRules.register();
         modBus.addListener(XiulianSetup::registerPayloads);
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent event) -> BirthSelection.onLogin((ServerPlayer) event.getEntity()));
+        NeoForge.EVENT_BUS.addListener(Rebirth::onPlayerRespawn);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onLogin);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(Delayed::onServerTick);

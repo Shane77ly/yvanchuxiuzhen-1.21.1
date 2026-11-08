@@ -22,6 +22,8 @@ updated: 2026-11-08
 
 ## 进行中
 
+元婴生命周期与普通重生收口（2026-11-08）：按1.18.2版本来源补回有来源实体致死时先归窍再扣365寿元、普通 `PlayerRespawnEvent` 的资源/寿元公式，并修正书架藏宝创造模式仍应消耗一件载体的偏离。`compileSmokeJava`、既有 `runSmokeClient -PsmokeOnly=skillui`（29项）和 `-PsmokeOnly=yuanying`（5项）均通过；没有新增Test或专项入口。普通重生完整实机、元婴死亡/跨维度/重登路径仍未专项验收。证据以 `build/smoke/report.txt` 与本页项目日志为准。
+
 自然入口与异火主路径收口（2026-11-08，前一提交 `4b9ff36d`；本批代码与本页同一提交，最新提交以 `git log` 为准）：book已接书架藏宝真实右键，保留分派优先级、等级、随机表及先发书后减一；完整build通过，现有skillui唯一一次35项全INFO、0FAIL、DONE，1分34秒正常保存四维度退出、ERROR/FATAL0。新增五组丹火实际使用/双端同步/计划刻/炙烤/爆燃和一组藏宝库存检查均通过；未恢复YihuoCheck或选择器，未用Computer Use。日志仍有32条未知实体附件同步WARN，与错误分开登记。本批未另跑专服。证据 `tmp/skill-natural-exit-{build.log,client.log,latest.log,report.txt}`。书架载体由检查构造后真实use，获得链未验收；持续效果由受控前置后自然实体刻结算，不代表18材料自然命中全链。来源31623文件指纹通过，台账4939行和文档88篇均0问题，差异空白检查通过。
 
 现有lightning已另一次4项全过，直接调用服务端生产施放方法，未走客户端useItem网络；旧辅助选择失败不再作为当前缺陷。异火剩余获取/消费已按宝箱、任务、传承灵物、红包、材料、经济与装置所有者登记，本次静态未发现新的yihuo自有可实施缺口，见[异火正文](../systems/yihuo/architecture.md#外部获得与消费去向2026-11-08)。
@@ -30,7 +32,7 @@ updated: 2026-11-08
 
 本批 `build compileSmokeJava`（含既有test/check/ArchUnit）通过；仅一次项目内置 `runSmokeClient '-PsmokeOnly=skillui'`，29项玩法检查全部INFO、0FAIL、DONE，四维度正常保存退出、ERROR/FATAL0。已验证自然研习、整栈绑定、原生点击/Shift装配、前两页保存与关闭重开、K记忆和功法开窗成长不回滚。专服一次到 `Done (1.360s)` 后原生 `stop`，四维度正常保存退出、ERROR/FATAL0，菜单导出12个。证据在 `tmp/study-loadout-{build.log,client.log,client-latest.log,report.txt,server-latest.log}`；04截图已查看，布局样本可见，完整缩放和两版本视觉未认可。来源31623份文件未变，最终台账4939行零问题。
 
-下一步按[skill出口剩余范围](../systems/skill/architecture.md#出口剩余范围2026-11-08)，先核对元婴跨维度、死亡/重登与轻功死亡恢复的来源和现有验证覆盖，再处理被确认的生命周期差异；沿用现有客户端入口，不重跑旧神通整套。lightning四项与丹火/炙烤五组已有有效通过，不继续反复修旧专项。炉鼎消费者随D，creature生产者和六个正式返回维度随E。完整四页循环、头顶容器、延迟竞争、起尸诀开窗成长、04死亡/断线/重登、灵根/他人/副手分支、完整视觉、1.18.2版本实机、两版本和多人未验收。当前仍为 `port/c-skill`，skill未完成，不合 `main`；`.eclipse/`保留且不提交。
+下一步按[skill出口剩余范围](../systems/skill/architecture.md#出口剩余范围2026-11-08)继续核对未闭合的生命周期与跨系统依赖；沿用现有客户端入口，不重跑旧神通整套。普通重生和元婴完整死亡/跨维度/重登仍需专项验收。lightning四项与丹火/炙烤五组已有有效通过，不继续反复修旧专项。炉鼎消费者随D，creature生产者和六个正式返回维度随E。完整四页循环、头顶容器、延迟竞争、起尸诀开窗成长、04死亡/断线/重登、灵根/他人/副手分支、完整视觉、1.18.2版本实机、两版本和多人未验收。当前仍为 `port/c-skill`，skill未完成，不合 `main`；`.eclipse/`保留且不提交。
 
 equipment 饰品制作台批次（2026-11-08，前一提交 `031c88d`；本批代码与本页同一提交，最新提交以 `git log` 为准）：四槽持久库存、类别翻页、36条即时配方、成品根字段与饰品Tooltip、来源原生界面和Geo动画已接回。保留结果覆盖、动画期间再次合成、第七档品质文字差异、二维物品图标、全部方向四槽自动化与自身掉落回落。转换来源结构时补齐加载器持久键适配，161份结构共1117处直接 `nbt.ForgeData` 改为 `NeoForgeData`；DataVersion和业务字段保持来源。规则及证据边界见[装备正文](../systems/equipment/architecture.md#饰品制作台2026-11-08)。
 

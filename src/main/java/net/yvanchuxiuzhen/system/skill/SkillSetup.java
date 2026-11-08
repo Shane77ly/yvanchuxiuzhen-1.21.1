@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerContainerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -69,6 +70,9 @@ public final class SkillSetup {
         SkillDelays.register();
         NeoForge.EVENT_BUS.addListener(SkillSetup::onRightClickItem);
         NeoForge.EVENT_BUS.addListener(SkillSetup::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener((LivingDeathEvent event) -> {
+            if (event.getEntity() instanceof ServerPlayer player && event.getSource().getEntity() != null) Yuanying.playerDied(player);
+        });
         NeoForge.EVENT_BUS.addListener(SkillSetup::onCrafted);
         NeoForge.EVENT_BUS.addListener(SkillSetup::onMenuOpened);
         NeoForge.EVENT_BUS.addListener((ItemSwingEvent event) -> WeaponArts.onSwing(event));

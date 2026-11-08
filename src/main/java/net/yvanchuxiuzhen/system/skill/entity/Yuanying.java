@@ -154,6 +154,15 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
         }
     }
 
+    /** 玩家在出窍状态下被有来源实体的伤害杀死时先归窍，再额外扣除一年寿元。元婴本体死亡已先清除出窍标记。 */
+    public static void playerDied(ServerPlayer player) {
+        if (Cultivation.tizhiBoolean(player, "yvanyingchuqiao")) {
+            returnToBody(player);
+            Cultivation.add(player, CultivationValue.LIFETIME, -365);
+            player.displayClientMessage(Component.literal("因处于出窍状态下暴毙，所以额外扣除一年寿元！").withStyle(ChatFormatting.DARK_RED), false);
+        }
+    }
+
     /** 在修炼每二十刻事件中扣除出窍距离与环境消耗；神识不足时清战斗状态并归窍。 */
     public static void tick(ServerPlayer player) {
         if (!Cultivation.tizhiBoolean(player, "yvanyingchuqiao")) {

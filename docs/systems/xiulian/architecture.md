@@ -2,7 +2,7 @@
 topic: xiulian
 role: architecture
 status: draft
-updated: 2026-11-07
+updated: 2026-11-08
 ---
 
 # 修炼、身份与生命周期：架构调查与提案
@@ -52,6 +52,12 @@ updated: 2026-11-07
 - 闭关修炼（`Cultivating`）：见类注释；给主修功法加经验的部分改为发出 `CultivationExperienceEvent`，由 gongfa 处理（依赖方向）。主修功法的名字、品阶、层数由 gongfa 提交 `MainTechnique`。
 - 恢复（`Recovery`）：存活玩家每秒先把当前灵力/神识复制到 `power_display/soul_display` 再恢复，显示快照随修炼档案保存并同步本人；2026-11-07 为 K 键属性页接回。恢复量读 attribute 的最终值；战斗（记分项 `zdztbegin` 为 1）或雷劫中为四分之一；效果 `effect_007` 期间不恢复生命；主修“繁星呓语”夜晚露天无雨灵力恢复 × 1.1。
 - 尚未迁移：境界提升粒子 `Jingjietishengtexiao1/2`（particle）、阳寿已尽 40 tick 后的轮回 `Fulutexiao37`、酒劲消化（`jiujing`，cooking）。
+
+### 普通重生（2026-11-08）
+
+`A:procedures/EntityberebornProcedure:37–134` 是普通 `PlayerRespawnEvent` 入口。目标 `system/xiulian/Rebirth` 保留其资源恢复顺序：生命、灵力、神识均取对应属性最终值的 20%，先加 `RebirthCorrectHealth`、`RebirthCorrectPower`、`RebirthCorrectJingli`，再乘对应百分比；`experience_Stand` 先加 `RebirthCorrectExperience`，再乘 `RebirthCorrectExperiencePercentage`。寿元从当前值开始，先加入固定 −30 天，再按 `RebirthCorrectLifetimePercentage` 加入乘法差额；消息使用来源的增长/扣除文本与整数格式。
+
+来源在 `RebirthCorrectLifetime` 非零时把 `RebirthCorrectJingli` 加入寿元变化量，而不是读取 `RebirthCorrectLifetime`。这是已核实的来源错误，目标按来源保留，并在实现注释中标明。该批不接入来源同一过程后半段的游戏模式恢复、复活维度切换和延迟 20 刻 `Shuxingjisuan`；这些行为另有归属或待后续入口。目标入口已通过 `compileSmokeJava`；现有 `runSmokeClient -PsmokeOnly=yuanying` 不触发普通重生公式，普通重生完整游戏行为仍待专项验收。
 
 ### 阶段 4（一）：金丹、元婴与丹田界面
 
