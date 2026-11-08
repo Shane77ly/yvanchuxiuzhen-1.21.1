@@ -16,6 +16,7 @@ public final class StorageClientSetup {
     public static void register(IEventBus modBus) {
         modBus.addListener((RegisterMenuScreensEvent event) -> {
             for (BagKind kind : BagKind.values()) event.register(BagMenus.type(kind), BagScreen::new);
+            event.register(BagMenus.MATERIAL.get(), MaterialBagScreen::new);
         });
         NeoForge.EVENT_BUS.addListener((ItemTossEvent event) -> {
             Minecraft minecraft = Minecraft.getInstance();

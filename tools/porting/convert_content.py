@@ -7,6 +7,7 @@ src/main/resources/content/<单位>/blocks.json、items.json，名称与提示�
 菜单的台账行不再是“待处理”后，来源中该菜单的界面文本键（gui.<命名空间>.<菜单>.*）写入所属单位的语言片段；
 已登记附魔、状态效果与实体类型的名称、说明键以及状态效果表、实体表（content/<单位>/effects.json、entities.json）同样按台账所属单位写入；
 其余由系统代码直接引用的语言键按 docs/reference/conversion/lang_prefixes.csv 的键前缀写入所属单位的语言片段。
+材料目录直接读取 WorldbeginProcedure 的 lianqicailiaolist，保存来源行序及完整三元组次序到 content/material/definitions.json。
 工具可重复运行，输出只取决于来源与台账。
 """
 from __future__ import annotations
@@ -262,6 +263,44 @@ def factory_overrides() -> dict[tuple[str, str], str]:
         return {(row['registry'], row['target_id'].split(':', 1)[1]): row['factory'] for row in csv.DictReader(handle)}
 
 
+def convert_material_definitions(sources: dict[str, Source], targets: dict[tuple[str, str], str]) -> list[dict]:
+    """保留材料目录完整三元组的来源次序，经验与特殊标记同样占据辨识序号。"""
+    text = sources['yvanchuxitong'].java('procedures', 'WorldbeginProcedure')
+    assignment = re.search(r'\.lianqicailiaolist\s*=\s*(.*?);', text, re.S).group(1)
+    catalogue = ''.join(json.loads(literal) for literal in re.findall(r'"(?:[^"\\]|\\.)*"', assignment))
+    rows: list[dict] = []
+    seen: set[str] = set()
+    for line in catalogue.split('%'):
+        # Java String.split 会丢弃尾部空字段；不修补来源211–219号缺失的分隔符。
+        parts = line.rstrip('/').split('/')
+        # 220、230号是来源未注册的空目录行，仍保留其标识供辨识初始化读取。
+        item_id = parts[0].replace('yvanchuxitong:', f'{NAMESPACE}:') if len(parts) == 1 else targets[('item', parts[0])]
+        if item_id in seen:
+            raise ValueError(f'重复材料定义 {item_id}')
+        seen.add(item_id)
+        row = {'item_id': item_id, 'attribute_entries': [], 'special_effect_entries': [], 'boolean_traits': []}
+        if len(parts) >= 2:
+            row['fixed_weight'] = int(parts[1])
+        entries = []
+        for ordinal in range(max(0, len(parts) - 2) // 3):
+            namespace, name, raw_value = parts[2 + ordinal * 3:5 + ordinal * 3]
+            value = int(raw_value) if re.fullmatch(r'-?\d+', raw_value) else raw_value
+            entry = {'namespace': namespace, 'name': name, 'value': value}
+            entries.append(entry)
+            if namespace == 'attribute':
+                if name == 'expnum':
+                    row['exp_value'] = value
+                else:
+                    row['attribute_entries'].append({'name': name, 'value': value})
+            elif namespace == 'teshu':
+                row['boolean_traits'].append(name)
+            else:
+                row['special_effect_entries'].append(entry.copy())
+        row['entries'] = entries
+        rows.append(row)
+    return rows
+
+
 def main() -> None:
     expected = expected_rows()
     overrides = factory_overrides()
@@ -402,6 +441,7 @@ def main() -> None:
     effect_rows = convert_effects(sources)
     entity_rows = convert_entities(sources)
     prefix_keys = convert_prefix_lang(sources, add_lang)
+    material_definitions = convert_material_definitions(sources, targets)
 
     units = sorted(set(blocks_by_unit) | set(items_by_unit))
     for stale in (*CONTENT.glob('*/sounds.json'), *CONTENT.glob('*/effects.json'), *CONTENT.glob('*/entities.json')):
@@ -420,6 +460,7 @@ def main() -> None:
     for unit in sorted({u for u, _ in armor_materials}):
         write_rows(CONTENT / unit / 'armor_materials.json', [m for (u, _), m in sorted(armor_materials.items()) if u == unit])
     write_rows(CONTENT / 'platform' / 'tabs.json', sorted(tabs, key=lambda t: t['id']))
+    write_rows(CONTENT / 'material' / 'definitions.json', material_definitions)
     write_lang(lang)
     CONVERSION.mkdir(parents=True, exist_ok=True)
     with (CONVERSION / 'skipped.csv').open('w', encoding='utf-8', newline='') as handle:
@@ -428,6 +469,7 @@ def main() -> None:
         writer.writerows(sorted(skipped))
     print({unit: (len(blocks_by_unit.get(unit, [])), len(items_by_unit.get(unit, []))) for unit in units})
     print('tabs', len(tabs), 'sounds', sum(len(r) for r in sound_rows.values()), 'advancement keys', advancement_keys, 'menu keys', menu_keys, 'registry keys', registry_keys, 'prefix keys', prefix_keys, 'skipped', len(skipped))
+    print('material definitions', len(material_definitions), 'ordered entries', sum(len(row['entries']) for row in material_definitions))
 
 
 if __name__ == '__main__':

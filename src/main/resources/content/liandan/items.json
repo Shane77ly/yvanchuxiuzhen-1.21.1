@@ -18,6 +18,5 @@
 {"id":"itemdanyaohulu_06block","factory":"block_item","block":"itemdanyaohulu_06block","order":2146},
 {"id":"fendantai","factory":"block_item","block":"fendantai","order":2147,"tab":"minecraft:building_blocks"},
 {"id":"yaolitaiblock","factory":"block_item","block":"yaolitaiblock","order":2148,"tab":"minecraft:building_blocks"},
-{"id":"baicaojianbook","factory":"item","order":2290,"tab":"minecraft:tools_and_utilities","stack":1,"pending_hooks":["use"]},
-{"id":"qiancailubook","factory":"item","order":2291,"tab":"minecraft:tools_and_utilities","stack":1,"pending_hooks":["use"]}
+{"id":"baicaojianbook","factory":"item","order":2290,"tab":"minecraft:tools_and_utilities","stack":1,"pending_hooks":["use"]}
 ]

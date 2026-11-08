@@ -6,6 +6,7 @@ import java.util.Map;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.system.material.api.MaterialDefinition;
@@ -49,7 +50,7 @@ public final class MaterialLibrary {
         stack.set(MaterialData.INSTANCE.get(), new MaterialInstance(level, quality));
     }
 
-    public static MaterialAnalysis analysis(ServerPlayer player) {
+    public static MaterialAnalysis analysis(Player player) {
         return player.getData(MaterialData.ANALYSIS);
     }
 
@@ -62,9 +63,9 @@ public final class MaterialLibrary {
         for (int number = 221; number <= 239; number++) {
             String itemId = "yvanchuxiuzhen:cailiao_" + number;
             MaterialDefinition definition = definition(itemId);
-            if (definition != null) {
-                // 来源登录过程对这 19 条异火材料统一写入固定的 jindumax=6。
-                next = next.withProgress(itemId, 6);
+            next = next.withMaximum(itemId, 6);
+            for (MaterialDefinition.Entry entry : definition.entries()) {
+                next = next.reveal(itemId, entry);
             }
         }
         player.setData(MaterialData.ANALYSIS, next.withYihuoInitialized());

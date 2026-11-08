@@ -14,6 +14,8 @@ import net.yvanchuxiuzhen.platform.ModId;
 public final class BagMenus {
     private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, ModId.VALUE);
     private static final Map<BagKind, Supplier<MenuType<BagMenu>>> TYPES = new EnumMap<>(BagKind.class);
+    public static final Supplier<MenuType<MaterialBagMenu>> MATERIAL = MENUS.register("cailiaodai_gui",
+            () -> IMenuTypeExtension.create((id, inventory, data) -> new MaterialBagMenu(id, inventory, data.readBlockPos())));
 
     static {
         for (BagKind kind : BagKind.values()) {

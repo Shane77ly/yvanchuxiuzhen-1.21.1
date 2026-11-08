@@ -19,9 +19,9 @@ updated: 2026-11-08
 | --- | --- | ---: | ---: | --- |
 | [`attribute`](attribute/README.md) | 属性 | 3 | 3 | 公开操作、贡献汇总与附件已实现，开发客户端检查通过；提交系统的真实路径未验证 |
 | [`relation`](relation/README.md) | 关系 | 86 | 86 | 敌友判定、团队、好友与申请界面已实现，开发客户端检查通过；两人流程与改名入口（Q20）未完成 |
-| [`material`](material/README.md) | 材料 | 372 | 0 | 225 条目录定义、实例组件、辨识附件与异火登录初始化已接入；辨识界面、扣料和生产消费未完成 |
-| [`storage`](storage/README.md) | 储物 | 116 | 0 | 调查正文已建立；实现及运行验收未开始 |
-| [`profession`](profession/README.md) | 副职业 | 21 | 0 | 调查正文已建立；实现及运行验收未开始 |
+| [`material`](material/README.md) | 材料 | 369 | 291 | 225条材料定义、1451个有序条目与千材录自然辨识已接入；扣仓、死亡和重登路径通过，生产消费与完整验收待续 |
+| [`storage`](storage/README.md) | 储物 | 116 | 116 | 四档物品袋与玩家材料仓已接入；内置客户端45项共享场景通过，炼器装料与完整视觉待续 |
+| [`profession`](profession/README.md) | 副职业 | 21 | 21 | 十职业进度核心和矿石采集入口已接入；采集经验/升级/同步/死亡重登通过，其余消费者待续 |
 | [`gongfa`](gongfa/README.md) | 功法 | 475 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`xiulian`](xiulian/README.md) | 修炼 | 170 | 17 | 调查正文已建立；实现及运行验收未开始 |
 | [`combat`](combat/README.md) | 战斗 | 258 | 12 | 调查正文已建立；实现及运行验收未开始 |
@@ -30,8 +30,8 @@ updated: 2026-11-08
 | [`equipment`](equipment/README.md) | 装备 | 334 | 253 | 调查正文已建立；实现及运行验收未开始 |
 | [`plant`](plant/README.md) | 植物 | 812 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`cooking`](cooking/README.md) | 烹饪 | 322 | 0 | 调查正文已建立；实现及运行验收未开始 |
-| [`liandan`](liandan/README.md) | 炼丹 | 150 | 0 | 调查正文已建立；实现及运行验收未开始 |
-| [`lianqi`](lianqi/README.md) | 炼器 | 143 | 0 | 调查正文已建立；实现及运行验收未开始 |
+| [`liandan`](liandan/README.md) | 炼丹 | 133 | 44 | 基础身份已登记；千材录移归material，丹炉与药理玩法待接回 |
+| [`lianqi`](lianqi/README.md) | 炼器 | 146 | 32 | weaponlevelup已注册；千材录说明移归material，炉鼎与装料玩法待接回 |
 | [`fulu`](fulu/README.md) | 符箓 | 233 | 5 | 调查正文已建立；实现及运行验收未开始 |
 | [`craft`](craft/README.md) | 工艺 | 128 | 23 | 调查正文已建立；实现及运行验收未开始 |
 | [`world`](world/README.md) | 世界 | 104 | 1 | 调查正文已建立；实现及运行验收未开始 |

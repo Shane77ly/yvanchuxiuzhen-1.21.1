@@ -53,7 +53,6 @@ item,yvanchuxitong:itemdanyaohulu_0501block,yvanchuxitong,Itemdanyaohulu0501bloc
 item,yvanchuxitong:itemdanyaohulu_05block,yvanchuxitong,Itemdanyaohulu05block,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,77,liandan,已读,yvanchuxiuzhen:itemdanyaohulu_05block,已注册,
 item,yvanchuxitong:itemdanyaohulu_06,yvanchuxitong,Itemdanyaohulu06,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,71,liandan,已读,yvanchuxiuzhen:itemdanyaohulu_06,已注册,
 item,yvanchuxitong:itemdanyaohulu_06block,yvanchuxitong,Itemdanyaohulu06block,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,79,liandan,已读,yvanchuxiuzhen:itemdanyaohulu_06block,已注册,
-item,yvanchuxitong:qiancailubook,yvanchuxitong,Qiancailubook,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,224,liandan,已读,yvanchuxiuzhen:qiancailubook,已注册,
 item,yvanchuxitong:yaolitaiblock,yvanchuxitong,Yaolitaiblock,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,81,liandan,已读,yvanchuxiuzhen:yaolitaiblock,已注册,
 item,yvanchuxiuzhen:alchemy_01,yvanchuxiuzhen,Alchemy01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1940,liandan,已读,yvanchuxiuzhen:alchemy_01,待处理,
 item,yvanchuxiuzhen:alchemy_02,yvanchuxiuzhen,Alchemy02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1944,liandan,已读,yvanchuxiuzhen:alchemy_02,待处理,
@@ -68,5 +67,4 @@ menu,yvanchuxitong:baicaojian,yvanchuxitong,Baicaojian,src/main/java/net/mcreato
 menu,yvanchuxitong:fendan_gui,yvanchuxitong,FendanGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,74,liandan,候选,yvanchuxiuzhen:fendan_gui,待处理,
 menu,yvanchuxitong:hedan_gui,yvanchuxitong,HedanGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,75,liandan,候选,yvanchuxiuzhen:hedan_gui,待处理,
 menu,yvanchuxitong:liandan_gui,yvanchuxitong,LiandanGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,73,liandan,候选,yvanchuxiuzhen:liandan_gui,待处理,
-menu,yvanchuxitong:qiancailu_gui,yvanchuxitong,QiancailuGui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,109,liandan,候选,yvanchuxiuzhen:qiancailu_gui,待处理,
 menu,yvanchuxitong:yaolitai,yvanchuxitong,Yaolitai,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,76,liandan,候选,yvanchuxiuzhen:yaolitai,待处理,

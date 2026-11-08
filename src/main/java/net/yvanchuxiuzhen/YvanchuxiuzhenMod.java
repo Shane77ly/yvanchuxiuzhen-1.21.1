@@ -24,6 +24,7 @@ import net.yvanchuxiuzhen.system.material.MaterialSetup;
 import net.yvanchuxiuzhen.system.npc.NpcSetup;
 import net.yvanchuxiuzhen.system.particle.ParticleSetup;
 import net.yvanchuxiuzhen.system.plant.PlantSetup;
+import net.yvanchuxiuzhen.system.profession.ProfessionSetup;
 import net.yvanchuxiuzhen.system.quest.QuestSetup;
 import net.yvanchuxiuzhen.system.relation.RelationSetup;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
@@ -68,6 +69,7 @@ public final class YvanchuxiuzhenMod {
         MaterialSetup.register(modBus);
         NpcSetup.register(modBus);
         PlantSetup.register(modBus);
+        ProfessionSetup.register(modBus);
         QuestSetup.register(modBus);
         RelationSetup.register(modBus);
         SkillSetup.register(modBus);

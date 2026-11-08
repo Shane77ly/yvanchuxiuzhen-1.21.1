@@ -35,7 +35,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "icedef",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "feather_falling",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "protection",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "waterdef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_002",
@@ -73,7 +110,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "icedef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "golddef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_003",
@@ -111,7 +185,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "attdef",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "feather_falling",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "protection",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "treedef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_004",
@@ -149,7 +260,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "feather_falling",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "mending",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_005",
@@ -187,7 +335,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "projectile_protection",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "blast_protection",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "thorns",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "soildef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_006",
@@ -225,7 +410,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fire_protection",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firedef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manadef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_007",
@@ -263,7 +485,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "thorns",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "golddef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "thorns",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_008",
@@ -301,7 +560,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "breakfree",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manadef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_009",
@@ -339,7 +635,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manadef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_010",
@@ -377,7 +710,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firearmor",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firedef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firearmor",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_011",
@@ -415,7 +785,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_012",
@@ -453,7 +860,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "soul_speed",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "feather_falling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_013",
@@ -491,7 +935,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firearmor",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firedef",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "blast_protection",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fire_protection",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_014",
@@ -529,7 +1010,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flyingskill",
+        "value": 2
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "breakfree",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_015",
@@ -567,7 +1085,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "protection",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "depth_strider",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "respiration",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "mending",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_016",
@@ -605,7 +1160,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "waterdef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manadef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_017",
@@ -643,7 +1235,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manadef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_018",
@@ -681,7 +1310,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "attdef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manadef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flying",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "protection",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_019",
@@ -719,7 +1385,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "breakfree",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "protection",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_020",
@@ -757,7 +1460,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "souldef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "thorns",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_021",
@@ -795,7 +1535,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "projectile_protection",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "attdef",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "protection",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_022",
@@ -832,7 +1609,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "attdef",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "armnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fire_protection",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_023",
@@ -869,7 +1683,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "armnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "protection",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "golddef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_024",
@@ -906,7 +1757,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "armnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "soildef",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "projectile_protection",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "guard",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_025",
@@ -944,7 +1832,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manadef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "waterdef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "breakfree",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "protection",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_026",
@@ -982,7 +1907,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "basalt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "treedef",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "protection",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "waterdef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_027",
@@ -1020,7 +1982,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qishi",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "ghost",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_028",
@@ -1058,7 +2057,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_02",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "lingwen",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_029",
@@ -1096,7 +2132,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "mending",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "liuyan",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_030",
@@ -1134,7 +2207,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_01",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_11",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "longdignified",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_031",
@@ -1172,7 +2282,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "golddef",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "depth_strider",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "blast_protection",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firedef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_032",
@@ -1210,7 +2357,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "treedef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "respiration",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "waterdef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_033",
@@ -1248,7 +2432,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "soildef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "breakfree",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "protection",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "golddef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_034",
@@ -1286,7 +2507,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "waterdef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "icearmor",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firedef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_035",
@@ -1324,7 +2582,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firedef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fire_protection",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "soildef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_036",
@@ -1362,7 +2657,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manadef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flying",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "attdef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_037",
@@ -1399,7 +2731,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 2,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_07",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manaatt",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_038",
@@ -1437,7 +2806,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 2,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manaatt",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "lingtikiller",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chenmo",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_039",
@@ -1470,7 +2876,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 2,
-    "exp_value": 14
+    "exp_value": 14,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 14
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "mending",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_040",
@@ -1508,7 +2946,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 2,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "beepoison",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_03",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jvtong",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "beepoison",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_041",
@@ -1542,7 +3017,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 2,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_05",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "pojia",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "critical",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_042",
@@ -1580,7 +3087,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 2,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firepoison",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jvtong",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "critical",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firepoison",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_043",
@@ -1618,7 +3162,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "breakfree",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manadef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_044",
@@ -1656,7 +3237,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "fluorescence",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qingyv",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "fluorescence",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "flame",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_045",
@@ -1694,7 +3312,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flying",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flyingskill",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "treedef",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "mending",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_046",
@@ -1732,7 +3387,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "feather_falling",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "attdef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flyingskill",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "feather_falling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_047",
@@ -1770,7 +3462,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flying",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "lightdef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "feather_falling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_048",
@@ -1808,7 +3537,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "breakfree",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jet",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "feather_falling",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_049",
@@ -1845,7 +3611,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_03",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "critical",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "haoyu",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_050",
@@ -1883,7 +3686,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_01",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "power",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qingyv",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "flame",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_051",
@@ -1921,7 +3761,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jet",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "treedef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flying",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jet",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_052",
@@ -1959,7 +3836,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jet",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "winddef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_053",
@@ -1997,7 +3911,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flying",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flying",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_054",
@@ -2035,7 +3986,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "zhongshang",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jvtong",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chenmo",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_055",
@@ -2073,7 +4061,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "flame",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "fluorescence",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manaatt",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_056",
@@ -2111,7 +4136,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "critical",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_01",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "liuyan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "critical",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_057",
@@ -2149,7 +4211,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "phoenix",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manaatt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "critical",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "phoenix",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_058",
@@ -2187,7 +4286,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flying",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flyingskill",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jet",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "winddef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_059",
@@ -2225,7 +4361,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flying",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "winddef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jet",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_060",
@@ -2263,7 +4436,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "zhongshang",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_07",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "critical",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_061",
@@ -2301,7 +4511,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "redrefining",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "zhongshang",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "redrefining",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_062",
@@ -2339,7 +4586,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "vampire",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "sawtooth",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "zhongshang",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "vampire",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_063",
@@ -2377,7 +4661,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sweeping_edge",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "pojia",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_064",
@@ -2415,7 +4736,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "smite",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "liuqing",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chenmo",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_065",
@@ -2453,7 +4811,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "looting",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jvtong",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manaatt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "haoyu",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_066",
@@ -2491,7 +4886,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_09",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chenmo",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manaatt",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_067",
@@ -2529,7 +4961,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "sawtooth",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jvtong",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "zhongshang",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "sawtooth",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_068",
@@ -2567,7 +5036,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "tigerdignified",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_069",
@@ -2605,7 +5111,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jvtong",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_01",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_070",
@@ -2643,7 +5186,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jvtong",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "coldtoxin",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_071",
@@ -2681,7 +5261,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "bane_of_arthropods",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "looting",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "bane_of_arthropods",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_072",
@@ -2719,7 +5336,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "looting",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_05",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_073",
@@ -2757,7 +5411,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "tigerdignified",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_10",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sweeping_edge",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_074",
@@ -2795,7 +5486,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fire_aspect",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_075",
@@ -2832,7 +5560,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "critical",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manaatt",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_076",
@@ -2870,7 +5635,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "critical",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "sharpness",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_077",
@@ -2907,7 +5709,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chenmo",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "bane_of_arthropods",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "phoenix",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_078",
@@ -2945,7 +5784,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxitong",
+        "name": "chain",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "efficiency",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxitong",
+        "name": "chain",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fortune",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_079",
@@ -2983,7 +5859,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "criticalatt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_05",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_080",
@@ -3021,7 +5934,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "channeling",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_08",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chenmo",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "channeling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_081",
@@ -3059,7 +6009,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "thorns",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "treedef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "breakfree",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "thorns",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_082",
@@ -3097,7 +6084,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fire_aspect",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "criticalatt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firepoison",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_083",
@@ -3135,7 +6159,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "zimu",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jvtong",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "zhongshang",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_03",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_084",
@@ -3173,7 +6234,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_05",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "critical",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_085",
@@ -3211,7 +6309,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "looting",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "criticalatt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "longdignified",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_086",
@@ -3249,7 +6384,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "liuyan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "longdignified",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_087",
@@ -3287,7 +6459,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "liuqing",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_03",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "soulatt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "sinomeninevine",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_088",
@@ -3325,7 +6534,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 2,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_03",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "smite",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_11",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_089",
@@ -3363,7 +6609,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "kailing",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chenmo",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "sinomeninevine",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "kailing",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_090",
@@ -3401,7 +6684,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "smite",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "lingtikiller",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "knockback",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "smite",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_091",
@@ -3439,7 +6759,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "guard",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "treedef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "lightdef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_092",
@@ -3480,7 +6837,49 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jet",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "mending",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flyingskill",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_093",
@@ -3518,7 +6917,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 2,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "respiration",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "depth_strider",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "respiration",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "depth_strider",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_094",
@@ -3556,7 +6992,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 2,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_08",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "channeling",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manaatt",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_095",
@@ -3594,7 +7067,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 2,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "mending",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "kailing",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_096",
@@ -3632,7 +7142,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "spore",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_03",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "spore",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_097",
@@ -3670,7 +7217,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "lingtikiller",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "looting",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "bane_of_arthropods",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "sawtooth",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_098",
@@ -3708,7 +7292,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_09",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "iceexplosion",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_02",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manaatt",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_099",
@@ -3746,7 +7367,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 2,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_02",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "soulatt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "tigerdignified",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_100",
@@ -3784,7 +7442,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "lingtikiller",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_06",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "soulatt",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_101",
@@ -3822,7 +7517,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 2,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "sounddef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "winddef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_102",
@@ -3860,7 +7592,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firearmor",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fire_protection",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "thorns",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firedef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_103",
@@ -3897,7 +7666,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "treedef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "flyingskill",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_104",
@@ -3935,7 +7741,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "ghost",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "threaten",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "soulatt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "ghost",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_105",
@@ -3973,7 +7816,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "liuyan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fire_aspect",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "liuyan",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_106",
@@ -4009,7 +7889,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_107",
@@ -4047,7 +7964,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "guard",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_108",
@@ -4085,7 +8039,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "fluorescence",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_06",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "fluorescence",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_109",
@@ -4123,7 +8114,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "luck_of_the_sea",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "lure",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "luck_of_the_sea",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_110",
@@ -4161,7 +8189,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "liuyan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "fluorescence",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_06",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_111",
@@ -4199,7 +8264,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fortune",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "efficiency",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "mending",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fortune",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_112",
@@ -4237,7 +8339,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "silk_touch",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "efficiency",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "efficiency",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_113",
@@ -4275,7 +8414,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "threaten",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_03",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "soulatt",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_114",
@@ -4313,7 +8489,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxitong",
+        "name": "chain",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "efficiency",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxitong",
+        "name": "chain",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fortune",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_115",
@@ -4351,7 +8564,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chuanshi",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "efficiency",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chuanshi",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fortune",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_116",
@@ -4389,7 +8639,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "frost_walker",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "icedef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "icearmor",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "icedef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_117",
@@ -4427,7 +8714,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "souldef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_118",
@@ -4465,7 +8789,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "discharge",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "thunderdef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firedef",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_119",
@@ -4503,7 +8864,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 4,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chaos",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manaatt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chaos",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_120",
@@ -4541,7 +8939,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 3,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "lure",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "unbreaking",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "lure",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "luck_of_the_sea",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_121",
@@ -4579,7 +9014,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "guard",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "soildef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "breakfree",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "guard",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_122",
@@ -4617,7 +9089,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "pool",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "waterdef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "sounddef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "pool",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_123",
@@ -4655,7 +9164,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "lingwen",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_01",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "confine",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qiling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_124",
@@ -4693,7 +9239,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "channeling",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_08",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "channeling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_125",
@@ -4731,7 +9314,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "power",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "punch",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qingyv",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "power",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_126",
@@ -4769,7 +9389,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fortune",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chuanshi",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "fortune",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "efficiency",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_127",
@@ -4807,7 +9464,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dodge",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "mending",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "breakfree",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_128",
@@ -4844,7 +9538,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_05",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "starsky",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "thegreatvoid",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_129",
@@ -4882,7 +9613,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "respiration",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "aqua_affinity",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "respiration",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "aqua_affinity",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_130",
@@ -4920,7 +9688,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "ghost",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_07",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "liuyan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "longdignified",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_131",
@@ -4958,7 +9763,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "starsky",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manaatt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "longdignified",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "starsky",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_132",
@@ -4996,7 +9838,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "icearmor",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "icedef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "icearmor",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_133",
@@ -5032,7 +9911,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "spenum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "pojia",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "critical",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_134",
@@ -5070,7 +9986,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "confine",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "threaten",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chenmo",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "confine",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_135",
@@ -5108,7 +10061,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "phoenix",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "lingtikiller",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qiling",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "phoenix",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_136",
@@ -5146,7 +10136,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "tigerdignified",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "critical",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "nofly",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "tigerdignified",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_137",
@@ -5184,7 +10211,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "soulatt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_07",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "threaten",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_138",
@@ -5222,7 +10286,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "thegreatvoid",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chenmo",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "manaatt",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "thegreatvoid",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_139",
@@ -5260,7 +10361,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "haoyu",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "lingwen",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_07",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "haoyu",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_140",
@@ -5298,7 +10436,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "ghost",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "summoningspeed",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "iceexplosion",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qishi",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_141",
@@ -5332,7 +10507,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "sinomeninevine",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_03",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "sinomeninevine",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_142",
@@ -5366,7 +10573,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "coldtoxin",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_09",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "confine",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "coldtoxin",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_143",
@@ -5400,7 +10639,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "redrefining",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "yvnxvan",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "redrefining",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_144",
@@ -5434,7 +10705,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "cautery",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_07",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "jvtong",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "cautery",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_145",
@@ -5468,7 +10771,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "snakevenom",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "chenmo",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "snakevenom",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_146",
@@ -5502,7 +10837,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firepoison",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "zhongshang",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "firepoison",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_161",
@@ -5538,7 +10905,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_162",
@@ -5574,7 +10978,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_163",
@@ -5610,7 +11051,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_164",
@@ -5646,7 +11124,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_165",
@@ -5682,7 +11197,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_166",
@@ -5718,7 +11270,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_167",
@@ -5754,7 +11343,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_168",
@@ -5790,7 +11416,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_169",
@@ -5826,7 +11489,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "souldefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "colddown",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_171",
@@ -5863,7 +11563,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_172",
@@ -5900,7 +11637,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_173",
@@ -5937,7 +11711,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_174",
@@ -5974,7 +11785,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_175",
@@ -6011,7 +11859,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_176",
@@ -6048,7 +11933,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_177",
@@ -6085,7 +12007,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_178",
@@ -6122,7 +12081,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_179",
@@ -6159,7 +12155,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "heanum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "charm",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "powerup",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "dawn",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_181",
@@ -6173,7 +12206,19 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qiling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_182",
@@ -6187,7 +12232,19 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qiling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_183",
@@ -6201,7 +12258,19 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qiling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_184",
@@ -6215,7 +12284,19 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qiling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_185",
@@ -6229,7 +12310,19 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qiling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_186",
@@ -6243,7 +12336,19 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qiling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_187",
@@ -6257,7 +12362,19 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qiling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_188",
@@ -6271,7 +12388,19 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qiling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_189",
@@ -6285,13 +12414,26 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "qiling",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_190",
     "attribute_entries": [],
     "special_effect_entries": [],
-    "boolean_traits": []
+    "boolean_traits": [],
+    "entries": []
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_191",
@@ -6316,7 +12458,34 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_192",
@@ -6341,7 +12510,34 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_193",
@@ -6366,7 +12562,34 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_194",
@@ -6391,7 +12614,34 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_195",
@@ -6410,13 +12660,40 @@
       },
       {
         "name": "soulnum",
-        "value": "1\"\n\t\t\t\t\t\t+ \""
+        "value": 1
       }
     ],
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_196",
@@ -6441,7 +12718,34 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_197",
@@ -6466,7 +12770,34 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_198",
@@ -6491,7 +12822,34 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_199",
@@ -6516,7 +12874,34 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "jingnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "soulnum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_200",
@@ -6524,7 +12909,14 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 1,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_201",
@@ -6557,7 +12949,44 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "armortoughness",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_202",
@@ -6590,7 +13019,44 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "armortoughness",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_203",
@@ -6623,7 +13089,44 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "armortoughness",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_204",
@@ -6656,7 +13159,44 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "armortoughness",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_205",
@@ -6689,7 +13229,44 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "armortoughness",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_206",
@@ -6722,7 +13299,44 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "armortoughness",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_207",
@@ -6755,7 +13369,44 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "armortoughness",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_208",
@@ -6788,7 +13439,44 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "armortoughness",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_209",
@@ -6821,7 +13509,44 @@
     "special_effect_entries": [],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "armortoughness",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attspeednum",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_211",
@@ -6852,7 +13577,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": "1attribute"
+      },
+      {
+        "namespace": "knockbacknum",
+        "name": "1",
+        "value": "attribute"
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_212",
@@ -6883,7 +13640,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": "1attribute"
+      },
+      {
+        "namespace": "knockbacknum",
+        "name": "1",
+        "value": "attribute"
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_213",
@@ -6914,7 +13703,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": "1attribute"
+      },
+      {
+        "namespace": "knockbacknum",
+        "name": "1",
+        "value": "attribute"
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_214",
@@ -6945,7 +13766,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": "1attribute"
+      },
+      {
+        "namespace": "knockbacknum",
+        "name": "1",
+        "value": "attribute"
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_215",
@@ -6976,7 +13829,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": "1attribute"
+      },
+      {
+        "namespace": "knockbacknum",
+        "name": "1",
+        "value": "attribute"
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_216",
@@ -7007,7 +13892,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": "1attribute"
+      },
+      {
+        "namespace": "knockbacknum",
+        "name": "1",
+        "value": "attribute"
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_217",
@@ -7038,7 +13955,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": "1attribute"
+      },
+      {
+        "namespace": "knockbacknum",
+        "name": "1",
+        "value": "attribute"
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_218",
@@ -7069,7 +14018,39 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": "1attribute"
+      },
+      {
+        "namespace": "knockbacknum",
+        "name": "1",
+        "value": "attribute"
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_219",
@@ -7100,13 +14081,46 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 10,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": "1attribute"
+      },
+      {
+        "namespace": "knockbacknum",
+        "name": "1",
+        "value": "attribute"
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_220",
     "attribute_entries": [],
     "special_effect_entries": [],
-    "boolean_traits": []
+    "boolean_traits": [],
+    "entries": []
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_221",
@@ -7136,7 +14150,39 @@
       "fenglei"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_11",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "fenglei",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_222",
@@ -7166,7 +14212,39 @@
       "bahuang"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_11",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "bahuang",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_223",
@@ -7196,7 +14274,39 @@
       "kongbao"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_11",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "kongbao",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_224",
@@ -7226,7 +14336,39 @@
       "liedi"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_11",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "liedi",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_225",
@@ -7256,7 +14398,39 @@
       "zaijie"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_11",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "zaijie",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_226",
@@ -7286,7 +14460,39 @@
       "sanmei"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_11",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "sanmei",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_227",
@@ -7316,7 +14522,39 @@
       "xiuluo"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_11",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "xiuluo",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_228",
@@ -7346,7 +14584,39 @@
       "tianqing"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_11",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "tianqing",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_229",
@@ -7376,13 +14646,46 @@
       "zhiyang"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_11",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "zhiyang",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_230",
     "attribute_entries": [],
     "special_effect_entries": [],
-    "boolean_traits": []
+    "boolean_traits": [],
+    "entries": []
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_231",
@@ -7412,7 +14715,39 @@
       "youluo"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "youluo",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_232",
@@ -7442,7 +14777,39 @@
       "ziwei"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "ziwei",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_233",
@@ -7472,7 +14839,39 @@
       "yejin"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "yejin",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_234",
@@ -7502,7 +14901,39 @@
       "bihua"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "bihua",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_235",
@@ -7532,7 +14963,39 @@
       "yvanmo"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "yvanmo",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_236",
@@ -7562,7 +15025,39 @@
       "youming"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "youming",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_237",
@@ -7592,7 +15087,39 @@
       "huian"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "huian",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_238",
@@ -7622,7 +15149,39 @@
       "zhiyin"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "zhiyin",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_239",
@@ -7652,7 +15211,39 @@
       "xingyvn"
     ],
     "fixed_weight": 8,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "mananum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_04",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_12",
+        "value": 1
+      },
+      {
+        "namespace": "teshu",
+        "name": "xingyvn",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_241",
@@ -7690,7 +15281,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 1
+    "exp_value": 1,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "smite",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "shuxingatt_03",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "lingtikiller",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "smite",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_242",
@@ -7728,7 +15356,44 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 2
+    "exp_value": 2,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 2
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "attdefnum",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "smite",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "lingtikiller",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "vampire",
+        "value": 1
+      },
+      {
+        "namespace": "minecraft",
+        "name": "smite",
+        "value": 1
+      }
+    ]
   },
   {
     "item_id": "yvanchuxiuzhen:cailiao_243",
@@ -7766,6 +15431,43 @@
     ],
     "boolean_traits": [],
     "fixed_weight": 5,
-    "exp_value": 3
+    "exp_value": 3,
+    "entries": [
+      {
+        "namespace": "attribute",
+        "name": "expnum",
+        "value": 3
+      },
+      {
+        "namespace": "attribute",
+        "name": "powernum",
+        "value": 1
+      },
+      {
+        "namespace": "attribute",
+        "name": "manadefnum",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "discharge",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "thunderdef",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "breakfree",
+        "value": 1
+      },
+      {
+        "namespace": "yvanchuxiuzhen",
+        "name": "discharge",
+        "value": 1
+      }
+    ]
   }
 ]

@@ -3,5 +3,5 @@
 {"id":"qiankundai_02","factory":"qiankundai_02","order":976,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1},
 {"id":"qiankundai_03","factory":"qiankundai_03","order":977,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1},
 {"id":"qiankundai_04","factory":"qiankundai_04","order":978,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1},
-{"id":"qiankundai_06","factory":"item","order":2303,"tab":"minecraft:tools_and_utilities","pending_hooks":["use"]}
+{"id":"qiankundai_06","factory":"qiankundai_06","order":2303,"tab":"minecraft:tools_and_utilities"}
 ]

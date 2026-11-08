@@ -17,3 +17,9 @@ skill,yvanchuxiuzhen,key.yvanchuxiuzhen.anjian_d
 skill,yvanchuxiuzhen,key.yvanchuxiuzhen.anjian_space
 panel,yvanchuxiuzhen,key.yvanchuxiuzhen.guicaidan
 skill,yvanchuxiuzhen,gui.yvanchuxiuzhen.player_gui_04.
+material,yvanchuxitong,attribute.yvanchuxiuzhen.
+material,yvanchuxiuzhen,teshu.yvanchuxiuzhen.
+material,yvanchuxiuzhen,attribute.yvanchuxiuzhen.armnum
+material,yvanchuxiuzhen,attribute.yvanchuxiuzhen.armortoughness
+material,yvanchuxiuzhen,attribute.yvanchuxiuzhen.knockbacknum
+material,yvanchuxiuzhen,attribute.yvanchuxiuzhen.attspeednum
