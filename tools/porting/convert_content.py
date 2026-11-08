@@ -301,6 +301,48 @@ def convert_material_definitions(sources: dict[str, Source], targets: dict[tuple
     return rows
 
 
+def convert_herb_definitions(sources: dict[str, Source], targets: dict[tuple[str, str], str]) -> list[dict]:
+    """采用世界加载时覆盖的药草目录，保留重复药效及运算次序。"""
+    text = sources['yvanchuxitong'].java('procedures', 'WorldbeginProcedure')
+    assignment = re.search(r'\.caoyaolist\s*=\s*(.*?);', text, re.S).group(1)
+    catalogue = ''.join(json.loads(literal) for literal in re.findall(r'"(?:[^"\\]|\\.)*"', assignment))
+    rows = []
+    for line in catalogue.split('%'):
+        parts = line.split('/')
+        count = int(parts[1])
+        if len(parts) != 2 + count * 5:
+            raise ValueError(f'药草目录长度不符 {parts[0]}')
+        effects = []
+        for ordinal in range(count):
+            name, level_op, level, time_op, time = parts[2 + ordinal * 5:7 + ordinal * 5]
+            effects.append({'name': name, 'level_op': level_op, 'level': int(level), 'time_op': time_op, 'time': int(time)})
+        # 来源目录含未注册的 nichanggrass，不改指向实际注册的 nichanggrass_07。
+        item_id = parts[0] if parts[0] == 'yvanchuxiuzhen:nichanggrass' else targets[('item', parts[0])]
+        rows.append({'item_id': item_id, 'effects': effects})
+    return rows
+
+
+def convert_alchemy_devices(source: Source) -> tuple[list[dict], list[dict]]:
+    """八种丹炉以系统动画类承担行为，内容表只保存来源基础属性与创造栏顺序。"""
+    registrations = [r for r in csv.DictReader((INVENTORY / 'registrations.csv').open(encoding='utf-8'))
+                     if r['registry'] == 'item']
+    orders = {r['legacy_id']: i + 1 for i, r in enumerate(registrations)}
+    blocks, items = [], []
+    for tier in range(1, 9):
+        path = f'alchemy_{tier:02}'
+        text = source.java('block', f'Alchemy{tier:02}Block')
+        # ANIMATION 与动态 render shape 由 AlchemyBlock 实现，不进入普通状态解析器。
+        text = re.sub(r'public static final IntegerProperty ANIMATION = [^;]+;', '', text)
+        text = re.sub(r'@Override\s+public RenderShape getRenderShape\([^)]*\) \{[^}]*\}', '', text)
+        row = parse_block(text, source.item_const, source.block_const)
+        row.pop('base')
+        row.pop('pending_hooks', None)
+        blocks.append({'id': path, 'factory': 'liandan:alchemy', **row})
+        items.append({'id': path, 'factory': f'liandan:{path}', 'block': path,
+                      'order': orders[f'{source.mod}:{path}'], 'tab': source.tabs['TAB_YVANCHU_BLOCK']})
+    return blocks, items
+
+
 def main() -> None:
     expected = expected_rows()
     overrides = factory_overrides()
@@ -442,6 +484,16 @@ def main() -> None:
     entity_rows = convert_entities(sources)
     prefix_keys = convert_prefix_lang(sources, add_lang)
     material_definitions = convert_material_definitions(sources, targets)
+    herb_definitions = convert_herb_definitions(sources, targets)
+    alchemy_blocks, alchemy_items = convert_alchemy_devices(sources['yvanchuxiuzhen'])
+    blocks_by_unit['liandan'].extend(alchemy_blocks)
+    items_by_unit['liandan'].extend(alchemy_items)
+    alchemy_ids = {f'{NAMESPACE}:{row["id"]}' for row in alchemy_blocks}
+    skipped = [row for row in skipped if row[1] not in alchemy_ids]
+    for row in alchemy_blocks:
+        for language in LANGUAGES:
+            key = f'block.{NAMESPACE}.{row["id"]}'
+            add_lang('liandan', language, key, sources['yvanchuxiuzhen'].lang[language][key])
 
     units = sorted(set(blocks_by_unit) | set(items_by_unit))
     for stale in (*CONTENT.glob('*/sounds.json'), *CONTENT.glob('*/effects.json'), *CONTENT.glob('*/entities.json')):
@@ -461,6 +513,7 @@ def main() -> None:
         write_rows(CONTENT / unit / 'armor_materials.json', [m for (u, _), m in sorted(armor_materials.items()) if u == unit])
     write_rows(CONTENT / 'platform' / 'tabs.json', sorted(tabs, key=lambda t: t['id']))
     write_rows(CONTENT / 'material' / 'definitions.json', material_definitions)
+    write_rows(CONTENT / 'liandan' / 'herbs.json', herb_definitions)
     write_lang(lang)
     CONVERSION.mkdir(parents=True, exist_ok=True)
     with (CONVERSION / 'skipped.csv').open('w', encoding='utf-8', newline='') as handle:

@@ -2155,14 +2155,14 @@ yvanchuxiuzhen,Fabao010huoyanDangTouSheWuSheZhongCiFangKuai,procedure,~/weapon/f
 yvanchuxiuzhen,Fabao010huoyan,rangeditem,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao010DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao010 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao010,item,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
-yvanchuxiuzhen,Alchemy01hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Alchemy02hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Alchemy03hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Alchemy04hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Alchemy05hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Alchemy06hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Alchemy07hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Alchemy08hecheng,recipe,~/tool/liandanlu,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Alchemy01hecheng,recipe,~/tool/liandanlu,liandan,已读,完整读取shaped配方；产物alchemy_01一件，材料为cailiao_201、cailiao_211、cailiao_191；按产物丹炉职责归炼丹。八配方均逐份核对排列0 2/345/678、角料两份/主体五份/中心一份；无前档丹炉材料。
+yvanchuxiuzhen,Alchemy02hecheng,recipe,~/tool/liandanlu,liandan,已读,完整读取shaped配方；产物alchemy_02一件，材料为cailiao_202、cailiao_212、cailiao_192；按产物丹炉职责归炼丹。八配方均逐份核对排列0 2/345/678、角料两份/主体五份/中心一份；无前档丹炉材料。
+yvanchuxiuzhen,Alchemy03hecheng,recipe,~/tool/liandanlu,liandan,已读,完整读取shaped配方；产物alchemy_03一件，材料为cailiao_203、cailiao_213、cailiao_193；按产物丹炉职责归炼丹。八配方均逐份核对排列0 2/345/678、角料两份/主体五份/中心一份；无前档丹炉材料。
+yvanchuxiuzhen,Alchemy04hecheng,recipe,~/tool/liandanlu,liandan,已读,完整读取shaped配方；产物alchemy_04一件，材料为cailiao_204、cailiao_214、cailiao_194；按产物丹炉职责归炼丹。八配方均逐份核对排列0 2/345/678、角料两份/主体五份/中心一份；无前档丹炉材料。
+yvanchuxiuzhen,Alchemy05hecheng,recipe,~/tool/liandanlu,liandan,已读,完整读取shaped配方；产物alchemy_05一件，材料为cailiao_205、cailiao_215、cailiao_195；按产物丹炉职责归炼丹。八配方均逐份核对排列0 2/345/678、角料两份/主体五份/中心一份；无前档丹炉材料。
+yvanchuxiuzhen,Alchemy06hecheng,recipe,~/tool/liandanlu,liandan,已读,完整读取shaped配方；产物alchemy_06一件，材料为cailiao_206、cailiao_216、cailiao_196；按产物丹炉职责归炼丹。八配方均逐份核对排列0 2/345/678、角料两份/主体五份/中心一份；无前档丹炉材料。
+yvanchuxiuzhen,Alchemy07hecheng,recipe,~/tool/liandanlu,liandan,已读,完整读取shaped配方；产物alchemy_07一件，材料为cailiao_207、cailiao_217、cailiao_197；按产物丹炉职责归炼丹。八配方均逐份核对排列0 2/345/678、角料两份/主体五份/中心一份；无前档丹炉材料。
+yvanchuxiuzhen,Alchemy08hecheng,recipe,~/tool/liandanlu,liandan,已读,完整读取shaped配方；产物alchemy_08一件，材料为cailiao_208、cailiao_218、cailiao_198；按产物丹炉职责归炼丹。八配方均逐份核对排列0 2/345/678、角料两份/主体五份/中心一份；无前档丹炉材料。
 yvanchuxiuzhen,Fabao003hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tianjie05DangShiTiGengXinKeShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
 yvanchuxiuzhen,Tianjie05,animatedentity,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
@@ -5926,9 +5926,9 @@ yvanchuxitong,Tripod08FangZhiFangKuaiShi,procedure,~/yvanchulianqi/dinglu,lianqi
 yvanchuxitong,Tripod08,block,~/yvanchulianqi/dinglu,lianqi,已读,B1 归属阅读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Tripod0801DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/yvanchulianqi/dinglu,lianqi,已读,B1 归属阅读：随 Tripod0801 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Tripod0801,item,~/yvanchulianqi/dinglu,lianqi,已读,B1 归属阅读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
-yvanchuxitong,LiandanGUI,gui,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LiandanYaojixiaoguo,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LiandanBegin,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,LiandanGUI,gui,~/yvanchuliandan,liandan,已读,菜单、Screen、ButtonMessage及SlotMessage完整读取；全局右键丹炉进入，11可见槽绑定12槽炉、Shift转移和取丹经验均属炼丹；按钮关联开炉、丹方和说明。
+yvanchuxitong,LiandanYaojixiaoguo,procedure,~/yvanchuliandan,liandan,已读,EntityPlaceEvent仅处理丹炉或药理台，读取Worldbegin运行目录并向自身zong保存有序药性；规则见docs/systems/liandan/architecture.md#药草目录与装置药性。
+yvanchuxitong,LiandanBegin,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIButtonMessage按钮2调用；处理容器、八材料槽、同名药性顺序运算、隐藏暂存、炉次时长、产量与炸炉阈值，规则见docs/systems/liandan/architecture.md#开炉药效与数量。
 yvanchuxitong,LightningLanding,command,~/zhiling,combat,已读,已读LightningLanding命令、LightningLandingGo与彩色闪电实体及主入口绑定：按命令原坐标结算共享范围雷伤，队伍仅参数占位；skill与xiulian只提供生成参数，归combat。
 yvanchuxitong,LightningLandingGo,procedure,~/zhiling,combat,已读,已读LightningLanding命令、LightningLandingGo与彩色闪电实体及主入口绑定：按命令原坐标结算共享范围雷伤，队伍仅参数占位；skill与xiulian只提供生成参数，归combat。
 yvanchuxitong,Chain,enchantment,~/fumo,combat,已读,C combat 归属阅读：原初系统唯一的附魔，连锁采集由 ChainProcedure 读取等级（随 combat 迁移，代码注册转数据定义的首个实例）
@@ -5936,21 +5936,21 @@ yvanchuxitong,ChainProcedure,procedure,~/fumo,combat,已读,C combat 归属阅�
 yvanchuxitong,PlayerRightClickBlock,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Itemdanyaohulu01DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：随 Itemdanyaohulu01 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Itemdanyaohulu01,item,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
-yvanchuxitong,AlchemyName,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,AlchemyLevel,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,AlchemyFire,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,AlchemyDannum,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Alchemycailiaoname01,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Alchemycailiaoname02,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Alchemycailiaoname03,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Alchemycailiaoname04,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Alchemycailiaoname05,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Alchemycailiaoname06,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Alchemycailiaoname07,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Alchemycailiaoname08,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Alchemycailiaoname09,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Liandanzidongfangru,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Liandantuzhibaocun,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,AlchemyName,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIScreen读取丹炉自身alchemyName形成动态文字；名称为空时取方块显示名，其余按原整数格式显示，归炼丹界面。
+yvanchuxitong,AlchemyLevel,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIScreen读取丹炉自身alchemyLevel形成动态文字；名称为空时取方块显示名，其余按原整数格式显示，归炼丹界面。
+yvanchuxitong,AlchemyFire,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIScreen读取丹炉自身alchemyFire形成动态文字；名称为空时取方块显示名，其余按原整数格式显示，归炼丹界面。
+yvanchuxitong,AlchemyDannum,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIScreen读取丹炉自身alchemyDannum形成动态文字；名称为空时取方块显示名，其余按原整数格式显示，归炼丹界面。
+yvanchuxitong,Alchemycailiaoname01,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIScreen容器说明；槽0按pingguan标签显示容器名或来源错误提示，归炼丹界面。
+yvanchuxitong,Alchemycailiaoname02,procedure,~/yvanchuliandan,liandan,已读,完整同模板比较；读取槽10丹方cailiao01name，与槽1原料注册ID比较决定文字颜色；保留来源原字符串显示，归炼丹界面。
+yvanchuxitong,Alchemycailiaoname03,procedure,~/yvanchuliandan,liandan,已读,完整同模板比较；读取槽10丹方cailiao02name，与槽2原料注册ID比较决定文字颜色；保留来源原字符串显示，归炼丹界面。
+yvanchuxitong,Alchemycailiaoname04,procedure,~/yvanchuliandan,liandan,已读,完整同模板比较；读取槽10丹方cailiao03name，与槽3原料注册ID比较决定文字颜色；保留来源原字符串显示，归炼丹界面。
+yvanchuxitong,Alchemycailiaoname05,procedure,~/yvanchuliandan,liandan,已读,完整同模板比较；读取槽10丹方cailiao04name，与槽4原料注册ID比较决定文字颜色；保留来源原字符串显示，归炼丹界面。
+yvanchuxitong,Alchemycailiaoname06,procedure,~/yvanchuliandan,liandan,已读,完整同模板比较；读取槽10丹方cailiao05name，与槽5原料注册ID比较决定文字颜色；保留来源原字符串显示，归炼丹界面。
+yvanchuxitong,Alchemycailiaoname07,procedure,~/yvanchuliandan,liandan,已读,完整同模板比较；读取槽10丹方cailiao06name，与槽6原料注册ID比较决定文字颜色；保留来源原字符串显示，归炼丹界面。
+yvanchuxitong,Alchemycailiaoname08,procedure,~/yvanchuliandan,liandan,已读,完整同模板比较；读取槽10丹方cailiao07name，与槽7原料注册ID比较决定文字颜色；保留来源原字符串显示，归炼丹界面。
+yvanchuxitong,Alchemycailiaoname09,procedure,~/yvanchuliandan,liandan,已读,完整同模板比较；读取槽10丹方cailiao08name，与槽8原料注册ID比较决定文字颜色；保留来源原字符串显示，归炼丹界面。
+yvanchuxitong,Liandanzidongfangru,procedure,~/yvanchuliandan,liandan,已读,LiandanGUI按钮0；先退还八材料槽整栈，再从玩家实体完整库存能力按同Item取一件装入；不查询材料仓，规则见docs/systems/liandan/architecture.md。
+yvanchuxitong,Liandantuzhibaocun,procedure,~/yvanchuliandan,liandan,已读,LiandanGUI按钮1；反向空名条件与成功分支只改副本无写回均已核对；保持反馈与无写回结果，规则见docs/systems/liandan/architecture.md。
 yvanchuxitong,Pingguan,tag,~/yvanchuliandan/danyaoguan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Itemdanyaohulu02,item,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Itemdanyaohulu03,item,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
@@ -6015,8 +6015,8 @@ yvanchuxitong,Plaque02item,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅�
 yvanchuxitong,Plaque0201,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,Plaque0202,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,Plaque0203,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
-yvanchuxitong,LiandanLVjiance,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jingyanhuoqv,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,LiandanLVjiance,procedure,~/yvanchuliandan,liandan,已读,读取丹炉zong和菜单八材料槽计算等级；仅Linshiceshiliandan调用。正式LiandanBegin的图源对应块游离、生成Java不调用，不恢复为开炉前置条件。
+yvanchuxitong,Jingyanhuoqv,procedure,~/yvanchuliandan,liandan,已读,LiandanGUISlotMessage槽9的changeType1/2调用；空闲时领取装置经验、炸炉经验除四并按DecimalFormat0取整，然后清零，归炼丹取丹。
 yvanchuxitong,Baoxiangzong,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Baoxiang0101,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,BaoxiangOpen,command,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6394,7 +6394,7 @@ yvanchuxitong,Tieguocaipuname,procedure,~/yvanchupengren/tieguo,cooking,候选,�
 yvanchuxitong,Tieguorongqiname,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Cookbegin,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Baoxiang0102,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Linshiceshiliandan,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Linshiceshiliandan,procedure,~/yvanchuliandan,liandan,已读,完整读取临时开炉算法及LiandanLVjiance调用；全来源Java检索无调用该过程的入口，登记炼丹归属，实际正式开炉以LiandanBegin为准。
 yvanchuxitong,BaoxiangsetGo,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Baoxiangset,command,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,BaoxiangChengpin,procedure,~/baoxiang,treasure,已读,C skill依赖：LianqiCommand以权限1调用BaoxiangChengpin；奖励成品经命令坐标容器槽0生成并在原坐标掉落，装备类型/品阶/实例数值由equipment公开构造，奖励表仍归treasure
@@ -7194,8 +7194,8 @@ yvanchuxitong,Lianqidingshuoming01,procedure,~/yvanchulianqi,lianqi,候选,第�
 yvanchuxitong,Lianqidingshuoming02,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Lianqidingshuoming03,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Lianqidingshuoming04,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Liandanshuoming01,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Liandanshuoming02,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Liandanshuoming01,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIButtonMessage按钮3调用；发送炼丹操作说明，文本逐条核对并保留来源内容，归炼丹。
+yvanchuxitong,Liandanshuoming02,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIButtonMessage按钮4调用；发送药性说明，文本逐条核对并保留来源内容，归炼丹。
 yvanchuxitong,Xvanshangshuaxin,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Lianqifantui,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Danyaojiage,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7395,7 +7395,7 @@ yvanchuxitong,Caoyaojiage,procedure,~/shop/yinhang,economy,候选,第一版批�
 yvanchuxitong,Xvanshangzhuizongheji,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Xvanshangshuaxinjihe,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Xvanshangshuoming,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Danlushuxingshuoming,procedure,~/yvanchuliandan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Danlushuxingshuoming,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIButtonMessage按钮5调用；发送丹炉属性说明，文本逐条核对并保留来源内容，归炼丹。
 yvanchuxitong,Lianqidingshuoming,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Jingliancailiao,procedure,~/yvanchulianqi,lianqi,已读,B1 归属阅读：随 Tripod01 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Rongliancailiao,procedure,~/yvanchulianqi,lianqi,已读,B1 归属阅读：随 Tripod01 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台

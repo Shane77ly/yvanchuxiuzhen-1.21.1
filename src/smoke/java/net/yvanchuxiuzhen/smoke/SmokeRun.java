@@ -190,7 +190,7 @@ final class SmokeRun {
                     case "tribulation" -> List.of(new TribulationCheck(report, levelId, this::shot));
                     case "equipmentweapon" -> List.of(new EquipmentWeaponCheck(report, levelId));
                     case "demon" -> List.of(new DemonTransformationCheck(report, levelId, this::shot));
-                    case "equipmentproduct" -> List.of(new EquipmentProductCheck(report, levelId));
+                    case "equipmentproduct" -> List.of(new EquipmentProductCheck(report, levelId, this::shot));
                     case "accessories" -> List.of(new AccessoryCheck(report, levelId, this::shot));
                     case "storage" -> List.of(new StorageCheck(report, levelId, this::shot));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);

@@ -10,6 +10,7 @@ import net.yvanchuxiuzhen.system.combat.client.CombatClientSetup;
 import net.yvanchuxiuzhen.system.equipment.client.EquipmentClientSetup;
 import net.yvanchuxiuzhen.system.gongfa.client.GongfaClientSetup;
 import net.yvanchuxiuzhen.system.material.client.MaterialClientSetup;
+import net.yvanchuxiuzhen.system.liandan.client.LiandanClientSetup;
 import net.yvanchuxiuzhen.panel.client.PanelClientSetup;
 import net.yvanchuxiuzhen.system.particle.client.ParticleClientSetup;
 import net.yvanchuxiuzhen.system.relation.client.RelationClientSetup;
@@ -36,6 +37,7 @@ public final class YvanchuxiuzhenClient {
         SkillClientSetup.register(modBus);
         StorageClientSetup.register(modBus);
         MaterialClientSetup.register(modBus);
+        LiandanClientSetup.register(modBus);
         YihuoClientSetup.register(modBus);
         XiulianClientSetup.register(modBus);
     }

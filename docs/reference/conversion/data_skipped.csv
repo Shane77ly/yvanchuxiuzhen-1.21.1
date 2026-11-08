@@ -16,14 +16,6 @@ tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:guancai_01 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:zhuangshiqiantong 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:taolun 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json,成员 yvanchuxiuzhen:alchemy_01 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json,成员 yvanchuxiuzhen:alchemy_02 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json,成员 yvanchuxiuzhen:alchemy_03 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json,成员 yvanchuxiuzhen:alchemy_04 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json,成员 yvanchuxiuzhen:alchemy_05 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json,成员 yvanchuxiuzhen:alchemy_06 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json,成员 yvanchuxiuzhen:alchemy_07 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json,成员 yvanchuxiuzhen:alchemy_08 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json,成员 yvanchuxiuzhen:stonemill 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json,成员 yvanchuxiuzhen:stoneroller 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:quicksand 未登记，由所属系统迁移
@@ -34,23 +26,6 @@ tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchu
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_wenqvan 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:hotoil 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_hotoil 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json,成员 yvanchuxiuzhen:alchemy_07 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json,成员 yvanchuxiuzhen:alchemy_06 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json,成员 yvanchuxiuzhen:alchemy_05 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json,成员 yvanchuxiuzhen:alchemy_04 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json,成员 yvanchuxiuzhen:alchemy_03 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json,成员 yvanchuxiuzhen:alchemy_02 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json,成员 yvanchuxiuzhen:alchemy_01 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json,成员 yvanchuxiuzhen:alchemy_08 未登记，由所属系统迁移
-tag,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json,成员全部未登记，整个标签未生成，随所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danludinglu.json,成员 yvanchuxiuzhen:alchemy_01 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danludinglu.json,成员 yvanchuxiuzhen:alchemy_02 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danludinglu.json,成员 yvanchuxiuzhen:alchemy_03 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danludinglu.json,成员 yvanchuxiuzhen:alchemy_04 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danludinglu.json,成员 yvanchuxiuzhen:alchemy_05 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danludinglu.json,成员 yvanchuxiuzhen:alchemy_06 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danludinglu.json,成员 yvanchuxiuzhen:alchemy_07 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/danludinglu.json,成员 yvanchuxiuzhen:alchemy_08 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/huluteng.json,成员 yvanchuxiuzhen:shicai_039_plant_04 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/yvanchuzuowu.json,成员 yvanchuxiuzhen:shicai_039_plant_04 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员 yvanchuxiuzhen:yaoshou_006 未登记，由所属系统迁移
@@ -276,14 +251,6 @@ tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/zhanxve.json,成员 y
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/zhanxve.json,成员 yvanchuxiuzhen:clothes_10_boots 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/zhanxve.json,成员 yvanchuxiuzhen:clothes_11_boots 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/zhanxve.json,成员 yvanchuxiuzhen:clothes_12_boots 未登记，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_01hecheng.json,引用未登记的物品 yvanchuxiuzhen:alchemy_01，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_02hecheng.json,引用未登记的物品 yvanchuxiuzhen:alchemy_02，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_03hecheng.json,引用未登记的物品 yvanchuxiuzhen:alchemy_03，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_04hecheng.json,引用未登记的物品 yvanchuxiuzhen:alchemy_04，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_05hecheng.json,引用未登记的物品 yvanchuxiuzhen:alchemy_05，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_06hecheng.json,引用未登记的物品 yvanchuxiuzhen:alchemy_06，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_07hecheng.json,引用未登记的物品 yvanchuxiuzhen:alchemy_07，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_08hecheng.json,引用未登记的物品 yvanchuxiuzhen:alchemy_08，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/canhehecheng.json,引用未登记的物品 yvanchuxiuzhen:canhe，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/fooddaguohecheng.json,引用未登记的物品 yvanchuxiuzhen:fooddaguo，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/fooddunguohecheng.json,引用未登记的物品 yvanchuxiuzhen:fooddunguo，由所属系统迁移

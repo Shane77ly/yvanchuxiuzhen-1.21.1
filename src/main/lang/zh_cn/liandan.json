@@ -1,4 +1,5 @@
 {
+  "lianqibiao01": "灵力",
   "block.yvanchuxiuzhen.itemdanyaohulu_01block": "葫芦",
   "block.yvanchuxiuzhen.itemdanyaohulu_02block": "瓷瓶",
   "block.yvanchuxiuzhen.itemdanyaohulu_03block": "精致葫芦",
@@ -19,5 +20,17 @@
   "item.yvanchuxiuzhen.itemdanyaohulu_05": "六边盒",
   "item.yvanchuxiuzhen.itemdanyaohulu_0501": "六边盒",
   "item.yvanchuxiuzhen.itemdanyaohulu_06": "玉瓶",
-  "item.yvanchuxiuzhen.baicaojianbook": "佰草鉴"
+  "item.yvanchuxiuzhen.baicaojianbook": "佰草鉴",
+  "block.yvanchuxiuzhen.alchemy_01": "黄铜炉",
+  "block.yvanchuxiuzhen.alchemy_02": "红蛇炉",
+  "block.yvanchuxiuzhen.alchemy_03": "海渊炉",
+  "block.yvanchuxiuzhen.alchemy_04": "地肺炉",
+  "block.yvanchuxiuzhen.alchemy_05": "紫云炉",
+  "block.yvanchuxiuzhen.alchemy_06": "天青炉",
+  "block.yvanchuxiuzhen.alchemy_07": "锦纹炉",
+  "block.yvanchuxiuzhen.alchemy_08": "八卦金炉",
+  "gui.yvanchuxiuzhen.liandan_gui.label_sui_ji_zeng_jia_cheng_dan_shu_liang_shang_xian": "随机增加成丹数量上限",
+  "gui.yvanchuxiuzhen.liandan_gui.label_bai_fen_bi_jian_shao_lian_dan_shi_chang": "百分比减少炼丹时长",
+  "gui.yvanchuxiuzhen.liandan_gui.label_lian_zhi_gao_yu_dan_lu_deng_ji_de_dan_yao_shi_hui_you_ji_lu_zha_lu": "炼制高于丹炉等级的丹药时，会有几率炸炉",
+  "gui.yvanchuxiuzhen.liandan_gui.label_e_wai_sui_ji_huo_de_0dao_ci_zhi_ge_dan_yao": "额外随机获得0到“此值”个丹药"
 }

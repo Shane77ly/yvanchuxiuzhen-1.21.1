@@ -9,10 +9,10 @@ updated: 2026-11-08
 
 标识 `liandan`，类别：系统。职责：丹炉、丹方、炸炉、分合丹、药理、毒药（[系统设计](../../development/system-design.md)）。
 
-当前阶段：B1 已登记本单位不依赖新代码类型的内容身份与资源（台账“已注册”：方块 10、物品 20），只表示身份、资源与基础属性就位；玩法尚未实现，未进行游戏验收。
+当前阶段：D 部分实现。八档丹炉、十二槽库存、原生菜单、药性目录、自然供热炼制、丹方装料与取丹经验已接回，25 条注册标为“行为已迁移”；药瓶服用、分合丹、药理台、百草鉴及毒药仍待迁移。本批验证见[月度记录](logs/2026-11.md)，不代表全系统验收。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
-- 候选归属 133 个元素，其中 44 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
+- 候选归属 133 个元素，其中 76 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
@@ -20,6 +20,15 @@ updated: 2026-11-08
 
 ## 公开操作
 
-未编写。实现本系统前在此列出供其他系统调用的查询与写操作，并对照 `typed_field_accesses.csv` 覆盖全部外部读写点（开工条件）。
+本批按 `typed_field_accesses.csv` 核对 `caoyaolist`、`playercaoyaojiexi` 的全部访问：药草目录由 `Worldbegin` 写入、炼丹与百草鉴读取；玩家药草辨识由百草鉴与 `Jiesuocaoyao` 写入，跨系统读取只有 `Lore` 的提示分支。材料辨识与此无关。
 
-本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
+| 操作 | 所有者与接入方式 | 本批状态 |
+| --- | --- | --- |
+| 药草药性目录、装置药性快照 | liandan 读取来源 Worldbegin 的完整有序目录，放置丹炉时写入自身 zong；药理台的快照编辑随后接入 | 已实现；验证见本月记录 |
+| 丹火热量与耗尽查询 | 订阅 yihuo 的 FireHeatEvent、FireExhaustedEvent，由 liandan 唯一写丹炉 lianpower/gengxin | 已实现；验证见本月记录 |
+| 火力符增益 | `Liandan.boostHeat` 写自身 firepower；来源 `Itemfulu20DangTouSheWuSheZhongCiFangKuai` 的消费者随 fulu 接入 | 已实现；验证见本月记录 |
+| 炼丹职业快照及经验领取 | 通过 profession 的查询/加经验操作读取 Alchemy_LEVEL、在取丹时领取装置经验 | 已实现；验证见本月记录 |
+| 玩家药草辨识、重置与提示查询 | liandan 唯一写入；Lore 显示走只读查询；随百草鉴批次实现 | 待实现 |
+| 丹药服用及即时/持续药效 | liandan 解释丹药实例，经各数据所有者的公开操作施效 | 待实现 |
+
+本轮变化见[系统月度日志](logs/2026-11.md)，项目进度见[项目月度日志](../project/logs/2026-11.md)。

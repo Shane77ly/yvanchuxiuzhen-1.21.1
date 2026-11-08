@@ -18,11 +18,13 @@ updated: 2026-11-08
 | 代码 | 公共入口与客户端入口；attribute 系统（贡献汇总、玩家附件、原版属性写入，2026-11-03）；relation 系统（敌友判定、团队、好友与申请界面、按钮 payload，2026-11-03）；xiulian 系统（修炼档案、出身、修炼推进与突破、金丹元婴、丹田界面、血道，2026-11-03）；gongfa 系统（功法定义、功法书组件、研习、功法栏、参悟台，2026-11-03）；combat 系统（伤害结算与 `/shanghai`、85 个附魔数据定义与命中、护甲、挖掘行为、状态效果登记基础与 47 个效果行为、连锁采集、穿石、木人桩，2026-11-04；首次接入 GeckoLib 4.9.3、实体内容表与菜单界面）；`platform/content` 的内容表加载器与工厂（15 种方块、物品、工具、盔甲）按单位登记 1,127 个方块、2,125 个物品与 150 个声音事件，29 个有内容的单位各有一个 `<名称>Setup`；ArchUnit、台账工具、归属证据工具、片段合并与客户端冒烟检查已接入；skill 系统进行中（框架、14 个元素弹体、动画实体基础与火土金冰光风雷水木各系实体技能、剑法、灵纹、火鸟术、起尸诀、虚空裂隙实体与传送、伤害范围、元婴出窍、十种技能箭与箭种选择、身法轻功、技能界面与 HUD 的部分实现，见下节）|
 | 批次进度 | B0 完成步骤 1–5 后按负责人指示结束（2026-11-02），B1 于 2026-11-03 出口核对并经负责人认可后结束，当前执行 C：attribute、relation、xiulian、gongfa 2026-11-03、combat 2026-11-04 完成并合入 `main`（xiulian 按依赖方向调到 gongfa 之前，见[功法](../systems/gongfa/README.md)“依赖方向”），combat 2026-11-04 完成并合入 `main`，当前是 skill（进行中，见下节）；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移；命名空间统一为 `yvanchuxiuzhen`。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
 | 已批准 | 2026-11-02 负责人批准整体架构、[工程结构与长期维护](engineering.md)、[实施路线](roadmap.md)（`3e0585c` 版本），记录见[项目状态](../systems/project/README.md)；不含存档导入、界面复刻程度、license、Q01–Q14 |
-| 未完成 | skill及后续系统仍按各自批次推进；D材料仓、千材录和职业核心已有实现与本批验证，不能计为全系统完成；1.18.2实机、完整存档生命周期及视觉终核待验收。完整移植goal为active |
+| 未完成 | skill及后续系统仍按各自批次推进；D材料仓、千材录、职业核心及丹炉自然炼制已有实现与批次验证，不能计为全系统完成；1.18.2实机、完整存档生命周期及视觉终核待验收。完整移植goal为active |
 
 ## 进行中
 
-2026-11-08 D阶段材料仓、千材录和职业依赖批次（前一提交 `ba5782b9`，本批提交以 `git log -1` 为准）：`port/c-skill` 已接回袋06自然入口、玩家材料仓及显示/过滤/排序/自动入库、千材录逐条辨识与扣仓、十职业进度核心和真实矿石采集。内置storage场景45项玩法检查通过、0FAIL、DONE，覆盖仓数量、辨识成本、采集升级、死亡和重登；最终构建与专服正常stop通过，菜单18个、ERROR/FATAL0。客户端37条WARN按来源分类保留；首次袋06工厂漏接失败修复后重跑通过。细节与未验收边界见[storage](../systems/storage/architecture.md)、[material](../systems/material/architecture.md)、[profession](../systems/profession/architecture.md)。下一步按D路线核对炼丹自然入口、炉次状态与丹火供热契约，建立公开操作后实现；炼器自动装料继续随lianqi接回。完整移植goal保持active，skill跨系统遗留尚未全部闭合，当前不合main。
+2026-11-08 D 阶段丹炉自然炼制批次（前一提交 `eadc22fe`，本批最新提交以 `git log -1` 为准）：`port/c-skill` 已接回八档丹炉、12 槽持久库存、原生菜单、37 条药草/100 条有序药性、20 游戏刻供热推进、出丹/炸炉、丹方装料和取丹经验。最终 `build compileSmokeJava` 通过；既有 `runSmokeClient -PsmokeOnly=equipmentproduct` 最终 13 项通过、0 FAIL、DONE，含本批 7 项库存/同步/炉次检查，四维度正常保存退出，ERROR/FATAL 0。首次因检查误把自然丹火燃料作30而失败，按来源实际10点加真实补料后通过；用户指出的 `lianqibiao01` 漏翻译已补成来源“灵力”，新截图已查看。专服与文档台账检查见[炼丹月志](../systems/liandan/logs/2026-11.md)。药瓶服用、分合丹、药理台、百草鉴、毒药和两版本完整验收仍未完成；下一步接药瓶装填/服用调用链。完整goal active，skill跨系统遗留未全闭合，当前不合main。
+
+2026-11-08 D阶段材料仓、千材录和职业依赖批次（前一提交 `ba5782b9`，本批提交以 `git log -1` 为准）：`port/c-skill` 已接回袋06自然入口、玩家材料仓及显示/过滤/排序/自动入库、千材录逐条辨识与扣仓、十职业进度核心和真实矿石采集。内置storage场景45项玩法检查通过、0FAIL、DONE，覆盖仓数量、辨识成本、采集升级、死亡和重登；最终构建与专服正常stop通过，菜单18个、ERROR/FATAL0。客户端37条WARN按来源分类保留；首次袋06工厂漏接失败修复后重跑通过。细节与未验收边界见[storage](../systems/storage/architecture.md)、[material](../systems/material/architecture.md)、[profession](../systems/profession/architecture.md)。此批之后的丹炉自然入口、炉次与供热已接回，见本节顶部；炼器自动装料继续随lianqi接回。完整移植goal保持active，skill跨系统遗留尚未全部闭合，当前不合main。
 
 元婴生命周期与普通重生收口（2026-11-08）：按1.18.2版本来源补回有来源实体致死时先归窍再扣365寿元、普通 `PlayerRespawnEvent` 的资源/寿元公式，并修正书架藏宝创造模式仍应消耗一件载体的偏离。`compileSmokeJava`、既有 `runSmokeClient -PsmokeOnly=skillui`（29项）和 `-PsmokeOnly=yuanying`（5项）均通过；本次另运行既有 `runSmokeClient -PsmokeOnly=xiulian`，重生资源断言按来源公式通过（灵力4、寿元9970），但退出后重开步骤仍在客户端服务器已销毁后触发既有 harness 空指针，不能作为生产逻辑失败。没有新增Test或专项入口。普通重生完整实机、元婴死亡/跨维度/重登路径仍未专项验收。证据以 `build/smoke/report.txt`、`run/logs/latest.log` 与本页项目日志为准。
 
@@ -268,4 +270,4 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 
 最终 `gradlew build`（含既有 test/check 与 ArchUnit）通过；内置 `runSmokeClient -PsmokeOnly=equipmentweapon` 五项既有检查全部 `INFO`、`0 FAIL`、`DONE`，客户端正常保存四维度并退出。专用服务器一次启动至 `Done`，实体导出109个，通过原生 `MinecraftServer.halt(false)` 正常保存四维度退出；客户端与专服日志 `ERROR/FATAL=0`。证据为 `tmp/fabao-final-build.log`、`tmp/fabao-smoke.log`、`tmp/fabao-report.txt`、`tmp/fabao-client-latest.log`、`tmp/fabao-server-latest.log`。本批未新增或修改 Test、检查代码、选择器，也未使用 Computer Use；这些客户端检查只覆盖注册、资源加载和启动回归，八法宝逐类自然发射/命中/冷却/回收、存档重载、完整视觉、1.18.2 实机、两版本对照与多人验收未执行。
 
-下一步：先核对[技能架构](../systems/skill/architecture.md)“迁移阶段”与“剩余元素与入口核对”，继续闭合 skill 的跨系统依赖及表现；equipment 的 `fabao_013` 仍需正式人间维度映射，`fabao_017`/`01701` 仍需动画实体和蛊虫收纳链，不补造临时玩法。继续使用项目内置客户端入口并按风险验证，不重复已通过的旧神通套件。skill 尚未完成，不合入 `main`。
+下一步：继续 D 炼丹药瓶装填/服用调用链，按来源所有者接即时与持续药效；随后分合丹、药理台、百草鉴和毒药。skill 的 creature/world 遗留随所属系统闭合；`fabao_013` 依赖正式人间维度，`fabao_017`/`01701` 依赖动画实体和蛊虫收纳。沿用项目内置客户端入口并按风险验证，当前不合 `main`。

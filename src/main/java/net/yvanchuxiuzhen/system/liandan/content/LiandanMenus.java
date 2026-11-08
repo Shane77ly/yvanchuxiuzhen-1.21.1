@@ -1,0 +1,23 @@
+package net.yvanchuxiuzhen.system.liandan.content;
+
+import java.util.function.Supplier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.inventory.MenuType;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.yvanchuxiuzhen.platform.ModId;
+
+/** 炼丹菜单保留来源注册身份，打开数据携带真实丹炉位置。 */
+public final class LiandanMenus {
+    private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, ModId.VALUE);
+    public static final Supplier<MenuType<AlchemyMenu>> ALCHEMY = MENUS.register("liandan_gui",
+            () -> IMenuTypeExtension.create(AlchemyMenu::new));
+
+    private LiandanMenus() {
+    }
+
+    public static void register(IEventBus modBus) {
+        MENUS.register(modBus);
+    }
+}

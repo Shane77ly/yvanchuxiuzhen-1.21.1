@@ -916,6 +916,7 @@ yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/blockfire.json,06e39099
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/camwall.json,7334693f4abe9355fff4363884585f99730e38e0,src/main/resources/data/yvanchuxiuzhen/tags/block/camwall.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/chewall.json,f4393f9997e96b2f4c3eb86357ceecce33964884,src/main/resources/data/yvanchuxiuzhen/tags/block/chewall.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/cypwall.json,bf7834c101dbb6b6073969b9e5949b45d100dc68,src/main/resources/data/yvanchuxiuzhen/tags/block/cypwall.json
+yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/danlu.json,4c1cfbff9046c4cf3dbffc9afec52bbd3fb9d508,src/main/resources/data/yvanchuxiuzhen/tags/block/danlu.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/dapenzhuang.json,bd8a755703a8ebab9460ecce49f341743d4f6ef5,src/main/resources/data/yvanchuxiuzhen/tags/block/dapenzhuang.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/foodblock.json,180f8ecb68d503b92726635a0ead3b0f2c2aef12,src/main/resources/data/yvanchuxiuzhen/tags/block/foodblock.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/ginwall.json,931c9c76b92aac1479b76c452dc274ba8a647a9e,src/main/resources/data/yvanchuxiuzhen/tags/block/ginwall.json
@@ -1189,6 +1190,14 @@ yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/adobeslaberecthech
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/adobeslabhecheng.json,b9fad97d3fbfc138f68ddd8f8fa708a746fbf642,src/main/resources/data/yvanchuxiuzhen/recipe/adobeslabhecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/adobestairshecheng.json,a3d2a0c3470a03a3a43cfaa648eaf4137f730e1c,src/main/resources/data/yvanchuxiuzhen/recipe/adobestairshecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/adobewallhecheng.json,71cef3ca46e92eb3ddaa75976c27e5bee854f7c2,src/main/resources/data/yvanchuxiuzhen/recipe/adobewallhecheng.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_01hecheng.json,a71a6f1f8a9e84870daf94fa3deb37191febfe5c,src/main/resources/data/yvanchuxiuzhen/recipe/alchemy_01hecheng.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_02hecheng.json,513a17208d7fa0d2282bd79fd793b76bb0b521f0,src/main/resources/data/yvanchuxiuzhen/recipe/alchemy_02hecheng.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_03hecheng.json,3c3c8d4a820927948561f8afc21ff5d29d2c0171,src/main/resources/data/yvanchuxiuzhen/recipe/alchemy_03hecheng.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_04hecheng.json,da4914cf7235ad90266edcaef4cb4e3e0f399788,src/main/resources/data/yvanchuxiuzhen/recipe/alchemy_04hecheng.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_05hecheng.json,1b55cc4eaa81d37ca29c3f60ad0a1d49bb10c7e3,src/main/resources/data/yvanchuxiuzhen/recipe/alchemy_05hecheng.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_06hecheng.json,ee2e112c37a2a47d4fac2465398df9ddeecb7620,src/main/resources/data/yvanchuxiuzhen/recipe/alchemy_06hecheng.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_07hecheng.json,b01daf595e5e7b6bfbe22b1c81f32e9be7da76e2,src/main/resources/data/yvanchuxiuzhen/recipe/alchemy_07hecheng.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/alchemy_08hecheng.json,dff4a6b10732a776076a3ec59b01e15bdc193558,src/main/resources/data/yvanchuxiuzhen/recipe/alchemy_08hecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/androsace_01hehceng.json,099891372ca6bab972bc97ed1b6f4822acc289cc,src/main/resources/data/yvanchuxiuzhen/recipe/androsace_01hehceng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/androsace_02hecheng.json,7a53483e99a71c3bf220368499fbfffdea43749a,src/main/resources/data/yvanchuxiuzhen/recipe/androsace_02hecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/annualfleabanehecheng.json,418b3ed37fc98b1bc08ebc7e0a6ecf0d229fd091,src/main/resources/data/yvanchuxiuzhen/recipe/annualfleabanehecheng.json

@@ -1,12 +1,4 @@
 registry,legacy_id,reason
-block,yvanchuxiuzhen:alchemy_01,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:alchemy_02,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:alchemy_03,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:alchemy_04,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:alchemy_05,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:alchemy_06,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:alchemy_07,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:alchemy_08,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:biggrassyincang,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:caidaoblock,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:canhe,方块基类 BaseEntityBlock 由所属系统迁移
@@ -51,14 +43,6 @@ block,yvanchuxiuzhen:xveliu,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:zhibuji,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:zhuangshiqiantong,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:zhuangshitizi,方块基类 BaseEntityBlock 由所属系统迁移
-item,yvanchuxiuzhen:alchemy_01,物品类 Alchemy01DisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:alchemy_02,物品类 Alchemy02DisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:alchemy_03,物品类 Alchemy03DisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:alchemy_04,物品类 Alchemy04DisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:alchemy_05,物品类 Alchemy05DisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:alchemy_06,物品类 Alchemy06DisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:alchemy_07,物品类 Alchemy07DisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:alchemy_08,物品类 Alchemy08DisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:biggrassyincang,物品类 BiggrassyincangDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:businessman_01_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:businessman_02_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
