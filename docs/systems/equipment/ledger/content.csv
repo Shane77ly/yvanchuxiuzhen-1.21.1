@@ -179,7 +179,7 @@ item,yvanchuxiuzhen:fabao_012,yvanchuxiuzhen,Fabao012,src/main/java/net/mcreator
 item,yvanchuxiuzhen:fabao_013,yvanchuxiuzhen,Fabao013,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2699,equipment,已读,yvanchuxiuzhen:fabao_013,已注册,
 item,yvanchuxiuzhen:fabao_014,yvanchuxiuzhen,Fabao014,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2700,equipment,已读,yvanchuxiuzhen:fabao_014,行为已迁移,松开右键的沉默与灵力条件、扣费、耐久、普通/潜行冷却和弹体发射已接回；完整自然操作与两版本对照未验收
 item,yvanchuxiuzhen:fabao_015,yvanchuxiuzhen,Fabao015,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2701,equipment,已读,yvanchuxiuzhen:fabao_015,已注册,
-item,yvanchuxiuzhen:fabao_016,yvanchuxiuzhen,Fabao016,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2795,equipment,已读,yvanchuxiuzhen:fabao_016,已注册,
+item,yvanchuxiuzhen:fabao_016,yvanchuxiuzhen,Fabao016,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2795,equipment,已读,yvanchuxiuzhen:fabao_016,行为已迁移,命中流血、创造模式分支、潜行采血、精血物品字段与来源异常的默认炼器等级已接回；客户端 smoke 仅作注册/启动回归，完整自然操作与视觉未验收
 item,yvanchuxiuzhen:fabao_017,yvanchuxiuzhen,Fabao017,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2810,equipment,已读,yvanchuxiuzhen:fabao_017,已注册,
 item,yvanchuxiuzhen:fabao_021,yvanchuxiuzhen,Fabao021,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3032,equipment,已读,yvanchuxiuzhen:fabao_021,已注册,
 item,yvanchuxiuzhen:fabao_022,yvanchuxiuzhen,Fabao022,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3033,equipment,已读,yvanchuxiuzhen:fabao_022,已注册,
@@ -231,7 +231,7 @@ item,yvanchuxiuzhen:headornaments_06,yvanchuxiuzhen,Headornaments06,src/main/jav
 item,yvanchuxiuzhen:headornaments_07,yvanchuxiuzhen,Headornaments07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2036,equipment,已读,yvanchuxiuzhen:headornaments_07,已注册,
 item,yvanchuxiuzhen:headornaments_08,yvanchuxiuzhen,Headornaments08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2037,equipment,已读,yvanchuxiuzhen:headornaments_08,已注册,
 item,yvanchuxiuzhen:headornaments_09,yvanchuxiuzhen,Headornaments09,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2038,equipment,已读,yvanchuxiuzhen:headornaments_09,已注册,
-item,yvanchuxiuzhen:jingxve,yvanchuxiuzhen,Jingxve,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2804,equipment,已读,yvanchuxiuzhen:jingxve,已注册,
+item,yvanchuxiuzhen:jingxve,yvanchuxiuzhen,Jingxve,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2804,equipment,已读,yvanchuxiuzhen:jingxve,行为已迁移,潜行采血生成、主人 UUID/名称、境界数值/名称字段已接回；完整消费、自然操作与视觉未验收
 item,yvanchuxiuzhen:necklaceornaments_01,yvanchuxiuzhen,Necklaceornaments01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2039,equipment,已读,yvanchuxiuzhen:necklaceornaments_01,已注册,
 item,yvanchuxiuzhen:necklaceornaments_02,yvanchuxiuzhen,Necklaceornaments02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2040,equipment,已读,yvanchuxiuzhen:necklaceornaments_02,已注册,
 item,yvanchuxiuzhen:necklaceornaments_03,yvanchuxiuzhen,Necklaceornaments03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2041,equipment,已读,yvanchuxiuzhen:necklaceornaments_03,已注册,

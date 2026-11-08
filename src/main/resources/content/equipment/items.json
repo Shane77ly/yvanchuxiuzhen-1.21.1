@@ -170,7 +170,7 @@
 {"id":"clothes_06_chestplate","factory":"armor","order":1706,"armor":{"material":"clothes_06","slot":"CHESTPLATE"},"durability_multiplier":10,"tab":"yvanchuxiuzhen:tabyvanchu_weapon"},
 {"id":"clothes_06_leggings","factory":"armor","order":1707,"armor":{"material":"clothes_06","slot":"LEGGINGS"},"durability_multiplier":10,"tab":"yvanchuxiuzhen:tabyvanchu_weapon"},
 {"id":"clothes_06_boots","factory":"armor","order":1708,"armor":{"material":"clothes_06","slot":"BOOTS"},"durability_multiplier":10,"tab":"yvanchuxiuzhen:tabyvanchu_weapon"},
-{"id":"fabao_016","factory":"tool","order":1767,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","tool":{"kind":"sword","tier":{"uses":80,"speed":4.0,"damage_bonus":0.0,"level":1,"enchantability":2,"repair":["cailiao_201"]},"damage":3,"attack_speed":-3.0},"tooltip":["用此刀攻击生物，使其流血。","只能对没有修为的生物放血。","潜行状态下手持此物右键，即可采集自身的精血。"],"pending_hooks":["hurtEnemy","use"]},
+{"id":"fabao_016","factory":"equipment:fabao_016","order":1767,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","tool":{"kind":"sword","tier":{"uses":80,"speed":4.0,"damage_bonus":0.0,"level":1,"enchantability":2,"repair":["cailiao_201"]},"damage":3,"attack_speed":-3.0},"tooltip":["用此刀攻击生物，使其流血。","只能对没有修为的生物放血。","潜行状态下手持此物右键，即可采集自身的精血。"],"pending_hooks":["hurtEnemy","use"]},
 {"id":"jingxve","factory":"item","order":1773,"pending_hooks":["use"]},
 {"id":"fabao_017","factory":"item","order":1779,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","stack":1,"pending_hooks":["use"]},
 {"id":"gongjvshechu","factory":"item","order":1882,"stack":1,"pending_hooks":["releaseUsing","use"]},

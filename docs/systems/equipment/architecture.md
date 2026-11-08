@@ -258,3 +258,15 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 ### 验证范围
 
 静态依据为 1.18.2 版本五个 `Fabao014*` Java 文件；目标 API 按 NeoForge 21.1.265 源码改写。未新增 Test 类、冒烟选择器、断言或 Computer Use。`gradlew build`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 通过；沿用 `runSmokeClient -PsmokeOnly=equipmentweapon` 报告 `DONE`，客户端和专用服务端均正常保存退出，日志无 `ERROR/FATAL`。这些检查仅作注册、资源加载和启动回归；自然发射、命中、灵力扣除、冷却、视觉、1.18.2 实机、两版本对照与多人验收未执行。
+
+## 血刀法宝（2026-11-08）
+
+### 来源行为与目标实现
+
+来源入口由 `Fabao016Item`、`Fabao016DangShiTiBeiGongJuJiZhongShiProcedure` 和 `Fabao016DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure` 组成。命中目标时，创造模式直接施加或叠加 `effect_004`；非创造模式跳过玩家，只对 `LEVELnumber <= 1` 的目标施加 600 刻流血。来源过程从一个未赋值的临时 `ItemStack.EMPTY` 读取 `lianqizong.item_level`，因此该值实际为默认 `0`；目标实现按来源结果保留，不改读炼器成品等级。
+
+潜行右键按 `10 + LEVELnumber × 3` 扣除玩家生命。血量高于消耗时生成 `jingxve`，写入 `belongToMasterUUID`、`belongToName`、`playerlevelnum` 和 `playerlevel`，发送 15 个 `xvedi` 粒子，并通过 equipment 的物品发放入口交给玩家；血量不足时保留来源两条提示分支。`fabao_016` 的 80 耐久、剑属性和 `cailiao_201` 修理材料由专用物品工厂提供。
+
+### 验证范围
+
+静态依据为 1.18.2 版本三个 `Fabao016*` Java 文件；目标 API 按 NeoForge 21.1.265 源码改写。未新增 Test 类、冒烟选择器、断言或 Computer Use。`gradlew build`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 通过；沿用 `runSmokeClient -PsmokeOnly=equipmentweapon` 报告 `DONE`，客户端正常进入世界并保存退出。该检查仅作注册、资源加载和启动回归；血刀命中、流血、潜行采血、物品 NBT、视觉、1.18.2 实机、两版本对照与多人验收未执行。
