@@ -328,3 +328,44 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 ### 验证范围
 
 静态依据为 1.18.2 版本 `DantianbenmingfabaoProcedure`、`BenmingfabaotishengProcedure`、`DantianbenmingexpProcedure` 与 `DantianbenmingxianshiProcedure`；目标 API 按 NeoForge 21.1.265 源码核对。未新增 Test 类、冒烟选择器、断言或 Computer Use。使用项目自带 `runSmokeClient -PsmokeOnly=equipmentweapon` 做注册、资源加载和公共客户端启动回归，既有弓与拂尘五项报告 `DONE`，客户端正常保存退出且日志无 `ERROR/FATAL`；该 smoke 不替代本命培养的境界门槛、经验升级、耐久消耗、属性交替、存档重载和完整界面专项验收。完整行为专项、1.18.2 实机、两版本对照、多人与完整视觉仍未执行。
+
+## 投掷法宝（`fabao_001`–`008`，2026-11-08）
+
+### 来源入口与逐类规则
+
+来源为 `A:Fabao001Item`–`Fabao008Item`、对应实体类，以及 `Fabao00*KeYiShiYongYuanChengWuPinDeTiaoJian`、`TouZhiWuFeiXingTick`、`DangTouZhiWuJiZhongShiTiShi` 和 `DangTouSheWuSheZhongCiFangKuai` 过程。八种物品均可堆叠64件，右键开始使用且动画为 `NONE`。`001`–`003` 在 `releaseUsing` 发射；`004`–`008` 在 `onUsingTick` 发射后停止使用。弹药先查持有物，再查背包同类物品；非创造模式成功发射后消耗一件。`001/002` 主手攻击力加3、攻击速度减2.4，`008` 主手攻击力加2、攻击速度减2.4。
+
+| ID | 冷却（刻） | 速度 / 基础箭伤害 / 击退 | 额外来源行为 |
+| --- | ---: | --- | --- |
+| `fabao_001` | 40 | `2 / 0.1 / 1` | 炼器物攻；各10%概率添加100刻 `effect_001`、`effect_002`；实体或方块命中返回物品 |
+| `fabao_002` | 40 | `2 / 0.1 / 1` | 各20%概率添加100刻 `effect_001`、`effect_002`，10%概率物攻乘1.5；实体或方块命中返回物品 |
+| `fabao_003` | 40 | `2 / 0.1 / 0` | 命中建立半径5的毒域；按首个匹配毒药施加1200刻效果；不返回物品 |
+| `fabao_004` | 无 | `3 / 4 / 1` | 无使用条件过程；敌对生物命中5%概率施加1200刻 `effect_007`；不返回物品 |
+| `fabao_005` | 10 | `4 / 0.1 / 0` | 炼器物攻、10%概率1200刻 `effect_004`、九种毒药；实体或方块命中返回物品 |
+| `fabao_006` | 20 | `4 / 0.1 / 0` | 已初始化分支为10%概率物攻乘1.5，否则1倍；未初始化分支先以 `falling_block` 伤害源提交基础物攻，再以 `generic` 提交10%概率1.5倍、否则1倍；九种毒药；实体或方块命中返回物品 |
+| `fabao_007` | 30 | `4 / 0.1 / 0` | 炼器物攻与九种毒药；实体或方块命中返回物品 |
+| `fabao_008` | 40 | `4 / 0.1 / 0` | 炼器物攻、10%概率1200刻 `effect_003`、九种毒药；实体或方块命中返回物品 |
+
+使用条件过程把本次手持栈原引用存入玩家临时 `feibiaolinshi`；弹体第一个有效主人刻才冻结 `lianqizong`、名称与毒药。`001/002/003` 读取同一临时栈；`003` 依荧光、蜂毒、火毒、赤炼毒、孢子、青藤毒、寒毒、烙毒、蛇纹毒的 `else-if` 顺序只保存首种，`005`–`008` 独立保存九种。九毒依次对应发光、`duyao_10/16/13/17/11/12/14/15`，持续1200刻，效果等级为附魔等级减一。
+
+返回物品必须按实体命中、方块命中及初始化状态分别处理。`001/002/005`–`008` 已初始化的实体命中只重建炼器数据与名称；`005`–`008` 的该分支丢失所有附魔，来源并未把冻结的九毒写回。方块命中才重新添加九毒，并在炼器数据写 `tebiefabao=true`。未初始化的实体命中从被击目标的 `feibiaolinshi` 复制 NBT，普通 Mob 的能力默认栈为空；方块命中则从主人临时栈复制。目标保持这些实际分支，不把被击目标改读主人，也不为实体命中补回附魔。`006` 未初始化分支两次 `hurt` 使用不同伤害源，不能合并成一个总量。
+
+`003` 的实体与方块命中各注册十次服务端 END tick 延迟，等待0、10至90刻；第一个脉冲在注册后的首次 END tick 推进。实体命中传入弹体坐标，方块命中传入方块坐标；两个过程内部都以 `x+0.5/y/z+0.5` 为中心，每次在中心上方一格广播逆向传送门与落蜜粒子，并对敌对生物施加单种毒药。来源实体在 `super.tick` 与飞行过程之后入地移除；延迟过程独立于弹体后续存活。
+
+### 目标实现与静态复核
+
+目标 `FabaoProjectileItem` 提供八种专用物品工厂，`FabaoProjectile` 提供八个 `EntityType` 的共用实现与逐类分派；注册表、物品模型与客户端渲染装配由 equipment 持有。`EquipmentData.FABAO_TEMP` 用 `FabaoTempData` 承载来源 `feibiaolinshi` 的物品引用与耗尽标记，保存、本人同步和死亡复制也由本系统持有。敌友查询调用 `Relations.isFriendly`，附魔和状态效果调用 combat 公开入口；没有直接修改其他系统玩家持久数据。`003` 的十次毒域脉冲用独立服务端 Post 延迟调度保留来源时序，不依赖箭实体的入地存活，也不建立通用延迟框架。
+
+最后一件弹药按两个版本的空栈读取边界处理：1.18.2 版本数量归零后标签仍可读，附魔查询则返回0；没有自定义名时通过空栈物品读取 AIR 名称。1.21.1 版本的组件查询会隐藏零数量栈，因此仅当本次消耗使用栈最后一件时保存单件组件并置 `consumed=true`，首刻仍保留炼器数据和自定义名称、默认名取 AIR、九毒取0；未初始化回收仍按来源复制全部物品组件，可以恢复其中附魔。该桥接保留消耗前的原引用语义，不提前冻结弹体数据。
+
+`001`–`004` 使用来源的物品弹体渲染；`005`–`008` 由 `FabaoProjectileModels` 的四个原生 `LayerDefinition` 与 `FabaoProjectileRenderer` 承载来源专用模型。四个几何层经静态归一比较与来源一致，方块数分别为3、12、5、8；四张 `textures/entities/fabao00501.png`–`fabao00801.png` 原字节复制且 SHA-256 一致，已登记 `system_assets.csv` 与 `manifest.csv`。渲染保留先偏航后俯仰、`entityCutout` 和来源透明度0.0625，对应目标 ARGB `0x0FFFFFFF`；这些是静态资源与 API 核对证据，完整视觉验收未执行。
+
+本批按上列来源事实接回完整炼器数据、九毒及单毒顺序、各类命中和回收分支、`003` 毒域时序与中心、`006` 两次伤害、`008` 冷却和 `005`–`008` 专用模型。八行物品和八行弹体登记“行为已迁移”；逐类自然行为、存档与视觉验收仍保留在未执行范围。
+
+### 验证范围
+
+静态依据为上述八个物品类、八个实体类和完整绑定过程；已核对使用入口、发射参数、临时字段、毒药顺序、命中、返回物品和毒域延迟。未新增或修改 Test 类、冒烟选择器、检查断言，也未使用 Computer Use。最终 `gradlew build` 通过，包含既有 test/check 与 ArchUnit；证据为 `tmp/fabao-final-build.log`。文档检查88篇、台账4939行和差异空白检查均0项问题。
+
+最终运行内置 `runSmokeClient -PsmokeOnly=equipmentweapon`，`EquipmentWeaponCheck` 五项既有弓与拂尘检查全为 `INFO`、`0 FAIL`、`DONE`；客户端正常保存 overworld、nether、end、xvkong 四维度后退出。专用服务器一次启动至 `Done`，导出109个实体，包含本批八种法宝弹体；Gradle 未转发标准输入，停服由现有工具调用原生 `MinecraftServer.halt(false)`，四维度正常保存并退出，未把键入但未转发的 `stop` 算作生效命令。客户端与专服日志均为 `ERROR/FATAL=0`，证据为 `tmp/fabao-smoke.log`、`tmp/fabao-report.txt`、`tmp/fabao-client-latest.log`、`tmp/fabao-server-latest.log` 与 `build/registry-export/entity_type.txt`。
+
+上述运行结果只作注册、资源加载和公共启动回归；本批逐类自然发射、实体/方块命中、冷却、回收字段、临时附件与弹体存档重载/死亡复制、完整视觉、1.18.2 实机、两版本对照与多人验收未执行。

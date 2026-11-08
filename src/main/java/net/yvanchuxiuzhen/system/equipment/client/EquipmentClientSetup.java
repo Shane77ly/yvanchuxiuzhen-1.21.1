@@ -12,6 +12,7 @@ import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
+import net.yvanchuxiuzhen.system.equipment.projectile.FabaoProjectile;
 import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
@@ -27,6 +28,11 @@ public final class EquipmentClientSetup {
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
                 event.registerEntityRenderer(EquipmentSetup.fuchenType().get(), ThrownItemRenderer::new));
         modBus.addListener(EquipmentClientSetup::registerToolRenderers);
+        modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> {
+            for (String model : FabaoProjectileModels.MODELS.values()) {
+                event.registerLayerDefinition(FabaoProjectileRenderer.layer(model), () -> FabaoProjectileModels.layer(model));
+            }
+        });
         modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
             for (var item : BuiltInRegistries.ITEM) {
                 if (item instanceof DemonArmorItem armor) armor.setRenderProvider(new DemonArmorRenderer.Provider());
@@ -46,5 +52,13 @@ public final class EquipmentClientSetup {
             }
         }
         event.registerEntityRenderer(EquipmentSetup.kailingProjectileType().get(), ThrownItemRenderer::new);
+        for (FabaoProjectile.Kind kind : FabaoProjectile.Kind.values()) {
+            String model = FabaoProjectileModels.MODELS.get(kind);
+            if (model == null) {
+                event.registerEntityRenderer(EquipmentSetup.fabaoProjectileType(kind).get(), ThrownItemRenderer::new);
+            } else {
+                event.registerEntityRenderer(EquipmentSetup.fabaoProjectileType(kind).get(), context -> new FabaoProjectileRenderer(context, model));
+            }
+        }
     }
 }

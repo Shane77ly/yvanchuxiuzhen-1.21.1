@@ -234,4 +234,14 @@ B0 完成步骤 1–5 后由负责人 2026-11-02 指示结束（逐步记录见[
 
 当前分支仍为 `port/c-skill`，继续按 1.18.2 版本来源过程推进 equipment。本批接回 `DantianbenmingfabaoProcedure`、`BenmingfabaotishengProcedure`、`DantianbenmingexpProcedure` 与 `DantianbenmingxianshiProcedure` 的实际调用链：修炼每秒事件触发、结丹期门槛、启灵与体质培养速度、单次一级上限、耐久消耗、法术/精神攻击交替升级、物品组件保存及丹田进度提交均已实现；补回经验上限为 0 时的来源初始化顺序。
 
-本批未新增 Test、冒烟选择器、断言或 Computer Use。验证沿用项目自带 `runSmokeClient -PsmokeOnly=equipmentweapon`，仅用于注册、资源加载和客户端启动回归；完整本命培养自然行为、存档重载、1.18.2 实机、两版本对照、多人和完整界面视觉仍待专项验收。下一步提交本批并继续 equipment 未闭合内容。
+本批已提交 `5fc3133`，未新增 Test、冒烟选择器、断言或 Computer Use。验证沿用项目自带 `runSmokeClient -PsmokeOnly=equipmentweapon`，仅用于注册、资源加载和客户端启动回归；完整本命培养自然行为、存档重载、1.18.2 实机、两版本对照、多人和完整界面视觉仍待专项验收。后续投掷法宝进展见下节。
+
+## 2026-11-08 投掷法宝批次与并行协作
+
+负责人授权启用子 agent 加速，当前采用共享工作树的三路分工：来源与物品入口核对、模型资源迁移、台账与正文；主会话整合玩法并串行执行构建、客户端与专服验证。沿用当前完整移植 goal，不建立重复 goal。当前分支 `port/c-skill`，前一提交 `5fc3133`；本批与本页同一提交，最新提交号以 `git log -1` 为准。`.eclipse/` 保留且不提交。
+
+已按 1.18.2 版本八个物品类、八个实体类及完整绑定过程接回 `fabao_001`–`008`：互斥的松开/使用刻发射入口、原引用临时栈与最后一件耗尽语义、首刻初始化、九毒、逐类伤害与回收分支、`003` 的十次延迟毒域、八种弹体及四套专用模型。来源疑似错误保持，具体字段边界与证据在[投掷法宝正文](../systems/equipment/architecture.md#投掷法宝fabao_0010082026-11-08)。八件物品与八种弹体登记“行为已迁移”，不据此标记整个 equipment 或 skill 完成。
+
+最终 `gradlew build`（含既有 test/check 与 ArchUnit）通过；内置 `runSmokeClient -PsmokeOnly=equipmentweapon` 五项既有检查全部 `INFO`、`0 FAIL`、`DONE`，客户端正常保存四维度并退出。专用服务器一次启动至 `Done`，实体导出109个，通过原生 `MinecraftServer.halt(false)` 正常保存四维度退出；客户端与专服日志 `ERROR/FATAL=0`。证据为 `tmp/fabao-final-build.log`、`tmp/fabao-smoke.log`、`tmp/fabao-report.txt`、`tmp/fabao-client-latest.log`、`tmp/fabao-server-latest.log`。本批未新增或修改 Test、检查代码、选择器，也未使用 Computer Use；这些客户端检查只覆盖注册、资源加载和启动回归，八法宝逐类自然发射/命中/冷却/回收、存档重载、完整视觉、1.18.2 实机、两版本对照与多人验收未执行。
+
+下一步：先核对[技能架构](../systems/skill/architecture.md)“迁移阶段”与“剩余元素与入口核对”，继续闭合 skill 的跨系统依赖及表现；equipment 的 `fabao_013` 仍需正式人间维度映射，`fabao_017`/`01701` 仍需动画实体和蛊虫收纳链，不补造临时玩法。继续使用项目内置客户端入口并按风险验证，不重复已通过的旧神通套件。skill 尚未完成，不合入 `main`。

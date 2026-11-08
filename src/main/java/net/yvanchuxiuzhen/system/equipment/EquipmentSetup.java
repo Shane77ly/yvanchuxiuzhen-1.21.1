@@ -18,6 +18,7 @@ import net.yvanchuxiuzhen.system.equipment.content.Fabao012Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao014Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao016Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao022Item;
+import net.yvanchuxiuzhen.system.equipment.content.FabaoProjectileItem;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
@@ -29,6 +30,8 @@ import net.yvanchuxiuzhen.system.equipment.projectile.Fabao010huoyan;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fuchen;
 import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fabao014;
+import net.yvanchuxiuzhen.system.equipment.projectile.FabaoProjectile;
+import net.yvanchuxiuzhen.system.equipment.projectile.FabaoPoisonFields;
 
 /**
  * 装备系统的启动装配，只在 Mod 构造时调用一次。
@@ -45,6 +48,10 @@ public final class EquipmentSetup {
         CONTENT.itemFactory("equipment:fuchen", FuchenItem::new);
         CONTENT.itemFactory("equipment:fabao_010", Fabao010Item::new);
         CONTENT.itemFactory("equipment:fabao_010huoyan", Fabao010huoyanItem::new);
+        for (FabaoProjectile.Kind kind : FabaoProjectile.Kind.values()) {
+            CONTENT.itemFactory("equipment:" + kind.itemId(), (properties, tooltip) ->
+                    new FabaoProjectileItem(kind, properties, tooltip));
+        }
         for (String itemId : new String[]{"flyinginstrument_0101", "flyinginstrument_0201", "flyinginstrument_0301", "flyinginstrument_0401",
                 "flyinginstrument_0501", "flyinginstrument_0601", "flyinginstrument_0701", "flyinginstrument_0801"}) {
             CONTENT.itemFactory("equipment:" + itemId, (properties, tooltip) ->
@@ -102,6 +109,9 @@ public final class EquipmentSetup {
         }
         CONTENT.<KailingProjectile>entity(KailingProjectile.ID, KailingProjectile::new);
         CONTENT.<Fabao014>entity(Fabao014.ID, Fabao014::new);
+        for (FabaoProjectile.Kind kind : FabaoProjectile.Kind.values()) {
+            CONTENT.<FabaoProjectile>entity(kind.entityId(), (type, level) -> new FabaoProjectile(type, level, kind));
+        }
         CONTENT.register(modBus);
         NeoForge.EVENT_BUS.addListener(EquipmentWeapons::tick);
         NeoForge.EVENT_BUS.addListener(EquipmentWeapons::rightClick);
@@ -118,6 +128,8 @@ public final class EquipmentSetup {
         NeoForge.EVENT_BUS.addListener(EquipmentAttributes::weaponStat);
         NeoForge.EVENT_BUS.addListener(EquipmentAttributes::modifiers);
         NeoForge.EVENT_BUS.addListener(BenmingCultivation::onCultivationSecond);
+        NeoForge.EVENT_BUS.addListener(FabaoPoisonFields::tick);
+        NeoForge.EVENT_BUS.addListener(FabaoPoisonFields::stopped);
     }
 
     public static Supplier<EntityType<Fuchen>> fuchenType() {
@@ -134,6 +146,10 @@ public final class EquipmentSetup {
 
     public static Supplier<EntityType<Fabao010huoyan>> fabao010FireType() {
         return CONTENT.entityType(Fabao010huoyan.ID);
+    }
+
+    public static Supplier<EntityType<FabaoProjectile>> fabaoProjectileType(FabaoProjectile.Kind kind) {
+        return CONTENT.entityType(kind.entityId());
     }
 
     public static Supplier<EntityType<ToolMachineEntity>> toolMachineType(ToolMachineEntity.Kind kind) {

@@ -23,6 +23,9 @@ public final class EquipmentData {
     public static final Supplier<AttachmentType<AccessoryData>> ACCESSORIES = ATTACHMENTS.register("accessories", () -> AttachmentType
             .builder(() -> new AccessoryData()).serialize(AccessoryData.CODEC).copyOnDeath()
             .sync((holder, player) -> holder == player, ByteBufCodecs.fromCodecWithRegistries(AccessoryData.CODEC)).build());
+    public static final Supplier<AttachmentType<FabaoTempData>> FABAO_TEMP = ATTACHMENTS.register("fabao_temp", () -> AttachmentType
+            .builder(() -> FabaoTempData.EMPTY).serialize(FabaoTempData.CODEC).copyOnDeath()
+            .sync((holder, player) -> holder == player, ByteBufCodecs.fromCodecWithRegistries(FabaoTempData.CODEC)).build());
     private static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ModId.VALUE);
     public static final Supplier<DataComponentType<EquipmentProperties>> PROPERTIES = COMPONENTS.registerComponentType("equipment_properties",
             builder -> builder.persistent(EquipmentProperties.CODEC).networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(EquipmentProperties.CODEC)));
