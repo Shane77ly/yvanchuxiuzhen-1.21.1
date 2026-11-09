@@ -5,9 +5,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -19,7 +21,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.Tags;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
@@ -35,7 +40,9 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
  * 04 弹飞、06 落雷、07 烈焰、08 冰封、11 护体、25 加速、46 火球。统一流程为先付精力、播释放声、取品阶，再按编号执行，最后消耗一张。
  */
 final class FuluInstant {
-    private static final Set<Integer> NUMBERS = Set.of(4, 5, 6, 7, 8, 9, 11, 12, 14, 25, 26, 27, 29, 32, 34, 38, 46);
+    private static final Set<Integer> NUMBERS = Set.of(1, 4, 5, 6, 7, 8, 9, 11, 12, 14, 25, 26, 27, 29, 32, 34, 36, 38, 46);
+
+    private static final TagKey<Block> ORES = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "ores"));
 
     private FuluInstant() {
     }
@@ -52,6 +59,7 @@ final class FuluInstant {
         double grade = FuluUse.grade(stack);
         ServerLevel level = player.serverLevel();
         switch (number) {
+            case 1 -> thunder(level, player, stack, grade);
             case 4 -> burst(level, player, grade);
             case 5 -> qiSword(level, player, grade);
             case 6 -> lightning(level, player, grade);
@@ -67,6 +75,7 @@ final class FuluInstant {
             case 29 -> frost(level, player, grade);
             case 32 -> cluster(level, player, grade);
             case 34 -> beast(level, player, grade, TalismanBeast.FATE_WHEEL, 7.5, "命轮符");
+            case 36 -> ores(level, player, stack, grade);
             case 38 -> beast(level, player, grade, TalismanBeast.WATER_DRAGON, 6, "水龙符");
             case 46 -> fireball(level, player, grade);
             default -> throw new IllegalArgumentException("not an instant talisman: " + number);
@@ -200,6 +209,45 @@ final class FuluInstant {
         }
         mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(mob);
+    }
+
+    /** 01：在视线 7 格处（先试下移 2、再试 1）召唤雷符实体，记入品阶、阵营与召唤者 UUID。 */
+    private static void thunder(ServerLevel level, ServerPlayer player, ItemStack stack, double grade) {
+        BlockPos spot = looked(level, player, 7);
+        if (level.isEmptyBlock(spot.below(2))) {
+            spot = spot.below(2);
+        } else if (level.isEmptyBlock(spot.below(1))) {
+            spot = spot.below(1);
+        }
+        TalismanBeast mob = FuluSetup.beast(TalismanBeast.THUNDER_PULL).get().create(level);
+        mob.moveTo(spot.getX(), spot.getY(), spot.getZ(), level.random.nextFloat() * 360F, 0);
+        Relations.copyAllegiance(player, mob);
+        mob.getPersistentData().putDouble("fululevel", grade);
+        mob.getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
+        mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
+        level.addFreshEntity(mob);
+    }
+
+    /**
+     * 36：以使用者所在位置为中心，水平 ±3 格、垂直自 {@code −20×品阶} 至 {@code −1} 格（只含脚下方，来源循环如此）内的矿石标签方块
+     * （来源 {@code forge:ores}，含原版矿石，对应本项目矿石标签与 {@code c:ores}）被破坏，掉落物落在使用者脚下；之后该符冷却 200 刻。
+     */
+    private static void ores(ServerLevel level, ServerPlayer player, ItemStack stack, double grade) {
+        BlockPos feet = BlockPos.containing(player.getX(), player.getY(), player.getZ());
+        for (int dx = -3; dx <= 3; dx++) {
+            for (int layer = 0; layer < (int) (grade * 20); layer++) {
+                double dy = grade * 20 - grade * 40 + layer;
+                for (int dz = -3; dz <= 3; dz++) {
+                    BlockPos pos = BlockPos.containing(player.getX() + dx, player.getY() + dy, player.getZ() + dz);
+                    BlockState state = level.getBlockState(pos);
+                    if (state.is(ORES) || state.is(Tags.Blocks.ORES)) {
+                        Block.dropResources(state, level, feet, null);
+                        level.destroyBlock(pos, false);
+                    }
+                }
+            }
+        }
+        player.getCooldowns().addCooldown(stack.getItem(), 200);
     }
 
     /** 05：品阶记入使用者持久数据，从眼前射出一枚穿透 10 的气剑。 */

@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -22,6 +23,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -59,6 +61,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * 来源在召唤时请求一次 {@code attack} 过程动画，之后回到默认循环，这里等价于每次出现时先播一次再循环。
  */
 public final class TalismanBeast extends PathfinderMob implements GeoEntity, AnimatedLook {
+    public static final String THUNDER_PULL = "fulutexiao_01";
     public static final String EARTH_HAND = "fulutexiao_26";
     public static final String SWORD_SOUL = "fulutexiao_27";
     public static final String FATE_WHEEL = "fulutexiao_34";
@@ -179,6 +182,7 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
         super.baseTick();
         if (level() instanceof ServerLevel level) {
             switch (model.id()) {
+                case THUNDER_PULL -> thunderPullTick(level);
                 case EARTH_HAND -> earthHandTick(level);
                 case SWORD_SOUL -> swordSoulTick(level);
                 case FATE_WHEEL -> fateWheelTick(level);
@@ -208,6 +212,41 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
     private List<Entity> nearby(ServerLevel level, Vec3 center, double halfSize) {
         return level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(halfSize)).stream()
                 .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList();
+    }
+
+    /**
+     * 雷符（01 号）：80 刻内向周围 4.5 格内非友方（召唤者与同类除外）施加向自身的水平拉力，云粒子向自身汇聚；
+     * 满 80 刻时落下一道仅视觉的闪电，4.5 格内非友方受雷属性固定伤害 {@code 20×品阶} 后消失。
+     */
+    private void thunderPullTick(ServerLevel level) {
+        double ticks = count("tick");
+        if (ticks >= 80) {
+            LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level);
+            bolt.moveTo(Vec3.atBottomCenterOf(BlockPos.containing(getX(), getY(), getZ())));
+            bolt.setVisualOnly(true);
+            level.addFreshEntity(bolt);
+            double damage = data().getDouble("fululevel") * 20;
+            for (Entity target : nearby(level, position(), 4.5)) {
+                if (!Relations.isFriendly(this, target)) {
+                    strike(level, target, "雷", damage);
+                }
+            }
+            data().putDouble("tick", 0);
+            discard();
+            return;
+        }
+        for (int index = 0; index < 5; index++) {
+            double x = getX() + Mth.nextInt(random, -10, 10);
+            double y = getY() + Mth.nextInt(random, 1, 10);
+            double z = getZ() + Mth.nextInt(random, -10, 10);
+            level.sendParticles(ParticleTypes.CLOUD, x, y, z, 0, (getX() - x) * 0.05, (getY() - y) * 0.05, (getZ() - z) * 0.05, 1);
+        }
+        for (Entity target : nearby(level, position(), 4.5)) {
+            if (!(target instanceof TalismanBeast) && !target.getStringUUID().equals(data().getString("belongToMasterUUID"))
+                    && !Relations.isFriendly(this, target)) {
+                target.setDeltaMovement(new Vec3((getX() - target.getX()) * 0.2, 0, (getZ() - target.getZ()) * 0.2));
+            }
+        }
     }
 
     /** 神压符：阶段一 20 刻后拍击 3.5 格内非友方（土属性 {@code 20×品阶}，缓慢、效果 002、虚弱各 40 刻）；阶段二停顿 5 刻；阶段三碎裂粒子 15 刻后消失。 */
@@ -360,9 +399,10 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
     /** 先播一次 {@code attack} 过程动画，再回到默认循环（来源召唤时请求一次过程动画）。 */
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        String number = model.id().substring("fulutexiao_".length());
+        String request = model.id().equals(THUNDER_PULL) ? "animation.fulu01texiao.skill01"
+                : "animation.fulutexiao" + model.id().substring("fulutexiao_".length()) + ".attack";
         controllers.add(new AnimationController<>(this, "main", model.lifecycle().animationTransitionTicks(),
-                state -> state.setAndContinue(RawAnimation.begin().thenPlay("animation.fulutexiao" + number + ".attack").thenLoop(model.idle()))));
+                state -> state.setAndContinue(RawAnimation.begin().thenPlay(request).thenLoop(model.idle()))));
     }
 
     @Override

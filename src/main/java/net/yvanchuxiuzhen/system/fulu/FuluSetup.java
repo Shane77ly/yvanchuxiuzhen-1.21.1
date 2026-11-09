@@ -48,7 +48,7 @@ public final class FuluSetup {
     /** 共享施用过程驱动的持续效果符编号，对应内容表工厂 {@code fulu:talisman_<编号>}。 */
     /** 蓄放后射出弹体的远程符编号，对应内容表工厂 {@code fulu:ranged_<编号>}。 */
     private static final int[] RANGED = {10, 20, 28, 33, 35};
-    private static final int[] TALISMANS = {2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 17, 19, 21, 24, 25, 26, 27, 29, 31, 32, 34, 38, 39, 46};
+    private static final int[] TALISMANS = {1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 17, 19, 21, 24, 25, 26, 27, 29, 31, 32, 34, 36, 38, 39, 46};
 
     static {
         for (int number : TALISMANS) {
@@ -70,7 +70,7 @@ public final class FuluSetup {
 
     static {
         for (EntityModelRow row : ContentFiles.read("content/fulu/entity_models.json", EntityModelRow.CODEC)) {
-            if (List.of(TalismanBeast.EARTH_HAND, TalismanBeast.SWORD_SOUL, TalismanBeast.FATE_WHEEL, TalismanBeast.WATER_DRAGON).contains(row.id())) {
+            if (List.of(TalismanBeast.THUNDER_PULL, TalismanBeast.EARTH_HAND, TalismanBeast.SWORD_SOUL, TalismanBeast.FATE_WHEEL, TalismanBeast.WATER_DRAGON).contains(row.id())) {
                 BEASTS.put(row.id(), row);
                 CONTENT.<TalismanBeast>livingEntity(row.id(), (type, level) -> new TalismanBeast(type, level, row), () -> TalismanBeast.attributes(row));
             }

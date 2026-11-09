@@ -1,4 +1,5 @@
 [
+{"id":"fulutexiao_01","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true},
 {"id":"fulutexiao_09","category":"MONSTER","width":0.2,"height":0.2,"tracking_range":64,"update_interval":3,"fire_immune":true},
 {"id":"fulutexiao_26","category":"MONSTER","width":0.1,"height":1.0,"tracking_range":64,"update_interval":3,"fire_immune":true},
 {"id":"fulutexiao_27","category":"MONSTER","width":0.6,"height":1.8,"tracking_range":64,"update_interval":3,"fire_immune":false},

@@ -2784,8 +2784,8 @@ yvanchuxiuzhen,Motiao01,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓�
 yvanchuxiuzhen,Motiao02,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓或画符材料：无过程；被 material 的 Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhi 按 ID 引用（奖励、初始物品、研磨或加工墨料、替死符在伤害结算中的检查），不赋予它规则
 yvanchuxiuzhen,Motiao03,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓或画符材料：无过程；被 material 的 Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhi 按 ID 引用（奖励、初始物品、研磨或加工墨料、替死符在伤害结算中的检查），不赋予它规则
 yvanchuxiuzhen,Motiao04,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓或画符材料：无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Fulutexiao01DangShiTiGengXinKeShi,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fulutexiao01,animatedentity,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fulutexiao01DangShiTiGengXinKeShi,procedure,~/item/huafu,fulu,已读,01号雷符召唤物与36号矿脉符过程已读
+yvanchuxiuzhen,Fulutexiao01,animatedentity,~/item/huafu,fulu,已读,01号雷符召唤物与36号矿脉符过程已读
 yvanchuxiuzhen,Itemfulu01DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu01 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu01,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu02DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu02 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果

@@ -21,7 +21,7 @@ block_entity_type,yvanchuxitong:huafutai,yvanchuxitong,Huafutai,src/main/java/ne
 block_entity_type,yvanchuxiuzhen:chuancheng,yvanchuxiuzhen,Chuancheng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,154,fulu,已读,yvanchuxiuzhen:chuancheng,已注册,1.21.1注册表导出确认传承方块、物品及菜单身份；玩法状态另按系统批次记录
 block_entity_type,yvanchuxiuzhen:itemfulu_15,yvanchuxiuzhen,Itemfulu15,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,140,fulu,已读,yvanchuxiuzhen:itemfulu_15,待处理,
 enchantment,yvanchuxiuzhen:charm,yvanchuxiuzhen,Charm,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,179,fulu,已读,yvanchuxiuzhen:charm,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
-entity_type,yvanchuxiuzhen:fulutexiao_01,yvanchuxiuzhen,Fulutexiao01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,607,fulu,候选,yvanchuxiuzhen:fulutexiao_01,待处理,
+entity_type,yvanchuxiuzhen:fulutexiao_01,yvanchuxiuzhen,Fulutexiao01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,607,fulu,已读,yvanchuxiuzhen:fulutexiao_01,行为已迁移,TalismanBeast雷符；FuluInstant 01与36
 entity_type,yvanchuxiuzhen:fulutexiao_09,yvanchuxiuzhen,Fulutexiao09,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,611,fulu,已读,yvanchuxiuzhen:fulutexiao_09,行为已迁移,TalismanSummon：浮空/雷暴/空爆三种行为
 entity_type,yvanchuxiuzhen:fulutexiao_26,yvanchuxiuzhen,Fulutexiao26,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,625,fulu,已读,yvanchuxiuzhen:fulutexiao_26,行为已迁移,TalismanBeast：神压/剑魂/命轮/水龙
 entity_type,yvanchuxiuzhen:fulutexiao_27,yvanchuxiuzhen,Fulutexiao27,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,627,fulu,已读,yvanchuxiuzhen:fulutexiao_27,行为已迁移,TalismanBeast：神压/剑魂/命轮/水龙
@@ -62,7 +62,7 @@ item,yvanchuxiuzhen:fulutexiao_46,yvanchuxiuzhen,Fulutexiao46,src/main/java/net/
 item,yvanchuxiuzhen:fuluzhushablock,yvanchuxiuzhen,Fuluzhushablock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2482,fulu,已读,yvanchuxiuzhen:fuluzhushablock,已注册,
 item,yvanchuxiuzhen:fuluzhushaitem,yvanchuxiuzhen,Fuluzhushaitem,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2483,fulu,已读,yvanchuxiuzhen:fuluzhushaitem,已注册,
 item,yvanchuxiuzhen:fushengdan,yvanchuxiuzhen,Fushengdan,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2792,fulu,已读,yvanchuxiuzhen:fushengdan,已注册,
-item,yvanchuxiuzhen:itemfulu_01,yvanchuxiuzhen,Itemfulu01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2494,fulu,已读,yvanchuxiuzhen:itemfulu_01,已注册,
+item,yvanchuxiuzhen:itemfulu_01,yvanchuxiuzhen,Itemfulu01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2494,fulu,已读,yvanchuxiuzhen:itemfulu_01,行为已迁移,TalismanBeast雷符；FuluInstant 01与36
 item,yvanchuxiuzhen:itemfulu_02,yvanchuxiuzhen,Itemfulu02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2495,fulu,已读,yvanchuxiuzhen:itemfulu_02,行为已迁移,共享施用过程（付精力、登记、逐刻推进）；内置fulucooking检查：02、24通过，03/31未验收；Q64
 item,yvanchuxiuzhen:itemfulu_03,yvanchuxiuzhen,Itemfulu03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2496,fulu,已读,yvanchuxiuzhen:itemfulu_03,行为已迁移,共享施用过程（付精力、登记、逐刻推进）；内置fulucooking检查：02、24通过，03/31未验收；Q64
 item,yvanchuxiuzhen:itemfulu_04,yvanchuxiuzhen,Itemfulu04,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2497,fulu,已读,yvanchuxiuzhen:itemfulu_04,行为已迁移,共享施用过程的一次性释放（FuluInstant）；内置fulucooking检查：11、25、46通过，04/06/07/08未专项验收
@@ -97,7 +97,7 @@ item,yvanchuxiuzhen:itemfulu_32,yvanchuxiuzhen,Itemfulu32,src/main/java/net/mcre
 item,yvanchuxiuzhen:itemfulu_33,yvanchuxiuzhen,Itemfulu33,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2533,fulu,已读,yvanchuxiuzhen:itemfulu_33,行为已迁移,RangedTalismanItem/TalismanProjectile远程符
 item,yvanchuxiuzhen:itemfulu_34,yvanchuxiuzhen,Itemfulu34,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2534,fulu,已读,yvanchuxiuzhen:itemfulu_34,已注册,
 item,yvanchuxiuzhen:itemfulu_35,yvanchuxiuzhen,Itemfulu35,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2535,fulu,已读,yvanchuxiuzhen:itemfulu_35,行为已迁移,RangedTalismanItem/TalismanProjectile远程符
-item,yvanchuxiuzhen:itemfulu_36,yvanchuxiuzhen,Itemfulu36,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2536,fulu,已读,yvanchuxiuzhen:itemfulu_36,已注册,
+item,yvanchuxiuzhen:itemfulu_36,yvanchuxiuzhen,Itemfulu36,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2536,fulu,已读,yvanchuxiuzhen:itemfulu_36,行为已迁移,TalismanBeast雷符；FuluInstant 01与36
 item,yvanchuxiuzhen:itemfulu_37,yvanchuxiuzhen,Itemfulu37,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2537,fulu,已读,yvanchuxiuzhen:itemfulu_37,已注册,
 item,yvanchuxiuzhen:itemfulu_38,yvanchuxiuzhen,Itemfulu38,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2538,fulu,已读,yvanchuxiuzhen:itemfulu_38,已注册,
 item,yvanchuxiuzhen:itemfulu_39,yvanchuxiuzhen,Itemfulu39,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2539,fulu,已读,yvanchuxiuzhen:itemfulu_39,行为已迁移,共享施用过程；21清除负面状态（Q65），39水下呼吸；内置fulucooking检查通过

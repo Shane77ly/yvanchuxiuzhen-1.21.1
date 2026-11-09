@@ -36,6 +36,7 @@ import net.yvanchuxiuzhen.system.cooking.content.CookingPotMenu;
 import net.yvanchuxiuzhen.system.cooking.client.CookingPotScreen;
 import net.yvanchuxiuzhen.system.fulu.DrawingTableRuntime;
 import net.yvanchuxiuzhen.system.fulu.FuluRanged;
+import net.yvanchuxiuzhen.system.fulu.FuluUse;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.fulu.api.FuluKnowledge;
 import net.yvanchuxiuzhen.system.fulu.client.DrawingTableScreen;
@@ -82,6 +83,8 @@ final class FuluCookingCheck extends ActionCheck {
     private double soul;
     private final Map<String, Double> talismanState = new LinkedHashMap<>();
     private Mob dummy;
+    private BlockPos oreAt;
+    private BlockState oreBefore;
 
     FuluCookingCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("fulucooking", report, levelId);
@@ -475,6 +478,35 @@ final class FuluCookingCheck extends ActionCheck {
                                     + "，余 " + p.getInventory().getItem(HOTBAR).getCount() + "）",
                             Cultivation.get(p, CultivationValue.SOUL) < 12 && p.getInventory().getItem(HOTBAR).getCount() == 1
                                     && p.getPersistentData().getDouble("fululevel") == 0);
+                
+                    oreAt = p.blockPosition().offset(2, -3, 0);
+                    oreBefore = p.serverLevel().getBlockState(oreAt);
+                    p.serverLevel().setBlockAndUpdate(oreAt, block("cailiao_20901"));
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_36", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    FuluUse.activate(p, p.getInventory().getItem(HOTBAR), 36);
+                }),
+                new Action(4, p -> {
+                    expectTrue("36 号符：水平 ±3、脚下方 20 格内的矿石标签方块被破坏，符冷却 200 刻并消耗一张",
+                            p.serverLevel().getBlockState(oreAt).isAir() && p.getInventory().getItem(HOTBAR).isEmpty()
+                                    && p.getCooldowns().isOnCooldown(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "itemfulu_36"))));
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_01", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    FuluUse.activate(p, p.getInventory().getItem(HOTBAR), 1);
+                }),
+                new Action(4, p -> {
+                    var thunder = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanBeast.class), mob -> true);
+                    expectTrue("01 号雷符：召唤雷符实体并携带品阶与召唤者 UUID（数量 " + thunder.size() + "）",
+                            thunder.size() == 1 && thunder.get(0).getPersistentData().getString("belongToMasterUUID").equals(p.getStringUUID())
+                                    && thunder.get(0).getPersistentData().getDouble("fululevel") == 1);
+                }),
+                new Action(84, p -> {
+                }),
+                new Action(4, p -> {
+                    expectTrue("雷符 80 刻后落雷并消失",
+                            p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanBeast.class), mob -> true).isEmpty());
                 })
         );
     }
@@ -535,6 +567,9 @@ final class FuluCookingCheck extends ActionCheck {
     @Override
     protected void cleanup(ServerPlayer player) {
         player.closeContainer();
+        if (oreAt != null) {
+            player.serverLevel().setBlockAndUpdate(oreAt, oreBefore);
+        }
         if (dummy != null) {
             dummy.discard();
             player.removeAllEffects();
