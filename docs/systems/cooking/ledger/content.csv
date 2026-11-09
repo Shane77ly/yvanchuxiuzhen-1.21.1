@@ -42,8 +42,8 @@ block,yvanchuxiuzhen:food_073,yvanchuxiuzhen,Food073,src/main/java/net/mcreator/
 block,yvanchuxiuzhen:food_074,yvanchuxiuzhen,Food074,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1672,cooking,已读,yvanchuxiuzhen:food_074,已注册,
 block,yvanchuxiuzhen:food_075,yvanchuxiuzhen,Food075,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1673,cooking,已读,yvanchuxiuzhen:food_075,已注册,
 block,yvanchuxiuzhen:food_076,yvanchuxiuzhen,Food076,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1674,cooking,已读,yvanchuxiuzhen:food_076,已注册,
-block,yvanchuxiuzhen:fooddaguo,yvanchuxiuzhen,Fooddaguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1948,cooking,已读,yvanchuxiuzhen:fooddaguo,待处理,
-block,yvanchuxiuzhen:fooddunguo,yvanchuxiuzhen,Fooddunguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1949,cooking,已读,yvanchuxiuzhen:fooddunguo,待处理,
+block,yvanchuxiuzhen:fooddaguo,yvanchuxiuzhen,Fooddaguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1948,cooking,已读,yvanchuxiuzhen:fooddaguo,已注册,1.21.1注册表导出确认专用工厂、菜单与两锅方块实体类型
+block,yvanchuxiuzhen:fooddunguo,yvanchuxiuzhen,Fooddunguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1949,cooking,已读,yvanchuxiuzhen:fooddunguo,已注册,1.21.1注册表导出确认专用工厂、菜单与两锅方块实体类型
 block,yvanchuxiuzhen:foodlongti,yvanchuxiuzhen,Foodlongti,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1951,cooking,已读,yvanchuxiuzhen:foodlongti,待处理,
 block,yvanchuxiuzhen:foodmuzeng,yvanchuxiuzhen,Foodmuzeng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2001,cooking,已读,yvanchuxiuzhen:foodmuzeng,已注册,
 block,yvanchuxiuzhen:foodzhengguo,yvanchuxiuzhen,Foodzhengguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1950,cooking,已读,yvanchuxiuzhen:foodzhengguo,待处理,
@@ -61,8 +61,8 @@ block_entity_type,yvanchuxitong:foodcipan,yvanchuxitong,Foodcipan,src/main/java/
 block_entity_type,yvanchuxitong:fooddawan,yvanchuxitong,Fooddawan,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlockEntities.java,121,cooking,已读,yvanchuxiuzhen:fooddawan,待处理,
 block_entity_type,yvanchuxitong:foodwan,yvanchuxitong,Foodwan,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlockEntities.java,119,cooking,已读,yvanchuxiuzhen:foodwan,待处理,
 block_entity_type,yvanchuxiuzhen:caidaoblock,yvanchuxiuzhen,Caidaoblock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,127,cooking,已读,yvanchuxiuzhen:caidaoblock,待处理,
-block_entity_type,yvanchuxiuzhen:fooddaguo,yvanchuxiuzhen,Fooddaguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,143,cooking,已读,yvanchuxiuzhen:fooddaguo,待处理,
-block_entity_type,yvanchuxiuzhen:fooddunguo,yvanchuxiuzhen,Fooddunguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,144,cooking,已读,yvanchuxiuzhen:fooddunguo,待处理,
+block_entity_type,yvanchuxiuzhen:fooddaguo,yvanchuxiuzhen,Fooddaguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,143,cooking,已读,yvanchuxiuzhen:fooddaguo,已注册,1.21.1注册表导出确认专用工厂、菜单与两锅方块实体类型
+block_entity_type,yvanchuxiuzhen:fooddunguo,yvanchuxiuzhen,Fooddunguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,144,cooking,已读,yvanchuxiuzhen:fooddunguo,已注册,1.21.1注册表导出确认专用工厂、菜单与两锅方块实体类型
 block_entity_type,yvanchuxiuzhen:foodlongti,yvanchuxiuzhen,Foodlongti,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,146,cooking,已读,yvanchuxiuzhen:foodlongti,待处理,
 block_entity_type,yvanchuxiuzhen:foodmuzeng,yvanchuxiuzhen,Foodmuzeng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,162,cooking,已读,yvanchuxiuzhen:foodmuzeng,待处理,
 block_entity_type,yvanchuxiuzhen:foodzhengguo,yvanchuxiuzhen,Foodzhengguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,145,cooking,已读,yvanchuxiuzhen:foodzhengguo,待处理,
@@ -170,8 +170,8 @@ item,yvanchuxiuzhen:food_081,yvanchuxiuzhen,Food081,src/main/java/net/mcreator/y
 item,yvanchuxiuzhen:food_082,yvanchuxiuzhen,Food082,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2195,cooking,已读,yvanchuxiuzhen:food_082,已注册,
 item,yvanchuxiuzhen:food_083,yvanchuxiuzhen,Food083,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2571,cooking,已读,yvanchuxiuzhen:food_083,已注册,
 item,yvanchuxiuzhen:food_084,yvanchuxiuzhen,Food084,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2966,cooking,已读,yvanchuxiuzhen:food_084,已注册,
-item,yvanchuxiuzhen:fooddaguo,yvanchuxiuzhen,Fooddaguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2553,cooking,已读,yvanchuxiuzhen:fooddaguo,待处理,
-item,yvanchuxiuzhen:fooddunguo,yvanchuxiuzhen,Fooddunguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2555,cooking,已读,yvanchuxiuzhen:fooddunguo,待处理,
+item,yvanchuxiuzhen:fooddaguo,yvanchuxiuzhen,Fooddaguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2553,cooking,已读,yvanchuxiuzhen:fooddaguo,已注册,1.21.1注册表导出确认专用工厂、菜单与两锅方块实体类型
+item,yvanchuxiuzhen:fooddunguo,yvanchuxiuzhen,Fooddunguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2555,cooking,已读,yvanchuxiuzhen:fooddunguo,已注册,1.21.1注册表导出确认专用工厂、菜单与两锅方块实体类型
 item,yvanchuxiuzhen:foodlongti,yvanchuxiuzhen,Foodlongti,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2559,cooking,已读,yvanchuxiuzhen:foodlongti,待处理,
 item,yvanchuxiuzhen:foodmuzeng,yvanchuxiuzhen,Foodmuzeng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2774,cooking,已读,yvanchuxiuzhen:foodmuzeng,已注册,
 item,yvanchuxiuzhen:foodzhengguo,yvanchuxiuzhen,Foodzhengguo,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2557,cooking,已读,yvanchuxiuzhen:foodzhengguo,待处理,

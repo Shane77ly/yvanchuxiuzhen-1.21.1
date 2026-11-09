@@ -38,6 +38,7 @@ FACTORIES = {'Block': 'block', 'SlabBlock': 'slab', 'StairBlock': 'stairs', 'Wal
              'PressurePlateBlock': 'pressure_plate', 'IronBarsBlock': 'pane', 'DoorBlock': 'door',
              'TrapDoorBlock': 'trapdoor', 'FallingBlock': 'falling', 'FlowerBlock': 'flower',
              'DoublePlantBlock': 'double_plant'}
+ANIMATED_BLOCK_FACTORIES = {'lianqi:repair_table', 'fulu:inheritance', 'cooking:iron_pot', 'cooking:clay_pot'}
 # 1.18.2 原版创造栏在 1.21.1 的对应；临时对应，待负责人确认。
 VANILLA_TABS = {'TAB_MISC': 'minecraft:tools_and_utilities', 'TAB_DECORATIONS': 'minecraft:building_blocks',
                 'TAB_TOOLS': 'minecraft:tools_and_utilities'}
@@ -352,6 +353,32 @@ def convert_alchemy_devices(source: Source) -> tuple[list[dict], list[dict]]:
     return blocks, items
 
 
+def convert_drawing_table(source: Source, add_lang) -> list[dict]:
+    """画符知识转统一键名，按来源五项分组保留有序配方及其专用显示名。"""
+    recipes = []
+    source_knowledge = {}
+    for category, count in (('futou', 11), ('tiandizhu', 4), ('fudan', 8)):
+        names = {}
+        for number in range(1, count + 1):
+            source_key = f'txt.yvanchuxitong.huafu_{category}_{number:02d}'
+            names[source.lang['zh_cn'][source_key]] = number
+            for language in LANGUAGES:
+                add_lang('fulu', language, source_key.replace('yvanchuxitong', NAMESPACE), source.lang[language][source_key])
+        source_knowledge[category] = names
+    for language in LANGUAGES:
+        tokens = source.lang[language]['list.yvanchuxitong.fululist'].split('/')
+        if len(tokens) % 5:
+            raise ValueError(f'画符表不是完整五项分组：{language}')
+        for index in range(0, len(tokens), 5):
+            head, core, name, item, ink = tokens[index:index + 5]
+            path = item.split(':', 1)[1]
+            add_lang('fulu', language, f'gui.{NAMESPACE}.huafu_gui.recipe.{path}', name)
+            if language == 'zh_cn':
+                recipes.append({'head': source_knowledge['futou'][head], 'core': source_knowledge['fudan'][core],
+                                'item': f'{NAMESPACE}:{path}', 'ink': int(ink)})
+    return recipes
+
+
 def main() -> None:
     global OUTPUT_OWNER
     parser = argparse.ArgumentParser(description=__doc__)
@@ -382,12 +409,12 @@ def main() -> None:
         target = targets[('block', legacy_id)].split(':', 1)[1]
         class_name = source.block_class[path]
         text = source.java('block', class_name)
-        if overrides.get(('block', target)) == 'lianqi:repair_table':
-            # 修理台的动画状态和实体渲染由系统类承担，基础属性仍取锁定来源。
+        if overrides.get(('block', target)) in ANIMATED_BLOCK_FACTORIES:
+            # 动画状态和实体渲染由系统类承担，基础属性仍取锁定来源。
             text = re.sub(r'public static final IntegerProperty ANIMATION = [^;]+;', '', text)
             text = re.sub(r'@Override\s+public RenderShape getRenderShape\([^)]*\) \{[^}]*\}', '', text)
         base = re.search(r'public class \w+ extends (\w+)', text).group(1)
-        if base not in BASES and overrides.get(('block', target)) != 'lianqi:repair_table':
+        if base not in BASES and overrides.get(('block', target)) not in ANIMATED_BLOCK_FACTORIES:
             skipped.append(('block', legacy_id, f'方块基类 {base} 由所属系统迁移'))
             continue
         try:
@@ -398,11 +425,12 @@ def main() -> None:
         block_tooltips[(mod, path)] = row.pop('tooltip', [])
         base = row.pop('base')
         factory = overrides[('block', target)] if ('block', target) in overrides else FACTORIES[base]
-        if factory == 'lianqi:blueprint_table':
+        if factory in ('lianqi:blueprint_table', 'fulu:inheritance'):
             strength = re.search(r'\.strength\((-?[\d.]+)f?, ?([\d.]+)f?\)', text)
             row['strength'] = [float(strength.group(1)), float(strength.group(2))]
         if factory in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod',
-                       'lianqi:repair_table', 'lianqi:sewing_basket', 'lianqi:blueprint_table', 'lianqi:poison_cauldron'):
+                       'lianqi:repair_table', 'lianqi:sewing_basket', 'lianqi:blueprint_table', 'lianqi:poison_cauldron',
+                       'fulu:drawing_table', 'fulu:ash_burner', 'fulu:soot', 'fulu:inheritance', 'cooking:iron_pot', 'cooking:clay_pot'):
             row.pop('pending_hooks', None)
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:
@@ -431,8 +459,8 @@ def main() -> None:
                 row['tooltip'] = block_tooltips[(mod, path)]
         else:
             class_name = source.item_class.get(path)
-            if overrides.get(('item', target)) == 'lianqi:repair_table':
-                items_by_unit[unit].append({'id': target, 'factory': 'lianqi:repair_table', 'block': target,
+            if overrides.get(('item', target)) in ANIMATED_BLOCK_FACTORIES:
+                items_by_unit[unit].append({'id': target, 'factory': overrides[('item', target)], 'block': target,
                                            'order': order, 'tab': source.tabs['TAB_YVANCHU_BLOCK']})
                 continue
             if class_name is None and path in source.geckolib_armor and ('item', target) in overrides:
@@ -517,6 +545,7 @@ def main() -> None:
     prefix_keys = convert_prefix_lang(sources, add_lang)
     material_definitions = convert_material_definitions(sources, targets)
     herb_definitions = convert_herb_definitions(sources, targets)
+    drawing_recipes = convert_drawing_table(sources['yvanchuxitong'], add_lang)
     alchemy_blocks, alchemy_items = convert_alchemy_devices(sources['yvanchuxiuzhen'])
     blocks_by_unit['liandan'].extend(alchemy_blocks)
     items_by_unit['liandan'].extend(alchemy_items)
@@ -547,6 +576,7 @@ def main() -> None:
     write_rows(CONTENT / 'platform' / 'tabs.json', sorted(tabs, key=lambda t: t['id']))
     write_rows(CONTENT / 'material' / 'definitions.json', material_definitions)
     write_rows(CONTENT / 'liandan' / 'herbs.json', herb_definitions)
+    write_rows(CONTENT / 'fulu' / 'drawing_recipes.json', drawing_recipes)
     write_lang(lang)
     CONVERSION.mkdir(parents=True, exist_ok=True)
     if OUTPUT_OWNER is not None:

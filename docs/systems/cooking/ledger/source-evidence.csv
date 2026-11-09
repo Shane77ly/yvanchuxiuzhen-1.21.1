@@ -1,0 +1,5 @@
+source_mod,element,type,source_file,line,owner,ownership,evidence,target,implementation
+yvanchuxiuzhen,Fooddaguohecheng,recipe,src/main/resources/data/yvanchuxiuzhen/recipes/fooddaguohecheng.json,1,cooking,已读,原木与铁锭有序合成铁锅；转换输入与输出SHA-1登记于docs/reference/conversion/data_manifest.csv,data/yvanchuxiuzhen/recipe/fooddaguohecheng.json,已转换；来源实机及目标配方实测未执行
+yvanchuxiuzhen,Fooddunguohecheng,recipe,src/main/resources/data/yvanchuxiuzhen/recipes/fooddunguohecheng.json,1,cooking,已读,黏土球围炼药锅有序合成砂锅；转换输入与输出SHA-1登记于docs/reference/conversion/data_manifest.csv,data/yvanchuxiuzhen/recipe/fooddunguohecheng.json,已转换；来源实机及目标配方实测未执行
+yvanchuxitong,Cookbegin,procedure,src/main/java/net/mcreator/yvanchuxitong/procedures/CookbeginProcedure.java,35,cooking,已读,菜谱开始流程检查器具/职业/容器与材料，蒸锅另检查笼屉；目标当前只覆盖两锅菜谱路径,CookingRecipes.begin,部分实现；静态源码复核；专项运行验收未执行
+yvanchuxitong,Wushipupengren,procedure,src/main/java/net/mcreator/yvanchuxitong/procedures/WushipupengrenProcedure.java,1,cooking,已读,墨料坯按九个槽位取cailiao实例等级均值和三类材料、烟灰朱砂门槛分档，来源时序及扣料静态核对,InkBlankCooking,已实现；静态源码复核；专项运行验收未执行

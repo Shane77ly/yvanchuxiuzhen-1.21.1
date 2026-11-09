@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/chuancheng.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/chuancheng"
+  }
+}

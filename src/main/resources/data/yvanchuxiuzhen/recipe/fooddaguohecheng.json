@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "3 5",
+    " 7 "
+  ],
+  "key": {
+    "0": {
+      "tag": "minecraft:logs"
+    },
+    "1": {
+      "tag": "minecraft:logs"
+    },
+    "2": {
+      "tag": "minecraft:logs"
+    },
+    "3": {
+      "item": "minecraft:iron_ingot"
+    },
+    "5": {
+      "item": "minecraft:iron_ingot"
+    },
+    "7": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:fooddaguo",
+    "count": 1
+  }
+}

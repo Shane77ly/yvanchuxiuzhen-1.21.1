@@ -263,3 +263,12 @@ liandan,texture,yvanchuxiuzhen:blocks/alchemy_08
 lianqi,geo,yvanchuxiuzhen:xiulitai
 lianqi,animation,yvanchuxiuzhen:xiulitai
 lianqi,texture,yvanchuxiuzhen:blocks/xiulitai
+fulu,geo,yvanchuxiuzhen:chuancheng
+fulu,animation,yvanchuxiuzhen:chuancheng
+fulu,texture,yvanchuxiuzhen:blocks/chuancheng
+cooking,geo,yvanchuxiuzhen:fooddaguo
+cooking,animation,yvanchuxiuzhen:fooddaguo
+cooking,texture,yvanchuxiuzhen:blocks/fooddaguo
+cooking,geo,yvanchuxiuzhen:fooddunguo
+cooking,animation,yvanchuxiuzhen:fooddunguo
+cooking,texture,yvanchuxiuzhen:blocks/fooddunguo

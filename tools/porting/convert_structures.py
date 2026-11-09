@@ -7,6 +7,7 @@
 把字符串值里出现的来源命名空间（`yvanchuxitong:`）换成本 Mod 的命名空间，覆盖方块调色板、方块实体 ID、
 容器内物品 ID，以及方块实体里存放的任务、对话、商品等机械设定文本中嵌入的 ID（这些文本由所属系统解析）。
 实体/方块实体 nbt 的直接子键 ForgeData 改为 NeoForgeData，使来源结构保存的自定义字段进入目标持久数据。
+传承之光方块实体的持久字段 weizhi 按十一种来源符头名称转为稳定整数编号，其他身份的同名字段保持原类型。
 NBT 没有复合与列表的长度前缀，只有字符串带长度，因此按标签逐个走一遍，原样复制字节，遇到需要改写的字符串时重写其长度。
 规则见 docs/development/engineering.md“资源转换管线”。
 """
@@ -25,6 +26,11 @@ DATA = ROOT / 'src/main/resources/data' / NAMESPACE / 'structure'
 MANIFEST = CONVERSION / 'structure_manifest.csv'
 OLD_PREFIXES = tuple(f'{mod}:'.encode() for mod in SOURCES if mod != NAMESPACE)
 FIXED_SIZES = {1: 1, 2: 2, 3: 4, 4: 8, 5: 4, 6: 8}
+INHERITANCE_ID = f'{NAMESPACE}:chuancheng'
+INHERITANCE_HEADS = {name: index for index, name in enumerate((
+    '风来神王', '炎君', '扫把星', '紫微帝君', '丹王', '八方剑魂',
+    '大梦圣君', '天狼王', '六界渡者', '星河龟灵', '雷帝',
+), 1)}
 
 
 class Rewriter:
@@ -37,6 +43,7 @@ class Rewriter:
         self.palette_names: set[str] = set()
         self.in_palette = 0
         self.persistent_data_tags = 0
+        self.inheritance_fields = 0
 
     def copy(self, count: int) -> None:
         self.out += self.data[self.position:self.position + count]
@@ -51,7 +58,7 @@ class Rewriter:
         self.out += struct.pack('>H', len(raw)) + raw
         return raw.decode('utf-8', 'replace')
 
-    def payload(self, tag: int, key: str = '') -> None:
+    def payload(self, tag: int, key: str = '', persistent_fields: list[tuple[int, int, str]] | None = None) -> str | None:
         data = self.data
         if tag in FIXED_SIZES:
             self.copy(FIXED_SIZES[tag])
@@ -62,6 +69,7 @@ class Rewriter:
             value = self.string()
             if key == 'Name' and self.in_palette:
                 self.palette_names.add(value)
+            return value
         elif tag == 9:
             element = data[self.position]
             count = struct.unpack_from('>i', data, self.position + 1)[0]
@@ -75,10 +83,20 @@ class Rewriter:
                     self.payload(element, key)
                 self.in_palette -= in_palette
         elif tag == 10:
+            entity_id = ''
+            inheritance_fields: list[tuple[int, int, str]] = []
             while True:
                 kind = data[self.position]
+                tag_start = len(self.out)
                 self.copy(1)
                 if kind == 0:
+                    if key == 'nbt' and entity_id == INHERITANCE_ID:
+                        # 来源结构的 id 位于 ForgeData 之后，复合标签读完再按身份替换。
+                        for start, end, value in reversed(inheritance_fields):
+                            if value in INHERITANCE_HEADS:
+                                name = b'weizhi'
+                                self.out[start:end] = bytes((3,)) + struct.pack('>H', len(name)) + name + struct.pack('>i', INHERITANCE_HEADS[value])
+                                self.inheritance_fields += 1
                     return
                 length = struct.unpack_from('>H', data, self.position)[0]
                 raw_name = data[self.position + 2:self.position + 2 + length]
@@ -90,7 +108,12 @@ class Rewriter:
                     self.persistent_data_tags += 1
                 else:
                     self.copy(2 + length)
-                self.payload(kind, name)
+                fields = inheritance_fields if key == 'nbt' and kind == 10 and name == 'ForgeData' else None
+                value = self.payload(kind, name, fields)
+                if key == 'nbt' and kind == 8 and name == 'id':
+                    entity_id = value
+                if persistent_fields is not None and kind == 8 and name == 'weizhi':
+                    persistent_fields.append((tag_start, len(self.out), value))
         else:
             raise ValueError(f'未知 NBT 标签类型 {tag}')
 
@@ -110,6 +133,7 @@ class Rewriter:
 def main() -> None:
     manifest = []
     persistent_data_tags = 0
+    inheritance_fields = 0
     targets: dict[str, str] = {}
     DATA.mkdir(parents=True, exist_ok=True)
     for mod, (root, _) in SOURCES.items():
@@ -123,6 +147,7 @@ def main() -> None:
             rewriter = Rewriter(raw)
             rewritten = rewriter.run()
             persistent_data_tags += rewriter.persistent_data_tags
+            inheritance_fields += rewriter.inheritance_fields
             remaining = rewritten.count(b'yvanchuxitong')
             if remaining:
                 print(f'{file.name}: 改写后仍有 {remaining} 处 yvanchuxitong（不是“命名空间:”形式）')
@@ -135,7 +160,7 @@ def main() -> None:
         writer = csv.writer(handle, lineterminator='\n')
         writer.writerow(['source', 'source_sha1', 'target', 'palette_names'])
         writer.writerows(manifest)
-    print('structures', len(manifest), 'persistent_data_tags', persistent_data_tags)
+    print('structures', len(manifest), 'persistent_data_tags', persistent_data_tags, 'inheritance_fields', inheritance_fields)
 
 
 if __name__ == '__main__':

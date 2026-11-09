@@ -1,0 +1,7 @@
+source_mod,element,type,source_file,line,owner,ownership,evidence,target,implementation
+yvanchuxitong,FutougetGo,procedure,src/main/java/net/mcreator/yvanchuxitong/procedures/FutougetGoProcedure.java,55,fulu,已读,按来源序号去重追加符头知识并同步；首次解锁写入烧灰标志；来源静态审计见tmp/fulu-next-batch-audit.md,FuluKnowledgeRuntime.unlockHead,已实现；静态源码核对；构建通过；专项运行验收未执行
+yvanchuxitong,FudangetGo,procedure,src/main/java/net/mcreator/yvanchuxitong/procedures/FudangetGoProcedure.java,40,fulu,已读,符胆知识去重追加同步；成功后按主手再副手顺序消费fuluget物品,FuluKnowledgeRuntime.unlockCore,已实现；静态源码核对；构建通过；专项运行验收未执行
+yvanchuxitong,Huizhifulu,procedure,src/main/java/net/mcreator/yvanchuxitong/procedures/HuizhifuluProcedure.java,59,fulu,已读,按首个匹配配方、纸墨与等级条件绘制；保留经验先于耗材扣除及同物同等级叠加语义,DrawingTableRuntime.draw,已实现；静态源码核对；构建通过；专项运行验收未执行
+yvanchuxitong,Huafutai,block_entity,src/main/java/net/mcreator/yvanchuxitong/block/entity/HuafutaiBlockEntity.java,1,fulu,已读,画符库存及当前符头天地柱符胆选择归共享方块实体；来源选择/菜单流程见tmp/fulu-next-batch-audit.md,DrawingTableBlockEntity,已实现；目标注册表导出与静态源码核对；专项运行验收未执行
+yvanchuxitong,HuafushaohuiGengXinYouXiKe,procedure,src/main/java/net/mcreator/yvanchuxitong/procedures/HuafushaohuiGengXinYouXiKeProcedure.java,1,fulu,已读,每40次10刻调度处理一个槽；从槽8向0查找并逐层升级烟灰；无论生成是否成功均清空来源整栈,AshBurnerRuntime,已实现；静态源码核对；构建通过；专项运行验收未执行
+yvanchuxiuzhen,ChuanchengZaiFangKuaiShangYouJian,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/ChuanchengZaiFangKuaiShangYouJianProcedure.java,1,fulu,已读,传承之光按共享方块实体选择授予符头；循环与管理入口静态核对见tmp/fulu-next-batch-audit.md,InheritanceRuntime,已实现；目标注册表导出与静态源码核对；自然结构布置及专项运行验收未执行

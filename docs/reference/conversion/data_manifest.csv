@@ -1433,6 +1433,8 @@ yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/food_083hecheng_3.
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/food_084hecheng.json,951d9cdbf6d8b04cb112197d2c51af3c69882f48,src/main/resources/data/yvanchuxiuzhen/recipe/food_084hecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/food_084hecheng_2.json,ed601413335e420851905c7757877669551c42db,src/main/resources/data/yvanchuxiuzhen/recipe/food_084hecheng_2.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/food_084hecheng_3.json,37ad2c3628e4eb566f53de9119f45bb4ea0515ad,src/main/resources/data/yvanchuxiuzhen/recipe/food_084hecheng_3.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/fooddaguohecheng.json,7ed683d21bc9234c5228a3644d7bf95f6852a227,src/main/resources/data/yvanchuxiuzhen/recipe/fooddaguohecheng.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/fooddunguohecheng.json,2cce1e0e5ff8b914254e48d65971312a96a75295,src/main/resources/data/yvanchuxiuzhen/recipe/fooddunguohecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/fulufuzhihecheng.json,12298adc0f974c26d3c5d54acc434ff9c392d891,src/main/resources/data/yvanchuxiuzhen/recipe/fulufuzhihecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/fuluhuangzhihecheng.json,23dd486e5a8a5cf0e41d59c90b0d251293162349,src/main/resources/data/yvanchuxiuzhen/recipe/fuluhuangzhihecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/gardeniahecheng.json,a8b310ae95a85818192471a96a41a2a1800d872a,src/main/resources/data/yvanchuxiuzhen/recipe/gardeniahecheng.json
@@ -1688,3 +1690,4 @@ yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/wallwhitewarmslabe
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/wallwhitewarmslabhecheng.json,c76ccffe02d04e45d0f1d51665b5f287b873550a,src/main/resources/data/yvanchuxiuzhen/recipe/wallwhitewarmslabhecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/wallwhitewarmstairshecheng.json,0b6a34f3170dfa5fa31706a44112f137a5bcdba3,src/main/resources/data/yvanchuxiuzhen/recipe/wallwhitewarmstairshecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/warpedbigdoorhecheng.json,7fc21bce0f74133baa799634854bb17f1fbce7dc,src/main/resources/data/yvanchuxiuzhen/recipe/warpedbigdoorhecheng.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/xiulitaihecheng.json,fd7b109aef10803a50a02086d87ddcabf01e6875,src/main/resources/data/yvanchuxiuzhen/recipe/xiulitaihecheng.json

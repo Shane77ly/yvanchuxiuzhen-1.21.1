@@ -2,6 +2,8 @@ package net.yvanchuxiuzhen.system.book.content;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -12,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec2;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
@@ -36,6 +39,12 @@ public final class StudyBookItem extends ContentItem {
         }
         CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         if (!data.getString("textdisplay").isEmpty()) {
+            if (data.getBoolean("fuluget") && player.isShiftKeyDown()) {
+                String command = data.getString("fulumingling").replace("aaa", player.getDisplayName().getString());
+                CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, player.position(), Vec2.ZERO,
+                        serverPlayer.serverLevel(), 4, "", Component.empty(), serverPlayer.server, null).withSuppressedOutput();
+                serverPlayer.server.getCommands().performPrefixedCommand(source, command);
+            }
             return result;
         }
         if (data.getString("TreasureTypeBig").equals("书架")) {

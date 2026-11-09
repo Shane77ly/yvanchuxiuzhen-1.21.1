@@ -64,6 +64,7 @@
 {"id":"itemfulu_44","factory":"item","order":1564,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["召唤一只重甲云灵。","符箓品阶越高，云灵属性越强。"],"pending_hooks":["use"]},
 {"id":"fulutexiao_45","factory":"item","order":1565,"stack":1,"pending_hooks":["releaseUsing","use"]},
 {"id":"itemfulu_45","factory":"item","order":1566,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["符箓犹如炮弹一样射出，造成范围火属性伤害并弹飞周围生物。","符箓品阶越高，伤害越高。"],"pending_hooks":["use"]},
+{"id":"chuancheng","factory":"fulu:inheritance","block":"chuancheng","order":1648,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"itemfulu_47","factory":"item","order":1651,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["【镐】连锁挖矿，附魔等级越高，连锁范围越大。","主手手持此符，右键对副手的镐子附上连锁采集附魔。"],"pending_hooks":["use"]},
 {"id":"fushengdan","factory":"item","order":1764,"tab":"yvanchuxiuzhen:tabyvanchu_materials","food":{"nutrition":0,"saturation_mod":0.0,"always_eat":true},"tooltip":["吃下后瞬间毙命，但却能保你进入轮回，重新做人。"],"pending_hooks":["finishUsingItem"]},
 {"id":"itemfulu_48","factory":"item","order":1881,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["【斧、镐、铲、锄】可以让工具拥有自动开采的能力。","主手手持此符，副手拿着工具，然后右键即可对工具附魔。"],"pending_hooks":["use"]},

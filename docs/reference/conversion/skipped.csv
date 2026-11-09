@@ -2,7 +2,6 @@ registry,legacy_id,reason
 block,yvanchuxiuzhen:biggrassyincang,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:caidaoblock,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:canhe,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:chuancheng,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:dimensiondiling_portal,方块基类 NetherPortalBlock 由所属系统迁移
 block,yvanchuxiuzhen:dimensionrenjian_portal,方块基类 NetherPortalBlock 由所属系统迁移
 block,yvanchuxiuzhen:dimensiontianqve_portal,方块基类 NetherPortalBlock 由所属系统迁移
@@ -12,8 +11,6 @@ block,yvanchuxiuzhen:dimensionyaohun_portal,方块基类 NetherPortalBlock 由�
 block,yvanchuxiuzhen:fabao_009,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:flagmother,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:flagson,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:fooddaguo,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:fooddunguo,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:foodlongti,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:foodzhengguo,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:gongfaxvexi,方块基类 BaseEntityBlock 由所属系统迁移
@@ -66,7 +63,6 @@ item,yvanchuxiuzhen:businessman_30_spawn_egg,物品类 ForgeSpawnEggItem 由所�
 item,yvanchuxiuzhen:caidaoblock,物品类 CaidaoblockDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:caishenye_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:canhe,物品类 CanheDisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:chuancheng,物品类 ChuanchengDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:clothes_08_boots,Clothes08Item.Boots：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_08_chestplate,Clothes08Item.Chestplate：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_08_helmet,Clothes08Item.Helmet：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
@@ -99,8 +95,6 @@ item,yvanchuxiuzhen:daguanjia_spawn_egg,物品类 ForgeSpawnEggItem 由所属系
 item,yvanchuxiuzhen:fabao_009,物品类 Fabao009DisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:flagmother,物品类 FlagmotherDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:flagson,物品类 FlagsonDisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:fooddaguo,物品类 FooddaguoDisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:fooddunguo,物品类 FooddunguoDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:foodlongti,物品类 FoodlongtiDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:foodzhengguo,物品类 FoodzhengguoDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:fuqi_02_boots,物品类 Fuqi02Item（GeckoLib 盔甲）由所属系统迁移

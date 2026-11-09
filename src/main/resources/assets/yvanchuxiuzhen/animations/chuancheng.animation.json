@@ -1,0 +1,198 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"0": {
+			"loop": true,
+			"animation_length": 4,
+			"bones": {
+				"guangxiao1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [360, 0, 0]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"1.04": {
+							"vector": [0, 0, 0]
+						},
+						"2.2": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"xvanzhuan1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [0, 0, 360]
+						}
+					}
+				},
+				"guangxiao2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [0, 0, 360]
+						}
+					},
+					"scale": {
+						"1.8": {
+							"vector": [1, 1, 1]
+						},
+						"2.84": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"xvanzhuan2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [360, 0, 0]
+						}
+					}
+				},
+				"guangxiao3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [0, 0, 360]
+						}
+					},
+					"scale": {
+						"0.8": {
+							"vector": [1, 1, 1]
+						},
+						"1.84": {
+							"vector": [0, 0, 0]
+						},
+						"3.0": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"xvanzhuan3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [360, 0, 0]
+						}
+					}
+				},
+				"guangxiao4": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [0, 0, 360]
+						}
+					},
+					"scale": {
+						"1.6": {
+							"vector": [1, 1, 1]
+						},
+						"2.64": {
+							"vector": [0, 0, 0]
+						},
+						"3.8": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"xvanzhuan4": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [0, 360, 0]
+						}
+					}
+				},
+				"guangxiao5": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [0, 0, -360]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"1.04": {
+							"vector": [0, 0, 0]
+						},
+						"2.2": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"xvanzhuan5": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [360, 0, 0]
+						}
+					}
+				},
+				"guangxiao6": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [360, 0, 360]
+						}
+					},
+					"scale": {
+						"0.4": {
+							"vector": [1, 1, 1]
+						},
+						"1.44": {
+							"vector": [0, 0, 0]
+						},
+						"2.6": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"xvanzhuan6": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"4.0": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

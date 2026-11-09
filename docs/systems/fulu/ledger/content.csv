@@ -1,7 +1,7 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
 block,yvanchuxitong:huafushaohui,yvanchuxitong,Huafushaohui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlocks.java,327,fulu,已读,yvanchuxiuzhen:huafushaohui,已注册,
 block,yvanchuxitong:huafutai,yvanchuxitong,Huafutai,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlocks.java,209,fulu,已读,yvanchuxiuzhen:huafutai,已注册,
-block,yvanchuxiuzhen:chuancheng,yvanchuxiuzhen,Chuancheng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1966,fulu,已读,yvanchuxiuzhen:chuancheng,待处理,
+block,yvanchuxiuzhen:chuancheng,yvanchuxiuzhen,Chuancheng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1966,fulu,已读,yvanchuxiuzhen:chuancheng,已注册,1.21.1注册表导出确认传承方块、物品及菜单身份；玩法状态另按系统批次记录
 block,yvanchuxiuzhen:fulutexiao_42,yvanchuxiuzhen,Fulutexiao42,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1943,fulu,已读,yvanchuxiuzhen:fulutexiao_42,已注册,
 block,yvanchuxiuzhen:fulutexiao_4202,yvanchuxiuzhen,Fulutexiao4202,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1944,fulu,已读,yvanchuxiuzhen:fulutexiao_4202,已注册,
 block,yvanchuxiuzhen:fulutexiao_4203,yvanchuxiuzhen,Fulutexiao4203,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1945,fulu,已读,yvanchuxiuzhen:fulutexiao_4203,已注册,
@@ -16,9 +16,9 @@ block,yvanchuxiuzhen:yanhui_05,yvanchuxiuzhen,Yanhui05,src/main/java/net/mcreato
 block,yvanchuxiuzhen:yanhui_06,yvanchuxiuzhen,Yanhui06,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2071,fulu,已读,yvanchuxiuzhen:yanhui_06,已注册,
 block,yvanchuxiuzhen:yanhui_07,yvanchuxiuzhen,Yanhui07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2072,fulu,已读,yvanchuxiuzhen:yanhui_07,已注册,
 block,yvanchuxiuzhen:yanhui_08,yvanchuxiuzhen,Yanhui08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2073,fulu,已读,yvanchuxiuzhen:yanhui_08,已注册,
-block_entity_type,yvanchuxitong:huafushaohui,yvanchuxitong,Huafushaohui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlockEntities.java,174,fulu,已读,yvanchuxiuzhen:huafushaohui,待处理,
-block_entity_type,yvanchuxitong:huafutai,yvanchuxitong,Huafutai,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlockEntities.java,124,fulu,已读,yvanchuxiuzhen:huafutai,待处理,
-block_entity_type,yvanchuxiuzhen:chuancheng,yvanchuxiuzhen,Chuancheng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,154,fulu,已读,yvanchuxiuzhen:chuancheng,待处理,
+block_entity_type,yvanchuxitong:huafushaohui,yvanchuxitong,Huafushaohui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlockEntities.java,174,fulu,已读,yvanchuxiuzhen:huafushaohui,已注册,1.21.1注册表导出确认
+block_entity_type,yvanchuxitong:huafutai,yvanchuxitong,Huafutai,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModBlockEntities.java,124,fulu,已读,yvanchuxiuzhen:huafutai,已注册,1.21.1注册表导出确认
+block_entity_type,yvanchuxiuzhen:chuancheng,yvanchuxiuzhen,Chuancheng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,154,fulu,已读,yvanchuxiuzhen:chuancheng,已注册,1.21.1注册表导出确认传承方块、物品及菜单身份；玩法状态另按系统批次记录
 block_entity_type,yvanchuxiuzhen:itemfulu_15,yvanchuxiuzhen,Itemfulu15,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,140,fulu,已读,yvanchuxiuzhen:itemfulu_15,待处理,
 enchantment,yvanchuxiuzhen:charm,yvanchuxiuzhen,Charm,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,179,fulu,已读,yvanchuxiuzhen:charm,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
 entity_type,yvanchuxiuzhen:fulutexiao_01,yvanchuxiuzhen,Fulutexiao01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,607,fulu,候选,yvanchuxiuzhen:fulutexiao_01,待处理,
@@ -45,7 +45,7 @@ entity_type,yvanchuxiuzhen:projectile_itemfulu_41,yvanchuxiuzhen,Itemfulu41,src/
 feature,yvanchuxiuzhen:fuluzhushablock,yvanchuxiuzhen,Fuluzhushablock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFeatures.java,504,fulu,已读,yvanchuxiuzhen:fuluzhushablock,待处理,
 item,yvanchuxitong:huafushaohui,yvanchuxitong,Huafushaohui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,240,fulu,已读,yvanchuxiuzhen:huafushaohui,已注册,
 item,yvanchuxitong:huafutai,yvanchuxitong,Huafutai,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,104,fulu,已读,yvanchuxiuzhen:huafutai,已注册,
-item,yvanchuxiuzhen:chuancheng,yvanchuxiuzhen,Chuancheng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2658,fulu,已读,yvanchuxiuzhen:chuancheng,待处理,
+item,yvanchuxiuzhen:chuancheng,yvanchuxiuzhen,Chuancheng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2658,fulu,已读,yvanchuxiuzhen:chuancheng,已注册,1.21.1注册表导出确认传承方块、物品及菜单身份；玩法状态另按系统批次记录
 item,yvanchuxiuzhen:fulufuzhi,yvanchuxiuzhen,Fulufuzhi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2489,fulu,已读,yvanchuxiuzhen:fulufuzhi,已注册,
 item,yvanchuxiuzhen:fuluhuangzhi,yvanchuxiuzhen,Fuluhuangzhi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2488,fulu,已读,yvanchuxiuzhen:fuluhuangzhi,已注册,
 item,yvanchuxiuzhen:fulutexiao_05,yvanchuxiuzhen,Fulutexiao05,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2498,fulu,已读,yvanchuxiuzhen:fulutexiao_05,已注册,
@@ -130,9 +130,9 @@ item,yvanchuxiuzhen:yanhui_06,yvanchuxiuzhen,Yanhui06,src/main/java/net/mcreator
 item,yvanchuxiuzhen:yanhui_07,yvanchuxiuzhen,Yanhui07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3120,fulu,已读,yvanchuxiuzhen:yanhui_07,已注册,
 item,yvanchuxiuzhen:yanhui_08,yvanchuxiuzhen,Yanhui08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3121,fulu,已读,yvanchuxiuzhen:yanhui_08,已注册,
 item,yvanchuxiuzhen:yanhuiitem,yvanchuxiuzhen,Yanhuiitem,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3113,fulu,已读,yvanchuxiuzhen:yanhuiitem,已注册,
-menu,yvanchuxitong:huafu_gui,yvanchuxitong,HuafuGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,88,fulu,候选,yvanchuxiuzhen:huafu_gui,待处理,
-menu,yvanchuxitong:huafushaohui_gui,yvanchuxitong,HuafushaohuiGui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,115,fulu,候选,yvanchuxiuzhen:huafushaohui_gui,待处理,
-menu,yvanchuxiuzhen:chuancheng_gui,yvanchuxiuzhen,ChuanchengGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,88,fulu,已读,yvanchuxiuzhen:chuancheng_gui,待处理,
+menu,yvanchuxitong:huafu_gui,yvanchuxitong,HuafuGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,88,fulu,已读,yvanchuxiuzhen:huafu_gui,已注册,1.21.1注册表导出确认
+menu,yvanchuxitong:huafushaohui_gui,yvanchuxitong,HuafushaohuiGui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,115,fulu,已读,yvanchuxiuzhen:huafushaohui_gui,已注册,1.21.1注册表导出确认
+menu,yvanchuxiuzhen:chuancheng_gui,yvanchuxiuzhen,ChuanchengGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,88,fulu,已读,yvanchuxiuzhen:chuancheng_gui,已注册,1.21.1注册表导出确认传承方块、物品及菜单身份；玩法状态另按系统批次记录
 mob_effect,yvanchuxiuzhen:fulutexiao_18,yvanchuxiuzhen,Fulutexiao18,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,153,fulu,候选,yvanchuxiuzhen:fulutexiao_18,待处理,
 mob_effect,yvanchuxiuzhen:fulutexiao_41,yvanchuxiuzhen,Fulutexiao41,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,154,fulu,候选,yvanchuxiuzhen:fulutexiao_41,待处理,
 sound_event,yvanchuxiuzhen:fulushifang,yvanchuxiuzhen,,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModSounds.java,26,fulu,已读,yvanchuxiuzhen:fulushifang,已注册,

@@ -2930,8 +2930,8 @@ yvanchuxiuzhen,FoodzhengguoZaiFangKuaiShangYouJian,procedure,~/food/chujv,cookin
 yvanchuxiuzhen,Foodzhengguo,animatedblock,~/food/chujv,cooking,已读,B1 归属阅读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）
 yvanchuxiuzhen,FoodlongtiZaiFangKuaiShangYouJian,procedure,~/food/chujv,cooking,已读,B1 归属阅读：随 Foodlongti 读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）
 yvanchuxiuzhen,Foodlongti,animatedblock,~/food/chujv,cooking,已读,B1 归属阅读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）
-yvanchuxiuzhen,Fooddaguohecheng,recipe,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fooddunguohecheng,recipe,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fooddaguohecheng,recipe,~/food/chujv,cooking,已读,核对两锅及墨料坯当前接入的来源过程和完整有序合成配方
+yvanchuxiuzhen,Fooddunguohecheng,recipe,~/food/chujv,cooking,已读,核对两锅及墨料坯当前接入的来源过程和完整有序合成配方
 yvanchuxiuzhen,Foodlongtihecheng,recipe,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Foodzhengguohecheng,recipe,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,LongtiGui,gui,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3478,7 +3478,7 @@ yvanchuxiuzhen,Businessman07,animatedentity,~/entity/npc,npc,已读,B1 归属阅
 yvanchuxiuzhen,Moblist02,procedure,~/decorate/jiegou/moblist,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Setjiegou01,procedure,~/decorate/jiegou/buildlist,world,已读,B1 归属阅读：随 Liexi 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
 yvanchuxiuzhen,Ling14item,animateditem,~/decorate/jiegou,world,已读,B1 归属阅读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
-yvanchuxiuzhen,ChuanchengZaiFangKuaiShangYouJian,procedure,~/decorate/OtherDecorative,fulu,已读,系统设计·已读裁定：按方块配置执行 unlock futou add 1–11
+yvanchuxiuzhen,ChuanchengZaiFangKuaiShangYouJian,procedure,~/decorate/OtherDecorative,fulu,已读,核对知识学习、绘制、烧灰及传承已接入来源调用链；剩余施用与世界内容另批
 yvanchuxiuzhen,Chuancheng,animatedblock,~/decorate/OtherDecorative,fulu,已读,系统设计·已读裁定：按方块配置执行 unlock futou add 1–11
 yvanchuxiuzhen,Chuanchenguiqiehuan,procedure,~/decorate/OtherDecorative,fulu,已读,系统设计·已读裁定：按方块配置执行 unlock futou add 1–11
 yvanchuxiuzhen,ChuanchengXianshi,procedure,~/decorate/OtherDecorative,fulu,已读,系统设计·已读裁定：按方块配置执行 unlock futou add 1–11
@@ -6250,8 +6250,8 @@ yvanchuxitong,Money01hecheng,recipe,~/shop,economy,候选,第一版批量归组�
 yvanchuxitong,Money02hecheng,recipe,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Money03hecheng,recipe,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Duihuashijiantwo,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,HuafuGUI,gui,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Huafutai,block,~/huafu,fulu,已读,B1 归属阅读：符箓或画符材料：无过程；被 flow 的 RightClickBlock 按 ID 引用（奖励、初始物品、研磨或加工墨料、替死符在伤害结算中的检查），不赋予它规则
+yvanchuxitong,HuafuGUI,gui,~/huafu,fulu,已读,核对知识学习、绘制、烧灰及传承已接入来源调用链；剩余施用与世界内容另批
+yvanchuxitong,Huafutai,block,~/huafu,fulu,已读,核对知识学习、绘制、烧灰及传承已接入来源调用链；剩余施用与世界内容另批
 yvanchuxitong,Futouxianshi01,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Futouxianshi02,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Futouxianshi03,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6286,7 +6286,7 @@ yvanchuxitong,TiandizhuTxtXianshi,procedure,~/huafu,fulu,候选,第一版批量�
 yvanchuxitong,FudanTxtXianshi,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Grind,command,~/zhiling,craft,已读,B:GrindCommand:24-64调用GrindGo；唯一自然入口A:StonemillZaiFangKuaiShangYouJian:53-61执行grind 4；七种石磨工艺加工随craft，目标未实现
 yvanchuxitong,GrindGo,procedure,~/zhiling,craft,已读,B:GrindGoProcedure:35-227操作石磨三槽与七种产物；旧输出复制及槽0数量缓存异常按来源记录；由Grind调用，随craft石磨实现
-yvanchuxitong,Huizhifulu,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Huizhifulu,procedure,~/huafu,fulu,已读,核对知识学习、绘制、烧灰及传承已接入来源调用链；剩余施用与世界内容另批
 yvanchuxitong,Fuluxvqiushuaxin,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,FulunameXianshi,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Dinglu,tag,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6392,15 +6392,15 @@ yvanchuxitong,Tieguoshicai08txt,procedure,~/yvanchupengren/tieguo,cooking,候选
 yvanchuxitong,Tieguoshicai09txt,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tieguocaipuname,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tieguorongqiname,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Cookbegin,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Cookbegin,procedure,~/yvanchupengren/tieguo,cooking,已读,核对两锅及墨料坯当前接入的来源过程和完整有序合成配方
 yvanchuxitong,Baoxiang0102,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Linshiceshiliandan,procedure,~/yvanchuliandan,liandan,已读,完整读取临时开炉算法及LiandanLVjiance调用；全来源Java检索无调用该过程的入口，登记炼丹归属，实际正式开炉以LiandanBegin为准。
 yvanchuxitong,BaoxiangsetGo,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Baoxiangset,command,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,BaoxiangChengpin,procedure,~/baoxiang,treasure,已读,C skill依赖：LianqiCommand以权限1调用BaoxiangChengpin；奖励成品经命令坐标容器槽0生成并在原坐标掉落，装备类型/品阶/实例数值由equipment公开构造，奖励表仍归treasure
 yvanchuxitong,Lianqi,command,~/baoxiang,treasure,已读,C skill依赖：LianqiCommand以权限1调用BaoxiangChengpin；奖励成品经命令坐标容器槽0生成并在原坐标掉落，装备类型/品阶/实例数值由equipment公开构造，奖励表仍归treasure
-yvanchuxitong,FudangetGo,procedure,~/zhiling,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,FutougetGo,procedure,~/zhiling,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,FudangetGo,procedure,~/zhiling,fulu,已读,核对知识学习、绘制、烧灰及传承已接入来源调用链；剩余施用与世界内容另批
+yvanchuxitong,FutougetGo,procedure,~/zhiling,fulu,已读,核对知识学习、绘制、烧灰及传承已接入来源调用链；剩余施用与世界内容另批
 yvanchuxitong,EntityTick,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tripod01ZaiFangKuaiShangYouJian,procedure,~/yvanchulianqi/dinglu,lianqi,已读,B1 归属阅读：随 Tripod01 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,SearchingforstructureGo,procedure,~/xvnzhanyiji,world,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7401,12 +7401,12 @@ yvanchuxitong,Jingliancailiao,procedure,~/yvanchulianqi,lianqi,已读,B1 归属�
 yvanchuxitong,Rongliancailiao,procedure,~/yvanchulianqi,lianqi,已读,B1 归属阅读：随 Tripod01 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Cailiaoshop01,procedure,~/shop/shangdianshuaxin,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,HuafushaohuiFangKuaiShiTiXuanRanShi,procedure,~/huafu,fulu,已读,B1 归属阅读：随 Huafushaohui 读：画符台与烧毁台：画符界面与烧符生成烟灰 yanhui，烟灰方块随邻接更新，属画符
-yvanchuxitong,HuafushaohuiGengXinYouXiKe,procedure,~/huafu,fulu,已读,B1 归属阅读：随 Huafushaohui 读：画符台与烧毁台：画符界面与烧符生成烟灰 yanhui，烟灰方块随邻接更新，属画符
-yvanchuxitong,Huafushaohui,block,~/huafu,fulu,已读,B1 归属阅读：画符台与烧毁台：画符界面与烧符生成烟灰 yanhui，烟灰方块随邻接更新，属画符
-yvanchuxitong,HuafushaohuiGui,gui,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,HuafushaohuiZaiFangKuaiShangYouJian,procedure,~/huafu,fulu,已读,B1 归属阅读：随 Huafushaohui 读：画符台与烧毁台：画符界面与烧符生成烟灰 yanhui，烟灰方块随邻接更新，属画符
+yvanchuxitong,HuafushaohuiGengXinYouXiKe,procedure,~/huafu,fulu,已读,核对知识学习、绘制、烧灰及传承已接入来源调用链；剩余施用与世界内容另批
+yvanchuxitong,Huafushaohui,block,~/huafu,fulu,已读,核对知识学习、绘制、烧灰及传承已接入来源调用链；剩余施用与世界内容另批
+yvanchuxitong,HuafushaohuiGui,gui,~/huafu,fulu,已读,核对知识学习、绘制、烧灰及传承已接入来源调用链；剩余施用与世界内容另批
+yvanchuxitong,HuafushaohuiZaiFangKuaiShangYouJian,procedure,~/huafu,fulu,已读,核对知识学习、绘制、烧灰及传承已接入来源调用链；剩余施用与世界内容另批
 yvanchuxitong,Huafushaohuihecheng,recipe,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Wushipupengren,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Wushipupengren,procedure,~/yvanchupengren/tieguo,cooking,已读,核对两锅及墨料坯当前接入的来源过程和完整有序合成配方
 yvanchuxitong,Tieguoshiyongzhinan,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tieguoshiyongzhinan2,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Zhengguoshiyongzhinan,procedure,~/yvanchupengren,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）

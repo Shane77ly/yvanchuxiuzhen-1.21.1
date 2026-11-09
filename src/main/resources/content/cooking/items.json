@@ -164,6 +164,8 @@
 {"id":"shicai_00102","factory":"item","order":1233,"tab":"yvanchuxiuzhen:tabyvanchu_food"},
 {"id":"shicai_00202","factory":"item","order":1243,"tab":"yvanchuxiuzhen:tabyvanchu_food"},
 {"id":"shicai_056","factory":"item","order":1471,"tab":"yvanchuxiuzhen:tabyvanchu_food","pending_hooks":["useOn"]},
+{"id":"fooddaguo","factory":"cooking:iron_pot","block":"fooddaguo","order":1568,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
+{"id":"fooddunguo","factory":"cooking:clay_pot","block":"fooddunguo","order":1569,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"dingxiangflowerdry","factory":"item","order":1573,"tab":"yvanchuxiuzhen:tabyvanchu_food"},
 {"id":"tiaowei_07","factory":"item","order":1576,"tab":"yvanchuxiuzhen:tabyvanchu_food"},
 {"id":"shicai_057","factory":"item","order":1577,"tab":"yvanchuxiuzhen:tabyvanchu_food"},

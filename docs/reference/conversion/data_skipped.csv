@@ -211,49 +211,8 @@ tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yvanchunpc.jso
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yvanchunpc.json,成员 yvanchuxiuzhen:businessman_29 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yvanchunpc.json,成员 yvanchuxiuzhen:businessman_27 未登记，由所属系统迁移
 tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yvanchunpc.json,成员全部未登记，整个标签未生成，随所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_08_helmet 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_08_chestplate 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_08_leggings 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_08_boots 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_09_helmet 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_09_chestplate 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_09_leggings 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_09_boots 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_10_helmet 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_10_chestplate 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_10_leggings 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_10_boots 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_110_helmet 来源没有登记该 ID（来源标签的悬空引用）
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_11_chestplate 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_11_leggings 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_11_boots 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_12_helmet 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_12_chestplate 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_12_leggings 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_12_boots 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/kuzi.json,成员 yvanchuxiuzhen:clothes_08_leggings 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/kuzi.json,成员 yvanchuxiuzhen:clothes_09_leggings 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/kuzi.json,成员 yvanchuxiuzhen:clothes_10_leggings 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/kuzi.json,成员 yvanchuxiuzhen:clothes_11_leggings 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/kuzi.json,成员 yvanchuxiuzhen:clothes_12_leggings 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/toukui.json,成员 yvanchuxiuzhen:clothes_08_helmet 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/toukui.json,成员 yvanchuxiuzhen:clothes_09_helmet 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/toukui.json,成员 yvanchuxiuzhen:clothes_10_helmet 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/toukui.json,成员 yvanchuxiuzhen:clothes_11_helmet 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/toukui.json,成员 yvanchuxiuzhen:clothes_12_helmet 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/xiongjia.json,成员 yvanchuxiuzhen:clothes_08_chestplate 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/xiongjia.json,成员 yvanchuxiuzhen:clothes_09_chestplate 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/xiongjia.json,成员 yvanchuxiuzhen:clothes_10_chestplate 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/xiongjia.json,成员 yvanchuxiuzhen:clothes_11_chestplate 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/xiongjia.json,成员 yvanchuxiuzhen:clothes_12_chestplate 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/zhanxve.json,成员 yvanchuxiuzhen:clothes_08_boots 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/zhanxve.json,成员 yvanchuxiuzhen:clothes_09_boots 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/zhanxve.json,成员 yvanchuxiuzhen:clothes_10_boots 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/zhanxve.json,成员 yvanchuxiuzhen:clothes_11_boots 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/zhanxve.json,成员 yvanchuxiuzhen:clothes_12_boots 未登记，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/canhehecheng.json,引用未登记的物品 yvanchuxiuzhen:canhe，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/fooddaguohecheng.json,引用未登记的物品 yvanchuxiuzhen:fooddaguo，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/fooddunguohecheng.json,引用未登记的物品 yvanchuxiuzhen:fooddunguo，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/foodlongtihecheng.json,引用未登记的物品 yvanchuxiuzhen:foodlongti，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/foodmuzenghecheng.json,引用未登记的物品 yvanchuxiuzhen:foodzhengguo，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/foodzhengguohecheng.json,引用未登记的物品 yvanchuxiuzhen:foodlongti，由所属系统迁移
@@ -263,7 +222,6 @@ recipe_count_clamped,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recip
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/stonemillhecheng.json,引用未登记的物品 yvanchuxiuzhen:stonemill，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/stonerollerhecheng.json,引用未登记的物品 yvanchuxiuzhen:stoneroller，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/taolunhecheng.json,引用未登记的物品 yvanchuxiuzhen:taolun，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/xiulitaihecheng.json,引用未登记的物品 yvanchuxiuzhen:xiulitai，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/zhibujihecheng.json,引用未登记的物品 yvanchuxiuzhen:zhibuji，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/zhuangshiqiantonghecheng.json,引用未登记的物品 yvanchuxiuzhen:taolun，由所属系统迁移
 function,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/functions/playerchuansuo.mcfunction,函数引用本 Mod 的维度，随 world 迁移
