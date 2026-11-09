@@ -14,7 +14,19 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Evoker;
+import net.minecraft.world.entity.monster.Illusioner;
+import net.minecraft.world.entity.monster.Pillager;
+import net.minecraft.world.entity.monster.Vindicator;
+import net.minecraft.world.entity.monster.Witch;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -28,11 +40,11 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /**
- * 毒药类状态效果（{@code duyao_01}–{@code duyao_20}）。共同结构：只作用于存活的生物和不在创造、旁观模式的玩家；
+ * 毒药类状态效果（{@code duyao_01}–{@code duyao_21}）。周期结算只作用于存活的生物和不在创造、旁观模式的玩家；
  * 到达周期后玩家按体质 {@code PoisonLoseEfficacyPercentage} 的概率免疫本周期（只有周期型的伤害类毒药检查），
  * 伤害按体质 {@code PoisonEffectPercentage} 放大，再直接扣减当前生命（不经伤害结算）。
  * 周期计数、累积层数存在实体持久化数据（玩家的累积层数存在体质物品，即 xiulian 的体质键）。
- * {@code duyao_16}、{@code duyao_18} 是标记，等级由伤害结算读取。
+ * {@code duyao_16}、{@code duyao_18} 是标记，等级由伤害结算读取；结束行为随原生属性移除钩子执行。
  */
 final class PoisonEffects {
     private PoisonEffects() {
@@ -125,9 +137,37 @@ final class PoisonEffects {
                     entity.addEffect(new MobEffectInstance(StatusEffects.holder(effect), 1200, 2));
                 }
             }
+
+            @Override
+            public void ended(LivingEntity entity, int amplifier) {
+                transformZombie(entity);
+            }
         });
         tables.effectBehavior("duyao_20", new Corpse());
         tables.effectBehavior("duyao_21", new Mandrake());
+    }
+
+    /** 毒厄丹移除属性时转换指定生物，先转交装备和设置基础值，再执行原生生成初始化。 */
+    private static void transformZombie(LivingEntity entity) {
+        if (!(entity instanceof Animal || entity instanceof Villager || entity instanceof Witch
+                || entity instanceof Pillager || entity instanceof Vindicator || entity instanceof Evoker
+                || entity instanceof Illusioner)) return;
+        ServerLevel level = (ServerLevel) entity.level();
+        Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
+        zombie.moveTo(entity.getX(), entity.getY(), entity.getZ(), level.getRandom().nextFloat() * 360, 0);
+        for (EquipmentSlot slot : List.of(EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND, EquipmentSlot.HEAD,
+                EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET)) {
+            zombie.setItemSlot(slot, entity.getItemBySlot(slot));
+        }
+        zombie.getAttribute(Attributes.MAX_HEALTH).setBaseValue(130);
+        zombie.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(6);
+        zombie.getPersistentData().putDouble("attack_Def", 6);
+        zombie.getPersistentData().putDouble("mana_Def", 4);
+        zombie.getPersistentData().putDouble("soul_Def", 10);
+        zombie.getPersistentData().putDouble("LEVELnumber", 1);
+        zombie.finalizeSpawn(level, level.getCurrentDifficultyAt(zombie.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
+        level.addFreshEntity(zombie);
+        entity.discard();
     }
 
     /** 伤害按体质 {@code PoisonEffectPercentage} 放大（只对玩家，该项为 0 时不放大）。 */
@@ -209,6 +249,11 @@ final class PoisonEffects {
                 MobEffects.HEALTH_BOOST, MobEffects.ABSORPTION, MobEffects.LUCK);
 
         @Override
+        public void ended(LivingEntity entity, int amplifier) {
+            if (!(entity instanceof Player)) entity.getPersistentData().putDouble("Duyao05level", 0);
+        }
+
+        @Override
         public boolean tick(LivingEntity entity, int amplifier) {
             if (EffectSupport.eligible(entity) && EffectSupport.every(entity, "Duyao05tick", 40) && !resisted(entity)) {
                 double level;
@@ -266,6 +311,12 @@ final class PoisonEffects {
 
     /** 一日丧命散：每 20 刻累积 1 层，满 1200 层（20 分钟）毙命；玩家的灵力每次被压到 1，生物则被沉默 2 秒。 */
     private static final class DayDeath implements EffectBehavior {
+        @Override
+        public void ended(LivingEntity entity, int amplifier) {
+            if (entity instanceof ServerPlayer player) Cultivation.setTizhiDouble(player, "duyao07level", 0);
+            else entity.getPersistentData().putDouble("duyao07level", 0);
+        }
+
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {
             if (!EffectSupport.eligible(entity) || !EffectSupport.every(entity, "duyao07tick", 20)) {

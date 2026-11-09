@@ -18,8 +18,10 @@ import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.liandan.content.DuedanItem;
 
-/** 潜行右键实体时以主手药瓶喂药，任务交互目标沿用来源的前置分派条件。 */
+/** 毒厄丹优先处理生物喂用，药瓶潜行喂药沿用来源的任务交互分派条件。 */
 public final class MedicineFeeding {
     private static final TagKey<Item> MEDICINE = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "danyaoguan"));
@@ -34,11 +36,18 @@ public final class MedicineFeeding {
             return;
         }
         Entity target = event.getTarget();
+        ItemStack stack = player.getMainHandItem();
+        if (stack.getItem() instanceof DuedanItem) {
+            if (target instanceof Mob mob) {
+                stack.shrink(1);
+                StatusEffects.add(mob, "duyao_19", 1200, 0);
+            }
+            return;
+        }
         // 来源先给 NPC 设置 renwuzuopen，再以该标记独占任务分支；此处只读取分派条件。
         if (target.getType().is(NPC) || target.getPersistentData().getBoolean("renwuzuopen")) {
             return;
         }
-        ItemStack stack = player.getMainHandItem();
         if (!stack.is(MEDICINE)) {
             return;
         }

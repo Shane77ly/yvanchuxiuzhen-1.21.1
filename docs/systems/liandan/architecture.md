@@ -7,7 +7,7 @@ updated: 2026-11-09
 
 # 炼丹、药理、药物与毒药
 
-本页记录已核对的 1.18.2 版本来源规则与 1.21.1 版本实现范围。源码定位采用[系统导航](../README.md)的 A/B 规则，公开操作见[系统入口](README.md#公开操作)。八档丹炉自然炼制链、八种药瓶消费/放置链、分丹台及药理台已有相应构建和客户端样本验证；2026-11-09 本批接回百草鉴辨识、药草提示、全解锁及玩家附件，来源静态核对已完成，构建、内置客户端54条INFO/0FAIL/DONE及专服加载保存退出通过。证据与边界见[月志](logs/2026-11.md)；毒药结束回调等仍未实现，不能据此标记系统完成。
+本页记录已核对的 1.18.2 版本来源规则与 1.21.1 版本实现范围。源码定位采用[系统导航](../README.md)的 A/B 规则，公开操作见[系统入口](README.md#公开操作)。八档丹炉自然炼制链、八种药瓶消费/放置链、分丹台及药理台已有相应构建和客户端样本验证；百草鉴辨识、药草提示、全解锁及玩家附件的来源静态核对、构建、内置客户端54条INFO/0FAIL/DONE及专服加载保存退出通过。2026-11-09 本批补齐毒厄丹自服与喂用，三种毒药结束回调由 combat 接回；本批来源静态已核、构建通过，专服清零与转换样本已验证；内置客户端回归及未验收范围见本月记录。证据与边界见[月志](logs/2026-11.md)，不能据此标记系统完成。
 
 ## 八档丹炉与状态
 
@@ -266,9 +266,36 @@ L 至少 1 时以权限 4、无执行实体、屏蔽输出的来源执行 `effec
 | playercaoyaojiexi | Lore | 224 | 读取/访问 | panel 公共提示分派，仅只读炼丹查询 |
 | caoyaolist | Worldbegin | 48 | 写回 | flow 世界加载定义，由 liandan 运行目录承接 |
 
+## 毒厄丹自服、喂用与效果所有权（2026-11-09）
+
+`A:item/DuedanItem:21–23,33–40` 定义64堆叠、UNCOMMON、零营养和零饱和且允许随时食用；完成使用时先执行原版 `super.finishUsingItem`，再调用 `A:DuedanWanJiaWanChengShiYongWuPinShiProcedure:13–18`。该过程按 `effect_003`、`effect_006`、`effect_005` 顺序施加效果，每种2400游戏刻、放大值2。1.21.1版本通过专用 `DuedanItem` 工厂与 `finishUsingItem` 保留该顺序，由 combat 的 `StatusEffects.add` 承担效果行为。
+
+`A:RightClickEntityProcedure:55–58,182–187` 在事件手与玩家当前使用手相同时，检查主手毒厄丹和非玩家的 Mob/Animal 目标；先扣主手物品1个，再给目标 `duyao_19` 1200游戏刻、放大值0。这一分支早于来源NPC与任务分派，也不要求潜行或目标无敌意，创造模式同样扣物品。目标 `MedicineFeeding.onInteract` 保留优先级，由 Mob 覆盖来源的 Mob/Animal 范围；玩家不属于该目标类型。
+
+`A:potion/Duyao05MobEffect`、`Duyao07MobEffect`、`Duyao19MobEffect:28–30` 均从 `removeAttributeModifiers` 触发结束过程，覆盖到期、主动移除以及刷新时的移除/重新应用。三个结束过程的层数状态与僵尸转换属于 combat，目标由 `ContentEffect` 的 `EffectBehavior.ended` 和 `PoisonEffects` 接回；具体效果规则以[战斗正文](../combat/architecture.md)为准，liandan 仅负责食用与喂用入口。
+
+本批来源静态核对及构建通过。专服原生命令验证了05/07非玩家层数在主动清除和刷新时归零、19在主动清除/刷新/自然到期时猪转僵尸及属性装备样本；自然食用、喂用、玩家分支、其他六类转换及完整两版本对照未验收。具体证据见[月志](logs/2026-11.md)。
+
+## 容器标签、合成与剩余归属（2026-11-09）
+
+逐项核对以下两种标签与六份配方。目标资源只转换命名空间、目录格式与配方 `result.item` 字段，材料、形状、数量和标签成员均与1.18.2版本一致；本批只完成静态比较，实际合成未验收。
+
+| 来源元素与资源位置 | 实际职责与目标 |
+| --- | --- |
+| `B:Pingguan`，`data/forge/tags/items/pingguan.json:3–9` | 六种空容器01/02/03/04/05/06；目标 `data/yvanchuxiuzhen/tags/item/pingguan.json` |
+| `B:Danyaoguan`，`data/forge/tags/items/danyaoguan.json:3–9` | 六种服药容器01/02/03/06/0401/0501；目标 `data/yvanchuxiuzhen/tags/item/danyaoguan.json` |
+| `B:Itemdanyaohulu01hecheng`，`recipes/itemdanyaohulu_01hecheng.json` | `shicai_039` 与橡木按钮无序合成葫芦1个 |
+| `B:Itemdanyaohulu02hecheng`，`recipes/itemdanyaohulu_02hecheng.json` | 三个黏土球按 `0 2`、` 4 ` 两行合成瓷瓶1个 |
+| `B:Itemdanyaohulu03hecheng`，`recipes/itemdanyaohulu_03hecheng.json` | `shicai_039`、`tiaowei_01` 与橡木按钮无序合成精致葫芦1个 |
+| `B:Itemdanyaohulu06hecheng`，`recipes/itemdanyaohulu_06hecheng.json` | 三个 `cailiao_161` 按 `0 2`、` 4 ` 两行合成玉瓶1个 |
+| `B:Fendantaihecheng`，`recipes/fendantaihecheng.json:3–30` | `forge:pingguan`、三木板、两木棍按 ` 1 `、`345`、`6 8` 合成分丹台1个 |
+| `A:Duedanhecheng`，`recipes/duedanhecheng.json:3–39` | 腐肉四角、`xvejing` 四边、`cailiao_181` 中心，合成毒厄丹1个；按产物与用途从 material 移归 liandan |
+
+表中配方的目标文件位于 `data/yvanchuxiuzhen/recipe/`，文件名保持来源。三个 `B:Qancailuitxtjiesuoneed` 系列过程实际只读千材录的 `playercailiaojiexi`，归[材料](../material/architecture.md)；`B:Grind` 与 `B:GrindGo` 的唯一自然调用链来自石磨，归[工艺](../craft/architecture.md)，目标石磨玩法仍未实现。归属表本批收口为129个元素全部已读，该统计不表示全部运行路径已验收。
+
 ## 未实现范围与验证边界
 
-当前覆盖丹炉、炉次、丹方装料/保存原行为、药性目录、职业/丹火接口，八种药瓶消费与方块生命周期、分丹台分合丹、药理台丹方预览/媒介写入，以及百草鉴辨识、药草提示、解锁和玩家附件。毒药结束回调、`duedan` 丹药与 `Grind` 命令待后续核对实现；基础注册不等于玩法完成。丹方购买、宝箱和副本获取由对应系统接回。
+当前覆盖丹炉、炉次、丹方装料/保存原行为、药性目录、职业/丹火接口，八种药瓶消费与方块生命周期、分丹台分合丹、药理台丹方预览/媒介写入，以及百草鉴辨识、药草提示、解锁、玩家附件和毒厄丹自服/喂用。毒药结束行为由 combat 接回，`Grind`/`GrindGo` 已移归 craft 随石磨实现。基础注册与归属已读不等于玩法完成；丹方购买、宝箱和副本获取由对应系统接回。
 
 此前“保存操作者、固定输入快照”等属于未批准提案，本批没有据此新增炉主记录或快照机制。后续数据设计继续依据实际来源与已批准所有权，不能从旧提案推定决定。
 
@@ -278,6 +305,6 @@ L 至少 1 时以权限 4、无执行实体、屏蔽输出的来源执行 `effec
 
 药理台来源静态核对、构建、既有内置客户端28项及专服正常保存退出通过。三项新增路径覆盖自然放置/开窗、预览与双端显示、实际写入丹方/全部旧实例组件替换、隐藏库存保存重读及方向能力；截图已查看。左键清除、破坏库存丢失、真实自动化、重登和专服名称差异未专项验收，结果见月度记录。
 
-百草鉴本批来源静态核对完成，构建、内置客户端54条 INFO/0FAIL/DONE、专服正常加载保存退出及文档台账检查均通过，证据见[本月记录](logs/2026-11.md)。54条包含原有仓储、材料与职业检查；百草鉴新增六条覆盖自然开窗/槽过滤、首次仅刷新、背包优先扣料、费用不足、背包加样本联合扣料、样本耗尽缓存和Tooltip同步，并复用死亡重生、退出重进验证解析附件。全37草逐项辨识、无面库存绑定、断线掉落、跨维度、Tooltip标签优先级、自然合成、解锁命令与完整视觉未专项验收。
+百草鉴批次来源静态核对完成，构建、内置客户端54条 INFO/0FAIL/DONE、专服正常加载保存退出及文档台账检查均通过，证据见[本月记录](logs/2026-11.md)。54条包含原有仓储、材料与职业检查；百草鉴新增六条覆盖自然开窗/槽过滤、首次仅刷新、背包优先扣料、费用不足、背包加样本联合扣料、样本耗尽缓存和Tooltip同步，并复用死亡重生、退出重进验证解析附件。全37草逐项辨识、无面库存绑定、断线掉落、跨维度、Tooltip标签优先级、自然合成、解锁命令与完整视觉未专项验收。
 
 1.18.2 版本实机、两版本对照、多人、完整视觉、全部药性组合、丹炉自动化隐藏槽、完整药性快照与未完成炉次卸载重载均未验收。各批运行证据写入[本月记录](logs/2026-11.md)，月份导航见[记录索引](changes.md)，不把未执行检查计为通过。

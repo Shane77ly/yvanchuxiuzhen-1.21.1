@@ -3766,7 +3766,7 @@ yvanchuxiuzhen,Duyao18,potioneffect,~/effect,combat,已读,C combat 归属阅读
 yvanchuxiuzhen,Duyao19DangYaoShuiXiaoGuoKaiShiYingYongShi,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
 yvanchuxiuzhen,Duyao19DangXiaoGuoJieShuShi,procedure,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
 yvanchuxiuzhen,Duyao19,potioneffect,~/effect,combat,已读,C combat 归属阅读：毒药类状态效果：周期伤害（直接扣生命）、体质免疫与放大、累积层数、清除增益、扣灵力或精力、开始时附加控制效果；见战斗架构“状态效果”
-yvanchuxiuzhen,Duedanhecheng,recipe,~/item/zawu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Duedanhecheng,recipe,~/item/zawu,liandan,已读,A:recipes/duedanhecheng.json:3-39；腐肉四角、xvejing四边、cailiao_181中心产duedan；毒厄丹配方随炼丹，目标资源静态一致
 yvanchuxiuzhen,Sawtooth,enchantment,~/enchanting,combat,已读,C combat 归属阅读：附魔空壳类；等级由 combat 的伤害过程读取（EntityHurt）
 yvanchuxiuzhen,Xveliu,fluid,~/decorate,xiulian,已读,B1 归属阅读：血流只在修炼规则中有意义：Kaishixiulian 修炼御血术、汲血功、地血大法、血魔祭魂秘法时检测周围 3×3×3 是否有血流，有则给血晶并额外 +5；Xixveshi 只负责产出
 yvanchuxiuzhen,Fabao016DangShiTiBeiGongJuJiZhongShi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao016 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
@@ -5951,7 +5951,7 @@ yvanchuxitong,Alchemycailiaoname08,procedure,~/yvanchuliandan,liandan,已读,完
 yvanchuxitong,Alchemycailiaoname09,procedure,~/yvanchuliandan,liandan,已读,完整同模板比较；读取槽10丹方cailiao08name，与槽8原料注册ID比较决定文字颜色；保留来源原字符串显示，归炼丹界面。
 yvanchuxitong,Liandanzidongfangru,procedure,~/yvanchuliandan,liandan,已读,LiandanGUI按钮0；先退还八材料槽整栈，再从玩家实体完整库存能力按同Item取一件装入；不查询材料仓，规则见docs/systems/liandan/architecture.md。
 yvanchuxitong,Liandantuzhibaocun,procedure,~/yvanchuliandan,liandan,已读,LiandanGUI按钮1；反向空名条件与成功分支只改副本无写回均已核对；保持反馈与无写回结果，规则见docs/systems/liandan/architecture.md。
-yvanchuxitong,Pingguan,tag,~/yvanchuliandan/danyaoguan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Pingguan,tag,~/yvanchuliandan/danyaoguan,liandan,已读,B:data/forge/tags/items/pingguan.json:3-9；六种空药瓶标签，分丹台等炼丹容器消费者读取；目标标签静态一致
 yvanchuxitong,Itemdanyaohulu02,item,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Itemdanyaohulu03,item,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Itemdanyaohulu04,item,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
@@ -6284,8 +6284,8 @@ yvanchuxitong,FudanDOWN,procedure,~/huafu,fulu,候选,第一版批量归组（�
 yvanchuxitong,FutouTxtXianshi,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,TiandizhuTxtXianshi,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,FudanTxtXianshi,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Grind,command,~/zhiling,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,GrindGo,procedure,~/zhiling,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Grind,command,~/zhiling,craft,已读,B:GrindCommand:24-64调用GrindGo；唯一自然入口A:StonemillZaiFangKuaiShangYouJian:53-61执行grind 4；七种石磨工艺加工随craft，目标未实现
+yvanchuxitong,GrindGo,procedure,~/zhiling,craft,已读,B:GrindGoProcedure:35-227操作石磨三槽与七种产物；旧输出复制及槽0数量缓存异常按来源记录；由Grind调用，随craft石磨实现
 yvanchuxitong,Huizhifulu,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Fuluxvqiushuaxin,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,FulunameXianshi,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6539,12 +6539,12 @@ yvanchuxitong,PutuanFangZhiFangKuaiShi,procedure,~/zhuangshiwu/zawu,decor,已读
 yvanchuxitong,PutuanDangFangKuaiBeiWanJiaPoPiShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Putuan 读：蒲团：放置时生成座位实体 shitiputuan，供坐下
 yvanchuxitong,Putuan,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：蒲团：放置时生成座位实体 shitiputuan，供坐下
 yvanchuxitong,Putuanhecheng,recipe,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Itemdanyaohulu01hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Itemdanyaohulu03hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Itemdanyaohulu01hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,已读,B:recipes/itemdanyaohulu_01hecheng.json；shicai_039与橡木按钮无序合成空葫芦1个；目标配方静态一致
+yvanchuxitong,Itemdanyaohulu03hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,已读,B:recipes/itemdanyaohulu_03hecheng.json；shicai_039、tiaowei_01与橡木按钮无序合成精致葫芦1个；目标配方静态一致
 yvanchuxitong,MujiangtaiUp,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,MujiangtaiDown,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Itemdanyaohulu02hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Itemdanyaohulu06hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Itemdanyaohulu02hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,已读,B:recipes/itemdanyaohulu_02hecheng.json；三黏土球按来源形状合成瓷瓶1个；目标配方静态一致
+yvanchuxitong,Itemdanyaohulu06hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,已读,B:recipes/itemdanyaohulu_06hecheng.json；三cailiao_161按来源形状合成玉瓶1个；目标配方静态一致
 yvanchuxitong,RenwuweizhuangfangkuaiFangKuaiShiTiXuanRanShi,procedure,~/duihua/renwuweizhuangkuai,quest,已读,B1 归属阅读：随 Renwuweizhuangfangkuai 读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示
 yvanchuxitong,RenwuweizhuangfangkuaiZaiFangKuaiShangYouJian,procedure,~/duihua/renwuweizhuangkuai,quest,已读,B1 归属阅读：随 Renwuweizhuangfangkuai 读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示
 yvanchuxitong,Renwuweizhuangfangkuai,block,~/duihua/renwuweizhuangkuai,quest,已读,B1 归属阅读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示
@@ -7066,7 +7066,7 @@ yvanchuxitong,TaopiitemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/
 yvanchuxitong,Taopiitem,item,~/zawu/taolun,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxitong,Dahuozhuangzhi,tag,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,TaolunGuiDangZheGeJieMianBeiGuanBi,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Danyaoguan,tag,~/yvanchuliandan/danyaoguan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Danyaoguan,tag,~/yvanchuliandan/danyaoguan,liandan,已读,B:data/forge/tags/items/danyaoguan.json:3-9；六种服药容器标签，药瓶自服与实体喂药读取；目标标签静态一致
 yvanchuxitong,Baicaojian,gui,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,BaicaojianShuaxin,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,Baicaojianjianding,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
@@ -7086,7 +7086,7 @@ yvanchuxitong,Baicaojiantxtyaoxiao10,procedure,~/yvanchuliandan/baicaojian,liand
 yvanchuxitong,BaicaojianbookDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/yvanchuliandan/baicaojian,liandan,已读,B1 归属阅读：随 Baicaojianbook 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Baicaojianbook,item,~/yvanchuliandan/baicaojian,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Baicaojianbookhecheng,recipe,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
-yvanchuxitong,Fendantaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Fendantaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,已读,B:recipes/fendantaihecheng.json:3-30；空容器标签加木板木棍合成分丹台1个；目标配方静态一致
 yvanchuxitong,Yaolitaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,PlayerJoinGame,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShipinGo,procedure,~/zhiling,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
@@ -7135,7 +7135,7 @@ yvanchuxitong,Worldbegin,procedure,,flow,候选,第一版批量归组（目录�
 yvanchuxitong,QiancailuGui,gui,~/yvanchuliandan/baicaojian,material,已读,D来源核对：千材录物品/菜单/刷新/辨识/十效果文字/帮助只读写材料辨识，按批准system-design归material；两配方为材料标签加书或书与笔；见material/architecture.md
 yvanchuxitong,Qiancailutxtname,procedure,~/yvanchuliandan/baicaojian,material,已读,D来源核对：千材录物品/菜单/刷新/辨识/十效果文字/帮助只读写材料辨识，按批准system-design归material；两配方为材料标签加书或书与笔；见material/architecture.md
 yvanchuxitong,Qiancailutxtjindu,procedure,~/yvanchuliandan/baicaojian,material,已读,D来源核对：千材录物品/菜单/刷新/辨识/十效果文字/帮助只读写材料辨识，按批准system-design归material；两配方为材料标签加书或书与笔；见material/architecture.md
-yvanchuxitong,Qancailuitxtjiesuoneed,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Qancailuitxtjiesuoneed,procedure,~/yvanchuliandan/baicaojian,material,已读,B:QancailuitxtjiesuoneedProcedure:14-16读取playercailiaojiexi.txtjiesuoneed1；唯一调用QiancailuGuiScreen:105，千材录成本显示
 yvanchuxitong,Qiancailutxtxiaoguo1,procedure,~/yvanchuliandan/baicaojian,material,已读,D来源核对：千材录物品/菜单/刷新/辨识/十效果文字/帮助只读写材料辨识，按批准system-design归material；两配方为材料标签加书或书与笔；见material/architecture.md
 yvanchuxitong,Qiancailutxtxiaoguo2,procedure,~/yvanchuliandan/baicaojian,material,已读,D来源核对：千材录物品/菜单/刷新/辨识/十效果文字/帮助只读写材料辨识，按批准system-design归material；两配方为材料标签加书或书与笔；见material/architecture.md
 yvanchuxitong,Qiancailutxtxiaoguo3,procedure,~/yvanchuliandan/baicaojian,material,已读,D来源核对：千材录物品/菜单/刷新/辨识/十效果文字/帮助只读写材料辨识，按批准system-design归material；两配方为材料标签加书或书与笔；见material/architecture.md
@@ -7307,8 +7307,8 @@ yvanchuxitong,Cailiaodaipageup,procedure,~/zawu/cailiaodai,storage,已读,D来�
 yvanchuxitong,Cailiaodaipagedown,procedure,~/zawu/cailiaodai,storage,已读,D来源核对：材料袋46槽、45选槽、五品质取出、玩家材料仓数量与分页、九属性筛选及自动入库；五配方按运行JSON；见storage/architecture.md材料仓正文
 yvanchuxitong,Cailiaodaipagexianshi,procedure,~/zawu/cailiaodai,storage,已读,D来源核对：材料袋46槽、45选槽、五品质取出、玩家材料仓数量与分页、九属性筛选及自动入库；五配方按运行JSON；见storage/architecture.md材料仓正文
 yvanchuxitong,Cailiaodaichongxinpaixv,procedure,~/zawu/cailiaodai,storage,已读,D来源核对：材料袋46槽、45选槽、五品质取出、玩家材料仓数量与分页、九属性筛选及自动入库；五配方按运行JSON；见storage/architecture.md材料仓正文
-yvanchuxitong,Qancailuitxtjiesuoneed2,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Qancailuitxtjiesuoneed3,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Qancailuitxtjiesuoneed2,procedure,~/yvanchuliandan/baicaojian,material,已读,B:Qancailuitxtjiesuoneed2Procedure:14-16读取playercailiaojiexi.txtjiesuoneed2；唯一调用QiancailuGuiScreen:138，千材录成本显示
+yvanchuxitong,Qancailuitxtjiesuoneed3,procedure,~/yvanchuliandan/baicaojian,material,已读,B:Qancailuitxtjiesuoneed3Procedure:14-16读取playercailiaojiexi.txtjiesuoneed3；唯一调用QiancailuGuiScreen:141，千材录成本显示
 yvanchuxitong,Cailiaoxiaohaoxianshi,procedure,~/zawu/cailiaodai,storage,已读,D来源核对：材料袋46槽、45选槽、五品质取出、玩家材料仓数量与分页、九属性筛选及自动入库；五配方按运行JSON；见storage/architecture.md材料仓正文
 yvanchuxitong,Setcailiaopinjie,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Qvchu,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）

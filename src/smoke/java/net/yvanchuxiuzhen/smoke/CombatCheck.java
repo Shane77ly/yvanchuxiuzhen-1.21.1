@@ -135,8 +135,8 @@ final class CombatCheck extends SystemCheck {
     private void dummy(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
         BlockPos ground = player.blockPosition().offset(0, 0, 4);
-        level.setBlock(ground.above(), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-        level.setBlock(ground, Blocks.STONE.defaultBlockState(), Block.UPDATE_ALL);
+        prepareSpace(level, CombatSetup.<WoodenDummyEntity>entityType("murenzhuang").get().getDimensions()
+                .makeBoundingBox(ground.getX() + 0.5, ground.getY() + 1, ground.getZ() + 0.5));
         ItemStack item = new ItemStack(WoodenDummyItem.item(), 2);
         player.setItemInHand(InteractionHand.MAIN_HAND, item);
         player.gameMode.useItemOn(player, level, item, InteractionHand.MAIN_HAND,
@@ -182,15 +182,32 @@ final class CombatCheck extends SystemCheck {
     }
 
     private IronGolem golem(ServerPlayer player, double health) {
+        return golem(player, health, 3);
+    }
+
+    private IronGolem golem(ServerPlayer player, double health, double offsetX) {
         ServerLevel level = player.serverLevel();
         IronGolem golem = EntityType.IRON_GOLEM.create(level);
-        golem.moveTo(player.getX() + 3, player.getY(), player.getZ(), 0, 0);
+        golem.moveTo(player.getX() + offsetX, player.getY(), player.getZ(), 0, 0);
+        prepareSpace(level, golem.getBoundingBox());
         golem.setNoAi(true);
         golem.setHealth((float) health);
         golem.getPersistentData().putDouble("mana_Def", 3);
         golem.getPersistentData().putDouble("soul_Def", 2);
         level.addFreshEntity(golem);
         return golem;
+    }
+
+    /** 清空实体碰撞体占用的方块，并在完整底面铺设地基，隔离随机地形的碰撞与窒息伤害。 */
+    private void prepareSpace(ServerLevel level, AABB bounds) {
+        BlockPos min = BlockPos.containing(bounds.minX, bounds.minY, bounds.minZ);
+        BlockPos max = BlockPos.containing(Math.nextDown(bounds.maxX), Math.nextDown(bounds.maxY), Math.nextDown(bounds.maxZ));
+        for (BlockPos pos : BlockPos.betweenClosed(min, max)) {
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        }
+        for (BlockPos pos : BlockPos.betweenClosed(min.below(), new BlockPos(max.getX(), min.getY() - 1, max.getZ()))) {
+            level.setBlock(pos, Blocks.STONE.defaultBlockState(), Block.UPDATE_ALL);
+        }
     }
 
     /** 结算并返回造成的伤害；闪避随机数为 0 时重试。 */
@@ -290,8 +307,7 @@ final class CombatCheck extends SystemCheck {
 
     /** 原生属性钩子的时序回归：首次/刷新现读时长、弱效果不重放开始、强制施加和隐藏效果恢复。 */
     private void effectLifecycle(ServerPlayer player) {
-        effectLifecycle = golem(player, 100);
-        effectLifecycle.moveTo(player.getX() - 32, player.getY(), player.getZ(), 0, 0);
+        effectLifecycle = golem(player, 100, -32);
         resistanceBefore = effectLifecycle.getAttribute(Attributes.KNOCKBACK_RESISTANCE).getBaseValue();
         effectLifecycle.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 80, 0));
         expect("首次霸体写入后发光时长为80刻", 80, effectLifecycle.getEffect(MobEffects.GLOWING).getDuration());
@@ -394,7 +410,6 @@ final class CombatCheck extends SystemCheck {
         mandrake = golem(player, 100);
         mandrake.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_21"), 400, 0));
         mandrake.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_14"), 400, 0));
-        bystander = golem(player, 100);
-        bystander.moveTo(mandrake.getX() + 2, mandrake.getY(), mandrake.getZ(), 0, 0);
+        bystander = golem(player, 100, 5);
     }
 }

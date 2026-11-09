@@ -88,9 +88,9 @@ mob_effect,yvanchuxiuzhen:duyao_01,yvanchuxiuzhen,Duyao01,src/main/java/net/mcre
 mob_effect,yvanchuxiuzhen:duyao_02,yvanchuxiuzhen,Duyao02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,119,combat,已读,yvanchuxiuzhen:duyao_02,行为已迁移,
 mob_effect,yvanchuxiuzhen:duyao_03,yvanchuxiuzhen,Duyao03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,120,combat,已读,yvanchuxiuzhen:duyao_03,行为已迁移,
 mob_effect,yvanchuxiuzhen:duyao_04,yvanchuxiuzhen,Duyao04,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,121,combat,已读,yvanchuxiuzhen:duyao_04,行为已迁移,
-mob_effect,yvanchuxiuzhen:duyao_05,yvanchuxiuzhen,Duyao05,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,122,combat,已读,yvanchuxiuzhen:duyao_05,行为已迁移,
+mob_effect,yvanchuxiuzhen:duyao_05,yvanchuxiuzhen,Duyao05,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,122,combat,已读,yvanchuxiuzhen:duyao_05,行为已迁移,2026-11-09补齐ended：A Duyao05DangXiaoGuoJieShuShiProcedure:10–12仅非玩家Duyao05level清0，玩家层数保留；含刷新重应用的原生属性移除；已静态核对、构建及专服非玩家样本通过，既有客户端54项全过；具体范围与未验收分支见liandan月志。
 mob_effect,yvanchuxiuzhen:duyao_06,yvanchuxiuzhen,Duyao06,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,123,combat,已读,yvanchuxiuzhen:duyao_06,行为已迁移,
-mob_effect,yvanchuxiuzhen:duyao_07,yvanchuxiuzhen,Duyao07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,124,combat,已读,yvanchuxiuzhen:duyao_07,行为已迁移,
+mob_effect,yvanchuxiuzhen:duyao_07,yvanchuxiuzhen,Duyao07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,124,combat,已读,yvanchuxiuzhen:duyao_07,行为已迁移,2026-11-09补齐ended：A Duyao07DangXiaoGuoJieShuShiProcedure:12–16玩家体质或非玩家持久化duyao07level清0；含刷新重应用的原生属性移除；已静态核对、构建及专服非玩家样本通过，既有客户端54项全过；具体范围与未验收分支见liandan月志。
 mob_effect,yvanchuxiuzhen:duyao_08,yvanchuxiuzhen,Duyao08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,125,combat,已读,yvanchuxiuzhen:duyao_08,行为已迁移,
 mob_effect,yvanchuxiuzhen:duyao_09,yvanchuxiuzhen,Duyao09,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,126,combat,已读,yvanchuxiuzhen:duyao_09,行为已迁移,
 mob_effect,yvanchuxiuzhen:duyao_10,yvanchuxiuzhen,Duyao10,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,127,combat,已读,yvanchuxiuzhen:duyao_10,行为已迁移,
@@ -102,7 +102,7 @@ mob_effect,yvanchuxiuzhen:duyao_15,yvanchuxiuzhen,Duyao15,src/main/java/net/mcre
 mob_effect,yvanchuxiuzhen:duyao_16,yvanchuxiuzhen,Duyao16,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,133,combat,已读,yvanchuxiuzhen:duyao_16,已注册,
 mob_effect,yvanchuxiuzhen:duyao_17,yvanchuxiuzhen,Duyao17,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,134,combat,已读,yvanchuxiuzhen:duyao_17,行为已迁移,
 mob_effect,yvanchuxiuzhen:duyao_18,yvanchuxiuzhen,Duyao18,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,157,combat,已读,yvanchuxiuzhen:duyao_18,已注册,
-mob_effect,yvanchuxiuzhen:duyao_19,yvanchuxiuzhen,Duyao19,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,158,combat,已读,yvanchuxiuzhen:duyao_19,行为已迁移,
+mob_effect,yvanchuxiuzhen:duyao_19,yvanchuxiuzhen,Duyao19,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,158,combat,已读,yvanchuxiuzhen:duyao_19,行为已迁移,2026-11-09补齐ended：A Duyao19DangXiaoGuoJieShuShiProcedure:27–92七类生物原地转僵尸、转交六装备引用、先写来源基础属性再finalizeSpawn/add/discard且不主动满血；含刷新重应用；归combat，已静态核对、构建及专服非玩家样本通过，既有客户端54项全过；具体范围与未验收分支见liandan月志。
 mob_effect,yvanchuxiuzhen:duyao_20,yvanchuxiuzhen,Duyao20,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,163,combat,已读,yvanchuxiuzhen:duyao_20,行为已迁移,
 mob_effect,yvanchuxiuzhen:duyao_21,yvanchuxiuzhen,Duyao21,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,164,combat,已读,yvanchuxiuzhen:duyao_21,行为已迁移,
 mob_effect,yvanchuxiuzhen:effect_001,yvanchuxiuzhen,Effect001,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMobEffects.java,95,combat,已读,yvanchuxiuzhen:effect_001,行为已迁移,

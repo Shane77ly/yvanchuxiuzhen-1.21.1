@@ -10,6 +10,7 @@ import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlock;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlockItem;
+import net.yvanchuxiuzhen.system.liandan.content.DuedanItem;
 import net.yvanchuxiuzhen.system.liandan.content.HerbAnalysisBookItem;
 import net.yvanchuxiuzhen.system.liandan.content.LiandanBlockEntities;
 import net.yvanchuxiuzhen.system.liandan.content.LiandanMenus;
@@ -32,6 +33,7 @@ public final class LiandanSetup {
             .blockFactory("liandan:medicine_container", MedicineContainerBlock::create)
             .blockFactory("liandan:medicine_separation", traits -> ContentBlock.create(traits, MedicineSeparationBlock::new))
             .blockFactory("liandan:pharmacology", traits -> ContentBlock.create(traits, PharmacologyBlock::new))
+            .itemFactory("liandan:duedan", DuedanItem::new)
             .itemFactory("liandan:herb_analysis", HerbAnalysisBookItem::new)
             .itemFactory("liandan:medicine_container", (properties, tooltip) -> new MedicineContainerItem(properties, tooltip, true))
             .itemFactory("liandan:medicine_container_empty_box", (properties, tooltip) -> new MedicineContainerItem(properties, tooltip, false));

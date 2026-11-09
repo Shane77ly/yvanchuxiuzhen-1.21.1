@@ -1,5 +1,5 @@
 [
-{"id":"duedan","factory":"item","order":1765,"tab":"yvanchuxiuzhen:tabyvanchu_materials","rarity":"UNCOMMON","food":{"nutrition":0,"saturation_mod":0.0,"always_eat":true},"tooltip":["可以让服用此丹的动物变成僵尸，并且僵尸将拥有练气一层的实力。"],"pending_hooks":["finishUsingItem"]},
+{"id":"duedan","factory":"liandan:duedan","order":1765,"tab":"yvanchuxiuzhen:tabyvanchu_materials","rarity":"UNCOMMON","food":{"nutrition":0,"saturation_mod":0.0,"always_eat":true},"tooltip":["可以让服用此丹的动物变成僵尸，并且僵尸将拥有练气一层的实力。"]},
 {"id":"itemdanyaohulu_01","factory":"liandan:medicine_container","order":2131,"tab":"minecraft:tools_and_utilities"},
 {"id":"itemdanyaohulu_02","factory":"liandan:medicine_container","order":2132,"tab":"minecraft:tools_and_utilities"},
 {"id":"itemdanyaohulu_03","factory":"liandan:medicine_container","order":2133,"tab":"minecraft:tools_and_utilities"},
