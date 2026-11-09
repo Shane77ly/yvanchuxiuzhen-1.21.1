@@ -21,6 +21,7 @@ import net.yvanchuxiuzhen.system.fulu.content.FuluBlockEntities;
 import net.yvanchuxiuzhen.system.fulu.content.FuluMenus;
 import net.yvanchuxiuzhen.system.fulu.content.SootBlock;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanItem;
+import net.yvanchuxiuzhen.system.fulu.content.RangedTalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
@@ -45,11 +46,16 @@ public final class FuluSetup {
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "chuancheng")), properties, tooltip));
 
     /** 共享施用过程驱动的持续效果符编号，对应内容表工厂 {@code fulu:talisman_<编号>}。 */
+    /** 蓄放后射出弹体的远程符编号，对应内容表工厂 {@code fulu:ranged_<编号>}。 */
+    private static final int[] RANGED = {10, 20, 28, 33, 35};
     private static final int[] TALISMANS = {2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 17, 19, 21, 24, 25, 26, 27, 29, 31, 32, 34, 38, 39, 46};
 
     static {
         for (int number : TALISMANS) {
             CONTENT.itemFactory("fulu:talisman_%02d".formatted(number), (properties, tooltip) -> new TalismanItem(properties, tooltip, number));
+        }
+        for (int number : RANGED) {
+            CONTENT.itemFactory("fulu:ranged_%02d".formatted(number), (properties, tooltip) -> new RangedTalismanItem(properties, tooltip, number));
         }
     }
 

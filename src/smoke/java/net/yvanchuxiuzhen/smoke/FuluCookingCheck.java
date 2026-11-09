@@ -35,6 +35,7 @@ import net.yvanchuxiuzhen.system.cooking.content.CookingPotBlockEntity;
 import net.yvanchuxiuzhen.system.cooking.content.CookingPotMenu;
 import net.yvanchuxiuzhen.system.cooking.client.CookingPotScreen;
 import net.yvanchuxiuzhen.system.fulu.DrawingTableRuntime;
+import net.yvanchuxiuzhen.system.fulu.FuluRanged;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.fulu.api.FuluKnowledge;
 import net.yvanchuxiuzhen.system.fulu.client.DrawingTableScreen;
@@ -463,6 +464,17 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(4, p -> {
                     expectTrue("神压符 20 刻拍击、5 刻停顿、15 刻碎裂后消失",
                             p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanBeast.class), mob -> true).isEmpty());
+                
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_28", 2, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    FuluRanged.release(p, p.getInventory().getItem(HOTBAR), 28);
+                }),
+                new Action(4, p -> {
+                    expectTrue("28 号远程符松手：付精力、消耗持有的一张，弹体第一刻读取品阶并清零使用者的 fululevel（精力 " + Cultivation.get(p, CultivationValue.SOUL)
+                                    + "，余 " + p.getInventory().getItem(HOTBAR).getCount() + "）",
+                            Cultivation.get(p, CultivationValue.SOUL) < 12 && p.getInventory().getItem(HOTBAR).getCount() == 1
+                                    && p.getPersistentData().getDouble("fululevel") == 0);
                 })
         );
     }

@@ -2806,7 +2806,7 @@ yvanchuxiuzhen,Itemfulu09,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓
 yvanchuxiuzhen,Itemfulu10KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu10 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu10TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu10 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu10DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu10 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Itemfulu10,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
+yvanchuxiuzhen,Itemfulu10,rangeditem,~/item/huafu,fulu,已读,10/20/28/33/35号远程符的物品、弹体、命中与逐刻过程已读
 yvanchuxiuzhen,Fulutexiao11,particle,~/item/huafu,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Itemfulu11,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu12,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
@@ -2835,7 +2835,7 @@ yvanchuxiuzhen,Fulutexiao19TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已�
 yvanchuxiuzhen,Fulutexiao19,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu20TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu20 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu20DangTouSheWuSheZhongCiFangKuai,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu20 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Itemfulu20,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
+yvanchuxiuzhen,Itemfulu20,rangeditem,~/item/huafu,fulu,已读,10/20/28/33/35号远程符的物品、弹体、命中与逐刻过程已读
 yvanchuxiuzhen,Itemfulu21DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu21 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu21,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu22DangWuPinZaiBeiBaoZhongMeiKeFaSheng,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu22 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
@@ -2854,7 +2854,7 @@ yvanchuxiuzhen,Fulutexiao27,animatedentity,~/item/huafu,fulu,已读,26/27/34/38�
 yvanchuxiuzhen,Itemfulu27,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu28TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu28 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu28DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu28 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Itemfulu28,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
+yvanchuxiuzhen,Itemfulu28,rangeditem,~/item/huafu,fulu,已读,10/20/28/33/35号远程符的物品、弹体、命中与逐刻过程已读
 yvanchuxiuzhen,Fulutexiao29TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao29 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Fulutexiao29DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao29 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Fulutexiao29,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
@@ -2870,13 +2870,13 @@ yvanchuxiuzhen,Itemfulu32,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓
 yvanchuxiuzhen,Fulutexiao33,particle,~/item/huafu,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Itemfulu33TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu33 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu33DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu33 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Itemfulu33,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
+yvanchuxiuzhen,Itemfulu33,rangeditem,~/item/huafu,fulu,已读,10/20/28/33/35号远程符的物品、弹体、命中与逐刻过程已读
 yvanchuxiuzhen,Fulutexiao34DangShiTiGengXinKeShi,procedure,~/item/huafu,fulu,已读,26/27/34/38号符动画召唤物及各自更新过程已读
 yvanchuxiuzhen,Fulutexiao34,animatedentity,~/item/huafu,fulu,已读,26/27/34/38号符动画召唤物及各自更新过程已读
 yvanchuxiuzhen,Itemfulu34,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu35TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu35 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu35DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu35 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Itemfulu35,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
+yvanchuxiuzhen,Itemfulu35,rangeditem,~/item/huafu,fulu,已读,10/20/28/33/35号远程符的物品、弹体、命中与逐刻过程已读
 yvanchuxiuzhen,Itemfulu36,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Ores,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Itemfulu36DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu36 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果

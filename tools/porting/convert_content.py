@@ -515,7 +515,7 @@ def main() -> None:
                     add_lang(unit, language, f'item.{NAMESPACE}.{target}', name)
         if ('item', target) in overrides:
             row['factory'] = overrides[('item', target)]
-        if row['factory'] in ('liandan:medicine_container', 'liandan:medicine_container_empty_box', 'lianqi:tripod_placement') or row['factory'].startswith('fulu:talisman_'):
+        if row['factory'] in ('liandan:medicine_container', 'liandan:medicine_container_empty_box', 'lianqi:tripod_placement') or row['factory'].startswith(('fulu:talisman_', 'fulu:ranged_')):
             row.pop('pending_hooks', None)
         items_by_unit[unit].append(row)
         for number, line in enumerate(row.get('tooltip', []), start=1):
