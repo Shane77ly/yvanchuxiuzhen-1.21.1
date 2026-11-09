@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.smoke;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -52,6 +53,9 @@ import net.yvanchuxiuzhen.system.liandan.content.AlchemyMenu;
 import net.yvanchuxiuzhen.system.liandan.client.MedicineSeparationScreen;
 import net.yvanchuxiuzhen.system.liandan.content.MedicineSeparationBlockEntity;
 import net.yvanchuxiuzhen.system.liandan.content.MedicineSeparationMenu;
+import net.yvanchuxiuzhen.system.liandan.client.PharmacologyScreen;
+import net.yvanchuxiuzhen.system.liandan.content.PharmacologyBlockEntity;
+import net.yvanchuxiuzhen.system.liandan.content.PharmacologyMenu;
 import net.minecraft.network.chat.Component;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
@@ -90,7 +94,10 @@ final class EquipmentProductCheck extends ActionCheck {
     private Cow feedingTarget;
     private BlockPos separationPos;
     private BlockState separationBlock;
+    private BlockState separationBase;
     private ItemStack separationMedicine;
+    private BlockPos pharmacologyPos;
+    private final List<BlockState> pharmacologyBlocks = new ArrayList<>();
 
     EquipmentProductCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("equipmentproduct", report, levelId);
@@ -362,6 +369,8 @@ final class EquipmentProductCheck extends ActionCheck {
                     sneak(false);
                     separationPos = bottlePos;
                     separationBlock = p.serverLevel().getBlockState(separationPos);
+                    separationBase = p.serverLevel().getBlockState(separationPos.below());
+                    p.serverLevel().setBlockAndUpdate(separationPos.below(), Blocks.STONE.defaultBlockState());
                     p.getInventory().clearContent();
                     p.getInventory().setItem(4, alchemyItem("fendantai", 1));
                     p.getInventory().setItem(9, alchemyItem("itemdanyaohulu_04", 1));
@@ -446,6 +455,73 @@ final class EquipmentProductCheck extends ActionCheck {
                             && data(table.getItem(2)).getInt("danyaonum") == 10 && data(table.getItem(2)).getInt("danyaolevel0") == 199
                             && table.getItem(2).getHoverName().getString().equals("分合丹样本"));
                     p.closeContainer();
+                    pharmacologyPos = bottlePos.offset(0, 0, 1);
+                    for (int below = 0; below < 2; below++) pharmacologyBlocks.add(p.serverLevel().getBlockState(pharmacologyPos.below(below)));
+                    p.serverLevel().setBlockAndUpdate(pharmacologyPos, Blocks.AIR.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(pharmacologyPos.below(), Blocks.STONE.defaultBlockState());
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(4, alchemyItem("yaolitaiblock", 1));
+                    ItemStack medium = new ItemStack(Items.BOOK);
+                    medium.set(DataComponents.CUSTOM_NAME, Component.literal("旧媒介"));
+                    medium.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
+                    medium.set(DataComponents.CUSTOM_DATA, CustomData.of(new CompoundTag()));
+                    p.getInventory().setItem(9, medium);
+                    for (int slot = 10; slot <= 13; slot++) p.getInventory().setItem(slot, alchemyItem("spiritgrass", 1));
+                    ItemStack recipeNote = new ItemStack(Items.PAPER);
+                    recipeNote.set(DataComponents.CUSTOM_NAME, Component.literal("丹方说明"));
+                    p.getInventory().setItem(14, recipeNote);
+                    ItemStack medicineNote = new ItemStack(Items.PAPER);
+                    medicineNote.set(DataComponents.CUSTOM_NAME, Component.literal("药效说明"));
+                    p.getInventory().setItem(15, medicineNote);
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useBlock(4, pharmacologyPos.below())),
+                new Action(6, p -> useBlock(4, pharmacologyPos)),
+                new Action(6, p -> {
+                    PharmacologyBlockEntity table = pharmacologyTable(p);
+                    expectTrue("自然放药理台初始化药性快照，真实开窗双方十一可见槽和隐藏预览隔离", p.containerMenu instanceof PharmacologyMenu
+                            && minecraft.screen instanceof PharmacologyScreen && p.containerMenu.slots.size() == 47
+                            && table.getContainerSize() == 12 && p.containerMenu.getSlot(0).getMaxStackSize() == 1
+                            && table.getPersistentData().getCompound("zong").getInt("yvanchuxiuzhen:spiritgrassnumber") == 4);
+                    minecraft.execute(() -> {
+                        int id = minecraft.player.containerMenu.containerId;
+                        int[] destinations = {0, 1, 2, 3, 4, 9, 10};
+                        for (int slot = 0; slot < destinations.length; slot++) {
+                            minecraft.gameMode.handleInventoryMouseClick(id, 11 + slot, 0, ClickType.PICKUP, minecraft.player);
+                            minecraft.gameMode.handleInventoryMouseClick(id, destinations[slot], 0, ClickType.PICKUP, minecraft.player);
+                        }
+                        minecraft.screen.children().stream().filter(EditBox.class::isInstance).map(EditBox.class::cast)
+                                .findFirst().orElseThrow().setValue("药理样本");
+                    });
+                }),
+                new Action(6, p -> separationButton("刷新药性")),
+                new Action(6, p -> {
+                    PharmacologyBlockEntity table = pharmacologyTable(p);
+                    CompoundTag preview = data(table.getItem(11));
+                    PharmacologyBlockEntity restored = (PharmacologyBlockEntity) BlockEntity.loadStatic(pharmacologyPos, table.getBlockState(),
+                            table.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("实际刷新保留八草和媒介，隐藏预览按顺序合药性，客户端显示及保存重读保持", table.getItem(11).is(Items.DIAMOND)
+                            && preview.getString("danyaoname").equals("药理样本") && preview.getInt("danyaolevel0") == 320
+                            && preview.getInt("danyaotick0") == 3200 && table.getItem(1).getCount() == 1 && table.getItem(0).has(DataComponents.ENCHANTMENT_GLINT_OVERRIDE)
+                            && ItemStack.matches(table.getItem(11), restored.getItem(11))
+                            && ((PharmacologyMenu) minecraft.player.containerMenu).table().getPersistentData().getString("effectxianshi0").contains("3级")
+                            && table.handler(Direction.DOWN).extractItem(0, 1, true).isEmpty()
+                            && !table.handler(Direction.DOWN).extractItem(9, 1, true).isEmpty()
+                            && table.handler(Direction.UP).insertItem(11, new ItemStack(Items.STONE), true).is(Items.STONE));
+                    minecraft.execute(() -> screenshots.take("liandan-pharmacology.png"));
+                    separationButton("写入丹方");
+                }),
+                new Action(6, p -> {
+                    PharmacologyBlockEntity table = pharmacologyTable(p);
+                    ItemStack recipe = table.getItem(0);
+                    CompoundTag contents = data(recipe);
+                    expectTrue("实际写丹方保留Item数量且替换全部旧组件，不消费材料说明、不复制预览药效并同步", recipe.is(Items.BOOK) && recipe.getCount() == 1
+                            && recipe.getHoverName().getString().equals("药理样本") && !recipe.has(DataComponents.ENCHANTMENT_GLINT_OVERRIDE)
+                            && contents.getString("cailiao01").equals("yvanchuxiuzhen:spiritgrass") && contents.getString("cailiao08").equals("minecraft:air")
+                            && contents.getString("danfangshuoming").equals("[丹方说明]") && contents.getString("danyaoshuoming").equals("[药效说明]")
+                            && !contents.contains("danyaoxiaoguo0") && table.getItem(4).getCount() == 1 && table.getItem(9).getCount() == 1
+                            && ItemStack.matches(recipe, minecraft.player.containerMenu.getSlot(0).getItem()));
+                    p.closeContainer();
                 }));
     }
 
@@ -459,6 +535,10 @@ final class EquipmentProductCheck extends ActionCheck {
 
     private MedicineSeparationBlockEntity separationTable(ServerPlayer player) {
         return (MedicineSeparationBlockEntity) player.serverLevel().getBlockEntity(separationPos);
+    }
+
+    private PharmacologyBlockEntity pharmacologyTable(ServerPlayer player) {
+        return (PharmacologyBlockEntity) player.serverLevel().getBlockEntity(pharmacologyPos);
     }
 
     private void separationButton(String name) {
@@ -523,9 +603,14 @@ final class EquipmentProductCheck extends ActionCheck {
         if (hadFastingTimer) player.getPersistentData().putDouble("baoshidu", fastingTimer);
         else player.getPersistentData().remove("baoshidu");
         sneak(shiftKey);
+        if (pharmacologyPos != null) {
+            pharmacologyTable(player).clearContent();
+            for (int below = 0; below < 2; below++) player.serverLevel().setBlockAndUpdate(pharmacologyPos.below(below), pharmacologyBlocks.get(below));
+        }
         if (separationPos != null) {
             separationTable(player).clearContent();
             player.serverLevel().setBlockAndUpdate(separationPos, separationBlock);
+            player.serverLevel().setBlockAndUpdate(separationPos.below(), separationBase);
         }
         if (bottlePos != null) player.serverLevel().setBlockAndUpdate(bottlePos, bottleBlock);
         if (feedingTarget != null) feedingTarget.discard();

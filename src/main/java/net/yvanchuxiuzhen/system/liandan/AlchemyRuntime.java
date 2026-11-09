@@ -26,6 +26,7 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlock;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlockEntity;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyMenu;
+import net.yvanchuxiuzhen.system.liandan.content.PharmacologyBlockEntity;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
 import net.yvanchuxiuzhen.system.yihuo.api.FireExhaustedEvent;
@@ -53,6 +54,9 @@ public final class AlchemyRuntime {
         if (!event.getLevel().isClientSide() && event.getLevel().getBlockEntity(event.getPos()) instanceof AlchemyBlockEntity furnace) {
             furnace.getPersistentData().put("zong", LiandanHerbs.snapshot());
             furnace.changed();
+        } else if (!event.getLevel().isClientSide() && event.getLevel().getBlockEntity(event.getPos()) instanceof PharmacologyBlockEntity table) {
+            table.getPersistentData().put("zong", LiandanHerbs.snapshot());
+            table.changed();
         }
     }
 

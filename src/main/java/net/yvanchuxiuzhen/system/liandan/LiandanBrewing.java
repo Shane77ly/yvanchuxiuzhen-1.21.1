@@ -205,7 +205,7 @@ public final class LiandanBrewing {
         for (String line : lines) player.displayClientMessage(Component.literal(line), false);
     }
 
-    private static void combine(CompoundTag medicine, String key, String operation, int amount, boolean duration) {
+    static void combine(CompoundTag medicine, String key, String operation, int amount, boolean duration) {
         int current = medicine.getInt(key);
         switch (operation) {
             case "加" -> medicine.putInt(key, current + amount);
@@ -216,7 +216,7 @@ public final class LiandanBrewing {
         }
     }
 
-    private static void initialize(CompoundTag medicine, String key, String operation, int amount) {
+    static void initialize(CompoundTag medicine, String key, String operation, int amount) {
         if (operation.equals("加")) medicine.putInt(key, amount);
         else if (operation.equals("减")) medicine.putInt(key, -amount);
     }

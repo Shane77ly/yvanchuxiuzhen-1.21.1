@@ -36,5 +36,10 @@
   "gui.yvanchuxiuzhen.hedan_gui.label_he_dan": "合丹",
   "gui.yvanchuxiuzhen.fendan_gui.label_fen_dan": "分丹",
   "gui.yvanchuxiuzhen.hedan_gui.button_fen_dan": "分丹",
-  "gui.yvanchuxiuzhen.fendan_gui.button_he_dan": "合丹"
+  "gui.yvanchuxiuzhen.fendan_gui.button_he_dan": "合丹",
+  "gui.yvanchuxiuzhen.yaolitai.namexieru": "丹方名称",
+  "gui.yvanchuxiuzhen.yaolitai.label_dan_yao": "丹药",
+  "gui.yvanchuxiuzhen.yaolitai.label_dan_fang": "丹方",
+  "gui.yvanchuxiuzhen.yaolitai.label_jian_jie": "简介",
+  "gui.yvanchuxiuzhen.yaolitai.label_jian_jie1": "简介"
 }

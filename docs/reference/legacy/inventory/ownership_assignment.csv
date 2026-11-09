@@ -5977,26 +5977,26 @@ yvanchuxitong,OpenFendanGui,procedure,~/yvanchuliandan/liandangongzuotai,liandan
 yvanchuxitong,OpenHedanGui,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,分丹菜单按钮在同一台面坐标打开合丹菜单；不搬移或清空绑定库存
 yvanchuxitong,FendantaiFangKuaiShiTiXuanRanShi,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,读取分丹台三槽但仅绘槽2物品对应方块；全来源Java仅自身定义且无调用者；不新增渲染入口
 yvanchuxitong,Fendantai,block,~/yvanchuliandan/liandangongzuotai,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识；本元素无过程
-yvanchuxitong,Yaolitai,gui,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Yaolitai,gui,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,Yaolitaiblock,block,~/yvanchuliandan/liandangongzuotai,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
-yvanchuxitong,Yaolitaishuaxin,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,YaolitaiXieru,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Yaolitaishuaxin,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,YaolitaiXieru,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,YaolitaiblockDangWanJiaKaiShiPoPiShi,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,B1 归属阅读：随 Yaolitaiblock 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
-yvanchuxitong,Xianshijisuan,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi00,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi01,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi02,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi03,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi04,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi05,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi06,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi07,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi08,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi09,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi10,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi11,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Effectxianshi12,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Danyaonamexianshi,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Xianshijisuan,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi00,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi01,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi02,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi03,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi04,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi05,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi06,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi07,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi08,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi09,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi10,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi11,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Effectxianshi12,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Danyaonamexianshi,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,Plaque0101,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,Plaque0102,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,Plaque0103,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
@@ -7087,7 +7087,7 @@ yvanchuxitong,BaicaojianbookDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/
 yvanchuxitong,Baicaojianbook,item,~/yvanchuliandan/baicaojian,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Baicaojianbookhecheng,recipe,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Fendantaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Yaolitaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Yaolitaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,PlayerJoinGame,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShipinGo,procedure,~/zhiling,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxitong,Shipin,command,~/zhiling,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子

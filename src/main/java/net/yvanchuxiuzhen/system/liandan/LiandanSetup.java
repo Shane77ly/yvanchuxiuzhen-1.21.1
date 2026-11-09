@@ -15,8 +15,10 @@ import net.yvanchuxiuzhen.system.liandan.content.LiandanMenus;
 import net.yvanchuxiuzhen.system.liandan.content.MedicineContainerBlock;
 import net.yvanchuxiuzhen.system.liandan.content.MedicineContainerItem;
 import net.yvanchuxiuzhen.system.liandan.content.MedicineSeparationBlock;
+import net.yvanchuxiuzhen.system.liandan.content.PharmacologyBlock;
 import net.yvanchuxiuzhen.system.liandan.network.AlchemyButtonPayload;
 import net.yvanchuxiuzhen.system.liandan.network.MedicineSeparationPayload;
+import net.yvanchuxiuzhen.system.liandan.network.PharmacologyPayload;
 
 /**
  * 炼丹系统的启动装配，只在 Mod 构造时调用一次。
@@ -26,6 +28,7 @@ public final class LiandanSetup {
             .blockFactory("liandan:alchemy", traits -> ContentBlock.create(traits, AlchemyBlock::new))
             .blockFactory("liandan:medicine_container", MedicineContainerBlock::create)
             .blockFactory("liandan:medicine_separation", traits -> ContentBlock.create(traits, MedicineSeparationBlock::new))
+            .blockFactory("liandan:pharmacology", traits -> ContentBlock.create(traits, PharmacologyBlock::new))
             .itemFactory("liandan:medicine_container", (properties, tooltip) -> new MedicineContainerItem(properties, tooltip, true))
             .itemFactory("liandan:medicine_container_empty_box", (properties, tooltip) -> new MedicineContainerItem(properties, tooltip, false));
 
@@ -52,5 +55,6 @@ public final class LiandanSetup {
     private static void payloads(RegisterPayloadHandlersEvent event) {
         event.registrar("1").playToServer(AlchemyButtonPayload.TYPE, AlchemyButtonPayload.STREAM_CODEC, AlchemyButtonPayload::handle);
         event.registrar("1").playToServer(MedicineSeparationPayload.TYPE, MedicineSeparationPayload.STREAM_CODEC, MedicineSeparationPayload::handle);
+        event.registrar("1").playToServer(PharmacologyPayload.TYPE, PharmacologyPayload.STREAM_CODEC, PharmacologyPayload::handle);
     }
 }

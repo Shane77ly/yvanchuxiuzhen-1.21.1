@@ -16,6 +16,9 @@ import net.yvanchuxiuzhen.platform.ModId;
 /** 丹炉、药瓶和分丹台保留来源方块实体身份，各自提供对应方向的库存能力。 */
 public final class LiandanBlockEntities {
     private static final DeferredRegister<BlockEntityType<?>> TYPES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ModId.VALUE);
+    public static final Supplier<BlockEntityType<PharmacologyBlockEntity>> PHARMACOLOGY = TYPES.register("yaolitaiblock",
+            () -> BlockEntityType.Builder.of(PharmacologyBlockEntity::new,
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "yaolitaiblock"))).build(null));
     public static final Supplier<BlockEntityType<MedicineSeparationBlockEntity>> MEDICINE_SEPARATION = TYPES.register("fendantai",
             () -> BlockEntityType.Builder.of(MedicineSeparationBlockEntity::new,
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fendantai"))).build(null));
@@ -52,6 +55,7 @@ public final class LiandanBlockEntities {
     }
 
     private static void capabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PHARMACOLOGY.get(), PharmacologyBlockEntity::handler);
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MEDICINE_SEPARATION.get(), MedicineSeparationBlockEntity::handler);
         for (Supplier<BlockEntityType<AlchemyBlockEntity>> type : ALCHEMY) {
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type.get(), AlchemyBlockEntity::handler);
