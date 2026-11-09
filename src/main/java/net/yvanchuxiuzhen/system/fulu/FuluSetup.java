@@ -13,6 +13,7 @@ import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlock;
 import net.yvanchuxiuzhen.system.fulu.content.FuluBlockEntities;
 import net.yvanchuxiuzhen.system.fulu.content.FuluMenus;
 import net.yvanchuxiuzhen.system.fulu.content.SootBlock;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.InheritanceBlock;
 import net.yvanchuxiuzhen.system.fulu.content.InheritanceBlockItem;
 import net.yvanchuxiuzhen.system.fulu.content.InheritanceContent;
@@ -32,6 +33,15 @@ public final class FuluSetup {
             .itemFactory("fulu:inheritance", (properties, tooltip) -> new InheritanceBlockItem(
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "chuancheng")), properties, tooltip));
 
+    /** 共享施用过程驱动的持续效果符编号，对应内容表工厂 {@code fulu:talisman_<编号>}。 */
+    private static final int[] TALISMANS = {2, 3, 24, 31};
+
+    static {
+        for (int number : TALISMANS) {
+            CONTENT.itemFactory("fulu:talisman_%02d".formatted(number), (properties, tooltip) -> new TalismanItem(properties, tooltip, number));
+        }
+    }
+
     private FuluSetup() {
     }
 
@@ -42,6 +52,7 @@ public final class FuluSetup {
         FuluMenus.register(modBus);
         InheritanceContent.register(modBus);
         NeoForge.EVENT_BUS.addListener(DrawingTableRuntime::rightClick);
+        FuluTick.register();
         modBus.addListener(FuluSetup::payloads);
     }
 

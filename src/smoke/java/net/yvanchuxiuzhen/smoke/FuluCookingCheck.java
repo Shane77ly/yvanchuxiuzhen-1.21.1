@@ -12,12 +12,15 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,8 +43,10 @@ import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionAttachments;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionProgress;
+import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
-/** 核对两锅配方加载、墨料坯自然生产闭环，以及符箓知识与画符台的选择、绘制和保存。 */
+/** 核对两锅配方加载、墨料坯自然生产闭环，以及符箓知识、画符台、烧灰架、传承之光与持续效果符（02、24 号）的施用付款、生效和结束。 */
 final class FuluCookingCheck extends ActionCheck {
     private static final int HOTBAR = 8;
 
@@ -62,6 +67,12 @@ final class FuluCookingCheck extends ActionCheck {
     private BlockPos inheritancePos;
     private final Map<BlockPos, BlockState> inheritanceBlocks = new LinkedHashMap<>();
     private final Map<BlockPos, BlockState> burnerBlocks = new LinkedHashMap<>();
+    private static final List<String> TALISMAN_KEYS = List.of("fulunumber", "fuluxiaoguo02", "fulu02level", "fulu02tick", "fuluxiaoguo24",
+            "fulu24level", "fulu24tick");
+    private GameType gameMode;
+    private double soul;
+    private final Map<String, Double> talismanState = new LinkedHashMap<>();
+    private Mob dummy;
 
     FuluCookingCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("fulucooking", report, levelId);
@@ -276,6 +287,46 @@ final class FuluCookingCheck extends ActionCheck {
                             Fulu.knowledge(p).heads().contains(5)
                                     && p.serverLevel().getBlockState(inheritancePos).is(block("chuancheng").getBlock())
                                     && p.serverLevel().getBlockEntity(inheritancePos).getPersistentData().getInt("weizhi") == 5);
+                    gameMode = p.gameMode.getGameModeForPlayer();
+                    soul = Cultivation.get(p, CultivationValue.SOUL);
+                    TALISMAN_KEYS.forEach(key -> talismanState.put(key, Cultivation.tizhiDouble(p, key)));
+                    p.setGameMode(GameType.SURVIVAL);
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_02", 3, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(6, p -> {
+                    expectTrue("02 号符一阶：付 1²×10 精力，登记生效、品阶与生效数，消耗一张（精力 " + Cultivation.get(p, CultivationValue.SOUL) + "）",
+                            Math.abs(Cultivation.get(p, CultivationValue.SOUL) - 10) < 2.5 && Cultivation.tizhiBoolean(p, "fuluxiaoguo02")
+                                    && Cultivation.tizhiDouble(p, "fulu02level") == 1 && Cultivation.tizhiDouble(p, "fulunumber") == 1
+                                    && p.getInventory().getItem(HOTBAR).getCount() == 2);
+                    useHeld();
+                }),
+                new Action(6, p -> {
+                    expectTrue("效果未结束时再次使用：来源先付款后判断，精力再扣而符不消耗（精力 " + Cultivation.get(p, CultivationValue.SOUL) + "）",
+                            Cultivation.get(p, CultivationValue.SOUL) < 2.5 && p.getInventory().getItem(HOTBAR).getCount() == 2
+                                    && Cultivation.tizhiDouble(p, "fulunumber") == 1);
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    dummy = (Mob) EntityType.ZOMBIE.create(p.serverLevel());
+                    dummy.moveTo(p.getX() + 1.5, p.getY(), p.getZ(), 0, 0);
+                    dummy.setNoAi(true);
+                    dummy.setPersistenceRequired();
+                    p.serverLevel().addFreshEntity(dummy);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_24", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(130, p -> {
+                    expectTrue("24 号符一阶：付 10 精力并登记，周身 3.5 格内的非友方被固定火伤害命中（目标生命 " + dummy.getHealth() + "，存活 " + dummy.isAlive() + "）",
+                            Cultivation.tizhiBoolean(p, "fuluxiaoguo24") && p.getInventory().getItem(HOTBAR).isEmpty()
+                                    && (dummy.getHealth() < dummy.getMaxHealth() || !dummy.isAlive()));
+                }),
+                new Action(4, p -> {
+                    expectTrue("02 号符满 80+20×1 刻后结束：清零计数、品阶与生效标记，生效数只剩 24 号符的一份（标记 " + Cultivation.tizhiBoolean(p, "fuluxiaoguo02")
+                                    + "，计数 " + Cultivation.tizhiDouble(p, "fulu02tick") + "，生效数 " + Cultivation.tizhiDouble(p, "fulunumber") + "）",
+                            !Cultivation.tizhiBoolean(p, "fuluxiaoguo02") && Cultivation.tizhiDouble(p, "fulu02level") == 0
+                                    && Cultivation.tizhiDouble(p, "fulu02tick") == 0 && Cultivation.tizhiDouble(p, "fulunumber") == 1);
                 })
         );
     }
@@ -310,6 +361,21 @@ final class FuluCookingCheck extends ActionCheck {
         return stack;
     }
 
+    private static ItemStack talisman(String path, int count, int grade) {
+        ItemStack stack = item(path, count);
+        CompoundTag data = new CompoundTag();
+        data.putInt("fululevel", grade);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        return stack;
+    }
+
+    private void useHeld() {
+        minecraft.execute(() -> {
+            minecraft.player.getInventory().selected = HOTBAR;
+            minecraft.gameMode.useItem(minecraft.player, InteractionHand.MAIN_HAND);
+        });
+    }
+
     private void useBlock(BlockPos pos) {
         minecraft.execute(() -> {
             minecraft.player.getInventory().selected = HOTBAR;
@@ -321,6 +387,18 @@ final class FuluCookingCheck extends ActionCheck {
     @Override
     protected void cleanup(ServerPlayer player) {
         player.closeContainer();
+        if (dummy != null) {
+            dummy.discard();
+            player.setGameMode(gameMode);
+            Cultivation.set(player, CultivationValue.SOUL, soul);
+            Cultivation.editTizhi(player, tizhi -> talismanState.forEach((key, value) -> {
+                if (key.startsWith("fuluxiaoguo")) {
+                    tizhi.putBoolean(key, value != 0);
+                } else {
+                    tizhi.putDouble(key, value);
+                }
+            }));
+        }
         pot(player).clearContent();
         table(player).clearContent();
         if (inheritancePos != null) inheritanceBlocks.forEach((pos, state) -> player.serverLevel().setBlockAndUpdate(pos, state));

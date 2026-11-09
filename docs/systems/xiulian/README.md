@@ -39,7 +39,7 @@ updated: 2026-11-08
 | 加点 | `spendSkillPoint(玩家, SkillPoint)`（六项：生命、灵力、神识上限与物理、法术、神识攻击） | panel |
 | 灵根重置 | `resetRoots`、`maximizeRoots`（管理命令 `/yvanchu` 的两个子命令） | flow |
 | 吸血石 | `BloodStone.addBlood`、`blood`（流血效果给脚下的吸血石加充血量） | combat |
-| 体质与修正值 | `tizhiDouble/Boolean/String` 与对应的 `set`：来源隐藏载体 `tizhiitem` 的键值（335 个键及读写系统见 [tizhiitem_keys.csv](ledger/tizhiitem_keys.csv)） | 战斗（属性修正）、技能（冷却与消耗修正）、流程（重生修正）、装备（武器培养速度）等 |
+| 体质与修正值 | `tizhiDouble/Boolean/String` 与对应的 `set`、`editTizhi`（同一次同步内修改多个键，供逐刻推进的持续效果）：来源隐藏载体 `tizhiitem` 的键值（335 个键及读写系统见 [tizhiitem_keys.csv](ledger/tizhiitem_keys.csv)） | 战斗（属性修正）、技能（冷却与消耗修正）、流程（重生修正）、装备（武器培养速度）等 |
 
 约定：写操作只在服务端调用，写入后同步给本人；灵根与阴阳变化时自动向 attribute 提交基础层贡献 `xiulian:roots`。`tizhiitem` 由本系统整体保管（会话决定，2026-11-03，评估为轻微）：其中蛊虫、战斗、副本等系统自己写入的键，在这些系统实现时可移到各自的数据。尚未提供、待后续阶段补充：轮回的流程操作。
 
