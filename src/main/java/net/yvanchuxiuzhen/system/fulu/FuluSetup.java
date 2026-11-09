@@ -17,6 +17,7 @@ import net.yvanchuxiuzhen.system.fulu.content.FuluMenus;
 import net.yvanchuxiuzhen.system.fulu.content.SootBlock;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
 import net.yvanchuxiuzhen.system.fulu.content.InheritanceBlock;
 import net.yvanchuxiuzhen.system.fulu.content.InheritanceBlockItem;
@@ -38,7 +39,7 @@ public final class FuluSetup {
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "chuancheng")), properties, tooltip));
 
     /** 共享施用过程驱动的持续效果符编号，对应内容表工厂 {@code fulu:talisman_<编号>}。 */
-    private static final int[] TALISMANS = {2, 3, 4, 5, 6, 7, 8, 11, 13, 17, 19, 21, 24, 25, 29, 31, 32, 39, 46};
+    private static final int[] TALISMANS = {2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 17, 19, 21, 24, 25, 29, 31, 32, 39, 46};
 
     static {
         for (int number : TALISMANS) {
@@ -52,12 +53,20 @@ public final class FuluSetup {
         }
     }
 
+    static {
+        CONTENT.<TalismanSummon>livingEntity(TalismanSummon.ID, TalismanSummon::new, TalismanSummon::attributes);
+    }
+
     private FuluSetup() {
     }
 
     @SuppressWarnings("unchecked")
     public static Supplier<EntityType<TalismanProjectile>> projectile(Kind kind) {
         return CONTENT.entityType(kind.id());
+    }
+
+    public static Supplier<EntityType<TalismanSummon>> summon() {
+        return CONTENT.entityType(TalismanSummon.ID);
     }
 
     public static void register(IEventBus modBus) {

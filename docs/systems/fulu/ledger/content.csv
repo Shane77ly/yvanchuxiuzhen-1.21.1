@@ -22,7 +22,7 @@ block_entity_type,yvanchuxiuzhen:chuancheng,yvanchuxiuzhen,Chuancheng,src/main/j
 block_entity_type,yvanchuxiuzhen:itemfulu_15,yvanchuxiuzhen,Itemfulu15,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,140,fulu,已读,yvanchuxiuzhen:itemfulu_15,待处理,
 enchantment,yvanchuxiuzhen:charm,yvanchuxiuzhen,Charm,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEnchantments.java,179,fulu,已读,yvanchuxiuzhen:charm,已注册,数据定义与语言键就位；效果由读取等级的过程承担，随所属系统迁移
 entity_type,yvanchuxiuzhen:fulutexiao_01,yvanchuxiuzhen,Fulutexiao01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,607,fulu,候选,yvanchuxiuzhen:fulutexiao_01,待处理,
-entity_type,yvanchuxiuzhen:fulutexiao_09,yvanchuxiuzhen,Fulutexiao09,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,611,fulu,候选,yvanchuxiuzhen:fulutexiao_09,待处理,
+entity_type,yvanchuxiuzhen:fulutexiao_09,yvanchuxiuzhen,Fulutexiao09,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,611,fulu,已读,yvanchuxiuzhen:fulutexiao_09,行为已迁移,TalismanSummon：浮空/雷暴/空爆三种行为
 entity_type,yvanchuxiuzhen:fulutexiao_26,yvanchuxiuzhen,Fulutexiao26,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,625,fulu,候选,yvanchuxiuzhen:fulutexiao_26,待处理,
 entity_type,yvanchuxiuzhen:fulutexiao_27,yvanchuxiuzhen,Fulutexiao27,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,627,fulu,候选,yvanchuxiuzhen:fulutexiao_27,待处理,
 entity_type,yvanchuxiuzhen:fulutexiao_34,yvanchuxiuzhen,Fulutexiao34,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,639,fulu,候选,yvanchuxiuzhen:fulutexiao_34,待处理,

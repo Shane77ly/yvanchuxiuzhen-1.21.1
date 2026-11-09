@@ -13,6 +13,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -21,6 +22,7 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -31,7 +33,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
  * 04 弹飞、06 落雷、07 烈焰、08 冰封、11 护体、25 加速、46 火球。统一流程为先付精力、播释放声、取品阶，再按编号执行，最后消耗一张。
  */
 final class FuluInstant {
-    private static final Set<Integer> NUMBERS = Set.of(4, 5, 6, 7, 8, 11, 25, 29, 32, 46);
+    private static final Set<Integer> NUMBERS = Set.of(4, 5, 6, 7, 8, 9, 11, 12, 14, 25, 29, 32, 46);
 
     private FuluInstant() {
     }
@@ -53,7 +55,10 @@ final class FuluInstant {
             case 6 -> lightning(level, player, grade);
             case 7 -> scorch(level, player, grade);
             case 8 -> freeze(level, player, grade);
+            case 9 -> summon(level, player, grade, TalismanSummon.FLOAT, false);
             case 11 -> shield(level, player, grade);
+            case 12 -> summon(level, player, grade, TalismanSummon.THUNDERSTORM, true);
+            case 14 -> summon(level, player, grade, TalismanSummon.AIRBURST, true);
             case 25 -> haste(level, player, grade);
             case 29 -> frost(level, player, grade);
             case 32 -> cluster(level, player, grade);
@@ -140,6 +145,24 @@ final class FuluInstant {
         level.sendParticles(ParticleTypes.SPIT, player.getX(), player.getY() + 1, player.getZ(), 20, 0, 0, 0, 1);
         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600, (int) (grade * 2 - 1)));
         player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, (int) (grade * 2 - 1)));
+    }
+
+    /**
+     * 09、12、14：在视线 7 格处（下移至空气）召唤不可见的飞行体，继承使用者的阵营并记入品阶与符名；
+     * 12、14 另记使用者 UUID 作为雷与风伤害的来源（09 来源没有记）。具体行为见 {@link TalismanSummon}。
+     */
+    private static void summon(ServerLevel level, ServerPlayer player, double grade, String name, boolean master) {
+        BlockPos spot = lowered(level, player, 7);
+        TalismanSummon mob = FuluSetup.summon().get().create(level);
+        mob.moveTo(spot.getX(), spot.getY(), spot.getZ(), level.random.nextFloat() * 360F, 0);
+        Relations.copyAllegiance(player, mob);
+        mob.getPersistentData().putDouble("fululevel", grade);
+        mob.getPersistentData().putString("fuluname", name);
+        if (master) {
+            mob.getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
+        }
+        mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
+        level.addFreshEntity(mob);
     }
 
     /** 05：品阶记入使用者持久数据，从眼前射出一枚穿透 10 的气剑。 */

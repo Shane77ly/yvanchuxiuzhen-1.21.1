@@ -2800,8 +2800,8 @@ yvanchuxiuzhen,Itemfulu05,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓
 yvanchuxiuzhen,Itemfulu06,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu07,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu08,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Fulutexiao09DangShiTiGengXinKeShi,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fulutexiao09,livingentity,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fulutexiao09DangShiTiGengXinKeShi,procedure,~/item/huafu,fulu,已读,09/12/14号符共用的不可见飞行召唤体及其逐刻过程已读，行为由fuluname决定
+yvanchuxiuzhen,Fulutexiao09,livingentity,~/item/huafu,fulu,已读,09/12/14号符共用的不可见飞行召唤体及其逐刻过程已读，行为由fuluname决定
 yvanchuxiuzhen,Itemfulu09,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu10KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu10 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu10TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu10 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果

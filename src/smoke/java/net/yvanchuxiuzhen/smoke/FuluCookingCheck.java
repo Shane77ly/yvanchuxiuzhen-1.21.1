@@ -42,6 +42,7 @@ import net.yvanchuxiuzhen.system.fulu.content.AshBurnerBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableMenu;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
 import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
@@ -424,6 +425,24 @@ final class FuluCookingCheck extends ActionCheck {
                     long pieces = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> shot.getType().toString().endsWith("32")).size();
                     expectTrue("32 号符：主弹 16 刻或命中时炸出子弹，使用者的分裂标记被主弹取走（子弹 " + pieces + "）",
                             !p.getPersistentData().getBoolean("fulu32shoufa") && pieces >= 2);
+                
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_14", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    var summons = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanSummon.class), mob -> true);
+                    expectTrue("14 号符：召唤出携带符名、品阶与召唤者 UUID 的飞行体（数量 " + summons.size() + "）",
+                            summons.size() == 1 && summons.get(0).getPersistentData().getString("fuluname").equals(TalismanSummon.AIRBURST)
+                                    && summons.get(0).getPersistentData().getDouble("fululevel") == 1
+                                    && summons.get(0).getPersistentData().getString("belongToMasterUUID").equals(p.getStringUUID()));
+                }),
+                new Action(24, p -> {
+                }),
+                new Action(4, p -> {
+                    expectTrue("空爆符满 20 刻后飞行体爆炸并消失",
+                            p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanSummon.class), mob -> true).isEmpty());
                 })
         );
     }

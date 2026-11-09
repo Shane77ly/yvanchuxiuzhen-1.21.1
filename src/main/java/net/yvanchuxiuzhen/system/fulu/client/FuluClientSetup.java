@@ -26,6 +26,7 @@ public final class FuluClientSetup {
                 event.registerEntityRenderer(FuluSetup.projectile(kind).get(), ThrownItemRenderer::new);
             }
         });
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerEntityRenderer(FuluSetup.summon().get(), TalismanSummonRenderer::new));
         NeoForge.EVENT_BUS.addListener(FuluTooltip::onTooltip);
     }
 }
