@@ -8,9 +8,20 @@ import net.yvanchuxiuzhen.platform.content.ContentFiles;
 
 /** 药草目录按来源顺序生成每台装置独立保存的药性快照，重复药效仍分别参与运算。 */
 public final class LiandanHerbs {
-    private static final List<Herb> HERBS = ContentFiles.read("content/liandan/herbs.json", Herb.CODEC);
+    private static final List<Herb> HERBS = List.copyOf(ContentFiles.read("content/liandan/herbs.json", Herb.CODEC));
 
     private LiandanHerbs() {
+    }
+
+    public static List<Herb> all() {
+        return HERBS;
+    }
+
+    public static Herb definition(String itemId) {
+        for (Herb herb : HERBS) {
+            if (herb.itemId().equals(itemId)) return herb;
+        }
+        return null;
     }
 
     public static CompoundTag snapshot() {
@@ -30,14 +41,18 @@ public final class LiandanHerbs {
         return result;
     }
 
-    private record Herb(String itemId, List<Effect> effects) {
+    public record Herb(String itemId, List<Effect> effects) {
         private static final Codec<Herb> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.STRING.fieldOf("item_id").forGetter(Herb::itemId),
                 Effect.CODEC.listOf().fieldOf("effects").forGetter(Herb::effects)
         ).apply(instance, Herb::new));
+
+        public Herb {
+            effects = List.copyOf(effects);
+        }
     }
 
-    private record Effect(String name, String levelOp, int level, String timeOp, int time) {
+    public record Effect(String name, String levelOp, int level, String timeOp, int time) {
         private static final Codec<Effect> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.STRING.fieldOf("name").forGetter(Effect::name),
                 Codec.STRING.fieldOf("level_op").forGetter(Effect::levelOp),

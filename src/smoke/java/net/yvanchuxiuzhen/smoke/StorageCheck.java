@@ -5,6 +5,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,12 +16,19 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.liandan.LiandanHerbAnalysis;
+import net.yvanchuxiuzhen.system.liandan.client.HerbAnalysisScreen;
+import net.yvanchuxiuzhen.system.liandan.content.HerbAnalysisMenu;
+import net.yvanchuxiuzhen.system.liandan.data.HerbAnalysis;
+import net.yvanchuxiuzhen.system.liandan.data.LiandanData;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
 import net.yvanchuxiuzhen.system.material.data.MaterialData;
 import net.yvanchuxiuzhen.system.material.data.MaterialAnalysis;
@@ -50,6 +58,8 @@ final class StorageCheck extends SystemCheck {
     private MaterialWarehouse originalWarehouse;
     private MaterialWarehouse savedWarehouse;
     private MaterialAnalysis originalAnalysis;
+    private HerbAnalysis originalHerbs;
+    private HerbAnalysis savedHerbs;
     private final Map<Profession, ProfessionProgress> originalProfessions = new EnumMap<>(Profession.class);
     private BlockPos orePos;
     private BlockState originalOre;
@@ -66,6 +76,8 @@ final class StorageCheck extends SystemCheck {
                 selected = player.getInventory().selected;
                 originalWarehouse = MaterialStorage.snapshot(player);
                 originalAnalysis = player.getData(MaterialData.ANALYSIS);
+                originalHerbs = LiandanHerbAnalysis.analysis(player);
+                player.setData(LiandanData.HERB_ANALYSIS, HerbAnalysis.EMPTY);
                 for (Profession profession : Profession.values()) originalProfessions.put(profession, player.getData(ProfessionAttachments.PROGRESS).get(profession));
                 for (int index = 0; index < player.getInventory().getContainerSize(); index++) inventory.add(player.getInventory().getItem(index).copy());
                 player.getInventory().clearContent();
@@ -341,33 +353,125 @@ final class StorageCheck extends SystemCheck {
             }
             case 55 -> {
                 if (local < 12) return false;
+                onServer(player -> {
+                    player.getInventory().clearContent();
+                    player.getInventory().setItem(0, item("baicaojianbook", 1));
+                    player.getInventory().setItem(9, item("spiritgrass", 2));
+                    player.getInventory().setItem(10, item("spiritgrass", 4));
+                    player.inventoryMenu.broadcastChanges();
+                });
+            }
+            case 56 -> {
+                if (local < 12) return false;
+                open();
+            }
+            case 57 -> {
+                if (local < 12) return false;
+                onServer(player -> expectTrue("百草鉴真实右键开原生界面，药草槽拒普通物品且最大64", player.containerMenu instanceof HerbAnalysisMenu
+                        && minecraft.screen instanceof HerbAnalysisScreen && player.containerMenu.slots.size() == 37
+                        && !player.containerMenu.getSlot(0).mayPlace(new ItemStack(Items.STONE))
+                        && player.containerMenu.getSlot(0).getMaxStackSize() == 64));
+                click(1, 0, ClickType.PICKUP);
+                click(0, 0, ClickType.PICKUP);
+                herbButton("辨识药草");
+            }
+            case 58 -> {
+                if (local < 12) return false;
+                onServer(player -> expectTrue("百草鉴首次辨识仅刷新四药性上限和成本，不消耗库存或样本", LiandanHerbAnalysis.analysis(player).progress(ModId.VALUE + ":spiritgrass") == 0
+                        && LiandanHerbAnalysis.analysis(minecraft.player).maximum(ModId.VALUE + ":spiritgrass") == 4
+                        && LiandanHerbAnalysis.analysis(minecraft.player).needText().contains("消耗4个")
+                        && player.getInventory().getItem(10).getCount() == 4 && player.containerMenu.getSlot(0).getItem().getCount() == 2));
+                herbButton("辨识药草");
+            }
+            case 59 -> {
+                if (local < 12) return false;
+                onServer(player -> {
+                    HerbAnalysis herbs = LiandanHerbAnalysis.analysis(player);
+                    List<Component> tooltip = minecraft.player.containerMenu.getSlot(0).getItem().getTooltipLines(
+                            Item.TooltipContext.of(minecraft.level), minecraft.player, TooltipFlag.NORMAL);
+                    expectTrue("首次正式辨识扣普通库存4、不扣仓和样本，原符号药性及Tooltip同步", herbs.progress(ModId.VALUE + ":spiritgrass") == 1
+                            && player.getInventory().getItem(10).isEmpty() && player.containerMenu.getSlot(0).getItem().getCount() == 2
+                            && MaterialStorage.snapshot(player).total() == 35
+                            && herbs.revealed(ModId.VALUE + ":spiritgrass").getFirst().description().equals("药效加80点；持续时间加800刻")
+                            && LiandanHerbAnalysis.analysis(minecraft.player).progress(ModId.VALUE + ":spiritgrass") == 1
+                            && tooltip.stream().anyMatch(line -> line.getString().contains("药效加80点")));
+                });
+                screenshot.accept("liandan-herb-analysis");
+                herbButton("辨识药草");
+            }
+            case 60 -> {
+                if (local < 12) return false;
+                onServer(player -> {
+                    expectTrue("第二次辨识需8份，数量不足保持进度和样本", LiandanHerbAnalysis.analysis(player).progress(ModId.VALUE + ":spiritgrass") == 1
+                            && player.containerMenu.getSlot(0).getItem().getCount() == 2);
+                    player.getInventory().setItem(10, item("spiritgrass", 7));
+                    player.containerMenu.broadcastChanges();
+                });
+            }
+            case 61 -> {
+                if (local < 12) return false;
+                herbButton("辨识药草");
+            }
+            case 62 -> {
+                if (local < 12) return false;
+                onServer(player -> {
+                    expectTrue("成本8先扣背包7再扣样本1，两端进度二及样本一保持", LiandanHerbAnalysis.analysis(player).progress(ModId.VALUE + ":spiritgrass") == 2
+                            && LiandanHerbAnalysis.analysis(minecraft.player).progress(ModId.VALUE + ":spiritgrass") == 2
+                            && player.getInventory().getItem(10).isEmpty() && player.containerMenu.getSlot(0).getItem().getCount() == 1
+                            && minecraft.player.containerMenu.getSlot(0).getItem().getCount() == 1);
+                    player.getInventory().setItem(10, item("spiritgrass", 11));
+                    player.containerMenu.broadcastChanges();
+                });
+            }
+            case 63 -> {
+                if (local < 12) return false;
+                herbButton("辨识药草");
+            }
+            case 64 -> {
+                if (local < 12) return false;
+                onServer(player -> {
+                    savedHerbs = LiandanHerbAnalysis.analysis(player);
+                    expectTrue("成本12耗尽最后样本仍推进真值，来源显示缓存保留旧进度", savedHerbs.progress(ModId.VALUE + ":spiritgrass") == 3
+                            && player.containerMenu.getSlot(0).getItem().isEmpty()
+                            && savedHerbs.progressText().equals("解析进度：2/4")
+                            && savedHerbs.data().equals(LiandanHerbAnalysis.analysis(minecraft.player).data()));
+                });
+                minecraft.player.closeContainer();
+            }
+            case 65 -> {
+                if (local < 12) return false;
                 onServer(player -> savedWarehouse = MaterialStorage.snapshot(player));
                 kill();
             }
-            case 56 -> {
+            case 66 -> {
                 return respawned(local);
             }
-            case 57 -> {
+            case 67 -> {
                 if (!inWorld(local)) return false;
                 onServer(player -> expectTrue("真实死亡重生后材料仓快照双端一致、辨识进度与采集等级保留", savedWarehouse.equals(MaterialStorage.snapshot(player))
+                        && savedHerbs.data().equals(LiandanHerbAnalysis.analysis(player).data())
+                        && savedHerbs.data().equals(LiandanHerbAnalysis.analysis(minecraft.player).data())
                         && savedWarehouse.equals(MaterialStorage.snapshot(minecraft.player))
                         && Materials.revealedEntries(player, ModId.VALUE + ":cailiao_018").size() == 3
                         && Professions.level(player, Profession.GATHERING) == 1 && Professions.level(minecraft.player, Profession.GATHERING) == 1));
                 leaveWorld();
             }
-            case 58 -> {
+            case 68 -> {
                 return reopened(local);
             }
-            case 59 -> {
+            case 69 -> {
                 if (!inWorld(local)) return false;
                 onServer(player -> {
                     expectTrue("退出重进后材料仓快照、辨识条目数与采集等级持久化，双端一致", savedWarehouse.equals(MaterialStorage.snapshot(player))
+                            && savedHerbs.data().equals(LiandanHerbAnalysis.analysis(player).data())
+                            && savedHerbs.data().equals(LiandanHerbAnalysis.analysis(minecraft.player).data())
                             && savedWarehouse.equals(MaterialStorage.snapshot(minecraft.player))
                             && Materials.revealedEntries(player, ModId.VALUE + ":cailiao_018").size() == 3
                             && Materials.revealedEntries(minecraft.player, ModId.VALUE + ":cailiao_018").size() == 3
                             && Professions.level(player, Profession.GATHERING) == 1 && Professions.level(minecraft.player, Profession.GATHERING) == 1);
                     player.setData(StorageData.WAREHOUSE, originalWarehouse);
                     player.setData(MaterialData.ANALYSIS, originalAnalysis);
+                    player.setData(LiandanData.HERB_ANALYSIS, originalHerbs);
                     originalProfessions.forEach((profession, progress) -> player.getData(ProfessionAttachments.PROGRESS).set(profession, progress));
                     player.syncData(ProfessionAttachments.PROGRESS);
                     player.getInventory().clearContent();
@@ -401,6 +505,11 @@ final class StorageCheck extends SystemCheck {
 
     private void option(int id, boolean selected) {
         button(100 + id * 2 + (selected ? 1 : 0));
+    }
+
+    private void herbButton(String label) {
+        minecraft.screen.children().stream().filter(child -> child instanceof Button button && button.getMessage().getString().equals(label))
+                .map(Button.class::cast).findFirst().orElseThrow().onPress();
     }
 
     private void analysisButton(int id) {

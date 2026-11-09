@@ -11,6 +11,8 @@ import net.yvanchuxiuzhen.platform.ModId;
 /** 炼丹菜单保留来源注册身份，打开数据携带真实丹炉位置。 */
 public final class LiandanMenus {
     private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, ModId.VALUE);
+    public static final Supplier<MenuType<HerbAnalysisMenu>> HERB_ANALYSIS = MENUS.register("baicaojian",
+            () -> IMenuTypeExtension.create(HerbAnalysisMenu::new));
     public static final Supplier<MenuType<PharmacologyMenu>> PHARMACOLOGY = MENUS.register("yaolitai",
             () -> IMenuTypeExtension.create(PharmacologyMenu::new));
     public static final Supplier<MenuType<AlchemyMenu>> ALCHEMY = MENUS.register("liandan_gui",

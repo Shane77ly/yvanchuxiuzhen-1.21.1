@@ -7,7 +7,7 @@ updated: 2026-11-09
 
 # 炼丹、药理、药物与毒药
 
-本页记录已核对的 1.18.2 版本来源规则与 1.21.1 版本实现范围。源码定位采用[系统导航](../README.md)的 A/B 规则，公开操作见[系统入口](README.md#公开操作)。八档丹炉自然炼制链、八种药瓶消费/放置链与分丹台已有相应构建和客户端样本验证；2026-11-09 本批接回药理台丹方预览与媒介写入，来源静态核对、构建和内置客户端样本通过。证据与边界见[月志](logs/2026-11.md)；百草鉴辨识等仍未实现，不能据此标记系统完成。
+本页记录已核对的 1.18.2 版本来源规则与 1.21.1 版本实现范围。源码定位采用[系统导航](../README.md)的 A/B 规则，公开操作见[系统入口](README.md#公开操作)。八档丹炉自然炼制链、八种药瓶消费/放置链、分丹台及药理台已有相应构建和客户端样本验证；2026-11-09 本批接回百草鉴辨识、药草提示、全解锁及玩家附件，来源静态核对已完成，构建、内置客户端54条INFO/0FAIL/DONE及专服加载保存退出通过。证据与边界见[月志](logs/2026-11.md)；毒药结束回调等仍未实现，不能据此标记系统完成。
 
 ## 八档丹炉与状态
 
@@ -38,7 +38,7 @@ updated: 2026-11-09
 
 目标 `LiandanHerbs` 从 `content/liandan/herbs.json` 生成相同键结构，`tools/porting/convert_content.py` 的 `convert_herb_definitions` 抽取 Worldbegin。目录中的 `yvanchuxiuzhen:nichanggrass` 未注册，实际注册为 `nichanggrass_01`–`07`；保留目录错名，不重定向到 `nichanggrass_07`，该行没有自然匹配物品。保留定义不能登记为该药材药性已自然生效。
 
-药草目录及玩家 `playercaoyaojiexi` 辨识属于炼丹，与 [material](../material/README.md) 的千材录辨识不同。玩家辨识、`Lore` 提示与 `Jiesuocaoyao` 写入口仍待接回。
+药草目录及玩家 `playercaoyaojiexi` 辨识属于炼丹，与 [material](../material/README.md) 的千材录辨识不同。百草鉴复用上述 37 草、100 条顺序药性，玩家已揭示结果独立保存；`Lore` 只读这些结果，`Jiesuocaoyao` 由炼丹公开写入口承接，具体规则见下文。
 
 ## 开炉、药效与数量
 
@@ -202,9 +202,73 @@ L 至少 1 时以权限 4、无执行实体、屏蔽输出的来源执行 `effec
 
 来源最后对真实菜单槽 0 的栈执行 `setTag(新临时栈tag.copy)`，完整替换原 tag、保留 Item/count，实际写入有效；目标 `Pharmacology.write` 以同 Item/count 的全新栈承接物品默认组件，再写本次名称和丹方数据，舍弃原自定义名、附魔等实例组件。此处不能复用丹炉“保存按钮只改副本、无写回”的异常。写出的丹方随后由丹炉按其既有装料和命名规则消费，不把药理台预览字段当作直接成丹结果。
 
+## 百草鉴自然入口与样本库存
+
+`B:item/BaicaojianbookItem:16–29` 的工具栏书本最多一件、普通稀有度，空气右键调用开窗后仍返回父类原 PASS 和原调用栈，不消耗书、不要求潜行。两份无序合成分别以任意 `caoyao` 标签物品配 `book` 或 `writable_book` 获得一件百草鉴；第二份来源文件准确名称为 `baicaojianbookhecheng_2.json`。
+
+`B:BaicaojianbookDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:26–38` 仅传玩家当前位置的 BlockPos，标题为 `Baicaojian`，没有绑定书本。`B:world/inventory/BaicaojianMenu:38–95` 的模板随后尝试获取该位置方块的无面物品能力，因此玩家脚部坐标恰有可访问库存时会意外绑定其槽 0；目标保留该路径，不改成永远使用临时库存。没有发现此菜单的物品或实体绑定调用者。
+
+未绑定时使用一格临时库存、上限 64；NeoForge 21.1.265 的 `ItemStackHandler` 默认上限已改为 `Item.ABSOLUTE_MAX_STACK_SIZE`，目标显式覆写 64 以保留来源。绑定时使用真实能力的容量和已有物品。槽 0 位于 `(30,-13)`，仅允许 `yvanchuxiuzhen:caoyao`；`stillValid` 恒为真。Shift 合并保留来源 `mayPlace(existing)` 检查与显式 `slot.set` 写回，空槽插入一格后停止。未绑定菜单关闭时返还样本，死亡或断线时掉落；绑定库存关闭保留。
+
+目标 `HerbAnalysisBookItem`、`HerbAnalysisMenu`、`HerbAnalysisPayload` 与 `HerbAnalysisScreen` 使用原生客户端菜单。画布 176×166，背景 `baicaojian`，覆盖图 `baicaogui01` 位于 `(-12,-39)`、202×120；刷新/辨识按钮分别 `(47,-13)` 和 `(-7,22)`、16×16。标题、进度和成本分别位于 `(-3,-27)`、`(-3,7)`、`(5,26)`；十条药性在 `(93,-27+10×索引)`，空缓存也保留来源冒号行；三条帮助位于 y167/177/187。按钮只发送当前容器编号与 0/1 操作，服务端核实真实菜单和打开坐标区块已加载后执行。
+
+## 药草刷新与逐项辨识
+
+`B:BaicaojianShuaxinProcedure:35–110` 在槽 0 为空或不是药草时直接结束，保留旧显示缓存。有效样本只在旧 `txtname` 非空时清标题、进度、成本、物品 ID 和十行文本，不清各药草已揭示的真值；随后按准确 Item ID 查运行目录更新该 ID 的解析上限。目录未收录时保留该 ID 原有上限，不生成默认药性。打开菜单本身不刷新或清缓存。
+
+显示名称使用样本完整 `getDisplayName().getString()`，保留原生方括号。进度为 `p/max`；只有 `p>=1` 且 `p>=max` 才显示完全解析，否则显示下一项成本，包括 `p=0,max=0` 时仍显示 4 个。已揭示药效名称及说明取玩家保存值，不随目录即时重算。十行均按 `§b<效果译名>:§8<原始说明>` 绘制；刷新只写自身附件，客户端读取同步快照。
+
+`B:BaicaojianjiandingProcedure:41–48` 要求样本为药草。缓存标题为空或缓存 ID 与当前样本不同，第一次辨识只刷新，不扣料或揭示。`p<max` 时才尝试下一项，成本为 Java int 表达式 `4 + 4×p`；不使用千材录的公式或材料仓。
+
+来源 `:49–89` 通过玩家实体 `IItemHandler` 按 Item 身份累计同类库存，不比较实例组件；可用量是该数量与样本数之和。真正扣费使用玩家普通 `Inventory.clearOrCountMatchingItems`，连同 `inventoryMenu` 的 craft slots 作为参数，先扣普通库存，不足部分再从菜单槽 0 扣除。统计能力与扣费入口不同的来源边界保持，不改为能力逐格抽取。
+
+成功后先令 `p+1`，按新序号从 1 开始揭示目录中的一项效果，保存原效果 ID 和 `药效<符号><数值>点；持续时间<符号><数值>刻`，重新写上限但不覆盖旧已揭示项；这些是原始药性，不是聚合后丹药等级/时间。费用不足发送来源红字，仍保存、同步并刷新；已经完全解析只提示，不再扣费。样本整栈恰好耗尽时，后续刷新因空槽直接返回，玩家真值已经递增而屏幕仍保留先前标题、进度和成本，目标保留该缓存残留。
+
+## 药草提示、全解锁与玩家生命周期
+
+`B:LoreProcedure:222–245` 的草药分支在前置装备和药瓶分支未命中后执行，追加金色“炼丹材料”。上限为 0 时显示红色“还未开始解析”，否则未完成时显示青色进度；`p>=1` 按保存顺序显示效果译名与原始符号说明，完全解析不另加完成行。无命名空间效果走 `effect.minecraft.<名称>`，有命名空间则把冒号换为点再加 `effect.`。其他系统只读炼丹快照，不能修改玩家解析附件或把同物品多种标签分支叠加显示。
+
+`B:JiesuocaoyaoProcedure:24–74` 按完整运行目录逐项令 `p=max` 并保存所有原始效果和说明，包含未注册的 `nichanggrass` 原 ID，不清菜单显示缓存。目标由 `LiandanHerbCommand` 按当前维度 displayName 分派到 `Liandan.unlockHerbs`，再调用 `LiandanHerbAnalysis.unlockAll`；没有来源自定义重置入口，不新增 reset 操作。
+
+来源命令名实际为 `/yvanchuxitong`（`B:command/YvanchuCommand:26`），权限 1；贪婪字符串按空白拆参数。`B:YvanchuGoProcedure:23–35` 只遍历执行者当前 ServerLevel 的玩家，以 `displayName.getString()` 精确匹配参数 0；参数 1/2 为 `unlock yaocai` 时解锁。参数 3 等于 `true` 只控制向执行者显示成功消息，不是解锁条件；命令返回 0。目标 `LiandanHerbCommand` 保留该分支并由 `LiandanData.register` 挂载，公共命令解析仍归 flow，炼丹只写自己的附件，不把整个来源命令归入炼丹。
+
+`B:network/YvanchuxitongModVariables:88` 在死亡判断外无条件复制 `playercaoyaojiexi`，`:308,333,355,396` 完成定义、保存、读取与本人同步，`:54–68` 在登录、重生和换维度时同步。目标 `LiandanData.HERB_ANALYSIS` 使用可保存附件、`copyOnDeath` 与仅向持有者本人同步的配置；`HerbAnalysis` 对原始 CompoundTag 构造和读取均复制，界面不能反写整份玩家档案。内置客户端已验证真实死亡重生、退出重进后服务端与本人客户端数据保留且一致；非死亡重建和跨维度仅完成静态核对。
+
+## 药草字段访问覆盖
+
+`typed_field_accesses.csv` 中 `playercaoyaojiexi` 有 20 处（17 处读取/访问、3 处显式写回），`caoyaolist` 有 5 处（4 读、1 写），合计 25 处。变量定义、序列化、克隆和同步属于模板内部生命周期，不在该 CSV 内，已另按上述 Variables 来源核对。下表中的过程均为 B 来源，未省略跨系统访问。
+
+| 字段 | 过程 | 来源行 | 访问 | 所有权与目标去向 |
+| --- | --- | --- | --- | --- |
+| playercaoyaojiexi | Baicaojianjianding | 43 | 读取/访问 | liandan，辨识内部读取 |
+| caoyaolist | Baicaojianjianding | 94 | 读取/访问 | liandan，运行药性目录 |
+| playercaoyaojiexi | Baicaojianjianding | 120 | 写回 | liandan，辨识附件写入 |
+| playercaoyaojiexi | BaicaojianShuaxin | 37 | 读取/访问 | liandan，刷新缓存 |
+| caoyaolist | BaicaojianShuaxin | 55 | 读取/访问 | liandan，运行药性目录 |
+| playercaoyaojiexi | BaicaojianShuaxin | 108 | 写回 | liandan，刷新附件写入 |
+| playercaoyaojiexi | Baicaojiantxtjiesuoneed | 14 | 读取/访问 | liandan，成本显示快照 |
+| playercaoyaojiexi | Baicaojiantxtjindu | 14 | 读取/访问 | liandan，进度显示快照 |
+| playercaoyaojiexi | Baicaojiantxtname | 14 | 读取/访问 | liandan，标题显示快照 |
+| playercaoyaojiexi | Baicaojiantxtyaoxiao10 | 14 | 读取/访问 | liandan，第十条药性显示快照 |
+| playercaoyaojiexi | Baicaojiantxtyaoxiao1 | 14 | 读取/访问 | liandan，第一条药性显示快照 |
+| playercaoyaojiexi | Baicaojiantxtyaoxiao2 | 14 | 读取/访问 | liandan，第二条药性显示快照 |
+| playercaoyaojiexi | Baicaojiantxtyaoxiao3 | 14 | 读取/访问 | liandan，第三条药性显示快照 |
+| playercaoyaojiexi | Baicaojiantxtyaoxiao4 | 14 | 读取/访问 | liandan，第四条药性显示快照 |
+| playercaoyaojiexi | Baicaojiantxtyaoxiao5 | 14 | 读取/访问 | liandan，第五条药性显示快照 |
+| playercaoyaojiexi | Baicaojiantxtyaoxiao6 | 14 | 读取/访问 | liandan，第六条药性显示快照 |
+| playercaoyaojiexi | Baicaojiantxtyaoxiao7 | 14 | 读取/访问 | liandan，第七条药性显示快照 |
+| playercaoyaojiexi | Baicaojiantxtyaoxiao8 | 14 | 读取/访问 | liandan，第八条药性显示快照 |
+| playercaoyaojiexi | Baicaojiantxtyaoxiao9 | 14 | 读取/访问 | liandan，第九条药性显示快照 |
+| playercaoyaojiexi | Jiesuocaoyao | 24 | 读取/访问 | liandan，解锁内部读取 |
+| caoyaolist | Jiesuocaoyao | 27 | 读取/访问 | liandan，运行药性目录 |
+| playercaoyaojiexi | Jiesuocaoyao | 71 | 写回 | liandan，解锁附件写入 |
+| caoyaolist | LiandanYaojixiaoguo | 44 | 读取/访问 | liandan，实体放置药性快照 |
+| playercaoyaojiexi | Lore | 224 | 读取/访问 | panel 公共提示分派，仅只读炼丹查询 |
+| caoyaolist | Worldbegin | 48 | 写回 | flow 世界加载定义，由 liandan 运行目录承接 |
+
 ## 未实现范围与验证边界
 
-当前覆盖丹炉、炉次、丹方装料/保存原行为、药性目录、职业/丹火接口，八种药瓶消费与方块生命周期、分丹台分合丹，以及药理台丹方预览/媒介写入。百草鉴辨识、毒药结束回调、`duedan` 丹药、`Grind` 命令与 `Jiesuocaoyao` 待后续核对实现；基础注册不等于玩法完成。丹方购买、宝箱和副本获取由对应系统接回。
+当前覆盖丹炉、炉次、丹方装料/保存原行为、药性目录、职业/丹火接口，八种药瓶消费与方块生命周期、分丹台分合丹、药理台丹方预览/媒介写入，以及百草鉴辨识、药草提示、解锁和玩家附件。毒药结束回调、`duedan` 丹药与 `Grind` 命令待后续核对实现；基础注册不等于玩法完成。丹方购买、宝箱和副本获取由对应系统接回。
 
 此前“保存操作者、固定输入快照”等属于未批准提案，本批没有据此新增炉主记录或快照机制。后续数据设计继续依据实际来源与已批准所有权，不能从旧提案推定决定。
 
@@ -213,5 +277,7 @@ L 至少 1 时以权限 4、无执行实体、屏蔽输出的来源执行 `effec
 分丹台批次完整构建与既有检查源集编译通过；既有内置客户端25项全INFO、0FAIL、DONE，六项分合丹覆盖自然放置开窗、实际分丹按钮、双页共享库存、真实合丹、完整组件保存重读/同步、方向能力和来源同名药效拒绝/异名仍合并。两页截图已查看，专服加载后正常stop保存四维度，ERROR/FATAL0。分合丹全部异常分支、Shift、六面真实自动化、破坏掉落与重登尚未专项实测。
 
 药理台来源静态核对、构建、既有内置客户端28项及专服正常保存退出通过。三项新增路径覆盖自然放置/开窗、预览与双端显示、实际写入丹方/全部旧实例组件替换、隐藏库存保存重读及方向能力；截图已查看。左键清除、破坏库存丢失、真实自动化、重登和专服名称差异未专项验收，结果见月度记录。
+
+百草鉴本批来源静态核对完成，构建、内置客户端54条 INFO/0FAIL/DONE、专服正常加载保存退出及文档台账检查均通过，证据见[本月记录](logs/2026-11.md)。54条包含原有仓储、材料与职业检查；百草鉴新增六条覆盖自然开窗/槽过滤、首次仅刷新、背包优先扣料、费用不足、背包加样本联合扣料、样本耗尽缓存和Tooltip同步，并复用死亡重生、退出重进验证解析附件。全37草逐项辨识、无面库存绑定、断线掉落、跨维度、Tooltip标签优先级、自然合成、解锁命令与完整视觉未专项验收。
 
 1.18.2 版本实机、两版本对照、多人、完整视觉、全部药性组合、丹炉自动化隐藏槽、完整药性快照与未完成炉次卸载重载均未验收。各批运行证据写入[本月记录](logs/2026-11.md)，月份导航见[记录索引](changes.md)，不把未执行检查计为通过。

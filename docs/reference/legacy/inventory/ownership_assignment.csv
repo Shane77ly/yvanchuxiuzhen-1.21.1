@@ -7067,25 +7067,25 @@ yvanchuxitong,Taopiitem,item,~/zawu/taolun,craft,已读,B1 归属阅读：工艺
 yvanchuxitong,Dahuozhuangzhi,tag,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,TaolunGuiDangZheGeJieMianBeiGuanBi,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Danyaoguan,tag,~/yvanchuliandan/danyaoguan,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojian,gui,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BaicaojianShuaxin,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojianjianding,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtname,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtjindu,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtjiesuoneed,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtyaoxiao1,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtyaoxiao2,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtyaoxiao3,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtyaoxiao4,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtyaoxiao5,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtyaoxiao6,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtyaoxiao7,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtyaoxiao8,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtyaoxiao9,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baicaojiantxtyaoxiao10,procedure,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Baicaojian,gui,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,BaicaojianShuaxin,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojianjianding,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtname,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtjindu,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtjiesuoneed,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtyaoxiao1,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtyaoxiao2,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtyaoxiao3,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtyaoxiao4,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtyaoxiao5,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtyaoxiao6,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtyaoxiao7,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtyaoxiao8,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtyaoxiao9,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
+yvanchuxitong,Baicaojiantxtyaoxiao10,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,BaicaojianbookDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/yvanchuliandan/baicaojian,liandan,已读,B1 归属阅读：随 Baicaojianbook 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Baicaojianbook,item,~/yvanchuliandan/baicaojian,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
-yvanchuxitong,Baicaojianbookhecheng,recipe,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Baicaojianbookhecheng,recipe,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,Fendantaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Yaolitaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,PlayerJoinGame,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7146,7 +7146,7 @@ yvanchuxitong,Qiancailutxtxiaoguo7,procedure,~/yvanchuliandan/baicaojian,materia
 yvanchuxitong,Qiancailutxtxiaoguo8,procedure,~/yvanchuliandan/baicaojian,material,已读,D来源核对：千材录物品/菜单/刷新/辨识/十效果文字/帮助只读写材料辨识，按批准system-design归material；两配方为材料标签加书或书与笔；见material/architecture.md
 yvanchuxitong,Qiancailutxtxiaoguo9,procedure,~/yvanchuliandan/baicaojian,material,已读,D来源核对：千材录物品/菜单/刷新/辨识/十效果文字/帮助只读写材料辨识，按批准system-design归material；两配方为材料标签加书或书与笔；见material/architecture.md
 yvanchuxitong,Qiancailutxtxiaoguo10,procedure,~/yvanchuliandan/baicaojian,material,已读,D来源核对：千材录物品/菜单/刷新/辨识/十效果文字/帮助只读写材料辨识，按批准system-design归material；两配方为材料标签加书或书与笔；见material/architecture.md
-yvanchuxitong,Baicaojianbookhecheng2,recipe,~/yvanchuliandan/baicaojian,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Baicaojianbookhecheng2,recipe,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,Qiancailubookhecheng2,recipe,~/yvanchuliandan/baicaojian,material,已读,D来源核对：千材录物品/菜单/刷新/辨识/十效果文字/帮助只读写材料辨识，按批准system-design归material；两配方为材料标签加书或书与笔；见material/architecture.md
 yvanchuxitong,Xvanshang01,block,~/xvanshang,quest,已读,B1 归属阅读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示；本元素无过程
 yvanchuxitong,Xvanshang02,block,~/xvanshang,quest,已读,B1 归属阅读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示；本元素无过程
@@ -7376,7 +7376,7 @@ yvanchuxitong,Beitiaoxinhuayv,procedure,~/shop/paimaihang,economy,已读,B1 归�
 yvanchuxitong,TiaoxinChujia,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
 yvanchuxitong,Duihuafenhang,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
 yvanchuxitong,Fangqijingjiaduihua,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
-yvanchuxitong,Jiesuocaoyao,procedure,~/zhiling,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Jiesuocaoyao,procedure,~/zhiling,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,Jiesuocailiao,procedure,~/zhiling,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,YvanchuGo,procedure,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Yvanchu,command,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）

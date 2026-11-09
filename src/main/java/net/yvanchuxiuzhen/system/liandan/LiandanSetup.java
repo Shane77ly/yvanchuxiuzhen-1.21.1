@@ -10,6 +10,7 @@ import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlock;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlockItem;
+import net.yvanchuxiuzhen.system.liandan.content.HerbAnalysisBookItem;
 import net.yvanchuxiuzhen.system.liandan.content.LiandanBlockEntities;
 import net.yvanchuxiuzhen.system.liandan.content.LiandanMenus;
 import net.yvanchuxiuzhen.system.liandan.content.MedicineContainerBlock;
@@ -17,6 +18,8 @@ import net.yvanchuxiuzhen.system.liandan.content.MedicineContainerItem;
 import net.yvanchuxiuzhen.system.liandan.content.MedicineSeparationBlock;
 import net.yvanchuxiuzhen.system.liandan.content.PharmacologyBlock;
 import net.yvanchuxiuzhen.system.liandan.network.AlchemyButtonPayload;
+import net.yvanchuxiuzhen.system.liandan.data.LiandanData;
+import net.yvanchuxiuzhen.system.liandan.network.HerbAnalysisPayload;
 import net.yvanchuxiuzhen.system.liandan.network.MedicineSeparationPayload;
 import net.yvanchuxiuzhen.system.liandan.network.PharmacologyPayload;
 
@@ -29,6 +32,7 @@ public final class LiandanSetup {
             .blockFactory("liandan:medicine_container", MedicineContainerBlock::create)
             .blockFactory("liandan:medicine_separation", traits -> ContentBlock.create(traits, MedicineSeparationBlock::new))
             .blockFactory("liandan:pharmacology", traits -> ContentBlock.create(traits, PharmacologyBlock::new))
+            .itemFactory("liandan:herb_analysis", HerbAnalysisBookItem::new)
             .itemFactory("liandan:medicine_container", (properties, tooltip) -> new MedicineContainerItem(properties, tooltip, true))
             .itemFactory("liandan:medicine_container_empty_box", (properties, tooltip) -> new MedicineContainerItem(properties, tooltip, false));
 
@@ -42,6 +46,7 @@ public final class LiandanSetup {
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, id)), properties, tooltip));
         }
         CONTENT.register(modBus);
+        LiandanData.register(modBus);
         LiandanBlockEntities.register(modBus);
         LiandanMenus.register(modBus);
         modBus.addListener(LiandanSetup::payloads);
@@ -56,5 +61,6 @@ public final class LiandanSetup {
         event.registrar("1").playToServer(AlchemyButtonPayload.TYPE, AlchemyButtonPayload.STREAM_CODEC, AlchemyButtonPayload::handle);
         event.registrar("1").playToServer(MedicineSeparationPayload.TYPE, MedicineSeparationPayload.STREAM_CODEC, MedicineSeparationPayload::handle);
         event.registrar("1").playToServer(PharmacologyPayload.TYPE, PharmacologyPayload.STREAM_CODEC, PharmacologyPayload::handle);
+        event.registrar("1").playToServer(HerbAnalysisPayload.TYPE, HerbAnalysisPayload.STREAM_CODEC, HerbAnalysisPayload::handle);
     }
 }

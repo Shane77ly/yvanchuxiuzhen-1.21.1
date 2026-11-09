@@ -18,7 +18,7 @@
 {"id":"itemdanyaohulu_06block","factory":"block_item","block":"itemdanyaohulu_06block","order":2146},
 {"id":"fendantai","factory":"block_item","block":"fendantai","order":2147,"tab":"minecraft:building_blocks"},
 {"id":"yaolitaiblock","factory":"block_item","block":"yaolitaiblock","order":2148,"tab":"minecraft:building_blocks"},
-{"id":"baicaojianbook","factory":"item","order":2290,"tab":"minecraft:tools_and_utilities","stack":1,"pending_hooks":["use"]},
+{"id":"baicaojianbook","factory":"liandan:herb_analysis","order":2290,"tab":"minecraft:tools_and_utilities","stack":1,"pending_hooks":["use"]},
 {"id":"alchemy_01","factory":"liandan:alchemy_01","block":"alchemy_01","order":979,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"alchemy_02","factory":"liandan:alchemy_02","block":"alchemy_02","order":982,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"alchemy_03","factory":"liandan:alchemy_03","block":"alchemy_03","order":983,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
