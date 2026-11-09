@@ -76,6 +76,10 @@ public final class FuluUse {
      * 其生效数来源读的是物品而不是玩家的 {@code fulunumber}（登记为 Q65）；39 号符释放声先于判断，已生效时仍续水下呼吸并消耗符。
      */
     public static void activate(ServerPlayer player, ItemStack stack, int number) {
+        if (FuluInstant.handles(number)) {
+            FuluInstant.use(player, stack, number);
+            return;
+        }
         if (!pay(player, stack)) {
             return;
         }
@@ -110,7 +114,7 @@ public final class FuluUse {
     }
 
     /** 在玩家位置上方一格播放释放声。 */
-    private static void cast(ServerPlayer player) {
+    static void cast(ServerPlayer player) {
         player.serverLevel().playSound(null, BlockPos.containing(player.getX(), player.getY() + 1, player.getZ()),
                 BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fulushifang")), SoundSource.NEUTRAL, 1, 1);
     }

@@ -219,12 +219,12 @@ final class FuluTick {
     }
 
     /** 以点为中心、边长 {@code 2×halfSize} 的方盒内所有实体，按到中心的距离由近到远。 */
-    private static List<Entity> nearby(ServerLevel level, Vec3 center, double halfSize) {
+    static List<Entity> nearby(ServerLevel level, Vec3 center, double halfSize) {
         return level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(halfSize)).stream()
                 .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList();
     }
 
-    private static void spray(ServerLevel level, ParticleOptions type, double x, double y, double z, double vx, double vy, double vz) {
+    static void spray(ServerLevel level, ParticleOptions type, double x, double y, double z, double vx, double vy, double vz) {
         level.sendParticles(type, x, y, z, 0, vx, vy, vz, 1);
     }
 }

@@ -375,6 +375,35 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("39 号符一阶：获得 12000 刻水下呼吸并登记生效（剩余 " + (p.hasEffect(MobEffects.WATER_BREATHING) ? p.getEffect(MobEffects.WATER_BREATHING).getDuration() : 0) + "）",
                             p.hasEffect(MobEffects.WATER_BREATHING) && p.getEffect(MobEffects.WATER_BREATHING).getDuration() > 11900
                                     && Cultivation.tizhiBoolean(p, "fuluxiaoguo39"));
+                    p.removeAllEffects();
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_25", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    expectTrue("25 号符一阶：获得 3600 刻速度与 1200 刻力量（等级 1），消耗一张",
+                            p.hasEffect(MobEffects.MOVEMENT_SPEED) && p.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() == 1
+                                    && p.hasEffect(MobEffects.DAMAGE_BOOST) && p.getEffect(MobEffects.DAMAGE_BOOST).getDuration() <= 1200
+                                    && p.getInventory().getItem(HOTBAR).isEmpty());
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_11", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    expectTrue("11 号符一阶：吸收等级 6、抗性等级 0（精力 " + Cultivation.get(p, CultivationValue.SOUL) + "，效果 " + p.getActiveEffects() + "）",
+                            p.hasEffect(MobEffects.ABSORPTION) && p.getEffect(MobEffects.ABSORPTION).getAmplifier() == 6
+                                    && p.hasEffect(MobEffects.DAMAGE_RESISTANCE) && p.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() == 0);
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    Cultivation.setTizhiDouble(p, "fululevel46", 0);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_46", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    expectTrue("46 号符使用后品阶写入玩家持久数据而非体质（来源 Q66；精力 " + Cultivation.get(p, CultivationValue.SOUL) + "，持久 " + p.getPersistentData().getDouble("fululevel46") + "，体质 " + Cultivation.tizhiDouble(p, "fululevel46") + "）",
+                            p.getPersistentData().getDouble("fululevel46") == 1 && Cultivation.tizhiDouble(p, "fululevel46") == 0);
                 })
         );
     }

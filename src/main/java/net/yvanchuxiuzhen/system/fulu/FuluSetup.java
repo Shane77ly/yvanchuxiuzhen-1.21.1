@@ -38,7 +38,7 @@ public final class FuluSetup {
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "chuancheng")), properties, tooltip));
 
     /** 共享施用过程驱动的持续效果符编号，对应内容表工厂 {@code fulu:talisman_<编号>}。 */
-    private static final int[] TALISMANS = {2, 3, 13, 17, 19, 21, 24, 31, 39};
+    private static final int[] TALISMANS = {2, 3, 4, 6, 7, 8, 11, 13, 17, 19, 21, 24, 25, 31, 39, 46};
 
     static {
         for (int number : TALISMANS) {
