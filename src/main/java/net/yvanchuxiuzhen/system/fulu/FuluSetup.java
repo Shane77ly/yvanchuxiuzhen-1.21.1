@@ -1,5 +1,7 @@
 package net.yvanchuxiuzhen.system.fulu;
 
+import java.util.function.Supplier;
+import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
@@ -14,6 +16,8 @@ import net.yvanchuxiuzhen.system.fulu.content.FuluBlockEntities;
 import net.yvanchuxiuzhen.system.fulu.content.FuluMenus;
 import net.yvanchuxiuzhen.system.fulu.content.SootBlock;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanItem;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
 import net.yvanchuxiuzhen.system.fulu.content.InheritanceBlock;
 import net.yvanchuxiuzhen.system.fulu.content.InheritanceBlockItem;
 import net.yvanchuxiuzhen.system.fulu.content.InheritanceContent;
@@ -34,7 +38,7 @@ public final class FuluSetup {
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "chuancheng")), properties, tooltip));
 
     /** 共享施用过程驱动的持续效果符编号，对应内容表工厂 {@code fulu:talisman_<编号>}。 */
-    private static final int[] TALISMANS = {2, 3, 24, 31};
+    private static final int[] TALISMANS = {2, 3, 13, 17, 19, 24, 31};
 
     static {
         for (int number : TALISMANS) {
@@ -42,7 +46,18 @@ public final class FuluSetup {
         }
     }
 
+    static {
+        for (Kind kind : Kind.values()) {
+            CONTENT.<TalismanProjectile>entity(kind.id(), (type, level) -> new TalismanProjectile(type, level, kind));
+        }
+    }
+
     private FuluSetup() {
+    }
+
+    @SuppressWarnings("unchecked")
+    public static Supplier<EntityType<TalismanProjectile>> projectile(Kind kind) {
+        return CONTENT.entityType(kind.id());
     }
 
     public static void register(IEventBus modBus) {

@@ -19,6 +19,8 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -62,6 +64,15 @@ final class FuluTick {
         }
         if (state.getBoolean("fuluxiaoguo03")) {
             windPressure(level, entity, state);
+        }
+        if (state.getBoolean("fuluxiaoguo13")) {
+            volley(level, entity, state, "13", Kind.FIREBALL, 5, 100);
+        }
+        if (state.getBoolean("fuluxiaoguo17")) {
+            volley(level, entity, state, "17", Kind.METEOR, 5, 600);
+        }
+        if (state.getBoolean("fuluxiaoguo19")) {
+            volley(level, entity, state, "19", Kind.SWORD, 5, 600);
         }
         if (state.getBoolean("fuluxiaoguo24")) {
             flameWhirl(level, entity, state);
@@ -118,6 +129,34 @@ final class FuluTick {
             }
         }
         advance(state, "03", 200 + 40 * state.getDouble("fulu03level"));
+    }
+
+    /**
+     * 13、17、19：每 5 刻发出一枚弹体。13 的火球与 19 的剑气出现在身边水平 ±4、高 1 至 3 格内并沿视线射出，
+     * 13 同时把 {@code fululevel46} 记为当前品阶；17 的陨石出现在水平 ±8、头顶 32 格处向下落。持续 100、600、600 刻。
+     */
+    private static void volley(ServerLevel level, LivingEntity entity, CompoundTag state, String suffix, Kind kind, int interval, double limit) {
+        String shot = "fulu" + suffix + "01tick";
+        double count = state.getDouble(shot) + 1;
+        if (count >= interval) {
+            Vec3 at;
+            Vec3 direction;
+            if (kind == Kind.METEOR) {
+                at = new Vec3(entity.getX() + Mth.nextDouble(entity.getRandom(), -8, 8), entity.getY() + 32, entity.getZ() + Mth.nextDouble(entity.getRandom(), -8, 8));
+                direction = new Vec3(0, -1, 0);
+            } else {
+                if (kind == Kind.FIREBALL) {
+                    state.putDouble("fululevel46", state.getDouble("fulu13level"));
+                }
+                at = new Vec3(entity.getX() + Mth.nextDouble(entity.getRandom(), -4, 4), entity.getY() + Mth.nextDouble(entity.getRandom(), 1, 3),
+                        entity.getZ() + Mth.nextDouble(entity.getRandom(), -4, 4));
+                direction = entity.getLookAngle();
+            }
+            TalismanProjectile.launch(level, FuluSetup.projectile(kind).get(), entity, at, direction);
+            count = 0;
+        }
+        state.putDouble(shot, count);
+        advance(state, suffix, limit);
     }
 
     /** 24：周身 3 格内每刻五个材料 233 粒子；3.5 格内非友方受火属性固定伤害 {@code 品阶×5}（至少 1），持续 1200 刻。 */

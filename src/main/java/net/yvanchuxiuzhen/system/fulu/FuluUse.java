@@ -28,6 +28,11 @@ public final class FuluUse {
     private FuluUse() {
     }
 
+    /** 符箓状态键的当前值：玩家在体质标签，其他实体在实体持久数据（弹体读取发射者的品阶用）。 */
+    public static double stateValue(Entity owner, String key) {
+        return owner instanceof Player player ? Cultivation.tizhiDouble(player, key) : owner.getPersistentData().getDouble(key);
+    }
+
     /** 成品组件 {@code fululevel}；低于 1 按 1 计，品阶与付款共用。 */
     static double grade(ItemStack stack) {
         double level = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("fululevel");

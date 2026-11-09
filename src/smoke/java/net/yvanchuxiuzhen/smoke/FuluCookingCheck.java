@@ -12,6 +12,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.InteractionHand;
@@ -21,6 +22,7 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,6 +39,7 @@ import net.yvanchuxiuzhen.system.fulu.client.DrawingTableScreen;
 import net.yvanchuxiuzhen.system.fulu.content.AshBurnerBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableMenu;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
@@ -68,7 +71,8 @@ final class FuluCookingCheck extends ActionCheck {
     private final Map<BlockPos, BlockState> inheritanceBlocks = new LinkedHashMap<>();
     private final Map<BlockPos, BlockState> burnerBlocks = new LinkedHashMap<>();
     private static final List<String> TALISMAN_KEYS = List.of("fulunumber", "fuluxiaoguo02", "fulu02level", "fulu02tick", "fuluxiaoguo24",
-            "fulu24level", "fulu24tick");
+            "fulu24level", "fulu24tick", "fuluxiaoguo13", "fulu13level", "fulu13tick", "fulu1301tick", "fululevel46", "fuluxiaoguo17",
+            "fulu17level", "fulu17tick", "fulu1701tick");
     private GameType gameMode;
     private double soul;
     private final Map<String, Double> talismanState = new LinkedHashMap<>();
@@ -327,6 +331,25 @@ final class FuluCookingCheck extends ActionCheck {
                                     + "，计数 " + Cultivation.tizhiDouble(p, "fulu02tick") + "，生效数 " + Cultivation.tizhiDouble(p, "fulunumber") + "）",
                             !Cultivation.tizhiBoolean(p, "fuluxiaoguo02") && Cultivation.tizhiDouble(p, "fulu02level") == 0
                                     && Cultivation.tizhiDouble(p, "fulu02tick") == 0 && Cultivation.tizhiDouble(p, "fulunumber") == 1);
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_13", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_17", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(12, p -> {
+                }),
+                new Action(4, p -> {
+                    List<? extends TalismanProjectile> shots = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> true);
+                    long fireballs = shots.stream().filter(shot -> shot.getType().toString().endsWith("46")).count();
+                    long meteors = shots.stream().filter(shot -> shot.getType().toString().endsWith("17")).count();
+                    expectTrue("13 号符每 5 刻发火球、17 号符从头顶 32 格处落陨石，弹体实体存在（火球 " + fireballs + "，陨石 " + meteors + "）",
+                            Cultivation.tizhiBoolean(p, "fuluxiaoguo13") && Cultivation.tizhiBoolean(p, "fuluxiaoguo17") && fireballs > 0 && meteors > 0);
                 })
         );
     }
@@ -389,6 +412,7 @@ final class FuluCookingCheck extends ActionCheck {
         player.closeContainer();
         if (dummy != null) {
             dummy.discard();
+            player.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> true).forEach(shot -> shot.discard());
             player.setGameMode(gameMode);
             Cultivation.set(player, CultivationValue.SOUL, soul);
             Cultivation.editTizhi(player, tizhi -> talismanState.forEach((key, value) -> {
