@@ -41,6 +41,7 @@ import net.yvanchuxiuzhen.system.fulu.client.DrawingTableScreen;
 import net.yvanchuxiuzhen.system.fulu.content.AshBurnerBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableMenu;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
 import net.yvanchuxiuzhen.system.fulu.data.FuluData;
@@ -443,6 +444,25 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(4, p -> {
                     expectTrue("空爆符满 20 刻后飞行体爆炸并消失",
                             p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanSummon.class), mob -> true).isEmpty());
+                
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_26", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    var beasts = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanBeast.class), mob -> true);
+                    expectTrue("26 号符：召唤神压符动画实体，携带品阶、符名与召唤者 UUID（数量 " + beasts.size() + "）",
+                            beasts.size() == 1 && beasts.get(0).getPersistentData().getString("fuluname").equals("神压符")
+                                    && beasts.get(0).getPersistentData().getDouble("fululevel") == 1
+                                    && beasts.get(0).getPersistentData().getString("belongToMasterUUID").equals(p.getStringUUID()));
+                    minecraft.execute(() -> screenshots.take("fulu-beast-26.png"));
+                }),
+                new Action(44, p -> {
+                }),
+                new Action(4, p -> {
+                    expectTrue("神压符 20 刻拍击、5 刻停顿、15 刻碎裂后消失",
+                            p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanBeast.class), mob -> true).isEmpty());
                 })
         );
     }

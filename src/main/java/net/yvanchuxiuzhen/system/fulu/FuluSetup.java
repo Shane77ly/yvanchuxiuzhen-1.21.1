@@ -1,10 +1,15 @@
 package net.yvanchuxiuzhen.system.fulu;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -16,6 +21,7 @@ import net.yvanchuxiuzhen.system.fulu.content.FuluBlockEntities;
 import net.yvanchuxiuzhen.system.fulu.content.FuluMenus;
 import net.yvanchuxiuzhen.system.fulu.content.SootBlock;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanItem;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
@@ -39,7 +45,7 @@ public final class FuluSetup {
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "chuancheng")), properties, tooltip));
 
     /** 共享施用过程驱动的持续效果符编号，对应内容表工厂 {@code fulu:talisman_<编号>}。 */
-    private static final int[] TALISMANS = {2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 17, 19, 21, 24, 25, 29, 31, 32, 39, 46};
+    private static final int[] TALISMANS = {2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 17, 19, 21, 24, 25, 26, 27, 29, 31, 32, 34, 38, 39, 46};
 
     static {
         for (int number : TALISMANS) {
@@ -53,7 +59,16 @@ public final class FuluSetup {
         }
     }
 
+    /** 动画召唤物的模型与属性表，只含已接回的四种。 */
+    private static final Map<String, EntityModelRow> BEASTS = new LinkedHashMap<>();
+
     static {
+        for (EntityModelRow row : ContentFiles.read("content/fulu/entity_models.json", EntityModelRow.CODEC)) {
+            if (List.of(TalismanBeast.EARTH_HAND, TalismanBeast.SWORD_SOUL, TalismanBeast.FATE_WHEEL, TalismanBeast.WATER_DRAGON).contains(row.id())) {
+                BEASTS.put(row.id(), row);
+                CONTENT.<TalismanBeast>livingEntity(row.id(), (type, level) -> new TalismanBeast(type, level, row), () -> TalismanBeast.attributes(row));
+            }
+        }
         CONTENT.<TalismanSummon>livingEntity(TalismanSummon.ID, TalismanSummon::new, TalismanSummon::attributes);
     }
 
@@ -63,6 +78,14 @@ public final class FuluSetup {
     @SuppressWarnings("unchecked")
     public static Supplier<EntityType<TalismanProjectile>> projectile(Kind kind) {
         return CONTENT.entityType(kind.id());
+    }
+
+    public static Map<String, EntityModelRow> beasts() {
+        return BEASTS;
+    }
+
+    public static Supplier<EntityType<TalismanBeast>> beast(String id) {
+        return CONTENT.entityType(id);
     }
 
     public static Supplier<EntityType<TalismanSummon>> summon() {

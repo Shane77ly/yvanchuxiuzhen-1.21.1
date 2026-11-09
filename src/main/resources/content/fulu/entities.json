@@ -1,5 +1,9 @@
 [
 {"id":"fulutexiao_09","category":"MONSTER","width":0.2,"height":0.2,"tracking_range":64,"update_interval":3,"fire_immune":true},
+{"id":"fulutexiao_26","category":"MONSTER","width":0.1,"height":1.0,"tracking_range":64,"update_interval":3,"fire_immune":true},
+{"id":"fulutexiao_27","category":"MONSTER","width":0.6,"height":1.8,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"fulutexiao_34","category":"MONSTER","width":0.2,"height":1.0,"tracking_range":64,"update_interval":3,"fire_immune":true},
+{"id":"fulutexiao_38","category":"MONSTER","width":0.2,"height":2.0,"tracking_range":64,"update_interval":3,"fire_immune":true},
 {"id":"projectile_fulutexiao_05","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},
 {"id":"projectile_fulutexiao_17","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},
 {"id":"projectile_fulutexiao_19","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},

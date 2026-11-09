@@ -14,6 +14,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Lightning;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
@@ -33,7 +35,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
  * 04 弹飞、06 落雷、07 烈焰、08 冰封、11 护体、25 加速、46 火球。统一流程为先付精力、播释放声、取品阶，再按编号执行，最后消耗一张。
  */
 final class FuluInstant {
-    private static final Set<Integer> NUMBERS = Set.of(4, 5, 6, 7, 8, 9, 11, 12, 14, 25, 29, 32, 46);
+    private static final Set<Integer> NUMBERS = Set.of(4, 5, 6, 7, 8, 9, 11, 12, 14, 25, 26, 27, 29, 32, 34, 38, 46);
 
     private FuluInstant() {
     }
@@ -60,8 +62,12 @@ final class FuluInstant {
             case 12 -> summon(level, player, grade, TalismanSummon.THUNDERSTORM, true);
             case 14 -> summon(level, player, grade, TalismanSummon.AIRBURST, true);
             case 25 -> haste(level, player, grade);
+            case 26 -> beast(level, player, grade, TalismanBeast.EARTH_HAND, 6, "神压符");
+            case 27 -> beast(level, player, grade, TalismanBeast.SWORD_SOUL, 5, "剑魂符");
             case 29 -> frost(level, player, grade);
             case 32 -> cluster(level, player, grade);
+            case 34 -> beast(level, player, grade, TalismanBeast.FATE_WHEEL, 7.5, "命轮符");
+            case 38 -> beast(level, player, grade, TalismanBeast.WATER_DRAGON, 6, "水龙符");
             case 46 -> fireball(level, player, grade);
             default -> throw new IllegalArgumentException("not an instant talisman: " + number);
         }
@@ -160,6 +166,37 @@ final class FuluInstant {
         mob.getPersistentData().putString("fuluname", name);
         if (master) {
             mob.getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
+        }
+        mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
+        level.addFreshEntity(mob);
+    }
+
+    /**
+     * 26、27、34、38：在视线 {@code distance} 格处（下移至空气）召唤动画实体，朝向与使用者一致，继承使用者阵营，
+     * 记入品阶、符名与召唤者 UUID；27 号另把最大生命与攻击设为 {@code 100×品阶}、{@code 10×品阶} 并写入 {@code health_Max}、{@code attack_Num}。
+     */
+    private static void beast(ServerLevel level, ServerPlayer player, double grade, String id, double distance, String name) {
+        BlockPos spot = lowered(level, player, distance);
+        TalismanBeast mob = FuluSetup.beast(id).get().create(level);
+        mob.moveTo(spot.getX(), spot.getY(), spot.getZ(), level.random.nextFloat() * 360F, 0);
+        Relations.copyAllegiance(player, mob);
+        mob.setYRot(player.getYRot());
+        mob.setXRot(0);
+        mob.setYBodyRot(mob.getYRot());
+        mob.setYHeadRot(mob.getYRot());
+        mob.yRotO = mob.getYRot();
+        mob.xRotO = mob.getXRot();
+        mob.yBodyRotO = mob.getYRot();
+        mob.yHeadRotO = mob.getYRot();
+        mob.getPersistentData().putDouble("fululevel", grade);
+        mob.getPersistentData().putString("fuluname", name);
+        mob.getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
+        if (id.equals(TalismanBeast.SWORD_SOUL)) {
+            mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(100 * grade);
+            mob.getPersistentData().putDouble("health_Max", 100 * grade);
+            mob.setHealth((float) (100 * grade));
+            mob.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(10 * grade);
+            mob.getPersistentData().putDouble("attack_Num", 10 * grade);
         }
         mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(mob);

@@ -25,6 +25,7 @@ MOD = 'yvanchuxiuzhen'
 BASE = SOURCES[MOD][0] / f'src/main/java/net/mcreator/{MOD}'
 ASSETS = ROOT / 'docs/reference/conversion/system_assets.csv'
 OWNERSHIP = ROOT / 'docs/reference/legacy/inventory/ownership_assignment.csv'
+BLOCK_ANIMATIONS = {'fulu': [('geo', 'chuancheng'), ('animation', 'chuancheng')]}
 DAMAGE_IMMUNITIES = {
     'source.getDirectEntity() instanceof AbstractArrow': ['arrow'],
     'source.getDirectEntity() instanceof Player': ['player'],
@@ -132,7 +133,7 @@ def referenced_textures(names: list[str]) -> set[str]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--owner', choices=('skill', 'xiulian'), default='skill')
+    parser.add_argument('--owner', choices=('skill', 'xiulian', 'fulu'), default='skill')
     owner = parser.parse_args().owner
     output = ROOT / f'src/main/resources/content/{owner}/entity_models.json'
     ids = registry_ids()
@@ -150,6 +151,8 @@ def main() -> None:
     kept += [[owner, 'geo', f'{NAMESPACE}:{row["geo"]}'] for row in rows.values()]
     kept += [[owner, 'animation', f'{NAMESPACE}:{row["animation"]}'] for row in rows.values()]
     kept += [[owner, 'texture', f'{NAMESPACE}:entities/{texture}'] for texture in sorted(textures)]
+    # 方块动画（传承之光）的几何与动画不属于动画实体，提取时保留。
+    kept += [[owner, kind, f'{NAMESPACE}:{name}'] for kind, name in BLOCK_ANIMATIONS.get(owner, [])]
     seen, unique = set(), []
     for row in kept:
         if tuple(row) not in seen:
