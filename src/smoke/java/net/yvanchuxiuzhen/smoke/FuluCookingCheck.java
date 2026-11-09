@@ -1,7 +1,9 @@
 package net.yvanchuxiuzhen.smoke;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,6 +31,7 @@ import net.yvanchuxiuzhen.system.fulu.DrawingTableRuntime;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.fulu.api.FuluKnowledge;
 import net.yvanchuxiuzhen.system.fulu.client.DrawingTableScreen;
+import net.yvanchuxiuzhen.system.fulu.content.AshBurnerBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableMenu;
 import net.yvanchuxiuzhen.system.fulu.data.FuluData;
@@ -55,6 +58,10 @@ final class FuluCookingCheck extends ActionCheck {
     private final List<BlockState> clayBlocks = new ArrayList<>();
     private ProfessionProgress cooking;
     private double cookingBefore;
+    private BlockPos burnerPos;
+    private BlockPos inheritancePos;
+    private final Map<BlockPos, BlockState> inheritanceBlocks = new LinkedHashMap<>();
+    private final Map<BlockPos, BlockState> burnerBlocks = new LinkedHashMap<>();
 
     FuluCookingCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("fulucooking", report, levelId);
@@ -231,6 +238,44 @@ final class FuluCookingCheck extends ActionCheck {
                             !state.getBoolean("cooking") && state.getDouble("cooknumber") == 0 && state.getDouble("cookexp") == 0
                                     && Professions.experience(p, Profession.COOKING) - cookingBefore == 5
                                     && pot(p, clayPos).getItem(4).is(item("food_007").getItem()));
+                    burnerPos = p.blockPosition().offset(-4, 1, 0);
+                    for (int offset = -1; offset <= 3; offset++) burnerBlocks.put(burnerPos.above(offset), p.serverLevel().getBlockState(burnerPos.above(offset)));
+                    p.serverLevel().setBlockAndUpdate(burnerPos.below(), Blocks.STONE.defaultBlockState());
+                    for (int offset = 0; offset <= 2; offset++) p.serverLevel().setBlockAndUpdate(burnerPos.above(offset), Blocks.AIR.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(burnerPos.above(3), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(burnerPos, block("huafushaohui"));
+                    ((AshBurnerBlockEntity) p.serverLevel().getBlockEntity(burnerPos)).setItem(0, new ItemStack(Items.OAK_LOG));
+                    p.getInventory().setItem(HOTBAR, new ItemStack(Items.FLINT_AND_STEEL));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useBlock(burnerPos)),
+                new Action(425, p -> {
+                    AshBurnerBlockEntity burner = (AshBurnerBlockEntity) p.serverLevel().getBlockEntity(burnerPos);
+                    expectTrue("打火石点燃烧灰架：begin 置位并开始计时（进度 " + burner.getPersistentData().getInt("ranshaotick") + "）",
+                            burner.getPersistentData().getBoolean("begin") && !burner.getItem(0).isEmpty()
+                                    && burner.getPersistentData().getInt("ranshaotick") > 0);
+                }),
+                new Action(4, p -> {
+                    AshBurnerBlockEntity burner = (AshBurnerBlockEntity) p.serverLevel().getBlockEntity(burnerPos);
+                    expectTrue("满 40 个十刻周期后烧掉原木，并在上方两格的平整底面下生成一层烟灰（实际 "
+                                    + BuiltInRegistries.BLOCK.getKey(p.serverLevel().getBlockState(burnerPos.above(2)).getBlock()) + "）",
+                            burner.getItem(0).isEmpty() && p.serverLevel().getBlockState(burnerPos.above(2)).is(block("yanhui_01").getBlock()));
+                    inheritancePos = p.blockPosition().offset(-3, 1, 3);
+                    for (int offset = -1; offset <= 0; offset++) inheritanceBlocks.put(inheritancePos.above(offset), p.serverLevel().getBlockState(inheritancePos.above(offset)));
+                    p.getInventory().setItem(HOTBAR, ItemStack.EMPTY);
+                    p.inventoryMenu.broadcastChanges();
+                    p.serverLevel().setBlockAndUpdate(inheritancePos.below(), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(inheritancePos, block("chuancheng"));
+                    BlockEntity inheritance = p.serverLevel().getBlockEntity(inheritancePos);
+                    inheritance.getPersistentData().putInt("weizhi", 5);
+                    inheritance.setChanged();
+                }),
+                new Action(6, p -> useBlock(inheritancePos)),
+                new Action(4, p -> {
+                    expectTrue("使用传承之光经命令入口授予所存符头 5，方块与共享选择不变（符头 " + Fulu.knowledge(p).heads() + "）",
+                            Fulu.knowledge(p).heads().contains(5)
+                                    && p.serverLevel().getBlockState(inheritancePos).is(block("chuancheng").getBlock())
+                                    && p.serverLevel().getBlockEntity(inheritancePos).getPersistentData().getInt("weizhi") == 5);
                 })
         );
     }
@@ -278,6 +323,11 @@ final class FuluCookingCheck extends ActionCheck {
         player.closeContainer();
         pot(player).clearContent();
         table(player).clearContent();
+        if (inheritancePos != null) inheritanceBlocks.forEach((pos, state) -> player.serverLevel().setBlockAndUpdate(pos, state));
+        if (burnerPos != null) {
+            ((AshBurnerBlockEntity) player.serverLevel().getBlockEntity(burnerPos)).clearContent();
+            burnerBlocks.forEach((pos, state) -> player.serverLevel().setBlockAndUpdate(pos, state));
+        }
         if (clayPos != null) {
             pot(player, clayPos).clearContent();
             for (int below = 0; below < 3; below++) player.serverLevel().setBlockAndUpdate(clayPos.below(below), clayBlocks.get(below));
