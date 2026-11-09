@@ -1,12 +1,16 @@
 package net.yvanchuxiuzhen.system.fulu;
 
+import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -68,7 +72,8 @@ public final class FuluUse {
 
     /**
      * 使用一张持续效果符：先付款，再判断该编号是否已生效。已生效时精力已经扣除而符不消耗（来源顺序）；
-     * 未生效时登记品阶、计入生效数、播放释放声并消耗一张。
+     * 未生效时登记品阶、计入生效数、播放释放声并消耗一张。21 号符另清除低于 {@code 2×品阶−1} 的负面状态，
+     * 其生效数来源读的是物品而不是玩家的 {@code fulunumber}（登记为 Q65）；39 号符释放声先于判断，已生效时仍续水下呼吸并消耗符。
      */
     public static void activate(ServerPlayer player, ItemStack stack, int number) {
         if (!pay(player, stack)) {
@@ -76,18 +81,63 @@ public final class FuluUse {
         }
         String suffix = "%02d".formatted(number);
         String flag = "fuluxiaoguo" + suffix;
-        if (Cultivation.tizhiBoolean(player, flag)) {
+        double grade = grade(stack);
+        boolean breath = number == 39;
+        boolean active = Cultivation.tizhiBoolean(player, flag);
+        if (active && !breath) {
             return;
         }
-        double grade = grade(stack);
-        Cultivation.editTizhi(player, tizhi -> {
-            tizhi.putBoolean(flag, true);
-            tizhi.putDouble("fulu" + suffix + "level", grade);
-            tizhi.putDouble("fulunumber", Math.round(tizhi.getDouble("fulunumber") + 1));
-        });
-        ServerLevel level = player.serverLevel();
-        level.playSound(null, BlockPos.containing(player.getX(), player.getY() + 1, player.getZ()),
-                BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fulushifang")), SoundSource.NEUTRAL, 1, 1);
+        if (breath) {
+            cast(player);
+        }
+        if (!active) {
+            double itemCount = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("fulunumber");
+            Cultivation.editTizhi(player, tizhi -> {
+                tizhi.putBoolean(flag, true);
+                tizhi.putDouble("fulu" + suffix + "level", grade);
+                tizhi.putDouble("fulunumber", Math.round((number == 21 ? itemCount : tizhi.getDouble("fulunumber")) + 1));
+            });
+        }
+        if (breath) {
+            player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, (int) (12000 * Math.pow(grade, 2)), 0));
+        } else {
+            cast(player);
+            if (number == 21) {
+                cleanse(player, 2 * grade - 1);
+            }
+        }
         stack.shrink(1);
+    }
+
+    /** 在玩家位置上方一格播放释放声。 */
+    private static void cast(ServerPlayer player) {
+        player.serverLevel().playSound(null, BlockPos.containing(player.getX(), player.getY() + 1, player.getZ()),
+                BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fulushifang")), SoundSource.NEUTRAL, 1, 1);
+    }
+
+    /** 21 号符的清除清单（来源顺序）：毒药 01–17、效果 001–007，以及原版的缓慢、挖掘疲劳、反胃、失明、饥饿、虚弱、中毒、凋零、霉运。 */
+    private static void cleanse(ServerPlayer player, double level) {
+        for (int index = 1; index <= 17; index++) {
+            remove(player, level, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "duyao_%02d".formatted(index)));
+        }
+        for (int index = 1; index <= 7; index++) {
+            remove(player, level, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "effect_%03d".formatted(index)));
+        }
+        for (Holder<MobEffect> effect : List.of(MobEffects.MOVEMENT_SLOWDOWN, MobEffects.DIG_SLOWDOWN, MobEffects.CONFUSION, MobEffects.BLINDNESS,
+                MobEffects.HUNGER, MobEffects.WEAKNESS, MobEffects.POISON, MobEffects.WITHER, MobEffects.UNLUCK)) {
+            remove(player, level, effect);
+        }
+    }
+
+    private static void remove(ServerPlayer player, double level, ResourceLocation id) {
+        remove(player, level, BuiltInRegistries.MOB_EFFECT.getHolder(id).orElseThrow());
+    }
+
+    /** 状态等级（无则按 0）不超过符箓清除等级时移除。 */
+    private static void remove(ServerPlayer player, double level, Holder<MobEffect> effect) {
+        MobEffectInstance active = player.getEffect(effect);
+        if (level >= (active == null ? 0 : active.getAmplifier())) {
+            player.removeEffect(effect);
+        }
     }
 }

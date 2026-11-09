@@ -26,7 +26,7 @@ updated: 2026-11-09
 
 本批已接回的知识、绘制、烧灰和传承路径仍需补充专项目标版本运行验收。
 
-施用：`FuluUse` 承担精力付款与持续效果登记，`FuluTick` 承担逐刻推进与结束；目前接入 02、03、13、17、19、24、31 号符（见[架构](architecture.md)“符箓施用共享框架”）。其余 21、39 与单发符、轮回符、特殊符、全部食材自然获取、世界传承布置及其余来源内容仍按对应台账行推进。持续效果状态保存在 xiulian 的体质标签（键见 [tizhiitem_keys.csv](../xiulian/ledger/tizhiitem_keys.csv)），经 `Cultivation.editTizhi` 写入。
+施用：`FuluUse` 承担精力付款与持续效果登记，`FuluTick` 承担逐刻推进与结束；目前接入 02、03、13、17、19、21、24、31、39 号符（见[架构](architecture.md)“符箓施用共享框架”）。其余单发符、轮回符、特殊符、全部食材自然获取、世界传承布置及其余来源内容仍按对应台账行推进。持续效果状态保存在 xiulian 的体质标签（键见 [tizhiitem_keys.csv](../xiulian/ledger/tizhiitem_keys.csv)），经 `Cultivation.editTizhi` 写入。
 
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
 

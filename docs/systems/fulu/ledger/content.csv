@@ -82,7 +82,7 @@ item,yvanchuxiuzhen:itemfulu_17,yvanchuxiuzhen,Itemfulu17,src/main/java/net/mcre
 item,yvanchuxiuzhen:itemfulu_18,yvanchuxiuzhen,Itemfulu18,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2515,fulu,已读,yvanchuxiuzhen:itemfulu_18,已注册,
 item,yvanchuxiuzhen:itemfulu_19,yvanchuxiuzhen,Itemfulu19,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2516,fulu,已读,yvanchuxiuzhen:itemfulu_19,行为已迁移,共享施用过程（付精力、登记、逐刻发射弹体）；内置fulucooking检查：弹体实体出现；伤害命中与结束未单独验收
 item,yvanchuxiuzhen:itemfulu_20,yvanchuxiuzhen,Itemfulu20,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2518,fulu,已读,yvanchuxiuzhen:itemfulu_20,已注册,
-item,yvanchuxiuzhen:itemfulu_21,yvanchuxiuzhen,Itemfulu21,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2519,fulu,已读,yvanchuxiuzhen:itemfulu_21,已注册,
+item,yvanchuxiuzhen:itemfulu_21,yvanchuxiuzhen,Itemfulu21,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2519,fulu,已读,yvanchuxiuzhen:itemfulu_21,行为已迁移,共享施用过程；21清除负面状态（Q65），39水下呼吸；内置fulucooking检查通过
 item,yvanchuxiuzhen:itemfulu_22,yvanchuxiuzhen,Itemfulu22,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2520,fulu,已读,yvanchuxiuzhen:itemfulu_22,已注册,
 item,yvanchuxiuzhen:itemfulu_23,yvanchuxiuzhen,Itemfulu23,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2521,fulu,已读,yvanchuxiuzhen:itemfulu_23,已注册,
 item,yvanchuxiuzhen:itemfulu_24,yvanchuxiuzhen,Itemfulu24,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2522,fulu,已读,yvanchuxiuzhen:itemfulu_24,行为已迁移,共享施用过程（付精力、登记、逐刻推进）；内置fulucooking检查：02、24通过，03/31未验收；Q64
@@ -100,7 +100,7 @@ item,yvanchuxiuzhen:itemfulu_35,yvanchuxiuzhen,Itemfulu35,src/main/java/net/mcre
 item,yvanchuxiuzhen:itemfulu_36,yvanchuxiuzhen,Itemfulu36,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2536,fulu,已读,yvanchuxiuzhen:itemfulu_36,已注册,
 item,yvanchuxiuzhen:itemfulu_37,yvanchuxiuzhen,Itemfulu37,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2537,fulu,已读,yvanchuxiuzhen:itemfulu_37,已注册,
 item,yvanchuxiuzhen:itemfulu_38,yvanchuxiuzhen,Itemfulu38,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2538,fulu,已读,yvanchuxiuzhen:itemfulu_38,已注册,
-item,yvanchuxiuzhen:itemfulu_39,yvanchuxiuzhen,Itemfulu39,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2539,fulu,已读,yvanchuxiuzhen:itemfulu_39,已注册,
+item,yvanchuxiuzhen:itemfulu_39,yvanchuxiuzhen,Itemfulu39,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2539,fulu,已读,yvanchuxiuzhen:itemfulu_39,行为已迁移,共享施用过程；21清除负面状态（Q65），39水下呼吸；内置fulucooking检查通过
 item,yvanchuxiuzhen:itemfulu_40,yvanchuxiuzhen,Itemfulu40,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2540,fulu,已读,yvanchuxiuzhen:itemfulu_40,已注册,
 item,yvanchuxiuzhen:itemfulu_41,yvanchuxiuzhen,Itemfulu41,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2541,fulu,已读,yvanchuxiuzhen:itemfulu_41,已注册,
 item,yvanchuxiuzhen:itemfulu_42,yvanchuxiuzhen,Itemfulu42,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2543,fulu,已读,yvanchuxiuzhen:itemfulu_42,已注册,

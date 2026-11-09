@@ -74,11 +74,17 @@ final class FuluTick {
         if (state.getBoolean("fuluxiaoguo19")) {
             volley(level, entity, state, "19", Kind.SWORD, 5, 600);
         }
+        if (state.getBoolean("fuluxiaoguo21")) {
+            ring(level, entity, state, "21", Particles.type("fulutexiao_21"));
+        }
         if (state.getBoolean("fuluxiaoguo24")) {
             flameWhirl(level, entity, state);
         }
         if (state.getBoolean("fuluxiaoguo31")) {
             fastTime(level, state);
+        }
+        if (state.getBoolean("fuluxiaoguo39")) {
+            ring(level, entity, state, "39", ParticleTypes.SPLASH);
         }
     }
 
@@ -178,6 +184,17 @@ final class FuluTick {
     private static void fastTime(ServerLevel level, CompoundTag state) {
         level.setDayTime((int) (level.getDayTime() + 4 * Math.pow(state.getDouble("fulu31level"), 2)));
         advance(state, "31", 1200);
+    }
+
+    /** 21、39：每刻在脚下起每 18° 一枚、共 20 枚的 1 格半径粒子环，环高随计数每刻升 0.15 格，满 20 刻结束。 */
+    private static void ring(ServerLevel level, LivingEntity entity, CompoundTag state, String suffix, ParticleOptions particle) {
+        double height = entity.getY() + state.getDouble("fulu" + suffix + "tick") * 0.15;
+        double angle = 0;
+        for (int index = 0; index < 20; index++) {
+            level.sendParticles(particle, entity.getX() + Math.cos(Math.toRadians(angle)), height, entity.getZ() + Math.sin(Math.toRadians(angle)), 1, 0, 0, 0, 0);
+            angle += 18;
+        }
+        advance(state, suffix, 20);
     }
 
     /** 该编号的计数加一；达到上限时清零计数与品阶、关闭生效标记并减少生效数。 */

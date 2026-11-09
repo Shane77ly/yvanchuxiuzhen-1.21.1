@@ -12,6 +12,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -72,7 +74,7 @@ final class FuluCookingCheck extends ActionCheck {
     private final Map<BlockPos, BlockState> burnerBlocks = new LinkedHashMap<>();
     private static final List<String> TALISMAN_KEYS = List.of("fulunumber", "fuluxiaoguo02", "fulu02level", "fulu02tick", "fuluxiaoguo24",
             "fulu24level", "fulu24tick", "fuluxiaoguo13", "fulu13level", "fulu13tick", "fulu1301tick", "fululevel46", "fuluxiaoguo17",
-            "fulu17level", "fulu17tick", "fulu1701tick");
+            "fulu17level", "fulu17tick", "fulu1701tick", "fuluxiaoguo21", "fulu21level", "fulu21tick", "fuluxiaoguo39", "fulu39level", "fulu39tick");
     private GameType gameMode;
     private double soul;
     private final Map<String, Double> talismanState = new LinkedHashMap<>();
@@ -350,6 +352,29 @@ final class FuluCookingCheck extends ActionCheck {
                     long meteors = shots.stream().filter(shot -> shot.getType().toString().endsWith("17")).count();
                     expectTrue("13 号符每 5 刻发火球、17 号符从头顶 32 格处落陨石，弹体实体存在（火球 " + fireballs + "，陨石 " + meteors + "）",
                             Cultivation.tizhiBoolean(p, "fuluxiaoguo13") && Cultivation.tizhiBoolean(p, "fuluxiaoguo17") && fireballs > 0 && meteors > 0);
+                    shots.forEach(shot -> shot.discard());
+                    p.removeAllEffects();
+                    Cultivation.editTizhi(p, tizhi -> TALISMAN_KEYS.stream().filter(key -> key.startsWith("fuluxiaoguo")).forEach(key -> tizhi.putBoolean(key, false)));
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "duyao_01")).orElseThrow(), 600, 0));
+                    p.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 600, 5));
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_21", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    expectTrue("21 号符一阶：清除等级不高于 1 的毒药 01，保留等级 5 的虚弱，登记生效",
+                            !p.hasEffect(BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "duyao_01")).orElseThrow())
+                                    && p.hasEffect(MobEffects.WEAKNESS) && Cultivation.tizhiBoolean(p, "fuluxiaoguo21") && p.getInventory().getItem(HOTBAR).isEmpty());
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_39", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    expectTrue("39 号符一阶：获得 12000 刻水下呼吸并登记生效（剩余 " + (p.hasEffect(MobEffects.WATER_BREATHING) ? p.getEffect(MobEffects.WATER_BREATHING).getDuration() : 0) + "）",
+                            p.hasEffect(MobEffects.WATER_BREATHING) && p.getEffect(MobEffects.WATER_BREATHING).getDuration() > 11900
+                                    && Cultivation.tizhiBoolean(p, "fuluxiaoguo39"));
                 })
         );
     }
@@ -412,6 +437,7 @@ final class FuluCookingCheck extends ActionCheck {
         player.closeContainer();
         if (dummy != null) {
             dummy.discard();
+            player.removeAllEffects();
             player.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> true).forEach(shot -> shot.discard());
             player.setGameMode(gameMode);
             Cultivation.set(player, CultivationValue.SOUL, soul);
