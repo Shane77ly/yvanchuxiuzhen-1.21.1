@@ -213,3 +213,8 @@ block,yvanchuxiuzhen:tripod_06,lianqi:tripod,lianqi,八鼎十二槽库存、菜�
 block,yvanchuxiuzhen:tripod_07,lianqi:tripod,lianqi,八鼎十二槽库存、菜单与每二十刻炼器推进
 block,yvanchuxiuzhen:tripod_08,lianqi:tripod,lianqi,重阳金鼎库存、菜单、比较器及专用掉落克隆
 item,yvanchuxiuzhen:tripod_0801,lianqi:tripod_placement,lianqi,顶面上方第二格放置重阳金鼎并清匹配整手槽
+block,yvanchuxiuzhen:xiulitai,lianqi:repair_table,lianqi,修理台单槽库存与需求缓存及Gecko模型
+item,yvanchuxiuzhen:xiulitai,lianqi:repair_table,lianqi,修理台方块物品及来源显示变换
+block,yvanchuxiuzhen:zhenxianpoluo,lianqi:sewing_basket,lianqi,针线笸箩八槽预览与十五套缝纫
+block,yvanchuxiuzhen:tiandaotuzhitai,lianqi:blueprint_table,lianqi,天道图纸台目录与专用累计及图纸写入
+block,yvanchuxiuzhen:cauldronduyao,lianqi:poison_cauldron,lianqi,毒锅持久毒种与主手淬毒

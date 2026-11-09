@@ -11,7 +11,12 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentContents;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.PlainTextContents;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -51,6 +56,10 @@ public final class EquipmentRefining {
         for (String key : List.of("tuzhiname", "fabaoid", "fabaoshuoming", "fabaotype")) {
             data.putString(key, recipe.getString(key));
         }
+        for (String key : List.of("tuzhiname_component", "fabaoshuoming_component")) {
+            if (recipe.contains(key, Tag.TAG_STRING)) data.putString(key, recipe.getString(key));
+            else data.remove(key);
+        }
         convert(data);
         Item item = BuiltInRegistries.ITEM.get(targetId(data.getString("fabaoid").toLowerCase(Locale.ENGLISH)));
         if (item == Items.AIR) return ItemStack.EMPTY;
@@ -77,7 +86,10 @@ public final class EquipmentRefining {
         if (previous.isEmpty() || !name.isEmpty()) {
             name = name.replace("[", "").replace("]", "");
             if (!previous.isEmpty()) data.putString("tuzhiname", name);
-            stack.set(DataComponents.CUSTOM_NAME, Component.literal(name));
+            Component displayName = data.contains("tuzhiname_component", Tag.TAG_STRING)
+                    ? Component.Serializer.fromJson(data.getString("tuzhiname_component"), registries)
+                    : Component.literal(name);
+            stack.set(DataComponents.CUSTOM_NAME, withoutNameBrackets(displayName));
         }
         int level = sourceLevel(data.getInt("expnum"));
         data.putInt("item_level_num", level);
@@ -92,14 +104,59 @@ public final class EquipmentRefining {
         return stack;
     }
 
+    /** 成品名称沿来源移除文本方括号，保留翻译键、参数结构及各段样式供客户端解析。 */
+    private static Component withoutNameBrackets(Component component) {
+        ComponentContents contents = component.getContents();
+        if (contents instanceof PlainTextContents text) {
+            contents = PlainTextContents.create(text.text().replace("[", "").replace("]", ""));
+        } else if (contents instanceof TranslatableContents translation) {
+            Object[] arguments = translation.getArgs().clone();
+            for (int index = 0; index < arguments.length; index++) {
+                if (arguments[index] instanceof Component argument) arguments[index] = withoutNameBrackets(argument);
+                else if (arguments[index] instanceof String text) arguments[index] = text.replace("[", "").replace("]", "");
+            }
+            String fallback = translation.getFallback();
+            contents = new TranslatableContents(translation.getKey(),
+                    fallback == null ? null : fallback.replace("[", "").replace("]", ""), arguments);
+        }
+        MutableComponent result = MutableComponent.create(contents).setStyle(component.getStyle());
+        for (Component sibling : component.getSiblings()) result.append(withoutNameBrackets(sibling));
+        return result;
+    }
+
     /** 新炉次读取完整累计量，宝箱实例按已有字段重建；两种来源均执行升级前的整数反推。 */
     public static CompoundTag materials(ItemStack stack) {
-        CustomData refinement = stack.get(EquipmentData.REFINEMENT.get());
-        if (refinement != null) {
-            CompoundTag data = refinement.copyTag();
-            writeFinalStats(data, stack.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY));
-            return prepareUpgrade(data);
+        CompoundTag data = storedRecord(stack);
+        if (!stack.has(EquipmentData.REFINEMENT.get()) && !stack.has(EquipmentData.PRODUCT.get())) return data;
+        writeFinalStats(data, stack.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY));
+        return prepareUpgrade(data);
+    }
+
+    /** 淬毒沿来源先增加总数再写该序号，保留已有累计量、编号空缺与其他实例字段。 */
+    public static void recordPoisonEnchantment(ItemStack stack, String enchantmentPath) {
+        CompoundTag data = storedRecord(stack);
+        int slot = data.getInt("fumozongshu") + 1;
+        String prefix = "fumo" + slot;
+        data.putInt("fumozongshu", slot);
+        data.putString(prefix, enchantmentPath);
+        data.putString(prefix + "kongjian", ModId.VALUE);
+        data.putInt(prefix + "num", 100);
+        stack.set(EquipmentData.REFINEMENT.get(), CustomData.of(data));
+        EquipmentProduct product = stack.get(EquipmentData.PRODUCT.get());
+        if (product != null) {
+            List<Enchantment> enchantments = new ArrayList<>(product.enchantments());
+            enchantments.removeIf(enchantment -> enchantment.slot() == slot);
+            enchantments.add(new Enchantment(slot, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, enchantmentPath), 1));
+            stack.set(EquipmentData.PRODUCT.get(), new EquipmentProduct(product.itemId(), product.name(), product.description(),
+                    product.type(), product.grade(), product.level(), product.experience(), product.weight(), product.materials(),
+                    slot, enchantments));
         }
+    }
+
+    /** 从持久实例读取完整记录；宝箱成品的投影只还原已有字段，不执行升级反推。 */
+    private static CompoundTag storedRecord(ItemStack stack) {
+        CustomData refinement = stack.get(EquipmentData.REFINEMENT.get());
+        if (refinement != null) return refinement.copyTag();
         EquipmentProduct product = stack.get(EquipmentData.PRODUCT.get());
         if (product == null) return new CompoundTag();
         CompoundTag data = new CompoundTag();
@@ -133,7 +190,7 @@ public final class EquipmentRefining {
             data.putInt(prefix + "num", enchantment.level() * 100);
         }
         writeFinalStats(data, stack.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY));
-        return prepareUpgrade(data);
+        return data;
     }
 
     /** 本命培养同时推进最终攻击与对应原料，原料沿用来源getInt后加100的取整。 */

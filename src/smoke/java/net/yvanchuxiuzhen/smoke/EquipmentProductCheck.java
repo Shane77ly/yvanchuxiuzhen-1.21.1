@@ -1,7 +1,10 @@
 package net.yvanchuxiuzhen.smoke;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.commands.CommandSourceStack;
@@ -12,6 +15,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -20,6 +24,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -31,8 +36,10 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -57,6 +64,16 @@ import net.yvanchuxiuzhen.system.liandan.client.PharmacologyScreen;
 import net.yvanchuxiuzhen.system.liandan.content.PharmacologyBlockEntity;
 import net.yvanchuxiuzhen.system.liandan.content.PharmacologyMenu;
 import net.yvanchuxiuzhen.system.lianqi.client.TripodScreen;
+import net.yvanchuxiuzhen.system.lianqi.client.BlueprintTableScreen;
+import net.yvanchuxiuzhen.system.lianqi.client.RepairTableScreen;
+import net.yvanchuxiuzhen.system.lianqi.client.SewingBasketScreen;
+import net.yvanchuxiuzhen.system.lianqi.content.BlueprintTableBlockEntity;
+import net.yvanchuxiuzhen.system.lianqi.content.BlueprintTableMenu;
+import net.yvanchuxiuzhen.system.lianqi.content.PoisonCauldronBlockEntity;
+import net.yvanchuxiuzhen.system.lianqi.content.RepairTableBlockEntity;
+import net.yvanchuxiuzhen.system.lianqi.content.RepairTableMenu;
+import net.yvanchuxiuzhen.system.lianqi.content.SewingBasketBlockEntity;
+import net.yvanchuxiuzhen.system.lianqi.content.SewingBasketMenu;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodBlockEntity;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodMenu;
 import net.yvanchuxiuzhen.system.material.api.Materials;
@@ -73,7 +90,7 @@ import net.yvanchuxiuzhen.system.storage.api.MaterialWarehouse;
 import net.yvanchuxiuzhen.system.storage.api.MaterialWarehouse.Preferences;
 import net.yvanchuxiuzhen.system.storage.data.StorageData;
 
-/** 核对成品命令、容器与实例保存、属性消费，以及丹炉自然生产的库存和同步路径。 */
+/** 核对成品、丹炉及炼器工作台的自然交互、库存消费、实例保存和双端同步。 */
 final class EquipmentProductCheck extends ActionCheck {
     private static final String WEAPON = "minecraft:iron_sword 成品长剑 炼器说明 武器 上品 8.9 8.75 17.25 -3.4 -0.1 -0.2 0.3 6.9 4"
             + " minecraft unbreaking 2 minecraft mending 1 minecraft sharpness 5";
@@ -111,6 +128,14 @@ final class EquipmentProductCheck extends ActionCheck {
     private ProfessionProgress refiningProfession;
     private MaterialWarehouse warehouse;
     private ItemStack refinedProduct;
+    private BlockPos repairPos;
+    private BlockPos sewingPos;
+    private BlockPos blueprintPos;
+    private BlockPos poisonPos;
+    private final Map<BlockPos, BlockState> workbenchBlocks = new LinkedHashMap<>();
+    private final Map<BlockPos, CompoundTag> workbenchEntities = new LinkedHashMap<>();
+    private boolean sewingLastPage;
+    private boolean poisonRejected;
 
     EquipmentProductCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("equipmentproduct", report, levelId);
@@ -165,7 +190,10 @@ final class EquipmentProductCheck extends ActionCheck {
                     p.inventoryMenu.broadcastChanges();
                 }),
                 new Action(6, p -> {
-                    expectTrue("成品覆盖默认修饰，生命和物攻各计一次，负移速只在武器生效", PlayerAttributes.value(p, Stat.ATTACK) == PlayerAttributes.baseValue(p, Stat.ATTACK) + 8
+                    expectTrue("成品覆盖默认修饰，生命和物攻各计一次，负移速只在武器生效（生命/护甲/攻速/移速："
+                            + p.getMaxHealth() + "/" + p.getAttributeValue(Attributes.ARMOR) + "/"
+                            + p.getAttributeValue(Attributes.ATTACK_SPEED) + "/" + p.getAttributeValue(Attributes.MOVEMENT_SPEED) + "）",
+                            PlayerAttributes.value(p, Stat.ATTACK) == PlayerAttributes.baseValue(p, Stat.ATTACK) + 8
                             && PlayerAttributes.value(p, Stat.MANA_ATT) == PlayerAttributes.baseValue(p, Stat.MANA_ATT) + 17
                             && PlayerAttributes.value(p, Stat.SOUL_ATT) == PlayerAttributes.baseValue(p, Stat.SOUL_ATT) - 3
                             && p.getAttributeValue(Attributes.ATTACK_DAMAGE) == PlayerAttributes.value(p, Stat.ATTACK)
@@ -580,6 +608,16 @@ final class EquipmentProductCheck extends ActionCheck {
                             && data(tripod.getItem(10)).getString("fabaoid").equals("minecraft:iron_sword")
                             && data(tripod.getItem(10)).getInt("cailiao01num") == 2 && !data(tripod.getItem(10)).contains("cailiao00")
                             && tripod.getItem(1).getCount() == 2);
+                    CompoundTag translatedRecipe = data(tripod.getItem(10));
+                    translatedRecipe.putString("cailiao01name", "[Cailiao 1 7 1]");
+                    translatedRecipe.putString("tuzhiname", "[Iron Sword]");
+                    tripod.getItem(10).set(DataComponents.CUSTOM_DATA, CustomData.of(translatedRecipe));
+                    tripod.changed();
+                    expectTrue("图纸保留可翻译名称，英文服务端根字符串不覆盖中文材料与成品名", translatedRecipe.getString("cailiao01name_component").contains("translate")
+                            && translatedRecipe.getString("tuzhiname_component").contains("item.minecraft.iron_sword")
+                            && ((TripodMenu) p.containerMenu).recipeLine(1).contains(tripod.getItem(1).getHoverName().getString())
+                            && Equipment.createRefinedProduct(p.registryAccess(), translatedRecipe, new CompoundTag(), ItemStack.EMPTY)
+                                    .getHoverName().getString().equals(new ItemStack(Items.IRON_SWORD).getHoverName().getString()));
                     tripod.setItem(0, ItemStack.EMPTY);
                     tripod.setItem(1, ItemStack.EMPTY);
                     MaterialStorage.deposit(p, refiningMaterial(30, 1));
@@ -651,7 +689,233 @@ final class EquipmentProductCheck extends ActionCheck {
                             && Math.abs(Equipment.product(upgraded).orElseThrow().materials().health() - 428.4) < .0001
                             && ItemStack.matches(upgraded, minecraft.player.containerMenu.getSlot(9).getItem()));
                     p.closeContainer();
+                    repairPos = prepareWorkbench(p, alchemyPos.offset(-3, 0, 0));
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(4, alchemyItem("xiulitai", 1));
+                    p.getInventory().setItem(9, refiningMaterial(3, 1));
+                    ItemStack quality = refiningMaterial(2, 1);
+                    Materials.setInstance(quality, 2, 3);
+                    p.getInventory().setItem(10, quality);
+                    p.getInventory().setItem(11, refiningMaterial(2, 2));
+                    ItemStack damaged = new ItemStack(Items.IRON_SWORD);
+                    CompoundTag refinement = new CompoundTag();
+                    refinement.putInt("item_level_num", 2);
+                    damaged.set(EquipmentData.REFINEMENT.get(), CustomData.of(refinement));
+                    damaged.setDamageValue(200);
+                    p.getInventory().setItem(12, damaged);
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useBlock(4, repairPos.below())),
+                new Action(6, p -> useBlock(6, repairPos)),
+                new Action(6, p -> minecraft.execute(() -> {
+                    int id = minecraft.player.containerMenu.containerId;
+                    minecraft.gameMode.handleInventoryMouseClick(id, 4, 0, ClickType.PICKUP, minecraft.player);
+                    minecraft.gameMode.handleInventoryMouseClick(id, 0, 0, ClickType.PICKUP, minecraft.player);
+                })),
+                new Action(6, p -> separationButton("修理")),
+                new Action(6, p -> {
+                    RepairTableBlockEntity table = repairTable(p);
+                    expectTrue("自然放修理台开窗入槽，首次修理只刷新二级需求且不消费材料", p.containerMenu instanceof RepairTableMenu
+                            && minecraft.screen instanceof RepairTableScreen && table.getItem(0).getDamageValue() == 200
+                            && table.getPersistentData().getInt("needcailiaolevel") == 2
+                            && p.getInventory().getItem(9).getCount() == 1 && p.getInventory().getItem(10).getCount() == 1
+                            && p.getInventory().getItem(11).getCount() == 2);
+                    separationButton("修理");
+                }),
+                new Action(45, p -> {
+                    RepairTableBlockEntity table = repairTable(p);
+                    expectTrue("第二次真实修理优先低等级并跳过上品，扣一件修八十耐久且同步", table.getItem(0).getDamageValue() == 120
+                            && p.getInventory().getItem(9).getCount() == 1 && p.getInventory().getItem(10).getCount() == 1
+                            && p.getInventory().getItem(11).getCount() == 1
+                            && table.getPersistentData().getString("needcailiao").equals("修理一次！")
+                            && ItemStack.matches(table.getItem(0), minecraft.player.containerMenu.getSlot(0).getItem()));
+                    minecraft.execute(() -> screenshots.take("lianqi-repair.png"));
+                }),
+                new Action(6, p -> {
+                    RepairTableBlockEntity table = repairTable(p);
+                    RepairTableBlockEntity restored = (RepairTableBlockEntity) BlockEntity.loadStatic(repairPos, table.getBlockState(),
+                            table.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("修理四十刻后提示恢复，需求与完整装备保存重读且侧面不能抽取", table.getPersistentData().getString("needcailiao").contains("2到6")
+                            && restored.getPersistentData().equals(table.getPersistentData()) && ItemStack.matches(restored.getItem(0), table.getItem(0))
+                            && table.handler(Direction.DOWN).extractItem(0, 1, true).isEmpty()
+                            && !table.handler(null).extractItem(0, 1, true).isEmpty());
+                    p.closeContainer();
+                    sewingPos = prepareWorkbench(p, alchemyPos.offset(-3, 0, 1));
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(4, alchemyItem("zhenxianpoluo", 1));
+                    ItemStack first = alchemyItem("cailiao_171", 4);
+                    ItemStack second = alchemyItem("cailiao_171", 4);
+                    Materials.setInstance(first, 12, 3);
+                    Materials.setInstance(second, 23, 4);
+                    p.getInventory().setItem(9, first);
+                    p.setItemSlot(EquipmentSlot.OFFHAND, second);
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useBlock(4, sewingPos.below())),
+                new Action(6, p -> useBlock(6, sewingPos)),
+                new Action(6, p -> minecraft.execute(() -> minecraft.gameMode.handleInventoryMouseClick(
+                        minecraft.player.containerMenu.containerId, 0, 0, ClickType.PICKUP, minecraft.player))),
+                new Action(6, p -> {
+                    SewingBasketBlockEntity basket = sewingBasket(p);
+                    expectTrue("自然开针线笸箩延后填第一页，两端八槽只读且真实点击不能取预览", p.containerMenu instanceof SewingBasketMenu
+                            && minecraft.screen instanceof SewingBasketScreen && basket.getPersistentData().getInt("pagemax") == 14
+                            && basket.getItem(0).is(alchemyItem("clothes_01_helmet", 1).getItem()) && basket.getItem(4).getCount() == 8
+                            && p.containerMenu.getCarried().isEmpty() && !p.containerMenu.getSlot(4).mayPlace(alchemyItem("cailiao_171", 1))
+                            && basket.handler(Direction.DOWN).extractItem(0, 1, true).isEmpty()
+                            && ItemStack.matches(basket.getItem(0), minecraft.player.containerMenu.getSlot(0).getItem()));
+                    separationButton("制作");
+                }),
+                new Action(6, p -> {
+                    SewingBasketBlockEntity basket = sewingBasket(p);
+                    SewingBasketBlockEntity restored = (SewingBasketBlockEntity) BlockEntity.loadStatic(sewingPos, basket.getBlockState(),
+                            basket.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("真实缝纫按ID合计异组件主包与副手材料，扣八给四件并保留可保存预览", p.getInventory().getItem(9).isEmpty()
+                            && p.getOffhandItem().isEmpty() && ownsClothing(p, "01") && ownsClothing(minecraft.player, "01")
+                            && basket.getItem(4).getCount() == 8 && ItemStack.matches(basket.getItem(0), restored.getItem(0))
+                            && restored.getPersistentData().equals(basket.getPersistentData()));
+                    p.getInventory().setItem(9, alchemyItem("cailiao_171", 4));
+                    p.getInventory().setItem(10, new ItemStack(Items.LEATHER, 4));
+                    p.containerMenu.broadcastChanges();
+                    separationButton("<<");
+                }),
+                new Action(6, p -> {
+                    SewingBasketBlockEntity basket = sewingBasket(p);
+                    sewingLastPage = basket.getPersistentData().getInt("xvanze") == 14
+                            && basket.getItem(0).is(alchemyItem("clothes_15_helmet", 1).getItem())
+                            && basket.getItem(4).getCount() == 4 && basket.getItem(5).is(Items.LEATHER) && basket.getItem(5).getCount() == 4;
+                    minecraft.execute(() -> screenshots.take("lianqi-sewing.png"));
+                    separationButton("制作");
+                }),
+                new Action(6, p -> p.closeContainer()),
+                new Action(6, p -> {
+                    SewingBasketBlockEntity basket = sewingBasket(p);
+                    expectTrue("上一页由零回绕十四并制作混合配方，关闭清空共享八槽且保留页码", sewingLastPage
+                            && p.getInventory().getItem(9).isEmpty() && p.getInventory().getItem(10).isEmpty()
+                            && ownsClothing(p, "15") && ownsClothing(minecraft.player, "15") && basket.isEmpty()
+                            && basket.getPersistentData().getInt("xvanze") == 14
+                            && ((SewingBasketBlockEntity) minecraft.level.getBlockEntity(sewingPos)).isEmpty());
+                    blueprintPos = prepareWorkbench(p, alchemyPos.offset(-3, 0, 2));
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(4, alchemyItem("tiandaotuzhitai", 1));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useBlock(4, blueprintPos.below())),
+                new Action(6, p -> useBlock(6, blueprintPos)),
+                new Action(6, p -> separationButton("刷新图纸预览")),
+                new Action(6, p -> {
+                    BlueprintTableBlockEntity table = blueprintTable(p);
+                    int filled = 0;
+                    for (int slot = 13; slot < 223; slot++) if (table.getItem(slot).getCount() == 64) filled++;
+                    expectTrue("自然图纸台开窗填一百九十一栈目录，空料刷新保留来源四十一级超品", p.containerMenu instanceof BlueprintTableMenu
+                            && minecraft.screen instanceof BlueprintTableScreen && p.containerMenu.slots.size() == 259 && filled == 191
+                            && table.getItem(13).is(alchemyItem("cailiao_001", 1).getItem()) && table.getItem(204).isEmpty()
+                            && table.getPersistentData().getCompound("zong").getInt("item_level_num") == 41
+                            && table.getPersistentData().getCompound("zong").getString("item_level").equals("超品")
+                            && !p.containerMenu.getSlot(13).mayPlace(table.getItem(13)) && p.containerMenu.getSlot(13).mayPickup(p));
+                    table.setItem(0, refiningMaterial(1, 2));
+                    ItemStack medium = new ItemStack(Items.PAPER, 3);
+                    medium.set(DataComponents.CUSTOM_NAME, Component.literal("原载体"));
+                    medium.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
+                    table.setItem(9, medium);
+                    table.setItem(10, new ItemStack(Items.IRON_SWORD));
+                    ItemStack note = new ItemStack(Items.PAPER);
+                    note.set(DataComponents.CUSTOM_NAME, Component.literal("图纸说明"));
+                    table.setItem(11, note);
+                    p.containerMenu.broadcastChanges();
+                    minecraft.execute(() -> {
+                        minecraft.screen.children().stream().filter(EditBox.class::isInstance).map(EditBox.class::cast)
+                                .findFirst().orElseThrow().setValue("[天道]样本");
+                        minecraft.gameMode.handleInventoryMouseClick(minecraft.player.containerMenu.containerId, 13, 0, ClickType.QUICK_MOVE, minecraft.player);
+                    });
+                }),
+                new Action(6, p -> separationButton("保存图纸")),
+                new Action(6, p -> {
+                    BlueprintTableBlockEntity table = blueprintTable(p);
+                    ItemStack recipe = table.getItem(9);
+                    CompoundTag contents = data(recipe);
+                    BlueprintTableBlockEntity restored = (BlueprintTableBlockEntity) BlockEntity.loadStatic(blueprintPos, table.getBlockState(),
+                            table.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("目录真实Shift可取，图纸保留组件与九槽配方，成品去名称括号并保留翻译样式", table.getItem(13).isEmpty()
+                            && p.getInventory().items.stream().anyMatch(stack -> stack.is(alchemyItem("cailiao_001", 1).getItem()) && stack.getCount() == 64)
+                            && recipe.is(Items.PAPER) && recipe.getCount() == 1 && recipe.getHoverName().getString().equals("原载体")
+                            && Boolean.TRUE.equals(recipe.get(DataComponents.ENCHANTMENT_GLINT_OVERRIDE)) && contents.getString("tuzhiname").equals("[天道]样本")
+                            && contents.getString("fabaoid").equals("minecraft:iron_sword") && contents.getString("fabaotype").equals("武器")
+                            && contents.getString("fabaoshuoming").equals("[图纸说明]") && contents.getInt("cailiao00num") == 2
+                            && Component.Serializer.fromJson(contents.getString("tuzhiname_component"), p.registryAccess()).getString().equals("天道样本")
+                            && Component.Serializer.fromJson(contents.getString("fabaoshuoming_component"), p.registryAccess()).getString().equals("[图纸说明]")
+                            && contents.getString("cailiao08").equals("minecraft:air") && table.getItem(0).getCount() == 2
+                            && ItemStack.matches(recipe, restored.getItem(9)) && ItemStack.matches(recipe, minecraft.player.containerMenu.getSlot(9).getItem())
+                            && refinedNameParity(p, contents));
+                    minecraft.execute(() -> screenshots.take("lianqi-blueprint.png"));
+                    p.closeContainer();
+                    poisonPos = prepareWorkbench(p, alchemyPos.offset(-3, 0, 3));
+                    p.serverLevel().setBlockAndUpdate(poisonPos, Blocks.WATER_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3));
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(4, alchemyItem("cailiao_141", 2));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useBlock(4, poisonPos)),
+                new Action(6, p -> {
+                    PoisonCauldronBlockEntity cauldron = (PoisonCauldronBlockEntity) p.serverLevel().getBlockEntity(poisonPos);
+                    PoisonCauldronBlockEntity restored = (PoisonCauldronBlockEntity) BlockEntity.loadStatic(poisonPos, cauldron.getBlockState(),
+                            cauldron.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("材料真实右键水锅转毒锅扣一件，毒性命名空间与附魔保存并同步", p.getMainHandItem().getCount() == 1
+                            && cauldron.getPersistentData().getString("linshikongjian").equals(ModId.VALUE)
+                            && cauldron.getPersistentData().getString("linshifumo").equals("sinomeninevine")
+                            && restored.getPersistentData().equals(cauldron.getPersistentData())
+                            && minecraft.level.getBlockEntity(poisonPos).getPersistentData().equals(cauldron.getPersistentData()));
+                    p.getInventory().setItem(4, new ItemStack(Items.IRON_SWORD));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useBlock(4, poisonPos)),
+                new Action(6, p -> {
+                    poisonRejected = p.serverLevel().getBlockEntity(poisonPos) instanceof PoisonCauldronBlockEntity
+                            && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), p.getMainHandItem()) == 0;
+                    p.getMainHandItem().enchant(poisonEnchantment(p), 3);
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useBlock(4, poisonPos)),
+                new Action(6, p -> {
+                    expectTrue("毒藤锅保留已有附魔前置：未附魔不消费，三级剑淬毒后保三级并返空锅", poisonRejected
+                            && p.serverLevel().getBlockState(poisonPos).is(Blocks.CAULDRON)
+                            && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), p.getMainHandItem()) == 3
+                            && ItemStack.matches(p.getMainHandItem(), minecraft.player.getMainHandItem()));
+                    p.getInventory().setItem(4, alchemyItem("cailiao_141", 2));
+                    p.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.IRON_SWORD));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useMedicine()),
+                new Action(6, p -> {
+                    ItemStack result = p.getOffhandItem();
+                    CompoundTag raw = result.getOrDefault(EquipmentData.REFINEMENT.get(), CustomData.EMPTY).copyTag();
+                    expectTrue("毒材真实右键空气淬副手耗一件，一级附魔与先增总数后写fumo1完整同步", p.getMainHandItem().getCount() == 1
+                            && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), result) == 1
+                            && raw.getInt("fumozongshu") == 1 && raw.getString("fumo1").equals("sinomeninevine")
+                            && raw.getString("fumo1kongjian").equals(ModId.VALUE) && raw.getInt("fumo1num") == 100 && !raw.contains("fumo0")
+                            && ItemStack.matches(result, minecraft.player.getOffhandItem()));
                 }));
+    }
+
+    /** 在真实图纸记录副本上覆盖带括号模板，核对首次成品、升级及存档后的名称组件。 */
+    private static boolean refinedNameParity(ServerPlayer player, CompoundTag recipe) {
+        Component templateName = Component.literal("[灵]").withStyle(ChatFormatting.GOLD)
+                .append(Component.translatableWithFallback("item.minecraft.iron_sword", "[铁剑]"))
+                .append(Component.translatableWithFallback("yvanchuxiuzhen.smoke.refined_name", "[%s][%s]",
+                        Component.literal("[芯]").withStyle(ChatFormatting.BOLD), "[尾]"));
+        ItemStack template = new ItemStack(Items.IRON_SWORD);
+        template.set(DataComponents.CUSTOM_NAME, templateName);
+        CompoundTag namedRecipe = recipe.copy();
+        namedRecipe.putString("tuzhiname", template.getDisplayName().getString());
+        namedRecipe.putString("tuzhiname_component", Component.Serializer.toJson(template.getHoverName(), player.registryAccess()));
+        ItemStack product = Equipment.createRefinedProduct(player.registryAccess(), namedRecipe, new CompoundTag(), ItemStack.EMPTY);
+        ItemStack upgraded = Equipment.createRefinedProduct(player.registryAccess(), namedRecipe, new CompoundTag(), product);
+        ItemStack restored = ItemStack.parse(player.registryAccess(), product.save(player.registryAccess())).orElseThrow();
+        Component expected = Component.literal("灵").withStyle(ChatFormatting.GOLD)
+                .append(Component.translatableWithFallback("item.minecraft.iron_sword", "铁剑"))
+                .append(Component.translatableWithFallback("yvanchuxiuzhen.smoke.refined_name", "%s%s",
+                        Component.literal("芯").withStyle(ChatFormatting.BOLD), "尾"));
+        return product.getHoverName().equals(expected) && upgraded.getHoverName().equals(expected)
+                && restored.getHoverName().equals(expected) && template.getHoverName().getString().contains("[灵]");
     }
 
     private static ItemStack alchemyItem(String id, int count) {
@@ -672,6 +936,46 @@ final class EquipmentProductCheck extends ActionCheck {
 
     private TripodBlockEntity tripod(ServerPlayer player) {
         return (TripodBlockEntity) player.serverLevel().getBlockEntity(tripodPos);
+    }
+
+    private RepairTableBlockEntity repairTable(ServerPlayer player) {
+        return (RepairTableBlockEntity) player.serverLevel().getBlockEntity(repairPos);
+    }
+
+    private SewingBasketBlockEntity sewingBasket(ServerPlayer player) {
+        return (SewingBasketBlockEntity) player.serverLevel().getBlockEntity(sewingPos);
+    }
+
+    private BlueprintTableBlockEntity blueprintTable(ServerPlayer player) {
+        return (BlueprintTableBlockEntity) player.serverLevel().getBlockEntity(blueprintPos);
+    }
+
+    private BlockPos prepareWorkbench(ServerPlayer player, BlockPos pos) {
+        for (int below = 0; below < 2; below++) {
+            BlockPos target = pos.below(below);
+            workbenchBlocks.put(target, player.serverLevel().getBlockState(target));
+            BlockEntity original = player.serverLevel().getBlockEntity(target);
+            if (original != null) {
+                workbenchEntities.put(target, original.saveWithFullMetadata(player.registryAccess()));
+                if (original instanceof Container container) container.clearContent();
+            }
+        }
+        player.serverLevel().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+        player.serverLevel().setBlockAndUpdate(pos.below(), Blocks.STONE.defaultBlockState());
+        return pos;
+    }
+
+    private static boolean ownsClothing(Player player, String page) {
+        for (String piece : List.of("helmet", "chestplate", "leggings", "boots")) {
+            Item item = alchemyItem("clothes_" + page + "_" + piece, 1).getItem();
+            if (player.getInventory().items.stream().noneMatch(stack -> stack.is(item) && stack.getCount() == 1)) return false;
+        }
+        return true;
+    }
+
+    private static Holder<Enchantment> poisonEnchantment(ServerPlayer player) {
+        return player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ResourceKey.create(
+                Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "sinomeninevine")));
     }
 
     private static ItemStack refiningMaterial(int level, int count) {
@@ -742,6 +1046,18 @@ final class EquipmentProductCheck extends ActionCheck {
         if (hadFastingTimer) player.getPersistentData().putDouble("baoshidu", fastingTimer);
         else player.getPersistentData().remove("baoshidu");
         sneak(shiftKey);
+        for (Map.Entry<BlockPos, BlockState> entry : workbenchBlocks.entrySet()) {
+            BlockEntity current = player.serverLevel().getBlockEntity(entry.getKey());
+            if (current instanceof Container container) container.clearContent();
+            player.serverLevel().setBlockAndUpdate(entry.getKey(), entry.getValue());
+            CompoundTag original = workbenchEntities.get(entry.getKey());
+            if (original != null) {
+                BlockEntity restored = BlockEntity.loadStatic(entry.getKey(), entry.getValue(), original, player.registryAccess());
+                player.serverLevel().setBlockEntity(restored);
+                restored.setChanged();
+                player.serverLevel().sendBlockUpdated(entry.getKey(), entry.getValue(), entry.getValue(), 3);
+            }
+        }
         if (tripodPos != null) {
             tripod(player).clearContent();
             for (int below = 0; below < 3; below++) player.serverLevel().setBlockAndUpdate(tripodPos.below(below), tripodBlocks.get(below));

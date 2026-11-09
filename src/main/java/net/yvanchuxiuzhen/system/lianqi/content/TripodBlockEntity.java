@@ -90,12 +90,12 @@ public final class TripodBlockEntity extends RandomizableContainerBlockEntity im
 
     @Override
     protected Component getDefaultName() {
-        return Component.literal("tripod_0" + tier());
+        return Component.translatable("block.yvanchuxiuzhen.tripod_0" + tier());
     }
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Tripod 0 " + tier());
+        return getDefaultName();
     }
 
     @Override

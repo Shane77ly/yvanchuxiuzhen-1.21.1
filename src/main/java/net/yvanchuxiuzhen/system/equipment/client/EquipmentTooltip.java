@@ -2,12 +2,16 @@ package net.yvanchuxiuzhen.system.equipment.client;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
@@ -48,8 +52,14 @@ final class EquipmentTooltip {
                 positive(lines, "精神防御", stats.soulDefense());
             }
             lines.add(Component.literal("§f重量：" + product.weight()));
-            for (int start = 0; start < product.description().length(); start += 24) {
-                lines.add(Component.literal("§f" + product.description().substring(start, Math.min(start + 24, product.description().length()))));
+            String description = product.description();
+            CompoundTag refinement = stack.getOrDefault(EquipmentData.REFINEMENT.get(), CustomData.EMPTY).copyTag();
+            HolderLookup.Provider registries = event.getContext().registries();
+            if (registries != null && refinement.contains("fabaoshuoming_component", Tag.TAG_STRING)) {
+                description = Component.Serializer.fromJson(refinement.getString("fabaoshuoming_component"), registries).getString();
+            }
+            for (int start = 0; start < description.length(); start += 24) {
+                lines.add(Component.literal("§f" + description.substring(start, Math.min(start + 24, description.length()))));
             }
         });
     }

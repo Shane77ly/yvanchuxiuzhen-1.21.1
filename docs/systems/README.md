@@ -2,7 +2,7 @@
 topic: systems-index
 role: entry
 status: current
-updated: 2026-11-08
+updated: 2026-11-09
 ---
 
 # 全量系统架构调查
@@ -31,7 +31,7 @@ updated: 2026-11-08
 | [`plant`](plant/README.md) | 植物 | 812 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`cooking`](cooking/README.md) | 烹饪 | 322 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`liandan`](liandan/README.md) | 炼丹 | 133 | 44 | 基础身份已登记；千材录移归material，丹炉与药理玩法待接回 |
-| [`lianqi`](lianqi/README.md) | 炼器 | 146 | 32 | weaponlevelup已注册；千材录说明移归material，炉鼎与装料玩法待接回 |
+| [`lianqi`](lianqi/README.md) | 炼器 | 147 | 147 | 八鼎与修理、缝纫、天道图纸、毒锅行为已接回，覆盖42条注册；四装置第二轮客户端47项及专服受控保存重启读回通过；末次汉化构建及48项客户端通过，完整验收未完成 |
 | [`fulu`](fulu/README.md) | 符箓 | 233 | 5 | 调查正文已建立；实现及运行验收未开始 |
 | [`craft`](craft/README.md) | 工艺 | 128 | 23 | 调查正文已建立；实现及运行验收未开始 |
 | [`world`](world/README.md) | 世界 | 104 | 1 | 调查正文已建立；实现及运行验收未开始 |

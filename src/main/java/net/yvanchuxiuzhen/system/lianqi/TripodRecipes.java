@@ -30,10 +30,12 @@ final class TripodRecipes {
         ItemStack carrier = furnace.getItem(10).copy();
         CompoundTag recipe = TripodMaterials.data(carrier);
         if (!recipe.getString("fabaotype").isEmpty()) {
-            TripodRuntime.message(player, "§4" + new ItemStack(carrier.getItem()).getDisplayName().getString() + "内已有一份图纸，不可覆盖。");
+            player.displayClientMessage(Component.literal("§4[").append(new ItemStack(carrier.getItem()).getHoverName())
+                    .append("]内已有一份图纸，不可覆盖。"), false);
             return;
         }
         recipe.putString("tuzhiname", equipment.getDisplayName().getString());
+        recipe.putString("tuzhiname_component", Component.Serializer.toJson(equipment.getHoverName().copy(), player.registryAccess()));
         recipe.putString("fabaoid", TripodRuntime.itemId(equipment));
         recipe.putString("fabaotype", TYPES[type]);
         for (int slot = 1; slot <= 8; slot++) {
@@ -42,6 +44,8 @@ final class TripodRecipes {
             recipe.putString(key, TripodRuntime.itemId(material));
             recipe.putInt(key + "num", material.getCount());
             recipe.putString(key + "name", material.getDisplayName().getString());
+            recipe.putString(key + "name_component", Component.Serializer.toJson(
+                    Component.literal("[").append(material.getHoverName().copy()).append("]"), player.registryAccess()));
         }
         carrier.set(DataComponents.CUSTOM_DATA, CustomData.of(recipe));
         carrier.setCount(1);

@@ -13,6 +13,7 @@ src/main/resources/content/<单位>/blocks.json、items.json，名称与提示�
 from __future__ import annotations
 
 import csv
+import argparse
 import json
 import re
 import sys
@@ -41,6 +42,7 @@ FACTORIES = {'Block': 'block', 'SlabBlock': 'slab', 'StairBlock': 'stairs', 'Wal
 VANILLA_TABS = {'TAB_MISC': 'minecraft:tools_and_utilities', 'TAB_DECORATIONS': 'minecraft:building_blocks',
                 'TAB_TOOLS': 'minecraft:tools_and_utilities'}
 LANGUAGES = ('zh_cn', 'en_us')
+OUTPUT_OWNER: str | None = None
 
 
 class Source:
@@ -97,6 +99,8 @@ def ledger_targets() -> dict[tuple[str, str], str]:
 
 
 def write_rows(path: Path, rows: list[dict]) -> None:
+    if OUTPUT_OWNER is not None and path.parent.name != OUTPUT_OWNER:
+        return
     path.parent.mkdir(parents=True, exist_ok=True)
     text = '[\n' + ',\n'.join(json.dumps(row, ensure_ascii=False, separators=(',', ':')) for row in rows) + '\n]\n'
     path.write_text(text, encoding='utf-8', newline='\n')
@@ -104,6 +108,8 @@ def write_rows(path: Path, rows: list[dict]) -> None:
 
 def write_lang(unit_entries: dict[str, dict[str, dict[str, str]]]) -> None:
     for unit, by_language in unit_entries.items():
+        if OUTPUT_OWNER is not None and unit != OUTPUT_OWNER:
+            continue
         for language, entries in by_language.items():
             path = LANG / language / f'{unit}.json'
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -140,8 +146,11 @@ def convert_sounds(sources: dict[str, Source], add_lang, expected) -> dict[str, 
                         add_lang(unit, language, subtitle, text)
     SOUNDS.mkdir(parents=True, exist_ok=True)
     for stale in SOUNDS.glob('*.json'):
-        stale.unlink()
+        if OUTPUT_OWNER is None or stale.stem == OUTPUT_OWNER:
+            stale.unlink()
     for unit, fragment in fragments.items():
+        if OUTPUT_OWNER is not None and unit != OUTPUT_OWNER:
+            continue
         text = json.dumps(fragment, ensure_ascii=False, indent=2) + '\n'
         (SOUNDS / f'{unit}.json').write_text(text, encoding='utf-8', newline='\n')
     return rows
@@ -344,7 +353,13 @@ def convert_alchemy_devices(source: Source) -> tuple[list[dict], list[dict]]:
 
 
 def main() -> None:
+    global OUTPUT_OWNER
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--owner', help='只写指定系统的内容、语言与声音片段，保留其他系统已迁移的输出。')
+    OUTPUT_OWNER = parser.parse_args().owner
     expected = expected_rows()
+    if OUTPUT_OWNER is not None and OUTPUT_OWNER not in {row['owner'] for row in expected.values()}:
+        parser.error(f'未知系统：{OUTPUT_OWNER}')
     overrides = factory_overrides()
     targets = ledger_targets()
     sources = {mod: Source(mod) for mod in SOURCES}
@@ -367,8 +382,12 @@ def main() -> None:
         target = targets[('block', legacy_id)].split(':', 1)[1]
         class_name = source.block_class[path]
         text = source.java('block', class_name)
+        if overrides.get(('block', target)) == 'lianqi:repair_table':
+            # 修理台的动画状态和实体渲染由系统类承担，基础属性仍取锁定来源。
+            text = re.sub(r'public static final IntegerProperty ANIMATION = [^;]+;', '', text)
+            text = re.sub(r'@Override\s+public RenderShape getRenderShape\([^)]*\) \{[^}]*\}', '', text)
         base = re.search(r'public class \w+ extends (\w+)', text).group(1)
-        if base not in BASES:
+        if base not in BASES and overrides.get(('block', target)) != 'lianqi:repair_table':
             skipped.append(('block', legacy_id, f'方块基类 {base} 由所属系统迁移'))
             continue
         try:
@@ -377,8 +396,13 @@ def main() -> None:
             skipped.append(('block', legacy_id, f'{class_name}：{error}'.replace('\n', ' ')[:200]))
             continue
         block_tooltips[(mod, path)] = row.pop('tooltip', [])
-        factory = FACTORIES[row.pop('base')]
-        if overrides.get(('block', target)) in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod'):
+        base = row.pop('base')
+        factory = overrides[('block', target)] if ('block', target) in overrides else FACTORIES[base]
+        if factory == 'lianqi:blueprint_table':
+            strength = re.search(r'\.strength\((-?[\d.]+)f?, ?([\d.]+)f?\)', text)
+            row['strength'] = [float(strength.group(1)), float(strength.group(2))]
+        if factory in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod',
+                       'lianqi:repair_table', 'lianqi:sewing_basket', 'lianqi:blueprint_table', 'lianqi:poison_cauldron'):
             row.pop('pending_hooks', None)
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:
@@ -407,6 +431,10 @@ def main() -> None:
                 row['tooltip'] = block_tooltips[(mod, path)]
         else:
             class_name = source.item_class.get(path)
+            if overrides.get(('item', target)) == 'lianqi:repair_table':
+                items_by_unit[unit].append({'id': target, 'factory': 'lianqi:repair_table', 'block': target,
+                                           'order': order, 'tab': source.tabs['TAB_YVANCHU_BLOCK']})
+                continue
             if class_name is None and path in source.geckolib_armor and ('item', target) in overrides:
                 class_name = source.geckolib_armor[path]
                 text = source.java('item', class_name)
@@ -501,7 +529,8 @@ def main() -> None:
 
     units = sorted(set(blocks_by_unit) | set(items_by_unit))
     for stale in (*CONTENT.glob('*/sounds.json'), *CONTENT.glob('*/effects.json'), *CONTENT.glob('*/entities.json')):
-        stale.unlink()
+        if OUTPUT_OWNER is None or stale.parent.name == OUTPUT_OWNER:
+            stale.unlink()
     for unit, unit_rows in entity_rows.items():
         write_rows(CONTENT / unit / 'entities.json', sorted(unit_rows, key=lambda r: r['id']))
     for unit, unit_rows in effect_rows.items():
@@ -520,6 +549,11 @@ def main() -> None:
     write_rows(CONTENT / 'liandan' / 'herbs.json', herb_definitions)
     write_lang(lang)
     CONVERSION.mkdir(parents=True, exist_ok=True)
+    if OUTPUT_OWNER is not None:
+        existing = list(csv.DictReader((CONVERSION / 'skipped.csv').open(encoding='utf-8')))
+        skipped = [row for row in skipped if expected[(row[0], row[1])]['owner'] == OUTPUT_OWNER]
+        skipped.extend((row['registry'], row['legacy_id'], row['reason']) for row in existing
+                       if expected[(row['registry'], row['legacy_id'])]['owner'] != OUTPUT_OWNER)
     with (CONVERSION / 'skipped.csv').open('w', encoding='utf-8', newline='') as handle:
         writer = csv.writer(handle, lineterminator='\n')
         writer.writerow(['registry', 'legacy_id', 'reason'])

@@ -163,7 +163,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 | 已验收 | 按验证参考完成所需运行验证 |
 | 批准调整 | 负责人批准的行为调整或合并，附决定链接 |
 
-归属阅读（B1 步骤 6 起）：`tools/porting/ownership_evidence.py` 按候选单位输出 `build/ownership/<单位>.jsonl`，每个元素列出触发过程及其调用闭包、引用它的其他代码（带该代码元素的候选单位）、引用它的配方、标签、战利品表、进度、函数与语言文件。它只给出“该读什么”，不判定归属。阅读后在[归属表](../reference/legacy/inventory/ownership_assignment.csv)把元素改为“已读”，`evidence` 写明读到的规则；读同一元素时一并读过的过程元素按同一结论登记。随后运行 `build_ledger.py` 同步台账（行随归属移动），再运行 `build_architecture_catalog.py` 重建由归属推导的类归属与覆盖表，归属改动涉及已登记内容时重跑 `convert_content.py`，内容表与语言片段随之移到新单位。工具按字符串匹配 ID，不区分注册表，同名的群系与物品（如 `ling_07`）会混在一起，阅读时要核对。读过程源码用 `tools/porting/read_procedure.py <过程名>`（折叠 MCreator 样板、还原中文转义，`DEPTH=1` 显示花括号深度以核对分支嵌套），原文以来源文件为准。
+归属阅读（B1 步骤 6 起）：`tools/porting/ownership_evidence.py` 按候选单位输出 `build/ownership/<单位>.jsonl`，每个元素列出触发过程及其调用闭包、引用它的其他代码（带该代码元素的候选单位）、引用它的配方、标签、战利品表、进度、函数与语言文件。它只给出“该读什么”，不判定归属。阅读后在[归属表](../reference/legacy/inventory/ownership_assignment.csv)把元素改为“已读”，`evidence` 写明读到的规则；读同一元素时一并读过的过程元素按同一结论登记。随后运行 `build_ledger.py` 同步台账（行随归属移动），再运行 `build_architecture_catalog.py` 重建由归属推导的类归属与覆盖表，归属改动涉及已登记内容时重跑 `convert_content.py`，内容表与语言片段随之移到新单位。`convert_content.py --owner <系统>`只写该系统的内容、语言、声音与跳过条目，供系统批次使用；全量默认仍会重建全部输出，部分旧批次尚未回填转换输入的专属内容须先核对差异（2026-11-09）。工具按字符串匹配 ID，不区分注册表，同名的群系与物品（如 `ling_07`）会混在一起，阅读时要核对。读过程源码用 `tools/porting/read_procedure.py <过程名>`（折叠 MCreator 样板、还原中文转义，`DEPTH=1` 显示花括号深度以核对分支嵌套），原文以来源文件为准。
 
 阅读与台账更新工具（2026-11-04）：`tools/porting/read_procedure.py` 把过程压缩成可读文本（折叠属性写入、转向、范围查找、命令、敌友与队伍读取、弹体生成），`DIFF=1` 对同模板的一族过程只输出与首个的行差异；`mark_ownership.py <系统> "<结论>" <元素>…` 把读完的元素标为“已读”（改判须设置 `REASSIGN=1`）；`mark_ledger.py <系统> <状态> "<备注>" <元素>…` 更新系统台账的状态；之后运行 `build_ledger.py`、`build_architecture_catalog.py`。
 

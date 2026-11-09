@@ -20,6 +20,8 @@ updated: 2026-11-09
 
 ## 公开操作
 
+修理台使用`Equipment.refiningLevel`读取嵌套等级、`flyingInstrumentNeedsRepair`按根整数值判断、`repairFlyingInstrument`按根double值修复并钳上限。直接淬毒由`recordPoisonEnchantment`保留完整累计记录并先增序号写附魔，毒锅不调用该记录接口。规则与来源见[炼器正文](../lianqi/architecture.md)。
+
 饰品依赖批次已实现，验证见[四饰品槽与飞行减耗](architecture.md#四饰品槽与飞行减耗2026-11-07)：`Equipment.openAccessories` 打开本系统四槽菜单，`Equipment.accessories` 返回已保存四槽的副本；关闭回写只由 equipment 执行。初始化与菜单共用的物品引用只保留在本系统内部。导航经 `AccessoryPageEvent` 请求汇总面板，equipment 不依赖 panel。对照 `typed_field_accesses.csv` 的 `PlayerGUI03` 开关过程与 `Shipintick`：四槽归 equipment；`tizhiitem.shipintick` 经 `Cultivation` 逐键读写；飞行附魔经 `FlightEnchantmentEvent` 提供给 skill；九项根属性与冷却缩减提交 attribute。`Equipment.properties` 查询 `/shipin` 的显式根属性，与成品的嵌套炼器数据分开保存；根 `mana_Att` 经 `WeaponStatEvent` 提供给 skill。
 
 后续合法单件验收（2026-11-07）：未修改检查代码，沿用现有 `accessories` 的14项全部通过，补齐自然菜单搬移、保存同步、死亡复制、重登后操作和技能飞行减耗；正常保存退出、ERROR0。证据与剩余范围见上述正文，equipment 及GUI仍为部分实现。

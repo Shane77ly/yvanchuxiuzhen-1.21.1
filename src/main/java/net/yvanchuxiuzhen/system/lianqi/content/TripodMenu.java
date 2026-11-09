@@ -5,6 +5,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
@@ -95,6 +96,9 @@ public final class TripodMenu extends AbstractContainerMenu {
         String key = "cailiao0" + slot;
         String name = recipe.getString(key + "name");
         if (name.isEmpty() || name.equals("无")) return "§4无";
+        if (recipe.contains(key + "name_component")) {
+            name = Component.Serializer.fromJson(recipe.getString(key + "name_component"), level.registryAccess()).getString();
+        }
         ItemStack input = container.getItem(slot);
         boolean enough = BuiltInRegistries.ITEM.getKey(input.getItem()).toString().equals(recipe.getString(key))
                 && input.getCount() >= recipe.getInt(key + "num");

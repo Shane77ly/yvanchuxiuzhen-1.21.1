@@ -69,7 +69,7 @@ public final class TripodRuntime {
     public static void use(Level level, BlockPos pos, Player player, TripodBlockEntity furnace) {
         if (player instanceof ServerPlayer serverPlayer) {
             serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new TripodMenu(id, inventory, furnace),
-                    Component.literal("TripodGUI")), pos);
+                    furnace.getDisplayName()), pos);
             furnace.getPersistentData().putInt("RefinerLEVEL", (int) Professions.level(player, Profession.REFINING));
             furnace.changed();
         }
