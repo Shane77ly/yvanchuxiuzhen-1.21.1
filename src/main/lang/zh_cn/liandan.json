@@ -32,5 +32,9 @@
   "gui.yvanchuxiuzhen.liandan_gui.label_sui_ji_zeng_jia_cheng_dan_shu_liang_shang_xian": "随机增加成丹数量上限",
   "gui.yvanchuxiuzhen.liandan_gui.label_bai_fen_bi_jian_shao_lian_dan_shi_chang": "百分比减少炼丹时长",
   "gui.yvanchuxiuzhen.liandan_gui.label_lian_zhi_gao_yu_dan_lu_deng_ji_de_dan_yao_shi_hui_you_ji_lu_zha_lu": "炼制高于丹炉等级的丹药时，会有几率炸炉",
-  "gui.yvanchuxiuzhen.liandan_gui.label_e_wai_sui_ji_huo_de_0dao_ci_zhi_ge_dan_yao": "额外随机获得0到“此值”个丹药"
+  "gui.yvanchuxiuzhen.liandan_gui.label_e_wai_sui_ji_huo_de_0dao_ci_zhi_ge_dan_yao": "额外随机获得0到“此值”个丹药",
+  "gui.yvanchuxiuzhen.hedan_gui.label_he_dan": "合丹",
+  "gui.yvanchuxiuzhen.fendan_gui.label_fen_dan": "分丹",
+  "gui.yvanchuxiuzhen.hedan_gui.button_fen_dan": "分丹",
+  "gui.yvanchuxiuzhen.fendan_gui.button_he_dan": "合丹"
 }

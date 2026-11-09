@@ -18,6 +18,10 @@ public final class LiandanClientSetup {
     public static void register(IEventBus modBus) {
         NeoForge.EVENT_BUS.addListener(MedicineTooltip::onTooltip);
         modBus.addListener((RegisterMenuScreensEvent event) -> event.register(LiandanMenus.ALCHEMY.get(), AlchemyScreen::new));
+        modBus.addListener((RegisterMenuScreensEvent event) -> {
+            event.register(LiandanMenus.MEDICINE_SEPARATION.get(), MedicineSeparationScreen::new);
+            event.register(LiandanMenus.MEDICINE_COMBINATION.get(), MedicineSeparationScreen::new);
+        });
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             for (var type : LiandanBlockEntities.ALCHEMY) event.registerBlockEntityRenderer(type.get(), AlchemyRenderer::new);
         });

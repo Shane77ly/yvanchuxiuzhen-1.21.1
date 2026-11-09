@@ -2,7 +2,7 @@
 topic: project
 role: entry
 status: current
-updated: 2026-11-08
+updated: 2026-11-09
 ---
 
 # 项目状态与决定
@@ -134,3 +134,5 @@ updated: 2026-11-08
 
 
 2026-11-08 D阶段药瓶消费：按两份1.18.2版本来源及原生返回栈生命周期接回八种药瓶自服、合并、耗尽换瓶、实体喂药、Tooltip、单槽放置拾回及自动化；cooking接回辟谷依赖。完整build和既有内置equipmentproduct唯一一次19项全INFO、0FAIL、DONE，客户端保存四维度正常退出，ERROR/FATAL0。来源异常与尚未验收分支见[炼丹正文](../liandan/architecture.md)，运行及专服证据见[炼丹月志](../liandan/logs/2026-11.md)。仓库移植技能NeoForge参考新增已核实的use返回旧栈和首次方块实体广播规则。下一步分合丹；完整goal active，当前不合main。
+
+2026-11-09 D阶段分丹台：已接三槽持久库存、分合丹双页菜单与服务端按钮，累计62条炼丹注册行为迁移、归属83/133已读。最终构建通过，既有内置equipmentproduct客户端25项全INFO、0FAIL、DONE，专服正常stop保存四维度，双端ERROR/FATAL0；两页截图已查看。来源异常、首次旧场景未复现失败和验证边界见[炼丹月志](../liandan/logs/2026-11.md)。两个子agent分别补正文台账和核读下一批药理台/百草鉴，工具运行仍串行；下一步直接实现上述装置，当前不合main。

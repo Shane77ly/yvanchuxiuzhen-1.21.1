@@ -378,7 +378,7 @@ def main() -> None:
             continue
         block_tooltips[(mod, path)] = row.pop('tooltip', [])
         factory = FACTORIES[row.pop('base')]
-        if overrides.get(('block', target)) == 'liandan:medicine_container':
+        if overrides.get(('block', target)) in ('liandan:medicine_container', 'liandan:medicine_separation'):
             row.pop('pending_hooks', None)
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:

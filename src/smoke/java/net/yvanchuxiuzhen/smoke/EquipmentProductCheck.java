@@ -49,6 +49,10 @@ import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.liandan.client.AlchemyScreen;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlockEntity;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyMenu;
+import net.yvanchuxiuzhen.system.liandan.client.MedicineSeparationScreen;
+import net.yvanchuxiuzhen.system.liandan.content.MedicineSeparationBlockEntity;
+import net.yvanchuxiuzhen.system.liandan.content.MedicineSeparationMenu;
+import net.minecraft.network.chat.Component;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionAttachments;
@@ -84,6 +88,9 @@ final class EquipmentProductCheck extends ActionCheck {
     private BlockState bottleBlock;
     private ItemStack bottledMedicine;
     private Cow feedingTarget;
+    private BlockPos separationPos;
+    private BlockState separationBlock;
+    private ItemStack separationMedicine;
 
     EquipmentProductCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("equipmentproduct", report, levelId);
@@ -347,10 +354,99 @@ final class EquipmentProductCheck extends ActionCheck {
                 }),
                 new Action(6, p -> minecraft.execute(() -> minecraft.gameMode.interact(minecraft.player,
                         minecraft.level.getEntity(feedingTarget.getId()), InteractionHand.MAIN_HAND))),
-                new Action(4, p -> expectTrue("潜行实际喂药作用于目标，抗性不套自服上限并只扣主手一颗", feedingTarget.hasEffect(MobEffects.DAMAGE_RESISTANCE)
+                new Action(4, p -> {
+                    expectTrue("潜行实际喂药作用于目标，抗性不套自服上限并只扣主手一颗", feedingTarget.hasEffect(MobEffects.DAMAGE_RESISTANCE)
                         && feedingTarget.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() == 8
                         && data(p.getMainHandItem()).getInt("danyaonum") == 2
-                        && ItemStack.matches(p.getMainHandItem(), minecraft.player.getMainHandItem()))));
+                        && ItemStack.matches(p.getMainHandItem(), minecraft.player.getMainHandItem()));
+                    sneak(false);
+                    separationPos = bottlePos;
+                    separationBlock = p.serverLevel().getBlockState(separationPos);
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(4, alchemyItem("fendantai", 1));
+                    p.getInventory().setItem(9, alchemyItem("itemdanyaohulu_04", 1));
+                    p.getInventory().setItem(10, alchemyItem("itemdanyaohulu_06", 1));
+                    separationMedicine = bottledMedicine.copy();
+                    CompoundTag contents = data(separationMedicine);
+                    contents.putInt("danyaonum", 5);
+                    contents.putString("danyaoname", "分合丹样本");
+                    separationMedicine.set(DataComponents.CUSTOM_DATA, CustomData.of(contents));
+                    separationMedicine.set(DataComponents.CUSTOM_NAME, Component.literal("分合丹样本"));
+                    p.getInventory().setItem(11, separationMedicine.copy());
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useBlock(4, separationPos.below())),
+                new Action(6, p -> useBlock(4, separationPos)),
+                new Action(6, p -> {
+                    expectTrue("自然放台开分丹界面，两端绑定三个单件槽且坐标一致", p.containerMenu instanceof MedicineSeparationMenu menu
+                            && !menu.merging() && minecraft.screen instanceof MedicineSeparationScreen
+                            && menu.slots.size() == 39 && menu.getSlot(0).getMaxStackSize() == 1
+                            && menu.getSlot(0).y == 53 && menu.getSlot(2).y == 17);
+                    minecraft.execute(() -> {
+                        int id = minecraft.player.containerMenu.containerId;
+                        for (int slot = 0; slot < 3; slot++) {
+                            minecraft.gameMode.handleInventoryMouseClick(id, 3 + slot, 0, ClickType.PICKUP, minecraft.player);
+                            minecraft.gameMode.handleInventoryMouseClick(id, slot, 0, ClickType.PICKUP, minecraft.player);
+                        }
+                    });
+                }),
+                new Action(6, p -> separationButton("分丹")),
+                new Action(6, p -> {
+                    MedicineSeparationBlockEntity table = separationTable(p);
+                    expectTrue("分丹真实按钮将五颗分为左二右三，空盒转满盒并复制完整组件，原瓶清空", table.getItem(0).is(alchemyItem("itemdanyaohulu_0401", 1).getItem())
+                            && data(table.getItem(0)).getInt("danyaonum") == 2 && data(table.getItem(1)).getInt("danyaonum") == 3
+                            && table.getItem(0).getHoverName().getString().equals("分合丹样本")
+                            && Boolean.TRUE.equals(table.getItem(1).get(DataComponents.ENCHANTMENT_GLINT_OVERRIDE))
+                            && !table.getItem(2).has(DataComponents.CUSTOM_DATA)
+                            && ItemStack.matches(table.getItem(0), minecraft.player.containerMenu.getSlot(0).getItem()));
+                    minecraft.execute(() -> screenshots.take("liandan-split.png"));
+                    separationButton("合丹");
+                }),
+                new Action(6, p -> {
+                    expectTrue("切换合丹保留同台库存，两个菜单身份与上下槽位切换", p.containerMenu instanceof MedicineSeparationMenu menu
+                            && menu.merging() && menu.getSlot(0).y == 17 && menu.getSlot(2).y == 53
+                            && data(menu.getSlot(0).getItem()).getInt("danyaonum") == 2
+                            && ((MedicineSeparationMenu) minecraft.player.containerMenu).merging());
+                    separationButton("合丹");
+                }),
+                new Action(6, p -> {
+                    MedicineSeparationBlockEntity table = separationTable(p);
+                    MedicineSeparationBlockEntity restored = (MedicineSeparationBlockEntity) BlockEntity.loadStatic(separationPos, table.getBlockState(),
+                            table.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("合丹真实按钮汇总五颗并返空盒，保存重读和双端组件保持，六面只进无面可取", ItemStack.matches(table.getItem(2), separationMedicine)
+                            && ItemStack.matches(restored.getItem(2), separationMedicine)
+                            && ItemStack.matches(minecraft.player.containerMenu.getSlot(2).getItem(), separationMedicine)
+                            && table.getItem(0).is(alchemyItem("itemdanyaohulu_04", 1).getItem())
+                            && table.handler(Direction.DOWN).extractItem(2, 1, true).isEmpty()
+                            && !table.handler(null).extractItem(2, 1, true).isEmpty());
+                    minecraft.execute(() -> screenshots.take("liandan-merge.png"));
+                    table.setItem(0, separationMedicine.copy());
+                    ItemStack different = separationMedicine.copy();
+                    CompoundTag mismatch = data(different);
+                    mismatch.putInt("danyaolevel0", 200);
+                    different.set(DataComponents.CUSTOM_DATA, CustomData.of(mismatch));
+                    table.setItem(1, different);
+                    table.setItem(2, alchemyItem("itemdanyaohulu_05", 1));
+                    p.containerMenu.broadcastChanges();
+                    separationButton("合丹");
+                }),
+                new Action(6, p -> {
+                    MedicineSeparationBlockEntity table = separationTable(p);
+                    expectTrue("同名但药效不同的合丹请求不消费三槽", ItemStack.matches(table.getItem(0), separationMedicine)
+                            && data(table.getItem(1)).getInt("danyaonum") == 5 && !table.getItem(2).has(DataComponents.CUSTOM_DATA));
+                    CompoundTag differentName = data(table.getItem(1));
+                    differentName.putString("danyaoname", "另一名称");
+                    table.getItem(1).set(DataComponents.CUSTOM_DATA, CustomData.of(differentName));
+                    p.containerMenu.broadcastChanges();
+                    separationButton("合丹");
+                }),
+                new Action(6, p -> {
+                    MedicineSeparationBlockEntity table = separationTable(p);
+                    expectTrue("来源名称不同仅提示仍合并，保留左瓶药效并变满六边盒", table.getItem(2).is(alchemyItem("itemdanyaohulu_0501", 1).getItem())
+                            && data(table.getItem(2)).getInt("danyaonum") == 10 && data(table.getItem(2)).getInt("danyaolevel0") == 199
+                            && table.getItem(2).getHoverName().getString().equals("分合丹样本"));
+                    p.closeContainer();
+                }));
     }
 
     private static ItemStack alchemyItem(String id, int count) {
@@ -359,6 +455,16 @@ final class EquipmentProductCheck extends ActionCheck {
 
     private AlchemyBlockEntity furnace(ServerPlayer player) {
         return (AlchemyBlockEntity) player.serverLevel().getBlockEntity(alchemyPos);
+    }
+
+    private MedicineSeparationBlockEntity separationTable(ServerPlayer player) {
+        return (MedicineSeparationBlockEntity) player.serverLevel().getBlockEntity(separationPos);
+    }
+
+    private void separationButton(String name) {
+        minecraft.execute(() -> minecraft.screen.children().stream()
+                .filter(child -> child instanceof Button button && button.getMessage().getString().equals(name))
+                .map(child -> (Button) child).findFirst().orElseThrow().onPress());
     }
 
     private static CompoundTag data(ItemStack stack) {
@@ -417,6 +523,10 @@ final class EquipmentProductCheck extends ActionCheck {
         if (hadFastingTimer) player.getPersistentData().putDouble("baoshidu", fastingTimer);
         else player.getPersistentData().remove("baoshidu");
         sneak(shiftKey);
+        if (separationPos != null) {
+            separationTable(player).clearContent();
+            player.serverLevel().setBlockAndUpdate(separationPos, separationBlock);
+        }
         if (bottlePos != null) player.serverLevel().setBlockAndUpdate(bottlePos, bottleBlock);
         if (feedingTarget != null) feedingTarget.discard();
         furnace(player).clearContent();

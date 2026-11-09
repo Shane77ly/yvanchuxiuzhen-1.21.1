@@ -13,9 +13,12 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.yvanchuxiuzhen.platform.ModId;
 
-/** 丹炉与药瓶分别保留来源方块实体身份，全部方向及无方向查询均开放自身库存。 */
+/** 丹炉、药瓶和分丹台保留来源方块实体身份，各自提供对应方向的库存能力。 */
 public final class LiandanBlockEntities {
     private static final DeferredRegister<BlockEntityType<?>> TYPES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ModId.VALUE);
+    public static final Supplier<BlockEntityType<MedicineSeparationBlockEntity>> MEDICINE_SEPARATION = TYPES.register("fendantai",
+            () -> BlockEntityType.Builder.of(MedicineSeparationBlockEntity::new,
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fendantai"))).build(null));
     public static final List<Supplier<BlockEntityType<AlchemyBlockEntity>>> ALCHEMY = IntStream.rangeClosed(1, 8)
             .mapToObj(tier -> registerType("alchemy_0" + tier)).toList();
     private static final List<String> MEDICINE_VARIANTS = List.of("01", "02", "03", "04", "0401", "05", "0501", "06");
@@ -49,6 +52,7 @@ public final class LiandanBlockEntities {
     }
 
     private static void capabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MEDICINE_SEPARATION.get(), MedicineSeparationBlockEntity::handler);
         for (Supplier<BlockEntityType<AlchemyBlockEntity>> type : ALCHEMY) {
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type.get(), AlchemyBlockEntity::handler);
         }

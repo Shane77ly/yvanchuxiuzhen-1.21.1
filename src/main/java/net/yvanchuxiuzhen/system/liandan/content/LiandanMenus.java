@@ -13,6 +13,10 @@ public final class LiandanMenus {
     private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, ModId.VALUE);
     public static final Supplier<MenuType<AlchemyMenu>> ALCHEMY = MENUS.register("liandan_gui",
             () -> IMenuTypeExtension.create(AlchemyMenu::new));
+    public static final Supplier<MenuType<MedicineSeparationMenu>> MEDICINE_SEPARATION = MENUS.register("fendan_gui",
+            () -> IMenuTypeExtension.create((id, inventory, buffer) -> new MedicineSeparationMenu(id, inventory, buffer, false)));
+    public static final Supplier<MenuType<MedicineSeparationMenu>> MEDICINE_COMBINATION = MENUS.register("hedan_gui",
+            () -> IMenuTypeExtension.create((id, inventory, buffer) -> new MedicineSeparationMenu(id, inventory, buffer, true)));
 
     private LiandanMenus() {
     }

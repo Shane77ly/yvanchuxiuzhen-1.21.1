@@ -200,3 +200,4 @@ block,yvanchuxiuzhen:itemdanyaohulu_0501block,liandan:medicine_container,liandan
 item,yvanchuxiuzhen:itemdanyaohulu_0501,liandan:medicine_container,liandan,药瓶自然服用、堆叠合并与放置
 block,yvanchuxiuzhen:itemdanyaohulu_06block,liandan:medicine_container,liandan,药瓶单槽持久化、自然放置与拾回
 item,yvanchuxiuzhen:itemdanyaohulu_06,liandan:medicine_container,liandan,药瓶自然服用、堆叠合并与放置
+block,yvanchuxiuzhen:fendantai,liandan:medicine_separation,liandan,分丹台三槽库存、两菜单与分合丹入口

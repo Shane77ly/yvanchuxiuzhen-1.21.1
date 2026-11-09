@@ -5969,13 +5969,13 @@ yvanchuxitong,Itemdanyaohulu0401block,block,~/yvanchuliandan/danyaoguan,liandan,
 yvanchuxitong,Itemdanyaohulu05block,block,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Itemdanyaohulu0501block,block,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Itemdanyaohulu06block,block,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
-yvanchuxitong,FendanGUI,gui,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,HedanGUI,gui,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,FendanButton,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,HedanButton,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,OpenFendanGui,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,OpenHedanGui,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,FendantaiFangKuaiShiTiXuanRanShi,procedure,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,FendanGUI,gui,~/yvanchuliandan/liandangongzuotai,liandan,已读,三槽分丹菜单绑定分丹台库存；切合丹页与实际分丹按钮均由炼丹结算
+yvanchuxitong,HedanGUI,gui,~/yvanchuliandan/liandangongzuotai,liandan,已读,三槽合丹菜单绑定同台库存；切分丹页与实际合丹按钮均由炼丹结算
+yvanchuxitong,FendanButton,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,读取三槽丹药实例并分配丹数和转换空满容器；保留临时钻石Item比较与整数除法异常
+yvanchuxitong,HedanButton,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,比较丹名药效后汇总两槽丹数；保留异名仅提示仍合并的来源分支
+yvanchuxitong,OpenFendanGui,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,合丹菜单按钮在同一台面坐标打开分丹菜单；不搬移或清空绑定库存
+yvanchuxitong,OpenHedanGui,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,分丹菜单按钮在同一台面坐标打开合丹菜单；不搬移或清空绑定库存
+yvanchuxitong,FendantaiFangKuaiShiTiXuanRanShi,procedure,~/yvanchuliandan/liandangongzuotai,liandan,已读,读取分丹台三槽但仅绘槽2物品对应方块；全来源Java仅自身定义且无调用者；不新增渲染入口
 yvanchuxitong,Fendantai,block,~/yvanchuliandan/liandangongzuotai,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识；本元素无过程
 yvanchuxitong,Yaolitai,gui,~/yvanchuliandan/liandangongzuotai,liandan,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Yaolitaiblock,block,~/yvanchuliandan/liandangongzuotai,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
