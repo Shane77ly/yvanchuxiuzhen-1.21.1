@@ -47,6 +47,9 @@ public final class EquipmentAttributes {
             values.merge(Stat.HEALTH_MAX, (double) stats.health(), Double::sum);
             values.merge(Stat.POWER_MAX, (double) stats.power(), Double::sum);
             values.merge(Stat.SOUL_MAX, (double) stats.soul(), Double::sum);
+            values.merge(Stat.HEALTH_REC, (double) stats.recovery().health(), Double::sum);
+            values.merge(Stat.POWER_REC, (double) stats.recovery().power(), Double::sum);
+            values.merge(Stat.SOUL_REC, (double) stats.recovery().soul(), Double::sum);
             values.merge(Stat.ATTACK_DEF, (double) stats.physicalDefense(), Double::sum);
             values.merge(Stat.MANA_DEF, (double) stats.spellDefense(), Double::sum);
             values.merge(Stat.SOUL_DEF, (double) stats.soulDefense(), Double::sum);

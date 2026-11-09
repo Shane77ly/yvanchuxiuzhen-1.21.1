@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -33,6 +34,8 @@ public final class EquipmentData {
             builder -> builder.persistent(EquipmentStats.CODEC).networkSynchronized(EquipmentStats.STREAM_CODEC));
     public static final Supplier<DataComponentType<EquipmentProduct>> PRODUCT = COMPONENTS.registerComponentType("equipment_product",
             builder -> builder.persistent(EquipmentProduct.CODEC).networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(EquipmentProduct.CODEC)));
+    public static final Supplier<DataComponentType<CustomData>> REFINEMENT = COMPONENTS.registerComponentType("equipment_refinement",
+            builder -> builder.persistent(CustomData.CODEC).networkSynchronized(ByteBufCodecs.fromCodec(CustomData.CODEC)));
     public static final Supplier<DataComponentType<FabaoFireData>> FABAO_FIRE = COMPONENTS.registerComponentType("fabao_fire",
             builder -> builder.persistent(FabaoFireData.CODEC).networkSynchronized(ByteBufCodecs.fromCodec(FabaoFireData.CODEC)));
     public static final Supplier<DataComponentType<BenmingData>> BENMING = COMPONENTS.registerComponentType("benming_data",

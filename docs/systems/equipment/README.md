@@ -2,7 +2,7 @@
 topic: equipment
 role: entry
 status: partial
-updated: 2026-11-08
+updated: 2026-11-09
 ---
 
 # 装备
@@ -16,6 +16,8 @@ updated: 2026-11-08
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
+2026-11-09 自然炼器依赖批次已实现器物结果构造、完整原始累计量保存、升级反推、三项恢复与韧性及投掷回收的组件承接；整合 `build compileSmokeJava` 已通过。既有 `equipmentproduct` 最终客户端36项全部INFO、0FAIL、DONE，其中八鼎批次8项覆盖自然制作/升级、计划成品保存重读、领取及双端完整组件同步；专服受控起炉的熔矿/精炼计划刻与原生停服通过。前两轮检查样本与期望值修正、退出后1条Netty ERROR、当前截图裁切及未验收范围均如实登记，见[自然炼器结果](architecture.md#自然炼器结果与升级回读2026-11-09)。本批不改变整个 equipment 系统的部分实现状态。
+
 ## 公开操作
 
 饰品依赖批次已实现，验证见[四饰品槽与飞行减耗](architecture.md#四饰品槽与飞行减耗2026-11-07)：`Equipment.openAccessories` 打开本系统四槽菜单，`Equipment.accessories` 返回已保存四槽的副本；关闭回写只由 equipment 执行。初始化与菜单共用的物品引用只保留在本系统内部。导航经 `AccessoryPageEvent` 请求汇总面板，equipment 不依赖 panel。对照 `typed_field_accesses.csv` 的 `PlayerGUI03` 开关过程与 `Shipintick`：四槽归 equipment；`tizhiitem.shipintick` 经 `Cultivation` 逐键读写；飞行附魔经 `FlightEnchantmentEvent` 提供给 skill；九项根属性与冷却缩减提交 attribute。`Equipment.properties` 查询 `/shipin` 的显式根属性，与成品的嵌套炼器数据分开保存；根 `mana_Att` 经 `WeaponStatEvent` 提供给 skill。
@@ -23,6 +25,8 @@ updated: 2026-11-08
 后续合法单件验收（2026-11-07）：未修改检查代码，沿用现有 `accessories` 的14项全部通过，补齐自然菜单搬移、保存同步、死亡复制、重登后操作和技能飞行减耗；正常保存退出、ERROR0。证据与剩余范围见上述正文，equipment 及GUI仍为部分实现。
 
 成品生成契约已接入：`Equipment.createProduct(注册表, 参数表)` 构造单件成品，`Equipment.product(物品)` 查询类型化品阶、说明、原料数值及附魔记录；装备实例由本系统唯一写入。treasure 负责 `/lianqi` 的权限、坐标容器与掉落，依赖方向为 treasure → equipment。主手三攻击按 `wuqi/fabao` 标签提交 attribute；只为 `WeaponStatEvent` 的品阶查询提供值，根字段法攻不以炼器法攻替代。末次成品专项六项全部符合并 DONE，规则和证据见[宝箱成品与品阶](architecture.md#宝箱成品与品阶2026-11-07)。
+
+自然炼器通过 `Equipment.createRefinedProduct(注册表, 图纸, 原始累计量, 旧实例)` 构造单件结果，`Equipment.refiningMaterials(物品)` 返回下一炉升级所用副本并执行来源整数反推。图纸只提供名称、注册ID、说明与类型，旧实例只提供四个本命字段，输入对象不被修改。lianqi 负责材料累计、库存消费、炉次和领取；equipment 唯一写入物品组件、原生属性、附魔与本命进度。完整规则、来源边界与实际验证范围见[正文](architecture.md#自然炼器结果与升级回读2026-11-09)。
 
 弓与拂尘的选中推进、挥动和隐藏弹体物品的使用由本系统接收。妖化批次使用类型化 `EquipmentStats` 组件保存四件防具的来源数值，向 attribute 的加成层提交六项属性；监听 combat 的 `ArmorStatEvent` 查询防御，监听 skill 的 `DemonTransformationEvent` 执行变身。饰品穿戴页、本命培养与饰品制作台入口已接回，制作台本批构建、客户端专项与专服通过，规则见[正文](architecture.md#饰品制作台2026-11-08)。其他装备实例、完整表现和两版本对照仍未完成，不能据本批标记整个系统完成。
 
@@ -45,7 +49,7 @@ updated: 2026-11-08
 
 `synchronizedata.rightclicking` 是实体持久化标签读取，来源未找到写入者，按 Q57 登记；不新增鼠标状态写入。
 
-本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
+本系统变化记录在 [装备月度日志](logs/2026-11.md)；此前批次与项目推进记录见 [项目月度日志](../project/logs/2026-11.md)。
 
 ## 明光镜法宝（`fabao_014`，2026-11-08）
 

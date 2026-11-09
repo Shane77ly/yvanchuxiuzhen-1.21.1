@@ -36,21 +36,21 @@ public record EquipmentProduct(String itemId, String name, String description, S
         ).apply(instance, Enchantment::new));
     }
 
-    /** 炼器原料量沿用来源的缩放与取整，三项倍率原料量仍为 double。 */
-    public record Materials(int physicalAttack, int spellAttack, int soulAttack, int health, int power, int soul,
-                            int armor, int physicalDefense, int spellDefense, int soulDefense,
+    /** 常用炼器原料量的投影，保留自然炉次的 double；完整动态字段由炼器实例组件保存。 */
+    public record Materials(double physicalAttack, double spellAttack, double soulAttack, double health, double power, double soul,
+                            double armor, double physicalDefense, double spellDefense, double soulDefense,
                             double knockbackResistance, double attackSpeed, double moveSpeed) {
         public static final Codec<Materials> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.INT.fieldOf("physical_attack").forGetter(Materials::physicalAttack),
-                Codec.INT.fieldOf("spell_attack").forGetter(Materials::spellAttack),
-                Codec.INT.fieldOf("soul_attack").forGetter(Materials::soulAttack),
-                Codec.INT.fieldOf("health").forGetter(Materials::health),
-                Codec.INT.fieldOf("power").forGetter(Materials::power),
-                Codec.INT.fieldOf("soul").forGetter(Materials::soul),
-                Codec.INT.fieldOf("armor").forGetter(Materials::armor),
-                Codec.INT.fieldOf("physical_defense").forGetter(Materials::physicalDefense),
-                Codec.INT.fieldOf("spell_defense").forGetter(Materials::spellDefense),
-                Codec.INT.fieldOf("soul_defense").forGetter(Materials::soulDefense),
+                Codec.DOUBLE.fieldOf("physical_attack").forGetter(Materials::physicalAttack),
+                Codec.DOUBLE.fieldOf("spell_attack").forGetter(Materials::spellAttack),
+                Codec.DOUBLE.fieldOf("soul_attack").forGetter(Materials::soulAttack),
+                Codec.DOUBLE.fieldOf("health").forGetter(Materials::health),
+                Codec.DOUBLE.fieldOf("power").forGetter(Materials::power),
+                Codec.DOUBLE.fieldOf("soul").forGetter(Materials::soul),
+                Codec.DOUBLE.fieldOf("armor").forGetter(Materials::armor),
+                Codec.DOUBLE.fieldOf("physical_defense").forGetter(Materials::physicalDefense),
+                Codec.DOUBLE.fieldOf("spell_defense").forGetter(Materials::spellDefense),
+                Codec.DOUBLE.fieldOf("soul_defense").forGetter(Materials::soulDefense),
                 Codec.DOUBLE.fieldOf("knockback_resistance").forGetter(Materials::knockbackResistance),
                 Codec.DOUBLE.fieldOf("attack_speed").forGetter(Materials::attackSpeed),
                 Codec.DOUBLE.fieldOf("move_speed").forGetter(Materials::moveSpeed)

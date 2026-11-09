@@ -56,6 +56,10 @@ import net.yvanchuxiuzhen.system.liandan.content.MedicineSeparationMenu;
 import net.yvanchuxiuzhen.system.liandan.client.PharmacologyScreen;
 import net.yvanchuxiuzhen.system.liandan.content.PharmacologyBlockEntity;
 import net.yvanchuxiuzhen.system.liandan.content.PharmacologyMenu;
+import net.yvanchuxiuzhen.system.lianqi.client.TripodScreen;
+import net.yvanchuxiuzhen.system.lianqi.content.TripodBlockEntity;
+import net.yvanchuxiuzhen.system.lianqi.content.TripodMenu;
+import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.minecraft.network.chat.Component;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
@@ -64,6 +68,10 @@ import net.yvanchuxiuzhen.system.profession.data.ProfessionProgress;
 import net.yvanchuxiuzhen.system.skill.SkillGuard;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.skill.api.WeaponStatEvent;
+import net.yvanchuxiuzhen.system.storage.api.MaterialStorage;
+import net.yvanchuxiuzhen.system.storage.api.MaterialWarehouse;
+import net.yvanchuxiuzhen.system.storage.api.MaterialWarehouse.Preferences;
+import net.yvanchuxiuzhen.system.storage.data.StorageData;
 
 /** 核对成品命令、容器与实例保存、属性消费，以及丹炉自然生产的库存和同步路径。 */
 final class EquipmentProductCheck extends ActionCheck {
@@ -98,6 +106,11 @@ final class EquipmentProductCheck extends ActionCheck {
     private ItemStack separationMedicine;
     private BlockPos pharmacologyPos;
     private final List<BlockState> pharmacologyBlocks = new ArrayList<>();
+    private BlockPos tripodPos;
+    private final List<BlockState> tripodBlocks = new ArrayList<>();
+    private ProfessionProgress refiningProfession;
+    private MaterialWarehouse warehouse;
+    private ItemStack refinedProduct;
 
     EquipmentProductCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("equipmentproduct", report, levelId);
@@ -522,6 +535,122 @@ final class EquipmentProductCheck extends ActionCheck {
                             && !contents.contains("danyaoxiaoguo0") && table.getItem(4).getCount() == 1 && table.getItem(9).getCount() == 1
                             && ItemStack.matches(recipe, minecraft.player.containerMenu.getSlot(0).getItem()));
                     p.closeContainer();
+                    tripodPos = alchemyPos.offset(0, 0, 3);
+                    for (int below = 0; below < 3; below++) tripodBlocks.add(p.serverLevel().getBlockState(tripodPos.below(below)));
+                    p.serverLevel().setBlockAndUpdate(tripodPos, Blocks.AIR.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(tripodPos.below(), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(tripodPos.below(2), Blocks.STONE.defaultBlockState());
+                    refiningProfession = p.getData(ProfessionAttachments.PROGRESS).get(Profession.REFINING);
+                    p.getData(ProfessionAttachments.PROGRESS).set(Profession.REFINING, new ProfessionProgress(9, 0, 100));
+                    p.syncData(ProfessionAttachments.PROGRESS);
+                    warehouse = MaterialStorage.snapshot(p);
+                    p.setData(StorageData.WAREHOUSE, MaterialWarehouse.EMPTY);
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(4, alchemyItem("tripod_01", 1));
+                    CompoundTag fuel = new CompoundTag();
+                    fuel.putString("ManaAttackUUID", p.getStringUUID());
+                    fuel.putDouble("power", 10);
+                    ItemStack fire = alchemyItem("danhuo", 1);
+                    fire.set(DataComponents.CUSTOM_DATA, CustomData.of(fuel));
+                    p.getInventory().setItem(5, fire);
+                    ItemStack supplement = fire.copy();
+                    fuel.putDouble("power", 20);
+                    supplement.set(DataComponents.CUSTOM_DATA, CustomData.of(fuel));
+                    p.getInventory().setItem(7, supplement);
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useBlock(4, tripodPos.below())),
+                new Action(6, p -> useBlock(6, tripodPos)),
+                new Action(6, p -> {
+                    TripodBlockEntity tripod = tripod(p);
+                    expectTrue("自然放鼎开窗同步本炉参数，十一可见槽、隐藏槽与成品禁手取保持", minecraft.screen instanceof TripodScreen
+                            && p.containerMenu instanceof TripodMenu && p.containerMenu.slots.size() == 47 && tripod.getContainerSize() == 12
+                            && tripod.getPersistentData().getInt("RefinerLEVEL") == 9 && tripod.getPersistentData().getInt("TripodLevel") == 1
+                            && !p.containerMenu.getSlot(9).mayPickup(p) && !p.containerMenu.getSlot(9).mayPlace(new ItemStack(Items.STONE))
+                            && tripod.handler(Direction.UP).insertItem(9, new ItemStack(Items.STONE), true).is(Items.STONE));
+                    tripod.setItem(0, new ItemStack(Items.IRON_SWORD));
+                    tripod.setItem(1, refiningMaterial(30, 2));
+                    tripod.setItem(10, new ItemStack(Items.BOOK, 2));
+                    p.containerMenu.broadcastChanges();
+                    separationButton("保存图纸");
+                }),
+                new Action(6, p -> {
+                    TripodBlockEntity tripod = tripod(p);
+                    expectTrue("真实保存图纸保留材料，媒介压一件且仅记录一至八槽", tripod.getItem(10).getCount() == 1
+                            && data(tripod.getItem(10)).getString("fabaoid").equals("minecraft:iron_sword")
+                            && data(tripod.getItem(10)).getInt("cailiao01num") == 2 && !data(tripod.getItem(10)).contains("cailiao00")
+                            && tripod.getItem(1).getCount() == 2);
+                    tripod.setItem(0, ItemStack.EMPTY);
+                    tripod.setItem(1, ItemStack.EMPTY);
+                    MaterialStorage.deposit(p, refiningMaterial(30, 1));
+                    MaterialStorage.deposit(p, refiningMaterial(20, 1));
+                    MaterialStorage.preferences(p, new Preferences(1, 0, 0, false, true));
+                    separationButton("按图纸装料");
+                }),
+                new Action(6, p -> {
+                    TripodBlockEntity tripod = tripod(p);
+                    expectTrue("真实扣仓按高等级先扣且同槽逐桶覆盖，仓清空同步而鼎只留末桶", MaterialStorage.snapshot(p).total() == 0
+                            && MaterialStorage.snapshot(minecraft.player).total() == 0 && tripod.getItem(1).getCount() == 1
+                            && Materials.instance(tripod.getItem(1)).level() == 20);
+                    MaterialStorage.preferences(p, Preferences.EMPTY);
+                    tripod.setItem(1, ItemStack.EMPTY);
+                    p.getInventory().setItem(9, refiningMaterial(30, 3));
+                    p.containerMenu.broadcastChanges();
+                    separationButton("按图纸装料");
+                }),
+                new Action(6, p -> {
+                    expectTrue("仓关闭真实装料从足量整栈扣二件并同步组件", tripod(p).getItem(1).getCount() == 2
+                            && p.getInventory().getItem(9).getCount() == 1
+                            && ItemStack.matches(tripod(p).getItem(1), minecraft.player.containerMenu.getSlot(1).getItem()));
+                    separationButton("开始炼器");
+                }),
+                new Action(45, p -> {}),
+                new Action(6, p -> {
+                    TripodBlockEntity tripod = tripod(p);
+                    CompoundTag state = tripod.getPersistentData();
+                    TripodBlockEntity restored = (TripodBlockEntity) BlockEntity.loadStatic(tripodPos, tripod.getBlockState(),
+                            tripod.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    ItemStack planned = ItemStack.parseOptional(p.registryAccess(), state.getCompound("item"));
+                    expectTrue("图纸制作立即扣料且无热暂停，完整计划成品与炉次保存重读保持", state.getBoolean("lianqiBegin")
+                            && state.getInt("lianqiTick") == 0 && state.getInt("lianqiTickMax") == 9 && tripod.getItem(1).isEmpty()
+                            && tripod.getItem(9).isEmpty() && tripod.getItem(11).isEmpty() && planned.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY).health() == 10
+                            && Equipment.product(planned).orElseThrow().level() == 4 && restored.getPersistentData().equals(state)
+                            && ItemStack.matches(tripod.getItem(10), restored.getItem(10)));
+                    p.closeContainer();
+                    p.serverLevel().removeBlock(tripodPos.below(), false);
+                }),
+                new Action(240, p -> useBlock(5, tripodPos.below(2))),
+                new Action(6, p -> useBlock(6, tripodPos)),
+                new Action(6, p -> {
+                    TripodBlockEntity tripod = tripod(p);
+                    refinedProduct = tripod.getItem(9).copy();
+                    expectTrue("丹火自然供热完成炼器，服务端成品属性与客户端完整组件一致", refinedProduct.is(Items.IRON_SWORD)
+                            && !tripod.getPersistentData().getBoolean("lianqiBegin") && refinedProduct.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY).power() == 80
+                            && ItemStack.matches(refinedProduct, minecraft.player.containerMenu.getSlot(9).getItem()));
+                    minecraft.execute(() -> screenshots.take("lianqi-finished.png"));
+                    separationButton("领取成品");
+                }),
+                new Action(6, p -> {
+                    expectTrue("真实领取成品清槽且只结算四点炼器经验，玩家库存与职业同步", tripod(p).getItem(9).isEmpty()
+                            && Professions.experience(p, Profession.REFINING) == 4 && Professions.experience(minecraft.player, Profession.REFINING) == 4
+                            && p.getInventory().items.stream().anyMatch(stack -> ItemStack.matches(stack, refinedProduct)));
+                    tripod(p).setItem(0, refinedProduct.copy());
+                    tripod(p).setItem(1, refiningMaterial(30, 1));
+                    tripod(p).setItem(10, ItemStack.EMPTY);
+                    p.containerMenu.broadcastChanges();
+                    separationButton("开始炼器");
+                    useBlock(7, tripodPos.below());
+                }),
+                new Action(120, p -> {}),
+                new Action(6, p -> {
+                    ItemStack upgraded = tripod(p).getItem(9);
+                    expectTrue("自然升级沿用完整小数材料累计，扣除旧装备和材料并同步新成品（实际原料生命："
+                            + Equipment.product(upgraded).map(product -> product.materials().health()).orElse(0.0) + "）", upgraded.is(Items.IRON_SWORD)
+                            && tripod(p).getItem(0).isEmpty() && tripod(p).getItem(1).isEmpty()
+                            && Equipment.product(upgraded).orElseThrow().level() == 6 && upgraded.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY).health() == 20
+                            && Math.abs(Equipment.product(upgraded).orElseThrow().materials().health() - 428.4) < .0001
+                            && ItemStack.matches(upgraded, minecraft.player.containerMenu.getSlot(9).getItem()));
+                    p.closeContainer();
                 }));
     }
 
@@ -539,6 +668,16 @@ final class EquipmentProductCheck extends ActionCheck {
 
     private PharmacologyBlockEntity pharmacologyTable(ServerPlayer player) {
         return (PharmacologyBlockEntity) player.serverLevel().getBlockEntity(pharmacologyPos);
+    }
+
+    private TripodBlockEntity tripod(ServerPlayer player) {
+        return (TripodBlockEntity) player.serverLevel().getBlockEntity(tripodPos);
+    }
+
+    private static ItemStack refiningMaterial(int level, int count) {
+        ItemStack stack = alchemyItem("cailiao_001", count);
+        Materials.setInstance(stack, level, 0);
+        return stack;
     }
 
     private void separationButton(String name) {
@@ -603,6 +742,13 @@ final class EquipmentProductCheck extends ActionCheck {
         if (hadFastingTimer) player.getPersistentData().putDouble("baoshidu", fastingTimer);
         else player.getPersistentData().remove("baoshidu");
         sneak(shiftKey);
+        if (tripodPos != null) {
+            tripod(player).clearContent();
+            for (int below = 0; below < 3; below++) player.serverLevel().setBlockAndUpdate(tripodPos.below(below), tripodBlocks.get(below));
+            player.getData(ProfessionAttachments.PROGRESS).set(Profession.REFINING, refiningProfession);
+            player.syncData(ProfessionAttachments.PROGRESS);
+            player.setData(StorageData.WAREHOUSE, warehouse);
+        }
         if (pharmacologyPos != null) {
             pharmacologyTable(player).clearContent();
             for (int below = 0; below < 2; below++) player.serverLevel().setBlockAndUpdate(pharmacologyPos.below(below), pharmacologyBlocks.get(below));

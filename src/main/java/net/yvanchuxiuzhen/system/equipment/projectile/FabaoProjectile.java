@@ -145,6 +145,7 @@ public final class FabaoProjectile extends AbstractArrow implements ItemSupplier
             refinement = newItem();
             if (source.has(EquipmentData.STATS.get())) refinement.set(EquipmentData.STATS.get(), source.get(EquipmentData.STATS.get()));
             if (source.has(EquipmentData.PRODUCT.get())) refinement.set(EquipmentData.PRODUCT.get(), source.get(EquipmentData.PRODUCT.get()));
+            if (source.has(EquipmentData.REFINEMENT.get())) refinement.set(EquipmentData.REFINEMENT.get(), source.get(EquipmentData.REFINEMENT.get()));
             CompoundTag sourceData = source.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
             if (sourceData.contains("lianqizong")) {
                 CustomData.update(DataComponents.CUSTOM_DATA, refinement, data -> data.put("lianqizong", sourceData.getCompound("lianqizong").copy()));
@@ -241,6 +242,9 @@ public final class FabaoProjectile extends AbstractArrow implements ItemSupplier
         if (initialized) {
             returned.applyComponents(refinement.getComponentsPatch());
             if (blockHit) {
+                if (returned.has(EquipmentData.REFINEMENT.get())) {
+                    CustomData.update(EquipmentData.REFINEMENT.get(), returned, data -> data.putBoolean("tebiefabao", true));
+                }
                 CustomData.update(DataComponents.CUSTOM_DATA, returned, data -> {
                     CompoundTag lianqi = data.getCompound("lianqizong");
                     lianqi.putBoolean("tebiefabao", true);

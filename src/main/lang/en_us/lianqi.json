@@ -11,5 +11,13 @@
   "block.yvanchuxiuzhen.tripod_08": "Tripod 0 8",
   "block.yvanchuxiuzhen.zhenxianpoluo": "Zhenxianpoluo",
   "item.yvanchuxiuzhen.tripod_0801": "Tripod 0 8 0 1",
-  "tooltip.yvanchuxiuzhen.item.zhenxianpoluo.1": "制作衣物的工作台"
+  "tooltip.yvanchuxiuzhen.item.zhenxianpoluo.1": "制作衣物的工作台",
+  "gui.yvanchuxiuzhen.tripod_gui.label_proc_lianqijindu": "",
+  "lianqibiao02": "鼎炉等级",
+  "lianqibiao03": "鼎炉火力",
+  "lianqibiao04": "鼎炉提纯",
+  "lianqibiao05": "炼制高于鼎炉等级的法宝时，会有几率失败。",
+  "lianqibiao06": "火力减少炼器时长。",
+  "lianqibiao07": "提纯能让成品更轻，仅限第一次炼制。",
+  "lianqibiao08": "重量超过100，降低攻速、移速，增加击退抗性。"
 }

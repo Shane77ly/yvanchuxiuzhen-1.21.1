@@ -204,3 +204,12 @@ block,yvanchuxiuzhen:fendantai,liandan:medicine_separation,liandan,分丹台三�
 block,yvanchuxiuzhen:yaolitaiblock,liandan:pharmacology,liandan,药理台八草预览、丹方写入与十二槽库存
 item,yvanchuxiuzhen:baicaojianbook,liandan:herb_analysis,liandan,百草鉴自然开窗与玩家药草辨识
 item,yvanchuxiuzhen:duedan,liandan:duedan,liandan,毒厄丹完成食用与主手对生物喂用
+block,yvanchuxiuzhen:tripod_01,lianqi:tripod,lianqi,八鼎十二槽库存、菜单与每二十刻炼器推进
+block,yvanchuxiuzhen:tripod_02,lianqi:tripod,lianqi,八鼎十二槽库存、菜单与每二十刻炼器推进
+block,yvanchuxiuzhen:tripod_03,lianqi:tripod,lianqi,八鼎十二槽库存、菜单与每二十刻炼器推进
+block,yvanchuxiuzhen:tripod_04,lianqi:tripod,lianqi,八鼎十二槽库存、菜单与每二十刻炼器推进
+block,yvanchuxiuzhen:tripod_05,lianqi:tripod,lianqi,八鼎十二槽库存、菜单与每二十刻炼器推进
+block,yvanchuxiuzhen:tripod_06,lianqi:tripod,lianqi,八鼎十二槽库存、菜单与每二十刻炼器推进
+block,yvanchuxiuzhen:tripod_07,lianqi:tripod,lianqi,八鼎十二槽库存、菜单与每二十刻炼器推进
+block,yvanchuxiuzhen:tripod_08,lianqi:tripod,lianqi,重阳金鼎库存、菜单、比较器及专用掉落克隆
+item,yvanchuxiuzhen:tripod_0801,lianqi:tripod_placement,lianqi,顶面上方第二格放置重阳金鼎并清匹配整手槽

@@ -10,7 +10,6 @@ import net.minecraft.world.item.SwordItem;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.equipment.api.BenmingData;
-import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.xiulian.api.BenmingProgress;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -76,14 +75,9 @@ final class BenmingCultivation {
     }
 
     private static void increaseAttack(ServerPlayer player, ItemStack stack) {
-        EquipmentStats current = stack.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY);
-        if (Cultivation.tizhiBoolean(player, "benmingfabaojioupanduan")) {
-            stack.set(EquipmentData.STATS.get(), current.addSpellAttack(1));
-            Cultivation.setTizhiBoolean(player, "benmingfabaojioupanduan", false);
-        } else {
-            stack.set(EquipmentData.STATS.get(), current.addSoulAttack(1));
-            Cultivation.setTizhiBoolean(player, "benmingfabaojioupanduan", true);
-        }
+        boolean spell = Cultivation.tizhiBoolean(player, "benmingfabaojioupanduan");
+        EquipmentRefining.cultivateAttack(stack, spell);
+        Cultivation.setTizhiBoolean(player, "benmingfabaojioupanduan", !spell);
     }
 
     private static void setProgress(ServerPlayer player, ItemStack stack, boolean owned) {

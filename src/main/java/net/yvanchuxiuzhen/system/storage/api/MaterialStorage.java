@@ -18,6 +18,13 @@ import net.yvanchuxiuzhen.system.storage.data.StorageData;
 
 /** 材料仓唯一写入口；存入只保留材料身份、等级、品阶，外部得到不可变快照。 */
 public final class MaterialStorage {
+    /** 炼器同一槽位依次写入的桶栈、剩余需求和跨图纸位置沿用的退出标记。 */
+    public record RefiningWithdrawal(List<ItemStack> replacements, int remaining, boolean stopped) {
+        public RefiningWithdrawal {
+            replacements = List.copyOf(replacements);
+        }
+    }
+
     private MaterialStorage() {
     }
 
@@ -99,6 +106,54 @@ public final class MaterialStorage {
         save(player, new MaterialWarehouse(replace(warehouse.groups(), warehouse.group(id), group.total() <= 0 ? null : group),
                 warehouse.total() - (required - remaining), styles, warehouse.pageMax(), warehouse.preferences()));
         return remaining;
+    }
+
+    /** 炼器按41至1级、4至0品阶扣仓；每个桶返回一次炉槽覆盖，不合并已扣出的栈。 */
+    public static RefiningWithdrawal consumeForRefining(ServerPlayer player, String id, int required, boolean stopped) {
+        MaterialWarehouse warehouse = snapshot(player);
+        if (!warehouse.preferences().spending()) return new RefiningWithdrawal(List.of(), required, stopped);
+        Group original = warehouse.group(id);
+        if (original == null) return new RefiningWithdrawal(List.of(), required, stopped);
+        Group group = original;
+        List<ItemStack> replacements = new ArrayList<>();
+        int remaining = required;
+        int styles = warehouse.styles();
+        boolean removed = false;
+        if (remaining > 0) {
+            for (int level = 41; level >= 1; level--) {
+                if (group.activeLevels().contains(level)) {
+                    for (int quality = 4; quality >= 0; quality--) {
+                        int count = group.count(level, quality);
+                        if (count >= 1) {
+                            int used = Math.min(count, remaining);
+                            ItemStack result = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(id)));
+                            Materials.setInstance(result, level, quality);
+                            result.setCount(used);
+                            replacements.add(result);
+                            boolean emptied = count <= remaining;
+                            Group next = changed(group, level, quality, used, emptied, false);
+                            if (emptied) {
+                                if (next.total() <= 0) {
+                                    styles--;
+                                    removed = true;
+                                    stopped = true;
+                                } else if (!next.activeLevels().contains(level)) {
+                                    styles--;
+                                }
+                            }
+                            group = next;
+                            remaining -= used;
+                        }
+                        // 来源在循环体末检查沿用标记；true时仍先处理41级的品阶4桶。
+                        if (remaining <= 0 || stopped) break;
+                    }
+                }
+                if (remaining <= 0 || stopped) break;
+            }
+        }
+        save(player, new MaterialWarehouse(replace(warehouse.groups(), original, removed ? null : group),
+                warehouse.total() - (required - remaining), styles, warehouse.pageMax(), warehouse.preferences()));
+        return new RefiningWithdrawal(replacements, remaining, stopped);
     }
 
     public static void preferences(ServerPlayer player, Preferences preferences) {

@@ -5827,48 +5827,48 @@ yvanchuxiuzhen,Businessman10DangShiTiGengXinKeShi,procedure,~/entity/npc,npc,已
 yvanchuxiuzhen,Suijijiegou01FuJiaDeShengChengTiaoJian,procedure,~/decorate/jiegou/suijijiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Linggenlevel,gamerule,~/systemset,xiulian,已读,C xiulian 归属阅读：PlayerJoinGame 与 Suijikaijv 读取，决定首次进入时是否随机灵根并打开出身界面、随机灵根上限
 yvanchuxitong,Yvanchulianqi,tab,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,TripodGUI,gui,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LianqiGuiCao01,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LianqiGuiCao02,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LianqiGuiCao03,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LianqiGuiCao04,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LianqiGuiCao05,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LianqiGuiCao06,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LianqiGuiCao07,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LianqiGuiCao08,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,TripodGUI,gui,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,LianqiGuiCao01,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,LianqiGuiCao02,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,LianqiGuiCao03,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,LianqiGuiCao04,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,LianqiGuiCao05,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,LianqiGuiCao06,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,LianqiGuiCao07,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,LianqiGuiCao08,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,LianqiPageUp,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,LianqiPageDown,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Lianqijindu,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Yvjianneirong01,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Yvjianneirong02,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Yvjianneirong03,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Yvjianneirong04,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Yvjianneirong05,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Yvjianneirong06,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Yvjianneirong07,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Yvjianneirong08,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Yvjianneirong09,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,DangqianLianqi,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,TripodName,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,TripodPower,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,TripodLevel,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,TripodFire,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,TripodPurification,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Yvjianneirong01,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Yvjianneirong02,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Yvjianneirong03,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Yvjianneirong04,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Yvjianneirong05,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Yvjianneirong06,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Yvjianneirong07,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Yvjianneirong08,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Yvjianneirong09,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,DangqianLianqi,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,TripodName,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,TripodPower,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,TripodLevel,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,TripodFire,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,TripodPurification,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,Tripodshuoming01,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tripodshuoming02,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tripodshuoming03,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tripodshuoming04,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,LianqiBeginOn,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,LianqiBeginOff,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LianqiBegin,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,LianqiBegin,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎自然炉次调用链；制作、升级、材料累计、成品构造、装料及领取按职责由lianqi编排并调用所属系统API，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,LianqiTick,procedure,~/yvanchulianqi,lianqi,已读,B1 归属阅读：随 Tripod01 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Tuzhilianzhi,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,LianqiLEVEL,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,LianqiLEVEL,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎自然炉次调用链；制作、升级、材料累计、成品构造、装料及领取按职责由lianqi编排并调用所属系统API，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,Attributexianshi,procedure,~/yvanchulianqi,equipment,已读,C attribute 归属阅读：ItemAttributeModifierEvent 中给主手 forge:yispear（weaponspear_01–09）加 forge:attack_range +2，是长枪自身的物品属性
 yvanchuxitong,TiandaoGongfaGUI,gui,~/gongfa,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Lianqizidongfangru,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Lianqituzhibaocun,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Shuxingzhuanhuan,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Lianqizidongfangru,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎自然炉次调用链；制作、升级、材料累计、成品构造、装料及领取按职责由lianqi编排并调用所属系统API，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Lianqituzhibaocun,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎自然炉次调用链；制作、升级、材料累计、成品构造、装料及领取按职责由lianqi编排并调用所属系统API，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Shuxingzhuanhuan,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎自然炉次调用链；制作、升级、材料累计、成品构造、装料及领取按职责由lianqi编排并调用所属系统API，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,Lore,procedure,,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,TiandaotuzhitaiGUI,gui,~/yvanchulianqi/tiandao,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tiandaotuzhitai,block,~/yvanchulianqi/tiandao,lianqi,已读,B1 归属阅读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台；本元素无过程
@@ -5892,24 +5892,24 @@ yvanchuxitong,Toukui,tag,~/yvanchulianqi/tiandao,lianqi,候选,第一版批量�
 yvanchuxitong,Xiongjia,tag,~/yvanchulianqi/tiandao,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Kuzi,tag,~/yvanchulianqi/tiandao,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Zhanxve,tag,~/yvanchulianqi/tiandao,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Lianqifangzhi,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Lianqijisuan,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Lianqifangzhi,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎自然炉次调用链；制作、升级、材料累计、成品构造、装料及领取按职责由lianqi编排并调用所属系统API，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Lianqijisuan,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎自然炉次调用链；制作、升级、材料累计、成品构造、装料及领取按职责由lianqi编排并调用所属系统API，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,Xvanran,procedure,~/yvanchulianqi,lianqi,已读,B1 归属阅读：随 Tripod01 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Tripod01FangZhiFangKuaiShi,procedure,~/yvanchulianqi/dinglu,lianqi,已读,B1 归属阅读：随 Tripod01 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Tripod01,block,~/yvanchulianqi/dinglu,lianqi,已读,B1 归属阅读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Cailiaobaocun,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Lianqishibai,procedure,~/yvanchulianqi,lianqi,已读,B1 归属阅读：随 Tripod01 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,LianqiLEVELUP,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jindu01,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jindu02,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jindu03,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jindu04,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jindu05,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jindu06,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jindu07,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jindu08,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jindu09,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jindu10,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Jindu01,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Jindu02,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Jindu03,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Jindu04,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Jindu05,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Jindu06,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Jindu07,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Jindu08,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Jindu09,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Jindu10,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,Tripod02FangZhiFangKuaiShi,procedure,~/yvanchulianqi/dinglu,lianqi,已读,B1 归属阅读：随 Tripod02 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Tripod02,block,~/yvanchulianqi/dinglu,lianqi,已读,B1 归属阅读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Tripod03FangZhiFangKuaiShi,procedure,~/yvanchulianqi/dinglu,lianqi,已读,B1 归属阅读：随 Tripod03 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
@@ -7182,7 +7182,7 @@ yvanchuxitong,Xvanshanghuoqv,procedure,~/xvanshang,quest,候选,第一版批量�
 yvanchuxitong,Entityjingyan,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Baoxialore,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Entityxvnfu,procedure,,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Lianqiuplevel,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Lianqiuplevel,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎自然炉次调用链；制作、升级、材料累计、成品构造、装料及领取按职责由lianqi编排并调用所属系统API，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,Xiulitai,gui,~/yvanchulianqi/xiulitai,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Xiulitaishuaxin,procedure,~/yvanchulianqi/xiulitai,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Xiulitaixiuli,procedure,~/yvanchulianqi/xiulitai,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7190,14 +7190,14 @@ yvanchuxitong,Xiulitaineedxianshi,procedure,~/yvanchulianqi/xiulitai,lianqi,候�
 yvanchuxitong,Xiulitaitishi,procedure,~/yvanchulianqi/xiulitai,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,RenjiansealreleaseGo,procedure,~/xvnzhanyiji,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renjiansealrelease,command,~/xvnzhanyiji,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Lianqidingshuoming01,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Lianqidingshuoming02,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Lianqidingshuoming03,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Lianqidingshuoming04,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Lianqidingshuoming01,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Lianqidingshuoming02,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Lianqidingshuoming03,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
+yvanchuxitong,Lianqidingshuoming04,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,Liandanshuoming01,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIButtonMessage按钮3调用；发送炼丹操作说明，文本逐条核对并保留来源内容，归炼丹。
 yvanchuxitong,Liandanshuoming02,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIButtonMessage按钮4调用；发送药性说明，文本逐条核对并保留来源内容，归炼丹。
 yvanchuxitong,Xvanshangshuaxin,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Lianqifantui,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Lianqifantui,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎自然炉次调用链；制作、升级、材料累计、成品构造、装料及领取按职责由lianqi编排并调用所属系统API，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,Danyaojiage,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,TaskduihuaGo,procedure,~/duihua/taskbegin,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Taskduihua,command,~/duihua/taskbegin,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7311,7 +7311,7 @@ yvanchuxitong,Qancailuitxtjiesuoneed2,procedure,~/yvanchuliandan/baicaojian,mate
 yvanchuxitong,Qancailuitxtjiesuoneed3,procedure,~/yvanchuliandan/baicaojian,material,已读,B:Qancailuitxtjiesuoneed3Procedure:14-16读取playercailiaojiexi.txtjiesuoneed3；唯一调用QiancailuGuiScreen:141，千材录成本显示
 yvanchuxitong,Cailiaoxiaohaoxianshi,procedure,~/zawu/cailiaodai,storage,已读,D来源核对：材料袋46槽、45选槽、五品质取出、玩家材料仓数量与分页、九属性筛选及自动入库；五配方按运行JSON；见storage/architecture.md材料仓正文
 yvanchuxitong,Setcailiaopinjie,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Qvchu,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Qvchu,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎自然炉次调用链；制作、升级、材料累计、成品构造、装料及领取按职责由lianqi编排并调用所属系统API，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,Qiankundaihecheng,recipe,~/zawu/cailiaodai,storage,已读,D来源核对：材料袋46槽、45选槽、五品质取出、玩家材料仓数量与分页、九属性筛选及自动入库；五配方按运行JSON；见storage/architecture.md材料仓正文
 yvanchuxitong,BaoxiangBupi,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Yihuoshujvfuyv,procedure,,yihuo,已读,已读Effect024与持续过程、Fireskill和B的材料初始化：阴火持续行为及武器触发归yihuo，材料辨识循环19条；本批仅接回持续效果和火块依赖，其余保持待迁移。
@@ -7396,7 +7396,7 @@ yvanchuxitong,Xvanshangzhuizongheji,procedure,~/xvanshang,quest,候选,第一版
 yvanchuxitong,Xvanshangshuaxinjihe,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Xvanshangshuoming,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Danlushuxingshuoming,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIButtonMessage按钮5调用；发送丹炉属性说明，文本逐条核对并保留来源内容，归炼丹。
-yvanchuxitong,Lianqidingshuoming,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Lianqidingshuoming,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,Jingliancailiao,procedure,~/yvanchulianqi,lianqi,已读,B1 归属阅读：随 Tripod01 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Rongliancailiao,procedure,~/yvanchulianqi,lianqi,已读,B1 归属阅读：随 Tripod01 读：炼器：鼎炉开炉、熔炼与精炼、图纸设计台、针线笸箩的缝制界面、修理台
 yvanchuxitong,Cailiaoshop01,procedure,~/shop/shangdianshuaxin,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7429,7 +7429,7 @@ yvanchuxitong,Cailiaoshop02,procedure,~/shop/shangdianshuaxin,economy,候选,第
 yvanchuxitong,Cailiaoshop03,procedure,~/shop/shangdianshuaxin,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Jiagejizhijisuan,procedure,,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Gongfajiage,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Jinzhilianqiitem,procedure,~/yvanchulianqi,lianqi,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Jinzhilianqiitem,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,ShopblockGuiset,gui,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopblockGuisetset,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopblockGuisetshuoming,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）

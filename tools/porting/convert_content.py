@@ -378,7 +378,7 @@ def main() -> None:
             continue
         block_tooltips[(mod, path)] = row.pop('tooltip', [])
         factory = FACTORIES[row.pop('base')]
-        if overrides.get(('block', target)) in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology'):
+        if overrides.get(('block', target)) in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod'):
             row.pop('pending_hooks', None)
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:
@@ -459,7 +459,7 @@ def main() -> None:
                     add_lang(unit, language, f'item.{NAMESPACE}.{target}', name)
         if ('item', target) in overrides:
             row['factory'] = overrides[('item', target)]
-        if row['factory'] in ('liandan:medicine_container', 'liandan:medicine_container_empty_box'):
+        if row['factory'] in ('liandan:medicine_container', 'liandan:medicine_container_empty_box', 'lianqi:tripod_placement'):
             row.pop('pending_hooks', None)
         items_by_unit[unit].append(row)
         for number, line in enumerate(row.get('tooltip', []), start=1):

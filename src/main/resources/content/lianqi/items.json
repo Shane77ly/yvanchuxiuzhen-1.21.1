@@ -9,6 +9,6 @@
 {"id":"tripod_06","factory":"block_item","block":"tripod_06","order":2127,"tab":"yvanchuxiuzhen:tabyvanchulianqi"},
 {"id":"tripod_07","factory":"block_item","block":"tripod_07","order":2128,"tab":"yvanchuxiuzhen:tabyvanchulianqi"},
 {"id":"tripod_08","factory":"block_item","block":"tripod_08","order":2129},
-{"id":"tripod_0801","factory":"item","order":2130,"tab":"yvanchuxiuzhen:tabyvanchulianqi","stack":1,"pending_hooks":["useOn"]},
+{"id":"tripod_0801","factory":"lianqi:tripod_placement","order":2130,"tab":"yvanchuxiuzhen:tabyvanchulianqi","stack":1},
 {"id":"zhenxianpoluo","factory":"block_item","block":"zhenxianpoluo","order":2292,"tab":"yvanchuxiuzhen:tabyvanchulianqi","tooltip":["制作衣物的工作台"]}
 ]
