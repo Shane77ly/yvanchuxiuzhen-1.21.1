@@ -18,5 +18,6 @@
   "message.yvanchuxiuzhen.fulu.core_known": "您已习得此符胆，无法重复学习。",
   "message.yvanchuxiuzhen.fulu.core_learned": "您已习得新符胆，可以制作更多功能的符箓了！",
   "message.yvanchuxiuzhen.fulu.player_not_found": "未找到名为“%s”的玩家",
-  "message.yvanchuxiuzhen.fulu.health_changed": "血量变更为§4%s§f点"
+  "message.yvanchuxiuzhen.fulu.health_changed": "血量变更为§4%s§f点",
+  "message.yvanchuxiuzhen.fulu.adventure_forbidden": "冒险模式无法使用！"
 }

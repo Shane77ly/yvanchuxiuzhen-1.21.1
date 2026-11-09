@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.fulu;
 
 import java.util.Set;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,18 +16,24 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.Lightning;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
@@ -40,7 +47,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
  * 04 弹飞、06 落雷、07 烈焰、08 冰封、11 护体、25 加速、46 火球。统一流程为先付精力、播释放声、取品阶，再按编号执行，最后消耗一张。
  */
 final class FuluInstant {
-    private static final Set<Integer> NUMBERS = Set.of(1, 4, 5, 6, 7, 8, 9, 11, 12, 14, 25, 26, 27, 29, 32, 34, 36, 38, 46);
+    private static final Set<Integer> NUMBERS = Set.of(1, 4, 5, 40, 43, 45, 47, 48, 49, 6, 7, 8, 9, 11, 12, 14, 25, 26, 27, 29, 32, 34, 36, 38, 46);
 
     private static final TagKey<Block> ORES = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "ores"));
 
@@ -52,10 +59,16 @@ final class FuluInstant {
     }
 
     static void use(ServerPlayer player, ItemStack stack, int number) {
+        if (number >= 47 && number <= 49) {
+            enchantOffhand(player, stack, number);
+            return;
+        }
         if (!FuluUse.pay(player, stack)) {
             return;
         }
-        FuluUse.cast(player);
+        if (number != 43 || player.gameMode.getGameModeForPlayer() != GameType.ADVENTURE) {
+            FuluUse.cast(player);
+        }
         double grade = FuluUse.grade(stack);
         ServerLevel level = player.serverLevel();
         switch (number) {
@@ -77,6 +90,13 @@ final class FuluInstant {
             case 34 -> beast(level, player, grade, TalismanBeast.FATE_WHEEL, 7.5, "命轮符");
             case 36 -> ores(level, player, stack, grade);
             case 38 -> beast(level, player, grade, TalismanBeast.WATER_DRAGON, 6, "水龙符");
+            case 40 -> taunt(level, player, grade);
+            case 43 -> {
+                if (!earthSplit(level, player, grade)) {
+                    return;
+                }
+            }
+            case 45 -> cannon(level, player, grade);
             case 46 -> fireball(level, player, grade);
             default -> throw new IllegalArgumentException("not an instant talisman: " + number);
         }
@@ -248,6 +268,104 @@ final class FuluInstant {
             }
         }
         player.getCooldowns().addCooldown(stack.getItem(), 200);
+    }
+
+    /**
+     * 40：防御与效果 022 各 1200 刻（等级 {@code 2×品阶−1}、{@code 品阶−1}），身周 3 格球面粒子；
+     * 64 格内所有非友方生物转向使用者并以其为攻击目标。
+     */
+    private static void taunt(ServerLevel level, ServerPlayer player, double grade) {
+        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1200, (int) (grade * 2 - 1)));
+        player.addEffect(new MobEffectInstance(effect("effect_022"), 1200, (int) (grade - 1)));
+        double radius = 3;
+        for (double xx = -radius; xx <= radius; xx += 0.1) {
+            for (double yy = -radius; yy <= radius; yy += 0.1) {
+                for (double zz = -radius; zz <= radius; zz += 0.1) {
+                    if (Math.abs(xx * xx + yy * yy + zz * zz - radius * radius) <= 0.15) {
+                        level.sendParticles(Particles.type("fulutexiao_40"), player.getX() + xx, player.getY() + 1 + yy, player.getZ() + zz, 1, 0.01, 0.01, 0.01, 0);
+                    }
+                }
+            }
+        }
+        for (Entity target : FuluTick.nearby(level, new Vec3(player.getX(), player.getY() + 1, player.getZ()), 32)) {
+            if (target instanceof Mob mob && !Relations.isFriendly(player, target)) {
+                mob.getNavigation().moveTo(player.getX(), player.getY() + 1, player.getZ(), 2);
+                mob.setTarget(player);
+            }
+        }
+    }
+
+    /**
+     * 43：冒险模式下已付精力却不生效，只提示；否则在视线 7 格处边长 {@code 6×品阶+1} 的立方体内，
+     * 破坏硬度不低于 0 且低于 50 的方块并在原位掉落。返回是否生效（决定是否消耗符）。
+     */
+    private static boolean earthSplit(ServerLevel level, ServerPlayer player, double grade) {
+        if (player.gameMode.getGameModeForPlayer() == GameType.ADVENTURE) {
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.fulu.adventure_forbidden"), false);
+            return false;
+        }
+        BlockPos spot = looked(level, player, 7);
+        int size = (int) (grade * 6 + 1);
+        for (int dx = 0; dx < size; dx++) {
+            for (int dy = 0; dy < size; dy++) {
+                for (int dz = 0; dz < size; dz++) {
+                    BlockPos pos = spot.offset((int) (dx - grade * 3), (int) (dy - grade * 3), (int) (dz - grade * 3));
+                    BlockState state = level.getBlockState(pos);
+                    float hardness = state.getDestroySpeed(level, pos);
+                    if (hardness < 50 && hardness >= 0) {
+                        Block.dropResources(state, level, pos, null);
+                        level.destroyBlock(pos, false);
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    /** 45：落点 2 格处爆炸并击飞、灼烧 2 格内非友方，再射出一枚火炮弹；向前喷火焰与烟。 */
+    private static void cannon(ServerLevel level, ServerPlayer player, double grade) {
+        BlockPos spot = looked(level, player, 2);
+        level.sendParticles(Particles.type("smallexplosionorange"), spot.getX(), spot.getY(), spot.getZ(), 1, 0, 0, 0, 0);
+        for (Entity target : FuluTick.nearby(level, Vec3.atLowerCornerOf(spot), 2)) {
+            if (!Relations.isFriendly(player, target)) {
+                target.setDeltaMovement(new Vec3((target.getX() - player.getX()) * 0.85, 0.5, (target.getZ() - player.getZ()) * 0.85));
+                if (target instanceof LivingEntity living) {
+                    SpellDamage.command(level, living, "shanghai 火 " + player.getStringUUID() + " true " + 25 * grade + " 1");
+                }
+            }
+        }
+        player.getPersistentData().putDouble("fulu45level", grade);
+        TalismanProjectile.launch(level, FuluSetup.projectile(Kind.CANNON).get(), player, eyeFront(player), player.getLookAngle());
+        Vec3 look = player.getLookAngle();
+        for (int index = 0; index < 20; index++) {
+            FuluTick.spray(level, ParticleTypes.FLAME, player.getX(), player.getY() + 1, player.getZ(),
+                    look.x * Mth.nextDouble(player.getRandom(), 0.3, 1.7), look.y * Mth.nextDouble(player.getRandom(), 0.3, 1.7), look.z * Mth.nextDouble(player.getRandom(), 0.3, 1.7));
+            FuluTick.spray(level, ParticleTypes.SMOKE, player.getX(), player.getY() + 1, player.getZ(),
+                    look.x * Mth.nextDouble(player.getRandom(), 0.3, 1.7), look.y * Mth.nextDouble(player.getRandom(), 0.3, 1.7), look.z * Mth.nextDouble(player.getRandom(), 0.3, 1.7));
+        }
+    }
+
+    /**
+     * 47、48、49：不付精力；主手拿着该符时，给副手物品附魔连锁、开灵、穿石（品阶 1、2、3 对应等级 1、2、3，其余为 4），并消耗一张。
+     * 副手为空时来源写在空堆上没有可见效果，仍消耗符。
+     */
+    private static void enchantOffhand(ServerPlayer player, ItemStack stack, int number) {
+        if (!player.getMainHandItem().is(stack.getItem())) {
+            return;
+        }
+        double grade = FuluUse.grade(stack);
+        int level = grade == 1 ? 1 : grade == 2 ? 2 : grade == 3 ? 3 : 4;
+        ItemStack target = player.getOffhandItem();
+        if (!target.isEmpty()) {
+            String name = switch (number) {
+                case 47 -> "chain";
+                case 48 -> "kailing";
+                default -> "chuanshi";
+            };
+            Holder<Enchantment> enchantment = player.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchants.key(name));
+            EnchantmentHelper.updateEnchantments(target, mutable -> mutable.set(enchantment, level));
+        }
+        stack.shrink(1);
     }
 
     /** 05：品阶记入使用者持久数据，从眼前射出一枚穿透 10 的气剑。 */

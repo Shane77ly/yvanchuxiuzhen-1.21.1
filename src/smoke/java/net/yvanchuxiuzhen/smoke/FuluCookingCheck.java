@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.cooking.content.CookingPotBlockEntity;
 import net.yvanchuxiuzhen.system.cooking.content.CookingPotMenu;
 import net.yvanchuxiuzhen.system.cooking.client.CookingPotScreen;
@@ -507,6 +508,26 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(4, p -> {
                     expectTrue("雷符 80 刻后落雷并消失",
                             p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanBeast.class), mob -> true).isEmpty());
+                
+                    p.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.IRON_PICKAXE));
+                    p.getInventory().selected = HOTBAR;
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_47", 1, 2));
+                    p.inventoryMenu.broadcastChanges();
+                    FuluUse.activate(p, p.getInventory().getItem(HOTBAR), 47);
+                }),
+                new Action(4, p -> {
+                    expectTrue("47 号符二阶：不付精力，副手镐获得连锁 2 级，符被消耗（连锁 "
+                                    + Enchants.level(p, p.getOffhandItem(), Enchants.key("chain")) + "）",
+                            Enchants.level(p, p.getOffhandItem(), Enchants.key("chain")) == 2 && p.getInventory().getItem(HOTBAR).isEmpty());
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_40", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    FuluUse.activate(p, p.getInventory().getItem(HOTBAR), 40);
+                }),
+                new Action(4, p -> {
+                    expectTrue("40 号符一阶：防御提升 1200 刻（等级 1）并获得效果 022",
+                            p.hasEffect(MobEffects.DAMAGE_RESISTANCE) && p.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() == 1
+                                    && p.getActiveEffects().stream().anyMatch(effect -> effect.getEffect().getRegisteredName().endsWith("effect_022")));
                 })
         );
     }
@@ -567,6 +588,7 @@ final class FuluCookingCheck extends ActionCheck {
     @Override
     protected void cleanup(ServerPlayer player) {
         player.closeContainer();
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
         if (oreAt != null) {
             player.serverLevel().setBlockAndUpdate(oreAt, oreBefore);
         }

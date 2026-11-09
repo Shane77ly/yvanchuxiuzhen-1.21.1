@@ -64,7 +64,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         FIREBALL("projectile_fulutexiao_46"), METEOR("projectile_fulutexiao_17"), SWORD("projectile_fulutexiao_19"),
         QI_SWORD("projectile_fulutexiao_05"), FROST("projectile_fulutexiao_29"), CLUSTER("projectile_fulutexiao_32"),
         DEBUFF("projectile_itemfulu_10"), FURNACE("projectile_itemfulu_20"), GLOW("projectile_itemfulu_28"),
-        BIND("projectile_itemfulu_33"), BLOOD("projectile_itemfulu_35");
+        BIND("projectile_itemfulu_33"), BLOOD("projectile_itemfulu_35"), CANNON("projectile_fulutexiao_45");
 
         private final String id;
 
@@ -113,6 +113,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
             case FIREBALL -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "skill_fire_01")));
             case METEOR -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fulutexiao_17")));
             case SWORD, QI_SWORD, DEBUFF, FURNACE, BIND -> ItemStack.EMPTY;
+            case CANNON -> new ItemStack(Items.FIRE_CHARGE);
             case GLOW -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "itemfulu_28")));
             case BLOOD -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "cailiao_118")));
             case FROST -> new ItemStack(Items.COBWEB);
@@ -262,6 +263,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
                 }
             }
             case FROST -> chill(at);
+            case CANNON -> cannonBlast(true);
             case FURNACE -> furnaceHit(at);
             case CLUSTER -> {
                 if (getOwner() != null) {
@@ -285,6 +287,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
                 case FROST -> frostTick(level);
                 case CLUSTER -> clusterTick(level);
                 case DEBUFF, FURNACE, GLOW, BIND, BLOOD -> rangedTick(level);
+                case CANNON -> cannonTick(level);
             }
         }
         if (inGround) {
@@ -332,6 +335,64 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
             if (target != this && !Relations.isFriendly(owner, target)) {
                 level.sendParticles(ParticleTypes.SWEEP_ATTACK, target.getX(), target.getY(), target.getZ(), 1, 0, 0, 0, 0);
                 target.hurt(sourceOf(level, owner), (float) (20 * grade));
+            }
+        }
+    }
+
+    /**
+     * 火炮弹（45 号符）每刻：火焰与消散粒子；第一刻品阶取使用者的 {@code fulu45level}（没有则取其 {@code mana_Att}）并清零；
+     * 满 14 刻时爆炸，只记录击飞与伤害标记（不经命令造成伤害），随后消失。
+     */
+    private void cannonTick(ServerLevel level) {
+        Entity owner = getOwner();
+        level.sendParticles(ParticleTypes.FLAME, getX(), getY() + 0.3, getZ(), 2, 0.2, 0.2, 0.2, 0);
+        level.sendParticles(Particles.type("disappearorange"), getX(), getY() + 0.3, getZ(), 1, 0, 0, 0, 0);
+        if (!isNoGravity()) {
+            double stored = owner.getPersistentData().getDouble("fulu45level");
+            grade = stored > 0 ? stored : owner.getPersistentData().getDouble("mana_Att");
+            owner.getPersistentData().putDouble("fulu45level", 0);
+            setNoGravity(true);
+        }
+        if (++ticks >= FLIGHT_TICKS) {
+            cannonBlast(false);
+            discard();
+        }
+    }
+
+    /**
+     * 火炮弹爆炸：粒子、音效，4 格内非友方被击飞，2 格内更远更高；命中时（{@code strike}）另经 {@code /shanghai 火}
+     * 对 4 格内造成 {@code 5×品阶}、2 格内造成 {@code 15×品阶}；到期时只写目标的 {@code ManaAttack*} 标记（来源，无读取者）。
+     */
+    private void cannonBlast(boolean strike) {
+        Entity owner = getOwner();
+        if (owner == null || !(level() instanceof ServerLevel level)) {
+            return;
+        }
+        level.sendParticles(ParticleTypes.FLAME, getX(), getY(), getZ(), 20, 0, 0, 0, 0.5);
+        level.sendParticles(Particles.type("smokedeeporange"), getX(), getY(), getZ(), 20, 0, 0, 0, 0.4);
+        level.sendParticles(Particles.type("bigbangorange"), getX(), getY(), getZ(), 1, 0, 0, 0, 0);
+        level.sendParticles(Particles.type("smallexplosionorange"), getX(), getY(), getZ(), 20, 2.5, 2.5, 2.5, 0);
+        level.sendParticles(ParticleTypes.FLASH, getX(), getY(), getZ(), 1, 0, 0, 0, 0);
+        level.playSound(null, BlockPos.containing(getX(), getY(), getZ()), SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1);
+        for (double[] ring : new double[][] {{4, 0.2, 0.2, 5, 5}, {2, 0.5, 0.4, 15, 20}}) {
+            for (Entity target : nearby(level, position(), ring[0] / 2)) {
+                boolean hostile = strike ? !Relations.isFriendly(owner, target) : !Relations.team(target).equals(Relations.team(owner));
+                if (!hostile) {
+                    continue;
+                }
+                if (strike) {
+                    target.setDeltaMovement(new Vec3((target.getX() - getX()) * ring[1], ring[2], (target.getZ() - getZ()) * ring[1]));
+                    if (target instanceof LivingEntity living) {
+                        SpellDamage.command(level, living, "shanghai 火 " + owner.getStringUUID() + " true " + ring[3] * grade + " 1");
+                    }
+                } else {
+                    target.getPersistentData().putDouble("ManaAttackDamage", ring[4] * grade);
+                    target.getPersistentData().putString("ManaAttackUUID", owner.getStringUUID());
+                    target.getPersistentData().putString("damagetype", "火");
+                    target.getPersistentData().putDouble("Damage_multiplier", 1);
+                    target.getPersistentData().putBoolean("attackduli", true);
+                    target.setDeltaMovement(new Vec3((target.getX() - getX()) * ring[1], ring[2], (target.getZ() - getZ()) * ring[1]));
+                }
             }
         }
     }
