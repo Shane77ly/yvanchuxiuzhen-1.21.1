@@ -1,0 +1,235 @@
+package net.yvanchuxiuzhen.smoke;
+
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.cooking.content.CookingPotBlockEntity;
+import net.yvanchuxiuzhen.system.cooking.content.CookingPotMenu;
+import net.yvanchuxiuzhen.system.cooking.client.CookingPotScreen;
+import net.yvanchuxiuzhen.system.fulu.DrawingTableRuntime;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
+import net.yvanchuxiuzhen.system.fulu.api.FuluKnowledge;
+import net.yvanchuxiuzhen.system.fulu.client.DrawingTableScreen;
+import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
+import net.yvanchuxiuzhen.system.fulu.content.DrawingTableMenu;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
+import net.yvanchuxiuzhen.system.material.api.Materials;
+import net.yvanchuxiuzhen.system.profession.api.Profession;
+import net.yvanchuxiuzhen.system.profession.api.Professions;
+import net.yvanchuxiuzhen.system.profession.data.ProfessionAttachments;
+import net.yvanchuxiuzhen.system.profession.data.ProfessionProgress;
+
+/** 核对两锅配方加载、墨料坯自然生产闭环，以及符箓知识与画符台的选择、绘制和保存。 */
+final class FuluCookingCheck extends ActionCheck {
+    private static final int HOTBAR = 8;
+
+    private List<ItemStack> inventory;
+    private int selected;
+    private BlockPos potPos;
+    private BlockPos tablePos;
+    private final List<BlockState> potBlocks = new ArrayList<>();
+    private final List<BlockState> tableBlocks = new ArrayList<>();
+    private FuluKnowledge knowledge;
+    private ProfessionProgress rune;
+    private double runeBefore;
+
+    FuluCookingCheck(List<String> report, String levelId, Screenshots screenshots) {
+        super("fulucooking", report, levelId);
+        script(
+                new Action(4, p -> {
+                    inventory = new ArrayList<>();
+                    for (int i = 0; i < p.getInventory().getContainerSize(); i++) inventory.add(p.getInventory().getItem(i).copy());
+                    p.getInventory().clearContent();
+                    selected = p.getInventory().selected;
+                    potPos = p.blockPosition().offset(4, 1, 2);
+                    tablePos = p.blockPosition().offset(4, 1, 5);
+                    for (int below = 0; below < 3; below++) {
+                        potBlocks.add(p.serverLevel().getBlockState(potPos.below(below)));
+                        tableBlocks.add(p.serverLevel().getBlockState(tablePos.below(below)));
+                    }
+                    var recipes = p.serverLevel().getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING).stream()
+                            .map(RecipeHolder::value).map(recipe -> recipe.getResultItem(p.registryAccess()).getItem()).toList();
+                    expectTrue("铁锅与砂锅的自然合成配方由目标数据包加载",
+                            recipes.contains(item("fooddaguo").getItem()) && recipes.contains(item("fooddunguo").getItem()));
+
+                    p.serverLevel().setBlockAndUpdate(potPos.below(2), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(potPos.below(), Blocks.CAMPFIRE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(potPos, block("fooddaguo"));
+                    CookingPotBlockEntity pot = pot(p);
+                    pot.setItem(0, material("cailiao_021", 25));
+                    pot.setItem(1, material("cailiao_001", 15));
+                    pot.setItem(2, material("cailiao_060", 5));
+                    pot.setItem(3, item("yanhuiitem", 3));
+                    pot.setItem(4, item("fuluzhushaitem", 3));
+                    pot.changed();
+                }),
+                new Action(6, p -> useBlock(potPos)),
+                new Action(6, p -> {
+                    expectTrue("真实右键铁锅打开双方 14 槽菜单与原生界面", p.containerMenu instanceof CookingPotMenu
+                            && minecraft.player.containerMenu instanceof CookingPotMenu && minecraft.screen instanceof CookingPotScreen);
+                    minecraft.execute(() -> {
+                        screenshots.take("cooking-iron-pot.png");
+                        minecraft.screen.children().stream()
+                                .filter(child -> child instanceof Button button && button.getMessage().getString().equals("开始烹饪"))
+                                .map(child -> (Button) child).findFirst().orElseThrow().onPress();
+                    });
+                }),
+                new Action(16, p -> {
+                    CompoundTag state = pot(p).getPersistentData();
+                    expectTrue("开始按钮：材料平均 15 级、三类各扣一件，烟灰与朱砂各扣三份，进入烹饪并关闭界面",
+                            state.getBoolean("cooking") && state.getInt("cookanimation") == 9
+                                    && pot(p).getItem(1).isEmpty() && pot(p).getItem(2).isEmpty()
+                                    && pot(p).getItem(3).isEmpty() && pot(p).getItem(4).isEmpty()
+                                    && p.containerMenu == p.inventoryMenu);
+                }),
+                new Action(4, p -> {
+                    expectTrue("开始满 10 服务端刻后，槽 0 被覆盖为玄阶墨料坯，烹饪仍在进行（实际 "
+                                    + BuiltInRegistries.ITEM.getKey(pot(p).getItem(0).getItem()) + "×" + pot(p).getItem(0).getCount() + "）",
+                            pot(p).getItem(0).is(item("motiao_0201").getItem()) && pot(p).getItem(0).getCount() == 1
+                                    && pot(p).getPersistentData().getBoolean("cooking"));
+                }),
+                new Action(4, p -> useBlock(potPos)),
+                new Action(4, p -> useBlock(potPos)),
+                new Action(4, p -> useBlock(potPos)),
+                new Action(4, p -> useBlock(potPos)),
+                new Action(4, p -> {
+                    expectTrue("四次翻炒后仍在烹饪", pot(p).getPersistentData().getBoolean("cooking")
+                            && pot(p).getPersistentData().getDouble("cooknumber") == 4);
+                    useBlock(potPos);
+                }),
+                new Action(6, p -> {
+                    CompoundTag state = pot(p).getPersistentData();
+                    CookingPotBlockEntity restored = (CookingPotBlockEntity) BlockEntity.loadStatic(potPos, p.serverLevel().getBlockState(potPos),
+                            pot(p).saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("第五次翻炒结束烹饪并清零计数，产物保留，保存重读一致",
+                            !state.getBoolean("cooking") && state.getDouble("cooknumber") == 0 && state.getDouble("cookanimation") == 0
+                                    && pot(p).getItem(0).is(item("motiao_0201").getItem())
+                                    && restored.getPersistentData().equals(state)
+                                    && ItemStack.matches(restored.getItem(0), pot(p).getItem(0)));
+                    pot(p).clearContent();
+
+                    knowledge = p.getData(FuluData.KNOWLEDGE);
+                    rune = p.getData(ProfessionAttachments.PROGRESS).get(Profession.RUNE);
+                    Professions.setLevel(p, Profession.RUNE, 0);
+                    Professions.setExperience(p, Profession.RUNE, 0);
+                    runeBefore = Professions.experience(p, Profession.RUNE);
+                    p.setData(FuluData.KNOWLEDGE, FuluKnowledge.INITIAL);
+                    p.serverLevel().setBlockAndUpdate(tablePos.below(2), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(tablePos.below(), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(tablePos, block("huafutai"));
+                    useBlock(tablePos);
+                }),
+                new Action(8, p -> {
+                    expectTrue("真实右键画符台打开双方菜单与原生界面", p.containerMenu instanceof DrawingTableMenu
+                            && minecraft.player.containerMenu instanceof DrawingTableMenu && minecraft.screen instanceof DrawingTableScreen);
+                    minecraft.execute(() -> screenshots.take("fulu-drawing-table.png"));
+                }),
+                new Action(4, p -> {
+                    DrawingTableBlockEntity table = table(p);
+                    for (int button = 3; button < 6; button++) DrawingTableRuntime.button(table, p, button);
+                    CompoundTag state = table.getPersistentData();
+                    expectTrue("初始知识下三类选择分别取符头 1、天地柱 1、符胆 1，预览符箓与耗墨来自首个匹配配方",
+                            state.getInt("futou") == 1 && state.getInt("tiandizhu") == 1 && state.getInt("fudan") == 1
+                                    && state.getString("fuluname").equals(ModId.VALUE + ":itemfulu_01") && state.getInt("needmotiao") == 2);
+                    table.setItem(0, item("fulufuzhi", 1));
+                    table.setItem(1, item("motiao_01", 3));
+                    DrawingTableRuntime.button(table, p, 6);
+                    ItemStack result = table.getItem(2);
+                    CompoundTag data = result.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    expectTrue("绘制：产出对应符箓并记天地柱品阶，扣一张符纸与两份墨，画符经验增加 8（实际 "
+                                    + (Professions.experience(p, Profession.RUNE) - runeBefore) + "）",
+                            result.is(item("itemfulu_01").getItem()) && data.getInt("fululevel") == 1
+                                    && table.getItem(0).isEmpty() && table.getItem(1).getCount() == 1
+                                    && Professions.experience(p, Profession.RUNE) - runeBefore == 8);
+                    DrawingTableBlockEntity restored = (DrawingTableBlockEntity) BlockEntity.loadStatic(tablePos, p.serverLevel().getBlockState(tablePos),
+                            table.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("画符台共享选择与库存保存重读一致", restored.getPersistentData().equals(state)
+                            && ItemStack.matches(restored.getItem(2), result));
+                    p.closeContainer();
+                }),
+                new Action(4, p -> {
+                    boolean learned = Fulu.unlockHead(p, 2);
+                    boolean repeated = Fulu.unlockHead(p, 2);
+                    boolean core = Fulu.unlockCore(p, 2);
+                    FuluKnowledge current = Fulu.knowledge(p);
+                    expectTrue("解锁追加稳定编号，重复学习被拒绝且不重复追加", learned && !repeated && core
+                            && current.heads().equals(List.of(1, 2)) && current.cores().equals(List.of(1, 2))
+                            && p.getData(FuluData.KNOWLEDGE).heads().equals(List.of(1, 2)));
+                })
+        );
+    }
+
+    private static CookingPotBlockEntity pot(ServerPlayer player, BlockPos pos) {
+        return (CookingPotBlockEntity) player.serverLevel().getBlockEntity(pos);
+    }
+
+    private CookingPotBlockEntity pot(ServerPlayer player) {
+        return pot(player, potPos);
+    }
+
+    private DrawingTableBlockEntity table(ServerPlayer player) {
+        return (DrawingTableBlockEntity) player.serverLevel().getBlockEntity(tablePos);
+    }
+
+    private static BlockState block(String path) {
+        return BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, path)).defaultBlockState();
+    }
+
+    private static ItemStack item(String path) {
+        return item(path, 1);
+    }
+
+    private static ItemStack item(String path, int count) {
+        return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, path)), count);
+    }
+
+    private static ItemStack material(String path, int level) {
+        ItemStack stack = item(path);
+        Materials.setInstance(stack, level, 0);
+        return stack;
+    }
+
+    private void useBlock(BlockPos pos) {
+        minecraft.execute(() -> {
+            minecraft.player.getInventory().selected = HOTBAR;
+            minecraft.gameMode.useItemOn(minecraft.player, InteractionHand.MAIN_HAND,
+                    new BlockHitResult(Vec3.atCenterOf(pos).add(0, .5, 0), Direction.UP, pos, false));
+        });
+    }
+
+    @Override
+    protected void cleanup(ServerPlayer player) {
+        player.closeContainer();
+        pot(player).clearContent();
+        table(player).clearContent();
+        for (int below = 0; below < 3; below++) {
+            player.serverLevel().setBlockAndUpdate(potPos.below(below), potBlocks.get(below));
+            player.serverLevel().setBlockAndUpdate(tablePos.below(below), tableBlocks.get(below));
+        }
+        player.setData(FuluData.KNOWLEDGE, knowledge);
+        player.getData(ProfessionAttachments.PROGRESS).set(Profession.RUNE, rune);
+        player.syncData(ProfessionAttachments.PROGRESS);
+        player.getInventory().selected = selected;
+        minecraft.execute(() -> minecraft.player.getInventory().selected = selected);
+        for (int i = 0; i < inventory.size(); i++) player.getInventory().setItem(i, inventory.get(i));
+        player.inventoryMenu.broadcastChanges();
+    }
+}
