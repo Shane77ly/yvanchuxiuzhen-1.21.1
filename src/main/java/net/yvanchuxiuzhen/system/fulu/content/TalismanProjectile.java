@@ -11,7 +11,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,12 +38,17 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
  * 持续效果符发出的三种弹体（来源 {@code Fulutexiao46Entity}、{@code Fulutexiao17Entity}、{@code Fulutexiao19Entity}）：
  * 13 号符的火球（14 刻后或命中时爆炸，范围火伤害 {@code 15×品阶}）、17 号符的陨石（命中爆炸 {@code 20×品阶}后消失）、
  * 19 号符的剑气（14 刻内每刻对 1 格范围的非友方造成 {@code 20×品阶} 物理伤害，穿透 5）。
+ * 05 号符的气剑（14 刻内每刻对 1 格范围的非友方造成 {@code 25×品阶} 物理伤害，穿透 10）、
+ * 29 号符的冰锥（命中处 2 格内非友方缓慢 600 刻，等级 {@code 2×品阶−1}）、
+ * 32 号符的子母弹（主弹 16 刻或命中时炸出 8 枚子弹并造成 {@code 16×品阶} 火伤害；子弹命中时同样爆炸但不再分裂）。
+ * 05、29、32 的品阶由使用者的实体持久数据 {@code fulu05level}、{@code fulu29level}、{@code fulu32level} 传入。
  * 品阶在第一刻从发射者的符箓状态读取。1.21.1 版本的箭没有独立击退字段，来源 13、17 号弹体的击退 1 不再携带。
  */
 public final class TalismanProjectile extends AbstractArrow implements ItemSupplier {
     /** 三种弹体及其内容表 ID。 */
     public enum Kind {
-        FIREBALL("projectile_fulutexiao_46"), METEOR("projectile_fulutexiao_17"), SWORD("projectile_fulutexiao_19");
+        FIREBALL("projectile_fulutexiao_46"), METEOR("projectile_fulutexiao_17"), SWORD("projectile_fulutexiao_19"),
+        QI_SWORD("projectile_fulutexiao_05"), FROST("projectile_fulutexiao_29"), CLUSTER("projectile_fulutexiao_32");
 
         private final String id;
 
@@ -57,6 +65,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     private final Kind kind;
     private double grade;
     private boolean recorded;
+    private boolean splitting;
     private int ticks;
 
     public TalismanProjectile(EntityType<? extends TalismanProjectile> type, Level level, Kind kind) {
@@ -66,12 +75,17 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
 
     /** 以来源的伤害 0.1、静音生成并按给定方向以速度 1、无散布发射。 */
     public static void launch(ServerLevel level, EntityType<? extends TalismanProjectile> type, Entity owner, Vec3 at, Vec3 direction) {
+        launch(level, type, owner, at, direction, 1, 0.1);
+    }
+
+    public static void launch(ServerLevel level, EntityType<? extends TalismanProjectile> type, Entity owner, Vec3 at, Vec3 direction,
+                              float speed, double baseDamage) {
         TalismanProjectile projectile = type.create(level);
         projectile.setOwner(owner);
-        projectile.setBaseDamage(0.1);
+        projectile.setBaseDamage(baseDamage);
         projectile.setSilent(true);
         projectile.setPos(at);
-        projectile.shoot(direction.x, direction.y, direction.z, 1, 0);
+        projectile.shoot(direction.x, direction.y, direction.z, speed, 0);
         level.addFreshEntity(projectile);
     }
 
@@ -80,7 +94,9 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         return switch (kind) {
             case FIREBALL -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "skill_fire_01")));
             case METEOR -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fulutexiao_17")));
-            case SWORD -> ItemStack.EMPTY;
+            case SWORD, QI_SWORD -> ItemStack.EMPTY;
+            case FROST -> new ItemStack(Items.COBWEB);
+            case CLUSTER -> new ItemStack(Items.FIREWORK_STAR);
         };
     }
 
@@ -96,7 +112,11 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
 
     @Override
     public byte getPierceLevel() {
-        return (byte) (kind == Kind.SWORD ? 5 : 0);
+        return (byte) switch (kind) {
+            case SWORD -> 5;
+            case QI_SWORD -> 10;
+            default -> 0;
+        };
     }
 
     @Override
@@ -108,20 +128,31 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     @Override
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
-        impact();
+        impact(position());
     }
 
     @Override
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
-        impact();
+        impact(Vec3.atLowerCornerOf(result.getBlockPos()));
     }
 
-    private void impact() {
-        if (kind != Kind.SWORD) {
-            explode();
-            if (kind == Kind.METEOR && !level().isClientSide) {
-                discard();
+    private void impact(Vec3 at) {
+        switch (kind) {
+            case FIREBALL -> explode();
+            case METEOR -> {
+                explode();
+                if (!level().isClientSide) {
+                    discard();
+                }
+            }
+            case FROST -> chill(at);
+            case CLUSTER -> {
+                if (getOwner() != null) {
+                    detonate();
+                }
+            }
+            default -> {
             }
         }
     }
@@ -134,6 +165,9 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
                 case FIREBALL -> fireballTick(level);
                 case METEOR -> meteorTick(level);
                 case SWORD -> swordTick(level);
+                case QI_SWORD -> qiSwordTick(level);
+                case FROST -> frostTick(level);
+                case CLUSTER -> clusterTick(level);
             }
         }
         if (inGround) {
@@ -185,6 +219,90 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         }
     }
 
+    private void qiSwordTick(ServerLevel level) {
+        Entity owner = getOwner();
+        if (!isNoGravity()) {
+            grade = owner.getPersistentData().getDouble("fulu05level");
+            owner.getPersistentData().putDouble("fulu05level", 0);
+            setNoGravity(true);
+        }
+        if (++ticks >= FLIGHT_TICKS) {
+            discard();
+        }
+        for (Entity target : nearby(level, position(), 1)) {
+            if (!Relations.isFriendly(owner, target)) {
+                target.hurt(sourceOf(level, owner), (float) (25 * grade));
+            }
+        }
+    }
+
+    private void frostTick(ServerLevel level) {
+        level.sendParticles(ParticleTypes.INSTANT_EFFECT, getX(), getY() + 0.3, getZ(), 1, 0, 0, 0, 0);
+        if (!isNoGravity()) {
+            grade = getOwner().getPersistentData().getDouble("fulu29level");
+            setNoGravity(true);
+        }
+        if (++ticks >= FLIGHT_TICKS) {
+            discard();
+        }
+    }
+
+    /** 冰锥命中：命中处 2 格内的非友方生物缓慢 600 刻，等级取使用者当前的 {@code fulu29level}。 */
+    private void chill(Vec3 at) {
+        Entity owner = getOwner();
+        if (owner == null || !(level() instanceof ServerLevel level)) {
+            return;
+        }
+        int amplifier = (int) (owner.getPersistentData().getDouble("fulu29level") * 2 - 1);
+        for (Entity target : nearby(level, at, 2)) {
+            if (!Relations.isFriendly(owner, target) && target instanceof LivingEntity living) {
+                living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 600, amplifier));
+            }
+        }
+    }
+
+    /**
+     * 子母弹每刻：来源以使用者的 {@code kaiqi}（从不被写入）判断初始化，所以每刻都重新读取品阶；
+     * 使用者带 {@code fulu32shoufa} 时本弹成为会分裂的主弹，并清掉使用者的标记；主弹满 16 刻爆炸。
+     */
+    private void clusterTick(ServerLevel level) {
+        Entity owner = getOwner();
+        level.sendParticles(ParticleTypes.FLAME, getX(), getY() + 0.3, getZ(), 2, 0.2, 0.2, 0.2, 0);
+        if (!owner.getPersistentData().getBoolean("kaiqi")) {
+            grade = owner.getPersistentData().getDouble("fulu32level");
+            if (owner.getPersistentData().getBoolean("fulu32shoufa")) {
+                setNoGravity(true);
+                splitting = true;
+                owner.getPersistentData().putBoolean("fulu32shoufa", false);
+            }
+        }
+        if (splitting && ++ticks >= 16) {
+            detonate();
+            discard();
+        }
+    }
+
+    /** 主弹先炸出 8 枚伤害 5 的子弹（初速 0.5，水平随机、向上 0.5–1.5），再 2 格范围爆炸并造成 {@code 16×品阶} 火伤害。 */
+    @SuppressWarnings("unchecked")
+    private void detonate() {
+        Entity owner = getOwner();
+        ServerLevel level = (ServerLevel) level();
+        if (splitting) {
+            for (int index = 0; index < 8; index++) {
+                launch(level, (EntityType<? extends TalismanProjectile>) getType(), owner, position(),
+                        new Vec3(Mth.nextDouble(random, -1, 1), 0.5 + Mth.nextDouble(random, 0, 1), Mth.nextDouble(random, -1, 1)), 0.5f, 5);
+            }
+        }
+        level.sendParticles(ParticleTypes.EXPLOSION, getX(), getY(), getZ(), 1, 0, 0, 0, 0);
+        level.sendParticles(ParticleTypes.SMOKE, getX(), getY(), getZ(), 20, 0, 0, 0, 1);
+        level.playSound(null, BlockPos.containing(getX(), getY(), getZ()), SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1);
+        for (Entity target : nearby(level, position(), 2)) {
+            if (!Relations.isFriendly(owner, target) && target instanceof LivingEntity living) {
+                SpellDamage.command(level, living, "shanghai 火 " + owner.getStringUUID() + " true " + 16 * grade + " 1");
+            }
+        }
+    }
+
     /** 来源 {@code EntityDamageSource("generic.player", owner)}：玩家按玩家攻击，其他按生物攻击。 */
     private static DamageSource sourceOf(ServerLevel level, Entity owner) {
         if (owner instanceof Player player) {
@@ -227,6 +345,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         tag.putDouble("fululevel", grade);
         tag.putBoolean("jilu", recorded);
         tag.putInt("tick", ticks);
+        tag.putBoolean("fulu32shoufa", splitting);
     }
 
     @Override
@@ -235,5 +354,6 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         grade = tag.getDouble("fululevel");
         recorded = tag.getBoolean("jilu");
         ticks = tag.getInt("tick");
+        splitting = tag.getBoolean("fulu32shoufa");
     }
 }

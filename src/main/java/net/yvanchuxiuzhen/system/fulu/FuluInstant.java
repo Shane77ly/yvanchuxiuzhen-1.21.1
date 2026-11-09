@@ -31,7 +31,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
  * 04 弹飞、06 落雷、07 烈焰、08 冰封、11 护体、25 加速、46 火球。统一流程为先付精力、播释放声、取品阶，再按编号执行，最后消耗一张。
  */
 final class FuluInstant {
-    private static final Set<Integer> NUMBERS = Set.of(4, 6, 7, 8, 11, 25, 46);
+    private static final Set<Integer> NUMBERS = Set.of(4, 5, 6, 7, 8, 11, 25, 29, 32, 46);
 
     private FuluInstant() {
     }
@@ -49,11 +49,14 @@ final class FuluInstant {
         ServerLevel level = player.serverLevel();
         switch (number) {
             case 4 -> burst(level, player, grade);
+            case 5 -> qiSword(level, player, grade);
             case 6 -> lightning(level, player, grade);
             case 7 -> scorch(level, player, grade);
             case 8 -> freeze(level, player, grade);
             case 11 -> shield(level, player, grade);
             case 25 -> haste(level, player, grade);
+            case 29 -> frost(level, player, grade);
+            case 32 -> cluster(level, player, grade);
             case 46 -> fireball(level, player, grade);
             default -> throw new IllegalArgumentException("not an instant talisman: " + number);
         }
@@ -139,12 +142,40 @@ final class FuluInstant {
         player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, (int) (grade * 2 - 1)));
     }
 
+    /** 05：品阶记入使用者持久数据，从眼前射出一枚穿透 10 的气剑。 */
+    private static void qiSword(ServerLevel level, ServerPlayer player, double grade) {
+        player.getPersistentData().putDouble("fulu05level", grade);
+        TalismanProjectile.launch(level, FuluSetup.projectile(Kind.QI_SWORD).get(), player, eyeFront(player), player.getLookAngle());
+    }
+
+    /** 29：品阶记入持久数据，从胸前向前扇形射出 12 枚冰锥，方向各分量各乘 0.2–1.8 的随机系数。 */
+    private static void frost(ServerLevel level, ServerPlayer player, double grade) {
+        player.getPersistentData().putDouble("fulu29level", grade);
+        Vec3 look = player.getLookAngle();
+        for (int index = 0; index < 12; index++) {
+            TalismanProjectile.launch(level, FuluSetup.projectile(Kind.FROST).get(), player, new Vec3(player.getX(), player.getY() + 1.2, player.getZ()),
+                    new Vec3(look.x * Mth.nextDouble(player.getRandom(), 0.2, 1.8), look.y * Mth.nextDouble(player.getRandom(), 0.2, 1.8),
+                            look.z * Mth.nextDouble(player.getRandom(), 0.2, 1.8)));
+        }
+    }
+
+    /** 32：品阶与“可分裂”标记记入持久数据，从眼前射出子母弹主弹。 */
+    private static void cluster(ServerLevel level, ServerPlayer player, double grade) {
+        player.getPersistentData().putDouble("fulu32level", grade);
+        player.getPersistentData().putBoolean("fulu32shoufa", true);
+        TalismanProjectile.launch(level, FuluSetup.projectile(Kind.CLUSTER).get(), player, eyeFront(player), player.getLookAngle());
+    }
+
+    private static Vec3 eyeFront(ServerPlayer player) {
+        return new Vec3(player.getX(), player.getEyeY() - 0.1, player.getZ());
+    }
+
     /**
      * 46：从眼前射出一枚火球。来源把品阶写进玩家的实体持久数据，而火球读的是玩家体质里的 {@code fululevel46}（仅 13 号符写入），
      * 所以玩家直接使用 46 号符的火球按品阶 1 结算；保持来源（登记为 Q66）。
      */
     private static void fireball(ServerLevel level, ServerPlayer player, double grade) {
-        TalismanProjectile.launch(level, FuluSetup.projectile(Kind.FIREBALL).get(), player, new Vec3(player.getX(), player.getEyeY() - 0.1, player.getZ()), player.getLookAngle());
+        TalismanProjectile.launch(level, FuluSetup.projectile(Kind.FIREBALL).get(), player, eyeFront(player), player.getLookAngle());
         player.getPersistentData().putDouble("fululevel46", grade);
     }
 

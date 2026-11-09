@@ -404,6 +404,26 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(4, p -> {
                     expectTrue("46 号符使用后品阶写入玩家持久数据而非体质（来源 Q66；精力 " + Cultivation.get(p, CultivationValue.SOUL) + "，持久 " + p.getPersistentData().getDouble("fululevel46") + "，体质 " + Cultivation.tizhiDouble(p, "fululevel46") + "）",
                             p.getPersistentData().getDouble("fululevel46") == 1 && Cultivation.tizhiDouble(p, "fululevel46") == 0);
+                
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_05", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    expectTrue("05 号符：品阶经使用者持久数据交给气剑，首刻读取后清零",
+                            p.getInventory().getItem(HOTBAR).isEmpty() && p.getPersistentData().getDouble("fulu05level") == 0);
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_32", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(24, p -> {
+                }),
+                new Action(4, p -> {
+                    long pieces = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> shot.getType().toString().endsWith("32")).size();
+                    expectTrue("32 号符：主弹 16 刻或命中时炸出子弹，使用者的分裂标记被主弹取走（子弹 " + pieces + "）",
+                            !p.getPersistentData().getBoolean("fulu32shoufa") && pieces >= 2);
                 })
         );
     }
