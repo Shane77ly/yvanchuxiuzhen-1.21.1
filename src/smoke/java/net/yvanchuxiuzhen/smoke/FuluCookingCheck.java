@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -50,6 +51,10 @@ final class FuluCookingCheck extends ActionCheck {
     private FuluKnowledge knowledge;
     private ProfessionProgress rune;
     private double runeBefore;
+    private BlockPos clayPos;
+    private final List<BlockState> clayBlocks = new ArrayList<>();
+    private ProfessionProgress cooking;
+    private double cookingBefore;
 
     FuluCookingCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("fulucooking", report, levelId);
@@ -165,7 +170,7 @@ final class FuluCookingCheck extends ActionCheck {
                             && ItemStack.matches(restored.getItem(2), result));
                     p.closeContainer();
                 }),
-                new Action(4, p -> {
+                new Action(8, p -> {
                     boolean learned = Fulu.unlockHead(p, 2);
                     boolean repeated = Fulu.unlockHead(p, 2);
                     boolean core = Fulu.unlockCore(p, 2);
@@ -173,6 +178,59 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("解锁追加稳定编号，重复学习被拒绝且不重复追加", learned && !repeated && core
                             && current.heads().equals(List.of(1, 2)) && current.cores().equals(List.of(1, 2))
                             && p.getData(FuluData.KNOWLEDGE).heads().equals(List.of(1, 2)));
+                    clayPos = p.blockPosition().offset(4, 1, -2);
+                    for (int below = 0; below < 3; below++) clayBlocks.add(p.serverLevel().getBlockState(clayPos.below(below)));
+                    cooking = p.getData(ProfessionAttachments.PROGRESS).get(Profession.COOKING);
+                    cookingBefore = Professions.experience(p, Profession.COOKING);
+                    p.serverLevel().setBlockAndUpdate(clayPos.below(2), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(clayPos.below(), Blocks.CAMPFIRE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(clayPos, block("fooddunguo"));
+                    ItemStack recipe = new ItemStack(Items.PAPER);
+                    CompoundTag recipeData = new CompoundTag();
+                    recipeData.putString("MenuType", "砂锅");
+                    recipeData.putString("MenuName", "测试菜谱");
+                    recipeData.putString("Menuid", ModId.VALUE + ":food_007");
+                    recipeData.putString("needcontainer", "无");
+                    recipeData.putString("cailiao00", ModId.VALUE + ":shicai_001");
+                    recipeData.putInt("cookanimation", 2);
+                    recipe.set(DataComponents.CUSTOM_DATA, CustomData.of(recipeData));
+                    CookingPotBlockEntity clay = pot(p, clayPos);
+                    clay.setItem(13, recipe);
+                    clay.setItem(5, item("shicai_001", 2));
+                    clay.changed();
+                    useBlock(clayPos);
+                }),
+                new Action(6, p -> {
+                    expectTrue("真实右键砂锅打开双方菜单与原生界面（服务端 " + p.containerMenu.getClass().getSimpleName() + "，客户端 "
+                            + minecraft.player.containerMenu.getClass().getSimpleName() + "，界面 " + (minecraft.screen == null ? "无" : minecraft.screen.getClass().getSimpleName())
+                            + "，BE " + pot(p, clayPos).getPersistentData() + "）", p.containerMenu instanceof CookingPotMenu
+                            && minecraft.player.containerMenu instanceof CookingPotMenu && minecraft.screen instanceof CookingPotScreen);
+                    minecraft.execute(() -> {
+                        screenshots.take("cooking-clay-pot.png");
+                        minecraft.screen.children().stream()
+                                .filter(child -> child instanceof Button button && button.getMessage().getString().equals("开始烹饪"))
+                                .map(child -> (Button) child).findFirst().orElseThrow().onPress();
+                    });
+                }),
+                new Action(4, p -> {
+                    CookingPotBlockEntity clay = pot(p, clayPos);
+                    CompoundTag state = clay.getPersistentData();
+                    expectTrue("菜谱烹饪：食材扣一件并产出菜品，覆盖结果槽，菜谱不消耗，经验按 belongToLevel 平方加 5",
+                            state.getBoolean("cooking") && clay.getItem(5).getCount() == 1
+                                    && clay.getItem(4).is(item("food_007").getItem()) && !clay.getItem(13).isEmpty()
+                                    && state.getInt("cookexp") == 5 && p.containerMenu == p.inventoryMenu);
+                }),
+                new Action(4, p -> useBlock(clayPos)),
+                new Action(4, p -> useBlock(clayPos)),
+                new Action(4, p -> useBlock(clayPos)),
+                new Action(4, p -> useBlock(clayPos)),
+                new Action(4, p -> useBlock(clayPos)),
+                new Action(6, p -> {
+                    CompoundTag state = pot(p, clayPos).getPersistentData();
+                    expectTrue("五次砂锅翻炒结束并清零，厨艺经验增加 5（实际 " + (Professions.experience(p, Profession.COOKING) - cookingBefore) + "），经验字段清零",
+                            !state.getBoolean("cooking") && state.getDouble("cooknumber") == 0 && state.getDouble("cookexp") == 0
+                                    && Professions.experience(p, Profession.COOKING) - cookingBefore == 5
+                                    && pot(p, clayPos).getItem(4).is(item("food_007").getItem()));
                 })
         );
     }
@@ -220,6 +278,11 @@ final class FuluCookingCheck extends ActionCheck {
         player.closeContainer();
         pot(player).clearContent();
         table(player).clearContent();
+        if (clayPos != null) {
+            pot(player, clayPos).clearContent();
+            for (int below = 0; below < 3; below++) player.serverLevel().setBlockAndUpdate(clayPos.below(below), clayBlocks.get(below));
+            player.getData(ProfessionAttachments.PROGRESS).set(Profession.COOKING, cooking);
+        }
         for (int below = 0; below < 3; below++) {
             player.serverLevel().setBlockAndUpdate(potPos.below(below), potBlocks.get(below));
             player.serverLevel().setBlockAndUpdate(tablePos.below(below), tableBlocks.get(below));
