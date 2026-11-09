@@ -30,6 +30,8 @@ public final class FuluClientSetup {
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerEntityRenderer(FuluSetup.summon().get(), TalismanSummonRenderer::new));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> FuluSetup.beasts().forEach((id, row) ->
                 event.registerEntityRenderer(FuluSetup.beast(id).get(), context -> new AnimatedEntityRenderer<>(context, row))));
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
+                event.registerEntityRenderer(FuluSetup.cloud().get(), context -> new AnimatedEntityRenderer<>(context, FuluSetup.cloudModel())));
         NeoForge.EVENT_BUS.addListener(FuluTooltip::onTooltip);
     }
 }

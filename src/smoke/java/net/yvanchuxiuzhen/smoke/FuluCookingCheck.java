@@ -44,6 +44,7 @@ import net.yvanchuxiuzhen.system.fulu.client.DrawingTableScreen;
 import net.yvanchuxiuzhen.system.fulu.content.AshBurnerBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableMenu;
+import net.yvanchuxiuzhen.system.fulu.content.CloudSpirit;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
@@ -528,6 +529,19 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("40 号符一阶：防御提升 1200 刻（等级 1）并获得效果 022",
                             p.hasEffect(MobEffects.DAMAGE_RESISTANCE) && p.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() == 1
                                     && p.getActiveEffects().stream().anyMatch(effect -> effect.getEffect().getRegisteredName().endsWith("effect_022")));
+                
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_44", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    FuluUse.activate(p, p.getInventory().getItem(HOTBAR), 44);
+                }),
+                new Action(6, p -> {
+                    var spirits = p.serverLevel().getEntities(EntityTypeTest.forClass(CloudSpirit.class), mob -> true);
+                    expectTrue("44 号符：召唤被使用者驯服的云灵，携带品阶、符名与召唤者 UUID（数量 " + spirits.size() + "）",
+                            spirits.size() == 1 && spirits.get(0).isTame() && spirits.get(0).isOwnedBy(p)
+                                    && spirits.get(0).getPersistentData().getString("fuluname").equals("云灵符")
+                                    && spirits.get(0).getPersistentData().getDouble("fululevel") == 1);
+                    minecraft.execute(() -> screenshots.take("fulu-cloud-spirit.png"));
                 })
         );
     }
@@ -594,6 +608,7 @@ final class FuluCookingCheck extends ActionCheck {
         }
         if (dummy != null) {
             dummy.discard();
+            player.serverLevel().getEntities(EntityTypeTest.forClass(CloudSpirit.class), mob -> true).forEach(mob -> mob.discard());
             player.removeAllEffects();
             player.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> true).forEach(shot -> shot.discard());
             player.setGameMode(gameMode);

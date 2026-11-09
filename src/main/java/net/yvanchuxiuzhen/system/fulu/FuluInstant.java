@@ -34,6 +34,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
+import net.yvanchuxiuzhen.system.fulu.content.CloudSpirit;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
@@ -47,7 +48,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
  * 04 弹飞、06 落雷、07 烈焰、08 冰封、11 护体、25 加速、46 火球。统一流程为先付精力、播释放声、取品阶，再按编号执行，最后消耗一张。
  */
 final class FuluInstant {
-    private static final Set<Integer> NUMBERS = Set.of(1, 4, 5, 40, 43, 45, 47, 48, 49, 6, 7, 8, 9, 11, 12, 14, 25, 26, 27, 29, 32, 34, 36, 38, 46);
+    private static final Set<Integer> NUMBERS = Set.of(1, 4, 5, 40, 44, 43, 45, 47, 48, 49, 6, 7, 8, 9, 11, 12, 14, 25, 26, 27, 29, 32, 34, 36, 38, 46);
 
     private static final TagKey<Block> ORES = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "ores"));
 
@@ -96,6 +97,7 @@ final class FuluInstant {
                     return;
                 }
             }
+            case 44 -> cloudSpirit(level, player, grade);
             case 45 -> cannon(level, player, grade);
             case 46 -> fireball(level, player, grade);
             default -> throw new IllegalArgumentException("not an instant talisman: " + number);
@@ -366,6 +368,30 @@ final class FuluInstant {
             EnchantmentHelper.updateEnchantments(target, mutable -> mutable.set(enchantment, level));
         }
         stack.shrink(1);
+    }
+
+    /**
+     * 44：在视线 6 格处（下移至空气）召唤云灵，朝向与使用者一致，继承阵营并被使用者驯服，记入品阶、符名与召唤者 UUID。
+     */
+    private static void cloudSpirit(ServerLevel level, ServerPlayer player, double grade) {
+        BlockPos spot = lowered(level, player, 6);
+        CloudSpirit mob = FuluSetup.cloud().get().create(level);
+        mob.moveTo(spot.getX(), spot.getY(), spot.getZ(), level.random.nextFloat() * 360F, 0);
+        Relations.copyAllegiance(player, mob);
+        mob.setYRot(player.getYRot());
+        mob.setXRot(0);
+        mob.setYBodyRot(mob.getYRot());
+        mob.setYHeadRot(mob.getYRot());
+        mob.yRotO = mob.getYRot();
+        mob.xRotO = mob.getXRot();
+        mob.yBodyRotO = mob.getYRot();
+        mob.yHeadRotO = mob.getYRot();
+        mob.getPersistentData().putDouble("fululevel", grade);
+        mob.getPersistentData().putString("fuluname", "云灵符");
+        mob.getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
+        mob.tame(player);
+        mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
+        level.addFreshEntity(mob);
     }
 
     /** 05：品阶记入使用者持久数据，从眼前射出一枚穿透 10 的气剑。 */

@@ -2914,9 +2914,9 @@ yvanchuxiuzhen,Fulutexiao45DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fu
 yvanchuxiuzhen,Fulutexiao45,rangeditem,~/item/huafu,fulu,已读,40/43/45/47/48/49号符的物品过程与45号火炮弹已读
 yvanchuxiuzhen,Itemfulu45,item,~/item/huafu,fulu,已读,40/43/45/47/48/49号符的物品过程与45号火炮弹已读
 yvanchuxiuzhen,Fulu,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fulutexiao44,animatedentity,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fulutexiao44DangShiTiGengXinKeShi,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fulutexiao44DangYouJianDianJiShiTi,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fulutexiao44,animatedentity,~/item/huafu,fulu,已读,44号云灵符及其更新与右键过程已读（右键过程对自身发消息，无实际效果）
+yvanchuxiuzhen,Fulutexiao44DangShiTiGengXinKeShi,procedure,~/item/huafu,fulu,已读,44号云灵符及其更新与右键过程已读（右键过程对自身发消息，无实际效果）
+yvanchuxiuzhen,Fulutexiao44DangYouJianDianJiShiTi,procedure,~/item/huafu,fulu,已读,44号云灵符及其更新与右键过程已读（右键过程对自身发消息，无实际效果）
 yvanchuxiuzhen,Zhuangshitizi,animatedblock,~/decorate/buildingblocks,decor,已读,B1 归属阅读：装饰梯：放置过程只改本方块
 yvanchuxiuzhen,Stone,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Wool,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
