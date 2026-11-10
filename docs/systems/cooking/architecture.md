@@ -229,3 +229,11 @@ A的ShipuCommand/ShipuGo由CookingRecipeCommands承载，权限至少1；根/贪
 ## 铁盘掉落（2026-11-10）
 
 来源B `FoodtiepanBlock.getDrops` 先返回父类非空战利品；父类结果为空时返回铁盘自身一件。目标 `BlockRow.fallbackDrop` 只有数据解析而没有运行时消费者，故使用专用 `IronPlateBlock` 保留这一行为，不修改所有内容表方块的公共掉落逻辑。其余含水状态、方向、形状与材质由现有 `WaterloggedContentBlock` 和 `BlockTraits` 承载。已在既有 `fulucooking` 场景通过目标 `Block.getDrops` 检查验证空战利品表结果；来源版本实机、破坏完整自然路径及两版本对照未执行。
+
+## 普通食物获取配方与分类标签（2026-11-10）
+
+13条recipe已完整读取MCreator定义与生成JSON，逐项核当前目标JSON、转换manifest来源SHA1和data_skipped。单松果出4松子、四丁香花出2丁香干、桂皮等五材料出3份tiaowei_07，以及三族食材的熔炼/烟熏/营火配方共12条属于Cooking材料/食物加工；food083、food060、food084分别以059、032、060为输入，前两族用时200/100/600刻、经验1，084用时200/100/300刻、烟熏经验0、其余1。剩余 `Shicai001seedhecheng` 为4个水稻种子转1份大米，按其将植物收获物转为食材的功能归Cooking；`Shicai039hecheng` 是1个葫芦转1颗039种子的植物获取入口，按其唯一种植消费者归Plant。两者均为无序合成，材料仅按注册ID跨系统引用。目标全部保持，不生成带CUSTOM_DATA的菜谱实例；动态菜谱仍走shipu等来源入口。现有JSON及manifest无差异，本批不据此宣称自然运行场景已验收。
+
+Panzhuang/Wanzhuang/Dapenzhuang/Tiepanzhuang四block标签被FoodYouJian消费以恢复四容器；Zhushi/Caipin/Tangshui/Chadian四item标签被食用、盘菜和ItemLore分类分支消费。当前目标九个tag JSON与来源完全一致，来源SHA1匹配manifest；八个实际烹饪分类标签改归属已读。料理获取涉及plant/creature的生产者仍由各自系统实现，不因配方转换而计完整自然供给链闭合。
+
+Canbeground的四成员为小麦、fuluzhushablock、shicai_001、shicai_002。来源唯一字符串引用在Stonemill右键过程MCreator XML的独立controls_if根；XML event_trigger子树无该tag，生成Java也不检查它，普通点击实际执行grind4并播放动画。目标StoneMillRuntime/Grinding不加此准入。标签数据保留，归属保持候选并记录待裁定，不把游离编辑器积木接成新玩法。

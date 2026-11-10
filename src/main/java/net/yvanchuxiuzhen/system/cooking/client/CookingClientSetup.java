@@ -5,6 +5,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.cooking.content.CookingBlockEntities;
 import net.yvanchuxiuzhen.system.cooking.content.CookingMenus;
 import net.yvanchuxiuzhen.system.cooking.content.WineMenus;
@@ -16,6 +17,7 @@ public final class CookingClientSetup {
     }
 
     public static void register(IEventBus modBus) {
+        NeoForge.EVENT_BUS.addListener(MealTooltip::onTooltip);
         SteamerClientSetup.register(modBus);
         TablewareClientSetup.register(modBus);
         CuttingClientSetup.register(modBus);

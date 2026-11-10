@@ -589,7 +589,7 @@ yvanchuxiuzhen,Peachlog,block,~/plant/tree,plant,已读,B1 归属阅读：树木
 yvanchuxiuzhen,Peachlogtop,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Sylvestrispinenut,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Sylvestrispinecone,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Sylvestrispineconehecheng,recipe,~/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Sylvestrispineconehecheng,recipe,~/food,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
 yvanchuxiuzhen,PeachkernelDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/food,plant,已读,B1 归属阅读：随 Peachkernel 读：桃核：由桃 Peachpeach 得到，唯一规则是右键种下桃树苗，属树木种植
 yvanchuxiuzhen,SylvestrissaplingDangGuFenChengGongShiYong,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Sylvestrissapling 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
 yvanchuxiuzhen,Sylvestrissapling,plant,~/plant/tree,plant,已读,B1 归属阅读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
@@ -878,7 +878,7 @@ yvanchuxiuzhen,Shicai03801,item,~/food,plant,已读,B1 归属阅读：作物种�
 yvanchuxiuzhen,Shicai03805,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Shicai039,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；festival 的 Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi；npc 的 Businessman06ShiTiChuShiShengChengShi；plant 的 Shicai039Plant04；treasure 的 BaoxiangZuowu 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
 yvanchuxiuzhen,Shicai03901,item,~/food,plant,已读,B1 归属阅读：作物种子：唯一规则是右键耕地种下对应作物（共用 Shicai001seed 种植过程，plant），没有食用或烹饪规则
-yvanchuxiuzhen,Shicai039hecheng,recipe,~/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Shicai039hecheng,recipe,~/food,plant,已读,2026-11-10 两配方专项复核：1个shicai_039生成1个03901葫芦籽；产物唯一规则为useOn进入共享种植过程039分支（DIRT/GRASS材质、UP、上方空，种039Plant01扣1），无食用或烹饪消费者；配方是Plant种子获取功能，原料仅按ID引用Cooking；依据system-design归属判定，不按目录/输入/无CUSTOM_DATA判归属
 yvanchuxiuzhen,Shicai040,item,~/food,cooking,已读,B1 归属阅读：食材：作为烹饪原料被厨具与菜谱按 ID 使用，可直接种下的分支走 plant 的种植过程（Shicai001seed、Moguplace、Jvnleiplace）
 yvanchuxiuzhen,Shicai041,item,~/food,cooking,已读,B1 归属阅读：食材：作为烹饪原料被厨具与菜谱按 ID 使用，可直接种下的分支走 plant 的种植过程（Shicai001seed、Moguplace、Jvnleiplace）
 yvanchuxiuzhen,Shicai042,item,~/food,cooking,已读,B1 归属阅读：食材：作为烹饪原料被厨具与菜谱按 ID 使用，可直接种下的分支走 plant 的种植过程（Shicai001seed、Moguplace、Jvnleiplace）
@@ -2230,10 +2230,10 @@ yvanchuxiuzhen,MaPlant03,plant,~/plant/crop,plant,已读,B1 归属阅读：作�
 yvanchuxiuzhen,MaPlant04DangZhiWuBeiWanJiaPoPiShi,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 MaPlant04 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,MaPlant04,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,Mulberrymulberry,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,MulberrysaplingDangGuFenChengGongShiYong,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Mulberrysapling 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
-yvanchuxiuzhen,Mulberrysapling,plant,~/plant/tree,plant,已读,B1 归属阅读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
-yvanchuxiuzhen,Mulberryleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
-yvanchuxiuzhen,Mulberryleaveslist,loottable,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,MulberrysaplingDangGuFenChengGongShiYong,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Mulberrysapling 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用；2026-11-10 来源复核：桑苗5%生长与mulberry_01模板、首个ServerTick END写根、叶片生命周期与破坏独立生蚕、叶loot；按实际规则归plant，Craft实体按注册ID初始化，详情见plant/ledger/source-evidence.csv
+yvanchuxiuzhen,Mulberrysapling,plant,~/plant/tree,plant,已读,B1 归属阅读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用；2026-11-10 来源复核：桑苗5%生长与mulberry_01模板、首个ServerTick END写根、叶片生命周期与破坏独立生蚕、叶loot；按实际规则归plant，Craft实体按注册ID初始化，详情见plant/ledger/source-evidence.csv
+yvanchuxiuzhen,Mulberryleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用；2026-11-10 来源复核：桑苗5%生长与mulberry_01模板、首个ServerTick END写根、叶片生命周期与破坏独立生蚕、叶loot；按实际规则归plant，Craft实体按注册ID初始化，详情见plant/ledger/source-evidence.csv
+yvanchuxiuzhen,Mulberryleaveslist,loottable,~/plant/tree,plant,已读,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 来源复核：桑苗5%生长与mulberry_01模板、首个ServerTick END写根、叶片生命周期与破坏独立生蚕、叶loot；按实际规则归plant，Craft实体按注册ID初始化，详情见plant/ledger/source-evidence.csv
 yvanchuxiuzhen,Mulberrylog,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Mulberry02,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SilkwormentityDangYouJianDianJiShiTi,procedure,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
@@ -2258,7 +2258,7 @@ yvanchuxiuzhen,CanheZaiFangKuaiShangYouJian,procedure,~/tool,craft,已读,B1 归
 yvanchuxiuzhen,Silkwormchrysalis02DangPiLinFangKuaiGengXinShi,procedure,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
 yvanchuxiuzhen,Silkwormchrysalis02,block,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
 yvanchuxiuzhen,Silkwormchrysalisgold02,block,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
-yvanchuxiuzhen,MulberryleavesDangFangKuaiBeiWanJiaPoPiShi,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Mulberryleaves 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
+yvanchuxiuzhen,MulberryleavesDangFangKuaiBeiWanJiaPoPiShi,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Mulberryleaves 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用；2026-11-10 来源复核：桑苗5%生长与mulberry_01模板、首个ServerTick END写根、叶片生命周期与破坏独立生蚕、叶loot；按实际规则归plant，Craft实体按注册ID初始化，详情见plant/ledger/source-evidence.csv
 yvanchuxiuzhen,SaosilunZaiFangKuaiShangYouJian,procedure,~/tool,craft,已读,B1 归属阅读：随 Saosilun 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,SaosilunGengXinYouXiKe,procedure,~/tool,craft,已读,B1 归属阅读：随 Saosilun 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,Saosilun,animatedblock,~/tool,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
@@ -2366,19 +2366,19 @@ yvanchuxiuzhen,Tiaowei03,item,~/item/food/tiaowei,cooking,已读,B1 归属阅读
 yvanchuxiuzhen,Tiaowei04,item,~/item/food/tiaowei,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Tiaowei05,item,~/item/food/tiaowei,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Tiaowei06,item,~/item/food/tiaowei,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Shicai001seedDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai001seed 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai001seed,item,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai001Plant01GengXinYouXiKe,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai001Plant01 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai001Plant01,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai001Plant01DangGuFenChengGongShiYong,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai001Plant01 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,ShicaiPlantCuishujilv,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai001Plant01 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai001Plant02,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai001Plant03,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai001Plant04,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai001Plant05,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai001Plant06,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai001Plant07,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai001Plant08,plant,~/plant/crop,plant,已读,B1 归属阅读：作物成熟阶段或收获物，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Shicai001seedDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai001seed 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 补充来源核对：仅Shicai001分支与当前完整调用次序；本次不改变共享过程owner或原归属阅读状态，不计其他编号已实现，分支证据见plant/ledger/source-evidence.csv
+yvanchuxiuzhen,Shicai001seed,item,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 来源复核：水稻001八阶段、湿度与20%生长、原生种植、骨粉50%与上下写入、成熟种子及成熟地物规则；归plant生长收获职责，具体边界见plant/architecture.md及source-evidence.csv
+yvanchuxiuzhen,Shicai001Plant01GengXinYouXiKe,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai001Plant01 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 来源复核：水稻001八阶段、湿度与20%生长、原生种植、骨粉50%与上下写入、成熟种子及成熟地物规则；归plant生长收获职责，具体边界见plant/architecture.md及source-evidence.csv
+yvanchuxiuzhen,Shicai001Plant01,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 来源复核：水稻001八阶段、湿度与20%生长、原生种植、骨粉50%与上下写入、成熟种子及成熟地物规则；归plant生长收获职责，具体边界见plant/architecture.md及source-evidence.csv
+yvanchuxiuzhen,Shicai001Plant01DangGuFenChengGongShiYong,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai001Plant01 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 补充来源核对：仅Shicai001分支与当前完整调用次序；本次不改变共享过程owner或原归属阅读状态，不计其他编号已实现，分支证据见plant/ledger/source-evidence.csv
+yvanchuxiuzhen,ShicaiPlantCuishujilv,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai001Plant01 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 补充来源核对：仅Shicai001分支与当前完整调用次序；本次不改变共享过程owner或原归属阅读状态，不计其他编号已实现，分支证据见plant/ledger/source-evidence.csv
+yvanchuxiuzhen,Shicai001Plant02,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 来源复核：水稻001八阶段、湿度与20%生长、原生种植、骨粉50%与上下写入、成熟种子及成熟地物规则；归plant生长收获职责，具体边界见plant/architecture.md及source-evidence.csv
+yvanchuxiuzhen,Shicai001Plant03,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 来源复核：水稻001八阶段、湿度与20%生长、原生种植、骨粉50%与上下写入、成熟种子及成熟地物规则；归plant生长收获职责，具体边界见plant/architecture.md及source-evidence.csv
+yvanchuxiuzhen,Shicai001Plant04,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 来源复核：水稻001八阶段、湿度与20%生长、原生种植、骨粉50%与上下写入、成熟种子及成熟地物规则；归plant生长收获职责，具体边界见plant/architecture.md及source-evidence.csv
+yvanchuxiuzhen,Shicai001Plant05,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 来源复核：水稻001八阶段、湿度与20%生长、原生种植、骨粉50%与上下写入、成熟种子及成熟地物规则；归plant生长收获职责，具体边界见plant/architecture.md及source-evidence.csv
+yvanchuxiuzhen,Shicai001Plant06,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 来源复核：水稻001八阶段、湿度与20%生长、原生种植、骨粉50%与上下写入、成熟种子及成熟地物规则；归plant生长收获职责，具体边界见plant/architecture.md及source-evidence.csv
+yvanchuxiuzhen,Shicai001Plant07,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 来源复核：水稻001八阶段、湿度与20%生长、原生种植、骨粉50%与上下写入、成熟种子及成熟地物规则；归plant生长收获职责，具体边界见plant/architecture.md及source-evidence.csv
+yvanchuxiuzhen,Shicai001Plant08,plant,~/plant/crop,plant,已读,B1 归属阅读：作物成熟阶段或收获物，无过程；只在配方、标签或战利品表中出现；2026-11-10 来源复核：水稻001八阶段、湿度与20%生长、原生种植、骨粉50%与上下写入、成熟种子及成熟地物规则；归plant生长收获职责，具体边界见plant/architecture.md及source-evidence.csv
 yvanchuxiuzhen,Shicai00102,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 liandan 的 GrindGo 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
 yvanchuxiuzhen,Shicai002seed,item,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,Shicai002Plant01GengXinYouXiKe,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai002Plant01 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
@@ -2419,7 +2419,7 @@ yvanchuxiuzhen,Shicai006Plant05,plant,~/plant/crop,plant,已读,B1 归属阅读�
 yvanchuxiuzhen,Shicai006Plant06,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,Shicai006Plant07,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,Shicai006Plant08,plant,~/plant/crop,plant,已读,B1 归属阅读：作物成熟阶段或收获物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Shicai001seedhecheng,recipe,~/plant/crop,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Shicai001seedhecheng,recipe,~/plant/crop,cooking,已读,2026-11-10 两配方专项复核：4个shicai_001seed生成1个shicai_001大米；功能为将植物种子加工成Cooking食材，输出自身无种植事件，商品/宝箱/Craft研磨按ID引用不改食材归属；依据system-design从玩家入口到结果的功能规则，种子Plant身份不决定该食材配方owner
 yvanchuxiuzhen,Shicai002seedhecheng,recipe,~/plant/crop,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shicai006seedhecheng,recipe,~/plant/crop,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shicai007Plant01DangGuFenChengGongShiYong,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai007Plant01 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
@@ -2687,16 +2687,16 @@ yvanchuxiuzhen,Shicai056Plant03,plant,~/plant/crop,plant,已读,B1 归属阅读�
 yvanchuxiuzhen,Shicai056Plant04,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,Shicai056Plant05,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,Jiazi,tag,~/plant/crop,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Panzhuang,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Wanzhuang,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dapenzhuang,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tiepanzhuang,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Panzhuang,tag,~/item/food,cooking,已读,被A `FoodYouJianProcedure:66–73`读取，四分支分别决定盘菜消耗后恢复瓷盘/碗/大碗/铁盘；目标 `MealEffects.usePlate` 逐一消费
+yvanchuxiuzhen,Wanzhuang,tag,~/item/food,cooking,已读,被A `FoodYouJianProcedure:66–73`读取，四分支分别决定盘菜消耗后恢复瓷盘/碗/大碗/铁盘；目标 `MealEffects.usePlate` 逐一消费
+yvanchuxiuzhen,Dapenzhuang,tag,~/item/food,cooking,已读,被A `FoodYouJianProcedure:66–73`读取，四分支分别决定盘菜消耗后恢复瓷盘/碗/大碗/铁盘；目标 `MealEffects.usePlate` 逐一消费
+yvanchuxiuzhen,Tiepanzhuang,tag,~/item/food,cooking,已读,被A `FoodYouJianProcedure:66–73`读取，四分支分别决定盘菜消耗后恢复瓷盘/碗/大碗/铁盘；目标 `MealEffects.usePlate` 逐一消费
 yvanchuxiuzhen,Effect028,potioneffect,~/effect,cooking,已读,C combat 归属阅读（改判后确认）：食用主食、菜肴、汤水标记，没有自身过程，由烹饪的食用过程读写
 yvanchuxiuzhen,Effect029,potioneffect,~/effect,cooking,已读,C combat 归属阅读（改判后确认）：食用主食、菜肴、汤水标记，没有自身过程，由烹饪的食用过程读写
-yvanchuxiuzhen,Zhushi,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Caipin,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tangshui,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chadian,tag,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Zhushi,tag,~/item/food,cooking,已读,被A `FoodblockyoujianProcedure:17–36`、`FooditemshiyongProcedure:19–32`读取分类；`ItemLoreProcedure:195–202`仅追加类别提示；目标 `MealEffects.category` 保留四分类优先序
+yvanchuxiuzhen,Caipin,tag,~/item/food,cooking,已读,被A `FoodblockyoujianProcedure:17–36`、`FooditemshiyongProcedure:19–32`读取分类；`ItemLoreProcedure:195–202`仅追加类别提示；目标 `MealEffects.category` 保留四分类优先序
+yvanchuxiuzhen,Tangshui,tag,~/item/food,cooking,已读,被A `FoodblockyoujianProcedure:17–36`、`FooditemshiyongProcedure:19–32`读取分类；`ItemLoreProcedure:195–202`仅追加类别提示；目标 `MealEffects.category` 保留四分类优先序
+yvanchuxiuzhen,Chadian,tag,~/item/food,cooking,已读,被A `FoodblockyoujianProcedure:17–36`、`FooditemshiyongProcedure:19–32`读取分类；`ItemLoreProcedure:195–202`仅追加类别提示；目标 `MealEffects.category` 保留四分类优先序
 yvanchuxiuzhen,Effect030,potioneffect,~/effect,cooking,已读,C combat 归属阅读（改判后确认）：食用主食、菜肴、汤水标记，没有自身过程，由烹饪的食用过程读写
 yvanchuxiuzhen,ThistlesandthornsDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Thistlesandthorns 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Thistlesandthorns,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
@@ -2769,7 +2769,7 @@ yvanchuxiuzhen,Qiankundaoren,animatedblock,~/tool/xvnlong,npc,已读,B1 归属�
 yvanchuxiuzhen,YvanchuFulu,tab,~/systemset/classification,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fuluzhushablock,block,~/item/huafu,fulu,已读,B1 归属阅读：符箓或画符材料：无过程；被 liandan 的 GrindGo 按 ID 引用（奖励、初始物品、研磨或加工墨料、替死符在伤害结算中的检查），不赋予它规则
 yvanchuxiuzhen,Fuluzhushaitem,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓或画符材料：无过程；被 cooking 的 Wushipupengren；liandan 的 GrindGo 按 ID 引用（奖励、初始物品、研磨或加工墨料、替死符在伤害结算中的检查），不赋予它规则
-yvanchuxiuzhen,Canbeground,tag,~/tag/foodxiangguan,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Canbeground,tag,~/tag/foodxiangguan,cooking,候选,唯一引用为Stonemill右键Procedure XML detached比较块；生成Java无tag消费者，实际石磨不检查准入。所属系统待裁定，保留转换数据但不宣称玩法有效
 yvanchuxiuzhen,StonemillZaiFangKuaiShangYouJian,procedure,~/tool,craft,已读,完整读取A:36–61及Stonemill/Stoneroller两调用者；潜行开三槽菜单，非潜行在设备坐标执行grind 4后写动画1；工艺库存与研磨入口归craft，无玩家能力字段读写
 yvanchuxiuzhen,Stonemill,animatedblock,~/tool,craft,已读,完整读取A:StonemillBlock、StonemillTileEntity、DisplayItem、两模型与两渲染器，调用共用自然交互/菜单和研磨；三槽库存、加工与动画归craft；静态证据见docs/systems/craft/ledger/source-evidence.csv
 yvanchuxiuzhen,StonemillGui,gui,~/tool,craft,已读,完整读取A:StonemillGuiMenu与Screen，唯一自然入口StonemillZaiFangKuaiShangYouJian潜行开窗；共用三槽库存、Shift过滤、无按钮研磨标签，随craft设备
@@ -2945,12 +2945,12 @@ yvanchuxiuzhen,Tripod07hecheng,recipe,~/tool,lianqi,已读,2026-11-09 炼器剩�
 yvanchuxiuzhen,Tripod08hecheng,recipe,~/tool,lianqi,已读,2026-11-09 炼器剩余候选审读：原生有序合成配方：形状0空2/345/678；cailiao_218二件、208五件、198一件，产tripod_0801一件；统一命名空间并将result.item改id后目标JSON逐项一致。
 yvanchuxiuzhen,Dingxiangflower,item,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Dingxiangflowerdry,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Dingxiangflowerdryhecheng,recipe,~/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Dingxiangflowerdryhecheng,recipe,~/food,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
 yvanchuxiuzhen,Dingxiangleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Dingxianglog,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Dingxiang01,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tiaowei07,item,~/item/food/tiaowei,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Tiaowei07hecheng,recipe,~/item/food/tiaowei,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Tiaowei07hecheng,recipe,~/item/food/tiaowei,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
 yvanchuxiuzhen,Shicai057,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Shicai058,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 liandan 的 GrindGo 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
 yvanchuxiuzhen,Shicai05701,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：作物成熟阶段或收获物，无过程；只在配方、标签或战利品表中出现
@@ -2959,12 +2959,12 @@ yvanchuxiuzhen,Tiaowei08,item,~/item/food/tiaowei,cooking,已读,B1 归属阅读
 yvanchuxiuzhen,Shicai059WanJiaWanChengShiYongWuPinShi,procedure,~/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Shicai059,item,~/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Food083,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
-yvanchuxiuzhen,Food083hecheng,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Food083hecheng2,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Food083hecheng3,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Food060hecheng,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Food060hecheng2,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Food060hecheng3,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Food083hecheng,recipe,~/item/food,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
+yvanchuxiuzhen,Food083hecheng2,recipe,~/item/food,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
+yvanchuxiuzhen,Food083hecheng3,recipe,~/item/food,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
+yvanchuxiuzhen,Food060hecheng,recipe,~/item/food,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
+yvanchuxiuzhen,Food060hecheng2,recipe,~/item/food,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
+yvanchuxiuzhen,Food060hecheng3,recipe,~/item/food,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
 yvanchuxiuzhen,Organism11,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Organism11list,loottable,~/entity/environment,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Organism11DangShiTiShouShangShi,procedure,~/entity/environment,creature,已读,B1 归属阅读：随 Organism11 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
@@ -4452,9 +4452,9 @@ yvanchuxiuzhen,Gedang09,procedure,~/skill/jineng,skill,已读,阶段5逐项读�
 yvanchuxiuzhen,Gedang10,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Dunpai,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food084,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
-yvanchuxiuzhen,Food084hecheng,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Food084hecheng2,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Food084hecheng3,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Food084hecheng,recipe,~/item/food,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
+yvanchuxiuzhen,Food084hecheng2,recipe,~/item/food,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
+yvanchuxiuzhen,Food084hecheng3,recipe,~/item/food,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
 yvanchuxiuzhen,Cailiao141DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/monstermaterial,lianqi,已读,D lianqi 归属阅读：过程18–86由141–146自身use触发，按主手材料给无对应附魔的副手淬毒；fumozongshu先增再写新序号fumo/命名空间/100，附魔1并主手耗一；累计记录由equipment写，命中效果仍属combat。
 yvanchuxiuzhen,Npcskill0301,procedure,~/entity/tongyongjinengskill,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,MurenzhuangDangShiTiShouShangShi,procedure,~/tool/murenzhuang,combat,已读,C combat 归属阅读：随木人桩读：受击处理（按战利品表选动画、下一刻报告伤害并回满生命）

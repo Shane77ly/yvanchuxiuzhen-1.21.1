@@ -1,6 +1,16 @@
 package net.yvanchuxiuzhen.smoke;
 
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
+import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
 import net.yvanchuxiuzhen.system.cooking.content.CleaverBlock;
@@ -219,6 +229,22 @@ final class FuluCookingCheck extends ActionCheck {
     private ItemStack foodEatingBefore = ItemStack.EMPTY;
     private Consumer<ClientTickEvent.Pre> foodRelease;
     private Consumer<EntityJoinLevelEvent> foodDropListener;
+
+    private Consumer<ScreenEvent.Render.Post> mealTooltipPreview;
+    private boolean mealTooltipScreenshotTaken;
+
+    private boolean riceActive;
+    private BlockPos ricePos;
+    private GameType riceMode;
+    private boolean riceFlying;
+    private int riceSelected;
+    private final List<ItemStack> riceInventory = new ArrayList<>();
+    private final Map<BlockPos, BlockState> riceBlocks = new LinkedHashMap<>();
+    private final Map<BlockPos, CompoundTag> riceEntities = new LinkedHashMap<>();
+    private final Map<BlockPos, List<ScheduledTick<Block>>> riceTicks = new LinkedHashMap<>();
+    private final Map<BlockPos, List<ScheduledTick<Fluid>>> riceFluidTicks = new LinkedHashMap<>();
+    private final List<ItemEntity> riceDrops = new ArrayList<>();
+    private Consumer<EntityJoinLevelEvent> riceDropListener;
 
     private boolean utensilsActive;
     private BlockPos utensilsBowl;
@@ -1986,6 +2012,100 @@ final class FuluCookingCheck extends ActionCheck {
                     p.getInventory().clearContent();
                     p.inventoryMenu.broadcastChanges();
                 }),
+                // 水稻：服务器原生玩家入口与确定性枯萎/loot；不依赖随机抽到生长或骨粉失败。
+                new Action(1, p -> {
+                    prepareRice(p);
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    riceHeld(p, item("shicai_001seed", 2));
+                    riceUse(p, ricePos.below());
+                    expectTrue("水稻服务器原生生存播种：湿耕地上放01并扣一颗",
+                            p.serverLevel().getBlockState(ricePos).is(block("shicai_001_plant_01").getBlock())
+                                    && p.getMainHandItem().getCount() == 1);
+
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    p.setGameMode(GameType.CREATIVE);
+                    riceHeld(p, item("shicai_001seed", 2));
+                    riceUse(p, ricePos.below());
+                    expectTrue("水稻服务器原生创造播种：放01且原生恢复种子数量",
+                            p.serverLevel().getBlockState(ricePos).is(block("shicai_001_plant_01").getBlock())
+                                    && p.getMainHandItem().getCount() == 2);
+
+                    p.setGameMode(GameType.SURVIVAL);
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                    riceHeld(p, item("shicai_001seed", 2));
+                    riceUse(p, ricePos.below());
+                    expectTrue("水稻服务器原生播种拒绝泥土且不扣种",
+                            p.serverLevel().isEmptyBlock(ricePos) && p.getMainHandItem().getCount() == 2);
+                }),
+                new Action(1, p -> {
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    p.serverLevel().setBlock(ricePos, block("shicai_001_plant_01"), 3);
+                    riceHeld(p, new ItemStack(Items.BONE_MEAL, 2));
+                    riceUse(p, ricePos);
+                    boolean remained = p.serverLevel().getBlockState(ricePos).is(block("shicai_001_plant_01").getBlock());
+                    boolean matured = p.serverLevel().getBlockState(ricePos).is(block("shicai_001_plant_08").getBlock());
+                    expectTrue("水稻原生骨粉有效目标扣一份并保持来源成功或失败结果；本次"
+                            + (remained ? "观察到50%失败" : "未观察到50%失败"),
+                            p.getMainHandItem().getCount() == 1 && (remained || matured));
+
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 0));
+                    riceDrops.forEach(Entity::discard);
+                    riceDrops.clear();
+                    p.serverLevel().setBlock(ricePos, block("shicai_001_plant_01"), 3);
+                    p.serverLevel().getBlockState(ricePos).randomTick(p.serverLevel(), ricePos, p.serverLevel().random);
+                    expectTrue("水稻受控原生randomTick：湿度0确定枯萎并只掉一颗种子",
+                            p.serverLevel().isEmptyBlock(ricePos)
+                                    && riceDrops.stream().filter(drop -> drop.getItem().is(item("shicai_001seed").getItem()))
+                                            .mapToInt(drop -> drop.getItem().getCount()).sum() == 1);
+                }),
+                new Action(1, p -> {
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    BlockState lower = block("shicai_001_plant_08");
+                    BlockState upper = lower.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER);
+                    DoublePlantBlock.placeAt(p.serverLevel(), lower, ricePos, 3);
+                    List<ItemStack> lowerDrops = Block.getDrops(lower, p.serverLevel(), ricePos, null);
+                    List<ItemStack> upperDrops = Block.getDrops(upper, p.serverLevel(), ricePos.above(), null);
+                    expectTrue("成熟水稻原生loot：下半六颗种子，上半不另掉落",
+                            lowerDrops.size() == 1 && lowerDrops.getFirst().is(item("shicai_001seed").getItem())
+                                    && lowerDrops.getFirst().getCount() == 6 && upperDrops.isEmpty());
+                    BlockState readLower = NbtUtils.readBlockState(p.registryAccess().lookupOrThrow(Registries.BLOCK), NbtUtils.writeBlockState(lower));
+                    BlockState readUpper = NbtUtils.readBlockState(p.registryAccess().lookupOrThrow(Registries.BLOCK), NbtUtils.writeBlockState(upper));
+                    expectTrue("水稻原生BlockState NBT往返保留成熟身份与上下半；不代替区块重载",
+                            readLower.equals(lower) && readUpper.equals(upper)
+                                    && readLower.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER
+                                    && readUpper.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER);
+                }),
+                new Action(1, p -> {
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                    BlockState sapling = block("mulberrysapling");
+                    p.serverLevel().setBlock(ricePos, sapling, 3);
+                    p.serverLevel().setBlock(ricePos.above(2), Blocks.STONE.defaultBlockState(), 3);
+                    List<ItemStack> saplingDrops = Block.getDrops(sapling, p.serverLevel(), ricePos, null);
+                    expectTrue("桑苗原生loot回落自身一株", saplingDrops.size() == 1
+                            && saplingDrops.getFirst().is(item("mulberrysapling").getItem())
+                            && saplingDrops.getFirst().getCount() == 1);
+                }),
+                new Action(12, p -> {
+                    BlockState sapling = block("mulberrysapling");
+                    riceHeld(p, new ItemStack(Items.BONE_MEAL, 2));
+                    riceUse(p, ricePos);
+                    expectTrue("遮天桑苗原生骨粉确定不生长但扣一份；sky="
+                                    + p.serverLevel().canSeeSkyFromBelowWater(ricePos.above())
+                                    + " block=" + BuiltInRegistries.BLOCK.getKey(p.serverLevel().getBlockState(ricePos).getBlock())
+                                    + " held=" + p.getMainHandItem(),
+                            !p.serverLevel().canSeeSkyFromBelowWater(ricePos.above())
+                                    && p.serverLevel().getBlockState(ricePos).is(sapling.getBlock())
+                                    && p.getMainHandItem().getCount() == 1);
+                    BlockState leaves = block("mulberryleaves");
+                    p.serverLevel().setBlock(ricePos, leaves, 3);
+                    SimpleWaterloggedBlock container = (SimpleWaterloggedBlock) leaves.getBlock();
+                    boolean allowed = container.canPlaceLiquid(p, p.serverLevel(), ricePos, leaves, Fluids.WATER);
+                    boolean placed = container.placeLiquid(p.serverLevel(), ricePos, leaves, Fluids.WATER.getSource(false));
+                    expectTrue("桑叶原生流体状态为空且注水查询与写入均拒绝",
+                            leaves.getFluidState().isEmpty() && !allowed && !placed
+                                    && p.serverLevel().getFluidState(ricePos).isEmpty());
+                }),
+                new Action(1, p -> restoreRice(p)),
                 // 餐具与案板：真实客户端输入；未执行来源过程或设备tick代替自然入口。
                 new Action(12, p -> {
                     prepareUtensils(p);
@@ -2180,8 +2300,151 @@ final class FuluCookingCheck extends ActionCheck {
                                     && utensilsBoard(p).getItem(0).getCount() == 63);
                     minecraft.execute(() -> screenshots.take("cooking-cutting-board-spectator-chinese.png"));
                 }),
+                new Action(8, p -> minecraft.execute(() -> checkMealTooltips(screenshots))),
+                new Action(8, p -> minecraft.execute(() -> {
+                    expectTrue("原生餐食Tooltip已绘制并截图，中文与金色待查看截图", mealTooltipScreenshotTaken);
+                    clearMealTooltipPreview();
+                })),
                 new Action(8, p -> restoreUtensils(p))
         );
+    }
+
+    /** 经客户端真实物品提示入口核对餐食分类，并在现有原生界面绘制一帧提示供截图。 */
+    private void checkMealTooltips(Screenshots screenshots) {
+        List<String> categories = List.of("主食", "菜品", "汤水", "茶点");
+        List<String> paths = List.of("food_018", "food_014", "food_003", "food_019");
+        Item.TooltipContext context = Item.TooltipContext.of(minecraft.level);
+        TextColor gold = TextColor.fromLegacyFormat(ChatFormatting.GOLD);
+        boolean noNullPlayerCategories = true;
+        for (int index = 0; index < paths.size(); index++) {
+            ItemStack stack = item(paths.get(index));
+            String expected = categories.get(index);
+            List<Component> lines = stack.getTooltipLines(context, minecraft.player, TooltipFlag.Default.NORMAL);
+            List<Component> classified = lines.stream().filter(line -> categories.contains(line.getString())).toList();
+            expectTrue("餐食真实getTooltipLines：" + paths.get(index) + "仅一条中文" + expected + "且为金色",
+                    classified.size() == 1 && classified.getFirst().getString().equals(expected)
+                            && gold.equals(classified.getFirst().getStyle().getColor()));
+            noNullPlayerCategories &= stack.getTooltipLines(context, null, TooltipFlag.Default.NORMAL).stream()
+                    .noneMatch(line -> categories.contains(line.getString()));
+        }
+        expectTrue("真实getTooltipLines：非分类石头不追加餐食类别",
+                new ItemStack(Items.STONE).getTooltipLines(context, minecraft.player, TooltipFlag.Default.NORMAL).stream()
+                        .noneMatch(line -> categories.contains(line.getString())));
+        expectTrue("真实getTooltipLines：四类餐食在null玩家时均不追加类别", noNullPlayerCategories);
+
+        if (!(minecraft.screen instanceof ContainerScreen screen)) {
+            fail("餐食提示截图缺少已打开的原生餐具界面");
+            return;
+        }
+        ItemStack preview = item("food_018");
+        mealTooltipScreenshotTaken = false;
+        mealTooltipPreview = event -> {
+            if (event.getScreen() != screen || mealTooltipScreenshotTaken) return;
+            event.getGuiGraphics().renderTooltip(minecraft.font, preview, screen.width / 2, screen.height / 2);
+            event.getGuiGraphics().flush();
+            screenshots.take("cooking-meal-category-tooltip-chinese-gold.png");
+            mealTooltipScreenshotTaken = true;
+        };
+        NeoForge.EVENT_BUS.addListener(mealTooltipPreview);
+    }
+
+    /** 截图检查结束后从客户端线程撤下临时渲染监听。 */
+    private void clearMealTooltipPreview() {
+        if (mealTooltipPreview != null) {
+            NeoForge.EVENT_BUS.unregister(mealTooltipPreview);
+            mealTooltipPreview = null;
+        }
+    }
+
+    private void prepareRice(ServerPlayer player) {
+        riceActive = true;
+        riceMode = player.gameMode.getGameModeForPlayer();
+        riceFlying = player.getAbilities().flying;
+        riceSelected = player.getInventory().selected;
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            riceInventory.add(player.getInventory().getItem(slot).copy());
+        }
+        player.closeContainer();
+        player.setGameMode(GameType.SURVIVAL);
+        ricePos = player.blockPosition().offset(2, 0, 2).immutable();
+        for (BlockPos mutable : BlockPos.betweenClosed(ricePos.offset(-1, -1, -1), ricePos.offset(1, 3, 1))) {
+            BlockPos pos = mutable.immutable();
+            riceBlocks.put(pos, player.serverLevel().getBlockState(pos));
+            BlockEntity old = player.serverLevel().getBlockEntity(pos);
+            if (old != null) riceEntities.put(pos, old.saveWithFullMetadata(player.registryAccess()));
+            riceTicks.put(pos, ((LevelChunkTicks<Block>) player.serverLevel().getChunkAt(pos).getBlockTicks())
+                    .getAll().filter(tick -> tick.pos().equals(pos)).toList());
+            riceFluidTicks.put(pos, ((LevelChunkTicks<Fluid>) player.serverLevel().getChunkAt(pos).getFluidTicks())
+                    .getAll().filter(tick -> tick.pos().equals(pos)).toList());
+        }
+        for (BlockPos pos : riceBlocks.keySet()) {
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
+            BlockEntity old = player.serverLevel().getBlockEntity(pos);
+            if (old instanceof Container container) container.clearContent();
+            player.serverLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+        }
+        riceDropListener = event -> {
+            if (event.getLevel() == player.serverLevel() && event.getEntity() instanceof ItemEntity drop
+                    && ricePos.distSqr(drop.blockPosition()) <= 25) {
+                riceDrops.add(drop);
+                drop.setNeverPickUp();
+            }
+        };
+        NeoForge.EVENT_BUS.addListener(riceDropListener);
+    }
+
+    private void riceHeld(ServerPlayer player, ItemStack stack) {
+        player.getInventory().clearContent();
+        player.getInventory().selected = HOTBAR;
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        player.inventoryMenu.broadcastChanges();
+    }
+
+    private void riceUse(ServerPlayer player, BlockPos pos) {
+        player.gameMode.useItemOn(player, player.serverLevel(), player.getMainHandItem(), InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(pos).add(0, .5, 0), Direction.UP, pos, false));
+    }
+
+    private void riceReset(ServerPlayer player, BlockState soil) {
+        for (int dy = 3; dy >= 0; dy--) player.serverLevel().setBlock(ricePos.above(dy), Blocks.AIR.defaultBlockState(), 3);
+        player.serverLevel().setBlock(ricePos.below(), soil, 3);
+    }
+
+    private void restoreRice(ServerPlayer player) {
+        if (!riceActive) return;
+        riceActive = false;
+        if (riceDropListener != null) NeoForge.EVENT_BUS.unregister(riceDropListener);
+        riceDrops.forEach(Entity::discard);
+        for (BlockPos pos : riceBlocks.keySet()) {
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+        }
+        for (Map.Entry<BlockPos, BlockState> entry : riceBlocks.entrySet()) {
+            BlockPos pos = entry.getKey();
+            player.serverLevel().setBlock(pos, entry.getValue(), 2);
+            CompoundTag original = riceEntities.get(pos);
+            if (original != null) {
+                BlockEntity restored = BlockEntity.loadStatic(pos, entry.getValue(), original, player.registryAccess());
+                player.serverLevel().setBlockEntity(restored);
+                restored.setChanged();
+                player.serverLevel().sendBlockUpdated(pos, entry.getValue(), entry.getValue(), 3);
+            }
+        }
+        for (BlockPos pos : riceBlocks.keySet()) {
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
+            riceTicks.get(pos).forEach(tick -> player.serverLevel().getBlockTicks().schedule(tick));
+            riceFluidTicks.get(pos).forEach(tick -> player.serverLevel().getFluidTicks().schedule(tick));
+        }
+        player.setGameMode(riceMode);
+        player.getAbilities().flying = riceFlying;
+        player.onUpdateAbilities();
+        for (int slot = 0; slot < riceInventory.size(); slot++) player.getInventory().setItem(slot, riceInventory.get(slot));
+        player.getInventory().selected = riceSelected;
+        player.inventoryMenu.broadcastChanges();
     }
 
     private void prepareUtensils(ServerPlayer player) {
@@ -2620,6 +2883,8 @@ final class FuluCookingCheck extends ActionCheck {
 
     @Override
     protected void cleanup(ServerPlayer player) {
+        restoreRice(player);
+        minecraft.execute(this::clearMealTooltipPreview);
         restoreUtensils(player);
         player.closeContainer();
         restoreFoodSmoke(player);

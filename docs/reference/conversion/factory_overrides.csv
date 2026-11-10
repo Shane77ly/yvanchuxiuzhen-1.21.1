@@ -425,3 +425,14 @@ block,yvanchuxiuzhen:fooddawan,cooking:large_bowl,cooking,单槽大碗容量2及
 block,yvanchuxiuzhen:anban,cooking:cutting_board,cooking,案板九槽原引用放料、逆序取料与20刻切菜状态
 block,yvanchuxiuzhen:caidaoblock,cooking:cleaver,cooking,切菜动画方块、8次20刻回调寿命与无案板移除
 item,yvanchuxiuzhen:caidaoblock,cooking:cleaver,cooking,菜刀方块物品Gecko渲染、来源tab(null)
+block,yvanchuxiuzhen:shicai_001_plant_01,plant:shicai001_01,plant,水稻八阶段生长、骨粉与来源掉落
+block,yvanchuxiuzhen:shicai_001_plant_02,plant:shicai001_02,plant,水稻八阶段生长、骨粉与来源掉落
+block,yvanchuxiuzhen:shicai_001_plant_03,plant:shicai001_03,plant,水稻八阶段生长、骨粉与来源掉落
+block,yvanchuxiuzhen:shicai_001_plant_04,plant:shicai001_04,plant,水稻八阶段生长、骨粉与来源掉落
+block,yvanchuxiuzhen:shicai_001_plant_05,plant:shicai001_05,plant,水稻八阶段生长、骨粉与来源掉落
+block,yvanchuxiuzhen:shicai_001_plant_06,plant:shicai001_06,plant,水稻八阶段生长、骨粉与来源掉落
+block,yvanchuxiuzhen:shicai_001_plant_07,plant:shicai001_07,plant,水稻八阶段生长、骨粉与来源掉落
+block,yvanchuxiuzhen:shicai_001_plant_08,plant:shicai001_08,plant,水稻八阶段生长、骨粉与来源掉落
+item,yvanchuxiuzhen:shicai_001seed,plant:shicai001_seed,plant,水稻种子右键原版耕地播种
+block,yvanchuxiuzhen:mulberrysapling,plant:mulberry_sapling,plant,桑苗随机刻与骨粉共用5%生长和刻末根部写入
+block,yvanchuxiuzhen:mulberryleaves,plant:mulberry_leaves,plant,桑叶玩家破坏顺序独立生成普通蚕与金蚕

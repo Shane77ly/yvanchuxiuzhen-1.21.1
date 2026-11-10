@@ -911,6 +911,8 @@ yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/enchantment/ZimuEnchant
 yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/enchantment/ZimuEnchantment.java,0e2f81efded5ecba5612f0decd512ec9e9bd0fa2,src/main/resources/data/yvanchuxiuzhen/tags/item/enchantable/weapon.json
 yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/world/biome/XvkongqvnxiBiome.java,42f8b6a10fd6b9eaa1acd79c6b5f29c72ef86196,src/main/resources/data/yvanchuxiuzhen/worldgen/biome/xvkongqvnxi.json
 yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/world/dimension/XvkongDimension.java,d9ab09f717d2fba4943deef5ad8e159a10178c55,src/main/resources/data/minecraft/tags/block/overworld_carver_replaceables.json
+yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/world/features/plants/Shicai001Plant08Feature.java,38cda11b738e6c1f06834af660135a81a3d78792,src/main/resources/data/yvanchuxiuzhen/worldgen/configured_feature/shicai_001_plant_08.json
+yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/world/features/plants/Shicai001Plant08Feature.java,38cda11b738e6c1f06834af660135a81a3d78792,src/main/resources/data/yvanchuxiuzhen/worldgen/placed_feature/shicai_001_plant_08.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/beewall.json,8512d3794af6677a0222e6af2a444d9eebd37c64,src/main/resources/data/yvanchuxiuzhen/tags/block/beewall.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/blockfire.json,06e390991cb0041be80b2e18aeebba8c752a7ce3,src/main/resources/data/yvanchuxiuzhen/tags/block/blockfire.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/camwall.json,7334693f4abe9355fff4363884585f99730e38e0,src/main/resources/data/yvanchuxiuzhen/tags/block/camwall.json

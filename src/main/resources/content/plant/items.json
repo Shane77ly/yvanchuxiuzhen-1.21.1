@@ -164,7 +164,7 @@
 {"id":"mulberrysapling","factory":"block_item","block":"mulberrysapling","order":1112,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"mulberryleaves","factory":"block_item","block":"mulberryleaves","order":1113,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"mulberrylog","factory":"block_item","block":"mulberrylog","order":1114,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
-{"id":"shicai_001seed","factory":"item","order":1224,"tab":"yvanchuxiuzhen:tabyvanchu_food","pending_hooks":["useOn"]},
+{"id":"shicai_001seed","factory":"plant:shicai001_seed","order":1224,"tab":"yvanchuxiuzhen:tabyvanchu_food"},
 {"id":"shicai_001_plant_01","factory":"block_item","block":"shicai_001_plant_01","order":1225},
 {"id":"shicai_001_plant_02","factory":"block_item","block":"shicai_001_plant_02","order":1226},
 {"id":"shicai_001_plant_03","factory":"block_item","block":"shicai_001_plant_03","order":1227},

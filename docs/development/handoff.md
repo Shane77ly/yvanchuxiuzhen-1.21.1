@@ -22,7 +22,7 @@ updated: 2026-11-10
 
 ## 进行中
 
-**当前执行 D 烹饪**（`port/d-cooking`，基线 `62f408f3`，铁盘补齐与本页同提交，最后提交以git log为准，未推送/未合main）：三餐具、案板菜刀17条注册与shipu命令已提交。本批补齐铁盘空战利品表时自身掉落，2条注册转行为已迁移。cooking内容转换完成，资源13419项/missing19及data1703项未变；完整build通过，既有fulucooking 143项INFO、0 FAIL、DONE，客户端四维度正常保存退出、ERROR/FATAL0。证据tmp/cooking-iron-plate-{convert.log,build.log,report.txt,client.log,smoke.log}。无新增注册或客户端表现，此次未重复专服，上一批专服正常stop结果仍见月志。三路子Agent并行核对配方标签、实现Shicai001与桑树供给；13普通recipe/8消费tag目标数据已初核一致，4类食物金色Tooltip遗漏待整合，Canbeground仅游离XML引用暂保候选。下一步整合审计与实现包并按风险验收。观想、猴儿酒结构、酒坛真实爆炸/火域、完整存档生命周期、来源实机及两版本对照仍待验收。
+**当前执行 D 烹饪与食材供给**（`port/d-cooking`，基线 `62f408f3`，之后提交以`git log`为准，未推送/未合`main`）：餐具、案板菜刀、铁盘自身掉落、13条配方/标签复核、金色餐食Tooltip、水稻001八阶段及桑苗桑叶行为已接入。两条种子配方按功能归属修正：039转可种植种子归Plant，001seed转Cooking大米归Cooking。水稻configured/placed通过标准`convert_data.py`可复现生成并追踪来源SHA-1；不装缺失World维度/群系modifier。完整`build compileSmokeJava`通过；最终内置`fulucooking` 160项INFO、0 FAIL、DONE，客户端四维度正常保存退出、ERROR/FATAL0，指定Tooltip截图中文与金色已查看。此为受控客户端检查，不覆盖自然生成、完整重登/存档周期、桑树模板生长、随机生蚕等。水稻自然投放、桑树野外feature、其余作物供给继续未闭合。下一步沿来源接Shicai002作物族，World完成其维度/biome后补自然投放；并继续推进Cooking剩余自然获取和酒坛真实爆炸/火域验收。完整goal active，不推送、不合`main`。
 
 **2026-11-10 当前批次**：15 号镇宅符、16 号替死符、22/23 号背包被动符与 42 号四档爆裂符已实现并录入台账。最终 `tmp/fulu-passive-explosive-verified-report.txt` 为 47 项 INFO、0 FAIL、DONE；15 号排斥、好友集合活视图及重载独立，16 号真实致命保护，22/23 生命与效果，42 二阶真实放置与四档回调参数通过。13/17 改用生成计数后实际为火球 4、陨石 3，23 的原版自然回血测试干扰已隔离。42 引爆检查受控取消实际爆炸，仅确认半径 4/8/12/16 和固定 `DESTROY_WITH_DECAY`，未验收破坏、掉落和连锁。完整构建/检查代码编译通过，最终客户端 ERROR/FATAL 0、四维度正常保存退出；专服最终启动到 `Done`，收到原生 stop、四维度保存退出，BUILD SUCCESSFUL/退出码0、ERROR/FATAL0。历史失败及此前未原生 stop 的启动记录留在符箓月志。本批提交后从当前分支建立 `port/d-craft` 整合石磨/石碾，skill 遗留继续随依赖闭合；暂不推送、不合 `main`。
 

@@ -7,7 +7,7 @@ updated: 2026-11-10
 
 # 项目状态与决定
 
-2026-11-10 当前分支 `port/d-cooking`：木甑、八酒、陈酿坛、蒸锅/笼屉与普通食物消费已完成本批来源复审和运行验证。资源13411项/既有missing19，data1703项；完整 `build compileSmokeJava` 通过，内置 `fulucooking` 124项INFO、0 FAIL、DONE；客户端和专服均ERROR/FATAL0、四维度正常保存退出。四张设备菜单截图已查看，背景及中文正常。完整食材/菜谱自然链、观想入口、猴儿酒结构释放、酒坛实际爆炸、完整存档生命周期、多人和两版本仍待接续。子Agent继续准备案板/菜刀与三种堆叠餐具，主会话整合后串行验证。完整goal保持active，暂不推送、不合main。
+2026-11-10 当前分支 `port/d-cooking`：烹饪与食材供给批次继续接入餐具/案板、普通配方标签与Tooltip、水稻001及桑树行为。完整构建通过；内置 `fulucooking` 最终160项INFO、0 FAIL、DONE，受控场景客户端四维度正常保存退出、ERROR/FATAL0；指定Tooltip截图已查看。`convert_data.py` 数据输出1705项，两份水稻configured/placed feature来源哈希进入manifest。水稻自然modifier因World维度/群系未接回而未安装；桑树野外feature、完整食材/菜谱自然链、观想入口、猴儿酒结构释放、酒坛真实破坏与火域、完整存档生命周期、多人、完整视觉和两版本仍待接续。完整goal保持active，暂不推送、不合main；批次与检查边界见[烹饪月志](../cooking/logs/2026-11.md)和[植物月志](../plant/logs/2026-11.md)。
 
 ## 已确认要求
 

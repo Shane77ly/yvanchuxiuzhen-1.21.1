@@ -25,6 +25,7 @@ from build_ledger import NAMESPACE, ROOT, read_ledgers
 from convert_content import CONTENT, CONVERSION, SOURCES
 from convert_enchantments import generate as generate_enchantments
 from convert_world import generate as generate_world
+from convert_plant_worldgen import generate as generate_plant_worldgen
 
 DATA = ROOT / 'src/main/resources/data'
 MANIFEST = CONVERSION / 'data_manifest.csv'
@@ -318,6 +319,7 @@ class Converter:
             self.write(target, self.tags[target], self.tag_origin[target])
         generate_enchantments(self)
         generate_world(self)
+        generate_plant_worldgen(self)
         CONVERSION.mkdir(parents=True, exist_ok=True)
         with MANIFEST.open('w', encoding='utf-8', newline='') as handle:
             writer = csv.writer(handle, lineterminator='\n')
