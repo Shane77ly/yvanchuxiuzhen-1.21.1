@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/taolun.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/taolun"
+  }
+}

@@ -111,3 +111,7 @@
 ## 方块交互的事件与默认回调顺序（2026-11-10 核对）
 
 NeoForge21.1.265 `ServerPlayerGameMode.useItemOn` 在旁观分支、物品 `onItemUseFirst` 和潜行绕过方块判断之前调用 `CommonHooks.onRightClickBlock`。持物潜行可能跳过方块 `useItemOn` / `useWithoutItem`；来源 Forge40.1.0 的同类全局事件若仍会执行，不能只迁成方块回调。来源监听器不取消事件时，还需保留后续原版链：主动返回 SUCCESS 或统一取消会改变物品使用、放置和工具耐久。已对照来源 `ServerPlayerGameMode.java.patch` 与目标上述精确方法；具体设备是否取消、交互手筛选及最终结果仍逐来源分支核对。
+
+### 创造模式物品使用后的数量恢复（2026-11-10 核对）
+
+已核对 Forge40.1.0 的 `ServerPlayerGameMode.java.patch` 与1.18.2基础方法、NeoForge21.1.265 的 `ServerPlayerGameMode.useItemOn`：创造模式在调用 `ItemStack.useOn` 前缓存count，返回后恢复count。自定义物品过程内部的 `shrink` 不能单独证明自然创造使用会净扣数量；必须沿原版调用链确认。这个恢复只包围物品 `useOn`，不包围此前全局右键事件和方块使用中的扣料，也不恢复任意副作用或其他库存槽。验收应区分物品useOn、方块使用、全局事件及完整自然输入路径。

@@ -5,14 +5,12 @@ tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_str
 tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/shipwreck.json,群系标签引用本 Mod 的群系，随 world 迁移
 tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/shipwreck_beached.json,群系标签引用本 Mod 的群系，随 world 迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:treasure_chest_11 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:canhe 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:shicai_039_plant_04 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:tiandiyinhang 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:zhuangshitizi 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:treasure_chest_03 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:guancai_01 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:zhuangshiqiantong 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:taolun 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:quicksand 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_quicksand 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:watercloud 未登记，由所属系统迁移
@@ -200,11 +198,8 @@ tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yvanchunpc.jso
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yvanchunpc.json,成员 yvanchuxiuzhen:businessman_27 未登记，由所属系统迁移
 tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yvanchunpc.json,成员全部未登记，整个标签未生成，随所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_110_helmet 来源没有登记该 ID（来源标签的悬空引用）
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/canhehecheng.json,引用未登记的物品 yvanchuxiuzhen:canhe，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/foodlongtihecheng.json,引用未登记的物品 yvanchuxiuzhen:foodlongti，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/foodmuzenghecheng.json,引用未登记的物品 yvanchuxiuzhen:foodzhengguo，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/foodzhengguohecheng.json,引用未登记的物品 yvanchuxiuzhen:foodlongti，由所属系统迁移
 recipe_count_clamped,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/skillarrow_10hecheng.json,产物 yvanchuxiuzhen:skill_arrow_10 数量 5 超过堆叠上限 1，改为 1（Q15 裁定）
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/taolunhecheng.json,引用未登记的物品 yvanchuxiuzhen:taolun，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/zhuangshiqiantonghecheng.json,引用未登记的物品 yvanchuxiuzhen:taolun，由所属系统迁移
 function,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/functions/playerchuansuo.mcfunction,函数引用本 Mod 的维度，随 world 迁移

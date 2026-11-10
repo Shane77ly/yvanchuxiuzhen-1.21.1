@@ -2253,7 +2253,7 @@ yvanchuxiuzhen,Silkwormegggold,item,~/item/zawu,craft,已读,系统设计·已�
 yvanchuxiuzhen,CanheGengXinYouXiKe,procedure,~/tool,craft,已读,B1 归属阅读：随 Canhe 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,Canhe,animatedblock,~/tool,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,Zhibujihecheng,recipe,~/tool,craft,已读,完整读取织布机主手8基础、金属双入口与云雷9布优先；自然配方五木板二线一棉花，生产交易归craft，原料身份及自然获取归所属系统
-yvanchuxiuzhen,Canhehecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Canhehecheng,recipe,~/tool,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
 yvanchuxiuzhen,CanheZaiFangKuaiShangYouJian,procedure,~/tool,craft,已读,B1 归属阅读：随 Canhe 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,Silkwormchrysalis02DangPiLinFangKuaiGengXinShi,procedure,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
 yvanchuxiuzhen,Silkwormchrysalis02,block,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
@@ -3881,7 +3881,7 @@ yvanchuxiuzhen,Guaqian07,item,~/decorate/OtherDecorative,decor,已读,B1 归属�
 yvanchuxiuzhen,TaolunZaiFangKuaiShangYouJian,procedure,~/tool,craft,已读,B1 归属阅读：随 Taolun 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,Taolun,animatedblock,~/tool,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,Zhuangshiqiantonghecheng,recipe,~/decorate/OtherDecorative,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Taolunhecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Taolunhecheng,recipe,~/tool,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
 yvanchuxiuzhen,TaolunDangWanJiaKaiShiPoPiShi,procedure,~/tool,craft,已读,B1 归属阅读：随 Taolun 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,Entityjingyanjisuan,procedure,~/entity,creature,已读,B1 归属阅读：随 Taomujing 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Entitylevelup,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4357,7 +4357,7 @@ yvanchuxiuzhen,Gongjvfu,animatedentity,~/tool,equipment,已读,2026-11-08 equipm
 yvanchuxiuzhen,Kailing,enchantment,~/enchanting,equipment,已读,C combat 归属阅读：附魔空壳类；玩家右键时让斧镐铲锄自动开采（flow 的 PlayerRightClick 发起，equipment 的工具射出等读取），玩法含义在 equipment
 yvanchuxiuzhen,Itemfulu48DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu48 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu48,item,~/item/huafu,fulu,已读,40/43/45/47/48/49号符的物品过程与45号火炮弹已读
-yvanchuxiuzhen,Jianceshuye,procedure,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jianceshuye,procedure,~/tool,equipment,已读,完整读取27格树叶材料检测及唯一Gongjvfu更新调用，属于已读飞斧寻路/清叶规则，不是工艺设备
 yvanchuxiuzhen,GongjvgaoDangShiTiGengXinKeShi,procedure,~/tool,equipment,已读,2026-11-08 equipment 逐行核对并接回镐工具机状态机
 yvanchuxiuzhen,Gongjvgao,animatedentity,~/tool,equipment,已读,2026-11-08 equipment 接回镐工具机实体、模型和客户端渲染
 yvanchuxiuzhen,GongjvshechuDangTouSheWuSheZhongCiFangKuai,procedure,~/tool,equipment,已读,B1 归属阅读：随 Gongjvshechu 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
@@ -5813,7 +5813,7 @@ yvanchuxiuzhen,Lookentityname,procedure,~/systemset,flow,候选,第一版批量�
 yvanchuxiuzhen,Jinruyouxichushenxvanze,gamerule,~/systemset,xiulian,已读,C xiulian 归属阅读：PlayerJoinGame 与 Suijikaijv 读取，决定首次进入时是否随机灵根并打开出身界面、随机灵根上限
 yvanchuxiuzhen,Fulutick2,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,CaishenyeZiRanShiTiShengChengTiaoJian,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Caishenye 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Hammerhecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Hammerhecheng,recipe,~/tool,decor,已读,完整读取五cailiao_211加两木棍产hammer配方，产物和瓦片形态切换行为已读归decor
 yvanchuxiuzhen,Clothes18,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 npc 的 Businessman10 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Clothes19,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 npc 的 Businessman11ShiTiChuShiShengChengShi 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
 yvanchuxiuzhen,Clothes20,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；被 npc 的 Businessman09 按 ID 引用（奖励、商品、初始物品、封印释放或生物装备），不赋予它规则
@@ -7041,31 +7041,31 @@ yvanchuxitong,Taoguan03FangKuaiShiTiXuanRanShi,procedure,~/guchong,guchong,已�
 yvanchuxitong,Taoguan03,block,~/guchong,guchong,已读,B1 归属阅读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
 yvanchuxitong,Zxc,procedure,~/asd,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Taoguan01GengXinYouXiKe,procedure,~/guchong,guchong,已读,B1 归属阅读：随 Taoguan01 读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
-yvanchuxitong,TaolunGui,gui,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,TaolunGuiOpen,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,TaolunGui,gui,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,TaolunGuiOpen,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
 yvanchuxitong,TaoguanGuipageup,procedure,~/zawu/taolun,craft,已读,系统设计·已读裁定：由 TaolunGuiButtonMessage 触发，翻陶轮配方页
 yvanchuxitong,TaoguanGuipagedown,procedure,~/zawu/taolun,craft,已读,系统设计·已读裁定：由 TaolunGuiButtonMessage 触发，翻陶轮配方页
-yvanchuxitong,Xvanze01,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvanze02,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvanze03,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvanze04,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvanze05,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvanze06,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvanze07,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvanze08,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Taolunguitxt1,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Taolunguitxt2,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Taolunguitxt3,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Xvanzehou,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Taolunguibuy,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Xvanze01,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,Xvanze02,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,Xvanze03,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,Xvanze04,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,Xvanze05,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,Xvanze06,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,Xvanze07,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,Xvanze08,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,Taolunguitxt1,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,Taolunguitxt2,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,Taolunguitxt3,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,Xvanzehou,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,Taolunguibuy,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
 yvanchuxitong,TaopiFangKuaiShiTiXuanRanShi,procedure,~/zawu/taolun,craft,已读,B1 归属阅读：随 Taopi 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
-yvanchuxitong,TaopiZaiFangKuaiShangYouJian,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,TaopiZaiFangKuaiShangYouJian,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
 yvanchuxitong,TaopiGengXinYouXiKe,procedure,~/zawu/taolun,craft,已读,B1 归属阅读：随 Taopi 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxitong,Taopi,block,~/zawu/taolun,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxitong,TaopiitemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/zawu/taolun,craft,已读,B1 归属阅读：随 Taopiitem 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxitong,Taopiitem,item,~/zawu/taolun,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
-yvanchuxitong,Dahuozhuangzhi,tag,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,TaolunGuiDangZheGeJieMianBeiGuanBi,procedure,~/zawu/taolun,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Dahuozhuangzhi,tag,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
+yvanchuxitong,TaolunGuiDangZheGeJieMianBeiGuanBi,procedure,~/zawu/taolun,craft,已读,完整读取陶轮三档陶坯制作/菜单/烧制与蚕盒阶段、蚕蛾实体、模型资源及自然配方，归属craft；天然桑叶供给属plant、蛊罐消费属guchong
 yvanchuxitong,Danyaoguan,tag,~/yvanchuliandan/danyaoguan,liandan,已读,B:data/forge/tags/items/danyaoguan.json:3-9；六种服药容器标签，药瓶自服与实体喂药读取；目标标签静态一致
 yvanchuxitong,Baicaojian,gui,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,BaicaojianShuaxin,procedure,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv

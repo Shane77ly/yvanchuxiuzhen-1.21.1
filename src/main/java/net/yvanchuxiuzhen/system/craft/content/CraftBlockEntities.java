@@ -30,6 +30,18 @@ public final class CraftBlockEntities {
             () -> BlockEntityType.Builder.of(SilkReelBlockEntity::new,
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "saosilun"))).build(null));
 
+    public static final Supplier<BlockEntityType<PotteryWheelBlockEntity>> POTTERY_WHEEL = TYPES.register("taolun",
+            () -> BlockEntityType.Builder.of(PotteryWheelBlockEntity::new,
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "taolun"))).build(null));
+
+    public static final Supplier<BlockEntityType<PotteryBlankBlockEntity>> POTTERY_BLANK = TYPES.register("taopi",
+            () -> BlockEntityType.Builder.of(PotteryBlankBlockEntity::new,
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "taopi"))).build(null));
+
+    public static final Supplier<BlockEntityType<SilkwormBoxBlockEntity>> SILKWORM_BOX = TYPES.register("canhe",
+            () -> BlockEntityType.Builder.of(SilkwormBoxBlockEntity::new,
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "canhe"))).build(null));
+
     private CraftBlockEntities() {
     }
 
@@ -54,5 +66,8 @@ public final class CraftBlockEntities {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, CARPENTRY.get(), CarpentryBlockEntity::handler);
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, SILK_REEL.get(), SilkReelBlockEntity::handler);
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, LOOM.get(), LoomBlockEntity::handler);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, POTTERY_WHEEL.get(), PotteryWheelBlockEntity::handler);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, POTTERY_BLANK.get(), PotteryBlankBlockEntity::handler);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, SILKWORM_BOX.get(), SilkwormBoxBlockEntity::handler);
     }
 }

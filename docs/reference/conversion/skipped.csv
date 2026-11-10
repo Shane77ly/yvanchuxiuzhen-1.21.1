@@ -1,7 +1,6 @@
 registry,legacy_id,reason
 block,yvanchuxiuzhen:biggrassyincang,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:caidaoblock,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:canhe,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:dimensiondiling_portal,方块基类 NetherPortalBlock 由所属系统迁移
 block,yvanchuxiuzhen:dimensionrenjian_portal,方块基类 NetherPortalBlock 由所属系统迁移
 block,yvanchuxiuzhen:dimensiontianqve_portal,方块基类 NetherPortalBlock 由所属系统迁移
@@ -24,7 +23,6 @@ block,yvanchuxiuzhen:qiankundaoren,方块基类 BaseEntityBlock 由所属系统�
 block,yvanchuxiuzhen:qiankunmentu,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:quicksand,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:shicai_039_plant_04,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:taolun,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:tiandaofuben,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:tiandiyinhang,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:treasure_chest_03,方块基类 BaseEntityBlock 由所属系统迁移
@@ -57,7 +55,6 @@ item,yvanchuxiuzhen:businessman_29_spawn_egg,物品类 ForgeSpawnEggItem 由所�
 item,yvanchuxiuzhen:businessman_30_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:caidaoblock,物品类 CaidaoblockDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:caishenye_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:canhe,物品类 CanheDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:clothes_08_boots,Clothes08Item.Boots：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_08_chestplate,Clothes08Item.Chestplate：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_08_helmet,Clothes08Item.Helmet：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
@@ -126,11 +123,6 @@ item,yvanchuxiuzhen:pao_10,对应方块由所属系统迁移
 item,yvanchuxiuzhen:qiankundaoren,物品类 QiankundaorenDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:qiankunmentu,物品类 QiankunmentuDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:shicai_039_plant_04,物品类 Shicai039Plant04DisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:silkwormentity_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:silkwormentitygold_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:silkwormmoth_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:silkwormmothgold_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:taolun,物品类 TaolunDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:taomujing_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:tiandaofuben,物品类 TiandaofubenDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:tiandiyinhang,物品类 TiandiyinhangDisplayItem 由所属系统迁移

@@ -39,7 +39,7 @@ FACTORIES = {'Block': 'block', 'SlabBlock': 'slab', 'StairBlock': 'stairs', 'Wal
              'TrapDoorBlock': 'trapdoor', 'FallingBlock': 'falling', 'FlowerBlock': 'flower',
              'DoublePlantBlock': 'double_plant'}
 ANIMATED_BLOCK_FACTORIES = {'lianqi:repair_table', 'fulu:inheritance', 'cooking:iron_pot', 'cooking:clay_pot',
-                            'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel'}
+                            'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:silkworm_box'}
 # 1.18.2 原版创造栏在 1.21.1 的对应；临时对应，待负责人确认。
 VANILLA_TABS = {'TAB_MISC': 'minecraft:tools_and_utilities', 'TAB_DECORATIONS': 'minecraft:building_blocks',
                 'TAB_TOOLS': 'minecraft:tools_and_utilities'}
@@ -432,7 +432,8 @@ def main() -> None:
         if factory in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod',
                        'lianqi:repair_table', 'lianqi:sewing_basket', 'lianqi:blueprint_table', 'lianqi:poison_cauldron',
                        'fulu:drawing_table', 'fulu:ash_burner', 'fulu:soot', 'fulu:inheritance', 'fulu:repelling_talisman',
-                       'cooking:iron_pot', 'cooking:clay_pot', 'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel') or factory.startswith('fulu:explosive_'):
+                       'cooking:iron_pot', 'cooking:clay_pot', 'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:pottery_blank',
+                       'craft:silkworm_box', 'craft:chrysalis_display') or factory.startswith('fulu:explosive_'):
             row.pop('pending_hooks', None)
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:
@@ -471,6 +472,18 @@ def main() -> None:
                 for number, line in enumerate(tooltip, start=1):
                     for language in LANGUAGES:
                         add_lang(unit, language, f'tooltip.{NAMESPACE}.item.{target}.{number}', line)
+                continue
+            # 显式登记专属工厂的来源刷怪蛋保留原创造栏和物品登记次序。
+            spawn_egg = re.search(rf'register\("{re.escape(path)}",\s*\(\) -> new ForgeSpawnEggItem\(\w+\.\w+, -?\d+, -?\d+, (new Item\.Properties\(\).*?)\)\);',
+                                  source.items_text, re.S)
+            if class_name is None and spawn_egg and ('item', target) in overrides:
+                row = {'id': target, 'factory': overrides[('item', target)], 'order': order,
+                       **parse_item_properties(spawn_egg[1], source.tabs)}
+                items_by_unit[unit].append(row)
+                for language in LANGUAGES:
+                    name = source.lang[language].get(f'item.{mod}.{path}')
+                    if name is not None:
+                        add_lang(unit, language, f'item.{NAMESPACE}.{target}', name)
                 continue
             if class_name is None and path in source.geckolib_armor and ('item', target) in overrides:
                 class_name = source.geckolib_armor[path]
@@ -524,7 +537,8 @@ def main() -> None:
                     add_lang(unit, language, f'item.{NAMESPACE}.{target}', name)
         if ('item', target) in overrides:
             row['factory'] = overrides[('item', target)]
-        if row['factory'] in ('liandan:medicine_container', 'liandan:medicine_container_empty_box', 'lianqi:tripod_placement') or row['factory'].startswith(('fulu:talisman_', 'fulu:ranged_', 'fulu:passive_', 'fulu:explosive_')):
+        if row['factory'] in ('liandan:medicine_container', 'liandan:medicine_container_empty_box', 'lianqi:tripod_placement',
+                              'craft:pottery_blank', 'craft:silkworm', 'craft:silkworm_gold') or row['factory'].startswith(('fulu:talisman_', 'fulu:ranged_', 'fulu:passive_', 'fulu:explosive_')):
             row.pop('pending_hooks', None)
         items_by_unit[unit].append(row)
         for number, line in enumerate(row.get('tooltip', []), start=1):

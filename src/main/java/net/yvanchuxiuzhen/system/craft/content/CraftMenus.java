@@ -17,6 +17,9 @@ public final class CraftMenus {
     public static final Supplier<MenuType<CarpentryMenu>> CARPENTRY = MENUS.register("mujiang_gui",
             () -> IMenuTypeExtension.create(CarpentryMenu::new));
 
+    public static final Supplier<MenuType<PotteryWheelMenu>> POTTERY_WHEEL = MENUS.register("taolun_gui",
+            () -> IMenuTypeExtension.create(PotteryWheelMenu::new));
+
     private CraftMenus() {
     }
 

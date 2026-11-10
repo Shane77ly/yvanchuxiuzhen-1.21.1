@@ -1,0 +1,6 @@
+{
+  "message.yvanchuxiuzhen.craft.silkworm_needs_food": "§4【需要桑叶！】§f剩余时间：%s秒",
+  "message.yvanchuxiuzhen.craft.silkworm_growth": "§a【食物支持:%s秒】§f剩余时间：%s秒",
+  "message.yvanchuxiuzhen.craft.silkworm_egg": "§f%s秒后，发育成灵蚕。",
+  "message.yvanchuxiuzhen.craft.silkworm_gold_egg": "§f%s秒后，发育成独角蚕。"
+}
