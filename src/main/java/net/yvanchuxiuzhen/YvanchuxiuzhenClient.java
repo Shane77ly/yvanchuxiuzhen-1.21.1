@@ -18,6 +18,7 @@ import net.yvanchuxiuzhen.system.liandan.client.LiandanClientSetup;
 import net.yvanchuxiuzhen.system.lianqi.client.LianqiClientSetup;
 import net.yvanchuxiuzhen.panel.client.PanelClientSetup;
 import net.yvanchuxiuzhen.system.particle.client.ParticleClientSetup;
+import net.yvanchuxiuzhen.system.plant.client.PlantClientSetup;
 import net.yvanchuxiuzhen.system.relation.client.RelationClientSetup;
 import net.yvanchuxiuzhen.system.skill.client.SkillClientSetup;
 import net.yvanchuxiuzhen.system.storage.client.StorageClientSetup;
@@ -33,6 +34,7 @@ public final class YvanchuxiuzhenClient {
     public YvanchuxiuzhenClient(IEventBus modBus) {
         ModifierKeysClient.register();
         ParticleClientSetup.register(modBus);
+        PlantClientSetup.register(modBus);
         CombatClientSetup.register(modBus);
         CookingClientSetup.register(modBus);
         CraftClientSetup.register(modBus);

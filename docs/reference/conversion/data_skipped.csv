@@ -5,7 +5,6 @@ tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_str
 tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/shipwreck.json,群系标签引用本 Mod 的群系，随 world 迁移
 tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/shipwreck_beached.json,群系标签引用本 Mod 的群系，随 world 迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:treasure_chest_11 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:shicai_039_plant_04 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:tiandiyinhang 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:zhuangshitizi 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:treasure_chest_03 未登记，由所属系统迁移
@@ -19,8 +18,6 @@ tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchu
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_wenqvan 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:hotoil 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_hotoil 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/huluteng.json,成员 yvanchuxiuzhen:shicai_039_plant_04 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/block/yvanchuzuowu.json,成员 yvanchuxiuzhen:shicai_039_plant_04 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员 yvanchuxiuzhen:yaoshou_006 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员 yvanchuxiuzhen:yaoshou_041 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员 yvanchuxiuzhen:yaoshou_043 未登记，由所属系统迁移

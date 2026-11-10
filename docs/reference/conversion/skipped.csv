@@ -19,7 +19,6 @@ block,yvanchuxiuzhen:pao_10,"Pao10Block：放置规则未识别：if (context.ge
 block,yvanchuxiuzhen:qiankundaoren,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:qiankunmentu,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:quicksand,方块基类 LiquidBlock 由所属系统迁移
-block,yvanchuxiuzhen:shicai_039_plant_04,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:tiandaofuben,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:tiandiyinhang,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:treasure_chest_03,方块基类 BaseEntityBlock 由所属系统迁移
@@ -116,7 +115,6 @@ item,yvanchuxiuzhen:organism_12_spawn_egg,物品类 ForgeSpawnEggItem 由所属�
 item,yvanchuxiuzhen:pao_10,对应方块由所属系统迁移
 item,yvanchuxiuzhen:qiankundaoren,物品类 QiankundaorenDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:qiankunmentu,物品类 QiankunmentuDisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:shicai_039_plant_04,物品类 Shicai039Plant04DisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:taomujing_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:tiandaofuben,物品类 TiandaofubenDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:tiandiyinhang,物品类 TiandiyinhangDisplayItem 由所属系统迁移

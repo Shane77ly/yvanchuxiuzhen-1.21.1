@@ -39,6 +39,8 @@ final class PlantFeatures {
         FEATURES.register("shicai_031_plant_04", CropFeature::new);
         FEATURES.register("shicai_032_plant_04", CropFeature::new);
         FEATURES.register("shicai_033_plant_04", CropFeature::new);
+        FEATURES.register("shicai_00907", () -> new FruitTreeFeature(FruitTree.SHICAI_009));
+        FEATURES.register("shicai_01004", () -> new FruitTreeFeature(FruitTree.SHICAI_010));
     }
 
     private PlantFeatures() {

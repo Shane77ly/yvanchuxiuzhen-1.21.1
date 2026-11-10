@@ -15,6 +15,8 @@ def generate(converter) -> None:
                    '028', '029', '030', '031', '032', '033'):
         generate_crop(converter, number)
 
+    generate_fruit_trees(converter)
+
 
 def generate_cereal(converter, number: str) -> None:
     generate_crop(converter, number, double=True)
@@ -71,3 +73,16 @@ def generate_crop(converter, number: str, *, double: bool = False) -> None:
                     [(mod, source)])
     converter.write(DATA / NAMESPACE / f'worldgen/placed_feature/shicai_{number}_plant_{stage}.json', placed,
                     [(mod, source)])
+
+
+def generate_fruit_trees(converter) -> None:
+    mod = 'yvanchuxiuzhen'
+    root = SOURCES[mod][0]
+    for number, suffix in (('009', '07'), ('010', '04')):
+        name = f'shicai_{number}{suffix}'
+        feature = f'{NAMESPACE}:{name}'
+        source = root / f'src/main/java/net/mcreator/yvanchuxiuzhen/world/features/Shicai{number}{suffix}Feature.java'
+        converter.write(DATA / NAMESPACE / f'worldgen/configured_feature/{name}.json',
+                        {'type': feature, 'config': {}}, [(mod, source)])
+        converter.write(DATA / NAMESPACE / f'worldgen/placed_feature/{name}.json',
+                        {'feature': feature, 'placement': []}, [(mod, source)])

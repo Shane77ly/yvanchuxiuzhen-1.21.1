@@ -191,3 +191,28 @@ updated: 2026-11-10
 | 033 | jade_01、jade_03、jade_02、peach_02、peach_01 |
 
 本批完整build/compileSmokeJava已通过，data输出1759项。最终既有`runSmokeClient -PsmokeOnly=fulucooking`为238项INFO、0 FAIL、DONE（3m11s/退出0），客户端四维度正常保存退出且ERROR/FATAL0。专服在Done后通过持有stdin实际发送原生stop，正常保存四维度，BUILD SUCCESSFUL（29s）/退出0、ERROR/FATAL0。28种作物的自然投放、完整成长/采摘循环、完整保存重登、来源1.18.2版本实机、多人、完整视觉与两版本对照未执行。此前001/002运行结果不能代替新增28种作物验收。
+
+## 009/010果树与034–039藤本（2026-11-10）
+
+编号仍以来源注册ID为准；共享Java类只表达核实后相同的行为。树木与藤本的注册映射如下：
+
+| 来源编号 | 中文与来源内容ID | 目标实现 |
+| --- | --- | --- |
+| 009 花椒树 | `shicai_00902`树干、`shicai_00903`树叶、`shicai_00904`树苗 | `FruitTree.SHICAI_009`、`fruit_tree_log/leaves`、`shicai009_sapling` |
+| 010 八角树 | `shicai_01001`树干、`shicai_01002`树叶、`shicai_01003`树苗 | `FruitTree.SHICAI_010`、同一木/叶类及`shicai010_sapling` |
+| 034 南瓜 | `shicai_034_plant_01..05` | `VineCrop.SHICAI_034`、`vine034_stage` |
+| 035 黄瓜 | `shicai_035_plant_02..04`，来源没有01阶段 | `VineCrop.SHICAI_035`、`vine035_stage` |
+| 036 冬瓜 | `shicai_036_plant_01..05` | `VineCrop.SHICAI_036`、`vine036_stage` |
+| 037 苦瓜 | `shicai_037_plant_01..03` | `VineCrop.SHICAI_037`、`vine037_stage` |
+| 038 丝瓜 | `shicai_038_plant_01..03` | `VineCrop.SHICAI_038`、`vine038_stage` |
+| 039 葫芦 | `shicai_039_plant_01..04`；03904为葫芦库存方块 | `VineCrop.SHICAI_039`、`vine039_stage`、`GourdBlockEntity` |
+
+六种独立种子分别是`shicai_03401`至`shicai_03901`，由编号各自的`VineSeedItem`入口承载。来源种子use先查UP面及上方空位：旧材质DIRT/GRASS分支放置首阶段并扣一；FARMLAND分支只扣一、不放置。035从02开始。保留来源CROP类型、首阶段花朵骨粉入口、每次50%生长成功率与各编号独立的方向抽样，不套用普通作物的统一湿度/亮度门槛。
+
+009/010树苗的骨粉资格与成功查询均为真，但共享生长过程仍先抽5%，所以骨粉不保证成树。随机刻、计划刻与骨粉共用该门槛，之后按来源顺序独立抽样四种模板旋转。009生长模板为`shicai00908`，模板后立即补一格`shicai_00902`；010使用`shicai01005`并立即补三格`shicai_01001`。两者自然模板则为`shicai00907`和`shicai01004`，只允许人间维度、草方块基底及来源3%抽样，placed JSON不另加placement。World尚未提供`dimensionrenjian`和`biomeautumn_02/03`，因此目前只完成Feature、configured/placed注册，未安装群系modifier，也没有自然生成实机证据。`FruitTreeFeature`缓存模板对象的`/reload`行为尚无可用人间维度验证，保留来源方式并登记为待测风险。
+
+树叶距离仅把`minecraft:logs`识别为木干，其余沿来源LeavesBlock距离规则；持久模板叶不会仅因距离远而枯萎。两种树叶均无右键采摘或剪刀自掉落扩展，空loot才按各自来源表处理；木干与树苗保留非空loot优先、空时自掉落一份。
+
+藤本逐号保留来源异常：03504右键回到03并掉一份食材；03703虽有共享采摘分支但方块未绑定use；038的自然生长过程实际读写035阶段，因而038自然不推进；03803绑定的use过程不匹配成熟阶段，返回成功但无变化。03902/03由计划刻每40游戏刻重复调度，不使用随机刻；039成长分支保留来源西向上层分支误写EAST的结果。03904右键只在动画1/2之间切换；九槽方块实体保存物品并提供来源能力，菜单提供器仍返回独立27槽菜单，不把该菜单当作葫芦库存界面。
+
+009/010与034–039共65条Plant行为台账已迁移（果树12条、藤本阶段和物品46条、种子6条、葫芦方块实体1条）；两项果树Feature保持“已注册”，备注World群系未装配。资源审计核对29个blockstate、44个物品模型入口及179份引用闭包文件，未见模型/贴图缺失；154份真实来源文件SHA-1一致。最终`runSmokeClient -PsmokeOnly=fulucooking`报告301项INFO、0 FAIL、DONE，客户端四维度保存退出；专项专服启动至Done后收到原生stop并正常保存，ERROR/FATAL为0。客户端场景覆盖注册与若干方块路径，不覆盖完整果树生长、果树自然生成、`/reload`缓存、多玩家、完整葫芦动画、完整存档重登、来源1.18.2版本实机或两版本对照。

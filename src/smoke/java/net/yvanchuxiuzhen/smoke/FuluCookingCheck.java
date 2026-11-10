@@ -53,6 +53,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
@@ -63,9 +64,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -84,6 +87,8 @@ import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -117,6 +122,9 @@ import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
 import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.yvanchuxiuzhen.system.material.api.Materials;
+import net.yvanchuxiuzhen.system.plant.GourdBlock;
+import net.yvanchuxiuzhen.system.plant.GourdBlockEntity;
+import net.yvanchuxiuzhen.system.plant.FruitTreeLeavesBlock;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionAttachments;
@@ -240,6 +248,12 @@ final class FuluCookingCheck extends ActionCheck {
     private GameType riceMode;
     private boolean riceFlying;
     private int riceSelected;
+    private Vec3 ricePosition;
+    private Vec3 riceMotion;
+    private float riceYaw;
+    private float ricePitch;
+    private int ricePickupDelay;
+    private long riceGourdTicksStarted;
     private final List<ItemStack> riceInventory = new ArrayList<>();
     private final Map<BlockPos, BlockState> riceBlocks = new LinkedHashMap<>();
     private final Map<BlockPos, CompoundTag> riceEntities = new LinkedHashMap<>();
@@ -2335,6 +2349,32 @@ final class FuluCookingCheck extends ActionCheck {
                             p.serverLevel().isEmptyBlock(ricePos.above()) && riceDrops.isEmpty());
                     riceReset(p, Blocks.DIRT.defaultBlockState());
                 }),
+                new Action(1, this::checkFruitTrees),
+                new Action(1, this::checkVineSeeds),
+                new Action(1, this::checkVineBonemeal),
+                new Action(44, this::checkVineHarvestAndStartTicks),
+                new Action(1, this::checkVineRepeatedTicks),
+                new Action(8, p -> {
+                    checkGourdInventory(p);
+                    riceHeld(p, item("shicai_039_plant_04"));
+                    Vec3 view = Vec3.atCenterOf(ricePos).subtract(p.getEyePosition());
+                    float yaw = (float) Math.toDegrees(Math.atan2(-view.x, view.z));
+                    float pitch = (float) -Math.toDegrees(Math.atan2(view.y, view.horizontalDistance()));
+                    p.connection.teleport(p.getX(), p.getY(), p.getZ(), yaw, pitch);
+                }),
+                new Action(8, p -> useBlock(ricePos)),
+                new Action(4, p -> {
+                    BlockState gourd = p.serverLevel().getBlockState(ricePos);
+                    expectTrue("03904真实客户端右键只写动画1或2，保留手持葫芦且未打开菜单",
+                            gourd.is(block("shicai_039_plant_04").getBlock())
+                                    && (gourd.getValue(GourdBlock.ANIMATION) == 1 || gourd.getValue(GourdBlock.ANIMATION) == 2)
+                                    && p.containerMenu == p.inventoryMenu && p.getMainHandItem().getCount() == 1);
+                    expectTrue("03904客户端装入九槽方块实体并保持葫芦身份",
+                            minecraft.level.getBlockState(ricePos).is(gourd.getBlock())
+                                    && minecraft.level.getBlockEntity(ricePos) instanceof GourdBlockEntity clientGourd
+                                    && clientGourd.getContainerSize() == 9);
+                    minecraft.execute(() -> screenshots.take("plant-gourd-block-item-animation.png"));
+                }),
                 new Action(1, p -> restoreRice(p)),
                 // 餐具与案板：真实客户端输入；未执行来源过程或设备tick代替自然入口。
                 new Action(12, p -> {
@@ -2598,6 +2638,10 @@ final class FuluCookingCheck extends ActionCheck {
         riceMode = player.gameMode.getGameModeForPlayer();
         riceFlying = player.getAbilities().flying;
         riceSelected = player.getInventory().selected;
+        ricePosition = player.position();
+        riceMotion = player.getDeltaMovement();
+        riceYaw = player.getYRot();
+        ricePitch = player.getXRot();
         if (player.getPersistentData().contains("caiou")) {
             ricePlantDataBefore.put("caiou", player.getPersistentData().get("caiou").copy());
         }
@@ -2628,6 +2672,9 @@ final class FuluCookingCheck extends ActionCheck {
             if (event.getLevel() == player.serverLevel() && event.getEntity() instanceof ItemEntity drop
                     && ricePos.distSqr(drop.blockPosition()) <= 25) {
                 riceDrops.add(drop);
+                CompoundTag itemData = new CompoundTag();
+                drop.saveWithoutId(itemData);
+                ricePickupDelay = itemData.getShort("PickupDelay");
                 drop.setNeverPickUp();
             }
         };
@@ -2642,8 +2689,8 @@ final class FuluCookingCheck extends ActionCheck {
         player.inventoryMenu.broadcastChanges();
     }
 
-    private void riceUse(ServerPlayer player, BlockPos pos) {
-        player.gameMode.useItemOn(player, player.serverLevel(), player.getMainHandItem(), InteractionHand.MAIN_HAND,
+    private InteractionResult riceUse(ServerPlayer player, BlockPos pos) {
+        return player.gameMode.useItemOn(player, player.serverLevel(), player.getMainHandItem(), InteractionHand.MAIN_HAND,
                 new BlockHitResult(Vec3.atCenterOf(pos).add(0, .5, 0), Direction.UP, pos, false));
     }
 
@@ -2655,14 +2702,288 @@ final class FuluCookingCheck extends ActionCheck {
     private void riceClearDrops() {
         riceDrops.forEach(Entity::discard);
         riceDrops.clear();
+        ricePickupDelay = 0;
+    }
+
+    /** 果树检查只使用已保存的小场地；不在此范围触发完整模板生长。 */
+    private void checkFruitTrees(ServerPlayer player) {
+        riceHeld(player, ItemStack.EMPTY);
+        ItemStack silk = new ItemStack(Items.IRON_AXE);
+        silk.enchant(player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), 1);
+        String[][] trees = {{"009", "shicai_00904", "shicai_00902", "shicai_00903", "shicai_00907"},
+                {"010", "shicai_01003", "shicai_01001", "shicai_01002", "shicai_01004"}};
+        for (String[] tree : trees) {
+            riceResetVines(player, Blocks.DIRT.defaultBlockState());
+            BlockState sapling = block(tree[1]);
+            player.serverLevel().setBlock(ricePos, sapling, 3);
+            BonemealableBlock bone = (BonemealableBlock) sapling.getBlock();
+            expectTrue(tree[0] + "果树苗原生骨粉目标有效且成功恒真，未触发5%完整长树",
+                    bone.isValidBonemealTarget(player.serverLevel(), ricePos, sapling)
+                            && bone.isBonemealSuccess(player.serverLevel(), player.serverLevel().random, ricePos, sapling));
+            for (String id : List.of(tree[1], tree[2])) {
+                BlockState state = block(id);
+                List<ItemStack> drops = Block.getDrops(state, player.serverLevel(), ricePos, null);
+                expectTrue(id + "原生loot空表回落自身一件", drops.size() == 1
+                        && drops.getFirst().is(item(id).getItem()) && drops.getFirst().getCount() == 1);
+            }
+            expectTrue(tree[0] + "果树干保持来源无轴向状态", !block(tree[2]).hasProperty(BlockStateProperties.AXIS));
+            BlockState leaf = block(tree[3]).setValue(BlockStateProperties.PERSISTENT, true);
+            player.serverLevel().setBlock(ricePos, leaf, 3);
+            List<ItemStack> leafDrops = Block.getDrops(leaf, player.serverLevel(), ricePos, null);
+            boolean allowed = leafDrops.size() <= 1 && leafDrops.stream().allMatch(stack ->
+                    stack.is(item(tree[1]).getItem()) && stack.getCount() == 1
+                            || (stack.is(Items.STICK) || stack.is(item("shicai_" + tree[0]).getItem())
+                            || tree[0].equals("009") && stack.is(item("shicai_00901").getItem()))
+                            && stack.getCount() >= 1 && stack.getCount() <= 3);
+            expectTrue(tree[0] + "果树叶原生单轮loot只产来源食材、枝条或树苗，精准不掉自身",
+                    allowed && Block.getDrops(leaf, player.serverLevel(), ricePos, null, player, silk).isEmpty());
+            FruitTreeLeavesBlock water = (FruitTreeLeavesBlock) leaf.getBlock();
+            expectTrue(tree[0] + "果树叶拒绝原生注水和取水，右键无采摘入口",
+                    !water.canPlaceLiquid(player, player.serverLevel(), ricePos, leaf, Fluids.WATER)
+                            && !water.placeLiquid(player.serverLevel(), ricePos, leaf, Fluids.WATER.defaultFluidState())
+                            && water.pickupBlock(player, player.serverLevel(), ricePos, leaf).isEmpty()
+                            && leaf.getFluidState().isEmpty() && riceUse(player, ricePos) == InteractionResult.PASS);
+            ConfiguredFeature<?, ?> feature = player.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE)
+                    .get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, tree[4]));
+            expectTrue(tree[0] + "已加载原生地物在主世界确定拒绝自然放树",
+                    player.serverLevel().dimension().location().equals(ResourceLocation.withDefaultNamespace("overworld"))
+                            && feature != null && !feature.place(player.serverLevel(), player.serverLevel().getChunkSource().getGenerator(),
+                            player.serverLevel().random, ricePos));
+        }
+        riceResetVines(player, Blocks.DIRT.defaultBlockState());
+    }
+
+    private void checkVineSeeds(ServerPlayer player) {
+        for (String number : List.of("034", "035", "036", "037", "038", "039")) {
+            String first = number.equals("035") ? "02" : "01";
+            boolean planted = true;
+            for (BlockState soil : List.of(Blocks.DIRT.defaultBlockState(), Blocks.GRASS_BLOCK.defaultBlockState())) {
+                riceResetVines(player, soil);
+                riceHeld(player, item("shicai_" + number + "01", 2));
+                riceUse(player, ricePos.below());
+                planted &= player.serverLevel().getBlockState(ricePos).is(block("shicai_" + number + "_plant_" + first).getBlock())
+                        && player.getMainHandItem().getCount() == 1;
+            }
+            expectTrue(number + "泥土与草方块原生播种放首阶段" + first + "并扣一颗", planted);
+            riceResetVines(player, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+            riceHeld(player, item("shicai_" + number + "01", 2));
+            riceUse(player, ricePos.below());
+            expectTrue(number + "耕地保留来源统一扣一颗但不生成苗的空效果",
+                    player.serverLevel().isEmptyBlock(ricePos)
+                            && player.getMainHandItem().getCount() == 1);
+            riceResetVines(player, Blocks.DIRT.defaultBlockState());
+            riceHeld(player, item("shicai_" + number + "01", 2));
+            player.gameMode.useItemOn(player, player.serverLevel(), player.getMainHandItem(), InteractionHand.MAIN_HAND,
+                    new BlockHitResult(Vec3.atCenterOf(ricePos.below()).add(.5, 0, 0), Direction.EAST, ricePos.below(), false));
+            boolean rejected = player.serverLevel().isEmptyBlock(ricePos) && player.getMainHandItem().getCount() == 2;
+            player.serverLevel().setBlock(ricePos, Blocks.STONE.defaultBlockState(), 3);
+            riceUse(player, ricePos.below());
+            expectTrue(number + "原生播种拒绝侧面和被占用空位，均不扣种",
+                    rejected && player.serverLevel().getBlockState(ricePos).is(Blocks.STONE)
+                            && player.getMainHandItem().getCount() == 2);
+            String last = switch (number) {
+                case "034", "036" -> "05";
+                case "035", "039" -> "04";
+                default -> "03";
+            };
+            String middle = number.equals("035") ? "03" : "02";
+            List<ItemStack> firstDrops = Block.getDrops(block("shicai_" + number + "_plant_" + first), player.serverLevel(), ricePos, null);
+            List<ItemStack> middleDrops = Block.getDrops(block("shicai_" + number + "_plant_" + middle), player.serverLevel(), ricePos, null);
+            List<ItemStack> lastDrops = Block.getDrops(block("shicai_" + number + "_plant_" + last), player.serverLevel(), ricePos, null);
+            expectTrue(number + "阶段loot依次回落种子1、原版藤蔓1与本体1",
+                    firstDrops.size() == 1 && firstDrops.getFirst().is(item("shicai_" + number + "01").getItem())
+                            && firstDrops.getFirst().getCount() == 1 && middleDrops.size() == 1
+                            && middleDrops.getFirst().is(Items.VINE) && middleDrops.getFirst().getCount() == 1
+                            && lastDrops.size() == 1 && lastDrops.getFirst().is(item("shicai_" + number).getItem())
+                            && lastDrops.getFirst().getCount() == 1);
+        }
+        riceResetVines(player, Blocks.DIRT.defaultBlockState());
+    }
+
+    private void checkVineBonemeal(ServerPlayer player) {
+        for (String number : List.of("034", "035", "036", "037", "038")) {
+            riceResetVines(player, Blocks.FARMLAND.defaultBlockState());
+            String first = number.equals("035") ? "02" : "01";
+            String next = number.equals("035") ? "03" : "02";
+            BlockState initial = block("shicai_" + number + "_plant_" + first);
+            player.serverLevel().setBlock(ricePos, initial, 3);
+            BonemealableBlock bone = (BonemealableBlock) initial.getBlock();
+            boolean valid = bone.isValidBonemealTarget(player.serverLevel(), ricePos, initial);
+            bone.performBonemeal(player.serverLevel(), player.serverLevel().random, ricePos, initial);
+            BlockState grown = player.serverLevel().getBlockState(ricePos);
+            expectTrue(number + "有效骨粉成功回调只进下一阶段，034按东侧空位优先定向",
+                    valid && grown.is(block("shicai_" + number + "_plant_" + next).getBlock())
+                            && (!number.equals("034") || grown.getValue(BlockStateProperties.HORIZONTAL_FACING) == Direction.EAST));
+        }
+        riceResetVines(player, Blocks.FARMLAND.defaultBlockState());
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            player.serverLevel().setBlock(ricePos.relative(direction), Blocks.STONE.defaultBlockState(), 3);
+        }
+        BlockState pumpkin = block("shicai_034_plant_01");
+        player.serverLevel().setBlock(ricePos, pumpkin, 3);
+        ((BonemealableBlock) pumpkin.getBlock()).performBonemeal(player.serverLevel(), player.serverLevel().random, ricePos, pumpkin);
+        expectTrue("034骨粉四邻全堵仍直接选择北向，不增加北侧空位限制",
+                player.serverLevel().getBlockState(ricePos).is(block("shicai_034_plant_02").getBlock())
+                        && player.serverLevel().getBlockState(ricePos).getValue(BlockStateProperties.HORIZONTAL_FACING) == Direction.NORTH);
+        riceResetVines(player, Blocks.FARMLAND.defaultBlockState());
+        BlockState gourd = block("shicai_039_plant_01");
+        player.serverLevel().setBlock(ricePos, gourd, 3);
+        BonemealableBlock bone = (BonemealableBlock) gourd.getBlock();
+        bone.performBonemeal(player.serverLevel(), player.serverLevel().random, ricePos, gourd);
+        expectTrue("039无支撑时成功骨粉回调仍无生长效果",
+                bone.isValidBonemealTarget(player.serverLevel(), ricePos, gourd)
+                        && player.serverLevel().getBlockState(ricePos).is(gourd.getBlock()));
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            player.serverLevel().setBlock(ricePos.relative(direction), Blocks.STONE.defaultBlockState(), 3);
+        }
+        bone.performBonemeal(player.serverLevel(), player.serverLevel().random, ricePos, gourd);
+        expectTrue("039骨粉按东侧支撑优先附着02，朝向背离支撑的西方",
+                player.serverLevel().getBlockState(ricePos).is(block("shicai_039_plant_02").getBlock())
+                        && player.serverLevel().getBlockState(ricePos).getValue(BlockStateProperties.HORIZONTAL_FACING) == Direction.WEST);
+        riceResetVines(player, Blocks.DIRT.defaultBlockState());
+    }
+
+    private void checkVineHarvestAndStartTicks(ServerPlayer player) {
+        riceResetVines(player, Blocks.FARMLAND.defaultBlockState());
+        riceHeld(player, ItemStack.EMPTY);
+        BlockState cucumber = block("shicai_035_plant_04").setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH);
+        player.serverLevel().setBlock(ricePos, cucumber, 3);
+        InteractionResult harvested = riceUse(player, ricePos);
+        BlockState stem = player.serverLevel().getBlockState(ricePos);
+        expectTrue("03504原生右键回03保留朝向，只产一个独立黄瓜且来源拾取延迟10",
+                harvested == InteractionResult.SUCCESS && stem.is(block("shicai_035_plant_03").getBlock())
+                        && stem.getValue(BlockStateProperties.HORIZONTAL_FACING) == Direction.SOUTH
+                        && riceDrops.size() == 1 && riceDrops.getFirst().getItem().is(item("shicai_035").getItem())
+                        && riceDrops.getFirst().getItem().getCount() == 1 && ricePickupDelay == 10);
+        for (String number : List.of("037", "038")) {
+            riceResetVines(player, Blocks.FARMLAND.defaultBlockState());
+            BlockState mature = block("shicai_" + number + "_plant_03");
+            player.serverLevel().setBlock(ricePos, mature, 3);
+            InteractionResult used = riceUse(player, ricePos);
+            expectTrue(number + "03保留来源" + (number.equals("037") ? "未挂use" : "use成功空效果") + "且不掉食材",
+                    used == (number.equals("037") ? InteractionResult.PASS : InteractionResult.SUCCESS)
+                            && player.serverLevel().getBlockState(ricePos).equals(mature) && riceDrops.isEmpty());
+        }
+        for (String stage : List.of("01", "02")) {
+            riceResetVines(player, Blocks.FARMLAND.defaultBlockState());
+            BlockState loofah = block("shicai_038_plant_" + stage);
+            player.serverLevel().setBlock(ricePos, loofah, 3);
+            for (int tick = 0; tick < 64 && player.serverLevel().getBlockState(ricePos).equals(loofah); tick++) {
+                loofah.randomTick(player.serverLevel(), ricePos, player.serverLevel().random);
+            }
+            expectTrue("038" + stage + "受控原生randomTick维持来源误接035的空效果",
+                    player.serverLevel().getBlockState(ricePos).equals(loofah));
+        }
+        riceResetVines(player, Blocks.STONE.defaultBlockState());
+        for (BlockPos pos : riceBlocks.keySet()) player.serverLevel().setBlock(pos, Blocks.STONE.defaultBlockState(), 2);
+        riceGourdTicksStarted = player.serverLevel().getGameTime();
+        for (int stage = 2; stage <= 3; stage++) {
+            BlockPos pos = stage == 2 ? ricePos : ricePos.above(2);
+            BlockState vine = block("shicai_039_plant_0" + stage);
+            player.serverLevel().setBlock(pos, vine, 3);
+            List<ScheduledTick<Block>> queued = ((LevelChunkTicks<Block>) player.serverLevel().getChunkAt(pos).getBlockTicks())
+                    .getAll().filter(tick -> tick.pos().equals(pos) && tick.type() == vine.getBlock()).toList();
+            expectTrue("0390" + stage + "真实放置只排40刻计划回调且不随机刻",
+                    !vine.isRandomlyTicking() && queued.size() == 1 && queued.getFirst().triggerTick() == riceGourdTicksStarted + 40);
+        }
+    }
+
+    private void checkVineRepeatedTicks(ServerPlayer player) {
+        for (int stage = 2; stage <= 3; stage++) {
+            BlockPos pos = stage == 2 ? ricePos : ricePos.above(2);
+            BlockState vine = block("shicai_039_plant_0" + stage);
+            long now = player.serverLevel().getGameTime();
+            List<ScheduledTick<Block>> queued = ((LevelChunkTicks<Block>) player.serverLevel().getChunkAt(pos).getBlockTicks())
+                    .getAll().filter(tick -> tick.pos().equals(pos) && tick.type() == vine.getBlock()).toList();
+            expectTrue("0390" + stage + "经过真实40刻回调继续排下一次40刻，封闭场地中保持原阶段",
+                    now >= riceGourdTicksStarted + 40 && player.serverLevel().getBlockState(pos).equals(vine)
+                            && queued.size() == 1 && queued.getFirst().triggerTick() > riceGourdTicksStarted + 40
+                            && queued.getFirst().triggerTick() <= now + 40);
+        }
+        riceResetVines(player, Blocks.DIRT.defaultBlockState());
+    }
+
+    private void checkGourdInventory(ServerPlayer player) {
+        riceResetVines(player, Blocks.DIRT.defaultBlockState());
+        riceHeld(player, ItemStack.EMPTY);
+        BlockState fruit = block("shicai_039_plant_04");
+        player.serverLevel().setBlock(ricePos, fruit, 3);
+        GourdBlockEntity gourd = (GourdBlockEntity) player.serverLevel().getBlockEntity(ricePos);
+        InteractionResult used = riceUse(player, ricePos);
+        int animation = player.serverLevel().getBlockState(ricePos).getValue(GourdBlock.ANIMATION);
+        expectTrue("03904原生空手右键只随机写动画1或2，九槽保留且不打开菜单",
+                used == InteractionResult.SUCCESS && (animation == 1 || animation == 2)
+                        && gourd.getContainerSize() == 9 && gourd.isEmpty() && player.containerMenu == player.inventoryMenu && riceDrops.isEmpty());
+        boolean directions = true;
+        Direction[] faces = {null, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
+        for (Direction face : faces) {
+            IItemHandler handler = player.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, ricePos, face);
+            if (handler == null || handler.getSlots() != 9) {
+                directions = false;
+                continue;
+            }
+            for (int slot = 0; slot < 9; slot++) {
+                ItemStack remainder = handler.insertItem(slot, new ItemStack(Items.STICK, 2), false);
+                ItemStack extracted = handler.extractItem(slot, 2, false);
+                directions &= remainder.isEmpty() && extracted.is(Items.STICK) && extracted.getCount() == 2
+                        && handler.getStackInSlot(slot).isEmpty();
+            }
+        }
+        expectTrue("03904无方向及六方向能力均对九槽完成实际插入与取出", directions && gourd.isEmpty());
+        ItemStack sword = new ItemStack(Items.IRON_SWORD, 80);
+        sword.set(DataComponents.CUSTOM_NAME, Component.literal("葫芦库存组件核对"));
+        sword.setDamageValue(7);
+        gourd.setItem(8, sword);
+        IItemHandler handler = player.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, ricePos, (Direction) null);
+        ItemStack remainder = handler.insertItem(0, new ItemStack(Items.IRON_SWORD, 3), false);
+        expectTrue("03904强制setItem只按容器截到64，原生自动化仍遵守剑的单件上限",
+                gourd.getItem(8).getCount() == 64 && gourd.getItem(0).getCount() == 1
+                        && remainder.is(Items.IRON_SWORD) && remainder.getCount() == 2);
+        gourd.getPersistentData().putInt("smoke_probe", 39);
+        CompoundTag saved = gourd.saveWithFullMetadata(player.registryAccess());
+        GourdBlockEntity restored = (GourdBlockEntity) BlockEntity.loadStatic(ricePos, gourd.getBlockState(), saved, player.registryAccess());
+        expectTrue("03904完整metadata保存读回九槽、非标准堆叠、名称与耐久组件，更新标签包含同份数据",
+                restored != null && restored.getContainerSize() == 9 && ItemStack.matches(restored.getItem(8), sword)
+                        && restored.getItem(0).is(Items.IRON_SWORD) && restored.getItem(0).getCount() == 1
+                        && restored.getPersistentData().getInt("smoke_probe") == 39
+                        && gourd.getUpdateTag(player.registryAccess()).equals(saved));
+        ResourceKey<LootTable> loot = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.withDefaultNamespace("chests/simple_dungeon"));
+        GourdBlockEntity seeded = new GourdBlockEntity(ricePos, fruit);
+        seeded.setLootTable(loot);
+        seeded.setLootTableSeed(39);
+        GourdBlockEntity seededRead = (GourdBlockEntity) BlockEntity.loadStatic(ricePos, fruit,
+                seeded.saveWithFullMetadata(player.registryAccess()), player.registryAccess());
+        expectTrue("03904尚未展开的loot表及种子完整保存读回",
+                seededRead != null && loot.equals(seededRead.getLootTable()) && seededRead.getLootTableSeed() == 39);
+        expectTrue("03904菜单提供者保留独立27槽三行菜单，不绑定九槽库存",
+                gourd.createMenu(0, player.getInventory(), player) instanceof ChestMenu menu && menu.getRowCount() == 3
+                        && menu.getContainer().getContainerSize() == 27 && menu.getContainer() != gourd && menu.getContainer().isEmpty());
+        gourd.clearContent();
+        player.serverLevel().sendBlockUpdated(ricePos, fruit, gourd.getBlockState(), 3);
+    }
+
+    /** 藤蔓每个子场景清理完整已保存范围和临时计划刻，不保留可继续蔓生的阶段。 */
+    private void riceResetVines(ServerPlayer player, BlockState soil) {
+        riceClearDrops();
+        for (BlockPos pos : riceBlocks.keySet()) {
+            BlockEntity current = player.serverLevel().getBlockEntity(pos);
+            if (current instanceof Container container) container.clearContent();
+            player.serverLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
+        }
+        player.serverLevel().setBlock(ricePos.below(), soil, 3);
     }
 
     private void restoreRice(ServerPlayer player) {
         if (!riceActive) return;
         riceActive = false;
+        player.closeContainer();
         if (riceDropListener != null) NeoForge.EVENT_BUS.unregister(riceDropListener);
         riceDrops.forEach(Entity::discard);
         for (BlockPos pos : riceBlocks.keySet()) {
+            BlockEntity current = player.serverLevel().getBlockEntity(pos);
+            if (current instanceof Container container) container.clearContent();
             player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
             player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
             player.serverLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
@@ -2687,6 +3008,8 @@ final class FuluCookingCheck extends ActionCheck {
         player.setGameMode(riceMode);
         player.getAbilities().flying = riceFlying;
         player.onUpdateAbilities();
+        player.connection.teleport(ricePosition.x, ricePosition.y, ricePosition.z, riceYaw, ricePitch);
+        player.setDeltaMovement(riceMotion);
         for (int slot = 0; slot < riceInventory.size(); slot++) player.getInventory().setItem(slot, riceInventory.get(slot));
         player.getInventory().selected = riceSelected;
         if (ricePlantDataBefore.contains("caiou")) {

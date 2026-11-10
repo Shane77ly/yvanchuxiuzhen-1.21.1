@@ -45,6 +45,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/mugongtai.ani
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/murenzhuang.animation.json,f64eaeae63a7e8dd99e55ac4a9bb3c1e5ede9e86,src/main/resources/assets/yvanchuxiuzhen/animations/murenzhuang.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/saosilun.animation.json,2f085f4d7b54fcd755e76030b78e78fccbdfe28d,src/main/resources/assets/yvanchuxiuzhen/animations/saosilun.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/shanghaifanwei.animation.json,349784e3632a21ffdd9d95f3ab27eb7440293e56,src/main/resources/assets/yvanchuxiuzhen/animations/shanghaifanwei.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/shicai03905.animation.json,0ea4c46501bfa93808baec49fec57b29ac45aab9,src/main/resources/assets/yvanchuxiuzhen/animations/shicai03905.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/shipintai.animation.json,a239449395e3bbdaebf9951f90529a42acac2725,src/main/resources/assets/yvanchuxiuzhen/animations/shipintai.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/silkworm_entity.animation.json,e3d405f3a9823d62a5ff4343cf0d0f9d85b4c5e9,src/main/resources/assets/yvanchuxiuzhen/animations/silkworm_entity.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/silkworm_entity_gold.animation.json,6a2d58d2f44c7a3117013c2b75ce5c41f4924cb0,src/main/resources/assets/yvanchuxiuzhen/animations/silkworm_entity_gold.animation.json
@@ -912,6 +913,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_038_p
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_039_plant_01.json,6c1abbbd7557edb92d8c0106d878f29d19606ce5,src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_039_plant_01.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_039_plant_02.json,bd276a39c081fa261a414a8e515c23a5d5da0d43,src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_039_plant_02.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_039_plant_03.json,c9cde68c9343b80b69177432ee7ffd697355bd41,src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_039_plant_03.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_039_plant_04.json,e2114d066ea347b7bcc534e3419ee77980d12dda,src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_039_plant_04.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_040_plant_01.json,9084ba075909b301fa3df88fe3c2809d91558caa,src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_040_plant_01.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_040_plant_02.json,0dc66eaa0cc14954f436a6677e7f8ce1ba098837,src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_040_plant_02.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_040_plant_03.json,b904d1a3ca843a99ed575695528d6c3af1536fb5,src/main/resources/assets/yvanchuxiuzhen/blockstates/shicai_040_plant_03.json
@@ -1287,6 +1289,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/mugongtai.geo.json,2
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/murenzhuang.geo.json,c6898f182273902508f11ef956c47c30e4fdee8f,src/main/resources/assets/yvanchuxiuzhen/geo/murenzhuang.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/saosilun.geo.json,3de82866242e75b7a580d769ad0bc2d679812a4f,src/main/resources/assets/yvanchuxiuzhen/geo/saosilun.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/shanghaifanwei.geo.json,4187a0b5553a60e17eefa5112cd3b40e9d46238a,src/main/resources/assets/yvanchuxiuzhen/geo/shanghaifanwei.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/shicai03905.geo.json,8318b70303d23cd732d818ea0765f471ed3e3bd5,src/main/resources/assets/yvanchuxiuzhen/geo/shicai03905.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/shipintai.geo.json,7662671867325b5ca80d6d2bd36621a6cae4a137,src/main/resources/assets/yvanchuxiuzhen/geo/shipintai.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/silkworm_entity.geo.json,7f7ebfe2bb4c212db9e56ed36d27bf3cb3e3178f,src/main/resources/assets/yvanchuxiuzhen/geo/silkworm_entity.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/silkworm_entity_gold.geo.json,6670aeb673cec44b3fec7da8ca356cd9d244ac53,src/main/resources/assets/yvanchuxiuzhen/geo/silkworm_entity_gold.geo.json
@@ -4366,6 +4369,8 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/shicai0530
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/shicai05303.json,15f15c9417a064145164623c7bffa951bd698428,src/main/resources/assets/yvanchuxiuzhen/models/custom/shicai05303.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/shicai05304.json,29e1b2d97108fec40b285f5a9f721623b08a53be,src/main/resources/assets/yvanchuxiuzhen/models/custom/shicai05304.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/shicai05305.json,a9024ed650fbb993b73e2c04aadacb8604a612cd,src/main/resources/assets/yvanchuxiuzhen/models/custom/shicai05305.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/shicai_039_plant_04_particle.json,ab7d0d3930c7ef78ff9304e15f23ff37de9c0b91,src/main/resources/assets/yvanchuxiuzhen/models/custom/shicai_039_plant_04_particle.json
+(generated),,src/main/resources/assets/yvanchuxiuzhen/models/custom/shicai_039_plant_04_particle__cutout.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/shipintai_particle.json,f65a51e436d95cd0c7178526b44deb4c18ae7a74,src/main/resources/assets/yvanchuxiuzhen/models/custom/shipintai_particle.json
 (generated),,src/main/resources/assets/yvanchuxiuzhen/models/custom/shipintai_particle__cutout.json
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/models/custom/shopblock01.json,8c4c535f1d56244fce51c9d7c44645080337a277,src/main/resources/assets/yvanchuxiuzhen/models/custom/shopblock01.json
@@ -4614,6 +4619,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/f
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/ling_14.item.json,ab33c13e7638fa1d859dc97992702c63432dd298,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/ling_14.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/mugongtai.item.json,d623123fd2e9644f4dd5b76af1be63c133c76918,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/mugongtai.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/saosilun.item.json,cd91254f9fd9c997ae2b68d423ed381c45155d2d,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/saosilun.item.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/shicai03905.item.json,a28d6a6e92525f217e94372edc15b426a6ba7956,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/shicai03905.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/shipintai.item.json,9e586f7790ba877b368460cd86d1f7d45b853995,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/shipintai.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/stonemill.item.json,7a625bc4d84c3ffb4a6e8ac2de9c7382c3fbd513,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/stonemill.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/taolun.item.json,ec7cedeaeaf36a04c67b853b0d3620b2cfb9df80,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/taolun.item.json
@@ -6292,6 +6298,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_03901
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_039_plant_01.json,26ff05fe6586bf1597094db514dfa2deffbb67e8,src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_039_plant_01.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_039_plant_02.json,2649a5b2ca8a9974e9a4ac401e0d884b53ee578f,src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_039_plant_02.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_039_plant_03.json,d3f5cafbc5a68e81ea09d55709d98e0d0ba42869,src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_039_plant_03.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_039_plant_04.json,dbc0ebb4fc7e26f47caa026d031948f1acb67315,src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_039_plant_04.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_040.json,30216a940d286920f34dd0dc63ab62f9c4885e05,src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_040.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_040_plant_01.json,c08aadf6406fcb65fbec49cc6ddf4407926161ed,src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_040_plant_01.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_040_plant_02.json,206dc39d47c2b360d000098c446273c9d24b9274,src/main/resources/assets/yvanchuxiuzhen/models/item/shicai_040_plant_02.json
@@ -7925,6 +7932,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/shicai03
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/shicai03803.png,f85aeed89fd5fd1ad4e8508ea765b8424579f068,src/main/resources/assets/yvanchuxiuzhen/textures/block/shicai03803.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/shicai03902.png,e3c6f370ca1486f135454f20138f520b7d6ca2b3,src/main/resources/assets/yvanchuxiuzhen/textures/block/shicai03902.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/shicai03903.png,0ba09ec1b4055f58e39a1341a2896be28c7cd0d8,src/main/resources/assets/yvanchuxiuzhen/textures/block/shicai03903.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/shicai03905.png,b31f4a0b231adec0dd12fa8f6c03617a687e1606,src/main/resources/assets/yvanchuxiuzhen/textures/block/shicai03905.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/shicai04001.png,3204fcd48d329aafb1f6c37ec9f5a4ef3243eddf,src/main/resources/assets/yvanchuxiuzhen/textures/block/shicai04001.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/shicai04002.png,e819e265ced29cd3b92b57dd54dbb93666b8aa5f,src/main/resources/assets/yvanchuxiuzhen/textures/block/shicai04002.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/shicai04003.png,380c15d8bf68af0ecab0a68c6f7ee5be10a3e2a8,src/main/resources/assets/yvanchuxiuzhen/textures/block/shicai04003.png

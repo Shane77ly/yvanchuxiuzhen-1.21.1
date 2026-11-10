@@ -176,6 +176,40 @@ public final class PlantSetup {
             .blockFactory("plant:produce033_02", traits -> new ProduceBlock.Growing(traits, ProduceCrop.SHICAI_033, 2))
             .blockFactory("plant:produce033_03", traits -> new ProduceBlock.Growing(traits, ProduceCrop.SHICAI_033, 3))
             .blockFactory("plant:produce033_04", traits -> new ProduceBlock(traits, ProduceCrop.SHICAI_033, 4))
+            .blockFactory("plant:fruit_tree_log", traits -> ContentBlock.create(traits, FruitTreeLogBlock::new))
+            .blockFactory("plant:fruit_tree_leaves", FruitTreeLeavesBlock::new)
+            .blockFactory("plant:shicai009_sapling", traits -> new FruitTreeSaplingBlock(traits, FruitTree.SHICAI_009))
+            .blockFactory("plant:shicai010_sapling", traits -> new FruitTreeSaplingBlock(traits, FruitTree.SHICAI_010))
+            .blockFactory("plant:vine034_01", traits -> new VineSeedlingBlock(traits, VineCrop.SHICAI_034))
+            .blockFactory("plant:vine034_02", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_034, 2)))
+            .blockFactory("plant:vine034_03", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_034, 3)))
+            .blockFactory("plant:vine034_04", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_034, 4)))
+            .blockFactory("plant:vine034_05", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_034, 5)))
+            .blockFactory("plant:vine035_02", traits -> new VineSeedlingBlock(traits, VineCrop.SHICAI_035))
+            .blockFactory("plant:vine035_03", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_035, 3)))
+            .blockFactory("plant:vine035_04", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_035, 4)))
+            .blockFactory("plant:vine036_01", traits -> new VineSeedlingBlock(traits, VineCrop.SHICAI_036))
+            .blockFactory("plant:vine036_02", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_036, 2)))
+            .blockFactory("plant:vine036_03", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_036, 3)))
+            .blockFactory("plant:vine036_04", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_036, 4)))
+            .blockFactory("plant:vine036_05", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_036, 5)))
+            .blockFactory("plant:vine037_01", traits -> new VineSeedlingBlock(traits, VineCrop.SHICAI_037))
+            .blockFactory("plant:vine037_02", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_037, 2)))
+            .blockFactory("plant:vine037_03", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_037, 3)))
+            .blockFactory("plant:vine038_01", traits -> new VineSeedlingBlock(traits, VineCrop.SHICAI_038))
+            .blockFactory("plant:vine038_02", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_038, 2)))
+            .blockFactory("plant:vine038_03", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_038, 3)))
+            .blockFactory("plant:vine039_01", traits -> new VineSeedlingBlock(traits, VineCrop.SHICAI_039))
+            .blockFactory("plant:vine039_02", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_039, 2)))
+            .blockFactory("plant:vine039_03", traits -> ContentBlock.create(traits, row -> new VineBlock(row, VineCrop.SHICAI_039, 3)))
+            .blockFactory("plant:gourd", traits -> ContentBlock.create(traits, row -> new GourdBlock(row)))
+            .itemFactory("plant:vine034_seed", (properties, tooltip) -> new VineSeedItem(properties, tooltip, VineCrop.SHICAI_034))
+            .itemFactory("plant:vine035_seed", (properties, tooltip) -> new VineSeedItem(properties, tooltip, VineCrop.SHICAI_035))
+            .itemFactory("plant:vine036_seed", (properties, tooltip) -> new VineSeedItem(properties, tooltip, VineCrop.SHICAI_036))
+            .itemFactory("plant:vine037_seed", (properties, tooltip) -> new VineSeedItem(properties, tooltip, VineCrop.SHICAI_037))
+            .itemFactory("plant:vine038_seed", (properties, tooltip) -> new VineSeedItem(properties, tooltip, VineCrop.SHICAI_038))
+            .itemFactory("plant:vine039_seed", (properties, tooltip) -> new VineSeedItem(properties, tooltip, VineCrop.SHICAI_039))
+            .itemFactory("plant:gourd", (properties, tooltip) -> new GourdBlockItem(VineCrop.SHICAI_039.block(4), properties, tooltip))
             .blockFactory("plant:lotus_root", traits -> ContentBlock.create(traits, LotusRootBlock::new))
             .blockFactory("plant:lotus_stem", traits -> ContentBlock.create(traits, row -> new LotusPartBlock.Waterlogged(row, false)))
             .blockFactory("plant:lotus_pod", traits -> ContentBlock.create(traits, LotusPartBlock::new))
@@ -189,6 +223,7 @@ public final class PlantSetup {
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
         PlantFeatures.register(modBus);
+        GourdBlockEntities.register(modBus);
         NeoForge.EVENT_BUS.addListener(MulberryGrowth::afterServerTick);
         NeoForge.EVENT_BUS.addListener(MulberryGrowth::stopped);
     }

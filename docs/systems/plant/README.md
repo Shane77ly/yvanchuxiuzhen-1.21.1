@@ -9,12 +9,12 @@ updated: 2026-11-10
 
 标识 `plant`，类别：系统。职责：作物、树木、野生植物的生长与收获（[系统设计](../../development/system-design.md)）。
 
-当前阶段：D 食材与工艺供给部分实现。在水稻001、糯稻002及桑苗/桑叶基础上，2026-11-10 整批接回004–008、011–033共28种作物的129个阶段方块、129个方块物品与23个独立播种物，共281条行为注册；Plant累计319条行为注册。26个新增成熟地物连同001/002共28个完成类型及configured/placed装配，仍按“已注册”记录，World自然投放未闭合。当前转换内容表为433个方块、473个物品；内容身份与资源数量不表示完整玩法验收数。
+当前阶段：D 食材与工艺供给部分实现。此前已接入水稻001、糯稻002、桑树及004–008、011–033共28种作物；当前批次新增009/010果树、034–039共23个藤本阶段和6种子，并为03904接入九槽葫芦库存。Plant内容台账现有384条“行为已迁移”；30个成熟地物完成类型/configured/placed注册，其中果树009/010的World群系投放尚未安装。`content/plant`当前有434个方块与474个物品定义；这些数目不代表全系统玩法验收完成。
 
-本批完整 `build compileSmokeJava` 已通过，含既有test/check与ArchUnit；数据转换1759项，比糯稻002批次新增52份成熟地物JSON。首次构建因本机原生内存不足失败，限制单worker串行重跑后成功，见[月志](logs/2026-11.md)。最终既有`runSmokeClient -PsmokeOnly=fulucooking`为238项INFO、0 FAIL、DONE（3m11s/退出0），客户端四维度正常保存退出且ERROR/FATAL0。专服在Done后通过持有stdin实际发送原生stop，正常保存四维度，BUILD SUCCESSFUL（29s）/退出0、ERROR/FATAL0。自然新区域、完整自然成长与退出重登、来源版本实机、多人和两版本对照均未验收。
+当前批次`build compileSmokeJava`与既有`runSmokeClient -PsmokeOnly=fulucooking`已通过；冒烟报告301项INFO、0 FAIL、DONE，客户端四维度正常保存退出且ERROR/FATAL0。专服启动至Done后收到原生stop并正常保存退出，Gradle BUILD SUCCESSFUL、游戏日志ERROR/FATAL0。资源审计确认179份模型/贴图/Geo/动画引用闭包均有目标文件和manifest，154份真实来源文件SHA-1一致；完整自然生成、树苗完整生长、葫芦动画全程播放、完整退出重登、来源1.18.2版本实机、多人和两版本对照仍未验收，见[月志](logs/2026-11.md)。
 
 - [架构与来源规则](architecture.md)：逐编号身份、实现族、工厂对应、生长与掉落差异、公开API和自然投放边界。
-- 归属范围842个元素，其中600个已读；这是来源阅读范围，非功能验收数，见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
+- 归属范围842个元素，其中608个已读；这是来源阅读范围，非功能验收数，见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册身份、目标ID、行为迁移和地物装配状态。
 - [来源证据](ledger/source-evidence.csv)与[来源指纹](ledger/source-fingerprints.csv)：来源路径、已读分支范围、目标实现和SHA256。
 - [变更索引](changes.md)、[月度日志](logs/2026-11.md)与[系统导航](../README.md)：按批次查证验证范围与源码引用规则。
