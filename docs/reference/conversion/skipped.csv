@@ -26,8 +26,6 @@ block,yvanchuxiuzhen:qiankunmentu,方块基类 BaseEntityBlock 由所属系统�
 block,yvanchuxiuzhen:quicksand,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:saosilun,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:shicai_039_plant_04,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:stonemill,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:stoneroller,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:taolun,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:tiandaofuben,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:tiandiyinhang,方块基类 BaseEntityBlock 由所属系统迁移
@@ -137,8 +135,6 @@ item,yvanchuxiuzhen:silkwormentity_spawn_egg,物品类 ForgeSpawnEggItem 由所�
 item,yvanchuxiuzhen:silkwormentitygold_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:silkwormmoth_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:silkwormmothgold_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:stonemill,物品类 StonemillDisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:stoneroller,物品类 StonerollerDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:taolun,物品类 TaolunDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:taomujing_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:tiandaofuben,物品类 TiandaofubenDisplayItem 由所属系统迁移

@@ -12,6 +12,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -28,6 +29,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.block.Blocks;
@@ -35,6 +38,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.level.ExplosionEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
@@ -43,6 +48,9 @@ import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.cooking.content.CookingPotBlockEntity;
 import net.yvanchuxiuzhen.system.cooking.content.CookingPotMenu;
 import net.yvanchuxiuzhen.system.cooking.client.CookingPotScreen;
+import net.yvanchuxiuzhen.system.craft.client.StoneMillScreen;
+import net.yvanchuxiuzhen.system.craft.content.StoneMillBlockEntity;
+import net.yvanchuxiuzhen.system.craft.content.StoneMillMenu;
 import net.yvanchuxiuzhen.system.fulu.DrawingTableRuntime;
 import net.yvanchuxiuzhen.system.fulu.FuluRanged;
 import net.yvanchuxiuzhen.system.fulu.FuluUse;
@@ -108,6 +116,13 @@ final class FuluCookingCheck extends ActionCheck {
     private BlockState oreBefore;
     private BlockPos repellingBase;
     private BlockPos explosiveBase;
+    private BlockPos stoneMillPos;
+    private BlockPos stoneRollerPos;
+    private boolean stoneMillShift;
+    private final Map<BlockPos, BlockState> stoneMillBlocks = new LinkedHashMap<>();
+    private final Map<BlockPos, CompoundTag> stoneMillEntities = new LinkedHashMap<>();
+    private final List<ItemEntity> stoneMillDrops = new ArrayList<>();
+    private Consumer<EntityJoinLevelEvent> stoneMillDropListener;
     private final Map<BlockPos, BlockState> repellingBlocks = new LinkedHashMap<>();
 
     FuluCookingCheck(List<String> report, String levelId, Screenshots screenshots) {
@@ -723,6 +738,94 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("42 号四档投射物与爆炸回调：半径 4/8/12/16，固定 DESTROY_WITH_DECAY（受控取消爆炸）",
                             powers.equals(List.of(4f, 4f, 8f, 8f, 12f, 12f, 16f, 16f))
                                     && interactions.stream().allMatch(mode -> mode == Explosion.BlockInteraction.DESTROY_WITH_DECAY));
+                }),
+                new Action(8, p -> {
+                    p.closeContainer();
+                    stoneMillShift = minecraft.options.keyShift.isDown();
+                    stoneMillPos = prepareStoneMill(p, p.blockPosition().offset(2, 0, 0));
+                    stoneRollerPos = prepareStoneMill(p, p.blockPosition().offset(-2, 0, 0));
+                    p.serverLevel().setBlockAndUpdate(stoneMillPos, block("stonemill"));
+                    p.serverLevel().setBlockAndUpdate(stoneRollerPos, block("stoneroller"));
+                    p.getInventory().setItem(HOTBAR, ItemStack.EMPTY);
+                    p.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                    p.inventoryMenu.broadcastChanges();
+                    stoneMillDropListener = event -> {
+                        if (!event.getLevel().isClientSide() && event.getEntity() instanceof ItemEntity drop
+                                && drop.position().distanceToSqr(Vec3.atCenterOf(stoneMillPos)) < 16) stoneMillDrops.add(drop);
+                    };
+                    NeoForge.EVENT_BUS.addListener(stoneMillDropListener);
+                    stoneMillSneak(true);
+                }),
+                new Action(8, p -> {
+                    expectTrue("石磨开窗前客户端潜行输入已同步到服务端", p.isShiftKeyDown());
+                    useBlock(stoneMillPos);
+                }),
+                new Action(8, p -> {
+                    expectTrue("真实潜行右键石磨打开双端三槽菜单与中文原生界面",
+                            p.containerMenu instanceof StoneMillMenu && p.containerMenu.slots.size() == 39
+                                    && minecraft.player.containerMenu instanceof StoneMillMenu
+                                    && minecraft.screen instanceof StoneMillScreen
+                                    && !Component.translatable("gui.yvanchuxiuzhen.stonemill_gui.label_yan_mo")
+                                            .getString().equals("gui.yvanchuxiuzhen.stonemill_gui.label_yan_mo"));
+                    minecraft.execute(() -> screenshots.take("craft-stonemill-menu.png"));
+                }),
+                new Action(8, p -> {
+                    p.closeContainer();
+                    stoneMillSneak(false);
+                    StoneMillBlockEntity mill = stoneMill(p, stoneMillPos);
+                    mill.setItem(0, item("fuluzhushablock"));
+                    mill.setItem(1, ItemStack.EMPTY);
+                    mill.setItem(2, ItemStack.EMPTY);
+                    mill.changed();
+                }),
+                new Action(4, p -> useBlock(stoneMillPos)),
+                new Action(4, p -> {
+                    StoneMillBlockEntity mill = stoneMill(p, stoneMillPos);
+                    expectTrue("石磨普通右键：1份辰砂耗尽仍产生4份朱砂，保留来源主料初始数量缓存",
+                            !p.isShiftKeyDown() && mill.getItem(0).isEmpty()
+                                    && mill.getItem(1).is(item("fuluzhushaitem").getItem()) && mill.getItem(1).getCount() == 4);
+                    mill.setItem(1, item("fuluzhushaitem", 3));
+                    mill.changed();
+                }),
+                new Action(4, p -> useBlock(stoneMillPos)),
+                new Action(4, p -> {
+                    int dropped = stoneMillDrops.stream().filter(drop -> drop.getItem().is(item("fuluzhushaitem").getItem()))
+                            .mapToInt(drop -> drop.getItem().getCount()).sum();
+                    expectTrue("石磨旧成品3件被复制成三份完整栈，共掉出9件且清空成品槽（实际 " + dropped + "）",
+                            dropped == 9 && stoneMill(p, stoneMillPos).getItem(1).isEmpty());
+                    stoneMillDrops.forEach(Entity::discard);
+                    stoneMillDrops.clear();
+                    StoneMillBlockEntity roller = stoneMill(p, stoneRollerPos);
+                    roller.setItem(0, item("shicai_046", 4));
+                    roller.setItem(1, ItemStack.EMPTY);
+                    roller.setItem(2, item("foodwan"));
+                    roller.changed();
+                }),
+                new Action(4, p -> useBlock(stoneRollerPos)),
+                new Action(4, p -> {
+                    StoneMillBlockEntity roller = stoneMill(p, stoneRollerPos);
+                    expectTrue("石碾普通右键：4主料与1碗只产1份，后续轮次重读辅料阻止继续产出",
+                            roller.getItem(0).isEmpty() && roller.getItem(2).isEmpty()
+                                    && roller.getItem(1).is(item("food_039").getItem()) && roller.getItem(1).getCount() == 1);
+                    roller.setItem(0, item("shicai_046", 5));
+                    roller.setItem(1, item("food_039"));
+                    roller.setItem(2, item("foodwan", 2));
+                    roller.changed();
+                    StoneMillBlockEntity restored = (StoneMillBlockEntity) BlockEntity.loadStatic(stoneRollerPos,
+                            roller.getBlockState(), roller.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    boolean allSlots = restored != null;
+                    for (int slot = 0; slot < 3 && allSlots; slot++) allSlots &= ItemStack.matches(restored.getItem(slot), roller.getItem(slot));
+                    boolean directions = true;
+                    for (Direction direction : Direction.values()) {
+                        IItemHandler sided = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, stoneRollerPos, direction);
+                        directions &= sided != null && sided.getSlots() == 3
+                                && sided.insertItem(0, item("shicai_046"), true).isEmpty()
+                                && sided.insertItem(2, item("foodwan"), true).isEmpty()
+                                && sided.insertItem(1, item("food_039"), true).getCount() == 1
+                                && sided.extractItem(0, 1, true).isEmpty() && sided.extractItem(2, 1, true).isEmpty()
+                                && sided.extractItem(1, 1, true).getCount() == 1;
+                    }
+                    expectTrue("石碾三槽保存重读一致，六方向能力只插0/2并只取成品1", allSlots && directions);
                 })
         );
     }
@@ -780,9 +883,50 @@ final class FuluCookingCheck extends ActionCheck {
         });
     }
 
+    private BlockPos prepareStoneMill(ServerPlayer player, BlockPos pos) {
+        for (int offset = -1; offset <= 1; offset++) {
+            BlockPos at = pos.above(offset);
+            stoneMillBlocks.put(at, player.serverLevel().getBlockState(at));
+            BlockEntity original = player.serverLevel().getBlockEntity(at);
+            if (original != null) {
+                stoneMillEntities.put(at, original.saveWithFullMetadata(player.registryAccess()));
+                if (original instanceof Container container) container.clearContent();
+            }
+            player.serverLevel().setBlockAndUpdate(at, offset == -1 ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState());
+        }
+        return pos;
+    }
+
+    private static StoneMillBlockEntity stoneMill(ServerPlayer player, BlockPos pos) {
+        return (StoneMillBlockEntity) player.serverLevel().getBlockEntity(pos);
+    }
+
+    private void stoneMillSneak(boolean down) {
+        minecraft.execute(() -> {
+            if (minecraft.options.keyShift.isDown() != down) minecraft.options.keyShift.setDown(down || minecraft.options.toggleCrouch().get());
+        });
+    }
+
     @Override
     protected void cleanup(ServerPlayer player) {
         player.closeContainer();
+        if (stoneMillDropListener != null) NeoForge.EVENT_BUS.unregister(stoneMillDropListener);
+        if (stoneMillPos != null) {
+            stoneMillSneak(stoneMillShift);
+            stoneMillDrops.forEach(Entity::discard);
+            for (Map.Entry<BlockPos, BlockState> entry : stoneMillBlocks.entrySet()) {
+                BlockEntity current = player.serverLevel().getBlockEntity(entry.getKey());
+                if (current instanceof Container container) container.clearContent();
+                player.serverLevel().setBlockAndUpdate(entry.getKey(), entry.getValue());
+                CompoundTag original = stoneMillEntities.get(entry.getKey());
+                if (original != null) {
+                    BlockEntity restored = BlockEntity.loadStatic(entry.getKey(), entry.getValue(), original, player.registryAccess());
+                    player.serverLevel().setBlockEntity(restored);
+                    restored.setChanged();
+                    player.serverLevel().sendBlockUpdated(entry.getKey(), entry.getValue(), entry.getValue(), 3);
+                }
+            }
+        }
         player.serverLevel().getGameRules().getRule(GameRules.RULE_NATURAL_REGENERATION).set(naturalRegeneration, player.server);
         if (volleyListener != null) NeoForge.EVENT_BUS.unregister(volleyListener);
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);

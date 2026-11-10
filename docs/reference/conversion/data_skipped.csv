@@ -16,8 +16,6 @@ tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:guancai_01 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:zhuangshiqiantong 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:taolun 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json,成员 yvanchuxiuzhen:stonemill 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/pickaxe.json,成员 yvanchuxiuzhen:stoneroller 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:quicksand 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_quicksand 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:watercloud 未登记，由所属系统迁移
@@ -64,23 +62,16 @@ tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/linghunentity.
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/linghunentity.json,成员 yvanchuxiuzhen:yaoshou_018 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/linghunentity.json,成员 yvanchuxiuzhen:yaoshou_039 未登记，由所属系统迁移
 tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/linghunentity.json,成员全部未登记，整个标签未生成，随所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:fulutexiao_34 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:fulutexiao_44 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:skillwind_06 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:guanghuan 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:zhenjineng_03 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:fulutexiao_27 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:pao_0601 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:pao_0401 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:fulutexiao_01 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:fabao_01701 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:shanghaifanwei 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:fuqi_0301 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:jiantou 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:fulutexiao_09 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:pao_0501 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:fulutexiao_26 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:fulutexiao_38 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:yaoshou_040skill_02 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:skillwind_05 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:pao_0901 未登记，由所属系统迁移
@@ -219,8 +210,6 @@ recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/foodzhenggu
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/mugongtaihecheng.json,引用未登记的物品 yvanchuxiuzhen:mugongtai，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/saosilunhecheng.json,引用未登记的物品 yvanchuxiuzhen:saosilun，由所属系统迁移
 recipe_count_clamped,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/skillarrow_10hecheng.json,产物 yvanchuxiuzhen:skill_arrow_10 数量 5 超过堆叠上限 1，改为 1（Q15 裁定）
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/stonemillhecheng.json,引用未登记的物品 yvanchuxiuzhen:stonemill，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/stonerollerhecheng.json,引用未登记的物品 yvanchuxiuzhen:stoneroller，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/taolunhecheng.json,引用未登记的物品 yvanchuxiuzhen:taolun，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/zhibujihecheng.json,引用未登记的物品 yvanchuxiuzhen:zhibuji，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/zhuangshiqiantonghecheng.json,引用未登记的物品 yvanchuxiuzhen:taolun，由所属系统迁移

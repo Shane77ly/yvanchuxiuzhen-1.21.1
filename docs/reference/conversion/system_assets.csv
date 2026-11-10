@@ -1,4 +1,10 @@
 owner,kind,id
+craft,geo,yvanchuxiuzhen:stonemill
+craft,animation,yvanchuxiuzhen:stonemill
+craft,texture,yvanchuxiuzhen:blocks/stonemill
+craft,geo,yvanchuxiuzhen:stoneroller
+craft,animation,yvanchuxiuzhen:stoneroller
+craft,texture,yvanchuxiuzhen:blocks/stoneroller
 equipment,geo,yvanchuxiuzhen:yaohua_0101
 equipment,animation,yvanchuxiuzhen:yaohua_0101
 equipment,texture,yvanchuxiuzhen:items/yaohua_0101

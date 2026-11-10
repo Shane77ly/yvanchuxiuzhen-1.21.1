@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "01 ",
+    "345"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:grindstone"
+    },
+    "1": {
+      "tag": "minecraft:fences"
+    },
+    "3": {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    "4": {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    "5": {
+      "tag": "yvanchuxiuzhen:stone"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:stoneroller",
+    "count": 1
+  }
+}

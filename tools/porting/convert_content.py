@@ -38,7 +38,8 @@ FACTORIES = {'Block': 'block', 'SlabBlock': 'slab', 'StairBlock': 'stairs', 'Wal
              'PressurePlateBlock': 'pressure_plate', 'IronBarsBlock': 'pane', 'DoorBlock': 'door',
              'TrapDoorBlock': 'trapdoor', 'FallingBlock': 'falling', 'FlowerBlock': 'flower',
              'DoublePlantBlock': 'double_plant'}
-ANIMATED_BLOCK_FACTORIES = {'lianqi:repair_table', 'fulu:inheritance', 'cooking:iron_pot', 'cooking:clay_pot'}
+ANIMATED_BLOCK_FACTORIES = {'lianqi:repair_table', 'fulu:inheritance', 'cooking:iron_pot', 'cooking:clay_pot',
+                            'craft:stone_mill', 'craft:stone_roller'}
 # 1.18.2 原版创造栏在 1.21.1 的对应；临时对应，待负责人确认。
 VANILLA_TABS = {'TAB_MISC': 'minecraft:tools_and_utilities', 'TAB_DECORATIONS': 'minecraft:building_blocks',
                 'TAB_TOOLS': 'minecraft:tools_and_utilities'}
@@ -431,7 +432,7 @@ def main() -> None:
         if factory in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod',
                        'lianqi:repair_table', 'lianqi:sewing_basket', 'lianqi:blueprint_table', 'lianqi:poison_cauldron',
                        'fulu:drawing_table', 'fulu:ash_burner', 'fulu:soot', 'fulu:inheritance', 'fulu:repelling_talisman',
-                       'cooking:iron_pot', 'cooking:clay_pot') or factory.startswith('fulu:explosive_'):
+                       'cooking:iron_pot', 'cooking:clay_pot', 'craft:stone_mill', 'craft:stone_roller') or factory.startswith('fulu:explosive_'):
             row.pop('pending_hooks', None)
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:
@@ -461,8 +462,15 @@ def main() -> None:
         else:
             class_name = source.item_class.get(path)
             if overrides.get(('item', target)) in ANIMATED_BLOCK_FACTORIES:
-                items_by_unit[unit].append({'id': target, 'factory': overrides[('item', target)], 'block': target,
-                                           'order': order, 'tab': source.tabs['TAB_YVANCHU_BLOCK']})
+                row = {'id': target, 'factory': overrides[('item', target)], 'block': target,
+                       'order': order, 'tab': source.tabs['TAB_YVANCHU_BLOCK']}
+                tooltip = block_tooltips.get((mod, path), [])
+                if tooltip:
+                    row['tooltip'] = tooltip
+                items_by_unit[unit].append(row)
+                for number, line in enumerate(tooltip, start=1):
+                    for language in LANGUAGES:
+                        add_lang(unit, language, f'tooltip.{NAMESPACE}.item.{target}.{number}', line)
                 continue
             if class_name is None and path in source.geckolib_armor and ('item', target) in overrides:
                 class_name = source.geckolib_armor[path]

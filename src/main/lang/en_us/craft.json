@@ -2,6 +2,8 @@
   "block.yvanchuxiuzhen.silkwormchrysalis_02": "Silkwormchrysalis 0 2",
   "block.yvanchuxiuzhen.silkwormchrysalisgold_02": "Silkwormchrysalisgold 0 2",
   "block.yvanchuxiuzhen.silkwormchrysalisred_02": "Silkwormchrysalisred 0 2",
+  "block.yvanchuxiuzhen.stonemill": "Stonemill",
+  "block.yvanchuxiuzhen.stoneroller": "Stoneroller",
   "block.yvanchuxiuzhen.taopi": "Taopi",
   "item.yvanchuxiuzhen.silkworm": "Silkworm",
   "item.yvanchuxiuzhen.silkwormchrysalis": "Silkwormchrysalis",
@@ -13,5 +15,8 @@
   "item.yvanchuxiuzhen.silkwormegggold": "Silkwormegggold",
   "item.yvanchuxiuzhen.silkwormchrysalisred": "Silkwormchrysalisred",
   "item.yvanchuxiuzhen.silkthreadred": "Silkthreadred",
-  "item.yvanchuxiuzhen.taopiitem": "Taopiitem"
+  "tooltip.yvanchuxiuzhen.item.stonemill.1": "潜行状态下右键磨盘打开，放入要研磨的物品后，不断右键磨盘研磨。",
+  "tooltip.yvanchuxiuzhen.item.stoneroller.1": "潜行状态下右键磨盘打开，放入要研磨的物品后，不断右键磨盘研磨。",
+  "item.yvanchuxiuzhen.taopiitem": "Taopiitem",
+  "gui.yvanchuxiuzhen.stonemill_gui.label_yan_mo": "研磨"
 }

@@ -1,4 +1,8 @@
 registry,target_id,factory,owner,reason
+block,yvanchuxiuzhen:stonemill,craft:stone_mill,craft,三槽石磨即时研磨与来源动画
+item,yvanchuxiuzhen:stonemill,craft:stone_mill,craft,石磨方块物品Gecko渲染
+block,yvanchuxiuzhen:stoneroller,craft:stone_roller,craft,三槽石碾即时研磨与来源动画
+item,yvanchuxiuzhen:stoneroller,craft:stone_roller,craft,石碾方块物品Gecko渲染
 block,yvanchuxiuzhen:fulutexiao_42,fulu:explosive_42,fulu,爆裂符受爆炸与投射物命中时引发强度4爆炸
 block,yvanchuxiuzhen:fulutexiao_4202,fulu:explosive_4202,fulu,爆裂符受爆炸与投射物命中时引发强度8爆炸
 block,yvanchuxiuzhen:fulutexiao_4203,fulu:explosive_4203,fulu,爆裂符受爆炸与投射物命中时引发强度12爆炸

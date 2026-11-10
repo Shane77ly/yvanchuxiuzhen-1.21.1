@@ -2,6 +2,8 @@
   "block.yvanchuxiuzhen.silkwormchrysalis_02": "灵蚕蛹",
   "block.yvanchuxiuzhen.silkwormchrysalisgold_02": "独角蚕蛹",
   "block.yvanchuxiuzhen.silkwormchrysalisred_02": "变异独角蚕蛹",
+  "block.yvanchuxiuzhen.stonemill": "石磨",
+  "block.yvanchuxiuzhen.stoneroller": "石碾",
   "block.yvanchuxiuzhen.taopi": "待烧炼的陶瓷器",
   "item.yvanchuxiuzhen.silkworm": "灵蚕",
   "item.yvanchuxiuzhen.silkwormchrysalis": "灵蚕蛹",
@@ -13,5 +15,8 @@
   "item.yvanchuxiuzhen.silkwormegggold": "独角蚕卵",
   "item.yvanchuxiuzhen.silkwormchrysalisred": "变异独角蚕蛹",
   "item.yvanchuxiuzhen.silkthreadred": "缎金丝",
-  "item.yvanchuxiuzhen.taopiitem": "待烧炼的陶瓷器"
+  "tooltip.yvanchuxiuzhen.item.stonemill.1": "潜行状态下右键磨盘打开，放入要研磨的物品后，不断右键磨盘研磨。",
+  "tooltip.yvanchuxiuzhen.item.stoneroller.1": "潜行状态下右键磨盘打开，放入要研磨的物品后，不断右键磨盘研磨。",
+  "item.yvanchuxiuzhen.taopiitem": "待烧炼的陶瓷器",
+  "gui.yvanchuxiuzhen.stonemill_gui.label_yan_mo": "研磨"
 }

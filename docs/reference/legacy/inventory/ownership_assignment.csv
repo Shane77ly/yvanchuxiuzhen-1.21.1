@@ -2770,12 +2770,12 @@ yvanchuxiuzhen,YvanchuFulu,tab,~/systemset/classification,platform,候选,第一
 yvanchuxiuzhen,Fuluzhushablock,block,~/item/huafu,fulu,已读,B1 归属阅读：符箓或画符材料：无过程；被 liandan 的 GrindGo 按 ID 引用（奖励、初始物品、研磨或加工墨料、替死符在伤害结算中的检查），不赋予它规则
 yvanchuxiuzhen,Fuluzhushaitem,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓或画符材料：无过程；被 cooking 的 Wushipupengren；liandan 的 GrindGo 按 ID 引用（奖励、初始物品、研磨或加工墨料、替死符在伤害结算中的检查），不赋予它规则
 yvanchuxiuzhen,Canbeground,tag,~/tag/foodxiangguan,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,StonemillZaiFangKuaiShangYouJian,procedure,~/tool,craft,已读,B1 归属阅读：随 Stonemill 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
-yvanchuxiuzhen,Stonemill,animatedblock,~/tool,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
-yvanchuxiuzhen,StonemillGui,gui,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stoneroller,animatedblock,~/tool,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
-yvanchuxiuzhen,Stonemillhecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stonerollerhecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,StonemillZaiFangKuaiShangYouJian,procedure,~/tool,craft,已读,完整读取A:36–61及Stonemill/Stoneroller两调用者；潜行开三槽菜单，非潜行在设备坐标执行grind 4后写动画1；工艺库存与研磨入口归craft，无玩家能力字段读写
+yvanchuxiuzhen,Stonemill,animatedblock,~/tool,craft,已读,完整读取A:StonemillBlock、StonemillTileEntity、DisplayItem、两模型与两渲染器，调用共用自然交互/菜单和研磨；三槽库存、加工与动画归craft；静态证据见docs/systems/craft/ledger/source-evidence.csv
+yvanchuxiuzhen,StonemillGui,gui,~/tool,craft,已读,完整读取A:StonemillGuiMenu与Screen，唯一自然入口StonemillZaiFangKuaiShangYouJian潜行开窗；共用三槽库存、Shift过滤、无按钮研磨标签，随craft设备
+yvanchuxiuzhen,Stoneroller,animatedblock,~/tool,craft,已读,完整读取A:StonerollerBlock、StonerollerTileEntity、DisplayItem、两模型与两渲染器，与石磨替名比较后共用库存/加工规则，保留独立碰撞与资源；随craft
+yvanchuxiuzhen,Stonemillhecheng,recipe,~/tool,craft,已读,完整读取A:data/yvanchuxiuzhen/recipes/stonemillhecheng.json：栅栏与六石有序合成工艺设备stonemill；材料只按ID引用，随设备craft
+yvanchuxiuzhen,Stonerollerhecheng,recipe,~/tool,craft,已读,完整读取A:data/yvanchuxiuzhen/recipes/stonerollerhecheng.json：砂轮、栅栏与三石有序合成工艺设备stoneroller；材料只按ID引用，随设备craft
 yvanchuxiuzhen,Fuluhuangzhi,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓或画符材料：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Fulufuzhi,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓或画符材料：无过程；被 material 的 Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhi 按 ID 引用（奖励、初始物品、研磨或加工墨料、替死符在伤害结算中的检查），不赋予它规则
 yvanchuxiuzhen,Fuluhuangzhihecheng,recipe,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6284,8 +6284,8 @@ yvanchuxitong,FudanDOWN,procedure,~/huafu,fulu,候选,第一版批量归组（�
 yvanchuxitong,FutouTxtXianshi,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,TiandizhuTxtXianshi,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,FudanTxtXianshi,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Grind,command,~/zhiling,craft,已读,B:GrindCommand:24-64调用GrindGo；唯一自然入口A:StonemillZaiFangKuaiShangYouJian:53-61执行grind 4；七种石磨工艺加工随craft，目标未实现
-yvanchuxitong,GrindGo,procedure,~/zhiling,craft,已读,B:GrindGoProcedure:35-227操作石磨三槽与七种产物；旧输出复制及槽0数量缓存异常按来源记录；由Grind调用，随craft石磨实现
+yvanchuxitong,Grind,command,~/zhiling,craft,已读,完整读取B:GrindCommand:24–64，命令无权限门槛且支持无参数，调用GrindGo；两设备经A:StonemillZaiFangKuaiShangYouJian执行grind 4；按坐标研磨库存归craft
+yvanchuxitong,GrindGo,procedure,~/zhiling,craft,已读,完整读取B:GrindGoProcedure:35–227；七种研磨配方、N²旧输出和主料初始数量缓存、辅料逐轮重读；只写坐标库存不读写玩家能力，随craft石磨/石碾
 yvanchuxitong,Huizhifulu,procedure,~/huafu,fulu,已读,核对知识学习、绘制、烧灰及传承已接入来源调用链；剩余施用与世界内容另批
 yvanchuxitong,Fuluxvqiushuaxin,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,FulunameXianshi,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
