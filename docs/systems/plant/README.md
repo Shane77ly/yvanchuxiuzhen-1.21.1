@@ -9,9 +9,9 @@ updated: 2026-11-10
 
 标识 `plant`，类别：系统。职责：作物、树木、野生植物的生长与收获（[系统设计](../../development/system-design.md)）。
 
-当前阶段：D 食材与工艺供给部分实现。此前已接入水稻001、糯稻002、桑树及004–008、011–033共28种作物；当前批次新增009/010果树、034–039共23个藤本阶段和6种子，并为03904接入九槽葫芦库存。Plant内容台账现有384条“行为已迁移”；30个成熟地物完成类型/configured/placed注册，其中果树009/010的World群系投放尚未安装。`content/plant`当前有434个方块与474个物品定义；这些数目不代表全系统玩法验收完成。
+当前阶段：D 食材与工艺供给部分实现。此前已接入水稻001、糯稻002、桑树及004–008、011–033共28种作物；提交`789c9c23`新增009/010果树、034–039共23个藤本阶段和6种子，并为03904接入九槽葫芦库存。Plant内容台账现有384条“行为已迁移”；30个成熟地物完成类型/configured/placed注册，其中果树009/010的World群系投放尚未安装。`content/plant`当前有434个方块与474个物品定义；这些数目不代表全系统玩法验收完成。
 
-当前批次`build compileSmokeJava`与既有`runSmokeClient -PsmokeOnly=fulucooking`已通过；冒烟报告301项INFO、0 FAIL、DONE，客户端四维度正常保存退出且ERROR/FATAL0。专服启动至Done后收到原生stop并正常保存退出，Gradle BUILD SUCCESSFUL、游戏日志ERROR/FATAL0。资源审计确认179份模型/贴图/Geo/动画引用闭包均有目标文件和manifest，154份真实来源文件SHA-1一致；完整自然生成、树苗完整生长、葫芦动画全程播放、完整退出重登、来源1.18.2版本实机、多人和两版本对照仍未验收，见[月志](logs/2026-11.md)。
+该批次`build compileSmokeJava`与既有`runSmokeClient -PsmokeOnly=fulucooking`已通过；冒烟报告301项INFO、0 FAIL、DONE，客户端四维度正常保存退出且ERROR/FATAL0。专服启动至Done后收到原生stop并正常保存退出，Gradle BUILD SUCCESSFUL、游戏日志ERROR/FATAL0。资源审计确认179份模型/贴图/Geo/动画引用闭包均有目标文件和manifest，154份真实来源文件SHA-1一致；完整自然生成、树苗完整生长、葫芦动画全程播放、完整退出重登、来源1.18.2版本实机、多人和两版本对照仍未验收，见[月志](logs/2026-11.md)。
 
 - [架构与来源规则](architecture.md)：逐编号身份、实现族、工厂对应、生长与掉落差异、公开API和自然投放边界。
 - 归属范围842个元素，其中608个已读；这是来源阅读范围，非功能验收数，见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
