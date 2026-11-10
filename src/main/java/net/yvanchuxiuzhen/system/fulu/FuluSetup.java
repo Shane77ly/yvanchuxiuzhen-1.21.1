@@ -21,11 +21,15 @@ import net.yvanchuxiuzhen.system.fulu.content.FuluBlockEntities;
 import net.yvanchuxiuzhen.system.fulu.content.FuluMenus;
 import net.yvanchuxiuzhen.system.fulu.content.SootBlock;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanItem;
+import net.yvanchuxiuzhen.system.fulu.content.RepellingTalismanBlock;
 import net.yvanchuxiuzhen.system.fulu.content.CloudSpirit;
 import net.yvanchuxiuzhen.system.fulu.content.RangedTalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
+import net.yvanchuxiuzhen.system.fulu.content.ThresholdTalismanItem;
+import net.yvanchuxiuzhen.system.fulu.content.ExplosiveTalismanBlock;
+import net.yvanchuxiuzhen.system.fulu.content.ExplosiveTalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
 import net.yvanchuxiuzhen.system.fulu.content.InheritanceBlock;
 import net.yvanchuxiuzhen.system.fulu.content.InheritanceBlockItem;
@@ -42,13 +46,21 @@ public final class FuluSetup {
             .blockFactory("fulu:drawing_table", traits -> ContentBlock.create(traits, DrawingTableBlock::new))
             .blockFactory("fulu:ash_burner", traits -> ContentBlock.create(traits, AshBurnerBlock::new))
             .blockFactory("fulu:soot", traits -> ContentBlock.create(traits, SootBlock::new))
+            .blockFactory("fulu:repelling_talisman", traits -> ContentBlock.create(traits, RepellingTalismanBlock::new))
             .blockFactory("fulu:inheritance", traits -> ContentBlock.create(traits, InheritanceBlock::new))
+            .blockFactory("fulu:explosive_42", traits -> ContentBlock.create(traits, value -> new ExplosiveTalismanBlock(value, 4)))
+            .blockFactory("fulu:explosive_4202", traits -> ContentBlock.create(traits, value -> new ExplosiveTalismanBlock(value, 8)))
+            .blockFactory("fulu:explosive_4203", traits -> ContentBlock.create(traits, value -> new ExplosiveTalismanBlock(value, 12)))
+            .blockFactory("fulu:explosive_4204", traits -> ContentBlock.create(traits, value -> new ExplosiveTalismanBlock(value, 16)))
             .itemFactory("fulu:inheritance", (properties, tooltip) -> new InheritanceBlockItem(
-                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "chuancheng")), properties, tooltip));
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "chuancheng")), properties, tooltip))
+            .itemFactory("fulu:passive_22", (properties, tooltip) -> new ThresholdTalismanItem(properties, tooltip, 22))
+            .itemFactory("fulu:passive_23", (properties, tooltip) -> new ThresholdTalismanItem(properties, tooltip, 23))
+            .itemFactory("fulu:explosive_42_item", ExplosiveTalismanItem::new);
 
-    /** 共享施用过程驱动的持续效果符编号，对应内容表工厂 {@code fulu:talisman_<编号>}。 */
     /** 蓄放后射出弹体的远程符编号，对应内容表工厂 {@code fulu:ranged_<编号>}。 */
     private static final int[] RANGED = {10, 20, 28, 33, 35};
+    /** 共享即时与持续施用入口的符箓编号，对应内容表工厂 {@code fulu:talisman_<编号>}。 */
     private static final int[] TALISMANS = {1, 2, 3, 4, 5, 40, 44, 43, 45, 47, 48, 49, 6, 7, 8, 9, 11, 12, 13, 14, 17, 19, 21, 24, 25, 26, 27, 29, 31, 32, 34, 36, 38, 39, 46};
 
     static {
@@ -119,6 +131,7 @@ public final class FuluSetup {
         FuluMenus.register(modBus);
         InheritanceContent.register(modBus);
         NeoForge.EVENT_BUS.addListener(DrawingTableRuntime::rightClick);
+        FuluDeathWard.register();
         FuluTick.register();
         modBus.addListener(FuluSetup::payloads);
     }

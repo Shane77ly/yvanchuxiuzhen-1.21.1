@@ -2,14 +2,14 @@
 topic: handoff
 role: guide
 status: current
-updated: 2026-11-09
+updated: 2026-11-10
 ---
 
 # 交接说明
 
 本页写给接手移植的新会话与负责人。它只给出当前状态、阅读顺序、环境事实和下一步；规则正文在各自文档中，这里只链接。
 
-## 当前状态（2026-11-09）
+## 当前状态（2026-11-10）
 
 | 项 | 状态 |
 | --- | --- |
@@ -22,17 +22,19 @@ updated: 2026-11-09
 
 ## 进行中
 
-2026-11-09/10 符箓施用批次收口（分支 `port/c-skill`，最后提交以 `git log -1` 为准，工作树干净；负责人 2026-11-10 要求暂停并交接）：fulu 的持续效果符与一次性释放符已接回共 41 个编号，每个编号的规则、常数与差异见[符箓架构](../systems/fulu/architecture.md)“符箓施用共享框架”及其后各“补入…”小节，月志见[符箓月志](../systems/fulu/logs/2026-11.md)。
+**2026-11-10 当前批次**：15 号镇宅符、16 号替死符、22/23 号背包被动符与 42 号四档爆裂符已实现并录入台账。最终 `tmp/fulu-passive-explosive-verified-report.txt` 为 47 项 INFO、0 FAIL、DONE；15 号排斥、好友集合活视图及重载独立，16 号真实致命保护，22/23 生命与效果，42 二阶真实放置与四档回调参数通过。13/17 改用生成计数后实际为火球 4、陨石 3，23 的原版自然回血测试干扰已隔离。42 引爆检查受控取消实际爆炸，仅确认半径 4/8/12/16 和固定 `DESTROY_WITH_DECAY`，未验收破坏、掉落和连锁。完整构建/检查代码编译通过，最终客户端 ERROR/FATAL 0、四维度正常保存退出；专服最终启动到 `Done`，收到原生 stop、四维度保存退出，BUILD SUCCESSFUL/退出码0、ERROR/FATAL0。历史失败及此前未原生 stop 的启动记录留在符箓月志。本批提交后从当前分支建立 `port/d-craft` 整合石磨/石碾，skill 遗留继续随依赖闭合；暂不推送、不合 `main`。
 
-**代码位置**（均在 `src/main/java/net/yvanchuxiuzhen/system/fulu/`）：`FuluUse`（精力付款 `pay`、持续效果激活 `activate`、21/39 的清除与水下呼吸）、`FuluTick`（逐刻推进 02/03/13/17/19/21/24/31/39，`volley` 发射 13/17/19 弹体）、`FuluInstant`（一次性释放：01/04–09/11/12/14/25–27/29/32/34/36/38/40/43–49 等，含召唤与附魔）、`FuluRanged`（10/20/28/33/35 蓄放后射出）；`content/` 下 `TalismanItem`、`RangedTalismanItem`、`TalismanProjectile`（15 种弹体，枚举 `Kind`）、`TalismanSummon`（09/12/14 不可见飞行体）、`TalismanBeast`（01/26/27/34/38 GeckoLib 动画实体，数据来自 `content/fulu/entity_models.json`）、`CloudSpirit`（44 驯服随从）、`RangedEffects`；`Cultivation.editTizhi` 是 xiulian 新增的公开操作。接入编号 01–14、17、19–21、24–29、31–36、38–40、43–49（具体以 `FuluSetup.TALISMANS` 与 `FuluSetup.RANGED` 为准）。
+2026-11-09/10 符箓批次继续推进（分支 `port/c-skill`；此前相对 `origin/port/c-skill` 领先 60 个提交，是提交差距，工作树改动另看 `git status --short`）：负责人要求持续自主推进完整移植，沿用 active 全量 goal，使用子 Agent 并行实现、审计和文档收口，由主会话串行运行转换、Gradle、客户端与专服。当前补入 15/16/22/23/42 号，编号至英文实现的核对方法见[符箓架构](../systems/fulu/architecture.md)“编号与实现类核对”；各编号规则与过程见该文和[符箓月志](../systems/fulu/logs/2026-11.md)。
 
-**新增或扩展的工具与配置**：`extract_entity_models.py --owner fulu`（并保留传承之光方块的几何/动画登记）；`factory_overrides.csv` 新增 `fulu:talisman_NN`、`fulu:ranged_NN` 工厂行；`convert_content.py` 对这两类工厂清除 `pending_hooks`；`data/minecraft/tags/entity_type/can_breathe_under_water.json` 加入 `fulutexiao_09`；语言键 `message.yvanchuxiuzhen.fulu.health_changed`、`.adventure_forbidden`。
+**代码位置**（均在 `src/main/java/net/yvanchuxiuzhen/system/fulu/`）：`FuluUse`（精力付款与持续效果激活）、`FuluTick`（02/03/13/17/19/21/24/31/39 逐刻推进）、`FuluInstant`（一次性释放、召唤与附魔）、`FuluRanged`（10/20/28/33/35 蓄放）、`FuluDeathWard`（16 号致命保护）；`content/` 下 `TalismanItem`、`RangedTalismanItem`、`TalismanProjectile`、`TalismanSummon`、`TalismanBeast`、`CloudSpirit`、`RangedEffects`，以及 `RepellingTalismanBlock` / `RepellingTalismanBlockEntity`（15）、`ThresholdTalismanItem`（22/23）、`ExplosiveTalismanItem` / `ExplosiveTalismanBlock`（42）。`Cultivation.editTizhi` 是 xiulian 的公开写入口。当前接入施用编号 01–17、19–29、31–36、38–40、42–49；50 普通物品与合成已有，妖兽封存消费者未接回。
+
+**新增或扩展的工具与配置**：`extract_entity_models.py --owner fulu`（并保留传承之光方块的几何/动画登记）；`factory_overrides.csv` 与 `convert_content.py` 接入普通施用、远程、镇宅、危急被动及爆裂符工厂；`data/minecraft/tags/entity_type/can_breathe_under_water.json` 加入 `fulutexiao_09`；语言键 `message.yvanchuxiuzhen.fulu.health_changed`、`.adventure_forbidden`。
 
 **来源疑点（保持来源，待负责人裁定）**：Q64 `FuluConsumeJingliPercentage` 乘的是 `FuluConsumeJingli+1`；Q65 21 号符生效数读物品而非玩家体质（会把生效数置 1）；Q66 46 号符品阶写入持久数据而火球读体质（直接使用时按品阶 1）；Q67 子母弹 `kaiqi` 写在自身而判断在使用者。详见[来源调查](../reference/legacy/source-survey.md)。
 
-**验证**：全量 `gradlew build`、台账 4939 行 0 问题、文档 98 篇 0 问题、专用服务器启动到 Done 且 ERROR/FATAL 0；内置客户端 `runSmokeClient -PsmokeOnly=fulucooking` 全部通过（既有 17 项加本批约 35 项）。检查中发现并修复一个真实缺陷：子母弹 `detonate` 在客户端强转 `ServerLevel` 崩溃。**未验证**：24 号符对标的命中、03/31、各弹体与召唤物的伤害数值、非玩家实体路径、实体存档读回、专服自然玩家、1.18.2 版本实机与两版本对照、多人与完整视觉。
+**验证分级**：全量构建及检查代码编译通过，台账 4939 行/文档 98 篇 0 问题；内置 `fulucooking` 最终 47 项 INFO、0 FAIL、DONE。构建证据 `tmp/fulu-passive-explosive-verified-build.log`、`tmp/fulu-passive-explosive-final-verified-smoke.log`，报告、客户端及专服日志 `tmp/fulu-passive-explosive-verified-{report.txt,client.log,server.log}`。此前修复子母弹 `detonate` 在客户端强转 `ServerLevel` 的真实崩溃。**未验证**：24 号符对标的命中、03/31、各弹体与召唤物的伤害数值、非玩家实体路径、召唤实体存档读回、专服自然玩家、42 实际破坏/掉落/连锁、1.18.2 版本实机与两版本对照、多人与完整视觉。
 
-**尚未实现（下一批从这里开始）**：①物品 `itemfulu_15`（方块 `itemfulu_15` 与其方块实体，待读来源）、`16`（替死符，被动，combat 已有接点须核）、`22`/`23`（背包内被动：血低于 10% 触发）、`30`（催熟符，依赖 `Nichanggrassyaoshou` 妖兽生成，属 creature/plant）、`37`（轮回符，`Fulutexiao37Procedure` 约 1060 行：先列 xiulian 重置/保留清单，重大语义分歧需裁定）、`42`/`5001`（放置方块 `fulutexiao_42`、`4202`–`4204` 等）、`50`（普通合成物品）；②`18`（驯服，依赖妖兽系统）与 `41`（依赖效果 41）及其弹体 `projectile_itemfulu_18/41`、状态效果 `fulutexiao_18`、`fulutexiao_41`；③`fushengdan`（fulu 持有物品，来源未读）；④辰砂矿生成 `fuluzhushablock`（world feature）与 craft 石磨，墨料自然闭环；⑤蒸锅与自然菜谱/食用（cooking）。每项先读来源：物品过程在 `…/procedures/Itemfulu<NN>DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java`，共用过程为 `Itemfulu02…`（02/03/13/17/19/24/31）、`Itemfulu04…`（04–09、11、12、14、46）、`Itemfulu25…`（25–39）、`Itemfulu40…`（40/44/45）。**运行约定**：转换、Gradle、开发服务端、客户端逐个运行；检查入口沿用 `fulucooking`，一次改动只跑一次；编辑检查文件前先确认换行符（CRLF 文件用批量替换时按实际换行符处理）；`runServer` 用于导出注册表供 `check_ledger.py` 比对，超时前会自行结束；Gradle 出现 `processResources` 哈希失败时先 `gradlew --stop` 再重试。skill 遗留未闭合，`port/c-skill` 尚未合入 `main`。
+**尚未实现与下一步**：本批最终检查与提交后，从当前分支建立 `port/d-craft`，按 `tmp/stonemill-source-audit.md` 整合 craft 石磨/石碾和墨料自然闭环。其余待接回：①30 号催熟符依赖 creature/plant；②37 号轮回符与 `fushengdan` 共用 `Fulutexiao37Procedure`，来源已审计，跨系统数据清理/保留契约待裁定；③18/41 号及其弹体和效果依赖 creature/skill；④50→5001 死亡妖兽封存与释放链随 creature 公开接口迁移，50 本身普通物品和合成已有；⑤辰砂矿 `fuluzhushablock` 世界生成，以及 cooking 蒸锅、自然菜谱/食用。**运行约定**：转换、Gradle、开发服务端、客户端逐个运行；检查入口沿用 `fulucooking`，修改后按必要失败定位与末轮回归运行，不重复无关场景；编辑检查文件前确认换行符；注册表导出与台账比对按工程脚本执行。skill 遗留未闭合，`port/c-skill` 尚未合入 `main`。
 
 2026-11-09 D阶段符箓与烹饪批次（分支 `port/c-skill`，本批实现与记录同一提交，最终提交以 `git log -1` 为准）：已接回 fulu 知识、画符、烧灰与传承入口，以及 cooking 两锅、墨料坯生产和部分菜谱执行；两锅自然合成配方由 `convert_data.py` 按来源转换。转换后的完整 `build`（含 Gradle `check`）通过；台账4939行与98篇文档检查均0问题，符箓与烹饪源码证据及月志已建立。符箓本批只有静态来源复核，未做专项运行验收；烹饪全量冒烟无对应断言，不构成验收。全量冒烟报告另有伤害范围一项失败。目标汉化合并语言文件已包含本批关键中文键。铁锅墨料坯、砂锅菜谱烹饪与符箓知识/画符台已由内置 `-PsmokeOnly=fulucooking` 17项验收通过（含烧灰架与传承之光，见两系统月志），符箓施用、辰砂/石磨自然链、蒸锅与专服仍待执行；符箓施用、辰砂及墨料自然闭环、蒸锅和自然菜谱/食用等仍未完成。下一步核验两锅配方加载并运行专项场景；不把系统标记完成、不合main。 该下一步（共享施用框架）已完成，见上一段。
 

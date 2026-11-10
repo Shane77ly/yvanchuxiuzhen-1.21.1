@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,24 +13,31 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.level.ExplosionEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.cooking.content.CookingPotBlockEntity;
@@ -45,6 +53,8 @@ import net.yvanchuxiuzhen.system.fulu.content.AshBurnerBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableMenu;
 import net.yvanchuxiuzhen.system.fulu.content.CloudSpirit;
+import net.yvanchuxiuzhen.system.fulu.content.ExplosiveTalismanBlock;
+import net.yvanchuxiuzhen.system.fulu.content.RepellingTalismanBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
@@ -54,6 +64,8 @@ import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionAttachments;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionProgress;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
+import net.yvanchuxiuzhen.system.relation.data.RelationAttachments;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -82,16 +94,28 @@ final class FuluCookingCheck extends ActionCheck {
             "fulu24level", "fulu24tick", "fuluxiaoguo13", "fulu13level", "fulu13tick", "fulu1301tick", "fululevel46", "fuluxiaoguo17",
             "fulu17level", "fulu17tick", "fulu1701tick", "fuluxiaoguo21", "fulu21level", "fulu21tick", "fuluxiaoguo39", "fulu39level", "fulu39tick");
     private GameType gameMode;
+    private Difficulty difficulty;
+    private boolean naturalRegeneration;
     private double soul;
+    private float health;
+    private float clusterPitch;
+    private final Map<BlockPos, BlockState> clusterAir = new LinkedHashMap<>();
     private final Map<String, Double> talismanState = new LinkedHashMap<>();
     private Mob dummy;
+    private final int[] volleySpawns = new int[2];
+    private Consumer<EntityJoinLevelEvent> volleyListener;
     private BlockPos oreAt;
     private BlockState oreBefore;
+    private BlockPos repellingBase;
+    private BlockPos explosiveBase;
+    private final Map<BlockPos, BlockState> repellingBlocks = new LinkedHashMap<>();
 
     FuluCookingCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("fulucooking", report, levelId);
         script(
                 new Action(4, p -> {
+                    naturalRegeneration = p.serverLevel().getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION);
+                    p.serverLevel().getGameRules().getRule(GameRules.RULE_NATURAL_REGENERATION).set(false, p.server);
                     inventory = new ArrayList<>();
                     for (int i = 0; i < p.getInventory().getContainerSize(); i++) inventory.add(p.getInventory().getItem(i).copy());
                     p.getInventory().clearContent();
@@ -302,7 +326,9 @@ final class FuluCookingCheck extends ActionCheck {
                                     && p.serverLevel().getBlockState(inheritancePos).is(block("chuancheng").getBlock())
                                     && p.serverLevel().getBlockEntity(inheritancePos).getPersistentData().getInt("weizhi") == 5);
                     gameMode = p.gameMode.getGameModeForPlayer();
+                    difficulty = p.serverLevel().getDifficulty();
                     soul = Cultivation.get(p, CultivationValue.SOUL);
+                    health = p.getHealth();
                     TALISMAN_KEYS.forEach(key -> talismanState.put(key, Cultivation.tizhiDouble(p, key)));
                     p.setGameMode(GameType.SURVIVAL);
                     Cultivation.set(p, CultivationValue.SOUL, 20);
@@ -342,6 +368,13 @@ final class FuluCookingCheck extends ActionCheck {
                             !Cultivation.tizhiBoolean(p, "fuluxiaoguo02") && Cultivation.tizhiDouble(p, "fulu02level") == 0
                                     && Cultivation.tizhiDouble(p, "fulu02tick") == 0 && Cultivation.tizhiDouble(p, "fulunumber") == 1);
                     Cultivation.set(p, CultivationValue.SOUL, 20);
+                    volleyListener = event -> {
+                        if (!event.getLevel().isClientSide() && event.getEntity() instanceof TalismanProjectile shot && shot.getOwner() == p) {
+                            if (shot.getType().toString().endsWith("46")) volleySpawns[0]++;
+                            if (shot.getType().toString().endsWith("17")) volleySpawns[1]++;
+                        }
+                    };
+                    NeoForge.EVENT_BUS.addListener(volleyListener);
                     p.getInventory().setItem(HOTBAR, talisman("itemfulu_13", 1, 1));
                     p.inventoryMenu.broadcastChanges();
                     useHeld();
@@ -356,10 +389,10 @@ final class FuluCookingCheck extends ActionCheck {
                 }),
                 new Action(4, p -> {
                     List<? extends TalismanProjectile> shots = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> true);
-                    long fireballs = shots.stream().filter(shot -> shot.getType().toString().endsWith("46")).count();
-                    long meteors = shots.stream().filter(shot -> shot.getType().toString().endsWith("17")).count();
-                    expectTrue("13 号符每 5 刻发火球、17 号符从头顶 32 格处落陨石，弹体实体存在（火球 " + fireballs + "，陨石 " + meteors + "）",
-                            Cultivation.tizhiBoolean(p, "fuluxiaoguo13") && Cultivation.tizhiBoolean(p, "fuluxiaoguo17") && fireballs > 0 && meteors > 0);
+                    NeoForge.EVENT_BUS.unregister(volleyListener);
+                    expectTrue("13/17 号符施用后逐刻发射两种弹体（实际生成火球 " + volleySpawns[0] + "，陨石 " + volleySpawns[1] + "）",
+                            Cultivation.tizhiBoolean(p, "fuluxiaoguo13") && Cultivation.tizhiBoolean(p, "fuluxiaoguo17")
+                                    && volleySpawns[0] >= 2 && volleySpawns[1] >= 2);
                     shots.forEach(shot -> shot.discard());
                     p.removeAllEffects();
                     Cultivation.editTizhi(p, tizhi -> TALISMAN_KEYS.stream().filter(key -> key.startsWith("fuluxiaoguo")).forEach(key -> tizhi.putBoolean(key, false)));
@@ -424,6 +457,15 @@ final class FuluCookingCheck extends ActionCheck {
                     Cultivation.set(p, CultivationValue.SOUL, 20);
                     p.getInventory().setItem(HOTBAR, talisman("itemfulu_32", 1, 1));
                     p.inventoryMenu.broadcastChanges();
+                    for (BlockPos pos : BlockPos.betweenClosed(p.blockPosition().offset(-4, 2, -4), p.blockPosition().offset(4, 38, 4))) {
+                        BlockPos saved = pos.immutable();
+                        clusterAir.put(saved, p.serverLevel().getBlockState(saved));
+                        p.serverLevel().setBlockAndUpdate(saved, Blocks.AIR.defaultBlockState());
+                    }
+                    minecraft.execute(() -> {
+                        clusterPitch = minecraft.player.getXRot();
+                        minecraft.player.setXRot(-90);
+                    });
                     useHeld();
                 }),
                 new Action(24, p -> {
@@ -432,6 +474,7 @@ final class FuluCookingCheck extends ActionCheck {
                     long pieces = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> shot.getType().toString().endsWith("32")).size();
                     expectTrue("32 号符：主弹 16 刻或命中时炸出子弹，使用者的分裂标记被主弹取走（子弹 " + pieces + "）",
                             !p.getPersistentData().getBoolean("fulu32shoufa") && pieces >= 2);
+                    minecraft.execute(() -> minecraft.player.setXRot(clusterPitch));
                 
                     Cultivation.set(p, CultivationValue.SOUL, 20);
                     p.getInventory().setItem(HOTBAR, talisman("itemfulu_14", 1, 1));
@@ -542,6 +585,144 @@ final class FuluCookingCheck extends ActionCheck {
                                     && spirits.get(0).getPersistentData().getString("fuluname").equals("云灵符")
                                     && spirits.get(0).getPersistentData().getDouble("fululevel") == 1);
                     minecraft.execute(() -> screenshots.take("fulu-cloud-spirit.png"));
+                    spirits.forEach(Entity::discard);
+                    p.removeAllEffects();
+                    p.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.getHolder(
+                            ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", "effect_007")).orElseThrow(), 200));
+                    p.setHealth(1);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_22", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(2, p -> {
+                    double expectedHealth = 1 + p.getMaxHealth() * 0.1;
+                    expectTrue("22 号符背包被动：危急时回血、加速并消耗（生命 " + p.getHealth() + "/" + p.getMaxHealth()
+                                    + "，预期 " + expectedHealth + "，剩余 " + p.getInventory().getItem(HOTBAR).getCount()
+                                    + "，移速效果 " + p.getEffect(MobEffects.MOVEMENT_SPEED) + "）",
+                            p.getInventory().getItem(HOTBAR).isEmpty() && Math.abs(p.getHealth() - expectedHealth) < 0.01
+                                    && p.hasEffect(MobEffects.MOVEMENT_SPEED) && p.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() == 5);
+                    p.removeAllEffects();
+                    p.setHealth(1);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_23", 1, 1));
+                    p.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.getHolder(
+                            ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", "effect_007")).orElseThrow(), 200));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(2, p -> {
+                    double expectedHealth = p.getMaxHealth() * 0.15;
+                    expectTrue("23 号符背包被动：危急时保命、加效果并消耗（生命 " + p.getHealth() + "/" + p.getMaxHealth()
+                                    + "，预期 " + expectedHealth + "，剩余 " + p.getInventory().getItem(HOTBAR).getCount()
+                                    + "，移速 " + p.getEffect(MobEffects.MOVEMENT_SPEED) + "，力量 " + p.getEffect(MobEffects.DAMAGE_BOOST)
+                                    + "，抗性 " + p.getEffect(MobEffects.DAMAGE_RESISTANCE) + "，吸收 " + p.getEffect(MobEffects.ABSORPTION) + "）",
+                            p.getInventory().getItem(HOTBAR).isEmpty() && Math.abs(p.getHealth() - expectedHealth) < 0.01
+                                    && p.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() == 1
+                                    && p.getEffect(MobEffects.DAMAGE_BOOST).getAmplifier() == 1
+                                    && p.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() == 0
+                                    && p.getEffect(MobEffects.ABSORPTION).getAmplifier() == 1);
+                    dummy = (Mob) EntityType.PIG.create(p.serverLevel());
+                    dummy.moveTo(p.getX() + 2, p.getY(), p.getZ(), 0, 0);
+                    dummy.setNoAi(true);
+                    dummy.setPersistenceRequired();
+                    p.serverLevel().addFreshEntity(dummy);
+                    p.removeAllEffects();
+                    p.setHealth(1);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_16", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    p.getServer().setDifficulty(Difficulty.NORMAL, true);
+                    p.invulnerableTime = 0;
+                    p.hurt(p.damageSources().indirectMagic(dummy, dummy), 100);
+                }),
+                new Action(20, p -> {
+                    expectTrue("16 号替死符：致命伤害中保护并消耗（生命 " + p.getHealth() + "/" + p.getMaxHealth()
+                                    + "，剩余 " + p.getInventory().getItem(HOTBAR).getCount() + "，发光 " + p.hasEffect(MobEffects.GLOWING) + "）",
+                            p.getHealth() == p.getMaxHealth() && p.getInventory().getItem(HOTBAR).isEmpty()
+                                    && p.hasEffect(MobEffects.GLOWING));
+                    p.getServer().setDifficulty(difficulty, true);
+                    repellingBase = p.blockPosition().offset(1, -1, 1);
+                    repellingBlocks.put(repellingBase, p.serverLevel().getBlockState(repellingBase));
+                    repellingBlocks.put(repellingBase.above(), p.serverLevel().getBlockState(repellingBase.above()));
+                    p.serverLevel().setBlockAndUpdate(repellingBase, Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(repellingBase.above(), Blocks.AIR.defaultBlockState());
+                    p.getInventory().setItem(HOTBAR, item("itemfulu_15"));
+                    p.inventoryMenu.broadcastChanges();
+                    useBlock(repellingBase);
+                }),
+                new Action(8, p -> {
+                    BlockPos wardPos = repellingBase.above();
+                    dummy.discard();
+                    dummy = (Mob) EntityType.PIG.create(p.serverLevel());
+                    dummy.setNoAi(true);
+                    if (!(p.serverLevel().getBlockEntity(wardPos) instanceof RepellingTalismanBlockEntity ward)) {
+                        expectTrue("15 号镇宅符已放置方块与方块实体（目标方块 " + p.serverLevel().getBlockState(wardPos)
+                                        + "，底座 " + p.serverLevel().getBlockState(repellingBase) + "，手持数量 "
+                                        + p.getInventory().getItem(HOTBAR).getCount() + "）", false);
+                        return;
+                    }
+                    dummy.moveTo(wardPos.getX() + 6, wardPos.getY(), wardPos.getZ() + 0.5, 0, 0);
+                    p.serverLevel().addFreshEntity(dummy);
+                    String hostileTeam = "fulu_smoke_hostile";
+                    while (Relations.friendlyTeams(p).contains(hostileTeam)) hostileTeam += "_";
+                    Relations.setTeam(dummy, hostileTeam);
+                    ward.repel(p.serverLevel());
+                    CompoundTag friendlist = ward.getPersistentData().getCompound("friendlist");
+                    boolean capturedFriends = Relations.friendlyTeams(p).stream().allMatch(friendlist::getBoolean);
+                    boolean blockPlaced = p.serverLevel().getBlockState(wardPos).is(block("itemfulu_15").getBlock());
+                    boolean teamCaptured = ward.getPersistentData().getString("team").equals(Relations.team(p));
+                    boolean velocityApplied = Math.abs(dummy.getDeltaMovement().y() - 0.1) < 0.001;
+                    expectTrue("15 号镇宅符：方块=" + blockPlaced + "、阵营=" + teamCaptured + "、初始友方集合=" + capturedFriends
+                                    + "、弹开速度=" + dummy.getDeltaMovement() + "、手持=" + p.getInventory().getItem(HOTBAR).getCount(),
+                            blockPlaced && teamCaptured && capturedFriends && velocityApplied && p.getInventory().getItem(HOTBAR).isEmpty());
+                    var allegiance = p.getData(RelationAttachments.PLAYER).allegiance();
+                    allegiance.setFriendly(hostileTeam, true);
+                    dummy.setDeltaMovement(Vec3.ZERO);
+                    ward.repel(p.serverLevel());
+                    boolean followsNewFriend = dummy.getDeltaMovement().equals(Vec3.ZERO);
+                    RepellingTalismanBlockEntity restoredWard = (RepellingTalismanBlockEntity) BlockEntity.loadStatic(wardPos,
+                            p.serverLevel().getBlockState(wardPos), ward.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    allegiance.setFriendly(hostileTeam, false);
+                    ward.repel(p.serverLevel());
+                    boolean followsRemovedFriend = Math.abs(dummy.getDeltaMovement().y() - 0.1) < 0.001;
+                    dummy.setDeltaMovement(Vec3.ZERO);
+                    restoredWard.repel(p.serverLevel());
+                    expectTrue("15 号友方集合：放置后随玩家增删变化，保存重读后保持独立集合",
+                            followsNewFriend && followsRemovedFriend && dummy.getDeltaMovement().equals(Vec3.ZERO));
+                    explosiveBase = repellingBase.offset(-1, 0, -1);
+                    repellingBlocks.put(explosiveBase, p.serverLevel().getBlockState(explosiveBase));
+                    repellingBlocks.put(explosiveBase.above(), p.serverLevel().getBlockState(explosiveBase.above()));
+                    p.serverLevel().setBlockAndUpdate(explosiveBase, Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(explosiveBase.above(), Blocks.AIR.defaultBlockState());
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_42", 1, 2));
+                    p.inventoryMenu.broadcastChanges();
+                    useBlock(explosiveBase);
+                }),
+                new Action(4, p -> {
+                    BlockPos at = explosiveBase.above();
+                    expectTrue("42 号二阶符真实右键放置二阶爆裂方块并消耗一张",
+                            p.serverLevel().getBlockState(at).is(block("fulutexiao_4202").getBlock())
+                                    && p.getInventory().getItem(HOTBAR).isEmpty());
+                    List<Float> powers = new ArrayList<>();
+                    List<Explosion.BlockInteraction> interactions = new ArrayList<>();
+                    Consumer<ExplosionEvent.Start> capture = event -> {
+                        powers.add(event.getExplosion().radius());
+                        interactions.add(event.getExplosion().getBlockInteraction());
+                        event.setCanceled(true);
+                    };
+                    NeoForge.EVENT_BUS.addListener(capture);
+                    try {
+                        Snowball shot = new Snowball(p.serverLevel(), p);
+                        for (String id : List.of("fulutexiao_42", "fulutexiao_4202", "fulutexiao_4203", "fulutexiao_4204")) {
+                            BlockState state = block(id);
+                            ExplosiveTalismanBlock talismanBlock = (ExplosiveTalismanBlock) state.getBlock();
+                            talismanBlock.onProjectileHit(p.serverLevel(), state,
+                                    new BlockHitResult(Vec3.atCenterOf(at), Direction.UP, at, false), shot);
+                            talismanBlock.wasExploded(p.serverLevel(), at,
+                                    new Explosion(p.serverLevel(), null, at.getX(), at.getY(), at.getZ(), 1, false, Explosion.BlockInteraction.DESTROY));
+                        }
+                    } finally {
+                        NeoForge.EVENT_BUS.unregister(capture);
+                    }
+                    expectTrue("42 号四档投射物与爆炸回调：半径 4/8/12/16，固定 DESTROY_WITH_DECAY（受控取消爆炸）",
+                            powers.equals(List.of(4f, 4f, 8f, 8f, 12f, 12f, 16f, 16f))
+                                    && interactions.stream().allMatch(mode -> mode == Explosion.BlockInteraction.DESTROY_WITH_DECAY));
                 })
         );
     }
@@ -602,6 +783,8 @@ final class FuluCookingCheck extends ActionCheck {
     @Override
     protected void cleanup(ServerPlayer player) {
         player.closeContainer();
+        player.serverLevel().getGameRules().getRule(GameRules.RULE_NATURAL_REGENERATION).set(naturalRegeneration, player.server);
+        if (volleyListener != null) NeoForge.EVENT_BUS.unregister(volleyListener);
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
         if (oreAt != null) {
             player.serverLevel().setBlockAndUpdate(oreAt, oreBefore);
@@ -612,6 +795,8 @@ final class FuluCookingCheck extends ActionCheck {
             player.removeAllEffects();
             player.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> true).forEach(shot -> shot.discard());
             player.setGameMode(gameMode);
+            player.getServer().setDifficulty(difficulty, true);
+            player.setHealth(health);
             Cultivation.set(player, CultivationValue.SOUL, soul);
             Cultivation.editTizhi(player, tizhi -> talismanState.forEach((key, value) -> {
                 if (key.startsWith("fuluxiaoguo")) {
@@ -621,6 +806,8 @@ final class FuluCookingCheck extends ActionCheck {
                 }
             }));
         }
+        clusterAir.forEach((pos, state) -> player.serverLevel().setBlockAndUpdate(pos, state));
+        if (repellingBase != null) repellingBlocks.forEach((pos, state) -> player.serverLevel().setBlockAndUpdate(pos, state));
         pot(player).clearContent();
         table(player).clearContent();
         if (inheritancePos != null) inheritanceBlocks.forEach((pos, state) -> player.serverLevel().setBlockAndUpdate(pos, state));

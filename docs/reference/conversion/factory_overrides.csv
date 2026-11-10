@@ -1,4 +1,9 @@
 registry,target_id,factory,owner,reason
+block,yvanchuxiuzhen:fulutexiao_42,fulu:explosive_42,fulu,爆裂符受爆炸与投射物命中时引发强度4爆炸
+block,yvanchuxiuzhen:fulutexiao_4202,fulu:explosive_4202,fulu,爆裂符受爆炸与投射物命中时引发强度8爆炸
+block,yvanchuxiuzhen:fulutexiao_4203,fulu:explosive_4203,fulu,爆裂符受爆炸与投射物命中时引发强度12爆炸
+block,yvanchuxiuzhen:fulutexiao_4204,fulu:explosive_4204,fulu,爆裂符受爆炸与投射物命中时引发强度16爆炸
+item,yvanchuxiuzhen:itemfulu_42,fulu:explosive_42_item,fulu,按品阶与点击面放置爆裂符并消耗物品
 item,yvanchuxiuzhen:qiankundai_01,qiankundai_01,storage,27格乾坤袋物品库存与右键菜单
 item,yvanchuxiuzhen:qiankundai_02,qiankundai_02,storage,54格乾坤袋物品库存与右键菜单
 item,yvanchuxiuzhen:qiankundai_03,qiankundai_03,storage,108格乾坤袋物品库存与右键菜单
@@ -229,7 +234,10 @@ block,yvanchuxiuzhen:yanhui_06,fulu:soot,fulu,失去上方支撑时掉落对应�
 block,yvanchuxiuzhen:yanhui_07,fulu:soot,fulu,失去上方支撑时掉落对应层数烟灰
 block,yvanchuxiuzhen:yanhui_08,fulu:soot,fulu,失去上方支撑时掉落对应层数烟灰
 block,yvanchuxiuzhen:chuancheng,fulu:inheritance,fulu,传承之光管理与符头授予
+block,yvanchuxiuzhen:itemfulu_15,fulu:repelling_talisman,fulu,镇宅符方块实体保存友方团队并逐刻弹开非友方
 item,yvanchuxiuzhen:chuancheng,fulu:inheritance,fulu,传承之光动画物品
+item,yvanchuxiuzhen:itemfulu_22,fulu:passive_22,fulu,背包生命危急时恢复生命并给予移速效果
+item,yvanchuxiuzhen:itemfulu_23,fulu:passive_23,fulu,背包生命危急时将生命设为15%并给予四种效果
 block,yvanchuxiuzhen:fooddaguo,cooking:iron_pot,cooking,铁锅十四槽与菜谱及墨料坯制作
 item,yvanchuxiuzhen:fooddaguo,cooking:iron_pot,cooking,铁锅动画物品
 block,yvanchuxiuzhen:fooddunguo,cooking:clay_pot,cooking,砂锅十四槽与菜谱及墨料坯制作

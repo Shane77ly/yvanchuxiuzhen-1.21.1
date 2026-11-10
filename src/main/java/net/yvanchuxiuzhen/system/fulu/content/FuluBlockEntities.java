@@ -19,6 +19,8 @@ public final class FuluBlockEntities {
             () -> BlockEntityType.Builder.of(DrawingTableBlockEntity::new, block("huafutai")).build(null));
     public static final Supplier<BlockEntityType<AshBurnerBlockEntity>> ASH_BURNER = TYPES.register("huafushaohui",
             () -> BlockEntityType.Builder.of(AshBurnerBlockEntity::new, block("huafushaohui")).build(null));
+    public static final Supplier<BlockEntityType<RepellingTalismanBlockEntity>> REPELLING = TYPES.register("itemfulu_15",
+            () -> BlockEntityType.Builder.of(RepellingTalismanBlockEntity::new, block("itemfulu_15")).build(null));
 
     private FuluBlockEntities() {
     }
