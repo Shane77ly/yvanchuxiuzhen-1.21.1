@@ -1518,6 +1518,7 @@ yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/motiao_0201hecheng
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/motiao_0301hecheng.json,4a25c54484dce55b2369ad604d1812ad484ecf40,src/main/resources/data/yvanchuxiuzhen/recipe/motiao_0301hecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/motiao_0401hecheng.json,cb9c3f08494ccf97bd12f88723a71ae2b48841f3,src/main/resources/data/yvanchuxiuzhen/recipe/motiao_0401hecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/motiao_0401hecheng_2.json,0c7f3239b2404695c2f20d802e89726c510dad78,src/main/resources/data/yvanchuxiuzhen/recipe/motiao_0401hecheng_2.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/mugongtaihecheng.json,be1312f0762cbbadef25557f3a72609101ffed35,src/main/resources/data/yvanchuxiuzhen/recipe/mugongtaihecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/murenzhuanghecheng.json,940ee20857d6469d86ea27f674a13cb4dadd72cc,src/main/resources/data/yvanchuxiuzhen/recipe/murenzhuanghecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/mutanshaolian.json,0ddb687305845a6b48b324247595c10645c60525,src/main/resources/data/yvanchuxiuzhen/recipe/mutanshaolian.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/mutanshaolian_2.json,bd8f9a820efbeb3c506c948e75f5533848605170,src/main/resources/data/yvanchuxiuzhen/recipe/mutanshaolian_2.json
@@ -1553,6 +1554,7 @@ yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/qiankundai_04heche
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/sandalwoodhecheng.json,8dbc0dbeb28ec5f60a2b62e1a14cb705e62e36de,src/main/resources/data/yvanchuxiuzhen/recipe/sandalwoodhecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/sandalwoodleaveshecheng.json,0a2df6998c829688b41c92b57d009c206c1b8242,src/main/resources/data/yvanchuxiuzhen/recipe/sandalwoodleaveshecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/sandalwoodwoodhecheng.json,0d967da661ddc625c5e535afa9d86fe04b0f6899,src/main/resources/data/yvanchuxiuzhen/recipe/sandalwoodwoodhecheng.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/saosilunhecheng.json,e25756994bafa9c8d7897bdffb5ad51a85c08852,src/main/resources/data/yvanchuxiuzhen/recipe/saosilunhecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/shicai_001seedhecheng.json,fc6941074eb6939f1636c8ea64670aaf9a1347f2,src/main/resources/data/yvanchuxiuzhen/recipe/shicai_001seedhecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/shicai_002seedhecheng.json,b6325683ea5c757ba4ea67504ad9f4c978b7baa0,src/main/resources/data/yvanchuxiuzhen/recipe/shicai_002seedhecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/shicai_006seedhecheng.json,c62e84c72fca42849e2dfebde678a3892f2f6f4c,src/main/resources/data/yvanchuxiuzhen/recipe/shicai_006seedhecheng.json

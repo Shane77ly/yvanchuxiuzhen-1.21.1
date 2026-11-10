@@ -288,3 +288,7 @@ item,yvanchuxiuzhen:itemfulu_49,fulu:talisman_49,fulu,共享施用过程一次�
 item,yvanchuxiuzhen:itemfulu_44,fulu:talisman_44,fulu,共享施用过程付精力并召唤云灵
 block,yvanchuxiuzhen:zhibuji,craft:loom,craft,主手即时纺织与独立单槽库存
 item,yvanchuxiuzhen:zhibuji,craft:loom,craft,织布机方块物品Gecko渲染
+block,yvanchuxiuzhen:mugongtai,craft:carpentry,craft,42槽共享木匠菜单与37配方
+item,yvanchuxiuzhen:mugongtai,craft:carpentry,craft,42槽共享木匠菜单与37配方
+block,yvanchuxiuzhen:saosilun,craft:silk_reel,craft,20刻五周期缫丝与独立九槽库存
+item,yvanchuxiuzhen:saosilun,craft:silk_reel,craft,20刻五周期缫丝与独立九槽库存

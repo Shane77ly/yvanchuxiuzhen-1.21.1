@@ -7,7 +7,7 @@ updated: 2026-11-10
 
 # 项目状态与决定
 
-2026-11-10 当前工艺分支 `port/d-craft`：石磨/石碾提交 `52eddee2` 后接回织布机完整加工族与独立库存/Geo渲染。完整构建通过；本轮客户端59项全过、DONE、四维度保存退出与exit0，专服Done/原生stop保存与exit0，双端ERROR/FATAL0。中文合并键核对通过；自然获取、真实重登、完整视觉与两版本仍待验收。继续整合木匠台与缫丝轮，子Agent并行准备陶轮/蚕盒，暂不推送、不合main。详见[工艺](../craft/README.md)。
+2026-11-10 当前工艺 `port/d-craft`：石磨/石碾 `52eddee2`、织布 `ba83865b` 后接回木工台37配方/43按钮/42槽及缫丝五周期双生产路径。完整 `build compileSmokeJava` 通过；本轮既有 `fulucooking` 73项 INFO、0 FAIL、DONE，客户端正常保存四维度、exit0、ERROR/FATAL0；专服Done后原生stop、四维度保存、BUILD SUCCESSFUL/exit0、ERROR/FATAL0。动态中文与菜单截图已核。接续陶轮/陶坯、蚕盒/四蚕蛾完整族，子Agent并行准备木甑/酒坛；自然获取、完整生命周期/视觉、多人及两版本未验收，工艺仍为部分实现。暂不推送、不合main。
 
 ## 已确认要求
 

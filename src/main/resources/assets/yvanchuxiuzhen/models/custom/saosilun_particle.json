@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/saosilun.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/zhibuji"
+  }
+}

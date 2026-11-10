@@ -10,11 +10,13 @@
 {"id":"silkwormegggold","factory":"item","order":1126,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
 {"id":"silkwormchrysalis_02","factory":"block_item","block":"silkwormchrysalis_02","order":1128},
 {"id":"silkwormchrysalisgold_02","factory":"block_item","block":"silkwormchrysalisgold_02","order":1129},
+{"id":"saosilun","factory":"craft:silk_reel","block":"saosilun","order":1130,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"silkwormchrysalisred","factory":"item","order":1131,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
 {"id":"silkwormchrysalisred_02","factory":"block_item","block":"silkwormchrysalisred_02","order":1132},
 {"id":"silkthreadred","factory":"item","order":1133,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
 {"id":"stonemill","factory":"craft:stone_mill","block":"stonemill","order":1502,"tab":"yvanchuxiuzhen:tabyvanchu_block","tooltip":["潜行状态下右键磨盘打开，放入要研磨的物品后，不断右键磨盘研磨。"]},
 {"id":"stoneroller","factory":"craft:stone_roller","block":"stoneroller","order":1503,"tab":"yvanchuxiuzhen:tabyvanchu_block","tooltip":["潜行状态下右键磨盘打开，放入要研磨的物品后，不断右键磨盘研磨。"]},
+{"id":"mugongtai","factory":"craft:carpentry","block":"mugongtai","order":1653,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"taopi","factory":"block_item","block":"taopi","order":2288},
 {"id":"taopiitem","factory":"item","order":2289,"stack":1,"pending_hooks":["useOn"]}
 ]

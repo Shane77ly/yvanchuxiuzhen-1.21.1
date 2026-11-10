@@ -107,3 +107,7 @@
 - Forge40.1.0 `patches/net/minecraft/world/level/block/entity/BaseContainerBlockEntity.java.patch` 为容器父类提供 `createUnSidedHandler()`，返回 `InvWrapper(this)`；`getCapability` 在未移除且类型匹配时返回该包装，没有方向限制。来源子类仅覆写非空方向并把空方向交给super，仍具备无方向库存。必须读完整父类补丁后判断能力是否断链；目标NeoForge21.1.265改为显式注册对应能力，不能因子类未写空方向分支就删去该入口。
 
 - 对照1.18.2 `RandomizableContainerBlockEntity.setItem:115–122`（Forge40.1.0无此类补丁）与NeoForge21.1.265 `BaseContainerBlockEntity.setItem:132–135`，来源强制赋槽只按容器容量截断，目标改用 `getMaxStackSize(stack)`，还受物品自身堆叠上限约束。保留来源允许的强制赋槽时需覆写该方法；菜单客户端若使用 `SimpleContainer` 镜像，也须核对相同上限，避免服务端数量正确而同步显示被截断。
+
+## 方块交互的事件与默认回调顺序（2026-11-10 核对）
+
+NeoForge21.1.265 `ServerPlayerGameMode.useItemOn` 在旁观分支、物品 `onItemUseFirst` 和潜行绕过方块判断之前调用 `CommonHooks.onRightClickBlock`。持物潜行可能跳过方块 `useItemOn` / `useWithoutItem`；来源 Forge40.1.0 的同类全局事件若仍会执行，不能只迁成方块回调。来源监听器不取消事件时，还需保留后续原版链：主动返回 SUCCESS 或统一取消会改变物品使用、放置和工具耐久。已对照来源 `ServerPlayerGameMode.java.patch` 与目标上述精确方法；具体设备是否取消、交互手筛选及最终结果仍逐来源分支核对。

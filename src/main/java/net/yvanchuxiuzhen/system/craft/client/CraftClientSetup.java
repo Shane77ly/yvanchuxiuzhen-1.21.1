@@ -10,6 +10,7 @@ import net.yvanchuxiuzhen.system.craft.content.CraftBlockEntities;
 import net.yvanchuxiuzhen.system.craft.content.CraftMenus;
 import net.yvanchuxiuzhen.system.craft.content.LoomBlockItem;
 import net.yvanchuxiuzhen.system.craft.content.StoneMillBlockItem;
+import net.yvanchuxiuzhen.system.craft.content.SilkReelBlockItem;
 
 /** 工艺客户端装配研磨菜单以及各设备的方块和物品渲染。 */
 public final class CraftClientSetup {
@@ -17,17 +18,20 @@ public final class CraftClientSetup {
     }
 
     public static void register(IEventBus modBus) {
+        CarpentryClientSetup.register(modBus);
         modBus.addListener((RegisterMenuScreensEvent event) ->
                 event.register(CraftMenus.STONE_MILL.get(), StoneMillScreen::new));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             event.registerBlockEntityRenderer(CraftBlockEntities.type("stonemill"), StoneMillRenderer::new);
             event.registerBlockEntityRenderer(CraftBlockEntities.type("stoneroller"), StoneMillRenderer::new);
             event.registerBlockEntityRenderer(CraftBlockEntities.LOOM.get(), LoomRenderer::new);
+            event.registerBlockEntityRenderer(CraftBlockEntities.SILK_REEL.get(), SilkReelRenderer::new);
         });
         modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
             for (Item item : BuiltInRegistries.ITEM) {
                 if (item instanceof StoneMillBlockItem mill) mill.setRenderProvider(new StoneMillItemRenderer.Provider());
                 if (item instanceof LoomBlockItem loom) loom.setRenderProvider(new LoomItemRenderer.Provider());
+                if (item instanceof SilkReelBlockItem reel) reel.setRenderProvider(new SilkReelItemRenderer.Provider());
             }
         }));
     }

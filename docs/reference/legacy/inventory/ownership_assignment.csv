@@ -2263,7 +2263,7 @@ yvanchuxiuzhen,SaosilunZaiFangKuaiShangYouJian,procedure,~/tool,craft,已读,B1 
 yvanchuxiuzhen,SaosilunGengXinYouXiKe,procedure,~/tool,craft,已读,B1 归属阅读：随 Saosilun 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,Saosilun,animatedblock,~/tool,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,Blockfire,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Saosilunhecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Saosilunhecheng,recipe,~/tool,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
 yvanchuxiuzhen,Planks,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Silkwormchrysalisred,item,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
 yvanchuxiuzhen,Silkwormchrysalisred02,block,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
@@ -3499,7 +3499,7 @@ yvanchuxiuzhen,Shanghaifanwei,animatedentity,~/skill/jineng,skill,已读,C skill
 yvanchuxiuzhen,Npcshuxingjisuan,procedure,~/entity/boss/ycxzboss01,creature,已读,B1 归属阅读：随 Xiuzhe0101 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,ZhuangshitiziDangFangKuaiBeiShuiFangZhiShi,procedure,~/decorate/buildingblocks,decor,已读,B1 归属阅读：随 Zhuangshitizi 读：装饰梯：放置过程只改本方块
 yvanchuxiuzhen,Mugongtai,animatedblock,~/tool,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
-yvanchuxiuzhen,Mugongtaihecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Mugongtaihecheng,recipe,~/tool,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
 yvanchuxiuzhen,MugongtaiFangZhiFangKuaiShi,procedure,~/tool,craft,已读,B1 归属阅读：随 Mugongtai 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,MugongtaiGengXinYouXiKe,procedure,~/tool,craft,已读,B1 归属阅读：随 Mugongtai 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,Ycxzboss02ShiTiChuShiShengChengShi,procedure,~/entity/boss/ycxzboss02,creature,已读,B1 归属阅读：随 Ycxzboss02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
@@ -6483,56 +6483,56 @@ yvanchuxitong,Beechfurniture29,block,~/zhuangshiwu/jiajv/beech furniture,decor,�
 yvanchuxitong,Beechfurniture30,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture31,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture32,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,MujiangGui,gui,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,MujiangGuiDangZheGeJieMianDaKaiShi,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,MujiangGuixvanze,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu00,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu01,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu02,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu03,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu04,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu05,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu06,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu07,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu08,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu09,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu10,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu11,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu12,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu13,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu14,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu15,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu16,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu17,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu18,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu19,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu20,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu21,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu22,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu23,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu24,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu25,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu26,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu27,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu28,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu29,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu30,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu31,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu32,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu33,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu34,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu35,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu36,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu37,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu38,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujianganniu39,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujiangname,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujiangneed0,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujiangneed1,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujiangneed2,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujiangneed3,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujiangneed4,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Mujiangtaijianzao,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,MujiangGui,gui,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,MujiangGuiDangZheGeJieMianDaKaiShi,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,MujiangGuixvanze,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu00,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu01,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu02,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu03,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu04,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu05,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu06,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu07,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu08,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu09,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu10,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu11,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu12,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu13,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu14,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu15,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu16,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu17,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu18,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu19,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu20,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu21,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu22,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu23,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu24,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu25,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu26,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu27,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu28,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu29,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu30,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu31,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu32,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu33,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu34,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu35,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu36,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu37,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu38,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujianganniu39,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujiangname,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujiangneed0,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujiangneed1,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujiangneed2,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujiangneed3,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujiangneed4,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,Mujiangtaijianzao,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
 yvanchuxitong,Shitiputuan,livingentity,~/zhuangshiwu/jiajv,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,PutuanZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Putuan 读：蒲团：放置时生成座位实体 shitiputuan，供坐下
 yvanchuxitong,PutuanFangZhiFangKuaiShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Putuan 读：蒲团：放置时生成座位实体 shitiputuan，供坐下
@@ -6541,8 +6541,8 @@ yvanchuxitong,Putuan,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：蒲
 yvanchuxitong,Putuanhecheng,recipe,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Itemdanyaohulu01hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,已读,B:recipes/itemdanyaohulu_01hecheng.json；shicai_039与橡木按钮无序合成空葫芦1个；目标配方静态一致
 yvanchuxitong,Itemdanyaohulu03hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,已读,B:recipes/itemdanyaohulu_03hecheng.json；shicai_039、tiaowei_01与橡木按钮无序合成精致葫芦1个；目标配方静态一致
-yvanchuxitong,MujiangtaiUp,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,MujiangtaiDown,procedure,~/mujiangtai,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,MujiangtaiUp,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
+yvanchuxitong,MujiangtaiDown,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
 yvanchuxitong,Itemdanyaohulu02hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,已读,B:recipes/itemdanyaohulu_02hecheng.json；三黏土球按来源形状合成瓷瓶1个；目标配方静态一致
 yvanchuxitong,Itemdanyaohulu06hecheng,recipe,~/yvanchuliandan/danyaoguan,liandan,已读,B:recipes/itemdanyaohulu_06hecheng.json；三cailiao_161按来源形状合成玉瓶1个；目标配方静态一致
 yvanchuxitong,RenwuweizhuangfangkuaiFangKuaiShiTiXuanRanShi,procedure,~/duihua/renwuweizhuangkuai,quest,已读,B1 归属阅读：随 Renwuweizhuangfangkuai 读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示

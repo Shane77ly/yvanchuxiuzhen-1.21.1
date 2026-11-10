@@ -22,6 +22,14 @@ public final class CraftBlockEntities {
             () -> BlockEntityType.Builder.of(LoomBlockEntity::new,
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "zhibuji"))).build(null));
 
+    public static final Supplier<BlockEntityType<CarpentryBlockEntity>> CARPENTRY = TYPES.register("mugongtai",
+            () -> BlockEntityType.Builder.of(CarpentryBlockEntity::new,
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "mugongtai"))).build(null));
+
+    public static final Supplier<BlockEntityType<SilkReelBlockEntity>> SILK_REEL = TYPES.register("saosilun",
+            () -> BlockEntityType.Builder.of(SilkReelBlockEntity::new,
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "saosilun"))).build(null));
+
     private CraftBlockEntities() {
     }
 
@@ -43,6 +51,8 @@ public final class CraftBlockEntities {
         for (Supplier<BlockEntityType<StoneMillBlockEntity>> type : MILLS.values()) {
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type.get(), StoneMillBlockEntity::handler);
         }
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, CARPENTRY.get(), CarpentryBlockEntity::handler);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, SILK_REEL.get(), SilkReelBlockEntity::handler);
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, LOOM.get(), LoomBlockEntity::handler);
     }
 }

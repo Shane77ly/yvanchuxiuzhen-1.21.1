@@ -30,6 +30,12 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.Container;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.yvanchuxiuzhen.system.craft.client.CarpentryScreen;
+import net.yvanchuxiuzhen.system.craft.content.CarpentryBlockEntity;
+import net.yvanchuxiuzhen.system.craft.content.CarpentryMenu;
+import net.yvanchuxiuzhen.system.craft.content.SilkReelBlockEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.entity.EntityTypeTest;
@@ -120,6 +126,11 @@ final class FuluCookingCheck extends ActionCheck {
     private BlockPos stoneMillPos;
     private BlockPos stoneRollerPos;
     private BlockPos loomPos;
+    private BlockPos carpentryPos;
+    private BlockPos silkReelPos;
+    private BlockPos silkInputPos;
+    private final List<ItemEntity> silkDrops = new ArrayList<>();
+    private Consumer<EntityJoinLevelEvent> silkDropListener;
     private boolean stoneMillShift;
     private final Map<BlockPos, BlockState> stoneMillBlocks = new LinkedHashMap<>();
     private final Map<BlockPos, CompoundTag> stoneMillEntities = new LinkedHashMap<>();
@@ -896,6 +907,173 @@ final class FuluCookingCheck extends ActionCheck {
                     mill.setItem(0, new ItemStack(Items.IRON_SWORD, 3));
                     expectTrue("石磨与织布机强制赋槽保留来源容器64件上限，不按单件物品上限截断",
                             loom.getItem(0).getCount() == 3 && mill.getItem(0).getCount() == 3);
+                }),
+                new Action(8, p -> {
+                    carpentryPos = prepareStoneMill(p, p.blockPosition().offset(0, 0, -2));
+                    p.serverLevel().setBlockAndUpdate(carpentryPos, block("mugongtai"));
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(0, item("beechplanks", 8));
+                    p.getInventory().selected = HOTBAR;
+                    p.getInventory().setItem(HOTBAR, new ItemStack(Items.IRON_SWORD));
+                    p.inventoryMenu.broadcastChanges();
+                    stoneMillSneak(true);
+                }),
+                new Action(8, p -> useBlock(carpentryPos)),
+                new Action(8, p -> {
+                    expectTrue("木匠台持物潜行真实右键打开双端78槽菜单与43按钮",
+                            p.containerMenu instanceof CarpentryMenu && p.containerMenu.slots.size() == 78
+                                    && minecraft.player.containerMenu instanceof CarpentryMenu
+                                    && minecraft.screen instanceof CarpentryScreen screen
+                                    && screen.children().stream().filter(Button.class::isInstance).count() == 43);
+                    stoneMillSneak(false);
+                    carpentryButton(1);
+                }),
+                new Action(8, p -> {
+                    CarpentryBlockEntity table = carpentry(p);
+                    expectTrue("木匠选择首项同步预览与8榉木成本，不消耗材料",
+                            table.getItem(40).is(item("beechfurniture_01").getItem())
+                                    && table.requirementCount(0) == 8 && inventoryItem(p, "beechplanks").getCount() == 8
+                                    && minecraft.player.containerMenu.getSlot(40).getItem().is(item("beechfurniture_01").getItem()));
+                    minecraft.execute(() -> screenshots.take("craft-carpentry-menu.png"));
+                    carpentryButton(0);
+                }),
+                new Action(8, p -> {
+                    expectTrue("木匠制作扣8木板、共享结果1件并同步两端",
+                            inventoryItem(p, "beechplanks").isEmpty()
+                                    && carpentry(p).getItem(41).is(item("beechfurniture_01").getItem())
+                                    && carpentry(p).getItem(41).getCount() == 1
+                                    && minecraft.player.containerMenu.getSlot(41).getItem().getCount() == 1);
+                    minecraft.execute(() -> minecraft.gameMode.handleInventoryMouseClick(
+                            minecraft.player.containerMenu.containerId, 41, 0, ClickType.QUICK_MOVE, minecraft.player));
+                }),
+                new Action(8, p -> {
+                    expectTrue("木匠成品经原生shift点击领取，机器结果清空",
+                            carpentry(p).getItem(41).isEmpty() && inventoryItem(p, "beechfurniture_01").getCount() == 1);
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(0, item("beechplanks", 8));
+                    p.getInventory().setItem(1, item("book_005"));
+                    p.containerMenu.broadcastChanges();
+                    carpentryButton(19);
+                }),
+                new Action(6, p -> carpentryButton(0)),
+                new Action(8, p -> {
+                    expectTrue("木匠五行数量跨材料累计：8木板加1书可制作要求2书的书柜",
+                            carpentry(p).getItem(41).is(item("beechfurniture_19").getItem())
+                                    && inventoryItem(p, "beechplanks").isEmpty() && inventoryItem(p, "book_005").isEmpty());
+                    p.getInventory().setItem(0, item("beechplanks", 8));
+                    p.containerMenu.broadcastChanges();
+                    carpentryButton(0);
+                }),
+                new Action(8, p -> {
+                    expectTrue("木匠累计数量不能代替材料存在性：完全缺书不扣木板、不增加结果",
+                            inventoryItem(p, "beechplanks").getCount() == 8 && carpentry(p).getItem(41).getCount() == 1);
+                    carpentryButton(41);
+                }),
+                new Action(6, p -> {
+                    expectTrue("木匠切类别保留旧预览与成本，同时刷新两项杂物候选",
+                            carpentry(p).getItem(40).is(item("beechfurniture_19").getItem())
+                                    && carpentry(p).requirementId(1).endsWith(":book_005")
+                                    && carpentry(p).getItem(0).is(item("itemdanyaohulu_04").getItem())
+                                    && carpentry(p).getItem(2).isEmpty());
+                    carpentryButton(1);
+                }),
+                new Action(6, p -> {
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(0, new ItemStack(Items.OAK_PLANKS, 6));
+                    p.containerMenu.broadcastChanges();
+                    carpentryButton(0);
+                }),
+                new Action(8, p -> {
+                    expectTrue("木匠换配方覆盖旧成品物种并沿用数量，单件小盒子两端均保留2件",
+                            carpentry(p).getItem(41).is(item("itemdanyaohulu_04").getItem())
+                                    && carpentry(p).getItem(41).getCount() == 2
+                                    && minecraft.player.containerMenu.getSlot(41).getItem().getCount() == 2
+                                    && p.getInventory().getItem(0).getCount() == 3);
+                    CarpentryBlockEntity table = carpentry(p);
+                    table.setItem(41, item("itemdanyaohulu_04", 64));
+                    table.changed();
+                    carpentryButton(0);
+                }),
+                new Action(8, p -> {
+                    CarpentryBlockEntity table = carpentry(p);
+                    CarpentryBlockEntity restored = (CarpentryBlockEntity) BlockEntity.loadStatic(carpentryPos,
+                            table.getBlockState(), table.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    boolean directions = true;
+                    for (Direction direction : Direction.values()) {
+                        IItemHandler handler = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, carpentryPos, direction);
+                        directions &= handler != null && handler.insertItem(41, item("itemdanyaohulu_04"), true).getCount() == 1
+                                && handler.extractItem(40, 1, true).isEmpty() && handler.extractItem(41, 1, true).getCount() == 1;
+                    }
+                    expectTrue("木匠结果满64仍扣料，42槽与选择保存读回、六面只抽结果",
+                            p.getInventory().getItem(0).isEmpty() && table.getItem(41).getCount() == 64
+                                    && minecraft.player.containerMenu.getSlot(41).getItem().getCount() == 64
+                                    && restored != null && restored.getItem(41).getCount() == 64
+                                    && restored.requirementCount(0) == 3 && directions && table.handler(null).getSlots() == 42);
+                    p.closeContainer();
+                    silkReelPos = prepareStoneMill(p, p.blockPosition().offset(1, 0, -3));
+                    silkInputPos = prepareStoneMill(p, silkReelPos.north().below());
+                    p.serverLevel().setBlockAndUpdate(silkReelPos, block("saosilun")
+                            .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
+                    p.serverLevel().setBlockAndUpdate(silkInputPos, Blocks.CHEST.defaultBlockState());
+                    ((Container) p.serverLevel().getBlockEntity(silkInputPos)).setItem(0, item("silkwormchrysalisgold", 2));
+                    silkDropListener = event -> {
+                        if (!event.getLevel().isClientSide() && event.getEntity() instanceof ItemEntity drop
+                                && drop.position().distanceToSqr(Vec3.atCenterOf(silkReelPos)) < 4) silkDrops.add(drop);
+                    };
+                    NeoForge.EVENT_BUS.addListener(silkDropListener);
+                    p.getInventory().clearContent();
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(30, p -> useBlock(silkReelPos)),
+                new Action(80, p -> {
+                    SilkReelBlockEntity reel = silkReel(p);
+                    double before = reel.getPersistentData().getDouble("tick");
+                    useBlock(silkReelPos);
+                    expectTrue("缫丝启动后使用既有周期且忙碌不重置进度，未提前产出",
+                            reel.getPersistentData().getBoolean("saosi") && before >= 1 && silkDrops.isEmpty());
+                    p.serverLevel().setBlockAndUpdate(silkReelPos, reel.getBlockState()
+                            .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST));
+                }),
+                new Action(4, p -> {
+                    SilkReelBlockEntity reel = silkReel(p);
+                    expectTrue("缫丝第5周期沿启动方向取槽0金蛹，无热源仍扣1并只出1金丝，完成复位",
+                            ((Container) p.serverLevel().getBlockEntity(silkInputPos)).getItem(0).getCount() == 1
+                                    && silkDrops.stream().filter(drop -> drop.getItem().is(item("silkthreadgold").getItem()))
+                                            .mapToInt(drop -> drop.getItem().getCount()).sum() == 1
+                                    && !reel.getPersistentData().getBoolean("saosi") && reel.getPersistentData().getDouble("tick") == 0);
+                    silkDrops.forEach(Entity::discard);
+                    silkDrops.clear();
+                    ((Container) p.serverLevel().getBlockEntity(silkInputPos)).clearContent();
+                    p.serverLevel().setBlockAndUpdate(silkInputPos, Blocks.WATER_CAULDRON.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(silkInputPos.below(), Blocks.CAMPFIRE.defaultBlockState()
+                            .setValue(BlockStateProperties.LIT, false));
+                    p.serverLevel().setBlockAndUpdate(silkReelPos, reel.getBlockState()
+                            .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
+                    ItemEntity drop = new ItemEntity(p.serverLevel(), silkInputPos.getX() + .5,
+                            silkInputPos.getY() + .5, silkInputPos.getZ() + .5, item("silkwormchrysalisred", 3));
+                    drop.setDeltaMovement(Vec3.ZERO);
+                    p.serverLevel().addFreshEntity(drop);
+                    silkDrops.add(drop);
+                }),
+                new Action(108, p -> useBlock(silkReelPos)),
+                new Action(4, p -> {
+                    SilkReelBlockEntity reel = silkReel(p);
+                    expectTrue("缫丝水釜路径认可未点燃营火，整栈3红蛹移除只产1红丝且不耗水",
+                            silkDrops.stream().filter(drop -> drop.getItem().is(item("silkwormchrysalisred").getItem())).noneMatch(Entity::isAlive)
+                                    && silkDrops.stream().filter(drop -> drop.getItem().is(item("silkthreadred").getItem()))
+                                            .mapToInt(drop -> drop.getItem().getCount()).sum() == 1
+                                    && p.serverLevel().getBlockState(silkInputPos).getValue(BlockStateProperties.LEVEL_CAULDRON) == 1);
+                    reel.setItem(8, new ItemStack(Items.IRON_SWORD, 3));
+                    reel.getPersistentData().putBoolean("saosi", true);
+                    reel.getPersistentData().putDouble("tick", 3);
+                    reel.getPersistentData().putString("fangxiang", "south");
+                    SilkReelBlockEntity restored = (SilkReelBlockEntity) BlockEntity.loadStatic(silkReelPos,
+                            reel.getBlockState(), reel.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("缫丝九槽与忙碌进度/方向完整保存读回，单件物品仍保留3件",
+                            restored != null && restored.getItem(8).getCount() == 3
+                                    && restored.getPersistentData().getBoolean("saosi")
+                                    && restored.getPersistentData().getDouble("tick") == 3
+                                    && restored.getPersistentData().getString("fangxiang").equals("south"));
                 })
         );
     }
@@ -975,6 +1153,23 @@ final class FuluCookingCheck extends ActionCheck {
         return pos;
     }
 
+    private CarpentryBlockEntity carpentry(ServerPlayer player) {
+        return (CarpentryBlockEntity) player.serverLevel().getBlockEntity(carpentryPos);
+    }
+
+    private SilkReelBlockEntity silkReel(ServerPlayer player) {
+        return (SilkReelBlockEntity) player.serverLevel().getBlockEntity(silkReelPos);
+    }
+
+    private void carpentryButton(int operation) {
+        minecraft.execute(() -> {
+            if (minecraft.screen instanceof CarpentryScreen screen) {
+                screen.children().stream().filter(Button.class::isInstance).map(Button.class::cast)
+                        .skip(operation).findFirst().orElseThrow().onPress();
+            }
+        });
+    }
+
     private static StoneMillBlockEntity stoneMill(ServerPlayer player, BlockPos pos) {
         return (StoneMillBlockEntity) player.serverLevel().getBlockEntity(pos);
     }
@@ -989,6 +1184,8 @@ final class FuluCookingCheck extends ActionCheck {
     protected void cleanup(ServerPlayer player) {
         player.closeContainer();
         if (stoneMillDropListener != null) NeoForge.EVENT_BUS.unregister(stoneMillDropListener);
+        if (silkDropListener != null) NeoForge.EVENT_BUS.unregister(silkDropListener);
+        silkDrops.forEach(Entity::discard);
         if (stoneMillPos != null) {
             stoneMillSneak(stoneMillShift);
             stoneMillDrops.forEach(Entity::discard);
