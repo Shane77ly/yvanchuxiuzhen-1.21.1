@@ -1,4 +1,5 @@
 [
+{"id":"zhibuji","factory":"craft:loom","block":"zhibuji","order":1097,"tab":"yvanchuxiuzhen:tabyvanchu_block","tooltip":["手持棉、麻等物右键此织布机，即可纺织成布。"]},
 {"id":"silkworm","factory":"item","order":1116,"tab":"yvanchuxiuzhen:tabyvanchu_materials","pending_hooks":["useOn"]},
 {"id":"silkwormchrysalis","factory":"item","order":1117,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
 {"id":"silkthread","factory":"item","order":1118,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},

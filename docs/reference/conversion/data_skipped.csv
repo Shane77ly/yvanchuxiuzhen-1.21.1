@@ -5,7 +5,6 @@ tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_str
 tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/shipwreck.json,群系标签引用本 Mod 的群系，随 world 迁移
 tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/shipwreck_beached.json,群系标签引用本 Mod 的群系，随 world 迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:treasure_chest_11 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:zhibuji 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:canhe 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:saosilun 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:shicai_039_plant_04 未登记，由所属系统迁移
@@ -211,6 +210,5 @@ recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/mugongtaihe
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/saosilunhecheng.json,引用未登记的物品 yvanchuxiuzhen:saosilun，由所属系统迁移
 recipe_count_clamped,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/skillarrow_10hecheng.json,产物 yvanchuxiuzhen:skill_arrow_10 数量 5 超过堆叠上限 1，改为 1（Q15 裁定）
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/taolunhecheng.json,引用未登记的物品 yvanchuxiuzhen:taolun，由所属系统迁移
-recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/zhibujihecheng.json,引用未登记的物品 yvanchuxiuzhen:zhibuji，由所属系统迁移
 recipe,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/zhuangshiqiantonghecheng.json,引用未登记的物品 yvanchuxiuzhen:taolun，由所属系统迁移
 function,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/functions/playerchuansuo.mcfunction,函数引用本 Mod 的维度，随 world 迁移

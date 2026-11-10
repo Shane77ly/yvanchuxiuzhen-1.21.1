@@ -1,10 +1,12 @@
 {
+  "block.yvanchuxiuzhen.zhibuji": "Zhibuji",
   "block.yvanchuxiuzhen.silkwormchrysalis_02": "Silkwormchrysalis 0 2",
   "block.yvanchuxiuzhen.silkwormchrysalisgold_02": "Silkwormchrysalisgold 0 2",
   "block.yvanchuxiuzhen.silkwormchrysalisred_02": "Silkwormchrysalisred 0 2",
   "block.yvanchuxiuzhen.stonemill": "Stonemill",
   "block.yvanchuxiuzhen.stoneroller": "Stoneroller",
   "block.yvanchuxiuzhen.taopi": "Taopi",
+  "tooltip.yvanchuxiuzhen.item.zhibuji.1": "手持棉、麻等物右键此织布机，即可纺织成布。",
   "item.yvanchuxiuzhen.silkworm": "Silkworm",
   "item.yvanchuxiuzhen.silkwormchrysalis": "Silkwormchrysalis",
   "item.yvanchuxiuzhen.silkthread": "Silkthread",

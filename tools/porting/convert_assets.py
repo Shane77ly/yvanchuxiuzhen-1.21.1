@@ -76,7 +76,8 @@ class Converter:
             return
         self.written[target] = digest
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(content)
+        if not target.is_file() or target.read_bytes() != content:
+            target.write_bytes(content)
         origin = hashlib.sha1(source.read_bytes()).hexdigest()
         self.manifest.append((f'{mod}/{source.relative_to(self.roots[mod].parents[3]).as_posix()}', origin,
                               target.relative_to(ROOT).as_posix()))

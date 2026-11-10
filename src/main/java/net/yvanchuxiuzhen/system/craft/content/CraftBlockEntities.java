@@ -12,12 +12,15 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.yvanchuxiuzhen.platform.ModId;
 
-/** 石磨与石碾分别保留方块实体注册身份，提供无方向库存与六方向自动化库存。 */
+/** 工艺设备分别保留方块实体注册身份，提供无方向库存与六方向自动化库存。 */
 public final class CraftBlockEntities {
     private static final DeferredRegister<BlockEntityType<?>> TYPES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ModId.VALUE);
     private static final Map<String, Supplier<BlockEntityType<StoneMillBlockEntity>>> MILLS = Map.of(
             "stonemill", registerType("stonemill"),
             "stoneroller", registerType("stoneroller"));
+    public static final Supplier<BlockEntityType<LoomBlockEntity>> LOOM = TYPES.register("zhibuji",
+            () -> BlockEntityType.Builder.of(LoomBlockEntity::new,
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "zhibuji"))).build(null));
 
     private CraftBlockEntities() {
     }
@@ -40,5 +43,6 @@ public final class CraftBlockEntities {
         for (Supplier<BlockEntityType<StoneMillBlockEntity>> type : MILLS.values()) {
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type.get(), StoneMillBlockEntity::handler);
         }
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, LOOM.get(), LoomBlockEntity::handler);
     }
 }

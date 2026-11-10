@@ -34,7 +34,6 @@ block,yvanchuxiuzhen:treasure_chest_11,方块基类 BaseEntityBlock 由所属系
 block,yvanchuxiuzhen:watercloud,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:wenqvan,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:xveliu,方块基类 LiquidBlock 由所属系统迁移
-block,yvanchuxiuzhen:zhibuji,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:zhuangshiqiantong,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:zhuangshitizi,方块基类 BaseEntityBlock 由所属系统迁移
 item,yvanchuxiuzhen:biggrassyincang,物品类 BiggrassyincangDisplayItem 由所属系统迁移
@@ -203,6 +202,5 @@ item,yvanchuxiuzhen:yaoshou_054_spawn_egg,物品类 ForgeSpawnEggItem 由所属�
 item,yvanchuxiuzhen:ycxzboss_01_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:ycxzboss_02_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:ycxzboss_04_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:zhibuji,物品类 ZhibujiDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:zhuangshiqiantong,物品类 ZhuangshiqiantongDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:zhuangshitizi,物品类 ZhuangshitiziDisplayItem 由所属系统迁移

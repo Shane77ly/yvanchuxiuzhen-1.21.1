@@ -9,6 +9,8 @@ import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.system.craft.content.CraftBlockEntities;
 import net.yvanchuxiuzhen.system.craft.content.CraftMenus;
+import net.yvanchuxiuzhen.system.craft.content.LoomBlock;
+import net.yvanchuxiuzhen.system.craft.content.LoomBlockItem;
 import net.yvanchuxiuzhen.system.craft.content.StoneMillBlock;
 import net.yvanchuxiuzhen.system.craft.content.StoneMillBlockItem;
 
@@ -21,10 +23,13 @@ public final class CraftSetup {
                     value -> new StoneMillBlock(value, "stonemill")))
             .blockFactory("craft:stone_roller", traits -> ContentBlock.create(traits,
                     value -> new StoneMillBlock(value, "stoneroller")))
+            .blockFactory("craft:loom", traits -> ContentBlock.create(traits, LoomBlock::new))
             .itemFactory("craft:stone_mill", (properties, tooltip) -> new StoneMillBlockItem(
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "stonemill")), properties, tooltip))
             .itemFactory("craft:stone_roller", (properties, tooltip) -> new StoneMillBlockItem(
-                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "stoneroller")), properties, tooltip));
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "stoneroller")), properties, tooltip))
+            .itemFactory("craft:loom", (properties, tooltip) -> new LoomBlockItem(
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "zhibuji")), properties, tooltip));
 
     private CraftSetup() {
     }

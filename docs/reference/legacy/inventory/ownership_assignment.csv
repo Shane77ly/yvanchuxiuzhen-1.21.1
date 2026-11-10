@@ -2209,9 +2209,9 @@ yvanchuxiuzhen,ShipintaiGUIpagedown,procedure,~/weapon/jewelry/shipintaiGUI,equi
 yvanchuxiuzhen,ShipintaiGUIpageup,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
 yvanchuxiuzhen,Hecheng,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,已逐行核对饰品制作台自然菜单、类别翻页、36种即时配方与聊天提示；四槽方块库存及成品根字段由equipment持有，不访问其他系统玩家变量
 yvanchuxiuzhen,ShipintaiFangZhiFangKuaiShi,procedure,~/weapon/jewelry/shipintaiGUI,equipment,已读,B1 归属阅读：随 Shipintai 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
-yvanchuxiuzhen,ZhibujiZaiFangKuaiShangYouJian,procedure,~/tool,craft,已读,B1 归属阅读：随 Zhibuji 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
-yvanchuxiuzhen,ZhibujiGengXinYouXiKe,procedure,~/tool,craft,已读,B1 归属阅读：随 Zhibuji 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
-yvanchuxiuzhen,Zhibuji,animatedblock,~/tool,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
+yvanchuxiuzhen,ZhibujiZaiFangKuaiShangYouJian,procedure,~/tool,craft,已读,完整读取织布机主手8基础、金属双入口与云雷9布优先；自然配方五木板二线一棉花，生产交易归craft，原料身份及自然获取归所属系统
+yvanchuxiuzhen,ZhibujiGengXinYouXiKe,procedure,~/tool,craft,已读,完整读取织布机主手8基础、金属双入口与云雷9布优先；自然配方五木板二线一棉花，生产交易归craft，原料身份及自然获取归所属系统
+yvanchuxiuzhen,Zhibuji,animatedblock,~/tool,craft,已读,完整读取织布机主手8基础、金属双入口与云雷9布优先；自然配方五木板二线一棉花，生产交易归craft，原料身份及自然获取归所属系统
 yvanchuxiuzhen,Mianitem,item,~/plant/crop,plant,已读,B1 归属阅读：作物成熟阶段或收获物，无过程；被 craft 的 ZhibujiZaiFangKuaiShangYouJian 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,MianseedDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Maseed 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,Mianseed,item,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
@@ -2252,7 +2252,7 @@ yvanchuxiuzhen,Silkwormmothgold,animatedentity,~/item/zawu,craft,已读,系统�
 yvanchuxiuzhen,Silkwormegggold,item,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
 yvanchuxiuzhen,CanheGengXinYouXiKe,procedure,~/tool,craft,已读,B1 归属阅读：随 Canhe 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,Canhe,animatedblock,~/tool,craft,已读,B1 归属阅读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
-yvanchuxiuzhen,Zhibujihecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Zhibujihecheng,recipe,~/tool,craft,已读,完整读取织布机主手8基础、金属双入口与云雷9布优先；自然配方五木板二线一棉花，生产交易归craft，原料身份及自然获取归所属系统
 yvanchuxiuzhen,Canhehecheng,recipe,~/tool,craft,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,CanheZaiFangKuaiShangYouJian,procedure,~/tool,craft,已读,B1 归属阅读：随 Canhe 读：工艺：陶轮与待烧陶坯、木工台、石磨、石碾、织布机、缫丝、蚕盒的工作台操作
 yvanchuxiuzhen,Silkwormchrysalis02DangPiLinFangKuaiGengXinShi,procedure,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动

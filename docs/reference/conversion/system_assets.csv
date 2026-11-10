@@ -297,3 +297,6 @@ fulu,texture,yvanchuxiuzhen:entities/fulutexiao38
 fulu,texture,yvanchuxiuzhen:entities/item_fulu2701
 fulu,geo,yvanchuxiuzhen:chuancheng
 fulu,animation,yvanchuxiuzhen:chuancheng
+craft,geo,yvanchuxiuzhen:zhibuji
+craft,animation,yvanchuxiuzhen:zhibuji
+craft,texture,yvanchuxiuzhen:blocks/zhibuji

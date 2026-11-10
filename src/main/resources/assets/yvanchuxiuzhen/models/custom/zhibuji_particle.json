@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/zhibuji.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/zhibuji"
+  }
+}

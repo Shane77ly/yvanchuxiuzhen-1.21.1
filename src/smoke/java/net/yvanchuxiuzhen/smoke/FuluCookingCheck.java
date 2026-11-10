@@ -51,6 +51,7 @@ import net.yvanchuxiuzhen.system.cooking.client.CookingPotScreen;
 import net.yvanchuxiuzhen.system.craft.client.StoneMillScreen;
 import net.yvanchuxiuzhen.system.craft.content.StoneMillBlockEntity;
 import net.yvanchuxiuzhen.system.craft.content.StoneMillMenu;
+import net.yvanchuxiuzhen.system.craft.content.LoomBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.DrawingTableRuntime;
 import net.yvanchuxiuzhen.system.fulu.FuluRanged;
 import net.yvanchuxiuzhen.system.fulu.FuluUse;
@@ -118,6 +119,7 @@ final class FuluCookingCheck extends ActionCheck {
     private BlockPos explosiveBase;
     private BlockPos stoneMillPos;
     private BlockPos stoneRollerPos;
+    private BlockPos loomPos;
     private boolean stoneMillShift;
     private final Map<BlockPos, BlockState> stoneMillBlocks = new LinkedHashMap<>();
     private final Map<BlockPos, CompoundTag> stoneMillEntities = new LinkedHashMap<>();
@@ -826,6 +828,74 @@ final class FuluCookingCheck extends ActionCheck {
                                 && sided.extractItem(1, 1, true).getCount() == 1;
                     }
                     expectTrue("石碾三槽保存重读一致，六方向能力只插0/2并只取成品1", allSlots && directions);
+                }),
+                new Action(4, p -> {
+                    loomPos = prepareStoneMill(p, p.blockPosition().offset(0, 0, 2));
+                    p.serverLevel().setBlockAndUpdate(loomPos, block("zhibuji"));
+                    p.getInventory().clearContent();
+                    p.getInventory().selected = HOTBAR;
+                    p.setItemInHand(InteractionHand.MAIN_HAND, item("mianitem", 2));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(4, p -> useBlock(loomPos)),
+                new Action(4, p -> {
+                    ItemStack cloth = inventoryItem(p, "cailiao_171");
+                    expectTrue("织布机真实右键：两份棉花只扣一份、只产一份4级灵布，且不打开菜单",
+                            p.getMainHandItem().getCount() == 1 && cloth.getCount() == 1
+                                    && Materials.instance(cloth).level() == 4
+                                    && p.containerMenu == p.inventoryMenu);
+                    p.getInventory().clearContent();
+                    p.setItemInHand(InteractionHand.MAIN_HAND, material("cailiao_209", 40));
+                    p.getInventory().setItem(1, material("cailiao_219", 40));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(4, p -> useBlock(loomPos)),
+                new Action(4, p -> {
+                    ItemStack cloth = inventoryItem(p, "cailiao_179");
+                    expectTrue("织布机按ID匹配带实例组件的两种金属，各扣一件并给同品阶41级千丝锦两件",
+                            inventoryItem(p, "cailiao_209").isEmpty() && inventoryItem(p, "cailiao_219").isEmpty()
+                                    && cloth.getCount() == 2 && Materials.instance(cloth).level() == 41);
+                    p.getInventory().clearContent();
+                    p.setItemInHand(InteractionHand.MAIN_HAND, item("thundergrass"));
+                    p.getInventory().setItem(1, material("cailiao_178", 99));
+                    p.getInventory().setItem(2, material("cailiao_179", 1));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(4, p -> useBlock(loomPos)),
+                new Action(4, p -> {
+                    ItemStack cloth = inventoryItem(p, "cailiao_243");
+                    expectTrue("云雷锦按布ID优先取千丝锦，忽略实例等级，保留99级浣花绫并产41级云雷锦",
+                            p.getMainHandItem().isEmpty() && inventoryItem(p, "cailiao_179").isEmpty()
+                                    && inventoryItem(p, "cailiao_178").getCount() == 1
+                                    && cloth.getCount() == 1 && Materials.instance(cloth).level() == 41);
+                    p.getInventory().clearContent();
+                    p.setItemInHand(InteractionHand.OFF_HAND, item("mianitem", 2));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(4, p -> minecraft.execute(() -> minecraft.gameMode.useItemOn(minecraft.player,
+                        InteractionHand.OFF_HAND, new BlockHitResult(Vec3.atCenterOf(loomPos), Direction.UP, loomPos, false)))),
+                new Action(4, p -> {
+                    expectTrue("织布机副手点击仍读取空主手，副手棉花不消耗且不产布",
+                            p.getOffhandItem().getCount() == 2 && inventoryItem(p, "cailiao_171").isEmpty());
+                    p.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                    LoomBlockEntity loom = (LoomBlockEntity) p.serverLevel().getBlockEntity(loomPos);
+                    loom.setItem(0, item("silkthread", 3));
+                    LoomBlockEntity restored = (LoomBlockEntity) BlockEntity.loadStatic(loomPos, loom.getBlockState(),
+                            loom.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    boolean directions = true;
+                    for (Direction direction : Direction.values()) {
+                        IItemHandler handler = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, loomPos, direction);
+                        directions &= handler != null && handler.getSlots() == 1
+                                && handler.extractItem(0, 1, true).getCount() == 1
+                                && handler.insertItem(0, item("silkthread"), true).isEmpty();
+                    }
+                    expectTrue("织布机独立单槽保存重读一致，六方向均可插取，未被主手加工使用",
+                            restored != null && ItemStack.matches(restored.getItem(0), loom.getItem(0)) && directions);
+                    loom.setItem(0, new ItemStack(Items.IRON_SWORD, 3));
+                    StoneMillBlockEntity mill = stoneMill(p, stoneMillPos);
+                    mill.setItem(0, new ItemStack(Items.IRON_SWORD, 3));
+                    expectTrue("石磨与织布机强制赋槽保留来源容器64件上限，不按单件物品上限截断",
+                            loom.getItem(0).getCount() == 3 && mill.getItem(0).getCount() == 3);
                 })
         );
     }
@@ -858,6 +928,14 @@ final class FuluCookingCheck extends ActionCheck {
         ItemStack stack = item(path);
         Materials.setInstance(stack, level, 0);
         return stack;
+    }
+
+    private static ItemStack inventoryItem(ServerPlayer player, String path) {
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            ItemStack stack = player.getInventory().getItem(slot);
+            if (!stack.isEmpty() && stack.is(item(path).getItem())) return stack;
+        }
+        return ItemStack.EMPTY;
     }
 
     private static ItemStack talisman(String path, int count, int grade) {

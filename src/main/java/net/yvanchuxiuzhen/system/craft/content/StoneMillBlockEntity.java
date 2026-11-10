@@ -100,6 +100,15 @@ public final class StoneMillBlockEntity extends RandomizableContainerBlockEntity
         return 64;
     }
 
+    /** 来源强制赋槽仅受容器64件上限约束，物品自身堆叠上限不参与截断。 */
+    @Override
+    public void setItem(int slot, ItemStack stack) {
+        unpackLootTable(null);
+        items.set(slot, stack);
+        if (stack.getCount() > getMaxStackSize()) stack.setCount(getMaxStackSize());
+        setChanged();
+    }
+
     @Override
     protected NonNullList<ItemStack> getItems() {
         return items;

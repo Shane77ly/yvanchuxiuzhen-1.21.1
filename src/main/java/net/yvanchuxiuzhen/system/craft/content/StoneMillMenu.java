@@ -13,7 +13,12 @@ import net.minecraft.world.item.ItemStack;
 /** 三槽菜单绑定设备库存，保留主料、成品、辅料的槽号及来源搬移顺序。 */
 public final class StoneMillMenu extends AbstractContainerMenu {
     public StoneMillMenu(int id, Inventory inventory, RegistryFriendlyByteBuf buffer) {
-        this(id, inventory, new SimpleContainer(3));
+        this(id, inventory, new SimpleContainer(3) {
+            @Override
+            public int getMaxStackSize(ItemStack stack) {
+                return 64;
+            }
+        });
         buffer.readBlockPos();
     }
 
