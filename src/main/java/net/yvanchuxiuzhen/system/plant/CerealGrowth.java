@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 
-/** 001水稻与002糯稻的八阶段转换、枯萎和各自骨粉成熟过程。 */
+/** 已核谷物的八阶段转换、枯萎和骨粉成熟；001独有的属性复制单独保留。 */
 final class CerealGrowth {
     private CerealGrowth() {
     }

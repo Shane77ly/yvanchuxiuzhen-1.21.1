@@ -15,7 +15,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentDoublePlant;
 
-/** 001水稻与002糯稻的双格生长阶段05–07。 */
+/** 已核八阶段谷物的双格生长阶段05–07，掉落由来源编号与阶段确定。 */
 public final class CerealDoubleStageBlock extends ContentDoublePlant implements BonemealableBlock {
     private final CerealCrop crop;
     private final int stage;
@@ -56,6 +56,6 @@ public final class CerealDoubleStageBlock extends ContentDoublePlant implements 
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
         if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) return List.of();
         List<ItemStack> drops = super.getDrops(state, params);
-        return drops.isEmpty() ? List.of(new ItemStack(crop.seed())) : drops;
+        return drops.isEmpty() ? List.of(crop.drop(stage)) : drops;
     }
 }

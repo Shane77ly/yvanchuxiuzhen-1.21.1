@@ -3212,8 +3212,8 @@ yvanchuxiuzhen,Shicai00202Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Sh
 yvanchuxiuzhen,Shicai002Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai002Item.java,item,cooking,source_element_metadata
 yvanchuxiuzhen,Shicai002seedItem,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai002seedItem.java,item,plant,source_element_metadata
 yvanchuxiuzhen,Shicai003Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai003Item.java,item,cooking,source_element_metadata
-yvanchuxiuzhen,Shicai004Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai004Item.java,item,cooking,source_element_metadata
-yvanchuxiuzhen,Shicai005Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai005Item.java,item,cooking,source_element_metadata
+yvanchuxiuzhen,Shicai004Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai004Item.java,item,plant,source_element_metadata
+yvanchuxiuzhen,Shicai005Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai005Item.java,item,plant,source_element_metadata
 yvanchuxiuzhen,Shicai006Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai006Item.java,item,cooking,source_element_metadata
 yvanchuxiuzhen,Shicai006seedItem,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai006seedItem.java,item,plant,source_element_metadata
 yvanchuxiuzhen,Shicai00701Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai00701Item.java,item,plant,source_element_metadata
@@ -3241,7 +3241,7 @@ yvanchuxiuzhen,Shicai01701Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Sh
 yvanchuxiuzhen,Shicai017Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai017Item.java,item,cooking,source_element_metadata
 yvanchuxiuzhen,Shicai01801Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai01801Item.java,item,plant,source_element_metadata
 yvanchuxiuzhen,Shicai018Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai018Item.java,item,cooking,source_element_metadata
-yvanchuxiuzhen,Shicai01901Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai01901Item.java,item,cooking,source_element_metadata
+yvanchuxiuzhen,Shicai01901Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai01901Item.java,item,plant,source_element_metadata
 yvanchuxiuzhen,Shicai019Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai019Item.java,item,cooking,source_element_metadata
 yvanchuxiuzhen,Shicai02001Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai02001Item.java,item,plant,source_element_metadata
 yvanchuxiuzhen,Shicai020Item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Shicai020Item.java,item,cooking,source_element_metadata

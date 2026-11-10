@@ -4,6 +4,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
@@ -246,6 +247,7 @@ final class FuluCookingCheck extends ActionCheck {
     private final Map<BlockPos, List<ScheduledTick<Fluid>>> riceFluidTicks = new LinkedHashMap<>();
     private final List<ItemEntity> riceDrops = new ArrayList<>();
     private Consumer<EntityJoinLevelEvent> riceDropListener;
+    private final CompoundTag ricePlantDataBefore = new CompoundTag();
 
     private boolean utensilsActive;
     private BlockPos utensilsBowl;
@@ -463,9 +465,8 @@ final class FuluCookingCheck extends ActionCheck {
                 new Action(6, p -> useBlock(burnerPos)),
                 new Action(425, p -> {
                     AshBurnerBlockEntity burner = (AshBurnerBlockEntity) p.serverLevel().getBlockEntity(burnerPos);
-                    expectTrue("打火石点燃烧灰架：begin 置位并开始计时（进度 " + burner.getPersistentData().getInt("ranshaotick") + "）",
-                            burner.getPersistentData().getBoolean("begin") && !burner.getItem(0).isEmpty()
-                                    && burner.getPersistentData().getInt("ranshaotick") > 0);
+                    expectTrue("打火石点燃烧灰架：begin 置位且燃料保留（当前十刻周期进度 " + burner.getPersistentData().getInt("ranshaotick") + "）",
+                            burner.getPersistentData().getBoolean("begin") && !burner.getItem(0).isEmpty());
                 }),
                 new Action(4, p -> {
                     AshBurnerBlockEntity burner = (AshBurnerBlockEntity) p.serverLevel().getBlockEntity(burnerPos);
@@ -2157,6 +2158,183 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("四颗糯稻种子经已加载的原生合成配方匹配并生成一份糯米",
                             meal.is(item("shicai_002").getItem()) && meal.getCount() == 1);
                 }),
+                new Action(1, p -> {
+                    String[][] planting = {
+                            {"shicai_004", "004"}, {"shicai_005", "005"}, {"shicai_006seed", "006"},
+                            {"shicai_00701", "007"}, {"shicai_02501", "025"}, {"shicai_02601", "026"}, {"shicai_02701", "027"},
+                            {"shicai_01101", "011"}, {"shicai_01201", "012"}, {"shicai_01301", "013"},
+                            {"shicai_01401", "014"}, {"shicai_01502", "015"}, {"shicai_01601", "016"},
+                            {"shicai_01701", "017"}, {"shicai_01801", "018"}, {"shicai_01901", "019"},
+                            {"shicai_02001", "020"}, {"shicai_02101", "021"}, {"shicai_02201", "022"},
+                            {"shicai_02301", "023"}, {"shicai_02401", "024"}, {"shicai_028", "028"},
+                            {"shicai_02901", "029"}, {"shicai_029", "029"},
+                            {"shicai_03001", "030"}, {"shicai_030", "030"},
+                            {"shicai_03101", "031"}, {"shicai_031", "031"},
+                            {"shicai_032", "032"}, {"shicai_033", "033"}};
+                    List<String> edible = List.of("shicai_01502", "shicai_028", "shicai_029", "shicai_030",
+                            "shicai_031", "shicai_032", "shicai_033");
+                    for (String[] entry : planting) {
+                        riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                        riceHeld(p, item(entry[0], 2));
+                        boolean foodPreserved = !edible.contains(entry[0]) || p.getMainHandItem().has(DataComponents.FOOD);
+                        riceUse(p, ricePos.below());
+                        expectTrue(entry[0] + "原生生存播种生成对应01并扣一件" + (edible.contains(entry[0]) ? "，保留食物组件" : ""),
+                                foodPreserved && p.serverLevel().getBlockState(ricePos).is(block("shicai_" + entry[1] + "_plant_01").getBlock())
+                                        && p.getMainHandItem().getCount() == 1);
+                    }
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 0));
+                    riceClearDrops();
+                    BlockState wrongSeed = block("shicai_004_plant_01");
+                    p.serverLevel().setBlock(ricePos, wrongSeed, 3);
+                    wrongSeed.randomTick(p.serverLevel(), ricePos, p.serverLevel().random);
+                    expectTrue("00401干旱实际掉落保留来源异常002种子一颗",
+                            p.serverLevel().isEmptyBlock(ricePos) && riceDrops.size() == 1
+                                    && riceDrops.getFirst().getItem().is(item("shicai_002seed").getItem())
+                                    && riceDrops.getFirst().getItem().getCount() == 1);
+                }),
+                new Action(1, p -> {
+                    String[][] dryBonemeal = {{"006", "03", "shicai_006seed", "1"},
+                            {"025", "05", "shicai_02501", "1"}, {"015", "03", "shicai_01501", "2"}};
+                    for (String[] entry : dryBonemeal) {
+                        riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 0));
+                        riceClearDrops();
+                        BlockState plant = block("shicai_" + entry[0] + "_plant_" + entry[1]);
+                        p.serverLevel().setBlock(ricePos, plant, 3);
+                        ((BonemealableBlock) plant.getBlock()).performBonemeal(p.serverLevel(), p.serverLevel().random, ricePos, plant);
+                        expectTrue(entry[0] + entry[1] + "受控原生performBonemeal沿普通干旱分支枯萎并交来源掉落",
+                                p.serverLevel().isEmptyBlock(ricePos) && riceDrops.size() == 1
+                                        && riceDrops.getFirst().getItem().is(item(entry[2]).getItem())
+                                        && riceDrops.getFirst().getItem().getCount() == Integer.parseInt(entry[3]));
+                    }
+                    for (String stage : List.of("03", "04")) {
+                        riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                        riceClearDrops();
+                        p.serverLevel().setBlock(ricePos, block("shicai_016_plant_" + stage), 3);
+                        riceHeld(p, ItemStack.EMPTY);
+                        riceUse(p, ricePos);
+                        int chives = riceDrops.stream().filter(drop -> drop.getItem().is(item("shicai_016").getItem()))
+                                .mapToInt(drop -> drop.getItem().getCount()).sum();
+                        int flowers = riceDrops.stream().filter(drop -> drop.getItem().is(item("shicai_01602").getItem()))
+                                .mapToInt(drop -> drop.getItem().getCount()).sum();
+                        expectTrue("016" + stage + "原生空手收割回02并独立交付韭菜及开花产物",
+                                p.serverLevel().getBlockState(ricePos).is(block("shicai_016_plant_02").getBlock())
+                                        && chives == 1 && flowers == (stage.equals("04") ? 1 : 0)
+                                        && riceDrops.size() == (stage.equals("04") ? 2 : 1));
+                    }
+                }),
+                new Action(1, p -> {
+                    for (String[] entry : new String[][]{{"004", "6"}, {"005", "6"}, {"006", "2"}}) {
+                        riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                        BlockState lower = block("shicai_" + entry[0] + "_plant_08");
+                        DoublePlantBlock.placeAt(p.serverLevel(), lower, ricePos, 3);
+                        List<ItemStack> drops = Block.getDrops(lower, p.serverLevel(), ricePos, null);
+                        List<ItemStack> upper = Block.getDrops(lower.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER),
+                                p.serverLevel(), ricePos.above(), null);
+                        expectTrue(entry[0] + "成熟原生loot交本体" + entry[1] + "份且上半不重复",
+                                drops.size() == 1 && drops.getFirst().is(item("shicai_" + entry[0]).getItem())
+                                        && drops.getFirst().getCount() == Integer.parseInt(entry[1]) && upper.isEmpty());
+                    }
+                    CraftingInput input = CraftingInput.of(1, 1, List.of(item("shicai_006")));
+                    ItemStack seeds = p.serverLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, p.serverLevel())
+                            .map(recipe -> recipe.value().assemble(input, p.registryAccess())).orElse(ItemStack.EMPTY);
+                    expectTrue("玉米通过已加载原生合成配方生成八颗006种子",
+                            seeds.is(item("shicai_006seed").getItem()) && seeds.getCount() == 8);
+                    String[][] fixedLoot = {
+                            {"007", "04", "shicai_00701", "1"}, {"025", "04", "shicai_025", "2"},
+                            {"026", "04", "shicai_026", "2"}, {"027", "04", "shicai_027", "2"},
+                            {"011", "04", "shicai_011", "1"}, {"015", "02", "shicai_015", "2"},
+                            {"015", "03", "shicai_01501", "2"}, {"015", "04", "shicai_01502", "4"},
+                            {"017", "04", "shicai_017", "2"}, {"018", "04", "shicai_018", "4"},
+                            {"019", "04", "shicai_019", "4"}, {"020", "04", "shicai_020", "1"},
+                            {"021", "04", "shicai_021", "4"}, {"022", "04", "shicai_022", "1"},
+                            {"023", "04", "shicai_023", "1"}, {"024", "03", "shicai_02401", "3"},
+                            {"024", "04", "shicai_024", "1"}, {"028", "04", "shicai_028", "3"},
+                            {"029", "04", "shicai_029", "3"}, {"030", "04", "shicai_030", "6"},
+                            {"031", "04", "shicai_031", "3"}, {"032", "04", "shicai_032", "4"},
+                            {"033", "04", "shicai_033", "3"}};
+                    for (String[] entry : fixedLoot) {
+                        riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                        BlockState plant = block("shicai_" + entry[0] + "_plant_" + entry[1]);
+                        p.serverLevel().setBlock(ricePos, plant, 3);
+                        List<ItemStack> drops = Block.getDrops(plant, p.serverLevel(), ricePos, null);
+                        expectTrue(entry[0] + entry[1] + "原生loot产物和数量符合来源",
+                                drops.size() == 1 && drops.getFirst().is(item(entry[2]).getItem())
+                                        && drops.getFirst().getCount() == Integer.parseInt(entry[3]));
+                    }
+                }),
+                new Action(1, p -> {
+                    for (String number : List.of("012", "013")) {
+                        riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                        BlockState mature = block("shicai_" + number + "_plant_04");
+                        p.serverLevel().setBlock(ricePos, mature, 3);
+                        List<ItemStack> drops = Block.getDrops(mature, p.serverLevel(), ricePos, null);
+                        int produce = drops.stream().filter(stack -> stack.is(item("shicai_" + number).getItem()))
+                                .mapToInt(ItemStack::getCount).sum();
+                        int seeds = drops.stream().filter(stack -> stack.is(item("shicai_" + number + "01").getItem()))
+                                .mapToInt(ItemStack::getCount).sum();
+                        expectTrue(number + "成熟自定义loot两轮只产本族食材1或来源反转范围种子3",
+                                drops.stream().allMatch(stack -> stack.is(item("shicai_" + number).getItem())
+                                        || stack.is(item("shicai_" + number + "01").getItem()))
+                                        && seeds % 3 == 0 && produce + seeds / 3 == 2);
+                    }
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    BlockState cai = block("shicai_014_plant_04");
+                    p.serverLevel().setBlock(ricePos, cai, 3);
+                    List<ItemStack> caiDrops = Block.getDrops(cai, p.serverLevel(), ricePos, null);
+                    expectTrue("014成熟自定义loot两轮仅产菜心1或种子1至3，保留资源抽签",
+                            caiDrops.size() == 2 && caiDrops.stream().allMatch(stack ->
+                                    stack.is(item("shicai_014").getItem()) && stack.getCount() == 1
+                                            || stack.is(item("shicai_01401").getItem()) && stack.getCount() >= 1 && stack.getCount() <= 3));
+                    BlockState chives = block("shicai_016_plant_04");
+                    p.serverLevel().setBlock(ricePos, chives, 3);
+                    List<ItemStack> chiveDrops = Block.getDrops(chives, p.serverLevel(), ricePos, null);
+                    expectTrue("016成熟自定义loot单轮仅产种子1至3、韭菜花1或韭菜1至2",
+                            chiveDrops.size() == 1 && chiveDrops.stream().allMatch(stack ->
+                                    stack.is(item("shicai_01601").getItem()) && stack.getCount() >= 1 && stack.getCount() <= 3
+                                            || stack.is(item("shicai_01602").getItem()) && stack.getCount() == 1
+                                            || stack.is(item("shicai_016").getItem()) && stack.getCount() >= 1 && stack.getCount() <= 2));
+                }),
+                new Action(1, p -> {
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                    riceClearDrops();
+                    p.serverLevel().setBlock(ricePos, Blocks.WATER.defaultBlockState(), 2);
+                    riceHeld(p, item("shicai_00801", 2));
+                    boolean foodPreserved = p.getMainHandItem().has(DataComponents.FOOD);
+                    p.gameMode.useItemOn(p, p.serverLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND,
+                            new BlockHitResult(Vec3.atCenterOf(ricePos.below()).add(.5, 0, 0), Direction.EAST, ricePos.below(), false));
+                    expectTrue("莲子第28种原生播种入口：食物组件保留，泥土上水侧面使用替泥为根并扣一颗",
+                            foodPreserved && p.serverLevel().getBlockState(ricePos.below()).is(block("shicai_008plant_01").getBlock())
+                                    && p.getMainHandItem().getCount() == 1);
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    riceHeld(p, item("shicai_00801", 2));
+                    riceUse(p, ricePos.below());
+                    expectTrue("莲子原生耕地使用仅扣一颗，保持空位不生成其他作物",
+                            p.serverLevel().isEmptyBlock(ricePos) && p.getMainHandItem().getCount() == 1);
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                    riceClearDrops();
+                    BlockState root = block("shicai_008plant_01");
+                    p.serverLevel().setBlock(ricePos, root, 2);
+                    p.serverLevel().setBlock(ricePos.above(2), block("shicai_008plant_03"), 2);
+                    riceHeld(p, ItemStack.EMPTY);
+                    p.getPersistentData().putDouble("caiou", 0);
+                    root.attack(p.serverLevel(), ricePos, p);
+                    expectTrue("莲藕原生attack跨过空气读取height2莲蓬并记录caiou2",
+                            p.serverLevel().isEmptyBlock(ricePos.above()) && p.getPersistentData().getDouble("caiou") == 2);
+                    boolean removed = p.gameMode.destroyBlock(ricePos);
+                    List<ItemEntity> roots = riceDrops.stream().filter(drop -> drop.getItem().is(item("shicai_008").getItem())).toList();
+                    expectTrue("莲藕原生玩家破坏后交两个独立藕实体并清零采藕记录",
+                            removed && p.serverLevel().isEmptyBlock(ricePos) && roots.size() == 2
+                                    && roots.stream().allMatch(drop -> drop.getItem().getCount() == 1)
+                                    && p.getPersistentData().getDouble("caiou") == 0);
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                    p.serverLevel().setBlock(ricePos, root, 2);
+                    p.serverLevel().setBlock(ricePos.above(), block("shicai_008plant_03"), 2);
+                    riceClearDrops();
+                    p.serverLevel().setBlock(ricePos, Blocks.AIR.defaultBlockState(), 3);
+                    expectTrue("莲蓬失去下方莲藕标签支撑后自然邻居更新清除且不掉落",
+                            p.serverLevel().isEmptyBlock(ricePos.above()) && riceDrops.isEmpty());
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                }),
                 new Action(1, p -> restoreRice(p)),
                 // 餐具与案板：真实客户端输入；未执行来源过程或设备tick代替自然入口。
                 new Action(12, p -> {
@@ -2420,6 +2598,9 @@ final class FuluCookingCheck extends ActionCheck {
         riceMode = player.gameMode.getGameModeForPlayer();
         riceFlying = player.getAbilities().flying;
         riceSelected = player.getInventory().selected;
+        if (player.getPersistentData().contains("caiou")) {
+            ricePlantDataBefore.put("caiou", player.getPersistentData().get("caiou").copy());
+        }
         for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
             riceInventory.add(player.getInventory().getItem(slot).copy());
         }
@@ -2471,6 +2652,11 @@ final class FuluCookingCheck extends ActionCheck {
         player.serverLevel().setBlock(ricePos.below(), soil, 3);
     }
 
+    private void riceClearDrops() {
+        riceDrops.forEach(Entity::discard);
+        riceDrops.clear();
+    }
+
     private void restoreRice(ServerPlayer player) {
         if (!riceActive) return;
         riceActive = false;
@@ -2503,6 +2689,11 @@ final class FuluCookingCheck extends ActionCheck {
         player.onUpdateAbilities();
         for (int slot = 0; slot < riceInventory.size(); slot++) player.getInventory().setItem(slot, riceInventory.get(slot));
         player.getInventory().selected = riceSelected;
+        if (ricePlantDataBefore.contains("caiou")) {
+            player.getPersistentData().put("caiou", ricePlantDataBefore.get("caiou").copy());
+        } else {
+            player.getPersistentData().remove("caiou");
+        }
         player.inventoryMenu.broadcastChanges();
     }
 

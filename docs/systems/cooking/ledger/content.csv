@@ -199,12 +199,10 @@ item,yvanchuxiuzhen:shicai_00102,yvanchuxiuzhen,Shicai00102,src/main/java/net/mc
 item,yvanchuxiuzhen:shicai_002,yvanchuxiuzhen,Shicai002,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1317,cooking,已读,yvanchuxiuzhen:shicai_002,已注册,
 item,yvanchuxiuzhen:shicai_00202,yvanchuxiuzhen,Shicai00202,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2221,cooking,已读,yvanchuxiuzhen:shicai_00202,已注册,
 item,yvanchuxiuzhen:shicai_003,yvanchuxiuzhen,Shicai003,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1318,cooking,已读,yvanchuxiuzhen:shicai_003,已注册,
-item,yvanchuxiuzhen:shicai_004,yvanchuxiuzhen,Shicai004,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1319,cooking,已读,yvanchuxiuzhen:shicai_004,已注册,
-item,yvanchuxiuzhen:shicai_005,yvanchuxiuzhen,Shicai005,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1320,cooking,已读,yvanchuxiuzhen:shicai_005,已注册,
 item,yvanchuxiuzhen:shicai_006,yvanchuxiuzhen,Shicai006,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1321,cooking,已读,yvanchuxiuzhen:shicai_006,已注册,
 item,yvanchuxiuzhen:shicai_007,yvanchuxiuzhen,Shicai007,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1322,cooking,已读,yvanchuxiuzhen:shicai_007,已注册,
 item,yvanchuxiuzhen:shicai_008,yvanchuxiuzhen,Shicai008,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1324,cooking,已读,yvanchuxiuzhen:shicai_008,已注册,
-item,yvanchuxiuzhen:shicai_00801,yvanchuxiuzhen,Shicai00801,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1325,cooking,已读,yvanchuxiuzhen:shicai_00801,已注册,
+item,yvanchuxiuzhen:shicai_00801,yvanchuxiuzhen,Shicai00801,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1325,cooking,已读,yvanchuxiuzhen:shicai_00801,行为已迁移,2026-11-10 可食播种物保留FoodProperties与Tooltip；PlantableIngredientItem经plant.api.Planting委托播种，Plant独占写方块；本批构建与目标运行结果见月志，自然供给/来源实机/两版本对照未验
 item,yvanchuxiuzhen:shicai_009,yvanchuxiuzhen,Shicai009,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1326,cooking,已读,yvanchuxiuzhen:shicai_009,已注册,
 item,yvanchuxiuzhen:shicai_00901,yvanchuxiuzhen,Shicai00901,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1327,cooking,已读,yvanchuxiuzhen:shicai_00901,已注册,
 item,yvanchuxiuzhen:shicai_010,yvanchuxiuzhen,Shicai010,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1328,cooking,已读,yvanchuxiuzhen:shicai_010,已注册,
@@ -214,13 +212,12 @@ item,yvanchuxiuzhen:shicai_013,yvanchuxiuzhen,Shicai013,src/main/java/net/mcreat
 item,yvanchuxiuzhen:shicai_014,yvanchuxiuzhen,Shicai014,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1335,cooking,已读,yvanchuxiuzhen:shicai_014,已注册,
 item,yvanchuxiuzhen:shicai_015,yvanchuxiuzhen,Shicai015,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1337,cooking,已读,yvanchuxiuzhen:shicai_015,已注册,
 item,yvanchuxiuzhen:shicai_01501,yvanchuxiuzhen,Shicai01501,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1338,cooking,已读,yvanchuxiuzhen:shicai_01501,已注册,
-item,yvanchuxiuzhen:shicai_01502,yvanchuxiuzhen,Shicai01502,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1339,cooking,已读,yvanchuxiuzhen:shicai_01502,已注册,
+item,yvanchuxiuzhen:shicai_01502,yvanchuxiuzhen,Shicai01502,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1339,cooking,已读,yvanchuxiuzhen:shicai_01502,行为已迁移,2026-11-10 可食播种物保留FoodProperties与Tooltip；PlantableIngredientItem经plant.api.Planting委托播种，Plant独占写方块；本批构建与目标运行结果见月志，自然供给/来源实机/两版本对照未验
 item,yvanchuxiuzhen:shicai_016,yvanchuxiuzhen,Shicai016,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1340,cooking,已读,yvanchuxiuzhen:shicai_016,已注册,
 item,yvanchuxiuzhen:shicai_01602,yvanchuxiuzhen,Shicai01602,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1342,cooking,已读,yvanchuxiuzhen:shicai_01602,已注册,
 item,yvanchuxiuzhen:shicai_017,yvanchuxiuzhen,Shicai017,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1343,cooking,已读,yvanchuxiuzhen:shicai_017,已注册,
 item,yvanchuxiuzhen:shicai_018,yvanchuxiuzhen,Shicai018,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1345,cooking,已读,yvanchuxiuzhen:shicai_018,已注册,
 item,yvanchuxiuzhen:shicai_019,yvanchuxiuzhen,Shicai019,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1347,cooking,已读,yvanchuxiuzhen:shicai_019,已注册,
-item,yvanchuxiuzhen:shicai_01901,yvanchuxiuzhen,Shicai01901,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1348,cooking,已读,yvanchuxiuzhen:shicai_01901,已注册,
 item,yvanchuxiuzhen:shicai_020,yvanchuxiuzhen,Shicai020,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1349,cooking,已读,yvanchuxiuzhen:shicai_020,已注册,
 item,yvanchuxiuzhen:shicai_021,yvanchuxiuzhen,Shicai021,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1351,cooking,已读,yvanchuxiuzhen:shicai_021,已注册,
 item,yvanchuxiuzhen:shicai_022,yvanchuxiuzhen,Shicai022,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1353,cooking,已读,yvanchuxiuzhen:shicai_022,已注册,
@@ -229,12 +226,12 @@ item,yvanchuxiuzhen:shicai_024,yvanchuxiuzhen,Shicai024,src/main/java/net/mcreat
 item,yvanchuxiuzhen:shicai_025,yvanchuxiuzhen,Shicai025,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1359,cooking,已读,yvanchuxiuzhen:shicai_025,已注册,
 item,yvanchuxiuzhen:shicai_026,yvanchuxiuzhen,Shicai026,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1361,cooking,已读,yvanchuxiuzhen:shicai_026,已注册,
 item,yvanchuxiuzhen:shicai_027,yvanchuxiuzhen,Shicai027,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1363,cooking,已读,yvanchuxiuzhen:shicai_027,已注册,
-item,yvanchuxiuzhen:shicai_028,yvanchuxiuzhen,Shicai028,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1365,cooking,已读,yvanchuxiuzhen:shicai_028,已注册,
-item,yvanchuxiuzhen:shicai_029,yvanchuxiuzhen,Shicai029,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1366,cooking,已读,yvanchuxiuzhen:shicai_029,已注册,
-item,yvanchuxiuzhen:shicai_030,yvanchuxiuzhen,Shicai030,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1368,cooking,已读,yvanchuxiuzhen:shicai_030,已注册,
-item,yvanchuxiuzhen:shicai_031,yvanchuxiuzhen,Shicai031,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1370,cooking,已读,yvanchuxiuzhen:shicai_031,已注册,
-item,yvanchuxiuzhen:shicai_032,yvanchuxiuzhen,Shicai032,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1372,cooking,已读,yvanchuxiuzhen:shicai_032,已注册,
-item,yvanchuxiuzhen:shicai_033,yvanchuxiuzhen,Shicai033,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1373,cooking,已读,yvanchuxiuzhen:shicai_033,已注册,
+item,yvanchuxiuzhen:shicai_028,yvanchuxiuzhen,Shicai028,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1365,cooking,已读,yvanchuxiuzhen:shicai_028,行为已迁移,2026-11-10 可食播种物保留FoodProperties与Tooltip；PlantableIngredientItem经plant.api.Planting委托播种，Plant独占写方块；本批构建与目标运行结果见月志，自然供给/来源实机/两版本对照未验
+item,yvanchuxiuzhen:shicai_029,yvanchuxiuzhen,Shicai029,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1366,cooking,已读,yvanchuxiuzhen:shicai_029,行为已迁移,2026-11-10 可食播种物保留FoodProperties与Tooltip；PlantableIngredientItem经plant.api.Planting委托播种，Plant独占写方块；本批构建与目标运行结果见月志，自然供给/来源实机/两版本对照未验
+item,yvanchuxiuzhen:shicai_030,yvanchuxiuzhen,Shicai030,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1368,cooking,已读,yvanchuxiuzhen:shicai_030,行为已迁移,2026-11-10 可食播种物保留FoodProperties与Tooltip；PlantableIngredientItem经plant.api.Planting委托播种，Plant独占写方块；本批构建与目标运行结果见月志，自然供给/来源实机/两版本对照未验
+item,yvanchuxiuzhen:shicai_031,yvanchuxiuzhen,Shicai031,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1370,cooking,已读,yvanchuxiuzhen:shicai_031,行为已迁移,2026-11-10 可食播种物保留FoodProperties与Tooltip；PlantableIngredientItem经plant.api.Planting委托播种，Plant独占写方块；本批构建与目标运行结果见月志，自然供给/来源实机/两版本对照未验
+item,yvanchuxiuzhen:shicai_032,yvanchuxiuzhen,Shicai032,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1372,cooking,已读,yvanchuxiuzhen:shicai_032,行为已迁移,2026-11-10 可食播种物保留FoodProperties与Tooltip；PlantableIngredientItem经plant.api.Planting委托播种，Plant独占写方块；本批构建与目标运行结果见月志，自然供给/来源实机/两版本对照未验
+item,yvanchuxiuzhen:shicai_033,yvanchuxiuzhen,Shicai033,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1373,cooking,已读,yvanchuxiuzhen:shicai_033,行为已迁移,2026-11-10 可食播种物保留FoodProperties与Tooltip；PlantableIngredientItem经plant.api.Planting委托播种，Plant独占写方块；本批构建与目标运行结果见月志，自然供给/来源实机/两版本对照未验
 item,yvanchuxiuzhen:shicai_034,yvanchuxiuzhen,Shicai034,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1374,cooking,已读,yvanchuxiuzhen:shicai_034,行为已迁移,37盘菜、46普通餐食、059毒食与5返物食物逐类接入；独立来源复审完成，构建及本批实机待执行；自然食材供给未闭合
 item,yvanchuxiuzhen:shicai_035,yvanchuxiuzhen,Shicai035,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1376,cooking,已读,yvanchuxiuzhen:shicai_035,已注册,
 item,yvanchuxiuzhen:shicai_036,yvanchuxiuzhen,Shicai036,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1378,cooking,已读,yvanchuxiuzhen:shicai_036,行为已迁移,37盘菜、46普通餐食、059毒食与5返物食物逐类接入；独立来源复审完成，构建及本批实机待执行；自然食材供给未闭合

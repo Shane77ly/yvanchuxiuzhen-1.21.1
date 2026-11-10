@@ -13,7 +13,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentFlower;
 
-/** 001水稻与002糯稻的单格生长阶段01–04。 */
+/** 已核八阶段谷物的单格生长阶段01–04，保留00603骨粉调用普通生长的分支。 */
 public final class CerealSingleStageBlock extends ContentFlower implements BonemealableBlock {
     private final CerealCrop crop;
     private final int stage;
@@ -47,12 +47,16 @@ public final class CerealSingleStageBlock extends ContentFlower implements Bonem
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        CerealGrowth.bonemeal(crop, level, pos, state);
+        if (crop == CerealCrop.SHICAI_006 && stage == 3) {
+            CerealGrowth.randomTick(crop, stage, level.getBlockState(pos), level, pos, random);
+        } else {
+            CerealGrowth.bonemeal(crop, level, pos, state);
+        }
     }
 
     @Override
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
         List<ItemStack> drops = super.getDrops(state, params);
-        return drops.isEmpty() ? List.of(new ItemStack(crop.seed())) : drops;
+        return drops.isEmpty() ? List.of(crop.drop(stage)) : drops;
     }
 }

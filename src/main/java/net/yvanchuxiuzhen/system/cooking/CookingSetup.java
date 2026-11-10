@@ -27,6 +27,7 @@ import net.yvanchuxiuzhen.system.cooking.content.WineJarBlock;
 import net.yvanchuxiuzhen.system.cooking.content.WineMenus;
 import net.yvanchuxiuzhen.system.cooking.content.WoodenStillBlock;
 import net.yvanchuxiuzhen.system.cooking.content.MealFoodItem;
+import net.yvanchuxiuzhen.system.cooking.content.PlantableIngredientItem;
 import net.yvanchuxiuzhen.system.cooking.content.PlatedFoodBlock;
 import net.yvanchuxiuzhen.system.cooking.content.PoisonousFoodItem;
 import net.yvanchuxiuzhen.system.cooking.content.RemainderFoodItem;
@@ -39,6 +40,7 @@ import net.yvanchuxiuzhen.system.cooking.data.CookingAttachments;
 import net.yvanchuxiuzhen.system.cooking.network.WineButtonPayload;
 import net.yvanchuxiuzhen.system.cooking.api.Alcohol;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
+import net.yvanchuxiuzhen.system.plant.api.Planting;
 
 /**
  * 烹饪系统的启动装配，只在 Mod 构造时调用一次。
@@ -58,6 +60,14 @@ public final class CookingSetup {
                     row -> new TablewareBlock.Waterlogged(row, TablewareBlock.Kind.LARGE_BOWL)))
             .blockFactory("cooking:plated_food", traits -> ContentBlock.create(traits, PlatedFoodBlock::new))
             .itemFactory("cooking:meal_food", MealFoodItem::new)
+            .itemFactory("cooking:lotus_seed", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::lotus))
+            .itemFactory("cooking:plantable_garlic", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::garlic))
+            .itemFactory("cooking:produce028_food", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::shicai028))
+            .itemFactory("cooking:produce029_food", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::shicai029))
+            .itemFactory("cooking:produce030_food", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::shicai030))
+            .itemFactory("cooking:produce031_food", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::shicai031))
+            .itemFactory("cooking:produce032_food", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::shicai032))
+            .itemFactory("cooking:produce033_food", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::shicai033))
             .itemFactory("cooking:poisonous_food", PoisonousFoodItem::new)
             .itemFactory("cooking:remainder_bone", (properties, tooltip) -> new RemainderFoodItem(properties, tooltip,
                     ResourceLocation.withDefaultNamespace("bone")))

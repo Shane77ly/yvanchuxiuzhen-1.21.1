@@ -439,7 +439,11 @@ def main() -> None:
                        'cooking:waterlogged_wine_jar', 'cooking:natural_monkey_wine', 'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:pottery_blank',
                        'craft:silkworm_box', 'craft:chrysalis_display', 'cooking:plated_food',
                        'cooking:bowl', 'cooking:plate', 'cooking:large_bowl', 'cooking:iron_plate',
-                       'plant:mulberry_sapling', 'plant:mulberry_leaves') or factory.startswith(('fulu:explosive_', 'plant:shicai001_', 'plant:shicai002_')):
+                       'plant:mulberry_sapling', 'plant:mulberry_leaves',
+                       'plant:lotus_root', 'plant:lotus_stem', 'plant:lotus_pod', 'plant:lotus_leaf') or factory.startswith((
+                           'fulu:explosive_', 'plant:produce',
+                           *(f'plant:shicai{number}_' for number in ('001', '002', '004', '005', '006', '007',
+                               '011', '012', '013', '014', '015', '016', '025', '026', '027')))):
             row.pop('pending_hooks', None)
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:
@@ -553,7 +557,11 @@ def main() -> None:
                               'craft:pottery_blank', 'craft:silkworm', 'craft:silkworm_gold', 'cooking:meal_food',
                               'cooking:poisonous_food', 'cooking:remainder_bone', 'cooking:remainder_shicai_03401',
                               'cooking:remainder_shicai_03601', 'cooking:remainder_shicai_03701', 'cooking:wine',
-                              'plant:shicai001_seed', 'plant:shicai002_seed') or row['factory'].startswith(('fulu:talisman_', 'fulu:ranged_', 'fulu:passive_', 'fulu:explosive_')):
+                              'cooking:lotus_seed', 'cooking:plantable_garlic',
+                              *(f'plant:shicai{number}_seed' for number in ('001', '002', '004', '005', '006', '007',
+                                  '011', '012', '013', '014', '016', '025', '026', '027')),
+                              *(f'cooking:produce{number:03}_food' for number in range(28, 34))) or row['factory'].startswith((
+                                  'fulu:talisman_', 'fulu:ranged_', 'fulu:passive_', 'fulu:explosive_', 'plant:produce')):
             row.pop('pending_hooks', None)
         items_by_unit[unit].append(row)
         for number, line in enumerate(row.get('tooltip', []), start=1):

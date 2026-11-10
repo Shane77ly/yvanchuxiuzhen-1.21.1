@@ -237,3 +237,24 @@ A的ShipuCommand/ShipuGo由CookingRecipeCommands承载，权限至少1；根/贪
 Panzhuang/Wanzhuang/Dapenzhuang/Tiepanzhuang四block标签被FoodYouJian消费以恢复四容器；Zhushi/Caipin/Tangshui/Chadian四item标签被食用、盘菜和ItemLore分类分支消费。当前目标九个tag JSON与来源完全一致，来源SHA1匹配manifest；八个实际烹饪分类标签改归属已读。料理获取涉及plant/creature的生产者仍由各自系统实现，不因配方转换而计完整自然供给链闭合。
 
 Canbeground的四成员为小麦、fuluzhushablock、shicai_001、shicai_002。来源唯一字符串引用在Stonemill右键过程MCreator XML的独立controls_if根；XML event_trigger子树无该tag，生成Java也不检查它，普通点击实际执行grind4并播放动画。目标StoneMillRuntime/Grinding不加此准入。标签数据保留，归属保持候选并记录待裁定，不把游离编辑器积木接成新玩法。
+
+## 可食播种物与植物供给边界（2026-11-10）
+
+食材本体拥有FoodProperties时继续由Cooking注册，播种行为通过Plant公开接口写世界状态；不能仅因可播种而将所有食材迁属Plant。`PlantableIngredientItem`继承`ContentItem`保留食物属性及Tooltip，原生useOn后委托`plant.api.Planting`。本批八条工厂与实际来源物品如下，种植/生长/收获数值统一见[Plant正文](../plant/architecture.md#28种作物供给整批2026-11-10)，不在本系统复制。
+
+| 来源物品 | Cooking工厂 | Plant公开操作 |
+| --- | --- | --- |
+| `shicai_00801` 莲子 | `cooking:lotus_seed` | `Planting.lotus` |
+| `shicai_01502` 大蒜 | `cooking:plantable_garlic` | `Planting.garlic` |
+| `shicai_028` 姜 | `cooking:produce028_food` | `Planting.shicai028` |
+| `shicai_029` 白萝卜 | `cooking:produce029_food` | `Planting.shicai029` |
+| `shicai_030` 水萝卜 | `cooking:produce030_food` | `Planting.shicai030` |
+| `shicai_031` 心里美 | `cooking:produce031_food` | `Planting.shicai031` |
+| `shicai_032` 红薯 | `cooking:produce032_food` | `Planting.shicai032` |
+| `shicai_033` 芋头 | `cooking:produce033_food` | `Planting.shicai033` |
+
+莲子00801和大蒜01502均营养1、饱和倍率0、alwaysEat；028营养0/饱和0仍保留食物组件且不是alwaysEat。其余属性沿各自内容行。029/030/031本体与独立01种子都有播种入口，后者由Plant拥有。Cooking不直接引用Plant内部类，也不改其`caiou`等持久键。
+
+004黄米/005高粱没有食物组件，本体主动入口为播种，归Plant；其加工消费仍属Cooking。来源木甑`MuzengzhengliuProcedure:140–163`按动态ID消费高粱005×2和小麦×2制作`jiuniang_003`，迁属不删除该已实现配方。006玉米食材仍留Cooking，独立种子和玉米1→种子8配方归Plant。其他本批作物的食材获取生产者为Plant，不据此将烹饪成品、菜谱、世界结构或生物食材获取登记闭合。
+
+本批新增八条行为迁移状态；完整build及检查代码编译已通过。目标客户端238项INFO、0 FAIL、DONE，双端正常保存退出且ERROR/FATAL0；自然食材供给、食用全分支、完整退出重登、来源版本实机、多人、完整视觉与两版本对照未执行。
