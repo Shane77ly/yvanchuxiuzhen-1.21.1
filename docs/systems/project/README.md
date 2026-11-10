@@ -7,7 +7,7 @@ updated: 2026-11-10
 
 # 项目状态与决定
 
-2026-11-10 当前工艺 `port/d-craft`：石磨/石碾 `52eddee2`、织布 `ba83865b`、木工台与缫丝 `f698e56c` 后已接回陶轮/陶坯、蚕盒/四蚕蛾完整族。craft归属126项全部已读、52注册行行为已迁移，仍为部分实现，尚无全系统验收。完整 `build compileSmokeJava` 通过；既有 `fulucooking` 85项 INFO、0 FAIL、DONE，其中本批新增12项全部通过。客户端正常保存四维度、exit0、ERROR/FATAL0；专服Done后原生stop、四维度保存、BUILD SUCCESSFUL/exit0、ERROR/FATAL0。陶轮截图已查看，大蛊罐与黏土球需求中文正常。下一步建 `port/d-cooking` 接木甑、八酒与酒坛，子Agent并行准备蒸锅/笼屉及普通食用行为。自然获取、完整等待/真实重登、完整视觉、多人及两版本未验收。暂不推送、不合main。
+2026-11-10 当前分支 `port/d-cooking`：木甑、八酒、陈酿坛、蒸锅/笼屉与普通食物消费已完成本批来源复审和运行验证。资源13411项/既有missing19，data1703项；完整 `build compileSmokeJava` 通过，内置 `fulucooking` 124项INFO、0 FAIL、DONE；客户端和专服均ERROR/FATAL0、四维度正常保存退出。四张设备菜单截图已查看，背景及中文正常。完整食材/菜谱自然链、观想入口、猴儿酒结构释放、酒坛实际爆炸、完整存档生命周期、多人和两版本仍待接续。子Agent继续准备案板/菜刀与三种堆叠餐具，主会话整合后串行验证。完整goal保持active，暂不推送、不合main。
 
 ## 已确认要求
 

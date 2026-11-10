@@ -1,0 +1,14 @@
+{
+  "gui.yvanchuxiuzhen.cooking.wine.start": "开始酿酒",
+  "gui.yvanchuxiuzhen.cooking.wine.help": "普通酒水配方",
+  "message.yvanchuxiuzhen.cooking.wine.recipes.title": "§6普通酒水配方",
+  "message.yvanchuxiuzhen.cooking.wine.recipes.001": "状元红：糯米3个，人参1个",
+  "message.yvanchuxiuzhen.cooking.wine.recipes.002": "女儿红：糯米4个",
+  "message.yvanchuxiuzhen.cooking.wine.recipes.003": "杜康酒：小麦2个，高粱2个",
+  "message.yvanchuxiuzhen.cooking.wine.recipes.005": "地瓜烧：红薯4个",
+  "message.yvanchuxiuzhen.cooking.wine.needs_heat": "§4木甑下方要有正在燃烧的熔炉或篝火等方块。",
+  "message.yvanchuxiuzhen.cooking.wine.busy": "正在酿酒中，请稍后",
+  "message.yvanchuxiuzhen.cooking.wine.fresh": "新酿的酒。",
+  "message.yvanchuxiuzhen.cooking.wine.aged": "%s年陈酿。",
+  "message.yvanchuxiuzhen.cooking.wine.refined": "体内酒精已被全部炼化。"
+}

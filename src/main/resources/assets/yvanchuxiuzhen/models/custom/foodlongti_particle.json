@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/foodlongti.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/foodzhengguo"
+  }
+}

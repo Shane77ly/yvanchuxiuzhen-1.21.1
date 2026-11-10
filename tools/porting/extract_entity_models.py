@@ -26,6 +26,8 @@ BASE = SOURCES[MOD][0] / f'src/main/java/net/mcreator/{MOD}'
 ASSETS = ROOT / 'docs/reference/conversion/system_assets.csv'
 OWNERSHIP = ROOT / 'docs/reference/legacy/inventory/ownership_assignment.csv'
 BLOCK_ANIMATIONS = {
+    'cooking': [(kind, name) for name in ('fooddaguo', 'fooddunguo', 'foodzhengguo', 'foodlongti')
+                for kind in ('geo', 'animation')],
     'fulu': [('geo', 'chuancheng'), ('animation', 'chuancheng')],
     'craft': [(kind, name) for name in ('stonemill', 'stoneroller', 'zhibuji', 'mugongtai', 'saosilun', 'taolun', 'canhe')
               for kind in ('geo', 'animation')],
@@ -137,7 +139,7 @@ def referenced_textures(names: list[str]) -> set[str]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--owner', choices=('skill', 'xiulian', 'fulu', 'craft'), default='skill')
+    parser.add_argument('--owner', choices=('skill', 'xiulian', 'fulu', 'craft', 'cooking'), default='skill')
     owner = parser.parse_args().owner
     output = ROOT / f'src/main/resources/content/{owner}/entity_models.json'
     ids = registry_ids()

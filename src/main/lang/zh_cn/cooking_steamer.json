@@ -1,0 +1,20 @@
+{
+  "gui.yvanchuxiuzhen.cooking.steamer.start": "开始烹饪",
+  "gui.yvanchuxiuzhen.cooking.steamer.help": "使用说明",
+  "gui.yvanchuxiuzhen.cooking.steamer.no_container": "不需要盛装菜品的容器",
+  "message.yvanchuxiuzhen.cooking.steamer.guide_1": "请把蒸锅放置在点燃的熔炉、烟熏炉上，或者直接放置在营火或火焰上，这样蒸锅才会正常工作。",
+  "message.yvanchuxiuzhen.cooking.steamer.guide_2": "如果您有食谱，请放入右边的食谱物品栏中，并按照食谱显示的材料来放置食材。",
+  "message.yvanchuxiuzhen.cooking.steamer.guide_3": "左边还需要放入需要的容器，碗、盘子、大碗、铁盘要放入对应位置。",
+  "message.yvanchuxiuzhen.cooking.steamer.guide_4": "最后点击中间的烹饪按钮，然后不断右键蒸锅完成烹饪。",
+  "message.yvanchuxiuzhen.cooking.steamer.guide_5": "蒸锅可以向上垒数个笼屉，这样一次就可烹饪出大量美食。",
+  "message.yvanchuxiuzhen.cooking.steamer.busy": "§4正在烹饪！",
+  "message.yvanchuxiuzhen.cooking.steamer.wrong_appliance": "§4此菜谱记录的菜肴需要%s烹饪。",
+  "message.yvanchuxiuzhen.cooking.steamer.insufficient_level": "§4您的厨艺等级并不能支撑您炒完这盘菜！可以先尝试做一些简单的烹饪。",
+  "message.yvanchuxiuzhen.cooking.steamer.container_bowl": "§4需要在左侧四个容器栏位的第一个位置放置一个瓷碗！",
+  "message.yvanchuxiuzhen.cooking.steamer.container_plate": "§4需要在左侧四个容器栏位的第二个位置放置一个瓷盘！",
+  "message.yvanchuxiuzhen.cooking.steamer.container_large_bowl": "§4需要在左侧四个容器栏位的第三个位置放置一个大碗！",
+  "message.yvanchuxiuzhen.cooking.steamer.container_iron_plate": "§4需要在左侧四个容器栏位的第二个位置放置一个铁盘！",
+  "message.yvanchuxiuzhen.cooking.steamer.missing_ingredients": "§4请放置菜谱需求的食材！",
+  "message.yvanchuxiuzhen.cooking.steamer.missing_heat": "§4铁锅缺少热源！可以在下方点燃篝火或放置各类炉灶，或直接点一团火。",
+  "message.yvanchuxiuzhen.cooking.steamer.started": "烹饪开始！请不断右键铁锅翻炒食材。"
+}

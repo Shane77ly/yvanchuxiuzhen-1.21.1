@@ -865,13 +865,13 @@ yvanchuxiuzhen,Shicai031,item,~/food,cooking,已读,B1 归属阅读：食材：�
 yvanchuxiuzhen,Shicai03101,item,~/food,plant,已读,B1 归属阅读：作物种子：唯一规则是右键耕地种下对应作物（共用 Shicai001seed 种植过程，plant），没有食用或烹饪规则
 yvanchuxiuzhen,Shicai032,item,~/food,cooking,已读,B1 归属阅读：食材：作为烹饪原料被厨具与菜谱按 ID 使用，可直接种下的分支走 plant 的种植过程（Shicai001seed、Moguplace、Jvnleiplace）
 yvanchuxiuzhen,Shicai033,item,~/food,cooking,已读,B1 归属阅读：食材：作为烹饪原料被厨具与菜谱按 ID 使用，可直接种下的分支走 plant 的种植过程（Shicai001seed、Moguplace、Jvnleiplace）
-yvanchuxiuzhen,Shicai034,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；npc 的 Businessman06ShiTiChuShiShengChengShi；plant 的 Shicai034Plant05；treasure 的 BaoxiangZuowu 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
+yvanchuxiuzhen,Shicai034,item,~/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Shicai03401,item,~/food,plant,已读,B1 归属阅读：作物种子：唯一规则是右键耕地种下对应作物（共用 Shicai001seed 种植过程，plant），没有食用或烹饪规则
 yvanchuxiuzhen,Shicai035,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；npc 的 Businessman06ShiTiChuShiShengChengShi；plant 的 Shicai007Plant04DangZhiWuBeiYouJianDianJiShi、Shicai035Plant04；treasure 的 BaoxiangZuowu 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
 yvanchuxiuzhen,Shicai03501,item,~/food,plant,已读,B1 归属阅读：作物种子：唯一规则是右键耕地种下对应作物（共用 Shicai001seed 种植过程，plant），没有食用或烹饪规则
-yvanchuxiuzhen,Shicai036,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；npc 的 Businessman06ShiTiChuShiShengChengShi；plant 的 Shicai036Plant05；treasure 的 BaoxiangZuowu 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
+yvanchuxiuzhen,Shicai036,item,~/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Shicai03601,item,~/food,plant,已读,B1 归属阅读：作物种子：唯一规则是右键耕地种下对应作物（共用 Shicai001seed 种植过程，plant），没有食用或烹饪规则
-yvanchuxiuzhen,Shicai037,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；npc 的 Businessman06ShiTiChuShiShengChengShi；plant 的 Shicai007Plant04DangZhiWuBeiYouJianDianJiShi、Shicai037Plant03；treasure 的 BaoxiangZuowu 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
+yvanchuxiuzhen,Shicai037,item,~/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Shicai03701,item,~/food,plant,已读,B1 归属阅读：作物种子：唯一规则是右键耕地种下对应作物（共用 Shicai001seed 种植过程，plant），没有食用或烹饪规则
 yvanchuxiuzhen,Shicai038,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；npc 的 Businessman06ShiTiChuShiShengChengShi；plant 的 Shicai007Plant04DangZhiWuBeiYouJianDianJiShi、Shicai038Plant03；treasure 的 BaoxiangZuowu 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
 yvanchuxiuzhen,Shicai03801,item,~/food,plant,已读,B1 归属阅读：作物种子：唯一规则是右键耕地种下对应作物（共用 Shicai001seed 种植过程，plant），没有食用或烹饪规则
@@ -2269,97 +2269,97 @@ yvanchuxiuzhen,Silkwormchrysalisred,item,~/item/zawu,craft,已读,系统设计·
 yvanchuxiuzhen,Silkwormchrysalisred02,block,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
 yvanchuxiuzhen,Silkthreadred,item,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
 yvanchuxiuzhen,SilkwormentityDangShiTiGengXinKeShi,procedure,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
-yvanchuxiuzhen,FoodYouJian,procedure,~/item/food,cooking,已读,B1 归属阅读：随 Food001 读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food001,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food002,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food003,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Fooditemshiyong,procedure,~/item/food,cooking,已读,B1 归属阅读：随 Food004 读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food004,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
+yvanchuxiuzhen,FoodYouJian,procedure,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food001,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food002,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food003,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Fooditemshiyong,procedure,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food004,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Steam,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Foodblock,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Food005,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food006,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food007,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food008,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food009,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food010,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food011,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food012,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food013,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food014,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food015,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food016,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food017,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food018,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food019,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food020,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food021,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food022,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food023,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food024,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food025,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food026,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food027,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food028,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food029,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food030,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food031,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food032,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food033,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food034,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food035,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food036,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food037,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food038,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food039,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food040,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food041,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food042,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food043,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food044,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food045,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food046,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food047,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food048,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food049,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food050,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food051,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food052,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food053,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food054,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food055,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food056,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food057,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food058,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food059,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food060,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food061,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food062,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food063,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food064,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food065,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food066,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food067,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food068,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food069,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food070,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food071,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food072,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food073,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food074,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food075,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food076,block,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food077,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
+yvanchuxiuzhen,Food005,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food006,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food007,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food008,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food009,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food010,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food011,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food012,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food013,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food014,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food015,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food016,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food017,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food018,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food019,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food020,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food021,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food022,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food023,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food024,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food025,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food026,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food027,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food028,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food029,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food030,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food031,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food032,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food033,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food034,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food035,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food036,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food037,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food038,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food039,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food040,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food041,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food042,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food043,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food044,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food045,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food046,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food047,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food048,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food049,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food050,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food051,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food052,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food053,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food054,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food055,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food056,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food057,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food058,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food059,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food060,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food061,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food062,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food063,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food064,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food065,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food066,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food067,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food068,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food069,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food070,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food071,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food072,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food073,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food074,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food075,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food076,block,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food077,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Caidao,tool,~/tool,cooking,已读,B1 归属阅读：食材或调味：无过程；被 flow 的 LeftClickBlock 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
 yvanchuxiuzhen,CaidaoblockDangPiLinFangKuaiGengXinShi,procedure,~/tool,cooking,已读,B1 归属阅读：随 Caidaoblock 读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
 yvanchuxiuzhen,CaidaoblockGengXinYouXiKe,procedure,~/tool,cooking,已读,B1 归属阅读：随 Caidaoblock 读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
 yvanchuxiuzhen,Caidaoblock,animatedblock,~/tool,cooking,已读,B1 归属阅读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
 yvanchuxiuzhen,Foodanban,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Food078,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food079,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food080,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food081,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
-yvanchuxiuzhen,Food082,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
+yvanchuxiuzhen,Food078,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food079,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food080,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food081,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food082,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Tiaowei01,item,~/item/food/tiaowei,cooking,已读,B1 归属阅读：食材或调味：无过程；被 festival 的 Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
 yvanchuxiuzhen,Tiaowei02,item,~/item/food/tiaowei,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Tiaowei03,item,~/item/food/tiaowei,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
@@ -2926,15 +2926,15 @@ yvanchuxiuzhen,FuzhiyeLevelUp,procedure,~/systemset,profession,已读,D来源核
 yvanchuxiuzhen,BlockDestroy,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,FooddunguoZaiFangKuaiShangYouJian,procedure,~/food/chujv,cooking,已读,B1 归属阅读：随 Fooddunguo 读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）
 yvanchuxiuzhen,Fooddunguo,animatedblock,~/food/chujv,cooking,已读,B1 归属阅读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）
-yvanchuxiuzhen,FoodzhengguoZaiFangKuaiShangYouJian,procedure,~/food/chujv,cooking,已读,B1 归属阅读：随 Foodzhengguo 读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）
-yvanchuxiuzhen,Foodzhengguo,animatedblock,~/food/chujv,cooking,已读,B1 归属阅读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）
-yvanchuxiuzhen,FoodlongtiZaiFangKuaiShangYouJian,procedure,~/food/chujv,cooking,已读,B1 归属阅读：随 Foodlongti 读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）
-yvanchuxiuzhen,Foodlongti,animatedblock,~/food/chujv,cooking,已读,B1 归属阅读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）
+yvanchuxiuzhen,FoodzhengguoZaiFangKuaiShangYouJian,procedure,~/food/chujv,cooking,已读,B1 归属阅读：随 Foodzhengguo 读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）；2026-11-10 蒸锅/笼屉族已读：Foodzhengguo/Foodlongti方块与菜单、两自然配方、两原生右键过程及Cookbegin蒸锅分支直接处理厨具状态；五次完成经profession增加厨艺经验，归cooking
+yvanchuxiuzhen,Foodzhengguo,animatedblock,~/food/chujv,cooking,已读,B1 归属阅读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）；2026-11-10 蒸锅/笼屉族已读：Foodzhengguo/Foodlongti方块与菜单、两自然配方、两原生右键过程及Cookbegin蒸锅分支直接处理厨具状态；五次完成经profession增加厨艺经验，归cooking
+yvanchuxiuzhen,FoodlongtiZaiFangKuaiShangYouJian,procedure,~/food/chujv,cooking,已读,B1 归属阅读：随 Foodlongti 读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）；2026-11-10 蒸锅/笼屉族已读：Foodzhengguo/Foodlongti方块与菜单、两自然配方、两原生右键过程及Cookbegin蒸锅分支直接处理厨具状态；五次完成经profession增加厨艺经验，归cooking
+yvanchuxiuzhen,Foodlongti,animatedblock,~/food/chujv,cooking,已读,B1 归属阅读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）；2026-11-10 蒸锅/笼屉族已读：Foodzhengguo/Foodlongti方块与菜单、两自然配方、两原生右键过程及Cookbegin蒸锅分支直接处理厨具状态；五次完成经profession增加厨艺经验，归cooking
 yvanchuxiuzhen,Fooddaguohecheng,recipe,~/food/chujv,cooking,已读,核对两锅及墨料坯当前接入的来源过程和完整有序合成配方
 yvanchuxiuzhen,Fooddunguohecheng,recipe,~/food/chujv,cooking,已读,核对两锅及墨料坯当前接入的来源过程和完整有序合成配方
-yvanchuxiuzhen,Foodlongtihecheng,recipe,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Foodzhengguohecheng,recipe,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,LongtiGui,gui,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Foodlongtihecheng,recipe,~/food/chujv,cooking,已读,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 蒸锅/笼屉族已读：Foodzhengguo/Foodlongti方块与菜单、两自然配方、两原生右键过程及Cookbegin蒸锅分支直接处理厨具状态；五次完成经profession增加厨艺经验，归cooking
+yvanchuxiuzhen,Foodzhengguohecheng,recipe,~/food/chujv,cooking,已读,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 蒸锅/笼屉族已读：Foodzhengguo/Foodlongti方块与菜单、两自然配方、两原生右键过程及Cookbegin蒸锅分支直接处理厨具状态；五次完成经profession增加厨艺经验，归cooking
+yvanchuxiuzhen,LongtiGui,gui,~/food/chujv,cooking,已读,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 蒸锅/笼屉族已读：Foodzhengguo/Foodlongti方块与菜单、两自然配方、两原生右键过程及Cookbegin蒸锅分支直接处理厨具状态；五次完成经profession增加厨艺经验，归cooking
 yvanchuxiuzhen,Tripod01hecheng,recipe,~/tool,lianqi,已读,2026-11-09 炼器剩余候选审读：原生有序合成配方：形状0空2/345/678；cailiao_211二件、201五件、191一件，产tripod_01一件；统一命名空间并将result.item改id后目标JSON逐项一致。
 yvanchuxiuzhen,Tripod02hecheng,recipe,~/tool,lianqi,已读,2026-11-09 炼器剩余候选审读：原生有序合成配方：形状0空2/345/678；cailiao_212二件、202五件、192一件，产tripod_02一件；统一命名空间并将result.item改id后目标JSON逐项一致。
 yvanchuxiuzhen,Tripod03hecheng,recipe,~/tool,lianqi,已读,2026-11-09 炼器剩余候选审读：原生有序合成配方：形状0空2/345/678；cailiao_213二件、203五件、193一件，产tripod_03一件；统一命名空间并将result.item改id后目标JSON逐项一致。
@@ -2956,9 +2956,9 @@ yvanchuxiuzhen,Shicai058,item,~/food,cooking,已读,B1 归属阅读：食材或�
 yvanchuxiuzhen,Shicai05701,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：作物成熟阶段或收获物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Shicai057list,loottable,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tiaowei08,item,~/item/food/tiaowei,cooking,已读,B1 归属阅读：食材或调味：无过程；被 liandan 的 GrindGo 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
-yvanchuxiuzhen,Shicai059WanJiaWanChengShiYongWuPinShi,procedure,~/food,cooking,已读,B1 归属阅读：随 Shicai059 读：食物：食用完成时施加食用效果（*itemshiyong 等），属食用效果
-yvanchuxiuzhen,Shicai059,item,~/food,cooking,已读,B1 归属阅读：食物：食用完成时施加食用效果（*itemshiyong 等），属食用效果
-yvanchuxiuzhen,Food083,item,~/item/food,cooking,已读,B1 归属阅读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
+yvanchuxiuzhen,Shicai059WanJiaWanChengShiYongWuPinShi,procedure,~/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Shicai059,item,~/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
+yvanchuxiuzhen,Food083,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Food083hecheng,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food083hecheng2,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food083hecheng3,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3702,45 +3702,45 @@ yvanchuxiuzhen,Mangrovebigdoorhecheng,recipe,~/decorate/buildingblocks,decor,候
 yvanchuxiuzhen,Oakbigdoorhecheng,recipe,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Sprucebigdoorhecheng,recipe,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Warpedbigdoorhecheng,recipe,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jiuniang001DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/item/food/jiu,cooking,已读,B1 归属阅读：随 Jiuniang001 读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang001WanJiaWanChengShiYongWuPinShi,procedure,~/item/food/jiu,cooking,已读,B1 归属阅读：随 Jiuniang001 读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang001,item,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang002,item,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang003,item,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang004,item,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang005,item,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00101ZaiFangKuaiShangYouJian,procedure,~/item/food/jiu,cooking,已读,B1 归属阅读：随 Jiuniang00101 读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00101GengXinYouXiKe,procedure,~/item/food/jiu,cooking,已读,B1 归属阅读：随 Jiuniang00101 读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00101,block,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00201DangFangKuaiBeiBaoZhaPoPiShi,procedure,~/item/food/jiu,cooking,已读,B1 归属阅读：随 Jiuniang00101 读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00201DangFangKuaiBeiPaoSheWuJiZhongShi,procedure,~/item/food/jiu,cooking,已读,B1 归属阅读：随 Jiuniang00101 读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00201,block,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00301,block,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00401,block,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00501,block,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Muzengjindu01,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Muzengjindu02,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Muzengjindu03,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Muzengjindu04,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Muzengjindu05,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Muzengjindu06,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Muzengjindu07,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Muzengjindu08,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Muzengjindu09,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Muzengjindu10,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,FoodmuzengGui,gui,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Muzengzhengliu,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,FoodmuzengGengXinYouXiKe,procedure,~/food/chujv,cooking,已读,B1 归属阅读：随 Foodmuzeng 读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）
-yvanchuxiuzhen,Foodmuzeng,block,~/food/chujv,cooking,已读,B1 归属阅读：厨具：大锅、炖锅、蒸锅、蒸笼、木甑按菜谱加工食材，完成时增加烹饪副职业经验 cooking_experience（经 profession 的操作）
-yvanchuxiuzhen,Foodmuzenghecheng,recipe,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jiuniang006,item,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang007,item,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang008,item,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00601,block,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00602ZaiFangKuaiShangYouJian,procedure,~/item/food/jiu,cooking,已读,B1 归属阅读：随 Jiuniang00602 读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00602,block,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00701,block,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
-yvanchuxiuzhen,Jiuniang00801,block,~/item/food/jiu,cooking,已读,B1 归属阅读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
+yvanchuxiuzhen,Jiuniang001DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang001WanJiaWanChengShiYongWuPinShi,procedure,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang001,item,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang002,item,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang003,item,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang004,item,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang005,item,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00101ZaiFangKuaiShangYouJian,procedure,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00101GengXinYouXiKe,procedure,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00101,block,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00201DangFangKuaiBeiBaoZhaPoPiShi,procedure,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00201DangFangKuaiBeiPaoSheWuJiZhongShi,procedure,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00201,block,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00301,block,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00401,block,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00501,block,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Muzengjindu01,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Muzengjindu02,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Muzengjindu03,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Muzengjindu04,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Muzengjindu05,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Muzengjindu06,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Muzengjindu07,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Muzengjindu08,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Muzengjindu09,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Muzengjindu10,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,FoodmuzengGui,gui,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Muzengzhengliu,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,FoodmuzengGengXinYouXiKe,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Foodmuzeng,block,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Foodmuzenghecheng,recipe,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang006,item,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang007,item,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang008,item,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00601,block,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00602ZaiFangKuaiShangYouJian,procedure,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00602,block,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00701,block,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
+yvanchuxiuzhen,Jiuniang00801,block,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
 yvanchuxiuzhen,DaguanjiaDangYouJianDianJiShiTi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Daguanjia 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,DaguanjiaShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Daguanjia 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,DaguanjiaDangShiTiShouShangShi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Daguanjia 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
@@ -3773,7 +3773,7 @@ yvanchuxiuzhen,Fabao016DangShiTiBeiGongJuJiZhongShi,procedure,~/weapon/fabao,equ
 yvanchuxiuzhen,Fabao016,tool,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Fabao016hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fishing,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Foodblockyoujian,procedure,~/item/food,cooking,已读,B1 归属阅读：随 Food001 读：菜品：方块形态右键食用（FoodYouJian / Foodblockyoujian），物品形态食用时施加食用效果
+yvanchuxiuzhen,Foodblockyoujian,procedure,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Businessman08ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman08DangShiTiGengXinKeShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman08,animatedentity,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4212,7 +4212,7 @@ yvanchuxiuzhen,Yaoshou014list,loottable,~/entity/yaoshou/yaoshou014,creature,候
 yvanchuxiuzhen,Yaoshou017list,loottable,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou01701list,loottable,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou018list,loottable,~/entity/yaoshou/yaoshou018,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shicai060,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Shicai060,item,~/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Yaoshou023list,loottable,~/entity/yaoshou/yaoshou023,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou024list,loottable,~/entity/yaoshou/yaoshou024,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou025list,loottable,~/entity/yaoshou/yaoshou025,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4451,7 +4451,7 @@ yvanchuxiuzhen,Gedang08,procedure,~/skill/jineng,skill,已读,阶段5逐项读�
 yvanchuxiuzhen,Gedang09,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Gedang10,procedure,~/skill/jineng,skill,已读,阶段5逐项读完：G键无槽技能菜单、四象名称与五行底图、四页选择、十一箭轮盘、连招、冷却、格挡和蓄力条件；五个功能入口经服务端执行，妖化待equipment，丹火放置待yihuo。
 yvanchuxiuzhen,Dunpai,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Food084,item,~/item/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Food084,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Food084hecheng,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food084hecheng2,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Food084hecheng3,recipe,~/item/food,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5751,7 +5751,7 @@ yvanchuxiuzhen,Nichanggrassyaoshou,procedure,~/plant/ordinaryplants/nichangcao,p
 yvanchuxiuzhen,NichanggrassseedDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：随 Nichanggrassseed 读：霓裳草：种子种下后逐级生长（符箓 Itemfulu30 可催熟一级），成熟时 Nichanggrassyaoshou 按群系从 yaoshou_003 等引来妖兽并以附近玩家或生物为仇恨目标；妖兽按 ID 引用
 yvanchuxiuzhen,Logsitem,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jiu,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jiuniang001DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/food/jiu,cooking,已读,B1 归属阅读：随 Jiuniang001 读：酒酿：酒坛酿造与陈化（agenum）、饮用增加待吸收修为 experience_Stand 与酒精 jiujing，属食用效果；修为写入经 xiulian 的操作
+yvanchuxiuzhen,Jiuniang001DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
 yvanchuxiuzhen,Stonetree01,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Huaguangjiegou,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Stonetree02,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5767,7 +5767,7 @@ yvanchuxiuzhen,Cailiao204melt,item,~/item/metal,material,已读,B1 归属阅读�
 yvanchuxiuzhen,Cailiao212melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
 yvanchuxiuzhen,Cailiao214melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
 yvanchuxiuzhen,Effect037,potioneffect,~/effect,creature,已读,C combat 归属阅读（改判后确认）：妖兽升级标记，没有自身过程，读取者是妖兽战胜敌人后的经验过程
-yvanchuxiuzhen,Foodmuzengpeifang,procedure,~/food/chujv,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Foodmuzengpeifang,procedure,~/food/chujv,cooking,已读,D cooking 归属阅读：木甑八配方与热源生产、五槽菜单、十层进度及帮助反馈；本族没有厨艺经验写入，来源 foodmuzenghecheng 为蒸锅与竹子合成；见木甑/酒族来源审计
 yvanchuxiuzhen,PlayerGui04gongfazhuangbei,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
 yvanchuxiuzhen,PlayerGui04qinggongzhuangbei,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
 yvanchuxiuzhen,PlayerGui04feixingjineng,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
@@ -5933,7 +5933,7 @@ yvanchuxitong,LightningLanding,command,~/zhiling,combat,已读,已读LightningLa
 yvanchuxitong,LightningLandingGo,procedure,~/zhiling,combat,已读,已读LightningLanding命令、LightningLandingGo与彩色闪电实体及主入口绑定：按命令原坐标结算共享范围雷伤，队伍仅参数占位；skill与xiulian只提供生成参数，归combat。
 yvanchuxitong,Chain,enchantment,~/fumo,combat,已读,C combat 归属阅读：原初系统唯一的附魔，连锁采集由 ChainProcedure 读取等级（随 combat 迁移，代码注册转数据定义的首个实例）
 yvanchuxitong,ChainProcedure,procedure,~/fumo,combat,已读,C combat 归属阅读：连锁采集的方块破坏订阅（BlockEvent.BreakEvent），随 Chain 附魔读
-yvanchuxitong,PlayerRightClickBlock,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PlayerRightClickBlock,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 蒸锅分支已读：未烹饪蒸锅自然事件开窗且不取消后续use；仅本族分支覆盖，全局编排归flow，其他分支未在此族全量核读
 yvanchuxitong,Itemdanyaohulu01DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：随 Itemdanyaohulu01 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Itemdanyaohulu01,item,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,AlchemyName,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIScreen读取丹炉自身alchemyName形成动态文字；名称为空时取方块显示名，其余按原整数格式显示，归炼丹界面。
@@ -6057,7 +6057,7 @@ yvanchuxitong,BaoxiangJiajv,procedure,~/baoxiang,treasure,候选,第一版批量
 yvanchuxitong,BaoxiangDuyao,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,TiandaotuzhitaiGUIDangZheGeJieMianDaKaiShi,procedure,~/yvanchulianqi/tiandao,lianqi,已读,D lianqi 归属阅读：过程17–119每次开窗在13–203槽预置191栈64件材料，不设实例等级品质、不刷新预览，204–222槽保留；目录材料可实际领取。
 yvanchuxitong,TieguoGUI,gui,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ZhengguoGUI,gui,~/yvanchupengren,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ZhengguoGUI,gui,~/yvanchupengren,cooking,已读,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 蒸锅/笼屉族已读：Foodzhengguo/Foodlongti方块与菜单、两自然配方、两原生右键过程及Cookbegin蒸锅分支直接处理厨具状态；五次完成经profession增加厨艺经验，归cooking
 yvanchuxitong,ShaguoGUI,gui,~/yvanchupengren,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,AnbanFangKuaiShiTiXuanRanShi,procedure,~/yvanchupengren,cooking,已读,B1 归属阅读：随 Anban 读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
 yvanchuxitong,AnbanZaiFangKuaiShangYouJian,procedure,~/yvanchupengren,cooking,已读,B1 归属阅读：随 Anban 读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
@@ -6392,7 +6392,7 @@ yvanchuxitong,Tieguoshicai08txt,procedure,~/yvanchupengren/tieguo,cooking,候选
 yvanchuxitong,Tieguoshicai09txt,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tieguocaipuname,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tieguorongqiname,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Cookbegin,procedure,~/yvanchupengren/tieguo,cooking,已读,核对两锅及墨料坯当前接入的来源过程和完整有序合成配方
+yvanchuxitong,Cookbegin,procedure,~/yvanchupengren/tieguo,cooking,已读,核对两锅及墨料坯当前接入的来源过程和完整有序合成配方；2026-11-10 蒸锅/笼屉族已读：Foodzhengguo/Foodlongti方块与菜单、两自然配方、两原生右键过程及Cookbegin蒸锅分支直接处理厨具状态；五次完成经profession增加厨艺经验，归cooking
 yvanchuxitong,Baoxiang0102,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Linshiceshiliandan,procedure,~/yvanchuliandan,liandan,已读,完整读取临时开炉算法及LiandanLVjiance调用；全来源Java检索无调用该过程的入口，登记炼丹归属，实际正式开炉以LiandanBegin为准。
 yvanchuxitong,BaoxiangsetGo,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7409,7 +7409,7 @@ yvanchuxitong,Huafushaohuihecheng,recipe,~/huafu,fulu,候选,第一版批量归�
 yvanchuxitong,Wushipupengren,procedure,~/yvanchupengren/tieguo,cooking,已读,核对两锅及墨料坯当前接入的来源过程和完整有序合成配方
 yvanchuxitong,Tieguoshiyongzhinan,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Tieguoshiyongzhinan2,procedure,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhengguoshiyongzhinan,procedure,~/yvanchupengren,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Zhengguoshiyongzhinan,procedure,~/yvanchupengren,cooking,已读,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 蒸锅/笼屉族已读：Foodzhengguo/Foodlongti方块与菜单、两自然配方、两原生右键过程及Cookbegin蒸锅分支直接处理厨具状态；五次完成经profession增加厨艺经验，归cooking
 yvanchuxitong,Shaguoshiyongzhinan,procedure,~/yvanchupengren,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shaguoshiyongzhinan2,procedure,~/yvanchupengren,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Huafushaohuishiyongzhinan,procedure,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）

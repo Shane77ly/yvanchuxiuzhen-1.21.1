@@ -16,6 +16,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.tribulation.Tribulations;
 
@@ -68,6 +69,7 @@ public final class CultivationTick {
                 player.displayClientMessage(Component.literal("你的阳寿已尽！"), true);
             }
             breakthrough(player);
+            NeoForge.EVENT_BUS.post(new CultivationAfterBreakthroughEvent(player));
             cooldown(player);
             Recovery.tick(player);
             Cultivation.setTizhiDouble(player, "jishiqi", time);

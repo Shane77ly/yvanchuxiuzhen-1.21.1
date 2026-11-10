@@ -13,12 +13,53 @@ import net.yvanchuxiuzhen.system.cooking.content.CookingMenus;
 import net.yvanchuxiuzhen.system.cooking.content.CookingPotBlock;
 import net.yvanchuxiuzhen.system.cooking.content.CookingPotBlockItem;
 import net.yvanchuxiuzhen.system.cooking.network.CookingButtonPayload;
+import net.yvanchuxiuzhen.system.cooking.content.NaturalMonkeyWineBlock;
+import net.yvanchuxiuzhen.system.cooking.content.WineBlockEntities;
+import net.yvanchuxiuzhen.system.cooking.content.WineItem;
+import net.yvanchuxiuzhen.system.cooking.content.WineJarBlock;
+import net.yvanchuxiuzhen.system.cooking.content.WineMenus;
+import net.yvanchuxiuzhen.system.cooking.content.WoodenStillBlock;
+import net.yvanchuxiuzhen.system.cooking.content.MealFoodItem;
+import net.yvanchuxiuzhen.system.cooking.content.PlatedFoodBlock;
+import net.yvanchuxiuzhen.system.cooking.content.PoisonousFoodItem;
+import net.yvanchuxiuzhen.system.cooking.content.RemainderFoodItem;
+import net.yvanchuxiuzhen.system.cooking.content.SteamerBlock;
+import net.yvanchuxiuzhen.system.cooking.content.SteamerBlockItem;
+import net.yvanchuxiuzhen.system.cooking.content.SteamerBlockEntities;
+import net.yvanchuxiuzhen.system.cooking.content.SteamerMenus;
+import net.yvanchuxiuzhen.system.cooking.network.SteamerButtonPayload;
+import net.yvanchuxiuzhen.system.cooking.data.CookingAttachments;
+import net.yvanchuxiuzhen.system.cooking.network.WineButtonPayload;
+import net.yvanchuxiuzhen.system.cooking.api.Alcohol;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
 
 /**
  * 烹饪系统的启动装配，只在 Mod 构造时调用一次。
  */
 public final class CookingSetup {
     private static final ContentTables CONTENT = new ContentTables("cooking")
+            .blockFactory("cooking:plated_food", traits -> ContentBlock.create(traits, PlatedFoodBlock::new))
+            .itemFactory("cooking:meal_food", MealFoodItem::new)
+            .itemFactory("cooking:poisonous_food", PoisonousFoodItem::new)
+            .itemFactory("cooking:remainder_bone", (properties, tooltip) -> new RemainderFoodItem(properties, tooltip,
+                    ResourceLocation.withDefaultNamespace("bone")))
+            .itemFactory("cooking:remainder_shicai_03401", (properties, tooltip) -> new RemainderFoodItem(properties, tooltip,
+                    ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "shicai_03401")))
+            .itemFactory("cooking:remainder_shicai_03601", (properties, tooltip) -> new RemainderFoodItem(properties, tooltip,
+                    ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "shicai_03601")))
+            .itemFactory("cooking:remainder_shicai_03701", (properties, tooltip) -> new RemainderFoodItem(properties, tooltip,
+                    ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "shicai_03701")))
+            .blockFactory("cooking:steamer", traits -> ContentBlock.create(traits, SteamerBlock.Pot::new))
+            .blockFactory("cooking:steaming_basket", traits -> ContentBlock.create(traits, SteamerBlock.Tray::new))
+            .itemFactory("cooking:steamer", (properties, tooltip) -> new SteamerBlockItem(
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "foodzhengguo")), properties, tooltip))
+            .itemFactory("cooking:steaming_basket", (properties, tooltip) -> new SteamerBlockItem(
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "foodlongti")), properties, tooltip))
+            .blockFactory("cooking:wooden_still", traits -> ContentBlock.create(traits, WoodenStillBlock::new))
+            .blockFactory("cooking:wine_jar", traits -> ContentBlock.create(traits, WineJarBlock::new))
+            .blockFactory("cooking:waterlogged_wine_jar", traits -> ContentBlock.create(traits, WineJarBlock.Waterlogged::new))
+            .blockFactory("cooking:natural_monkey_wine", traits -> ContentBlock.create(traits, NaturalMonkeyWineBlock::new))
+            .itemFactory("cooking:wine", WineItem::new)
             .blockFactory("cooking:iron_pot", traits -> ContentBlock.create(traits, CookingPotBlock.Iron::new))
             .blockFactory("cooking:clay_pot", traits -> ContentBlock.create(traits, CookingPotBlock.Clay::new))
             .itemFactory("cooking:iron_pot", (properties, tooltip) -> new CookingPotBlockItem(
@@ -34,6 +75,13 @@ public final class CookingSetup {
         CONTENT.register(modBus);
         CookingBlockEntities.register(modBus);
         CookingMenus.register(modBus);
+        SteamerBlockEntities.register(modBus);
+        SteamerMenus.register(modBus);
+        NeoForge.EVENT_BUS.addListener(SteamerRuntime::rightClick);
+        WineBlockEntities.register(modBus);
+        WineMenus.register(modBus);
+        CookingAttachments.register(modBus);
+        NeoForge.EVENT_BUS.addListener((CultivationAfterBreakthroughEvent event) -> Alcohol.metabolize(event.player()));
         modBus.addListener(CookingSetup::payloads);
         NeoForge.EVENT_BUS.addListener(CookingRuntime::rightClick);
         NeoForge.EVENT_BUS.addListener(CookingDelays::tick);
@@ -41,6 +89,8 @@ public final class CookingSetup {
     }
 
     private static void payloads(RegisterPayloadHandlersEvent event) {
+        event.registrar("1").playToServer(SteamerButtonPayload.TYPE, SteamerButtonPayload.STREAM_CODEC, SteamerButtonPayload::handle);
+        event.registrar("1").playToServer(WineButtonPayload.TYPE, WineButtonPayload.STREAM_CODEC, WineButtonPayload::handle);
         event.registrar("1").playToServer(CookingButtonPayload.TYPE, CookingButtonPayload.STREAM_CODEC, CookingButtonPayload::handle);
     }
 }

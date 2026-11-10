@@ -39,6 +39,7 @@ FACTORIES = {'Block': 'block', 'SlabBlock': 'slab', 'StairBlock': 'stairs', 'Wal
              'TrapDoorBlock': 'trapdoor', 'FallingBlock': 'falling', 'FlowerBlock': 'flower',
              'DoublePlantBlock': 'double_plant'}
 ANIMATED_BLOCK_FACTORIES = {'lianqi:repair_table', 'fulu:inheritance', 'cooking:iron_pot', 'cooking:clay_pot',
+                            'cooking:steamer', 'cooking:steaming_basket',
                             'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:silkworm_box'}
 # 1.18.2 原版创造栏在 1.21.1 的对应；临时对应，待负责人确认。
 VANILLA_TABS = {'TAB_MISC': 'minecraft:tools_and_utilities', 'TAB_DECORATIONS': 'minecraft:building_blocks',
@@ -432,8 +433,10 @@ def main() -> None:
         if factory in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod',
                        'lianqi:repair_table', 'lianqi:sewing_basket', 'lianqi:blueprint_table', 'lianqi:poison_cauldron',
                        'fulu:drawing_table', 'fulu:ash_burner', 'fulu:soot', 'fulu:inheritance', 'fulu:repelling_talisman',
-                       'cooking:iron_pot', 'cooking:clay_pot', 'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:pottery_blank',
-                       'craft:silkworm_box', 'craft:chrysalis_display') or factory.startswith('fulu:explosive_'):
+                       'cooking:iron_pot', 'cooking:clay_pot', 'cooking:steamer', 'cooking:steaming_basket',
+                       'cooking:wooden_still', 'cooking:wine_jar',
+                       'cooking:waterlogged_wine_jar', 'cooking:natural_monkey_wine', 'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:pottery_blank',
+                       'craft:silkworm_box', 'craft:chrysalis_display', 'cooking:plated_food') or factory.startswith('fulu:explosive_'):
             row.pop('pending_hooks', None)
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:
@@ -538,7 +541,9 @@ def main() -> None:
         if ('item', target) in overrides:
             row['factory'] = overrides[('item', target)]
         if row['factory'] in ('liandan:medicine_container', 'liandan:medicine_container_empty_box', 'lianqi:tripod_placement',
-                              'craft:pottery_blank', 'craft:silkworm', 'craft:silkworm_gold') or row['factory'].startswith(('fulu:talisman_', 'fulu:ranged_', 'fulu:passive_', 'fulu:explosive_')):
+                              'craft:pottery_blank', 'craft:silkworm', 'craft:silkworm_gold', 'cooking:meal_food',
+                              'cooking:poisonous_food', 'cooking:remainder_bone', 'cooking:remainder_shicai_03401',
+                              'cooking:remainder_shicai_03601', 'cooking:remainder_shicai_03701', 'cooking:wine') or row['factory'].startswith(('fulu:talisman_', 'fulu:ranged_', 'fulu:passive_', 'fulu:explosive_')):
             row.pop('pending_hooks', None)
         items_by_unit[unit].append(row)
         for number, line in enumerate(row.get('tooltip', []), start=1):

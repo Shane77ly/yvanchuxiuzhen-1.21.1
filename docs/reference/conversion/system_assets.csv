@@ -323,3 +323,8 @@ craft,geo,yvanchuxiuzhen:taolun
 craft,animation,yvanchuxiuzhen:taolun
 craft,geo,yvanchuxiuzhen:canhe
 craft,animation,yvanchuxiuzhen:canhe
+cooking,geo,yvanchuxiuzhen:foodzhengguo
+cooking,animation,yvanchuxiuzhen:foodzhengguo
+cooking,geo,yvanchuxiuzhen:foodlongti
+cooking,animation,yvanchuxiuzhen:foodlongti
+cooking,texture,yvanchuxiuzhen:blocks/foodzhengguo

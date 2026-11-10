@@ -35,6 +35,8 @@ class Converter:
     def __init__(self) -> None:
         self.roots = {mod: root / 'src/main/resources/assets' for mod, (root, _) in SOURCES.items()}
         self.written: dict[Path, str] = {}
+        self.created_dirs: set[Path] = set()
+        self.copied_textures: set[str] = set()
         self.manifest: list[tuple[str, str, str]] = []
         self.missing: list[tuple[str, str]] = []
         self.dropped_parents: list[tuple[str, str]] = []
@@ -67,7 +69,16 @@ class Converter:
             return [self.rewrite_json(item, key) for item in node]
         return node
 
-    def emit(self, source: Path, mod: str, target: Path, content: bytes) -> None:
+    def prepare_parent(self, target: Path) -> None:
+        if target.parent not in self.created_dirs:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            self.created_dirs.add(target.parent)
+
+    def emit_bytes(self, source: Path, mod: str, target: Path) -> None:
+        content = source.read_bytes()
+        self.emit(source, mod, target, content, content)
+
+    def emit(self, source: Path, mod: str, target: Path, content: bytes, source_content: bytes | None = None) -> None:
         digest = hashlib.sha1(content).hexdigest()
         previous = self.written.get(target)
         if previous is not None:
@@ -75,10 +86,10 @@ class Converter:
                 raise ValueError(f'目标 {target.relative_to(ROOT).as_posix()} 来自内容不同的来源文件：{source}')
             return
         self.written[target] = digest
-        target.parent.mkdir(parents=True, exist_ok=True)
+        self.prepare_parent(target)
         if not target.is_file() or target.read_bytes() != content:
             target.write_bytes(content)
-        origin = hashlib.sha1(source.read_bytes()).hexdigest()
+        origin = hashlib.sha1(source.read_bytes() if source_content is None else source_content).hexdigest()
         self.manifest.append((f'{mod}/{source.relative_to(self.roots[mod].parents[3]).as_posix()}', origin,
                               target.relative_to(ROOT).as_posix()))
 
@@ -87,9 +98,11 @@ class Converter:
         if namespace == 'minecraft':
             return None
         file = self.roots[namespace] / namespace / kind / f'{path}{suffix}'
-        return (file, namespace) if file.is_file() else (file, namespace)
+        return file, namespace
 
     def copy_texture(self, ref: str, default_mod: str) -> None:
+        if ref in self.copied_textures:
+            return
         located = self.source_file(ref, 'textures', '.png', default_mod)
         if located is None:
             return
@@ -101,10 +114,11 @@ class Converter:
         head, _, rest = relative.partition('/')
         relative = f'{TEXTURE_DIRS[head]}/{rest}' if head in TEXTURE_DIRS else relative
         target = ASSETS / 'textures' / relative
-        self.emit(file, mod, target, file.read_bytes())
+        self.emit_bytes(file, mod, target)
         meta = file.with_name(file.name + '.mcmeta')
         if meta.is_file():
-            self.emit(meta, mod, target.with_name(target.name + '.mcmeta'), meta.read_bytes())
+            self.emit_bytes(meta, mod, target.with_name(target.name + '.mcmeta'))
+        self.copied_textures.add(ref)
 
     def copy_plain(self, ref: str, folder: str, suffix: str, default_mod: str) -> None:
         """原样迁移 GeckoLib 的几何（geo/<名>.geo.json）与动画（animations/<名>.animation.json）。"""
@@ -113,7 +127,7 @@ class Converter:
         if not file.is_file():
             self.missing.append((ref, folder))
             return
-        self.emit(file, mod, ASSETS / folder / file.name, file.read_bytes())
+        self.emit_bytes(file, mod, ASSETS / folder / file.name)
 
     def copy_model(self, ref: str, default_mod: str) -> None:
         located = self.source_file(ref, 'models', '.json', default_mod)
@@ -153,8 +167,10 @@ class Converter:
         target = ASSETS / 'models' / f'{wrapper.split(":")[-1]}.json'
         if target not in self.written:
             self.written[target] = 'generated'
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_bytes(json_bytes({'parent': f'{NAMESPACE}:{path}', 'render_type': render_type}))
+            self.prepare_parent(target)
+            content = json_bytes({'parent': f'{NAMESPACE}:{path}', 'render_type': render_type})
+            if not target.is_file() or target.read_bytes() != content:
+                target.write_bytes(content)
             self.manifest.append(('(generated)', '', target.relative_to(ROOT).as_posix()))
         return f'{NAMESPACE}:{wrapper}'
 
@@ -163,7 +179,8 @@ class Converter:
         if not file.is_file():
             self.missing.append((f'{mod}:{path}', '方块状态'))
             return {}
-        data = self.rewrite_json(json.loads(file.read_text(encoding='utf-8')))
+        original = json.loads(file.read_text(encoding='utf-8'))
+        data = self.rewrite_json(original)
         wrappers: dict[str, str] = {}
 
         def visit(node):
@@ -178,7 +195,6 @@ class Converter:
                 for item in node:
                     visit(item)
 
-        original = json.loads(file.read_text(encoding='utf-8'))
         for ref in collect_models(original):
             self.copy_model(ref, mod)
         visit(data)
@@ -194,7 +210,7 @@ class Converter:
                 self.missing.append((relative, '盔甲贴图'))
                 continue
             mod, file = found[0]
-            self.emit(file, mod, ASSETS / 'textures' / relative, file.read_bytes())
+            self.emit_bytes(file, mod, ASSETS / 'textures' / relative)
 
     def sound(self, name: str) -> None:
         """sounds.json 引用的声音文件 sounds/<名>.ogg，在两个来源中查找。"""
@@ -204,7 +220,7 @@ class Converter:
             self.missing.append((relative, '声音'))
             return
         mod, file = found[0]
-        self.emit(file, mod, ASSETS / relative, file.read_bytes())
+        self.emit_bytes(file, mod, ASSETS / relative)
 
     def effect_icon(self, mod: str, path: str, target: str) -> None:
         """状态效果图标按注册 ID 从 mob_effect 图集读取，目标路径跟随台账映射。"""
@@ -212,7 +228,7 @@ class Converter:
         if not file.is_file():
             self.missing.append((f'{mod}:{path}', '状态效果图标'))
             return
-        self.emit(file, mod, ASSETS / 'textures/mob_effect' / f'{target}.png', file.read_bytes())
+        self.emit_bytes(file, mod, ASSETS / 'textures/mob_effect' / f'{target}.png')
 
     def particle(self, mod: str, path: str, target: str) -> None:
         """粒子 JSON 的 sprite 引用不含 particle/ 前缀，图集从 textures/particle 读取。"""
