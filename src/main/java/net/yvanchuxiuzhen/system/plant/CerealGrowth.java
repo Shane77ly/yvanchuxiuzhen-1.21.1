@@ -1,8 +1,6 @@
 package net.yvanchuxiuzhen.system.plant;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
@@ -12,14 +10,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.yvanchuxiuzhen.platform.ModId;
 
-/** 水稻八阶段的来源状态转换、枯萎掉落与骨粉成熟过程。 */
-final class Shicai001Behavior {
-    private Shicai001Behavior() {
+/** 001水稻与002糯稻的八阶段转换、枯萎和各自骨粉成熟过程。 */
+final class CerealGrowth {
+    private CerealGrowth() {
     }
 
-    static void randomTick(int stage, BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    static void randomTick(CerealCrop crop, int stage, BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (stage >= 8 || state.hasProperty(DoublePlantBlock.HALF)
                 && state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) return;
         BlockState soil = level.getBlockState(pos.below());
@@ -32,38 +29,38 @@ final class Shicai001Behavior {
         }
         if (Math.random() >= 0.2) return;
         if (stage < 4) {
-            level.setBlock(pos, block(stage + 1).defaultBlockState(), Block.UPDATE_ALL);
+            level.setBlock(pos, crop.block(stage + 1).defaultBlockState(), Block.UPDATE_ALL);
         } else if (stage == 4) {
-            placeTransition(5, level, pos);
+            placeTransition(crop, 5, level, pos);
         } else {
             level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
             level.setBlock(pos.above(), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-            placeTransition(stage + 1, level, pos);
+            placeTransition(crop, stage + 1, level, pos);
         }
     }
 
-    static void bonemeal(ServerLevel level, BlockPos pos, BlockState original) {
-        if (!isGrowing(original)) return;
-        copyCompatibleProperties(level.getBlockState(pos), block(8).defaultBlockState(), level, pos);
-        copyCompatibleProperties(level.getBlockState(pos.above()), block(8).defaultBlockState(), level, pos.above());
+    static void bonemeal(CerealCrop crop, ServerLevel level, BlockPos pos, BlockState original) {
+        if (!isGrowing(crop, original)) return;
+        if (crop == CerealCrop.SHICAI_001) {
+            copyCompatibleProperties(level.getBlockState(pos), crop.block(8).defaultBlockState(), level, pos);
+            copyCompatibleProperties(level.getBlockState(pos.above()), crop.block(8).defaultBlockState(), level, pos.above());
+        } else {
+            level.setBlock(pos, crop.block(8).defaultBlockState(), Block.UPDATE_ALL);
+            level.setBlock(pos.above(), crop.block(8).defaultBlockState(), Block.UPDATE_ALL);
+        }
         BlockState upper = level.getBlockState(pos.above());
         if (upper.hasProperty(DoublePlantBlock.HALF)) {
             level.setBlock(pos.above(), upper.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER), Block.UPDATE_ALL);
         }
     }
 
-    static Block block(int stage) {
-        return BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE,
-                "shicai_001_plant_0" + stage));
-    }
-
-    static boolean isGrowing(BlockState state) {
-        for (int stage = 1; stage <= 7; stage++) if (state.is(block(stage))) return true;
+    static boolean isGrowing(CerealCrop crop, BlockState state) {
+        for (int stage = 1; stage <= 7; stage++) if (state.is(crop.block(stage))) return true;
         return false;
     }
 
-    private static void placeTransition(int stage, ServerLevel level, BlockPos lowerPos) {
-        BlockState lower = block(stage).defaultBlockState();
+    private static void placeTransition(CerealCrop crop, int stage, ServerLevel level, BlockPos lowerPos) {
+        BlockState lower = crop.block(stage).defaultBlockState();
         level.setBlock(lowerPos.above(), lower, Block.UPDATE_ALL);
         BlockState upper = level.getBlockState(lowerPos.above());
         if (upper.hasProperty(DoublePlantBlock.HALF)) {

@@ -13,7 +13,7 @@ updated: 2026-11-10
 
 | 项 | 状态 |
 | --- | --- |
-| 分支与提交 | `main`（combat 已合入）；skill 与符箓批次保留在 `port/c-skill`。当前分支 `port/d-cooking` 餐具/案板/命令提交 `62f408f3`；铁盘补齐与本页同提交，最新提交以 `git log` 为准；未推送、未合入 `main` |
+| 分支与提交 | `main`（combat 已合入）；skill 与符箓批次保留在 `port/c-skill`。当前分支 `port/d-cooking` 食材供给前批提交 `7e12bafb`；糯稻002续批与本页同提交，最新提交以 `git log` 为准；未推送、未合入 `main` |
 | 已完成 | 两个 1.18.2 工程的全量静态调查与索引；系统调查正文（2026-11-02 按[系统设计](system-design.md)重组为 28 个系统、3 个内容族与玩家面板）；通用移植技能；开发环境（构建、开发服务端与客户端加载已实测） |
 | 代码 | 公共入口与客户端入口；attribute 系统（贡献汇总、玩家附件、原版属性写入，2026-11-03）；relation 系统（敌友判定、团队、好友与申请界面、按钮 payload，2026-11-03）；xiulian 系统（修炼档案、出身、修炼推进与突破、金丹元婴、丹田界面、血道，2026-11-03）；gongfa 系统（功法定义、功法书组件、研习、功法栏、参悟台，2026-11-03）；combat 系统（伤害结算与 `/shanghai`、85 个附魔数据定义与命中、护甲、挖掘行为、状态效果登记基础与 47 个效果行为、连锁采集、穿石、木人桩，2026-11-04；首次接入 GeckoLib 4.9.3、实体内容表与菜单界面）；`platform/content` 的内容表加载器与工厂（15 种方块、物品、工具、盔甲）按单位登记 1,127 个方块、2,125 个物品与 150 个声音事件，29 个有内容的单位各有一个 `<名称>Setup`；ArchUnit、台账工具、归属证据工具、片段合并与客户端冒烟检查已接入；skill 系统进行中（框架、14 个元素弹体、动画实体基础与火土金冰光风雷水木各系实体技能、剑法、灵纹、火鸟术、起尸诀、虚空裂隙实体与传送、伤害范围、元婴出窍、十种技能箭与箭种选择、身法轻功、技能界面与 HUD 的部分实现，见下节）|
 | 批次进度 | B0 完成步骤 1–5 后按负责人指示结束（2026-11-02），B1 于 2026-11-03 出口核对并经负责人认可后结束，当前执行 C：attribute、relation、xiulian、gongfa 2026-11-03、combat 2026-11-04 完成并合入 `main`（xiulian 按依赖方向调到 gongfa 之前，见[功法](../systems/gongfa/README.md)“依赖方向”），combat 2026-11-04 完成并合入 `main`，当前是 skill（进行中，见下节）；[系统设计](system-design.md) 2026-11-02 全部批准并完成迁移；命名空间统一为 `yvanchuxiuzhen`。逐步进度见[月度记录](../systems/project/logs/2026-11.md) |
@@ -22,7 +22,7 @@ updated: 2026-11-10
 
 ## 进行中
 
-**当前执行 D 烹饪与食材供给**（`port/d-cooking`，基线 `62f408f3`，之后提交以`git log`为准，未推送/未合`main`）：餐具、案板菜刀、铁盘自身掉落、13条配方/标签复核、金色餐食Tooltip、水稻001八阶段及桑苗桑叶行为已接入。两条种子配方按功能归属修正：039转可种植种子归Plant，001seed转Cooking大米归Cooking。水稻configured/placed通过标准`convert_data.py`可复现生成并追踪来源SHA-1；不装缺失World维度/群系modifier。完整`build compileSmokeJava`通过；最终内置`fulucooking` 160项INFO、0 FAIL、DONE，客户端四维度正常保存退出、ERROR/FATAL0，指定Tooltip截图中文与金色已查看。此为受控客户端检查，不覆盖自然生成、完整重登/存档周期、桑树模板生长、随机生蚕等。水稻自然投放、桑树野外feature、其余作物供给继续未闭合。下一步沿来源接Shicai002作物族，World完成其维度/biome后补自然投放；并继续推进Cooking剩余自然获取和酒坛真实爆炸/火域验收。完整goal active，不推送、不合`main`。
+**当前执行 D 烹饪与食材供给**（`port/d-cooking`，前一提交`7e12bafb`，糯稻续批与本页同提交，最后提交以`git log -1`为准，未推送/未合`main`）：餐具、案板、铁盘、配方标签、Tooltip、水稻001及桑树之后，本批接入糯稻002八阶段/种子17条行为与成熟地物类型。001/002已核相同部分共用Cereal实现，CerealCrop保留来源编号，002骨粉不复制属性与成熟randomTicks等差异保持；独立静态复审未发现阻塞。四种子转糯米按食材加工归Cooking。完整build/compileSmokeJava通过，最终既有fulucooking166项INFO、0 FAIL、DONE，客户端四维度保存退出、ERROR/FATAL0，专服Done/原生halt(false)保存四维度且Gradle成功、游戏ERROR/FATAL0；JDK停服警告令PowerShell包装返回1，见月志。数据转换1707项，两个编号各自的configured/placed可复现生成并来源SHA-1追踪；仍不安装缺World维度/群系modifier。新6项只覆盖002受控播种/干旱/骨粉/loot及加载配方匹配assemble，非玩家工作台取出、完整生存自然供给或两版本验收。下一步按tmp/cereal-next-family-audit.md核对004/005/006合批，003只是白面物品；保留00401异常掉002seed等来源差异。酒坛真实爆炸/火域、World自然投放及其余供给继续接续。主会话三路派工，plant_supply交独立报告，另两路429限流；重工具串行。完整goal active，不推送、不合main。
 
 **2026-11-10 当前批次**：15 号镇宅符、16 号替死符、22/23 号背包被动符与 42 号四档爆裂符已实现并录入台账。最终 `tmp/fulu-passive-explosive-verified-report.txt` 为 47 项 INFO、0 FAIL、DONE；15 号排斥、好友集合活视图及重载独立，16 号真实致命保护，22/23 生命与效果，42 二阶真实放置与四档回调参数通过。13/17 改用生成计数后实际为火球 4、陨石 3，23 的原版自然回血测试干扰已隔离。42 引爆检查受控取消实际爆炸，仅确认半径 4/8/12/16 和固定 `DESTROY_WITH_DECAY`，未验收破坏、掉落和连锁。完整构建/检查代码编译通过，最终客户端 ERROR/FATAL 0、四维度正常保存退出；专服最终启动到 `Done`，收到原生 stop、四维度保存退出，BUILD SUCCESSFUL/退出码0、ERROR/FATAL0。历史失败及此前未原生 stop 的启动记录留在符箓月志。本批提交后从当前分支建立 `port/d-craft` 整合石磨/石碾，skill 遗留继续随依赖闭合；暂不推送、不合 `main`。
 

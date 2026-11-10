@@ -7,7 +7,7 @@ updated: 2026-11-10
 
 # 项目状态与决定
 
-2026-11-10 当前分支 `port/d-cooking`：烹饪与食材供给批次继续接入餐具/案板、普通配方标签与Tooltip、水稻001及桑树行为。完整构建通过；内置 `fulucooking` 最终160项INFO、0 FAIL、DONE，受控场景客户端四维度正常保存退出、ERROR/FATAL0；指定Tooltip截图已查看。`convert_data.py` 数据输出1705项，两份水稻configured/placed feature来源哈希进入manifest。水稻自然modifier因World维度/群系未接回而未安装；桑树野外feature、完整食材/菜谱自然链、观想入口、猴儿酒结构释放、酒坛真实破坏与火域、完整存档生命周期、多人、完整视觉和两版本仍待接续。完整goal保持active，暂不推送、不合main；批次与检查边界见[烹饪月志](../cooking/logs/2026-11.md)和[植物月志](../plant/logs/2026-11.md)。
+2026-11-10 当前分支 `port/d-cooking`：在餐具/案板、普通配方标签与Tooltip、水稻001和桑树之后，接入糯稻002的17条行为注册及成熟地物类型，001/002已核同规则部分共用Cereal实现并通过独立复审；编号由CerealCrop和显式工厂对应，骨粉属性复制等差异保留。完整构建通过；最新内置`fulucooking`166项INFO、0 FAIL、DONE，客户端四维度正常保存退出、ERROR/FATAL0，专服Done/原生halt(false)保存退出通过，停服JDK警告及包装退出码见月志。`convert_data.py`输出1707项，001/002各两份worldgen JSON追踪来源哈希；World缺维度/群系，因此不安装自然modifier。自然食材/菜谱供给、酒坛真实爆炸/火域、完整存档生命周期、多人、完整视觉及两版本仍待接续。下一批合读004/005/006作物，003为普通白面；完整goal保持active，暂不推送、不合main。验证范围见[植物月志](../plant/logs/2026-11.md)与[烹饪月志](../cooking/logs/2026-11.md)。
 
 ## 已确认要求
 

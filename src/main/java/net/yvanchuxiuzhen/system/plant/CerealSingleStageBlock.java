@@ -2,8 +2,6 @@ package net.yvanchuxiuzhen.system.plant;
 
 import java.util.List;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
@@ -12,28 +10,29 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
-import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentFlower;
 
-/** Shicai001的单格生长阶段01–04。 */
-public final class Shicai001SingleStageBlock extends ContentFlower implements BonemealableBlock {
+/** 001水稻与002糯稻的单格生长阶段01–04。 */
+public final class CerealSingleStageBlock extends ContentFlower implements BonemealableBlock {
+    private final CerealCrop crop;
     private final int stage;
 
-    public Shicai001SingleStageBlock(BlockTraits traits, int stage) {
+    public CerealSingleStageBlock(BlockTraits traits, CerealCrop crop, int stage) {
         super(traits);
+        this.crop = crop;
         this.stage = stage;
     }
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        Shicai001Behavior.randomTick(stage, state, level, pos, random);
+        CerealGrowth.randomTick(crop, stage, state, level, pos, random);
     }
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         super.tick(state, level, pos, random);
-        Shicai001Behavior.randomTick(stage, level.getBlockState(pos), level, pos, random);
+        CerealGrowth.randomTick(crop, stage, level.getBlockState(pos), level, pos, random);
     }
 
     @Override
@@ -48,13 +47,12 @@ public final class Shicai001SingleStageBlock extends ContentFlower implements Bo
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        Shicai001Behavior.bonemeal(level, pos, state);
+        CerealGrowth.bonemeal(crop, level, pos, state);
     }
 
     @Override
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
         List<ItemStack> drops = super.getDrops(state, params);
-        return drops.isEmpty() ? List.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "shicai_001seed")))) : drops;
+        return drops.isEmpty() ? List.of(new ItemStack(crop.seed())) : drops;
     }
 }

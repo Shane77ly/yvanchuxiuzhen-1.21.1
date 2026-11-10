@@ -11,7 +11,8 @@ final class PlantFeatures {
     private static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, ModId.VALUE);
 
     static {
-        FEATURES.register("shicai_001_plant_08", Shicai001Feature::new);
+        FEATURES.register("shicai_001_plant_08", CerealFeature::new);
+        FEATURES.register("shicai_002_plant_08", CerealFeature::new);
     }
 
     private PlantFeatures() {

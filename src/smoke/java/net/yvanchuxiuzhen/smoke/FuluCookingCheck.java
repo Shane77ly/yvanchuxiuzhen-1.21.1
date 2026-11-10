@@ -66,6 +66,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameType;
@@ -2105,6 +2106,57 @@ final class FuluCookingCheck extends ActionCheck {
                             leaves.getFluidState().isEmpty() && !allowed && !placed
                                     && p.serverLevel().getFluidState(ricePos).isEmpty());
                 }),
+                new Action(1, p -> {
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    riceHeld(p, item("shicai_002seed", 2));
+                    riceUse(p, ricePos.below());
+                    expectTrue("糯稻002原生生存播种只生成002苗并扣一颗，不串为001",
+                            p.serverLevel().getBlockState(ricePos).is(block("shicai_002_plant_01").getBlock())
+                                    && p.getMainHandItem().getCount() == 1);
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                    riceHeld(p, item("shicai_002seed", 2));
+                    riceUse(p, ricePos.below());
+                    expectTrue("糯稻002原生播种拒绝泥土且不扣种",
+                            p.serverLevel().isEmptyBlock(ricePos) && p.getMainHandItem().getCount() == 2);
+
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 0));
+                    riceDrops.forEach(Entity::discard);
+                    riceDrops.clear();
+                    p.serverLevel().setBlock(ricePos, block("shicai_002_plant_01"), 3);
+                    p.serverLevel().getBlockState(ricePos).randomTick(p.serverLevel(), ricePos, p.serverLevel().random);
+                    expectTrue("糯稻002受控原生randomTick：干耕地枯萎只交付002种子",
+                            p.serverLevel().isEmptyBlock(ricePos)
+                                    && riceDrops.size() == 1
+                                    && riceDrops.getFirst().getItem().is(item("shicai_002seed").getItem())
+                                    && riceDrops.getFirst().getItem().getCount() == 1);
+                }),
+                new Action(1, p -> {
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    p.serverLevel().setBlock(ricePos, block("shicai_002_plant_01"), 3);
+                    riceHeld(p, new ItemStack(Items.BONE_MEAL, 2));
+                    riceUse(p, ricePos);
+                    BlockState result = p.serverLevel().getBlockState(ricePos);
+                    expectTrue("糯稻002原生骨粉扣一份且仅保留002幼苗或转002成熟体；本次"
+                                    + (result.is(block("shicai_002_plant_01").getBlock()) ? "概率失败" : "成功"),
+                            p.getMainHandItem().getCount() == 1
+                                    && (result.is(block("shicai_002_plant_01").getBlock())
+                                    || result.is(block("shicai_002_plant_08").getBlock())));
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    BlockState lower = block("shicai_002_plant_08");
+                    BlockState upper = lower.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER);
+                    DoublePlantBlock.placeAt(p.serverLevel(), lower, ricePos, 3);
+                    List<ItemStack> lowerDrops = Block.getDrops(lower, p.serverLevel(), ricePos, null);
+                    List<ItemStack> upperDrops = Block.getDrops(upper, p.serverLevel(), ricePos.above(), null);
+                    expectTrue("成熟糯稻002原生loot：下半六颗002种子，上半不重复掉落",
+                            lowerDrops.size() == 1 && lowerDrops.getFirst().is(item("shicai_002seed").getItem())
+                                    && lowerDrops.getFirst().getCount() == 6 && upperDrops.isEmpty());
+                    CraftingInput input = CraftingInput.of(2, 2, List.of(item("shicai_002seed"), item("shicai_002seed"),
+                            item("shicai_002seed"), item("shicai_002seed")));
+                    ItemStack meal = p.serverLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, p.serverLevel())
+                            .map(recipe -> recipe.value().assemble(input, p.registryAccess())).orElse(ItemStack.EMPTY);
+                    expectTrue("四颗糯稻种子经已加载的原生合成配方匹配并生成一份糯米",
+                            meal.is(item("shicai_002").getItem()) && meal.getCount() == 1);
+                }),
                 new Action(1, p -> restoreRice(p)),
                 // 餐具与案板：真实客户端输入；未执行来源过程或设备tick代替自然入口。
                 new Action(12, p -> {
@@ -2172,7 +2224,9 @@ final class FuluCookingCheck extends ActionCheck {
                 }),
                 new Action(8, p -> useBlock(utensilsBowl)),
                 new Action(8, p -> {
-                    expectTrue("创造模式叠放仍扣尽主手，槽内钻石被覆盖且新碗不继承手持组件",
+                    expectTrue("创造模式叠放仍扣尽主手，槽内钻石被覆盖且新碗不继承手持组件；held="
+                                    + p.getMainHandItem() + " slot=" + utensilsWare(p, utensilsBowl).getItem(0)
+                                    + " diamonds=" + utensilsCount(p, Items.DIAMOND) + " drops=" + utensilsDropSummary(),
                             p.getMainHandItem().isEmpty() && utensilsWare(p, utensilsBowl).getItem(0).is(item("foodwan").getItem())
                                     && utensilsWare(p, utensilsBowl).getItem(0).getCount() == 1
                                     && !utensilsWare(p, utensilsBowl).getItem(0).has(DataComponents.CUSTOM_NAME)
@@ -2274,7 +2328,12 @@ final class FuluCookingCheck extends ActionCheck {
                 }),
                 new Action(180, p -> {}),
                 new Action(8, p -> {
-                    expectTrue("自然等待至少160服务端刻后刀架置AIR、案板标记和计时归零且食材不变无产物",
+                    expectTrue("自然等待至少160服务端刻后刀架置AIR、案板标记和计时归零且食材不变无产物；elapsed="
+                                    + (p.serverLevel().getGameTime() - utensilsCutStarted)
+                                    + " above=" + p.serverLevel().getBlockState(utensilsBoard.above())
+                                    + " data=" + utensilsBoard(p).getPersistentData()
+                                    + " food=" + utensilsBoard(p).getItem(0) + " slot7=" + utensilsBoard(p).getItem(7)
+                                    + " held=" + p.getMainHandItem() + " drops=" + utensilsDropSummary(),
                             p.serverLevel().getGameTime() - utensilsCutStarted >= 160
                                     && p.serverLevel().isEmptyBlock(utensilsBoard.above())
                                     && !utensilsBoard(p).getPersistentData().getBoolean("qiecaibegin")
@@ -2482,7 +2541,6 @@ final class FuluCookingCheck extends ActionCheck {
             if (event.getLevel() == player.serverLevel() && event.getEntity() instanceof ItemEntity drop
                     && drop.position().distanceToSqr(Vec3.atCenterOf(utensilsBoard)) < 64) utensilsDrops.add(drop);
         };
-        NeoForge.EVENT_BUS.addListener(utensilsDropListener);
         for (BlockPos center : List.of(utensilsBowl, utensilsPlate, utensilsLargeBowl, utensilsBoard)) {
             for (int height = -1; height <= 2; height++) {
                 BlockPos at = center.above(height).immutable();
@@ -2506,6 +2564,8 @@ final class FuluCookingCheck extends ActionCheck {
         player.serverLevel().setBlockAndUpdate(utensilsLargeBowl, block("fooddawan"));
         player.serverLevel().setBlockAndUpdate(utensilsBoard,
                 block("anban").setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
+        // 场地准备完成后监听交互产物，清场邻居更新产生的掉落不计入设备产出。
+        NeoForge.EVENT_BUS.addListener(utensilsDropListener);
     }
 
     private void utensilsHeld(ServerPlayer player, ItemStack stack) {
@@ -2539,6 +2599,10 @@ final class FuluCookingCheck extends ActionCheck {
             if (stack.is(item)) count += stack.getCount();
         }
         return count;
+    }
+
+    private String utensilsDropSummary() {
+        return utensilsDrops.stream().map(drop -> drop.getItem() + "@" + drop.blockPosition()).toList().toString();
     }
 
     private static ItemStack utensilsFind(ServerPlayer player, Item item) {

@@ -2380,16 +2380,16 @@ yvanchuxiuzhen,Shicai001Plant06,plant,~/plant/crop,plant,已读,B1 归属阅读�
 yvanchuxiuzhen,Shicai001Plant07,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用；2026-11-10 来源复核：水稻001八阶段、湿度与20%生长、原生种植、骨粉50%与上下写入、成熟种子及成熟地物规则；归plant生长收获职责，具体边界见plant/architecture.md及source-evidence.csv
 yvanchuxiuzhen,Shicai001Plant08,plant,~/plant/crop,plant,已读,B1 归属阅读：作物成熟阶段或收获物，无过程；只在配方、标签或战利品表中出现；2026-11-10 来源复核：水稻001八阶段、湿度与20%生长、原生种植、骨粉50%与上下写入、成熟种子及成熟地物规则；归plant生长收获职责，具体边界见plant/architecture.md及source-evidence.csv
 yvanchuxiuzhen,Shicai00102,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 liandan 的 GrindGo 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
-yvanchuxiuzhen,Shicai002seed,item,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai002Plant01GengXinYouXiKe,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai002Plant01 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai002Plant01,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai002Plant02,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai002Plant03,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai002Plant04,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai002Plant05,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai002Plant06,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai002Plant07,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,Shicai002Plant08,plant,~/plant/crop,plant,已读,B1 归属阅读：作物成熟阶段或收获物，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Shicai002seed,item,~/plant/crop,plant,已读,2026-11-10 糯稻002完整来源核对：原生耕地播种，湿度7与20%推进，01–07骨粉50%；002骨粉默认成熟不复制属性，08随机刻属性无生长回调，下半6种子；自然投放待World两维度及autumn01/02
+yvanchuxiuzhen,Shicai002Plant01GengXinYouXiKe,procedure,~/plant/crop,plant,已读,2026-11-10 糯稻002完整来源核对：原生耕地播种，湿度7与20%推进，01–07骨粉50%；002骨粉默认成熟不复制属性，08随机刻属性无生长回调，下半6种子；自然投放待World两维度及autumn01/02
+yvanchuxiuzhen,Shicai002Plant01,plant,~/plant/crop,plant,已读,2026-11-10 糯稻002完整来源核对：原生耕地播种，湿度7与20%推进，01–07骨粉50%；002骨粉默认成熟不复制属性，08随机刻属性无生长回调，下半6种子；自然投放待World两维度及autumn01/02
+yvanchuxiuzhen,Shicai002Plant02,plant,~/plant/crop,plant,已读,2026-11-10 糯稻002完整来源核对：原生耕地播种，湿度7与20%推进，01–07骨粉50%；002骨粉默认成熟不复制属性，08随机刻属性无生长回调，下半6种子；自然投放待World两维度及autumn01/02
+yvanchuxiuzhen,Shicai002Plant03,plant,~/plant/crop,plant,已读,2026-11-10 糯稻002完整来源核对：原生耕地播种，湿度7与20%推进，01–07骨粉50%；002骨粉默认成熟不复制属性，08随机刻属性无生长回调，下半6种子；自然投放待World两维度及autumn01/02
+yvanchuxiuzhen,Shicai002Plant04,plant,~/plant/crop,plant,已读,2026-11-10 糯稻002完整来源核对：原生耕地播种，湿度7与20%推进，01–07骨粉50%；002骨粉默认成熟不复制属性，08随机刻属性无生长回调，下半6种子；自然投放待World两维度及autumn01/02
+yvanchuxiuzhen,Shicai002Plant05,plant,~/plant/crop,plant,已读,2026-11-10 糯稻002完整来源核对：原生耕地播种，湿度7与20%推进，01–07骨粉50%；002骨粉默认成熟不复制属性，08随机刻属性无生长回调，下半6种子；自然投放待World两维度及autumn01/02
+yvanchuxiuzhen,Shicai002Plant06,plant,~/plant/crop,plant,已读,2026-11-10 糯稻002完整来源核对：原生耕地播种，湿度7与20%推进，01–07骨粉50%；002骨粉默认成熟不复制属性，08随机刻属性无生长回调，下半6种子；自然投放待World两维度及autumn01/02
+yvanchuxiuzhen,Shicai002Plant07,plant,~/plant/crop,plant,已读,2026-11-10 糯稻002完整来源核对：原生耕地播种，湿度7与20%推进，01–07骨粉50%；002骨粉默认成熟不复制属性，08随机刻属性无生长回调，下半6种子；自然投放待World两维度及autumn01/02
+yvanchuxiuzhen,Shicai002Plant08,plant,~/plant/crop,plant,已读,2026-11-10 糯稻002完整来源核对：原生耕地播种，湿度7与20%推进，01–07骨粉50%；002骨粉默认成熟不复制属性，08随机刻属性无生长回调，下半6种子；自然投放待World两维度及autumn01/02
 yvanchuxiuzhen,Shicai00202,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 liandan 的 GrindGo 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
 yvanchuxiuzhen,Shicai004PlantGengXinYouXiKe,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai004Plant01 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,Shicai004Plant01,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
@@ -2420,7 +2420,7 @@ yvanchuxiuzhen,Shicai006Plant06,plant,~/plant/crop,plant,已读,B1 归属阅读�
 yvanchuxiuzhen,Shicai006Plant07,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,Shicai006Plant08,plant,~/plant/crop,plant,已读,B1 归属阅读：作物成熟阶段或收获物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Shicai001seedhecheng,recipe,~/plant/crop,cooking,已读,2026-11-10 两配方专项复核：4个shicai_001seed生成1个shicai_001大米；功能为将植物种子加工成Cooking食材，输出自身无种植事件，商品/宝箱/Craft研磨按ID引用不改食材归属；依据system-design从玩家入口到结果的功能规则，种子Plant身份不决定该食材配方owner
-yvanchuxiuzhen,Shicai002seedhecheng,recipe,~/plant/crop,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Shicai002seedhecheng,recipe,~/plant/crop,cooking,已读,2026-11-10 完整读取配方定义/JSON及糯米物品类：4个糯稻种子转1糯米，输出没有种植行为，是Cooking食材加工入口；Plant提供种子，跨系统仅按ID引用，按已批准功能职责归Cooking，不按输入归属
 yvanchuxiuzhen,Shicai006seedhecheng,recipe,~/plant/crop,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Shicai007Plant01DangGuFenChengGongShiYong,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai007Plant01 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,Shicai007Plant01GengXinYouXiKe,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 Shicai007Plant01 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用

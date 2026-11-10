@@ -7,10 +7,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Blocks;
 
-/** Shicai001种子仅在朝上点击原版耕地空位时播种。 */
-public final class Shicai001SeedItem extends Item {
-    public Shicai001SeedItem(Properties properties) {
+/** 001与002种子仅在朝上点击原版耕地空位时播种。 */
+public final class CerealSeedItem extends Item {
+    private final CerealCrop crop;
+
+    public CerealSeedItem(Properties properties, CerealCrop crop) {
         super(properties);
+        this.crop = crop;
     }
 
     @Override
@@ -19,7 +22,7 @@ public final class Shicai001SeedItem extends Item {
                 && context.getLevel().getBlockState(context.getClickedPos()).is(Blocks.FARMLAND)) {
             BlockPos plantPos = context.getClickedPos().above();
             if (context.getLevel().isEmptyBlock(plantPos)) {
-                context.getLevel().setBlock(plantPos, Shicai001Behavior.block(1).defaultBlockState(), 3);
+                context.getLevel().setBlock(plantPos, crop.block(1).defaultBlockState(), 3);
                 context.getItemInHand().shrink(1);
             }
         }

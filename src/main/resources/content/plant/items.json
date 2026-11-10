@@ -173,7 +173,7 @@
 {"id":"shicai_001_plant_06","factory":"block_item","block":"shicai_001_plant_06","order":1230,"double":true},
 {"id":"shicai_001_plant_07","factory":"block_item","block":"shicai_001_plant_07","order":1231,"double":true},
 {"id":"shicai_001_plant_08","factory":"block_item","block":"shicai_001_plant_08","order":1232,"double":true},
-{"id":"shicai_002seed","factory":"item","order":1234,"tab":"yvanchuxiuzhen:tabyvanchu_food","pending_hooks":["useOn"]},
+{"id":"shicai_002seed","factory":"plant:shicai002_seed","order":1234,"tab":"yvanchuxiuzhen:tabyvanchu_food"},
 {"id":"shicai_002_plant_01","factory":"block_item","block":"shicai_002_plant_01","order":1235},
 {"id":"shicai_002_plant_02","factory":"block_item","block":"shicai_002_plant_02","order":1236},
 {"id":"shicai_002_plant_03","factory":"block_item","block":"shicai_002_plant_03","order":1237},

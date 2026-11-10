@@ -1,4 +1,4 @@
-"""Generate Shicai001 worldgen data with source-hash tracking."""
+"""Generate the two source-verified cereal features with source-hash tracking."""
 from __future__ import annotations
 
 from build_ledger import NAMESPACE
@@ -8,10 +8,15 @@ DATA = ROOT / 'src/main/resources/data'
 
 
 def generate(converter) -> None:
+    for number in ('001', '002'):
+        generate_cereal(converter, number)
+
+
+def generate_cereal(converter, number: str) -> None:
     mod = 'yvanchuxiuzhen'
     root = SOURCES[mod][0]
-    source = root / 'src/main/java/net/mcreator/yvanchuxiuzhen/world/features/plants/Shicai001Plant08Feature.java'
-    feature = f'{NAMESPACE}:shicai_001_plant_08'
+    source = root / f'src/main/java/net/mcreator/yvanchuxiuzhen/world/features/plants/Shicai{number}Plant08Feature.java'
+    feature = f'{NAMESPACE}:shicai_{number}_plant_08'
 
     configured = {
         'type': feature,
@@ -53,7 +58,7 @@ def generate(converter) -> None:
         ],
     }
 
-    converter.write(DATA / NAMESPACE / 'worldgen/configured_feature/shicai_001_plant_08.json', configured,
+    converter.write(DATA / NAMESPACE / f'worldgen/configured_feature/shicai_{number}_plant_08.json', configured,
                     [(mod, source)])
-    converter.write(DATA / NAMESPACE / 'worldgen/placed_feature/shicai_001_plant_08.json', placed,
+    converter.write(DATA / NAMESPACE / f'worldgen/placed_feature/shicai_{number}_plant_08.json', placed,
                     [(mod, source)])
