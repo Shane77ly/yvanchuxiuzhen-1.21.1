@@ -26,7 +26,7 @@ BASE = SOURCES[MOD][0] / f'src/main/java/net/mcreator/{MOD}'
 ASSETS = ROOT / 'docs/reference/conversion/system_assets.csv'
 OWNERSHIP = ROOT / 'docs/reference/legacy/inventory/ownership_assignment.csv'
 BLOCK_ANIMATIONS = {
-    'cooking': [(kind, name) for name in ('fooddaguo', 'fooddunguo', 'foodzhengguo', 'foodlongti')
+    'cooking': [(kind, name) for name in ('fooddaguo', 'fooddunguo', 'foodzhengguo', 'foodlongti', 'caidaoblock')
                 for kind in ('geo', 'animation')],
     'fulu': [('geo', 'chuancheng'), ('animation', 'chuancheng')],
     'craft': [(kind, name) for name in ('stonemill', 'stoneroller', 'zhibuji', 'mugongtai', 'saosilun', 'taolun', 'canhe')
@@ -150,7 +150,8 @@ def main() -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text('[\n' + ',\n'.join(json.dumps({'id': key, **value}, ensure_ascii=False, separators=(',', ':'))
                                        for key, value in sorted(rows.items())) + '\n]\n', encoding='utf-8', newline='\n')
-    textures = {row['texture'] for row in rows.values()} | referenced_textures(names if owner != 'skill' else []) | {row['glow'] for row in rows.values() if 'glow' in row}
+    dynamic_textures = referenced_textures([]) if owner == 'skill' else referenced_textures(names) if names else set()
+    textures = {row['texture'] for row in rows.values()} | dynamic_textures | {row['glow'] for row in rows.values() if 'glow' in row}
     with ASSETS.open(encoding='utf-8', newline='') as handle:
         kept = [row for row in csv.reader(handle) if row and (row[0] != owner or row[1] not in ('geo', 'animation')
                 and not (row[1] == 'texture' and row[2].startswith(f'{NAMESPACE}:entities/')))]

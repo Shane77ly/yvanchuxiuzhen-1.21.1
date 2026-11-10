@@ -2354,7 +2354,7 @@ yvanchuxiuzhen,Caidao,tool,~/tool,cooking,已读,B1 归属阅读：食材或调�
 yvanchuxiuzhen,CaidaoblockDangPiLinFangKuaiGengXinShi,procedure,~/tool,cooking,已读,B1 归属阅读：随 Caidaoblock 读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
 yvanchuxiuzhen,CaidaoblockGengXinYouXiKe,procedure,~/tool,cooking,已读,B1 归属阅读：随 Caidaoblock 读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
 yvanchuxiuzhen,Caidaoblock,animatedblock,~/tool,cooking,已读,B1 归属阅读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
-yvanchuxiuzhen,Foodanban,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Foodanban,tag,~/tag,cooking,已读,完整读取标签及两工程调用者；只用于案板右键食材准入，归烹饪职责；标签本身不定义转化产物
 yvanchuxiuzhen,Food078,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Food079,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Food080,item,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
@@ -4657,8 +4657,8 @@ yvanchuxiuzhen,Cailiao215hecheng,recipe,~/item/metal,material,候选,第一版�
 yvanchuxiuzhen,Cailiao216hecheng,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao217hecheng,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao219hecheng,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,ShipuGo,procedure,~/systemset/zhiling,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shipu,command,~/systemset/zhiling,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,ShipuGo,procedure,~/systemset/zhiling,cooking,已读,2026-11-10 来源全文核对：shipu权限1生成菜谱载体、名称与烹饪字段；无MenuName、数字失败0、无效载体空发放；库存原生交付，无其他系统字段访问
+yvanchuxiuzhen,Shipu,command,~/systemset/zhiling,cooking,已读,2026-11-10 来源全文核对：shipu权限1生成菜谱载体、名称与烹饪字段；无MenuName、数字失败0、无效载体空发放；库存原生交付，无其他系统字段访问
 yvanchuxiuzhen,ShanghaiGo,procedure,~/systemset/zhiling/shanghai,combat,已读,C combat 归属阅读：/shanghai 的灵力与神识伤害结算、闪避、符箓复活、击杀统计
 yvanchuxiuzhen,Shanghai,command,~/systemset/zhiling/shanghai,combat,已读,C combat 归属阅读：命令 /shanghai 的注册，调用 ShanghaiGo
 yvanchuxiuzhen,Zhilingdamage,procedure,~/systemset/zhiling/shanghai,combat,已读,C combat 归属阅读：/shanghai 攻击量（灵力或神识攻击、五行体质与功法、手持附魔、相生相克、暴击）
@@ -6065,13 +6065,13 @@ yvanchuxitong,Anban,block,~/yvanchupengren,cooking,已读,B1 归属阅读：案�
 yvanchuxitong,AnbanFangZhiFangKuaiShi,procedure,~/yvanchupengren,cooking,已读,B1 归属阅读：随 Anban 读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
 yvanchuxitong,AnbanGengXinYouXiKe,procedure,~/yvanchupengren,cooking,已读,B1 归属阅读：随 Anban 读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
 yvanchuxitong,Chulishicai,item,~/yvanchupengren,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
-yvanchuxitong,FoodwanFangKuaiShiTiXuanRanShi,procedure,~/yvanchupengren,cooking,已读,B1 归属阅读：随 Foodwan 读：碗盘：盛放与取用菜品，只改本方块物品栏
-yvanchuxitong,FoodwanZaiFangKuaiShangYouJian,procedure,~/yvanchupengren,cooking,已读,B1 归属阅读：随 Foodcipan 读：碗盘：盛放与取用菜品，只改本方块物品栏
-yvanchuxitong,Foodwan,block,~/yvanchupengren,cooking,已读,B1 归属阅读：碗盘：盛放与取用菜品，只改本方块物品栏
-yvanchuxitong,FoodcipanFangKuaiShiTiXuanRanShi,procedure,~/yvanchupengren,cooking,已读,B1 归属阅读：随 Foodcipan 读：碗盘：盛放与取用菜品，只改本方块物品栏
-yvanchuxitong,Foodcipan,block,~/yvanchupengren,cooking,已读,B1 归属阅读：碗盘：盛放与取用菜品，只改本方块物品栏
-yvanchuxitong,FooddawanFangKuaiShiTiXuanRanShi,procedure,~/yvanchupengren,cooking,已读,B1 归属阅读：随 Fooddawan 读：碗盘：盛放与取用菜品，只改本方块物品栏
-yvanchuxitong,Fooddawan,block,~/yvanchupengren,cooking,已读,B1 归属阅读：碗盘：盛放与取用菜品，只改本方块物品栏
+yvanchuxitong,FoodwanFangKuaiShiTiXuanRanShi,procedure,~/yvanchupengren,cooking,已读,2026-11-10 静态复核：三种餐具单槽3/7/2取放与生命周期，玩家原生库存交付；只读写cooking自身库存/显示，无其他系统持久字段访问
+yvanchuxitong,FoodwanZaiFangKuaiShangYouJian,procedure,~/yvanchupengren,cooking,已读,2026-11-10 静态复核：三种餐具单槽3/7/2取放与生命周期，玩家原生库存交付；只读写cooking自身库存/显示，无其他系统持久字段访问
+yvanchuxitong,Foodwan,block,~/yvanchupengren,cooking,已读,2026-11-10 静态复核：三种餐具单槽3/7/2取放与生命周期，玩家原生库存交付；只读写cooking自身库存/显示，无其他系统持久字段访问
+yvanchuxitong,FoodcipanFangKuaiShiTiXuanRanShi,procedure,~/yvanchupengren,cooking,已读,2026-11-10 静态复核：三种餐具单槽3/7/2取放与生命周期，玩家原生库存交付；只读写cooking自身库存/显示，无其他系统持久字段访问
+yvanchuxitong,Foodcipan,block,~/yvanchupengren,cooking,已读,2026-11-10 静态复核：三种餐具单槽3/7/2取放与生命周期，玩家原生库存交付；只读写cooking自身库存/显示，无其他系统持久字段访问
+yvanchuxitong,FooddawanFangKuaiShiTiXuanRanShi,procedure,~/yvanchupengren,cooking,已读,2026-11-10 静态复核：三种餐具单槽3/7/2取放与生命周期，玩家原生库存交付；只读写cooking自身库存/显示，无其他系统持久字段访问
+yvanchuxitong,Fooddawan,block,~/yvanchupengren,cooking,已读,2026-11-10 静态复核：三种餐具单槽3/7/2取放与生命周期，玩家原生库存交付；只读写cooking自身库存/显示，无其他系统持久字段访问
 yvanchuxitong,Foodtiepan,block,~/yvanchupengren,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
 yvanchuxitong,TiandaojianzhuDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/zhuangshiwu/jianzhubi,decor,已读,B1 归属阅读：随 Tiandaojianzhu 读：天道铺设瓦片神笔：右键批量铺设屋顶瓦片（WudingPlace 等），只改建筑方块，属建筑方块的专属工具
 yvanchuxitong,Tiandaojianzhu,tool,~/zhuangshiwu/jianzhubi,decor,已读,B1 归属阅读：天道铺设瓦片神笔：右键批量铺设屋顶瓦片（WudingPlace 等），只改建筑方块，属建筑方块的专属工具

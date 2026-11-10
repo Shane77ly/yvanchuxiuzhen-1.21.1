@@ -8,6 +8,12 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
+import net.yvanchuxiuzhen.system.cooking.content.CuttingBoardBlock;
+import net.yvanchuxiuzhen.system.cooking.content.CleaverBlock;
+import net.yvanchuxiuzhen.system.cooking.content.CleaverBlockItem;
+import net.yvanchuxiuzhen.system.cooking.content.CuttingBlockEntities;
+import net.yvanchuxiuzhen.system.cooking.content.TablewareBlock;
+import net.yvanchuxiuzhen.system.cooking.content.TablewareBlockEntities;
 import net.yvanchuxiuzhen.system.cooking.content.CookingBlockEntities;
 import net.yvanchuxiuzhen.system.cooking.content.CookingMenus;
 import net.yvanchuxiuzhen.system.cooking.content.CookingPotBlock;
@@ -38,6 +44,16 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
  */
 public final class CookingSetup {
     private static final ContentTables CONTENT = new ContentTables("cooking")
+            .blockFactory("cooking:cutting_board", traits -> ContentBlock.create(traits, CuttingBoardBlock::new))
+            .blockFactory("cooking:cleaver", traits -> ContentBlock.create(traits, CleaverBlock::new))
+            .itemFactory("cooking:cleaver", (properties, tooltip) -> new CleaverBlockItem(
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "caidaoblock")), properties, tooltip))
+            .blockFactory("cooking:bowl", traits -> ContentBlock.create(traits,
+                    row -> new TablewareBlock.Waterlogged(row, TablewareBlock.Kind.BOWL)))
+            .blockFactory("cooking:plate", traits -> ContentBlock.create(traits,
+                    row -> new TablewareBlock(row, TablewareBlock.Kind.PLATE)))
+            .blockFactory("cooking:large_bowl", traits -> ContentBlock.create(traits,
+                    row -> new TablewareBlock.Waterlogged(row, TablewareBlock.Kind.LARGE_BOWL)))
             .blockFactory("cooking:plated_food", traits -> ContentBlock.create(traits, PlatedFoodBlock::new))
             .itemFactory("cooking:meal_food", MealFoodItem::new)
             .itemFactory("cooking:poisonous_food", PoisonousFoodItem::new)
@@ -73,6 +89,10 @@ public final class CookingSetup {
     public static void register(IEventBus modBus) {
         CONTENT.effectBehavior("effect_031", new FastingEffect());
         CONTENT.register(modBus);
+        NeoForge.EVENT_BUS.addListener(CookingRecipeCommands::register);
+        TablewareBlockEntities.register(modBus);
+        CuttingBlockEntities.register(modBus);
+        NeoForge.EVENT_BUS.addListener(CuttingRuntime::leftClick);
         CookingBlockEntities.register(modBus);
         CookingMenus.register(modBus);
         SteamerBlockEntities.register(modBus);

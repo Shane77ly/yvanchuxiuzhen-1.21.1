@@ -1,5 +1,11 @@
 package net.yvanchuxiuzhen.smoke;
 
+import net.minecraft.client.gui.screens.inventory.ContainerScreen;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.material.Fluid;
+import net.yvanchuxiuzhen.system.cooking.content.CleaverBlock;
+import net.yvanchuxiuzhen.system.cooking.content.CuttingBlockEntity;
+import net.yvanchuxiuzhen.system.cooking.content.TablewareBlockEntity;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import java.util.ArrayList;
@@ -213,6 +219,32 @@ final class FuluCookingCheck extends ActionCheck {
     private ItemStack foodEatingBefore = ItemStack.EMPTY;
     private Consumer<ClientTickEvent.Pre> foodRelease;
     private Consumer<EntityJoinLevelEvent> foodDropListener;
+
+    private boolean utensilsActive;
+    private BlockPos utensilsBowl;
+    private BlockPos utensilsPlate;
+    private BlockPos utensilsLargeBowl;
+    private BlockPos utensilsBoard;
+    private final Map<BlockPos, BlockState> utensilsBlocks = new LinkedHashMap<>();
+    private final Map<BlockPos, CompoundTag> utensilsEntities = new LinkedHashMap<>();
+    private final Map<BlockPos, List<ScheduledTick<Block>>> utensilsTicks = new LinkedHashMap<>();
+    private final Map<BlockPos, List<ScheduledTick<Fluid>>> utensilsFluidTicks = new LinkedHashMap<>();
+    private final List<ItemStack> utensilsInventory = new ArrayList<>();
+    private final List<ItemEntity> utensilsDrops = new ArrayList<>();
+    private Consumer<EntityJoinLevelEvent> utensilsDropListener;
+    private Vec3 utensilsPosition;
+    private Vec3 utensilsMotion;
+    private float utensilsYaw;
+    private float utensilsPitch;
+    private int utensilsSelected;
+    private GameType utensilsMode;
+    private boolean utensilsFlying;
+    private boolean utensilsShift;
+    private boolean utensilsUse;
+    private boolean utensilsAttack;
+    private int utensilsCountBefore;
+    private long utensilsCutStarted;
+    private boolean utensilsSpectatorBowl;
 
     FuluCookingCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("fulucooking", report, levelId);
@@ -1921,8 +1953,386 @@ final class FuluCookingCheck extends ActionCheck {
                             p.getMainHandItem().is(item("food_084").getItem()) && p.getMainHandItem().getCount() == 1
                                     && !p.getInventory().contains(new ItemStack(Items.BONE)) && foodDrops.isEmpty());
                     restoreFoodSmoke(p);
-                })
+                }),
+                new Action(8, p -> {
+                    p.getInventory().clearContent();
+                    String command = "shipu minecraft:paper 竹笼蒸菜 2 简介 2 无 yvanchuxiuzhen:food_007 蒸锅 minecraft:carrot minecraft:potato";
+                    p.server.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(0).withSuppressedOutput(), command);
+                    expectTrue("菜谱管理命令权限0不能生成物品", !p.getInventory().contains(new ItemStack(Items.PAPER)));
+                    p.server.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(1).withSuppressedOutput(), command);
+                    ItemStack recipe = p.getInventory().getItem(0);
+                    CompoundTag data = recipe.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    ItemStack restored = ItemStack.parse(p.registryAccess(), recipe.save(p.registryAccess())).orElseThrow();
+                    expectTrue("权限1菜谱命令生成中文纸载体与Double字段，保存读回仍缺来源未写的MenuName",
+                            recipe.is(Items.PAPER) && recipe.getHoverName().getString().equals("竹笼蒸菜")
+                                    && data.getDouble("belongTopinjie") == 2 && data.getString("belongTopinjietext").equals("二级")
+                                    && data.getDouble("cookanimation") == 2 && data.getString("MenuType").equals("蒸锅")
+                                    && data.getString("cailiao00").equals("minecraft:carrot")
+                                    && data.getString("cailiao01").equals("minecraft:potato")
+                                    && !data.contains("cailiao02") && !data.contains("MenuName")
+                                    && ItemStack.isSameItemSameComponents(recipe, restored));
+                    p.getInventory().clearContent();
+                    p.server.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(1).withSuppressedOutput(),
+                            "shipu minecraft:paper 简谱 非数字 简介 非数字");
+                    CompoundTag fallback = p.getInventory().getItem(0).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    expectTrue("菜谱命令数字解析失败写零，缺失容器材料为空且品阶文字沿来源",
+                            fallback.getDouble("belongTopinjie") == 0 && fallback.getDouble("cookanimation") == 0
+                                    && fallback.getString("belongTopinjietext").equals("无品级")
+                                    && fallback.getString("needcontainer").isEmpty() && !fallback.contains("cailiao00"));
+                    p.getInventory().clearContent();
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                // 餐具与案板：真实客户端输入；未执行来源过程或设备tick代替自然入口。
+                new Action(12, p -> {
+                    prepareUtensils(p);
+                    utensilsWare(p, utensilsBowl).setItem(0, item("foodwan", 2));
+                    utensilsWare(p, utensilsPlate).setItem(0, item("foodcipan", 6));
+                    utensilsWare(p, utensilsLargeBowl).setItem(0, item("fooddawan", 1));
+                    utensilsHeld(p, item("foodwan", 2));
+                }),
+                new Action(8, p -> useBlock(utensilsBowl)),
+                new Action(8, p -> {
+                    expectTrue("碗真实右键由2叠至3，手持2减至1且客户端库存层同步",
+                            utensilsWare(p, utensilsBowl).getItem(0).getCount() == 3
+                                    && p.getMainHandItem().getCount() == 1 && utensilsClientCount(utensilsBowl) == 3);
+                    utensilsHeld(p, item("foodcipan", 2));
+                }),
+                new Action(8, p -> useBlock(utensilsPlate)),
+                new Action(8, p -> {
+                    expectTrue("瓷盘真实右键由6叠至7，手持2减至1且客户端库存层同步",
+                            utensilsWare(p, utensilsPlate).getItem(0).getCount() == 7
+                                    && p.getMainHandItem().getCount() == 1 && utensilsClientCount(utensilsPlate) == 7);
+                    utensilsHeld(p, item("fooddawan", 2));
+                }),
+                new Action(8, p -> useBlock(utensilsLargeBowl)),
+                new Action(8, p -> {
+                    expectTrue("大碗真实右键由1叠至2，手持2减至1且客户端库存层同步",
+                            utensilsWare(p, utensilsLargeBowl).getItem(0).getCount() == 2
+                                    && p.getMainHandItem().getCount() == 1 && utensilsClientCount(utensilsLargeBowl) == 2);
+                    minecraft.execute(() -> screenshots.take("cooking-tableware-stacks.png"));
+                    boolean full = true;
+                    BlockPos[] positions = {utensilsBowl, utensilsPlate, utensilsLargeBowl};
+                    String[] identities = {"foodwan", "foodcipan", "fooddawan"};
+                    int[] capacities = {3, 7, 2};
+                    for (int index = 0; index < positions.length; index++) {
+                        p.setItemInHand(InteractionHand.MAIN_HAND, item(identities[index], 2));
+                        p.gameMode.useItemOn(p, p.serverLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND,
+                                utensilsHit(positions[index]));
+                        full &= p.getMainHandItem().getCount() == 2
+                                && utensilsWare(p, positions[index]).getItem(0).getCount() == capacities[index];
+                    }
+                    expectTrue("三种餐具达到3/7/2上限后经原生服务端右键不再扣料或增加库存", full);
+                    boolean automation = true;
+                    for (int index = 0; index < positions.length; index++) {
+                        TablewareBlockEntity ware = utensilsWare(p, positions[index]);
+                        ware.clearContent();
+                        for (Direction direction : Direction.values()) {
+                            IItemHandler handler = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, positions[index], direction);
+                            ItemStack remainder = handler.insertItem(0, new ItemStack(Items.STICK, capacities[index] + 1), false);
+                            automation &= remainder.getCount() == 1
+                                    && handler.extractItem(0, capacities[index], false).getCount() == capacities[index];
+                        }
+                        IItemHandler unsided = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, positions[index], null);
+                        automation &= unsided.insertItem(0, new ItemStack(Items.STICK), false).isEmpty()
+                                && unsided.extractItem(0, 1, false).is(Items.STICK);
+                        ware.setItem(0, new ItemStack(Items.WOODEN_SWORD, 8));
+                        automation &= ware.getItem(0).getCount() == capacities[index];
+                        ware.clearContent();
+                    }
+                    expectTrue("餐具六面和无方向可插取异物，普通插入守容量，强制赋槽仅按3/7/2截量", automation);
+                    utensilsWare(p, utensilsBowl).setItem(0, new ItemStack(Items.DIAMOND, 2));
+                    p.setGameMode(GameType.CREATIVE);
+                    ItemStack named = item("foodwan");
+                    named.set(DataComponents.CUSTOM_NAME, Component.literal("受控餐具组件"));
+                    utensilsHeld(p, named);
+                }),
+                new Action(8, p -> useBlock(utensilsBowl)),
+                new Action(8, p -> {
+                    expectTrue("创造模式叠放仍扣尽主手，槽内钻石被覆盖且新碗不继承手持组件",
+                            p.getMainHandItem().isEmpty() && utensilsWare(p, utensilsBowl).getItem(0).is(item("foodwan").getItem())
+                                    && utensilsWare(p, utensilsBowl).getItem(0).getCount() == 1
+                                    && !utensilsWare(p, utensilsBowl).getItem(0).has(DataComponents.CUSTOM_NAME)
+                                    && utensilsCount(p, Items.DIAMOND) == 0 && utensilsDrops.isEmpty());
+                    p.setGameMode(GameType.SURVIVAL);
+                    ItemStack returned = new ItemStack(Items.EMERALD, 2);
+                    returned.set(DataComponents.CUSTOM_NAME, Component.literal("取出组件保留"));
+                    utensilsWare(p, utensilsBowl).setItem(0, returned);
+                    utensilsHeld(p, ItemStack.EMPTY);
+                    utensilsCountBefore = utensilsCount(p, Items.EMERALD);
+                }),
+                new Action(8, p -> useBlock(utensilsBowl)),
+                new Action(8, p -> {
+                    ItemStack received = utensilsFind(p, Items.EMERALD);
+                    expectTrue("空主手真实右键只取槽内一件，返回组件保留，底座和余栈仍存在",
+                            utensilsCount(p, Items.EMERALD) == utensilsCountBefore + 1
+                                    && received.getHoverName().getString().equals("取出组件保留")
+                                    && utensilsWare(p, utensilsBowl).getItem(0).getCount() == 1
+                                    && utensilsClientCount(utensilsBowl) == 1);
+                    utensilsWare(p, utensilsBowl).clearContent();
+                    utensilsHeld(p, ItemStack.EMPTY);
+                    utensilsCountBefore = utensilsCount(p, item("foodwan").getItem());
+                }),
+                new Action(8, p -> useBlock(utensilsBowl)),
+                new Action(8, p -> {
+                    expectTrue("空餐具真实收底座交付一件并使服务端与客户端均成为AIR",
+                            p.serverLevel().isEmptyBlock(utensilsBowl) && minecraft.level.isEmptyBlock(utensilsBowl)
+                                    && utensilsCount(p, item("foodwan").getItem()) == utensilsCountBefore + 1);
+                    for (BlockPos at : List.of(utensilsPlate, utensilsLargeBowl)) {
+                        utensilsWare(p, at).clearContent();
+                        p.serverLevel().setBlockAndUpdate(at, Blocks.AIR.defaultBlockState());
+                    }
+                    utensilsHeld(p, new ItemStack(Items.CARROT));
+                }),
+                new Action(8, p -> useBlock(utensilsBoard)),
+                new Action(8, p -> {
+                    expectTrue("案板真实放入1件时共享原栈随后减至0，主手与槽0均为空",
+                            p.getMainHandItem().isEmpty() && utensilsBoard(p).getItem(0).isEmpty());
+                    utensilsHeld(p, new ItemStack(Items.CARROT, 64));
+                }),
+                new Action(8, p -> useBlock(utensilsBoard)),
+                new Action(8, p -> {
+                    CuttingBlockEntity board = utensilsBoard(p);
+                    expectTrue("案板真实放入64件后同一引用在主手与槽0均为63，跨端快照保留63",
+                            board.getItem(0) == p.getMainHandItem() && board.getItem(0).getCount() == 63
+                                    && minecraft.level.getBlockEntity(utensilsBoard) instanceof CuttingBlockEntity mirror
+                                    && mirror.getItem(0).getCount() == 63 && minecraft.player.getMainHandItem().getCount() == 63);
+                    p.serverLevel().setBlockAndUpdate(utensilsBowl, block("foodwan"));
+                    ItemStack savedWare = item("foodwan", 3);
+                    savedWare.set(DataComponents.CUSTOM_NAME, Component.literal("保存餐具"));
+                    utensilsWare(p, utensilsBowl).setItem(0, savedWare);
+                    board.getPersistentData().putInt("jiaodu", -90);
+                    board.getPersistentData().putBoolean("qiecaibegin", true);
+                    board.getPersistentData().putInt("tick", 3);
+                    TablewareBlockEntity wareCopy = (TablewareBlockEntity) BlockEntity.loadStatic(utensilsBowl,
+                            utensilsWare(p, utensilsBowl).getBlockState(),
+                            utensilsWare(p, utensilsBowl).saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    CuttingBlockEntity boardCopy = (CuttingBlockEntity) BlockEntity.loadStatic(utensilsBoard,
+                            board.getBlockState(), board.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("餐具带组件库存及案板63件/方向/切菜状态经原生保存读回一致",
+                            wareCopy != null && ItemStack.matches(wareCopy.getItem(0), savedWare)
+                                    && boardCopy != null && ItemStack.matches(boardCopy.getItem(0), board.getItem(0))
+                                    && boardCopy.getPersistentData().equals(board.getPersistentData()));
+                    board.getPersistentData().putBoolean("qiecaibegin", false);
+                    board.getPersistentData().putInt("tick", 0);
+                    board.setItem(7, new ItemStack(Items.POTATO));
+                    board.setItem(8, new ItemStack(Items.BEETROOT));
+                    board.changed();
+                    utensilsHeld(p, ItemStack.EMPTY);
+                    utensilsCountBefore = utensilsCount(p, Items.BEETROOT);
+                    stoneMillSneak(true);
+                }),
+                new Action(8, p -> useBlock(utensilsBoard)),
+                new Action(8, p -> {
+                    expectTrue("空主手潜行真实收料按8至0逆序，只交付槽8一件并清该槽",
+                            p.isShiftKeyDown() && utensilsBoard(p).getItem(8).isEmpty()
+                                    && utensilsBoard(p).getItem(7).is(Items.POTATO)
+                                    && utensilsBoard(p).getItem(0).getCount() == 63
+                                    && utensilsCount(p, Items.BEETROOT) == utensilsCountBefore + 1);
+                    stoneMillSneak(false);
+                    utensilsHeld(p, item("caidao"));
+                }),
+                new Action(8, p -> {
+                    utensilsCutStarted = p.serverLevel().getGameTime();
+                    minecraft.execute(() -> {
+                        minecraft.player.getInventory().selected = HOTBAR;
+                        minecraft.gameMode.startDestroyBlock(utensilsBoard, Direction.UP);
+                        minecraft.gameMode.stopDestroyBlock();
+                    });
+                }),
+                new Action(12, p -> {
+                    BlockState cleaver = p.serverLevel().getBlockState(utensilsBoard.above());
+                    expectTrue("客户端自然左键菜刀启动刀架动画1及案板标记，未破坏案板或消耗食材",
+                            cleaver.getBlock() instanceof CleaverBlock && cleaver.getValue(CleaverBlock.ANIMATION) == 1
+                                    && utensilsBoard(p).getPersistentData().getBoolean("qiecaibegin")
+                                    && utensilsBoard(p).getItem(0).getCount() == 63
+                                    && p.getMainHandItem().is(item("caidao").getItem()));
+                    minecraft.execute(() -> screenshots.take("cooking-cutting-board-cleaver.png"));
+                }),
+                new Action(180, p -> {}),
+                new Action(8, p -> {
+                    expectTrue("自然等待至少160服务端刻后刀架置AIR、案板标记和计时归零且食材不变无产物",
+                            p.serverLevel().getGameTime() - utensilsCutStarted >= 160
+                                    && p.serverLevel().isEmptyBlock(utensilsBoard.above())
+                                    && !utensilsBoard(p).getPersistentData().getBoolean("qiecaibegin")
+                                    && utensilsBoard(p).getPersistentData().getInt("tick") == 0
+                                    && utensilsBoard(p).getItem(0).is(Items.CARROT) && utensilsBoard(p).getItem(0).getCount() == 63
+                                    && utensilsBoard(p).getItem(7).is(Items.POTATO)
+                                    && p.getMainHandItem().is(item("caidao").getItem()) && utensilsDrops.isEmpty());
+                    p.setGameMode(GameType.SPECTATOR);
+                    utensilsHeld(p, ItemStack.EMPTY);
+                }),
+                new Action(8, p -> useBlock(utensilsBowl)),
+                new Action(8, p -> {
+                    utensilsSpectatorBowl = utensilsEmptyChest(p) && minecraft.screen instanceof ContainerScreen screen
+                            && screen.getTitle().getString().equals("碗") && utensilsWare(p, utensilsBowl).getItem(0).getCount() == 3;
+                    minecraft.execute(() -> screenshots.take("cooking-tableware-spectator-chinese.png"));
+                    p.closeContainer();
+                }),
+                new Action(8, p -> useBlock(utensilsBoard)),
+                new Action(8, p -> {
+                    expectTrue("旁观者真实打开碗和案板独立空27槽箱，双端标题中文且真实库存未进入菜单",
+                            utensilsSpectatorBowl && utensilsEmptyChest(p) && minecraft.screen instanceof ContainerScreen screen
+                                    && screen.getTitle().getString().equals("案板")
+                                    && utensilsBoard(p).getItem(0).getCount() == 63);
+                    minecraft.execute(() -> screenshots.take("cooking-cutting-board-spectator-chinese.png"));
+                }),
+                new Action(8, p -> restoreUtensils(p))
         );
+    }
+
+    private void prepareUtensils(ServerPlayer player) {
+        player.closeContainer();
+        utensilsActive = true;
+        utensilsMode = player.gameMode.getGameModeForPlayer();
+        utensilsPosition = player.position();
+        utensilsMotion = player.getDeltaMovement();
+        utensilsYaw = player.getYRot();
+        utensilsPitch = player.getXRot();
+        utensilsFlying = player.getAbilities().flying;
+        utensilsSelected = player.getInventory().selected;
+        utensilsShift = minecraft.options.keyShift.isDown();
+        utensilsUse = minecraft.options.keyUse.isDown();
+        utensilsAttack = minecraft.options.keyAttack.isDown();
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            utensilsInventory.add(player.getInventory().getItem(slot).copy());
+        }
+        player.stopUsingItem();
+        player.setGameMode(GameType.SURVIVAL);
+        player.getAbilities().flying = false;
+        player.onUpdateAbilities();
+        player.connection.teleport(utensilsPosition.x, utensilsPosition.y, utensilsPosition.z, 0, 20);
+        stoneMillSneak(false);
+        minecraft.execute(() -> {
+            minecraft.options.keyUse.setDown(false);
+            minecraft.options.keyAttack.setDown(false);
+        });
+        BlockPos base = player.blockPosition();
+        utensilsBowl = base.offset(-1, 0, 2);
+        utensilsPlate = base.offset(0, 0, 2);
+        utensilsLargeBowl = base.offset(1, 0, 2);
+        utensilsBoard = base.offset(0, 0, 3);
+        utensilsDropListener = event -> {
+            if (event.getLevel() == player.serverLevel() && event.getEntity() instanceof ItemEntity drop
+                    && drop.position().distanceToSqr(Vec3.atCenterOf(utensilsBoard)) < 64) utensilsDrops.add(drop);
+        };
+        NeoForge.EVENT_BUS.addListener(utensilsDropListener);
+        for (BlockPos center : List.of(utensilsBowl, utensilsPlate, utensilsLargeBowl, utensilsBoard)) {
+            for (int height = -1; height <= 2; height++) {
+                BlockPos at = center.above(height).immutable();
+                utensilsBlocks.putIfAbsent(at, player.serverLevel().getBlockState(at));
+                BlockEntity original = player.serverLevel().getBlockEntity(at);
+                if (original != null) {
+                    utensilsEntities.putIfAbsent(at, original.saveWithFullMetadata(player.registryAccess()));
+                    if (original instanceof Container container) container.clearContent();
+                }
+                LevelChunkTicks<Block> blockTicks = (LevelChunkTicks<Block>) player.serverLevel().getChunkAt(at).getBlockTicks();
+                LevelChunkTicks<Fluid> fluidTicks = (LevelChunkTicks<Fluid>) player.serverLevel().getChunkAt(at).getFluidTicks();
+                utensilsTicks.putIfAbsent(at, blockTicks.getAll().filter(tick -> tick.pos().equals(at)).toList());
+                utensilsFluidTicks.putIfAbsent(at, fluidTicks.getAll().filter(tick -> tick.pos().equals(at)).toList());
+                player.serverLevel().getBlockTicks().clearArea(new BoundingBox(at));
+                player.serverLevel().getFluidTicks().clearArea(new BoundingBox(at));
+                player.serverLevel().setBlockAndUpdate(at, height == -1 ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState());
+            }
+        }
+        player.serverLevel().setBlockAndUpdate(utensilsBowl, block("foodwan"));
+        player.serverLevel().setBlockAndUpdate(utensilsPlate, block("foodcipan"));
+        player.serverLevel().setBlockAndUpdate(utensilsLargeBowl, block("fooddawan"));
+        player.serverLevel().setBlockAndUpdate(utensilsBoard,
+                block("anban").setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
+    }
+
+    private void utensilsHeld(ServerPlayer player, ItemStack stack) {
+        player.getInventory().clearContent();
+        player.getInventory().selected = HOTBAR;
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        player.inventoryMenu.broadcastChanges();
+    }
+
+    private static TablewareBlockEntity utensilsWare(ServerPlayer player, BlockPos pos) {
+        return (TablewareBlockEntity) player.serverLevel().getBlockEntity(pos);
+    }
+
+    private CuttingBlockEntity utensilsBoard(ServerPlayer player) {
+        return (CuttingBlockEntity) player.serverLevel().getBlockEntity(utensilsBoard);
+    }
+
+    private int utensilsClientCount(BlockPos pos) {
+        return minecraft.level.getBlockEntity(pos) instanceof TablewareBlockEntity ware ? ware.getItem(0).getCount() : -1;
+    }
+
+    private static BlockHitResult utensilsHit(BlockPos pos) {
+        return new BlockHitResult(Vec3.atCenterOf(pos).add(0, 0.5, 0), Direction.UP, pos, false);
+    }
+
+    private static int utensilsCount(ServerPlayer player, Item item) {
+        int count = 0;
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            ItemStack stack = player.getInventory().getItem(slot);
+            if (stack.is(item)) count += stack.getCount();
+        }
+        return count;
+    }
+
+    private static ItemStack utensilsFind(ServerPlayer player, Item item) {
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            ItemStack stack = player.getInventory().getItem(slot);
+            if (stack.is(item)) return stack;
+        }
+        return ItemStack.EMPTY;
+    }
+
+    private boolean utensilsEmptyChest(ServerPlayer player) {
+        if (!(player.containerMenu instanceof ChestMenu server) || server.slots.size() != 63
+                || !(minecraft.player.containerMenu instanceof ChestMenu client) || client.slots.size() != 63) return false;
+        for (int slot = 0; slot < 27; slot++) {
+            if (!server.getSlot(slot).getItem().isEmpty() || !client.getSlot(slot).getItem().isEmpty()) return false;
+        }
+        return true;
+    }
+
+    private void restoreUtensils(ServerPlayer player) {
+        if (!utensilsActive) return;
+        utensilsActive = false;
+        player.closeContainer();
+        if (utensilsDropListener != null) NeoForge.EVENT_BUS.unregister(utensilsDropListener);
+        utensilsDrops.forEach(Entity::discard);
+        for (BlockPos pos : utensilsBlocks.keySet()) {
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
+            BlockEntity current = player.serverLevel().getBlockEntity(pos);
+            if (current instanceof Container container) container.clearContent();
+        }
+        for (Map.Entry<BlockPos, BlockState> entry : utensilsBlocks.entrySet()) {
+            player.serverLevel().setBlockAndUpdate(entry.getKey(), entry.getValue());
+            CompoundTag original = utensilsEntities.get(entry.getKey());
+            if (original != null) {
+                BlockEntity restored = BlockEntity.loadStatic(entry.getKey(), entry.getValue(), original, player.registryAccess());
+                player.serverLevel().setBlockEntity(restored);
+                restored.setChanged();
+                player.serverLevel().sendBlockUpdated(entry.getKey(), entry.getValue(), entry.getValue(), Block.UPDATE_ALL);
+            }
+        }
+        for (BlockPos pos : utensilsBlocks.keySet()) {
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
+            utensilsTicks.get(pos).forEach(tick -> player.serverLevel().getBlockTicks().schedule(tick));
+            utensilsFluidTicks.get(pos).forEach(tick -> player.serverLevel().getFluidTicks().schedule(tick));
+        }
+        player.setGameMode(utensilsMode);
+        player.getAbilities().flying = utensilsFlying;
+        player.onUpdateAbilities();
+        player.connection.teleport(utensilsPosition.x, utensilsPosition.y, utensilsPosition.z, utensilsYaw, utensilsPitch);
+        player.setDeltaMovement(utensilsMotion);
+        for (int slot = 0; slot < utensilsInventory.size(); slot++) player.getInventory().setItem(slot, utensilsInventory.get(slot));
+        player.getInventory().selected = utensilsSelected;
+        player.inventoryMenu.broadcastChanges();
+        stoneMillSneak(utensilsShift);
+        minecraft.execute(() -> {
+            minecraft.player.getInventory().selected = utensilsSelected;
+            minecraft.options.keyUse.setDown(utensilsUse);
+            minecraft.options.keyAttack.setDown(utensilsAttack);
+        });
     }
 
     private SteamerBlockEntity steamer(ServerPlayer player, int height) {
@@ -2206,6 +2616,7 @@ final class FuluCookingCheck extends ActionCheck {
 
     @Override
     protected void cleanup(ServerPlayer player) {
+        restoreUtensils(player);
         player.closeContainer();
         restoreFoodSmoke(player);
         cleanupWine(player);

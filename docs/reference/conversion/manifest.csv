@@ -20,6 +20,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/armor10.anima
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/armor11.animation.json,49aa0dd608630054894162d40f0e66a06684dc31,src/main/resources/assets/yvanchuxiuzhen/animations/armor11.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/armor12.animation.json,ccf182ba04a4f3f05512fb50474c50de2823d8b2,src/main/resources/assets/yvanchuxiuzhen/animations/armor12.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/armor13.animation.json,0ade53b18a2060a927f0d7e43d17d9d55bdbdb92,src/main/resources/assets/yvanchuxiuzhen/animations/armor13.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/caidaoblock.animation.json,340f376c08eac905832d8a1c2fffc25222f121d7,src/main/resources/assets/yvanchuxiuzhen/animations/caidaoblock.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/canhe.animation.json,9af9e9a329fe642aed0ef2265aa7081a1fb762ef,src/main/resources/assets/yvanchuxiuzhen/animations/canhe.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/chuancheng.animation.json,6f03c6825a66862e14b30f16405bbaa518fc6ab0,src/main/resources/assets/yvanchuxiuzhen/animations/chuancheng.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/chuansongmen.animation.json,aebce37c2e68581b7d33f1328567c556b9aa8e5a,src/main/resources/assets/yvanchuxiuzhen/animations/chuansongmen.animation.json
@@ -249,6 +250,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/brickwallwhi
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/brickwallwhitestairs.json,f85c27fb1c06cee6011f9d9019e1b474a42416f9,src/main/resources/assets/yvanchuxiuzhen/blockstates/brickwallwhitestairs.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/brickwallwhitewall.json,0fe448146a85ca85115ac51180cf8c98460d4ce1,src/main/resources/assets/yvanchuxiuzhen/blockstates/brickwallwhitewall.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/brokenbonepile.json,9a08b40598e3401e6c52ead456c7a79c56a2bc7b,src/main/resources/assets/yvanchuxiuzhen/blockstates/brokenbonepile.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/caidaoblock.json,5f1e63d7cb8ee7f3d6f52fe2211c01fdb901cd7a,src/main/resources/assets/yvanchuxiuzhen/blockstates/caidaoblock.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/cailiao_16101.json,be9ec49bf85473adfa00b07337487f64d07746db,src/main/resources/assets/yvanchuxiuzhen/blockstates/cailiao_16101.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/cailiao_16201.json,9e96b835f06860b8273ac3d04da52a2646796c1d,src/main/resources/assets/yvanchuxiuzhen/blockstates/cailiao_16201.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/cailiao_16301.json,de6f630afcd0766834a29f44df004efe2b666ab6,src/main/resources/assets/yvanchuxiuzhen/blockstates/cailiao_16301.json
@@ -1260,6 +1262,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/armor10.geo.json,93d
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/armor11.geo.json,1838233e3d69ce61322c04e799ef00b1f195599d,src/main/resources/assets/yvanchuxiuzhen/geo/armor11.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/armor12.geo.json,689107f8a78dfc0852c1eaf6fff7f6a74f6d8422,src/main/resources/assets/yvanchuxiuzhen/geo/armor12.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/armor13.geo.json,17cc503837fbab3af5d9d3a3fd053eec3d2f1192,src/main/resources/assets/yvanchuxiuzhen/geo/armor13.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/caidaoblock.geo.json,523a042f89e9ee9e10998fed2076faaef1fdf2cc,src/main/resources/assets/yvanchuxiuzhen/geo/caidaoblock.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/canhe.geo.json,7149734572ea4194336211fdffe7f834661ea4cd,src/main/resources/assets/yvanchuxiuzhen/geo/canhe.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/chuancheng.geo.json,f8c64d3674464b352325d48171116cb76d416dee,src/main/resources/assets/yvanchuxiuzhen/geo/chuancheng.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/chuansongmen.geo.json,16a714420923783df259a1e2492cd652b84c3367,src/main/resources/assets/yvanchuxiuzhen/geo/chuansongmen.geo.json
@@ -4062,6 +4065,8 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/bluestone_
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/bluestonebrick_slab_erect.json,36b411cf43121da579db7876beff9278143f488f,src/main/resources/assets/yvanchuxiuzhen/models/custom/bluestonebrick_slab_erect.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/brickwall_black_slab_erect.json,36b411cf43121da579db7876beff9278143f488f,src/main/resources/assets/yvanchuxiuzhen/models/custom/brickwall_black_slab_erect.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/brickwall_white_slab_erect.json,36b411cf43121da579db7876beff9278143f488f,src/main/resources/assets/yvanchuxiuzhen/models/custom/brickwall_white_slab_erect.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/caidaoblock_particle.json,03986cbbf19309bf8215029f862d410a25d2c9c8,src/main/resources/assets/yvanchuxiuzhen/models/custom/caidaoblock_particle.json
+(generated),,src/main/resources/assets/yvanchuxiuzhen/models/custom/caidaoblock_particle__cutout.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/cailiao16801.json,f6f684fdc9b64d362174632f33950b030e725cee,src/main/resources/assets/yvanchuxiuzhen/models/custom/cailiao16801.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/camphor_armchair01.json,d4433bfa04140167c6c07b76485b889d17e735b4,src/main/resources/assets/yvanchuxiuzhen/models/custom/camphor_armchair01.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/camphor_armchair02.json,eaba81fdd420da955fa6954d75a9e7a294f481a0,src/main/resources/assets/yvanchuxiuzhen/models/custom/camphor_armchair02.json
@@ -4596,6 +4601,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/a
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/alchemy_06.item.json,d4cae72550da56e40beb3e897f6a0a6b7aa5c070,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/alchemy_06.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/alchemy_07.item.json,b83fb0e37ae7b376bbb92aa1bd86dc470725362b,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/alchemy_07.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/alchemy_08.item.json,e031c2eaae48da76088f2c005182997457752978,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/alchemy_08.item.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/caidaoblock.item.json,5dee17c77c0725a60d9961d380bf560a8cf7e915,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/caidaoblock.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/canhe.item.json,7a625bc4d84c3ffb4a6e8ac2de9c7382c3fbd513,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/canhe.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/chuancheng.item.json,c49e984d1a9ac610a760fb05ebf4d21b4dc01c0a,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/chuancheng.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/fabao018.item.json,e51c5aacf24c020d9c394502b233f04fea0ee358,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/fabao018.item.json
@@ -4870,6 +4876,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/brickwallwhi
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/brickwallwhitewall.json,b9481d6f5078cfd78ca252501c581b705777cbcc,src/main/resources/assets/yvanchuxiuzhen/models/item/brickwallwhitewall.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/brokenbonepile.json,52bb15dc756c38e5b789dae19748252649ef54db,src/main/resources/assets/yvanchuxiuzhen/models/item/brokenbonepile.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/caidao.json,0a2fc9a2f7d7a6656d040b8208f97c4499a0170d,src/main/resources/assets/yvanchuxiuzhen/models/item/caidao.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/caidaoblock.json,86bb0ac103edf0c712ef24bd1465a355c8d613ad,src/main/resources/assets/yvanchuxiuzhen/models/item/caidaoblock.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/cailiao_001.json,b9d69546231514433d8940f7f4e40a1b6a1b110c,src/main/resources/assets/yvanchuxiuzhen/models/item/cailiao_001.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/cailiao_002.json,800f17b5da508119b47ef72dfe31984c3c79ac5a,src/main/resources/assets/yvanchuxiuzhen/models/item/cailiao_002.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/cailiao_003.json,f9919ac220d7c3087a2911a42d6a6ff7ba571296,src/main/resources/assets/yvanchuxiuzhen/models/item/cailiao_003.json
@@ -7347,6 +7354,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/brickwal
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/brickwall_white.png,70769191578bdc48b60cdc7d65ae4810a8883c21,src/main/resources/assets/yvanchuxiuzhen/textures/block/brickwall_white.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/brickwall_white_floor.png,db53a5d57304791058ddddca019c53f2b1626226,src/main/resources/assets/yvanchuxiuzhen/textures/block/brickwall_white_floor.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/brokenbonepile.png,141a83cfbab6b9da5dadf66eae8fa929f6fee687,src/main/resources/assets/yvanchuxiuzhen/textures/block/brokenbonepile.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/caidaoblock.png,c381321d4ba81b76d8a4fdca69e2b931b599e096,src/main/resources/assets/yvanchuxiuzhen/textures/block/caidaoblock.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/cailiao16101.png,2f3b42000ffded92d64f3782eb02992d6314acee,src/main/resources/assets/yvanchuxiuzhen/textures/block/cailiao16101.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/cailiao16201.png,b86fc6218b014decee1c9723d19af1811b480e69,src/main/resources/assets/yvanchuxiuzhen/textures/block/cailiao16201.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/cailiao16301.png,df7039eb3c6c266c65ca129d44326cfaab36850a,src/main/resources/assets/yvanchuxiuzhen/textures/block/cailiao16301.png

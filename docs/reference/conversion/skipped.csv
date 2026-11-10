@@ -1,6 +1,5 @@
 registry,legacy_id,reason
 block,yvanchuxiuzhen:biggrassyincang,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:caidaoblock,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:dimensiondiling_portal,方块基类 NetherPortalBlock 由所属系统迁移
 block,yvanchuxiuzhen:dimensionrenjian_portal,方块基类 NetherPortalBlock 由所属系统迁移
 block,yvanchuxiuzhen:dimensiontianqve_portal,方块基类 NetherPortalBlock 由所属系统迁移
@@ -51,7 +50,6 @@ item,yvanchuxiuzhen:businessman_27_spawn_egg,物品类 ForgeSpawnEggItem 由所�
 item,yvanchuxiuzhen:businessman_28_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:businessman_29_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:businessman_30_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:caidaoblock,物品类 CaidaoblockDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:caishenye_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:clothes_08_boots,Clothes08Item.Boots：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_08_chestplate,Clothes08Item.Chestplate：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移

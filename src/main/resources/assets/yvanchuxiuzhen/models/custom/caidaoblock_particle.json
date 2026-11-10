@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/caidaoblock.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/caidaoblock"
+  }
+}

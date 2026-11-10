@@ -17,6 +17,8 @@ public final class CookingClientSetup {
 
     public static void register(IEventBus modBus) {
         SteamerClientSetup.register(modBus);
+        TablewareClientSetup.register(modBus);
+        CuttingClientSetup.register(modBus);
         modBus.addListener((RegisterMenuScreensEvent event) -> {
             event.register(CookingMenus.IRON.get(), CookingPotScreen::new);
             event.register(WineMenus.WOODEN_STILL.get(), WoodenStillScreen::new);

@@ -418,3 +418,9 @@ item,yvanchuxiuzhen:shicai_060,cooking:remainder_bone,cooking,原生食用后餐
 item,yvanchuxiuzhen:shicai_034,cooking:remainder_shicai_03401,cooking,原生食用后餐食、毒性或返物回调
 item,yvanchuxiuzhen:shicai_036,cooking:remainder_shicai_03601,cooking,原生食用后餐食、毒性或返物回调
 item,yvanchuxiuzhen:shicai_037,cooking:remainder_shicai_03701,cooking,原生食用后餐食、毒性或返物回调
+block,yvanchuxiuzhen:foodwan,cooking:bowl,cooking,单槽碗容量3及来源主手叠放收取生命周期
+block,yvanchuxiuzhen:foodcipan,cooking:plate,cooking,单槽瓷盘容量7及来源主手叠放收取生命周期
+block,yvanchuxiuzhen:fooddawan,cooking:large_bowl,cooking,单槽大碗容量2及来源主手叠放收取生命周期
+block,yvanchuxiuzhen:anban,cooking:cutting_board,cooking,案板九槽原引用放料、逆序取料与20刻切菜状态
+block,yvanchuxiuzhen:caidaoblock,cooking:cleaver,cooking,切菜动画方块、8次20刻回调寿命与无案板移除
+item,yvanchuxiuzhen:caidaoblock,cooking:cleaver,cooking,菜刀方块物品Gecko渲染、来源tab(null)

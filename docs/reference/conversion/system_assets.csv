@@ -266,11 +266,7 @@ lianqi,geo,yvanchuxiuzhen:xiulitai
 lianqi,animation,yvanchuxiuzhen:xiulitai
 lianqi,texture,yvanchuxiuzhen:blocks/xiulitai
 fulu,texture,yvanchuxiuzhen:blocks/chuancheng
-cooking,geo,yvanchuxiuzhen:fooddaguo
-cooking,animation,yvanchuxiuzhen:fooddaguo
 cooking,texture,yvanchuxiuzhen:blocks/fooddaguo
-cooking,geo,yvanchuxiuzhen:fooddunguo
-cooking,animation,yvanchuxiuzhen:fooddunguo
 cooking,texture,yvanchuxiuzhen:blocks/fooddunguo
 fulu,geo,yvanchuxiuzhen:fulu01texiao
 fulu,geo,yvanchuxiuzhen:fulutexiao26
@@ -323,8 +319,14 @@ craft,geo,yvanchuxiuzhen:taolun
 craft,animation,yvanchuxiuzhen:taolun
 craft,geo,yvanchuxiuzhen:canhe
 craft,animation,yvanchuxiuzhen:canhe
+cooking,texture,yvanchuxiuzhen:blocks/foodzhengguo
+cooking,geo,yvanchuxiuzhen:fooddaguo
+cooking,animation,yvanchuxiuzhen:fooddaguo
+cooking,geo,yvanchuxiuzhen:fooddunguo
+cooking,animation,yvanchuxiuzhen:fooddunguo
 cooking,geo,yvanchuxiuzhen:foodzhengguo
 cooking,animation,yvanchuxiuzhen:foodzhengguo
 cooking,geo,yvanchuxiuzhen:foodlongti
 cooking,animation,yvanchuxiuzhen:foodlongti
-cooking,texture,yvanchuxiuzhen:blocks/foodzhengguo
+cooking,geo,yvanchuxiuzhen:caidaoblock
+cooking,animation,yvanchuxiuzhen:caidaoblock
