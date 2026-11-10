@@ -438,7 +438,7 @@ def main() -> None:
                        'cooking:wooden_still', 'cooking:wine_jar',
                        'cooking:waterlogged_wine_jar', 'cooking:natural_monkey_wine', 'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:pottery_blank',
                        'craft:silkworm_box', 'craft:chrysalis_display', 'cooking:plated_food',
-                       'cooking:bowl', 'cooking:plate', 'cooking:large_bowl') or factory.startswith('fulu:explosive_'):
+                       'cooking:bowl', 'cooking:plate', 'cooking:large_bowl', 'cooking:iron_plate') or factory.startswith('fulu:explosive_'):
             row.pop('pending_hooks', None)
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:

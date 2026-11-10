@@ -225,3 +225,7 @@ A的ShipuCommand/ShipuGo由CookingRecipeCommands承载，权限至少1；根/贪
 参数0为载体ID，ENGLISH小写并在查找边界统一B命名空间；1为自定义显示名；2品阶Double，严格等于1..9写一级至九级，其他写无品级；3简介、4动画Double、5容器、6成品Menuid、7器具MenuType，8..16非空时写cailiao00..08。数字解析失败为0，NaN/Infinity保持Double结果；文本原样保存，容器/成品/材料字段不在生成时转换大小写或命名空间。名称存CUSTOM_NAME，其余存CUSTOM_DATA。来源没有写MenuName，目标不补，因此设备菜谱标题可能为空。
 
 来源合法未知载体成为空栈，不发物、不回落纸书；非法资源ID异常交给命令框架。仅玩家按ItemHandlerHelper收一件，创造也接收，满包余物按原生入口掉落。本命令不新增注册身份或其他系统写操作，不代表全部菜谱自然获取已经闭合。来源及精确命令/组件API静态核对完成，完整构建及原生dispatcher权限0/1、生成字段、数字失败0和物品保存读回检查通过。
+
+## 铁盘掉落（2026-11-10）
+
+来源B `FoodtiepanBlock.getDrops` 先返回父类非空战利品；父类结果为空时返回铁盘自身一件。目标 `BlockRow.fallbackDrop` 只有数据解析而没有运行时消费者，故使用专用 `IronPlateBlock` 保留这一行为，不修改所有内容表方块的公共掉落逻辑。其余含水状态、方向、形状与材质由现有 `WaterloggedContentBlock` 和 `BlockTraits` 承载。已在既有 `fulucooking` 场景通过目标 `Block.getDrops` 检查验证空战利品表结果；来源版本实机、破坏完整自然路径及两版本对照未执行。

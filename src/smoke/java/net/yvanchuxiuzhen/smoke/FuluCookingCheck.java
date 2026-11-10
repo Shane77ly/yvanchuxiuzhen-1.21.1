@@ -1956,6 +1956,10 @@ final class FuluCookingCheck extends ActionCheck {
                 }),
                 new Action(8, p -> {
                     p.getInventory().clearContent();
+                    List<ItemStack> ironPlateDrops = Block.getDrops(block("foodtiepan"), p.serverLevel(), p.blockPosition(), null);
+                    expectTrue("铁盘原生战利品入口在空表时返回自身一件",
+                            ironPlateDrops.size() == 1 && ironPlateDrops.getFirst().is(item("foodtiepan").getItem())
+                                    && ironPlateDrops.getFirst().getCount() == 1);
                     String command = "shipu minecraft:paper 竹笼蒸菜 2 简介 2 无 yvanchuxiuzhen:food_007 蒸锅 minecraft:carrot minecraft:potato";
                     p.server.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(0).withSuppressedOutput(), command);
                     expectTrue("菜谱管理命令权限0不能生成物品", !p.getInventory().contains(new ItemStack(Items.PAPER)));

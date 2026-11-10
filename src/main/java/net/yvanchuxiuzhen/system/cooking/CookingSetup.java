@@ -14,6 +14,7 @@ import net.yvanchuxiuzhen.system.cooking.content.CleaverBlockItem;
 import net.yvanchuxiuzhen.system.cooking.content.CuttingBlockEntities;
 import net.yvanchuxiuzhen.system.cooking.content.TablewareBlock;
 import net.yvanchuxiuzhen.system.cooking.content.TablewareBlockEntities;
+import net.yvanchuxiuzhen.system.cooking.content.IronPlateBlock;
 import net.yvanchuxiuzhen.system.cooking.content.CookingBlockEntities;
 import net.yvanchuxiuzhen.system.cooking.content.CookingMenus;
 import net.yvanchuxiuzhen.system.cooking.content.CookingPotBlock;
@@ -44,6 +45,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
  */
 public final class CookingSetup {
     private static final ContentTables CONTENT = new ContentTables("cooking")
+            .blockFactory("cooking:iron_plate", traits -> ContentBlock.create(traits, IronPlateBlock::new))
             .blockFactory("cooking:cutting_board", traits -> ContentBlock.create(traits, CuttingBoardBlock::new))
             .blockFactory("cooking:cleaver", traits -> ContentBlock.create(traits, CleaverBlock::new))
             .itemFactory("cooking:cleaver", (properties, tooltip) -> new CleaverBlockItem(
