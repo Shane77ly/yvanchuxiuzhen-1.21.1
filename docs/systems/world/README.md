@@ -11,7 +11,7 @@ updated: 2026-11-11
 
 2026-11-11 扩大批次接入32种矿物、33种普通配置型地物、24种模板，以及41个来源群系中的28棵内联树、8种内联圆盘、171个内联投放和16种树装饰器；新增温泉完整流体族和随机结构主世界开关。89种独立Feature登记“已注册”，完整群系与人间道、妖魂道维度仍未装配，不能据此认定自然供给完成。具体规则见[正文](architecture.md#自然供给地物与随机结构2026-11-11)，本批运行结果与未验收范围见[月志](logs/2026-11.md)。
 
-当前阶段：D/E自然供给依赖。55个原版生成根静态核验全部闭合：38项可复用、14项来源自定义实现、3项洞穴配置，0项待核。完整数据转换2600条记录；41群系计划保持2973条生成操作、483条出生记录，当前唯一阻断为46个缺失实体类型。最终完整构建含test/check、ArchUnit及compileSmokeJava通过（`tmp/world-supply-batch-build-final.log`）。既有fulucooking客户端343项INFO、0 FAIL、DONE，原生日志ERROR/FATAL0，四维度正常保存退出（`tmp/world-supply-batch-report.txt`、`tmp/world-supply-batch-client-latest.log`）。12个妖兽在专服逐刻存活及召唤死亡移除共24个标记通过，原生save-all/stop保存四维度、ERROR/FATAL0（`tmp/world-supply-integrated-server.log`）；这些检查不覆盖完整战斗、玩家背包清袋或自然生成。当前World与Creature均为部分实现，41群系和人间道/妖魂道尚未正式安装；新树/晶洞尚未实机放置或自然生成验收，19个缺失方块以显式可选标签保留，未补占位。滴水石历史受控检查的高度图ERROR与Redirect未独立观测边界仍保留。沿用全量active goal，不推送、不合main。
+当前阶段：D/E自然供给依赖。55个原版生成根静态核验全部闭合：38项可复用、14项来源自定义实现、3项洞穴配置，0项待核。最新群系审计为41个群系、2973条生成操作、483条出生记录，唯一阻断为16个缺失实体类型（详见`tmp/source-biomes-plan-live.json`）；依赖闭合前仍拒绝写出正式群系和维度资源。此前完整构建含test/check、ArchUnit及compileSmokeJava通过（`tmp/world-supply-batch-build-final.log`）。既有fulucooking客户端343项INFO、0 FAIL、DONE，原生日志ERROR/FATAL0，四维度正常保存退出（`tmp/world-supply-batch-report.txt`、`tmp/world-supply-batch-client-latest.log`）。12个妖兽在专服逐刻存活及召唤死亡移除共24个标记通过，原生save-all/stop保存四维度、ERROR/FATAL0（`tmp/world-supply-integrated-server.log`）；这些检查不覆盖完整战斗、玩家背包清袋或自然生成。当前World与Creature均为部分实现，41群系和人间道/妖魂道尚未正式安装；新树/晶洞尚未实机放置或自然生成验收，19个缺失方块以显式可选标签保留，未补占位。滴水石历史受控检查的高度图ERROR与Redirect未独立观测边界仍保留。沿用全量active goal，不推送、不合main。
 
 同日沿用现有客户端检查，正式维度下裂隙传送/返回12项通过；直接触发与真实碰撞各自的覆盖及未验收范围见[技能正文](../skill/architecture.md#虚空裂隙2026-11-07)，不据此升级整个世界系统的状态。
 

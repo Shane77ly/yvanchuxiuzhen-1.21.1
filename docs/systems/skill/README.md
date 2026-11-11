@@ -54,6 +54,8 @@ updated: 2026-11-08
 | 延迟来源技能表现 | `system.skill.api.SkillDelays.after(刻数, 回调)`：服务端经过指定刻数执行一次内存回调，服务端停止时未执行回调丢弃 | creature 妖兽增幅技能的分批粒子 |
 | 生成毒蔓鞭技能实体 | `system.skill.api.SkillSummons.summonVineWhip(服务端世界, 施放者, 坐标)`：按来源攻击量4、倍率1、木系类型和技能名创建，复制施放者友方关系，定位并初始化后加入世界 | creature 妖兽001/002鞭挞过程；实体状态、动画与团队复制由 skill 持有 |
 | 妖兽发射水球 | `system.skill.api.SkillSummons.shootWater03(施放者, 坐标, 方向)`：按来源基础伤害0.1、击退1、静音、速度1和散布10创建水球并加入服务端世界 | creature 妖兽025/031来源发射链；不改写玩家施法状态 |
+| 妖兽发射光弹 | `system.skill.api.SkillSummons.shootLight01(施放者, 坐标, 方向)`：按来源基础伤害0.1、击退1、静音、速度1和无散布创建光弹并加入服务端世界 | creature 妖兽023回旋光弹；不改写玩家施法状态 |
+| 玩家/妖兽裂冰斩 | `SkillSummons.shootIce01`、`summonEntityIceSpike`：保留来源攻击者UUID、倍率、递归数量、方向和共享friendlist；递归实体由skill持有 | 玩家冰系技能与creature 054来源过程 |
 | 元婴出窍/归窍 | `toggleYuanying(玩家)`：达到元婴期时扣神识并出窍，再次调用或神识不足时归窍 | 技能界面出窍按钮（阶段 5） |
 | 武器数值 | 事件 `WeaponStatEvent(武器, 键)`，监听者 `add` | `EquipmentAttributes` 已提供成品 `lianqizong.item_level_num` 并读取根组件 `mana_Att`；`AccessoryCommand` 可按字段参数生产该根值，`JewelryCrafting` 已生产同一根组件的饰品数值。其他生产者随所属系统迁移，不使用嵌套炼器法攻替代根值 |
 | 研习附赠 | 监听 gongfa 的 `TechniqueStudiedEvent`，“行尸御火”“真言吒雷诀”各附赠一本技能书 | gongfa（事件） |

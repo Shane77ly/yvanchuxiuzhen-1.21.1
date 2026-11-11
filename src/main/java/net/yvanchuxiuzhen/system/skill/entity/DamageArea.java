@@ -64,12 +64,24 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
 
     /** 生成者提供动画、技能分支、持续刻数与控雷阵攻击量；普通提示的技能名为空。 */
     public static void show(Entity owner, Vec3 at, String animation, String skillName, double duration, double attackDamage) {
+        spawn(owner, at, animation, skillName, duration, attackDamage, false);
+    }
+
+    /** 妖兽040范围预警直接持有实体友方表，保存重载后按各自数据恢复。 */
+    public static void showEntityShared(Entity owner, Vec3 at, String animation, double duration) {
+        spawn(owner, at, animation, "", duration, 0, true);
+    }
+
+    private static void spawn(Entity owner, Vec3 at, String animation, String skillName, double duration, double attackDamage,
+            boolean sharedEntityFriends) {
         ServerLevel level = (ServerLevel) owner.level();
         DamageArea area = SkillSetup.<DamageArea>entityType(ID).get().create(level);
         area.moveTo(at.x, at.y, at.z, level.getRandom().nextFloat() * 360, 0);
         area.setAnimation(animation);
         CompoundTag state = area.getPersistentData();
-        if (skillName.isEmpty()) {
+        if (sharedEntityFriends) {
+            Relations.shareEntityAllegiance(owner, area);
+        } else if (skillName.isEmpty()) {
             Relations.copyAllegiance(owner, area);
         } else {
             Relations.setTeam(area, Relations.team(owner));

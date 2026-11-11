@@ -33,7 +33,7 @@ updated: 2026-11-11
 
 ## 编号妖兽直接迁移（2026-11-11）
 
-本节记录已批准全量范围内本批实际接线的26个编号；其余编号继续保留在全量范围中。每个编号使用独立实体类，注册身份不由英文别名代替。类位于`system/creature/entity/yaoshou`，行为和动画按来源闭包拆分，复用已确认相同的初始化、属性和原生生命周期。
+本节记录已批准全量范围内当前实际接线的42个编号；其余编号继续保留在全量范围中。每个编号使用独立实体类，注册身份不由英文别名代替。类位于`system/creature/entity/yaoshou`，行为和动画按来源闭包拆分，复用已确认相同的初始化、属性和原生生命周期。
 
 | 注册ID | 中文名 | 独立实体类 |
 | --- | --- | --- |
@@ -63,6 +63,29 @@ updated: 2026-11-11
 | `yaoshou_045` | 军颚蚁 | `Yaoshou045Entity` |
 | `yaoshou_049` | 雪妖兔 | `Yaoshou049Entity` |
 | `yaoshou_052` | 雪狐 | `Yaoshou052Entity` |
+
+### 第三批十六编号
+
+011、012、013、014、023、024、026、028、031、032、033、035、036、039、040、054各自保留独立实体类和来源行为闭包。013投桃、014飞羽、023爆蛋、026火焰、028水枪、031水弹和040游离光/落阳的弹体或技能过程使用专属目标实体；036黑泽按来源效果逐刻处理粒子与敌方减速；054裂冰斩通过skill公开冰锥入口并保留来源friendlist、方向和递归数量。014的妖兽发射与物品发射分别保持来源暴击参数，040落阳使用独立Geo模型与发光层。该批基础构建、ArchUnit、专服存活/移除和注册导出已验证；完整战斗、视觉、自然出生、背包清袋及两版本对照未验收。
+
+| 注册ID | 中文名 | 独立实体类 |
+| --- | --- | --- |
+| `yaoshou_011` | 原野黑熊 | `Yaoshou011Entity` |
+| `yaoshou_012` | 天虎 | `Yaoshou012Entity` |
+| `yaoshou_013` | 大耳玄臂猴 | `Yaoshou013Entity` |
+| `yaoshou_014` | 银羽黑天雕 | `Yaoshou014Entity` |
+| `yaoshou_023` | 彩凤绶带 | `Yaoshou023Entity` |
+| `yaoshou_024` | 化灵螳螂 | `Yaoshou024Entity` |
+| `yaoshou_026` | 蓝焰虎 | `Yaoshou026Entity` |
+| `yaoshou_028` | 巨鳖 | `Yaoshou028Entity` |
+| `yaoshou_031` | 河流龟 | `Yaoshou031Entity` |
+| `yaoshou_032` | 撞角犀 | `Yaoshou032Entity` |
+| `yaoshou_033` | 毒孢菇 | `Yaoshou033Entity` |
+| `yaoshou_035` | 山魈 | `Yaoshou035Entity` |
+| `yaoshou_036` | 河流鳄 | `Yaoshou036Entity` |
+| `yaoshou_039` | 光狐 | `Yaoshou039Entity` |
+| `yaoshou_040` | 光环空母 | `Yaoshou040Entity` |
+| `yaoshou_054` | 冰鼹 | `Yaoshou054Entity` |
 
 [来源闭包证据](ledger/yaoshou-source-evidence.csv)有517行，逐编号记录实体及递归调用过程的真实来源路径、原始文件SHA256和直接调用；同一共享过程按编号保留各自可达关系。静态逐项比较本批来源初始化的13项资质字符串与默认等级，目标`YaoshouShared.initialize`实参全部相同。该证据不等于517行对应过程语义均已验收。
 

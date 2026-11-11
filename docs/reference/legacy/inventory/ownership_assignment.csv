@@ -4390,9 +4390,9 @@ yvanchuxiuzhen,Yaoshou040skill0301TouZhiWuFeiXingTick,procedure,~/entity/yaoshou
 yvanchuxiuzhen,Yaoshou040skill0301DangTouSheWuSheZhongCiFangKuai,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040skill0301 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou040skill0301DangTouZhiWuJiZhongShiTiShi,procedure,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：随 Yaoshou040skill0301 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou040skill0301,rangeditem,~/entity/yaoshou/yaoshou040,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
-yvanchuxiuzhen,Yaoshou040skill02,animatedentity,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou040skill02,animatedentity,~/entity/yaoshou/yaoshou040,creature,已读,D/E来源逐行核对：040落阳独立实体与触地范围伤害、036黑泽效果逐刻粒子与敌方减速；只修改本系统实体状态并经combat公开伤害入口，归creature
 yvanchuxiuzhen,Yaoshou040skill0201,particle,~/entity/yaoshou/yaoshou040,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
-yvanchuxiuzhen,Yaoshou040skill02DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou040,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou040skill02DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou040,creature,已读,D/E来源逐行核对：040落阳独立实体与触地范围伤害、036黑泽效果逐刻粒子与敌方减速；只修改本系统实体状态并经combat公开伤害入口，归creature
 yvanchuxiuzhen,Yaoshou033skill01,particle,~/entity/yaoshou/yaoshou033,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Yaoshou027ShiTiZhuiLuoShi,procedure,~/entity/yaoshou/yaoshou027,creature,已读,B1 归属阅读：随 Yaoshou027 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou017skill03TouZhiWuFeiXingTick,procedure,~/entity/yaoshou/yaoshou017,creature,已读,B1 归属阅读：随 Yaoshou017skill03 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
@@ -5672,8 +5672,8 @@ yvanchuxiuzhen,Yaoshou037leibao,procedure,~/entity/yaoshou/yaoshou037,creature,�
 yvanchuxiuzhen,Yaoshou037tiaoyve,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou036yaosui,procedure,~/entity/yaoshou/yaoshou036,creature,已读,B1 归属阅读：随 Yaoshou036 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou036shuaiwei,procedure,~/entity/yaoshou/yaoshou036,creature,已读,B1 归属阅读：随 Yaoshou036 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
-yvanchuxiuzhen,Yaoshou036heizexiaoguoZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/entity/yaoshou/yaoshou036,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou036heizexiaoguo,potioneffect,~/entity/yaoshou/yaoshou036,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou036heizexiaoguoZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/entity/yaoshou/yaoshou036,creature,已读,D/E来源逐行核对：040落阳独立实体与触地范围伤害、036黑泽效果逐刻粒子与敌方减速；只修改本系统实体状态并经combat公开伤害入口，归creature
+yvanchuxiuzhen,Yaoshou036heizexiaoguo,potioneffect,~/entity/yaoshou/yaoshou036,creature,已读,D/E来源逐行核对：040落阳独立实体与触地范围伤害、036黑泽效果逐刻粒子与敌方减速；只修改本系统实体状态并经combat公开伤害入口，归creature
 yvanchuxiuzhen,Yaoshou036heize,procedure,~/entity/yaoshou/yaoshou036,creature,已读,B1 归属阅读：随 Yaoshou036 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou035donghe,procedure,~/entity/yaoshou/yaoshou035,creature,已读,B1 归属阅读：随 Yaoshou035 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou035feipu,procedure,~/entity/yaoshou/yaoshou035,creature,已读,B1 归属阅读：随 Yaoshou035 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能

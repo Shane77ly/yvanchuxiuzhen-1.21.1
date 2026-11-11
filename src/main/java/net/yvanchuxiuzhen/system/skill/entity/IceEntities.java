@@ -11,8 +11,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
-import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
@@ -55,9 +55,16 @@ final class IceEntities {
         ServerLevel level = (ServerLevel) caster.level();
         BlockPos target = ProjectileSupport.lookBlock(caster, 1);
         SkillEntity spike = SkillEntities.summon(level, caster, "skill_ice_05", ICE, (int) book.manaAttack(), (int) book.damageMultiplier(), book.name());
+        CompoundTag parameters = caster.getPersistentData().getCompound("friendlist");
+        parameters.putInt("AttackDamage", (int) book.manaAttack());
+        parameters.putString("AttackUUID", caster.getStringUUID());
+        parameters.putInt("Damage_multiplier", (int) book.damageMultiplier());
+        parameters.putInt("jiaodu", (int) caster.getYRot());
+        caster.getPersistentData().put("friendlist", parameters);
+        spike.getPersistentData().put("friendlist", parameters);
+        Relations.shareEntityAllegiance(caster, spike);
         spike.moveTo(target.getX(), caster.getY(), target.getZ(), level.getRandom().nextFloat() * 360F, 0);
         SkillEntities.turn(spike, Mth.nextInt(level.getRandom(), 1, 360), 0);
-        spike.getPersistentData().putInt("jiaodu", (int) caster.getYRot());
         SkillEntities.spawn(level, spike, true);
     }
 
@@ -113,7 +120,8 @@ final class IceEntities {
 
     /**
      * 冰刺：初始生成时播放出土动画；4 刻后进入进行，再 20 刻时对 1 格内的非友方实体造成一次冰系伤害（攻击量固定为 2、倍率取记下的整数）
-     * 并冷冻 40 刻，破冰并消失。进行中 3 刻后若攻击量（剩余根数）大于 0，在沿推进方向（施放者朝向 + 90 度）1 格外生成下一根，剩余根数减 1。
+     * 并冷冻 40 刻，破冰并消失。生成后 3 刻若友方标签中的剩余根数大于 0，沿该标签的朝向加 90 度在 1 格外生成下一根，
+     * 后续根复制该标签并把剩余根数减 1；首根与施放者共享标签，尚未递归时会读取施放者对参数的后续写入。
      */
     private static final class IceSpike implements EntitySkill {
         @Override
@@ -129,6 +137,7 @@ final class IceEntities {
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
             CompoundTag scratch = self.getPersistentData();
+            CompoundTag friendlist = scratch.getCompound("friendlist");
             String state = scratch.getString("zhuangtai");
             if (state.equals(STARTING)) {
                 scratch.putDouble("tick", scratch.getDouble("tick") + 1);
@@ -142,7 +151,8 @@ final class IceEntities {
                     for (Entity other : ProjectileSupport.around(level, self.position(), 1)) {
                         if (!ProjectileSupport.friendly(self, other)) {
                             if (other instanceof LivingEntity living) {
-                                SpellDamage.deal(level, living, DamageCategory.byLabel(ICE), self.attacker(), false, 2, self.multiplier());
+                                SpellDamage.command(level, living, "shanghai 冰 " + friendlist.getString("AttackUUID") + " false 2 "
+                                        + friendlist.getInt("Damage_multiplier"));
                             }
                             other.setTicksFrozen(other.getTicksFrozen() + 40);
                         }
@@ -156,12 +166,15 @@ final class IceEntities {
             if (!scratch.getBoolean("shifang")) {
                 scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
                 if (scratch.getDouble("tick2") >= 3) {
-                    if (self.attackDamage() > 0) {
-                        double angle = Math.toRadians(scratch.getInt("jiaodu") + 90);
-                        SkillEntity next = SkillEntities.chain(self, "skill_ice_05", (int) (self.attackDamage() - 1));
+                    if (friendlist.getInt("AttackDamage") > 0) {
+                        double angle = Math.toRadians(friendlist.getInt("jiaodu") + 90);
+                        int remaining = friendlist.getInt("AttackDamage") - 1;
+                        SkillEntity next = SkillEntities.chain(self, "skill_ice_05", remaining);
                         next.moveTo(self.getX() + Math.cos(angle), self.getY(), self.getZ() + Math.sin(angle), level.getRandom().nextFloat() * 360F, 0);
                         SkillEntities.turn(next, Mth.nextInt(level.getRandom(), 0, 360), 0);
-                        next.getPersistentData().putInt("jiaodu", scratch.getInt("jiaodu"));
+                        CompoundTag nextFriendlist = friendlist.copy();
+                        nextFriendlist.putInt("AttackDamage", remaining);
+                        next.getPersistentData().put("friendlist", nextFriendlist);
                         SkillEntities.spawn(level, next, true);
                     }
                     scratch.putBoolean("shifang", true);

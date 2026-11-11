@@ -44,9 +44,9 @@ public final class Relations {
         entityAllegiance(target).copyFrom(allegiance(owner));
     }
 
-    /** 非玩家实体直接共享来源friendlist引用；团队值单独复制，存档重载后集合独立。 */
+    /** 非玩家目标直接共享施放者的来源friendlist引用；团队值单独复制，存档重载后集合独立。 */
     public static void shareEntityAllegiance(Entity owner, Entity target) {
-        entityAllegiance(target).shareFrom(entityAllegiance(owner));
+        entityAllegiance(target).shareFrom(allegiance(owner));
     }
 
     /** 设置非玩家实体的团队名，友方集合不变。 */

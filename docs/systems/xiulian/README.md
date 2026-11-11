@@ -33,6 +33,7 @@ updated: 2026-11-08
 | 雷劫开关 | `thunderOpen`、`setThunderOpen` | 流程、世界、符箓、技能 |
 | 雷劫落雷请求 | `TribulationLightningEvent`：服务端维度、原始落点、完整落雷命令文本 | combat 监听并进入共享落雷 |
 | 雷劫实体伤害请求 | `TribulationDamageEvent`：服务端维度、目标生物、完整伤害命令文本 | combat 监听并结算雷伤 |
+| 妖兽雷柱生成 | `CultivationSummons.summonLightPillars(服务端世界, 施放者, 目标, 攻击量)`：按来源目标四角偏移、团队共享、目标UUID和攻击量写入后生成`tianjie_05` | creature 040来源落雷过程 |
 | 本命槽位 | `benming`、`setBenming` | equipment |
 | 丹田界面 | `Dantian.open`；返回按钮发出 `DantianReturnEvent`（取消时不关闭界面） | panel |
 | 本命培养进度 | `benmingProgress`、`setBenmingProgress`（`BenmingProgress`：认主、等级、经验、所需经验，供丹田界面显示） | equipment |

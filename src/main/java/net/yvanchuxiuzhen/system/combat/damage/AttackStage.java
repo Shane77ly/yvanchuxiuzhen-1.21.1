@@ -23,6 +23,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.FightingState;
 import net.yvanchuxiuzhen.system.combat.api.HitEvent;
+import net.yvanchuxiuzhen.system.combat.api.HeavyHitEvent;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -68,6 +69,9 @@ final class AttackStage {
         NeoForge.EVENT_BUS.post(new HitEvent(victim, attacker, amount, heavy));
         if (heavy) {
             victim.addEffect(new MobEffectInstance(StatusEffects.holder("effect_033"), 10, 0, false, false));
+            if (victim.getType().is(YAOSHOU)) {
+                NeoForge.EVENT_BUS.post(new HeavyHitEvent(victim, attacker));
+            }
         }
         if (victim.getType().is(YAOSHOU) || victim.getType().is(XIUZHE)) {
             int stacks = StatusEffects.has(victim, "effect_034") ? StatusEffects.amplifier(victim, "effect_034") + 1 : 0;

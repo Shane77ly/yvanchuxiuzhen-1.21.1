@@ -1,12 +1,15 @@
 package net.yvanchuxiuzhen.system.skill.api;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 来源技能实体的受控生成入口。 */
 public final class SkillSummons {
@@ -31,5 +34,49 @@ public final class SkillSummons {
         projectile.setPos(position);
         projectile.shoot(direction.x, direction.y, direction.z, 1, 10);
         level.addFreshEntity(projectile);
+    }
+
+    /** 妖兽023回旋光弹：按来源光弹类型、伤害、击退、速度与散布生成。 */
+    public static void shootLight01(Entity owner, Vec3 position, Vec3 direction) {
+        ServerLevel level = (ServerLevel) owner.level();
+        SkillProjectile projectile = SkillSetup.<SkillProjectile>entityType("projectile_skill_light_01").get()
+                .create(level).launchedWith(1, 0);
+        projectile.setOwner(owner);
+        projectile.setBaseDamage(0.1);
+        projectile.setSilent(true);
+        projectile.setPos(position);
+        projectile.shoot(direction.x, direction.y, direction.z, 1, 0);
+        level.addFreshEntity(projectile);
+    }
+
+    /** 妖兽054冰锥：保留基础伤害、击退、静音及速度1、散布10。 */
+    public static void shootIce01(Entity owner, Vec3 position, Vec3 direction) {
+        ServerLevel level = (ServerLevel) owner.level();
+        SkillProjectile projectile = SkillSetup.<SkillProjectile>entityType("projectile_skill_ice_01").get()
+                .create(level).launchedWith(1, 0);
+        projectile.setOwner(owner);
+        projectile.setBaseDamage(0.1);
+        projectile.setSilent(true);
+        projectile.setPos(position);
+        projectile.shoot(direction.x, direction.y, direction.z, 1, 10);
+        level.addFreshEntity(projectile);
+    }
+
+    /**
+     * 妖兽054冰爪的裂冰斩入口：来源消费者读取friendlist子标签中的整数参数；根标签的同名写入不参与结算。
+     * 友方集合共享施放者引用；攻击者文字无效时不造成命令伤害，冻结和出土生命周期仍执行。
+     */
+    public static void summonEntityIceSpike(Entity owner, Vec3 position) {
+        ServerLevel level = (ServerLevel) owner.level();
+        CompoundTag parameters = owner.getPersistentData().getCompound("friendlist");
+        SkillEntity spike = SkillSetup.<SkillEntity>entityType("skill_ice_05").get().create(level);
+        spike.configure(owner, 5, 1.2, "冰", "裂冰斩");
+        Relations.shareEntityAllegiance(owner, spike);
+        spike.moveTo(position.x, position.y, position.z, level.getRandom().nextFloat() * 360F, 0);
+        SkillEntities.turn(spike, Mth.nextInt(level.getRandom(), 1, 360), 0);
+        CompoundTag data = spike.getPersistentData();
+        data.putDouble("jiaodu", owner.getYRot());
+        data.put("friendlist", parameters);
+        SkillEntities.spawn(level, spike, true);
     }
 }

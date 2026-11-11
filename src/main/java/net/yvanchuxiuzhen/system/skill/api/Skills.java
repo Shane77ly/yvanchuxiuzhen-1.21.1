@@ -183,6 +183,11 @@ public final class Skills {
         DamageArea.show(owner, at, animation, skillName, duration, attackDamage);
     }
 
+    /** 妖兽040万丈光芒的范围预警：沿来源共享实体友方表。 */
+    public static void showEntityDamageArea(Entity owner, Vec3 at, String animation, double duration) {
+        DamageArea.showEntityShared(owner, at, animation, duration);
+    }
+
     /** 技能界面的元婴按钮：达到元婴期时出窍，再次调用归窍。 */
     public static void toggleYuanying(ServerPlayer player) {
         Yuanying.toggle(player);
