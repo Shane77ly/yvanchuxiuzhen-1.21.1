@@ -15,7 +15,7 @@ updated: 2026-11-11
 
 ## 批次和出口
 
-2026-11-11 当前D/E依赖工作分支`port/d-world-supply`：前批`7deb663f`的47个野生植物与20个树木Feature之后，本批接回32矿物、33配置型地物、24模板，共89个独立Feature；另有28树、8圆盘与171放置资源，合计207个群系内联配置。16种树装饰器、温泉完整族、两种水草含水回调及来源随机结构开关已接线。最终`build compileSmokeJava`含test/check与ArchUnit通过；既有`fulucooking`客户端343项INFO/0 FAIL/DONE、四维度保存退出且ERROR/FATAL0；最终专服7个受控场景通过，原生stop保存四维度、退出码0且ERROR/FATAL0。89个独立Feature保持已注册，41群系与两维度尚未正式安装，自然供给未闭合。下一批并行闭合原版生成差异、70个群系实体依赖及地形运行时；环境动物按01–12整族推进。沿用全量active goal，不push、不合`main`。
+2026-11-11 当前分支`port/d-world-supply`：前批`46a983d8`后接回来源树与晶洞完整算法、化石/湖泊/材料/洞穴闭包及12编号妖兽。55个原版生成根静态核验全部闭合：38项可复用、14项来源自定义实现、3项洞穴配置，0项待核。完整数据转换2600条记录；41群系计划保持2973条生成操作、483条出生记录，当前唯一阻断为46个缺失实体类型。最终完整构建含test/check、ArchUnit及compileSmokeJava通过（`tmp/world-supply-batch-build-final.log`）。既有fulucooking客户端343项INFO、0 FAIL、DONE，原生日志ERROR/FATAL0，四维度正常保存退出（`tmp/world-supply-batch-report.txt`、`tmp/world-supply-batch-client-latest.log`）。12个妖兽在专服逐刻存活及召唤死亡移除共24个标记通过，原生save-all/stop保存四维度、ERROR/FATAL0（`tmp/world-supply-integrated-server.log`）；这些检查不覆盖完整战斗、玩家背包清袋或自然生成。当前World与Creature均为部分实现，41群系和人间道/妖魂道尚未正式安装；新树/晶洞尚未实机放置或自然生成验收，19个缺失方块以显式可选标签保留，未补占位。滴水石历史受控检查的高度图ERROR与Redirect未独立观测边界仍保留。沿用全量active goal，不推送、不合main。
 
 2026-11-10 继续 D符箓：知识/绘制/烧灰/传承与多数编号施用已接回，新增 15/16/22/23/42，最终内置客户端 47 项 INFO、0 FAIL、DONE，ERROR/FATAL0、四维度正常保存退出；最终专服Done/原生stop保存四维度、退出码0且ERROR/FATAL0；42 引爆验证受控取消，仅确认回调参数，实际破坏/掉落/连锁未验。13/17 生成计数与 23 原版自然回血隔离修正均通过，历史失败保留，系统仍为部分实现。本批提交后从当前分支建立 `port/d-craft` 整合石磨/石碾，来源已审计；37/复生丹清理契约和 creature/plant 依赖按原边界处理。负责人本日要求自主持续推进完整目标并使用子 Agent，无需逐项指挥；沿用 active 全量 goal，转换、构建和游戏检查由主会话串行整合，批次通过后提交，暂不推送、不合main。具体状态见[交接](handoff.md)和[符箓月志](../systems/fulu/logs/2026-11.md)。
 

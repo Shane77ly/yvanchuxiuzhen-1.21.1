@@ -1,0 +1,242 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.organism12.idle": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"qianbi": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"body": {
+					"rotation": {
+						"0.0": {
+							"vector": [5, 0, 0]
+						},
+						"1.0": {
+							"vector": [-5, 0, 0],
+							"easing": "easeInQuad"
+						},
+						"2.0": {
+							"vector": [5, 0, 0],
+							"easing": "easeInQuad"
+						}
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 10]
+						},
+						"1.0": {
+							"vector": [0, 0, -20],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [0, 0, 10],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -10]
+						},
+						"1.0": {
+							"vector": [0, 0, 20],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [0, 0, -10],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"wei": {
+					"rotation": {
+						"0.0": {
+							"vector": [-10, 0, 0]
+						},
+						"1.0": {
+							"vector": [10, 0, 0]
+						},
+						"2.0": {
+							"vector": [-10, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.organism12.walk": {
+			"loop": true,
+			"animation_length": 1.2,
+			"bones": {
+				"qianbi": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"body": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 15, 0]
+						},
+						"0.2": {
+							"vector": [0, 0, 0]
+						},
+						"0.4": {
+							"vector": [0, -15, 0]
+						},
+						"0.6": {
+							"vector": [0, -15, 0]
+						},
+						"0.8": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 15, 0]
+						},
+						"1.2": {
+							"vector": [0, 15, 0]
+						}
+					}
+				},
+				"beiqi": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -5]
+						},
+						"0.28": {
+							"vector": [0, 0, 5]
+						},
+						"0.6": {
+							"vector": [0, 0, -5]
+						},
+						"0.88": {
+							"vector": [0, 0, 5]
+						},
+						"1.2": {
+							"vector": [0, 0, -5]
+						}
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 15]
+						},
+						"0.28": {
+							"vector": [0, 0, -20],
+							"easing": "easeInOutQuad"
+						},
+						"0.6": {
+							"vector": [0, 0, 15],
+							"easing": "easeInOutQuad"
+						},
+						"0.88": {
+							"vector": [0, 0, -20],
+							"easing": "easeInOutQuad"
+						},
+						"1.2": {
+							"vector": [0, 0, 15],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -15]
+						},
+						"0.28": {
+							"vector": [0, 0, 20],
+							"easing": "easeInOutQuad"
+						},
+						"0.6": {
+							"vector": [0, 0, -15],
+							"easing": "easeInOutQuad"
+						},
+						"0.88": {
+							"vector": [0, 0, 20],
+							"easing": "easeInOutQuad"
+						},
+						"1.2": {
+							"vector": [0, 0, -15],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"wei": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2": {
+							"vector": [0, 15, 0]
+						},
+						"0.4": {
+							"vector": [0, 15, 0]
+						},
+						"0.6": {
+							"vector": [0, 0, 0]
+						},
+						"0.8": {
+							"vector": [0, -15, 0]
+						},
+						"1.0": {
+							"vector": [0, -15, 0]
+						},
+						"1.2": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"rightwei": {
+					"rotation": {
+						"0.0": {
+							"vector": [10, 0, 0]
+						},
+						"0.28": {
+							"vector": [-15, 0, 0]
+						},
+						"0.6": {
+							"vector": [10, 0, 0]
+						},
+						"0.92": {
+							"vector": [-15, 0, 0]
+						},
+						"1.2": {
+							"vector": [10, 0, 0]
+						}
+					}
+				},
+				"leftwei": {
+					"rotation": {
+						"0.0": {
+							"vector": [10, 0, 0]
+						},
+						"0.28": {
+							"vector": [-15, 0, 0]
+						},
+						"0.6": {
+							"vector": [10, 0, 0]
+						},
+						"0.92": {
+							"vector": [-15, 0, 0]
+						},
+						"1.2": {
+							"vector": [10, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.organism12.sneak": {
+			"loop": true
+		}
+	},
+	"geckolib_format_version": 2
+}

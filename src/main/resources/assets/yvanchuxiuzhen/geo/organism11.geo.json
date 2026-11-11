@@ -1,0 +1,97 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.organism11",
+				"texture_width": 34,
+				"texture_height": 19,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "body",
+					"parent": "zong",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-2, 4, -3], "size": [4, 4, 6], "pivot": [0, 6, 0], "rotation": [-30, 0, 0], "uv": [12, 0]}
+					]
+				},
+				{
+					"name": "wei",
+					"parent": "body",
+					"pivot": [0, 6, 2],
+					"cubes": [
+						{"origin": [-1, 4, 2], "size": [2, 3, 4], "pivot": [0, 5, 3], "rotation": [12.5, 0, 0], "uv": [22, 10]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "zong",
+					"pivot": [0, 8, -2],
+					"cubes": [
+						{"origin": [-1, 7, -3], "size": [2, 5, 2], "uv": [0, 9]}
+					]
+				},
+				{
+					"name": "shou",
+					"parent": "head",
+					"pivot": [0, 12, -2],
+					"cubes": [
+						{"origin": [-1, 12, -6], "size": [2, 1, 2], "uv": [0, 6]},
+						{"origin": [-1.5, 12, -4], "size": [3, 3, 3], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "zui",
+					"parent": "shou",
+					"pivot": [0, 12, -3.5],
+					"cubes": [
+						{"origin": [-1, 12, -5.5], "size": [2, 0.7, 2], "inflate": -0.1, "uv": [0, 6]}
+					]
+				},
+				{
+					"name": "leftarm",
+					"parent": "zong",
+					"pivot": [-2, 7.5, -1.5],
+					"cubes": [
+						{"origin": [-3, 5, -2], "size": [1, 3, 5], "pivot": [-2.5, 7.5, -1.5], "rotation": [-15, 0, 0], "uv": [10, 10]}
+					]
+				},
+				{
+					"name": "rightarm",
+					"parent": "zong",
+					"pivot": [2, 7.5, -1.5],
+					"rotation": [-15, 0, 0],
+					"cubes": [
+						{"origin": [2, 5, -2], "size": [1, 3, 5], "uv": [10, 10]}
+					]
+				},
+				{
+					"name": "leftleg",
+					"parent": "zong",
+					"pivot": [1, 4.5, -0.5],
+					"cubes": [
+						{"origin": [0.5, 0, -1], "size": [1, 5, 1], "uv": [8, 6]},
+						{"origin": [-0.5, 0.1, -3.5], "size": [3, 0, 3], "uv": [0, 16]}
+					]
+				},
+				{
+					"name": "rightleg",
+					"parent": "zong",
+					"pivot": [-1, 4.5, -0.5],
+					"cubes": [
+						{"origin": [-1.5, 0, -1], "size": [1, 5, 1], "uv": [8, 6]},
+						{"origin": [-2.5, 0.1, -3.5], "size": [3, 0, 3], "uv": [0, 16]}
+					]
+				}
+			]
+		}
+	]
+}

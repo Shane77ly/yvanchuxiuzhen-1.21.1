@@ -23,5 +23,7 @@
   "tooltip.yvanchuxiuzhen.item.fuqi_05.1": "右键打开可获得一套财神服装",
   "tooltip.yvanchuxiuzhen.item.fuqi_05.2": "装备一套财神服装会有金币掉落特效粒子",
   "tooltip.yvanchuxiuzhen.item.fuqi_05.3": "有时候还会捡到钱币！",
-  "item.yvanchuxiuzhen.fuqi_06": "Fuqi 0 6"
+  "item.yvanchuxiuzhen.caishenye_spawn_egg": "Caishenye Spawn Egg",
+  "item.yvanchuxiuzhen.fuqi_06": "Fuqi 0 6",
+  "entity.yvanchuxiuzhen.caishenye": "Caishenye"
 }

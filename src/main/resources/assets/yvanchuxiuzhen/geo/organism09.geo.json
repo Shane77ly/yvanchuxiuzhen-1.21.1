@@ -1,0 +1,48 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.organism09",
+				"texture_width": 26,
+				"texture_height": 17,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "body",
+					"pivot": [0, 5, -1]
+				},
+				{
+					"name": "head",
+					"parent": "body",
+					"pivot": [0, 5, -1],
+					"cubes": [
+						{"origin": [-2, 3, -3], "size": [4, 4, 4], "uv": [0, 0]},
+						{"origin": [1, 6, -4], "size": [2, 2, 2], "uv": [16, 0]},
+						{"origin": [-3, 6, -4], "size": [2, 2, 2], "uv": [16, 0]},
+						{"origin": [-1, 0, 0], "size": [2, 6, 2], "pivot": [0, 6, 1], "rotation": [7.5, 0, 0], "uv": [18, 7]}
+					]
+				},
+				{
+					"name": "rightarm",
+					"parent": "body",
+					"pivot": [-2, 5, 0],
+					"cubes": [
+						{"origin": [-11, 2, 0], "size": [9, 9, 0], "pivot": [-2, 5, 0], "rotation": [0, 40, 20], "uv": [0, 8], "mirror": true}
+					]
+				},
+				{
+					"name": "leftarm",
+					"parent": "body",
+					"pivot": [2, 5, 0],
+					"cubes": [
+						{"origin": [2, 2, 0], "size": [9, 9, 0], "pivot": [2, 5, 0], "rotation": [0, -40, -20], "uv": [0, 8]}
+					]
+				}
+			]
+		}
+	]
+}

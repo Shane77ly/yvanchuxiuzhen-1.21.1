@@ -1,0 +1,62 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.yaoshou022",
+				"texture_width": 36,
+				"texture_height": 52,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "body",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1.5, 2, -2], "size": [3, 3, 4], "uv": [0, 28]},
+						{"origin": [-0.1, 5, 3], "size": [0, 4, 6], "uv": [24, 16]},
+						{"origin": [-3, 5, -3], "size": [6, 6, 6], "uv": [0, 16]}
+					]
+				},
+				{
+					"name": "xiong",
+					"parent": "body",
+					"pivot": [0, 8, 0],
+					"cubes": [
+						{"origin": [-4, 4, -4], "size": [8, 8, 8], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "rightarm",
+					"parent": "body",
+					"pivot": [-4, 10, 0],
+					"rotation": [-15.00004, 9.99811, 20.00196],
+					"cubes": [
+						{"origin": [-11, 9, -2], "size": [8, 1, 4], "uv": [0, 47]}
+					]
+				},
+				{
+					"name": "leftarm",
+					"parent": "body",
+					"pivot": [4, 10, 0],
+					"rotation": [-15.00004, -9.99811, -20.00196],
+					"cubes": [
+						{"origin": [3, 9, -2], "size": [8, 1, 4], "uv": [0, 47]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "body",
+					"pivot": [0, 11, -3.5],
+					"cubes": [
+						{"origin": [-3, 11, -8], "size": [6, 6, 6], "uv": [0, 35]},
+						{"origin": [-1, 12, -9], "size": [2, 1, 1], "uv": [0, 20]},
+						{"origin": [0, 17, -8], "size": [0, 5, 4], "uv": [18, 32]}
+					]
+				}
+			]
+		}
+	]
+}

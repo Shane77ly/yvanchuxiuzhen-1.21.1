@@ -1,0 +1,23 @@
+{
+  "config": {
+    "features": [
+      {
+        "feature": "yvanchuxiuzhen:legacy_vanilla/fancy_oak_checked",
+        "chance": 0.05
+      },
+      {
+        "feature": "yvanchuxiuzhen:legacy_vanilla/jungle_bush",
+        "chance": 0.15
+      },
+      {
+        "feature": "yvanchuxiuzhen:legacy_vanilla/mega_jungle_tree_checked",
+        "chance": 0.7
+      }
+    ],
+    "default": {
+      "feature": "yvanchuxiuzhen:legacy_vanilla/patch_grass_jungle",
+      "placement": []
+    }
+  },
+  "type": "minecraft:random_selector"
+}

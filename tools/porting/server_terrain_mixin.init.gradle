@@ -1,0 +1,8 @@
+allprojects {
+    tasks.withType(JavaExec).configureEach {
+        if (name == 'runServer') {
+            standardInput = System.in
+            systemProperty 'mixin.debug.verbose', 'true'
+        }
+    }
+}

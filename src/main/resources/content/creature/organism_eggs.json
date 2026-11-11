@@ -1,0 +1,22 @@
+[
+  {
+    "id": "organism_09",
+    "base_color": -16711732,
+    "spot_color": -6570505
+  },
+  {
+    "id": "organism_10",
+    "base_color": -5667006,
+    "spot_color": -3028295
+  },
+  {
+    "id": "organism_11",
+    "base_color": -1,
+    "spot_color": -13312
+  },
+  {
+    "id": "organism_12",
+    "base_color": -65536,
+    "spot_color": -13312
+  }
+]

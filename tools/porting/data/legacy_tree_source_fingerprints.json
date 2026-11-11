@@ -1,0 +1,219 @@
+[
+  {
+    "name": "TreeFeature",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/TreeFeature.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/TreeFeature.java",
+    "source_sha256": "7d810dce2021317a0ad4ad133ddb649466d43cd2119b38f9853afb3b2033ba12",
+    "target_sha256": "974a9155d5bcc892fa363c42190bef090c752bb44efa89a08621616a1da51605"
+  },
+  {
+    "name": "RootSystemFeature",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/RootSystemFeature.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/RootSystemFeature.java",
+    "source_sha256": "9f3becef36aee0f6a776b6e71291504a7ad889cd1f19585abf2442e73f7b7570",
+    "target_sha256": "731c076d073f95c3655da315c9e09e83d42d59cb23a2d643f9c16438767bf7e9"
+  },
+  {
+    "name": "TrunkPlacer",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer.java",
+    "source_sha256": "ab7e21d0922e2d208f0fc83dbe1993e08d5a7c4a183a8cf997c1f19d9f082b72",
+    "target_sha256": "5db6cfcf6dd720891e6a039d11c6fb697179af24a633f167cc459e22c549e948"
+  },
+  {
+    "name": "StraightTrunkPlacer",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/trunkplacers/StraightTrunkPlacer.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/trunkplacers/StraightTrunkPlacer.java",
+    "source_sha256": "2407d9a5f0ec2927283c31f6ea6198c1d8d32efb1c29c14c9038bba487879ff3",
+    "target_sha256": "7c44e18e10d7794e3efa2003c2d66da1ef8280f9f5b641af2ed21310a26af8ee"
+  },
+  {
+    "name": "FancyTrunkPlacer",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/trunkplacers/FancyTrunkPlacer.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/trunkplacers/FancyTrunkPlacer.java",
+    "source_sha256": "b90999f064b1bc0654b2181dc09d2154b51e71d83d7a039307b6e5c40a0e593a",
+    "target_sha256": "dc81ec6c94a3944aa600938b07d18176dcff0d3b77bf09cd5b1d9de3a78456f8"
+  },
+  {
+    "name": "GiantTrunkPlacer",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/trunkplacers/GiantTrunkPlacer.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/trunkplacers/GiantTrunkPlacer.java",
+    "source_sha256": "eb07446cc1d9f4eb8556ae9e4ef22275591447337334db378296a3c86b0503ee",
+    "target_sha256": "753569bb1bd6e46a895d37abc7bf52172d957e3f1abf4740c4d1e50d5da3d3d8"
+  },
+  {
+    "name": "MegaJungleTrunkPlacer",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/trunkplacers/MegaJungleTrunkPlacer.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/trunkplacers/MegaJungleTrunkPlacer.java",
+    "source_sha256": "78d7669050e385a8deb6331d459d168c96b36955e27a1d8751dc3e47b0b70f41",
+    "target_sha256": "2403543664e56bc78c7fe5b8986bd65092cdcb18d54a5641e7e7a1431e362e25"
+  },
+  {
+    "name": "BendingTrunkPlacer",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/trunkplacers/BendingTrunkPlacer.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/trunkplacers/BendingTrunkPlacer.java",
+    "source_sha256": "97047d387f0460fed2dc8b9444d232a2392343c9c23a3cede07896945dc830f3",
+    "target_sha256": "9c1584b4e23b1cbcfeea5b6ee0010de2222fd34778f294f5e9b110e0e8863d2a"
+  },
+  {
+    "name": "FoliagePlacer",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacer.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacer.java",
+    "source_sha256": "a145d9de9d4c1697107ee778784762b81c9b95c86451afc9b10bd6db459463e6",
+    "target_sha256": "28d6cf0f1daaebdb6c4c53eb374802db754534144a026b45bdc0b829f4851784"
+  },
+  {
+    "name": "BlobFoliagePlacer",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/foliageplacers/BlobFoliagePlacer.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/foliageplacers/BlobFoliagePlacer.java",
+    "source_sha256": "456a26b38c59ac7ab81bc8428fe692e6d6f4e56556d259e58f6036fac3ee4c2e",
+    "target_sha256": "ed1eb2b7f67732507af7dc17d165bc55a42825d76ac91fc2d4718f8e44716c47"
+  },
+  {
+    "name": "FancyFoliagePlacer",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/foliageplacers/FancyFoliagePlacer.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/foliageplacers/FancyFoliagePlacer.java",
+    "source_sha256": "87339611149b7dae7ed441d2c70e669244cadbad36f75078595a2e181e142c22",
+    "target_sha256": "b7671a7c645dc3f5dfe3d8dd1029a83db14facba6e50ad214ab36a43bf20388f"
+  },
+  {
+    "name": "BushFoliagePlacer",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/foliageplacers/BushFoliagePlacer.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/foliageplacers/BushFoliagePlacer.java",
+    "source_sha256": "1ccb02cd245e1d6f9e258b010ebaaed8b431f7a118afbd19f761b5b1365da534",
+    "target_sha256": "d93b24c9fd26697bc146ea9f091ec8dd48043082b68d9253412c92b2518b0b34"
+  },
+  {
+    "name": "MegaJungleFoliagePlacer",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/foliageplacers/MegaJungleFoliagePlacer.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/foliageplacers/MegaJungleFoliagePlacer.java",
+    "source_sha256": "43cafcb155d5f354a14fc84fc89331b58fa56f88ed2ca6de13b87c39a8e7700c",
+    "target_sha256": "ce488635fcb2fd723e7718030f60f9869e35370279475088391df4f4dfe1d910"
+  },
+  {
+    "name": "RandomSpreadFoliagePlacer",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/foliageplacers/RandomSpreadFoliagePlacer.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/foliageplacers/RandomSpreadFoliagePlacer.java",
+    "source_sha256": "7f6424fcc64549f6ce6b3dda47d669cd7482e6a7d3dc56a9d878b4ae5bf3a956",
+    "target_sha256": "6e7ca81e1d9f6aa678d58884c8a7e77fb57088c1533a27843a07b5d2c1b39dce"
+  },
+  {
+    "name": "TreeDecorator",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecorator.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecorator.java",
+    "source_sha256": "1429530f7439b9f37e57273bdeeb56f952e83eac91ea30f9a25b1ebeace569a4",
+    "target_sha256": "88878b4df67552fb230791d5f161a359b111072be85ecedd7307f826ffe78cfc"
+  },
+  {
+    "name": "LeaveVineDecorator",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/treedecorators/LeaveVineDecorator.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/treedecorators/LeaveVineDecorator.java",
+    "source_sha256": "f70342bfe610f6830cbb6293fe62bb305967ec09b58e4bbd8a59f59c9f01f910",
+    "target_sha256": "5dbba758953b2b9186d608265ea89278055a40ab8b2d10fc8e1626663d987068"
+  },
+  {
+    "name": "TrunkVineDecorator",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/treedecorators/TrunkVineDecorator.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/treedecorators/TrunkVineDecorator.java",
+    "source_sha256": "c5c5b346db46d50591b3c1d104c193bff2a630c80ae30be5f1294fa8eb41f7ab",
+    "target_sha256": "2e2c8d3d10b23dca5350f387cdba455dfcbf4b776efee553c8aae71459296028"
+  },
+  {
+    "name": "CocoaDecorator",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/treedecorators/CocoaDecorator.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/treedecorators/CocoaDecorator.java",
+    "source_sha256": "63a876e8d3f7636023e5021674d91b80c57364ac45681c88990c6306ad5552b0",
+    "target_sha256": "85ecd26b1b9ff9fce485b384425680a6c6610d538441ab1bfeefad178fe7e01e"
+  },
+  {
+    "name": "BeehiveDecorator",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/treedecorators/BeehiveDecorator.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/treedecorators/BeehiveDecorator.java",
+    "source_sha256": "5f4b065231408d9ed7c943065d1bc4166eb654bc1afdac6fd1b96187ace12d92",
+    "target_sha256": "8fb7b1714c9313f99dce49560226f80cb381e6f2630208645cd8a9ffb36eb36b"
+  },
+  {
+    "name": "TreeConfiguration",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration.java",
+    "source_sha256": "2e43b7010f70184bef7c310682c8a3ac1cdeba6d79b66b3e0d2d7d0b610a9566",
+    "target_sha256": "85b922045395a233ea7f55be32e8fbf975ea8d02c5374d4e8468903600b2fb89"
+  },
+  {
+    "name": "RootSystemConfiguration",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/configurations/RootSystemConfiguration.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/configurations/RootSystemConfiguration.java",
+    "source_sha256": "ebe2344945ddd49adc373d52627fb0a7355a0031afdda7d379334293a5cd93a1",
+    "target_sha256": "0d83df3b3bd301f9c052c960ed00285321a82f803740f9d1809a01ac96f2152c"
+  },
+  {
+    "name": "TwoLayersFeatureSize",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/featuresize/TwoLayersFeatureSize.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/featuresize/TwoLayersFeatureSize.java",
+    "source_sha256": "f288e484dd936dffc181c5fc809f0f1e484351cdc7922e4c71007684bf1bd6ef",
+    "target_sha256": "695102de18c6b771a6929dfd5caf294bcdddac1524560fde15a7e6ba2b8f0a05"
+  },
+  {
+    "name": "WeightedStateProvider",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/stateproviders/WeightedStateProvider.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/stateproviders/WeightedStateProvider.java",
+    "source_sha256": "8def7f79f3f78f2673b27aa2f48b8a333bac5aebb256db6951fff63a2231dd6e",
+    "target_sha256": "625b2b840fc857ed48cd8951a8fe327e3a20d8001f7d94bffb893e2c9cc631ff"
+  },
+  {
+    "name": "BushBlock",
+    "source_entry": "net/minecraft/world/level/block/BushBlock.java",
+    "target_entry": "net/minecraft/world/level/block/BushBlock.java",
+    "source_sha256": "a4e4852bd3edd82420f8e838af6495aa69d90e25a52f111a4e324c57e8ea7955",
+    "target_sha256": "224ea54460f11fcf5d7fd4ad1e92269e94526b647c3eec413a17941e9befd42d"
+  },
+  {
+    "name": "Block",
+    "source_entry": "net/minecraft/world/level/block/Block.java",
+    "target_entry": "net/minecraft/world/level/block/Block.java",
+    "source_sha256": "cbd5f0b43c57d46092f75af387601014c88b3494df9ec2893c31612bf905f8bc",
+    "target_sha256": "90e336f7151e3719a1ae8c0694f0023104a2c599c5851aa2d871ffbd1a95ea8f"
+  },
+  {
+    "name": "BlockPos",
+    "source_entry": "net/minecraft/core/BlockPos.java",
+    "target_entry": "net/minecraft/core/BlockPos.java",
+    "source_sha256": "9a501a7d1334fcaecf83d7bbcb53083aaab0fabde3ac10aa5c57783aa53ff4d3",
+    "target_sha256": "a30e8e979ab7a25808a06d4e0f4eae1bdb4b3349b28d624368e4bbb62b540fa4"
+  },
+  {
+    "name": "Vec3i",
+    "source_entry": "net/minecraft/core/Vec3i.java",
+    "target_entry": "net/minecraft/core/Vec3i.java",
+    "source_sha256": "cf2271b23822345cd0db3f191cbfccc3bbc397967db328fbc20e3e40d4aed439",
+    "target_sha256": "0e8adc80b12243b47490d909e70acda9754570d82ecf4dc298746c1e9d0132c7"
+  },
+  {
+    "name": "Direction",
+    "source_entry": "net/minecraft/core/Direction.java",
+    "target_entry": "net/minecraft/core/Direction.java",
+    "source_sha256": "02ede5ed15aec0cb4556c3d2c3df6e3728e762f7e88687c42bd521cc6775cbc6",
+    "target_sha256": "3852bd671e7ed5e41472398d8ab189f0c8b42894ac05e4d140394af6487ffeec"
+  },
+  {
+    "name": "SolidPredicate",
+    "source_entry": "net/minecraft/world/level/levelgen/blockpredicates/SolidPredicate.java",
+    "target_entry": "net/minecraft/world/level/levelgen/blockpredicates/SolidPredicate.java",
+    "source_sha256": "de3febb04063c64174453d39f135608a2741c4dbe279e3488d1433aee16d1a4d",
+    "target_sha256": "061cb3cb23926bb484bb1f1dea9bb02591b4771715cf6f820119811f382a515d"
+  },
+  {
+    "name": "SimpleBlockFeature",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/SimpleBlockFeature.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/SimpleBlockFeature.java",
+    "source_sha256": "e250368f96f90ee966440a429faf540514763fce4a7d56588e9c2a5489968028",
+    "target_sha256": "3c42ff92cf10f961268cffbe6819b6dd453c6cfd2b2493afcd238c5bc99f81ba"
+  },
+  {
+    "name": "TallGrassBlock",
+    "source_entry": "net/minecraft/world/level/block/TallGrassBlock.java",
+    "target_entry": "net/minecraft/world/level/block/TallGrassBlock.java",
+    "source_sha256": "7dbe58aadec1cd0db5e4932e0a84189df25ab8689285ed929c99a4c40524727c",
+    "target_sha256": "be9df6b0aafb4e7a7bae235e33f2fdf6760360619f92f1f60caf56fcdb0533cd"
+  }
+]

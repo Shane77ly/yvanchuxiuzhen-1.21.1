@@ -1,0 +1,125 @@
+[
+  {
+    "id": "organism_09",
+    "geo": "organism09",
+    "animation": "organism09",
+    "rendering": {
+      "shadow": 0.5,
+      "scale": 1.0
+    },
+    "texture": "organism09",
+    "air": "animation.organism09.walk",
+    "idle": "animation.organism09.walk",
+    "speed": 0.3,
+    "health": 10.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0,
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "flying",
+      "no_gravity": true,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 20,
+      "ignores_fall_damage": true,
+      "damage_immunities": [
+        "fall"
+      ],
+      "animation_transition_ticks": 4,
+      "flying_speed": 0.3
+    }
+  },
+  {
+    "id": "organism_10",
+    "geo": "organism10",
+    "animation": "organism10",
+    "rendering": {
+      "shadow": 0.2,
+      "scale": 1.0
+    },
+    "texture": "organism10",
+    "head": "head",
+    "air": "animation.organism10.fly",
+    "idle": "animation.organism10.idle",
+    "speed": 0.2,
+    "health": 8.0,
+    "armor": 0.0,
+    "attack": 1.0,
+    "follow": 16.0,
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 20,
+      "ignores_fall_damage": false,
+      "damage_immunities": [
+        "fall"
+      ],
+      "animation_transition_ticks": 4
+    }
+  },
+  {
+    "id": "organism_11",
+    "geo": "organism11",
+    "animation": "organism11",
+    "rendering": {
+      "shadow": 0.5,
+      "scale": 1.0
+    },
+    "texture": "organism11",
+    "head": "head",
+    "idle": "animation.organism11.idle",
+    "speed": 0.30000000000000004,
+    "health": 10.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0,
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 20,
+      "ignores_fall_damage": false,
+      "damage_immunities": [
+        "fall"
+      ],
+      "animation_transition_ticks": 0
+    }
+  },
+  {
+    "id": "organism_12",
+    "geo": "organism12",
+    "animation": "organism12",
+    "rendering": {
+      "shadow": 0.3,
+      "scale": 1.0
+    },
+    "texture": "organism12",
+    "idle": "animation.organism12.idle",
+    "speed": 0.3,
+    "health": 100.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0,
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "water",
+      "no_gravity": false,
+      "breathes_underwater": true,
+      "pushed_by_fluid": false,
+      "death_ticks": 20,
+      "ignores_fall_damage": false,
+      "damage_immunities": [
+        "cactus",
+        "drown"
+      ],
+      "animation_transition_ticks": 4,
+      "swim_speed": 0.3
+    }
+  }
+]

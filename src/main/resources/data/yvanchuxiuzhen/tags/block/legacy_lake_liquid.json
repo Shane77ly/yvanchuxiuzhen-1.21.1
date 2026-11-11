@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bubble_column",
+    "minecraft:lava",
+    "minecraft:water",
+    {
+      "id": "yvanchuxiuzhen:hotoil",
+      "required": false
+    },
+    {
+      "id": "yvanchuxiuzhen:quicksand",
+      "required": false
+    },
+    {
+      "id": "yvanchuxiuzhen:watercloud",
+      "required": false
+    },
+    "yvanchuxiuzhen:wenqvan",
+    "yvanchuxiuzhen:xveliu"
+  ]
+}

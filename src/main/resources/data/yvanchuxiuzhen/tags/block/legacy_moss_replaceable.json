@@ -1,0 +1,20 @@
+{
+  "replace": true,
+  "values": [
+    "minecraft:andesite",
+    "minecraft:cave_vines",
+    "minecraft:cave_vines_plant",
+    "minecraft:coarse_dirt",
+    "minecraft:deepslate",
+    "minecraft:diorite",
+    "minecraft:dirt",
+    "minecraft:granite",
+    "minecraft:grass_block",
+    "minecraft:moss_block",
+    "minecraft:mycelium",
+    "minecraft:podzol",
+    "minecraft:rooted_dirt",
+    "minecraft:stone",
+    "minecraft:tuff"
+  ]
+}

@@ -14,6 +14,7 @@ JSON 中的引用同步改写。方块 Java 通过 registerRenderLayer 声明的
 from __future__ import annotations
 
 import csv
+import argparse
 import hashlib
 import json
 import re
@@ -283,18 +284,25 @@ def json_bytes(data) -> bytes:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--owner', help='仅转换指定系统，按目标路径合并既有清单')
+    args = parser.parse_args()
+    all_units = {p.name for p in CONTENT.iterdir() if p.is_dir() and p.name != 'platform'}
+    if args.owner is not None and args.owner not in all_units:
+        parser.error(f'不存在内容系统：{args.owner}')
     converter = Converter()
     origin: dict[tuple[str, str], tuple[str, str]] = {}
     effects: list[dict] = []
     particles: list[dict] = []
-    for rows in read_ledgers().values():
+    for ledger, rows in read_ledgers().items():
+        owner = ledger.parent.parent.name
         for row in rows:
             if row['registry'] in ('block', 'item'):
                 mod, path = row['legacy_id'].split(':', 1)
                 origin[(row['registry'], row['target_id'].split(':', 1)[1])] = (mod, path)
-            elif row['registry'] == 'mob_effect' and row['status'] != '待处理':
+            elif row['registry'] == 'mob_effect' and row['status'] != '待处理' and (args.owner is None or owner == args.owner):
                 effects.append(row)
-            elif row['registry'] == 'particle_type' and row['status'] != '待处理':
+            elif row['registry'] == 'particle_type' and row['status'] != '待处理' and (args.owner is None or owner == args.owner):
                 particles.append(row)
     layers = {}
     for mod, (root, prefix) in SOURCES.items():
@@ -306,7 +314,7 @@ def main() -> None:
             if found:
                 layers[(mod, path)] = RENDER_TYPES[found.group(1)]
     block_wrappers: dict[str, dict[str, str]] = {}
-    units = sorted(p.name for p in CONTENT.iterdir() if p.is_dir() and p.name != 'platform')
+    units = [args.owner] if args.owner is not None else sorted(all_units)
     for unit in units:
         file = CONTENT / unit / 'blocks.json'
         if file.is_file():
@@ -334,9 +342,13 @@ def main() -> None:
         converter.particle(mod, path, row['target_id'].split(':', 1)[1])
     with (ROOT / 'docs/reference/conversion/screen_textures.csv').open(encoding='utf-8') as handle:
         for row in csv.DictReader(handle):
+            if args.owner is not None and row['owner'] != args.owner:
+                continue
             converter.copy_texture(row['texture'], row['texture'].split(':', 1)[0])
     with (ROOT / 'docs/reference/conversion/system_assets.csv').open(encoding='utf-8') as handle:
         for row in csv.DictReader(handle):
+            if args.owner is not None and row['owner'] != args.owner:
+                continue
             if row['kind'] == 'texture':
                 converter.copy_texture(row['id'], row['id'].split(':', 1)[0])
                 continue
@@ -351,14 +363,22 @@ def main() -> None:
             else:
                 converter.item(mod, path, target, {})
     for fragment in sorted((ROOT / 'src/main/sounds').glob('*.json')):
+        if args.owner is not None and fragment.stem != args.owner:
+            continue
         for definition in json.loads(fragment.read_text(encoding='utf-8')).values():
             for sound in definition['sounds']:
                 converter.sound(sound['name'].split(':', 1)[1])
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
+    manifest = converter.manifest
+    if args.owner is not None and MANIFEST.is_file():
+        updated = {row[2] for row in manifest}
+        with MANIFEST.open(encoding='utf-8', newline='') as handle:
+            manifest = [(row['source'], row['source_sha1'], row['target']) for row in csv.DictReader(handle)
+                        if row['target'] not in updated] + manifest
     with MANIFEST.open('w', encoding='utf-8', newline='') as handle:
         writer = csv.writer(handle, lineterminator='\n')
         writer.writerow(['source', 'source_sha1', 'target'])
-        writer.writerows(sorted(converter.manifest, key=lambda r: r[2]))
+        writer.writerows(sorted(manifest, key=lambda r: r[2]))
     print('files', len(converter.manifest), 'missing', len(converter.missing), 'dropped parents', len(converter.dropped_parents))
     for ref, kind in sorted(set(converter.missing))[:15]:
         print('  缺少', kind, ref)

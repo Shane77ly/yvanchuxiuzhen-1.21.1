@@ -149,6 +149,8 @@ tools/porting/                  来源索引、台账检查、资源转换
 
 语言片段与声音片段由 `build.gradle` 的 `mergeAssetFragments` 任务合并为生成资源 `assets/yvanchuxiuzhen/lang/<语言>.json` 与 `assets/yvanchuxiuzhen/sounds.json`（命名空间取 `mod_id`），同一片段内或不同片段之间的重复键、无效 JSON、不符合上述路径约定的文件都使构建失败；`src/main/resources` 中不再放这两类文件。这样各系统并行修改时不在同一个大文件上冲突。已实测（B0 步骤 5）：两种语言的片段合并进 JAR，转义值往返不变；开发客户端读取了合并后的 `sounds.json`。2026-11-02 改为单一命名空间后重新核对了 JAR 中的输出路径，旧的带命名空间目录的片段路径使构建失败。
 
+2026-11-11资源转换增量机制：`convert_assets.py --owner <系统>`按台账所属目录筛选内容、效果、粒子、额外资源与声音，按目标路径合并既有manifest；未指定owner仍全量转换。Creature批次实测275文件、0缺失、0丢弃。`convert_data.py`在单次转换中缓存来源文件SHA1，避免同一个大Jar被重复读取；哈希内容与来源追溯格式不变。
+
 ## 台账与检查工具
 
 三份台账（内容映射、行为对齐、验收证据）以 CSV 存放在所属系统目录 `docs/systems/<系统>/ledger/` 下的 `content.csv`、`behavior.csv`、`evidence.csv`；Excel 工作簿改为由 CSV 生成的只读审阅视图，不再承载人工列（当前工作簿人工列均为空，切换无数据损失）。内容映射由 `tools/porting/build_ledger.py` 从 `registrations.csv`、`element_files.csv` 与[归属表](../reference/legacy/inventory/ownership_assignment.csv)同步：每条来源注册一行，列为 `registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note`；来源列每次重写，人工列（`target_id`、`status`、`note`）按注册保留，新行的 `target_id` 取 `yvanchuxiuzhen:<来源路径>`；同名冲突在 `target_id` 中改名并在 `note` 说明。行放在 `owner` 所写单位的目录，归属改动时先改归属表再运行同步，行随之移动；没有编辑器元素的注册（声音事件、属性、游戏规则、画）按[注册归属表](../reference/legacy/inventory/registration_ownership.csv)（`source_mod,registry,legacy_id,owner,status,evidence`）归属，尚未登记的放在 `docs/systems/project/ledger/`，归属为“待读”。`behavior.csv`、`evidence.csv` 在所属单位出现第一条行为或证据时建立。

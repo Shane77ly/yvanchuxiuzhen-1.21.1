@@ -1,4 +1,6 @@
 owner,source_mod,prefix
+creature,yvanchuxiuzhen,attribute.yvanchuxiuzhen.entitydaxiao
+creature,yvanchuxiuzhen,attribute.yvanchuxiuzhen.yaoshoupifuxianshi
 xiulian,yvanchuxiuzhen,tizhi.
 xiulian,yvanchuxiuzhen,block.yvanchuxiuzhen.xveliu
 xiulian,yvanchuxiuzhen,item.yvanchuxiuzhen.xveliu_bucket

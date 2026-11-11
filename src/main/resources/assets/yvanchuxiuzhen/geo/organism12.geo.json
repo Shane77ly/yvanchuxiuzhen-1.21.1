@@ -1,0 +1,100 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.organism12",
+				"texture_width": 38,
+				"texture_height": 46,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "head",
+					"parent": "zong",
+					"pivot": [0, 2.5, 0],
+					"cubes": [
+						{"origin": [-3, 1, -8], "size": [6, 4, 4], "inflate": 0.1, "pivot": [0, 3, -6], "rotation": [-45, 0, 0], "uv": [0, 0]},
+						{"origin": [-3, 0, -6], "size": [6, 6, 6], "uv": [0, 8]},
+						{"origin": [-3.2, 2, -7], "size": [1, 2, 2], "uv": [20, 24]},
+						{"origin": [2.2, 2, -7], "size": [1, 2, 2], "uv": [20, 24]}
+					]
+				},
+				{
+					"name": "qianbi",
+					"parent": "head",
+					"pivot": [0, 2, -10],
+					"rotation": [0, -45, 0],
+					"cubes": [
+						{"origin": [-2, 1.5, -13], "size": [4, 1, 6], "uv": [0, 39]},
+						{"origin": [-3, 1.5, -12], "size": [1, 1, 4], "uv": [20, 39]},
+						{"origin": [2, 1.5, -12], "size": [1, 1, 4], "uv": [20, 39]}
+					]
+				},
+				{
+					"name": "beiqi",
+					"parent": "head",
+					"pivot": [0, 5.5, -1.5],
+					"cubes": [
+						{"origin": [0, 5, -6], "size": [0, 5, 9], "uv": [18, 0]}
+					]
+				},
+				{
+					"name": "rightarm",
+					"parent": "head",
+					"pivot": [-3, 2.5, -3],
+					"cubes": [
+						{"origin": [-11, 2.5, -3], "size": [8, 1, 8], "uv": [6, 30]}
+					]
+				},
+				{
+					"name": "leftarm",
+					"parent": "head",
+					"pivot": [3, 2.5, -3],
+					"cubes": [
+						{"origin": [3, 2.5, -3], "size": [8, 1, 8], "uv": [6, 30], "mirror": true}
+					]
+				},
+				{
+					"name": "body",
+					"parent": "head",
+					"pivot": [0, 2.5, 0],
+					"cubes": [
+						{"origin": [-2.5, 0.5, -2], "size": [5, 5, 5], "uv": [0, 20]},
+						{"origin": [-1.5, 1, 2], "size": [3, 4, 4], "uv": [0, 30]}
+					]
+				},
+				{
+					"name": "wei",
+					"parent": "body",
+					"pivot": [0, 3, 6],
+					"cubes": [
+						{"origin": [-1, 2, 6], "size": [2, 2, 2], "uv": [16, 20]}
+					]
+				},
+				{
+					"name": "rightwei",
+					"parent": "wei",
+					"pivot": [0, 3, 7],
+					"cubes": [
+						{"origin": [-7, 3, 7], "size": [7, 0, 9], "pivot": [0, 3, 7], "rotation": [0, -5, 0], "uv": [11, 0]}
+					]
+				},
+				{
+					"name": "leftwei",
+					"parent": "wei",
+					"pivot": [0, 3, 7],
+					"cubes": [
+						{"origin": [0, 3, 7], "size": [7, 0, 9], "pivot": [0, 3, 7], "rotation": [0, 5, 0], "uv": [11, 0], "mirror": true}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,100 @@
+[
+  {
+    "name": "GeodeFeature",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/GeodeFeature.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/GeodeFeature.java",
+    "source_sha256": "07a9332dfd4873d950a743588fefad6f89ad6ffc000d1db2cdfc4e02bfb37577",
+    "target_sha256": "cee8b607785c2d9cadec71833f988307a36e33eea377a2429cf8b0404e85e8b2"
+  },
+  {
+    "name": "NormalNoise",
+    "source_entry": "net/minecraft/world/level/levelgen/synth/NormalNoise.java",
+    "target_entry": "net/minecraft/world/level/levelgen/synth/NormalNoise.java",
+    "source_sha256": "ca8500e1ced0d8e96dfcd92b47efba6977b3d4f2bd2a50cb36472b17f91ee953",
+    "target_sha256": "8b890c7b78cf19a5a96a902bfc8ae0a1d5bcfb2c3856a280eadb2f716249f88c"
+  },
+  {
+    "name": "PerlinNoise",
+    "source_entry": "net/minecraft/world/level/levelgen/synth/PerlinNoise.java",
+    "target_entry": "net/minecraft/world/level/levelgen/synth/PerlinNoise.java",
+    "source_sha256": "c96a3a2d642bdadf79790d5ceafaa1e56fa2f524833310528c5662f60c727513",
+    "target_sha256": "c9c8948252ea716d32e81acbbf8a428ac94ec65417828c8a10a32425bd9d89f1"
+  },
+  {
+    "name": "ImprovedNoise",
+    "source_entry": "net/minecraft/world/level/levelgen/synth/ImprovedNoise.java",
+    "target_entry": "net/minecraft/world/level/levelgen/synth/ImprovedNoise.java",
+    "source_sha256": "866eeca6059b1a5331b16b12e0aabf1e4238689f922a305b4f6f68aa8acf88d1",
+    "target_sha256": "9ebfa526f9f1b7d00bc23c5abb742442fba5f213c6fb7267e758cf485d9928b9"
+  },
+  {
+    "name": "LegacyRandomSource",
+    "source_entry": "net/minecraft/world/level/levelgen/LegacyRandomSource.java",
+    "target_entry": "net/minecraft/world/level/levelgen/LegacyRandomSource.java",
+    "source_sha256": "70cca513100dbedb73f44330fc2869d73149ebd3440ab51746d07850c2d7dcf7",
+    "target_sha256": "813f61532d938841707182bf7e1051e06df845d2e2e8ab21985737163e029c7f"
+  },
+  {
+    "name": "WorldgenRandom",
+    "source_entry": "net/minecraft/world/level/levelgen/WorldgenRandom.java",
+    "target_entry": "net/minecraft/world/level/levelgen/WorldgenRandom.java",
+    "source_sha256": "d92f1fc432647c086102d3533e160d61248605c8a190a027e67ba64419861755",
+    "target_sha256": "22d0961a788a770d833dbbdd8e01a6a9b602a2fad0c285cb2580d1d474519f69"
+  },
+  {
+    "name": "BitRandomSource",
+    "source_entry": "net/minecraft/world/level/levelgen/BitRandomSource.java",
+    "target_entry": "net/minecraft/world/level/levelgen/BitRandomSource.java",
+    "source_sha256": "8aab9c75e7590441f934032cd39a031efcfee9be8f8fcd2dc31f05c2b7e78c86",
+    "target_sha256": "6efedc10674741f3e12eb179bef43238512da9142f404864c70979e37f074647"
+  },
+  {
+    "name": "Mth",
+    "source_entry": "net/minecraft/util/Mth.java",
+    "target_entry": "net/minecraft/util/Mth.java",
+    "source_sha256": "43ff368305bbcf8b98df2631b00bcd08767af5a822da8b62a3f4d29248730385",
+    "target_sha256": "2c613c028c0f0762bea13a53b77ec75a795f9b298bba0674f2077da0248215ab"
+  },
+  {
+    "name": "SimplexNoise",
+    "source_entry": "net/minecraft/world/level/levelgen/synth/SimplexNoise.java",
+    "target_entry": "net/minecraft/world/level/levelgen/synth/SimplexNoise.java",
+    "source_sha256": "e700d3ef57fb03e9f73ca6a865936b6dc5af8bd51d9c580636185fc807921f2e",
+    "target_sha256": "bd486d852d487a22e8be9624dba3721259769bbbc07487ab9204bae3e009c24d"
+  },
+  {
+    "name": "Direction",
+    "source_entry": "net/minecraft/core/Direction.java",
+    "target_entry": "net/minecraft/core/Direction.java",
+    "source_sha256": "02ede5ed15aec0cb4556c3d2c3df6e3728e762f7e88687c42bd521cc6775cbc6",
+    "target_sha256": "3852bd671e7ed5e41472398d8ab189f0c8b42894ac05e4d140394af6487ffeec"
+  },
+  {
+    "name": "BlockPos",
+    "source_entry": "net/minecraft/core/BlockPos.java",
+    "target_entry": "net/minecraft/core/BlockPos.java",
+    "source_sha256": "9a501a7d1334fcaecf83d7bbcb53083aaab0fabde3ac10aa5c57783aa53ff4d3",
+    "target_sha256": "a30e8e979ab7a25808a06d4e0f4eae1bdb4b3349b28d624368e4bbb62b540fa4"
+  },
+  {
+    "name": "Vec3i",
+    "source_entry": "net/minecraft/core/Vec3i.java",
+    "target_entry": "net/minecraft/core/Vec3i.java",
+    "source_sha256": "cf2271b23822345cd0db3f191cbfccc3bbc397967db328fbc20e3e40d4aed439",
+    "target_sha256": "0e8adc80b12243b47490d909e70acda9754570d82ecf4dc298746c1e9d0132c7"
+  },
+  {
+    "name": "Feature",
+    "source_entry": "net/minecraft/world/level/levelgen/feature/Feature.java",
+    "target_entry": "net/minecraft/world/level/levelgen/feature/Feature.java",
+    "source_sha256": "c17c926a5a186a0b322fb2856520617f642843f3db558155d3c71287cf22fe39",
+    "target_sha256": "d1a524900c027738de558ecf63e246c1c19038894aa2844c33c1920f720e1010"
+  },
+  {
+    "name": "BuddingAmethystBlock",
+    "source_entry": "net/minecraft/world/level/block/BuddingAmethystBlock.java",
+    "target_entry": "net/minecraft/world/level/block/BuddingAmethystBlock.java",
+    "source_sha256": "7a32d66f4f61fe8877b4f355fa5b7509944e0e97b6916dcad86764815ad5258c",
+    "target_sha256": "a574f407cf09e5a55859f5b5a3cb7f931f282ae5fa15014184cab92c7240ee95"
+  }
+]

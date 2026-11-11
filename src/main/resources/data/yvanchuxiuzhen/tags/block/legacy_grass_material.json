@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:dried_kelp_block",
+    "minecraft:grass_block",
+    "minecraft:hay_block",
+    "minecraft:mycelium",
+    "minecraft:nether_wart_block",
+    "minecraft:shroomlight",
+    "minecraft:target",
+    "minecraft:warped_wart_block"
+  ]
+}

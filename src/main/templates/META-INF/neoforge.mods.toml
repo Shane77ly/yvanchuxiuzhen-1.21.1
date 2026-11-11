@@ -8,6 +8,9 @@ version = "${mod_version}"
 displayName = "原初修真"
 description = '''原初修真与原初系统的 Minecraft 1.21.1 合并移植。'''
 
+[[mixins]]
+config = "yvanchuxiuzhen.terrain.mixins.json"
+
 [[dependencies."${mod_id}"]]
 modId = "neoforge"
 type = "required"

@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.system.world;
 import net.neoforged.bus.api.IEventBus;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.world.fluid.SpringFluids;
+import net.yvanchuxiuzhen.system.world.terrain.WorldTerrainTypes;
 import net.yvanchuxiuzhen.system.world.tree.WorldTreeDecorators;
 
 /**
@@ -21,6 +22,8 @@ public final class WorldSetup {
         WorldTreeDecorators.register(modBus);
         WorldTemplateFeatures.register(modBus);
         NativeWorldFeatures.register(modBus);
+        LegacyBiomeFeatures.register(modBus);
+        WorldTerrainTypes.register(modBus);
         SpringFluids.register(modBus);
         WorldGeneration.register();
         WorldGenerationCommands.register();

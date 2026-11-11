@@ -1,0 +1,18 @@
+{
+  "replace": true,
+  "values": [
+    "minecraft:dead_bush",
+    "minecraft:fern",
+    "minecraft:glow_lichen",
+    "minecraft:short_grass",
+    "minecraft:hanging_roots",
+    "minecraft:large_fern",
+    "minecraft:lilac",
+    "minecraft:peony",
+    "minecraft:rose_bush",
+    "minecraft:sunflower",
+    "minecraft:tall_grass",
+    "minecraft:vine",
+    "yvanchuxiuzhen:shicai_008plant_03"
+  ]
+}

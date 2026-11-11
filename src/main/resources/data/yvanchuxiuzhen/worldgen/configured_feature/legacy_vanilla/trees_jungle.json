@@ -1,0 +1,20 @@
+{
+  "config": {
+    "features": [
+      {
+        "feature": "yvanchuxiuzhen:legacy_vanilla/fancy_oak_checked",
+        "chance": 0.1
+      },
+      {
+        "feature": "yvanchuxiuzhen:legacy_vanilla/jungle_bush",
+        "chance": 0.5
+      },
+      {
+        "feature": "yvanchuxiuzhen:legacy_vanilla/mega_jungle_tree_checked",
+        "chance": 0.33333334
+      }
+    ],
+    "default": "yvanchuxiuzhen:legacy_vanilla/jungle_tree"
+  },
+  "type": "minecraft:random_selector"
+}

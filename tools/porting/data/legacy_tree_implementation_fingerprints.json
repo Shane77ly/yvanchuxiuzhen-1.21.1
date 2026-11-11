@@ -1,0 +1,19 @@
+{
+  "SourceTreeFeature": "dd599c492d98e9d2c73bf8f1662e42500f52efc5289f378751b341964d925a64",
+  "SourceRootSystemFeature": "d08aa698bdf7a1256e1f423754f2b64119fab406f861475a432fff2a48f709ad",
+  "SourceTreeGroundcoverFeature": "30f867db361f0a109089a69d51ef00735a15b2ace64728b43955bcfcd0511253",
+  "SourceTreeComponents": "3bdc7b4fe5266c9626b23bbaa135e48e98eeec7b811a3b96d55103559551cf28",
+  "SourceTrunkPlacer": "870afd1d64b71bf015e34a3dfb5ea40844106ed7e198b44cb104c64e2527eeec",
+  "SourceFoliagePlacer": "96a0762bf801602b27fcf7e7b0d2d0364b13f9bc4bec2a33f858083f309e0292",
+  "SourceLeaveVineDecorator": "bc9447d690974f03d642edb9553eb8d180bb1760bae46a2d01606c43685413cf",
+  "SourceStraightTrunkPlacer": "ed27951be9c6673693cd977efbb36242fc985376e8f4eda2084ef878b49e42aa",
+  "SourceFancyTrunkPlacer": "1616644502afac01c6f35164bf16285ca9b485874624dcff740f66c877f6ce56",
+  "SourceGiantTrunkPlacer": "f454e07d5dadf387eea1295d1a3575369cb15da92c4bfe1128ea54939e02571d",
+  "SourceMegaJungleTrunkPlacer": "851a2ab2b89d2c1fb50a6e426930343a88b7e93ba4ee1d6a859d40415a948c3c",
+  "SourceBendingTrunkPlacer": "acffb1f2cae1aa483327ae2450c7b69fefa0188999f7161357841d30d787db43",
+  "SourceBlobFoliagePlacer": "ed9c9235d603d9c9d4d63673a842f3a4a6f04fa9120e0b03d76604d0ed82294a",
+  "SourceFancyFoliagePlacer": "35ccbbd937bb6b4001066ef666e25584dc3b71f42499404fa818e8638c87e960",
+  "SourceBushFoliagePlacer": "5ecb5f25d277370b7895613f9a8daa14d21b7ff557e7c3991aef432f87cf6105",
+  "SourceMegaJungleFoliagePlacer": "3f49e82766f1d3d82c96dec6eb73b9502ab63e1a9afd69d9681d3eb4eff058bf",
+  "SourceRandomSpreadFoliagePlacer": "0947bdd2992758c1250d5cb0cdab6058e7b5e81ba65b2d38ed4351830bb1e1c9"
+}

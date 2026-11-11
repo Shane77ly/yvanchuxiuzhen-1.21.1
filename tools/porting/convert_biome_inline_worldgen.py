@@ -211,6 +211,10 @@ class InlineParser:
             noise, below, above = invocation(expression, 'NoiseThresholdCountPlacement.of')
             return {'type': 'minecraft:noise_threshold_count', 'noise_level': number(noise),
                     'below_noise': integer(below), 'above_noise': integer(above)}
+        if expression.startswith('NoiseBasedCountPlacement.of('):
+            ratio, factor, offset = invocation(expression, 'NoiseBasedCountPlacement.of')
+            return {'type': 'minecraft:noise_based_count', 'noise_to_count_ratio': integer(ratio),
+                    'noise_factor': number(factor), 'noise_offset': number(offset)}
         block, = invocation(expression, 'PlacementUtils.filteredByBlockSurvival')
         return {'type': 'minecraft:block_predicate_filter',
                 'predicate': {'type': 'minecraft:would_survive', 'state': self.state(block + '.defaultBlockState()')}}

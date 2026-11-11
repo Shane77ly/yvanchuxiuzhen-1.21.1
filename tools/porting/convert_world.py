@@ -10,6 +10,7 @@ import re
 
 from build_ledger import NAMESPACE, ROOT
 from convert_content import SOURCES
+from legacy_carvers import plan as carver_plan
 
 DATA = ROOT / 'src/main/resources/data'
 
@@ -73,6 +74,5 @@ def generate(converter) -> None:
     }
     converter.write(DATA / NAMESPACE / 'worldgen/biome/xvkongqvnxi.json', biome, [(mod, biome_file)])
 
-    # 来源 Fixers 向全局 CAVE/CANYON 加入 AIR；目标的三个原版配置共用此标签，NETHER_CAVE 使用另一标签。
-    converter.write(DATA / 'minecraft/tags/block/overworld_carver_replaceables.json',
-                    {'replace': False, 'values': ['minecraft:air']}, [(mod, source_java / 'dimension/XvkongDimension.java')])
+    for target, tag, origins in carver_plan(root):
+        converter.write(target, tag, origins)

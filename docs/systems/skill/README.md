@@ -51,6 +51,9 @@ updated: 2026-11-08
 | 开启虚空裂隙 | `openVoidRift(玩家)`：境界含修正达到 31 时关闭菜单，在视线五格处生成裂隙 | 技能界面虚空按钮（阶段 5） |
 | 显示伤害范围 | `showDamageArea(施放者, 坐标, 动画, 技能名, 持续刻数, 攻击量)`；普通提示的技能名为空，控雷阵与惊蛰闻雷按自身计时 | creature 的蓄力、控雷阵与惊蛰闻雷（生成者随 creature，控雷阵已调用 combat 共享落雷命令） |
 | 妖兽风技能实体 | `showWindBurst(施放者)` 生成八刻风波；`launchWindBlade(施放者, 目标, 攻击量)` 生成追踪风刃，倍率一、计时上限二百刻 | creature 的 `Yaoshou011baoqi`、`Yaoshou014heifeng`；调用者处理自身动作、攻击量和施放时序，不直接写技能实体状态 |
+| 延迟来源技能表现 | `system.skill.api.SkillDelays.after(刻数, 回调)`：服务端经过指定刻数执行一次内存回调，服务端停止时未执行回调丢弃 | creature 妖兽增幅技能的分批粒子 |
+| 生成毒蔓鞭技能实体 | `system.skill.api.SkillSummons.summonVineWhip(服务端世界, 施放者, 坐标)`：按来源攻击量4、倍率1、木系类型和技能名创建，复制施放者友方关系，定位并初始化后加入世界 | creature 妖兽001/002鞭挞过程；实体状态、动画与团队复制由 skill 持有 |
+| 妖兽发射水球 | `system.skill.api.SkillSummons.shootWater03(施放者, 坐标, 方向)`：按来源基础伤害0.1、击退1、静音、速度1和散布10创建水球并加入服务端世界 | creature 妖兽025/031来源发射链；不改写玩家施法状态 |
 | 元婴出窍/归窍 | `toggleYuanying(玩家)`：达到元婴期时扣神识并出窍，再次调用或神识不足时归窍 | 技能界面出窍按钮（阶段 5） |
 | 武器数值 | 事件 `WeaponStatEvent(武器, 键)`，监听者 `add` | `EquipmentAttributes` 已提供成品 `lianqizong.item_level_num` 并读取根组件 `mana_Att`；`AccessoryCommand` 可按字段参数生产该根值，`JewelryCrafting` 已生产同一根组件的饰品数值。其他生产者随所属系统迁移，不使用嵌套炼器法攻替代根值 |
 | 研习附赠 | 监听 gongfa 的 `TechniqueStudiedEvent`，“行尸御火”“真言吒雷诀”各附赠一本技能书 | gongfa（事件） |
