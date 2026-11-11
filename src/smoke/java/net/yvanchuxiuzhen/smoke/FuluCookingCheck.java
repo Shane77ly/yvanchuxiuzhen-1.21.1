@@ -2375,6 +2375,7 @@ final class FuluCookingCheck extends ActionCheck {
                                     && clientGourd.getContainerSize() == 9);
                     minecraft.execute(() -> screenshots.take("plant-gourd-block-item-animation.png"));
                 }),
+                new Action(1, p -> PlantFoodSupplyCheck.run(p, ricePos, this::expectTrue)),
                 new Action(1, p -> restoreRice(p)),
                 // 餐具与案板：真实客户端输入；未执行来源过程或设备tick代替自然入口。
                 new Action(12, p -> {
@@ -2730,13 +2731,15 @@ final class FuluCookingCheck extends ActionCheck {
             BlockState leaf = block(tree[3]).setValue(BlockStateProperties.PERSISTENT, true);
             player.serverLevel().setBlock(ricePos, leaf, 3);
             List<ItemStack> leafDrops = Block.getDrops(leaf, player.serverLevel(), ricePos, null);
-            boolean allowed = leafDrops.size() <= 1 && leafDrops.stream().allMatch(stack ->
-                    stack.is(item(tree[1]).getItem()) && stack.getCount() == 1
-                            || (stack.is(Items.STICK) || stack.is(item("shicai_" + tree[0]).getItem())
+            boolean allowed = leafDrops.size() <= 1 && leafDrops.stream().allMatch(stack -> stack.isEmpty()
+                    || stack.is(item(tree[1]).getItem()) && stack.getCount() == 1
+                    || (stack.is(Items.STICK) || stack.is(item("shicai_" + tree[0]).getItem())
                             || tree[0].equals("009") && stack.is(item("shicai_00901").getItem()))
                             && stack.getCount() >= 1 && stack.getCount() <= 3);
-            expectTrue(tree[0] + "果树叶原生单轮loot只产来源食材、枝条或树苗，精准不掉自身",
-                    allowed && Block.getDrops(leaf, player.serverLevel(), ricePos, null, player, silk).isEmpty());
+            List<ItemStack> silkDrops = Block.getDrops(leaf, player.serverLevel(), ricePos, null, player, silk);
+            expectTrue(tree[0] + "果树叶原生单轮loot只产来源食材、枝条或树苗，精准不掉自身"
+                    + " drops=" + leafDrops + " silk=" + silkDrops,
+                    allowed && silkDrops.isEmpty());
             FruitTreeLeavesBlock water = (FruitTreeLeavesBlock) leaf.getBlock();
             expectTrue(tree[0] + "果树叶拒绝原生注水和取水，右键无采摘入口",
                     !water.canPlaceLiquid(player, player.serverLevel(), ricePos, leaf, Fluids.WATER)

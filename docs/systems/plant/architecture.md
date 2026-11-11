@@ -216,3 +216,59 @@ updated: 2026-11-10
 藤本逐号保留来源异常：03504右键回到03并掉一份食材；03703虽有共享采摘分支但方块未绑定use；038的自然生长过程实际读写035阶段，因而038自然不推进；03803绑定的use过程不匹配成熟阶段，返回成功但无变化。03902/03由计划刻每40游戏刻重复调度，不使用随机刻；039成长分支保留来源西向上层分支误写EAST的结果。03904右键只在动画1/2之间切换；九槽方块实体保存物品并提供来源能力，菜单提供器仍返回独立27槽菜单，不把该菜单当作葫芦库存界面。
 
 009/010与034–039共65条Plant行为台账已迁移（果树12条、藤本阶段和物品46条、种子6条、葫芦方块实体1条）；两项果树Feature保持“已注册”，备注World群系未装配。资源审计核对29个blockstate、44个物品模型入口及179份引用闭包文件，未见模型/贴图缺失；154份真实来源文件SHA-1一致。最终`runSmokeClient -PsmokeOnly=fulucooking`报告301项INFO、0 FAIL、DONE，客户端四维度保存退出；专项专服启动至Done后收到原生stop并正常保存，ERROR/FATAL为0。客户端场景覆盖注册与若干方块路径，不覆盖完整果树生长、果树自然生成、`/reload`缓存、多玩家、完整葫芦动画、完整存档重登、来源1.18.2版本实机或两版本对照。
+
+## 040–058 菌类、豆科与芝麻（2026-11-10）
+
+本节以来源数字作为对账主键；英文枚举和共享行为类只表达共用实现职责。核对时依次查来源编号、来源注册ID/元素、目标`content/plant/blocks.json`工厂、枚举编号与阶段、`PlantFeatures`地物ID。每个来源编号都保留独立枚举值和内容工厂映射，不要求每个编号各建一套Java类。
+
+| 来源编号 | 目标阶段注册ID | 编号/阶段数据 | 行为实现与播种入口 | 成熟地物ID |
+| --- | --- | --- | --- | --- |
+| 040 | `shicai_040_plant_01..04` | `FungusCrop.SHICAI_040` | `WoodFungusBlock`、`FungusGrowth`、`Planting.shicai040` | 无 |
+| 041 | `shicai_041_plant_01..04` | `FungusCrop.SHICAI_041` | `WoodFungusBlock`、`FungusGrowth`、`Planting.shicai041` | 无 |
+| 042 | `shicai_042_plant_01..05` | `FungusCrop.SHICAI_042` | `GroundFungusBlock`、`FungusGrowth`、`Planting.shicai042` | `shicai_042_plant_05` |
+| 043 | `shicai_043_plant_01..04` | `FungusCrop.SHICAI_043` | `GroundFungusBlock`、`FungusGrowth`、`Planting.shicai043` | `shicai_043_plant_04` |
+| 044 | `shicai_044_plant_01..04` | `FungusCrop.SHICAI_044` | `GroundFungusBlock`、`FungusGrowth`、`Planting.shicai044` | `shicai_044_plant_04` |
+| 045 | `shicai_045_plant_01..04` | `FungusCrop.SHICAI_045` | `GroundFungusBlock`、`FungusGrowth`、`Planting.shicai045` | `shicai_045_plant_04` |
+| 046 | `shicai_046_plant_01..05` | `LegumeCrop.SHICAI_046` | `LegumeFlowerBlock`、`LegumeGrowth`、`Planting.shicai046` | `shicai_046_plant_04` |
+| 047 | `shicai_047_plant_01..05` | `LegumeCrop.SHICAI_047` | `LegumeFlowerBlock`、`LegumeGrowth`、`Planting.shicai047` | `shicai_047_plant_04` |
+| 048 | `shicai_048_plant_01..05` | `LegumeCrop.SHICAI_048` | `LegumeFlowerBlock`、`LegumeGrowth`、`Planting.shicai048` | `shicai_048_plant_04` |
+| 049 | `shicai_049_plant_01..05` | `LegumeCrop.SHICAI_049` | `LegumeFlowerBlock`、`LegumeGrowth`、`Planting.shicai049` | 来源无对应地物 |
+| 050 | `shicai_050_plant_01..05` | `LegumeCrop.SHICAI_050` | `LegumeFlowerBlock`、`LegumeGrowth`、`Planting.shicai050` | 来源无对应地物 |
+| 051 | `shicai_051_plant_01..05` | `LegumeCrop.SHICAI_051` | `LegumeFlowerBlock`、`LegumeGrowth`、`Planting.shicai051` | `shicai_051_plant_04` |
+| 052 | `shicai_052_plant_01..05` | `LegumeCrop.SHICAI_052` | `LegumeSupportBlock`、`LegumeGrowth`、`Planting.shicai052` | 来源无对应地物 |
+| 053 | `shicai_053_plant_01..05` | `LegumeCrop.SHICAI_053` | `LegumeSupportBlock`、`LegumeGrowth`、`Planting.shicai053` | 来源无对应地物 |
+| 054 | `shicai_054_plant_01..05` | `LegumeCrop.SHICAI_054` | `LegumeFlowerBlock`、`LegumeGrowth`、`Planting.shicai054` | `shicai_054_plant_04` |
+| 055 | `shicai_055_plant_01..04` | `LegumeCrop.SHICAI_055` | `LegumeFlowerBlock`、`LegumeGrowth`、`Planting.shicai055` | `shicai_055_plant_04` |
+| 056 | `shicai_056_plant_01..05` | `LegumeCrop.SHICAI_056` | `LegumeFlowerBlock`、`LegumeGrowth`、`Planting.shicai056` | `shicai_056_plant_05` |
+| 057 | `shicai_05701`双格植株 | 黑芝麻物品`shicai_057`归Cooking；方块物品沿用来源编号 | 通用`double_plant`；`PlantFeatures`中的`CropFeature` | `shicai_05701` |
+| 058 | Plant无方块和阶段 | Cooking物品`shicai_058` | 无独立种植或生成行为 | 来源无对应地物 |
+
+`PlantSetup`将菌类阶段ID映射到共用的木生/地生实现。豆科阶段ID使用`plant:legume_crop`工厂，并由`LegumeBlocks.create`按每行的编号与阶段解析为对应`LegumeCrop`及花型或支架型方块。公开的`Planting`方法是跨系统稳定入口，其枚举编号与来源物品注册ID保持对应。
+
+### 040–045 菌类规则
+
+040/041为可贴附木面的菌类，可附着于原木标签方块、菌丝或灰化土；042–045为菌丝或灰化土支撑的地生菌类。阶段与掉落由`FungusCrop`按编号参数化，不为每个编号重复创建Java类。来源各阶段掉落量为：040/041分别1、2、3、5；042为1、2、3、4、5；043–045为1、1、1、3。骨粉可使贴附型菌类直接成熟，042推进一阶段；来源成功率分支予以保留。目标客户端场景覆盖两种播种方式、部分骨粉路径及040–045成熟掉落。Forge 40.1.0随机刻基类委派尚未精确核实，因此不能据此认定所有刻更新路径均已验收。
+
+### 046–056 豆科规则
+
+共用生长过程保留各编号的阶段分支。普通作物046–051、054–056在耕地播种；支架作物052/053在泥土或草方块播种，生长时复制朝向和含水状态。来源共享物品过程在052/053的耕地分支会扣除一份食材但不放置作物，目标保留此结果。04804声明随机刻，但其来源randomTick分支为空操作：湿度达标时不推进，低湿度也不移除；来源独立的右键采摘分支仍保留。052/053采摘时生成三个独立物品实体并恢复到来源阶段；05304无普通掉落，05504未绑定右键采摘，且仅01–03阶段接受骨粉。这些差异逐项记录于`LegumeCrop`、`LegumeGrowth`和编号对照表，不从相邻编号推断。
+
+来源的七个地物分别对应046/047/048/051/054/055阶段04与056阶段05；目标地物类型及configured/placed资源均已注册。049/050/052/053没有对应来源地物。World尚未接入所需维度与群系，故群系modifier及自然供给未闭合；地物注册或资源存在不等于已验证自然生成。
+
+### 057/058 芝麻供给边界
+
+05701为双格植株。来源战利品池独立抽取1–2次，每次以相同权重在黑芝麻`shicai_057`与白芝麻`shicai_058`间选择，数量1–6，并应用爆炸衰减与时运。来源放置地物位于`dimensionrenjian`与`dimensionyaohun`的七个群系；目标类型及configured/placed资源已注册，但World尚未安装群系modifier，也未验证自然供给。来源覆写`getPlantType`返回`PLAINS`；1.21.1目标使用的NeoForge 21.1.265源码中已无旧Forge `IPlantable`/`PlantType` API，因此不以未实现旧接口查询作为目标行为差异，需按目标双格方块实际土壤放置结果核对兼容行为。058没有独立作物或生成入口；四份白芝麻加工一份`tiaowei_08`的石磨消费归Craft。
+
+### 本批验证边界
+
+最终目标版本构建`build compileSmokeJava`通过；`runSmokeClient -PsmokeOnly=fulucooking`为343项INFO、0 FAIL、DONE，客户端四维度正常保存退出，ERROR/FATAL0。报告与日志见`build/smoke/report.txt`、`tmp/plant-supply-final-build.log`、`tmp/plant-supply-final-smoke.log`及[本月日志](logs/2026-11.md)。专服原生`stop`后四维度保存，退出码0、BUILD SUCCESSFUL、ERROR/FATAL0，证据`tmp/plant-supply-final-server.log`。客户端覆盖本批播种、采收、成熟麻破坏掉落、桃苗催化、双格芝麻与相关既有场景；并未覆盖完整树木长成、世界自然生成、新区域自然成长、完整存档重登、多人、完整视觉、来源1.18.2实机或两版本对照。Feature只完成目标注册与configured/placed资源，不等于群系挂载或自然生成。
+
+## 非编号树苗、纤维作物、霓裳草与桃花（2026-11-10）
+
+本批按来源注册ID核对，不把英文枚举名作为玩家核对主键；共享行为类与逐行工厂映射共同承载来源差异。17种树苗由`TreeSapling`逐项登记：`cassia_02`、`laurel_02`、`elm_02`、`privet_02`、`peachsapling`、`sylvestrissapling`、`chestnutsapling`、`beechsapling`、`cypresssapling`、`toothedsapling`、`camphorsapling`、`nanmusapling`、`ginkgosapling`、`maplesapling`、`poplarsapling`、`willowsapling`、`sandalwoodsapling`；每项记录模板、偏移、树干策略和模板分支。共享生长入口每次随机刻/骨粉尝试以5%进入模板放置，排除`fabao_009weidu`与`xvkong`；桃/杨有40%主模板与60%替代模板两条来源分支，月桂保留两个独立概率条件及其余分支。模板偏移、栗树四柱、楠木3×7×3树干和各自木材ID按枚举逐行映射，不合并成通用树冠或单一树干写法。桑苗“需可见天空”的额外来源规则独立于此组。
+
+棉、麻由`FiberCrop`与`FiberGrowth`共用阶段生长。两者按来源阶段有9个成熟阶段块身份；棉05右键恢复04并固定掉棉花、独立30%掉种，麻04玩家破坏掉种并独立30%额外掉麻纤维。霓裳草保留01–06阶段增长率及07终态；来源06阶段没有randomTick/tick覆写，只有骨粉过程调用共享增长过程。目标06因此不接受自然随机刻推进；其骨粉转07分支和粒子已接入，但来源`NichanggrassyaoshouProcedure`触发的妖兽召引尚待Creature系统闭合，不能将06登记为完整行为迁移。
+
+桃花`peachflower`来源只在下方为空时以20%概率播放粒子，不会把方块转换为桃叶。目标`PeachFlowerBlock`按20刻调度叶距检查并执行同一条件粒子行为。催化物将普通桃苗转为血桃苗的来源操作由树苗方块共用入口承载；不因模板生长代码共享而合并掉各注册ID的映射。
+
+已注册的菌类/豆科成熟地物继续保持独立于自然供给验收的状态。所需群系仍缺`biomeautumn_01–03`、`biomecloud_01`、`biomefeng_01–04`、`biomejade_01–03`、`biomepeach_01–02`、`biometurtle_02`、`biomewind_01–04`，且`dimensionrenjian`、`dimensionyaohun`尚未接入目标World；当前不安装指向缺失Holder的modifier。静态核对与目标客户端/服务器运行状态待本批日志更新后再确定。

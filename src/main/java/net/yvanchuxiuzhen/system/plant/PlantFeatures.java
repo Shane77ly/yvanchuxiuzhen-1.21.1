@@ -41,6 +41,18 @@ final class PlantFeatures {
         FEATURES.register("shicai_033_plant_04", CropFeature::new);
         FEATURES.register("shicai_00907", () -> new FruitTreeFeature(FruitTree.SHICAI_009));
         FEATURES.register("shicai_01004", () -> new FruitTreeFeature(FruitTree.SHICAI_010));
+        FEATURES.register("shicai_042_plant_05", CropFeature::new);
+        FEATURES.register("shicai_043_plant_04", CropFeature::new);
+        FEATURES.register("shicai_044_plant_04", CropFeature::new);
+        FEATURES.register("shicai_045_plant_04", CropFeature::new);
+        FEATURES.register("shicai_046_plant_04", CropFeature::new);
+        FEATURES.register("shicai_047_plant_04", CropFeature::new);
+        FEATURES.register("shicai_048_plant_04", CropFeature::new);
+        FEATURES.register("shicai_051_plant_04", CropFeature::new);
+        FEATURES.register("shicai_054_plant_04", CropFeature::new);
+        FEATURES.register("shicai_055_plant_04", CropFeature::new);
+        FEATURES.register("shicai_056_plant_05", CropFeature::new);
+        FEATURES.register("shicai_05701", CropFeature::new);
     }
 
     private PlantFeatures() {

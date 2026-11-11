@@ -258,3 +258,31 @@ Canbeground的四成员为小麦、fuluzhushablock、shicai_001、shicai_002。�
 004黄米/005高粱没有食物组件，本体主动入口为播种，归Plant；其加工消费仍属Cooking。来源木甑`MuzengzhengliuProcedure:140–163`按动态ID消费高粱005×2和小麦×2制作`jiuniang_003`，迁属不删除该已实现配方。006玉米食材仍留Cooking，独立种子和玉米1→种子8配方归Plant。其他本批作物的食材获取生产者为Plant，不据此将烹饪成品、菜谱、世界结构或生物食材获取登记闭合。
 
 本批新增八条行为迁移状态；完整build及检查代码编译已通过。目标客户端238项INFO、0 FAIL、DONE，双端正常保存退出且ERROR/FATAL0；自然食材供给、食用全分支、完整退出重登、来源版本实机、多人、完整视觉与两版本对照未执行。
+
+## 040–058 菌类豆科食材与芝麻归属（2026-11-10）
+
+Cooking拥有来源物品`shicai_040`–`shicai_056`的食材身份；这17个物品的原生右键播种行为由Cooking工厂承载，并统一委托Plant公开入口。各物品对应工厂如下，阶段规则见[Plant正文](../plant/architecture.md#040058-菌类豆科与芝麻2026-11-10)：
+
+| 来源食材 | Cooking工厂 | Plant公开播种操作 |
+| --- | --- | --- |
+| `shicai_040` | `cooking:fungus040_food` | `Planting.shicai040` |
+| `shicai_041` | `cooking:fungus041_food` | `Planting.shicai041` |
+| `shicai_042` | `cooking:fungus042_food` | `Planting.shicai042` |
+| `shicai_043` | `cooking:fungus043_food` | `Planting.shicai043` |
+| `shicai_044` | `cooking:fungus044_food` | `Planting.shicai044` |
+| `shicai_045` | `cooking:fungus045_food` | `Planting.shicai045` |
+| `shicai_046` | `cooking:legume046_food` | `Planting.shicai046` |
+| `shicai_047` | `cooking:legume047_food` | `Planting.shicai047` |
+| `shicai_048` | `cooking:legume048_food` | `Planting.shicai048` |
+| `shicai_049` | `cooking:legume049_food` | `Planting.shicai049` |
+| `shicai_050` | `cooking:legume050_food` | `Planting.shicai050` |
+| `shicai_051` | `cooking:legume051_food` | `Planting.shicai051` |
+| `shicai_052` | `cooking:legume052_food` | `Planting.shicai052` |
+| `shicai_053` | `cooking:legume053_food` | `Planting.shicai053` |
+| `shicai_054` | `cooking:legume054_food` | `Planting.shicai054` |
+| `shicai_055` | `cooking:legume055_food` | `Planting.shicai055` |
+| `shicai_056` | `cooking:legume056_food` | `Planting.shicai056` |
+
+食材物品与阶段方块虽共享来源编号，但归属不同：物品及相应工厂归Cooking，作物阶段、生长与收获归Plant。豆芽`shicai_04601`–`shicai_04901`、黑芝麻`shicai_057`和白芝麻`shicai_058`也归Cooking；05701方块、其方块物品和成熟地物归Plant。058没有独立种植或生成入口。来源四白芝麻转一份`tiaowei_08`的石磨消费者归Craft，不以消费者归属改变芝麻食材物品归属。
+
+此前目标客户端`fulucooking`报告334项INFO、0 FAIL、DONE；该报告仅对应当时菌类/豆科/芝麻及石磨场景，不覆盖后续树苗、纤维作物、霓裳草与桃花扩大批次。扩大批次验收待本月日志更新；不得用此前失败的专服记录作通过依据。自然供给、来源1.18.2实机、多人及两版本对照尚未验。

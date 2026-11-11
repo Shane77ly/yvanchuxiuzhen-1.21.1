@@ -16,6 +16,9 @@ def generate(converter) -> None:
         generate_crop(converter, number)
 
     generate_fruit_trees(converter)
+    generate_fungi(converter)
+    generate_legumes(converter)
+    generate_sesame(converter)
 
 
 def generate_cereal(converter, number: str) -> None:
@@ -86,3 +89,148 @@ def generate_fruit_trees(converter) -> None:
                         {'type': feature, 'config': {}}, [(mod, source)])
         converter.write(DATA / NAMESPACE / f'worldgen/placed_feature/{name}.json',
                         {'feature': feature, 'placement': []}, [(mod, source)])
+
+
+def generate_fungi(converter) -> None:
+    mod = 'yvanchuxiuzhen'
+    root = SOURCES[mod][0]
+    for number, stage in (('042', '05'), ('043', '04'), ('044', '04'), ('045', '04')):
+        name = f'shicai_{number}_plant_{stage}'
+        feature = f'{NAMESPACE}:{name}'
+        source = root / f'src/main/java/net/mcreator/yvanchuxiuzhen/world/features/plants/Shicai{number}Plant{stage}Feature.java'
+        configured = {
+            'type': feature,
+            'config': {
+                'tries': 4,
+                'xz_spread': 7,
+                'y_spread': 3,
+                'feature': {
+                    'feature': {
+                        'type': 'minecraft:simple_block',
+                        'config': {
+                            'to_place': {
+                                'type': 'minecraft:simple_state_provider',
+                                'state': {'Name': feature},
+                            },
+                        },
+                    },
+                    'placement': [{
+                        'type': 'minecraft:block_predicate_filter',
+                        'predicate': {
+                            'type': 'minecraft:matching_blocks',
+                            'blocks': ['minecraft:air'],
+                        },
+                    }],
+                },
+            },
+        }
+        placed = {
+            'feature': feature,
+            'placement': [
+                {'type': 'minecraft:count', 'count': 2},
+                {'type': 'minecraft:rarity_filter', 'chance': 32},
+                {'type': 'minecraft:in_square'},
+                {'type': 'minecraft:heightmap', 'heightmap': 'MOTION_BLOCKING'},
+                {'type': 'minecraft:biome'},
+            ],
+        }
+        converter.write(DATA / NAMESPACE / f'worldgen/configured_feature/{name}.json', configured, [(mod, source)])
+        converter.write(DATA / NAMESPACE / f'worldgen/placed_feature/{name}.json', placed, [(mod, source)])
+
+
+def generate_sesame(converter) -> None:
+    mod = 'yvanchuxiuzhen'
+    root = SOURCES[mod][0]
+    name = 'shicai_05701'
+    feature = f'{NAMESPACE}:{name}'
+    source = root / 'src/main/java/net/mcreator/yvanchuxiuzhen/world/features/plants/Shicai05701Feature.java'
+    configured = {
+        'type': feature,
+        'config': {
+            'tries': 6,
+            'xz_spread': 7,
+            'y_spread': 3,
+            'feature': {
+                'feature': {
+                    'type': 'minecraft:simple_block',
+                    'config': {
+                        'to_place': {
+                            'type': 'minecraft:simple_state_provider',
+                            'state': {
+                                'Name': feature,
+                                'Properties': {'half': 'lower'},
+                            },
+                        },
+                    },
+                },
+                'placement': [{
+                    'type': 'minecraft:block_predicate_filter',
+                    'predicate': {
+                        'type': 'minecraft:matching_blocks',
+                        'blocks': ['minecraft:air'],
+                    },
+                }],
+            },
+        },
+    }
+    placed = {
+        'feature': feature,
+        'placement': [
+            {'type': 'minecraft:count', 'count': 1},
+            {'type': 'minecraft:rarity_filter', 'chance': 32},
+            {'type': 'minecraft:in_square'},
+            {'type': 'minecraft:heightmap', 'heightmap': 'MOTION_BLOCKING'},
+            {'type': 'minecraft:biome'},
+        ],
+    }
+    converter.write(DATA / NAMESPACE / f'worldgen/configured_feature/{name}.json', configured, [(mod, source)])
+    converter.write(DATA / NAMESPACE / f'worldgen/placed_feature/{name}.json', placed, [(mod, source)])
+
+
+def generate_legumes(converter) -> None:
+    mod = 'yvanchuxiuzhen'
+    root = SOURCES[mod][0]
+    for number, stage, attempts in (
+            ('046', '04', 1), ('047', '04', 1), ('048', '04', 1), ('051', '04', 1),
+            ('054', '04', 1), ('055', '04', 2), ('056', '05', 1)):
+        name = f'shicai_{number}_plant_{stage}'
+        feature = f'{NAMESPACE}:{name}'
+        source = root / f'src/main/java/net/mcreator/yvanchuxiuzhen/world/features/plants/Shicai{number}Plant{stage}Feature.java'
+        configured = {
+            'type': feature,
+            'config': {
+                'tries': attempts,
+                'xz_spread': 7,
+                'y_spread': 3,
+                'feature': {
+                    'feature': {
+                        'type': 'minecraft:simple_block',
+                        'config': {
+                            'to_place': {
+                                'type': 'minecraft:simple_state_provider',
+                                'state': {'Name': feature},
+                            },
+                        },
+                    },
+                    'placement': [{
+                        'type': 'minecraft:block_predicate_filter',
+                        'predicate': {
+                            'type': 'minecraft:matching_blocks',
+                            'blocks': ['minecraft:air'],
+                        },
+                    }],
+                },
+            },
+        }
+        placed = {
+            'feature': feature,
+            'placement': [
+                {'type': 'minecraft:count', 'count': attempts},
+                {'type': 'minecraft:rarity_filter', 'chance': 32},
+                {'type': 'minecraft:in_square'},
+                {'type': 'minecraft:heightmap', 'heightmap': 'MOTION_BLOCKING'},
+                {'type': 'minecraft:biome'},
+            ],
+        }
+        converter.write(DATA / NAMESPACE / f'worldgen/configured_feature/{name}.json', configured, [(mod, source)])
+        converter.write(DATA / NAMESPACE / f'worldgen/placed_feature/{name}.json', placed, [(mod, source)])

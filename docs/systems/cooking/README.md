@@ -2,7 +2,7 @@
 topic: cooking
 role: entry
 status: partial
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # 烹饪
@@ -12,6 +12,10 @@ updated: 2026-11-10
 当前阶段：D 部分实现。除 B1 内容身份与资源及辟谷效果 `effect_031` 外，已接回铁锅、砂锅的14槽库存/菜单、两锅自然合成配方、菜谱执行路径和墨料坯自然生产。2026-11-10 已接入木甑、八酒、陈酿与天然猴儿酒38条注册，蒸锅/笼屉8条注册，以及37种盘菜和52种直接食用物品的126条注册；三族完成来源与精确目标源码的独立静态复审。该三族批次资源转换13411项、既有missing19、dropped91，data转换1703项；完整构建及检查代码编译通过，内置 `runSmokeClient -PsmokeOnly=fulucooking` 124项INFO、0 FAIL、DONE，受控客户端场景四维度正常保存退出、ERROR/FATAL0。木甑、蒸锅和笼屉四张指定截图已查看，背景和可见中文正常；该截图与自动场景不代表完整视觉、重登或生存获取验收。当前追加的配方标签、餐食Tooltip与植物供给批次另见本页后续记录和月志。完整食材与成品获取链未闭合。
 
 2026-11-10 整批植物供给已接入莲子00801、大蒜01502与028–033六种本体的八个可食播种入口；Cooking保留食用属性和Tooltip，经 `plant.api.Planting` 委托Plant写作物状态。Plant新增28种作物129阶段，具体编号映射与来源异常见[公开播种边界](architecture.md#可食播种物与植物供给边界2026-11-10)及[植物正文](../plant/architecture.md#28种作物供给整批2026-11-10)。本批完整build/compileSmokeJava已通过，目标客户端238项INFO、0 FAIL、DONE，双端正常保存退出且ERROR/FATAL0；此前166项结果属于002续批，不作为新增28种作物已验收的依据。完整自然供给与两版本验收仍未完成。
+
+040–056批次另接入17种食材本体的原生播种入口，由Cooking物品工厂调用`plant.api.Planting`，Plant独占方块状态写入；豆芽04601–04901、黑芝麻057和白芝麻058的物品身份均归Cooking，05701双株与地物归Plant。白芝麻石磨消费归Craft。批次运行与来源差异见[Cooking正文](architecture.md)和[Plant正文](../plant/architecture.md)。
+
+扩大批次继续接入菌类/豆科/芝麻食材入口，以及纤维作物、霓裳草、桃花行为及17种普通树苗。Cooking侧保留食材身份，Plant独占方块行为。本轮完整构建通过，客户端343项INFO、0 FAIL、DONE，专服原生stop保存四维度且BUILD SUCCESSFUL；具体覆盖和证据见[植物供给月志](../plant/logs/2026-11.md)。自然生成与完整食材获取链仍未闭合。
 
 2026-11-09 内置客户端 `fulucooking` 已验收铁锅自然右键开窗、墨料坯开始/10刻交付/五次翻炒完成与保存读回，以及砂锅菜谱扣料、槽4覆盖、菜谱保留和完成经验；该轮与符箓共用场景共14项通过。2026-11-10 的124项报告覆盖当日三族，证据及受控计划刻/保存读回边界见[月志](logs/2026-11.md)。餐具、案板/菜刀与菜谱命令对应客户端142项自动检查通过；植物供给/Tooltip批次的160项最终结果及截图方式见本页后续月志记录。以上均为指定内置场景，不代表完整生存供给、自然生成、重登周期、多人、完整视觉、来源版本实机或两版本对照。观想自然入口和世界结构获取仍未闭合。
 
@@ -24,7 +28,7 @@ updated: 2026-11-10
 
 ## 公开操作
 
-新增 `plant.api.Planting.lotus / garlic / shicai028 / shicai029 / shicai030 / shicai031 / shicai032 / shicai033` 由八种可食播种物调用，Plant独占世界方块及采藕状态写入，Cooking只持有物品身份、食用组件和Tooltip；完整工厂表见[播种边界](architecture.md#可食播种物与植物供给边界2026-11-10)。
+新增 `plant.api.Planting.lotus / garlic / shicai028..shicai033 / shicai040..shicai056` 由Cooking食材本体调用，Plant独占世界方块及采藕状态写入；Cooking保留物品身份与来源食用组件、Tooltip。完整工厂表见[播种边界](architecture.md)及[040–056食材边界](architecture.md)。
 
 炼丹通过原生状态效果入口施加 `effect_031`；`baoshidu` 计时由 cooking 独占写入，不暴露直接写入口。已查 `typed_field_accesses.csv`，该实体持久键不在强类型字段表；`key_expressions.csv` 与来源代码确认读写仅在 `Effect031ZaiXiaoGuoChiXuShiMeiKeFaSheng`。厨具库存与生产状态由 cooking 独占写入；其他系统不得直接改写方块实体或菜谱状态。材料实例只通过 `Materials.instance` 查询，职业只通过 `Professions.level` 查询并以 `Professions.addExperience` 写入经验；覆盖 `typed_field_accesses.csv:1304–1309` 的外部读写点。
 

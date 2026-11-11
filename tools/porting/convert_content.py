@@ -442,10 +442,13 @@ def main() -> None:
                        'plant:mulberry_sapling', 'plant:mulberry_leaves',
                        'plant:fruit_tree_log', 'plant:fruit_tree_leaves', 'plant:shicai009_sapling', 'plant:shicai010_sapling', 'plant:gourd',
                        'plant:lotus_root', 'plant:lotus_stem', 'plant:lotus_pod', 'plant:lotus_leaf') or factory.startswith((
-                           'fulu:explosive_', 'plant:produce', 'plant:vine',
+                           'fulu:explosive_', 'plant:produce', 'plant:vine', 'plant:fungus', 'plant:legume',
+                           'plant:tree_sapling', 'plant:fiber_crop', 'plant:nichang_grass', 'plant:peach_flower',
                            *(f'plant:shicai{number}_' for number in ('001', '002', '004', '005', '006', '007',
                                '011', '012', '013', '014', '015', '016', '025', '026', '027')))):
             row.pop('pending_hooks', None)
+        if factory == 'plant:nichang_grass' and target == 'nichanggrass_06':
+            row['pending_hooks'] = ['performBonemeal']
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:
             name = source.lang[language].get(f'block.{mod}.{path}')
@@ -562,7 +565,7 @@ def main() -> None:
                               *(f'plant:shicai{number}_seed' for number in ('001', '002', '004', '005', '006', '007',
                                   '011', '012', '013', '014', '016', '025', '026', '027')),
                               *(f'cooking:produce{number:03}_food' for number in range(28, 34))) or row['factory'].startswith((
-                                  'fulu:talisman_', 'fulu:ranged_', 'fulu:passive_', 'fulu:explosive_', 'plant:produce', 'plant:vine', 'plant:gourd')):
+                                  'fulu:talisman_', 'fulu:ranged_', 'fulu:passive_', 'fulu:explosive_', 'plant:produce', 'plant:vine', 'plant:gourd', 'plant:legume', 'plant:fiber_seed', 'plant:hemp_seed', 'plant:nichang_grass_seed', 'cooking:fungus', 'cooking:legume')):
             row.pop('pending_hooks', None)
         items_by_unit[unit].append(row)
         for number, line in enumerate(row.get('tooltip', []), start=1):
