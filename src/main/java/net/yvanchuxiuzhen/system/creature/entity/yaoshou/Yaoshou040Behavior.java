@@ -204,7 +204,7 @@ final class Yaoshou040Behavior {
             }
             entity.setDeltaMovement(new Vec3(0, (-0.5), 0));
         }
-    
+
     }
 
     /** 来源 Yaoshou040wanzhangguangmangProcedure：保留阶段条件、执行次序与数值。 */
@@ -258,7 +258,7 @@ final class Yaoshou040Behavior {
         } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 62) {
             YaoshouShared.finishSkill((YaoshouEntity) entity);
         }
-    
+
     }
 
     /** 来源 Yaoshou040luoyangProcedure：保留阶段条件、执行次序与数值。 */
@@ -278,7 +278,7 @@ final class Yaoshou040Behavior {
             entity.setShiftKeyDown((false));
             YaoshouShared.finishSkill((YaoshouEntity) entity);
         }
-    
+
     }
 
     /** 来源 Yaoshou040youliguangProcedure：保留阶段条件、执行次序与数值。 */
@@ -307,7 +307,7 @@ final class Yaoshou040Behavior {
             entity.setShiftKeyDown((false));
             YaoshouShared.finishSkill((YaoshouEntity) entity);
         }
-    
+
     }
 
     /** 来源 Yaoshou040guangzhuProcedure：保留阶段条件、执行次序与数值。 */
@@ -328,6 +328,6 @@ final class Yaoshou040Behavior {
             entity.setShiftKeyDown((false));
             YaoshouShared.finishSkill((YaoshouEntity) entity);
         }
-    
+
     }
 }

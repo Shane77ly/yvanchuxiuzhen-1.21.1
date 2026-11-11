@@ -203,7 +203,7 @@ final class Yaoshou039Behavior {
                 }
             }
         }
-    
+
     }
 
     /** 来源 Yaoshou039guangshanProcedure：保留阶段条件、执行次序与数值。 */
@@ -261,7 +261,7 @@ final class Yaoshou039Behavior {
         } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 12) {
             YaoshouShared.finishSkill((YaoshouEntity) entity);
         }
-    
+
     }
 
     /** 来源 Yaoshou039youliguangProcedure：保留阶段条件、执行次序与数值。 */
@@ -287,6 +287,6 @@ final class Yaoshou039Behavior {
         } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 22) {
             YaoshouShared.finishSkill((YaoshouEntity) entity);
         }
-    
+
     }
 }

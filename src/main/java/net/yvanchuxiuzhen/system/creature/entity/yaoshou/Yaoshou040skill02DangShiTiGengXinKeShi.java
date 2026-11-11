@@ -60,6 +60,6 @@ final class Yaoshou040skill02DangShiTiGengXinKeShi {
             if (!entity.level().isClientSide())
                 entity.discard();
         }
-    
+
     }
 }

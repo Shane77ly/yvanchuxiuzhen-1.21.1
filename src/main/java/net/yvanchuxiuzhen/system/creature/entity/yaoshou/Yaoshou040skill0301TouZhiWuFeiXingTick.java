@@ -79,6 +79,6 @@ final class Yaoshou040skill0301TouZhiWuFeiXingTick {
                     immediatesourceentity.discard();
             }
         }
-    
+
     }
 }
