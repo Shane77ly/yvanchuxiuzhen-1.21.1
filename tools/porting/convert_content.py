@@ -439,7 +439,7 @@ def main() -> None:
                        'cooking:waterlogged_wine_jar', 'cooking:natural_monkey_wine', 'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:pottery_blank',
                        'craft:silkworm_box', 'craft:chrysalis_display', 'cooking:plated_food',
                        'cooking:bowl', 'cooking:plate', 'cooking:large_bowl', 'cooking:iron_plate',
-                       'plant:particle_foliage', 'plant:particle_foliage_leaves', 'plant:maple_resin',
+                       'plant:particle_foliage', 'plant:particle_foliage_leaves', 'plant:maple_resin', 'plant:water_plant',
                        'plant:mulberry_sapling', 'plant:mulberry_leaves',
                        'plant:fruit_tree_log', 'plant:fruit_tree_leaves', 'plant:shicai009_sapling', 'plant:shicai010_sapling', 'plant:gourd',
                        'plant:lotus_root', 'plant:lotus_stem', 'plant:lotus_pod', 'plant:lotus_leaf') or factory.startswith((

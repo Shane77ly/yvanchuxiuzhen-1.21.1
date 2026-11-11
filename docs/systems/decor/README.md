@@ -2,12 +2,14 @@
 topic: decor
 role: entry
 status: partial
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # 装饰
 
 标识 `decor`，类别：内容族。职责：建筑方块、家具、牌匾、牌位（[系统设计](../../development/system-design.md)）。
+
+2026-11-11 World供给批次接入青石矿物Feature的来源生成机制与同名configured/placed资源，台账登记“已注册”；自然投放随来源维度和群系闭合。规则与验证见[世界正文](../world/architecture.md#自然供给地物与随机结构2026-11-11)及[世界月志](../world/logs/2026-11.md)。
 
 当前阶段：B1 已登记本单位不依赖新代码类型的内容身份与资源（台账“已注册”：方块 514、物品 537、声音事件 1），只表示身份、资源与基础属性就位；玩法尚未实现，未进行游戏验收。
 

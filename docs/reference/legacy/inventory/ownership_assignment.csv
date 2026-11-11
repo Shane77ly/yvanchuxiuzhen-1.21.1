@@ -771,19 +771,19 @@ yvanchuxiuzhen,Frostflowers,plant,~/plant/ordinaryplants,plant,已读,逐项阅�
 yvanchuxiuzhen,Ricciafluitans,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Rushes,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Diplidisdiandra,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Duckweedshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Snowdriftshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Rockpile01,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Barrenstonestingshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ricciafluitansshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Duckweedshengcheng,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Snowdriftshengcheng,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Rockpile01,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Barrenstonestingshengcheng,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Ricciafluitansshengcheng,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Nautilus,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Loess,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
-yvanchuxiuzhen,Witheredshrubshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Diplidisdiandrashengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Rushesshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Witheredshrubshengcheng,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Diplidisdiandrashengcheng,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Rushesshengcheng,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Bluestone,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant 的生成或可生长地面判断按 ID 引用，不赋予它规则
-yvanchuxiuzhen,Bluestoneshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Icelakeshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Bluestoneshengcheng,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Icelakeshengcheng,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Biomesand01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Quicksand,fluid,~/decorate,decor,已读,B1 归属阅读：无过程；world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Biomesand02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -805,8 +805,8 @@ yvanchuxiuzhen,Biometurtle01,biome,~/biome,world,候选,第一版批量归组（
 yvanchuxiuzhen,Biometurtle02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biometurtle03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biometurtle04,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Icerock,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Icerock02,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Icerock,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Icerock02,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Shicai001,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；festival 的 Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi；liandan 的 GrindGo；npc 的 Businessman06ShiTiChuShiShengChengShi；treasure 的 BaoxiangZuowu 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
 yvanchuxiuzhen,Shicai002,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；festival 的 Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi；liandan 的 GrindGo；npc 的 Businessman06ShiTiChuShiShengChengShi；treasure 的 BaoxiangZuowu 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
 yvanchuxiuzhen,Shicai003,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；festival 的 Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi；liandan 的 GrindGo；npc 的 Businessman06ShiTiChuShiShengChengShi；treasure 的 BaoxiangZuowu 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
@@ -917,7 +917,7 @@ yvanchuxiuzhen,Treejiegou18,structure,~/plant/tree,plant,已读,逐项阅读Feat
 yvanchuxiuzhen,Treejiegou12,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Peach01,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,HuaguangshengchengZaiJieGouCunDangShengChengShi,procedure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Huaguangshengcheng,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Huaguangshengcheng,structure,~/plant/tree,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
 yvanchuxiuzhen,Organism01,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
 yvanchuxiuzhen,Organism02,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
 yvanchuxiuzhen,Organism03,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
@@ -2709,12 +2709,12 @@ yvanchuxiuzhen,Lurker,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feat
 yvanchuxiuzhen,Ironbamboo,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Ironbambootail,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Evilspirittree,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Evilspirittree01,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Evilspirittree02,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Evilspirittree03,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Evilspirittree04,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Evilspirittree01,structure,~/plant/tree,plant,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Evilspirittree02,structure,~/plant/tree,plant,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Evilspirittree03,structure,~/plant/tree,plant,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Evilspirittree04,structure,~/plant/tree,plant,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
 yvanchuxiuzhen,Ancienttimesleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；被 world 的 Biomesand01 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Loessrock,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Loessrock,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
 yvanchuxiuzhen,Arrowpoisonwood,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Arrowpoisonwoodleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Tripterygiumwilfordii,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
@@ -2948,7 +2948,7 @@ yvanchuxiuzhen,Dingxiangflowerdry,item,~/food,cooking,已读,B1 归属阅读：�
 yvanchuxiuzhen,Dingxiangflowerdryhecheng,recipe,~/food,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
 yvanchuxiuzhen,Dingxiangleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Dingxianglog,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Dingxiang01,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Dingxiang01,structure,~/plant/tree,plant,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
 yvanchuxiuzhen,Tiaowei07,item,~/item/food/tiaowei,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Tiaowei07hecheng,recipe,~/item/food/tiaowei,cooking,已读,来源MCreator配方定义与生成数据核对：普通材料处理/食物加工配方，不生成菜谱CUSTOM_DATA实例；自然生产者各归其物品所属系统
 yvanchuxiuzhen,Shicai057,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
@@ -3544,7 +3544,7 @@ yvanchuxiuzhen,Necklaceornaments,tag,~/tag,platform,候选,第一版批量归组
 yvanchuxiuzhen,Handornaments,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Beltornaments,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Armor10,animatedarmor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Arrowpoisonwood01,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Arrowpoisonwood01,structure,~/plant/tree,plant,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
 yvanchuxiuzhen,Teamleave,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Annualfleabanehecheng,recipe,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Greenbristlegrasshecheng,recipe,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3937,36 +3937,36 @@ yvanchuxiuzhen,BiggrassyincangGengXinYouXiKe,procedure,~/plant/ordinaryplants,pl
 yvanchuxiuzhen,Biggrassyincang,animatedblock,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,WenqvanKeHuDuanXianShiSuiJiKe,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Wenqvan 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,WenqvanDangShengWuWanJiaPengZhuangFangKuaiShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Wenqvan 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Wenqvan,fluid,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Wenqvandiwu,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Wenqvan,fluid,~/plant/ordinaryplants,world,已读,已读温泉源与流动态、液体块、桶、碰撞再生及回魂、客户端色纹；规则为自然流体及环境交互，没有植物生长规则
+yvanchuxiuzhen,Wenqvandiwu,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Xvkongqvnxi,biome,~/biome,world,已读,已读XvkongDimension与XvkongqvnxiBiome、维度/类型JSON及技能裂隙传送引用；world拥有正式空气噪声维度和无生成群系，实际效果绑定overworld，Fixers全局CAVE/CANYON加入AIR；返回编号weidu归xiulian公开操作
 yvanchuxiuzhen,Xvkong,dimension,~/Dimension,world,已读,已读XvkongDimension与XvkongqvnxiBiome、维度/类型JSON及技能裂隙传送引用；world拥有正式空气噪声维度和无生成群系，实际效果绑定overworld，Fixers全局CAVE/CANYON加入AIR；返回编号weidu归xiulian公开操作
 yvanchuxiuzhen,XvkongliexiDangShiTiGengXinKeShi,procedure,~/skill/texiao,skill,已读,Jinengxvkong 的元婴门槛与视线生成；Xvkongliexi 的无重力实体、32/332 刻生命周期及单次碰撞传送；返回编号经 tizhiitem.weidu 保存，维度身份归 world
 yvanchuxiuzhen,Xvkongliexi,animatedentity,~/skill/texiao,skill,已读,Jinengxvkong 的元婴门槛与视线生成；Xvkongliexi 的无重力实体、32/332 刻生命周期及单次碰撞传送；返回编号经 tizhiitem.weidu 保存，维度身份归 world
 yvanchuxiuzhen,XvkongliexiDangWanJiaYuGaiShiTiFaShengPengZhuangShi,procedure,~/skill/texiao,skill,已读,Jinengxvkong 的元婴门槛与视线生成；Xvkongliexi 的无重力实体、32/332 刻生命周期及单次碰撞传送；返回编号经 tizhiitem.weidu 保存，维度身份归 world
-yvanchuxiuzhen,Zhuzidaoyv01,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhuzidaoyv02,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhuzidaoyv03,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhuzidaoyv04,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Zhuzidaoyv01,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Zhuzidaoyv02,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Zhuzidaoyv03,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Zhuzidaoyv04,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
 yvanchuxiuzhen,Mushroomblue01,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Mushroomblue01shengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lanhuashengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Mushroomblue01shengcheng,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Lanhuashengcheng,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Mushroomblue02,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Mushroomblue02fangzhi,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Mushroomblue02fangzhi,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Mushroomblue03,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Mushroomblue03fangzhi,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Mushroomblue03fangzhi,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Mushroompinkwhite01,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Mushroompinkwhite01fangzhi,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Mushroompinkwhite01fangzhi,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Mushroompinkwhite02,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Mushroompinkwhite02fangzhi,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Mushroompinkwhite02fangzhi,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Mushroompinkwhite03,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Mushroompinkwhite03fangzhi,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shanhushengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shanhu2shengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shanhu3shengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fukongjiaoshi,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zishuijing,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zishuijingzhu,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Mushroompinkwhite03fangzhi,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Shanhushengcheng,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Shanhu2shengcheng,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Shanhu3shengcheng,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Fukongjiaoshi,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Zishuijing,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Zishuijingzhu,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Biomebaichuan01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomebaichuan02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomebaichuan03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3984,10 +3984,10 @@ yvanchuxiuzhen,Biomelianyvan01,biome,~/biome,world,候选,第一版批量归组�
 yvanchuxiuzhen,Jinsebankuai,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,IronropeDangWanJiaKaiShiPoPiShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Ironrope 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Ironrope,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Ironropeshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Ironropeshengcheng,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Tiankongxvanran,procedure,~/systemset,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fushui,procedure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Rottingbambooshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Rottingbambooshengcheng,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Corpsegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Rottingbamboo,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,MoeyeDangFangKuaiBeiWanJiaPoPiShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Moeye 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
@@ -4018,8 +4018,8 @@ yvanchuxiuzhen,Kugu01,structure,~/plant/ordinaryplants,plant,候选,第一版批
 yvanchuxiuzhen,Kugu02,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Kugu03,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Kugu04,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Gucidici,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tudibankuai01,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Gucidici,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Tudibankuai01,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Bladegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Tailbladegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Bladegrasszhanlipin,loottable,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4030,7 +4030,7 @@ yvanchuxiuzhen,Bladegrasstree01,structure,~/plant/ordinaryplants,plant,候选,�
 yvanchuxiuzhen,Bladegrasstree02,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Bladegrasstree03,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Swampsilt,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant 的生成或可生长地面判断按 ID 引用，不赋予它规则
-yvanchuxiuzhen,Swampsiltdiwu,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Swampsiltdiwu,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Grassblock,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Witheredbone01DangShiTiZaiFangKuaiZhongPengZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Witheredbone01 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Witheredbone01,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
@@ -4538,12 +4538,12 @@ yvanchuxiuzhen,Clothes17,armor,~/weapon/armor,equipment,已读,B1 归属阅读�
 yvanchuxiuzhen,Yaoshou006list,loottable,~/entity/yaoshou/yaoshou006,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou021list,loottable,~/entity/yaoshou/yaoshou021,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaodan,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Suijijiegou01,structure,~/decorate/jiegou/suijijiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Suijijiegou02,structure,~/decorate/jiegou/suijijiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Suijijiegou03,structure,~/decorate/jiegou/suijijiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Suijijiegou04,structure,~/decorate/jiegou/suijijiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Suijijiegou05,structure,~/decorate/jiegou/suijijiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Suijijiegou06,structure,~/decorate/jiegou/suijijiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Suijijiegou01,structure,~/decorate/jiegou/suijijiegou,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Suijijiegou02,structure,~/decorate/jiegou/suijijiegou,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Suijijiegou03,structure,~/decorate/jiegou/suijijiegou,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Suijijiegou04,structure,~/decorate/jiegou/suijijiegou,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Suijijiegou05,structure,~/decorate/jiegou/suijijiegou,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Suijijiegou06,structure,~/decorate/jiegou/suijijiegou,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
 yvanchuxiuzhen,Gongjv008hecheng,recipe,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui01jieshao,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,PlayerGui02jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5752,14 +5752,14 @@ yvanchuxiuzhen,NichanggrassseedDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,proc
 yvanchuxiuzhen,Logsitem,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jiu,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jiuniang001DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/food/jiu,cooking,已读,D cooking 归属阅读：八种酒的摆坛、1200刻陈酿、取回、饮用快照、待吸收修为、酒精和酒坛爆炸；天然猴儿酒为独立无BE取酒块；见木甑/酒族来源审计
-yvanchuxiuzhen,Stonetree01,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Huaguangjiegou,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stonetree02,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stonetree03,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stonetree04,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stonetree05,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stonetree06,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Stonetree07,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Stonetree01,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Huaguangjiegou,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Stonetree02,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Stonetree03,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Stonetree04,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Stonetree05,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
+yvanchuxiuzhen,Stonetree06,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
+yvanchuxiuzhen,Stonetree07,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
 yvanchuxiuzhen,Zhenyaotashengchengbuchong,procedure,~/decorate/jiegou/buildlist,dungeon,已读,系统设计·已读裁定：向镇妖塔控制方块写 fubenshujv
 yvanchuxiuzhen,Cailiao202meltDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/metal,material,已读,B1 归属阅读：随 Cailiao202melt 读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶
 yvanchuxiuzhen,Cailiao202melt,item,~/item/metal,material,已读,B1 归属阅读：熔融态金属：右键得到对应精炼金属 cailiao_201 等并写入随机品阶，属材料等级与品阶

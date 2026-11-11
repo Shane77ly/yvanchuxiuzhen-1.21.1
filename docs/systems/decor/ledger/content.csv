@@ -559,7 +559,7 @@ block_entity_type,yvanchuxiuzhen:zhuangshiqiantong,yvanchuxiuzhen,Zhuangshiqiant
 block_entity_type,yvanchuxiuzhen:zhuangshitizi,yvanchuxiuzhen,Zhuangshitizi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,141,decor,已读,yvanchuxiuzhen:zhuangshitizi,待处理,
 entity_type,yvanchuxitong:shitiputuan,yvanchuxitong,Shitiputuan,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModEntities.java,34,decor,候选,yvanchuxiuzhen:shitiputuan,待处理,
 entity_type,yvanchuxitong:shitiyizi,yvanchuxitong,Shitiyizi,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModEntities.java,32,decor,候选,yvanchuxiuzhen:shitiyizi,待处理,
-feature,yvanchuxiuzhen:bluestone,yvanchuxiuzhen,Bluestone,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFeatures.java,338,decor,已读,yvanchuxiuzhen:bluestone,待处理,
+feature,yvanchuxiuzhen:bluestone,yvanchuxiuzhen,Bluestone,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFeatures.java,338,decor,已读,yvanchuxiuzhen:bluestone,已注册,World来源生成机制与同名configured/placed已接；群系及维度装配未闭合，自然投放未验收
 feature,yvanchuxiuzhen:hotoilshengcheng,yvanchuxiuzhen,Hotoilshengcheng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFeatures.java,583,decor,候选,yvanchuxiuzhen:hotoilshengcheng,待处理,
 fluid,yvanchuxiuzhen:flowing_hotoil,yvanchuxiuzhen,Hotoil,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFluids.java,37,decor,已读,yvanchuxiuzhen:flowing_hotoil,待处理,
 fluid,yvanchuxiuzhen:flowing_quicksand,yvanchuxiuzhen,Quicksand,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFluids.java,29,decor,已读,yvanchuxiuzhen:flowing_quicksand,待处理,

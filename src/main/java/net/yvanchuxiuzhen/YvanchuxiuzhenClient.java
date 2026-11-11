@@ -24,6 +24,7 @@ import net.yvanchuxiuzhen.system.skill.client.SkillClientSetup;
 import net.yvanchuxiuzhen.system.storage.client.StorageClientSetup;
 import net.yvanchuxiuzhen.system.yihuo.client.YihuoClientSetup;
 import net.yvanchuxiuzhen.system.xiulian.client.XiulianClientSetup;
+import net.yvanchuxiuzhen.system.world.fluid.client.SpringFluidClientSetup;
 
 /**
  * 客户端入口。FML 只在物理客户端构造本类，并在公共入口 {@link YvanchuxiuzhenMod} 之后构造；
@@ -52,5 +53,6 @@ public final class YvanchuxiuzhenClient {
         LianqiClientSetup.register(modBus);
         YihuoClientSetup.register(modBus);
         XiulianClientSetup.register(modBus);
+        SpringFluidClientSetup.register(modBus);
     }
 }

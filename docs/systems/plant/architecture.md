@@ -282,3 +282,11 @@ updated: 2026-11-10
 四种树叶钩子按来源每20刻安排更新；仅在下方为空时以20%概率发送一个粒子，中心坐标、散布和速度均逐项保留。`ginkgoleaves`用`ginkgoleaveslizi`，`mapleleaves`用`mapleleaveslizi`，两种白杨叶都用`poplarleaveslizi`。三种来源LeavesBlock保留父类距离更新，`mapleleaves`继续继承普通Block。
 
 `mapleresin`接入专用薄片方块：保留含水状态、水平朝向、垂直点击朝北、四向边缘形状、空视觉形状、天空光、旋转镜像及缺少loot时掉落一个`mapleresinitem`。来源与目标源码明细、逐ID参数及哈希见本批月志列出的实现报告和数据转换清单。构建及客户端冒烟通过；专服启动至Done且注册表导出包含枫脂方块和物品，但未取得原生stop/保存退出证据。自然生成、新区块分布、完整树苗成长、枫脂水桶交互与两版本对照尚未验。
+
+## 普通植物地物与水草回调（2026-11-11）
+
+本批16种普通配置型植物Feature与六种自然树木模板保留来源ID，登记“已注册”。生成实现由World的`NativeWorldFeatures`、`DimensionFeature`和`WorldTemplateFeature`按注册ID读取植物方块；具体生成规则只保留于[世界正文](../world/architecture.md#自然供给地物与随机结构2026-11-11)。非植物石团、石柱、斑块、浮岛、温泉等候选依据实际职责移至World，不能按来源目录继承Plant归属。
+
+`RushesBlock`与`RicciafluitansBlock`共用`RushesFangZhiFangKuaiShiProcedure`。目标仅对`rushes`和`ricciafluitans`使用`plant:water_plant`工厂，由`WaterPlantBlock.onPlace`在原生回调后读取上方流体的`createLegacyBlock().getFluidState().isSource()`；成立时读取当前本体状态写`waterlogged=true`，标志3。默认状态仍为false，不把此回调推广到其他水生植物。没有玩家或世界持久字段，World只投放注册方块，Plant负责自身回调。
+
+本批来源文件、SHA256和目标实现见本系统[来源证据](ledger/source-evidence.csv)。完整群系、维度及自然获取未闭合；本轮构建、专服与客户端的实际覆盖和未执行项见[世界月志](../world/logs/2026-11.md)，不以启动回归替代自然生长或两版本对照。

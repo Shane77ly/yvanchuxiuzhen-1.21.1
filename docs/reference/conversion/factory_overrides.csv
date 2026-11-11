@@ -778,3 +778,5 @@ item,yvanchuxiuzhen:shicai_053,cooking:legume053_food,cooking,053号食材调用
 item,yvanchuxiuzhen:shicai_054,cooking:legume054_food,cooking,054号食材调用Plant播种入口
 item,yvanchuxiuzhen:shicai_055,cooking:legume055_food,cooking,055号食材调用Plant播种入口
 item,yvanchuxiuzhen:shicai_056,cooking:legume056_food,cooking,056号食材调用Plant播种入口
+block,yvanchuxiuzhen:rushes,plant:water_plant,plant,来源上方源流体触发自身含水状态
+block,yvanchuxiuzhen:ricciafluitans,plant:water_plant,plant,来源上方源流体触发自身含水状态

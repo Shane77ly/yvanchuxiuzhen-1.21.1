@@ -28,6 +28,10 @@ from convert_world import generate as generate_world
 from convert_plant_worldgen import generate as generate_plant_worldgen
 from convert_tree_worldgen import generate as generate_tree_worldgen
 from convert_wild_plant_worldgen import generate as generate_wild_plant_worldgen
+from convert_ore_worldgen import generate as generate_ore_worldgen
+from convert_biome_inline_worldgen import generate as generate_biome_inline_worldgen
+from convert_world_templates import generate as generate_world_templates
+from convert_native_worldgen import generate as generate_native_worldgen
 
 DATA = ROOT / 'src/main/resources/data'
 MANIFEST = CONVERSION / 'data_manifest.csv'
@@ -324,6 +328,10 @@ class Converter:
         generate_plant_worldgen(self)
         generate_wild_plant_worldgen(self)
         generate_tree_worldgen(self)
+        generate_ore_worldgen(self)
+        generate_biome_inline_worldgen(self)
+        generate_world_templates(self)
+        generate_native_worldgen(self)
         CONVERSION.mkdir(parents=True, exist_ok=True)
         with MANIFEST.open('w', encoding='utf-8', newline='') as handle:
             writer = csv.writer(handle, lineterminator='\n')

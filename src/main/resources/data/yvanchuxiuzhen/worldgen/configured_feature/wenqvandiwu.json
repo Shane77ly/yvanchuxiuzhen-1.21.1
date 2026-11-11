@@ -1,0 +1,17 @@
+{
+  "type": "yvanchuxiuzhen:wenqvandiwu",
+  "config": {
+    "fluid": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "yvanchuxiuzhen:wenqvan"
+      }
+    },
+    "barrier": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:stone"
+      }
+    }
+  }
+}

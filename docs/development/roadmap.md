@@ -15,7 +15,7 @@ updated: 2026-11-11
 
 ## 批次和出口
 
-2026-11-11 当前D批次：`port/d-world-supply`在040–058相关作物/树苗之后新增47个野生植物Feature、20个树木Feature、四种树叶粒子行为及枫脂方块。完整`build`与既有`fulucooking`343项INFO、0 FAIL、DONE通过，客户端四维度保存退出且ERROR/FATAL0；专服启动并导出注册表，本轮未取得原生stop/保存退出证据。67个Feature保持已注册，World维度和来源群系未接入，尚未形成自然投放。下一大批按来源完整接回World维度与41个Biome的全部生成规则，再闭合植物/食材自然获取；霓裳草06召兽仍待Creature。详细边界见[交接](handoff.md)和[植物月志](../systems/plant/logs/2026-11.md)。全量goal保持active，不push、不合main。
+2026-11-11 当前D/E依赖工作分支`port/d-world-supply`：前批`7deb663f`的47个野生植物与20个树木Feature之后，本批接回32矿物、33配置型地物、24模板，共89个独立Feature；另有28树、8圆盘与171放置资源，合计207个群系内联配置。16种树装饰器、温泉完整族、两种水草含水回调及来源随机结构开关已接线。最终`build compileSmokeJava`含test/check与ArchUnit通过；既有`fulucooking`客户端343项INFO/0 FAIL/DONE、四维度保存退出且ERROR/FATAL0；最终专服7个受控场景通过，原生stop保存四维度、退出码0且ERROR/FATAL0。89个独立Feature保持已注册，41群系与两维度尚未正式安装，自然供给未闭合。下一批并行闭合原版生成差异、70个群系实体依赖及地形运行时；环境动物按01–12整族推进。沿用全量active goal，不push、不合`main`。
 
 2026-11-10 继续 D符箓：知识/绘制/烧灰/传承与多数编号施用已接回，新增 15/16/22/23/42，最终内置客户端 47 项 INFO、0 FAIL、DONE，ERROR/FATAL0、四维度正常保存退出；最终专服Done/原生stop保存四维度、退出码0且ERROR/FATAL0；42 引爆验证受控取消，仅确认回调参数，实际破坏/掉落/连锁未验。13/17 生成计数与 23 原版自然回血隔离修正均通过，历史失败保留，系统仍为部分实现。本批提交后从当前分支建立 `port/d-craft` 整合石磨/石碾，来源已审计；37/复生丹清理契约和 creature/plant 依赖按原边界处理。负责人本日要求自主持续推进完整目标并使用子 Agent，无需逐项指挥；沿用 active 全量 goal，转换、构建和游戏检查由主会话串行整合，批次通过后提交，暂不推送、不合main。具体状态见[交接](handoff.md)和[符箓月志](../systems/fulu/logs/2026-11.md)。
 

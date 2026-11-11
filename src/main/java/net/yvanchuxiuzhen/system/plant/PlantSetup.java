@@ -10,6 +10,7 @@ import net.yvanchuxiuzhen.system.plant.content.MulberrySaplingBlock;
 /** 植物系统的启动装配，只在Mod构造时调用一次。 */
 public final class PlantSetup {
     private static final ContentTables CONTENT = new ContentTables("plant")
+            .blockFactory("plant:water_plant", traits -> ContentBlock.create(traits, WaterPlantBlock::new))
             .blockFactory("plant:shicai001_01", traits -> new CerealSingleStageBlock(traits, CerealCrop.SHICAI_001, 1))
             .blockFactory("plant:shicai001_02", traits -> new CerealSingleStageBlock(traits, CerealCrop.SHICAI_001, 2))
             .blockFactory("plant:shicai001_03", traits -> new CerealSingleStageBlock(traits, CerealCrop.SHICAI_001, 3))

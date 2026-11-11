@@ -333,3 +333,7 @@ cooking,animation,yvanchuxiuzhen:caidaoblock
 plant,geo,yvanchuxiuzhen:shicai03905
 plant,animation,yvanchuxiuzhen:shicai03905
 plant,texture,yvanchuxiuzhen:blocks/shicai03905
+world,block,yvanchuxiuzhen:wenqvan
+world,item,yvanchuxiuzhen:wenqvan_bucket
+world,texture,yvanchuxiuzhen:blocks/wenqvanstill
+world,texture,yvanchuxiuzhen:blocks/wenqvanflow

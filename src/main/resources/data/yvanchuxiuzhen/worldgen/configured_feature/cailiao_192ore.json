@@ -1,0 +1,18 @@
+{
+  "type": "yvanchuxiuzhen:cailiao_192ore",
+  "config": {
+    "size": 8,
+    "discard_chance_on_air_exposure": 0.0,
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:block_match",
+          "block": "minecraft:stone"
+        },
+        "state": {
+          "Name": "yvanchuxiuzhen:cailiao_192ore"
+        }
+      }
+    ]
+  }
+}

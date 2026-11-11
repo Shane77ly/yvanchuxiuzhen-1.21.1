@@ -9,12 +9,14 @@ updated: 2026-11-11
 
 标识 `plant`，类别：系统。职责：作物、树木、野生植物的生长与收获（[系统设计](../../development/system-design.md)）。
 
-当前阶段：D 食材与工艺供给部分实现。已接入水稻001、糯稻002、桑树及004–008、011–033共28种作物；009/010果树及034–039藤本库存批次已提交`789c9c23`。本批继续接入040–045菌类、046–056豆科、05701芝麻双株、棉麻、霓裳草、桃花、17种普通树苗、47种野生植物Feature、20种树木Feature、四种树叶粒子行为及枫脂方块；逐项身份与实现映射见架构正文。新增67个Feature保持“已注册”，尚未装配来源群系/维度的自然投放；霓裳草06召引妖兽仍待Creature。Plant台账共1,099项，确切状态见[内容台账](ledger/content.csv)。`content/plant`当前有435个方块与475个物品定义；注册数不代表全系统玩法验收完成。
+2026-11-11 World依赖批次接入另22种植物地物（16种普通配置型植物、六种树木模板）及Rushes/Ricciafluitans的放置含水回调；同批World接入89种独立地物及207份群系内联生成资源。非植物环境地物与温泉依据实际规则归World，植物内容归属保持Plant；生成执行按注册ID读取方块，不产生系统循环依赖。本批客户端343项INFO、0 FAIL、DONE；专服七个受控标记全部通过并原生stop保存四维度，代码最终修正后的完整构建待主会话统一重跑。具体规则与验证边界见[正文](architecture.md#普通植物地物与水草回调2026-11-11)、[本月日志](logs/2026-11.md)及[世界月志](../world/logs/2026-11.md)。
 
-本轮完整`build compileSmokeJava`通过；最终`runSmokeClient -PsmokeOnly=fulucooking`为343项INFO、0 FAIL、DONE，客户端四维度正常保存退出且ERROR/FATAL0；专服启动至Done并导出注册表，未取得原生stop/保存退出证据。证据见[本月日志](logs/2026-11.md)、`tmp/plant-world-features-final-{client.log,report.txt}`与`build/smoke/report.txt`。受控检查不覆盖完整树木长成、自然生成、新区域自然成长、完整存档重登、来源1.18.2实机、多人、完整视觉及两版本对照。目标群系与`dimensionrenjian`、`dimensionyaohun`缺失，Feature注册不代表自然供给闭合；霓裳草06召引妖兽仍待Creature。
+当前阶段：D 食材与工艺供给部分实现。已接入水稻001、糯稻002、桑树及004–008、011–033共28种作物；009/010果树及034–039藤本库存批次已提交`789c9c23`。本批继续接入040–045菌类、046–056豆科、05701芝麻双株、棉麻、霓裳草、桃花、17种普通树苗、47种野生植物Feature、20种树木Feature、四种树叶粒子行为及枫脂方块；逐项身份与实现映射见架构正文。新增67个Feature保持“已注册”，尚未装配来源群系/维度的自然投放；霓裳草06召引妖兽仍待Creature。Plant台账共1,066项，确切状态见[内容台账](ledger/content.csv)。`content/plant`当前有435个方块与475个物品定义；注册数不代表全系统玩法验收完成。
+
+上一批“野生植物与自然树木Feature扩展”的完整`build compileSmokeJava`通过，最终`runSmokeClient -PsmokeOnly=fulucooking`为343项INFO、0 FAIL、DONE，客户端四维度正常保存退出且ERROR/FATAL0；该批专服启动至Done并导出注册表，未取得原生stop/保存退出证据。上一批证据见[本月日志](logs/2026-11.md)、`tmp/plant-world-features-final-{client.log,report.txt}`；本批World依赖验证另记，不能混用两批专服结论。受控检查不覆盖完整树木长成、自然生成、新区域自然成长、完整存档重登、来源1.18.2实机、多人、完整视觉及两版本对照。目标群系与`dimensionrenjian`、`dimensionyaohun`缺失，Feature注册不代表自然供给闭合；霓裳草06召引妖兽仍待Creature。
 
 - [架构与来源规则](architecture.md)：逐编号身份、实现族、工厂对应、生长与掉落差异、公开API和自然投放边界。
-- 归属范围842个元素，其中608个已读；这是来源阅读范围，非功能验收数，见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
+- 归属范围812个元素，其中649个已读；这是来源阅读范围，不是功能验收数，见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册身份、目标ID、行为迁移和地物装配状态。
 - [来源证据](ledger/source-evidence.csv)与[来源指纹](ledger/source-fingerprints.csv)：来源路径、已读分支范围、目标实现和SHA256。
 - [变更索引](changes.md)、[月度日志](logs/2026-11.md)与[系统导航](../README.md)：按批次查证验证范围与源码引用规则。

@@ -1,0 +1,16 @@
+{
+  "type": "yvanchuxiuzhen:tudibankuai_01",
+  "config": {
+    "target": {
+      "Name": "yvanchuxiuzhen:rottingsoil"
+    },
+    "state": {
+      "Name": "minecraft:mycelium"
+    },
+    "radius": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 3,
+      "max_inclusive": 7
+    }
+  }
+}

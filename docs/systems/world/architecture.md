@@ -2,7 +2,7 @@
 topic: world
 role: architecture
 status: draft
-updated: 2026-11-07
+updated: 2026-11-11
 ---
 
 # 世界：架构调查与提案
@@ -44,6 +44,64 @@ updated: 2026-11-07
 `build`（含ArchUnit）通过；补入来源群系名称后，专用服务器仅启动一次至Done，正式维度与群系加载成功。原生命令强制加载虚空区块(0,0)，在(0,64,0)同时确认 `xvkongqvnxi` 与空气；随后移除强加载，原生stop保存四个世界并正常退出，日志ERROR0，导出群系1个。没有新增测试类、专项选择器或重跑旧裂隙检查。证据为 `tmp/world-void-build.log`、`tmp/world-void-content.log`、`tmp/world-void-server.log` 与 `build/registry-export/biome.txt`。
 
 本次确认数据加载、一个实际生成区块及保存；不作为自然裂隙往返、客户端视觉、多人或两版本实机对照的证据。台账仅标“已注册”。
+
+## 自然供给地物与随机结构（2026-11-11）
+
+本节记录直接来源迁移的32种矿物、24种模板、33种普通配置型地物、41个来源群系内联生成片段与16个树装饰器。来源完整群系、正式人间与妖魂维度及自然可达性仍按各自台账记录；生成机制接入不等于这些系统已经闭合。逐项证据与SHA256见 [来源证据](ledger/source-evidence.csv)和[来源指纹](ledger/source-fingerprints.csv)。证据中的owner严格沿用内容台账，矿物产物、植物树木与World自然投放职责分别记录；41个群系只登记本节读取的内联片段，其整体ownership保持候选。
+
+### 矿物与内联圆盘
+
+来源 `A:world/features/ores` 完整32种OreFeature均用纯Block身份比较匹配 `Blocks.STONE`，没有深板岩、下界岩或矿物替换标签。目标使用 `minecraft:block_match`，零空气暴露丢弃率；30种来源triangle高度映射目标trapezoid且plateau0，Bluestone与辰砂两种uniform保持。矿脉大小、次数、高度、31个全群系选择器与Bluestone13个群系，以及各地物的维度门槛独立保留。`DimensionOreFeature`在原生算法取随机数前过滤维度，`WorldOreFeatures`保留原始注册ID；转换由 `convert_ore_worldgen.py` 完成。
+
+8个来源内联沙/砾石圆盘使用 `legacy_biome_disk` 类型与目标DiskConfiguration格式。`LegacyBiomeDiskFeature`先保留来源`Feature.DISK → DiskReplaceFeature`在落点检查`FluidTags.WATER`的守卫，再保留1.18.2版本BaseDiskFeature的X外/Z内/Y降序、最低额外一层、固定状态、半径单次采样、setBlock标志2和后处理。若FallingBlock刚放置的上一层下方原状态为空气，上一层变砂岩；红沙才变红砂岩，来源砾石同样变普通砂岩。目标原生DiskFeature已删除该支撑逻辑，因此此处保留来源算法。
+
+### 普通配置型地物
+
+`convert_native_worldgen.py`完整读取33种配置型地物：9个RandomPatch、5个SimpleBlock、3个BlockBlob、1个BlockPile、2个Lake、7个BlockColumn、3个Coral、3个ReplaceBlobs。来源配置、provider、默认方块状态、整数分布与投放修饰器逐表达式展开；新增或未知表达式、遗漏地物及额外place行为均直接报错。33个同名Feature保留独立注册身份，`DimensionFeature`在原算法取随机数前检查原维度门并转发同一Context。华光柱、石树01和石树05来源没有维度门，保持无条件入口。
+
+22项含BiomeFilter、11项没有BiomeFilter，按来源顺序保留。腐竹依次执行高度范围、次数、方形散布、向下环境扫描、群系过滤；扫描目标为空气且下方腐土，允许条件为空气，最大10步。紫水晶柱的次数位于高度图之后。冰湖的fluid与barrier均为空气。BlockColumn.simple展开为单层、向上、只允许精确 `minecraft:air`、prioritize_tip=false；空气或水谓词只匹配两个注册方块，不扩大到任意isAir或流体状态。
+
+3种石团使用 `SourceBlockBlobFeature`保留三次团块、随机半径、位置遍历、结束偏移与写方块标志4；目标原生BlockBlob已将该标志改为3。来源Forge40.1.0的 `Feature.isStone`读取 `forge:stone`，与目标 `base_stone_overworld`不同。转换器从锁定来源recomp.jar读取并核验12个成员，生成固定 `legacy_worldgen_stone` 标签：安山岩、闪长岩、花岗岩、虫蚀石头、石头、磨制安山岩、磨制闪长岩、磨制花岗岩、深板岩、磨制深板岩、虫蚀深板岩、凝灰岩。来源 `Feature.isDirt`读取 `minecraft:dirt`；转换器从锁定1.18.2版本client.jar读取7个成员，生成固定 `legacy_worldgen_dirt` 标签：泥土、草方块、灰化土、砂土、菌丝体、缠根泥土、苔藓块。地面判定使用上述7土或12石，保留磨制与虫蚀石料上的落点；不引入目标版本泥土标签新增的泥巴与沾泥红树根。两份资源均经转换器输出并登记来源归档指纹。
+
+珊瑚三种原版算法、RandomPatch、SimpleBlock、BlockColumn、BlockPile、ReplaceBlobs与精确目标源码已逐读；循环、概率、方向顺序、shuffle随机消费与方块更新标志对应。Lake的Material.isLiquid/isSolid迁为目标BlockState.liquid/isSolid，仍依赖内容方块的来源材质属性。灯心草、浮苔的来源onPlace还会检查上方source流体并写waterlogged=true；其内容消费者按Plant台账闭合，默认态配置相符本身不证明回调完成。
+
+### 群系内联树与16个装饰器
+
+范围沿来源人间、妖魂维度biome_source与群系实际注册解析，共41个群系文件。`convert_biome_inline_worldgen.py`转换其中实际调用的内联TreeConfiguration、DiskConfiguration及PlacedFeature，保留树干、树冠、最小尺寸、ignoreVines、forceDirt、原默认泥土、装饰器与投放顺序。每个注册名独立输出，不以新模板替换旧配置；未知表达式或重名目标直接报错。
+
+16个来源树装饰器只有七个群系内联树配置调用，归World；四种依赖植物方块按注册ID读取默认态，不写Plant持久状态。六种Leave逐叶抽取nextInt(4)==0，检查正下方空气后写第一格，再向下最多四格；延伸循环保留先检查空气、再判断剩余计数的顺序。六种Trunk逐树干抽取nextInt(3)>0，检查下方空气后写当前树干位置，检查位置与写入位置的差异保留。
+
+四种Fruit整树抽取nextFloat()<0.2F，取首个树干Y，仅处理相对高度不超过2的树干；按水平面方向顺序逐向抽取nextFloat()<=0.25F，取反方向邻格，空气时写默认态。没有树干为空时的兜底，来源同样直接取首项。`biomewind_02_tree_fruit_decorator`写空气时仍调用生成setter。藤蔓不附加面属性，可可不附加朝向或年龄；目标 `TreeDecorator.Context`沿用原生成setter，16个类型各自使用无字段MapCodec与原注册ID。
+
+### 24种模板与生成顺序
+
+`WorldTemplateFeatures`分别登记华光、恶灵树01–04、黄土石、丁香01、箭毒木01、柱子岛屿01–04、浮空礁石、随机结构01–06、石树02/03/04/06/07。`WorldTemplateFeature`保留维度、概率、次数、基底、Heightmap、偏移和处理器；算法按概率、次数、X/Z、高度、基底、随机结构开关、镜像/旋转、模板放置执行。镜像只取原枚举前2项、旋转前3项，保留来源nextInt(1)随机消费；黄土石为nextInt(6)+3次。普通模板忽略AIR，随机01–04忽略STRUCTURE_AND_AIR，05/06只忽略STRUCTURE_BLOCK；保留实体，首次放置标志2。
+
+华光首次成功放置后保留来源后置过程的 `world instanceof ServerLevel`条件。自然生成使用WorldGenRegion，不追加后四层；直接ServerLevel执行时，在Y+48/96/144/192各追加一次同模板，标志3、无忽略处理器、未setRandom、使用该ServerLevel.random。保持来源守卫及全部高度调用。
+
+### 随机结构开关与管理入口
+
+来源 `MapVariables.jiegoushengcheng`为主世界范围、初值false，实际生成条件为取反。World是唯一写入者，`WorldGeneration.Settings`以Codec/StreamCodec定义字段，主世界SavedData保存该键；公开操作为 `randomStructuresAllowed(server)`与 `setRandomStructuresAllowed(server,allowed)`，修改后标脏，六个Feature不保存第二份开关。
+
+存档读取只在主世界LevelEvent.Load的服务端线程执行。精确目标MinecraftServer先发布该事件，随后才初始化出生区块；通过ConcurrentHashMap安全发布SavedData，地物线程只读取volatile Settings，不访问非线程安全的DimensionDataStorage HashMap。服务端停止后清理索引；保存与修改仍由World承担。
+
+已对照typed_field_accesses.csv及全部来源Java：附加条件过程是条件消费者，六个Feature调用；`YvanchuGoProcedure`是唯一实际写入过程，unlock写false，lock写true。`WorldGenerationCommands`接回精确语法 `/yvanchu <当前维度玩家显示名> unlock|lock jiegoushengcheng [true]`，permission1；Go是Java过程名，没有go字面子命令。
+
+保留空白分词、缺参空串、当前维度显示名精确比较、首个匹配后结束及返回0。第四参数恰为true时向目标玩家发送原开启或关闭提示；找不到匹配时向执行者发送原红色错误，控制台由FakePlayer承接。此开关影响随后地物尝试，不触发重生成。来源完整MapVariables广播没有此字段的玩家侧消费者，目标不额外广播整份世界档案；Settings保留StreamCodec。本节只接结构unlock/lock两个管理分支。
+
+### 温泉流体
+
+`SpringFluids`独立登记温泉静止/流动流体、FluidType、液体块与水桶，保持原ID、UNCOMMON、密度1000、黏度1000、温度300、不可自增水源、爆炸抗性100及4/1/5流动参数。来源两种温泉流体均属于water标签，目标保留相应身份。桶堆叠1、归还空桶，加入来源材料页。
+
+`SpringLiquidBlock`在受伤且无恢复时给予40tick恢复0级，并在该次施加分支内以10%概率给予600tick的017效果0级；已有恢复时不抽取该概率，碰撞过程不添加服务端守卫。来源客户端随机展示入口内部仍检查ServerLevel，再发送三个BUBBLE_POP；目标保持该守卫。客户端保留无世界颜色−13083194、世界群系平均水色、两种贴图与半透明渲染层。温泉湖的自然可达性由对应群系与维度装配闭合。
+
+1.18.2版本与精确目标的恢复效果均以剩余duration模50判断0级治疗，并仅在duration大于0时应用。来源40tick时长依次经过40至1，不产生一次治疗；效果结束后再次接触只会重新施加同样时长。该批保持来源行为，受控断言检查效果存在及持续时间，不将血量增加作为预期结果，也不登记回血已验收。
+
+温泉碰撞样本须启用实体正常移动流程。精确目标中 `Mob.isEffectiveAi`在NoAI时返回false，`LivingEntity.travel`据此跳过移动；方块 `entityInside`检查位于 `Entity.move`内。因此直接在池内召唤静止NoAI猪不能触发碰撞回调，其未获得效果不证明温泉实现失效。受控样本使用围墙约束启用AI的受伤猪，并分别读取Health、Pos及 `active_effects`；目标效果NBT使用小写 `active_effects`和字符串id。实测结果单独登记于本批月志。
+
+### 本批验证范围
+
+以上规则登记静态来源、精确目标源码与实现职责。运行结果由本批月志及交接登记；此前虚空或植物启动结果不作为新增地物、命令和温泉流体的运行验收证据。1.18.2版本实机与两版本对照尚未执行，完整World系统仍未完成。
 
 ## 1.18.2 状态与生成
 

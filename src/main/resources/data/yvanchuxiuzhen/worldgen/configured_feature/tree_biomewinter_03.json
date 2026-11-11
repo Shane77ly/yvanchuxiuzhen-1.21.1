@@ -1,0 +1,58 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:ice"
+      }
+    },
+    "trunk_placer": {
+      "type": "minecraft:giant_trunk_placer",
+      "base_height": 4,
+      "height_rand_a": 2,
+      "height_rand_b": 14
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:air"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:mega_pine_foliage_placer",
+      "radius": 0,
+      "offset": 0,
+      "crown_height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": 3,
+        "max_inclusive": 4
+      }
+    },
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 1,
+      "upper_size": 2
+    },
+    "decorators": [
+      {
+        "type": "yvanchuxiuzhen:biomewinter_03_tree_leave_decorator"
+      },
+      {
+        "type": "yvanchuxiuzhen:biomewinter_03_tree_trunk_decorator"
+      },
+      {
+        "type": "yvanchuxiuzhen:biomewinter_03_tree_fruit_decorator"
+      }
+    ],
+    "ignore_vines": false,
+    "force_dirt": false
+  }
+}
