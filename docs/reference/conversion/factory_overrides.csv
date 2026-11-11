@@ -1,4 +1,9 @@
 registry,target_id,factory,owner,reason
+block,yvanchuxiuzhen:ginkgoleaves,plant:particle_foliage_leaves,plant,银杏叶周期粒子行为且保留LeavesBlock基类
+block,yvanchuxiuzhen:mapleleaves,plant:particle_foliage,plant,枫叶周期粒子行为且保留普通Block基类
+block,yvanchuxiuzhen:mapleresin,plant:maple_resin,plant,枫脂薄片方块的含水、朝向、形状与回退掉落
+block,yvanchuxiuzhen:poplarleaves,plant:particle_foliage_leaves,plant,白杨叶周期粒子行为且保留LeavesBlock基类
+block,yvanchuxiuzhen:poplarleavesyellow,plant:particle_foliage_leaves,plant,黄白杨叶周期粒子行为且保留LeavesBlock基类
 block,yvanchuxiuzhen:stonemill,craft:stone_mill,craft,三槽石磨即时研磨与来源动画
 item,yvanchuxiuzhen:stonemill,craft:stone_mill,craft,石磨方块物品Gecko渲染
 block,yvanchuxiuzhen:stoneroller,craft:stone_roller,craft,三槽石碾即时研磨与来源动画

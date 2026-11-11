@@ -271,4 +271,14 @@ updated: 2026-11-10
 
 桃花`peachflower`来源只在下方为空时以20%概率播放粒子，不会把方块转换为桃叶。目标`PeachFlowerBlock`按20刻调度叶距检查并执行同一条件粒子行为。催化物将普通桃苗转为血桃苗的来源操作由树苗方块共用入口承载；不因模板生长代码共享而合并掉各注册ID的映射。
 
-已注册的菌类/豆科成熟地物继续保持独立于自然供给验收的状态。所需群系仍缺`biomeautumn_01–03`、`biomecloud_01`、`biomefeng_01–04`、`biomejade_01–03`、`biomepeach_01–02`、`biometurtle_02`、`biomewind_01–04`，且`dimensionrenjian`、`dimensionyaohun`尚未接入目标World；当前不安装指向缺失Holder的modifier。静态核对与目标客户端/服务器运行状态待本批日志更新后再确定。
+已注册的菌类/豆科成熟地物继续保持独立于自然供给验收的状态。所需群系仍缺`biomeautumn_01–03`、`biomecloud_01`、`biomefeng_01–04`、`biomejade_01–03`、`biomepeach_01–02`、`biometurtle_02`、`biomewind_01–04`，且`dimensionrenjian`、`dimensionyaohun`尚未接入目标World；当前不安装指向缺失Holder的modifier。静态来源、目标构建与冒烟检查已完成；自然生成仍待World依赖接回后验收。
+
+## 野生植物与自然树木地物扩展（2026-11-11）
+
+新增47个非编号普通野生植物RandomPatch Feature与20个模板树Feature。野生植物保留逐ID tries、count、rarity、heightmap、biome及dimension；共用实现只承载源码一致的RandomPatch与维度门控。棉麻和霓裳草的对应野外Feature也在此注册，但不因此补造生长或召兽行为。树木Feature保留逐项模板ID、维度、概率、heightmap、基底、模板锚点偏移；`privet_05`独有随机镜像和旋转，桑树与檀香树使用不同高度图和基底。`treejiegou_*`经模板调色板核对为树木模板地物，不按名字推断为通用结构。
+
+`convert_wild_plant_worldgen.py`与`convert_tree_worldgen.py`由标准`convert_data.py`调用，每份configured/placed资源使用`converter.write`追踪来源Java SHA-1。67个Feature在台账记为“已注册”，表示目标类型与数据已接入，不表示已自然投放：来源群系与`dimensionrenjian`、`dimensionyaohun`等尚未由World提供，故没有添加错误维度或主世界替代modifier。霓裳草06召兽仍依赖Creature公开召唤入口。
+
+四种树叶钩子按来源每20刻安排更新；仅在下方为空时以20%概率发送一个粒子，中心坐标、散布和速度均逐项保留。`ginkgoleaves`用`ginkgoleaveslizi`，`mapleleaves`用`mapleleaveslizi`，两种白杨叶都用`poplarleaveslizi`。三种来源LeavesBlock保留父类距离更新，`mapleleaves`继续继承普通Block。
+
+`mapleresin`接入专用薄片方块：保留含水状态、水平朝向、垂直点击朝北、四向边缘形状、空视觉形状、天空光、旋转镜像及缺少loot时掉落一个`mapleresinitem`。来源与目标源码明细、逐ID参数及哈希见本批月志列出的实现报告和数据转换清单。构建及客户端冒烟通过；专服启动至Done且注册表导出包含枫脂方块和物品，但未取得原生stop/保存退出证据。自然生成、新区块分布、完整树苗成长、枫脂水桶交互与两版本对照尚未验。

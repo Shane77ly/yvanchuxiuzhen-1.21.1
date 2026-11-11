@@ -720,54 +720,54 @@ yvanchuxiuzhen,Biomewinter03,biome,~/biome,world,候选,第一版批量归组（
 yvanchuxiuzhen,Wind01,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Wind02,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Wind03,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
-yvanchuxiuzhen,Annualfleabane,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Greenbristlegrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
+yvanchuxiuzhen,Annualfleabane,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Greenbristlegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Morningglory,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Tailgreenbristlegrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Gardenia,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Tailreed,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Purslane,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Columbinemimosa,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 dungeon 的 Zhenyaotashengchengbuchong；economy 的 Caoyaojiage；flow 的 Worldbegin；treasure 的 BaoxiangCaoyao、BaoxiangLiandantuzhi 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Chineseviolet,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Skybluealfalfa,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Goldenboilinggrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 dungeon 的 Zhenyaotashengchengbuchong；economy 的 Caoyaojiage；flow 的 Worldbegin；treasure 的 BaoxiangCaoyao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Androsace,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Androsace02,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Lamiumamplexicaule,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Asiaticdayflower,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 dungeon 的 Zhenyaotashengchengbuchong；economy 的 Caoyaojiage；flow 的 Worldbegin；treasure 的 BaoxiangCaoyao、BaoxiangLiandantuzhi 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Jadefairy,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
+yvanchuxiuzhen,Tailgreenbristlegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Gardenia,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Tailreed,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Purslane,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Columbinemimosa,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Chineseviolet,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Skybluealfalfa,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Goldenboilinggrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Androsace,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Androsace02,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Lamiumamplexicaule,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Asiaticdayflower,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Jadefairy,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Opticalprismlizi,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,OpticalprismDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Opticalprism 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Opticalprism,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Cannibalmoss,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
+yvanchuxiuzhen,Opticalprism,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Cannibalmoss,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Cannibalmoss02,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,CannibalmossDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Cannibalmoss 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Cannibalmoss02DangShiTiZaiFangKuaiShangXingZouShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Cannibalmoss02 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Cannibalmoss02GengXinYouXiKe,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Cannibalmoss02 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Spiritgrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 dungeon 的 Zhenyaotashengchengbuchong；economy 的 Caoyaojiage；flow 的 Worldbegin；treasure 的 BaoxiangCaoyao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Fragranceflower,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 cooking 的 Muzengzhengliu；dungeon 的 Zhenyaotashengchengbuchong；economy 的 Caoyaojiage；flow 的 Worldbegin；treasure 的 BaoxiangCaoyao、BaoxiangLiandantuzhi 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Raincloud,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 dungeon 的 Zhenyaotashengchengbuchong；economy 的 Caoyaojiage；flow 的 Worldbegin；treasure 的 BaoxiangCaoyao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
+yvanchuxiuzhen,Spiritgrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Fragranceflower,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Raincloud,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Duckweed,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,Bitegrass01DangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Bitegrass01 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Bitegrass01,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
+yvanchuxiuzhen,Bitegrass01,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Bitegrass02GengXinYouXiKe,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Bitegrass02 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Bitegrass02,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Scorchedsoil,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
-yvanchuxiuzhen,Scorchedgrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
+yvanchuxiuzhen,Scorchedgrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,ThundergrassGengXinYouXiKe,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Thundergrass 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Thundergrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
+yvanchuxiuzhen,Thundergrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,BarrenstonestingDangShiTiZaiFangKuaiZhongPengZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Barrenstonesting 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Barrenstonesting,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,SnowdriftZaiFangKuaiShangYouJian,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Snowdrift 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Snowdrift,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,IceboundrockDangZhiWuBeiWanJiaPoPiShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Iceboundrock 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Iceboundrock,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Icecrystal,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Icicleflower,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 economy 的 Caoyaojiage；flow 的 Worldbegin；treasure 的 BaoxiangCaoyao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Coldleaf,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 dungeon 的 Zhenyaotashengchengbuchong；economy 的 Caoyaojiage；flow 的 Worldbegin；treasure 的 BaoxiangCaoyao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Bluegrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 dungeon 的 Zhenyaotashengchengbuchong；economy 的 Caoyaojiage；flow 的 Worldbegin；treasure 的 BaoxiangCaoyao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Iceboundrock02,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Frostflowers,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
+yvanchuxiuzhen,Iceboundrock,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Icecrystal,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Icicleflower,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Coldleaf,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Bluegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Iceboundrock02,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Frostflowers,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Ricciafluitans,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Rushes,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Diplidisdiandra,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
@@ -776,7 +776,7 @@ yvanchuxiuzhen,Snowdriftshengcheng,feature,~/plant/ordinaryplants,plant,候选,�
 yvanchuxiuzhen,Rockpile01,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Barrenstonestingshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ricciafluitansshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nautilus,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
+yvanchuxiuzhen,Nautilus,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Loess,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Witheredshrubshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Diplidisdiandrashengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -899,23 +899,23 @@ yvanchuxiuzhen,Shicai052,item,~/food,cooking,已读,B1 归属阅读：食材：�
 yvanchuxiuzhen,Shicai053,item,~/food,cooking,已读,B1 归属阅读：食材：作为烹饪原料被厨具与菜谱按 ID 使用，可直接种下的分支走 plant 的种植过程（Shicai001seed、Moguplace、Jvnleiplace）
 yvanchuxiuzhen,Shicai054,item,~/food,cooking,已读,B1 归属阅读：食材：作为烹饪原料被厨具与菜谱按 ID 使用，可直接种下的分支走 plant 的种植过程（Shicai001seed、Moguplace、Jvnleiplace）
 yvanchuxiuzhen,Shicai055,item,~/food,cooking,已读,B1 归属阅读：食材：作为烹饪原料被厨具与菜谱按 ID 使用，可直接种下的分支走 plant 的种植过程（Shicai001seed、Moguplace、Jvnleiplace）
-yvanchuxiuzhen,Cassia06,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Laurel06,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Laurel08,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Elm07,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Elm08,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Poplar01,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Poplar03,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Privet05,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Maple01,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Treejiegou01,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Treejiegou03,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Treejiegou07,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Treejiegou09,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Treejiegou17,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Treejiegou18,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Treejiegou12,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Peach01,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Cassia06,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Laurel06,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Laurel08,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Elm07,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Elm08,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Poplar01,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Poplar03,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Privet05,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Maple01,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Treejiegou01,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Treejiegou03,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Treejiegou07,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Treejiegou09,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Treejiegou17,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Treejiegou18,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Treejiegou12,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Peach01,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,HuaguangshengchengZaiJieGouCunDangShengChengShi,procedure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Huaguangshengcheng,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Organism01,animatedentity,~/entity/environment,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
@@ -2221,21 +2221,21 @@ yvanchuxiuzhen,MianPlant02,plant,~/plant/crop,plant,已读,B1 归属阅读：作
 yvanchuxiuzhen,MianPlant03,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,MianPlant04,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,MianPlant05DangZhiWuBeiYouJianDianJiShi,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 MianPlant05 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,MianPlant05,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
+yvanchuxiuzhen,MianPlant05,plant,~/plant/crop,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Maitem,item,~/plant/crop,plant,已读,B1 归属阅读：作物成熟阶段或收获物，无过程；被 craft 的 ZhibujiZaiFangKuaiShangYouJian 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,Maseed,item,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,MaPlant01,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,MaPlant02,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,MaPlant03,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
 yvanchuxiuzhen,MaPlant04DangZhiWuBeiWanJiaPoPiShi,procedure,~/plant/crop,plant,已读,B1 归属阅读：随 MaPlant04 读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
-yvanchuxiuzhen,MaPlant04,plant,~/plant/crop,plant,已读,B1 归属阅读：作物：随机刻生长、骨粉催熟（ShicaiPlantCuishujilv）、成熟后右键或破坏收获，种子右键种植；产物按 ID 交给烹饪、工艺等使用
+yvanchuxiuzhen,MaPlant04,plant,~/plant/crop,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Mulberrymulberry,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,MulberrysaplingDangGuFenChengGongShiYong,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Mulberrysapling 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用；2026-11-10 来源复核：桑苗5%生长与mulberry_01模板、首个ServerTick END写根、叶片生命周期与破坏独立生蚕、叶loot；按实际规则归plant，Craft实体按注册ID初始化，详情见plant/ledger/source-evidence.csv
 yvanchuxiuzhen,Mulberrysapling,plant,~/plant/tree,plant,已读,B1 归属阅读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用；2026-11-10 来源复核：桑苗5%生长与mulberry_01模板、首个ServerTick END写根、叶片生命周期与破坏独立生蚕、叶loot；按实际规则归plant，Craft实体按注册ID初始化，详情见plant/ledger/source-evidence.csv
 yvanchuxiuzhen,Mulberryleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用；2026-11-10 来源复核：桑苗5%生长与mulberry_01模板、首个ServerTick END写根、叶片生命周期与破坏独立生蚕、叶loot；按实际规则归plant，Craft实体按注册ID初始化，详情见plant/ledger/source-evidence.csv
 yvanchuxiuzhen,Mulberryleaveslist,loottable,~/plant/tree,plant,已读,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 来源复核：桑苗5%生长与mulberry_01模板、首个ServerTick END写根、叶片生命周期与破坏独立生蚕、叶loot；按实际规则归plant，Craft实体按注册ID初始化，详情见plant/ledger/source-evidence.csv
 yvanchuxiuzhen,Mulberrylog,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Mulberry02,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Mulberry02,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,SilkwormentityDangYouJianDianJiShiTi,procedure,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
 yvanchuxiuzhen,Silkwormentity,animatedentity,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
 yvanchuxiuzhen,SilkwormDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/item/zawu,craft,已读,系统设计·已读裁定：蚕蛾只由 CanheGengXinYouXiKe 生成，结茧与羽化由蚕盒驱动
@@ -2699,15 +2699,15 @@ yvanchuxiuzhen,Tangshui,tag,~/item/food,cooking,已读,被A `FoodblockyoujianPro
 yvanchuxiuzhen,Chadian,tag,~/item/food,cooking,已读,被A `FoodblockyoujianProcedure:17–36`、`FooditemshiyongProcedure:19–32`读取分类；`ItemLoreProcedure:195–202`仅追加类别提示；目标 `MealEffects.category` 保留四分类优先序
 yvanchuxiuzhen,Effect030,potioneffect,~/effect,cooking,已读,C combat 归属阅读（改判后确认）：食用主食、菜肴、汤水标记，没有自身过程，由烹饪的食用过程读写
 yvanchuxiuzhen,ThistlesandthornsDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Thistlesandthorns 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Thistlesandthorns,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
+yvanchuxiuzhen,Thistlesandthorns,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Ancienttimeswood,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；被 world 的 Biomesand01 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,TiandaoduojiegouGengXinYouXiKe,procedure,~/systemset/tiandao/jiegouzu,tiandao,已读,B1 归属阅读：随 Tiandaoduojiegou 读：天道：生存模式不可得的通用管理工具（穿梭令、物品锁、物品 NBT 编辑器、固定方块、多结构生成器）
 yvanchuxiuzhen,Tiandaoduojiegou,block,~/systemset/tiandao/jiegouzu,tiandao,已读,B1 归属阅读：天道：生存模式不可得的通用管理工具（穿梭令、物品锁、物品 NBT 编辑器、固定方块、多结构生成器）
 yvanchuxiuzhen,Ancienttimeswood03,procedure,~/systemset/tiandao/jiegouzu,tiandao,已读,B1 归属阅读：随 Tiandaoduojiegou 读：天道：生存模式不可得的通用管理工具（穿梭令、物品锁、物品 NBT 编辑器、固定方块、多结构生成器）
 yvanchuxiuzhen,LurkerDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Lurker 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Lurker,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Ironbamboo,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
-yvanchuxiuzhen,Ironbambootail,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
+yvanchuxiuzhen,Lurker,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Ironbamboo,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Ironbambootail,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Evilspirittree,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Evilspirittree01,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Evilspirittree02,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -2717,7 +2717,7 @@ yvanchuxiuzhen,Ancienttimesleaves,block,~/plant/tree,plant,已读,B1 归属阅�
 yvanchuxiuzhen,Loessrock,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Arrowpoisonwood,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Arrowpoisonwoodleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；只在配方、标签或战利品表中出现
-yvanchuxiuzhen,Tripterygiumwilfordii,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 treasure 的 BaoxiangZacao 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
+yvanchuxiuzhen,Tripterygiumwilfordii,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Tripterygiumwilfordiiitem,item,~/item/herbmedicine,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 economy 的 Caoyaojiage；flow 的 Worldbegin；plant 的 Tripterygiumwilfordii 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Yaoshou007,animatedentity,~/entity/yaoshou/yaoshou007,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,JiantouDangWanJiaYuGaiShiTiFaShengPengZhuangShi,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3813,7 +3813,7 @@ yvanchuxiuzhen,Guchong03,animatedentity,~/entity/guchong,guchong,候选,第一�
 yvanchuxiuzhen,Guchong04ShiTiChuShiShengChengShi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong04,animatedentity,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongxvnfu,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chongshicao,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；被 economy 的 Caoyaojiage；flow 的 Worldbegin 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
+yvanchuxiuzhen,Chongshicao,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Huxiangtunshi,potioneffect,~/effect,guchong,已读,C combat 归属阅读（改判后确认）：蛊虫吞噬标记，没有自身过程，读取者是蛊虫
 yvanchuxiuzhen,Guchongtunshi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongyesheng,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3911,8 +3911,8 @@ yvanchuxiuzhen,Qiankundai01hecheng,recipe,~/item/zawu/qiankundai,storage,已读,
 yvanchuxiuzhen,Qiankundai02hecheng,recipe,~/item/zawu/qiankundai,storage,已读,D来源核对：材料袋46槽、45选槽、五品质取出、玩家材料仓数量与分页、九属性筛选及自动入库；五配方按运行JSON；见storage/architecture.md材料仓正文
 yvanchuxiuzhen,Qiankundai03hecheng,recipe,~/item/zawu/qiankundai,storage,已读,D来源核对：材料袋46槽、45选槽、五品质取出、玩家材料仓数量与分页、九属性筛选及自动入库；五配方按运行JSON；见storage/architecture.md材料仓正文
 yvanchuxiuzhen,Qiankundai04hecheng,recipe,~/item/zawu/qiankundai,storage,已读,D来源核对：材料袋46槽、45选槽、五品质取出、玩家材料仓数量与分页、九属性筛选及自动入库；五配方按运行JSON；见storage/architecture.md材料仓正文
-yvanchuxiuzhen,Treejiegou15,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Mint,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Treejiegou15,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Mint,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Cloudgrass01DangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Cloudgrass01 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Cloudgrass01,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Cloudgrass02GengXinYouXiKe,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Cloudgrass02 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
@@ -3928,11 +3928,11 @@ yvanchuxiuzhen,Sandalwoodhecheng,recipe,~/plant/tree,plant,候选,第一版批�
 yvanchuxiuzhen,SandalwoodleavesDangFangKuaiBeiWanJiaPoPiShi,procedure,~/plant/tree,plant,已读,B1 归属阅读：随 Sandalwoodleaves 读：树木：树苗生长、树叶与原木破坏掉落；RightClickBlock 斧剥皮与群系树木地物按 ID 引用
 yvanchuxiuzhen,Sandalwoodwoodhecheng,recipe,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Sandalwoodleaveshecheng,recipe,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sandalwoodtree01,structure,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Sandalwoodtree01,structure,~/plant/tree,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Parasolwood,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；被 world 的 Biomefeng01、Biomefeng02 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,Parasolleaves,block,~/plant/tree,plant,已读,B1 归属阅读：树木方块或树产物，无过程；被 world 的 Biomefeng01、Biomefeng02 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,BiggrassDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Biggrass 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Biggrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
+yvanchuxiuzhen,Biggrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,BiggrassyincangGengXinYouXiKe,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Biggrassyincang 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Biggrassyincang,animatedblock,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,WenqvanKeHuDuanXianShiSuiJiKe,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Wenqvan 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
@@ -3971,7 +3971,7 @@ yvanchuxiuzhen,Biomebaichuan01,biome,~/biome,world,候选,第一版批量归组�
 yvanchuxiuzhen,Biomebaichuan02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomebaichuan03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,SoulgrassDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Soulgrass 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Soulgrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
+yvanchuxiuzhen,Soulgrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Youbosoil,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Biomeyoumeng01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomeyoumeng02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3988,7 +3988,7 @@ yvanchuxiuzhen,Ironropeshengcheng,feature,~/plant/ordinaryplants,plant,候选,�
 yvanchuxiuzhen,Tiankongxvanran,procedure,~/systemset,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fushui,procedure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Rottingbambooshengcheng,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Corpsegrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Corpsegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Rottingbamboo,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,MoeyeDangFangKuaiBeiWanJiaPoPiShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Moeye 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Moeye,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
@@ -4003,7 +4003,7 @@ yvanchuxiuzhen,Biomediling07,biome,~/biome,world,候选,第一版批量归组（
 yvanchuxiuzhen,Biomediling08,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Brokenbonepile,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Brokenbonepilediaoluo,loottable,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Higanbana,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
+yvanchuxiuzhen,Higanbana,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,HotoilDangShengWuWanJiaPengZhuangFangKuaiShi,procedure,~/decorate,decor,已读,B1 归属阅读：随 Hotoil 读：热油：接触时按“火”写入伤害参数，经共享伤害入口结算，属元素自身行为；生成由地物 Hotoilshengcheng
 yvanchuxiuzhen,Hotoil,fluid,~/decorate,decor,已读,B1 归属阅读：热油：接触时按“火”写入伤害参数，经共享伤害入口结算，属元素自身行为；生成由地物 Hotoilshengcheng
 yvanchuxiuzhen,Hotoilshengcheng,feature,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4020,8 +4020,8 @@ yvanchuxiuzhen,Kugu03,structure,~/plant/ordinaryplants,plant,候选,第一版批
 yvanchuxiuzhen,Kugu04,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gucidici,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tudibankuai01,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bladegrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Tailbladegrass,plant,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
+yvanchuxiuzhen,Bladegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
+yvanchuxiuzhen,Tailbladegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Bladegrasszhanlipin,loottable,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tailbladegrasszhanlipin,loottable,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,BladegrassDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Bladegrass 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
@@ -5744,7 +5744,7 @@ yvanchuxiuzhen,Nichanggrass02,plant,~/plant/ordinaryplants/nichangcao,plant,已�
 yvanchuxiuzhen,Nichanggrass03,plant,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：霓裳草：种子种下后逐级生长（符箓 Itemfulu30 可催熟一级），成熟时 Nichanggrassyaoshou 按群系从 yaoshou_003 等引来妖兽并以附近玩家或生物为仇恨目标；妖兽按 ID 引用
 yvanchuxiuzhen,Nichanggrass04,plant,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：霓裳草：种子种下后逐级生长（符箓 Itemfulu30 可催熟一级），成熟时 Nichanggrassyaoshou 按群系从 yaoshou_003 等引来妖兽并以附近玩家或生物为仇恨目标；妖兽按 ID 引用
 yvanchuxiuzhen,Nichanggrass05,plant,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：霓裳草：种子种下后逐级生长（符箓 Itemfulu30 可催熟一级），成熟时 Nichanggrassyaoshou 按群系从 yaoshou_003 等引来妖兽并以附近玩家或生物为仇恨目标；妖兽按 ID 引用
-yvanchuxiuzhen,Nichanggrass06,plant,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：霓裳草：种子种下后逐级生长（符箓 Itemfulu30 可催熟一级），成熟时 Nichanggrassyaoshou 按群系从 yaoshou_003 等引来妖兽并以附近玩家或生物为仇恨目标；妖兽按 ID 引用
+yvanchuxiuzhen,Nichanggrass06,plant,~/plant/ordinaryplants/nichangcao,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Nichanggrass07,plant,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：野生植物，无过程；被 fulu 的 Itemfulu30DangYouJianDianJiKongQiShiShiTiDeWeiZhi 按 ID 引用（奖励、价格、药性目录、斧剥皮、地物摆放或材料），不赋予它规则
 yvanchuxiuzhen,Nichanggrass07zhanlipin,loottable,~/plant/ordinaryplants/nichangcao,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Nichanggrassyaoshou,procedure,~/plant/ordinaryplants/nichangcao,plant,已读,B1 归属阅读：随 Nichanggrass01 读：霓裳草：种子种下后逐级生长（符箓 Itemfulu30 可催熟一级），成熟时 Nichanggrassyaoshou 按群系从 yaoshou_003 等引来妖兽并以附近玩家或生物为仇恨目标；妖兽按 ID 引用

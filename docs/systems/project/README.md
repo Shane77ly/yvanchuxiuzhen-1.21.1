@@ -7,7 +7,7 @@ updated: 2026-11-11
 
 # 项目状态与决定
 
-2026-11-11 当前分支`port/d-cooking`：在已提交的001/002、004–039植物供给批次后，接入040–045菌类、046–056豆科、05701双格芝麻、棉麻、霓裳草、桃花及17种普通树苗。Plant台账1,099项中495条行为已迁移、444条已注册、160条待处理。`build compileSmokeJava`通过；最终`fulucooking`客户端343项INFO、0 FAIL、DONE，专服原生stop保存四维度且BUILD SUCCESSFUL。12个新增地物仅完成注册与configured/placed资源，缺失World维度/群系未安装自然投放；霓裳草06召引待Creature。后续继续非编号植物、消费者及自然获取闭环。沿用全量active goal，不push、不合`main`。
+2026-11-11 当前分支`port/d-world-supply`：前批040–058相关作物、纤维作物及树苗已接入，本批新增47个野生植物Feature、20个树木Feature、四种树叶粒子行为与枫脂方块，并补齐转换和来源证据。完整`build`通过；最终`fulucooking`客户端343项INFO、0 FAIL、DONE，四维度保存退出且ERROR/FATAL0；专服启动并导出注册表，本轮未取得原生stop/保存退出证据。67项Feature仅为已注册，缺失World维度/群系未安装自然投放。下一大批按来源完整接入World维度及41个Biome全部生成规则，再闭合植物/食材自然供给；霓裳草召引依赖Creature。沿用全量active goal，不push、不合`main`。
 
 ## 已确认要求
 

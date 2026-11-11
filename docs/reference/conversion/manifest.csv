@@ -598,6 +598,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/mangrovebigd
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/mangrovebigdoorright.json,55cb859cd0eab8a64c1cfa16c8ac68f960dcb22d,src/main/resources/assets/yvanchuxiuzhen/blockstates/mangrovebigdoorright.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/mapleleaves.json,1d034b3b14e6469a0206d85b465be54fdc8b2d5b,src/main/resources/assets/yvanchuxiuzhen/blockstates/mapleleaves.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/maplelog.json,b673c9c1d645c28013d5826e7431b4b9af351ee1,src/main/resources/assets/yvanchuxiuzhen/blockstates/maplelog.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/mapleresin.json,94a191116eec037f7f082336e1c55ceea64cdcfb,src/main/resources/assets/yvanchuxiuzhen/blockstates/mapleresin.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/maplesapling.json,73af1bfdc8fce6755681f1d25c5ce504b41971d8,src/main/resources/assets/yvanchuxiuzhen/blockstates/maplesapling.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/mian_plant_01.json,b893334257a5dde57f7e563469ccdf2e896cf139,src/main/resources/assets/yvanchuxiuzhen/blockstates/mian_plant_01.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/mian_plant_02.json,172c0708aefa17dff73efab0cdfeac2356b50218,src/main/resources/assets/yvanchuxiuzhen/blockstates/mian_plant_02.json
@@ -2544,6 +2545,8 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/block/mangrovebig
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/block/mapleleaves.json,e22b3654841a6993922fec48fa00b42d5a310057,src/main/resources/assets/yvanchuxiuzhen/models/block/mapleleaves.json
 (generated),,src/main/resources/assets/yvanchuxiuzhen/models/block/mapleleaves__cutout.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/block/maplelog.json,26a8402fe18132f3dd7e9d50048dc7cdc9927d72,src/main/resources/assets/yvanchuxiuzhen/models/block/maplelog.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/block/mapleresin.json,c9338809ce247012085864cecb2e85f8f199ce76,src/main/resources/assets/yvanchuxiuzhen/models/block/mapleresin.json
+(generated),,src/main/resources/assets/yvanchuxiuzhen/models/block/mapleresin__cutout.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/block/maplesapling.json,00813723c92440decdad09889a7207b718724340,src/main/resources/assets/yvanchuxiuzhen/models/block/maplesapling.json
 (generated),,src/main/resources/assets/yvanchuxiuzhen/models/block/maplesapling__cutout.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/block/mian_plant_01.json,96f3cddfc7e6a9798fd4b2862c4e6659b60eb734,src/main/resources/assets/yvanchuxiuzhen/models/block/mian_plant_01.json
@@ -4243,6 +4246,7 @@ yvanchuxitong/src/main/resources/assets/yvanchuxitong/models/custom/makebook.jso
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/mangrove_bigdoor_left.json,78cd588441de855329e9a73fdc7b32001bf0ed65,src/main/resources/assets/yvanchuxiuzhen/models/custom/mangrove_bigdoor_left.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/mangrove_bigdoor_right.json,255d134305302b47d6cec45794a79c551ec2c86a,src/main/resources/assets/yvanchuxiuzhen/models/custom/mangrove_bigdoor_right.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/maple_leaves.json,7ed1c63e4bb92caddfdc8f6e2920ba1781247d2e,src/main/resources/assets/yvanchuxiuzhen/models/custom/maple_leaves.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/maple_resin.json,b00ffcb63629ac25e9921df3adc769c3211c44ca,src/main/resources/assets/yvanchuxiuzhen/models/custom/maple_resin.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/mo_eye.json,e98caae34071e69bc4d809e3d41e278350601d6d,src/main/resources/assets/yvanchuxiuzhen/models/custom/mo_eye.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/mugongtai_particle.json,d4e95bd86a770d2560399fba0ccbf44ecdcbe23e,src/main/resources/assets/yvanchuxiuzhen/models/custom/mugongtai_particle.json
 (generated),,src/main/resources/assets/yvanchuxiuzhen/models/custom/mugongtai_particle__translucent.json
@@ -5849,6 +5853,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/mangrovebigd
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/mangrovebigdoorright.json,bbf04394fe17074e39068c90b8e136f1d8448dc9,src/main/resources/assets/yvanchuxiuzhen/models/item/mangrovebigdoorright.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/mapleleaves.json,79f4ff16db07ed41d5ed49a1820df6bac4475f23,src/main/resources/assets/yvanchuxiuzhen/models/item/mapleleaves.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/maplelog.json,352fd12d41a7287150674ca81e0e9d6294d71291,src/main/resources/assets/yvanchuxiuzhen/models/item/maplelog.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/mapleresin.json,b060fde6f348bf747777744daa4e6355d8ae1539,src/main/resources/assets/yvanchuxiuzhen/models/item/mapleresin.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/mapleresinitem.json,296234e7fafe66b8617e5e60cd046d27d1cf51e0,src/main/resources/assets/yvanchuxiuzhen/models/item/mapleresinitem.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/maplesapling.json,64f478d0aa36045e0eac967481184d55650c48ac,src/main/resources/assets/yvanchuxiuzhen/models/item/maplesapling.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/maseed.json,2cd3ff3be7e36ad826f993bf93dddd9e426c8e78,src/main/resources/assets/yvanchuxiuzhen/models/item/maseed.json
@@ -7645,6 +7650,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/maplant0
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/maplant04.png,7c0dfab2d91ade524052e30b850973e883bbc84e,src/main/resources/assets/yvanchuxiuzhen/textures/block/maplant04.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/maple_leaves.png,13336ab35cce8a9d3296c2767483718efc28a12a,src/main/resources/assets/yvanchuxiuzhen/textures/block/maple_leaves.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/maple_log.png,166031f54e1fa817fe51e56abf525f46763feb0f,src/main/resources/assets/yvanchuxiuzhen/textures/block/maple_log.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/maple_resin.png,7024e4866f057f1e1ae29b180e5fbf9bd08bb4e9,src/main/resources/assets/yvanchuxiuzhen/textures/block/maple_resin.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/maple_sapling.png,7e05b77ef683d98e7cabd599162ea91cac1f806e,src/main/resources/assets/yvanchuxiuzhen/textures/block/maple_sapling.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/mianplant01.png,ed01789d210fabc3c36c2304a2d019d52a297e42,src/main/resources/assets/yvanchuxiuzhen/textures/block/mianplant01.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/mianplant02.png,85f1d3f602005d2ad41564266d94fa2aa161ea56,src/main/resources/assets/yvanchuxiuzhen/textures/block/mianplant02.png

@@ -26,6 +26,8 @@ from convert_content import CONTENT, CONVERSION, SOURCES
 from convert_enchantments import generate as generate_enchantments
 from convert_world import generate as generate_world
 from convert_plant_worldgen import generate as generate_plant_worldgen
+from convert_tree_worldgen import generate as generate_tree_worldgen
+from convert_wild_plant_worldgen import generate as generate_wild_plant_worldgen
 
 DATA = ROOT / 'src/main/resources/data'
 MANIFEST = CONVERSION / 'data_manifest.csv'
@@ -320,6 +322,8 @@ class Converter:
         generate_enchantments(self)
         generate_world(self)
         generate_plant_worldgen(self)
+        generate_wild_plant_worldgen(self)
+        generate_tree_worldgen(self)
         CONVERSION.mkdir(parents=True, exist_ok=True)
         with MANIFEST.open('w', encoding='utf-8', newline='') as handle:
             writer = csv.writer(handle, lineterminator='\n')

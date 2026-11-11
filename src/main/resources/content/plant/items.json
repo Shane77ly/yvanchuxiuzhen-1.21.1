@@ -55,6 +55,7 @@
 {"id":"maplesapling","factory":"block_item","block":"maplesapling","order":295,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"mapleleaves","factory":"block_item","block":"mapleleaves","order":296,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"maplelog","factory":"block_item","block":"maplelog","order":297,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
+{"id":"mapleresin","factory":"block_item","block":"mapleresin","order":298,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"poplarsapling","factory":"block_item","block":"poplarsapling","order":299,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"poplarleaves","factory":"block_item","block":"poplarleaves","order":300,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"poplarleavesyellow","factory":"block_item","block":"poplarleavesyellow","order":301,"tab":"yvanchuxiuzhen:tabyvanchu_block"},

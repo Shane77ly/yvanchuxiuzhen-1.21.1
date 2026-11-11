@@ -9,11 +9,9 @@ updated: 2026-11-11
 
 标识 `plant`，类别：系统。职责：作物、树木、野生植物的生长与收获（[系统设计](../../development/system-design.md)）。
 
-当前阶段：D 食材与工艺供给部分实现。已接入水稻001、糯稻002、桑树及004–008、011–033共28种作物；009/010果树及034–039藤本库存批次已提交`789c9c23`。本次接入040–045菌类、046–056豆科、05701芝麻双株、棉麻、霓裳草、桃花及17种普通树苗；编号与实现类映射见架构正文。Plant内容台账1,099项，其中495条“行为已迁移”、444条“已注册”、160条“待处理”；霓裳草06召引妖兽仍未接回。54个成熟地物完成类型/configured/placed注册，但World群系投放仍未闭合。`content/plant`当前有434个方块与474个物品定义；这些数目不代表全系统玩法验收完成。
+当前阶段：D 食材与工艺供给部分实现。已接入水稻001、糯稻002、桑树及004–008、011–033共28种作物；009/010果树及034–039藤本库存批次已提交`789c9c23`。本批继续接入040–045菌类、046–056豆科、05701芝麻双株、棉麻、霓裳草、桃花、17种普通树苗、47种野生植物Feature、20种树木Feature、四种树叶粒子行为及枫脂方块；逐项身份与实现映射见架构正文。新增67个Feature保持“已注册”，尚未装配来源群系/维度的自然投放；霓裳草06召引妖兽仍待Creature。Plant台账共1,099项，确切状态见[内容台账](ledger/content.csv)。`content/plant`当前有435个方块与475个物品定义；注册数不代表全系统玩法验收完成。
 
-该批次`build compileSmokeJava`与既有`runSmokeClient -PsmokeOnly=fulucooking`已通过；冒烟报告301项INFO、0 FAIL、DONE，客户端四维度正常保存退出且ERROR/FATAL0。专服启动至Done后收到原生stop并正常保存退出，Gradle BUILD SUCCESSFUL、游戏日志ERROR/FATAL0。资源审计确认179份模型/贴图/Geo/动画引用闭包均有目标文件和manifest，154份真实来源文件SHA-1一致；完整自然生成、树苗完整生长、葫芦动画全程播放、完整退出重登、来源1.18.2版本实机、多人和两版本对照仍未验收，见[月志](logs/2026-11.md)。
-
-本轮完整`build compileSmokeJava`通过；最终`runSmokeClient -PsmokeOnly=fulucooking`为343项INFO、0 FAIL、DONE，客户端四维度正常保存退出且ERROR/FATAL0；专服原生`stop`保存四维度，退出码0、BUILD SUCCESSFUL、ERROR/FATAL0。证据见[本月日志](logs/2026-11.md)、`tmp/plant-supply-final-{build,smoke,server}.log`与`build/smoke/report.txt`。受控检查不覆盖完整树木长成、自然生成、新区域自然成长、完整存档重登、来源1.18.2实机、多人、完整视觉及两版本对照。目标群系与`dimensionrenjian`、`dimensionyaohun`缺失，Feature注册不代表自然供给闭合；霓裳草06召引妖兽仍待Creature。
+本轮完整`build compileSmokeJava`通过；最终`runSmokeClient -PsmokeOnly=fulucooking`为343项INFO、0 FAIL、DONE，客户端四维度正常保存退出且ERROR/FATAL0；专服启动至Done并导出注册表，未取得原生stop/保存退出证据。证据见[本月日志](logs/2026-11.md)、`tmp/plant-world-features-final-{client.log,report.txt}`与`build/smoke/report.txt`。受控检查不覆盖完整树木长成、自然生成、新区域自然成长、完整存档重登、来源1.18.2实机、多人、完整视觉及两版本对照。目标群系与`dimensionrenjian`、`dimensionyaohun`缺失，Feature注册不代表自然供给闭合；霓裳草06召引妖兽仍待Creature。
 
 - [架构与来源规则](architecture.md)：逐编号身份、实现族、工厂对应、生长与掉落差异、公开API和自然投放边界。
 - 归属范围842个元素，其中608个已读；这是来源阅读范围，非功能验收数，见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。

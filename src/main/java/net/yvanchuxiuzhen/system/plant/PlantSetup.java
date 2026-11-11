@@ -230,6 +230,11 @@ public final class PlantSetup {
             .blockFactory("plant:legume_crop", LegumeBlocks::create)
             .blockFactory("plant:tree_sapling", traits -> new TreeSaplingBlock(traits, TreeSapling.fromBlockId(traits.row().id())))
             .blockFactory("plant:peach_flower", PeachFlowerBlock::new)
+            .blockFactory("plant:particle_foliage_leaves", traits -> new ParticleFoliageLeavesBlock(traits,
+                    traits.row().id().equals("ginkgoleaves") ? "ginkgoleaveslizi" : "poplarleaveslizi"))
+            .blockFactory("plant:particle_foliage", traits -> ContentBlock.create(traits,
+                    row -> new ParticleFoliageBlock(row, "mapleleaveslizi")))
+            .blockFactory("plant:maple_resin", traits -> ContentBlock.create(traits, MapleResinBlock::new))
             .blockFactory("plant:fiber_crop", FiberPlantBlock::create)
             .blockFactory("plant:nichang_grass", NichangGrassBlock::create)
             .blockFactory("plant:gourd", traits -> ContentBlock.create(traits, row -> new GourdBlock(row)))
@@ -256,6 +261,8 @@ public final class PlantSetup {
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
         PlantFeatures.register(modBus);
+        WildPlantFeatures.register(modBus);
+        NaturalTreeFeatures.register(modBus);
         GourdBlockEntities.register(modBus);
         NeoForge.EVENT_BUS.addListener(MulberryGrowth::afterServerTick);
         NeoForge.EVENT_BUS.addListener(MulberryGrowth::stopped);

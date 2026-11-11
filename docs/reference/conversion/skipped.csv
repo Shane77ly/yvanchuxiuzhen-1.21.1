@@ -14,7 +14,6 @@ block,yvanchuxiuzhen:guancai_01,方块基类 BaseEntityBlock 由所属系统迁�
 block,yvanchuxiuzhen:hotoil,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:liexi,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:luopan,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:mapleresin,MapleresinBlock：放置规则未识别：boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER; 		if (context.getClickedFace().getAxis() == Direction.Axis.Y
 block,yvanchuxiuzhen:pao_10,"Pao10Block：放置规则未识别：if (context.getClickedFace().getAxis() == Direction.Axis.Y) 			return this.defaultBlockState().setValue(FACE, context.getClickedFace().getOpposite() == Directio"
 block,yvanchuxiuzhen:qiankundaoren,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:qiankunmentu,方块基类 BaseEntityBlock 由所属系统迁移
@@ -95,7 +94,6 @@ item,yvanchuxiuzhen:hotoil_bucket,物品基类 BucketItem 由所属系统迁移
 item,yvanchuxiuzhen:liexi,物品类 LiexiDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:luopan,物品类 LuopanDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:mamian_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:mapleresin,对应方块由所属系统迁移
 item,yvanchuxiuzhen:moshou_001_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:moshou_002_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:moshou_003_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
