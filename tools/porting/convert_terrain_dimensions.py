@@ -1,4 +1,4 @@
-"""维度迁移的精确样条结构和1.18.2离散滑移转换；完整维度出口尚未接入。"""
+"""转换人间道与妖魂道地形，并在群系依赖闭合后生成正式维度资源。"""
 from __future__ import annotations
 
 from copy import deepcopy

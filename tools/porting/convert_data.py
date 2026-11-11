@@ -33,6 +33,8 @@ from convert_biome_inline_worldgen import generate as generate_biome_inline_worl
 from convert_world_templates import generate as generate_world_templates
 from convert_native_worldgen import generate as generate_native_worldgen
 from convert_legacy_biome_vanilla import generate as generate_legacy_biome_vanilla
+from convert_source_biomes import generate as generate_source_biomes
+from convert_terrain_dimensions import generate as generate_terrain_dimensions
 
 DATA = ROOT / 'src/main/resources/data'
 MANIFEST = CONVERSION / 'data_manifest.csv'
@@ -339,6 +341,9 @@ class Converter:
         generate_world_templates(self)
         generate_native_worldgen(self)
         generate_legacy_biome_vanilla(self)
+        # 群系必须在全部实体、地物及原版生成根写出后转换；维度再由已落盘的群系做完整依赖门禁。
+        generate_source_biomes(self)
+        generate_terrain_dimensions(self)
         CONVERSION.mkdir(parents=True, exist_ok=True)
         with MANIFEST.open('w', encoding='utf-8', newline='') as handle:
             writer = csv.writer(handle, lineterminator='\n')

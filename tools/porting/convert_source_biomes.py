@@ -1,4 +1,4 @@
-"""转换人间、妖魂的全部来源群系；依赖未闭合时只允许导出审查计划。"""
+"""转换人间道与妖魂道的来源群系；依赖未闭合时只允许导出审查计划。"""
 from __future__ import annotations
 
 import argparse
