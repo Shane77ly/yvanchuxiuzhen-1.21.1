@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
@@ -21,15 +22,14 @@ import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 
 /** 已接回行为链的编号妖兽实体、属性、来源出生条件与刷怪蛋注册。 */
 public final class YaoshouCreatures {
-    private static final Set<String> INTEGRATED = Set.of("yaoshou_001", "yaoshou_002", "yaoshou_019", "yaoshou_020", "yaoshou_030",
-            "yaoshou_038", "yaoshou_041", "yaoshou_042", "yaoshou_043", "yaoshou_045", "yaoshou_049", "yaoshou_052");
+    private static final Set<String> INTEGRATED = Set.of("yaoshou_001", "yaoshou_002", "yaoshou_003", "yaoshou_004", "yaoshou_005", "yaoshou_006", "yaoshou_007", "yaoshou_008", "yaoshou_009", "yaoshou_010", "yaoshou_018", "yaoshou_019", "yaoshou_020", "yaoshou_021", "yaoshou_022", "yaoshou_025", "yaoshou_027", "yaoshou_029", "yaoshou_030", "yaoshou_038", "yaoshou_041", "yaoshou_042", "yaoshou_043", "yaoshou_045", "yaoshou_049", "yaoshou_052");
     private static final TagKey<Block> GRASS_MATERIAL = TagKey.create(Registries.BLOCK,
             ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "legacy_grass_material"));
 
     private YaoshouCreatures() { }
 
     public static List<EntityModelRow> models() {
-        return Stream.of("001_002", "019_036", "037_054")
+        return Stream.of("001_002", "003_018", "019_036", "037_054")
                 .flatMap(batch -> ContentFiles.read("content/creature/yaoshou_" + batch + "_models.json", EntityModelRow.CODEC).stream())
                 .filter(row -> INTEGRATED.contains(row.id())).toList();
     }
@@ -62,10 +62,38 @@ public final class YaoshouCreatures {
                         (type, level) -> new Yaoshou049Entity(type, level, row), () -> Yaoshou049Entity.attributes(row));
                 case "yaoshou_052" -> content.<Yaoshou052Entity>livingEntity(row.id(),
                         (type, level) -> new Yaoshou052Entity(type, level, row), () -> Yaoshou052Entity.attributes(row));
+                case "yaoshou_003" -> content.<Yaoshou003Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou003Entity(type, level, row), () -> Yaoshou003Entity.attributes(row));
+                case "yaoshou_004" -> content.<Yaoshou004Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou004Entity(type, level, row), () -> Yaoshou004Entity.attributes(row));
+                case "yaoshou_005" -> content.<Yaoshou005Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou005Entity(type, level, row), () -> Yaoshou005Entity.attributes(row));
+                case "yaoshou_006" -> content.<Yaoshou006Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou006Entity(type, level, row), () -> Yaoshou006Entity.attributes(row));
+                case "yaoshou_007" -> content.<Yaoshou007Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou007Entity(type, level, row), () -> Yaoshou007Entity.attributes(row));
+                case "yaoshou_008" -> content.<Yaoshou008Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou008Entity(type, level, row), () -> Yaoshou008Entity.attributes(row));
+                case "yaoshou_009" -> content.<Yaoshou009Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou009Entity(type, level, row), () -> Yaoshou009Entity.attributes(row));
+                case "yaoshou_010" -> content.<Yaoshou010Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou010Entity(type, level, row), () -> Yaoshou010Entity.attributes(row));
+                case "yaoshou_018" -> content.<Yaoshou018Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou018Entity(type, level, row), () -> Yaoshou018Entity.attributes(row));
+                case "yaoshou_021" -> content.<Yaoshou021Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou021Entity(type, level, row), () -> Yaoshou021Entity.attributes(row));
+                case "yaoshou_022" -> content.<Yaoshou022Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou022Entity(type, level, row), () -> Yaoshou022Entity.attributes(row));
+                case "yaoshou_025" -> content.<Yaoshou025Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou025Entity(type, level, row), () -> Yaoshou025Entity.attributes(row));
+                case "yaoshou_027" -> content.<Yaoshou027Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou027Entity(type, level, row), () -> Yaoshou027Entity.attributes(row));
+                case "yaoshou_029" -> content.<Yaoshou029Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou029Entity(type, level, row), () -> Yaoshou029Entity.attributes(row));
                 default -> throw new IllegalStateException("未知妖兽身份：" + row.id());
             }
         }
-        List<EggRow> eggs = Stream.of("001_002", "019_036", "037_054")
+        List<EggRow> eggs = Stream.of("001_002", "003_018", "019_036", "037_054")
                 .flatMap(batch -> ContentFiles.read("content/creature/yaoshou_" + batch + "_eggs.json", EggRow.CODEC).stream())
                 .filter(row -> INTEGRATED.contains(row.id())).toList();
         for (EggRow egg : eggs) {
@@ -74,10 +102,13 @@ public final class YaoshouCreatures {
         }
         modBus.addListener((RegisterSpawnPlacementsEvent event) -> {
             for (EntityModelRow row : models()) {
-                event.register(content.<YaoshouEntity>entityType(row.id()).get(), SpawnPlacementTypes.ON_GROUND,
+                boolean aquatic = row.id().equals("yaoshou_009") || row.id().equals("yaoshou_029");
+                event.register(content.<YaoshouEntity>entityType(row.id()).get(),
+                        aquatic ? SpawnPlacementTypes.IN_WATER : SpawnPlacementTypes.ON_GROUND,
                         Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                        (type, level, reason, pos, random) -> level.getBlockState(pos.below()).is(GRASS_MATERIAL)
-                                && level.getRawBrightness(pos, 0) > 8,
+                        (type, level, reason, pos, random) -> aquatic
+                                ? level.getBlockState(pos).is(Blocks.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER)
+                                : level.getBlockState(pos.below()).is(GRASS_MATERIAL) && level.getRawBrightness(pos, 0) > 8,
                         RegisterSpawnPlacementsEvent.Operation.REPLACE);
             }
         });

@@ -73,7 +73,7 @@ def model_row(java: Path, name: str, identifier: str) -> dict:
     return result
 
 
-def build() -> dict:
+def build(numbers: tuple[int, ...] = NUMBERS) -> dict:
     source = Source(MOD)
     java = source.root / f'src/main/java/net/mcreator/{MOD}'
     assets = source.root / f'src/main/resources/assets/{MOD}'
@@ -100,7 +100,7 @@ def build() -> dict:
         if row not in report['system_assets_for_integration']:
             report['system_assets_for_integration'].append(row)
 
-    for number in NUMBERS:
+    for number in numbers:
         name, identifier = f'Yaoshou{number:03}', f'yaoshou_{number:03}'
         path = java / f'entity/{name}Entity.java'
         body = path.read_text(encoding='utf-8')

@@ -7,6 +7,8 @@ updated: 2026-11-11
 
 # 项目状态与决定
 
+最新计划重算状态（2026-11-11）：41个群系仍有32个实体类型阻断，包含26个妖兽编号与6个其他实体；该数值取自`tmp/source-biomes-plan-next.json`，覆盖本页下方较早记录中的46项统计。完整闭合后再输出群系出生配置并安装两维度。
+
 2026-11-11 当前分支`port/d-world-supply`：前批`46a983d8`后接回来源树与晶洞完整算法、化石/湖泊/材料/洞穴闭包及12编号妖兽。55个原版生成根静态核验全部闭合：38项可复用、14项来源自定义实现、3项洞穴配置，0项待核。完整数据转换2600条记录；41群系计划保持2973条生成操作、483条出生记录，当前唯一阻断为46个缺失实体类型。最终完整构建含test/check、ArchUnit及compileSmokeJava通过（`tmp/world-supply-batch-build-final.log`）。既有fulucooking客户端343项INFO、0 FAIL、DONE，原生日志ERROR/FATAL0，四维度正常保存退出（`tmp/world-supply-batch-report.txt`、`tmp/world-supply-batch-client-latest.log`）。12个妖兽在专服逐刻存活及召唤死亡移除共24个标记通过，原生save-all/stop保存四维度、ERROR/FATAL0（`tmp/world-supply-integrated-server.log`）；这些检查不覆盖完整战斗、玩家背包清袋或自然生成。当前World与Creature均为部分实现，41群系和人间道/妖魂道尚未正式安装；新树/晶洞尚未实机放置或自然生成验收，19个缺失方块以显式可选标签保留，未补占位。滴水石历史受控检查的高度图ERROR与Redirect未独立观测边界仍保留。沿用全量active goal，不推送、不合main。
 
 ## 已确认要求

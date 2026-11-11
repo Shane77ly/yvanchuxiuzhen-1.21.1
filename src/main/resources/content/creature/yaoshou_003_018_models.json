@@ -1,0 +1,499 @@
+[
+  {
+    "id": "yaoshou_003",
+    "geo": "yaoshou003",
+    "animation": "yaoshou003",
+    "texture": "yaoshou003",
+    "rendering": {
+      "shadow": 0.8,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "idle": "animation.yaoshou003.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 0,
+      "death_animation": "animation.yaoshou003.death"
+    },
+    "speed": 0.4,
+    "health": 20.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "yaoshou_004",
+    "geo": "yaoshou004",
+    "animation": "yaoshou004",
+    "texture": "yaoshou004",
+    "rendering": {
+      "shadow": 1.2000000000000002,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "idle": "animation.yaoshou004.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 0,
+      "death_animation": "animation.yaoshou004.die"
+    },
+    "speed": 0.2,
+    "health": 40.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "yaoshou_005",
+    "geo": "yaoshou005",
+    "animation": "yaoshou005",
+    "texture": "yaoshou005",
+    "rendering": {
+      "shadow": 0.8,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "idle": "animation.yaoshou005.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 0,
+      "death_animation": "animation.yaoshou005.die"
+    },
+    "speed": 0.3,
+    "health": 40.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "yaoshou_006",
+    "geo": "yaoshou006",
+    "animation": "yaoshou006",
+    "texture": "yaoshou006",
+    "rendering": {
+      "shadow": 0.5,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "idle": "animation.yaoshou006.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [
+        "fall"
+      ],
+      "animation_transition_ticks": 0,
+      "death_animation": "animation.yaoshou006.die"
+    },
+    "speed": 0.35,
+    "health": 20.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "yaoshou_007",
+    "geo": "yaoshou007",
+    "animation": "yaoshou007",
+    "texture": "yaoshou007",
+    "rendering": {
+      "shadow": 0.7,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "glow": "yaoshou00701",
+    "idle": "animation.yaoshou007.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 0,
+      "death_animation": "animation.yaoshou007.death"
+    },
+    "speed": 0.35,
+    "health": 20.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "yaoshou_008",
+    "geo": "yaoshou008",
+    "animation": "yaoshou008",
+    "texture": "yaoshou008",
+    "rendering": {
+      "shadow": 0.8,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "glow": "yaoshou00801",
+    "idle": "animation.yaoshou008.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 4,
+      "death_animation": "animation.yaoshou008.dle"
+    },
+    "speed": 0.3,
+    "health": 20.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "yaoshou_009",
+    "geo": "yaoshou009",
+    "animation": "yaoshou009",
+    "texture": "yaoshou009",
+    "rendering": {
+      "shadow": 0.5,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "idle": "animation.yaoshou009.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "water",
+      "no_gravity": false,
+      "breathes_underwater": true,
+      "pushed_by_fluid": false,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [
+        "drown"
+      ],
+      "animation_transition_ticks": 4,
+      "death_animation": "animation.yaoshou009.death",
+      "swim_speed": 0.3
+    },
+    "speed": 0.3,
+    "health": 10.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "yaoshou_010",
+    "geo": "yaoshou010",
+    "animation": "yaoshou010",
+    "texture": "yaoshou010",
+    "rendering": {
+      "shadow": 0.7,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "glow": "yaoshou01001",
+    "idle": "animation.yaoshou010.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [
+        "fall"
+      ],
+      "animation_transition_ticks": 2,
+      "death_animation": "animation.yaoshou010.die"
+    },
+    "speed": 0.3,
+    "health": 100.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "yaoshou_011",
+    "geo": "yaoshou011",
+    "animation": "yaoshou011",
+    "texture": "yvanyeheixiong011",
+    "rendering": {
+      "shadow": 1.5,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "idle": "animation.yaoshou011.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 4,
+      "death_animation": "animation.yaoshou011.die"
+    },
+    "speed": 0.3,
+    "health": 10.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 32.0
+  },
+  {
+    "id": "yaoshou_012",
+    "geo": "yaoshou012",
+    "animation": "yaoshou012",
+    "texture": "yaoshou012",
+    "rendering": {
+      "shadow": 2.0,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "idle": "animation.yaoshou012.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [
+        "fall"
+      ],
+      "animation_transition_ticks": 2,
+      "death_animation": "animation.yaoshou012.die"
+    },
+    "speed": 0.3,
+    "health": 100.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 48.0
+  },
+  {
+    "id": "yaoshou_013",
+    "geo": "yaoshou013",
+    "animation": "yaoshou013",
+    "texture": "yaoshou013",
+    "rendering": {
+      "shadow": 0.6,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "idle": "animation.yaoshou013.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 2,
+      "death_animation": "animation.yaoshou013.die"
+    },
+    "speed": 0.3,
+    "health": 100.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "yaoshou_014",
+    "geo": "yaoshou014",
+    "animation": "yaoshou014",
+    "texture": "yaoshou014",
+    "rendering": {
+      "shadow": 1.1,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "idle": "animation.yaoshou014.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "flying",
+      "no_gravity": true,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": true,
+      "damage_immunities": [],
+      "animation_transition_ticks": 4,
+      "death_animation": "animation.yaoshou014.die",
+      "flying_speed": 0.3
+    },
+    "speed": 0.3,
+    "health": 100.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 32.0
+  },
+  {
+    "id": "yaoshou_015",
+    "geo": "yaoshou015",
+    "animation": "yaoshou015",
+    "texture": "yaoshou015",
+    "rendering": {
+      "shadow": 0.9,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "idle": "animation.yaoshou015.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [
+        "fall"
+      ],
+      "animation_transition_ticks": 2,
+      "death_animation": "animation.yaoshou015.die"
+    },
+    "speed": 0.3,
+    "health": 10.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "yaoshou_016",
+    "geo": "yaoshou016",
+    "animation": "yaoshou016",
+    "texture": "yaoshou016",
+    "rendering": {
+      "shadow": 0.5,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "idle": "animation.yaoshou016.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 4,
+      "death_animation": "animation.yaoshou016.die"
+    },
+    "speed": 0.3,
+    "health": 10.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "yaoshou_017",
+    "geo": "yaoshou017",
+    "animation": "yaoshou017",
+    "texture": "yaoshou017",
+    "rendering": {
+      "shadow": 0.6,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "idle": "animation.yaoshou017.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [
+        "drown"
+      ],
+      "animation_transition_ticks": 4,
+      "death_animation": "animation.yaoshou017.die"
+    },
+    "speed": 0.3,
+    "health": 100.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "yaoshou_018",
+    "geo": "yaoshou018",
+    "animation": "yaoshou018",
+    "texture": "kong",
+    "rendering": {
+      "shadow": 0.6,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "glow": "yaoshou01801",
+    "idle": "animation.yaoshou018.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 600,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 4,
+      "death_animation": "animation.yaoshou018.die"
+    },
+    "speed": 0.3,
+    "health": 100.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  }
+]

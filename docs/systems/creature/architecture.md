@@ -21,7 +21,7 @@ updated: 2026-11-11
 
 ## 灵兽袋关联实体死亡直接迁移（2026-11-11）
 
-本节属于已批准全量范围内的直接来源迁移。`A:LingshoudaiqingkongProcedure`由原生实体`die`在`super.die`之后直接或经编号死亡过程调用，目标公开入口为`SpiritBeastBags.onCreatureDeath`，实现及袋实例写入均属于本系统。当前001、002、019、020、030、038、041、042、043、045、049、052已逐实体接线。来源022通过`Yaoshou022DangShiTiBeiShaSiShiProcedure`间接清袋，随后请求恢复重力；来源setNoGravity覆写始终写true，实际仍无重力；该编号尚未实现，接入时须保持这一顺序。死亡入口按各编号来源迁移，不在共享实体基类无条件添加。来源证据及文件哈希见[死亡清袋来源表](ledger/death-bag-source-evidence.csv)。
+本节属于已批准全量范围内的直接来源迁移。`A:LingshoudaiqingkongProcedure`由原生实体`die`在`super.die`之后直接或经编号死亡过程调用，目标公开入口为`SpiritBeastBags.onCreatureDeath`，实现及袋实例写入均属于本系统。当前001、002、019、020、030、038、041、042、043、045、049、052已逐实体接线。来源022通过`Yaoshou022DangShiTiBeiShaSiShiProcedure`间接清袋，随后请求恢复重力；来源setNoGravity覆写始终写true，实际仍无重力；022已按此顺序接入。死亡入口按各编号来源迁移，不在共享实体基类无条件添加。来源证据及文件哈希见[死亡清袋来源表](ledger/death-bag-source-evidence.csv)。
 
 清袋仅在实体`lingshoudaiuuid`非空时执行。按实体所在维度`world.players()`找`belongToMasterUUID`匹配的首个主人；不跨维度、不查离线玩家。来源玩家仅在存活时提供空朝向物品能力，扫描顺序为主背包、护甲、副手，目标NeoForge21.1.265的`CapabilityHooks`及`PlayerInvWrapper`同序。按来源`forge:lingshoudai`标签身份映射到目标`yvanchuxiuzhen:lingshoudai`，匹配首个袋物品`lingshoudaiuuid`；无匹配、无能力或能力不可写时沿来源结束而不补偿。
 
@@ -29,18 +29,32 @@ updated: 2026-11-11
 
 无论是否有关联袋，随后读取原生`zhaohuanwu`计分板；目标存在时使用与来源相同的get-or-create读法。分数恰为1时，007广播`brokenblue`25和`brokenpurple`10，020广播`brokendeeporange`25，013广播`brokenblack`15和`smokeblack`20；位置为实体中心高度，偏移分别为实体宽、高、宽，速度0.1。此后全部该分数实体在服务端`discard`，其他编号也保留立即移除效果。粒子只通过[particle公开API](../particle/README.md)查询，生物系统不写其他系统档案。
 
-验证：来源过程、当前12个实体调用顺序、022间接入口、来源Forge40.1.0玩家能力、目标NeoForge21.1.265物品能力/显示名/计分板源码静态核对已执行。目标构建与12编号专服召唤死亡移除已通过；玩家背包清袋、来源实机、两版本对照未执行。待主会话专项覆盖主背包与副手匹配、重复UUID仅首个、名称括号剥离、数量归一与其他组件清空、无袋/无主人/跨维度/死亡主人不处理、普通死亡与召唤死亡，以及存档重登；袋本体收纳、释放和培养仍待实现。
+验证：来源过程、当前26个实体调用顺序、022间接入口、来源Forge40.1.0玩家能力、目标NeoForge21.1.265物品能力/显示名/计分板源码静态核对已执行。目标构建与12编号专服召唤死亡移除已通过；玩家背包清袋、来源实机、两版本对照未执行。待主会话专项覆盖主背包与副手匹配、重复UUID仅首个、名称括号剥离、数量归一与其他组件清空、无袋/无主人/跨维度/死亡主人不处理、普通死亡与召唤死亡，以及存档重登；袋本体收纳、释放和培养仍待实现。
 
 ## 编号妖兽直接迁移（2026-11-11）
 
-本节记录已批准全量范围内本批实际接线的12个编号；其余编号继续保留在全量范围中。每个编号使用独立实体类，注册身份不由英文别名代替。类位于`system/creature/entity/yaoshou`，行为和动画按来源闭包拆分，复用已确认相同的初始化、属性和原生生命周期。
+本节记录已批准全量范围内本批实际接线的26个编号；其余编号继续保留在全量范围中。每个编号使用独立实体类，注册身份不由英文别名代替。类位于`system/creature/entity/yaoshou`，行为和动画按来源闭包拆分，复用已确认相同的初始化、属性和原生生命周期。
 
 | 注册ID | 中文名 | 独立实体类 |
 | --- | --- | --- |
 | `yaoshou_001` | 花妖 | `Yaoshou001Entity` |
 | `yaoshou_002` | 蔷薇花妖 | `Yaoshou002Entity` |
+| `yaoshou_003` | 长风原野羊 | `Yaoshou003Entity` |
+| `yaoshou_004` | 平原牦牛 | `Yaoshou004Entity` |
+| `yaoshou_005` | 瞽猪 | `Yaoshou005Entity` |
+| `yaoshou_006` | 赤霞天鹅 | `Yaoshou006Entity` |
+| `yaoshou_007` | 月狼 | `Yaoshou007Entity` |
+| `yaoshou_008` | 银月狼 | `Yaoshou008Entity` |
+| `yaoshou_009` | 巨鲇 | `Yaoshou009Entity` |
+| `yaoshou_010` | 长尾灵猫 | `Yaoshou010Entity` |
+| `yaoshou_018` | 幻灵刺猬 | `Yaoshou018Entity` |
 | `yaoshou_019` | 芝仙 | `Yaoshou019Entity` |
 | `yaoshou_020` | 跑参 | `Yaoshou020Entity` |
+| `yaoshou_021` | 跳羚 | `Yaoshou021Entity` |
+| `yaoshou_022` | 蒲鸟 | `Yaoshou022Entity` |
+| `yaoshou_025` | 跳蜥 | `Yaoshou025Entity` |
+| `yaoshou_027` | 追风马 | `Yaoshou027Entity` |
+| `yaoshou_029` | 龙鲤 | `Yaoshou029Entity` |
 | `yaoshou_030` | 金翅雀 | `Yaoshou030Entity` |
 | `yaoshou_038` | 丛林巨蚺 | `Yaoshou038Entity` |
 | `yaoshou_041` | 斑纹甲虫 | `Yaoshou041Entity` |
@@ -50,13 +64,21 @@ updated: 2026-11-11
 | `yaoshou_049` | 雪妖兔 | `Yaoshou049Entity` |
 | `yaoshou_052` | 雪狐 | `Yaoshou052Entity` |
 
-[来源闭包证据](ledger/yaoshou-source-evidence.csv)有231行，逐编号记录实体及递归调用过程的真实来源路径、原始文件SHA256和直接调用；同一共享过程按编号保留各自可达关系。静态逐项比较本批来源初始化的13项资质字符串与默认等级，目标`YaoshouShared.initialize`实参全部相同。该证据不等于231个过程语义均已验收。
+[来源闭包证据](ledger/yaoshou-source-evidence.csv)有517行，逐编号记录实体及递归调用过程的真实来源路径、原始文件SHA256和直接调用；同一共享过程按编号保留各自可达关系。静态逐项比较本批来源初始化的13项资质字符串与默认等级，目标`YaoshouShared.initialize`实参全部相同。该证据不等于517行对应过程语义均已验收。
 
-共同生命周期保留`finalizeSpawn`初始化、`baseTick`来源行为后刷新尺寸、受击先记录来源目标及动画再调用原生伤害、逐实体`super.die`后清袋、死亡600刻移除。001经验奖励为5，本批其余编号为0。各类保留来源`aiStep`中原生更新后的`updateSwingTime`；001/002此前遗漏的覆盖已在本批补齐。全部12个编号保持`ON_GROUND`、`MOTION_BLOCKING_NO_LEAVES`、亮度大于8及来源`Material.GRASS`的8成员标签；自然出生群系由World提供，尚未验收自然供给。
+共同生命周期保留`finalizeSpawn`初始化、`baseTick`来源行为后刷新尺寸、受击先记录来源目标及动画再调用原生伤害、逐实体`super.die`后清袋、死亡600刻移除。001经验奖励为5，本批其余编号为0。各类保留来源`aiStep`中原生更新后的`updateSwingTime`；001/002此前遗漏的覆盖已在本批补齐。原12个编号保持`ON_GROUND`、`MOTION_BLOCKING_NO_LEAVES`、亮度大于8及来源`Material.GRASS`的8成员标签；自然出生群系由World提供，尚未验收自然供给。
 
 001/002使用同步体型和皮肤属性，按来源模型表选择变体。019/020眼高分别为0.4和1.0，020保留来源`spring`动画字符串。030保留无`FloatGoal`的飞行导航、强制无重力、空跌落检查、来源速度乘0.7及2刻动画更新。038/043保留溺水免疫；041/045保留跌落免疫，041受击打断移除缓降。042保留乘客偏移−0.2、雷击免疫及5/10/15/20刻雷粒子；043保留无`FloatGoal`及来源落雷命令。045/052眼高分别为0.3和1.7。052继续调用来源053吹摆过程的编号条件：仅053播放该动画，伤害与冻结仍执行；未经裁定不修正来源矛盾。
 
-目标精确版本父类与已列生命周期静态核对已执行；完整技能链、战斗观感、袋背包、保存重读、完整视觉、自然出生、多人、1.18.2版本实机及两版本对照未验收。034/044来源没有注册，不新增占位身份；其他40个来源编号仍需实际实现，不以资源复制或注册壳计为完成。
+目标精确版本父类与已列生命周期静态核对已执行；完整技能链、战斗观感、袋背包、保存重读、完整视觉、自然出生、多人、1.18.2版本实机及两版本对照未验收。034/044来源没有注册，不新增占位身份；其他26个来源编号仍需实际实现，不以资源复制或注册壳计为完成。
+
+### 第二批十四编号
+
+003–010、018、021、022、025、027、029各自保留独立Entity与来源过程闭包。003与021的羊类八动作按来源条件运行，021复用已核对的003过程实现；006保留摔落免疫；007默认等级随机8或9、召唤倒计时和变体贴图保留。008的狼嚎、飞扑、撕咬和召唤两只007保持各动作阶段、延迟与参数；母体与子体的friendlist运行期共享由relation公开操作承担，子体初始化加入007团队后母体也观察到该成员。
+
+009/029各有独立匿名水生MoveControl、WaterBoundPathNavigation、WATER寻路代价0、无目标Goal、水流不推动和原生碰撞出生检查；出生位置及上格都必须是WATER，水下呼吸由原生实体类型标签声明。009保留溺水免疫，初始化泳速为原速度乘6.5；029保留同一倍率及来源未列候选但仍有分派入口的027飞扑分支。
+
+018保留眼高0.3与来源没有调用Entityjingyanjisuan的差异，初始化不写experience_Max。022保留FlyingMoveControl、无FloatGoal、速度乘0.7、强制无重力、空落地检查和错误018普攻动画判断。025的水球在蓄力16刻通过SkillSummons发出，30刻结束，候选、游走和逃跑完整来源分支均保留。027保留乘客偏移−0.5、受击移速累积和落地震击，FALL免疫不跳过其causeFallDamage来源回调。目标构建及游戏覆盖由本月日志分别登记，不从身份或资源登记推导完整战斗验收。
 
 ## 1.18.2 结构
 

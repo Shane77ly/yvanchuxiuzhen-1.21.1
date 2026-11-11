@@ -16,6 +16,14 @@ public final class YaoshouShared {
     private YaoshouShared() { }
 
     public static boolean initialize(YaoshouEntity entity, int defaultLevel, String... ratings) {
+        return initialize(entity, defaultLevel, true, ratings);
+    }
+
+    public static boolean initializeWithoutExperience(YaoshouEntity entity, int defaultLevel, String... ratings) {
+        return initialize(entity, defaultLevel, false, ratings);
+    }
+
+    private static boolean initialize(YaoshouEntity entity, int defaultLevel, boolean experience, String... ratings) {
         CompoundTag data = entity.getPersistentData();
         if (!data.getString("LEVELname").isEmpty()) return false;
         if (data.getDouble("LEVELnumber") < 1) data.putDouble("LEVELnumber", defaultLevel);
@@ -25,7 +33,7 @@ public final class YaoshouShared {
             data.putString(RATING_KEYS[i] + "_LEVEL", ratings[i]);
         }
         updateLevelName(data, level);
-        if (level <= 40 && data.getDouble("experience_Max") < 1) {
+        if (experience && level <= 40 && data.getDouble("experience_Max") < 1) {
             double maximum = 100;
             for (int n = 1; n <= (int) level; n++) maximum += n * n * 10 + 10;
             data.putDouble("experience_Max", maximum);

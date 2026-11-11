@@ -18,7 +18,7 @@ public final class Allegiance {
     ).apply(instance, Allegiance::new));
 
     private String team;
-    private final Set<String> friendlyTeams;
+    private Set<String> friendlyTeams;
 
     public Allegiance() {
         this("", List.of());
@@ -55,9 +55,13 @@ public final class Allegiance {
 
     /** 整体换成另一个阵营的团队与友方集合（来源召唤物复制施放者的 team 与 friendlist）。 */
     public void copyFrom(Allegiance other) {
-        List<String> copied = List.copyOf(other.friendlyTeams);
         team = other.team;
-        friendlyTeams.clear();
-        friendlyTeams.addAll(copied);
+        friendlyTeams = new LinkedHashSet<>(other.friendlyTeams);
+    }
+
+    /** 来源直接赋入同一个friendlist子标签；运行期共享修改，独立解码后各自持有集合。 */
+    public void shareFrom(Allegiance other) {
+        team = other.team;
+        friendlyTeams = other.friendlyTeams;
     }
 }

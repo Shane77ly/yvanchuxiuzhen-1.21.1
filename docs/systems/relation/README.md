@@ -27,6 +27,7 @@ updated: 2026-11-07
 | 敌友判定 | `isFriendly(判定方, 对方)`：判定方的友方集合含对方团队 | combat（`EntityHurt`、`EntityBeforeHurt`、`ShanghaiGo`）、skill、fulu、creature、guchong、equipment 法宝等经 `Friendpanding*` 的全部调用 |
 | 方块友方查询 | `friendlyTeams(主人)` 返回只读视图；`isFriendly(集合, 对方)` 按对方当前团队判断 | yihuo 火块保留来源共享友方引用，序列化与重载时保存为独立集合；不允许调用者修改关系 |
 | 继承阵营 | `copyAllegiance(主人, 非玩家实体)`：团队与友方集合整体复制 | 同“查询团队”的召唤与投射物生成 |
+| 共享实体阵营 | `shareEntityAllegiance(来源非玩家实体, 目标非玩家实体)`：团队值复制、友方集合运行期共享，独立存档重载后分离 | creature 008召唤007，保留来源直接赋入同一CompoundTag的后续写入效果 |
 | 设置团队 | `setTeam(非玩家实体, 团队名)` | 只写 `team` 的生成过程、creature 的 `EntityTeamShezhi`（团队名为实体类型 ID，`:` 改为 `_`） |
 | 加入友方 | `addFriendlyTeam(非玩家实体, 团队名)` | `EntityTeamShezhi` 把自身团队加入友方集合 |
 
