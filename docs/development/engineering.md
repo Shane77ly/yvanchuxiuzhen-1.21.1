@@ -2,7 +2,7 @@
 topic: engineering
 role: architecture
 status: current
-updated: 2026-11-03
+updated: 2026-11-12
 ---
 
 # 工程结构与长期维护
@@ -200,9 +200,9 @@ B1 步骤 6 结果（2026-11-03）：方块与物品行对应的 2,211 个元素
 | 结构守卫 | ArchUnit 1.5.1（JUnit 5.10.2 运行） | B0 步骤 3 已接入 |
 | 纯规则 | JUnit 5，只测易回归公式与已复现问题，随 `gradlew check` 运行 | 已接入（attribute 的 `AttributeTotalsTest`，2026-11-03） |
 | 世界内行为 | NeoForge GameTest（独立源集，`gameTestServer` 运行） | 第一个需要的系统建立源集，之后按风险添加 |
-| 加载检查 | 开发服务端启动至 Done、客户端加载至声音引擎启动、日志无 ERROR | 每次依赖更新与批次出口 |
+| 加载检查 | 开发服务端启动至 Done、客户端加载至声音引擎启动；异常按来源分类 | 依赖/注册/加载机制变化或现有证据不足时；不固定每批重跑双端 |
 | 客户端冒烟 | `gradlew runSmokeClient -PsmokeOnly=<场景>`（源集 `src/smoke`，不进入发布 JAR）：自动建创造模式世界后只运行所选系统检查；`smokeOnly` 未传时不启动，避免默认执行全资源巡检。完整资源、方块、结构与创造栏检查须显式使用 `-PsmokeAll=true`。检查报告写入 `build/smoke/report.txt`，缺 `DONE` 表示中途退出；受控窗口、分项详情见 `src/smoke` | 按改动风险运行单项场景；内容表、资源、语言或创造栏改动可显式运行完整巡检 |
-| 台账与文档 | `check_ledger.py`、`check_docs.py`、`inventory_legacy.py --check` | 每次提交前 |
+| 台账与文档 | `check_ledger.py`、`check_docs.py`、`inventory_legacy.py --check` | 按[文档维护](documentation.md#按变更选择检查)的变更范围选择，不每次全量扫描来源 |
 
 内存受限时不要并行启动构建和游戏。`-PsmokeOnly=<系统>` 仍会启动完整客户端并创建集成世界，但跳过资源放置、结构加载和创造栏巡检，仅运行所选系统。`-PsmokeAll=true` 才运行完整巡检；两者不可同时设置。Gradle默认堆768 MB、单worker、关闭并行与常驻daemon；JUnit单进程堆512 MB；客户端默认堆768 MB，可用`-PsmokeMaxHeap`覆盖。它们是各自的Java堆上限，不是进程或整机总内存上限。优先静态检查与单次`compileJava`，不默认运行完整`build`、聚合场景或无关系统回归。游戏检查一次只选本批必要场景，例如`gradlew --no-daemon --max-workers=1 -PsmokeOnly=skillui runSmokeClient`。堆不足或内存紧张时记录尚未验收，不自动提高上限或反复重试；不能以启动至`DONE`代替行为与视觉验收。
 
@@ -214,12 +214,12 @@ B1 步骤 6 结果（2026-11-03）：方块与物品行对应的 2,211 个元素
 | --- | --- |
 | 主分支 | `main` 始终可构建，只接收通过检查的合并。直接提交到 `main` 只限仓库与文档维护；玩法、工具和构建改动走工作分支 |
 | 工作分支 | `port/<批次>-<主题>`（如 `port/b0-slice`、`port/c-xiulian`），工具与文档用 `chore/<主题>`、`docs/<主题>`；分支名不带所用工具的前缀 |
-| 合并 | 工作单位完成且构建、`check`、台账与文档检查通过后，用 `git merge --no-ff` 合入 `main` 保留单位边界，合并后删除工作分支 |
+| 合并 | 在当前授权允许时，工作单位完成且受影响检查通过后，用 `git merge --no-ff` 保留单位边界；有效且未受影响的检查可复用。纯文档维护不运行游戏/Gradle。合并不等于系统完整验收；分支保留/删除按当前任务约定 |
 | worktree | 并行会话在仓库同级的 `../worktrees/rebuild-<主题>` 建立独立 worktree；一个分支同时只在一个 worktree 检出；合并后 `git worktree remove` |
 | 提交 | 一个提交只含一个可说明的单位；消息为 `<类型>: <摘要>`，类型取 build、feat、fix、refactor、test、docs、chore；中断时可在工作分支提交 `wip: <摘要>` |
 | 历史 | 推送到远端后不改写 `main` 历史，不 force push |
 | 换行 | 由 `.gitattributes` 规定：文本 LF，Windows 批处理 CRLF，二进制不转换；不依赖各机器的 `core.autocrlf` |
-| 远端 | `origin` 为 GitHub `Shane77ly/yvanchuxiuzhen-1.21.1`，公开仓库（负责人 2026-11-02 确认以公开方式推送）；`main` 与已合并结果推送到远端 |
+| 远端 | `origin` 为 GitHub `Shane77ly/yvanchuxiuzhen-1.21.1`，公开仓库；是否推送按当前会话授权，不从历史公开仓库决定推导每次自动推送 |
 
 冲突热点已按系统拆分：注册、内容表、语言片段、声音片段、台账、系统文档与日志；入口类每个系统只占一行装配。会话开始与结束、进度记录和交接更新的规则见 AGENTS.md 的“进度记录与交接”。
 

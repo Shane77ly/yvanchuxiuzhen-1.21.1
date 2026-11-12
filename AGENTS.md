@@ -7,8 +7,8 @@
 - 范围：全量移植两个 Mod 的全部系统。
 - 目标源码：构建后的 `build/moddev/artifacts/neoforge-<版本>-sources.jar`（含 Minecraft 与 NeoForge 源码，随依赖版本生成；当前构建为 NeoForge 21.1.265，最低支持 21.1.228）；FML 等库在 Gradle 缓存。邻近工程的 `reference/neoforge-21.1.228-sources` 只在版本相同时作对照。
 - 非依据：邻近 1.21.1 工程 `yuanchuxiuzhen-1.21.1` 只提供工程参考。
-- 当前关口（2026-11-12）：C 中 `attribute`、`relation`、`xiulian`、`gongfa`、`combat` 已完成并入 `main`；`skill` 仍未完成，跨系统依赖继续随所属系统闭合。D/E 两维度、41群系与自然供给批次已完成代码装配和低内存专服基础核验，自然地物/出生及完整视觉仍待验收；历史结果见 `docs/development/handoff.md` 和系统月志。当前工作分支 `port/c-skill-continue`，从 `1dad8dcd` 建立；本批包含既有 Creature 接线与 Skill 出口状态更正。Creature Boss 提交 `bcc1418b` 留在旧分支 `port/skill-damage-area`，按路线在 Skill 后续所属批次推进。2026-11-12 的 `yuanying` 与 `skillmovement` 单项客户端场景均完成；后者验证飞行标记死亡复制，原生飞行能力重生后关闭符合来源。负责人要求测试控制内存：只按风险运行单项客户端场景，Gradle 与游戏串行，Smoke 客户端可用 `-PsmokeMaxHeap` 限堆；不默认运行全量 Smoke。负责人已清除完整移植 goal，未收到明确要求前不自动重建；当前分支不推送、不合入 `main`。2026-11-03 负责人指示按路线自动推进：每完成一个步骤即提交、合入 `main` 并进入下一步，直到移植完成或出现重大问题；判断不定的问题先评估影响，轻微的记入文档后继续，重大的停下商议；客户端测试由会话自己完成。符箓提交 `5adb3cf0` 保留在分支历史中（负责人 2026-11-10）。同日裁定 Q17（实际属性计入炼器数值），Q18 暂按来源行为、之后再议。2026-11-03 负责人认可 B1 出口核对，B1 结束。2026-11-02 负责人指示 B0 在框架（步骤 1–5）完成后结束、转入 B1：B0 步骤 6 以全量方式在 B1 实现，步骤 7 的运行机制在首个需要它的系统批次实现并实测（去向见 `docs/development/handoff.md`）。2026-11-03 负责人决定 B1 步骤 6 在 B1 内一次读完全部方块、物品与声音事件的归属（方案 A），不推迟到各系统批次。2026-11-07 负责人曾启动覆盖两个Mod全部批准范围的完整移植goal；该goal已于2026-11-12清除，只有负责人再次明确要求时才重建。2026-11-02 负责人全部批准 `docs/development/system-design.md`（系统划分、归属判定、依赖规则、公开操作清单）；该文“批准后的迁移”已完成。
-- 当前分支修订（2026-11-12）：`port/c-skill-continue` 从 `1dad8dcd` 建立；本批更新的代码进度与验证详见 `docs/development/handoff.md`。Creature Boss 提交 `bcc1418b` 留在旧分支 `port/skill-damage-area`，按 roadmap 在 Skill 完成前不推进该范围。Q68 仅待裁定断线保存是否偏离来源，不暂停独立 Skill 工作。按低内存约束串行运行针对性客户端检查，不提高堆、不默认全量Smoke；2026-11-12 `yuanying`、`skillmovement` 与四页扩展后的 `skillui` 当前单项运行均通过。
+- 当前进度：实现覆盖、验收边界与开放工作统一维护在 `docs/development/remaining-work.md`；实际分支、基线和下一步见 `docs/development/handoff.md`，本文件不复制滚动状态。A/B历史出口与C核心批次结论保留，局部遗漏不使整个项目退回前序阶段。
+- 负责人决定（2026-11-12）：批准重整移植Skill、统一剩余工作清单与文档约束，减少重复调查、夹具试跑及状态多处复制。本次只维护规则和记录，不启动玩法移植goal，不推送、不自动合并；完整移植goal已清除，只有再次明确要求才重建。既有全量范围与行为保真要求不变。低内存验证约束见 `docs/development/engineering.md`。
 - 开发环境：Mod ID `yvanchuxiuzhen`，也是全部注册与资源的唯一命名空间（原初系统内容同样使用）；Java 基础包 `net.yvanchuxiuzhen`；构建组合与验证见 `docs/development/architecture.md` 的“技术依赖”。
 - 交接：新会话先读 `docs/development/handoff.md`。
 - 记录位置：内容映射与行为对齐见 `docs/development/content-and-parity.md`，台账 CSV 在 `docs/systems/<系统>/ledger/`（B0 建立），系统规则正文在 `docs/systems/<系统>`，证据与日志按下方“文档”登记。
@@ -20,12 +20,11 @@
 
 ## 进度记录与交接
 
-- 会话开始：`git status` 确认工作树干净且位于对应工作分支；读本文件、`docs/development/handoff.md`、所属系统 README 与台账。
-- 每个提交：同一提交内更新受影响的台账行与系统 README 状态，不留待事后补记。
-- 会话结束或中断：所属系统（或项目）月度日志写明本次变化、验证结果与未完成项；`handoff.md`“进行中”写明分支、最后提交与下一步具体操作；运行检查后提交，工作树干净。中断时在工作分支提交 `wip: <摘要>`。
-- 里程碑（B0 每一步、系统完成、批次出口、依赖更新、负责人决定）：更新 `handoff.md`“当前状态”“下一步”、项目状态页与路线状态，然后合入 `main`。
-- 负责人决定在同一会话写入项目状态页；涉及关口时同步本文件“当前关口”。
-- 分支、合并、worktree 与提交格式见 `docs/development/engineering.md`“Git 与会话协作”。
+- 会话开始：先用 `git status`、`git log -1` 确认实际分支和工作树，读交接与开放工作清单，再按本批范围读系统正文及台账。已有同版本来源证据直接复用，只补变更影响范围；发现文档落后于Git先校正事实，不依旧分支描述撤销已合入成果。
+- 每个提交：同一提交更新实际受影响的台账行和系统当前摘要；规则正文仅在规则/实现边界改变时更新。纯文档或流程维护不改玩法状态、不为满足记录规则虚构台账变化。
+- 会话结束或中断：结果、验证边界和未完成项在所属月志记一次，跨系统流程变更记项目月志；handoff只保留分支、可定位的基线和下一动作，问题详情链接remaining-work与正文。运行本次改动需要的检查后提交，工作树干净；工作分支中断提交 `wip: <摘要>`。
+- 里程碑：更新开放工作清单和受影响系统状态；路线只在范围、顺序或出口定义改变时更新，项目状态页只登记决定与里程碑链接。提交、合并、验收是三个不同事实，合并按当前授权与 `docs/development/engineering.md` 执行，不因写完文档自动合入main。
+- 负责人决定在项目状态页登记；只有长期协作规则改变时同步本文件。文档职责和按改动选择检查见 `docs/development/documentation.md`。
 
 ## 工程边界
 

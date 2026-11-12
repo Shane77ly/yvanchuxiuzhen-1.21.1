@@ -2,17 +2,18 @@
 topic: documentation-index
 role: entry
 status: current
-updated: 2026-11-02
+updated: 2026-11-12
 ---
 
-# 调查与架构评审入口
+# 项目文档入口
 
-已确认：全新项目，完整移植两个 1.18.2 Mod；目标 Minecraft 1.21.1 + NeoForge + Java 21；一个可安装 Mod，内部按系统组织。整体架构、工程结构与实施路线已于 2026-11-02 获批，B0 框架完成后当前执行 B1 全量内容身份与资源；存档导入、界面复刻程度、license 与来源矛盾 Q01–Q14 仍待裁定，未启动 goal。
+完整移植两个1.18.2 Mod到Minecraft 1.21.1、NeoForge、Java 21，合为一个Mod。当前实现覆盖与开放缺口见[统一工作清单](development/remaining-work.md)，接手任务见[交接](development/handoff.md)；本入口不保存滚动阶段快照。全量范围与批准边界见[项目范围](design/scope.md)。
 
 | 阅读顺序 | 文档 | 用途 |
 | --- | --- | --- |
 | 0 | [移植技能](../.claude/skills/minecraft-mod-porting/SKILL.md) | 通用移植规则、系统工作单与参考的正文（本项目文档只记录适用与决定） |
-| ★ | [交接说明](development/handoff.md) | 新会话入口：当前状态、阅读顺序、环境事实与下一步 |
+| ★ | [交接说明](development/handoff.md) | 当前分支、基线与接手动作 |
+| ★ | [开放工作清单](development/remaining-work.md) | 实现覆盖、未闭合功能、承接系统与完成依据 |
 | 1 | [1.18.2 版本架构调查](reference/legacy/source-survey.md) | 全量静态规模、关键真实调用链、已核实事实与问题 |
 | 2 | [范围与保真原则](design/scope.md) | 完整范围、行为保留原则和待裁定事项 |
 | 3 | [整体架构](development/architecture.md)（已批准） | 系统职责、数据所有者、代码组织与实际依赖 |
