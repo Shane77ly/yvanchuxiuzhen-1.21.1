@@ -1,9 +1,11 @@
 package net.yvanchuxiuzhen.smoke;
 
 import java.util.List;
+import java.util.function.Consumer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.item.ItemStack;
@@ -39,9 +41,9 @@ final class FireBirdCheck extends ActionCheck {
         super("火鸟术", report, levelId);
         script(
                 new Action(12, player -> {
+                    player.connection.teleport(player.getX(), 180, player.getZ(), -90, 0);
                     clearArea(player);
                     Arena.level(player);
-                    player.connection.teleport(player.getX(), player.getY(), player.getZ(), -90, 0);
                     Cultivation.set(player, CultivationValue.POWER, 1000);
                     player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SWORD));
                     Skills.setSpell(player, 1, book(player));
@@ -51,24 +53,25 @@ final class FireBirdCheck extends ActionCheck {
                 }),
                 new Action(4, player -> {
                     cast(player);
-                    expect("施放生成一只火鸟", 1, birds(player).size());
-                    FireBird bird = birds(player).get(0);
-                    SkillBook book = Skills.book(Skills.selected(player)).orElseThrow();
-                    expectTrue("主人是施放者", bird.isTame() && bird.getOwnerUUID().equals(player.getUUID()));
-                    expect("攻击者", player.getUUID(), bird.cast().attacker());
-                    expect("攻击量", book.manaAttack(), bird.cast().attackDamage());
-                    expect("伤害倍率", book.damageMultiplier(), bird.cast().multiplier());
-                    expect("伤害类别", "火", bird.cast().damageType());
-                    expect("技能名", SPELL, bird.cast().skillName());
-                    expect("默认纹理", "skillfire06", bird.texture());
-                    expectTrue("在施放者上方 1.5 格", Math.abs(bird.getY() - (player.getY() + 1.5)) < 0.01);
-                    expectTrue("与主人同队", Relations.isFriendly(bird, player));
+                    withBird(player, "施放生成一只火鸟", bird -> {
+                        SkillBook book = Skills.book(Skills.selected(player)).orElseThrow();
+                        expectTrue("主人是施放者", bird.isTame() && bird.getOwnerUUID().equals(player.getUUID()));
+                        expect("攻击者", player.getUUID(), bird.cast().attacker());
+                        expect("攻击量", book.manaAttack(), bird.cast().attackDamage());
+                        expect("伤害倍率", book.damageMultiplier(), bird.cast().multiplier());
+                        expect("伤害类别", "火", bird.cast().damageType());
+                        expect("技能名", SPELL, bird.cast().skillName());
+                        expect("默认纹理", "skillfire06", bird.texture());
+                        expectTrue("在施放者上方 1.5 格", Math.abs(bird.getY() - (player.getY() + 1.5)) < 0.01);
+                        expectTrue("与主人同队", Relations.isFriendly(bird, player));
+                    });
                 }),
                 new Action(6, player -> {
-                    expect("主人在身边时不爆发", 1, birds(player).size());
-                    expectTrue("无重力（首个实体刻起）", birds(player).get(0).isNoGravity());
-                    expectTrue("不下坠 " + birds(player).get(0).getY(), birds(player).get(0).getY() > player.getY() + 1);
-                    golem = placeGolem(player, player.getX() + 1, false);
+                    withBird(player, "主人在身边时不爆发", bird -> {
+                        expectTrue("无重力（首个实体刻起）", bird.isNoGravity());
+                        expectTrue("不下坠 " + bird.getY(), bird.getY() > player.getY() + 1);
+                        golem = placeGolem(player, player.getX() + 1, false);
+                    });
                 }),
                 new Action(2, player -> {
                     expect("非友方进入 1.5 格后爆发消失", 0, birds(player).size());
@@ -81,36 +84,44 @@ final class FireBirdCheck extends ActionCheck {
                     golem = placeGolem(player, player.getX() + 1, true);
                 }),
                 new Action(12, player -> {
-                    expect("友方不触发爆发", 1, birds(player).size());
-                    expect("友方不受伤", HEALTH, (double) golem.getHealth());
-                    clearArea(player);
-                    cast(player);
-                    birds(player).get(0).getPersistentData().putDouble("tick", 1199);
+                    withBird(player, "友方不触发爆发", bird -> {
+                        expect("友方不受伤", HEALTH, (double) golem.getHealth());
+                        clearArea(player);
+                        cast(player);
+                        withBird(player, "寿命检查生成一只火鸟", lifetimeBird -> lifetimeBird.getPersistentData().putDouble("tick", 1199));
+                    });
                 }),
                 new Action(2, player -> expect("寿命到期消失", 0, birds(player).size())),
                 new Action(2, player -> {
                     cast(player);
                     golem = placeGolem(player, player.getX() + 12, false);
-                    FireBird bird = birds(player).get(0);
-                    bird.setTarget(golem);
-                    pursuitStartDistance = bird.distanceTo(golem);
+                    withBird(player, "追击检查生成一只火鸟", bird -> {
+                        bird.setTarget(golem);
+                        pursuitStartDistance = bird.distanceTo(golem);
+                    });
                 }),
-                new Action(12, player -> {
-                    expect("追击目标：寿命内继续存在", 1, birds(player).size());
-                    FireBird bird = birds(player).get(0);
-                    expectTrue("追击目标：与目标距离缩短", bird.distanceTo(golem) < pursuitStartDistance - 0.25);
-                    expectTrue("追击目标：未提前到期", bird.getPersistentData().getDouble("tick") < 1200);
+                new Action(50, player -> {
+                    withBird(player, "追击目标：寿命内继续存在", bird -> {
+                        expectTrue("追击目标：与目标距离缩短", bird.distanceTo(golem) < pursuitStartDistance - 0.25);
+                        expectTrue("追击目标：未提前到期", bird.getPersistentData().getDouble("tick") < 1200);
+                    });
+                }),
+                new Action(2, player -> {
+                    expect("追击目标：撞上后爆发消失", 0, birds(player).size());
+                    expectTrue("追击目标：目标受伤", golem.getHealth() < HEALTH);
+                    expectTrue("追击目标：目标被点燃", golem.getRemainingFireTicks() > 0);
                 }),
                 new Action(2, player -> {
                     clearArea(player);
                     cast(player);
-                    FireBird bird = birds(player).get(0);
-                    expectTrue("免疫仙人掌", !bird.hurt(player.damageSources().cactus(), 5));
-                    float health = bird.getHealth();
-                    expectTrue("免疫跌落伤害结算", !bird.causeFallDamage(10, 1, player.damageSources().fall()));
-                    expect("跌落结算后生命值不变", (double) health, (double) bird.getHealth());
-                    bird.hurt(player.damageSources().generic(), 1000);
-                    expect("被杀死时消失", 0, birds(player).size());
+                    withBird(player, "免疫检查生成一只火鸟", bird -> {
+                        expectTrue("免疫仙人掌", !bird.hurt(player.damageSources().cactus(), 5));
+                        float health = bird.getHealth();
+                        expectTrue("免疫跌落伤害结算", !bird.causeFallDamage(10, 1, player.damageSources().fall()));
+                        expect("跌落结算后生命值不变", (double) health, (double) bird.getHealth());
+                        bird.hurt(player.damageSources().generic(), 1000);
+                        expect("被杀死时消失", 0, birds(player).size());
+                    });
                 }),
                 new Action(2, player -> {
                     SkillEntity animated = SkillSetup.<SkillEntity>entityType("skill_fire_02").get().create(player.serverLevel());
@@ -146,6 +157,18 @@ final class FireBirdCheck extends ActionCheck {
         return player.serverLevel().getEntitiesOfClass(FireBird.class, area(player));
     }
 
+    /** 只有场景前置实体唯一时才继续依赖步骤，避免缺失后产生二次空列表异常。 */
+    private void withBird(ServerPlayer player, String label, Consumer<FireBird> action) {
+        List<FireBird> found = birds(player);
+        expect(label, 1, found.size());
+        if (found.size() != 1) {
+            cleanup(player);
+            finish();
+            return;
+        }
+        action.accept(found.get(0));
+    }
+
     /** 攻击倍率 3、消耗 0、火组冷却 1 秒且上限 100 秒的火鸟术书（来源要求至少一组冷却数值大于 0 才能施放）。 */
     private static ItemStack book(ServerPlayer player) {
         String arguments = "yvanchuxiuzhen:book_003 " + SPELL + " 1 1 火 x 无 3 1 0 0 0 0 0 1 0 0 0 0 0 100 0 0";
@@ -173,11 +196,8 @@ final class FireBirdCheck extends ActionCheck {
     }
 
     private void clearArea(ServerPlayer player) {
-        birds(player).forEach(FireBird::discard);
-        if (golem != null) {
-            golem.discard();
-            golem = null;
-        }
+        player.serverLevel().getEntitiesOfClass(Entity.class, area(player), entity -> entity != player).forEach(Entity::discard);
+        golem = null;
     }
 
     @Override
