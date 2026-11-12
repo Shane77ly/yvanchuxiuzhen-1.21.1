@@ -1,4 +1,6 @@
 [
+{"id":"guiguai_02","category":"MONSTER","width":0.3,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true},
+{"id":"guiguai_03","category":"MONSTER","width":0.6,"height":1.8,"tracking_range":64,"update_interval":3,"fire_immune":false},
 {"id":"moshou_001","category":"MONSTER","width":2.0,"height":0.9,"tracking_range":64,"update_interval":3,"fire_immune":false},
 {"id":"moshou_003","category":"MONSTER","width":1.2,"height":2.6,"tracking_range":64,"update_interval":3,"fire_immune":false},
 {"id":"organism_01","category":"AMBIENT","width":0.5,"height":0.3,"tracking_range":64,"update_interval":3,"fire_immune":false},

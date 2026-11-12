@@ -610,3 +610,11 @@ creature,texture,yvanchuxiuzhen:entities/xiuzhe0103
 creature,texture,yvanchuxiuzhen:entities/xiuzhe0104
 creature,texture,yvanchuxiuzhen:entities/xiuzhe0105
 creature,item,yvanchuxiuzhen:xiuzhe_0101_spawn_egg
+creature,geo,yvanchuxiuzhen:guiguai02
+creature,animation,yvanchuxiuzhen:guiguai02
+creature,texture,yvanchuxiuzhen:entities/guiguai02
+creature,item,yvanchuxiuzhen:guiguai_02_spawn_egg
+creature,geo,yvanchuxiuzhen:guiguai03
+creature,animation,yvanchuxiuzhen:guiguai03
+creature,texture,yvanchuxiuzhen:entities/guiguai03
+creature,item,yvanchuxiuzhen:guiguai_03_spawn_egg

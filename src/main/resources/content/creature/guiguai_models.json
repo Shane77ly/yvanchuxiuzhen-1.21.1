@@ -1,0 +1,67 @@
+[
+  {
+    "id": "guiguai_02",
+    "geo": "guiguai02",
+    "animation": "guiguai02",
+    "texture": "kong",
+    "rendering": {
+      "shadow": 0.0,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "glow": "guiguai02",
+    "idle": "animation.guiguai02.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "flying",
+      "no_gravity": true,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 1,
+      "ignores_fall_damage": true,
+      "damage_immunities": [
+        "fall",
+        "cactus"
+      ],
+      "animation_transition_ticks": 4,
+      "flying_speed": 0.5
+    },
+    "speed": 0.5,
+    "health": 20.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  },
+  {
+    "id": "guiguai_03",
+    "geo": "guiguai03",
+    "animation": "guiguai03",
+    "texture": "guiguai03",
+    "rendering": {
+      "shadow": 0.5,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "head": "head",
+    "idle": "animation.guiguai03.idle",
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 200,
+      "ignores_fall_damage": false,
+      "damage_immunities": [
+        "drown"
+      ],
+      "animation_transition_ticks": 4,
+      "death_animation": "animation.guiguai03.death"
+    },
+    "speed": 0.2,
+    "health": 100.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  }
+]

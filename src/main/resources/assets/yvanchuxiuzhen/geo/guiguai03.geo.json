@@ -1,0 +1,106 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.guiguai03",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "head",
+					"parent": "zong",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-4, 24, -4], "size": [8, 8, 8], "uv": [0, 0]},
+						{"origin": [-4, 24, -4], "size": [8, 8, 8], "inflate": 0.3, "uv": [32, 0]}
+					]
+				},
+				{
+					"name": "body",
+					"parent": "zong",
+					"pivot": [0, 12, 0],
+					"cubes": [
+						{"origin": [-4, 12, -2], "size": [8, 12, 4], "uv": [0, 16]}
+					]
+				},
+				{
+					"name": "rightarm",
+					"parent": "zong",
+					"pivot": [-4, 23, 0],
+					"cubes": [
+						{"origin": [-8, 18, -2], "size": [4, 6, 4], "uv": [24, 16]}
+					]
+				},
+				{
+					"name": "rightarm2",
+					"parent": "rightarm",
+					"pivot": [-6, 18, 0],
+					"cubes": [
+						{"origin": [-8, 12, -2], "size": [4, 6, 4], "uv": [24, 26]},
+						{"origin": [-9, 2, -1.5], "size": [2, 12, 1], "uv": [56, 16]},
+						{"origin": [-9, 2, 0.5], "size": [2, 12, 1], "uv": [56, 16]}
+					]
+				},
+				{
+					"name": "leftarm",
+					"parent": "zong",
+					"pivot": [4, 23, 0],
+					"cubes": [
+						{"origin": [4, 18, -2], "size": [4, 6, 4], "uv": [40, 16]}
+					]
+				},
+				{
+					"name": "leftarm2",
+					"parent": "leftarm",
+					"pivot": [6, 18, 0],
+					"cubes": [
+						{"origin": [4, 12, -2], "size": [4, 6, 4], "uv": [40, 26]},
+						{"origin": [7, 2, -1.5], "size": [2, 12, 1], "uv": [56, 16]},
+						{"origin": [7, 2, 0.5], "size": [2, 12, 1], "uv": [56, 16]}
+					]
+				},
+				{
+					"name": "rightleg",
+					"parent": "zong",
+					"pivot": [-2, 12, 0],
+					"cubes": [
+						{"origin": [-4, 6, -2], "size": [4, 6, 4], "uv": [24, 36]}
+					]
+				},
+				{
+					"name": "rightleg2",
+					"parent": "rightleg",
+					"pivot": [-2, 6, 0],
+					"cubes": [
+						{"origin": [-4, 0, -2], "size": [4, 6, 4], "uv": [24, 46]}
+					]
+				},
+				{
+					"name": "leftleg",
+					"parent": "zong",
+					"pivot": [2, 12, 0],
+					"cubes": [
+						{"origin": [0, 6, -2], "size": [4, 6, 4], "uv": [40, 36]}
+					]
+				},
+				{
+					"name": "leftleg2",
+					"parent": "leftleg",
+					"pivot": [2, 6, 0],
+					"cubes": [
+						{"origin": [0, 0, -2], "size": [4, 6, 4], "uv": [40, 46]}
+					]
+				}
+			]
+		}
+	]
+}

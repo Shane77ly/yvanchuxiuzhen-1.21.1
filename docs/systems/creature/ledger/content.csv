@@ -4,8 +4,8 @@ attribute,yvanchuxiuzhen:yaoshoupifuxianshi,yvanchuxiuzhen,Yaoshoupifuxianshi,sr
 block,yvanchuxiuzhen:guancai_01,yvanchuxiuzhen,Guancai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2007,creature,已读,yvanchuxiuzhen:guancai_01,待处理,
 block_entity_type,yvanchuxiuzhen:guancai_01,yvanchuxiuzhen,Guancai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,167,creature,已读,yvanchuxiuzhen:guancai_01,待处理,
 entity_type,yvanchuxiuzhen:guiguai_01,yvanchuxiuzhen,Guiguai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,695,creature,已读,yvanchuxiuzhen:guiguai_01,待处理,
-entity_type,yvanchuxiuzhen:guiguai_02,yvanchuxiuzhen,Guiguai02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,699,creature,已读,yvanchuxiuzhen:guiguai_02,待处理,
-entity_type,yvanchuxiuzhen:guiguai_03,yvanchuxiuzhen,Guiguai03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,785,creature,已读,yvanchuxiuzhen:guiguai_03,待处理,
+entity_type,yvanchuxiuzhen:guiguai_02,yvanchuxiuzhen,Guiguai02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,699,creature,已读,yvanchuxiuzhen:guiguai_02,待处理,实体与AI已接线；定向编译和运行验收待做
+entity_type,yvanchuxiuzhen:guiguai_03,yvanchuxiuzhen,Guiguai03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,785,creature,已读,yvanchuxiuzhen:guiguai_03,待处理,实体与完整技能AI已接线；定向编译和运行验收待做
 entity_type,yvanchuxiuzhen:jiantou,yvanchuxiuzhen,Jiantou,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,601,creature,候选,yvanchuxiuzhen:jiantou,待处理,
 entity_type,yvanchuxiuzhen:moshou_001,yvanchuxiuzhen,Moshou001,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,791,creature,已读,yvanchuxiuzhen:moshou_001,已注册,来源实体生命周期、技能及动画资源已接线；构建、目标实机和完整行为待验收；自然投放随World闭合
 entity_type,yvanchuxiuzhen:moshou_002,yvanchuxiuzhen,Moshou002,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,795,creature,已读,yvanchuxiuzhen:moshou_002,待处理,
@@ -95,8 +95,8 @@ entity_type,yvanchuxiuzhen:ycxzboss_0201,yvanchuxiuzhen,Ycxzboss0201,src/main/ja
 entity_type,yvanchuxiuzhen:ycxzboss_04,yvanchuxiuzhen,Ycxzboss04,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1053,creature,已读,yvanchuxiuzhen:ycxzboss_04,待处理,
 item,yvanchuxiuzhen:guancai_01,yvanchuxiuzhen,Guancai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2790,creature,已读,yvanchuxiuzhen:guancai_01,待处理,
 item,yvanchuxiuzhen:guiguai_01_spawn_egg,yvanchuxiuzhen,Guiguai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2620,creature,已读,yvanchuxiuzhen:guiguai_01_spawn_egg,待处理,
-item,yvanchuxiuzhen:guiguai_02_spawn_egg,yvanchuxiuzhen,Guiguai02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2626,creature,已读,yvanchuxiuzhen:guiguai_02_spawn_egg,待处理,
-item,yvanchuxiuzhen:guiguai_03_spawn_egg,yvanchuxiuzhen,Guiguai03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2788,creature,已读,yvanchuxiuzhen:guiguai_03_spawn_egg,待处理,
+item,yvanchuxiuzhen:guiguai_02_spawn_egg,yvanchuxiuzhen,Guiguai02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2626,creature,已读,yvanchuxiuzhen:guiguai_02_spawn_egg,待处理,来源蛋色与鬼火实体工厂已接线；定向编译和注册验收待做
+item,yvanchuxiuzhen:guiguai_03_spawn_egg,yvanchuxiuzhen,Guiguai03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2788,creature,已读,yvanchuxiuzhen:guiguai_03_spawn_egg,待处理,来源蛋色与小尸王实体工厂已接线；定向编译和注册验收待做
 item,yvanchuxiuzhen:lingshoudai_00,yvanchuxiuzhen,Lingshoudai00,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3076,creature,已读,yvanchuxiuzhen:lingshoudai_00,已注册,
 item,yvanchuxiuzhen:lingshoudai_01,yvanchuxiuzhen,Lingshoudai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2827,creature,已读,yvanchuxiuzhen:lingshoudai_01,已注册,
 item,yvanchuxiuzhen:lingshoudai_02,yvanchuxiuzhen,Lingshoudai02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3061,creature,已读,yvanchuxiuzhen:lingshoudai_02,已注册,

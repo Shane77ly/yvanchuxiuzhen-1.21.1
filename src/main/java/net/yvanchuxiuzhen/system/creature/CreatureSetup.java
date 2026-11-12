@@ -8,6 +8,7 @@ import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.creature.entity.Butterflies;
 import net.yvanchuxiuzhen.system.creature.entity.Organisms;
 import net.yvanchuxiuzhen.system.creature.entity.NaturalCreatures;
+import net.yvanchuxiuzhen.system.creature.entity.GhostCreatures;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou053BlizzardEffect;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouCreatures;
 
@@ -30,6 +31,7 @@ public final class CreatureSetup {
         Butterflies.register(CONTENT, modBus);
         Organisms.register(CONTENT, modBus);
         NaturalCreatures.register(CONTENT, modBus);
+        GhostCreatures.register(CONTENT);
         CONTENT.register(modBus);
     }
 }

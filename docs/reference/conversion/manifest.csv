@@ -42,6 +42,8 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/fulutexiao44.
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/gedang.animation.json,4d3ef11f5b880e299f6590b913a0a880c6a2f3b2,src/main/resources/assets/yvanchuxiuzhen/animations/gedang.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/guchong03.animation.json,b155206596c79e7d418ee636cb0473c794047812,src/main/resources/assets/yvanchuxiuzhen/animations/guchong03.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/guchong04.animation.json,4433f8486222d2fbd43f6e00fe9dbfe465ca9534,src/main/resources/assets/yvanchuxiuzhen/animations/guchong04.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/guiguai02.animation.json,1e9dae20c1f66721be5c0454b331d21cd2f969b9,src/main/resources/assets/yvanchuxiuzhen/animations/guiguai02.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/guiguai03.animation.json,891186c1feed96a7f45ca244769b5d267b5be6d1,src/main/resources/assets/yvanchuxiuzhen/animations/guiguai03.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/jieyvn.animation.json,63f3098bd53fa09fa76bf8698a5116bfbfc18cab,src/main/resources/assets/yvanchuxiuzhen/animations/jieyvn.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/lingwen2.animation.json,53a4c8b27f57fad30a91bbd149d86c556879aba9,src/main/resources/assets/yvanchuxiuzhen/animations/lingwen2.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/moshou001.animation.json,a85b4b5aec56c962bc2fbfbee3884e4dee2c77b7,src/main/resources/assets/yvanchuxiuzhen/animations/moshou001.animation.json
@@ -1354,6 +1356,8 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/fulutexiao44.geo.jso
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/gedang.geo.json,6a0be2ea64ea694a070fa91082a5b6b51db25492,src/main/resources/assets/yvanchuxiuzhen/geo/gedang.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/guchong03.geo.json,8c2f40701632bb2d4514e2598070f97fb020d6d8,src/main/resources/assets/yvanchuxiuzhen/geo/guchong03.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/guchong04.geo.json,88b6a272e80828ae16ac4917b134d491c8eddc5e,src/main/resources/assets/yvanchuxiuzhen/geo/guchong04.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/guiguai02.geo.json,d58575222db2e4a11e875ba474a893d654239a1a,src/main/resources/assets/yvanchuxiuzhen/geo/guiguai02.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/guiguai03.geo.json,fc66b8243b83a42b9c416307e5f1b48e5f415a55,src/main/resources/assets/yvanchuxiuzhen/geo/guiguai03.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/jieyvn.geo.json,1cadf964dc2e6d384a9fe657d5c1915d9d381abb,src/main/resources/assets/yvanchuxiuzhen/geo/jieyvn.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/lingwen2.geo.json,a599621b76f68911691db0a61bc5864a5447f8c9,src/main/resources/assets/yvanchuxiuzhen/geo/lingwen2.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/moshou001.geo.json,f3d1d7f85c872992c828b349f630bc01f10708e2,src/main/resources/assets/yvanchuxiuzhen/geo/moshou001.geo.json
@@ -5813,6 +5817,8 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/guchong_02it
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/guchong_03item.json,b1f9f701f4cbdc50d4facd03d397c3a2534c20ea,src/main/resources/assets/yvanchuxiuzhen/models/item/guchong_03item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/guchong_04item.json,419c21a74e98daaa4c7e208e0e3988e3da01cdba,src/main/resources/assets/yvanchuxiuzhen/models/item/guchong_04item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/guchong_05item.json,00fc6782303e54643b4e86131a15733feb974b94,src/main/resources/assets/yvanchuxiuzhen/models/item/guchong_05item.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/guiguai_02_spawn_egg.json,542435109cfe529a6f0696687e5f7efadfeb703e,src/main/resources/assets/yvanchuxiuzhen/models/item/guiguai_02_spawn_egg.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/guiguai_03_spawn_egg.json,542435109cfe529a6f0696687e5f7efadfeb703e,src/main/resources/assets/yvanchuxiuzhen/models/item/guiguai_03_spawn_egg.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/hammer.json,cadb78b630f787420a36118778fc53e138463609,src/main/resources/assets/yvanchuxiuzhen/models/item/hammer.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/handornaments_01.json,2f482bdda84b68bc9aa20f7e72c336466969443d,src/main/resources/assets/yvanchuxiuzhen/models/item/handornaments_01.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/handornaments_02.json,108938de5719188ce190dec4e83f2cd93aafe5ba,src/main/resources/assets/yvanchuxiuzhen/models/item/handornaments_02.json
@@ -8436,6 +8442,8 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/fulute
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/gedang.png,5c23720e72a5e60567340da1f49c446e4c4fc531,src/main/resources/assets/yvanchuxiuzhen/textures/entities/gedang.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/guchong03.png,ceb20807aae7ac37be1198069df175e944288f21,src/main/resources/assets/yvanchuxiuzhen/textures/entities/guchong03.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/guchong04.png,023b8322ffa19feb0d8fe4f57c83c1087835eda0,src/main/resources/assets/yvanchuxiuzhen/textures/entities/guchong04.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/guiguai02.png,52947d33eb8a12bb4891b77ca1fa93286a27ced1,src/main/resources/assets/yvanchuxiuzhen/textures/entities/guiguai02.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/guiguai03.png,d70b485744f29a091f555ef6ab2ccd0df9b5e2ff,src/main/resources/assets/yvanchuxiuzhen/textures/entities/guiguai03.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/item_fulu2701.png,8ab4cab2523409e922fe4a9e39e8f7875269d236,src/main/resources/assets/yvanchuxiuzhen/textures/entities/item_fulu2701.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/jieyvn02.png,9ea295db6894b31c9d91a345daef613ec55092d3,src/main/resources/assets/yvanchuxiuzhen/textures/entities/jieyvn02.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/jinengchuqiaoentity.png,905dcb7b42295aad408856507513e695ac85d76c,src/main/resources/assets/yvanchuxiuzhen/textures/entities/jinengchuqiaoentity.png
