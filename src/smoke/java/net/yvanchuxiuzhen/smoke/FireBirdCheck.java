@@ -25,7 +25,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /**
  * 火鸟术（可驯服飞行实体）的实机检查：施放生成以施放者为主人的火鸟（施放信息、位置、无重力、与主人同队）；非友方进入 1.5 格后 3 刻爆发，
- * 伤害并点燃 2.5 格内的非友方后消失；友方不触发爆发；寿命 1200 刻到期消失；有目标时飞向目标并爆发；免疫仙人掌伤害，被杀死时消失；
+ * 伤害并点燃 2.5 格内的非友方后消失；友方不触发爆发；寿命 1200 刻到期消失；有目标时飞向目标并爆发；免疫仙人掌和跌落结算，被杀死时消失；
  * 实体存档保存施放信息（技能动画实体与火鸟各存取一次）。
  */
 final class FireBirdCheck extends ActionCheck {
@@ -105,6 +105,9 @@ final class FireBirdCheck extends ActionCheck {
                     cast(player);
                     FireBird bird = birds(player).get(0);
                     expectTrue("免疫仙人掌", !bird.hurt(player.damageSources().cactus(), 5));
+                    float health = bird.getHealth();
+                    expectTrue("免疫跌落伤害结算", !bird.causeFallDamage(10, 1, player.damageSources().fall()));
+                    expect("跌落结算后生命值不变", (double) health, (double) bird.getHealth());
                     bird.hurt(player.damageSources().generic(), 1000);
                     expect("被杀死时消失", 0, birds(player).size());
                 }),

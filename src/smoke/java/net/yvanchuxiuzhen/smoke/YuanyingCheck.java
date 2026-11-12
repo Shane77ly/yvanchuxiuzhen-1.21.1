@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
@@ -50,6 +53,9 @@ final class YuanyingCheck extends SystemCheck {
     private double originalX;
     private double originalY;
     private double originalZ;
+    private ResourceKey<Level> originalDimension;
+    private ResourceKey<Level> crossDimensionOrigin;
+    private UUID crossDimensionBodyId;
 
     YuanyingCheck(List<String> report, String levelId) {
         super("元婴出窍", report, levelId);
@@ -64,6 +70,7 @@ final class YuanyingCheck extends SystemCheck {
                     originalX = p.getX();
                     originalY = p.getY();
                     originalZ = p.getZ();
+                    originalDimension = p.level().dimension();
                     for (int slot = 0; slot < p.getInventory().getContainerSize(); slot++) inventory.add(p.getInventory().getItem(slot).copy());
                     cooldowns = p.getData(SkillData.COOLDOWNS);
                     originalExperienceLevel = p.experienceLevel;
@@ -235,6 +242,40 @@ final class YuanyingCheck extends SystemCheck {
                         && minecraft.player.position().distanceToSqr(returnPosition) < .01 && p.serverLevel().getEntity(savedBodyId) == null));
                 yield true;
             }
+            case 12 -> {
+                if (local < 40) yield false;
+                onServer(p -> {
+                    Arena.level(p);
+                    Cultivation.setTizhiDouble(p, "jishiqi", p.level().getDayTime());
+                    crossDimensionOrigin = p.level().dimension();
+                    returnPosition = p.position();
+                    Skills.toggleYuanying(p);
+                    crossDimensionBodyId = bodies(p).getFirst().getUUID();
+                    ServerLevel destination = p.server.getLevel(Level.NETHER);
+                    p.teleportTo(destination, returnPosition.x, returnPosition.y, returnPosition.z, p.getYRot(), p.getXRot());
+                    Arena.level(p);
+                    Skills.openMenu(p);
+                });
+                yield true;
+            }
+            case 13 -> {
+                if (local < 10) yield false;
+                pressReturn();
+                yield true;
+            }
+            case 14 -> {
+                if (local < 10) yield false;
+                onServer(p -> {
+                    expect("跨维度归窍后仍在目标维度", Level.NETHER, p.level().dimension());
+                    expectTrue("跨维度归窍使用原保存坐标并清除出窍标记", !Cultivation.tizhiBoolean(p, "yvanyingchuqiao")
+                            && p.gameMode.getGameModeForPlayer() == GameType.SURVIVAL && p.position().distanceToSqr(returnPosition) < 0.01);
+                    expectTrue("跨维度归窍不在目标维度删除元婴", bodies(p).isEmpty());
+                    ServerLevel origin = p.server.getLevel(crossDimensionOrigin);
+                    expectTrue("跨维度归窍后原维度元婴仍保留", origin.getEntity(crossDimensionBodyId) instanceof Yuanying body
+                            && p.getUUID().equals(body.ownerId()));
+                });
+                yield true;
+            }
             default -> {
                 onServer(this::cleanup);
                 finish();
@@ -256,8 +297,14 @@ final class YuanyingCheck extends SystemCheck {
 
     private void cleanup(ServerPlayer p) {
         PlayerAttributes.clearContribution(p, CONTRIBUTION);
+        discardBody(p.serverLevel(), savedBodyId);
+        if (crossDimensionOrigin != null) discardBody(p.server.getLevel(crossDimensionOrigin), crossDimensionBodyId);
         if (Cultivation.tizhiBoolean(p, "yvanyingchuqiao")) {
             Skills.toggleYuanying(p);
+        }
+        ServerLevel original = p.server.getLevel(originalDimension);
+        if (!p.level().dimension().equals(originalDimension)) {
+            p.teleportTo(original, originalX, originalY, originalZ, p.getYRot(), p.getXRot());
         }
         for (Yuanying body : bodies(p)) {
             body.discard();
@@ -276,5 +323,9 @@ final class YuanyingCheck extends SystemCheck {
         Cultivation.setTizhiDouble(p, "jishiqi", originalTimer);
         Cultivation.setTizhiBoolean(p, "yvanyingchuqiao", originalOut);
         p.inventoryMenu.broadcastChanges();
+    }
+
+    private static void discardBody(ServerLevel level, UUID bodyId) {
+        if (bodyId != null && level.getEntity(bodyId) instanceof Yuanying body) body.discard();
     }
 }
