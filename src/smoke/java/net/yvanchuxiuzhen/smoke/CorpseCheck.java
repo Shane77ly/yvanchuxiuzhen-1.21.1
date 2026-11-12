@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.smoke;
 import java.util.List;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.InteractionHand;
@@ -45,15 +46,17 @@ final class CorpseCheck extends ActionCheck {
     private static final double HUG_DISTANCE = 8.6;
 
     private IronGolem golem;
+    private Corpse dying;
+    private CompoundTag savedCorpse;
     private double startDistance;
 
     CorpseCheck(List<String> report, String levelId) {
         super("起尸诀", report, levelId);
         script(
                 new Action(12, player -> {
+                    player.connection.teleport(player.getX(), 180, player.getZ(), -90, 0);
                     clearArea(player);
                     Arena.level(player);
-                    player.connection.teleport(player.getX(), player.getY(), player.getZ(), -90, 0);
                     Cultivation.set(player, CultivationValue.POWER, 1000);
                     player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SWORD));
                     Skills.setSpell(player, 1, book(player, 4));
@@ -134,24 +137,47 @@ final class CorpseCheck extends ActionCheck {
                     clearArea(player);
                     Corpse corpse = spawnCorpse(player, 0);
                     corpse.getPersistentData().putDouble("cunxvtick", 599);
+                    corpse.getPersistentData().putDouble("qishijveweizhi", 1);
+                    savedCorpse = corpse.saveWithoutId(new CompoundTag());
+                    corpse.discard();
+                }),
+                new Action(2, player -> {
+                    Corpse restored = SkillSetup.<Corpse>entityType(Corpse.ID).get().create(player.serverLevel());
+                    restored.load(savedCorpse);
+                    player.serverLevel().addFreshEntity(restored);
+                    expectTrue("存档恢复：主人及友方关系", restored.isOwnedBy(player) && Relations.isFriendly(restored, player));
+                    expect("存档恢复：技能栏序号", 1.0, restored.getPersistentData().getDouble("qishijveweizhi"));
+                    expect("存档恢复：等级", RANK, restored.getPersistentData().getDouble("LEVELnumber"));
+                    expect("存档恢复：生命上限", 240.0, restored.getMaxHealth());
+                    expect("存档恢复：剩余寿命计时", 599.0, restored.getPersistentData().getDouble("cunxvtick"));
                 }),
                 new Action(46, player -> expect("存续到期：进入清除自身", "清除自身", corpses(player).get(0).getPersistentData().getString("jineng"))),
                 new Action(2, player -> expect("清除自身后消失", 0, corpses(player).size())),
-                new Action(2, player -> {
+                new Action(6, player -> {
                     clearArea(player);
-                    golem = placeGolem(player, 3);
-                    golem.getPersistentData().putDouble("LEVELnumber", 100);
-                    Corpse corpse = spawnCorpse(player, 0);
-                    corpse.getPersistentData().putDouble("qishijveweizhi", 1);
-                    corpse.awardKillScore(golem, 0, player.damageSources().generic());
+                    startGrowthKill(player);
+                }),
+                new Action(6, player -> {
+                    expectTrue("真实普攻击杀第一目标", !golem.isAlive());
                     SkillBook book = Skills.book(Skills.spell(player, 1)).orElseThrow();
                     expect("修为加被杀实体的 LEVELnumber", 100.0, book.number("jinengExp"));
-                    corpse.awardKillScore(golem, 0, player.damageSources().generic());
-                    book = Skills.book(Skills.spell(player, 1)).orElseThrow();
+                    clearArea(player);
+                    startGrowthKill(player);
+                }),
+                new Action(2, player -> {
+                    expectTrue("真实普攻击杀第二目标", !golem.isAlive());
+                    SkillBook book = Skills.book(Skills.spell(player, 1)).orElseThrow();
                     expect("达到 品阶 × 30 后扣除", 80.0, book.number("jinengExp"));
                     expect("等级加一", 1.0, book.number("LEVELnumber"));
                     expect("品阶文字按等级改写", "黄阶一级", book.text("belongTopinjietext"));
                 }),
+                new Action(44, player -> {
+                    clearArea(player);
+                    dying = spawnCorpse(player, 0);
+                    dying.hurt(player.damageSources().generic(), 10000);
+                    expectTrue("致命伤害进入死亡阶段", dying.isDeadOrDying() && !dying.isRemoved());
+                }),
+                new Action(2, player -> expectTrue("死亡阶段结束后清除", dying.isRemoved())),
                 new Action(2, player -> {
                     clearArea(player);
                     golem = placeGolem(player, 3);
@@ -178,6 +204,17 @@ final class CorpseCheck extends ActionCheck {
         ItemStack stack = Skills.createBook(SkillKind.SPELL, List.of(arguments.split(" ")));
         stack.set(SkillData.SKILL.get(), Skills.book(stack).orElseThrow().withOwner(player.getUUID(), player.getName().getString()));
         return stack;
+    }
+
+    /** 由实际普攻过程击杀低生命目标，让原生死亡链调用尸体的成长入口。 */
+    private void startGrowthKill(ServerPlayer player) {
+        golem = placeGolem(player, 1.2);
+        golem.setHealth(1);
+        golem.getPersistentData().putDouble("LEVELnumber", 100);
+        Corpse corpse = spawnCorpse(player, 0);
+        corpse.getPersistentData().putDouble("qishijveweizhi", 1);
+        stiffen(corpse);
+        start(corpse, "普攻");
     }
 
     /** 在玩家处放一只等级 {@link #RANK} 的尸体，以玩家为主人。 */
@@ -227,10 +264,7 @@ final class CorpseCheck extends ActionCheck {
     }
 
     private void clearArea(ServerPlayer player) {
-        corpses(player).forEach(Entity::discard);
-        for (Entity other : player.serverLevel().getEntitiesOfClass(Entity.class, area(player), entity -> entity instanceof IronGolem || entity instanceof ArmorStand)) {
-            other.discard();
-        }
+        player.serverLevel().getEntitiesOfClass(Entity.class, area(player), entity -> entity != player).forEach(Entity::discard);
         golem = null;
     }
 

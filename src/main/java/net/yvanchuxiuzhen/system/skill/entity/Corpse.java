@@ -2,12 +2,13 @@ package net.yvanchuxiuzhen.system.skill.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.world.level.Level;
@@ -102,12 +103,15 @@ public final class Corpse extends TamedSkillEntity {
         return super.hurt(source, amount);
     }
 
+    /**
+     * 来源把成长挂在 {@code awardKillScore}：1.18.2 只有 Wolf 把驯服生物的击杀归属转给主人，尸体杀死目标时回调落在尸体自身；
+     * 1.21.1 把所有 {@code TamableAnimal} 的击杀归属转给主人，尸体收不到该回调。改挂按致命伤害实体调用的
+     * {@code killedEntity}，保持“尸体杀死实体时成长”的来源语义。
+     */
     @Override
-    public void awardKillScore(Entity killed, int score, DamageSource source) {
-        super.awardKillScore(killed, score, source);
-        if (!level().isClientSide()) {
-            Corpses.grow(this, killed);
-        }
+    public boolean killedEntity(ServerLevel level, LivingEntity killed) {
+        Corpses.grow(this, killed);
+        return super.killedEntity(level, killed);
     }
 
     @Override
