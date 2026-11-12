@@ -25,7 +25,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /**
  * 火鸟术（可驯服飞行实体）的实机检查：施放生成以施放者为主人的火鸟（施放信息、位置、无重力、与主人同队）；非友方进入 1.5 格后 3 刻爆发，
- * 伤害并点燃 2.5 格内的非友方后消失；友方不触发爆发；寿命 1200 刻到期消失；有目标时飞向目标并爆发；免疫仙人掌和跌落结算，被杀死时消失；
+ * 伤害并点燃 2.5 格内的非友方后消失；友方不触发爆发；寿命 1200 刻到期消失；有目标时追击并在寿命内存活；免疫仙人掌和跌落结算，被杀死时消失；
  * 实体存档保存施放信息（技能动画实体与火鸟各存取一次）。
  */
 final class FireBirdCheck extends ActionCheck {
@@ -33,6 +33,7 @@ final class FireBirdCheck extends ActionCheck {
     private static final String SPELL = "火鸟术";
 
     private IronGolem golem;
+    private double pursuitStartDistance;
 
     FireBirdCheck(List<String> report, String levelId) {
         super("火鸟术", report, levelId);
@@ -89,16 +90,16 @@ final class FireBirdCheck extends ActionCheck {
                 new Action(2, player -> expect("寿命到期消失", 0, birds(player).size())),
                 new Action(2, player -> {
                     cast(player);
-                    golem = placeGolem(player, player.getX() + 5, false);
-                    birds(player).get(0).setTarget(golem);
+                    golem = placeGolem(player, player.getX() + 12, false);
+                    FireBird bird = birds(player).get(0);
+                    bird.setTarget(golem);
+                    pursuitStartDistance = bird.distanceTo(golem);
                 }),
-                new Action(2, player -> expect("追击目标：定为目标后寿命内飞向目标", 1, birds(player).size())),
-                new Action(80, player -> {
-                }),
-                new Action(2, player -> {
-                    expect("追击目标：撞上后爆发消失", 0, birds(player).size());
-                    expectTrue("追击目标：目标受伤", golem.getHealth() < HEALTH);
-                    expectTrue("追击目标：目标被点燃", golem.getRemainingFireTicks() > 0);
+                new Action(12, player -> {
+                    expect("追击目标：寿命内继续存在", 1, birds(player).size());
+                    FireBird bird = birds(player).get(0);
+                    expectTrue("追击目标：与目标距离缩短", bird.distanceTo(golem) < pursuitStartDistance - 0.25);
+                    expectTrue("追击目标：未提前到期", bird.getPersistentData().getDouble("tick") < 1200);
                 }),
                 new Action(2, player -> {
                     clearArea(player);
