@@ -32,7 +32,7 @@ neoForge {
         client {
             client()
         }
-        // 自动建世界、放置全部方块、打开创造栏并逐栏切换、核对模型与翻译后退出；报告写入 build/smoke。
+        // 按 smokeOnly 选择场景；完整资源与系统巡检须显式设置 smokeAll=true。
         smokeClient {
             client()
             systemProperty 'yvanchuxiuzhen.smoke', layout.buildDirectory.dir('smoke').get().asFile.absolutePath
@@ -96,6 +96,22 @@ dependencies {
 
 tasks.named('test', Test) {
     useJUnitPlatform()
+    maxParallelForks = 1
+    maxHeapSize = '512m'
+}
+
+// 未选择场景时阻止启动客户端，避免意外执行全部方块和系统巡检。
+tasks.named('runSmokeClient') {
+    def selectedChecks = providers.gradleProperty('smokeOnly').getOrElse('').trim()
+    def fullInspection = providers.gradleProperty('smokeAll').getOrElse('false').toBoolean()
+    doFirst {
+        if (selectedChecks.isEmpty() && !fullInspection) {
+            throw new GradleException('请选择 -PsmokeOnly=<场景>；完整巡检需显式设置 -PsmokeAll=true')
+        }
+        if (!selectedChecks.isEmpty() && fullInspection) {
+            throw new GradleException('smokeOnly 与 smokeAll=true 只能选择一项')
+        }
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {

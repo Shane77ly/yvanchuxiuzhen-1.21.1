@@ -26,6 +26,8 @@ updated: 2026-11-12
 
 ## 进行中
 
+**2026-11-12 内存约束续批**：负责人再次指出测试过大。当前工作树正在整合Boss01、Boss02及0201子实体、Boss04；子Agent仅做静态核对。本机Gradle默认堆768 MB、单worker、禁用并行与常驻daemon，JUnit为单进程512 MB堆，Smoke客户端默认768 MB堆；`runSmokeClient`需明确选择`smokeOnly`或`smokeAll=true`，单项Smoke跳过全量资源、结构与创造栏巡检。Boss资源/转换/台账静态核对完成，`check_docs.py`、`check_ledger.py`均通过。低堆`compileJava`通过；`compileSmokeJava`在Gradle JVM申请约1 MB本地内存时崩溃，按负责人内存约束不重试、不提高堆，Smoke源集与客户端行为仍未验。未运行test/ArchUnit/客户端/专服。下一步先复核工作树与日志，然后将Boss代码/资源和内存约束分别按独立提交收口；完整goal继续active，不推送、不合main。
+
 **当前执行 D/E 自然供给与妖兽整族大批次**（`port/d-world-supply`）：55个原版生成根静态核验全部闭合：38项可复用、14项来源自定义实现、3项洞穴配置，0项待核。41群系计划为2973条生成操作、483条出生记录，全部依赖清零；剩余16类实体均已接入。统一转换已写出41群系及人间道、妖魂道各自的dimension、dimension_type、noise_settings和密度函数。完整`build`（含test/check/ArchUnit）与`compileSmokeJava`通过。2026-11-12专服注册表导出为block 1155、item 2252、sound_event 150、mob_effect 75、particle_type 315、entity_type 216、menu 41、enchantment 85、biome 42；初次原生`halt(false)`保存六维度。后续1 GB堆、单worker复核中，Bee放置注册错误已消失，原生`save-all flush`、`stop`保存退出成功。低内存样点运行生成两道新区块，确认`biomeautumn_01`与`biomefeng_01`身份，人间道Y=16石层检查通过；人工configured feature调用单独记录高度图ERROR，不视作自然投放验收。类别审计确认32条/11种实体的来源类别差异影响刷怪额度，按来源保留；8种原版实体类别在两版本相同。台账4939行、0问题；文档109篇、0问题。客户端未重跑；自然地物、自然出生、其余39个群系实区块抽查、新树/晶洞自然投放、完整视觉、多人、1.18.2版本实机和两版本对照仍未验收。19个未实现材料方块继续显式可选，未补占位；滴水石历史受控检查的高度图ERROR与Redirect未独立观测边界仍保留。沿用完整active goal，不推送、不合main。
 
 下一操作：继续推进 skill damage/area 后续缺口；本轮已知实体行为经来源静态对照匹配。低内存条件下验证分层执行：静态来源审计与`compileJava`先行；只对本批新增且可由客户端观察的关键行为安排一个`smokeOnly`场景，单worker、Gradle堆768 MB并给客户端设置明确堆上限。当前smoke框架尚无Guiguai专属检查，不能用无关系统场景替代其验收。客户端场景不与构建/服务端并行；全量Smoke暂不运行。D/E两道样点群系身份与人间道石层已有证据，自然地物和自然出生仍待针对性验收。类别差异按来源保留，旧版原版实体类别跨版本比较已完成；不注册占位内容，来源缺号034/044不造占位。
