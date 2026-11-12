@@ -448,11 +448,17 @@ button0/1先把当前四技能保存到旧页，再通过 `Skills.turnPage` 减/
 
 本批复用 `SkillUiCheck`，保留原9项并扩展20项自然链：四类技能及功法经真实客户端 `useItem` 潜行研习，境界失败/本人重复保留答题计数，成功清零且叠2数量与组件双端一致；普通左右点击拆一本、Shift装入功法/三类槽、两页保存、Shift取出与余本合并，再装入和关闭重开均通过。01→04→03→04→01真实按钮和K记忆通过；开窗时发布实际 `CultivationExperienceEvent(1)` 后功法经验增加1.5，同一菜单栈/本人组件同步，关闭与重开没有回滚。随后G选择验证消费刚由本页保存的同一技能组件。该次仅覆盖前两页，完整四页循环、未研习插入及之后拒选、灵根失败、他人归属、副手同载体、头顶真实容器、延迟抢先关闭/重开、起尸诀开窗成长、04死亡/断线/重登存档与完整视觉未验收；1.18.2版本实机、两版本对照和多人均未执行。
 
+### 04装配页死亡与正常关闭后的重登（2026-11-12）
+
+在既有`SkillUiCheck`追加受控生命周期场景，不增加选择器：通过真实客户端Shift点击将标有各自实例数据的功法、身法、轻功、四技能及武器技共八本书放入04空槽；确认关闭前玩家存档字段仍空。菜单打开时杀死玩家，重生后服务端和客户端的八槽完整组件均保留，背包及死亡点16格内没有同标记的重复书，K键重开真实04可读回。另一组不同标记的八本书经同样入口装入、正常关闭菜单后退出世界，重新载入同一存档，八槽、组件和04页记忆在双端一致，K重开可再次读取。两组均为测试世界的受控场景，不涵盖打开时断线、多人或完整视觉。
+
+`compileSmokeJava`通过；`runSmokeClient -PsmokeOnly=skillui`在客户端堆上限768 MB、Gradle堆512 MB及单worker下报告46条INFO、0 FAIL、DONE，其中新增9条生命周期检查、1条重进实验世界提示、原有35条玩法与1条鼠标检查。客户端退出并重新打开同一存档，集成服务端两次正常保存六维度并退出；报告、Gradle输出与原生日志分别为`tmp/skillui-lifecycle-report.txt`、`tmp/skillui-lifecycle-client-gradle.log`、`tmp/skillui-lifecycle-client.log`。启动脚本将模拟距离设为不合法的4，客户端报1条Options ERROR并回退为12；该测试配置已更正为5且用户FML与options文件已按原字节恢复，恢复核验`tmp/skillui-lifecycle-restored.txt`。原自爆场景出现31条已移除实体附件同步WARN；其余包括已登记的来源群系类别与空纹理警告。未运行1.18.2版本实机、两版本对照、独立专服或多人。
+
 ### Q68 装配页断线保存时序
 
 来源 `PlayerGUI04Menu.removed` 先调用 `PlayerGUI04DangZheGeJieMianBeiGuanBiProcedure`，由该过程把八个槽写入玩家能力；该菜单关闭过程不在打开时持续保存。锁定来源 Forge40.1.0 的 `PlayerList.remove` 顺序为触发退出事件、保存玩家、移除玩家；断线关闭菜单发生在移除玩家时，因此在04打开期间改动的槽位可能晚于本次磁盘保存写入。来源的死亡路径不同：重生先移除旧玩家并关闭菜单，再复制其数据。
 
-目标 NeoForge21.1.265 的 `PlayerList.remove` 同样先发 `PlayerLoggedOutEvent`、调用玩家保存，再由 `ServerLevel.removePlayerImmediately` 移除玩家并触发 `Player.remove` 关闭菜单。`SkillLoadoutMenu.removed` 在关闭时才写回 `skill_state` 与 `technique_slot`；`SkillSetup` 当前没有退出事件写回。故断线前对八槽的改动可能未进入磁盘数据。普通关闭保存已由 `skillui` 场景验证；目标死亡、断线、重登路径尚未实机验证。
+目标 NeoForge21.1.265 的 `PlayerList.remove` 同样先发 `PlayerLoggedOutEvent`、调用玩家保存，再由 `ServerLevel.removePlayerImmediately` 移除玩家并触发 `Player.remove` 关闭菜单。`SkillLoadoutMenu.removed` 在关闭时才写回 `skill_state` 与 `technique_slot`；`SkillSetup` 当前没有退出事件写回。故断线前对八槽的改动可能未进入磁盘数据。普通关闭保存已由 `skillui` 场景验证；目标菜单打开时死亡与正常关闭后的退出重登已在下述专项客户端复核；打开时断线仍未实机验证。
 
 此行为与来源的菜单关闭写回结构一致，修复退出顺序会改变来源结果。待负责人裁定：A 保持来源，记录断线期间未关闭菜单的编辑可能丢失；B 在玩家数据保存前仅写回当前打开的 `SkillLoadoutMenu`。裁定前不更改此行为。
 

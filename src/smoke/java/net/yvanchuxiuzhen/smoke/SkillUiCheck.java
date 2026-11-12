@@ -20,6 +20,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,6 +29,7 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
@@ -34,6 +37,7 @@ import net.yvanchuxiuzhen.panel.PanelNavigation;
 import net.yvanchuxiuzhen.panel.PlayerPanelMenu;
 import net.yvanchuxiuzhen.panel.client.AttributeScreen;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.smoke.ActionCheck.Action;
 import net.yvanchuxiuzhen.system.attribute.api.Contribution;
 import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
@@ -67,8 +71,8 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.yihuo.FireBlockEntity;
 import net.yvanchuxiuzhen.system.yihuo.api.FireHeatEvent;
 
-/** 自然研习与藏宝、装配页与选择页、丹火使用与炙烤，以及格挡显示和自爆的死亡后延迟。 */
-final class SkillUiCheck extends ActionCheck {
+/** 自然研习与藏宝、装配与选择、丹火与格挡，以及装配页死亡和关闭后重登的真实客户端链。 */
+final class SkillUiCheck extends SystemCheck {
     private static final String CONTRIBUTION = "smoke:skill_ui";
     private static final String[] TIZHI = {"LevelNumberCorrect", "lagongtick", "zibaonumber", "zibaokouchu"};
     private static final CultivationValue[] VALUES = {CultivationValue.LEVEL_NUMBER, CultivationValue.POWER, CultivationValue.SOUL, CultivationValue.LIFETIME};
@@ -79,6 +83,9 @@ final class SkillUiCheck extends ActionCheck {
     private final List<ItemStack> fireHotbar = new ArrayList<>();
     private final List<Cow> fireTargets = new ArrayList<>();
     private final List<Long> heatTicks = new ArrayList<>();
+    private final List<ItemStack> lifecycleBooks = new ArrayList<>();
+    private ActionCheck actions;
+    private BlockPos loadoutDeathPos;
     private SkillState original;
     private SkillCooldowns cooldowns;
     private AccessoryInventory accessories;
@@ -121,7 +128,7 @@ final class SkillUiCheck extends ActionCheck {
 
     SkillUiCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("技能界面", report, levelId);
-        script(
+        script(report, levelId,
                 new Action(10, p -> {
                     original = Skills.state(p);
                     cooldowns = p.getData(SkillData.COOLDOWNS);
@@ -542,6 +549,170 @@ final class SkillUiCheck extends ActionCheck {
         );
     }
 
+    /** 原有动作序列结束后保留前置快照，由外层生命周期检查统一还原。 */
+    private void script(List<String> report, String levelId, Action... steps) {
+        actions = new ActionCheck("技能界面", report, levelId) {
+            {
+                script(steps);
+            }
+
+            @Override
+            protected void cleanup(ServerPlayer player) {
+            }
+        };
+    }
+
+    @Override
+    protected boolean step(int step, int local) {
+        return switch (step) {
+            case 0 -> actions.tick(local);
+            case 1 -> after(local, 20, p -> stageLoadoutLifecycle(p, "death"));
+            case 2 -> after(local, 10, p -> {
+                boolean opened = p.containerMenu instanceof SkillLoadoutMenu && minecraft.screen instanceof SkillLoadoutScreen;
+                expectTrue("死亡前打开真实04装配页，八槽初始为空", opened && lifecycleSlotsEmpty(p));
+                if (opened) minecraft.execute(this::fillLifecycleLoadout);
+            });
+            case 3 -> after(local, 10, p -> {
+                expectTrue("死亡前八本书经真实Shift点击进入菜单，尚未写回装配字段", lifecycleMenuMatches(p)
+                        && lifecycleStateEmpty(p) && lifecycleInventoryEmpty(p) && inventorySynced(p));
+                loadoutDeathPos = p.blockPosition();
+                p.kill();
+            });
+            case 4 -> respawned(local);
+            case 5 -> {
+                if (!inWorld(local)) yield false;
+                onServer(p -> {
+                    boolean dropped = !p.serverLevel().getEntitiesOfClass(ItemEntity.class, new AABB(loadoutDeathPos).inflate(16),
+                            entity -> lifecycleItem(entity.getItem())).isEmpty();
+                    expectTrue("04打开期间死亡后八槽写回并复制给重生玩家，双端一致且背包与地面无重复书", lifecycleStateMatches(p)
+                            && lifecycleInventoryEmpty(p) && inventorySynced(p) && !dropped);
+                    key("guicaidan", true);
+                    key("guicaidan", false);
+                });
+                yield true;
+            }
+            case 6 -> after(local, 10, p -> {
+                expectTrue("死亡后K重开04，八槽原书及完整组件在真实菜单恢复", lifecycleMenuMatches(p));
+                minecraft.execute(() -> minecraft.player.closeContainer());
+            });
+            case 7 -> after(local, 10, p -> stageLoadoutLifecycle(p, "closed"));
+            case 8 -> after(local, 10, p -> {
+                boolean opened = p.containerMenu instanceof SkillLoadoutMenu && minecraft.screen instanceof SkillLoadoutScreen;
+                expectTrue("重登前打开新的04编辑场景，八槽初始为空", opened && lifecycleSlotsEmpty(p));
+                if (opened) minecraft.execute(this::fillLifecycleLoadout);
+            });
+            case 9 -> after(local, 10, p -> {
+                expectTrue("重登前八槽真实装入新书，正常关闭前不提前写回", lifecycleMenuMatches(p)
+                        && lifecycleStateEmpty(p) && lifecycleInventoryEmpty(p) && inventorySynced(p));
+                minecraft.execute(() -> minecraft.player.closeContainer());
+            });
+            case 10 -> {
+                if (local < 10) yield false;
+                onServer(p -> expectTrue("正常关闭04先写回八槽并同步本人，再退出存档", p.containerMenu == p.inventoryMenu
+                        && lifecycleStateMatches(p) && lifecycleInventoryEmpty(p) && inventorySynced(p)));
+                leaveWorld();
+                yield true;
+            }
+            case 11 -> reopened(local);
+            case 12 -> inWorld(local);
+            case 13 -> after(local, 10, p -> {
+                expectTrue("正常关闭后退出重登，八槽完整组件和04分页从磁盘读回且双端一致", lifecycleStateMatches(p)
+                        && p.getData(PanelNavigation.PAGE) == 4 && lifecycleInventoryEmpty(p) && inventorySynced(p));
+                key("guicaidan", true);
+                key("guicaidan", false);
+            });
+            case 14 -> after(local, 10, p -> {
+                expectTrue("重登后K打开真实04，八槽保存的书可再次载入", lifecycleMenuMatches(p));
+                minecraft.execute(() -> minecraft.player.closeContainer());
+            });
+            default -> {
+                if (local < 10) yield false;
+                onServer(this::cleanup);
+                finish();
+                yield true;
+            }
+        };
+    }
+
+    private boolean after(int local, int ticks, Consumer<ServerPlayer> action) {
+        if (local < ticks) return false;
+        onServer(action);
+        return true;
+    }
+
+    /** 每槽使用独立标记的已研习书，使原有装配、背包和旧掉落不能满足本场景断言。 */
+    private void stageLoadoutLifecycle(ServerPlayer player, String stage) {
+        player.closeContainer();
+        player.setGameMode(GameType.SURVIVAL);
+        player.getInventory().clearContent();
+        player.setData(SkillData.STATE, SkillState.EMPTY);
+        Techniques.setSlot(player, ItemStack.EMPTY);
+        player.setData(PanelNavigation.PAGE, 4);
+        lifecycleBooks.clear();
+        List<ItemStack> sources = List.of(studiedTechnique, learned.get(1), learned.get(2), learned.get(0), learned.get(4), learned.get(0), learned.get(4), learned.get(3));
+        for (int slot = 0; slot < sources.size(); slot++) {
+            ItemStack stack = sources.get(slot).copyWithCount(1);
+            CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+            data.putString("smoke_loadout_lifecycle", stage + ":" + slot);
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+            lifecycleBooks.add(stack.copy());
+            player.getInventory().setItem(slot, stack);
+        }
+        player.getInventory().setChanged();
+        player.inventoryMenu.broadcastChanges();
+        Skills.openLoadout(player);
+    }
+
+    private void fillLifecycleLoadout() {
+        for (int slot = 35; slot < 43; slot++) {
+            minecraft.gameMode.handleInventoryMouseClick(minecraft.player.containerMenu.containerId, slot, 0, ClickType.QUICK_MOVE, minecraft.player);
+        }
+    }
+
+    private boolean lifecycleMenuMatches(ServerPlayer player) {
+        if (!(player.containerMenu instanceof SkillLoadoutMenu) || !(minecraft.screen instanceof SkillLoadoutScreen)) return false;
+        for (int slot = 0; slot < lifecycleBooks.size(); slot++) {
+            if (!syncedSlot(player, slot, lifecycleBooks.get(slot))) return false;
+        }
+        return true;
+    }
+
+    private boolean lifecycleSlotsEmpty(ServerPlayer player) {
+        for (int slot = 0; slot < 8; slot++) {
+            if (!syncedSlot(player, slot, ItemStack.EMPTY)) return false;
+        }
+        return true;
+    }
+
+    private boolean lifecycleStateEmpty(ServerPlayer player) {
+        return Techniques.slot(player).isEmpty() && Skills.movement(player).isEmpty() && Skills.flight(player).isEmpty()
+                && Skills.weaponArt(player).isEmpty() && Skills.state(player).spells().stream().allMatch(ItemStack::isEmpty);
+    }
+
+    private boolean lifecycleStateMatches(ServerPlayer player) {
+        for (Player holder : List.of(player, minecraft.player)) {
+            if (Skills.state(holder).page() != 1 || !ItemStack.matches(Techniques.slot(holder), lifecycleBooks.get(0))
+                    || !ItemStack.matches(Skills.movement(holder), lifecycleBooks.get(1)) || !ItemStack.matches(Skills.flight(holder), lifecycleBooks.get(2))
+                    || !ItemStack.matches(Skills.weaponArt(holder), lifecycleBooks.get(7))) return false;
+            for (int slot = 1; slot <= SkillState.SPELL_SLOTS; slot++) {
+                ItemStack expected = slot <= 4 ? lifecycleBooks.get(slot + 2) : ItemStack.EMPTY;
+                if (!ItemStack.matches(Skills.spell(holder, slot), expected)) return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean lifecycleInventoryEmpty(ServerPlayer player) {
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            if (lifecycleItem(player.getInventory().getItem(slot))) return false;
+        }
+        return true;
+    }
+
+    private static boolean lifecycleItem(ItemStack stack) {
+        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().contains("smoke_loadout_lifecycle");
+    }
+
     private static ItemStack item(String id) {
         return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, id)));
     }
@@ -672,8 +843,7 @@ final class SkillUiCheck extends ActionCheck {
                 .map(child -> (Button) child).findFirst().orElseThrow().onPress());
     }
 
-    @Override
-    protected void cleanup(ServerPlayer p) {
+    private void cleanup(ServerPlayer p) {
         clearFireScene(p);
         p.closeContainer();
         p.setGameMode(gameMode);
