@@ -2,7 +2,7 @@
 topic: skill
 role: architecture
 status: draft
-updated: 2026-11-08
+updated: 2026-11-12
 ---
 
 # 技能：架构调查与提案
@@ -447,6 +447,14 @@ button0/1先把当前四技能保存到旧页，再通过 `Skills.turnPage` 减/
 已查看 `build/smoke/screenshots/skill-loadout`（无扩展名PNG）的装配前真实04截图：原生槽位、页码、动态空名和导航可见；当前默认缩放使页面下方略超出屏幕，截图未展示装入后的书，也不代表完整视觉认可。
 
 本批复用 `SkillUiCheck`，保留原9项并扩展20项自然链：四类技能及功法经真实客户端 `useItem` 潜行研习，境界失败/本人重复保留答题计数，成功清零且叠2数量与组件双端一致；普通左右点击拆一本、Shift装入功法/三类槽、两页保存、Shift取出与余本合并，再装入和关闭重开均通过。01→04→03→04→01真实按钮和K记忆通过；开窗时发布实际 `CultivationExperienceEvent(1)` 后功法经验增加1.5，同一菜单栈/本人组件同步，关闭与重开没有回滚。随后G选择验证消费刚由本页保存的同一技能组件。该次仅覆盖前两页，完整四页循环、未研习插入及之后拒选、灵根失败、他人归属、副手同载体、头顶真实容器、延迟抢先关闭/重开、起尸诀开窗成长、04死亡/断线/重登存档与完整视觉未验收；1.18.2版本实机、两版本对照和多人均未执行。
+
+### Q68 装配页断线保存时序
+
+来源 `PlayerGUI04Menu.removed` 先调用 `PlayerGUI04DangZheGeJieMianBeiGuanBiProcedure`，由该过程把八个槽写入玩家能力；该菜单关闭过程不在打开时持续保存。锁定来源 Forge40.1.0 的 `PlayerList.remove` 顺序为触发退出事件、保存玩家、移除玩家；断线关闭菜单发生在移除玩家时，因此在04打开期间改动的槽位可能晚于本次磁盘保存写入。来源的死亡路径不同：重生先移除旧玩家并关闭菜单，再复制其数据。
+
+目标 NeoForge21.1.265 的 `PlayerList.remove` 同样先发 `PlayerLoggedOutEvent`、调用玩家保存，再由 `ServerLevel.removePlayerImmediately` 移除玩家并触发 `Player.remove` 关闭菜单。`SkillLoadoutMenu.removed` 在关闭时才写回 `skill_state` 与 `technique_slot`；`SkillSetup` 当前没有退出事件写回。故断线前对八槽的改动可能未进入磁盘数据。普通关闭保存已由 `skillui` 场景验证；目标死亡、断线、重登路径尚未实机验证。
+
+此行为与来源的菜单关闭写回结构一致，修复退出顺序会改变来源结果。待负责人裁定：A 保持来源，记录断线期间未关闭菜单的编辑可能丢失；B 在玩家数据保存前仅写回当前打开的 `SkillLoadoutMenu`。裁定前不更改此行为。
 
 ## 出口剩余范围（2026-11-08）
 

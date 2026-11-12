@@ -62,7 +62,7 @@ updated: 2026-11-12
 
 已批准（2026-11-02）：一个 Gradle 工程、一个发布 JAR、按系统组织；单一命名空间 `yvanchuxiuzhen`（2026-11-02 由“保留两个来源命名空间”改定）；功法成长随物品、银行与材料仓归玩家、现场拍卖归方块、学习小游戏独立会话；代码目录、ArchUnit 边界、内容表、资源转换、台账 CSV、依赖治理与分支协作；A～I 全量批次与系统完成条件。正文为 [架构](../../development/architecture.md)、[工程结构](../../development/engineering.md)、[路线](../../development/roadmap.md)。三份文档中标注“待验证”的做法由 B0 实测后写回。
 
-仍待负责人裁定：1.18.2 世界与玩家存档是否导入、界面复刻程度、发布 license，以及 [调查问题表](../../reference/legacy/source-survey.md)中的 Q01–Q14（实现所属系统前裁定）。批准范围之外的文档（各系统 `architecture.md`、[数据与运行时](../../development/data-and-runtime.md)等）仍是草案，不能从“已经写入文件”推定已批准；明确采用前不改变对应规则。
+仍待负责人裁定：1.18.2 世界与玩家存档是否导入、界面复刻程度、发布 license，以及 [调查问题表](../../reference/legacy/source-survey.md)中标明待裁定的问题（实现所属系统前裁定；当前 Skill Q68 涉及04装配页断线保存是否按来源保留）。批准范围之外的文档（各系统 `architecture.md`、[数据与运行时](../../development/data-and-runtime.md)等）仍是草案，不能从“已经写入文件”推定已批准；明确采用前不改变对应规则。
 
 ## 已完成与剩余
 
