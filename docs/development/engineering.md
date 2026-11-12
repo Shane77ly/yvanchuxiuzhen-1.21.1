@@ -204,6 +204,8 @@ B1 步骤 6 结果（2026-11-03）：方块与物品行对应的 2,211 个元素
 | 客户端冒烟 | `gradlew runSmokeClient`（源集 `src/smoke`，不进入发布 JAR）：自动建创造世界，放置本 Mod 全部方块状态，核对每个方块与物品有模型、名称与提示文本翻译，对花、双格植物与每套盔甲（穿戴后三人称正面视角）各拍一张近景，打开创造栏并逐栏切换后截图，最后依次做各系统的实机检查（`src/smoke/.../SystemCheck` 的子类：relation、attribute、xiulian，各含死亡重生与退出重进，可截图；退出前等集成服务端区块待办任务连续 40 tick 为 0；检查期间每 tick 把窗口记为非活动，不捕获鼠标、失去焦点不暂停，报告末尾核对鼠标未被捕获；冒烟世界创建时关闭出身规则 `jinruyouxichushenxvanze`，修炼检查中再开启），报告写入 `build/smoke/report.txt`，缺 `DONE` 行表示中途崩溃；`-PsmokeOnly=relation,attribute` 时进入世界后只做所列系统的检查 | 每次改动内容表、资源、语言或创造栏后由开发者自己运行，不交给负责人手工操作 |
 | 台账与文档 | `check_ledger.py`、`check_docs.py`、`inventory_legacy.py --check` | 每次提交前 |
 
+内存受限时不要并行启动构建和游戏。`-PsmokeOnly=<系统>` 只缩小进入世界后的检查范围，仍会启动完整客户端并创建集成世界；可用 `-PsmokeMaxHeap=768m` 为冒烟客户端 JVM 设置最大堆，例如 `gradlew --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx768m -PsmokeOnly=skillui -PsmokeMaxHeap=768m runSmokeClient`。堆上限过低可能导致客户端 OOM，需将该场景记为未通过并调高限制后重试；不可把启动至 `DONE` 与被选系统的行为验收混为一谈。
+
 远端已建立，CI 尚未配置；配置后在 CI 执行构建、`check` 与文档/台账检查。来源工作区不在仓库中，`inventory_legacy.py --check` 只能在有来源的机器上执行。
 
 ## Git 与会话协作

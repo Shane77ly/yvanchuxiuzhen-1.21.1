@@ -36,6 +36,13 @@ neoForge {
         smokeClient {
             client()
             systemProperty 'yvanchuxiuzhen.smoke', layout.buildDirectory.dir('smoke').get().asFile.absolutePath
+            def smokeMaxHeap = providers.gradleProperty('smokeMaxHeap').getOrElse('')
+            if (!smokeMaxHeap.isEmpty()) {
+                if (!(smokeMaxHeap ==~ /\d+[kKmMgG]/)) {
+                    throw new GradleException('smokeMaxHeap must be a heap size such as 768m or 1G')
+                }
+                jvmArgument "-Xmx${smokeMaxHeap}"
+            }
             // -PheavyStructures=true 时连 24 MB 的 difujiegou 一起加载，用于测量旧结构的升级耗时。
             systemProperty 'yvanchuxiuzhen.smoke.heavy', providers.gradleProperty('heavyStructures').getOrElse('false')
             // -PsmokeOnly=relation,attribute 时进入世界后只做所列系统的检查。
