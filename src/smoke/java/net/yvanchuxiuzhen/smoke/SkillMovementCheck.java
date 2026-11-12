@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.smoke;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -11,6 +12,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
+import net.yvanchuxiuzhen.system.attribute.api.Contribution;
+import net.yvanchuxiuzhen.system.attribute.api.Layer;
+import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.skill.SkillFlight;
@@ -24,7 +29,8 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /** 身法输入到服务端和本人位移的主路径，以及飞行扣费、严格资源门槛与禁空；不重复旧神通。 */
-final class SkillMovementCheck extends ActionCheck {
+final class SkillMovementCheck extends SystemCheck {
+    private static final String FLIGHT_DEATH_CONTRIBUTION = "smoke:skillmovement_flight_death";
     private static final String[] TIMERS = {"shenfaanjianW", "shenfaanjianS", "shenfaanjianA", "shenfaanjianD", "shenfatiaoyve", "shenfatick"};
     private static final String[] TIZHI = {"flyxiaohaotick", "lvekongspeed", "superjet", "LevelNumberCorrect"};
     private final double[] oldTizhi = new double[TIZHI.length];
@@ -39,10 +45,13 @@ final class SkillMovementCheck extends ActionCheck {
     private boolean gliding;
     private boolean mayFly;
     private boolean abilityFlying;
+    private ActionCheck actions;
 
     SkillMovementCheck(List<String> report, String levelId) {
         super("身法轻功", report, levelId);
-        script(
+        actions = new ActionCheck("身法轻功", report, levelId) {
+            {
+                script(
                 new Action(4, p -> {
                     original = Skills.state(p);
                     originalPersistent = p.getPersistentData().copy();
@@ -104,8 +113,50 @@ final class SkillMovementCheck extends ActionCheck {
                     StatusEffects.add(p, "effect_035", 40, 0);
                 }),
                 new Action(8, p -> expectTrue("禁空每刻关闭轻功并清空掠空速度且同步本人", !Skills.flying(p) && !Skills.flying(minecraft.player) && !p.getAbilities().mayfly
-                        && !Cultivation.tizhiBoolean(p, "lvekong") && Cultivation.tizhiDouble(p, "lvekongspeed") == 0))
-        );
+                        && !Cultivation.tizhiBoolean(p, "lvekong") && Cultivation.tizhiDouble(p, "lvekongspeed") == 0)),
+                new Action(1, p -> {
+                    StatusEffects.remove(p, "effect_035");
+                    Skills.setFlight(p, owned(p, SkillKind.FLIGHT, "yvanchuxiuzhen:book_012 御风 1 1 无 飞行。 4 1.5 云雾"));
+                    PlayerAttributes.setContribution(p, FLIGHT_DEATH_CONTRIBUTION,
+                            new Contribution(Layer.BASE, Map.of(Stat.POWER_MAX, 500.0)));
+                    Cultivation.set(p, CultivationValue.POWER, 200);
+                    Cultivation.set(p, CultivationValue.LEVEL_NUMBER, 31);
+                    p.setGameMode(GameType.SURVIVAL);
+                    Skills.toggleFlight(p);
+                    expectTrue("死亡前技能飞行附件和原生飞行能力均开启", Skills.flying(p) && p.getAbilities().mayfly && p.getAbilities().flying);
+                    p.kill();
+                })
+                );
+            }
+
+            @Override
+            protected void cleanup(ServerPlayer player) {
+            }
+        };
+    }
+
+    @Override
+    protected boolean step(int step, int local) {
+        return switch (step) {
+            case 0 -> actions.tick(local);
+            case 1 -> respawned(local);
+            case 2 -> {
+                if (!inWorld(local)) yield false;
+                onServer(p -> {
+                    expectTrue("死亡重生后服务端保留技能飞行附件", Skills.flying(p));
+                    expectTrue("死亡重生后客户端收到技能飞行附件", Skills.flying(minecraft.player));
+                    expectTrue("重生恢复灵力高于飞行耗费，未触发耗尽关闭", Cultivation.get(p, CultivationValue.POWER) > 4);
+                    expectTrue("死亡重生后原生飞行能力按来源保持关闭", !p.getAbilities().mayfly && !p.getAbilities().flying
+                            && !minecraft.player.getAbilities().mayfly && !minecraft.player.getAbilities().flying);
+                });
+                yield true;
+            }
+            default -> {
+                onServer(this::cleanup);
+                finish();
+                yield true;
+            }
+        };
     }
 
     private ItemStack owned(ServerPlayer player, SkillKind kind, String arguments) {
@@ -125,8 +176,8 @@ final class SkillMovementCheck extends ActionCheck {
         });
     }
 
-    @Override
     protected void cleanup(ServerPlayer player) {
+        PlayerAttributes.clearContribution(player, FLIGHT_DEATH_CONTRIBUTION);
         StatusEffects.remove(player, "effect_035");
         player.removeEffect(MobEffects.MOVEMENT_SPEED);
         player.setData(SkillData.STATE, original);

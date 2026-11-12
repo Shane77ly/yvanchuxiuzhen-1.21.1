@@ -84,6 +84,9 @@ final class SkillUiCheck extends SystemCheck {
     private final List<Cow> fireTargets = new ArrayList<>();
     private final List<Long> heatTicks = new ArrayList<>();
     private final List<ItemStack> lifecycleBooks = new ArrayList<>();
+    private ItemStack pageCycleRemainder;
+    private ItemStack pageThreeBook;
+    private ItemStack pageFourBook;
     private ActionCheck actions;
     private BlockPos loadoutDeathPos;
     private SkillState original;
@@ -248,13 +251,52 @@ final class SkillUiCheck extends SystemCheck {
                 new Action(8, p -> {
                     expectTrue("第二页Shift装入另一技能并从双端背包移除", syncedSlot(p, 3, learned.get(4))
                             && p.getInventory().getItem(4).isEmpty() && inventorySynced(p));
-                    click("上一页技能");
+                    pageCycleRemainder = p.getInventory().getItem(0).copy();
+                    pageThreeBook = markedPageBook(3);
+                    p.getInventory().setItem(0, pageThreeBook.copy());
+                    p.inventoryMenu.broadcastChanges();
+                    click("下一页技能");
                 }),
                 new Action(8, p -> {
-                    expectTrue("04翻回第一页恢复原书，第二页保存到第五技能槽", Skills.state(p).page() == 1 && Skills.state(minecraft.player).page() == 1
-                            && syncedSlot(p, 3, learned.get(0).copyWithCount(1)) && ItemStack.matches(Skills.spell(p, 5), learned.get(4))
-                            && ItemStack.matches(Skills.spell(p, 5), Skills.spell(minecraft.player, 5)));
-                    minecraft.execute(() -> minecraft.gameMode.handleInventoryMouseClick(minecraft.player.containerMenu.containerId, 3, 0, ClickType.QUICK_MOVE, minecraft.player));
+                    expectTrue("真实按钮进入第三技能页并载入空槽", Skills.state(p).page() == 3 && Skills.state(minecraft.player).page() == 3
+                            && syncedSlot(p, 3, ItemStack.EMPTY) && inventorySynced(p));
+                    minecraft.execute(this::equipOneSpell);
+                }),
+                new Action(8, p -> {
+                    expectTrue("第三页经真实普通点击装入独立标记书", syncedSlot(p, 3, pageThreeBook.copyWithCount(1))
+                            && ItemStack.matches(p.getInventory().getItem(0), pageThreeBook.copyWithCount(1)) && inventorySynced(p));
+                    pageFourBook = markedPageBook(4);
+                    p.getInventory().setItem(0, pageFourBook.copy());
+                    p.inventoryMenu.broadcastChanges();
+                    click("下一页技能");
+                }),
+                new Action(8, p -> {
+                    expectTrue("真实按钮进入第四技能页并载入空槽", Skills.state(p).page() == 4 && Skills.state(minecraft.player).page() == 4
+                            && syncedSlot(p, 3, ItemStack.EMPTY) && inventorySynced(p));
+                    minecraft.execute(this::equipOneSpell);
+                }),
+                new Action(8, p -> {
+                    expectTrue("第四页经真实普通点击装入独立标记书", syncedSlot(p, 3, pageFourBook.copyWithCount(1))
+                            && ItemStack.matches(p.getInventory().getItem(0), pageFourBook.copyWithCount(1)) && inventorySynced(p));
+                    click("下一页技能");
+                }),
+                new Action(8, p -> {
+                    boolean allPagesSaved = Skills.state(p).page() == 1 && Skills.state(minecraft.player).page() == 1
+                            && ItemStack.matches(Skills.spell(p, 1), learned.get(0).copyWithCount(1))
+                            && ItemStack.matches(Skills.spell(minecraft.player, 1), Skills.spell(p, 1))
+                            && ItemStack.matches(Skills.spell(p, 5), learned.get(4))
+                            && ItemStack.matches(Skills.spell(minecraft.player, 5), Skills.spell(p, 5))
+                            && ItemStack.matches(Skills.spell(p, 9), pageThreeBook.copyWithCount(1))
+                            && ItemStack.matches(Skills.spell(minecraft.player, 9), Skills.spell(p, 9))
+                            && ItemStack.matches(Skills.spell(p, 13), pageFourBook.copyWithCount(1))
+                            && ItemStack.matches(Skills.spell(minecraft.player, 13), Skills.spell(p, 13))
+                            && syncedSlot(p, 3, learned.get(0).copyWithCount(1));
+                    expectTrue("真实按钮完成1到2到3到4到1循环，四页技能分别保存至01/05/09/13并双端一致", allPagesSaved);
+                    p.getInventory().setItem(0, pageCycleRemainder.copy());
+                    p.inventoryMenu.broadcastChanges();
+                    minecraft.execute(() -> {
+                        minecraft.gameMode.handleInventoryMouseClick(minecraft.player.containerMenu.containerId, 3, 0, ClickType.QUICK_MOVE, minecraft.player);
+                    });
                 }),
                 new Action(8, p -> {
                     expectTrue("04技能Shift取出与背包余本合并，双端不复制物品", syncedSlot(p, 3, ItemStack.EMPTY)
@@ -268,9 +310,10 @@ final class SkillUiCheck extends SystemCheck {
                     minecraft.execute(() -> minecraft.player.closeContainer());
                 }),
                 new Action(8, p -> {
-                    expectTrue("关闭04把功法与四类装配交回所有者并同步，跨页技能与背包余本均保留", ItemStack.matches(Skills.spell(p, 1), learned.get(0).copyWithCount(1))
+                    expectTrue("关闭04把功法与四类装配交回所有者并同步，四页技能及背包余本均保留", ItemStack.matches(Skills.spell(p, 1), learned.get(0).copyWithCount(1))
                             && ItemStack.matches(Techniques.slot(p), studiedTechnique) && ItemStack.matches(Techniques.slot(p), Techniques.slot(minecraft.player))
                             && ItemStack.matches(Skills.spell(p, 5), learned.get(4)) && ItemStack.matches(Skills.movement(p), learned.get(1))
+                            && ItemStack.matches(Skills.spell(p, 9), pageThreeBook.copyWithCount(1)) && ItemStack.matches(Skills.spell(p, 13), pageFourBook.copyWithCount(1))
                             && ItemStack.matches(Skills.flight(p), learned.get(2)) && ItemStack.matches(Skills.weaponArt(p), learned.get(3))
                             && ItemStack.matches(Skills.movement(p), Skills.movement(minecraft.player)) && ItemStack.matches(Skills.flight(p), Skills.flight(minecraft.player))
                             && ItemStack.matches(Skills.weaponArt(p), Skills.weaponArt(minecraft.player)) && p.getInventory().getItem(0).getCount() == 1 && inventorySynced(p));
@@ -819,6 +862,14 @@ final class SkillUiCheck extends SystemCheck {
         minecraft.gameMode.handleInventoryMouseClick(id, 35, 0, ClickType.PICKUP, minecraft.player);
         minecraft.gameMode.handleInventoryMouseClick(id, 3, 1, ClickType.PICKUP, minecraft.player);
         minecraft.gameMode.handleInventoryMouseClick(id, 35, 0, ClickType.PICKUP, minecraft.player);
+    }
+
+    private ItemStack markedPageBook(int page) {
+        ItemStack stack = learned.get(4).copyWithCount(2);
+        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        data.putString("smoke_skill_page", Integer.toString(page));
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        return stack;
     }
 
     private boolean syncedSlot(ServerPlayer player, int slot, ItemStack expected) {
