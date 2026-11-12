@@ -182,6 +182,7 @@ final class SmokeRun {
                     case "skillarrow" -> List.of(new SkillArrowCheck(report, levelId));
                     case "skillmovement" -> List.of(new SkillMovementCheck(report, levelId));
                     case "skillui" -> List.of(new SkillUiCheck(report, levelId, this::shot));
+                    case "skillloadoutcontainer" -> List.of(new SkillLoadoutContainerCheck(report, levelId));
                     case "skillremainder" -> List.of(new SkillRemainderCheck(report, levelId));
                     case "particle" -> List.of(new ParticleLibraryCheck(report, levelId, this::shot));
                     case "skillparticle" -> List.of(new SkillParticleCheck(report, levelId, this::shot));

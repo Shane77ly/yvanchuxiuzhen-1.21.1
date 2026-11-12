@@ -462,11 +462,17 @@ button0/1先把当前四技能保存到旧页，再通过 `Skills.turnPage` 减/
 
 随后在同一`SkillUiCheck`以单项客户端场景检查04菜单同刻快速关闭、重开两次：第二次菜单在两刻延迟初始化前关闭，未初始化的空槽由来源关闭过程写回并清空当前页与单件装配；两个延迟回调均作用于最终打开的04菜单，符合来源“回调检查当时菜单”的规则。检查仅在测试夹具中恢复数据以继续后续既有流程，未改变生产行为。最终报告50项玩法检查、1项鼠标检查全部INFO、0 FAIL、DONE，客户端与集成服务端保存六维度退出；已登记的`unknown entity`附件同步警告仍存在。证据：`tmp/skillui-delay-race-final-report.txt`、`tmp/skillui-delay-race-final-client.log`。这只核验该快速关闭序列；其他两刻内换页、断线保存、头顶容器、完整视觉、多人和1.18.2版本实机仍未验收。
 
+### 04头顶容器绑定（2026-11-12）
+
+沿用项目内置`runSmokeClient -PsmokeOnly=skillloadoutcontainer`，在玩家头顶位置临时放置普通箱子，通过`Skills.openLoadout(player)`默认入口打开04。预置在技能槽01的书同时出现在客户端04菜单槽04与箱子处理器槽04；菜单关闭后，书仍留在箱子槽04。检查结束恢复原技能附件、方块状态及原方块实体数据。场景只验证普通箱子与第一个技能槽这一条映射，不覆盖其余七槽、其他容器类型、完整界面视觉、多人或1.18.2版本实机。
+
+`runSmokeClient`报告两项玩法检查和一项鼠标检查全部INFO、0 FAIL、DONE；客户端正常保存六维度退出，日志无ERROR/FATAL。证据保留于`build/smoke/report.txt`与`run/logs/latest.log`。首次用错选择器`skillcontainer`的结果为`FAIL harness`且不计通过；修正选择器及头顶默认入口后，本次结果有效。
+
 ### Q68 装配页断线保存时序
 
 来源 `PlayerGUI04Menu.removed` 先调用 `PlayerGUI04DangZheGeJieMianBeiGuanBiProcedure`，由该过程把八个槽写入玩家能力；该菜单关闭过程不在打开时持续保存。锁定来源 Forge40.1.0 的 `PlayerList.remove` 顺序为触发退出事件、保存玩家、移除玩家；断线关闭菜单发生在移除玩家时，因此在04打开期间改动的槽位可能晚于本次磁盘保存写入。来源的死亡路径不同：重生先移除旧玩家并关闭菜单，再复制其数据。
 
-目标 NeoForge21.1.265 的 `PlayerList.remove` 同样先发 `PlayerLoggedOutEvent`、调用玩家保存，再由 `ServerLevel.removePlayerImmediately` 移除玩家并触发 `Player.remove` 关闭菜单。`SkillLoadoutMenu.removed` 在关闭时才写回 `skill_state` 与 `technique_slot`；`SkillSetup` 当前没有退出事件写回。故断线前对八槽的改动可能未进入磁盘数据。普通关闭保存已由 `skillui` 场景验证；目标菜单打开时死亡与正常关闭后的退出重登已在下述专项客户端复核；打开时断线仍未实机验证。
+目标 NeoForge21.1.265 的 `PlayerList.remove` 同样先发 `PlayerLoggedOutEvent`、调用玩家保存，再由 `ServerLevel.removePlayerImmediately` 移除玩家并触发 `Player.remove` 关闭菜单。`SkillLoadoutMenu.removed` 在关闭时才写回 `skill_state` 与 `technique_slot`；`SkillSetup` 当前没有退出事件写回。故断线前对八槽的改动可能未进入磁盘数据。普通关闭保存已由`skillui`场景验证；目标菜单打开时死亡与正常关闭后的退出重登、头顶默认入口中菜单槽04与普通箱子槽04绑定及关闭留存，已由客户端专项复核；打开时断线仍未实机验证。
 
 此行为与来源的菜单关闭写回结构一致，修复退出顺序会改变来源结果。待负责人裁定：A 保持来源，记录断线期间未关闭菜单的编辑可能丢失；B 在玩家数据保存前仅写回当前打开的 `SkillLoadoutMenu`。裁定前不更改此行为。
 
