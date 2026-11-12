@@ -1,0 +1,155 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.5,
+  "downfall": 0.8,
+  "effects": {
+    "fog_color": 12638463,
+    "water_color": -13608030,
+    "water_fog_color": -13608030,
+    "sky_color": 7972607,
+    "foliage_color": -12489858,
+    "grass_color": -14665108
+  },
+  "carvers": {},
+  "features": [
+    [],
+    [],
+    [],
+    [
+      "yvanchuxiuzhen:suijijiegou_05",
+      "yvanchuxiuzhen:suijijiegou_06"
+    ],
+    [
+      "yvanchuxiuzhen:lanhuashengcheng",
+      "yvanchuxiuzhen:suijijiegou_01",
+      "yvanchuxiuzhen:suijijiegou_02",
+      "yvanchuxiuzhen:suijijiegou_03",
+      "yvanchuxiuzhen:suijijiegou_04"
+    ],
+    [],
+    [
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_coal_lower",
+      "minecraft:ore_iron_upper",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_iron_small",
+      "minecraft:ore_gold",
+      "minecraft:ore_gold_lower",
+      "minecraft:ore_redstone",
+      "minecraft:ore_redstone_lower",
+      "minecraft:ore_diamond",
+      "minecraft:ore_diamond_large",
+      "minecraft:ore_diamond_buried",
+      "minecraft:ore_lapis",
+      "minecraft:ore_lapis_buried",
+      "minecraft:ore_copper",
+      "minecraft:underwater_magma",
+      "yvanchuxiuzhen:cailiao_191ore",
+      "yvanchuxiuzhen:cailiao_192ore",
+      "yvanchuxiuzhen:cailiao_193ore",
+      "yvanchuxiuzhen:cailiao_194ore",
+      "yvanchuxiuzhen:cailiao_195ore",
+      "yvanchuxiuzhen:cailiao_196ore",
+      "yvanchuxiuzhen:cailiao_197ore",
+      "yvanchuxiuzhen:cailiao_198ore",
+      "yvanchuxiuzhen:cailiao_199ore",
+      "yvanchuxiuzhen:cailiao_20101",
+      "yvanchuxiuzhen:cailiao_20301",
+      "yvanchuxiuzhen:cailiao_20501",
+      "yvanchuxiuzhen:cailiao_20701",
+      "yvanchuxiuzhen:cailiao_20801",
+      "yvanchuxiuzhen:cailiao_20901",
+      "yvanchuxiuzhen:cailiao_21101",
+      "yvanchuxiuzhen:cailiao_21301",
+      "yvanchuxiuzhen:cailiao_21501",
+      "yvanchuxiuzhen:cailiao_21601",
+      "yvanchuxiuzhen:cailiao_21701",
+      "yvanchuxiuzhen:cailiao_21901",
+      "yvanchuxiuzhen:cailiao_16101",
+      "yvanchuxiuzhen:fuluzhushablock",
+      "yvanchuxiuzhen:cailiao_16201",
+      "yvanchuxiuzhen:cailiao_16301",
+      "yvanchuxiuzhen:cailiao_16401",
+      "yvanchuxiuzhen:cailiao_16501",
+      "yvanchuxiuzhen:cailiao_16601",
+      "yvanchuxiuzhen:cailiao_16701",
+      "yvanchuxiuzhen:cailiao_16801",
+      "yvanchuxiuzhen:cailiao_16901"
+    ],
+    [],
+    [],
+    [
+      "yvanchuxiuzhen:grass_biometurtle_01",
+      "yvanchuxiuzhen:seagrass_biometurtle_01",
+      "yvanchuxiuzhen:brown_mushroom_biometurtle_01",
+      "yvanchuxiuzhen:red_mushroom_biometurtle_01",
+      "yvanchuxiuzhen:mushrooms_huge_biometurtle_01",
+      "yvanchuxiuzhen:patch_sugar_cane_biometurtle_01",
+      "yvanchuxiuzhen:disk_sand_biometurtle_01",
+      "minecraft:patch_grass_plain",
+      "minecraft:flower_meadow",
+      "yvanchuxiuzhen:legacy_vanilla/trees_meadow",
+      "yvanchuxiuzhen:mushroomblue_01shengcheng",
+      "yvanchuxiuzhen:mushroomblue_02fangzhi",
+      "yvanchuxiuzhen:mushroomblue_03fangzhi",
+      "yvanchuxiuzhen:mushroompinkwhite_01fangzhi",
+      "yvanchuxiuzhen:mushroompinkwhite_02fangzhi",
+      "yvanchuxiuzhen:mushroompinkwhite_03fangzhi",
+      "yvanchuxiuzhen:shanhushengcheng",
+      "yvanchuxiuzhen:shanhu_2shengcheng",
+      "yvanchuxiuzhen:shanhu_3shengcheng",
+      "yvanchuxiuzhen:nichanggrass_06"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "spawners": {
+    "monster": [],
+    "creature": [
+      {
+        "type": "minecraft:cod",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 6
+      },
+      {
+        "type": "minecraft:salmon",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 6
+      },
+      {
+        "type": "minecraft:pufferfish",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "minecraft:turtle",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 4
+      },
+      {
+        "type": "yvanchuxiuzhen:caishenye",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "yvanchuxiuzhen:xiuzhe_0101",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "ambient": [],
+    "axolotls": [],
+    "underground_water_creature": [],
+    "water_creature": [],
+    "water_ambient": [],
+    "misc": []
+  },
+  "spawn_costs": {}
+}

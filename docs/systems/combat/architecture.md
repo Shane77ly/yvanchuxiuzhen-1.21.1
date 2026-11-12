@@ -2,7 +2,7 @@
 topic: combat
 role: architecture
 status: current
-updated: 2026-11-04
+updated: 2026-11-09
 ---
 
 # 战斗：架构调查与提案
@@ -13,6 +13,8 @@ updated: 2026-11-04
 `A:EntityHurtProcedure:49–100` 监听 `LivingAttackEvent`，处理状态、战斗记分板及后续附魔入口；`EntityBeforeHurtProcedure:45–170` 监听 `LivingHurtEvent`，判断 NPC 免伤、玩家/生物队伍、闪避和物理结算。两者是不同阶段。`EntityBeforeHurt2Procedure` 只有局部声明，不承担有效伤害计算。
 
 战斗状态还使用记分板 `zdztbegin/zdzttick`（`EntityHurtProcedure:79–98`）。这些状态不能因未列入 Variables 而丢失。
+
+元婴出窍调用链复核（2026-11-07）：`FightingState`新增已有状态的清除操作，两个分数同时写0；skill每二十刻耗神前调用mark，耗神不足自动归窍前调用clear，手动归窍不清除，依据为 `YvanyingchuqiaotickProcedure`。最终build/ArchUnit通过；沿用现有出窍5项及技能界面9项全部通过，战斗分数清除本身仅有静态核对证据，详见[元婴正文](../skill/architecture.md#元婴出窍2026-11-07)。
 
 77 个状态效果、85 个附魔注册及伤害命令均在范围。402 处命令执行调用另有索引，包含效果、粒子及自定义命令路径，不能只沿 `.execute` 静态调用追伤害。
 
@@ -32,6 +34,16 @@ updated: 2026-11-04
 以上来自全量键接收者索引和实际源码复核，仍不排除运行时脚本的动态键操作。`/shanghai` 直接以命令参数输入，不能自动视为所有实体伤害键的统一消费者。保真验收需要分别覆盖命令路径、原生攻击和这些未闭合路径。
 
 ## 目标所有权与接口提案
+
+### 共享落雷（2026-11-07）
+
+`B:LightningLandingCommand` 无权限限制、允许无参数并返回 0；`LightningLandingGo` 先生成彩色闪电，再以命令原坐标为中心、范围直径除二扩展 AABB，按距离排序，对 Mob/Player 执行 `shanghai 雷`。颜色支持灰、黄、金、红、血、绿、天蓝、海蓝、紫、黑，其余为白，均为不透明 ARGB。独立伤害只在第七个参数为“独立”时开启。队伍词只占位，空词前移结果见 Q55；不改写来源参数语义。
+
+`ColoredLightningBolt`、`LightningLanding` 与 `Lightning.command` 承担共享落雷，命令与彩色闪电归 combat。实体坐标取原坐标向下取整后的底部中心，设置 `visualOnly=true` 与原生 damage=0.1；雷伤另经 `/shanghai`。保留原生闪电生命周期、声音及避雷针/铜交互，注册为不保存、零尺寸、追踪范围 16、最大更新间隔。客户端复用精确目标 NeoForge 21.1.265 的 `LightningBoltRenderer` 几何，通过 `VertexConsumerWrapper` 替换同步颜色与 alpha；未另写客户端玩法。技能只提供落点与次数；xiulian 雷劫完整流程已在后续批次接回，规则与验证范围见[修炼架构](../xiulian/architecture.md)“完整雷劫”。
+
+来源实体在自身 `Register` 嵌套类注册，`B:YvanchuxitongMod.java:61` 实际挂接事件总线；此前提取器仅扫 init 而漏记。已补齐注册、人工归属与类覆盖表，来源注册总数为 4939，来源文件指纹未变。`convert_content.py` 对该 ID 明确保留独立注册路径，不再套用 init 中的普通实体构建器，也不重复生成内容表条目。
+
+完整雷劫由 xiulian 保存与推进状态，combat 在 `CombatSetup` 监听其 `TribulationLightningEvent` 和 `TribulationDamageEvent`，分别调用共享落雷与伤害命令。这样保持 combat → xiulian，避免修炼反向依赖战斗。五项雷劫主路径专项均通过；这不覆盖先前落雷检查未通过的两个技能入口。
 
 敌友判定调用 relation 的查询。伤害入口明确攻击者、受击者、来源、类别、基础量及来源效果。把免伤/目标过滤、伤害变换、实际承伤后的效果分到目标事件对应阶段；禁止同时在入口和事件中重复计算同一份伤害。
 
@@ -152,7 +164,7 @@ updated: 2026-11-04
 ### 目标方案
 
 - 登记走内容表 `content/<单位>/effects.json`（`id`、`category`、`color`），行为由所属系统用 `ContentTables.effectBehavior(id, 行为)` 登记，没有登记的效果只是标记，供其他过程读取等级。名称与说明语言键由 `convert_content.py` 按台账所属单位写入（`effect.<命名空间>.<名称>[.description]`）。
-- 行为接口 `EffectBehavior`：`started`（效果加上，以及已有效果被刷新且数值有变化而重新应用时，判断与 `MobEffectInstance.update` 一致，在 `MobEffectEvent.Added` 中分发，只在服务端）、`tick`（服务端每刻）、`clientTick`（客户端实体每刻，仅用于转动视角这类来源在两端都执行的表现）。结束钩子在第一个需要它的效果（`skilleffect_08`、`skilleffect_09`）迁移时加入。
+- 行为接口 `EffectBehavior`：`started` 与 `ended` 由 `ContentEffect` 的原生属性添加/移除钩子执行，普通施加、刷新、强制施加和隐藏弱效果恢复均遵循原生顺序；`ContentEffects` 的事件及服务端效果刻只绑定实体上下文。`tick` 为服务端每刻，`clientTick` 为客户端每刻。2026-11-07 修正此前在写入前事件中执行开始/结束的时序错误；共享机制和本轮回归证据见[技能状态效果正文](../skill/architecture.md#状态效果身份与原生生命周期复核2026-11-07)。
 - 来源对实体持久化数据写的计数（`effect003tick`、`effect010`、`duyao01tick` 等）保持原键存在实体的持久化数据中；玩家数据的读写走 xiulian 的公开操作与 attribute 的最终值。
 
 ### 已迁移（第 1 批，22 个）
@@ -175,7 +187,7 @@ updated: 2026-11-04
 
 ### 已迁移（第 2 批，毒药 20 个）
 
-共同结构（`PoisonEffects`）：只作用于存活的生物和不在创造、旁观模式的玩家；周期型到期后玩家按体质 `PoisonLoseEfficacyPercentage` 的概率免疫本周期（计数照常清零），伤害按体质 `PoisonEffectPercentage` 放大后直接扣减当前生命（`setHealth`，不经伤害结算）。累积层数玩家存在 xiulian 的体质键、其他实体存在持久化数据。
+每刻行为的共同结构（`PoisonEffects`）：只作用于存活的生物和不在创造、旁观模式的玩家；周期型到期后玩家按体质 `PoisonLoseEfficacyPercentage` 的概率免疫本周期（计数照常清零），伤害按体质 `PoisonEffectPercentage` 放大后直接扣减当前生命（`setHealth`，不经伤害结算）。累积层数玩家存在 xiulian 的体质键、其他实体存在持久化数据。结束回调按下文各自条件执行，不继承每刻行为的存活、模式或免疫检查。
 
 | 效果 | 周期与行为 |
 | --- | --- |
@@ -183,9 +195,9 @@ updated: 2026-11-04
 | `duyao_02` 罗刹 | 每 200 刻精力减 100 × (等级 + 1)（放大后），不低于 0（玩家） |
 | `duyao_03` 雷公藤 | 瞬时，3 × (1 + 等级)²，伤害不为 0 时结算并移除；被体质免疫时保留效果，下一刻重判 |
 | `duyao_04` 鹤顶红 | 每 200 − 20 × (1 + 等级) 刻 4 点 |
-| `duyao_05` 瘴气 | 每 40 刻累积层数（玩家首次 1、此后 +0.1），伤害 层数 × (1 + 等级)，并清除速度、力量、治疗、跳跃、生命恢复、抗火、水下呼吸、生命提升、伤害吸收、幸运 |
+| `duyao_05` 瘴气 | 每 40 刻累积层数（玩家首次 1、此后 +0.1），伤害 层数 × (1 + 等级)，并清除速度、力量、治疗、跳跃、生命恢复、抗火、水下呼吸、生命提升、伤害吸收、幸运；结束时仅清非玩家 `Duyao05level` |
 | `duyao_06` 含笑半步颠 | 每 5 刻检查取整坐标：站定记录，下次坐标变化即受 100 点凋零伤害并爆炸（音效 `entity.generic.explode`、爆炸粒子）；游泳、跳跃、骑乘、岩浆中清除记录 |
-| `duyao_07` 一日丧命散 | 每 20 刻累积 1 层，满 1200 层毙命；玩家灵力压到 1，其他生物每次被沉默 40 刻 |
+| `duyao_07` 一日丧命散 | 每 20 刻累积 1 层，满 1200 层毙命；玩家灵力压到 1，其他生物每次被沉默 40 刻；结束时玩家体质或非玩家持久化数据的 `duyao07level` 清零 |
 | `duyao_08` 砒霜 | 每 20 刻 2 × (等级 + 1) |
 | `duyao_09` 番木鳖 | 每刻把当前生命压到 最大生命 − 10 × (1 + 等级)（体质放大目标值，至少 1） |
 | `duyao_10` 蜂毒 | 瞬时，4 × (1 + 等级) 并附加缓慢（60 刻，20 级）与发抖（20 刻，1 级），移除 |
@@ -195,11 +207,21 @@ updated: 2026-11-04
 | `duyao_14` 烙毒 | 每 1200 刻 20 × (等级 + 1) |
 | `duyao_15` 蛇纹毒 | 每 100 刻 最大生命 × 1% × (1 + 等级) |
 | `duyao_17` 孢子 | 每 100 刻随机获得缓慢、中毒、霉运、发光、虚弱、失明、隐身之一，100 刻，等级同孢子 |
-| `duyao_19` 毒厄丹 | 开始时附加眩晕、剧痛、无力、发抖各 1200 刻 3 级；动物变僵尸的部分在 flow 的过程中，随 flow 迁移 |
+| `duyao_19` 毒厄丹 | 开始时附加眩晕、剧痛、无力、发抖各 1200 刻 3 级；结束时由 combat 将来源指定七类生物原地转换为僵尸，详见下文 |
 | `duyao_20` 尸毒 | 每次感染累积 1 层；每 80 刻受 (等级 + 1 + 层数) 点，身上有瞬间治疗或生命恢复时层数清零；体质放大被覆盖不生效（Q33） |
 | `duyao_16`、`duyao_18` | 标记，等级由伤害结算读取 |
 
 `duyao_21`（曼陀罗）经 `/shanghai` 结算，随伤害结算迁移。
+
+### 毒药结束回调补齐（2026-11-09）
+
+已逐份读取 A 来源三项结束过程及当前 `PoisonEffects`，在 `Miasma.ended`、`DayDeath.ended` 和 `duyao_19` 的 `ended` 接回来源行为。`ContentEffect.removeAttributeModifiers` 调用这些回调，因此自然到期、主动移除以及效果刷新重应用中的属性移除均可触发；不能把过程名中的“结束”理解为仅剩余时间归零。
+
+`A:Duyao05DangXiaoGuoJieShuShiProcedure:10–12` 只把非玩家持久化数据 `Duyao05level` 设为 0，玩家体质中的同名层数保留。`A:Duyao07DangXiaoGuoJieShuShiProcedure:12–16` 则把玩家体质或非玩家持久化数据中的 `duyao07level` 设为 0；目标玩家写入经 xiulian 的 `Cultivation.setTizhiDouble`，保留准确键名。两个过程都不清周期计数。
+
+`A:Duyao19DangXiaoGuoJieShuShiProcedure:27–92` 仅匹配 `Animal`、`Villager`、`Witch`、`Pillager`、`Vindicator`、`Evoker`、`Illusioner`。服务端在原坐标直接 `new Zombie(EntityType.ZOMBIE, level)`，随机水平朝向、俯仰 0；依次转交原实体主手、副手、头、胸、腿、脚六个 `ItemStack` 引用。随后将基础 `MAX_HEALTH` 设为 130、`ATTACK_DAMAGE` 设为 6，并写持久化 `attack_Def=6`、`mana_Def=4`、`soul_Def=10`、`LEVELnumber=1`，再执行 `finalizeSpawn(MOB_SUMMONED)`、`addFreshEntity`，最后移除原实体。目标保留该顺序，不主动回满当前生命；生成初始化仍按原生过程执行。转换由 combat 的效果结束回调直接承担，原“随 flow 迁移”的说明已纠正。
+
+本批来源与实现的静态核对、构建及专服加载保存退出通过。专服用原生命令确认05/07非玩家主动移除和刷新时层数归零，19主动移除、刷新及自然到期时猪转僵尸；原猪均移除，僵尸持久字段为6/4/10/1，样本主手铁剑保留、基础最大生命130、攻击6、当前生命20。内置客户端回归、首次失败与证据见[炼丹月志](../liandan/logs/2026-11.md)；自然服用/喂用、玩家分支、其他六类转换、多人及两版本对照未验收。
 
 ## 目标方案：伤害结算（2026-11-04 已实现，会话决定）
 

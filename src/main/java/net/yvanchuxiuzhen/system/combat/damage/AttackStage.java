@@ -4,7 +4,6 @@ import java.util.List;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,13 +18,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.scores.Objective;
-import net.minecraft.world.scores.Scoreboard;
-import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
+import net.yvanchuxiuzhen.system.combat.api.FightingState;
 import net.yvanchuxiuzhen.system.combat.api.HitEvent;
+import net.yvanchuxiuzhen.system.combat.api.HeavyHitEvent;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -63,7 +61,7 @@ final class AttackStage {
         if (Relations.isFriendly(attacker, victim)) {
             return;
         }
-        markFighting(victim);
+        FightingState.mark(victim);
         if (attacker instanceof LivingEntity living) {
             enchantments(victim, living, amount);
         }
@@ -71,6 +69,9 @@ final class AttackStage {
         NeoForge.EVENT_BUS.post(new HitEvent(victim, attacker, amount, heavy));
         if (heavy) {
             victim.addEffect(new MobEffectInstance(StatusEffects.holder("effect_033"), 10, 0, false, false));
+            if (victim.getType().is(YAOSHOU)) {
+                NeoForge.EVENT_BUS.post(new HeavyHitEvent(victim, attacker));
+            }
         }
         if (victim.getType().is(YAOSHOU) || victim.getType().is(XIUZHE)) {
             int stacks = StatusEffects.has(victim, "effect_034") ? StatusEffects.amplifier(victim, "effect_034") + 1 : 0;
@@ -82,21 +83,6 @@ final class AttackStage {
         if (victim instanceof Player player) {
             directPets(player, attacker);
         }
-    }
-
-    /** 战斗状态记分板：{@code zdztbegin} 置 1，{@code zdzttick} 记受击者最近一次被生物伤害的时间。 */
-    private static void markFighting(LivingEntity victim) {
-        Scoreboard scoreboard = victim.level().getScoreboard();
-        score(scoreboard, "zdztbegin", victim, 1);
-        score(scoreboard, "zdzttick", victim, victim.getLastHurtByMobTimestamp());
-    }
-
-    private static void score(Scoreboard scoreboard, String name, Entity holder, int value) {
-        Objective objective = scoreboard.getObjective(name);
-        if (objective == null) {
-            objective = scoreboard.addObjective(name, ObjectiveCriteria.DUMMY, Component.literal(name), ObjectiveCriteria.RenderType.INTEGER, true, null);
-        }
-        scoreboard.getOrCreatePlayerScore(holder, objective).set(value);
     }
 
     private static void enchantments(LivingEntity victim, LivingEntity attacker, double amount) {

@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.treasure;
 
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 
 /**
@@ -14,5 +15,6 @@ public final class TreasureSetup {
 
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
+        NeoForge.EVENT_BUS.addListener(FinishedEquipmentCommand::register);
     }
 }

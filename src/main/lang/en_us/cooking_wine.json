@@ -1,0 +1,14 @@
+{
+  "gui.yvanchuxiuzhen.cooking.wine.start": "Start brewing",
+  "gui.yvanchuxiuzhen.cooking.wine.help": "Common wine recipes",
+  "message.yvanchuxiuzhen.cooking.wine.recipes.title": "§6Common wine recipes",
+  "message.yvanchuxiuzhen.cooking.wine.recipes.001": "Zhuangyuan Hong: 3 sticky rice, 1 ginseng",
+  "message.yvanchuxiuzhen.cooking.wine.recipes.002": "Nver Hong: 4 sticky rice",
+  "message.yvanchuxiuzhen.cooking.wine.recipes.003": "Dukang Wine: 2 wheat, 2 sorghum",
+  "message.yvanchuxiuzhen.cooking.wine.recipes.005": "Sweet Potato Liquor: 4 sweet potatoes",
+  "message.yvanchuxiuzhen.cooking.wine.needs_heat": "§4Place a burning furnace, campfire, or similar block beneath the wooden still.",
+  "message.yvanchuxiuzhen.cooking.wine.busy": "Brewing in progress. Please wait.",
+  "message.yvanchuxiuzhen.cooking.wine.fresh": "Freshly brewed wine.",
+  "message.yvanchuxiuzhen.cooking.wine.aged": "Aged for %s years.",
+  "message.yvanchuxiuzhen.cooking.wine.refined": "All alcohol in your body has been refined."
+}

@@ -1,5 +1,6 @@
 [
 {"id":"cauldronduyao","factory":"block_item","block":"cauldronduyao","order":1795},
+{"id":"xiulitai","factory":"lianqi:repair_table","block":"xiulitai","order":1933,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"tiandaotuzhitai","factory":"block_item","block":"tiandaotuzhitai","order":2121,"tab":"yvanchuxiuzhen:tabyvanchulianqi"},
 {"id":"tripod_01","factory":"block_item","block":"tripod_01","order":2122,"tab":"yvanchuxiuzhen:tabyvanchulianqi"},
 {"id":"tripod_02","factory":"block_item","block":"tripod_02","order":2123,"tab":"yvanchuxiuzhen:tabyvanchulianqi"},
@@ -9,6 +10,6 @@
 {"id":"tripod_06","factory":"block_item","block":"tripod_06","order":2127,"tab":"yvanchuxiuzhen:tabyvanchulianqi"},
 {"id":"tripod_07","factory":"block_item","block":"tripod_07","order":2128,"tab":"yvanchuxiuzhen:tabyvanchulianqi"},
 {"id":"tripod_08","factory":"block_item","block":"tripod_08","order":2129},
-{"id":"tripod_0801","factory":"item","order":2130,"tab":"yvanchuxiuzhen:tabyvanchulianqi","stack":1,"pending_hooks":["useOn"]},
+{"id":"tripod_0801","factory":"lianqi:tripod_placement","order":2130,"tab":"yvanchuxiuzhen:tabyvanchulianqi","stack":1},
 {"id":"zhenxianpoluo","factory":"block_item","block":"zhenxianpoluo","order":2292,"tab":"yvanchuxiuzhen:tabyvanchulianqi","tooltip":["制作衣物的工作台"]}
 ]

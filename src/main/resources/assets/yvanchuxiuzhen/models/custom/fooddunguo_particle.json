@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/fooddunguo.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/fooddunguo"
+  }
+}

@@ -1,0 +1,158 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.fulutexiao44",
+				"texture_width": 80,
+				"texture_height": 80,
+				"visible_bounds_width": 5,
+				"visible_bounds_height": 4.5,
+				"visible_bounds_offset": [0, 1.75, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "yvntuan1",
+					"parent": "zong",
+					"pivot": [0, 2, 0],
+					"cubes": [
+						{"origin": [-2, 0, -2], "size": [4, 4, 4], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "yvntuan2",
+					"parent": "zong",
+					"pivot": [0, 7, 0],
+					"cubes": [
+						{"origin": [-3, 4, -3], "size": [6, 6, 6], "uv": [0, 14]}
+					]
+				},
+				{
+					"name": "yvnzu1",
+					"parent": "zong",
+					"pivot": [0, 20, 0]
+				},
+				{
+					"name": "yvntuan3",
+					"parent": "yvnzu1",
+					"pivot": [-3, 14, 0],
+					"cubes": [
+						{"origin": [-7, 10, -4], "size": [8, 8, 8], "uv": [28, 15]}
+					]
+				},
+				{
+					"name": "yvntuan4",
+					"parent": "yvnzu1",
+					"pivot": [3, 13, 0],
+					"cubes": [
+						{"origin": [0, 10, -3], "size": [6, 6, 6], "uv": [33, 0]}
+					]
+				},
+				{
+					"name": "yvnzu2",
+					"parent": "zong",
+					"pivot": [0, 20, 0]
+				},
+				{
+					"name": "yvntuan5",
+					"parent": "yvnzu2",
+					"pivot": [-1, 21, -4],
+					"cubes": [
+						{"origin": [-6, 16, -9], "size": [10, 10, 10], "uv": [24, 0]}
+					]
+				},
+				{
+					"name": "yvntuan6",
+					"parent": "yvnzu2",
+					"pivot": [-5, 21, 4],
+					"cubes": [
+						{"origin": [-10, 16, -1], "size": [10, 10, 10], "uv": [0, 12]}
+					]
+				},
+				{
+					"name": "yvntuan7",
+					"parent": "yvnzu2",
+					"pivot": [5, 21, 1],
+					"cubes": [
+						{"origin": [0, 16, -4], "size": [10, 10, 10], "uv": [12, 4]}
+					]
+				},
+				{
+					"name": "yvntuan8",
+					"parent": "zong",
+					"pivot": [0, 26, 0],
+					"cubes": [
+						{"origin": [-4, 22, -4], "size": [8, 8, 8], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "head",
+					"parent": "zong",
+					"pivot": [0, 30, 0]
+				},
+				{
+					"name": "guangqiu",
+					"parent": "head",
+					"pivot": [0, 30, -16],
+					"cubes": [
+						{"origin": [-4, 26, -20], "size": [8, 8, 8], "uv": [0, 56]}
+					]
+				},
+				{
+					"name": "guangpao",
+					"parent": "head",
+					"pivot": [0, 30, -12],
+					"cubes": [
+						{"origin": [-4, 30, -12], "size": [8, 56, 0], "pivot": [0, 30, -12], "rotation": [90, 0, 45], "uv": [64, 0]},
+						{"origin": [-4, 30, -12], "size": [8, 56, 0], "pivot": [0, 30, -12], "rotation": [90, 0, -45], "uv": [64, 0]}
+					]
+				},
+				{
+					"name": "dunshizu",
+					"parent": "head",
+					"pivot": [0, 40, 0]
+				},
+				{
+					"name": "dunshi1",
+					"parent": "dunshizu",
+					"pivot": [-32, 40, 0],
+					"rotation": [0, 0, -90],
+					"cubes": [
+						{"origin": [-40, 36, -8], "size": [16, 8, 16], "uv": [0, 32]}
+					]
+				},
+				{
+					"name": "dunshi2",
+					"parent": "dunshizu",
+					"pivot": [32, 40, 0],
+					"rotation": [0, 0, 90],
+					"cubes": [
+						{"origin": [24, 36, -8], "size": [16, 8, 16], "uv": [0, 32]}
+					]
+				},
+				{
+					"name": "dunshi3",
+					"parent": "dunshizu",
+					"pivot": [0, 40, 32],
+					"rotation": [-90, 0, 0],
+					"cubes": [
+						{"origin": [-8, 36, 24], "size": [16, 8, 16], "uv": [0, 32]}
+					]
+				},
+				{
+					"name": "dunshi4",
+					"parent": "dunshizu",
+					"pivot": [0, 40, -32],
+					"rotation": [90, 0, 0],
+					"cubes": [
+						{"origin": [-8, 36, -40], "size": [16, 8, 16], "uv": [0, 32]}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,5 +1,7 @@
 package net.yvanchuxiuzhen.system.relation.api;
 
+import java.util.Set;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.yvanchuxiuzhen.system.relation.data.Allegiance;
@@ -24,9 +26,38 @@ public final class Relations {
         return allegiance(judge).isFriendly(team(other));
     }
 
+    /** 友方集合的只读视图；来源丹火直接持有原表引用，重载前随主人关系变化。 */
+    public static Set<String> friendlyTeams(Entity owner) {
+        return allegiance(owner).friendlyTeams();
+    }
+
+    public static boolean isFriendly(Set<String> friendlyTeams, Entity other) {
+        return friendlyTeams.contains(team(other));
+    }
+
+    /** 来源直接读取实体 NBT team 的路径；玩家的能力团队与本体实体字段分别保存。 */
+    public static String entityTeam(Entity entity) {
+        return entity.getData(RelationAttachments.ENTITY).team();
+    }
+
     /** 召唤物、投射物等继承 {@code owner} 的团队与友方集合（来源复制施放者的 team 与 friendlist）。 */
     public static void copyAllegiance(Entity owner, Entity target) {
         entityAllegiance(target).copyFrom(allegiance(owner));
+    }
+
+    /** 非玩家目标直接共享施放者的来源friendlist引用；团队值单独复制，存档重载后集合独立。 */
+    public static void shareEntityAllegiance(Entity owner, Entity target) {
+        entityAllegiance(target).shareFrom(allegiance(owner));
+    }
+
+    /** 地上蛊罐把友方标签引用交给虫，虫的团队值来自该虫物品实例。 */
+    public static void shareBlockAllegiance(CompoundTag blockData, Entity target, String team) {
+        entityAllegiance(target).shareFromBlock(blockData, team);
+    }
+
+    /** 放置蛊罐时共享主人的友方标签；方块单独持久化，重载后与主人分离。 */
+    public static void shareAllegianceToBlock(Entity owner, CompoundTag blockData) {
+        allegiance(owner).shareToBlock(blockData);
     }
 
     /** 设置非玩家实体的团队名，友方集合不变。 */

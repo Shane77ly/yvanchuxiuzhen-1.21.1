@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/xiulitai.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/xiulitai"
+  }
+}

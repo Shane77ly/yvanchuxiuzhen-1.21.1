@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/canhe.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/canhe"
+  }
+}

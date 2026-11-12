@@ -1,0 +1,11 @@
+{
+  "message.yvanchuxiuzhen.craft.pottery_started": "开始烧炼！",
+  "message.yvanchuxiuzhen.craft.pottery_burning": "正在烧炼，封闭环境烧炼速度会更快一些。",
+  "message.yvanchuxiuzhen.craft.pottery_finished": "烧炼完成，潜行状态下右键此物即可获取。",
+  "gui.yvanchuxiuzhen.craft.pottery_clay": "黏土球：",
+  "gui.yvanchuxiuzhen.craft.pottery_count": "%s个",
+  "gui.yvanchuxiuzhen.craft.pottery_previous": "上一页",
+  "gui.yvanchuxiuzhen.craft.pottery_next": "下一页",
+  "gui.yvanchuxiuzhen.craft.pottery_select": "选择第%s项",
+  "gui.yvanchuxiuzhen.craft.pottery_make": "制作"
+}

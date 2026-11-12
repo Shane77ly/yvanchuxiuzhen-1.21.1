@@ -1,0 +1,3550 @@
+package net.yvanchuxiuzhen.smoke;
+
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.client.gui.screens.inventory.ContainerScreen;
+import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.material.Fluid;
+import net.yvanchuxiuzhen.system.cooking.content.CleaverBlock;
+import net.yvanchuxiuzhen.system.cooking.content.CuttingBlockEntity;
+import net.yvanchuxiuzhen.system.cooking.content.TablewareBlockEntity;
+import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
+import java.util.ArrayList;
+import net.minecraft.world.inventory.ChestMenu;
+import net.yvanchuxiuzhen.system.cooking.client.SteamerScreen;
+import net.yvanchuxiuzhen.system.cooking.content.SteamerBlockEntity;
+import net.yvanchuxiuzhen.system.cooking.content.SteamerMenu;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.yvanchuxiuzhen.system.cooking.api.Alcohol;
+import net.yvanchuxiuzhen.system.cooking.client.WoodenStillScreen;
+import net.yvanchuxiuzhen.system.cooking.content.WineVesselBlockEntity;
+import net.yvanchuxiuzhen.system.cooking.content.WoodenStillMenu;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
+import net.yvanchuxiuzhen.system.craft.content.SilkwormBoxBlockEntity;
+import net.yvanchuxiuzhen.system.craft.content.PotteryWheelMenu;
+import net.yvanchuxiuzhen.system.craft.content.PotteryWheelBlockEntity;
+import net.yvanchuxiuzhen.system.craft.content.PotteryBlankBlockEntity;
+import net.yvanchuxiuzhen.system.craft.client.PotteryWheelScreen;
+import net.minecraft.world.ticks.ScheduledTick;
+import net.minecraft.world.ticks.LevelChunkTicks;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.block.Block;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.projectile.Snowball;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.yvanchuxiuzhen.system.craft.client.CarpentryScreen;
+import net.yvanchuxiuzhen.system.craft.content.CarpentryBlockEntity;
+import net.yvanchuxiuzhen.system.craft.content.CarpentryMenu;
+import net.yvanchuxiuzhen.system.craft.content.SilkReelBlockEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.level.ExplosionEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.api.Enchants;
+import net.yvanchuxiuzhen.system.cooking.content.CookingPotBlockEntity;
+import net.yvanchuxiuzhen.system.cooking.content.CookingPotMenu;
+import net.yvanchuxiuzhen.system.cooking.client.CookingPotScreen;
+import net.yvanchuxiuzhen.system.craft.client.StoneMillScreen;
+import net.yvanchuxiuzhen.system.craft.content.StoneMillBlockEntity;
+import net.yvanchuxiuzhen.system.craft.content.StoneMillMenu;
+import net.yvanchuxiuzhen.system.craft.content.LoomBlockEntity;
+import net.yvanchuxiuzhen.system.fulu.DrawingTableRuntime;
+import net.yvanchuxiuzhen.system.fulu.FuluRanged;
+import net.yvanchuxiuzhen.system.fulu.FuluUse;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
+import net.yvanchuxiuzhen.system.fulu.api.FuluKnowledge;
+import net.yvanchuxiuzhen.system.fulu.client.DrawingTableScreen;
+import net.yvanchuxiuzhen.system.fulu.content.AshBurnerBlockEntity;
+import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
+import net.yvanchuxiuzhen.system.fulu.content.DrawingTableMenu;
+import net.yvanchuxiuzhen.system.fulu.content.CloudSpirit;
+import net.yvanchuxiuzhen.system.fulu.content.ExplosiveTalismanBlock;
+import net.yvanchuxiuzhen.system.fulu.content.RepellingTalismanBlockEntity;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
+import net.yvanchuxiuzhen.system.material.api.Materials;
+import net.yvanchuxiuzhen.system.plant.GourdBlock;
+import net.yvanchuxiuzhen.system.plant.GourdBlockEntity;
+import net.yvanchuxiuzhen.system.plant.FruitTreeLeavesBlock;
+import net.yvanchuxiuzhen.system.profession.api.Profession;
+import net.yvanchuxiuzhen.system.profession.api.Professions;
+import net.yvanchuxiuzhen.system.profession.data.ProfessionAttachments;
+import net.yvanchuxiuzhen.system.profession.data.ProfessionProgress;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
+import net.yvanchuxiuzhen.system.relation.data.RelationAttachments;
+import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
+
+/** 核对两锅配方加载、墨料坯自然生产闭环，以及符箓知识、画符台、烧灰架、传承之光与持续效果符（02、24 号）的施用付款、生效和结束。 */
+final class FuluCookingCheck extends ActionCheck {
+    private static final int HOTBAR = 8;
+
+    private List<ItemStack> inventory;
+    private int selected;
+    private BlockPos potPos;
+    private BlockPos tablePos;
+    private final List<BlockState> potBlocks = new ArrayList<>();
+    private final List<BlockState> tableBlocks = new ArrayList<>();
+    private FuluKnowledge knowledge;
+    private ProfessionProgress rune;
+    private double runeBefore;
+    private BlockPos clayPos;
+    private final List<BlockState> clayBlocks = new ArrayList<>();
+    private ProfessionProgress cooking;
+    private double cookingBefore;
+    private BlockPos burnerPos;
+    private BlockPos inheritancePos;
+    private final Map<BlockPos, BlockState> inheritanceBlocks = new LinkedHashMap<>();
+    private final Map<BlockPos, BlockState> burnerBlocks = new LinkedHashMap<>();
+    private static final List<String> TALISMAN_KEYS = List.of("fulunumber", "fuluxiaoguo02", "fulu02level", "fulu02tick", "fuluxiaoguo24",
+            "fulu24level", "fulu24tick", "fuluxiaoguo13", "fulu13level", "fulu13tick", "fulu1301tick", "fululevel46", "fuluxiaoguo17",
+            "fulu17level", "fulu17tick", "fulu1701tick", "fuluxiaoguo21", "fulu21level", "fulu21tick", "fuluxiaoguo39", "fulu39level", "fulu39tick");
+    private GameType gameMode;
+    private Difficulty difficulty;
+    private boolean naturalRegeneration;
+    private double soul;
+    private float health;
+    private float clusterPitch;
+    private final Map<BlockPos, BlockState> clusterAir = new LinkedHashMap<>();
+    private final Map<String, Double> talismanState = new LinkedHashMap<>();
+    private Mob dummy;
+    private final int[] volleySpawns = new int[2];
+    private Consumer<EntityJoinLevelEvent> volleyListener;
+    private BlockPos oreAt;
+    private BlockState oreBefore;
+    private BlockPos repellingBase;
+    private BlockPos explosiveBase;
+    private BlockPos stoneMillPos;
+    private BlockPos stoneRollerPos;
+    private BlockPos loomPos;
+    private BlockPos carpentryPos;
+    private BlockPos silkReelPos;
+    private BlockPos silkInputPos;
+    private final List<ItemEntity> silkDrops = new ArrayList<>();
+    private Consumer<EntityJoinLevelEvent> silkDropListener;
+    private boolean stoneMillShift;
+    private final Map<BlockPos, BlockState> stoneMillBlocks = new LinkedHashMap<>();
+    private final Map<BlockPos, CompoundTag> stoneMillEntities = new LinkedHashMap<>();
+    private final List<ItemEntity> stoneMillDrops = new ArrayList<>();
+    private Consumer<EntityJoinLevelEvent> stoneMillDropListener;
+    private final Map<BlockPos, BlockState> repellingBlocks = new LinkedHashMap<>();
+
+    private BlockPos potteryWheelPos;
+    private BlockPos potteryPlacedPos;
+    private BlockPos potterySkyPos;
+    private BlockPos potteryCoveredPos;
+    private BlockPos silkwormBoxPos;
+    private ItemStack potteryBlankStack;
+    private boolean potteryPlacementOkay;
+    private boolean silkwormInsertionOkay;
+    private Consumer<EntityJoinLevelEvent> craftFollowupListener;
+    private final List<Entity> craftFollowupEntities = new ArrayList<>();
+    private final Map<BlockPos, List<ScheduledTick<Block>>> craftFollowupTicks = new LinkedHashMap<>();
+
+
+    private BlockPos wineStillPos;
+    private BlockPos wineJarPos;
+    private CompoundTag wineTizhiBefore;
+    private final Map<CultivationValue, Double> wineValuesBefore = new LinkedHashMap<>();
+    private final List<MobEffectInstance> wineEffectsBefore = new ArrayList<>();
+    private final CompoundTag wineFoodBefore = new CompoundTag();
+    private double wineAlcoholBefore;
+    private boolean wineUseKeyBefore;
+    private boolean wineHolding;
+    private boolean wineArmSecond;
+    private boolean wineSecondSeen;
+    private boolean wineAfterSeen;
+    private double wineBeforeStand;
+    private double wineAfterStand;
+    private double wineAfterCooldown;
+    private double wineAfterAlcohol;
+    private boolean winePlacementOkay;
+    private Consumer<PlayerTickEvent.Pre> wineFreeze;
+    private Consumer<ClientTickEvent.Pre> wineDrinkRelease;
+    private Consumer<CultivationSecondEvent> wineBefore;
+    private Consumer<CultivationAfterBreakthroughEvent> wineAfter;
+
+    private BlockPos steamerPos;
+    private double steamerExperience;
+    private int steamerInventoryBefore;
+
+    private BlockPos foodPlatePos;
+    private final CompoundTag foodStatsBefore = new CompoundTag();
+    private final List<MobEffectInstance> foodEffectsBefore = new ArrayList<>();
+    private final List<ItemEntity> foodDrops = new ArrayList<>();
+    private GameType foodGameBefore;
+    private boolean foodUseBefore;
+    private boolean foodActive;
+    private boolean foodHolding;
+    private int foodEatingTicks;
+    private ItemStack foodEatingBefore = ItemStack.EMPTY;
+    private Consumer<ClientTickEvent.Pre> foodRelease;
+    private Consumer<EntityJoinLevelEvent> foodDropListener;
+
+    private Consumer<ScreenEvent.Render.Post> mealTooltipPreview;
+    private boolean mealTooltipScreenshotTaken;
+
+    private boolean riceActive;
+    private BlockPos ricePos;
+    private GameType riceMode;
+    private boolean riceFlying;
+    private int riceSelected;
+    private Vec3 ricePosition;
+    private Vec3 riceMotion;
+    private float riceYaw;
+    private float ricePitch;
+    private int ricePickupDelay;
+    private long riceGourdTicksStarted;
+    private final List<ItemStack> riceInventory = new ArrayList<>();
+    private final Map<BlockPos, BlockState> riceBlocks = new LinkedHashMap<>();
+    private final Map<BlockPos, CompoundTag> riceEntities = new LinkedHashMap<>();
+    private final Map<BlockPos, List<ScheduledTick<Block>>> riceTicks = new LinkedHashMap<>();
+    private final Map<BlockPos, List<ScheduledTick<Fluid>>> riceFluidTicks = new LinkedHashMap<>();
+    private final List<ItemEntity> riceDrops = new ArrayList<>();
+    private Consumer<EntityJoinLevelEvent> riceDropListener;
+    private final CompoundTag ricePlantDataBefore = new CompoundTag();
+
+    private boolean utensilsActive;
+    private BlockPos utensilsBowl;
+    private BlockPos utensilsPlate;
+    private BlockPos utensilsLargeBowl;
+    private BlockPos utensilsBoard;
+    private final Map<BlockPos, BlockState> utensilsBlocks = new LinkedHashMap<>();
+    private final Map<BlockPos, CompoundTag> utensilsEntities = new LinkedHashMap<>();
+    private final Map<BlockPos, List<ScheduledTick<Block>>> utensilsTicks = new LinkedHashMap<>();
+    private final Map<BlockPos, List<ScheduledTick<Fluid>>> utensilsFluidTicks = new LinkedHashMap<>();
+    private final List<ItemStack> utensilsInventory = new ArrayList<>();
+    private final List<ItemEntity> utensilsDrops = new ArrayList<>();
+    private Consumer<EntityJoinLevelEvent> utensilsDropListener;
+    private Vec3 utensilsPosition;
+    private Vec3 utensilsMotion;
+    private float utensilsYaw;
+    private float utensilsPitch;
+    private int utensilsSelected;
+    private GameType utensilsMode;
+    private boolean utensilsFlying;
+    private boolean utensilsShift;
+    private boolean utensilsUse;
+    private boolean utensilsAttack;
+    private int utensilsCountBefore;
+    private long utensilsCutStarted;
+    private boolean utensilsSpectatorBowl;
+
+    FuluCookingCheck(List<String> report, String levelId, Screenshots screenshots) {
+        super("fulucooking", report, levelId);
+        script(
+                new Action(4, p -> {
+                    naturalRegeneration = p.serverLevel().getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION);
+                    p.serverLevel().getGameRules().getRule(GameRules.RULE_NATURAL_REGENERATION).set(false, p.server);
+                    inventory = new ArrayList<>();
+                    for (int i = 0; i < p.getInventory().getContainerSize(); i++) inventory.add(p.getInventory().getItem(i).copy());
+                    p.getInventory().clearContent();
+                    selected = p.getInventory().selected;
+                    potPos = p.blockPosition().offset(4, 1, 2);
+                    tablePos = p.blockPosition().offset(4, 1, 5);
+                    for (int below = 0; below < 3; below++) {
+                        potBlocks.add(p.serverLevel().getBlockState(potPos.below(below)));
+                        tableBlocks.add(p.serverLevel().getBlockState(tablePos.below(below)));
+                    }
+                    var recipes = p.serverLevel().getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING).stream()
+                            .map(RecipeHolder::value).map(recipe -> recipe.getResultItem(p.registryAccess()).getItem()).toList();
+                    expectTrue("铁锅与砂锅的自然合成配方由目标数据包加载",
+                            recipes.contains(item("fooddaguo").getItem()) && recipes.contains(item("fooddunguo").getItem()));
+
+                    p.serverLevel().setBlockAndUpdate(potPos.below(2), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(potPos.below(), Blocks.CAMPFIRE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(potPos, block("fooddaguo"));
+                    CookingPotBlockEntity pot = pot(p);
+                    pot.setItem(0, material("cailiao_021", 25));
+                    pot.setItem(1, material("cailiao_001", 15));
+                    pot.setItem(2, material("cailiao_060", 5));
+                    pot.setItem(3, item("yanhuiitem", 3));
+                    pot.setItem(4, item("fuluzhushaitem", 3));
+                    pot.changed();
+                }),
+                new Action(6, p -> useBlock(potPos)),
+                new Action(6, p -> {
+                    expectTrue("真实右键铁锅打开双方 14 槽菜单与原生界面", p.containerMenu instanceof CookingPotMenu
+                            && minecraft.player.containerMenu instanceof CookingPotMenu && minecraft.screen instanceof CookingPotScreen);
+                    minecraft.execute(() -> {
+                        screenshots.take("cooking-iron-pot.png");
+                        minecraft.screen.children().stream()
+                                .filter(child -> child instanceof Button button && button.getMessage().getString().equals("开始烹饪"))
+                                .map(child -> (Button) child).findFirst().orElseThrow().onPress();
+                    });
+                }),
+                new Action(16, p -> {
+                    CompoundTag state = pot(p).getPersistentData();
+                    expectTrue("开始按钮：材料平均 15 级、三类各扣一件，烟灰与朱砂各扣三份，进入烹饪并关闭界面",
+                            state.getBoolean("cooking") && state.getInt("cookanimation") == 9
+                                    && pot(p).getItem(1).isEmpty() && pot(p).getItem(2).isEmpty()
+                                    && pot(p).getItem(3).isEmpty() && pot(p).getItem(4).isEmpty()
+                                    && p.containerMenu == p.inventoryMenu);
+                }),
+                new Action(4, p -> {
+                    expectTrue("开始满 10 服务端刻后，槽 0 被覆盖为玄阶墨料坯，烹饪仍在进行（实际 "
+                                    + BuiltInRegistries.ITEM.getKey(pot(p).getItem(0).getItem()) + "×" + pot(p).getItem(0).getCount() + "）",
+                            pot(p).getItem(0).is(item("motiao_0201").getItem()) && pot(p).getItem(0).getCount() == 1
+                                    && pot(p).getPersistentData().getBoolean("cooking"));
+                }),
+                new Action(4, p -> useBlock(potPos)),
+                new Action(4, p -> useBlock(potPos)),
+                new Action(4, p -> useBlock(potPos)),
+                new Action(4, p -> useBlock(potPos)),
+                new Action(4, p -> {
+                    expectTrue("四次翻炒后仍在烹饪", pot(p).getPersistentData().getBoolean("cooking")
+                            && pot(p).getPersistentData().getDouble("cooknumber") == 4);
+                    useBlock(potPos);
+                }),
+                new Action(6, p -> {
+                    CompoundTag state = pot(p).getPersistentData();
+                    CookingPotBlockEntity restored = (CookingPotBlockEntity) BlockEntity.loadStatic(potPos, p.serverLevel().getBlockState(potPos),
+                            pot(p).saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("第五次翻炒结束烹饪并清零计数，产物保留，保存重读一致",
+                            !state.getBoolean("cooking") && state.getDouble("cooknumber") == 0 && state.getDouble("cookanimation") == 0
+                                    && pot(p).getItem(0).is(item("motiao_0201").getItem())
+                                    && restored.getPersistentData().equals(state)
+                                    && ItemStack.matches(restored.getItem(0), pot(p).getItem(0)));
+                    pot(p).clearContent();
+
+                    knowledge = p.getData(FuluData.KNOWLEDGE);
+                    rune = p.getData(ProfessionAttachments.PROGRESS).get(Profession.RUNE);
+                    Professions.setLevel(p, Profession.RUNE, 0);
+                    Professions.setExperience(p, Profession.RUNE, 0);
+                    runeBefore = Professions.experience(p, Profession.RUNE);
+                    p.setData(FuluData.KNOWLEDGE, FuluKnowledge.INITIAL);
+                    p.serverLevel().setBlockAndUpdate(tablePos.below(2), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(tablePos.below(), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(tablePos, block("huafutai"));
+                    useBlock(tablePos);
+                }),
+                new Action(8, p -> {
+                    expectTrue("真实右键画符台打开双方菜单与原生界面", p.containerMenu instanceof DrawingTableMenu
+                            && minecraft.player.containerMenu instanceof DrawingTableMenu && minecraft.screen instanceof DrawingTableScreen);
+                    minecraft.execute(() -> screenshots.take("fulu-drawing-table.png"));
+                }),
+                new Action(4, p -> {
+                    DrawingTableBlockEntity table = table(p);
+                    for (int button = 3; button < 6; button++) DrawingTableRuntime.button(table, p, button);
+                    CompoundTag state = table.getPersistentData();
+                    expectTrue("初始知识下三类选择分别取符头 1、天地柱 1、符胆 1，预览符箓与耗墨来自首个匹配配方",
+                            state.getInt("futou") == 1 && state.getInt("tiandizhu") == 1 && state.getInt("fudan") == 1
+                                    && state.getString("fuluname").equals(ModId.VALUE + ":itemfulu_01") && state.getInt("needmotiao") == 2);
+                    table.setItem(0, item("fulufuzhi", 1));
+                    table.setItem(1, item("motiao_01", 3));
+                    DrawingTableRuntime.button(table, p, 6);
+                    ItemStack result = table.getItem(2);
+                    CompoundTag data = result.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    expectTrue("绘制：产出对应符箓并记天地柱品阶，扣一张符纸与两份墨，画符经验增加 8（实际 "
+                                    + (Professions.experience(p, Profession.RUNE) - runeBefore) + "）",
+                            result.is(item("itemfulu_01").getItem()) && data.getInt("fululevel") == 1
+                                    && table.getItem(0).isEmpty() && table.getItem(1).getCount() == 1
+                                    && Professions.experience(p, Profession.RUNE) - runeBefore == 8);
+                    DrawingTableBlockEntity restored = (DrawingTableBlockEntity) BlockEntity.loadStatic(tablePos, p.serverLevel().getBlockState(tablePos),
+                            table.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("画符台共享选择与库存保存重读一致", restored.getPersistentData().equals(state)
+                            && ItemStack.matches(restored.getItem(2), result));
+                    p.closeContainer();
+                }),
+                new Action(8, p -> {
+                    boolean learned = Fulu.unlockHead(p, 2);
+                    boolean repeated = Fulu.unlockHead(p, 2);
+                    boolean core = Fulu.unlockCore(p, 2);
+                    FuluKnowledge current = Fulu.knowledge(p);
+                    expectTrue("解锁追加稳定编号，重复学习被拒绝且不重复追加", learned && !repeated && core
+                            && current.heads().equals(List.of(1, 2)) && current.cores().equals(List.of(1, 2))
+                            && p.getData(FuluData.KNOWLEDGE).heads().equals(List.of(1, 2)));
+                    clayPos = p.blockPosition().offset(4, 1, -2);
+                    for (int below = 0; below < 3; below++) clayBlocks.add(p.serverLevel().getBlockState(clayPos.below(below)));
+                    cooking = p.getData(ProfessionAttachments.PROGRESS).get(Profession.COOKING);
+                    cookingBefore = Professions.experience(p, Profession.COOKING);
+                    p.serverLevel().setBlockAndUpdate(clayPos.below(2), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(clayPos.below(), Blocks.CAMPFIRE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(clayPos, block("fooddunguo"));
+                    ItemStack recipe = new ItemStack(Items.PAPER);
+                    CompoundTag recipeData = new CompoundTag();
+                    recipeData.putString("MenuType", "砂锅");
+                    recipeData.putString("MenuName", "测试菜谱");
+                    recipeData.putString("Menuid", ModId.VALUE + ":food_007");
+                    recipeData.putString("needcontainer", "无");
+                    recipeData.putString("cailiao00", ModId.VALUE + ":shicai_001");
+                    recipeData.putInt("cookanimation", 2);
+                    recipe.set(DataComponents.CUSTOM_DATA, CustomData.of(recipeData));
+                    CookingPotBlockEntity clay = pot(p, clayPos);
+                    clay.setItem(13, recipe);
+                    clay.setItem(5, item("shicai_001", 2));
+                    clay.changed();
+                    useBlock(clayPos);
+                }),
+                new Action(6, p -> {
+                    expectTrue("真实右键砂锅打开双方菜单与原生界面（服务端 " + p.containerMenu.getClass().getSimpleName() + "，客户端 "
+                            + minecraft.player.containerMenu.getClass().getSimpleName() + "，界面 " + (minecraft.screen == null ? "无" : minecraft.screen.getClass().getSimpleName())
+                            + "，BE " + pot(p, clayPos).getPersistentData() + "）", p.containerMenu instanceof CookingPotMenu
+                            && minecraft.player.containerMenu instanceof CookingPotMenu && minecraft.screen instanceof CookingPotScreen);
+                    minecraft.execute(() -> {
+                        screenshots.take("cooking-clay-pot.png");
+                        minecraft.screen.children().stream()
+                                .filter(child -> child instanceof Button button && button.getMessage().getString().equals("开始烹饪"))
+                                .map(child -> (Button) child).findFirst().orElseThrow().onPress();
+                    });
+                }),
+                new Action(4, p -> {
+                    CookingPotBlockEntity clay = pot(p, clayPos);
+                    CompoundTag state = clay.getPersistentData();
+                    expectTrue("菜谱烹饪：食材扣一件并产出菜品，覆盖结果槽，菜谱不消耗，经验按 belongToLevel 平方加 5",
+                            state.getBoolean("cooking") && clay.getItem(5).getCount() == 1
+                                    && clay.getItem(4).is(item("food_007").getItem()) && !clay.getItem(13).isEmpty()
+                                    && state.getInt("cookexp") == 5 && p.containerMenu == p.inventoryMenu);
+                }),
+                new Action(4, p -> useBlock(clayPos)),
+                new Action(4, p -> useBlock(clayPos)),
+                new Action(4, p -> useBlock(clayPos)),
+                new Action(4, p -> useBlock(clayPos)),
+                new Action(4, p -> useBlock(clayPos)),
+                new Action(6, p -> {
+                    CompoundTag state = pot(p, clayPos).getPersistentData();
+                    expectTrue("五次砂锅翻炒结束并清零，厨艺经验增加 5（实际 " + (Professions.experience(p, Profession.COOKING) - cookingBefore) + "），经验字段清零",
+                            !state.getBoolean("cooking") && state.getDouble("cooknumber") == 0 && state.getDouble("cookexp") == 0
+                                    && Professions.experience(p, Profession.COOKING) - cookingBefore == 5
+                                    && pot(p, clayPos).getItem(4).is(item("food_007").getItem()));
+                    burnerPos = p.blockPosition().offset(-4, 1, 0);
+                    for (int offset = -1; offset <= 3; offset++) burnerBlocks.put(burnerPos.above(offset), p.serverLevel().getBlockState(burnerPos.above(offset)));
+                    p.serverLevel().setBlockAndUpdate(burnerPos.below(), Blocks.STONE.defaultBlockState());
+                    for (int offset = 0; offset <= 2; offset++) p.serverLevel().setBlockAndUpdate(burnerPos.above(offset), Blocks.AIR.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(burnerPos.above(3), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(burnerPos, block("huafushaohui"));
+                    ((AshBurnerBlockEntity) p.serverLevel().getBlockEntity(burnerPos)).setItem(0, new ItemStack(Items.OAK_LOG));
+                    p.getInventory().setItem(HOTBAR, new ItemStack(Items.FLINT_AND_STEEL));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(6, p -> useBlock(burnerPos)),
+                new Action(425, p -> {
+                    AshBurnerBlockEntity burner = (AshBurnerBlockEntity) p.serverLevel().getBlockEntity(burnerPos);
+                    expectTrue("打火石点燃烧灰架：begin 置位且燃料保留（当前十刻周期进度 " + burner.getPersistentData().getInt("ranshaotick") + "）",
+                            burner.getPersistentData().getBoolean("begin") && !burner.getItem(0).isEmpty());
+                }),
+                new Action(4, p -> {
+                    AshBurnerBlockEntity burner = (AshBurnerBlockEntity) p.serverLevel().getBlockEntity(burnerPos);
+                    expectTrue("满 40 个十刻周期后烧掉原木，并在上方两格的平整底面下生成一层烟灰（实际 "
+                                    + BuiltInRegistries.BLOCK.getKey(p.serverLevel().getBlockState(burnerPos.above(2)).getBlock()) + "）",
+                            burner.getItem(0).isEmpty() && p.serverLevel().getBlockState(burnerPos.above(2)).is(block("yanhui_01").getBlock()));
+                    inheritancePos = p.blockPosition().offset(-3, 1, 3);
+                    for (int offset = -1; offset <= 0; offset++) inheritanceBlocks.put(inheritancePos.above(offset), p.serverLevel().getBlockState(inheritancePos.above(offset)));
+                    p.getInventory().setItem(HOTBAR, ItemStack.EMPTY);
+                    p.inventoryMenu.broadcastChanges();
+                    p.serverLevel().setBlockAndUpdate(inheritancePos.below(), Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(inheritancePos, block("chuancheng"));
+                    BlockEntity inheritance = p.serverLevel().getBlockEntity(inheritancePos);
+                    inheritance.getPersistentData().putInt("weizhi", 5);
+                    inheritance.setChanged();
+                }),
+                new Action(6, p -> useBlock(inheritancePos)),
+                new Action(4, p -> {
+                    expectTrue("使用传承之光经命令入口授予所存符头 5，方块与共享选择不变（符头 " + Fulu.knowledge(p).heads() + "）",
+                            Fulu.knowledge(p).heads().contains(5)
+                                    && p.serverLevel().getBlockState(inheritancePos).is(block("chuancheng").getBlock())
+                                    && p.serverLevel().getBlockEntity(inheritancePos).getPersistentData().getInt("weizhi") == 5);
+                    gameMode = p.gameMode.getGameModeForPlayer();
+                    difficulty = p.serverLevel().getDifficulty();
+                    soul = Cultivation.get(p, CultivationValue.SOUL);
+                    health = p.getHealth();
+                    TALISMAN_KEYS.forEach(key -> talismanState.put(key, Cultivation.tizhiDouble(p, key)));
+                    p.setGameMode(GameType.SURVIVAL);
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_02", 3, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(6, p -> {
+                    expectTrue("02 号符一阶：付 1²×10 精力，登记生效、品阶与生效数，消耗一张（精力 " + Cultivation.get(p, CultivationValue.SOUL) + "）",
+                            Math.abs(Cultivation.get(p, CultivationValue.SOUL) - 10) < 2.5 && Cultivation.tizhiBoolean(p, "fuluxiaoguo02")
+                                    && Cultivation.tizhiDouble(p, "fulu02level") == 1 && Cultivation.tizhiDouble(p, "fulunumber") == 1
+                                    && p.getInventory().getItem(HOTBAR).getCount() == 2);
+                    useHeld();
+                }),
+                new Action(6, p -> {
+                    expectTrue("效果未结束时再次使用：来源先付款后判断，精力再扣而符不消耗（精力 " + Cultivation.get(p, CultivationValue.SOUL) + "）",
+                            Cultivation.get(p, CultivationValue.SOUL) < 2.5 && p.getInventory().getItem(HOTBAR).getCount() == 2
+                                    && Cultivation.tizhiDouble(p, "fulunumber") == 1);
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    dummy = (Mob) EntityType.ZOMBIE.create(p.serverLevel());
+                    dummy.moveTo(p.getX() + 1.5, p.getY(), p.getZ(), 0, 0);
+                    dummy.setNoAi(true);
+                    dummy.setPersistenceRequired();
+                    p.serverLevel().addFreshEntity(dummy);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_24", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(130, p -> {
+                    expectTrue("24 号符一阶：付 10 精力并登记，周身 3.5 格内的非友方被固定火伤害命中（目标生命 " + dummy.getHealth() + "，存活 " + dummy.isAlive() + "）",
+                            Cultivation.tizhiBoolean(p, "fuluxiaoguo24") && p.getInventory().getItem(HOTBAR).isEmpty()
+                                    && (dummy.getHealth() < dummy.getMaxHealth() || !dummy.isAlive()));
+                }),
+                new Action(4, p -> {
+                    expectTrue("02 号符满 80+20×1 刻后结束：清零计数、品阶与生效标记，生效数只剩 24 号符的一份（标记 " + Cultivation.tizhiBoolean(p, "fuluxiaoguo02")
+                                    + "，计数 " + Cultivation.tizhiDouble(p, "fulu02tick") + "，生效数 " + Cultivation.tizhiDouble(p, "fulunumber") + "）",
+                            !Cultivation.tizhiBoolean(p, "fuluxiaoguo02") && Cultivation.tizhiDouble(p, "fulu02level") == 0
+                                    && Cultivation.tizhiDouble(p, "fulu02tick") == 0 && Cultivation.tizhiDouble(p, "fulunumber") == 1);
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    volleyListener = event -> {
+                        if (!event.getLevel().isClientSide() && event.getEntity() instanceof TalismanProjectile shot && shot.getOwner() == p) {
+                            if (shot.getType().toString().endsWith("46")) volleySpawns[0]++;
+                            if (shot.getType().toString().endsWith("17")) volleySpawns[1]++;
+                        }
+                    };
+                    NeoForge.EVENT_BUS.addListener(volleyListener);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_13", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_17", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(12, p -> {
+                }),
+                new Action(4, p -> {
+                    List<? extends TalismanProjectile> shots = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> true);
+                    NeoForge.EVENT_BUS.unregister(volleyListener);
+                    expectTrue("13/17 号符施用后逐刻发射两种弹体（实际生成火球 " + volleySpawns[0] + "，陨石 " + volleySpawns[1] + "）",
+                            Cultivation.tizhiBoolean(p, "fuluxiaoguo13") && Cultivation.tizhiBoolean(p, "fuluxiaoguo17")
+                                    && volleySpawns[0] >= 2 && volleySpawns[1] >= 2);
+                    shots.forEach(shot -> shot.discard());
+                    p.removeAllEffects();
+                    Cultivation.editTizhi(p, tizhi -> TALISMAN_KEYS.stream().filter(key -> key.startsWith("fuluxiaoguo")).forEach(key -> tizhi.putBoolean(key, false)));
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "duyao_01")).orElseThrow(), 600, 0));
+                    p.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 600, 5));
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_21", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    expectTrue("21 号符一阶：清除等级不高于 1 的毒药 01，保留等级 5 的虚弱，登记生效",
+                            !p.hasEffect(BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "duyao_01")).orElseThrow())
+                                    && p.hasEffect(MobEffects.WEAKNESS) && Cultivation.tizhiBoolean(p, "fuluxiaoguo21") && p.getInventory().getItem(HOTBAR).isEmpty());
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_39", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    expectTrue("39 号符一阶：获得 12000 刻水下呼吸并登记生效（剩余 " + (p.hasEffect(MobEffects.WATER_BREATHING) ? p.getEffect(MobEffects.WATER_BREATHING).getDuration() : 0) + "）",
+                            p.hasEffect(MobEffects.WATER_BREATHING) && p.getEffect(MobEffects.WATER_BREATHING).getDuration() > 11900
+                                    && Cultivation.tizhiBoolean(p, "fuluxiaoguo39"));
+                    p.removeAllEffects();
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_25", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    expectTrue("25 号符一阶：获得 3600 刻速度与 1200 刻力量（等级 1），消耗一张",
+                            p.hasEffect(MobEffects.MOVEMENT_SPEED) && p.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() == 1
+                                    && p.hasEffect(MobEffects.DAMAGE_BOOST) && p.getEffect(MobEffects.DAMAGE_BOOST).getDuration() <= 1200
+                                    && p.getInventory().getItem(HOTBAR).isEmpty());
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_11", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    expectTrue("11 号符一阶：吸收等级 6、抗性等级 0（精力 " + Cultivation.get(p, CultivationValue.SOUL) + "，效果 " + p.getActiveEffects() + "）",
+                            p.hasEffect(MobEffects.ABSORPTION) && p.getEffect(MobEffects.ABSORPTION).getAmplifier() == 6
+                                    && p.hasEffect(MobEffects.DAMAGE_RESISTANCE) && p.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() == 0);
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    Cultivation.setTizhiDouble(p, "fululevel46", 0);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_46", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    expectTrue("46 号符使用后品阶写入玩家持久数据而非体质（来源 Q66；精力 " + Cultivation.get(p, CultivationValue.SOUL) + "，持久 " + p.getPersistentData().getDouble("fululevel46") + "，体质 " + Cultivation.tizhiDouble(p, "fululevel46") + "）",
+                            p.getPersistentData().getDouble("fululevel46") == 1 && Cultivation.tizhiDouble(p, "fululevel46") == 0);
+                
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_05", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    expectTrue("05 号符：品阶经使用者持久数据交给气剑，首刻读取后清零",
+                            p.getInventory().getItem(HOTBAR).isEmpty() && p.getPersistentData().getDouble("fulu05level") == 0);
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_32", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    for (BlockPos pos : BlockPos.betweenClosed(p.blockPosition().offset(-4, 2, -4), p.blockPosition().offset(4, 38, 4))) {
+                        BlockPos saved = pos.immutable();
+                        clusterAir.put(saved, p.serverLevel().getBlockState(saved));
+                        p.serverLevel().setBlockAndUpdate(saved, Blocks.AIR.defaultBlockState());
+                    }
+                    minecraft.execute(() -> {
+                        clusterPitch = minecraft.player.getXRot();
+                        minecraft.player.setXRot(-90);
+                    });
+                    useHeld();
+                }),
+                new Action(24, p -> {
+                }),
+                new Action(4, p -> {
+                    long pieces = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> shot.getType().toString().endsWith("32")).size();
+                    expectTrue("32 号符：主弹 16 刻或命中时炸出子弹，使用者的分裂标记被主弹取走（子弹 " + pieces + "）",
+                            !p.getPersistentData().getBoolean("fulu32shoufa") && pieces >= 2);
+                    minecraft.execute(() -> minecraft.player.setXRot(clusterPitch));
+                
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_14", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    var summons = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanSummon.class), mob -> true);
+                    expectTrue("14 号符：召唤出携带符名、品阶与召唤者 UUID 的飞行体（数量 " + summons.size() + "）",
+                            summons.size() == 1 && summons.get(0).getPersistentData().getString("fuluname").equals(TalismanSummon.AIRBURST)
+                                    && summons.get(0).getPersistentData().getDouble("fululevel") == 1
+                                    && summons.get(0).getPersistentData().getString("belongToMasterUUID").equals(p.getStringUUID()));
+                }),
+                new Action(24, p -> {
+                }),
+                new Action(4, p -> {
+                    expectTrue("空爆符满 20 刻后飞行体爆炸并消失",
+                            p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanSummon.class), mob -> true).isEmpty());
+                
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_26", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    useHeld();
+                }),
+                new Action(4, p -> {
+                    var beasts = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanBeast.class), mob -> true);
+                    expectTrue("26 号符：召唤神压符动画实体，携带品阶、符名与召唤者 UUID（数量 " + beasts.size() + "）",
+                            beasts.size() == 1 && beasts.get(0).getPersistentData().getString("fuluname").equals("神压符")
+                                    && beasts.get(0).getPersistentData().getDouble("fululevel") == 1
+                                    && beasts.get(0).getPersistentData().getString("belongToMasterUUID").equals(p.getStringUUID()));
+                    minecraft.execute(() -> screenshots.take("fulu-beast-26.png"));
+                }),
+                new Action(44, p -> {
+                }),
+                new Action(4, p -> {
+                    expectTrue("神压符 20 刻拍击、5 刻停顿、15 刻碎裂后消失",
+                            p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanBeast.class), mob -> true).isEmpty());
+                
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_28", 2, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    FuluRanged.release(p, p.getInventory().getItem(HOTBAR), 28);
+                }),
+                new Action(4, p -> {
+                    expectTrue("28 号远程符松手：付精力、消耗持有的一张，弹体第一刻读取品阶并清零使用者的 fululevel（精力 " + Cultivation.get(p, CultivationValue.SOUL)
+                                    + "，余 " + p.getInventory().getItem(HOTBAR).getCount() + "）",
+                            Cultivation.get(p, CultivationValue.SOUL) < 12 && p.getInventory().getItem(HOTBAR).getCount() == 1
+                                    && p.getPersistentData().getDouble("fululevel") == 0);
+                
+                    oreAt = p.blockPosition().offset(2, -3, 0);
+                    oreBefore = p.serverLevel().getBlockState(oreAt);
+                    p.serverLevel().setBlockAndUpdate(oreAt, block("cailiao_20901"));
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_36", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    FuluUse.activate(p, p.getInventory().getItem(HOTBAR), 36);
+                }),
+                new Action(4, p -> {
+                    expectTrue("36 号符：水平 ±3、脚下方 20 格内的矿石标签方块被破坏，符冷却 200 刻并消耗一张",
+                            p.serverLevel().getBlockState(oreAt).isAir() && p.getInventory().getItem(HOTBAR).isEmpty()
+                                    && p.getCooldowns().isOnCooldown(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "itemfulu_36"))));
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_01", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    FuluUse.activate(p, p.getInventory().getItem(HOTBAR), 1);
+                }),
+                new Action(4, p -> {
+                    var thunder = p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanBeast.class), mob -> true);
+                    expectTrue("01 号雷符：召唤雷符实体并携带品阶与召唤者 UUID（数量 " + thunder.size() + "）",
+                            thunder.size() == 1 && thunder.get(0).getPersistentData().getString("belongToMasterUUID").equals(p.getStringUUID())
+                                    && thunder.get(0).getPersistentData().getDouble("fululevel") == 1);
+                }),
+                new Action(84, p -> {
+                }),
+                new Action(4, p -> {
+                    expectTrue("雷符 80 刻后落雷并消失",
+                            p.serverLevel().getEntities(EntityTypeTest.forClass(TalismanBeast.class), mob -> true).isEmpty());
+                
+                    p.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.IRON_PICKAXE));
+                    p.getInventory().selected = HOTBAR;
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_47", 1, 2));
+                    p.inventoryMenu.broadcastChanges();
+                    FuluUse.activate(p, p.getInventory().getItem(HOTBAR), 47);
+                }),
+                new Action(4, p -> {
+                    expectTrue("47 号符二阶：不付精力，副手镐获得连锁 2 级，符被消耗（连锁 "
+                                    + Enchants.level(p, p.getOffhandItem(), Enchants.key("chain")) + "）",
+                            Enchants.level(p, p.getOffhandItem(), Enchants.key("chain")) == 2 && p.getInventory().getItem(HOTBAR).isEmpty());
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_40", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    FuluUse.activate(p, p.getInventory().getItem(HOTBAR), 40);
+                }),
+                new Action(4, p -> {
+                    expectTrue("40 号符一阶：防御提升 1200 刻（等级 1）并获得效果 022",
+                            p.hasEffect(MobEffects.DAMAGE_RESISTANCE) && p.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() == 1
+                                    && p.getActiveEffects().stream().anyMatch(effect -> effect.getEffect().getRegisteredName().endsWith("effect_022")));
+                
+                    Cultivation.set(p, CultivationValue.SOUL, 20);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_44", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    FuluUse.activate(p, p.getInventory().getItem(HOTBAR), 44);
+                }),
+                new Action(6, p -> {
+                    var spirits = p.serverLevel().getEntities(EntityTypeTest.forClass(CloudSpirit.class), mob -> true);
+                    expectTrue("44 号符：召唤被使用者驯服的云灵，携带品阶、符名与召唤者 UUID（数量 " + spirits.size() + "）",
+                            spirits.size() == 1 && spirits.get(0).isTame() && spirits.get(0).isOwnedBy(p)
+                                    && spirits.get(0).getPersistentData().getString("fuluname").equals("云灵符")
+                                    && spirits.get(0).getPersistentData().getDouble("fululevel") == 1);
+                    minecraft.execute(() -> screenshots.take("fulu-cloud-spirit.png"));
+                    spirits.forEach(Entity::discard);
+                    p.removeAllEffects();
+                    p.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.getHolder(
+                            ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", "effect_007")).orElseThrow(), 200));
+                    p.setHealth(1);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_22", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(2, p -> {
+                    double expectedHealth = 1 + p.getMaxHealth() * 0.1;
+                    expectTrue("22 号符背包被动：危急时回血、加速并消耗（生命 " + p.getHealth() + "/" + p.getMaxHealth()
+                                    + "，预期 " + expectedHealth + "，剩余 " + p.getInventory().getItem(HOTBAR).getCount()
+                                    + "，移速效果 " + p.getEffect(MobEffects.MOVEMENT_SPEED) + "）",
+                            p.getInventory().getItem(HOTBAR).isEmpty() && Math.abs(p.getHealth() - expectedHealth) < 0.01
+                                    && p.hasEffect(MobEffects.MOVEMENT_SPEED) && p.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() == 5);
+                    p.removeAllEffects();
+                    p.setHealth(1);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_23", 1, 1));
+                    p.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.getHolder(
+                            ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", "effect_007")).orElseThrow(), 200));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(2, p -> {
+                    double expectedHealth = p.getMaxHealth() * 0.15;
+                    expectTrue("23 号符背包被动：危急时保命、加效果并消耗（生命 " + p.getHealth() + "/" + p.getMaxHealth()
+                                    + "，预期 " + expectedHealth + "，剩余 " + p.getInventory().getItem(HOTBAR).getCount()
+                                    + "，移速 " + p.getEffect(MobEffects.MOVEMENT_SPEED) + "，力量 " + p.getEffect(MobEffects.DAMAGE_BOOST)
+                                    + "，抗性 " + p.getEffect(MobEffects.DAMAGE_RESISTANCE) + "，吸收 " + p.getEffect(MobEffects.ABSORPTION) + "）",
+                            p.getInventory().getItem(HOTBAR).isEmpty() && Math.abs(p.getHealth() - expectedHealth) < 0.01
+                                    && p.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() == 1
+                                    && p.getEffect(MobEffects.DAMAGE_BOOST).getAmplifier() == 1
+                                    && p.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() == 0
+                                    && p.getEffect(MobEffects.ABSORPTION).getAmplifier() == 1);
+                    dummy = (Mob) EntityType.PIG.create(p.serverLevel());
+                    dummy.moveTo(p.getX() + 2, p.getY(), p.getZ(), 0, 0);
+                    dummy.setNoAi(true);
+                    dummy.setPersistenceRequired();
+                    p.serverLevel().addFreshEntity(dummy);
+                    p.removeAllEffects();
+                    p.setHealth(1);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_16", 1, 1));
+                    p.inventoryMenu.broadcastChanges();
+                    p.getServer().setDifficulty(Difficulty.NORMAL, true);
+                    p.invulnerableTime = 0;
+                    p.hurt(p.damageSources().indirectMagic(dummy, dummy), 100);
+                }),
+                new Action(20, p -> {
+                    expectTrue("16 号替死符：致命伤害中保护并消耗（生命 " + p.getHealth() + "/" + p.getMaxHealth()
+                                    + "，剩余 " + p.getInventory().getItem(HOTBAR).getCount() + "，发光 " + p.hasEffect(MobEffects.GLOWING) + "）",
+                            p.getHealth() == p.getMaxHealth() && p.getInventory().getItem(HOTBAR).isEmpty()
+                                    && p.hasEffect(MobEffects.GLOWING));
+                    p.getServer().setDifficulty(difficulty, true);
+                    repellingBase = p.blockPosition().offset(1, -1, 1);
+                    repellingBlocks.put(repellingBase, p.serverLevel().getBlockState(repellingBase));
+                    repellingBlocks.put(repellingBase.above(), p.serverLevel().getBlockState(repellingBase.above()));
+                    p.serverLevel().setBlockAndUpdate(repellingBase, Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(repellingBase.above(), Blocks.AIR.defaultBlockState());
+                    p.getInventory().setItem(HOTBAR, item("itemfulu_15"));
+                    p.inventoryMenu.broadcastChanges();
+                    useBlock(repellingBase);
+                }),
+                new Action(8, p -> {
+                    BlockPos wardPos = repellingBase.above();
+                    dummy.discard();
+                    dummy = (Mob) EntityType.PIG.create(p.serverLevel());
+                    dummy.setNoAi(true);
+                    if (!(p.serverLevel().getBlockEntity(wardPos) instanceof RepellingTalismanBlockEntity ward)) {
+                        expectTrue("15 号镇宅符已放置方块与方块实体（目标方块 " + p.serverLevel().getBlockState(wardPos)
+                                        + "，底座 " + p.serverLevel().getBlockState(repellingBase) + "，手持数量 "
+                                        + p.getInventory().getItem(HOTBAR).getCount() + "）", false);
+                        return;
+                    }
+                    dummy.moveTo(wardPos.getX() + 6, wardPos.getY(), wardPos.getZ() + 0.5, 0, 0);
+                    p.serverLevel().addFreshEntity(dummy);
+                    String hostileTeam = "fulu_smoke_hostile";
+                    while (Relations.friendlyTeams(p).contains(hostileTeam)) hostileTeam += "_";
+                    Relations.setTeam(dummy, hostileTeam);
+                    ward.repel(p.serverLevel());
+                    CompoundTag friendlist = ward.getPersistentData().getCompound("friendlist");
+                    boolean capturedFriends = Relations.friendlyTeams(p).stream().allMatch(friendlist::getBoolean);
+                    boolean blockPlaced = p.serverLevel().getBlockState(wardPos).is(block("itemfulu_15").getBlock());
+                    boolean teamCaptured = ward.getPersistentData().getString("team").equals(Relations.team(p));
+                    boolean velocityApplied = Math.abs(dummy.getDeltaMovement().y() - 0.1) < 0.001;
+                    expectTrue("15 号镇宅符：方块=" + blockPlaced + "、阵营=" + teamCaptured + "、初始友方集合=" + capturedFriends
+                                    + "、弹开速度=" + dummy.getDeltaMovement() + "、手持=" + p.getInventory().getItem(HOTBAR).getCount(),
+                            blockPlaced && teamCaptured && capturedFriends && velocityApplied && p.getInventory().getItem(HOTBAR).isEmpty());
+                    var allegiance = p.getData(RelationAttachments.PLAYER).allegiance();
+                    allegiance.setFriendly(hostileTeam, true);
+                    dummy.setDeltaMovement(Vec3.ZERO);
+                    ward.repel(p.serverLevel());
+                    boolean followsNewFriend = dummy.getDeltaMovement().equals(Vec3.ZERO);
+                    RepellingTalismanBlockEntity restoredWard = (RepellingTalismanBlockEntity) BlockEntity.loadStatic(wardPos,
+                            p.serverLevel().getBlockState(wardPos), ward.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    allegiance.setFriendly(hostileTeam, false);
+                    ward.repel(p.serverLevel());
+                    boolean followsRemovedFriend = Math.abs(dummy.getDeltaMovement().y() - 0.1) < 0.001;
+                    dummy.setDeltaMovement(Vec3.ZERO);
+                    restoredWard.repel(p.serverLevel());
+                    expectTrue("15 号友方集合：放置后随玩家增删变化，保存重读后保持独立集合",
+                            followsNewFriend && followsRemovedFriend && dummy.getDeltaMovement().equals(Vec3.ZERO));
+                    explosiveBase = repellingBase.offset(-1, 0, -1);
+                    repellingBlocks.put(explosiveBase, p.serverLevel().getBlockState(explosiveBase));
+                    repellingBlocks.put(explosiveBase.above(), p.serverLevel().getBlockState(explosiveBase.above()));
+                    p.serverLevel().setBlockAndUpdate(explosiveBase, Blocks.STONE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(explosiveBase.above(), Blocks.AIR.defaultBlockState());
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_42", 1, 2));
+                    p.inventoryMenu.broadcastChanges();
+                    useBlock(explosiveBase);
+                }),
+                new Action(4, p -> {
+                    BlockPos at = explosiveBase.above();
+                    expectTrue("42 号二阶符真实右键放置二阶爆裂方块并消耗一张",
+                            p.serverLevel().getBlockState(at).is(block("fulutexiao_4202").getBlock())
+                                    && p.getInventory().getItem(HOTBAR).isEmpty());
+                    List<Float> powers = new ArrayList<>();
+                    List<Explosion.BlockInteraction> interactions = new ArrayList<>();
+                    Consumer<ExplosionEvent.Start> capture = event -> {
+                        powers.add(event.getExplosion().radius());
+                        interactions.add(event.getExplosion().getBlockInteraction());
+                        event.setCanceled(true);
+                    };
+                    NeoForge.EVENT_BUS.addListener(capture);
+                    try {
+                        Snowball shot = new Snowball(p.serverLevel(), p);
+                        for (String id : List.of("fulutexiao_42", "fulutexiao_4202", "fulutexiao_4203", "fulutexiao_4204")) {
+                            BlockState state = block(id);
+                            ExplosiveTalismanBlock talismanBlock = (ExplosiveTalismanBlock) state.getBlock();
+                            talismanBlock.onProjectileHit(p.serverLevel(), state,
+                                    new BlockHitResult(Vec3.atCenterOf(at), Direction.UP, at, false), shot);
+                            talismanBlock.wasExploded(p.serverLevel(), at,
+                                    new Explosion(p.serverLevel(), null, at.getX(), at.getY(), at.getZ(), 1, false, Explosion.BlockInteraction.DESTROY));
+                        }
+                    } finally {
+                        NeoForge.EVENT_BUS.unregister(capture);
+                    }
+                    expectTrue("42 号四档投射物与爆炸回调：半径 4/8/12/16，固定 DESTROY_WITH_DECAY（受控取消爆炸）",
+                            powers.equals(List.of(4f, 4f, 8f, 8f, 12f, 12f, 16f, 16f))
+                                    && interactions.stream().allMatch(mode -> mode == Explosion.BlockInteraction.DESTROY_WITH_DECAY));
+                }),
+                new Action(8, p -> {
+                    p.closeContainer();
+                    stoneMillShift = minecraft.options.keyShift.isDown();
+                    stoneMillPos = prepareStoneMill(p, p.blockPosition().offset(2, 0, 0));
+                    stoneRollerPos = prepareStoneMill(p, p.blockPosition().offset(-2, 0, 0));
+                    p.serverLevel().setBlockAndUpdate(stoneMillPos, block("stonemill"));
+                    p.serverLevel().setBlockAndUpdate(stoneRollerPos, block("stoneroller"));
+                    p.getInventory().setItem(HOTBAR, ItemStack.EMPTY);
+                    p.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                    p.inventoryMenu.broadcastChanges();
+                    stoneMillDropListener = event -> {
+                        if (!event.getLevel().isClientSide() && event.getEntity() instanceof ItemEntity drop
+                                && drop.position().distanceToSqr(Vec3.atCenterOf(stoneMillPos)) < 16) stoneMillDrops.add(drop);
+                    };
+                    NeoForge.EVENT_BUS.addListener(stoneMillDropListener);
+                    stoneMillSneak(true);
+                }),
+                new Action(8, p -> {
+                    expectTrue("石磨开窗前客户端潜行输入已同步到服务端", p.isShiftKeyDown());
+                    useBlock(stoneMillPos);
+                }),
+                new Action(8, p -> {
+                    expectTrue("真实潜行右键石磨打开双端三槽菜单与中文原生界面",
+                            p.containerMenu instanceof StoneMillMenu && p.containerMenu.slots.size() == 39
+                                    && minecraft.player.containerMenu instanceof StoneMillMenu
+                                    && minecraft.screen instanceof StoneMillScreen
+                                    && !Component.translatable("gui.yvanchuxiuzhen.stonemill_gui.label_yan_mo")
+                                            .getString().equals("gui.yvanchuxiuzhen.stonemill_gui.label_yan_mo"));
+                    minecraft.execute(() -> screenshots.take("craft-stonemill-menu.png"));
+                }),
+                new Action(8, p -> {
+                    p.closeContainer();
+                    stoneMillSneak(false);
+                    StoneMillBlockEntity mill = stoneMill(p, stoneMillPos);
+                    mill.setItem(0, item("fuluzhushablock"));
+                    mill.setItem(1, ItemStack.EMPTY);
+                    mill.setItem(2, ItemStack.EMPTY);
+                    mill.changed();
+                }),
+                new Action(4, p -> useBlock(stoneMillPos)),
+                new Action(4, p -> {
+                    StoneMillBlockEntity mill = stoneMill(p, stoneMillPos);
+                    expectTrue("石磨普通右键：1份辰砂耗尽仍产生4份朱砂，保留来源主料初始数量缓存",
+                            !p.isShiftKeyDown() && mill.getItem(0).isEmpty()
+                                    && mill.getItem(1).is(item("fuluzhushaitem").getItem()) && mill.getItem(1).getCount() == 4);
+                    mill.setItem(1, item("fuluzhushaitem", 3));
+                    mill.changed();
+                }),
+                new Action(4, p -> useBlock(stoneMillPos)),
+                new Action(4, p -> {
+                    int dropped = stoneMillDrops.stream().filter(drop -> drop.getItem().is(item("fuluzhushaitem").getItem()))
+                            .mapToInt(drop -> drop.getItem().getCount()).sum();
+                    expectTrue("石磨旧成品3件被复制成三份完整栈，共掉出9件且清空成品槽（实际 " + dropped + "）",
+                            dropped == 9 && stoneMill(p, stoneMillPos).getItem(1).isEmpty());
+                    stoneMillDrops.forEach(Entity::discard);
+                    stoneMillDrops.clear();
+                    StoneMillBlockEntity roller = stoneMill(p, stoneRollerPos);
+                    roller.setItem(0, item("shicai_046", 4));
+                    roller.setItem(1, ItemStack.EMPTY);
+                    roller.setItem(2, item("foodwan"));
+                    roller.changed();
+                }),
+                new Action(4, p -> useBlock(stoneRollerPos)),
+                new Action(4, p -> {
+                    StoneMillBlockEntity roller = stoneMill(p, stoneRollerPos);
+                    expectTrue("石碾普通右键：4主料与1碗只产1份，后续轮次重读辅料阻止继续产出",
+                            roller.getItem(0).isEmpty() && roller.getItem(2).isEmpty()
+                                    && roller.getItem(1).is(item("food_039").getItem()) && roller.getItem(1).getCount() == 1);
+                    roller.setItem(0, item("shicai_046", 5));
+                    roller.setItem(1, item("food_039"));
+                    roller.setItem(2, item("foodwan", 2));
+                    roller.changed();
+                    StoneMillBlockEntity restored = (StoneMillBlockEntity) BlockEntity.loadStatic(stoneRollerPos,
+                            roller.getBlockState(), roller.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    boolean allSlots = restored != null;
+                    for (int slot = 0; slot < 3 && allSlots; slot++) allSlots &= ItemStack.matches(restored.getItem(slot), roller.getItem(slot));
+                    boolean directions = true;
+                    for (Direction direction : Direction.values()) {
+                        IItemHandler sided = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, stoneRollerPos, direction);
+                        directions &= sided != null && sided.getSlots() == 3
+                                && sided.insertItem(0, item("shicai_046"), true).isEmpty()
+                                && sided.insertItem(2, item("foodwan"), true).isEmpty()
+                                && sided.insertItem(1, item("food_039"), true).getCount() == 1
+                                && sided.extractItem(0, 1, true).isEmpty() && sided.extractItem(2, 1, true).isEmpty()
+                                && sided.extractItem(1, 1, true).getCount() == 1;
+                    }
+                    expectTrue("石碾三槽保存重读一致，六方向能力只插0/2并只取成品1", allSlots && directions);
+                }),
+                new Action(4, p -> {
+                    loomPos = prepareStoneMill(p, p.blockPosition().offset(0, 0, 2));
+                    p.serverLevel().setBlockAndUpdate(loomPos, block("zhibuji"));
+                    p.getInventory().clearContent();
+                    p.getInventory().selected = HOTBAR;
+                    p.setItemInHand(InteractionHand.MAIN_HAND, item("mianitem", 2));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(4, p -> useBlock(loomPos)),
+                new Action(4, p -> {
+                    ItemStack cloth = inventoryItem(p, "cailiao_171");
+                    expectTrue("织布机真实右键：两份棉花只扣一份、只产一份4级灵布，且不打开菜单",
+                            p.getMainHandItem().getCount() == 1 && cloth.getCount() == 1
+                                    && Materials.instance(cloth).level() == 4
+                                    && p.containerMenu == p.inventoryMenu);
+                    p.getInventory().clearContent();
+                    p.setItemInHand(InteractionHand.MAIN_HAND, material("cailiao_209", 40));
+                    p.getInventory().setItem(1, material("cailiao_219", 40));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(4, p -> useBlock(loomPos)),
+                new Action(4, p -> {
+                    ItemStack cloth = inventoryItem(p, "cailiao_179");
+                    expectTrue("织布机按ID匹配带实例组件的两种金属，各扣一件并给同品阶41级千丝锦两件",
+                            inventoryItem(p, "cailiao_209").isEmpty() && inventoryItem(p, "cailiao_219").isEmpty()
+                                    && cloth.getCount() == 2 && Materials.instance(cloth).level() == 41);
+                    p.getInventory().clearContent();
+                    p.setItemInHand(InteractionHand.MAIN_HAND, item("thundergrass"));
+                    p.getInventory().setItem(1, material("cailiao_178", 99));
+                    p.getInventory().setItem(2, material("cailiao_179", 1));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(4, p -> useBlock(loomPos)),
+                new Action(4, p -> {
+                    ItemStack cloth = inventoryItem(p, "cailiao_243");
+                    expectTrue("云雷锦按布ID优先取千丝锦，忽略实例等级，保留99级浣花绫并产41级云雷锦",
+                            p.getMainHandItem().isEmpty() && inventoryItem(p, "cailiao_179").isEmpty()
+                                    && inventoryItem(p, "cailiao_178").getCount() == 1
+                                    && cloth.getCount() == 1 && Materials.instance(cloth).level() == 41);
+                    p.getInventory().clearContent();
+                    p.setItemInHand(InteractionHand.OFF_HAND, item("mianitem", 2));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(4, p -> minecraft.execute(() -> minecraft.gameMode.useItemOn(minecraft.player,
+                        InteractionHand.OFF_HAND, new BlockHitResult(Vec3.atCenterOf(loomPos), Direction.UP, loomPos, false)))),
+                new Action(4, p -> {
+                    expectTrue("织布机副手点击仍读取空主手，副手棉花不消耗且不产布",
+                            p.getOffhandItem().getCount() == 2 && inventoryItem(p, "cailiao_171").isEmpty());
+                    p.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                    LoomBlockEntity loom = (LoomBlockEntity) p.serverLevel().getBlockEntity(loomPos);
+                    loom.setItem(0, item("silkthread", 3));
+                    LoomBlockEntity restored = (LoomBlockEntity) BlockEntity.loadStatic(loomPos, loom.getBlockState(),
+                            loom.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    boolean directions = true;
+                    for (Direction direction : Direction.values()) {
+                        IItemHandler handler = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, loomPos, direction);
+                        directions &= handler != null && handler.getSlots() == 1
+                                && handler.extractItem(0, 1, true).getCount() == 1
+                                && handler.insertItem(0, item("silkthread"), true).isEmpty();
+                    }
+                    expectTrue("织布机独立单槽保存重读一致，六方向均可插取，未被主手加工使用",
+                            restored != null && ItemStack.matches(restored.getItem(0), loom.getItem(0)) && directions);
+                    loom.setItem(0, new ItemStack(Items.IRON_SWORD, 3));
+                    StoneMillBlockEntity mill = stoneMill(p, stoneMillPos);
+                    mill.setItem(0, new ItemStack(Items.IRON_SWORD, 3));
+                    expectTrue("石磨与织布机强制赋槽保留来源容器64件上限，不按单件物品上限截断",
+                            loom.getItem(0).getCount() == 3 && mill.getItem(0).getCount() == 3);
+                }),
+                new Action(8, p -> {
+                    carpentryPos = prepareStoneMill(p, p.blockPosition().offset(0, 0, -2));
+                    p.serverLevel().setBlockAndUpdate(carpentryPos, block("mugongtai"));
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(0, item("beechplanks", 8));
+                    p.getInventory().selected = HOTBAR;
+                    p.getInventory().setItem(HOTBAR, new ItemStack(Items.IRON_SWORD));
+                    p.inventoryMenu.broadcastChanges();
+                    stoneMillSneak(true);
+                }),
+                new Action(8, p -> useBlock(carpentryPos)),
+                new Action(8, p -> {
+                    expectTrue("木匠台持物潜行真实右键打开双端78槽菜单与43按钮",
+                            p.containerMenu instanceof CarpentryMenu && p.containerMenu.slots.size() == 78
+                                    && minecraft.player.containerMenu instanceof CarpentryMenu
+                                    && minecraft.screen instanceof CarpentryScreen screen
+                                    && screen.children().stream().filter(Button.class::isInstance).count() == 43);
+                    stoneMillSneak(false);
+                    carpentryButton(1);
+                }),
+                new Action(8, p -> {
+                    CarpentryBlockEntity table = carpentry(p);
+                    expectTrue("木匠选择首项同步预览与8榉木成本，不消耗材料",
+                            table.getItem(40).is(item("beechfurniture_01").getItem())
+                                    && table.requirementCount(0) == 8 && inventoryItem(p, "beechplanks").getCount() == 8
+                                    && minecraft.player.containerMenu.getSlot(40).getItem().is(item("beechfurniture_01").getItem()));
+                    minecraft.execute(() -> screenshots.take("craft-carpentry-menu.png"));
+                    carpentryButton(0);
+                }),
+                new Action(8, p -> {
+                    expectTrue("木匠制作扣8木板、共享结果1件并同步两端",
+                            inventoryItem(p, "beechplanks").isEmpty()
+                                    && carpentry(p).getItem(41).is(item("beechfurniture_01").getItem())
+                                    && carpentry(p).getItem(41).getCount() == 1
+                                    && minecraft.player.containerMenu.getSlot(41).getItem().getCount() == 1);
+                    minecraft.execute(() -> minecraft.gameMode.handleInventoryMouseClick(
+                            minecraft.player.containerMenu.containerId, 41, 0, ClickType.QUICK_MOVE, minecraft.player));
+                }),
+                new Action(8, p -> {
+                    expectTrue("木匠成品经原生shift点击领取，机器结果清空",
+                            carpentry(p).getItem(41).isEmpty() && inventoryItem(p, "beechfurniture_01").getCount() == 1);
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(0, item("beechplanks", 8));
+                    p.getInventory().setItem(1, item("book_005"));
+                    p.containerMenu.broadcastChanges();
+                    carpentryButton(19);
+                }),
+                new Action(6, p -> carpentryButton(0)),
+                new Action(8, p -> {
+                    expectTrue("木匠五行数量跨材料累计：8木板加1书可制作要求2书的书柜",
+                            carpentry(p).getItem(41).is(item("beechfurniture_19").getItem())
+                                    && inventoryItem(p, "beechplanks").isEmpty() && inventoryItem(p, "book_005").isEmpty());
+                    p.getInventory().setItem(0, item("beechplanks", 8));
+                    p.containerMenu.broadcastChanges();
+                    carpentryButton(0);
+                }),
+                new Action(8, p -> {
+                    expectTrue("木匠累计数量不能代替材料存在性：完全缺书不扣木板、不增加结果",
+                            inventoryItem(p, "beechplanks").getCount() == 8 && carpentry(p).getItem(41).getCount() == 1);
+                    carpentryButton(41);
+                }),
+                new Action(6, p -> {
+                    expectTrue("木匠切类别保留旧预览与成本，同时刷新两项杂物候选",
+                            carpentry(p).getItem(40).is(item("beechfurniture_19").getItem())
+                                    && carpentry(p).requirementId(1).endsWith(":book_005")
+                                    && carpentry(p).getItem(0).is(item("itemdanyaohulu_04").getItem())
+                                    && carpentry(p).getItem(2).isEmpty());
+                    carpentryButton(1);
+                }),
+                new Action(6, p -> {
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(0, new ItemStack(Items.OAK_PLANKS, 6));
+                    p.containerMenu.broadcastChanges();
+                    carpentryButton(0);
+                }),
+                new Action(8, p -> {
+                    expectTrue("木匠换配方覆盖旧成品物种并沿用数量，单件小盒子两端均保留2件",
+                            carpentry(p).getItem(41).is(item("itemdanyaohulu_04").getItem())
+                                    && carpentry(p).getItem(41).getCount() == 2
+                                    && minecraft.player.containerMenu.getSlot(41).getItem().getCount() == 2
+                                    && p.getInventory().getItem(0).getCount() == 3);
+                    CarpentryBlockEntity table = carpentry(p);
+                    table.setItem(41, item("itemdanyaohulu_04", 64));
+                    table.changed();
+                    carpentryButton(0);
+                }),
+                new Action(8, p -> {
+                    CarpentryBlockEntity table = carpentry(p);
+                    CarpentryBlockEntity restored = (CarpentryBlockEntity) BlockEntity.loadStatic(carpentryPos,
+                            table.getBlockState(), table.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    boolean directions = true;
+                    for (Direction direction : Direction.values()) {
+                        IItemHandler handler = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, carpentryPos, direction);
+                        directions &= handler != null && handler.insertItem(41, item("itemdanyaohulu_04"), true).getCount() == 1
+                                && handler.extractItem(40, 1, true).isEmpty() && handler.extractItem(41, 1, true).getCount() == 1;
+                    }
+                    expectTrue("木匠结果满64仍扣料，42槽与选择保存读回、六面只抽结果",
+                            p.getInventory().getItem(0).isEmpty() && table.getItem(41).getCount() == 64
+                                    && minecraft.player.containerMenu.getSlot(41).getItem().getCount() == 64
+                                    && restored != null && restored.getItem(41).getCount() == 64
+                                    && restored.requirementCount(0) == 3 && directions && table.handler(null).getSlots() == 42);
+                    p.closeContainer();
+                    silkReelPos = prepareStoneMill(p, p.blockPosition().offset(1, 0, -3));
+                    silkInputPos = prepareStoneMill(p, silkReelPos.north().below());
+                    p.serverLevel().setBlockAndUpdate(silkReelPos, block("saosilun")
+                            .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
+                    p.serverLevel().setBlockAndUpdate(silkInputPos, Blocks.CHEST.defaultBlockState());
+                    ((Container) p.serverLevel().getBlockEntity(silkInputPos)).setItem(0, item("silkwormchrysalisgold", 2));
+                    silkDropListener = event -> {
+                        if (!event.getLevel().isClientSide() && event.getEntity() instanceof ItemEntity drop
+                                && drop.position().distanceToSqr(Vec3.atCenterOf(silkReelPos)) < 4) silkDrops.add(drop);
+                    };
+                    NeoForge.EVENT_BUS.addListener(silkDropListener);
+                    p.getInventory().clearContent();
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(30, p -> useBlock(silkReelPos)),
+                new Action(80, p -> {
+                    SilkReelBlockEntity reel = silkReel(p);
+                    double before = reel.getPersistentData().getDouble("tick");
+                    useBlock(silkReelPos);
+                    expectTrue("缫丝启动后使用既有周期且忙碌不重置进度，未提前产出",
+                            reel.getPersistentData().getBoolean("saosi") && before >= 1 && silkDrops.isEmpty());
+                    p.serverLevel().setBlockAndUpdate(silkReelPos, reel.getBlockState()
+                            .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST));
+                }),
+                new Action(4, p -> {
+                    SilkReelBlockEntity reel = silkReel(p);
+                    expectTrue("缫丝第5周期沿启动方向取槽0金蛹，无热源仍扣1并只出1金丝，完成复位",
+                            ((Container) p.serverLevel().getBlockEntity(silkInputPos)).getItem(0).getCount() == 1
+                                    && silkDrops.stream().filter(drop -> drop.getItem().is(item("silkthreadgold").getItem()))
+                                            .mapToInt(drop -> drop.getItem().getCount()).sum() == 1
+                                    && !reel.getPersistentData().getBoolean("saosi") && reel.getPersistentData().getDouble("tick") == 0);
+                    silkDrops.forEach(Entity::discard);
+                    silkDrops.clear();
+                    ((Container) p.serverLevel().getBlockEntity(silkInputPos)).clearContent();
+                    p.serverLevel().setBlockAndUpdate(silkInputPos, Blocks.WATER_CAULDRON.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(silkInputPos.below(), Blocks.CAMPFIRE.defaultBlockState()
+                            .setValue(BlockStateProperties.LIT, false));
+                    p.serverLevel().setBlockAndUpdate(silkReelPos, reel.getBlockState()
+                            .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
+                    ItemEntity drop = new ItemEntity(p.serverLevel(), silkInputPos.getX() + .5,
+                            silkInputPos.getY() + .5, silkInputPos.getZ() + .5, item("silkwormchrysalisred", 3));
+                    drop.setDeltaMovement(Vec3.ZERO);
+                    p.serverLevel().addFreshEntity(drop);
+                    silkDrops.add(drop);
+                }),
+                new Action(108, p -> useBlock(silkReelPos)),
+                new Action(4, p -> {
+                    SilkReelBlockEntity reel = silkReel(p);
+                    expectTrue("缫丝水釜路径认可未点燃营火，整栈3红蛹移除只产1红丝且不耗水",
+                            silkDrops.stream().filter(drop -> drop.getItem().is(item("silkwormchrysalisred").getItem())).noneMatch(Entity::isAlive)
+                                    && silkDrops.stream().filter(drop -> drop.getItem().is(item("silkthreadred").getItem()))
+                                            .mapToInt(drop -> drop.getItem().getCount()).sum() == 1
+                                    && p.serverLevel().getBlockState(silkInputPos).getValue(BlockStateProperties.LEVEL_CAULDRON) == 1);
+                    reel.setItem(8, new ItemStack(Items.IRON_SWORD, 3));
+                    reel.getPersistentData().putBoolean("saosi", true);
+                    reel.getPersistentData().putDouble("tick", 3);
+                    reel.getPersistentData().putString("fangxiang", "south");
+                    SilkReelBlockEntity restored = (SilkReelBlockEntity) BlockEntity.loadStatic(silkReelPos,
+                            reel.getBlockState(), reel.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("缫丝九槽与忙碌进度/方向完整保存读回，单件物品仍保留3件",
+                            restored != null && restored.getItem(8).getCount() == 3
+                                    && restored.getPersistentData().getBoolean("saosi")
+                                    && restored.getPersistentData().getDouble("tick") == 3
+                                    && restored.getPersistentData().getString("fangxiang").equals("south"));
+                }),
+                new Action(8, p -> {
+                    p.closeContainer();
+                    potteryWheelPos = prepareCraftFollowup(p, p.blockPosition().offset(-2, 0, -2));
+                    potteryPlacedPos = prepareCraftFollowup(p, p.blockPosition().offset(-2, 0, -4));
+                    potterySkyPos = prepareCraftFollowup(p, p.blockPosition().offset(-4, 0, -2));
+                    potteryCoveredPos = prepareCraftFollowup(p, p.blockPosition().offset(-4, 0, -4));
+                    silkwormBoxPos = prepareCraftFollowup(p, p.blockPosition().offset(2, 0, 2));
+                    p.serverLevel().setBlockAndUpdate(potteryWheelPos, block("taolun"));
+                    p.serverLevel().setBlockAndUpdate(silkwormBoxPos, block("canhe"));
+                    pauseCraftFollowup(p, silkwormBoxPos);
+                    craftFollowupListener = event -> {
+                        Entity entity = event.getEntity();
+                        if (event.getLevel() != p.serverLevel()) return;
+                        String id = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getPath();
+                        if ((id.equals("silkwormmoth") || id.equals("silkwormmothgold") || entity instanceof ItemEntity)
+                                && entity.position().distanceToSqr(Vec3.atCenterOf(silkwormBoxPos)) < 25) {
+                            craftFollowupEntities.add(entity);
+                        }
+                    };
+                    NeoForge.EVENT_BUS.addListener(craftFollowupListener);
+                    p.getInventory().clearContent();
+                    p.getInventory().selected = HOTBAR;
+                    p.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                    p.inventoryMenu.broadcastChanges();
+                    stoneMillSneak(false);
+                }),
+                new Action(8, p -> useBlock(potteryWheelPos)),
+                new Action(6, p -> {
+                    PotteryWheelBlockEntity wheel = potteryWheel(p);
+                    expectTrue("陶轮真实右键打开双端45槽菜单，十一按钮与三项候选齐全",
+                            p.containerMenu instanceof PotteryWheelMenu && p.containerMenu.slots.size() == 45
+                                    && minecraft.player.containerMenu instanceof PotteryWheelMenu
+                                    && minecraft.screen instanceof PotteryWheelScreen screen
+                                    && screen.children().stream().filter(Button.class::isInstance).count() == 11
+                                    && wheel.getItem(1).is(item("taoguan_01item").getItem())
+                                    && wheel.getItem(2).is(item("taoguan_02item").getItem())
+                                    && wheel.getItem(3).is(item("taoguan_03item").getItem())
+                                    && wheel.getItem(4).isEmpty());
+                    p.getInventory().setItem(0, new ItemStack(Items.CLAY_BALL, 8));
+                    p.containerMenu.broadcastChanges();
+                    potteryButton(2);
+                }),
+                new Action(6, p -> potteryButton(10)),
+                new Action(6, p -> {
+                    expectTrue("陶轮第一配方真实按钮扣黏土4并写带01成品标识的单件陶坯",
+                            potteryWheel(p).getItem(0).is(item("taopiitem").getItem())
+                                    && potteryWheel(p).getItem(0).getCount() == 1
+                                    && potteryOutput(potteryWheel(p).getItem(0)).equals("yvanchuxiuzhen:taoguan_01item")
+                                    && p.getInventory().getItem(0).getCount() == 4);
+                    p.getInventory().setItem(0, new ItemStack(Items.CLAY_BALL, 20));
+                    p.containerMenu.broadcastChanges();
+                    potteryButton(3);
+                }),
+                new Action(6, p -> potteryButton(10)),
+                new Action(6, p -> {
+                    expectTrue("陶轮第二配方扣黏土16且覆盖已有结果，不累加陶坯数量",
+                            potteryWheel(p).getItem(0).getCount() == 1
+                                    && potteryOutput(potteryWheel(p).getItem(0)).equals("yvanchuxiuzhen:taoguan_02item")
+                                    && p.getInventory().getItem(0).getCount() == 4);
+                    p.getInventory().setItem(0, new ItemStack(Items.CLAY_BALL, 40));
+                    p.containerMenu.broadcastChanges();
+                    potteryButton(4);
+                }),
+                new Action(6, p -> potteryButton(10)),
+                new Action(6, p -> {
+                    expectTrue("陶轮第三配方扣黏土36并覆盖为03成品标识，原生画布中文键已合并",
+                            potteryWheel(p).getItem(0).getCount() == 1
+                                    && potteryOutput(potteryWheel(p).getItem(0)).equals("yvanchuxiuzhen:taoguan_03item")
+                                    && p.getInventory().getItem(0).getCount() == 4
+                                    && !Component.translatable("gui.yvanchuxiuzhen.craft.pottery_clay").getString().startsWith("gui."));
+                    minecraft.execute(() -> screenshots.take("craft-pottery-wheel-menu.png"));
+                    potteryWheel(p).setItem(9, new ItemStack(Items.IRON_SWORD, 3));
+                    minecraft.execute(() -> minecraft.player.closeContainer());
+                }),
+                new Action(6, p -> {
+                    PotteryWheelBlockEntity wheel = potteryWheel(p);
+                    boolean cleared = true;
+                    for (int slot = 1; slot < 10; slot++) cleared &= wheel.getItem(slot).isEmpty();
+                    wheel.setItem(9, new ItemStack(Items.IRON_SWORD, 3));
+                    PotteryWheelBlockEntity restored = (PotteryWheelBlockEntity) BlockEntity.loadStatic(potteryWheelPos,
+                            wheel.getBlockState(), wheel.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    boolean directions = true;
+                    for (Direction direction : Direction.values()) {
+                        IItemHandler handler = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, potteryWheelPos, direction);
+                        directions &= handler != null && handler.getSlots() == 10
+                                && handler.extractItem(9, 1, true).getCount() == 1
+                                && handler.insertItem(8, new ItemStack(Items.CLAY_BALL), true).isEmpty();
+                    }
+                    expectTrue("陶轮关窗清1至9保留结果，十槽64上限保存读回与六面任意插取一致",
+                            cleared && !wheel.getItem(0).isEmpty() && directions && restored != null
+                                    && restored.getItem(9).getCount() == 3
+                                    && ItemStack.matches(restored.getItem(0), wheel.getItem(0)));
+                    potteryBlankStack = wheel.getItem(0).copy();
+                    CustomData.update(DataComponents.CUSTOM_DATA, potteryBlankStack,
+                            data -> data.putString("smoke_marker", "pottery_followup"));
+                    p.getInventory().clearContent();
+                    p.getInventory().selected = HOTBAR;
+                    p.getInventory().setItem(HOTBAR, potteryBlankStack.copyWithCount(2));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(8, p -> useBlock(potteryPlacedPos.below())),
+                new Action(6, p -> {
+                    potteryPlacementOkay = p.serverLevel().getBlockEntity(potteryPlacedPos) instanceof PotteryBlankBlockEntity blank
+                            && ItemStack.matches(blank.getItem(0), potteryBlankStack)
+                            && p.getMainHandItem().getCount() == 1;
+                    p.getInventory().setItem(0, p.getMainHandItem().copy());
+                    p.getInventory().setItem(HOTBAR, new ItemStack(Items.STICK));
+                    p.inventoryMenu.broadcastChanges();
+                    stoneMillSneak(true);
+                }),
+                new Action(8, p -> useBlock(potteryPlacedPos)),
+                new Action(6, p -> {
+                    expectTrue("陶坯只用真实UP点击放置扣1且保留组件，持棍潜行仍能取回同实例且不复制",
+                            potteryPlacementOkay && p.serverLevel().isEmptyBlock(potteryPlacedPos)
+                                    && craftFollowupCount(p, "taopiitem") == 2
+                                    && potteryOutput(inventoryItem(p, "taopiitem")).equals("yvanchuxiuzhen:taoguan_03item")
+                                    && inventoryItem(p, "taopiitem").getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
+                                            .copyTag().getString("smoke_marker").equals("pottery_followup")
+                                    && p.getMainHandItem().is(Items.STICK));
+                    stoneMillSneak(false);
+                    p.serverLevel().setBlockAndUpdate(potterySkyPos, block("taopi"));
+                    PotteryBlankBlockEntity blank = potteryBlank(p, potterySkyPos);
+                    blank.setItem(0, potteryBlankStack.copy());
+                    blank.getPersistentData().putBoolean("starfire", true);
+                    blank.getPersistentData().putInt("firetick", 47);
+                    blank.changed();
+                    scheduleCraftFollowup(p, potterySkyPos);
+                }),
+                new Action(6, p -> {
+                    PotteryBlankBlockEntity blank = potteryBlank(p, potterySkyPos);
+                    boolean directions = true;
+                    for (Direction direction : Direction.values()) {
+                        IItemHandler handler = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, potterySkyPos, direction);
+                        directions &= handler != null && handler.getSlots() == 1
+                                && handler.extractItem(0, 1, true).isEmpty()
+                                && handler.insertItem(0, potteryBlankStack.copy(), true).getCount() == 1;
+                    }
+                    PotteryBlankBlockEntity restored = (PotteryBlankBlockEntity) BlockEntity.loadStatic(potterySkyPos,
+                            blank.getBlockState(), blank.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    IItemHandler unsided = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, potterySkyPos, null);
+                    expectTrue("露天陶坯受控47经真实计划刻烧成03且火不灭，单槽保存及六面封锁/无方向读取一致",
+                            p.serverLevel().canSeeSkyFromBelowWater(potterySkyPos.above())
+                                    && blank.getItem(0).is(item("taoguan_03item").getItem())
+                                    && blank.burning() && blank.getPersistentData().getInt("firetick") == 0
+                                    && restored != null && restored.burning() && ItemStack.matches(restored.getItem(0), blank.getItem(0))
+                                    && directions && unsided != null && unsided.extractItem(0, 1, true).getCount() == 1);
+                    blank.getPersistentData().putInt("firetick", 47);
+                    scheduleCraftFollowup(p, potterySkyPos);
+                    p.serverLevel().setBlockAndUpdate(potteryCoveredPos, block("taopi"));
+                    p.serverLevel().setBlockAndUpdate(potteryCoveredPos.above(), Blocks.STONE.defaultBlockState());
+                    PotteryBlankBlockEntity covered = potteryBlank(p, potteryCoveredPos);
+                    covered.setItem(0, potteryBlankStack.copy());
+                    covered.getPersistentData().putBoolean("starfire", true);
+                    covered.getPersistentData().putInt("firetick", 11);
+                    covered.changed();
+                    scheduleCraftFollowup(p, potteryCoveredPos);
+                }),
+                new Action(6, p -> {
+                    PotteryBlankBlockEntity covered = potteryBlank(p, potteryCoveredPos);
+                    expectTrue("遮挡陶坯受控11经真实计划刻烧成，露天裸成品下一阈值因空标识消失且火仍开",
+                            !p.serverLevel().canSeeSkyFromBelowWater(potteryCoveredPos.above())
+                                    && covered.getItem(0).is(item("taoguan_03item").getItem()) && covered.burning()
+                                    && covered.getPersistentData().getInt("firetick") == 0
+                                    && potteryBlank(p, potterySkyPos).getItem(0).isEmpty()
+                                    && potteryBlank(p, potterySkyPos).burning());
+                    pauseCraftFollowup(p, potterySkyPos);
+                    pauseCraftFollowup(p, potteryCoveredPos);
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(HOTBAR, item("silkworm", 2));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(8, p -> useBlock(silkwormBoxPos)),
+                new Action(6, p -> {
+                    SilkwormBoxBlockEntity box = silkwormBox(p);
+                    silkwormInsertionOkay = box.getItem(0).is(item("silkworm").getItem()) && p.getMainHandItem().getCount() == 1;
+                    p.getInventory().setItem(HOTBAR, item("mulberryleaves", 2));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(8, p -> useBlock(silkwormBoxPos)),
+                new Action(6, p -> {
+                    SilkwormBoxBlockEntity box = silkwormBox(p);
+                    SilkwormBoxBlockEntity restored = (SilkwormBoxBlockEntity) BlockEntity.loadStatic(silkwormBoxPos,
+                            box.getBlockState(), box.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    ItemStack original = box.getItem(0).copy();
+                    boolean directions = true;
+                    for (Direction direction : Direction.values()) {
+                        IItemHandler handler = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, silkwormBoxPos, direction);
+                        directions &= handler != null && handler.getSlots() == 1 && handler.extractItem(0, 1, true).getCount() == 1;
+                        box.setItem(0, ItemStack.EMPTY);
+                        directions &= handler != null && handler.insertItem(0, original.copy(), true).isEmpty();
+                        box.setItem(0, original.copy());
+                    }
+                    expectTrue("蚕盒真实插蚕扣1与桑叶加60扣1，单槽/食物保存读回和六面插取一致",
+                            silkwormInsertionOkay && p.getMainHandItem().getCount() == 1 && box.value("shiwu") == 60
+                                    && box.value("jihanjiaopotick") == 0 && restored != null
+                                    && restored.value("shiwu") == 60 && ItemStack.matches(restored.getItem(0), original) && directions);
+                    box.value("tick", 119);
+                    box.value("shiwu", 2);
+                    scheduleCraftFollowup(p, silkwormBoxPos);
+                }),
+                new Action(6, p -> {
+                    SilkwormBoxBlockEntity box = silkwormBox(p);
+                    expectTrue("普通蚕受控119经真实计划刻化蛹，展示生成且同刻蛹阶段继续加1",
+                            box.getItem(0).is(item("silkwormchrysalis").getItem()) && box.value("tick") == 1
+                                    && box.value("shiwu") == 1
+                                    && p.serverLevel().getBlockState(silkwormBoxPos.above()).is(block("silkwormchrysalis_02").getBlock()));
+                    box.setItem(0, item("silkwormgold"));
+                    box.value("tick", 119);
+                    box.value("shiwu", 1);
+                    box.value("bianyi", 2);
+                    p.serverLevel().setBlockAndUpdate(silkwormBoxPos.above(), Blocks.STONE.defaultBlockState());
+                    scheduleCraftFollowup(p, silkwormBoxPos);
+                }),
+                new Action(6, p -> {
+                    SilkwormBoxBlockEntity box = silkwormBox(p);
+                    expectTrue("金蚕临界化红蛹不要求上方空，展示受阻不扣变异且同刻进度为1",
+                            box.getItem(0).is(item("silkwormchrysalisred").getItem()) && box.value("tick") == 1
+                                    && box.value("bianyi") == 2 && box.value("shiwu") == 0
+                                    && p.serverLevel().getBlockState(silkwormBoxPos.above()).is(Blocks.STONE));
+                    box.value("tick", 119);
+                    scheduleCraftFollowup(p, silkwormBoxPos);
+                }),
+                new Action(6, p -> {
+                    SilkwormBoxBlockEntity box = silkwormBox(p);
+                    expectTrue("红蛹受控119经真实计划刻羽化为金蚕卵并只生一只金蚕蛾，受阻顶块保留",
+                            box.getItem(0).is(item("silkwormegggold").getItem()) && box.value("tick") == 0
+                                    && craftFollowupEntities.stream().filter(entity -> entity.isAlive()
+                                            && BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getPath().equals("silkwormmothgold")).count() == 1
+                                    && p.serverLevel().getBlockState(silkwormBoxPos.above()).is(Blocks.STONE));
+                    pauseCraftFollowup(p, silkwormBoxPos);
+                }),
+                new Action(8, p -> {
+                    p.closeContainer();
+                    wineAlcoholBefore = Alcohol.amount(p);
+                    wineUseKeyBefore = minecraft.options.keyUse.isDown();
+                    p.getActiveEffects().forEach(effect -> wineEffectsBefore.add(new MobEffectInstance(effect)));
+                    p.getFoodData().addAdditionalSaveData(wineFoodBefore);
+                    Cultivation.editTizhi(p, data -> wineTizhiBefore = data.copy());
+                    for (CultivationValue value : List.of(CultivationValue.EXPERIENCE, CultivationValue.EXPERIENCE_MAX,
+                            CultivationValue.EXPERIENCE_STAND, CultivationValue.EXPERIENCE_RATE, CultivationValue.CULTIVATION_COOLDOWN,
+                            CultivationValue.POWER, CultivationValue.POWER_DISPLAY, CultivationValue.SOUL, CultivationValue.SOUL_DISPLAY)) {
+                        wineValuesBefore.put(value, Cultivation.get(p, value));
+                    }
+                    wineFreeze = event -> {
+                        if (event.getEntity() == p) {
+                            Cultivation.setTizhiDouble(p, "jishiqi", p.serverLevel().getDayTime() - (wineArmSecond ? 20 : 0));
+                            wineArmSecond = false;
+                        }
+                    };
+                    NeoForge.EVENT_BUS.addListener(wineFreeze);
+                    wineDrinkRelease = event -> {
+                        if (wineHolding && minecraft.player != null && minecraft.player.getMainHandItem().isEmpty()) {
+                            minecraft.options.keyUse.setDown(false);
+                            wineHolding = false;
+                        }
+                    };
+                    NeoForge.EVENT_BUS.addListener(wineDrinkRelease);
+                    wineStillPos = prepareCraftFollowup(p, p.blockPosition().offset(-2, 0, 2));
+                    wineJarPos = prepareCraftFollowup(p, p.blockPosition().offset(-1, 0, 2));
+                    p.serverLevel().setBlockAndUpdate(wineStillPos.below(), Blocks.CAMPFIRE.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(wineStillPos, block("foodmuzeng"));
+                    pauseCraftFollowup(p, wineStillPos);
+                    WineVesselBlockEntity still = wineVessel(p, wineStillPos);
+                    still.setItem(0, item("shicai_002", 64));
+                    still.setItem(1, item("ginseng", 64));
+                    still.getPersistentData().putDouble("jindu", 95);
+                    still.changed();
+                    p.getInventory().clearContent();
+                    p.getInventory().selected = HOTBAR;
+                    p.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                    p.inventoryMenu.broadcastChanges();
+                    p.setGameMode(GameType.SURVIVAL);
+                    stoneMillSneak(false);
+                }),
+                new Action(8, p -> useBlock(wineStillPos)),
+                new Action(6, p -> {
+                    expectTrue("木甑真实右键打开双端41槽原生菜单与两个按钮，结果槽拒绝放入",
+                            p.containerMenu instanceof WoodenStillMenu && p.containerMenu.slots.size() == 41
+                                    && minecraft.player.containerMenu instanceof WoodenStillMenu
+                                    && minecraft.screen instanceof WoodenStillScreen screen
+                                    && screen.children().stream().filter(Button.class::isInstance).count() == 2
+                                    && !p.containerMenu.getSlot(4).mayPlace(item("jiuniang_001")));
+                    minecraft.execute(() -> screenshots.take("cooking-wooden-still-progress95.png"));
+                    wineButton(0);
+                }),
+                new Action(6, p -> {
+                    WineVesselBlockEntity still = wineVessel(p, wineStillPos);
+                    expectTrue("木甑按占槽数识别配方，单槽64糯米和单槽64人参不开始也不扣料",
+                            !still.getPersistentData().getBoolean("begin") && still.getItem(0).getCount() == 64
+                                    && still.getItem(1).getCount() == 64 && still.getPersistentData().getDouble("jindu") == 95);
+                    still.setItem(2, item("shicai_002", 64));
+                    still.setItem(3, item("shicai_002", 64));
+                    ItemStack old = item("jiuniang_001", 64);
+                    CustomData.update(DataComponents.CUSTOM_DATA, old, data -> data.putDouble("agenum", 80));
+                    still.setItem(4, old);
+                    still.changed();
+                    p.containerMenu.broadcastChanges();
+                    wineButton(0);
+                }),
+                new Action(6, p -> wineButton(0)),
+                new Action(6, p -> {
+                    WineVesselBlockEntity still = wineVessel(p, wineStillPos);
+                    expectTrue("木甑真实按钮在满结果槽仍开始，四输入各扣1且忙碌再次按不再扣，开始保留95进度",
+                            still.getPersistentData().getBoolean("begin")
+                                    && still.getPersistentData().getString("jiuniangid").equals("yvanchuxiuzhen:jiuniang_001")
+                                    && still.getPersistentData().getDouble("jindu") == 95
+                                    && still.getItem(0).getCount() == 63 && still.getItem(1).getCount() == 63
+                                    && still.getItem(2).getCount() == 63 && still.getItem(3).getCount() == 63
+                                    && still.getItem(4).getCount() == 64);
+                    p.serverLevel().setBlockAndUpdate(wineStillPos.below(), Blocks.CAMPFIRE.defaultBlockState()
+                            .setValue(BlockStateProperties.LIT, false));
+                    still.getPersistentData().putDouble("jindu", 99);
+                    still.changed();
+                    scheduleCraftFollowup(p, wineStillPos);
+                }),
+                new Action(6, p -> {
+                    pauseCraftFollowup(p, wineStillPos);
+                    WineVesselBlockEntity still = wineVessel(p, wineStillPos);
+                    WineVesselBlockEntity restored = (WineVesselBlockEntity) BlockEntity.loadStatic(wineStillPos,
+                            still.getBlockState(), still.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("木甑断热经真实计划刻仍保持99与已扣库存，生产状态和五槽保存重读一致",
+                            still.getPersistentData().getBoolean("begin") && still.getPersistentData().getDouble("jindu") == 99
+                                    && still.getItem(0).getCount() == 63 && restored != null
+                                    && restored.getPersistentData().equals(still.getPersistentData())
+                                    && ItemStack.matches(restored.getItem(4), still.getItem(4)));
+                    p.serverLevel().setBlockAndUpdate(wineStillPos.below(), Blocks.CAMPFIRE.defaultBlockState());
+                    scheduleCraftFollowup(p, wineStillPos);
+                }),
+                new Action(8, p -> {
+                    pauseCraftFollowup(p, wineStillPos);
+                    WineVesselBlockEntity still = wineVessel(p, wineStillPos);
+                    expectTrue("木甑复热真实计划刻完成并归零，满64按当时数量截量覆盖且旧年份归零，客户端结果同步",
+                            !still.getPersistentData().getBoolean("begin") && still.getPersistentData().getDouble("jindu") == 0
+                                    && still.getItem(4).getCount() == 64 && wineAge(still.getItem(4)) == 0
+                                    && minecraft.player.containerMenu.getSlot(4).getItem().getCount() == 64
+                                    && wineAge(minecraft.player.containerMenu.getSlot(4).getItem()) == 0);
+                    minecraft.execute(() -> screenshots.take("cooking-wooden-still-finished.png"));
+                }),
+                new Action(4, p -> {
+                    p.closeContainer();
+                    p.getInventory().clearContent();
+                    ItemStack wine = item("jiuniang_001", 2);
+                    CustomData.update(DataComponents.CUSTOM_DATA, wine, data -> {
+                        data.putDouble("agenum", 9);
+                        data.putString("smoke_marker", "wine_followup");
+                    });
+                    p.getInventory().setItem(HOTBAR, wine);
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(8, p -> minecraft.execute(() -> minecraft.gameMode.useItemOn(minecraft.player,
+                        InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(wineJarPos.below()),
+                                Direction.NORTH, wineJarPos.below(), false)))),
+                new Action(6, p -> {
+                    winePlacementOkay = p.serverLevel().isEmptyBlock(wineJarPos) && p.getMainHandItem().getCount() == 2;
+                    useBlock(wineJarPos.below());
+                }),
+                new Action(6, p -> {
+                    WineVesselBlockEntity jar = wineVessel(p, wineJarPos);
+                    long now = p.serverLevel().getGameTime();
+                    LevelChunkTicks<Block> ticks = (LevelChunkTicks<Block>) p.serverLevel().getChunkAt(wineJarPos).getBlockTicks();
+                    boolean naturalPeriod = ticks.getAll().anyMatch(tick -> tick.pos().equals(wineJarPos)
+                            && tick.triggerTick() > now && tick.triggerTick() <= now + 1200
+                            && tick.triggerTick() >= now + 1180);
+                    expectTrue("酒真实侧面点击不摆坛，UP摆坛扣1复制完整组件并自然排1200刻陈酿",
+                            winePlacementOkay && p.getMainHandItem().getCount() == 1
+                                    && jar.getBlockState().is(block("jiuniang_00101").getBlock())
+                                    && jar.getItem(0).getCount() == 1 && wineAge(jar.getItem(0)) == 9
+                                    && jar.getItem(0).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
+                                            .copyTag().getString("smoke_marker").equals("wine_followup") && naturalPeriod);
+                    jar.getPersistentData().putDouble("agenum", 7);
+                    scheduleCraftFollowup(p, wineJarPos);
+                }),
+                new Action(6, p -> {
+                    pauseCraftFollowup(p, wineJarPos);
+                    WineVesselBlockEntity jar = wineVessel(p, wineJarPos);
+                    WineVesselBlockEntity restored = (WineVesselBlockEntity) BlockEntity.loadStatic(wineJarPos,
+                            jar.getBlockState(), jar.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("酒坛受控推进真实计划刻跨9到10年，组件保留、BE年龄清零且保存重读一致",
+                            wineAge(jar.getItem(0)) == 10 && jar.getPersistentData().getDouble("agenum") == 0
+                                    && jar.getItem(0).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
+                                            .copyTag().getString("smoke_marker").equals("wine_followup")
+                                    && restored != null && ItemStack.matches(restored.getItem(0), jar.getItem(0)));
+                    p.getInventory().setItem(0, p.getMainHandItem().copy());
+                    p.getInventory().setItem(HOTBAR, ItemStack.EMPTY);
+                    p.inventoryMenu.broadcastChanges();
+                    stoneMillSneak(true);
+                }),
+                new Action(8, p -> useBlock(wineJarPos)),
+                new Action(6, p -> {
+                    ItemStack aged = ItemStack.EMPTY;
+                    for (int slot = 0; slot < p.getInventory().getContainerSize(); slot++) {
+                        ItemStack stack = p.getInventory().getItem(slot);
+                        if (stack.is(item("jiuniang_001").getItem()) && wineAge(stack) == 10) aged = stack.copy();
+                    }
+                    expectTrue("酒坛真实空手潜行收取删除坛且不重复，取回10年酒仍带实例组件",
+                            p.serverLevel().isEmptyBlock(wineJarPos) && craftFollowupCount(p, "jiuniang_001") == 2
+                                    && aged.getCount() == 1 && aged.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
+                                            .copyTag().getString("smoke_marker").equals("wine_followup"));
+                    stoneMillSneak(false);
+                    p.getInventory().clearContent();
+                    p.getInventory().setItem(HOTBAR, aged);
+                    p.removeAllEffects();
+                    Alcohol.add(p, -Alcohol.amount(p));
+                    Cultivation.editTizhi(p, data -> {
+                        data.putDouble("AlcoholPatience", 0);
+                        data.putDouble("AlcoholPatiencePercentage", 0);
+                    });
+                    Cultivation.set(p, CultivationValue.EXPERIENCE_STAND, 0);
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(44, p -> wineDrink()),
+                new Action(8, p -> minecraft.execute(() -> minecraft.options.keyUse.setDown(false))),
+                new Action(6, p -> {
+                    var effect = BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "effect_010")).orElseThrow();
+                    expectTrue("单件10年酒真实普通饮用耗尽返回空手，效果升为1且加5待修为，酒精18同步本人但未醉",
+                            p.getMainHandItem().isEmpty() && minecraft.player.getMainHandItem().isEmpty()
+                                    && p.getOffhandItem().isEmpty() && minecraft.player.getOffhandItem().isEmpty()
+                                    && Alcohol.amount(p) == 18 && Alcohol.amount(minecraft.player) == 18
+                                    && Cultivation.get(p, CultivationValue.EXPERIENCE_STAND) == 5
+                                    && p.hasEffect(effect) && p.getEffect(effect).getAmplifier() == 1
+                                    && !p.hasEffect(MobEffects.CONFUSION));
+                    p.removeAllEffects();
+                    Alcohol.add(p, 82 - Alcohol.amount(p));
+                    p.getInventory().setItem(HOTBAR, item("jiuniang_001"));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(44, p -> wineDrink()),
+                new Action(8, p -> minecraft.execute(() -> minecraft.options.keyUse.setDown(false))),
+                new Action(6, p -> {
+                    expectTrue("再饮18酒精在恰好100阈值触发反胃，客户端酒精同步且原版消费仍为空手",
+                            p.getMainHandItem().isEmpty() && p.getOffhandItem().isEmpty() && Alcohol.amount(p) == 100
+                                    && Alcohol.amount(minecraft.player) == 100 && p.hasEffect(MobEffects.CONFUSION)
+                                    && p.getEffect(MobEffects.CONFUSION).getDuration() >= 1100
+                                    && p.getEffect(MobEffects.CONFUSION).getDuration() <= 1200);
+                    wineBefore = event -> {
+                        if (event.player() == p) {
+                            wineSecondSeen = true;
+                            wineBeforeStand = Cultivation.get(p, CultivationValue.EXPERIENCE_STAND);
+                        }
+                    };
+                    wineAfter = event -> {
+                        if (event.player() == p) {
+                            wineAfterSeen = true;
+                            wineAfterStand = Cultivation.get(p, CultivationValue.EXPERIENCE_STAND);
+                            wineAfterCooldown = Cultivation.get(p, CultivationValue.CULTIVATION_COOLDOWN);
+                            wineAfterAlcohol = Alcohol.amount(p);
+                        }
+                    };
+                    NeoForge.EVENT_BUS.addListener(EventPriority.HIGHEST, wineBefore);
+                    NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, wineAfter);
+                    Cultivation.set(p, CultivationValue.EXPERIENCE, -100);
+                    Cultivation.set(p, CultivationValue.EXPERIENCE_MAX, 1000000);
+                    Cultivation.set(p, CultivationValue.EXPERIENCE_STAND, 5);
+                    Cultivation.set(p, CultivationValue.EXPERIENCE_RATE, 0);
+                    Cultivation.set(p, CultivationValue.CULTIVATION_COOLDOWN, 2);
+                    Cultivation.editTizhi(p, data -> {
+                        data.putString("xiuliankaiguan", "");
+                        data.putBoolean("jinji", false);
+                        data.putDouble("xiulianlengqve", 14);
+                        data.putDouble("XiulianColdCorrect", 0);
+                        data.putDouble("AlcoholDigestion", 0.5);
+                        data.putDouble("AlcoholDigestionPercentage", 0.02);
+                    });
+                    Alcohol.add(p, 5 - Alcohol.amount(p));
+                    wineArmSecond = true;
+                }),
+                new Action(8, p -> {
+                    expectTrue("自然每秒路径在吸收后于突破后事件代谢5到6.5，事件内冷却尚为2而随后降为1",
+                            wineSecondSeen && wineAfterSeen && wineBeforeStand == 5 && wineAfterStand == 0
+                                    && wineAfterCooldown == 2 && wineAfterAlcohol == 6.5 && Alcohol.amount(p) == 6.5
+                                    && Cultivation.get(p, CultivationValue.CULTIVATION_COOLDOWN) == 1);
+                    NeoForge.EVENT_BUS.unregister(wineBefore);
+                    NeoForge.EVENT_BUS.unregister(wineAfter);
+                    wineBefore = null;
+                    wineAfter = null;
+                    Alcohol.refine(p);
+                }),
+                new Action(6, p -> {
+                    expectTrue("酒精公开炼化操作清零并移除反胃，结果同步本人（观想自然入口仍未接通）",
+                            Alcohol.amount(p) == 0 && Alcohol.amount(minecraft.player) == 0 && !p.hasEffect(MobEffects.CONFUSION));
+                }),
+                new Action(4, p -> {
+                    p.closeContainer();
+                    p.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                    p.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                    Professions.setLevel(p, Profession.COOKING, 2.9);
+                    Professions.setExperience(p, Profession.COOKING, 0);
+                    steamerExperience = Professions.experience(p, Profession.COOKING);
+                    steamerPos = p.blockPosition().offset(2, 1, 3);
+                    for (int height = -2; height <= 5; height++) {
+                        BlockPos at = steamerPos.above(height).immutable();
+                        stoneMillBlocks.putIfAbsent(at, p.serverLevel().getBlockState(at));
+                        BlockEntity original = p.serverLevel().getBlockEntity(at);
+                        if (original != null) {
+                            stoneMillEntities.putIfAbsent(at, original.saveWithFullMetadata(p.registryAccess()));
+                            if (original instanceof Container container) container.clearContent();
+                        }
+                        p.serverLevel().setBlockAndUpdate(at, height < 0 ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState());
+                    }
+                    p.serverLevel().setBlockAndUpdate(steamerPos, block("foodzhengguo"));
+                    p.serverLevel().setBlockAndUpdate(steamerPos.above(), block("foodlongti"));
+                    p.serverLevel().setBlockAndUpdate(steamerPos.above(2), block("foodlongti"));
+                    var recipes = p.serverLevel().getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING).stream()
+                            .map(RecipeHolder::value).map(recipe -> recipe.getResultItem(p.registryAccess()).getItem()).toList();
+                    expectTrue("笼屉与蒸锅自然合成配方已由目标数据包加载",
+                            recipes.contains(item("foodlongti").getItem()) && recipes.contains(item("foodzhengguo").getItem()));
+                    SteamerBlockEntity pot = steamer(p, 0);
+                    SteamerBlockEntity tray = steamer(p, 1);
+                    pot.setItem(5, new ItemStack(Items.WOODEN_SWORD, 40));
+                    tray.setItem(5, new ItemStack(Items.CARROT, 40));
+                    boolean capabilities = true;
+                    for (Direction direction : Direction.values()) {
+                        IItemHandler potHandler = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, steamerPos, direction);
+                        IItemHandler trayHandler = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, steamerPos.above(), direction);
+                        capabilities &= potHandler.getSlots() == 14 && trayHandler.getSlots() == 9
+                                && potHandler.isItemValid(4, new ItemStack(Items.STICK)) && trayHandler.isItemValid(4, new ItemStack(Items.STICK));
+                    }
+                    expectTrue("蒸锅64与笼屉1强制容量、六面自由槽4和两个来源默认提供者保留",
+                            pot.getItem(5).getCount() == 40 && tray.getItem(5).getCount() == 1 && capabilities
+                                    && pot.createMenu(97, p.getInventory(), p) instanceof ChestMenu
+                                    && tray.createMenu(98, p.getInventory(), p) instanceof SteamerMenu);
+                    pot.clearContent();
+                    tray.clearContent();
+                    pot.setItem(13, steamerRecipe(3));
+                    pot.getPersistentData().putInt("belongToLevel", 3);
+                    pot.setItem(0, new ItemStack(Items.CARROT));
+                    tray.setItem(0, new ItemStack(Items.CARROT));
+                    pot.changed();
+                    useBlock(steamerPos);
+                }),
+                new Action(8, p -> {
+                    expectTrue("真实右键蒸锅打开双方十四槽菜单和原生界面，并把厨艺2.9写入设备",
+                            p.containerMenu instanceof SteamerMenu menu && !menu.tray() && menu.slots.size() == 50
+                                    && minecraft.player.containerMenu instanceof SteamerMenu && minecraft.screen instanceof SteamerScreen
+                                    && steamer(p, 0).getPersistentData().getDouble("playercooklevel") == 2.9);
+                    minecraft.execute(() -> screenshots.take("cooking-steamer.png"));
+                    steamerButton();
+                }),
+                new Action(6, p -> {
+                    expectTrue("菜谱品阶3高于getInt厨艺2时先失败，不标上层且材料不扣",
+                            !steamer(p, 0).getPersistentData().getBoolean("cooking")
+                                    && !steamer(p, 2).getPersistentData().getBoolean("cooking")
+                                    && steamer(p, 0).getItem(0).is(Items.CARROT) && p.containerMenu instanceof SteamerMenu);
+                    steamer(p, 0).setItem(13, steamerRecipe(2));
+                    steamer(p, 0).changed();
+                    steamerButton();
+                }),
+                new Action(6, p -> {
+                    expectTrue("上层tongguo2跨层累计8加7，先标第二笼屉再因主锅缺马铃薯失败",
+                            !steamer(p, 1).getPersistentData().getBoolean("cooking")
+                                    && steamer(p, 2).getPersistentData().getBoolean("cooking")
+                                    && !steamer(p, 0).getPersistentData().getBoolean("cooking")
+                                    && steamer(p, 0).getItem(0).is(Items.CARROT)
+                                    && steamer(p, 2).getItem(4).isEmpty());
+                    steamer(p, 0).setItem(1, new ItemStack(Items.POTATO));
+                    steamer(p, 0).changed();
+                    steamerButton();
+                }),
+                new Action(6, p -> {
+                    expectTrue("本锅材料齐但缺热仍保留上层标记且不扣料",
+                            !steamer(p, 0).getPersistentData().getBoolean("cooking")
+                                    && steamer(p, 2).getPersistentData().getBoolean("cooking")
+                                    && steamer(p, 0).getItem(0).is(Items.CARROT) && steamer(p, 0).getItem(1).is(Items.POTATO));
+                    SteamerBlockEntity saved = (SteamerBlockEntity) BlockEntity.loadStatic(steamerPos.above(2),
+                            steamer(p, 2).getBlockState(), steamer(p, 2).saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("失败留下的笼屉cooking标记及九槽库存保存重读一致",
+                            saved.getPersistentData().equals(steamer(p, 2).getPersistentData())
+                                    && saved.getContainerSize() == 9 && saved.getItem(4).isEmpty());
+                    steamer(p, 1).clearContent();
+                    p.serverLevel().setBlockAndUpdate(steamerPos.above(), Blocks.AIR.defaultBlockState());
+                    p.serverLevel().setBlockAndUpdate(steamerPos.below(), Blocks.CAMPFIRE.defaultBlockState());
+                    steamerButton();
+                }),
+                new Action(8, p -> {
+                    SteamerBlockEntity pot = steamer(p, 0);
+                    SteamerBlockEntity tray = steamer(p, 2);
+                    expectTrue("成功消费扫描跨空层吃旧标记，主锅与缺料旧标笼屉立即产出各1且经验28",
+                            pot.getPersistentData().getBoolean("cooking") && pot.getPersistentData().getInt("cookexp") == 28
+                                    && pot.getItem(0).isEmpty() && pot.getItem(1).isEmpty()
+                                    && pot.getItem(4).is(item("food_007").getItem()) && pot.getItem(4).getCount() == 1
+                                    && tray.getItem(4).is(item("food_007").getItem()) && tray.getItem(4).getCount() == 1
+                                    && !tray.getPersistentData().getBoolean("cooking") && p.containerMenu == p.inventoryMenu);
+                    SteamerBlockEntity saved = (SteamerBlockEntity) BlockEntity.loadStatic(steamerPos,
+                            pot.getBlockState(), pot.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("成功烹饪状态、cookexp与主锅成品保存重读一致",
+                            saved.getPersistentData().equals(pot.getPersistentData()) && ItemStack.matches(saved.getItem(4), pot.getItem(4)));
+                    useBlock(steamerPos.above(2));
+                }),
+                new Action(6, p -> {
+                    expectTrue("笼屉自然点击跨空层向下找到忙蒸锅后不开菜单",
+                            p.containerMenu == p.inventoryMenu && minecraft.screen == null);
+                    useBlock(steamerPos);
+                }),
+                new Action(4, p -> useBlock(steamerPos)),
+                new Action(4, p -> useBlock(steamerPos)),
+                new Action(4, p -> useBlock(steamerPos)),
+                new Action(6, p -> {
+                    expectTrue("蒸锅四次真实右键仍在烹饪且不提前给职业经验",
+                            steamer(p, 0).getPersistentData().getDouble("cooknumber") == 4
+                                    && steamer(p, 0).getPersistentData().getBoolean("cooking")
+                                    && Professions.experience(p, Profession.COOKING) == steamerExperience);
+                    useBlock(steamerPos);
+                }),
+                new Action(6, p -> {
+                    CompoundTag state = steamer(p, 0).getPersistentData();
+                    expectTrue("蒸锅第五次真实右键清状态与经验字段，最后点击者获职业经验28，成品仍保留",
+                            !state.getBoolean("cooking") && state.getDouble("cooknumber") == 0
+                                    && state.getDouble("cookanimation") == 0 && state.getDouble("cookexp") == 0
+                                    && Professions.experience(p, Profession.COOKING) - steamerExperience == 28
+                                    && steamer(p, 0).getItem(4).is(item("food_007").getItem()));
+                    useBlock(steamerPos.above(2));
+                }),
+                new Action(8, p -> {
+                    expectTrue("下方蒸锅空闲时真实笼屉九槽与原生界面打开，成品槽仍可插入",
+                            p.containerMenu instanceof SteamerMenu menu && menu.tray() && menu.slots.size() == 45
+                                    && menu.getSlot(4).mayPlace(new ItemStack(Items.STICK))
+                                    && minecraft.player.containerMenu instanceof SteamerMenu && minecraft.screen instanceof SteamerScreen);
+                    steamerInventoryBefore = craftFollowupCount(p, "food_007");
+                    minecraft.execute(() -> {
+                        screenshots.take("cooking-steaming-basket.png");
+                        minecraft.gameMode.handleInventoryMouseClick(minecraft.player.containerMenu.containerId, 4, 0,
+                                ClickType.QUICK_MOVE, minecraft.player);
+                    });
+                }),
+                new Action(8, p -> {
+                    expectTrue("笼屉真实快捷移动将一个成品从槽4取入玩家库存，关闭不清其他绑定槽",
+                            steamer(p, 2).getItem(4).isEmpty()
+                                    && craftFollowupCount(p, "food_007") == steamerInventoryBefore + 1);
+                    p.closeContainer();
+                }),
+                // 普通食物消费：受控库存和饱食前置后走客户端真实食用/方块右键。
+                new Action(8, p -> {
+                    p.closeContainer();
+                    foodActive = true;
+                    foodGameBefore = p.gameMode.getGameModeForPlayer();
+                    foodUseBefore = minecraft.options.keyUse.isDown();
+                    p.getFoodData().addAdditionalSaveData(foodStatsBefore);
+                    p.getActiveEffects().forEach(effect -> foodEffectsBefore.add(new MobEffectInstance(effect)));
+                    p.removeAllEffects();
+                    p.setGameMode(GameType.SURVIVAL);
+                    stoneMillSneak(false);
+                    foodPlatePos = prepareCraftFollowup(p, p.blockPosition().offset(-2, 0, -2));
+                    foodRelease = event -> {
+                        if (!foodHolding || minecraft.player == null) return;
+                        foodEatingTicks++;
+                        ItemStack current = minecraft.player.getMainHandItem();
+                        if (foodEatingTicks >= 38 || current.getCount() < foodEatingBefore.getCount()
+                                || !current.is(foodEatingBefore.getItem())) stopFoodEating();
+                    };
+                    foodDropListener = event -> {
+                        if (event.getLevel() == p.serverLevel() && event.getEntity() instanceof ItemEntity dropped
+                                && dropped.getItem().is(Items.BONE)) foodDrops.add(dropped);
+                    };
+                    NeoForge.EVENT_BUS.addListener(foodRelease);
+                    NeoForge.EVENT_BUS.addListener(foodDropListener);
+                    prepareFoodEating(p, "food_004", 1);
+                }),
+                new Action(44, p -> startFoodEating()),
+                new Action(8, p -> {
+                    expectTrue("餐食真实吃最后一件后原栈为AIR，主食标记不触发，双端空手",
+                            p.getMainHandItem().isEmpty() && minecraft.player.getMainHandItem().isEmpty()
+                                    && !p.hasEffect(foodMarker("effect_028")));
+                    prepareFoodEating(p, "food_004", 2);
+                }),
+                new Action(44, p -> startFoodEating()),
+                new Action(8, p -> {
+                    var marker = p.getEffect(foodMarker("effect_028"));
+                    expectTrue("两件主食真实吃一件仍有原物品身份，添加1200刻环境标记且隐藏粒子与图标",
+                            p.getMainHandItem().is(item("food_004").getItem()) && p.getMainHandItem().getCount() == 1
+                                    && marker != null && marker.getDuration() > 1100 && marker.isAmbient()
+                                    && !marker.isVisible() && !marker.showIcon());
+                    prepareFoodEating(p, "food_034", 2);
+                }),
+                new Action(44, p -> startFoodEating()),
+                new Action(8, p -> {
+                    expectTrue("两件菜品真实吃一件添加第二类标记，保留先前主食标记",
+                            p.getMainHandItem().getCount() == 1 && p.hasEffect(foodMarker("effect_028"))
+                                    && p.hasEffect(foodMarker("effect_029")));
+                    p.getInventory().clearContent();
+                    p.getFoodData().setExhaustion(0);
+                    p.getFoodData().setFoodLevel(19);
+                    p.getFoodData().setSaturation(19);
+                    p.serverLevel().setBlockAndUpdate(foodPlatePos, block("food_003"));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(8, p -> useBlock(foodPlatePos)),
+                new Action(8, p -> {
+                    expectTrue("汤菜真实右键补食物与饱和度各截20、补第三类标记，并还原默认碗状态",
+                            p.getFoodData().getFoodLevel() == 20 && p.getFoodData().getSaturationLevel() == 20
+                                    && p.hasEffect(foodMarker("effect_030"))
+                                    && p.serverLevel().getBlockState(foodPlatePos).equals(block("foodwan")));
+                    p.getInventory().clearContent();
+                    p.setItemInHand(InteractionHand.MAIN_HAND, item("food_006", 2));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(44, p -> startFoodEating()),
+                new Action(8, p -> {
+                    var luck = p.getEffect(MobEffects.LUCK);
+                    expectTrue("满饥饿仍可真实吃茶点，两件只吃一件，三餐标记换幸运III并全部清除",
+                            p.getMainHandItem().is(item("food_006").getItem()) && p.getMainHandItem().getCount() == 1
+                                    && luck != null && luck.getAmplifier() == 2 && luck.getDuration() > 11900
+                                    && !p.hasEffect(foodMarker("effect_028")) && !p.hasEffect(foodMarker("effect_029"))
+                                    && !p.hasEffect(foodMarker("effect_030")));
+                    p.setGameMode(GameType.CREATIVE);
+                    p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.STONE, 2));
+                    p.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.STICK, 2));
+                    p.serverLevel().setBlockAndUpdate(foodPlatePos, block("food_001"));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(8, p -> minecraft.execute(() -> minecraft.gameMode.useItemOn(minecraft.player,
+                        InteractionHand.OFF_HAND, new BlockHitResult(Vec3.atCenterOf(foodPlatePos), Direction.UP, foodPlatePos, false)))),
+                new Action(8, p -> {
+                    expectTrue("满饥饿创造玩家副手真实点盘菜仍换瓷盘，双方手持物不消耗且添加菜品标记",
+                            p.serverLevel().getBlockState(foodPlatePos).equals(block("foodcipan"))
+                                    && p.getFoodData().getFoodLevel() == 20 && p.getMainHandItem().getCount() == 2
+                                    && p.getOffhandItem().getCount() == 2 && p.hasEffect(foodMarker("effect_029")));
+                    p.serverLevel().setBlockAndUpdate(foodPlatePos, block("food_067"));
+                }),
+                new Action(8, p -> useBlock(foodPlatePos)),
+                new Action(8, p -> {
+                    expectTrue("大盆菜真实右键后还原默认大碗状态",
+                            p.serverLevel().getBlockState(foodPlatePos).equals(block("fooddawan")));
+                    p.serverLevel().setBlockAndUpdate(foodPlatePos, block("food_066"));
+                }),
+                new Action(8, p -> useBlock(foodPlatePos)),
+                new Action(8, p -> {
+                    expectTrue("铁盘菜真实右键后还原默认铁盘状态",
+                            p.serverLevel().getBlockState(foodPlatePos).equals(block("foodtiepan")));
+                    p.setGameMode(GameType.SURVIVAL);
+                    prepareFoodEating(p, "food_084", 1);
+                }),
+                new Action(44, p -> startFoodEating()),
+                new Action(8, p -> {
+                    expectTrue("骨头返物食品真实吃最后一件后双端手持一根骨头",
+                            p.getMainHandItem().is(Items.BONE) && p.getMainHandItem().getCount() == 1
+                                    && minecraft.player.getMainHandItem().is(Items.BONE));
+                    prepareFoodEating(p, "food_084", 2);
+                    for (int slot = 0; slot < 36; slot++) if (slot != HOTBAR) p.getInventory().setItem(slot, new ItemStack(Items.DIRT, 64));
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                new Action(44, p -> startFoodEating()),
+                new Action(8, p -> {
+                    expectTrue("满包吃两件中的一件保留食品，骨头经原生库存失败分支落地一件",
+                            p.getMainHandItem().is(item("food_084").getItem()) && p.getMainHandItem().getCount() == 1
+                                    && !p.getInventory().contains(new ItemStack(Items.BONE))
+                                    && foodDrops.size() == 1 && foodDrops.getFirst().getItem().getCount() == 1);
+                    foodDrops.forEach(Entity::discard);
+                    foodDrops.clear();
+                    prepareFoodEating(p, "shicai_034", 1);
+                }),
+                new Action(44, p -> startFoodEating()),
+                new Action(8, p -> {
+                    expectTrue("果核返物食品真实吃最后一件后返回默认果核一件",
+                            p.getMainHandItem().is(item("shicai_03401").getItem()) && p.getMainHandItem().getCount() == 1);
+                    prepareFoodEating(p, "shicai_034", 2);
+                }),
+                new Action(44, p -> startFoodEating()),
+                new Action(8, p -> {
+                    expectTrue("果核返物食品吃两件中的一件，保留原食品并向空库存交付一个果核",
+                            p.getMainHandItem().is(item("shicai_034").getItem()) && p.getMainHandItem().getCount() == 1
+                                    && craftFollowupCount(p, "shicai_03401") == 1);
+                    p.setGameMode(GameType.CREATIVE);
+                    prepareFoodEating(p, "food_084", 1);
+                }),
+                new Action(44, p -> startFoodEating()),
+                new Action(8, p -> {
+                    expectTrue("创造模式实际食用不缩栈，返物食品不额外生成骨头或掉落",
+                            p.getMainHandItem().is(item("food_084").getItem()) && p.getMainHandItem().getCount() == 1
+                                    && !p.getInventory().contains(new ItemStack(Items.BONE)) && foodDrops.isEmpty());
+                    restoreFoodSmoke(p);
+                }),
+                new Action(8, p -> {
+                    p.getInventory().clearContent();
+                    List<ItemStack> ironPlateDrops = Block.getDrops(block("foodtiepan"), p.serverLevel(), p.blockPosition(), null);
+                    expectTrue("铁盘原生战利品入口在空表时返回自身一件",
+                            ironPlateDrops.size() == 1 && ironPlateDrops.getFirst().is(item("foodtiepan").getItem())
+                                    && ironPlateDrops.getFirst().getCount() == 1);
+                    String command = "shipu minecraft:paper 竹笼蒸菜 2 简介 2 无 yvanchuxiuzhen:food_007 蒸锅 minecraft:carrot minecraft:potato";
+                    p.server.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(0).withSuppressedOutput(), command);
+                    expectTrue("菜谱管理命令权限0不能生成物品", !p.getInventory().contains(new ItemStack(Items.PAPER)));
+                    p.server.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(1).withSuppressedOutput(), command);
+                    ItemStack recipe = p.getInventory().getItem(0);
+                    CompoundTag data = recipe.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    ItemStack restored = ItemStack.parse(p.registryAccess(), recipe.save(p.registryAccess())).orElseThrow();
+                    expectTrue("权限1菜谱命令生成中文纸载体与Double字段，保存读回仍缺来源未写的MenuName",
+                            recipe.is(Items.PAPER) && recipe.getHoverName().getString().equals("竹笼蒸菜")
+                                    && data.getDouble("belongTopinjie") == 2 && data.getString("belongTopinjietext").equals("二级")
+                                    && data.getDouble("cookanimation") == 2 && data.getString("MenuType").equals("蒸锅")
+                                    && data.getString("cailiao00").equals("minecraft:carrot")
+                                    && data.getString("cailiao01").equals("minecraft:potato")
+                                    && !data.contains("cailiao02") && !data.contains("MenuName")
+                                    && ItemStack.isSameItemSameComponents(recipe, restored));
+                    p.getInventory().clearContent();
+                    p.server.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(1).withSuppressedOutput(),
+                            "shipu minecraft:paper 简谱 非数字 简介 非数字");
+                    CompoundTag fallback = p.getInventory().getItem(0).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    expectTrue("菜谱命令数字解析失败写零，缺失容器材料为空且品阶文字沿来源",
+                            fallback.getDouble("belongTopinjie") == 0 && fallback.getDouble("cookanimation") == 0
+                                    && fallback.getString("belongTopinjietext").equals("无品级")
+                                    && fallback.getString("needcontainer").isEmpty() && !fallback.contains("cailiao00"));
+                    p.getInventory().clearContent();
+                    p.inventoryMenu.broadcastChanges();
+                }),
+                // 水稻：服务器原生玩家入口与确定性枯萎/loot；不依赖随机抽到生长或骨粉失败。
+                new Action(1, p -> {
+                    prepareRice(p);
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    riceHeld(p, item("shicai_001seed", 2));
+                    riceUse(p, ricePos.below());
+                    expectTrue("水稻服务器原生生存播种：湿耕地上放01并扣一颗",
+                            p.serverLevel().getBlockState(ricePos).is(block("shicai_001_plant_01").getBlock())
+                                    && p.getMainHandItem().getCount() == 1);
+
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    p.setGameMode(GameType.CREATIVE);
+                    riceHeld(p, item("shicai_001seed", 2));
+                    riceUse(p, ricePos.below());
+                    expectTrue("水稻服务器原生创造播种：放01且原生恢复种子数量",
+                            p.serverLevel().getBlockState(ricePos).is(block("shicai_001_plant_01").getBlock())
+                                    && p.getMainHandItem().getCount() == 2);
+
+                    p.setGameMode(GameType.SURVIVAL);
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                    riceHeld(p, item("shicai_001seed", 2));
+                    riceUse(p, ricePos.below());
+                    expectTrue("水稻服务器原生播种拒绝泥土且不扣种",
+                            p.serverLevel().isEmptyBlock(ricePos) && p.getMainHandItem().getCount() == 2);
+                }),
+                new Action(1, p -> {
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    p.serverLevel().setBlock(ricePos, block("shicai_001_plant_01"), 3);
+                    riceHeld(p, new ItemStack(Items.BONE_MEAL, 2));
+                    riceUse(p, ricePos);
+                    boolean remained = p.serverLevel().getBlockState(ricePos).is(block("shicai_001_plant_01").getBlock());
+                    boolean matured = p.serverLevel().getBlockState(ricePos).is(block("shicai_001_plant_08").getBlock());
+                    expectTrue("水稻原生骨粉有效目标扣一份并保持来源成功或失败结果；本次"
+                            + (remained ? "观察到50%失败" : "未观察到50%失败"),
+                            p.getMainHandItem().getCount() == 1 && (remained || matured));
+
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 0));
+                    riceDrops.forEach(Entity::discard);
+                    riceDrops.clear();
+                    p.serverLevel().setBlock(ricePos, block("shicai_001_plant_01"), 3);
+                    p.serverLevel().getBlockState(ricePos).randomTick(p.serverLevel(), ricePos, p.serverLevel().random);
+                    expectTrue("水稻受控原生randomTick：湿度0确定枯萎并只掉一颗种子",
+                            p.serverLevel().isEmptyBlock(ricePos)
+                                    && riceDrops.stream().filter(drop -> drop.getItem().is(item("shicai_001seed").getItem()))
+                                            .mapToInt(drop -> drop.getItem().getCount()).sum() == 1);
+                }),
+                new Action(1, p -> {
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    BlockState lower = block("shicai_001_plant_08");
+                    BlockState upper = lower.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER);
+                    DoublePlantBlock.placeAt(p.serverLevel(), lower, ricePos, 3);
+                    List<ItemStack> lowerDrops = Block.getDrops(lower, p.serverLevel(), ricePos, null);
+                    List<ItemStack> upperDrops = Block.getDrops(upper, p.serverLevel(), ricePos.above(), null);
+                    expectTrue("成熟水稻原生loot：下半六颗种子，上半不另掉落",
+                            lowerDrops.size() == 1 && lowerDrops.getFirst().is(item("shicai_001seed").getItem())
+                                    && lowerDrops.getFirst().getCount() == 6 && upperDrops.isEmpty());
+                    BlockState readLower = NbtUtils.readBlockState(p.registryAccess().lookupOrThrow(Registries.BLOCK), NbtUtils.writeBlockState(lower));
+                    BlockState readUpper = NbtUtils.readBlockState(p.registryAccess().lookupOrThrow(Registries.BLOCK), NbtUtils.writeBlockState(upper));
+                    expectTrue("水稻原生BlockState NBT往返保留成熟身份与上下半；不代替区块重载",
+                            readLower.equals(lower) && readUpper.equals(upper)
+                                    && readLower.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER
+                                    && readUpper.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER);
+                }),
+                new Action(1, p -> {
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                    BlockState sapling = block("mulberrysapling");
+                    p.serverLevel().setBlock(ricePos, sapling, 3);
+                    p.serverLevel().setBlock(ricePos.above(2), Blocks.STONE.defaultBlockState(), 3);
+                    List<ItemStack> saplingDrops = Block.getDrops(sapling, p.serverLevel(), ricePos, null);
+                    expectTrue("桑苗原生loot回落自身一株", saplingDrops.size() == 1
+                            && saplingDrops.getFirst().is(item("mulberrysapling").getItem())
+                            && saplingDrops.getFirst().getCount() == 1);
+                }),
+                new Action(12, p -> {
+                    BlockState sapling = block("mulberrysapling");
+                    riceHeld(p, new ItemStack(Items.BONE_MEAL, 2));
+                    riceUse(p, ricePos);
+                    expectTrue("遮天桑苗原生骨粉确定不生长但扣一份；sky="
+                                    + p.serverLevel().canSeeSkyFromBelowWater(ricePos.above())
+                                    + " block=" + BuiltInRegistries.BLOCK.getKey(p.serverLevel().getBlockState(ricePos).getBlock())
+                                    + " held=" + p.getMainHandItem(),
+                            !p.serverLevel().canSeeSkyFromBelowWater(ricePos.above())
+                                    && p.serverLevel().getBlockState(ricePos).is(sapling.getBlock())
+                                    && p.getMainHandItem().getCount() == 1);
+                    BlockState leaves = block("mulberryleaves");
+                    p.serverLevel().setBlock(ricePos, leaves, 3);
+                    SimpleWaterloggedBlock container = (SimpleWaterloggedBlock) leaves.getBlock();
+                    boolean allowed = container.canPlaceLiquid(p, p.serverLevel(), ricePos, leaves, Fluids.WATER);
+                    boolean placed = container.placeLiquid(p.serverLevel(), ricePos, leaves, Fluids.WATER.getSource(false));
+                    expectTrue("桑叶原生流体状态为空且注水查询与写入均拒绝",
+                            leaves.getFluidState().isEmpty() && !allowed && !placed
+                                    && p.serverLevel().getFluidState(ricePos).isEmpty());
+                }),
+                new Action(1, p -> {
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    riceHeld(p, item("shicai_002seed", 2));
+                    riceUse(p, ricePos.below());
+                    expectTrue("糯稻002原生生存播种只生成002苗并扣一颗，不串为001",
+                            p.serverLevel().getBlockState(ricePos).is(block("shicai_002_plant_01").getBlock())
+                                    && p.getMainHandItem().getCount() == 1);
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                    riceHeld(p, item("shicai_002seed", 2));
+                    riceUse(p, ricePos.below());
+                    expectTrue("糯稻002原生播种拒绝泥土且不扣种",
+                            p.serverLevel().isEmptyBlock(ricePos) && p.getMainHandItem().getCount() == 2);
+
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 0));
+                    riceDrops.forEach(Entity::discard);
+                    riceDrops.clear();
+                    p.serverLevel().setBlock(ricePos, block("shicai_002_plant_01"), 3);
+                    p.serverLevel().getBlockState(ricePos).randomTick(p.serverLevel(), ricePos, p.serverLevel().random);
+                    expectTrue("糯稻002受控原生randomTick：干耕地枯萎只交付002种子",
+                            p.serverLevel().isEmptyBlock(ricePos)
+                                    && riceDrops.size() == 1
+                                    && riceDrops.getFirst().getItem().is(item("shicai_002seed").getItem())
+                                    && riceDrops.getFirst().getItem().getCount() == 1);
+                }),
+                new Action(1, p -> {
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    p.serverLevel().setBlock(ricePos, block("shicai_002_plant_01"), 3);
+                    riceHeld(p, new ItemStack(Items.BONE_MEAL, 2));
+                    riceUse(p, ricePos);
+                    BlockState result = p.serverLevel().getBlockState(ricePos);
+                    expectTrue("糯稻002原生骨粉扣一份且仅保留002幼苗或转002成熟体；本次"
+                                    + (result.is(block("shicai_002_plant_01").getBlock()) ? "概率失败" : "成功"),
+                            p.getMainHandItem().getCount() == 1
+                                    && (result.is(block("shicai_002_plant_01").getBlock())
+                                    || result.is(block("shicai_002_plant_08").getBlock())));
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    BlockState lower = block("shicai_002_plant_08");
+                    BlockState upper = lower.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER);
+                    DoublePlantBlock.placeAt(p.serverLevel(), lower, ricePos, 3);
+                    List<ItemStack> lowerDrops = Block.getDrops(lower, p.serverLevel(), ricePos, null);
+                    List<ItemStack> upperDrops = Block.getDrops(upper, p.serverLevel(), ricePos.above(), null);
+                    expectTrue("成熟糯稻002原生loot：下半六颗002种子，上半不重复掉落",
+                            lowerDrops.size() == 1 && lowerDrops.getFirst().is(item("shicai_002seed").getItem())
+                                    && lowerDrops.getFirst().getCount() == 6 && upperDrops.isEmpty());
+                    CraftingInput input = CraftingInput.of(2, 2, List.of(item("shicai_002seed"), item("shicai_002seed"),
+                            item("shicai_002seed"), item("shicai_002seed")));
+                    ItemStack meal = p.serverLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, p.serverLevel())
+                            .map(recipe -> recipe.value().assemble(input, p.registryAccess())).orElse(ItemStack.EMPTY);
+                    expectTrue("四颗糯稻种子经已加载的原生合成配方匹配并生成一份糯米",
+                            meal.is(item("shicai_002").getItem()) && meal.getCount() == 1);
+                }),
+                new Action(1, p -> {
+                    String[][] planting = {
+                            {"shicai_004", "004"}, {"shicai_005", "005"}, {"shicai_006seed", "006"},
+                            {"shicai_00701", "007"}, {"shicai_02501", "025"}, {"shicai_02601", "026"}, {"shicai_02701", "027"},
+                            {"shicai_01101", "011"}, {"shicai_01201", "012"}, {"shicai_01301", "013"},
+                            {"shicai_01401", "014"}, {"shicai_01502", "015"}, {"shicai_01601", "016"},
+                            {"shicai_01701", "017"}, {"shicai_01801", "018"}, {"shicai_01901", "019"},
+                            {"shicai_02001", "020"}, {"shicai_02101", "021"}, {"shicai_02201", "022"},
+                            {"shicai_02301", "023"}, {"shicai_02401", "024"}, {"shicai_028", "028"},
+                            {"shicai_02901", "029"}, {"shicai_029", "029"},
+                            {"shicai_03001", "030"}, {"shicai_030", "030"},
+                            {"shicai_03101", "031"}, {"shicai_031", "031"},
+                            {"shicai_032", "032"}, {"shicai_033", "033"}};
+                    List<String> edible = List.of("shicai_01502", "shicai_028", "shicai_029", "shicai_030",
+                            "shicai_031", "shicai_032", "shicai_033");
+                    for (String[] entry : planting) {
+                        riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                        riceHeld(p, item(entry[0], 2));
+                        boolean foodPreserved = !edible.contains(entry[0]) || p.getMainHandItem().has(DataComponents.FOOD);
+                        riceUse(p, ricePos.below());
+                        expectTrue(entry[0] + "原生生存播种生成对应01并扣一件" + (edible.contains(entry[0]) ? "，保留食物组件" : ""),
+                                foodPreserved && p.serverLevel().getBlockState(ricePos).is(block("shicai_" + entry[1] + "_plant_01").getBlock())
+                                        && p.getMainHandItem().getCount() == 1);
+                    }
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 0));
+                    riceClearDrops();
+                    BlockState wrongSeed = block("shicai_004_plant_01");
+                    p.serverLevel().setBlock(ricePos, wrongSeed, 3);
+                    wrongSeed.randomTick(p.serverLevel(), ricePos, p.serverLevel().random);
+                    expectTrue("00401干旱实际掉落保留来源异常002种子一颗",
+                            p.serverLevel().isEmptyBlock(ricePos) && riceDrops.size() == 1
+                                    && riceDrops.getFirst().getItem().is(item("shicai_002seed").getItem())
+                                    && riceDrops.getFirst().getItem().getCount() == 1);
+                }),
+                new Action(1, p -> {
+                    String[][] dryBonemeal = {{"006", "03", "shicai_006seed", "1"},
+                            {"025", "05", "shicai_02501", "1"}, {"015", "03", "shicai_01501", "2"}};
+                    for (String[] entry : dryBonemeal) {
+                        riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 0));
+                        riceClearDrops();
+                        BlockState plant = block("shicai_" + entry[0] + "_plant_" + entry[1]);
+                        p.serverLevel().setBlock(ricePos, plant, 3);
+                        ((BonemealableBlock) plant.getBlock()).performBonemeal(p.serverLevel(), p.serverLevel().random, ricePos, plant);
+                        expectTrue(entry[0] + entry[1] + "受控原生performBonemeal沿普通干旱分支枯萎并交来源掉落",
+                                p.serverLevel().isEmptyBlock(ricePos) && riceDrops.size() == 1
+                                        && riceDrops.getFirst().getItem().is(item(entry[2]).getItem())
+                                        && riceDrops.getFirst().getItem().getCount() == Integer.parseInt(entry[3]));
+                    }
+                    for (String stage : List.of("03", "04")) {
+                        riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                        riceClearDrops();
+                        p.serverLevel().setBlock(ricePos, block("shicai_016_plant_" + stage), 3);
+                        riceHeld(p, ItemStack.EMPTY);
+                        riceUse(p, ricePos);
+                        int chives = riceDrops.stream().filter(drop -> drop.getItem().is(item("shicai_016").getItem()))
+                                .mapToInt(drop -> drop.getItem().getCount()).sum();
+                        int flowers = riceDrops.stream().filter(drop -> drop.getItem().is(item("shicai_01602").getItem()))
+                                .mapToInt(drop -> drop.getItem().getCount()).sum();
+                        expectTrue("016" + stage + "原生空手收割回02并独立交付韭菜及开花产物",
+                                p.serverLevel().getBlockState(ricePos).is(block("shicai_016_plant_02").getBlock())
+                                        && chives == 1 && flowers == (stage.equals("04") ? 1 : 0)
+                                        && riceDrops.size() == (stage.equals("04") ? 2 : 1));
+                    }
+                }),
+                new Action(1, p -> {
+                    for (String[] entry : new String[][]{{"004", "6"}, {"005", "6"}, {"006", "2"}}) {
+                        riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                        BlockState lower = block("shicai_" + entry[0] + "_plant_08");
+                        DoublePlantBlock.placeAt(p.serverLevel(), lower, ricePos, 3);
+                        List<ItemStack> drops = Block.getDrops(lower, p.serverLevel(), ricePos, null);
+                        List<ItemStack> upper = Block.getDrops(lower.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER),
+                                p.serverLevel(), ricePos.above(), null);
+                        expectTrue(entry[0] + "成熟原生loot交本体" + entry[1] + "份且上半不重复",
+                                drops.size() == 1 && drops.getFirst().is(item("shicai_" + entry[0]).getItem())
+                                        && drops.getFirst().getCount() == Integer.parseInt(entry[1]) && upper.isEmpty());
+                    }
+                    CraftingInput input = CraftingInput.of(1, 1, List.of(item("shicai_006")));
+                    ItemStack seeds = p.serverLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, p.serverLevel())
+                            .map(recipe -> recipe.value().assemble(input, p.registryAccess())).orElse(ItemStack.EMPTY);
+                    expectTrue("玉米通过已加载原生合成配方生成八颗006种子",
+                            seeds.is(item("shicai_006seed").getItem()) && seeds.getCount() == 8);
+                    String[][] fixedLoot = {
+                            {"007", "04", "shicai_00701", "1"}, {"025", "04", "shicai_025", "2"},
+                            {"026", "04", "shicai_026", "2"}, {"027", "04", "shicai_027", "2"},
+                            {"011", "04", "shicai_011", "1"}, {"015", "02", "shicai_015", "2"},
+                            {"015", "03", "shicai_01501", "2"}, {"015", "04", "shicai_01502", "4"},
+                            {"017", "04", "shicai_017", "2"}, {"018", "04", "shicai_018", "4"},
+                            {"019", "04", "shicai_019", "4"}, {"020", "04", "shicai_020", "1"},
+                            {"021", "04", "shicai_021", "4"}, {"022", "04", "shicai_022", "1"},
+                            {"023", "04", "shicai_023", "1"}, {"024", "03", "shicai_02401", "3"},
+                            {"024", "04", "shicai_024", "1"}, {"028", "04", "shicai_028", "3"},
+                            {"029", "04", "shicai_029", "3"}, {"030", "04", "shicai_030", "6"},
+                            {"031", "04", "shicai_031", "3"}, {"032", "04", "shicai_032", "4"},
+                            {"033", "04", "shicai_033", "3"}};
+                    for (String[] entry : fixedLoot) {
+                        riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                        BlockState plant = block("shicai_" + entry[0] + "_plant_" + entry[1]);
+                        p.serverLevel().setBlock(ricePos, plant, 3);
+                        List<ItemStack> drops = Block.getDrops(plant, p.serverLevel(), ricePos, null);
+                        expectTrue(entry[0] + entry[1] + "原生loot产物和数量符合来源",
+                                drops.size() == 1 && drops.getFirst().is(item(entry[2]).getItem())
+                                        && drops.getFirst().getCount() == Integer.parseInt(entry[3]));
+                    }
+                }),
+                new Action(1, p -> {
+                    for (String number : List.of("012", "013")) {
+                        riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                        BlockState mature = block("shicai_" + number + "_plant_04");
+                        p.serverLevel().setBlock(ricePos, mature, 3);
+                        List<ItemStack> drops = Block.getDrops(mature, p.serverLevel(), ricePos, null);
+                        int produce = drops.stream().filter(stack -> stack.is(item("shicai_" + number).getItem()))
+                                .mapToInt(ItemStack::getCount).sum();
+                        int seeds = drops.stream().filter(stack -> stack.is(item("shicai_" + number + "01").getItem()))
+                                .mapToInt(ItemStack::getCount).sum();
+                        expectTrue(number + "成熟自定义loot两轮只产本族食材1或来源反转范围种子3",
+                                drops.stream().allMatch(stack -> stack.is(item("shicai_" + number).getItem())
+                                        || stack.is(item("shicai_" + number + "01").getItem()))
+                                        && seeds % 3 == 0 && produce + seeds / 3 == 2);
+                    }
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    BlockState cai = block("shicai_014_plant_04");
+                    p.serverLevel().setBlock(ricePos, cai, 3);
+                    List<ItemStack> caiDrops = Block.getDrops(cai, p.serverLevel(), ricePos, null);
+                    expectTrue("014成熟自定义loot两轮仅产菜心1或种子1至3，保留资源抽签",
+                            caiDrops.size() == 2 && caiDrops.stream().allMatch(stack ->
+                                    stack.is(item("shicai_014").getItem()) && stack.getCount() == 1
+                                            || stack.is(item("shicai_01401").getItem()) && stack.getCount() >= 1 && stack.getCount() <= 3));
+                    BlockState chives = block("shicai_016_plant_04");
+                    p.serverLevel().setBlock(ricePos, chives, 3);
+                    List<ItemStack> chiveDrops = Block.getDrops(chives, p.serverLevel(), ricePos, null);
+                    expectTrue("016成熟自定义loot单轮仅产种子1至3、韭菜花1或韭菜1至2",
+                            chiveDrops.size() == 1 && chiveDrops.stream().allMatch(stack ->
+                                    stack.is(item("shicai_01601").getItem()) && stack.getCount() >= 1 && stack.getCount() <= 3
+                                            || stack.is(item("shicai_01602").getItem()) && stack.getCount() == 1
+                                            || stack.is(item("shicai_016").getItem()) && stack.getCount() >= 1 && stack.getCount() <= 2));
+                }),
+                new Action(1, p -> {
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                    riceClearDrops();
+                    p.serverLevel().setBlock(ricePos, Blocks.WATER.defaultBlockState(), 2);
+                    riceHeld(p, item("shicai_00801", 2));
+                    boolean foodPreserved = p.getMainHandItem().has(DataComponents.FOOD);
+                    p.gameMode.useItemOn(p, p.serverLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND,
+                            new BlockHitResult(Vec3.atCenterOf(ricePos.below()).add(.5, 0, 0), Direction.EAST, ricePos.below(), false));
+                    expectTrue("莲子第28种原生播种入口：食物组件保留，泥土上水侧面使用替泥为根并扣一颗",
+                            foodPreserved && p.serverLevel().getBlockState(ricePos.below()).is(block("shicai_008plant_01").getBlock())
+                                    && p.getMainHandItem().getCount() == 1);
+                    riceReset(p, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+                    riceHeld(p, item("shicai_00801", 2));
+                    riceUse(p, ricePos.below());
+                    expectTrue("莲子原生耕地使用仅扣一颗，保持空位不生成其他作物",
+                            p.serverLevel().isEmptyBlock(ricePos) && p.getMainHandItem().getCount() == 1);
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                    riceClearDrops();
+                    BlockState root = block("shicai_008plant_01");
+                    p.serverLevel().setBlock(ricePos, root, 2);
+                    p.serverLevel().setBlock(ricePos.above(2), block("shicai_008plant_03"), 2);
+                    riceHeld(p, ItemStack.EMPTY);
+                    p.getPersistentData().putDouble("caiou", 0);
+                    root.attack(p.serverLevel(), ricePos, p);
+                    expectTrue("莲藕原生attack跨过空气读取height2莲蓬并记录caiou2",
+                            p.serverLevel().isEmptyBlock(ricePos.above()) && p.getPersistentData().getDouble("caiou") == 2);
+                    boolean removed = p.gameMode.destroyBlock(ricePos);
+                    List<ItemEntity> roots = riceDrops.stream().filter(drop -> drop.getItem().is(item("shicai_008").getItem())).toList();
+                    expectTrue("莲藕原生玩家破坏后交两个独立藕实体并清零采藕记录",
+                            removed && p.serverLevel().isEmptyBlock(ricePos) && roots.size() == 2
+                                    && roots.stream().allMatch(drop -> drop.getItem().getCount() == 1)
+                                    && p.getPersistentData().getDouble("caiou") == 0);
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                    p.serverLevel().setBlock(ricePos, root, 2);
+                    p.serverLevel().setBlock(ricePos.above(), block("shicai_008plant_03"), 2);
+                    riceClearDrops();
+                    p.serverLevel().setBlock(ricePos, Blocks.AIR.defaultBlockState(), 3);
+                    expectTrue("莲蓬失去下方莲藕标签支撑后自然邻居更新清除且不掉落",
+                            p.serverLevel().isEmptyBlock(ricePos.above()) && riceDrops.isEmpty());
+                    riceReset(p, Blocks.DIRT.defaultBlockState());
+                }),
+                new Action(1, this::checkFruitTrees),
+                new Action(1, this::checkVineSeeds),
+                new Action(1, this::checkVineBonemeal),
+                new Action(44, this::checkVineHarvestAndStartTicks),
+                new Action(1, this::checkVineRepeatedTicks),
+                new Action(8, p -> {
+                    checkGourdInventory(p);
+                    riceHeld(p, item("shicai_039_plant_04"));
+                    Vec3 view = Vec3.atCenterOf(ricePos).subtract(p.getEyePosition());
+                    float yaw = (float) Math.toDegrees(Math.atan2(-view.x, view.z));
+                    float pitch = (float) -Math.toDegrees(Math.atan2(view.y, view.horizontalDistance()));
+                    p.connection.teleport(p.getX(), p.getY(), p.getZ(), yaw, pitch);
+                }),
+                new Action(8, p -> useBlock(ricePos)),
+                new Action(4, p -> {
+                    BlockState gourd = p.serverLevel().getBlockState(ricePos);
+                    expectTrue("03904真实客户端右键只写动画1或2，保留手持葫芦且未打开菜单",
+                            gourd.is(block("shicai_039_plant_04").getBlock())
+                                    && (gourd.getValue(GourdBlock.ANIMATION) == 1 || gourd.getValue(GourdBlock.ANIMATION) == 2)
+                                    && p.containerMenu == p.inventoryMenu && p.getMainHandItem().getCount() == 1);
+                    expectTrue("03904客户端装入九槽方块实体并保持葫芦身份",
+                            minecraft.level.getBlockState(ricePos).is(gourd.getBlock())
+                                    && minecraft.level.getBlockEntity(ricePos) instanceof GourdBlockEntity clientGourd
+                                    && clientGourd.getContainerSize() == 9);
+                    minecraft.execute(() -> screenshots.take("plant-gourd-block-item-animation.png"));
+                }),
+                new Action(1, p -> PlantFoodSupplyCheck.run(p, ricePos, this::expectTrue)),
+                new Action(1, p -> restoreRice(p)),
+                // 餐具与案板：真实客户端输入；未执行来源过程或设备tick代替自然入口。
+                new Action(12, p -> {
+                    prepareUtensils(p);
+                    utensilsWare(p, utensilsBowl).setItem(0, item("foodwan", 2));
+                    utensilsWare(p, utensilsPlate).setItem(0, item("foodcipan", 6));
+                    utensilsWare(p, utensilsLargeBowl).setItem(0, item("fooddawan", 1));
+                    utensilsHeld(p, item("foodwan", 2));
+                }),
+                new Action(8, p -> useBlock(utensilsBowl)),
+                new Action(8, p -> {
+                    expectTrue("碗真实右键由2叠至3，手持2减至1且客户端库存层同步",
+                            utensilsWare(p, utensilsBowl).getItem(0).getCount() == 3
+                                    && p.getMainHandItem().getCount() == 1 && utensilsClientCount(utensilsBowl) == 3);
+                    utensilsHeld(p, item("foodcipan", 2));
+                }),
+                new Action(8, p -> useBlock(utensilsPlate)),
+                new Action(8, p -> {
+                    expectTrue("瓷盘真实右键由6叠至7，手持2减至1且客户端库存层同步",
+                            utensilsWare(p, utensilsPlate).getItem(0).getCount() == 7
+                                    && p.getMainHandItem().getCount() == 1 && utensilsClientCount(utensilsPlate) == 7);
+                    utensilsHeld(p, item("fooddawan", 2));
+                }),
+                new Action(8, p -> useBlock(utensilsLargeBowl)),
+                new Action(8, p -> {
+                    expectTrue("大碗真实右键由1叠至2，手持2减至1且客户端库存层同步",
+                            utensilsWare(p, utensilsLargeBowl).getItem(0).getCount() == 2
+                                    && p.getMainHandItem().getCount() == 1 && utensilsClientCount(utensilsLargeBowl) == 2);
+                    minecraft.execute(() -> screenshots.take("cooking-tableware-stacks.png"));
+                    boolean full = true;
+                    BlockPos[] positions = {utensilsBowl, utensilsPlate, utensilsLargeBowl};
+                    String[] identities = {"foodwan", "foodcipan", "fooddawan"};
+                    int[] capacities = {3, 7, 2};
+                    for (int index = 0; index < positions.length; index++) {
+                        p.setItemInHand(InteractionHand.MAIN_HAND, item(identities[index], 2));
+                        p.gameMode.useItemOn(p, p.serverLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND,
+                                utensilsHit(positions[index]));
+                        full &= p.getMainHandItem().getCount() == 2
+                                && utensilsWare(p, positions[index]).getItem(0).getCount() == capacities[index];
+                    }
+                    expectTrue("三种餐具达到3/7/2上限后经原生服务端右键不再扣料或增加库存", full);
+                    boolean automation = true;
+                    for (int index = 0; index < positions.length; index++) {
+                        TablewareBlockEntity ware = utensilsWare(p, positions[index]);
+                        ware.clearContent();
+                        for (Direction direction : Direction.values()) {
+                            IItemHandler handler = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, positions[index], direction);
+                            ItemStack remainder = handler.insertItem(0, new ItemStack(Items.STICK, capacities[index] + 1), false);
+                            automation &= remainder.getCount() == 1
+                                    && handler.extractItem(0, capacities[index], false).getCount() == capacities[index];
+                        }
+                        IItemHandler unsided = p.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, positions[index], null);
+                        automation &= unsided.insertItem(0, new ItemStack(Items.STICK), false).isEmpty()
+                                && unsided.extractItem(0, 1, false).is(Items.STICK);
+                        ware.setItem(0, new ItemStack(Items.WOODEN_SWORD, 8));
+                        automation &= ware.getItem(0).getCount() == capacities[index];
+                        ware.clearContent();
+                    }
+                    expectTrue("餐具六面和无方向可插取异物，普通插入守容量，强制赋槽仅按3/7/2截量", automation);
+                    utensilsWare(p, utensilsBowl).setItem(0, new ItemStack(Items.DIAMOND, 2));
+                    p.setGameMode(GameType.CREATIVE);
+                    ItemStack named = item("foodwan");
+                    named.set(DataComponents.CUSTOM_NAME, Component.literal("受控餐具组件"));
+                    utensilsHeld(p, named);
+                }),
+                new Action(8, p -> useBlock(utensilsBowl)),
+                new Action(8, p -> {
+                    expectTrue("创造模式叠放仍扣尽主手，槽内钻石被覆盖且新碗不继承手持组件；held="
+                                    + p.getMainHandItem() + " slot=" + utensilsWare(p, utensilsBowl).getItem(0)
+                                    + " diamonds=" + utensilsCount(p, Items.DIAMOND) + " drops=" + utensilsDropSummary(),
+                            p.getMainHandItem().isEmpty() && utensilsWare(p, utensilsBowl).getItem(0).is(item("foodwan").getItem())
+                                    && utensilsWare(p, utensilsBowl).getItem(0).getCount() == 1
+                                    && !utensilsWare(p, utensilsBowl).getItem(0).has(DataComponents.CUSTOM_NAME)
+                                    && utensilsCount(p, Items.DIAMOND) == 0 && utensilsDrops.isEmpty());
+                    p.setGameMode(GameType.SURVIVAL);
+                    ItemStack returned = new ItemStack(Items.EMERALD, 2);
+                    returned.set(DataComponents.CUSTOM_NAME, Component.literal("取出组件保留"));
+                    utensilsWare(p, utensilsBowl).setItem(0, returned);
+                    utensilsHeld(p, ItemStack.EMPTY);
+                    utensilsCountBefore = utensilsCount(p, Items.EMERALD);
+                }),
+                new Action(8, p -> useBlock(utensilsBowl)),
+                new Action(8, p -> {
+                    ItemStack received = utensilsFind(p, Items.EMERALD);
+                    expectTrue("空主手真实右键只取槽内一件，返回组件保留，底座和余栈仍存在",
+                            utensilsCount(p, Items.EMERALD) == utensilsCountBefore + 1
+                                    && received.getHoverName().getString().equals("取出组件保留")
+                                    && utensilsWare(p, utensilsBowl).getItem(0).getCount() == 1
+                                    && utensilsClientCount(utensilsBowl) == 1);
+                    utensilsWare(p, utensilsBowl).clearContent();
+                    utensilsHeld(p, ItemStack.EMPTY);
+                    utensilsCountBefore = utensilsCount(p, item("foodwan").getItem());
+                }),
+                new Action(8, p -> useBlock(utensilsBowl)),
+                new Action(8, p -> {
+                    expectTrue("空餐具真实收底座交付一件并使服务端与客户端均成为AIR",
+                            p.serverLevel().isEmptyBlock(utensilsBowl) && minecraft.level.isEmptyBlock(utensilsBowl)
+                                    && utensilsCount(p, item("foodwan").getItem()) == utensilsCountBefore + 1);
+                    for (BlockPos at : List.of(utensilsPlate, utensilsLargeBowl)) {
+                        utensilsWare(p, at).clearContent();
+                        p.serverLevel().setBlockAndUpdate(at, Blocks.AIR.defaultBlockState());
+                    }
+                    utensilsHeld(p, new ItemStack(Items.CARROT));
+                }),
+                new Action(8, p -> useBlock(utensilsBoard)),
+                new Action(8, p -> {
+                    expectTrue("案板真实放入1件时共享原栈随后减至0，主手与槽0均为空",
+                            p.getMainHandItem().isEmpty() && utensilsBoard(p).getItem(0).isEmpty());
+                    utensilsHeld(p, new ItemStack(Items.CARROT, 64));
+                }),
+                new Action(8, p -> useBlock(utensilsBoard)),
+                new Action(8, p -> {
+                    CuttingBlockEntity board = utensilsBoard(p);
+                    expectTrue("案板真实放入64件后同一引用在主手与槽0均为63，跨端快照保留63",
+                            board.getItem(0) == p.getMainHandItem() && board.getItem(0).getCount() == 63
+                                    && minecraft.level.getBlockEntity(utensilsBoard) instanceof CuttingBlockEntity mirror
+                                    && mirror.getItem(0).getCount() == 63 && minecraft.player.getMainHandItem().getCount() == 63);
+                    p.serverLevel().setBlockAndUpdate(utensilsBowl, block("foodwan"));
+                    ItemStack savedWare = item("foodwan", 3);
+                    savedWare.set(DataComponents.CUSTOM_NAME, Component.literal("保存餐具"));
+                    utensilsWare(p, utensilsBowl).setItem(0, savedWare);
+                    board.getPersistentData().putInt("jiaodu", -90);
+                    board.getPersistentData().putBoolean("qiecaibegin", true);
+                    board.getPersistentData().putInt("tick", 3);
+                    TablewareBlockEntity wareCopy = (TablewareBlockEntity) BlockEntity.loadStatic(utensilsBowl,
+                            utensilsWare(p, utensilsBowl).getBlockState(),
+                            utensilsWare(p, utensilsBowl).saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    CuttingBlockEntity boardCopy = (CuttingBlockEntity) BlockEntity.loadStatic(utensilsBoard,
+                            board.getBlockState(), board.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
+                    expectTrue("餐具带组件库存及案板63件/方向/切菜状态经原生保存读回一致",
+                            wareCopy != null && ItemStack.matches(wareCopy.getItem(0), savedWare)
+                                    && boardCopy != null && ItemStack.matches(boardCopy.getItem(0), board.getItem(0))
+                                    && boardCopy.getPersistentData().equals(board.getPersistentData()));
+                    board.getPersistentData().putBoolean("qiecaibegin", false);
+                    board.getPersistentData().putInt("tick", 0);
+                    board.setItem(7, new ItemStack(Items.POTATO));
+                    board.setItem(8, new ItemStack(Items.BEETROOT));
+                    board.changed();
+                    utensilsHeld(p, ItemStack.EMPTY);
+                    utensilsCountBefore = utensilsCount(p, Items.BEETROOT);
+                    stoneMillSneak(true);
+                }),
+                new Action(8, p -> useBlock(utensilsBoard)),
+                new Action(8, p -> {
+                    expectTrue("空主手潜行真实收料按8至0逆序，只交付槽8一件并清该槽",
+                            p.isShiftKeyDown() && utensilsBoard(p).getItem(8).isEmpty()
+                                    && utensilsBoard(p).getItem(7).is(Items.POTATO)
+                                    && utensilsBoard(p).getItem(0).getCount() == 63
+                                    && utensilsCount(p, Items.BEETROOT) == utensilsCountBefore + 1);
+                    stoneMillSneak(false);
+                    utensilsHeld(p, item("caidao"));
+                }),
+                new Action(8, p -> {
+                    utensilsCutStarted = p.serverLevel().getGameTime();
+                    minecraft.execute(() -> {
+                        minecraft.player.getInventory().selected = HOTBAR;
+                        minecraft.gameMode.startDestroyBlock(utensilsBoard, Direction.UP);
+                        minecraft.gameMode.stopDestroyBlock();
+                    });
+                }),
+                new Action(12, p -> {
+                    BlockState cleaver = p.serverLevel().getBlockState(utensilsBoard.above());
+                    expectTrue("客户端自然左键菜刀启动刀架动画1及案板标记，未破坏案板或消耗食材",
+                            cleaver.getBlock() instanceof CleaverBlock && cleaver.getValue(CleaverBlock.ANIMATION) == 1
+                                    && utensilsBoard(p).getPersistentData().getBoolean("qiecaibegin")
+                                    && utensilsBoard(p).getItem(0).getCount() == 63
+                                    && p.getMainHandItem().is(item("caidao").getItem()));
+                    minecraft.execute(() -> screenshots.take("cooking-cutting-board-cleaver.png"));
+                }),
+                new Action(180, p -> {}),
+                new Action(8, p -> {
+                    expectTrue("自然等待至少160服务端刻后刀架置AIR、案板标记和计时归零且食材不变无产物；elapsed="
+                                    + (p.serverLevel().getGameTime() - utensilsCutStarted)
+                                    + " above=" + p.serverLevel().getBlockState(utensilsBoard.above())
+                                    + " data=" + utensilsBoard(p).getPersistentData()
+                                    + " food=" + utensilsBoard(p).getItem(0) + " slot7=" + utensilsBoard(p).getItem(7)
+                                    + " held=" + p.getMainHandItem() + " drops=" + utensilsDropSummary(),
+                            p.serverLevel().getGameTime() - utensilsCutStarted >= 160
+                                    && p.serverLevel().isEmptyBlock(utensilsBoard.above())
+                                    && !utensilsBoard(p).getPersistentData().getBoolean("qiecaibegin")
+                                    && utensilsBoard(p).getPersistentData().getInt("tick") == 0
+                                    && utensilsBoard(p).getItem(0).is(Items.CARROT) && utensilsBoard(p).getItem(0).getCount() == 63
+                                    && utensilsBoard(p).getItem(7).is(Items.POTATO)
+                                    && p.getMainHandItem().is(item("caidao").getItem()) && utensilsDrops.isEmpty());
+                    p.setGameMode(GameType.SPECTATOR);
+                    utensilsHeld(p, ItemStack.EMPTY);
+                }),
+                new Action(8, p -> useBlock(utensilsBowl)),
+                new Action(8, p -> {
+                    utensilsSpectatorBowl = utensilsEmptyChest(p) && minecraft.screen instanceof ContainerScreen screen
+                            && screen.getTitle().getString().equals("碗") && utensilsWare(p, utensilsBowl).getItem(0).getCount() == 3;
+                    minecraft.execute(() -> screenshots.take("cooking-tableware-spectator-chinese.png"));
+                    p.closeContainer();
+                }),
+                new Action(8, p -> useBlock(utensilsBoard)),
+                new Action(8, p -> {
+                    expectTrue("旁观者真实打开碗和案板独立空27槽箱，双端标题中文且真实库存未进入菜单",
+                            utensilsSpectatorBowl && utensilsEmptyChest(p) && minecraft.screen instanceof ContainerScreen screen
+                                    && screen.getTitle().getString().equals("案板")
+                                    && utensilsBoard(p).getItem(0).getCount() == 63);
+                    minecraft.execute(() -> screenshots.take("cooking-cutting-board-spectator-chinese.png"));
+                }),
+                new Action(8, p -> minecraft.execute(() -> checkMealTooltips(screenshots))),
+                new Action(8, p -> minecraft.execute(() -> {
+                    expectTrue("原生餐食Tooltip已绘制并截图，中文与金色待查看截图", mealTooltipScreenshotTaken);
+                    clearMealTooltipPreview();
+                })),
+                new Action(8, p -> restoreUtensils(p))
+        );
+    }
+
+    /** 经客户端真实物品提示入口核对餐食分类，并在现有原生界面绘制一帧提示供截图。 */
+    private void checkMealTooltips(Screenshots screenshots) {
+        List<String> categories = List.of("主食", "菜品", "汤水", "茶点");
+        List<String> paths = List.of("food_018", "food_014", "food_003", "food_019");
+        Item.TooltipContext context = Item.TooltipContext.of(minecraft.level);
+        TextColor gold = TextColor.fromLegacyFormat(ChatFormatting.GOLD);
+        boolean noNullPlayerCategories = true;
+        for (int index = 0; index < paths.size(); index++) {
+            ItemStack stack = item(paths.get(index));
+            String expected = categories.get(index);
+            List<Component> lines = stack.getTooltipLines(context, minecraft.player, TooltipFlag.Default.NORMAL);
+            List<Component> classified = lines.stream().filter(line -> categories.contains(line.getString())).toList();
+            expectTrue("餐食真实getTooltipLines：" + paths.get(index) + "仅一条中文" + expected + "且为金色",
+                    classified.size() == 1 && classified.getFirst().getString().equals(expected)
+                            && gold.equals(classified.getFirst().getStyle().getColor()));
+            noNullPlayerCategories &= stack.getTooltipLines(context, null, TooltipFlag.Default.NORMAL).stream()
+                    .noneMatch(line -> categories.contains(line.getString()));
+        }
+        expectTrue("真实getTooltipLines：非分类石头不追加餐食类别",
+                new ItemStack(Items.STONE).getTooltipLines(context, minecraft.player, TooltipFlag.Default.NORMAL).stream()
+                        .noneMatch(line -> categories.contains(line.getString())));
+        expectTrue("真实getTooltipLines：四类餐食在null玩家时均不追加类别", noNullPlayerCategories);
+
+        if (!(minecraft.screen instanceof ContainerScreen screen)) {
+            fail("餐食提示截图缺少已打开的原生餐具界面");
+            return;
+        }
+        ItemStack preview = item("food_018");
+        mealTooltipScreenshotTaken = false;
+        mealTooltipPreview = event -> {
+            if (event.getScreen() != screen || mealTooltipScreenshotTaken) return;
+            event.getGuiGraphics().renderTooltip(minecraft.font, preview, screen.width / 2, screen.height / 2);
+            event.getGuiGraphics().flush();
+            screenshots.take("cooking-meal-category-tooltip-chinese-gold.png");
+            mealTooltipScreenshotTaken = true;
+        };
+        NeoForge.EVENT_BUS.addListener(mealTooltipPreview);
+    }
+
+    /** 截图检查结束后从客户端线程撤下临时渲染监听。 */
+    private void clearMealTooltipPreview() {
+        if (mealTooltipPreview != null) {
+            NeoForge.EVENT_BUS.unregister(mealTooltipPreview);
+            mealTooltipPreview = null;
+        }
+    }
+
+    private void prepareRice(ServerPlayer player) {
+        riceActive = true;
+        riceMode = player.gameMode.getGameModeForPlayer();
+        riceFlying = player.getAbilities().flying;
+        riceSelected = player.getInventory().selected;
+        ricePosition = player.position();
+        riceMotion = player.getDeltaMovement();
+        riceYaw = player.getYRot();
+        ricePitch = player.getXRot();
+        if (player.getPersistentData().contains("caiou")) {
+            ricePlantDataBefore.put("caiou", player.getPersistentData().get("caiou").copy());
+        }
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            riceInventory.add(player.getInventory().getItem(slot).copy());
+        }
+        player.closeContainer();
+        player.setGameMode(GameType.SURVIVAL);
+        ricePos = player.blockPosition().offset(2, 0, 2).immutable();
+        for (BlockPos mutable : BlockPos.betweenClosed(ricePos.offset(-1, -1, -1), ricePos.offset(1, 3, 1))) {
+            BlockPos pos = mutable.immutable();
+            riceBlocks.put(pos, player.serverLevel().getBlockState(pos));
+            BlockEntity old = player.serverLevel().getBlockEntity(pos);
+            if (old != null) riceEntities.put(pos, old.saveWithFullMetadata(player.registryAccess()));
+            riceTicks.put(pos, ((LevelChunkTicks<Block>) player.serverLevel().getChunkAt(pos).getBlockTicks())
+                    .getAll().filter(tick -> tick.pos().equals(pos)).toList());
+            riceFluidTicks.put(pos, ((LevelChunkTicks<Fluid>) player.serverLevel().getChunkAt(pos).getFluidTicks())
+                    .getAll().filter(tick -> tick.pos().equals(pos)).toList());
+        }
+        for (BlockPos pos : riceBlocks.keySet()) {
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
+            BlockEntity old = player.serverLevel().getBlockEntity(pos);
+            if (old instanceof Container container) container.clearContent();
+            player.serverLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+        }
+        riceDropListener = event -> {
+            if (event.getLevel() == player.serverLevel() && event.getEntity() instanceof ItemEntity drop
+                    && ricePos.distSqr(drop.blockPosition()) <= 25) {
+                riceDrops.add(drop);
+                CompoundTag itemData = new CompoundTag();
+                drop.saveWithoutId(itemData);
+                ricePickupDelay = itemData.getShort("PickupDelay");
+                drop.setNeverPickUp();
+            }
+        };
+        NeoForge.EVENT_BUS.addListener(riceDropListener);
+    }
+
+    private void riceHeld(ServerPlayer player, ItemStack stack) {
+        player.getInventory().clearContent();
+        player.getInventory().selected = HOTBAR;
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        player.inventoryMenu.broadcastChanges();
+    }
+
+    private InteractionResult riceUse(ServerPlayer player, BlockPos pos) {
+        return player.gameMode.useItemOn(player, player.serverLevel(), player.getMainHandItem(), InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(pos).add(0, .5, 0), Direction.UP, pos, false));
+    }
+
+    private void riceReset(ServerPlayer player, BlockState soil) {
+        for (int dy = 3; dy >= 0; dy--) player.serverLevel().setBlock(ricePos.above(dy), Blocks.AIR.defaultBlockState(), 3);
+        player.serverLevel().setBlock(ricePos.below(), soil, 3);
+    }
+
+    private void riceClearDrops() {
+        riceDrops.forEach(Entity::discard);
+        riceDrops.clear();
+        ricePickupDelay = 0;
+    }
+
+    /** 果树检查只使用已保存的小场地；不在此范围触发完整模板生长。 */
+    private void checkFruitTrees(ServerPlayer player) {
+        riceHeld(player, ItemStack.EMPTY);
+        ItemStack silk = new ItemStack(Items.IRON_AXE);
+        silk.enchant(player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), 1);
+        String[][] trees = {{"009", "shicai_00904", "shicai_00902", "shicai_00903", "shicai_00907"},
+                {"010", "shicai_01003", "shicai_01001", "shicai_01002", "shicai_01004"}};
+        for (String[] tree : trees) {
+            riceResetVines(player, Blocks.DIRT.defaultBlockState());
+            BlockState sapling = block(tree[1]);
+            player.serverLevel().setBlock(ricePos, sapling, 3);
+            BonemealableBlock bone = (BonemealableBlock) sapling.getBlock();
+            expectTrue(tree[0] + "果树苗原生骨粉目标有效且成功恒真，未触发5%完整长树",
+                    bone.isValidBonemealTarget(player.serverLevel(), ricePos, sapling)
+                            && bone.isBonemealSuccess(player.serverLevel(), player.serverLevel().random, ricePos, sapling));
+            for (String id : List.of(tree[1], tree[2])) {
+                BlockState state = block(id);
+                List<ItemStack> drops = Block.getDrops(state, player.serverLevel(), ricePos, null);
+                expectTrue(id + "原生loot空表回落自身一件", drops.size() == 1
+                        && drops.getFirst().is(item(id).getItem()) && drops.getFirst().getCount() == 1);
+            }
+            expectTrue(tree[0] + "果树干保持来源无轴向状态", !block(tree[2]).hasProperty(BlockStateProperties.AXIS));
+            BlockState leaf = block(tree[3]).setValue(BlockStateProperties.PERSISTENT, true);
+            player.serverLevel().setBlock(ricePos, leaf, 3);
+            List<ItemStack> leafDrops = Block.getDrops(leaf, player.serverLevel(), ricePos, null);
+            boolean allowed = leafDrops.size() <= 1 && leafDrops.stream().allMatch(stack -> stack.isEmpty()
+                    || stack.is(item(tree[1]).getItem()) && stack.getCount() == 1
+                    || (stack.is(Items.STICK) || stack.is(item("shicai_" + tree[0]).getItem())
+                            || tree[0].equals("009") && stack.is(item("shicai_00901").getItem()))
+                            && stack.getCount() >= 1 && stack.getCount() <= 3);
+            List<ItemStack> silkDrops = Block.getDrops(leaf, player.serverLevel(), ricePos, null, player, silk);
+            expectTrue(tree[0] + "果树叶原生单轮loot只产来源食材、枝条或树苗，精准不掉自身"
+                    + " drops=" + leafDrops + " silk=" + silkDrops,
+                    allowed && silkDrops.isEmpty());
+            FruitTreeLeavesBlock water = (FruitTreeLeavesBlock) leaf.getBlock();
+            expectTrue(tree[0] + "果树叶拒绝原生注水和取水，右键无采摘入口",
+                    !water.canPlaceLiquid(player, player.serverLevel(), ricePos, leaf, Fluids.WATER)
+                            && !water.placeLiquid(player.serverLevel(), ricePos, leaf, Fluids.WATER.defaultFluidState())
+                            && water.pickupBlock(player, player.serverLevel(), ricePos, leaf).isEmpty()
+                            && leaf.getFluidState().isEmpty() && riceUse(player, ricePos) == InteractionResult.PASS);
+            ConfiguredFeature<?, ?> feature = player.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE)
+                    .get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, tree[4]));
+            expectTrue(tree[0] + "已加载原生地物在主世界确定拒绝自然放树",
+                    player.serverLevel().dimension().location().equals(ResourceLocation.withDefaultNamespace("overworld"))
+                            && feature != null && !feature.place(player.serverLevel(), player.serverLevel().getChunkSource().getGenerator(),
+                            player.serverLevel().random, ricePos));
+        }
+        riceResetVines(player, Blocks.DIRT.defaultBlockState());
+    }
+
+    private void checkVineSeeds(ServerPlayer player) {
+        for (String number : List.of("034", "035", "036", "037", "038", "039")) {
+            String first = number.equals("035") ? "02" : "01";
+            boolean planted = true;
+            for (BlockState soil : List.of(Blocks.DIRT.defaultBlockState(), Blocks.GRASS_BLOCK.defaultBlockState())) {
+                riceResetVines(player, soil);
+                riceHeld(player, item("shicai_" + number + "01", 2));
+                riceUse(player, ricePos.below());
+                planted &= player.serverLevel().getBlockState(ricePos).is(block("shicai_" + number + "_plant_" + first).getBlock())
+                        && player.getMainHandItem().getCount() == 1;
+            }
+            expectTrue(number + "泥土与草方块原生播种放首阶段" + first + "并扣一颗", planted);
+            riceResetVines(player, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+            riceHeld(player, item("shicai_" + number + "01", 2));
+            riceUse(player, ricePos.below());
+            expectTrue(number + "耕地保留来源统一扣一颗但不生成苗的空效果",
+                    player.serverLevel().isEmptyBlock(ricePos)
+                            && player.getMainHandItem().getCount() == 1);
+            riceResetVines(player, Blocks.DIRT.defaultBlockState());
+            riceHeld(player, item("shicai_" + number + "01", 2));
+            player.gameMode.useItemOn(player, player.serverLevel(), player.getMainHandItem(), InteractionHand.MAIN_HAND,
+                    new BlockHitResult(Vec3.atCenterOf(ricePos.below()).add(.5, 0, 0), Direction.EAST, ricePos.below(), false));
+            boolean rejected = player.serverLevel().isEmptyBlock(ricePos) && player.getMainHandItem().getCount() == 2;
+            player.serverLevel().setBlock(ricePos, Blocks.STONE.defaultBlockState(), 3);
+            riceUse(player, ricePos.below());
+            expectTrue(number + "原生播种拒绝侧面和被占用空位，均不扣种",
+                    rejected && player.serverLevel().getBlockState(ricePos).is(Blocks.STONE)
+                            && player.getMainHandItem().getCount() == 2);
+            String last = switch (number) {
+                case "034", "036" -> "05";
+                case "035", "039" -> "04";
+                default -> "03";
+            };
+            String middle = number.equals("035") ? "03" : "02";
+            List<ItemStack> firstDrops = Block.getDrops(block("shicai_" + number + "_plant_" + first), player.serverLevel(), ricePos, null);
+            List<ItemStack> middleDrops = Block.getDrops(block("shicai_" + number + "_plant_" + middle), player.serverLevel(), ricePos, null);
+            List<ItemStack> lastDrops = Block.getDrops(block("shicai_" + number + "_plant_" + last), player.serverLevel(), ricePos, null);
+            expectTrue(number + "阶段loot依次回落种子1、原版藤蔓1与本体1",
+                    firstDrops.size() == 1 && firstDrops.getFirst().is(item("shicai_" + number + "01").getItem())
+                            && firstDrops.getFirst().getCount() == 1 && middleDrops.size() == 1
+                            && middleDrops.getFirst().is(Items.VINE) && middleDrops.getFirst().getCount() == 1
+                            && lastDrops.size() == 1 && lastDrops.getFirst().is(item("shicai_" + number).getItem())
+                            && lastDrops.getFirst().getCount() == 1);
+        }
+        riceResetVines(player, Blocks.DIRT.defaultBlockState());
+    }
+
+    private void checkVineBonemeal(ServerPlayer player) {
+        for (String number : List.of("034", "035", "036", "037", "038")) {
+            riceResetVines(player, Blocks.FARMLAND.defaultBlockState());
+            String first = number.equals("035") ? "02" : "01";
+            String next = number.equals("035") ? "03" : "02";
+            BlockState initial = block("shicai_" + number + "_plant_" + first);
+            player.serverLevel().setBlock(ricePos, initial, 3);
+            BonemealableBlock bone = (BonemealableBlock) initial.getBlock();
+            boolean valid = bone.isValidBonemealTarget(player.serverLevel(), ricePos, initial);
+            bone.performBonemeal(player.serverLevel(), player.serverLevel().random, ricePos, initial);
+            BlockState grown = player.serverLevel().getBlockState(ricePos);
+            expectTrue(number + "有效骨粉成功回调只进下一阶段，034按东侧空位优先定向",
+                    valid && grown.is(block("shicai_" + number + "_plant_" + next).getBlock())
+                            && (!number.equals("034") || grown.getValue(BlockStateProperties.HORIZONTAL_FACING) == Direction.EAST));
+        }
+        riceResetVines(player, Blocks.FARMLAND.defaultBlockState());
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            player.serverLevel().setBlock(ricePos.relative(direction), Blocks.STONE.defaultBlockState(), 3);
+        }
+        BlockState pumpkin = block("shicai_034_plant_01");
+        player.serverLevel().setBlock(ricePos, pumpkin, 3);
+        ((BonemealableBlock) pumpkin.getBlock()).performBonemeal(player.serverLevel(), player.serverLevel().random, ricePos, pumpkin);
+        expectTrue("034骨粉四邻全堵仍直接选择北向，不增加北侧空位限制",
+                player.serverLevel().getBlockState(ricePos).is(block("shicai_034_plant_02").getBlock())
+                        && player.serverLevel().getBlockState(ricePos).getValue(BlockStateProperties.HORIZONTAL_FACING) == Direction.NORTH);
+        riceResetVines(player, Blocks.FARMLAND.defaultBlockState());
+        BlockState gourd = block("shicai_039_plant_01");
+        player.serverLevel().setBlock(ricePos, gourd, 3);
+        BonemealableBlock bone = (BonemealableBlock) gourd.getBlock();
+        bone.performBonemeal(player.serverLevel(), player.serverLevel().random, ricePos, gourd);
+        expectTrue("039无支撑时成功骨粉回调仍无生长效果",
+                bone.isValidBonemealTarget(player.serverLevel(), ricePos, gourd)
+                        && player.serverLevel().getBlockState(ricePos).is(gourd.getBlock()));
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            player.serverLevel().setBlock(ricePos.relative(direction), Blocks.STONE.defaultBlockState(), 3);
+        }
+        bone.performBonemeal(player.serverLevel(), player.serverLevel().random, ricePos, gourd);
+        expectTrue("039骨粉按东侧支撑优先附着02，朝向背离支撑的西方",
+                player.serverLevel().getBlockState(ricePos).is(block("shicai_039_plant_02").getBlock())
+                        && player.serverLevel().getBlockState(ricePos).getValue(BlockStateProperties.HORIZONTAL_FACING) == Direction.WEST);
+        riceResetVines(player, Blocks.DIRT.defaultBlockState());
+    }
+
+    private void checkVineHarvestAndStartTicks(ServerPlayer player) {
+        riceResetVines(player, Blocks.FARMLAND.defaultBlockState());
+        riceHeld(player, ItemStack.EMPTY);
+        BlockState cucumber = block("shicai_035_plant_04").setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH);
+        player.serverLevel().setBlock(ricePos, cucumber, 3);
+        InteractionResult harvested = riceUse(player, ricePos);
+        BlockState stem = player.serverLevel().getBlockState(ricePos);
+        expectTrue("03504原生右键回03保留朝向，只产一个独立黄瓜且来源拾取延迟10",
+                harvested == InteractionResult.SUCCESS && stem.is(block("shicai_035_plant_03").getBlock())
+                        && stem.getValue(BlockStateProperties.HORIZONTAL_FACING) == Direction.SOUTH
+                        && riceDrops.size() == 1 && riceDrops.getFirst().getItem().is(item("shicai_035").getItem())
+                        && riceDrops.getFirst().getItem().getCount() == 1 && ricePickupDelay == 10);
+        for (String number : List.of("037", "038")) {
+            riceResetVines(player, Blocks.FARMLAND.defaultBlockState());
+            BlockState mature = block("shicai_" + number + "_plant_03");
+            player.serverLevel().setBlock(ricePos, mature, 3);
+            InteractionResult used = riceUse(player, ricePos);
+            expectTrue(number + "03保留来源" + (number.equals("037") ? "未挂use" : "use成功空效果") + "且不掉食材",
+                    used == (number.equals("037") ? InteractionResult.PASS : InteractionResult.SUCCESS)
+                            && player.serverLevel().getBlockState(ricePos).equals(mature) && riceDrops.isEmpty());
+        }
+        for (String stage : List.of("01", "02")) {
+            riceResetVines(player, Blocks.FARMLAND.defaultBlockState());
+            BlockState loofah = block("shicai_038_plant_" + stage);
+            player.serverLevel().setBlock(ricePos, loofah, 3);
+            for (int tick = 0; tick < 64 && player.serverLevel().getBlockState(ricePos).equals(loofah); tick++) {
+                loofah.randomTick(player.serverLevel(), ricePos, player.serverLevel().random);
+            }
+            expectTrue("038" + stage + "受控原生randomTick维持来源误接035的空效果",
+                    player.serverLevel().getBlockState(ricePos).equals(loofah));
+        }
+        riceResetVines(player, Blocks.STONE.defaultBlockState());
+        for (BlockPos pos : riceBlocks.keySet()) player.serverLevel().setBlock(pos, Blocks.STONE.defaultBlockState(), 2);
+        riceGourdTicksStarted = player.serverLevel().getGameTime();
+        for (int stage = 2; stage <= 3; stage++) {
+            BlockPos pos = stage == 2 ? ricePos : ricePos.above(2);
+            BlockState vine = block("shicai_039_plant_0" + stage);
+            player.serverLevel().setBlock(pos, vine, 3);
+            List<ScheduledTick<Block>> queued = ((LevelChunkTicks<Block>) player.serverLevel().getChunkAt(pos).getBlockTicks())
+                    .getAll().filter(tick -> tick.pos().equals(pos) && tick.type() == vine.getBlock()).toList();
+            expectTrue("0390" + stage + "真实放置只排40刻计划回调且不随机刻",
+                    !vine.isRandomlyTicking() && queued.size() == 1 && queued.getFirst().triggerTick() == riceGourdTicksStarted + 40);
+        }
+    }
+
+    private void checkVineRepeatedTicks(ServerPlayer player) {
+        for (int stage = 2; stage <= 3; stage++) {
+            BlockPos pos = stage == 2 ? ricePos : ricePos.above(2);
+            BlockState vine = block("shicai_039_plant_0" + stage);
+            long now = player.serverLevel().getGameTime();
+            List<ScheduledTick<Block>> queued = ((LevelChunkTicks<Block>) player.serverLevel().getChunkAt(pos).getBlockTicks())
+                    .getAll().filter(tick -> tick.pos().equals(pos) && tick.type() == vine.getBlock()).toList();
+            expectTrue("0390" + stage + "经过真实40刻回调继续排下一次40刻，封闭场地中保持原阶段",
+                    now >= riceGourdTicksStarted + 40 && player.serverLevel().getBlockState(pos).equals(vine)
+                            && queued.size() == 1 && queued.getFirst().triggerTick() > riceGourdTicksStarted + 40
+                            && queued.getFirst().triggerTick() <= now + 40);
+        }
+        riceResetVines(player, Blocks.DIRT.defaultBlockState());
+    }
+
+    private void checkGourdInventory(ServerPlayer player) {
+        riceResetVines(player, Blocks.DIRT.defaultBlockState());
+        riceHeld(player, ItemStack.EMPTY);
+        BlockState fruit = block("shicai_039_plant_04");
+        player.serverLevel().setBlock(ricePos, fruit, 3);
+        GourdBlockEntity gourd = (GourdBlockEntity) player.serverLevel().getBlockEntity(ricePos);
+        InteractionResult used = riceUse(player, ricePos);
+        int animation = player.serverLevel().getBlockState(ricePos).getValue(GourdBlock.ANIMATION);
+        expectTrue("03904原生空手右键只随机写动画1或2，九槽保留且不打开菜单",
+                used == InteractionResult.SUCCESS && (animation == 1 || animation == 2)
+                        && gourd.getContainerSize() == 9 && gourd.isEmpty() && player.containerMenu == player.inventoryMenu && riceDrops.isEmpty());
+        boolean directions = true;
+        Direction[] faces = {null, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
+        for (Direction face : faces) {
+            IItemHandler handler = player.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, ricePos, face);
+            if (handler == null || handler.getSlots() != 9) {
+                directions = false;
+                continue;
+            }
+            for (int slot = 0; slot < 9; slot++) {
+                ItemStack remainder = handler.insertItem(slot, new ItemStack(Items.STICK, 2), false);
+                ItemStack extracted = handler.extractItem(slot, 2, false);
+                directions &= remainder.isEmpty() && extracted.is(Items.STICK) && extracted.getCount() == 2
+                        && handler.getStackInSlot(slot).isEmpty();
+            }
+        }
+        expectTrue("03904无方向及六方向能力均对九槽完成实际插入与取出", directions && gourd.isEmpty());
+        ItemStack sword = new ItemStack(Items.IRON_SWORD, 80);
+        sword.set(DataComponents.CUSTOM_NAME, Component.literal("葫芦库存组件核对"));
+        sword.setDamageValue(7);
+        gourd.setItem(8, sword);
+        IItemHandler handler = player.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, ricePos, (Direction) null);
+        ItemStack remainder = handler.insertItem(0, new ItemStack(Items.IRON_SWORD, 3), false);
+        expectTrue("03904强制setItem只按容器截到64，原生自动化仍遵守剑的单件上限",
+                gourd.getItem(8).getCount() == 64 && gourd.getItem(0).getCount() == 1
+                        && remainder.is(Items.IRON_SWORD) && remainder.getCount() == 2);
+        gourd.getPersistentData().putInt("smoke_probe", 39);
+        CompoundTag saved = gourd.saveWithFullMetadata(player.registryAccess());
+        GourdBlockEntity restored = (GourdBlockEntity) BlockEntity.loadStatic(ricePos, gourd.getBlockState(), saved, player.registryAccess());
+        expectTrue("03904完整metadata保存读回九槽、非标准堆叠、名称与耐久组件，更新标签包含同份数据",
+                restored != null && restored.getContainerSize() == 9 && ItemStack.matches(restored.getItem(8), sword)
+                        && restored.getItem(0).is(Items.IRON_SWORD) && restored.getItem(0).getCount() == 1
+                        && restored.getPersistentData().getInt("smoke_probe") == 39
+                        && gourd.getUpdateTag(player.registryAccess()).equals(saved));
+        ResourceKey<LootTable> loot = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.withDefaultNamespace("chests/simple_dungeon"));
+        GourdBlockEntity seeded = new GourdBlockEntity(ricePos, fruit);
+        seeded.setLootTable(loot);
+        seeded.setLootTableSeed(39);
+        GourdBlockEntity seededRead = (GourdBlockEntity) BlockEntity.loadStatic(ricePos, fruit,
+                seeded.saveWithFullMetadata(player.registryAccess()), player.registryAccess());
+        expectTrue("03904尚未展开的loot表及种子完整保存读回",
+                seededRead != null && loot.equals(seededRead.getLootTable()) && seededRead.getLootTableSeed() == 39);
+        expectTrue("03904菜单提供者保留独立27槽三行菜单，不绑定九槽库存",
+                gourd.createMenu(0, player.getInventory(), player) instanceof ChestMenu menu && menu.getRowCount() == 3
+                        && menu.getContainer().getContainerSize() == 27 && menu.getContainer() != gourd && menu.getContainer().isEmpty());
+        gourd.clearContent();
+        player.serverLevel().sendBlockUpdated(ricePos, fruit, gourd.getBlockState(), 3);
+    }
+
+    /** 藤蔓每个子场景清理完整已保存范围和临时计划刻，不保留可继续蔓生的阶段。 */
+    private void riceResetVines(ServerPlayer player, BlockState soil) {
+        riceClearDrops();
+        for (BlockPos pos : riceBlocks.keySet()) {
+            BlockEntity current = player.serverLevel().getBlockEntity(pos);
+            if (current instanceof Container container) container.clearContent();
+            player.serverLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
+        }
+        player.serverLevel().setBlock(ricePos.below(), soil, 3);
+    }
+
+    private void restoreRice(ServerPlayer player) {
+        if (!riceActive) return;
+        riceActive = false;
+        player.closeContainer();
+        if (riceDropListener != null) NeoForge.EVENT_BUS.unregister(riceDropListener);
+        riceDrops.forEach(Entity::discard);
+        for (BlockPos pos : riceBlocks.keySet()) {
+            BlockEntity current = player.serverLevel().getBlockEntity(pos);
+            if (current instanceof Container container) container.clearContent();
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+        }
+        for (Map.Entry<BlockPos, BlockState> entry : riceBlocks.entrySet()) {
+            BlockPos pos = entry.getKey();
+            player.serverLevel().setBlock(pos, entry.getValue(), 2);
+            CompoundTag original = riceEntities.get(pos);
+            if (original != null) {
+                BlockEntity restored = BlockEntity.loadStatic(pos, entry.getValue(), original, player.registryAccess());
+                player.serverLevel().setBlockEntity(restored);
+                restored.setChanged();
+                player.serverLevel().sendBlockUpdated(pos, entry.getValue(), entry.getValue(), 3);
+            }
+        }
+        for (BlockPos pos : riceBlocks.keySet()) {
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
+            riceTicks.get(pos).forEach(tick -> player.serverLevel().getBlockTicks().schedule(tick));
+            riceFluidTicks.get(pos).forEach(tick -> player.serverLevel().getFluidTicks().schedule(tick));
+        }
+        player.setGameMode(riceMode);
+        player.getAbilities().flying = riceFlying;
+        player.onUpdateAbilities();
+        player.connection.teleport(ricePosition.x, ricePosition.y, ricePosition.z, riceYaw, ricePitch);
+        player.setDeltaMovement(riceMotion);
+        for (int slot = 0; slot < riceInventory.size(); slot++) player.getInventory().setItem(slot, riceInventory.get(slot));
+        player.getInventory().selected = riceSelected;
+        if (ricePlantDataBefore.contains("caiou")) {
+            player.getPersistentData().put("caiou", ricePlantDataBefore.get("caiou").copy());
+        } else {
+            player.getPersistentData().remove("caiou");
+        }
+        player.inventoryMenu.broadcastChanges();
+    }
+
+    private void prepareUtensils(ServerPlayer player) {
+        player.closeContainer();
+        utensilsActive = true;
+        utensilsMode = player.gameMode.getGameModeForPlayer();
+        utensilsPosition = player.position();
+        utensilsMotion = player.getDeltaMovement();
+        utensilsYaw = player.getYRot();
+        utensilsPitch = player.getXRot();
+        utensilsFlying = player.getAbilities().flying;
+        utensilsSelected = player.getInventory().selected;
+        utensilsShift = minecraft.options.keyShift.isDown();
+        utensilsUse = minecraft.options.keyUse.isDown();
+        utensilsAttack = minecraft.options.keyAttack.isDown();
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            utensilsInventory.add(player.getInventory().getItem(slot).copy());
+        }
+        player.stopUsingItem();
+        player.setGameMode(GameType.SURVIVAL);
+        player.getAbilities().flying = false;
+        player.onUpdateAbilities();
+        player.connection.teleport(utensilsPosition.x, utensilsPosition.y, utensilsPosition.z, 0, 20);
+        stoneMillSneak(false);
+        minecraft.execute(() -> {
+            minecraft.options.keyUse.setDown(false);
+            minecraft.options.keyAttack.setDown(false);
+        });
+        BlockPos base = player.blockPosition();
+        utensilsBowl = base.offset(-1, 0, 2);
+        utensilsPlate = base.offset(0, 0, 2);
+        utensilsLargeBowl = base.offset(1, 0, 2);
+        utensilsBoard = base.offset(0, 0, 3);
+        utensilsDropListener = event -> {
+            if (event.getLevel() == player.serverLevel() && event.getEntity() instanceof ItemEntity drop
+                    && drop.position().distanceToSqr(Vec3.atCenterOf(utensilsBoard)) < 64) utensilsDrops.add(drop);
+        };
+        for (BlockPos center : List.of(utensilsBowl, utensilsPlate, utensilsLargeBowl, utensilsBoard)) {
+            for (int height = -1; height <= 2; height++) {
+                BlockPos at = center.above(height).immutable();
+                utensilsBlocks.putIfAbsent(at, player.serverLevel().getBlockState(at));
+                BlockEntity original = player.serverLevel().getBlockEntity(at);
+                if (original != null) {
+                    utensilsEntities.putIfAbsent(at, original.saveWithFullMetadata(player.registryAccess()));
+                    if (original instanceof Container container) container.clearContent();
+                }
+                LevelChunkTicks<Block> blockTicks = (LevelChunkTicks<Block>) player.serverLevel().getChunkAt(at).getBlockTicks();
+                LevelChunkTicks<Fluid> fluidTicks = (LevelChunkTicks<Fluid>) player.serverLevel().getChunkAt(at).getFluidTicks();
+                utensilsTicks.putIfAbsent(at, blockTicks.getAll().filter(tick -> tick.pos().equals(at)).toList());
+                utensilsFluidTicks.putIfAbsent(at, fluidTicks.getAll().filter(tick -> tick.pos().equals(at)).toList());
+                player.serverLevel().getBlockTicks().clearArea(new BoundingBox(at));
+                player.serverLevel().getFluidTicks().clearArea(new BoundingBox(at));
+                player.serverLevel().setBlockAndUpdate(at, height == -1 ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState());
+            }
+        }
+        player.serverLevel().setBlockAndUpdate(utensilsBowl, block("foodwan"));
+        player.serverLevel().setBlockAndUpdate(utensilsPlate, block("foodcipan"));
+        player.serverLevel().setBlockAndUpdate(utensilsLargeBowl, block("fooddawan"));
+        player.serverLevel().setBlockAndUpdate(utensilsBoard,
+                block("anban").setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
+        // 场地准备完成后监听交互产物，清场邻居更新产生的掉落不计入设备产出。
+        NeoForge.EVENT_BUS.addListener(utensilsDropListener);
+    }
+
+    private void utensilsHeld(ServerPlayer player, ItemStack stack) {
+        player.getInventory().clearContent();
+        player.getInventory().selected = HOTBAR;
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        player.inventoryMenu.broadcastChanges();
+    }
+
+    private static TablewareBlockEntity utensilsWare(ServerPlayer player, BlockPos pos) {
+        return (TablewareBlockEntity) player.serverLevel().getBlockEntity(pos);
+    }
+
+    private CuttingBlockEntity utensilsBoard(ServerPlayer player) {
+        return (CuttingBlockEntity) player.serverLevel().getBlockEntity(utensilsBoard);
+    }
+
+    private int utensilsClientCount(BlockPos pos) {
+        return minecraft.level.getBlockEntity(pos) instanceof TablewareBlockEntity ware ? ware.getItem(0).getCount() : -1;
+    }
+
+    private static BlockHitResult utensilsHit(BlockPos pos) {
+        return new BlockHitResult(Vec3.atCenterOf(pos).add(0, 0.5, 0), Direction.UP, pos, false);
+    }
+
+    private static int utensilsCount(ServerPlayer player, Item item) {
+        int count = 0;
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            ItemStack stack = player.getInventory().getItem(slot);
+            if (stack.is(item)) count += stack.getCount();
+        }
+        return count;
+    }
+
+    private String utensilsDropSummary() {
+        return utensilsDrops.stream().map(drop -> drop.getItem() + "@" + drop.blockPosition()).toList().toString();
+    }
+
+    private static ItemStack utensilsFind(ServerPlayer player, Item item) {
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            ItemStack stack = player.getInventory().getItem(slot);
+            if (stack.is(item)) return stack;
+        }
+        return ItemStack.EMPTY;
+    }
+
+    private boolean utensilsEmptyChest(ServerPlayer player) {
+        if (!(player.containerMenu instanceof ChestMenu server) || server.slots.size() != 63
+                || !(minecraft.player.containerMenu instanceof ChestMenu client) || client.slots.size() != 63) return false;
+        for (int slot = 0; slot < 27; slot++) {
+            if (!server.getSlot(slot).getItem().isEmpty() || !client.getSlot(slot).getItem().isEmpty()) return false;
+        }
+        return true;
+    }
+
+    private void restoreUtensils(ServerPlayer player) {
+        if (!utensilsActive) return;
+        utensilsActive = false;
+        player.closeContainer();
+        if (utensilsDropListener != null) NeoForge.EVENT_BUS.unregister(utensilsDropListener);
+        utensilsDrops.forEach(Entity::discard);
+        for (BlockPos pos : utensilsBlocks.keySet()) {
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
+            BlockEntity current = player.serverLevel().getBlockEntity(pos);
+            if (current instanceof Container container) container.clearContent();
+        }
+        for (Map.Entry<BlockPos, BlockState> entry : utensilsBlocks.entrySet()) {
+            player.serverLevel().setBlockAndUpdate(entry.getKey(), entry.getValue());
+            CompoundTag original = utensilsEntities.get(entry.getKey());
+            if (original != null) {
+                BlockEntity restored = BlockEntity.loadStatic(entry.getKey(), entry.getValue(), original, player.registryAccess());
+                player.serverLevel().setBlockEntity(restored);
+                restored.setChanged();
+                player.serverLevel().sendBlockUpdated(entry.getKey(), entry.getValue(), entry.getValue(), Block.UPDATE_ALL);
+            }
+        }
+        for (BlockPos pos : utensilsBlocks.keySet()) {
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+            player.serverLevel().getFluidTicks().clearArea(new BoundingBox(pos));
+            utensilsTicks.get(pos).forEach(tick -> player.serverLevel().getBlockTicks().schedule(tick));
+            utensilsFluidTicks.get(pos).forEach(tick -> player.serverLevel().getFluidTicks().schedule(tick));
+        }
+        player.setGameMode(utensilsMode);
+        player.getAbilities().flying = utensilsFlying;
+        player.onUpdateAbilities();
+        player.connection.teleport(utensilsPosition.x, utensilsPosition.y, utensilsPosition.z, utensilsYaw, utensilsPitch);
+        player.setDeltaMovement(utensilsMotion);
+        for (int slot = 0; slot < utensilsInventory.size(); slot++) player.getInventory().setItem(slot, utensilsInventory.get(slot));
+        player.getInventory().selected = utensilsSelected;
+        player.inventoryMenu.broadcastChanges();
+        stoneMillSneak(utensilsShift);
+        minecraft.execute(() -> {
+            minecraft.player.getInventory().selected = utensilsSelected;
+            minecraft.options.keyUse.setDown(utensilsUse);
+            minecraft.options.keyAttack.setDown(utensilsAttack);
+        });
+    }
+
+    private SteamerBlockEntity steamer(ServerPlayer player, int height) {
+        return (SteamerBlockEntity) player.serverLevel().getBlockEntity(steamerPos.above(height));
+    }
+
+    private void steamerButton() {
+        minecraft.execute(() -> minecraft.screen.children().stream()
+                .filter(child -> child instanceof Button button && button.getMessage().getString().equals("开始烹饪"))
+                .map(Button.class::cast).findFirst().orElseThrow().onPress());
+    }
+
+    private static ItemStack steamerRecipe(int grade) {
+        CompoundTag recipe = new CompoundTag();
+        recipe.putString("MenuType", "蒸锅");
+        recipe.putString("MenuName", "竹笼蒸菜");
+        recipe.putString("Menuid", ModId.VALUE + ":food_007");
+        recipe.putString("needcontainer", "无");
+        recipe.putString("cailiao00", "minecraft:carrot");
+        recipe.putString("cailiao01", "minecraft:potato");
+        recipe.putInt("belongTopinjie", grade);
+        recipe.putInt("cookanimation", 2);
+        ItemStack result = new ItemStack(Items.PAPER);
+        result.set(DataComponents.CUSTOM_DATA, CustomData.of(recipe));
+        return result;
+    }
+
+    private static Holder<MobEffect> foodMarker(String path) {
+        return BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, path)).orElseThrow();
+    }
+
+    private void prepareFoodEating(ServerPlayer player, String path, int count) {
+        player.stopUsingItem();
+        player.getInventory().clearContent();
+        player.getInventory().selected = HOTBAR;
+        player.setItemInHand(InteractionHand.MAIN_HAND, item(path, count));
+        player.getFoodData().setExhaustion(0);
+        player.getFoodData().setFoodLevel(2);
+        player.getFoodData().setSaturation(0);
+        player.inventoryMenu.broadcastChanges();
+    }
+
+    private void startFoodEating() {
+        minecraft.execute(() -> {
+            minecraft.player.getInventory().selected = HOTBAR;
+            foodEatingBefore = minecraft.player.getMainHandItem().copy();
+            foodEatingTicks = 0;
+            foodHolding = true;
+            minecraft.options.keyUse.setDown(true);
+            minecraft.gameMode.useItem(minecraft.player, InteractionHand.MAIN_HAND);
+        });
+    }
+
+    private void stopFoodEating() {
+        foodHolding = false;
+        minecraft.options.keyUse.setDown(false);
+        minecraft.gameMode.releaseUsingItem(minecraft.player);
+    }
+
+    private void restoreFoodSmoke(ServerPlayer player) {
+        if (!foodActive) return;
+        foodActive = false;
+        if (foodRelease != null) NeoForge.EVENT_BUS.unregister(foodRelease);
+        if (foodDropListener != null) NeoForge.EVENT_BUS.unregister(foodDropListener);
+        foodDrops.forEach(Entity::discard);
+        foodDrops.clear();
+        player.stopUsingItem();
+        minecraft.execute(() -> {
+            stopFoodEating();
+            minecraft.options.keyUse.setDown(foodUseBefore);
+        });
+        player.setGameMode(foodGameBefore);
+        player.removeAllEffects();
+        foodEffectsBefore.forEach(effect -> player.addEffect(new MobEffectInstance(effect)));
+        player.getFoodData().readAdditionalSaveData(foodStatsBefore);
+    }
+
+    private static WineVesselBlockEntity wineVessel(ServerPlayer player, BlockPos pos) {
+        return (WineVesselBlockEntity) player.serverLevel().getBlockEntity(pos);
+    }
+
+    private static double wineAge(ItemStack stack) {
+        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("agenum");
+    }
+
+    private void wineButton(int operation) {
+        minecraft.execute(() -> {
+            WoodenStillScreen screen = (WoodenStillScreen) minecraft.screen;
+            screen.children().stream().filter(Button.class::isInstance).map(Button.class::cast)
+                    .skip(operation).findFirst().orElseThrow().onPress();
+        });
+    }
+
+    private void wineDrink() {
+        minecraft.execute(() -> {
+            minecraft.player.getInventory().selected = HOTBAR;
+            wineHolding = true;
+            minecraft.options.keyUse.setDown(true);
+            minecraft.gameMode.useItem(minecraft.player, InteractionHand.MAIN_HAND);
+        });
+    }
+
+    private void cleanupWine(ServerPlayer player) {
+        if (wineTizhiBefore == null) return;
+        if (wineFreeze != null) NeoForge.EVENT_BUS.unregister(wineFreeze);
+        if (wineDrinkRelease != null) NeoForge.EVENT_BUS.unregister(wineDrinkRelease);
+        wineHolding = false;
+        if (wineBefore != null) NeoForge.EVENT_BUS.unregister(wineBefore);
+        if (wineAfter != null) NeoForge.EVENT_BUS.unregister(wineAfter);
+        player.stopUsingItem();
+        minecraft.execute(() -> minecraft.options.keyUse.setDown(wineUseKeyBefore));
+        Alcohol.add(player, wineAlcoholBefore - Alcohol.amount(player));
+        Cultivation.editTizhi(player, data -> {
+            for (String key : List.of("jiuniangid", "agenum", "jishiqi", "xiuliankaiguan", "jinji", "xiulianlengqve",
+                    "XiulianColdCorrect", "dailyexperience", "yaohualengqve", "AlcoholPatience", "AlcoholPatiencePercentage",
+                    "AlcoholDigestion", "AlcoholDigestionPercentage")) {
+                data.remove(key);
+                if (wineTizhiBefore.contains(key)) data.put(key, wineTizhiBefore.get(key).copy());
+            }
+        });
+        wineValuesBefore.forEach((value, amount) -> Cultivation.set(player, value, amount));
+        player.removeAllEffects();
+        wineEffectsBefore.forEach(effect -> player.addEffect(new MobEffectInstance(effect)));
+        player.getFoodData().readAdditionalSaveData(wineFoodBefore);
+    }
+
+    private BlockPos prepareCraftFollowup(ServerPlayer player, BlockPos pos) {
+        for (int offset = -1; offset <= 1; offset++) {
+            BlockPos at = pos.above(offset).immutable();
+            LevelChunkTicks<Block> ticks = (LevelChunkTicks<Block>) player.serverLevel().getChunkAt(at).getBlockTicks();
+            craftFollowupTicks.putIfAbsent(at, ticks.getAll().filter(tick -> tick.pos().equals(at)).toList());
+        }
+        return prepareStoneMill(player, pos);
+    }
+
+    private void pauseCraftFollowup(ServerPlayer player, BlockPos pos) {
+        player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos));
+    }
+
+    private void scheduleCraftFollowup(ServerPlayer player, BlockPos pos) {
+        pauseCraftFollowup(player, pos);
+        player.serverLevel().scheduleTick(pos, player.serverLevel().getBlockState(pos).getBlock(), 1);
+    }
+
+    private PotteryWheelBlockEntity potteryWheel(ServerPlayer player) {
+        return (PotteryWheelBlockEntity) player.serverLevel().getBlockEntity(potteryWheelPos);
+    }
+
+    private static PotteryBlankBlockEntity potteryBlank(ServerPlayer player, BlockPos pos) {
+        return (PotteryBlankBlockEntity) player.serverLevel().getBlockEntity(pos);
+    }
+
+    private SilkwormBoxBlockEntity silkwormBox(ServerPlayer player) {
+        return (SilkwormBoxBlockEntity) player.serverLevel().getBlockEntity(silkwormBoxPos);
+    }
+
+    private static String potteryOutput(ItemStack stack) {
+        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("chengpinid");
+    }
+
+    private static int craftFollowupCount(ServerPlayer player, String id) {
+        int count = 0;
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            ItemStack stack = player.getInventory().getItem(slot);
+            if (stack.is(item(id).getItem())) count += stack.getCount();
+        }
+        return count;
+    }
+
+    private void potteryButton(int operation) {
+        minecraft.execute(() -> {
+            if (minecraft.screen instanceof PotteryWheelScreen screen) {
+                screen.children().stream().filter(Button.class::isInstance).map(Button.class::cast)
+                        .skip(operation).findFirst().orElseThrow().onPress();
+            }
+        });
+    }
+
+
+    private static CookingPotBlockEntity pot(ServerPlayer player, BlockPos pos) {
+        return (CookingPotBlockEntity) player.serverLevel().getBlockEntity(pos);
+    }
+
+    private CookingPotBlockEntity pot(ServerPlayer player) {
+        return pot(player, potPos);
+    }
+
+    private DrawingTableBlockEntity table(ServerPlayer player) {
+        return (DrawingTableBlockEntity) player.serverLevel().getBlockEntity(tablePos);
+    }
+
+    private static BlockState block(String path) {
+        return BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, path)).defaultBlockState();
+    }
+
+    private static ItemStack item(String path) {
+        return item(path, 1);
+    }
+
+    private static ItemStack item(String path, int count) {
+        return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, path)), count);
+    }
+
+    private static ItemStack material(String path, int level) {
+        ItemStack stack = item(path);
+        Materials.setInstance(stack, level, 0);
+        return stack;
+    }
+
+    private static ItemStack inventoryItem(ServerPlayer player, String path) {
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+            ItemStack stack = player.getInventory().getItem(slot);
+            if (!stack.isEmpty() && stack.is(item(path).getItem())) return stack;
+        }
+        return ItemStack.EMPTY;
+    }
+
+    private static ItemStack talisman(String path, int count, int grade) {
+        ItemStack stack = item(path, count);
+        CompoundTag data = new CompoundTag();
+        data.putInt("fululevel", grade);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        return stack;
+    }
+
+    private void useHeld() {
+        minecraft.execute(() -> {
+            minecraft.player.getInventory().selected = HOTBAR;
+            minecraft.gameMode.useItem(minecraft.player, InteractionHand.MAIN_HAND);
+        });
+    }
+
+    private void useBlock(BlockPos pos) {
+        minecraft.execute(() -> {
+            minecraft.player.getInventory().selected = HOTBAR;
+            minecraft.gameMode.useItemOn(minecraft.player, InteractionHand.MAIN_HAND,
+                    new BlockHitResult(Vec3.atCenterOf(pos).add(0, .5, 0), Direction.UP, pos, false));
+        });
+    }
+
+    private BlockPos prepareStoneMill(ServerPlayer player, BlockPos pos) {
+        for (int offset = -1; offset <= 1; offset++) {
+            BlockPos at = pos.above(offset);
+            stoneMillBlocks.put(at, player.serverLevel().getBlockState(at));
+            BlockEntity original = player.serverLevel().getBlockEntity(at);
+            if (original != null) {
+                stoneMillEntities.put(at, original.saveWithFullMetadata(player.registryAccess()));
+                if (original instanceof Container container) container.clearContent();
+            }
+            player.serverLevel().setBlockAndUpdate(at, offset == -1 ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState());
+        }
+        return pos;
+    }
+
+    private CarpentryBlockEntity carpentry(ServerPlayer player) {
+        return (CarpentryBlockEntity) player.serverLevel().getBlockEntity(carpentryPos);
+    }
+
+    private SilkReelBlockEntity silkReel(ServerPlayer player) {
+        return (SilkReelBlockEntity) player.serverLevel().getBlockEntity(silkReelPos);
+    }
+
+    private void carpentryButton(int operation) {
+        minecraft.execute(() -> {
+            if (minecraft.screen instanceof CarpentryScreen screen) {
+                screen.children().stream().filter(Button.class::isInstance).map(Button.class::cast)
+                        .skip(operation).findFirst().orElseThrow().onPress();
+            }
+        });
+    }
+
+    private static StoneMillBlockEntity stoneMill(ServerPlayer player, BlockPos pos) {
+        return (StoneMillBlockEntity) player.serverLevel().getBlockEntity(pos);
+    }
+
+    private void stoneMillSneak(boolean down) {
+        minecraft.execute(() -> {
+            if (minecraft.options.keyShift.isDown() != down) minecraft.options.keyShift.setDown(down || minecraft.options.toggleCrouch().get());
+        });
+    }
+
+    @Override
+    protected void cleanup(ServerPlayer player) {
+        restoreRice(player);
+        minecraft.execute(this::clearMealTooltipPreview);
+        restoreUtensils(player);
+        player.closeContainer();
+        restoreFoodSmoke(player);
+        cleanupWine(player);
+        if (craftFollowupListener != null) NeoForge.EVENT_BUS.unregister(craftFollowupListener);
+        craftFollowupEntities.forEach(Entity::discard);
+        craftFollowupTicks.keySet().forEach(pos -> player.serverLevel().getBlockTicks().clearArea(new BoundingBox(pos)));
+
+
+        if (stoneMillDropListener != null) NeoForge.EVENT_BUS.unregister(stoneMillDropListener);
+        if (silkDropListener != null) NeoForge.EVENT_BUS.unregister(silkDropListener);
+        silkDrops.forEach(Entity::discard);
+        if (stoneMillPos != null) {
+            stoneMillSneak(stoneMillShift);
+            stoneMillDrops.forEach(Entity::discard);
+            for (Map.Entry<BlockPos, BlockState> entry : stoneMillBlocks.entrySet()) {
+                BlockEntity current = player.serverLevel().getBlockEntity(entry.getKey());
+                if (current instanceof Container container) container.clearContent();
+                player.serverLevel().setBlockAndUpdate(entry.getKey(), entry.getValue());
+                CompoundTag original = stoneMillEntities.get(entry.getKey());
+                if (original != null) {
+                    BlockEntity restored = BlockEntity.loadStatic(entry.getKey(), entry.getValue(), original, player.registryAccess());
+                    player.serverLevel().setBlockEntity(restored);
+                    restored.setChanged();
+                    player.serverLevel().sendBlockUpdated(entry.getKey(), entry.getValue(), entry.getValue(), 3);
+                }
+            }
+        }
+        for (Map.Entry<BlockPos, List<ScheduledTick<Block>>> entry : craftFollowupTicks.entrySet()) {
+            player.serverLevel().getBlockTicks().clearArea(new BoundingBox(entry.getKey()));
+            entry.getValue().forEach(tick -> player.serverLevel().getBlockTicks().schedule(tick));
+        }
+        player.serverLevel().getGameRules().getRule(GameRules.RULE_NATURAL_REGENERATION).set(naturalRegeneration, player.server);
+        if (volleyListener != null) NeoForge.EVENT_BUS.unregister(volleyListener);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        if (oreAt != null) {
+            player.serverLevel().setBlockAndUpdate(oreAt, oreBefore);
+        }
+        if (dummy != null) {
+            dummy.discard();
+            player.serverLevel().getEntities(EntityTypeTest.forClass(CloudSpirit.class), mob -> true).forEach(mob -> mob.discard());
+            player.removeAllEffects();
+            player.serverLevel().getEntities(EntityTypeTest.forClass(TalismanProjectile.class), shot -> true).forEach(shot -> shot.discard());
+            player.setGameMode(gameMode);
+            player.getServer().setDifficulty(difficulty, true);
+            player.setHealth(health);
+            Cultivation.set(player, CultivationValue.SOUL, soul);
+            Cultivation.editTizhi(player, tizhi -> talismanState.forEach((key, value) -> {
+                if (key.startsWith("fuluxiaoguo")) {
+                    tizhi.putBoolean(key, value != 0);
+                } else {
+                    tizhi.putDouble(key, value);
+                }
+            }));
+        }
+        clusterAir.forEach((pos, state) -> player.serverLevel().setBlockAndUpdate(pos, state));
+        if (repellingBase != null) repellingBlocks.forEach((pos, state) -> player.serverLevel().setBlockAndUpdate(pos, state));
+        pot(player).clearContent();
+        table(player).clearContent();
+        if (inheritancePos != null) inheritanceBlocks.forEach((pos, state) -> player.serverLevel().setBlockAndUpdate(pos, state));
+        if (burnerPos != null) {
+            ((AshBurnerBlockEntity) player.serverLevel().getBlockEntity(burnerPos)).clearContent();
+            burnerBlocks.forEach((pos, state) -> player.serverLevel().setBlockAndUpdate(pos, state));
+        }
+        if (clayPos != null) {
+            pot(player, clayPos).clearContent();
+            for (int below = 0; below < 3; below++) player.serverLevel().setBlockAndUpdate(clayPos.below(below), clayBlocks.get(below));
+            player.getData(ProfessionAttachments.PROGRESS).set(Profession.COOKING, cooking);
+        }
+        for (int below = 0; below < 3; below++) {
+            player.serverLevel().setBlockAndUpdate(potPos.below(below), potBlocks.get(below));
+            player.serverLevel().setBlockAndUpdate(tablePos.below(below), tableBlocks.get(below));
+        }
+        player.setData(FuluData.KNOWLEDGE, knowledge);
+        player.getData(ProfessionAttachments.PROGRESS).set(Profession.RUNE, rune);
+        player.syncData(ProfessionAttachments.PROGRESS);
+        player.getInventory().selected = selected;
+        minecraft.execute(() -> minecraft.player.getInventory().selected = selected);
+        for (int i = 0; i < inventory.size(); i++) player.getInventory().setItem(i, inventory.get(i));
+        player.inventoryMenu.broadcastChanges();
+    }
+}

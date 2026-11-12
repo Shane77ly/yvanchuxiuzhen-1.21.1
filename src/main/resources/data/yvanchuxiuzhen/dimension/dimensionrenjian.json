@@ -1,0 +1,580 @@
+{
+  "type": "yvanchuxiuzhen:dimensionrenjian",
+  "generator": {
+    "type": "yvanchuxiuzhen:legacy_dimension",
+    "seed": -3958683526324992456,
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "yvanchuxiuzhen:biomewind_01",
+          "parameters": {
+            "temperature": [
+              -0.2,
+              0.2
+            ],
+            "humidity": [
+              0,
+              0.5
+            ],
+            "continentalness": [
+              0.3,
+              0.8
+            ],
+            "weirdness": [
+              -0.5,
+              0
+            ],
+            "erosion": [
+              0.5,
+              1
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomewind_03",
+          "parameters": {
+            "temperature": [
+              -0.3,
+              0.3
+            ],
+            "humidity": [
+              -0.2,
+              0.4
+            ],
+            "continentalness": [
+              0.5,
+              1
+            ],
+            "weirdness": [
+              -0.2,
+              0.3
+            ],
+            "erosion": [
+              0.6,
+              0.85
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomewind_02",
+          "parameters": {
+            "temperature": [
+              -0.2,
+              0.2
+            ],
+            "humidity": [
+              0.2,
+              0.7
+            ],
+            "continentalness": [
+              0.4,
+              0.7
+            ],
+            "weirdness": [
+              -0.3,
+              0.2
+            ],
+            "erosion": [
+              0.3,
+              0.8
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomecloud_02",
+          "parameters": {
+            "temperature": [
+              0.2,
+              0.5
+            ],
+            "humidity": [
+              -0.2,
+              0.7
+            ],
+            "continentalness": [
+              0.5,
+              1
+            ],
+            "weirdness": [
+              -0.5,
+              0
+            ],
+            "erosion": [
+              0.35,
+              0.9
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomewinter_03",
+          "parameters": {
+            "temperature": [
+              -1,
+              -0.6
+            ],
+            "humidity": [
+              0.25,
+              1
+            ],
+            "continentalness": [
+              -0.8,
+              0
+            ],
+            "weirdness": [
+              0.7,
+              1
+            ],
+            "erosion": [
+              0.5,
+              1
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomecloud_01",
+          "parameters": {
+            "temperature": [
+              0.1,
+              0.5
+            ],
+            "humidity": [
+              -0.35,
+              0.2
+            ],
+            "continentalness": [
+              0.4,
+              0.7
+            ],
+            "weirdness": [
+              -0.4,
+              0.1
+            ],
+            "erosion": [
+              0.3,
+              0.6
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomewinter_01",
+          "parameters": {
+            "temperature": [
+              -0.8,
+              -0.4
+            ],
+            "humidity": [
+              0.55,
+              0.9
+            ],
+            "continentalness": [
+              0,
+              0.4
+            ],
+            "weirdness": [
+              -0.2,
+              0.3
+            ],
+            "erosion": [
+              -0.4,
+              0.1
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomewinter_02",
+          "parameters": {
+            "temperature": [
+              -1,
+              -0.6
+            ],
+            "humidity": [
+              0.5,
+              1
+            ],
+            "continentalness": [
+              0.2,
+              0.8
+            ],
+            "weirdness": [
+              0.1,
+              0.6
+            ],
+            "erosion": [
+              -0.4,
+              0.3
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomecloud_03",
+          "parameters": {
+            "temperature": [
+              0.6,
+              1
+            ],
+            "humidity": [
+              -0.8,
+              -0.2
+            ],
+            "continentalness": [
+              0.4,
+              1
+            ],
+            "weirdness": [
+              0.4,
+              0.9
+            ],
+            "erosion": [
+              0.4,
+              1
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomeautumn_02",
+          "parameters": {
+            "temperature": [
+              0.3,
+              0.7
+            ],
+            "humidity": [
+              0.4,
+              0.8
+            ],
+            "continentalness": [
+              -0.6,
+              0.2
+            ],
+            "weirdness": [
+              -0.4,
+              0.1
+            ],
+            "erosion": [
+              0.2,
+              0.7
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomepeach_02",
+          "parameters": {
+            "temperature": [
+              -0.1,
+              0.1
+            ],
+            "humidity": [
+              0.5,
+              0.9
+            ],
+            "continentalness": [
+              -0.6,
+              0
+            ],
+            "weirdness": [
+              -0.6,
+              -0.1
+            ],
+            "erosion": [
+              -0.8,
+              -0.3
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomeautumn_03",
+          "parameters": {
+            "temperature": [
+              0.2,
+              0.8
+            ],
+            "humidity": [
+              0.5,
+              1
+            ],
+            "continentalness": [
+              0.1,
+              0.9
+            ],
+            "weirdness": [
+              0.4,
+              1
+            ],
+            "erosion": [
+              -0.7,
+              0.2
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomepeach_01",
+          "parameters": {
+            "temperature": [
+              0,
+              0.4
+            ],
+            "humidity": [
+              0.3,
+              0.55
+            ],
+            "continentalness": [
+              0.2,
+              0.5
+            ],
+            "weirdness": [
+              0.1,
+              0.5
+            ],
+            "erosion": [
+              0.25,
+              0.4
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomestone_01",
+          "parameters": {
+            "temperature": [
+              0.5,
+              1
+            ],
+            "humidity": [
+              -0.9,
+              -0.4
+            ],
+            "continentalness": [
+              0.4,
+              1
+            ],
+            "weirdness": [
+              0.4,
+              1
+            ],
+            "erosion": [
+              0.6,
+              1
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomestone_02",
+          "parameters": {
+            "temperature": [
+              0.8,
+              1
+            ],
+            "humidity": [
+              -0.5,
+              0
+            ],
+            "continentalness": [
+              -0.3,
+              0.3
+            ],
+            "weirdness": [
+              0.6,
+              1
+            ],
+            "erosion": [
+              0.5,
+              1
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomeautumn_01",
+          "parameters": {
+            "temperature": [
+              0.3,
+              0.9
+            ],
+            "humidity": [
+              -0.5,
+              0.1
+            ],
+            "continentalness": [
+              0.3,
+              1
+            ],
+            "weirdness": [
+              -0.5,
+              0
+            ],
+            "erosion": [
+              0.35,
+              1
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomejade_01",
+          "parameters": {
+            "temperature": [
+              -0.5,
+              -0.1
+            ],
+            "humidity": [
+              0.45,
+              0.7
+            ],
+            "continentalness": [
+              0.2,
+              0.5
+            ],
+            "weirdness": [
+              -0.1,
+              0.4
+            ],
+            "erosion": [
+              0,
+              0.4
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomejade_03",
+          "parameters": {
+            "temperature": [
+              -0.5,
+              -0.1
+            ],
+            "humidity": [
+              0.5,
+              0.9
+            ],
+            "continentalness": [
+              0.15,
+              0.4
+            ],
+            "weirdness": [
+              -0.2,
+              0.3
+            ],
+            "erosion": [
+              -0.1,
+              0.3
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomejade_02",
+          "parameters": {
+            "temperature": [
+              -0.2,
+              0.5
+            ],
+            "humidity": [
+              0.2,
+              0.6
+            ],
+            "continentalness": [
+              0.5,
+              1
+            ],
+            "weirdness": [
+              0.1,
+              0.6
+            ],
+            "erosion": [
+              0.5,
+              1
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomewind_04",
+          "parameters": {
+            "temperature": [
+              -0.1,
+              0.1
+            ],
+            "humidity": [
+              0.6,
+              1
+            ],
+            "continentalness": [
+              -0.5,
+              0.2
+            ],
+            "weirdness": [
+              -0.7,
+              -0.3
+            ],
+            "erosion": [
+              0.2,
+              0.8
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "yvanchuxiuzhen:biomestone_03",
+          "parameters": {
+            "temperature": [
+              0.5,
+              1
+            ],
+            "humidity": [
+              -1,
+              -0.3
+            ],
+            "continentalness": [
+              0.3,
+              1
+            ],
+            "weirdness": [
+              -0.3,
+              0.2
+            ],
+            "erosion": [
+              0.4,
+              1
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    "settings": "yvanchuxiuzhen:dimensionrenjian"
+  }
+}

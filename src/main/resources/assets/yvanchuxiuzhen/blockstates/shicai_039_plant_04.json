@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "yvanchuxiuzhen:custom/shicai_039_plant_04_particle__cutout"
+    },
+    "facing=east": {
+      "model": "yvanchuxiuzhen:custom/shicai_039_plant_04_particle__cutout",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "yvanchuxiuzhen:custom/shicai_039_plant_04_particle__cutout",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "yvanchuxiuzhen:custom/shicai_039_plant_04_particle__cutout",
+      "y": 270
+    }
+  }
+}

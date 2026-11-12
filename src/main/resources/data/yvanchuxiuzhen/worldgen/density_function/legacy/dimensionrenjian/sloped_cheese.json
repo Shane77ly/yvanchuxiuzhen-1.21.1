@@ -1,0 +1,45 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:mul",
+    "argument1": 4.0,
+    "argument2": {
+      "type": "minecraft:quarter_negative",
+      "argument": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "minecraft:add",
+          "argument1": "yvanchuxiuzhen:legacy/dimensionrenjian/depth",
+          "argument2": {
+            "type": "minecraft:mul",
+            "argument1": "yvanchuxiuzhen:legacy/dimensionrenjian/jaggedness",
+            "argument2": {
+              "type": "minecraft:half_negative",
+              "argument": {
+                "type": "minecraft:noise",
+                "noise": "minecraft:jagged",
+                "xz_scale": 1500.0,
+                "y_scale": 0.0
+              }
+            }
+          }
+        },
+        "argument2": "yvanchuxiuzhen:legacy/dimensionrenjian/factor"
+      }
+    }
+  },
+  "argument2": {
+    "type": "yvanchuxiuzhen:legacy_blended_noise",
+    "cell_width": 4,
+    "cell_height": 8,
+    "source_y_scale": 1,
+    "argument": {
+      "type": "minecraft:old_blended_noise",
+      "xz_scale": 0.25,
+      "y_scale": 0.125,
+      "xz_factor": 80,
+      "y_factor": 160,
+      "smear_scale_multiplier": 8.0
+    }
+  }
+}

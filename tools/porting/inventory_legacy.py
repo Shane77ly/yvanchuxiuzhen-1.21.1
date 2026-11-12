@@ -107,6 +107,26 @@ def generate(source_workspace: Path) -> dict[str, str]:
                     "declaration_kind": kind, "source_file": source.relative_to(root).as_posix(),
                     "line": content.count("\n", 0, declaration.start()) + 1,
                 })
+        # 手写实体可在自身的嵌套类声明 DeferredRegister，不属于 MCreator 的 init 模板。
+        for source in sorted(java_root.rglob("*.java")):
+            if source.parent == init:
+                continue
+            content = source.read_text(encoding="utf-8-sig")
+            if "DeferredRegister" not in content:
+                continue
+            declarations = list(DECLARATION.finditer(content))
+            entity_registers = [declaration[1] for declaration in declarations
+                                if re.search(r'DeferredRegister\.create\(\s*ForgeRegistries\.ENTITIES\s*,', declaration[2])]
+            for declaration in declarations:
+                for register in entity_registers:
+                    match = re.search(r'\b' + re.escape(register) + r'\.register\(\s*"([^"\n]+)"', declaration[2])
+                    if match:
+                        registrations.append({
+                            "source_mod": mod_id, "registry": "entity_type",
+                            "legacy_id": f"{mod_id}:{match[1]}", "symbol": declaration[1],
+                            "declaration_kind": "literal_registration", "source_file": source.relative_to(root).as_posix(),
+                            "line": content.count("\n", 0, declaration.start()) + 1,
+                        })
         variables = java_root / "network" / f"{prefix}Variables.java"
         content = variables.read_text(encoding="utf-8-sig")
         start = content.index("public static class PlayerVariables {")

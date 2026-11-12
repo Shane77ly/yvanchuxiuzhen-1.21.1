@@ -1,8 +1,6 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
-menu,yvanchuxiuzhen:player_gui_01,yvanchuxiuzhen,PlayerGUI01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,67,panel,候选,yvanchuxiuzhen:player_gui_01,待处理,
+menu,yvanchuxiuzhen:player_gui_01,yvanchuxiuzhen,PlayerGUI01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,67,panel,已读,yvanchuxiuzhen:player_gui_01,已注册,K键与属性汇总及饰品/丹田导航已实现；2026-11-07现有accessories合法单件14项通过含死亡记页与重登后再打开；其他四分页待迁移。
 menu,yvanchuxiuzhen:player_gui_02,yvanchuxiuzhen,PlayerGUI02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,66,panel,候选,yvanchuxiuzhen:player_gui_02,待处理,
-menu,yvanchuxiuzhen:player_gui_03,yvanchuxiuzhen,PlayerGUI03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,68,panel,候选,yvanchuxiuzhen:player_gui_03,待处理,
-menu,yvanchuxiuzhen:player_gui_04,yvanchuxiuzhen,PlayerGUI04,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,69,panel,候选,yvanchuxiuzhen:player_gui_04,待处理,
 menu,yvanchuxiuzhen:player_gui_05,yvanchuxiuzhen,PlayerGUI05,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,70,panel,候选,yvanchuxiuzhen:player_gui_05,待处理,
 menu,yvanchuxiuzhen:player_gui_06,yvanchuxiuzhen,PlayerGUI06,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,76,panel,候选,yvanchuxiuzhen:player_gui_06,待处理,
 menu,yvanchuxiuzhen:player_gui_07,yvanchuxiuzhen,PlayerGUI07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,86,panel,候选,yvanchuxiuzhen:player_gui_07,待处理,

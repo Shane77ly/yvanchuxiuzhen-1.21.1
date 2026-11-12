@@ -1,0 +1,6 @@
+[
+{"id":"jieyvn","category":"MONSTER","width":35.0,"height":5.0,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"tianjie_03","category":"MONSTER","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"tianjie_05","category":"MONSTER","width":0.5,"height":1.0,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"tianjie_07","category":"MONSTER","width":0.5,"height":1.0,"tracking_range":64,"update_interval":3,"fire_immune":true}
+]

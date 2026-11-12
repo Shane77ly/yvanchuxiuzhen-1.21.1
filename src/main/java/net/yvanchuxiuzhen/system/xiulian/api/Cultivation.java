@@ -3,6 +3,8 @@ package net.yvanchuxiuzhen.system.xiulian.api;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -96,6 +98,12 @@ public final class Cultivation {
 
     public static void setTizhiBoolean(ServerPlayer player, String key, boolean value) {
         player.getData(XiulianAttachments.CULTIVATION).tizhi().putBoolean(key, value);
+        player.syncData(XiulianAttachments.CULTIVATION);
+    }
+
+    /** 在同一次同步内修改体质标签的多个键；用于逐刻推进计数的持续效果，避免每个键各发一次同步。 */
+    public static void editTizhi(ServerPlayer player, Consumer<CompoundTag> edit) {
+        edit.accept(player.getData(XiulianAttachments.CULTIVATION).tizhi());
         player.syncData(XiulianAttachments.CULTIVATION);
     }
 

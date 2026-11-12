@@ -53,5 +53,9 @@
   "tooltip.yvanchuxiuzhen.item.cailiao_238.1": "为炼丹、炼器等工作提供能源。",
   "item.yvanchuxiuzhen.cailiao_239": "流星空火",
   "tooltip.yvanchuxiuzhen.item.cailiao_239.1": "为炼丹、炼器等工作提供能源。",
-  "subtitles.fireshoot": "火焰放射"
+  "subtitles.fireshoot": "火焰放射",
+  "effect.yvanchuxiuzhen.effect_023": "阳火炙烤",
+  "effect.yvanchuxiuzhen.effect_023.description": "每秒造成（效果等级*8）点的火属性法术伤害，一般由异火中的阳火造成这种伤害。如果同时拥有“阴火灼烧”效果则会爆炸，对一定区域内的敌人造成大量伤害并清除这两种效果。 ",
+  "effect.yvanchuxiuzhen.effect_024": "阴火灼烧",
+  "effect.yvanchuxiuzhen.effect_024.description": "每秒造成（效果等级*8）点的火属性法术伤害，一般由异火中的阴火造成这种伤害。 "
 }

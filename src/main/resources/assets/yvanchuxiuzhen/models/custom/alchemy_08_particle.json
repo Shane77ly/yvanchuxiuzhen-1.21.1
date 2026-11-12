@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/alchemy_08.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/alchemy_08"
+  }
+}

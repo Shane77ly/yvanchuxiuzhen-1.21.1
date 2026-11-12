@@ -1,0 +1,130 @@
+{
+  "has_precipitation": false,
+  "temperature": 1.8,
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 12638463,
+    "water_color": -6787788,
+    "water_fog_color": -8359359,
+    "sky_color": 7972607,
+    "foliage_color": -6457041,
+    "grass_color": -2045802
+  },
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "features": [
+    [],
+    [
+      "yvanchuxiuzhen:legacy_vanilla/lake_lava_underground",
+      "yvanchuxiuzhen:legacy_vanilla/lake_lava_surface"
+    ],
+    [],
+    [
+      "yvanchuxiuzhen:suijijiegou_05",
+      "yvanchuxiuzhen:suijijiegou_06"
+    ],
+    [
+      "yvanchuxiuzhen:suijijiegou_01",
+      "yvanchuxiuzhen:suijijiegou_02",
+      "yvanchuxiuzhen:suijijiegou_03",
+      "yvanchuxiuzhen:suijijiegou_04"
+    ],
+    [],
+    [
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_coal_lower",
+      "minecraft:ore_iron_upper",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_iron_small",
+      "minecraft:ore_gold",
+      "minecraft:ore_gold_lower",
+      "minecraft:ore_redstone",
+      "minecraft:ore_redstone_lower",
+      "minecraft:ore_diamond",
+      "minecraft:ore_diamond_large",
+      "minecraft:ore_diamond_buried",
+      "minecraft:ore_lapis",
+      "minecraft:ore_lapis_buried",
+      "minecraft:ore_copper",
+      "minecraft:underwater_magma",
+      "yvanchuxiuzhen:cailiao_191ore",
+      "yvanchuxiuzhen:cailiao_192ore",
+      "yvanchuxiuzhen:cailiao_193ore",
+      "yvanchuxiuzhen:cailiao_194ore",
+      "yvanchuxiuzhen:cailiao_195ore",
+      "yvanchuxiuzhen:cailiao_196ore",
+      "yvanchuxiuzhen:cailiao_197ore",
+      "yvanchuxiuzhen:cailiao_198ore",
+      "yvanchuxiuzhen:cailiao_199ore",
+      "yvanchuxiuzhen:cailiao_20101",
+      "yvanchuxiuzhen:cailiao_20301",
+      "yvanchuxiuzhen:cailiao_20501",
+      "yvanchuxiuzhen:cailiao_20701",
+      "yvanchuxiuzhen:cailiao_20801",
+      "yvanchuxiuzhen:cailiao_20901",
+      "yvanchuxiuzhen:cailiao_21101",
+      "yvanchuxiuzhen:cailiao_21301",
+      "yvanchuxiuzhen:cailiao_21501",
+      "yvanchuxiuzhen:cailiao_21601",
+      "yvanchuxiuzhen:cailiao_21701",
+      "yvanchuxiuzhen:cailiao_21901",
+      "yvanchuxiuzhen:cailiao_16101",
+      "yvanchuxiuzhen:fuluzhushablock",
+      "yvanchuxiuzhen:cailiao_16201",
+      "yvanchuxiuzhen:cailiao_16301",
+      "yvanchuxiuzhen:cailiao_16401",
+      "yvanchuxiuzhen:cailiao_16501",
+      "yvanchuxiuzhen:cailiao_16601",
+      "yvanchuxiuzhen:cailiao_16701",
+      "yvanchuxiuzhen:cailiao_16801",
+      "yvanchuxiuzhen:cailiao_16901"
+    ],
+    [],
+    [],
+    [
+      "yvanchuxiuzhen:tree_biomesand_01",
+      "yvanchuxiuzhen:grass_biomesand_01",
+      "yvanchuxiuzhen:seagrass_biomesand_01",
+      "yvanchuxiuzhen:patch_cactus_biomesand_01",
+      "minecraft:patch_dead_bush_2",
+      "yvanchuxiuzhen:thistlesandthorns",
+      "yvanchuxiuzhen:nichanggrass_06"
+    ],
+    []
+  ],
+  "spawners": {
+    "monster": [],
+    "creature": [
+      {
+        "type": "minecraft:rabbit",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 6
+      },
+      {
+        "type": "yvanchuxiuzhen:caishenye",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "yvanchuxiuzhen:xiuzhe_0101",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "ambient": [],
+    "axolotls": [],
+    "underground_water_creature": [],
+    "water_creature": [],
+    "water_ambient": [],
+    "misc": []
+  },
+  "spawn_costs": {}
+}

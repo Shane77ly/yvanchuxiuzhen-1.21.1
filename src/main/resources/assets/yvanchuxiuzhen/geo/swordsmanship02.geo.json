@@ -1,0 +1,121 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.swordsmanship02",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "cijizong",
+					"parent": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "ciji",
+					"parent": "cijizong",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [0, -6, -22], "size": [0, 12, 14], "pivot": [0, 0, -15], "rotation": [0, 0, 45], "uv": [0, 12]},
+						{"origin": [0, -6, -22], "size": [0, 12, 14], "pivot": [0, 0, -15], "rotation": [0, 0, 135], "uv": [0, 12]}
+					]
+				},
+				{
+					"name": "cijijianfeng1",
+					"parent": "cijizong",
+					"pivot": [0, 0, -22],
+					"cubes": [
+						{"origin": [0, -6, -22], "size": [0, 12, 8], "pivot": [0, 0, -22], "rotation": [0, 25, 0], "uv": [0, 30]}
+					]
+				},
+				{
+					"name": "cijijianfeng2",
+					"parent": "cijizong",
+					"pivot": [0, 0, -22],
+					"cubes": [
+						{"origin": [0, -6, -22], "size": [0, 12, 8], "pivot": [0, 0, -22], "rotation": [0, -25, 0], "uv": [0, 30]}
+					]
+				},
+				{
+					"name": "cijijianfeng3",
+					"parent": "cijizong",
+					"pivot": [0, 0, -22],
+					"cubes": [
+						{"origin": [0, -6, -22], "size": [0, 12, 8], "pivot": [0, 0, -22], "rotation": [0, -25, 90], "uv": [0, 30]}
+					]
+				},
+				{
+					"name": "cijijianfeng4",
+					"parent": "cijizong",
+					"pivot": [0, 0, -22],
+					"cubes": [
+						{"origin": [0, -6, -22], "size": [0, 12, 8], "pivot": [0, 0, -22], "rotation": [0, 25, 90], "uv": [0, 30]}
+					]
+				},
+				{
+					"name": "jianzong",
+					"parent": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "jianzong2",
+					"parent": "jianzong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "jian",
+					"parent": "jianzong2",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [0, 0, -2.5], "size": [0, 26, 5], "uv": [0, -5]}
+					]
+				},
+				{
+					"name": "huanpizong",
+					"parent": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "huanpizong2",
+					"parent": "huanpizong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "huanpi",
+					"parent": "huanpizong2",
+					"pivot": [8, 0, -8],
+					"cubes": [
+						{"origin": [8, 0, -14], "size": [28, 0, 14], "uv": [-14, 50]}
+					]
+				},
+				{
+					"name": "jianhuazong",
+					"parent": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "jianhuazong2",
+					"parent": "jianhuazong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "jianhua",
+					"parent": "jianhuazong2",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [0, -2, -27], "size": [0, 26, 26], "uv": [10, -26]}
+					]
+				}
+			]
+		}
+	]
+}

@@ -8,10 +8,13 @@ JSON 中的引用同步改写。方块 Java 通过 registerRenderLayer 声明的
 （所属单位、种类 block/item/texture/geo/animation、目标 ID 或来源纹理 ID）迁移，geo、animation 是 GeckoLib 的几何与动画文件。来源桶模型的 forge:bucket 加载器改写为 neoforge:fluid_container。
 每个输出文件登记到 docs/reference/conversion/manifest.csv（来源路径、来源哈希、目标路径）。
 同一目标路径来自内容不同的来源文件时报错。
+已登记状态效果的图标按来源注册 ID 读取 textures/mob_effect，按台账目标 ID 写入同一图集目录。
+已登记粒子的 JSON 与全部 sprite 按来源注册 ID 读取，目标 JSON ID 跟随台账，纹理引用统一命名空间并保留帧顺序。
 """
 from __future__ import annotations
 
 import csv
+import argparse
 import hashlib
 import json
 import re
@@ -33,6 +36,8 @@ class Converter:
     def __init__(self) -> None:
         self.roots = {mod: root / 'src/main/resources/assets' for mod, (root, _) in SOURCES.items()}
         self.written: dict[Path, str] = {}
+        self.created_dirs: set[Path] = set()
+        self.copied_textures: set[str] = set()
         self.manifest: list[tuple[str, str, str]] = []
         self.missing: list[tuple[str, str]] = []
         self.dropped_parents: list[tuple[str, str]] = []
@@ -65,7 +70,16 @@ class Converter:
             return [self.rewrite_json(item, key) for item in node]
         return node
 
-    def emit(self, source: Path, mod: str, target: Path, content: bytes) -> None:
+    def prepare_parent(self, target: Path) -> None:
+        if target.parent not in self.created_dirs:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            self.created_dirs.add(target.parent)
+
+    def emit_bytes(self, source: Path, mod: str, target: Path) -> None:
+        content = source.read_bytes()
+        self.emit(source, mod, target, content, content)
+
+    def emit(self, source: Path, mod: str, target: Path, content: bytes, source_content: bytes | None = None) -> None:
         digest = hashlib.sha1(content).hexdigest()
         previous = self.written.get(target)
         if previous is not None:
@@ -73,9 +87,10 @@ class Converter:
                 raise ValueError(f'目标 {target.relative_to(ROOT).as_posix()} 来自内容不同的来源文件：{source}')
             return
         self.written[target] = digest
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(content)
-        origin = hashlib.sha1(source.read_bytes()).hexdigest()
+        self.prepare_parent(target)
+        if not target.is_file() or target.read_bytes() != content:
+            target.write_bytes(content)
+        origin = hashlib.sha1(source.read_bytes() if source_content is None else source_content).hexdigest()
         self.manifest.append((f'{mod}/{source.relative_to(self.roots[mod].parents[3]).as_posix()}', origin,
                               target.relative_to(ROOT).as_posix()))
 
@@ -84,9 +99,11 @@ class Converter:
         if namespace == 'minecraft':
             return None
         file = self.roots[namespace] / namespace / kind / f'{path}{suffix}'
-        return (file, namespace) if file.is_file() else (file, namespace)
+        return file, namespace
 
     def copy_texture(self, ref: str, default_mod: str) -> None:
+        if ref in self.copied_textures:
+            return
         located = self.source_file(ref, 'textures', '.png', default_mod)
         if located is None:
             return
@@ -98,10 +115,11 @@ class Converter:
         head, _, rest = relative.partition('/')
         relative = f'{TEXTURE_DIRS[head]}/{rest}' if head in TEXTURE_DIRS else relative
         target = ASSETS / 'textures' / relative
-        self.emit(file, mod, target, file.read_bytes())
+        self.emit_bytes(file, mod, target)
         meta = file.with_name(file.name + '.mcmeta')
         if meta.is_file():
-            self.emit(meta, mod, target.with_name(target.name + '.mcmeta'), meta.read_bytes())
+            self.emit_bytes(meta, mod, target.with_name(target.name + '.mcmeta'))
+        self.copied_textures.add(ref)
 
     def copy_plain(self, ref: str, folder: str, suffix: str, default_mod: str) -> None:
         """原样迁移 GeckoLib 的几何（geo/<名>.geo.json）与动画（animations/<名>.animation.json）。"""
@@ -110,7 +128,7 @@ class Converter:
         if not file.is_file():
             self.missing.append((ref, folder))
             return
-        self.emit(file, mod, ASSETS / folder / file.name, file.read_bytes())
+        self.emit_bytes(file, mod, ASSETS / folder / file.name)
 
     def copy_model(self, ref: str, default_mod: str) -> None:
         located = self.source_file(ref, 'models', '.json', default_mod)
@@ -130,7 +148,8 @@ class Converter:
         parent = data.get('parent')
         if parent is not None and (':' not in parent or parent.startswith('minecraft:')):
             vanilla = f'assets/minecraft/models/{parent.split(":")[-1]}.json'
-            if vanilla not in self.vanilla_models:
+            # ModelBakery 直接提供这三个内建模型，它们不对应资源包内的 JSON 文件。
+            if parent.split(':')[-1] not in ('builtin/generated', 'builtin/entity', 'builtin/missing') and vanilla not in self.vanilla_models:
                 # 来源模型（Blockbench 导出）的 parent 指向不存在的原版模型：两个版本都回退为缺失模型的父级，不影响自身的 elements。
                 self.dropped_parents.append((ref, parent))
                 del data['parent']
@@ -149,8 +168,10 @@ class Converter:
         target = ASSETS / 'models' / f'{wrapper.split(":")[-1]}.json'
         if target not in self.written:
             self.written[target] = 'generated'
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_bytes(json_bytes({'parent': f'{NAMESPACE}:{path}', 'render_type': render_type}))
+            self.prepare_parent(target)
+            content = json_bytes({'parent': f'{NAMESPACE}:{path}', 'render_type': render_type})
+            if not target.is_file() or target.read_bytes() != content:
+                target.write_bytes(content)
             self.manifest.append(('(generated)', '', target.relative_to(ROOT).as_posix()))
         return f'{NAMESPACE}:{wrapper}'
 
@@ -159,7 +180,8 @@ class Converter:
         if not file.is_file():
             self.missing.append((f'{mod}:{path}', '方块状态'))
             return {}
-        data = self.rewrite_json(json.loads(file.read_text(encoding='utf-8')))
+        original = json.loads(file.read_text(encoding='utf-8'))
+        data = self.rewrite_json(original)
         wrappers: dict[str, str] = {}
 
         def visit(node):
@@ -174,7 +196,6 @@ class Converter:
                 for item in node:
                     visit(item)
 
-        original = json.loads(file.read_text(encoding='utf-8'))
         for ref in collect_models(original):
             self.copy_model(ref, mod)
         visit(data)
@@ -190,7 +211,7 @@ class Converter:
                 self.missing.append((relative, '盔甲贴图'))
                 continue
             mod, file = found[0]
-            self.emit(file, mod, ASSETS / 'textures' / relative, file.read_bytes())
+            self.emit_bytes(file, mod, ASSETS / 'textures' / relative)
 
     def sound(self, name: str) -> None:
         """sounds.json 引用的声音文件 sounds/<名>.ogg，在两个来源中查找。"""
@@ -200,7 +221,27 @@ class Converter:
             self.missing.append((relative, '声音'))
             return
         mod, file = found[0]
-        self.emit(file, mod, ASSETS / relative, file.read_bytes())
+        self.emit_bytes(file, mod, ASSETS / relative)
+
+    def effect_icon(self, mod: str, path: str, target: str) -> None:
+        """状态效果图标按注册 ID 从 mob_effect 图集读取，目标路径跟随台账映射。"""
+        file = self.roots[mod] / mod / 'textures/mob_effect' / f'{path}.png'
+        if not file.is_file():
+            self.missing.append((f'{mod}:{path}', '状态效果图标'))
+            return
+        self.emit_bytes(file, mod, ASSETS / 'textures/mob_effect' / f'{target}.png')
+
+    def particle(self, mod: str, path: str, target: str) -> None:
+        """粒子 JSON 的 sprite 引用不含 particle/ 前缀，图集从 textures/particle 读取。"""
+        file = self.roots[mod] / mod / 'particles' / f'{path}.json'
+        data = json.loads(file.read_text(encoding='utf-8'))
+        textures = []
+        for ref in data['textures']:
+            namespace, name = ref.split(':', 1)
+            self.copy_texture(f'{namespace}:particle/{name}', mod)
+            textures.append(f'{NAMESPACE if namespace in SOURCES else namespace}:{name}')
+        data['textures'] = textures
+        self.emit(file, mod, ASSETS / 'particles' / f'{target}.json', json_bytes(data))
 
     def item(self, mod: str, path: str, target: str, parents: dict[str, str]) -> None:
         file = self.roots[mod] / mod / 'models/item' / f'{path}.json'
@@ -243,13 +284,26 @@ def json_bytes(data) -> bytes:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--owner', help='仅转换指定系统，按目标路径合并既有清单')
+    args = parser.parse_args()
+    all_units = {p.name for p in CONTENT.iterdir() if p.is_dir() and p.name != 'platform'}
+    if args.owner is not None and args.owner not in all_units:
+        parser.error(f'不存在内容系统：{args.owner}')
     converter = Converter()
     origin: dict[tuple[str, str], tuple[str, str]] = {}
-    for rows in read_ledgers().values():
+    effects: list[dict] = []
+    particles: list[dict] = []
+    for ledger, rows in read_ledgers().items():
+        owner = ledger.parent.parent.name
         for row in rows:
             if row['registry'] in ('block', 'item'):
                 mod, path = row['legacy_id'].split(':', 1)
                 origin[(row['registry'], row['target_id'].split(':', 1)[1])] = (mod, path)
+            elif row['registry'] == 'mob_effect' and row['status'] != '待处理' and (args.owner is None or owner == args.owner):
+                effects.append(row)
+            elif row['registry'] == 'particle_type' and row['status'] != '待处理' and (args.owner is None or owner == args.owner):
+                particles.append(row)
     layers = {}
     for mod, (root, prefix) in SOURCES.items():
         text = (root / f'src/main/java/net/mcreator/{mod}/init/{prefix}ModBlocks.java').read_text(encoding='utf-8')
@@ -260,7 +314,7 @@ def main() -> None:
             if found:
                 layers[(mod, path)] = RENDER_TYPES[found.group(1)]
     block_wrappers: dict[str, dict[str, str]] = {}
-    units = sorted(p.name for p in CONTENT.iterdir() if p.is_dir() and p.name != 'platform')
+    units = [args.owner] if args.owner is not None else sorted(all_units)
     for unit in units:
         file = CONTENT / unit / 'blocks.json'
         if file.is_file():
@@ -278,12 +332,23 @@ def main() -> None:
         file = CONTENT / unit / 'armor_materials.json'
         if file.is_file():
             for row in json.loads(file.read_text(encoding='utf-8')):
-                converter.armor_textures(row['texture'])
+                if not row.get('animated', False):
+                    converter.armor_textures(row['texture'])
+    for row in effects:
+        mod, path = row['legacy_id'].split(':', 1)
+        converter.effect_icon(mod, path, row['target_id'].split(':', 1)[1])
+    for row in particles:
+        mod, path = row['legacy_id'].split(':', 1)
+        converter.particle(mod, path, row['target_id'].split(':', 1)[1])
     with (ROOT / 'docs/reference/conversion/screen_textures.csv').open(encoding='utf-8') as handle:
         for row in csv.DictReader(handle):
+            if args.owner is not None and row['owner'] != args.owner:
+                continue
             converter.copy_texture(row['texture'], row['texture'].split(':', 1)[0])
     with (ROOT / 'docs/reference/conversion/system_assets.csv').open(encoding='utf-8') as handle:
         for row in csv.DictReader(handle):
+            if args.owner is not None and row['owner'] != args.owner:
+                continue
             if row['kind'] == 'texture':
                 converter.copy_texture(row['id'], row['id'].split(':', 1)[0])
                 continue
@@ -298,14 +363,22 @@ def main() -> None:
             else:
                 converter.item(mod, path, target, {})
     for fragment in sorted((ROOT / 'src/main/sounds').glob('*.json')):
+        if args.owner is not None and fragment.stem != args.owner:
+            continue
         for definition in json.loads(fragment.read_text(encoding='utf-8')).values():
             for sound in definition['sounds']:
                 converter.sound(sound['name'].split(':', 1)[1])
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
+    manifest = converter.manifest
+    if args.owner is not None and MANIFEST.is_file():
+        updated = {row[2] for row in manifest}
+        with MANIFEST.open(encoding='utf-8', newline='') as handle:
+            manifest = [(row['source'], row['source_sha1'], row['target']) for row in csv.DictReader(handle)
+                        if row['target'] not in updated] + manifest
     with MANIFEST.open('w', encoding='utf-8', newline='') as handle:
         writer = csv.writer(handle, lineterminator='\n')
         writer.writerow(['source', 'source_sha1', 'target'])
-        writer.writerows(sorted(converter.manifest, key=lambda r: r[2]))
+        writer.writerows(sorted(manifest, key=lambda r: r[2]))
     print('files', len(converter.manifest), 'missing', len(converter.missing), 'dropped parents', len(converter.dropped_parents))
     for ref, kind in sorted(set(converter.missing))[:15]:
         print('  缺少', kind, ref)

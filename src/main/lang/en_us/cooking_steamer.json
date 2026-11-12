@@ -1,0 +1,20 @@
+{
+  "gui.yvanchuxiuzhen.cooking.steamer.start": "Start cooking",
+  "gui.yvanchuxiuzhen.cooking.steamer.help": "Instructions",
+  "gui.yvanchuxiuzhen.cooking.steamer.no_container": "No serving container required",
+  "message.yvanchuxiuzhen.cooking.steamer.guide_1": "Place the steamer above a lit furnace or smoker, or above a campfire or fire.",
+  "message.yvanchuxiuzhen.cooking.steamer.guide_2": "Put the recipe in the slot on the right, then add the ingredients listed on it.",
+  "message.yvanchuxiuzhen.cooking.steamer.guide_3": "Put bowls, plates, large bowls and iron plates in their corresponding slots on the left.",
+  "message.yvanchuxiuzhen.cooking.steamer.guide_4": "Press the cooking button, then keep right-clicking the steamer to finish cooking.",
+  "message.yvanchuxiuzhen.cooking.steamer.guide_5": "Stack steaming baskets above the steamer to cook several dishes at once.",
+  "message.yvanchuxiuzhen.cooking.steamer.busy": "§4Cooking in progress!",
+  "message.yvanchuxiuzhen.cooking.steamer.wrong_appliance": "§4This recipe requires %s.",
+  "message.yvanchuxiuzhen.cooking.steamer.insufficient_level": "§4Your cooking level is too low. Try a simpler dish first.",
+  "message.yvanchuxiuzhen.cooking.steamer.container_bowl": "§4Place a porcelain bowl in the first serving slot on the left!",
+  "message.yvanchuxiuzhen.cooking.steamer.container_plate": "§4Place a porcelain plate in the second serving slot on the left!",
+  "message.yvanchuxiuzhen.cooking.steamer.container_large_bowl": "§4Place a large bowl in the third serving slot on the left!",
+  "message.yvanchuxiuzhen.cooking.steamer.container_iron_plate": "§4Place an iron plate in the second serving slot on the left!",
+  "message.yvanchuxiuzhen.cooking.steamer.missing_ingredients": "§4Add the ingredients required by the recipe!",
+  "message.yvanchuxiuzhen.cooking.steamer.missing_heat": "§4The iron pot needs heat! Light a campfire, place a stove, or light a fire below it.",
+  "message.yvanchuxiuzhen.cooking.steamer.started": "Cooking started! Keep right-clicking the iron pot to stir the ingredients."
+}

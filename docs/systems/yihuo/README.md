@@ -2,22 +2,30 @@
 topic: yihuo
 role: entry
 status: partial
-updated: 2026-11-03
+updated: 2026-11-08
 ---
 
 # 异火
 
 标识 `yihuo`，类别：系统。职责：异火的材料、投掷、火块与命中效果（[系统设计](../../development/system-design.md)）。
 
-当前阶段：B1 已登记本单位不依赖新代码类型的内容身份与资源（台账“已注册”：方块 18、物品 36、声音事件 1），只表示身份、资源与基础属性就位；玩法尚未实现，未进行游戏验收。
+当前阶段：部分实现。B1 已登记方块18、物品36、声音事件1的身份与资源；2026-11-07 为 skill 依赖接回 `effect_023`/`effect_024` 持续伤害、粒子与爆燃、18种火块的燃料/接触/保存同步，以及丹火放置和补充燃料。2026-11-08 接入材料目录基础、登录时 `cailiao_221`–`cailiao_239` 辨识初始化，以及18种异火材料物品、投掷实体、命中和火块操作；辨识初始化通过 material 公开 API 调用。材料右键的灵力与耐久消耗、灵力不足提示已按来源接回。材料辨识界面及其扣料、外部获取和炉鼎等装置消费链仍随所属系统接回。来源中的 `FireskillProcedure` 已核实为不可达孤立过程，不列为待补的武器触发入口。剩余入口静态审计未发现新的 yihuo 自有可立即实施缺口；具体来源与去向见[外部获得与消费](architecture.md#外部获得与消费去向2026-11-08)。未覆盖的交互与视觉边界仍待验收，系统不标为完成。
+
+2026-11-08 自然链补验：`gradlew build`（含既有check与ArchUnit）通过；唯一一次既有 `skillui` 检查35项INFO、0FAIL、DONE，包含五组丹火与阴阳效果检查，四维度正常保存退出，ERROR/FATAL为0。两个效果登记“行为已迁移”；火块仍为“已注册”，221的有限样本不代表18类逐项通过。普通效果与爆燃由预置效果/计时后自然刻推进，不代表火块接触或18材料自然命中全链已验收。旧5项聚合失败保留为历史记录，具体证据与边界见[丹火与炙烤主路径复验](architecture.md#丹火与炙烤主路径复验2026-11-08)。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
-- 候选归属 97 个元素，其中 95 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
+- 归属范围101个元素，均已完成归属阅读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
 ## 公开操作
 
-未编写。实现本系统前在此列出供其他系统调用的查询与写操作，并对照 `typed_field_accesses.csv` 覆盖全部外部读写点（开工条件）。
+`effect_023`、`effect_024` 的跨系统施加、查询和移除统一使用 combat 的 `StatusEffects`，持续行为归 yihuo。skill 的火箭只施加阳火，不提供 `fireAttackUUID`；不能把火箭射手自动补为持续伤害来源。已对照 `typed_field_accesses.csv` 核对两个持续过程：玩家只读 `tizhiitem` 中的 `fireAttackUUID`/`fireteam`，通过 xiulian 的 `Cultivation.tizhiString` 查询；非玩家从本体持久数据查询。`yanghuotick`/`yinhuotick` 由本系统保管在实体持久数据中，不在效果移除时清零。
+
+丹火物品仍归 skill，火块和燃料归 yihuo。`Yihuo.useDanFire(UseOnContext)` 负责丹火的上表面放置、施放者校验和向 `blockfire` 标签方块补充燃料；调用者为 skill 的丹火物品。`FireHeatEvent` 把每二十刻的热量交给上方装置所有者；`FireExhaustedEvent` 请求拥有 `danludinglu` 装置的系统按剩余 `lianpower` 与 `gengxin` 决定是否保留火块。`LiandanSetup` 与 `LianqiSetup` 均已注册所属装置的两个事件处理者，处理者只写自己的装置，本系统只写火块燃料和来源身份；炉鼎行为证据见各自系统月志，异火自身的18类材料逐项链路仍未完成验收。
+
+丹火放置另有一处 `friendlist` 外部读取（`typed_field_accesses.csv` 第 931 行，来源过程第 78 行），经 relation 的 `Relations.friendlyTeams` 取得只读视图，保留来源重载前共用引用、重载后独立的时序；火块敌友判定经 `Relations.isFriendly(集合, 实体)`。来源放置读取实体 NBT 的 `team`，`PlayerJoinGame` 登录时把玩家能力团队写入该字段，使用 `Relations.entityTeam` 和本系统所属的登录复制保留载体区别。剩余自然获得与消费入口已按各系统职责登记于正文，后续消费者通过所属系统的公开操作协作，不直接写入其他系统数据。
 
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
+
+2026-11-07 完成丹火自然调用链、18种火块和18个方块实体的逐分支静态复核，已实现规则未发现新差异；补正18个独立方块实体类型的台账为“已注册”。本轮只改文档与台账，没有新增或修改Test，也未运行游戏，不增加运行验收结论。范围与依据见[调用链复核](architecture.md#丹火调用链复核2026-11-07)。

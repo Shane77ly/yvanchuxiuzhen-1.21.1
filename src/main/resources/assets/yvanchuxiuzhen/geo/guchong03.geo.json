@@ -1,0 +1,153 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.guchong03",
+				"texture_width": 32,
+				"texture_height": 32,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 1]
+				},
+				{
+					"name": "head",
+					"parent": "zong",
+					"pivot": [0, 3, -2],
+					"cubes": [
+						{"origin": [-1, 2, -4], "size": [2, 2, 2], "inflate": 0.2, "uv": [0, 0]},
+						{"origin": [-1, 1, -4], "size": [2, 1, 1], "uv": [0, 4]},
+						{"origin": [1, 4, -6], "size": [0, 3, 3], "pivot": [1, 4, -3], "rotation": [10, -10, 10], "uv": [14, 3]},
+						{"origin": [-1, 4, -6], "size": [0, 3, 3], "pivot": [-1, 4, -3], "rotation": [10, 10, -10], "uv": [14, 3]}
+					]
+				},
+				{
+					"name": "body",
+					"parent": "zong",
+					"pivot": [0, 0, 1]
+				},
+				{
+					"name": "xiong",
+					"parent": "body",
+					"pivot": [0, 2, 0],
+					"cubes": [
+						{"origin": [-1.5, 1, -2], "size": [3, 3, 3], "uv": [8, 0]}
+					]
+				},
+				{
+					"name": "rightleg1",
+					"parent": "xiong",
+					"pivot": [-1.5, 2, -2],
+					"rotation": [0, -25, 0],
+					"cubes": [
+						{"origin": [-5.5, 0, -2], "size": [4, 4, 0], "uv": [14, 13]}
+					]
+				},
+				{
+					"name": "rightleg2",
+					"parent": "xiong",
+					"pivot": [-1.5, 2, -1],
+					"cubes": [
+						{"origin": [-5.5, 0, -1], "size": [4, 4, 0], "uv": [14, 13]}
+					]
+				},
+				{
+					"name": "rightleg3",
+					"parent": "xiong",
+					"pivot": [-1.5, 2, 0],
+					"rotation": [-45, -25, 0],
+					"cubes": [
+						{"origin": [-2, 2, 0], "size": [1, 4, 1], "inflate": 0.2, "uv": [12, 17]}
+					]
+				},
+				{
+					"name": "rightleg301",
+					"parent": "rightleg3",
+					"pivot": [-1.5, 6, 0],
+					"cubes": [
+						{"origin": [-1.5, 6.5, -0.5], "size": [0, 5, 1], "pivot": [-1.5, 6, 0], "rotation": [-110, 0, 0], "uv": [16, 16]}
+					]
+				},
+				{
+					"name": "leftleg1",
+					"parent": "xiong",
+					"pivot": [1.5, 2, -2],
+					"rotation": [0, 25, 0],
+					"cubes": [
+						{"origin": [1.5, 0, -2], "size": [4, 4, 0], "uv": [14, 9]}
+					]
+				},
+				{
+					"name": "leftleg2",
+					"parent": "xiong",
+					"pivot": [1.5, 2, -1],
+					"cubes": [
+						{"origin": [1.5, 0, -1], "size": [4, 4, 0], "uv": [14, 9]}
+					]
+				},
+				{
+					"name": "leftleg3",
+					"parent": "xiong",
+					"pivot": [1.5, 2, 0],
+					"rotation": [-45, 25, 0],
+					"cubes": [
+						{"origin": [1, 2, 0], "size": [1, 4, 1], "inflate": 0.2, "uv": [12, 17]}
+					]
+				},
+				{
+					"name": "leftleg301",
+					"parent": "leftleg3",
+					"pivot": [1.5, 6, 0],
+					"cubes": [
+						{"origin": [1.5, 6.5, -0.5], "size": [0, 5, 1], "pivot": [1.5, 6, 0], "rotation": [-110, 0, 0], "uv": [16, 16]}
+					]
+				},
+				{
+					"name": "fu",
+					"parent": "body",
+					"pivot": [0, 2.5, 1],
+					"cubes": [
+						{"origin": [-1, 1.5, 1], "size": [2, 2, 5], "uv": [0, 6]}
+					]
+				},
+				{
+					"name": "rightchi",
+					"parent": "fu",
+					"pivot": [0, 3.7, 1],
+					"cubes": [
+						{"origin": [-3, 3.7, 1], "size": [3, 0, 6], "uv": [14, 0]}
+					]
+				},
+				{
+					"name": "leftchi",
+					"parent": "fu",
+					"pivot": [0, 3.7, 1],
+					"cubes": [
+						{"origin": [0, 3.7, 1], "size": [3, 0, 6], "uv": [20, 0]}
+					]
+				},
+				{
+					"name": "rightfly1",
+					"parent": "fu",
+					"pivot": [-0.5, 4, 1],
+					"cubes": [
+						{"origin": [-1.5, 2, 1], "size": [2, 2, 4], "uv": [0, 13]}
+					]
+				},
+				{
+					"name": "leftfly1",
+					"parent": "fu",
+					"pivot": [0.5, 4, 1],
+					"cubes": [
+						{"origin": [-0.5, 2, 1], "size": [2, 2, 4], "uv": [0, 19]}
+					]
+				}
+			]
+		}
+	]
+}

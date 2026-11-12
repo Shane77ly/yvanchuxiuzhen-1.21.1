@@ -30,6 +30,7 @@ public final class GongfaSetup {
         CONTENT.register(modBus);
         GongfaData.register(modBus);
         GongfaBlockEntities.register(modBus);
+        TechniqueCommands.register();
         modBus.addListener(GongfaSetup::registerPayloads);
         NeoForge.EVENT_BUS.addListener((CultivationSecondEvent event) -> onSecond(event.player()));
         NeoForge.EVENT_BUS.addListener((CultivationExperienceEvent event) -> TechniqueRules.onCultivationExperience(event.player(), event.experience()));

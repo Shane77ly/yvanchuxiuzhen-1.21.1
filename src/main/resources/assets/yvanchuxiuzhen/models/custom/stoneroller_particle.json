@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/stonemill.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/stoneroller"
+  }
+}

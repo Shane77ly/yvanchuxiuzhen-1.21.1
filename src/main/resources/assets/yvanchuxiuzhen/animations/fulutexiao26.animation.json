@@ -1,0 +1,267 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.fulutexiao26.idle": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"hand": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.fulutexiao26.attack": {
+			"animation_length": 2,
+			"bones": {
+				"hand": {
+					"rotation": {
+						"0.0": {
+							"vector": [60, 0, 0]
+						},
+						"0.64": {
+							"vector": [-50, 0, 0]
+						},
+						"0.84": {
+							"vector": [-50, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 39, 42]
+						},
+						"0.64": {
+							"vector": [0, 90, 13]
+						},
+						"0.84": {
+							"vector": [0, 90, 13]
+						},
+						"1.0": {
+							"vector": [0, -2, 0]
+						},
+						"1.6": {
+							"vector": [0, -2, 0]
+						},
+						"2.0": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.48": {
+							"vector": [2, 2, 2]
+						},
+						"1.6": {
+							"vector": [2, 2, 2]
+						},
+						"2.0": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"damuzhi1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -40]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						},
+						"0.84": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 5]
+						},
+						"1.12": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"damuzhi2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -10, -10]
+						},
+						"0.64": {
+							"vector": [40, 0, 0]
+						}
+					}
+				},
+				"damuzhi3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -20, 0]
+						},
+						"0.64": {
+							"vector": [50, 10, 0]
+						}
+					}
+				},
+				"shizhi1": {
+					"rotation": {
+						"0.0": {
+							"vector": [20, 5, 0]
+						},
+						"0.64": {
+							"vector": [0, 5, 0]
+						},
+						"0.84": {
+							"vector": [0, 5, 0]
+						},
+						"1.0": {
+							"vector": [-5, 5, 0]
+						},
+						"1.12": {
+							"vector": [0, 5, 0]
+						}
+					}
+				},
+				"shizhi2": {
+					"rotation": {
+						"0.0": {
+							"vector": [30, 0, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"shizhi3": {
+					"rotation": {
+						"0.0": {
+							"vector": [45, 0, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"zhongzhi1": {
+					"rotation": {
+						"0.0": {
+							"vector": [10, 0, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						},
+						"0.84": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [-5, 0, 0]
+						},
+						"1.12": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"zhongzhi2": {
+					"rotation": {
+						"0.0": {
+							"vector": [35, 0, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"zhongzhi3": {
+					"rotation": {
+						"0.0": {
+							"vector": [50, 0, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"wumingzhi1": {
+					"rotation": {
+						"0.0": {
+							"vector": [25, -5, 0]
+						},
+						"0.64": {
+							"vector": [0, -5, 0]
+						},
+						"0.84": {
+							"vector": [0, -5, 0]
+						},
+						"1.0": {
+							"vector": [-5, -5, 0]
+						},
+						"1.12": {
+							"vector": [0, -5, 0]
+						}
+					}
+				},
+				"wumingzhi2": {
+					"rotation": {
+						"0.0": {
+							"vector": [25, 0, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"wumingzhi3": {
+					"rotation": {
+						"0.0": {
+							"vector": [60, 0, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"xiaomuzhi1": {
+					"rotation": {
+						"0.0": {
+							"vector": [30, -10, 0]
+						},
+						"0.64": {
+							"vector": [0, -10, 0]
+						},
+						"0.84": {
+							"vector": [0, -10, 0]
+						},
+						"1.0": {
+							"vector": [-5, -10, 0]
+						},
+						"1.12": {
+							"vector": [0, -10, 0]
+						}
+					}
+				},
+				"xiaomuzhi2": {
+					"rotation": {
+						"0.0": {
+							"vector": [30, 0, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"xiaomuzhi3": {
+					"rotation": {
+						"0.0": {
+							"vector": [40, 0, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

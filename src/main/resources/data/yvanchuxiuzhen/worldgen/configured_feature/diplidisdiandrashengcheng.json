@@ -1,0 +1,11 @@
+{
+  "type": "yvanchuxiuzhen:diplidisdiandrashengcheng",
+  "config": {
+    "to_place": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "yvanchuxiuzhen:diplidisdiandra"
+      }
+    }
+  }
+}

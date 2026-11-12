@@ -263,5 +263,6 @@
 {"id":"cailiao_202melt","factory":"item","order":2028,"tab":"yvanchuxiuzhen:tabyvanchu_materials","tooltip":["注入灵力（鼠标右键）以固定成锭"],"pending_hooks":["use"]},
 {"id":"cailiao_204melt","factory":"item","order":2029,"tab":"yvanchuxiuzhen:tabyvanchu_materials","tooltip":["注入灵力（鼠标右键）以固定成锭"],"pending_hooks":["use"]},
 {"id":"cailiao_212melt","factory":"item","order":2030,"tab":"yvanchuxiuzhen:tabyvanchu_materials","tooltip":["注入灵力（鼠标右键）以固定成锭"],"pending_hooks":["use"]},
-{"id":"cailiao_214melt","factory":"item","order":2031,"tab":"yvanchuxiuzhen:tabyvanchu_materials","tooltip":["注入灵力（鼠标右键）以固定成锭"],"pending_hooks":["use"]}
+{"id":"cailiao_214melt","factory":"item","order":2031,"tab":"yvanchuxiuzhen:tabyvanchu_materials","tooltip":["注入灵力（鼠标右键）以固定成锭"],"pending_hooks":["use"]},
+{"id":"qiancailubook","factory":"item","order":2291,"tab":"minecraft:tools_and_utilities","stack":1}
 ]

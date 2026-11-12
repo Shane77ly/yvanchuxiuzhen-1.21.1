@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0 2",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "yvanchuxiuzhen:cailiao_203"
+    },
+    "2": {
+      "item": "yvanchuxiuzhen:cailiao_203"
+    },
+    "3": {
+      "item": "yvanchuxiuzhen:cailiao_213"
+    },
+    "4": {
+      "item": "yvanchuxiuzhen:cailiao_193"
+    },
+    "5": {
+      "item": "yvanchuxiuzhen:cailiao_213"
+    },
+    "6": {
+      "item": "yvanchuxiuzhen:cailiao_213"
+    },
+    "7": {
+      "item": "yvanchuxiuzhen:cailiao_213"
+    },
+    "8": {
+      "item": "yvanchuxiuzhen:cailiao_213"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:alchemy_03",
+    "count": 1
+  }
+}

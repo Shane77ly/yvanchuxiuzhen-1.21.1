@@ -1,0 +1,85 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.swordsmanship04",
+				"texture_width": 38,
+				"texture_height": 31,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "cijizong",
+					"parent": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "cijizong2",
+					"parent": "cijizong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "ciji",
+					"parent": "cijizong2",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-0.5, -5, 0], "size": [0, 10, 16], "pivot": [0, 0, 0], "rotation": [0, -22.5, 0], "uv": [0, -16]},
+						{"origin": [0.5, -5, 0], "size": [0, 10, 16], "pivot": [0, 0, 0], "rotation": [0, 22.5, 0], "uv": [0, -16]},
+						{"origin": [-0.5, -5, 0], "size": [0, 10, 16], "pivot": [0, 0, 0], "rotation": [0, -22.5, 90], "uv": [0, -16]},
+						{"origin": [0.5, -5, 0], "size": [0, 10, 16], "pivot": [0, 0, 0], "rotation": [0, 22.5, 90], "uv": [0, -16]}
+					]
+				},
+				{
+					"name": "weiliu",
+					"parent": "ciji",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [0, -2.5, 0], "size": [0, 5, 19], "pivot": [0, 0, 0], "rotation": [0, 0, 45], "uv": [0, -9]},
+						{"origin": [0, -2.5, 0], "size": [0, 5, 19], "pivot": [0, 0, 0], "rotation": [0, 0, -45], "uv": [0, -9]}
+					]
+				},
+				{
+					"name": "yvanyanzong",
+					"parent": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "yvanyanzong2",
+					"parent": "yvanyanzong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "yvanyan1",
+					"parent": "yvanyanzong2",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8, -8, 0], "size": [16, 16, 0], "uv": [0, 15]}
+					]
+				},
+				{
+					"name": "yvanyan2",
+					"parent": "yvanyanzong2",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8, -8, 0], "size": [16, 16, 0], "uv": [0, 15]}
+					]
+				},
+				{
+					"name": "yvanyan3",
+					"parent": "yvanyanzong2",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8, -8, 0], "size": [16, 16, 0], "uv": [0, 15]}
+					]
+				}
+			]
+		}
+	]
+}

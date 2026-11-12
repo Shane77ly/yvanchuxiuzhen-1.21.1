@@ -1,0 +1,80 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.gongjvchu.idle": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"xvanzhuan": {
+					"rotation": {
+						"vector": [-17.5, 0, 0]
+					}
+				},
+				"zong": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [-7.5, 0, 0],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutQuad"
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 3]
+						},
+						"1.0": {
+							"vector": [0, 2, 4],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [0, 0, 3],
+							"easing": "easeInOutQuad"
+						}
+					}
+				}
+			}
+		},
+		"animation.gongjvchu.attack": {
+			"animation_length": 0.24,
+			"bones": {
+				"zong": {
+					"rotation": {
+						"0.0": {
+							"vector": [47.5, 0, 0]
+						},
+						"0.08": {
+							"vector": [20, 0, 0]
+						},
+						"0.16": {
+							"vector": [75, 0, 0]
+						},
+						"0.24": {
+							"vector": [47.5, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, -8, -5]
+						},
+						"0.08": {
+							"vector": [0, -6, -6]
+						},
+						"0.16": {
+							"vector": [0, -4, -8]
+						},
+						"0.24": {
+							"vector": [0, -8, -5]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

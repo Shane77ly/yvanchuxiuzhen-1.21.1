@@ -1,0 +1,3 @@
+source_mod,class,owner,evidence
+yvanchuxitong,ColorfulLightningBoltEntity,combat,实际注册于主入口；LightningLandingGo为范围雷伤提供共享落雷表示，无独立玩法状态；与命令及范围伤害过程一同归combat。
+yvanchuxitong,ColorfulLightningBoltRenderer,combat,只渲染ColorfulLightningBoltEntity的同步颜色与原生闪电几何，不属于玩家面板。

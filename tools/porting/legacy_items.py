@@ -116,6 +116,13 @@ def parse_tool(source: str, base: str, tabs: dict[str, str], items: dict[str, st
         tool['attack_speed'] = float(tail.group(2))
     row['tool'] = tool
     _finish(source, row)
+    hooks = row.get('pending_hooks', [])
+    if 'onEntitySwing' in hooks:
+        # 工具类由平台在挥动时发出 ItemSwingEvent，不再算待实现的覆写。
+        tool['swing'] = True
+        hooks.remove('onEntitySwing')
+        if not hooks:
+            del row['pending_hooks']
     return row
 
 

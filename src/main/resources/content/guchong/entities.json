@@ -1,0 +1,4 @@
+[
+{"id":"guchong_03","category":"CREATURE","width":0.5,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"guchong_04","category":"CREATURE","width":0.5,"height":0.4,"tracking_range":64,"update_interval":3,"fire_immune":false}
+]

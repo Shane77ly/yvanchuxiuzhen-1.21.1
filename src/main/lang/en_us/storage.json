@@ -3,5 +3,19 @@
   "item.yvanchuxiuzhen.qiankundai_02": "Qiankundai 0 2",
   "item.yvanchuxiuzhen.qiankundai_03": "Qiankundai 0 3",
   "item.yvanchuxiuzhen.qiankundai_04": "Qiankundai 0 4",
-  "item.yvanchuxiuzhen.qiankundai_06": "Qiankundai 0 6"
+  "item.yvanchuxiuzhen.qiankundai_06": "Qiankundai 0 6",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.cailiaosoulatt": "精神攻击",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.cailiaoattdef": "物理防御",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.cailiaojingli": "精力上限",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.button_shou": "shou",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.zidongfangru": "自动放入",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.cailiaopower": "灵力上限",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.cailiaohealth": "血量上限",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.cailiaoattack": "物理攻击",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.cailiaomanadef": "法术防御",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.label_gou_xuan_hou_lian_qi_he_jian_ding_hui_you_xian_kou_chu_cai_liao_dai_nei_de_cai_liao": "勾选后，炼器和鉴定会优先扣除材料袋内的材料。",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.cailiaokouchu": "是否允许炼器、鉴定时，直接扣除材料袋内的材料？",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.cailiaomanaatt": "法术攻击",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.label_jian_ding_shi_hui_you_xian_kou_chu_di_deng_ji_qie_di_pin_jie_de_cai_liao_lian_qi_ding_ze_hui_zhi_jie_xuan_ze_gao_deng_ji_qie": "鉴定时会优先扣除低等级且低品阶的材料；炼器鼎则会直接选择高等级且高品阶的材料。",
+  "gui.yvanchuxiuzhen.cailiaodai_gui.cailiaosouldef": "精神防御"
 }

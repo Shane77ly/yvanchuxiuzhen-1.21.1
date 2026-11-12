@@ -4,11 +4,12 @@
 实体 UUID 查找、体质物品键读取、游戏模式判断、播放声音、符箓复活块等 MCreator 样板折叠成短写法。
 折叠后的短写法只在这里使用（如 `ench(ENCH.X, main(e))`、`e.PV.字段`），原文以来源文件为准。
 
-用法：`python -B -X utf8 tools/porting/read_procedure.py <过程名>...`，名称不含 `Procedure` 后缀也可；
+用法：`python -B -X utf8 tools/porting/read_procedure.py <过程名>...`，名称不含 `Procedure` 后缀也可；环境变量 `TERSE=1` 去掉局部变量声明、空判断、生成样板行以缩短输出；环境变量 `DIFF=1` 时只完整输出第一个过程，其余只输出与它的行差异（读同模板的一族过程）；
 前缀 `t:` 读原初系统的文件；环境变量 `DEPTH=1` 在每行前显示花括号深度，用来核对分支嵌套。
 """
 from __future__ import annotations
 
+import difflib
 import os
 import re
 import sys
@@ -37,6 +38,15 @@ NBTD2 = re.compile(r'\.getOrCreateTag\(\)\.getString\(')
 
 PLAY = re.compile(r'if \(world instanceof Level _level\) \{\s*if \(!_level\.isClientSide\(\)\) \{\s*_level\.playSound\(null, [^;]*?getValue\(new ResourceLocation\(("[^"]*")\)\), SoundSource\.(\w+), ([^,]+), ([^)]+)\);\s*\} else \{.*?\}\s*\}', re.S)
 FULU = 'getInventory().contains(new ItemStack(ITEM.ITEMFULU_16))'
+
+
+SETPV = re.compile(r'\{\s*(?:double|boolean|String|ItemStack) _setval = (.*?);\s*(\w+)\.getCapability\(\w+ModVariables\.PLAYER_VARIABLES_CAPABILITY, null\)\.ifPresent\(capability -> \{\s*capability\.(\w+) = _setval;\s*capability\.syncPlayerVariables\(\2\);\s*\}\);\s*\}', re.S)
+TURN = re.compile(r'\{\s*Entity _ent = (\w+);\s*_ent\.setYRot\((.*?)\);\s*_ent\.setXRot\((.*?)\);\s*_ent\.setYBodyRot\(_ent\.getYRot\(\)\);\s*_ent\.setYHeadRot\(_ent\.getYRot\(\)\);\s*_ent\.yRotO = _ent\.getYRot\(\);\s*_ent\.xRotO = _ent\.getXRot\(\);\s*if \(_ent instanceof LivingEntity _entity\) \{\s*_entity\.yBodyRotO = _entity\.getYRot\(\);\s*_entity\.yHeadRotO = _entity\.getYRot\(\);\s*\}\s*\}', re.S)
+AREA = re.compile(r'List<Entity> _entfound = world\.getEntitiesOfClass\(Entity\.class, new AABB\(_center, _center\)\.inflate\((.*?)\), e -> true\)\.stream\(\)\.sorted\(.*?\)\s*\.collect\(Collectors\.toList\(\)\);', re.S)
+CMD = re.compile(r'\{\s*Entity _ent = (\w+);\s*if \(!_ent\.level\.isClientSide\(\) && _ent\.getServer\(\) != null\)\s*_ent\.getServer\(\)\.getCommands\(\)\.performCommand\(_ent\.createCommandSourceStack\(\)\.withSuppressedOutput\(\)\.withPermission\(4\),\s*\((.*?)\)\);\s*\}', re.S)
+FRIENDS = re.compile(r'if \((\w+) instanceof Player\) \{\s*friendlistitem = \1\.PV\.friendlist\);\s*friendlist = \(friendlistitem\.getOrCreateTag\(\)\)\.getCompound\("friendlist"\);\s*team = \1\.PV\.team;\s*\} else \{\s*friendlist = \(\1\.getPersistentData\(\)\)\.getCompound\("friendlist"\);\s*team = \1\.getPersistentData\(\)\.getString\("team"\);\s*\}', re.S)
+DELAY = re.compile(r'new Object\(\) \{\s*private int ticks = 0;(?:(?!new Object\(\)).)*?private void run\(\) \{(.*?)MinecraftForge\.EVENT_BUS\.unregister\(this\);\s*\}\s*\}\.start\(world, ([^;\r\n]+?)\);', re.S)
+ARROW = re.compile(r'new Object\(\) \{\s*public Projectile getArrow\([^)]*\) \{\s*AbstractArrow entityToSpawn = new (\w+)\([^;]*;(?:.*?)return entityToSpawn;\s*\}\s*\}\.getArrow\(', re.S)
 
 
 def collapse_blocks(text: str) -> str:
@@ -78,6 +88,15 @@ def condense(text: str) -> str:
     text = re.sub(r'\(\((\w+) instanceof LivingEntity _entGetArmor \? _entGetArmor\.getItemBySlot\(EquipmentSlot\.(\w+)\) : ItemStack\.EMPTY\)\)', r'armor(\1,\2)', text)
     text = PLAY.sub(lambda m: f'playSound({m[1]},{m[2]})', text)
     text = collapse_blocks(text)
+    text = SETPV.sub(lambda m: f'SET({m[2]}.PV.{m[3]} = {re.sub(chr(10) + " *", " ", m[1])});', text)
+    text = TURN.sub(lambda m: f'TURN({m[1]}, yaw={m[2]}, pitch={m[3]});', text)
+    text = AREA.sub(lambda m: f'_entfound = AREA(_center, r={m[1]});', text)
+    text = CMD.sub(lambda m: f'CMD({m[1]}: {re.sub(chr(10) + " *", " ", m[2])});', text)
+    text = FRIENDS.sub(lambda m: f'FRIENDS-AND-TEAM({m[1]}) -> friendlist, team;', text)
+    text = DELAY.sub(lambda m: f'DELAY({m[2]}) {{{m[1]}}};', text)
+    text = ARROW.sub(lambda m: f'ARROW({m[1]})(', text)
+    text = text.replace('.getPersistentData()', '.PD').replace('(entity.PD)', 'entity.PD')
+    text = re.sub(r'new java\.text\.DecimalFormat\("0"\)\.format\(([^()]*(?:\([^()]*\))?[^()]*)\)', r'fmt0(\1)', text)
     text = GAMEMODE.sub(lambda m: f'gamemode({m[2]},{m[1]})', text)
     text = UUIDFN.sub(lambda m: f'byUUID({m[1]})', text)
     text = ENCHL.sub('ench(', text)
@@ -92,7 +111,15 @@ def condense(text: str) -> str:
     return text
 
 
+TERSE_DROP = re.compile(r'^\s*(?:(?:double|int|boolean|String|ItemStack|CompoundTag|Entity|List<\w+>)\s+\w+\s*=\s*[^;(]*(?:\(\))?;|if \(\w+ == null(?: \|\| \w+ == null)*\)|return;|if \(_\w+ instanceof Mob _mobForSpawning\)|_mobForSpawning\.finalizeSpawn\(.*|public static \w+ execute\(.*|public class \w+ \{|\s*)\s*$')
+
+
+def tersely(body: str) -> str:
+    return chr(10).join(line for line in body.splitlines() if not TERSE_DROP.match(line))
+
+
 def main() -> None:
+    first = None
     for name in sys.argv[1:]:
         root = ROOTS['yvanchuxiuzhen']
         if name.startswith('t:'):
@@ -102,6 +129,17 @@ def main() -> None:
             found = list(root.rglob(name + 'Procedure.java'))
         for path in found:
             body = condense(path.read_text(encoding='utf-8-sig'))
+            if os.environ.get('TERSE'):
+                body = tersely(body)
+            if os.environ.get('DIFF'):
+                if first is None:
+                    first = body.splitlines()
+                else:
+                    print(f'=== {path.name} 与首个过程的差异')
+                    for diff in difflib.unified_diff(first, body.splitlines(), lineterm='', n=0):
+                        if not diff.startswith(('---', '+++', '@@')) and 'public class' not in diff:
+                            print(diff)
+                    continue
             print(f'=== {path.name} ({len(body.splitlines())} 行)')
             depth = 0
             for number, line in enumerate(body.splitlines(), 1):

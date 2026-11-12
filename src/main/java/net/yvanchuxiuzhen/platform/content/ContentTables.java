@@ -51,6 +51,7 @@ import net.yvanchuxiuzhen.platform.ModId;
  */
 public final class ContentTables {
     private final String unit;
+    private final Map<String, Holder<ArmorMaterial>> materials = new HashMap<>();
     private final DeferredRegister.Blocks blocks = DeferredRegister.createBlocks(ModId.VALUE);
     private final DeferredRegister.Items items = DeferredRegister.createItems(ModId.VALUE);
     private final DeferredRegister<ArmorMaterial> armorMaterials = DeferredRegister.create(Registries.ARMOR_MATERIAL, ModId.VALUE);
@@ -60,6 +61,7 @@ public final class ContentTables {
     private final Map<String, Function<BlockTraits, Block>> blockFactories = new HashMap<>();
     private final Map<String, BiFunction<Item.Properties, List<Component>, Item>> itemFactories = new HashMap<>();
     private final Map<String, EffectBehavior> effectBehaviors = new HashMap<>();
+    private final Map<String, Function<EffectRow, MobEffect>> effectFactories = new HashMap<>();
     private final Map<String, EntityType.EntityFactory<?>> entityFactories = new HashMap<>();
     private final Map<String, Supplier<AttributeSupplier.Builder>> entityAttributes = new HashMap<>();
     private final Map<String, DeferredHolder<EntityType<?>, EntityType<?>>> entityTypes = new HashMap<>();
@@ -86,6 +88,12 @@ public final class ContentTables {
         return this;
     }
 
+    /** 登记需要原生状态效果钩子的效果类型；其余效果继续使用行为表。 */
+    public ContentTables effectFactory(String id, Function<EffectRow, MobEffect> factory) {
+        effectFactories.put(id, factory);
+        return this;
+    }
+
     /** 登记本单位一个实体的实体类（构造器）；须在 {@link #register} 之前调用。 */
     public <T extends Entity> ContentTables entity(String id, EntityType.EntityFactory<T> factory) {
         entityFactories.put(id, factory);
@@ -105,12 +113,16 @@ public final class ContentTables {
         return (Supplier<EntityType<T>>) (Supplier<?>) entityTypes.get(id);
     }
 
+    /** 本单位已登记的护甲材质，供专属护甲工厂复用来源内容表。工厂在物品注册阶段调用。 */
+    public Holder<ArmorMaterial> armorMaterial(String id) {
+        return materials.get(id);
+    }
+
     public void register(IEventBus modBus) {
         Map<String, DeferredBlock<Block>> registered = new HashMap<>();
         for (BlockRow row : ContentFiles.read("content/" + unit + "/blocks.json", BlockRow.CODEC)) {
             registered.put(row.id(), blocks.register(row.id(), () -> ContentBlocks.create(row, blockFactories)));
         }
-        Map<String, Holder<ArmorMaterial>> materials = new HashMap<>();
         for (ArmorMaterialRow row : ContentFiles.read("content/" + unit + "/armor_materials.json", ArmorMaterialRow.CODEC)) {
             materials.put(row.id(), armorMaterials.register(row.id(), () -> armorMaterial(row)));
         }
@@ -122,8 +134,8 @@ public final class ContentTables {
         }
         List<EffectRow> effectRows = ContentFiles.read("content/" + unit + "/effects.json", EffectRow.CODEC);
         for (EffectRow row : effectRows) {
-            effects.register(row.id(), () -> new ContentEffect(MobEffectCategory.valueOf(row.category()), row.color(),
-                    effectBehaviors.getOrDefault(row.id(), new EffectBehavior() { })));
+            effects.register(row.id(), () -> effectFactories.containsKey(row.id()) ? effectFactories.get(row.id()).apply(row)
+                    : new ContentEffect(MobEffectCategory.valueOf(row.category()), row.color(), effectBehaviors.getOrDefault(row.id(), new EffectBehavior() { })));
         }
         if (!effectRows.isEmpty()) {
             ContentEffects.install();
@@ -210,7 +222,7 @@ public final class ContentTables {
             int damage = tool.damage().get();
             float speed = tool.attackSpeed().orElseThrow();
             return switch (tool.kind()) {
-                case "sword" -> new ContentSword(tier, properties.attributes(SwordItem.createAttributes(tier, damage, speed)), tooltip);
+                case "sword" -> new ContentSword(tier, properties.attributes(SwordItem.createAttributes(tier, damage, speed)), tooltip, tool.swing().orElse(false));
                 case "axe" -> new ContentAxe(tier, properties.attributes(AxeItem.createAttributes(tier, damage, speed)), tooltip);
                 case "pickaxe" -> new ContentPickaxe(tier, properties.attributes(PickaxeItem.createAttributes(tier, damage, speed)), tooltip);
                 case "shovel" -> new ContentShovel(tier, properties.attributes(ShovelItem.createAttributes(tier, damage, speed)), tooltip);
@@ -220,7 +232,7 @@ public final class ContentTables {
         if (!tool.kind().equals("tiered")) {
             throw new IllegalStateException("工具 " + row.id() + " 缺少攻击参数");
         }
-        return new ContentTieredItem(tier, properties, tooltip);
+        return new ContentTieredItem(tier, properties, tooltip, tool.swing().orElse(false));
     }
 
     private static ArmorMaterial armorMaterial(ArmorMaterialRow row) {
@@ -232,7 +244,7 @@ public final class ContentTables {
         byType.put(ArmorItem.Type.HELMET, defense.get(3));
         return new ArmorMaterial(byType, row.enchantability(), BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.EMPTY),
                 () -> LegacyTier.ingredient(row.repair().orElse(List.of())),
-                List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, row.texture()))),
+                row.animated() ? List.of() : List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, row.texture()))),
                 row.toughness(), row.knockback());
     }
 

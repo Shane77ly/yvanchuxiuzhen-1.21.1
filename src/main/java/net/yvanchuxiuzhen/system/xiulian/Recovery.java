@@ -21,6 +21,8 @@ final class Recovery {
         if (!player.isAlive()) {
             return;
         }
+        Cultivation.set(player, CultivationValue.POWER_DISPLAY, Cultivation.get(player, CultivationValue.POWER));
+        Cultivation.set(player, CultivationValue.SOUL_DISPLAY, Cultivation.get(player, CultivationValue.SOUL));
         boolean fighting = LevelUp.score(player, "zdztbegin") == 1 || Cultivation.thunderOpen(player);
         double scale = fighting ? 0.25 : 1;
         if (!CultivationTick.hasEffect(player, "effect_007")) {

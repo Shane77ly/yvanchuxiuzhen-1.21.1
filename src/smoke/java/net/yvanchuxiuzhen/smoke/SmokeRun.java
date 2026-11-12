@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.smoke;
 
+import com.mojang.blaze3d.platform.NativeImage;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -17,7 +18,6 @@ import java.util.TreeMap;
 import java.util.function.Consumer;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
-import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.Screenshot;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -40,7 +40,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
@@ -60,10 +59,10 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.WorldOptions;
+import net.minecraft.world.level.levelgen.presets.WorldPresets;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
-import net.minecraft.world.level.levelgen.presets.WorldPresets;
 import net.neoforged.neoforge.client.gui.CreativeTabsScreenPage;
 import net.yvanchuxiuzhen.system.xiulian.XiulianRules;
 
@@ -165,7 +164,7 @@ final class SmokeRun {
         if (systemChecks == null) {
             minecraft.setScreen(null);
             String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
-            List<String> names = only.isEmpty() ? List.of("relation", "attribute", "xiulian", "gongfa", "combat") : List.of(only.split(","));
+            List<String> names = only.isEmpty() ? List.of("relation", "attribute", "xiulian", "gongfa", "combat", "skill") : List.of(only.split(","));
             systemChecks = new ArrayList<>();
             for (String name : names) {
                 systemChecks.addAll(switch (name) {
@@ -176,6 +175,28 @@ final class SmokeRun {
                             new XiulianOperationsCheck(report, levelId));
                     case "gongfa" -> List.of(new GongfaCheck(report, levelId), new ComprehensionCheck(report, levelId, this::shot));
                     case "combat" -> List.of(new CombatCheck(report, levelId, this::shot));
+                    case "skill" -> List.of(new SkillCheck(report, levelId), new SkillProjectileCheck(report, levelId), new SkillEntityCheck(report, levelId), new SwordArtCheck(report, levelId), new LingwenCheck(report, levelId), new FireBirdCheck(report, levelId), new CorpseCheck(report, levelId), new VoidRiftCheck(report, levelId), new DamageAreaCheck(report, levelId), new YuanyingCheck(report, levelId), new SkillArrowCheck(report, levelId), new SkillMovementCheck(report, levelId), new SkillUiCheck(report, levelId, this::shot), new SkillRemainderCheck(report, levelId));
+                    case "firebird" -> List.of(new FireBirdCheck(report, levelId));
+                    case "voidrift" -> List.of(new VoidRiftCheck(report, levelId));
+                    case "damagearea" -> List.of(new DamageAreaCheck(report, levelId));
+                    case "yuanying" -> List.of(new YuanyingCheck(report, levelId));
+                    case "skillarrow" -> List.of(new SkillArrowCheck(report, levelId));
+                    case "skillmovement" -> List.of(new SkillMovementCheck(report, levelId));
+                    case "skillui" -> List.of(new SkillUiCheck(report, levelId, this::shot));
+                    case "skillloadoutcontainer" -> List.of(new SkillLoadoutContainerCheck(report, levelId));
+                    case "skillremainder" -> List.of(new SkillRemainderCheck(report, levelId));
+                    case "particle" -> List.of(new ParticleLibraryCheck(report, levelId, this::shot));
+                    case "skillparticle" -> List.of(new SkillParticleCheck(report, levelId, this::shot));
+                    case "skillvisual" -> List.of(new SkillVisualCheck(report, levelId, this::shot));
+                    case "lightning" -> List.of(new LightningCheck(report, levelId, this::shot));
+                    case "tribulation" -> List.of(new TribulationCheck(report, levelId, this::shot));
+                    case "equipmentweapon" -> List.of(new EquipmentWeaponCheck(report, levelId));
+                    case "demon" -> List.of(new DemonTransformationCheck(report, levelId, this::shot));
+                    case "equipmentproduct" -> List.of(new EquipmentProductCheck(report, levelId, this::shot));
+                    case "accessories" -> List.of(new AccessoryCheck(report, levelId, this::shot));
+                    case "storage" -> List.of(new StorageCheck(report, levelId, this::shot));
+                    case "guchong" -> List.of(new GuchongCheck(report, levelId, this::shot));
+                    case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }

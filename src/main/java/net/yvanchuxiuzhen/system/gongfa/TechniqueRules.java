@@ -6,7 +6,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Predicate;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -22,9 +22,11 @@ import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStat;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStudiedEvent;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.gongfa.data.GongfaData;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.api.MainTechnique;
+import net.yvanchuxiuzhen.system.xiulian.api.RootRequirement;
 
 /**
  * 功法的研习、功法栏与成长规则。功法栏变化或栏内的书升级后，把主修功法信息提交给 xiulian，
@@ -37,23 +39,6 @@ public final class TechniqueRules {
     /** 五行值与 attribute 的功法五行项。 */
     private static final Map<String, Stat> ELEMENT_STATS = Map.of("gold", Stat.GONGFA_GOLD, "water", Stat.GONGFA_WATER,
             "tree", Stat.GONGFA_TREE, "fire", Stat.GONGFA_FIRE, "soil", Stat.GONGFA_SOIL);
-    /** 灵根要求中的字与对应条件、不满足时的提示，按来源的判定次序；任一满足即可研习，提示取最后一个不满足的。 */
-    private static final List<Requirement> REQUIREMENTS = List.of(
-            new Requirement("金", "§4需要金灵根！", player -> Cultivation.get(player, CultivationValue.ROOT_GOLD) >= 1),
-            new Requirement("水", "§4需要水灵根！", player -> Cultivation.get(player, CultivationValue.ROOT_WATER) >= 1),
-            new Requirement("木", "§4需要木灵根！", player -> Cultivation.get(player, CultivationValue.ROOT_TREE) >= 1),
-            new Requirement("火", "§4需要火灵根！", player -> Cultivation.get(player, CultivationValue.ROOT_FIRE) >= 1),
-            new Requirement("土", "§4需要土灵根！", player -> Cultivation.get(player, CultivationValue.ROOT_SOIL) >= 1),
-            new Requirement("阴", "§4需要体质为阴！", player -> Cultivation.get(player, CultivationValue.YINYANG) <= -1),
-            new Requirement("阳", "§4需要体质为阳！", player -> Cultivation.get(player, CultivationValue.YINYANG) >= 1),
-            new Requirement("功", "§4需要功德！", player -> Cultivation.get(player, CultivationValue.MERITS) >= 1),
-            new Requirement("业", "§4需要业力！", player -> Cultivation.get(player, CultivationValue.MERITS) <= -1),
-            new Requirement("罡", "§4需要罡气！", player -> Cultivation.get(player, CultivationValue.VIGOROUS) >= 1),
-            new Requirement("煞", "§4需要煞气！", player -> Cultivation.get(player, CultivationValue.VIGOROUS) <= -1));
-
-    private record Requirement(String mark, String hint, Predicate<ServerPlayer> met) {
-    }
-
     private TechniqueRules() {
     }
 
@@ -75,37 +60,18 @@ public final class TechniqueRules {
             player.displayClientMessage(Component.literal("§4需要至少达到" + book.definition().levelText() + "境界才可研习。"), false);
             return;
         }
-        String body = book.definition().body();
-        boolean allowed = body.isEmpty() || body.contains("无");
-        String hint = "";
-        if (!allowed && body.contains("五")) {
-            allowed = hasAllRoots(player);
-            hint = allowed ? "" : "§4需要五行灵根！";
-        } else if (!allowed) {
-            for (Requirement requirement : REQUIREMENTS) {
-                if (body.contains(requirement.mark())) {
-                    if (requirement.met().test(player)) {
-                        allowed = true;
-                    } else {
-                        hint = requirement.hint();
-                    }
-                }
-            }
-        }
-        if (!allowed) {
-            player.displayClientMessage(Component.literal(hint), false);
+        Optional<String> unmet = RootRequirement.unmet(player, book.definition().body());
+        if (unmet.isPresent()) {
+            player.displayClientMessage(Component.literal(unmet.get()), false);
             return;
         }
+        player.serverLevel().sendParticles(Particles.type("tiangandizhi"), player.getX(), player.getY() + 1, player.getZ(), 20, 0, 0, 0, 1);
+        player.serverLevel().sendParticles(Particles.type("tiangandizhi_2"), player.getX(), player.getY(), player.getZ(), 20, 2, 0, 2, 0);
+        player.serverLevel().sendParticles(ParticleTypes.FLASH, player.getX(), player.getY(), player.getZ(), 1, 0, 0, 0, 0);
         stack.set(GongfaData.TECHNIQUE.get(), grown(book.withOwner(player.getUUID(), player.getDisplayName().getString()).withProgress(1, book.exp())));
         player.displayClientMessage(Component.literal("§6研习成功！"), false);
         player.closeContainer();
         NeoForge.EVENT_BUS.post(new TechniqueStudiedEvent(player, book.definition().name()));
-    }
-
-    private static boolean hasAllRoots(ServerPlayer player) {
-        return Cultivation.get(player, CultivationValue.ROOT_GOLD) >= 1 && Cultivation.get(player, CultivationValue.ROOT_WATER) >= 1
-                && Cultivation.get(player, CultivationValue.ROOT_TREE) >= 1 && Cultivation.get(player, CultivationValue.ROOT_FIRE) >= 1
-                && Cultivation.get(player, CultivationValue.ROOT_SOIL) >= 1;
     }
 
     /** 按当前层数与档位重算十三项加成（来源 {@code GongfaHealthUp} 等）。 */
@@ -169,9 +135,10 @@ public final class TechniqueRules {
             levelled = true;
         }
         TechniqueBook updated = book.withProgress(level, exp);
-        ItemStack stack = Techniques.slot(player).copy();
+        ItemStack stack = Techniques.slot(player);
         stack.set(GongfaData.TECHNIQUE.get(), levelled ? grown(updated) : updated);
-        setSlot(player, stack);
+        player.setData(GongfaData.SLOT, stack);
+        submit(player);
     }
 
     /** 闭关修炼每天吸纳元气后，主修功法得经验 = 吸纳的元气 × 1.5（来源 {@code Kaishixiulian}，不检查研习者）。 */

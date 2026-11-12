@@ -16,5 +16,6 @@
 {"id":"fuqi_04","factory":"block_item","block":"fuqi_04","order":1599,"tab":"minecraft:building_blocks"},
 {"id":"fuqi_0401","factory":"block_item","block":"fuqi_0401","order":1600,"tab":"minecraft:building_blocks"},
 {"id":"fuqi_05","factory":"item","order":1601,"tab":"minecraft:tools_and_utilities","tooltip":["右键打开可获得一套财神服装","装备一套财神服装会有金币掉落特效粒子","有时候还会捡到钱币！"],"pending_hooks":["use"]},
+{"id":"caishenye_spawn_egg","factory":"festival:caishenye_spawn_egg","order":1602,"tab":"minecraft:tools_and_utilities"},
 {"id":"fuqi_06","factory":"item","order":1603,"tab":"minecraft:tools_and_utilities","pending_hooks":["use"]}
 ]

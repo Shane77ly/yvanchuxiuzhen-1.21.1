@@ -10,11 +10,16 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
+import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.xiulian.XiulianSetup;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianBlockEntities;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianFluids;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianMenus;
+import net.yvanchuxiuzhen.system.xiulian.tribulation.TribulationEntity;
+import net.yvanchuxiuzhen.system.xiulian.tribulation.Tribulations;
 
-/** 修炼系统的客户端装配：出身、升级与丹田界面，吸血石的血池渲染，血流的贴图与半透明渲染层。 */
+/** 修炼系统的客户端装配：出身、升级与丹田界面，血池与血流渲染，以及劫云和天雷实体的模型、动画与发光层。 */
 public final class XiulianClientSetup {
     private static final ResourceLocation BLOOD_STILL = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "block/xveliustill");
     private static final ResourceLocation BLOOD_FLOWING = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "block/xveliu");
@@ -37,6 +42,9 @@ public final class XiulianClientSetup {
 
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(XiulianBlockEntities.BLOOD_STONE.get(), BloodStoneRenderer::new);
+        for (EntityModelRow row : Tribulations.models().values()) {
+            event.registerEntityRenderer(XiulianSetup.<TribulationEntity>entityType(row.id()).get(), context -> new AnimatedEntityRenderer<>(context, row));
+        }
     }
 
     private static void registerExtensions(RegisterClientExtensionsEvent event) {

@@ -1,0 +1,112 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.yaoshou040skill02.idle": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"xvanzhuan": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 360, 0]
+						}
+					}
+				},
+				"guangyan1": {
+					"position": {
+						"0.0": {
+							"vector": [0, -17, 0]
+						},
+						"0.24": {
+							"vector": [0, 0, 0]
+						},
+						"0.6": {
+							"vector": [0, 20, 0]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.24": {
+							"vector": [1, 1, 1],
+							"easing": "easeOutQuart"
+						},
+						"0.6": {
+							"vector": [0, 1, 0],
+							"easing": "easeInQuart"
+						}
+					}
+				},
+				"guangyan2": {
+					"position": {
+						"0.32": {
+							"vector": [0, -17, 0]
+						},
+						"0.56": {
+							"vector": [0, 0, 0]
+						},
+						"0.92": {
+							"vector": [0, 20, 0]
+						}
+					},
+					"scale": {
+						"0.32": {
+							"vector": [0, 0, 0]
+						},
+						"0.56": {
+							"vector": [1, 1, 1],
+							"easing": "easeOutQuart"
+						},
+						"0.92": {
+							"vector": [0, 1, 0],
+							"easing": "easeInQuart"
+						}
+					}
+				},
+				"guangyan3": {
+					"position": {
+						"0.0": {
+							"vector": [0, 6.67, 0]
+						},
+						"0.24": {
+							"vector": [0, 20, 0]
+						},
+						"0.64": {
+							"vector": [0, -17, 0]
+						},
+						"0.88": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 6.67, 0]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0.9877, 1, 0.9877]
+						},
+						"0.24": {
+							"vector": [0, 1, 0],
+							"easing": "easeInQuart"
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						},
+						"0.88": {
+							"vector": [1, 1, 1],
+							"easing": "easeOutQuart"
+						},
+						"1.0": {
+							"vector": [0.9877, 1, 0.9877]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

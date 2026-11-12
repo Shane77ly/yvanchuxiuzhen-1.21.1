@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:random_boolean_selector",
+  "config": {
+    "feature_false": {
+      "feature": "yvanchuxiuzhen:legacy_clay_pool_with_dripleaves",
+      "placement": []
+    },
+    "feature_true": {
+      "feature": "yvanchuxiuzhen:legacy_clay_with_dripleaves",
+      "placement": []
+    }
+  }
+}

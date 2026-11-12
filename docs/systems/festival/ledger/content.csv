@@ -7,7 +7,7 @@ block,yvanchuxiuzhen:pao_12,yvanchuxiuzhen,Pao12,src/main/java/net/mcreator/yvan
 block_entity_type,yvanchuxiuzhen:pao_10,yvanchuxiuzhen,Pao10,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,147,festival,已读,yvanchuxiuzhen:pao_10,待处理,
 block_entity_type,yvanchuxiuzhen:pao_11,yvanchuxiuzhen,Pao11,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,148,festival,已读,yvanchuxiuzhen:pao_11,待处理,
 block_entity_type,yvanchuxiuzhen:pao_12,yvanchuxiuzhen,Pao12,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,149,festival,已读,yvanchuxiuzhen:pao_12,待处理,
-entity_type,yvanchuxiuzhen:caishenye,yvanchuxiuzhen,Caishenye,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,683,festival,已读,yvanchuxiuzhen:caishenye,待处理,
+entity_type,yvanchuxiuzhen:caishenye,yvanchuxiuzhen,Caishenye,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,683,festival,已读,yvanchuxiuzhen:caishenye,行为已迁移,实体注册、来源行为及资源已实现；待构建和运行验收
 entity_type,yvanchuxiuzhen:fuqi_0301,yvanchuxiuzhen,Fuqi0301,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,679,festival,候选,yvanchuxiuzhen:fuqi_0301,待处理,
 entity_type,yvanchuxiuzhen:pao_0401,yvanchuxiuzhen,Pao0401,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,659,festival,候选,yvanchuxiuzhen:pao_0401,待处理,
 entity_type,yvanchuxiuzhen:pao_0501,yvanchuxiuzhen,Pao0501,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,663,festival,候选,yvanchuxiuzhen:pao_0501,待处理,
@@ -16,7 +16,7 @@ entity_type,yvanchuxiuzhen:pao_0901,yvanchuxiuzhen,Pao0901,src/main/java/net/mcr
 entity_type,yvanchuxiuzhen:projectile_pao_01,yvanchuxiuzhen,Pao01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,657,festival,已读,yvanchuxiuzhen:projectile_pao_01,待处理,
 entity_type,yvanchuxiuzhen:projectile_pao_08,yvanchuxiuzhen,Pao08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,671,festival,已读,yvanchuxiuzhen:projectile_pao_08,待处理,
 entity_type,yvanchuxiuzhen:projectile_pao_13,yvanchuxiuzhen,Pao13,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,677,festival,已读,yvanchuxiuzhen:projectile_pao_13,待处理,
-item,yvanchuxiuzhen:caishenye_spawn_egg,yvanchuxiuzhen,Caishenye,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2592,festival,已读,yvanchuxiuzhen:caishenye_spawn_egg,待处理,
+item,yvanchuxiuzhen:caishenye_spawn_egg,yvanchuxiuzhen,Caishenye,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2592,festival,已读,yvanchuxiuzhen:caishenye_spawn_egg,行为已迁移,专用刷怪蛋工厂及来源颜色已实现；待构建和运行验收
 item,yvanchuxiuzhen:fuqi_01,yvanchuxiuzhen,Fuqi01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2587,festival,已读,yvanchuxiuzhen:fuqi_01,已注册,
 item,yvanchuxiuzhen:fuqi_02_boots,yvanchuxiuzhen,Fuqi02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModGeckoLibArmors.java,139,festival,已读,yvanchuxiuzhen:fuqi_02_boots,待处理,
 item,yvanchuxiuzhen:fuqi_02_chestplate,yvanchuxiuzhen,Fuqi02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModGeckoLibArmors.java,137,festival,已读,yvanchuxiuzhen:fuqi_02_chestplate,待处理,

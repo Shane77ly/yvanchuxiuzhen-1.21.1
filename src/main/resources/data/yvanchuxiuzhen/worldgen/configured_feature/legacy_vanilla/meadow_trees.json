@@ -1,0 +1,12 @@
+{
+  "config": {
+    "features": [
+      {
+        "feature": "yvanchuxiuzhen:legacy_vanilla/fancy_oak_bees",
+        "chance": 0.5
+      }
+    ],
+    "default": "yvanchuxiuzhen:legacy_vanilla/super_birch_bees"
+  },
+  "type": "minecraft:random_selector"
+}

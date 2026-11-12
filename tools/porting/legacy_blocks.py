@@ -177,10 +177,15 @@ def parse_block(source: str, items: dict[str, str], blocks: dict[str, str]) -> d
             'FACING, context.getClickedFace()': 'clicked_face',
             'FACING, context.getNearestLookingDirection().getOpposite()': 'look',
         }
+        maple_resin_placement = ('context.getClickedFace().getAxis() == Direction.Axis.Y' in placement
+                                 and 'FACING, Direction.NORTH' in placement
+                                 and 'FACING, context.getClickedFace()' in placement)
         sets = re.findall(r'\.setValue\(([^;]*?)\)(?=\.setValue|;)', placement)
+        if maple_resin_placement:
+            sets = [value for value in sets if value != 'FACING, Direction.NORTH']
         kinds = [simple[s] for s in sets if s in simple]
         rest = [s for s in sets if s not in simple and not s.startswith('WATERLOGGED')]
-        if rest or 'if (' in placement or len(kinds) > 1:
+        if rest or ('if (' in placement and not maple_resin_placement) or len(kinds) > 1:
             raise ValueError('放置规则未识别：' + placement.strip()[:160])
         if kinds:
             row['placement'] = kinds[0]

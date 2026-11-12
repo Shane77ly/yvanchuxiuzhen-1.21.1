@@ -1,0 +1,74 @@
+package net.yvanchuxiuzhen.system.equipment.client;
+
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
+import net.yvanchuxiuzhen.system.equipment.content.AnimatedFabaoItem;
+import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
+import net.yvanchuxiuzhen.system.equipment.content.EquipmentGeoArmorItem;
+import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
+import net.yvanchuxiuzhen.system.equipment.content.EquipmentBlockEntities;
+import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
+import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
+import net.yvanchuxiuzhen.system.equipment.projectile.FabaoProjectile;
+import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
+import net.yvanchuxiuzhen.platform.content.ContentFiles;
+import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+
+/** 装备菜单、动画物品、护甲、装置与弹体的客户端装配。 */
+public final class EquipmentClientSetup {
+    private EquipmentClientSetup() {
+    }
+
+    public static void register(IEventBus modBus) {
+        NeoForge.EVENT_BUS.addListener(EquipmentTooltip::tooltip);
+        modBus.addListener((RegisterMenuScreensEvent event) -> {
+            event.register(EquipmentMenus.ACCESSORIES.get(), AccessoryScreen::new);
+            event.register(EquipmentMenus.JEWELRY_TABLE.get(), JewelryTableScreen::new);
+        });
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
+                event.registerBlockEntityRenderer(EquipmentBlockEntities.JEWELRY_TABLE.get(), JewelryTableRenderer::new));
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
+                event.registerEntityRenderer(EquipmentSetup.fuchenType().get(), ThrownItemRenderer::new));
+        modBus.addListener(EquipmentClientSetup::registerToolRenderers);
+        modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> {
+            for (String model : FabaoProjectileModels.MODELS.values()) {
+                event.registerLayerDefinition(FabaoProjectileRenderer.layer(model), () -> FabaoProjectileModels.layer(model));
+            }
+        });
+        modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
+            for (var item : BuiltInRegistries.ITEM) {
+                if (item instanceof DemonArmorItem armor) armor.setRenderProvider(new DemonArmorRenderer.Provider());
+                if (item instanceof EquipmentGeoArmorItem armor) armor.setRenderProvider(new EquipmentGeoArmorRenderer.Provider());
+                if (item instanceof AnimatedFabaoItem fabao) fabao.setRenderProvider(new AnimatedFabaoRenderer.Provider());
+            }
+        }));
+    }
+
+    private static void registerToolRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        for (ToolMachineEntity.Kind kind : ToolMachineEntity.Kind.values()) {
+            EntityModelRow row = EquipmentModels.model(kind.id());
+            event.registerEntityRenderer(EquipmentSetup.toolMachineType(kind).get(), context -> new AnimatedEntityRenderer<>(context, row));
+        }
+        for (EntityModelRow row : ContentFiles.read("content/equipment/entity_models.json", EntityModelRow.CODEC)) {
+            if (row.id().startsWith("flyinginstrument_")) {
+                event.registerEntityRenderer(EquipmentSetup.<FlyingInstrumentEntity>flyingInstrumentType(row.id()).get(),
+                        context -> new AnimatedEntityRenderer<>(context, row));
+            }
+        }
+        event.registerEntityRenderer(EquipmentSetup.kailingProjectileType().get(), ThrownItemRenderer::new);
+        for (FabaoProjectile.Kind kind : FabaoProjectile.Kind.values()) {
+            String model = FabaoProjectileModels.MODELS.get(kind);
+            if (model == null) {
+                event.registerEntityRenderer(EquipmentSetup.fabaoProjectileType(kind).get(), ThrownItemRenderer::new);
+            } else {
+                event.registerEntityRenderer(EquipmentSetup.fabaoProjectileType(kind).get(), context -> new FabaoProjectileRenderer(context, model));
+            }
+        }
+    }
+}

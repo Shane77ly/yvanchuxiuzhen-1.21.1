@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "345",
+    "678"
+  ],
+  "key": {
+    "1": {
+      "tag": "minecraft:fences"
+    },
+    "3": {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    "4": {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    "5": {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    "6": {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    "7": {
+      "tag": "yvanchuxiuzhen:stone"
+    },
+    "8": {
+      "tag": "yvanchuxiuzhen:stone"
+    }
+  },
+  "result": {
+    "id": "yvanchuxiuzhen:stonemill",
+    "count": 1
+  }
+}

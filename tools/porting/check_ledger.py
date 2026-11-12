@@ -22,13 +22,14 @@ DATA_MANIFEST = ROOT / 'docs/reference/conversion/data_manifest.csv'
 DATA_SKIPPED = ROOT / 'docs/reference/conversion/data_skipped.csv'
 STRUCTURE_MANIFEST = ROOT / 'docs/reference/conversion/structure_manifest.csv'
 ASSET_TARGET = {'block': 'src/main/resources/assets/yvanchuxiuzhen/blockstates/{}.json',
-                'item': 'src/main/resources/assets/yvanchuxiuzhen/models/item/{}.json'}
-EXPORTED_REGISTRIES = ('block', 'item', 'sound_event', 'mob_effect', 'entity_type', 'menu', 'enchantment')
+                'item': 'src/main/resources/assets/yvanchuxiuzhen/models/item/{}.json',
+                'particle_type': 'src/main/resources/assets/yvanchuxiuzhen/particles/{}.json'}
+EXPORTED_REGISTRIES = ('block', 'item', 'sound_event', 'mob_effect', 'particle_type', 'entity_type', 'menu', 'enchantment', 'biome')
 SOURCE_COLUMNS = [column for column in COLUMNS if column not in MANUAL]
 
 
 def check_manifest(status_by_target: dict) -> list[str]:
-    """状态高于“待处理”的方块与物品行，其资源必须由转换工具产出并登记。"""
+    """状态高于“待处理”的方块、物品与粒子行，其资源必须由转换工具产出并登记。"""
     manifest = {row['target'] for row in read_csv(MANIFEST)} if MANIFEST.is_file() else set()
     issues = []
     for (registry, target), status in sorted(status_by_target.items()):

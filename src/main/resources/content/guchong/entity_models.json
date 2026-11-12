@@ -1,0 +1,4 @@
+[
+  {"id":"guchong_03","geo":"guchong03","animation":"guchong03","rendering":{"shadow":0.4,"scale":1.0,"death_rotation":0.0},"texture":"guchong03","idle":"animation.guchong03.idle","air":"animation.guchong03.fly","speed":0.3,"health":10.0,"armor":0.0,"attack":3.0,"follow":16.0,"no_ai":false,"lifecycle":{"navigation":"ground","no_gravity":false,"breathes_underwater":false,"pushed_by_fluid":true,"death_ticks":20,"ignores_fall_damage":true,"damage_immunities":["fall"],"animation_transition_ticks":2}}
+  ,{"id":"guchong_04","geo":"guchong04","animation":"guchong04","rendering":{"shadow":0.4,"scale":1.0,"death_rotation":0.0},"texture":"guchong04","idle":"animation.guchong04.idle","speed":0.3,"health":10.0,"armor":0.0,"attack":3.0,"follow":16.0,"no_ai":false,"lifecycle":{"navigation":"ground","no_gravity":false,"breathes_underwater":false,"pushed_by_fluid":true,"death_ticks":20,"ignores_fall_damage":false,"damage_immunities":[],"animation_transition_ticks":2}}
+]

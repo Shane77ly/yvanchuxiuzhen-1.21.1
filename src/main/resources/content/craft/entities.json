@@ -1,0 +1,6 @@
+[
+{"id":"silkwormentity","category":"MONSTER","width":0.5,"height":0.4,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"silkwormentitygold","category":"MONSTER","width":0.5,"height":0.4,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"silkwormmoth","category":"MONSTER","width":0.9,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"silkwormmothgold","category":"MONSTER","width":0.9,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":false}
+]

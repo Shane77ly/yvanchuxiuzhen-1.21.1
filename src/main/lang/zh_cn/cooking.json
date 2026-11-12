@@ -36,6 +36,11 @@
   "block.yvanchuxiuzhen.food_074": "酸辣粉",
   "block.yvanchuxiuzhen.food_075": "小馄饨",
   "block.yvanchuxiuzhen.food_076": "米饭",
+  "block.yvanchuxiuzhen.caidaoblock": "菜刀",
+  "block.yvanchuxiuzhen.fooddaguo": "铁锅",
+  "block.yvanchuxiuzhen.fooddunguo": "砂锅",
+  "block.yvanchuxiuzhen.foodzhengguo": "蒸锅",
+  "block.yvanchuxiuzhen.foodlongti": "笼屉",
   "block.yvanchuxiuzhen.jiuniang_00101": "状元红",
   "block.yvanchuxiuzhen.jiuniang_00201": "女儿红",
   "block.yvanchuxiuzhen.jiuniang_00301": "杜康酒",
@@ -68,9 +73,6 @@
   "tooltip.yvanchuxiuzhen.item.shicai_002.1": "§6食物",
   "item.yvanchuxiuzhen.shicai_003": "白面",
   "tooltip.yvanchuxiuzhen.item.shicai_003.1": "§6食物",
-  "item.yvanchuxiuzhen.shicai_004": "黄米",
-  "tooltip.yvanchuxiuzhen.item.shicai_004.1": "§6食物",
-  "item.yvanchuxiuzhen.shicai_005": "高粱",
   "item.yvanchuxiuzhen.shicai_006": "玉米",
   "item.yvanchuxiuzhen.shicai_007": "尖椒",
   "item.yvanchuxiuzhen.shicai_008": "莲藕",
@@ -90,7 +92,6 @@
   "item.yvanchuxiuzhen.shicai_017": "茼蒿",
   "item.yvanchuxiuzhen.shicai_018": "苋菜",
   "item.yvanchuxiuzhen.shicai_019": "茴香",
-  "item.yvanchuxiuzhen.shicai_01901": "孜然",
   "item.yvanchuxiuzhen.shicai_020": "花椰菜",
   "item.yvanchuxiuzhen.shicai_021": "菠菜",
   "item.yvanchuxiuzhen.shicai_022": "洋葱",
@@ -227,5 +228,7 @@
   "effect.yvanchuxiuzhen.effect_029": "食用菜肴",
   "effect.yvanchuxiuzhen.effect_029.description": "如果在拥有“食用主食”、“食用菜肴”、“食用汤水”时，食用糕点，则会获得增益效果“幸运”。 ",
   "effect.yvanchuxiuzhen.effect_030": "食用汤水",
-  "effect.yvanchuxiuzhen.effect_030.description": "如果在拥有“食用主食”、“食用菜肴”、“食用汤水”时，食用糕点，则会获得增益效果“幸运”。 "
+  "effect.yvanchuxiuzhen.effect_030.description": "如果在拥有“食用主食”、“食用菜肴”、“食用汤水”时，食用糕点，则会获得增益效果“幸运”。 ",
+  "effect.yvanchuxiuzhen.effect_031": "辟谷",
+  "effect.yvanchuxiuzhen.effect_031.description": "在此状态下不会感到饥饿。 "
 }

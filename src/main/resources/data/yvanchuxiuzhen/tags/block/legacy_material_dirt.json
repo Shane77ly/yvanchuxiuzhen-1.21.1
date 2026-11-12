@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:coarse_dirt",
+    "minecraft:dirt",
+    "minecraft:dirt_path",
+    "minecraft:farmland",
+    "minecraft:podzol",
+    "minecraft:rooted_dirt",
+    "minecraft:soul_soil",
+    "yvanchuxiuzhen:brokenbonepile",
+    "yvanchuxiuzhen:grassblock",
+    "yvanchuxiuzhen:loess",
+    "yvanchuxiuzhen:rottingsoil",
+    "yvanchuxiuzhen:scorchedsoil",
+    "yvanchuxiuzhen:shicai_008plant_01",
+    "yvanchuxiuzhen:swampsilt",
+    "yvanchuxiuzhen:youbosoil"
+  ]
+}

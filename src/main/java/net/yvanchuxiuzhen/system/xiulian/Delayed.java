@@ -8,7 +8,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
  * 服务端 tick 结束时倒数执行的延后动作，对应来源用 {@code ServerTickEvent} 计数等待若干 tick 的写法
  * （升级界面 20 tick、阳寿已尽后 40 tick）。服务端停止时未执行的动作随之丢弃，与来源一致。
  */
-final class Delayed {
+public final class Delayed {
     private static final List<Pending> PENDING = new ArrayList<>();
 
     private static final class Pending {
@@ -24,7 +24,7 @@ final class Delayed {
     private Delayed() {
     }
 
-    static void run(int ticks, Runnable action) {
+    public static void run(int ticks, Runnable action) {
         PENDING.add(new Pending(ticks, action));
     }
 

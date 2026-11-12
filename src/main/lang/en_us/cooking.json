@@ -36,6 +36,11 @@
   "block.yvanchuxiuzhen.food_074": "Food 0 7 4",
   "block.yvanchuxiuzhen.food_075": "Food 0 7 5",
   "block.yvanchuxiuzhen.food_076": "Food 0 7 6",
+  "block.yvanchuxiuzhen.caidaoblock": "Caidaoblock",
+  "block.yvanchuxiuzhen.fooddaguo": "Fooddaguo",
+  "block.yvanchuxiuzhen.fooddunguo": "Fooddunguo",
+  "block.yvanchuxiuzhen.foodzhengguo": "Foodzhengguo",
+  "block.yvanchuxiuzhen.foodlongti": "Foodlongti",
   "block.yvanchuxiuzhen.jiuniang_00101": "Jiuniang 0 0 1 0 1",
   "block.yvanchuxiuzhen.jiuniang_00201": "Jiuniang 0 0 2 0 1",
   "block.yvanchuxiuzhen.jiuniang_00301": "Jiuniang 0 0 3 0 1",
@@ -68,9 +73,6 @@
   "tooltip.yvanchuxiuzhen.item.shicai_002.1": "§6食物",
   "item.yvanchuxiuzhen.shicai_003": "Shicai 0 0 3",
   "tooltip.yvanchuxiuzhen.item.shicai_003.1": "§6食物",
-  "item.yvanchuxiuzhen.shicai_004": "Shicai 0 0 4",
-  "tooltip.yvanchuxiuzhen.item.shicai_004.1": "§6食物",
-  "item.yvanchuxiuzhen.shicai_005": "Shicai 0 0 5",
   "item.yvanchuxiuzhen.shicai_006": "Shicai 0 0 6",
   "item.yvanchuxiuzhen.shicai_007": "Shicai 0 0 7",
   "item.yvanchuxiuzhen.shicai_008": "Shicai 0 0 8",
@@ -90,7 +92,6 @@
   "item.yvanchuxiuzhen.shicai_017": "Shicai 0 1 7",
   "item.yvanchuxiuzhen.shicai_018": "Shicai 0 1 8",
   "item.yvanchuxiuzhen.shicai_019": "Shicai 0 1 9",
-  "item.yvanchuxiuzhen.shicai_01901": "Shicai 0 1 9 0 1",
   "item.yvanchuxiuzhen.shicai_020": "Shicai 0 2 0",
   "item.yvanchuxiuzhen.shicai_021": "Shicai 0 2 1",
   "item.yvanchuxiuzhen.shicai_022": "Shicai 0 2 2",
@@ -227,5 +228,7 @@
   "effect.yvanchuxiuzhen.effect_029": "食用菜肴",
   "effect.yvanchuxiuzhen.effect_029.description": "",
   "effect.yvanchuxiuzhen.effect_030": "食用汤水",
-  "effect.yvanchuxiuzhen.effect_030.description": ""
+  "effect.yvanchuxiuzhen.effect_030.description": "",
+  "effect.yvanchuxiuzhen.effect_031": "辟谷",
+  "effect.yvanchuxiuzhen.effect_031.description": ""
 }

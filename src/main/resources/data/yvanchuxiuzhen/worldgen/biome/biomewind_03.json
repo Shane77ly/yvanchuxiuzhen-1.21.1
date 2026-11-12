@@ -1,0 +1,272 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.4,
+  "downfall": 0.35,
+  "effects": {
+    "fog_color": -3738881,
+    "water_color": -10049079,
+    "water_fog_color": 329011,
+    "sky_color": -3738881,
+    "foliage_color": -12147673,
+    "grass_color": -9118337,
+    "particle": {
+      "options": {
+        "type": "yvanchuxiuzhen:wind_03"
+      },
+      "probability": 0.0005
+    }
+  },
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "features": [
+    [],
+    [
+      "yvanchuxiuzhen:legacy_vanilla/lake_lava_underground",
+      "yvanchuxiuzhen:legacy_vanilla/lake_lava_surface"
+    ],
+    [],
+    [
+      "yvanchuxiuzhen:suijijiegou_05",
+      "yvanchuxiuzhen:suijijiegou_06"
+    ],
+    [
+      "yvanchuxiuzhen:privet_05",
+      "yvanchuxiuzhen:treejiegou_07",
+      "yvanchuxiuzhen:suijijiegou_01",
+      "yvanchuxiuzhen:suijijiegou_02",
+      "yvanchuxiuzhen:suijijiegou_03",
+      "yvanchuxiuzhen:suijijiegou_04"
+    ],
+    [],
+    [
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_coal_lower",
+      "minecraft:ore_iron_upper",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_iron_small",
+      "minecraft:ore_gold",
+      "minecraft:ore_gold_lower",
+      "minecraft:ore_redstone",
+      "minecraft:ore_redstone_lower",
+      "minecraft:ore_diamond",
+      "minecraft:ore_diamond_large",
+      "minecraft:ore_diamond_buried",
+      "minecraft:ore_lapis",
+      "minecraft:ore_lapis_buried",
+      "minecraft:ore_copper",
+      "minecraft:underwater_magma",
+      "yvanchuxiuzhen:cailiao_191ore",
+      "yvanchuxiuzhen:cailiao_192ore",
+      "yvanchuxiuzhen:cailiao_193ore",
+      "yvanchuxiuzhen:cailiao_194ore",
+      "yvanchuxiuzhen:cailiao_195ore",
+      "yvanchuxiuzhen:cailiao_196ore",
+      "yvanchuxiuzhen:cailiao_197ore",
+      "yvanchuxiuzhen:cailiao_198ore",
+      "yvanchuxiuzhen:cailiao_199ore",
+      "yvanchuxiuzhen:bluestone",
+      "yvanchuxiuzhen:cailiao_20101",
+      "yvanchuxiuzhen:cailiao_20301",
+      "yvanchuxiuzhen:cailiao_20501",
+      "yvanchuxiuzhen:cailiao_20701",
+      "yvanchuxiuzhen:cailiao_20801",
+      "yvanchuxiuzhen:cailiao_20901",
+      "yvanchuxiuzhen:cailiao_21101",
+      "yvanchuxiuzhen:cailiao_21301",
+      "yvanchuxiuzhen:cailiao_21501",
+      "yvanchuxiuzhen:cailiao_21601",
+      "yvanchuxiuzhen:cailiao_21701",
+      "yvanchuxiuzhen:cailiao_21901",
+      "yvanchuxiuzhen:cailiao_16101",
+      "yvanchuxiuzhen:fuluzhushablock",
+      "yvanchuxiuzhen:cailiao_16201",
+      "yvanchuxiuzhen:cailiao_16301",
+      "yvanchuxiuzhen:cailiao_16401",
+      "yvanchuxiuzhen:cailiao_16501",
+      "yvanchuxiuzhen:cailiao_16601",
+      "yvanchuxiuzhen:cailiao_16701",
+      "yvanchuxiuzhen:cailiao_16801",
+      "yvanchuxiuzhen:cailiao_16901"
+    ],
+    [],
+    [
+      "yvanchuxiuzhen:ricciafluitansshengcheng",
+      "yvanchuxiuzhen:diplidisdiandrashengcheng",
+      "yvanchuxiuzhen:rushesshengcheng"
+    ],
+    [
+      "yvanchuxiuzhen:tree_biomewind_03",
+      "yvanchuxiuzhen:grass_biomewind_03",
+      "yvanchuxiuzhen:seagrass_biomewind_03",
+      "yvanchuxiuzhen:flower_biomewind_03",
+      "yvanchuxiuzhen:greenbristlegrass",
+      "yvanchuxiuzhen:columbinemimosa",
+      "yvanchuxiuzhen:shicai_014_plant_04",
+      "yvanchuxiuzhen:shicai_017_plant_04",
+      "yvanchuxiuzhen:shicai_022_plant_04",
+      "yvanchuxiuzhen:shicai_024_plant_04",
+      "yvanchuxiuzhen:shicai_032_plant_04",
+      "yvanchuxiuzhen:nichanggrass_06"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "spawners": {
+    "monster": [],
+    "creature": [
+      {
+        "type": "minecraft:chicken",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 6
+      },
+      {
+        "type": "minecraft:cow",
+        "weight": 4,
+        "minCount": 4,
+        "maxCount": 6
+      },
+      {
+        "type": "minecraft:sheep",
+        "weight": 6,
+        "minCount": 4,
+        "maxCount": 6
+      },
+      {
+        "type": "minecraft:pig",
+        "weight": 6,
+        "minCount": 4,
+        "maxCount": 6
+      },
+      {
+        "type": "minecraft:horse",
+        "weight": 4,
+        "minCount": 4,
+        "maxCount": 6
+      },
+      {
+        "type": "yvanchuxiuzhen:yaoshou_013",
+        "weight": 20,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "yvanchuxiuzhen:yaoshou_003",
+        "weight": 20,
+        "minCount": 1,
+        "maxCount": 4
+      },
+      {
+        "type": "yvanchuxiuzhen:yaoshou_014",
+        "weight": 15,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "yvanchuxiuzhen:caishenye",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "yvanchuxiuzhen:guchong_03",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "yvanchuxiuzhen:organism_11",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 4
+      },
+      {
+        "type": "yvanchuxiuzhen:xiuzhe_0101",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "yvanchuxiuzhen:yaoshou_003",
+        "weight": 30,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "yvanchuxiuzhen:yaoshou_013",
+        "weight": 20,
+        "minCount": 2,
+        "maxCount": 6
+      },
+      {
+        "type": "yvanchuxiuzhen:yaoshou_014",
+        "weight": 20,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "ambient": [
+      {
+        "type": "yvanchuxiuzhen:organism_01",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "yvanchuxiuzhen:organism_02",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "yvanchuxiuzhen:organism_04",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 4
+      },
+      {
+        "type": "yvanchuxiuzhen:organism_05",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 4
+      },
+      {
+        "type": "yvanchuxiuzhen:organism_06",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 4
+      },
+      {
+        "type": "yvanchuxiuzhen:organism_10",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 4
+      }
+    ],
+    "axolotls": [],
+    "underground_water_creature": [],
+    "water_creature": [
+      {
+        "type": "yvanchuxiuzhen:organism_12",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "yvanchuxiuzhen:yaoshou_009",
+        "weight": 20,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "water_ambient": [],
+    "misc": []
+  },
+  "spawn_costs": {}
+}

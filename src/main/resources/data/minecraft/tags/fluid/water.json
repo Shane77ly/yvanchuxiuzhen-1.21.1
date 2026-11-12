@@ -1,7 +1,11 @@
 {
   "replace": false,
   "values": [
+    "yvanchuxiuzhen:quicksand",
+    "yvanchuxiuzhen:flowing_quicksand",
     "yvanchuxiuzhen:xveliu",
-    "yvanchuxiuzhen:flowing_xveliu"
+    "yvanchuxiuzhen:flowing_xveliu",
+    "yvanchuxiuzhen:wenqvan",
+    "yvanchuxiuzhen:flowing_wenqvan"
   ]
 }

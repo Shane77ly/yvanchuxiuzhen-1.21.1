@@ -1,0 +1,23 @@
+{
+  "gui.yvanchuxiuzhen.huafu_gui.previous_head": "上一个符头",
+  "gui.yvanchuxiuzhen.huafu_gui.previous_pillar": "上一个天地柱",
+  "gui.yvanchuxiuzhen.huafu_gui.previous_core": "上一个符胆",
+  "gui.yvanchuxiuzhen.huafu_gui.next_head": "下一个符头",
+  "gui.yvanchuxiuzhen.huafu_gui.next_pillar": "下一个天地柱",
+  "gui.yvanchuxiuzhen.huafu_gui.next_core": "下一个符胆",
+  "gui.yvanchuxiuzhen.huafu_gui.draw": "绘制符箓",
+  "gui.yvanchuxiuzhen.huafu_gui.usage": "画符台使用说明",
+  "gui.yvanchuxiuzhen.huafu_gui.materials": "符纸与墨的制作说明",
+  "gui.yvanchuxiuzhen.huafu_gui.head": "所请神明：%s",
+  "gui.yvanchuxiuzhen.huafu_gui.pillar": "天地柱：%s",
+  "gui.yvanchuxiuzhen.huafu_gui.core": "所请事项：%s",
+  "gui.yvanchuxiuzhen.huafu_gui.none": "无",
+  "gui.yvanchuxiuzhen.huafu_gui.preview": "§6%s §f需求%s墨%s个",
+  "message.yvanchuxiuzhen.fulu.head_known": "您已习得此符头，无法重复学习。",
+  "message.yvanchuxiuzhen.fulu.head_learned": "您已习得新符头，可以请更多强大的神明为您助阵了！",
+  "message.yvanchuxiuzhen.fulu.core_known": "您已习得此符胆，无法重复学习。",
+  "message.yvanchuxiuzhen.fulu.core_learned": "您已习得新符胆，可以制作更多功能的符箓了！",
+  "message.yvanchuxiuzhen.fulu.player_not_found": "未找到名为“%s”的玩家",
+  "message.yvanchuxiuzhen.fulu.health_changed": "血量变更为§4%s§f点",
+  "message.yvanchuxiuzhen.fulu.adventure_forbidden": "冒险模式无法使用！"
+}

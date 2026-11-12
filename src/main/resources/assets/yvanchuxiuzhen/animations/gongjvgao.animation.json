@@ -1,0 +1,159 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.gongjvgao.idle": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"zong": {
+					"rotation": {
+						"0.0": {
+							"vector": [57.5, 0, 0]
+						},
+						"1.0": {
+							"vector": [47.5, 0, 0],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [57.5, 0, 0],
+							"easing": "easeInOutQuad"
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 2, 11]
+						},
+						"1.0": {
+							"vector": [0, 4, 11],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [0, 2, 11],
+							"easing": "easeInOutQuad"
+						}
+					}
+				}
+			}
+		},
+		"animation.gongjvgao.attackdown": {
+			"animation_length": 0.24,
+			"bones": {
+				"zong": {
+					"position": {
+						"0.0": {
+							"vector": [0, 12, 5]
+						},
+						"0.08": {
+							"vector": [0, 13.5, 13]
+						},
+						"0.16": {
+							"vector": [0, 23, 11],
+							"easing": "easeInOutQuad"
+						},
+						"0.2": {
+							"vector": [0, 18.5, 6]
+						},
+						"0.24": {
+							"vector": [0, 12, 5]
+						}
+					}
+				},
+				"xvanzhuan": {
+					"rotation": {
+						"0.0": {
+							"vector": [125, 0, 0]
+						},
+						"0.08": {
+							"vector": [135, 0, 0],
+							"easing": "easeInOutQuad"
+						},
+						"0.16": {
+							"vector": [35, 0, 0],
+							"easing": "easeInOutQuad"
+						},
+						"0.24": {
+							"vector": [125, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.gongjvgao.attack": {
+			"animation_length": 0.24,
+			"bones": {
+				"zong": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, -1]
+						},
+						"0.08": {
+							"vector": [0, -4, 2.5]
+						},
+						"0.16": {
+							"vector": [0, 0, 6]
+						},
+						"0.24": {
+							"vector": [0, 0, -1]
+						}
+					}
+				},
+				"xvanzhuan": {
+					"rotation": {
+						"0.0": {
+							"vector": [25, 0, 0]
+						},
+						"0.08": {
+							"vector": [55, 0, 0]
+						},
+						"0.16": {
+							"vector": [-53.46, 0, 0]
+						},
+						"0.24": {
+							"vector": [25, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.gongjvgao.attackup": {
+			"animation_length": 0.24,
+			"bones": {
+				"zong": {
+					"position": {
+						"0.0": {
+							"vector": [0, 8, 12]
+						},
+						"0.08": {
+							"vector": [0, 3, 19]
+						},
+						"0.16": {
+							"vector": [0, -3, 12],
+							"easing": "easeInOutQuad"
+						},
+						"0.24": {
+							"vector": [0, 8, 12]
+						}
+					}
+				},
+				"xvanzhuan": {
+					"rotation": {
+						"0.0": {
+							"vector": [70, 0, 0]
+						},
+						"0.08": {
+							"vector": [40, 0, 0]
+						},
+						"0.16": {
+							"vector": [150, 0, 0],
+							"easing": "easeInOutQuad"
+						},
+						"0.24": {
+							"vector": [70, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

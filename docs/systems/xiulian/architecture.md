@@ -2,7 +2,7 @@
 topic: xiulian
 role: architecture
 status: draft
-updated: 2026-11-01
+updated: 2026-11-08
 ---
 
 # 修炼、身份与生命周期：架构调查与提案
@@ -11,6 +11,8 @@ updated: 2026-11-01
 ## 1.18.2 数据与调用
 
 `A:PlayerTickProcedure:64–86` 按世界时间间隔区分修炼和功法研习，之后计算属性、副本、本命法宝及元婴出窍。`experience`、`experience_Stand`、`experience_Max` 分别参与已有修为、待吸收修为和突破门槛；不可合并成一个经验字段。日收益上限来自主世界 `dailyexperience`，已用额度放在玩家 `tizhiitem` 中（同文件 97–155）。
+
+2026-11-07完整出窍调用链复核后，skill已监听既有 `CultivationSecondEvent`，在吸收与恢复前按来源每二十刻耗神；xiulian不依赖skill，也不新增计时器。该事件同时继续由gongfa推进功法修炼。最终build/ArchUnit与既有出窍5项、界面9项通过，范围见[元婴正文](../skill/architecture.md#元婴出窍2026-11-07)。
 
 `A:LEVELupProcedure` 实际调用金丹、元婴、境界修正和升级表现。职业升级有独立 `FuzhiyeLevelUpProcedure`；只有职业字段存在并不证明对应职业拥有完整生产流程。
 
@@ -45,11 +47,17 @@ updated: 2026-11-01
 
 ### 阶段 3：修炼推进、突破与恢复
 
-- 每秒推进（来源 `PlayerTick` 的修炼部分，`CultivationTick`）：世界时间与 `tizhiitem.jishiqi` 相差 20 时执行一次，时间倒退时重设基准。依次为闭关修炼（“修炼”开关）、发出 `CultivationSecondEvent`（gongfa 在此推进“功法”开关的功法修炼）、吸收待吸收修为（× 修为效率，另加 `EwaiExperience*`；雷劫中清空；主世界数据 `XiulianWorldData` 的每日上限非 0 时截断并提示，登录时按现实日期清零当日额度）、妖化冷却、阳寿已尽提示、突破、闭关冷却（每 15 秒减 1，受 `XiulianColdCorrect` 加速）、恢复。
+- 每秒推进（来源 `PlayerTick` 的修炼部分，`CultivationTick`）：世界时间与 `tizhiitem.jishiqi` 相差 20 时执行一次，时间倒退时重设基准。依次为闭关修炼（“修炼”开关）、发出 `CultivationSecondEvent`（gongfa 在此推进“功法”开关的功法修炼）、吸收待吸收修为（× 修为效率，另加 `EwaiExperience*`；雷劫中清空；主世界数据 `XiulianWorldData` 的每日上限非 0 时截断并提示，登录时按现实日期清零当日额度）、妖化冷却、阳寿已尽提示、突破、发出 `CultivationAfterBreakthroughEvent`（cooking在此代谢自有酒精）、闭关冷却（每 15 秒减 1，受 `XiulianColdCorrect` 加速）、恢复。
 - 突破：修为达到所需值时，在 `fabao_009weidu` 与 `xvkong` 维度停在所需值减 1；非创造模式且层数为 20、30、40 或 41 以上时开启雷劫并把修为置 1；否则 `LevelUp`：层数加 1（不超过 42）、属性点 5 + ⌊层数 × 0.1⌋、按 `LevelupCorrect*` 修正成长（成长量累计后作为 attribute 的基础层贡献 `xiulian:growth` 提交）、1/11/21/31/41 层与 41 层以上加寿元（7300、36500、73000、146000、292000、18250），11、21、31 与 41 层以上另按 `RealmupCorrect*` 修正；大境界播放 `levelup`、其余 `littlelevelup`；闭关中另加闭关冷却；写升级文字 10 行，20 tick 后（记分项 `zdzttick` 为 0 时）打开升级界面。
 - 闭关修炼（`Cultivating`）：见类注释；给主修功法加经验的部分改为发出 `CultivationExperienceEvent`，由 gongfa 处理（依赖方向）。主修功法的名字、品阶、层数由 gongfa 提交 `MainTechnique`。
-- 恢复（`Recovery`）：恢复量读 attribute 的最终值；战斗（记分项 `zdztbegin` 为 1）或雷劫中为四分之一；效果 `effect_007` 期间不恢复生命；主修“繁星呓语”夜晚露天无雨灵力恢复 × 1.1。
-- 尚未迁移：雷劫过程 `ThunderBegin`（开启标记之后的劫云与天雷）、境界提升粒子 `Jingjietishengtexiao1/2`（particle）、阳寿已尽 40 tick 后的轮回 `Fulutexiao37`、酒劲消化（`jiujing`，cooking）、来源每秒复制到 `power_display`、`soul_display` 的显示字段（只供界面）。
+- 恢复（`Recovery`）：存活玩家每秒先把当前灵力/神识复制到 `power_display/soul_display` 再恢复，显示快照随修炼档案保存并同步本人；2026-11-07 为 K 键属性页接回。恢复量读 attribute 的最终值；战斗（记分项 `zdztbegin` 为 1）或雷劫中为四分之一；效果 `effect_007` 期间不恢复生命；主修“繁星呓语”夜晚露天无雨灵力恢复 × 1.1。
+- 尚未迁移：境界提升粒子 `Jingjietishengtexiao1/2`（particle）、阳寿已尽 40 tick 后的轮回 `Fulutexiao37`、酒劲消化（`jiujing`，cooking）。
+
+### 普通重生（2026-11-08）
+
+`A:procedures/EntityberebornProcedure:37–134` 是普通 `PlayerRespawnEvent` 入口。目标 `system/xiulian/Rebirth` 保留其资源恢复顺序：生命、灵力、神识均取对应属性最终值的 20%，先加 `RebirthCorrectHealth`、`RebirthCorrectPower`、`RebirthCorrectJingli`，再乘对应百分比；`experience_Stand` 先加 `RebirthCorrectExperience`，再乘 `RebirthCorrectExperiencePercentage`。寿元从当前值开始，先加入固定 −30 天，再按 `RebirthCorrectLifetimePercentage` 加入乘法差额；消息使用来源的增长/扣除文本与整数格式。
+
+来源在 `RebirthCorrectLifetime` 非零时把 `RebirthCorrectJingli` 加入寿元变化量，而不是读取 `RebirthCorrectLifetime`。这是已核实的来源错误，目标按来源保留，并在实现注释中标明。该批不接入来源同一过程后半段的游戏模式恢复、复活维度切换和延迟 20 刻 `Shuxingjisuan`；这些行为另有归属或待后续入口。目标入口已通过 `compileSmokeJava`；现有 `runSmokeClient -PsmokeOnly=yuanying` 不触发普通重生公式，普通重生完整游戏行为仍待专项验收。
 
 ### 阶段 4（一）：金丹、元婴与丹田界面
 
@@ -65,7 +73,7 @@ updated: 2026-11-01
 - 吸血石（`BloodStoneBlock`、`BloodStoneBlockEntity`，内容表方块工厂 `xiulian:xixveshi`）：放置后每 20 tick 检查充血量 `xveyetianchong`，达到 100 时在上方 1–4 格第一个空气处放血流并扣 100，4 格都不空时置为 100。充血由 combat 的流血效果经公开操作 `BloodStone.addBlood` 写入（效果等级 + 1）。血池渲染（`BloodStoneRenderer`）按充血量缩放粉红色陶瓦。来源扣除充血量时不同步客户端，目标在每次变化时同步，血池高度随之更新。
 - 血流（`XiulianFluids`）：源与流动流体、液体方块、桶 `xveliu_bucket`（原版“工具与实用物品”栏），属性见类注释。来源把血流列入 `minecraft:water` 流体标签，实体在其中按水处理；1.21.1 的实体按流体类型判断（`FluidTags.WATER` 的判断被换成水的流体类型），因此流体类型取水的行为（游泳、溺水、灭火、清除摔落距离、载船、湿润耕地），标签仍保留。流体的滴落粒子 `xvedi` 随 particle 接入。
 - 血精（`BloodEssenceItem`，物品工厂 `xiulian:xvejing`）：右键回复 2 点生命并消耗 1 个。闭关修炼在血流旁产出血精（`Cultivating`，阶段 3）。
-- 雷劫（会话决定 2026-11-03，评估为轻微，记录后继续）：开启标记之后的劫云、七种天雷与天劫实体经 `/lightninglanding` 与 `/shanghai` 进入 combat 的伤害结算，并用到彩色闪电实体、particle 的粒子与 GeckoLib 动画实体。combat 依赖本系统，本系统不能调用 combat，因此雷劫过程在 combat 实现伤害入口之后迁移；在此之前生存模式修为圆满只开启雷劫标记，不出现劫云。
+- 雷劫（会话决定 2026-11-03，评估为轻微，记录后继续）：开启标记之后的劫云、七种天雷与天劫实体经 `/lightninglanding` 与 `/shanghai` 进入 combat 的伤害结算，并用到彩色闪电实体、particle 的粒子与 GeckoLib 动画实体。combat 依赖本系统，本系统不能调用 combat，因此雷劫过程在 combat 实现伤害入口之后迁移；此前生存模式修为圆满只开启雷劫标记。2026-11-07 已按下文“完整雷劫”接回真实过程，依赖方向保持单向。
 
 ### 阶段 4（三）：加点、灵根重置与出身物品；完成
 
@@ -91,3 +99,31 @@ updated: 2026-11-01
 - 冒烟检查在新建世界后约 10 秒内死亡并退出存档时，偶发集成服务端停在 `Saving worlds`（停止流程等待某个区块的保存条件，区块工作线程空闲），客户端随之卡住；xiulian 与 attribute 检查都出现过（2026-11-03 共 9 次运行中 3 次）。冒烟检查改为等区块待办任务连续 40 tick 为 0 后再退出，此后连续 8 次未复现，见[月度记录](../project/logs/2026-11.md)。
 - `XiulianOperationsCheck`：加点（生命、灵力，属性点不足与超上限不分配）、灵根提升至最大与重置、升仙令，13 项符合。
 - 未执行：1.18.2 版本实机对照；多人场景。
+
+## 完整雷劫（2026-11-07）
+
+已实现的来源链为 `PlayerTick` → `ThunderBegin` → `Jieyvn.baseTick` → `Tianjie01` / `Leijie0101–0107`；云的 `die` 与雷龙的 `die` 均实际绑定死亡过程。目标位于 `xiulian/tribulation`。`CultivationTick` 在置开关后、修为置 1 前调用开始过程；云成功后写 `jinji`，由原每秒突破入口继续升级。
+
+境界 20/30/40/≥41 的基础组数为 13/25/37/37，基础攻击为 30/60/90/120。组数先加 `ThunderSufferingNumber`，攻击先加 `ThunderSufferingAttack`、再乘 `1 + ThunderSufferingAttackPercentage`；云最终攻击另加玩家 `thunder_Att`，有 `effect_022` 时减去效果等级加一。每组从雷 1–7 等概率选择并写入云的持久数据；玩家旧雷数随后清零。
+
+| 组 | 来源前摇条件 | 释放与结束 |
+| --- | --- | --- |
+| 瞬雷连闪 | `qianyao ≤ 60` 时累加 | 每 15 刻白雷一次，共 9 次，倍率 2、直径 4 |
+| 青雷 | `qianyao ≤ 200` 时累加 | 每 4 刻随机 ±8 格落雷一次，共 24 次，攻击 ×0.8；另每 30 刻中心攻击 ×1.2；均倍率 1、直径 4，中心粒子延迟 5/10/15/20 刻 |
+| 地滚雷 | `qianyao ≤ 100` 时累加 | 每 10 刻在 ±10 格、高 12 格处生成一只，共 16 只 |
+| 五雷轰顶 | `qianyao ≤ 200` 时累加 | 每 40 刻一组，共 5 组；中心倍率 3/直径 4，四角 ±2 格倍率 2/直径 2；中心粒子延迟 1/6/11/16 刻，角落延迟 5 刻 |
+| 九霄雷柱 | `qianyao ≤ 200` 时累加 | 生成一只雷柱，计时 320 刻后推进下一组 |
+| 紫金神雷 | `qianyao ≤ 160` 时累加 | 每 20 刻一次，共 9 次，倍率 1、直径 4，粒子延迟 1/6/11/16 刻 |
+| 化灵雷龙 | 累计至 200 刻 | 在云下 36 格生成雷龙并重置前摇，再计 100 刻推进下一组 |
+
+范围落雷以 `TribulationLightningEvent` 把原始落点及完整命令交给 combat；攻击格式保留 `DecimalFormat("")`，攻击者“无”、队伍占位“天劫”。实体范围先按来源 AABB、距离排序与 `Relations.isFriendly` 筛选，再发 `TribulationDamageEvent`；攻击量用 `DecimalFormat("0")`，倍率保留小数。xiulian 不导入 combat。粒子使用原 ID、数量、坐标与延迟；延迟回调现读实体位置，移除实体不取消已安排的回调。
+
+实体模型由 `extract_entity_models.py --owner xiulian` 提取为 `content/xiulian/entity_models.json`。`EntityModelRow`、`AnimatedLook` 与 `AnimatedEntityRenderer` 因 skill 和 xiulian 的实际共享需求移到 platform；技能实体只改 import。云保留飞行控制、无重力、35×5 注册尺寸再放大 3 倍、生命 800、动画过渡 4 刻与死亡 20 刻移除；雷柱保留水生导航、生命 500、动画过渡 4 刻与死亡 2 刻移除。云与雷柱不被推挤、流体不推并可水下呼吸。
+
+地滚雷生命 20，以原三角公式飞向保存坐标；接近两格、遇雨水或触地后两刻放魂火、直径 5/倍率 2 雷伤，允许生物破坏时强度 4 爆炸，移除后在 1/11/21 刻继续粒子。雷柱追随存活目标，每 10 刻直径 3/倍率 0.7 雷伤，320 刻消散。雷龙生命 40、尺寸放大 2 倍：徘徊 40 刻、下坠，160 刻到期或距玩家高度不超过 2 后进入结束，下一分支执行直径 12/倍率 5 雷伤与 1/6/11/16/21/26 刻粒子；仅其死亡时发独立碎片、1 刻移除。免疫与火焰属性分别按四个来源实体保留。
+
+共享渲染复核（2026-11-07）：四个来源Renderer均明确关闭死亡侧翻，劫云渲染缩放3倍、雷龙4倍、地滚雷和雷柱1倍，现由模型表`rendering`与共享渲染器接回。以上是渲染尺寸，独立于劫云3倍和雷龙2倍的碰撞尺寸；阴影与固定eyes发光层保持逐类配置，发光层不重复放大。静态证据为`tmp/skill-render-source-audit.log`，精确GeckoLib3.0.57和4.9.3源码分别在`tmp/skill-render-source/`和`tmp/skill-render-target/`。本批没有修改雷劫时序、伤害或新增测试；最终build/ArchUnit及检查源集编译通过，现有tribulation五项通过并DONE，四世界正常保存退出、ERROR/FATAL0，劫云截图可见。首次字体初始化阻塞、运行配置还原及详细证据见[技能渲染复核](../skill/architecture.md#动画实体渲染逐类复核2026-11-07)。完整视觉及两版本对照仍未验收。
+
+Q56（轻微，保持来源行为）：`ThunderBegin` 的负功德分支只消耗每满 50 的负功德，局部 `gongdeyeli` 没有加到雷数，`meritslight` 实际仍为 0；正功德抵消旧雷数的循环上界每次读取正在减少的旧雷数，例如旧雷数 2、功德 100 时只抵消一次。云每五刻发现玩家死亡只清玩家开关，清最大组数与增加失败雷数误写了云的玩家能力对象，玩家这两项不变；云被杀的独立过程则正确清最大组数并给玩家失败雷数加 1。`tiaoguo` 清标记并宣布成功、设置进阶和清开关/最大组数，但没有清云序列或移除云，后续仍会放雷；玩家离开本维度时云移除，玩家状态不补写。以上分支均不新增修正或终止。
+
+验证：`build compileSmokeJava`（含 ArchUnit）通过；仅一次 `runSmokeClient -PsmokeOnly=tribulation`，5 项主路径断言全部符合并 `DONE`，覆盖满修为自然开始、功德动态抵消、真实云 tick 的范围雷伤、序列成功、三类实体的生成与结束、劫云被杀失败。客户端正常保存退出，日志 ERROR 0；劫云截图已查看，模型可见。专用服务器一次启动到 Done，ERROR 0，导出实体 67 个，使用原生 `stop` 正常保存退出。证据在 `tmp/tribulation-build.log`、`tmp/tribulation-check-compile.log`、`tmp/tribulation-smoke.log`、`tmp/tribulation-report.txt`、`tmp/tribulation-server.log` 与 `build/smoke/screenshots/tribulation-cloud.png`。未重跑旧神通；未执行 1.18.2 版本实机、两版本对照、多人、全分支时序与完整视觉认可。

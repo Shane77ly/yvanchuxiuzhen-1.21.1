@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8.7",
+  "package": "net.yvanchuxiuzhen.system.world.terrain.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "BlendedNoiseAccessor",
+    "ChunkMapMixin",
+    "ChunkGeneratorStructureStateMixin",
+    "LargeDripstoneOffsetMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

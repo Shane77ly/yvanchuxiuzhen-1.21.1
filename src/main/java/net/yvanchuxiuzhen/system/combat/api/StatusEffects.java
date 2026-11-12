@@ -38,4 +38,9 @@ public final class StatusEffects {
     public static void add(LivingEntity entity, String effect, int duration, int amplifier) {
         entity.addEffect(new MobEffectInstance(holder(effect), duration, amplifier));
     }
+
+    /** 附加该效果，为环境效果且不显示粒子（来源 {@code new MobEffectInstance(效果, 时长, 等级, true, false)}）。 */
+    public static void addHidden(LivingEntity entity, String effect, int duration, int amplifier) {
+        entity.addEffect(new MobEffectInstance(holder(effect), duration, amplifier, true, false));
+    }
 }

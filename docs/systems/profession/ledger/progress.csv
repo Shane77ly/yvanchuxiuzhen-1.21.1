@@ -1,0 +1,11 @@
+profession,source_mod,level_field,maximum_field,experience_field,declaration_lines,clone_lines,default_level,default_maximum,default_experience,target,status
+ALCHEMY,yvanchuxiuzhen,Alchemy_LEVEL,Alchemy_experience_Max,Alchemy_experience,487-489,114-116,0,100,0,ProfessionAttachments.PROGRESS,已实现；共享保存机制与采集等级实机通过，其他职业数值未逐项实机
+REFINING,yvanchuxiuzhen,Refiner_LEVEL,Refiner_experience_Max,Refiner_experience,490-492,117-119,0,100,0,ProfessionAttachments.PROGRESS,已实现；共享保存机制与采集等级实机通过，其他职业数值未逐项实机
+RUNE,yvanchuxiuzhen,Rune_LEVEL,Rune_experience_Max,Rune_experience,493-495,120-122,0,100,0,ProfessionAttachments.PROGRESS,已实现；共享保存机制与采集等级实机通过，其他职业数值未逐项实机
+GATHERING,yvanchuxiuzhen,collection_LEVEL,collection_experience_Max,collection_experience,496-498,123-125,0,100,0,ProfessionAttachments.PROGRESS,已实现；共享保存机制与采集等级实机通过，其他职业数值未逐项实机
+COOKING,yvanchuxiuzhen,cooking_LEVEL,cooking_experience_Max,cooking_experience,499-501,126-128,0,100,0,ProfessionAttachments.PROGRESS,已实现；共享保存机制与采集等级实机通过，其他职业数值未逐项实机
+PUPPET,yvanchuxiuzhen,puppet_LEVEL,puppet_experience_Max,puppet_experience,502-504,129-131,0,100,0,ProfessionAttachments.PROGRESS,已实现；共享保存机制与采集等级实机通过，其他职业数值未逐项实机
+BREEDING,yvanchuxiuzhen,breed_LEVEL,breed_experience_Max,breed_experience,505-507,132-134,0,100,0,ProfessionAttachments.PROGRESS,已实现；共享保存机制与采集等级实机通过，其他职业数值未逐项实机
+GHOST,yvanchuxiuzhen,ghost_LEVEL,ghost_experience_Max,ghost_experience,508-510,135-137,0,100,0,ProfessionAttachments.PROGRESS,已实现；共享保存机制与采集等级实机通过，其他职业数值未逐项实机
+INSECT,yvanchuxiuzhen,insect_LEVEL,insect_experience_Max,insect_experience,511-513,138-140,0,100,0,ProfessionAttachments.PROGRESS,已实现；共享保存机制与采集等级实机通过，其他职业数值未逐项实机
+BLOOD,yvanchuxiuzhen,blood_LEVEL,blood_experience_Max,blood_experience,514-516,141-143,0,100,0,ProfessionAttachments.PROGRESS,已实现；共享保存机制与采集等级实机通过，其他职业数值未逐项实机

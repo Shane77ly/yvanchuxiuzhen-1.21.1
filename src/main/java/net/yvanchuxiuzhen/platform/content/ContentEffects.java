@@ -1,13 +1,14 @@
 package net.yvanchuxiuzhen.platform.content;
 
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 
 /**
- * 内容表状态效果的开始钩子。来源在效果加上时调用 {@code addAttributeModifiers}，已有效果被刷新且数值有变化时（等级更高、
- * 时长更长等，与 {@link MobEffectInstance#update} 的返回值一致）先移除再重新应用，所以同样调用；
- * 1.21.1 的 {@code MobEffect} 没有携带实体的对应钩子，改在 {@link MobEffectEvent.Added} 中判断。
+ * 为内容表效果的原生属性钩子绑定实体上下文。适用性查询覆盖普通与强制施加；到期和移除事件为刚载入且尚未推进的效果补足上下文。
+ * 事件只绑定上下文，开始、刷新、隐藏效果恢复及结束的执行顺序由原生属性钩子决定。
  */
 final class ContentEffects {
     private static boolean installed;
@@ -18,18 +19,15 @@ final class ContentEffects {
     static void install() {
         if (!installed) {
             installed = true;
-            NeoForge.EVENT_BUS.addListener(ContentEffects::onAdded);
+            NeoForge.EVENT_BUS.addListener((MobEffectEvent.Applicable event) -> remember(event.getEntity(), event.getEffectInstance()));
+            NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, false, MobEffectEvent.Expired.class, event -> remember(event.getEntity(), event.getEffectInstance()));
+            NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, false, MobEffectEvent.Remove.class, event -> remember(event.getEntity(), event.getEffectInstance()));
         }
     }
 
-    private static void onAdded(MobEffectEvent.Added event) {
-        MobEffectInstance added = event.getEffectInstance();
-        if (event.getEntity().level().isClientSide() || !(added.getEffect().value() instanceof ContentEffect effect)) {
-            return;
-        }
-        MobEffectInstance old = event.getOldEffectInstance();
-        if (old == null || new MobEffectInstance(old).update(added)) {
-            effect.behavior().started(event.getEntity(), added.getAmplifier());
+    private static void remember(LivingEntity entity, MobEffectInstance instance) {
+        if (!entity.level().isClientSide() && instance != null && instance.getEffect().value() instanceof ContentEffect effect) {
+            effect.remember(entity, instance.getAmplifier());
         }
     }
 }

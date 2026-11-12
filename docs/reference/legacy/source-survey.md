@@ -2,7 +2,7 @@
 topic: source-architecture-survey
 role: data
 status: partial
-updated: 2026-11-01
+updated: 2026-11-12
 ---
 
 # 1.18.2 版本架构调查
@@ -22,7 +22,7 @@ updated: 2026-11-01
 | Procedure | 2,108 | 1,320 | 3,428 |
 | 物品注册（含方块物品、GeckoLib 盔甲） | 2,120 | 188 | 2,308 |
 | 方块注册 | 1,026 | 154 | 1,180 |
-| 实体类型注册（含形态/弹体） | 267 | 4 | 271 |
+| 实体类型注册（含形态/弹体） | 267 | 5 | 272 |
 | 方块实体类型注册 | 76 | 79 | 155 |
 | 菜单注册/菜单类 | 44 | 48 | 92 |
 | 附魔注册 | 84 | 1 | 85 |
@@ -39,7 +39,7 @@ updated: 2026-11-01
 | 维度字段 | 4 | 7 | 11 |
 | 主世界数据字段 | 11 | 6 | 17 |
 
-总计 4,938 条注册声明（2026-11-02 补入此前漏扫的 `ModGeckoLibArmors` 65 件盔甲、`ModAttributes` 2 个属性、`ModGameRules` 4 个游戏规则）、211 个状态字段及 4 个独立存档常量。基础索引另记录 7,683 处 Procedure 调用、5,752 处按名字段访问候选和 30,945 处字面量键调用候选。后续按 Mod/作用域解析获得 5,752 处可识别访问，另保留 315 处未解析成员；两个 5,752 的统计口径不同。2,841 个字面量键分组包含 NBT 与普通字典，不是已经确认的状态总量。
+总计 4,939 条注册声明（2026-11-02 补入此前漏扫的 `ModGeckoLibArmors` 65 件盔甲、`ModAttributes` 2 个属性、`ModGameRules` 4 个游戏规则；2026-11-07 补入实体内部嵌套注册的彩色闪电）、211 个状态字段及 4 个独立存档常量。基础索引另记录 7,683 处 Procedure 调用、5,752 处按名字段访问候选和 30,945 处字面量键调用候选。后续按 Mod/作用域解析获得 5,752 处可识别访问，另保留 315 处未解析成员；两个 5,752 的统计口径不同。2,841 个字面量键分组包含 NBT 与普通字典，不是已经确认的状态总量。
 
 资源还包括 8 个维度及 8 个维度类型、161 份结构文件、561 份配方、109 份掉落表、230 份 geo、233 份 animation。结构文件存在不证明每个结构有自然生成入口。
 
@@ -120,6 +120,48 @@ updated: 2026-11-01
 | Q33 | 状态效果的疑似错误：`duyao_13` 的伤害读 `duyao_01` 的等级；`duyao_20`（尸毒）对玩家的伤害先乘体质放大再被赋值覆盖，放大不生效；`duyao_21`（曼陀罗）与 `duyao_20` 共用计数键 `duyao20tick`，伤害读 `duyao_07` 的等级；`effect_010`、`effect_017` 的说明文本写“每两秒恢复等级 × 5”，实际每秒恢复 (等级 + 1) × 10；`duyao_09`（番木鳖）把体质放大乘在目标生命上而不是伤害上。评估为轻微，保持来源行为，待裁定 | [战斗](../../systems/combat/architecture.md) |
 | Q34 | 灵力、神识伤害的死亡消息：来源语言键写成 `death.attacklinglidamage.player`、`death.attackjinglidamage.player`（缺一个点，且 `lingli` 多一个 `l`），伤害消息 ID 是 `linglidamage`、`jinglidamage`（有来源者时加 `.player`），实际死亡消息键 `death.attack.linglidamage.player` 找不到译文，玩家看到原始键。评估为轻微，保持来源行为（语言键原样迁移），待裁定 | [战斗](../../systems/combat/architecture.md) |
 | Q35 | 淬毒炼药锅 `CauldronduyaoZaiFangKuaiShangYouJian` 的条件前后不一致：蜂毒（`beepoison`）要求武器还没有该附魔，其余七种毒药要求武器已经有该附魔（再附为 1 级）；右键空气的 `Cailiao141…146` 则要求副手武器没有该附魔。评估为轻微，保持来源行为，随 lianqi 迁移时裁定 | [炼器](../../systems/lianqi/architecture.md) |
+| Q36 | 技能冷却计算的疑似错误：`Colddownjisuan` 中增量变量 `linshicolddown` 在六个分组之间不重置，某组两个条件都不满足时沿用上一组的增量；阴阳组的“冷却不超过上限”比较读取的是土组冷却 `colddownSoil`（其余组读各自的）。评估为轻微，保持来源行为，随 skill 迁移 | [技能](../../systems/skill/architecture.md) |
+| Q37 | `/jineng` 命令没有权限要求（`/shenfa`、`/smanship`、`/flyskill`、`/technique` 都要求权限 1），任何玩家都能给自己生成任意参数的技能书。评估为中等偏轻（只有作者的测试命令在用），保持来源行为，待负责人裁定是否补权限 | [技能](../../systems/skill/architecture.md) |
+| Q38 | `Jiancewuqi` 的“武器太重”检查读取的是所选技能书的 `lianqizong.weightnum`，不是手持武器的，技能书没有该键，条件永远不成立，提示“武器太重了！无法正常释放技能”不会出现。评估为轻微，保持来源行为（不实现这条永不成立的检查），随 equipment 与 lianqi 的武器数据迁移时裁定 | [技能](../../systems/skill/architecture.md) |
+| Q39 | 技能选择的提示文字对调：施法中禁施（`skilleffect_09`）且未沉默时显示“沉默中”，沉默（`effect_002`）时显示“冷却中”；按键 Z（第 1 键）的选择不检查禁施与沉默，X、C、V 检查。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q40 | 拈花飞叶（`SkillTree01`）命中时读取弹体的 `AttackDamage` 与 `Damage_multiplier`；来源只在弹体到期时从所选技能的 `ManaAttackDamage`、`jinengshanghai` 写入这两个键，常规技能书通常不产生前一个键，因此通常为 0，但不能删掉来源写入与命中请求。`Ice02`（破碎冰矛）、`Light02`（定魄神光）复用 `Ice01`、`Light01` 的刻过程；飞羽冰花沿侧向圆弧飞行、计时每刻加两次，正前方的目标打不到。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q41 | 控火术（`SkillFire04`）用施放者自己 `getPersistentData` 里的 `AttackUUID` 拼 `/shanghai` 命令，玩家没有这个键，命令行里这一项为空串，空白合并后参数整体前移，实际按“无攻击者、基础量 = 伤害倍率、倍率 0”结算，伤害极小。评估为轻微，保持来源行为（经 `SpellDamage.command` 复现同样的命令解析） | [技能](../../systems/skill/architecture.md) |
+| Q42 | 巨石锤（`SkillRock05`）类型一与类型二落地攻击里 20% 的眩晕（`effect_001`）加给了实体自己（`entity`）而不是受击者（`entityiterator`）；化石手（`SkillRock04`）按实体自己的朝向取 3.5 格或 1 格处作为攻击中心，而生成时朝向是随机的，攻击方向随机。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q43 | 雷系两处疑似疏漏（2026-11-05 更正：此前认为地滚雷比较的队伍名对玩家恒为空串、施放者本人走近也会触发，这是错的——登录过程 `PlayerJoinGame` 与每秒一次的 `Playerhuifu` 都把玩家变量 `team` 写入玩家的 `getPersistentData`，所以玩家的值就是其团队名，施放者本人与同队实体不会触发）：地滚雷（`SkillThunder08`）生成时没有转向，前进方向是随机朝向；`Skillwind02` 的聚风术（非聚风化气）不分敌友拉扯 4 格内全部实体。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q44 | 木系四处疑似疏漏：木篱术（`SkillTree05shifang`）放出九道木篱时只 `addFreshEntity`、没有走 `finalizeSpawn`，木篱的状态停在空串，实体刻过程不会让它展开、收起或消失，施放出的木篱永久留在世界里直到被打死（只有 `/summon` 之类走初始生成的才会进入阶段）；回身鞭（`SkillTree06`）只把带霸体（`skilleffect_08`）的目标抛起，与其他技能“无霸体才位移”相反；乱枝（`SkillTree04shifang`）潜行只给友方枝条写一个无处读取的 `baolie` 标记，没有效果；灰木树梯在实体刻里计数加了两次，存在时间是 26 刻而不是 52 刻。评估为轻微（木篱每次放 9 个永久实体，可被击杀或命令清除），保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q45 | 灵纹附魔（`EntityHurt2` 中读主手 `lingwen` 的一段）两处疑似疏漏：数量与灵力消耗用的是起尸诀附魔 `qishi` 的等级（`fumolevel`，没有起尸诀时为 0），灵纹附魔自己的等级只在灵纹弹的攻击量（等级 × 4）里用；扣的灵力是受击者 `entity` 的，不是攻击者 `sourceentity` 的（非玩家受击者视为 0 灵力，所以只有 `qishi` 等级为 0 时才会生成，同时带起尸诀附魔的武器打到怪物时灵纹不会触发）；另外生成的灵纹特效把计数 `lingwennum`、`friendnumber`、`belongToMasterUUID` 写进攻击者好友列表物品的 NBT（`getCompound` 取到的是同一个标签对象，又原样 `put` 进实体），好友列表里会残留这几项，下一只从残留值接着数。评估为轻微，保持来源行为（残留的计数不复现，每只从 1 起） | [技能](../../systems/skill/architecture.md) |
+| Q46 | 火鸟术（`SkillFire06`）两处来源行为：2026-11-07完整读取`EntityAnimationFactory.onEntityTick`后撤销此前“飞行动画只播一次”的核对结论；工厂逐刻消费同步名字并复位undefined，后续同名请求能够再次到达。其余两项保持：有目标时的前冲速度竖直分量取 −0.2·sin(俯仰)，没有乘 cos(俯仰)，水平分量也没有乘 cos(俯仰)，俯视目标时前冲方向偏离视线；`OwnerHurtByTargetGoal`（目标类）加在行为选择器而不是目标选择器。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q47 | 起尸诀（`Skillyin01`）四处疑似疏漏：起尸诀附魔 `qishi` 的命中段（`EntityHurt2`）里的 `for (…4…)` 只是在找位置，找完后只放出<b>一只</b>尸体，而技能“起尸诀”放出四只；死亡拥抱的判定区在前冲结束处的前方 3 格（水平）、半边长 0.5，前冲 14 刻共约 5.6 格，目标只有在约 8.6 格外才落在判定内，目标更近时尸体先被目标挡住、判定区落在目标身后而打不到；近身且没有沉默时“普攻”被登记了两次（权重 20 加 20），抽到的概率是其余技能的两倍多；杀死实体让书升级时，修为加的是被杀实体的 `LEVELnumber`（而不是尸体的，多数原版生物没有这个键，所以只有带该键的妖兽等才让书增长），升级只改书的 `LEVELnumber` 与品阶文字 `belongTopinjietext`，品阶数值 `belongTopinjie` 不变，书上显示的品阶可能与品阶数值不一致。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q48 | 灵纹弹实体的 `tick` 先调用箭基类的命中处理，再推进灵纹弹过程；第一刻撞到目标时攻击量尚未写入，自定义灵力伤害不会发出第二次命中事件，灵纹数量为 1；第二刻以后撞到时攻击量已写入，自定义伤害再发出一次命中事件，数量为 2。1.18.2 版本的 `LingwentexiaoEntity.tick` 与目标实现保持同一顺序，故两种结果均为来源行为。评估为轻微，检查接受 1 或 2，不改变玩法顺序 | [技能](../../systems/skill/architecture.md) |
+| Q49 | 虚空裂隙的碰撞过程只用实体上的 `shifouyichuanyve` 标记是否已使用，第一次有效碰撞后整道裂隙无法再被任何玩家使用；未找到目标世界或进入维度未匹配也会消费裂隙；从虚空返回时，`weidu` 在目标查找之前清零，目标缺失后不能靠同一道裂隙重试。坐标取裂隙位置，进入三轴均除以 50 后四舍五入（含高度），返回三轴均乘以 50。依据 `Jinengxvkong` 与 `XvkongliexiDangWanJiaYuGaiShiTiFaShengPengZhuangShi`；评估为轻微，保持来源行为，维度未迁移期间明确保留依赖限制 | [技能](../../systems/skill/architecture.md) |
+| Q50 | 技能箭共用命中过程的箭雨分支，在命中实体时把受击实体设为二十支新箭的射手，命中方块时才使用原射手；新箭不继承技能名。暗箭把 1.2 或 0.8 写进目标的 `Damage_multiplier`，实际暗伤仍使用局部的 1.5 或 1。暗箭落地云指定 `Potion:minecraft:bad_luck`，该药水 ID 未登记，且命令中的命名空间值未加引号，在 SNBT 的冒号处解析失败，实际不生成云；保持原命令，不补造幸运或霉运效果。十个箭物品的释放条件恒为假，仅保留蓄力动画；孤立施放过程不接入新入口。评估为轻微，保持来源行为 | [技能](../../systems/skill/architecture.md) |
+| Q51 | 身法双击窗口触发后不清空，十刻内后续按下仍可触发，冷却只检查追加前不超过上限；W 的移速效果不受位移冷却限制。轻功的 superjet 先清零再读扣费，因此喷射实际不额外扣灵力；flying 附魔减耗系数仅在大于零时使用，等级总和达到 20 后恢复全额耗费。起飞的拔空术速度 2 会立即被外层开关速度 0.5 覆盖；圆环和两行云雾把角度数值直接作弧度。依据 ShenfaW/S/A/D/space、ShenfaTick、FlyskillTick、Flyskillkaishitexiao 与 FanjianAnXiaAnJianShi，评估轻微，保持来源顺序和结果 | [技能](../../systems/skill/architecture.md) |
+| Q52 | 技能界面三处来源疑点：神识扫描在服务端定时回调中调用 `Level.addParticle`，该空方法不发送粒子，实际只有扣神识和关闭菜单；自爆先安排延迟爆炸与火伤，随后当下扣寿元并杀死玩家，死亡后回调仍执行；四技能背景的数值 6 没有写入者。依据 `Jinengsaomiao`、`Jinengzibao`、`JinengGuiDangZheGeJieMianDaKaiShi` 及显示过程；扫描的空方法另以缓存 1.18.2 / Forge 40.3.0 源码与目标 21.1.265 源码核对，非锁定 40.1.0 实机证据。评估轻微，保持来源顺序，不补造扫描或背景效果 | [技能](../../systems/skill/architecture.md) |
+
+| Q53 | `Skillarrow08fudu` 的合成事件没有附毒逻辑：仅在产物为第 08 箭时，将第二合成格的物品文本截去前两字符，再与 `cailiao_141` 比较，成立时显示 `111`。1.21.1 的 `Item.toString` 多了命名空间，目标显式构造来源的数量加路径文本，保留两位数量时无法匹配的结果；1.18.2 文本格式以缓存 Forge 40.3.0 静态对照，不称锁定 40.1.0 实机证据。`SkillArrow00–10skill` 没有有效事件、Java 或资源调用入口；`ArrowSkillchufa` 只被 `AnjianZ` 未连接触发器的游离 Blockly 块引用，生成 Java 不调用，故其施加的“心如止水”也没有自然入口或行为消费者。评估轻微，保留效果身份与图标，不增设附毒、箭技或效果入口 | [技能](../../systems/skill/architecture.md) |
+
+| Q54 | 金轮死亡粒子过程 `SkillGold0201DangSiWangShiJianDaoShiProcedure` 未绑定实际入口：生成实体 `SkillGold0201Entity.tickDeath`（207–212 行）只在二十刻移除并掉经验，`SkillGold0201.mod.json` 没有对应触发；全来源 Java、JSON、XML 与工作区文件仅有过程自身和元素清单登记。过程名不能证明触发有效。评估轻微，保留来源实际行为，不给目标新增死亡粒子钩子；各模式刻过程的有效到期粒子已接回 | [技能](../../systems/skill/architecture.md) |
+
+| Q55 | `/lightninglanding` 以空白拆分完整命令，队伍词虽未被结算过程消费，却占据第四个参数。调用方的团队为空时，范围直径和颜色前移，范围会把颜色文字解析为 0，颜色回到白色；这不是“玩家团队恒为空”，登录与 `Playerhuifu` 会写入玩家实际团队。依据 `B:LightningLandingCommand`、`LightningLandingGo`、`A:SkillThunder09shifang` 与 `Playerhuifu:26`。评估轻微，保持来源参数次序和空词消失行为，不补占位词或默认范围 | [战斗](../../systems/combat/architecture.md) |
+
+| Q56 | 雷劫的负功德不增加雷数、正功德抵消的循环上界随扣减变化；玩家死亡分支误写云的玩家能力，跳过只标成功而未清云序列，离维度移除云未补玩家状态。依据 `ThunderBegin`、劫云刻过程与实际绑定的死亡过程，评估轻微，保留来源行为，细节见修炼正文 | [修炼](../../systems/xiulian/architecture.md) |
+
+| Q57 | 18 把弓都是 `SwordItem`，选中时共用 `Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi`；其蓄力读取 `synchronizedata.rightclicking`，右键过程为空。两个来源 `src` 与 `elements` 全检未找到有效写入者，B 的 `Zxc` 只有未绑定的编辑器实验块且含 `rifhtclicking` 拼写。按来源迁移条件流程，保留自然右键断链，不新增鼠标同步或改成原版弓；人工注入标记的验证不能宣称自然入口可用。影响仅弓入口，其他移植继续；修复取舍待裁定 | [装备](../../systems/equipment/architecture.md) |
+
+| Q58 | 妖化提示与实际流程有差异：`Jinengyaohua` 只查五个体质标记，没有额外境界门槛；`Yaohua` 用包含护甲和副手的完整41格物品能力统计空位，旧甲移入背包、放不下沿原生给予逻辑掉落；`Yaohuajieshu` 不自动穿回旧甲，延迟回调直接清空当时的槽内物品。影响仅变身入口，评估轻微，保留来源流程、顺序及后果，不增设恢复或库存规则 | [装备](../../systems/equipment/architecture.md) |
+
+| Q59 | 宝箱成品过程 `BaoxiangChengpin` 写 `lianqizong.mana_Att`，而 `PlayerRightClick` 的耗费与 `DamageIntegration` 读根 `mana_Att`；根值由灵兽袋、蛊罐及部分法宝实例产生，不能把炼器法攻作为根法攻使用。成品附魔数大于3仍只处理第二、第一组，未知防具类型仅在需原生修饰槽名时使物品命令失效。评估轻微，保持路径及分支；本批只提交成品品阶给格挡，根生产者随其所有者迁移 | [装备](../../systems/equipment/architecture.md) |
+
+| Q60 | `PlayerGUI03` 槽2要求手饰标签却保存为腰佩，槽3要求腰佩标签却保存为手饰；说明文字仍称第三格腰佩。首刻把保存物品原对象数量设1并交给菜单，共用引用，关闭才回写被替换的槽对象；若头顶坐标有物品能力则绑定并覆盖前四槽。评估轻微，保留标签、字段、数量与绑定生命周期，不自行交换或限制为单件。`/shipin` 已提供 Q59 中根 `mana_Att` 的另一真实生产者，与炼器法攻分开消费 | [装备](../../systems/equipment/architecture.md) |
+
+| Q61 | 火箭施加阳火没有写持续来源UUID，普通炙烤命令可能因空参数失效或沿用先前接触来源；阴阳爆燃只遍历Mob且不按受燃者友方预筛，实际命令仍执行combat敌友判定。丹火给已有火补燃料不验归属，普通火无方块实体也消耗物品；放置共用玩家友方表引用，重载后分开，并读取登录时复制的实体团队。影响限上述路径，评估轻微，保留来源载体、调用顺序与结果；不补箭射手、不加归属校验、不擅改为冻结快照 | [异火](../../systems/yihuo/architecture.md) |
+| Q62 | `ShanghaifanweiEntity.movementPredicate` 默认请求 `animation.ycxzboss_01.idle`，但其绑定的 `shanghaifanwei.animation.json` 不含该动画；动态范围过程提供的有效动画另行播放。静态核对35个来源默认/离地/濒死名称，仅该默认名缺失。影响限范围提示默认待机，评估轻微，保留实际引用，不替换为猜测动画；1.18.2实机及目标可见回退未验收 | [技能](../../systems/skill/architecture.md#过程动画调用链与控制器复核2026-11-07) |
+| Q63 | `SkillFire01` 的火球命中过程遍历弹体周围 2 格的非友方对象；循环变量只控制粒子次数，伤害请求仍把直接命中目标作为目标，因此邻近对象不会因该循环额外受伤。评估轻微，按来源保留；目标已补入相同的循环与目标引用，内置客户端回归覆盖直接目标与邻近傀儡 | [技能](../../systems/skill/architecture.md#弹体实际过程与发射入口复核2026-11-08) |
+| Q64 | `Fulujinglineed` 在体质 `FuluConsumeJingliPercentage` 非 0 时，实际乘的是 `(FuluConsumeJingli + 1)` 而不是该百分比字段自身；`FuluConsumeJingli` 为 0 时百分比修正等于乘 1，非 0 时二者相互牵连。疑似字段误用，目标保持来源（`FuluUse.pay`），不自行改平衡，待负责人裁定。两个来源 Mod 中均未找到这两个键的写入者，当前实际不触发。 |
+| Q65 | `Itemfulu21...` 登记 21 号符生效数时写 `fulunumber = round(物品的 fulunumber + 1)`，读的是物品组件而不是玩家体质（39 号符同类位置读的是体质）。物品上没有该键，所以 21 号符生效时把玩家的生效数直接置为 1，覆盖其他仍在生效的符。疑似字段误用，目标保持来源，待负责人裁定。 |
+| Q66 | `Itemfulu04...` 的 46 号符分支先射出火球，再把品阶写入玩家的实体持久数据 `fululevel46`；火球 tick 过程对玩家发射者读的是体质里的 `fululevel46`（仅 13 号符写入）。所以玩家直接使用 46 号符时火球按品阶 1 结算（体质值为 0 时回退 1），符箓品阶对伤害无影响。疑似存储位置误用，目标保持来源，待负责人裁定。 |
+| Q67 | `Fulutexiao32TouZhiWuFeiXingTick` 用使用者的 `kaiqi` 判断是否已初始化，却把 `kaiqi` 写在子母弹自己身上，使用者的 `kaiqi` 永不为真，所以每刻都重复读取品阶与分裂标记；使用者只要持有 `fulu32shoufa`，下一刻存在的任意子母弹都会抢走它成为主弹。疑似写错对象，目标保持来源，待负责人裁定。 |
+| Q68 | 04 装配页只在菜单 `removed()` 时写回八槽；1.18.2 Forge40.1.0 与 NeoForge21.1.265 的断线移除顺序均先保存玩家、再移除实体并关闭菜单，退出时刚修改的装配可能未入档。来源也有此风险，保持来源还是修复为退出保存前写回，待负责人裁定 | [技能](../../systems/skill/architecture.md#q68-装配页断线保存时序) |
 
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 

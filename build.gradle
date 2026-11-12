@@ -32,10 +32,17 @@ neoForge {
         client {
             client()
         }
-        // 自动建世界、放置全部方块、打开创造栏并逐栏切换、核对模型与翻译后退出；报告写入 build/smoke。
+        // 按 smokeOnly 选择场景；完整资源与系统巡检须显式设置 smokeAll=true。
         smokeClient {
             client()
             systemProperty 'yvanchuxiuzhen.smoke', layout.buildDirectory.dir('smoke').get().asFile.absolutePath
+            def smokeMaxHeap = providers.gradleProperty('smokeMaxHeap').getOrElse('')
+            if (!smokeMaxHeap.isEmpty()) {
+                if (!(smokeMaxHeap ==~ /\d+[kKmMgG]/)) {
+                    throw new GradleException('smokeMaxHeap must be a heap size such as 768m or 1G')
+                }
+                jvmArgument "-Xmx${smokeMaxHeap}"
+            }
             // -PheavyStructures=true 时连 24 MB 的 difujiegou 一起加载，用于测量旧结构的升级耗时。
             systemProperty 'yvanchuxiuzhen.smoke.heavy', providers.gradleProperty('heavyStructures').getOrElse('false')
             // -PsmokeOnly=relation,attribute 时进入世界后只做所列系统的检查。
@@ -61,6 +68,13 @@ neoForge {
 
 neoForge.addModdingDependenciesTo(sourceSets.smoke)
 
+// 自动化检查与测试维度只在 smokeClient 中加载。
+neoForge.runs.configureEach {
+    if (name != 'smokeClient') {
+        loadedMods.set([neoForge.mods.getByName(project.mod_id)])
+    }
+}
+
 repositories {
     maven {
         name = 'GeckoLib'
@@ -82,6 +96,22 @@ dependencies {
 
 tasks.named('test', Test) {
     useJUnitPlatform()
+    maxParallelForks = 1
+    maxHeapSize = '512m'
+}
+
+// 未选择场景时阻止启动客户端，避免意外执行全部方块和系统巡检。
+tasks.named('runSmokeClient') {
+    def selectedChecks = providers.gradleProperty('smokeOnly').getOrElse('').trim()
+    def fullInspection = providers.gradleProperty('smokeAll').getOrElse('false').toBoolean()
+    doFirst {
+        if (selectedChecks.isEmpty() && !fullInspection) {
+            throw new GradleException('请选择 -PsmokeOnly=<场景>；完整巡检需显式设置 -PsmokeAll=true')
+        }
+        if (!selectedChecks.isEmpty() && fullInspection) {
+            throw new GradleException('smokeOnly 与 smokeAll=true 只能选择一项')
+        }
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {

@@ -1,0 +1,16 @@
+{
+  "type": "yvanchuxiuzhen:swampsiltdiwu",
+  "config": {
+    "target": {
+      "Name": "yvanchuxiuzhen:grassblock"
+    },
+    "state": {
+      "Name": "yvanchuxiuzhen:swampsilt"
+    },
+    "radius": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 5,
+      "max_inclusive": 11
+    }
+  }
+}

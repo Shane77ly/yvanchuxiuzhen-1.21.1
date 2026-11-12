@@ -2,12 +2,14 @@
 topic: economy
 role: entry
 status: partial
-updated: 2026-11-03
+updated: 2026-11-11
 ---
 
 # 经济
 
 标识 `economy`，类别：系统。职责：灵石货币、银行、商店、现场拍卖（[系统设计](../../development/system-design.md)）。
+
+2026-11-11 World供给批次接入本系统九种灵石矿物Feature的来源生成机制与同名configured/placed资源，台账登记“已注册”。维度和群系尚未完整装配，自然获取与经济消费者未验收；规则及本轮验证边界见[世界正文](../world/architecture.md#自然供给地物与随机结构2026-11-11)和[世界月志](../world/logs/2026-11.md)。
 
 当前阶段：B1 已登记本单位不依赖新代码类型的内容身份与资源（台账“已注册”：方块 12、物品 40），只表示身份、资源与基础属性就位；玩法尚未实现，未进行游戏验收。
 

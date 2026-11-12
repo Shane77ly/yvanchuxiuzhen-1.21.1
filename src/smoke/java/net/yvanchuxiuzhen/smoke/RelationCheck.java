@@ -1,6 +1,9 @@
 package net.yvanchuxiuzhen.smoke;
 
 import java.util.List;
+import java.util.Set;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
@@ -14,6 +17,7 @@ import net.yvanchuxiuzhen.system.relation.client.FriendScreen;
 import net.yvanchuxiuzhen.system.relation.client.TeamRequestScreen;
 import net.yvanchuxiuzhen.system.relation.content.TeamRequestMenu;
 import net.yvanchuxiuzhen.system.relation.data.PlayerRelation;
+import net.yvanchuxiuzhen.system.relation.data.Allegiance;
 import net.yvanchuxiuzhen.system.relation.data.RelationAttachments;
 import net.yvanchuxiuzhen.system.relation.network.RelationButtonPayload;
 
@@ -181,6 +185,20 @@ final class RelationCheck extends SystemCheck {
         Relations.addFriendlyTeam(stranger, team);
         expectTrue("加入友方集合后视玩家为友方", Relations.isFriendly(stranger, player));
         PlayerRelation relation = player.getData(RelationAttachments.PLAYER);
+        CompoundTag jar = new CompoundTag();
+        Relations.shareAllegianceToBlock(player, jar);
+        Relations.shareBlockAllegiance(jar, summon, "smoke_insect");
+        expect("放虫保留虫物品团队", "smoke_insect", Relations.team(summon));
+        Set<String> sharedView = Relations.friendlyTeams(summon);
+        relation.allegiance().setFriendly("smoke_block_friend", true);
+        expectTrue("主人友方修改经蛊罐传给虫和既有视图", jar.getCompound("friendlist").getBoolean("smoke_block_friend") && sharedView.contains("smoke_block_friend"));
+        jar.getCompound("friendlist").putBoolean("smoke_false_friend", false);
+        expectTrue("共享标签假值不算友方", !sharedView.contains("smoke_false_friend"));
+        Allegiance restored = Allegiance.CODEC.parse(NbtOps.INSTANCE,
+                Allegiance.CODEC.encodeStart(NbtOps.INSTANCE, summon.getData(RelationAttachments.ENTITY)).getOrThrow()).getOrThrow();
+        relation.allegiance().setFriendly("smoke_block_friend", false);
+        expectTrue("删除友方立即穿过罐和虫", !sharedView.contains("smoke_block_friend") && !jar.getCompound("friendlist").getBoolean("smoke_block_friend"));
+        expectTrue("阵营存档重读保留值并解除共享", restored.isFriendly("smoke_block_friend") && !restored.isFriendly("smoke_false_friend"));
         relation.addFriend(name, team);
         for (int i = 1; i <= 10; i++) {
             String number = String.format("%02d", i);

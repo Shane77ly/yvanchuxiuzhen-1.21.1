@@ -1,0 +1,752 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.yaoshou029.idle": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"wei": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -5, 0]
+						},
+						"1.0": {
+							"vector": [0, 5, 0],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [0, -5, 0],
+							"easing": "easeInOutQuad"
+						}
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 10]
+						},
+						"1.0": {
+							"vector": [0, 0, -10],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [0, 0, 10],
+							"easing": "easeInOutQuad"
+						}
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -10]
+						},
+						"1.0": {
+							"vector": [0, 0, 10],
+							"easing": "easeInOutQuad"
+						},
+						"2.0": {
+							"vector": [0, 0, -10],
+							"easing": "easeInOutQuad"
+						}
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"zong": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"head": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"body1": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"body2": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"body3": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"wei3": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				},
+				"shangqi": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0, 0]
+					},
+					"scale": {
+						"vector": [1, 1, 1]
+					}
+				}
+			}
+		},
+		"animation.yaoshou029.walk": {
+			"loop": true,
+			"animation_length": 0.4,
+			"bones": {
+				"zong": {
+					"rotation": {
+						"vector": [0, 0, -90]
+					},
+					"position": {
+						"0.0": {
+							"vector": [7, 12, 0]
+						},
+						"0.08": {
+							"vector": [7, 3, 0]
+						},
+						"0.16": {
+							"vector": [7, 4, 0]
+						},
+						"0.24": {
+							"vector": [7, 9, 0]
+						},
+						"0.32": {
+							"vector": [7, 13, 0]
+						},
+						"0.4": {
+							"vector": [7, 12, 0]
+						}
+					}
+				},
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 20, 0]
+						},
+						"0.08": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [0, -20, 0]
+						},
+						"0.24": {
+							"vector": [0, -20, 0]
+						},
+						"0.32": {
+							"vector": [0, 0, 0]
+						},
+						"0.4": {
+							"vector": [0, 20, 0]
+						}
+					}
+				},
+				"body1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.08": {
+							"vector": [0, 20, 0]
+						},
+						"0.16": {
+							"vector": [0, 0, 0]
+						},
+						"0.24": {
+							"vector": [0, -20, 0]
+						},
+						"0.32": {
+							"vector": [0, -20, 0]
+						},
+						"0.4": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"body2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -20, 0]
+						},
+						"0.08": {
+							"vector": [0, -20, 0]
+						},
+						"0.16": {
+							"vector": [0, 20, 0]
+						},
+						"0.24": {
+							"vector": [0, 20, 0]
+						},
+						"0.32": {
+							"vector": [0, 0, 0]
+						},
+						"0.4": {
+							"vector": [0, -20, 0]
+						}
+					}
+				},
+				"body3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.08": {
+							"vector": [0, -20, 0]
+						},
+						"0.16": {
+							"vector": [0, -20, 0]
+						},
+						"0.24": {
+							"vector": [0, 20, 0]
+						},
+						"0.32": {
+							"vector": [0, 20, 0]
+						},
+						"0.4": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"vector": [10, 50, -80]
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"vector": [10, -50, 80]
+					}
+				}
+			}
+		},
+		"animation.yaoshou029.swim": {
+			"loop": true,
+			"animation_length": 0.8,
+			"bones": {
+				"zong": {
+					"position": {
+						"0.0": {
+							"vector": [4, 0, 0]
+						},
+						"0.4": {
+							"vector": [-4, 0, 0]
+						},
+						"0.8": {
+							"vector": [4, 0, 0]
+						}
+					}
+				},
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 20, 0]
+						},
+						"0.16": {
+							"vector": [0, 0, 0]
+						},
+						"0.32": {
+							"vector": [0, -20, 0]
+						},
+						"0.48": {
+							"vector": [0, -20, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						},
+						"0.8": {
+							"vector": [0, 20, 0]
+						}
+					}
+				},
+				"body1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [0, 20, 0]
+						},
+						"0.32": {
+							"vector": [0, 0, 0]
+						},
+						"0.48": {
+							"vector": [0, -20, 0]
+						},
+						"0.64": {
+							"vector": [0, -20, 0]
+						},
+						"0.8": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"body2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -20, 0]
+						},
+						"0.16": {
+							"vector": [0, -20, 0]
+						},
+						"0.32": {
+							"vector": [0, 20, 0]
+						},
+						"0.48": {
+							"vector": [0, 20, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						},
+						"0.8": {
+							"vector": [0, -20, 0]
+						}
+					}
+				},
+				"body3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [0, -20, 0]
+						},
+						"0.32": {
+							"vector": [0, -20, 0]
+						},
+						"0.48": {
+							"vector": [0, 20, 0]
+						},
+						"0.64": {
+							"vector": [0, 20, 0]
+						},
+						"0.8": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"wei3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 20, 0]
+						},
+						"0.16": {
+							"vector": [0, -20, 0]
+						},
+						"0.4": {
+							"vector": [0, -20, 0]
+						},
+						"0.56": {
+							"vector": [0, 20, 0]
+						},
+						"0.8": {
+							"vector": [0, 20, 0]
+						}
+					}
+				},
+				"shangqi": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 20, 0]
+						},
+						"0.16": {
+							"vector": [0, -20, 0]
+						},
+						"0.4": {
+							"vector": [0, -20, 0]
+						},
+						"0.56": {
+							"vector": [0, 20, 0]
+						},
+						"0.8": {
+							"vector": [0, 20, 0]
+						}
+					}
+				},
+				"wei": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 20, 0]
+						},
+						"0.16": {
+							"vector": [0, -20, 0]
+						},
+						"0.4": {
+							"vector": [0, -20, 0]
+						},
+						"0.56": {
+							"vector": [0, 20, 0]
+						},
+						"0.8": {
+							"vector": [0, 20, 0]
+						}
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 20]
+						},
+						"0.2": {
+							"vector": [0, 0, -20]
+						},
+						"0.4": {
+							"vector": [0, 0, 20]
+						},
+						"0.6": {
+							"vector": [0, 0, -20]
+						},
+						"0.8": {
+							"vector": [0, 0, 20]
+						}
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -20]
+						},
+						"0.2": {
+							"vector": [0, 0, 20]
+						},
+						"0.4": {
+							"vector": [0, 0, -20]
+						},
+						"0.6": {
+							"vector": [0, 0, 20]
+						},
+						"0.8": {
+							"vector": [0, 0, -20]
+						}
+					}
+				}
+			}
+		},
+		"animation.yaoshou029.attack": {
+			"animation_length": 0.36,
+			"bones": {
+				"zong": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.12": {
+							"vector": [150, 0, 0]
+						},
+						"0.24": {
+							"vector": [260, 0, 0]
+						},
+						"0.36": {
+							"vector": [360, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 16, 0]
+						},
+						"0.24": {
+							"vector": [0, 16, 0]
+						},
+						"0.36": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 30, -90]
+						},
+						"0.12": {
+							"vector": [0, 30, -90]
+						},
+						"0.24": {
+							"vector": [0, 30, -135]
+						},
+						"0.36": {
+							"vector": [0, -30, 0]
+						}
+					}
+				},
+				"body1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -90]
+						},
+						"0.12": {
+							"vector": [0, 0, -90]
+						},
+						"0.24": {
+							"vector": [0, 0, -135]
+						},
+						"0.36": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"body2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -30, 0]
+						},
+						"0.24": {
+							"vector": [0, -30, 0]
+						},
+						"0.36": {
+							"vector": [0, 20, 0]
+						}
+					}
+				},
+				"body3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -30, 0]
+						},
+						"0.24": {
+							"vector": [0, -30, 0]
+						},
+						"0.36": {
+							"vector": [0, 30, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.yaoshou029.attacked": {
+			"animation_length": 0.16,
+			"bones": {
+				"zong": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 6]
+						},
+						"0.16": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -30, 0]
+						},
+						"0.16": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"body2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 30, 0]
+						},
+						"0.16": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"body3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 30, 0]
+						},
+						"0.16": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, -30]
+						},
+						"0.16": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 30]
+						},
+						"0.16": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.yaoshou029.die": {
+			"animation_length": 30,
+			"bones": {
+				"zong": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, -110],
+							"easing": "easeInOutQuad"
+						},
+						"1.4": {
+							"vector": [0, 0, -80],
+							"easing": "easeInOutQuad"
+						},
+						"1.64": {
+							"vector": [0, 0, -90]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [7, 7, 0],
+							"easing": "easeInOutQuad"
+						},
+						"1.4": {
+							"vector": [7, 2, 0],
+							"easing": "easeInOutQuad"
+						},
+						"1.64": {
+							"vector": [7, 3, 0],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 25, 0],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"body1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"body2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, -25, 0],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"body3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, -25, 0],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"rightarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [10, 50, -80],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"leftarm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [10, -50, 80],
+							"easing": "easeInOutQuad"
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

@@ -1,0 +1,81 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.skillIce05",
+				"texture_width": 48,
+				"texture_height": 55,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "stone01",
+					"parent": "zong",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-3, 0, -3], "size": [6, 8, 6], "uv": [0, 41]},
+						{"origin": [-2, 8, -2], "size": [4, 8, 4], "uv": [24, 41]},
+						{"origin": [-1, 16, -1], "size": [2, 8, 2], "uv": [40, 38]}
+					]
+				},
+				{
+					"name": "stone02",
+					"parent": "zong",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-2, 0, -2], "size": [4, 4, 4], "uv": [20, 0]},
+						{"origin": [-1.5, 4, -1.5], "size": [3, 4, 3], "uv": [36, 0]},
+						{"origin": [-1, 8, -1], "size": [2, 4, 2], "uv": [40, 7]}
+					]
+				},
+				{
+					"name": "stone03",
+					"parent": "zong",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-5, 0, -5], "size": [10, 12, 10], "uv": [0, 0]},
+						{"origin": [-3.5, 12, -3.5], "size": [7, 12, 7], "uv": [0, 22]},
+						{"origin": [-2, 24, -2], "size": [4, 12, 4], "uv": [28, 22]}
+					]
+				},
+				{
+					"name": "stone04",
+					"parent": "zong",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-3, 0, -3], "size": [6, 8, 6], "uv": [0, 41]},
+						{"origin": [-2, 8, -2], "size": [4, 8, 4], "uv": [24, 41]},
+						{"origin": [-1, 16, -1], "size": [2, 8, 2], "uv": [40, 38]}
+					]
+				},
+				{
+					"name": "stone05",
+					"parent": "zong",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-3, 0, -3], "size": [6, 8, 6], "uv": [0, 41]},
+						{"origin": [-2, 8, -2], "size": [4, 8, 4], "uv": [24, 41]},
+						{"origin": [-1, 16, -1], "size": [2, 8, 2], "uv": [40, 38]}
+					]
+				},
+				{
+					"name": "stone06",
+					"parent": "zong",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1, 8, -1], "size": [2, 4, 2], "uv": [40, 7]},
+						{"origin": [-2, 0, -2], "size": [4, 4, 4], "uv": [20, 0]},
+						{"origin": [-1.5, 4, -1.5], "size": [3, 4, 3], "uv": [36, 0]}
+					]
+				}
+			]
+		}
+	]
+}

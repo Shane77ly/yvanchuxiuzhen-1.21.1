@@ -1,0 +1,11 @@
+{
+  "message.yvanchuxiuzhen.craft.pottery_started": "Firing started!",
+  "message.yvanchuxiuzhen.craft.pottery_burning": "Firing in progress. An enclosed area speeds up firing.",
+  "message.yvanchuxiuzhen.craft.pottery_finished": "Firing finished. Sneak and right-click to collect.",
+  "gui.yvanchuxiuzhen.craft.pottery_clay": "Clay balls:",
+  "gui.yvanchuxiuzhen.craft.pottery_count": "%s",
+  "gui.yvanchuxiuzhen.craft.pottery_previous": "Previous page",
+  "gui.yvanchuxiuzhen.craft.pottery_next": "Next page",
+  "gui.yvanchuxiuzhen.craft.pottery_select": "Select entry %s",
+  "gui.yvanchuxiuzhen.craft.pottery_make": "Craft"
+}

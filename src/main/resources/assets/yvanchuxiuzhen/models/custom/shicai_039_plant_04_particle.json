@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/shicai03905.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/shicai03905"
+  }
+}

@@ -2,6 +2,8 @@ package net.yvanchuxiuzhen;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import net.yvanchuxiuzhen.panel.PanelNavigation;
+import net.yvanchuxiuzhen.flow.SystemCommandFlow;
 import net.yvanchuxiuzhen.collection.decor.DecorSetup;
 import net.yvanchuxiuzhen.collection.festival.FestivalSetup;
 import net.yvanchuxiuzhen.collection.tiandao.TiandaoSetup;
@@ -21,7 +23,9 @@ import net.yvanchuxiuzhen.system.liandan.LiandanSetup;
 import net.yvanchuxiuzhen.system.lianqi.LianqiSetup;
 import net.yvanchuxiuzhen.system.material.MaterialSetup;
 import net.yvanchuxiuzhen.system.npc.NpcSetup;
+import net.yvanchuxiuzhen.system.particle.ParticleSetup;
 import net.yvanchuxiuzhen.system.plant.PlantSetup;
+import net.yvanchuxiuzhen.system.profession.ProfessionSetup;
 import net.yvanchuxiuzhen.system.quest.QuestSetup;
 import net.yvanchuxiuzhen.system.relation.RelationSetup;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
@@ -34,6 +38,7 @@ import net.yvanchuxiuzhen.system.yihuo.YihuoSetup;
 import net.yvanchuxiuzhen.system.zhenfa.ZhenfaSetup;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.RegistryExport;
+import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.platform.content.ContentTabs;
 
 /**
@@ -44,7 +49,11 @@ import net.yvanchuxiuzhen.platform.content.ContentTabs;
 public final class YvanchuxiuzhenMod {
     public YvanchuxiuzhenMod(IEventBus modBus) {
         RegistryExport.register();
+        ModifierKeys.register(modBus);
         ContentTabs.register(modBus);
+        PanelNavigation.register(modBus);
+        SystemCommandFlow.register();
+        ParticleSetup.register(modBus);
         AttributeSetup.register(modBus);
         BookSetup.register(modBus);
         CombatSetup.register(modBus);
@@ -62,6 +71,7 @@ public final class YvanchuxiuzhenMod {
         MaterialSetup.register(modBus);
         NpcSetup.register(modBus);
         PlantSetup.register(modBus);
+        ProfessionSetup.register(modBus);
         QuestSetup.register(modBus);
         RelationSetup.register(modBus);
         SkillSetup.register(modBus);

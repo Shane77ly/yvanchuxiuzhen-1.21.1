@@ -57,7 +57,7 @@ public record LegacyTier(int uses, float speed, float damageBonus, int level, in
                 : Ingredient.of(ids.stream().map(id -> (ItemLike) BuiltInRegistries.ITEM.get(ResourceLocation.parse(id))).toArray(ItemLike[]::new));
     }
 
-    static LegacyTier of(ItemRow.LegacyTierRow row) {
+    public static LegacyTier of(ItemRow.LegacyTierRow row) {
         return new LegacyTier(row.uses(), row.speed(), row.damageBonus(), row.level(), row.enchantability(), row.repair().orElse(List.of()));
     }
 }

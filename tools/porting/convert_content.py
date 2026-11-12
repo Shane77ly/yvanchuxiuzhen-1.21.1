@@ -7,11 +7,13 @@ src/main/resources/content/<单位>/blocks.json、items.json，名称与提示�
 菜单的台账行不再是“待处理”后，来源中该菜单的界面文本键（gui.<命名空间>.<菜单>.*）写入所属单位的语言片段；
 已登记附魔、状态效果与实体类型的名称、说明键以及状态效果表、实体表（content/<单位>/effects.json、entities.json）同样按台账所属单位写入；
 其余由系统代码直接引用的语言键按 docs/reference/conversion/lang_prefixes.csv 的键前缀写入所属单位的语言片段。
+材料目录直接读取 WorldbeginProcedure 的 lianqicailiaolist，保存来源行序及完整三元组次序到 content/material/definitions.json。
 工具可重复运行，输出只取决于来源与台账。
 """
 from __future__ import annotations
 
 import csv
+import argparse
 import json
 import re
 import sys
@@ -20,7 +22,7 @@ from pathlib import Path
 
 from build_ledger import INVENTORY, NAMESPACE, ROOT, expected_rows, read_ledgers
 from legacy_blocks import BASES, parse_block
-from legacy_items import TOOL_KINDS, parse_armor_material, parse_armor_piece, parse_item, parse_tool
+from legacy_items import TOOL_KINDS, parse_armor_material, parse_armor_piece, parse_item, parse_item_properties, parse_tool
 
 WORKSPACE = Path('D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-1.21.1/reference')
 SOURCES = {
@@ -36,10 +38,14 @@ FACTORIES = {'Block': 'block', 'SlabBlock': 'slab', 'StairBlock': 'stairs', 'Wal
              'PressurePlateBlock': 'pressure_plate', 'IronBarsBlock': 'pane', 'DoorBlock': 'door',
              'TrapDoorBlock': 'trapdoor', 'FallingBlock': 'falling', 'FlowerBlock': 'flower',
              'DoublePlantBlock': 'double_plant'}
+ANIMATED_BLOCK_FACTORIES = {'plant:gourd', 'lianqi:repair_table', 'fulu:inheritance', 'cooking:iron_pot', 'cooking:clay_pot',
+                            'cooking:steamer', 'cooking:steaming_basket', 'cooking:cleaver',
+                            'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:silkworm_box'}
 # 1.18.2 原版创造栏在 1.21.1 的对应；临时对应，待负责人确认。
 VANILLA_TABS = {'TAB_MISC': 'minecraft:tools_and_utilities', 'TAB_DECORATIONS': 'minecraft:building_blocks',
                 'TAB_TOOLS': 'minecraft:tools_and_utilities'}
 LANGUAGES = ('zh_cn', 'en_us')
+OUTPUT_OWNER: str | None = None
 
 
 class Source:
@@ -96,6 +102,8 @@ def ledger_targets() -> dict[tuple[str, str], str]:
 
 
 def write_rows(path: Path, rows: list[dict]) -> None:
+    if OUTPUT_OWNER is not None and path.parent.name != OUTPUT_OWNER:
+        return
     path.parent.mkdir(parents=True, exist_ok=True)
     text = '[\n' + ',\n'.join(json.dumps(row, ensure_ascii=False, separators=(',', ':')) for row in rows) + '\n]\n'
     path.write_text(text, encoding='utf-8', newline='\n')
@@ -103,6 +111,8 @@ def write_rows(path: Path, rows: list[dict]) -> None:
 
 def write_lang(unit_entries: dict[str, dict[str, dict[str, str]]]) -> None:
     for unit, by_language in unit_entries.items():
+        if OUTPUT_OWNER is not None and unit != OUTPUT_OWNER:
+            continue
         for language, entries in by_language.items():
             path = LANG / language / f'{unit}.json'
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -139,8 +149,11 @@ def convert_sounds(sources: dict[str, Source], add_lang, expected) -> dict[str, 
                         add_lang(unit, language, subtitle, text)
     SOUNDS.mkdir(parents=True, exist_ok=True)
     for stale in SOUNDS.glob('*.json'):
-        stale.unlink()
+        if OUTPUT_OWNER is None or stale.stem == OUTPUT_OWNER:
+            stale.unlink()
     for unit, fragment in fragments.items():
+        if OUTPUT_OWNER is not None and unit != OUTPUT_OWNER:
+            continue
         text = json.dumps(fragment, ensure_ascii=False, indent=2) + '\n'
         (SOUNDS / f'{unit}.json').write_text(text, encoding='utf-8', newline='\n')
     return rows
@@ -178,11 +191,12 @@ def convert_menu_lang(sources: dict[str, Source], add_lang) -> int:
 
 
 # 台账注册表对应的语言键：(键前缀, 说明键后缀)。名称键为 <前缀>.<命名空间>.<名称>。
-REGISTRY_LANG = {'enchantment': ('enchantment', '.desc'), 'mob_effect': ('effect', '.description'), 'entity_type': ('entity', None)}
+REGISTRY_LANG = {'enchantment': ('enchantment', '.desc'), 'mob_effect': ('effect', '.description'),
+                 'entity_type': ('entity', None), 'biome': ('biome', None)}
 
 
 def convert_registry_lang(sources: dict[str, Source], add_lang) -> int:
-    """已登记附魔与状态效果的名称键和说明键写入台账所属单位的语言片段，命名空间统一。
+    """已登记附魔、状态效果、实体与群系的名称键和说明键写入台账所属单位的语言片段，命名空间统一。
     说明键可能在另一个来源的语言文件中（原初系统的 chain 说明在原初修真的语言文件里）。"""
     count = 0
     for rows in read_ledgers().values():
@@ -224,8 +238,13 @@ def convert_entities(sources: dict[str, Source]) -> dict[str, list[dict]]:
         for row in rows:
             if row['registry'] != 'entity_type' or row['status'] == '待处理':
                 continue
+            # 此实体由来源自身嵌套 Register 注册，目标同样独立登记 noSave 与最大更新间隔，不进入内容表。
+            if row['legacy_id'] == 'yvanchuxitong:colorful_lightning_bolt':
+                continue
             mod, path = row['legacy_id'].split(':', 1)
             match = re.search(rf'register\("{path}",\s*EntityType\.Builder\.<\w+>of\(\w+::new, MobCategory\.(\w+)\)(.*?)\)\);', sources[mod].entities_text, re.S)
+            if match is None:
+                raise ValueError(f'无法提取实体构建器：{row["legacy_id"]}，来源 {row["source_file"]}')
             chain = match[2]
             size = re.search(r'\.sized\(([\d.]+)f?,\s*([\d.]+)f?', chain)
             tracking = re.search(r'setTrackingRange\((\d+)\)', chain)
@@ -256,8 +275,120 @@ def factory_overrides() -> dict[tuple[str, str], str]:
         return {(row['registry'], row['target_id'].split(':', 1)[1]): row['factory'] for row in csv.DictReader(handle)}
 
 
+def convert_material_definitions(sources: dict[str, Source], targets: dict[tuple[str, str], str]) -> list[dict]:
+    """保留材料目录完整三元组的来源次序，经验与特殊标记同样占据辨识序号。"""
+    text = sources['yvanchuxitong'].java('procedures', 'WorldbeginProcedure')
+    assignment = re.search(r'\.lianqicailiaolist\s*=\s*(.*?);', text, re.S).group(1)
+    catalogue = ''.join(json.loads(literal) for literal in re.findall(r'"(?:[^"\\]|\\.)*"', assignment))
+    rows: list[dict] = []
+    seen: set[str] = set()
+    for line in catalogue.split('%'):
+        # Java String.split 会丢弃尾部空字段；不修补来源211–219号缺失的分隔符。
+        parts = line.rstrip('/').split('/')
+        # 220、230号是来源未注册的空目录行，仍保留其标识供辨识初始化读取。
+        item_id = parts[0].replace('yvanchuxitong:', f'{NAMESPACE}:') if len(parts) == 1 else targets[('item', parts[0])]
+        if item_id in seen:
+            raise ValueError(f'重复材料定义 {item_id}')
+        seen.add(item_id)
+        row = {'item_id': item_id, 'attribute_entries': [], 'special_effect_entries': [], 'boolean_traits': []}
+        if len(parts) >= 2:
+            row['fixed_weight'] = int(parts[1])
+        entries = []
+        for ordinal in range(max(0, len(parts) - 2) // 3):
+            namespace, name, raw_value = parts[2 + ordinal * 3:5 + ordinal * 3]
+            value = int(raw_value) if re.fullmatch(r'-?\d+', raw_value) else raw_value
+            entry = {'namespace': namespace, 'name': name, 'value': value}
+            entries.append(entry)
+            if namespace == 'attribute':
+                if name == 'expnum':
+                    row['exp_value'] = value
+                else:
+                    row['attribute_entries'].append({'name': name, 'value': value})
+            elif namespace == 'teshu':
+                row['boolean_traits'].append(name)
+            else:
+                row['special_effect_entries'].append(entry.copy())
+        row['entries'] = entries
+        rows.append(row)
+    return rows
+
+
+def convert_herb_definitions(sources: dict[str, Source], targets: dict[tuple[str, str], str]) -> list[dict]:
+    """采用世界加载时覆盖的药草目录，保留重复药效及运算次序。"""
+    text = sources['yvanchuxitong'].java('procedures', 'WorldbeginProcedure')
+    assignment = re.search(r'\.caoyaolist\s*=\s*(.*?);', text, re.S).group(1)
+    catalogue = ''.join(json.loads(literal) for literal in re.findall(r'"(?:[^"\\]|\\.)*"', assignment))
+    rows = []
+    for line in catalogue.split('%'):
+        parts = line.split('/')
+        count = int(parts[1])
+        if len(parts) != 2 + count * 5:
+            raise ValueError(f'药草目录长度不符 {parts[0]}')
+        effects = []
+        for ordinal in range(count):
+            name, level_op, level, time_op, time = parts[2 + ordinal * 5:7 + ordinal * 5]
+            effects.append({'name': name, 'level_op': level_op, 'level': int(level), 'time_op': time_op, 'time': int(time)})
+        # 来源目录含未注册的 nichanggrass，不改指向实际注册的 nichanggrass_07。
+        item_id = parts[0] if parts[0] == 'yvanchuxiuzhen:nichanggrass' else targets[('item', parts[0])]
+        rows.append({'item_id': item_id, 'effects': effects})
+    return rows
+
+
+def convert_alchemy_devices(source: Source) -> tuple[list[dict], list[dict]]:
+    """八种丹炉以系统动画类承担行为，内容表只保存来源基础属性与创造栏顺序。"""
+    registrations = [r for r in csv.DictReader((INVENTORY / 'registrations.csv').open(encoding='utf-8'))
+                     if r['registry'] == 'item']
+    orders = {r['legacy_id']: i + 1 for i, r in enumerate(registrations)}
+    blocks, items = [], []
+    for tier in range(1, 9):
+        path = f'alchemy_{tier:02}'
+        text = source.java('block', f'Alchemy{tier:02}Block')
+        # ANIMATION 与动态 render shape 由 AlchemyBlock 实现，不进入普通状态解析器。
+        text = re.sub(r'public static final IntegerProperty ANIMATION = [^;]+;', '', text)
+        text = re.sub(r'@Override\s+public RenderShape getRenderShape\([^)]*\) \{[^}]*\}', '', text)
+        row = parse_block(text, source.item_const, source.block_const)
+        row.pop('base')
+        row.pop('pending_hooks', None)
+        blocks.append({'id': path, 'factory': 'liandan:alchemy', **row})
+        items.append({'id': path, 'factory': f'liandan:{path}', 'block': path,
+                      'order': orders[f'{source.mod}:{path}'], 'tab': source.tabs['TAB_YVANCHU_BLOCK']})
+    return blocks, items
+
+
+def convert_drawing_table(source: Source, add_lang) -> list[dict]:
+    """画符知识转统一键名，按来源五项分组保留有序配方及其专用显示名。"""
+    recipes = []
+    source_knowledge = {}
+    for category, count in (('futou', 11), ('tiandizhu', 4), ('fudan', 8)):
+        names = {}
+        for number in range(1, count + 1):
+            source_key = f'txt.yvanchuxitong.huafu_{category}_{number:02d}'
+            names[source.lang['zh_cn'][source_key]] = number
+            for language in LANGUAGES:
+                add_lang('fulu', language, source_key.replace('yvanchuxitong', NAMESPACE), source.lang[language][source_key])
+        source_knowledge[category] = names
+    for language in LANGUAGES:
+        tokens = source.lang[language]['list.yvanchuxitong.fululist'].split('/')
+        if len(tokens) % 5:
+            raise ValueError(f'画符表不是完整五项分组：{language}')
+        for index in range(0, len(tokens), 5):
+            head, core, name, item, ink = tokens[index:index + 5]
+            path = item.split(':', 1)[1]
+            add_lang('fulu', language, f'gui.{NAMESPACE}.huafu_gui.recipe.{path}', name)
+            if language == 'zh_cn':
+                recipes.append({'head': source_knowledge['futou'][head], 'core': source_knowledge['fudan'][core],
+                                'item': f'{NAMESPACE}:{path}', 'ink': int(ink)})
+    return recipes
+
+
 def main() -> None:
+    global OUTPUT_OWNER
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--owner', help='只写指定系统的内容、语言与声音片段，保留其他系统已迁移的输出。')
+    OUTPUT_OWNER = parser.parse_args().owner
     expected = expected_rows()
+    if OUTPUT_OWNER is not None and OUTPUT_OWNER not in {row['owner'] for row in expected.values()}:
+        parser.error(f'未知系统：{OUTPUT_OWNER}')
     overrides = factory_overrides()
     targets = ledger_targets()
     sources = {mod: Source(mod) for mod in SOURCES}
@@ -280,8 +411,12 @@ def main() -> None:
         target = targets[('block', legacy_id)].split(':', 1)[1]
         class_name = source.block_class[path]
         text = source.java('block', class_name)
+        if overrides.get(('block', target)) in ANIMATED_BLOCK_FACTORIES:
+            # 动画状态和实体渲染由系统类承担，基础属性仍取锁定来源。
+            text = re.sub(r'public static final IntegerProperty ANIMATION = [^;]+;', '', text)
+            text = re.sub(r'@Override\s+public RenderShape getRenderShape\([^)]*\) \{[^}]*\}', '', text)
         base = re.search(r'public class \w+ extends (\w+)', text).group(1)
-        if base not in BASES:
+        if base not in BASES and overrides.get(('block', target)) not in ANIMATED_BLOCK_FACTORIES:
             skipped.append(('block', legacy_id, f'方块基类 {base} 由所属系统迁移'))
             continue
         try:
@@ -290,7 +425,31 @@ def main() -> None:
             skipped.append(('block', legacy_id, f'{class_name}：{error}'.replace('\n', ' ')[:200]))
             continue
         block_tooltips[(mod, path)] = row.pop('tooltip', [])
-        factory = FACTORIES[row.pop('base')]
+        base = row.pop('base')
+        factory = overrides[('block', target)] if ('block', target) in overrides else FACTORIES[base]
+        if factory in ('lianqi:blueprint_table', 'fulu:inheritance'):
+            strength = re.search(r'\.strength\((-?[\d.]+)f?, ?([\d.]+)f?\)', text)
+            row['strength'] = [float(strength.group(1)), float(strength.group(2))]
+        if factory in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod',
+                       'lianqi:repair_table', 'lianqi:sewing_basket', 'lianqi:blueprint_table', 'lianqi:poison_cauldron',
+                       'fulu:drawing_table', 'fulu:ash_burner', 'fulu:soot', 'fulu:inheritance', 'fulu:repelling_talisman',
+                       'cooking:iron_pot', 'cooking:clay_pot', 'cooking:steamer', 'cooking:steaming_basket',
+                       'cooking:cutting_board', 'cooking:cleaver',
+                       'cooking:wooden_still', 'cooking:wine_jar',
+                       'cooking:waterlogged_wine_jar', 'cooking:natural_monkey_wine', 'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:pottery_blank',
+                       'craft:silkworm_box', 'craft:chrysalis_display', 'cooking:plated_food',
+                       'cooking:bowl', 'cooking:plate', 'cooking:large_bowl', 'cooking:iron_plate',
+                       'plant:particle_foliage', 'plant:particle_foliage_leaves', 'plant:maple_resin', 'plant:water_plant',
+                       'plant:mulberry_sapling', 'plant:mulberry_leaves',
+                       'plant:fruit_tree_log', 'plant:fruit_tree_leaves', 'plant:shicai009_sapling', 'plant:shicai010_sapling', 'plant:gourd',
+                       'plant:lotus_root', 'plant:lotus_stem', 'plant:lotus_pod', 'plant:lotus_leaf') or factory.startswith((
+                           'fulu:explosive_', 'plant:produce', 'plant:vine', 'plant:fungus', 'plant:legume',
+                           'plant:tree_sapling', 'plant:fiber_crop', 'plant:nichang_grass', 'plant:peach_flower',
+                           *(f'plant:shicai{number}_' for number in ('001', '002', '004', '005', '006', '007',
+                               '011', '012', '013', '014', '015', '016', '025', '026', '027')))):
+            row.pop('pending_hooks', None)
+        if factory == 'plant:nichang_grass' and target == 'nichanggrass_06':
+            row['pending_hooks'] = ['performBonemeal']
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:
             name = source.lang[language].get(f'block.{mod}.{path}')
@@ -318,6 +477,53 @@ def main() -> None:
                 row['tooltip'] = block_tooltips[(mod, path)]
         else:
             class_name = source.item_class.get(path)
+            if overrides.get(('item', target)) in ANIMATED_BLOCK_FACTORIES:
+                row = {'id': target, 'factory': overrides[('item', target)], 'block': target,
+                       'order': order, 'tab': source.tabs['TAB_YVANCHU_BLOCK']}
+                display_properties = re.search(
+                    rf'RegistryObject<Item> \w+ = REGISTRY\.register\(\w+\.({"|".join(re.escape(c) for c, p in source.block_const.items() if p == path)})\.getId\(\)\.getPath\(\), \(\) -> new \w+DisplayItem\([^;]*?, (new Item\.Properties\(\)[^;]*?)\)\);',
+                    source.items_text)
+                if display_properties:
+                    row.pop('tab', None)
+                    row.update(parse_item_properties(display_properties.group(2), source.tabs))
+                tooltip = block_tooltips.get((mod, path), [])
+                if tooltip:
+                    row['tooltip'] = tooltip
+                items_by_unit[unit].append(row)
+                for number, line in enumerate(tooltip, start=1):
+                    for language in LANGUAGES:
+                        add_lang(unit, language, f'tooltip.{NAMESPACE}.item.{target}.{number}', line)
+                continue
+            # 显式登记专属工厂的来源刷怪蛋保留原创造栏和物品登记次序。
+            spawn_egg = re.search(rf'register\("{re.escape(path)}",\s*\(\) -> new ForgeSpawnEggItem\(\w+\.\w+, -?\d+, -?\d+, (new Item\.Properties\(\).*?)\)\);',
+                                  source.items_text, re.S)
+            if class_name is None and spawn_egg and ('item', target) in overrides:
+                row = {'id': target, 'factory': overrides[('item', target)], 'order': order,
+                       **parse_item_properties(spawn_egg[1], source.tabs)}
+                items_by_unit[unit].append(row)
+                for language in LANGUAGES:
+                    name = source.lang[language].get(f'item.{mod}.{path}')
+                    if name is not None:
+                        add_lang(unit, language, f'item.{NAMESPACE}.{target}', name)
+                continue
+            if class_name is None and path in source.geckolib_armor and ('item', target) in overrides:
+                class_name = source.geckolib_armor[path]
+                text = source.java('item', class_name)
+                material = parse_armor_material(text, source.item_const)
+                multiplier = material.pop('durability_multiplier')
+                armor_materials[(unit, material['id'])] = {**material, 'texture': material['id'], 'animated': True}
+                slot = {'helmet': 'HELMET', 'chestplate': 'CHESTPLATE', 'leggings': 'LEGGINGS', 'boots': 'BOOTS'}[path.rsplit('_', 1)[1]]
+                gecko_init = (source.root / f'src/main/java/net/mcreator/{mod}/init/{source.prefix}ModGeckoLibArmors.java').read_text(encoding='utf-8')
+                properties = re.search(rf'register\("{re.escape(path)}", \(\) -> new \w+\(EquipmentSlot\.\w+, (new Item\.Properties\(\).*?)\)\);', gecko_init).group(1)
+                row = {'id': target, 'factory': overrides[('item', target)], 'order': order,
+                       'armor': {'material': material['id'], 'slot': slot}, 'durability_multiplier': multiplier,
+                       **parse_item_properties(properties, source.tabs)}
+                items_by_unit[unit].append(row)
+                for language in LANGUAGES:
+                    name = source.lang[language].get(f'item.{mod}.{path}')
+                    if name is not None:
+                        add_lang(unit, language, f'item.{NAMESPACE}.{target}', name)
+                continue
             if class_name is None:
                 skipped.append(('item', legacy_id, source.special_item_reason(path)))
                 continue
@@ -352,6 +558,17 @@ def main() -> None:
                     add_lang(unit, language, f'item.{NAMESPACE}.{target}', name)
         if ('item', target) in overrides:
             row['factory'] = overrides[('item', target)]
+        if row['factory'] in ('liandan:medicine_container', 'liandan:medicine_container_empty_box', 'lianqi:tripod_placement',
+                              'craft:pottery_blank', 'craft:silkworm', 'craft:silkworm_gold', 'cooking:meal_food',
+                              'cooking:poisonous_food', 'cooking:remainder_bone', 'cooking:remainder_shicai_03401',
+                              'cooking:remainder_shicai_03601', 'cooking:remainder_shicai_03701', 'cooking:wine',
+                              'cooking:lotus_seed', 'cooking:plantable_garlic', 'creature:yaoshou_023baodan',
+                              'creature:yaoshou_013taoziwuqi', 'creature:yaoshou_014skill_03',
+                              *(f'plant:shicai{number}_seed' for number in ('001', '002', '004', '005', '006', '007',
+                                  '011', '012', '013', '014', '016', '025', '026', '027')),
+                              *(f'cooking:produce{number:03}_food' for number in range(28, 34))) or row['factory'].startswith((
+                                  'fulu:talisman_', 'fulu:ranged_', 'fulu:passive_', 'fulu:explosive_', 'plant:produce', 'plant:vine', 'plant:gourd', 'plant:legume', 'plant:fiber_seed', 'plant:hemp_seed', 'plant:nichang_grass_seed', 'cooking:fungus', 'cooking:legume')):
+            row.pop('pending_hooks', None)
         items_by_unit[unit].append(row)
         for number, line in enumerate(row.get('tooltip', []), start=1):
             for language in LANGUAGES:
@@ -378,10 +595,23 @@ def main() -> None:
     effect_rows = convert_effects(sources)
     entity_rows = convert_entities(sources)
     prefix_keys = convert_prefix_lang(sources, add_lang)
+    material_definitions = convert_material_definitions(sources, targets)
+    herb_definitions = convert_herb_definitions(sources, targets)
+    drawing_recipes = convert_drawing_table(sources['yvanchuxitong'], add_lang)
+    alchemy_blocks, alchemy_items = convert_alchemy_devices(sources['yvanchuxiuzhen'])
+    blocks_by_unit['liandan'].extend(alchemy_blocks)
+    items_by_unit['liandan'].extend(alchemy_items)
+    alchemy_ids = {f'{NAMESPACE}:{row["id"]}' for row in alchemy_blocks}
+    skipped = [row for row in skipped if row[1] not in alchemy_ids]
+    for row in alchemy_blocks:
+        for language in LANGUAGES:
+            key = f'block.{NAMESPACE}.{row["id"]}'
+            add_lang('liandan', language, key, sources['yvanchuxiuzhen'].lang[language][key])
 
     units = sorted(set(blocks_by_unit) | set(items_by_unit))
     for stale in (*CONTENT.glob('*/sounds.json'), *CONTENT.glob('*/effects.json'), *CONTENT.glob('*/entities.json')):
-        stale.unlink()
+        if OUTPUT_OWNER is None or stale.parent.name == OUTPUT_OWNER:
+            stale.unlink()
     for unit, unit_rows in entity_rows.items():
         write_rows(CONTENT / unit / 'entities.json', sorted(unit_rows, key=lambda r: r['id']))
     for unit, unit_rows in effect_rows.items():
@@ -396,14 +626,23 @@ def main() -> None:
     for unit in sorted({u for u, _ in armor_materials}):
         write_rows(CONTENT / unit / 'armor_materials.json', [m for (u, _), m in sorted(armor_materials.items()) if u == unit])
     write_rows(CONTENT / 'platform' / 'tabs.json', sorted(tabs, key=lambda t: t['id']))
+    write_rows(CONTENT / 'material' / 'definitions.json', material_definitions)
+    write_rows(CONTENT / 'liandan' / 'herbs.json', herb_definitions)
+    write_rows(CONTENT / 'fulu' / 'drawing_recipes.json', drawing_recipes)
     write_lang(lang)
     CONVERSION.mkdir(parents=True, exist_ok=True)
+    if OUTPUT_OWNER is not None:
+        existing = list(csv.DictReader((CONVERSION / 'skipped.csv').open(encoding='utf-8')))
+        skipped = [row for row in skipped if expected[(row[0], row[1])]['owner'] == OUTPUT_OWNER]
+        skipped.extend((row['registry'], row['legacy_id'], row['reason']) for row in existing
+                       if expected[(row['registry'], row['legacy_id'])]['owner'] != OUTPUT_OWNER)
     with (CONVERSION / 'skipped.csv').open('w', encoding='utf-8', newline='') as handle:
         writer = csv.writer(handle, lineterminator='\n')
         writer.writerow(['registry', 'legacy_id', 'reason'])
         writer.writerows(sorted(skipped))
     print({unit: (len(blocks_by_unit.get(unit, [])), len(items_by_unit.get(unit, []))) for unit in units})
     print('tabs', len(tabs), 'sounds', sum(len(r) for r in sound_rows.values()), 'advancement keys', advancement_keys, 'menu keys', menu_keys, 'registry keys', registry_keys, 'prefix keys', prefix_keys, 'skipped', len(skipped))
+    print('material definitions', len(material_definitions), 'ordered entries', sum(len(row['entries']) for row in material_definitions))
 
 
 if __name__ == '__main__':

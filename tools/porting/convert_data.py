@@ -6,6 +6,7 @@
 - src/main/resources/data/yvanchuxiuzhen/advancement/<名>.json
 - src/main/resources/data/<yvanchuxiuzhen|minecraft>/tags/<种类>/<路径>.json
 - src/main/resources/data/yvanchuxiuzhen/enchantment/<名>.json 与附魔相关标签（convert_enchantments.py）
+- 已核对的维度、维度类型、群系与洞穴可替换标签（convert_world.py）
 - docs/reference/conversion/data_manifest.csv（来源、来源 SHA-1、目标）
 - docs/reference/conversion/data_skipped.csv（未转换的文件或条目及原因）
 
@@ -23,6 +24,17 @@ from pathlib import Path
 from build_ledger import NAMESPACE, ROOT, read_ledgers
 from convert_content import CONTENT, CONVERSION, SOURCES
 from convert_enchantments import generate as generate_enchantments
+from convert_world import generate as generate_world
+from convert_plant_worldgen import generate as generate_plant_worldgen
+from convert_tree_worldgen import generate as generate_tree_worldgen
+from convert_wild_plant_worldgen import generate as generate_wild_plant_worldgen
+from convert_ore_worldgen import generate as generate_ore_worldgen
+from convert_biome_inline_worldgen import generate as generate_biome_inline_worldgen
+from convert_world_templates import generate as generate_world_templates
+from convert_native_worldgen import generate as generate_native_worldgen
+from convert_legacy_biome_vanilla import generate as generate_legacy_biome_vanilla
+from convert_source_biomes import generate as generate_source_biomes
+from convert_terrain_dimensions import generate as generate_terrain_dimensions
 
 DATA = ROOT / 'src/main/resources/data'
 MANIFEST = CONVERSION / 'data_manifest.csv'
@@ -87,6 +99,8 @@ class Converter:
     def __init__(self) -> None:
         self.registered = Registered()
         self.manifest: list[tuple[str, str, str]] = []
+        # 同一来源Jar可支撑多份资源；一次转换只读取并计算一次来源哈希。
+        self.source_hashes: dict[Path, str] = {}
         self.skipped: list[tuple[str, str, str]] = []
         self.tags: dict[Path, dict] = {}
         self.tag_origin: dict[Path, list[tuple[str, Path]]] = {}
@@ -278,7 +292,10 @@ class Converter:
         target.write_bytes(text)
         for mod, file in origins:
             root = SOURCES[mod][0]
-            digest = hashlib.sha1(file.read_bytes()).hexdigest()
+            if file not in self.source_hashes:
+                with file.open('rb') as handle:
+                    self.source_hashes[file] = hashlib.file_digest(handle, 'sha1').hexdigest()
+            digest = self.source_hashes[file]
             self.manifest.append((f'{mod}/{file.relative_to(root).as_posix()}', digest, self.rel(target)))
 
     def clean_previous(self) -> None:
@@ -315,6 +332,18 @@ class Converter:
         for target in generated:
             self.write(target, self.tags[target], self.tag_origin[target])
         generate_enchantments(self)
+        generate_world(self)
+        generate_plant_worldgen(self)
+        generate_wild_plant_worldgen(self)
+        generate_tree_worldgen(self)
+        generate_ore_worldgen(self)
+        generate_biome_inline_worldgen(self)
+        generate_world_templates(self)
+        generate_native_worldgen(self)
+        generate_legacy_biome_vanilla(self)
+        # 群系必须在全部实体、地物及原版生成根写出后转换；维度再由已落盘的群系做完整依赖门禁。
+        generate_source_biomes(self)
+        generate_terrain_dimensions(self)
         CONVERSION.mkdir(parents=True, exist_ok=True)
         with MANIFEST.open('w', encoding='utf-8', newline='') as handle:
             writer = csv.writer(handle, lineterminator='\n')

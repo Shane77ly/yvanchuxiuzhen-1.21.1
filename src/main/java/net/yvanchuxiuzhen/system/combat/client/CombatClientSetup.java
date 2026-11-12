@@ -7,8 +7,9 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.yvanchuxiuzhen.system.combat.CombatSetup;
 import net.yvanchuxiuzhen.system.combat.content.CombatMenus;
 import net.yvanchuxiuzhen.system.combat.content.WoodenDummyEntity;
+import net.yvanchuxiuzhen.system.combat.damage.LightningLanding;
 
-/** 战斗系统的客户端装配：木人桩的渲染与设置界面。 */
+/** 战斗系统的客户端装配：木人桩、彩色闪电渲染及木人桩设置界面。 */
 public final class CombatClientSetup {
     private CombatClientSetup() {
     }
@@ -21,6 +22,7 @@ public final class CombatClientSetup {
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         EntityType<WoodenDummyEntity> dummy = CombatSetup.<WoodenDummyEntity>entityType("murenzhuang").get();
         event.registerEntityRenderer(dummy, WoodenDummyRenderer::new);
+        event.registerEntityRenderer(LightningLanding.TYPE.get(), ColoredLightningRenderer::new);
     }
 
     private static void registerScreens(RegisterMenuScreensEvent event) {

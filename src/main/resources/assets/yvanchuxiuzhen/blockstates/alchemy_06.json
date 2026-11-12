@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "yvanchuxiuzhen:custom/alchemy_06_particle__cutout"
+    },
+    "facing=east": {
+      "model": "yvanchuxiuzhen:custom/alchemy_06_particle__cutout",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "yvanchuxiuzhen:custom/alchemy_06_particle__cutout",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "yvanchuxiuzhen:custom/alchemy_06_particle__cutout",
+      "y": 270
+    }
+  }
+}

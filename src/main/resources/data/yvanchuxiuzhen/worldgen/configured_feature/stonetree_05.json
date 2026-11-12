@@ -1,0 +1,16 @@
+{
+  "type": "yvanchuxiuzhen:stonetree_05",
+  "config": {
+    "target": {
+      "Name": "minecraft:basalt"
+    },
+    "state": {
+      "Name": "minecraft:polished_basalt"
+    },
+    "radius": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 3,
+      "max_inclusive": 7
+    }
+  }
+}

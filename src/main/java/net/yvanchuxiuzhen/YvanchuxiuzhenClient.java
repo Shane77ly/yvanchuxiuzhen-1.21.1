@@ -4,11 +4,31 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.yvanchuxiuzhen.collection.decor.client.DecorClientSetup;
+import net.yvanchuxiuzhen.collection.festival.client.FestivalClientSetup;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.client.ModifierKeysClient;
 import net.yvanchuxiuzhen.system.combat.client.CombatClientSetup;
+import net.yvanchuxiuzhen.system.cooking.client.CookingClientSetup;
+import net.yvanchuxiuzhen.system.craft.client.CraftClientSetup;
+import net.yvanchuxiuzhen.system.creature.client.CreatureClientSetup;
+import net.yvanchuxiuzhen.system.fulu.client.FuluClientSetup;
+import net.yvanchuxiuzhen.system.fulu.client.InheritanceClientSetup;
+import net.yvanchuxiuzhen.system.equipment.client.EquipmentClientSetup;
 import net.yvanchuxiuzhen.system.gongfa.client.GongfaClientSetup;
+import net.yvanchuxiuzhen.system.guchong.client.GuchongClientSetup;
+import net.yvanchuxiuzhen.system.material.client.MaterialClientSetup;
+import net.yvanchuxiuzhen.system.liandan.client.LiandanClientSetup;
+import net.yvanchuxiuzhen.system.lianqi.client.LianqiClientSetup;
+import net.yvanchuxiuzhen.panel.client.PanelClientSetup;
+import net.yvanchuxiuzhen.system.particle.client.ParticleClientSetup;
+import net.yvanchuxiuzhen.system.plant.client.PlantClientSetup;
 import net.yvanchuxiuzhen.system.relation.client.RelationClientSetup;
+import net.yvanchuxiuzhen.system.skill.client.SkillClientSetup;
+import net.yvanchuxiuzhen.system.storage.client.StorageClientSetup;
+import net.yvanchuxiuzhen.system.yihuo.client.YihuoClientSetup;
 import net.yvanchuxiuzhen.system.xiulian.client.XiulianClientSetup;
+import net.yvanchuxiuzhen.system.world.fluid.client.SpringFluidClientSetup;
+import net.yvanchuxiuzhen.system.world.fluid.client.QuicksandFluidClientSetup;
 
 /**
  * 客户端入口。FML 只在物理客户端构造本类，并在公共入口 {@link YvanchuxiuzhenMod} 之后构造；
@@ -17,10 +37,30 @@ import net.yvanchuxiuzhen.system.xiulian.client.XiulianClientSetup;
 @Mod(value = ModId.VALUE, dist = Dist.CLIENT)
 public final class YvanchuxiuzhenClient {
     public YvanchuxiuzhenClient(IEventBus modBus) {
+        ModifierKeysClient.register();
+        ParticleClientSetup.register(modBus);
+        PlantClientSetup.register(modBus);
         CombatClientSetup.register(modBus);
+        CookingClientSetup.register(modBus);
+        CraftClientSetup.register(modBus);
+        CreatureClientSetup.register(modBus);
+        FuluClientSetup.register(modBus);
+        InheritanceClientSetup.register(modBus);
+        EquipmentClientSetup.register(modBus);
         DecorClientSetup.register(modBus);
+        FestivalClientSetup.register(modBus);
         GongfaClientSetup.register(modBus);
+        GuchongClientSetup.register(modBus);
+        PanelClientSetup.register(modBus);
         RelationClientSetup.register(modBus);
+        SkillClientSetup.register(modBus);
+        StorageClientSetup.register(modBus);
+        MaterialClientSetup.register(modBus);
+        LiandanClientSetup.register(modBus);
+        LianqiClientSetup.register(modBus);
+        YihuoClientSetup.register(modBus);
         XiulianClientSetup.register(modBus);
+        SpringFluidClientSetup.register(modBus);
+        QuicksandFluidClientSetup.register(modBus);
     }
 }

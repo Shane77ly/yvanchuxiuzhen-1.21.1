@@ -2,14 +2,14 @@
 topic: book
 role: entry
 status: partial
-updated: 2026-11-03
+updated: 2026-11-08
 ---
 
 # 书籍
 
 标识 `book`，类别：系统。职责：公共书籍、阅读、答题、装订（[系统设计](../../development/system-design.md)）。
 
-当前阶段：B1 已登记本单位不依赖新代码类型的内容身份与资源（台账“已注册”：方块 1、物品 37），只表示身份、资源与基础属性就位；玩法尚未实现，未进行游戏验收。
+当前阶段：部分实现（2026-11-08）。B1 已登记方块 1、物品 37 的身份、资源与基础属性；`book_001`–`book_036` 已接回潜行右键的技能/功法研习分派及成功后的答题计数清零，沿用两个业务所有者的公开操作。研习批次完整构建及现有skillui客户端29项通过，已覆盖四类技能和功法的自然研习、境界失败、本人重复与整栈/计数同步；完整证据与未覆盖项见正文。本次补接书架藏宝自然右键分支，经既有 API 随机发放功法或技能书后消耗一件载体，统一构建通过，真实客户端skillui共35项玩法INFO、0FAIL、DONE；新增等级0技能、等级1技能与等级1功法三条消费主路径通过，输入载体由检查按CUSTOM_DATA构造，未接出生或宝箱获取链，完整36逐载体验收未执行。文本、普通阅读、图纸/丹方说明、符箓分派、完整答题和装订仍未实现，`makebook` 是装订台方块物品，不是公共研习书。规则与证据边界见[自然使用正文](architecture.md#自然研习入口2026-11-08)。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
 - 候选归属 70 个元素，其中 38 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
@@ -18,6 +18,8 @@ updated: 2026-11-03
 
 ## 公开操作
 
-未编写。实现本系统前在此列出供其他系统调用的查询与写操作，并对照 `typed_field_accesses.csv` 覆盖全部外部读写点（开工条件）。
+本批不新增供其他系统调用的 book API。公共书物品 `StudyBookItem` 经 `Techniques.book/study/giveTreasureBook` 和 `Skills.book/study/giveTreasureBook` 查询、分派研习与藏宝发书；随机表、境界与灵根判断留在原业务操作。书架藏宝的来源实例键由 `minecraft:custom_data` 承载，具体契约见正文。答题进度 `daduishuliang` 由 book 唯一写入，本批仅接成功清零，不建立 skill/gongfa 的答题数据写入口。
+
+已对照 `typed_field_accesses.csv` 中 `BookRightClick` 的修炼字段读取，并补核该索引未收录的实体持久字段：`daduishuliang` 的其他真实消费者是答题四选项与题数显示，完整调用链留待 book 批次。公共书不直接改写功法/技能组件、装配附件或修炼档案。
 
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。

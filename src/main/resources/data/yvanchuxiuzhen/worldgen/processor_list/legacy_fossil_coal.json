@@ -1,0 +1,12 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:block_rot",
+      "integrity": 0.1
+    },
+    {
+      "processor_type": "minecraft:protected_blocks",
+      "value": "#yvanchuxiuzhen:legacy_worldgen_features_cannot_replace"
+    }
+  ]
+}
