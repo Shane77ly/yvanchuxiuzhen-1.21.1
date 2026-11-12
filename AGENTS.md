@@ -8,7 +8,7 @@
 - 目标源码：构建后的 `build/moddev/artifacts/neoforge-<版本>-sources.jar`（含 Minecraft 与 NeoForge 源码，随依赖版本生成；当前构建为 NeoForge 21.1.265，最低支持 21.1.228）；FML 等库在 Gradle 缓存。邻近工程的 `reference/neoforge-21.1.228-sources` 只在版本相同时作对照。
 - 非依据：邻近 1.21.1 工程 `yuanchuxiuzhen-1.21.1` 只提供工程参考。
 - 当前进度：实现覆盖、验收边界与开放工作统一维护在 `docs/development/remaining-work.md`；实际分支、基线和下一步见 `docs/development/handoff.md`，本文件不复制滚动状态。A/B历史出口与C核心批次结论保留，局部遗漏不使整个项目退回前序阶段。
-- 负责人决定（2026-11-12）：批准重整移植Skill、统一剩余工作清单与文档约束后，再次明确启动完整移植goal并持续推进。主agent只调度，三个 `gpt-6.1-sol` / `xhigh` 子agent按文件分工实现；集成负责人统一维护公共进度文档、Git提交，并独占转换、Gradle、客户端与专服的串行执行。既有全量范围与行为保真要求不变，不推送、不自动合并main。低内存验证约束见 `docs/development/engineering.md`。
+- 负责人决定（2026-11-12）：批准重整移植Skill、统一剩余工作清单与文档约束后，再次明确启动完整移植goal并持续推进。主agent只调度，一个 `gpt-6.1-sol` / `xhigh` 子agent串行承担实现、公共进度文档、Git提交、转换及重型验证；受上游并发限制，不再启动其他子agent。既有全量范围与行为保真要求不变，不推送、不自动合并main。低内存验证约束见 `docs/development/engineering.md`。
 - 开发环境：Mod ID `yvanchuxiuzhen`，也是全部注册与资源的唯一命名空间（原初系统内容同样使用）；Java 基础包 `net.yvanchuxiuzhen`；构建组合与验证见 `docs/development/architecture.md` 的“技术依赖”。
 - 交接：新会话先读 `docs/development/handoff.md`。
 - 记录位置：内容映射与行为对齐见 `docs/development/content-and-parity.md`，台账 CSV 在 `docs/systems/<系统>/ledger/`（B0 建立），系统规则正文在 `docs/systems/<系统>`，证据与日志按下方“文档”登记。
