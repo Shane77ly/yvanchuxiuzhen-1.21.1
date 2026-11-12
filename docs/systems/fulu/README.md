@@ -26,6 +26,8 @@ updated: 2026-11-11
 
 ## 公开操作
 
+`NpcTalismans` 承接 creature 的修者 0101 符箓技能：`summonThunderPull` 生成 01 雷符实体并继承施放者友方集合，`activateFlameJet` 登记 02 喷火及生效计数，`activateWindPressure` 仅登记 03 风压标记与品阶，`shootQiSword` 写入 05 品阶并发射气剑。技能选择与 36 刻施放时序由 creature 持有；符箓实体、弹体及持续状态由 fulu 写入。03 未增加生效计数是来源实际行为，见[修者符箓调用](architecture.md#修者0101符箓调用2026-11-11)。本批仅完成静态来源核对，专项运行尚未执行。
+
 `Fulu.knowledge(Player)` 查询玩家已掌握的符头、天地柱和符胆；知识按学习顺序保存为稳定编号，初始符头1、天地柱1–4、符胆1。`Fulu.unlockHead`、`Fulu.unlockCore` 是唯一学习写入口，统一处理去重、同步、反馈、符胆学习物品消费和符头烧灰标志；`Fulu.command` 承接原初系统命令的两个解锁分支。book 只执行书上已核 `fulumingling` 请求，不直接修改附件；传承之光经同一知识入口授予符头。
 
 `FuluData` 独占玩家知识附件，保存并保留死亡/末地返回时的克隆，只同步本人；画符台当前符头、天地柱、符胆选择是方块实体共享状态，与知识列表分开。`typed_field_accesses.csv:5629–5640,5953–5954` 为本系统选择与学习读写；外部 `PlayerJoinGame:80,85`（表5705–5706）仅将旧中文“薇”修为“微”，目标稳定编号4对应“紫微帝君”，不再写已翻译知识字符串。书本动态字段不在该强类型表中，另据 `A:BookRightClick:46–52` 核对。

@@ -11,5 +11,6 @@ public final class CreatureClientSetup {
         YaoshouClient.register(modBus);
         ButterflyClient.register(modBus);
         OrganismClient.register(modBus);
+        NaturalCreatureClient.register(modBus);
     }
 }

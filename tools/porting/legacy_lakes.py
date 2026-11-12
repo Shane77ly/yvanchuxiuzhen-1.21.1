@@ -42,6 +42,10 @@ def plan(source_root: Path | None = None) -> list[tuple[Path, dict, list[tuple[s
         values = material_snapshot['tag_values'][name]
         outputs.append((DATA / f'tags/block/{name}.json',
             {'replace': False, 'values': entries(values)}, [(MOD, source_jars[0])]))
+    for material in ('GRASS', 'DIRT', 'STONE', 'WOOD'):
+        values = sorted({row['target_id'] for row in material_snapshot['blocks'] if row['material'] == material})
+        outputs.append((DATA / f'tags/block/legacy_material_{material.lower()}.json',
+            {'replace': False, 'values': entries(values)}, [(MOD, source_jars[0])]))
     with zipfile.ZipFile(clients[0]) as client:
         for source_name, target_name in (
                 ('minecraft:features_cannot_replace', 'legacy_worldgen_features_cannot_replace'),

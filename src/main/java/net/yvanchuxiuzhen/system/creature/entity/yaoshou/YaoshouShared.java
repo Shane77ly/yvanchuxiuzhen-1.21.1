@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import java.util.Random;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
@@ -46,7 +47,7 @@ public final class YaoshouShared {
         return true;
     }
 
-    public static void calculateAttributes(YaoshouEntity entity, CompoundTag data, double level) {
+    public static void calculateAttributes(Mob entity, CompoundTag data, double level) {
         double healthScale = maxRating(data, "health_Max", 14, 13, 12, 11);
         data.putDouble("health_Max", Math.ceil(120 + healthScale * Math.pow(level / 3, 2)));
         double healthRecovery = recoveryRating(data, "health_Rec", 8.4, 8.8, 9.2, 9.6);
@@ -80,7 +81,7 @@ public final class YaoshouShared {
         data.putString("LEVELname", new String[]{"一", "二", "三", "四", "五", "六", "七", "八", "九", "十"}[rank - 1] + "阶" + data.getString("LEVELname"));
     }
 
-    public static void initializeCharacter(YaoshouEntity entity, CompoundTag data) {
+    public static void initializeCharacter(Mob entity, CompoundTag data) {
         String character;
         if (Math.random() < 0.2) character = "慵懒";
         else if (Math.random() < 0.25) character = "谨慎";
@@ -101,7 +102,7 @@ public final class YaoshouShared {
         return Relations.isFriendly(judge, other);
     }
 
-    public static void finishSkill(YaoshouEntity entity) {
+    public static void finishSkill(Entity entity) {
         CompoundTag data = entity.getPersistentData();
         data.putString("jineng", "");
         data.putString("jinengjinxing", "");
@@ -109,7 +110,7 @@ public final class YaoshouShared {
         data.putDouble("entitytick2", 0);
     }
 
-    public static void escape(YaoshouEntity entity) {
+    public static void escape(Entity entity) {
         CompoundTag data = entity.getPersistentData();
         String phase = data.getString("jinengjinxing");
         if (phase.isEmpty()) {

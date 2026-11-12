@@ -7,6 +7,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.creature.entity.Butterflies;
 import net.yvanchuxiuzhen.system.creature.entity.Organisms;
+import net.yvanchuxiuzhen.system.creature.entity.NaturalCreatures;
+import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou053BlizzardEffect;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouCreatures;
 
 /**
@@ -23,9 +25,11 @@ public final class CreatureSetup {
     }
 
     public static void register(IEventBus modBus) {
+        CONTENT.effectBehavior("yaoshou_053baofengxve", new Yaoshou053BlizzardEffect());
         YaoshouCreatures.register(CONTENT, modBus);
         Butterflies.register(CONTENT, modBus);
         Organisms.register(CONTENT, modBus);
+        NaturalCreatures.register(CONTENT, modBus);
         CONTENT.register(modBus);
     }
 }

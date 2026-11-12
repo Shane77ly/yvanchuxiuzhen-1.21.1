@@ -1,0 +1,45 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.taoshujing",
+				"texture_width": 44,
+				"texture_height": 24,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "body",
+					"parent": "zong",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4, -6, -4], "size": [8, 16, 8], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "rightarm",
+					"parent": "zong",
+					"pivot": [-4.5, 5, 0],
+					"cubes": [
+						{"origin": [-7, 0, -1.5], "size": [3, 6, 3], "uv": [32, 0]}
+					]
+				},
+				{
+					"name": "leftarm",
+					"parent": "zong",
+					"pivot": [4.5, 5, 0],
+					"cubes": [
+						{"origin": [4, 0, -1.5], "size": [3, 6, 3], "uv": [32, 0]}
+					]
+				}
+			]
+		}
+	]
+}

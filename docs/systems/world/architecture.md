@@ -2,7 +2,7 @@
 topic: world
 role: architecture
 status: draft
-updated: 2026-11-11
+updated: 2026-11-12
 ---
 
 # 世界：架构调查与提案
@@ -37,7 +37,7 @@ updated: 2026-11-11
 | 新必填怪物光照字段 | 方块光上限0、总亮度阈值0–7均匀取值，对应1.18.2版本 `Monster.isDarkEnoughToSpawn`；群系没有自然生物条目 |
 | CAVE/CANYON 的全局AIR替换 | 给 `minecraft:overworld_carver_replaceables` 增补AIR；目标原版 cave、cave_extra_underground、canyon 共用此标签，nether_cave使用另一标签。其他Mod自定义雕刻器配置不属于本批对照范围 |
 
-技能入虚空时按裂隙坐标各轴除50并四舍五入，返回乘50，编号保存在 xiulian 体质数据；本批不改变传送代码。其他六个自定义返回维度尚未接入，随 E 阶段各自实现。正式维度的数据加载与保存证据见下方记录；完整视觉、自然裂隙往返、多人、1.18.2版本实机和两版本对照尚未执行。
+技能入虚空时按裂隙坐标各轴除50并四舍五入，返回乘50，编号保存在 xiulian 体质数据；本批不改变传送代码。人间道与妖魂道已于2026-11-12正式生成；后续在两道各加载一个样点新区块，分别核对`biomeautumn_01`与`biomefeng_01`，人间道另确认石层并人工调用配置矿石地物。该小样不覆盖其余39群系、自然placed-feature、实体出生或完整地形分布，详见[世界月志](logs/2026-11.md)。其余四个自定义返回维度随 E 阶段接入。正式虚空的数据加载与保存证据见下方记录；完整视觉、自然裂隙往返、多人、1.18.2版本实机和两版本对照尚未执行。
 
 ### 本批验证
 
@@ -47,7 +47,7 @@ updated: 2026-11-11
 
 ## 自然供给地物与随机结构（2026-11-11）
 
-本节记录直接来源迁移的32种矿物、24种模板、33种普通配置型地物、41个来源群系内联生成片段与16个树装饰器。来源完整群系、正式人间与妖魂维度及自然可达性仍按各自台账记录；生成机制接入不等于这些系统已经闭合。逐项证据与SHA256见 [来源证据](ledger/source-evidence.csv)和[来源指纹](ledger/source-fingerprints.csv)。证据中的owner严格沿用内容台账，矿物产物、植物树木与World自然投放职责分别记录；41个群系只登记本节读取的内联片段，其整体ownership保持候选。
+本节记录直接来源迁移的32种矿物、24种模板、33种普通配置型地物、41个来源群系内联生成片段与16个树装饰器。41个来源群系与正式人间道、妖魂道已于2026-11-12生成，运行与自然可达性仍按各自台账记录；生成机制接入不等于这些系统已经闭合。逐项证据与SHA256见 [来源证据](ledger/source-evidence.csv)和[来源指纹](ledger/source-fingerprints.csv)。证据中的owner严格沿用内容台账，矿物产物、植物树木与World自然投放职责分别记录；41个群系的整体转换与地形表达见下节，来源归属与台账状态分别登记。
 
 ### 矿物与内联圆盘
 
@@ -105,7 +105,7 @@ updated: 2026-11-11
 
 ## 原版群系依赖对齐（2026-11-11）
 
-41个来源群系的55个原版生成根由 `verify_vanilla_biome_parity.py` 分别核对配置引用图、展开标签和锁定源码指纹。55个原版生成根静态核验全部闭合：38项可复用、14项来源自定义实现、3项洞穴配置，0项待核。最新群系计划为2973条生成操作、483条出生记录，唯一阻断为16个缺失实体类型；计划与静态核对不代表完整群系已装配或自然生成已验收。审计原文保存在`tmp/source-biomes-plan-live.json`，依赖闭合后再由转换器写出正式群系与维度资源。
+41个来源群系的55个原版生成根由 `verify_vanilla_biome_parity.py` 分别核对配置引用图、展开标签和锁定源码指纹。55个原版生成根静态核验全部闭合：38项可复用、14项来源自定义实现、3项洞穴配置，0项待核。2026-11-12严格计划为41个群系、2973条生成操作、483条出生记录，全部依赖blocker=0，原16个实体缺口已闭合。审计原文保存在`tmp/source-biomes-plan-next.json`；统一转换已正式写出群系与两道资源，运行自然生成尚未验收。
 
 化石使用来源0.9/0.1腐化、保护方块和煤矿替换深层钻石矿处理器；16份原版骨架与覆盖模板除DataVersion外字节一致。熔岩湖通过 `SourceLakeFeature` 保留来源循环、随机调用和写入次序，solid/liquid谓词来自锁定的2078个来源方块材料快照；湖泊与化石保护标签使用来源成员。Cave/Canyon复用已核对的目标算法，替换标签为来源43项默认成员与维度Fixer追加成员的60项并集。
 
@@ -120,6 +120,22 @@ updated: 2026-11-11
 ### 来源树算法闭包
 
 `legacy_trees.py`输出12份configured、10份placed及7份独立标签，共29资源；31组来源/目标源码指纹及17份独立实现指纹由验收器核对。竹林、杜鹃根系、丛林树和草甸树保持来源放置、树干/树冠/装饰器调用、随机消费与来源标签；`SourceRootSystemFeature`与树Codec在World注册生命周期中接线。完整转换、构建及资源加载回归已经执行，目标游戏实际放置、自然生成和两版本实机对照未执行。
+
+## 人间道、妖魂道与41群系正式装配（2026-11-12）
+
+`convert_data.py`按先`convert_source_biomes.generate`、后`convert_terrain_dimensions.generate`的顺序生成资源。群系转换展开来源直接调用、原版helper与外加事件，保留生成阶段、事件内顺序与重复条目；41个群系共2973条生成操作、483条出生记录（215直接、268事件追加）。严格计划确认全部依赖blocker=0后，已写出41份群系及两道共16份地形资源：每道dimension、dimension_type、noise_settings各1份，密度函数5份。连同既有虚空，主资源集现有42个群系；整体World仍为部分实现。
+
+两道采用`legacy_dimension`生成器，保存来源独立地形种子：人间道−3958683526324992456、妖魂道6901069156277239836。`ChunkMapMixin`在结构状态创建前以该种子构建`RandomState`；随机散布结构继续使用世界种子，同心环结构种子由生成器设置为来源地形种子。`legacy_terrain_spline`保持来源float坐标、山脊折叠及OFFSET常量，`legacy_blended_noise`保持来源格采样和乘除次序；`minecraft:slide`展开为保留Java截断语义的Y区间表达。生成范围Y=−64至319，海平面63；地表规则及来源默认方块、流体和开关直接复制。维度类型保留来源`minecraft:overworld`特效绑定，不切换到来源Java中未被类型引用的同Mod特效；新怪物光照字段按来源0–7规则补齐。
+
+来源JSON中的旧`structures`字段不是运行分布依据：锁定1.18.2版本`NoiseGeneratorSettings.DIRECT_CODEC`已不读取该字段，`NoiseBasedChunkGenerator`使用全局StructureSet且没有结构覆盖。目标继续由结构集与适用群系决定，不将该死字段重新解释成新规则。来源人间道玩家进入时的`YijichushishengchengProcedure`属于后续固定场景初始化范围，本批地形与自然群系接线不代表该入口完成。
+
+只读静态复核按精确NeoForge21.1.265源码确认：Mixin配置登记及`ChunkMap`构造器目标调用相符；自定义Codec字段与落盘JSON匹配；两道21/20群系的FeatureSorter有向依赖图分别252/225节点，均无环；12份密度/噪声配置直接引用34个注册资源全部存在；两道surface_rule与来源JSON深比较相同。来源不同实体BiomeLoadingEvent的注册/加载先后仍无确定证据，转换计划仅按来源路径稳定排序并保留各事件内部顺序，不据此声称跨事件随机选择顺序完全一致。
+
+统一数据转换清单2765项，完整`build compileSmokeJava`含test/check、ArchUnit通过（`tmp/world-natural-resume-build.log`）。1.21.1版本运行证据包括两维度正式资源加载与保存，以及上述两个样点新区块的biome身份查询；人间道Y=16为石头，人工configured feature调用成功但伴随`Unprimed heightmap: OCEAN_FLOOR_WG`，不作为自然投放通过。41群系完整实际区块分布、自然placed-feature、出生、保存重载后续行为、完整客户端视觉、多人、1.18.2版本实机和两版本对照仍未验收。19个未实现材料方块继续以显式可选标签保留。
+
+首次目标专服启动发现妖魂道地表规则的`minecraft:block`条件引用`yvanchuxiuzhen:quicksand`，但旧内容台账仍将该ID留在Decor待处理，因此注册表解码以Unknown registry key终止。回读来源发现它不是普通方块：`QuicksandBlock`继承`LiquidBlock`并连接独立source/flowing `QuicksandFluid`；流体使用来源quicksand01/02贴图、密度1650、爆炸抗性100、每格液位下降2、寻坡距离2、默认tick间隔5，无桶、无碰撞或其他附加事件。来源 `minecraft:water` 流体标签含source与flowing两项；目标保留该标签语义、白色流体基色、砂色地图色、LiquidBlock液体属性和半透明渲染，不引入来源未定义的桶或地表替代规则。注册、资源与所有权已归World；待统一转换、构建及专服重验。
+
+该故障同时暴露正式转换门禁只核对群系、实体和地物的遗漏。`convert_terrain_dimensions.require_biome_closure`现递归检查全部16份计划数据中的每个`Name`字段，覆盖noise_settings的default_block、default_fluid与任意深度surface_rule。Mod方块依据现有内容表及台账“行为已迁移”的手工注册行，原版方块依据精确NeoForge21.1.265资源归档中的blockstates，均不使用语言名称作注册依据；未知ID直接拒绝正式写出，并报告资源路径与JSON字段路径。针对性内存验证确认当前计划通过；移除可用集合中的quicksand后准确拒绝两处地表引用；分别向默认方块、默认流体及嵌套地表规则注入不存在的原版ID也均被拒绝。该检查验证转换前的身份闭包，不替代运行注册与Codec加载。
 
 ## 1.18.2 状态与生成
 

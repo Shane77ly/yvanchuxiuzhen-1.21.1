@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.relation.api;
 
 import java.util.Set;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.yvanchuxiuzhen.system.relation.data.Allegiance;
@@ -47,6 +48,16 @@ public final class Relations {
     /** 非玩家目标直接共享施放者的来源friendlist引用；团队值单独复制，存档重载后集合独立。 */
     public static void shareEntityAllegiance(Entity owner, Entity target) {
         entityAllegiance(target).shareFrom(allegiance(owner));
+    }
+
+    /** 地上蛊罐把友方标签引用交给虫，虫的团队值来自该虫物品实例。 */
+    public static void shareBlockAllegiance(CompoundTag blockData, Entity target, String team) {
+        entityAllegiance(target).shareFromBlock(blockData, team);
+    }
+
+    /** 放置蛊罐时共享主人的友方标签；方块单独持久化，重载后与主人分离。 */
+    public static void shareAllegianceToBlock(Entity owner, CompoundTag blockData) {
+        allegiance(owner).shareToBlock(blockData);
     }
 
     /** 设置非玩家实体的团队名，友方集合不变。 */

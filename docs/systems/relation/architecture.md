@@ -69,3 +69,9 @@ updated: 2026-11-07
 ## 妖狼召唤共享友方（2026-11-11）
 
 来源`Yaoshou008zhaohuanxiaolangProcedure`把同一个friendlist子标签直接赋给两只007，再调用各自生成初始化；`EntityTeamShezhiProcedure`向同一标签加入007团队，因此母体与两子体在同一运行期互相观察友方变化。`Relations.shareEntityAllegiance`只在该已核实路径共享内部集合，团队字符串单独复制；Codec保存值并在各自解码后恢复独立集合。既有`copyAllegiance`继续执行值复制，新赋入集合会解除该目标原有共享关系。主会话统一执行构建及专服召唤验证；未经本批验证不宣称运行验收。
+
+## 蛊罐与虫共享友方（2026-11-12）
+
+来源手持罐放置直接将玩家能力的friendlist子标签赋入方块，地上罐逐槽释放把同一标签交给每只虫，虫的team仍来自各自物品字段。`Allegiance`内部以CompoundTag承载友方真值，对外保留不可修改的活Set视图；假值键不算友方。`Relations.shareAllegianceToBlock`与`shareBlockAllegiance`只负责关系字段，方块库存和虫状态仍由guchong唯一维护。玩家、罐、虫运行期共享引用，各自持久化重读后分离，附件Codec继续保存team和friendly_teams列表格式。既有复制入口仍作值复制；已有视图固定指向取得时的标签，与来源换入新标签后旧引用分离一致。
+
+在既有RelationCheck增加共享入口、团队独立、增删实时可见、假值忽略和Codec重读分离的针对性检查，统一运行结果在本批交接与项目月志登记。未据静态代码宣称实机通过。

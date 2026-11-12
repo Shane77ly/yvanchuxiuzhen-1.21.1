@@ -2,7 +2,7 @@
 topic: fulu
 role: architecture
 status: partial
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 
 # 符箓知识、制作与释放：架构调查与提案
@@ -37,13 +37,30 @@ updated: 2026-11-10
 
 每张编号符箓都记录获取、制作/其它获取路径、使用条件、物品消耗、实体/声音/粒子和结束动作。不同等级成品合并条件以来源为准，不因 Item ID 相同就混合不同等级。数值和轮回保留字段需负责人批准后实施。
 
+### 修者0101符箓调用（2026-11-11）
+
+来源六个 `Npcskill0301`–`0306` 过程由 creature 持有，目标入口为 `NpcTalismanSkills.Npcskill0301`–`Npcskill0306`。开始时施加 36 刻禁行与缓慢并转向攻击者，16 刻发出符箓八卦粒子，20 刻施放，36 刻清技能名、阶段和计数。施放品阶按 `LEVELnumber ≤10 / ≤20 / ≤30 / 其余` 分别为 1/2/3/4，释放声保留来源 `fulushifang`。它们是修者原生技能，没有物品精力付款或符箓消耗入口。
+
+| 来源入口与行号（A） | 来源效果 | 目标操作 |
+| --- | --- | --- |
+| `Npcskill0301Procedure:95–108` | 视线 7 格处取空气落点，生成 `Fulutexiao01`，共享友方列表并复制团队、写入品阶与主人，播放 `animation.fulu01texiao.skill01` | `NpcTalismans.summonThunderPull`；阵营经 `Relations.shareEntityAllegiance`；动画由 `TalismanBeast` 首播控制器承担 |
+| `Npcskill0302Procedure:74–76` | 登记 `fuluxiaoguo02`、品阶及 `fulunumber+1` | `NpcTalismans.activateFlameJet` |
+| `Npcskill0303Procedure:71–72` | 只登记 `fuluxiaoguo03` 与品阶 | `NpcTalismans.activateWindPressure` |
+| `Npcskill0304Procedure:82–104` | 暂存 `fulu05level`，从眼部下方 0.1 格发射穿透 10 的气剑，速度 1、原生伤害 0.1、静音；来源 `(int)0.5` 击退为 0 | `NpcTalismans.shootQiSword`；弹体首刻读取并清除暂存品阶 |
+| `Npcskill0305Procedure:91–92` | 视线 7 格并向下找空气，执行红色独立落雷，基数 `30+20×品阶`、倍率 1、范围 4、施放者 UUID 与实体团队 | creature 经原生 `lightninglanding` 命令进入 combat |
+| `Npcskill0306Procedure:78–100` | 喷射 20 枚火焰粒子，视线 6 格处扫描 3 格内非友方，发出火焰并施加 `effect_023`，持续 `400+200×品阶` 刻、等级 `(品阶−1)×2` | creature 经 `Relations` 判定并施加 combat 公开状态；该来源过程没有点燃来源字段写入 |
+
+03 的来源没有增加 `fulunumber`。持续效果推进仍沿用来源的 `fulunumber ≥1` 门槛；独立施放 03 时可能保持已登记而不推进，与已有 02 同时生效时才满足门槛。本批保留该代码行为，不补造计数写入。符箓持续状态、召唤物和弹体由 fulu 唯一写入；creature 只持有技能选择和施放阶段。
+
+证据：六文件来源哈希为 `tmp/xiuzhe-0101/talisman-source-proof.json`，完整修者闭包为 `tmp/xiuzhe-0101/source-closure.json`；目标 API 按 NeoForge 21.1.265 sources jar 核对。当前完成静态来源核对；统一构建与运行结果随整批登记。六技能自然操作、1.18.2 版本实机、两版本对照和完整视觉未执行。
+
 ### 符箓施用共享框架（2026-11-09）
 
 范围：来源 `Fulujinglineed`（精力付款）、`Itemfulu02DangYouJianDianJiKongQiShiShiTiDeWeiZhi`（02/03/13/17/19/24/31 共用的激活登记）、`FuluTick`/`Fulutick2`（逐刻推进）。本批接入 02、03、24、31；随后同日补入 13、17、19 及其三种弹体实体。21/39 依赖各自激活物品，留待后续。
 
 - **付款**：非创造玩家扣 `品阶²×10`（品阶取成品 `fululevel`，低于 1 按 1）；体质 `FuluConsumeJingli` 非 0 时加固定值；`FuluConsumeJingliPercentage` 非 0 时乘的是 `(FuluConsumeJingli+1)`，疑似字段误用，保持来源并登记为 Q64。精力不足不扣不生效。
 - **激活**：先付款，再判断该编号是否已生效；已生效时精力已扣而符不耗（来源顺序）。未生效写 `fuluxiaoguo<NN>`、`fulu<NN>level`、`fulunumber+1`，在玩家位置上方一格播放 `fulushifang`，消耗一张。使用只在服务端执行。
-- **推进**：玩家状态在体质标签，非玩家实体在实体持久数据（来源 NPC 技能写入，写入者待 npc 系统）。常数：02 持续 `80+20×品阶` 刻、沿视线 2/4/6/8 格各 1 格范围固定火伤害 `max(1,品阶×4)`；03 持续 `200+40×品阶` 刻、每 20 刻爆发云雾、4.5 格内非友方被推开（推力 `0.1×品阶×相对水平位移`，纵向 0.2）；24 持续 1200 刻、3.5 格内固定火伤害 `max(1,品阶×5)`；31 持续 1200 刻、每刻世界时间加 `4×品阶²`（截为 int）。结束时计数与品阶清零、标记关闭、生效数减一。伤害经 combat 的 `SpellDamage.command` 复现 `/shanghai 火 <UUID> true <伤害> 1`，随后清目标受伤无敌时间；敌友经 relation。
+- **推进**：玩家状态在体质标签，非玩家实体在实体持久数据（修者技能的 02/03 登记由 creature 经 `NpcTalismans` 调用，状态写入者为 fulu）。常数：02 持续 `80+20×品阶` 刻、沿视线 2/4/6/8 格各 1 格范围固定火伤害 `max(1,品阶×4)`；03 持续 `200+40×品阶` 刻、每 20 刻爆发云雾、4.5 格内非友方被推开（推力 `0.1×品阶×相对水平位移`，纵向 0.2）；24 持续 1200 刻、3.5 格内固定火伤害 `max(1,品阶×5)`；31 持续 1200 刻、每刻世界时间加 `4×品阶²`（截为 int）。结束时计数与品阶清零、标记关闭、生效数减一。伤害经 combat 的 `SpellDamage.command` 复现 `/shanghai 火 <UUID> true <伤害> 1`，随后清目标受伤无敌时间；敌友经 relation。
 - **与来源的实现差异**：来源在客户端也跑一遍并用 `addParticle` 表现；这里只在服务端推进，粒子以 `sendParticles` 零数量形式发给附近玩家。来源每刻向所有玩家同步整份变量，这里只在有生效符时同步一次。风压对玩家目标只改服务端运动量、不补发运动包，与来源一致。
 - **验证**：静态来源核对；构建通过；内置 `runSmokeClient -PsmokeOnly=fulucooking` 追加 5 项（02 付款与登记、已生效重复使用、24 登记与目标受损、02 到期结束）与既有 17 项共 22 项全部通过。24 号符检查中标的僵尸最终“存活 false、生命 20.0”，无法区分是被火伤害击杀还是被其他原因移除，伤害命中仍待专项确认。03、31、非玩家路径、专服、1.18.2 版本实机、多人和视觉均未执行。检查排错过程见月志。
 

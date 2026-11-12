@@ -357,6 +357,19 @@ def generate(converter) -> int:
     outputs = plan()
     for target, data, origins in outputs:
         converter.write(target, data, origins)
+    source_root = SOURCES[MOD][0]
+    identifiers = [target.stem for target, _, _ in outputs if target.parent.name == 'biome']
+    identifiers.append('quicksand')
+    for language in ('zh_cn', 'en_us'):
+        source_language = json.loads((source_root / f'src/main/resources/assets/{MOD}/lang/{language}.json').read_text(encoding='utf-8'))
+        target_language_path = ROOT / f'src/main/lang/{language}/world.json'
+        target_language = json.loads(target_language_path.read_text(encoding='utf-8'))
+        for identifier in identifiers:
+            for kind in ('biome', 'block', 'fluid'):
+                key = f'{kind}.{MOD}.{identifier}'
+                if key in source_language:
+                    target_language[key] = source_language[key]
+        target_language_path.write_text(json.dumps(target_language, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     return len(outputs)
 
 

@@ -1,0 +1,21 @@
+[
+  {
+    "id": "yaoshou_01701",
+    "geo": "yaoshou01701",
+    "animation": "yaoshou01701",
+    "texture": "yaoshou017",
+    "head": "head",
+    "rendering": {
+      "shadow": 0.6,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "idle": "animation.yaoshou01701.idle",
+    "no_ai": false,
+    "speed": 0.3,
+    "health": 100.0,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0
+  }
+]

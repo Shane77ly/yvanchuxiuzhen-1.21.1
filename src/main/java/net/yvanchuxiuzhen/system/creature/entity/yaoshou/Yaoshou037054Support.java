@@ -47,11 +47,11 @@ final class Yaoshou037054Support {
     }
 
     static void finish(Entity entity) {
-        YaoshouShared.finishSkill((YaoshouEntity) entity);
+        YaoshouShared.finishSkill(entity);
     }
 
     static void escape(Entity entity) {
-        YaoshouShared.escape((YaoshouEntity) entity);
+        YaoshouShared.escape(entity);
     }
 
     static void hurt(YaoshouEntity entity, DamageSource source, String animation) {

@@ -785,7 +785,7 @@ yvanchuxiuzhen,Bluestone,block,~/decorate,decor,已读,B1 归属阅读：无过�
 yvanchuxiuzhen,Bluestoneshengcheng,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Icelakeshengcheng,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Biomesand01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Quicksand,fluid,~/decorate,decor,已读,B1 归属阅读：无过程；world 的生成或可生长地面判断按 ID 引用，不赋予它规则
+yvanchuxiuzhen,Quicksand,fluid,~/decorate,world,已读,D/E完整来源复核：独立流体族与妖魂道地表流体；源与流动注册及液体方块由World拥有，无桶与附加过程
 yvanchuxiuzhen,Biomesand02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomesand03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomesand04,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3809,9 +3809,9 @@ yvanchuxiuzhen,Guchong02item,item,~/entity/guchong,guchong,已读,B1 归属阅�
 yvanchuxiuzhen,Guchong03item,item,~/entity/guchong,guchong,已读,B1 归属阅读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
 yvanchuxiuzhen,Guchong04item,item,~/entity/guchong,guchong,已读,B1 归属阅读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
 yvanchuxiuzhen,Guchong03ShiTiChuShiShengChengShi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guchong03,animatedentity,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guchong03,animatedentity,~/entity/guchong,guchong,已读,实体目标/跟随/吞噬/初始化/死亡/每刻与蛊罐释放和回收链已逐条读取；蛊虫真值归guchong
 yvanchuxiuzhen,Guchong04ShiTiChuShiShengChengShi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guchong04,animatedentity,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guchong04,animatedentity,~/entity/guchong,guchong,已读,实体目标/跟随/吞噬/初始化/死亡/每刻与蛊罐释放和回收链已逐条读取；来源节肢动物分类保留；蛊虫真值归guchong
 yvanchuxiuzhen,Guchongxvnfu,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Chongshicao,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Huxiangtunshi,potioneffect,~/effect,guchong,已读,C combat 归属阅读（改判后确认）：蛊虫吞噬标记，没有自身过程，读取者是蛊虫
@@ -4077,7 +4077,7 @@ yvanchuxiuzhen,Yaoshou017,animatedentity,~/entity/yaoshou/yaoshou017,creature,�
 yvanchuxiuzhen,Yaoshou01701DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou01701DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou01701ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou01701,animatedentity,~/entity/yaoshou/yaoshou017,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou01701,animatedentity,~/entity/yaoshou/yaoshou017,creature,已读,来源实体Yaoshou01701Entity及初始化/逐刻/受击过程：寄魂蟹脱壳形态、技能和灵兽袋死亡清理，归生物系统
 yvanchuxiuzhen,Yaoshou018DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou018,creature,已读,B1 归属阅读：随 Yaoshou018 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou018DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou018,creature,已读,B1 归属阅读：随 Yaoshou018 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou018ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yaoshou018,creature,已读,B1 归属阅读：随 Yaoshou018 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
@@ -5627,12 +5627,12 @@ yvanchuxiuzhen,Yaoshou053xiangzuotiao,procedure,~/entity/yaoshou/yaoshou053,crea
 yvanchuxiuzhen,Yaoshou053xiangyoutiao,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou053bingtianxvedi,procedure,~/entity/yaoshou/yaoshou053,creature,已读,B1 归属阅读：随 Yaoshou053 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Snow,particle,~/entity/yaoshou/yaoshou053,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
-yvanchuxiuzhen,Yaoshou053baofengxveZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou053baofengxve,potioneffect,~/entity/yaoshou/yaoshou053,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou053baofengxveZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/entity/yaoshou/yaoshou053,creature,已读,来源效果逐刻向32×16×32范围非友方实体累计冻结；每十刻按施法效果等级增加4倍冻结刻并生成24雪花粒子
+yvanchuxiuzhen,Yaoshou053baofengxve,potioneffect,~/entity/yaoshou/yaoshou053,creature,已读,来源正向效果；来源逐刻回调由Creature自有EffectBehavior承接
 yvanchuxiuzhen,Yaoshou050shucuan,procedure,~/entity/yaoshou/yaoshou050,creature,已读,B1 归属阅读：随 Yaoshou050 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou050canghenyiji,procedure,~/entity/yaoshou/yaoshou050,creature,已读,B1 归属阅读：随 Yaoshou050 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou050safengentityDangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou050,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou050safengentity,animatedentity,~/entity/yaoshou/yaoshou050,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou050safengentity,animatedentity,~/entity/yaoshou/yaoshou050,creature,已读,来源实体Yaoshou050safengentityEntity及逐刻过程：苍痕鼬杀风效果实体、飞行/水下呼吸和命中生命周期，归生物系统
 yvanchuxiuzhen,Yaoshou050safeng,procedure,~/entity/yaoshou/yaoshou050,creature,已读,B1 归属阅读：随 Yaoshou050 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou051bingjipaiji,procedure,~/entity/yaoshou/yaoshou051,creature,已读,B1 归属阅读：随 Yaoshou051 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou049xveyin,procedure,~/entity/yaoshou/yaoshou049,creature,已读,B1 归属阅读：随 Yaoshou049 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
@@ -5667,7 +5667,7 @@ yvanchuxiuzhen,Yaoshou037luolei,procedure,~/entity/yaoshou/yaoshou037,creature,�
 yvanchuxiuzhen,Yaoshou037dousoujingshen,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou037guangshan,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou037leibaoxiaoguoZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Yaoshou037leibaoxiaoguo,potioneffect,~/entity/yaoshou/yaoshou037,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Yaoshou037leibaoxiaoguo,potioneffect,~/entity/yaoshou/yaoshou037,creature,已读,来源Yaoshou037leibaoxiaoguoMobEffect及持续过程：林海兽皇雷暴粒子和伤害效果，归生物系统
 yvanchuxiuzhen,Yaoshou037leibao,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou037tiaoyve,procedure,~/entity/yaoshou/yaoshou037,creature,已读,B1 归属阅读：随 Yaoshou037 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou036yaosui,procedure,~/entity/yaoshou/yaoshou036,creature,已读,B1 归属阅读：随 Yaoshou036 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能

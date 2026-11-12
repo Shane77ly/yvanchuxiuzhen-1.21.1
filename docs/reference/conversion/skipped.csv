@@ -93,14 +93,11 @@ item,yvanchuxiuzhen:hotoil_bucket,物品基类 BucketItem 由所属系统迁移
 item,yvanchuxiuzhen:liexi,物品类 LiexiDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:luopan,物品类 LuopanDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:mamian_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:moshou_001_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:moshou_002_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:moshou_003_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:niutou_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:pao_10,对应方块由所属系统迁移
 item,yvanchuxiuzhen:qiankundaoren,物品类 QiankundaorenDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:qiankunmentu,物品类 QiankunmentuDisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:taomujing_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:tiandaofuben,物品类 TiandaofubenDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:tiandiyinhang,物品类 TiandiyinhangDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:treasure_chest_03,物品类 TreasureChest03DisplayItem 由所属系统迁移
@@ -109,19 +106,8 @@ item,yvanchuxiuzhen:watercloud_bucket,物品基类 BucketItem 由所属系统迁
 item,yvanchuxiuzhen:wenqvan_bucket,物品基类 BucketItem 由所属系统迁移
 item,yvanchuxiuzhen:wuchangbai_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:wuchanghei_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:xiuzhe_0101_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:xveliu_bucket,物品基类 BucketItem 由所属系统迁移
 item,yvanchuxiuzhen:yanwang_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:yaoshou_015_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:yaoshou_016_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:yaoshou_017_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:yaoshou_037_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:yaoshou_046_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:yaoshou_047_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:yaoshou_048_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:yaoshou_050_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:yaoshou_051_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:yaoshou_053_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:ycxzboss_01_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:ycxzboss_02_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:ycxzboss_04_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移

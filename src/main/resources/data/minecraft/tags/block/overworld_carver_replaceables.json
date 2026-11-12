@@ -55,10 +55,7 @@
     "yvanchuxiuzhen:cloudblock",
     "yvanchuxiuzhen:grassblock",
     "yvanchuxiuzhen:loess",
-    {
-      "id": "yvanchuxiuzhen:quicksand",
-      "required": false
-    },
+    "yvanchuxiuzhen:quicksand",
     "yvanchuxiuzhen:rottingsoil",
     "yvanchuxiuzhen:scorchedsoil",
     "yvanchuxiuzhen:soulstone",

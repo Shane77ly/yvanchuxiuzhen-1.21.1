@@ -15,6 +15,7 @@ import net.yvanchuxiuzhen.system.fulu.client.FuluClientSetup;
 import net.yvanchuxiuzhen.system.fulu.client.InheritanceClientSetup;
 import net.yvanchuxiuzhen.system.equipment.client.EquipmentClientSetup;
 import net.yvanchuxiuzhen.system.gongfa.client.GongfaClientSetup;
+import net.yvanchuxiuzhen.system.guchong.client.GuchongClientSetup;
 import net.yvanchuxiuzhen.system.material.client.MaterialClientSetup;
 import net.yvanchuxiuzhen.system.liandan.client.LiandanClientSetup;
 import net.yvanchuxiuzhen.system.lianqi.client.LianqiClientSetup;
@@ -27,6 +28,7 @@ import net.yvanchuxiuzhen.system.storage.client.StorageClientSetup;
 import net.yvanchuxiuzhen.system.yihuo.client.YihuoClientSetup;
 import net.yvanchuxiuzhen.system.xiulian.client.XiulianClientSetup;
 import net.yvanchuxiuzhen.system.world.fluid.client.SpringFluidClientSetup;
+import net.yvanchuxiuzhen.system.world.fluid.client.QuicksandFluidClientSetup;
 
 /**
  * 客户端入口。FML 只在物理客户端构造本类，并在公共入口 {@link YvanchuxiuzhenMod} 之后构造；
@@ -48,6 +50,7 @@ public final class YvanchuxiuzhenClient {
         DecorClientSetup.register(modBus);
         FestivalClientSetup.register(modBus);
         GongfaClientSetup.register(modBus);
+        GuchongClientSetup.register(modBus);
         PanelClientSetup.register(modBus);
         RelationClientSetup.register(modBus);
         SkillClientSetup.register(modBus);
@@ -58,5 +61,6 @@ public final class YvanchuxiuzhenClient {
         YihuoClientSetup.register(modBus);
         XiulianClientSetup.register(modBus);
         SpringFluidClientSetup.register(modBus);
+        QuicksandFluidClientSetup.register(modBus);
     }
 }

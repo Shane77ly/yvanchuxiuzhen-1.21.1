@@ -20,12 +20,13 @@ import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.item.Yaoshou023BaodanItem;
+import net.yvanchuxiuzhen.system.creature.entity.Yaoshou046skill01Entity;
 import net.yvanchuxiuzhen.system.creature.item.Yaoshou013TaoziwuqiItem;
 import net.yvanchuxiuzhen.system.creature.item.Yaoshou014Skill03Item;
 
 /** 已接回行为链的编号妖兽实体、属性、来源出生条件与刷怪蛋注册。 */
 public final class YaoshouCreatures {
-    private static final Set<String> INTEGRATED = Set.of("yaoshou_001", "yaoshou_002", "yaoshou_003", "yaoshou_004", "yaoshou_005", "yaoshou_006", "yaoshou_007", "yaoshou_008", "yaoshou_009", "yaoshou_010", "yaoshou_011", "yaoshou_012", "yaoshou_013", "yaoshou_014", "yaoshou_018", "yaoshou_019", "yaoshou_020", "yaoshou_021", "yaoshou_022", "yaoshou_023", "yaoshou_024", "yaoshou_025", "yaoshou_026", "yaoshou_027", "yaoshou_028", "yaoshou_029", "yaoshou_030", "yaoshou_031", "yaoshou_032", "yaoshou_033", "yaoshou_035", "yaoshou_036", "yaoshou_038", "yaoshou_039", "yaoshou_040", "yaoshou_041", "yaoshou_042", "yaoshou_043", "yaoshou_045", "yaoshou_049", "yaoshou_052", "yaoshou_054");
+    private static final Set<String> INTEGRATED = Set.of("yaoshou_001", "yaoshou_002", "yaoshou_003", "yaoshou_004", "yaoshou_005", "yaoshou_006", "yaoshou_007", "yaoshou_008", "yaoshou_009", "yaoshou_010", "yaoshou_011", "yaoshou_012", "yaoshou_013", "yaoshou_014", "yaoshou_015", "yaoshou_016", "yaoshou_017", "yaoshou_018", "yaoshou_019", "yaoshou_020", "yaoshou_021", "yaoshou_022", "yaoshou_023", "yaoshou_024", "yaoshou_025", "yaoshou_026", "yaoshou_027", "yaoshou_028", "yaoshou_029", "yaoshou_030", "yaoshou_031", "yaoshou_032", "yaoshou_033", "yaoshou_035", "yaoshou_036", "yaoshou_037", "yaoshou_038", "yaoshou_039", "yaoshou_040", "yaoshou_041", "yaoshou_042", "yaoshou_043", "yaoshou_045", "yaoshou_046", "yaoshou_047", "yaoshou_048", "yaoshou_049", "yaoshou_050", "yaoshou_051", "yaoshou_052", "yaoshou_053", "yaoshou_054");
     private static final TagKey<Block> GRASS_MATERIAL = TagKey.create(Registries.BLOCK,
             ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "legacy_grass_material"));
 
@@ -41,6 +42,13 @@ public final class YaoshouCreatures {
         YaoshouAttributes.register(modBus);
         YaoshouCombat.register();
         Yaoshou031Projectiles.register(content);
+        content.entity("projectile_yaoshou_016duye", Yaoshou016duyeEntity::new);
+        content.entity("projectile_yaoshou_017skill_03", Yaoshou017skill03Entity::new);
+        content.<Yaoshou01701Entity>livingEntity("yaoshou_01701", Yaoshou01701Entity::new,
+                Yaoshou01701Entity::attributes);
+        content.entity("projectile_yaoshou_046skill_01", Yaoshou046skill01Entity::new);
+        content.<Yaoshou050safengentityEntity>livingEntity("yaoshou_050safengentity",
+                Yaoshou050safengentityEntity::new, Yaoshou050safengentityEntity::attributes);
         content.entity("projectile_yaoshou_013taoziwuqi", Yaoshou013taoziwuqiEntity::new);
         content.entity("projectile_yaoshou_014skill_03", Yaoshou014skill03Entity::new);
         content.entity("projectile_yaoshou_040skill_0301", Yaoshou040skill0301Entity::new);
@@ -53,6 +61,7 @@ public final class YaoshouCreatures {
         content.itemFactory("creature:yaoshou_013taoziwuqi", Yaoshou013TaoziwuqiItem::new);
         content.itemFactory("creature:yaoshou_014skill_03", Yaoshou014Skill03Item::new);
         content.effectBehavior("yaoshou_036heizexiaoguo", new Yaoshou036BlackMarshEffect());
+        content.effectBehavior("yaoshou_037leibaoxiaoguo", new Yaoshou037ThunderstormEffect());
         for (EntityModelRow row : models()) {
             switch (row.id()) {
                 case "yaoshou_001" -> content.<Yaoshou001Entity>livingEntity(row.id(),
@@ -139,6 +148,26 @@ public final class YaoshouCreatures {
                         (type, level) -> new Yaoshou027Entity(type, level, row), () -> Yaoshou027Entity.attributes(row));
                 case "yaoshou_029" -> content.<Yaoshou029Entity>livingEntity(row.id(),
                         (type, level) -> new Yaoshou029Entity(type, level, row), () -> Yaoshou029Entity.attributes(row));
+                case "yaoshou_015" -> content.<Yaoshou015Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou015Entity(type, level, row), () -> Yaoshou015Entity.attributes(row));
+                case "yaoshou_016" -> content.<Yaoshou016Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou016Entity(type, level, row), () -> Yaoshou016Entity.attributes(row));
+                case "yaoshou_017" -> content.<Yaoshou017Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou017Entity(type, level, row), () -> Yaoshou017Entity.attributes(row));
+                case "yaoshou_037" -> content.<Yaoshou037Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou037Entity(type, level, row), () -> Yaoshou037Entity.attributes(row));
+                case "yaoshou_046" -> content.<Yaoshou046Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou046Entity(type, level, row), () -> Yaoshou046Entity.attributes(row));
+                case "yaoshou_047" -> content.<Yaoshou047Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou047Entity(type, level, row), () -> Yaoshou047Entity.attributes(row));
+                case "yaoshou_048" -> content.<Yaoshou048Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou048Entity(type, level, row), () -> Yaoshou048Entity.attributes(row));
+                case "yaoshou_050" -> content.<Yaoshou050Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou050Entity(type, level, row), () -> Yaoshou050Entity.attributes(row));
+                case "yaoshou_051" -> content.<Yaoshou051Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou051Entity(type, level, row), () -> Yaoshou051Entity.attributes(row));
+                case "yaoshou_053" -> content.<Yaoshou053Entity>livingEntity(row.id(),
+                        (type, level) -> new Yaoshou053Entity(type, level, row), () -> Yaoshou053Entity.attributes(row));
                 default -> throw new IllegalStateException("未知妖兽身份：" + row.id());
             }
         }

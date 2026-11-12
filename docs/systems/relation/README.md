@@ -2,7 +2,7 @@
 topic: relation
 role: entry
 status: partial
-updated: 2026-11-07
+updated: 2026-11-12
 ---
 
 # 关系
@@ -28,6 +28,7 @@ updated: 2026-11-07
 | 方块友方查询 | `friendlyTeams(主人)` 返回只读视图；`isFriendly(集合, 对方)` 按对方当前团队判断 | yihuo 火块保留来源共享友方引用，序列化与重载时保存为独立集合；不允许调用者修改关系 |
 | 继承阵营 | `copyAllegiance(主人, 非玩家实体)`：团队与友方集合整体复制 | 同“查询团队”的召唤与投射物生成 |
 | 共享实体阵营 | `shareEntityAllegiance(来源非玩家实体, 目标非玩家实体)`：团队值复制、友方集合运行期共享，独立存档重载后分离 | creature 008召唤007，保留来源直接赋入同一CompoundTag的后续写入效果 |
+| 蛊罐共享友方 | `shareAllegianceToBlock(主人, 方块持久数据)`与`shareBlockAllegiance(方块持久数据, 虫, 虫团队)`：共享来源friendlist子标签，团队由虫物品单独赋值 | guchong放置与地上放虫，独立存档重载后解除共享 |
 | 设置团队 | `setTeam(非玩家实体, 团队名)` | 只写 `team` 的生成过程、creature 的 `EntityTeamShezhi`（团队名为实体类型 ID，`:` 改为 `_`） |
 | 加入友方 | `addFriendlyTeam(非玩家实体, 团队名)` | `EntityTeamShezhi` 把自身团队加入友方集合 |
 
@@ -36,7 +37,7 @@ updated: 2026-11-07
 ## 未实现
 
 - `gui_0301` 改团队名界面：入口不可达（Q20），待裁定。
-- 陶罐、旗母、副本方块的阵营保存与消费随各所有者接入，当前只接回 yihuo 火块。
+- 方块阵营保存与消费已接回 yihuo 火块和 guchong 蛊罐；旗母与副本方块随各所有者接入。
 - 好友行的境界名：xiulian 提供境界查询后接入（当前为初始境界“凡人”）。
 
 本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。

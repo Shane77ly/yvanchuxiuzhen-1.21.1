@@ -8,10 +8,7 @@
       "id": "yvanchuxiuzhen:hotoil",
       "required": false
     },
-    {
-      "id": "yvanchuxiuzhen:quicksand",
-      "required": false
-    },
+    "yvanchuxiuzhen:quicksand",
     {
       "id": "yvanchuxiuzhen:watercloud",
       "required": false

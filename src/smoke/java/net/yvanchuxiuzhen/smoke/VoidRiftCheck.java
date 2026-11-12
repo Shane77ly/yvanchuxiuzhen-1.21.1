@@ -88,7 +88,7 @@ final class VoidRiftCheck extends ActionCheck {
                     expectTrue("碰撞返回原维度：三轴乘五十并清空返回编号", player.level().dimension().equals(Level.OVERWORLD)
                             && player.position().equals(new Vec3(150, 100, -50)) && Cultivation.tizhiDouble(player, "weidu") == 0);
                     player.teleportTo(player.server.getLevel(VOID), 0, 100, 0, 0, 0);
-                    Cultivation.setTizhiDouble(player, "weidu", 6);
+                    Cultivation.setTizhiDouble(player, "weidu", 4);
                     VoidRift missing = spawn(player.serverLevel(), new Vec3(5, 100, 5));
                     missing.getPersistentData().putBoolean("keyijinru", true);
                     missing.playerTouch(player);

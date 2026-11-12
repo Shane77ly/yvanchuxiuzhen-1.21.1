@@ -5,12 +5,15 @@ from copy import deepcopy
 import json
 import math
 from pathlib import Path
+import zipfile
 
+from build_ledger import read_ledgers
 from catalog_world_biomes import DIMENSIONS
-from convert_content import NAMESPACE, ROOT, SOURCES
+from convert_content import CONTENT, NAMESPACE, ROOT, SOURCES
 
 MOD = 'yvanchuxiuzhen'
 DATA = ROOT / f'src/main/resources/data/{NAMESPACE}'
+VANILLA_RESOURCES = ROOT / 'build/moddev/artifacts/neoforge-21.1.265-client-extra-aka-minecraft-resources.jar'
 
 
 def convert_spline(source, coordinates: dict):
@@ -214,13 +217,47 @@ def plan(source_root: Path | None = None) -> list[tuple[Path, dict, list[tuple[s
     return outputs
 
 
+def registered_blocks() -> set[str]:
+    """由内容表、手工行为注册台账和精确目标方块状态资源确认可用方块身份。"""
+    blocks = {NAMESPACE + ':' + row['id']
+              for path in CONTENT.glob('*/blocks.json')
+              for row in json.loads(path.read_text(encoding='utf-8'))}
+    blocks.update(row['target_id'] for rows in read_ledgers().values() for row in rows
+                  if row['registry'] == 'block' and row['status'] == '行为已迁移')
+    prefix = 'assets/minecraft/blockstates/'
+    with zipfile.ZipFile(VANILLA_RESOURCES) as archive:
+        blocks.update('minecraft:' + name[len(prefix):-5] for name in archive.namelist()
+                      if name.startswith(prefix) and name.endswith('.json'))
+    return blocks
+
+
+def block_state_references(node, location: str = ''):
+    """递归读取计划数据中的每个BlockState.Name，保留字段路径供门禁定位。"""
+    if isinstance(node, dict):
+        for key, value in node.items():
+            field = location + '/' + key
+            if key == 'Name':
+                if not isinstance(value, str):
+                    raise ValueError(f'方块状态Name不是注册ID字符串：{field}={value!r}')
+                yield field, value
+            else:
+                yield from block_state_references(value, field)
+    elif isinstance(node, list):
+        for index, value in enumerate(node):
+            yield from block_state_references(value, location + '/' + str(index))
+
+
 def require_biome_closure(outputs) -> None:
-    """正式写入前核对全部群系及其中Mod实体与地物，不安装半套维度。"""
+    """正式写入前核对维度全部方块状态及群系的Mod实体与地物，不安装半套维度。"""
     missing = set()
     entities = set()
+    blocks = registered_blocks()
     for path in (ROOT / 'src/main/resources/content').glob('*/entities.json'):
         entities.update(NAMESPACE + ':' + row['id'] for row in json.loads(path.read_text(encoding='utf-8')))
     for target, document, _ in outputs:
+        for location, identifier in block_state_references(document):
+            if identifier not in blocks:
+                missing.add(f'方块 {identifier}（{target.relative_to(ROOT).as_posix()}{location}）')
         if target.parent.name != 'dimension':
             continue
         for entry in document['generator']['biome_source']['biomes']:
@@ -243,7 +280,7 @@ def require_biome_closure(outputs) -> None:
                         if not placed.is_file():
                             missing.add(feature)
     if missing:
-        raise ValueError('人间道/妖魂道群系依赖尚未闭合，拒绝写出正式维度：' + '、'.join(sorted(missing)))
+        raise ValueError('人间道/妖魂道维度或群系依赖尚未闭合，拒绝写出正式维度：' + '、'.join(sorted(missing)))
 
 
 def generate(converter) -> int:
