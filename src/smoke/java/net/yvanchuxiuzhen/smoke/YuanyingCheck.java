@@ -6,10 +6,14 @@ import java.util.Map;
 import java.util.UUID;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.yvanchuxiuzhen.smoke.ActionCheck.Action;
 import net.yvanchuxiuzhen.system.attribute.api.Contribution;
 import net.yvanchuxiuzhen.system.attribute.api.Layer;
@@ -147,6 +151,29 @@ final class YuanyingCheck extends SystemCheck {
             }
             case 2 -> respawned(local);
             case 3 -> {
+                if (local < 100) yield false;
+                onServer(p -> {
+                    Arena.level(p);
+                    Cultivation.set(p, CultivationValue.LIFETIME, 10000);
+                    Cultivation.set(p, CultivationValue.SOUL, 10000);
+                    Cultivation.setTizhiDouble(p, "jishiqi", p.level().getDayTime());
+                    returnPosition = p.position();
+                    Skills.toggleYuanying(p);
+                    p.setGameMode(GameType.SURVIVAL);
+                    p.setHealth(p.getMaxHealth());
+                    double before = Cultivation.get(p, CultivationValue.LIFETIME);
+                    LivingDeathEvent event = new LivingDeathEvent(p, p.damageSources().mobAttack(new Zombie(EntityType.ZOMBIE, p.level())));
+                    NeoForge.EVENT_BUS.post(event);
+                    expectTrue("死亡事件先归窍并扣除365寿元，恢复生存模式与保存坐标",
+                            !Cultivation.tizhiBoolean(p, "yvanyingchuqiao") && p.gameMode.getGameModeForPlayer() == GameType.SURVIVAL
+                                    && Cultivation.get(p, CultivationValue.LIFETIME) == before - 365
+                                    && p.position().distanceToSqr(returnPosition) < 0.01 && bodies(p).isEmpty());
+                    p.kill();
+                });
+                yield true;
+            }
+            case 4 -> respawned(local);
+            case 5 -> {
                 if (!inWorld(local)) yield false;
                 onServer(p -> {
                     Arena.level(p);
@@ -160,7 +187,7 @@ final class YuanyingCheck extends SystemCheck {
                 });
                 yield true;
             }
-            case 4 -> {
+            case 6 -> {
                 if (local < 50) yield false;
                 onServer(p -> {
                     expectTrue("断开前服务端出窍标记仍有效", Cultivation.tizhiBoolean(p, "yvanyingchuqiao"));
@@ -172,9 +199,9 @@ final class YuanyingCheck extends SystemCheck {
                 leaveWorld();
                 yield true;
             }
-            case 5 -> reopened(local);
-            case 6 -> inWorld(local);
-            case 7 -> {
+            case 7 -> reopened(local);
+            case 8 -> inWorld(local);
+            case 9 -> {
                 onServer(p -> {
                     expect("同存档重登玩家UUID", savedPlayerId, p.getUUID());
                     expect("重登后修炼境界仍为元婴期", 31, Cultivation.get(p, CultivationValue.LEVEL_NUMBER));
@@ -192,7 +219,7 @@ final class YuanyingCheck extends SystemCheck {
                 });
                 yield true;
             }
-            case 8 -> {
+            case 10 -> {
                 if (local < 10) yield false;
                 onServer(p -> expectTrue("点击归窍按钮前仍保持重登后的出窍状态", Cultivation.tizhiBoolean(p, "yvanyingchuqiao")
                         && p.isSpectator() && p.serverLevel().getEntity(savedBodyId) instanceof Yuanying body
@@ -200,7 +227,7 @@ final class YuanyingCheck extends SystemCheck {
                 pressReturn();
                 yield true;
             }
-            case 9 -> {
+            case 11 -> {
                 if (local < 10) yield false;
                 onServer(p -> expectTrue("重登后出窍状态经真实归窍按钮恢复保存坐标及生存模式，并移除原本体", !Cultivation.tizhiBoolean(p, "yvanyingchuqiao")
                         && !Cultivation.tizhiBoolean(minecraft.player, "yvanyingchuqiao") && p.gameMode.getGameModeForPlayer() == GameType.SURVIVAL

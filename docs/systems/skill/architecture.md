@@ -234,6 +234,10 @@ Q62：逐项读取35个来源动画资源中的实际名字，仅伤害范围默
 
 上述静态核对同时读取锁定1.18.2工程内的精确Forge40.1.0源码包和目标NeoForge21.1.265源码包；Forge包位于来源 `build`，不在既有 `src/elements/Gradle` 静态清单指纹范围内。完整定位与证据范围见 `tmp/skill-yuanying-lifecycle-audit-20261108.md`。本批未新增生命周期检查；既有 `runSmokeClient -PsmokeOnly=yuanying` 五项全部通过。该入口只覆盖境界门槛、出窍、持续消耗、受伤同步、按钮归窍和神识不足，不覆盖有来源/无来源玩家死亡、元婴死亡、跨维度隔离、退出重登和实体重载；这些路径仍只有静态来源与原生保存链证据。元婴台账仍为“已注册”，完整视觉、多人和两版本实机对照继续待验收。
 
+### 有来源死亡事件专项（2026-11-12）
+
+扩展既有 `YuanyingCheck`，在实体来源攻击对应的 `LivingDeathEvent` 上通过 NeoForge 事件总线发布带 `Zombie` 来源的事件，核对监听器归窍、恢复生存模式与原坐标、移除当前世界本体并恰好扣365寿元；随后另行执行无来源普通死亡、重生，再完成既有出窍断线重登与真实按钮归窍路径。最终报告21项玩法与1项鼠标检查全部INFO、0 FAIL、DONE，客户端六维度正常保存退出，日志ERROR/FATAL为0；证据为 `tmp/yuanying-source-event-report.txt` 与 `tmp/yuanying-source-event-client.log`。曾尝试直接对旁观玩家调用实体攻击，但原生旁观模式拒绝受伤，故此检查只验收目标事件监听及处理分支，不声称普通游戏攻击能致死旁观玩家，也不替代自然战斗或玩家死亡的端到端验证。跨维度归窍、无来源死亡专项、实体重载、完整视觉、多人及1.18.2版本实机仍未验收。
+
 ## 技能箭与箭种选择（2026-11-07）
 
 来源为 `SkillArrow01–10Entity`、对应飞行过程、共用的实体命中过程（551 行）与方块命中过程，以及技能界面按钮 6–16。真实发射者是 equipment 的 `Weaponspeedbow01DangGongJuChuXianZaiShouZhongShi`；十个箭物品保留右键使用和 72000 刻使用时长；第 01–09 箭使用矛式动画，第 10 箭为 `UseAnim.NONE`，但其 `releaseUsing` 条件过程恒为假，不发射也不损耗。`SkillArrow00–10skill` 与 `ArrowSkillchufa` 的孤立入口及 `skill_arrowxinruzhishui` 已完成静态核对，见“剩余元素与入口核对”，不新接正常施放。
