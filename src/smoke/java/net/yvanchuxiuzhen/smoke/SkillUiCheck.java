@@ -238,6 +238,22 @@ final class SkillUiCheck extends SystemCheck {
                             && p.getInventory().getItem(2).isEmpty() && p.getInventory().getItem(3).isEmpty() && p.getInventory().getItem(5).isEmpty() && inventorySynced(p)
                             && p.containerMenu.getCarried().isEmpty() && minecraft.player.containerMenu.getCarried().isEmpty()
                             && Skills.spell(p, 1).isEmpty() && Skills.movement(p).isEmpty());
+                    p.closeContainer();
+                    Skills.openLoadout(p);
+                    p.closeContainer();
+                    Skills.openLoadout(p);
+                }),
+                new Action(8, p -> {
+                    expectTrue("04第二次关闭发生在两刻初始化前，来源关闭过程将未装入空槽写回当前页与单件装配", p.containerMenu instanceof SkillLoadoutMenu
+                            && minecraft.screen instanceof SkillLoadoutScreen && Techniques.slot(p).isEmpty()
+                            && Skills.spell(p, 1).isEmpty() && Skills.movement(p).isEmpty() && Skills.flight(p).isEmpty()
+                            && Skills.weaponArt(p).isEmpty());
+                    Techniques.setSlot(p, studiedTechnique.copy());
+                    Skills.setSpell(p, 1, learned.get(0).copyWithCount(1));
+                    Skills.setMovement(p, learned.get(1).copy());
+                    Skills.setFlight(p, learned.get(2).copy());
+                    Skills.setWeaponArt(p, learned.get(3).copy());
+                    ((SkillLoadoutMenu) p.containerMenu).initialize(p);
                     click("下一页技能");
                 }),
                 new Action(8, p -> {
