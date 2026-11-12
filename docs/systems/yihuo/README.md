@@ -22,7 +22,7 @@ updated: 2026-11-08
 
 `effect_023`、`effect_024` 的跨系统施加、查询和移除统一使用 combat 的 `StatusEffects`，持续行为归 yihuo。skill 的火箭只施加阳火，不提供 `fireAttackUUID`；不能把火箭射手自动补为持续伤害来源。已对照 `typed_field_accesses.csv` 核对两个持续过程：玩家只读 `tizhiitem` 中的 `fireAttackUUID`/`fireteam`，通过 xiulian 的 `Cultivation.tizhiString` 查询；非玩家从本体持久数据查询。`yanghuotick`/`yinhuotick` 由本系统保管在实体持久数据中，不在效果移除时清零。
 
-丹火物品仍归 skill，火块和燃料归 yihuo。`Yihuo.useDanFire(UseOnContext)` 负责丹火的上表面放置、施放者校验和向 `blockfire` 标签方块补充燃料；调用者为 skill 的丹火物品。`FireHeatEvent` 把每二十刻的热量交给上方装置所有者；`FireExhaustedEvent` 请求拥有 `danludinglu` 装置的系统按剩余 `lianpower` 与 `gengxin` 决定是否保留火块。事件处理者写入自己的装置，本系统只写火块燃料和来源身份；两条装置消费链仍待 D 阶段真实炉鼎接入，不计为已完成。
+丹火物品仍归 skill，火块和燃料归 yihuo。`Yihuo.useDanFire(UseOnContext)` 负责丹火的上表面放置、施放者校验和向 `blockfire` 标签方块补充燃料；调用者为 skill 的丹火物品。`FireHeatEvent` 把每二十刻的热量交给上方装置所有者；`FireExhaustedEvent` 请求拥有 `danludinglu` 装置的系统按剩余 `lianpower` 与 `gengxin` 决定是否保留火块。`LiandanSetup` 与 `LianqiSetup` 均已注册所属装置的两个事件处理者，处理者只写自己的装置，本系统只写火块燃料和来源身份；炉鼎行为证据见各自系统月志，异火自身的18类材料逐项链路仍未完成验收。
 
 丹火放置另有一处 `friendlist` 外部读取（`typed_field_accesses.csv` 第 931 行，来源过程第 78 行），经 relation 的 `Relations.friendlyTeams` 取得只读视图，保留来源重载前共用引用、重载后独立的时序；火块敌友判定经 `Relations.isFriendly(集合, 实体)`。来源放置读取实体 NBT 的 `team`，`PlayerJoinGame` 登录时把玩家能力团队写入该字段，使用 `Relations.entityTeam` 和本系统所属的登录复制保留载体区别。剩余自然获得与消费入口已按各系统职责登记于正文，后续消费者通过所属系统的公开操作协作，不直接写入其他系统数据。
 

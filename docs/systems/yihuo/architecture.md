@@ -55,7 +55,7 @@ updated: 2026-11-08
 
 `YihuoEffects` 绑定两个效果的行为；`FireBlock` 保留内容表物理属性并负责计划刻、接触和移除；`FireBlockEntity` 保存燃料与来源身份；`YihuoBlockEntities` 注册18个独立类型与方向能力。skill 的 `DanFireItem` 调用 [公开操作](README.md#公开操作) `Yihuo.useDanFire`。
 
-`FireHeatEvent` 和 `FireExhaustedEvent` 让生产系统消费自己的热量与刷新字段，异火不直接写其他系统的装置状态。**目前没有炉鼎监听者，实际炉鼎热量累计、保留火与生产流程仍待D阶段接入，不记为已迁移的完整供热链。** 火块台账保持“已注册”并写明已实现部分与缺口；两个效果和丹火物品按各自实际验证状态登记。
+`FireHeatEvent` 和 `FireExhaustedEvent` 让生产系统消费自己的热量与刷新字段，异火不直接写其他系统的装置状态。`LiandanSetup` 与 `LianqiSetup` 已注册各自的热量和耗尽处理者，由所属系统写入丹炉或炼器鼎；处理及测试范围分别见[炼丹](../liandan/README.md)和[炼器](../lianqi/README.md)。火块台账保持“已注册”并写明已实现部分与缺口；两个效果和丹火物品按各自实际验证状态登记。
 
 目标API核对版本为NeoForge 21.1.265，读取构建生成的sources jar：`BlockBehaviour`、`BlockEntity`、`RandomizableContainerBlockEntity`、`BaseContainerBlockEntity`、`RegisterCapabilitiesEvent`、`SidedInvWrapper`、`UseOnContext`、`MobEffectInstance`。更新包经完整更新标签包含持久数据，方块字段变更标脏并通知客户端。
 
@@ -86,7 +86,7 @@ NeoForge 21.1.265 的 `BlockEntity.saveAdditional` 保存持久数据副本，�
 
 [economy](../economy/README.md) 的 B `Shougouselljisuan:349–350` 按 `huoyan` 标签调用 `Yihuochushou` 返回两族同级估价，未改变异火状态。[fulu](../fulu/README.md) 的 `HuafushaohuiZaiFangKuaiShangYouJian:33` 按 `huoyvan` 标签接受火源；[craft](../craft/README.md) 的 `TaopiZaiFangKuaiShangYouJian:62–67` 按 `dahuozhuangzhi` 标签启动烧炼；[zhenfa](../zhenfa/README.md) 的 `Zhenfajiance4:120–121` 按 `buzhenfire` 累计火行阵元。标签已登记，装置与流程状态由对应系统写入；烧符台、陶坯的火块渲染引用不视为物品产出。
 
-[liandan](../liandan/README.md)、[lianqi](../lianqi/README.md) 等D阶段炉鼎所有者按上文 `FireHeatEvent/FireExhaustedEvent` 契约消费热量与决定保留火块。符箓、NPC等来源的炙烤施加与移除随其施放流程接回，跨系统效果操作沿用 `StatusEffects`。`Fireskill` 按上文来源不可达结论保留，不列为待补的自然武器入口。
+[liandan](../liandan/README.md)、[lianqi](../lianqi/README.md) 已按上文 `FireHeatEvent/FireExhaustedEvent` 契约消费热量并决定是否保留火块。符箓、NPC等来源的炙烤施加与移除随其施放流程接回，跨系统效果操作沿用 `StatusEffects`。`Fireskill` 按上文来源不可达结论保留，不列为待补的自然武器入口。
 
 ## 未完成
 
@@ -126,8 +126,8 @@ NeoForge 21.1.265 的 `BlockEntity.saveAdditional` 保存持久数据副本，�
 | --- | --- |
 | 本人丹火自然放置 | 由真实客户端 `useItemOn` 放置221火块；双方燃料10，施放者UUID、团队一致，物品已消费。 |
 | 异主与补燃料 | 异主拒绝新放但可向既有火补7，双方燃料17；向普通火使用会消费物品，营火燃料为22。 |
-| 自然计划刻 | 两次实际游戏刻为 `[416,436]`，每20刻扣1；`FireHeatEvent` 累计热量2，燃料降至15。该观测不代替真实炉鼎消费。 |
+| 自然计划刻 | 两次实际游戏刻为 `[416,436]`，每20刻扣1；`FireHeatEvent` 累计热量2，燃料降至15。该观测不代替真实配方生产和完整炉次验收。 |
 | 普通炙烤 | 受控500生命牛预置效果与计时后由自然效果刻推进，阳火/阴火/空来源生命差分别为16/8/0；阳火和阴火处理后的无敌时间分别为0/17。 |
 | 阴阳爆燃 | 预置阳火等级1、阴火等级2及计时后由自然效果刻推进，两个Mob各损失50生命，双效果移除。 |
 
-本次未改 yihuo 生产公式，未恢复 `YihuoCheck`、专项选择器或使用Computer Use。两个持续效果按源码实现与上述行为证据登记“行为已迁移”，不表示完整验收。火块继续登记“已注册”：221自然放置、同步和计划刻只是有限样本，未逐项操作18类；普通效果与爆燃的预置场景也不能证明火块接触或18材料自然命中全链。炉鼎消费者仍随D阶段。本批未运行专用服务器，未执行1.18.2版本实机、两版本对照、完整视觉与多人。
+本次未改 yihuo 生产公式，未恢复 `YihuoCheck`、专项选择器或使用Computer Use。两个持续效果按源码实现与上述行为证据登记“行为已迁移”，不表示完整验收。火块继续登记“已注册”：221自然放置、同步和计划刻只是有限样本，未逐项操作18类；普通效果与爆燃的预置场景也不能证明火块接触或18材料自然命中全链。liandan/lianqi消费者已注册并随所属系统测试；异火本批未运行专用服务器，未执行1.18.2版本实机、两版本对照、完整视觉与多人。
