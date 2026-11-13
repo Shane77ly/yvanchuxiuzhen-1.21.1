@@ -2,12 +2,12 @@
 topic: guchong
 role: architecture
 status: draft
-updated: 2026-11-12
+updated: 2026-11-13
 ---
 
 # 蛊虫：架构调查与提案
 
-来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
+按项目已批准的系统边界实施；来源事实、已实现范围和待验证范围分别登记。源码定位采用 [系统导航](../README.md)的 A/B 规则。
 
 ## 1.18.2 数据与入口
 
@@ -31,8 +31,18 @@ updated: 2026-11-12
 
 精确来源：A `item/Taoguan01itemItem.java`–`03itemItem.java`、`world/inventory/Taoguan01GUIMenu.java`–`03GUIMenu.java`、`client/gui/Taoguan01GUIScreen.java`–`03GUIScreen.java`、`procedures/Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java`、`Taoguan01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure.java`、`TaoguanGuiopenProcedure.java`、`Taoguan01GUIDangZheGeJieMianBeiGuanBiProcedure.java`、`GuchongtickProcedure.java`、`Guchong01DangShiTiBeiShaSiShiProcedure.java`；B `procedures/Taoguan01GengXinYouXiKeProcedure.java`、`Taoguan01ZaiFangKuaiShangYouJianProcedure.java`、`GuchongshuxingProcedure.java`。路径前缀见[系统导航](../README.md)。
 
-本批代码等待统一构建和客户端/专服验证。全生命周期、自然操作、完整存档/多人、1.18.2实机与两版本对照未执行。
+2026-11-13收纳批次已通过统一编译、架构检查及一级手持罐菜单/序列化保存的最小客户端单项，见下节。地上罐与手持罐全生命周期、其余自然操作、完整存档/多人、专服专项、1.18.2版本实机与两版本对照未执行。
 
 ## 待调查
 
 蛊虫释放界面 `GuchongshifangGUI` 与按钮过程、虫卵 `Chongluan` 的来源与用途尚未逐条读取。
+
+## 2026-11-13 摄虫网收纳与蛊罐消费者
+
+R05/R10的外部收纳缺口由`GuchongCapture.captureWild`承担：`equipment`仅传入当前服务端世界、目标实体和法宝主人UUID，不读取或写入蛊虫持久字段。操作先检查`guchongxvnfu`，已认主时返回对应结果，法宝按来源在网的位置广播怒粒子；未认主时，将目标实体完整注册ID加`item`后以英文小写查物品，无对应物品则跳过。来源没有虫标签、存活、节肢类别或所有者过滤，目标保持，不将其收窄为仅本系统两种实体。
+
+找到对应物品后写入实体ID、等级名/数值、经验上限/当前经验、队伍、十三项资质和对应属性；`health_Num`读取当前生物生命，非生物为-1。名称删除方括号后保存为物品自定义名称，认主标记为false；不复制整个实体NBT或附加来源未写入的归属字段。由本系统通过物品组件写回；法宝主人在当前世界且为玩家时交给玩家，库存满时沿原生`ItemHandlerHelper.giveItemToPlayer`掉落。来源在主人缺席时仍移除可捕获目标，目标保持该顺序。
+
+所得虫物品已携带`guchongid`，可直接进入三档蛊罐的既有标签槽，关闭时由`TaoguanMenu`保存编号槽，罐物品序列化仍由原生组件承担。重新开罐继续保持来源不读回`health_Num`的差异，不能以捕获保存当前生命为理由改写这条菜单规则。地上罐精血认主、释放、回罐、死亡清槽仍沿用现有实现，本次不宣称这些完整自然路径已验收。
+
+来源依据：A `procedures/Fabao01701DangShiTiGengXinKeShiProcedure.java`的摄虫网分支；具体法宝入口、时序、模型见[装备正文](../equipment/architecture.md#摄虫网与困虫兜2026-11-13)。本次最小客户端单项已通过普通物品入口、活动实体和捕获物品序列化重读、认主虫排除、真实捕获物品入罐/关罐/重开，以及同物品困虫兜门槛和时序；完整结果只登记[装备月志](../equipment/logs/2026-11.md#2026-11-13摄虫网收纳与蛊罐保存)。完整地上罐链、多人、重登、1.18.2版本实机与两版本对照仍未执行。

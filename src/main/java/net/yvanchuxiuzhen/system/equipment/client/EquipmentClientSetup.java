@@ -15,6 +15,7 @@ import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentBlockEntities;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao01701Entity;
 import net.yvanchuxiuzhen.system.equipment.projectile.FabaoProjectile;
 import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
@@ -56,6 +57,9 @@ public final class EquipmentClientSetup {
             event.registerEntityRenderer(EquipmentSetup.toolMachineType(kind).get(), context -> new AnimatedEntityRenderer<>(context, row));
         }
         for (EntityModelRow row : ContentFiles.read("content/equipment/entity_models.json", EntityModelRow.CODEC)) {
+            if (row.id().equals("fabao_01701")) {
+                event.registerEntityRenderer(EquipmentSetup.fabao017Type().get(), context -> new AnimatedEntityRenderer<Fabao01701Entity>(context, row));
+            }
             if (row.id().startsWith("flyinginstrument_")) {
                 event.registerEntityRenderer(EquipmentSetup.<FlyingInstrumentEntity>flyingInstrumentType(row.id()).get(),
                         context -> new AnimatedEntityRenderer<>(context, row));

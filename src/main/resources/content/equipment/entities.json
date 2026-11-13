@@ -22,5 +22,6 @@
 {"id":"flyinginstrument_05","category":"MONSTER","width":1.5,"height":1.5,"tracking_range":64,"update_interval":3,"fire_immune":false},
 {"id":"flyinginstrument_06","category":"MONSTER","width":1.1,"height":1.1,"tracking_range":64,"update_interval":3,"fire_immune":false},
 {"id":"flyinginstrument_07","category":"MONSTER","width":1.5,"height":0.3,"tracking_range":64,"update_interval":3,"fire_immune":false},
-{"id":"flyinginstrument_08","category":"MONSTER","width":2.0,"height":1.2,"tracking_range":64,"update_interval":3,"fire_immune":false}
+{"id":"flyinginstrument_08","category":"MONSTER","width":2.0,"height":1.2,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"fabao_01701","category":"MONSTER","width":1.0,"height":0.4,"tracking_range":64,"update_interval":3,"fire_immune":false}
 ]

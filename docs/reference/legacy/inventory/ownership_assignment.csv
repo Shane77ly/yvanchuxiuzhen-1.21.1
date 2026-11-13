@@ -3817,10 +3817,10 @@ yvanchuxiuzhen,Chongshicao,plant,~/plant/ordinaryplants,plant,已读,逐项阅�
 yvanchuxiuzhen,Huxiangtunshi,potioneffect,~/effect,guchong,已读,C combat 归属阅读（改判后确认）：蛊虫吞噬标记，没有自身过程，读取者是蛊虫
 yvanchuxiuzhen,Guchongtunshi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongyesheng,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao017DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao017 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
-yvanchuxiuzhen,Fabao017,item,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
-yvanchuxiuzhen,Fabao01701DangShiTiGengXinKeShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao01701,animatedentity,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao017DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,R05/R10逐行读取物品、两过程、实体及模型渲染：法宝拥有普通摄虫与潜行困虫的入口、50/400刻冷却、36/40/200刻时序和动画；个体收纳经guchong公开操作保存，equipment不写蛊虫持久数据
+yvanchuxiuzhen,Fabao017,item,~/weapon/fabao,equipment,已读,R05/R10逐行读取物品、两过程、实体及模型渲染：法宝拥有普通摄虫与潜行困虫的入口、50/400刻冷却、36/40/200刻时序和动画；个体收纳经guchong公开操作保存，equipment不写蛊虫持久数据
+yvanchuxiuzhen,Fabao01701DangShiTiGengXinKeShi,procedure,~/weapon/fabao,equipment,已读,R05/R10逐行读取物品、两过程、实体及模型渲染：法宝拥有普通摄虫与潜行困虫的入口、50/400刻冷却、36/40/200刻时序和动画；个体收纳经guchong公开操作保存，equipment不写蛊虫持久数据
+yvanchuxiuzhen,Fabao01701,animatedentity,~/weapon/fabao,equipment,已读,R05/R10逐行读取物品、两过程、实体及模型渲染：法宝拥有普通摄虫与潜行困虫的入口、50/400刻冷却、36/40/200刻时序和动画；个体收纳经guchong公开操作保存，equipment不写蛊虫持久数据
 yvanchuxiuzhen,Fabao017hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong,tag,~/tag,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,Taoguan01GUI,gui,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放

@@ -13723,3 +13723,6 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/zaixian
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/screens/zhengguo.png,6ea10af06974b50198b7ce00776e077ab7196d99,src/main/resources/assets/yvanchuxiuzhen/textures/screens/zhengguo.png
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/screens/zhenxianpoluo_gui.png,c51ba787891b3f6a51df58d30cd0b56f09628921,src/main/resources/assets/yvanchuxiuzhen/textures/screens/zhenxianpoluo_gui.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/zuduiteam_gui.png,d46fbfe5e173594aca226d66c1835efc449134fd,src/main/resources/assets/yvanchuxiuzhen/textures/screens/zuduiteam_gui.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/fabao01701.animation.json,e79a14303f3a7d893ca0289e999aa13261a6150d,src/main/resources/assets/yvanchuxiuzhen/animations/fabao01701.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/fabao01701.geo.json,266cf9f2e4e42ce2f703fc58e72e9d300f6ecebb,src/main/resources/assets/yvanchuxiuzhen/geo/fabao01701.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/fabao01701.png,1bb67a3d29b01d83b1c7dd9e86f10628df4b5e15,src/main/resources/assets/yvanchuxiuzhen/textures/entities/fabao01701.png

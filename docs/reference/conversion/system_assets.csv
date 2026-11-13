@@ -618,3 +618,6 @@ creature,geo,yvanchuxiuzhen:guiguai03
 creature,animation,yvanchuxiuzhen:guiguai03
 creature,texture,yvanchuxiuzhen:entities/guiguai03
 creature,item,yvanchuxiuzhen:guiguai_03_spawn_egg
+equipment,geo,yvanchuxiuzhen:fabao01701
+equipment,animation,yvanchuxiuzhen:fabao01701
+equipment,texture,yvanchuxiuzhen:entities/fabao01701

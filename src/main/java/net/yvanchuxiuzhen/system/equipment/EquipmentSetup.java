@@ -21,6 +21,8 @@ import net.yvanchuxiuzhen.system.equipment.content.Fabao012Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao013Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao014Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao016Item;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao017Item;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao01701Entity;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao021Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao022Item;
 import net.yvanchuxiuzhen.system.equipment.content.FabaoProjectileItem;
@@ -60,6 +62,7 @@ public final class EquipmentSetup {
         CONTENT.itemFactory("equipment:fuchen", FuchenItem::new);
         CONTENT.itemFactory("equipment:fabao_010", Fabao010Item::new);
         CONTENT.itemFactory("equipment:fabao_010huoyan", Fabao010huoyanItem::new);
+        CONTENT.itemFactory("equipment:fabao_017", Fabao017Item::new);
         for (FabaoProjectile.Kind kind : FabaoProjectile.Kind.values()) {
             CONTENT.itemFactory("equipment:" + kind.itemId(), (properties, tooltip) ->
                     new FabaoProjectileItem(kind, properties, tooltip));
@@ -120,6 +123,11 @@ public final class EquipmentSetup {
         CONTENT.entity(Fuchen.ID, Fuchen::new);
         CONTENT.entity(Fabao010huoyan.ID, Fabao010huoyan::new);
         for (EntityModelRow model : ContentFiles.read("content/equipment/entity_models.json", EntityModelRow.CODEC)) {
+            if (model.id().equals("fabao_01701")) {
+                CONTENT.<Fabao01701Entity>livingEntity(model.id(), (type, level) -> new Fabao01701Entity(type, level, model),
+                        () -> Fabao01701Entity.attributes(model));
+                continue;
+            }
             if (model.id().startsWith("flyinginstrument_")) {
                 FlyingInstrumentItem.Definition definition = FlyingInstrumentItem.definitionByEntity(model.id());
                 CONTENT.<FlyingInstrumentEntity>livingEntity(model.id(), (type, level) -> new FlyingInstrumentEntity(type, level, model, definition),
@@ -179,6 +187,10 @@ public final class EquipmentSetup {
 
     public static Supplier<EntityType<Fabao014>> fabao014Type() {
         return CONTENT.entityType(Fabao014.ID);
+    }
+
+    public static Supplier<EntityType<Fabao01701Entity>> fabao017Type() {
+        return CONTENT.entityType("fabao_01701");
     }
 
     public static Supplier<EntityType<Fabao010huoyan>> fabao010FireType() {
