@@ -2,7 +2,7 @@
 topic: systems-index
 role: entry
 status: current
-updated: 2026-11-09
+updated: 2026-11-13
 ---
 
 # 全量系统架构调查
@@ -44,7 +44,7 @@ updated: 2026-11-09
 | [`zhenfa`](zhenfa/README.md) | 阵法 | 59 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`economy`](economy/README.md) | 经济 | 263 | 0 | 调查正文已建立；实现及运行验收未开始 |
 | [`quest`](quest/README.md) | 任务 | 124 | 0 | 调查正文已建立；实现及运行验收未开始 |
-| [`book`](book/README.md) | 书籍 | 70 | 0 | 调查正文已建立；实现及运行验收未开始 |
+| [`book`](book/README.md) | 书籍 | 70 | 50 | 研习/书架藏宝与普通阅读部分实现；普通阅读70条玩法检查、五张中文截图及正常保存退出通过，答题/装订与获取生产链仍待 |
 
 | 内容族 | 中文 | 候选元素 | 已读 | 状态 |
 | --- | --- | ---: | ---: | --- |

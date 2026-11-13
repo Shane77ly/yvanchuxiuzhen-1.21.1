@@ -22,7 +22,7 @@ import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 
 /**
- * 公共书载体的自然使用入口（来源 {@code BookRightClick}）：分派书架藏宝与潜行研习，保留文本、图纸和丹方的优先级。
+ * 公共书载体的自然使用入口（来源 {@code BookRightClick}）：依次分派文本、藏宝、图纸、丹方及研习或阅读。
  */
 public final class StudyBookItem extends ContentItem {
     public StudyBookItem(Properties properties, List<Component> tooltip) {
@@ -44,15 +44,37 @@ public final class StudyBookItem extends ContentItem {
                 CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, player.position(), Vec2.ZERO,
                         serverPlayer.serverLevel(), 4, "", Component.empty(), serverPlayer.server, null).withSuppressedOutput();
                 serverPlayer.server.getCommands().performPrefixedCommand(source, command);
+            } else {
+                splitText(stack, data.getString("textdisplay"));
+                serverPlayer.inventoryMenu.broadcastChanges();
+                BookMenus.open(serverPlayer);
             }
             return result;
         }
         if (data.getString("TreasureTypeBig").equals("书架")) {
             openTreasure(serverPlayer, stack, data);
-        } else if (data.getString("fabaotype").isEmpty() && data.getString("danyaoname").isEmpty() && player.isShiftKeyDown()) {
+        } else if (!data.getString("fabaotype").isEmpty() || !data.getString("danyaoname").isEmpty()) {
+            BookMenus.open(serverPlayer);
+        } else if (player.isShiftKeyDown()) {
             study(serverPlayer, stack);
+        } else {
+            BookMenus.open(serverPlayer);
         }
         return result;
+    }
+
+    /** 来源先清十一行，再以 Java 字符串的每二十二个 UTF-16 单元写入全部行。 */
+    private static void splitText(ItemStack stack, String text) {
+        CustomData.update(DataComponents.CUSTOM_DATA, stack, data -> {
+            for (int index = 1; index <= 11; index++) data.putString(textKey(index), "");
+            for (int offset = 0; offset < text.length(); offset += 22) {
+                data.putString(textKey(offset / 22 + 1), text.substring(offset, Math.min(offset + 22, text.length())));
+            }
+        });
+    }
+
+    private static String textKey(int line) {
+        return "text" + (line < 10 ? "0" : "") + line;
     }
 
     private static void openTreasure(ServerPlayer player, ItemStack stack, CompoundTag data) {

@@ -2,17 +2,17 @@
 topic: book
 role: entry
 status: partial
-updated: 2026-11-08
+updated: 2026-11-13
 ---
 
 # 书籍
 
 标识 `book`，类别：系统。职责：公共书籍、阅读、答题、装订（[系统设计](../../development/system-design.md)）。
 
-当前阶段：部分实现（2026-11-08）。B1 已登记方块 1、物品 37 的身份、资源与基础属性；`book_001`–`book_036` 已接回潜行右键的技能/功法研习分派及成功后的答题计数清零，沿用两个业务所有者的公开操作。研习批次完整构建及现有skillui客户端29项通过，已覆盖四类技能和功法的自然研习、境界失败、本人重复与整栈/计数同步；完整证据与未覆盖项见正文。本次补接书架藏宝自然右键分支，经既有 API 随机发放功法或技能书后消耗一件载体，统一构建通过，真实客户端skillui共35项玩法INFO、0FAIL、DONE；新增等级0技能、等级1技能与等级1功法三条消费主路径通过，输入载体由检查按CUSTOM_DATA构造，未接出生或宝箱获取链，完整36逐载体验收未执行。文本、普通阅读、图纸/丹方说明、符箓分派、完整答题和装订仍未实现，`makebook` 是装订台方块物品，不是公共研习书。规则与证据边界见[自然使用正文](architecture.md#自然研习入口2026-11-08)。
+当前阶段：部分实现（2026-11-13）。B1 已登记方块 1、物品 37 的身份、资源与基础属性；36 公共载体已接回技能/功法潜行研习、成功清答题计数与书架藏宝自然分派，历史有效验证见[自然使用正文](architecture.md#自然研习入口2026-11-08)。本批补齐同一载体族的普通阅读：文本书、功法、四类技能、图纸九项材料与丹方八项药草共用来源无槽、无按钮的十一行书页；保留文本书潜行符箓命令分派及来源显示细节。定向转换、编译和六条架构守卫已通过；`bookreading` 单项70条玩法检查、0失败，正常保存退出，五张中文截图已核，结果见[书籍月志](logs/2026-11.md)。来源版本实机、两版本对照、完整 36 逐载体验收未执行。完整答题、装订、文本/符箓学习载体的获取生产及出生/宝箱获取链仍开放；`makebook` 是装订台方块物品。当前规则和证据边界见[普通阅读正文](architecture.md#普通阅读2026-11-13)。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
-- 候选归属 70 个元素，其中 38 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
+- 候选归属 70 个元素，其中 50 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
@@ -20,6 +20,8 @@ updated: 2026-11-08
 
 本批不新增供其他系统调用的 book API。公共书物品 `StudyBookItem` 经 `Techniques.book/study/giveTreasureBook` 和 `Skills.book/study/giveTreasureBook` 查询、分派研习与藏宝发书；随机表、境界与灵根判断留在原业务操作。书架藏宝的来源实例键由 `minecraft:custom_data` 承载，具体契约见正文。答题进度 `daduishuliang` 由 book 唯一写入，本批仅接成功清零，不建立 skill/gongfa 的答题数据写入口。
 
+阅读通过 `Techniques.book/main` 和 `Skills.book` 查询书实例与主修档位；技能品阶/境界中文经 `SkillBook.gradeText/levelText` 委托既有计算，避免复制公式。对照 `typed_field_accesses.csv` 中 `Bookwenzi4`–`Bookwenzi10` 对 `gongfa` 的全部读取，目标只经 `Techniques.main` 取主修。图纸和丹方显示读取其生产者已经写入 `minecraft:custom_data` 的根字段，不改变配方或装备真值；文本行 `text01` 起由 book 在阅读前写入被使用的真实物品实例并同步。
+
 已对照 `typed_field_accesses.csv` 中 `BookRightClick` 的修炼字段读取，并补核该索引未收录的实体持久字段：`daduishuliang` 的其他真实消费者是答题四选项与题数显示，完整调用链留待 book 批次。公共书不直接改写功法/技能组件、装配附件或修炼档案。
 
-本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
+- [变化索引](changes.md)与[书籍月志](logs/2026-11.md)记录本批结果；先前研习与藏宝批次证据仍在[项目月志](../project/logs/2026-11.md)。

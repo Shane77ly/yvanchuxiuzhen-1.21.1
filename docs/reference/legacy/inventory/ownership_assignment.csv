@@ -1623,18 +1623,18 @@ yvanchuxiuzhen,Cailiao21702,recipe,~/item/metal,material,候选,第一版批量�
 yvanchuxiuzhen,Cailiao21703,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao21902,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao21903,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,BookGUI,gui,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi1,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi2,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi3,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi4,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi5,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi6,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi7,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi8,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi9,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi10,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi11,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,BookGUI,gui,~/item/book,book,已读,2026-11-13：BookGUIMenu与BookGUIScreen及Bookwenzi1至11已读；公共书无槽十一行阅读归book；业务实例只读所属系统api
+yvanchuxiuzhen,Bookwenzi1,procedure,~/item/book,book,已读,2026-11-13：已核第1行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi2,procedure,~/item/book,book,已读,2026-11-13：已核第2行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi3,procedure,~/item/book,book,已读,2026-11-13：已核第3行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi4,procedure,~/item/book,book,已读,2026-11-13：已核第4行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi5,procedure,~/item/book,book,已读,2026-11-13：已核第5行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi6,procedure,~/item/book,book,已读,2026-11-13：已核第6行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi7,procedure,~/item/book,book,已读,2026-11-13：已核第7行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi8,procedure,~/item/book,book,已读,2026-11-13：已核第8行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi9,procedure,~/item/book,book,已读,2026-11-13：已核第9行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi10,procedure,~/item/book,book,已读,2026-11-13：已核第10行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi11,procedure,~/item/book,book,已读,2026-11-13：已核第11行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
 yvanchuxiuzhen,Cailiao161,item,~/item/gemstone,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；equipment 的 Shipinpeifang1、Shipinpeifang3、Shipinpeifang4；flow 的 Worldbegin；treasure 的 BaoxiangBaoshicailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao16101,block,~/item/gemstone,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Cloudblock,block,~/decorate,decor,已读,B1 归属阅读：无过程；world 的生成或可生长地面判断按 ID 引用，不赋予它规则

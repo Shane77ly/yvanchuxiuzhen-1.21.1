@@ -7,6 +7,7 @@ import net.yvanchuxiuzhen.collection.decor.client.DecorClientSetup;
 import net.yvanchuxiuzhen.collection.festival.client.FestivalClientSetup;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.ModifierKeysClient;
+import net.yvanchuxiuzhen.system.book.client.BookClientSetup;
 import net.yvanchuxiuzhen.system.combat.client.CombatClientSetup;
 import net.yvanchuxiuzhen.system.cooking.client.CookingClientSetup;
 import net.yvanchuxiuzhen.system.craft.client.CraftClientSetup;
@@ -38,6 +39,7 @@ import net.yvanchuxiuzhen.system.world.fluid.client.QuicksandFluidClientSetup;
 public final class YvanchuxiuzhenClient {
     public YvanchuxiuzhenClient(IEventBus modBus) {
         ModifierKeysClient.register();
+        BookClientSetup.register(modBus);
         ParticleClientSetup.register(modBus);
         PlantClientSetup.register(modBus);
         CombatClientSetup.register(modBus);

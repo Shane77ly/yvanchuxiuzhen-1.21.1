@@ -10,6 +10,7 @@ import java.util.UUID;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.yvanchuxiuzhen.system.skill.SkillText;
 
 /**
  * 技能书实例（物品组件 {@code yvanchuxiuzhen:skill}，来源书的 NBT）。公共字段：类别、名字（{@code jinengName} 等）、
@@ -42,6 +43,16 @@ public record SkillBook(SkillKind kind, String name, double grade, double level,
 
     public String text(String key) {
         return texts.getOrDefault(key, "");
+    }
+
+    /** 来源按品阶数值写入的显示文字，供公共书阅读页查询。 */
+    public String gradeText() {
+        return SkillText.grade(grade);
+    }
+
+    /** 来源按所需境界数值写入的显示文字，供公共书阅读页查询。 */
+    public String levelText() {
+        return SkillText.level(level);
     }
 
     public boolean ownedBy(UUID player) {
