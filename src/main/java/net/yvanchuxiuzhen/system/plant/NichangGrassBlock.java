@@ -58,4 +58,9 @@ public final class NichangGrassBlock extends ContentFlower implements Bonemealab
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
         NichangGrassGrowth.tick(stage, level, pos);
     }
+
+    /** 荫翠符直接推进一次阶段；第六阶段先开花，再通知召引并发出粒子。 */
+    public void ripen(ServerLevel level, BlockPos pos) {
+        NichangGrassGrowth.ripen(stage, level, pos);
+    }
 }

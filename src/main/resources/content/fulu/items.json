@@ -42,7 +42,7 @@
 {"id":"itemfulu_28","factory":"fulu:ranged_28","order":1542,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["命中实体使其发光，持续一段时间。","符箓品阶越高，持续时间越长。"]},
 {"id":"fulutexiao_29","factory":"item","order":1543,"stack":1,"pending_hooks":["releaseUsing","use"]},
 {"id":"itemfulu_29","factory":"fulu:talisman_29","order":1544,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["命中实体使其减速一大段时间。","符箓品阶越高，减速时间越长。"]},
-{"id":"itemfulu_30","factory":"item","order":1545,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["催熟前方范围内的植物。"],"pending_hooks":["use"]},
+{"id":"itemfulu_30","factory":"fulu:talisman_30","order":1545,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["催熟前方范围内的植物。"]},
 {"id":"itemfulu_31","factory":"fulu:talisman_31","order":1546,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["加速时间流逝，持续时间一分钟。","符箓品阶越高，时间流逝速度越快。"]},
 {"id":"fulutexiao_32","factory":"item","order":1547,"stack":1,"pending_hooks":["releaseUsing","use"]},
 {"id":"itemfulu_32","factory":"fulu:talisman_32","order":1548,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["命中地点爆炸，溅射出的部分也会产生爆炸，造成火属性法术伤害。","符箓品阶越高，伤害越高。"]},

@@ -2,7 +2,7 @@
 topic: plant
 role: architecture
 status: draft
-updated: 2026-11-10
+updated: 2026-11-13
 ---
 
 # 植物：架构调查与提案
@@ -267,7 +267,7 @@ updated: 2026-11-10
 
 本批按来源注册ID核对，不把英文枚举名作为玩家核对主键；共享行为类与逐行工厂映射共同承载来源差异。17种树苗由`TreeSapling`逐项登记：`cassia_02`、`laurel_02`、`elm_02`、`privet_02`、`peachsapling`、`sylvestrissapling`、`chestnutsapling`、`beechsapling`、`cypresssapling`、`toothedsapling`、`camphorsapling`、`nanmusapling`、`ginkgosapling`、`maplesapling`、`poplarsapling`、`willowsapling`、`sandalwoodsapling`；每项记录模板、偏移、树干策略和模板分支。共享生长入口每次随机刻/骨粉尝试以5%进入模板放置，排除`fabao_009weidu`与`xvkong`；桃/杨有40%主模板与60%替代模板两条来源分支，月桂保留两个独立概率条件及其余分支。模板偏移、栗树四柱、楠木3×7×3树干和各自木材ID按枚举逐行映射，不合并成通用树冠或单一树干写法。桑苗“需可见天空”的额外来源规则独立于此组。
 
-棉、麻由`FiberCrop`与`FiberGrowth`共用阶段生长。两者按来源阶段有9个成熟阶段块身份；棉05右键恢复04并固定掉棉花、独立30%掉种，麻04玩家破坏掉种并独立30%额外掉麻纤维。霓裳草保留01–06阶段增长率及07终态；来源06阶段没有randomTick/tick覆写，只有骨粉过程调用共享增长过程。目标06因此不接受自然随机刻推进；其骨粉转07分支和粒子已接入，但来源`NichanggrassyaoshouProcedure`触发的妖兽召引尚待Creature系统闭合，不能将06登记为完整行为迁移。
+棉、麻由`FiberCrop`与`FiberGrowth`共用阶段生长。两者按来源阶段有9个成熟阶段块身份；棉05右键恢复04并固定掉棉花、独立30%掉种，麻04玩家破坏掉种并独立30%额外掉麻纤维。霓裳草保留01–06阶段增长率及07终态；来源06阶段没有randomTick/tick覆写，只有骨粉过程调用共享增长过程。目标06因此不接受自然随机刻推进；其骨粉转07与来源召引已按下文“荫翠符催熟与霓裳草开花”闭合，运行边界单独登记。
 
 桃花`peachflower`来源只在下方为空时以20%概率播放粒子，不会把方块转换为桃叶。目标`PeachFlowerBlock`按20刻调度叶距检查并执行同一条件粒子行为。催化物将普通桃苗转为血桃苗的来源操作由树苗方块共用入口承载；不因模板生长代码共享而合并掉各注册ID的映射。
 
@@ -277,7 +277,7 @@ updated: 2026-11-10
 
 新增47个非编号普通野生植物RandomPatch Feature与20个模板树Feature。野生植物保留逐ID tries、count、rarity、heightmap、biome及dimension；共用实现只承载源码一致的RandomPatch与维度门控。棉麻和霓裳草的对应野外Feature也在此注册，但不因此补造生长或召兽行为。树木Feature保留逐项模板ID、维度、概率、heightmap、基底、模板锚点偏移；`privet_05`独有随机镜像和旋转，桑树与檀香树使用不同高度图和基底。`treejiegou_*`经模板调色板核对为树木模板地物，不按名字推断为通用结构。
 
-`convert_wild_plant_worldgen.py`与`convert_tree_worldgen.py`由标准`convert_data.py`调用，每份configured/placed资源使用`converter.write`追踪来源Java SHA-1。67个Feature在台账记为“已注册”，表示目标类型与数据已接入，不表示已自然投放：来源群系与`dimensionrenjian`、`dimensionyaohun`等尚未由World提供，故没有添加错误维度或主世界替代modifier。霓裳草06召兽仍依赖Creature公开召唤入口。
+`convert_wild_plant_worldgen.py`与`convert_tree_worldgen.py`由标准`convert_data.py`调用，每份configured/placed资源使用`converter.write`追踪来源Java SHA-1。67个Feature在台账记为“已注册”，表示目标类型与数据已接入，不表示已自然投放：来源群系与`dimensionrenjian`、`dimensionyaohun`等尚未由World提供，故没有添加错误维度或主世界替代modifier。霓裳草06召引已由同步开花事件接入Creature，见“荫翠符催熟与霓裳草开花”。
 
 四种树叶钩子按来源每20刻安排更新；仅在下方为空时以20%概率发送一个粒子，中心坐标、散布和速度均逐项保留。`ginkgoleaves`用`ginkgoleaveslizi`，`mapleleaves`用`mapleleaveslizi`，两种白杨叶都用`poplarleaveslizi`。三种来源LeavesBlock保留父类距离更新，`mapleleaves`继续继承普通Block。
 
@@ -290,3 +290,11 @@ updated: 2026-11-10
 `RushesBlock`与`RicciafluitansBlock`共用`RushesFangZhiFangKuaiShiProcedure`。目标仅对`rushes`和`ricciafluitans`使用`plant:water_plant`工厂，由`WaterPlantBlock.onPlace`在原生回调后读取上方流体的`createLegacyBlock().getFluidState().isSource()`；成立时读取当前本体状态写`waterlogged=true`，标志3。默认状态仍为false，不把此回调推广到其他水生植物。没有玩家或世界持久字段，World只投放注册方块，Plant负责自身回调。
 
 本批来源文件、SHA256和目标实现见本系统[来源证据](ledger/source-evidence.csv)。完整群系、维度及自然获取未闭合；本轮构建、专服与客户端的实际覆盖和未执行项见[世界月志](../world/logs/2026-11.md)，不以启动回归替代自然生长或两版本对照。
+
+## 荫翠符催熟与霓裳草开花（2026-11-13）
+
+`PlantRipening.ripen(ServerLevel, BlockPos)` 是fulu唯一逐格催熟入口，依来源顺序处理霓裳草、`yvanchuxiuzhen:yvanchuzuowu`、原版 `CropBlock`/`StemBlock`、`minecraft:saplings`。各分支的调度、骨粉次数和无额外音效规则由[符箓正文](../fulu/architecture.md#荫翠符30与植物催熟2026-11-13)统一记录；不让fulu直接修改植物内部阶段。
+
+霓裳草01–05的原生增长率保持不变，06依然没有自然随机刻或计划刻推进。既有骨粉过程的六阶成功分支先发粒子、同步发 `NichangGrassBloomEvent`，再写07；荫翠符则先写07、同步发同一事件，再发粒子，分别保持两个来源过程的实际顺序。事件携带服务端维度与不可变方块坐标，Creature订阅并独占妖兽生成与已有妖兽召引；Plant不引用Creature实现。原06工厂的 `performBonemeal` 待迁移标记已随行为闭合从转换器及生成定义移除。
+
+本次来源过程未出现强类型玩家档案外部访问，开花事件没有玩家附件写入。06方块台账改记“行为已迁移”；野外Feature、自然获取、全部植物生命周期的独立验收边界保持各自行。静态来源核对、必要编译与六项结构检查通过；荫翠符单项六阶段、范围、作物、调度及真实召引样本通过，骨粉开花实机仍未执行。结果统一见[符箓月志](../fulu/logs/2026-11.md#2026-11-13-荫翠符30与霓裳草开花链)。

@@ -1993,6 +1993,7 @@ yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/flyinginstrument.
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/gongjv.json,004dfd9e85a166dbcf8ed89a63f64c9e8b81daae,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/gongjv.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/noentity.json,e22b890c47ea5b9dbf2992ae847cf4153763ce6a,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/npcentity.json,df5eaee9e915719e78d375f87409882a7712a3d4,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/npcentity.json
+yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/yaoshou.json,e36ed65d5dbe646c70a0a74ffee022af4d605a33,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yaoshou.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/items/bank.json,fc5662856c5ca1e559f44d3e9f577a571338f604,src/main/resources/data/yvanchuxiuzhen/tags/item/bank.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/items/beltornaments.json,7b88d86202dfdf5ac40223960e7ca77668be2ce4,src/main/resources/data/yvanchuxiuzhen/tags/item/beltornaments.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/items/book.json,01a5830e425ceefdf8cf34adebe8cab4a3994851,src/main/resources/data/yvanchuxiuzhen/tags/item/book.json

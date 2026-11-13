@@ -32,6 +32,7 @@ public final class CreatureSetup {
         Organisms.register(CONTENT, modBus);
         NaturalCreatures.register(CONTENT, modBus);
         GhostCreatures.register(CONTENT);
+        NichangGrassAttraction.register();
         CONTENT.register(modBus);
     }
 }

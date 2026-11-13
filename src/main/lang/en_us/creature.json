@@ -294,5 +294,6 @@
   "effect.yvanchuxiuzhen.yaoshou_053baofengxve": "暴风雪",
   "effect.yvanchuxiuzhen.yaoshou_053baofengxve.description": "",
   "attribute.yvanchuxiuzhen.entitydaxiao": "Entitydaxiao",
-  "attribute.yvanchuxiuzhen.yaoshoupifuxianshi": "Yaoshoupifuxianshi"
+  "attribute.yvanchuxiuzhen.yaoshoupifuxianshi": "Yaoshoupifuxianshi",
+  "message.yvanchuxiuzhen.nichanggrass.silent": "周围一片死寂......"
 }

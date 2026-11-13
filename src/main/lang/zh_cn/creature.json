@@ -294,5 +294,6 @@
   "effect.yvanchuxiuzhen.yaoshou_053baofengxve": "暴风雪",
   "effect.yvanchuxiuzhen.yaoshou_053baofengxve.description": "会以你为中心，产生暴风雪，在此范围内的敌人将持续受到冰冻效果的影响。",
   "attribute.yvanchuxiuzhen.entitydaxiao": "实体身高",
-  "attribute.yvanchuxiuzhen.yaoshoupifuxianshi": "实体皮肤"
+  "attribute.yvanchuxiuzhen.yaoshoupifuxianshi": "实体皮肤",
+  "message.yvanchuxiuzhen.nichanggrass.silent": "周围一片死寂......"
 }

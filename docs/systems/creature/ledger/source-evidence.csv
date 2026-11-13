@@ -1,0 +1,3 @@
+source_mod,element,type,source_file,line,owner,ownership,evidence,target,implementation
+yvanchuxiuzhen,Nichanggrassyaoshou,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/NichanggrassyaoshouProcedure.java,33,creature,已读,21群系完整七槽、最近活体目标、16次选址和生成前共享友方表；2100随机组合静态一致；来源SHA256=66d0e6c531c05b8906e0c5ff18df877c50867c42f1b80bfdde94313040de3651,NichangGrassAttraction.bloom / group / findPosition,已实现；静态来源、必要编译/结构及fuluripening单项通过；未验分支见fulu本月志
+yvanchuxiuzhen,yaoshou,tag,src/main/resources/data/forge/tags/entity_types/yaoshou.json,1,creature,已读,来源54成员逐项与注册ID核对并保持顺序恢复；标签查询支持已有妖兽召引；来源SHA256=3898b63bcccee22ab08bf0a1d239cb6a7b4cd610a56378ef8b6d08702c1f9afe,data/yvanchuxiuzhen/tags/entity_type/yaoshou.json,已实现；静态来源、必要编译/结构及fuluripening单项通过；未验分支见fulu本月志

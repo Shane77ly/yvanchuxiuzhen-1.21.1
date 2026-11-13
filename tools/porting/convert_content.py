@@ -448,8 +448,6 @@ def main() -> None:
                            *(f'plant:shicai{number}_' for number in ('001', '002', '004', '005', '006', '007',
                                '011', '012', '013', '014', '015', '016', '025', '026', '027')))):
             row.pop('pending_hooks', None)
-        if factory == 'plant:nichang_grass' and target == 'nichanggrass_06':
-            row['pending_hooks'] = ['performBonemeal']
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:
             name = source.lang[language].get(f'block.{mod}.{path}')

@@ -2,10 +2,12 @@
 topic: creature
 role: entry
 status: partial
-updated: 2026-11-12
+updated: 2026-11-13
 ---
 
 # 生物
+
+2026-11-13 霓裳草开花召引已接回：Creature订阅Plant同步事件，保留21群系完整分组、16次选址、已有妖兽召引与生成前共享阵营顺序；来源54成员妖兽标签已核对恢复。静态核对、必要编译与六项结构检查通过，秋林03真实七槽召引和正常六维保存退出通过，见[本批正文](architecture.md#霓裳草开花召引2026-11-13)及[符箓月志](../fulu/logs/2026-11.md#2026-11-13-荫翠符30与霓裳草开花链)。
 
 2026-11-12 `yaoshou_01701`模型表补齐必需的生命周期字段，修复客户端初始化解码崩溃；既有Skill客户端场景加载通过，01701自身行为、形态转换与视觉仍待专项验收，见[本月日志](logs/2026-11.md)。
 
@@ -17,7 +19,7 @@ updated: 2026-11-12
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
 - 候选归属 705 个元素，其中 595 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
-- [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。[编号妖兽来源证据](ledger/yaoshou-source-evidence.csv)固定52个编号的实体及递归过程闭包身份，不代表完整行为验收。
+- [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。[编号妖兽来源证据](ledger/yaoshou-source-evidence.csv)固定52个编号的实体及递归过程闭包身份；[共享过程证据](ledger/source-evidence.csv)记录霓裳草召引，不代表完整行为验收。
 - [变更记录](changes.md)：按日期索引本系统批次记录。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
@@ -25,6 +27,7 @@ updated: 2026-11-12
 
 | 操作 | 调用与数据边界 |
 | --- | --- |
+| `NichangGrassAttraction`订阅`NichangGrassBloomEvent` | Creature拥有召引目标选择、既有妖兽自由NBT及新实体生命周期；阵营经Relation操作，Plant只提供同步开花坐标 |
 | `CreatureSetup.entityType(String)` | 本系统客户端装配读取已登记类型，不暴露内容表或可变实例数据；跨系统自然生成按注册ID引用 |
 | `Butterflies.register / Organisms.register / YaoshouCreatures.register / NaturalCreatures.register / GhostCreatures.register` | 本系统注册实体、属性、刷怪蛋工厂和原生刷怪位置；妖兽当前装配52个编号，自然生物补入魔兽001/003、桃木精和修者0101；鬼怪02/03保留来源注册且不添加自然生成；群系出生列表由World保持来源顺序及参数 |
 | `ButterflyEntity.mobInteract`及09–12各自原生回调 | 服务端拥有驯服、治疗、状态和生成后代，客户端仅返回来源交互反馈和消费同步表现；实例存档沿用各自原生父类及来源自由NBT |

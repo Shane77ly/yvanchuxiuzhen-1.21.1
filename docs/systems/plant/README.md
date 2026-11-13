@@ -2,7 +2,7 @@
 topic: plant
 role: entry
 status: partial
-updated: 2026-11-11
+updated: 2026-11-13
 ---
 
 # 植物
@@ -11,9 +11,9 @@ updated: 2026-11-11
 
 2026-11-11 World依赖批次接入另22种植物地物（16种普通配置型植物、六种树木模板）及Rushes/Ricciafluitans的放置含水回调；同批World接入89种独立地物及207份群系内联生成资源。非植物环境地物与温泉依据实际规则归World，植物内容归属保持Plant；生成执行按注册ID读取方块，不产生系统循环依赖。本批客户端343项INFO、0 FAIL、DONE；专服七个受控标记全部通过并原生stop保存四维度；完整构建通过，后续地形Mixin接线另行验证。具体规则与验证边界见[正文](architecture.md#普通植物地物与水草回调2026-11-11)、[本月日志](logs/2026-11.md)及[世界月志](../world/logs/2026-11.md)。
 
-当前阶段：D 食材与工艺供给部分实现。已接入水稻001、糯稻002、桑树及004–008、011–033共28种作物；009/010果树及034–039藤本库存批次已提交`789c9c23`。本批继续接入040–045菌类、046–056豆科、05701芝麻双株、棉麻、霓裳草、桃花、17种普通树苗、47种野生植物Feature、20种树木Feature、四种树叶粒子行为及枫脂方块；逐项身份与实现映射见架构正文。新增67个Feature保持“已注册”，尚未装配来源群系/维度的自然投放；霓裳草06召引妖兽仍待Creature。Plant台账共1,066项，确切状态见[内容台账](ledger/content.csv)。`content/plant`当前有435个方块与475个物品定义；注册数不代表全系统玩法验收完成。
+当前阶段：D 食材与工艺供给部分实现。已接入水稻001、糯稻002、桑树及004–008、011–033共28种作物；009/010果树及034–039藤本库存批次已提交`789c9c23`。本批继续接入040–045菌类、046–056豆科、05701芝麻双株、棉麻、霓裳草、桃花、17种普通树苗、47种野生植物Feature、20种树木Feature、四种树叶粒子行为及枫脂方块；逐项身份与实现映射见架构正文。新增67个Feature保持“已注册”，尚未装配来源群系/维度的自然投放；霓裳草06召引已于2026-11-13接回同步事件，静态核对及荫翠符必要单项通过，运行边界见[本批正文](architecture.md#荫翠符催熟与霓裳草开花2026-11-13)。Plant台账共1,066项，确切状态见[内容台账](ledger/content.csv)。`content/plant`当前有435个方块与475个物品定义；注册数不代表全系统玩法验收完成。
 
-上一批“野生植物与自然树木Feature扩展”的完整`build compileSmokeJava`通过，最终`runSmokeClient -PsmokeOnly=fulucooking`为343项INFO、0 FAIL、DONE，客户端四维度正常保存退出且ERROR/FATAL0；该批专服启动至Done并导出注册表，未取得原生stop/保存退出证据。上一批证据见[本月日志](logs/2026-11.md)、`tmp/plant-world-features-final-{client.log,report.txt}`；本批World依赖验证另记，不能混用两批专服结论。受控检查不覆盖完整树木长成、自然生成、新区域自然成长、完整存档重登、来源1.18.2实机、多人、完整视觉及两版本对照。目标群系与`dimensionrenjian`、`dimensionyaohun`缺失，Feature注册不代表自然供给闭合；霓裳草06召引妖兽仍待Creature。
+上一批“野生植物与自然树木Feature扩展”的完整`build compileSmokeJava`通过，最终`runSmokeClient -PsmokeOnly=fulucooking`为343项INFO、0 FAIL、DONE，客户端四维度正常保存退出且ERROR/FATAL0；该批专服启动至Done并导出注册表，未取得原生stop/保存退出证据。上一批证据见[本月日志](logs/2026-11.md)、`tmp/plant-world-features-final-{client.log,report.txt}`；本批World依赖验证另记，不能混用两批专服结论。受控检查不覆盖完整树木长成、自然生成、新区域自然成长、完整存档重登、来源1.18.2实机、多人、完整视觉及两版本对照。目标群系与`dimensionrenjian`、`dimensionyaohun`缺失，Feature注册不代表自然供给闭合；霓裳草06召引已于2026-11-13接回同步事件，静态核对及荫翠符必要单项通过，运行边界见[本批正文](architecture.md#荫翠符催熟与霓裳草开花2026-11-13)。
 
 - [架构与来源规则](architecture.md)：逐编号身份、实现族、工厂对应、生长与掉落差异、公开API和自然投放边界。
 - 归属范围812个元素，其中649个已读；这是来源阅读范围，不是功能验收数，见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
@@ -27,6 +27,8 @@ Plant拥有本族作物方块和状态，Cooking保留可食物品身份、FoodP
 
 | 操作 | 调用与数据边界 |
 | --- | --- |
+| `PlantRipening.ripen` | fulu逐格催熟委托；Plant按来源顺序推进本系统方块或调用原生骨粉，不接受客户端快照回写 |
+| `NichangGrassBloomEvent` | Plant在来源开花顺序的对应位置同步发布服务端坐标；Creature订阅并拥有妖兽召引，不引入Plant→Creature依赖 |
 | `Planting.lotus` | Cooking莲子00801委托播种；Plant修改世界方块并扣本次手持栈，保留来源耕地只扣不种分支 |
 | `Planting.garlic` | Cooking大蒜01502委托耕地播种；物品食用身份仍由Cooking拥有 |
 | `Planting.shicai028 / shicai029 / shicai030 / shicai031 / shicai032 / shicai033` | 六种食材本体委托Plant播种；029/030/031的独立种子另走本系统物品入口 |
