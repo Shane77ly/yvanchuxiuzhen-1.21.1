@@ -2,7 +2,7 @@
 topic: gongfa
 role: entry
 status: partial
-updated: 2026-11-08
+updated: 2026-11-13
 ---
 
 # 功法
@@ -12,6 +12,7 @@ updated: 2026-11-08
 当前阶段：主体规则已实现（2026-11-08 补齐 `/technique` 命令）。已实现功法定义（67 本，`content/gongfa/techniques.json`）、功法书实例组件、研习、功法栏与提交、功法修炼与闭关经验、升级成长、提示文本、书架藏宝给书 API、参悟台（参悟与继承）和管理命令；既有功法/参悟客户端36项通过。本批接回 book 自然研习与 skill 共用装配页的调用链，并补功法成功粒子，完整构建与现有skillui客户端29项通过，覆盖自然研习、真实装配和开窗时获得功法经验后关闭重开的保持；具体范围见正文，不能推广到未测分支。星宿穴位学习小游戏在来源中不可达，未迁移（Q28，待裁定）；book 书架藏宝自然使用、完整两版本对照及多人仍未完成。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
+- 答题答满已接入所属写操作：覆盖研习者并按来源初始化层数与加成，保留经验，不触发普通研习附赠事件；集成编译、六条架构守卫和`bookquiz`必要单项通过，规则与有限验证范围统一见[书籍答题正文](../book/architecture.md#答题2026-11-13)与[本批月志](../book/logs/2026-11.md#2026-11-13-答题菜单与答满生命周期)。
 - 候选归属 478 个元素，全部已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
@@ -30,6 +31,7 @@ updated: 2026-11-08
 | 查询功法栏 | `slot(玩家)`、`main(玩家)` | combat（五行值、层数、名字）、skill装配页、flow、cooking |
 | 放入、取出功法栏 | `setSlot(玩家, 物品)`，随后提交 xiulian 主修功法信息与 attribute 加成层贡献 `gongfa:main` | skill装配菜单、fulu、flow |
 | 研习 | `study(玩家, 书)`：境界与灵根条件、记下研习者、层数 1；成功后发出 `TechniqueStudiedEvent` | book（右键）；skill 监听事件附赠技能 |
+| 答题完成 | `completeQuiz(玩家, 书)`：覆盖研习者，有功法名时重置为1层并重算十三项加成；保留经验、不检查普通研习条件、不发附赠事件 | book（答题答满） |
 | 生成功法书 | `createBook(TechniqueDefinition)` | flow、material 等给书的玩法；`/technique` 命令由本系统注册 |
 | 书架藏宝 | `giveTreasureBook(玩家, 藏宝等级)` | book（书架藏宝右键） |
 

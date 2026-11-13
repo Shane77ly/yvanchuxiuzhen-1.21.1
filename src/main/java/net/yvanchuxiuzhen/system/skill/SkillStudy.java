@@ -44,8 +44,14 @@ public final class SkillStudy {
         player.serverLevel().sendParticles(Particles.type("tiangandizhi"), player.getX(), player.getY() + 1, player.getZ(), 20, 0, 0, 0, 1);
         player.serverLevel().sendParticles(Particles.type("tiangandizhi_2"), player.getX(), player.getY(), player.getZ(), 20, 2, 0, 2, 0);
         player.serverLevel().sendParticles(ParticleTypes.FLASH, player.getX(), player.getY(), player.getZ(), 1, 0, 0, 0, 0);
-        stack.set(SkillData.SKILL.get(), book.withOwner(player.getUUID(), player.getDisplayName().getString()));
+        completeQuiz(player, stack);
         player.displayClientMessage(Component.literal("§6研习成功！"), false);
         player.closeContainer();
+    }
+
+    /** 普通研习通过条件后与答题答满共用书实例归属写入，答题自身不再重复执行研习条件。 */
+    public static void completeQuiz(ServerPlayer player, ItemStack stack) {
+        SkillBook book = Skills.book(stack).orElseThrow();
+        stack.set(SkillData.SKILL.get(), book.withOwner(player.getUUID(), player.getDisplayName().getString()));
     }
 }

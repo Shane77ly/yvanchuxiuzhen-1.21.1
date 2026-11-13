@@ -42,6 +42,11 @@ public final class Techniques {
         TechniqueRules.study(player, stack);
     }
 
+    /** 答题成功直接覆盖书的研习者，有功法名时重置为一层并重算加成；不检查研习条件或发送附赠事件。 */
+    public static void completeQuiz(ServerPlayer player, ItemStack stack) {
+        TechniqueRules.completeQuiz(player, stack);
+    }
+
     /** 由定义生成一本未研习的功法书（管理命令 {@code /technique} 与给书的玩法）。 */
     public static ItemStack createBook(TechniqueDefinition definition) {
         return TechniqueLibrary.book(definition);

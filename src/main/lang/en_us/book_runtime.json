@@ -1,3 +1,7 @@
 {
-  "menu.yvanchuxiuzhen.book_reading": "Book Reading"
+  "menu.yvanchuxiuzhen.book_reading": "Book Reading",
+  "menu.yvanchuxiuzhen.book_quiz": "Book Quiz",
+  "screen.yvanchuxiuzhen.book_quiz_progress": "Question %s",
+  "message.yvanchuxiuzhen.book_quiz_complete": "Study succeeded!",
+  "message.yvanchuxiuzhen.book_quiz_failed": "Comprehension failed"
 }

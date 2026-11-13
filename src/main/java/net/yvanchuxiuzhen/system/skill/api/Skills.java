@@ -163,6 +163,11 @@ public final class Skills {
         SkillStudy.study(player, stack);
     }
 
+    /** 答题成功覆盖技能书的研习者，不检查境界、灵根或原研习者；提示和菜单生命周期由答题入口负责。 */
+    public static void completeQuiz(ServerPlayer player, ItemStack stack) {
+        SkillStudy.completeQuiz(player, stack);
+    }
+
     /** 由命令参数串生成一本未研习的技能书（管理命令与玩法发书）；参数格式见 {@link SkillLibrary#fromArguments}。 */
     public static ItemStack createBook(SkillKind kind, List<String> arguments) {
         return SkillLibrary.fromArguments(kind, arguments);

@@ -8,6 +8,7 @@ import net.yvanchuxiuzhen.system.book.content.BookBindingBlock;
 import net.yvanchuxiuzhen.system.book.content.BookBlockEntities;
 import net.yvanchuxiuzhen.system.book.content.BookMenus;
 import net.yvanchuxiuzhen.system.book.content.StudyBookItem;
+import net.yvanchuxiuzhen.system.book.data.BookQuizData;
 
 /**
  * 书籍系统的启动装配，只在 Mod 构造时调用一次。
@@ -22,6 +23,7 @@ public final class BookSetup {
 
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
+        BookQuizData.register(modBus);
         BookMenus.register(modBus);
         BookBlockEntities.register(modBus);
         NeoForge.EVENT_BUS.addListener(BookBindingRuntime::tick);

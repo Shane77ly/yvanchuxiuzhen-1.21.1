@@ -68,10 +68,21 @@ public final class TechniqueRules {
         player.serverLevel().sendParticles(Particles.type("tiangandizhi"), player.getX(), player.getY() + 1, player.getZ(), 20, 0, 0, 0, 1);
         player.serverLevel().sendParticles(Particles.type("tiangandizhi_2"), player.getX(), player.getY(), player.getZ(), 20, 2, 0, 2, 0);
         player.serverLevel().sendParticles(ParticleTypes.FLASH, player.getX(), player.getY(), player.getZ(), 1, 0, 0, 0, 0);
-        stack.set(GongfaData.TECHNIQUE.get(), grown(book.withOwner(player.getUUID(), player.getDisplayName().getString()).withProgress(1, book.exp())));
+        bindBook(player, stack, book, true);
         player.displayClientMessage(Component.literal("§6研习成功！"), false);
         player.closeContainer();
         NeoForge.EVENT_BUS.post(new TechniqueStudiedEvent(player, book.definition().name()));
+    }
+
+    /** 来源答满重用归属与初始加成写入，不执行普通研习的条件、粒子、提示与附赠技能事件。 */
+    public static void completeQuiz(ServerPlayer player, ItemStack stack) {
+        TechniqueBook book = Techniques.book(stack).orElseThrow();
+        bindBook(player, stack, book, !book.definition().name().isEmpty());
+    }
+
+    private static void bindBook(ServerPlayer player, ItemStack stack, TechniqueBook book, boolean initialize) {
+        TechniqueBook owned = book.withOwner(player.getUUID(), player.getDisplayName().getString());
+        stack.set(GongfaData.TECHNIQUE.get(), initialize ? grown(owned.withProgress(1, book.exp())) : owned);
     }
 
     /** 按当前层数与档位重算十三项加成（来源 {@code GongfaHealthUp} 等）。 */

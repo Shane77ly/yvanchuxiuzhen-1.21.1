@@ -1,6 +1,11 @@
 owner,texture
 book,yvanchuxiuzhen:screens/book_gui
 book,yvanchuxiuzhen:screens/bookgui
+book,yvanchuxiuzhen:screens/dati_gui
+book,yvanchuxiuzhen:screens/atlas/imagebutton_bookguianniu1
+book,yvanchuxiuzhen:screens/atlas/imagebutton_bookguianniu11
+book,yvanchuxiuzhen:screens/atlas/imagebutton_bookguianniu12
+book,yvanchuxiuzhen:screens/atlas/imagebutton_bookguianniu13
 craft,yvanchuxiuzhen:screens/stonemill_gui
 storage,yvanchuxiuzhen:screens/qiankundai_01_gui
 storage,yvanchuxiuzhen:screens/qiankundai_02_gui
