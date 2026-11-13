@@ -13728,3 +13728,6 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/zuduite
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/fabao01701.animation.json,e79a14303f3a7d893ca0289e999aa13261a6150d,src/main/resources/assets/yvanchuxiuzhen/animations/fabao01701.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/fabao01701.geo.json,266cf9f2e4e42ce2f703fc58e72e9d300f6ecebb,src/main/resources/assets/yvanchuxiuzhen/geo/fabao01701.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/fabao01701.png,1bb67a3d29b01d83b1c7dd9e86f10628df4b5e15,src/main/resources/assets/yvanchuxiuzhen/textures/entities/fabao01701.png
+yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/screens/makebook_gui.png,ff2aa580e0a69ec41f65264a19f30e699ac25e1e,src/main/resources/assets/yvanchuxiuzhen/textures/screens/makebook_gui.png
+yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/screens/paper.png,dc18d1ba3e627825171b7c2ff542d0946567a100,src/main/resources/assets/yvanchuxiuzhen/textures/screens/paper.png
+yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/screens/string.png,777854d6f02a13bc6106cd83ad9e8905ceee3bcd,src/main/resources/assets/yvanchuxiuzhen/textures/screens/string.png

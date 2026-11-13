@@ -11,11 +11,14 @@ import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.yvanchuxiuzhen.platform.ModId;
 
-/** 公共书阅读菜单保留来源 book_gui 身份，内容取当前主手实例。 */
+/** 书籍阅读与装订菜单各自保留来源身份，展示与库存分别由所属菜单管理。 */
 public final class BookMenus {
     private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, ModId.VALUE);
     public static final Supplier<MenuType<BookReadingMenu>> READING = MENUS.register("book_gui",
             () -> IMenuTypeExtension.create((id, inventory, buffer) -> new BookReadingMenu(id)));
+
+    public static final Supplier<MenuType<BookBindingMenu>> BINDING = MENUS.register("makebook_gui",
+            () -> IMenuTypeExtension.create(BookBindingMenu::new));
 
     private BookMenus() {
     }

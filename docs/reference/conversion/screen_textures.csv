@@ -415,3 +415,6 @@ cooking,yvanchuxiuzhen:screens/shipintaigui05
 guchong,yvanchuxiuzhen:screens/taoguan_01_gui
 guchong,yvanchuxiuzhen:screens/taoguan_02_gui
 guchong,yvanchuxiuzhen:screens/taoguan_03_gui
+book,yvanchuxitong:screens/makebook_gui
+book,yvanchuxitong:screens/paper
+book,yvanchuxitong:screens/string

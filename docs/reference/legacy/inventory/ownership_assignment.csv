@@ -7110,12 +7110,12 @@ yvanchuxitong,ZhenxianpoluoGuiPageDown,procedure,~/yvanchulianqi/fangzhiji,lianq
 yvanchuxitong,ZhenxianpoluoGuiDangZheGeJieMianBeiGuanBi,procedure,~/yvanchulianqi/fangzhiji,lianqi,已读,D炼器四装置来源核对：八槽真实共享预览、2刻选择、十五页配方、材料检查扣除、关闭清槽及合成；精确链见lianqi正文及source-evidence。
 yvanchuxitong,Zhenxianpoluozhizuo,procedure,~/yvanchulianqi/fangzhiji,lianqi,已读,D炼器四装置来源核对：八槽真实共享预览、2刻选择、十五页配方、材料检查扣除、关闭清槽及合成；精确链见lianqi正文及source-evidence。
 yvanchuxitong,Zhenxianpoluohecheng,recipe,~/yvanchulianqi/fangzhiji,lianqi,已读,D炼器四装置来源核对：八槽真实共享预览、2刻选择、十五页配方、材料检查扣除、关闭清槽及合成；精确链见lianqi正文及source-evidence。
-yvanchuxitong,MakebookGui,gui,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Makebook,block,~/zawu/makebook,book,已读,B1 归属阅读：装订台：方块绑定装订界面 MakebookGui，在界面中把书写内容装订为书籍，属装订
-yvanchuxitong,Makebookshuaxin,procedure,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Makebookxiaohao,procedure,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Makebookqingchu,procedure,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Makebookhecheng,recipe,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,MakebookGui,gui,~/zawu/makebook,book,已读,已读38槽菜单、槽消息与来源屏幕；固定24项空白载体目录和纸线费用归book，不读写外部玩家字段
+yvanchuxitong,Makebook,block,~/zawu/makebook,book,已读,已读方块与38槽方块实体；自然打开、侧面规则、保存、掉落和比较器归book，本台只以纸线制作空白载体
+yvanchuxitong,Makebookshuaxin,procedure,~/zawu/makebook,book,已读,已读完整固定24项目录；玩家菜单末刻满足3纸1线时刷新前24结果，欠料清空36结果槽
+yvanchuxitong,Makebookxiaohao,procedure,~/zawu/makebook,book,已读,已读结果槽onTake调用；每次从逻辑槽0移除3纸、槽1移除1线，不读取知识实例
+yvanchuxitong,Makebookqingchu,procedure,~/zawu/makebook,book,已读,已读菜单关闭调用；清空逻辑槽2至37，绑定方块实体保留输入槽0和1
+yvanchuxitong,Makebookhecheng,recipe,~/zawu/makebook,book,已读,已读来源六线一木板合成一件makebook；目标配方已转换，装订台属于book
 yvanchuxitong,Fubenblock,block,~/fuben,dungeon,已读,B1 归属阅读：副本：副本方块的阶段与波次、副本实体占位
 yvanchuxitong,Fubenentity,block,~/fuben,dungeon,已读,B1 归属阅读：副本：副本方块的阶段与波次、副本实体占位
 yvanchuxitong,FubenblockGengXinYouXiKe,procedure,~/fuben,dungeon,已读,B1 归属阅读：随 Fubenblock 读：副本：副本方块的阶段与波次、副本实体占位
