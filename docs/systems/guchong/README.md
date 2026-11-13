@@ -9,10 +9,10 @@ updated: 2026-11-13
 
 标识 `guchong`，类别：系统。职责：蛊虫实体、蛊罐、认主与释放（[系统设计](../../development/system-design.md)）。
 
-当前阶段：B1 身份、资源与基础属性已登记（方块 3、物品 13、声音事件 2）；D/E 批次已接入 `guchong_03`、`guchong_04` 实体和三档蛊罐方块初始实现。R05/R10已实现摄虫网公开收纳操作，捕获结果以个体组件接入既有蛊罐菜单和编号槽保存，最小单项已通过；运行边界见[正文](architecture.md#2026-11-13-摄虫网收纳与蛊罐消费者)。地上罐与手持罐全生命周期、单虫物品全部入口及蛊虫系统验收仍未完成。
+当前阶段：B1 身份、资源与基础属性已登记（方块 3、物品 13、声音事件 2）；D/E 批次已接入 `guchong_03`、`guchong_04` 实体和三档蛊罐方块初始实现。R05/R10已实现摄虫网公开收纳操作，捕获结果以个体组件接入既有蛊罐菜单和编号槽保存，最小单项已通过；运行边界见[正文](architecture.md#2026-11-13-摄虫网收纳与蛊罐消费者)。03/04单虫物品的野生/认主释放入口、关系团队读取与三档地上罐专属工厂已接回。九槽罐第九槽的认主、自然计划刻放虫/回罐、死亡清槽、Ctrl收罐、手持回收及活动虫/背包罐真实退出重进专项已通过；见[本批正文](architecture.md#2026-11-13-0304单虫释放与蛊罐生命周期)。其余编号、其他容量全部自然分支、完整AI战斗/成长/表现、多人和蛊虫系统总体验收仍未完成。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
-- 候选归属 73 个元素，其中 56 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
+- 归属范围 74 个元素，其中 57 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
@@ -26,11 +26,13 @@ updated: 2026-11-13
 | --- | --- | --- |
 | A `Taoguan01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure:39,70` 的玩家 `friendlist/team` | `Relations.shareAllegianceToBlock/team` | 放置时使用玩家关系能力；与玩家本体 `team` 区分 |
 | A `Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:62,64,183` 和 `GuchongAnniuzhixingProcedure:57,59,120,204` | `Relations.shareEntityAllegiance/team` | 手持释放与回收已接入；释放按钮链待核，不能读取 relation 数据包 |
-| A `Guchong01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure:39,85,131` | `Relations.team` | 同族物品操作仍待本轮继续闭合 |
+| A `Guchong01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure:39,85,131` | `Relations.team/setTeam` | 03/04同族物品释放已接入；01实体与物品入口仍待闭合 |
 | A `Guchong02itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:15,27` 的 `tizhiitem` | xiulian 具体体质操作 | 未在本轮实体与地上罐批次中实现 |
 | B `Taoguan01ZaiFangKuaiShangYouJianProcedure:182,183` 的 `lctrl/lalt` | `ModifierKeys.ctrl/alt` | 回收地上罐 |
 | B 地上罐认主与目标筛选直接读取实体本体 `team` | `Relations.entityTeam` | 保留本体字段与玩家能力字段的来源差异 |
 
 罐 `friendlist` 的共享引用由 `Relations.shareAllegianceToBlock/shareBlockAllegiance` 承担；不得绕过接口写其他系统附件。
+
+摄虫网收纳的来源实体本体`team`在目标由relation附件拥有，`GuchongCapture`通过`Relations.entityTeam`读取后保存到虫物品；不从蛊虫实体的旧式持久标签取第二份团队值。
 
 本轮变化见[蛊虫月志](logs/2026-11.md)，此前变化在[项目月度日志](../project/logs/2026-11.md)。

@@ -1,0 +1,361 @@
+package net.yvanchuxiuzhen.smoke;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.function.Consumer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.platform.input.ModifierKeys;
+import net.yvanchuxiuzhen.system.guchong.api.GuchongCapture;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
+import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlock;
+import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlockEntity;
+import net.yvanchuxiuzhen.system.guchong.entity.GuchongEntity;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
+
+/** 03/04单虫入口与九槽罐自然生命周期；目标固定位置，放虫和回罐由真实服务端刻推进。 */
+final class GuchongLifecycleCheck extends SystemCheck {
+    private static final String JAR_UUID = "r10_lifecycle";
+    private final Map<BlockPos, BlockState> originalBlocks = new LinkedHashMap<>();
+    private final List<GuchongEntity> specimens = new ArrayList<>();
+    private int executed = -1;
+    private BlockPos floor;
+    private BlockPos home;
+    private Vec3 originalPosition;
+    private float originalYaw;
+    private float originalPitch;
+    private Difficulty originalDifficulty;
+    private GameType originalMode;
+    private ItemStack specimen;
+    private ItemStack ownedSpecimen;
+    private ItemStack untouchedJar;
+    private GuchongEntity active;
+    private UUID activeUuid;
+    private Cow target;
+
+    GuchongLifecycleCheck(List<String> report, String levelId) {
+        super("蛊虫生命周期", report, levelId);
+    }
+
+    @Override
+    protected boolean step(int step, int local) {
+        return switch (step) {
+            case 0 -> action(step, local, 8, this::prepare);
+            case 1 -> action(step, local, 5, this::singleItems);
+            case 2 -> action(step, local, 5, this::placeJar);
+            case 3 -> action(step, local, 5, this::recognizeAndSave);
+            case 4 -> action(step, local, 2, this::spawnTarget);
+            case 5 -> released(local);
+            case 6 -> local >= 60;
+            case 7 -> action(step, local, 2, this::clearTarget);
+            case 8 -> returned(local);
+            case 9 -> action(step, local, 2, this::spawnTarget);
+            case 10 -> released(local);
+            case 11 -> action(step, local, 5, this::groundDeathAndPickup);
+            case 12 -> action(step, local, 2, this::handheldRelease);
+            case 13 -> action(step, local, 5, this::handheldRecall);
+            case 14 -> action(step, local, 10, this::releaseForReload);
+            case 15 -> { leaveWorld(); yield true; }
+            case 16 -> reopened(local);
+            case 17 -> inWorld(local);
+            case 18 -> action(step, local, 5, this::checkReloadAndDeath);
+            case 19 -> { onServer(this::cleanup); finish(); yield true; }
+            default -> throw new IllegalStateException("未知蛊虫检查步骤 " + step);
+        };
+    }
+
+    private boolean action(int step, int local, int wait, Consumer<ServerPlayer> run) {
+        if (executed != step) {
+            executed = step;
+            onServer(run);
+        }
+        return local >= wait;
+    }
+
+    private void prepare(ServerPlayer player) {
+        for (int grade = 1; grade <= 3; grade++) {
+            ResourceLocation id = ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", "taoguan_0" + grade);
+            if (!(BuiltInRegistries.BLOCK.get(id) instanceof TaoguanBlock)) {
+                throw new IllegalStateException("蛊罐专属方块未实际装配 " + id);
+            }
+        }
+        originalPosition = player.position();
+        originalYaw = player.getYRot();
+        originalPitch = player.getXRot();
+        originalDifficulty = player.level().getDifficulty();
+        originalMode = player.gameMode.getGameModeForPlayer();
+        player.closeContainer();
+        player.getInventory().clearContent();
+        player.setGameMode(GameType.SURVIVAL);
+        player.server.setDifficulty(Difficulty.NORMAL, true);
+        floor = player.blockPosition().above(16);
+        home = floor.offset(2, 1, 0);
+        setBlock(player, floor, Blocks.STONE.defaultBlockState());
+        setBlock(player, home.below(), Blocks.GRASS_BLOCK.defaultBlockState());
+        originalBlocks.put(home, player.level().getBlockState(home));
+        player.connection.teleport(floor.getX() + .5, floor.getY() + 1, floor.getZ() + .5, 0, 0);
+    }
+
+    private void singleItems(ServerPlayer player) {
+        for (String id : List.of("guchong_03", "guchong_04")) {
+            ItemStack stack = item(id + "item");
+            player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+            useOn(player, floor, Direction.NORTH);
+            expectTrue(id + "非顶面不释放且不消耗", stack.getCount() == 1 && insects(player).isEmpty());
+            useOn(player, floor, Direction.UP);
+            GuchongEntity wild = onlyInsect(player);
+            specimens.add(wild);
+            anchor(wild);
+            expectTrue(id + "野生分支消耗物品并执行自然初始化", player.getMainHandItem().isEmpty()
+                    && !wild.getPersistentData().getString("LEVELname").isEmpty() && !wild.isTame());
+            String team = Relations.entityTeam(wild);
+            GuchongCapture.captureWild(player.serverLevel(), wild, player.getStringUUID());
+            ItemStack captured = player.getInventory().items.stream().filter(value -> value.is(item(id + "item").getItem())).findFirst().orElseThrow();
+            CompoundTag data = GuchongJarData.read(captured);
+            expectTrue(id + "捕获读取关系所有者的实体团队", !team.isEmpty() && data.getString("team").equals(team));
+            specimen = captured.copy();
+            player.getInventory().clearContent();
+            data.putBoolean("guchongxvnfu", true);
+            data.putDouble("health_Num", 7);
+            data.putDouble("experience", 37.5);
+            data.putString("belongToMasterUUID", "source_does_not_copy");
+            GuchongJarData.write(captured, data);
+            captured.set(DataComponents.CUSTOM_NAME, Component.literal("认主样本"));
+            player.setItemInHand(InteractionHand.MAIN_HAND, captured);
+            useOn(player, floor, Direction.UP);
+            GuchongEntity tamed = onlyInsect(player);
+            specimens.add(tamed);
+            expectTrue(id + "认主分支恢复资质生命并认当前使用者为原生主人", player.getMainHandItem().isEmpty()
+                    && tamed.isOwnedBy(player) && tamed.getHealth() == 7
+                    && Relations.entityTeam(tamed).equals(Relations.team(player))
+                    && tamed.getPersistentData().getString("attack_Num_LEVEL").equals(data.getString("attack_Num_LEVEL")));
+            expectTrue(id + "保留来源遗漏经验与自定义主人UUID", !tamed.getPersistentData().contains("experience")
+                    && !tamed.getPersistentData().contains("belongToMasterUUID"));
+            tamed.discard();
+        }
+    }
+
+    private void placeJar(ServerPlayer player) {
+        ItemStack jar = item("taoguan_03item");
+        CompoundTag data = new CompoundTag();
+        data.putString("guguanuuid", JAR_UUID);
+        CompoundTag insect = GuchongJarData.read(specimen);
+        insect.putDouble("health_Num", 7);
+        GuchongJarData.write(specimen, insect);
+        GuchongJarData.pack(specimen, data, 8, false);
+        GuchongJarData.write(jar, data);
+        player.setItemInHand(InteractionHand.MAIN_HAND, jar);
+        useOn(player, home.below(), Direction.UP);
+        TaoguanBlockEntity placed = jar(player);
+        expectTrue("手持大罐实际放置并把第九槽移交地上罐", player.getMainHandItem().isEmpty()
+                && placed.insectSlots() == 9 && placed.getItem(8).is(specimen.getItem()) && placed.getItem(0).isEmpty()
+                && placed.jarData().getString("guguanuuid").equals(JAR_UUID));
+    }
+
+    private void recognizeAndSave(ServerPlayer player) {
+        ItemStack blood = item("jingxve");
+        CompoundTag data = new CompoundTag();
+        data.putInt("playerlevelnum", 0);
+        GuchongJarData.write(blood, data);
+        player.setItemInHand(InteractionHand.MAIN_HAND, blood);
+        useOn(player, home, Direction.UP);
+        expectTrue("低境界精血拒绝认主并保留来源精血消耗", player.getMainHandItem().isEmpty()
+                && !GuchongJarData.read(jar(player).getItem(8)).getBoolean("guchongxvnfu"));
+        blood = item("jingxve");
+        data.putInt("playerlevelnum", 1);
+        GuchongJarData.write(blood, data);
+        player.setItemInHand(InteractionHand.MAIN_HAND, blood);
+        useOn(player, home, Direction.UP);
+        ownedSpecimen = jar(player).getItem(8).copy();
+        CompoundTag recognized = GuchongJarData.read(ownedSpecimen);
+        expectTrue("足够境界精血认主写入第九槽并消耗精血", player.getMainHandItem().isEmpty()
+                && recognized.getBoolean("guchongxvnfu") && recognized.getString("belongToMasterUUID").equals(player.getStringUUID()));
+        TaoguanBlockEntity restored = (TaoguanBlockEntity) BlockEntity.loadStatic(home, jar(player).getBlockState(),
+                jar(player).saveWithFullMetadata(player.registryAccess()), player.registryAccess());
+        expectTrue("地上罐保存重读保留第九槽完整个体与罐UUID", ItemStack.isSameItemSameComponents(ownedSpecimen, restored.getItem(8))
+                && restored.jarData().getString("guguanuuid").equals(JAR_UUID));
+    }
+
+    private void spawnTarget(ServerPlayer player) {
+        target = EntityType.COW.create(player.serverLevel());
+        target.moveTo(home.getX() + 4.5, home.getY(), home.getZ() + .5, 0, 0);
+        target.setNoAi(true);
+        target.setNoGravity(true);
+        player.serverLevel().addFreshEntity(target);
+    }
+
+    private boolean released(int local) {
+        boolean[] found = {false};
+        onServer(player -> {
+            if (!jar(player).jarData().getBoolean("shifangguchong")) return;
+            active = onlyInsect(player);
+            specimens.add(active);
+            anchor(active);
+            expectTrue("地上罐自然计划刻释放第九槽并登记唯一计数", jar(player).jarData().getDouble("shifangnum") == 1
+                    && active.getPersistentData().getBoolean("kanjia") && active.getPersistentData().getDouble("guguanweizhi") == 8
+                    && active.getOwnerUUID().equals(player.getUUID()));
+            found[0] = true;
+        });
+        if (!found[0] && local > 200) throw new IllegalStateException("地上罐自然放虫超时");
+        return found[0];
+    }
+
+    private void clearTarget(ServerPlayer player) {
+        expectTrue("蛊虫自然20刻入口接收地上罐目标UUID", active.getTarget() == target);
+        active.setHealth(5);
+        active.setTarget(null);
+        target.discard();
+    }
+
+    private boolean returned(int local) {
+        boolean[] done = {false};
+        onServer(player -> {
+            done[0] = active.isRemoved() && jar(player).jarData().getDouble("shifangnum") == 0;
+            if (done[0]) expectTrue("失去目标后自然回罐清计数并保留来源不回写生命的槽", !jar(player).jarData().getBoolean("shifangguchong")
+                    && GuchongJarData.read(jar(player).getItem(8)).getDouble("health_Num") == 7);
+        });
+        if (!done[0] && local > 200) throw new IllegalStateException("地上罐自然回收超时");
+        return done[0];
+    }
+
+    private void groundDeathAndPickup(ServerPlayer player) {
+        active.hurt(player.damageSources().generic(), 10000);
+        expectTrue("地上蛊虫自然死亡清第九槽和释放计数", jar(player).getItem(8).isEmpty()
+                && jar(player).jarData().getDouble("shifangnum") == 0 && !jar(player).jarData().getBoolean("shifangguchong"));
+        active.discard();
+        target.discard();
+        ModifierKeys.update(player, true, false);
+        useOn(player, home, Direction.UP);
+        ModifierKeys.update(player, false, false);
+        ItemStack pickedUp = player.getInventory().items.stream().filter(value -> value.is(item("taoguan_03item").getItem())).findFirst().orElseThrow();
+        expectTrue("Ctrl真实交互收起地上罐且保留罐UUID", player.level().isEmptyBlock(home)
+                && GuchongJarData.read(pickedUp).getString("guguanuuid").equals(JAR_UUID)
+                && player.getInventory().items.stream().filter(value -> value.is(pickedUp.getItem())).mapToInt(ItemStack::getCount).sum() == 1);
+        player.getInventory().clearContent();
+        CompoundTag data = GuchongJarData.read(pickedUp);
+        GuchongJarData.pack(ownedSpecimen, data, 8, false);
+        GuchongJarData.write(pickedUp, data);
+        player.setItemInHand(InteractionHand.MAIN_HAND, pickedUp);
+    }
+
+    private void handheldRelease(ServerPlayer player) {
+        useJar(player);
+        active = onlyInsect(player);
+        specimens.add(active);
+        anchor(active);
+        active.moveTo(player.position());
+        expectTrue("手持罐释放真实认主个体并冻结罐UUID和槽号", GuchongJarData.read(player.getMainHandItem()).getDouble("shifangnum") == 1
+                && active.getPersistentData().getString("guguanuuid").equals(JAR_UUID)
+                && active.getPersistentData().getDouble("guguanweizhi") == 8 && active.isOwnedBy(player));
+    }
+
+    private void handheldRecall(ServerPlayer player) {
+        active.setHealth(6.5F);
+        active.getPersistentData().putDouble("experience", 23.5);
+        useJar(player);
+        CompoundTag data = GuchongJarData.read(player.getMainHandItem());
+        expectTrue("手持罐自然收回保存当前生命经验且清释放计数", active.isRemoved() && data.getDouble("health_Num8") == 6.5
+                && data.getDouble("experience8") == 23.5 && data.getDouble("shifangnum") == 0 && !data.getBoolean("shifangguchong"));
+    }
+
+    private void releaseForReload(ServerPlayer player) {
+        useJar(player);
+        active = onlyInsect(player);
+        specimens.add(active);
+        anchor(active);
+        active.moveTo(player.position());
+        activeUuid = active.getUUID();
+        player.getInventory().setItem(9, player.getMainHandItem());
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        untouchedJar = item("taoguan_03item");
+        CompoundTag data = new CompoundTag();
+        data.putString("guguanuuid", "unrelated_jar");
+        GuchongJarData.pack(ownedSpecimen, data, 8, false);
+        GuchongJarData.write(untouchedJar, data);
+        player.getInventory().setItem(10, untouchedJar);
+    }
+
+    private void checkReloadAndDeath(ServerPlayer player) {
+        active = (GuchongEntity) player.serverLevel().getEntity(activeUuid);
+        if (active == null) throw new IllegalStateException("重登后未恢复已释放蛊虫 " + activeUuid);
+        specimens.add(active);
+        ItemStack saved = player.getInventory().getItem(9);
+        expectTrue("真实退出重进保留活动虫与背包罐及归属", active.isOwnedBy(player) && active.getHealth() == 6.5F
+                && active.getPersistentData().getDouble("experience") == 23.5 && active.getPersistentData().getString("guguanuuid").equals(JAR_UUID)
+                && GuchongJarData.read(saved).getBoolean("shifangguchong") && GuchongJarData.read(saved).getDouble("shifangnum") == 1);
+        active.hurt(player.damageSources().generic(), 10000);
+        CompoundTag result = GuchongJarData.read(player.getInventory().getItem(9));
+        expectTrue("非手持背包罐按UUID清死亡槽且不修改另一只罐", result.getString("guchongid8").isEmpty()
+                && result.getDouble("shifangnum") == 0 && !result.getBoolean("shifangguchong")
+                && ItemStack.isSameItemSameComponents(untouchedJar, player.getInventory().getItem(10)));
+    }
+
+    private static void useJar(ServerPlayer player) {
+        player.setShiftKeyDown(false);
+        player.gameMode.useItem(player, player.level(), player.getMainHandItem(), InteractionHand.MAIN_HAND);
+    }
+
+    private static void useOn(ServerPlayer player, BlockPos pos, Direction face) {
+        player.gameMode.useItemOn(player, player.level(), player.getMainHandItem(), InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(pos), face, pos, false));
+    }
+
+    private static void anchor(GuchongEntity entity) {
+        entity.setNoAi(true);
+        entity.setNoGravity(true);
+        entity.setDeltaMovement(Vec3.ZERO);
+    }
+
+    private List<GuchongEntity> insects(ServerPlayer player) {
+        return player.serverLevel().getEntitiesOfClass(GuchongEntity.class, player.getBoundingBox().inflate(12), entity -> entity.isAlive());
+    }
+
+    private GuchongEntity onlyInsect(ServerPlayer player) {
+        List<GuchongEntity> insects = insects(player);
+        if (insects.size() != 1) throw new IllegalStateException("预期一只活动蛊虫，实际 " + insects.size());
+        return insects.getFirst();
+    }
+
+    private TaoguanBlockEntity jar(ServerPlayer player) {
+        return (TaoguanBlockEntity) player.level().getBlockEntity(home);
+    }
+
+    private static ItemStack item(String id) {
+        return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", id)));
+    }
+
+    private void setBlock(ServerPlayer player, BlockPos pos, BlockState state) {
+        originalBlocks.put(pos, player.level().getBlockState(pos));
+        player.level().setBlock(pos, state, 3);
+    }
+
+    private void cleanup(ServerPlayer player) {
+        for (GuchongEntity insect : specimens) if (!insect.isRemoved()) insect.discard();
+        if (target != null && !target.isRemoved()) target.discard();
+        player.getInventory().clearContent();
+        originalBlocks.forEach((pos, state) -> player.level().setBlock(pos, state, 3));
+        player.connection.teleport(originalPosition.x, originalPosition.y, originalPosition.z, originalYaw, originalPitch);
+        player.setGameMode(originalMode);
+        player.server.setDifficulty(originalDifficulty, true);
+    }
+}

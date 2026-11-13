@@ -860,3 +860,8 @@ item,yvanchuxiuzhen:taoguan_02item,guchong:taoguan_02item,guchong,三档蛊罐�
 item,yvanchuxiuzhen:taoguan_03item,guchong:taoguan_03item,guchong,三档蛊罐的手持库存菜单放置与释放回收链
 item,yvanchuxiuzhen:fabao_013,equipment:fabao_013,equipment,穿界古镜双向传送、落点保存与占用时向上推出
 item,yvanchuxiuzhen:fabao_017,equipment:fabao_017,equipment,摄虫网捕获与困虫兜两档施法入口
+item,yvanchuxiuzhen:guchong_03item,guchong:guchong_03item,guchong,飞蝗单虫物品顶面释放与已认主个体恢复
+item,yvanchuxiuzhen:guchong_04item,guchong:guchong_04item,guchong,黑蚁单虫物品顶面释放与已认主个体恢复
+block,yvanchuxitong:taoguan_01,guchong:taoguan_01,guchong,一级蛊罐库存认主自然计划刻与回收入口
+block,yvanchuxitong:taoguan_02,guchong:taoguan_02,guchong,四槽蛊罐库存认主自然计划刻与回收入口
+block,yvanchuxitong:taoguan_03,guchong:taoguan_03,guchong,九槽蛊罐库存认主自然计划刻与回收入口

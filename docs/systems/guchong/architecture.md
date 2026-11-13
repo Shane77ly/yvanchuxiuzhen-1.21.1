@@ -31,7 +31,7 @@ updated: 2026-11-13
 
 精确来源：A `item/Taoguan01itemItem.java`–`03itemItem.java`、`world/inventory/Taoguan01GUIMenu.java`–`03GUIMenu.java`、`client/gui/Taoguan01GUIScreen.java`–`03GUIScreen.java`、`procedures/Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java`、`Taoguan01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure.java`、`TaoguanGuiopenProcedure.java`、`Taoguan01GUIDangZheGeJieMianBeiGuanBiProcedure.java`、`GuchongtickProcedure.java`、`Guchong01DangShiTiBeiShaSiShiProcedure.java`；B `procedures/Taoguan01GengXinYouXiKeProcedure.java`、`Taoguan01ZaiFangKuaiShangYouJianProcedure.java`、`GuchongshuxingProcedure.java`。路径前缀见[系统导航](../README.md)。
 
-2026-11-13收纳批次已通过统一编译、架构检查及一级手持罐菜单/序列化保存的最小客户端单项，见下节。地上罐与手持罐全生命周期、其余自然操作、完整存档/多人、专服专项、1.18.2版本实机与两版本对照未执行。
+2026-11-13收纳批次已通过统一编译、架构检查及一级手持罐菜单/序列化保存的最小客户端单项，见下节。后续03/04与九槽罐第九槽专项补充自然生命周期及活动虫/背包罐真实退出重进证据，范围见本页末节；其他容量全部自然操作、完整存档/多人、专服专项、1.18.2版本实机与两版本对照仍未执行。
 
 ## 待调查
 
@@ -46,3 +46,17 @@ R05/R10的外部收纳缺口由`GuchongCapture.captureWild`承担：`equipment`�
 所得虫物品已携带`guchongid`，可直接进入三档蛊罐的既有标签槽，关闭时由`TaoguanMenu`保存编号槽，罐物品序列化仍由原生组件承担。重新开罐继续保持来源不读回`health_Num`的差异，不能以捕获保存当前生命为理由改写这条菜单规则。地上罐精血认主、释放、回罐、死亡清槽仍沿用现有实现，本次不宣称这些完整自然路径已验收。
 
 来源依据：A `procedures/Fabao01701DangShiTiGengXinKeShiProcedure.java`的摄虫网分支；具体法宝入口、时序、模型见[装备正文](../equipment/architecture.md#摄虫网与困虫兜2026-11-13)。本次最小客户端单项已通过普通物品入口、活动实体和捕获物品序列化重读、认主虫排除、真实捕获物品入罐/关罐/重开，以及同物品困虫兜门槛和时序；完整结果只登记[装备月志](../equipment/logs/2026-11.md#2026-11-13摄虫网收纳与蛊罐保存)。完整地上罐链、多人、重登、1.18.2版本实机与两版本对照仍未执行。
+
+## 2026-11-13 03/04单虫释放与蛊罐生命周期
+
+03/04物品此前仍是普通工厂，来源的`useOn`没有执行者；现由`GuchongReleaseItem`承担。只有点击顶面且上方为空才在该格中心释放一只对应蛊虫并消耗物品。未认主物品只生成并执行该编号的自然初始化，不把已捕获资质带回野生实体；已认主物品先写等级、十三项资质及其数值、显示名，设置当前生命和原生生命/攻击/移动属性，再认当前使用者为原生主人，团队通过`Relations.team/setTeam`承接。最后执行来源初始化与加入世界；等级名非空时保持已有个体值。
+
+来源已认主单虫分支不读取物品的原主人，不写`belongToMasterUUID`、经验、`guchongid`或蛊罐关联字段，名称也不去方括号；目标保持这些遗漏及顺序，不套用罐释放的完整搬运方法。01物品使用相同来源过程，但01实体尚未移植，本批只接入已存在实体的03/04，不增加不可用的01入口。
+
+同批修正收纳团队数据来源：1.18.2版本直接读取实体NBT的`team`，目标实体初始化已通过`Relations.setTeam`写relation附件，旧收纳代码读取持久标签会保存空值。`GuchongCapture`现用`Relations.entityTeam`查询，由蛊虫系统继续唯一写入捕获物品组件。没有改变来源团队语义或新增跨系统写入。
+
+静态依据：A `item/Guchong03itemItem.java`、`Guchong04itemItem.java`和`procedures/Guchong01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure.java`的03/04两分支；`typed_field_accesses.csv`列出的三处玩家团队读取中，本批实现后两处。罐放置、精血认主、自然计划刻、回罐及死亡过程复用上一批已核来源，仅补未覆盖的运行风险；现有三档罐实现不重写。
+
+首次原生放罐暴露三档内容表仍选普通`block`工厂，已有`TaoguanBlock`和方块实体没有实际装配；现补齐三档工厂覆盖及转换输入，清除已经实现的方块/罐物品待迁移钩子。`TaoguanBlock`同时恢复B `block/Taoguan01Block.java`同族的菜单提供者与方块事件转发，保留原版占位容器；没有绕过原生物品放置钩子或修改来源放置规则。
+
+必要单项`-PsmokeOnly=guchonglifecycle`已通过03/04物品入口与团队承接、九槽罐第九槽的放置/精血认主、地上罐序列化重读、自然计划刻放虫/回罐、地上死亡清槽、Ctrl收罐、手持释放/收回，以及活动虫和非手持背包罐真实退出重进后的死亡清槽与另一罐隔离。地上回罐不回写当前生命，手持收回保存生命与经验，分别保持来源行为。地上罐保存检查是完整方块实体序列化重读，真实退出重进发生在活动虫与背包罐阶段，不宣称地上罐原位重登。夹具固定虫和目标位置，服务端使用原生物品/方块入口；完整客户端按键、AI追击战斗、其他两档罐全部自然场景、多人和两版本对照未执行。失败、修复、通过证据与验证边界只登记[本月记录](logs/2026-11.md#2026-11-13-0304单虫入口与生命周期续批)。

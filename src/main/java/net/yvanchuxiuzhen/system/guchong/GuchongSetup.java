@@ -11,6 +11,7 @@ import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlock;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanItem;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanMenu;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongMenus;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongReleaseItem;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -32,6 +33,9 @@ public final class GuchongSetup {
         for (int number = 1; number <= 3; number++) {
             int grade = number;
             CONTENT.itemFactory("guchong:taoguan_0" + grade + "item", (properties, tooltip) -> new TaoguanItem(properties, tooltip, grade));
+        }
+        for (String id : new String[]{"guchong_03", "guchong_04"}) {
+            CONTENT.itemFactory("guchong:" + id + "item", (properties, tooltip) -> new GuchongReleaseItem(properties, tooltip, id));
         }
         CONTENT.register(modBus);
         GuchongBlockEntities.register(modBus);

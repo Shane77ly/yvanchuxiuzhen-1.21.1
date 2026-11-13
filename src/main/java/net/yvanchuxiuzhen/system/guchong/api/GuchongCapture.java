@@ -14,10 +14,11 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongBehavior;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 摄虫网的服务端收纳操作；蛊虫字段和物品组件只由蛊虫系统写入。 */
 public final class GuchongCapture {
-    private static final String[] TEXT = {"LEVELname", "team", "health_Max_LEVEL", "health_Rec_LEVEL", "power_Max_LEVEL",
+    private static final String[] TEXT = {"LEVELname", "health_Max_LEVEL", "health_Rec_LEVEL", "power_Max_LEVEL",
             "power_Rec_LEVEL", "soul_Max_LEVEL", "soul_Rec_LEVEL", "attack_Num_LEVEL", "attack_Def_LEVEL", "mana_Att_LEVEL",
             "mana_Def_LEVEL", "soul_Att_LEVEL", "soul_Def_LEVEL", "speed_LEVEL"};
     private static final String[] NUMBERS = {"LEVELnumber", "experience_Max", "experience", "health_Max", "health_Rec",
@@ -38,6 +39,7 @@ public final class GuchongCapture {
         CompoundTag data = new CompoundTag();
         data.putString("guchongid", id);
         for (String key : TEXT) data.putString(key, source.getString(key));
+        data.putString("team", Relations.entityTeam(insect));
         for (String key : NUMBERS) data.putDouble(key, source.getDouble(key));
         data.putDouble("health_Num", insect instanceof LivingEntity living ? living.getHealth() : -1);
         data.putBoolean("guchongxvnfu", false);
