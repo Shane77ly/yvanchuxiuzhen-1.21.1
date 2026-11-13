@@ -210,6 +210,7 @@ final class SmokeRun {
                     case "guchonglifecycle" -> List.of(new GuchongLifecycleCheck(report, levelId));
                     case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
                     case "fuluripening" -> List.of(new FuluRipeningCheck(report, levelId));
+                    case "fuluspecial" -> List.of(new FuluSpecialCheck(report, levelId, this::shot));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }

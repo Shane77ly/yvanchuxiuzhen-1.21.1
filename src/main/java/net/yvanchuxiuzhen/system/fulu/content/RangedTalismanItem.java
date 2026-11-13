@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
 import net.yvanchuxiuzhen.system.fulu.FuluRanged;
 
-/** 需要蓄放的远程符（10、20、28、33、35 号）：右键开始使用，松开时由 {@link FuluRanged} 付精力并射出弹体，来源 {@code Itemfulu10Item.releaseUsing}。 */
+/** 蓄放型远程符：右键开始使用，松开时由 {@link FuluRanged} 付精力并射出对应弹体。 */
 public final class RangedTalismanItem extends ContentItem {
     private final int number;
 
