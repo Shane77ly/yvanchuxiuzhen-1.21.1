@@ -621,3 +621,6 @@ creature,item,yvanchuxiuzhen:guiguai_03_spawn_egg
 equipment,geo,yvanchuxiuzhen:fabao01701
 equipment,animation,yvanchuxiuzhen:fabao01701
 equipment,texture,yvanchuxiuzhen:entities/fabao01701
+guchong,geo,yvanchuxiuzhen:guchong01
+guchong,animation,yvanchuxiuzhen:guchong01
+guchong,texture,yvanchuxiuzhen:entities/guchong01

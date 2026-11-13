@@ -3799,10 +3799,10 @@ yvanchuxiuzhen,Fabao016DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapo
 yvanchuxiuzhen,Jingxve,item,~/item/zawu,equipment,已读,B1 归属阅读：精血：筑基期（LEVELnumber ≥ 11）以本人精血使副手武器或法宝认主，写 belongToMasterUUID；蛊罐与桃树苗按 ID 另作材料使用
 yvanchuxiuzhen,Guchong01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/entity/guchong,guchong,已读,B1 归属阅读：随 Guchong01item 读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
 yvanchuxiuzhen,Guchong01item,item,~/entity/guchong,guchong,已读,B1 归属阅读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
-yvanchuxiuzhen,Guchong01DangShiTiGengXinKeShi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guchong01ShiTiChuShiShengChengShi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guchong01DangShiTiBeiShaSiShi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guchong01,animatedentity,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guchong01DangShiTiGengXinKeShi,procedure,~/entity/guchong,guchong,已读,R10来源阅读：每十九刻按距离链接附近生物挑衅；七十七刻鸣叫并调用蛊罐生命周期
+yvanchuxiuzhen,Guchong01ShiTiChuShiShengChengShi,procedure,~/entity/guchong,guchong,已读,R10来源阅读：七级与十三项蛊虫资质初始化；调用蛊虫属性及团队初始化
+yvanchuxiuzhen,Guchong01DangShiTiBeiShaSiShi,procedure,~/entity/guchong,guchong,已读,R10来源阅读：认主蛊虫死亡按地上罐坐标或手持罐UUID清槽与释放计数
+yvanchuxiuzhen,Guchong01,animatedentity,~/entity/guchong,guchong,已读,R10来源阅读：鼓上蚤个体仅跟随与漫步；自身承担挑衅和蛊罐关联生命周期
 yvanchuxiuzhen,Guchongshuxing,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong02itemDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/entity/guchong,guchong,已读,B1 归属阅读：随 Guchong02item 读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
 yvanchuxiuzhen,Guchong02item,item,~/entity/guchong,guchong,已读,B1 归属阅读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
@@ -3866,7 +3866,7 @@ yvanchuxiuzhen,Guchonggensui,procedure,~/entity/guchong,guchong,候选,第一版
 yvanchuxiuzhen,Guchongentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongtick,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fabao018hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guchong01hecheng,recipe,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guchong01hecheng,recipe,~/entity/guchong,guchong,已读,R10来源阅读：九个elm_01无序合成guchong_01item；属于鼓上蚤获取入口
 yvanchuxiuzhen,Chongluan,item,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,ZhuangshiqiantongZaiFangKuaiShangYouJian,procedure,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：随 Zhuangshiqiantong 读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
 yvanchuxiuzhen,Zhuangshiqiantong,animatedblock,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
@@ -3887,7 +3887,7 @@ yvanchuxiuzhen,Entityjingyanjisuan,procedure,~/entity,creature,已读,B1 归属�
 yvanchuxiuzhen,Entitylevelup,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,EntityLevelName,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,YaoshoushuxingUp,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GuchongshuxingUp,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,GuchongshuxingUp,procedure,~/entity,guchong,已读,R10来源阅读：仅蛊虫击杀升级调用十三项资质重算；与Guchongshuxing公式逐字归一核对相同
 yvanchuxiuzhen,Lingshoudai01,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
 yvanchuxiuzhen,Lingshoushouna,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Caoyao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）

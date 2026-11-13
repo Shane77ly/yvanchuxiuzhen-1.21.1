@@ -6,6 +6,7 @@ import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongCreatures;
+import net.yvanchuxiuzhen.system.guchong.entity.GuchongGrowth;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongBlockEntities;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlock;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanItem;
@@ -34,12 +35,13 @@ public final class GuchongSetup {
             int grade = number;
             CONTENT.itemFactory("guchong:taoguan_0" + grade + "item", (properties, tooltip) -> new TaoguanItem(properties, tooltip, grade));
         }
-        for (String id : new String[]{"guchong_03", "guchong_04"}) {
+        for (String id : new String[]{"guchong_01", "guchong_03", "guchong_04"}) {
             CONTENT.itemFactory("guchong:" + id + "item", (properties, tooltip) -> new GuchongReleaseItem(properties, tooltip, id));
         }
         CONTENT.register(modBus);
         GuchongBlockEntities.register(modBus);
         GuchongMenus.register(modBus);
+        NeoForge.EVENT_BUS.addListener(GuchongGrowth::onDeath);
         NeoForge.EVENT_BUS.addListener((PlayerTickEvent.Post event) -> {
             if (event.getEntity().containerMenu instanceof TaoguanMenu menu
                     && TaoguanItem.grade(event.getEntity().getMainHandItem()) != menu.grade()) event.getEntity().closeContainer();

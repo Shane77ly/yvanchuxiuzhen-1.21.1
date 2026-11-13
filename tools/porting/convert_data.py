@@ -51,8 +51,7 @@ def read_rows(path: Path) -> list[dict]:
 
 
 class Registered:
-    """本 Mod 已登记的方块与物品（内容表）、所属系统自己登记的内容（台账状态为“行为已迁移”的行），
-    和原版 1.21.1 的方块、物品（物品模型与方块状态文件）、实体类型（语言文件中的名称键）。"""
+    """本 Mod 已登记的方块、物品、实体类型（内容表）与迁移行为，以及原版资源注册身份。"""
 
     def __init__(self) -> None:
         self.mod = {'item': set(), 'block': set()}
@@ -65,6 +64,8 @@ class Registered:
                     self.stack[f'{NAMESPACE}:{row["id"]}'] = row['stack']
         for path in sorted(CONTENT.glob('*/blocks.json')):
             self.mod['block'] |= {f'{NAMESPACE}:{row["id"]}' for row in read_rows(path)}
+        self.mod['entity_type'] = {f'{NAMESPACE}:{row["id"]}'
+                                   for path in sorted(CONTENT.glob('*/entities.json')) for row in read_rows(path)}
         # 来源注册表中出现过的 ID（目标 ID），用于区分“尚未迁移”与“来源标签引用了来源本身没有登记的 ID”。
         self.in_source = set()
         for rows in read_ledgers().values():

@@ -1991,6 +1991,7 @@ yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/yanhui.json,e6fdaa1a44e
 yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/yvanchuzuowu.json,da9f0799e5ec843cd1138dc3a50ef038ff6752fc,src/main/resources/data/yvanchuxiuzhen/tags/block/yvanchuzuowu.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/flyinginstrument.json,34de151503f7bd1904116f9e6a6b01eaaeeac1d2,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/flyinginstrument.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/gongjv.json,004dfd9e85a166dbcf8ed89a63f64c9e8b81daae,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/gongjv.json
+yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/guchongentity.json,32ffa7183bfad73524421bc274cafa211cbbdc4c,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/guchongentity.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/noentity.json,e22b890c47ea5b9dbf2992ae847cf4153763ce6a,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/npcentity.json,df5eaee9e915719e78d375f87409882a7712a3d4,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/npcentity.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/yaoshou.json,e36ed65d5dbe646c70a0a74ffee022af4d605a33,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yaoshou.json

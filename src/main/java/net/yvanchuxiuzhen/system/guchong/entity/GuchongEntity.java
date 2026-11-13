@@ -34,7 +34,6 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.MobSpawnType;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
-import net.yvanchuxiuzhen.system.relation.api.Relations;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -139,11 +138,11 @@ public abstract class GuchongEntity extends TamableAnimal implements GeoEntity, 
     public void setAnimation(String animation) { entityData.set(ANIMATION, animation); }
 
     @Override protected void tickDeath() {
-        if (++deathTime == 20) { remove(RemovalReason.KILLED); dropExperience(this); }
+        if (++deathTime == model.lifecycle().deathTicks()) { remove(RemovalReason.KILLED); dropExperience(this); }
     }
 
     @Override public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<GuchongEntity>(this, "movement", 2, state -> {
+        controllers.add(new AnimationController<GuchongEntity>(this, "movement", model.lifecycle().animationTransitionTicks(), state -> {
             if (!procedureAnimation.equals("empty")) return PlayState.STOP;
             boolean moving = state.isMoving() || !(state.getLimbSwingAmount() > -.15F && state.getLimbSwingAmount() < .15F);
             if (moving && (onGround() || model.air().isEmpty()))
@@ -152,7 +151,7 @@ public abstract class GuchongEntity extends TamableAnimal implements GeoEntity, 
                 return state.setAndContinue(RawAnimation.begin().thenLoop(model.air().get()));
             return state.setAndContinue(RawAnimation.begin().thenLoop("animation." + model.animation() + ".idle"));
         }));
-        controllers.add(new AnimationController<GuchongEntity>(this, "procedure", 2, state -> {
+        controllers.add(new AnimationController<GuchongEntity>(this, "procedure", model.lifecycle().animationTransitionTicks(), state -> {
             if (procedureAnimation.equals("empty")) return PlayState.STOP;
             AnimationController<GuchongEntity> controller = state.getController();
             if (controller.getAnimationState() == AnimationController.State.STOPPED) {

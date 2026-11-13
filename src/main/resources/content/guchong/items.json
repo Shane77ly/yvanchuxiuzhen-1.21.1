@@ -1,5 +1,5 @@
 [
-{"id":"guchong_01item","factory":"item","order":1774,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"pending_hooks":["useOn"]},
+{"id":"guchong_01item","factory":"guchong:guchong_01item","order":1774,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1},
 {"id":"guchong_02item","factory":"item","order":1775,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"tooltip":["右键把蛊虫养于体内，并获得“千杯不倒”的体质。"],"pending_hooks":["use"]},
 {"id":"guchong_03item","factory":"guchong:guchong_03item","order":1776,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1},
 {"id":"guchong_04item","factory":"guchong:guchong_04item","order":1777,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1},
