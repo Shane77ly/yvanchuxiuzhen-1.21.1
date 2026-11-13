@@ -18,6 +18,7 @@ import net.yvanchuxiuzhen.system.equipment.content.Fabao010Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao010huoyanItem;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao011Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao012Item;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao013Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao014Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao016Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao021Item;
@@ -76,6 +77,10 @@ public final class EquipmentSetup {
             if (row.factory().equals("equipment:fabao_012")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
                 CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Fabao012Item(tier, properties, tooltip));
+            }
+            if (row.factory().equals("equipment:fabao_013")) {
+                LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
+                CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Fabao013Item(tier, properties, tooltip));
             }
             if (row.factory().equals("equipment:fabao_014")) {
                 CONTENT.itemFactory(row.factory(), Fabao014Item::new);
@@ -156,6 +161,7 @@ public final class EquipmentSetup {
         NeoForge.EVENT_BUS.addListener(EquipmentAttributes::modifiers);
         NeoForge.EVENT_BUS.addListener(BenmingCultivation::onCultivationSecond);
         NeoForge.EVENT_BUS.addListener(FabaoPoisonFields::tick);
+        NeoForge.EVENT_BUS.addListener(Fabao013Unstuck::onCultivationSecond);
         NeoForge.EVENT_BUS.addListener(FabaoPoisonFields::stopped);
     }
 
