@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -116,7 +117,7 @@ public final class YihuoProjectile extends AbstractArrow implements ItemSupplier
         }
         String team = Relations.entityTeam(owner);
         String attacker = owner.getStringUUID();
-        if (target instanceof net.minecraft.server.level.ServerPlayer player) {
+        if (target instanceof ServerPlayer player) {
             Cultivation.setTizhiString(player, "fireteam", team);
             Cultivation.setTizhiString(player, "fireAttackUUID", attacker);
         } else {
@@ -142,7 +143,7 @@ public final class YihuoProjectile extends AbstractArrow implements ItemSupplier
 
     private void hitBlock(ServerLevel level, BlockPos hit, Entity owner) {
         int grade = material % 10 - 1;
-        int fuel = 1 << grade;
+        int fuel = 10 * (1 << grade);
         if (owner.isShiftKeyDown()) {
             BlockPos placement = hit.above();
             if (level.getBlockState(placement).is(Blocks.AIR)) {
@@ -150,15 +151,21 @@ public final class YihuoProjectile extends AbstractArrow implements ItemSupplier
                 level.setBlock(placement, BuiltInRegistries.BLOCK.get(id).defaultBlockState(), Block.UPDATE_ALL);
                 BlockEntity blockEntity = level.getBlockEntity(placement);
                 if (blockEntity instanceof FireBlockEntity fire && owner instanceof Player player) {
-                    fire.initialize(player, 10 * fuel);
+                    fire.initialize(player, fuel);
                 }
             }
             return;
         }
         level.sendParticles(Particles.type("cailiao_" + material + "particle"), getX(), getY(), getZ(), 10, 0, 0, 0, 0.5);
         for (BlockPos position : new BlockPos[] {hit, hit.above(), hit.below()}) {
-            if (level.getBlockState(position).is(FIRE) && level.getBlockEntity(position) instanceof FireBlockEntity fire) {
-                fire.power(fire.power() + fuel);
+            if (level.getBlockState(position).is(FIRE)) {
+                BlockEntity block = level.getBlockEntity(position);
+                if (block != null) {
+                    CompoundTag data = block.getPersistentData();
+                    data.putDouble("power", data.getDouble("power") + fuel);
+                    block.setChanged();
+                    level.sendBlockUpdated(position, block.getBlockState(), block.getBlockState(), Block.UPDATE_ALL);
+                }
                 break;
             }
         }
