@@ -36,6 +36,7 @@ public final class CreatureSetup {
         NaturalCreatures.register(CONTENT, modBus);
         GhostCreatures.register(CONTENT);
         NichangGrassAttraction.register();
+        TalismanTaming.register();
         CONTENT.register(modBus);
     }
 }

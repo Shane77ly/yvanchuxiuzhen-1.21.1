@@ -2,12 +2,14 @@
 topic: relation
 role: entry
 status: partial
-updated: 2026-11-12
+updated: 2026-11-13
 ---
 
 # 关系
 
 标识 `relation`，类别：系统。职责：组队、好友、敌友判定（[系统设计](../../development/system-design.md)）。
+
+2026-11-13补入神傀符驯服的好友表替换与团队交接公开操作，真实001妖兽成功及保存重读必要单项通过，结果见[符箓月志](../fulu/logs/2026-11.md#2026-11-13-神傀符18完整路径)。
 
 当前阶段：敌友判定、团队与阵营、团队招募令、好友界面与好友申请界面已实现（`system/relation`），开发客户端检查 43 项通过（2026-11-03）。台账：`ling_15`、`friendgui`、`zuduiteam_gui` 为“行为已迁移”；`gui_0301` 入口不可达（Q20），为“待处理”。
 
@@ -29,10 +31,11 @@ updated: 2026-11-12
 | 继承阵营 | `copyAllegiance(主人, 非玩家实体)`：团队与友方集合整体复制 | 同“查询团队”的召唤与投射物生成 |
 | 共享实体阵营 | `shareEntityAllegiance(来源非玩家实体, 目标非玩家实体)`：团队值复制、友方集合运行期共享，独立存档重载后分离 | creature 008召唤007，保留来源直接赋入同一CompoundTag的后续写入效果 |
 | 蛊罐共享友方 | `shareAllegianceToBlock(主人, 方块持久数据)`与`shareBlockAllegiance(方块持久数据, 虫, 虫团队)`：共享来源friendlist子标签，团队由虫物品单独赋值 | guchong放置与地上放虫，独立存档重载后解除共享 |
+| 驯服替换好友与团队 | `replaceTamingFriends(目标)`先复制目标能力好友并移除旧实体团队；`setTamingTeam(施放者, 目标)`另写实体团队 | Creature神傀符命中；来源`Itemfulu18DangTouZhiWuJiZhongShiTiShiProcedure:225–234`，保留原生认主和粒子在两次写入之间的顺序 |
 | 设置团队 | `setTeam(非玩家实体, 团队名)` | 只写 `team` 的生成过程、creature 的 `EntityTeamShezhi`（团队名为实体类型 ID，`:` 改为 `_`） |
 | 加入友方 | `addFriendlyTeam(非玩家实体, 团队名)` | `EntityTeamShezhi` 把自身团队加入友方集合 |
 
-约定：公开写操作只用于非玩家实体，对玩家调用时抛出异常；玩家的团队与好友只由本系统的登录和界面流程维护。方块实体敌友查询已随 yihuo 首个调用者接入，读取者持有只读视图，不反写玩家关系。
+约定：普通公开写操作只用于非玩家实体，对玩家调用时抛出异常；驯服两操作明确只改本体实体附件，即使目标带玩家能力也不修改能力团队/好友。玩家能力关系由本系统登录和界面流程维护。方块实体敌友查询已随 yihuo 首个调用者接入，读取者持有只读视图，不反写玩家关系。
 
 ## 未实现
 

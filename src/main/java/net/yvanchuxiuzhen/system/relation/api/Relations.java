@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.relation.api;
 
 import java.util.Set;
+import java.util.HashSet;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -10,7 +11,7 @@ import net.yvanchuxiuzhen.system.relation.data.RelationAttachments;
 /**
  * 关系系统的公开操作：团队与敌友判定、给非玩家实体设置阵营。
  * 判定规则（来源 {@code Friendpanding*}）：判定方的友方集合含对方的团队名即为友方；玩家的集合含本人团队（登录时加入）。
- * 写操作只用于非玩家实体，玩家的团队与好友由本系统的界面流程维护。
+ * 普通写操作只用于非玩家实体；驯服入口明确写本体实体字段，不改玩家能力的团队与好友。
  */
 public final class Relations {
     private Relations() {
@@ -63,6 +64,18 @@ public final class Relations {
     /** 设置非玩家实体的团队名，友方集合不变。 */
     public static void setTeam(Entity target, String team) {
         entityAllegiance(target).setTeam(team);
+    }
+
+    /** 神傀符驯服：复制目标的玩家能力好友表（非玩家为空），移除旧实体团队并断开原集合引用。 */
+    public static void replaceTamingFriends(Entity target) {
+        Set<String> friends = target instanceof Player ? new HashSet<>(friendlyTeams(target)) : new HashSet<>();
+        friends.remove(entityTeam(target));
+        target.getData(RelationAttachments.ENTITY).replace(entityTeam(target), friends);
+    }
+
+    /** 驯服后只写本体实体团队；来源取施放者的玩家能力团队，非玩家施放者取空串。 */
+    public static void setTamingTeam(Entity owner, Entity target) {
+        target.getData(RelationAttachments.ENTITY).setTeam(owner instanceof Player ? team(owner) : "");
     }
 
     /** 把 {@code team} 加入非玩家实体的友方集合。 */

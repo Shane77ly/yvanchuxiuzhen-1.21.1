@@ -40,6 +40,13 @@ public final class Allegiance {
         this.team = team;
     }
 
+    /** 整体替换集合并断开既有共享引用；驯服时使用目标能力好友表的独立副本。 */
+    public void replace(String team, Set<String> friends) {
+        this.team = team;
+        friendlyTeams = new CompoundTag();
+        friends.forEach(name -> friendlyTeams.putBoolean(name, true));
+    }
+
     public boolean isFriendly(String otherTeam) {
         return friendlyTeams.getBoolean(otherTeam);
     }

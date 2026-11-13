@@ -57,10 +57,11 @@ public final class FuluSetup {
             .itemFactory("fulu:passive_22", (properties, tooltip) -> new ThresholdTalismanItem(properties, tooltip, 22))
             .itemFactory("fulu:passive_23", (properties, tooltip) -> new ThresholdTalismanItem(properties, tooltip, 23))
             .itemFactory("fulu:explosive_42_item", ExplosiveTalismanItem::new)
-            .effectBehavior("fulutexiao_41", new FiveThunderCurse());
+            .effectBehavior("fulutexiao_41", new FiveThunderCurse())
+            .effectBehavior("fulutexiao_18", new TalismanControl());
 
     /** 蓄放后射出弹体的远程符编号，对应内容表工厂 {@code fulu:ranged_<编号>}。 */
-    private static final int[] RANGED = {10, 20, 28, 33, 35, 41};
+    private static final int[] RANGED = {10, 18, 20, 28, 33, 35, 41};
     /** 共享即时与持续施用入口的符箓编号，对应内容表工厂 {@code fulu:talisman_<编号>}。 */
     private static final int[] TALISMANS = {1, 2, 3, 4, 5, 40, 44, 43, 45, 47, 48, 49, 6, 7, 8, 9, 11, 12, 13, 14, 17, 19, 21, 24, 25, 26, 27, 29, 30, 31, 32, 34, 36, 38, 39, 46};
 

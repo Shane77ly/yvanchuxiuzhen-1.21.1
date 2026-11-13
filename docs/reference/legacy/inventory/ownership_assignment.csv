@@ -2824,9 +2824,9 @@ yvanchuxiuzhen,Fulutexiao17TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已�
 yvanchuxiuzhen,Fulutexiao17DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao17 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Fulutexiao17,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu15DangFangKuaiBeiShuiFangZhiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu15 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Fulutexiao18,potioneffect,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fulutexiao18ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fulutexiao18DangXiaoGuoJieShuShi,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fulutexiao18,potioneffect,~/item/huafu,fulu,已读,18号神傀符控制状态的逐刻位移与结束清理；妖兽命中消费者由Creature承担，详见符箓正文
+yvanchuxiuzhen,Fulutexiao18ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/item/huafu,fulu,已读,18号神傀符控制状态的逐刻位移与结束清理；妖兽命中消费者由Creature承担，详见符箓正文
+yvanchuxiuzhen,Fulutexiao18DangXiaoGuoJieShuShi,procedure,~/item/huafu,fulu,已读,18号神傀符控制状态的逐刻位移与结束清理；妖兽命中消费者由Creature承担，详见符箓正文
 yvanchuxiuzhen,Itemfulu18TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu18 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu18DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu18 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu18,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果

@@ -75,3 +75,7 @@ updated: 2026-11-07
 来源手持罐放置直接将玩家能力的friendlist子标签赋入方块，地上罐逐槽释放把同一标签交给每只虫，虫的team仍来自各自物品字段。`Allegiance`内部以CompoundTag承载友方真值，对外保留不可修改的活Set视图；假值键不算友方。`Relations.shareAllegianceToBlock`与`shareBlockAllegiance`只负责关系字段，方块库存和虫状态仍由guchong唯一维护。玩家、罐、虫运行期共享引用，各自持久化重读后分离，附件Codec继续保存team和friendly_teams列表格式。既有复制入口仍作值复制；已有视图固定指向取得时的标签，与来源换入新标签后旧引用分离一致。
 
 在既有RelationCheck增加共享入口、团队独立、增删实时可见、假值忽略和Codec重读分离的针对性检查，统一运行结果在本批交接与项目月志登记。未据静态代码宣称实机通过。
+
+## 神傀符驯服关系替换（2026-11-13）
+
+来源`Itemfulu18DangTouZhiWuJiZhongShiTiShiProcedure:225–234`读取目标玩家能力friendlist物品的副本，取其好友子表、将旧实体团队设为false，然后整体换入实体friendlist；原生认主和粒子之后才写施放者玩家能力团队。`Relations.replaceTamingFriends`取目标能力的独立集合副本（非玩家为空），移除旧实体团队并断开原共享引用；`setTamingTeam`再写施放者玩家能力团队（非玩家施放者为空）。两操作允许本体实体附件与玩家能力关系分别表达来源语义，不改变玩家能力附件。假值键按既有查询等价为空，不持久化无意义false键。Creature只使用公开入口，结果与必要验证统一记[符箓月志](../fulu/logs/2026-11.md#2026-11-13-神傀符18完整路径)。

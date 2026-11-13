@@ -38,9 +38,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.fulu.FuluUse;
 import net.yvanchuxiuzhen.system.fulu.FiveThunderCurse;
+import net.yvanchuxiuzhen.system.fulu.TalismanControl;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -57,6 +59,7 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
  * 28 号（命中的非友方发光 {@code 2400×品阶²} 刻）、33 号（命中的非友方定身，对亡灵更久）、35 号（令使用者的生命比例与命中者一致）；
  * 其品阶由使用者松手时写入的持久数据 {@code fululevel} 传入，35 号取主手符箓的品阶并在第一刻扣除一张。
  * 41号惊庭五雷符首刻交接独立品阶和施放者身份，16刻内命中实体时登记五轮落雷状态。
+ * 18号神傀符保留使用者通用品阶，首刻记录修饰键模式，10刻内命中时分派妖兽驯服或非妖兽控制。
  * 05、29、32 的品阶由使用者的实体持久数据 {@code fulu05level}、{@code fulu29level}、{@code fulu32level} 传入。
  * 品阶在第一刻从发射者的符箓状态读取。1.21.1 版本的箭没有独立击退字段，来源 13、17 号弹体的击退 1 不再携带。
  */
@@ -67,7 +70,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         QI_SWORD("projectile_fulutexiao_05"), FROST("projectile_fulutexiao_29"), CLUSTER("projectile_fulutexiao_32"),
         DEBUFF("projectile_itemfulu_10"), FURNACE("projectile_itemfulu_20"), GLOW("projectile_itemfulu_28"),
         BIND("projectile_itemfulu_33"), BLOOD("projectile_itemfulu_35"), CANNON("projectile_fulutexiao_45"),
-        FIVE_THUNDER("projectile_itemfulu_41");
+        FIVE_THUNDER("projectile_itemfulu_41"), TAMING("projectile_itemfulu_18");
 
         private final String id;
 
@@ -120,6 +123,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
             case GLOW -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "itemfulu_28")));
             case BLOOD -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "cailiao_118")));
             case FIVE_THUNDER -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "itemfulu_41")));
+            case TAMING -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "itemfulu_18")));
             case FROST -> new ItemStack(Items.COBWEB);
             case CLUSTER -> new ItemStack(Items.FIREWORK_STAR);
         };
@@ -178,6 +182,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
             return;
         }
         switch (kind) {
+            case TAMING -> TalismanControl.hit(level, this, target, owner, grade);
             case DEBUFF -> {
                 if (!Relations.isFriendly(owner, target) && target instanceof LivingEntity living) {
                     for (int index = 0; index < (int) (grade * 2); index++) {
@@ -299,10 +304,28 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
                 case CLUSTER -> clusterTick(level);
                 case DEBUFF, FURNACE, GLOW, BIND, BLOOD -> rangedTick(level);
                 case FIVE_THUNDER -> fiveThunderTick();
+                case TAMING -> tamingTick();
                 case CANNON -> cannonTick(level);
             }
         }
         if (inGround) {
+            discard();
+        }
+    }
+
+    /** 18号弹体首刻读取品阶、名字、玩家团队与修饰键；保留使用者的通用品阶，十刻后消失。 */
+    private void tamingTick() {
+        Entity owner = getOwner();
+        if (!isNoGravity()) {
+            grade = owner.getPersistentData().getDouble("fululevel");
+            Relations.setTeam(this, owner instanceof Player ? Relations.team(owner) : "");
+            getPersistentData().putString("zhurenname", owner.getDisplayName().getString());
+            if (owner instanceof Player player && (ModifierKeys.ctrl(player) || ModifierKeys.alt(player))) {
+                getPersistentData().putBoolean("jiuxiaoguo", true);
+            }
+            setNoGravity(true);
+        }
+        if (++ticks >= 10) {
             discard();
         }
     }

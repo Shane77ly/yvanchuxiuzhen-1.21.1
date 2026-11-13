@@ -34,6 +34,7 @@ public final class FuluRanged {
         }
         Kind kind = switch (number) {
             case 10 -> Kind.DEBUFF;
+            case 18 -> Kind.TAMING;
             case 20 -> Kind.FURNACE;
             case 28 -> Kind.GLOW;
             case 33 -> Kind.BIND;
@@ -50,8 +51,12 @@ public final class FuluRanged {
         }
         ServerLevel level = player.serverLevel();
         TalismanProjectile.launch(level, FuluSetup.projectile(kind).get(), player, new Vec3(player.getX(), player.getEyeY() - 0.1, player.getZ()), player.getLookAngle(), 2, 0.1);
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fulushifang")),
-                SoundSource.PLAYERS, 1, 1f / (level.random.nextFloat() * 0.5f + 1) + 0.5f);
+        float releasePitch = 1f / (level.random.nextFloat() * 0.5f + 1) + 0.5f;
+        // 18号引用的fulufashe没有来源注册；Forge40.1.0声音钩子跳过空声音，保留其静默和随机抽取。
+        if (number != 18) {
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fulushifang")),
+                    SoundSource.PLAYERS, 1, releasePitch);
+        }
         if (!player.getAbilities().instabuild && !ammunition.isEmpty()) {
             ammunition.shrink(1);
         }

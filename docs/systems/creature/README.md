@@ -7,6 +7,8 @@ updated: 2026-11-13
 
 # 生物
 
+2026-11-13 补入18号神傀符的妖兽驯服消费者，完整来源限制、概率叠加和成功/失败反馈已实现，静态核对、编译和六项结构检查通过；真实001妖兽限制、概率、原生认主及保存重读必要单项已过，全部编号与自然驯养仍待；结果统一记[符箓月志](../fulu/logs/2026-11.md#2026-11-13-神傀符18完整路径)。
+
 2026-11-13 霓裳草开花召引已接回：Creature订阅Plant同步事件，保留21群系完整分组、16次选址、已有妖兽召引与生成前共享阵营顺序；来源54成员妖兽标签已核对恢复。静态核对、必要编译与六项结构检查通过，秋林03真实七槽召引和正常六维保存退出通过，见[本批正文](architecture.md#霓裳草开花召引2026-11-13)及[符箓月志](../fulu/logs/2026-11.md#2026-11-13-荫翠符30与霓裳草开花链)。
 
 2026-11-12 `yaoshou_01701`模型表补齐必需的生命周期字段，修复客户端初始化解码崩溃；既有Skill客户端场景加载通过，01701自身行为、形态转换与视觉仍待专项验收，见[本月日志](logs/2026-11.md)。
@@ -27,6 +29,7 @@ updated: 2026-11-13
 
 | 操作 | 调用与数据边界 |
 | --- | --- |
+| `TalismanTaming`订阅`TalismanTamingEvent` | Creature拥有妖兽限制、完整驯服概率、原生认主和状态清理；Relation替换好友表与团队，Fulu仅提供命中事实；来源定位见[驯服正文](architecture.md#神傀符妖兽驯服2026-11-13) |
 | `NichangGrassAttraction`订阅`NichangGrassBloomEvent` | Creature拥有召引目标选择、既有妖兽自由NBT及新实体生命周期；阵营经Relation操作，Plant只提供同步开花坐标 |
 | `CreatureSetup.entityType(String)` | 本系统客户端装配读取已登记类型，不暴露内容表或可变实例数据；跨系统自然生成按注册ID引用 |
 | `Butterflies.register / Organisms.register / YaoshouCreatures.register / NaturalCreatures.register / GhostCreatures.register` | 本系统注册实体、属性、刷怪蛋工厂和原生刷怪位置；妖兽当前装配52个编号，自然生物补入魔兽001/003、桃木精和修者0101；鬼怪02/03保留来源注册且不添加自然生成；群系出生列表由World保持来源顺序及参数 |
