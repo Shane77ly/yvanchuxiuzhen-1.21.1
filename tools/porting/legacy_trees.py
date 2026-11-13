@@ -185,7 +185,8 @@ def integration(source: zipfile.ZipFile, target: zipfile.ZipFile, source_root: P
                'SourceFancyFoliagePlacer', 'SourceBushFoliagePlacer', 'SourceMegaJungleFoliagePlacer',
                'SourceRandomSpreadFoliagePlacer']
     expected_implementations = json.loads((ROOT / 'tools/porting/data/legacy_tree_implementation_fingerprints.json').read_text(encoding='utf-8'))
-    actual_implementations = {name: hashlib.sha256((java / (name + '.java')).read_bytes()).hexdigest()
+    # 目标 Java 按仓库 LF 规范计算指纹；仅统一 CRLF，保留其余源码字节。
+    actual_implementations = {name: hashlib.sha256((java / (name + '.java')).read_bytes().replace(b'\r\n', b'\n')).hexdigest()
                               for name in helpers}
     if set(expected_implementations) != set(helpers) or expected_implementations != actual_implementations:
         raise ValueError('来源树独立实现与已静态核对的十七项源码指纹不符')
