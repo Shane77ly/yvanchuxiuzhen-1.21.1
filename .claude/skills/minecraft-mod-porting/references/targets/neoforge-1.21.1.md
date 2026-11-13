@@ -70,7 +70,8 @@
 - `runServer` 启动后等待控制台输入，不会自行结束；终止 Gradle 任务后，wrapper 与游戏 Java 进程可能残留，需按命令行查找并结束。
 - Windows 控制台按系统代码页显示非 ASCII 的 Mod 名称时会乱码；`run/logs/latest.log` 为 UTF-8，以日志文件核对显示名。
 - 客户端在窗口活动且没有打开界面时捕获鼠标（`MouseHandler.grabMouse` 只检查 `Minecraft.isWindowActive()`）。自动化的客户端运行在每 tick 开始时 `setWindowActive(false)` 并关闭失去焦点暂停，就不会占用开发者的鼠标；窗口启动时取得键盘焦点是操作系统行为，无法由模组避免。
-- 新建世界后很快退出时，集成服务端的停止流程可能在“等待区块工作完成”的循环中空转（某个区块尚有加载或光照待办，`isReadyForSaving` 一直为假）。自动化退出前等 `ServerChunkCache.getPendingTasksCount()` 连续一段时间为 0。
+- 已核NeoForge21.1.265：`MinecraftServer.stopServer` 在 `Saving worlds` 后先循环等待全部维度 `ChunkMap.hasWork` 清空，再调用 `saveAllChunks`；停在该日志不能直接归因为磁盘保存。新建世界快速退出曾观察到区块卸载反复等待 `isReadyForSaving` 的空转，须用现场线程栈区分。`ServerChunkCache.getPendingTasksCount()` 只计区块主线程队列，不含完整生成、光照和卸载工作，连续为0只能作为经验性时机调整，不能证明保存就绪；玩家在线时也不应要求 `ChunkMap.hasWork=false`，玩家ticket本身会使其为true。
+- 客户端自动化结束按该版本 `PauseScreen.onDisconnect` 的顺序执行 `level.disconnect()`、`Minecraft.disconnect(保存界面)`，断开正常返回后才记录世界退出完成；场景断言先落盘，退出未完成时保留未完成状态。`Minecraft.disconnect` 内部等待集成服务端 `isShutdown`，但它返回和JVM正常退出是两个事实，仍分别核对保存完成日志与构建进程退出。2026-11-13受控单项使用此路径正常保存退出，不据单次成功宣称所有快速退出问题已消除。
 - 本机内存不足时 Gradle wrapper 的 JVM 会在工作目录写 `hs_err_pid*.log`、`replay_pid*.log`；这类文件应被版本控制忽略。资源转换一次重写数千个文件后紧接构建，会给编辑器的文件监视带来很大压力，重型任务逐个运行。
 - 客户端自动化退出存档时，`Minecraft.disconnect` 在等待集成服务端关闭期间循环调用 `runTick`，`ClientTickEvent` 会嵌套触发；脚本在调用前置忙标志，嵌套的 tick 不推进。重新进入用 `WorldOpenFlows.openWorld(存档目录名, 失败回调)`（21.1.265 实测）。
 

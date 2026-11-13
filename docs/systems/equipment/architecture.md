@@ -2,7 +2,7 @@
 topic: equipment
 role: architecture
 status: partial
-updated: 2026-11-12
+updated: 2026-11-13
 ---
 
 # 装备、法宝、本命与饰品：架构调查与提案
@@ -259,13 +259,13 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 验证：本批未新增 Test 类、冒烟选择器或 Computer Use。`gradlew build`、`runSmokeClient -PsmokeOnly=equipmentweapon`、专用服务端启动至 `Done` 后原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 均通过；客户端与服务端日志未见 `ERROR/FATAL`。smoke 只作注册、资源加载和公共客户端启动回归，不替代普通发情、潜行幻术、冷却和沉默分支的完整自然操作验收。
 
-## 穿界古镜（`fabao_013`，2026-11-12，未闭合）
+## 穿界古镜（`fabao_013`，2026-11-12）
 
 来源入口是 `Fabao013Item.use` 与 `Fabao013DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`。主世界右键把当前 `x/y/z` 写入物品 `chuansongX/Y/Z`，读取物品 `mubiaoX/Y/Z`；三项全为 0 时用缺省 `0,120,0`，然后 `execute in yvanchuxiuzhen:dimensionrenjian run teleport @p`。人间道右键把当前坐标写入 `mubiaoX/Y/Z`，读取 `chuansongX/Y/Z`；三项全为 0 时用缺省 `0,32,0`，然后 `execute in overworld run teleport @p`。两个方向都写体质键 `kaqiangpanding=true` 并给物品 12000 刻冷却；`effect_002` 沉默时整个入口不执行。来源用命令执行传送，目标用同义的 `ServerPlayer.teleportTo(ServerLevel, …)`，保留坐标、维度与朝向。
 
 `kaqiangpanding` 的消费在来源 `PlayerTick`：世界时间距 `jishiqi` 达到 20 且玩家身体格非空气时调用 `Xiangshang`（从当前Y向上最多60格找空气后传送），随后清标记；空位保留标记。目标在 `Fabao013Unstuck.onCultivationSecond` 按同一节拍和条件执行，键经 xiulian 的体质公开操作读写。
 
-内容为 `equipment:fabao_013` 专用工厂 `Fabao013Item`（静态来源 `Fabao013Item` 的 Tier 10 次耐久、攻速 -3、防火、创造栏）。首次 `-PsmokeOnly=fabao013` 运行6项中1项FAIL，原因是检查期望把缺省落点误写为 7.5/100/-3.5，实际按来源到 0/120/0；已修正检查，修正后未复跑。完整边界见[装备月志](logs/2026-11.md#2026-11-12穿界古镜-fabao_013-双向传送未闭合)。
+内容为 `equipment:fabao_013` 专用工厂 `Fabao013Item`（静态来源 `Fabao013Item` 的 Tier 10 次耐久、攻速 -3、防火、创造栏）。2026-11-13 单项已通过缺省落点与两方向坐标、再次进入上次落点、沉默限制、占用顶出及空位保留标记；冒烟正常断开后六维度保存完成、退出码0。此前检查期望错误、客户端卡死与被证伪的退出前置等待分别保留证据，未据此修改产品传送逻辑。完整自然往返、多物品及物品存盘、视觉、多人和两版本对照仍未执行，见[装备月志](logs/2026-11.md#2026-11-13穿界古镜单项复核与正常退出)。
 
 ## 明光镜法宝（2026-11-08）
 

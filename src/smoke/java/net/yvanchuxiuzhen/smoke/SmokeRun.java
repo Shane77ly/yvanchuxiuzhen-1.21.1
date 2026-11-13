@@ -19,6 +19,7 @@ import java.util.function.Consumer;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
+import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.resources.language.I18n;
@@ -72,7 +73,7 @@ import net.yvanchuxiuzhen.system.xiulian.XiulianRules;
  * 另对花、双格植物与每套盔甲的穿戴效果各拍一张近景，再打开创造模式物品栏并逐个切换创造栏并截图；
  * 最后依次做各系统的实机检查（{@link RelationCheck}、{@link AttributeCheck}、{@link XiulianCheck}，各含死亡重生与退出重进），写出报告并退出。
  * 系统属性 yvanchuxiuzhen.smoke.only 为逗号分隔的系统标识（如 relation,attribute,xiulian）时，进入世界后只做这些系统的检查。
- * 进程中途崩溃时不会写出 DONE 行。
+ * 场景结果先写入报告，集成服务端正常断开后才写出 DONE 行；JVM 的最终退出仍需核对构建结果。
  */
 final class SmokeRun {
     private static final String MOD = "yvanchuxiuzhen";
@@ -114,7 +115,11 @@ final class SmokeRun {
                 case 6 -> waitThen(2, this::openCreative);
                 case 7 -> cycleTabs();
                 case 8 -> checkSystems();
-                case 9 -> waitThen(20, this::finish);
+                case 9 -> {
+                    if (ticks - phaseStart >= 20) {
+                        finish();
+                    }
+                }
                 default -> {
                 }
             }
@@ -573,14 +578,27 @@ final class SmokeRun {
 
     private void finish() {
         phase = 99;
+        report.add((minecraft.mouseHandler.isMouseGrabbed() ? "FAIL" : "INFO") + " 检查期间不捕获鼠标");
+        report.add("WAITING_FOR_WORLD_EXIT");
+        writeReport();
+        if (minecraft.level != null) {
+            // 与原生暂停菜单同序；phase 已停止推进，断开期间的嵌套客户端 tick 不再执行检查。
+            minecraft.level.disconnect();
+            minecraft.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")));
+            minecraft.setScreen(new TitleScreen());
+        }
+        report.remove("WAITING_FOR_WORLD_EXIT");
+        report.add("DONE");
+        writeReport();
+        minecraft.stop();
+    }
+
+    private void writeReport() {
         try {
             Files.createDirectories(output);
-            report.add((minecraft.mouseHandler.isMouseGrabbed() ? "FAIL" : "INFO") + " 检查期间不捕获鼠标");
-            report.add("DONE");
             Files.write(output.resolve("report.txt"), report, StandardCharsets.UTF_8);
         } catch (IOException exception) {
             throw new IllegalStateException(exception);
         }
-        minecraft.stop();
     }
 }
