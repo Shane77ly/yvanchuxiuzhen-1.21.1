@@ -9,6 +9,8 @@ updated: 2026-11-14
 
 标识 `world`，类别：系统。职责：维度、群系、地物、结构投放（[系统设计](../../development/system-design.md)）。
 
+固定结构解封已接通28名称／42模板、延迟任务/NPC补充和镇妖塔44点消费者。管理命令与自然寻灵盘/裂隙链分别登记，后者仍在R06实施；Q113全维度掉落物清理和Q115跨结构商品补充保持来源。规则与本批验证边界见[结构解封正文](architecture.md#固定结构解封命令2026-11-14)及[月志](logs/2026-11.md#2026-11-14-固定结构解封与镇妖塔后处理)。
+
 2026-11-11 扩大批次接入32种矿物、33种普通配置型地物、24种模板，以及41个来源群系中的28棵内联树、8种内联圆盘、171个内联投放和16个树装饰器；新增温泉完整流体族和随机结构主世界开关。89种独立Feature登记“已注册”。2026-11-12已正式生成41个来源群系与人间道、妖魂道资源；专服到达`Done`并保存两道。随后各生成一处两道样点新区块，已加载位置的群系身份分别确认为`biomeautumn_01`和`biomefeng_01`，人间道Y=16样点为石头；人工configured feature调用与高度图告警边界详见[月志](logs/2026-11.md)。这不等于41群系全量地形、自然地物或出生验收；新树/晶洞自然投放也仍待验收。
 
 当前阶段：D/E自然供给整批装配与运行验证。55个原版生成根静态核验全部闭合：38项可复用、14项来源自定义实现、3项洞穴配置，0项待核。最新严格计划为41个群系、2973条生成操作、483条出生记录，全部依赖blocker=0（`tmp/source-biomes-plan-next.json`）；原16个实体缺口已由Creature、Guchong对应实现闭合。统一数据转换已写出41个群系和两道各自的dimension、dimension_type、noise_settings及5个密度函数，该历史批次为42个群系（含虚空）、转换清单2765项。2026-11-14新增画里乾坤维度与纯白群系，当前43个群系资源、转换清单2822行；画卷7份数据的来源追溯为47行。完整`build compileSmokeJava`通过，含test/check与ArchUnit（`tmp/world-natural-resume-build.log`）。
@@ -28,6 +30,8 @@ updated: 2026-11-14
 晶洞与树补充：`SourceGeodeFeature`及17类来源树实现、Codec和注册已接入；晶洞4资源、树29资源完成统一转换和源码指纹核验，保留来源近似逆平方根、根系、竹林、丛林及草甸树算法。目标树实现指纹已统一使用仓库LF规范，换行基线修复与必要轻量检查见[月志](logs/2026-11.md#2026-11-13-目标树实现指纹换行基线修复)；本次没有重跑转换或游戏。上述历史构建和客户端完成Codec加载回归，实际放置与自然生成仍未验收。
 
 ## 公开操作
+
+`StructureReleases.release(ServerLevel, Vec3, String)`是World内部固定结构释放写入口；公开`StructureReleasedEvent(level, structureName)`在来源40/60/100刻后同步通知内容所有者。Quest、NPC、Dungeon只处理自身数据，World不反向依赖消费者。实际管理命令语法见[结构解封正文](architecture.md#固定结构解封命令2026-11-14)。
 
 其他系统通过原生服务端查找 `yvanchuxiuzhen:xvkong`、`yvanchuxiuzhen:dimensionrenjian`、`yvanchuxiuzhen:dimensionyaohun`与`yvanchuxiuzhen:fabao_009weidu`。画里乾坤及纯白群系的种子、8×4噪声、全局地物/出生与边界见[正文](architecture.md#画里乾坤维度2026-11-14)。虚空类型为同名维度类型，唯一群系为 `yvanchuxiuzhen:xvkongqvnxi`；两道同名维度类型与41个来源群系已落盘并通过专服加载，人间道与妖魂道各一处新生成样点区块分别命中`biomeautumn_01`、`biomefeng_01`。这仅是两处群系身份样本；全41群系地形分布、自然地物投放及自然出生仍待验收。
 

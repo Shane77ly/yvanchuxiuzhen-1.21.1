@@ -29,6 +29,8 @@ updated: 2026-11-14
 
 ## 公开操作
 
+`TalismanCorpseSealing`处理来源死亡妖兽潜行收纳入口并订阅`CorpseReleaseEvent`，Creature选择封存字段和恢复实体，库存交Fulu、团队交Relation。50／5001不属于镇妖塔结构解封；字段重置及未验自然采集影响见[Q114](architecture.md#q114-尸体封存的选定字段与状态重置)。
+
 `CreatureBounties.prepare(Mob,int)`仅按B`Xvanshangzhuizongheji:44`在`finalizeSpawn`前写入妖兽`LEVELnumber`；境界、属性和技能仍由既有妖兽`sourceSpawn`生命周期初始化。悬赏系统只提交等级，不直接操作妖兽属性或持久字段。
 
 | 操作 | 调用与数据边界 |

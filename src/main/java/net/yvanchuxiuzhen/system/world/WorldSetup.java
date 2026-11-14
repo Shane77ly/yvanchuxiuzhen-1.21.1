@@ -36,5 +36,6 @@ public final class WorldSetup {
         QuicksandFluids.register(modBus);
         WorldGeneration.register();
         WorldGenerationCommands.register();
+        StructureReleases.register();
     }
 }

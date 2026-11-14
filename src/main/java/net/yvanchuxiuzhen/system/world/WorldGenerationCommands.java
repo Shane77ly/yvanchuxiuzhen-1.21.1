@@ -12,7 +12,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
-/** 来源原初管理命令中的随机结构开关，按当前维度玩家显示名定位操作对象。 */
+/** 来源原初管理命令中的随机结构开关与封印结构释放，按当前维度玩家显示名定位。 */
 public final class WorldGenerationCommands {
     private WorldGenerationCommands() {
     }
@@ -52,6 +52,12 @@ public final class WorldGenerationCommands {
                     if (argument(words, 3).equals("true")) {
                         player.displayClientMessage(Component.literal("已关闭结构随机生成。"), false);
                     }
+                }
+            } else if (action.equals("unlock") && argument(words, 2).equals("sealrelease")) {
+                String name = argument(words, 3);
+                StructureReleases.release(source.getLevel(), source.getPosition(), name);
+                if (argument(words, 4).equals("true")) {
+                    player.displayClientMessage(Component.literal("§6解锁结构" + name), false);
                 }
             }
             return 0;

@@ -23,6 +23,7 @@ import net.yvanchuxiuzhen.system.fulu.content.SootBlock;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.RepellingTalismanBlock;
 import net.yvanchuxiuzhen.system.fulu.content.CloudSpirit;
+import net.yvanchuxiuzhen.system.fulu.content.CorpseTalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.RangedTalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
@@ -57,6 +58,7 @@ public final class FuluSetup {
             .itemFactory("fulu:passive_22", (properties, tooltip) -> new ThresholdTalismanItem(properties, tooltip, 22))
             .itemFactory("fulu:passive_23", (properties, tooltip) -> new ThresholdTalismanItem(properties, tooltip, 23))
             .itemFactory("fulu:explosive_42_item", ExplosiveTalismanItem::new)
+            .itemFactory("fulu:corpse_seal", CorpseTalismanItem::new)
             .effectBehavior("fulutexiao_41", new FiveThunderCurse())
             .effectBehavior("fulutexiao_18", new TalismanControl());
 

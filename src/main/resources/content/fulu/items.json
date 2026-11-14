@@ -70,7 +70,7 @@
 {"id":"itemfulu_48","factory":"fulu:talisman_48","order":1881,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["【斧、镐、铲、锄】可以让工具拥有自动开采的能力。","主手手持此符，副手拿着工具，然后右键即可对工具附魔。"]},
 {"id":"itemfulu_49","factory":"fulu:talisman_49","order":1937,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["【镐】提高开采速度，并且可以开采非最底层的基岩。","主手手持此符，副手拿着镐子，然后右键即可对镐子附魔。"]},
 {"id":"itemfulu_50","factory":"item","order":1938,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["身上携带此符箓时，潜行状态下右键点击妖兽尸体，可以整体封印进符箓中带走。"]},
-{"id":"itemfulu_5001","factory":"item","order":1939,"stack":1,"tooltip":["手持此符右键地面，可以放下符箓中的妖兽尸体，然后此符就会消失。"],"pending_hooks":["useOn"]},
+{"id":"itemfulu_5001","factory":"fulu:corpse_seal","order":1939,"stack":1,"tooltip":["手持此符右键地面，可以放下符箓中的妖兽尸体，然后此符就会消失。"]},
 {"id":"yanhuiitem","factory":"item","order":2032,"tab":"yvanchuxiuzhen:tabyvanchu_fulu","tooltip":["制作墨条的基础材料","用铁压力板和铁锭，在工作台处制作烧灰架","在烧灰架中放入任意原木，并用打火石点燃","在点燃的烧灰架上方数格高位置放置一个平整底面的方块，就可以收集到烟灰了"]},
 {"id":"yanhui_01","factory":"block_item","block":"yanhui_01","order":2033},
 {"id":"yanhui_02","factory":"block_item","block":"yanhui_02","order":2034},

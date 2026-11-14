@@ -45,6 +45,12 @@ B `PlayerRightClickEntityProcedure:40–43`限制事件手等于玩家当前使�
 
 B `NpcshujvjiaruProcedure:27–85`从`npc.data.list{n}`语言键逐项解析`/`分隔的类型化三元组，写入维度`worlddata`的嵌套标签。当前`definitions.json`保留已导出的唯一34级定义；`NpcDefinitions.snapshot()`返回副本，经经济的`AuctionNpcRequestEvent`交付。NPC是定义唯一写入者；经济拥有现场竞价状态。低级拍卖循环没有候选的来源事实与竞价生命周期由[经济正文](../economy/architecture.md)维护，不补造低级修士定义。
 
+## 结构解封后处理（2026-11-14）
+
+`NpcStructureReleases`以LOW优先级订阅World的`StructureReleasedEvent`，由Quest先完成花繁城任务方块补充，再按来源给附近真实21号写第二任务并在固定坐标生成09/10/11；四处商店/营地按距离顺序筛03号，将`keyishuaxin`计分板置1。实体与计分板在Npc所属入口写入，World不访问NPC实例。
+
+目标尚未实现`businessman_21`注册、模型和出生身份，该条件分支保留匹配逻辑，不创建替代NPC，也不宣称21号路径可用；由R13承接。静态核对、主线编译及有限结构必要单项证据见[World月志](../world/logs/2026-11.md#2026-11-14-固定结构解封与镇妖塔后处理)，花繁城全部自然NPC/对话/刷新和保存重进仍未验收。
+
 ## 开放范围与验证边界
 
 本批未接入`businessman_08`、`businessman_21`–`30`、`mamian/niutou/wuchangbai/wuchanghei/yanwang`、`qiankundaoren/qiankunmentu`方块/管理路径与其剩余行为。固定结构、动态生成与自然生成分别核对，实体内容表和标签存在不等于已在生存世界投放。

@@ -136,7 +136,9 @@ updated: 2026-11-14
 
 `fushengdan` 的来源 `A:FushengdanItem.finishUsingItem:33–40` 先执行原版食用，再调用 `Fulutexiao37Procedure`，与 37 号符共用轮回规则。目标普通食物数据、提示和注册已存在，`finishUsingItem` 轮回回调未实现；清理涉及修炼、职业、功法、装备、阵营和库存等数据所有者，须由各所有者公开清理接口承接，不能以职业重置替代全链。当前只有静态来源审计，不构成运行验收。
 
-50 号来源 `A:Itemfulu50Item:16–27` 本身只有普通物品和提示；目标普通物品及 `itemfulu_50hecheng` 无序合成（符纸、`cailiao_191`、一阶墨条合成 4 张）已存在，不需为物品另补右键行为。真正的封存入口在 `A:RightClickEntityProcedure:475` 的 creature 分支，潜行右键死亡妖兽后生成带完整妖兽载荷的 `itemfulu_5001`。5001 的 `useOn` 来源只接受上表面，按载荷 `yaoshouid` 在上方生成死亡妖兽，恢复属性、名称、采集与成长等持久字段后消耗一张；目标仍未实现该回调。封存和恢复依赖 creature 的妖兽数据、恢复及生成公开接口，50 普通物品存在不表示封存链完成；两条行为链运行未执行。
+50／5001封存链已于2026-11-14接回，50普通物品及原有四张合成保持。Creature在`A:RightClickEntityProcedure:475–486`对应入口核对当前使用手、前三个主手物品的来源分派优先级、死亡妖兽、潜行与库存空符；`CorpseTalismans`按物品身份扣一张50并给予5001，满背包沿原生给予流程掉落，创造收纳同样扣50。封存只搬运`A:LingshoushitishounaProcedure`列出的字段，不是完整实体快照；具体保留和丢失项见[生物Q114](../creature/architecture.md#q114-尸体封存的选定字段与状态重置)。
+
+5001由`CorpseTalismanItem.useOn`接入，仅顶面发布同步`CorpseReleaseEvent`并扣一张；Creature订阅后按`yaoshouid`在点击点`(+0.5,+1,+0.5)`恢复死亡实体，再执行来源`finalizeSpawn`和加入世界的顺序。侧面仍返回SUCCESS但不释放、不扣；不增加空位判断。两版本原生创造使用入口均恢复扣除前数量，因此自然创造释放保留5001。Fulu拥有库存与载体组件，Creature拥有实体字段和生命周期；依赖仍为Creature→Fulu，结构解封和镇妖塔不属于此链。静态字段核对已完成，运行证据与未验边界见[本批月志](logs/2026-11.md#2026-11-14-尸体封存与顶面释放)。
 
 ### 镇宅、替死与背包危急符（2026-11-10）
 

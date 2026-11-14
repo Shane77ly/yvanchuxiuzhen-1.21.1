@@ -5,6 +5,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenus;
 import net.yvanchuxiuzhen.system.quest.content.BountyBlockEntities;
+import net.yvanchuxiuzhen.system.quest.content.QuestBlockEntities;
 
 /** 对话客户端装配独立于专服加载。 */
 public final class QuestClientSetup {
@@ -24,5 +25,6 @@ public final class QuestClientSetup {
 
     private static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(BountyBlockEntities.BOARD.get(), BountyBoardRenderer::new);
+        event.registerBlockEntityRenderer(QuestBlockEntities.DISGUISED.get(), DisguisedQuestRenderer::new);
     }
 }

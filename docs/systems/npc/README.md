@@ -18,6 +18,8 @@ updated: 2026-11-14
 
 ## 公开操作
 
+`NpcStructureReleases`以LOW优先级订阅World结构后处理事件，按来源刷新03号计分板并补充花繁城09/10/11；21号任务只按真实注册身份匹配，目标21号尚未实现，保持R13开放，不注册占位实体。结构顺序及有限验证见[World月志](../world/logs/2026-11.md#2026-11-14-固定结构解封与镇妖塔后处理)。
+
 `NpcDefinitions.snapshot()` 返回来源拍卖修士目录副本；`AuctionNpcRequestEvent`由经济系统请求，本系统提供目录。来源`Npcshujvjiaru`只生成维度`worlddata`中的NPC定义，不涉及玩家能力字段；已对照`typed_field_accesses.csv`，不得由经济系统反写修士目录。
 
 `NpcDialogueRequestEvent`提交玩家、按来源顺序的对话/任务脚本、商品表及商店说明，任务系统选择第一个未完成脚本。对话会话与任务目录由任务系统独占写入，商品与商店说明由经济系统的公开操作写入。对应`PlayerRightClickEntity`的`renwuitem/renwuliebiao/productlist/shopinformation`外部读写，修士系统不持有这些玩家附件。

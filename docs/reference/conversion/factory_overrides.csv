@@ -1,4 +1,5 @@
 registry,target_id,factory,owner,reason
+block,yvanchuxiuzhen:renwuweizhuangfangkuai,quest:disguised,quest,结构任务伪装方块单槽展示与连续对话入口
 item,yvanchuxiuzhen:fabao_009,block_item,dungeon,来源画卷方块物品使用generated图标且不进入创造栏
 item,yvanchuxiuzhen:ling_12,economy:bank_card,economy,普通通宝玉潜行认主和物品自身灵石余额查询
 item,yvanchuxiuzhen:ling_13,economy:bank_card_advanced,economy,高级通宝玉认主及本人普通右键单步银行对话
@@ -911,3 +912,4 @@ block,yvanchuxiuzhen:fubenblock,dungeon:fubenblock,dungeon,副本控制器45槽�
 block,yvanchuxiuzhen:fubenentity,dungeon:fubenentity,dungeon,副本占位符配置与生成标记
 item,yvanchuxiuzhen:fabao_00901,dungeon:fabao_00901,dungeon,主手画卷的自然放置和主人登记
 item,yvanchuxiuzhen:tiandaofuben,dungeon:tiandaofuben,dungeon,天道副本入口来源Geo方块物品
+item,yvanchuxiuzhen:itemfulu_5001,fulu:corpse_seal,fulu,点击方块顶面发布尸体释放事实并消耗封存符

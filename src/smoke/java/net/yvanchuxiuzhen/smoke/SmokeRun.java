@@ -211,6 +211,7 @@ final class SmokeRun {
                     case "commerce" -> List.of(new CommerceCheck(report, levelId, this::shot));
                     case "construction" -> List.of(new ConstructionCheck(report, levelId, this::shot));
                     case "dungeon" -> List.of(new DungeonCheck(report, levelId, this::shot));
+                    case "structurerelease" -> List.of(new StructureReleaseCheck(report, levelId));
                     case "boss" -> List.of(new BossCheck(report, levelId, this::shot));
                     case "treasure" -> List.of(new TreasureCheck(report, levelId, this::shot));
                     case "guchong" -> List.of(new GuchongCheck(report, levelId, this::shot));
@@ -221,6 +222,7 @@ final class SmokeRun {
                     case "fuluripening" -> List.of(new FuluRipeningCheck(report, levelId));
                     case "fuluspecial" -> List.of(new FuluSpecialCheck(report, levelId, this::shot));
                     case "fulutaming" -> List.of(new FuluTamingCheck(report, levelId, this::shot));
+                    case "fulucorpse" -> List.of(new FuluCorpseCheck(report, levelId));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }

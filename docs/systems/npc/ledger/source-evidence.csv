@@ -1,0 +1,3 @@
+source_mod,element,type,source_file,line,owner,ownership,evidence,target,implementation
+yvanchuxiuzhen,Jiegoubuding,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/JiegoubudingProcedure.java,1,npc,已读,2026-11-14本批实际来源范围；SHA256=16349bb3fe05c964c3f4b336a2bc9d5ec7bfac8b43c51008b70dde12785e3b2e,NpcStructureReleases / NpcStructureData,09/10/11生成与21号任务条件消费者已接；21号身份未实现仍归R13；自然交互未验
+yvanchuxiuzhen,SealreleaseGo,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/SealreleaseGoProcedure.java,1,npc,已读,2026-11-14本批实际来源范围；SHA256=42e16fadf91ae6118914889f033caa7ccd35ed0245770aadb463e60643e776b6,NpcStructureReleases.refresh,03号计分板刷新消费者已接；四处自然商店刷新未验；完整结构规则由World正文维护

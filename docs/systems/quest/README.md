@@ -20,6 +20,8 @@ B1 已登记本单位不依赖新代码类型的内容身份与资源（方块8�
 
 ## 公开操作
 
+`DisguisedQuestRuntime`订阅World结构后处理，独占任务伪装方块的单槽展示、朝向、连续脚本及本体商店配置；对话调用`DialogueActions`、玩家商品会话调用`EconomyMenus`。14项精确字符串由提取表维护，NPC21缺口与寻灵盘/裂隙自然链仍开放。规则见[任务正文](architecture.md#结构任务伪装方块2026-11-14)。
+
 | 公开操作 | 来源字段与当前边界 |
 | --- | --- |
 | `BankDialogueActions.request(ServerPlayer)` | 固定的`bankbankbank`单步“打开界面/银行”请求；写本任务会话的脚本、游标0和启动标记 |

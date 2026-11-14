@@ -12,6 +12,8 @@ import net.yvanchuxiuzhen.system.dungeon.content.DungeonPortalBlock;
 import net.yvanchuxiuzhen.system.dungeon.content.DungeonPortalItem;
 import net.yvanchuxiuzhen.system.dungeon.content.PaintingItem;
 import net.yvanchuxiuzhen.system.dungeon.data.DungeonData;
+import net.yvanchuxiuzhen.system.dungeon.api.Dungeons;
+import net.yvanchuxiuzhen.system.world.api.StructureReleasedEvent;
 
 /**
  * 副本系统的启动装配，只在 Mod 构造时调用一次。
@@ -38,5 +40,8 @@ public final class DungeonSetup {
         NeoForge.EVENT_BUS.addListener(DungeonPlayers::entityJoined);
         NeoForge.EVENT_BUS.addListener(DungeonController::endTick);
         NeoForge.EVENT_BUS.addListener((ServerStoppedEvent event) -> DungeonController.clearDelayedReturns());
+        NeoForge.EVENT_BUS.addListener((StructureReleasedEvent event) -> {
+            if (event.structureName().equals("镇妖塔")) Dungeons.configureTower(event.level());
+        });
     }
 }

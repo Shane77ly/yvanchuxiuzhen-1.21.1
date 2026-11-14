@@ -39,6 +39,7 @@ public final class CreatureSetup {
         BossCreatures.register(CONTENT);
         NichangGrassAttraction.register();
         TalismanTaming.register();
+        TalismanCorpseSealing.register();
         CONTENT.register(modBus);
     }
 }

@@ -220,6 +220,12 @@ creature 提供生成初始化、驯服/主人查询、采集、收纳/释放和
 
 当前保持来源，不替换附魔或删除函数。三条掉落分支的实际产物、数量与附魔影响，以及1.18.2版本实机和两版本对照未执行。该项进入[统一问题索引](../../reference/legacy/source-survey.md#具体问题与裁定位置)，后续集中复核；不是副本入口放置失败的原因证据。
 
+## Q114 尸体封存的选定字段与状态重置
+
+来源`A:LingshoushitishounaProcedure:27–87`与`A:Itemfulu5001DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure:25–94`只搬运采集次数、001/002可选皮肤、尺寸、注册身份、等级、经验、名称、生命/精力/精神及攻防速度的数值和等级文字、非空性格及四个参数。生命固定为0；最大生命、尺寸和皮肤恢复原生属性，攻击和速度仅恢复自由字段。目标由`TalismanCorpseSealing`选择和恢复字段，Fulu只持有载体副本并发释放事实。
+
+收纳时来源从妖兽读取仅附着玩家的能力，所以团队实际为空；驯服主人、装备、技能、战斗状态和`yaodandiaoluo`等均不进入载体，释放后沿新实体默认值重置。保留采集次数却不保存采丹标志，可能改变再次采集结果，完整自然采集尚未验证。当前保持来源字段集合，不扩展为整实体NBT、实体团队或驯服信息；该项纳入[统一问题索引](../../reference/legacy/source-survey.md#具体问题与裁定位置)，后续集中裁定。静态字段核对覆盖42个载体键和40个恢复自由字段，运行结果统一见[符箓月志](../fulu/logs/2026-11.md#2026-11-14-尸体封存与顶面释放)。
+
 ## 实体属性（2026-11-03 attribute 归属阅读）
 
 来源的两个属性注册 `entitydaxiao`（体型，0.7–10，默认 1）与 `yaoshoupifuxianshi`（皮肤变体，1–5，默认 1）归本系统，台账行已移入本系统。`EntityAttributeModificationEvent` 把前者加给妖兽 `yaoshou_001`–`054`（缺 034、044）、`yaoshou_01701`、修者 `xiuzhe_0101` 与桃木精，后者加给 `yaoshou_001`、`002` 与 `xiuzhe_0101`；由生成、灵兽袋收放（`Lingshoushouna`、`Lingshoudaiyoujian`）与修者身高过程读写。

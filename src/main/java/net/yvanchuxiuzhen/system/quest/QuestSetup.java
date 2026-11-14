@@ -6,6 +6,8 @@ import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.system.quest.content.BountyBoardBlock;
 import net.yvanchuxiuzhen.system.quest.content.BountyBlockEntities;
+import net.yvanchuxiuzhen.system.quest.content.DisguisedQuestBlock;
+import net.yvanchuxiuzhen.system.quest.content.QuestBlockEntities;
 import net.yvanchuxiuzhen.system.quest.data.BankDialogueData;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenus;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
@@ -15,7 +17,8 @@ import net.yvanchuxiuzhen.system.quest.data.QuestData;
  */
 public final class QuestSetup {
     private static final ContentTables CONTENT = new ContentTables("quest")
-            .blockFactory("quest:bounty", traits -> ContentBlock.create(traits, BountyBoardBlock::new));
+            .blockFactory("quest:bounty", traits -> ContentBlock.create(traits, BountyBoardBlock::new))
+            .blockFactory("quest:disguised", traits -> ContentBlock.create(traits, DisguisedQuestBlock::new));
 
     private QuestSetup() {
     }
@@ -26,6 +29,8 @@ public final class QuestSetup {
         QuestData.register(modBus);
         DialogueMenus.register(modBus);
         BountyBlockEntities.register(modBus);
+        QuestBlockEntities.register(modBus);
+        NeoForge.EVENT_BUS.addListener(DisguisedQuestRuntime::structureReleased);
         NeoForge.EVENT_BUS.addListener(BountyRuntime::death);
         NeoForge.EVENT_BUS.addListener(DialogueRuntime::request);
         NeoForge.EVENT_BUS.addListener(DialogueRuntime::requestNpc);

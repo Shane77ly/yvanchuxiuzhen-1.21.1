@@ -429,13 +429,13 @@ def main() -> None:
         block_tooltips[(mod, path)] = row.pop('tooltip', [])
         base = row.pop('base')
         factory = overrides[('block', target)] if ('block', target) in overrides else FACTORIES[base]
-        if factory in ('lianqi:blueprint_table', 'fulu:inheritance', 'dungeon:tiandaofuben', 'dungeon:fabao_009'):
+        if factory in ('lianqi:blueprint_table', 'fulu:inheritance', 'dungeon:tiandaofuben', 'dungeon:fabao_009', 'quest:disguised'):
             strength = re.search(r'\.strength\((-?[\d.]+)f?, ?([\d.]+)f?\)', text)
             row['strength'] = [float(strength.group(1)), float(strength.group(2))]
         if factory in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod',
                        'lianqi:repair_table', 'lianqi:sewing_basket', 'lianqi:blueprint_table', 'lianqi:poison_cauldron',
                        'fulu:drawing_table', 'fulu:ash_burner', 'fulu:soot', 'fulu:inheritance', 'fulu:repelling_talisman', 'book:binding_table',
-                       'treasure:ground', 'treasure:chest_03', 'treasure:chest_11', 'quest:bounty', 'town:center', 'town:planning',
+                       'treasure:ground', 'treasure:chest_03', 'treasure:chest_11', 'quest:bounty', 'quest:disguised', 'town:center', 'town:planning',
                        'cooking:iron_pot', 'cooking:clay_pot', 'cooking:steamer', 'cooking:steaming_basket',
                        'cooking:cutting_board', 'cooking:cleaver',
                        'cooking:wooden_still', 'cooking:wine_jar',
@@ -566,7 +566,7 @@ def main() -> None:
                               'cooking:lotus_seed', 'cooking:plantable_garlic', 'creature:yaoshou_023baodan',
                               'creature:yaoshou_013taoziwuqi', 'creature:yaoshou_014skill_03', 'equipment:fabao_017',
                               'guchong:guchong_01item', 'guchong:guchong_03item', 'guchong:guchong_04item', 'guchong:flute', 'guchong:tracking', 'town:scroll',
-                              'dungeon:fabao_00901',
+                              'dungeon:fabao_00901', 'fulu:corpse_seal',
                               *(f'plant:shicai{number}_seed' for number in ('001', '002', '004', '005', '006', '007',
                                   '011', '012', '013', '014', '016', '025', '026', '027')),
                               *(f'cooking:produce{number:03}_food' for number in range(28, 34))) or row['factory'].startswith((
