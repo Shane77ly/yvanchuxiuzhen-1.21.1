@@ -36,6 +36,7 @@ neoForge {
         smokeClient {
             client()
             systemProperty 'yvanchuxiuzhen.smoke', layout.buildDirectory.dir('smoke').get().asFile.absolutePath
+            systemProperty 'yvanchuxiuzhen.exportRegistries', layout.buildDirectory.dir('registry-export').get().asFile.absolutePath
             def smokeMaxHeap = providers.gradleProperty('smokeMaxHeap').getOrElse('')
             if (!smokeMaxHeap.isEmpty()) {
                 if (!(smokeMaxHeap ==~ /\d+[kKmMgG]/)) {

@@ -159,6 +159,10 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/yaoshou050saf
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/yaoshou051.animation.json,d221b74b397593b428e36e02a1f103c819b85253,src/main/resources/assets/yvanchuxiuzhen/animations/yaoshou051.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/yaoshou052.animation.json,6d08ba21b1035bf44e2fc9d104c364c1c7d22ab1,src/main/resources/assets/yvanchuxiuzhen/animations/yaoshou052.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/yaoshou053.animation.json,63d5191b0f5ad33c0eb9b677d2c8e3586d4fb14a,src/main/resources/assets/yvanchuxiuzhen/animations/yaoshou053.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/ycxzboss_01.animation.json,2a90a860efcc8a8a34c358dd6efa0029be91404d,src/main/resources/assets/yvanchuxiuzhen/animations/ycxzboss_01.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/ycxzboss_02.animation.json,018de46e6974ec7e8ae16f6e213700927d33b698,src/main/resources/assets/yvanchuxiuzhen/animations/ycxzboss_02.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/ycxzboss_02texiao.animation.json,e8ec95a434fa7bf1406fcbd1c438abe86f1288b9,src/main/resources/assets/yvanchuxiuzhen/animations/ycxzboss_02texiao.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/ycxzboss_04.animation.json,623533030122ef2e1b8c67404dc3b668bec701df,src/main/resources/assets/yvanchuxiuzhen/animations/ycxzboss_04.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/yvanyingchuqiao.animation.json,fc8ccfc92277572543c5c6f284c963ca0327b0fe,src/main/resources/assets/yvanchuxiuzhen/animations/yvanyingchuqiao.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/zhibuji.animation.json,d81b94d8e20069e2882e4d83d9c76d8223452107,src/main/resources/assets/yvanchuxiuzhen/animations/zhibuji.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/acaciabigdoorleft.json,b9d0b8eda9398f2e3d8baa6b9324504f7a8240e6,src/main/resources/assets/yvanchuxiuzhen/blockstates/acaciabigdoorleft.json
@@ -1476,6 +1480,10 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/yaoshou050safeng.geo
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/yaoshou051.geo.json,c4bcbaf34eff723ade77191790a9a8c0f85cd2cf,src/main/resources/assets/yvanchuxiuzhen/geo/yaoshou051.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/yaoshou052.geo.json,f727331a6660dbbf67dc57c5d5f463cb9d689bec,src/main/resources/assets/yvanchuxiuzhen/geo/yaoshou052.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/yaoshou053.geo.json,7bd79333f3672d090ebda702d8dfa93d6d487b71,src/main/resources/assets/yvanchuxiuzhen/geo/yaoshou053.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/ycxzboss_01.geo.json,3b39b149787de80d851bbbe2fa91dc699ae79cea,src/main/resources/assets/yvanchuxiuzhen/geo/ycxzboss_01.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/ycxzboss_02.geo.json,b6549b07d9b0fcd99897595397477d92b83da615,src/main/resources/assets/yvanchuxiuzhen/geo/ycxzboss_02.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/ycxzboss_02texiao.geo.json,121579942dfcf6c57b45c05ef503f9197cfab6f0,src/main/resources/assets/yvanchuxiuzhen/geo/ycxzboss_02texiao.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/ycxzboss_04.geo.json,1de9aa1585525ac77a61f0ae820c447072934da4,src/main/resources/assets/yvanchuxiuzhen/geo/ycxzboss_04.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/yvanyingchuqiao.geo.json,ebf6cf9fed35cfe14bd8a47a265d449922b43abc,src/main/resources/assets/yvanchuxiuzhen/geo/yvanyingchuqiao.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/zhibuji.geo.json,e2cf9e30f88ef5da6562e0d9cd516829cdf75da9,src/main/resources/assets/yvanchuxiuzhen/geo/zhibuji.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/block/acaciabigdoorleft.json,a73b8915db5d0d9a11f0ff11e65079bc1bbcba16,src/main/resources/assets/yvanchuxiuzhen/models/block/acaciabigdoorleft.json
@@ -7009,6 +7017,9 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/yaoshou_051_
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/yaoshou_052_spawn_egg.json,542435109cfe529a6f0696687e5f7efadfeb703e,src/main/resources/assets/yvanchuxiuzhen/models/item/yaoshou_052_spawn_egg.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/yaoshou_053_spawn_egg.json,542435109cfe529a6f0696687e5f7efadfeb703e,src/main/resources/assets/yvanchuxiuzhen/models/item/yaoshou_053_spawn_egg.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/yaoshou_054_spawn_egg.json,542435109cfe529a6f0696687e5f7efadfeb703e,src/main/resources/assets/yvanchuxiuzhen/models/item/yaoshou_054_spawn_egg.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/ycxzboss_01_spawn_egg.json,542435109cfe529a6f0696687e5f7efadfeb703e,src/main/resources/assets/yvanchuxiuzhen/models/item/ycxzboss_01_spawn_egg.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/ycxzboss_02_spawn_egg.json,542435109cfe529a6f0696687e5f7efadfeb703e,src/main/resources/assets/yvanchuxiuzhen/models/item/ycxzboss_02_spawn_egg.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/ycxzboss_04_spawn_egg.json,542435109cfe529a6f0696687e5f7efadfeb703e,src/main/resources/assets/yvanchuxiuzhen/models/item/ycxzboss_04_spawn_egg.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/youbosoil.json,179420bbaa9fa50227274785c3fc3b2ec4313924,src/main/resources/assets/yvanchuxiuzhen/models/item/youbosoil.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/yvnpen.json,321a09f78f100db96669b63555596fed82feaf7d,src/main/resources/assets/yvanchuxiuzhen/models/item/yvnpen.json
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/models/item/zhenji.json,c033d530ad0ef54e584fbd07a20e12b03670ef3a,src/main/resources/assets/yvanchuxiuzhen/models/item/zhenji.json
@@ -8574,6 +8585,13 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/yaosho
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/yaoshou052.png,ccc07490dcb847651d6fe8c9fdc39a2aedf66e4e,src/main/resources/assets/yvanchuxiuzhen/textures/entities/yaoshou052.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/yaoshou053.png,140da2b2bea2bfaadbe5bd814d5f169c0d1dccad,src/main/resources/assets/yvanchuxiuzhen/textures/entities/yaoshou053.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/yaoshou05301.png,fefa44c253010aa32045966ae2e5b6733810b842,src/main/resources/assets/yvanchuxiuzhen/textures/entities/yaoshou05301.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_01.png,2c6b32d251c076c5bfbf700aff9d1a03e2a56266,src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_01.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_0101.png,f484303b54c969c0e0bebacaa365defc4463dc65,src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_0101.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_02.png,62328e01f882798f5202a9d74d5a11607d97361f,src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_02.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_0201.png,553aff7fc5ff69a803250fc8d93f2f87d88bf138,src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_0201.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_02texiao.png,01ee8c993042bd3deb84f01fe64b41ee4f0df36c,src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_02texiao.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_02texiao02.png,a99b52608a74e1a61ffe07f6f53c40bd75eb05e8,src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_02texiao02.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_04.png,b0518e6c100372bb879cbf49a4e842aca82aa551,src/main/resources/assets/yvanchuxiuzhen/textures/entities/ycxzboss_04.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/items/armor01.png,cbd22565af67175c910c91a4f27b699a4882a713,src/main/resources/assets/yvanchuxiuzhen/textures/item/armor01.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/items/armor02.png,e65a97b3caad810a707d14bc8301226c01225ace,src/main/resources/assets/yvanchuxiuzhen/textures/item/armor02.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/items/armor03.png,9c8e9c963ae72a687c3ac6ff95e09d9b15b1ec88,src/main/resources/assets/yvanchuxiuzhen/textures/item/armor03.png
@@ -9653,6 +9671,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/effe
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/effect_035.png,a24e8c2786d87a0fd93d1b89654d040602063d1f,src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/effect_035.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/effect_036.png,a98ca471d37b3d027ab211038e02d3e05887f24c,src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/effect_036.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/effect_037.png,3e3ee2616e8c2ccfb9419cfbfb58366f0840bdc6,src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/effect_037.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/fulutexiao_18.png,02641ae0c30f93195243b660c0a65b2ccb830ae2,src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/fulutexiao_18.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/fulutexiao_41.png,a3b173cd400d9b771bdfea51ba24b1b8808f999f,src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/fulutexiao_41.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/huxiangtunshi.png,c1406c99d615228e524edd341c0982627176510a,src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/huxiangtunshi.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/skill_arrow_0601.png,acb2db2e725363986c23861d8b3053417822eb8a,src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/skill_arrow_0601.png
@@ -13764,4 +13783,3 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/zaixian
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/screens/zhengguo.png,6ea10af06974b50198b7ce00776e077ab7196d99,src/main/resources/assets/yvanchuxiuzhen/textures/screens/zhengguo.png
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/screens/zhenxianpoluo_gui.png,c51ba787891b3f6a51df58d30cd0b56f09628921,src/main/resources/assets/yvanchuxiuzhen/textures/screens/zhenxianpoluo_gui.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/zuduiteam_gui.png,d46fbfe5e173594aca226d66c1835efc449134fd,src/main/resources/assets/yvanchuxiuzhen/textures/screens/zuduiteam_gui.png
-yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/fulutexiao_18.png,02641ae0c30f93195243b660c0a65b2ccb830ae2,src/main/resources/assets/yvanchuxiuzhen/textures/mob_effect/fulutexiao_18.png
