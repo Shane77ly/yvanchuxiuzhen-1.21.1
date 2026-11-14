@@ -8,6 +8,7 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
+import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
@@ -65,6 +66,13 @@ public final class SkillSummons {
         projectile.setPos(position);
         projectile.shoot(direction.x, direction.y, direction.z, 1, 10);
         level.addFreshEntity(projectile);
+    }
+
+    /** 首领火球术在眼部下方0.1格发射，基础伤害0、击退1、静音、速度1且无散布。 */
+    public static void shootBossFireball(ServerLevel level, Entity owner) {
+        Vec3 origin = new Vec3(owner.getX(), owner.getEyeY() - 0.1, owner.getZ());
+        ProjectileSupport.shoot(level, owner, "projectile_skill_fire_01", origin, owner.getLookAngle(), 0, 1, 0, 1, 0)
+                .setSilent(true);
     }
 
     /**

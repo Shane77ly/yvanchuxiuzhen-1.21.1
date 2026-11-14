@@ -295,5 +295,12 @@
   "effect.yvanchuxiuzhen.yaoshou_053baofengxve.description": "",
   "attribute.yvanchuxiuzhen.entitydaxiao": "Entitydaxiao",
   "attribute.yvanchuxiuzhen.yaoshoupifuxianshi": "Yaoshoupifuxianshi",
-  "message.yvanchuxiuzhen.nichanggrass.silent": "周围一片死寂......"
+  "message.yvanchuxiuzhen.nichanggrass.silent": "周围一片死寂......",
+  "entity.yvanchuxiuzhen.ycxzboss_01": "Ycxzboss 0 1",
+  "entity.yvanchuxiuzhen.ycxzboss_02": "Ycxzboss 0 2",
+  "entity.yvanchuxiuzhen.ycxzboss_0201": "Ycxzboss 0 2 0 1",
+  "entity.yvanchuxiuzhen.ycxzboss_04": "Ycxzboss 0 4",
+  "item.yvanchuxiuzhen.ycxzboss_01_spawn_egg": "Ycxzboss 0 1 Spawn Egg",
+  "item.yvanchuxiuzhen.ycxzboss_02_spawn_egg": "Ycxzboss 0 2 Spawn Egg",
+  "item.yvanchuxiuzhen.ycxzboss_04_spawn_egg": "Ycxzboss 0 4 Spawn Egg"
 }

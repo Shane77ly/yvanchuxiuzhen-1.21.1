@@ -3507,8 +3507,8 @@ yvanchuxiuzhen,Ycxzboss02DangShiTiShouShangShi,procedure,~/entity/boss/ycxzboss0
 yvanchuxiuzhen,Ycxzboss02DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss02,creature,已读,B1 归属阅读：随 Ycxzboss02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Ycxzboss02,animatedentity,~/entity/boss/ycxzboss02,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Ycxzboss02tick2,procedure,~/entity/boss/ycxzboss02,creature,已读,B1 归属阅读：随 Ycxzboss02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,Ycxzboss0201DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss0201,animatedentity,~/entity/boss/ycxzboss02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Ycxzboss0201DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss02,creature,已读,R07来源核读：随Ycxzboss02读取；独立tick过程承载飞斧运动与命中规则，实体由首领技能生成并维护生命周期，归Creature；行为验收另计
+yvanchuxiuzhen,Ycxzboss0201,animatedentity,~/entity/boss/ycxzboss02,creature,已读,R07来源核读：Boss02生成并管理的独立飞斧实体，保留来源导航、伤害免疫、20刻运动与移除；行为验收另计
 yvanchuxiuzhen,Cailiao162,item,~/item/gemstone,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 dungeon 的 Zhenyaotashengchengbuchong；economy 的 Putongchushouanniu、Putongshougoushuaxin；equipment 的 Shipinpeifang1、Shipinpeifang3、Shipinpeifang4；flow 的 Worldbegin；treasure 的 BaoxiangBaoshicailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao163,item,~/item/gemstone,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 equipment 的 Shipinpeifang4；flow 的 Worldbegin；treasure 的 BaoxiangBaoshicailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao164,item,~/item/gemstone,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 equipment 的 Shipinpeifang4；flow 的 Worldbegin；treasure 的 BaoxiangBaoshicailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则

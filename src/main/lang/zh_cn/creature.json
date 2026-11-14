@@ -295,5 +295,12 @@
   "effect.yvanchuxiuzhen.yaoshou_053baofengxve.description": "会以你为中心，产生暴风雪，在此范围内的敌人将持续受到冰冻效果的影响。",
   "attribute.yvanchuxiuzhen.entitydaxiao": "实体身高",
   "attribute.yvanchuxiuzhen.yaoshoupifuxianshi": "实体皮肤",
-  "message.yvanchuxiuzhen.nichanggrass.silent": "周围一片死寂......"
+  "message.yvanchuxiuzhen.nichanggrass.silent": "周围一片死寂......",
+  "entity.yvanchuxiuzhen.ycxzboss_01": "鸡岩分岩",
+  "entity.yvanchuxiuzhen.ycxzboss_02": "edebe",
+  "entity.yvanchuxiuzhen.ycxzboss_0201": "edebe的飞斧",
+  "entity.yvanchuxiuzhen.ycxzboss_04": "Q_zai",
+  "item.yvanchuxiuzhen.ycxzboss_01_spawn_egg": "鸡岩分岩",
+  "item.yvanchuxiuzhen.ycxzboss_02_spawn_egg": "edebe",
+  "item.yvanchuxiuzhen.ycxzboss_04_spawn_egg": "Q_zai"
 }

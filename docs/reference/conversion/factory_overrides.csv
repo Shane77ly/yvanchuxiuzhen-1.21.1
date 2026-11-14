@@ -872,3 +872,6 @@ block,yvanchuxiuzhen:makebook,book:binding_table,book,装订台自然菜单和�
 item,yvanchuxiuzhen:guchong_01item,guchong:guchong_01item,guchong,鼓上蚤单虫物品顶面野生释放与已认主个体恢复
 item,yvanchuxiuzhen:itemfulu_18,fulu:ranged_18,fulu,神傀符蓄放弹体与妖兽驯服及非妖兽控制
 item,yvanchuxiuzhen:fabao_018,guchong:flute,guchong,蛊笛六罐分页释放界面潜行召回与来源Gecko物品渲染
+item,yvanchuxiuzhen:ycxzboss_01_spawn_egg,creature:spawn_egg_ycxzboss_01,creature,ycxzboss_01 来源刷怪蛋及对应实体类型
+item,yvanchuxiuzhen:ycxzboss_02_spawn_egg,creature:spawn_egg_ycxzboss_02,creature,ycxzboss_02 来源刷怪蛋及对应实体类型
+item,yvanchuxiuzhen:ycxzboss_04_spawn_egg,creature:spawn_egg_ycxzboss_04,creature,ycxzboss_04 来源刷怪蛋及对应实体类型

@@ -350,6 +350,8 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         if (!isNoGravity()) {
             double stored = FuluUse.stateValue(getOwner(), "fululevel46");
             grade = stored > 0 ? stored : 1;
+            Relations.setTeam(this, Relations.entityTeam(getOwner()));
+            getPersistentData().putString("AttackUUID", getOwner().getStringUUID());
             setNoGravity(true);
         }
         if (++ticks >= FLIGHT_TICKS) {
@@ -401,6 +403,8 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
             double stored = owner.getPersistentData().getDouble("fulu45level");
             grade = stored > 0 ? stored : owner.getPersistentData().getDouble("mana_Att");
             owner.getPersistentData().putDouble("fulu45level", 0);
+            Relations.setTeam(this, owner instanceof Player ? Relations.team(owner) : "");
+            getPersistentData().putString("belongToMasterUUID", owner.getStringUUID());
             setNoGravity(true);
         }
         if (++ticks >= FLIGHT_TICKS) {
@@ -425,8 +429,8 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         level.sendParticles(ParticleTypes.FLASH, getX(), getY(), getZ(), 1, 0, 0, 0, 0);
         level.playSound(null, BlockPos.containing(getX(), getY(), getZ()), SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1);
         for (double[] ring : new double[][] {{4, 0.2, 0.2, 5, 5}, {2, 0.5, 0.4, 15, 20}}) {
-            for (Entity target : nearby(level, position(), ring[0] / 2)) {
-                boolean hostile = strike ? !Relations.isFriendly(owner, target) : !Relations.team(target).equals(Relations.team(owner));
+            for (Entity target : nearby(level, position(), ring[0])) {
+                boolean hostile = strike ? !Relations.isFriendly(owner, target) : !Relations.entityTeam(target).equals(Relations.entityTeam(this));
                 if (!hostile) {
                     continue;
                 }
@@ -437,7 +441,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
                     }
                 } else {
                     target.getPersistentData().putDouble("ManaAttackDamage", ring[4] * grade);
-                    target.getPersistentData().putString("ManaAttackUUID", owner.getStringUUID());
+                    target.getPersistentData().putString("ManaAttackUUID", getPersistentData().getString("belongToMasterUUID"));
                     target.getPersistentData().putString("damagetype", "火");
                     target.getPersistentData().putDouble("Damage_multiplier", 1);
                     target.getPersistentData().putBoolean("attackduli", true);

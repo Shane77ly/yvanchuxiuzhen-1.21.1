@@ -91,7 +91,7 @@ entity_type,yvanchuxiuzhen:yaoshou_053,yvanchuxiuzhen,Yaoshou053,src/main/java/n
 entity_type,yvanchuxiuzhen:yaoshou_054,yvanchuxiuzhen,Yaoshou054,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,989,creature,已读,yvanchuxiuzhen:yaoshou_054,已注册,来源行为与combat打断事件已接线；构建和注册导出通过；战斗专项与自然出生未验收
 entity_type,yvanchuxiuzhen:ycxzboss_01,yvanchuxiuzhen,Ycxzboss01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,743,creature,已读,yvanchuxiuzhen:ycxzboss_01,待处理,
 entity_type,yvanchuxiuzhen:ycxzboss_02,yvanchuxiuzhen,Ycxzboss02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,749,creature,已读,yvanchuxiuzhen:ycxzboss_02,待处理,
-entity_type,yvanchuxiuzhen:ycxzboss_0201,yvanchuxiuzhen,Ycxzboss0201,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,753,creature,候选,yvanchuxiuzhen:ycxzboss_0201,待处理,
+entity_type,yvanchuxiuzhen:ycxzboss_0201,yvanchuxiuzhen,Ycxzboss0201,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,753,creature,已读,yvanchuxiuzhen:ycxzboss_0201,待处理,
 entity_type,yvanchuxiuzhen:ycxzboss_04,yvanchuxiuzhen,Ycxzboss04,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,1053,creature,已读,yvanchuxiuzhen:ycxzboss_04,待处理,
 item,yvanchuxiuzhen:guancai_01,yvanchuxiuzhen,Guancai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2790,creature,已读,yvanchuxiuzhen:guancai_01,待处理,
 item,yvanchuxiuzhen:guiguai_01_spawn_egg,yvanchuxiuzhen,Guiguai01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2620,creature,已读,yvanchuxiuzhen:guiguai_01_spawn_egg,待处理,

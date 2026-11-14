@@ -6,6 +6,7 @@ import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.system.creature.entity.BossCreatures;
 import net.yvanchuxiuzhen.system.creature.entity.Butterflies;
 import net.yvanchuxiuzhen.system.creature.entity.GhostCreatures;
 import net.yvanchuxiuzhen.system.creature.entity.NaturalCreatures;
@@ -35,6 +36,7 @@ public final class CreatureSetup {
         Organisms.register(CONTENT, modBus);
         NaturalCreatures.register(CONTENT, modBus);
         GhostCreatures.register(CONTENT);
+        BossCreatures.register(CONTENT);
         NichangGrassAttraction.register();
         TalismanTaming.register();
         CONTENT.register(modBus);

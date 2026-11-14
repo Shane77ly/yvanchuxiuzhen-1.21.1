@@ -2,7 +2,7 @@
 topic: fulu
 role: entry
 status: partial
-updated: 2026-11-13
+updated: 2026-11-14
 ---
 
 # 符箓
@@ -23,6 +23,8 @@ updated: 2026-11-13
 
 当前阶段：D 部分实现。已接回玩家知识、画符台绘制、烧灰架、传承之光、下文列出的成品施用及相关菜单/方块实体，完整生存获取链与全部来源内容仍未完成。目标构建已通过；内置 `fulucooking` 已检查知识、画符台选择与绘制及保存重读、烧灰架首周期和传承授予，以及部分成品施用路径。15 号方块实体另检查好友集合共享及重载后独立。最终专服启动至 `Done`，原生 stop 保存四维度并以退出码0结束，ERROR/FATAL0；此前未原生 stop 的记录保留。专服自然玩家、辰砂自然获取、1.18.2 版本实机、两版本对照及完整视觉仍未验收。每轮失败和实际覆盖见月志，最终全场结果见顶部。
 
+首领01已通过`NpcTalismans`接入45/46号符弹体；火球首刻实体团队/攻击者快照、火炮弹4/2格范围及到期快照判定按来源补齐。静态核对已执行，本增量转换、构建和运行未执行；已有`fulucooking`结果不覆盖本次修正。规则见[符弹体正文](architecture.md#首领符弹体与4546来源边界2026-11-14)，本包边界见[月志](logs/2026-11.md#2026-11-14-首领符弹体与4546来源修正)。
+
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
 - 候选归属 230 个元素，其中 179 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
@@ -35,6 +37,8 @@ updated: 2026-11-13
 `TalismanTamingEvent`在18号命中妖兽时同步通知Creature，提供服务端、目标、施放者和品阶；Fulu不依赖Creature实现。非妖兽的控制效果、缓慢及精力扣除由Fulu经Xiulian公开入口执行。`typed_field_accesses.csv:2098–2106`分别由Relations、Cultivation和ModifierKeys承接；具体边界见[神傀符正文](architecture.md#神傀符18控制与驯服2026-11-13)。
 
 `NpcTalismans` 承接 creature 的修者 0101 符箓技能：`summonThunderPull` 生成 01 雷符实体并继承施放者友方集合，`activateFlameJet` 登记 02 喷火及生效计数，`activateWindPressure` 仅登记 03 风压标记与品阶，`shootQiSword` 写入 05 品阶并发射气剑。技能选择与 36 刻施放时序由 creature 持有；符箓实体、弹体及持续状态由 fulu 写入。03 未增加生效计数是来源实际行为，见[修者符箓调用](architecture.md#修者0101符箓调用2026-11-11)。本批仅完成静态来源核对，专项运行尚未执行。
+
+`NpcTalismans.shootBossFireball / shootBossCannon`承接首领01的46号火球与45号飞雷符，按眼部下方0.1格、视线、速度1、无散布及静音生成来源弹体；入口不额外写品阶。Creature只持有技能时序，Fulu首刻读取品阶并写弹体自身快照；团队查询与写入经Relation，玩家体质读取经Xiulian公开接口，见[符弹体边界](architecture.md#首领符弹体与4546来源边界2026-11-14)。
 
 `Fulu.knowledge(Player)` 查询玩家已掌握的符头、天地柱和符胆；知识按学习顺序保存为稳定编号，初始符头1、天地柱1–4、符胆1。`Fulu.unlockHead`、`Fulu.unlockCore` 是唯一学习写入口，统一处理去重、同步、反馈、符胆学习物品消费和符头烧灰标志；`Fulu.command` 承接原初系统命令的两个解锁分支。book 只执行书上已核 `fulumingling` 请求，不直接修改附件；传承之光经同一知识入口授予符头。
 
