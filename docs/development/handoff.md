@@ -12,8 +12,8 @@ updated: 2026-11-14
 ## 当前状态（2026-11-14）
 
 - 实际分支`port/full-migration-20261112`，本批从`6c5f0be0`接续；最终提交以`git log -1`为准。此前居民21–30/十蛋、兔笼、储物家具、临时队伍03页、08飞梭和宝匣均已提交，不重复应用冻结包。
-- 本批已集成建筑锤、天道宝箱工具、阴司五NPC/五蛋、阵元及电光花/呲花/喷花。必要编译、六项架构检查与针对性客户端单项通过；证据及未验范围见各系统月志与[开放清单](remaining-work.md)。阵元Q148已复核Forge40.1.0父类，六面和无方向共库均为来源行为。
-- 本批两组证据归档`build/diagnostics/r15-building-treasure-underworld-20261114/`与`build/diagnostics/r15-element-firework-20261114/`，后者含阵元真实保存重进；运行选项按原字节恢复。它们不代表自然获取、完整表现或全系统验收。
+- 本批已集成建筑锤、天道宝箱工具、阴司五NPC/五蛋、阵基/阵元/母子旗/罗盘及电光花/呲花/喷花。必要编译、六项架构检查与针对性客户端单项通过；`formation` Smoke 另有54条INFO、0 FAIL、DONE，证据及未验范围见各系统月志与[开放清单](remaining-work.md)。阵元Q148已复核Forge40.1.0父类，六面和无方向共库均为来源行为。
+- 本批三组证据归档`build/diagnostics/r15-building-treasure-underworld-20261114/`、`build/diagnostics/r15-element-firework-20261114/`与`build/diagnostics/r15-zhenfa-formation-20261114/`；后两者分别含阵元和阵基/阵旗真实保存重进，运行选项按原字节恢复。它们不代表自然获取、完整表现或全系统验收。
 - 完整移植goal保持active，不推送、不合main。`main`与本地`origin/main`仍为`5cdc045c`，本次未联网刷新远端。
 
 ## 下一步
@@ -22,7 +22,7 @@ updated: 2026-11-14
 
 - NPC管理主包、来源等级循环/五档资质按钮及`npcmanagement` Smoke已集成；NPC定向内容转换和Smoke编译通过。首轮客户端场景执行到保存重进并暴露两类夹具误报，已按来源字段和累计粒子修正；修正后的768 MB复跑在重进资源加载阶段因Java heap space崩溃，需待内存条件稳定后重跑。冻结增量及验证边界见`C:/Users/lxc/.codex/worktrees/npc-qiankun-disciple/yuanchuxiuzhen-rebuild-1.21.1/tmp/npc-manager-review/smoke-handoff.md`；乾坤道人/门徒不属于该包已完成范围。
 - 祈愿灯代码、资源和`festival`定向内容/资源转换已集成，首轮来源行为Smoke已通过；仍保留完整自然获取与表现边界。冻结来源及静态验证边界见`C:/Users/lxc/.codex/worktrees/festival-wish-lantern/yuanchuxiuzhen-rebuild-1.21.1/tmp/r15-wish-lantern/handoff.md`。
-阵基检测、母子旗、罗盘及阴系效果代码/资源已从r14-zhenfa-family增量包接入；定向转换通过，编译和formation Smoke待串行执行。实际循环、来源费用/消费者边界和旗目标所有者沿正文核对。
+阵基检测、母子旗、罗盘及阴系效果代码/资源已从r14-zhenfa-family增量包接入；定向转换、`compileSmokeJava` 和 `formation` Smoke 已通过，报告归档于`build/diagnostics/r15-zhenfa-formation-20261114/`。实际循环、来源费用/消费者边界和旗目标所有者沿正文核对。
 
 差异和疑点统一进入来源问题索引；Q149起供新包收口，确定目标遗漏按来源修复，来源疑点保持至集中裁定。转换、Gradle及游戏唯一执行者串行，768 MB、单worker。
 
