@@ -670,3 +670,9 @@ creature,texture,yvanchuxiuzhen:entities/ycxzboss_04
 creature,item,yvanchuxiuzhen:ycxzboss_01_spawn_egg
 creature,item,yvanchuxiuzhen:ycxzboss_02_spawn_egg
 creature,item,yvanchuxiuzhen:ycxzboss_04_spawn_egg
+treasure,geo,yvanchuxiuzhen:treasure_chest_03
+treasure,animation,yvanchuxiuzhen:treasure_chest_03
+treasure,texture,yvanchuxiuzhen:blocks/treasure_chest_03
+treasure,geo,yvanchuxiuzhen:treasure_chest_11
+treasure,animation,yvanchuxiuzhen:treasure_chest_11
+treasure,texture,yvanchuxiuzhen:blocks/treasure_chest_11

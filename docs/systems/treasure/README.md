@@ -2,22 +2,25 @@
 topic: treasure
 role: entry
 status: partial
-updated: 2026-11-07
+updated: 2026-11-14
 ---
 
 # 宝箱
 
 标识 `treasure`，类别：系统。职责：宝箱分级、奖励生成（[系统设计](../../development/system-design.md)）。
 
-当前阶段：B1 已登记本单位不依赖新代码类型的内容身份与资源（台账“已注册”：方块 4、物品 9）。C 的 skill 依赖批次已接入 `/lianqi` 成品命令，装备构造与品阶消费由 equipment 承担，末次专项六项全部符合；奖励总表、开箱与其余宝箱玩法尚未实现，不能据此标记整个系统完成。
+当前阶段：奖励总表30个纯过程、24类分派，01/02物品箱、04/05/06地面藏宝及03/11定时箱已实现；功法、技能、丹药、丹方、符箓和材料实例通过所属系统公开操作构造。来源指纹、定向转换、编译及六项架构检查通过；自然右键、钥匙、计划刻发奖与有限保存重进必要单项通过，证据见[本月志](logs/2026-11.md#2026-11-14-奖励总表与01至11开箱族)。完整随机奖励消费、含水、手持表现及两版本对照仍待；`/lianqi`既有六项专项证据继续有效。天道宝箱管理菜单、放置弹体、宝匣等剩余内容继续开放，详见[正文](architecture.md#开放范围与验证边界)。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
 - 归属范围 114 个元素，其中 28 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
+- [本月记录](logs/2026-11.md)和[记录索引](changes.md)：批次结果与验证边界。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
 ## 公开操作
 
-本批先接 `/lianqi` 成品入口：权限 1，命令位置的物品能力槽 0 必须为空，且方块需支持原生容器写入；调用 equipment 的 `Equipment.createProduct` 构造实例，经槽 0 读回后在原坐标掉落并清槽。命令返回 0，不写玩家持久字段；`typed_field_accesses.csv` 中没有该命令或 `BaoxiangChengpin` 的玩家字段读写。奖励总表与开箱流程仍待迁移，本批未提供全量奖励生成接口。
+`TreasureRewards.open`按本次调用的类别、等级与次数生成掉落，等级不写玩家档案或共享临时全局字段。实例构造分别调用`Techniques.createBook`、`Skills.createBook`、`Liandan.createMedicineReward / createRecipeReward`、`Fulu.createReward`及`Materials.setInstance`；装备奖励继续执行`/lianqi`，由equipment构造。`typed_field_accesses.csv`的`baoxianglevellinshi`仅为来源奖励表临时参数读写，目标由方法参数等价承担；本包不接入玩家持久字段。
 
-本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
+`/baoxiangopen`与`/baoxiangset`要求权限1。前者解析来源五参数后发奖，后者对七格视线命中的方块实体写宝箱配置并报告中文结果。`/lianqi`成品入口要求命令位置的物品能力槽0为空且支持原生容器写入；经槽0读回后在原坐标掉落并清槽，返回0。来源限制与既有验证见[成品命令](architecture.md#成品命令2026-11-07)。
+
+本轮变化记录在[系统本月志](logs/2026-11.md)。

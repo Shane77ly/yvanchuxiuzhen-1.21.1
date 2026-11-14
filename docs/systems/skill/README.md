@@ -2,7 +2,7 @@
 topic: skill
 role: entry
 status: partial
-updated: 2026-11-13
+updated: 2026-11-14
 ---
 
 # 技能
@@ -48,7 +48,7 @@ Skill部分实现已随 `5cdc045c` 合入主线，不代表系统完整验收。
 | 装配翻页与导航 | `turnPage(玩家, 步长)` 复用既有页状态；`SkillPageEvent` 请求01/03页，由 panel 执行打开与记页 | 本系统装配菜单、panel |
 | 研习 | `study(玩家, 书)`：已被研习提示、境界与灵根条件（`RootRequirement`）、记下研习者 | book（右键） |
 | 答题完成 | `completeQuiz(玩家, 书)`：覆盖技能书研习者，复用普通研习的书实例写入；不检查境界、灵根或既有研习者 | book（答题答满）；提示与关闭由book负责 |
-| 生成技能书 | `createBook(类别, 参数)`（与命令同一解析） | flow 等给书的玩法 |
+| 生成技能书 | `createBook(类别, 参数)`（与命令同一解析）；`createBook(物品, SkillBook)` 按已解析实例写入技能书组件 | flow 等给书的玩法、treasure 来源奖励表 |
 | 书架藏宝 | `giveTreasureBook(玩家)`：13 本随机一本 | book（真实书架藏宝右键已接，需藏宝等级不低于 1） |
 | 开启虚空裂隙 | `openVoidRift(玩家)`：境界含修正达到 31 时关闭菜单，在视线五格处生成裂隙 | 技能界面虚空按钮（阶段 5） |
 | 显示伤害范围 | `showDamageArea(施放者, 坐标, 动画, 技能名, 持续刻数, 攻击量)`；普通提示的技能名为空，控雷阵与惊蛰闻雷按自身计时 | 已接：小尸王力劈/熊抱、妖兽011爪岩拍击/震地、妖兽040万丈光芒、妖兽047夜啼。`Boss04skill03`、`Ycxzboss01/02`的三个Boss过程随Creature Boss批次；控雷阵已调用combat共享落雷命令 |

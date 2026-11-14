@@ -27,6 +27,7 @@ import net.yvanchuxiuzhen.system.plant.client.PlantClientSetup;
 import net.yvanchuxiuzhen.system.relation.client.RelationClientSetup;
 import net.yvanchuxiuzhen.system.skill.client.SkillClientSetup;
 import net.yvanchuxiuzhen.system.storage.client.StorageClientSetup;
+import net.yvanchuxiuzhen.system.treasure.client.TreasureClientSetup;
 import net.yvanchuxiuzhen.system.yihuo.client.YihuoClientSetup;
 import net.yvanchuxiuzhen.system.xiulian.client.XiulianClientSetup;
 import net.yvanchuxiuzhen.system.world.fluid.client.SpringFluidClientSetup;
@@ -59,6 +60,7 @@ public final class YvanchuxiuzhenClient {
         RelationClientSetup.register(modBus);
         SkillClientSetup.register(modBus);
         StorageClientSetup.register(modBus);
+        TreasureClientSetup.register(modBus);
         MaterialClientSetup.register(modBus);
         LiandanClientSetup.register(modBus);
         LianqiClientSetup.register(modBus);

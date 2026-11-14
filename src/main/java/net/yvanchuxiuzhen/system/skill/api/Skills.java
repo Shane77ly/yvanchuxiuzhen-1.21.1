@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.system.skill.SkillLibrary;
@@ -171,6 +172,11 @@ public final class Skills {
     /** 由命令参数串生成一本未研习的技能书（管理命令与玩法发书）；参数格式见 {@link SkillLibrary#fromArguments}。 */
     public static ItemStack createBook(SkillKind kind, List<String> arguments) {
         return SkillLibrary.fromArguments(kind, arguments);
+    }
+
+    /** 奖励生产者按来源字段生成未研习技能书，由本系统写入技能组件。 */
+    public static ItemStack createBook(Item carrier, SkillBook book) {
+        return SkillLibrary.create(carrier, book);
     }
 
     /** 书架藏宝里的技能书（来源 {@code Jinenglistzong}）：在 13 本中随机给一本。 */

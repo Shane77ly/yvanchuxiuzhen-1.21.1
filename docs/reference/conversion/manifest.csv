@@ -110,6 +110,8 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/taoshujing.an
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/tianjie03.animation.json,3e164159ddfd4f33cd4ff2fcbf17bc483fe0ce9c,src/main/resources/assets/yvanchuxiuzhen/animations/tianjie03.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/tianjie05.animation.json,806ca68e730da0ff43ba861c32a5fb7b9bf03b8e,src/main/resources/assets/yvanchuxiuzhen/animations/tianjie05.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/tianjie07.animation.json,aad32b398a9fe66dc15bc4ae575eaa0894887dae,src/main/resources/assets/yvanchuxiuzhen/animations/tianjie07.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/treasure_chest_03.animation.json,4c641ba11d6c7f71d53ea021c2bc425596765b9e,src/main/resources/assets/yvanchuxiuzhen/animations/treasure_chest_03.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/treasure_chest_11.animation.json,2f0ebfb1c0ecede43fc038f3355bbaa8cb1eb4cf,src/main/resources/assets/yvanchuxiuzhen/animations/treasure_chest_11.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/xiulitai.animation.json,e36e855c60ac95b5d6c448c64c8da5e3925196f2,src/main/resources/assets/yvanchuxiuzhen/animations/xiulitai.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/xiuzhe0101.animation.json,3b64e87817d8749527b3b0c491bccf8b9f67223f,src/main/resources/assets/yvanchuxiuzhen/animations/xiuzhe0101.animation.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/yaohua_0101.animation.json,608963e12510c3476a5ef06574a75b7c6133fdde,src/main/resources/assets/yvanchuxiuzhen/animations/yaohua_0101.animation.json
@@ -1246,9 +1248,11 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/toothedwalld
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/toothedwalldoor_04.json,b03db1f490e44abbd021fd1475667d21f7ac9399,src/main/resources/assets/yvanchuxiuzhen/blockstates/toothedwalldoor_04.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/toothedwalldoor_05.json,5a01f25d913cbf698f3550a859ac87f60b994091,src/main/resources/assets/yvanchuxiuzhen/blockstates/toothedwalldoor_05.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/toothedwalldoor_06.json,15baa63a3972bc80ec0793f87f623c339f4059c1,src/main/resources/assets/yvanchuxiuzhen/blockstates/toothedwalldoor_06.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/treasure_chest_03.json,bda4f0c116a4c96e91ab0aa2a41baab32bd7b783,src/main/resources/assets/yvanchuxiuzhen/blockstates/treasure_chest_03.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/treasure_chest_04.json,03d5f220a2aa6de14b7e72f7736d9ccc98224473,src/main/resources/assets/yvanchuxiuzhen/blockstates/treasure_chest_04.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/treasure_chest_05.json,a4df264af8d1c65f94445844fdfa75a4080cd150,src/main/resources/assets/yvanchuxiuzhen/blockstates/treasure_chest_05.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/treasure_chest_06.json,37ee8192805cd2464f4b71cc798cdd49ee94a93b,src/main/resources/assets/yvanchuxiuzhen/blockstates/treasure_chest_06.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/treasure_chest_11.json,28bf6904c6b7a63ceb6653cd17e39c7535c33433,src/main/resources/assets/yvanchuxiuzhen/blockstates/treasure_chest_11.json
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/blockstates/tripod_01.json,e057cf0882a13310cbeabf1e29ae5a7ca100d698,src/main/resources/assets/yvanchuxiuzhen/blockstates/tripod_01.json
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/blockstates/tripod_02.json,24e94f5c2770bb99e460ef54da5c98cd2a76e060,src/main/resources/assets/yvanchuxiuzhen/blockstates/tripod_02.json
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/blockstates/tripod_03.json,7d18d3a54bc0f9811c4297d8eed757ef50fbbdf3,src/main/resources/assets/yvanchuxiuzhen/blockstates/tripod_03.json
@@ -1431,6 +1435,8 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/taoshujing.geo.json,
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/tianjie03.geo.json,50ad46b8222c767a90bc33734858ffff6693f467,src/main/resources/assets/yvanchuxiuzhen/geo/tianjie03.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/tianjie05.geo.json,1630ec2f52d4899b87114d062e0b22b6d1074835,src/main/resources/assets/yvanchuxiuzhen/geo/tianjie05.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/tianjie07.geo.json,e77e768a67f7fb224410cfc82b218d92447ca263,src/main/resources/assets/yvanchuxiuzhen/geo/tianjie07.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/treasure_chest_03.geo.json,117d90267406359bfa921573728e869d54494a55,src/main/resources/assets/yvanchuxiuzhen/geo/treasure_chest_03.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/treasure_chest_11.geo.json,d532382bd14d8c74ceee1644d60daf7dbf9a6420,src/main/resources/assets/yvanchuxiuzhen/geo/treasure_chest_11.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/xiulitai.geo.json,efc5a3c1fe74621299483cfaed7b1303aae50b26,src/main/resources/assets/yvanchuxiuzhen/geo/xiulitai.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/xiuzhe0101.geo.json,23c67caa36be5597d657cf0d5895db30779049ba,src/main/resources/assets/yvanchuxiuzhen/geo/xiuzhe0101.geo.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/yaohua_0101.geo.json,5e775c805032ebc906d70f2bf1687902ef034de2,src/main/resources/assets/yvanchuxiuzhen/geo/yaohua_0101.geo.json
@@ -4645,9 +4651,13 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/toothed_wa
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/toothed_wall_door04.json,0e4a8b8d1373c7d0dfe30b9993f7432bf667946d,src/main/resources/assets/yvanchuxiuzhen/models/custom/toothed_wall_door04.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/toothed_wall_door05.json,717253fade45e1d2389bd6642553045605cf02c1,src/main/resources/assets/yvanchuxiuzhen/models/custom/toothed_wall_door05.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/toothed_wall_door06.json,88fb9c2342fdf903dc57633f712aa8f744b9f415,src/main/resources/assets/yvanchuxiuzhen/models/custom/toothed_wall_door06.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/treasure_chest_03_particle.json,0447e1d36415f6abcededaafe93e5781ca9ea9c1,src/main/resources/assets/yvanchuxiuzhen/models/custom/treasure_chest_03_particle.json
+(generated),,src/main/resources/assets/yvanchuxiuzhen/models/custom/treasure_chest_03_particle__cutout.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/treasure_chest_04.json,0c72e8224905897d2ce76cf9eaf7d519d2a62e0e,src/main/resources/assets/yvanchuxiuzhen/models/custom/treasure_chest_04.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/treasure_chest_05.json,13ec7cea61a7e89f6d36aad8e1ea9fc9161b5fb4,src/main/resources/assets/yvanchuxiuzhen/models/custom/treasure_chest_05.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/treasure_chest_06.json,655bf1d9e17537e5025c9f3ad3b18e6fdfc0079b,src/main/resources/assets/yvanchuxiuzhen/models/custom/treasure_chest_06.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/treasure_chest_11_particle.json,f87e3d671c8d617768beceaeea6d4d004a382132,src/main/resources/assets/yvanchuxiuzhen/models/custom/treasure_chest_11_particle.json
+(generated),,src/main/resources/assets/yvanchuxiuzhen/models/custom/treasure_chest_11_particle__cutout.json
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/models/custom/tripod_01.json,75abcd4b4208d3e66fe645274d6395ea530232da,src/main/resources/assets/yvanchuxiuzhen/models/custom/tripod_01.json
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/models/custom/tripod_02.json,8ac281c0cd67fc8f95e7525a6a8f2c85f9ca5a1e,src/main/resources/assets/yvanchuxiuzhen/models/custom/tripod_02.json
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/models/custom/tripod_03.json,b19c1fa965c5ca76726fdd32f939d8930b1ba4f3,src/main/resources/assets/yvanchuxiuzhen/models/custom/tripod_03.json
@@ -4779,6 +4789,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/s
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/shipintai.item.json,9e586f7790ba877b368460cd86d1f7d45b853995,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/shipintai.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/stonemill.item.json,7a625bc4d84c3ffb4a6e8ac2de9c7382c3fbd513,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/stonemill.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/taolun.item.json,ec7cedeaeaf36a04c67b853b0d3620b2cfb9df80,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/taolun.item.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/treasure_chest_11.item.json,a2d00e39666eb52f0ba2b887581c41def6a24e07,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/treasure_chest_11.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/xiulitai.item.json,e2d999db3f3bbde10f7235ccbef7fab0ff04f1e6,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/xiulitai.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/zhibuji.item.json,7d5ff708386ede0450423bef8bcc580ab6f0eee4,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/zhibuji.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/acaciabigdoorleft.json,c052e4debe20d0bfc409e478c62b18e51ddd5462,src/main/resources/assets/yvanchuxiuzhen/models/item/acaciabigdoorleft.json
@@ -6813,9 +6824,11 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/toothedwalld
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/toothedwalldoor_06.json,a07717c3300bd38703e330a590430dc09d903410,src/main/resources/assets/yvanchuxiuzhen/models/item/toothedwalldoor_06.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_01.json,95551d9771f7364d6dce6d68398641a2017bb0fe,src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_01.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_02.json,92f0896d880b558218598b763cc4084d9723dd1c,src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_02.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_03.json,9a98ddb7fdfd2559b5588c5e497ea1f5bf2826f4,src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_03.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_04.json,b6e4ad00392037285740a5d1b2f1e4f8ca427afd,src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_04.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_05.json,58f9e92c356835d63e528f9227e5b7107d96eabd,src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_05.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_06.json,c34f948b08004adc883d92f141334c8aa3ded2f4,src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_06.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_11.json,9a98ddb7fdfd2559b5588c5e497ea1f5bf2826f4,src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_11.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_1101.json,89ccdf131cc07eb00cb808c08395c24c13c12e16,src/main/resources/assets/yvanchuxiuzhen/models/item/treasure_chest_1101.json
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/models/item/tripod_01.json,dbf70058fb9472b5e8b2e81d57ca7cd9a73c29cc,src/main/resources/assets/yvanchuxiuzhen/models/item/tripod_01.json
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/models/item/tripod_02.json,9d0ada275e0b4253aa548d9c5102a474f8c42869,src/main/resources/assets/yvanchuxiuzhen/models/item/tripod_02.json
@@ -8333,9 +8346,11 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/toothed_
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/toothed_sill_wall_window04.png,de84749f58f15fe3ad520d3eb436dc924435d7c9,src/main/resources/assets/yvanchuxiuzhen/textures/block/toothed_sill_wall_window04.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/toothed_trapdoor.png,0c9f2010df349c163ad752d625eb56d92cd73d28,src/main/resources/assets/yvanchuxiuzhen/textures/block/toothed_trapdoor.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/toothed_wall.png,b894fdae08eba9f14c2706ab7cc87888683c801f,src/main/resources/assets/yvanchuxiuzhen/textures/block/toothed_wall.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/treasure_chest_03.png,f8f04580286447a1933b43ef60d37f84f79f9fe3,src/main/resources/assets/yvanchuxiuzhen/textures/block/treasure_chest_03.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/treasure_chest_04.png,56ebe0e0ac70c4dbbc93164511ff139ad94ccab9,src/main/resources/assets/yvanchuxiuzhen/textures/block/treasure_chest_04.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/treasure_chest_05.png,94c37eb27ad52063dc6fe399fc66eaa2bb5f9fe7,src/main/resources/assets/yvanchuxiuzhen/textures/block/treasure_chest_05.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/treasure_chest_06.png,240d20d1902eea5df7f112ef6e862f485579138f,src/main/resources/assets/yvanchuxiuzhen/textures/block/treasure_chest_06.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/treasure_chest_11.png,092acbf3f77693ba2e114b357e059ee0d5c199c9,src/main/resources/assets/yvanchuxiuzhen/textures/block/treasure_chest_11.png
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/blocks/tripod_01.png,120b653200ce4382b370094d699820325ab2b42a,src/main/resources/assets/yvanchuxiuzhen/textures/block/tripod_01.png
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/blocks/tripod_02.png,e9f09c7dba6c6a1aaee600841ef5cce4c835238d,src/main/resources/assets/yvanchuxiuzhen/textures/block/tripod_02.png
 yvanchuxitong/src/main/resources/assets/yvanchuxitong/textures/blocks/tripod_03.png,b5907ab99d6cca761626736a7d1a46d7c263c52e,src/main/resources/assets/yvanchuxiuzhen/textures/block/tripod_03.png

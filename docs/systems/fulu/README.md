@@ -34,6 +34,8 @@ updated: 2026-11-14
 
 ## 公开操作
 
+`Fulu.createReward(Item, int, String)`承接Treasure成品符箓奖励，由Fulu写入实例品阶和品阶文字，复用既有Tooltip与自然施用链。Treasure只提供来源抽样值，不直接写符箓业务实例；本增量仅静态核对，运行边界见[月志](logs/2026-11.md#2026-11-14-宝箱成品符箓入口)。
+
 `TalismanTamingEvent`在18号命中妖兽时同步通知Creature，提供服务端、目标、施放者和品阶；Fulu不依赖Creature实现。非妖兽的控制效果、缓慢及精力扣除由Fulu经Xiulian公开入口执行。`typed_field_accesses.csv:2098–2106`分别由Relations、Cultivation和ModifierKeys承接；具体边界见[神傀符正文](architecture.md#神傀符18控制与驯服2026-11-13)。
 
 `NpcTalismans` 承接 creature 的修者 0101 符箓技能：`summonThunderPull` 生成 01 雷符实体并继承施放者友方集合，`activateFlameJet` 登记 02 喷火及生效计数，`activateWindPressure` 仅登记 03 风压标记与品阶，`shootQiSword` 写入 05 品阶并发射气剑。技能选择与 36 刻施放时序由 creature 持有；符箓实体、弹体及持续状态由 fulu 写入。03 未增加生效计数是来源实际行为，见[修者符箓调用](architecture.md#修者0101符箓调用2026-11-11)。本批仅完成静态来源核对，专项运行尚未执行。

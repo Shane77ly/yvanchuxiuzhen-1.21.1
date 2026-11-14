@@ -148,6 +148,10 @@ updated: 2026-11-14
 
 目标内置客户端已通过 15 号真实放置/排斥、放置后玩家好友增删与保存重读后的独立集合，16 号真实致命受击后符消耗、生命恢复及发光，以及 22/23 号危急触发后的生命和效果断言。16 号已去掉额外原版图腾激活动画广播，来源粒子和音效保留。最终 `fulucooking` 47 项 INFO、0 FAIL、DONE，13/17 生成计数实际火球 4、陨石 3；测试场景隔离原版自然回血后 23 号生命断言通过。该检查不构成全系统验收；专服自然玩家、1.18.2 版本实机、两版本对照与完整视觉未执行。
 
+### 宝箱成品实例（2026-11-14）
+
+`Fulu.createReward`接收承载物品、来源品阶与品阶文字，仅由Fulu构造`fululevel/fululeveltxt`业务实例；生成物按既有成品Tooltip、付款和施用消费者使用。Treasure不直接写Fulu数据，概率、重复项和空分支仍归[Treasure奖励表](../treasure/architecture.md#来源异常的当前处理)。本接口不解锁符头/符胆，也不生成学习书；本批仅静态来源核对，构建和运行尚未执行。
+
 ### 神傀符18控制与驯服（2026-11-13）
 
 来源为`A:Itemfulu18Item`、`Itemfulu18Entity`、`Itemfulu18TouZhiWuFeiXingTickProcedure`、`Itemfulu18DangTouZhiWuJiZhongShiTiShiProcedure`及`Fulutexiao18`三文件。八个文件的SHA256与核对结果保存在`tmp/r08-fulu18/source-proof.json`。共享10号条件先写`fululevel`再付款；72000刻、NONE动画，松手以速度2、基础伤害0.1、无散布静音箭发射。来源引用的`fulufashe`未登记，Forge40.1.0的`ServerLevel`声音补丁遇null直接返回；目标保留该静默与音高随机抽取，不调用会解引用null的21.1.265声音重载。非创造消耗手持或背包首张同种符。原生箭先推进，首个非无重力刻读取通用品阶但不清施放者字段，写施放者显示名和玩家能力团队，读取Ctrl或Alt决定`jiuxiaoguo`，十刻移除。品阶、计数、模式、名字和团队随弹体保存。

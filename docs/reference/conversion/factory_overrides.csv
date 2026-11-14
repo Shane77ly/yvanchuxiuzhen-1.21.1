@@ -875,3 +875,12 @@ item,yvanchuxiuzhen:fabao_018,guchong:flute,guchong,蛊笛六罐分页释放界�
 item,yvanchuxiuzhen:ycxzboss_01_spawn_egg,creature:spawn_egg_ycxzboss_01,creature,ycxzboss_01 来源刷怪蛋及对应实体类型
 item,yvanchuxiuzhen:ycxzboss_02_spawn_egg,creature:spawn_egg_ycxzboss_02,creature,ycxzboss_02 来源刷怪蛋及对应实体类型
 item,yvanchuxiuzhen:ycxzboss_04_spawn_egg,creature:spawn_egg_ycxzboss_04,creature,ycxzboss_04 来源刷怪蛋及对应实体类型
+item,yvanchuxiuzhen:treasure_chest_01,treasure:reward,treasure,来源物品宝箱立即发放与消耗入口
+item,yvanchuxiuzhen:treasure_chest_02,treasure:reward,treasure,来源物品宝箱立即发放与消耗入口
+block,yvanchuxiuzhen:treasure_chest_03,treasure:chest_03,treasure,来源动画宝箱与持久开箱生命周期
+item,yvanchuxiuzhen:treasure_chest_03,treasure:chest_03,treasure,来源动画宝箱与持久开箱生命周期
+block,yvanchuxiuzhen:treasure_chest_11,treasure:chest_11,treasure,来源动画宝箱与持久开箱生命周期
+item,yvanchuxiuzhen:treasure_chest_11,treasure:chest_11,treasure,来源动画宝箱与持久开箱生命周期
+block,yvanchuxiuzhen:treasure_chest_04,treasure:ground,treasure,来源地面藏宝原生右键消费
+block,yvanchuxiuzhen:treasure_chest_05,treasure:ground,treasure,来源地面藏宝原生右键消费
+block,yvanchuxiuzhen:treasure_chest_06,treasure:ground,treasure,来源地面藏宝原生右键消费

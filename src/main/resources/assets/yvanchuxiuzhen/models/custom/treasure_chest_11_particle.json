@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/treasure_chest_11.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/treasure_chest_11"
+  }
+}
