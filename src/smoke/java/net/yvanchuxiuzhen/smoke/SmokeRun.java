@@ -212,6 +212,8 @@ final class SmokeRun {
                     case "construction" -> List.of(new ConstructionCheck(report, levelId, this::shot));
                     case "dungeon" -> List.of(new DungeonCheck(report, levelId, this::shot));
                     case "structurerelease" -> List.of(new StructureReleaseCheck(report, levelId));
+                    case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
+                    case "questblockrefresh" -> List.of(new QuestBlockRefreshCheck(report, levelId));
                     case "boss" -> List.of(new BossCheck(report, levelId, this::shot));
                     case "treasure" -> List.of(new TreasureCheck(report, levelId, this::shot));
                     case "guchong" -> List.of(new GuchongCheck(report, levelId, this::shot));

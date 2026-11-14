@@ -913,3 +913,6 @@ block,yvanchuxiuzhen:fubenentity,dungeon:fubenentity,dungeon,副本占位符配�
 item,yvanchuxiuzhen:fabao_00901,dungeon:fabao_00901,dungeon,主手画卷的自然放置和主人登记
 item,yvanchuxiuzhen:tiandaofuben,dungeon:tiandaofuben,dungeon,天道副本入口来源Geo方块物品
 item,yvanchuxiuzhen:itemfulu_5001,fulu:corpse_seal,fulu,点击方块顶面发布尸体释放事实并消耗封存符
+block,yvanchuxiuzhen:liexi,world:rift,world,裂隙动画方块与二刻计划释放
+item,yvanchuxiuzhen:liexi,world:rift,world,裂隙来源Geo方块物品
+item,yvanchuxiuzhen:ling_14item,world:spirit_compass,world,寻灵盘导航与物品实例坐标往返

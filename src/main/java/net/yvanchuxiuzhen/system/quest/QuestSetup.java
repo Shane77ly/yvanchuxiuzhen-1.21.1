@@ -31,6 +31,7 @@ public final class QuestSetup {
         BountyBlockEntities.register(modBus);
         QuestBlockEntities.register(modBus);
         NeoForge.EVENT_BUS.addListener(DisguisedQuestRuntime::structureReleased);
+        NeoForge.EVENT_BUS.addListener(QuestBlockRefresh::rightClick);
         NeoForge.EVENT_BUS.addListener(BountyRuntime::death);
         NeoForge.EVENT_BUS.addListener(DialogueRuntime::request);
         NeoForge.EVENT_BUS.addListener(DialogueRuntime::requestNpc);

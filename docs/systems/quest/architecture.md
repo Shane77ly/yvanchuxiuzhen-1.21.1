@@ -54,10 +54,11 @@ Q11为已确认分支矛盾：`PlayerTickxitongProcedure:47` 首分支条件为 
 | 判断物品、物品加减 | 数量/ID检查，附加类型化NBT与自定义名称；物品ID统一命名空间，保持来源扣除顺序 |
 | 改变nbt、判断nbt/数值/任务 | 本系统剧情域与任务目录，不借脚本覆盖其他系统类型化附件 |
 | 跳转、任务进度、任务储存、任务设定修改 | 目录保存ID/名称/说明/进度/状态/需求/奖励/全文；`gaojirenwu=!tasksustained`按来源 |
+| 裂隙解封 | 通过World公开搜索操作接回来源最近目标/立即登记流程 |
 | 删除方块、改变坐标、判断坐标/维度 | 当前维度坐标、以给定范围一半膨胀的AABB；来源维度缺陷保持 |
 | 药剂效果、指令、任务转接、打开界面、结束 | 命令以原权限/坐标执行；转接下一END刻；先清脚本再交经济菜单 |
 
-来源是B `Duihuashijian`、`Duihuashijiantwo`、`Duihuashijianthree`、`PlayerTickxitong`、`PlayerRightClickEntity`及`CunchurenwuProcedure`对应分支；`Taskduihuashijian`聊天路径不是当前执行器的替代。高级物品判断、NPC跟随/取消/删除/受伤/移动、裂隙解封、任务列表GUI、`/taskduihua`、触发方块、持续任务和八个成就仍未接入。遇未接动作保留游标并停止，不把空回调当成功。当前12个NPC语言脚本动作均在上述已接集合内；完整动态脚本覆盖、畸形参数与无限跳转不在本批已验范围。
+来源是B `Duihuashijian`、`Duihuashijiantwo`、`Duihuashijianthree`、`PlayerTickxitong`、`PlayerRightClickEntity`及`CunchurenwuProcedure`对应分支；`Taskduihuashijian`聊天路径不是当前执行器的替代。高级物品判断、NPC跟随/取消/删除/受伤/移动、任务列表GUI、`/taskduihua`、触发方块、持续任务和八个成就仍未接入。遇未接动作保留游标并停止，不把空回调当成功。当前12个NPC语言脚本动作均在上述已接集合内；完整动态脚本覆盖、畸形参数与无限跳转不在本批已验范围。
 
 对话菜单的完整来源是B `world/inventory/DuihuaGUI01Menu.java:29–51`、`DuihuaGUI02Menu.java:29–51`、相应屏幕与按钮消息。两菜单无库存槽；01屏幕`:78–122`显示八行正文及继续按钮，02屏幕`:89–169`显示同样正文及四个选项；`DuihuashijianProcedure:101,128,179`提供自然打开者，按钮回到步骤执行。上述两个候选菜单已经完成所有权与调用链阅读，目标由任务自己的`DialogueMenu/DialogueScreen`承担，不将通用无槽菜单归为公共核心。
 
@@ -119,4 +120,4 @@ World结构后处理事件由`DisguisedQuestRuntime`订阅，花繁城先在`(-1
 
 ### Q120 任务伪装方块动态右键补丁缺失
 
-目标遗漏，正在接续独立包。B `PlayerRightClickBlockProcedure:46–49`先筛当前使用手，`:61`全局调用`Renwubuding`，在原生方块右键前执行，持物/潜行/旁观不排除。`RenwubudingProcedure:8–12`在(-103,64,-263)且shuaxin时清标记并生成材料店01商品；`:14–20`在(-51,64,-320)且说明精确匹配旧陈氏文案时替换说明及整份11件商品串。坐标确在真实模板中，不能归为无调用者。当前基础方块仅生成刷新标记，此消费者尚未集成，不宣称自然商店闭合；来源价格与属性原串保留，不自主统一商品数值。
+目标遗漏已由`QuestBlockRefresh`补齐，原生玩家九条必要单项已通过；证据与未验边界见[月志](logs/2026-11.md#2026-11-14-任务商品动态刷新)。B `PlayerRightClickBlockProcedure:46–49`先筛当前使用手，`:61`全局调用`Renwubuding`，在原生方块右键前执行，持物/潜行/旁观不排除。`RenwubudingProcedure:8–12`在(-103,64,-263)且shuaxin时清标记并生成材料店01商品；`:14–20`在(-51,64,-320)且说明精确匹配旧陈氏文案时替换说明及整份11件商品串。坐标确在真实模板中，不能归为无调用者。目标已接回全局右键消费者，先手筛再修补本体、之后交原生方块消费；不改玩家会话，不宣称完整自然商店闭合；来源价格与属性原串保留，不自主统一商品数值。

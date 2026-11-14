@@ -1,3 +1,4 @@
 [
-{"id":"tiandaodimensionblock","factory":"block","material":"WOOD","map_color":"GOLD","sound":"WOOD","light":15,"states":[],"light_block":15,"fallback_drop":{"item":"minecraft:air","count":1}}
+{"id":"tiandaodimensionblock","factory":"block","material":"WOOD","map_color":"GOLD","sound":"WOOD","light":15,"states":[],"light_block":15,"fallback_drop":{"item":"minecraft:air","count":1}},
+{"id":"liexi","factory":"world:rift","material":"GLASS","sound":"GLASS","no_occlusion":true,"no_collision":true,"redstone_conductor":false,"states":["FACING"],"placement":"horizontal","light_block":0,"skylight":"always","shape":{"default":{"box":[-1.0,0.0,-1.0,17.0,18.0,17.0]},"north":{"box":[-1.0,0.0,-1.0,17.0,18.0,17.0]},"east":{"box":[-1.0,0.0,-1.0,17.0,18.0,17.0]},"west":{"box":[-1.0,0.0,-1.0,17.0,18.0,17.0]}},"rotate":true,"fallback_drop":{"item":"self","count":1},"strength":[-1.0,3600000.0]}
 ]

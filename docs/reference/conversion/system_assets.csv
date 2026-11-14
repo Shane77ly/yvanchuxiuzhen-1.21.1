@@ -743,3 +743,12 @@ dungeon,animation,yvanchuxiuzhen:fabao009
 dungeon,texture,yvanchuxiuzhen:blocks/tiandaofuben
 dungeon,texture,yvanchuxiuzhen:blocks/fabao00901
 dungeon,texture,yvanchuxiuzhen:items/fabao009
+world,geo,yvanchuxiuzhen:ling_14
+world,geo,yvanchuxiuzhen:guanghuan
+world,geo,yvanchuxiuzhen:liexi
+world,animation,yvanchuxiuzhen:ling_14
+world,animation,yvanchuxiuzhen:guanghuan
+world,animation,yvanchuxiuzhen:liexi
+world,texture,yvanchuxiuzhen:entities/kong
+world,texture,yvanchuxiuzhen:entities/guanghuan
+world,texture,yvanchuxiuzhen:blocks/liexi

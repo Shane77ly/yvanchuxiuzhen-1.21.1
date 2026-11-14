@@ -29,6 +29,7 @@ import net.yvanchuxiuzhen.system.npc.api.NpcDialogueRequestEvent;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
+import net.yvanchuxiuzhen.system.world.api.StructureSearch;
 
 /** 来源普通对话的顺序执行器；会话、任务目录和剧情扩展数据均由服务端维护。 */
 public final class DialogueRuntime {
@@ -168,6 +169,10 @@ public final class DialogueRuntime {
                     for (int i = 1; i + 2 < action.length; i += 3) {
                         player.serverLevel().removeBlock(BlockPos.containing(number(action[i]), number(action[i + 1]), number(action[i + 2])), false);
                     }
+                    state.putInt("renwuweizhi", cursor + 1);
+                }
+                case "裂隙解封" -> {
+                    StructureSearch.search(player.serverLevel(), new Vec3(pos.getX(), pos.getY(), pos.getZ()), player.getStringUUID());
                     state.putInt("renwuweizhi", cursor + 1);
                 }
                 case "改变坐标" -> {

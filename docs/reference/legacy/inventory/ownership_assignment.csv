@@ -3458,7 +3458,7 @@ yvanchuxiuzhen,Businessman05DangYouJianDianJiShiTi,procedure,~/entity/npc,npc,�
 yvanchuxiuzhen,Effect031ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,cooking,已读,读取 A:Effect031MobEffect 与每刻过程：辟谷按实体 baoshidu 每15刻补1饥饿值，饱食暂停；由 cooking 所有，炼丹经原生效果注册表施加。
 yvanchuxiuzhen,Effect031,potioneffect,~/effect,cooking,已读,读取 A:Effect031MobEffect 与每刻过程：辟谷按实体 baoshidu 每15刻补1饥饿值，饱食暂停；由 cooking 所有，炼丹经原生效果注册表施加。
 yvanchuxiuzhen,GuanghuanDangShiTiGengXinKeShi,procedure,~/decorate/jiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guanghuan,animatedentity,~/decorate/jiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guanghuan,animatedentity,~/decorate/jiegou,world,已读,来源Guanghuan实体/每刻过程/模型及渲染完整读取；寻灵盘Y+1调用搜索，世界导航与100刻生命周期；详见World正文及Q116至Q119。
 yvanchuxiuzhen,Ling14DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/decorate/jiegou,world,已读,B1 归属阅读：随 Ling14item 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
 yvanchuxiuzhen,Moblist01,procedure,~/decorate/jiegou/moblist,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou007list,loottable,~/entity/yaoshou/yaoshou007,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
