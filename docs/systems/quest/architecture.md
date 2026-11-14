@@ -1,13 +1,13 @@
 ---
 topic: quest
 role: architecture
-status: draft
-updated: 2026-11-01
+status: partial
+updated: 2026-11-14
 ---
 
 # 任务、对话动作、悬赏与成就：架构调查与提案
 
-来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
+来源事实与实现边界分别陈述。当前只实现下述银行必要单步动作，其余提案在各完整任务工作包展开。源码定位采用 [系统导航](../README.md)的 A/B 规则。
 ## 1.18.2 状态与入口
 
 任务持久记录在 `renwuliebiao`，当前脚本、游标、选项和交易等会话混在 `renwuitem`。`B:PlayerJoinGameProcedure:40–54` 首次创建隐藏铁锭并在登录时清空当前任务/商店入口与部分触发标记，不清空整个材料仓。
@@ -27,3 +27,18 @@ updated: 2026-11-01
 ## 裁定与验收
 
 被覆盖任务分支、奖励与进度次序、重新登录如何恢复均需明确规则。每条脚本要保留分支/跳转/命令目标，8 个成就元素一起迁移。任务显示正常而结果未消费不算完成。
+
+## 高级通宝玉银行单步对话（2026-11-14）
+
+此包只接通必要的真实自然路径：本人主手高级通宝玉非潜行右键→固定bankbankbank会话→服务端END刻→银行登录菜单。构建、6项架构测试与127条客户端检查通过，包含死亡复制、登录清空和真实退出重进；报告与截图见[经济月志](../economy/logs/2026-11.md#2026-11-14-银行账户与高级通宝玉登录)。专服、1.18.2版本实机、两版本对照和多人未执行。四选项银行方块对话和通用脚本分派仍按R13开放。
+
+| 来源顺序与定位 | 本包实现 |
+| --- | --- |
+| `B:Playerrightclickwithitem:41–62`检查非潜行、主手高级玉与owner，写“打开银行/bankbankbank/一个打开银行系统的任务/0/未完成/无/无%打开界面/银行”、游标0、启动true并同步 | 经济发`BankDialogueRequestEvent`；任务`BankDialogueActions.request`保存同一固定脚本、游标与标记。经济系统不写任务附件 |
+| `B:PlayerTickxitong:27–30,47–80`只在END刻消费；分派前清begin，首次无任务持久记录时设游标1 | `BankDialogue.tick(PlayerTickEvent.Post)`先写游标1/begin=false；本链无“任务储存”步骤，也未发现`bankbankbank`持久记录生产者，不制造新的任务记录 |
+| `B:Duihuashijian:792–794,812–826`先清脚本和游标，才在玩家当时X/Y+1/Z处打开`BankGUIdenglu` | 随后写`BankDialogueSession.EMPTY`，调用`BankMenus.openLogin`；不在END刻重新检查卡、owner或潜行，不因切换手持取消已启动会话，不增加重试 |
+| `clone_policy.csv`中`renwuitem=all_clone_events`，来源隐藏载体保存读回；`B:PlayerJoinGame:49–54`每次登录清脚本、游标与begin | `BankDialogueData.SESSION`序列化并`copyOnDeath`，只同步本人；登录写EMPTY，死亡与登录清理是两个不同生命周期事实 |
+
+本链不输出对话文字或选项，不调用`/taskduihua`、`TaskStorage`，也不收取费用。银行方块的四选项脚本确实存在，其中普通通宝玉购买需判断背包一级灵石至少10、扣10、给`ling_12`并提示绑定；这些分支与商店/出售菜单仍未迁移，不能把本单步实现扩展为完整任务系统或银行方块路径完成。
+
+当前固定会话的读取/启动接口在`system/quest/api`，消费与登录清理在任务实现；银行打开、账户、通宝玉实例归经济。两系统保持单向依赖。其他来源脚本、选项缓存、交易状态、`renwuliebiao`持久任务、悬赏与成就数据未接入本包，后续按唯一开放清单R13续接。

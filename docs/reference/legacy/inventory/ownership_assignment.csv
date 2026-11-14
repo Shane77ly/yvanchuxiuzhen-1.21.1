@@ -2756,9 +2756,9 @@ yvanchuxiuzhen,ZizhijiancefankuiGO,procedure,~/systemset/zhiling,flow,候选,第
 yvanchuxiuzhen,Zizhijiancefankui,command,~/systemset/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ling11DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,xiulian,已读,B1 归属阅读：随 Ling11 读：远古石盘：出身“流浪侠客”的初始物品（PlayerJoin02），右键用粒子指向世界变量 chuansongzhen 记录的传送阵
 yvanchuxiuzhen,Ling11,item,~/item/zawu,xiulian,已读,B1 归属阅读：远古石盘：出身“流浪侠客”的初始物品（PlayerJoin02），右键用粒子指向世界变量 chuansongzhen 记录的传送阵
-yvanchuxiuzhen,Ling12DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool/yinhang,economy,已读,B1 归属阅读：随 Ling12 读：通宝玉：认主后存取各级灵石并显示余额，属银行
+yvanchuxiuzhen,Ling12DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool/yinhang,economy,已读,R13 economy 完整归属阅读：普通通宝玉潜行认主；本人普通右键逐级显示物品自身double余额；玩家bank账户与物品余额分离；见 economy 银行正文
 yvanchuxiuzhen,Ling12,item,~/tool/yinhang,economy,已读,B1 归属阅读：通宝玉：认主后存取各级灵石并显示余额，属银行
-yvanchuxiuzhen,Ling13DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool/yinhang,economy,已读,B1 归属阅读：随 Ling13 读：通宝玉：认主后存取各级灵石并显示余额，属银行
+yvanchuxiuzhen,Ling13DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool/yinhang,economy,已读,R13 economy 完整归属阅读：高级通宝玉此过程仅潜行认主；非潜行打开银行来自原初系统 Playerrightclickwithitem 银行分支；见 economy 银行正文
 yvanchuxiuzhen,Ling13,item,~/tool/yinhang,economy,已读,B1 归属阅读：通宝玉：认主后存取各级灵石并显示余额，属银行
 yvanchuxiuzhen,Bank,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,TiandiyinhangZaiFangKuaiShangYouJian,procedure,~/tool/yinhang,economy,已读,B1 归属阅读：随 Tiandiyinhang 读：商店与天地银行方块：打开商店与银行界面、刷新与取出，属商店与银行
@@ -5933,7 +5933,7 @@ yvanchuxitong,LightningLanding,command,~/zhiling,combat,已读,已读LightningLa
 yvanchuxitong,LightningLandingGo,procedure,~/zhiling,combat,已读,已读LightningLanding命令、LightningLandingGo与彩色闪电实体及主入口绑定：按命令原坐标结算共享范围雷伤，队伍仅参数占位；skill与xiulian只提供生成参数，归combat。
 yvanchuxitong,Chain,enchantment,~/fumo,combat,已读,C combat 归属阅读：原初系统唯一的附魔，连锁采集由 ChainProcedure 读取等级（随 combat 迁移，代码注册转数据定义的首个实例）
 yvanchuxitong,ChainProcedure,procedure,~/fumo,combat,已读,C combat 归属阅读：连锁采集的方块破坏订阅（BlockEvent.BreakEvent），随 Chain 附魔读
-yvanchuxitong,PlayerRightClickBlock,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 蒸锅分支已读：未烹饪蒸锅自然事件开窗且不取消后续use；仅本族分支覆盖，全局编排归flow，其他分支未在此族全量核读
+yvanchuxitong,PlayerRightClickBlock,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 蒸锅分支已读：未烹饪蒸锅自然事件开窗且不取消后续use；仅本族分支覆盖，全局编排归flow，其他分支未在此族全量核读；R13 仅银行对话入口79–82及87–95已读：天地银行四选对话与普通卡10枚一级灵石购买脚本；商品表与其他分支未在本包完整核读；保留全局flow候选归属
 yvanchuxitong,Itemdanyaohulu01DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：随 Itemdanyaohulu01 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Itemdanyaohulu01,item,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,AlchemyName,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIScreen读取丹炉自身alchemyName形成动态文字；名称为空时取方块显示名，其余按原整数格式显示，归炼丹界面。
@@ -6112,7 +6112,7 @@ yvanchuxitong,ZhenjiZaiFangKuaiShangYouJian,procedure,~/yvanchuzhenfa,zhenfa,已
 yvanchuxitong,Lingqi,particle,,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxitong,DuihuaGUI01,gui,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,DuihuaGUI02,gui,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Duihuashijian,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Duihuashijian,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）；R13 仅银行单步所需打开界面分支792–794及812–844已读：先清脚本与游标后打开银行登录或免登银行；其他对话动作未在本包完整核读；保留整元素候选归属
 yvanchuxitong,DuihuaGUIwenben01,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,DuihuaGUIwenben02,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,DuihuaGUIwenben03,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6131,7 +6131,7 @@ yvanchuxitong,XvanxiangTXT01,procedure,~/duihua,quest,候选,第一版批量归�
 yvanchuxitong,XvanxiangTXT02,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,XvanxiangTXT03,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,XvanxiangTXT04,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PlayerTickxitong,procedure,,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PlayerTickxitong,procedure,,quest,候选,第一版批量归组（目录、元素名与元素类型规则）；R13 仅银行单步所需END事件27–30和启动/任务记录读取47–80已读：先清begin后读任务状态与游标并调用对话；其他任务分支未在本包完整核读；保留整元素候选归属
 yvanchuxitong,Cunchurenwu,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,RenwuGUI,gui,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,RenwuanjianAnXiaAnJianShi,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6209,13 +6209,13 @@ yvanchuxitong,ShopBuy09,procedure,~/shop,economy,候选,第一版批量归组（
 yvanchuxitong,ShopBuy10,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopBuy11,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopBuy12,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUIDangZheGeJieMianDaKaiShi,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUI,gui,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,BankGUIDangZheGeJieMianDaKaiShi,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：银行打开回调两次服务端END刻后现读当前槽映射并逐槽写九级展示币再调用 Bankshuaxin；跨菜单映射边界见 economy 银行正文
+yvanchuxitong,BankGUI,gui,~/shop/yinhang,economy,已读,R13 economy 归属阅读：BankGUIMenu 的11槽银行存取与 Bankcunchu 写 bank.lingshi01…09；见 economy 银行正文
 yvanchuxitong,Storenametxt,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUIdenglu,gui,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUIdenglujinru,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Bankshuaxin,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Bankcunchu,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,BankGUIdenglu,gui,~/shop/yinhang,economy,已读,R13 economy 归属阅读：BankGUIdengluMenu 槽0收银行标签；BankGUIdenglujinru 验证通宝玉归属后复制清槽并打开银行；见 economy 银行正文
+yvanchuxitong,BankGUIdenglujinru,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：登录按钮按bank标签与owner验证槽0卡；复制清旧槽后打开银行并迁移单张卡；失败提示按来源保留；见 economy 银行正文
+yvanchuxitong,Bankshuaxin,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：读bank九级int余额并写renwuitem银行数量/主人/购买力缓存后同步；购买力先int乘法再累加double；见 economy 银行正文
+yvanchuxitong,Bankcunchu,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：槽10整栈存入bank九级账户；double数量加int余额后截断；标签未知ID仍清槽；两END刻后刷新；见 economy 银行正文
 yvanchuxitong,Banktxtlingshi01,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Banktxtlingshi02,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Banktxtlingshi03,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6236,15 +6236,15 @@ yvanchuxitong,BankBuy08,procedure,~/shop/yinhang,economy,候选,第一版批量�
 yvanchuxitong,BankBuy09,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Bankname,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Banktgoumaili,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUIjieshao,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUIguanbi,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,BankGUIjieshao,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：银行说明按钮依次输出三条通宝玉/银行说明；不写账户；见 economy 银行正文
+yvanchuxitong,BankGUIguanbi,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：银行和登录关闭按钮调用closeContainer；物品去向由银行菜单关闭生命周期处理；见 economy 银行正文
 yvanchuxitong,BankGUIshougou,gui,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,BankGUIshougoushuoming,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,BankGUIshougoushuaxin,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shougoushuoming01,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shougoushuoming02,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shougousell,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Naqv,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Naqv,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：banknaqvweizhi选银行级别；扣单枚余额并给予品质4/等级位置×5的灵石；bank写回同步；见 economy 银行正文
 yvanchuxitong,Shopqianbaoshuaxin,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Money01hecheng,recipe,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Money02hecheng,recipe,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7088,7 +7088,7 @@ yvanchuxitong,Baicaojianbook,item,~/yvanchuliandan/baicaojian,liandan,已读,B1 
 yvanchuxitong,Baicaojianbookhecheng,recipe,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,Fendantaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,已读,B:recipes/fendantaihecheng.json:3-30；空容器标签加木板木棍合成分丹台1个；目标配方静态一致
 yvanchuxitong,Yaolitaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
-yvanchuxitong,PlayerJoinGame,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PlayerJoinGame,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）；R13 仅银行会话所需登录初始化40–54已读：建立renwuitem载体并清脚本/游标/begin及购买显示缓存；其他登录过程未在本包完整核读；保留全局flow候选归属
 yvanchuxitong,ShipinGo,procedure,~/zhiling,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxitong,Shipin,command,~/zhiling,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxitong,Beechfurniture15GuiDangZheGeJieMianBeiGuanBi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7177,7 +7177,7 @@ yvanchuxitong,Xvanshang3shuaxin,procedure,~/xvanshang,quest,候选,第一版批�
 yvanchuxitong,Xvanshang4shuaxin,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Xvanshang5shuaxin,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Xvanshang6shuaxin,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,DepositinbankGo,procedure,~/zhiling,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,DepositinbankGo,procedure,~/zhiling,economy,已读,R13 economy 完整归属阅读：解析cmdparams第4项与第5项可选提示；正价值由九级到一级拆分入bank并同步；数值API已接入而命令分派仍未实现；见 economy 银行正文
 yvanchuxitong,Xvanshanghuoqv,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Entityjingyan,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Baoxialore,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7206,7 +7206,7 @@ yvanchuxitong,Shopsell,gamerule,~/zhiling,economy,候选,第一版批量归组�
 yvanchuxitong,FuwuqiminglingGo,procedure,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Fuwuqimingling,command,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Weaponlevelup,gamerule,~/zhiling,lianqi,已读,1.18.2版本原初系统 YvanchuxitongModGameRules.java:13 将 weaponlevelup 注册为 MISC 布尔规则、默认 true；LianqiBeginProcedure 读取其炼器升级门槛，归 lianqi。
-yvanchuxitong,Playerrightclickwithitem,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Playerrightclickwithitem,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）；R13 仅高级通宝玉银行分支41–62已读：本人主手非潜行时写固定bankbankbank脚本/游标0/启动标记；未认主与非本人提示按来源；其他交互分支未在本包完整核读；保留全局flow候选归属
 yvanchuxitong,Uidshengcheng,procedure,~/yvanchulianqi,lianqi,已读,2026-11-09 炼器剩余候选审读：随机生成四个1000至9999整数作UUID文本，仅由Lianqifangzhi属性命令调用；目标equipment按槽位/属性资源ID承载原生修饰身份，随机文本不单独形成玩家入口。
 yvanchuxitong,Shuaxin,procedure,~/yvanchulianqi/tiandao,lianqi,已读,D lianqi 归属阅读：过程23–269以九栈实际数量处理全部有序材料条目，逐次int截断，灵精基础量不除4，未知属性沿前值；附魔按名合并但不写总数，缺重材料保留异常。
 yvanchuxitong,Tiandaotuzhijisuan,procedure,~/yvanchulianqi/tiandao,lianqi,已读,D lianqi 归属阅读：过程13–126为天道台专用重量派生；物攻不衰减、资源与其他攻防按重量衰减，超重覆盖速度并追加击退抗性；只写原始量大于0的派生项。

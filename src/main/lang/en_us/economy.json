@@ -57,5 +57,7 @@
   "item.yvanchuxiuzhen.money_02": "Money 0 2",
   "item.yvanchuxiuzhen.money_03": "Money 0 3",
   "item.yvanchuxiuzhen.money_04": "Money 0 4",
-  "item.yvanchuxiuzhen.ling_20": "Ling 2 0"
+  "item.yvanchuxiuzhen.ling_20": "Ling 2 0",
+  "gui.yvanchuxiuzhen.bank_gu_idenglu.label_zhun_bei_deng_lu": "准备登录",
+  "gui.yvanchuxiuzhen.bank_gui.label_tian_di_yin_xing": "天地银行"
 }

@@ -12,6 +12,7 @@ import net.yvanchuxiuzhen.system.combat.client.CombatClientSetup;
 import net.yvanchuxiuzhen.system.cooking.client.CookingClientSetup;
 import net.yvanchuxiuzhen.system.craft.client.CraftClientSetup;
 import net.yvanchuxiuzhen.system.creature.client.CreatureClientSetup;
+import net.yvanchuxiuzhen.system.economy.client.EconomyClientSetup;
 import net.yvanchuxiuzhen.system.fulu.client.FuluClientSetup;
 import net.yvanchuxiuzhen.system.fulu.client.InheritanceClientSetup;
 import net.yvanchuxiuzhen.system.equipment.client.EquipmentClientSetup;
@@ -46,6 +47,7 @@ public final class YvanchuxiuzhenClient {
         CookingClientSetup.register(modBus);
         CraftClientSetup.register(modBus);
         CreatureClientSetup.register(modBus);
+        EconomyClientSetup.register(modBus);
         FuluClientSetup.register(modBus);
         InheritanceClientSetup.register(modBus);
         EquipmentClientSetup.register(modBus);

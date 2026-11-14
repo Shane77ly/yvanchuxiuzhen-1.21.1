@@ -1,4 +1,6 @@
 registry,target_id,factory,owner,reason
+item,yvanchuxiuzhen:ling_12,economy:bank_card,economy,普通通宝玉潜行认主和物品自身灵石余额查询
+item,yvanchuxiuzhen:ling_13,economy:bank_card_advanced,economy,高级通宝玉认主及本人普通右键单步银行对话
 block,yvanchuxiuzhen:ginkgoleaves,plant:particle_foliage_leaves,plant,银杏叶周期粒子行为且保留LeavesBlock基类
 block,yvanchuxiuzhen:mapleleaves,plant:particle_foliage,plant,枫叶周期粒子行为且保留普通Block基类
 block,yvanchuxiuzhen:mapleresin,plant:maple_resin,plant,枫脂薄片方块的含水、朝向、形状与回退掉落
