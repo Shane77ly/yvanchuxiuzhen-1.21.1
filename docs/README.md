@@ -2,7 +2,7 @@
 topic: documentation-index
 role: entry
 status: current
-updated: 2026-11-12
+updated: 2026-11-14
 ---
 
 # 项目文档入口
@@ -15,6 +15,7 @@ updated: 2026-11-12
 | ★ | [交接说明](development/handoff.md) | 当前分支、基线与接手动作 |
 | ★ | [开放工作清单](development/remaining-work.md) | 实现覆盖、未闭合功能、承接系统与完成依据 |
 | 1 | [1.18.2 版本架构调查](reference/legacy/source-survey.md) | 全量静态规模、关键真实调用链、已核实事实与问题 |
+| 1a | [差异与不确定项统一索引](reference/legacy/source-survey.md#具体问题与裁定位置) | 稳定编号、来源疑点、批准调整与后续集中复核状态；详细证据在所属系统正文 |
 | 2 | [范围与保真原则](design/scope.md) | 完整范围、行为保留原则和待裁定事项 |
 | 3 | [整体架构](development/architecture.md)（已批准） | 系统职责、数据所有者、代码组织与实际依赖 |
 | 3a | [工程结构与长期维护](development/engineering.md)（已批准） | 代码目录、边界检查、内容表、资源转换、台账、依赖治理与并行协作 |

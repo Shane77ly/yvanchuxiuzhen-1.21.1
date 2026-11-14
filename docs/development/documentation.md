@@ -2,7 +2,7 @@
 topic: documentation
 role: guide
 status: current
-updated: 2026-11-12
+updated: 2026-11-14
 ---
 
 # 文档维护
@@ -18,6 +18,7 @@ updated: 2026-11-12
 | [handoff.md](handoff.md) | 当前分支、可定位基线、正在做什么及下一动作 | 会话交接；链接任务详情，不复制整段系统日志 |
 | [roadmap.md](roadmap.md) | 全量工作包、依赖顺序与出口定义 | 批准范围、顺序或出口规则变化 |
 | [项目状态](../systems/project/README.md) | 负责人决定与里程碑索引 | 新决定/里程碑；历史决定标日期和当时范围 |
+| [来源问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置) | 来源差异、疑似错误、断链及不确定项的稳定编号和处理状态 | 新发现、证据变化或裁定/实现/验证状态改变；详情链接所属系统正文 |
 | `docs/systems/<系统>/README.md` | 系统当前实现摘要、公开操作、正文/台账入口 | 本系统实现或对外边界变化；历史长记录放月志 |
 | 系统 `architecture/design/balance.md` | 唯一行为、架构和数值正文 | 对应规则或实现边界变化 |
 | 系统 `ledger/*.csv` | 来源身份、映射与对应迁移状态 | 对应来源/实现事实改变，不为纯文档提交制造变化 |
@@ -31,6 +32,8 @@ updated: 2026-11-12
 系统当前摘要原位改写，不无限追加日期段落。历史失败与已覆盖结论留在月志或Git历史，当前状态仅展示最新有效结果并链接证据。移动内容前核对引用和原始证据是否仍可追溯，不复制整份旧文档建立第二套正文。
 
 记录区分未实现、确认缺陷、待核实/待验证、外部依赖、待裁定；没有证据不能把待验证升级成Bug或通过。静态核对、自动化、1.18.2版本实机、1.21.1版本实机、两版本对照分别说明。具体格式按[台账参考](../../.claude/skills/minecraft-mod-porting/references/parity-ledgers.md)，无需每个功能创建额外表格。
+
+负责人2026-11-14要求差异和拿不准的问题统一保留、后续集中处理。沿用来源问题索引，不另建第二套全项目问题表；所属正文登记入口/源码位置、实际证据、受影响路径、当前保持或偏离来源的做法，以及未核实/未运行的边界。已批准但未实现、已实现但未验证分别标明，来源疑点不能自动当作目标缺陷。独立工作继续推进，未批准的行为调整不自行实施。
 
 每份正文含UTF-8 front matter：`topic`、`role`、`status`、`updated`。角色采用 `entry/design/architecture/balance/guide/data/changes/log/proposal/record/experience`；状态采用 `draft/partial/current/historical/generated`。`current`表示所声明文档范围有效，不代表系统全部验收；`partial`也不否定已经完成的批次。
 
