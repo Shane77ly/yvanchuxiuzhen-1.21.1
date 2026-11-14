@@ -562,7 +562,7 @@ def main() -> None:
                               'cooking:remainder_shicai_03601', 'cooking:remainder_shicai_03701', 'cooking:wine',
                               'cooking:lotus_seed', 'cooking:plantable_garlic', 'creature:yaoshou_023baodan',
                               'creature:yaoshou_013taoziwuqi', 'creature:yaoshou_014skill_03', 'equipment:fabao_017',
-                              'guchong:guchong_01item', 'guchong:guchong_03item', 'guchong:guchong_04item',
+                              'guchong:guchong_01item', 'guchong:guchong_03item', 'guchong:guchong_04item', 'guchong:flute',
                               *(f'plant:shicai{number}_seed' for number in ('001', '002', '004', '005', '006', '007',
                                   '011', '012', '013', '014', '016', '025', '026', '027')),
                               *(f'cooking:produce{number:03}_food' for number in range(28, 34))) or row['factory'].startswith((

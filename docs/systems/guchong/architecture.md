@@ -2,7 +2,7 @@
 topic: guchong
 role: architecture
 status: draft
-updated: 2026-11-13
+updated: 2026-11-14
 ---
 
 # 蛊虫：架构调查与提案
@@ -35,7 +35,7 @@ updated: 2026-11-13
 
 ## 待调查
 
-蛊虫释放界面 `GuchongshifangGUI` 与按钮过程、虫卵 `Chongluan` 的来源与用途尚未逐条读取。
+虫卵 `Chongluan` 的完整来源与用途尚未逐条读取。蛊笛释放界面与按钮已核对并接线，范围与未验边界见下方蛊笛正文。
 
 ## 2026-11-13 摄虫网收纳与蛊罐消费者
 
@@ -76,3 +76,23 @@ A `Guchong01Entity` 注册为`MONSTER`，尺寸0.5×0.8，跟踪范围64、更�
 实体、单虫物品、资源、`guchongentity`标签与九榆木配方已接回；`Guchong01Check`已通过自然挑衅、认主释放、七级精血门槛、罐释放与百刻回罐、跟随、击杀成长及真实退出重进，并以03/04各一例确认共同死亡消费者。默认768 MB、单worker下产品与夹具编译、六条结构检查及必要单项通过；转换失败与定向恢复、原始报告和截图范围只登记[本月记录](logs/2026-11.md#2026-11-13-编号01完整来源包)。编号01完整表现、多人、专服和两版本对照尚未验收；其余编号的完整战斗、吞噬与成长仍开放。
 
 03/04既有表现元数据待核：A `Guchong03Renderer`与`Guchong04Renderer`均未覆写死亡旋转，而当前两行`rendering.death_rotation`显式为0；A `Guchong04Entity`的movement动画过渡为4刻，当前表为2刻。03来源通过`hurt`排除摔落伤害，但未覆写`causeFallDamage`；当前表同时声明`ignores_fall_damage=true`与`damage_immunities=[fall]`，提取器按方法分别推导的前者为false。这些是本次只读逐字段核对发现的历史差异，需在后续R10表现包核实原生渲染/伤害调用与视觉效果；现有03/04实现和历史验收状态保持其原边界。
+
+## 2026-11-14 蛊笛六罐释放与潜行收回
+
+`GuchongFluteItem`承接A `Fabao018Item`的普通右键与潜行右键；沉默`effect_002`阻断两种操作并提示“§4沉默状态下，无法释放或收回蛊虫。”。物品不消耗、不设冷却，并保持来源`super.use`的返回结果。既有`fabao_018hecheng`配方已按来源转换：两根竹子与`cailiao_181`沿右上至左下的三格对角线合成一支蛊笛，没有新增获取方式。
+
+普通右键打开原注册身份`guchongshifang_gui`，`GuchongReleaseMenu`六格只读槽按玩家物品能力顺序复制`taoguan`标签罐，每份数量1。目标能力保持主库存、护甲、副手的组合视图；没有把显示副本当成实际库存。来源开窗数据只传玩家坐标，目标保留该坐标方块物品能力存在时的绑定；没有调用入口的手持物品/实体绑定模板不引入。展示槽不能放入、取出或快捷转移，玩家背包与快捷栏仍能相互转移；关闭、死亡与断开连接不交还或掉落六份副本。
+
+页码`pagenum`、选中序号`anniunum`和六个提示`xianshiweizhi0`–`5`均保存在当前主手组件，副手触发也仍使用当前主手。`populate`先清空六格及六个提示，实际页码低于1时仅取展示范围按第一页处理，不回写1；界面按实际`pagenum`以`DecimalFormat("0")`显示，因此首次可显示0而展示第一页。按钮0在实际页小于`ceil(罐数/6)`时加1，否则设1；按钮1在实际页大于总页数时减1，否则设总页数，保持来源`Guchonguiup`的条件。没有罐时两箭头不修改实际页码，但仍重建空展示。后端只接受当前容器号、有效主手蛊笛、已加载开窗坐标与0–7按钮号；客户端只发请求，不反写保存真值。
+
+按钮2–7写入选中序号0–5，以展示罐`guguanuuid`匹配玩家能力中的真实罐，空UUID的相等比较同样参与。释放容量按小蛊罐1、中蛊罐4、其余标签罐9；逐编号只检查保存的主人UUID等于玩家UUID，不增加`guchongid`非空判断。实体出生于玩家Y+1，朝玩家朝向，初速度为玩家视线向量加Y轴1；恢复等级、经验、资质、数值、名称、原主人和保存的认主标记，原生可驯服实体认当前玩家，团队与友方表由`Relations.shareEntityAllegiance`承接。生命、攻击、移速恢复后按`MOB_SUMMONED`初始化并加入世界。创建返回空仍计数；成功计数达到1后真实罐保存释放状态和数量，并同步选中展示罐及“§6收回蛊虫”提示。
+
+按钮收回只遍历以玩家为中心膨胀8格的AABB、按距离排序的01/03/04三类实体，只比较罐UUID，不增加主人条件。每只把等级、经验、十三项资质/数值、主人、当前生命及玩家团队写到本次罐副本并减计数，随即移除实体。只有本次计数低于1才将释放状态改为false、计数设0、写回真实库存和展示副本，并改为“§a释放蛊虫”；附近只有部分虫时，已移除虫的副本修改不写回真实罐，保持来源的局部收回结果。完成收回只结束当前实体遍历，随后仍沿来源顺序检查其他同UUID罐；正常UUID不重复时只影响选中罐。
+
+潜行右键沿相同AABB/距离顺序遍历`guchongentity`标签实体，要求保存主人UUID等于玩家UUID；逐虫扫描真实玩家能力，取第一个相同罐UUID的标签罐。每只保存相同个体字段和当前生命、使用玩家团队、减计数并立即写回罐；数量低于1只关闭释放标记，不强制把负数归零。标签实体非生物时当前生命按来源记-1。蛊笛入口的沉默门槛不延伸到已打开界面的按钮，来源按钮没有这一门槛。当前主手改为其他物品时按来源每刻关闭菜单。
+
+界面保持176×168，背景`guchongshifang_gui`及(0,-40)的176×124原图`yanggugui01`；两列罐槽X为25/97、Y为-22/5/32，六按钮位于X22/94、Y-25/2/29，尺寸62×22，使用原双态贴图。提示坐标X46/118、Y-17/10/37，页码(85,72)，两箭头(6,62)/(132,62)尺寸36×15；背包Y85起、快捷栏Y143。按默认shadcn技能的适用边界提供按钮中文朗读与键盘焦点，画面沿用Minecraft原生菜单和来源资产。蛊笛使用既有`builtin/entity`显示变换、`fabao018`模型与空闲动画、转换后的`textures/item/fabao018.png`和来源半透明渲染；首次完成渲染后启用空闲控制器，无调用者的过程动画模板不形成新玩法。
+
+静态依据：A `item/Fabao018Item.java`、`item/model/Fabao018ItemModel.java`、`item/renderer/Fabao018ItemRenderer.java`、`world/inventory/GuchongshifangGUIMenu.java`、`client/gui/GuchongshifangGUIScreen.java`、`network/GuchongshifangGUIButtonMessage.java`；过程`Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhi`、`GuchongshifangOpen`、`GuchongshifangGUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng`、`GuchongAnniuzhixing`、`Guchonguidown/up`、`Guchonganniu01`–`06`、`Guchonganniuxianshi01`–`06`、`Guchongyeshu`，以及`data/yvanchuxiuzhen/recipes/fabao_018hecheng.json`。目标能力与槽写入核对NeoForge21.1.265精确sources.jar的`Capabilities`、`PlayerInvWrapper`和`SlotItemHandler`；菜单网络与Gecko生命周期复用工程既有同版本入口。
+
+本包已完成来源静态核对、定向资源转换、统一编译与结构检查；最小`guchongflute`客户端单项通过原生物品入口和真实按钮、七罐分页、受控03双虫放收、物品移动后的UUID定位、只读展示、沉默边界、空UUID和局部收回，以及真实保存重进。三张截图确认中文提示、页0/2与六罐/一罐显示；854×480、界面缩放2时来源顶部偏移造成上边框略裁剪，保持原布局。原件与运行边界只登记[本月记录](logs/2026-11.md#2026-11-14-蛊笛六罐释放与潜行收回)。全容量、全部编号、完整自然战斗、生存获取、1.18.2版本实机、两版本对照、专服、多人和完整视觉/音效未执行；本包不升级整个R10或蛊虫系统验收状态。

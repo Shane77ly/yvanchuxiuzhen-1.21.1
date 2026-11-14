@@ -3838,34 +3838,34 @@ yvanchuxiuzhen,Qiankundai02GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,
 yvanchuxiuzhen,Qiankundai03GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
 yvanchuxiuzhen,Qiankundai04GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
 yvanchuxiuzhen,Taoguan,tag,~/tag,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,GuchongshifangGUI,gui,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,GuchongshifangOpen,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,guchong,已读,B1 归属阅读：随 Fabao018 读：蛊笛：召回周围 forge:guchongentity 蛊虫并打开蛊虫释放界面 GuchongshifangGUI（GuchongshifangOpen 已读归 guchong），物品栏中须有 forge:taoguan 蛊罐
-yvanchuxiuzhen,Fabao018,animateditem,~/weapon/fabao,guchong,已读,B1 归属阅读：蛊笛：召回周围 forge:guchongentity 蛊虫并打开蛊虫释放界面 GuchongshifangGUI（GuchongshifangOpen 已读归 guchong），物品栏中须有 forge:taoguan 蛊罐
-yvanchuxiuzhen,GuchongshifangGUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonguiup,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonguidown,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniu01,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniu02,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniu03,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniu04,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniu05,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniu06,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniuxianshi01,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniuxianshi02,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniuxianshi03,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniuxianshi04,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniuxianshi05,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniuxianshi06,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
+yvanchuxiuzhen,GuchongshifangGUI,gui,~/item/zawu/taoguan,guchong,已读,R10来源阅读：176x168双层原图；六格taoguan复制只读；八按钮与真实玩家库存关联；关闭不退还展示副本
+yvanchuxiuzhen,GuchongshifangOpen,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：六格清空并按玩家能力顺序复制罐；pagenum低于1仅展示按第一页；提示保存在当前主手
+yvanchuxiuzhen,Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,guchong,已读,R10来源阅读：沉默阻止use；潜行按虫主人与罐UUID逐只收回并写真实能力槽；普通开窗无罐也显示空页
+yvanchuxiuzhen,Fabao018,animateditem,~/weapon/fabao,guchong,已读,R10来源阅读：蛊笛普通右键开六罐释放界面；潜行收本人标签虫；沉默门槛与无消耗冷却及Gecko空闲模型已核
+yvanchuxiuzhen,GuchongshifangGUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：当前主手不再是FABAO_018时每刻关闭六罐释放菜单；无关闭写回
+yvanchuxiuzhen,Guchonguiup,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：罐数总页ceil(n/6)；实际页大于总页时减1，否则直接设总页；无罐不改页码
+yvanchuxiuzhen,Guchonguidown,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：罐数总页ceil(n/6)；实际页小于总页时加1，否则设1；无罐不改页码
+yvanchuxiuzhen,Guchonganniu01,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按钮2将当前主手anniunum设为0并执行GuchongAnniuzhixing；不另检查沉默
+yvanchuxiuzhen,Guchonganniu02,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按钮3将当前主手anniunum设为1并执行GuchongAnniuzhixing；不另检查沉默
+yvanchuxiuzhen,Guchonganniu03,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按钮4将当前主手anniunum设为2并执行GuchongAnniuzhixing；不另检查沉默
+yvanchuxiuzhen,Guchonganniu04,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按钮5将当前主手anniunum设为3并执行GuchongAnniuzhixing；不另检查沉默
+yvanchuxiuzhen,Guchonganniu05,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按钮6将当前主手anniunum设为4并执行GuchongAnniuzhixing；不另检查沉默
+yvanchuxiuzhen,Guchonganniu06,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按钮7将当前主手anniunum设为5并执行GuchongAnniuzhixing；不另检查沉默
+yvanchuxiuzhen,Guchonganniuxianshi01,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：界面显示当前主手xianshiweizhi0；释放或收回文字由服务端操作更新
+yvanchuxiuzhen,Guchonganniuxianshi02,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：界面显示当前主手xianshiweizhi1；释放或收回文字由服务端操作更新
+yvanchuxiuzhen,Guchonganniuxianshi03,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：界面显示当前主手xianshiweizhi2；释放或收回文字由服务端操作更新
+yvanchuxiuzhen,Guchonganniuxianshi04,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：界面显示当前主手xianshiweizhi3；释放或收回文字由服务端操作更新
+yvanchuxiuzhen,Guchonganniuxianshi05,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：界面显示当前主手xianshiweizhi4；释放或收回文字由服务端操作更新
+yvanchuxiuzhen,Guchonganniuxianshi06,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：界面显示当前主手xianshiweizhi5；释放或收回文字由服务端操作更新
 yvanchuxiuzhen,Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,Taoguan01GUIDangZheGeJieMianBeiGuanBi,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,TaoguanGuiopen,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchongyeshu,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,GuchongAnniuzhixing,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
+yvanchuxiuzhen,Guchongyeshu,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：DecimalFormat(0)直接显示当前主手pagenum；首次实际0可展示第一页
+yvanchuxiuzhen,GuchongAnniuzhixing,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按罐UUID与选中复制槽匹配；释放检查主人且创建空仍计数；01/03/04只按UUID收回，全部收齐才写真实罐
 yvanchuxiuzhen,Guchonggensui,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongtick,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao018hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao018hecheng,recipe,~/weapon/fabao,guchong,已读,R10来源阅读：两根minecraft:bamboo与cailiao_181对角线合成fabao_018；已转换的蛊笛获取入口归guchong
 yvanchuxiuzhen,Guchong01hecheng,recipe,~/entity/guchong,guchong,已读,R10来源阅读：九个elm_01无序合成guchong_01item；属于鼓上蚤获取入口
 yvanchuxiuzhen,Chongluan,item,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,ZhuangshiqiantongZaiFangKuaiShangYouJian,procedure,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：随 Zhuangshiqiantong 读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据

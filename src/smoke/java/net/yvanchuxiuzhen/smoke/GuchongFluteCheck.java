@@ -1,0 +1,384 @@
+package net.yvanchuxiuzhen.smoke;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.UUID;
+import java.util.function.Consumer;
+import java.util.stream.IntStream;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.guchong.client.GuchongReleaseScreen;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongFluteItem;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongReleaseMenu;
+import net.yvanchuxiuzhen.system.guchong.entity.GuchongEntity;
+import net.yvanchuxiuzhen.system.guchong.network.GuchongReleaseButtonPayload;
+
+/** 蛊笛真实右键与客户端按钮；分页、空UUID和部分收回各使用独立背包样本。 */
+final class GuchongFluteCheck extends SystemCheck {
+    private static final String MAIN_UUID = "r10_flute_main";
+    private static final String PARTIAL_UUID = "r10_flute_partial";
+    private final Screenshots screenshots;
+    private final List<ItemStack> inventory = new ArrayList<>();
+    private final List<ItemStack> untouched = new ArrayList<>();
+    private final List<GuchongEntity> specimens = new ArrayList<>();
+    private List<GuchongEntity> active = List.of();
+    private int selected;
+    private GameType mode;
+    private Vec3 position;
+    private float yaw;
+    private float pitch;
+    private BlockPos floor;
+    private BlockState floorState;
+    private CompoundTag savedFlute;
+    private CompoundTag savedJar;
+    private CompoundTag partialBefore;
+
+    GuchongFluteCheck(List<String> report, String levelId, Screenshots screenshots) {
+        super("蛊笛分页放收", report, levelId);
+        this.screenshots = screenshots;
+    }
+
+    @Override
+    protected boolean step(int step, int local) {
+        return switch (step) {
+            case 0 -> action(local, 8, this::prepare);
+            case 1 -> action(local, 4, player -> {
+                StatusEffects.addHidden(player, "effect_002", 200, 0);
+                use(player, false);
+                expectTrue("沉默阻断普通右键开菜单", player.containerMenu == player.inventoryMenu);
+                StatusEffects.remove(player, "effect_002");
+            });
+            case 2 -> action(local, 4, player -> use(player, false));
+            case 3 -> firstPage(local);
+            case 4 -> click(local, 0);
+            case 5 -> action(local, 8, player -> page(player, 1, 0, 6));
+            case 6 -> click(local, 1);
+            case 7 -> lastPage(local);
+            case 8 -> click(local, 0);
+            case 9 -> action(local, 8, player -> page(player, 1, 0, 6));
+            case 10 -> action(local, 4, this::displayAndMove);
+            case 11 -> click(local, 2);
+            case 12 -> action(local, 6, this::releasedMain);
+            case 13 -> click(local, 2);
+            case 14 -> action(local, 6, player -> {
+                CompoundTag data = GuchongJarData.read(player.getInventory().getItem(22));
+                expectTrue("全部收回后真实罐保存两虫当前生命经验并清计数", active.stream().allMatch(GuchongEntity::isRemoved)
+                        && !data.getBoolean("shifangguchong") && data.getDouble("shifangnum") == 0
+                        && data.getDouble("health_Num0") == 6.5 && data.getDouble("experience0") == 15
+                        && data.getDouble("health_Num3") == 8.5 && data.getDouble("experience3") == 25);
+                expect("收回展示同步真实罐", data, GuchongJarData.read(menu(player).getSlot(0).getItem()));
+                StatusEffects.addHidden(player, "effect_002", 200, 0);
+            });
+            case 15 -> click(local, 2);
+            case 16 -> action(local, 6, player -> {
+                active = capture(player, MAIN_UUID, 2);
+                expect("来源按钮在已开界面时不检查沉默", 2.0,
+                        GuchongJarData.read(player.getInventory().getItem(22)).getDouble("shifangnum"));
+                active.get(1).getPersistentData().putString("belongToMasterUUID", UUID.randomUUID().toString());
+                player.closeContainer();
+            });
+            case 17 -> action(local, 4, player -> {
+                use(player, true);
+                expectTrue("沉默阻断潜行收回且不修改真实计数", active.stream().noneMatch(GuchongEntity::isRemoved)
+                        && GuchongJarData.read(player.getInventory().getItem(22)).getDouble("shifangnum") == 2);
+                StatusEffects.remove(player, "effect_002");
+            });
+            case 18 -> action(local, 4, player -> {
+                use(player, true);
+                CompoundTag data = GuchongJarData.read(player.getInventory().getItem(22));
+                expectTrue("潜行仅收本人虫并逐只写真实罐", active.get(0).isRemoved() && !active.get(1).isRemoved()
+                        && data.getBoolean("shifangguchong") && data.getDouble("shifangnum") == 1);
+            });
+            case 19 -> action(local, 4, player -> {
+                active.get(1).getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
+                use(player, true);
+                CompoundTag data = GuchongJarData.read(player.getInventory().getItem(22));
+                expectTrue("潜行收齐最后一只后清释放标记", active.get(1).isRemoved()
+                        && !data.getBoolean("shifangguchong") && data.getDouble("shifangnum") == 0);
+                checkUntouched(player);
+                use(player, false);
+                player.getInventory().selected = 1;
+            });
+            case 20 -> action(local, 8, player -> {
+                expectTrue("换下主手蛊笛后原生刻关闭菜单", player.containerMenu == player.inventoryMenu);
+                player.getInventory().selected = 0;
+                savedFlute = GuchongJarData.read(player.getMainHandItem());
+                savedJar = GuchongJarData.read(player.getInventory().getItem(22));
+                expectTrue("蛊笛无消耗和冷却", player.getMainHandItem().getCount() == 1
+                        && !player.getCooldowns().isOnCooldown(player.getMainHandItem().getItem()));
+            });
+            case 21 -> { leaveWorld(); yield true; }
+            case 22 -> reopened(local);
+            case 23 -> inWorld(local);
+            case 24 -> action(local, 4, player -> {
+                expect("真实保存重进保留蛊笛页码和六行操作状态", savedFlute, GuchongJarData.read(player.getInventory().getItem(0)));
+                expect("真实保存重进保留移动后背包罐完整组件", savedJar, GuchongJarData.read(player.getInventory().getItem(22)));
+                checkUntouched(player);
+                stage(player, "", 0);
+            });
+            case 25 -> click(local, 3);
+            case 26 -> action(local, 6, player -> {
+                active = capture(player, "", 1);
+                expectTrue("空展示UUID按来源匹配独立空UUID真实罐", menu(player).getSlot(1).getItem().isEmpty()
+                        && GuchongJarData.read(player.getInventory().getItem(9)).getDouble("shifangnum") == 1);
+                player.closeContainer();
+                use(player, true);
+                expectTrue("空UUID本人虫可经潜行回罐", active.get(0).isRemoved()
+                        && !GuchongJarData.read(player.getInventory().getItem(9)).getBoolean("shifangguchong"));
+                stage(player, PARTIAL_UUID, 0, 1);
+            });
+            case 27 -> click(local, 2);
+            case 28 -> action(local, 6, player -> {
+                active = capture(player, PARTIAL_UUID, 2);
+                partialBefore = GuchongJarData.read(player.getInventory().getItem(9));
+                active.get(0).getPersistentData().putString("belongToMasterUUID", UUID.randomUUID().toString());
+                active.get(0).setHealth(4.5F);
+                active.get(1).moveTo(player.getX() + 20, player.getY() + 1, player.getZ());
+            });
+            case 29 -> click(local, 2);
+            case 30 -> action(local, 6, player -> {
+                expectTrue("按钮收回只比罐UUID，范围内他人虫同样被移除", active.get(0).isRemoved() && !active.get(1).isRemoved());
+                expect("部分收回按来源不写真实罐", partialBefore, GuchongJarData.read(player.getInventory().getItem(9)));
+                expect("部分收回按来源不更新展示副本", partialBefore, GuchongJarData.read(menu(player).getSlot(0).getItem()));
+            });
+            case 31 -> {
+                if (!screen(local)) yield false;
+                screenshots.take("guchong_flute_partial_recall.png");
+                onServer(this::cleanup);
+                finish();
+                yield true;
+            }
+            default -> throw new IllegalStateException("未知蛊笛检查步骤 " + step);
+        };
+    }
+
+    private boolean action(int local, int wait, Consumer<ServerPlayer> action) {
+        if (local < wait) return false;
+        onServer(action);
+        return true;
+    }
+
+    private boolean firstPage(int local) {
+        if (!screen(local)) return false;
+        expect("中文菜单标题", "蛊虫释放", minecraft.screen.getTitle().getString());
+        expect("客户端首开页码保持来源0", 0.0, GuchongJarData.read(minecraft.player.getMainHandItem()).getDouble("pagenum"));
+        onServer(player -> page(player, 0, 0, 6));
+        screenshots.take("guchong_flute_first_page.png");
+        return true;
+    }
+
+    private boolean lastPage(int local) {
+        if (!screen(local)) return false;
+        onServer(player -> page(player, 2, 6, 1));
+        expect("客户端第二页同步第七只真实罐", "r10_flute_6",
+                GuchongJarData.read(minecraft.player.containerMenu.getSlot(0).getItem()).getString("guguanuuid"));
+        screenshots.take("guchong_flute_last_page.png");
+        int id = minecraft.player.containerMenu.containerId;
+        PacketDistributor.sendToServer(new GuchongReleaseButtonPayload(id + 100, 0));
+        PacketDistributor.sendToServer(new GuchongReleaseButtonPayload(id, -1));
+        PacketDistributor.sendToServer(new GuchongReleaseButtonPayload(id, 8));
+        return true;
+    }
+
+    private boolean click(int local, int index) {
+        if (!screen(local)) return false;
+        List<Button> buttons = minecraft.screen.children().stream().filter(child -> child instanceof Button)
+                .map(child -> (Button) child).toList();
+        buttons.get(index).onPress();
+        return true;
+    }
+
+    private boolean screen(int local) {
+        if (local < 8) return false;
+        if (minecraft.screen instanceof GuchongReleaseScreen) return true;
+        if (local > 120) {
+            fail("蛊笛菜单未出现：" + (minecraft.screen == null ? "无" : minecraft.screen.getClass().getSimpleName()));
+            onServer(this::cleanup);
+            finish();
+        }
+        return false;
+    }
+
+    private void prepare(ServerPlayer player) {
+        player.closeContainer();
+        for (int index = 0; index < player.getInventory().getContainerSize(); index++) inventory.add(player.getInventory().getItem(index).copy());
+        selected = player.getInventory().selected;
+        mode = player.gameMode.getGameModeForPlayer();
+        position = player.position();
+        yaw = player.getYRot();
+        pitch = player.getXRot();
+        floor = player.blockPosition().above(12);
+        floorState = player.level().getBlockState(floor);
+        player.level().setBlock(floor, Blocks.STONE.defaultBlockState(), 3);
+        player.connection.teleport(floor.getX() + .5, floor.getY() + 1, floor.getZ() + .5, 0, 0);
+        player.setGameMode(GameType.SURVIVAL);
+        player.getInventory().clearContent();
+        player.getInventory().selected = 0;
+        ItemStack flute = item("fabao_018");
+        if (!(flute.getItem() instanceof GuchongFluteItem)) throw new IllegalStateException("蛊笛运行实现未实际装配");
+        player.getInventory().setItem(0, flute);
+        player.getInventory().setItem(9, jar(player, MAIN_UUID, 0, 3));
+        for (int index = 1; index < 7; index++) {
+            ItemStack filler = jar(player, "r10_flute_" + index);
+            player.getInventory().setItem(9 + index, filler);
+            untouched.add(filler.copy());
+        }
+        player.inventoryMenu.broadcastChanges();
+    }
+
+    private void page(ServerPlayer player, double expectedPage, int start, int count) {
+        GuchongReleaseMenu menu = menu(player);
+        expect("来源分页实际页码", expectedPage, GuchongJarData.read(player.getMainHandItem()).getDouble("pagenum"));
+        List<String> actual = new ArrayList<>();
+        for (int index = 0; index < 6; index++) {
+            ItemStack display = menu.getSlot(index).getItem();
+            actual.add(display.isEmpty() ? "" : GuchongJarData.read(display).getString("guguanuuid"));
+        }
+        List<String> expected = new ArrayList<>();
+        for (int index = 0; index < 6; index++) expected.add(index < count ? (start + index == 0 ? MAIN_UUID : "r10_flute_" + (start + index)) : "");
+        expect("六展示槽来自当前分页真实库存", expected, actual);
+    }
+
+    private void displayAndMove(ServerPlayer player) {
+        GuchongReleaseMenu menu = menu(player);
+        ItemStack physical = player.getInventory().getItem(9);
+        CompoundTag before = GuchongJarData.read(physical);
+        expectTrue("展示罐与真实罐对象分离", menu.getSlot(0).getItem() != physical);
+        expectTrue("六展示槽均禁止放入和拿取", menu.slots.subList(0, 6).stream()
+                .allMatch(slot -> !slot.mayPickup(player) && !slot.mayPlace(physical)));
+        menu.clicked(0, 0, ClickType.PICKUP, player);
+        expectTrue("真实点击和快速移动无法取出展示罐", menu.getCarried().isEmpty() && menu.quickMoveStack(player, 0).isEmpty());
+        CompoundTag display = GuchongJarData.read(menu.getSlot(0).getItem());
+        display.putString("fixture_copy_probe", "display_only");
+        GuchongJarData.write(menu.getSlot(0).getItem(), display);
+        expect("修改展示副本不反写真实库存", before, GuchongJarData.read(physical));
+        menu.populate(player);
+        player.getInventory().setItem(22, physical);
+        player.getInventory().setItem(9, ItemStack.EMPTY);
+        menu.broadcastChanges();
+    }
+
+    private void releasedMain(ServerPlayer player) {
+        active = capture(player, MAIN_UUID, 2);
+        CompoundTag data = GuchongJarData.read(player.getInventory().getItem(22));
+        expectTrue("按钮按缓存UUID找到移动后的真实槽位释放", player.getInventory().getItem(9).isEmpty()
+                && data.getBoolean("shifangguchong") && data.getDouble("shifangnum") == 2);
+        expect("释放展示同步移动后真实罐", data, GuchongJarData.read(menu(player).getSlot(0).getItem()));
+        expect("来源编号槽0和3随实体保存", List.of(0.0, 3.0), active.stream()
+                .map(insect -> insect.getPersistentData().getDouble("guguanweizhi")).toList());
+        active.get(0).setHealth(6.5F);
+        active.get(0).getPersistentData().putDouble("experience", 15);
+        active.get(1).setHealth(8.5F);
+        active.get(1).getPersistentData().putDouble("experience", 25);
+        checkUntouched(player);
+    }
+
+    private List<GuchongEntity> capture(ServerPlayer player, String uuid, int count) {
+        List<GuchongEntity> insects = player.serverLevel().getEntitiesOfClass(GuchongEntity.class,
+                player.getBoundingBox().inflate(40), insect -> !insect.isRemoved()
+                        && insect.getPersistentData().getString("guguanuuid").equals(uuid)).stream()
+                .sorted(Comparator.comparingDouble(insect -> insect.getPersistentData().getDouble("guguanweizhi"))).toList();
+        if (insects.size() != count) throw new IllegalStateException("预期 " + count + " 只来源罐蛊虫，实际 " + insects.size() + "，UUID=" + uuid);
+        expectTrue("释放真实蛊虫保留主人与罐UUID", insects.stream().allMatch(insect -> insect.isOwnedBy(player)
+                && insect.getPersistentData().getString("belongToMasterUUID").equals(player.getStringUUID())));
+        for (int index = 0; index < insects.size(); index++) {
+            GuchongEntity insect = insects.get(index);
+            insect.setNoAi(true);
+            insect.setNoGravity(true);
+            insect.setDeltaMovement(Vec3.ZERO);
+            insect.moveTo(player.getX() + .5 + index, player.getY() + 1, player.getZ());
+            specimens.add(insect);
+        }
+        return insects;
+    }
+
+    private void stage(ServerPlayer player, String uuid, int... slots) {
+        player.closeContainer();
+        discardSpecimens();
+        player.getInventory().clearContent();
+        player.getInventory().selected = 0;
+        player.getInventory().setItem(0, item("fabao_018"));
+        player.getInventory().setItem(9, jar(player, uuid, slots));
+        use(player, false);
+    }
+
+    private static ItemStack jar(ServerPlayer player, String uuid, int... slots) {
+        ItemStack jar = item(slots.length > 1 ? "taoguan_02item" : "taoguan_01item");
+        CompoundTag data = new CompoundTag();
+        data.putString("guguanuuid", uuid);
+        for (int slot : slots) {
+            ItemStack insect = item("guchong_03item");
+            insect.set(DataComponents.CUSTOM_NAME, Component.literal("蛊笛检查虫" + slot));
+            CompoundTag insectData = new CompoundTag();
+            insectData.putString("guchongid", "yvanchuxiuzhen:guchong_03");
+            insectData.putString("belongToMasterUUID", player.getStringUUID());
+            insectData.putBoolean("guchongxvnfu", true);
+            insectData.putString("LEVELname", "炼气");
+            insectData.putDouble("LEVELnumber", 1);
+            insectData.putDouble("health_Max", 10);
+            insectData.putDouble("health_Num", 9);
+            insectData.putDouble("attack_Num", 1);
+            insectData.putDouble("speed_number", .3);
+            GuchongJarData.write(insect, insectData);
+            GuchongJarData.pack(insect, data, slot, false);
+        }
+        GuchongJarData.write(jar, data);
+        return jar;
+    }
+
+    private void checkUntouched(ServerPlayer player) {
+        expectTrue("操作不改六只无关真实蛊罐", IntStream.range(0, untouched.size())
+                .allMatch(index -> ItemStack.isSameItemSameComponents(untouched.get(index), player.getInventory().getItem(10 + index))));
+    }
+
+    private static GuchongReleaseMenu menu(ServerPlayer player) {
+        if (player.containerMenu instanceof GuchongReleaseMenu menu) return menu;
+        throw new IllegalStateException("服务端未打开蛊笛菜单");
+    }
+
+    private static void use(ServerPlayer player, boolean sneaking) {
+        player.setShiftKeyDown(sneaking);
+        player.gameMode.useItem(player, player.level(), player.getMainHandItem(), InteractionHand.MAIN_HAND);
+        player.setShiftKeyDown(false);
+    }
+
+    private static ItemStack item(String path) {
+        return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, path)));
+    }
+
+    private void discardSpecimens() {
+        for (GuchongEntity insect : specimens) if (!insect.isRemoved()) insect.discard();
+        specimens.clear();
+    }
+
+    private void cleanup(ServerPlayer player) {
+        player.closeContainer();
+        discardSpecimens();
+        StatusEffects.remove(player, "effect_002");
+        player.getInventory().clearContent();
+        for (int index = 0; index < inventory.size(); index++) player.getInventory().setItem(index, inventory.get(index));
+        player.getInventory().selected = selected;
+        player.setGameMode(mode);
+        player.level().setBlock(floor, floorState, 3);
+        player.connection.teleport(position.x, position.y, position.z, yaw, pitch);
+        player.inventoryMenu.broadcastChanges();
+    }
+}

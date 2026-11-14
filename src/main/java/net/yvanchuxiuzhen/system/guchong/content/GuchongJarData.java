@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.guchong.content;
 
+import java.text.DecimalFormat;
 import java.util.Locale;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -9,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
 
 /** 蛊虫物品、蛊罐编号槽和实体之间的来源字段搬运。 */
 public final class GuchongJarData {
@@ -78,14 +80,14 @@ public final class GuchongJarData {
         jar.putString("guchongname" + suffix, insect.getDisplayName().getString());
     }
 
-    public static void capture(LivingEntity insect, CompoundTag jar, String team) {
-        String suffix = new java.text.DecimalFormat("0").format(insect.getPersistentData().getDouble("guguanweizhi"));
+    public static void capture(Entity insect, CompoundTag jar, String team) {
+        String suffix = new DecimalFormat("0").format(insect.getPersistentData().getDouble("guguanweizhi"));
         copy(insect.getPersistentData(), "", jar, suffix, false);
         jar.putString("guchongid" + suffix, BuiltInRegistries.ENTITY_TYPE.getKey(insect.getType()).toString());
         jar.putString("guchongname" + suffix, insect.getDisplayName().getString().replace("[", "").replace("]", ""));
         jar.putBoolean("guchongxvnfu" + suffix, true);
         jar.putString("team" + suffix, team);
-        jar.putDouble("health_Num" + suffix, insect.getHealth());
+        jar.putDouble("health_Num" + suffix, insect instanceof LivingEntity living ? living.getHealth() : -1);
         jar.putDouble("shifangnum", jar.getDouble("shifangnum") - 1);
     }
 }

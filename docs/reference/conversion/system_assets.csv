@@ -624,3 +624,15 @@ equipment,texture,yvanchuxiuzhen:entities/fabao01701
 guchong,geo,yvanchuxiuzhen:guchong01
 guchong,animation,yvanchuxiuzhen:guchong01
 guchong,texture,yvanchuxiuzhen:entities/guchong01
+guchong,geo,yvanchuxiuzhen:fabao018
+guchong,animation,yvanchuxiuzhen:fabao018
+guchong,texture,yvanchuxiuzhen:screens/guchongshifang_gui
+guchong,texture,yvanchuxiuzhen:screens/yanggugui01
+guchong,texture,yvanchuxiuzhen:screens/atlas/imagebutton_yanggugui02
+guchong,texture,yvanchuxiuzhen:screens/atlas/imagebutton_yanggugui04
+guchong,texture,yvanchuxiuzhen:screens/atlas/imagebutton_yanggugui06
+guchong,texture,yvanchuxiuzhen:screens/atlas/imagebutton_yanggugui061
+guchong,texture,yvanchuxiuzhen:screens/atlas/imagebutton_yanggugui062
+guchong,texture,yvanchuxiuzhen:screens/atlas/imagebutton_yanggugui063
+guchong,texture,yvanchuxiuzhen:screens/atlas/imagebutton_yanggugui064
+guchong,texture,yvanchuxiuzhen:screens/atlas/imagebutton_yanggugui065

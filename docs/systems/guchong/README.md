@@ -2,7 +2,7 @@
 topic: guchong
 role: entry
 status: partial
-updated: 2026-11-13
+updated: 2026-11-14
 ---
 
 # 蛊虫
@@ -11,8 +11,10 @@ updated: 2026-11-13
 
 当前阶段：B1 身份、资源与基础属性已登记（方块 3、物品 13、声音事件 2）；D/E 批次已接入 `guchong_03`、`guchong_04` 实体和三档蛊罐方块初始实现。R05/R10已实现摄虫网公开收纳操作，捕获结果以个体组件接入既有蛊罐菜单和编号槽保存，最小单项已通过；运行边界见[正文](architecture.md#2026-11-13-摄虫网收纳与蛊罐消费者)。03/04单虫物品的野生/认主释放入口、关系团队读取与三档地上罐专属工厂已接回。九槽罐第九槽的认主、自然计划刻放虫/回罐、死亡清槽、Ctrl收罐、手持回收及活动虫/背包罐真实退出重进专项已通过；见[本批正文](architecture.md#2026-11-13-0304单虫释放与蛊罐生命周期)。R10编号01实体、单虫释放和共用击杀成长已接回，28条玩法检查与真实退出重进单项通过，结果见[本月记录](logs/2026-11.md#2026-11-13-编号01完整来源包)；其余编号、其他容量全部自然分支、完整AI战斗/成长/表现、多人和蛊虫系统总体验收仍未完成。
 
+蛊笛`fabao_018`的普通右键六罐分页界面、八按钮服务端操作与潜行全局收回已装配，来源空闲动画和界面资源已转换。必要单项通过真实物品入口、客户端按钮、库存UUID定位、只读展示、沉默边界和保存重进，三张中文截图已核；首次页0、右箭头条件、空UUID匹配和部分收回不写罐保持来源行为。结果见[本月记录](logs/2026-11.md#2026-11-14-蛊笛六罐释放与潜行收回)，规则见[蛊笛正文](architecture.md#2026-11-14-蛊笛六罐释放与潜行收回)。受控样本为七罐与03双虫，全容量、全部编号、完整自然战斗/生存获取、表现、多人和两版本对照继续开放。
+
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
-- 归属范围 75 个元素，其中 63 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
+- 归属范围 76 个元素，其中 64 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
@@ -27,8 +29,8 @@ updated: 2026-11-13
 | 来源读取或写入 | 目标公开操作 | 核对范围 |
 | --- | --- | --- |
 | A `Taoguan01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure:39,70` 的玩家 `friendlist/team` | `Relations.shareAllegianceToBlock/team` | 放置时使用玩家关系能力；与玩家本体 `team` 区分 |
-| A `Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:62,64,183` 和 `GuchongAnniuzhixingProcedure:57,59,120,204` | `Relations.shareEntityAllegiance/team` | 手持释放与回收已接入；释放按钮链待核，不能读取 relation 数据包 |
-| A `Guchong01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure:39,85,131` | `Relations.team/setTeam` | 01/03/04同族物品释放已接入；编号01专项运行待验证 |
+| A `Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:62,64,183` 和 `GuchongAnniuzhixingProcedure:57,59,120,204` | `Relations.shareEntityAllegiance/team` | 手持罐与蛊笛按钮链已接入并通过必要单项，不能读取 relation 数据包 |
+| A `Guchong01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure:39,85,131` | `Relations.team/setTeam` | 01/03/04同族物品释放已接入，编号01与03/04入口必要单项已通过；完整战斗未验 |
 | A `EntityDeathProcedure:241,254` 的玩家 `insect_experience` | `Professions.addExperience(owner, Profession.INSECT, 新等级 × 10)` | 每次升级逐级增加；字段由 profession 独占写入 |
 | A `Guchong02itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:15,27` 的 `tizhiitem` | xiulian 具体体质操作 | 未在本轮实体与地上罐批次中实现 |
 | B `Taoguan01ZaiFangKuaiShangYouJianProcedure:182,183` 的 `lctrl/lalt` | `ModifierKeys.ctrl/alt` | 回收地上罐 |

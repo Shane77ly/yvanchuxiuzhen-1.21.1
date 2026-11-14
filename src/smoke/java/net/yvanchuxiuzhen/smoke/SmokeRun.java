@@ -209,6 +209,7 @@ final class SmokeRun {
                     case "storage" -> List.of(new StorageCheck(report, levelId, this::shot));
                     case "guchong" -> List.of(new GuchongCheck(report, levelId, this::shot));
                     case "guchonglifecycle" -> List.of(new GuchongLifecycleCheck(report, levelId));
+                    case "guchongflute" -> List.of(new GuchongFluteCheck(report, levelId, this::shot));
                     case "guchong01" -> List.of(new Guchong01Check(report, levelId, this::shot));
                     case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
                     case "fuluripening" -> List.of(new FuluRipeningCheck(report, levelId));
