@@ -916,6 +916,7 @@ item,yvanchuxiuzhen:itemfulu_5001,fulu:corpse_seal,fulu,点击方块顶面发布
 block,yvanchuxiuzhen:liexi,world:rift,world,裂隙动画方块与二刻计划释放
 item,yvanchuxiuzhen:liexi,world:rift,world,裂隙来源Geo方块物品
 item,yvanchuxiuzhen:ling_14item,world:spirit_compass,world,寻灵盘导航与物品实例坐标往返
+item,yvanchuxiuzhen:tiandaobaoxiangitem,treasure:tool,treasure,天道宝箱设置零槽页与松手命中方块实体弹体
 item,yvanchuxiuzhen:businessman_21_spawn_egg,npc:spawn_egg_businessman_21,npc,21至30号来源居民刷怪蛋
 item,yvanchuxiuzhen:businessman_22_spawn_egg,npc:spawn_egg_businessman_22,npc,21至30号来源居民刷怪蛋
 item,yvanchuxiuzhen:businessman_23_spawn_egg,npc:spawn_egg_businessman_23,npc,21至30号来源居民刷怪蛋
@@ -941,3 +942,15 @@ block,yvanchuxiuzhen:beechfurniture_20,decor:storage_20,decor,储物家具共享
 block,yvanchuxiuzhen:beechfurniture_21,decor:storage_21,decor,储物家具共享库存及来源菜单
 block,yvanchuxiuzhen:beechfurniture_22,decor:storage_22,decor,储物家具共享库存及来源菜单
 block,yvanchuxiuzhen:beechfurniture_24,decor:storage_24,decor,储物家具共享库存及来源菜单
+item,yvanchuxiuzhen:hammer,decor:hammer,decor,建筑锤来源剑参数及瓦片与普通方块升降
+item,yvanchuxiuzhen:yanwang_spawn_egg,npc:spawn_egg_yanwang,npc,阴司五实体来源刷怪蛋
+item,yvanchuxiuzhen:wuchangbai_spawn_egg,npc:spawn_egg_wuchangbai,npc,阴司五实体来源刷怪蛋
+item,yvanchuxiuzhen:wuchanghei_spawn_egg,npc:spawn_egg_wuchanghei,npc,阴司五实体来源刷怪蛋
+item,yvanchuxiuzhen:niutou_spawn_egg,npc:spawn_egg_niutou,npc,阴司五实体来源刷怪蛋
+item,yvanchuxiuzhen:mamian_spawn_egg,npc:spawn_egg_mamian,npc,阴司五实体来源刷怪蛋
+block,yvanchuxitong:zhenyvan,zhenfa:element,zhenfa,两槽阵元材料存取伪装展示能力保存及破坏回收
+item,yvanchuxiuzhen:pao_02,festival:sparkler_02,festival,电光花点燃分栈与手持六百刻燃放
+item,yvanchuxiuzhen:pao_03,festival:sparkler_03,festival,呲花点燃分栈与六色随机手持燃放
+item,yvanchuxiuzhen:pao_07,festival:sparkler_07,festival,喷花点燃分栈与一千二百刻分段换色
+item,yvanchuxiuzhen:fuqi_03,festival:wish_lantern,festival,祈愿灯顶面空位放置来源旋转上升实体
+item,yvanchuxiuzhen:tiandao_np_csetitem,npc:manager,npc,天道NPC设置菜单/配置复制工具

@@ -1,0 +1,149 @@
+[
+  {
+    "id": "yanwang",
+    "geo": "yanwang",
+    "animation": "yanwang",
+    "rendering": {
+      "shadow": 0.5,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "texture": "yanwang",
+    "head": "head",
+    "idle": "animation.yanwang.idle",
+    "speed": 0.3,
+    "health": 100,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0,
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 20,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 4
+    }
+  },
+  {
+    "id": "wuchangbai",
+    "geo": "baiwuchang",
+    "animation": "baiwuchang",
+    "rendering": {
+      "shadow": 0.5,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "texture": "baiwuchang",
+    "head": "head",
+    "idle": "animation.baiwuchang.idle",
+    "speed": 0.3,
+    "health": 100,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0,
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 20,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 4
+    }
+  },
+  {
+    "id": "wuchanghei",
+    "geo": "baiwuchang",
+    "animation": "baiwuchang",
+    "rendering": {
+      "shadow": 0.5,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "texture": "heiwuchang",
+    "head": "head",
+    "idle": "animation.baiwuchang.idle",
+    "speed": 0.3,
+    "health": 100,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0,
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": false,
+      "pushed_by_fluid": true,
+      "death_ticks": 20,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 4
+    }
+  },
+  {
+    "id": "niutou",
+    "geo": "niutou",
+    "animation": "niutou",
+    "rendering": {
+      "shadow": 2,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "texture": "niutou",
+    "head": "head",
+    "idle": "animation.mamian.idle",
+    "speed": 0.3,
+    "health": 10,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0,
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": true,
+      "pushed_by_fluid": true,
+      "death_ticks": 120,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 4,
+      "death_animation": "animation.mamian.death"
+    }
+  },
+  {
+    "id": "mamian",
+    "geo": "mamian",
+    "animation": "mamian",
+    "rendering": {
+      "shadow": 2,
+      "scale": 1.0,
+      "death_rotation": 0.0
+    },
+    "texture": "mamian",
+    "head": "head",
+    "idle": "animation.mamian.idle",
+    "speed": 0.3,
+    "health": 10,
+    "armor": 0.0,
+    "attack": 3.0,
+    "follow": 16.0,
+    "no_ai": false,
+    "lifecycle": {
+      "navigation": "ground",
+      "no_gravity": false,
+      "breathes_underwater": true,
+      "pushed_by_fluid": true,
+      "death_ticks": 120,
+      "ignores_fall_damage": false,
+      "damage_immunities": [],
+      "animation_transition_ticks": 4,
+      "death_animation": "animation.mamian.death"
+    }
+  }
+]

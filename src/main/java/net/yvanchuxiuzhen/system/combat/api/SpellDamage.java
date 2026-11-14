@@ -18,6 +18,14 @@ public final class SpellDamage {
     private SpellDamage() {
     }
 
+    /** 阴二阵法只登记来源的待消费伤害字段；本操作不发起伤害结算。 */
+    public static void markFormationSoulAttack(Entity target, int rank) {
+        target.getPersistentData().putInt("SoulAttackDamage", rank * 4);
+        target.getPersistentData().putString("SoulAttackUUID", "wu");
+        target.getPersistentData().putString("damagetype", "阴阳");
+        target.getPersistentData().putDouble("Damage_multiplier", 0.5 + rank * 0.5);
+    }
+
     public static void deal(ServerLevel level, LivingEntity target, DamageCategory category, Entity attacker, boolean fixed, double base, double multiplier) {
         deal(level, target, category, attacker == null ? null : attacker.getUUID(), fixed, base, multiplier);
     }

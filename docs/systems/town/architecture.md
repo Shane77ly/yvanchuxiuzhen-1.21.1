@@ -48,3 +48,7 @@ updated: 2026-11-14
 目标方块新放置时访问BE已核对同一sources.jar：`LevelChunk.setBlockState`在显式创建BE前调用`onPlace`，但`Level.getBlockEntity`使用`EntityCreationType.IMMEDIATE`，可即时创建；两自定义方块保留`triggerEvent`转发。此项为静态生命周期依据，尚无运行结论。
 
 主线已完成定向转换、生产/smoke编译与6项架构检查，`construction`必要客户端单项覆盖真实中心卷轴放置、材料页及建造按钮。中心按来源60木/60石/3羊毛扣料，12木/12石/2羊毛/7钻石余料原位掉落；受控02模板按原槽保留同组余料且不重复掉落，正常保存重进仍一致。02夹具复用中心费用只用于检查模板替换和库存守恒，不能当作02来源费用或自然获取事实。中文材料页截图已查看；建造后的截图为现场墙面，不能充当余料菜单视觉证据。完整生存卷轴获取、三类建筑全向实机、03模板、刚好足量与更多材料边界、居民/战争/官职、多人、专服、1.18.2版本实机和两版本对照仍开放；原始报告及夹具失败边界只在本月记录登记。
+
+## Q138 潜行持锤拆除核心的入口冲突
+
+B `ChengzhenBuildblockBlock:105–116`只从Block.use调用，过程`34–49`要求潜行且主手hammer。精确Forge40.1.0的ServerPlayerGameMode补丁在secondaryUse且手持物、doesSneakBypassUse默认false时跳过Block.use；来源锤未覆写，两份来源也无事件强制放行。静态推断正常潜行持锤将走锤useOn，核心硬度−1满足移动规则，上方为空时搬状态而不搬BE。目标保持来源，不补sneak bypass；Town已实现的扣料/余料批准Q70不代表此自然拆除可达。1.18.2版本与目标自然操作未实机，待集中核实，证据见`tmp/hammer-tool-evidence/hammer-source-review.json`。

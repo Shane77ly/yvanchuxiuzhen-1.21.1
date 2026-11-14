@@ -339,7 +339,7 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 按 1.18.2 版本 `FlyingitemnbtshezhiProcedure`、`Flyinginstrument0101DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`、`Flyinginstrument01DangYouJianDianJiShiTiProcedure`、`Flyinginstrument01DangShiTiGengXinKeShiProcedure` 与 `Flyinginstrument01DangShiTiBeiShaSiShiProcedure` 逐行接回 8 个飞行法器。物品首次右键写入 `flyitemID`、`flyname`、`flyentityID`、`health_Max`、`health`、`power_Max`、`power`、`speed_num`，召唤对应实体、复制玩家关系、设置生命并清空手持槽；已有字段的物品保留当前生命和灵力。
 
-目标使用 `FlyingInstrumentItem` 专用工厂和 `FlyingInstrumentEntity` 共享实体，字段保存在物品 `CUSTOM_DATA` 与实体持久数据中。实体潜行右键按来源保存当前字段并取回物品；普通右键按 `lingshi` 标签和 `cailiao_191`–`199` 的 `1/4/16/64/256/1024/4096/16384/65536` 灵力值充能，手持 `hammer` 恢复 1 点生命，否则玩家骑乘。实体刻更新保留水中上浮、空气下落、骑乘能量门槛、`flying` 按视线移动、法器灵力优先扣除及 `jinkong` 复位；来源实体的药水、区域效果云、摔落、仙人掌和溺水免疫、20刻死亡移除、乘客高度偏移均已接回。
+目标使用 `FlyingInstrumentItem` 专用工厂和 `FlyingInstrumentEntity` 共享实体，字段保存在物品 `CUSTOM_DATA` 与实体持久数据中。实体潜行右键按来源保存当前字段并取回物品；普通右键按 `lingshi` 标签和 `cailiao_191`–`199` 的 `1/4/16/64/256/1024/4096/16384/65536` 灵力值充能，手持 `hammer` 在受损时发送十个HAPPY_VILLAGER并恢复1点生命、满血不骑乘，其他主手才骑乘；目标遗漏修复见[Q144](#q144-飞行法器持锤修理分支遗漏)。实体刻更新保留水中上浮、空气下落、骑乘能量门槛、`flying` 按视线移动、法器灵力优先扣除及 `jinkong` 复位；来源实体的药水、区域效果云、摔落、仙人掌和溺水免疫、20刻死亡移除、乘客高度偏移均已接回。
 
 8 个实体的 GeckoLib 几何、动画与实体纹理已从 1.18.2 版本资源接入 `assets/yvanchuxiuzhen/geo`、`animations` 与 `textures/entities`，并通过装备实体模型表与现有 `AnimatedEntityRenderer` 注册。01/02/03 的乘客偏移为 `-0.2`，05 为 `-0.7`，06 为 `0.1`，07 为 `-0.3`，04/08 沿用原生偏移。
 
@@ -645,3 +645,7 @@ Forge40.1.0精确源码的 `BaseContainerBlockEntity` 补丁与 `InvWrapper` 证
 专用服务器对 `tripod_02` 注入受控起炉状态后，由真实计划刻完成 `raw_iron ×2 → iron_ingot ×2`、`cailiao_201 ×4 → cailiao_202melt ×1`，连续炉次自动停止，热量分别由20降至2/0；没有通过按钮自然起炉，不能把该运行扩展为装备专服自然制作或升级验收。清理探针后执行原生 `stop`，四维度正常保存，退出码0、ERROR0、FATAL0；证据为 `tmp/tripod-server-latest.log`。
 
 最终文档/台账检查、逐件自然制作与升级、三恢复实际穿戴、投掷回收后再升级、完整存档生命周期、1.18.2 版本实机、两版本对照、多人和完整视觉未执行。equipment 保持部分实现。
+
+## Q144 飞行法器持锤修理分支遗漏
+
+建筑锤续批核对A `Flyinginstrument01DangYouJianDianJiShiTiProcedure`发现旧目标只在受损时进入锤分支，满血持锤误入骑乘且修理少十个HAPPY_VILLAGER。已改为主手锤先独立占分支，受损时粒子后恢复1点，满血无骑乘；生命上限由原生setHealth clamp。八法器共享该修复，必要单项使用真实物品召唤一类核验，结果见本月记录，不扩大为八类完整生命周期验收。

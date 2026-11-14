@@ -1,5 +1,5 @@
 [
-{"id":"tiandaobaoxiangitem","factory":"item","order":931,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","stack":1,"pending_hooks":["onEntitySwing","releaseUsing","use"]},
+{"id":"tiandaobaoxiangitem","factory":"treasure:tool","order":931,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","stack":1},
 {"id":"treasure_chest_01","factory":"treasure:reward","order":968,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
 {"id":"treasure_chest_02","factory":"treasure:reward","order":969,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
 {"id":"treasure_chest_11","factory":"treasure:chest_11","block":"treasure_chest_11","order":989,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao"},

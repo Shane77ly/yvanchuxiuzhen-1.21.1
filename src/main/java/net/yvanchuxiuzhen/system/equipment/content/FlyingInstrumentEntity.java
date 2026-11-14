@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.system.equipment.content;
 import java.text.DecimalFormat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -214,8 +215,11 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
                             + "/" + new DecimalFormat("0").format(maximum)), false);
                 }
             }
-        } else if (isItem(held, "hammer") && getHealth() < getMaxHealth()) {
-            setHealth(Math.min(getMaxHealth(), getHealth() + 1));
+        } else if (isItem(held, "hammer")) {
+            if (getHealth() < getMaxHealth()) {
+                player.serverLevel().sendParticles(ParticleTypes.HAPPY_VILLAGER, getX(), getY(), getZ(), 10, 1, 1, 1, 0);
+                setHealth(getHealth() + 1);
+            }
         } else {
             player.startRiding(this, true);
         }

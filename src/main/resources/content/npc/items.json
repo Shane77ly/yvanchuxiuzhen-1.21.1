@@ -1,13 +1,118 @@
 [
-{"id":"businessman_21_spawn_egg","factory":"npc:spawn_egg_businessman_21","order":1709,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
-{"id":"businessman_22_spawn_egg","factory":"npc:spawn_egg_businessman_22","order":1710,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
-{"id":"businessman_23_spawn_egg","factory":"npc:spawn_egg_businessman_23","order":1711,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
-{"id":"businessman_24_spawn_egg","factory":"npc:spawn_egg_businessman_24","order":1712,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
-{"id":"businessman_25_spawn_egg","factory":"npc:spawn_egg_businessman_25","order":1713,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
-{"id":"businessman_26_spawn_egg","factory":"npc:spawn_egg_businessman_26","order":1714,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
-{"id":"businessman_27_spawn_egg","factory":"npc:spawn_egg_businessman_27","order":1715,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
-{"id":"businessman_28_spawn_egg","factory":"npc:spawn_egg_businessman_28","order":1716,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
-{"id":"businessman_29_spawn_egg","factory":"npc:spawn_egg_businessman_29","order":1717,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
-{"id":"businessman_30_spawn_egg","factory":"npc:spawn_egg_businessman_30","order":1718,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
-{"id":"tiandao_np_csetitem","factory":"item","order":1719,"tab":"yvanchuxiuzhen:tabyvanchu_tiandao","stack":1,"rarity":"EPIC","tooltip":["潜行右键打开设置面板，预设npc的属性","拿着设置好属性的此物右键npc实体，把此物的属性复制给npc"],"pending_hooks":["createMenu","getDisplayName","getShareTag","initCapabilities","readShareTag","use"]}
+  {
+    "id": "businessman_21_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_21",
+    "order": 1709,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_22_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_22",
+    "order": 1710,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_23_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_23",
+    "order": 1711,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_24_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_24",
+    "order": 1712,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_25_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_25",
+    "order": 1713,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_26_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_26",
+    "order": 1714,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_27_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_27",
+    "order": 1715,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_28_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_28",
+    "order": 1716,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_29_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_29",
+    "order": 1717,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_30_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_30",
+    "order": 1718,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "tiandao_np_csetitem",
+    "factory": "npc:manager",
+    "order": 1719,
+    "tab": "yvanchuxiuzhen:tabyvanchu_tiandao",
+    "stack": 1,
+    "rarity": "EPIC",
+    "tooltip": [
+      "潜行右键打开设置面板，预设npc的属性",
+      "拿着设置好属性的此物右键npc实体，把此物的属性复制给npc"
+    ]
+  },
+  {
+    "id": "yanwang_spawn_egg",
+    "factory": "npc:spawn_egg_yanwang",
+    "order": 1837,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "wuchangbai_spawn_egg",
+    "factory": "npc:spawn_egg_wuchangbai",
+    "order": 1838,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "wuchanghei_spawn_egg",
+    "factory": "npc:spawn_egg_wuchanghei",
+    "order": 1839,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "niutou_spawn_egg",
+    "factory": "npc:spawn_egg_niutou",
+    "order": 1840,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "mamian_spawn_egg",
+    "factory": "npc:spawn_egg_mamian",
+    "order": 1841,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "qiankundaoren",
+    "factory": "npc:qiankundaoren",
+    "order": 1720,
+    "tab": "yvanchuxiuzhen:tabyvanchu_tiandao",
+    "stack": 1
+  },
+  {
+    "id": "qiankunmentu",
+    "factory": "npc:qiankunmentu",
+    "order": 1721,
+    "tab": "yvanchuxiuzhen:tabyvanchu_tiandao",
+    "stack": 1
+  }
 ]

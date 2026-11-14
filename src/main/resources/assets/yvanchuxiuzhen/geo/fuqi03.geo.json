@@ -1,0 +1,60 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.fuqi03",
+				"texture_width": 50,
+				"texture_height": 50,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 3,
+				"visible_bounds_offset": [0, 0.5, 0]
+			},
+			"bones": [
+				{
+					"name": "head",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-6, 1, -6], "size": [12, 16, 12], "uv": [0, 1]},
+						{"origin": [-6, 0, -0.5], "size": [12, 1, 1], "uv": [0, 29]},
+						{"origin": [-0.5, 0, -6], "size": [1, 1, 12], "uv": [24, 0]}
+					]
+				},
+				{
+					"name": "piaodai",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1, -4, 0], "size": [2, 4, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "piaodai2",
+					"parent": "piaodai",
+					"pivot": [0, -4, 0],
+					"rotation": [10, 0, 0],
+					"cubes": [
+						{"origin": [-1, -8, 0], "size": [2, 4, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "piaodai3",
+					"parent": "piaodai2",
+					"pivot": [0, -8, 0],
+					"rotation": [15, 0, 0],
+					"cubes": [
+						{"origin": [-1, -12, 0], "size": [2, 4, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "piaodai4",
+					"parent": "piaodai3",
+					"pivot": [0, -12, 0],
+					"rotation": [20, 0, 0],
+					"cubes": [
+						{"origin": [-1, -16, 0], "size": [2, 4, 0], "uv": [0, 0]}
+					]
+				}
+			]
+		}
+	]
+}

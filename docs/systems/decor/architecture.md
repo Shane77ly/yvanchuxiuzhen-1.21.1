@@ -71,3 +71,19 @@ B `ZhuangshiTulong02DangShiTiZaiFangKuaiZhongPengZhuangShiProcedure`只判断非
 空手或持物右键均打开对应菜单；来源`stillValid`恒真，目标保持，不添加距离规则。Shift顺序、自定义槽合并、背包退路和未绑定临时库存关闭归还按来源实现；实际方块入口只绑定BlockPos，既有家具关闭不复制回写。54槽背景176×204，自定义槽y9、背包y123、快捷栏y181；27槽背景176×166，分别y17/84/142；36槽同尺寸，分别y8/84/142。来源`renderLabels`均为空，目标保持，菜单语义名称仍读取既有中文方块键。
 
 84份来源SHA及六份NeoForge21.1.265 API源码条目SHA见`tmp/next-frozen-evidence/furniture-storage-source-manifest.json`，来源文件登记于`ledger/source-evidence.csv`；全部外部类型化字段读写索引未命中本族，其他系统只按注册ID生产物品。静态菜单坐标、禁取槽、32模型/24纹理引用和三张原字节背景已核，实际运行结果及限制见[本月记录](logs/2026-11.md#2026-11-14-储物家具八种与三菜单)。
+
+## 建筑锤（2026-11-14）
+
+建筑锤沿用五份cailiao_211加两木棍来源配方和剑参数：100耐久、速度4、Tier攻击2、攻击参数3、攻速−3、等级1、附魔2。按目标玩家基础攻击1合计6；使用不扣额外耐久。48瓦片按六色各01–08，两组四段循环；上升末段/下降首段跨一格，只在目标空气时移动。右键复制目标旧状态的同名兼容属性，再保原朝向/轴；左键从目标默认状态保原朝向/轴。当前48瓦片只有FACING，没有含水属性，不把假设的丢水记录为缺陷。
+
+非瓦片按硬度≤10升降；右键上方要空、左键直接覆盖下方。只移动BlockState，方块实体走原生移除与新建，不复制库存。左键保留hand==usedItemHand及主手锤条件、所有action且不取消事件；按项目边界仅服务端写真值。Town仅按锤ID消费，飞行法器修理由Equipment持有，Decor不访问其实体或持久数据；本族不写玩家附件，typed_field_accesses无跨所有者字段写入。
+
+71份来源SHA与完整来源/目标API核对见`tmp/hammer-tool-evidence/hammer-source-manifest.json`及`hammer-source-review.json`，来源文件已登记本系统source-evidence。必要单项与未验范围见本月志。金属宝箱已有211供应，矿石→211melt→凝锭仍属R09未接链，不声称完整自然获取已过。
+
+### Q137 普通方块覆盖与方块实体不随行
+
+A `LeftClickBlockProcedure:274–302`和锤右键过程`334–375`以硬度≤10判断，包含−1；左键下移覆盖目标，方块实体只搬状态。目标保持来源；不加空气/正硬度限制或库存转移。可能破坏原目标或使容器内容原地掉落，集中裁定，来源实机未执行。
+
+### Q139 左键各动作重复入口
+
+A `LeftClickBlockProcedure:41–57`未检查START/STOP/ABORT且不取消事件。精确NeoForge21.1.265会按各action触发，目标按项目规则服务端写入、保持全部action；持续按键实际触发次数、多人和两版本对照未验，不擅自只处理START。

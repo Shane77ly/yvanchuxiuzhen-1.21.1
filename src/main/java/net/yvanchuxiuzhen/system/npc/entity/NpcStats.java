@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.npc.entity;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.yvanchuxiuzhen.system.skill.api.SkillDelays;
 
@@ -8,7 +9,7 @@ import net.yvanchuxiuzhen.system.skill.api.SkillDelays;
 final class NpcStats {
     private NpcStats() { }
 
-    static void calculate(NpcMob npc) {
+    static void calculate(Mob npc) {
         CompoundTag data = npc.getPersistentData();
         double level = data.getDouble("LEVELnumber");
         data.putDouble("health_Max", Math.ceil(100 + rating(data, "health_Max", 14, 13, 12, 11, 10) * Math.pow(level / 4, 2)));

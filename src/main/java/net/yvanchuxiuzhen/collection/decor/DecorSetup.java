@@ -14,6 +14,7 @@ public final class DecorSetup {
             .blockFactory("decor:rabbit_cage", traits -> ContentBlock.create(traits, RabbitCageBlock::new))
             .blockFactory("decor:open_rabbit_cage", traits -> ContentBlock.create(traits, OpenRabbitCageBlock::new))
             .itemFactory("decor:cage", RabbitCageItem::new)
+            .itemFactory("decor:hammer", BuildingHammerItem::new)
             .livingEntity("shitiyizi", DecorSeat::new, DecorSeat::attributes);
 
     static {
@@ -30,6 +31,7 @@ public final class DecorSetup {
         RabbitCageBlockEntities.register(modBus);
         FurnitureStorageContent.register(modBus);
         NeoForge.EVENT_BUS.addListener(AuctionSeats::requested);
+        NeoForge.EVENT_BUS.addListener(BuildingHammer::leftClick);
     }
 
     public static EntityType<DecorSeat> seatType() { return CONTENT.<DecorSeat>entityType("shitiyizi").get(); }

@@ -53,9 +53,9 @@ B `NpcshujvjiaruProcedure:27–85`从`npc.data.list{n}`语言键逐项解析`/`�
 
 ## 开放范围与验证边界
 
-本批未接入`businessman_08`、`mamian/niutou/wuchangbai/wuchanghei/yanwang`、`qiankundaoren/qiankunmentu`方块/管理路径与其剩余行为。固定结构、动态生成与自然生成分别核对，实体内容表和标签存在不等于已在生存世界投放。
+当前仍未接入`qiankundaoren/qiankunmentu`方块/管理路径与其剩余行为。固定结构、动态生成与自然生成分别核对，实体内容表和标签存在不等于已在生存世界投放。
 
-本批完成静态源码和内容JSON核对；主线已接资源共享清单与`npcentity`标签，定向转换、编译和6项架构检查通过。NPC原生右键/随机商店/存档/AI/模型仍待必要实机验证。1.18.2版本实机、1.21.1版本实机、多人和两版本对照均未执行；已有银行单步验收不能覆盖这些新增消费者。
+本批完成静态源码和内容JSON核对；主线已接资源共享清单与`npcentity`标签，定向转换、编译和6项架构检查通过。普通商人原生右键/随机商店/存档/AI/模型仍待必要实机验证；居民和08飞梭有限1.21.1版本证据见下文及月志，不扩展为普通商人通过。1.18.2版本实机、多人和两版本对照均未执行；已有银行单步验收不能覆盖这些新增消费者。
 
 ## 居民21至30与结构任务（2026-11-14）
 
@@ -84,3 +84,30 @@ A `structures/fanhuacheng12.nbt`的`entities[0].nbt.ForgeData.renwulist1`配置�
 ### Q136 飞梭没有已发现的自然生产者
 
 A `Businessman08.mod.json`关闭自然出生和刷怪蛋，Java实际注册MONSTER，与编辑器Creature描述不同，目标按Java。A/B有界文本及409个结构NBT解压扫描未命中08、Businessman08或feisuo生产者，证据为`tmp/next-frozen-evidence/npc08-producer-scan.json`。目标保留注册及显式生成后的完整行为，不补造自然投放、蛋或航线；完整获取入口仍待集中复核，受控生成不能作为生存获取通过。
+
+## 阴司五NPC（2026-11-14）
+
+`NpcUnderworldCreatures`独立装配`yanwang`、`wuchangbai`、`wuchanghei`、`niutou`、`mamian`及五枚来源刷怪蛋，不经过商人档案初始化。阎王使用静止路径，来源属性100生命、3攻击、0.3移动速度，初生时朝向清零并向X偏移0.5格，死亡20刻移除；黑白无常使用四守卫共用近战/受击反击目标，属性同为100生命、3攻击、0.3移动速度，死亡20刻移除，白无常产生云粒子、黑无常产生烟粒子；牛头、马面各10生命、3攻击、0.3移动速度，保留水下呼吸和120刻死亡时序。实体不因距离消失，刷怪蛋颜色、资源与注册分类按来源记录。只有牛头、马面进入`undead`标签，未把其他三者按外观归为亡灵。
+
+五实体来源资源指纹见`ledger/source-evidence.csv`，定向转换输入快照及API核对见`tmp/underworld-evidence/`。Q147所列两条缺失骨骼引用按来源保留；不补模型骨骼或改写动画。npc_underworld必要单项已通过，覆盖五类实体注册、实例初生/死亡时序、刷怪蛋指向和渲染器加载；截图只证明技术加载，不构成模型或动画视觉认可。显式刷怪蛋和受控生成不等于自然生成验收。该族没有发现内置任务脚本生产者，不为实体新增Quest写入接口。运行原件见[本月记录](logs/2026-11.md#2026-11-14-阴司五实体与刷怪蛋)。
+
+### Q147 阴司动画引用不存在的模型骨骼
+
+A `animations/yanwang.animation.json`的`animation.yanwang.idle`引用`bai`骨骼，A `geo/yanwang.geo.json`没有该骨骼；A `animations/mamian.animation.json`的`animation.mamian.death`引用`gangcha`，A `geo/mamian.geo.json`没有该骨骼。目标资源按来源保持，待集中决定是否接受缺失通道，不人工补骨骼或删动画轨道；来源表现与目标实际渲染尚未验收。
+
+### Q149 管理工具档案消费者覆盖范围
+
+A `RightClickEntityProcedure:188–473`允许工具复制到任意非玩家`Mob`，写入等级、13项资质、任务脚本、商品、装备与名称，并调用`NpcshuxingjisuanProcedure`。目标`NpcProfiles.apply`对任意`Mob`保留名称、装备和粒子，但`applyOwnedProfile`仅由NPC系统处理`NpcMob`、`NpcResident`、`NpcFlyingShuttle`；其他`Mob`不会接收持久档案字段或触发属性重算。来源目标覆盖差异已确认，后续需按实体数据所有者补齐消费者，并核对普通生物属性模型边界；当前管理Smoke尚未运行。
+
+### Q150 管理工具潜行提示与实际入口不一致
+
+A `TiandaoNPCsetitemItem.appendHoverText`提示潜行右键打开面板，但同类`use`入口在右键时直接调用`NetworkHooks.openGui`，未检查潜行；目标`NpcManagementItem.use`同样未检查潜行。目标语言提示已改为普通右键，与实际入口一致，没有新增潜行门控。来源提示是否表达了未实现的原意仍待统一裁定；本轮Smoke待运行。
+
+### Q151 管理工具02界面没有可达入口
+
+A `TIANDAO_NP_CSET_02`在`YvanchuxiuzhenModMenus`和`YvanchuxiuzhenModScreens`注册，但除定义、注册与屏幕绑定外，来源静态索引未找到打开调用。`TiandaoNPCset02Menu`的内部容器容量为0，菜单只添加玩家背包；屏幕只有`chouqvnum`文本框，没有按钮、按键分派或网络消息。目标保留已确认可达的`tiandao_np_cset`管理面板，没有接入该02菜单，也不猜测抽取次数字段的消费者；将它作为来源注册但不可达的项目保留，待集中判断其身份应如何处理。
+
+
+### 乾坤道人与门徒来源断链
+
+QiankunmentuZaiFangKuaiShangYouJian生成Java的事件根只有创造模式潜行右键打开管理界面；Blockly XML中另有8条任务脚本及0/9分支，但它们是未连接到event_trigger的根级controls_if，生成代码不会执行任务提交。目标按生成Java的实际可执行行为接入方块、方块实体、管理界面与renwuset 0–9回绕，不凭未连接脚本补造普通右键任务入口。来源另有/renwuset管理命令把同名字段写成字符串，并从命令源位置计算未消费的射线坐标；该命令不在当前管理包范围内，保留为Q154待裁定。证据为来源elements/QiankunmentuZaiFangKuaiShangYouJian.mod.json与生成Java文件，目标Smoke待主线串行执行。

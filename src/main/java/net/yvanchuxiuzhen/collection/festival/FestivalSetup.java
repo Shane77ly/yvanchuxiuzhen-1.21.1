@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.collection.festival;
 import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
@@ -25,6 +26,16 @@ public final class FestivalSetup {
         CONTENT.<Caishenye>livingEntity("caishenye", (type, level) -> new Caishenye(type, level, model), model::attributes);
         CONTENT.itemFactory("festival:caishenye_spawn_egg", (properties, tooltip) ->
                 new DeferredSpawnEggItem(CONTENT.entityType("caishenye"), -3407872, -13261, properties));
+        CONTENT.itemFactory("festival:sparkler_02", (properties, tooltip) ->
+                new HandheldFireworkItem(properties, tooltip, HandheldFireworkItem.Kind.ELECTRIC));
+        CONTENT.itemFactory("festival:sparkler_03", (properties, tooltip) ->
+                new HandheldFireworkItem(properties, tooltip, HandheldFireworkItem.Kind.RANDOM_COLOR));
+        CONTENT.itemFactory("festival:sparkler_07", (properties, tooltip) ->
+                new HandheldFireworkItem(properties, tooltip, HandheldFireworkItem.Kind.SEQUENCE_COLOR));
+        EntityModelRow lantern = wishLanternModel();
+        CONTENT.<WishLantern>livingEntity("fuqi_0301", (type, level) -> new WishLantern(type, level, lantern),
+                () -> lantern.attributes().add(Attributes.FLYING_SPEED, lantern.lifecycle().flyingSpeed().orElseThrow()));
+        CONTENT.itemFactory("festival:wish_lantern", WishLanternItem::new);
         CONTENT.register(modBus);
         modBus.addListener((RegisterSpawnPlacementsEvent event) -> event.register(
                 CONTENT.<Caishenye>entityType("caishenye").get(), SpawnPlacementTypes.ON_GROUND,
@@ -39,5 +50,13 @@ public final class FestivalSetup {
 
     public static EntityModelRow caishenyeModel() {
         return ContentFiles.read("content/festival/caishenye_models.json", EntityModelRow.CODEC).getFirst();
+    }
+
+    public static Supplier<EntityType<WishLantern>> wishLanternType() {
+        return CONTENT.entityType("fuqi_0301");
+    }
+
+    public static EntityModelRow wishLanternModel() {
+        return ContentFiles.read("content/festival/wish_lantern_models.json", EntityModelRow.CODEC).getFirst();
     }
 }

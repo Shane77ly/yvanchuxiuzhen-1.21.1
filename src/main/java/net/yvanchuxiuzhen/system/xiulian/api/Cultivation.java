@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.yvanchuxiuzhen.system.attribute.api.Contribution;
@@ -32,6 +33,11 @@ public final class Cultivation {
             CultivationValue.ROOT_TREE, CultivationValue.ROOT_FIRE, CultivationValue.ROOT_SOIL, CultivationValue.YINYANG);
 
     private Cultivation() {
+    }
+
+    /** 阴一阵法增加本体实体 soul；玩家修炼能力的 SOUL 另由原有接口维护。 */
+    public static void addEntitySoul(Entity entity, int amount) {
+        entity.getPersistentData().putInt("soul", entity.getPersistentData().getInt("soul") + amount);
     }
 
     public static double get(Player player, CultivationValue value) {

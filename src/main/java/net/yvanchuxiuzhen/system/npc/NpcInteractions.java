@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.Scoreboard;
 import net.neoforged.neoforge.common.NeoForge;
@@ -17,6 +18,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.economy.api.EconomyCatalogs;
 import net.yvanchuxiuzhen.system.npc.api.NpcDialogueRequestEvent;
+import net.yvanchuxiuzhen.system.npc.entity.NpcProfiles;
 
 /** 来源全局修士右键入口，实例脚本由修士持有，玩家会话交任务与经济系统维护。 */
 public final class NpcInteractions {
@@ -30,6 +32,10 @@ public final class NpcInteractions {
     public static void interact(PlayerInteractEvent.EntityInteract event) {
         if (!(event.getEntity() instanceof ServerPlayer player) || event.getHand() != player.getUsedItemHand()) return;
         Entity npc = event.getTarget();
+        if (player.getMainHandItem().getItem() instanceof NpcManagementItem) {
+            if (npc instanceof Mob managed) NpcProfiles.apply(player.serverLevel(), event.getPos(), managed, player.getMainHandItem());
+            return;
+        }
         CompoundTag data = npc.getPersistentData();
         if (npc.getType().is(NPC)) {
             String id = BuiltInRegistries.ENTITY_TYPE.getKey(npc.getType()).getPath();

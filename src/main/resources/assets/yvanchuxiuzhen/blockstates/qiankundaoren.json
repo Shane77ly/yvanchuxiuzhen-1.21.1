@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "yvanchuxiuzhen:custom/qiankundaoren_particle"
+    },
+    "facing=east": {
+      "model": "yvanchuxiuzhen:custom/qiankundaoren_particle",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "yvanchuxiuzhen:custom/qiankundaoren_particle",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "yvanchuxiuzhen:custom/qiankundaoren_particle",
+      "y": 270
+    }
+  }
+}

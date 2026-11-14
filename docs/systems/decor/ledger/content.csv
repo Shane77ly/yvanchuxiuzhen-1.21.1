@@ -908,7 +908,7 @@ item,yvanchuxiuzhen:guaqian_04,yvanchuxiuzhen,Guaqian04,src/main/java/net/mcreat
 item,yvanchuxiuzhen:guaqian_05,yvanchuxiuzhen,Guaqian05,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2822,decor,已读,yvanchuxiuzhen:guaqian_05,已注册,
 item,yvanchuxiuzhen:guaqian_06,yvanchuxiuzhen,Guaqian06,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2823,decor,已读,yvanchuxiuzhen:guaqian_06,已注册,
 item,yvanchuxiuzhen:guaqian_07,yvanchuxiuzhen,Guaqian07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2824,decor,已读,yvanchuxiuzhen:guaqian_07,已注册,
-item,yvanchuxiuzhen:hammer,yvanchuxiuzhen,Hammer,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1817,decor,已读,yvanchuxiuzhen:hammer,已注册,
+item,yvanchuxiuzhen:hammer,yvanchuxiuzhen,Hammer,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1817,decor,已读,yvanchuxiuzhen:hammer,行为已迁移,2026-11-14建筑锤48瓦片升降/普通方块移动及来源配方行为必要单项通过；Q137–Q139保持，材料获取和完整视觉未验
 item,yvanchuxiuzhen:hotoil_bucket,yvanchuxiuzhen,Hotoil,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2859,decor,已读,yvanchuxiuzhen:hotoil_bucket,待处理,
 item,yvanchuxiuzhen:junglebigdoorleft,yvanchuxiuzhen,Junglebigdoorleft,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2754,decor,已读,yvanchuxiuzhen:junglebigdoorleft,已注册,
 item,yvanchuxiuzhen:junglebigdoorright,yvanchuxiuzhen,Junglebigdoorright,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2755,decor,已读,yvanchuxiuzhen:junglebigdoorright,已注册,
