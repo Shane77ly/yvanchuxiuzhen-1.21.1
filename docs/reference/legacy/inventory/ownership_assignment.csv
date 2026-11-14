@@ -3747,10 +3747,10 @@ yvanchuxiuzhen,DaguanjiaDangShiTiShouShangShi,procedure,~/entity/npc,npc,已读,
 yvanchuxiuzhen,Daguanjia,animatedentity,~/entity/npc,npc,已读,B1 归属阅读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,JiazubaibaodaiDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,xiulian,已读,系统设计·已读裁定：校验出身“世家纨绔”后分次发放物品，没有容器规则
 yvanchuxiuzhen,Jiazubaibaodai,item,~/item/zawu,xiulian,已读,系统设计·已读裁定：校验出身“世家纨绔”后分次发放物品，没有容器规则
-yvanchuxiuzhen,BaoxiaZaiFangKuaiShangYouJian,procedure,~/baoxiang,treasure,已读,B1 归属阅读：随 Baoxia 读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
-yvanchuxiuzhen,Baoxia,block,~/baoxiang,treasure,已读,B1 归属阅读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
-yvanchuxiuzhen,BaoxiaitemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/baoxiang,treasure,已读,B1 归属阅读：随 Baoxiaitem 读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
-yvanchuxiuzhen,Baoxiaitem,item,~/baoxiang,treasure,已读,B1 归属阅读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
+yvanchuxiuzhen,BaoxiaZaiFangKuaiShangYouJian,procedure,~/baoxiang,treasure,已读,2026-11-14宝匣族：库存/配置指令/开启时序及物品Tooltip属于宝匣自身；成品实例仍经equipment公开构造，来源字段差异保持并集中登记
+yvanchuxiuzhen,Baoxia,block,~/baoxiang,treasure,已读,2026-11-14宝匣族：库存/配置指令/开启时序及物品Tooltip属于宝匣自身；成品实例仍经equipment公开构造，来源字段差异保持并集中登记
+yvanchuxiuzhen,BaoxiaitemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/baoxiang,treasure,已读,2026-11-14宝匣族：库存/配置指令/开启时序及物品Tooltip属于宝匣自身；成品实例仍经equipment公开构造，来源字段差异保持并集中登记
+yvanchuxiuzhen,Baoxiaitem,item,~/baoxiang,treasure,已读,2026-11-14宝匣族：库存/配置指令/开启时序及物品Tooltip属于宝匣自身；成品实例仍经equipment公开构造，来源字段差异保持并集中登记
 yvanchuxiuzhen,Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,xiulian,已读,B1 归属阅读：随 Ling18 读：传承灵物：出身“落魄家族”的初始物品（PlayerJoin02），多次开启依次发放材料、符箓、乾坤袋、飞行法器等
 yvanchuxiuzhen,Ling18,item,~/item/zawu,xiulian,已读,B1 归属阅读：传承灵物：出身“落魄家族”的初始物品（PlayerJoin02），多次开启依次发放材料、符箓、乾坤袋、飞行法器等
 yvanchuxiuzhen,Guiguai03ShiTiChuShiShengChengShi,procedure,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
@@ -3776,7 +3776,7 @@ yvanchuxiuzhen,Fishing,procedure,~/systemset,flow,候选,第一版批量归组�
 yvanchuxiuzhen,Foodblockyoujian,procedure,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Businessman08ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman08DangShiTiGengXinKeShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Businessman08,animatedentity,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Businessman08,animatedentity,~/entity/npc,npc,已读,2026-11-14来源08为独立飞梭实体；右键载人、首次移除缓降、固定世界方向移动，不初始化商人；来源无蛋/自然出生，生产者有界扫描未命中
 yvanchuxiuzhen,Moshou001ShiTiChuShiShengChengShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Moshou001DangShiTiShouShangShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Moshou001,animatedentity,~/entity/tianmo,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
@@ -6340,7 +6340,7 @@ yvanchuxitong,Zhuangshitulongitem01DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,
 yvanchuxitong,Zhuangshitulongitem01,item,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
 yvanchuxitong,Zhuangshitulongitem02,item,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
 yvanchuxitong,Zhuangshitulongitem03,item,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
-yvanchuxitong,Zhuangshitulonghecheng,recipe,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Zhuangshitulonghecheng,recipe,~/zhuangshiwu/zawu,decor,已读,2026-11-14兔笼完整族来源核对：四竹四木棍生产空笼；所有者Decor，配方与NPC消费证据见系统正文
 yvanchuxitong,Zhuangshishuigang,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxitong,Zhuangshishuigangtwo,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxitong,Plaque01itemhecheng,recipe,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6429,10 +6429,10 @@ yvanchuxitong,Beechfurniture09,block,~/zhuangshiwu/jiajv/beech furniture,decor,�
 yvanchuxitong,Beechfurniture10,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture11,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture12,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture13Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture13,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture14Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,系统设计·已读裁定：27 格无槽位过滤，没有 storage 的规则
-yvanchuxitong,Beechfurniture14,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,系统设计·已读裁定：27 格无槽位过滤，没有 storage 的规则
+yvanchuxitong,Beechfurniture13Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture13,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture14Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture14,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
 yvanchuxitong,Beechfurniture15Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Beechfurniture1501FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1501 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1501,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
@@ -6455,14 +6455,14 @@ yvanchuxitong,Beechfurniture1703,block,~/zhuangshiwu/jiajv/beech furniture,decor
 yvanchuxitong,Beechfurniture1704,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurnitureshiqi,tag,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Beechfurniture17gengxin,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1701 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture18Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture18,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture19,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture20,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture21,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture22,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture18Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture18,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture19,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture20,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture21,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture22,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
 yvanchuxitong,Beechfurniture23,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture24,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture24,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
 yvanchuxitong,Beechfurniture2501DangFangKuaiBeiShuiFangZhiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture2501 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture2501,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture2502,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
@@ -7180,7 +7180,7 @@ yvanchuxitong,Xvanshang6shuaxin,procedure,~/xvanshang,quest,候选,第一版批�
 yvanchuxitong,DepositinbankGo,procedure,~/zhiling,economy,已读,R13 economy 完整归属阅读：解析cmdparams第4项与第5项可选提示；正价值由九级到一级拆分入bank并同步；数值API已接入而命令分派仍未实现；见 economy 银行正文
 yvanchuxitong,Xvanshanghuoqv,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Entityjingyan,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baoxialore,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Baoxialore,procedure,,treasure,已读,2026-11-14宝匣族：库存/配置指令/开启时序及物品Tooltip属于宝匣自身；成品实例仍经equipment公开构造，来源字段差异保持并集中登记
 yvanchuxitong,Entityxvnfu,procedure,,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Lianqiuplevel,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎自然炉次调用链；制作、升级、材料累计、成品构造、装料及领取按职责由lianqi编排并调用所属系统API，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,Xiulitai,gui,~/yvanchulianqi/xiulitai,lianqi,已读,D炼器四装置来源核对：单槽修理、旧缓存guard、41格最低等级材料消费、40刻提示、Geo表现与合成；精确链见lianqi正文及source-evidence。

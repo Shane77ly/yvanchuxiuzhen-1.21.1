@@ -429,13 +429,13 @@ def main() -> None:
         block_tooltips[(mod, path)] = row.pop('tooltip', [])
         base = row.pop('base')
         factory = overrides[('block', target)] if ('block', target) in overrides else FACTORIES[base]
-        if factory in ('lianqi:blueprint_table', 'fulu:inheritance', 'dungeon:tiandaofuben', 'dungeon:fabao_009', 'quest:disguised', 'world:rift'):
+        if factory in ('lianqi:blueprint_table', 'fulu:inheritance', 'dungeon:tiandaofuben', 'dungeon:fabao_009', 'quest:disguised', 'world:rift', 'treasure:casket'):
             strength = re.search(r'\.strength\((-?[\d.]+)f?, ?([\d.]+)f?\)', text)
             row['strength'] = [float(strength.group(1)), float(strength.group(2))]
         if factory in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod',
                        'lianqi:repair_table', 'lianqi:sewing_basket', 'lianqi:blueprint_table', 'lianqi:poison_cauldron',
                        'fulu:drawing_table', 'fulu:ash_burner', 'fulu:soot', 'fulu:inheritance', 'fulu:repelling_talisman', 'book:binding_table',
-                       'treasure:ground', 'treasure:chest_03', 'treasure:chest_11', 'quest:bounty', 'quest:disguised', 'town:center', 'town:planning',
+                       'decor:rabbit_cage', 'decor:open_rabbit_cage', 'decor:storage_13', 'decor:storage_14', 'decor:storage_18', 'decor:storage_19', 'decor:storage_20', 'decor:storage_21', 'decor:storage_22', 'decor:storage_24', 'treasure:ground', 'treasure:chest_03', 'treasure:chest_11', 'treasure:casket', 'quest:bounty', 'quest:disguised', 'town:center', 'town:planning',
                        'cooking:iron_pot', 'cooking:clay_pot', 'cooking:steamer', 'cooking:steaming_basket',
                        'cooking:cutting_board', 'cooking:cleaver',
                        'cooking:wooden_still', 'cooking:wine_jar',
@@ -560,7 +560,7 @@ def main() -> None:
         if ('item', target) in overrides:
             row['factory'] = overrides[('item', target)]
         if row['factory'] in ('liandan:medicine_container', 'liandan:medicine_container_empty_box', 'lianqi:tripod_placement',
-                              'craft:pottery_blank', 'craft:silkworm', 'craft:silkworm_gold', 'cooking:meal_food', 'treasure:reward',
+                              'decor:cage', 'craft:pottery_blank', 'craft:silkworm', 'craft:silkworm_gold', 'cooking:meal_food', 'treasure:reward', 'treasure:casket',
                               'cooking:poisonous_food', 'cooking:remainder_bone', 'cooking:remainder_shicai_03401',
                               'cooking:remainder_shicai_03601', 'cooking:remainder_shicai_03701', 'cooking:wine',
                               'cooking:lotus_seed', 'cooking:plantable_garlic', 'creature:yaoshou_023baodan',

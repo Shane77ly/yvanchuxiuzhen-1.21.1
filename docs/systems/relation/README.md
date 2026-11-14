@@ -34,10 +34,13 @@ updated: 2026-11-14
 | 驯服替换好友与团队 | `replaceTamingFriends(目标)`先复制目标能力好友并移除旧实体团队；`setTamingTeam(施放者, 目标)`另写实体团队 | Creature神傀符命中；来源`Itemfulu18DangTouZhiWuJiZhongShiTiShiProcedure:225–234`，保留原生认主和粒子在两次写入之间的顺序 |
 | 设置团队 | `setTeam(非玩家实体, 团队名)` | 只写 `team` 的生成过程、creature 的 `EntityTeamShezhi`（团队名为实体类型 ID，`:` 改为 `_`） |
 | 加入友方 | `addFriendlyTeam(非玩家实体, 团队名)` | `EntityTeamShezhi` 把自身团队加入友方集合 |
-| 玩家能力临时队伍 | `temporaryTeam(玩家)`、`setTemporaryTeam(服务端玩家, 值)`；独立存盘、死亡复制、只同步本人 | Dungeon准入读取来源能力`teamwork`；页面生产者待Panel/Relation批次 |
+| 玩家能力临时队伍 | `temporaryTeam(玩家)`、`setTemporaryTeam(服务端玩家, 值)`；独立存盘、死亡复制、只同步本人 | Dungeon准入读取来源能力`teamwork`；03页来源显示/退出已接，建立/加入非空生产者未找到，见Q123 |
+| 退出能力临时队伍 | `leaveTemporaryTeam(服务端玩家)`先按旧队名显示中文提示，再清空能力队名并仅同步本人 | Equipment 03页原生button 5；来源`Teamleave` |
 | 本体临时队伍 | `entityTemporaryTeam(实体)`、`setEntityTemporaryTeam(实体, 值)`；独立保存本体`teamwork` | Dungeon维度进入和成功/失败清理，不反写能力同名字段 |
 
 约定：普通公开写操作只用于非玩家实体，对玩家调用时抛出异常；驯服两操作明确只改本体实体附件，即使目标带玩家能力也不修改能力团队/好友。玩家能力关系由本系统登录和界面流程维护。方块实体敌友查询已随 yihuo 首个调用者接入，读取者持有只读视图，不反写玩家关系。
+
+临时队伍03页来源显示/退出已接，原生K导航、真实按钮消息、本人同步与NBT编码必要单项通过；非空建立/加入断链Q123与超宽来源布局Q124见[临时队伍正文](architecture.md#临时队伍03页与退出2026-11-14)，自然组队、多人及默认窗口鼠标可达仍未验。
 
 ## 未实现
 

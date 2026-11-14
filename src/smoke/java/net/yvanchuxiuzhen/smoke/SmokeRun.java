@@ -212,10 +212,17 @@ final class SmokeRun {
                     case "construction" -> List.of(new ConstructionCheck(report, levelId, this::shot));
                     case "dungeon" -> List.of(new DungeonCheck(report, levelId, this::shot));
                     case "structurerelease" -> List.of(new StructureReleaseCheck(report, levelId));
+                    case "temporaryteam" -> List.of(new TemporaryTeamCheck(report, levelId, this::shot));
+                    case "npcresidents" -> List.of(new NpcResidentsCheck(report, levelId, this::shot));
+                    case "npc08" -> List.of(new NpcFlyingShuttleCheck(report, levelId, this::shot));
+                    case "rabbitcage" -> List.of(new RabbitCageCheck(report, levelId, this::shot));
+                    case "furniturestorage" -> List.of(new FurnitureStorageCheck(report, levelId, this::shot));
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
                     case "questblockrefresh" -> List.of(new QuestBlockRefreshCheck(report, levelId));
                     case "boss" -> List.of(new BossCheck(report, levelId, this::shot));
                     case "treasure" -> List.of(new TreasureCheck(report, levelId, this::shot));
+                    case "treasurecapability" -> List.of(new TreasureChestCapabilityCheck(report, levelId));
+                    case "casket" -> List.of(new TreasureCasketCheck(report, levelId));
                     case "guchong" -> List.of(new GuchongCheck(report, levelId, this::shot));
                     case "guchonglifecycle" -> List.of(new GuchongLifecycleCheck(report, levelId));
                     case "guchongflute" -> List.of(new GuchongFluteCheck(report, levelId, this::shot));

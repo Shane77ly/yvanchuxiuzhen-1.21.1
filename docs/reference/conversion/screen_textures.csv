@@ -459,3 +459,7 @@ dungeon,yvanchuxiuzhen:screens/fubenguitupian05
 dungeon,yvanchuxiuzhen:screens/atlas/imagebutton_fubenguijinru01
 dungeon,yvanchuxitong:screens/fubenblock_gui
 dungeon,yvanchuxitong:screens/fubenentity_gui
+equipment,yvanchuxiuzhen:screens/atlas/imagebutton_teamleave01
+decor,yvanchuxitong:screens/beechfurniture_13_gui
+decor,yvanchuxitong:screens/beechfurniture_14_gui
+decor,yvanchuxitong:screens/beechfurniture_18_gui

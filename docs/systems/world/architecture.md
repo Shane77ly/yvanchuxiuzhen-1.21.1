@@ -9,6 +9,12 @@ updated: 2026-11-14
 
 来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
 
+## Q130 结构Mod实体旧属性没有升级
+
+2026-11-14居民必要单项确认目标缺陷：花繁城03模板仍保存1.18.2版本`Attributes/Name/Base/Modifiers`，精确NeoForge21.1.265的`LivingEntity.readAdditionalSaveData`只读取`attributes`，`AttributeMap.load`读取`id`，`AttributeInstance.load`读取`base/modifiers`。模板经过原生结构DataFixer后，自定义Mod实体的这些字段仍未升级，导致小孩哥最大生命与攻击从模板100/2回退到注册默认20/1，保存重进后仍为20。
+
+静态扫描161个来源结构，其中26个含实体、22个含本次436个Mod实体；共1261属性条和283条随机跟随范围修饰，17名居民含134条属性。该数量是转换影响范围，不是已验证数量。修复由结构转换器承担，按精确来源及目标属性语义改写Mod实体和乘客的属性字段、修饰与实际出现的属性ID；不在NPC运行类添加旧存档兜底。Forge附加步高与目标原生步高的基础语义需要分别核对，不只按字段名称直接替换。转换器已只在结构entities及递归乘客的两个来源Mod实体内升级属性字段、修饰与已核ID，22个含本族实体模板已定向再生成，其余139模板未重写。六居民模板中100血/2攻及保存重进已生效；其余16模板只完成转换，未实机放置。150条forge:step_height_addition均为base0且无修饰，来源精确版本注册语义未核，保持旧ID由目标跳过并保实体注册步高，不映射为原生绝对步高0；该项仍待集中核实。验证原件见所属月志，其他结构属性及旧NBT字段的完整审计仍开放。
+
 ## 正式虚空维度（2026-11-07）
 
 本节为 skill 当前依赖的直接来源迁移，不表示后文世界主体方案已实施。来源为 `A:world/dimension/XvkongDimension.java`、`A:world/biome/XvkongqvnxiBiome.java` 与 `data/yvanchuxiuzhen/{dimension,dimension_type}/xvkong.json`；编辑器两个元素与实际注册、技能裂隙调用已交叉阅读。归属 world，当前无可变状态或新 Java API，公开契约见 [README](README.md#公开操作)。

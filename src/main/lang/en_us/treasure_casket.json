@@ -1,0 +1,17 @@
+{
+  "tooltip.yvanchuxiuzhen.casket.physical_attack": "§b物理攻击+%s",
+  "tooltip.yvanchuxiuzhen.casket.spell_attack": "§b法术攻击+%s",
+  "tooltip.yvanchuxiuzhen.casket.soul_attack": "§b精神攻击+%s",
+  "tooltip.yvanchuxiuzhen.casket.attack_speed": "§b攻击速度：%s",
+  "tooltip.yvanchuxiuzhen.casket.movement_speed": "§b移动速度+%s",
+  "tooltip.yvanchuxiuzhen.casket.knockback_resistance": "§b击退抗性：%s",
+  "tooltip.yvanchuxiuzhen.casket.weight": "§b重量：%s",
+  "tooltip.yvanchuxiuzhen.casket.health": "§b血量上限+%s",
+  "tooltip.yvanchuxiuzhen.casket.power": "§b灵力上限+%s",
+  "tooltip.yvanchuxiuzhen.casket.soul": "§b精力上限+%s",
+  "tooltip.yvanchuxiuzhen.casket.armor": "§b护甲+%s",
+  "tooltip.yvanchuxiuzhen.casket.physical_defense": "§b物理防御：%s",
+  "tooltip.yvanchuxiuzhen.casket.spell_defense": "§b法术防御：%s",
+  "tooltip.yvanchuxiuzhen.casket.soul_defense": "§b精神防御：%s",
+  "tooltip.yvanchuxiuzhen.casket.enchantment": "§b%s级%s"
+}

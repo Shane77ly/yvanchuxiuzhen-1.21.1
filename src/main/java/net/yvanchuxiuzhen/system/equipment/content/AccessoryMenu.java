@@ -22,6 +22,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.equipment.api.AccessoryPageEvent;
 import net.yvanchuxiuzhen.system.equipment.data.AccessoryData;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 饰品四槽首刻装入、关闭保存；槽2收手饰却存腰佩，槽3收腰佩却存手饰，保留来源 Q60。 */
 public final class AccessoryMenu extends AbstractContainerMenu {
@@ -70,6 +71,10 @@ public final class AccessoryMenu extends AbstractContainerMenu {
         if (!(player instanceof ServerPlayer serverPlayer)) return false;
         if (button == 0 || button == 2) {
             NeoForge.EVENT_BUS.post(new AccessoryPageEvent(serverPlayer, button == 0 ? 1 : 4, pos));
+            return true;
+        }
+        if (button == 5) {
+            Relations.leaveTemporaryTeam(serverPlayer);
             return true;
         }
         if (button == 6) {

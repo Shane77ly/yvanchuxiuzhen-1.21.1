@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.system.relation.api;
 import java.util.Set;
 import java.util.HashSet;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -30,6 +31,12 @@ public final class Relations {
     public static void setTemporaryTeam(ServerPlayer player, String team) {
         player.setData(RelationAttachments.TEMPORARY_TEAM, team);
         player.syncData(RelationAttachments.TEMPORARY_TEAM);
+    }
+
+    /** 来源Teamleave先以旧队名发送提示，再清空玩家能力临时队伍并同步给本人。 */
+    public static void leaveTemporaryTeam(ServerPlayer player) {
+        player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.temporary_team.left", temporaryTeam(player)), false);
+        setTemporaryTeam(player, "");
     }
 
     /** 来源本体实体 teamwork；副本维度进入与结束只操作这一份字段。 */

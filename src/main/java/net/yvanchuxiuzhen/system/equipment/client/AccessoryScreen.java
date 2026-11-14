@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.equipment.content.AccessoryMenu;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 来源 PlayerGUI03 的四槽与原生背包布局，操作由当前服务端菜单处理。 */
 public final class AccessoryScreen extends AbstractContainerScreen<AccessoryMenu> {
@@ -27,13 +28,18 @@ public final class AccessoryScreen extends AbstractContainerScreen<AccessoryMenu
         super.init();
         addButton(69, 147, 66, 18, "guipage01", 0, "属性显示");
         addButton(69, 228, 66, 18, "guipage013", 2, "功法与技能");
+        addButton(915, 63, 19, 19, "teamleave01", 5, Component.translatable("gui.yvanchuxiuzhen.player_gui_03.temporary_team.leave"));
         addButton(366, 156, 12, 12, "bankgui10", 6, "饰品说明");
     }
 
     private void addButton(int x, int y, int width, int height, String name, int id, String message) {
+        addButton(x, y, width, height, name, id, Component.literal(message));
+    }
+
+    private void addButton(int x, int y, int width, int height, String name, int id, Component message) {
         Button button = new TextureButton(leftPos + x, topPos + y, width, height, texture("atlas/imagebutton_" + name), width, height * 2,
                 pressed -> minecraft.gameMode.handleInventoryButtonClick(menu.containerId, id));
-        button.setMessage(Component.literal(message));
+        button.setMessage(message);
         addRenderableWidget(button);
     }
 
@@ -60,6 +66,10 @@ public final class AccessoryScreen extends AbstractContainerScreen<AccessoryMenu
         for (int index = 0; index < NAVIGATION.size(); index++) {
             graphics.drawString(font, NAVIGATION.get(index), 72, 152 + index * 27, index == 2 ? -6710887 : -1, false);
         }
+        String team = Relations.temporaryTeam(minecraft.player);
+        Component label = team.isEmpty() ? Component.translatable("gui.yvanchuxiuzhen.player_gui_03.temporary_team.empty")
+                : Component.translatable("gui.yvanchuxiuzhen.player_gui_03.temporary_team.name", team);
+        graphics.drawString(font, label, 928, 270, -6724096, false);
     }
 
     private void blit(GuiGraphics graphics, String name, int x, int y, int width, int height) {

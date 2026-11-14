@@ -1,0 +1,6 @@
+{
+  "gui.yvanchuxiuzhen.player_gui_03.temporary_team.empty": "未加入任何队伍",
+  "gui.yvanchuxiuzhen.player_gui_03.temporary_team.name": "队伍名称：%s",
+  "gui.yvanchuxiuzhen.player_gui_03.temporary_team.leave": "退出临时队伍",
+  "message.yvanchuxiuzhen.temporary_team.left": "您已离开队伍“%s”。"
+}

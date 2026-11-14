@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -29,9 +30,10 @@ import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-/** 宝箱单件库存、开箱参数及动画状态随方块保存；六个侧面可访问唯一物品槽。 */
+/** 宝箱单件库存、开箱参数及动画状态随方块保存；无方向及六侧共享唯一物品槽。 */
 public final class TreasureChestBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer, GeoBlockEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
+    private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -56,7 +58,7 @@ public final class TreasureChestBlockEntity extends RandomizableContainerBlockEn
     }
 
     public IItemHandler handler(Direction direction) {
-        return direction == null ? null : sided[direction.ordinal()];
+        return direction == null ? unsided : sided[direction.ordinal()];
     }
 
     public void sync() {
