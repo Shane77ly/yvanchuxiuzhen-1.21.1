@@ -29,6 +29,8 @@ updated: 2026-11-14
 
 ## 公开操作
 
+`CreatureBounties.prepare(Mob,int)`仅按B`Xvanshangzhuizongheji:44`在`finalizeSpawn`前写入妖兽`LEVELnumber`；境界、属性和技能仍由既有妖兽`sourceSpawn`生命周期初始化。悬赏系统只提交等级，不直接操作妖兽属性或持久字段。
+
 | 操作 | 调用与数据边界 |
 | --- | --- |
 | `TalismanTaming`订阅`TalismanTamingEvent` | Creature拥有妖兽限制、完整驯服概率、原生认主和状态清理；Relation替换好友表与团队，Fulu仅提供命中事实；来源定位见[驯服正文](architecture.md#神傀符妖兽驯服2026-11-13) |

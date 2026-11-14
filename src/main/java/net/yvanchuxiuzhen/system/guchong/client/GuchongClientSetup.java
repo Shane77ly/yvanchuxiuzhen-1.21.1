@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.guchong.client;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -28,6 +29,7 @@ public final class GuchongClientSetup {
             }
         }));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
+            event.registerEntityRenderer(GuchongSetup.entityType("guchong_05").get(), NoopRenderer::new);
             for (EntityModelRow row : GuchongCreatures.models()) {
                 event.registerEntityRenderer(GuchongSetup.<GuchongEntity>entityType(row.id()).get(),
                         context -> new AnimatedEntityRenderer<>(context, row));

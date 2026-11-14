@@ -1,18 +1,23 @@
 package net.yvanchuxiuzhen.collection.decor;
 
 import net.neoforged.bus.api.IEventBus;
+import net.minecraft.world.entity.EntityType;
+import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 
 /**
  * 装饰内容族的启动装配，只在 Mod 构造时调用一次。
  */
 public final class DecorSetup {
-    private static final ContentTables CONTENT = new ContentTables("decor");
+    private static final ContentTables CONTENT = new ContentTables("decor").livingEntity("shitiyizi", DecorSeat::new, DecorSeat::attributes);
 
     private DecorSetup() {
     }
 
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
+        NeoForge.EVENT_BUS.addListener(AuctionSeats::requested);
     }
+
+    public static EntityType<DecorSeat> seatType() { return CONTENT.<DecorSeat>entityType("shitiyizi").get(); }
 }

@@ -1,0 +1,1439 @@
+{
+  "ShopGUI": {
+    "width": 500,
+    "height": 500,
+    "layers": [
+      {
+        "texture": "wupinlan.png",
+        "x": 162,
+        "y": 281,
+        "width": 176,
+        "height": 94,
+        "texture_width": 176,
+        "texture_height": 94
+      },
+      {
+        "texture": "shopgui01.png",
+        "x": 42,
+        "y": 87,
+        "width": 414,
+        "height": 203,
+        "texture_width": 414,
+        "texture_height": 203
+      },
+      {
+        "texture": "bankgui18.png",
+        "x": 338,
+        "y": 292,
+        "width": 116,
+        "height": 116,
+        "texture_width": 116,
+        "texture_height": 116
+      }
+    ],
+    "buttons": [
+      {
+        "texture": "atlas/imagebutton_shopguibuy01.png",
+        "x": 58,
+        "y": 128,
+        "width": 182,
+        "height": 24,
+        "texture_width": 182,
+        "texture_height": 48,
+        "operation": 0
+      },
+      {
+        "texture": "atlas/imagebutton_shopguibuy011.png",
+        "x": 246,
+        "y": 154,
+        "width": 182,
+        "height": 24,
+        "texture_width": 182,
+        "texture_height": 48,
+        "operation": 1
+      },
+      {
+        "texture": "atlas/imagebutton_shopguibuy012.png",
+        "x": 58,
+        "y": 206,
+        "width": 182,
+        "height": 24,
+        "texture_width": 182,
+        "texture_height": 48,
+        "operation": 2
+      },
+      {
+        "texture": "atlas/imagebutton_shopguibuy013.png",
+        "x": 246,
+        "y": 232,
+        "width": 182,
+        "height": 24,
+        "texture_width": 182,
+        "texture_height": 48,
+        "operation": 3
+      },
+      {
+        "texture": "atlas/imagebutton_shopguianniu01.png",
+        "x": 430,
+        "y": 127,
+        "width": 12,
+        "height": 24,
+        "texture_width": 12,
+        "texture_height": 48,
+        "operation": 4
+      },
+      {
+        "texture": "atlas/imagebutton_shopguianniu03.png",
+        "x": 430,
+        "y": 258,
+        "width": 12,
+        "height": 24,
+        "texture_width": 12,
+        "texture_height": 48,
+        "operation": 5
+      },
+      {
+        "texture": "atlas/imagebutton_shopguibuy014.png",
+        "x": 246,
+        "y": 128,
+        "width": 182,
+        "height": 24,
+        "texture_width": 182,
+        "texture_height": 48,
+        "operation": 6
+      },
+      {
+        "texture": "atlas/imagebutton_shopguibuy015.png",
+        "x": 58,
+        "y": 180,
+        "width": 182,
+        "height": 24,
+        "texture_width": 182,
+        "texture_height": 48,
+        "operation": 7
+      },
+      {
+        "texture": "atlas/imagebutton_shopguibuy016.png",
+        "x": 246,
+        "y": 206,
+        "width": 182,
+        "height": 24,
+        "texture_width": 182,
+        "texture_height": 48,
+        "operation": 8
+      },
+      {
+        "texture": "atlas/imagebutton_shopguibuy017.png",
+        "x": 58,
+        "y": 258,
+        "width": 182,
+        "height": 24,
+        "texture_width": 182,
+        "texture_height": 48,
+        "operation": 9
+      },
+      {
+        "texture": "atlas/imagebutton_shopguibuy018.png",
+        "x": 58,
+        "y": 154,
+        "width": 182,
+        "height": 24,
+        "texture_width": 182,
+        "texture_height": 48,
+        "operation": 10
+      },
+      {
+        "texture": "atlas/imagebutton_shopguibuy019.png",
+        "x": 246,
+        "y": 180,
+        "width": 182,
+        "height": 24,
+        "texture_width": 182,
+        "texture_height": 48,
+        "operation": 11
+      },
+      {
+        "texture": "atlas/imagebutton_shopguibuy0110.png",
+        "x": 58,
+        "y": 232,
+        "width": 182,
+        "height": 24,
+        "texture_width": 182,
+        "texture_height": 48,
+        "operation": 12
+      },
+      {
+        "texture": "atlas/imagebutton_shopguibuy0111.png",
+        "x": 246,
+        "y": 258,
+        "width": 182,
+        "height": 24,
+        "texture_width": 182,
+        "texture_height": 48,
+        "operation": 13
+      },
+      {
+        "texture": "atlas/imagebutton_bankgui10.png",
+        "x": 54,
+        "y": 295,
+        "width": 12,
+        "height": 12,
+        "texture_width": 12,
+        "texture_height": 24,
+        "operation": 14
+      }
+    ],
+    "labels": [
+      {
+        "procedure": "Shopnametxt01",
+        "key": "",
+        "x": 83,
+        "y": 131,
+        "color": -13210
+      },
+      {
+        "procedure": "Shopjiagetxt01",
+        "key": "",
+        "x": 83,
+        "y": 141,
+        "color": -1
+      },
+      {
+        "procedure": "Shopnametxt02",
+        "key": "",
+        "x": 271,
+        "y": 131,
+        "color": -13210
+      },
+      {
+        "procedure": "Shopjiagetxt02",
+        "key": "",
+        "x": 271,
+        "y": 141,
+        "color": -1
+      },
+      {
+        "procedure": "Shopnametxt03",
+        "key": "",
+        "x": 83,
+        "y": 157,
+        "color": -13210
+      },
+      {
+        "procedure": "Shopjiagetxt03",
+        "key": "",
+        "x": 83,
+        "y": 167,
+        "color": -1
+      },
+      {
+        "procedure": "Shopnametxt04",
+        "key": "",
+        "x": 271,
+        "y": 157,
+        "color": -13210
+      },
+      {
+        "procedure": "Shopjiagetxt04",
+        "key": "",
+        "x": 271,
+        "y": 167,
+        "color": -1
+      },
+      {
+        "procedure": "Shopnametxt05",
+        "key": "",
+        "x": 83,
+        "y": 183,
+        "color": -13210
+      },
+      {
+        "procedure": "Shopjiagetxt05",
+        "key": "",
+        "x": 83,
+        "y": 193,
+        "color": -1
+      },
+      {
+        "procedure": "Shopnametxt06",
+        "key": "",
+        "x": 271,
+        "y": 183,
+        "color": -13210
+      },
+      {
+        "procedure": "Shopjiagetxt06",
+        "key": "",
+        "x": 271,
+        "y": 193,
+        "color": -1
+      },
+      {
+        "procedure": "Shopnametxt07",
+        "key": "",
+        "x": 83,
+        "y": 209,
+        "color": -13210
+      },
+      {
+        "procedure": "Shopjiagetxt07",
+        "key": "",
+        "x": 83,
+        "y": 219,
+        "color": -1
+      },
+      {
+        "procedure": "Shopnametxt08",
+        "key": "",
+        "x": 271,
+        "y": 209,
+        "color": -13210
+      },
+      {
+        "procedure": "Shopjiagetxt08",
+        "key": "",
+        "x": 271,
+        "y": 219,
+        "color": -1
+      },
+      {
+        "procedure": "Shopnametxt09",
+        "key": "",
+        "x": 83,
+        "y": 235,
+        "color": -13210
+      },
+      {
+        "procedure": "Shopjiagetxt09",
+        "key": "",
+        "x": 83,
+        "y": 245,
+        "color": -1
+      },
+      {
+        "procedure": "Shopnametxt10",
+        "key": "",
+        "x": 271,
+        "y": 235,
+        "color": -13210
+      },
+      {
+        "procedure": "Shopjiagetxt10",
+        "key": "",
+        "x": 271,
+        "y": 245,
+        "color": -1
+      },
+      {
+        "procedure": "Shopnametxt11",
+        "key": "",
+        "x": 83,
+        "y": 261,
+        "color": -13210
+      },
+      {
+        "procedure": "Shopjiagetxt11",
+        "key": "",
+        "x": 83,
+        "y": 271,
+        "color": -1
+      },
+      {
+        "procedure": "Shopnametxt12",
+        "key": "",
+        "x": 271,
+        "y": 261,
+        "color": -13210
+      },
+      {
+        "procedure": "Shopjiagetxt12",
+        "key": "",
+        "x": 271,
+        "y": 271,
+        "color": -1
+      },
+      {
+        "procedure": "ShopPageTxt",
+        "key": "",
+        "x": 434,
+        "y": 201,
+        "color": -1
+      },
+      {
+        "procedure": "Storenametxt",
+        "key": "",
+        "x": 230,
+        "y": 105,
+        "color": -154
+      },
+      {
+        "procedure": "Banktxtlingshi01",
+        "key": "",
+        "x": 348,
+        "y": 393,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi02",
+        "key": "",
+        "x": 348,
+        "y": 384,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi03",
+        "key": "",
+        "x": 348,
+        "y": 374,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi04",
+        "key": "",
+        "x": 348,
+        "y": 364,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi05",
+        "key": "",
+        "x": 348,
+        "y": 355,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi06",
+        "key": "",
+        "x": 348,
+        "y": 346,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi07",
+        "key": "",
+        "x": 348,
+        "y": 337,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi08",
+        "key": "",
+        "x": 348,
+        "y": 328,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi09",
+        "key": "",
+        "x": 348,
+        "y": 319,
+        "color": -1
+      },
+      {
+        "procedure": "Banktgoumaili",
+        "key": "",
+        "x": 348,
+        "y": 300,
+        "color": -13210
+      }
+    ],
+    "slots": [
+      [
+        0,
+        62,
+        132
+      ],
+      [
+        1,
+        250,
+        132
+      ],
+      [
+        2,
+        62,
+        158
+      ],
+      [
+        3,
+        250,
+        158
+      ],
+      [
+        4,
+        62,
+        184
+      ],
+      [
+        5,
+        250,
+        184
+      ],
+      [
+        6,
+        62,
+        210
+      ],
+      [
+        7,
+        250,
+        210
+      ],
+      [
+        8,
+        62,
+        236
+      ],
+      [
+        9,
+        250,
+        236
+      ],
+      [
+        10,
+        62,
+        262
+      ],
+      [
+        11,
+        250,
+        262
+      ]
+    ],
+    "inventory_x": 170,
+    "inventory_y": 293
+  },
+  "BankGUIshougou": {
+    "width": 500,
+    "height": 500,
+    "layers": [
+      {
+        "texture": "wupinlan.png",
+        "x": 162,
+        "y": 255,
+        "width": 176,
+        "height": 94,
+        "texture_width": 176,
+        "texture_height": 94
+      },
+      {
+        "texture": "bankgui01.png",
+        "x": 111,
+        "y": 113,
+        "width": 276,
+        "height": 151,
+        "texture_width": 276,
+        "texture_height": 151
+      },
+      {
+        "texture": "bankgui09.png",
+        "x": 130,
+        "y": 190,
+        "width": 22,
+        "height": 22,
+        "texture_width": 22,
+        "texture_height": 22
+      }
+    ],
+    "buttons": [
+      {
+        "texture": "atlas/imagebutton_bankgui12.png",
+        "x": 357,
+        "y": 156,
+        "width": 12,
+        "height": 12,
+        "texture_width": 12,
+        "texture_height": 24,
+        "operation": 0
+      },
+      {
+        "texture": "atlas/imagebutton_bankgui10.png",
+        "x": 339,
+        "y": 156,
+        "width": 12,
+        "height": 12,
+        "texture_width": 12,
+        "texture_height": 24,
+        "operation": 1
+      },
+      {
+        "texture": "atlas/imagebutton_bankgui16.png",
+        "x": 338,
+        "y": 190,
+        "width": 31,
+        "height": 22,
+        "texture_width": 31,
+        "texture_height": 44,
+        "operation": 2
+      },
+      {
+        "texture": "atlas/imagebutton_bankgui14.png",
+        "x": 156,
+        "y": 193,
+        "width": 16,
+        "height": 16,
+        "texture_width": 16,
+        "texture_height": 32,
+        "operation": 3
+      }
+    ],
+    "labels": [
+      {
+        "procedure": "Shougoushuoming01",
+        "key": "",
+        "x": 177,
+        "y": 192,
+        "color": -1
+      },
+      {
+        "procedure": "Shougoushuoming02",
+        "key": "",
+        "x": 177,
+        "y": 201,
+        "color": -1
+      },
+      {
+        "procedure": "",
+        "key": "gui.yvanchuxiuzhen.bank_gu_ishougou.label_shou_gou_cai_liao",
+        "x": 233,
+        "y": 131,
+        "color": -154
+      }
+    ],
+    "slots": [
+      [
+        0,
+        133,
+        157
+      ],
+      [
+        1,
+        133,
+        193
+      ]
+    ],
+    "inventory_x": 170,
+    "inventory_y": 267
+  },
+  "BankGUIshougou2": {
+    "width": 500,
+    "height": 500,
+    "layers": [
+      {
+        "texture": "wupinlan.png",
+        "x": 163,
+        "y": 239,
+        "width": 176,
+        "height": 94,
+        "texture_width": 176,
+        "texture_height": 94
+      },
+      {
+        "texture": "shopgui02.png",
+        "x": 141,
+        "y": 110,
+        "width": 216,
+        "height": 140,
+        "texture_width": 216,
+        "texture_height": 140
+      },
+      {
+        "texture": "bankgui09.png",
+        "x": 166,
+        "y": 199,
+        "width": 22,
+        "height": 22,
+        "texture_width": 22,
+        "texture_height": 22
+      }
+    ],
+    "buttons": [
+      {
+        "texture": "atlas/imagebutton_bankgui16.png",
+        "x": 300,
+        "y": 199,
+        "width": 31,
+        "height": 22,
+        "texture_width": 31,
+        "texture_height": 44,
+        "operation": 0
+      },
+      {
+        "texture": "atlas/imagebutton_bankgui14.png",
+        "x": 190,
+        "y": 202,
+        "width": 16,
+        "height": 16,
+        "texture_width": 16,
+        "texture_height": 32,
+        "operation": 1
+      }
+    ],
+    "labels": [
+      {
+        "procedure": "",
+        "key": "gui.yvanchuxiuzhen.bank_gu_ishougou_2.label_shou_gou",
+        "x": 241,
+        "y": 129,
+        "color": -13261
+      },
+      {
+        "procedure": "",
+        "key": "gui.yvanchuxiuzhen.bank_gu_ishougou_2.label_zhe_li_ke_yi_shou_gou_pu_tong_cai_liao_dan_du_hui_yi_zui_di_jie_ge_shou_gou",
+        "x": 159,
+        "y": 156,
+        "color": -1
+      },
+      {
+        "procedure": "",
+        "key": "gui.yvanchuxiuzhen.bank_gu_ishougou_2.label_ru_guo_bu_man_yi_zhe_ge_jie_ge_ke_yi_xun_zhao_zheng_yu_shou_gou_cai_liao_de_npcta_men_kai_chu_de_jie_ge",
+        "x": 159,
+        "y": 165,
+        "color": -1
+      },
+      {
+        "procedure": "Shougoushuoming01",
+        "key": "",
+        "x": 166,
+        "y": 223,
+        "color": -1
+      },
+      {
+        "procedure": "Shougoushuoming02",
+        "key": "",
+        "x": 166,
+        "y": 234,
+        "color": -1
+      }
+    ],
+    "slots": [
+      [
+        0,
+        169,
+        202
+      ]
+    ],
+    "inventory_x": 170,
+    "inventory_y": 251
+  },
+  "ShopblockGui": {
+    "width": 176,
+    "height": 166,
+    "layers": [
+      {
+        "texture": "bankgui18.png",
+        "x": 177,
+        "y": 2,
+        "width": 116,
+        "height": 116,
+        "texture_width": 116,
+        "texture_height": 116
+      }
+    ],
+    "buttons": [],
+    "labels": [
+      {
+        "procedure": "",
+        "key": "gui.yvanchuxiuzhen.shopblock_gui.label_xu_qiu_wu_pin",
+        "x": 6,
+        "y": 52,
+        "color": -12829636
+      },
+      {
+        "procedure": "",
+        "key": "gui.yvanchuxiuzhen.shopblock_gui.label_shang_pin",
+        "x": 24,
+        "y": 16,
+        "color": -12829636
+      },
+      {
+        "procedure": "Shopblockguijiagexianshi",
+        "key": "",
+        "x": 6,
+        "y": 41,
+        "color": -12829636
+      },
+      {
+        "procedure": "Banktgoumaili",
+        "key": "",
+        "x": 183,
+        "y": 8,
+        "color": -13210
+      },
+      {
+        "procedure": "Banktxtlingshi09",
+        "key": "",
+        "x": 183,
+        "y": 21,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi08",
+        "key": "",
+        "x": 183,
+        "y": 31,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi07",
+        "key": "",
+        "x": 183,
+        "y": 41,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi06",
+        "key": "",
+        "x": 183,
+        "y": 51,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi05",
+        "key": "",
+        "x": 183,
+        "y": 61,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi04",
+        "key": "",
+        "x": 183,
+        "y": 71,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi03",
+        "key": "",
+        "x": 183,
+        "y": 81,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi02",
+        "key": "",
+        "x": 183,
+        "y": 91,
+        "color": -1
+      },
+      {
+        "procedure": "Banktxtlingshi01",
+        "key": "",
+        "x": 183,
+        "y": 101,
+        "color": -1
+      },
+      {
+        "procedure": "Shopblockshengyv",
+        "key": "",
+        "x": 24,
+        "y": 25,
+        "color": -12829636
+      },
+      {
+        "procedure": "Shopblockshuaxinshuaxin",
+        "key": "",
+        "x": 177,
+        "y": 120,
+        "color": -6710887
+      }
+    ],
+    "slots": [
+      [
+        0,
+        79,
+        17
+      ],
+      [
+        1,
+        7,
+        62
+      ],
+      [
+        2,
+        25,
+        62
+      ],
+      [
+        3,
+        43,
+        62
+      ]
+    ],
+    "inventory_x": 8,
+    "inventory_y": 84
+  },
+  "ShopblockGuiset": {
+    "width": 176,
+    "height": 166,
+    "layers": [],
+    "buttons": [
+      {
+        "texture": "atlas/imagebutton_bankgui10.png",
+        "x": -19,
+        "y": 6,
+        "width": 12,
+        "height": 12,
+        "texture_width": 12,
+        "texture_height": 24,
+        "operation": 18
+      }
+    ],
+    "labels": [
+      {
+        "procedure": "",
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.label_zai_ci_fang_ru_shang_pin",
+        "x": 24,
+        "y": 7,
+        "color": -12829636
+      },
+      {
+        "procedure": "",
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.label_zai_ci_fang_ru_jiao_yi_suo_xu_wu_pin",
+        "x": 60,
+        "y": 64,
+        "color": -12829636
+      },
+      {
+        "procedure": "",
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.label_ke_yi_yu_ling_shi_xu_qiu_gong_tong_cun_zai",
+        "x": 60,
+        "y": 73,
+        "color": -12829636
+      },
+      {
+        "procedure": "Shopblockguijiagexianshi",
+        "key": "",
+        "x": 33,
+        "y": 30,
+        "color": -12829636
+      },
+      {
+        "procedure": "Shopdanrenxiangouxianshi",
+        "key": "",
+        "x": 179,
+        "y": 4,
+        "color": -1
+      },
+      {
+        "procedure": "Shopshuaxintickxianshi",
+        "key": "",
+        "x": 179,
+        "y": 39,
+        "color": -1
+      }
+    ],
+    "slots": [
+      [
+        0,
+        7,
+        8
+      ],
+      [
+        1,
+        7,
+        65
+      ],
+      [
+        2,
+        25,
+        65
+      ],
+      [
+        3,
+        43,
+        65
+      ]
+    ],
+    "inventory_x": 8,
+    "inventory_y": 84
+  },
+  "Paimaifangkuaigui": {
+    "width": 230,
+    "height": 230,
+    "layers": [],
+    "buttons": [],
+    "labels": [
+      {
+        "procedure": "Paimaihuiname",
+        "key": "",
+        "x": 6,
+        "y": 12,
+        "color": -13261
+      },
+      {
+        "procedure": "PaimaiTuoguan",
+        "key": "",
+        "x": 53,
+        "y": 37,
+        "color": -13421773
+      },
+      {
+        "procedure": "Paimaimoshi",
+        "key": "",
+        "x": 53,
+        "y": 65,
+        "color": -13421773
+      },
+      {
+        "procedure": "Paimaidengji",
+        "key": "",
+        "x": 53,
+        "y": 87,
+        "color": -13421773
+      },
+      {
+        "procedure": "Paimaihefaxing",
+        "key": "",
+        "x": 53,
+        "y": 109,
+        "color": -13421773
+      },
+      {
+        "procedure": "Paimaiitemnumber",
+        "key": "",
+        "x": 68,
+        "y": 131,
+        "color": -13421773
+      }
+    ],
+    "slots": [
+      [
+        0,
+        151,
+        13
+      ],
+      [
+        1,
+        169,
+        13
+      ],
+      [
+        2,
+        187,
+        13
+      ],
+      [
+        3,
+        205,
+        13
+      ],
+      [
+        4,
+        151,
+        40
+      ],
+      [
+        5,
+        169,
+        40
+      ],
+      [
+        6,
+        187,
+        40
+      ],
+      [
+        7,
+        205,
+        40
+      ],
+      [
+        8,
+        151,
+        67
+      ],
+      [
+        9,
+        169,
+        67
+      ],
+      [
+        10,
+        187,
+        67
+      ],
+      [
+        11,
+        205,
+        67
+      ],
+      [
+        12,
+        151,
+        94
+      ],
+      [
+        13,
+        169,
+        94
+      ],
+      [
+        14,
+        187,
+        94
+      ],
+      [
+        15,
+        205,
+        94
+      ],
+      [
+        16,
+        151,
+        121
+      ],
+      [
+        17,
+        169,
+        121
+      ],
+      [
+        18,
+        187,
+        121
+      ],
+      [
+        19,
+        205,
+        121
+      ]
+    ],
+    "inventory_x": 35,
+    "inventory_y": 148
+  },
+  "Paimaihang": {
+    "width": 500,
+    "height": 500,
+    "layers": [
+      {
+        "texture": "paimaigui.png",
+        "x": 35,
+        "y": 130,
+        "width": 426,
+        "height": 240,
+        "texture_width": 426,
+        "texture_height": 240
+      },
+      {
+        "texture": "chujvwupinlan.png",
+        "x": 168,
+        "y": 289,
+        "width": 162,
+        "height": 18,
+        "texture_width": 162,
+        "texture_height": 18
+      },
+      {
+        "texture": "chujvwupinlan.png",
+        "x": 168,
+        "y": 307,
+        "width": 162,
+        "height": 18,
+        "texture_width": 162,
+        "texture_height": 18
+      },
+      {
+        "texture": "chujvwupinlan.png",
+        "x": 168,
+        "y": 325,
+        "width": 162,
+        "height": 18,
+        "texture_width": 162,
+        "texture_height": 18
+      },
+      {
+        "texture": "chujvwupinlan.png",
+        "x": 168,
+        "y": 347,
+        "width": 162,
+        "height": 18,
+        "texture_width": 162,
+        "texture_height": 18
+      }
+    ],
+    "buttons": [
+      {
+        "texture": "atlas/imagebutton_paimaianniu03.png",
+        "x": 336,
+        "y": 138,
+        "width": 58,
+        "height": 22,
+        "texture_width": 58,
+        "texture_height": 44,
+        "operation": -1
+      },
+      {
+        "texture": "atlas/imagebutton_paimaianniu031.png",
+        "x": 396,
+        "y": 138,
+        "width": 58,
+        "height": 22,
+        "texture_width": 58,
+        "texture_height": 44,
+        "operation": -1
+      },
+      {
+        "texture": "atlas/imagebutton_paimaianniu032.png",
+        "x": 336,
+        "y": 162,
+        "width": 58,
+        "height": 22,
+        "texture_width": 58,
+        "texture_height": 44,
+        "operation": -1
+      },
+      {
+        "texture": "atlas/imagebutton_paimaianniu033.png",
+        "x": 396,
+        "y": 162,
+        "width": 58,
+        "height": 22,
+        "texture_width": 58,
+        "texture_height": 44,
+        "operation": -1
+      },
+      {
+        "texture": "atlas/imagebutton_paimaianniu034.png",
+        "x": 336,
+        "y": 186,
+        "width": 58,
+        "height": 22,
+        "texture_width": 58,
+        "texture_height": 44,
+        "operation": -1
+      },
+      {
+        "texture": "atlas/imagebutton_paimaianniu035.png",
+        "x": 396,
+        "y": 186,
+        "width": 58,
+        "height": 22,
+        "texture_width": 58,
+        "texture_height": 44,
+        "operation": -1
+      },
+      {
+        "texture": "atlas/imagebutton_paimaianniu036.png",
+        "x": 336,
+        "y": 210,
+        "width": 58,
+        "height": 22,
+        "texture_width": 58,
+        "texture_height": 44,
+        "operation": -1
+      },
+      {
+        "texture": "atlas/imagebutton_paimaianniu037.png",
+        "x": 396,
+        "y": 210,
+        "width": 58,
+        "height": 22,
+        "texture_width": 58,
+        "texture_height": 44,
+        "operation": -1
+      },
+      {
+        "texture": "atlas/imagebutton_paimaianniu038.png",
+        "x": 336,
+        "y": 234,
+        "width": 58,
+        "height": 22,
+        "texture_width": 58,
+        "texture_height": 44,
+        "operation": -1
+      },
+      {
+        "texture": "atlas/imagebutton_paimaianniu039.png",
+        "x": 396,
+        "y": 234,
+        "width": 58,
+        "height": 22,
+        "texture_width": 58,
+        "texture_height": 44,
+        "operation": -1
+      },
+      {
+        "texture": "atlas/imagebutton_paimaianniu01.png",
+        "x": 418,
+        "y": 331,
+        "width": 36,
+        "height": 11,
+        "texture_width": 36,
+        "texture_height": 22,
+        "operation": -1
+      }
+    ],
+    "labels": [
+      {
+        "procedure": "Paimainame",
+        "key": "",
+        "x": 222,
+        "y": 134,
+        "color": -13210
+      },
+      {
+        "procedure": "Paimainpcnumberxianshi",
+        "key": "",
+        "x": 180,
+        "y": 133,
+        "color": -1
+      },
+      {
+        "procedure": "Paimaidengjixianshi",
+        "key": "",
+        "x": 284,
+        "y": 133,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben1",
+        "key": "",
+        "x": 44,
+        "y": 141,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben2",
+        "key": "",
+        "x": 44,
+        "y": 152,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben3",
+        "key": "",
+        "x": 44,
+        "y": 163,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben4",
+        "key": "",
+        "x": 44,
+        "y": 174,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben5",
+        "key": "",
+        "x": 44,
+        "y": 185,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben6",
+        "key": "",
+        "x": 44,
+        "y": 196,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben7",
+        "key": "",
+        "x": 44,
+        "y": 207,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben8",
+        "key": "",
+        "x": 44,
+        "y": 218,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben9",
+        "key": "",
+        "x": 44,
+        "y": 229,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben10",
+        "key": "",
+        "x": 44,
+        "y": 240,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben11",
+        "key": "",
+        "x": 44,
+        "y": 251,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben12",
+        "key": "",
+        "x": 44,
+        "y": 262,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben13",
+        "key": "",
+        "x": 44,
+        "y": 273,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben14",
+        "key": "",
+        "x": 44,
+        "y": 284,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben15",
+        "key": "",
+        "x": 44,
+        "y": 295,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben16",
+        "key": "",
+        "x": 44,
+        "y": 306,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben17",
+        "key": "",
+        "x": 44,
+        "y": 317,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben18",
+        "key": "",
+        "x": 44,
+        "y": 328,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben19",
+        "key": "",
+        "x": 44,
+        "y": 339,
+        "color": -1
+      },
+      {
+        "procedure": "Xianshiwenben20",
+        "key": "",
+        "x": 44,
+        "y": 350,
+        "color": -1
+      }
+    ],
+    "slots": [
+      [
+        0,
+        241,
+        224
+      ]
+    ],
+    "inventory_x": 169,
+    "inventory_y": 290
+  }
+}

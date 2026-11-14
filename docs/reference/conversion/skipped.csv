@@ -19,7 +19,6 @@ block,yvanchuxiuzhen:qiankundaoren,方块基类 BaseEntityBlock 由所属系统�
 block,yvanchuxiuzhen:qiankunmentu,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:quicksand,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:tiandaofuben,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:tiandiyinhang,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:watercloud,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:wenqvan,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:xveliu,方块基类 LiquidBlock 由所属系统迁移
@@ -95,7 +94,6 @@ item,yvanchuxiuzhen:pao_10,对应方块由所属系统迁移
 item,yvanchuxiuzhen:qiankundaoren,物品类 QiankundaorenDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:qiankunmentu,物品类 QiankunmentuDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:tiandaofuben,物品类 TiandaofubenDisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:tiandiyinhang,物品类 TiandiyinhangDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:watercloud_bucket,物品基类 BucketItem 由所属系统迁移
 item,yvanchuxiuzhen:wenqvan_bucket,物品基类 BucketItem 由所属系统迁移
 item,yvanchuxiuzhen:wuchangbai_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移

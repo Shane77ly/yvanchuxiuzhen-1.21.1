@@ -732,7 +732,7 @@ yvanchuxiuzhen,Privet04Block,src/main/java/net/mcreator/yvanchuxiuzhen/block/Pri
 yvanchuxiuzhen,PurslaneBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/PurslaneBlock.java,block,plant,source_element_metadata
 yvanchuxiuzhen,QiankundaorenBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/QiankundaorenBlock.java,block,npc,source_element_metadata
 yvanchuxiuzhen,QiankunmentuBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/QiankunmentuBlock.java,block,npc,source_element_metadata
-yvanchuxiuzhen,QuicksandBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/QuicksandBlock.java,block,decor,source_element_metadata
+yvanchuxiuzhen,QuicksandBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/QuicksandBlock.java,block,world,source_element_metadata
 yvanchuxiuzhen,RaincloudBlock,src/main/java/net/mcreator/yvanchuxiuzhen/block/RaincloudBlock.java,block,plant,source_element_metadata
 yvanchuxiuzhen,Alchemy01DisplayItemRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/Alchemy01DisplayItemRenderer.java,block/renderer,liandan,source_element_metadata
 yvanchuxiuzhen,Alchemy01TileRenderer,src/main/java/net/mcreator/yvanchuxiuzhen/block/renderer/Alchemy01TileRenderer.java,block/renderer,liandan,source_element_metadata
@@ -2484,7 +2484,7 @@ yvanchuxiuzhen,YvanyingchuqiaoEntity,src/main/java/net/mcreator/yvanchuxiuzhen/e
 yvanchuxiuzhen,Zhenjineng03Entity,src/main/java/net/mcreator/yvanchuxiuzhen/entity/Zhenjineng03Entity.java,entity,zhenfa,source_element_metadata
 yvanchuxiuzhen,WenqvanFluidAttributes,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/attributes/WenqvanFluidAttributes.java,fluid/attributes,world,source_element_metadata
 yvanchuxiuzhen,HotoilFluid,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/HotoilFluid.java,fluid,decor,source_element_metadata
-yvanchuxiuzhen,QuicksandFluid,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/QuicksandFluid.java,fluid,decor,source_element_metadata
+yvanchuxiuzhen,QuicksandFluid,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/QuicksandFluid.java,fluid,world,source_element_metadata
 yvanchuxiuzhen,WatercloudFluid,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/WatercloudFluid.java,fluid,decor,source_element_metadata
 yvanchuxiuzhen,WenqvanFluid,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/WenqvanFluid.java,fluid,world,source_element_metadata
 yvanchuxiuzhen,XveliuFluid,src/main/java/net/mcreator/yvanchuxiuzhen/fluid/XveliuFluid.java,fluid,xiulian,source_element_metadata

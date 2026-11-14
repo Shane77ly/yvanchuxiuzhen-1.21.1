@@ -33,6 +33,24 @@ updated: 2026-11-14
 
 2026-11-13收纳批次已通过统一编译、架构检查及一级手持罐菜单/序列化保存的最小客户端单项，见下节。后续03/04与九槽罐第九槽专项补充自然生命周期及活动虫/背包罐真实退出重进证据，范围见本页末节；其他容量全部自然操作、完整存档/多人、专服专项、1.18.2版本实机与两版本对照仍未执行。
 
+## 2026-11-14 05荧光蛊与悬赏追踪
+
+05由本系统拥有实体和物品生命周期，悬赏仅经`GuchongTracking.createBound`交入猎人UUID及目标坐标。普通`guchong_05item`右键在三格视线射线的方块坐标释放，忽略流体、使用方块OUTLINE，随机水平朝向，随后消耗一只；物品没有追踪字段时不补目标或主人。释放/回收仅复制`zhuizhong`、`belongToMasterUUID`、三项`zuobiao`、`guchongxvnfu`、`kanjia`和三项`homeblock`，两个计时器不存入回收物品。实体完整实例状态随原生实体NBT保存。
+
+来源实体为无重力持久飞行`PathfinderMob`，随机漫步目标每20刻取自身XYZ各±16，另有随机看向；没有攻击或仇恨目标。基础生命20、护甲0、攻击3、跟随范围16，移动/飞行速度均0.3。箭、摔落、仙人掌和铁砧伤害免疫，无受伤/死亡音效。A `Guchong05Entity.init`为空，未添加自然生成规则；实体右键没有主人过滤，任意玩家可获得保存字段的物品，随后移除实体。
+
+每刻发一颗`guchong_05lizi`；追踪状态下看向目标并按视线×0.2移动，每5刻向同维度在线主人显示本人至目标的三维整数距离。第100刻先清计时器、发8颗`yaoshou_040skill_03`，在当前维度玩家中按UUID交还虫物品，随后移除实体。来源渲染为`Modelguchong05`加透明`kong.png`、阴影0，目标使用不可见实体渲染与来源粒子表达，没有补造可见虫体。
+
+### Q87 同维主人缺席仍移除
+
+确认来源顺序，当前保留。A `Guchong05DangShiTiGengXinKeShiProcedure:32–57`只遍历当前世界玩家，交还循环后无条件移除；主人离线或跨维度时该次物品不会交还。目标不增加跨维查找、等待或补发。该生命周期静态已核，离线/跨维与存档实机未执行。
+
+### Q91 节肢类别的核对边界
+
+A `Guchong05Entity:79–82`明确返回`MobType.ARTHROPOD`，目标05需加入`minecraft:arthropod`实体类型标签，另保留原`guchongentity`身份。早先将01/03一并视作遗漏的假设经来源核对撤销：两者来源为`UNDEFINED`，不能以“蛊虫”名称补成节肢类别。该结论只约束本次05增量，不扩展到未逐条核对的其他编号；标签转换已完成；节肢伤害效果仍未实机验证。
+
+精确依据：A `entity/Guchong05Entity.java:45–163`、`client/renderer/Guchong05Renderer.java:11–18`、`item/Guchong05itemItem.java`、`procedures/Guchong05itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java:18–38`、`Guchong05DangYouJianDianJiShiTiProcedure.java:16–33`与`Guchong05DangShiTiGengXinKeShiProcedure.java:26–70`。05实体候选归属已完成该完整类、表现、物品和过程调用链阅读，已同步公共归属清单并完成定向转换/编译/架构检查；代码已接入不等于运行验收。自然悬赏领取/补领、释放/任意玩家回收、100刻交还、失联与真实退出重进均未执行。
+
 ## 待调查
 
 虫卵 `Chongluan` 的完整来源与用途尚未逐条读取。蛊笛释放界面与按钮已核对并接线，范围与未验边界见下方蛊笛正文。

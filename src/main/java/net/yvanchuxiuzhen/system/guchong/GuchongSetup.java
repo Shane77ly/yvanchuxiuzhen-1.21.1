@@ -7,6 +7,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongCreatures;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongGrowth;
+import net.yvanchuxiuzhen.system.guchong.entity.Guchong05Entity;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongTrackingItem;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongBlockEntities;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongFluteItem;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongReleaseMenu;
@@ -24,6 +26,8 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
  */
 public final class GuchongSetup {
     private static final ContentTables CONTENT = new ContentTables("guchong")
+            .itemFactory("guchong:tracking", GuchongTrackingItem::new)
+            .livingEntity("guchong_05", Guchong05Entity::new, Guchong05Entity::attributes)
             .itemFactory("guchong:flute", GuchongFluteItem::new)
             .blockFactory("guchong:taoguan_01", traits -> ContentBlock.create(traits, value -> new TaoguanBlock(value, 1)))
             .blockFactory("guchong:taoguan_02", traits -> ContentBlock.create(traits, value -> new TaoguanBlock(value, 2)))

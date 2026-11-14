@@ -208,6 +208,8 @@ final class SmokeRun {
                     case "accessories" -> List.of(new AccessoryCheck(report, levelId, this::shot));
                     case "storage" -> List.of(new StorageCheck(report, levelId, this::shot));
                     case "bank" -> List.of(new BankCheck(report, levelId, this::shot));
+                    case "commerce" -> List.of(new CommerceCheck(report, levelId, this::shot));
+                    case "construction" -> List.of(new ConstructionCheck(report, levelId, this::shot));
                     case "boss" -> List.of(new BossCheck(report, levelId, this::shot));
                     case "treasure" -> List.of(new TreasureCheck(report, levelId, this::shot));
                     case "guchong" -> List.of(new GuchongCheck(report, levelId, this::shot));

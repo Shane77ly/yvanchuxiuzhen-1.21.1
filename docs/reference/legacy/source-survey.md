@@ -169,19 +169,40 @@ updated: 2026-11-14
 
 | 编号 | 类型与当前处理 | 发现与影响摘要 | 所属正文或决定 |
 | --- | --- | --- | --- |
-| Q69 | 来源缺定义；已批准，实施中 | 拍卖商品语言定义缺失，且仅34级NPC不满足筑基/结丹候选区间，原无限扫描不能结束。批准缺商品或合格NPC时拒绝启动并中文提示，保留有效场次规则；未运行挂起分支 | [经济](../../systems/economy/architecture.md)、[批准记录](../../systems/project/logs/2026-11.md#2026-11-14-拍卖缺定义时拒绝启动) |
-| Q70 | 来源库存替换与扣料异常；已批准，实施中 | B:`BuildingProcedure:31–220`先放结构再读18槽扣料；中心模板替换为库存为空的一槽案台，可能丢材料并越界。批准保存原库存、按原费用扣料，18槽回写余料、一槽原位掉落；尚未运行此异常分支 | [城镇](../../systems/town/architecture.md)、[批准记录](../../systems/project/logs/2026-11.md#2026-11-14-城镇扣料与差异集中登记) |
-| Q71 | 已核来源异常；保持来源，待集中裁定 | B:`ShopblockqvchuProcedure:37–90`领取入账后不清`cunchulingshi`，主人可重复领取历史灵石；尚未实机对照 | [经济](../../systems/economy/architecture.md)（独立包正文待整合） |
-| Q72 | 已核来源载体疑点；保持来源，待集中裁定 | B:`ShopblockGuigoumaiProcedure:798–801`写`getCompound("playerxiangou")`；生存放置未初始化该compound，限购写入可能只落在临时空tag，创意刷新会初始化。具体两版本运行仍待核 | [经济](../../systems/economy/architecture.md)（独立包正文待整合） |
-| Q73 | 已核字段误读；保持来源，待集中裁定 | B:`Tuzhizhongliang`对材料列表误读attribute索引1，读数为0，自然图纸估价的折价因子恒1；不按名称修正材料重量 | [经济](../../systems/economy/architecture.md)（独立包正文待整合） |
+| Q69 | 来源缺定义；已批准实现，拒启动必要单项通过 | 拍卖商品语言定义缺失，且仅34级NPC不满足筑基/结丹候选区间，原无限扫描不能结束。缺商品或合格NPC时拒绝启动并中文提示，真实入座后进度0、中文原因及同次失败只提示一次已验证，保留有效场次规则；未运行来源挂起分支或有效拍卖 | [经济](../../systems/economy/architecture.md)、[批准记录](../../systems/project/logs/2026-11.md#2026-11-14-拍卖缺定义时拒绝启动) |
+| Q70 | 来源库存替换与扣料异常；已批准实现，有限守恒/重进通过 | B:`BuildingProcedure:31–220`先放结构再读18槽扣料；B的12个`build01/02/03`四向来源模板均清空核心库存，01变为一槽案台，02/03仍为18槽，可能丢材料并越界。已实现保存原库存、按原费用扣料，18槽回写余料、一槽原位掉落；中心与受控02模板跨栈余料/无关物品守恒及十八槽保存重进已过；03/全向/刚好足量仍待 | [城镇](../../systems/town/architecture.md#q70-模板替换与材料扣费)、[批准记录](../../systems/project/logs/2026-11.md#2026-11-14-城镇扣料与差异集中登记) |
+| Q71 | 已核来源异常；保持来源，待集中裁定 | B:`ShopblockqvchuProcedure:37–90`领取入账后不清`cunchulingshi`，主人可重复领取历史灵石；尚未实机对照 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q72 | 已核来源载体疑点；保持来源，待集中裁定 | B:`ShopblockGuigoumaiProcedure:798–801`写`getCompound("playerxiangou")`；生存放置未初始化该compound，限购写入可能只落在临时空tag，创意刷新会初始化。具体两版本运行仍待核 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q73 | 已核字段误读；保持来源，待集中裁定 | B:`Tuzhizhongliang`对材料列表误读attribute索引1，读数为0，自然图纸估价的折价因子恒1；不按名称修正材料重量 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q74 | 来源空表异常；保留中断结果，错误提示待对照 | B:`Baoxiangzong:127–138`读取奖励首段第三字段，空串/畸形首段会终止同次发放。目标明确终止并保留此前掉落，不补抽；来源框架错误文案及空分支实机未对照 | [宝箱](../../systems/treasure/architecture.md#来源异常的当前处理) |
 | Q75 | 来源奖励类型疑点；保持来源，待集中裁定 | B:`BaoxiangLiandantuzhi`只有一级四支为丹方，二级及以上实际返回技能书；不补造高档丹方 | [宝箱](../../systems/treasure/architecture.md#来源异常的当前处理) |
 | Q76 | 来源重复字段；保持覆盖结果，待集中裁定 | 丹药表重复写`danyaotick0`，止血丹后写0且缺`danyaotick1`；保留后写覆盖与缺字段读0，不按药名改药效 | [宝箱](../../systems/treasure/architecture.md#来源异常的当前处理) |
 | Q77 | 来源菜单与库存不一致；保持未用入口，待集中复核 | 03/11方块实体仅一槽，`createMenu`却返回独立三行箱菜单；自然右键只启动开箱，不打开该菜单。目标保留该入口，未增造单槽界面 | [宝箱](../../systems/treasure/architecture.md#01至11宝箱载体) |
-| Q78 | 来源能力对象疑点；保持来源，待集中裁定 | B:`PlayerRightClickEntity:113`读取大管家NPC的玩家`birth`能力，A的能力只附加Player，自然入口走普通04脚本；不改读交互玩家的出身 | [NPC](../../systems/npc/architecture.md)（独立包正文待整合） |
-| Q79 | 来源空入口；保留身份，待集中复核 | 城镇Ui02无按钮、Ui03/04/05仅注册，Ui01占领与Ui05官职按钮为空；不补造管理玩法。未连接分支继续作为开放内容保留 | [城镇](../../systems/town/architecture.md)（独立包正文待整合） |
-| Q80 | 来源刷新入口；保持自然链，待集中复核 | 悬赏页面只有六个领取整行按钮，没有六个刷新按钮；`Xvanshangshuaxin`无调用者，单行刷新由目标死亡触发。不能凭过程名增设刷新入口 | [任务](../../systems/quest/architecture.md)（独立包正文待整合） |
+| Q78 | 来源能力对象疑点；保持来源，待集中裁定 | B:`PlayerRightClickEntity:113`读取大管家NPC的玩家`birth`能力，A的能力只附加Player，自然入口走普通04脚本；不改读交互玩家的出身 | [NPC](../../systems/npc/architecture.md#q78-大管家出生判定读取错误实例) |
+| Q79 | 来源空入口；保留身份，待集中复核 | 城镇Ui02无按钮、Ui03/04/05仅注册，Ui01占领与Ui05官职按钮为空；不补造管理玩法。未连接分支继续作为开放内容保留 | [城镇](../../systems/town/architecture.md#q79-城镇空监听与页面调用断链) |
+| Q80 | 来源刷新入口；保持自然链，待集中复核 | 悬赏页面只有六个领取整行按钮，没有六个刷新按钮；`Xvanshangshuaxin`无调用者，单行刷新由目标死亡触发。不能凭过程名增设刷新入口 | [任务](../../systems/quest/architecture.md#q80-悬赏刷新无玩家入口) |
 | Q81 | 来源配置畸形；保持异常串，待核实运行影响 | 镇妖塔固定点共44个，其中`(1278,83,-587)`的`fubenshujv`只有奖励列表、无波次头；源解析读取`fields[1]`会越界。保留原配置，不补造波次头，未运行此分支 | [副本](../../systems/dungeon/architecture.md)（独立包正文待整合） |
+| Q82 | 来源映射与动画疑点；保持来源，待集中复核 | 私人画卷地灵界与无归界的回程映射互换，首次动画实际选择1；按实际分支迁移，不依据名称交换，未作两版本实机对照 | [副本](../../systems/dungeon/architecture.md)（独立包正文待整合） |
+| Q83 | 来源载体误读；保持来源，待集中裁定 | B:`Duihuashijian:185–190`字符串“加”从会话读取旧串，却写剧情持久域；连续累加不接续剧情域旧值 | [任务Q83](../../systems/quest/architecture.md#q83-字符串累加读取会话载体) |
+| Q84 | 来源维度字符串异常；保持来源，待集中裁定 | B:`Duihuashijiantwo:452–470`拼接当前维度时多出括号，正常文本比较失败；脚本消费者与实际运行仍待核 | [任务Q84](../../systems/quest/architecture.md#q84-当前维度字符串拼接) |
+| Q85 | 来源扣料与参数索引异常；保持来源，待集中裁定 | B:`Duihuashijiantwo:153–241`带NBT扣物品先将足量需求清0再删除，参数索引跨栈持续递增；完整多栈影响未实机复核 | [任务Q85](../../systems/quest/architecture.md#q85-带nbt扣料与跨栈索引) |
+| Q86 | 来源目录与生成数量不符；保持来源，待集中裁定 | B:`Worldbegin:51`为045悬赏定义数量8，追踪`Xvanshangzhuizongheji:40–57`仅生成一次；不补造七只 | [任务Q86](../../systems/quest/architecture.md#q86-045目录数量与生成数) |
+| Q87 | 来源失联移除风险；保持来源，待集中裁定 | A:`Guchong05DangShiTiGengXinKeShi:32–57`百刻返还只找当前维度在线主人，未找到仍移除，可能不返还物品 | [蛊虫Q87](../../systems/guchong/architecture.md#q87-同维主人缺席仍移除) |
+| Q88 | 来源文本与公式不符；保持来源，待集中裁定 | 普通商人资质“强筋”不匹配A:`Npcshuxingjisuan:140–150`识别的“强劲”，实际走最低档公式 | [NPC Q88](../../systems/npc/architecture.md#q88-强筋资质文本) |
+| Q89 | 按既有文案规则实施的显示差异；待验证 | B:`Xvanshangshuoming:17–20`第三条源码调试说明移入开发记录，前两条玩法介绍仍显示；依据项目玩家文案规则，不改变悬赏结算 | [任务Q89](../../systems/quest/architecture.md#q89-悬赏说明调试文案) |
+| Q90 | 来源失效坐标异常；保持中断，待集中裁定 | B:`EntityDie:56,79`直接解引用悬赏告示牌BE，牌子移除后结算可能中断；已撤回目标额外静默跳过，现场未实机复现 | [任务Q90](../../systems/quest/architecture.md#q90-告示牌消失后的结算中断) |
+| Q91 | 分类疑问已核排除；05标签已接，待验证 | A的01/03来源为`MobType.UNDEFINED`，不能凭蛊虫名称加节肢标签；05明确为`ARTHROPOD`，只为05补目标标签 | [蛊虫Q91](../../systems/guchong/architecture.md#q91-节肢类别的核对边界) |
+| Q92 | 目标显示遗漏已补接；有限自然操作与截图通过 | 普通对话恢复五张来源双态按钮贴图与`fengexian`分隔线，沿用动作号、坐标和中文朗读；转换/编译及银行自然继续/四选项按钮通过，截图已查看；完整焦点/页面视觉仍待，裁切见Q102 | [任务Q92](../../systems/quest/architecture.md#q92-对话按钮与分隔线) |
+| Q93 | 来源实物购买扣费异常；保持来源，待集中裁定 | `ShopblockGuigoumai`只在背包包含某类需求时检查数量，整类缺失可跳过；不足栈清0后再减其数量，剩余需求不减少 | [经济R13-E04/E05](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q94 | 来源概率分支不可达；保持来源，待集中裁定 | `Cailiaoshop01/02`先判断随机数≥20再判断≥50，后档不可达；未按推测调概率 | [经济R13-E07](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q95 | 来源估价重复低档；保持来源，待集中裁定 | `Shougouselljisuan`饰品21–30级价格重复11–20级段；逐级迁移，不替换成递增公式 | [经济R13-E08](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q96 | 来源托管字段错位；保持来源，待集中裁定 | `PaimaiTuoguananniu`写`paimaimoshi`的全自动/自营，显示却读`tuoguan`；不补造开关 | [经济R13-E11](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q97 | 来源竞价与成交断链；保留空操作，待集中复核 | `PaimaihangScreen`11按钮均为空回调，未找到玩家出价与成交结算推进入口；不将已接现场状态机称为完整成交 | [经济R13-E12](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q98 | 来源座椅令牌与台状态不一致；保持来源，待集中裁定 | `PaimaichairZaiFangKuaiShangYouJian`不验令牌身份即可移椅，且不更新台内坐标/计数 | [经济R13-E13](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q99 | 菜单绑定和延后覆槽边界；待核实/待实现 | 额外手持/实体能力绑定未见实际调用，其他系统Supplier槽映射尚未全部接入；银行九槽绑定十一槽页存在容量风险。已核Forge40.1.0父类提供无方向能力并补入目标，先前“无能力”判断撤销 | [经济R13-E14/E15/E19](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q100 | 来源商品根累计与命名覆盖；保持来源，待集中裁定 | `Goodsdaoru`复合根跨商品累计，循环临时自定义名又被后写覆盖；缺定义分支未合成假商品进行验证 | [经济R13-E17](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q101 | 来源文本分行超过显示范围；保持来源，待集中裁定 | `Duihuafenhang`仅外循环检查20行，内循环仍可写21行及以后，页面只显示20行 | [经济R13-E18](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q102 | 目标小窗口裁切已观察；来源同条件待对照 | 商店固定大画布在854×480、GUI缩放2时上下裁切；普通对话仍为500×500，仅已见文字/按钮可用。暂保持来源布局，完整窗口/缩放矩阵和来源实机未执行，集中处理 | [经济Q102](../../systems/economy/architecture.md#q102-小窗口下的固定画布裁切) |
 
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 
@@ -211,4 +232,4 @@ updated: 2026-11-14
 | S18 | B procedures `MakebookxiaohaoProcedure.java` 10–20 |
 | S19 | A `src/main/java/net/mcreator/yvanchuxiuzhen/world/inventory/Qiankundai01GUIMenu.java` 45–83、254–255、372–381 |
 
-全量文件及调用定位见 [索引入口](inventory/README.md)。人工源码核对、自动索引、1.18.2 实机、1.21.1 实机的覆盖分别记录；目前后两项均未执行。
+全量文件及调用定位见 [索引入口](inventory/README.md)。人工源码核对、自动索引、1.18.2 实机、1.21.1 实机的覆盖分别记录；目标版本有限实机结果见各系统月志；1.18.2版本实机与两版本对照仍未执行。
