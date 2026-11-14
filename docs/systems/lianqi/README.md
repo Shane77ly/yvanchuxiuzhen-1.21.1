@@ -2,7 +2,7 @@
 topic: lianqi
 role: entry
 status: partial
-updated: 2026-11-09
+updated: 2026-11-14
 ---
 
 # 炼器
@@ -28,6 +28,7 @@ updated: 2026-11-09
 - `SewingBasket.opened/select/page/craft/closed`：共享八槽预览、延后选页、按Item检查材料、复制结果槽交付与关闭清空。
 - `BlueprintTableRuntime.populate/refresh/save`：每次开窗目录、九材料预览及在槽9载体保存图纸；名称输入仍保留来源整合端与专服边界。
 - `PoisonCrafting.rightClickBlock/rightClickItem/useCauldron`：水锅转毒锅、六材料副手淬毒与毒锅使用；装备累计记录经`Equipment.recordPoisonEnchantment`写入。
+- `Lianqi.createBlueprintReward(Item, BlueprintReward)`：副本提交名称、说明、产物/类型、等级和00–08九材料，由炼器构造根配方字段；额外字段不能覆盖所有者值。副本奖励样本九材料根字段和双端组件已核，实际炼器消费未验，见[副本记录](../dungeon/logs/2026-11.md)。
 
 材料、材料仓、职业与装备跨系统操作及唯一写入者见[正文](architecture.md#数据所有者与公开操作)。本批未新增Test或检查选择器，未使用Computer Use；实际构建和项目内置客户端结果分别写入月志。
 

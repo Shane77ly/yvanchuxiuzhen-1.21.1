@@ -2,22 +2,31 @@
 topic: dungeon
 role: entry
 status: partial
-updated: 2026-11-03
+updated: 2026-11-14
 ---
 
 # 副本
 
 标识 `dungeon`，类别：系统。职责：副本入口、实例、波次、进出与回程（[系统设计](../../development/system-design.md)）。
 
-当前阶段：B1 已登记本单位不依赖新代码类型的内容身份与资源（台账“已注册”：方块 3、物品 4），只表示身份、资源与基础属性就位；玩法尚未实现，未进行游戏验收。
+当前阶段：天道入口/管理、候场实例、控制器/占位符、波次与回程、奖励、私人画卷及四个原生菜单/渲染已写入本批代码。默认1份、镇妖塔44份定义确定性提取并校验。主线工厂、转换和客户端接线已完成，编译与6项架构检查通过；1.21.1版本已验证自然放置、四页操作、首次候场/三波受控清敌/奖励/成功回程。第二次自然入场、受控超时回程和私人画卷放取/双击往返也通过，前轮二次入场超时原因保留Q111待核；具体有效结果与未验范围见[本月志](logs/2026-11.md)。来源异常、奖励字段优先级与依赖见[正文](architecture.md)。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
-- 候选归属 49 个元素，其中 22 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
+- 候选归属 49 个元素，其中 49 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
+- [本月记录](logs/2026-11.md)与[记录索引](changes.md)：本批证据和未执行范围。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
 ## 公开操作
 
-未编写。实现本系统前在此列出供其他系统调用的查询与写操作，并对照 `typed_field_accesses.csv` 覆盖全部外部读写点（开工条件）。
+本批对照 `typed_field_accesses.csv` 的 `fubenweizhi`、`datingshengcheng`、`tizhiitem` 副本字段、玩家 `LEVELnumber` 与 `teamwork` 读写点。副本玩家附件保存入场倒计时、定义、控制点、入场点、回程点与原游戏模式；全服副本序号/候场大厅生成标记及各原世界画卷序号由本系统存盘。入口、控制器与占位符保留来源独立方块实体字段和库存。修炼境界通过 `Cultivation.get` 读取，玩家能力临时队伍与本体临时队伍通过 `Relations` 分别操作，结构由 `WorldStructures.place` 放置，刷怪等级与攻击者由 `DungeonCreatures.prepare` 写入。
 
-本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
+| 操作 | 形式 | 调用者 |
+| --- | --- | --- |
+| 打开入口 | `Dungeons.open(玩家, 坐标, 管理模式)`；服务端绑定当前入口与菜单 | 天道副本右键/碰撞 |
+| 进入副本 | `Dungeons.enter(玩家, 坐标)`；保留队伍、门票、模式、实例序号与维度顺序 | 来源进入按钮 |
+| 镇妖塔定义补充 | `Dungeons.configureTower(世界)`；按来源44个固定点写完整定义与楼板 | Fulu `SealreleaseGo` 消费者待 R08 封存释放链接入 |
+
+上述为本批实际实现契约；验证完成前不提升系统整体状态。
+
+本系统变化记录在[本月志](logs/2026-11.md)。

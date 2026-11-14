@@ -2,7 +2,7 @@
 topic: world
 role: architecture
 status: draft
-updated: 2026-11-13
+updated: 2026-11-14
 ---
 
 # 世界：架构调查与提案
@@ -44,6 +44,18 @@ updated: 2026-11-13
 `build`（含ArchUnit）通过；补入来源群系名称后，专用服务器仅启动一次至Done，正式维度与群系加载成功。原生命令强制加载虚空区块(0,0)，在(0,64,0)同时确认 `xvkongqvnxi` 与空气；随后移除强加载，原生stop保存四个世界并正常退出，日志ERROR0，导出群系1个。没有新增测试类、专项选择器或重跑旧裂隙检查。证据为 `tmp/world-void-build.log`、`tmp/world-void-content.log`、`tmp/world-void-server.log` 与 `build/registry-export/biome.txt`。
 
 本次确认数据加载、一个实际生成区块及保存；不作为自然裂隙往返、客户端视觉、多人或两版本实机对照的证据。台账仅标“已注册”。
+
+## 画里乾坤维度（2026-11-14）
+
+来源A的`world/dimension/Fabao009weiduDimension.java`、`world/biome/TiandaochunbaikongjianBiome.java`及`data/yvanchuxiuzhen/{dimension,dimension_type}/fabao_009weidu.json`共同定义本维度。纯白群系仅由该维度引用，归属由Tiandao候选校正为World；玩家进入、候场、固定结构与私人画卷状态由Dungeon拥有。
+
+来源维度使用独立种子`-7568801392089884081`、单项multi_noise纯白群系，噪声范围Y=0–127，水平格宽8、垂直格高4，默认方块、流体和地表为`tiandaowhiteblock`。维度类型Y=0–255、逻辑高度256、环境亮度0.5，无天光、无顶、猪灵安全，床可用、重生锚不可用，无袭击、无固定时间；实际`effects`为`minecraft:overworld`，来源Java注册的同名无天空特效未被引用，目标保持实际绑定。
+
+`convert_painting_dimension.py`读取来源并生成维度、类型、群系、噪声设置及offset/depth/sloped_cheese三份密度函数，接入`convert_data.py`并将来源SHA-1写入同一转换清单。复用`legacy_dimension`保留独立种子；`LegacyBlendedNoise`保留8×4采样、来源缩放2/1、因子80/160，内层目标噪声参数为0.25/0.25、smear4。来源和目标`end_islands`实现已逐行核对；专属末地密度为该岛屿函数加来源混合噪声，随后保留来源先上下slide、blend_density、interpolated、乘0.64、squeeze的顺序。offset原始样条为0，仍经来源`-0.50375F`偏移生成专属depth，不继承目标主世界地形样条。
+
+纯白群系保持有降水、温度/降水量0.5，以及来源六项颜色。群系Builder没有地物、雕刻器和出生条目，但来源全局事件仍加入38个地物及CREATURE类别的`xiuzhe_0101`（权重10、最少/最多1）；转换保留外部注入及顺序。38个地物各自的维度门均排除画里乾坤，目标复用既有门禁。修者出生仍要求脚下草质基底、亮度大于8，不能凭出生列表认定纯白地面会刷修者。来源Codec不消费的旧name/structure表、island_noise_override及洞穴/深板岩开关不作为生效规则移植；岛屿来自路由显式函数。新增怪物光照字段与两道转换相同。全局CAVE/CANYON可替换白块由既有来源雕刻器标签转换承担。
+
+本批新增7份数据，轻量对照确认既有人间道/妖魂道16份计划与当前输出一致。自然入场及运行结果统一见[副本月志](../dungeon/logs/2026-11.md)，完整地形数值采样、保存重进、多人、1.18.2版本实机与两版本对照未执行。
 
 ## 自然供给地物与随机结构（2026-11-11）
 

@@ -2,7 +2,7 @@
 topic: world
 role: entry
 status: partial
-updated: 2026-11-13
+updated: 2026-11-14
 ---
 
 # 世界
@@ -11,7 +11,7 @@ updated: 2026-11-13
 
 2026-11-11 扩大批次接入32种矿物、33种普通配置型地物、24种模板，以及41个来源群系中的28棵内联树、8种内联圆盘、171个内联投放和16个树装饰器；新增温泉完整流体族和随机结构主世界开关。89种独立Feature登记“已注册”。2026-11-12已正式生成41个来源群系与人间道、妖魂道资源；专服到达`Done`并保存两道。随后各生成一处两道样点新区块，已加载位置的群系身份分别确认为`biomeautumn_01`和`biomefeng_01`，人间道Y=16样点为石头；人工configured feature调用与高度图告警边界详见[月志](logs/2026-11.md)。这不等于41群系全量地形、自然地物或出生验收；新树/晶洞自然投放也仍待验收。
 
-当前阶段：D/E自然供给整批装配与运行验证。55个原版生成根静态核验全部闭合：38项可复用、14项来源自定义实现、3项洞穴配置，0项待核。最新严格计划为41个群系、2973条生成操作、483条出生记录，全部依赖blocker=0（`tmp/source-biomes-plan-next.json`）；原16个实体缺口已由Creature、Guchong对应实现闭合。统一数据转换已写出41个群系和两道各自的dimension、dimension_type、noise_settings及5个密度函数，目标现有42个群系（含虚空）；转换清单2765项。完整`build compileSmokeJava`通过，含test/check与ArchUnit（`tmp/world-natural-resume-build.log`）。
+当前阶段：D/E自然供给整批装配与运行验证。55个原版生成根静态核验全部闭合：38项可复用、14项来源自定义实现、3项洞穴配置，0项待核。最新严格计划为41个群系、2973条生成操作、483条出生记录，全部依赖blocker=0（`tmp/source-biomes-plan-next.json`）；原16个实体缺口已由Creature、Guchong对应实现闭合。统一数据转换已写出41个群系和两道各自的dimension、dimension_type、noise_settings及5个密度函数，该历史批次为42个群系（含虚空）、转换清单2765项。2026-11-14新增画里乾坤维度与纯白群系，当前43个群系资源、转换清单2822行；画卷7份数据的来源追溯为47行。完整`build compileSmokeJava`通过，含test/check与ArchUnit（`tmp/world-natural-resume-build.log`）。
 
 维度转换门禁已补查全部计划数据中的BlockState `Name`，以内容表、手工行为台账和精确目标blockstates核对身份；模拟缺失quicksand以及默认方块、默认流体、嵌套地表规则未知ID的针对性验证均准确拒绝，现有16份计划通过。2026-11-12正式资源加载到`Done`，注册导出与台账检查0问题；该次加载未强制加载自定义维度区块。后续样点区块运行证据见上方摘要和月志。
 
@@ -29,7 +29,7 @@ updated: 2026-11-13
 
 ## 公开操作
 
-其他系统通过原生服务端查找 `yvanchuxiuzhen:xvkong`、`yvanchuxiuzhen:dimensionrenjian`与`yvanchuxiuzhen:dimensionyaohun`。虚空类型为同名维度类型，唯一群系为 `yvanchuxiuzhen:xvkongqvnxi`；两道同名维度类型与41个来源群系已落盘并通过专服加载，人间道与妖魂道各一处新生成样点区块分别命中`biomeautumn_01`、`biomefeng_01`。这仅是两处群系身份样本；全41群系地形分布、自然地物投放及自然出生仍待验收。
+其他系统通过原生服务端查找 `yvanchuxiuzhen:xvkong`、`yvanchuxiuzhen:dimensionrenjian`、`yvanchuxiuzhen:dimensionyaohun`与`yvanchuxiuzhen:fabao_009weidu`。画里乾坤及纯白群系的种子、8×4噪声、全局地物/出生与边界见[正文](architecture.md#画里乾坤维度2026-11-14)。虚空类型为同名维度类型，唯一群系为 `yvanchuxiuzhen:xvkongqvnxi`；两道同名维度类型与41个来源群系已落盘并通过专服加载，人间道与妖魂道各一处新生成样点区块分别命中`biomeautumn_01`、`biomefeng_01`。这仅是两处群系身份样本；全41群系地形分布、自然地物投放及自然出生仍待验收。
 
 2026-11-11 自然地物批次新增 World 自有操作，已完成启动装配，运行覆盖由本批月志分别登记：
 
@@ -37,6 +37,7 @@ updated: 2026-11-13
 - `WorldGeneration.setRandomStructuresAllowed(MinecraftServer, boolean)`：唯一写入入口，更新不可变Settings并标脏；其他系统不得另存或直接修改同值。
 - `WorldGeneration.register()`：启动时安装主世界`LevelEvent.Load`和服务端结束监听。主世界加载且初始化出生区块前读取SavedData，通过线程安全服务端索引发布；地物生成线程只读取volatile Settings，结束后移除索引。
 - `WorldGenerationCommands.register()`：安装实际原初管理命令中的两个结构分支，语法`/yvanchu <当前维度玩家显示名> unlock|lock jiegoushengcheng [true]`，权限等级1。来源没有`go`字面子命令。
+- `WorldStructures.place(ServerLevel, ResourceLocation, BlockPos)`：副本/画卷固定点结构放置，NONE旋转、NONE镜像、包含实体、flags3；由World访问原生模板服务，Dungeon拥有调用条件和实例坐标。候场大厅与战斗结构已随自然入场实际放置，私人画卷结构与出口也已随真实二击传送生成，见[副本记录](../dungeon/logs/2026-11.md)。
 
 已对照 `typed_field_accesses.csv`：`XvkongDimension`、`XvkongqvnxiBiome`没有玩家或世界持久字段读写；技能裂隙的返回编号`tizhiitem.weidu`仍由xiulian公开操作管理。随机结构字段包含`Suijijiegou01FuJiaDeShengChengTiaoJianProcedure`一次条件读取，以及`YvanchuGoProcedure`的unlock/lock两次写入，分别由六个地物查询与管理命令调用World拥有者承担。其余世界状态、结构操作与外部字段访问随对应批次列出；world不写玩家档案。
 

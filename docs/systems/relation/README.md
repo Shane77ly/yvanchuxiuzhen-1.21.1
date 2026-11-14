@@ -2,7 +2,7 @@
 topic: relation
 role: entry
 status: partial
-updated: 2026-11-13
+updated: 2026-11-14
 ---
 
 # 关系
@@ -34,6 +34,8 @@ updated: 2026-11-13
 | 驯服替换好友与团队 | `replaceTamingFriends(目标)`先复制目标能力好友并移除旧实体团队；`setTamingTeam(施放者, 目标)`另写实体团队 | Creature神傀符命中；来源`Itemfulu18DangTouZhiWuJiZhongShiTiShiProcedure:225–234`，保留原生认主和粒子在两次写入之间的顺序 |
 | 设置团队 | `setTeam(非玩家实体, 团队名)` | 只写 `team` 的生成过程、creature 的 `EntityTeamShezhi`（团队名为实体类型 ID，`:` 改为 `_`） |
 | 加入友方 | `addFriendlyTeam(非玩家实体, 团队名)` | `EntityTeamShezhi` 把自身团队加入友方集合 |
+| 玩家能力临时队伍 | `temporaryTeam(玩家)`、`setTemporaryTeam(服务端玩家, 值)`；独立存盘、死亡复制、只同步本人 | Dungeon准入读取来源能力`teamwork`；页面生产者待Panel/Relation批次 |
+| 本体临时队伍 | `entityTemporaryTeam(实体)`、`setEntityTemporaryTeam(实体, 值)`；独立保存本体`teamwork` | Dungeon维度进入和成功/失败清理，不反写能力同名字段 |
 
 约定：普通公开写操作只用于非玩家实体，对玩家调用时抛出异常；驯服两操作明确只改本体实体附件，即使目标带玩家能力也不修改能力团队/好友。玩家能力关系由本系统登录和界面流程维护。方块实体敌友查询已随 yihuo 首个调用者接入，读取者持有只读视图，不反写玩家关系。
 
@@ -43,4 +45,4 @@ updated: 2026-11-13
 - 方块阵营保存与消费已接回 yihuo 火块和 guchong 蛊罐；旗母与副本方块随各所有者接入。
 - 好友行的境界名：xiulian 提供境界查询后接入（当前为初始境界“凡人”）。
 
-本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
+本轮副本操作见[本系统月志](logs/2026-11.md)，其他历史批次见[项目月度日志](../project/logs/2026-11.md)。

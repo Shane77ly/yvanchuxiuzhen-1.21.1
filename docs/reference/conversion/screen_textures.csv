@@ -448,3 +448,14 @@ quest,yvanchuxitong:screens/atlas/imagebutton_xvanxiang011
 quest,yvanchuxitong:screens/atlas/imagebutton_xvanxiang012
 quest,yvanchuxitong:screens/atlas/imagebutton_xvanxiang013
 quest,yvanchuxitong:screens/fengexian
+dungeon,yvanchuxiuzhen:screens/fubenopen
+dungeon,yvanchuxiuzhen:screens/tiandaofuben_gui
+dungeon,yvanchuxiuzhen:screens/fubengui
+dungeon,yvanchuxiuzhen:screens/fubenguitupian01
+dungeon,yvanchuxiuzhen:screens/fubenguitupian02
+dungeon,yvanchuxiuzhen:screens/fubenguitupian03
+dungeon,yvanchuxiuzhen:screens/fubenguitupian04
+dungeon,yvanchuxiuzhen:screens/fubenguitupian05
+dungeon,yvanchuxiuzhen:screens/atlas/imagebutton_fubenguijinru01
+dungeon,yvanchuxitong:screens/fubenblock_gui
+dungeon,yvanchuxitong:screens/fubenentity_gui

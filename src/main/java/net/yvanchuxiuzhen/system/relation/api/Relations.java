@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.system.relation.api;
 import java.util.Set;
 import java.util.HashSet;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.yvanchuxiuzhen.system.relation.data.Allegiance;
@@ -20,6 +21,24 @@ public final class Relations {
     /** 实体的团队名；未设置时为空串。 */
     public static String team(Entity entity) {
         return allegiance(entity).team();
+    }
+
+    public static String temporaryTeam(Player player) {
+        return player.getData(RelationAttachments.TEMPORARY_TEAM);
+    }
+
+    public static void setTemporaryTeam(ServerPlayer player, String team) {
+        player.setData(RelationAttachments.TEMPORARY_TEAM, team);
+        player.syncData(RelationAttachments.TEMPORARY_TEAM);
+    }
+
+    /** 来源本体实体 teamwork；副本维度进入与结束只操作这一份字段。 */
+    public static String entityTemporaryTeam(Entity entity) {
+        return entity.getPersistentData().getString("teamwork");
+    }
+
+    public static void setEntityTemporaryTeam(Entity entity, String team) {
+        entity.getPersistentData().putString("teamwork", team);
     }
 
     /** {@code judge} 是否把 {@code other} 视为友方。 */

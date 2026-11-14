@@ -122,8 +122,9 @@ def blend_spline(spline: dict, source_blend) -> dict:
 
 def terrain_graph(noise: dict, dimension: str) -> dict[str, dict]:
     """从真实来源样条生成专属地形图，保留已核对的原版气候与洞穴引用。"""
-    if noise['size_horizontal'] != 1 or noise['size_vertical'] != 2:
-        raise ValueError('当前精确BlendedNoise转换只覆盖已核对的4×8来源噪声单元')
+    if (noise['size_horizontal'], noise['size_vertical']) not in ((1, 2), (2, 1)):
+        raise ValueError('当前精确BlendedNoise转换只覆盖已核对的4×8及8×4来源噪声单元')
+    cell_width, cell_height = noise['size_horizontal'] * 4, noise['size_vertical'] * 4
     sampling = noise['sampling']
     if set(sampling) != {'xz_scale', 'y_scale', 'xz_factor', 'y_factor'}:
         raise ValueError(f'未知来源sampling字段：{sampling}')
@@ -144,11 +145,11 @@ def terrain_graph(noise: dict, dimension: str) -> dict[str, dict]:
         result[f'{path}/{kind}'] = blend_spline(function, {'type': 'minecraft:blend_offset'} if kind == 'offset' else 10.0 if kind == 'factor' else 0.0)
     result[f'{path}/depth'] = binary('add', {'type': 'minecraft:y_clamped_gradient', 'from_y': -64,
                                           'to_y': 320, 'from_value': 1.5, 'to_value': -1.5}, ref('offset'))
-    base_noise = {'type': NAMESPACE + ':legacy_blended_noise', 'cell_width': 4, 'cell_height': 8,
+    base_noise = {'type': NAMESPACE + ':legacy_blended_noise', 'cell_width': cell_width, 'cell_height': cell_height,
                   'source_y_scale': sampling['y_scale'],
-                  'argument': {'type': 'minecraft:old_blended_noise', 'xz_scale': sampling['xz_scale'] / 4,
-                               'y_scale': sampling['y_scale'] / 8, 'xz_factor': sampling['xz_factor'],
-                               'y_factor': sampling['y_factor'], 'smear_scale_multiplier': 8.0}}
+                  'argument': {'type': 'minecraft:old_blended_noise', 'xz_scale': sampling['xz_scale'] / cell_width,
+                               'y_scale': sampling['y_scale'] / cell_height, 'xz_factor': sampling['xz_factor'],
+                               'y_factor': sampling['y_factor'], 'smear_scale_multiplier': float(cell_height)}}
     jagged = {'type': 'minecraft:noise', 'noise': 'minecraft:jagged', 'xz_scale': 1500.0, 'y_scale': 0.0}
     jagged_depth = binary('add', ref('depth'), binary('mul', ref('jaggedness'), unary('half_negative', jagged)))
     gradient = binary('mul', 4.0, unary('quarter_negative', binary('mul', jagged_depth, ref('factor'))))

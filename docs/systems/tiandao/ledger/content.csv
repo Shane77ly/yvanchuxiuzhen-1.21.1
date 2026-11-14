@@ -1,5 +1,4 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
-biome,yvanchuxiuzhen:tiandaochunbaikongjian,yvanchuxiuzhen,Tiandaochunbaikongjian,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBiomes.java,133,tiandao,候选,yvanchuxiuzhen:tiandaochunbaikongjian,待处理,
 block,yvanchuxiuzhen:tiandaoduojiegou,yvanchuxiuzhen,Tiandaoduojiegou,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1925,tiandao,已读,yvanchuxiuzhen:tiandaoduojiegou,已注册,
 block,yvanchuxiuzhen:tiandaoguding,yvanchuxiuzhen,Tiandaoguding,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1976,tiandao,已读,yvanchuxiuzhen:tiandaoguding,已注册,
 block,yvanchuxiuzhen:tiandaoitemnbt,yvanchuxiuzhen,Tiandaoitemnbt,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2056,tiandao,已读,yvanchuxiuzhen:tiandaoitemnbt,已注册,

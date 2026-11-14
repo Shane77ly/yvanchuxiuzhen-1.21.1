@@ -2144,9 +2144,9 @@ yvanchuxiuzhen,Fabao009,animatedblock,~/weapon/fabao,dungeon,已读,B1 归属阅
 yvanchuxiuzhen,Fabao00901DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/weapon/fabao,dungeon,已读,B1 归属阅读：随 Fabao00901 读：画里乾坤：放置后右键进入专属维度 fabao_009weidu 并记下返回位置，进入时由 Fabao009weidu 放置副本（已读归 dungeon），非主人不能收起；是玩家副本入口
 yvanchuxiuzhen,Fabao00901,item,~/weapon/fabao,dungeon,已读,B1 归属阅读：画里乾坤：放置后右键进入专属维度 fabao_009weidu 并记下返回位置，进入时由 Fabao009weidu 放置副本（已读归 dungeon），非主人不能收起；是玩家副本入口
 yvanchuxiuzhen,Tiandaowhiteblock,block,~/Dimension,dungeon,已读,B1 归属阅读：天道空间方块：进入副本 Fubenjinru 与画里乾坤维度时按 ID 放置的空间方块，属副本空间
-yvanchuxiuzhen,Fabao009weidu,dimension,~/Dimension,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao009weidu,dimension,~/Dimension,world,已读,来源实读：画里乾坤维度类型与独立种子8×4噪声配置归World；玩家进入与副本状态归Dungeon
 yvanchuxiuzhen,Fabao009GengXinYouXiKe,procedure,~/weapon/fabao,dungeon,已读,B1 归属阅读：随 Fabao009 读：画里乾坤：放置后右键进入专属维度 fabao_009weidu 并记下返回位置，进入时由 Fabao009weidu 放置副本（已读归 dungeon），非主人不能收起；是玩家副本入口
-yvanchuxiuzhen,Tiandaochunbaikongjian,biome,~/biome,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Tiandaochunbaikongjian,biome,~/biome,world,已读,来源实读：画里乾坤专用群系归World；Builder无地物/出生，但全局事件注入38地物和修者0101，保留各地物维度门及草质基底/亮度出生条件
 yvanchuxiuzhen,Fabao009weiduDangWanJiaJinRuWeiDuShi,procedure,~/Dimension,dungeon,已读,系统设计·已读裁定：进入画里乾坤时放置 fuben00x，写 fubenweizhi 与副本坐标
 yvanchuxiuzhen,Weidubianhuan,procedure,~/Dimension,world,已读,系统设计·已读裁定：拆分支：按 gamemoshi 恢复游戏模式的分支归 dungeon
 yvanchuxiuzhen,Fabao010huoyanTouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao010huoyan 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
@@ -4502,26 +4502,26 @@ yvanchuxiuzhen,PlayerGoTojiegou,procedure,~/systemset,flow,候选,第一版批�
 yvanchuxiuzhen,Rebirthinxiuxianfalse,procedure,~/systemset/zhiling,xiulian,已读,C xiulian 归属阅读：管理命令 /yvanchu 的 chongzhilinggen、chongzhilinggenmax 子命令重置灵根（随机 0–9 或全为 9）；目标为公开操作 Cultivation.resetRoots、maximizeRoots，命令归 flow
 yvanchuxiuzhen,Rebirthinxiuxiantrue,procedure,~/systemset/zhiling,xiulian,已读,C xiulian 归属阅读：管理命令 /yvanchu 的 chongzhilinggen、chongzhilinggenmax 子命令重置灵根（随机 0–9 或全为 9）；目标为公开操作 Cultivation.resetRoots、maximizeRoots，命令归 flow
 yvanchuxiuzhen,TiandaofubenZaiFangKuaiShangYouJian,procedure,~/fuben,dungeon,已读,系统设计·已读裁定：非创造模式打开 FubenopenMenu，是玩家副本入口
-yvanchuxiuzhen,Fubenname,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenid,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjieshao,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjiangli,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenlevelneed,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenpeoplemax,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenyvlan,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenset,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenyvlan01xianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenyvlan02xianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenyvlan03xianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenyvlan04xianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenyvlan05xianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenopen,gui,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjinru,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playerfubentick,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjieshao01,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjieshao02,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjieshao03,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjieshao04,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fubenname,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenid,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenjieshao,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenjiangli,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenlevelneed,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenpeoplemax,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenyvlan,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenset,procedure,~/fuben,dungeon,已读,来源实读：管理串写入口十字段，仅应用非空输入，简介按16个UTF-16字符拆行，数值trim后解析失败写0，属于Dungeon入口配置
+yvanchuxiuzhen,Fubenyvlan01xianshi,procedure,~/fuben,dungeon,已读,来源实读：分别判断入口fubenyvlan等于1–5以显示对应预览图，属于Dungeon入口展示，目标保留相同编号判断
+yvanchuxiuzhen,Fubenyvlan02xianshi,procedure,~/fuben,dungeon,已读,来源实读：分别判断入口fubenyvlan等于1–5以显示对应预览图，属于Dungeon入口展示，目标保留相同编号判断
+yvanchuxiuzhen,Fubenyvlan03xianshi,procedure,~/fuben,dungeon,已读,来源实读：分别判断入口fubenyvlan等于1–5以显示对应预览图，属于Dungeon入口展示，目标保留相同编号判断
+yvanchuxiuzhen,Fubenyvlan04xianshi,procedure,~/fuben,dungeon,已读,来源实读：分别判断入口fubenyvlan等于1–5以显示对应预览图，属于Dungeon入口展示，目标保留相同编号判断
+yvanchuxiuzhen,Fubenyvlan05xianshi,procedure,~/fuben,dungeon,已读,来源实读：分别判断入口fubenyvlan等于1–5以显示对应预览图，属于Dungeon入口展示，目标保留相同编号判断
+yvanchuxiuzhen,Fubenopen,gui,~/fuben,dungeon,已读,A:FubenopenMenu/Screen和FubenopenButtonMessage将入口预览、门票与进入动作交给Dungeon；入口不修改其他系统真值
+yvanchuxiuzhen,Fubenjinru,procedure,~/fuben,dungeon,已读,来源实读：入口冷却/临时队伍等级人数、先扣票后最终准入、回程与控制点、实例标志、六秒候场和大厅传送归Dungeon；保留妖魂回程分支与扣票顺序Q103/Q104
+yvanchuxiuzhen,Playerfubentick,procedure,~/fuben,dungeon,已读,来源实读：推进候场倒计时，重建并启动控制器，转移大厅友方玩家，转换回程标志并回填入口冷却/坐标，属于Dungeon玩家生命周期
+yvanchuxiuzhen,Fubenjieshao01,procedure,~/fuben,dungeon,已读,来源实读：分别返回入口text01–text04，展示四行副本简介，属于Dungeon入口展示
+yvanchuxiuzhen,Fubenjieshao02,procedure,~/fuben,dungeon,已读,来源实读：分别返回入口text01–text04，展示四行副本简介，属于Dungeon入口展示
+yvanchuxiuzhen,Fubenjieshao03,procedure,~/fuben,dungeon,已读,来源实读：分别返回入口text01–text04，展示四行副本简介，属于Dungeon入口展示
+yvanchuxiuzhen,Fubenjieshao04,procedure,~/fuben,dungeon,已读,来源实读：分别返回入口text01–text04，展示四行副本简介，属于Dungeon入口展示
 yvanchuxiuzhen,TiandaofubenFangZhiFangKuaiShi,procedure,~/fuben,dungeon,已读,系统设计·已读裁定：非创造模式打开 FubenopenMenu，是玩家副本入口
 yvanchuxiuzhen,TiandaofubenGengXinYouXiKe,procedure,~/fuben,dungeon,已读,系统设计·已读裁定：非创造模式打开 FubenopenMenu，是玩家副本入口
 yvanchuxiuzhen,DimensiondilingDangWanJiaJinRuWeiDuShi,procedure,~/Dimension,world,已读,B1 归属阅读：随 Dimensiondiling 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
@@ -4619,7 +4619,7 @@ yvanchuxiuzhen,Altanjian,keybind,,flow,候选,第一版批量归组（目录、�
 yvanchuxiuzhen,TiandaoitemnbtGui,gui,~/systemset/tiandao,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tiandaoitemnbt,block,~/systemset/tiandao,tiandao,已读,B1 归属阅读：天道：生存模式不可得的通用管理工具（穿梭令、物品锁、物品 NBT 编辑器、固定方块、多结构生成器）；本元素无过程
 yvanchuxiuzhen,Tiandaoitemnbtset,procedure,~/systemset/tiandao,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenitemneed,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fubenitemneed,procedure,~/fuben,dungeon,已读,来源实读：入口槽0非空时显示进入消耗提示；实际扣票由Fubenjinru执行，属于Dungeon准入界面
 yvanchuxiuzhen,Jiunpc,tag,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao201raw,item,~/item/metal,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 npc 的 Businessman09 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao203raw,item,~/item/metal,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；只在配方、标签或战利品表中出现
@@ -7119,12 +7119,12 @@ yvanchuxitong,Makebookhecheng,recipe,~/zawu/makebook,book,已读,已读来源六
 yvanchuxitong,Fubenblock,block,~/fuben,dungeon,已读,B1 归属阅读：副本：副本方块的阶段与波次、副本实体占位
 yvanchuxitong,Fubenentity,block,~/fuben,dungeon,已读,B1 归属阅读：副本：副本方块的阶段与波次、副本实体占位
 yvanchuxitong,FubenblockGengXinYouXiKe,procedure,~/fuben,dungeon,已读,B1 归属阅读：随 Fubenblock 读：副本：副本方块的阶段与波次、副本实体占位
-yvanchuxitong,Fubenbianchangxianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,FubenblockGui,gui,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Fubenblockset,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhanweifuidxianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhanweifuset,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,FubenentityGui,gui,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Fubenbianchangxianshi,procedure,~/fuben,dungeon,已读,来源实读：显示/配置控制器边长与中心，扫描正轴立方区域登记占位符相对坐标和原tag，累计计数不预清零，属于Dungeon区域与站位配置
+yvanchuxitong,FubenblockGui,gui,~/fuben,dungeon,已读,B:FubenblockGuiMenu/Screen和FubenblockGuiButtonMessage配置45槽控制器和扫描边长，归Dungeon
+yvanchuxitong,Fubenblockset,procedure,~/fuben,dungeon,已读,来源实读：显示/配置控制器边长与中心，扫描正轴立方区域登记占位符相对坐标和原tag，累计计数不预清零，属于Dungeon区域与站位配置
+yvanchuxitong,Zhanweifuidxianshi,procedure,~/fuben,dungeon,已读,来源实读：显示/保存占位ID，按朝向写生成角度，仅勾选时写攻击true而不清旧值，属于Dungeon刷怪站位配置；显示差异另记Q112
+yvanchuxitong,Zhanweifuset,procedure,~/fuben,dungeon,已读,来源实读：显示/保存占位ID，按朝向写生成角度，仅勾选时写攻击true而不清旧值，属于Dungeon刷怪站位配置；显示差异另记Q112
+yvanchuxitong,FubenentityGui,gui,~/fuben,dungeon,已读,B:FubenentityGuiMenu/Screen和FubenentityGuiButtonMessage配置占位ID及攻击标志，归Dungeon
 yvanchuxitong,FubenentityFangKuaiShiTiXuanRanShi,procedure,~/fuben,dungeon,已读,B1 归属阅读：随 Fubenentity 读：副本：副本方块的阶段与波次、副本实体占位
 yvanchuxitong,Fubenshujvjiexi,procedure,~/fuben,dungeon,已读,B1 归属阅读：随 Fubenblock 读：副本：副本方块的阶段与波次、副本实体占位
 yvanchuxitong,Giftgive,procedure,~/fuben,dungeon,已读,B1 归属阅读：随 Fubenblock 读：副本：副本方块的阶段与波次、副本实体占位

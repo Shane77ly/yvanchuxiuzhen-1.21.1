@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/tiandaofuben.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/tiandaofuben"
+  }
+}

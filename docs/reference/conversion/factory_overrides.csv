@@ -1,4 +1,5 @@
 registry,target_id,factory,owner,reason
+item,yvanchuxiuzhen:fabao_009,block_item,dungeon,来源画卷方块物品使用generated图标且不进入创造栏
 item,yvanchuxiuzhen:ling_12,economy:bank_card,economy,普通通宝玉潜行认主和物品自身灵石余额查询
 item,yvanchuxiuzhen:ling_13,economy:bank_card_advanced,economy,高级通宝玉认主及本人普通右键单步银行对话
 block,yvanchuxiuzhen:ginkgoleaves,plant:particle_foliage_leaves,plant,银杏叶周期粒子行为且保留LeavesBlock基类
@@ -904,3 +905,9 @@ item,yvanchuxiuzhen:cailiao_196,economy:spirit_stone_6,economy,灵石食用后�
 item,yvanchuxiuzhen:cailiao_197,economy:spirit_stone_7,economy,灵石食用后增加当前灵力及来源待吸收修为
 item,yvanchuxiuzhen:cailiao_198,economy:spirit_stone_8,economy,灵石食用后增加当前灵力及来源待吸收修为
 item,yvanchuxiuzhen:cailiao_199,economy:spirit_stone_9,economy,灵石食用后增加当前灵力及来源待吸收修为
+block,yvanchuxiuzhen:tiandaofuben,dungeon:tiandaofuben,dungeon,天道副本入口默认定义、两槽、候场与冷却
+block,yvanchuxiuzhen:fabao_009,dungeon:fabao_009,dungeon,私人画卷主人、单槽、两端快照与传送
+block,yvanchuxiuzhen:fubenblock,dungeon:fubenblock,dungeon,副本控制器45槽、配置、波次与奖励
+block,yvanchuxiuzhen:fubenentity,dungeon:fubenentity,dungeon,副本占位符配置与生成标记
+item,yvanchuxiuzhen:fabao_00901,dungeon:fabao_00901,dungeon,主手画卷的自然放置和主人登记
+item,yvanchuxiuzhen:tiandaofuben,dungeon:tiandaofuben,dungeon,天道副本入口来源Geo方块物品

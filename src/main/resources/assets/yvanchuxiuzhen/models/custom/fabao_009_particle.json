@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/fabao009.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/fabao00901"
+  }
+}

@@ -5748,7 +5748,7 @@ yvanchuxiuzhen,Biomewinter03Biome,src/main/java/net/mcreator/yvanchuxiuzhen/worl
 yvanchuxiuzhen,Biomeyoumeng01Biome,src/main/java/net/mcreator/yvanchuxiuzhen/world/biome/Biomeyoumeng01Biome.java,world/biome,world,source_element_metadata
 yvanchuxiuzhen,Biomeyoumeng02Biome,src/main/java/net/mcreator/yvanchuxiuzhen/world/biome/Biomeyoumeng02Biome.java,world/biome,world,source_element_metadata
 yvanchuxiuzhen,Biomeyoumeng03Biome,src/main/java/net/mcreator/yvanchuxiuzhen/world/biome/Biomeyoumeng03Biome.java,world/biome,world,source_element_metadata
-yvanchuxiuzhen,TiandaochunbaikongjianBiome,src/main/java/net/mcreator/yvanchuxiuzhen/world/biome/TiandaochunbaikongjianBiome.java,world/biome,tiandao,source_element_metadata
+yvanchuxiuzhen,TiandaochunbaikongjianBiome,src/main/java/net/mcreator/yvanchuxiuzhen/world/biome/TiandaochunbaikongjianBiome.java,world/biome,world,source_element_metadata
 yvanchuxiuzhen,XvkongqvnxiBiome,src/main/java/net/mcreator/yvanchuxiuzhen/world/biome/XvkongqvnxiBiome.java,world/biome,world,source_element_metadata
 yvanchuxiuzhen,DimensiondilingDimension,src/main/java/net/mcreator/yvanchuxiuzhen/world/dimension/DimensiondilingDimension.java,world/dimension,world,source_element_metadata
 yvanchuxiuzhen,DimensionrenjianDimension,src/main/java/net/mcreator/yvanchuxiuzhen/world/dimension/DimensionrenjianDimension.java,world/dimension,world,source_element_metadata

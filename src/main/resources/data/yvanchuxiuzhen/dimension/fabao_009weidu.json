@@ -1,0 +1,25 @@
+{
+  "type": "yvanchuxiuzhen:fabao_009weidu",
+  "generator": {
+    "type": "yvanchuxiuzhen:legacy_dimension",
+    "seed": -7568801392089884081,
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "yvanchuxiuzhen:tiandaochunbaikongjian",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": 0,
+            "weirdness": 0,
+            "erosion": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    "settings": "yvanchuxiuzhen:fabao_009weidu"
+  }
+}

@@ -19,6 +19,8 @@ updated: 2026-11-14
 
 ## 公开操作
 
+`TreasureContainers.create(Item, category, subtype, level, minimum, maximum)`由本系统构造五项宝箱参数，供Dungeon奖励使用；根字段沿用来源拼写`minimumvalue`与`Maximumvalue`。调用者可保留其他已解析字段，但不得覆盖所有者构造的参数。副本自然奖励消费的运行边界见[副本月志](../dungeon/logs/2026-11.md)。
+
 `TreasureRewards.open`按本次调用的类别、等级与次数生成掉落，等级不写玩家档案或共享临时全局字段。实例构造分别调用`Techniques.createBook`、`Skills.createBook`、`Liandan.createMedicineReward / createRecipeReward`、`Fulu.createReward`及`Materials.setInstance`；装备奖励继续执行`/lianqi`，由equipment构造。`typed_field_accesses.csv`的`baoxianglevellinshi`仅为来源奖励表临时参数读写，目标由方法参数等价承担；本包不接入玩家持久字段。
 
 `/baoxiangopen`与`/baoxiangset`要求权限1。前者解析来源五参数后发奖，后者对七格视线命中的方块实体写宝箱配置并报告中文结果。`/lianqi`成品入口要求命令位置的物品能力槽0为空且支持原生容器写入；经槽0读回后在原坐标掉落并清槽，返回0。来源限制与既有验证见[成品命令](architecture.md#成品命令2026-11-07)。

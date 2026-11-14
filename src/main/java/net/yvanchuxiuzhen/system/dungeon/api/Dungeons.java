@@ -1,0 +1,36 @@
+package net.yvanchuxiuzhen.system.dungeon.api;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.yvanchuxiuzhen.system.dungeon.DungeonEntrances;
+import net.yvanchuxiuzhen.system.dungeon.DungeonSourceData;
+import net.yvanchuxiuzhen.system.dungeon.content.DungeonBlockEntity;
+import net.yvanchuxiuzhen.system.dungeon.content.DungeonMenu;
+import net.yvanchuxiuzhen.system.dungeon.content.DungeonMenus;
+
+/** 副本自然交互、来源按钮与镇妖塔补充定义的服务端入口。 */
+public final class Dungeons {
+    private Dungeons() {
+    }
+
+    public static void open(ServerPlayer player, BlockPos pos, boolean management) {
+        if (player.level().getBlockEntity(pos) instanceof DungeonBlockEntity block) {
+            int kind = switch (block.kind()) {
+                case "tiandaofuben" -> management ? DungeonMenu.MANAGE : DungeonMenu.OPEN;
+                case "fubenblock" -> DungeonMenu.CONTROLLER;
+                case "fubenentity" -> DungeonMenu.MARKER;
+                default -> -1;
+            };
+            if (kind >= 0) DungeonMenus.open(player, block, kind);
+        }
+    }
+
+    public static void enter(ServerPlayer player, BlockPos pos) {
+        if (player.level().getBlockEntity(pos) instanceof DungeonBlockEntity block && block.kind().equals("tiandaofuben")) DungeonEntrances.enter(player, block);
+    }
+
+    public static void configureTower(ServerLevel level) {
+        DungeonSourceData.configureTower(level);
+    }
+}

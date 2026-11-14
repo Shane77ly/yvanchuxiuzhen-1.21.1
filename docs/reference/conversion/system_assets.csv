@@ -736,3 +736,10 @@ decor,texture,yvanchuxitong:entities/shiti_yizi
 economy,geo,yvanchuxiuzhen:tiandiyinhang
 economy,animation,yvanchuxiuzhen:tiandiyinhang
 economy,texture,yvanchuxiuzhen:blocks/tiandiyinhang
+dungeon,geo,yvanchuxiuzhen:tiandaofuben
+dungeon,animation,yvanchuxiuzhen:tiandaofuben
+dungeon,geo,yvanchuxiuzhen:fabao009
+dungeon,animation,yvanchuxiuzhen:fabao009
+dungeon,texture,yvanchuxiuzhen:blocks/tiandaofuben
+dungeon,texture,yvanchuxiuzhen:blocks/fabao00901
+dungeon,texture,yvanchuxiuzhen:items/fabao009

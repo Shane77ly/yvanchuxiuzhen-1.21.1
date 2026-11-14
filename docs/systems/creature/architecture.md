@@ -214,6 +214,12 @@ creature 提供生成初始化、驯服/主人查询、采集、收纳/释放和
 
 逐实体族验证自然投放、刷怪蛋/命令/副本生成、属性、技能、形态切换、碰撞箱/视觉大小、掉落采集、驯养和移除。离线主人/袋被移动的行为需依据来源明确，不预设离线召回系统。静态 AI 索引不等于已验证寻路和战斗观感。
 
+## Q110 organism_11掉落上下文
+
+来源A的`src/main/resources/data/yvanchuxiuzhen/loot_tables/entities/organism_11.json`在实体掉落表三处使用`minecraft:apply_bonus`、`minecraft:fortune`和`minecraft:ore_drops`。目标转换仅适配资源格式，保留这三处函数；目标加载验证报告所需`minecraft:tool`不在实体上下文中。此前环境生物加载已观察到告警，本批副本单项加载再次出现，不能由告警推导实际掉落错误。
+
+当前保持来源，不替换附魔或删除函数。三条掉落分支的实际产物、数量与附魔影响，以及1.18.2版本实机和两版本对照未执行。该项进入[统一问题索引](../../reference/legacy/source-survey.md#具体问题与裁定位置)，后续集中复核；不是副本入口放置失败的原因证据。
+
 ## 实体属性（2026-11-03 attribute 归属阅读）
 
 来源的两个属性注册 `entitydaxiao`（体型，0.7–10，默认 1）与 `yaoshoupifuxianshi`（皮肤变体，1–5，默认 1）归本系统，台账行已移入本系统。`EntityAttributeModificationEvent` 把前者加给妖兽 `yaoshou_001`–`054`（缺 034、044）、`yaoshou_01701`、修者 `xiuzhe_0101` 与桃木精，后者加给 `yaoshou_001`、`002` 与 `xiuzhe_0101`；由生成、灵兽袋收放（`Lingshoushouna`、`Lingshoudaiyoujian`）与修者身高过程读写。
