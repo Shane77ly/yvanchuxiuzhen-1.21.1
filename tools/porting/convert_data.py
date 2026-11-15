@@ -4,6 +4,7 @@
 - src/main/resources/data/yvanchuxiuzhen/recipe/<名>.json
 - src/main/resources/data/yvanchuxiuzhen/loot_table/<blocks|entities>/<名>.json
 - src/main/resources/data/yvanchuxiuzhen/advancement/<名>.json
+- src/main/resources/data/yvanchuxiuzhen/function/playerchuansuo.mcfunction
 - src/main/resources/data/<yvanchuxiuzhen|minecraft>/tags/<种类>/<路径>.json
 - src/main/resources/data/yvanchuxiuzhen/enchantment/<名>.json 与附魔相关标签（convert_enchantments.py）
 - 已核对的维度、维度类型、群系与洞穴可替换标签（convert_world.py）
@@ -283,6 +284,14 @@ class Converter:
             out['parent'] = self.rename(out['parent'])
         self.write(DATA / NAMESPACE / 'advancement' / file.name, out, [(mod, file)])
 
+    def birth_function(self, mod: str, file: Path, root: Path) -> None:
+        """出身传送函数保留来源维度、选择器和坐标，只适配目标函数目录。"""
+        target = DATA / NAMESPACE / 'function' / file.name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(file.read_text(encoding='utf-8'), encoding='utf-8', newline='\n')
+        digest = hashlib.sha1(file.read_bytes()).hexdigest()
+        self.manifest.append((f'{mod}/{file.relative_to(root).as_posix()}', digest, self.rel(target)))
+
     # ---- 输出 ----
 
     def rel(self, path: Path) -> str:
@@ -330,7 +339,10 @@ class Converter:
             for file in sorted((data / 'advancements').glob('*.json')) if (data / 'advancements').is_dir() else []:
                 self.advancement(mod, file, root)
             for file in sorted((data / 'functions').glob('*.mcfunction')) if (data / 'functions').is_dir() else []:
-                self.skipped.append(('function', f'{mod}/{file.relative_to(root).as_posix()}', '函数引用本 Mod 的维度，随 world 迁移'))
+                if mod == 'yvanchuxiuzhen' and file.stem == 'playerchuansuo':
+                    self.birth_function(mod, file, root)
+                else:
+                    self.skipped.append(('function', f'{mod}/{file.relative_to(root).as_posix()}', '函数引用本 Mod 的维度，随 world 迁移'))
         for target in generated:
             self.write(target, self.tags[target], self.tag_origin[target])
         generate_enchantments(self)

@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.xiulian;
 
 import java.util.List;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -9,6 +10,8 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
+import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.system.xiulian.api.BirthInitialRewardsEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -17,7 +20,7 @@ import net.yvanchuxiuzhen.system.xiulian.content.BirthMenu;
 /**
  * 首次进入游戏的灵根、体质与出身（来源 {@code PlayerJoinGame} 前段、出身界面 {@code PlayerJoinGUI} 的按钮
  * {@code Lock1}–{@code 5}、{@code Suijikaijv}、{@code BirthUp}、{@code Birthdown}，以及关闭界面后 {@code PlayerJoin02} 的体质部分）。
- * 关闭界面后按出身发放物品与传送的部分涉及多个系统的物品，由 flow 在对应系统实现后接入。
+ * 关闭后等待两个服务端结束刻，先向具体flow交接初始奖励和传送，再应用体质。
  */
 public final class BirthSelection {
     /** 按钮编号与来源 {@code PlayerJoinGUIButtonMessage} 一致：0–4 锁定金水木火土，5 随机，6 上一个出身，7 下一个出身。 */
@@ -104,8 +107,13 @@ public final class BirthSelection {
         Cultivation.add(player, CultivationValue.RANDOMLIFT, -1);
     }
 
-    /** 关闭出身界面：按体质打开标记、加修正值，体质计数 {@code tizhinumber} 加 1。 */
-    public static void close(ServerPlayer player) {
+    /** 关闭过程保留菜单打开维度，两个结束刻后读取当时的出身和体质。 */
+    public static void close(ServerPlayer player, ServerLevel sourceLevel) {
+        Delayed.run(2, () -> apply(player, sourceLevel));
+    }
+
+    private static void apply(ServerPlayer player, ServerLevel sourceLevel) {
+        NeoForge.EVENT_BUS.post(new BirthInitialRewardsEvent(player, sourceLevel));
         Constitution constitution = Constitution.applied(Cultivation.get(player, CultivationText.CONSTITUTION));
         Cultivation.setTizhiBoolean(player, constitution.openKey(), true);
         for (Constitution.Bonus bonus : constitution.bonuses()) {

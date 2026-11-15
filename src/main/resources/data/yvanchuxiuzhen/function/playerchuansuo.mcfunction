@@ -1,0 +1,1 @@
+execute in yvanchuxiuzhen:dimensionrenjian run teleport @p 0 32 0

@@ -2821,3 +2821,4 @@ yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/zhibujihecheng.jso
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/zhuangshiqiantonghecheng.json,9e7186b833136d94445b9c2d8f82dbb9c6184866,src/main/resources/data/yvanchuxiuzhen/recipe/zhuangshiqiantonghecheng.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/noentity.json,e22b890c47ea5b9dbf2992ae847cf4153763ce6a,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json
 yvanchuxitong/src/main/resources/data/forge/tags/entity_types/noentity.json,426c1a54cd0d5381889de240301967aa8e09967b,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json
+yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/functions/playerchuansuo.mcfunction,fae76d99f8eac03095344bbb4be66f68d56b025b,src/main/resources/data/yvanchuxiuzhen/function/playerchuansuo.mcfunction
