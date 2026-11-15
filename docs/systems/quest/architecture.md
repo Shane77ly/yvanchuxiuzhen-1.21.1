@@ -136,9 +136,28 @@ B `RenwuanjianAnXiaAnJianShi`先做整数除法list.size()/8再ceil，总页码�
 
 B `Fanyexianshi.execute()`没有玩家参数，从新建ItemStack.EMPTY读取renwuyenum/renwuzongye，实际均为0。目标保留0/0显示，实际导航仍读服务端会话；待集中裁定，不将显示异常修成来源未有的新行为。
 
-### Q162 八成就未发现Java授予者
+### Q162 八个结构的成就动态授予链
 
-chengjiu_001至008定义已在目标singular advancement目录，来源均隐藏、impossible、奖励20经验并以父项串联。来源Java全文未找到award/getAdvancements调用；资源/命令动态生产者尚待复核。保留既有定义，不添加凭名称猜出的成就触发。
+当前状态为**静态链已发现、待运行核实**。A锁定来源的八个空谷残卷固定结构模板各嵌一条`advancement grant @p only yvanchuxiuzhen:chengjiu_00N`。命令存于任务伪装方块的`ForgeData`，目标对应结构保留同一块索引、相对坐标与完整脚本，仅将包装迁为`NeoForgeData`、方块和方块实体ID由`yvanchuxitong:renwuweizhuangfangkuai`转为合并后的命名空间。不能因来源Java没有直接调用成就API，就将这八项判为没有动态授予入口。
+
+来源模板位于A `src/main/resources/data/yvanchuxiuzhen/structures/`，目标位于`src/main/resources/data/yvanchuxiuzhen/structure/`。下表块索引为NBT列表的零基索引；完整来源字段为`blocks[索引].nbt.ForgeData.脚本字段`，目标对应`NeoForgeData`。
+
+| 模板 | 块索引 | 模板内相对坐标 | 脚本字段 | 授予目标 |
+| --- | ---: | --- | --- | --- |
+| `konggucanjvan01.nbt` | 1007 | (2,2,10) | `tasklist1` | `chengjiu_001` |
+| `konggucanjvan02.nbt` | 2024 | (8,2,12) | `tasklist1` | `chengjiu_002` |
+| `konggucanjvan03.nbt` | 3165 | (18,8,5) | `tasklist1` | `chengjiu_003` |
+| `konggucanjvan04.nbt` | 1271 | (1,2,12) | `tasklist1` | `chengjiu_004` |
+| `konggucanjvan05.nbt` | 4045 | (18,3,8) | `tasklist1` | `chengjiu_005` |
+| `konggucanjvan06.nbt` | 4616 | (14,1,18) | `renwulist1` | `chengjiu_006` |
+| `konggucanjvan07.nbt` | 17405 | (17,2,17) | `tasklist1` | `chengjiu_007` |
+| `konggucanjvan08.nbt` | 26782 | (26,4,10) | `tasklist1` | `chengjiu_008` |
+
+八串均按“文字→指令授予→任务进度更改/完成→任务储存/5→结束”排列，目标脚本文本与来源逐字一致。A `SealreleaseGoProcedure.java:361–411`依结构名放置这八模板，调用者为`YvanchuGoProcedure.java:536–537`的`unlock sealrelease`分支。目标固定表`StructureReleaseData.java:41–48`保留八项放置，裂隙在`RiftBlockEntity.java:77–78`经`StructureExploration.java:121–124`执行解封命令，再由`WorldGenerationCommands.java:56–58`进入释放；`WorldStructures.java:18–20`使用原生模板加载方块实体数据。
+
+目标任务方块`DisguisedQuestBlock.java:64–78`将两种右键入口交给`DisguisedQuestRuntime.interact:38–53`，按序读取`renwulistN`或`tasklistN`并跳过已完成任务，然后经`DialogueActions.request:14–20`写会话；`DialogueRuntime.tick:64–102`启动执行，文字页继续后，`:207–214`以玩家位置和权限4执行“指令”。因此这批脚本从已实现任务方块入口至授予命令静态可达，仍保留来源`@p`选择器，不添加额外授予触发、替换为直接API或修改任务字段。
+
+`chengjiu_001`至`008`定义均已迁入目标singular `advancement`目录；八份来源与目标的criterion均为`minecraft:impossible`、奖励20经验、隐藏显示，001无父项、002–008依次以前一项为父项。来源Java全文仍未发现`award`/`getAdvancements`等直接API授予调用。本结论来自源码与NBT/JSON静态核对，未执行1.18.2版本实机、1.21.1版本成就自然授予、多人与两版本对照，完整授予及任务完成/重进表现待必要运行核实。
 
 剧情法术/精神动作只交付ManaAttackDamage/SoulAttackDamage、对应UUID、damagetype和Damage_multiplier；来源另一版消费过程无调用者，Q31保持开放，不能把字段登记写成已完成实际伤害结算。运行与未验范围只在本月记录维护。
 

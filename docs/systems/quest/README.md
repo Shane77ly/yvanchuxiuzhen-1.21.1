@@ -34,4 +34,4 @@ B1 已登记本单位不依赖新代码类型的内容身份与资源（方块8�
 
 已对照`typed_field_accesses.csv`中`Playerrightclickwithitem`、`PlayerTickxitong`、`Duihuashijian`、`PlayerJoinGame`、`PlayerRightClickEntity`和悬赏过程的外部读写：会话与任务目录由本系统写入；商品表、商店说明、菜单、补领费用与银行奖励由经济API处理，追踪物品与妖兽等级由各实体所有者处理。银行固定脚本没有“任务储存”步骤，不另造任务jindu；其他来源动作的未接范围见[普通对话正文](architecture.md#普通对话与任务目录2026-11-14)。
 
-本轮变化见[任务月志](logs/2026-11.md)，共同银行运行结果由[经济月志](../economy/logs/2026-11.md)维护。
+八个空谷残卷结构模板保留任务方块内嵌的成就授予命令，目标脚本入口至命令执行器静态可达；状态为静态链已发现、待运行核实，逐项证据见[Q162](architecture.md#q162-八个结构的成就动态授予链)。本轮变化见[任务月志](logs/2026-11.md)，共同银行运行结果由[经济月志](../economy/logs/2026-11.md)维护。
