@@ -14,6 +14,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.common.NeoForge;
@@ -56,8 +57,30 @@ public final class NpcProfiles {
     public static void applyOwnedProfile(NpcManagementApplyEvent event) {
         Mob npc = event.target();
         if (!(npc instanceof NpcMob || npc instanceof NpcResident || npc instanceof NpcFlyingShuttle
-                || npc instanceof NpcUnderworldGuard || npc instanceof NpcUnderworldJudge)) return;
+                || npc instanceof NpcUnderworldGuard || npc instanceof NpcUnderworldJudge)) {
+            applyGenericMobProfile(event, npc);
+            return;
+        }
         CompoundTag data = npc.getPersistentData();
+        writeProfileData(event, data);
+        event.applyEquipment();
+        NpcStats.calculate(npc);
+    }
+
+    /**
+     * 来源管理工具也接受带完整原生攻击属性的其他自定义 Mob；这些实体没有 NPC 专属所有者，
+     * 由管理工具在本系统保存来源档案并复用同一套资质公式。缺少攻击属性的原版 Mob 继续
+     * 保持 Q159 的来源边界，由入口只交付姓名与装备。
+     */
+    private static void applyGenericMobProfile(NpcManagementApplyEvent event, Mob npc) {
+        if (npc.getAttribute(Attributes.ATTACK_DAMAGE) == null) return;
+        CompoundTag data = npc.getPersistentData();
+        writeProfileData(event, data);
+        event.applyEquipment();
+        NpcStats.calculate(npc);
+    }
+
+    private static void writeProfileData(NpcManagementApplyEvent event, CompoundTag data) {
         for (int index = 0; index < event.scripts().size(); index++) {
             String key = "renwulist" + (index + 1);
             String script = event.scripts().get(index);
@@ -71,11 +94,9 @@ public final class NpcProfiles {
             data.putString("productlist", products);
             data.putString("shopinformation", event.information());
         }
-        event.applyEquipment();
         data.putDouble("LEVELnumber", event.level());
         event.ratings().forEach(data::putString);
         if (event.fixed()) data.putBoolean("npcset", true);
-        NpcStats.calculate(npc);
     }
 
     private static List<ItemStack> equipment(Mob npc, CompoundTag item) {

@@ -97,9 +97,9 @@ A `animations/yanwang.animation.json`的`animation.yanwang.idle`引用`bai`骨�
 
 ### Q149 管理工具档案消费者覆盖范围
 
-A `RightClickEntityProcedure:188–473`允许工具复制到任意非玩家`Mob`，写入等级、13项资质、任务脚本、商品、装备与名称，并调用`NpcshuxingjisuanProcedure`。目标`NpcProfiles.apply`对任意`Mob`保留名称、装备和粒子；`applyOwnedProfile`已覆盖NPC所有者的五个基类`NpcMob`、`NpcResident`、`NpcFlyingShuttle`、`NpcUnderworldGuard`和`NpcUnderworldJudge`，补齐阴司五实体。其他所有者及原版`Mob`仍不接收持久档案字段或触发属性重算，Q149保持开放。跨所有者补齐需由Flow编排和各所有者公开操作承接，不能直接订阅形成npc→economy→equipment→guchong→npc或npc→skill/world→npc循环。普通生物缺攻击属性的来源边界另见Q159。
+A `RightClickEntityProcedure:188–473`允许工具复制到任意非玩家`Mob`，写入等级、13项资质、任务脚本、商品、装备与名称，并调用`NpcshuxingjisuanProcedure`。目标`NpcProfiles.apply`对任意`Mob`保留名称、装备和粒子；`applyOwnedProfile`已覆盖NPC所有者的五个基类`NpcMob`、`NpcResident`、`NpcFlyingShuttle`、`NpcUnderworldGuard`和`NpcUnderworldJudge`，补齐阴司五实体；本批再为带原生`ATTACK_DAMAGE`的其他自定义`Mob`接入同一档案写入与资质计算。缺少该属性的原版`Mob`仍只接收姓名和装备，保留Q159的来源异常边界。跨所有者补齐需由Flow编排和各所有者公开操作承接，不能直接订阅形成npc→economy→equipment→guchong→npc或npc→skill/world→npc循环。其他数据所有者和无攻击属性生物的完整覆盖仍属Q149开放范围。
 
-NPC所有者按来源顺序写脚本/商品、六槽装备、等级/资质、固定标记、等级名称和属性；事件持有与工具库存隔离的装备快照，尚无档案消费者的生物仍由入口交付原生装备。`NpcStats`在写生命上限后立即注册20次END回调，先更新原生攻击再计算其余攻防与移速；回调读取执行时最新生命上限，不增加存活或移除门控。四个代表实体的小数等级、十三项混合资质、属性及真实保存重进已通过有限单项，两个旧客户端粒子计数检查仍失败，详细边界见[本月记录](logs/2026-11.md#2026-11-15-npc管理赋档与保存重进)。
+NPC所有者按来源顺序写脚本/商品、六槽装备、等级/资质、固定标记、等级名称和属性；事件持有与工具库存隔离的装备快照，未被所有者或通用自定义Mob分支接收的生物仍由入口交付原生装备。`NpcStats`在写生命上限后立即注册20次END回调，先更新原生攻击再计算其余攻防与移速；回调读取执行时最新生命上限，不增加存活或移除门控。四个代表实体的小数等级、十三项混合资质、属性及真实保存重进已通过有限单项，两个旧客户端粒子计数检查仍失败，详细边界见[本月记录](logs/2026-11.md#2026-11-15-npc管理赋档与保存重进)。
 
 ### Q159 管理工具对缺少攻击属性的Mob发生异常
 
