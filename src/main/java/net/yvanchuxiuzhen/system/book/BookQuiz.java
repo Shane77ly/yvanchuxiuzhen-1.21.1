@@ -47,6 +47,7 @@ public final class BookQuiz {
     private static void complete(ServerPlayer player) {
         ItemStack stack = player.getMainHandItem();
         // 来源答满直接覆盖归属，不重新检查境界、灵根或原研习者，也不附赠自然研习才发放的技能。
+        BookOwnership.bindQuizOwner(player, stack);
         if (Techniques.book(stack).isPresent()) {
             Techniques.completeQuiz(player, stack);
         }

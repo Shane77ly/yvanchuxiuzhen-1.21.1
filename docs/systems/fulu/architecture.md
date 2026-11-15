@@ -154,6 +154,10 @@ updated: 2026-11-14
 
 `Fulu.createReward`接收承载物品、来源品阶与品阶文字，仅由Fulu构造`fululevel/fululeveltxt`业务实例；生成物按既有成品Tooltip、付款和施用消费者使用。Treasure不直接写Fulu数据，概率、重复项和空分支仍归[Treasure奖励表](../treasure/architecture.md#来源异常的当前处理)。本接口不解锁符头/符胆，也不生成学习书；本批仅静态来源核对，构建和运行尚未执行。
 
+### Q209 符箓学习载体生产者未发现
+
+来源 B `FudangetGoProcedure`只读取主手或副手物品的`fuluget`，学习成功后扣除一件；在来源 A/B 的已核对过程和资源中没有发现写入`fuluget`的生产者或自然入口。目标保留`FuluKnowledgeRuntime.unlockCore`、`learningBook`、`DrawingTableRuntime`及`Fulu.createReward`的已有消费/成品链，不凭消费过程补造学习载体生产玩法。该断链登记为统一问题索引 Q209，待集中复核；完整知识获取、传承布置和自然生产仍属于R08/R11开放范围。
+
 ### 神傀符18控制与驯服（2026-11-13）
 
 来源为`A:Itemfulu18Item`、`Itemfulu18Entity`、`Itemfulu18TouZhiWuFeiXingTickProcedure`、`Itemfulu18DangTouZhiWuJiZhongShiTiShiProcedure`及`Fulutexiao18`三文件。八个文件的SHA256与核对结果保存在`tmp/r08-fulu18/source-proof.json`。共享10号条件先写`fululevel`再付款；72000刻、NONE动画，松手以速度2、基础伤害0.1、无散布静音箭发射。来源引用的`fulufashe`未登记，Forge40.1.0的`ServerLevel`声音补丁遇null直接返回；目标保留该静默与音高随机抽取，不调用会解引用null的21.1.265声音重载。非创造消耗手持或背包首张同种符。原生箭先推进，首个非无重力刻读取通用品阶但不清施放者字段，写施放者显示名和玩家能力团队，读取Ctrl或Alt决定`jiuxiaoguo`，十刻移除。品阶、计数、模式、名字和团队随弹体保存。

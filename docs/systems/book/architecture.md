@@ -131,7 +131,7 @@ book 负责书籍展示载体、内容查找、阅读/答题会话与学习入�
 
 ### 来源入口与本批范围
 
-`A:client/gui/DatiGUIScreen`、`world/inventory/DatiGUIMenu`、`network/DatiGUIButtonMessage`、`ShengchengtimuProcedure`、`Xvanxiang1`–`Xvanxiang4Procedure`及`DatiGUIwenzi1`–`DatiGUIwenzi6Procedure`构成答题自身的来源实现。全A生成Java中唯一的`new DatiGUIMenu`位于`YvanchuxiuzhenModMenus:74`的菜单注册客户端工厂，没有实际打开菜单的调用；题目生成只有四个选项未答满分支调用。`elements/BookRightClick.mod.json`中包含生成题目与打开`DatiGUI`的积木位于脱离`event_trigger`的顶层`controls_if`（x=2059、y=2195），未生成到实际右键过程。来源自然研习直接绑定，不能把本批答题接到普通书右键替代已有行为。
+`A:client/gui/DatiGUIScreen`、`world/inventory/DatiGUIMenu`、`network/DatiGUIButtonMessage`、`ShengchengtimuProcedure`、`Xvanxiang1`–`Xvanxiang4Procedure`及`DatiGUIwenzi1`–`DatiGUIwenzi6Procedure`构成答题自身的来源实现。全A生成Java中唯一的`new DatiGUIMenu`位于`YvanchuxiuzhenModMenus:74`的菜单注册客户端工厂，没有实际打开菜单的调用；题目生成只有四个选项未答满分支调用。`elements/BookRightClick.mod.json`中包含生成题目与打开`DatiGUI`的积木位于脱离`event_trigger`的顶层`controls_if`（x=2059、y=2195），未生成到实际右键过程。来源自然研习直接绑定，不能把本批答题接到普通书右键替代已有行为。该断链登记为统一问题索引 Q208，后续集中复核，不补造普通书右键入口。
 
 本批保留`dati_gui`身份并迁移自身题库、菜单、选项、状态、反馈及功法/技能组件消费者；`BookMenus.openQuiz`仅提供显式打开，不自行抽新题或改写累计数，开发夹具先构造题目和计数再打开。静态调用核对与编辑器断链证据并不代替1.18.2版本实机；未据此删除注册或宣称完整自然获取链闭合。
 
@@ -147,7 +147,7 @@ book 负责书籍展示载体、内容查找、阅读/答题会话与学习入�
 
 答满读取当时玩家主手，不锁定打开时的物品；覆盖研习者UUID及显示名、显示“研习成功！”、清零累计数并关闭，不检查普通研习的原归属、境界或灵根，不扣书或材料。存在功法组件时由`Techniques.completeQuiz`写回所属组件，有非空功法名时将层数置1并重算十三项初始加成，原经验保留；存在技能组件时由`Skills.completeQuiz`写回四类技能的研习者。两操作复用普通研习的所属系统书实例写入，但不调用普通研习的条件、额外粒子或`TechniqueStudiedEvent`，因而不附赠普通研习才发送的技能。功法与技能同栈时分别更新各自组件，book不直接访问它们的数据注册器。
 
-来源四选项有一个调用差异：选项1总调用`Gongfashuxingjisuan`，选项2–4只在主手`ExercisesName`非空时调用；该过程无功法名时仍重复写通用归属并关闭。已表示的功法/技能结果等价；无上述业务组件的任意物品仍会被来源写入根`belongToMasterUUID/belongToName`，当前目标没有统一归属所有者与等价公开操作，本批不把它伪装成功法或技能实例，也不直接覆盖装备等系统的原始字段。这一具体写入边界仍开放，不能宣称任意物品答满已全量对齐。
+来源四选项有一个调用差异：选项1总调用`Gongfashuxingjisuan`，选项2–4只在主手`ExercisesName`非空时调用；该过程无功法名时仍重复写通用归属并关闭。已表示的功法/技能结果等价；无上述业务组件的任意物品仍会被来源写入根`belongToMasterUUID/belongToName`。2026-11-15目标新增`BookOwnership.bindQuizOwner`，答满时先对当时主手栈写入这两个根字段，再由功法/技能系统写各自业务组件；因此保留来源通用元数据，同时不把任意物品伪装成功法或技能实例，也不直接覆盖装备等系统的原始字段。该写入只覆盖答题完成路径，普通研习和其他生产者不调用。
 
 ### 界面、证据与待验范围
 
@@ -157,4 +157,4 @@ book 负责书籍展示载体、内容查找、阅读/答题会话与学习入�
 
 book定向内容/资产转换已完成，五张新增屏幕贴图与来源SHA-256一致；本批未运行World全量数据转换，R06来源指纹门禁问题继续保留。`compileJava compileSmokeJava`与六条架构守卫通过。`bookquiz`首轮96条答题检查、原生重进提示及鼠标INFO均通过，0FAIL，真实保存重进后继续答题，客户端两次保存六维度、Gradle正常退出，ERROR/FATAL为0。覆盖四个实际客户端按钮及消息、非法选项/容器拒绝、手动关闭与非整数累计数、答错生命与清零、答满时读取开窗后更换的主手、功法及四类技能覆盖既有归属/参数与双端组件一致。四张中文截图及最终合并中文四键已核；长选项按来源单行绘制，越过书页后在窗口边缘截断。真实注册表在同次集成服导出，包含`dati_gui`。证据统一见[本批月志](logs/2026-11.md#2026-11-13-答题菜单与答满生命周期)。
 
-以上是夹具显式打开后的菜单自身生命周期验证；来源自然入口、任意物品通用归属、37号符箓重置答题字段的未裁定契约、完整表现、多人、1.18.2版本实机及两版本对照仍未验收。
+以上是夹具显式打开后的菜单自身生命周期验证；来源自然入口 Q208、37号符箓重置答题字段的未裁定契约、完整表现、多人、1.18.2版本实机及两版本对照仍未验收。任意物品通用归属已按来源静态实现，尚未单独运行无业务组件物品的客户端场景。
