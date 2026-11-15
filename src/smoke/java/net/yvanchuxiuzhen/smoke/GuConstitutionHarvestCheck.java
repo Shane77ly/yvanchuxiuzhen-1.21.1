@@ -33,6 +33,8 @@ import net.yvanchuxiuzhen.system.xiulian.data.XiulianAttachments;
 
 /** 酒蛊原生使用、体质同步与存储编解码，以及采药锄自然采集和虫卵实物。 */
 final class GuConstitutionHarvestCheck extends ActionCheck {
+    enum Scope { FULL, UPPER_ONLY, USE_ONLY }
+
     private final Map<BlockPos, BlockState> originalBlocks = new LinkedHashMap<>();
     private final List<ItemStack> originalInventory = new ArrayList<>();
     private Vec3 originalPosition;
@@ -48,12 +50,16 @@ final class GuConstitutionHarvestCheck extends ActionCheck {
     private BlockPos site;
 
     GuConstitutionHarvestCheck(List<String> report, String levelId, Screenshots screenshots) {
-        this(report, levelId, screenshots, false);
+        this(report, levelId, screenshots, Scope.FULL);
     }
 
     GuConstitutionHarvestCheck(List<String> report, String levelId, Screenshots screenshots, boolean upperOnly) {
-        super(upperOnly ? "采药锄双高上半复核" : "酒蛊与采药锄", report, levelId);
-        if (upperOnly) {
+        this(report, levelId, screenshots, upperOnly ? Scope.UPPER_ONLY : Scope.FULL);
+    }
+
+    GuConstitutionHarvestCheck(List<String> report, String levelId, Screenshots screenshots, Scope scope) {
+        super(scope == Scope.UPPER_ONLY ? "采药锄双高上半复核" : scope == Scope.USE_ONLY ? "酒蛊自然使用复核" : "酒蛊与采药锄", report, levelId);
+        if (scope == Scope.UPPER_ONLY) {
             script(new Action(5, this::prepare), new Action(8, player -> {
                 player.setGameMode(GameType.SURVIVAL);
                 player.removeEffect(MobEffects.UNLUCK);
@@ -95,7 +101,7 @@ final class GuConstitutionHarvestCheck extends ActionCheck {
                             && restored.tizhi().getDouble("AlcoholPatience") == 107
                             && restored.tizhi().getDouble("AlcoholDigestionPercentage") == -0.75
                             && restored.tizhi().getDouble("tizhinumber") == 4);
-                    harvest(player);
+                    if (scope == Scope.FULL) harvest(player);
                 }));
     }
 

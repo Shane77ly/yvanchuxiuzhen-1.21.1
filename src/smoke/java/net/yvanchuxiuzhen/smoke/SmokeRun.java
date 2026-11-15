@@ -244,6 +244,7 @@ final class SmokeRun {
                     case "guchongflute" -> List.of(new GuchongFluteCheck(report, levelId, this::shot));
                     case "guchong01" -> List.of(new Guchong01Check(report, levelId, this::shot));
                     case "guchongconstitution" -> List.of(new GuConstitutionHarvestCheck(report, levelId, this::shot));
+                    case "guchongconstitutionuse" -> List.of(new GuConstitutionHarvestCheck(report, levelId, this::shot, GuConstitutionHarvestCheck.Scope.USE_ONLY));
                     case "guchongconstitutionupper" -> List.of(new GuConstitutionHarvestCheck(report, levelId, this::shot, true));
                     case "formationelement" -> List.of(new FormationElementCheck(report, levelId, this::shot));
                     case "formation" -> List.of(new FormationCheck(report, levelId), new FormationElementCheck(report, levelId, this::shot));

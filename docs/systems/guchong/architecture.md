@@ -2,7 +2,7 @@
 topic: guchong
 role: architecture
 status: draft
-updated: 2026-11-14
+updated: 2026-11-15
 ---
 
 # 蛊虫：架构调查与提案
@@ -117,7 +117,7 @@ A `Guchong01Entity` 注册为`MONSTER`，尺寸0.5×0.8，跟踪范围64、更�
 
 ## 酒蛊02、虫卵与吞噬边界（2026-11-15）
 
-`guchong_02item`自然右键读取体质tizhiopen_013。首次经`Cultivation.editTizhi`一次写入开启、AlcoholPatience增加100、AlcoholDigestionPercentage减1、tizhinumber加1，并提示获得千杯不倒；已开启只显示重复提示。来源use返回super结果，过程直接shrink；MC1.18.2 ServerPlayerGameMode.useItem:281–317在创造模式恢复原数量，而1.21.1同方法306–338移除该恢复，目标显式保留创造数量，生存首次扣1。两个版本early return分别293–296与318–321，不能以直接调用物品use代替自然包装核对。
+`guchong_02item`自然右键读取体质tizhiopen_013。首次经`Cultivation.editTizhi`一次写入开启、AlcoholPatience增加100、AlcoholDigestionPercentage减1、tizhinumber加1，并提示获得千杯不倒；已开启只显示重复提示。来源use返回super结果，过程直接shrink；MC1.18.2原生`ServerPlayerGameMode`的`m_6261_`在调用物品后以`m_9295_()`判断创造并恢复数量（MCP `1.18.2-20220404.173914/joined/decompile/output.jar`内该类261–295行），Forge40.1.0的同类补丁只在入口加入右键事件、没有删改恢复分支。NeoForge21.1.265来源包内1.21.1的`useItem:306–338`已移除该恢复。目标酒蛊显式跳过创造扣件，生存首次扣1；这是保留1.18.2版本自然入口结果的适配。两个版本均可能在数量、耐久和使用时长未变化时提前返回，必要复验经`player.gameMode.useItem`进入，不以直接调用物品`use`替代。修复已实现、静态核对通过，修复后的客户端单项未执行，见[本月记录](logs/2026-11.md#2026-11-15-酒蛊创造模式数量修复)。
 
 `huxiangtunshi`没有额外自定义tick，Guchongtunshi只检查效果；03/04目标与继续条件已经消费，04依来源仍吃03，共享同类击杀经验为死者经验上限四分之一。虫噬草效果生产配置已在Liandan herbs表，完整自然制药/吞噬战斗仍未验，不能把未验写成缺少一套吞噬系统。
 

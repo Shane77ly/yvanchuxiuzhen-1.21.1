@@ -31,7 +31,10 @@ public final class GuchongConstitutionItem extends ContentItem {
                     data.putDouble("tizhinumber", data.getDouble("tizhinumber") + 1);
                 });
                 serverPlayer.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.guchong_constitution_gained"), false);
-                result.getObject().shrink(1);
+                // 1.18.2原生使用包装会恢复创造数量；1.21.1改由物品保留该行为。
+                if (!serverPlayer.gameMode.isCreative()) {
+                    result.getObject().shrink(1);
+                }
             }
         }
         return result;
