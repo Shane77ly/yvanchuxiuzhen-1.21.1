@@ -69,15 +69,17 @@ public final class TreasureRewards {
         for (int index = 1; index < parts.length; index++) {
             String[] field = parts[index].split("/");
             if (field[0].equals("无")) continue;
+            String type = field.length > 1 ? field[1] : "";
+            String value = field.length > 2 ? field[2] : "";
             if (index == 1) {
-                stack.set(DataComponents.CUSTOM_NAME, Component.literal(field[2]));
-                texts.put(field[0], field[2]);
+                stack.set(DataComponents.CUSTOM_NAME, Component.literal(value));
+                texts.put(field[0], value);
             } else {
-                switch (field[1]) {
-                    case "char" -> texts.put(field[0], field[2]);
-                    case "int" -> numbers.put(field[0], (double) (int) number(field[2]));
-                    case "double", "doube" -> numbers.put(field[0], number(field[2]));
-                    case "logic" -> flags.put(field[0], field[2].equals("真"));
+                switch (type) {
+                    case "char" -> texts.put(field[0], value);
+                    case "int" -> numbers.put(field[0], (double) (int) number(value));
+                    case "double", "doube" -> numbers.put(field[0], number(value));
+                    case "logic" -> flags.put(field[0], value.equals("真"));
                     default -> { }
                 }
             }
