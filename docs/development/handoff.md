@@ -23,6 +23,10 @@ NPC管理本批补齐NPC五基类档案与来源顺序，去除夹具主动资�
 
 转换、Gradle及游戏唯一执行者串行，768 MB、单worker；每次运行前检查残留客户端，运行后核对终态与进程退出并恢复选项。差异和拿不准的问题先入统一索引，未批准项保持来源，独立移植继续推进。
 
+2026-11-15补充：`guchongconstitutionuse,spiritstone`最新单项报告为79 INFO、0 FAIL、DONE，完整报告及建设场景超时边界见[项目月志](../systems/project/logs/2026-11.md#2026-11-15-酒蛊创造与九档灵石真实服用复验)。此前103 INFO摘要的原报告已被覆盖，不作为可复核验收；Q175/Q176客户端边界仍开放。当前已确认客户端/Java进程为0。保留的stash `wip: preserve current festival and smoke fixes before r11 integration`尚未删除。
+
+当前三个子agent在独立worktree并行推进R10蛊虫05生命周期、R13九档灵石开封与Q162只读审计、R14空间系效果；主线负责共享记录、集成、唯一串行验证。
+
 ## 先读顺序
 
 1. `AGENTS.md`、本页与[开放工作清单](remaining-work.md)。
