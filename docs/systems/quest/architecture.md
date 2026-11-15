@@ -165,11 +165,11 @@ B `Fanyexianshi.execute()`没有玩家参数，从新建ItemStack.EMPTY读取ren
 
 `DialogueRuntime`在没有启动标志、tasksustained为真且xvanxiang为假时累计tasktick，每60刻调用`QuestChatRuntime`并清零计时。来源首分支仍先消费renwubegin/taskbegin，Q11保持。文字推进后仅允许第二、第三扩展过程动作在本次继续，下一条文字等待下一节拍；选项暂停。动作覆盖文字、自发文字、原始tellraw选项、条件/物品/任务/坐标/维度判断、库存、NPC控制、传送、效果/命令、跳转、目录/头部修改、裂隙解封、删除方块与结束清理。法术/精神动作仅登记字段，Q31没有因此闭合。
 
-`/taskduihua`保持来源的message名字→double数字→可选greedy参数树，无额外权限限制；仅枚举当前维度显示名匹配的玩家，创建并写入renwuweizhi记分板，不直接启动解释器。选项依来源创建目标并关闭sendCommandFeedback，脚本文字经聊天输出；当前自然启动和选项消费者边界仍开放。
+`/taskduihua`保留无额外权限限制，并兼容来源点击产生的`<显示名> renwuweizhi <序号>`格式；目标用贪婪字符串取最后数字、剥离可选标记，因此显示名含空格时仍能定位当前维度玩家。命令继续写来源`renwuweizhi`记分板，同时在玩家有活动选项时按`daan<序号>`取得目标步骤，写入会话`playerxvanze`并直接继续`QuestChatRuntime`；没有活动选项时只保留记分板副作用，不把无效点击当作任务推进。选项依来源创建目标并关闭sendCommandFeedback，脚本文字经聊天输出；连续聊天选择已接回会话，完整自然脚本仍待验。
 
 ### Q169 连续选项命令参数错位
 
-B `Taskduihuashijian:91–92`生成`/taskduihua <显示名> renwuweizhi <序号>`，而`TaskduihuaCommand:26–65`注册名字后直接接数字；名字使用MessageArgument读取剩余输入，下级数字的可达性亦待运行核实。目标保留来源命令文字与参数树，不悄悄修为可用命令；静态问题已确认，完整命令执行未验。
+B `Taskduihuashijian:91–92`生成`/taskduihua <显示名> renwuweizhi <序号>`，而`TaskduihuaCommand:26–65`注册名字后直接接数字；名字使用MessageArgument读取剩余输入，下级数字不可稳定到达。目标改为单个greedy参数解析末尾数字和可选`renwuweizhi`标记，兼容来源点击字符串、带空格显示名和带引号显示名；保留原命令无权限限制及当前维度显示名匹配。静态修复完成，必要客户端命令点击仍待运行补核。
 
 ### Q170 内嵌选项命令缺少参数
 
@@ -177,7 +177,7 @@ B `Taskduihuashijian2:185–186`内嵌选项仅生成`/scoreboard players set -2
 
 ### Q171 连续选择后处理未发现调用者
 
-B `TaskXvanzehouProcedure`可将记分板选择转为playerxvanze并继续解释器，但生成Java检索仅见定义，未发现调用者。目标保留playerxvanze消费，不另造tick或命令调用；动态资源与实际消费者待核实，不能把连续解释器接线宣称为完整自然任务闭合。
+B `TaskXvanzehouProcedure`可将记分板选择转为playerxvanze并继续解释器，但生成Java检索仅见定义，未发现调用者。目标命令现在在活动选项下按`daan<序号>`写入会话`playerxvanze`并直接调用连续聊天解释器；`QuestChatRuntime`仍在入口消费该字段并清零，避免重复推进。没有活动选项时不启动解释器，仅保留来源记分板写入。代码闭环已接入，动态脚本消费者、自然入口和完整任务链仍待实机核验。
 
 ### Q172 任务按键语言命名空间遗漏
 
