@@ -9,6 +9,14 @@ updated: 2026-11-15
 
 来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
 
+## 天道维度方块与门户来源闭包（2026-11-15）
+
+来源`TiandaodimensionblockBlock`是六个自定义维度门户共用的框架方块：材质`WOOD`、地图颜色`GOLD`、声音`WOOD`，硬度与爆炸抗性为`strength(-1,3600000)`，光照等级15，`getLightBlock`固定返回15，掉落列表为空时显式返回`minecraft:air`。目标内容表已登记`yvanchuxiuzhen:tiandaodimensionblock`及对应方块物品，静态属性、灯光和空气掉落表达已接入；来源负硬度已纳入转换审计，目标内容行当前没有重复记录门户运行时。
+
+来源闭包包含六组同构门户实现：`Dimensiondiling`、`Dimensionrenjian`、`Dimensiontianqve`、`Dimensionwugui`、`Dimensionyaohun`、`Dimensionxiuluo`，每组各有`PortalShape`和`Teleporter`。形状类用天道维度方块判定框架，沿水平轴寻找底角，宽度2–21、高度3–21，扫描并生成`NetherPortalBlock.AXIS`内框，创建门户块后写入对应传送器的POI。传送器为每组独立的`ITeleporter`，登记独立POI和300刻传送票，入场查找半径16、出口查找半径128，按最近距离和Y排序；找不到出口时以16格螺旋范围寻找可承载位置，必要时按来源高度夹取并用天道维度方块重建框架，再写2×3门户内框，最后按入口矩形、维度缩放、实体尺寸和速度生成`PortalInfo`。
+
+目标当前没有这六组`PortalShape`/`Teleporter`及其POI、门户生成和实体传送接线；六个门户方块在内容台账中仍为待处理，不能把已注册的框架方块或维度资源当作门户行为闭合。该缺口登记为Q207，先保持来源结构与传送语义，待集中补齐目标入口后再做编译、维度往返、多人和保存重进验证。十三份来源类指纹和目标缺口见`ledger/source-evidence.csv`、`ledger/source-fingerprints.csv`。
+
 ## Q130 结构Mod实体旧属性没有升级
 
 2026-11-14居民必要单项确认目标缺陷：花繁城03模板仍保存1.18.2版本`Attributes/Name/Base/Modifiers`，精确NeoForge21.1.265的`LivingEntity.readAdditionalSaveData`只读取`attributes`，`AttributeMap.load`读取`id`，`AttributeInstance.load`读取`base/modifiers`。模板经过原生结构DataFixer后，自定义Mod实体的这些字段仍未升级，导致小孩哥最大生命与攻击从模板100/2回退到注册默认20/1，保存重进后仍为20。
