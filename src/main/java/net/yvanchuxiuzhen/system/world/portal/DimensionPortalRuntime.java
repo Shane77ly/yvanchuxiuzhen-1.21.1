@@ -41,7 +41,7 @@ public final class DimensionPortalRuntime {
         PoiManager poiManager = level.getPoiManager();
         int radius = near ? 16 : 128;
         poiManager.ensureLoadedAndValid(level, pos, radius);
-        return poiManager.getInSquare(record -> record.getPoiType().is(spec.poiKey()), pos, radius, PoiManager.Occupancy.ANY)
+        return poiManager.getInSquare(holder -> holder.is(spec.poiKey()), pos, radius, PoiManager.Occupancy.ANY)
                 .filter(record -> border.isWithinBounds(record.getPos()))
                 .sorted(Comparator.comparingDouble((PoiRecord record) -> record.getPos().distSqr(pos))
                         .thenComparingInt(record -> record.getPos().getY()))
