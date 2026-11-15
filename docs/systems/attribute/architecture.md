@@ -2,7 +2,7 @@
 topic: attribute
 role: architecture
 status: partial
-updated: 2026-11-03
+updated: 2026-11-15
 ---
 
 # 属性来源、派生与实现
@@ -48,7 +48,7 @@ updated: 2026-11-03
 
 - 不复制按 `bubianzhi` 随机标记比较装备快照的机制；装备变化由 equipment 监听并提交贡献（腿部分支写错快照的问题随之消失）。
 - 装备类贡献随附件跨越死亡保留；来源靠快照与实际装备不同而在重生后重算，目标由提交者在登录、重生与装备变化时按当前状态重新提交。
-- 来源在 `Shuxingjisuan` 开始与结束时在玩家位置各发一个粒子 `tiangandizhi`（`Shuxingjisuan2` 不发）。粒子类型由 particle 统一登记，尚未迁移；接入前本系统不发粒子（未实现项）。
+- 来源在 `Shuxingjisuan` 开始与结束时各发一个`tiangandizhi`，`Shuxingjisuan2`不发；类型已由particle登记，但来源入口映射尚未接。2026-11-15静态复核的具体边界见[下文](#属性重算粒子入口边界2026-11-15)，不把类型存在写成表现完成。
 
 ## 验证
 
@@ -104,3 +104,9 @@ updated: 2026-11-03
 - 之后：攻击方带效果 `effect_013` 时加（等级 + 1）²；主手 `critical` 附魔以等级 × 2% 的概率使伤害 ×（1 + 等级 × 0.1）；最后把 `Damage_multiplier` 复位为 1（≤ 0 时先置 1）。
 - 来源中功法的五行值全部为正（`Gongfalist*` 中 56 处赋值），所以受击方主修同属性功法时受到的伤害增加（Q18）。
 - 功法项读受击方 `gongfa` 物品，不检查 `belongToMasterUUID`；派生值中的功法加成则只在功法属于本人时计入。gongfa 提交五行贡献时按此区分。
+
+## 属性重算粒子入口边界（2026-11-15）
+
+`A:ShuxingjisuanProcedure:43,227`在完整计算前后各发1个`tiangandizhi`，位置为玩家XYZ，三轴偏移和速度均为0；主手计算`Shuxingjisuan2`不发。目标粒子类型已登记，实际来源触发边界尚未实现/验证。
+
+目标`EquipmentAttributes`分别提交armor、weapon与accessories，`TechniqueRules.submit`另交功法贡献；`PlayerAttributes.setContribution`还被灵根、成长和其他所有者使用。来源一次完整重算与目标一次贡献提交并非同一事件，因此不能在通用提交入口无条件发粒子，否则会把主手与灵根变化算入，或在多项提交时重复发出。后续须核对完整重算的实际调用链后，由能保持一次重算前后边界的入口接线；本批仅登记证据，不改通用贡献入口、不补造触发规则。静态调查已完成，数量、网络与视觉实机均未执行。

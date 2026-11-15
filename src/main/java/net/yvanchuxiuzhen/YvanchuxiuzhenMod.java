@@ -4,6 +4,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.yvanchuxiuzhen.panel.PanelNavigation;
 import net.yvanchuxiuzhen.flow.SystemCommandFlow;
+import net.yvanchuxiuzhen.flow.BirthSupplyFlow;
 import net.yvanchuxiuzhen.collection.decor.DecorSetup;
 import net.yvanchuxiuzhen.collection.festival.FestivalSetup;
 import net.yvanchuxiuzhen.collection.tiandao.TiandaoSetup;
@@ -53,6 +54,7 @@ public final class YvanchuxiuzhenMod {
         ContentTabs.register(modBus);
         PanelNavigation.register(modBus);
         SystemCommandFlow.register();
+        BirthSupplyFlow.register();
         ParticleSetup.register(modBus);
         AttributeSetup.register(modBus);
         BookSetup.register(modBus);

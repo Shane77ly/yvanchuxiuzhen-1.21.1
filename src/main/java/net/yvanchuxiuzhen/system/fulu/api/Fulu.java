@@ -18,10 +18,16 @@ public final class Fulu {
 
     /** 成品奖励的品阶由符箓系统写入，沿用自然施用和提示的同一实例格式。 */
     public static ItemStack createReward(Item carrier, int level, String levelText) {
+        ItemStack stack = createReward(carrier, level);
+        CustomData.update(DataComponents.CUSTOM_DATA, stack, data -> data.putString("fululeveltxt", levelText));
+        return stack;
+    }
+
+    /** 来源仅赋品阶数值的奖励不额外生成品阶文字字段。 */
+    public static ItemStack createReward(Item carrier, int level) {
         ItemStack stack = new ItemStack(carrier);
         CompoundTag data = new CompoundTag();
         data.putInt("fululevel", level);
-        data.putString("fululeveltxt", levelText);
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
         return stack;
     }

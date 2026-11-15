@@ -10,7 +10,9 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
+import net.yvanchuxiuzhen.system.xiulian.api.BirthSupplyEvent;
 import net.yvanchuxiuzhen.system.xiulian.content.AscensionTokenItem;
+import net.yvanchuxiuzhen.system.xiulian.content.BirthSupplyItem;
 import net.yvanchuxiuzhen.system.xiulian.content.BloodEssenceItem;
 import net.yvanchuxiuzhen.system.xiulian.content.BloodStoneBlock;
 import net.yvanchuxiuzhen.system.xiulian.content.ClanTokenItem;
@@ -29,7 +31,9 @@ public final class XiulianSetup {
             .blockFactory("xiulian:xixveshi", traits -> ContentBlock.create(traits, BloodStoneBlock::new))
             .itemFactory("xiulian:xvejing", BloodEssenceItem::new)
             .itemFactory("xiulian:ling_09", AscensionTokenItem::new)
-            .itemFactory("xiulian:ling_10", ClanTokenItem::new);
+            .itemFactory("xiulian:ling_10", ClanTokenItem::new)
+            .itemFactory("xiulian:ling_18", (properties, tooltip) -> new BirthSupplyItem(properties, tooltip, BirthSupplyEvent.Kind.INHERITANCE))
+            .itemFactory("xiulian:jiazubaibaodai", (properties, tooltip) -> new BirthSupplyItem(properties, tooltip, BirthSupplyEvent.Kind.FAMILY));
 
     private XiulianSetup() {
     }

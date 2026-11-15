@@ -2,7 +2,7 @@
 topic: treasure
 role: entry
 status: partial
-updated: 2026-11-14
+updated: 2026-11-15
 ---
 
 # 宝箱
@@ -20,6 +20,8 @@ updated: 2026-11-14
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
 ## 公开操作
+
+`Caskets.create(command)`由宝匣所有者创建配置物品并写入zhiling，供家族百宝袋奖励使用，放置/执行/五刻移除继续复用现有生命周期；本生产者尚未实机。
 
 `TreasureContainers.create(Item, category, subtype, level, minimum, maximum)`由本系统构造五项宝箱参数，供Dungeon奖励使用；根字段沿用来源拼写`minimumvalue`与`Maximumvalue`。调用者可保留其他已解析字段，但不得覆盖所有者构造的参数。副本自然奖励消费的运行边界见[副本月志](../dungeon/logs/2026-11.md)。
 

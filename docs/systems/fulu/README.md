@@ -2,7 +2,7 @@
 topic: fulu
 role: entry
 status: partial
-updated: 2026-11-14
+updated: 2026-11-15
 ---
 
 # 符箓
@@ -36,7 +36,7 @@ updated: 2026-11-14
 
 `CorpseTalismans.hasEmptySeal/seal`拥有50库存资格、扣符与5001载体写入；`CorpseReleaseEvent`只发布服务端顶面释放事实和载体副本。Creature独占选定字段和死亡实体恢复，Fulu不依赖Creature实现；来源玩家能力团队读取问题见[生物Q114](../creature/architecture.md#q114-尸体封存的选定字段与状态重置)。
 
-`Fulu.createReward(Item, int, String)`承接Treasure成品符箓奖励，由Fulu写入实例品阶和品阶文字，复用既有Tooltip与自然施用链。Treasure只提供来源抽样值，不直接写符箓业务实例；本增量仅静态核对，运行边界见[月志](logs/2026-11.md#2026-11-14-宝箱成品符箓入口)。
+`Fulu.createReward(Item, int)`保留来源只写品阶数值的传承奖励，不附加文字字段；三参数入口仍保留品阶文字。`Fulu.createReward(Item, int, String)`承接Treasure成品符箓奖励，由Fulu写入实例品阶和品阶文字，复用既有Tooltip与自然施用链。Treasure只提供来源抽样值，不直接写符箓业务实例；本增量仅静态核对，运行边界见[月志](logs/2026-11.md#2026-11-14-宝箱成品符箓入口)。
 
 `TalismanTamingEvent`在18号命中妖兽时同步通知Creature，提供服务端、目标、施放者和品阶；Fulu不依赖Creature实现。非妖兽的控制效果、缓慢及精力扣除由Fulu经Xiulian公开入口执行。`typed_field_accesses.csv:2098–2106`分别由Relations、Cultivation和ModifierKeys承接；具体边界见[神傀符正文](architecture.md#神傀符18控制与驯服2026-11-13)。
 

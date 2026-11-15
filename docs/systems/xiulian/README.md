@@ -33,6 +33,7 @@ updated: 2026-11-15
 | 查询 | `get(玩家, CultivationValue)`：境界层数、修为三项与效率、灵力、神识、灵根与阴阳、罡煞、功德、雷劫、血脉、属性点、寿元、闭关天数等 35 项；`get(玩家, CultivationText)`：境界名、种族、血脉、体质、出身、`fuhuo` | 全部读取方 |
 | 加减、赋值 | `add(玩家, 项, 增量)`、`set(玩家, 项, 值)`、`set(玩家, 文本项, 文本)`；乘法由调用方读后赋值 | 经济、异火、技能、战斗、装备、功法、符箓、流程等 |
 | 雷劫开关 | `thunderOpen`、`setThunderOpen` | 流程、世界、符箓、技能 |
+| 出身分次补给 | `BirthSupplyEvent(玩家, INHERITANCE/FAMILY, double次数)`：服务端条件通过且载体次数写入后同步发出 | flow按来源精确整数分支生成奖励，材料、符箓、丹药、技能与宝匣实例归各内容所有者 |
 | 雷劫落雷请求 | `TribulationLightningEvent`：服务端维度、原始落点、完整落雷命令文本 | combat 监听并进入共享落雷 |
 | 雷劫实体伤害请求 | `TribulationDamageEvent`：服务端维度、目标生物、完整伤害命令文本 | combat 监听并结算雷伤 |
 | 妖兽雷柱生成 | `CultivationSummons.summonLightPillars(服务端世界, 施放者, 目标, 攻击量)`：按来源目标四角偏移、团队共享、目标UUID和攻击量写入后生成`tianjie_05` | creature 040来源落雷过程 |
