@@ -363,7 +363,7 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 ### 验证范围
 
-静态依据为 1.18.2 版本 `DantianbenmingfabaoProcedure`、`BenmingfabaotishengProcedure`、`DantianbenmingexpProcedure` 与 `DantianbenmingxianshiProcedure`；目标 API 按 NeoForge 21.1.265 源码核对。未新增 Test 类、冒烟选择器、断言或 Computer Use。使用项目自带 `runSmokeClient -PsmokeOnly=equipmentweapon` 做注册、资源加载和公共客户端启动回归，既有弓与拂尘五项报告 `DONE`，客户端正常保存退出且日志无 `ERROR/FATAL`；该 smoke 不替代本命培养的境界门槛、经验升级、耐久消耗、属性交替、存档重载和完整界面专项验收。完整行为专项、1.18.2 实机、两版本对照、多人与完整视觉仍未执行。
+静态依据为 1.18.2 版本 `DantianbenmingfabaoProcedure`、`BenmingfabaotishengProcedure`、`DantianbenmingexpProcedure` 与 `DantianbenmingxianshiProcedure`；目标 API 按 NeoForge 21.1.265 源码核对。未新增 Test 类、冒烟选择器、断言或 Computer Use。使用项目自带 `runSmokeClient -PsmokeOnly=equipmentweapon` 做注册、资源加载和公共客户端启动回归，既有弓与拂尘五项报告 `DONE`，客户端正常保存退出且日志无 `ERROR/FATAL`；该 smoke 不替代本命培养的境界门槛、经验升级、耐久消耗、属性交替、存档重载和完整界面专项验收。2026-11-15已恢复原交付本命夹具并通过受控修炼秒事件的门槛、增量、升级/交替、耐久、保存读回和本人同步，结果见[本月记录](logs/2026-11.md#2026-11-15-采药锄upper与装备消费者必要单项收口)。自然秒调度、丹田操作、真实退出重进、1.18.2版本实机、两版本对照、多人与完整视觉仍未执行。
 
 ## 投掷法宝（`fabao_001`–`008`，2026-11-08）
 
