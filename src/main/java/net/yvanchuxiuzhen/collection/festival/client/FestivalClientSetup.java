@@ -7,6 +7,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.yvanchuxiuzhen.collection.festival.FestivalSetup;
 import net.yvanchuxiuzhen.collection.festival.FortuneCostumeItem;
 import net.yvanchuxiuzhen.collection.festival.ThrownFirework;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 
@@ -22,6 +23,8 @@ public final class FestivalClientSetup {
             }
         }));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
+            event.registerEntityRenderer(FestivalSetup.doubleBangType().get(), DoubleBangFireworkRenderer::new);
+            event.registerEntityRenderer(FestivalSetup.pao13Type().get(), ThrownItemRenderer::new);
             EntityModelRow model = FestivalSetup.caishenyeModel();
             event.registerEntityRenderer(FestivalSetup.caishenyeType().get(),
                     context -> new AnimatedEntityRenderer<>(context, model));
@@ -35,5 +38,7 @@ public final class FestivalClientSetup {
                         context -> new AnimatedEntityRenderer<>(context, firework));
             }
         });
+        modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) ->
+                event.registerLayerDefinition(DoubleBangFireworkRenderer.LAYER, DoubleBangFireworkRenderer::layer));
     }
 }

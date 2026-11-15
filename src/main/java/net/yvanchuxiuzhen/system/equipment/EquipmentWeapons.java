@@ -83,7 +83,7 @@ final class EquipmentWeapons {
         }
         ToolMachineEntity.Kind kind = toolKind(player.getMainHandItem());
         if (kind != null) {
-            KailingProjectile.shoot(player.serverLevel(), player, kind);
+            KailingProjectile.shoot(player.serverLevel(), player, 1);
             player.getCooldowns().addCooldown(player.getMainHandItem().getItem(), 100);
         }
     }

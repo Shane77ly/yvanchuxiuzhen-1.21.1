@@ -965,3 +965,15 @@ item,yvanchuxiuzhen:gongjv_008,equipment:gongjv_008,equipment,采药锄原生锹
 item,yvanchuxiuzhen:pao_04,festival:thrown_pao_04,festival,三类抛出烟花的使用、引燃和燃放生命周期
 item,yvanchuxiuzhen:pao_05,festival:thrown_pao_05,festival,三类抛出烟花的使用、引燃和燃放生命周期
 item,yvanchuxiuzhen:pao_06,festival:thrown_pao_06,festival,三类抛出烟花的使用、引燃和燃放生命周期
+item,yvanchuxiuzhen:businessman_01_spawn_egg,npc:spawn_egg_businessman_01,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
+item,yvanchuxiuzhen:businessman_02_spawn_egg,npc:spawn_egg_businessman_02,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
+item,yvanchuxiuzhen:businessman_03_spawn_egg,npc:spawn_egg_businessman_03,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
+item,yvanchuxiuzhen:businessman_04_spawn_egg,npc:spawn_egg_businessman_04,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
+item,yvanchuxiuzhen:businessman_05_spawn_egg,npc:spawn_egg_businessman_05,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
+item,yvanchuxiuzhen:businessman_06_spawn_egg,npc:spawn_egg_businessman_06,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
+item,yvanchuxiuzhen:businessman_07_spawn_egg,npc:spawn_egg_businessman_07,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
+item,yvanchuxiuzhen:daguanjia_spawn_egg,npc:spawn_egg_daguanjia,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
+item,yvanchuxiuzhen:businessman_09_spawn_egg,npc:spawn_egg_businessman_09,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
+item,yvanchuxiuzhen:businessman_10_spawn_egg,npc:spawn_egg_businessman_10,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
+item,yvanchuxiuzhen:businessman_11_spawn_egg,npc:spawn_egg_businessman_11,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
+item,yvanchuxiuzhen:pao_09,festival:double_bang,festival,二踢脚两阶段放置、计时、近邻传燃与爆炸生命周期

@@ -10,6 +10,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenus;
 import net.yvanchuxiuzhen.system.quest.content.BountyBlockEntities;
 import net.yvanchuxiuzhen.system.quest.content.QuestBlockEntities;
+import net.yvanchuxiuzhen.system.quest.content.QuestTriggerEditorMenus;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.system.quest.network.OpenQuestJournalPayload;
 import org.lwjgl.glfw.GLFW;
@@ -40,6 +41,7 @@ public final class QuestClientSetup {
         event.register(DialogueMenus.CHOICES.get(), DialogueScreen::new);
         event.register(DialogueMenus.BOUNTY.get(), BountyBoardScreen::new);
         event.register(DialogueMenus.JOURNAL.get(), QuestJournalScreen::new);
+        event.register(QuestTriggerEditorMenus.EDITOR.get(), QuestTriggerEditorScreen::new);
     }
 
     private static void renderers(EntityRenderersEvent.RegisterRenderers event) {

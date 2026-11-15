@@ -29,6 +29,7 @@ public final class FestivalSetup {
     }
 
     public static void register(IEventBus modBus) {
+        BlockFireworks.register(CONTENT, modBus);
         EntityModelRow model = caishenyeModel();
         CONTENT.<Caishenye>livingEntity("caishenye", (type, level) -> new Caishenye(type, level, model), model::attributes);
         CONTENT.itemFactory("festival:caishenye_spawn_egg", (properties, tooltip) ->
@@ -43,6 +44,10 @@ public final class FestivalSetup {
         CONTENT.<WishLantern>livingEntity("fuqi_0301", (type, level) -> new WishLantern(type, level, lantern),
                 () -> lantern.attributes().add(Attributes.FLYING_SPEED, lantern.lifecycle().flyingSpeed().orElseThrow()));
         CONTENT.itemFactory("festival:wish_lantern", WishLanternItem::new);
+        CONTENT.<DoubleBangFirework>livingEntity("pao_0901", DoubleBangFirework::new, DoubleBangFirework::attributes);
+        CONTENT.itemFactory("festival:double_bang", DoubleBangFireworkItem::new);
+        CONTENT.<Pao13Entity>entity("projectile_pao_13", Pao13Entity::new);
+        CONTENT.itemFactory("festival:pao_13", Pao13Item::new);
         CONTENT.itemFactory("festival:costume_gift", (properties, tooltip) ->
                 new FestivalGiftItem(properties, tooltip, FestivalGiftItem.Kind.COSTUME));
         CONTENT.itemFactory("festival:red_packet", (properties, tooltip) ->
@@ -62,6 +67,8 @@ public final class FestivalSetup {
                     new ThrownFireworkItem(properties, tooltip, kind));
         }
         CONTENT.register(modBus);
+        NeoForge.EVENT_BUS.addListener(FestivalFireworkDelays::tick);
+        NeoForge.EVENT_BUS.addListener(FestivalFireworkDelays::stopped);
         NeoForge.EVENT_BUS.addListener(EventPriority.HIGH, false, PlayerTickEvent.Post.class, FortuneCostumeRuntime::tick);
         modBus.addListener((RegisterSpawnPlacementsEvent event) -> event.register(
                 CONTENT.<Caishenye>entityType("caishenye").get(), SpawnPlacementTypes.ON_GROUND,
@@ -92,5 +99,13 @@ public final class FestivalSetup {
 
     public static List<EntityModelRow> thrownFireworkModels() {
         return ContentFiles.read("content/festival/thrown_firework_models.json", EntityModelRow.CODEC);
+    }
+
+    public static Supplier<EntityType<DoubleBangFirework>> doubleBangType() {
+        return CONTENT.entityType("pao_0901");
+    }
+
+    public static Supplier<EntityType<Pao13Entity>> pao13Type() {
+        return CONTENT.entityType("projectile_pao_13");
     }
 }

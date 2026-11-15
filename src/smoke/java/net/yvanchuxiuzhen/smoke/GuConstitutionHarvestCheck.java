@@ -48,7 +48,21 @@ final class GuConstitutionHarvestCheck extends ActionCheck {
     private BlockPos site;
 
     GuConstitutionHarvestCheck(List<String> report, String levelId, Screenshots screenshots) {
-        super("酒蛊与采药锄", report, levelId);
+        this(report, levelId, screenshots, false);
+    }
+
+    GuConstitutionHarvestCheck(List<String> report, String levelId, Screenshots screenshots, boolean upperOnly) {
+        super(upperOnly ? "采药锄双高上半复核" : "酒蛊与采药锄", report, levelId);
+        if (upperOnly) {
+            script(new Action(5, this::prepare), new Action(8, player -> {
+                player.setGameMode(GameType.SURVIVAL);
+                player.removeEffect(MobEffects.UNLUCK);
+                player.addEffect(new MobEffectInstance(MobEffects.LUCK, 600, 50));
+                player.setItemInHand(InteractionHand.MAIN_HAND, item("gongjv_008"));
+                harvestDouble(player, DoubleBlockHalf.UPPER, 1);
+            }));
+            return;
+        }
         script(
                 new Action(5, this::prepare),
                 new Action(8, player -> {
@@ -122,7 +136,7 @@ final class GuConstitutionHarvestCheck extends ActionCheck {
         harvestSingle(player, "原版花", Blocks.DANDELION.defaultBlockState());
         harvestSingle(player, "来源材质模组叶", BuiltInRegistries.BLOCK.get(id("cassia_03")).defaultBlockState());
         harvestDouble(player, DoubleBlockHalf.LOWER, 1);
-        harvestDouble(player, DoubleBlockHalf.UPPER, 2);
+        harvestDouble(player, DoubleBlockHalf.UPPER, 1);
         clearSite(player);
         setBlock(player, site, Blocks.STONE.defaultBlockState());
         useOn(player, site);
@@ -157,7 +171,10 @@ final class GuConstitutionHarvestCheck extends ActionCheck {
         setBlock(player, site, lower);
         setBlock(player, site.above(), lower.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER));
         useOn(player, half == DoubleBlockHalf.LOWER ? site : site.above());
-        expectTrue("双高植物点击" + half.getSerializedName() + "移除上下两格并保留来源原生掉落数量", player.level().isEmptyBlock(site)
+        String observed = "下格=" + player.level().getBlockState(site)
+                + "，上格=" + player.level().getBlockState(site.above()) + "，向日葵=" + count(player, Blocks.SUNFLOWER.asItem())
+                + "，虫卵=" + count(player, item("chongluan").getItem());
+        expectTrue("双高植物点击" + half.getSerializedName() + "移除上下两格并保留来源原生掉落数量；" + observed, player.level().isEmptyBlock(site)
                 && player.level().isEmptyBlock(site.above()) && count(player, Blocks.SUNFLOWER.asItem()) == expectedFlowers
                 && count(player, item("chongluan").getItem()) == 1);
     }

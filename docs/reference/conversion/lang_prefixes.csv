@@ -43,3 +43,6 @@ fulu,yvanchuxitong,gui.yvanchuxitong.huafushaohui_gui.
 npc,yvanchuxitong,txt.renwulist.
 town,yvanchuxitong,txt.yvanchuxitong.build
 quest,yvanchuxitong,key.yvanchuxitong.renwuanjian
+quest,yvanchuxiuzhen,gui.yvanchuxiuzhen.renwufangkuai_gui.
+festival,yvanchuxiuzhen,item.yvanchuxiuzhen.pao_09
+festival,yvanchuxiuzhen,entity.yvanchuxiuzhen.pao_0901

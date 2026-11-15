@@ -413,7 +413,8 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
         } else if (phase.equals(MINING)) {
             data.putDouble("xiaoshitick2", data.getDouble("xiaoshitick2") + 1);
             if (data.getDouble("xiaoshitick2") >= 5) {
-                till(target(data));
+                if (shovel) till(target(data));
+                else destroyForOwner(data, target(data));
                 data.putDouble("xiaoshitick2", 0);
                 data.putString("jinxing", FINISH);
             }
@@ -566,7 +567,7 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
     private boolean isSoilBlock(BlockPos pos, boolean shovel) {
         BlockState state = level().getBlockState(pos);
         if (state.getDestroySpeed(level(), pos) < 0) return false;
-        if (shovel) return state.is(BlockTags.DIRT) || state.is(Blocks.GRASS_BLOCK);
+        if (shovel) return state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.DIRT) || state.is(Blocks.COARSE_DIRT);
         return state.is(BlockTags.SNOW) || state.is(Blocks.SNOW) || state.is(BlockTags.DIRT) || state.is(Blocks.GRASS_BLOCK)
                 || state.is(BlockTags.SAND);
     }

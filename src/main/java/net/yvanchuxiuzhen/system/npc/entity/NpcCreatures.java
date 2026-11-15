@@ -16,6 +16,7 @@ public final class NpcCreatures {
 
     public static void register(ContentTables content) {
         NpcResidents.register(content);
+        NpcMerchantSpawnEggs.register(content);
         content.<NpcFlyingShuttle>livingEntity("businessman_08", NpcFlyingShuttle::new, NpcFlyingShuttle::attributes);
         List<CompoundTag> profiles = ContentFiles.read("content/npc/spawn_data.json", CompoundTag.CODEC);
         for (EntityModelRow model : models()) {

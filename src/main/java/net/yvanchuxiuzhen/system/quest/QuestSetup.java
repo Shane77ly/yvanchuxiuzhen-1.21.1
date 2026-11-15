@@ -10,6 +10,7 @@ import net.yvanchuxiuzhen.system.quest.content.DisguisedQuestBlock;
 import net.yvanchuxiuzhen.system.quest.content.QuestBlockEntities;
 import net.yvanchuxiuzhen.system.quest.data.BankDialogueData;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenus;
+import net.yvanchuxiuzhen.system.quest.content.QuestTriggerEditorMenus;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 import net.yvanchuxiuzhen.system.quest.network.OpenQuestJournalPayload;
 
@@ -30,6 +31,7 @@ public final class QuestSetup {
         QuestData.register(modBus);
         modBus.addListener(OpenQuestJournalPayload::register);
         DialogueMenus.register(modBus);
+        QuestTriggerEditorMenus.register(modBus);
         BountyBlockEntities.register(modBus);
         QuestBlockEntities.register(modBus);
         NeoForge.EVENT_BUS.addListener(DisguisedQuestRuntime::structureReleased);

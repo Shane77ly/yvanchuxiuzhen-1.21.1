@@ -31,7 +31,7 @@ public final class GuchongConstitutionItem extends ContentItem {
                     data.putDouble("tizhinumber", data.getDouble("tizhinumber") + 1);
                 });
                 serverPlayer.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.guchong_constitution_gained"), false);
-                if (!serverPlayer.getAbilities().instabuild) result.getObject().shrink(1);
+                result.getObject().shrink(1);
             }
         }
         return result;
