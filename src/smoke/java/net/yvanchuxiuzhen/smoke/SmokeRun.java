@@ -202,6 +202,8 @@ final class SmokeRun {
                     case "bookreading" -> List.of(new BookReadingCheck(report, levelId, this::shot));
                     case "bookbinding" -> List.of(new BookBindingCheck(report, levelId, this::shot));
                     case "bookquiz" -> List.of(new BookQuizCheck(report, levelId, this::shot));
+                    case "treasuremedicine" -> List.of(new TreasureMedicineRewardCheck(report, levelId));
+                    case "bookquizowner" -> List.of(new BookQuizOwnershipCheck(report, levelId, this::shot));
                     case "yihuomaterial" -> List.of(new YihuoMaterialCheck(report, levelId));
                     case "demon" -> List.of(new DemonTransformationCheck(report, levelId, this::shot));
                     case "equipmentproduct" -> List.of(new EquipmentProductCheck(report, levelId, this::shot));
@@ -232,6 +234,7 @@ final class SmokeRun {
                     case "rabbitcage" -> List.of(new RabbitCageCheck(report, levelId, this::shot));
                     case "furniturestorage" -> List.of(new FurnitureStorageCheck(report, levelId, this::shot));
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
+                    case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
                     case "questblockrefresh" -> List.of(new QuestBlockRefreshCheck(report, levelId));
                     case "handheldfirework" -> List.of(new HandheldFireworkCheck(report, levelId, this::shot));
                     case "festivalfirework" -> List.of(new FestivalFireworkCheck(report, levelId));

@@ -17,7 +17,7 @@ updated: 2026-11-15
 
 目标已用`DimensionPortalBlock`/`DimensionPortalItem`承载六个门户方块与耐久工具，`DimensionPortalShape`保留来源框架判定、2×3至21×21形状、`AXIS`内框和完整性拆除规则；`DimensionPortalRuntime`按门户身份分别登记POI与300刻票，保留16/128格查找、最近距离/Y排序、16格螺旋建门、天道维度方块框架、坐标倍率、实体尺寸和速度偏移。NeoForge 1.21.1 的`Portal`/`DimensionTransition`承担来源`ITeleporter`的跨维度生命周期，六组注册均共用同一实现而保留独立方块、POI、票据和目标维度身份。目标找不到对应维度时返回空，暂不补造默认维度。
 
-Q207 的运行接线已实现，门户模型路径已统一为目标`block/`目录，且已补齐来源`ling0201`–`ling0601`方块贴图；四道目标维度本身仍缺外部维度资源。仍待精确版本编译、门户实际生成、两道已落盘维度往返、四道缺失维度拒绝、多人和保存重进验证；不能以静态注册替代这些验收。十三份来源类指纹、六组目标内容和实现位置见`ledger/source-evidence.csv`、`ledger/source-fingerprints.csv`。
+Q207 的运行接线已实现，门户模型路径已统一为目标`block/`目录，且已补齐来源`ling0201`–`ling0601`方块贴图；四道目标维度本身仍缺外部维度资源。`runSmokeClient -PsmokeOnly=dimensionportal` 已在768 MB堆、单worker下完成：六组工具均能在生存主手点门并消耗一点耐久，六组门户均登记六个独立POI；人间道、妖魂道完成真实碰撞入场、回程、目标门户复用与保存重进后的再次往返；天阙道、修罗道、无归道、地灵道在目标维度缺失时返回空转换，真实碰撞保持主世界且不创建默认维度；保存重进后六组主世界门户、两组目标门户和POI均可再次查找。客户端退出码0、报告`DONE`、`ERROR/FATAL=0`，未覆盖多人、完整自然等待及四道目标维度资源。十三份来源类指纹、六组目标内容和实现位置见`ledger/source-evidence.csv`、`ledger/source-fingerprints.csv`；运行证据见`build/diagnostics/r06-dimensionportal-20261115-final/`。
 
 ## Q130 结构Mod实体旧属性没有升级
 

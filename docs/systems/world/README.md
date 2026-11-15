@@ -35,7 +35,7 @@ updated: 2026-11-15
 
 `StructureReleases.release(ServerLevel, Vec3, String)`是World内部固定结构释放写入口；公开`StructureReleasedEvent(level, structureName)`在来源40/60/100刻后同步通知内容所有者。Quest、NPC、Dungeon只处理自身数据，World不反向依赖消费者。实际管理命令语法见[结构解封正文](architecture.md#固定结构解封命令2026-11-14)。
 
-其他系统通过原生服务端查找 `yvanchuxiuzhen:xvkong`、`yvanchuxiuzhen:dimensionrenjian`、`yvanchuxiuzhen:dimensionyaohun`与`yvanchuxiuzhen:fabao_009weidu`。六组天道门户通过`DimensionPortalBlock`和`DimensionPortalItem`公开接入，门户方块生成、POI查找、出口建门和`DimensionTransition`由World独占；当前仅人间道、妖魂道两道门户目标维度资源落盘，其他四道维度保持来源身份但未补造资源。画里乾坤及纯白群系的种子、8×4噪声、全局地物/出生与边界见[正文](architecture.md#画里乾坤维度2026-11-14)。虚空类型为同名维度类型，唯一群系为 `yvanchuxiuzhen:xvkongqvnxi`；两道同名维度类型与41个来源群系已落盘并通过专服加载，人间道与妖魂道各一处新生成样点区块分别命中`biomeautumn_01`、`biomefeng_01`。这仅是两处群系身份样本；全41群系地形分布、自然地物投放及自然出生仍待验收。
+其他系统通过原生服务端查找 `yvanchuxiuzhen:xvkong`、`yvanchuxiuzhen:dimensionrenjian`、`yvanchuxiuzhen:dimensionyaohun`与`yvanchuxiuzhen:fabao_009weidu`。六组天道门户通过`DimensionPortalBlock`和`DimensionPortalItem`公开接入，门户方块生成、POI查找、出口建门和`DimensionTransition`由World独占；人间道、妖魂道两道门户已完成真实往返和保存重进，天阙道、修罗道、无归道、地灵道的缺失目标拒绝已完成，四道目标维度资源仍未补造，多人仍待验收。画里乾坤及纯白群系的种子、8×4噪声、全局地物/出生与边界见[正文](architecture.md#画里乾坤维度2026-11-14)。虚空类型为同名维度类型，唯一群系为 `yvanchuxiuzhen:xvkongqvnxi`；两道同名维度类型与41个来源群系已落盘并通过专服加载，人间道与妖魂道各一处新生成样点区块分别命中`biomeautumn_01`、`biomefeng_01`。这仅是两处群系身份样本；全41群系地形分布、自然地物投放及自然出生仍待验收。
 
 2026-11-11 自然地物批次新增 World 自有操作，已完成启动装配，运行覆盖由本批月志分别登记：
 
