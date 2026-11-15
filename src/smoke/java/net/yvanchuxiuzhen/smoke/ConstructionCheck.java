@@ -39,6 +39,8 @@ final class ConstructionCheck extends SystemCheck {
     private BlockPos auction;
     private BlockPos chair;
     private BlockPos plan;
+    private BlockPos completedPlan;
+    private BlockPos build03Marker;
     private Vec3 position;
     private int selected;
 
@@ -51,8 +53,8 @@ final class ConstructionCheck extends SystemCheck {
 
     @Override
     protected boolean step(int step, int local) {
-        if (step == 14) return reopened(local);
-        if (step == 15) return inWorld(local);
+        if (step == 18) return reopened(local);
+        if (step == 19) return inWorld(local);
         if (local < 15) return false;
         switch (step) {
             case 0 -> onServer(this::prepare);
@@ -137,14 +139,30 @@ final class ConstructionCheck extends SystemCheck {
             }
             case 12 -> {
                 if (local < 80) return false;
-                onServer(player -> checkPlan(player));
+                onServer(player -> {
+                    checkPlan(player, plan);
+                    completedPlan = plan;
+                });
                 screenshots.take("construction_planning_remainder.png");
                 minecraft.player.closeContainer();
             }
-            case 13 -> leaveWorld();
+            case 13 -> onServer(this::prepareBuild03);
+            case 14 -> use(plan);
+            case 15 -> {
+                if (!waitScreen(local, minecraft.screen instanceof TownBuildScreen, "灰瓦民居物资页")) return false;
+                buildButton();
+            }
             case 16 -> {
+                if (local < 80) return false;
+                onServer(player -> checkBuild03(player));
+                screenshots.take("construction_build03.png");
+                minecraft.player.closeContainer();
+            }
+            case 17 -> leaveWorld();
+            case 20 -> {
                 onServer(player -> {
-                    checkPlan(player);
+                    checkPlan(player, completedPlan);
+                    checkBuild03(player);
                     player.getInventory().clearContent();
                     for (int slot = 0; slot < inventory.size(); slot++) player.getInventory().setItem(slot, inventory.get(slot));
                     player.getInventory().selected = selected;
@@ -193,13 +211,59 @@ final class ConstructionCheck extends SystemCheck {
         TownRuntime.countMaterials(town);
     }
 
-    private void checkPlan(ServerPlayer player) {
-        TownBlockEntity town = (TownBlockEntity) player.level().getBlockEntity(plan);
+    private void checkPlan(ServerPlayer player, BlockPos target) {
+        TownBlockEntity town = (TownBlockEntity) player.level().getBlockEntity(target);
         expect("02模板保持十八槽规划核心", 18, town.getContainerSize());
         expectTrue("02模板写回完成状态", town.getPersistentData().getBoolean("construction_completed"));
         int[] remaining = {0, 12, 0, 12, 2, 7};
         for (int slot = 0; slot < remaining.length; slot++) expect("原槽余料" + slot, remaining[slot], town.getItem(slot).getCount());
-        expect("十八槽回写未重复掉落夹具材料", 0, fixtureDrops(player).size());
+        expect("十八槽回写未重复掉落夹具材料", 0, fixtureDrops(player, target).size());
+    }
+
+    private void prepareBuild03(ServerPlayer player) {
+        plan = completedPlan.east(80);
+        player.level().setBlock(plan.below(), Blocks.STONE.defaultBlockState(), 3);
+        player.level().setBlock(plan, BuiltInRegistries.BLOCK.get(id("chengzhen_buildblock")).defaultBlockState(), 3);
+        TownBlockEntity next = (TownBlockEntity) player.level().getBlockEntity(plan);
+        CompoundTag build = TownRuntime.centerScroll().get(DataComponents.CUSTOM_DATA).copyTag().getCompound("build_data");
+        build.putString("build_type", "灰瓦民居");
+        build.putString("build_direction", "坐南朝北");
+        build.putInt("construction_need_log", 6);
+        build.putInt("construction_need_stone", 8);
+        build.putInt("construction_need_wool", 2);
+        next.getPersistentData().put("build_data", build);
+        var template = player.serverLevel().getStructureManager().getOrCreate(id("build03south"));
+        BlockPos core = template.filterBlocks(BlockPos.ZERO, new StructurePlaceSettings(), next.getBlockState().getBlock()).getFirst().pos();
+        BlockPos marker = template.filterBlocks(BlockPos.ZERO, new StructurePlaceSettings(), BuiltInRegistries.BLOCK.get(id("wallwhite"))).getFirst().pos();
+        next.getPersistentData().putInt("shiftingX", core.getX());
+        next.getPersistentData().putInt("shiftingY", core.getY());
+        next.getPersistentData().putInt("shiftingZ", core.getZ());
+        build03Marker = plan.offset(marker.getX() - core.getX(), marker.getY() - core.getY(), marker.getZ() - core.getZ());
+        next.getPersistentData().putInt("lengthofX", 48);
+        next.getPersistentData().putInt("lengthofY", 17);
+        next.getPersistentData().putInt("lengthofZ", 48);
+        next.getPersistentData().putString("team", "");
+        next.setItem(0, stack(Items.OAK_LOG, 8, "build03-wood"));
+        next.setItem(1, stack(Items.COBBLESTONE, 10, "build03-stone"));
+        next.setItem(2, stack(Items.WHITE_WOOL, 3, "build03-wool"));
+        next.setItem(3, stack(Items.DIAMOND, 4, "build03-extra"));
+        TownRuntime.countMaterials(next);
+        player.level().setBlock(plan.north(2).below(), Blocks.STONE.defaultBlockState(), 3);
+        player.connection.teleport(plan.getX() + .5, plan.getY(), plan.getZ() - 1.5, 0, 15);
+    }
+
+    private void checkBuild03(ServerPlayer player) {
+        TownBlockEntity town = (TownBlockEntity) player.level().getBlockEntity(plan);
+        expect("03模板保持十八槽规划核心", 18, town.getContainerSize());
+        expectTrue("03模板写回完成状态", town.getPersistentData().getBoolean("construction_completed"));
+        expect("03模板写回类型", "灰瓦民居", town.getPersistentData().getCompound("build_data").getString("build_type"));
+        expect("03模板写回方向", "坐南朝北", town.getPersistentData().getCompound("build_data").getString("build_direction"));
+        expect("03原槽余木", 2, town.getItem(0).getCount());
+        expect("03原槽余石", 2, town.getItem(1).getCount());
+        expect("03原槽余羊毛", 1, town.getItem(2).getCount());
+        expect("03原槽无关钻石完整保留", 4, town.getItem(3).getCount());
+        expectTrue("03模板实际结构方块已放置", player.level().getBlockState(build03Marker).is(BuiltInRegistries.BLOCK.get(id("wallwhite"))));
+        expect("03十八槽回写未重复掉落夹具材料", 0, fixtureDrops(player, plan).size());
     }
 
     private void checkDrops(ServerPlayer player) {
@@ -214,7 +278,11 @@ final class ConstructionCheck extends SystemCheck {
     }
 
     private List<ItemEntity> fixtureDrops(ServerPlayer player) {
-        return player.level().getEntitiesOfClass(ItemEntity.class, new AABB(plan).inflate(6), entity -> entity.getItem().getHoverName().getString().startsWith("r13-town-"));
+        return fixtureDrops(player, plan);
+    }
+
+    private List<ItemEntity> fixtureDrops(ServerPlayer player, BlockPos target) {
+        return player.level().getEntitiesOfClass(ItemEntity.class, new AABB(target).inflate(6), entity -> entity.getItem().getHoverName().getString().startsWith("r13-town-"));
     }
 
     private void freezeDrops(EntityJoinLevelEvent event) {
