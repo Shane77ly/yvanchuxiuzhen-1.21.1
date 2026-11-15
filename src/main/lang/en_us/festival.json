@@ -26,15 +26,16 @@
   "tooltip.yvanchuxiuzhen.item.fuqi_05.3": "有时候还会捡到钱币！",
   "item.yvanchuxiuzhen.caishenye_spawn_egg": "Caishenye Spawn Egg",
   "item.yvanchuxiuzhen.fuqi_06": "Fuqi 0 6",
-  "tooltip.yvanchuxiuzhen.item.fuqi_02_helmet.1": "装备一套财神服装会有金币掉落特效粒子",
-  "tooltip.yvanchuxiuzhen.item.fuqi_02_helmet.2": "并且有时还会捡到钱币。",
-  "item.yvanchuxiuzhen.fuqi_02_helmet": "Fuqi 0 2 头盔",
-  "item.yvanchuxiuzhen.fuqi_02_chestplate": "Fuqi 0 2 胸甲",
-  "item.yvanchuxiuzhen.fuqi_02_leggings": "Fuqi 0 2 护腿",
-  "item.yvanchuxiuzhen.fuqi_02_boots": "Fuqi 0 2 靴子",
   "entity.yvanchuxiuzhen.caishenye": "Caishenye",
   "entity.yvanchuxiuzhen.fuqi_0301": "Fuqi 0 3 0 1",
+  "item.yvanchuxiuzhen.fuqi_02_helmet": "Fuqi 0 2 头盔",
+  "item.yvanchuxiuzhen.fuqi_02_boots": "Fuqi 0 2 靴子",
+  "item.yvanchuxiuzhen.fuqi_02_chestplate": "Fuqi 0 2 胸甲",
+  "item.yvanchuxiuzhen.fuqi_02_leggings": "Fuqi 0 2 护腿",
   "entity.yvanchuxiuzhen.pao_0401": "Pao 0 4 0 1",
   "entity.yvanchuxiuzhen.pao_0501": "Pao 0 5 0 1",
-  "entity.yvanchuxiuzhen.pao_0601": "Pao 0 6 0 1"
+  "entity.yvanchuxiuzhen.pao_0601": "Pao 0 6 0 1",
+  "tooltip.yvanchuxiuzhen.item.fuqi_02_helmet.1": "装备一套财神服装会有金币掉落特效粒子",
+  "tooltip.yvanchuxiuzhen.item.fuqi_02_helmet.2": "并且有时还会捡到钱币。",
+  "entity.yvanchuxiuzhen.pao_0901": "Pao 0 9 0 1"
 }

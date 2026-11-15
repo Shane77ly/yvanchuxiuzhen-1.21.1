@@ -26,15 +26,16 @@
   "tooltip.yvanchuxiuzhen.item.fuqi_05.3": "有时候还会捡到钱币！",
   "item.yvanchuxiuzhen.caishenye_spawn_egg": "财神爷",
   "item.yvanchuxiuzhen.fuqi_06": "大红包",
-  "tooltip.yvanchuxiuzhen.item.fuqi_02_helmet.1": "装备一套财神服装会有金币掉落特效粒子",
-  "tooltip.yvanchuxiuzhen.item.fuqi_02_helmet.2": "并且有时还会捡到钱币。",
-  "item.yvanchuxiuzhen.fuqi_02_helmet": "财神 帽子",
-  "item.yvanchuxiuzhen.fuqi_02_chestplate": "财神 上衣",
-  "item.yvanchuxiuzhen.fuqi_02_leggings": "财神 裤子",
-  "item.yvanchuxiuzhen.fuqi_02_boots": "财神 布鞋",
   "entity.yvanchuxiuzhen.caishenye": "财神",
   "entity.yvanchuxiuzhen.fuqi_0301": "祈愿灯",
+  "item.yvanchuxiuzhen.fuqi_02_helmet": "财神 帽子",
+  "item.yvanchuxiuzhen.fuqi_02_boots": "财神 布鞋",
+  "item.yvanchuxiuzhen.fuqi_02_chestplate": "财神 上衣",
+  "item.yvanchuxiuzhen.fuqi_02_leggings": "财神 裤子",
   "entity.yvanchuxiuzhen.pao_0401": "旋转花",
   "entity.yvanchuxiuzhen.pao_0501": "冲天花",
-  "entity.yvanchuxiuzhen.pao_0601": "螺旋花"
+  "entity.yvanchuxiuzhen.pao_0601": "螺旋花",
+  "tooltip.yvanchuxiuzhen.item.fuqi_02_helmet.1": "装备一套财神服装会有金币掉落特效粒子",
+  "tooltip.yvanchuxiuzhen.item.fuqi_02_helmet.2": "并且有时还会捡到钱币。",
+  "entity.yvanchuxiuzhen.pao_0901": "二踢脚"
 }
