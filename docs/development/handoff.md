@@ -13,7 +13,7 @@ updated: 2026-11-15
 
 - 实际分支`port/full-migration-20261112`，本次接手核对基线为`8093e96a`，核对时主工作树干净；本次交接文档提交之后的最新HEAD以`git log -1`为准。最近集成了答题任意栈归属、天道NBT编辑器装配、Q162运行边界、六组天道门户及其NeoForge POI谓词修正、门户与盘菜客户端资源路径修正，并收口Q171静态调用者核对、Q172按键命名空间核对和十个物品模型纹理目录修正；不重新应用已集成的独立worktree补丁。
 - 乾坤道人/门徒已在`b938271d`集成，本批补齐菜单归属、七条台账、烟雾/编号同步、中文和资产转换；编译及六项架构检查通过，`qiankun`客户端单项43条通过且真实保存重进通过，中文编号/加号/金色截图已复看，两次客户端均正常退出并恢复选项。证据与开放边界见[NPC本月记录](../systems/npc/logs/2026-11.md#2026-11-15-乾坤道人与门徒必要单项)。
-- 当前验证：`compileSmokeJava`、`compileTestJava`通过；`materialunlock`单项客户端76条检查成功退出并生成`DONE`，无FAIL；`dimensionportal`客户端单项完成六组真实点门、两道已落盘维度往返、四道缺失维度拒绝、保存重进后的门户/POI复查及再次往返，报告`DONE`、退出码0、`ERROR/FATAL=0`，证据在`build/diagnostics/r06-dimensionportal-20261115-final/`；门户旧`blocks/`路径、盘菜空纹理路径及六张来源门户贴图已修正；开发服务端注册表导出1173个方块且`check_ledger.py`通过；`check_docs.py`、Q162静态链、宝箱静态链和`git diff --check`均通过。门户多人、完整自然等待、四道目标维度资源和框架方块独立破坏仍未执行。
+- 当前验证：`compileSmokeJava`、`compileTestJava`通过；`materialunlock`单项客户端76条检查成功退出并生成`DONE`，无FAIL；`dimensionportal`客户端单项完成六组真实点门、两道已落盘维度往返、四道缺失维度拒绝、保存重进后的门户/POI复查及再次往返，报告`DONE`、退出码0、`ERROR/FATAL=0`，证据在`build/diagnostics/r06-dimensionportal-20261115-final/`；`bookquizowner`以四个普通物品栈复核答题根归属、组件保留及真实保存重进，58 INFO、0 FAIL、DONE、退出码0、`ERROR/FATAL=0`；`treasuremedicine`完成01状态类丹药三候选随机奖励、来源药效/剂数、原生服用、保存重进及服尽返空容器，报告`DONE`、0 FAIL、退出码0、`ERROR/FATAL=0`，证据分别在`build/diagnostics/r11-bookquizowner-20261115-final/`和`build/diagnostics/r11-treasuremedicine-20261115-final/`；门户旧`blocks/`路径、盘菜空纹理路径及六张来源门户贴图已修正；开发服务端注册表导出1173个方块且`check_ledger.py`通过；`check_docs.py`、Q162静态链、宝箱静态链和`git diff --check`均通过。门户多人、完整自然等待、四道目标维度资源和框架方块独立破坏仍未执行。
 - 完整移植目标尚未完成，沿用既有全量范围、并行独立工作包和唯一执行者串行重型验证的授权，不推送、不合main。旧会话最后一轮已中断，读取时会话为idle；本页不把旧goal文字或历史子任务计划作为当前运行证据。`main`与本地`origin/main`仍为`5cdc045c`，本次未联网刷新远端。
 
 ## 下一步
