@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import java.lang.reflect.Field;
 import net.minecraft.client.ParticleStatus;
 import net.minecraft.client.gui.components.Button;
@@ -18,6 +17,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -29,6 +29,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -41,8 +42,10 @@ import net.yvanchuxiuzhen.system.npc.NpcManagementMenu;
 import net.yvanchuxiuzhen.system.npc.NpcSetup;
 import net.yvanchuxiuzhen.system.npc.client.NpcManagementScreen;
 import net.yvanchuxiuzhen.system.npc.entity.NpcMob;
+import net.yvanchuxiuzhen.system.npc.entity.NpcProfiles;
+import net.yvanchuxiuzhen.system.skill.api.SkillDelays;
 
-/** 管理工具真实开页、编辑保存、两类Mob右键效果与存档重读。 */
+/** 管理工具真实开页与右键、NPC所有者受控档案应用，以及保存重进；语言由启动选项预设。 */
 final class NpcManagementCheck extends SystemCheck {
     private static final String NAME = "管理界面烟测";
     private static final String TASK = "管理工具烟测任务";
@@ -50,8 +53,6 @@ final class NpcManagementCheck extends SystemCheck {
     private static final String SHOP = "管理工具烟测商店%商品%来源数据重读";
     private final Screenshots screenshots;
     private final List<ItemStack> inventory = new ArrayList<>();
-    private CompletableFuture<Void> languageReload;
-    private String oldLanguage;
     private ParticleStatus oldParticles;
     private GameType oldMode;
     private Difficulty oldDifficulty;
@@ -69,7 +70,26 @@ final class NpcManagementCheck extends SystemCheck {
     private boolean savedToolChecked;
     private int selected;
     private int particleCount;
-    private boolean aborting;
+    private final Map<UUID, Integer> ownedTargets = new LinkedHashMap<>();
+    private volatile boolean ownedCallbacksChecked;
+    private static final String[] OWNED_IDS = {"businessman_23", "businessman_08", "wuchanghei", "yanwang"};
+    private static final double[] OWNED_LEVELS = {12.5, 23.5, 34.5, 45.5};
+    private static final String[] OWNED_NAMES = {"筑基二阶", "结丹三转", "元婴四重", "化神五级"};
+    private static final String[] ITEM_RATINGS = {
+            "healthmaxtxt", "healthrectxt", "powermaxtxt", "powerrectxt", "jinglimaxtxt", "jinglirectxt",
+            "attacktxt", "defensetxt", "manaatttxt", "manadeftxt", "soulatttxt", "souldeftxt", "speednumtxt"
+    };
+    private static final String[] PROFILE_FIELDS = {
+            "health_Max", "health_Rec", "power_Max", "power_Rec", "soul_Max", "soul_Rec",
+            "attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def", "speed"
+    };
+    private static final String[] RATINGS = {"绝佳", "强劲", "平庸", "勉强", "贫弱", "绝佳", "强劲", "平庸", "勉强", "贫弱", "绝佳", "强劲", "平庸"};
+    private static final double[][] EXPECTED = {
+            {237, 4, 537, 3, 468, 5, 18, 16, 15, 13, 20, 18, .365},
+            {584, 9, 1593, 10, 1348, 16, 56, 50, 45, 41, 64, 56, .475},
+            {1142, 17, 3294, 22, 2765, 34, 119, 105, 94, 85, 135, 119, .585},
+            {1912, 28, 5641, 37, 4721, 58, 205, 182, 162, 146, 233, 205, .695}
+    };
     private final Set<Particle> observedHappyParticles = Collections.newSetFromMap(new IdentityHashMap<>());
 
     NpcManagementCheck(List<String> report, String levelId, Screenshots screenshots) {
@@ -79,11 +99,6 @@ final class NpcManagementCheck extends SystemCheck {
 
     @Override
     protected boolean step(int step, int local) {
-        if (aborting) {
-            if (!languageReload.isDone()) return false;
-            finish();
-            return true;
-        }
         try {
             return runStep(step, local);
         } catch (RuntimeException exception) {
@@ -94,13 +109,8 @@ final class NpcManagementCheck extends SystemCheck {
 
     private boolean runStep(int step, int local) {
         switch (step) {
-            case 0 -> {
-                oldLanguage = minecraft.getLanguageManager().getSelected();
-                minecraft.getLanguageManager().setSelected("zh_cn");
-                languageReload = minecraft.reloadResourcePacks();
-            }
+            case 0 -> expect("启动前已设置中文", "zh_cn", minecraft.getLanguageManager().getSelected());
             case 1 -> {
-                if (!languageReload.isDone()) return false;
                 expect("管理界面使用中文资源", "天道NPC设置", I18n.get("menu.yvanchuxiuzhen.tiandao_np_cset"));
                 oldParticles = minecraft.options.particles().get();
                 minecraft.options.particles().set(ParticleStatus.ALL);
@@ -214,16 +224,24 @@ final class NpcManagementCheck extends SystemCheck {
                 onServer(this::checkVanillaMob);
                 expect("原版Mob右键出现来源十枚村民祝福粒子", 10, particleCount);
                 screenshots.take("npc_management_vanilla_mob.png");
+                onServer(this::applyOwnedTargets);
+            }
+            case 13 -> {
+                if (!ownedCallbacksChecked) {
+                    if (local > 200) abort("NPC所有者20刻检查未完成");
+                    return false;
+                }
+                onServer(player -> checkOwnedTargets(player, "受控应用"));
                 leaveWorld();
             }
-            case 13 -> { return reopened(local); }
-            case 14 -> { return inWorld(local); }
-            case 15 -> {
+            case 14 -> { return reopened(local); }
+            case 15 -> { return inWorld(local); }
+            case 16 -> {
                 if (local < 10) return false;
                 onServer(this::checkReloadedState);
                 minecraft.gameMode.useItem(minecraft.player, InteractionHand.MAIN_HAND);
             }
-            case 16 -> {
+            case 17 -> {
                 if (!(minecraft.screen instanceof NpcManagementScreen screen)
                         || !(minecraft.player.containerMenu instanceof NpcManagementMenu menu)) {
                     if (local > 200) abort("存档重进后无法重新打开管理工具");
@@ -235,15 +253,10 @@ final class NpcManagementCheck extends SystemCheck {
                 screenshots.take("npc_management_reopened.png");
                 onServer(ServerPlayer::closeContainer);
             }
-            case 17 -> {
+            case 18 -> {
                 if (local < 2) return false;
                 onServer(this::cleanup);
                 minecraft.options.particles().set(oldParticles);
-                minecraft.getLanguageManager().setSelected(oldLanguage);
-                languageReload = minecraft.reloadResourcePacks();
-            }
-            case 18 -> {
-                if (!languageReload.isDone()) return false;
                 finish();
             }
             default -> throw new IllegalStateException("未知管理界面烟测步骤 " + step);
@@ -269,6 +282,7 @@ final class NpcManagementCheck extends SystemCheck {
         Arena.level(player);
         forcedChunks.keySet().forEach(chunk -> player.serverLevel().setChunkForced(chunk.x, chunk.z, true));
         player.setGameMode(GameType.CREATIVE);
+        player.server.setDifficulty(Difficulty.NORMAL, true);
         player.getInventory().clearContent();
         player.getInventory().setItem(0, new ItemStack(BuiltInRegistries.ITEM.get(id("tiandao_np_csetitem"))));
         player.getInventory().selected = 0;
@@ -326,7 +340,7 @@ final class NpcManagementCheck extends SystemCheck {
         expect("原版Mob显示自定义中文姓名", NAME, target.getDisplayName().getString());
         expect("原版Mob主手装备数量为一", 1, ((Mob) target).getItemBySlot(net.minecraft.world.entity.EquipmentSlot.MAINHAND).getCount());
         expect("原版Mob主手装备身份", Items.IRON_SWORD, ((Mob) target).getItemBySlot(net.minecraft.world.entity.EquipmentSlot.MAINHAND).getItem());
-        expectTrue("未接NPC所有者的原版Mob未被报告为完整档案消费",
+        expectTrue("Q149/Q159仍开放：原版Mob只验证姓名装备，未消费完整档案",
                 !target.getPersistentData().contains("renwulist1") && !target.getPersistentData().contains("LEVELnumber"));
         cowInventory = target.saveWithoutId(new CompoundTag()).getList("HandItems", Tag.TAG_COMPOUND);
     }
@@ -339,6 +353,65 @@ final class NpcManagementCheck extends SystemCheck {
         if (npc != null) expectTrue("NPC存档重读保持单件装备", npcInventory.equals(npc.saveWithoutId(new CompoundTag()).getList("HandItems", Tag.TAG_COMPOUND)));
         expectTrue("原版Mob存档重读保持管理姓名及装备", cow != null && cow.getDisplayName().getString().equals(NAME)
                 && cowInventory.equals(cow.saveWithoutId(new CompoundTag()).getList("HandItems", Tag.TAG_COMPOUND)));
+        checkOwnedTargets(player, "真实保存重进");
+    }
+
+    /** 代表实体位于已强加载的NPC目标区块，使用受控调用；不将此检查记作自然右键覆盖。 */
+    private void applyOwnedTargets(ServerPlayer player) {
+        for (int index = 0; index < OWNED_IDS.length; index++) {
+            Mob target = NpcSetup.<Mob>entityType(OWNED_IDS[index]).get().create(player.serverLevel());
+            if (target == null) throw new IllegalStateException("无法生成档案代表 " + OWNED_IDS[index]);
+            target.setNoAi(true);
+            target.setPersistenceRequired();
+            target.setPos(npcBlock.getX() + .5, npcBlock.getY(), npcBlock.getZ() + .5);
+            player.serverLevel().addFreshEntity(target);
+            ownedTargets.put(target.getUUID(), index);
+            CompoundTag profile = player.getMainHandItem().getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+            profile.putDouble("npclevel", OWNED_LEVELS[index]);
+            for (int field = 0; field < ITEM_RATINGS.length; field++) profile.putString(ITEM_RATINGS[field], RATINGS[field]);
+            for (int task = 1; task <= 10; task++) profile.putString("renwulist" + task, TASK + task);
+            ItemStack tool = player.getMainHandItem().copy();
+            tool.set(DataComponents.CUSTOM_DATA, CustomData.of(profile));
+            NpcProfiles.apply(player.serverLevel(), npcBlock, target, tool);
+            expect("受控应用 " + OWNED_IDS[index] + " 同步气血公式", EXPECTED[index][0], target.getPersistentData().getDouble("health_Max"));
+            double originalMaximum = target.getAttributeBaseValue(Attributes.MAX_HEALTH);
+            // 注册与档案应用位于同一服务端任务；第19次END读旧属性，第20次END在档案回调之后检查。
+            SkillDelays.after(19, () -> expect("回调前十九刻 " + BuiltInRegistries.ENTITY_TYPE.getKey(target.getType()), originalMaximum,
+                    target.getAttributeBaseValue(Attributes.MAX_HEALTH)));
+            SkillDelays.after(20, () -> expect("第二十刻采用最新气血 " + BuiltInRegistries.ENTITY_TYPE.getKey(target.getType()), 777,
+                    target.getAttributeBaseValue(Attributes.MAX_HEALTH)));
+            SkillDelays.after(10, () -> target.getPersistentData().putDouble("health_Max", 777));
+        }
+        SkillDelays.after(20, () -> ownedCallbacksChecked = true);
+    }
+
+    private void checkOwnedTargets(ServerPlayer player, String stage) {
+        ownedTargets.forEach((uuid, index) -> {
+            Entity entity = player.serverLevel().getEntity(uuid);
+            String label = stage + " " + OWNED_IDS[index];
+            expectTrue(label + " 原实体已加载", entity instanceof Mob && BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).equals(id(OWNED_IDS[index])));
+            if (!(entity instanceof Mob target)) return;
+            CompoundTag data = target.getPersistentData();
+            boolean ratingsMatch = true;
+            boolean formulasMatch = true;
+            for (int field = 0; field < PROFILE_FIELDS.length; field++) {
+                ratingsMatch &= data.getString(PROFILE_FIELDS[field] + "_LEVEL").equals(RATINGS[field]);
+                String key = field == 12 ? "speed_number" : PROFILE_FIELDS[field];
+                double expected = field == 0 ? 777 : EXPECTED[index][field];
+                formulasMatch &= Math.abs(data.getDouble(key) - expected) < 1e-6;
+            }
+            boolean scriptsMatch = data.getBoolean("renwuzuopen");
+            for (int task = 1; task <= 10; task++) scriptsMatch &= data.getString("renwulist" + task).equals(TASK + task);
+            expectTrue(label + " 十三资质与来源公式字段", ratingsMatch && formulasMatch);
+            expectTrue(label + " 十任务、商品说明与固定标记", scriptsMatch && data.getString("productlist").equals(PRODUCTS)
+                    && data.getString("shopinformation").equals(SHOP) && data.getBoolean("npcset"));
+            expect(label + " 小数等级", OWNED_LEVELS[index], data.getDouble("LEVELnumber"));
+            expect(label + " 境界名称", OWNED_NAMES[index], data.getString("LEVELname"));
+            expect(label + " 原生攻击", EXPECTED[index][6], target.getAttributeBaseValue(Attributes.ATTACK_DAMAGE));
+            expect(label + " 原生速度", EXPECTED[index][12], target.getAttributeBaseValue(Attributes.MOVEMENT_SPEED));
+            expect(label + " 最大气血与回满", 777, target.getMaxHealth());
+            expect(label + " 当前气血", 777, target.getHealth());
+        });
     }
 
     private void cleanup(ServerPlayer player) {
@@ -347,6 +420,10 @@ final class NpcManagementCheck extends SystemCheck {
         if (npc != null) npc.discard();
         Entity cow = cowId == null ? null : player.serverLevel().getEntity(cowId);
         if (cow != null) cow.discard();
+        for (UUID uuid : ownedTargets.keySet()) {
+            Entity entity = player.serverLevel().getEntity(uuid);
+            if (entity != null) entity.discard();
+        }
         player.getInventory().clearContent();
         for (int slot = 0; slot < inventory.size(); slot++) player.getInventory().setItem(slot, inventory.get(slot));
         player.getInventory().selected = selected;
@@ -408,13 +485,7 @@ final class NpcManagementCheck extends SystemCheck {
         fail(reason);
         if (prepared) onServer(this::cleanup);
         if (oldParticles != null) minecraft.options.particles().set(oldParticles);
-        if (oldLanguage != null) {
-            minecraft.getLanguageManager().setSelected(oldLanguage);
-            languageReload = minecraft.reloadResourcePacks();
-        } else {
-            languageReload = CompletableFuture.completedFuture(null);
-        }
-        aborting = true;
+        finish();
     }
 
     private static ResourceLocation id(String path) {
