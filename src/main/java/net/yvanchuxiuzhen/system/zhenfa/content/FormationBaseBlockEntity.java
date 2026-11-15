@@ -111,17 +111,17 @@ public final class FormationBaseBlockEntity extends RandomizableContainerBlockEn
                         Vec3 center = new Vec3(worldPosition.getX() + 0.5, worldPosition.getY(), worldPosition.getZ() + 0.5);
                         for (Entity entity : level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(data.getInt("zhenjvli") / 2d))
                                 .stream().sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList()) {
-                            if (matchesTeam(entity)) FormationEffects.yin(this);
+                            if (matchesTeam(entity)) FormationEffects.execute(this);
                             data.putInt("power", power() - cost);
                         }
                     } else if (data.getBoolean("zhenhongshi")) {
-                        FormationEffects.yin(this);
+                        FormationEffects.execute(this);
                         data.putInt("power", power() - cost);
                     }
                     data.putInt("tick", 0);
                 }
                 if (data.getBoolean("zhenbegin") || data.getInt("zhenchufa") == 2) {
-                    FormationEffects.yin(this);
+                    FormationEffects.execute(this);
                     data.putInt("power", power() - cost);
                     data.putBoolean("zhenbegin", false);
                 }

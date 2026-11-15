@@ -134,11 +134,10 @@ public final class SkillFlight {
                 SkillMovement.move(player, player.getLookAngle().scale(speed + extra));
             }
         }
-        if (player.getPersistentData().getBoolean("jinkong")) {
+        if (StatusEffects.consumeEntityFlightBlock(player)) {
             Skills.setFlying(player, false);
             if (!player.isCreative()) abilities(player, false);
             Cultivation.setTizhiBoolean(player, "takong", false);
-            player.getPersistentData().putBoolean("jinkong", false);
         }
     }
 

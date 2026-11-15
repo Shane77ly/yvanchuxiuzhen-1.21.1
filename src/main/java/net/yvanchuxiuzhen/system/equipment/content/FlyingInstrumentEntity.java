@@ -36,6 +36,7 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -150,9 +151,8 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
             if (isNoGravity()) setNoGravity(false);
             return;
         }
-        if (data.getBoolean("jinkong")) {
+        if (StatusEffects.consumeEntityFlightBlock(this)) {
             if (isNoGravity()) setNoGravity(false);
-            data.putBoolean("jinkong", false);
             return;
         }
         for (Entity passenger : getPassengers()) {

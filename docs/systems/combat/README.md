@@ -28,6 +28,7 @@ updated: 2026-11-15
 | 雷劫伤害请求监听 | 监听 xiulian 的 `TribulationLightningEvent` 与 `TribulationDamageEvent`，分别交给 `Lightning.command` 与 `SpellDamage.command` | 劫云七种天雷及地滚雷、雷柱、雷龙；请求保留原坐标、命令格式与小数倍率，xiulian 不导入 combat |
 | 附魔等级 | `Enchants.level / mainHand / slot / armorSum / armorSquares`，附魔按路径名取键 `Enchants.key("dodge")` | 本系统的伤害过程；attribute 的显示值按等级线性折入（自行读取物品） |
 | 状态效果查询与施加 | `StatusEffects.amplifier / has / remove / add / holder`，效果按路径名（如 `effect_036`）指定 | 全部读取或施加状态效果的系统（creature 约 280 处、skill、fulu、equipment、liandan 等） |
+| 实体禁空标记 | `StatusEffects.markEntityFlightBlocked(entity)`写入来源`jinkong`标记；`consumeEntityFlightBlock(entity)`读取并清除一次 | zhenfa写入；skill与equipment的飞行逻辑分别消费 |
 | 效果的行为登记 | `ContentTables.effectBehavior(效果ID, 行为)`（`EffectBehavior`：开始、结束、每刻、客户端每刻） | 效果归其他系统的行为（`effect_035` 归 skill，`yaoshou_*` 归 creature，`fulutexiao_*` 归 fulu） |
 | 向其他系统借用规则的事件 | `DamageImmunityEvent`（creature 的防御姿态免伤）、`LethalDamageEvent`（fulu 的 `itemfulu_16` 复活）、`ArmorStatEvent`（lianqi、equipment 提供四件护甲的炼器数值）、`HitEvent`（gongfa 的命中特效）、`HeavyHitEvent`（达到目标最大生命十六分之一后的妖兽重击打断）、`EffectExperienceEvent`（creature 给妖兽加修为） | 监听者在对应系统迁移时订阅 |
 
