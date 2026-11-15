@@ -16,6 +16,7 @@ import net.yvanchuxiuzhen.system.economy.content.BankBlock;
 import net.yvanchuxiuzhen.system.economy.content.BankBlockItem;
 import net.yvanchuxiuzhen.system.economy.content.EconomyBlock;
 import net.yvanchuxiuzhen.system.economy.content.EconomyBlockEntities;
+import net.yvanchuxiuzhen.system.economy.content.SpiritStoneBundleItem;
 import net.yvanchuxiuzhen.system.economy.content.SpiritStoneItem;
 import net.yvanchuxiuzhen.system.economy.data.BankData;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
@@ -39,6 +40,8 @@ public final class EconomySetup {
         for (int level = 1; level <= 9; level++) {
             int tier = level;
             CONTENT.itemFactory("economy:spirit_stone_" + tier, (properties, tooltip) -> new SpiritStoneItem(properties, tooltip, tier));
+            CONTENT.itemFactory("economy:spirit_stone_bundle_" + tier,
+                    (properties, tooltip) -> new SpiritStoneBundleItem(properties, tooltip, tier));
         }
     }
 
