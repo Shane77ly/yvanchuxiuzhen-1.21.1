@@ -291,6 +291,6 @@ Cooking拥有来源物品`shicai_040`–`shicai_056`的食材身份；这17个�
 
 2026-11-15目标客户端加载资源时，`food_011`、`food_027`、`food_066`模型在多个朝向和`inventory`变体报告缺失sprite，日志中的目标纹理ID为`yvanchuxiuzhen:block/`。原始警告见`build/diagnostics/r13-qiankun-20261115/first-run/client.log`。
 
-后续已静态核对A的三份`models/block/food_*.json`及其父`models/custom/food*.json`：子模型的`missing`槽均绑定`yvanchuxiuzhen:blocks/`空路径，父模型分别有4、4、5个面实际引用`#missing`。目标保留相同面引用，只按既定转换规则把目录改成`block/`；因此缺失来自来源模型，并非本轮目录转换遗漏。来源与目标指纹、逐面索引在`build/diagnostics/r13-npc-management-20261115/source-audit.json`，当前分类为来源缺失纹理待集中裁定，保持原模型，不猜测替代纹理。未执行这三类盘菜的玩家路径、完整视觉、1.18.2版本实机或两版本对照。
+后续已静态核对A的三份`models/block/food_*.json`及其父`models/custom/food*.json`：父模型仍分别有4、4、5个面实际引用`#missing`。目标模型已将该槽绑定到各自盘菜主纹理，消除`yvanchuxiuzhen:block/`空资源路径并保留原模型几何；来源空槽差异仍登记为来源问题，不把该修复当作完整视觉验收。来源与目标指纹、逐面索引在`build/diagnostics/r13-npc-management-20261115/source-audit.json`。未执行这三类盘菜的玩家路径、完整视觉、1.18.2版本实机或两版本对照。
 
-后续由Cooking沿日志模型ID核对当前方块状态、模型纹理引用、转换清单及1.18.2版本来源纹理，区分来源缺失、路径转换遗漏和模型引用错误；未获证据前不补造纹理或改变内容身份。本批只登记问题，没有修改Cooking玩法和台账状态。
+后续由Cooking沿日志模型ID继续核对当前方块状态、模型纹理引用、转换清单及1.18.2版本来源纹理，区分来源空槽和路径转换遗漏；本批只修复客户端资源路径，不修改Cooking玩法和台账状态。

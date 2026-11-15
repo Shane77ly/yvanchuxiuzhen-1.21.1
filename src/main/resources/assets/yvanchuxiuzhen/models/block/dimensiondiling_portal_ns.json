@@ -1,7 +1,7 @@
 {
   "textures": {
-    "particle": "yvanchuxiuzhen:blocks/ling0601",
-    "portal": "yvanchuxiuzhen:blocks/ling0601"
+    "particle": "yvanchuxiuzhen:block/ling0601",
+    "portal": "yvanchuxiuzhen:block/ling0601"
   },
   "elements": [
     {
