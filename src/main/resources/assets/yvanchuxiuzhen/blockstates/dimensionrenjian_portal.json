@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "yvanchuxiuzhen:block/dimensionrenjian_portal_ew"
+    },
+    "axis=x": {
+      "model": "yvanchuxiuzhen:block/dimensionrenjian_portal_ns"
+    }
+  }
+}

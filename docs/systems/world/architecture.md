@@ -15,7 +15,9 @@ updated: 2026-11-15
 
 来源闭包包含六组同构门户实现：`Dimensiondiling`、`Dimensionrenjian`、`Dimensiontianqve`、`Dimensionwugui`、`Dimensionyaohun`、`Dimensionxiuluo`，每组各有`PortalShape`和`Teleporter`。形状类用天道维度方块判定框架，沿水平轴寻找底角，宽度2–21、高度3–21，扫描并生成`NetherPortalBlock.AXIS`内框，创建门户块后写入对应传送器的POI。传送器为每组独立的`ITeleporter`，登记独立POI和300刻传送票，入场查找半径16、出口查找半径128，按最近距离和Y排序；找不到出口时以16格螺旋范围寻找可承载位置，必要时按来源高度夹取并用天道维度方块重建框架，再写2×3门户内框，最后按入口矩形、维度缩放、实体尺寸和速度生成`PortalInfo`。
 
-目标当前没有这六组`PortalShape`/`Teleporter`及其POI、门户生成和实体传送接线；六个门户方块在内容台账中仍为待处理，不能把已注册的框架方块或维度资源当作门户行为闭合。该缺口登记为Q207，先保持来源结构与传送语义，待集中补齐目标入口后再做编译、维度往返、多人和保存重进验证。十三份来源类指纹和目标缺口见`ledger/source-evidence.csv`、`ledger/source-fingerprints.csv`。
+目标已用`DimensionPortalBlock`/`DimensionPortalItem`承载六个门户方块与耐久工具，`DimensionPortalShape`保留来源框架判定、2×3至21×21形状、`AXIS`内框和完整性拆除规则；`DimensionPortalRuntime`按门户身份分别登记POI与300刻票，保留16/128格查找、最近距离/Y排序、16格螺旋建门、天道维度方块框架、坐标倍率、实体尺寸和速度偏移。NeoForge 1.21.1 的`Portal`/`DimensionTransition`承担来源`ITeleporter`的跨维度生命周期，六组注册均共用同一实现而保留独立方块、POI、票据和目标维度身份。目标找不到对应维度时返回空，暂不补造默认维度。
+
+Q207 的运行接线已实现，仍待精确版本编译、门户实际生成、两道已落盘维度往返、缺失四道维度的外部资源补齐、多人和保存重进验证；不能以静态注册替代这些验收。十三份来源类指纹、六组目标内容和实现位置见`ledger/source-evidence.csv`、`ledger/source-fingerprints.csv`。
 
 ## Q130 结构Mod实体旧属性没有升级
 

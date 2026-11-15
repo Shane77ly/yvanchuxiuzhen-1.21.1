@@ -19,6 +19,10 @@ import net.yvanchuxiuzhen.system.world.content.WorldBlockEntities;
 import net.yvanchuxiuzhen.system.world.entity.GuidanceHalo;
 import net.yvanchuxiuzhen.system.world.fluid.QuicksandFluids;
 import net.yvanchuxiuzhen.system.world.fluid.SpringFluids;
+import net.yvanchuxiuzhen.system.world.portal.DimensionPortalBlock;
+import net.yvanchuxiuzhen.system.world.portal.DimensionPortalItem;
+import net.yvanchuxiuzhen.system.world.portal.DimensionPortalSpec;
+import net.yvanchuxiuzhen.system.world.portal.DimensionPortalTypes;
 import net.yvanchuxiuzhen.system.world.terrain.WorldTerrainTypes;
 import net.yvanchuxiuzhen.system.world.tree.WorldTreeDecorators;
 
@@ -31,6 +35,13 @@ public final class WorldSetup {
             .blockFactory("world:rift", traits -> ContentBlock.create(traits, RiftBlock::new))
             .itemFactory("world:rift", (properties, tooltip) -> new RiftItem(
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "liexi")), properties, tooltip))
+            .blockFactory("world:dimension_portal", DimensionPortalBlock::new)
+            .itemFactory("world:dimensiontianqve", (properties, tooltip) -> new DimensionPortalItem(properties, tooltip, DimensionPortalSpec.TIANQVE))
+            .itemFactory("world:dimensionxiuluo", (properties, tooltip) -> new DimensionPortalItem(properties, tooltip, DimensionPortalSpec.XIULUO))
+            .itemFactory("world:dimensionrenjian", (properties, tooltip) -> new DimensionPortalItem(properties, tooltip, DimensionPortalSpec.RENJIAN))
+            .itemFactory("world:dimensionyaohun", (properties, tooltip) -> new DimensionPortalItem(properties, tooltip, DimensionPortalSpec.YAOHUN))
+            .itemFactory("world:dimensionwugui", (properties, tooltip) -> new DimensionPortalItem(properties, tooltip, DimensionPortalSpec.WUGUI))
+            .itemFactory("world:dimensiondiling", (properties, tooltip) -> new DimensionPortalItem(properties, tooltip, DimensionPortalSpec.DILING))
             .livingEntity("guanghuan", GuidanceHalo::new, GuidanceHalo::attributes);
 
     private WorldSetup() {
@@ -42,6 +53,7 @@ public final class WorldSetup {
 
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
+        DimensionPortalTypes.register(modBus);
         WorldBlockEntities.register(modBus);
         modBus.addListener((RegisterSpawnPlacementsEvent event) -> event.register(EntityType.BEE,
                 SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
