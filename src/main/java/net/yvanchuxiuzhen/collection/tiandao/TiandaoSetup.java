@@ -23,5 +23,6 @@ public final class TiandaoSetup {
         MultiStructureContent.register(modBus);
         BlockDisplayLock.register(modBus);
         NeoForge.EVENT_BUS.addListener(DisplayLockItem::interact);
+        NeoForge.EVENT_BUS.addListener(FixedBlockProtection::onBreak);
     }
 }

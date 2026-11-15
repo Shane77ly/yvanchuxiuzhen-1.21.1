@@ -146,7 +146,7 @@ def parse_block(source: str, items: dict[str, str], blocks: dict[str, str]) -> d
         row['sound'] = dict(zip(('break', 'step', 'place', 'hit', 'fall'), re.findall(r'ResourceLocation\("([\w.]+)"\)', custom_sound.group(1))))
     else:
         row['sound'] = re.search(r'\.sound\(SoundType\.(\w+)\)', properties).group(1)
-    strength = re.search(r'\.strength\(([\d.]+)f?, ?([\d.]+)f?\)', properties)
+    strength = re.search(r'\.strength\((-?[\d.]+)f?, ?([\d.]+)f?\)', properties)
     if strength:
         row['strength'] = [_number(strength.group(1)), _number(strength.group(2))]
     for flag, key in (('instabreak', 'instabreak'), ('noOcclusion', 'no_occlusion'), ('noCollission', 'no_collision'),
