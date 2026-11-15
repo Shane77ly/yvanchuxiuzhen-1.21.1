@@ -30,8 +30,10 @@ import net.yvanchuxiuzhen.system.equipment.content.FabaoProjectileItem;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
 import net.yvanchuxiuzhen.system.equipment.content.Gongjv001Item;
 import net.yvanchuxiuzhen.system.equipment.content.Gongjv008Item;
+import net.yvanchuxiuzhen.system.equipment.content.GongjvshechuItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentBlockEntities;
+import net.yvanchuxiuzhen.system.equipment.content.JingxveItem;
 import net.yvanchuxiuzhen.system.equipment.content.JewelryTableBlock;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentItem;
@@ -65,6 +67,8 @@ public final class EquipmentSetup {
         CONTENT.itemFactory("equipment:fabao_010", Fabao010Item::new);
         CONTENT.itemFactory("equipment:fabao_010huoyan", Fabao010huoyanItem::new);
         CONTENT.itemFactory("equipment:fabao_017", Fabao017Item::new);
+        CONTENT.itemFactory("equipment:jingxve", JingxveItem::new);
+        CONTENT.itemFactory("equipment:gongjvshechu", GongjvshechuItem::new);
         for (FabaoProjectile.Kind kind : FabaoProjectile.Kind.values()) {
             CONTENT.itemFactory("equipment:" + kind.itemId(), (properties, tooltip) ->
                     new FabaoProjectileItem(kind, properties, tooltip));

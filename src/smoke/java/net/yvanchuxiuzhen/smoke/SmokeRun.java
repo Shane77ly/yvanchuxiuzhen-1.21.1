@@ -205,6 +205,7 @@ final class SmokeRun {
                     case "yihuomaterial" -> List.of(new YihuoMaterialCheck(report, levelId));
                     case "demon" -> List.of(new DemonTransformationCheck(report, levelId, this::shot));
                     case "equipmentproduct" -> List.of(new EquipmentProductCheck(report, levelId, this::shot));
+                    case "equipmentconsumers" -> List.of(new EquipmentConsumersCheck(report, levelId, this::shot));
                     case "accessories" -> List.of(new AccessoryCheck(report, levelId, this::shot));
                     case "storage" -> List.of(new StorageCheck(report, levelId, this::shot));
                     case "bank" -> List.of(new BankCheck(report, levelId, this::shot));
@@ -241,6 +242,8 @@ final class SmokeRun {
                     case "guchonglifecycle" -> List.of(new GuchongLifecycleCheck(report, levelId));
                     case "guchongflute" -> List.of(new GuchongFluteCheck(report, levelId, this::shot));
                     case "guchong01" -> List.of(new Guchong01Check(report, levelId, this::shot));
+                    case "guchongconstitution" -> List.of(new GuConstitutionHarvestCheck(report, levelId, this::shot));
+                    case "guchongconstitutionupper" -> List.of(new GuConstitutionHarvestCheck(report, levelId, this::shot, true));
                     case "formationelement" -> List.of(new FormationElementCheck(report, levelId, this::shot));
                     case "formation" -> List.of(new FormationCheck(report, levelId), new FormationElementCheck(report, levelId, this::shot));
                     case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
