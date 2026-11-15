@@ -4616,7 +4616,7 @@ yvanchuxiuzhen,Xiulitaihecheng,recipe,~/tool/xiulitai,lianqi,已读,D炼器四�
 yvanchuxiuzhen,AltanjianAnXiaAnJianShi,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,AltanjianSongKaiAnJianShi,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Altanjian,keybind,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TiandaoitemnbtGui,gui,~/systemset/tiandao,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,TiandaoitemnbtGui,gui,~/systemset/tiandao,tiandao,已读,B1 归属阅读：通用物品NBT编辑器的单槽菜单、输入框、八类型写入消息与服务端组件映射由天道负责；客户端屏幕仅显示与发送编辑请求
 yvanchuxiuzhen,Tiandaoitemnbt,block,~/systemset/tiandao,tiandao,已读,B1 归属阅读：天道：生存模式不可得的通用管理工具（穿梭令、物品锁、物品 NBT 编辑器、固定方块、多结构生成器）；本元素无过程
 yvanchuxiuzhen,Tiandaoitemnbtset,procedure,~/systemset/tiandao,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fubenitemneed,procedure,~/fuben,dungeon,已读,来源实读：入口槽0非空时显示进入消耗提示；实际扣票由Fubenjinru执行，属于Dungeon准入界面
