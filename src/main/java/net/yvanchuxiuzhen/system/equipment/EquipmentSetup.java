@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.system.equipment;
 import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ShovelItem;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -28,6 +29,7 @@ import net.yvanchuxiuzhen.system.equipment.content.Fabao022Item;
 import net.yvanchuxiuzhen.system.equipment.content.FabaoProjectileItem;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
 import net.yvanchuxiuzhen.system.equipment.content.Gongjv001Item;
+import net.yvanchuxiuzhen.system.equipment.content.Gongjv008Item;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentBlockEntities;
 import net.yvanchuxiuzhen.system.equipment.content.JewelryTableBlock;
@@ -101,6 +103,12 @@ public final class EquipmentSetup {
             if (row.factory().equals("equipment:gongjv_001")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
                 CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Gongjv001Item(tier, properties, tooltip));
+            }
+            if (row.factory().equals("equipment:gongjv_008")) {
+                ItemRow.Tool tool = row.tool().orElseThrow();
+                LegacyTier tier = LegacyTier.of(tool.tier());
+                CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Gongjv008Item(tier,
+                        properties.attributes(ShovelItem.createAttributes(tier, tool.damage().orElseThrow(), tool.attackSpeed().orElseThrow())), tooltip));
             }
             if (row.factory().startsWith("equipment:weaponhossu_")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());

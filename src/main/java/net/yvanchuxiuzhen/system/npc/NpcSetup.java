@@ -44,6 +44,7 @@ public final class NpcSetup {
         modBus.addListener(NpcManagementMenus::registerPayloads);
         NeoForge.EVENT_BUS.addListener(NpcInteractions::interact);
         NeoForge.EVENT_BUS.addListener(NpcProfiles::applyOwnedProfile);
+        NeoForge.EVENT_BUS.addListener(NpcFollowerRuntime::tick);
         NeoForge.EVENT_BUS.addListener(EventPriority.LOW, false, StructureReleasedEvent.class, NpcStructureReleases::structureReleased);
         NeoForge.EVENT_BUS.addListener((AuctionNpcRequestEvent event) -> event.setDefinitions(NpcDefinitions.snapshot()));
     }

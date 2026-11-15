@@ -2,7 +2,7 @@
 topic: guchong
 role: entry
 status: partial
-updated: 2026-11-14
+updated: 2026-11-15
 ---
 
 # 蛊虫
@@ -36,7 +36,7 @@ R13已接入05荧光蛊物品、飞行实体、悬赏坐标生产和释放/回�
 | A `Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:62,64,183` 和 `GuchongAnniuzhixingProcedure:57,59,120,204` | `Relations.shareEntityAllegiance/team` | 手持罐与蛊笛按钮链已接入并通过必要单项，不能读取 relation 数据包 |
 | A `Guchong01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure:39,85,131` | `Relations.team/setTeam` | 01/03/04同族物品释放已接入，编号01与03/04入口必要单项已通过；完整战斗未验 |
 | A `EntityDeathProcedure:241,254` 的玩家 `insect_experience` | `Professions.addExperience(owner, Profession.INSECT, 新等级 × 10)` | 每次升级逐级增加；字段由 profession 独占写入 |
-| A `Guchong02itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:15,27` 的 `tizhiitem` | xiulian 具体体质操作 | 未在本轮实体与地上罐批次中实现 |
+| A `Guchong02itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:15,27` 的 `tizhiitem` | `Cultivation.tizhiBoolean/editTizhi` | 02右键首次写四字段并一次同步；重复拒绝，体质真值由xiulian拥有 |
 | B `Taoguan01ZaiFangKuaiShangYouJianProcedure:182,183` 的 `lctrl/lalt` | `ModifierKeys.ctrl/alt` | 回收地上罐 |
 | B 地上罐认主与目标筛选直接读取实体本体 `team` | `Relations.entityTeam` | 保留本体字段与玩家能力字段的来源差异 |
 
@@ -45,3 +45,5 @@ R13已接入05荧光蛊物品、飞行实体、悬赏坐标生产和释放/回�
 摄虫网收纳的来源实体本体`team`在目标由relation附件拥有，`GuchongCapture`通过`Relations.entityTeam`读取后保存到虫物品；不从蛊虫实体的旧式持久标签取第二份团队值。
 
 本轮变化见[蛊虫月志](logs/2026-11.md)，此前变化在[项目月度日志](../project/logs/2026-11.md)。
+
+酒蛊02已接回一次性体质入口；虫卵为静态物品，采药锄生产者已由Equipment接入。吞噬效果与03/04目标、共享击杀成长已有实现，来源04仍吃03。来源培养入口断链Q163及完整自然战斗/表现仍开放，规则见正文，本批验证见月志。

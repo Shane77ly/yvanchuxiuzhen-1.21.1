@@ -53,7 +53,7 @@ A `Guchong05Entity:79–82`明确返回`MobType.ARTHROPOD`，目标05需加入`m
 
 ## 待调查
 
-虫卵 `Chongluan` 的完整来源与用途尚未逐条读取。蛊笛释放界面与按钮已核对并接线，范围与未验边界见下方蛊笛正文。
+虫卵Chongluan已完成物品、Java/配方和药锄生产者核对，静态物品由现有内容表承担；来源培养入口断链见Q163。蛊笛释放界面与按钮已核对并接线，范围与未验边界见下方蛊笛正文。
 
 ## 2026-11-13 摄虫网收纳与蛊罐消费者
 
@@ -114,3 +114,13 @@ A `Guchong01Entity` 注册为`MONSTER`，尺寸0.5×0.8，跟踪范围64、更�
 静态依据：A `item/Fabao018Item.java`、`item/model/Fabao018ItemModel.java`、`item/renderer/Fabao018ItemRenderer.java`、`world/inventory/GuchongshifangGUIMenu.java`、`client/gui/GuchongshifangGUIScreen.java`、`network/GuchongshifangGUIButtonMessage.java`；过程`Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhi`、`GuchongshifangOpen`、`GuchongshifangGUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng`、`GuchongAnniuzhixing`、`Guchonguidown/up`、`Guchonganniu01`–`06`、`Guchonganniuxianshi01`–`06`、`Guchongyeshu`，以及`data/yvanchuxiuzhen/recipes/fabao_018hecheng.json`。目标能力与槽写入核对NeoForge21.1.265精确sources.jar的`Capabilities`、`PlayerInvWrapper`和`SlotItemHandler`；菜单网络与Gecko生命周期复用工程既有同版本入口。
 
 本包已完成来源静态核对、定向资源转换、统一编译与结构检查；最小`guchongflute`客户端单项通过原生物品入口和真实按钮、七罐分页、受控03双虫放收、物品移动后的UUID定位、只读展示、沉默边界、空UUID和局部收回，以及真实保存重进。三张截图确认中文提示、页0/2与六罐/一罐显示；854×480、界面缩放2时来源顶部偏移造成上边框略裁剪，保持原布局。原件与运行边界只登记[本月记录](logs/2026-11.md#2026-11-14-蛊笛六罐释放与潜行收回)。全容量、全部编号、完整自然战斗、生存获取、1.18.2版本实机、两版本对照、专服、多人和完整视觉/音效未执行；本包不升级整个R10或蛊虫系统验收状态。
+
+## 酒蛊02、虫卵与吞噬边界（2026-11-15）
+
+`guchong_02item`自然右键读取体质tizhiopen_013。首次经`Cultivation.editTizhi`一次写入开启、AlcoholPatience增加100、AlcoholDigestionPercentage减1、tizhinumber加1，并提示获得千杯不倒；已开启只显示重复提示。来源use返回super结果，过程直接shrink；MC1.18.2 ServerPlayerGameMode.useItem:281–317在创造模式恢复原数量，而1.21.1同方法306–338移除该恢复，目标显式保留创造数量，生存首次扣1。两个版本early return分别293–296与318–321，不能以直接调用物品use代替自然包装核对。
+
+`huxiangtunshi`没有额外自定义tick，Guchongtunshi只检查效果；03/04目标与继续条件已经消费，04依来源仍吃03，共享同类击杀经验为死者经验上限四分之一。虫噬草效果生产配置已在Liandan herbs表，完整自然制药/吞噬战斗仍未验，不能把未验写成缺少一套吞噬系统。
+
+### Q163 虫卵培养说明没有已发现的可执行入口
+
+A ChongluanItem只有64堆叠与说明，无use/useOn/tick；A/B Java与resources/data未找到虫卵孵化、虫卵到成虫或02生产配方。已知虫卵生产者为Equipment采药锄，本批接回；培养说明与实际消费者之间仍断链。保持普通物品身份，不补造孵化系统；来源动态入口继续集中核实。

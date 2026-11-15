@@ -1,4 +1,7 @@
 [
 {"id":"caishenye","category":"CREATURE","width":0.6,"height":1.8,"tracking_range":64,"update_interval":3,"fire_immune":false},
-{"id":"fuqi_0301","category":"MONSTER","width":0.5,"height":1.0,"tracking_range":16,"update_interval":3,"fire_immune":false}
+{"id":"fuqi_0301","category":"MONSTER","width":0.5,"height":1.0,"tracking_range":16,"update_interval":3,"fire_immune":false},
+{"id":"pao_0401","category":"MONSTER","width":0.2,"height":0.2,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"pao_0501","category":"MONSTER","width":0.2,"height":0.1,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"pao_0601","category":"MONSTER","width":0.2,"height":0.1,"tracking_range":64,"update_interval":3,"fire_immune":false}
 ]

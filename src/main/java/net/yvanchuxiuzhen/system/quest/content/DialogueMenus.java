@@ -16,6 +16,8 @@ public final class DialogueMenus {
             (id, inventory, buffer) -> new DialogueMenu(id, inventory, buffer.readBlockPos(), false)));
     public static final Supplier<MenuType<DialogueMenu>> CHOICES = TYPES.register("duihua_gui_02", () -> IMenuTypeExtension.create(
             (id, inventory, buffer) -> new DialogueMenu(id, inventory, buffer.readBlockPos(), true)));
+    public static final Supplier<MenuType<QuestJournalMenu>> JOURNAL = TYPES.register("renwu_gui", () -> IMenuTypeExtension.create(
+            (id, inventory, buffer) -> new QuestJournalMenu(id, inventory, buffer.readBlockPos())));
 
     private DialogueMenus() {
     }

@@ -1,5 +1,7 @@
 {
   "menu.yvanchuxiuzhen.guchong_release": "蛊虫释放",
+  "message.yvanchuxiuzhen.guchong_constitution_gained": "§f你感觉体内某处热乎乎的，获得“§6千杯不倒§f”体质。",
+  "message.yvanchuxiuzhen.guchong_constitution_known": "§4已获得体质“千杯不倒”，无法重复获得。",
   "message.yvanchuxiuzhen.guchong_flute_silenced": "§4沉默状态下，无法释放或收回蛊虫。",
   "screen.yvanchuxiuzhen.guchong_page_down": "下一页",
   "screen.yvanchuxiuzhen.guchong_page_up": "切换页码",

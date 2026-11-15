@@ -2983,16 +2983,16 @@ yvanchuxiuzhen,Pao0305,particle,~/item/jieri,particle,已读,逐项读取 client
 yvanchuxiuzhen,Pao0306,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Pao03DangWuPinZaiShouShangMeiKeFaSheng,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao03 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao03,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao0401DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0401,animatedentity,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0501DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0501,animatedentity,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0601DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0601,animatedentity,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Pao0401DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao0401,animatedentity,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao0501DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao0501,animatedentity,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao0601DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao0601,animatedentity,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
 yvanchuxiuzhen,Pao04DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao04 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao04,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao05,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao06,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
+yvanchuxiuzhen,Pao04,item,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao05,item,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao06,item,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
 yvanchuxiuzhen,Pao07DangWuPinZaiShouShangMeiKeFaSheng,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao07 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao07,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao08TouZhiWuFeiXingTick,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao08 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
@@ -6133,9 +6133,9 @@ yvanchuxitong,XvanxiangTXT03,procedure,~/duihua,quest,候选,第一版批量归�
 yvanchuxitong,XvanxiangTXT04,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,PlayerTickxitong,procedure,,quest,候选,第一版批量归组（目录、元素名与元素类型规则）；R13 仅银行单步所需END事件27–30和启动/任务记录读取47–80已读：先清begin后读任务状态与游标并调用对话；其他任务分支未在本包完整核读；保留整元素候选归属
 yvanchuxitong,Cunchurenwu,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuGUI,gui,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuanjianAnXiaAnJianShi,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Renwuanjian,keybind,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,RenwuGUI,gui,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuanjianAnXiaAnJianShi,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,Renwuanjian,keybind,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
 yvanchuxitong,Renwuliebiao01,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renwuliebiao02,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renwuliebiao03,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6144,24 +6144,24 @@ yvanchuxitong,Renwuliebiao05,procedure,~/duihua,quest,候选,第一版批量归�
 yvanchuxitong,Renwuliebiao06,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renwuliebiao07,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renwuliebiao08,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu01,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu02,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu03,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu04,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu05,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu06,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu07,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu08,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,RenwuAnniu01,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu02,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu03,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu04,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu05,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu06,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu07,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu08,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
 yvanchuxitong,Renwuname,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renwuxvqiu,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renwujiangli,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Fanyeup,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Fanyedown,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Fanyexianshi,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Renwuleibieup,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Fanyeup,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,Fanyedown,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,Fanyexianshi,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,Renwuleibieup,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
 yvanchuxitong,Renwuliebiedown,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,RenwuUIname,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Renwujixv,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Renwujixv,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
 yvanchuxitong,ShopGUI,gui,~/shop,economy,已读,R13经济交易包：已完整核对来源菜单/注册与调用；七页槽位、按钮、显示及shopsell范围；实体椅子的属性、免伤、渲染和拍卖消费。正文见economy或decor architecture
 yvanchuxitong,ShopGUIopen,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopGUIDangZheGeJieMianDaKaiShi,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）

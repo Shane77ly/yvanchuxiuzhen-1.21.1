@@ -1,5 +1,7 @@
 {
   "menu.yvanchuxiuzhen.guchong_release": "Gu Insect Release",
+  "message.yvanchuxiuzhen.guchong_constitution_gained": "§fA warmth stirs within you. You have gained the §6Unshakable Drinker§f constitution.",
+  "message.yvanchuxiuzhen.guchong_constitution_known": "§4You already have the Unshakable Drinker constitution and cannot gain it again.",
   "message.yvanchuxiuzhen.guchong_flute_silenced": "§4You cannot release or recall Gu insects while silenced.",
   "screen.yvanchuxiuzhen.guchong_page_down": "Next page",
   "screen.yvanchuxiuzhen.guchong_page_up": "Change page",

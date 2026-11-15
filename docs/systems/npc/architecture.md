@@ -141,3 +141,7 @@ A `QiankundaorenGengXinYouXiKeProcedure`在每次计数递增后调用`sendBlock
 ### 乾坤道人与门徒来源断链
 
 QiankunmentuZaiFangKuaiShangYouJian生成Java的事件根只有创造模式潜行右键打开管理界面；Blockly XML中另有8条任务脚本及0/9分支，但它们是未连接到event_trigger的根级controls_if，生成代码不会执行任务提交。目标按生成Java的实际可执行行为接入方块、方块实体、管理界面与renwuset 0–9回绕，不凭未连接脚本补造普通右键任务入口。来源另有/renwuset管理命令把同名字段写成字符串，并从命令源位置计算未消费的射线坐标；该命令不在当前管理包范围内，保留为Q154待裁定。证据为来源elements/QiankunmentuZaiFangKuaiShangYouJian.mod.json与生成Java文件，生成Java的可达管理入口已纳入本批必要单项；脱接脚本与命令仍待集中裁定。
+
+## 剧情跟随消费者（2026-11-15）
+
+`NpcFollowers`拥有gensuiplayer/gensuiplayeruid，允许来源脚本向任意Entity登记；`NpcFollowerRuntime`只在服务端LivingEntity的Pre tick消费，gensuitick每20刻清零，Mob只查询当前维度玩家UUID并向玩家XZ各±2的随机坐标寻路，Y相同、速度1。不增加主人在线跨维查找或瞬移兜底；取消只清标志和UUID。精确Forge40.1.0 LivingEntity补丁确认LivingUpdate位于tick开头，未因目标Post便利改变来源时序。本批静态接线，完整自然跟随与多人保存仍待。

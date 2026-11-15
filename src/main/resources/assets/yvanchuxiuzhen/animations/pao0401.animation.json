@@ -1,0 +1,58 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pao0401.idle": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"pao": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 1080, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.pao0401.luoxva": {
+			"animation_length": 8,
+			"bones": {
+				"pao": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"8.0": {
+							"vector": [0, 3240, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 32]
+						},
+						"1.4": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"luoxvan": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"8.0": {
+							"vector": [0, 3240, 0]
+						}
+					},
+					"position": {
+						"vector": [0, 0, -32]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

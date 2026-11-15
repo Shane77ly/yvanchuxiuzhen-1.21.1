@@ -1,6 +1,6 @@
 [
 {"id":"guchong_01item","factory":"guchong:guchong_01item","order":1774,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1},
-{"id":"guchong_02item","factory":"item","order":1775,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"tooltip":["右键把蛊虫养于体内，并获得“千杯不倒”的体质。"],"pending_hooks":["use"]},
+{"id":"guchong_02item","factory":"guchong:constitution","order":1775,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"tooltip":["右键把蛊虫养于体内，并获得“千杯不倒”的体质。"]},
 {"id":"guchong_03item","factory":"guchong:guchong_03item","order":1776,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1},
 {"id":"guchong_04item","factory":"guchong:guchong_04item","order":1777,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1},
 {"id":"taoguan_01item","factory":"guchong:taoguan_01item","order":1780,"tab":"yvanchuxiuzhen:tabyvanchu_materials","stack":1,"tooltip":["手持此物时，潜行右键可以打开蛊罐；右键释放或者收回蛊虫；","可以放置在地上","用泥土或石头，可以把放置的蛊罐隐藏起来","按住alt或者ctrl键时右键放在地上的蛊罐，可以把蛊罐拿起来。","在蛊罐的下方放置泥土或草方块，蛊虫就会自动寻找并袭击动物；","在蛊罐的下方放置石头方块，蛊虫就会击杀范围内的所有实体；","在蛊罐的下方放置木板方块，蛊虫就只会对非npc的怪物进行战斗；","蛊罐的下方方块非土非石非木时，蛊虫就只会试图攻击靠近的玩家。"]},

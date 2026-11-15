@@ -10,6 +10,7 @@ import net.yvanchuxiuzhen.system.guchong.entity.GuchongGrowth;
 import net.yvanchuxiuzhen.system.guchong.entity.Guchong05Entity;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongTrackingItem;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongBlockEntities;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongConstitutionItem;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongFluteItem;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongReleaseMenu;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlock;
@@ -26,6 +27,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
  */
 public final class GuchongSetup {
     private static final ContentTables CONTENT = new ContentTables("guchong")
+            .itemFactory("guchong:constitution", GuchongConstitutionItem::new)
             .itemFactory("guchong:tracking", GuchongTrackingItem::new)
             .livingEntity("guchong_05", Guchong05Entity::new, Guchong05Entity::attributes)
             .itemFactory("guchong:flute", GuchongFluteItem::new)

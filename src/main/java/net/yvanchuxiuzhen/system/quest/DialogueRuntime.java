@@ -1,5 +1,7 @@
 package net.yvanchuxiuzhen.system.quest;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
@@ -11,6 +13,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,9 +27,11 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.wrapper.PlayerInvWrapper;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.economy.api.EconomyDialogueRequestEvent;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
 import net.yvanchuxiuzhen.system.npc.api.NpcDialogueRequestEvent;
+import net.yvanchuxiuzhen.system.npc.api.NpcFollowers;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
@@ -58,8 +64,22 @@ public final class DialogueRuntime {
     public static void tick(PlayerTickEvent.Post event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
         CompoundTag state = DialogueActions.snapshot(player);
-        if (!state.getBoolean("renwubegin")) return;
+        if (!state.getBoolean("renwubegin") && !state.getBoolean("taskbegin")) {
+            if (state.getBoolean("tasksustained") && !state.getBoolean("xvanxiang")) {
+                int tick = state.getInt("tasktick") + 1;
+                state.putInt("tasktick", tick);
+                player.setData(QuestData.SESSION, state);
+                if (tick >= 60) {
+                    QuestChatRuntime.run(player);
+                    CompoundTag updated = DialogueActions.snapshot(player);
+                    updated.putInt("tasktick", 0);
+                    player.setData(QuestData.SESSION, updated);
+                }
+            }
+            return;
+        }
         state.putBoolean("renwubegin", false);
+        state.putBoolean("taskbegin", false);
         String script = state.getString("renwulist");
         if (script.isEmpty()) {
             player.setData(QuestData.SESSION, state);
@@ -125,6 +145,11 @@ public final class DialogueRuntime {
                     return;
                 }
                 case "判断物品" -> state.putInt("renwuweizhi", integer(action[count(player, item(action[1])) >= number(action[2]) ? 3 : 4]));
+                case "高级物品判断" -> state.putInt("renwuweizhi", integer(action[countAdvancedItems(player, action) >= number(action[2]) ? 3 : 4]));
+                case "跟随玩家", "取消跟随", "删除实体", "伤害实体", "移动到坐标" -> {
+                    controlEntities(player, action);
+                    state.putInt("renwuweizhi", cursor + 1);
+                }
                 case "判断当前坐标" -> {
                     Vec3 center = new Vec3(number(action[1]), number(action[2]), number(action[3]));
                     boolean present = player.serverLevel().getEntitiesOfClass(Player.class,
@@ -217,7 +242,7 @@ public final class DialogueRuntime {
         }
     }
 
-    private static void saveTask(ServerPlayer player, CompoundTag state, String[] header, String[] action) {
+    static void saveTask(ServerPlayer player, CompoundTag state, String[] header, String[] action) {
         CompoundTag journal = DialogueActions.journal(player);
         String id = header[1];
         if (!journal.getString(id + "UUID").equals(id)) {
@@ -237,7 +262,7 @@ public final class DialogueRuntime {
         player.setData(QuestData.JOURNAL, journal);
     }
 
-    private static int compareFlag(ServerPlayer player, String[] action) {
+    static int compareFlag(ServerPlayer player, String[] action) {
         CompoundTag flags = player.getData(QuestData.FLAGS);
         boolean literal = action[0].equals("判断数值");
         int result;
@@ -253,7 +278,7 @@ public final class DialogueRuntime {
         return integer(action[result]);
     }
 
-    private static void changeFlag(ServerPlayer player, CompoundTag state, String[] action) {
+    static void changeFlag(ServerPlayer player, CompoundTag state, String[] action) {
         CompoundTag flags = player.getData(QuestData.FLAGS).copy();
         if (action[1].equals("char") || action[1].equals("str")) {
             flags.putString(action[2], (action[3].equals("加") ? state.getString(action[2]) : "") + action[4]);
@@ -275,7 +300,7 @@ public final class DialogueRuntime {
         player.setData(QuestData.FLAGS, flags);
     }
 
-    private static void changeItems(ServerPlayer player, String[] action) {
+    static void changeItems(ServerPlayer player, String[] action) {
         Item kind = item(action[2]);
         int amount = integer(action[3]);
         if (action[1].equals("加")) {
@@ -332,7 +357,7 @@ public final class DialogueRuntime {
         }
     }
 
-    private static int count(Player player, Item kind) {
+    static int count(Player player, Item kind) {
         PlayerInvWrapper inventory = new PlayerInvWrapper(player.getInventory());
         int count = 0;
         for (int slot = 0; slot < inventory.getSlots(); slot++) {
@@ -342,21 +367,77 @@ public final class DialogueRuntime {
         return count;
     }
 
+    static int countAdvancedItems(Player player, String[] action) {
+        ItemStack expected = new ItemStack(item(action[1]));
+        expected.set(DataComponents.CUSTOM_NAME, Component.literal(action[5]));
+        PlayerInvWrapper inventory = new PlayerInvWrapper(player.getInventory());
+        int count = 0;
+        for (int slot = 0; slot < inventory.getSlots(); slot++) {
+            ItemStack stack = inventory.getStackInSlot(slot);
+            if (!stack.is(expected.getItem()) || !stack.getDisplayName().getString().equals(expected.getDisplayName().getString())) continue;
+            boolean matches = true;
+            if (!action[6].equals("无")) {
+                CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                for (int field = 6; field + 2 < action.length; field += 3) {
+                    String key = action[field];
+                    String value = action[field + 2];
+                    matches = switch (action[field + 1]) {
+                        case "char", "str" -> data.getString(key).equals(value);
+                        case "logic" -> value.equals(data.getBoolean(key) ? "真" : "假");
+                        case "int" -> data.getInt(key) == number(value);
+                        case "double" -> data.getDouble(key) == number(value);
+                        default -> true;
+                    };
+                    if (!matches) break;
+                }
+            }
+            if (matches) count += stack.getCount();
+        }
+        return count;
+    }
+
+    static void controlEntities(ServerPlayer player, String[] action) {
+        Vec3 center = new Vec3(number(action[2]), number(action[3]), number(action[4]));
+        String type = action[1].startsWith("yvanchuxitong:") ? ModId.VALUE + action[1].substring("yvanchuxitong".length()) : action[1];
+        List<Entity> entities = player.serverLevel().getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(number(action[5]) / 2), entity -> true)
+                .stream().sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList();
+        for (Entity entity : entities) {
+            if (!BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).toString().equals(type)) continue;
+            switch (action[0]) {
+                case "跟随玩家" -> NpcFollowers.follow(entity, player);
+                case "取消跟随" -> NpcFollowers.stopFollowing(entity);
+                case "删除实体" -> entity.discard();
+                case "移动到坐标" -> {
+                    if (entity instanceof Mob mob) mob.getNavigation().moveTo(number(action[6]), number(action[7]), number(action[8]), number(action[9]));
+                }
+                case "伤害实体" -> {
+                    if (action[6].equals("法术") || action[6].equals("精神")) {
+                        SpellDamage.markQuestAttack(entity, action[6].equals("精神"), number(action[7]),
+                                action[8].equals("自己") ? player.getStringUUID() : "wu", action[9], number(action[10]));
+                    } else {
+                        entity.hurt(action[8].equals("自己") ? player.damageSources().playerAttack(player) : player.damageSources().generic(), (float) number(action[7]));
+                    }
+                }
+                default -> { }
+            }
+        }
+    }
+
     public static String resolve(String value) {
         return Component.translatable(value).getString();
     }
 
-    private static Item item(String id) {
+    static Item item(String id) {
         ResourceLocation location = ResourceLocation.parse(id.toLowerCase(Locale.ENGLISH));
         if (location.getNamespace().equals("yvanchuxitong")) location = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, location.getPath());
         return BuiltInRegistries.ITEM.get(location);
     }
 
-    private static int integer(String value) {
+    static int integer(String value) {
         return (int) number(value);
     }
 
-    private static double number(String value) {
+    static double number(String value) {
         try {
             return Double.parseDouble(value.trim());
         } catch (NumberFormatException exception) {

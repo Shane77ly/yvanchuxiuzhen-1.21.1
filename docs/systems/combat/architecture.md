@@ -267,3 +267,7 @@ updated: 2026-11-09
 实机检查（`CombatCheck`）：物品放置、受击 6²/(6+0)、下一刻回满生命、设置物理与法术防御并在数字无法解析时置 0、装备槽的头盔关闭后穿在木人桩上、拿走木人桩；截图 `combat_dummy.png` 目视确认 GeckoLib 模型、待机姿态与“伤害：6.0”报告。
 
 GeckoLib 首次接入（版本 4.9.3）的做法写入[工程结构](../../development/engineering.md)“依赖治理”，目标版本 API 事实写入移植技能的 NeoForge 1.21.1 参考。
+
+## Q31 剧情伤害字段登记边界（2026-11-15）
+
+Quest普通脚本“伤害实体/法术或精神”来源仅写ManaAttackDamage或SoulAttackDamage、对应UUID、damagetype和Damage_multiplier，本批经Combat公开操作markQuestAttack恢复该写入。A ManaDamage:50–61、SoulAttjisuan:50–61存在字段读取但无调用者；DamageIntegration另有读取但同属Q31无可达入口。目标不直接调用deal补造结算，不因恢复写入宣布Q31闭合；字段消费仍待集中核实/裁定。

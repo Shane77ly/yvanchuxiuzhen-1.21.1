@@ -22,7 +22,7 @@ from pathlib import Path
 
 from build_ledger import INVENTORY, NAMESPACE, ROOT, expected_rows, read_ledgers
 from legacy_blocks import BASES, parse_block
-from legacy_items import TOOL_KINDS, parse_armor_material, parse_armor_piece, parse_item, parse_item_properties, parse_tool
+from legacy_items import TOOL_KINDS, parse_armor_material, parse_armor_piece, parse_item, parse_item_properties, parse_tool, tooltip_lines
 
 WORKSPACE = Path('D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-1.21.1/reference')
 SOURCES = {
@@ -266,7 +266,8 @@ def convert_prefix_lang(sources: dict[str, Source], add_lang) -> int:
             for language in LANGUAGES:
                 for key, value in sources[row['source_mod']].lang[language].items():
                     if key.startswith(row['prefix']):
-                        add_lang(row['owner'], language, key, value)
+                        target = key.replace(f"key.{row['source_mod']}.", f'key.{NAMESPACE}.', 1) if key.startswith('key.') else key
+                        add_lang(row['owner'], language, target, value)
                         count += 1
     return count
 
@@ -519,6 +520,14 @@ def main() -> None:
                 row = {'id': target, 'factory': overrides[('item', target)], 'order': order,
                        'armor': {'material': material['id'], 'slot': slot}, 'durability_multiplier': multiplier,
                        **parse_item_properties(properties, source.tabs)}
+                # 来源动画护甲的头部专属提示只随头盔行交付。
+                if slot == 'HELMET' and 'armor.slot == EquipmentSlot.HEAD' in text:
+                    tooltip = tooltip_lines(text)
+                    if tooltip:
+                        row['tooltip'] = tooltip
+                    for number, line in enumerate(tooltip, start=1):
+                        for language in LANGUAGES:
+                            add_lang(unit, language, f'tooltip.{NAMESPACE}.item.{target}.{number}', line)
                 items_by_unit[unit].append(row)
                 for language in LANGUAGES:
                     name = source.lang[language].get(f'item.{mod}.{path}')
@@ -565,9 +574,9 @@ def main() -> None:
                               'cooking:remainder_shicai_03601', 'cooking:remainder_shicai_03701', 'cooking:wine',
                               'cooking:lotus_seed', 'cooking:plantable_garlic', 'creature:yaoshou_023baodan',
                               'creature:yaoshou_013taoziwuqi', 'creature:yaoshou_014skill_03', 'equipment:fabao_017',
-                              'guchong:guchong_01item', 'guchong:guchong_03item', 'guchong:guchong_04item', 'guchong:flute', 'guchong:tracking', 'town:scroll',
+                              'guchong:constitution', 'guchong:guchong_01item', 'guchong:guchong_03item', 'guchong:guchong_04item', 'guchong:flute', 'guchong:tracking', 'town:scroll',
                               'dungeon:fabao_00901', 'fulu:corpse_seal', 'world:spirit_compass', 'festival:wish_lantern', 'npc:manager', 'decor:hammer',
-                              'festival:sparkler_02', 'festival:sparkler_03', 'festival:sparkler_07',
+                              'festival:sparkler_02', 'festival:sparkler_03', 'festival:sparkler_07', 'equipment:gongjv_008', 'festival:costume_gift', 'festival:red_packet', 'festival:thrown_pao_04', 'festival:thrown_pao_05', 'festival:thrown_pao_06',
                               *(f'plant:shicai{number}_seed' for number in ('001', '002', '004', '005', '006', '007',
                                   '011', '012', '013', '014', '016', '025', '026', '027')),
                               *(f'cooking:produce{number:03}_food' for number in range(28, 34))) or row['factory'].startswith((

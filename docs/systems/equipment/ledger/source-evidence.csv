@@ -1,0 +1,3 @@
+source_mod,element,type,source_file,line,owner,ownership,evidence,target,implementation
+yvanchuxiuzhen,Gongjv008,item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Gongjv008Item.java,1,equipment,已读,2026-11-15来源实际读取；SHA256=5b1039f2c77933e2a038fb3bdcc91684a81bf41dee6aa0e99088cd21344ef3a3,Gongjv008Item,来源材质采集/双高移除/虫卵生产已接；原版材质集合静态核对，必要运行见本月记录
+yvanchuxiuzhen,Gongjv008DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Gongjv008DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure.java,1,equipment,已读,2026-11-15来源实际读取；SHA256=556289a844a34538abb2bd89482e5b6bdb191f8ad5ac955c72f3d8dffc6b4ef1,Gongjv008Item,来源材质采集/双高移除/虫卵生产已接；原版材质集合静态核对，必要运行见本月记录

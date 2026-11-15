@@ -216,6 +216,9 @@ final class SmokeRun {
                     case "temporaryteam" -> List.of(new TemporaryTeamCheck(report, levelId, this::shot));
                     case "npcresidents" -> List.of(new NpcResidentsCheck(report, levelId, this::shot));
                     case "npcmanagement" -> List.of(new NpcManagementCheck(report, levelId, this::shot));
+                    case "questjournal" -> List.of(new QuestJournalCheck(report, levelId, this::shot));
+                    case "guconstitutionharvest" -> List.of(new GuConstitutionHarvestCheck(report, levelId, this::shot));
+                    case "festivalremaining" -> List.of(new FestivalRemainingCheck(report, levelId, this::shot));
                     case "qiankun" -> List.of(new QiankunCheck(report, levelId, this::shot));
                     case "npc08" -> List.of(new NpcFlyingShuttleCheck(report, levelId, this::shot));
                     case "npc_underworld" -> List.of(new NpcUnderworldCheck(report, levelId, this::shot));

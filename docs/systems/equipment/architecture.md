@@ -649,3 +649,13 @@ Forge40.1.0精确源码的 `BaseContainerBlockEntity` 补丁与 `InvWrapper` 证
 ## Q144 飞行法器持锤修理分支遗漏
 
 建筑锤续批核对A `Flyinginstrument01DangYouJianDianJiShiTiProcedure`发现旧目标只在受损时进入锤分支，满血持锤误入骑乘且修理少十个HAPPY_VILLAGER。已改为主手锤先独立占分支，受损时粒子后恢复1点，满血无骑乘；生命上限由原生setHealth clamp。八法器共享该修复，必要单项使用真实物品召唤一类核验，结果见本月记录，不扩大为八类完整生命周期验收。
+
+## 采药锄自然采集与虫卵（2026-11-15）
+
+`Gongjv008Item`保留200耐久、速度2、等级1、材料攻击2、额外攻击1和攻速-3。useOn先执行原生锹行为，再取点击位置实际状态；最终返回SUCCESS。来源LEAVES/PLANT生成一件对应方块普通物品（拾取延迟10）再无原生掉落移除；REPLACEABLE_PLANT再按half为upper/lower移除下/上相邻方块。自定义采集不额外扣耐久，铺路等原生锹行为仍按原生扣费。
+
+1.21.1删除Material后，模组方块只经平台TraitedBlock读取来源材质；原版显式列出1.18.2 Blocks的8个LEAVES、51个PLANT和12个REPLACEABLE_PLANT，GRASS对应SHORT_GRASS，不按现代类继承扩大范围。每次采集后独立判定虫卵，基础1%，幸运每级增加2%，不裁剪概率；虫卵只按已注册普通物品身份生成，不访问Guchong持久数据。双高植物原生邻接和掉落影响须与来源分别核实，不能仅按显式drop次数断言总掉落。
+
+### Q164 霉运分支读取幸运等级
+
+A `Gongjv008DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi:21–72`在有霉运时，扣减仍读幸运等级；没有幸运时使用等级索引0，即扣2%。与幸运相同索引同时存在时可抵消，概率可为负或超过1。目标保持来源，不擅自改读霉运等级或裁剪概率，待集中裁定。

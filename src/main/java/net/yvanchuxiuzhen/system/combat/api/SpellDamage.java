@@ -26,6 +26,14 @@ public final class SpellDamage {
         target.getPersistentData().putDouble("Damage_multiplier", 0.5 + rank * 0.5);
     }
 
+    /** 剧情法术与精神攻击只登记来源待消费字段，不在脚本动作中提前结算。 */
+    public static void markQuestAttack(Entity target, boolean soul, double amount, String attackerUuid, String damageType, double multiplier) {
+        target.getPersistentData().putDouble(soul ? "SoulAttackDamage" : "ManaAttackDamage", amount);
+        target.getPersistentData().putString(soul ? "SoulAttackUUID" : "ManaAttackUUID", attackerUuid);
+        target.getPersistentData().putString("damagetype", damageType);
+        target.getPersistentData().putDouble("Damage_multiplier", multiplier);
+    }
+
     public static void deal(ServerLevel level, LivingEntity target, DamageCategory category, Entity attacker, boolean fixed, double base, double multiplier) {
         deal(level, target, category, attacker == null ? null : attacker.getUUID(), fixed, base, multiplier);
     }

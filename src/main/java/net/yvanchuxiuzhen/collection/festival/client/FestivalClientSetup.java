@@ -1,8 +1,12 @@
 package net.yvanchuxiuzhen.collection.festival.client;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.yvanchuxiuzhen.collection.festival.FestivalSetup;
+import net.yvanchuxiuzhen.collection.festival.FortuneCostumeItem;
+import net.yvanchuxiuzhen.collection.festival.ThrownFirework;
 import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 
@@ -12,6 +16,11 @@ public final class FestivalClientSetup {
     }
 
     public static void register(IEventBus modBus) {
+        modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
+            for (var item : BuiltInRegistries.ITEM) {
+                if (item instanceof FortuneCostumeItem armor) armor.setRenderProvider(new FortuneCostumeRenderer.Provider());
+            }
+        }));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             EntityModelRow model = FestivalSetup.caishenyeModel();
             event.registerEntityRenderer(FestivalSetup.caishenyeType().get(),
@@ -19,6 +28,12 @@ public final class FestivalClientSetup {
             EntityModelRow lantern = FestivalSetup.wishLanternModel();
             event.registerEntityRenderer(FestivalSetup.wishLanternType().get(),
                     context -> new AnimatedEntityRenderer<>(context, lantern));
+            for (ThrownFirework.Kind kind : ThrownFirework.Kind.values()) {
+                EntityModelRow firework = FestivalSetup.thrownFireworkModels().stream()
+                        .filter(row -> row.id().equals(kind.id())).findFirst().orElseThrow();
+                event.registerEntityRenderer(FestivalSetup.thrownFireworkType(kind).get(),
+                        context -> new AnimatedEntityRenderer<>(context, firework));
+            }
         });
     }
 }

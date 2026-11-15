@@ -1,15 +1,22 @@
 package net.yvanchuxiuzhen.collection.festival;
 
+import java.util.List;
+import java.util.Locale;
 import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.platform.content.ItemRow;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 
 /**
@@ -36,7 +43,26 @@ public final class FestivalSetup {
         CONTENT.<WishLantern>livingEntity("fuqi_0301", (type, level) -> new WishLantern(type, level, lantern),
                 () -> lantern.attributes().add(Attributes.FLYING_SPEED, lantern.lifecycle().flyingSpeed().orElseThrow()));
         CONTENT.itemFactory("festival:wish_lantern", WishLanternItem::new);
+        CONTENT.itemFactory("festival:costume_gift", (properties, tooltip) ->
+                new FestivalGiftItem(properties, tooltip, FestivalGiftItem.Kind.COSTUME));
+        CONTENT.itemFactory("festival:red_packet", (properties, tooltip) ->
+                new FestivalGiftItem(properties, tooltip, FestivalGiftItem.Kind.RED_PACKET));
+        for (ItemRow row : ContentFiles.read("content/festival/items.json", ItemRow.CODEC)) {
+            if (!row.factory().startsWith("festival:fortune_costume_")) continue;
+            ItemRow.Armor armor = row.armor().orElseThrow();
+            ArmorItem.Type type = ArmorItem.Type.valueOf(armor.slot());
+            CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new FortuneCostumeItem(
+                    CONTENT.armorMaterial(armor.material()), type,
+                    properties.durability(type.getDurability(row.durabilityMultiplier().orElseThrow())), tooltip));
+        }
+        for (ThrownFirework.Kind kind : ThrownFirework.Kind.values()) {
+            EntityModelRow firework = thrownFireworkModels().stream().filter(row -> row.id().equals(kind.id())).findFirst().orElseThrow();
+            CONTENT.<ThrownFirework>livingEntity(kind.id(), (type, level) -> new ThrownFirework(type, level, firework, kind), firework::attributes);
+            CONTENT.itemFactory("festival:thrown_" + kind.name().toLowerCase(Locale.ENGLISH), (properties, tooltip) ->
+                    new ThrownFireworkItem(properties, tooltip, kind));
+        }
         CONTENT.register(modBus);
+        NeoForge.EVENT_BUS.addListener(EventPriority.HIGH, false, PlayerTickEvent.Post.class, FortuneCostumeRuntime::tick);
         modBus.addListener((RegisterSpawnPlacementsEvent event) -> event.register(
                 CONTENT.<Caishenye>entityType("caishenye").get(), SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
@@ -58,5 +84,13 @@ public final class FestivalSetup {
 
     public static EntityModelRow wishLanternModel() {
         return ContentFiles.read("content/festival/wish_lantern_models.json", EntityModelRow.CODEC).getFirst();
+    }
+
+    public static Supplier<EntityType<ThrownFirework>> thrownFireworkType(ThrownFirework.Kind kind) {
+        return CONTENT.entityType(kind.id());
+    }
+
+    public static List<EntityModelRow> thrownFireworkModels() {
+        return ContentFiles.read("content/festival/thrown_firework_models.json", EntityModelRow.CODEC);
     }
 }
