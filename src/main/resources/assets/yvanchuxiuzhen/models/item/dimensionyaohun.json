@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "yvanchuxiuzhen:items/ling04"
+    "layer0": "yvanchuxiuzhen:item/ling04"
   }
 }
