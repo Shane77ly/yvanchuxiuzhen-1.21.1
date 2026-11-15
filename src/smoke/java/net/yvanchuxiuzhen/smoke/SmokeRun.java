@@ -211,6 +211,7 @@ final class SmokeRun {
                     case "bank" -> List.of(new BankCheck(report, levelId, this::shot));
                     case "commerce" -> List.of(new CommerceCheck(report, levelId, this::shot));
                     case "spiritstone" -> List.of(new SpiritStoneCheck(report, levelId), new SpiritStoneBundleCheck(report, levelId));
+                    case "spiritstonebundle" -> List.of(new SpiritStoneBundleCheck(report, levelId));
                     case "construction" -> List.of(new ConstructionCheck(report, levelId, this::shot));
                     case "buildinghammer" -> List.of(new BuildingHammerCheck(report, levelId, this::shot));
                     case "dungeon" -> List.of(new DungeonCheck(report, levelId, this::shot));
@@ -241,6 +242,7 @@ final class SmokeRun {
                     case "casket" -> List.of(new TreasureCasketCheck(report, levelId));
                     case "guchong" -> List.of(new GuchongCheck(report, levelId, this::shot));
                     case "guchonglifecycle" -> List.of(new GuchongLifecycleCheck(report, levelId));
+                    case "guchong05" -> List.of(new Guchong05LifecycleCheck(report, levelId));
                     case "guchongflute" -> List.of(new GuchongFluteCheck(report, levelId, this::shot));
                     case "guchong01" -> List.of(new Guchong01Check(report, levelId, this::shot));
                     case "guchongconstitution" -> List.of(new GuConstitutionHarvestCheck(report, levelId, this::shot));
@@ -248,6 +250,14 @@ final class SmokeRun {
                     case "guchongconstitutionupper" -> List.of(new GuConstitutionHarvestCheck(report, levelId, this::shot, true));
                     case "formationelement" -> List.of(new FormationElementCheck(report, levelId, this::shot));
                     case "formation" -> List.of(new FormationCheck(report, levelId), new FormationElementCheck(report, levelId, this::shot));
+                    case "formationspace" -> List.of(new FormationCheck(report, levelId, true));
+                    case "formationyang" -> List.of(new FormationCheck(report, levelId, false, true));
+                    case "professioncommand" -> List.of(new ProfessionCommandCheck(report, levelId));
+                    case "panelpages" -> List.of(new PanelPagesCheck(report, levelId, this::shot));
+                    case "materialunlock" -> List.of(new MaterialUnlockCheck(report, levelId, this::shot));
+                    case "cultivationcommand" -> List.of(new CultivationCommandCheck(report, levelId));
+                    case "tiandao_display" -> List.of(new TiandaoDisplayCheck(report, levelId, this::shot));
+                    case "economycommand" -> List.of(new EconomyCommandCheck(report, levelId));
                     case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
                     case "naturalsilkchain" -> List.of(new NaturalSilkChainCheck(report, levelId));
                     case "fuluripening" -> List.of(new FuluRipeningCheck(report, levelId));

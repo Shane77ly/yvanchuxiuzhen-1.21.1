@@ -1,8 +1,13 @@
 package net.yvanchuxiuzhen.system.profession.api;
 
 import java.text.DecimalFormat;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.yvanchuxiuzhen.system.profession.ProfessionCommand;
+import net.yvanchuxiuzhen.system.profession.content.ProfessionMenu;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionAttachments;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionData;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionProgress;
@@ -10,6 +15,15 @@ import net.yvanchuxiuzhen.system.profession.data.ProfessionProgress;
 /** 副职业公开操作。生产和命令只在服务端写入，客户端查询本人同步快照；增加经验不立即升级。 */
 public final class Professions {
     private Professions() {
+    }
+
+    public static void openPage(ServerPlayer player, BlockPos pos) {
+        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new ProfessionMenu(id, inventory, pos), Component.literal("副职业")));
+    }
+
+    /** 执行已定位玩家的来源职业命令；不属于十职业等级或经验分支时返回 false。 */
+    public static boolean command(ServerPlayer player, String action, String profession, String operation, String value, String feedback) {
+        return ProfessionCommand.execute(player, action, profession, operation, value, feedback);
     }
 
     public static double level(Player player, Profession profession) {

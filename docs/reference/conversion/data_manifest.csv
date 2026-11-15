@@ -16,7 +16,6 @@ yvanchuxitong/src/main/resources/data/forge/tags/blocks/danludinglu.json,c49479a
 yvanchuxitong/src/main/resources/data/forge/tags/blocks/dinglu.json,faf89690fca8e4d88355fba09f5795dfbb4faab3,src/main/resources/data/yvanchuxiuzhen/tags/block/dinglu.json
 yvanchuxitong/src/main/resources/data/forge/tags/blocks/paiweiblock.json,4c14d3337c76e62da70db288eaffcb0b2a25c976,src/main/resources/data/yvanchuxiuzhen/tags/block/paiweiblock.json
 yvanchuxitong/src/main/resources/data/forge/tags/blocks/plaqueblock.json,33737bb173231d66816040dfb8a5ce4136c3f7fe,src/main/resources/data/yvanchuxiuzhen/tags/block/plaqueblock.json
-yvanchuxitong/src/main/resources/data/forge/tags/entity_types/noentity.json,426c1a54cd0d5381889de240301967aa8e09967b,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json
 yvanchuxitong/src/main/resources/data/forge/tags/items/armor.json,df2c423ff0b20815a73a8a658b53fb098f58c1f2,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json
 yvanchuxitong/src/main/resources/data/forge/tags/items/colouritem.json,9bc4d8ebc72db797f17ff263d00f4f70929a0d9d,src/main/resources/data/yvanchuxiuzhen/tags/item/colouritem.json
 yvanchuxitong/src/main/resources/data/forge/tags/items/dahuozhuangzhi.json,f452eef6ba214f57f12d2ba5dc5b6571a78c9688,src/main/resources/data/yvanchuxiuzhen/tags/item/dahuozhuangzhi.json
@@ -2033,7 +2032,6 @@ yvanchuxiuzhen/src/main/resources/data/forge/tags/blocks/yvanchuzuowu.json,da9f0
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/flyinginstrument.json,34de151503f7bd1904116f9e6a6b01eaaeeac1d2,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/flyinginstrument.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/gongjv.json,004dfd9e85a166dbcf8ed89a63f64c9e8b81daae,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/gongjv.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/guchongentity.json,32ffa7183bfad73524421bc274cafa211cbbdc4c,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/guchongentity.json
-yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/noentity.json,e22b890c47ea5b9dbf2992ae847cf4153763ce6a,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/npcentity.json,df5eaee9e915719e78d375f87409882a7712a3d4,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/npcentity.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/yaoshou.json,e36ed65d5dbe646c70a0a74ffee022af4d605a33,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yaoshou.json
 yvanchuxiuzhen/src/main/resources/data/forge/tags/items/bank.json,fc5662856c5ca1e559f44d3e9f577a571338f604,src/main/resources/data/yvanchuxiuzhen/tags/item/bank.json
@@ -2821,3 +2819,5 @@ yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/warpedbigdoorheche
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/xiulitaihecheng.json,fd7b109aef10803a50a02086d87ddcabf01e6875,src/main/resources/data/yvanchuxiuzhen/recipe/xiulitaihecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/zhibujihecheng.json,c8e2e0e32f811f9c4b30b00dde060beb28597fd4,src/main/resources/data/yvanchuxiuzhen/recipe/zhibujihecheng.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/zhuangshiqiantonghecheng.json,9e7186b833136d94445b9c2d8f82dbb9c6184866,src/main/resources/data/yvanchuxiuzhen/recipe/zhuangshiqiantonghecheng.json
+yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/noentity.json,e22b890c47ea5b9dbf2992ae847cf4153763ce6a,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json
+yvanchuxitong/src/main/resources/data/forge/tags/entity_types/noentity.json,426c1a54cd0d5381889de240301967aa8e09967b,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json

@@ -2,7 +2,7 @@
 topic: world
 role: architecture
 status: draft
-updated: 2026-11-14
+updated: 2026-11-15
 ---
 
 # 世界：架构调查与提案
@@ -103,7 +103,7 @@ updated: 2026-11-14
 
 存档读取只在主世界LevelEvent.Load的服务端线程执行。精确目标MinecraftServer先发布该事件，随后才初始化出生区块；通过ConcurrentHashMap安全发布SavedData，地物线程只读取volatile Settings，不访问非线程安全的DimensionDataStorage HashMap。服务端停止后清理索引；保存与修改仍由World承担。
 
-已对照typed_field_accesses.csv及全部来源Java：附加条件过程是条件消费者，六个Feature调用；`YvanchuGoProcedure`是唯一实际写入过程，unlock写false，lock写true。`WorldGenerationCommands`接回精确语法 `/yvanchu <当前维度玩家显示名> unlock|lock jiegoushengcheng [true]`，permission1；Go是Java过程名，没有go字面子命令。
+已对照typed_field_accesses.csv及全部来源Java：附加条件过程是条件消费者，六个Feature调用；`YvanchuGoProcedure`是唯一实际写入过程，unlock写false，lock写true。`WorldCommands`由共享命令入口分派，保留精确语法 `/yvanchu <当前维度玩家显示名> unlock|lock jiegoushengcheng [true]`，permission1；Go是Java过程名，没有go字面子命令。
 
 保留空白分词、缺参空串、当前维度显示名精确比较、首个匹配后结束及返回0。第四参数恰为true时向目标玩家发送原开启或关闭提示；找不到匹配时向执行者发送原红色错误，控制台由FakePlayer承接。此开关影响随后地物尝试，不触发重生成。来源完整MapVariables广播没有此字段的玩家侧消费者，目标不额外广播整份世界档案；Settings保留StreamCodec。本节只接结构unlock/lock两个管理分支。
 
@@ -178,6 +178,8 @@ world 提供投放、维度与结构放置、结构管理操作；creature 负�
 ## 固定结构解封命令（2026-11-14）
 
 来源`A:YvanchuGoProcedure:536–537`调用`SealreleaseGoProcedure`，目标实际入口为`/yvanchu <当前维度玩家显示名> unlock sealrelease <结构名> [true]`，权限1；显示名匹配、命令源世界和固定坐标均保留。可选true只控制“解锁结构”中文反馈，不添加解锁持久记录、维度限制或传送。`extract_structure_releases.py`提取28个名称、42次直接放置和42个唯一模板，花繁城15份、其余各1份，保存来源与输出SHA256。无旋转、无镜像、包含实体、flags3复用`WorldStructures.place`。
+
+2026-11-15 接入十职业管理分支时，把唯一 `/yvanchu` 注册和当前维度显示名目标循环移至 `flow.PlayerCommandFlow`，World 只公开 `api.WorldCommands.execute` 承接自己的结构分支。来源权限、贪婪字符串分词、首个匹配、空执行实体的未找到反馈以及结构参数位置保持；随机开关仍写同一存档，解封仍传命令源世界和位置调用 `StructureReleases.release`，没有提前写入职业字段。此次拆分静态核对通过，重构后的结构开关与解封运行回归未执行，历史运行证据保留其原基线范围；跨系统变化见[项目月志](../project/logs/2026-11.md#2026-11-15-共享原初管理命令归属收口)。
 
 `StructureReleases`在服务端结束刻推进运行期延迟队列；花繁城及四处商店/营地60刻、冲关河村/云清派/佣兵营地100刻、镇妖塔40刻，随后发布`StructureReleasedEvent`。Quest持有伪装方块配置，NPC持有修士补充，Dungeon订阅镇妖塔写44份定义及楼板；World不访问这些系统的实现或持久对象。服务器结束清空本服队列，不添加来源不存在的中断恢复。命令→结构→后处理已接回；寻灵盘、光环和裂隙自然生产者已由本篇自然遗迹链接回；管理命令单项与自然入口的验证分别登记。
 

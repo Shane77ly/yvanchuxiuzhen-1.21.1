@@ -56,7 +56,6 @@ public final class WorldSetup {
         SpringFluids.register(modBus);
         QuicksandFluids.register(modBus);
         WorldGeneration.register();
-        WorldGenerationCommands.register();
         StructureReleases.register();
         StructureExploration.register();
     }

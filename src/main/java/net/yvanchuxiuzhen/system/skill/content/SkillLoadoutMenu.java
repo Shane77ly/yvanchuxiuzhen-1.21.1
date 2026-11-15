@@ -117,7 +117,10 @@ public final class SkillLoadoutMenu extends AbstractContainerMenu {
                 loadPage(serverPlayer);
             }
             case 2 -> NeoForge.EVENT_BUS.post(new SkillPageEvent(serverPlayer, 1, pos));
+            case 3 -> NeoForge.EVENT_BUS.post(new SkillPageEvent(serverPlayer, 2, pos));
             case 4 -> NeoForge.EVENT_BUS.post(new SkillPageEvent(serverPlayer, 3, pos));
+            case 5 -> NeoForge.EVENT_BUS.post(new SkillPageEvent(serverPlayer, 5, pos));
+            case 6 -> NeoForge.EVENT_BUS.post(new SkillPageEvent(serverPlayer, 6, pos));
             case 7 -> HELP.forEach(line -> serverPlayer.displayClientMessage(Component.literal(line), false));
             default -> {
                 return false;

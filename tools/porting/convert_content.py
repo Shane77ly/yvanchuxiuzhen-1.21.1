@@ -42,7 +42,8 @@ ANIMATED_BLOCK_FACTORIES = {'plant:gourd', 'lianqi:repair_table', 'fulu:inherita
                             'cooking:steamer', 'cooking:steaming_basket', 'cooking:cleaver',
                             'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:silkworm_box',
                             'treasure:chest_03', 'treasure:chest_11', 'economy:bank',
-                            'dungeon:tiandaofuben', 'dungeon:fabao_009', 'world:rift'}
+                            'dungeon:tiandaofuben', 'dungeon:fabao_009', 'world:rift',
+                            'zhenfa:marker', 'zhenfa:flagmother_display', 'zhenfa:flagson_display', 'zhenfa:compass'}
 # 1.18.2 原版创造栏在 1.21.1 的对应；临时对应，待负责人确认。
 VANILLA_TABS = {'TAB_MISC': 'minecraft:tools_and_utilities', 'TAB_DECORATIONS': 'minecraft:building_blocks',
                 'TAB_TOOLS': 'minecraft:tools_and_utilities'}
@@ -436,7 +437,7 @@ def main() -> None:
         if factory in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod',
                        'lianqi:repair_table', 'lianqi:sewing_basket', 'lianqi:blueprint_table', 'lianqi:poison_cauldron',
                        'fulu:drawing_table', 'fulu:ash_burner', 'fulu:soot', 'fulu:inheritance', 'fulu:repelling_talisman', 'book:binding_table',
-                       'decor:rabbit_cage', 'decor:open_rabbit_cage', 'decor:storage_13', 'decor:storage_14', 'decor:storage_18', 'decor:storage_19', 'decor:storage_20', 'decor:storage_21', 'decor:storage_22', 'decor:storage_24', 'treasure:ground', 'treasure:chest_03', 'treasure:chest_11', 'treasure:casket', 'quest:bounty', 'quest:disguised', 'town:center', 'town:planning', 'zhenfa:element',
+                       'decor:rabbit_cage', 'decor:open_rabbit_cage', 'decor:storage_13', 'decor:storage_14', 'decor:storage_18', 'decor:storage_19', 'decor:storage_20', 'decor:storage_21', 'decor:storage_22', 'decor:storage_24', 'treasure:ground', 'treasure:chest_03', 'treasure:chest_11', 'treasure:casket', 'quest:bounty', 'quest:disguised', 'town:center', 'town:planning', 'zhenfa:element', 'zhenfa:base', 'zhenfa:marker',
                        'cooking:iron_pot', 'cooking:clay_pot', 'cooking:steamer', 'cooking:steaming_basket',
                        'cooking:cutting_board', 'cooking:cleaver',
                        'cooking:wooden_still', 'cooking:wine_jar',
@@ -447,7 +448,7 @@ def main() -> None:
                        'plant:mulberry_sapling', 'plant:mulberry_leaves',
                        'plant:fruit_tree_log', 'plant:fruit_tree_leaves', 'plant:shicai009_sapling', 'plant:shicai010_sapling', 'plant:gourd',
                        'plant:lotus_root', 'plant:lotus_stem', 'plant:lotus_pod', 'plant:lotus_leaf') or factory.startswith((
-                           'economy:', 'dungeon:', 'world:rift', 'guchong:taoguan_', 'fulu:explosive_', 'plant:produce', 'plant:vine', 'plant:fungus', 'plant:legume',
+                           'decor:display_', 'economy:', 'dungeon:', 'world:rift', 'guchong:taoguan_', 'fulu:explosive_', 'plant:produce', 'plant:vine', 'plant:fungus', 'plant:legume',
                            'plant:tree_sapling', 'plant:fiber_crop', 'plant:nichang_grass', 'plant:peach_flower',
                            *(f'plant:shicai{number}_' for number in ('001', '002', '004', '005', '006', '007',
                                '011', '012', '013', '014', '015', '016', '025', '026', '027')))):
@@ -568,13 +569,16 @@ def main() -> None:
                     add_lang(unit, language, f'item.{NAMESPACE}.{target}', name)
         if ('item', target) in overrides:
             row['factory'] = overrides[('item', target)]
+        if row['factory'] in ('zhenfa:flag_mother', 'zhenfa:flag_son'):
+            row.pop('tool', None)
+            row['stack'] = 1
         if row['factory'] in ('liandan:medicine_container', 'liandan:medicine_container_empty_box', 'lianqi:tripod_placement',
                               'decor:cage', 'craft:pottery_blank', 'craft:silkworm', 'craft:silkworm_gold', 'cooking:meal_food', 'treasure:reward', 'treasure:tool', 'treasure:casket',
                               'cooking:poisonous_food', 'cooking:remainder_bone', 'cooking:remainder_shicai_03401',
                               'cooking:remainder_shicai_03601', 'cooking:remainder_shicai_03701', 'cooking:wine',
                               'cooking:lotus_seed', 'cooking:plantable_garlic', 'creature:yaoshou_023baodan',
                               'creature:yaoshou_013taoziwuqi', 'creature:yaoshou_014skill_03', 'equipment:fabao_017',
-                              'guchong:constitution', 'guchong:guchong_01item', 'guchong:guchong_03item', 'guchong:guchong_04item', 'guchong:flute', 'guchong:tracking', 'town:scroll',
+                              'guchong:constitution', 'guchong:guchong_01item', 'guchong:guchong_03item', 'guchong:guchong_04item', 'guchong:flute', 'guchong:tracking', 'town:scroll', 'zhenfa:flag_mother', 'zhenfa:flag_son', 'zhenfa:yang_arrow',
                               'dungeon:fabao_00901', 'fulu:corpse_seal', 'world:spirit_compass', 'festival:wish_lantern', 'npc:manager', 'decor:hammer',
                               'festival:sparkler_02', 'festival:sparkler_03', 'festival:sparkler_07', 'equipment:gongjv_008', 'festival:costume_gift', 'festival:red_packet', 'festival:thrown_pao_04', 'festival:thrown_pao_05', 'festival:thrown_pao_06', 'festival:thrown_pao_04', 'festival:thrown_pao_05', 'festival:thrown_pao_06',
                               *(f'plant:shicai{number}_seed' for number in ('001', '002', '004', '005', '006', '007',

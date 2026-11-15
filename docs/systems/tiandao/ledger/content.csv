@@ -4,8 +4,8 @@ block,yvanchuxiuzhen:tiandaoguding,yvanchuxiuzhen,Tiandaoguding,src/main/java/ne
 block,yvanchuxiuzhen:tiandaoitemnbt,yvanchuxiuzhen,Tiandaoitemnbt,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2056,tiandao,已读,yvanchuxiuzhen:tiandaoitemnbt,已注册,
 block_entity_type,yvanchuxiuzhen:tiandaoduojiegou,yvanchuxiuzhen,Tiandaoduojiegou,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,130,tiandao,已读,yvanchuxiuzhen:tiandaoduojiegou,待处理,
 block_entity_type,yvanchuxiuzhen:tiandaoitemnbt,yvanchuxiuzhen,Tiandaoitemnbt,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,176,tiandao,已读,yvanchuxiuzhen:tiandaoitemnbt,待处理,
-item,yvanchuxiuzhen:ling_08,yvanchuxiuzhen,Ling08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1933,tiandao,已读,yvanchuxiuzhen:ling_08,已注册,
-item,yvanchuxiuzhen:ling_16,yvanchuxiuzhen,Ling16,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2625,tiandao,已读,yvanchuxiuzhen:ling_16,已注册,
+item,yvanchuxiuzhen:ling_08,yvanchuxiuzhen,Ling08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1933,tiandao,已读,yvanchuxiuzhen:ling_08,行为已迁移,来源完整工具钩子已接；正式内容转换/编译及110项共同必要检查通过；展示锁保存/消费已验
+item,yvanchuxiuzhen:ling_16,yvanchuxiuzhen,Ling16,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2625,tiandao,已读,yvanchuxiuzhen:ling_16,行为已迁移,来源完整工具钩子已接；正式内容转换/编译及110项共同必要检查通过；展示锁保存/消费已验
 item,yvanchuxiuzhen:tiandaoduojiegou,yvanchuxiuzhen,Tiandaoduojiegou,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2458,tiandao,已读,yvanchuxiuzhen:tiandaoduojiegou,已注册,
 item,yvanchuxiuzhen:tiandaoguding,yvanchuxiuzhen,Tiandaoguding,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2695,tiandao,已读,yvanchuxiuzhen:tiandaoguding,已注册,
 item,yvanchuxiuzhen:tiandaoitemnbt,yvanchuxiuzhen,Tiandaoitemnbt,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3019,tiandao,已读,yvanchuxiuzhen:tiandaoitemnbt,已注册,

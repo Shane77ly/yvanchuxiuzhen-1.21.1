@@ -1,4 +1,12 @@
 registry,target_id,factory,owner,reason
+block,yvanchuxiuzhen:beechfurniture_03,decor:display_03,decor,供桌三槽与博古架单件展示及来源形态切换
+block,yvanchuxiuzhen:beechfurniture_1501,decor:display_1501,decor,供桌三槽与博古架单件展示及来源形态切换
+block,yvanchuxiuzhen:beechfurniture_1502,decor:display_1502,decor,供桌三槽与博古架单件展示及来源形态切换
+block,yvanchuxiuzhen:beechfurniture_1503,decor:display_1503,decor,供桌三槽与博古架单件展示及来源形态切换
+block,yvanchuxiuzhen:beechfurniture_1504,decor:display_1504,decor,供桌三槽与博古架单件展示及来源形态切换
+block,yvanchuxiuzhen:beechfurniture_1505,decor:display_1505,decor,供桌三槽与博古架单件展示及来源形态切换
+item,yvanchuxiuzhen:ling_08,tiandao:movement,tiandao,天道穿梭令视角速度与主手属性
+item,yvanchuxiuzhen:ling_16,tiandao:display_lock,tiandao,天道物品锁方块展示锁与原版展示实体操作
 block,yvanchuxiuzhen:renwuweizhuangfangkuai,quest:disguised,quest,结构任务伪装方块单槽展示与连续对话入口
 item,yvanchuxiuzhen:fabao_009,block_item,dungeon,来源画卷方块物品使用generated图标且不进入创造栏
 item,yvanchuxiuzhen:ling_12,economy:bank_card,economy,普通通宝玉潜行认主和物品自身灵石余额查询
@@ -977,3 +985,13 @@ item,yvanchuxiuzhen:businessman_09_spawn_egg,npc:spawn_egg_businessman_09,npc,�
 item,yvanchuxiuzhen:businessman_10_spawn_egg,npc:spawn_egg_businessman_10,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
 item,yvanchuxiuzhen:businessman_11_spawn_egg,npc:spawn_egg_businessman_11,npc,固定商人与大管家来源刷怪蛋；保留原实体与蛋色
 item,yvanchuxiuzhen:pao_09,festival:double_bang,festival,二踢脚两阶段放置、计时、近邻传燃与爆炸生命周期
+item,yvanchuxiuzhen:zhenyang_01,zhenfa:yang_arrow,zhenfa,阳一弹体物品保持按住使用/释放发射与来源箭行为
+block,yvanchuxitong:zhenji,zhenfa:base,zhenfa,阵基布局供能与计划刻及保存
+block,yvanchuxiuzhen:flagmother,zhenfa:marker,zhenfa,母旗方块实体及团队控制
+block,yvanchuxiuzhen:flagson,zhenfa:marker,zhenfa,子旗方块实体及团队绑定
+block,yvanchuxiuzhen:luopan,zhenfa:marker,zhenfa,罗盘方块实体及放置检测
+item,yvanchuxiuzhen:flagmother,zhenfa:flagmother_display,zhenfa,母旗展示物品
+item,yvanchuxiuzhen:flagson,zhenfa:flagson_display,zhenfa,子旗展示物品
+item,yvanchuxiuzhen:luopan,zhenfa:compass,zhenfa,罗盘展示物品及放置检测
+item,yvanchuxiuzhen:flagmotheritem,zhenfa:flag_mother,zhenfa,母旗绑定与控制
+item,yvanchuxiuzhen:flagsonitem,zhenfa:flag_son,zhenfa,子旗放置与控制

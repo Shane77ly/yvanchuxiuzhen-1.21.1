@@ -26,6 +26,7 @@ import net.yvanchuxiuzhen.system.lianqi.client.LianqiClientSetup;
 import net.yvanchuxiuzhen.panel.client.PanelClientSetup;
 import net.yvanchuxiuzhen.system.particle.client.ParticleClientSetup;
 import net.yvanchuxiuzhen.system.plant.client.PlantClientSetup;
+import net.yvanchuxiuzhen.system.profession.client.ProfessionClientSetup;
 import net.yvanchuxiuzhen.system.quest.client.QuestClientSetup;
 import net.yvanchuxiuzhen.system.relation.client.RelationClientSetup;
 import net.yvanchuxiuzhen.system.skill.client.SkillClientSetup;
@@ -67,6 +68,7 @@ public final class YvanchuxiuzhenClient {
         QuestClientSetup.register(modBus);
         TownClientSetup.register(modBus);
         PanelClientSetup.register(modBus);
+        ProfessionClientSetup.register(modBus);
         RelationClientSetup.register(modBus);
         SkillClientSetup.register(modBus);
         StorageClientSetup.register(modBus);

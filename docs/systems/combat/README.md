@@ -16,12 +16,15 @@ updated: 2026-11-15
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
+2026-11-15补齐共享`/yvanchu`下的五行击杀数量与属性技能熟练度十项管理分支，复用既有伤害统计的体质载体键；静态核对完成，新增十键真实命令与本人同步已随修炼场景通过必要检查；命令专用保存重进待验，见[正文](architecture.md#五行击杀统计管理命令2026-11-15)。
+
 ## 公开操作
 
 已对照 `typed_field_accesses.csv` 与 `nbt_key_calls.csv` 中战斗相关字段的外部读写点（`ManaAttackDamage` 等未闭合的字段链见[架构](architecture.md)Q13、Q31，不迁移）。代码在 `system/combat/api` 与 `system/combat/damage`。
 
 | 操作 | 形式 | 调用者（来源中的读写点） |
 | --- | --- | --- |
+| 五行统计管理命令 | `ElementStatistics.command(目标玩家, action, subject, operation, value, feedback)`：只接受`experienceup`和十个来源统计键；set赋值，其他操作累加 | flow的唯一`/yvanchu`入口；载体读写经xiulian公开操作 |
 | 战斗状态 | `FightingState.mark(生物)` 写开关1及受击时间；`clear(生物)` 将两项同时清0 | 受伤、技能施放、元婴出窍每二十刻推进与耗神不足归窍 |
 | 共享范围落雷 | `Lightning.command(level, 原坐标, 完整命令文本)`；命令 `/lightninglanding <攻击量> <攻击者UUID> <倍率> <队伍占位> <范围直径> <颜色> [独立]`；同步颜色的原生闪电负责显示，范围内的 Mob/Player 经 `/shanghai` 结算雷伤 | skill 的天雷术、五雷轰顶、控雷阵与 xiulian 的雷劫；队伍词只占位，缺失时按来源空白分词前移 |
 | 造成灵力或神识伤害 | 其他系统经 `SpellDamage.deal(level, 受击者, 类别, 攻击者, 是否固定, 基础量, 倍率)`（`dealRounded` 先把基础量与倍率取整，对应来源用 `DecimalFormat("0")` 格式化的调用）；本系统内 `Shanghai.deal(ServerLevel, 受击者, Request(类别, 攻击者UUID或空, 是否固定, 基础量, 倍率))`；命令 `/shanghai <类别> <攻击者UUID或无> <true或false> <基础量> <倍率>`（无权限要求，对命令执行者生效） | 技能、符箓、妖兽、法宝、蛊虫、异火、装备等的 209 处命令调用；本系统的护甲与武器附魔、毒药 |
@@ -29,6 +32,7 @@ updated: 2026-11-15
 | 附魔等级 | `Enchants.level / mainHand / slot / armorSum / armorSquares`，附魔按路径名取键 `Enchants.key("dodge")` | 本系统的伤害过程；attribute 的显示值按等级线性折入（自行读取物品） |
 | 状态效果查询与施加 | `StatusEffects.amplifier / has / remove / add / holder`，效果按路径名（如 `effect_036`）指定 | 全部读取或施加状态效果的系统（creature 约 280 处、skill、fulu、equipment、liandan 等） |
 | 实体禁空标记 | `StatusEffects.markEntityFlightBlocked(entity)`写入来源`jinkong`标记；`consumeEntityFlightBlock(entity)`读取并清除一次 | zhenfa写入；skill与equipment的飞行逻辑分别消费 |
+| 阵法伤害标记 | `SpellDamage.markFormationSoulAttack`登记阴二；`markFormationManaAttack`登记阳一/阳四整数攻击量；`markFormationFallingAttack`登记阳三浮点攻击量并保持目标攻击UUID原值 | zhenfa范围效果与弹体命中；均只登记来源字段，不接回Q31缺失的消费链 |
 | 效果的行为登记 | `ContentTables.effectBehavior(效果ID, 行为)`（`EffectBehavior`：开始、结束、每刻、客户端每刻） | 效果归其他系统的行为（`effect_035` 归 skill，`yaoshou_*` 归 creature，`fulutexiao_*` 归 fulu） |
 | 向其他系统借用规则的事件 | `DamageImmunityEvent`（creature 的防御姿态免伤）、`LethalDamageEvent`（fulu 的 `itemfulu_16` 复活）、`ArmorStatEvent`（lianqi、equipment 提供四件护甲的炼器数值）、`HitEvent`（gongfa 的命中特效）、`HeavyHitEvent`（达到目标最大生命十六分之一后的妖兽重击打断）、`EffectExperienceEvent`（creature 给妖兽加修为） | 监听者在对应系统迁移时订阅 |
 
@@ -38,7 +42,7 @@ updated: 2026-11-15
 - 伤害在 `LivingIncomingDamageEvent` 中结算（命中处理在前、受伤处理在后），没有攻击者的伤害不处理。
 
 
-本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
+本系统本轮变化见[战斗月志](logs/2026-11.md)，跨系统流程变化见[项目月度日志](../project/logs/2026-11.md)。
 
 共享落雷验证（2026-11-07）：仅一次 `-PsmokeOnly=lightning`，四项中三项通过并 `DONE`，范围雷伤、红色同步/渲染器及控雷阵命令均走真实世界路径。两个技能入口的合并断言失败，检查辅助方法连续选同槽导致第二次取消；已在选择前清空并编译，未重跑，不能记为两个入口实机通过。截图早于有效画面，完整视觉待核。build（含 ArchUnit）通过，专用服务器启动、全部世界保存及正常退出通过，ERROR 0，实体导出为 63 个。该落雷批次未执行完整 xiulian 雷劫。后续雷劫专项一次 5 项全部通过，并在专用服务器确认 67 个实体注册及正常停服；完整验证范围见[修炼架构](../xiulian/architecture.md)“完整雷劫”。
 

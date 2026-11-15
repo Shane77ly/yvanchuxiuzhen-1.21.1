@@ -490,24 +490,24 @@ yvanchuxiuzhen,Waterneirong,procedure,~/GUI,panel,已读,K键按记忆分页打�
 yvanchuxiuzhen,Treeneirong,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,Fireneirong,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,Soilneirong,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
-yvanchuxiuzhen,PlayerGUI02,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,HealthUpxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PowerUpxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SoulUpxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Att01xianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Att02xianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Att03xianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pointsxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI02,gui,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,HealthUpxianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,PowerUpxianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,SoulUpxianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,Att01xianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,Att02xianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,Att03xianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,Pointsxianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
 yvanchuxiuzhen,PlayerGUI03DangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/GUI,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxiuzhen,PlayerGUI03DangZheGeJieMianBeiGuanBi,procedure,~/GUI,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxiuzhen,PlayerGUI03,gui,~/GUI,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxiuzhen,PlayerGUI04,gui,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
-yvanchuxiuzhen,PlayerGUI05,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI05,gui,~/GUI,profession,已读,PlayerGUI05Screen/Menu/ButtonMessage及PlayerGui05jieshao：只读十职业同步进度、36格原生背包和来源三行说明；导航通过公开事件交给panel。
 yvanchuxiuzhen,OpenGUI01,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
-yvanchuxiuzhen,OpenGUI02,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,OpenGUI02,procedure,~/GUI,panel,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
 yvanchuxiuzhen,OpenGUI03,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,OpenGUI04,procedure,~/GUI,panel,已读,2026-11-08逐读OpenGUI04与玩家页导航调用链；入口记忆dangqianGUI并委托skill公开装配菜单，panel不写功法或技能存档
-yvanchuxiuzhen,OpenGUI05,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,OpenGUI05,procedure,~/GUI,panel,已读,OpenGUI05：沿用菜单坐标Y+1打开05并写记忆页5；菜单与显示归profession，导航记忆归panel。
 yvanchuxiuzhen,HealthMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
 yvanchuxiuzhen,PowerMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
 yvanchuxiuzhen,SoulMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
@@ -1886,17 +1886,17 @@ yvanchuxiuzhen,Yaoshou006ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yao
 yvanchuxiuzhen,Yaoshou006DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：随 Yaoshou006 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou006DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：随 Yaoshou006 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou006,animatedentity,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
-yvanchuxiuzhen,PlayerGUI06,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06shouming,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06tianshu,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06anniu01,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06anniu02,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06anniu03,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06anniu04,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06anniu05,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06anniu06,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06xiulian,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,OpenGUI06,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI06,gui,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06shouming,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06tianshu,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06anniu01,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06anniu02,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06anniu03,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06anniu04,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06anniu05,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06anniu06,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06xiulian,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,OpenGUI06,procedure,~/GUI,panel,已读,OpenGUI06沿菜单坐标Y+1打开06并记主分页6；07/08子页切换保持同坐标和页6记忆，菜单归xiulian。
 yvanchuxiuzhen,Kaishixiulian,procedure,~/systemset,xiulian,已读,C xiulian 归属阅读：闭关修炼每天推进（天数、寿元、吸纳元气与额外修为、闭关冷却），其中给主修功法加经验的部分改为发出事件由 gongfa 处理
 yvanchuxiuzhen,Effect025,potioneffect,~/effect,xiulian,已读,C combat 归属阅读（改判后确认）：修炼加持标记，没有自身过程，等级由 xiulian 的修炼过程与烹饪读取
 yvanchuxiuzhen,Effect026,potioneffect,~/effect,xiulian,已读,C combat 归属阅读（改判后确认）：修炼加持标记，没有自身过程，等级由 xiulian 的修炼过程与烹饪读取
@@ -2750,8 +2750,8 @@ yvanchuxiuzhen,Zhenitemlevel6,tag,~/tag/zhenfatag,zhenfa,候选,第一版批量�
 yvanchuxiuzhen,Zhenitemlevel7,tag,~/tag/zhenfatag,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhenitemlevel8,tag,~/tag/zhenfatag,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhenitemlevel9,tag,~/tag/zhenfatag,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhenjineng03DangShiTiGengXinKeShi,procedure,~/skill/zhenfa,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhenjineng03,animatedentity,~/skill/zhenfa,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Zhenjineng03DangShiTiGengXinKeShi,procedure,~/skill/zhenfa,zhenfa,已读,阳系来源实体/逐刻闭包复核：由阵基生成并复制阵法参数；所有者为zhenfa
+yvanchuxiuzhen,Zhenjineng03,animatedentity,~/skill/zhenfa,zhenfa,已读,阳系来源实体/逐刻闭包复核：由阵基生成并复制阵法参数；所有者为zhenfa
 yvanchuxiuzhen,ZizhijiancefankuiGO,procedure,~/systemset/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zizhijiancefankui,command,~/systemset/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ling11DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,xiulian,已读,B1 归属阅读：随 Ling11 读：远古石盘：出身“流浪侠客”的初始物品（PlayerJoin02），右键用粒子指向世界变量 chuansongzhen 记录的传送阵
@@ -3382,10 +3382,10 @@ yvanchuxiuzhen,LiexiGengXinYouXiKe,procedure,~/decorate/jiegou,world,已读,B1 �
 yvanchuxiuzhen,LiexiFangZhiFangKuaiShi,procedure,~/decorate/jiegou,world,已读,B1 归属阅读：随 Liexi 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
 yvanchuxiuzhen,Liexi,animatedblock,~/decorate/jiegou,world,已读,B1 归属阅读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
 yvanchuxiuzhen,JieyvnDangShiTiBeiShaSiShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
-yvanchuxiuzhen,PlayerGUI07,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiehuan01,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiehuan02,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guanxiang,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI07,gui,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,Qiehuan01,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,Qiehuan02,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,Guanxiang,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
 yvanchuxiuzhen,Ling15DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：团队招募令；潜行使用时刷新并打开好友界面，主手持有右键玩家时向对方发好友申请并打开申请界面
 yvanchuxiuzhen,Ling15,item,~/item/zawu/ling15,relation,已读,C relation 归属阅读：团队招募令；潜行使用时刷新并打开好友界面，主手持有右键玩家时向对方发好友申请并打开申请界面
 yvanchuxiuzhen,Zuduitext,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友申请界面 ZuduiteamGui 及其按钮，读写玩家 friendlist 中的待处理申请与双方好友列表
@@ -4546,12 +4546,12 @@ yvanchuxiuzhen,Suijijiegou05,structure,~/decorate/jiegou/suijijiegou,world,已�
 yvanchuxiuzhen,Suijijiegou06,structure,~/decorate/jiegou/suijijiegou,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
 yvanchuxiuzhen,Gongjv008hecheng,recipe,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui01jieshao,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
-yvanchuxiuzhen,PlayerGui02jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGui02jieshao,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
 yvanchuxiuzhen,PlayerGui03jieshao,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,PlayerGui04jieshao,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
-yvanchuxiuzhen,PlayerGui05jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui06jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui07jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGui05jieshao,procedure,~/GUI,profession,已读,PlayerGUI05Screen/Menu/ButtonMessage及PlayerGui05jieshao：只读十职业同步进度、36格原生背包和来源三行说明；导航通过公开事件交给panel。
+yvanchuxiuzhen,PlayerGui06jieshao,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGui07jieshao,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
 yvanchuxiuzhen,Gongjv001DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool,equipment,已读,B1 归属阅读：随 Gongjv001 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,Gongjv001,tool,~/tool,equipment,已读,B1 归属阅读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,Gongjv001hecheng,recipe,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5404,10 +5404,10 @@ yvanchuxiuzhen,Benmingfabaotisheng,procedure,~/GUI/dantian,equipment,已读,C xi
 yvanchuxiuzhen,Jointxt14,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
 yvanchuxiuzhen,Daduan,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Jinenglengqvejiance,procedure,~/skill/jineng/jinengGui,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
-yvanchuxiuzhen,PlayerGUI08,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiehuan03,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui08jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui08xiulian,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI08,gui,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,Qiehuan03,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGui08jieshao,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGui08xiulian,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
 yvanchuxiuzhen,Kaishigongfa,procedure,~/systemset,gongfa,已读,C gongfa 归属阅读：xiuliankaiguan 为“功法”时每秒的功法修炼（监听 xiulian 的 CultivationSecondEvent）
 yvanchuxiuzhen,Mutanshaolian,recipe,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Mutanshaolian2,recipe,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6099,8 +6099,8 @@ yvanchuxitong,Zhenfajiance5,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅
 yvanchuxitong,Zhenyang01TouZhiWuFeiXingTick,procedure,~/yvanchuzhenfa/zhenfajineng,zhenfa,已读,B1 归属阅读：随 Zhenyang01 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxitong,Zhenyang01DangTouZhiWuJiZhongShiTiShi,procedure,~/yvanchuzhenfa/zhenfajineng,zhenfa,已读,B1 归属阅读：随 Zhenyang01 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxitong,Zhenyang01,rangeditem,~/yvanchuzhenfa/zhenfajineng,zhenfa,已读,B1 归属阅读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
-yvanchuxitong,ZhenfashitiDangShiTiGengXinKeShi,procedure,~/yvanchuzhenfa/zhenfajineng,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhenfashiti,livingentity,~/yvanchuzhenfa/zhenfajineng,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ZhenfashitiDangShiTiGengXinKeShi,procedure,~/yvanchuzhenfa/zhenfajineng,zhenfa,已读,阳系来源实体/逐刻闭包复核：由阵基生成并复制阵法参数；所有者为zhenfa
+yvanchuxitong,Zhenfashiti,livingentity,~/yvanchuzhenfa/zhenfajineng,zhenfa,已读,阳系来源实体/逐刻闭包复核：由阵基生成并复制阵法参数；所有者为zhenfa
 yvanchuxitong,Zhenjineng02,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅读：随 Zhenji 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxitong,Zhenjineng03,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅读：随 Zhenji 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxitong,Zhenjineng04,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅读：随 Zhenji 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
@@ -6414,7 +6414,7 @@ yvanchuxitong,Beechfurniture01,block,~/zhuangshiwu/jiajv/beech furniture,decor,�
 yvanchuxitong,Beechfurniture02,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture03,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture03FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture03 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture03GUI,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture03GUI,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-15来源菜单、按钮消息及玩家刻回调已逐项读：只管理展示家具库存/切换；玩家坐标清槽疑点Q196保持来源
 yvanchuxitong,Beechfurniture03FangZhiFangKuaiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture03 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture04,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture05,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
@@ -6433,14 +6433,14 @@ yvanchuxitong,Beechfurniture13Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,
 yvanchuxitong,Beechfurniture13,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
 yvanchuxitong,Beechfurniture14Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
 yvanchuxitong,Beechfurniture14,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
-yvanchuxitong,Beechfurniture15Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture15Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-15来源菜单、按钮消息及玩家刻回调已逐项读：只管理展示家具库存/切换；玩家坐标清槽疑点Q196保持来源
 yvanchuxitong,Beechfurniture1501FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1501 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1501,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1502,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1503,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1504,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1505,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture15qiehuan,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture15qiehuan,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-15来源菜单、按钮消息及玩家刻回调已逐项读：只管理展示家具库存/切换；玩家坐标清槽疑点Q196保持来源
 yvanchuxitong,Beechfurniture1601FangZhiFangKuaiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1601 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1601,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1602,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
@@ -7091,7 +7091,7 @@ yvanchuxitong,Yaolitaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,
 yvanchuxitong,PlayerJoinGame,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）；R13 仅银行会话所需登录初始化40–54已读：建立renwuitem载体并清脚本/游标/begin及购买显示缓存；其他登录过程未在本包完整核读；保留全局flow候选归属
 yvanchuxitong,ShipinGo,procedure,~/zhiling,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxitong,Shipin,command,~/zhiling,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
-yvanchuxitong,Beechfurniture15GuiDangZheGeJieMianBeiGuanBi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture15GuiDangZheGeJieMianBeiGuanBi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-15来源菜单、按钮消息及玩家刻回调已逐项读：只管理展示家具库存/切换；玩家坐标清槽疑点Q196保持来源
 yvanchuxitong,Beechfurniture1501ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1501 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture03ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture03 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Guchongshuxing,procedure,~/guchong,guchong,已读,B1 归属阅读：随 Taoguan01 读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
@@ -7377,7 +7377,7 @@ yvanchuxitong,TiaoxinChujia,procedure,~/shop/paimaihang,economy,已读,B1 归属
 yvanchuxitong,Duihuafenhang,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
 yvanchuxitong,Fangqijingjiaduihua,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
 yvanchuxitong,Jiesuocaoyao,procedure,~/zhiling,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
-yvanchuxitong,Jiesuocailiao,procedure,~/zhiling,material,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Jiesuocailiao,procedure,~/zhiling,material,已读,B:Jiesuocailiao 经既有 /yvanchuxitong 管理入口有序公开225材料与1451属性条目，持久化介绍并保留teshu命令附魔/open分支；来源提示/界面缓存差异见Q195。
 yvanchuxitong,YvanchuGo,procedure,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Yvanchu,command,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Xiulitaiopen,procedure,~/yvanchulianqi/xiulitai,lianqi,已读,D炼器四装置来源核对：单槽修理、旧缓存guard、41格最低等级材料消费、40刻提示、Geo表现与合成；精确链见lianqi正文及source-evidence。

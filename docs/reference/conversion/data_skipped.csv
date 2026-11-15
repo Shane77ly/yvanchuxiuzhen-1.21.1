@@ -50,21 +50,6 @@ tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/linghunentity.
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/linghunentity.json,成员 yvanchuxiuzhen:yaoshou_018 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/linghunentity.json,成员 yvanchuxiuzhen:yaoshou_039 未登记，由所属系统迁移
 tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/linghunentity.json,成员全部未登记，整个标签未生成，随所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:skillwind_06 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:zhenjineng_03 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:pao_0601 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:pao_0401 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:fabao_01701 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:shanghaifanwei 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:fuqi_0301 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:jiantou 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:pao_0501 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:yaoshou_040skill_02 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:skillwind_05 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:pao_0901 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:shitiputuan 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:zhenfashiti 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:shitiyizi 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/npcentity.json,成员 yvanchuxiuzhen:businessman_28 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/npcentity.json,成员 yvanchuxiuzhen:businessman_09 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/npcentity.json,成员 yvanchuxiuzhen:businessman_03 未登记，由所属系统迁移
@@ -135,3 +120,5 @@ tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yvanchunpc.json,成�
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_110_helmet 来源没有登记该 ID（来源标签的悬空引用）
 recipe_count_clamped,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/skillarrow_10hecheng.json,产物 yvanchuxiuzhen:skill_arrow_10 数量 5 超过堆叠上限 1，改为 1（Q15 裁定）
 function,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/functions/playerchuansuo.mcfunction,函数引用本 Mod 的维度，随 world 迁移
+tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:jiantou 未登记，由所属系统迁移
+tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:shitiputuan 未登记，由所属系统迁移

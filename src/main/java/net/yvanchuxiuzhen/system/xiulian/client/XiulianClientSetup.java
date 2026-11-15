@@ -19,7 +19,7 @@ import net.yvanchuxiuzhen.system.xiulian.content.XiulianMenus;
 import net.yvanchuxiuzhen.system.xiulian.tribulation.TribulationEntity;
 import net.yvanchuxiuzhen.system.xiulian.tribulation.Tribulations;
 
-/** 修炼系统的客户端装配：出身、升级与丹田界面，血池与血流渲染，以及劫云和天雷实体的模型、动画与发光层。 */
+/** 修炼系统的客户端装配：出身、升级、丹田、属性加点与闭关界面，血池血流和雷劫实体渲染。 */
 public final class XiulianClientSetup {
     private static final ResourceLocation BLOOD_STILL = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "block/xveliustill");
     private static final ResourceLocation BLOOD_FLOWING = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "block/xveliu");
@@ -38,6 +38,10 @@ public final class XiulianClientSetup {
         event.register(XiulianMenus.BIRTH.get(), BirthScreen::new);
         event.register(XiulianMenus.LEVEL_UP.get(), LevelUpScreen::new);
         event.register(XiulianMenus.DANTIAN.get(), DantianScreen::new);
+        event.register(XiulianMenus.SKILL_POINTS.get(), SkillPointScreen::new);
+        event.register(XiulianMenus.RETREAT.get(), RetreatScreen::new);
+        event.register(XiulianMenus.MEDITATION.get(), RetreatScreen::new);
+        event.register(XiulianMenus.STUDY.get(), RetreatScreen::new);
     }
 
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {

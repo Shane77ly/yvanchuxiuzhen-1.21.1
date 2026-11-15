@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -14,13 +15,20 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import net.yvanchuxiuzhen.system.zhenfa.ZhenfaSetup;
+import net.yvanchuxiuzhen.system.zhenfa.api.FormationProtection;
+import net.yvanchuxiuzhen.system.zhenfa.entity.FormationFalling;
+import net.yvanchuxiuzhen.system.zhenfa.entity.FormationLauncher;
 
 /** 阵法效果执行器；队伍允许状态在来源的整轮有序扫描中锁存。 */
 final class FormationEffects {
@@ -29,9 +37,83 @@ final class FormationEffects {
     static void execute(FormationBaseBlockEntity base) {
         CompoundTag data = base.getPersistentData();
         switch (data.getString("jinengleibie")) {
-            case "阴" -> yin(base, data);
+            case "阳" -> yang(base, data);
+            case "阴", "金", "水", "木", "火", "土" -> yin(base, data);
             case "空间" -> space(base, data);
             default -> { }
+        }
+    }
+
+    private static void yang(FormationBaseBlockEntity base, CompoundTag data) {
+        ServerLevel level = (ServerLevel) base.getLevel();
+        BlockPos origin = base.getBlockPos();
+        Vec3 destination = targetWithoutRandom(data, origin);
+        Vec3 offset = randomOffset(data, level);
+        switch (data.getString("jinengname")) {
+            case "阳1" -> {
+                FormationLauncher launcher = new FormationLauncher(ZhenfaSetup.<FormationLauncher>entityType("zhenfashiti").get(), level);
+                launcher.moveTo(destination.x + offset.x, destination.y + 2 + offset.y, destination.z + offset.z, level.random.nextFloat() * 360, 0);
+                configureActor(base, launcher, "阳1");
+                launcher.finalizeSpawn(level, level.getCurrentDifficultyAt(launcher.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
+                level.addFreshEntity(launcher);
+            }
+            case "阳2" -> {
+                FormationProtection.add(level.getBlockEntity(BlockPos.containing(destination)), data.getInt("zhenLEVEL"));
+                level.sendParticles(ParticleTypes.CLOUD, destination.x + .5, destination.y + .5, destination.z + .5, 5, .5, 3, .5, 1);
+                level.sendParticles(ParticleTypes.CLOUD, origin.getX() + .5, origin.getY() + .5, origin.getZ() + .5, 5, .5, 3, .5, 1);
+            }
+            case "阳3" -> {
+                Vec3 point = destination.add(offset).add(0, 32, 0);
+                CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, point, Vec2.ZERO, level, 4,
+                        "", Component.literal(""), level.getServer(), null).withSuppressedOutput();
+                level.getServer().getCommands().performPrefixedCommand(source, "summon yvanchuxiuzhen:zhenjineng_03");
+                for (Entity entity : sortedEntities(level, point, .5)) {
+                    if (entity instanceof FormationFalling) configureActor(base, entity, "阳3");
+                }
+            }
+            case "阳4" -> {
+                Vec3 point = new Vec3(origin.getX() + .5, origin.getY() + .5, origin.getZ() + .5).add(offset);
+                level.sendParticles(ParticleTypes.FLASH, point.x, point.y, point.z, 1, 0, 0, 0, 0);
+                level.sendParticles(ParticleTypes.EXPLOSION_EMITTER, point.x, point.y, point.z, 3, .5, 0, .5, 0);
+                level.sendParticles(ParticleTypes.LARGE_SMOKE, point.x, point.y, point.z, 50, 1, 1, 1, 1);
+                int rank = data.getInt("zhenLEVEL");
+                for (Entity entity : sortedEntities(level, point, data.getInt("zhenjvli") / 2d)) {
+                    SpellDamage.markFormationManaAttack(entity, rank * 10, "wu", .5 + rank * .5);
+                }
+                for (int z = -9; z <= 9; z++) {
+                    for (int x = -9; x <= 9; x++) {
+                        if (Math.random() >= .3) continue;
+                        BlockPos pos = origin.offset(x, 0, z);
+                        Block.dropResources(level.getBlockState(pos), level, pos, null);
+                        level.destroyBlock(pos, false);
+                    }
+                }
+            }
+            default -> { }
+        }
+    }
+
+    private static void configureActor(FormationBaseBlockEntity base, Entity entity, String name) {
+        CompoundTag source = base.getPersistentData();
+        CompoundTag target = entity.getPersistentData();
+        target.putString("jinengname", name);
+        target.putString("jinengleibie", "阳");
+        FormationMarkerBlockEntity marker = (FormationMarkerBlockEntity) base.getLevel().getBlockEntity(base.getBlockPos().above());
+        Relations.setTeam(entity, marker.team());
+        target.putInt("zhenLEVEL", source.getInt("zhenLEVEL"));
+        target.putString("ManaAttackUUID", source.getString("ManaAttackUUID"));
+        for (String key : List.of("zhenqian", "zhenshijiao", "zhenmubiao", "zhenjiaodu", "zhenchufaX", "zhenchufaY", "zhenchufaZ")) {
+            target.putInt(key, source.getInt(key));
+        }
+        entity.setYRot(source.getInt("zhenjiaodu"));
+        entity.setXRot(source.getInt("zhentaitou"));
+        entity.setYBodyRot(entity.getYRot());
+        entity.setYHeadRot(entity.getYRot());
+        entity.yRotO = entity.getYRot();
+        entity.xRotO = entity.getXRot();
+        if (entity instanceof LivingEntity living) {
+            living.yBodyRotO = living.getYRot();
+            living.yHeadRotO = living.getYRot();
         }
     }
 
@@ -95,16 +177,20 @@ final class FormationEffects {
     }
 
     private static Vec3 target(CompoundTag data, BlockPos origin, Level level) {
+        return targetWithoutRandom(data, origin).add(randomOffset(data, level));
+    }
+
+    private static Vec3 targetWithoutRandom(CompoundTag data, BlockPos origin) {
         boolean absolute = data.getBoolean("zhenzuobiao");
         double x = data.getInt("zhenchufaX") + (absolute ? 0 : origin.getX());
         double y = data.getInt("zhenchufaY") + (absolute ? 0 : origin.getY());
         double z = data.getInt("zhenchufaZ") + (absolute ? 0 : origin.getZ());
-        if (data.getBoolean("zhensuiji")) {
-            x += level.random.nextInt(11) - 5;
-            y += level.random.nextInt(6);
-            z += level.random.nextInt(11) - 5;
-        }
         return new Vec3(x, y, z);
+    }
+
+    private static Vec3 randomOffset(CompoundTag data, Level level) {
+        return data.getBoolean("zhensuiji")
+                ? new Vec3(level.random.nextInt(11) - 5, level.random.nextInt(6), level.random.nextInt(11) - 5) : Vec3.ZERO;
     }
 
     private static List<Entity> sortedEntities(Level level, Vec3 center, double radius) {

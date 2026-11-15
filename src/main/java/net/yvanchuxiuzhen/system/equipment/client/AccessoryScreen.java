@@ -27,7 +27,10 @@ public final class AccessoryScreen extends AbstractContainerScreen<AccessoryMenu
     protected void init() {
         super.init();
         addButton(69, 147, 66, 18, "guipage01", 0, "属性显示");
+        addButton(69, 174, 66, 18, "guipage011", 1, "属性加点");
         addButton(69, 228, 66, 18, "guipage013", 2, "功法与技能");
+        addButton(69, 255, 66, 18, "guipage014", 3, "副职业");
+        addButton(69, 282, 66, 18, "guipage014", 4, "修炼");
         addButton(915, 63, 19, 19, "teamleave01", 5, Component.translatable("gui.yvanchuxiuzhen.player_gui_03.temporary_team.leave"));
         addButton(366, 156, 12, 12, "bankgui10", 6, "饰品说明");
     }

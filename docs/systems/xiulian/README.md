@@ -2,19 +2,21 @@
 topic: xiulian
 role: entry
 status: partial
-updated: 2026-11-08
+updated: 2026-11-15
 ---
 
 # 修炼
 
 标识 `xiulian`，类别：系统。职责：境界、修为、灵力、寿元、出身、灵根体质、丹田、金丹元婴、本命槽位、雷劫、轮回（[系统设计](../../development/system-design.md)）。
 
-当前阶段：基础部分于 2026-11-03 合入 `main`，留待其他系统的部分见交接说明“已完成”。已完成：修炼档案附件与公开操作、灵根提交 attribute、两个游戏规则、首次进入的灵根与体质随机、出身界面、修炼推进与恢复、升级与突破、闭关修炼、金丹与元婴、丹田界面、血道（吸血石、血流、血精），开发客户端检查通过。另有加点、管理命令的灵根重置、升仙令与家族令牌。2026-11-07 在 `port/c-skill` 接入完整雷劫：自然突破、劫云、七种天雷、三类天雷实体与成功失败路径，验证范围见架构“完整雷劫”。未迁移：远古石盘、传承灵物、家族百宝袋（待 world、material、fulu 的数据）；元婴出窍与被闪电击中的功法效果读后归 skill、gongfa。B1 已登记的内容身份见台账。
+当前阶段：基础部分于 2026-11-03 合入 `main`，留待其他系统的部分见交接说明“已完成”。已完成：修炼档案附件与公开操作、灵根提交 attribute、两个游戏规则、首次进入的灵根与体质随机、出身界面、修炼推进与恢复、升级与突破、闭关修炼、金丹与元婴、丹田界面、血道（吸血石、血流、血精），开发客户端检查通过。另有加点、升仙令与家族令牌；2026-11-15接回共享`/yvanchu`的修炼数值、灵根/体质标记、每日修为上限及出身规则分支，静态核对已完成，真实命令及本人同步夹具已接，必要命令与本人同步101项共同检查通过，命令专用保存重进未验，详见[管理命令正文](architecture.md#原初管理命令2026-11-15)。2026-11-07 在 `port/c-skill` 接入完整雷劫：自然突破、劫云、七种天雷、三类天雷实体与成功失败路径，验证范围见架构“完整雷劫”。未迁移：远古石盘、传承灵物、家族百宝袋（待 world、material、fulu 的数据）；元婴出窍与被闪电击中的功法效果读后归 skill、gongfa。B1 已登记的内容身份见台账。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
-- 候选归属 196 个元素，其中 160 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
+- 归属范围 201 个元素，201 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
+
+2026-11-15 接回第 2 页属性加点原生菜单、36 格背包、六项预览与加点、五个跨页请求及四行说明。加点沿用既有 `SkillPoints`，没有新增重置操作；来源说明疑点 Q187 保留待裁定。资源和语言已转换，编译及本页必要实机通过，公共导航由 panel 统一装配；有限运行边界见[本批集成记录](../project/logs/2026-11.md#2026-11-15-页面命令阵法与展示家具集成验证)。规则与边界见[属性加点页](architecture.md#属性加点页2026-11-15)，本批结果见[修炼月志](logs/2026-11.md)。
 
 ## 依赖方向
 
@@ -35,11 +37,16 @@ updated: 2026-11-08
 | 雷劫实体伤害请求 | `TribulationDamageEvent`：服务端维度、目标生物、完整伤害命令文本 | combat 监听并结算雷伤 |
 | 妖兽雷柱生成 | `CultivationSummons.summonLightPillars(服务端世界, 施放者, 目标, 攻击量)`：按来源目标四角偏移、团队共享、目标UUID和攻击量写入后生成`tianjie_05` | creature 040来源落雷过程 |
 | 本命槽位 | `benming`、`setBenming` | equipment |
+| 修炼三页 | `Retreats.openPage(玩家, 坐标)`；`RetreatPageEvent` 请求其他主分页 | panel 打开06；07/08内部切换保持坐标和主分页6 |
+| 闭关功法归属查询 | `RetreatTechniqueEvent` 区分无功法、未研习、他人所有、本人所有 | gongfa读取自身功法实例后回填，不建立xiulian对gongfa依赖 |
+| 观想酒精炼化 | `MeditationRefineEvent` 在减速之后、寿元/资源结算之前发出 | cooking调用自有 `Alcohol.refine` |
 | 丹田界面 | `Dantian.open`；返回按钮发出 `DantianReturnEvent`（取消时不关闭界面） | panel |
 | 本命培养进度 | `benmingProgress`、`setBenmingProgress`（`BenmingProgress`：认主、等级、经验、所需经验，供丹田界面显示） | equipment |
 | 主修功法 | `mainTechnique`、`setMainTechnique`（`MainTechnique`：有无、本人所有、名字、五行、品阶、层数） | gongfa |
-| 加点 | `spendSkillPoint(玩家, SkillPoint)`（六项：生命、灵力、神识上限与物理、法术、神识攻击） | panel |
-| 灵根重置 | `resetRoots`、`maximizeRoots`（管理命令 `/yvanchu` 的两个子命令） | flow |
+| 属性加点界面 | `openSkillPoints(玩家, 最终打开坐标)`；`SkillPointPageEvent(玩家, 目标页, 当前菜单坐标)` 请求切换 1/3/4/5/6 页 | panel 统一打开、记页和导航 |
+| 加点 | `spendSkillPoint(玩家, SkillPoint)`（六项：生命、灵力、神识上限与物理、法术、神识攻击） | 本系统第 2 页菜单 |
+| 灵根重置 | `resetRoots`、`maximizeRoots`（管理命令 `/yvanchu` 的两个子命令，已接真实命令入口） | flow |
+| 管理命令 | `command(命令源维度, 目标玩家, action, subject, operation, value, feedback)`：识别并执行本系统数值、灵根、体质标记与世界规则分支 | flow 唯一`/yvanchu`入口 |
 | 吸血石 | `BloodStone.addBlood`、`blood`（流血效果给脚下的吸血石加充血量） | combat |
 | 体质与修正值 | `tizhiDouble/Boolean/String` 与对应的 `set`、`editTizhi`（同一次同步内修改多个键，供逐刻推进的持续效果）：来源隐藏载体 `tizhiitem` 的键值（335 个键及读写系统见 [tizhiitem_keys.csv](ledger/tizhiitem_keys.csv)） | 战斗（属性修正）、技能（冷却与消耗修正）、流程（重生修正）、装备（武器培养速度）等 |
 
@@ -49,7 +56,7 @@ updated: 2026-11-08
 
 雷劫依赖方向为 combat → xiulian。xiulian 生成劫云与天雷实体、推进渡劫状态、筛选范围内的敌方并发出上述具体事件；combat 订阅后调用共享落雷和伤害入口。xiulian 不导入 combat，固定效果 `effect_022` 的等级按注册键从玩家当前效果读取。实体表现复用 platform 的模型记录、外观接口与 GeckoLib 渲染器；xiulian 不依赖 skill。
 
-本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
+本系统本轮变化见[修炼月志](logs/2026-11.md)，跨系统流程变化见[项目月度日志](../project/logs/2026-11.md)。
 
 2026-11-07 共享渲染复核已恢复劫云3倍、化灵雷龙4倍渲染缩放，四个雷劫渲染器均按来源关闭死亡侧翻；碰撞尺寸分别仍为3、2、1、1倍。最终build/ArchUnit通过，现有雷劫五项通过并DONE、正常保存退出，劫云截图可见；规则与证据边界见[完整雷劫](architecture.md#完整雷劫2026-11-07)。完整视觉和两版本对照仍未验收。
 
@@ -58,3 +65,7 @@ updated: 2026-11-08
 已接回来源 `Entitybereborn` 的普通 `PlayerRespawnEvent` 入口（目标 `Rebirth`）。重生后按目标属性最终值的 20% 设置生命，并按 `RebirthCorrectHealth*`、`RebirthCorrectPower*`、`RebirthCorrectJingli*` 先加固定值、再乘百分比；灵力与神识写入修炼档案。待吸收修为先加 `RebirthCorrectExperience`，再按 `RebirthCorrectExperiencePercentage` 相乘。寿元每次先减 30 天，再应用来源修正并发送原文案消息。
 
 来源寿元分支在 `RebirthCorrectLifetime` 非零时误读 `RebirthCorrectJingli`，目标保留这一行为；没有把它改为同名寿元键。游戏模式恢复、复活维度切换、20 刻后的属性重算仍属其他入口，本次没有并入。`compileSmokeJava` 已通过；现有 `yuanying` 客户端入口与普通重生无直接断言，本批未宣称普通重生的完整实机验收。来源公式和实现边界见[架构正文](architecture.md#普通重生2026-11-08)。
+
+## 修炼、观想与功法参悟页（2026-11-15）
+
+来源06/07/08三页已接入原生菜单和screen，包含寿元与日数显示、六个日数按钮、启动判定、观想结算、说明与全部分页按钮。panel统一接六主分页和K记页；07/08切换不改变主分页6。日数边界和观想遇坐具提前终止扫描保持来源，具体规则、疑点与未执行验证见[正文](architecture.md#修炼观想与功法参悟页2026-11-15)。本批未运行Gradle、客户端、专服和两版本对照。

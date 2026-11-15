@@ -2,7 +2,7 @@
 topic: material
 role: architecture
 status: partial
-updated: 2026-11-09
+updated: 2026-11-15
 ---
 
 # 材料、采集与辨识：架构调查与提案
@@ -63,7 +63,21 @@ updated: 2026-11-09
 - `cailiao_211`–`219` 的原始文本在 `manadefnum/1attribute/knockbacknum` 处缺分隔符。辨识仍按完整三元组数向下取整，得到6条，保留 `1attribute` 值与错位的 `knockbacknum/1/attribute` 条目；不补造末尾未构成完整三元组的条目。
 - 来源允许材料仓存入41级，辨识仓消费只扫1–40级；总量预检仍使用仓原始ID总数。仓等级/组清理与计数异常由 storage 保留，材料不重新计算仓数量。
 - 来源刷新遇到首个同ID目录行即停止，辨识过程则遍历全部匹配行；当前锁定目录没有重复ID，因此本批不产生额外覆盖路径。
-- `B:JiesuocailiaoProcedure:37–41` 会写 `yaoxiao{n}txt`，由 `YvanchuGoProcedure:24–27` 的 `unlock cailiao` 管理命令调用；命令名实际为 `yvanchuxitong`，权限1。该路径把 `teshu` 也当作附魔分支并写 `open=true`，不设置异火初始化使用的全局特殊标记，后续管理命令批次须保持其区别。`QiancailushuaxinProcedure:91` 虽复制介绍到显示缓存，但 `Qiancailutxtxiaoguo1`–`10:15` 只返回青色效果名称；千材录不显示介绍。本批补齐名称青色，管理解锁入口和介绍存储仍待管理命令所有者接回。
+- `B:JiesuocailiaoProcedure:37–41` 的管理解锁将`teshu`按附魔分支处理，区别于自然辨识和异火初始化；实现与当前验证边界见下节。`QiancailushuaxinProcedure:91`虽复制介绍到显示缓存，但`Qiancailutxtxiaoguo1`–`10:15`只返回青色效果名称；千材录继续只显示名称。
+
+### 管理解锁（2026-11-15）
+
+来源`B:command/YvanchuCommand:26–44`注册权限1的`/yvanchuxitong`，`B:YvanchuGoProcedure:21–28`只在执行维度按玩家显示名选择目标，并处理`<显示名> unlock cailiao [true]`。目标复用已有`flow/SystemCommandFlow`唯一入口，由公开`Materials.command`分派到材料所有者；子批不新增重复命令注册，共享入口接线由主线收口。可选`true`只向玩家执行者发送来源金色中文提示；控制台来源使用同版本既有`FakePlayerFactory`路径。
+
+`B:JiesuocailiaoProcedure:24–53`遍历全部225材料目录行，逐行以完整三元组数量覆盖`jindumax/jindu`，合计1451条。属性分支只覆盖名称与“增加{来源值}点”介绍，保留同序号既有命名空间和`open`；其他命名空间（包含`teshu`）写名称、命名空间、“附魔增加{来源值}点”与`open=true`，不设置自然辨识使用的全局特殊标记。已存在全局标记、异火初始化标志、目录范围外条目和未遍历材料均保留；220/230号空定义仍将进度/上限写为0，不补造效果。
+
+`MaterialRevealedEntry.description`保存来源`yaoxiao{n}txt`；自然辨识和异火初始化继续不主动写介绍。`MaterialAnalysis.unlock`只构造不可变附件，由`MaterialLibrary.unlockAll`一次写入并向本人同步。千材录将选中材料的进度、上限与已揭示条目纳入既有`MaterialAnalysisViewPayload`显示快照，刷新及辨识后刷新才更新；管理解锁不改变当前菜单的选择和显示快照。该变化修正了旧目标界面直接读取最新附件、命令执行后会立即更新显示的差异，不新增介绍显示。
+
+同一游戏夹具的数据检查覆盖命令与自然辨识的特殊标记差别、属性分支保留旧命名空间/`open`、尾项保留、介绍Codec存档重读。独立`MaterialUnlockCheck`经真实命令入口检查全目录进度/上限、本人同步、输入不扣料、命令后显示快照保持及原生刷新消息更新；同一场景在关闭材料仓后，经真实辨识消息验证成本2只扣普通库存、成本4联合扣普通库存与输入、成本6不足拒绝及纯输入扣料，并逐步核对双端库存、永久进度和刷新快照，结束恢复原完整背包、材料仓与辨识附件。共享命令和Smoke选择器已由主线集成。主线已通过生产/Smoke编译及六项架构检查；普通JUnit源集不装载Minecraft，原三项检查已移入本场景，介绍按NBT Codec重读；客户端材料76项必要检查已通过，原件见本月志，真实1.18.2版本实机与两版本对照未执行，不引用既有45项结果为新路径通过。
+
+#### Q195 逐玩家未找到提示
+
+待集中复核、当前保持来源、已实现待验证。`B:YvanchuGoProcedure:171–175`的“未找到名为…的玩家”位于逐玩家循环的`else`内；同维度有其他玩家时，即使命中目标，执行者仍可能收到其他玩家对应的错误提示，没有在首个命中后退出。本次材料处理器保留遍历顺序和逐非目标提示，不自行改成循环结束后统一报错。单人必要检查不能验收该多人提示分支，统一问题索引由主线登记。
 
 ### 本批运行证据与边界
 
@@ -71,6 +85,6 @@ updated: 2026-11-09
 
 证据 `tmp/material-storage-client.log`、`tmp/material-storage-final-report.txt`、`tmp/material-storage-final-latest.log`；最终客户端WARN37（含已有厨具缺失纹理）、ERROR/FATAL0。首次场景因袋06工厂漏接失败，修复后重跑通过，`tmp/material-storage-first-*` 保留。最终 `build compileSmokeJava`（含既有test/check/ArchUnit）及专服启动至Done后原生stop均通过，四维度正常保存退出、ERROR/FATAL0、菜单18个；证据 `tmp/material-storage-build-final.log`、`tmp/material-storage-server-latest.log`。没有新增Test类、选择器或独立验证框架。
 
-千材录截图 `build/smoke/screenshots/storage-material-analysis` 已保存且无扩展名，不能据截图标记完整视觉认可。普通库存与输入槽各自扣料、41级仓预检/实际扣料差异、方块能力绑定、全部显示状态、全缩放、多人、真实1.18.2版本实机和两版本对照未执行。管理解锁、采集材料生成与生产消费者仍由所属批次接回。
+千材录截图 `build/smoke/screenshots/storage-material-analysis` 已保存且无扩展名，不能据截图标记完整视觉认可。普通库存与输入槽各自扣料已由本批76项场景补验；41级仓预检/实际扣料差异、方块能力绑定、全部显示状态、全缩放、多人、真实1.18.2版本实机和两版本对照未执行。管理解锁的新实现与有限验证见上节；采集材料生成与生产消费者仍由所属批次接回。
 
 语言迁移按两份锁定来源补齐34个实际材料属性/特殊效果键（16个属性、18个teshu），中文和英文原文均保留，英文空值不自行翻译。来源A另有实体皮肤/潜力/身高三个属性键，未混入材料语言片段，随其实际所有者迁移。

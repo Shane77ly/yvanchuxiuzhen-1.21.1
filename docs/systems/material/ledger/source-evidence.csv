@@ -1,0 +1,2 @@
+source_mod,element,type,source_file,line,owner,ownership,evidence,target,implementation
+yvanchuxitong,Jiesuocailiao,procedure,src/main/java/net/mcreator/yvanchuxitong/procedures/JiesuocailiaoProcedure.java,24,material,已读,原初系统YvanchuGo管理解锁调用；按完整材料目录写满进度并覆盖有序名称与介绍；属性保留旧namespace/open而teshu走附魔分支且不追加全局标记；规则见../architecture.md#管理解锁2026-11-15,Materials.unlockAll / MaterialAnalysis.unlock,已实现；共享命令已接；材料76项必要检查通过；介绍NBT Codec重读通过；真实重进/多人未验

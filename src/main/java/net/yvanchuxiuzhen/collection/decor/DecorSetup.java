@@ -21,6 +21,9 @@ public final class DecorSetup {
         for (FurnitureStorageVariant variant : FurnitureStorageVariant.values()) {
             CONTENT.blockFactory(variant.factory(), traits -> ContentBlock.create(traits, row -> new FurnitureStorageBlock(row, variant)));
         }
+        for (DisplayFurnitureVariant variant : DisplayFurnitureVariant.values()) {
+            CONTENT.blockFactory(variant.factory(), traits -> ContentBlock.create(traits, row -> row.waterlogged() ? new WaterloggedDisplayFurnitureBlock(row, variant) : new DisplayFurnitureBlock(row, variant)));
+        }
     }
 
     private DecorSetup() {
@@ -30,6 +33,8 @@ public final class DecorSetup {
         CONTENT.register(modBus);
         RabbitCageBlockEntities.register(modBus);
         FurnitureStorageContent.register(modBus);
+        DisplayFurnitureContent.register(modBus);
+        NeoForge.EVENT_BUS.addListener(DisplayFurnitureMenuActions::tick);
         NeoForge.EVENT_BUS.addListener(AuctionSeats::requested);
         NeoForge.EVENT_BUS.addListener(BuildingHammer::leftClick);
     }

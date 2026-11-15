@@ -69,8 +69,15 @@ public final class AccessoryMenu extends AbstractContainerMenu {
     @Override
     public boolean clickMenuButton(Player player, int button) {
         if (!(player instanceof ServerPlayer serverPlayer)) return false;
-        if (button == 0 || button == 2) {
-            NeoForge.EVENT_BUS.post(new AccessoryPageEvent(serverPlayer, button == 0 ? 1 : 4, pos));
+        if (button >= 0 && button <= 4) {
+            int page = switch (button) {
+                case 0 -> 1;
+                case 1 -> 2;
+                case 2 -> 4;
+                case 3 -> 5;
+                default -> 6;
+            };
+            NeoForge.EVENT_BUS.post(new AccessoryPageEvent(serverPlayer, page, pos));
             return true;
         }
         if (button == 5) {

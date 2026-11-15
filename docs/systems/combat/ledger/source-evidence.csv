@@ -1,0 +1,2 @@
+source_mod,element,type,source_file,line,owner,ownership,evidence,target,implementation
+yvanchuxiuzhen,YvanchuGo3,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/YvanchuGo3Procedure.java,216,combat,已读,216–526五行击杀数量与属性技能熟练度十个管理分支；同一体质载体键；SHA256=6e759ce5c67aace30d4c74326ebb5177dcce4d33ce6ae7d32558efe2fe638481,PlayerCommandFlow / ElementStatistics.command / Cultivation.setTizhiDouble,已接线并静态核对十键与20条回执；编译/真实命令/同步/保存重进未执行；既有自然伤害统计未重写

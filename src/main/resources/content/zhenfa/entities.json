@@ -1,0 +1,5 @@
+[
+{"id":"projectile_zhenyang_01","category":"MISC","width":0.5,"height":0.5,"tracking_range":64,"update_interval":1,"fire_immune":false},
+{"id":"zhenfashiti","category":"MONSTER","width":0.6,"height":0.7,"tracking_range":64,"update_interval":3,"fire_immune":true},
+{"id":"zhenjineng_03","category":"MONSTER","width":0.6,"height":1.0,"tracking_range":64,"update_interval":3,"fire_immune":false}
+]

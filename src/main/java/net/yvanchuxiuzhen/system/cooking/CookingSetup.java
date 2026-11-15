@@ -40,6 +40,7 @@ import net.yvanchuxiuzhen.system.cooking.data.CookingAttachments;
 import net.yvanchuxiuzhen.system.cooking.network.WineButtonPayload;
 import net.yvanchuxiuzhen.system.cooking.api.Alcohol;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.MeditationRefineEvent;
 import net.yvanchuxiuzhen.system.plant.api.Planting;
 
 /**
@@ -131,6 +132,7 @@ public final class CookingSetup {
         WineMenus.register(modBus);
         CookingAttachments.register(modBus);
         NeoForge.EVENT_BUS.addListener((CultivationAfterBreakthroughEvent event) -> Alcohol.metabolize(event.player()));
+        NeoForge.EVENT_BUS.addListener((MeditationRefineEvent event) -> Alcohol.refine(event.player()));
         modBus.addListener(CookingSetup::payloads);
         NeoForge.EVENT_BUS.addListener(CookingRuntime::rightClick);
         NeoForge.EVENT_BUS.addListener(CookingDelays::tick);

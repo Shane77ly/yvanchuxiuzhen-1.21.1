@@ -54,6 +54,16 @@ public final class MaterialLibrary {
         return player.getData(MaterialData.ANALYSIS);
     }
 
+    /** 来源管理命令按完整目录写满进度与介绍，不刷新当前菜单的选择缓存。 */
+    public static void unlockAll(ServerPlayer player) {
+        MaterialAnalysis next = analysis(player);
+        for (MaterialDefinition definition : DEFINITIONS.values()) {
+            next = next.unlock(definition);
+        }
+        player.setData(MaterialData.ANALYSIS, next);
+        player.syncData(MaterialData.ANALYSIS);
+    }
+
     public static void initializeYihuo(ServerPlayer player) {
         MaterialAnalysis analysis = analysis(player);
         if (analysis.yihuoInitialized()) {

@@ -11,12 +11,14 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.yvanchuxiuzhen.collection.decor.DecorSetup;
+import net.yvanchuxiuzhen.collection.decor.DisplayFurnitureContent;
+import net.yvanchuxiuzhen.collection.decor.DisplayFurnitureVariant;
 import net.yvanchuxiuzhen.collection.decor.FurnitureStorageContent;
 import net.yvanchuxiuzhen.collection.decor.FurnitureStorageVariant.Layout;
 import net.yvanchuxiuzhen.collection.decor.RabbitCageBlockEntities;
 import net.yvanchuxiuzhen.platform.ModId;
 
-/** 装饰内容族的客户端装配：草色方块、座椅与兔笼诱饵渲染。 */
+/** 装饰内容族的客户端装配：家具菜单、草色方块、座椅、诱饵和展示物渲染。 */
 public final class DecorClientSetup {
     private static final BlockColor GRASS_COLOR = (state, level, pos, tintIndex) ->
             level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.get(0.5D, 1.0D);
@@ -28,9 +30,14 @@ public final class DecorClientSetup {
         modBus.addListener(DecorClientSetup::registerBlockColors);
         modBus.addListener((RegisterMenuScreensEvent event) -> {
             for (Layout layout : Layout.values()) event.register(FurnitureStorageContent.menuType(layout), FurnitureStorageScreen::new);
+            event.register(DisplayFurnitureContent.CABINET.get(), DisplayFurnitureScreen::new);
+            event.register(DisplayFurnitureContent.STAND.get(), DisplayFurnitureScreen::new);
         });
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerEntityRenderer(DecorSetup.seatType(), DecorSeatRenderer::new));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerBlockEntityRenderer(RabbitCageBlockEntities.OPEN.get(), RabbitCageRenderer::new));
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
+            for (DisplayFurnitureVariant variant : DisplayFurnitureVariant.values()) event.registerBlockEntityRenderer(DisplayFurnitureContent.type(variant), DisplayFurnitureRenderer::new);
+        });
         modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> event.registerLayerDefinition(DecorSeatRenderer.LAYER, DecorSeatRenderer::layer));
     }
 

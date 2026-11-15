@@ -153,7 +153,7 @@ B `Fanyexianshi.execute()`没有玩家参数，从新建ItemStack.EMPTY读取ren
 | `konggucanjvan07.nbt` | 17405 | (17,2,17) | `tasklist1` | `chengjiu_007` |
 | `konggucanjvan08.nbt` | 26782 | (26,4,10) | `tasklist1` | `chengjiu_008` |
 
-八串均按“文字→指令授予→任务进度更改/完成→任务储存/5→结束”排列，目标脚本文本与来源逐字一致。A `SealreleaseGoProcedure.java:361–411`依结构名放置这八模板，调用者为`YvanchuGoProcedure.java:536–537`的`unlock sealrelease`分支。目标固定表`StructureReleaseData.java:41–48`保留八项放置，裂隙在`RiftBlockEntity.java:77–78`经`StructureExploration.java:121–124`执行解封命令，再由`WorldGenerationCommands.java:56–58`进入释放；`WorldStructures.java:18–20`使用原生模板加载方块实体数据。
+八串均按“文字→指令授予→任务进度更改/完成→任务储存/5→结束”排列，目标脚本文本与来源逐字一致。A `SealreleaseGoProcedure.java:361–411`依结构名放置这八模板，调用者为`YvanchuGoProcedure.java:536–537`的`unlock sealrelease`分支。目标固定表`StructureReleaseData.java:41–48`保留八项放置，裂隙在`RiftBlockEntity.java:77–78`经`StructureExploration.java:121–124`执行解封命令，再由共享 `PlayerCommandFlow` 分派到 `WorldCommands.execute` 进入释放；`WorldStructures.java:18–20`使用原生模板加载方块实体数据。2026-11-15 仅调整共享命令入口归属，结构与八串内容保持。
 
 目标任务方块`DisguisedQuestBlock.java:64–78`将两种右键入口交给`DisguisedQuestRuntime.interact:38–53`，按序读取`renwulistN`或`tasklistN`并跳过已完成任务，然后经`DialogueActions.request:14–20`写会话；`DialogueRuntime.tick:64–102`启动执行，文字页继续后，`:207–214`以玩家位置和权限4执行“指令”。因此这批脚本从已实现任务方块入口至授予命令静态可达，仍保留来源`@p`选择器，不添加额外授予触发、替换为直接API或修改任务字段。
 

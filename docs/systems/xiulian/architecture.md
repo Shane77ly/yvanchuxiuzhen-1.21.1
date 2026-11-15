@@ -1,13 +1,13 @@
 ---
 topic: xiulian
 role: architecture
-status: draft
-updated: 2026-11-08
+status: partial
+updated: 2026-11-15
 ---
 
-# 修炼、身份与生命周期：架构调查与提案
+# 修炼、身份与生命周期：规则与实现状态
 
-来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
+来源事实与目标实现边界分别陈述；源码定位采用 [系统导航](../README.md)的 A/B 规则。
 ## 1.18.2 数据与调用
 
 `A:PlayerTickProcedure:64–86` 按世界时间间隔区分修炼和功法研习，之后计算属性、副本、本命法宝及元婴出窍。`experience`、`experience_Stand`、`experience_Max` 分别参与已有修为、待吸收修为和突破门槛；不可合并成一个经验字段。日收益上限来自主世界 `dailyexperience`，已用额度放在玩家 `tizhiitem` 中（同文件 97–155）。
@@ -83,6 +83,18 @@ updated: 2026-11-08
 - 读后改变归属：元婴出窍（`Yvanyingchuqiao` 等 6 个元素）是技能界面施展的技能，归 skill；被闪电击中时按主修功法给效果的 `EntityThunder` 归 gongfa；境界提升粒子留在本系统，随 particle 接入。
 - 完成核对（2026-11-03）：`gradlew check`、`check_ledger.py`、`check_docs.py` 通过；开发服务端启动 ERROR 0 条；冒烟 relation、attribute、xiulian 共 175 项全部符合（其中 xiulian 131 项），日志 ERROR 0 条。
 
+### 属性加点页（2026-11-15）
+
+来源完整核对 `A:PlayerGUI02Menu`、`PlayerGUI02Screen`、`PlayerGUI02ButtonMessage`、`OpenGUI02`、`PlayerGui02jieshao`、`HealthUpxianshi/PowerUpxianshi/SoulUpxianshi`、`Att01xianshi/Att02xianshi/Att03xianshi` 与 `Pointsxianshi`。目标 `SkillPointMenu`、`SkillPointScreen` 保留菜单 ID `player_gui_02`、500×500 布局、36 格玩家背包、六个 8×8 加点按钮、五个跨页按钮及说明按钮。Shift 搬移保持主背包 0–26 与快捷栏 27–35 互转，来源无自定义槽分支搬移后直接返回空栈；菜单不绑定方块，`stillValid` 恒真，服务端按钮仍要求菜单坐标所在区块存在。
+
+按钮 0–5 依次调用既有 `Cultivation.spendSkillPoint` 的生命、灵力、精力上限与物理、法术、精神攻击枚举；算法和同步仍以既有 `SkillPoints` 为唯一实现。特别保留“已分配点数大于层数×1.5 才拒绝”的来源比较，等于上限时仍可分配；不增加重置按钮。显示使用 `DecimalFormat("0")`，每行依次拼接来源语言前缀、基础增量加体质修正、来源后缀、当前最终属性与括号内已分配点数。生命取原版最大生命属性，其余五项只读 attribute 公开操作，剩余点数和修正只读本人修炼快照。
+
+按钮 6–10 发出 `SkillPointPageEvent`，目标页为 1/3/4/5/6，携带当前菜单坐标；panel 监听后按来源上移一格打开目标页，并独占第 2 页记忆与 K 键导航。`Cultivation.openSkillPoints` 接受最终打开坐标，菜单打开包只传该坐标。xiulian 不导入 panel，服务端拥有加点真值，客户端只发原生菜单按钮编号。双态按钮复用 `TextureButton`，保留原图和坐标，中文消息用于键盘焦点朗读；19 个来源语言键进入本系统片段，动态 `gui02*` 已登记转换前缀，17 项贴图依赖已登记来源资源输入。
+
+Q187（待裁定，保持来源）：`A:PlayerGui02jieshaoProcedure` 第二条说明为“境界提升不会直接增加属性值，只会给您若干属性点，需要您自行分配。”，而同版本升级、境界与体质修正链实际会直接增加基础属性。该矛盾影响第 2 页说明对成长方式的描述，不改变现有升级与加点执行。四条说明全部保留原文，未把文案改成新规则；1.18.2 版本实机与 1.21.1 版本说明按钮实机均未执行。
+
+来源核对、定向转换、生产/Smoke编译及本页按钮网络、六项预览同步、跨页/K记忆必要单项通过；本页截图已复看。证据见[本批集成记录](../project/logs/2026-11.md#2026-11-15-页面命令阵法与展示家具集成验证)；完整背包搬移、死亡/重登、1.18.2版本实机与两版本对照未执行，历史核心检查不代替本页新证据。
+
 ### 来源问题
 
 - Q22（轻微，记录后继续）：境界名来源以服务端语言翻译语言键 `levelnameNN` 后存入，单人游戏随客户端语言、专用服务器为英文；目标统一存中文名（与初值“凡人”一致）。升级文字第 9 行法术防御增加时写的是“旧值 − 新值”，第 10 行神识攻防沿用“物理攻击”“物理防御”标签，按来源保留。
@@ -127,3 +139,54 @@ updated: 2026-11-08
 Q56（轻微，保持来源行为）：`ThunderBegin` 的负功德分支只消耗每满 50 的负功德，局部 `gongdeyeli` 没有加到雷数，`meritslight` 实际仍为 0；正功德抵消旧雷数的循环上界每次读取正在减少的旧雷数，例如旧雷数 2、功德 100 时只抵消一次。云每五刻发现玩家死亡只清玩家开关，清最大组数与增加失败雷数误写了云的玩家能力对象，玩家这两项不变；云被杀的独立过程则正确清最大组数并给玩家失败雷数加 1。`tiaoguo` 清标记并宣布成功、设置进阶和清开关/最大组数，但没有清云序列或移除云，后续仍会放雷；玩家离开本维度时云移除，玩家状态不补写。以上分支均不新增修正或终止。
 
 验证：`build compileSmokeJava`（含 ArchUnit）通过；仅一次 `runSmokeClient -PsmokeOnly=tribulation`，5 项主路径断言全部符合并 `DONE`，覆盖满修为自然开始、功德动态抵消、真实云 tick 的范围雷伤、序列成功、三类实体的生成与结束、劫云被杀失败。客户端正常保存退出，日志 ERROR 0；劫云截图已查看，模型可见。专用服务器一次启动到 Done，ERROR 0，导出实体 67 个，使用原生 `stop` 正常保存退出。证据在 `tmp/tribulation-build.log`、`tmp/tribulation-check-compile.log`、`tmp/tribulation-smoke.log`、`tmp/tribulation-report.txt`、`tmp/tribulation-server.log` 与 `build/smoke/screenshots/tribulation-cloud.png`。未重跑旧神通；未执行 1.18.2 版本实机、两版本对照、多人、全分支时序与完整视觉认可。
+
+## 修炼、观想与功法参悟页（2026-11-15）
+
+来源核对 `A:PlayerGUI06/07/08Screen`、同名Menu与ButtonMessage、`PlayerGUI06shouming/tianshu`、六个 `PlayerGUI06anniu01–06`、`PlayerGUI06xiulian`、`PlayerGui08xiulian`、`Guanxiang`、三页说明与 `Qiehuan01–03`。目标 `RetreatMenu/RetreatScreen` 保留三个注册ID、500×500布局、36格原生背包、寿命/日数的 `DecimalFormat("0")`、按钮ID与原图坐标。服务端按钮保留菜单坐标所在区块存在条件；客户端只发送原生菜单按钮编号。
+
+日数保存在xiulian体质载体的 `xiuliandaynum`：加1仅在寿元减日数大于1时增加；加10/100仅在差额大于对应量时增加，否则直接设寿元减1。减1仅在日数大于1时减少；减10/100在日数不足对应量时归零。开始修炼按来源先检查骑乘、闭关天数不大于0、设定至少1天、冷却小于100；内部再按功法名和研习者判断，成功后设置剩余天数、清设定、写开关“修炼”并关闭菜单。参悟沿用同顺序但不检查冷却，开关写“功法”；开始与失败中文提示保留来源。实际后续逐秒推进复用已有 `Cultivating` 和gongfa功法修炼入口。
+
+功法归属由 `RetreatTechniqueEvent` 向gongfa查询；gongfa按自身当前实例回填未装备、未研习、他人所有和本人所有四种结果，xiulian不读取功法数据。观想在玩家位置周围8格AABB中按距离扫描，跳过玩家和非Mob；非本人驯养妖兽阻止，随后检查两类坐具并提前结束扫描，其余非AmbientCreature且非Animal的Mob阻止。受阻只提示且保留菜单。安全时寿元必须大于3，罡煞至多三次向0移动1，施加60刻20级减速，再发 `MeditationRefineEvent` 交cooking按原条件炼化酒精；随后提示、扣3天寿元、灵力与精力补到最终上限、生命加30，并关闭菜单。寿元不足只提示大限将至，仍关闭菜单；观想不要求骑乘。
+
+06→07、07→06/08、08→07沿用同一菜单坐标，不修改主分页6；K记页6只恢复06。所有其他主分页入口由panel统一打开并沿旧坐标Y+1，xiulian不导入panel。三个来源说明分别保留四行、一行、三行。新增语言片段各18个导航键与锁定来源相同；05和06/07/08的屏幕依赖及动态语言前缀已登记转换输入，缺失原图直接补入。
+
+### 来源边界与集中复核
+
+Q189（待裁定，保持来源）：`PlayerGUI06anniu04`减一天在1天时不能归零；`anniu02/03`加十/百天在寿元小于1时会将设定写为负数。
+
+Q190（待裁定，保持来源）：`Guanxiang`扫描先遇 `shitiputuan/shitiyizi` 便对整个循环break，可能使更远的威胁不再被检查；仅对Mob扫描的前提也保持来源。
+
+Q191（待裁定，保持来源）：`PlayerGui08jieshao`称“没有时限”，实际 `PlayerGui08xiulian` 启动仍要求至少1天并设置闭关天数，`Kaishigongfa` 每秒减一天并按剩余天数结束。文字与执行矛盾留集中复核，不修正这些规则，也不逐项中断独立移植。
+
+静态来源、按钮、资源与语言核对、定向转换及生产/Smoke编译通过；06/07/08受控按钮、日数、观想结算、K记页和跨页必要单项通过，三页截图已复看。证据见[本批集成记录](../project/logs/2026-11.md#2026-11-15-页面命令阵法与展示家具集成验证)。完整骑乘自然修炼、专服、页面专用真实保存重进、多人、1.18.2版本实机和两版本对照未执行。
+
+## 原初管理命令（2026-11-15）
+
+来源 `A:command/YvanchuCommand:26–70` 的唯一注册和玩家选择由 `flow.PlayerCommandFlow` 承担，本系统通过 `Cultivation.command` → `CultivationCommand` 只写自己的档案、主世界日收益上限与游戏规则。权限仍为1，目标仍是命令源当前维度首个显示名精确匹配玩家；本系统不另注册同名命令。源码范围与锁定哈希见[来源证据台账](ledger/source-evidence.csv)，有限真实命令已随本批场景运行，边界见本月志。
+
+数值语法为 `/yvanchu <玩家显示名> <action> <subject> <operation> <value> [true]`。`set`是唯一赋值操作，其他任何操作都累加数值；`Double.parseDouble(trim)`读负数、小数和科学记数法，格式错误/空参数取0，不额外截断。以下分支均已接：
+
+| action / subject | 写入与顺序 | 来源与反馈 |
+| --- | --- | --- |
+| `levelup level` | 设置或累加`LEVEL_NUMBER`，可选反馈后把`EXPERIENCE_MAX`改成`100 + 层数³ × 50`；不触发升级成长、境界名/金丹/元婴或属性点补发 | `Go:29–78`；set显示原参数“等级设置为”，加减显示写入后的“等级变更为” |
+| `experienceup experience/experiencestand` | 分别写已有/待吸收修为；不立即吸收或突破 | `Go2:20–61/483–524`；两个分支都沿用“经验设置为/经验增减量为” |
+| `experienceup rate/hinder` | 分别写修为吸收率/道途阻力 | `Go2:525–608`；显示“修为吸收率”或“道途”的原参数 |
+| `experienceup skillpoints/vigorous/merits` | 分别写剩余属性点/罡煞/功业 | `Go2:609–710`；来源没有成功回执，传true也不补消息 |
+| `experienceup bodygold/bodywater/bodytree/bodyfire/bodysoil` | 改对应灵根；金/火set按`旧阴阳 + 新根 − 旧根`，加减按`旧阴阳 + 参数`；水/木set按`旧阴阳 − (新根 − 旧根)`，加减按`旧阴阳 − 参数`；土不改阴阳 | `Go2:711–908`、`Go3:24–131`；原“某灵根设置为/增减量为”加原参数；灵根/阴阳继续提交attribute |
+| `experienceup lifetime/liftlock` | 分别写寿元天数/出身锁定次数，不重置出身或消耗标记 | `Go3:132–215`；显示“寿元”或“命轮锁”的原参数 |
+| `experienceup dailyexperience` | 写同一主世界`XiulianWorldData.dailyExperience`，保留double和0不限制的消费规则；不写玩家今日已用额度 | `Go3:527–558`；set回显原参数，加减回显新上限 |
+| `experienceup linggenlevel` | 写命令源世界的同名游戏规则；set后转int，加减先与旧int相加再转int | `Go3:559–591`；set回显原参数，加减回显新int |
+
+上述可选反馈仅当最后参数恰为`true`时发给目标，保留原金色与中文前缀。例：`levelup level set 2.5`只改层数和门槛881.25，不额外发放属性点；旧金根3、阴阳5时`experienceup bodygold set 8.5`得到根8.5、阴阳10.5；旧灵根随机上限9时`experienceup linggenlevel minus -1.5`先算7.5再转成7。原来的职业等级命令仍不联动经验上限，与本分支不同。
+
+`unlock chongzhilinggen`和`unlock chongzhilinggenmax`（`Go:532–535`）接回既有`resetRoots/maximizeRoots`；随机仍固定0–9，不读取`linggenlevel`，满灵根仍五行9/阴阳0，两个操作沿用自身无条件中文回执。这里补的是命令到既有操作的真实接线，历史公开操作Smoke不等于本次命令已经验收。
+
+`unlock tizhi <add或其他操作> <键> [true]`（`Go:516–531`）按来源对任意体质载体键写布尔：仅add写true并使`tizhinumber +1`，其他操作写false并使计数−1；重复添加/移除不先检查标记，也不加减体质属性修正。可选true发送“获得名为/移除名为…的体质”。该计数可能与实际打开标记数不一致，保留来源，并沿用Q24的丹田排序边界，不自行去重或重算计数。
+
+`unlock|lock rebirthgui [true]`（`Go:542–548/565–571`）只切`jinruyouxichushenxvanze`，可选true使用原无色中文回执，真正首次进入仍走既有`BirthSelection.onLogin`。`open rebirthgui`调用轮回37，仍随37跨所有者清理契约处理，本批没有接入；执行目标疑点见下文Q193。
+
+### Q193 轮回命令的执行者与目标不一致
+
+来源`A:YvanchuGoProcedure:25–27/580–583`先按参数匹配当前维度目标玩家，但`open rebirthgui`把`Fulutexiao37`施于命令执行实体`entity`，而非匹配到的`entityiterator`；坐标仍来自命令源位置且Y加1。以管理员A执行`/yvanchu B open rebirthgui`为例，匹配B后进入分支，真实传入轮回过程的是A。无执行实体来源使用FakePlayer，仍不是B。该行为来自锁定源码静态核对，两个版本实机均未执行。状态为待裁定/未实现；本批不在37跨所有者清理契约之外单独接入此入口，也不擅自改成目标B，后续按统一问题索引集中处理。
+
+锁定来源核对、命令接线及生产/Smoke编译通过；真实修炼/五行命令与本人同步共同101项必要检查通过。随机/满灵根、任意体质标记、轮回37、命令专用保存重进、1.18.2版本实机及两版本对照未验；本批不改变历史核心批次的已验证结论。`killentity* / killentitypoints*`是combat伤害规则维护的五行击杀数量与属性技能熟练度，目标现由`ElementStatistics.command`接回同一载体键，见[战斗正文](../combat/architecture.md#五行击杀统计管理命令2026-11-15)。本系统的丹田与金丹/元婴继续通过自有载体查询读取；不新增xiulian→combat依赖或第二份属性统计。

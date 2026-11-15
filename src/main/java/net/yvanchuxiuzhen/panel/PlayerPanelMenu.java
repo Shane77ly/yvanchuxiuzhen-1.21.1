@@ -34,8 +34,11 @@ public final class PlayerPanelMenu extends AbstractContainerMenu {
     public boolean clickMenuButton(Player player, int button) {
         if (!(player instanceof ServerPlayer serverPlayer)) return false;
         switch (button) {
+            case 0 -> PanelNavigation.openSkillPoints(serverPlayer, pos.above());
             case 1 -> PanelNavigation.openAccessories(serverPlayer, pos.above());
             case 2 -> PanelNavigation.openLoadout(serverPlayer, pos.above());
+            case 3 -> PanelNavigation.openProfessions(serverPlayer, pos.above());
+            case 4 -> PanelNavigation.openRetreat(serverPlayer, pos.above());
             case 5 -> {
                 for (String line : List.of("右侧是您当前的灵根等级。", "境界下方依次是：", "剩余血量/血量上限（血量恢复速度）",
                         "剩余灵力/灵力上限（灵力恢复速度）释放法术技能时的能量消耗。", "剩余精力/精力上限（精力恢复速度）释放精神秘法时的能量消耗。",

@@ -49,7 +49,11 @@ updated: 2026-11-15
 
 A `Guchong05Entity:79–82`明确返回`MobType.ARTHROPOD`，目标05需加入`minecraft:arthropod`实体类型标签，另保留原`guchongentity`身份。早先将01/03一并视作遗漏的假设经来源核对撤销：两者来源为`UNDEFINED`，不能以“蛊虫”名称补成节肢类别。该结论只约束本次05增量，不扩展到未逐条核对的其他编号；标签转换已完成；节肢伤害效果仍未实机验证。
 
-精确依据：A `entity/Guchong05Entity.java:45–163`、`client/renderer/Guchong05Renderer.java:11–18`、`item/Guchong05itemItem.java`、`procedures/Guchong05itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java:18–38`、`Guchong05DangYouJianDianJiShiTiProcedure.java:16–33`与`Guchong05DangShiTiGengXinKeShiProcedure.java:26–70`。05实体候选归属已完成该完整类、表现、物品和过程调用链阅读，已同步公共归属清单并完成定向转换/编译/架构检查；代码已接入不等于运行验收。自然悬赏领取/补领、释放/任意玩家回收、100刻交还、失联与真实退出重进均未执行。
+精确依据：A `entity/Guchong05Entity.java:45–163`、`client/renderer/Guchong05Renderer.java:11–18`、`item/Guchong05itemItem.java`、`procedures/Guchong05itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java:18–38`、`Guchong05DangYouJianDianJiShiTiProcedure.java:16–33`与`Guchong05DangShiTiGengXinKeShiProcedure.java:26–70`。05实体候选归属已完成该完整类、表现、物品和过程调用链阅读，已同步公共归属清单并完成定向转换/编译/架构检查。新增`guchong05` Smoke源码覆盖普通与悬赏绑定物品右键、中途实体真实退出重进、追踪计时续行、同维百刻返还及回收物计时器边界；回收路径使用与当前玩家不同的主人UUID检查无身份过滤，并检查05粒子类型可由公开接口读取。2026-11-15修正退出等待计时竞争后，该Smoke11项通过，真实中途重进与百刻返还均已到达；证据及首次失败边界见本月记录。自然悬赏领取/补领、第二客户端真实回收交互、主人失联/跨维时行为、粒子视觉和节肢伤害仍未实机验证。
+
+### Q180 荧光蛊释放扣件的端侧边界
+
+A `Guchong05itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java:17–38`的`itemstack.shrink(1)`在服务端生成分支之后，语法上客户端也执行；目标`GuchongTrackingItem`仅在`ServerLevel`中生成实体并扣件。当前保留服务端真值与数据组件同步边界，不把扣件移到客户端。两版本的预测、回包和创造模式实际结果尚未对照，本项为待统一复核的端侧差异，不据此宣称目标缺陷。
 
 ## 待调查
 

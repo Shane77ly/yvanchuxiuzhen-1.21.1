@@ -811,3 +811,8 @@ festival,texture,yvanchuxiuzhen:entities/pao0501
 festival,texture,yvanchuxiuzhen:entities/pao0601
 festival,texture,yvanchuxiuzhen:entities/pao0901
 festival,texture,yvanchuxiuzhen:items/pao09
+zhenfa,texture,yvanchuxitong:entities/zhenfashiti
+zhenfa,texture,yvanchuxitong:entities/zhenjineng01
+zhenfa,texture,yvanchuxiuzhen:entities/zhenjineng03
+zhenfa,geo,yvanchuxiuzhen:zhenjineng03
+zhenfa,animation,yvanchuxiuzhen:zhenjineng03

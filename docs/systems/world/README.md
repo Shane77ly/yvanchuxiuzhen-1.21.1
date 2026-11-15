@@ -2,7 +2,7 @@
 topic: world
 role: entry
 status: partial
-updated: 2026-11-14
+updated: 2026-11-15
 ---
 
 # 世界
@@ -42,7 +42,7 @@ updated: 2026-11-14
 - `WorldGeneration.randomStructuresAllowed(MinecraftServer)`：查询主世界共享随机结构开关，对应来源`!MapVariables.jiegoushengcheng`，初始允许。
 - `WorldGeneration.setRandomStructuresAllowed(MinecraftServer, boolean)`：唯一写入入口，更新不可变Settings并标脏；其他系统不得另存或直接修改同值。
 - `WorldGeneration.register()`：启动时安装主世界`LevelEvent.Load`和服务端结束监听。主世界加载且初始化出生区块前读取SavedData，通过线程安全服务端索引发布；地物生成线程只读取volatile Settings，结束后移除索引。
-- `WorldGenerationCommands.register()`：安装实际原初管理命令中的两个结构分支，语法`/yvanchu <当前维度玩家显示名> unlock|lock jiegoushengcheng [true]`，权限等级1。来源没有`go`字面子命令。
+- `WorldCommands.execute`：由 flow 的唯一 `/yvanchu` 入口按当前维度显示名定位玩家后分派结构开关与解封，结构开关语法仍为`/yvanchu <当前维度玩家显示名> unlock|lock jiegoushengcheng [true]`，权限等级1；解封仍用`unlock sealrelease <结构名> [true]`。来源没有`go`字面子命令。2026-11-15 共享入口拆分只完成静态核对，重构后的命令回归未执行，见[正文](architecture.md#固定结构解封命令2026-11-14)。
 - `WorldStructures.place(ServerLevel, ResourceLocation, BlockPos)`：副本/画卷固定点结构放置，NONE旋转、NONE镜像、包含实体、flags3；由World访问原生模板服务，Dungeon拥有调用条件和实例坐标。候场大厅与战斗结构已随自然入场实际放置，私人画卷结构与出口也已随真实二击传送生成，见[副本记录](../dungeon/logs/2026-11.md)。
 
 已对照 `typed_field_accesses.csv`：`XvkongDimension`、`XvkongqvnxiBiome`没有玩家或世界持久字段读写；技能裂隙的返回编号`tizhiitem.weidu`仍由xiulian公开操作管理。随机结构字段包含`Suijijiegou01FuJiaDeShengChengTiaoJianProcedure`一次条件读取，以及`YvanchuGoProcedure`的unlock/lock两次写入，分别由六个地物查询与管理命令调用World拥有者承担。其余世界状态、结构操作与外部字段访问随对应批次列出；world不写玩家档案。

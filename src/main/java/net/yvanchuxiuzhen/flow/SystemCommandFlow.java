@@ -3,17 +3,19 @@ package net.yvanchuxiuzhen.flow;
 import java.util.HashMap;
 import java.util.Map;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.minecraft.core.BlockPos;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.yvanchuxiuzhen.system.economy.api.EconomyCurrency;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
-import net.yvanchuxiuzhen.system.zhenfa.FormationInspection;
+import net.yvanchuxiuzhen.system.material.api.Materials;
+import net.yvanchuxiuzhen.system.zhenfa.api.FormationInspection;
 
 /** 原初系统共享命令仅注册一次，具体知识操作交各数据所有者处理。 */
 public final class SystemCommandFlow {
@@ -22,6 +24,7 @@ public final class SystemCommandFlow {
 
     public static void register() {
         NeoForge.EVENT_BUS.addListener(SystemCommandFlow::commands);
+        NeoForge.EVENT_BUS.addListener(PlayerCommandFlow::register);
     }
 
     private static void commands(RegisterCommandsEvent event) {
@@ -36,6 +39,8 @@ public final class SystemCommandFlow {
     }
 
     private static int dispatch(CommandSourceStack source, String arguments) {
+        if (Materials.command(source, arguments)) return 0;
+        if (EconomyCurrency.command(source, arguments)) return 0;
         return Fulu.command(source, arguments) ? 0 : Liandan.command(source, arguments);
     }
 
@@ -48,7 +53,7 @@ public final class SystemCommandFlow {
             index++;
         }
         FormationInspection.report(level, inspected, number(arguments, "0"),
-                new BlockPos((int) number(arguments, "1"), (int) number(arguments, "2"), (int) number(arguments, "3")));
+                new Vec3(number(arguments, "1"), number(arguments, "2"), number(arguments, "3")));
         return 0;
     }
 

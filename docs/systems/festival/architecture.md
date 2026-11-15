@@ -2,7 +2,7 @@
 topic: festival
 role: architecture
 status: draft
-updated: 2026-11-14
+updated: 2026-11-15
 ---
 
 # 节日：架构调查与提案
@@ -66,7 +66,16 @@ Fuqi06自然右键抽[1,100)的连续随机数，按来源58档阈值选择奖�
 
 ### Q168 红包外部自然生产者待核
 
-来源生成Java未找到除红包自奖外的Fuqi06生产者；资源、结构与动态入口尚未全量追踪。当前只承诺已有红包自然use后的完整发奖链，不补造礼包投放或节日领取。静态依据及来源指纹见本族台账，实际验证边界只在本月记录维护。
+2026-11-15直接入口复核已更正“Java仅见自奖”的旧结论：来源B全局实体右键事件通过语言键提供财神商店，外部购买生产者已存在，目标静态接线亦已存在。此处保留原问题标题以保持统一索引锚点；当前状态为静态链路已核实、自然购买及出生未验，不再作为未发现生产者。
+
+| 环节 | 1.18.2版本来源 | 1.21.1版本对应 |
+| --- | --- | --- |
+| 右键身份 | A `data/forge/tags/entity_types/npcentity.json:13`包含`caishenye`；B `PlayerRightClickEntityProcedure:39–43`订阅全局右键并限制使用手，`:122–125`为财神写入三个语言键 | `NpcSetup`订阅`NpcInteractions.interact`；`data/yvanchuxiuzhen/tags/entity_type/npcentity.json`保持财神身份；`NpcInteractions:67–70`写相同脚本、商品与商店说明键 |
+| 对话开店 | B `assets/yvanchuxitong/lang/zh_cn.json:232`的`txt.renwulist.npccaishenye`包含“打开界面/商店” | `src/main/lang/zh_cn/npc.json:58`保留同一脚本；`DialogueRuntime.requestNpc`经公开操作写经济会话，`打开界面`分支调用`EconomyMenus.open` |
+| 商品定义 | B同一语言文件`:316`的`txt.shoplist.npccaishenye`首条为`yvanchuxiuzhen:fuqi_06%无%金银%20%无` | `economy/language_zh_cn.json:20`保留该首条，`CommerceCatalog.translated`解析语言键，`CommerceTrading.refresh/buyCoins`生成商品并支付20金银后给1件 |
+| 红包消费 | A `Fuqi06Item.use`调用58档奖励过程，过程`:83`有红包自奖；自奖不是唯一来源 | `FestivalGiftItem`自然右键发奖，`RedPacketRewards`保留自奖1–3件；已有红包use单项不替代财神购买单项 |
+
+来源A财神专属右键Java只转身；其编辑器图中旧商店文字块未连事件根，不能仅看该类判定没有商店。实际商店来自互为必需依赖的B全局事件，已找到可达来源，因此本次不再扩展到全部结构NBT或动态指令审计。来源B右键文件SHA256为`f9c45c1a7f33d1f607d84757f588632abf381b5fb7878612d7e36d0bad1d94b0`，中文语言文件为`71d006aa3c31d0a62ca39a93887ecf58292bd22d72bcda00cb40cc5b1543de2d`。本次不改玩法、不新增节日领取。财神自然出生仍保留服务器公历三月条件，真实遇到财神→对话→20金银购买→开红包整链未实机。
 
 ## 三类抛出烟花（2026-11-15）
 

@@ -4,8 +4,12 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -14,8 +18,10 @@ import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.xiulian.BirthSelection;
+import net.yvanchuxiuzhen.system.xiulian.CultivationCommand;
 import net.yvanchuxiuzhen.system.xiulian.LevelUp;
 import net.yvanchuxiuzhen.system.xiulian.SkillPoints;
+import net.yvanchuxiuzhen.system.xiulian.content.SkillPointMenu;
 import net.yvanchuxiuzhen.system.xiulian.data.CultivationData;
 import net.yvanchuxiuzhen.system.xiulian.data.XiulianAttachments;
 
@@ -33,6 +39,12 @@ public final class Cultivation {
             CultivationValue.ROOT_TREE, CultivationValue.ROOT_FIRE, CultivationValue.ROOT_SOIL, CultivationValue.YINYANG);
 
     private Cultivation() {
+    }
+
+    /** 执行共享原初管理命令中的修炼分支；世界规则使用命令源维度，玩家档案使用已匹配目标。 */
+    public static boolean command(ServerLevel level, ServerPlayer player, String action, String subject,
+            String operation, String value, String feedback) {
+        return CultivationCommand.execute(level, player, action, subject, operation, value, feedback);
     }
 
     /** 阴一阵法增加本体实体 soul；玩家修炼能力的 SOUL 另由原有接口维护。 */
@@ -140,6 +152,12 @@ public final class Cultivation {
     public static void setBenmingProgress(ServerPlayer player, BenmingProgress progress) {
         player.getData(XiulianAttachments.CULTIVATION).setBenmingProgress(progress);
         player.syncData(XiulianAttachments.CULTIVATION);
+    }
+
+    /** 在指定的最终打开坐标创建属性加点页，跨页记忆由汇总导航维护。 */
+    public static void openSkillPoints(ServerPlayer player, BlockPos pos) {
+        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new SkillPointMenu(id, inventory, pos),
+                Component.translatable("gui.yvanchuxiuzhen.player_gui_02.label_shu_xing_jia_dian")), pos);
     }
 
     /** 分配一个属性点（面板第 2 页的加点按钮）；属性点不足或该项已达当前境界上限时只提示。 */

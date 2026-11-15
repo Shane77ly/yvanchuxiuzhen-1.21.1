@@ -2,12 +2,12 @@
 topic: combat
 role: architecture
 status: current
-updated: 2026-11-09
+updated: 2026-11-15
 ---
 
-# 战斗：架构调查与提案
+# 战斗：规则与实现状态
 
-来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
+来源事实与目标实现边界分别陈述；源码定位采用 [系统导航](../README.md)的 A/B 规则。
 ## 1.18.2 数据与入口
 
 `A:EntityHurtProcedure:49–100` 监听 `LivingAttackEvent`，处理状态、战斗记分板及后续附魔入口；`EntityBeforeHurtProcedure:45–170` 监听 `LivingHurtEvent`，判断 NPC 免伤、玩家/生物队伍、闪避和物理结算。两者是不同阶段。`EntityBeforeHurt2Procedure` 只有局部声明，不承担有效伤害计算。
@@ -271,3 +271,14 @@ GeckoLib 首次接入（版本 4.9.3）的做法写入[工程结构](../../devel
 ## Q31 剧情伤害字段登记边界（2026-11-15）
 
 Quest普通脚本“伤害实体/法术或精神”来源仅写ManaAttackDamage或SoulAttackDamage、对应UUID、damagetype和Damage_multiplier，本批经Combat公开操作markQuestAttack恢复该写入。A ManaDamage:50–61、SoulAttjisuan:50–61存在字段读取但无调用者；DamageIntegration另有读取但同属Q31无可达入口。目标不直接调用deal补造结算，不因恢复写入宣布Q31闭合；字段消费仍待集中核实/裁定。
+
+
+## 五行击杀统计管理命令（2026-11-15）
+
+来源`A:YvanchuGo3Procedure:216–526`接在已注册`/yvanchu`的`experienceup`链中，五行各有击杀数量`killentitygold/water/tree/fire/soil`和属性技能熟练度`killentitypointsgold/water/tree/fire/soil`，合计十个精确关键字。每项只读取参数3是否恰为`set`：是则把参数4解析为double后赋值，否则在旧值上加参数；不是按`minus`字面值做减法。负数、小数、科学记数法和超过正常成长范围的值保持，格式错误或缺参数取0。可选参数5恰为`true`时，向目标发金色“某属性技能杀死的实体数量设置为/增减量为”或“某属性技能熟练度设置为/增减量为”，均回显原参数字符串。
+
+目标共享`flow.PlayerCommandFlow`按原权限1、命令源当前维度首个玩家显示名精确匹配后调用`combat.api.ElementStatistics.command`。十个分支写入`Shanghai.recordKill`已经使用的同一组体质载体键，保存和本人同步继续通过`Cultivation.setTizhiDouble`；没有另建附件、贡献项或重置其他进度。来源`typed_field_accesses`只记录变量字段，十键还须对照`nbt_key_calls`与[体质键台账](../xiulian/ledger/tizhiitem_keys.csv)；后者的写者为combat与flow，不能因命令中出现“属性”就归入attribute的Stat贡献。
+
+自然生产仍由`Shanghai.recordKill`在既有伤害结算位置判断“目标当前生命小于伤害总量”后累加，Q13的实际死亡边界保持；本批没有重写或额外调用伤害生产链。xiulian的丹田页读取五行熟练度显示，金丹/元婴读取同键判断门槛，继续通过其自有载体查询，保持combat→xiulian既有单向依赖。管理命令只改指定计数，不补造击杀事件、经验或成长奖励。
+
+独立算例：旧金击杀数量2.5，`/yvanchu <显示名> experienceup killentitygold minus -0.5 true`后为2.0，反馈末尾仍是`-0.5`；水熟练度10，`set 4.25e1 true`后为42.5，反馈仍是`4.25e1`；把火熟练度设为格式错误值会写0。十个映射、20条原回执和写入路径均已静态核对；新入口Java编译通过，十键真实set/非set与本人同步随修炼共同101项必要检查通过；命令专用保存重进、1.18.2版本实机与两版本对照未执行。源码定位与锁定哈希见[来源证据](ledger/source-evidence.csv)。
