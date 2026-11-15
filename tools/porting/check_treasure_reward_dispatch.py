@@ -208,10 +208,11 @@ def check_reward_interpreter(text: str, table_text: str) -> dict[str, Any]:
 
 
 def default_source_workspace() -> Path:
-    candidates = (
-        ROOT.parent / "yuanchuxiuzhen-1.21.1",
-        ROOT.parents[1] / "yuanchuxiuzhen-1.21.1",
-        ROOT.parents[2] / "yuanchuxiuzhen-1.21.1",
+    # 工作区路径深度并不固定；通过实际祖先逐层尝试，避免直接索引
+    # 不存在的 `ROOT.parents[n]` 在浅层 Windows 路径上触发 IndexError。
+    candidates = tuple(
+        parent / "yuanchuxiuzhen-1.21.1"
+        for parent in (ROOT.parent, *ROOT.parents)
     )
     for candidate in candidates:
         if (candidate / SOURCE_RELATIVE).is_dir():
