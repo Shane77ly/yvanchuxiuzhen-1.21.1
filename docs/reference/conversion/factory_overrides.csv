@@ -999,3 +999,4 @@ item,yvanchuxiuzhen:flagsonitem,zhenfa:flag_son,zhenfa,子旗放置与控制
 item,yvanchuxiuzhen:ling_18,xiulian:ling_18,xiulian,传承灵物按境界分次领取来源奖励（BirthSupplyItem）
 item,yvanchuxiuzhen:jiazubaibaodai,xiulian:jiazubaibaodai,xiulian,家族百宝袋按出身与次数领取来源奖励（BirthSupplyItem）
 block,yvanchuxiuzhen:tiandaoitemnbt,tiandao:nbt_editor,tiandao,通用八类型物品NBT编辑器与单槽库存菜单
+vanchuxiuzhen:tiandaojianzhu,decor:roof_brush,decor,建筑笔选点、瓦片颜色/屋顶形态切换和两点铺设来源过程

@@ -15,6 +15,7 @@ public final class DecorSetup {
             .blockFactory("decor:open_rabbit_cage", traits -> ContentBlock.create(traits, OpenRabbitCageBlock::new))
             .itemFactory("decor:cage", RabbitCageItem::new)
             .itemFactory("decor:hammer", BuildingHammerItem::new)
+            .itemFactory("decor:roof_brush", RoofBrushItem::new)
             .livingEntity("shitiyizi", DecorSeat::new, DecorSeat::attributes);
 
     static {

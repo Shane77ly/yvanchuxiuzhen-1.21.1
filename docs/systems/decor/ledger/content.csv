@@ -669,7 +669,7 @@ item,yvanchuxitong:plaque_0902,yvanchuxitong,Plaque0902,src/main/java/net/mcreat
 item,yvanchuxitong:plaque_0903,yvanchuxitong,Plaque0903,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,143,decor,已读,yvanchuxiuzhen:plaque_0903,已注册,
 item,yvanchuxitong:plaque_09item,yvanchuxitong,Plaque09item,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,122,decor,已读,yvanchuxiuzhen:plaque_09item,已注册,
 item,yvanchuxitong:putuan,yvanchuxitong,Putuan,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,194,decor,已读,yvanchuxiuzhen:putuan,已注册,
-item,yvanchuxitong:tiandaojianzhu,yvanchuxitong,Tiandaojianzhu,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,96,decor,已读,yvanchuxiuzhen:tiandaojianzhu,已注册,
+item,yvanchuxitong:tiandaojianzhu,yvanchuxitong,Tiandaojianzhu,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,96,decor,已读,yvanchuxiuzhen:tiandaojianzhu,行为已迁移,建筑笔来源选点、瓦片切换、悬山/硬山/歇山/庑殿两点铺设已接；Q204–Q206保持来源；正式转换和目标检查待主线
 item,yvanchuxitong:zhuangshi_tulong_01,yvanchuxitong,ZhuangshiTulong01,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,108,decor,已读,yvanchuxiuzhen:zhuangshi_tulong_01,行为已迁移,兔笼两块三物品生命周期、单槽BE/能力/渲染已实现；来源Q125–Q129保持，必要单项及未验范围见本月记录。
 item,yvanchuxitong:zhuangshi_tulong_02,yvanchuxitong,ZhuangshiTulong02,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,109,decor,已读,yvanchuxiuzhen:zhuangshi_tulong_02,行为已迁移,兔笼两块三物品生命周期、单槽BE/能力/渲染已实现；来源Q125–Q129保持，必要单项及未验范围见本月记录。
 item,yvanchuxitong:zhuangshishuigang,yvanchuxitong,Zhuangshishuigang,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,113,decor,已读,yvanchuxiuzhen:zhuangshishuigang,已注册,
