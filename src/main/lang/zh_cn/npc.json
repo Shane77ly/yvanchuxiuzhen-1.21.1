@@ -91,5 +91,11 @@
   "gui.yvanchuxiuzhen.npc.management.field.manadeftxt": "法力防御",
   "gui.yvanchuxiuzhen.npc.management.field.soulatttxt": "神魂攻击",
   "gui.yvanchuxiuzhen.npc.management.field.souldeftxt": "神魂防御",
-  "gui.yvanchuxiuzhen.npc.management.field.speednumtxt": "速度"
+  "gui.yvanchuxiuzhen.npc.management.field.speednumtxt": "速度",
+  "block.yvanchuxiuzhen.qiankundaoren": "乾坤道人",
+  "block.yvanchuxiuzhen.qiankunmentu": "乾坤门徒",
+  "item.yvanchuxiuzhen.qiankundaoren": "乾坤道人",
+  "item.yvanchuxiuzhen.qiankunmentu": "乾坤门徒",
+  "gui.yvanchuxiuzhen.qiankunmentu_gui.button_empty": "+",
+  "gui.yvanchuxiuzhen.qiankunmentu_gui.task_index": "§6第%s个任务"
 }

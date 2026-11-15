@@ -67,9 +67,15 @@ public final class QiankundaorenBlockEntity extends RandomizableContainerBlockEn
         level.sendParticles(ParticleTypes.SMOKE, x, y, z, 10, 0, 0, 0, 1);
         level.sendParticles(ParticleTypes.CLOUD, x, y, z, 10, 0, 0, 0, 1);
         double tick = data.getDouble("yanwutick") + 1;
-        if (tick >= 54) { data.putBoolean("yanwubaofa", false); tick = 0; }
         data.putDouble("yanwutick", tick);
         setChanged();
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+        if (tick >= 54) {
+            data.putBoolean("yanwubaofa", false);
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+            data.putDouble("yanwutick", 0);
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+        }
     }
 
     @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) { super.loadAdditional(tag, registries); }

@@ -54,10 +54,13 @@ public final class QiankunmentuBlockEntity extends RandomizableContainerBlockEnt
     public double renwuset() { return getPersistentData().getDouble("renwuset"); }
     public void incrementRenwuset() {
         double value = renwuset() + 1;
-        if (value >= 10) value = 0;
         getPersistentData().putDouble("renwuset", value);
         setChanged();
         if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+        if (value >= 10) {
+            getPersistentData().putDouble("renwuset", 0);
+            if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+        }
     }
 
     @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {

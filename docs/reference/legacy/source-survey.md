@@ -2,7 +2,7 @@
 topic: source-architecture-survey
 role: data
 status: partial
-updated: 2026-11-14
+updated: 2026-11-15
 ---
 
 # 1.18.2 版本架构调查
@@ -252,8 +252,12 @@ updated: 2026-11-14
 | Q151 | 来源02管理菜单已注册但未发现可达入口；保持待核 | `TIANDAO_NP_CSET_02`只有菜单/屏幕注册，零槽容器与单文本框无按钮或消息；源码范围内未找到打开调用，目标未接入 | [NPC Q151](../../systems/npc/architecture.md#q151-管理工具02界面没有可达入口) |
 
 | Q152 | 阵旗来源写入任意方块实体，目标仅接受阵基实体；待裁定 | FlagmotherItem/FlagsonItem按目标坐标访问下方任意方块实体；目标保持阵法数据所有者边界，不扩写未知方块实体 | [阵法](../../systems/zhenfa/architecture.md#来源差异与当前边界) |
-| Q153 | 乾坤道人/门徒Blockly任务脚本与事件根脱接；保持来源可执行行为 | XML存在8条脚本及0/9分支，但生成Java事件根仅含创意潜行GUI，未连接任务提交；目标不补造普通右键任务入口 | [NPC](../../systems/npc/architecture.md#乾坤道人与门徒来源断链) |
-| Q154 | 来源renwuset命令与门徒GUI字段写入方式不同；待集中裁定 | 命令写同名键字符串并接受任意命令源坐标，GUI写0–9整数；命令射线坐标未消费，当前管理包不迁移命令 | [NPC](../../systems/npc/architecture.md#乾坤道人与门徒来源断链) |
+| Q153 | 乾坤门徒Blockly任务脚本与事件根脱接；保持来源可执行行为 | XML存在8条脚本及0/9分支，但生成Java事件根仅含创意潜行GUI，未连接任务提交；目标不补造普通右键任务入口 | [NPC](../../systems/npc/architecture.md#乾坤道人与门徒来源断链) |
+| Q154 | 来源renwuset命令与门徒GUI字段写入方式不同；待集中裁定 | 命令写同名键字符串并接受任意命令源坐标，GUI写0–9数值（double）；命令射线坐标未消费，当前管理包不迁移命令 | [NPC](../../systems/npc/architecture.md#乾坤道人与门徒来源断链) |
+| Q155 | 目标道人烟雾计数同步遗漏已修；必要单项通过 | 按来源逐次递增同步，并在54次后分别同步关闭和清零；不以setChanged替代网络更新 | [NPC Q155](../../systems/npc/architecture.md#q155-道人烟雾逐次状态同步遗漏) |
+| Q156 | 目标乾坤方块贴图目录转换遗漏已修；图集警告消失 | 粒子模型与Geo渲染统一使用textures/block，由内容台账和资产清单重生成，移除旧blocks副本 | [NPC Q156](../../systems/npc/architecture.md#q156-乾坤方块贴图目录没有进入目标图集) |
+| Q157 | 本批门徒动态文本颜色中断已修；截图复看通过 | 按1.18.2版本先展开完整带§6的编号字符串，再绘制，保留中文映射和整段颜色 | [NPC Q157](../../systems/npc/architecture.md#q157-门徒任务编号翻译参数中断颜色) |
+| Q158 | 三类盘菜模型纹理警告；原因待核 | 目标客户端food_011/027/066多朝向及inventory报告缺失sprite；尚未判定来源缺失、转换或模型引用问题，留Cooking追踪 | [Cooking Q158](../../systems/cooking/architecture.md#q158-三类盘菜模型纹理警告) |
 
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 

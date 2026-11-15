@@ -19,7 +19,7 @@ public final class QiankunItemRenderer extends GeoItemRenderer<QiankunBlockItem>
     }
     private static final class Model extends GeoModel<QiankunBlockItem> {
         @Override public ResourceLocation getModelResource(QiankunBlockItem item) { return QiankunRenderer.resource("geo/" + item.id() + ".geo.json"); }
-        @Override public ResourceLocation getTextureResource(QiankunBlockItem item) { return QiankunRenderer.resource("textures/blocks/" + item.id() + ".png"); }
+        @Override public ResourceLocation getTextureResource(QiankunBlockItem item) { return QiankunRenderer.resource("textures/block/" + item.id() + ".png"); }
         @Override public ResourceLocation getAnimationResource(QiankunBlockItem item) { return QiankunRenderer.resource("animations/" + item.id() + ".animation.json"); }
     }
 }

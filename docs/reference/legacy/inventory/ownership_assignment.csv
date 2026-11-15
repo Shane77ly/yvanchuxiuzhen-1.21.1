@@ -3049,7 +3049,7 @@ yvanchuxiuzhen,QiankunmentuZaiFangKuaiShangYouJian,procedure,~/tool/xvnlong,npc,
 yvanchuxiuzhen,Qiankunmentu,animatedblock,~/tool/xvnlong,npc,已读,B1 归属阅读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,RenwusetGo,procedure,~/systemset/zhiling,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Renwuset,command,~/systemset/zhiling,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,QiankunmentuGui,gui,~/tool/xvnlong,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,QiankunmentuGui,gui,~/tool/xvnlong,npc,已读,A:QiankunmentuGuiMenu为零槽常有效菜单；GuiScreen的0号按钮经QiankunmentuGuiButtonMessage调用MentuRenwuqiehuan；显示同一门徒方块实体renwuset，属于NPC管理路径
 yvanchuxiuzhen,MentuRenwuweizhi,procedure,~/tool/xvnlong,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,MentuRenwuqiehuan,procedure,~/tool/xvnlong,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Playerchuansuo,function,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）

@@ -1,6 +1,6 @@
 {
   "parent": "yvanchuxiuzhen:displaysettings/qiankunmentu.item",
   "textures": {
-    "particle": "yvanchuxiuzhen:blocks/qiankunmentu"
+    "particle": "yvanchuxiuzhen:block/qiankunmentu"
   }
 }

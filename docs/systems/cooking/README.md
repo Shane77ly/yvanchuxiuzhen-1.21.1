@@ -2,7 +2,7 @@
 topic: cooking
 role: entry
 status: partial
-updated: 2026-11-11
+updated: 2026-11-15
 ---
 
 # 烹饪
@@ -73,3 +73,5 @@ updated: 2026-11-11
 糯稻002续批补读四种子转一份糯米的普通无序配方、定义和糯米物品类，按食材加工职责归Cooking；Plant只提供种子。目标既有配方无改动；原生RecipeManager匹配及assemble已在最新166项INFO、0 FAIL、DONE的内置场景通过，完整构建与专服加载保存退出通过。该检查未模拟玩家工作台取出，完整自然供给仍待闭合，见本批月志。
 
 28种作物供给整批运行收口：最终既有`runSmokeClient -PsmokeOnly=fulucooking`为238项INFO、0 FAIL、DONE（3m11s/退出0），客户端四维度正常保存退出且ERROR/FATAL0。专服在Done后通过持有stdin实际发送原生stop，正常保存四维度，BUILD SUCCESSFUL（29s）/退出0、ERROR/FATAL0。31个实际播种入口覆盖28种作物，八个可食播种物组件保留；完整自然供给与两版本验收仍未闭合。
+
+目标资源加载中观察到三类盘菜纹理警告，原因及来源模型链仍待核实，见[Q158](architecture.md#q158-三类盘菜模型纹理警告)；本次只登记，不提升实现或验收状态。

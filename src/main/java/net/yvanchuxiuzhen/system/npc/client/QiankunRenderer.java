@@ -18,7 +18,7 @@ public final class QiankunRenderer<T extends BlockEntity & GeoAnimatable> extend
         private final String id;
         Model(String id) { this.id = id; }
         @Override public ResourceLocation getModelResource(T block) { return resource("geo/" + id + ".geo.json"); }
-        @Override public ResourceLocation getTextureResource(T block) { return resource("textures/blocks/" + id + ".png"); }
+        @Override public ResourceLocation getTextureResource(T block) { return resource("textures/block/" + id + ".png"); }
         @Override public ResourceLocation getAnimationResource(T block) { return resource("animations/" + id + ".animation.json"); }
     }
     static ResourceLocation resource(String path) { return ResourceLocation.fromNamespaceAndPath(ModId.VALUE, path); }

@@ -2,7 +2,7 @@
 topic: npc
 role: architecture
 status: partial
-updated: 2026-11-14
+updated: 2026-11-15
 ---
 
 # 修士身份、实例与交互
@@ -53,7 +53,7 @@ B `NpcshujvjiaruProcedure:27–85`从`npc.data.list{n}`语言键逐项解析`/`�
 
 ## 开放范围与验证边界
 
-当前仍未接入`qiankundaoren/qiankunmentu`方块/管理路径与其剩余行为。固定结构、动态生成与自然生成分别核对，实体内容表和标签存在不等于已在生存世界投放。
+乾坤道人/门徒方块、管理路径及来源库存已接入，当前边界见下文；门徒断链任务和管理命令仍按Q153/Q154开放。固定结构、动态生成与自然生成分别核对，实体内容表和标签存在不等于已在生存世界投放。
 
 本批完成静态源码和内容JSON核对；主线已接资源共享清单与`npcentity`标签，定向转换、编译和6项架构检查通过。普通商人原生右键/随机商店/存档/AI/模型仍待必要实机验证；居民和08飞梭有限1.21.1版本证据见下文及月志，不扩展为普通商人通过。1.18.2版本实机、多人和两版本对照均未执行；已有银行单步验收不能覆盖这些新增消费者。
 
@@ -97,17 +97,37 @@ A `animations/yanwang.animation.json`的`animation.yanwang.idle`引用`bai`骨�
 
 ### Q149 管理工具档案消费者覆盖范围
 
-A `RightClickEntityProcedure:188–473`允许工具复制到任意非玩家`Mob`，写入等级、13项资质、任务脚本、商品、装备与名称，并调用`NpcshuxingjisuanProcedure`。目标`NpcProfiles.apply`对任意`Mob`保留名称、装备和粒子，但`applyOwnedProfile`仅由NPC系统处理`NpcMob`、`NpcResident`、`NpcFlyingShuttle`；其他`Mob`不会接收持久档案字段或触发属性重算。来源目标覆盖差异已确认，后续需按实体数据所有者补齐消费者，并核对普通生物属性模型边界；当前管理Smoke尚未运行。
+A `RightClickEntityProcedure:188–473`允许工具复制到任意非玩家`Mob`，写入等级、13项资质、任务脚本、商品、装备与名称，并调用`NpcshuxingjisuanProcedure`。目标`NpcProfiles.apply`对任意`Mob`保留名称、装备和粒子，但`applyOwnedProfile`仅由NPC系统处理`NpcMob`、`NpcResident`、`NpcFlyingShuttle`；其他`Mob`不会接收持久档案字段或触发属性重算。来源目标覆盖差异已确认，后续需按实体数据所有者补齐消费者，并核对普通生物属性模型边界；管理Smoke首轮及修正后重进OOM的边界见[本月记录](logs/2026-11.md#2026-11-14-管理smoke首轮与夹具修正)，本项消费者遗漏未闭合。
 
 ### Q150 管理工具潜行提示与实际入口不一致
 
-A `TiandaoNPCsetitemItem.appendHoverText`提示潜行右键打开面板，但同类`use`入口在右键时直接调用`NetworkHooks.openGui`，未检查潜行；目标`NpcManagementItem.use`同样未检查潜行。目标语言提示已改为普通右键，与实际入口一致，没有新增潜行门控。来源提示是否表达了未实现的原意仍待统一裁定；本轮Smoke待运行。
+A `TiandaoNPCsetitemItem.appendHoverText`提示潜行右键打开面板，但同类`use`入口在右键时直接调用`NetworkHooks.openGui`，未检查潜行；目标`NpcManagementItem.use`同样未检查潜行。目标语言提示已改为普通右键，与实际入口一致，没有新增潜行门控。来源提示是否表达了未实现的原意仍待统一裁定；管理Smoke已执行，首轮与复跑边界见本月记录，未将该来源门控疑点判为已裁定。
 
 ### Q151 管理工具02界面没有可达入口
 
 A `TIANDAO_NP_CSET_02`在`YvanchuxiuzhenModMenus`和`YvanchuxiuzhenModScreens`注册，但除定义、注册与屏幕绑定外，来源静态索引未找到打开调用。`TiandaoNPCset02Menu`的内部容器容量为0，菜单只添加玩家背包；屏幕只有`chouqvnum`文本框，没有按钮、按键分派或网络消息。目标保留已确认可达的`tiandao_np_cset`管理面板，没有接入该02菜单，也不猜测抽取次数字段的消费者；将它作为来源注册但不可达的项目保留，待集中判断其身份应如何处理。
 
 
+## 乾坤道人与门徒方块（2026-11-15）
+
+两个方块、两个物品、两个方块实体及门徒菜单实际已在`b938271d`集成，本批复核后补齐菜单归属阅读和七条台账状态，不再应用旧worktree冻结补丁。来源依据为A `block/QiankundaorenBlock.java`、`QiankunmentuBlock.java`、对应`block/entity/*TileEntity.java`、`world/inventory/QiankunmentuGuiMenu.java`、`client/gui/QiankunmentuGuiScreen.java`及下列过程。自然放置、获取与完整模型动画对照仍需另验。
+
+道人任意普通右键在`<玩家UUID>zhuangtai`为空时置动画1、`yanwubaofa=true`及“准备”；同一玩家已有状态时不重启。方块每两游戏刻执行一次烟雾过程，每次发送10个SMOKE与10个CLOUD，`yanwutick`以double递增；达到54后先关闭再清零。门徒仅创意潜行右键打开176×166设置页，菜单自身无槽且持续有效，0号按钮将同一方块实体的double字段`renwuset`加1，达到10回绕0；按来源保留先同步增量、再同步回绕的顺序。编号动态文本与加号使用最终合并语言键。
+
+道人暴露零槽物品能力；门徒暴露六面及无方向共用的一槽库存，单栈上限1，菜单不展示该槽。方块实体持有编号、按玩家状态、烟雾状态及库存，服务端写入、客户端经方块实体更新读取；持久数据与物品实例组件随方块实体保存。
+
+### Q155 道人烟雾逐次状态同步遗漏
+
+A `QiankundaorenGengXinYouXiKeProcedure`在每次计数递增后调用`sendBlockUpdated`，结束时分别同步关闭和清零。目标先前只调用`setChanged`，中间计数没有交付客户端；本批按来源补齐三处更新顺序。这是确认的目标遗漏，必要客户端单项已确认自然周期、中间计数与结束状态同步；真实保存重进保留UUID状态与已关闭计数，结果见本月记录。
+
+### Q156 乾坤方块贴图目录没有进入目标图集
+
+先前直接复制到`textures/blocks`并保留模型粒子`blocks/qiankun*`引用，目标1.21.1方块图集缺失这两个sprite，运行日志已出现警告。本批把七条内容台账接入既有`convert_assets.py --owner npc`，由转换器统一产出`textures/block`并重写粒子模型，Geo方块及物品渲染器同步使用该路径。几何、动画和菜单背景进入唯一转换清单；旧目录副本移除。转换84项、缺失0，必要客户端单项中这两类图集缺失警告消失，截图可见道人侧面与门徒台座/金块；该视角不代表完整模型或动画对照通过。
+
+### Q157 门徒任务编号翻译参数中断颜色
+
+1.18.2版本`MentuRenwuweizhiProcedure`先拼出完整的“§6第<编号>个任务”字符串，再交给字体绘制。本批首次将编号迁入翻译组件后，截图显示只有“第”字为金色，其余参数及后缀回到默认色；这属于本批引入的目标表现差异。目标改为先展开翻译组件的完整字符串，再按来源字符串绘制，继续保留语言键及来源颜色范围；修复后再次串行运行必要单项，截图已复看，编号整段金色与来源一致。
+
 ### 乾坤道人与门徒来源断链
 
-QiankunmentuZaiFangKuaiShangYouJian生成Java的事件根只有创造模式潜行右键打开管理界面；Blockly XML中另有8条任务脚本及0/9分支，但它们是未连接到event_trigger的根级controls_if，生成代码不会执行任务提交。目标按生成Java的实际可执行行为接入方块、方块实体、管理界面与renwuset 0–9回绕，不凭未连接脚本补造普通右键任务入口。来源另有/renwuset管理命令把同名字段写成字符串，并从命令源位置计算未消费的射线坐标；该命令不在当前管理包范围内，保留为Q154待裁定。证据为来源elements/QiankunmentuZaiFangKuaiShangYouJian.mod.json与生成Java文件，目标Smoke待主线串行执行。
+QiankunmentuZaiFangKuaiShangYouJian生成Java的事件根只有创造模式潜行右键打开管理界面；Blockly XML中另有8条任务脚本及0/9分支，但它们是未连接到event_trigger的根级controls_if，生成代码不会执行任务提交。目标按生成Java的实际可执行行为接入方块、方块实体、管理界面与renwuset 0–9回绕，不凭未连接脚本补造普通右键任务入口。来源另有/renwuset管理命令把同名字段写成字符串，并从命令源位置计算未消费的射线坐标；该命令不在当前管理包范围内，保留为Q154待裁定。证据为来源elements/QiankunmentuZaiFangKuaiShangYouJian.mod.json与生成Java文件，生成Java的可达管理入口已纳入本批必要单项；脱接脚本与命令仍待集中裁定。

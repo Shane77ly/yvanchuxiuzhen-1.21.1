@@ -91,5 +91,11 @@
   "gui.yvanchuxiuzhen.npc.management.field.manadeftxt": "Mana defense",
   "gui.yvanchuxiuzhen.npc.management.field.soulatttxt": "Soul attack",
   "gui.yvanchuxiuzhen.npc.management.field.souldeftxt": "Soul defense",
-  "gui.yvanchuxiuzhen.npc.management.field.speednumtxt": "Speed"
+  "gui.yvanchuxiuzhen.npc.management.field.speednumtxt": "Speed",
+  "block.yvanchuxiuzhen.qiankundaoren": "Qiankun Daoist",
+  "block.yvanchuxiuzhen.qiankunmentu": "Qiankun Disciple",
+  "item.yvanchuxiuzhen.qiankundaoren": "Qiankun Daoist",
+  "item.yvanchuxiuzhen.qiankunmentu": "Qiankun Disciple",
+  "gui.yvanchuxiuzhen.qiankunmentu_gui.button_empty": "+",
+  "gui.yvanchuxiuzhen.qiankunmentu_gui.task_index": "§6Task %s"
 }

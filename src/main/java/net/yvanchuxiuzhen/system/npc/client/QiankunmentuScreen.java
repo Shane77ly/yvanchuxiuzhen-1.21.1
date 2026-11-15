@@ -25,7 +25,8 @@ public final class QiankunmentuScreen extends AbstractContainerScreen<Qiankunmen
     }
     @Override protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         if (minecraft.level.getBlockEntity(menu.pos) instanceof QiankunmentuBlockEntity entity) {
-            graphics.drawString(font, "§6第" + new DecimalFormat("0").format(entity.renwuset()) + "个任务", 15, 25, -12829636, false);
+            graphics.drawString(font, Component.translatable("gui.yvanchuxiuzhen.qiankunmentu_gui.task_index",
+                    new DecimalFormat("0").format(entity.renwuset())).getString(), 15, 25, -12829636, false);
         }
     }
 }
