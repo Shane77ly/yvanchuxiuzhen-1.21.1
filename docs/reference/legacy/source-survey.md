@@ -279,7 +279,7 @@ updated: 2026-11-15
 | Q174 | 任务方块编辑器空值与事件顺序差异；待核实/保持来源 | 空输入保留旧值、切换高级/普通保留另一类脚本、粒子勾选不能取消；右键事件不取消，潜行空手可能继续执行原对话，已接入但未做客户端复核 | [quest 月志](../../systems/quest/logs/2026-11.md) |
 | Q175 | 固定商人刷怪蛋转换未完成；待验证 | 11枚蛋的生产注册、来源颜色、内容条目、双语名称和模型已接回，仍待客户端显示/自然生成验证，未提升为行为已迁移 | [npc 月志](../../systems/npc/logs/2026-11.md) |
 | Q176 | Pao10 资源静态核对已完成；客户端显示待验证 | 资源审计确认Pao10–Pao13所需方块状态、模型、物品模型、贴图和Pao10粒子图集均存在；来源`pao1002.png`无JSON/Java调用，记录为来源孤儿资源，不复制；客户端显示与表现单项仍待 | [festival 月志](../../systems/festival/logs/2026-11.md) |
-| Q177 | 宝箱奖励消费存在来源拼写/未注册ID候选；待裁定/待核实 | `TreasureRewardTables.java:1265,1284,1303,1322,1341,1360,1379,1398`使用`armor_01..08_leggins`，目标注册为`armor_*_leggings`；`QuestStructureData.java`花繁城商品串复用该拼写；`TreasureRewardTables.java:2482`单独引用未注册`cailiao_153`。未批准前保持来源，不擅自映射邻近材料或修正商品串 | [treasure 月志](../../systems/treasure/logs/2026-11.md) |
+| Q177 | 宝箱奖励消费存在来源拼写/未注册ID候选；待裁定/待核实 | `TreasureRewardTables.java:1265,1284,1303,1322,1341,1360,1379,1398`使用`armor_01..08_leggins`，目标注册为`armor_*_leggings`；`QuestStructureData.java`花繁城商品串复用该拼写；`TreasureRewardTables.java:2482`单独引用未注册`cailiao_153`。2026-11-15静态24分派、30个来源指纹和所有者API核验通过；未批准前保持来源，不擅自映射邻近材料或修正商品串 | [treasure 月志](../../systems/treasure/logs/2026-11.md#2026-11-15-奖励表24分派与解释器静态核验) |
 
 
 | Q178 | 空间五无映射仍拼接空维度与显示名命令；保持来源，待裁定/待验证 | 未匹配阵位或境界时维度字符串为空；目标保留来源命令，不补默认维度，也不改用UUID；完整跨维路径未验 | [阵法空间效果](../../systems/zhenfa/architecture.md#阵基效果阴系与空间系2026-11-15) |
