@@ -114,5 +114,71 @@
     "order": 1721,
     "tab": "yvanchuxiuzhen:tabyvanchu_tiandao",
     "stack": 1
+  },
+  {
+    "id": "businessman_01_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_01",
+    "order": 1604,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_02_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_02",
+    "order": 1605,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_03_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_03",
+    "order": 1606,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_04_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_04",
+    "order": 1643,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_05_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_05",
+    "order": 1644,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_06_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_06",
+    "order": 1645,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_07_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_07",
+    "order": 1646,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "daguanjia_spawn_egg",
+    "factory": "npc:spawn_egg_daguanjia",
+    "order": 1757,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_09_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_09",
+    "order": 2053,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_10_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_10",
+    "order": 2054,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
+  },
+  {
+    "id": "businessman_11_spawn_egg",
+    "factory": "npc:spawn_egg_businessman_11",
+    "order": 2055,
+    "tab": "yvanchuxiuzhen:tabyvanchu_entity"
   }
 ]

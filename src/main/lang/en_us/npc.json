@@ -97,5 +97,16 @@
   "item.yvanchuxiuzhen.qiankundaoren": "Qiankun Daoist",
   "item.yvanchuxiuzhen.qiankunmentu": "Qiankun Disciple",
   "gui.yvanchuxiuzhen.qiankunmentu_gui.button_empty": "+",
-  "gui.yvanchuxiuzhen.qiankunmentu_gui.task_index": "§6Task %s"
+  "gui.yvanchuxiuzhen.qiankunmentu_gui.task_index": "§6Task %s",
+  "item.yvanchuxiuzhen.businessman_01_spawn_egg": "Businessman 0 1 Spawn Egg",
+  "item.yvanchuxiuzhen.businessman_02_spawn_egg": "Businessman 0 2 Spawn Egg",
+  "item.yvanchuxiuzhen.businessman_03_spawn_egg": "Businessman 0 3 Spawn Egg",
+  "item.yvanchuxiuzhen.businessman_04_spawn_egg": "Businessman 0 4 Spawn Egg",
+  "item.yvanchuxiuzhen.businessman_05_spawn_egg": "Businessman 0 5 Spawn Egg",
+  "item.yvanchuxiuzhen.businessman_06_spawn_egg": "Businessman 0 6 Spawn Egg",
+  "item.yvanchuxiuzhen.businessman_07_spawn_egg": "Businessman 0 7 Spawn Egg",
+  "item.yvanchuxiuzhen.daguanjia_spawn_egg": "Daguanjia Spawn Egg",
+  "item.yvanchuxiuzhen.businessman_09_spawn_egg": "Businessman 0 9 Spawn Egg",
+  "item.yvanchuxiuzhen.businessman_10_spawn_egg": "Businessman 1 0 Spawn Egg",
+  "item.yvanchuxiuzhen.businessman_11_spawn_egg": "Businessman 1 1 Spawn Egg"
 }

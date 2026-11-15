@@ -22,16 +22,6 @@ block,yvanchuxiuzhen:xveliu,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:zhuangshiqiantong,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:zhuangshitizi,方块基类 BaseEntityBlock 由所属系统迁移
 item,yvanchuxiuzhen:biggrassyincang,物品类 BiggrassyincangDisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:businessman_01_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:businessman_02_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:businessman_03_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:businessman_04_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:businessman_05_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:businessman_06_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:businessman_07_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:businessman_09_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:businessman_10_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:businessman_11_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:clothes_08_boots,Clothes08Item.Boots：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_08_chestplate,Clothes08Item.Chestplate：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_08_helmet,Clothes08Item.Helmet：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
@@ -60,7 +50,6 @@ item,yvanchuxiuzhen:clothes_20_boots,Clothes20Item.Boots：盔甲使用自定义
 item,yvanchuxiuzhen:clothes_20_chestplate,Clothes20Item.Chestplate：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_20_helmet,Clothes20Item.Helmet：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_20_leggings,Clothes20Item.Leggings：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
-item,yvanchuxiuzhen:daguanjia_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:flagmother,物品类 FlagmotherDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:flagson,物品类 FlagsonDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:gongfaxvexi,物品类 GongfaxvexiDisplayItem 由所属系统迁移

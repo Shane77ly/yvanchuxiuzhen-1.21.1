@@ -97,5 +97,16 @@
   "item.yvanchuxiuzhen.qiankundaoren": "乾坤道人",
   "item.yvanchuxiuzhen.qiankunmentu": "乾坤门徒",
   "gui.yvanchuxiuzhen.qiankunmentu_gui.button_empty": "+",
-  "gui.yvanchuxiuzhen.qiankunmentu_gui.task_index": "§6第%s个任务"
+  "gui.yvanchuxiuzhen.qiankunmentu_gui.task_index": "§6第%s个任务",
+  "item.yvanchuxiuzhen.businessman_01_spawn_egg": "当铺掌柜",
+  "item.yvanchuxiuzhen.businessman_02_spawn_egg": "符箓商人",
+  "item.yvanchuxiuzhen.businessman_03_spawn_egg": "材料商人",
+  "item.yvanchuxiuzhen.businessman_04_spawn_egg": "花繁城主",
+  "item.yvanchuxiuzhen.businessman_05_spawn_egg": "百福草药商",
+  "item.yvanchuxiuzhen.businessman_06_spawn_egg": "菜摊老板",
+  "item.yvanchuxiuzhen.businessman_07_spawn_egg": "天从铁匠",
+  "item.yvanchuxiuzhen.daguanjia_spawn_egg": "大管家",
+  "item.yvanchuxiuzhen.businessman_09_spawn_egg": "矿石商人",
+  "item.yvanchuxiuzhen.businessman_10_spawn_egg": "中级材料商",
+  "item.yvanchuxiuzhen.businessman_11_spawn_egg": "高级材料商"
 }
