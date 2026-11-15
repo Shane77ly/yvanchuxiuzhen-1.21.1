@@ -177,7 +177,7 @@ B `Taskduihuashijian2:185–186`内嵌选项仅生成`/scoreboard players set -2
 
 ### Q171 连续选择后处理未发现调用者
 
-B `TaskXvanzehouProcedure`可将记分板选择转为playerxvanze并继续解释器，但生成Java检索仅见定义，未发现调用者。目标命令现在在活动选项下按`daan<序号>`写入会话`playerxvanze`并直接调用连续聊天解释器；`QuestChatRuntime`仍在入口消费该字段并清零，避免重复推进。没有活动选项时不启动解释器，仅保留来源记分板写入。代码闭环已接入，动态脚本消费者、自然入口和完整任务链仍待实机核验。
+B `TaskXvanzehouProcedure`可将记分板选择转为`playerxvanze`并继续解释器，但生成Java检索仅见定义，未发现调用者；`PlayerTickxitong.mod.json`中的`call_procedure_at`块位于XML顶层孤立块，不属于玩家tick主链。目标保留任务会话对`playerxvanze`的消费，不另造tick或命令调用。`QuestChatCommand`只写记分板`renwuweizhi`，`DialogueRuntime.choose`直接写任务游标；经济系统的同名字段属于独立Commerce会话，不能作为任务选择生产者。动态资源与实际消费者待核实，不能把连续解释器接线宣称为完整自然任务闭合。
 
 ### Q172 任务按键语言命名空间遗漏
 

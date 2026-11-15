@@ -272,7 +272,7 @@ updated: 2026-11-15
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 | Q169 | 连续选项命令参数错位；代码已兼容来源点击格式，待运行补核 | click多出renwuweizhi参数，名字MessageArgument吞余参；目标改为greedy参数解析末尾序号并兼容可选标记与空格显示名 | [quest Q169](../../systems/quest/architecture.md#q169-连续选项命令参数错位) |
 | Q170 | 内嵌选项命令缺参；待裁定/保持来源 | 来源只有/scoreboard players set -2，未擅自补参数 | [quest Q170](../../systems/quest/architecture.md#q170-内嵌选项命令缺少参数) |
-| Q171 | 连续选择后处理已有目标命令闭环，待动态脚本补核 | 活动选项命令按daan序号写playerxvanze并直接继续QuestChatRuntime；无活动选项不推进，完整自然消费者仍待核 | [quest Q171](../../systems/quest/architecture.md#q171-连续选择后处理未发现调用者) |
+| Q171 | 连续选择后处理无已发现调用者；保持来源，待核实 | `TaskXvanzehouProcedure`仅有定义；`PlayerTickxitong.mod.json`中的调用块为XML顶层孤立块，生成Java无实际调用。目标仅保留任务会话`playerxvanze`消费；记分板写入和经济同名字段均不构成任务生产者，不补造tick或命令调用 | [quest Q171](../../systems/quest/architecture.md#q171-连续选择后处理未发现调用者) |
 
 | Q172 | 任务按键语言命名空间遗漏；目标已修/待运行补核 | 首轮显示原始键；已修两语言与转换输入，下轮只补此键 | [quest Q172](../../systems/quest/architecture.md#q172-任务按键语言命名空间遗漏) |
 | Q173 | 任务列表固定画布裁切；待裁定/保持来源 | 854×480截图可见中文八行，500×500画布部分越界，完整视觉不判通过 | [quest Q173](../../systems/quest/architecture.md#q173-任务列表固定画布裁切) |
