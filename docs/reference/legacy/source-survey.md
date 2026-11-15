@@ -261,7 +261,7 @@ updated: 2026-11-15
 | Q159 | 来源管理工具对缺少攻击属性的Mob会空指针；静态确认，待集中裁定 | 来源允许任意Mob，但计算到attack_Num后无判空更新ATTACK_DAMAGE；Forge40.1.0默认牛不含此属性，前序写入及20刻生命回调已发生；不擅自加属性或跳过异常 | [NPC Q159](../../systems/npc/architecture.md#q159-管理工具对缺少攻击属性的mob发生异常) |
 | Q160 | 来源分页先整数除法及原始偏移；保持来源，待裁定 | 任务分类后仍按原始目录偏移，整页可能出现空页，分类切换不清页码 | [quest Q160](../../systems/quest/architecture.md#q160-任务页数与原始目录偏移) |
 | Q161 | 来源任务页码恒为0/0；保持来源，待裁定 | 显示过程从ItemStack.EMPTY取页码而非玩家会话，实际导航仍读本人目录 | [quest Q161](../../systems/quest/architecture.md#q161-来源页码显示恒为00) |
-| Q162 | 八个空谷残卷结构的成就动态授予链已发现；待运行核实 | 八模板任务伪装方块分别嵌入001–008授予命令，目标保留原脚本且入口至命令执行器静态可达；Java直接API授予者仍未发现，未作实机验证 | [quest Q162](../../systems/quest/architecture.md#q162-八个结构的成就动态授予链) |
+| Q162 | 八个空谷残卷结构的成就动态授予链已发现；静态自动核验通过，待运行核实 | `check_quest_advancement_chain.py`已逐个核对八模板块索引/坐标、`ForgeData`→`NeoForgeData`、任务方块ID、脚本逐字一致及001–008成就链；Java直接API授予者仍未发现，未作实机验证 | [quest Q162](../../systems/quest/architecture.md#q162-八个结构的成就动态授予链) |
 | Q163 | 虫卵培养说明与可执行入口断链；保持来源，待核实 | 静态虫卵没有use/useOn/tick或成虫配方，药锄生产者已接，不补孵化系统 | [guchong Q163](../../systems/guchong/architecture.md#q163-虫卵培养说明没有已发现的可执行入口) |
 | Q164 | 采药锄霉运读取幸运等级；保持来源，待裁定 | 霉运分支同样读幸运等级，无幸运时扣2%；概率不裁剪 | [equipment Q164](../../systems/equipment/architecture.md#q164-霉运分支读取幸运等级) |
 | Q165 | 红包末两档不可达；保持来源，待裁定 | roll为[1,100)，0.5档及else不命中，完整58档仍保留 | [festival Q165](../../systems/festival/architecture.md#q165-红包末两档不可达) |

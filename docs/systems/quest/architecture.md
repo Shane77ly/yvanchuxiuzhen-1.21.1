@@ -138,7 +138,7 @@ B `Fanyexianshi.execute()`没有玩家参数，从新建ItemStack.EMPTY读取ren
 
 ### Q162 八个结构的成就动态授予链
 
-当前状态为**静态链已发现、待运行核实**。A锁定来源的八个空谷残卷固定结构模板各嵌一条`advancement grant @p only yvanchuxiuzhen:chengjiu_00N`。命令存于任务伪装方块的`ForgeData`，目标对应结构保留同一块索引、相对坐标与完整脚本，仅将包装迁为`NeoForgeData`、方块和方块实体ID由`yvanchuxitong:renwuweizhuangfangkuai`转为合并后的命名空间。不能因来源Java没有直接调用成就API，就将这八项判为没有动态授予入口。
+当前状态为**静态链已发现、自动核验通过、待运行核实**。A锁定来源的八个空谷残卷固定结构模板各嵌一条`advancement grant @p only yvanchuxiuzhen:chengjiu_00N`。命令存于任务伪装方块的`ForgeData`，目标对应结构保留同一块索引、相对坐标与完整脚本，仅将包装迁为`NeoForgeData`、方块和方块实体ID由`yvanchuxitong:renwuweizhuangfangkuai`转为合并后的命名空间。不能因来源Java没有直接调用成就API，就将这八项判为没有动态授予入口。
 
 来源模板位于A `src/main/resources/data/yvanchuxiuzhen/structures/`，目标位于`src/main/resources/data/yvanchuxiuzhen/structure/`。下表块索引为NBT列表的零基索引；完整来源字段为`blocks[索引].nbt.ForgeData.脚本字段`，目标对应`NeoForgeData`。
 
@@ -157,7 +157,7 @@ B `Fanyexianshi.execute()`没有玩家参数，从新建ItemStack.EMPTY读取ren
 
 目标任务方块`DisguisedQuestBlock.java:64–78`将两种右键入口交给`DisguisedQuestRuntime.interact:38–53`，按序读取`renwulistN`或`tasklistN`并跳过已完成任务，然后经`DialogueActions.request:14–20`写会话；`DialogueRuntime.tick:64–102`启动执行，文字页继续后，`:207–214`以玩家位置和权限4执行“指令”。因此这批脚本从已实现任务方块入口至授予命令静态可达，仍保留来源`@p`选择器，不添加额外授予触发、替换为直接API或修改任务字段。
 
-`chengjiu_001`至`008`定义均已迁入目标singular `advancement`目录；八份来源与目标的criterion均为`minecraft:impossible`、奖励20经验、隐藏显示，001无父项、002–008依次以前一项为父项。来源Java全文仍未发现`award`/`getAdvancements`等直接API授予调用。本结论来自源码与NBT/JSON静态核对，未执行1.18.2版本实机、1.21.1版本成就自然授予、多人与两版本对照，完整授予及任务完成/重进表现待必要运行核实。
+`chengjiu_001`至`008`定义均已迁入目标singular `advancement`目录；八份来源与目标的criterion均为`minecraft:impossible`、奖励20经验、隐藏显示，001无父项、002–008依次以前一项为父项。`tools/porting/check_quest_advancement_chain.py`逐个解析来源/目标NBT与JSON，已核对八个块索引、相对坐标、`ForgeData`→`NeoForgeData`、任务方块ID、脚本SHA-256和001–008命令对应关系，输出见`build/diagnostics/q162-advancement-chain/static-parity.json`。来源Java全文仍未发现`award`/`getAdvancements`等直接API授予调用。本结论来自源码与NBT/JSON静态核对，未执行1.18.2版本实机、1.21.1版本成就自然授予、多人与两版本对照，完整授予及任务完成/重进表现待必要运行核实。
 
 剧情法术/精神动作只交付ManaAttackDamage/SoulAttackDamage、对应UUID、damagetype和Damage_multiplier；来源另一版消费过程无调用者，Q31保持开放，不能把字段登记写成已完成实际伤害结算。运行与未验范围只在本月记录维护。
 
