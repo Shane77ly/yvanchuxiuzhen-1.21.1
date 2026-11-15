@@ -39,6 +39,7 @@ import net.yvanchuxiuzhen.system.world.fluid.client.SpringFluidClientSetup;
 import net.yvanchuxiuzhen.system.world.fluid.client.QuicksandFluidClientSetup;
 import net.yvanchuxiuzhen.system.world.client.WorldClientSetup;
 import net.yvanchuxiuzhen.system.zhenfa.client.ZhenfaClientSetup;
+import net.yvanchuxiuzhen.collection.tiandao.client.NbtEditorClientSetup;
 
 /**
  * 客户端入口。FML 只在物理客户端构造本类，并在公共入口 {@link YvanchuxiuzhenMod} 之后构造；
@@ -82,5 +83,6 @@ public final class YvanchuxiuzhenClient {
         QuicksandFluidClientSetup.register(modBus);
         WorldClientSetup.register(modBus);
         ZhenfaClientSetup.register(modBus);
+        NbtEditorClientSetup.register(modBus);
     }
 }

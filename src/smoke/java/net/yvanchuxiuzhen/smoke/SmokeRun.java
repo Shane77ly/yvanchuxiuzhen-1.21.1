@@ -257,6 +257,9 @@ final class SmokeRun {
                     case "materialunlock" -> List.of(new MaterialUnlockCheck(report, levelId, this::shot));
                     case "cultivationcommand" -> List.of(new CultivationCommandCheck(report, levelId));
                     case "tiandao_display" -> List.of(new TiandaoDisplayCheck(report, levelId, this::shot));
+                     case "nbteditor" -> List.of(new NbtEditorCheck(report, levelId));
+                     case "birthinitialrewards" -> List.of(new BirthInitialRewardsCheck(report, levelId));
+                     case "tiandao_multi_structure" -> List.of(new TiandaoMultiStructureCheck(report, levelId, this::shot));
                     case "economycommand" -> List.of(new EconomyCommandCheck(report, levelId));
                     case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
                     case "naturalsilkchain" -> List.of(new NaturalSilkChainCheck(report, levelId));
