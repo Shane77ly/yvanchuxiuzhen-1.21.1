@@ -53,7 +53,7 @@ final class Fabao013Check extends ActionCheck {
                     player.connection.teleport(7.5, 100, -3.5, -90, 0);
                 }),
                 new Action(4, player -> {
-                    player.getMainHandItem().getItem().use(player.level(), player, InteractionHand.MAIN_HAND);
+                    use(player);
                     expectTrue("主世界右键进入人间道并保存主世界坐标",
                             player.level().dimension() == RENJIAN
                                     && player.position().x() == 0 && player.position().y() == 120 && player.position().z() == 0
@@ -62,21 +62,23 @@ final class Fabao013Check extends ActionCheck {
                                     && tag(player).getDouble("chuansongZ") == -3.5
                                     && player.getCooldowns().isOnCooldown(tool.getItem())
                                     && Cultivation.tizhiBoolean(player, "kaqiangpanding"));
+                    reloadTool(player);
                 }),
                 new Action(2, player -> {
                     player.getCooldowns().removeCooldown(tool.getItem());
                     player.connection.teleport(21.5, 64, 18.5, 0, 0);
-                    player.getMainHandItem().getItem().use(player.level(), player, InteractionHand.MAIN_HAND);
+                    use(player);
                     expectTrue("人间道右键返回主世界并保存人间道坐标",
                             player.level().dimension() == Level.OVERWORLD
                                     && player.position().x() == 7.5 && player.position().y() == 100 && player.position().z() == -3.5
                                     && tag(player).getDouble("mubiaoX") == 21.5
                                     && tag(player).getDouble("mubiaoY") == 64
                                     && tag(player).getDouble("mubiaoZ") == 18.5);
+                    reloadTool(player);
                 }),
                 new Action(2, player -> {
                     player.getCooldowns().removeCooldown(tool.getItem());
-                    player.getMainHandItem().getItem().use(player.level(), player, InteractionHand.MAIN_HAND);
+                    use(player);
                     expectTrue("再次进入使用人间道上次落点",
                             player.level().dimension() == RENJIAN
                                     && player.position().x() == 21.5 && player.position().y() == 64 && player.position().z() == 18.5);
@@ -85,7 +87,7 @@ final class Fabao013Check extends ActionCheck {
                     player.getCooldowns().removeCooldown(tool.getItem());
                     StatusEffects.add(player, "effect_002", 600, 0);
                     player.connection.teleport(2.5, 80, 2.5, 0, 0);
-                    player.getMainHandItem().getItem().use(player.level(), player, InteractionHand.MAIN_HAND);
+                    use(player);
                     expectTrue("沉默时右键不传送也不计冷却",
                             player.level().dimension() == RENJIAN
                                     && !player.getCooldowns().isOnCooldown(tool.getItem()));
@@ -109,6 +111,15 @@ final class Fabao013Check extends ActionCheck {
 
     private static CompoundTag tag(ServerPlayer player) {
         return player.getMainHandItem().getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    }
+
+    private static void use(ServerPlayer player) {
+        player.gameMode.useItem(player, player.level(), player.getMainHandItem(), InteractionHand.MAIN_HAND);
+    }
+
+    private static void reloadTool(ServerPlayer player) {
+        ItemStack restored = ItemStack.parse(player.registryAccess(), player.getMainHandItem().save(player.registryAccess())).orElseThrow();
+        player.setItemInHand(InteractionHand.MAIN_HAND, restored);
     }
 
     private static ItemStack item(String id) {
