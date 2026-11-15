@@ -8,5 +8,18 @@
   "tooltip.yvanchuxiuzhen.item.ling_16.2": "右键展示框使其锁定。",
   "tooltip.yvanchuxiuzhen.item.ling_16.3": "潜行时右键展示框使其隐形。",
   "tooltip.yvanchuxiuzhen.item.ling_16.4": "右键空气时，周围盔甲架会锁定。",
-  "tooltip.yvanchuxiuzhen.item.ling_16.5": "潜行右键空气时，周围盔甲架会隐形。"
+  "tooltip.yvanchuxiuzhen.item.ling_16.5": "潜行右键空气时，周围盔甲架会隐形。",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.aaa": "Boolean",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.nbttype": "nbt类型",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.bbb": "String",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.ccc": "Byte",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.nbtname": "nbt名称",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.ddd": "Double",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.eee": "Float",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.nbtcontent": "nbt内容",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.fff": "Int",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.ggg": "Long",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.button_set_nbt": "set nbt",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.hhh": "Short",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.button_asd": "set nbt"
 }

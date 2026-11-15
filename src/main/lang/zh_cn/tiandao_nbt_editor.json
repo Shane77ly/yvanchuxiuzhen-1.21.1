@@ -1,0 +1,5 @@
+{
+  "message.yvanchuxiuzhen.nbt_editor.missing_input": "需要在上面三个输入框内写入对应内容。",
+  "message.yvanchuxiuzhen.nbt_editor.choose_type": "请勾选一个复选框，只能勾选一个",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.button_confirm": "设置NBT"
+}

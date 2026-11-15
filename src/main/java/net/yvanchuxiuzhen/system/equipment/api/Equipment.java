@@ -1,11 +1,14 @@
 package net.yvanchuxiuzhen.system.equipment.api;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -69,6 +72,24 @@ public final class Equipment {
 
     public static EquipmentProperties properties(ItemStack stack) {
         return stack.getOrDefault(EquipmentData.PROPERTIES.get(), EquipmentProperties.EMPTY);
+    }
+
+    /** 通用编辑器修改来源根字段时，由装备所有者同步根字段投影与两项本命经验组件。 */
+    public static void updateRootField(ItemStack stack, String key, Tag value) {
+        CompoundTag root = new CompoundTag();
+        root.put(key, value);
+        Map<String, EquipmentProperties.Value> fields = new LinkedHashMap<>(properties(stack).fields());
+        EquipmentProperties.Value projected = value.getId() == Tag.TAG_STRING
+                ? EquipmentProperties.Value.text(root.getString(key))
+                : EquipmentProperties.Value.decimal(root.getDouble(key));
+        fields.put(key, projected);
+        stack.set(EquipmentData.PROPERTIES.get(), new EquipmentProperties(fields));
+        if (key.equals("benmingexp") || key.equals("benmingexpmax")) {
+            BenmingData progress = stack.getOrDefault(EquipmentData.BENMING.get(), BenmingData.EMPTY);
+            stack.set(EquipmentData.BENMING.get(), key.equals("benmingexp")
+                    ? new BenmingData(progress.level(), root.getDouble(key), progress.experienceMax())
+                    : new BenmingData(progress.level(), progress.experience(), root.getDouble(key)));
+        }
     }
 
     public static AccessoryInventory accessories(Player player) {

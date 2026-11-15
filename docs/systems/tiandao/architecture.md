@@ -52,3 +52,66 @@ updated: 2026-11-15
 六项来源Java/模板指纹登记在本系统CSV。本包提供独立`TiandaoMultiStructureCheck`供主线接入必要单项：原生放置扣件、负硬度、七方向零槽能力、45服务端刻空配置、分组真实保存重进和显式寻木模板生成，再核对最终合并中文并截图。场景先保存模板完整可能覆盖区域的方块/方块实体及原计划刻，清理时恢复方块数据、方块/流体计划刻和玩家库存/状态。未修改共享Smoke选择器。
 
 已完成来源闭包和目标API静态核对、资源/工厂/台账轻量检查；正式内容转换、Gradle编译、该必要单项、自然运行、1.18.2版本实机及两版本对照均未执行。主线需先定向再生Tiandao内容，恢复本方块的`[-1,3600000]`和新工厂，再执行必要单项；不能由源文件接线宣称运行或行为对齐已通过。
+
+## 通用物品NBT编辑器（2026-11-15）
+
+本包为 `tiandaoitemnbt` 方块、单槽方块实体、`tiandaoitemnbt_gui` 菜单与屏幕及八类型写入过程。专属代码、工厂、消息、资源转换输入与必要检查已实现，主线生产/客户端装配和必要单项尚待执行；不据此提升其他天道工具的状态。来源定位为 A `block/TiandaoitemnbtBlock.java`、`block/entity/TiandaoitemnbtBlockEntity.java`、`world/inventory/TiandaoitemnbtGuiMenu.java`、`client/gui/TiandaoitemnbtGuiScreen.java`、`network/TiandaoitemnbtGuiButtonMessage.java`、`procedures/TiandaoitemnbtsetProcedure.java` 及同名界面纹理。
+
+### 入口与库存生命周期
+
+来源方块右键无权限或创造模式门槛，打开176×166原生菜单。输入框位于 `(3,4)`、`(3,24)`，均为120×20、最长32767字符；物品槽 `(140,27)`，按钮 `(128,46)`、40×20；八个独立复选框位于 `x=-64`、`y=1+21×序号`，初始均未选中。目标保留来源布局和原生控件，为确认按钮提供中文“设置NBT”。来源提示“上面三个输入框”与实际两框的差异随Q201记录，未增加第三框。
+
+库存一槽、上限64、允许任意物品，随方块实体保存；关闭方块菜单不返还物品，破坏时掉出槽内物品，工具方块自身沿来源不掉落，并提供比较器输出。六面能力允许插入、禁止抽取；无方向能力供菜单直接操作，复用同机制Q148的来源父类证据。菜单不按距离关闭，客户端提交当前容器编号，服务端验证当前菜单、已加载区块与绑定方块实体后修改实际槽位。来源模板的未绑定库存关闭时归还玩家，死亡或断线时掉落；本包保留该生命周期，未找到生产用的手持/实体绑定入口，不额外构造入口。
+
+### 输入、类型与写入顺序
+
+屏幕按来源拼接 `nbtname:<键>,nbtcontent:<值>,aaa-0,bbb-0,...hhh-0,`。服务端先 `split(",")`，用 `contains(前缀)` 查找并用全局 `replace` 去掉前缀；未命中时取第一段。逗号截断和输入包含前缀时的碰撞语义均保留，不引入嵌套路径或SNBT。
+
+键名或值为空时提示“需要在上面三个输入框内写入对应内容。”；没有选中项时提示“请勾选一个复选框，只能勾选一个”。非空输入且有选中类型时按下列顺序只处理首项，空槽直接返回。
+
+| 优先级 | 类型 | 来源实际写入 |
+| --- | --- | --- |
+| 1 | Boolean | 仅精确 `true`/`false` 写ByteTag布尔值，其他文本不写 |
+| 2 | String | 原字符串 |
+| 3 | Byte | 先解析double，再Java强制转换byte |
+| 4 | Double | 解析后的double |
+| 5 | Float | 先解析double，再强制转换float |
+| 6 | Int | 先解析double，再强制转换int |
+| 7 | Long | 先解析double，再强制转换long |
+| 8 | Short | 先解析double，再强制转换short |
+
+数值入口先trim再 `Double.parseDouble`，非法数字实际使用0；来源接受的NaN/Infinity保留解析语义，其在目标持久化Codec中的完整结果尚待核实。处理选中分支后来源强制物品数量为1，包含Boolean文本非法而未写入的情况。实际Tag保存在 `DataComponents.CUSTOM_DATA`；原生及专有消费者映射见Q203。
+
+### Q201 多选提示与实际优先级
+
+状态：**静态已核实、目标保持来源、待统一裁定**。来源界面使用八个独立复选框，提示称只能勾选一个，实际过程按上述 `if/else if` 首项优先。目标保留多选与首项优先，不改成单选、不拒绝多选。提示称有三个输入框但界面实际仅两框，也保留原文集中复核。证据为来源Screen与set过程；本批未运行多选实机分支。
+
+### Q202 编辑后强制数量为1
+
+状态：**静态已核实、目标保持来源、待统一裁定**。来源每个选中类型分支均把输入物品数量写为1，且Boolean非法文本仍执行数量修改；数量大于1时其余物品没有归还或掉落。目标保留该行为，不新增拆分或余量退还。必要检查覆盖合法八类型后的数量1，非法Boolean与其他堆叠数量仍待实机验证。
+
+### Q203 根NBT与目标组件消费者映射
+
+状态：**部分映射已实现、其余待核实或待处理**。1.18.2版本可直接编辑任意物品根NBT；1.21.1版本的原生字段和部分模组实例已转为专有组件，仅保存同名CUSTOM_DATA并不保证驱动消费者。天道不得直接修改其他系统专有组件，装备投影通过 `Equipment.updateRootField` 由所有者提交。
+
+| 来源键或族 | 目标载体/消费者 | 当前边界 |
+| --- | --- | --- |
+| 任意八种原始根值 | `CUSTOM_DATA` | 已保存实际Tag类型；不解释Compound、List、嵌套路径 |
+| 飞行法器 `health/health_Max/power_Max`、摄虫网 `item_level_num` | equipment既有CUSTOM_DATA消费者 | 根值已接；消费者仍按自己的getInt/getDouble规则读取 |
+| 蛊虫 `guchongid/LEVELnumber/experience/belongToMasterUUID` 等 | `GuchongJarData.read` 与既有个体搬运 | 仍读CUSTOM_DATA，根写可供现有消费者读取；未误记为全部专有组件 |
+| `Damage` | 原生 `DAMAGE` | 已映射getInt；原生组件要求非负，组件写入按0截断，raw保留输入；负值差异待集中核实 |
+| `CustomModelData` | 原生 `CUSTOM_MODEL_DATA` | 已映射getInt；显示仍依赖物品模型定义 |
+| `Unbreakable` | 原生 `UNBREAKABLE` | 已按getBoolean添加/移除；写此键时按raw `HideFlags & 4` 设置Tooltip显示 |
+| `RepairCost`、单独修改 `HideFlags` | 原生修理费用及多个组件Tooltip属性 | 仅保存raw，未完整映射；单改HideFlags不重建全部原生显示属性 |
+| 饰品九项根属性、根 `mana_Att`、根类型/品阶/说明 | `EquipmentProperties` 与饰品属性/武器法攻/Tooltip | 已经所有者API同步单键投影，其他投影保持；不改嵌套炼器成品 |
+| `benmingexp/benmingexpmax` | `BenmingData` 培养经验 | 已经Equipment API同步，保持其余字段 |
+| `benminglevel` | 来源double；目标 `BenmingData.level` 为int | 仅保存raw与根投影；培养和Tooltip仍读原组件，待处理 |
+| 技能书 `jinengmanaatt/belongTopinjie/belongToMasterUUID` 等 | `SkillBook` 的numbers、grade、owner等 | 仅保存raw，不驱动专有组件；尚未接入所有者单字段编辑契约 |
+| 功法书 `ExercisesLevel/ExercisesExp/Exercises*`、`belongToMasterUUID` | `TechniqueBook` 的level、exp、values、owner | 仅保存raw，不驱动专有组件；尚未接入所有者单字段编辑契约 |
+| 炼器 `lianqizong` | Equipment炼器组件/成品投影 | 来源工具仅支持八种标量，没有Compound编辑；同名字符串不解释为完整炼器对象 |
+
+此表是本批已定位消费者，不是全部模组根键普查。后续统一核对归属、来源可表达类型及真实消费者后补所有者接口，不将工具代码已写完称为全部字段行为闭合。必要检查覆盖一个装备根属性双端投影与八种raw类型；其他映射、原生负值及特殊浮点完整存档仍开放。
+
+### 验证范围
+
+新增 `NbtEditorCheck(List<String>, String)` 供主线装配。夹具真实右键开原生菜单、操作两输入框/八复选框/按钮，核对八种Tag值与数量1、本人同步、装备根属性投影、物品完整组件与方块库存保存读回、六面/无方向能力、关闭留槽及破坏回收。受控序列化不等于真实重登。生产/Smoke编译、目标运行、完整自然存档、多人、1.18.2版本实机、两版本对照与完整视觉未在独立树执行；实际轻量检查只记[本月日志](logs/2026-11.md)。

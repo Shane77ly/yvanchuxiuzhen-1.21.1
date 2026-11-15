@@ -7,6 +7,10 @@ updated: 2026-11-13
 
 # 装备、法宝、本命与饰品：架构调查与提案
 
+## 通用NBT编辑器根字段契约（2026-11-15）
+
+`Equipment.updateRootField(ItemStack, String, Tag)` 由equipment唯一写入所属 `EquipmentProperties` 根投影：字符串保存为文字，其余八类型可表达数值按来源getDouble投影，保留其他已存字段；`benmingexp/benmingexpmax` 同步 `BenmingData` 对应经验字段，保持本命等级及另一经验字段。天道负责CUSTOM_DATA原始Tag写入，不直接访问equipment持久组件。根投影不修改炼器嵌套属性、成品或原生装备加成；`benminglevel` 来源double与目标int的差异尚未处理，其他映射的唯一问题正文见[天道Q203](../tiandao/architecture.md#q203-根nbt与目标组件消费者映射)。本包实际检查与未验范围统一记[天道月志](../tiandao/logs/2026-11.md#2026-11-15-通用物品nbt编辑器代码包)。
+
 ## 摄虫网与困虫兜（2026-11-13）
 
 R05/R10原有真实缺口为`fabao_017`仍使用普通物品工厂，`fabao_01701`未注册。现已接入专属物品、实体、属性、客户端Gecko渲染及来源三份资产，转换输入由`factory_overrides.csv`、`system_assets.csv`和实体已读台账登记，源码资产指纹保留在转换清单。既有蛊罐不是本次重写范围。
