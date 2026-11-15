@@ -216,6 +216,7 @@ final class SmokeRun {
                     case "temporaryteam" -> List.of(new TemporaryTeamCheck(report, levelId, this::shot));
                     case "npcresidents" -> List.of(new NpcResidentsCheck(report, levelId, this::shot));
                     case "npcmanagement" -> List.of(new NpcManagementCheck(report, levelId, this::shot));
+                    case "npcmerchanteggs" -> List.of(new NpcMerchantSpawnEggCheck(report, levelId));
                     case "questjournal" -> List.of(new QuestJournalCheck(report, levelId, this::shot));
                     case "questeditor" -> List.of(new QuestTriggerEditorCheck(report, levelId, this::shot));
                     case "guconstitutionharvest" -> List.of(new GuConstitutionHarvestCheck(report, levelId, this::shot));
@@ -230,6 +231,7 @@ final class SmokeRun {
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
                     case "questblockrefresh" -> List.of(new QuestBlockRefreshCheck(report, levelId));
                     case "handheldfirework" -> List.of(new HandheldFireworkCheck(report, levelId, this::shot));
+                    case "festivalfirework" -> List.of(new FestivalFireworkCheck(report, levelId));
                     case "boss" -> List.of(new BossCheck(report, levelId, this::shot));
                     case "treasure" -> List.of(new TreasureCheck(report, levelId, this::shot));
                     case "treasuretool" -> List.of(new TreasureToolCheck(report, levelId, this::shot));
@@ -242,6 +244,7 @@ final class SmokeRun {
                     case "formationelement" -> List.of(new FormationElementCheck(report, levelId, this::shot));
                     case "formation" -> List.of(new FormationCheck(report, levelId), new FormationElementCheck(report, levelId, this::shot));
                     case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
+                    case "naturalsilkchain" -> List.of(new NaturalSilkChainCheck(report, levelId));
                     case "fuluripening" -> List.of(new FuluRipeningCheck(report, levelId));
                     case "fuluspecial" -> List.of(new FuluSpecialCheck(report, levelId, this::shot));
                     case "fulutaming" -> List.of(new FuluTamingCheck(report, levelId, this::shot));
