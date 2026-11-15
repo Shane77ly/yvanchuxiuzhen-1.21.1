@@ -102,7 +102,8 @@ updated: 2026-11-15
 | `Damage` | 原生 `DAMAGE` | 已映射getInt；原生组件要求非负，组件写入按0截断，raw保留输入；负值差异待集中核实 |
 | `CustomModelData` | 原生 `CUSTOM_MODEL_DATA` | 已映射getInt；显示仍依赖物品模型定义 |
 | `Unbreakable` | 原生 `UNBREAKABLE` | 已按getBoolean添加/移除；写此键时按raw `HideFlags & 4` 设置Tooltip显示 |
-| `RepairCost`、单独修改 `HideFlags` | 原生修理费用及多个组件Tooltip属性 | 仅保存raw，未完整映射；单改HideFlags不重建全部原生显示属性 |
+| `RepairCost` | 原生 `REPAIR_COST` | 已按getInt写入并按目标非负组件规则截断；raw保留输入 |
+| `HideFlags` | `HIDE_ADDITIONAL_TOOLTIP` 与已有 `UNBREAKABLE.showInTooltip` | 已映射bit 32及已有不可破坏组件的bit 4；附魔、属性、冒险模式检查、染色与饰纹等其余位仍只保存raw，不猜测重建 |
 | 饰品九项根属性、根 `mana_Att`、根类型/品阶/说明 | `EquipmentProperties` 与饰品属性/武器法攻/Tooltip | 已经所有者API同步单键投影，其他投影保持；不改嵌套炼器成品 |
 | `benmingexp/benmingexpmax` | `BenmingData` 培养经验 | 已经Equipment API同步，保持其余字段 |
 | `benminglevel` | 来源double；目标 `BenmingData.level` 为int | 仅保存raw与根投影；培养和Tooltip仍读原组件，待处理 |

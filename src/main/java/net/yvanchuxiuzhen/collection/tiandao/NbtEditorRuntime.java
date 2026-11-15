@@ -4,6 +4,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Unit;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -71,7 +72,15 @@ public final class NbtEditorRuntime {
     private static void nativeField(ItemStack stack, String name, CompoundTag data) {
         switch (name) {
             case "Damage" -> stack.set(DataComponents.DAMAGE, Math.max(0, data.getInt(name)));
+            case "RepairCost" -> stack.set(DataComponents.REPAIR_COST, Math.max(0, data.getInt(name)));
             case "CustomModelData" -> stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(data.getInt(name)));
+            case "HideFlags" -> {
+                int flags = data.getInt(name);
+                if ((flags & 32) != 0) stack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
+                else stack.remove(DataComponents.HIDE_ADDITIONAL_TOOLTIP);
+                Unbreakable unbreakable = stack.get(DataComponents.UNBREAKABLE);
+                if (unbreakable != null) stack.set(DataComponents.UNBREAKABLE, unbreakable.withTooltip((flags & 4) == 0));
+            }
             case "Unbreakable" -> {
                 if (data.getBoolean(name)) stack.set(DataComponents.UNBREAKABLE, new Unbreakable((data.getInt("HideFlags") & 4) == 0));
                 else stack.remove(DataComponents.UNBREAKABLE);

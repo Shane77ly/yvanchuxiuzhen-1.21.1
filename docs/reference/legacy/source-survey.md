@@ -280,6 +280,8 @@ updated: 2026-11-15
 | Q175 | 固定商人刷怪蛋转换未完成；待验证 | 11枚蛋的生产注册、来源颜色、内容条目、双语名称和模型已接回，仍待客户端显示/自然生成验证，未提升为行为已迁移 | [npc 月志](../../systems/npc/logs/2026-11.md) |
 | Q176 | Pao10 资源静态核对已完成；客户端显示待验证 | 资源审计确认Pao10–Pao13所需方块状态、模型、物品模型、贴图和Pao10粒子图集均存在；来源`pao1002.png`无JSON/Java调用，记录为来源孤儿资源，不复制；客户端显示与表现单项仍待 | [festival 月志](../../systems/festival/logs/2026-11.md) |
 | Q177 | 宝箱奖励消费存在来源拼写/未注册ID候选；待裁定/待核实 | `TreasureRewardTables.java:1265,1284,1303,1322,1341,1360,1379,1398`使用`armor_01..08_leggins`，目标注册为`armor_*_leggings`；`QuestStructureData.java`花繁城商品串复用该拼写；`TreasureRewardTables.java:2482`单独引用未注册`cailiao_153`。2026-11-15静态24分派、30个来源指纹和所有者API核验通过；未批准前保持来源，不擅自映射邻近材料或修正商品串 | [treasure 月志](../../systems/treasure/logs/2026-11.md#2026-11-15-奖励表24分派与解释器静态核验) |
+| Q177 | 宝箱奖励消费存在来源拼写/未注册ID候选；待裁定/待核实 | `TreasureRewardTables.java:1265,1284,1303,1322,1341,1360,1379,1398`使用`armor_01..08_leggins`，目标注册为`armor_*_leggings`；`QuestStructureData.java`花繁城商品串复用该拼写；`TreasureRewardTables.java:2482`单独引用未注册`cailiao_153`。未批准前保持来源，不擅自映射邻近材料或修正商品串 | [treasure 月志](../../systems/treasure/logs/2026-11.md) |
+| Q203 | 通用NBT编辑器根字段与1.21.1组件消费者不完全同构；部分明确映射已接，其余保持raw待核 | 来源编辑器可写任意标量根键；目标已将`Damage`、`CustomModelData`、`Unbreakable`、`RepairCost`及`HideFlags`的已确认位接入公开组件，装备根投影经`Equipment.updateRootField`承接；技能书、功法书、炼器嵌套对象及HideFlags其余位没有已确认单字段入口，暂不猜测消费者 | [天道Q203](../../systems/tiandao/architecture.md#q203-根nbt与目标组件消费者映射) |
 
 
 | Q178 | 空间五无映射仍拼接空维度与显示名命令；保持来源，待裁定/待验证 | 未匹配阵位或境界时维度字符串为空；目标保留来源命令，不补默认维度，也不改用UUID；完整跨维路径未验 | [阵法空间效果](../../systems/zhenfa/architecture.md#阵基效果阴系与空间系2026-11-15) |
@@ -308,7 +310,6 @@ updated: 2026-11-15
 | Q200 | 出身传送函数没有实体命令源；保持来源，待裁定 | @p可能选择错误玩家，目标保留函数语义并记录风险 | [初始奖励](../../systems/xiulian/architecture.md#q200-出身传送使用无实体最近玩家选择器) |
 | Q201 | NBT多选提示称只能选一个但来源按首项优先；保持来源，待裁定 | 目标按来源选中顺序处理首项，不把提示改成多选说明 | [NBT编辑器](../../systems/tiandao/architecture.md#q201-多选提示与实际优先级) |
 | Q202 | NBT编辑后来源强制数量为1且不返还余量；保持来源，待裁定 | 目标保留数量归一化与余量不返还边界 | [NBT编辑器](../../systems/tiandao/architecture.md#q202-编辑后强制数量为1) |
-| Q203 | 根NBT与目标专有组件消费者映射不完整；待集中补齐 | 目标保留CUSTOM_DATA原始Tag写入，已知装备根字段经公开API同步，其余消费者继续登记 | [NBT编辑器](../../systems/tiandao/architecture.md#q203-根nbt与目标组件消费者映射) |
 | Q204 | 建筑笔以零坐标作选点哨兵且第二点高度不消费；保持来源，待裁定 | 目标保留零哨兵和铺设时强制同高，不改成显式点状态或斜坡屋顶 | [建筑笔](../../systems/decor/architecture.md#q204选点零哨兵和第二点高度未消费) |
 | Q205 | 建筑笔歇山/庑殿没有切换入口且过程复用；保持来源，待裁定 | 目标保留来源分支、名称和黑瓦共享过程，不补造形态切换 | [建筑笔](../../systems/decor/architecture.md#q205屋顶形态切换与过程复用断链) |
 | Q206 | 建筑笔铺设无范围、替换、材料或回滚保护；保持来源，待裁定 | 目标保留直接写入、宽度0退化和无成本边界 | [建筑笔](../../systems/decor/architecture.md#q206铺设范围和失败保护为空) |
