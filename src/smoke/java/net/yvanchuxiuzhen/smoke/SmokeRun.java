@@ -218,6 +218,7 @@ final class SmokeRun {
                     case "spiritstone" -> List.of(new SpiritStoneCheck(report, levelId), new SpiritStoneBundleCheck(report, levelId));
                     case "spiritstonebundle" -> List.of(new SpiritStoneBundleCheck(report, levelId));
                     case "construction" -> List.of(new ConstructionCheck(report, levelId, this::shot));
+                    case "towntemplates" -> List.of(new TownTemplatePlacementCheck(report, levelId, this::shot));
                     case "buildinghammer" -> List.of(new BuildingHammerCheck(report, levelId, this::shot));
                     case "dungeon" -> List.of(new DungeonCheck(report, levelId, this::shot));
                     case "structurerelease" -> List.of(new StructureReleaseCheck(report, levelId));

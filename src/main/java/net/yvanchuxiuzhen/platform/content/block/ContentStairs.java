@@ -13,7 +13,8 @@ public class ContentStairs extends StairBlock implements TraitedBlock {
     private final BlockTraits traits;
 
     public ContentStairs(BlockTraits traits) {
-        super(Blocks.AIR.defaultBlockState(), traits.properties());
+        // 来源三十种楼梯均使用实体WOOD或STONE材质，墙牌等原生消费者依赖这一材质语义。
+        super(Blocks.AIR.defaultBlockState(), traits.properties().forceSolidOn());
         this.traits = traits;
     }
 
