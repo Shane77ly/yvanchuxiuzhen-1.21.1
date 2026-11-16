@@ -36,6 +36,7 @@ updated: 2026-11-14
 | 操作 | 调用与数据边界 |
 | --- | --- |
 | `TalismanTaming`订阅`TalismanTamingEvent` | Creature拥有妖兽限制、完整驯服概率、原生认主和状态清理；Relation替换好友表与团队，Fulu仅提供命中事实；来源定位见[驯服正文](architecture.md#神傀符妖兽驯服2026-11-13) |
+| `WildPlantCreatures`订阅`WildPlantCreatureEvent` | Creature独占魔眼破坏生成moshou_003/玩家目标及血桃苗计划刻生成taomujing，按来源顺序初始化；Plant只提供同步事实 |
 | `NichangGrassAttraction`订阅`NichangGrassBloomEvent` | Creature拥有召引目标选择、既有妖兽自由NBT及新实体生命周期；阵营经Relation操作，Plant只提供同步开花坐标 |
 | `CreatureSetup.entityType(String)` | 本系统客户端装配读取已登记类型，不暴露内容表或可变实例数据；跨系统自然生成按注册ID引用 |
 | `Butterflies.register / Organisms.register / YaoshouCreatures.register / NaturalCreatures.register / GhostCreatures.register` | 本系统注册实体、属性、刷怪蛋工厂和原生刷怪位置；妖兽当前装配52个编号，自然生物补入魔兽001/003、桃木精和修者0101；鬼怪02/03保留来源注册且不添加自然生成；群系出生列表由World保持来源顺序及参数 |

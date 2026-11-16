@@ -30,6 +30,7 @@ public final class CreatureSetup {
     public static void register(IEventBus modBus) {
         CONTENT.effectBehavior("yaoshou_053baofengxve", new Yaoshou053BlizzardEffect());
         NeoForge.EVENT_BUS.addListener(GuchongGrowthConsumer::onVictimData);
+        NeoForge.EVENT_BUS.addListener(WildPlantCreatures::spawn);
         NeoForge.EVENT_BUS.addListener(GuchongGrowthConsumer::onUpgrade);
         YaoshouCreatures.register(CONTENT, modBus);
         Butterflies.register(CONTENT, modBus);
