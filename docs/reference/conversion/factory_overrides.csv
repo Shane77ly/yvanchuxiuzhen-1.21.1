@@ -999,7 +999,7 @@ item,yvanchuxiuzhen:flagsonitem,zhenfa:flag_son,zhenfa,子旗放置与控制
 item,yvanchuxiuzhen:ling_18,xiulian:ling_18,xiulian,传承灵物按境界分次领取来源奖励（BirthSupplyItem）
 item,yvanchuxiuzhen:jiazubaibaodai,xiulian:jiazubaibaodai,xiulian,家族百宝袋按出身与次数领取来源奖励（BirthSupplyItem）
 block,yvanchuxiuzhen:tiandaoitemnbt,tiandao:nbt_editor,tiandao,通用八类型物品NBT编辑器与单槽库存菜单
-vanchuxiuzhen:tiandaojianzhu,decor:roof_brush,decor,建筑笔选点、瓦片颜色/屋顶形态切换和两点铺设来源过程
+item,yvanchuxiuzhen:tiandaojianzhu,decor:roof_brush,decor,建筑笔选点、瓦片颜色/屋顶形态切换和两点铺设来源过程
 block,yvanchuxiuzhen:biggrass,plant:big_grass,plant,双格高草接触体型与潜行条件后切换摇摆动画方块
 block,yvanchuxiuzhen:biggrassyincang,plant:animated_big_grass,plant,高草动画方块保留九槽实体与三十刻恢复双格写入顺序
 item,yvanchuxiuzhen:biggrassyincang,plant:animated_big_grass,plant,高草动画方块物品的来源Geo模型渲染且不加入创造栏
