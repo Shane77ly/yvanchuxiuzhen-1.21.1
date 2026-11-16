@@ -5,13 +5,16 @@ import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -32,13 +35,13 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
@@ -72,6 +75,15 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
     private static final String RIGHT = "right";
     private static final String UP = "up";
     private static final String DOWN = "down";
+    private static final TagKey<Block> PICKAXE_MATERIALS = materialTag("pickaxe");
+    private static final TagKey<Block> SHOVEL_MATERIALS = materialTag("shovel");
+    private static final TagKey<Block> PLANT_MATERIALS = materialTag("plant");
+    private static final TagKey<Block> LEAVES_MATERIAL = materialTag("leaves");
+
+    /** 材质成员来自锁定的1.18.2版本目录，独立于目标版本采掘与可替换标签。 */
+    private static TagKey<Block> materialTag(String family) {
+        return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "equipment_kailing_" + family));
+    }
 
     public enum Kind {
         AXE("gongjvfu", "animation.gongjvfu.attack", "animation.gongjvfu.attack02"),
@@ -328,7 +340,7 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
     private boolean hasLeavesAround() {
         BlockPos origin = blockPosition();
         for (BlockPos pos : BlockPos.betweenClosed(origin.offset(-1, -1, -1), origin.offset(1, 1, 1))) {
-            if (level().getBlockState(pos).is(BlockTags.LEAVES)) return true;
+            if (level().getBlockState(pos).is(LEAVES_MATERIAL)) return true;
         }
         return false;
     }
@@ -337,7 +349,7 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
         BlockPos origin = blockPosition();
         for (BlockPos pos : BlockPos.betweenClosed(origin.offset(-1, -1, -1), origin.offset(1, 1, 1))) {
             BlockState state = level().getBlockState(pos);
-            if (state.getDestroySpeed(level(), pos) >= 0 && state.is(BlockTags.LEAVES)) level().destroyBlock(pos, false);
+            if (state.getDestroySpeed(level(), pos) >= 0 && state.is(LEAVES_MATERIAL)) level().destroyBlock(pos, false);
         }
     }
 
@@ -560,22 +572,20 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
 
     private boolean isPickaxeBlock(BlockPos pos) {
         BlockState state = level().getBlockState(pos);
-        return state.getDestroySpeed(level(), pos) >= 0
-                && (state.is(BlockTags.MINEABLE_WITH_PICKAXE) || state.is(BlockTags.ICE) || state.is(Blocks.CLAY));
+        return state.getDestroySpeed(level(), pos) >= 0 && state.is(PICKAXE_MATERIALS);
     }
 
     private boolean isSoilBlock(BlockPos pos, boolean shovel) {
         BlockState state = level().getBlockState(pos);
         if (state.getDestroySpeed(level(), pos) < 0) return false;
         if (shovel) return state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.DIRT) || state.is(Blocks.COARSE_DIRT);
-        return state.is(BlockTags.SNOW) || state.is(Blocks.SNOW) || state.is(BlockTags.DIRT) || state.is(Blocks.GRASS_BLOCK)
-                || state.is(BlockTags.SAND);
+        return state.is(SHOVEL_MATERIALS);
     }
 
     private void till(BlockPos pos) {
         if (!isSoilBlock(pos, kind == Kind.SHOVEL)) return;
         BlockState above = level().getBlockState(pos.above());
-        if (above.is(BlockTags.REPLACEABLE) || above.getBlock() instanceof BushBlock) level().setBlock(pos.above(), Blocks.AIR.defaultBlockState(), 3);
+        if (above.is(PLANT_MATERIALS)) level().setBlock(pos.above(), Blocks.AIR.defaultBlockState(), 3);
         level().setBlock(pos, Blocks.FARMLAND.defaultBlockState(), 3);
         BlockState farmland = level().getBlockState(pos);
         if (farmland.hasProperty(BlockStateProperties.MOISTURE)) level().setBlock(pos, farmland.setValue(BlockStateProperties.MOISTURE, 7), 3);

@@ -245,7 +245,7 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 `GongjvfuDangShiTiGengXinKeShiProcedure` 的斧过程保留 `寻找 → 寻路 → 采集 → 触点`，扫描范围为 `8 × fumodengji`，命中等待11刻；目标不可达时按来源每10刻调整垂直移动，邻近叶片时进入3×3×3清理并等待20刻，无目标20刻后结束。寿命达到 `fumodengji × 2400` 时使用来源的材料粒子和火焰，斧的来源缺省寿命初始化 `fumodengji × 400` 也保留。
 
-`GongjvgaoDangShiTiGengXinKeShiProcedure` 的镐过程保留按附着方向的首目标、四向螺旋搜索、移动、准备、挖掘和结束；每轮达到25个目标后从中心重新开始。来源以 `STONE`、`ICE`、`CLAY` 材料判定，目标用镐可采掘标签、冰标签和黏土块表达；挖掘等待5刻。锄和铲过程共用来源的土地扫描与移动时序，移动阶段始终位于目标方块上方；锄按 `TOP_SNOW`、`DIRT`、`GRASS`、`SAND` 材料集合，铲按 `DIRT`、`GRASS` 集合，完成后清除植物并把目标设为湿润度7的耕地。来源过程中斧与镐在寿命上限为0时写入 `fumodengji × 400`，锄和铲不补写该缺省值。
+`GongjvgaoDangShiTiGengXinKeShiProcedure` 的镐过程保留按附着方向的首目标、四向螺旋搜索、移动、准备、挖掘和结束；每轮达到25个目标后从中心重新开始。来源以 `STONE`、`ICE`、`CLAY` 材料判定，目标以专用来源材质tag表达；挖掘等待5刻。铲和锄沿用来源土地扫描与移动时序，移动阶段位于目标上方；开灵铲按 `TOP_SNOW`、`DIRT`、`GRASS`、`SAND` 材质挖掘掉落，开灵锄只处理草方块、泥土和砂土，清除上方来源植物后写湿润度7耕地。来源过程中斧与镐在寿命上限为0时写入 `fumodengji × 400`，锄和铲不补写该缺省值。
 
 主人 UUID 非空时，镐、锄、铲只在主人在线时执行来源的掉落与破坏；主人为空时按来源在目标位置掉落。来源1.18.2的 `PLANT`、`REPLACEABLE_PLANT` 材质在目标用可替换方块标签与 `BushBlock` 表达，未扩展为额外植物规则。
 
@@ -663,3 +663,11 @@ Forge40.1.0精确源码的 `BaseContainerBlockEntity` 补丁与 `InvWrapper` 证
 ### Q164 霉运分支读取幸运等级
 
 A `Gongjv008DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi:21–72`在有霉运时，扣减仍读幸运等级；没有幸运时使用等级索引0，即扣2%。与幸运相同索引同时存在时可抵消，概率可为负或超过1。目标保持来源，不擅自改读霉运等级或裁剪概率，待集中裁定。
+
+## 开灵材质修正（2026-11-16）
+
+`ToolMachineEntity`使用`equipment_kailing_pickaxe/shovel/plant/leaves`四个方块tag，分别含464/45/370/38个成员；依据锁定`legacy_block_materials.json`，原版grass显式改名short_grass。来源模组529份相关方块源码与原版运行材质dump指纹已核对。现代镐可采掘、可替换与叶片tag无法表达同一集合，因此只用于本族来源集合，不扩写其他工具规则。动画高草`biggrassyincang`是植物集合的必需注册成员。
+
+注册`gongjvchan`为开灵铲，对应内部`Kind.HOE`；`gongjvchu`为开灵锄，对应`Kind.SHOVEL`。`KailingProjectile`的锄/铲物品分派与此对应，不按枚举英文名交换行为。镐/铲保持前四采掘刻不动、第五刻采集，主人非空但不在当前维度保留方块；空主人在目标落物。锄只转换三种来源土壤，并按精确植物集合清上格；斧只检测/清理来源树叶集合。
+
+`kailingmaterial`是受控状态机单项，验证材质、时序和主人分支；它不替代自然寻路、完整发射回收、真实保存重进、完整视觉、多人或来源版本实机。实际运行结果统一见[本月记录](logs/2026-11.md#2026-11-16-开灵材质修正)。
