@@ -43,7 +43,7 @@ ANIMATED_BLOCK_FACTORIES = {'plant:gourd', 'lianqi:repair_table', 'fulu:inherita
                             'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:silkworm_box',
                             'treasure:chest_03', 'treasure:chest_11', 'economy:bank',
                             'dungeon:tiandaofuben', 'dungeon:fabao_009', 'world:rift',
-                            'zhenfa:marker', 'zhenfa:flagmother_display', 'zhenfa:flagson_display', 'zhenfa:compass'}
+                            'zhenfa:marker', 'zhenfa:flagmother_display', 'zhenfa:flagson_display', 'zhenfa:compass', 'plant:animated_big_grass'}
 # 1.18.2 原版创造栏在 1.21.1 的对应；临时对应，待负责人确认。
 VANILLA_TABS = {'TAB_MISC': 'minecraft:tools_and_utilities', 'TAB_DECORATIONS': 'minecraft:building_blocks',
                 'TAB_TOOLS': 'minecraft:tools_and_utilities'}
@@ -448,7 +448,7 @@ def main() -> None:
                        'plant:mulberry_sapling', 'plant:mulberry_leaves',
                        'plant:fruit_tree_log', 'plant:fruit_tree_leaves', 'plant:shicai009_sapling', 'plant:shicai010_sapling', 'plant:gourd',
                        'plant:lotus_root', 'plant:lotus_stem', 'plant:lotus_pod', 'plant:lotus_leaf') or factory.startswith((
-                           'decor:display_', 'economy:', 'tiandao:nbt_editor', 'dungeon:', 'world:rift', 'guchong:taoguan_', 'fulu:explosive_', 'plant:produce', 'plant:vine', 'plant:fungus', 'plant:legume',
+                           'decor:display_', 'economy:', 'tiandao:nbt_editor', 'dungeon:', 'world:rift', 'guchong:taoguan_', 'fulu:explosive_', 'plant:big_grass', 'plant:animated_big_grass', 'plant:produce', 'plant:vine', 'plant:fungus', 'plant:legume',
                            'plant:tree_sapling', 'plant:fiber_crop', 'plant:nichang_grass', 'plant:peach_flower',
                            *(f'plant:shicai{number}_' for number in ('001', '002', '004', '005', '006', '007',
                                '011', '012', '013', '014', '015', '016', '025', '026', '027')))):

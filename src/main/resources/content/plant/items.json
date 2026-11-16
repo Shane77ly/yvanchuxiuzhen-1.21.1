@@ -445,6 +445,7 @@
 {"id":"parasolwood","factory":"block_item","block":"parasolwood","order":1805,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"parasolleaves","factory":"block_item","block":"parasolleaves","order":1806,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"biggrass","factory":"block_item","block":"biggrass","order":1807,"double":true,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
+{"id":"biggrassyincang","factory":"plant:animated_big_grass","block":"biggrassyincang","order":1808},
 {"id":"mushroomblue_01","factory":"block_item","block":"mushroomblue_01","order":1810,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"mushroomblue_02","factory":"block_item","block":"mushroomblue_02","order":1811,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"mushroomblue_03","factory":"block_item","block":"mushroomblue_03","order":1812,"tab":"yvanchuxiuzhen:tabyvanchu_block"},

@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/big_grass_03.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/big_grass03"
+  }
+}

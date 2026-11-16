@@ -1,5 +1,4 @@
 registry,legacy_id,reason
-block,yvanchuxiuzhen:biggrassyincang,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:dimensiondiling_portal,方块基类 NetherPortalBlock 由所属系统迁移
 block,yvanchuxiuzhen:dimensionrenjian_portal,方块基类 NetherPortalBlock 由所属系统迁移
 block,yvanchuxiuzhen:dimensiontianqve_portal,方块基类 NetherPortalBlock 由所属系统迁移
@@ -18,7 +17,6 @@ block,yvanchuxiuzhen:wenqvan,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:xveliu,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:zhuangshiqiantong,方块基类 BaseEntityBlock 由所属系统迁移
 block,yvanchuxiuzhen:zhuangshitizi,方块基类 BaseEntityBlock 由所属系统迁移
-item,yvanchuxiuzhen:biggrassyincang,物品类 BiggrassyincangDisplayItem 由所属系统迁移
 item,yvanchuxiuzhen:clothes_08_boots,Clothes08Item.Boots：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_08_chestplate,Clothes08Item.Chestplate：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_08_helmet,Clothes08Item.Helmet：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移

@@ -265,6 +265,7 @@ final class SmokeRun {
                      case "birthinitialrewards" -> List.of(new BirthInitialRewardsCheck(report, levelId));
                      case "tiandao_multi_structure" -> List.of(new TiandaoMultiStructureCheck(report, levelId, this::shot));
                     case "economycommand" -> List.of(new EconomyCommandCheck(report, levelId));
+                    case "biggrass" -> List.of(new BigGrassCheck(report, levelId));
                     case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
                     case "naturalsilkchain" -> List.of(new NaturalSilkChainCheck(report, levelId));
                     case "fuluripening" -> List.of(new FuluRipeningCheck(report, levelId));
