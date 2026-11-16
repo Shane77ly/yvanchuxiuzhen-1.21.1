@@ -1061,3 +1061,7 @@ block,yvanchuxiuzhen:putuan,decor:cushion,decor,蒲团载具或都承盘衣架�
 block,yvanchuxiuzhen:beechfurniture_23,decor:utility_beechfurniture_23,decor,蒲团载具或都承盘衣架紫砂壶来源库存交互与展示
 block,yvanchuxiuzhen:beechfurniture_29,decor:utility_beechfurniture_29,decor,蒲团载具或都承盘衣架紫砂壶来源库存交互与展示
 block,yvanchuxiuzhen:zisha_01,decor:utility_zisha_01,decor,蒲团载具或都承盘衣架紫砂壶来源库存交互与展示
+block,yvanchuxiuzhen:zhuangshiqiantong,decor:fortune_container,decor,签筒动画、延迟抽签与独立三维方块物品
+item,yvanchuxiuzhen:zhuangshiqiantong,decor:fortune_container,decor,签筒动画方块物品Gecko渲染
+block,yvanchuxiuzhen:zhuangshitizi,decor:relocation_ladder,decor,放置后迁移到上方并保留方向含水状态的装饰梯子
+item,yvanchuxiuzhen:zhuangshitizi,decor:relocation_ladder,decor,装饰梯子三维方块物品Gecko渲染

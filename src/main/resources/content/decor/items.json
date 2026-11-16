@@ -535,5 +535,7 @@
 {"id":"paiwei_09item","factory":"decor:memorial_tablet","order":2281,"tab":"minecraft:building_blocks"},
 {"id":"zisha_01","factory":"block_item","block":"zisha_01","order":2282,"tab":"minecraft:building_blocks"},
 {"id":"zisha_02","factory":"block_item","block":"zisha_02","order":2283,"tab":"minecraft:building_blocks"},
-{"id":"zisha_03","factory":"block_item","block":"zisha_03","order":2284,"tab":"minecraft:building_blocks"}
+{"id":"zisha_03","factory":"block_item","block":"zisha_03","order":2284,"tab":"minecraft:building_blocks"},
+{"id":"zhuangshitizi","factory":"decor:relocation_ladder","block":"zhuangshitizi","order":1567,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
+{"id":"zhuangshiqiantong","factory":"decor:fortune_container","block":"zhuangshiqiantong","order":1785,"tab":"yvanchuxiuzhen:tabyvanchu_block"}
 ]

@@ -22,6 +22,11 @@ public final class DecorSetup {
             .livingEntity("shitiputuan", DecorCushion::new, DecorCushion::attributes);
 
     static {
+        CONTENT.blockFactory(AnimatedDecorVariant.FORTUNE.factory(), traits -> ContentBlock.create(traits, AnimatedDecorBlock.Fortune::new));
+        CONTENT.blockFactory(AnimatedDecorVariant.LADDER.factory(), traits -> ContentBlock.create(traits, AnimatedDecorBlock::new));
+        for (AnimatedDecorVariant variant : AnimatedDecorVariant.values()) {
+            CONTENT.itemFactory(variant.factory(), (properties, tooltip) -> new AnimatedDecorItem(variant, properties, tooltip));
+        }
         for (FurnitureStorageVariant variant : FurnitureStorageVariant.values()) {
             CONTENT.blockFactory(variant.factory(), traits -> ContentBlock.create(traits, row -> new FurnitureStorageBlock(row, variant)));
         }
@@ -46,6 +51,9 @@ public final class DecorSetup {
         DisplayFurnitureContent.register(modBus);
         InscribedDecorContent.register(modBus);
         NeoForge.EVENT_BUS.addListener(InscribedDecor::rightClick);
+        AnimatedDecorContent.register(modBus);
+        NeoForge.EVENT_BUS.addListener(FortuneDraws::tick);
+        NeoForge.EVENT_BUS.addListener(FortuneDraws::stopped);
         UtilityFurnitureContent.register(modBus);
         NeoForge.EVENT_BUS.addListener(DisplayFurnitureMenuActions::tick);
         NeoForge.EVENT_BUS.addListener(AuctionSeats::requested);
