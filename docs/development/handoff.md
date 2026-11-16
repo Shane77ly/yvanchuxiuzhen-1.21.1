@@ -11,15 +11,14 @@ updated: 2026-11-16
 
 ## 当前状态（2026-11-16）
 
-- 集成主线`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`，分支`port/full-migration-20261112`，核对HEAD为`cb47aa03`。最近三次提交为装备消费者验证、答题根归属/丹药消费、门户两道往返；本页提交后最新HEAD以`git log -1`为准。主线有暂存/未暂存/未跟踪交付，不能写为干净树或整树重放旧补丁。
-- UI工作目录`C:/Users/lxc/.codex/worktrees/r11-rewards-next/yuanchuxiuzhen-rebuild-1.21.1`停在detached HEAD `a876affe`且有历史修改；全局进度以集成主线核对。旧工作树/stash全部保留，涉及相关内容时逐文件比较。
-- 有效证据和完整缺口只在[统一工作清单](remaining-work.md)及系统正文维护。R06旧两道往返/四道拒绝/重进已通过；四道新维度资源和六道往返夹具已接入，尚无新运行结论。Q203及丹方消费有有限报告，候选未抽中/预置供给边界保持；最新被中断的增量编译无成功结论。
-- 三个实现子agent独立树均为`C:/Users/lxc/.codex/worktrees/<名称>/yuanchuxiuzhen-rebuild-1.21.1`，从`cb47aa03`创建：`r07-coffin-ghost-20261116`、`r15-inscribed-decor-20261116`、`r06-world-supply-20261116`。分工在[当前调度](remaining-work.md#当前调度)，不等待旧失效任务。
+- 集成主线`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`，分支`port/full-migration-20261112`，当前HEAD为`9dd9f0e4`。该主线工作树有233条暂存、未暂存和未跟踪路径（19条暂存、66条未暂存、148条未跟踪）；均为既有交付，必须逐文件集成与保留，不得清理或整树重放。UI所在R11树停在detached HEAD `a876affe`，也有未提交修改；全局进度以集成主线和本页证据为准。
+- 有效证据和完整缺口只在[统一工作清单](remaining-work.md)及系统正文维护。R06旧报告只证明四道新维度资源接入前的门户行为。2026-11-16六维度增量的`compileSmokeJava compileTestJava`以768 MB、单worker通过，但新世界注册阶段因22个configured feature引用未注册worldgen/feature类型而失败，未进入行为场景；证据在`build/diagnostics/r06-six-dimensions-20261116-registry-failed/result.json`。流体包目前只有静态检查，未正式转换或运行。Q203及丹方消费的有限报告和未覆盖边界见remaining-work及所属系统记录。
+- R07棺材/鬼怪01包已在独立树完成静态实现，尚未集成或运行；R15牌匾/牌位实现已进入主线脏工作树，尚未在该集成状态下编译。R13十二模板映射Smoke补充已完成，仍待主线逐文件集成，尚未验证其余模板实际摆放。当前并行实现包及各自基线见[当前调度](remaining-work.md#当前调度)。
 - 全量目标尚未完成，不推送、不合main；main与本地origin/main为`5cdc045c`，未联网刷新。重型验证唯一执行者串行，768 MB、单worker。
 
 ## 下一步
 
-主线收口盘点和文档检查后，逐文件接收三个完整实现包及既有古镜/42号符夹具，统一共享工厂/资源/中文和受影响台账，集中编译；R06续验接入后六道维度和保存重进。只重开新证据影响的问题，旧客户端已修结果与有效单项复用。按实际实现和必要检查逐包提交，集成/编译/夹具数量不等于全量验收。
+先接收R06世界供给、R07棺材/鬼怪01和R15牌匾/牌位交付，按文件整合共享注册入口、转换、中文和台账；确认22个worldgen feature类型全部注册后，再串行执行必要编译与六维度门户单项。随后接回R13映射Smoke并继续R09烹饪供给链、R14阵法自然触发/消费链。Gradle、客户端和专服均768 MB、单worker串行；不推送、不合并main。旧客户端已修结果继续复用，只因新证据重开对应问题。
 
 ## 先读顺序
 

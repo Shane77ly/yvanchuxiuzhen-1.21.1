@@ -78,21 +78,18 @@ Q28星宿小游戏、Q163虫卵培养、Q208答题自然打开、Q209符箓学�
 
 ## 当前调度
 
-2026-11-16按Git、工作树增量、台账及现有报告盘点，三个完整实现包已启动：
+2026-11-16按主线Git、当前脏工作树、台账和可定位报告核对：4939行台账为1595行行为已迁移、3149行已注册、183行待处理、12行已验收；状态粒度不同，不换算为完成率，待处理行也不等同缺代码任务。全量缺口保留R02–R16，差距按缺生产实现、实现未闭合/待验、最终对照与发布区分，见上表。
 
-| 执行者／独立worktree | 本批交付 |
+| 执行者／独立worktree | 本批交付与状态 |
 | --- | --- |
-| `r07_coffin_ghost_impl`／`r07-coffin-ghost-20261116` | 棺材放置/库存/触发→鬼怪01生成、行为、死亡产物、保存和必要表现完整族 |
-| `r15_inscribed_decor_impl`／`r15-inscribed-decor-20261116` | 牌匾/牌位放置、原生编辑、服务端保存、世界/物品文字、换型与破坏库存 |
-| `r06_world_supply_impl`／`r06-world-supply-20261116` | 核定真实缺失列表，批量实现自然生成方块/流体及实际消费者，不重做四道维度资源 |
-| 主线 | 公共文档、逐文件集成、共享转换/接线/中文、台账/提交及唯一串行重型验证 |
+| `r06_world_supply_impl`／`C:/Users/lxc/.codex/worktrees/r06-world-supply-20261116/yuanchuxiuzhen-rebuild-1.21.1`，基线`cb47aa03` | 批量补齐来源确认的自然生成方块/流体和真实消费者；不重做四道维度资源。流体子包已静态交付，转换和运行未做；当前先定位并修复22个worldgen feature类型缺失，再完成R06余项接线。 |
+| `r07_coffin_ghost_impl`／`C:/Users/lxc/.codex/worktrees/r07-coffin-ghost-20261116/yuanchuxiuzhen-rebuild-1.21.1`，基线`cb47aa03` | 棺材每20刻生成原版Zombie；鬼怪01为独立实体，已完成静态实现，待主线集成、转换、编译与行为验收。 |
+| R15牌匾/牌位／`C:/Users/lxc/.codex/worktrees/r15-inscribed-decor-20261116/yuanchuxiuzhen-rebuild-1.21.1`，基线`cb47aa03` | 实现已逐文件进入主线工作树，尚未在此集成状态下编译；Q210–Q212来源边界保留，行为与资源待验。 |
+| R09烹饪供给链／`C:/Users/lxc/.codex/worktrees/r09-cooking-chain-20261116/yuanchuxiuzhen-rebuild-1.21.1`，基线`9dd9f0e4` | 实现一条来源支持的自然获取/生产输入→烹饪配方→成品消费完整路径；避开仅需运行证据或未经批准的来源差异。 |
+| R14阵法自然链／`C:/Users/lxc/.codex/worktrees/r14-formation-chain-20261116/yuanchuxiuzhen-rebuild-1.21.1`，基线`9dd9f0e4` | 实现一条来源支持的自然触发→阵法状态/能量→消费者完整路径；未裁定语义保持来源。 |
+| R13城镇补充 | 十二模板纯映射Smoke已在独立树完成，待逐文件集成；九个未实放模板仍缺实际摆放覆盖，不宣称已验。 |
+| 主线 | 统一源码核对、共享文件集成、来源索引/台账/系统文档、唯一串行重型验证与提交。 |
 
-三树均从`cb47aa03`创建，绝对路径见[交接](handoff.md)。子agent负责生产代码、资源/转换输入及来源证据，不只做只读审阅或细碎夹具；不改主线/公共调度文档、不自行提交、不运行转换/Gradle/客户端/专服。共享文件由主线按实际增量集成，重型验证768 MB、单worker串行，不推送、不合main。
+R06六维度增量的`compileSmokeJava compileTestJava`在768 MB、单worker下通过；随后`dimensionportal`在新世界注册阶段失败，22个configured feature引用未注册worldgen/feature类型，`behaviorReached=false`、无新鲜报告。证据为`build/diagnostics/r06-six-dimensions-20261116-registry-failed/result.json`。因此旧报告`build/diagnostics/r06-dimensionportal-20261115-final/`只证明接入四道资源前的六组点门、两道往返、四道缺失拒绝及保存重进，不可外推到新状态。
 
-旧门户报告`build/diagnostics/r06-dimensionportal-20261115-final/`证明四道资源接入前的六组点门、两道往返、四道缺失拒绝和保存重进；不能升级为六道全部往返。最新增量`compileSmokeJava`被中断，无成功结论，不能继承旧结果证明本批增量可运行。
-
-已有效的页面、命令、阵法与展示家具必要结果复用[项目集成记录](../systems/project/logs/2026-11.md#2026-11-15-页面命令阵法与展示家具集成验证)，酒蛊创造与九档灵石服用复用[消费复验](../systems/project/logs/2026-11.md#2026-11-15-酒蛊创造与九档灵石真实服用复验)，乾坤道人/门徒复用[NPC记录](../systems/npc/logs/2026-11.md#2026-11-15-乾坤道人与门徒必要单项)。门户/盘菜资源路径修正已集成，证据见[World记录](../systems/world/logs/2026-11.md#2026-11-15-客户端门户与盘菜资源路径修复)及交接；资源加载复核不替代门户传送验收。
-
-固定商人蛋、Pao10–13及自然蚕丝链此前103 INFO结果的原始报告被后续运行覆盖，只保留日志与继承摘要；construction场景未生成本轮DONE。这些不能升级为可复核通过，边界与失败分类继续复用上述消费复验记录及所属系统正文，不因会话接续改写结果。来源疑点、消费断链和后续编号以[统一来源问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置)为准，未批准调整保持来源，独立工作继续推进。
-
-本次盘点与实际并行分派不新增玩法完成声明或提升台账状态；压缩偏移和历史独立树核对边界见[项目接续记录](../systems/project/logs/2026-11.md#2026-11-15-会话压缩偏移核对与接续)。其他功能详情沿用上表及所属系统唯一正文，不从旧日志的“下一步”重启已集成任务。
+子agent只在上述独立树实施来源闭合功能和必要轻量静态检查；公共进度文档、共享入口和Git由主线收口，不自行提交。转换、Gradle、客户端与专服由唯一执行者768 MB、单worker串行运行；新工作不得推送或合并main。已通过的页面、命令、阵法及消费单项按所属系统日志复用；固定商人蛋、Pao10–13和自然蚕丝链的旧原始报告已被覆盖，不能作为当前可复核通过。来源疑点和消费断链以[统一来源问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置)为准。
