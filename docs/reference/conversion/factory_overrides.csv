@@ -1003,3 +1003,7 @@ vanchuxiuzhen:tiandaojianzhu,decor:roof_brush,decor,建筑笔选点、瓦片颜�
 block,yvanchuxiuzhen:biggrass,plant:big_grass,plant,双格高草接触体型与潜行条件后切换摇摆动画方块
 block,yvanchuxiuzhen:biggrassyincang,plant:animated_big_grass,plant,高草动画方块保留九槽实体与三十刻恢复双格写入顺序
 item,yvanchuxiuzhen:biggrassyincang,plant:animated_big_grass,plant,高草动画方块物品的来源Geo模型渲染且不加入创造栏
+block,yvanchuxiuzhen:putuan,decor:cushion,decor,蒲团载具或都承盘衣架紫砂壶来源库存交互与展示
+block,yvanchuxiuzhen:beechfurniture_23,decor:utility_beechfurniture_23,decor,蒲团载具或都承盘衣架紫砂壶来源库存交互与展示
+block,yvanchuxiuzhen:beechfurniture_29,decor:utility_beechfurniture_29,decor,蒲团载具或都承盘衣架紫砂壶来源库存交互与展示
+block,yvanchuxiuzhen:zisha_01,decor:utility_zisha_01,decor,蒲团载具或都承盘衣架紫砂壶来源库存交互与展示

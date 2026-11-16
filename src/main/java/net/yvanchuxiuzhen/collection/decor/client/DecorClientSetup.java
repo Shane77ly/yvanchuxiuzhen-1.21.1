@@ -16,6 +16,8 @@ import net.yvanchuxiuzhen.collection.decor.DisplayFurnitureVariant;
 import net.yvanchuxiuzhen.collection.decor.FurnitureStorageContent;
 import net.yvanchuxiuzhen.collection.decor.FurnitureStorageVariant.Layout;
 import net.yvanchuxiuzhen.collection.decor.RabbitCageBlockEntities;
+import net.yvanchuxiuzhen.collection.decor.UtilityFurnitureContent;
+import net.yvanchuxiuzhen.collection.decor.UtilityFurnitureVariant;
 import net.yvanchuxiuzhen.platform.ModId;
 
 /** 装饰内容族的客户端装配：家具菜单、草色方块、座椅、诱饵和展示物渲染。 */
@@ -33,10 +35,14 @@ public final class DecorClientSetup {
             event.register(DisplayFurnitureContent.CABINET.get(), DisplayFurnitureScreen::new);
             event.register(DisplayFurnitureContent.STAND.get(), DisplayFurnitureScreen::new);
         });
-        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerEntityRenderer(DecorSetup.seatType(), DecorSeatRenderer::new));
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
+            event.registerEntityRenderer(DecorSetup.seatType(), DecorSeatRenderer::new);
+            event.registerEntityRenderer(DecorSetup.cushionType(), DecorSeatRenderer::new);
+        });
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerBlockEntityRenderer(RabbitCageBlockEntities.OPEN.get(), RabbitCageRenderer::new));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             for (DisplayFurnitureVariant variant : DisplayFurnitureVariant.values()) event.registerBlockEntityRenderer(DisplayFurnitureContent.type(variant), DisplayFurnitureRenderer::new);
+            for (UtilityFurnitureVariant variant : UtilityFurnitureVariant.values()) event.registerBlockEntityRenderer(UtilityFurnitureContent.type(variant), UtilityFurnitureRenderer::new);
         });
         modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> event.registerLayerDefinition(DecorSeatRenderer.LAYER, DecorSeatRenderer::layer));
     }
