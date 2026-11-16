@@ -2,7 +2,7 @@
 topic: town
 role: architecture
 status: partial
-updated: 2026-11-14
+updated: 2026-11-16
 ---
 
 # 城镇规划、建筑与中心案台
@@ -25,7 +25,7 @@ updated: 2026-11-14
 
 ### Q70 模板替换与材料扣费
 
-已确认来源缺陷，2026-11-14经负责人批准调整并已实现，中心与受控02模板的跨栈余料必要单项已通过，完整分支仍待验。B `BuildingProcedure:29–34`先检查旧十八槽库存，然后调用结构放置；`:35–43`恢复数据，`:44–46`取费用，`:48–220`却从放置后的当前位置方块实体逐槽读取/扣费。B `ChengzhenBuildblockBlock.onRemove`在方块种类替换时掉落旧库存。模板会清空或替换库存，中心新容器更只有一槽，因此旧材料可能掉落而未支付，并在新中心访问槽1–17。
+已确认来源缺陷，2026-11-14经负责人批准调整并已实现，中心与受控02模板的跨栈余料必要单项已通过；2026-11-16三类四向12模板的受控费用扣料、余料及真实重进有限检查通过，完整自然获取和全部材料边界仍待验。B `BuildingProcedure:29–34`先检查旧十八槽库存，然后调用结构放置；`:35–43`恢复数据，`:44–46`取费用，`:48–220`却从放置后的当前位置方块实体逐槽读取/扣费。B `ChengzhenBuildblockBlock.onRemove`在方块种类替换时掉落旧库存。模板会清空或替换库存，中心新容器更只有一槽，因此旧材料可能掉落而未支付，并在新中心访问槽1–17。
 
 来源模板证据直接来自B `src/main/resources/data/yvanchuxitong/structures/build01{east,nouth,south,west}.nbt`与02/03同族共12文件，SHA1逐项匹配[结构清单](../../reference/conversion/structure_manifest.csv)。01四向分别在(44,2,18)/(18,2,3)/(29,2,44)/(3,2,29)放`chengzhen_antai`；02/03放`chengzhen_buildblock`；全部核心NBT的`Items`为空。01尺寸48×17×48，02为26×10×26，03为22×11×22。目标NeoForge21.1.265 `InvWrapper.getStackInSlot:42–43`直接调用容器`getItem(slot)`，不会将中心越界读变为空槽。
 
@@ -45,10 +45,30 @@ updated: 2026-11-14
 
 本批来源还包括B `block/ChengzhenAntaiBlock.java`、`ChengzhenBuildblockBlock.java`及两BE、卷轴物品、六个菜单/屏幕、`ObtainatowncenterscrollGo`、卷轴放置、核心右键、`Building`、`Jiegoufangzhi`、`ChengzhenBuildJiance`、中心右键、03页打开和各显示过程。菜单构造中没有自然调用的手持物品/实体绑定模板不扩展成新玩法。
 
-目标方块新放置时访问BE已核对同一sources.jar：`LevelChunk.setBlockState`在显式创建BE前调用`onPlace`，但`Level.getBlockEntity`使用`EntityCreationType.IMMEDIATE`，可即时创建；两自定义方块保留`triggerEvent`转发。此项为静态生命周期依据，尚无运行结论。
+目标方块新放置时访问BE已核对同一sources.jar：`LevelChunk.setBlockState`在显式创建BE前调用`onPlace`，但`Level.getBlockEntity`使用`EntityCreationType.IMMEDIATE`，可即时创建；两自定义方块保留`triggerEvent`转发。此项为静态生命周期依据，必要建造单项另确认实际BE与核心字段保存。
 
-主线已完成定向转换、生产/smoke编译与6项架构检查，`construction`必要客户端单项覆盖真实中心卷轴放置、材料页及建造按钮。中心按来源60木/60石/3羊毛扣料，12木/12石/2羊毛/7钻石余料原位掉落；受控02模板按原槽保留同组余料且不重复掉落，正常保存重进仍一致。02夹具复用中心费用只用于检查模板替换和库存守恒，不能当作02来源费用或自然获取事实。中文材料页截图已查看；建造后的截图为现场墙面，不能充当余料菜单视觉证据。完整生存卷轴获取、三类建筑全向实机、03模板、刚好足量与更多材料边界、居民/战争/官职、多人、专服、1.18.2版本实机和两版本对照仍开放；原始报告及夹具失败边界只在本月记录登记。
+主线已完成定向转换、生产/smoke编译与6项架构检查，`construction`必要客户端单项覆盖真实中心卷轴放置、材料页及建造按钮。中心按来源60木/60石/3羊毛扣料，12木/12石/2羊毛/7钻石余料原位掉落；受控02模板按原槽保留同组余料且不重复掉落，正常保存重进仍一致。02夹具复用中心费用只用于检查模板替换和库存守恒，不能当作02来源费用或自然获取事实。
+
+2026-11-16的`towntemplates`进一步覆盖三类四向12模板，实际右键开物资页并点击建造，逐块比较原生更新后的状态与BE类型，检查核心元数据、跨栈扣料和余料，并真实保存退出到标题、重进同存档后再核对。夹具统一写5木/6石/2羊毛费用，只证明建造机制；不作为工筑堂、民居来源费用或自然卷轴获取事实。四个中心均完整掉落2木/1石/1羊毛/2钻石，其他八个核心按原槽保留且不重复掉落。三类物资页截图中文和按钮已查看，最终合并中文键已核；完整建筑外观仍未验收。有效报告、失败分类和日志ERROR见本月记录。完整生存卷轴获取、刚好足量与更多材料边界、居民/战争/官职、多人、专服、1.18.2版本实机和两版本对照仍开放。
 
 ## Q138 潜行持锤拆除核心的入口冲突
 
 B `ChengzhenBuildblockBlock:105–116`只从Block.use调用，过程`34–49`要求潜行且主手hammer。精确Forge40.1.0的ServerPlayerGameMode补丁在secondaryUse且手持物、doesSneakBypassUse默认false时跳过Block.use；来源锤未覆写，两份来源也无事件强制放行。静态推断正常潜行持锤将走锤useOn，核心硬度−1满足移动规则，上方为空时搬状态而不搬BE。目标保持来源，不补sneak bypass；Town已实现的扣料/余料批准Q70不代表此自然拆除可达。1.18.2版本与目标自然操作未实机，待集中核实，证据见`tmp/hammer-tool-evidence/hammer-source-review.json`。
+
+## Q220 北向中心模板的四支悬空火把
+
+锁定来源`B:src/main/resources/data/yvanchuxitong/structures/build01nouth.nbt`的SHA-1为`5371bcdf7056ffa89b17b79e3175adee7df71a9c`，与正式结构转换清单一致。相对坐标(7,6,28)、(7,6,29)、(40,6,28)、(40,6,29)均为立式`minecraft:torch`，下方为来源空气；目标转换保持这四项。正常模板放置与邻块更新后四支火把移除，首轮保存世界证实这四处为空气，其他结构状态一致。目标不补支撑、不改为墙上火把；必要夹具只对这四个来源位置检查原生更新后的空气，其他位置继续完整比较。来源资源静态已核、目标自然更新已观测，1.18.2版本实机与两版本对照待核；当前保持来源，未作行为调整。摘录在`tmp/dispatch-20261116/town-torch-source.json`。
+
+同批另核实工筑堂四向`build02{nouth,south,east,west}`的棕色地毯相对位置依次为(4,3,15)、(21,3,10)、(10,3,4)、(15,3,21)，下方均为带NBT的云杉墙牌。两版本`StructureTemplate`均先放特殊形状块、最后放带NBT块，目标这四块地毯在墙牌放入前失支撑，正常结果为空气；夹具仅对这四处采用该预期。藤蔓的UP连接也按原生邻块更新后的状态比较，半面屋瓦不支持该连接。目标资源和放置逻辑保持来源；地毯来源路径/SHA及下方状态见`tmp/dispatch-20261116/town-native-updates.json`。这些属于同批来源模板与原生更新边界，不能由1.21.1版本有限单项推定1.18.2版本实机已核实。
+
+## Q222 工筑堂东向物品框的旧绝对坐标诊断
+
+锁定来源`B:src/main/resources/data/yvanchuxitong/structures/build02east.nbt`（SHA-1 `c8b3c615a6361a8702196ed4e0ee91d2d89f0779`）的物品框相对`blockPos`为(14,3,3)，NBT仍保留`TileX/Y/Z=(88,-57,-167)`和一把铁斧。1.21.1版本加载该实体旧坐标时产生`Block-attached entity at invalid position` ERROR，随后模板放置重定位。最终保存重进后的世界文件确认物品框在新位置、附着坐标(261,148,187)，铁斧仍为一件；这是该次样本，不能扩展为全部模板实体或所有放置位置通过。
+
+当前保持来源模板，登记为来源旧绝对坐标与目标加载诊断待核；不以最终方块/BE检查通过写成零ERROR，也未改来源实体数据。来源摘录与最终存档提取分别为`tmp/dispatch-20261116/town-native-updates.json`及`build/diagnostics/r05-r06-20261116/towntemplates/rerun-190135/world-entities.json`；1.18.2版本实机和两版本对照未执行。
+
+## Q223 动态建筑文本的语言键命名空间遗漏
+
+最终合并中文核对确认卷轴名`TownRuntime.centerScroll`、中心页`TownScreen`和列表`TownMenu`已引用`txt.yvanchuxiuzhen.build01`–`05`，但`convert_prefix_lang`仅迁移`key.`前缀，输出仍为`txt.yvanchuxitong.build01`–`05`，导致实际合并文件缺少代码引用的五个键。此前正文写已转换不符合最终资源事实，本批改正：转换器统一`txt.<来源命名空间>.`，双语Town片段同步改为目标唯一命名空间，保持各语言来源文案与列表替换规则。
+
+本项为已确认目标资源遗漏、已修复；只运行`processResources`重建真实合并语言并核对代码引用、来源文案和转换函数输出，结果见本月记录。城镇12物资页的运行截图使用`build_name`字面文本，不覆盖这五个键；修复后的卷轴名称/中心列表未重新打开截图，不能由842项建造报告宣称该显示已实机验收。

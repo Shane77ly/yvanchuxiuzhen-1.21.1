@@ -260,7 +260,7 @@ def convert_entities(sources: dict[str, Source]) -> dict[str, list[dict]]:
 
 
 def convert_prefix_lang(sources: dict[str, Source], add_lang) -> int:
-    """系统代码直接引用的语言键（docs/reference/conversion/lang_prefixes.csv：所属单位、来源、键前缀）原样写入所属单位的语言片段。"""
+    """系统直接引用的语言键写入所属片段，按键前缀表选择并统一按键及文本键的命名空间。"""
     count = 0
     with (CONVERSION / 'lang_prefixes.csv').open(encoding='utf-8') as handle:
         for row in csv.DictReader(handle):
@@ -268,6 +268,8 @@ def convert_prefix_lang(sources: dict[str, Source], add_lang) -> int:
                 for key, value in sources[row['source_mod']].lang[language].items():
                     if key.startswith(row['prefix']):
                         target = key.replace(f"key.{row['source_mod']}.", f'key.{NAMESPACE}.', 1) if key.startswith('key.') else key
+                        if key.startswith('txt.'):
+                            target = key.replace(f"txt.{row['source_mod']}.", f'txt.{NAMESPACE}.', 1)
                         add_lang(row['owner'], language, target, value)
                         count += 1
     return count

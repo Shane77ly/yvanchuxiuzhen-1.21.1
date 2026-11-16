@@ -2,7 +2,7 @@
 topic: decor
 role: architecture
 status: partial
-updated: 2026-11-15
+updated: 2026-11-16
 ---
 
 # 装饰：架构调查与提案
@@ -186,3 +186,9 @@ B牌位潜行收回只把文字和逐字位置写入掉落物，没有复制颜�
 ### Q219 都承盘多件库存切换只返一件
 
 `B:Beechfurniture23BlockEntity.getMaxStackSize`允许64件，使用15菜单；`B:Beechfurniture15qiehuanProcedure:31–64`复制槽0后强制count1返还，再整槽清空，末尾对非1501–1505方块默认改为1501。都承盘装入多件后点击切换只返回一件，其余被清除。当前实现复用既有菜单操作、保持来源；未改为全额返还或移除按钮。状态为来源静态已核、目标已实现且原生网络按钮有限验证通过，来源行为仍待裁定；不将此来源异常计为新引入的目标缺陷。
+
+### Q221 动态楼梯的来源实体材质
+
+城镇全向建造复核发现榉木楼梯旁的原版墙牌脱落。已逐一核对本系统全部30种楼梯来源构造：均为`Material.WOOD`或`Material.STONE`并调用`dynamicShape()`，材质实体性为真。1.18.2版本原版墙牌查询支撑块`getMaterial().isSolid()`；1.21.1版本墙牌查询`BlockState.isSolid()`，NeoForge21.1.265的`BlockStateBase.calculateSolid`在动态形状无缓存且没有显式标记时返回false。目标`ContentStairs`原先只还原动态形状，遗漏来源实体材质，现通过`forceSolidOn()`保留30种楼梯各状态的此项语义。仍使用来源空气基础状态，不改变碰撞、朝向、形状、声音或物品身份。
+
+来源30文件路径与SHA256在`tmp/dispatch-20261116/stairs-source-evidence.json`及本系统source-evidence台账；目标机制直接核对`neoforge-21.1.265-sources.jar`。1.18.2版本原版方法读取同Minecraft版本缓存源码，另核对精确Forge40.1.0的楼梯补丁仅扩展Supplier构造及基础状态委托，未覆盖该材质契约。当前为已确认目标迁移遗漏、已修复，城镇全向必要单项确认四向工筑堂墙牌/BE建造和真实重进后保持，有限复验通过；全部楼梯材质实例及原生消费者的逐项游戏验收、多人、1.18.2版本实机及两版本对照未验。报告与修复前失败原件统一见[城镇月志](../town/logs/2026-11.md#2026-11-16-三类城镇十二模板真实建造夹具)。
