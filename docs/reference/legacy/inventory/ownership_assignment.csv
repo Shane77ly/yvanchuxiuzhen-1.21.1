@@ -6533,7 +6533,7 @@ yvanchuxitong,Mujiangneed2,procedure,~/mujiangtai,craft,已读,2026-11-10完整�
 yvanchuxitong,Mujiangneed3,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
 yvanchuxitong,Mujiangneed4,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
 yvanchuxitong,Mujiangtaijianzao,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
-yvanchuxitong,Shitiputuan,livingentity,~/zhuangshiwu/jiajv,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Shitiputuan,livingentity,~/zhuangshiwu/jiajv,decor,已读,R15逐源码核对实体/渲染/模型及蒲团放置、右键乘坐、玩家破坏和爆炸移除过程；只保存本族载具，不写玩家档案
 yvanchuxitong,PutuanZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Putuan 读：蒲团：放置时生成座位实体 shitiputuan，供坐下
 yvanchuxitong,PutuanFangZhiFangKuaiShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Putuan 读：蒲团：放置时生成座位实体 shitiputuan，供坐下
 yvanchuxitong,PutuanDangFangKuaiBeiWanJiaPoPiShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Putuan 读：蒲团：放置时生成座位实体 shitiputuan，供坐下

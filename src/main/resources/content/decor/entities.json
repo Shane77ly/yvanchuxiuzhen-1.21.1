@@ -1,3 +1,4 @@
 [
-{"id":"shitiyizi","category":"MONSTER","width":0.4,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true}
+{"id":"shitiyizi","category":"MONSTER","width":0.4,"height":0.5,"tracking_range":64,"update_interval":3,"fire_immune":true},
+{"id":"shitiputuan","category":"MONSTER","width":0.4,"height":0.1,"tracking_range":64,"update_interval":3,"fire_immune":true}
 ]

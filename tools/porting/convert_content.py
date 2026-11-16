@@ -448,7 +448,7 @@ def main() -> None:
                        'plant:mulberry_sapling', 'plant:mulberry_leaves',
                        'plant:fruit_tree_log', 'plant:fruit_tree_leaves', 'plant:shicai009_sapling', 'plant:shicai010_sapling', 'plant:gourd',
                        'plant:lotus_root', 'plant:lotus_stem', 'plant:lotus_pod', 'plant:lotus_leaf') or factory.startswith((
-                           'decor:display_', 'decor:inscribed_', 'economy:', 'tiandao:nbt_editor', 'dungeon:', 'world:rift', 'guchong:taoguan_', 'fulu:explosive_', 'plant:big_grass', 'plant:animated_big_grass', 'plant:produce', 'plant:vine', 'plant:fungus', 'plant:legume',
+                           'decor:display_', 'decor:inscribed_', 'decor:utility_', 'decor:cushion', 'economy:', 'tiandao:nbt_editor', 'dungeon:', 'world:rift', 'guchong:taoguan_', 'fulu:explosive_', 'plant:big_grass', 'plant:animated_big_grass', 'plant:produce', 'plant:vine', 'plant:fungus', 'plant:legume',
                            'plant:reactive_wild_', 'plant:tree_sapling', 'plant:fiber_crop', 'plant:nichang_grass', 'plant:peach_flower',
                            *(f'plant:shicai{number}_' for number in ('001', '002', '004', '005', '006', '007',
                                '011', '012', '013', '014', '015', '016', '025', '026', '027')))):
