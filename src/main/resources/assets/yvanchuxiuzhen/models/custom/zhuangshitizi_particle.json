@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/zhuangshi_tizi.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/zhuangshi_tizi"
+  }
+}

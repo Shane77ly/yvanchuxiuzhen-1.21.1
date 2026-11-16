@@ -15,8 +15,6 @@ block,yvanchuxiuzhen:quicksand,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:watercloud,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:wenqvan,方块基类 LiquidBlock 由所属系统迁移
 block,yvanchuxiuzhen:xveliu,方块基类 LiquidBlock 由所属系统迁移
-block,yvanchuxiuzhen:zhuangshiqiantong,方块基类 BaseEntityBlock 由所属系统迁移
-block,yvanchuxiuzhen:zhuangshitizi,方块基类 BaseEntityBlock 由所属系统迁移
 item,yvanchuxiuzhen:clothes_08_boots,Clothes08Item.Boots：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_08_chestplate,Clothes08Item.Chestplate：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
 item,yvanchuxiuzhen:clothes_08_helmet,Clothes08Item.Helmet：盔甲使用自定义模型类与 textures/entities 单文件贴图，由所属系统随客户端模型迁移
@@ -59,5 +57,3 @@ item,yvanchuxiuzhen:xveliu_bucket,物品基类 BucketItem 由所属系统迁移
 item,yvanchuxiuzhen:ycxzboss_01_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:ycxzboss_02_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
 item,yvanchuxiuzhen:ycxzboss_04_spawn_egg,物品类 ForgeSpawnEggItem 由所属系统迁移
-item,yvanchuxiuzhen:zhuangshiqiantong,物品类 ZhuangshiqiantongDisplayItem 由所属系统迁移
-item,yvanchuxiuzhen:zhuangshitizi,物品类 ZhuangshitiziDisplayItem 由所属系统迁移

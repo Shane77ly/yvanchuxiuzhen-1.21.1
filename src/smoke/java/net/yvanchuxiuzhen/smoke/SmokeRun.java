@@ -238,6 +238,7 @@ final class SmokeRun {
                     case "furniturestorage" -> List.of(new FurnitureStorageCheck(report, levelId, this::shot));
                     case "inscribeddecor" -> List.of(new InscribedDecorCheck(report, levelId, this::shot));
                     case "decor_remainder" -> List.of(new DecorRemainderCheck(report, levelId, this::shot));
+                    case "animateddecor" -> List.of(new AnimatedDecorCheck(report, levelId, this::shot));
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
                     case "questblockrefresh" -> List.of(new QuestBlockRefreshCheck(report, levelId));

@@ -565,5 +565,7 @@
   "gui.yvanchuxiuzhen.plaque_gui.plaquetxt": "在此输入匾额内容",
   "gui.yvanchuxiuzhen.plaque_gui.button_empty": ">>",
   "gui.yvanchuxiuzhen.plaque_gui.button_ok": "ok",
-  "entity.yvanchuxiuzhen.shitiputuan": "蒲团"
+  "entity.yvanchuxiuzhen.shitiputuan": "蒲团",
+  "block.yvanchuxiuzhen.zhuangshitizi": "梯子",
+  "block.yvanchuxiuzhen.zhuangshiqiantong": "签筒"
 }

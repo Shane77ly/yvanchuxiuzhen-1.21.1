@@ -819,3 +819,9 @@ zhenfa,animation,yvanchuxiuzhen:zhenjineng03
 plant,geo,yvanchuxiuzhen:big_grass_03
 plant,animation,yvanchuxiuzhen:big_grass_03
 plant,texture,yvanchuxiuzhen:blocks/big_grass03
+decor,geo,yvanchuxiuzhen:zhuangshi_qiantong
+decor,animation,yvanchuxiuzhen:zhuangshi_qiantong
+decor,texture,yvanchuxiuzhen:blocks/zhuangshi_qiantong
+decor,geo,yvanchuxiuzhen:zhuangshi_tizi
+decor,animation,yvanchuxiuzhen:zhuangshi_tizi
+decor,texture,yvanchuxiuzhen:blocks/zhuangshi_tizi

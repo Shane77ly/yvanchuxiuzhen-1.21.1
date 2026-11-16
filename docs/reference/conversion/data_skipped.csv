@@ -6,10 +6,8 @@ tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_str
 tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/shipwreck_beached.json,群系标签引用本 Mod 的群系，随 world 迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:treasure_chest_11 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:tiandiyinhang 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:zhuangshitizi 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:treasure_chest_03 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:guancai_01 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:zhuangshiqiantong 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:watercloud 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_watercloud 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:hotoil 未登记，由所属系统迁移
