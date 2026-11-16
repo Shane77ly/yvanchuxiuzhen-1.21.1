@@ -30,6 +30,7 @@ Plant拥有本族作物方块和状态，Cooking保留可食物品身份、FoodP
 | 操作 | 调用与数据边界 |
 | --- | --- |
 | `PlantRipening.ripen` | fulu逐格催熟委托；Plant按来源顺序推进本系统方块或调用原生骨粉，不接受客户端快照回写 |
+| `WildPlantCreatureEvent` | 魔眼玩家破坏或血桃苗计划刻同步提交服务端坐标与生成种类，魔眼附玩家目标；Creature独占构造、初始化与加入世界 |
 | `NichangGrassBloomEvent` | Plant在来源开花顺序的对应位置同步发布服务端坐标；Creature订阅并拥有妖兽召引，不引入Plant→Creature依赖 |
 | `Planting.lotus` | Cooking莲子00801委托播种；Plant修改世界方块并扣本次手持栈，保留来源耕地只扣不种分支 |
 | `Planting.garlic` | Cooking大蒜01502委托耕地播种；物品食用身份仍由Cooking拥有 |
@@ -49,3 +50,5 @@ Plant拥有本族作物方块和状态，Cooking保留可食物品身份、FoodP
 本批静态已核生长、湿度、光照、骨粉、重复采摘及来源异常，运行证据以本批月志为准。成熟作物地物仅允许 `dimensionrenjian` / `dimensionyaohun`，群系集合各编号独立记录；不安装指向缺失World内容的modifier。当前继续核对非编号树苗、棉麻、霓裳草和桃花，具体实现及运行状态见架构正文与月志。桑树自然地物及所需World维度/群系仍未闭合。`003`为白面物品，不存在对应003Plant，不能按连续编号补造作物。
 
 原生NBT保存读回、give和/place分别只证明对应入口，不代替完整退出重登或生存自然获取验收。烹饪、Craft及World的完整自然供给仍未闭合，整个Plant系统不登记完成。
+
+2026-11-16补齐27种反应野外方块的碰触、计划刻、攻击与玩家破坏回调，按五种来源基类装配；魔眼/血桃苗通过公开同步事件交Creature生成。五类计划刻的自然调度未证实，按Q218保持来源，不从randomTick追加调用。规则和分批验证边界见[反应植物正文](architecture.md#反应野外方块2026-11-16)。

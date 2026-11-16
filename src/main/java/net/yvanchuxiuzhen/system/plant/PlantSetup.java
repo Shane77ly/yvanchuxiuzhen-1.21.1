@@ -10,6 +10,11 @@ import net.yvanchuxiuzhen.system.plant.content.MulberrySaplingBlock;
 /** 植物系统的启动装配，只在Mod构造时调用一次。 */
 public final class PlantSetup {
     private static final ContentTables CONTENT = new ContentTables("plant")
+            .blockFactory("plant:reactive_wild_block", ReactiveWildBlocks::block)
+            .blockFactory("plant:reactive_wild_flower", ReactiveWildBlocks::flower)
+            .blockFactory("plant:reactive_wild_double", ReactiveWildBlocks::doublePlant)
+            .blockFactory("plant:reactive_wild_waterlogged", ReactiveWildBlocks::waterlogged)
+            .blockFactory("plant:reactive_wild_leaves", ReactiveWildBlocks::leaves)
             .blockFactory("plant:big_grass", BigGrassBlock::new)
             .blockFactory("plant:animated_big_grass", traits -> ContentBlock.create(traits, AnimatedBigGrassBlock::new))
             .itemFactory("plant:animated_big_grass", (properties, tooltip) -> new AnimatedBigGrassBlockItem(AnimatedBigGrassBlock.block(), properties, tooltip))

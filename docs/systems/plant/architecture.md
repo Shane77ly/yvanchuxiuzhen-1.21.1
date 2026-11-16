@@ -312,3 +312,19 @@ updated: 2026-11-13
 自然入口复用已接`WildPlantFeatures`及主线`biometiger_02`群系的`yvanchuxiuzhen:biggrass`引用；来源只允许妖魂道，RandomPatch tries64、Count20、InSquare、`PlacementUtils.HEIGHTMAP_WORLD_SURFACE`、Biome，目标高度图为`WORLD_SURFACE_WG`。已有Feature源码证据直接复用，本批只补方块生命周期及转换输入，不重复创建World生成资源。静态接线不代表新区块自然获取通过。
 
 来源路径与SHA256记在本系统来源证据及指纹表。本批静态核对覆盖内容唯一性、来源基础属性、资产引用闭包、汉化和自然入口；`BigGrassCheck`提供碰撞门槛、六面/无方向能力、九槽物品组件NBT读回、独立菜单、自然30服务端刻恢复和双格破坏必要场景，已接入共享biggrass选择器但未执行。标准转换隔离输出、集中编译和六架构检查通过；高草定向目标客户端、来源1.18.2版本实机、真实退出重进、多人及完整视觉/两版本对照均未执行；具体结果见[本月记录](logs/2026-11.md#2026-11-16-高草完整生命周期)。
+
+## 反应野外方块（2026-11-16）
+
+`ReactiveWildBlocks`按来源五种基类装配27个ID，内容表与`factory_overrides.csv`逐项对应；已接回的回调不继续保留pending_hooks。普通方块：huaguang、barrenstonesting、snowdrift、moeye；双格：iceboundrock、tailbladegrass；花型：opticalprism、cannibalmoss、cannibalmoss_02、bitegrass_01、bitegrass_02、thundergrass、thistlesandthorns、lurker、cloudgrass_01、cloudgrass_02、soulgrass、bladegrass、peachsaplingxve；树叶：sandalwoodleaves；含水型：ironrope及witheredbone_01..06。
+
+华光把速度设为(0,0.2,0)；棱镜发送15粒子、声音后无掉落销毁；食人苔切02，02施加20刻20级缓慢；咬草01造成5点通用伤害并切02；荒石刺/荆棘伤害4；潜伏者伤害4并加1200刻1级缓慢；云草01发40云粒子切02；魂草发2魂粒子；刀草/尾刀草分别伤害8/24后销毁；六种枯骨播放骷髅声。02食人苔/咬草/云草在计划刻恢复，雷草计划刻在水平±3格生成真实闪电。血桃苗计划刻排除画卷与虚空，以独立5%抽样先发粒子、请求桃木精、再置空气；未追加自然调度。
+
+雪堆空手和持物原生右键均生成一枚owner为玩家的雪球；普通瞄准垂直量0.1，潜行按视线，速度1/散布1。冰封岩玩家破坏先查主副手精准采集，任一非零不生成；否则各else-if独立抽样，依次0.142/0.166/0.2/0.25/0.333/0.5选择蝙蝠/蜜蜂/猫/鸡/狐狸/兔，仍可能无动物。铁索开始挖掘发火粒子，主手非正确工具时写玩家自由NBT`manaattackbegin=true`并造成5点火伤；此自由NBT不是强类型玩家档案，不添加其他系统字段写入。檀叶破坏按独立else-if抽样额外掉叶10%、苗10%、双苗5%，双苗保持两个独立物品实体。
+
+魔眼玩家破坏同步发布`WildPlantCreatureEvent(DEMON_EYE,玩家)`；血桃苗发布`BLOOD_PEACH`。Plant只提供事实与坐标；Creature订阅后创建已注册moshou_003/taomujing，按来源位置、独立朝向及MOB_SUMMONED初始化加入世界。魔眼在初始化前设置玩家目标。此接口无持久玩家档案写入，不引入Plant对Creature实现的依赖。
+
+### Q218 五类计划刻缺少已证实自然调度
+
+待核实/待裁定，当前保持来源。Cannibalmoss02Block:63、Bitegrass02Block:46、ThundergrassBlock:71、Cloudgrass02Block:64、PeachsaplingxveBlock:62覆写tick且声明randomTicks，但未覆写randomTick；锁定来源包中包含对应五常量的文件未见scheduleTick。没有证实全部潜在动态入口不存在，也不能把randomTicks声明解释为计划刻调用。目标分别保留tick与继承的randomTick，不追加转调或排程；自然恢复、雷击及召唤触发仍待核实。关键消费者来源为MoeyeDangFangKuaiBeiWanJiaPoPiShiProcedure:18、PeachsaplingxveGengXinYouXiKeProcedure:31与IronropeDangWanJiaKaiShiPoPiShiProcedure:19；冰封岩精准采集同时检查双手。
+
+`reactiveplants`覆盖正式右键/破坏、碰触状态伤害、双手精准采集抑制、randomTick不补计划刻和人工scheduleTick恢复；受控调度不是自然调度证明。概率掉落/普通冰封岩随机分支、完整自然供给、来源版本实机、真实保存重进、多人和完整视觉仍未验；实际结果统一见[本月记录](logs/2026-11.md#2026-11-16-反应野外方块)。
