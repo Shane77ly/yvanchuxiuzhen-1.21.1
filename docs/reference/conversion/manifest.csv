@@ -14071,3 +14071,5 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/custom/biggrassyi
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/big_grass_03.item.json,7a625bc4d84c3ffb4a6e8ac2de9c7382c3fbd513,src/main/resources/assets/yvanchuxiuzhen/models/displaysettings/big_grass_03.item.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/biggrassyincang.json,026b0da78ad566f58605533c0a84077609489e58,src/main/resources/assets/yvanchuxiuzhen/models/item/biggrassyincang.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/big_grass03.png,1281783f9858252538efa9c3b54c54a41db0f2c9,src/main/resources/assets/yvanchuxiuzhen/textures/block/big_grass03.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/paiwei_gui.png,87689aaf1a77e7f585e4b8af8cd0bff1e9849d0f,src/main/resources/assets/yvanchuxiuzhen/textures/screens/paiwei_gui.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/screens/plaque_gui.png,87689aaf1a77e7f585e4b8af8cd0bff1e9849d0f,src/main/resources/assets/yvanchuxiuzhen/textures/screens/plaque_gui.png

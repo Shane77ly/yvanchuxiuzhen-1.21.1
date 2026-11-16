@@ -3560,7 +3560,7 @@ yvanchuxiuzhen,Jadefairyhecheng,recipe,~/plant/ordinaryplants,plant,候选,第�
 yvanchuxiuzhen,Setrenwu,procedure,~/tool,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,RenwufangkuaiGui,gui,~/tool,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlaqueGuiDangZheGeJieMianDaKaiShi,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlaqueGui,gui,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlaqueGui,gui,~/tool,decor,已读,1.18.2版本A菜单注册第90行；牌匾编辑界面服务于牌匾文字写入，归装饰；调用与Q210边界见装饰正文
 yvanchuxiuzhen,PlaqueTxt,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlaqueGuianniu,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qingjiaoxianshi,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3793,7 +3793,7 @@ yvanchuxiuzhen,Moshou001DangShiTiBeiShaSiShi,procedure,~/entity/tianmo,creature,
 yvanchuxiuzhen,Moshou001DangShiTiGengXinKeShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Moshou002DangShiTiGengXinKeShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou002 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Painting01,painting,~/decorate/painting,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PaiweiGui,gui,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PaiweiGui,gui,~/tool,decor,已读,1.18.2版本A菜单注册第94行；牌位编辑界面服务于牌位文字写入，归装饰；调用与来源行为见装饰正文
 yvanchuxiuzhen,SetPaiwei,procedure,~/tool,decor,已读,系统设计·已读裁定：牌位界面的写入过程，写 plaquetxt
 yvanchuxiuzhen,Fabao016DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao016 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Jingxve,item,~/item/zawu,equipment,已读,B1 归属阅读：精血：筑基期（LEVELnumber ≥ 11）以本人精血使副手武器或法宝认主，写 belongToMasterUUID；蛊罐与桃树苗按 ID 另作材料使用
@@ -6000,7 +6000,7 @@ yvanchuxitong,Danyaonamexianshi,procedure,~/yvanchuliandan/liandangongzuotai,lia
 yvanchuxitong,Plaque0101,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,Plaque0102,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,Plaque0103,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
-yvanchuxitong,PlaqueGUI,gui,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PlaqueGUI,gui,~/zhuangshiwu/plaque,decor,已读,1.18.2版本B菜单注册第77行；来源路径和菜单内容属于牌匾装饰；无自然打开者及消息断链按Q210保留
 yvanchuxitong,PlaqueGUIanniu,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,PlaquejiaziZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：随 Paiwei01 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,PlaqueGUIqingxieanniu,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）

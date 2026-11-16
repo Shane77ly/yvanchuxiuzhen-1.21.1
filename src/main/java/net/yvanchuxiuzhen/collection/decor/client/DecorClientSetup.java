@@ -15,6 +15,9 @@ import net.yvanchuxiuzhen.collection.decor.DisplayFurnitureContent;
 import net.yvanchuxiuzhen.collection.decor.DisplayFurnitureVariant;
 import net.yvanchuxiuzhen.collection.decor.FurnitureStorageContent;
 import net.yvanchuxiuzhen.collection.decor.FurnitureStorageVariant.Layout;
+import net.yvanchuxiuzhen.collection.decor.InscribedDecorContent;
+import net.yvanchuxiuzhen.collection.decor.InscribedDecorMenu;
+import net.yvanchuxiuzhen.collection.decor.InscribedDecorVariant;
 import net.yvanchuxiuzhen.collection.decor.RabbitCageBlockEntities;
 import net.yvanchuxiuzhen.platform.ModId;
 
@@ -32,11 +35,13 @@ public final class DecorClientSetup {
             for (Layout layout : Layout.values()) event.register(FurnitureStorageContent.menuType(layout), FurnitureStorageScreen::new);
             event.register(DisplayFurnitureContent.CABINET.get(), DisplayFurnitureScreen::new);
             event.register(DisplayFurnitureContent.STAND.get(), DisplayFurnitureScreen::new);
+            for (InscribedDecorMenu.Kind kind : InscribedDecorMenu.Kind.values()) event.register(InscribedDecorContent.menu(kind), InscribedDecorScreen::new);
         });
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerEntityRenderer(DecorSetup.seatType(), DecorSeatRenderer::new));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerBlockEntityRenderer(RabbitCageBlockEntities.OPEN.get(), RabbitCageRenderer::new));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             for (DisplayFurnitureVariant variant : DisplayFurnitureVariant.values()) event.registerBlockEntityRenderer(DisplayFurnitureContent.type(variant), DisplayFurnitureRenderer::new);
+            for (InscribedDecorVariant variant : InscribedDecorVariant.VALUES) event.registerBlockEntityRenderer(InscribedDecorContent.type(variant), InscribedDecorRenderer::new);
         });
         modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> event.registerLayerDefinition(DecorSeatRenderer.LAYER, DecorSeatRenderer::layer));
     }

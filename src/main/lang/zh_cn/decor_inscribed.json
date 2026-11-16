@@ -1,0 +1,9 @@
+{
+  "menu.yvanchuxiuzhen.decor.plaque_gui": "匾额编辑",
+  "menu.yvanchuxiuzhen.decor.plaque_gui_xitong": "匾额编辑",
+  "menu.yvanchuxiuzhen.decor.paiwei_gui": "牌位设置",
+  "message.yvanchuxiuzhen.decor.plaque_too_long": "§4太长了！",
+  "gui.yvanchuxiuzhen.plaque_gui.angle": "倾斜角度：%s",
+  "gui.yvanchuxiuzhen.plaque_gui.half_on": "方块连接处为匾额中线。",
+  "gui.yvanchuxiuzhen.plaque_gui.half_off": "方块边长中线为匾额中线。"
+}

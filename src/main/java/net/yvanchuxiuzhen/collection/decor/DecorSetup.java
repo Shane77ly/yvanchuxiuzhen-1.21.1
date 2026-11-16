@@ -16,6 +16,7 @@ public final class DecorSetup {
             .itemFactory("decor:cage", RabbitCageItem::new)
             .itemFactory("decor:hammer", BuildingHammerItem::new)
             .itemFactory("decor:roof_brush", RoofBrushItem::new)
+            .itemFactory("decor:memorial_tablet", MemorialTabletItem::new)
             .livingEntity("shitiyizi", DecorSeat::new, DecorSeat::attributes);
 
     static {
@@ -24,6 +25,9 @@ public final class DecorSetup {
         }
         for (DisplayFurnitureVariant variant : DisplayFurnitureVariant.values()) {
             CONTENT.blockFactory(variant.factory(), traits -> ContentBlock.create(traits, row -> row.waterlogged() ? new WaterloggedDisplayFurnitureBlock(row, variant) : new DisplayFurnitureBlock(row, variant)));
+        }
+        for (InscribedDecorVariant variant : InscribedDecorVariant.VALUES) {
+            CONTENT.blockFactory(variant.factory(), traits -> ContentBlock.create(traits, row -> new InscribedDecorBlock(row, variant)));
         }
     }
 
@@ -35,6 +39,8 @@ public final class DecorSetup {
         RabbitCageBlockEntities.register(modBus);
         FurnitureStorageContent.register(modBus);
         DisplayFurnitureContent.register(modBus);
+        InscribedDecorContent.register(modBus);
+        NeoForge.EVENT_BUS.addListener(InscribedDecor::rightClick);
         NeoForge.EVENT_BUS.addListener(DisplayFurnitureMenuActions::tick);
         NeoForge.EVENT_BUS.addListener(AuctionSeats::requested);
         NeoForge.EVENT_BUS.addListener(BuildingHammer::leftClick);

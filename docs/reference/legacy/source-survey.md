@@ -342,3 +342,6 @@ updated: 2026-11-15
 | S19 | A `src/main/java/net/mcreator/yvanchuxiuzhen/world/inventory/Qiankundai01GUIMenu.java` 45–83、254–255、372–381 |
 
 全量文件及调用定位见 [索引入口](inventory/README.md)。人工源码核对、自动索引、1.18.2 实机、1.21.1 实机的覆盖分别记录；目标版本有限实机结果见各系统月志；1.18.2版本实机与两版本对照仍未执行。
+| Q210 | 原初系统旧牌匾菜单无自然打开者，按钮消息不提交文本；保持独立注册身份、不补造输入路径 | `PlaqueGUIMenu`、`PlaqueGUIScreen`与`PlaqueGUIButtonMessage`来源调用闭包未找到自然打开者；按钮payload仅含按钮号，服务端过程读取静态EditBox并带调试广播，不形成可信文本提交链 | [装饰](../../systems/decor/architecture.md#q210-旧系统牌匾菜单缺少自然文本提交链) |
+| Q211 | 浅蓝染料触发黄色映射；保持来源 | 牌位染色过程把浅蓝染料映射到黄色；目标保留此颜色差异，不按物品名称改为浅蓝 | [装饰](../../systems/decor/architecture.md#q211-浅蓝染料颜色映射) |
+| Q212 | 牌位收回物品不复制染色与发光状态；保持来源 | 来源回收过程只按方块身份写物品，没有把方块实体中的染色或发光字段复制到收回栈 | [装饰](../../systems/decor/architecture.md#q212-牌位收回未复制染色与发光) |
