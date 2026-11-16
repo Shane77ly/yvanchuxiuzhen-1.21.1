@@ -1,0 +1,9 @@
+{
+  "menu.yvanchuxiuzhen.decor.plaque_gui": "Plaque Editor",
+  "menu.yvanchuxiuzhen.decor.plaque_gui_xitong": "Plaque Editor",
+  "menu.yvanchuxiuzhen.decor.paiwei_gui": "Memorial Tablet",
+  "message.yvanchuxiuzhen.decor.plaque_too_long": "§4Too long!",
+  "gui.yvanchuxiuzhen.plaque_gui.angle": "Tilt angle: %s",
+  "gui.yvanchuxiuzhen.plaque_gui.half_on": "Center the plaque at the block joint.",
+  "gui.yvanchuxiuzhen.plaque_gui.half_off": "Center the plaque at the middle of the block."
+}

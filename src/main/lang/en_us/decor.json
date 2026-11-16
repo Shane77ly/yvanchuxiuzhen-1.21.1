@@ -553,5 +553,16 @@
   "item.yvanchuxiuzhen.paiwei_09item": "Paiwei 0 9item",
   "subtitles.yaoqiantong": "签筒摇晃",
   "gui.yvanchuxiuzhen.beechfurniture_15_gui.button_qie_huan": "切换",
-  "entity.yvanchuxiuzhen.shitiyizi": "Shitiyizi"
+  "entity.yvanchuxiuzhen.shitiyizi": "Shitiyizi",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.button_ok": "OK",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.button_05": "+0.5",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.Zai Ci Shu Ru Bian E Nei Rong ": "Enter the plaque content here",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.button_empty": ">>",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.plaquetxt": "在此输入匾额内容",
+  "gui.yvanchuxiuzhen.paiwei_gui.button_she_zhi": "设置",
+  "gui.yvanchuxiuzhen.paiwei_gui.plaquetxt": "牌位内容",
+  "gui.yvanchuxiuzhen.plaque_gui.button_05": "+0.5",
+  "gui.yvanchuxiuzhen.plaque_gui.plaquetxt": "在此输入匾额内容",
+  "gui.yvanchuxiuzhen.plaque_gui.button_empty": ">>",
+  "gui.yvanchuxiuzhen.plaque_gui.button_ok": "ok"
 }
