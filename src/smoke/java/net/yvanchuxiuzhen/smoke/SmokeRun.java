@@ -19,6 +19,7 @@ import java.util.function.Consumer;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
+import net.minecraft.client.gui.screens.AccessibilityOnboardingScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -142,6 +143,11 @@ final class SmokeRun {
     }
 
     private void waitForTitle() {
+        if (minecraft.getOverlay() == null && minecraft.screen instanceof AccessibilityOnboardingScreen onboarding) {
+            report.add("INFO 首次启动完成原生辅助功能引导，继续进入标题页");
+            onboarding.onClose();
+            return;
+        }
         if (minecraft.screen instanceof TitleScreen && minecraft.getOverlay() == null) {
             // 关闭首次进入的出身界面，免得内容检查期间弹出；修炼检查中再开启。
             GameRules rules = new GameRules();
