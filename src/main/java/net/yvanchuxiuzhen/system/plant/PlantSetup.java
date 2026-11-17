@@ -20,6 +20,7 @@ public final class PlantSetup {
             .itemFactory("plant:animated_big_grass", (properties, tooltip) -> new AnimatedBigGrassBlockItem(AnimatedBigGrassBlock.block(), properties, tooltip))
             .blockFactory("plant:water_plant", traits -> ContentBlock.create(traits, WaterPlantBlock::new))
             .blockFactory("plant:willow_drooping", traits -> ContentBlock.create(traits, WillowDroopingBlock::new))
+            .blockFactory("plant:corpse_grass", CorpseGrassBlock::new)
             .blockFactory("plant:shicai001_01", traits -> new CerealSingleStageBlock(traits, CerealCrop.SHICAI_001, 1))
             .blockFactory("plant:shicai001_02", traits -> new CerealSingleStageBlock(traits, CerealCrop.SHICAI_001, 2))
             .blockFactory("plant:shicai001_03", traits -> new CerealSingleStageBlock(traits, CerealCrop.SHICAI_001, 3))
