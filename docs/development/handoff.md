@@ -15,7 +15,7 @@ updated: 2026-11-17
 
 原主树`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`仍为`port/full-migration-20261112`、`28f05bc7`。343条展开状态、原25条暂存、索引条目及文件SHA与主树`tmp/session-recovery-20261117/`快照一致；本轮不前移、提交或清理原主树及三个模块树的旧候选。复核记录在集成树`tmp/session-close-20261117/main-protection-check.json`。此前批次0归属证据继续复用，不重新盘点全部旧工作树。
 
-本轮未通过的两个独立功能已保存且未合入集成：R04为`port/r04-yihuo-client-20261117`、`0d73adb9`，工作树`worktrees/rebuild-r04-yihuo-client-20261117`；Q68为`port/r02-skill-open-disconnect-20261117`、`d742f4bf`，工作树`worktrees/rebuild-r02-skill-open-disconnect-20261117`。两树的实际结果、原始报告、冻结包和缺失夹具统一见[当前调度](remaining-work.md#当前调度)及各自系统月志；新会话先恢复模块负责人，再修正失败分类和验证前置，不直接重跑。R06地府接收树`worktrees/rebuild-r06-diling-packed-20261117`仍干净停在`18a4c231`，尚未复制候选。
+本轮未通过的两个独立功能均保存且未合入集成：R04为`port/r04-yihuo-client-20261117`、`0d73adb9`，工作树`worktrees/rebuild-r04-yihuo-client-20261117`；Q68已在`port/r02-skill-open-disconnect-20261117`提交夹具修复WIP`2db5d87e`，工作树`worktrees/rebuild-r02-skill-open-disconnect-20261117`。Q68修复后编译与客户端均退出0，但最初K重开断言仍FAIL，且断线重进末项未打开菜单或检查其可见性；死亡和正常重登后的重开断言实际为INFO。实际结果、截图、冻结包和未验边界见[当前调度](remaining-work.md#当前调度)及各自系统月志。R06地府接收树`worktrees/rebuild-r06-diling-packed-20261117`仍干净停在`18a4c231`，尚未复制候选。
 
 接续前Java/Javaw进程查询为空；本轮先定向接收Q68截图回调及双端只读类型修复，在原Q68功能树进行必要编译和客户端验证。R04先分类失败、World先补等价差异夹具、Creature先补灵兽袋生命周期；不无变化重跑。转换、Gradle、客户端及专服继续由主agent唯一队列串行、768 MB、单worker；不自动加堆，不推送、不合main。模块负责人只修改并冻结所属文件，公共文档、共享入口和Git由主agent收口。
 
