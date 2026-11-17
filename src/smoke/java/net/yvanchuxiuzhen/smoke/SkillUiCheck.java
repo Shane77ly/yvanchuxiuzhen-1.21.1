@@ -84,6 +84,7 @@ final class SkillUiCheck extends SystemCheck {
     private final List<Cow> fireTargets = new ArrayList<>();
     private final List<Long> heatTicks = new ArrayList<>();
     private final List<ItemStack> lifecycleBooks = new ArrayList<>();
+    private final Screenshots screenshots;
     private ItemStack pageCycleRemainder;
     private ItemStack pageThreeBook;
     private ItemStack pageFourBook;
@@ -131,6 +132,7 @@ final class SkillUiCheck extends SystemCheck {
 
     SkillUiCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("技能界面", report, levelId);
+        this.screenshots = screenshots;
         script(report, levelId,
                 new Action(10, p -> {
                     original = Skills.state(p);
@@ -774,7 +776,7 @@ final class SkillUiCheck extends SystemCheck {
         return true;
     }
 
-    private boolean lifecycleStateEmpty(ServerPlayer player) {
+    private boolean lifecycleStateEmpty(Player player) {
         return Techniques.slot(player).isEmpty() && Skills.movement(player).isEmpty() && Skills.flight(player).isEmpty()
                 && Skills.weaponArt(player).isEmpty() && Skills.state(player).spells().stream().allMatch(ItemStack::isEmpty);
     }
