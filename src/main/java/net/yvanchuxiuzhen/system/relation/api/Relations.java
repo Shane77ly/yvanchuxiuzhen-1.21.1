@@ -13,7 +13,7 @@ import net.yvanchuxiuzhen.system.relation.data.RelationAttachments;
 /**
  * 关系系统的公开操作：团队与敌友判定、给非玩家实体设置阵营。
  * 判定规则（来源 {@code Friendpanding*}）：判定方的友方集合含对方的团队名即为友方；玩家的集合含本人团队（登录时加入）。
- * 普通写操作只用于非玩家实体；驯服入口明确写本体实体字段，不改玩家能力的团队与好友。
+ * 普通写操作只用于非玩家实体；驯服与玩家本体团队刷新入口只写实体字段，不改玩家能力的团队与好友。
  */
 public final class Relations {
     private Relations() {
@@ -65,6 +65,11 @@ public final class Relations {
     /** 来源直接读取实体 NBT team 的路径；玩家的能力团队与本体实体字段分别保存。 */
     public static String entityTeam(Entity entity) {
         return entity.getData(RelationAttachments.ENTITY).team();
+    }
+
+    /** 来源登录、重生及存活玩家每秒恢复时，把能力团队写回本体实体团队。 */
+    public static void refreshEntityTeam(ServerPlayer player) {
+        player.getData(RelationAttachments.ENTITY).setTeam(team(player));
     }
 
     /** 召唤物、投射物等继承 {@code owner} 的团队与友方集合（来源复制施放者的 team 与 friendlist）。 */

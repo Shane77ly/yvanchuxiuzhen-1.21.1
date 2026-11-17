@@ -10,7 +10,10 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
+import net.yvanchuxiuzhen.system.relation.api.FriendRealmNameEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.BirthSupplyEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.content.AscensionTokenItem;
 import net.yvanchuxiuzhen.system.xiulian.content.BirthSupplyItem;
 import net.yvanchuxiuzhen.system.xiulian.content.BloodEssenceItem;
@@ -58,9 +61,14 @@ public final class XiulianSetup {
         NeoForge.EVENT_BUS.addListener(CultivationTick::onLogin);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(Delayed::onServerTick);
+        NeoForge.EVENT_BUS.addListener(XiulianSetup::onFriendRealmName);
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {
         event.registrar("1").playToServer(XiulianButtonPayload.TYPE, XiulianButtonPayload.STREAM_CODEC, XiulianButtonPayload::handle);
+    }
+
+    private static void onFriendRealmName(FriendRealmNameEvent event) {
+        event.setRealmName(Cultivation.get(event.player(), CultivationText.LEVEL_NAME));
     }
 }

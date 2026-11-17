@@ -8,6 +8,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.relation.content.RecruitmentItem;
 import net.yvanchuxiuzhen.system.relation.content.RelationMenus;
 import net.yvanchuxiuzhen.system.relation.data.Allegiance;
@@ -32,6 +33,7 @@ public final class RelationSetup {
         RelationMenus.register(modBus);
         modBus.addListener(RelationSetup::registerPayloads);
         NeoForge.EVENT_BUS.addListener(RelationSetup::onLogin);
+        NeoForge.EVENT_BUS.addListener(RelationSetup::onRespawn);
         NeoForge.EVENT_BUS.addListener(RelationSetup::onInteractEntity);
     }
 
@@ -50,9 +52,15 @@ public final class RelationSetup {
             }
             allegiance.setTeam(team.toString());
         }
-        player.getData(RelationAttachments.ENTITY).setTeam(allegiance.team());
+        Relations.refreshEntityTeam(player);
         allegiance.setFriendly(allegiance.team(), true);
         player.syncData(RelationAttachments.PLAYER);
+    }
+
+    /** 每次玩家重生事件把能力团队写回本体团队；友方集合仍由玩家关系附件维护。 */
+    private static void onRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        ServerPlayer player = (ServerPlayer) event.getEntity();
+        Relations.refreshEntityTeam(player);
     }
 
     /** 来源按 {@code getHand() == getUsedItemHand()} 过滤，未在使用物品时即主手。 */
