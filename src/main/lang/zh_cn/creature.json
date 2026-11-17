@@ -323,5 +323,8 @@
   "tooltip.yvanchuxiuzhen.spirit_beast_bag.physical": "物理攻击/物理防御：%s/%s",
   "tooltip.yvanchuxiuzhen.spirit_beast_bag.magic": "法术攻击/法术防御：%s/%s",
   "tooltip.yvanchuxiuzhen.spirit_beast_bag.spirit": "精神攻击/精神防御：%s/%s",
-  "tooltip.yvanchuxiuzhen.spirit_beast_bag.speed": "移动速度%s"
+  "tooltip.yvanchuxiuzhen.spirit_beast_bag.speed": "移动速度%s",
+  "message.yvanchuxiuzhen.yaoshou_interaction.healed": "恢复6点血量",
+  "message.yvanchuxiuzhen.yaoshou_interaction.obedient": "妖兽更听话了",
+  "message.yvanchuxiuzhen.yaoshou_interaction.greeting": "%s( ^ V ^ )"
 }
