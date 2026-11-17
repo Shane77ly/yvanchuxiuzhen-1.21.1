@@ -15,7 +15,9 @@ NeoForge21.1.265精确`ChunkMap.java:532–562`在`chunkHolder.getSaveSyncFuture
 
 新增的Smoke专用`ChunkMapUnloadFutureDiagnosticsMixin`只拦截`ChunkMap.scheduleUnload`中这一处双参数调用，`require/expect/allow`均为1，接收实际receiver Future、原Runnable、原Executor及原方法的坐标/holder参数。`WorldStopFutureDiagnostics`未arm时直接返回原Runnable；arm后，每个闭包捕获本次receiver Future及唯一registration序号，在原Runnable执行前比较捕获的parent与holder当前Future的引用`==`，不按holder映射推测关联。原Executor直接传回原`thenRunAsync`，原Runnable只调用一次且其异常仍进入原来的完成链，没有捕获或替换该动作的异常，没有增加queue drain、清引用、改票据或跳过保存。
 
-日志保留注册时parent的完成/异常样本、回调时parent/current状态与是否同一、当前pending/updating成员、生成引用和当前task。前32次及随后二次幂采样限制日志量，计数在解除挂载时汇总；同一回调的字段读取仍非原子全局快照，identityHash只便于日志定位，Future是否同一以`==`字段为准。新Mixin配置和实现仅放`src/smoke`，不进入发布JAR；公共`WorldStopDiagnostics`的arm/disarm接线与Smoke元数据只提供基于集成`28a4cfb2`的最小补丁，由协调者接收。既有生产只读观察入口保留；本树旧`cancelStaleUnload`候选不进入本包。
+日志保留注册时parent的完成/异常样本、回调时parent/current状态与是否同一、当前pending/updating成员、生成引用和当前task。前32次及随后二次幂采样限制日志量，计数在解除挂载时汇总；同一回调的字段读取仍非原子全局快照，identityHash只便于日志定位，Future是否同一以`==`字段为准。新Mixin配置和实现仅放`src/smoke`，不进入发布JAR；公共`WorldStopDiagnostics`的arm/disarm接线与Smoke元数据以集成`28a4cfb2`为冻结基线，协调者在`e7a06ff1`定向接收并由`cf44958c`合入。既有生产只读观察入口保留；本树旧`cancelStaleUnload`候选不进入本包。
+
+2026-11-18灵兽袋run-01确认该拦截在客户端实际应用，首次世界生命周期1825次注册、1825次回调；非就绪、Future变化、pending不匹配、非零生成引用及采样错误计数均为0，达到`ServerStoppedEvent`并完整保存。真实重进后`SmokeRun.stopDiagnosticsArmed`未复位，第二次世界生命周期没有重新挂载；本批只登记首次生命周期的正常回调样本，不据此闭合旧重排循环或高视距OOM。原件与范围见[首次实际采样月志](logs/2026-11.md#2026-11-18-future关联诊断首次实际采样)。
 
 本候选已在独立功能树定向接收并通过生产/Smoke编译，实际Mixin应用及运行随下一项必要灵兽袋Smoke检查；不能声明已获得注册/回调关联的实际样本，也不登记停服循环、全量地府模板解析OOM或六维度新区块OOM已修复。具体包与检查记录见[本月记录](logs/2026-11.md#2026-11-18-停服回调注册future关联候选)。
 
