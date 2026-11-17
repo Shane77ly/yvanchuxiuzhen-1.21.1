@@ -346,3 +346,26 @@ updated: 2026-11-18
 本批对94份元素与四份来源Java保留SHA256/字节数，并核对精确1.18.2与1.21.1框架入口；标准转换生成的两份JSON与来源表、冻结数据逐项语义一致，来源manifest只追加本批6条记录。转换前保护已有生成物，首次因独立树缺精确目标源码Jar而中断；恢复部分输出并补齐前置后成功，其他系统数据和语言副作用均按原件恢复，详情见[本月记录](logs/2026-11.md#2026-11-18-植物物品扩展堆肥与燃料)。
 
 `compileJava compileSmokeJava`及`PlantItemExtensionsCheck`必要客户端单项通过，报告30 INFO、0 FAIL、DONE，所有维度正常保存、Gradle退出0。受控样本覆盖四档燃料在熔炼与null配方参数下的读取、五种堆肥值、原生顶部输入/侧面拒绝、首层与七层、20刻成熟后底部取骨粉及归零，真实等待至少340服务端刻后核对300刻燃料只完成一份圆石熔炼。数据映射全量静态核对与有限机器运行分别登记，不据此提升整项物品状态。两份最终合并中文各93个名称与来源逐值一致；本批没有新增玩家界面或渲染，无截图验收结论。数据重载、正式玩家点击、真实退出重进、完整自然供给、多人、专服、来源1.18.2版本实机和两版本对照仍未执行。
+
+## 野生植物土壤命名空间（2026-11-18）
+
+八种来源方块的`mayPlaceOn`明确比较指定Mod土壤，`canSurvive`再调用该判定；高铁竹草的上半株单独要求下方为自身下半株。原版土壤仍按来源完整列表及原顺序保留，共51条土壤引用，其中九条为以下Mod引用：
+
+| 方块 | 来源类及mayPlaceOn行 | 允许的Mod土壤 |
+| --- | --- | --- |
+| `scorchedgrass`烧焦的草 | `ScorchedgrassBlock:57` | `scorchedsoil` |
+| `thundergrass`引雷草 | `ThundergrassBlock:58` | `scorchedsoil` |
+| `thistlesandthorns`荆棘 | `ThistlesandthornsBlock:62` | `loess` |
+| `ironbamboo`铁竹草 | `IronbambooBlock:59` | `loess` |
+| `ironbambootail`高铁竹草 | `IronbambootailBlock:55` | `loess` |
+| `tripterygiumwilfordii`雷公藤 | `TripterygiumwilfordiiBlock:58` | `loess` |
+| `soulgrass`阴魂草 | `SoulgrassBlock:50` | `loess`、`youbosoil` |
+| `corpsegrass`尸草 | `CorpsegrassBlock:38` | `rottingsoil` |
+
+`Source.block_const`映射值为裸注册路径。生产转换器`legacy_blocks._parse_plant`此前直接将Mod引用写入ground，而平台`BlockTraits.mayPlaceOn`按完整资源位置读取。精确NeoForge21.1.265源码中，`ResourceLocation.parse`对裸路径采用`minecraft`命名空间；默认方块注册表对未注册键返回空气。因此原数据会拒绝实际Mod土壤，且把空气误列为可存活地面，影响物品放置、邻居存活与`SimpleBlockFeature`的前置存活判断。
+
+本批在转换器复用`build_ledger.NAMESPACE`为Mod土壤输出完整ID，并同步八个内容行的九处引用。原版ID、来源顺序、工厂、属性、效果和掉落不变；平台仍按原有完整ID规则读取。四种土壤当前由Decor注册，本批不改变其数据或所有者，也不引入跨系统持久化写入。原生双格生命周期及既有反应回调继续由对应实现承担。
+
+八种植物的SIMPLE_BLOCK内层、来源Feature指纹和现有configured/placed资源已静态复核。人间道的烧焦草/引雷草及妖魂道的四种植物已有当前群系消费者；阴魂草/尸草所需无归道与六个群系尚未接收，本批不据此提升自然供给结论。台账只追加八个方块与八个Feature的修复说明，保持原状态，不把局部数据更正等同于整项验收。
+
+`PlantGroundCheck`受控覆盖来源Mod土壤存活、原版土壤样本、拒绝错误Mod土壤与空气、SIMPLE_BLOCK内层投放/悬空拒绝、高铁竹草双格存活、原生生存物品放置/扣一及失去土壤后的邻居更新。夹具保存并恢复主手、模式与三格方块/方块实体；不运行自然斑块或绕过维度门。18份来源、35份活动依赖、10份精确目标API与实际合并中文已核对，四份系统文档和相关证据同步。标准`convert_content.py --owner plant`成功生成八行51条地面引用，与冻结包及来源原顺序一致；其他物品/语言副作用已保护恢复。生产/Smoke编译与一次`plantground`必要客户端单项通过，79项功能断言及两项公共检查共81 INFO、0 FAIL、DONE，所有维度保存且Gradle退出0。两份最终合并中文各8键逐值一致；本批只改土壤引用，没有新增界面或渲染，不作截图验收结论。自然新区块、完整获取、真实保存重进、多人、专服、1.18.2版本实机和两版本对照均未执行，原件与日志分类见本月记录。
