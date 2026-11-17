@@ -2,7 +2,7 @@
 topic: plant
 role: architecture
 status: draft
-updated: 2026-11-13
+updated: 2026-11-17
 ---
 
 # 植物：架构调查与提案
@@ -247,7 +247,7 @@ updated: 2026-11-13
 
 ### 040–045 菌类规则
 
-040/041为可贴附木面的菌类，可附着于原木标签方块、菌丝或灰化土；042–045为菌丝或灰化土支撑的地生菌类。阶段与掉落由`FungusCrop`按编号参数化，不为每个编号重复创建Java类。来源各阶段掉落量为：040/041分别1、2、3、5；042为1、2、3、4、5；043–045为1、1、1、3。骨粉可使贴附型菌类直接成熟，042推进一阶段；来源成功率分支予以保留。目标客户端场景覆盖两种播种方式、部分骨粉路径及040–045成熟掉落。Forge 40.1.0随机刻基类委派尚未精确核实，因此不能据此认定所有刻更新路径均已验收。
+040/041为可贴附木面的菌类，可附着于原木标签方块、菌丝或灰化土；042–045为菌丝或灰化土支撑的地生菌类。阶段与掉落由`FungusCrop`按编号参数化，不为每个编号重复创建Java类。来源各阶段掉落量为：040/041分别1、2、3、5；042为1、2、3、4、5；043–045为1、1、1、3。骨粉可使贴附型菌类直接成熟，042推进一阶段；来源成功率分支予以保留。目标客户端场景覆盖两种播种方式、部分骨粉路径及040–045成熟掉落。2026-11-17已精确核实Forge 40.1.0的`BlockBehaviour.randomTick`会调用`this.tick`，来源菌类继承链无中间覆写；目标菌类现有显式委派保留该行为，不需修改。该静态结论不扩大已有客户端覆盖，完整自然成长仍未验收。
 
 ### 046–056 豆科规则
 
@@ -317,14 +317,16 @@ updated: 2026-11-13
 
 `ReactiveWildBlocks`按来源五种基类装配27个ID，内容表与`factory_overrides.csv`逐项对应；已接回的回调不继续保留pending_hooks。普通方块：huaguang、barrenstonesting、snowdrift、moeye；双格：iceboundrock、tailbladegrass；花型：opticalprism、cannibalmoss、cannibalmoss_02、bitegrass_01、bitegrass_02、thundergrass、thistlesandthorns、lurker、cloudgrass_01、cloudgrass_02、soulgrass、bladegrass、peachsaplingxve；树叶：sandalwoodleaves；含水型：ironrope及witheredbone_01..06。
 
-华光把速度设为(0,0.2,0)；棱镜发送15粒子、声音后无掉落销毁；食人苔切02，02施加20刻20级缓慢；咬草01造成5点通用伤害并切02；荒石刺/荆棘伤害4；潜伏者伤害4并加1200刻1级缓慢；云草01发40云粒子切02；魂草发2魂粒子；刀草/尾刀草分别伤害8/24后销毁；六种枯骨播放骷髅声。02食人苔/咬草/云草在计划刻恢复，雷草计划刻在水平±3格生成真实闪电。血桃苗计划刻排除画卷与虚空，以独立5%抽样先发粒子、请求桃木精、再置空气；未追加自然调度。
+华光把速度设为(0,0.2,0)；棱镜发送15粒子、声音后无掉落销毁；食人苔切02，02施加20刻20级缓慢；咬草01造成5点通用伤害并切02；荒石刺/荆棘伤害4；潜伏者伤害4并加1200刻1级缓慢；云草01发40云粒子切02；魂草发2魂粒子；刀草/尾刀草分别伤害8/24后销毁；六种枯骨播放骷髅声。02食人苔/咬草/云草在随机刻委派或计划刻恢复，雷草同一路径在水平±3格生成真实闪电。血桃苗同一路径排除画卷与虚空，以独立5%抽样先发粒子、请求桃木精、再置空气；没有新增计划刻排程。
 
 雪堆空手和持物原生右键均生成一枚owner为玩家的雪球；普通瞄准垂直量0.1，潜行按视线，速度1/散布1。冰封岩玩家破坏先查主副手精准采集，任一非零不生成；否则各else-if独立抽样，依次0.142/0.166/0.2/0.25/0.333/0.5选择蝙蝠/蜜蜂/猫/鸡/狐狸/兔，仍可能无动物。铁索开始挖掘发火粒子，主手非正确工具时写玩家自由NBT`manaattackbegin=true`并造成5点火伤；此自由NBT不是强类型玩家档案，不添加其他系统字段写入。檀叶破坏按独立else-if抽样额外掉叶10%、苗10%、双苗5%，双苗保持两个独立物品实体。
 
 魔眼玩家破坏同步发布`WildPlantCreatureEvent(DEMON_EYE,玩家)`；血桃苗发布`BLOOD_PEACH`。Plant只提供事实与坐标；Creature订阅后创建已注册moshou_003/taomujing，按来源位置、独立朝向及MOB_SUMMONED初始化加入世界。魔眼在初始化前设置玩家目标。此接口无持久玩家档案写入，不引入Plant对Creature实现的依赖。
 
-### Q218 五类计划刻缺少已证实自然调度
+### Q218 五种反应植物的随机刻委派差异
 
-待核实/待裁定，当前保持来源。Cannibalmoss02Block:63、Bitegrass02Block:46、ThundergrassBlock:71、Cloudgrass02Block:64、PeachsaplingxveBlock:62覆写tick且声明randomTicks，但未覆写randomTick；锁定来源包中包含对应五常量的文件未见scheduleTick。没有证实全部潜在动态入口不存在，也不能把randomTicks声明解释为计划刻调用。目标分别保留tick与继承的randomTick，不追加转调或排程；自然恢复、雷击及召唤触发仍待核实。关键消费者来源为MoeyeDangFangKuaiBeiWanJiaPoPiShiProcedure:18、PeachsaplingxveGengXinYouXiKeProcedure:31与IronropeDangWanJiaKaiShiPoPiShiProcedure:19；冰封岩精准采集同时检查双手。
+2026-11-17已核实来源机制，修复已实现，集中编译与目标受控必要单项通过；此前“没有scheduleTick因而自然入口未证实”的结论失效。锁定Forge 40.1.0映射源码包中，`BlockBehaviour.java:336–337`的`randomTick`直接调用`this.tick`；`Block`、`BushBlock`和`FlowerBlock`均无中间覆写。Cannibalmoss02Block:63、Bitegrass02Block:46、ThundergrassBlock:71、Cloudgrass02Block:64、PeachsaplingxveBlock:62覆写tick并声明randomTicks，因此均有来源随机刻入口，不依赖显式scheduleTick。精确NeoForge 21.1.265的`BlockBehaviour.java:384–385`已为空实现；目标`ContentFlower`也无委派，需要由`ReactiveWildBlocks.ReactiveFlower.randomTick`显式调用tick，恢复上述来源调用链。这是版本机制适配，不是新增玩法或待裁定调整。
 
-`reactiveplants`覆盖正式右键/破坏、碰触状态伤害、双手精准采集抑制、randomTick不补计划刻和人工scheduleTick恢复；受控调度不是自然调度证明。概率掉落/普通冰封岩随机分支、完整自然供给、来源版本实机、真实保存重进、多人和完整视觉仍未验；实际结果统一见[本月记录](logs/2026-11.md#2026-11-16-反应野外方块)。
+受影响注册ID恰为`cannibalmoss_02`、`bitegrass_02`、`cloudgrass_02`、`thundergrass`和`peachsaplingxve`。三种02状态恢复、雷草真实闪电与血桃苗5%召引的原有执行顺序、概率和维度限制保持；没有添加计划刻排程，也没有调整随机刻频率。关键消费者来源为MoeyeDangFangKuaiBeiWanJiaPoPiShiProcedure:18、PeachsaplingxveGengXinYouXiKeProcedure:31与IronropeDangWanJiaKaiShiPoPiShiProcedure:19；冰封岩精准采集同时检查双手。
+
+旧`reactiveplants`报告保留为历史：正式右键/破坏、碰触状态伤害、双手精准采集抑制和人工scheduleTick的有限结果仍有效，其中“randomTick不转调”的断言是失效规格，不再作为行为对齐证据。当前夹具已更正三种02的受控随机刻恢复和雷草闪电断言，新增血桃苗有限随机刻成功样本；计划刻检查暂时关闭自然随机刻后执行，结束恢复原规则值。夹具已通过集中编译与reactiveplants必要单项，直接调用randomTick不代表自然新区块等待、完整供给或概率分布验收；概率掉落/普通冰封岩随机分支、来源版本实机、真实保存重进、多人和完整视觉仍未验。实际结果与原件位置见[本月更正记录](logs/2026-11.md#2026-11-17-反应植物随机刻委派更正)。

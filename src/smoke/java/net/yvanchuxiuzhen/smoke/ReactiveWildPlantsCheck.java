@@ -28,6 +28,7 @@ import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -39,7 +40,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 
-/** 野外反应方块的正式交互与受控计划刻检查；不把人工调度视为来源自然调度证据。 */
+/** 野外反应方块的正式交互、受控随机刻与原生计划刻检查。 */
 final class ReactiveWildPlantsCheck extends SystemCheck {
     private final Map<BlockPos, SavedBlock> savedBlocks = new LinkedHashMap<>();
     private final List<Entity> createdEntities = new ArrayList<>();
@@ -54,6 +55,7 @@ final class ReactiveWildPlantsCheck extends SystemCheck {
     private boolean sneaking;
     private boolean ready;
     private int started;
+    private int randomTickSpeed;
 
     ReactiveWildPlantsCheck(List<String> report, String levelId) {
         super("野外反应植物", report, levelId);
@@ -82,7 +84,7 @@ final class ReactiveWildPlantsCheck extends SystemCheck {
 
     private void prepare(ServerPlayer player) {
         for (String path : List.of("huaguang", "cannibalmoss", "cannibalmoss_02", "bitegrass_01", "bitegrass_02",
-                "lurker", "cloudgrass_01", "cloudgrass_02", "snowdrift", "moeye", "iceboundrock", "thundergrass")) {
+                "lurker", "cloudgrass_01", "cloudgrass_02", "snowdrift", "moeye", "iceboundrock", "thundergrass", "peachsaplingxve")) {
             if (!BuiltInRegistries.BLOCK.containsKey(id(path))) {
                 fail("正式方块未注册，停止依赖步骤 " + path);
                 return;
@@ -98,12 +100,14 @@ final class ReactiveWildPlantsCheck extends SystemCheck {
         offHand = player.getOffhandItem().copy();
         mode = player.gameMode.getGameModeForPlayer();
         difficulty = player.serverLevel().getDifficulty();
+        randomTickSpeed = player.serverLevel().getGameRules().getInt(GameRules.RULE_RANDOMTICKING);
         sneaking = player.isShiftKeyDown();
         origin = player.blockPosition().above(12);
         ready = true;
         player.setGameMode(GameType.CREATIVE);
         player.setShiftKeyDown(false);
         player.server.setDifficulty(Difficulty.NORMAL, true);
+        player.serverLevel().getGameRules().getRule(GameRules.RULE_RANDOMTICKING).set(0, player.server);
         contact(player);
         snowdrift(player);
         demonEye(player);
@@ -214,27 +218,54 @@ final class ReactiveWildPlantsCheck extends SystemCheck {
             BlockPos pos = origin.south(3).east(index * 2);
             recoveryPositions.add(pos);
             place(player, pos, RECOVERY_STATES.get(index));
+            expectTrue(RECOVERY_STATES.get(index) + "正式状态启用随机刻", level.getBlockState(pos).isRandomlyTicking());
             level.getBlockState(pos).randomTick(level, pos, level.random);
-            expectTrue(RECOVERY_STATES.get(index) + "随机刻保持来源状态，不转调计划刻",
-                    level.getBlockState(pos).is(block(RECOVERY_STATES.get(index))));
+            expectTrue(RECOVERY_STATES.get(index) + "受控随机刻委派来源回调并恢复状态",
+                    level.getBlockState(pos).is(block(RECOVERED_STATES.get(index))));
             expectTrue(RECOVERY_STATES.get(index) + "放置和随机刻均未补造计划调度",
                     !level.getBlockTicks().hasScheduledTick(pos, block(RECOVERY_STATES.get(index))));
+            place(player, pos, RECOVERY_STATES.get(index));
             level.scheduleTick(pos, block(RECOVERY_STATES.get(index)), 2);
         }
         BlockPos thunder = origin.south(3).west(2);
         place(player, thunder, "thundergrass");
+        expectTrue("雷草正式状态启用随机刻", level.getBlockState(thunder).isRandomlyTicking());
         Set<UUID> before = ids(level.getEntitiesOfClass(LightningBolt.class, area()));
         level.getBlockState(thunder).randomTick(level, thunder, level.random);
         List<LightningBolt> added = level.getEntitiesOfClass(LightningBolt.class, area(), entity -> !before.contains(entity.getUUID()));
         createdEntities.addAll(added);
-        expectTrue("雷草随机刻不转调来源计划刻生成闪电", added.isEmpty());
+        expectTrue("雷草受控随机刻生成一枚来源水平范围内的真实闪电", added.size() == 1
+                && Math.abs(added.getFirst().getX() - thunder.getX() - 0.5) <= 3
+                && added.getFirst().getY() == thunder.getY()
+                && Math.abs(added.getFirst().getZ() - thunder.getZ() - 0.5) <= 3);
         added.forEach(Entity::discard);
+        bloodPeachRandomTick(player);
         started = player.server.getTickCount();
+    }
+
+    private void bloodPeachRandomTick(ServerPlayer player) {
+        ServerLevel level = player.serverLevel();
+        BlockPos pos = origin.north(3).east(4);
+        place(player, pos, "peachsaplingxve");
+        expectTrue("血桃苗正式状态启用随机刻", level.getBlockState(pos).isRandomlyTicking());
+        Set<UUID> before = ids(level.getEntitiesOfClass(Mob.class, area()));
+        int attempts = 0;
+        while (attempts < 512 && level.getBlockState(pos).is(block("peachsaplingxve"))) {
+            level.getBlockState(pos).randomTick(level, pos, level.random);
+            attempts++;
+        }
+        List<Mob> added = level.getEntitiesOfClass(Mob.class, area(), entity -> !before.contains(entity.getUUID()));
+        createdEntities.addAll(added);
+        expectTrue("血桃苗受控随机刻成功分支同步生成一只桃木精并置空气（本轮" + attempts + "次）",
+                level.getBlockState(pos).isAir() && added.size() == 1
+                        && added.getFirst().getType() == BuiltInRegistries.ENTITY_TYPE.get(id("taomujing")));
+        expectTrue("血桃苗受控随机刻不追加计划调度", !level.getBlockTicks().hasScheduledTick(pos, block("peachsaplingxve")));
+        added.forEach(Entity::discard);
     }
 
     private void checkRecovery(ServerPlayer player) {
         for (int index = 0; index < recoveryPositions.size(); index++) {
-            expectTrue(RECOVERY_STATES.get(index) + "仅受控原生计划刻恢复来源状态",
+            expectTrue(RECOVERY_STATES.get(index) + "关闭自然随机刻后受控原生计划刻仍恢复状态",
                     player.serverLevel().getBlockState(recoveryPositions.get(index)).is(block(RECOVERED_STATES.get(index))));
         }
     }
@@ -248,6 +279,7 @@ final class ReactiveWildPlantsCheck extends SystemCheck {
         player.setShiftKeyDown(sneaking);
         player.setGameMode(mode);
         player.server.setDifficulty(difficulty, true);
+        player.serverLevel().getGameRules().getRule(GameRules.RULE_RANDOMTICKING).set(randomTickSpeed, player.server);
     }
 
     private void place(ServerPlayer player, BlockPos pos, String path) {
