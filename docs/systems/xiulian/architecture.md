@@ -225,7 +225,7 @@ Q191（待裁定，保持来源）：`PlayerGui08jieshao`称“没有时限”�
 
 来源`PlayerJoin02:437–444`对五种出身以无实体命令源执行函数，函数原文为`execute in yvanchuxiuzhen:dimensionrenjian run teleport @p 0 32 0`。它在切换至人间道的执行上下文中用`@p`选最近玩家，没有明确绑定关闭菜单的玩家；在多人或跨维度场景可能命中人间道内其他最近玩家。这是静态推断，两个版本实机均未执行。状态为待裁定、目标保持来源；本批不把选择器改成本人，未声称传送已验证。
 
-当前集成基线已注册`BirthInitialRewardsFlow.register()`和`birthinitialrewards`选择器。既有夹具检查落魄家族服务端菜单关闭、同调用未提前发奖、四栈顺序/实例/中文、两书服务端use及空出身/体质边界；八出身扩展尚未编译或运行。未精确采样第一/第二个服务端结束刻；真实保存重进、满包、完整自然消费、多人、专服与两个版本实机仍未验。
+当前集成基线已注册`BirthInitialRewardsFlow.register()`和`birthinitialrewards`选择器。既有夹具检查落魄家族服务端菜单关闭、同调用未提前发奖、四栈顺序/实例/中文、两书服务端use及空出身/体质边界；八出身扩展已通过`compileJava`与`compileSmokeJava`。2026-11-17单项客户端运行到八分支断言后，在公共停服阶段卡于`ChunkMap.processUnloads`，报告停在`WAITING_FOR_WORLD_EXIT`，线程/堆证据见`build/diagnostics/birthinitialrewards-save-hang-20261117/run-01/`，因此该次不产生出生奖励行为通过结论。未精确采样第一/第二个服务端结束刻；真实保存重进、满包、完整自然消费、多人、专服与两个版本实机仍未验。
 
 ## 出身初始奖励扩展（2026-11-17）
 
@@ -244,7 +244,7 @@ Q191（待裁定，保持来源）：`PlayerGui08jieshao`称“没有时限”�
 
 跨系统实例分别由Materials、ShelfBooks、BookTexts、Skills、Lianqi、Caskets和TreasureContainers的现有公开操作构造。石盘三轴副本由xiulian新增`BirthItems.ancientStoneDisc(Vec3)`写入，flow只传坐标与设置本次原版装备/状态，不直接写业务私有字段。`WorldStructures.teleportArrayCenter(ServerLevel)`已在当前集成基线存在，查询独立于玩家当前维度；其他系统已有API无需随本包重复实现或覆盖。
 
-扩展`BirthInitialRewardsCheck`经真实服务端菜单关闭覆盖八种奖励及空出身，检查延迟同调用内未提前发奖、完整物品实例/中文/顺序、世家三箱与身法、图纸载体身份、士兵状态、侠客双附魔和随机护甲，商贾纸与侠客石盘副本对照World实际坐标。复用已存在`birthinitialrewards`选择器。该夹具未精确采样第一/第二个结束刻，八分支扩展尚未编译或运行；服务端use书籍样本也不等于全部自然消费验收。首次登录完整时序、满包掉落、真实保存重进、多人Q200、专服、1.18.2版本实机及两版本对照均未执行。石盘使用和完整表现不属于本包闭合结论。
+扩展`BirthInitialRewardsCheck`经真实服务端菜单关闭覆盖八种奖励及空出身，检查延迟同调用内未提前发奖、完整物品实例/中文/顺序、世家三箱与身法、图纸载体身份、士兵状态、侠客双附魔和随机护甲，商贾纸与侠客石盘副本对照World实际坐标。复用已存在`birthinitialrewards`选择器；代码已编译，客户端运行在退出世界的公共卸载循环中止，不能据此判定夹具或产品通过/失败。该夹具未精确采样第一/第二个结束刻；服务端use书籍样本也不等于全部自然消费验收。首次登录完整时序、满包掉落、真实保存重进、多人Q200、专服、1.18.2版本实机及两版本对照均未执行。石盘使用和完整表现不属于本包闭合结论。
 
 ## 远古石盘引导（2026-11-17）
 
@@ -256,4 +256,4 @@ Q191（待裁定，保持来源）：`PlayerGui08jieshao`称“没有时限”�
 
 来源`A:Ling11DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:37–64,65–102`用三轴坐标和是否为0判空，已生成的非零坐标也可能落入空盘；粒子斜率分母为`targetX-playerX`，玩家X与目标X重合时可能产生NaN/Infinity；提示使用`abs(playerX-targetX+playerZ-targetZ)`，两个方向差可能抵消，不能等同平面距离。候选保留原式、条件顺序和五种独立随机调用。上述影响是静态推断，零和坐标、X重合和抵消距离的客户端表现及两版本实机均未执行；尚未分配公共问题编号，由主agent集中登记。本节不用旧候选的临时编号。
 
-专属工厂`xiulian:ling_11`、单件内容表和英文名`Ancient Stone Disc`作为本包候选交付，最终合并中文名必须保持“远古石盘”。转换器的工厂覆盖及已实现use的pending_hooks移除以独立片段交主agent接收，未自行改共享转换器。`Ling11GuideCheck`准备首次真实客户端右键、服务端/本人追踪状态同步及截图；目前只使用World已有自然中心，不伪造全局坐标。场景尚未接共享选择器、未编译、未运行，也无截图；五点粒子、全部提示、保存重进和完整自然获取仍待验收。夹具不证明石盘已具备完整视觉验收。
+专属工厂`xiulian:ling_11`、单件内容表和英文名`Ancient Stone Disc`作为本包候选交付，最终合并中文名必须保持“远古石盘”。转换器的工厂覆盖及已实现use的pending_hooks已由`28391ef9`接收。`Ling11GuideCheck`准备首次真实客户端右键、服务端/本人追踪状态同步及截图；目前只使用World已有自然中心，不伪造全局坐标。场景尚未接共享选择器，已随`compileSmokeJava`编译但未运行，也无截图；五点粒子、全部提示、保存重进和完整自然获取仍待验收。夹具不证明石盘已具备完整视觉验收。
