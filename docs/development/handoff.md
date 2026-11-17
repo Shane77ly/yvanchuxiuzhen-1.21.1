@@ -9,16 +9,17 @@ updated: 2026-11-17
 
 ## 本次执行基线（2026-11-17）
 
-本次授权继续双Mod全量移植，Goal已建立为active；唯一排除Q28。集成分支`port/full-migration-20261112`的起始HEAD为`a368950a`。批次0完成44个D盘Git工作树盘点，主树313条默认状态对应343条展开文件记录，原25条暂存和全部旧改动受保护；详细归属、指纹和隔离边界见[批次0记录](batch0-inventory-20261117.md)。
+负责人要求立即收拢本轮现场并创建新会话继续。双Mod全量Goal仍为active，仅排除Q28；各子agent持续负责文档中的完整板块，不以小包交付替代模块出口。当前三模块全部“进行中”，本轮执行者已结束本次执行，新会话按[完整模块计划及当前调度](remaining-work.md#当前调度)恢复职责。
 
-当前主工作树仍位于`port/full-migration-20261112`、HEAD `28f05bc7`，343条展开状态记录和原25条暂存保持。本会话继续使用`D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-20261117`、`port/batch0-integration-20261117`集成；接手HEAD为`68726bb8`，当前HEAD以该树Git为准。集成树既有WorldGeneration/WorldStructures两处未提交内容交World负责人复核，公共调度差异保留。主树及上述集成树、三模块树的状态、补丁、索引条目与改动文件副本保存在主树`tmp/session-recovery-20261117/`。
+实际集成树是`D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-20261117`，分支`port/batch0-integration-20261117`。本次收尾前生产基线`18a4c231`已包含模块计划修复`b8b5aedd`及传送阵公开API功能`8e8250fd`的非快进合并；本次公共交接提交后的HEAD以该树Git为准。新会话默认项目目录可能仍是原主树，所有集成操作必须显式使用上述工作树。
 
-负责人再次明确每个子agent持续负责一个完整板块。已将主树遗漏在集成树之外的完整模块计划和协作/验收规则纳入当前集成文档。第一批按原角色和D盘模块树接续，下一步为恢复三负责人、接收完整路径交付并串行验证；具体状态与模块出口只在[当前调度](remaining-work.md#当前调度)维护。旧`world_plant_module`和上一会话的子任务不重启；不推送、不合main。
+原主树`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`仍为`port/full-migration-20261112`、`28f05bc7`。343条展开状态、原25条暂存、索引条目及文件SHA与主树`tmp/session-recovery-20261117/`快照一致；本轮不前移、提交或清理原主树及三个模块树的旧候选。复核记录在集成树`tmp/session-close-20261117/main-protection-check.json`。此前批次0归属证据继续复用，不重新盘点全部旧工作树。
 
-以下是前次交接保留记录；其中Goal暂停、尚未派工等描述属于本次授权前，不作为当前状态。
+本轮未通过的两个独立功能已保存且未合入集成：R04为`port/r04-yihuo-client-20261117`、`0d73adb9`，工作树`worktrees/rebuild-r04-yihuo-client-20261117`；Q68为`port/r02-skill-open-disconnect-20261117`、`d742f4bf`，工作树`worktrees/rebuild-r02-skill-open-disconnect-20261117`。两树的实际结果、原始报告、冻结包和缺失夹具统一见[当前调度](remaining-work.md#当前调度)及各自系统月志；新会话先恢复模块负责人，再修正失败分类和验证前置，不直接重跑。R06地府接收树`worktrees/rebuild-r06-diling-packed-20261117`仍干净停在`18a4c231`，尚未复制候选。
 
+本轮收尾时最后一项Q68编译已结束，未启动其客户端；Java/Javaw进程查询为空，没有本轮重型操作在运行。转换、Gradle、客户端及专服继续唯一队列串行、768 MB、单worker；不自动加堆，不推送、不合main。协作工具早前缺失及替代入口拒绝只作为换会话背景，不能绕过原生子agent限制；新会话检查实际原生协作工具后恢复三个完整模块负责人。
 
-本页只提供实际基线、当前任务、下一动作与环境入口。实现覆盖和开放缺口的唯一调度正文是[当前实现覆盖与开放工作](remaining-work.md)，不要从历史日志里的“下一步”重启旧任务。
+本页仅保存实际分支、可定位基线和下一动作；详细当前结论维护在[开放工作清单](remaining-work.md)，本次收尾过程维护在[项目月志](../systems/project/logs/2026-11.md#2026-11-17-验证失败保存与新会话交接)。
 
 ## 历史状态（截至2026-11-16）
 

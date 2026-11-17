@@ -128,19 +128,31 @@ Q28星宿小游戏、Q163虫卵培养、Q208答题自然打开、Q209符箓学�
 
 ## 当前调度
 
-2026-11-17本次继续移植：批次0已完成逐文件盘点，完整Goal为active；实际基线与保护证据见[批次0记录](batch0-inventory-20261117.md)。此前本日“暂停/未派工”的描述仅属于本次授权之前。上一会话与其三名负责人现均空闲，世界/生物模块中断，修炼模块只交付静态复核，三个模块均未验收。本会话已按原三个完整职责恢复`/root/cultivation_combat_owner`、`/root/world_plant_owner`、`/root/creature_guchong_owner`；状态进行中。各负责人持续承担模块出口，不把静态复核或单项夹具作为模块完成。主树313条默认状态与343条展开文件记录均保留，既有25条暂存不动。
+2026-11-17负责人要求收拢现场并换新会话继续。完整移植Goal为active，仅排除Q28；完整模块计划保持。本轮三名模块执行者已结束本次执行，三个模块均为“进行中”，下一会话须恢复其持续责任；冻结包、WIP提交和有限单项结果均不构成整模块完成。实际集成分支及主树保护记录见[交接](handoff.md)。
 
-| 模块/负责人 | 分支与D盘独立worktree | 基线/状态 | 完整范围、依赖与验收出口 | 本次下一动作与证据 |
+| 模块/负责人 | 分支与D盘独立worktree | 基线/状态 | 完整范围、依赖与验收出口 | 当前交付与下一动作 |
 | --- | --- | --- | --- | --- |
-| 修炼与战斗 / `cultivation_combat_owner` | `port/cultivation-combat-owner-20261117`；`worktrees/rebuild-cultivation-combat-owner-20261117` | `a368950a`；进行中 | R02–R04，attribute/relation/xiulian/gongfa/combat/skill/yihuo及相关页面；仅排除Q28。成长/突破、技能伤害与异火自然成本/同步/保存逐项闭合；Creature返回维度经World公开接口；Q68保持来源。 | 先确认原gongfa/skill暂存候选边界，推进无冲突路径；来源、实际场景、中文/截图、重进和未验边界由模块持续登记。 |
-| 世界与植物 / `world_plant_owner` | `port/world-plant-owner-20261117`；`worktrees/rebuild-world-plant-owner-20261117` | `a368950a`；进行中 | R06，world/plant及群系、结构、地物、维度/门户和自然消费者。六维度新状态、往返、新区块供给、采集/生长与真实重进逐项核对；自然出生与Creature按所有权联调。 | 先查768 MB OOM原始诊断及资源边界、Q218来源调度；旧世界树144条隔离，142条主树同字节只作候选，未确认2条不采纳。 |
-| 生物与蛊虫 / `creature_guchong_owner` | `port/creature-guchong-owner-20261117`；`worktrees/rebuild-creature-guchong-owner-20261117` | `a368950a`；进行中 | R07/R10，creature/guchong/灵兽收纳。自然出生、完整AI/战斗/掉落、驯养收放、蛊虫库存/保存/表现逐类闭合，必要死亡/重进、多人/专服分别记录；Q163保持来源。 | 先复核旧Creature/灵兽袋候选归属，独立推进干净Guchong路径；装备/符箓/技能消费者经公开接口，验证交主队列。 |
+| 修炼与战斗 / `cultivation_combat_owner`（本轮由`cultivation_combat_resume`、`cultivation_combat_module`接续） | `port/cultivation-combat-owner-20261117`；`worktrees/rebuild-cultivation-combat-owner-20261117` | 起点`a368950a`，当前HEAD`155da0ee`；进行中 | R02–R04，attribute/relation/xiulian/gongfa/combat/skill/yihuo及相关页面；仅排除Q28。成长/突破、技能伤害与异火自然成本/同步/保存逐项闭合；跨系统经公开接口；Q68保持来源。 | BookTexts、Lianqi图纸载体、World中心查询三个依赖API已接入；R04与Q68独立WIP见下表。风刃目标UUID包冻结于`tmp/r03-wind-blade-target-20261117/`，未接收或验证。先由完整模块负责人修复验证夹具并分类R04失败，继续所有未闭合范围。R08出生奖励/Ling11旧候选隔离，不随R02–R04接收。 |
+| 世界与植物 / `world_plant_owner`（本轮`world_plant_resume`） | `port/world-plant-owner-20261117`；`worktrees/rebuild-world-plant-owner-20261117` | 起点及当前HEAD`a368950a`，保留既有候选；进行中 | R06，world/plant、群系/结构/地物、维度/门户及自然消费者。六维度新状态、往返、新区块供给、采集/生长与真实重进；出生与Creature按所有权联调。 | 传送阵中心API功能`8e8250fd`已由`18a4c231`合入集成，生产编译通过，生命周期未验。地府紧凑包冻结于`tmp/r06-diling-packed-20261117/frozen/manifest.json`，尚未接收或编译，也缺少小模板差异夹具。先补等价性前置，再评估真实进入/保存；模板解析OOM与六维度新区块OOM分别开放。 |
+| 生物与蛊虫 / `creature_guchong_owner`（本轮`creature_guchong_resume`） | `port/creature-guchong-owner-20261117`；`worktrees/rebuild-creature-guchong-owner-20261117` | 起点`a368950a`，当前HEAD`b78ad33a`；进行中 | R07/R10，creature/guchong/灵兽收纳。自然出生、完整AI/战斗/掉落、驯养收放、蛊虫库存/保存/表现逐类闭合；必要死亡/重进、多人/专服分级记录；Q163保持来源。 | `tmp/r07-r10-freeze-20261117/{HANDOFF.md,manifest.json}`冻结30文件；灵兽袋修正导入/随机/生成API、health_Rec、组件染色及Creature中文片段，未编译，尚无完整生命周期夹具/选择器。补菜单染色、收放死亡/清袋及真实重进场景后入主队列。Q226/Q227已在模块正文，公共来源索引尚未接收，编号保留。 |
 
-上一会话串行验证队列快照（2026-11-17）：主agent在修炼与战斗负责人树运行`gradlew compileSmokeJava --no-daemon`，于`:compileJava`失败，6个编译错误涉及`BookTexts`、`Lianqi.createBlueprintReward(Item, BlueprintReward, String)`及`WorldStructures.teleportArrayCenter(ServerLevel)`；未到Smoke源集编译阶段，也未启动客户端。书籍和图纸接口已在本页所列干净集成分支，传送阵中心公开查询仍在R06负责人未提交树；该失败不是客户端运行结果。R02/R03负责人树现有未提交Smoke夹具`BirthInitialRewardsCheck`、`SkillUiCheck`、`YihuoMaterialCheck`未编译、未运行；`BirthInitialRewardsCheck`覆盖八种非空出身和空出身的服务端菜单延迟发奖路径，不是客户端界面验收。新增`Ling11GuideCheck`代码包含客户端真实右键、状态双端检查和截图回调，但尚未接入共享`SmokeRun`，未编译或运行；依赖World坐标API进入集成基线。本轮没有新增JUnit。Creature负责人树在11:01:22开始对应Gradle build，`smokeClientRunVmArgs.txt`选择`guchonglifecycle`；客户端11:01:46启动，集成世界于11:02:27保存退出、11:02:31重进，11:02:38保存完成并停止，Gradle 11:02:39以`BUILD SUCCESSFUL`结束。`build/smoke/report.txt`同于11:02:38，28条INFO、0条FAIL、DONE，包含03/04漫步/观察/浮水优先级断言及地上罐保存重进场景；这是该有限选择器的目标版本客户端Smoke与真实保存重进证据，不覆盖完整AI/战斗或多人/专服。现有`guchong01-*`截图属于01场景，`guchong-jar-*`属于蛊罐菜单；未核验截图像素，也没有03/04优先级对应画面，视觉验收仍待。R06负责人本轮未运行测试、Gradle或客户端。 |
+### 本轮接收与串行验证队列
 
-证据补充（2026-11-17）：蛊虫负责人树另于10:30–10:31运行客户端`-PsmokeOnly=guchong`，`tmp/guchong-client-smoke-locale.log`记录启动、进入集成世界、保存退出及Gradle成功；三张`guchong-jar-01/02/03-chinese.png`截图在10:31生成并已查看。该次原始`report.txt`未保留，后被11:02的`guchonglifecycle`报告覆盖，因此月志中所记92 INFO/0 FAIL/DONE目前不能从现存断言报告复核；此运行只保留客户端启动/世界退出日志与三张菜单截图作为证据。灵兽袋染色注册、菜单及物品等代码于12:37后新增或修改，两个已记录客户端场景均未覆盖这些路径；仍待接线后的编译、菜单/槽位/按钮/扣费交互与保存中断检查。当前没有新增JUnit。
+下列功能树均在`D:/yuanchuxiuzhen-1.21.1-port/worktrees/`。两个WIP已提交且干净，未合入集成；原模块树的冻结包和旧候选保持。
 
-转换、Gradle、客户端、专服由主agent唯一队列串行，768 MB、单worker；不足记录未验，不加堆或无变化重跑。提交与必要检查由主agent收口，可隔离功能单位使用`--no-ff`合入当前集成分支；不推送、不合main。模块状态、验收证据与最终全量出口互不替代。
+| 功能/独立分支及工作树 | 真实验证状态与证据 | 下一动作 |
+| --- | --- | --- |
+| R04 / `port/r04-yihuo-client-20261117`，`rebuild-r04-yihuo-client-20261117`，WIP`0d73adb9` | 来源冻结哈希及18实体哈希已核；恢复空气显示栈并接截图回调。生产及Smoke编译通过，最终中文59键一致；客户端175 INFO、46 FAIL、DONE，Gradle退出0，不能计为通过。原件`build/diagnostics/r04-yihuomaterial-20261117/run-01/`，完整结果只记该树`docs/systems/yihuo/logs/2026-11.md`；两张新截图未查看。 | 分类客户端发射/潜行、营火power同步预期、牛效果同步及计划刻计时；先核来源与精确目标机制，确定产品/夹具/环境边界后修改，不无变化复跑。 |
+| R02 Q68 / `port/r02-skill-open-disconnect-20261117`，`rebuild-r02-skill-open-disconnect-20261117`，WIP`d742f4bf` | 隔离接收`SkillUiCheck`及对应文档，未改生产语义。`compileSmokeJava`退出1、3处错误（两处不存在的`screenshots`、一处LocalPlayer传ServerPlayer）；未启动skillui客户端。原件`build/diagnostics/r02-skill-open-disconnect-20261117/compile-smoke.log`及`exit-code.txt`，结果只记该树`docs/systems/skill/logs/2026-11.md`。 | 模块负责人修复截图入口及双端类型检查，再排唯一编译/客户端队列；保持来源先保存玩家再关闭菜单，真实同档重进尚未验。 |
+| R03 风刃 / 修炼owner树`tmp/r03-wind-blade-target-20261117/{handoff.md,manifest.json}` | `WindEntities`候选用authlib 6.0.54 `UndashedUuid.fromStringLenient`接受无连字符UUID；未加载/无效目标按来源暂停追踪与计时。`WindBladeTargetCheck`候选存在，`windbladetarget`未接线、未编译、未运行。 | 定向接收生产/夹具及所属文档，核对来源和边界后接共享选择器；完整模块出口仍开放。 |
+| R06 地府 / `port/r06-diling-packed-20261117`，`rebuild-r06-diling-packed-20261117` | 接收树干净停在`18a4c231`，没有复制候选。World冻结包新增`DilingGeneration`、`PackedDilingStructure`及注册行；原模板8442357方块、3实体、227×69×539、239调色板且索引41为空气，原件未改。未编译/运行，缺小模板原生/紧凑及全量/分批DataFixer差异夹具。 | 先补差异验证；接收时只按manifest取对应文件与三条CSV行，不能覆盖旧World文档。确认等价后再排真实地府进入/保存，768 MB约束不变。 |
+| R07/R10 灵兽袋 / Creature冻结30文件 | 未编译，尚无专用选择器/完整生命周期夹具。Q226来源收取已驯服TamableAnimal却直接读SIZE、普通狼可能异常；Q227菜单首槽只接受01–16导致00染色分支不可达；均保持来源，待统一索引接收。 | 先补必要客户端菜单/扣费/组件染色、收放与死亡清袋、真实保存重进，再串行接收验证；不把旧蛊虫报告作为灵兽袋证据。 |
+
+蛊虫有效证据继续复用：本轮前段`guchonglifecycle`原报告28 INFO、0 FAIL、DONE及真实保存重进只覆盖所列有限场景，完整AI/战斗和多人/专服未验。10:30的`guchong`原始92条报告已被后次运行覆盖，不能再宣称可复核通过；只保留当次启动/保存日志及三张已查看的蛊罐菜单中文截图。新灵兽袋代码不在上述已验范围。
+
+收尾时无本轮重型进程；Q68编译已经结束，未启动新客户端。下一会话首先恢复三个完整模块负责人和原生协作能力。不得通过应用的`send_message_to_thread`绕过子agent限制：本聊天早前尝试得到`direct app-server input is not allowed for multi-agent v2 sub-agents`拒绝。模块边界及当前候选保持，不能因工具问题另建零碎责任。
+
+转换、Gradle、客户端、专服由主agent唯一队列串行，768 MB、单worker；不足记录未验，不加堆或无变化重跑。公共进度和Git由主agent收口，只有达到必要检查的功能单位才以`--no-ff`合入当前集成分支；不推送、不合main。模块提交、集成和验收分别登记。
 
 以下为前次功能包与证据记录，不能据此恢复旧执行者。
 
