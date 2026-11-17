@@ -9,6 +9,18 @@ updated: 2026-11-18
 
 来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
 
+## 群系目录与传送门名称（2026-11-18）
+
+目录核对使用集成树`worktrees/rebuild-batch0-integration-20261117`，只读证据基线`cf44958cf3595c0d71c70e4ef08f55d6628b38b5`。实际维度为`dimensionrenjian`、`dimensionyaohun`、`fabao_009weidu`与`xvkong`；43份目标群系包含人间道/妖魂道来源计划的41份、技能虚空使用的`xvkongqvnxi`及画里乾坤使用的`tiandaochunbaikongjian`。41是本批已生成的来源群系口径，43是当前集成目标资源口径；不能写成四道候选已经进入集成。
+
+本次只读复核357份来源指纹，41份群系在模块树及活动集成树中均与既有严格计划逐字段相同，覆盖2973条生成操作与483条出生记录。55个原版根的既有38项复用、14项自定义、3项雕刻及0项待核结论未失效；41行归属改为已读、内容状态补记已注册，来源证据由旧内联片段范围更新为完整气候/效果、直接与helper生成、直接出生和外部事件调用。状态校正不建立新的运行结论，跨独立事件的原Forge注册先后仍未证明。
+
+模块树候选25份群系从已读来源独立展开后与候选JSON逐字段一致，共1280条生成操作、32条出生记录；活动集成没有这25份。候选四道资源及关联资源的精确115文件清单保存在`worktrees/rebuild-birth-reward-expectation-20261117/build/diagnostics/r06-biome-catalog-20261118/audit.json`：4份dimension、4份dimension_type、4份noise_settings、21份密度函数、25份群系、26份configured feature、31份placed feature，均尚未存在于本次活动集成基线。该清单记录候选存在与来源引用，不代表接收、全量转换、注册加载或自然生成。候选内容保持候选/待处理；来源阅读事实不使用内容状态“已读”。
+
+41个群系名从`world_runtime.json`移入由已注册台账生成的`world.json`，避免`convert_content.py`的`convert_registry_lang`重复输出同键。候选25名仅保存在候选资源接收包，未写入当前runtime片段或实际合并语言。主协调者按768 MB、单worker执行`mergeAssetFragments`成功，实际中英文合并输出均含41个来源群系名及六个门户名，47键逐值一致且无重复；本批没有游戏画面验收。
+
+六个门户方块的目标描述键由`DimensionPortalSpec.portalId()`得到`block.yvanchuxiuzhen.dimension<名称>_portal`；来源仅提供同维度点火物品的显示名，没有门户方块名键。中文直接沿用人间道、妖魂道、天阙道、修罗道、无归道、地灵道；英文从来源`Dimension… Portal Igniter`去掉物品动作词` Igniter`作为门户方块名。键保留在runtime片段，不改变传送条件或四道资源接收状态。357份来源指纹与41份目标资源在接收树复核一致；语言实际重建与逐值检查原件归档于上述诊断目录的`verification.json`及`merge-assets.log`。本批未执行转换、Java编译、客户端、专服、存档重进、1.18.2 版本实机或两版本对照。
+
 ## 公共停服回调Future身份关联（2026-11-18）
 
 NeoForge21.1.265精确`ChunkMap.java:532–562`在`chunkHolder.getSaveSyncFuture()`上调用双参数`thenRunAsync(Runnable, Executor)`，Executor为`this.unloadQueue::add`；未就绪的原生Runnable再次调用`this.scheduleUnload(chunkPos, chunkHolder)`。因此，旧诊断在Runnable入口重新调用`holder.getSaveSyncFuture()`取得的是回调时的当前Future，不能据其identity、完成状态或`pendingSame=false`反推注册该Runnable的parent Future。已有`generationRefCount`非零、当前Future完成、当前task为空等样本仍只表示被观察字段的状态，不能单独证明真实引用新增路径或生产修复条件。
