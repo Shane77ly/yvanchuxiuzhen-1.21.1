@@ -34,11 +34,14 @@ public final class NaturalCreatures {
 
     public static void register(ContentTables content, IEventBus modBus) {
         content.<Moshou001Entity>livingEntity("moshou_001", Moshou001Entity::new, () -> MoshouEntity.attributes(.2));
+        content.<Moshou002Entity>livingEntity("moshou_002", Moshou002Entity::new, Moshou002Entity::attributes);
         content.<Moshou003Entity>livingEntity("moshou_003", Moshou003Entity::new, () -> MoshouEntity.attributes(.3));
         content.<TaomujingEntity>livingEntity("taomujing", TaomujingEntity::new, TaomujingEntity::attributes);
         content.<Xiuzhe0101Entity>livingEntity("xiuzhe_0101", Xiuzhe0101Entity::new, Xiuzhe0101Entity::attributes);
         content.itemFactory("creature:spawn_egg_moshou_001", (properties, tooltip) -> new DeferredSpawnEggItem(
                 content.entityType("moshou_001"), -16777114, -26368, properties));
+        content.itemFactory("creature:spawn_egg_moshou_002", (properties, tooltip) -> new DeferredSpawnEggItem(
+                content.entityType("moshou_002"), -13421773, -3407872, properties));
         content.itemFactory("creature:spawn_egg_moshou_003", (properties, tooltip) -> new DeferredSpawnEggItem(
                 content.entityType("moshou_003"), -10092544, -3407872, properties));
         content.itemFactory("creature:spawn_egg_taomujing", (properties, tooltip) -> new DeferredSpawnEggItem(
@@ -46,7 +49,7 @@ public final class NaturalCreatures {
         content.itemFactory("creature:spawn_egg_xiuzhe_0101", (properties, tooltip) -> new DeferredSpawnEggItem(
                 content.entityType("xiuzhe_0101"), -11513816, -8622766, properties));
         modBus.addListener((RegisterSpawnPlacementsEvent event) -> {
-            for (String id : List.of("moshou_001", "moshou_003")) {
+            for (String id : List.of("moshou_001", "moshou_002", "moshou_003")) {
                 event.register(content.<MoshouEntity>entityType(id).get(), SpawnPlacementTypes.ON_GROUND,
                         Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) ->
                                 level.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(level, pos, random)

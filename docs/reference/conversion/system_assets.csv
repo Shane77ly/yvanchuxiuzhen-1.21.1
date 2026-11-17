@@ -825,3 +825,7 @@ decor,texture,yvanchuxiuzhen:blocks/zhuangshi_qiantong
 decor,geo,yvanchuxiuzhen:zhuangshi_tizi
 decor,animation,yvanchuxiuzhen:zhuangshi_tizi
 decor,texture,yvanchuxiuzhen:blocks/zhuangshi_tizi
+creature,geo,yvanchuxiuzhen:moshou002
+creature,animation,yvanchuxiuzhen:moshou002
+creature,texture,yvanchuxiuzhen:entities/moshou002
+creature,item,yvanchuxiuzhen:moshou_002_spawn_egg

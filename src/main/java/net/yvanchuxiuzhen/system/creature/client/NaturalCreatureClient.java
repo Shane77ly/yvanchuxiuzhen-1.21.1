@@ -6,6 +6,7 @@ import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
 import net.yvanchuxiuzhen.system.creature.entity.Moshou001Entity;
+import net.yvanchuxiuzhen.system.creature.entity.Moshou002Entity;
 import net.yvanchuxiuzhen.system.creature.entity.Moshou003Entity;
 import net.yvanchuxiuzhen.system.creature.entity.NaturalCreatures;
 import net.yvanchuxiuzhen.system.creature.entity.TaomujingEntity;
@@ -20,6 +21,8 @@ public final class NaturalCreatureClient {
             for (EntityModelRow row : NaturalCreatures.models()) {
                 switch (row.id()) {
                     case "moshou_001" -> event.registerEntityRenderer(CreatureSetup.<Moshou001Entity>entityType(row.id()).get(),
+                            context -> new AnimatedEntityRenderer<>(context, row));
+                    case "moshou_002" -> event.registerEntityRenderer(CreatureSetup.<Moshou002Entity>entityType(row.id()).get(),
                             context -> new AnimatedEntityRenderer<>(context, row));
                     case "moshou_003" -> event.registerEntityRenderer(CreatureSetup.<Moshou003Entity>entityType(row.id()).get(),
                             context -> new AnimatedEntityRenderer<>(context, row));

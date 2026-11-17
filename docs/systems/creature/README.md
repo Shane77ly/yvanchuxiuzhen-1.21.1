@@ -7,6 +7,8 @@ updated: 2026-11-18
 
 # 生物
 
+2026-11-18 `moshou_002`天魔完整族已在独立功能树接收；标准转换、生产/Smoke编译、六项架构及一次必要客户端通过，40刻冲刺、FALL/石笋边界、真实保存重进、20刻死亡和近景模型已核，内容按实际注册证据保留“已注册”粒度。天阙自然出生、持续战斗及全部表现仍待，见[唯一正文](architecture.md#天魔002与天阙依赖2026-11-18)和[本次月志](logs/2026-11.md#2026-11-18-天魔002接收与必要客户端)。
+
 2026-11-13 补入18号神傀符的妖兽驯服消费者，完整来源限制、概率叠加和成功/失败反馈已实现，静态核对、编译和六项结构检查通过；真实001妖兽限制、概率、原生认主及保存重读必要单项已过，全部编号与自然驯养仍待；结果统一记[符箓月志](../fulu/logs/2026-11.md#2026-11-13-神傀符18完整路径)。
 
 2026-11-13 霓裳草开花召引已接回：Creature订阅Plant同步事件，保留21群系完整分组、16次选址、已有妖兽召引与生成前共享阵营顺序；来源54成员妖兽标签已核对恢复。静态核对、必要编译与六项结构检查通过，秋林03真实七槽召引和正常六维保存退出通过，见[本批正文](architecture.md#霓裳草开花召引2026-11-13)及[符箓月志](../fulu/logs/2026-11.md#2026-11-13-荫翠符30与霓裳草开花链)。
@@ -41,7 +43,7 @@ updated: 2026-11-18
 | `WildPlantCreatures`订阅`WildPlantCreatureEvent` | Creature独占魔眼破坏生成moshou_003/玩家目标及血桃苗计划刻生成taomujing，按来源顺序初始化；Plant只提供同步事实 |
 | `NichangGrassAttraction`订阅`NichangGrassBloomEvent` | Creature拥有召引目标选择、既有妖兽自由NBT及新实体生命周期；阵营经Relation操作，Plant只提供同步开花坐标 |
 | `CreatureSetup.entityType(String)` | 本系统客户端装配读取已登记类型，不暴露内容表或可变实例数据；跨系统自然生成按注册ID引用 |
-| `Butterflies.register / Organisms.register / YaoshouCreatures.register / NaturalCreatures.register / GhostCreatures.register` | 本系统注册实体、属性、刷怪蛋工厂和原生刷怪位置；妖兽当前装配52个编号，自然生物补入魔兽001/003、桃木精和修者0101；鬼怪02/03保留来源注册且不添加自然生成；群系出生列表由World保持来源顺序及参数 |
+| `Butterflies.register / Organisms.register / YaoshouCreatures.register / NaturalCreatures.register / GhostCreatures.register` | 本系统注册实体、属性、刷怪蛋工厂和原生刷怪位置；妖兽当前装配52个编号，自然生物补入魔兽001/002/003、桃木精和修者0101；鬼怪02/03保留来源注册且不添加自然生成；群系出生列表由World保持来源顺序及参数 |
 | `BossCreatures.register / models` | 本系统装配首领01/02/04、02飞斧及三枚刷怪蛋；客户端通过只读模型行注册渲染，实例技能、属性和自由NBT由Creature写入；来源四个实体的`init`均为空，不新增自然出生 |
 | `ButterflyEntity.mobInteract`及09–12各自原生回调 | 服务端拥有驯服、治疗、状态和生成后代，客户端仅返回来源交互反馈和消费同步表现；实例存档沿用各自原生父类及来源自由NBT |
 | `SpiritBeastBags.onCreatureDeath(Entity)` | 生物系统负责按来源袋UUID重建同维度主人首个匹配袋，并清理`zhaohuanwu == 1`召唤物；原生死亡回调在`super.die`之后调用，不反写其他系统玩家档案 |

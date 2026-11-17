@@ -31,6 +31,7 @@
 {"id":"organism_12_spawn_egg","factory":"creature:spawn_egg_organism_12","order":1688,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
 {"id":"guiguai_03_spawn_egg","factory":"creature:spawn_egg_guiguai_03","order":1762,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
 {"id":"moshou_001_spawn_egg","factory":"creature:spawn_egg_moshou_001","order":1768,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
+{"id":"moshou_002_spawn_egg","factory":"creature:spawn_egg_moshou_002","order":1769,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
 {"id":"moshou_003_spawn_egg","factory":"creature:spawn_egg_moshou_003","order":1770,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
 {"id":"lingshoudai_01","factory":"creature:spirit_beast_bag","order":1794,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","stack":1},
 {"id":"yaoshou_010_spawn_egg","factory":"creature:spawn_egg_yaoshou_010","order":1842,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
