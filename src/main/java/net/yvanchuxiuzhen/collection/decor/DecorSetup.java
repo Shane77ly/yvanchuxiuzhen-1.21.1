@@ -5,12 +5,14 @@ import net.minecraft.world.entity.EntityType;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
+import net.yvanchuxiuzhen.system.plant.api.PlantSoilSupport;
 
 /**
  * 装饰内容族的启动装配，只在 Mod 构造时调用一次。
  */
 public final class DecorSetup {
     private static final ContentTables CONTENT = new ContentTables("decor")
+            .blockFactory("decor:plant_soil", PlantSoilSupport::create)
             .blockFactory("decor:rabbit_cage", traits -> ContentBlock.create(traits, RabbitCageBlock::new))
             .blockFactory("decor:open_rabbit_cage", traits -> ContentBlock.create(traits, OpenRabbitCageBlock::new))
             .blockFactory("decor:cushion", traits -> ContentBlock.create(traits, CushionBlock::new))

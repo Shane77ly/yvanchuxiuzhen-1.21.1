@@ -217,3 +217,7 @@ A的`recipes/zhuangshiqiantonghecheng.json`使用六根木棍和一只碗，但�
 城镇全向建造复核发现榉木楼梯旁的原版墙牌脱落。已逐一核对本系统全部30种楼梯来源构造：均为`Material.WOOD`或`Material.STONE`并调用`dynamicShape()`，材质实体性为真。1.18.2版本原版墙牌查询支撑块`getMaterial().isSolid()`；1.21.1版本墙牌查询`BlockState.isSolid()`，NeoForge21.1.265的`BlockStateBase.calculateSolid`在动态形状无缓存且没有显式标记时返回false。目标`ContentStairs`原先只还原动态形状，遗漏来源实体材质，现通过`forceSolidOn()`保留30种楼梯各状态的此项语义。仍使用来源空气基础状态，不改变碰撞、朝向、形状、声音或物品身份。
 
 来源30文件路径与SHA256在`tmp/dispatch-20261116/stairs-source-evidence.json`及本系统source-evidence台账；目标机制直接核对`neoforge-21.1.265-sources.jar`。1.18.2版本原版方法读取同Minecraft版本缓存源码，另核对精确Forge40.1.0的楼梯补丁仅扩展Supplier构造及基础状态委托，未覆盖该材质契约。当前为已确认目标迁移遗漏、已修复，城镇全向必要单项确认四向工筑堂墙牌/BE建造和真实重进后保持，有限复验通过；全部楼梯材质实例及原生消费者的逐项游戏验收、多人、1.18.2版本实机及两版本对照未验。报告与修复前失败原件统一见[城镇月志](../town/logs/2026-11.md#2026-11-16-三类城镇十二模板真实建造夹具)。
+
+## 五种土壤公开工厂（2026-11-18）
+
+`scorchedsoil`、`loess`、`youbosoil`、`rottingsoil`和`grassblock`继续归Decor注册，唯一namespace、物品、基础属性、资源与既有草色绑定保持。五行factory改为`decor:plant_soil`，DecorSetup仅通过Plant公开工厂创建专用方块。Plant完整承担来源种植支持、显式ground隔离、原版前置条件适配与空战利品回退；唯一规则正文及未验边界见[Plant五土壤](../plant/architecture.md#五种来源土壤支持与掉落回退2026-11-18)，必要验证结果见[Plant月志](../plant/logs/2026-11.md#2026-11-18-五种来源土壤支持与掉落回退)。本族五条方块台账仅追加本批说明，身份、归属及整项状态保持。
