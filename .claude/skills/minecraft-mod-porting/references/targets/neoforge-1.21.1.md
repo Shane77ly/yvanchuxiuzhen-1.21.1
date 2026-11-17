@@ -25,6 +25,7 @@
 | 伤害入口 | `event/entity/living/LivingIncomingDamageEvent.java` | 发生于无敌检查之后、减伤之前，可取消并读取 DamageContainer |
 | 伤害应用与结果 | `event/entity/living/LivingDamageEvent.java` 的 Pre/Post | Pre 在护甲/药水减伤后、吸收前，可修改伤害；Post 在生命变化后提供结果 |
 | 爆炸掉落与破坏模式 | 1.18.2 `world/level/Explosion.java` 与 Forge40.1.0 同名补丁；1.21.1/NeoForge21.1.265 `world/level/block/state/BlockBehaviour.java`、`world/level/Level.java`、`server/level/ServerLevel.java` | 1.18.2 的 `BlockInteraction.DESTROY` 把爆炸半径写入掉落上下文，对应目标的 `DESTROY_WITH_DECAY`，不能仅按枚举同名映射。目标 `Level.explode` 会按交互类别和游戏规则选择衰减模式；来源固定模式需显式构造 `Explosion`，按原生流程调用开始事件、爆炸与收尾并通知附近客户端。已静态核对精确版本源码；受控取消事件可验证参数，不能替代实际方块破坏与掉落实测 |
+| 旧方块随机刻委派 | Forge40.1.0映射源码 `world/level/block/state/BlockBehaviour.java:336–337`、`Block`/`BushBlock`/`FlowerBlock`；NeoForge21.1.265同文件384–385 | 1.18.2基类randomTick调用this.tick，所核继承链没有中间覆写；1.21.1基类randomTick为空。迁移声明randomTicks但仅覆写tick的来源方块时，须恢复其实际随机入口，不能因未找到scheduleTick便判断没有自然入口。此项为精确版本静态核对；直接调用randomTick只验证受控入口，不代替自然等待、概率分布或完整供给验收 |
 | 箭实体穿透与存档 | `world/entity/projectile/AbstractArrow.java` 的 add/readAdditionalSaveData | 21.1.265：保存穿透时调用 getPierceLevel，读取时写原生私有字段；子类覆盖 getter 使用独立字段时也须读回 PierceLevel。1.18.2 原生箭保存穿透、不保存击退，依据为 Forge40.3.11 映射源码中的完整保存/读取方法与 Forge40.1.0 的 AbstractArrow 补丁（无此项差异）；迁移时不额外增加击退存档行为 |
 
 ## 加载器与数据格式（已核实）

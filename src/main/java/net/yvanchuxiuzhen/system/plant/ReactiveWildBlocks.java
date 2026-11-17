@@ -47,7 +47,7 @@ import net.yvanchuxiuzhen.platform.content.block.WaterloggedContentBlock;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.plant.api.WildPlantCreatureEvent;
 
-/** 反应型野外方块按来源基类装配碰触、计划刻、攻击和玩家破坏回调。 */
+/** 反应型野外方块按来源基类装配碰触、随机刻、计划刻、攻击和玩家破坏回调。 */
 public final class ReactiveWildBlocks {
     private ReactiveWildBlocks() {
     }
@@ -218,6 +218,12 @@ public final class ReactiveWildBlocks {
         protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
             super.entityInside(state, level, pos, entity);
             contact(path, level, pos, entity);
+        }
+
+        /** 保留1.18.2基类将随机刻委派给本方块计划刻回调的行为。 */
+        @Override
+        protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+            tick(state, level, pos, random);
         }
 
         @Override
