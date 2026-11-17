@@ -18,7 +18,7 @@ updated: 2026-11-18
 R06地府差异检查在功能树`worktrees/rebuild-r06-diling-packed-20261117`、分支`port/r06-diling-packed-20261117`、接收基线`97155e59`、最新WIP`eba1a0f1`继续，候选未合入。原视距run-03退出忙循环已保留线程/堆证据；run-04小模板对照及run-05原视距12/模拟12的只读停服诊断均正常保存退出，run-05为43 INFO、0 FAIL、DONE、保存约1.599秒；停服快照未复现异常holder，故具体触发原因仍待定位。完整地府首次进入与真实保存重进仍未验；World所属证据和卸载回调审查已收口，不再无变化重跑或自动加堆。Q68受控断线重开单项已集成，来源行为调整仍待裁定。
 R08在非地府场景先复现公共停服重排循环；此前`birthinitialrewards`退出等待修复及证据见项目月志。本次`ling11` run-03在视距/模拟距离12、768 MB下完成四项行为断言后，保存Overworld区块时于`ChunkSerializer.write`/`PalettedContainer.pack`发生OOM；停服事件到达但没有全部维度保存、`DONE`或Gradle 0。停服快照记录2601个known holders、1961个visible，原件见`build/diagnostics/ling11-guidance-20261118/run-03-common-exit-wait/`。run-04在视距4下正常保存退出，但模拟距离4被拒收且粒子设为最少，截图不作为视觉验收。run-05改用合法模拟距离5、全粒子及`zh_cn`，取得6 INFO、0 FAIL、DONE、所有维度保存和Gradle 0；停服快照1225个known holders，截图可见粒子和“远古石盘”，options已按哈希恢复，原件见`build/diagnostics/ling11-guidance-20261118/run-05-visual/`。该对照说明视距4的这次场景可在768 MB下保存完成，但不证明高视距OOM的唯一根因或生产卸载问题已闭合；公共生产入口仍保留回调诊断和待定位边界。
 
-R04机制v2已验证并集成，燃料耗尽整链、完整视觉/自然获取、真实重进、多人与专服仍开放；R08出身奖励受控单项与Ling11首次use均通过，但自然奖励获取、全部提示和存档重进仍待。起尸诀UUID、风刃、灵兽袋v2/指纹修复及R10地上罐等已冻结，具体路径、未验边界和接收顺序只在[当前调度](remaining-work.md#当前调度)维护。下一步按完整模块清单继续，不重复Ling11首次use单项；公共文档、共享入口和Git由主agent收口，转换、Gradle、客户端及专服唯一队列串行、768 MB、单worker，不推送、不合main。
+R04机制v2已验证并集成，燃料耗尽整链、完整视觉/自然获取、真实重进、多人与专服仍开放；R08出身奖励受控单项与Ling11首次use均通过，但自然奖励获取、全部提示和存档重进仍待。风刃UUID修复`72f344cf`已由`a6fbb17a`非快进合入，生产/Smoke编译和目标解析必要单项通过。起尸诀UUID、灵兽袋v2/指纹修复及R10地上罐等已冻结；下一步独立接收Smoke卸载Future绑定诊断与灵兽袋，随灵兽袋必要客户端取证，具体路径、未验边界和接收顺序只在[当前调度](remaining-work.md#当前调度)维护。下一步按完整模块清单继续，不重复Ling11首次use单项；公共文档、共享入口和Git由主agent收口，转换、Gradle、客户端及专服唯一队列串行、768 MB、单worker，不推送、不合main。
 
 本页只保留分支、可定位基线与下一动作；系统证据及问题详情见[开放工作清单](remaining-work.md)，跨系统协调见[项目月志](../systems/project/logs/2026-11.md#2026-11-17-q68验证集成与地府退出定位)。
 
