@@ -11,13 +11,13 @@ updated: 2026-11-17
 
 本会话从收尾提交`a98414af`接续，双Mod全量Goal为active，仅排除Q28。原生协作工具可用，已恢复`cultivation_combat_owner`、`world_plant_owner`、`creature_guchong_owner`三名完整模块负责人，均在原D盘独立树继续；三个模块全部“进行中”，职责、具体交付及下一动作只在[完整模块计划及当前调度](remaining-work.md#当前调度)维护。
 
-实际集成树是`D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-20261117`，分支`port/batch0-integration-20261117`。生产基线含`18a4c231`的模块规范和传送阵API；Q68功能`1f222223`已通过必要单项并由`f7156900`非快进合入。最新公共记录提交后的HEAD以Git为准；所有集成操作显式使用该树。
+实际集成树是`D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-20261117`，分支`port/batch0-integration-20261117`。生产基线含`18a4c231`的模块规范和传送阵API；Q68功能`1f222223`已通过必要单项并由`f7156900`非快进合入；Q218五花型随机刻修复`c758428c`已通过受控必要单项并由`cd9227fa`非快进合入；R04异火客户端链路修订`3c9d8c1e`已通过run-02必要单项并由`1ecb095d`非快进合入。最新公共记录提交后的HEAD以Git为准；所有集成操作显式使用该树。
 
 原主树`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`仍保留`port/full-migration-20261112`、`28f05bc7`及全部既有脏改动和25条暂存。本轮未前移、提交或清理它；保护证据仍在集成树`tmp/session-close-20261117/main-protection-check.json`。
 
-R06地府差异检查在功能树`worktrees/rebuild-r06-diling-packed-20261117`、分支`port/r06-diling-packed-20261117`、接收基线`97155e59`、WIP`32d80b90`继续，功能树已干净，候选未合入。原视距run-03退出忙循环已保留线程/堆证据；修正原生实体预期并降低测试视距后的run-04小模板对照与正常保存退出通过。原视距下的具体触发原因仍待定位，完整地府首次进入与真实保存重进仍未验；World所属证据和卸载回调审查已收口；下一步定位异常holder的引用新增入口，并核准完整地府运行前置。后续客户端沿用外部有界取证，不无变化重跑或自动加堆。Q68受控断线重开单项已集成，来源行为调整仍待裁定。
+R06地府差异检查在功能树`worktrees/rebuild-r06-diling-packed-20261117`、分支`port/r06-diling-packed-20261117`、接收基线`97155e59`、最新WIP`eba1a0f1`继续，候选未合入。原视距run-03退出忙循环已保留线程/堆证据；run-04小模板对照及run-05原视距12/模拟12的只读停服诊断均正常保存退出，run-05为43 INFO、0 FAIL、DONE、保存约1.599秒；停服快照未复现异常holder，故具体触发原因仍待定位。完整地府首次进入与真实保存重进仍未验；World所属证据和卸载回调审查已收口，不再无变化重跑或自动加堆。Q68受控断线重开单项已集成，来源行为调整仍待裁定。
 
-R04机制v2、Q218随机刻委派、灵兽袋v2/指纹修复及R10地上罐夹具已冻结，具体路径、未验边界和接收顺序只在[当前调度](remaining-work.md#当前调度)维护。公共文档、共享入口和Git由主agent收口；转换、Gradle、客户端及专服唯一队列串行、768 MB、单worker，不推送、不合main。
+R04机制v2已验证并集成，燃料耗尽整链、完整视觉/自然获取、真实重进、多人与专服仍开放；起尸诀UUID、风刃、灵兽袋v2/指纹修复及R10地上罐等已冻结，具体路径、未验边界和接收顺序只在[当前调度](remaining-work.md#当前调度)维护。公共文档、共享入口和Git由主agent收口；转换、Gradle、客户端及专服唯一队列串行、768 MB、单worker，不推送、不合main。
 
 本页只保留分支、可定位基线与下一动作；系统证据及问题详情见[开放工作清单](remaining-work.md)，跨系统协调见[项目月志](../systems/project/logs/2026-11.md#2026-11-17-q68验证集成与地府退出定位)。
 
