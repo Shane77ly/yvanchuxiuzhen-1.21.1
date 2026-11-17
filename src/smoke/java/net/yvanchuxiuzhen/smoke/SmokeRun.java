@@ -205,6 +205,7 @@ final class SmokeRun {
                     case "skill" -> List.of(new SkillCheck(report, levelId), new SkillProjectileCheck(report, levelId), new SkillEntityCheck(report, levelId), new SwordArtCheck(report, levelId), new LingwenCheck(report, levelId), new FireBirdCheck(report, levelId), new CorpseCheck(report, levelId), new VoidRiftCheck(report, levelId), new DamageAreaCheck(report, levelId), new YuanyingCheck(report, levelId), new SkillArrowCheck(report, levelId), new SkillMovementCheck(report, levelId), new SkillUiCheck(report, levelId, this::shot), new SkillRemainderCheck(report, levelId));
                     case "firebird" -> List.of(new FireBirdCheck(report, levelId));
                     case "corpse" -> List.of(new CorpseCheck(report, levelId));
+                    case "windbladetarget" -> List.of(new WindBladeTargetCheck(report, levelId));
                     case "voidrift" -> List.of(new VoidRiftCheck(report, levelId));
                     case "damagearea" -> List.of(new DamageAreaCheck(report, levelId));
                     case "yuanying" -> List.of(new YuanyingCheck(report, levelId));

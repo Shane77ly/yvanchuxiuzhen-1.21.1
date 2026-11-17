@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.skill.entity;
 
+import com.mojang.util.UndashedUuid;
 import java.util.Map;
 import java.util.UUID;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -181,7 +182,14 @@ public final class WindEntities {
             if (targetId.isEmpty()) {
                 return;
             }
-            Entity target = level.getEntity(UUID.fromString(targetId));
+            UUID targetUuid;
+            try {
+                targetUuid = UndashedUuid.fromStringLenient(targetId);
+            } catch (IllegalArgumentException exception) {
+                // 来源把无法解析的 UUID 视为目标不存在，追踪阶段与计时均保持原值。
+                return;
+            }
+            Entity target = level.getEntity(targetUuid);
             if (target == null) {
                 return;
             }

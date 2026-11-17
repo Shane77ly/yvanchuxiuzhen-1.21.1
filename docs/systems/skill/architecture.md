@@ -2,7 +2,7 @@
 topic: skill
 role: architecture
 status: draft
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 # 技能：架构调查与提案
@@ -79,6 +79,7 @@ updated: 2026-11-17
 - 冰系：`IceEntities`（冰天雪地、裂冰斩）。两种实体把攻击量与倍率截成整数记下（来源 `friendlist.putInt`）；裂冰斩的攻击量同时是后续冰刺的剩余根数，每根 3 刻后在推进方向生成下一根（`SkillEntities.chain`），初始生成过程（`finalizeSpawn`）设置“开始”状态与展开动画。
 - 光系：`LightEntities`（闪光术、万丈光芒）；万丈光芒对生命低于最大生命 10% 的直接清零，立即发一组光爆，之后在 2、4、6、8 刻各补一组（合计五组），回调保留原实体并现读位置。
 - 风系：`WindEntities`（聚风术、聚风化气、风飘术、造云术，以及由妖兽技能放出的 `skillwind_05` 到时消失和 `skillwind_06` 追踪风刃）。已按 `Yaoshou011baoqi`、`Yaoshou014heifeng` 实际生成代码提供 `Skills.showWindBurst/launchWindBlade`：风波在脚下随机朝向、继承敌友、播放 `animation.skillwind05.bodong04` 并设八刻；风刃在脚上方一格、随机朝向后面向目标脚下，记录施放者UUID、传入攻击量、倍率一、目标UUID与二百刻上限，两者均在加入世界前初始化。黑风的1.5倍法攻和第8/32/44刻三次施放由 creature 负责，技能接口不读取其他系统私有状态。构建/ArchUnit通过，实际妖兽生成者和自然路径运行仍随 creature；未新增专项。
+- 黑风风刃目标解析对齐1.18.2版本`Skillwind06DangShiTiGengXinKeShiProcedure:29–44`的`UUIDTypeAdapter.fromString`及解析失败返回空目标语义：改用目标authlib6.0.54的`UndashedUuid.fromStringLenient`，带/不带连字符的合法UUID均可解析；仅捕获解析异常，空值、无效值及本维度未加载目标均保持阶段、计时和速度，目标恢复后续接原状态，不新增超时清理。定向`WindBladeTargetCheck`覆盖标准/无连字符、空值/无效值/未加载、NBT重读后暂停、恢复、二百刻和自旋十四刻；2026-11-18生产/Smoke编译和目标客户端必要单项通过：10条行为检查均符合，报告12 INFO、0 FAIL、DONE，完整保存及Gradle退出0；原件和准确边界见[本月记录](logs/2026-11.md#2026-11-18-风刃目标解析必要单项)。该受控探针不代替自然妖兽三段施放、客户端同步、真实存档重进、伤害或表现验收。
 - 雷系：`ThunderEntities`（掌心雷、地滚雷、惊雷阵、天雷术、五雷轰顶）。后两者调用 combat 的 `Lightning.command` 落白色雷。Q43 记录地滚雷无转向，并已更正玩家团队镜像的旧结论；目标以 `Relations.team` 读取真实团队。
 - 水系：`WaterEntities`（水蛇鞭、水连鞭、激流波的鞭影实体与水龙吟）。鞭影实体按模式（潜行、Ctrl、Alt、正常）分阶段出手并每刻传送到施放者处；激流波施放时抛出目标、把视线 5 格处的非物品目标记为体质里的追踪目标（`mubiaouid`，小水弹读取），再延时放出 9 枚小水弹（`SkillDelays`，对应来源 `new Object(){…}.start(world, 刻数)`；任务只存内存，服务端停止即丢弃）。
 - 水系后半：`WaterFormations`（空浮球、陨河术、水灵阵、玲珑阵）。`SkillEntity` 增加碰撞箱比例（`setHitboxScale`，来源重写 `getDimensions` 乘以实体里记下的比例，随存档保存）：空浮球放大 2 倍，陨河术正常式 3 倍、潜行式 1 倍。空浮球的潜行、Ctrl、Alt 作用于 16 格内自己放出的空浮球（引爆、转向施放者朝向、面向施放者）；空浮球与潜行式陨河术每隔一段时间伤害并把身边的非友方玩家或生物（无霸体）收为乘客，已有乘客时把其余目标推开；陨河术正常式落地或入水后爆发。水灵阵展开后每 7 刻向阵中放出一枚由施放者发射的水灵弹；玲珑阵每 20 刻为 3 格内的友方实体回复相当于攻击量的生命。
