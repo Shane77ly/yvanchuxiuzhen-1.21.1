@@ -2,7 +2,7 @@
 topic: world
 role: entry
 status: partial
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 # 世界
@@ -10,6 +10,8 @@ updated: 2026-11-17
 2026-11-17 在独立 R06 worktree 接续四道资源后，静态实现 Overworld 首次登录时生成传送阵及全局中心坐标查询；随机取样已按 NeoForge 21.1.265 `Mth.nextInt(RandomSource,...)` API 修正。此前手写NBT版本同步至集成树后，`gradlew --no-daemon --max-workers=1 compileJava`以768 MB堆通过；本批改用不可变`TeleportArray`和Codec读写Overworld SavedData，并在独立功能树以768 MB、单worker通过`compileJava`。首次登录结构位置/画面、保存重进、多人登录及 xiulian 消费交互仍未验证。消费者候选还未集成，见[本系统月志](logs/2026-11.md#2026-11-17-首次登录传送阵坐标与公开查询)。
 
 标识 `world`，类别：系统。职责：维度、群系、地物、结构投放（[系统设计](../../development/system-design.md)）。
+
+2026-11-18续核公共停服回调：原生`thenRunAsync`显式使用卸载队列Executor，回调时holder的当前保存Future不能指代注册回调的Future。仅在Smoke源集增加逐回调闭包关联候选；不改变生产卸载条件、队列或保存语义，已定向接收并通过生产/Smoke编译；实际Mixin应用和回调样本随下一项必要灵兽袋Smoke检查。`pendingSame=false`、引用非零及当前Future完成仍不足以单独定因，详见[回调关联正文](architecture.md#公共停服回调future身份关联2026-11-18)与[月志](logs/2026-11.md#2026-11-18-停服回调注册future关联候选)。
 
 固定结构解封已接通28名称／42模板、延迟任务/NPC补充和镇妖塔44点消费者。管理命令必要单项已过；自然寻灵盘/光环/裂隙与共享进度已接入，最近目标、16格触发、2/4/80/82刻、回程与真实保存重进必要单项已通过；Q113全维度掉落物清理和Q115跨结构商品补充保持来源。规则与本批验证边界见[结构解封正文](architecture.md#固定结构解封命令2026-11-14)及[月志](logs/2026-11.md#2026-11-14-固定结构解封与镇妖塔后处理)。
 

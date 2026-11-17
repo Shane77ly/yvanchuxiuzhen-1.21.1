@@ -58,6 +58,7 @@ final class WorldStopDiagnostics {
     static void arm(MinecraftServer server) {
         WorldStopDiagnostics diagnostics = new WorldStopDiagnostics(server);
         WorldStopRequeueDiagnostics.arm(server);
+        WorldStopFutureDiagnostics.arm(server);
         NeoForge.EVENT_BUS.addListener(ServerStoppingEvent.class, diagnostics.stoppingListener);
         NeoForge.EVENT_BUS.addListener(ServerStoppedEvent.class, diagnostics.stoppedListener);
         LOGGER.info("TRACE 公共停服观察 stage=armed limits=1,5,15,30,45,55s noChunkRequests=true noQueueDraining=true");
@@ -107,6 +108,7 @@ final class WorldStopDiagnostics {
     private void close() {
         finished.set(true);
         WorldStopRequeueDiagnostics.disarm(server);
+        WorldStopFutureDiagnostics.disarm(server);
         NeoForge.EVENT_BUS.unregister(stoppingListener);
         NeoForge.EVENT_BUS.unregister(stoppedListener);
         if (observer != null) observer.interrupt();
