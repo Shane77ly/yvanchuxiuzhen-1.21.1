@@ -16,6 +16,7 @@ import net.yvanchuxiuzhen.system.xiulian.content.BirthSupplyItem;
 import net.yvanchuxiuzhen.system.xiulian.content.BloodEssenceItem;
 import net.yvanchuxiuzhen.system.xiulian.content.BloodStoneBlock;
 import net.yvanchuxiuzhen.system.xiulian.content.ClanTokenItem;
+import net.yvanchuxiuzhen.system.xiulian.content.Ling11GuideItem;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianBlockEntities;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianFluids;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianMenus;
@@ -32,6 +33,7 @@ public final class XiulianSetup {
             .itemFactory("xiulian:xvejing", BloodEssenceItem::new)
             .itemFactory("xiulian:ling_09", AscensionTokenItem::new)
             .itemFactory("xiulian:ling_10", ClanTokenItem::new)
+            .itemFactory("xiulian:ling_11", Ling11GuideItem::new)
             .itemFactory("xiulian:ling_18", (properties, tooltip) -> new BirthSupplyItem(properties, tooltip, BirthSupplyEvent.Kind.INHERITANCE))
             .itemFactory("xiulian:jiazubaibaodai", (properties, tooltip) -> new BirthSupplyItem(properties, tooltip, BirthSupplyEvent.Kind.FAMILY));
 

@@ -73,6 +73,7 @@ block,yvanchuxiuzhen:xixveshi,xiulian:xixveshi,xiulian,吸血石的方块实体�
 item,yvanchuxiuzhen:xvejing,xiulian:xvejing,xiulian,血精右键回复生命（BloodEssenceItem）
 item,yvanchuxiuzhen:ling_09,xiulian:ling_09,xiulian,升仙令右键记下体质键并漂浮（AscensionTokenItem）
 item,yvanchuxiuzhen:ling_10,xiulian:ling_10,xiulian,家族令牌右键显示说明（ClanTokenItem）
+item,yvanchuxiuzhen:ling_11,xiulian:ling_11,xiulian,远古石盘按世界传送阵坐标指引（Ling11GuideItem）
 block,yvanchuxiuzhen:canwutai_block,gongfa:canwutai_block,gongfa,参悟台的方块实体与参悟界面（ComprehensionTableBlock）
 block,yvanchuxiuzhen:bedrock_01,combat:bedrock_01,combat,破碎的基岩第一阶段：被玩家破坏后变成第二阶段（CrackedBedrockBlock）
 block,yvanchuxiuzhen:bedrock_02,combat:bedrock_02,combat,破碎的基岩第二阶段：被玩家破坏后变成第三阶段（CrackedBedrockBlock）

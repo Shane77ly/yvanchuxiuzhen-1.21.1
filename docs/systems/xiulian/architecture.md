@@ -2,7 +2,7 @@
 topic: xiulian
 role: architecture
 status: partial
-updated: 2026-11-15
+updated: 2026-11-17
 ---
 
 # 修炼、身份与生命周期：规则与实现状态
@@ -43,7 +43,7 @@ updated: 2026-11-15
 - 游戏规则：`linggenlevel`（整数，默认 9）、`jinruyouxichushenxvanze`（布尔，默认真），注册名不变。
 - 首次进入（来源 `PlayerJoinGame` 前段）：五行灵根之和小于 1 且规则开启时，五行各取 0–`linggenlevel` 的随机整数，阴阳 = 金 + 火 − 木 − 水，体质取 1–10 的随机数，打开出身界面。
 - 出身界面（`PlayerJoinGUI`，归属由 panel 改为本系统）：五个灵根锁定按钮（消耗与返还 `liftlock`），随机按钮（消耗 `randomlift`，重随未锁定的灵根与体质；体质经记分项 `suijishu` 写入再读出），出身切换（八种出身循环），显示寿命、灵根、体质、出身说明与星数。关闭后等待两个服务端结束刻，先发初始奖励事件，再使体质生效：打开 `tizhiopen_<序号>`，按体质加修正值（阴阳双生体另加修为效率 0.3），`tizhinumber` 加 1。
-- 关闭后两个服务端结束刻的 `PlayerJoin02` 初始奖励归 flow；2026-11-15已写落魄家族完整四栈及原函数，主线注册待接，见[初始奖励正文](#落魄家族初始奖励2026-11-15)。其余七种出身的完整奖励及适用的传送仍开放。`PlayerJoinGame` 中每次登录把原版 `keepInventory` 设为真、传送阵生成等部分归 flow 与 world，尚未实现。
+- 关闭后两个服务端结束刻的`PlayerJoin02`初始奖励归flow，体质应用归xiulian。落魄家族flow已注册；2026-11-17八出身扩展已整理为独立候选，尚未集成与运行，见[奖励正文](#出身初始奖励扩展2026-11-17)。World首次全局传送阵生产及查询已在当前集成基线存在，石盘消费另包接收；家族百宝袋外部生产者仍待核。
 
 ### 阶段 3：修炼推进、突破与恢复
 
@@ -79,7 +79,7 @@ updated: 2026-11-15
 
 - 加点（`SkillPoints`，来源 `HealthMaxUp` 等六个过程，面板第 2 页按钮）：见类注释；成长作为 attribute 基础层贡献，原版属性随之重算。
 - 灵根重置（来源 `Rebirthinxiuxianfalse`、`Rebirthinxiuxiantrue`，管理命令 `/yvanchu` 的子命令，命令归 flow）：随机 0–9 或全为 9。
-- 升仙令（`AscensionTokenItem`）与家族令牌（`ClanTokenItem`）：见类注释。传承灵物与家族百宝袋已接分次奖励，具体规则见[下文](#出身分次补给2026-11-15)；远古石盘保留外部坐标生产者缺口，见同节。
+- 升仙令（`AscensionTokenItem`）与家族令牌（`ClanTokenItem`）：见类注释。传承灵物与家族百宝袋已接分次奖励，见[下文](#出身分次补给2026-11-15)；远古石盘坐标API已存在，自然消费独立接收。
 - 读后改变归属：元婴出窍（`Yvanyingchuqiao` 等 6 个元素）是技能界面施展的技能，归 skill；被闪电击中时按主修功法给效果的 `EntityThunder` 归 gongfa；境界提升粒子留在本系统，随 particle 接入。
 - 完成核对（2026-11-03）：`gradlew check`、`check_ledger.py`、`check_docs.py` 通过；开发服务端启动 ERROR 0 条；冒烟 relation、attribute、xiulian 共 175 项全部符合（其中 xiulian 131 项），日志 ERROR 0 条。
 
@@ -209,9 +209,9 @@ Q191（待裁定，保持来源）：`PlayerGui08jieshao`称“没有时限”�
 
 ### 远古石盘的外部依赖
 
-`A:Ling11DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:34–36`读取MapVariables的`chuansongzhenX/Y/Z`后计算气流方向和接近提示。当前world无对应坐标持久化、首次传送阵位置生产者及公开查询；目标代码未接该物品use。后续world须从来源首次写入链确定坐标并提供所有者查询，才能接回石盘的方向、粒子和距离分支；本批不把默认零点或人为坐标作为自然指引，不把该缺口归为粒子注册缺失。
+`A:Ling11DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:34–36`读取MapVariables的全局传送阵三轴。当前集成基线已有World首次登录生产、Overworld持久化及`WorldStructures.teleportArrayCenter(ServerLevel): Optional<Vec3>`，查询与玩家当前维度无关；石盘自然use另包接收。来源MapVariables三轴默认0，八出身奖励在查询为空时仍发“0 0 0”纸并写石盘double零值。World监听先于出身菜单监听的静态装配关系不代替首次登录完整时序实测。
 
-传承物的落魄家族完整初始生产者已由[后续初始奖励批次](#落魄家族初始奖励2026-11-15)接回代码，主线注册和实机仍待执行。家族百宝袋未在来源procedures中找到直接give引用，结构/商铺数据的生产者仍待核实，不据此补造发放入口。
+传承物的落魄家族完整初始生产者已由[初始奖励批次](#落魄家族初始奖励2026-11-15)接回并注册flow；扩展验证仍待执行。家族百宝袋未在来源procedures中找到直接give引用，结构/商铺生产者待核，不据此补造发放入口。
 
 验证边界：本批静态核对两件物品和全部奖励分支，新增`BirthSupplyCheck`覆盖真实use门槛、严格比较、小数次数、特殊实例、Q197/Q198、耗尽与载体序列化重读；未改SmokeRun选择器。转换、Gradle、客户端、满包掉落、真实重登、完整获取/消费与1.18.2版本实机/两版本对照均未执行。夹具恢复库存、原境界和出身；仅序列化重读不能替代保存退出重进。
 
@@ -219,10 +219,41 @@ Q191（待裁定，保持来源）：`PlayerGui08jieshao`称“没有时限”�
 
 静态核对`A:PlayerJoinGUIMenu:31–64`、关闭过程`PlayerJoinGUIDangZheGeJieMianBeiGuanBi:16–56`、`PlayerJoin02:115–139/409–501`及`PlayerJoinGame:69–74/218–235`，源码指纹见[来源证据](ledger/source-evidence.csv)。目标菜单保存打开时的维度，每次服务端关闭均交给`BirthSelection.close`，等待第二个服务端结束刻，先发`BirthInitialRewardsEvent`，再应用体质并使`tizhinumber`加1。出身和体质均在延迟执行时读取；空出身不发该包，空体质仍按来源落入纯阳分支。普通登录仍由五根和小于1且出身规则开启的既有门槛决定是否开页，没有额外登录发奖入口或一次性领取标记。
 
-`BirthInitialRewardsFlow`只承接“落魄家族”完整分支，保持实际发放顺序：五级四品`cailiao_191`二十件 → `ling_18`一件 → 一本功法书 → 一本技能书。后两件保持`book_021`藏宝载体，使用书籍所有者`ShelfBooks.technique/skill(1)`写入原中文自定义名、书架大类、功法书/技能书小类与double等级1；不提前抽出具体知识。材料由Materials写入实例，两书继续走既有`StudyBookItem`真实use的功法/技能随机表与扣一件路径。随后以菜单打开维度、执行时玩家坐标、零朝向、权限4及无实体命令源执行原`playerchuansuo`函数；最后才应用体质。转换器只将该唯一原函数映射到目标单数`function/`目录，维度、选择器和坐标原文保留，其他函数未在本批扩展。
+`BirthInitialRewardsFlow`既有“落魄家族”分支按实际发放顺序给五级四品`cailiao_191`二十件、`ling_18`、功法藏宝书、技能藏宝书。两书保持`book_021`，由ShelfBooks构造中文名和来源字段，材料由Materials构造；之后按菜单打开维度和执行时玩家坐标，以权限4、无实体命令源执行原`playerchuansuo`，最后应用体质。函数只作目标单数目录适配，原维度/选择器/坐标保留。其余七种扩展见下文。
 
 ### Q200 出身传送使用无实体最近玩家选择器
 
 来源`PlayerJoin02:437–444`对五种出身以无实体命令源执行函数，函数原文为`execute in yvanchuxiuzhen:dimensionrenjian run teleport @p 0 32 0`。它在切换至人间道的执行上下文中用`@p`选最近玩家，没有明确绑定关闭菜单的玩家；在多人或跨维度场景可能命中人间道内其他最近玩家。这是静态推断，两个版本实机均未执行。状态为待裁定、目标保持来源；本批不把选择器改成本人，未声称传送已验证。
 
-本独立批次已写代码与资源，尚未修改共享Mod入口；主线须注册`BirthInitialRewardsFlow.register()`后才构成实际初始奖励路径。其余七种出身奖励、家族袋外部生产者、传送阵首次生成及远古石盘仍开放。新增`BirthInitialRewardsCheck`经真实菜单关闭检查同调用内不提前发奖、等待服务端刻后的四栈顺序/实例/中文、两书服务端use消费、普通登录不追加，以及空出身与空体质；该夹具没有精确采样第一/第二个结束刻，也未接入SmokeRun。库存、五根、出身/体质及涉及体质键的原值/缺失状态和玩家位置均在结束时恢复。未运行转换、Gradle、客户端、满包掉落、真实保存重进、多人、1.18.2版本实机或两版本对照；静态代码不能替代这些验收。
+当前集成基线已注册`BirthInitialRewardsFlow.register()`和`birthinitialrewards`选择器。既有夹具检查落魄家族服务端菜单关闭、同调用未提前发奖、四栈顺序/实例/中文、两书服务端use及空出身/体质边界；八出身扩展尚未编译或运行。未精确采样第一/第二个服务端结束刻；真实保存重进、满包、完整自然消费、多人、专服与两个版本实机仍未验。
+
+## 出身初始奖励扩展（2026-11-17）
+
+来源`A:PlayerJoin02Procedure:31–436,437–444`逐分支核对八种出身初始奖励、临时物品栈最后给出顺序及五种出身传送条件，SHA256见[来源证据](ledger/source-evidence.csv)。目标沿用既有`BirthSelection.close`第二个服务端结束刻事件和已注册`BirthInitialRewardsFlow.register()`；本独立候选扩展flow，出身仍于延迟执行时读取，普通登录没有额外领取入口。来源归属主表将`PlayerJoin02`跨系统奖励归flow，体质部分由xiulian继续持有；`Ling11`物品与右键过程归xiulian，消费候选另包接收。
+
+- `世家纨绔`：立即给`ling_10`、“一小包灵石”宝箱2件和`book_021`“灵步身法”；公共尾段再给同一宝箱1件，然后给藏宝功法书、藏宝技能书与`book_030`“精铁剑图纸”。来源`PlayerJoin02:54–65,76–95,409–435`及Forge40.1.0给物Helper/包装器的有效静态证据表明前次给物不消耗原临时栈，所以宝箱合计3件，目标保留调用顺序。宝箱为宝箱/灵石、等级1、随机2–7。身法为MOVEMENT、品阶/境界1、灵根要求“无”、冷却20/20、四向跳0.7，原简介保持。图纸hover名称“精铁剑图纸”、配方名“精铁剑”、载体身份`yvanchuxiuzhen:book_030`，通过Lianqi三参构造操作写入；产物为`weaponsword_01`，三个配方格均为`cailiao_201`×3。
+- `凡人奇遇`：顺序给“无名修士储物袋”（宝箱/综合、等级1、固定8–8）和“一个装有修仙武器的宝匣”（`baoxiaitem`），其中完整`lianqi`风语弓配置命令保留来源文本。
+- `失魂士兵`：生命5、饥饿2、饱和度0；穿戴损耗51/41/14/51的铁头盔/胸甲/护腿/靴，背包给损耗114的铁剑和烤马铃薯1。
+- `他乡故知`：依次给`ling_09`、铁斧、`qiankundai_01`、烤马铃薯8。
+- `远古秘辛`：五级四品`cailiao_191`×5、`book_030`文本信件、锋利I铁剑。信件由BookTexts写原中文名称与根`textdisplay`，继续交给书籍自然阅读入口消费。
+- `落魄家族`：沿用既有四栈顺序，五级四品`cailiao_191`×20、`ling_18`、功法藏宝书、技能藏宝书。
+- `无良商贾`：先给绿宝石28、面包12并穿戴无损皮甲；尾段再给纸，名称按`DecimalFormat("0")`格式化World全局三轴、以空格分隔。首次坐标生产前按来源三轴默认0，仍发“0 0 0”纸。
+- `流浪侠客`：不祥之兆120000刻、放大器5；先给面包32，穿戴每件独立随机损耗1–30的铁甲，再给同时带锋利I/亡灵杀手I的钻石剑及`ling_11`。石盘保存发奖时全局坐标的三个double副本`mubiaoX/Y/Z`；坐标未初始化时也明确写入零值。右键指引为独立候选，本包只完成石盘奖励生产。
+
+五种来源传送分支为`失魂士兵`、`世家纨绔`、`落魄家族`、`远古秘辛`、`凡人奇遇`。奖励后仍以权限4、无实体命令源执行原`playerchuansuo`函数，Q200最近玩家选择器保持来源待裁定。
+
+跨系统实例分别由Materials、ShelfBooks、BookTexts、Skills、Lianqi、Caskets和TreasureContainers的现有公开操作构造。石盘三轴副本由xiulian新增`BirthItems.ancientStoneDisc(Vec3)`写入，flow只传坐标与设置本次原版装备/状态，不直接写业务私有字段。`WorldStructures.teleportArrayCenter(ServerLevel)`已在当前集成基线存在，查询独立于玩家当前维度；其他系统已有API无需随本包重复实现或覆盖。
+
+扩展`BirthInitialRewardsCheck`经真实服务端菜单关闭覆盖八种奖励及空出身，检查延迟同调用内未提前发奖、完整物品实例/中文/顺序、世家三箱与身法、图纸载体身份、士兵状态、侠客双附魔和随机护甲，商贾纸与侠客石盘副本对照World实际坐标。复用已存在`birthinitialrewards`选择器。该夹具未精确采样第一/第二个结束刻，八分支扩展尚未编译或运行；服务端use书籍样本也不等于全部自然消费验收。首次登录完整时序、满包掉落、真实保存重进、多人Q200、专服、1.18.2版本实机及两版本对照均未执行。石盘使用和完整表现不属于本包闭合结论。
+
+## 远古石盘引导（2026-11-17）
+
+归属主表`ownership_assignment.csv`的`Ling11`物品与同名右键过程均明确归xiulian；`PlayerJoin02`发奖归flow。本包只接石盘自然use和自身`zhuangtai`，不写World坐标、不增加Equipment或Treasure实现。来源物品use返回父类结果，目标`Ling11GuideItem`同样保留返回值，由服务端`Ling11Guidance`读取World公开查询。精确来源范围与哈希见[来源证据](ledger/source-evidence.csv)。
+
+只有主世界执行引导。坐标和非0时保留来源斜率，沿X方向取5个点，各点在玩家Y+1发送3个`lingqi`，散布0.1、速度0；空`zhuangtai`发送玩家名及“好像有一道气流在指引我。”并写“追踪”。已有“追踪”状态按来源条件顺序显示大阵、上方、接近、下方或五种独立概率闲语，其他状态仍发粒子但不追加提示。非主世界提示“好像失灵了？”，全局值未初始化或三轴和为0提示“一个空的石盘？”。右键总是重读全局坐标，不消费奖励时物品保存的`mubiaoX/Y/Z`副本。
+
+### 远古石盘坐标哨兵与距离表达式
+
+来源`A:Ling11DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:37–64,65–102`用三轴坐标和是否为0判空，已生成的非零坐标也可能落入空盘；粒子斜率分母为`targetX-playerX`，玩家X与目标X重合时可能产生NaN/Infinity；提示使用`abs(playerX-targetX+playerZ-targetZ)`，两个方向差可能抵消，不能等同平面距离。候选保留原式、条件顺序和五种独立随机调用。上述影响是静态推断，零和坐标、X重合和抵消距离的客户端表现及两版本实机均未执行；尚未分配公共问题编号，由主agent集中登记。本节不用旧候选的临时编号。
+
+专属工厂`xiulian:ling_11`、单件内容表和英文名`Ancient Stone Disc`作为本包候选交付，最终合并中文名必须保持“远古石盘”。转换器的工厂覆盖及已实现use的pending_hooks移除以独立片段交主agent接收，未自行改共享转换器。`Ling11GuideCheck`准备首次真实客户端右键、服务端/本人追踪状态同步及截图；目前只使用World已有自然中心，不伪造全局坐标。场景尚未接共享选择器、未编译、未运行，也无截图；五点粒子、全部提示、保存重进和完整自然获取仍待验收。夹具不证明石盘已具备完整视觉验收。
