@@ -2822,3 +2822,9 @@ yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/zhuangshiqiantongh
 yvanchuxiuzhen/src/main/resources/data/forge/tags/entity_types/noentity.json,e22b890c47ea5b9dbf2992ae847cf4153763ce6a,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json
 yvanchuxitong/src/main/resources/data/forge/tags/entity_types/noentity.json,426c1a54cd0d5381889de240301967aa8e09967b,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json
 yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/functions/playerchuansuo.mcfunction,fae76d99f8eac03095344bbb4be66f68d56b025b,src/main/resources/data/yvanchuxiuzhen/function/playerchuansuo.mcfunction
+yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,e5350f142b758f1fd055d585184f546af9679349,src/main/resources/data/neoforge/data_maps/item/compostables.json
+yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,e5350f142b758f1fd055d585184f546af9679349,src/main/resources/data/neoforge/data_maps/item/furnace_fuels.json
+yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModCompostableItems.java,8b34aa60ea6ee02d0a19da9309c1e9f88e0a0cc9,src/main/resources/data/neoforge/data_maps/item/compostables.json
+yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFuels.java,b2e35c2857db38b0375993428434bb618d415814,src/main/resources/data/neoforge/data_maps/item/furnace_fuels.json
+yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,8e8eb86f29d47fb98a9d2bbed3569d1bb5f530b9,src/main/resources/data/neoforge/data_maps/item/compostables.json
+yvanchuxiuzhen/src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,8e8eb86f29d47fb98a9d2bbed3569d1bb5f530b9,src/main/resources/data/neoforge/data_maps/item/furnace_fuels.json

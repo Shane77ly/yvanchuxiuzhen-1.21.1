@@ -27,6 +27,7 @@ from convert_content import CONTENT, CONVERSION, SOURCES
 from convert_enchantments import generate as generate_enchantments
 from convert_world import generate as generate_world
 from convert_plant_worldgen import generate as generate_plant_worldgen
+from convert_plant_item_extensions import generate as generate_plant_item_extensions
 from convert_tree_worldgen import generate as generate_tree_worldgen
 from convert_wild_plant_worldgen import generate as generate_wild_plant_worldgen
 from convert_ore_worldgen import generate as generate_ore_worldgen
@@ -346,6 +347,7 @@ class Converter:
         for target in generated:
             self.write(target, self.tags[target], self.tag_origin[target])
         generate_enchantments(self)
+        generate_plant_item_extensions(self)
         generate_world(self)
         generate_plant_worldgen(self)
         generate_wild_plant_worldgen(self)

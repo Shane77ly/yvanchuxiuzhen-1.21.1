@@ -332,3 +332,17 @@ updated: 2026-11-18
 受影响注册ID恰为`cannibalmoss_02`、`bitegrass_02`、`cloudgrass_02`、`thundergrass`和`peachsaplingxve`。三种02状态恢复、雷草真实闪电与血桃苗5%召引的原有执行顺序、概率和维度限制保持；没有添加计划刻排程，也没有调整随机刻频率。关键消费者来源为MoeyeDangFangKuaiBeiWanJiaPoPiShiProcedure:18、PeachsaplingxveGengXinYouXiKeProcedure:31与IronropeDangWanJiaKaiShiPoPiShiProcedure:19；冰封岩精准采集同时检查双手。
 
 旧`reactiveplants`报告保留为历史：正式右键/破坏、碰触状态伤害、双手精准采集抑制和人工scheduleTick的有限结果仍有效，其中“randomTick不转调”的断言是失效规格，不再作为行为对齐证据。当前夹具已更正三种02的受控随机刻恢复和雷草闪电断言，新增血桃苗有限随机刻成功样本；计划刻检查暂时关闭自然随机刻后执行，结束恢复原规则值。夹具已通过集中编译与reactiveplants必要单项，直接调用randomTick不代表自然新区块等待、完整供给或概率分布验收；概率掉落/普通冰封岩随机分支、来源版本实机、真实保存重进、多人和完整视觉仍未验。实际结果与原件位置见[本月更正记录](logs/2026-11.md#2026-11-17-反应植物随机刻委派更正)。
+
+## 植物物品扩展：堆肥与燃料（2026-11-18）
+
+锁定1.18.2版本的94个`itemextension`元素与生成的`YvanchuxiuzhenModFuels`、`YvanchuxiuzhenModCompostableItems`总表逐项一致：52条燃料、43条堆肥，涉及93个实际物品。两类扩展同属Plant规则，物品身份分别归Plant、Cooking、Material和Decor；只按稳定物品ID声明原生消费数据，不调用其他系统内部实现或修改持久状态。`typed_field_accesses.csv`无本规则的外部强类型字段读写。扩展元素不另造注册身份，既有内容台账只补受影响物品的说明，状态不因一项扩展而整项升级。
+
+精确NeoForge21.1.265的`ComposterBlock.getValue`只读取物品holder上的`NeoForgeDataMaps.COMPOSTABLES`，已不查询弃用的静态`COMPOSTABLES`表；`IItemExtension.getBurnTime`读取`FURNACE_FUELS`，原生熔炉通过`ItemStack.getBurnTime(recipeType)`消费。两份资源因此写入`data/neoforge/data_maps/item/compostables.json`与`furnace_fuels.json`；此处`neoforge`是加载器定义的数据映射ID，全部自定义物品键仍为`yvanchuxiuzhen`。`replace=false`保留其他映射项，来源燃料值没有配方类型、NBT或状态条件，逐物品原值转换。`convert_plant_item_extensions.py`独立解析两份总表和相应注册符号，拒绝未识别调用、重复项与未登记物品；标准数据转换的共享接线随精确补丁交主线。
+
+燃料时长为40项1600刻、10项300刻，以及焦木`scorchedwooden`4800刻、远古木`ancienttimeswood`20000刻。300刻组为远古叶`ancienttimesleaves`、枫脂`mapleresinitem`和八种木板。堆肥概率为38项0.3、桂花`laurel_04`与桃花`peachflower`0.6、林桃`peachpeach`0.65、远古叶与银杏果`ginkgofruit`1.0。远古叶、枫脂各有两种扩展；原生首层对非零概率必定成功，后续仍按原生随机概率推进，不另写堆肥算法。
+
+全部94项均未启用发射器行为。`Elm05ranliao`的燃料开关为false、堆肥概率为0，生成总表无对应项；保留该无动作定义，不据此强制其物品燃烧时间为0。`Cassia03ranliao`虽以ranliao命名，实际仅堆肥0.3，不按名称补燃料。来源`WorkAtComposter`只选择小麦种子和甜菜种子，因此本批映射明确`can_villager_compost=false`，不扩展村民自动堆肥材料。
+
+本批对94份元素与四份来源Java保留SHA256/字节数，并核对精确1.18.2与1.21.1框架入口；标准转换生成的两份JSON与来源表、冻结数据逐项语义一致，来源manifest只追加本批6条记录。转换前保护已有生成物，首次因独立树缺精确目标源码Jar而中断；恢复部分输出并补齐前置后成功，其他系统数据和语言副作用均按原件恢复，详情见[本月记录](logs/2026-11.md#2026-11-18-植物物品扩展堆肥与燃料)。
+
+`compileJava compileSmokeJava`及`PlantItemExtensionsCheck`必要客户端单项通过，报告30 INFO、0 FAIL、DONE，所有维度正常保存、Gradle退出0。受控样本覆盖四档燃料在熔炼与null配方参数下的读取、五种堆肥值、原生顶部输入/侧面拒绝、首层与七层、20刻成熟后底部取骨粉及归零，真实等待至少340服务端刻后核对300刻燃料只完成一份圆石熔炼。数据映射全量静态核对与有限机器运行分别登记，不据此提升整项物品状态。两份最终合并中文各93个名称与来源逐值一致；本批没有新增玩家界面或渲染，无截图验收结论。数据重载、正式玩家点击、真实退出重进、完整自然供给、多人、专服、来源1.18.2版本实机和两版本对照仍未执行。

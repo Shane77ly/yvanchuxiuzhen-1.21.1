@@ -1,0 +1,161 @@
+{
+  "replace": false,
+  "values": {
+    "yvanchuxiuzhen:cassia_04": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:cassia_05": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:laurel_05": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:elm_04": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:privet_04": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:peachlog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:peachlogtop": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:mulberrylog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:ancienttimeswood": {
+      "burn_time": 20000
+    },
+    "yvanchuxiuzhen:ancienttimesleaves": {
+      "burn_time": 300
+    },
+    "yvanchuxiuzhen:evilspirittree": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:arrowpoisonwood": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:sandalwoodwood": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:mapleresinitem": {
+      "burn_time": 300
+    },
+    "yvanchuxiuzhen:maplelog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:parasolwood": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:poplarlog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:willowlog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:scorchedwooden": {
+      "burn_time": 4800
+    },
+    "yvanchuxiuzhen:dingxianglog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:sylvestrislog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:sylvestrislogtop": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:strippedsylvestrislog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:strippedchestnutlog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:strippedbeechlog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:strippedcypresslog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:strippedtoothedlog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:strippedcamphorlog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:strippednanmulog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:strippedginkgolog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:chestnutlog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:chestnutlogtop": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:beechlog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:beechlogtop": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:cypresslog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:cypresslogtop": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:toothedlog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:toothedlogtop": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:camphorlog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:camphorlogtop": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:nanmulog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:nanmulogtop": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:ginkgolog": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:ginkgologtop": {
+      "burn_time": 1600
+    },
+    "yvanchuxiuzhen:sylvestrisplanks": {
+      "burn_time": 300
+    },
+    "yvanchuxiuzhen:chestnutplanks": {
+      "burn_time": 300
+    },
+    "yvanchuxiuzhen:beechplanks": {
+      "burn_time": 300
+    },
+    "yvanchuxiuzhen:cypressplanks": {
+      "burn_time": 300
+    },
+    "yvanchuxiuzhen:toothedplanks": {
+      "burn_time": 300
+    },
+    "yvanchuxiuzhen:camphorplanks": {
+      "burn_time": 300
+    },
+    "yvanchuxiuzhen:nanmuplanks": {
+      "burn_time": 300
+    },
+    "yvanchuxiuzhen:ginkgoplanks": {
+      "burn_time": 300
+    }
+  }
+}
