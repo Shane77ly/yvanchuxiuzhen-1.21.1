@@ -9,6 +9,18 @@ updated: 2026-11-15
 
 来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
 
+## 首次登录传送阵坐标与公开查询（2026-11-17）
+
+1.18.2 版本 `PlayerJoinGameProcedure.onPlayerLoggedIn` 在玩家位于 Overworld 且 `WorldVariables.chuansongzhenshengcheng` 为 false 时执行初始化。X、Z 分别由新建 `java.util.Random` 经 `Mth.nextInt` 在闭区间 `[-300,300]` 取整数，Y 固定为20；过程依次清除以中心为基准偏移`(-10,-2,-10)`的21×8×21方块区域，以无旋转、无镜像、包含实体、flags3放置 `yvanchuxiuzhen:chuansongdazhen`，再将完成标记写为true。坐标由 Overworld `MapVariables`保存，完成标记由 `WorldVariables`保存；调用链和字段名由来源指纹条目限定。
+
+1.21.1 版本由 `WorldGeneration` 在服务端玩家登录事件中保留相同维度条件、坐标范围、清理顺序、模板原点和完成时序。坐标与完成标记集中保存在 Overworld `SavedData`，避免维度副本；`WorldStructures.teleportArrayCenter(ServerLevel)`仅在完成标记成立时返回保存的中心`Vec3`，此前返回`Optional.empty()`。该查询是只读公开操作，不将未初始化坐标解释为原点。按 NeoForge 21.1.265 本地 sources jar，`Mth.nextInt` 的随机源参数为 `RandomSource`；目标代码以`RandomSource.create()`分别生成X和Z，保留来源每轴独立新建随机源及闭区间`[-300,300]`的取样方式。
+
+当前传送阵状态由私有不可变`TeleportArray(generated,x,y,z)`承担，使用`RecordCodecBuilder`定义完成标记及三轴来源键，缺失字段保留来源false/0初值。来源坐标字段虽然声明double，但全部实际写入仅为初值0、两轴整数取样和固定Y20；目标以int保存，经`Vec3`提供相同数值。现有`Settings.CODEC`只占用`jiegoushengcheng`，与四个`chuansongzhen*`键互不重叠，分别从同一CompoundTag解析并编码合并。已核NeoForge21.1.265：`SavedData.save(File,Provider)`每次传入新CompoundTag，`CompoundTag.merge`按键复制，因此省略默认字段不会残留旧坐标或覆盖结构开关。初始化、查询及存盘均沿用服务端生命周期；公开查询只在服务端主线程使用，本路径没有客户端状态或网络同步消费者。
+
+此前手写NBT版本同步至集成树后由`gradlew --no-daemon --max-workers=1 compileJava`编译通过，使用768 MB Gradle堆；当前Codec版本另在独立功能树以768 MB、单worker通过`compileJava`；两次编译分别登记，均不覆盖保存重进或首登行为。精确目标源码另确认Overworld的`LevelEvent.Load`在初始化出生点和`prepareLevels`之前触发，索引先于玩家登录发布；`PlayerList.placeNewPlayer`经`EventHooks.firePlayerLoggedIn`同步发布登录事件。标记仍在模板放置调用返回后写true，不读取原生放置布尔返回值，保留来源时序。
+
+来源跨系统消费者归xiulian：`PlayerJoin02Procedure`为无良商贾出身玩家生成坐标命名纸张，为流浪侠客生成`ling_11`并复制目标坐标NBT；`Ling11DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`实际重新读取全局中心坐标，未消费物品内复制值。xiulian负责人当前初始奖励与引导候选已在独立worktree以同一公开查询接入纸张坐标和Ling11三轴NBT；空查询使用`Vec3.ZERO`以保留来源全零全局字段，Ling11仍在坐标和为零时按来源生成空盘。奖励消费者通过出身界关闭后的延迟事件执行，不与通常同步Overworld首次登录生成共用回调时序。上述消费者仍是未集成候选；首次登录传送阵实际位置/画面、多人登录、保存退出重进和奖励/Ling11实际交互尚未运行。
+
 ## 天道维度方块与门户来源闭包（2026-11-15）
 
 来源`TiandaodimensionblockBlock`是六个自定义维度门户共用的框架方块：材质`WOOD`、地图颜色`GOLD`、声音`WOOD`，硬度与爆炸抗性为`strength(-1,3600000)`，光照等级15，`getLightBlock`固定返回15，掉落列表为空时显式返回`minecraft:air`。目标内容表已登记`yvanchuxiuzhen:tiandaodimensionblock`及对应方块物品，静态属性、灯光和空气掉落表达已接入；来源负硬度已纳入转换审计，目标内容行当前没有重复记录门户运行时。
