@@ -2,7 +2,7 @@
 topic: plant
 role: architecture
 status: draft
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 # 植物：架构调查与提案
@@ -189,6 +189,8 @@ updated: 2026-11-17
 | 031 | autumn_01、jade_01、jade_03、jade_02、autumn_02 |
 | 032 | wind_01、wind_03、wind_02、autumn_01、autumn_02 |
 | 033 | jade_01、jade_03、jade_02、peach_02、peach_01 |
+
+2026-11-18按当前活动集成复核另12个菌类/豆科/芝麻成熟地物的既有注册、两道维度门、configured/placed参数、来源manifest与27处VEGETAL_DECORATION挂载：042/045位于jade_03；043位于jade_03、turtle_02；044位于jade_03、wind_04；046/047/048/051/054/055/056位于autumn_01、autumn_02；057位于autumn_01–03及feng_01–04。12条Feature台账由待处理回填为已注册，未新增生产代码或资源；来源字节与SHA256复用锁定证据，补入主线尚未接收的12条来源证据与指纹。此为来源与当前目标的静态闭包，不代表自然新区块出现、成熟植株存活或玩家采收验收，也不包含候选四道中的模板地物。
 
 本批完整build/compileSmokeJava已通过，data输出1759项。最终既有`runSmokeClient -PsmokeOnly=fulucooking`为238项INFO、0 FAIL、DONE（3m11s/退出0），客户端四维度正常保存退出且ERROR/FATAL0。专服在Done后通过持有stdin实际发送原生stop，正常保存四维度，BUILD SUCCESSFUL（29s）/退出0、ERROR/FATAL0。28种作物的自然投放、完整成长/采摘循环、完整保存重登、来源1.18.2版本实机、多人、完整视觉与两版本对照未执行。此前001/002运行结果不能代替新增28种作物验收。
 
