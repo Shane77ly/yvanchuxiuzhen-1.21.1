@@ -2,7 +2,7 @@
 topic: handoff
 role: guide
 status: current
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 # 交接说明
@@ -16,7 +16,7 @@ updated: 2026-11-17
 原主树`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`仍保留`port/full-migration-20261112`、`28f05bc7`及全部既有脏改动和25条暂存。本轮未前移、提交或清理它；保护证据仍在集成树`tmp/session-close-20261117/main-protection-check.json`。
 
 R06地府差异检查在功能树`worktrees/rebuild-r06-diling-packed-20261117`、分支`port/r06-diling-packed-20261117`、接收基线`97155e59`、最新WIP`eba1a0f1`继续，候选未合入。原视距run-03退出忙循环已保留线程/堆证据；run-04小模板对照及run-05原视距12/模拟12的只读停服诊断均正常保存退出，run-05为43 INFO、0 FAIL、DONE、保存约1.599秒；停服快照未复现异常holder，故具体触发原因仍待定位。完整地府首次进入与真实保存重进仍未验；World所属证据和卸载回调审查已收口，不再无变化重跑或自动加堆。Q68受控断线重开单项已集成，来源行为调整仍待裁定。
-R08单项客户端随后在非地府的普通出生奖励场景再次复现同一公共停服卡点：报告到达`WAITING_FOR_WORLD_EXIT`后，服务端线程持续位于`ChunkMap.processUnloads`/`scheduleUnload`，原件在`build/diagnostics/birthinitialrewards-save-hang-20261117/run-01/`，已取两次线程栈和堆摘要并保护性终止。该证据把问题范围扩大为公共区块卸载流程；Smoke已接入通用只读`WorldStopDiagnostics`，只读诊断run-02正常保存退出，非零引用不构成失败证据；根因限制和后续回调取证设计见[项目月志](../systems/project/logs/2026-11.md#2026-11-17-公共停服正常对照与诊断限制)。出身奖励的世家空包数量和士兵取值时点已更正，受控单项通过，见[修炼月志](../systems/xiulian/logs/2026-11.md#2026-11-17-世家初始礼包同栈回写与夹具更正)。下一步按开放清单继续未验的Ling11自然use或公共重排同刻诊断；不重复本轮已通过单项。
+R08单项客户端在非地府的普通出生奖励场景再次复现同一公共停服卡点：报告到达`WAITING_FOR_WORLD_EXIT`后，服务端线程持续位于`ChunkMap.processUnloads`/`scheduleUnload`。`run-03-diagnostic`实际记录同一holder从`count=1`到`count=10`的未就绪重排，回调同刻`save.done=true`、`generationRefCount=1–2`、`currentTask=none`、`pendingSame=false`，55秒仍未到达`ServerStoppedEvent`；原始日志在`build/diagnostics/birthinitialrewards-save-hang-20261117/run-03-diagnostic/`。随后Smoke退出前加入跨维度生成引用/待生成任务收敛等待，`run-04-exit-wait-fix`取得121 INFO、0 FAIL、DONE、正常保存退出和Gradle 0；证据在`build/diagnostics/birthinitialrewards-save-hang-20261117/run-04-exit-wait-fix/`。该修复只改Smoke退出时机，不修改生产保存流程。出身奖励的世家空包数量和士兵取值时点已更正，受控单项通过，见[修炼月志](../systems/xiulian/logs/2026-11.md#2026-11-17-世家初始礼包同栈回写与夹具更正)。下一步按开放清单继续Ling11自然use；公共生产入口仍保留回调诊断和待定位边界。
 
 R04机制v2已验证并集成，燃料耗尽整链、完整视觉/自然获取、真实重进、多人与专服仍开放；R08出身奖励已通过修订后的受控单项，Ling11已接收但未运行；起尸诀UUID、风刃、灵兽袋v2/指纹修复及R10地上罐等已冻结，具体路径、未验边界和接收顺序只在[当前调度](remaining-work.md#当前调度)维护。公共文档、共享入口和Git由主agent收口；转换、Gradle、客户端及专服唯一队列串行、768 MB、单worker，不推送、不合main。
 

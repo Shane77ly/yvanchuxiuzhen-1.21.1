@@ -9,7 +9,9 @@ import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.yvanchuxiuzhen.system.world.diagnostic.WorldStopRequeueDiagnostics;
 
 /**
  * 一个系统的实机检查：按 tick 推进的步骤序列，提供在服务端线程执行、死亡重生、退出重进与结果记录。
@@ -79,8 +81,8 @@ abstract class SystemCheck {
     }
 
     /**
-     * 保存并退出到标题界面。集成服务端的区块待办任务连续 40 tick 为 0 后才断开：新建世界后很快退出时，
-     * 停止流程偶发停在 {@code Saving worlds} 等待某个区块的保存条件（见 docs/systems/project/logs/2026-11.md）。
+     * 保存并退出到标题界面。集成服务端跨维度的区块待办任务、生成引用和待卸载保存条件连续 40 tick 收敛后才断开：
+     * 新建世界后很快退出时，停止流程可能在 {@code Saving worlds} 进入区块卸载重排（见项目月志）。
      */
     protected final void leaveWorld() {
         leaving = true;
@@ -89,8 +91,15 @@ abstract class SystemCheck {
 
     private void disconnectWhenSettled() {
         int[] pending = new int[1];
-        onServer(player -> pending[0] = player.server.overworld().getChunkSource().getPendingTasksCount());
-        settledTicks = pending[0] == 0 ? settledTicks + 1 : 0;
+        WorldStopRequeueDiagnostics.Readiness[] readiness = new WorldStopRequeueDiagnostics.Readiness[1];
+        onServer(player -> {
+            pending[0] = 0;
+            for (ServerLevel level : player.server.getAllLevels()) {
+                pending[0] += level.getChunkSource().getPendingTasksCount();
+            }
+            readiness[0] = WorldStopRequeueDiagnostics.readiness(player.server);
+        });
+        settledTicks = pending[0] == 0 && readiness[0].settled() ? settledTicks + 1 : 0;
         if (settledTicks < 40) {
             return;
         }

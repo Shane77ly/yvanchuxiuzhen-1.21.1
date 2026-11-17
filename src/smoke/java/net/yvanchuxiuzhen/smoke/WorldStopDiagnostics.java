@@ -25,6 +25,7 @@ import net.minecraft.util.StaticCache2D;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
+import net.yvanchuxiuzhen.system.world.diagnostic.WorldStopRequeueDiagnostics;
 import org.slf4j.Logger;
 
 /** 所有客户端冒烟场景共用的有界退出观察；不调度区块、不改变票据、生成引用或原生保存。 */
@@ -56,6 +57,7 @@ final class WorldStopDiagnostics {
 
     static void arm(MinecraftServer server) {
         WorldStopDiagnostics diagnostics = new WorldStopDiagnostics(server);
+        WorldStopRequeueDiagnostics.arm(server);
         NeoForge.EVENT_BUS.addListener(ServerStoppingEvent.class, diagnostics.stoppingListener);
         NeoForge.EVENT_BUS.addListener(ServerStoppedEvent.class, diagnostics.stoppedListener);
         LOGGER.info("TRACE 公共停服观察 stage=armed limits=1,5,15,30,45,55s noChunkRequests=true noQueueDraining=true");
@@ -104,6 +106,7 @@ final class WorldStopDiagnostics {
 
     private void close() {
         finished.set(true);
+        WorldStopRequeueDiagnostics.disarm(server);
         NeoForge.EVENT_BUS.unregister(stoppingListener);
         NeoForge.EVENT_BUS.unregister(stoppedListener);
         if (observer != null) observer.interrupt();
