@@ -93,6 +93,7 @@ final class SmokeRun {
     private String pendingShot;
     private String levelId;
     private List<SystemCheck> systemChecks;
+    private boolean stopDiagnosticsArmed;
 
     /** 近景截图：相机所在玩家的位置与朝向，以及在服务端线程上的布置动作。 */
     private record Closeup(String name, CameraType camera, double x, double y, double z, float yRot, float xRot,
@@ -164,6 +165,10 @@ final class SmokeRun {
     private void waitForWorld() {
         if (minecraft.player != null && minecraft.level != null && minecraft.getSingleplayerServer() != null
                 && ticks - phaseStart > 100) {
+            if (!stopDiagnosticsArmed) {
+                WorldStopDiagnostics.arm(minecraft.getSingleplayerServer());
+                stopDiagnosticsArmed = true;
+            }
             next();
             if (!System.getProperty("yvanchuxiuzhen.smoke.only", "").isEmpty()) {
                 phase = 8;

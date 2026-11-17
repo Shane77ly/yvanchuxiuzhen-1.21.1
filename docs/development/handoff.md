@@ -16,7 +16,7 @@ updated: 2026-11-17
 原主树`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`仍保留`port/full-migration-20261112`、`28f05bc7`及全部既有脏改动和25条暂存。本轮未前移、提交或清理它；保护证据仍在集成树`tmp/session-close-20261117/main-protection-check.json`。
 
 R06地府差异检查在功能树`worktrees/rebuild-r06-diling-packed-20261117`、分支`port/r06-diling-packed-20261117`、接收基线`97155e59`、最新WIP`eba1a0f1`继续，候选未合入。原视距run-03退出忙循环已保留线程/堆证据；run-04小模板对照及run-05原视距12/模拟12的只读停服诊断均正常保存退出，run-05为43 INFO、0 FAIL、DONE、保存约1.599秒；停服快照未复现异常holder，故具体触发原因仍待定位。完整地府首次进入与真实保存重进仍未验；World所属证据和卸载回调审查已收口，不再无变化重跑或自动加堆。Q68受控断线重开单项已集成，来源行为调整仍待裁定。
-R08单项客户端随后在非地府的普通出生奖励场景再次复现同一公共停服卡点：报告到达`WAITING_FOR_WORLD_EXIT`后，服务端线程持续位于`ChunkMap.processUnloads`/`scheduleUnload`，原件在`build/diagnostics/birthinitialrewards-save-hang-20261117/run-01/`，已取两次线程栈和堆摘要并保护性终止。该证据把问题范围扩大为公共区块卸载流程；下一动作是静态对照NeoForge 21.1.265的`ChunkMap`回调条件和现有快照，不直接改保存语义或重复启动客户端。
+R08单项客户端随后在非地府的普通出生奖励场景再次复现同一公共停服卡点：报告到达`WAITING_FOR_WORLD_EXIT`后，服务端线程持续位于`ChunkMap.processUnloads`/`scheduleUnload`，原件在`build/diagnostics/birthinitialrewards-save-hang-20261117/run-01/`，已取两次线程栈和堆摘要并保护性终止。该证据把问题范围扩大为公共区块卸载流程；Smoke已接入通用只读`WorldStopDiagnostics`，下一次单项运行先采样异常holder的坐标、`generationRefCount`、`saveSyncFuture`和任务状态，不直接改保存语义。
 
 R04机制v2已验证并集成，燃料耗尽整链、完整视觉/自然获取、真实重进、多人与专服仍开放；R08出身奖励与Ling11候选已接收但未运行；起尸诀UUID、风刃、灵兽袋v2/指纹修复及R10地上罐等已冻结，具体路径、未验边界和接收顺序只在[当前调度](remaining-work.md#当前调度)维护。公共文档、共享入口和Git由主agent收口；转换、Gradle、客户端及专服唯一队列串行、768 MB、单worker，不推送、不合main。
 
