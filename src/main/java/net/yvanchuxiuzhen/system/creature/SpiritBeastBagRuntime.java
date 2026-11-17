@@ -53,11 +53,14 @@ public final class SpiritBeastBagRuntime {
     }
 
     public static void interact(PlayerInteractEvent.EntityInteract event) {
+        if (!YaoshouInteractions.accepts(event)) return;
         Player player = event.getEntity();
-        if (player.level().isClientSide() || !player.isShiftKeyDown()
-                || !(event.getTarget() instanceof TamableAnimal animal) || !animal.isTame()) return;
+        TamableAnimal animal = (TamableAnimal) event.getTarget();
         ItemStack bag = player.getMainHandItem();
-        if (!bag.is(BAGS)) return;
+        if (!player.isShiftKeyDown() || !bag.is(BAGS)) {
+            YaoshouInteractions.interact(player, animal);
+            return;
+        }
         CompoundTag data = read(bag);
         String bagUuid = data.getString("lingshoudaiuuid");
         String creatureUuid = event.getTarget().getPersistentData().getString("lingshoudaiuuid");

@@ -184,14 +184,9 @@ final class SpiritBeastBagCheck extends SystemCheck {
         entities.add(wolf.getUUID());
         ItemStack wolfBag = item("lingshoudai_03");
         player.setItemInHand(InteractionHand.MAIN_HAND, wolfBag);
-        boolean missingSize = false;
-        try {
-            capture(player, wolf);
-        } catch (NullPointerException expected) {
-            missingSize = wolf.getAttribute(YaoshouAttributes.SIZE) == null;
-        }
-        expectTrue("Q226普通驯服狼进入收纳后在来源体型读取处异常且UUID已写", missingSize
-                && data(wolfBag).getString("lingshoudaiuuid").length() == 8 && !wolf.isRemoved());
+        capture(player, wolf);
+        expectTrue("Q226普通驯服狼被外层妖兽标签排除且灵兽袋未写入", wolf.getAttribute(YaoshouAttributes.SIZE) == null
+                && data(wolfBag).isEmpty() && !wolf.isRemoved());
         wolf.discard();
 
         empty.set(DataComponents.CUSTOM_NAME, Component.literal("[灵兽样本]"));
