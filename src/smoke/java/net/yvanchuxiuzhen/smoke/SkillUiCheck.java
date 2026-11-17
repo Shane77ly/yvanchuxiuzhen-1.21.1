@@ -71,7 +71,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.yihuo.FireBlockEntity;
 import net.yvanchuxiuzhen.system.yihuo.api.FireHeatEvent;
 
-/** 自然研习与藏宝、装配与选择、丹火与格挡，以及装配页死亡和关闭后重登的真实客户端链。 */
+/** 自然研习与藏宝、装配与选择、丹火与格挡，以及装配页死亡、关闭和打开期间退出重登的真实客户端链。 */
 final class SkillUiCheck extends SystemCheck {
     private static final String CONTRIBUTION = "smoke:skill_ui";
     private static final String[] TIZHI = {"LevelNumberCorrect", "lagongtick", "zibaonumber", "zibaokouchu"};
@@ -683,6 +683,37 @@ final class SkillUiCheck extends SystemCheck {
             case 14 -> after(local, 10, p -> {
                 expectTrue("重登后K打开真实04，八槽保存的书可再次载入", lifecycleMenuMatches(p));
                 minecraft.execute(() -> minecraft.player.closeContainer());
+            });
+            case 15 -> after(local, 10, p -> stageLoadoutLifecycle(p, "open-disconnect"));
+            case 16 -> after(local, 10, p -> {
+                boolean ready = p.containerMenu instanceof SkillLoadoutMenu && minecraft.screen instanceof SkillLoadoutScreen
+                        && lifecycleSlotsEmpty(p);
+                expectTrue("断线前重新打开真实04且八槽初始为空", ready);
+                if (!ready) {
+                    cleanup(p);
+                    finish();
+                    return;
+                }
+                minecraft.execute(this::fillLifecycleLoadout);
+            });
+            case 17 -> after(local, 10, p -> {
+                boolean ready = lifecycleMenuMatches(p) && lifecycleStateEmpty(p) && lifecycleInventoryEmpty(p) && inventorySynced(p);
+                expectTrue("断线前八槽真实装入标记书且仍未写回玩家字段", ready);
+                if (!ready) {
+                    cleanup(p);
+                    finish();
+                    return;
+                }
+                minecraft.execute(() -> screenshots.take("skill-loadout-open-disconnect.png"));
+                leaveWorld();
+            });
+            case 18 -> reopened(local);
+            case 19 -> inWorld(local);
+            case 20 -> after(local, 10, p -> {
+                expectTrue("04打开期间退出按来源保存顺序保留未写回状态", lifecycleStateEmpty(p)
+                        && lifecycleStateEmpty(minecraft.player) && lifecycleInventoryEmpty(p) && inventorySynced(p)
+                        && p.getData(PanelNavigation.PAGE) == 4);
+                minecraft.execute(() -> screenshots.take("skill-loadout-open-disconnect-reloaded.png"));
             });
             default -> {
                 if (local < 10) yield false;

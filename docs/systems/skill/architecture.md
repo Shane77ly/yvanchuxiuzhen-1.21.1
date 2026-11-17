@@ -2,7 +2,7 @@
 topic: skill
 role: architecture
 status: draft
-updated: 2026-11-12
+updated: 2026-11-17
 ---
 
 # 技能：架构调查与提案
@@ -478,7 +478,7 @@ button0/1先把当前四技能保存到旧页，再通过 `Skills.turnPage` 减/
 
 目标 NeoForge21.1.265 的 `PlayerList.remove` 同样先发 `PlayerLoggedOutEvent`、调用玩家保存，再由 `ServerLevel.removePlayerImmediately` 移除玩家并触发 `Player.remove` 关闭菜单。`SkillLoadoutMenu.removed` 在关闭时才写回 `skill_state` 与 `technique_slot`；`SkillSetup` 当前没有退出事件写回。故断线前对八槽的改动可能未进入磁盘数据。普通关闭保存已由`skillui`场景验证；目标菜单打开时死亡与正常关闭后的退出重登、头顶默认入口中菜单槽04与普通箱子槽04绑定及关闭留存，已由客户端专项复核；打开时断线仍未实机验证。
 
-此行为与来源的菜单关闭写回结构一致，修复退出顺序会改变来源结果。待负责人裁定：A 保持来源，记录断线期间未关闭菜单的编辑可能丢失；B 在玩家数据保存前仅写回当前打开的 `SkillLoadoutMenu`。裁定前不更改此行为。
+此行为与来源的菜单关闭写回结构一致，修复退出顺序会改变来源结果。`SkillUiCheck` 已增加04打开时真实退出、同存档重进的标记书场景，检查保存前字段与重读后的服务端、本人客户端状态；既有skillui选择器已引用该检查类；本次新增步骤在`compileSmokeJava`以3处编译错误失败，尚未启动客户端，不能视为客户端证据；错误与原始日志见[本月记录](logs/2026-11.md#2026-11-17-q68打开装配页退出验证)。待负责人裁定：A 保持来源，记录断线期间未关闭菜单的编辑可能丢失；B 在玩家数据保存前仅写回当前打开的 `SkillLoadoutMenu`。裁定前不更改此行为。
 
 ## 出口剩余范围（2026-11-08）
 
