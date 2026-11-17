@@ -275,6 +275,7 @@ final class SmokeRun {
                     case "casket" -> List.of(new TreasureCasketCheck(report, levelId));
                     case "guchong" -> List.of(new GuchongCheck(report, levelId, this::shot));
                     case "guchonglifecycle" -> List.of(new GuchongLifecycleCheck(report, levelId));
+                    case "guchonggroundsave" -> List.of(new GuchongGroundSaveCheck(report, levelId, this::shot));
                     case "spiritbeastbag" -> List.of(new SpiritBeastBagCheck(report, levelId, this::shot));
                     case "guchong05" -> List.of(new Guchong05LifecycleCheck(report, levelId));
                     case "guchongflute" -> List.of(new GuchongFluteCheck(report, levelId, this::shot));

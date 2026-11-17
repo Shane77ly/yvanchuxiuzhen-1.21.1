@@ -2,7 +2,7 @@
 topic: guchong
 role: architecture
 status: draft
-updated: 2026-11-15
+updated: 2026-11-18
 ---
 
 # 蛊虫：架构调查与提案
@@ -128,3 +128,13 @@ A `Guchong01Entity` 注册为`MONSTER`，尺寸0.5×0.8，跟踪范围64、更�
 ### Q163 虫卵培养说明没有已发现的可执行入口
 
 A ChongluanItem只有64堆叠与说明，无use/useOn/tick；A/B Java与resources/data未找到虫卵孵化、虫卵到成虫或02生产配方。已知虫卵生产者为Equipment采药锄，本批接回；培养说明与实际消费者之间仍断链。保持普通物品身份，不补造孵化系统；来源动态入口继续集中核实。
+
+## 三档地上蛊罐原位重进（2026-11-18）
+
+现有九槽生命周期证据中，地上罐只经`saveWithFullMetadata`/`BlockEntity.loadStatic`序列化重读，真实退出重进发生在活动虫与背包罐阶段；不能据此登记三档地上罐原位重登已通过。本单项只补这一持久库存风险，不重跑完整AI战斗。
+
+B `Taoguan01/02/03BlockEntity`分别持有2/5/10槽：1/4/9个蛊虫位与独立末槽装饰物，`load/saveAdditional`通过`ContainerHelper`保存全部库存，`getUpdateTag`使用完整元数据。A `Taoguan01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure`经物品顶面使用移交编号槽和罐UUID；B `Taoguan01ZaiFangKuaiShangYouJianProcedure:36–44`按1/4/9槽认主与收纳，210–243行收罐把等级、经验、生命和战斗数值按`getInt/putInt`搬运，速度仍使用Double。收回再放置后这些来源整数读取字段应截掉小数，不能误设为完整小数保存。目标已有`TaoguanItem`、`TaoguanBlockEntity`、`GuchongJarRuntime`实现，本单项未改生产规则。
+
+`GuchongGroundSaveCheck`使用三档满槽、各槽不同的01/03/04编号、名称、经验、资质与数值，经原生物品放罐、一次精血认满全部槽、放入末槽装饰物后真正退出并重进同一存档；检查重新创建的方块实体、全槽组件、UUID/阵营与友方数据、末槽装饰物和客户端同步。随后以原生潜行取装饰物、Ctrl收罐及再次放置检查数量、槽次序和整数截断；速度保留小数。场地位于高处并使用草方块罐底以隔开自然目标；没有受控或自然放虫、追击、攻击或掉落样本。
+
+`guchonggroundsave`必要客户端取得66 INFO、0 FAIL、DONE和Gradle 0；实际日志确认同档两次登录、两次全维度保存。上述满槽、原位重进、双端同步及收罐再放置断言通过，生产代码未改。854×480截图已查看，三档外形可见；画面没有菜单或名称，不作为中文界面或完整模型对照验收。两份最终合并中文的58个Guchong键逐值一致。来源、原始报告和限制见[本月记录](logs/2026-11.md#2026-11-18-三档地上蛊罐原位重进)。完整自然放虫、战斗/掉落、多人、专服、1.18.2版本实机及两版本对照未执行。
