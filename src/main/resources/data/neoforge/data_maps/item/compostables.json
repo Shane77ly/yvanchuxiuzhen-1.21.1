@@ -1,0 +1,177 @@
+{
+  "replace": false,
+  "values": {
+    "yvanchuxiuzhen:cassia_03": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:laurel_03": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:laurel_04": {
+      "chance": 0.6,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:cassia_01": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:laurel_01": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:elm_01": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:elm_03": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:privet_01": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:privet_03": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:peachpeach": {
+      "chance": 0.65,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:peachleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:peachflower": {
+      "chance": 0.6,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:mulberrymulberry": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:mulberryleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:ancienttimesleaves": {
+      "chance": 1.0,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:arrowpoisonwoodleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:sandalwoodleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:sandalwoodleavesitem": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:mapleresinitem": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:mapleleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:parasolleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:poplarleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:poplarleavesyellow": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:willowleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:willowdrooping": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:jadebambooleave": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:dingxiangflower": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:dingxiangflowerdry": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:dingxiangleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:sylvestrispinenut": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:sylvestrispinecone": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:sylvestrisleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:chestnutchestnut": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:chestnutleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:beechleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:cypressseed": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:cypressleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:toothedleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:camphorfruit": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:camphorleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:nanmuleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:ginkgofruit": {
+      "chance": 1.0,
+      "can_villager_compost": false
+    },
+    "yvanchuxiuzhen:ginkgoleaves": {
+      "chance": 0.3,
+      "can_villager_compost": false
+    }
+  }
+}

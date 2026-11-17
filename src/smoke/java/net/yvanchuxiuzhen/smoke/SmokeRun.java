@@ -222,6 +222,7 @@ final class SmokeRun {
                     case "equipmentweapon" -> List.of(new EquipmentWeaponCheck(report, levelId));
                     case "kailingmaterial" -> List.of(new KailingMaterialCheck(report, levelId));
                     case "reactiveplants" -> List.of(new ReactiveWildPlantsCheck(report, levelId));
+                    case "plantitemextensions" -> List.of(new PlantItemExtensionsCheck(report, levelId));
                     case "fabao013" -> List.of(new Fabao013Check(report, levelId));
                     case "fabao017" -> List.of(new Fabao017Check(report, levelId, this::shot));
                     case "bookreading" -> List.of(new BookReadingCheck(report, levelId, this::shot));

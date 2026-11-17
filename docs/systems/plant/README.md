@@ -7,6 +7,8 @@ updated: 2026-11-18
 
 # 植物
 
+2026-11-18补齐植物物品扩展的52条燃料与43条堆肥数据，94个来源元素逐项核对，共93个实际物品；另一个来源元素未启用行为。标准转换、编译及原生机器必要单项通过，报告30 INFO、0 FAIL、DONE，所有维度正常保存且Gradle退出0。71条Plant物品台账仅补规则及有限验证说明，未升级整项状态；Cooking、Material、Decor物品继续保留各自注册所有者。规则、加载器数据映射路径及未验边界见[物品扩展正文](architecture.md#植物物品扩展堆肥与燃料2026-11-18)和[本月记录](logs/2026-11.md#2026-11-18-植物物品扩展堆肥与燃料)。
+
 2026-11-18按活动集成复核12个菌类/豆科/芝麻成熟Feature：已有显式注册、两道维度门、配置/投放资源、来源manifest与27处原群系挂载，台账从待处理回填为已注册；没有新增生产实现或运行验收。规则与候选边界见[成熟地物正文](architecture.md#成熟地物转换与证据边界)和[本月记录](logs/2026-11.md#2026-11-18-成熟作物地物活动基线回填)。
 
 2026-11-16补齐高草`biggrass`→`biggrassyincang`完整碰撞/30刻恢复族、九槽实体/六向能力和Geo物品渲染，内容定义现为436方块/476物品。妖魂道`biometiger_02`的既有自然入口直接复用；本批生产实现和转换输入已接；标准转换隔离输出、集中编译和六架构检查已通过，高草定向运行仍未执行。规则及验证边界见[高草正文](architecture.md#高草碰撞与动画恢复2026-11-16)与[本月记录](logs/2026-11.md#2026-11-16-高草完整生命周期)。
@@ -20,7 +22,7 @@ updated: 2026-11-18
 上一批“野生植物与自然树木Feature扩展”的完整`build compileSmokeJava`通过，最终`runSmokeClient -PsmokeOnly=fulucooking`为343项INFO、0 FAIL、DONE，客户端四维度正常保存退出且ERROR/FATAL0；该批专服启动至Done并导出注册表，未取得原生stop/保存退出证据。上一批证据见[本月日志](logs/2026-11.md)、`tmp/plant-world-features-final-{client.log,report.txt}`；本批World依赖验证另记，不能混用两批专服结论。受控检查不覆盖完整树木长成、自然生成、新区域自然成长、完整存档重登、来源1.18.2实机、多人、完整视觉及两版本对照。目标群系与`dimensionrenjian`、`dimensionyaohun`缺失，Feature注册不代表自然供给闭合；霓裳草06召引已于2026-11-13接回同步事件，静态核对及荫翠符必要单项通过，运行边界见[本批正文](architecture.md#荫翠符催熟与霓裳草开花2026-11-13)。
 
 - [架构与来源规则](architecture.md)：逐编号身份、实现族、工厂对应、生长与掉落差异、公开API和自然投放边界。
-- 归属范围812个元素，其中649个已读；这是来源阅读范围，不是功能验收数，见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
+- 来源范围与逐元素阅读状态见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)；来源已读不代表功能验收，本批94条扩展的阅读状态已按独立增量接收。
 - [内容台账](ledger/content.csv)：来源注册身份、目标ID、行为迁移和地物装配状态。
 - [来源证据](ledger/source-evidence.csv)与[来源指纹](ledger/source-fingerprints.csv)：来源路径、已读分支范围、目标实现和SHA256。
 - [变更索引](changes.md)、[月度日志](logs/2026-11.md)与[系统导航](../README.md)：按批次查证验证范围与源码引用规则。
