@@ -4,6 +4,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -21,6 +22,7 @@ final class Recovery {
         if (!player.isAlive()) {
             return;
         }
+        Relations.refreshEntityTeam(player);
         Cultivation.set(player, CultivationValue.POWER_DISPLAY, Cultivation.get(player, CultivationValue.POWER));
         Cultivation.set(player, CultivationValue.SOUL_DISPLAY, Cultivation.get(player, CultivationValue.SOUL));
         boolean fighting = LevelUp.score(player, "zdztbegin") == 1 || Cultivation.thunderOpen(player);
