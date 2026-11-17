@@ -164,6 +164,7 @@ tools/porting/                  来源索引、台账检查、资源转换
 | 行为已迁移 | 入口到消费者已实现，静态核对完成 |
 | 已验收 | 按验证参考完成所需运行验证 |
 | 批准调整 | 负责人批准的行为调整或合并，附决定链接 |
+| 批准排除 | 负责人明确从本次移植范围排除，附决定链接；保留来源身份，但不要求目标注册、资源或运行验证 |
 
 归属阅读（B1 步骤 6 起）：`tools/porting/ownership_evidence.py` 按候选单位输出 `build/ownership/<单位>.jsonl`，每个元素列出触发过程及其调用闭包、引用它的其他代码（带该代码元素的候选单位）、引用它的配方、标签、战利品表、进度、函数与语言文件。它只给出“该读什么”，不判定归属。阅读后在[归属表](../reference/legacy/inventory/ownership_assignment.csv)把元素改为“已读”，`evidence` 写明读到的规则；读同一元素时一并读过的过程元素按同一结论登记。随后运行 `build_ledger.py` 同步台账（行随归属移动），再运行 `build_architecture_catalog.py` 重建由归属推导的类归属与覆盖表，归属改动涉及已登记内容时重跑 `convert_content.py`，内容表与语言片段随之移到新单位。`convert_content.py --owner <系统>`只写该系统的内容、语言、声音与跳过条目，供系统批次使用；全量默认仍会重建全部输出，部分旧批次尚未回填转换输入的专属内容须先核对差异（2026-11-09）。工具按字符串匹配 ID，不区分注册表，同名的群系与物品（如 `ling_07`）会混在一起，阅读时要核对。读过程源码用 `tools/porting/read_procedure.py <过程名>`（折叠 MCreator 样板、还原中文转义，`DEPTH=1` 显示花括号深度以核对分支嵌套），原文以来源文件为准。
 
@@ -215,7 +216,8 @@ B1 步骤 6 结果（2026-11-03）：方块与物品行对应的 2,211 个元素
 | 主分支 | `main` 始终可构建，只接收通过检查的合并。直接提交到 `main` 只限仓库与文档维护；玩法、工具和构建改动走工作分支 |
 | 工作分支 | `port/<批次>-<主题>`（如 `port/b0-slice`、`port/c-xiulian`），工具与文档用 `chore/<主题>`、`docs/<主题>`；分支名不带所用工具的前缀；不同内容分别建功能分支，不能把多个无关功能合成一个提交 |
 | 合并 | 在当前授权允许时，工作单位完成且受影响检查通过后，及时合入当前集成分支，用 `git merge --no-ff` 保留单位边界；有效且未受影响的检查可复用。纯文档维护不运行游戏/Gradle。合并不等于系统完整验收；分支保留/删除按当前任务约定 |
-| worktree | 并行会话在仓库同级的 `../worktrees/rebuild-<主题>` 建立独立 worktree；一个分支同时只在一个 worktree 检出；合并后 `git worktree remove` |
+| worktree | 所有新建的并行实现 worktree 固定放在 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-<主题>`；禁止放到 C 盘。一个分支同时只在一个 worktree 检出；合并后按任务清理规则处理，不删除既有或用户修改的树 |
+| 模块负责人 | 一个完整模块由一名实现负责人持续交付，负责模块内代码、资源、中文、所属文档及必要验证；主agent统一公共进度、共享接口、Git集成和重型验证调度。模块边界、状态字段与交接出口见[移植技能](../../.claude/skills/minecraft-mod-porting/SKILL.md#4-模块委派与推进) |
 | 提交 | 一个提交只含一个可说明的单位；消息为 `<类型>: <摘要>`，类型取 build、feat、fix、refactor、test、docs、chore；中断时可在工作分支提交 `wip: <摘要>` |
 | 历史 | 推送到远端后不改写 `main` 历史，不 force push |
 | 换行 | 由 `.gitattributes` 规定：文本 LF，Windows 批处理 CRLF，二进制不转换；不依赖各机器的 `core.autocrlf` |

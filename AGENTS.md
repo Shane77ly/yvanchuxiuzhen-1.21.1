@@ -4,13 +4,15 @@
 
 - 来源：原初修真 `yvanchuxiuzhen`、原初系统 `yvanchuxitong`，均为 MCreator 生成的 1.18.2 / Forge 40.1.0 / Java 17 工程，互为必需依赖。位置、锁定标识与静态证据见 `docs/reference/legacy/README.md`。
 - 目标：Minecraft 1.21.1、NeoForge、Java 21，合并为一个可安装 Mod，内部按系统组织。
-- 范围：全量移植两个 Mod 的全部系统。
+- 范围：全量移植两个 Mod 的全部系统；负责人明确批准的范围排除项除外（当前Q28）。
 - 目标源码：构建后的 `build/moddev/artifacts/neoforge-<版本>-sources.jar`（含 Minecraft 与 NeoForge 源码，随依赖版本生成；当前构建为 NeoForge 21.1.265，最低支持 21.1.228）；FML 等库在 Gradle 缓存。邻近工程的 `reference/neoforge-21.1.228-sources` 只在版本相同时作对照。
 - 非依据：邻近 1.21.1 工程 `yuanchuxiuzhen-1.21.1` 只提供工程参考。
 - 当前进度：实现覆盖、验收边界与开放工作统一维护在 `docs/development/remaining-work.md`；实际分支、基线和下一步见 `docs/development/handoff.md`，本文件不复制滚动状态。A/B历史出口与C核心批次结论保留，局部遗漏不使整个项目退回前序阶段。
 - 负责人决定（2026-11-12）：批准重整移植Skill、统一剩余工作清单与文档约束后，再次明确启动完整移植goal并持续推进。主agent只调度，一个 `gpt-6.1-sol` / `xhigh` 子agent串行承担实现、公共进度文档、Git提交、转换及重型验证；受上游并发限制，不再启动其他子agent。既有全量范围与行为保真要求不变，不推送、不自动合并main。低内存验证约束见 `docs/development/engineering.md`。
 - 负责人决定（2026-11-13）：测试期间并行推进源码核对和独立工作包，替代前一日仅保留一个子agent的并发安排；并行写代码必须使用独立worktree。主agent统一调度，公共进度文档和Git提交统一收口；转换、Gradle、客户端和专服等重型验证仍由唯一执行者串行处理，默认768 MB、单worker，只运行必要单项。不推送、不自动合并main。
 - 负责人决定（2026-11-16）：不同内容分别使用功能分支和独立worktree；一个可说明的功能单位完成必要验证后，及时用`git merge --no-ff`合入当前集成分支，保留功能边界。公共进度与Git由唯一执行者收口；不推送、不自动合并main，具体规则见`docs/development/engineering.md`。
+- 负责人决定（2026-11-16）：按完整职责分派模块，由单一负责人持续承担模块代码、资源/文本、系统文档和必要验证；模块状态、交接字段、客户端验收与最终出口见移植Skill及`docs/development`。功法星宿穴位学习小游戏（Q28）明确排除在移植范围之外，其余已批准全量范围不变。
+- 所有新建并行实现worktree仅放在D盘`D:/yuanchuxiuzhen-1.21.1-port/worktrees/`，不得放在C盘；既有worktree不因该规则自动移动或删除。
 - 开发环境：Mod ID `yvanchuxiuzhen`，也是全部注册与资源的唯一命名空间（原初系统内容同样使用）；Java 基础包 `net.yvanchuxiuzhen`；构建组合与验证见 `docs/development/architecture.md` 的“技术依赖”。
 - 交接：新会话先读 `docs/development/handoff.md`。
 - 记录位置：内容映射与行为对齐见 `docs/development/content-and-parity.md`，台账 CSV 在 `docs/systems/<系统>/ledger/`（B0 建立），系统规则正文在 `docs/systems/<系统>`，证据与日志按下方“文档”登记。
@@ -47,7 +49,7 @@
 - 不写无意义断言、常量非空测试或复制实现的测试。直接实现已确认规则，不添加无需求的判空、吞异常、默认值兜底、兼容分支、重试与通用框架；具体规则见 `docs/development/coding-policy.md`。
 - Tooltip 只表达背景、操作、效果和必要数值。实现约束、自检结果、排除式“不会发生什么”留在开发文档。
 - 每批主动核对玩家可见文本的中文映射：菜单标题、按钮、提示、Tooltip 与动态拼接键均需检查最终合并的 `zh_cn.json`；来源命名空间转换后核对代码实际引用，不能以编译通过代替汉化检查。已有界面运行时同时查看截图，避免原始键名或内部英文标识出现在玩家界面（负责人 2026-11-09）。
-- 玩家界面任务按用户默认 shadcn 技能的适用规范执行；Minecraft Java 客户端使用游戏原生技术或选定的客户端适配层，不引入 React 运行时。
+- 玩家界面任务按用户默认 shadcn 技能的适用规范执行；Minecraft Java 客户端使用游戏原生技术或选定的客户端适配层，不引入 React 运行时。客户端交互、存档重进和适用的截图验收按移植Skill的[验证参考](.claude/skills/minecraft-mod-porting/references/verification.md#客户端交互与视觉验收)执行，不以Smoke完成标记或编译结果替代实际行为/画面核对。
 
 ## 文档
 
