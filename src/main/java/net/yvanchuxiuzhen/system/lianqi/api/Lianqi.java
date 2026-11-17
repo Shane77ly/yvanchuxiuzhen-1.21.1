@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodBlockEntity;
 
-/** 炼器系统对外提供的鼎炉火力写入口。 */
+/** 炼器系统对外提供的图纸构造与鼎炉火力写入口。 */
 public final class Lianqi {
     private Lianqi() {
     }
@@ -33,6 +33,13 @@ public final class Lianqi {
             data.putInt(key + "num", ingredient.count());
         }
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        return stack;
+    }
+
+    /** 来源出身奖励额外记录图纸载体身份，由炼器所有者写入根字段。 */
+    public static ItemStack createBlueprintReward(Item carrier, BlueprintReward reward, String sourceCarrierId) {
+        ItemStack stack = createBlueprintReward(carrier, reward);
+        CustomData.update(DataComponents.CUSTOM_DATA, stack, data -> data.putString("belongToItemID", sourceCarrierId));
         return stack;
     }
 
