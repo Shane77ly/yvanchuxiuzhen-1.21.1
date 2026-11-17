@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -112,6 +113,9 @@ final class SkillUiCheck extends SystemCheck {
     private int fireSelectedSlot;
     private int treasureSelectedSlot;
     private int[] treasureBefore;
+    private int savedLoadoutWaitStart = -1;
+    private int settledLoadoutContainer = -1;
+    private long settledLoadoutSince;
     private double answerCount;
     private double techniqueExperience;
     private double heatAmount;
@@ -121,6 +125,7 @@ final class SkillUiCheck extends SystemCheck {
     private boolean foreignFireRejected;
     private boolean unitHeat = true;
     private boolean treasureValid;
+    private boolean waitingSavedLoadout;
     private String treasureResult;
     private final Consumer<FireHeatEvent> fireHeat = event -> {
         if (event.level() == fireLevel && event.pos().equals(firePos.above())) {
@@ -337,12 +342,9 @@ final class SkillUiCheck extends SystemCheck {
                             && ItemStack.matches(Skills.weaponArt(p), Skills.weaponArt(minecraft.player)) && p.getInventory().getItem(0).getCount() == 1 && inventorySynced(p));
                     key("guicaidan", true);
                     key("guicaidan", false);
+                    waitingSavedLoadout = true;
                 }),
                 new Action(8, p -> {
-                    expectTrue("K记忆04并重开载入保存的功法与四类单件槽", p.containerMenu instanceof SkillLoadoutMenu && minecraft.screen instanceof SkillLoadoutScreen
-                            && p.getData(PanelNavigation.PAGE) == 4 && syncedSlot(p, 3, learned.get(0).copyWithCount(1))
-                            && syncedSlot(p, 0, studiedTechnique)
-                            && syncedSlot(p, 1, learned.get(1)) && syncedSlot(p, 2, learned.get(2)) && syncedSlot(p, 7, learned.get(3)));
                     techniqueExperience = Techniques.main(p).orElseThrow().exp();
                     NeoForge.EVENT_BUS.post(new CultivationExperienceEvent(p, 1));
                 }),
@@ -626,7 +628,7 @@ final class SkillUiCheck extends SystemCheck {
     @Override
     protected boolean step(int step, int local) {
         return switch (step) {
-            case 0 -> actions.tick(local);
+            case 0 -> tickActions(local);
             case 1 -> after(local, 20, p -> stageLoadoutLifecycle(p, "death"));
             case 2 -> after(local, 10, p -> {
                 boolean opened = p.containerMenu instanceof SkillLoadoutMenu && minecraft.screen instanceof SkillLoadoutScreen;
@@ -652,10 +654,13 @@ final class SkillUiCheck extends SystemCheck {
                 });
                 yield true;
             }
-            case 6 -> after(local, 10, p -> {
-                expectTrue("死亡后K重开04，八槽原书及完整组件在真实菜单恢复", lifecycleMenuMatches(p));
-                minecraft.execute(() -> minecraft.player.closeContainer());
-            });
+            case 6 -> {
+                if (!awaitLoadout(local, p -> lifecycleMenuMatches(p) && lifecycleStateMatches(p)
+                        && lifecycleInventoryEmpty(p) && inventorySynced(p),
+                        "死亡后K重开04，真实界面与八槽完整组件双端同步并稳定")) yield false;
+                minecraft.player.closeContainer();
+                yield true;
+            }
             case 7 -> after(local, 10, p -> stageLoadoutLifecycle(p, "closed"));
             case 8 -> after(local, 10, p -> {
                 boolean opened = p.containerMenu instanceof SkillLoadoutMenu && minecraft.screen instanceof SkillLoadoutScreen;
@@ -682,10 +687,13 @@ final class SkillUiCheck extends SystemCheck {
                 key("guicaidan", true);
                 key("guicaidan", false);
             });
-            case 14 -> after(local, 10, p -> {
-                expectTrue("重登后K打开真实04，八槽保存的书可再次载入", lifecycleMenuMatches(p));
-                minecraft.execute(() -> minecraft.player.closeContainer());
-            });
+            case 14 -> {
+                if (!awaitLoadout(local, p -> lifecycleMenuMatches(p) && lifecycleStateMatches(p)
+                        && lifecycleInventoryEmpty(p) && inventorySynced(p),
+                        "正常关闭后重登，K打开真实04且八槽保存组件双端同步并稳定")) yield false;
+                minecraft.player.closeContainer();
+                yield true;
+            }
             case 15 -> after(local, 10, p -> stageLoadoutLifecycle(p, "open-disconnect"));
             case 16 -> after(local, 10, p -> {
                 boolean ready = p.containerMenu instanceof SkillLoadoutMenu && minecraft.screen instanceof SkillLoadoutScreen
@@ -712,11 +720,26 @@ final class SkillUiCheck extends SystemCheck {
             case 18 -> reopened(local);
             case 19 -> inWorld(local);
             case 20 -> after(local, 10, p -> {
-                expectTrue("04打开期间退出按来源保存顺序保留未写回状态", lifecycleStateEmpty(p)
+                boolean saved = lifecycleStateEmpty(p)
                         && lifecycleStateEmpty(minecraft.player) && lifecycleInventoryEmpty(p) && inventorySynced(p)
-                        && p.getData(PanelNavigation.PAGE) == 4);
-                minecraft.execute(() -> screenshots.take("skill-loadout-open-disconnect-reloaded.png"));
+                        && p.getData(PanelNavigation.PAGE) == 4 && minecraft.player.getData(PanelNavigation.PAGE) == 4;
+                expectTrue("04打开期间退出按来源保存顺序保留未写回状态", saved);
+                if (!saved) {
+                    cleanup(p);
+                    finish();
+                    return;
+                }
+                key("guicaidan", true);
+                key("guicaidan", false);
             });
+            case 21 -> {
+                if (!awaitLoadout(local, p -> lifecycleSlotsEmpty(p) && lifecycleStateEmpty(p)
+                        && lifecycleStateEmpty(minecraft.player) && lifecycleInventoryEmpty(p) && inventorySynced(p)
+                        && Skills.state(p).page() == 1 && Skills.state(minecraft.player).page() == 1,
+                        "04打开期间断线重登，K重开真实04且八空槽与保存字段双端同步并稳定")) yield false;
+                screenshots.take("skill-loadout-open-disconnect-reloaded.png");
+                yield true;
+            }
             default -> {
                 if (local < 10) yield false;
                 onServer(this::cleanup);
@@ -724,6 +747,84 @@ final class SkillUiCheck extends SystemCheck {
                 yield true;
             }
         };
+    }
+
+    /** 原动作序列在K恢复04后等待同一菜单完成服务端延迟初始化与客户端槽位同步。 */
+    private boolean tickActions(int local) {
+        if (waitingSavedLoadout) {
+            if (savedLoadoutWaitStart < 0) savedLoadoutWaitStart = local;
+            if (!awaitLoadout(local - savedLoadoutWaitStart, this::studiedLoadoutMatches,
+                    "K记忆04并重开载入保存的功法与四类单件槽，双端同步并稳定")) return false;
+            waitingSavedLoadout = false;
+        }
+        return actions.tick(local);
+    }
+
+    /** 精确组件匹配须持续跨过三个服务端刻；超时保留菜单与槽位快照并停止依赖该前置的后续动作。 */
+    private boolean awaitLoadout(int local, Predicate<ServerPlayer> expected, String label) {
+        boolean[] stable = {false};
+        onServer(player -> {
+            boolean ready = loadoutMenuOpen(player) && expected.test(player);
+            long tick = player.serverLevel().getGameTime();
+            if (!ready) {
+                settledLoadoutContainer = -1;
+            } else if (settledLoadoutContainer != player.containerMenu.containerId) {
+                settledLoadoutContainer = player.containerMenu.containerId;
+                settledLoadoutSince = tick;
+            } else {
+                stable[0] = tick - settledLoadoutSince >= 3;
+            }
+            if (stable[0]) {
+                expectTrue(label, stable[0]);
+                settledLoadoutContainer = -1;
+            } else if (local >= 120) {
+                fail(label + "；等待120客户端刻仍未稳定，" + loadoutObservation(player));
+                cleanup(player);
+                finish();
+            }
+        });
+        return stable[0];
+    }
+
+    private boolean studiedLoadoutMatches(ServerPlayer player) {
+        for (Player holder : List.of(player, minecraft.player)) {
+            if (Skills.state(holder).page() != 1 || !ItemStack.matches(Techniques.slot(holder), studiedTechnique)
+                    || !ItemStack.matches(Skills.movement(holder), learned.get(1)) || !ItemStack.matches(Skills.flight(holder), learned.get(2))
+                    || !ItemStack.matches(Skills.weaponArt(holder), learned.get(3))
+                    || !ItemStack.matches(Skills.spell(holder, 1), learned.get(0).copyWithCount(1))) return false;
+        }
+        return syncedSlot(player, 0, studiedTechnique) && syncedSlot(player, 1, learned.get(1))
+                && syncedSlot(player, 2, learned.get(2)) && syncedSlot(player, 3, learned.get(0).copyWithCount(1))
+                && syncedSlot(player, 4, ItemStack.EMPTY) && syncedSlot(player, 5, ItemStack.EMPTY)
+                && syncedSlot(player, 6, ItemStack.EMPTY) && syncedSlot(player, 7, learned.get(3))
+                && inventorySynced(player);
+    }
+
+    private boolean loadoutMenuOpen(ServerPlayer player) {
+        return player.containerMenu instanceof SkillLoadoutMenu serverMenu
+                && minecraft.player.containerMenu instanceof SkillLoadoutMenu clientMenu
+                && minecraft.screen instanceof SkillLoadoutScreen screen && screen.getMenu() == clientMenu
+                && serverMenu.containerId == clientMenu.containerId && serverMenu.slots.size() == 44 && clientMenu.slots.size() == 44
+                && player.getData(PanelNavigation.PAGE) == 4 && minecraft.player.getData(PanelNavigation.PAGE) == 4
+                && serverMenu.getCarried().isEmpty() && clientMenu.getCarried().isEmpty();
+    }
+
+    private String loadoutObservation(ServerPlayer player) {
+        List<String> slots = new ArrayList<>();
+        if (player.containerMenu instanceof SkillLoadoutMenu && minecraft.player.containerMenu instanceof SkillLoadoutMenu) {
+            for (int slot = 0; slot < 8; slot++) {
+                ItemStack server = player.containerMenu.slots.get(slot).getItem();
+                ItemStack client = minecraft.player.containerMenu.slots.get(slot).getItem();
+                slots.add(slot + "=" + server + server.getComponents() + "/" + client + client.getComponents());
+            }
+        }
+        return "服务端菜单=" + player.containerMenu.getClass().getSimpleName() + "#" + player.containerMenu.containerId
+                + "，客户端菜单=" + minecraft.player.containerMenu.getClass().getSimpleName() + "#" + minecraft.player.containerMenu.containerId
+                + "，界面=" + (minecraft.screen == null ? "世界画面" : minecraft.screen.getClass().getSimpleName())
+                + "，记忆分页=" + player.getData(PanelNavigation.PAGE) + "/" + minecraft.player.getData(PanelNavigation.PAGE)
+                + "，技能页=" + Skills.state(player).page() + "/" + Skills.state(minecraft.player).page()
+                + "，鼠标栈=" + player.containerMenu.getCarried() + "/" + minecraft.player.containerMenu.getCarried()
+                + "，背包同步=" + inventorySynced(player) + "，服务端/客户端槽=" + slots;
     }
 
     private boolean after(int local, int ticks, Consumer<ServerPlayer> action) {
@@ -762,7 +863,7 @@ final class SkillUiCheck extends SystemCheck {
     }
 
     private boolean lifecycleMenuMatches(ServerPlayer player) {
-        if (!(player.containerMenu instanceof SkillLoadoutMenu) || !(minecraft.screen instanceof SkillLoadoutScreen)) return false;
+        if (!loadoutMenuOpen(player)) return false;
         for (int slot = 0; slot < lifecycleBooks.size(); slot++) {
             if (!syncedSlot(player, slot, lifecycleBooks.get(slot))) return false;
         }
@@ -770,6 +871,7 @@ final class SkillUiCheck extends SystemCheck {
     }
 
     private boolean lifecycleSlotsEmpty(ServerPlayer player) {
+        if (!loadoutMenuOpen(player)) return false;
         for (int slot = 0; slot < 8; slot++) {
             if (!syncedSlot(player, slot, ItemStack.EMPTY)) return false;
         }
