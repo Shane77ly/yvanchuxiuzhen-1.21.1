@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.IntStream;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -26,12 +27,15 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.world.api.WorldStructures;
 import net.yvanchuxiuzhen.system.xiulian.BirthSelection;
+import net.yvanchuxiuzhen.system.xiulian.api.BirthInitialRewardsEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -54,6 +58,11 @@ final class BirthInitialRewardsCheck extends SystemCheck {
     private MobEffectInstance originalBadOmen;
     private double countBefore;
     private int readyTick;
+    private Consumer<BirthInitialRewardsEvent> soldierObserver;
+    private int soldierSamples;
+    private float soldierHealth;
+    private int soldierFood;
+    private float soldierSaturation;
 
     BirthInitialRewardsCheck(List<String> report, String levelId) {
         super("出身初始奖励", report, levelId);
@@ -183,7 +192,8 @@ final class BirthInitialRewardsCheck extends SystemCheck {
             expect("家族初始包六个栈", 6, rewards.size());
             expect("家族令牌优先发放", "yvanchuxiuzhen:ling_10", itemId(rewards.getFirst()));
             expect("家族宝箱第二栈", "yvanchuxiuzhen:treasure_chest_02", itemId(rewards.get(1)));
-            expect("家族宝箱合计三件", 3, rewards.get(1).getCount());
+            // 来源空槽保存同一栈，尾段 setCount(1) 先改写已入包数量，再合并一件。
+            expect("家族空背包宝箱按来源同栈回写后合计两件", 2, rewards.get(1).getCount());
             expect("家族宝箱中文名", "一小包灵石", rewards.get(1).getHoverName().getString());
             expect("身法书位于两本藏宝书之前", "yvanchuxiuzhen:book_021", itemId(rewards.get(2)));
             expect("身法书类型", SkillKind.MOVEMENT, Skills.book(rewards.get(2)).orElseThrow().kind());
@@ -224,9 +234,10 @@ final class BirthInitialRewardsCheck extends SystemCheck {
     private void checkSoldier(ServerPlayer player) {
         List<ItemStack> rewards = nonEmptyInventory(player);
         expect("失魂士兵两个背包奖励栈", 2, rewards.size());
-        expect("失魂士兵生命", 5, player.getHealth());
-        expect("失魂士兵饥饿", 2, player.getFoodData().getFoodLevel());
-        expect("失魂士兵饱和", 0, player.getFoodData().getSaturationLevel());
+        expect("失魂士兵发奖完成同刻采样一次", 1, soldierSamples);
+        expect("失魂士兵发奖完成生命", 5, soldierHealth);
+        expect("失魂士兵发奖完成饥饿", 2, soldierFood);
+        expect("失魂士兵发奖完成饱和", 0, soldierSaturation);
         expect("失魂士兵铁头盔", Items.IRON_HELMET, player.getItemBySlot(EquipmentSlot.HEAD).getItem());
         expect("失魂士兵头盔耐久", 51, player.getItemBySlot(EquipmentSlot.HEAD).getDamageValue());
         expect("失魂士兵铁胸甲", Items.IRON_CHESTPLATE, player.getItemBySlot(EquipmentSlot.CHEST).getItem());
@@ -313,6 +324,18 @@ final class BirthInitialRewardsCheck extends SystemCheck {
         player.getInventory().clearContent();
         Cultivation.set(player, CultivationText.BIRTH, birth);
         Cultivation.set(player, CultivationText.CONSTITUTION, constitution);
+        if (birth.equals("失魂士兵")) {
+            // 在生产flow完成的同一事件内采样，避免和平难度自动恢复污染延迟检查。
+            soldierObserver = event -> {
+                if (event.player() != player) return;
+                soldierSamples++;
+                soldierHealth = player.getHealth();
+                soldierFood = player.getFoodData().getFoodLevel();
+                soldierSaturation = player.getFoodData().getSaturationLevel();
+                NeoForge.EVENT_BUS.unregister(soldierObserver);
+            };
+            NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, soldierObserver);
+        }
         openAndClose(player);
         readyTick = player.server.getTickCount() + 3;
         expect("出身分支 " + (birth.isEmpty() ? "空" : birth) + " 延迟关闭不提前计次", countBefore + completedCloses,
@@ -373,6 +396,7 @@ final class BirthInitialRewardsCheck extends SystemCheck {
     }
 
     private void restore(ServerPlayer player) {
+        if (soldierObserver != null) NeoForge.EVENT_BUS.unregister(soldierObserver);
         player.getInventory().clearContent();
         for (int slot = 0; slot < originalInventory.size(); slot++) player.getInventory().setItem(slot, originalInventory.get(slot));
         Cultivation.set(player, CultivationText.BIRTH, originalBirth);
