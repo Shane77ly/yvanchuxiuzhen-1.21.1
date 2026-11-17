@@ -439,7 +439,7 @@ def main() -> None:
         if factory in ('tiandao:multi_structure', 'liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod',
                        'lianqi:repair_table', 'lianqi:sewing_basket', 'lianqi:blueprint_table', 'lianqi:poison_cauldron',
                        'fulu:drawing_table', 'fulu:ash_burner', 'fulu:soot', 'fulu:inheritance', 'fulu:repelling_talisman', 'book:binding_table',
-                       'decor:rabbit_cage', 'decor:open_rabbit_cage', 'decor:fortune_container', 'decor:relocation_ladder', 'decor:storage_13', 'decor:storage_14', 'decor:storage_18', 'decor:storage_19', 'decor:storage_20', 'decor:storage_21', 'decor:storage_22', 'decor:storage_24', 'treasure:ground', 'treasure:chest_03', 'treasure:chest_11', 'treasure:casket', 'quest:bounty', 'quest:disguised', 'town:center', 'town:planning', 'zhenfa:element', 'zhenfa:base', 'zhenfa:marker',
+                       'decor:plant_soil', 'decor:rabbit_cage', 'decor:open_rabbit_cage', 'decor:fortune_container', 'decor:relocation_ladder', 'decor:storage_13', 'decor:storage_14', 'decor:storage_18', 'decor:storage_19', 'decor:storage_20', 'decor:storage_21', 'decor:storage_22', 'decor:storage_24', 'treasure:ground', 'treasure:chest_03', 'treasure:chest_11', 'treasure:casket', 'quest:bounty', 'quest:disguised', 'town:center', 'town:planning', 'zhenfa:element', 'zhenfa:base', 'zhenfa:marker',
                        'cooking:iron_pot', 'cooking:clay_pot', 'cooking:steamer', 'cooking:steaming_basket',
                        'cooking:cutting_board', 'cooking:cleaver',
                        'cooking:wooden_still', 'cooking:wine_jar',

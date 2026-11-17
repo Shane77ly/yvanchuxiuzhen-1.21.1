@@ -3,8 +3,10 @@ package net.yvanchuxiuzhen.platform.content.block;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
@@ -32,6 +34,17 @@ public class ContentDoublePlant extends DoublePlantBlock implements TraitedBlock
     protected boolean mayPlaceOn(BlockState ground, BlockGetter level, BlockPos pos) {
         Boolean rule = traits.mayPlaceOn(ground);
         return rule != null ? rule : super.mayPlaceOn(ground, level, pos);
+    }
+
+    @Override
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockState below = level.getBlockState(pos.below());
+        Boolean rule = traits.mayPlaceOn(below);
+        if (rule == null) {
+            return super.canSurvive(state, level, pos);
+        }
+        return state.getValue(HALF) == DoubleBlockHalf.UPPER
+                ? below.is(this) && below.getValue(HALF) == DoubleBlockHalf.LOWER : rule;
     }
 
     @Override

@@ -7,6 +7,8 @@ updated: 2026-11-18
 
 # 植物
 
+2026-11-18接入五种Decor土壤的Plant公开工厂、来源植物支持与空表掉落回退，并保留18种显式ground植物的自身白名单。注册与草色仍由Decor持有；标准转换、生产/Smoke编译与六项架构检查均通过；一次plantsoils受控客户端的327项功能检查通过，329 INFO、0 FAIL、DONE、所有维度保存且Gradle退出0。结果与未验边界见[五土壤正文](architecture.md#五种来源土壤支持与掉落回退2026-11-18)和[本月记录](logs/2026-11.md#2026-11-18-五种来源土壤支持与掉落回退)。
+
 2026-11-18补回尸草独立原位替换入口，按放置上下文允许非自身物品替换；宫廷草现有材质判定与来源等价。标准转换、生产/Smoke编译及原生放置受控单项七项检查通过；真实保存重进与无归道自然获取仍未验。规则与证据见[尸草正文](architecture.md#尸草原位替换2026-11-18)和[本月记录](logs/2026-11.md#2026-11-18-尸草原位替换)。
 
 2026-11-18修复八种野生植物ground中九处Mod土壤引用缺少命名空间的问题，保留来源的原版土壤、列表顺序与双格区别。生产转换器和八行内容已更正，标准转换、编译与原生存活/放置/地物必要单项通过，81 INFO、0 FAIL、DONE、全维度保存且Gradle退出0。阴魂草与尸草仍依赖未接收的无归道自然消费者。规则与未验边界见[土壤正文](architecture.md#野生植物土壤命名空间2026-11-18)和[本月记录](logs/2026-11.md#2026-11-18-八种野生植物土壤引用)。
@@ -52,6 +54,8 @@ Plant拥有本族作物方块和状态，Cooking保留可食物品身份、FoodP
 | `CropFeature.place` | 28种已接成熟地物共有的两维度限制；逐编号configured/placed保留来源参数，群系modifier待World |
 | `MulberryGrowth.grow / afterServerTick / stopped` | 桑苗生长、模板后补叶/木、首个服务端Post写根与停服清临时队列 |
 | `MulberryLeavesBlock.onDestroyedByPlayer` | 原生破坏回调后按注册ID构造Craft蚕实体，初始化仍走原生finalizeSpawn |
+| `PlantSoilSupport.create(BlockTraits)` | Decor工厂委托创建保留来源内容属性的五种土壤；Plant承担种植支持及来源空表掉落回退 |
+| `PlantSoilSupport.supports(BlockState soil, BlockState plant)` | 只读查询专用土壤支持身份，供定向原版消费者适配；不替代植物自身显式ground及其他存活条件 |
 
 逐族已对照 `typed_field_accesses.csv`，已接作物阶段与播种入口没有强类型外部持久字段读写。莲藕`caiou`属于实体自由NBT，不在该强类型表内，已另按开始挖掘、玩家破坏与共享过程调用链核对。服务端负责采藕玩法真值；这不表示其他尚未实现植物的持久状态已核完。
 
