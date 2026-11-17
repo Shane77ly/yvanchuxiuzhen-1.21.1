@@ -29,9 +29,11 @@ NeoForge21.1.265精确`ChunkMap.java:532–562`在`chunkHolder.getSaveSyncFuture
 
 日志保留注册时parent的完成/异常样本、回调时parent/current状态与是否同一、当前pending/updating成员、生成引用和当前task。前32次及随后二次幂采样限制日志量，计数在解除挂载时汇总；同一回调的字段读取仍非原子全局快照，identityHash只便于日志定位，Future是否同一以`==`字段为准。新Mixin配置和实现仅放`src/smoke`，不进入发布JAR；公共`WorldStopDiagnostics`的arm/disarm接线与Smoke元数据以集成`28a4cfb2`为冻结基线，协调者在`e7a06ff1`定向接收并由`cf44958c`合入。既有生产只读观察入口保留；本树旧`cancelStaleUnload`候选不进入本包。
 
-2026-11-18灵兽袋run-01确认该拦截在客户端实际应用，首次世界生命周期1825次注册、1825次回调；非就绪、Future变化、pending不匹配、非零生成引用及采样错误计数均为0，达到`ServerStoppedEvent`并完整保存。真实重进后`SmokeRun.stopDiagnosticsArmed`未复位，第二次世界生命周期没有重新挂载；本批只登记首次生命周期的正常回调样本，不据此闭合旧重排循环或高视距OOM。原件与范围见[首次实际采样月志](logs/2026-11.md#2026-11-18-future关联诊断首次实际采样)。
+实际Mixin应用已随灵兽袋两轮必要运行确认：首轮为正常回调，修订轮在普通运行早期取得短时密集重排样本，随后自行结束且两次全维度保存成功。`SmokeRun.stopDiagnosticsArmed`重进后未复位，两轮诊断各仅覆盖首个世界生命周期，不将重进后的保存冒充第二份诊断样本。原始统计和采样边界见[修订轮月志](logs/2026-11.md#2026-11-18-future关联修订轮与短时密集重排)。
 
-本候选已在独立功能树定向接收并通过生产/Smoke编译，实际Mixin应用及运行随下一项必要灵兽袋Smoke检查；不能声明已获得注册/回调关联的实际样本，也不登记停服循环、全量地府模板解析OOM或六维度新区块OOM已修复。具体包与检查记录见[本月记录](logs/2026-11.md#2026-11-18-停服回调注册future关联候选)。
+精确NeoForge21.1.265 `ChunkMap.processUnloads:492–520`只在生成引用归零后将holder从updating移至pending并注册卸载；`updateChunkScheduling:414–421`可以把同一个holder从pending取回updating，旧回调仍然存活。`scheduleUnload:532–562`先判断`isReadyForSaving`，未就绪时先重注册，仅在就绪分支才检查pending身份。因此同一已完成的saveSync、返回updating的holder及新生成引用，足以解释本次短时重排；已完成Future上的`thenRunAsync`由原unloadQueue Executor排队，不是同步Java递归。
+
+`ChunkGenerationTask.create:33–36`对半径缓存的全部holder调用`acquireGeneration`，`releaseClaim`再释放整份缓存；holder.task只记录以该holder为中心的当前任务。邻区中心任务或已被替换但尚待收尾的任务仍可能持有引用，故`currentTask=none`与`ref>0`不矛盾。逐字段日志不是原子快照，限流样本也不能重建全部回调、引用持有者或具体票据调用者。本次自行收敛不闭合此前停服不收敛与高视距OOM，亦不支持生产取消或跳过保存。只读源码摘录及四份精确源码指纹已归档在集成树`build/diagnostics/unload-future-20261118/run-02-analysis/`。
 
 ## 首次登录传送阵坐标与公开查询（2026-11-17）
 
