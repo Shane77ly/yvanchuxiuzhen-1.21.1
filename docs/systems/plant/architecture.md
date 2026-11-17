@@ -369,3 +369,13 @@ updated: 2026-11-18
 八种植物的SIMPLE_BLOCK内层、来源Feature指纹和现有configured/placed资源已静态复核。人间道的烧焦草/引雷草及妖魂道的四种植物已有当前群系消费者；阴魂草/尸草所需无归道与六个群系尚未接收，本批不据此提升自然供给结论。台账只追加八个方块与八个Feature的修复说明，保持原状态，不把局部数据更正等同于整项验收。
 
 `PlantGroundCheck`受控覆盖来源Mod土壤存活、原版土壤样本、拒绝错误Mod土壤与空气、SIMPLE_BLOCK内层投放/悬空拒绝、高铁竹草双格存活、原生生存物品放置/扣一及失去土壤后的邻居更新。夹具保存并恢复主手、模式与三格方块/方块实体；不运行自然斑块或绕过维度门。18份来源、35份活动依赖、10份精确目标API与实际合并中文已核对，四份系统文档和相关证据同步。标准`convert_content.py --owner plant`成功生成八行51条地面引用，与冻结包及来源原顺序一致；其他物品/语言副作用已保护恢复。生产/Smoke编译与一次`plantground`必要客户端单项通过，79项功能断言及两项公共检查共81 INFO、0 FAIL、DONE，所有维度保存且Gradle退出0。两份最终合并中文各8键逐值一致；本批只改土壤引用，没有新增界面或渲染，不作截图验收结论。自然新区块、完整获取、真实保存重进、多人、专服、1.18.2版本实机和两版本对照均未执行，原件与日志分类见本月记录。
+
+## 柳树垂枝原位替换（2026-11-18）
+
+来源`A:block/WillowdroopingBlock.java:51–53`明确覆写`canBeReplaced`，只比较当前放置上下文手中物品是否为自身方块物品；`elements/Willowdrooping.mod.json`同时声明`isReplaceable=true`。因此手持其他物品及空手上下文允许替换，手持柳树垂枝自身物品时不替换当前格，原生放置流程转用点击面的相邻格。基础材质仍为LEAVES，不能把整类叶片标成可替换或仅靠材质默认值代替这个入口。
+
+当前活动集成的通用`ContentBlock`未覆写此方法，LEAVES材料映射的replaceable为false；NeoForge21.1.265精确`BlockBehaviour.java:293–295`的默认判定先要求此标志，导致原位替换被拦截。目标新增`WillowDroopingBlock`及`plant:willow_drooping`工厂，覆写同一上下文物品身份判定；内容表其余字段与方块物品沿用来源身份，不新增持久字段、掉落或客户端文案。
+
+已有供给消费者为`biomeautumn_03`中的`tree_biomeautumn_03`：两种树装饰器均生成`willowdrooping`。普通`willowsapling`的随机刻、计划刻和骨粉经`TreeSaplingGrowth`按原概率生成`tree_jiegou21`，模板含垂枝；两份柳树模板与来源解压后字节一致。柳叶原生战利品表仍能产出柳苗。这些消费者已静态核对，不据此登记自然新区域或成树验收。
+
+受影响台账仅柳树垂枝方块一行，状态仍为“已注册”；物品扩展包中的30%堆肥独立接收，不作为替换路径依赖。原生受控夹具`WillowDroopingCheck`覆盖其他方块原位放置/扣一、自身物品相邻放置/扣一、副手上下文及空手判定。标准`convert_content.py --owner plant`转换、`compileJava compileSmokeJava`及一次`willowdrooping`客户端单项通过：八项功能断言均通过，报告11 INFO、0 FAIL、DONE，所有维度保存且Gradle退出0。实际合并中文“柳树垂枝”已核对；本批没有新增界面或渲染，未作截图验收。真实保存重进、自然新区块/成树获取、多人、专服、1.18.2版本实机和两版本对照未执行。

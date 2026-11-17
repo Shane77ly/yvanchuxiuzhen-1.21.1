@@ -300,6 +300,7 @@ final class SmokeRun {
                     case "economycommand" -> List.of(new EconomyCommandCheck(report, levelId));
                     case "biggrass" -> List.of(new BigGrassCheck(report, levelId));
                     case "plantground" -> List.of(new PlantGroundCheck(report, levelId));
+                    case "willowdrooping" -> List.of(new WillowDroopingCheck(report, levelId));
                     case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
                     case "naturalsilkchain" -> List.of(new NaturalSilkChainCheck(report, levelId));
                     case "fuluripening" -> List.of(new FuluRipeningCheck(report, levelId));
