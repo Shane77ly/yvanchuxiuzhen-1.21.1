@@ -5466,7 +5466,7 @@ yvanchuxiuzhen,Lingshoudai13hecheng,recipe,~/item/zawu/lingshoudai,creature,候�
 yvanchuxiuzhen,Lingshoudai14hecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudai15hecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudai16hecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudaizhuanhuan,gui,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Lingshoudaizhuanhuan,gui,~/item/zawu/lingshoudai,creature,已读,R07来源菜单80–95行、染色过程与工具容器已读；三槽与16色映射归Creature；Q227保持来源输入限制
 yvanchuxiuzhen,Ranliao,tag,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudaizhuanhuanitem,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
 yvanchuxiuzhen,Lingshoudairanse,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）

@@ -4,8 +4,12 @@ import java.util.function.Supplier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.system.creature.content.SpiritBeastBagDyeMenus;
+import net.yvanchuxiuzhen.system.creature.content.SpiritBeastDyeToolInventory;
 import net.yvanchuxiuzhen.system.creature.entity.BossCreatures;
 import net.yvanchuxiuzhen.system.creature.entity.Butterflies;
 import net.yvanchuxiuzhen.system.creature.entity.GhostCreatures;
@@ -13,6 +17,8 @@ import net.yvanchuxiuzhen.system.creature.entity.NaturalCreatures;
 import net.yvanchuxiuzhen.system.creature.entity.Organisms;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou053BlizzardEffect;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouCreatures;
+import net.yvanchuxiuzhen.system.creature.item.SpiritBeastBagItem;
+import net.yvanchuxiuzhen.system.creature.item.SpiritBeastDyeToolItem;
 
 /**
  * 生物系统的启动装配，只在 Mod 构造时调用一次。
@@ -29,6 +35,12 @@ public final class CreatureSetup {
 
     public static void register(IEventBus modBus) {
         CONTENT.effectBehavior("yaoshou_053baofengxve", new Yaoshou053BlizzardEffect());
+        CONTENT.itemFactory("creature:spirit_beast_bag", SpiritBeastBagItem::new);
+        CONTENT.itemFactory("creature:spirit_beast_dye_tool", SpiritBeastDyeToolItem::new);
+        SpiritBeastBagDyeMenus.register(modBus);
+        modBus.addListener((RegisterCapabilitiesEvent event) -> event.registerItem(Capabilities.ItemHandler.ITEM,
+                (stack, context) -> new SpiritBeastDyeToolInventory(stack), SpiritBeastBagDyeMenus.toolItem()));
+        NeoForge.EVENT_BUS.addListener(SpiritBeastBagRuntime::interact);
         NeoForge.EVENT_BUS.addListener(GuchongGrowthConsumer::onVictimData);
         NeoForge.EVENT_BUS.addListener(WildPlantCreatures::spawn);
         NeoForge.EVENT_BUS.addListener(GuchongGrowthConsumer::onUpgrade);

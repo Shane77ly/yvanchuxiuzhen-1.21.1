@@ -2,18 +2,10 @@
 topic: creature
 role: architecture
 status: draft
-updated: 2026-11-17
+updated: 2026-11-18
 ---
 
 # 生物：架构调查与提案
-
-## 灵兽袋收纳、释放与染色（2026-11-17）
-
-本节登记模块负责人已核对的来源问题；灵兽袋生产及客户端夹具仍在独立模块树，尚未接收、编译或运行，不改变当前集成实现状态。
-
-Q226：A `RightClickEntityProcedure:570–581`在玩家潜行、主手为`forge:lingshoudai`且目标为已驯服`TamableAnimal`时，按袋与实体UUID条件调用`LingshoushounaProcedure`；没有额外的妖兽标签或存活状态过滤。该过程`:45–49`直接读取皮肤与体型属性，体型属性只给来源指定实体登记。普通驯服狼可进入该分支，但在未附着体型属性的读取处异常；入口可达不能视为收纳成功。异常前袋UUID及待收回状态按来源写入。裁定前保持来源，不增加标签过滤或属性默认值，成功验收样本应使用具备来源属性的妖兽；来源版本实机尚未执行。
-
-Q227：来源染色菜单首槽仅接受`forge:lingshoudai`，该标签包含`lingshoudai_01`–`lingshoudai_16`，不含`lingshoudai_00`；按钮回调却另外接受00。因此00染色分支在来源菜单中不可达。裁定前保留菜单标签和回调分支，不补造00输入入口。详细接收与验证进度由本系统月志及[统一调度](../../development/remaining-work.md#当前调度)维护。
 
 ## 三名首领与飞斧实体（2026-11-14）
 
@@ -251,3 +243,37 @@ creature 提供生成初始化、驯服/主人查询、采集、收纳/释放和
 ## 反应植物实体消费者（2026-11-16）
 
 `WildPlantCreatures`同步消费Plant公开`WildPlantCreatureEvent`，拥有moshou_003/taomujing创建、目标、朝向、MOB_SUMMONED初始化及加入世界。事件和来源顺序、五类计划刻Q218及单项验证边界只在[Plant正文](../plant/architecture.md#反应野外方块2026-11-16)维护；本批复用已有实体注册，不把新增生产入口等同完整战斗/自然生成验收。
+
+## 灵兽袋收纳、释放与染色（2026-11-17）
+
+来源收纳入口为A `RightClickEntityProcedure:570–581`，只要求目标是已驯服的`TamableAnimal`，玩家潜行且主手持`forge:lingshoudai`物品；袋UUID与妖兽UUID相等或妖兽UUID为空时调用`LingshoushounaProcedure`，不匹配时显示来源提示。来源分支没有额外的`forge:yaoshou`实体标签或存活状态过滤。目标最初添加的两项过滤已按Q226静态移除。
+
+入口可达与缺体型属性时的异常边界由[Q226](#q226-灵兽袋收纳入口与体型属性)统一说明。
+
+收纳过程仅由当前主人执行；袋UUID为空时生成来源8字符标识，每字符独立随机源、范围0–24及字母表`abcdefjhigklmnopqrstuvwxyz`均保留。袋未占用或UUID相同时复制实体注册ID、来源团队、境界/经验、名称、生命、战斗属性、尺寸及存在时的character字段，并移除原实体。来源收纳读取目标动物的玩家能力，但`YvanchuxiuzhenModVariables:424–426`仅为非FakePlayer玩家附着该能力，默认`team`为空（552行）；袋中因此写空团队，不能改为读取动物本体阵营。释放仅在非潜行、袋主人UUID匹配且未处于待收回状态时创建登记实体；按来源两格方块射线落位，恢复袋中字段与自定义名称，继承当前玩家阵营/友方、认主及属性后执行`MOB_SUMMONED`初始化并加入世界。目标先完成来源字段恢复与`MOB_SUMMONED`初始化，再由`Relations.shareEntityAllegiance`写入当前玩家阵营/友方，避免编号妖兽初始化阶段的物种队伍覆盖释放者阵营；不跨系统读写持久对象。生命恢复字段`health_Rec`与资质一同收放，当前生命仅写原生生命属性，不向实体额外写入来源未写的`health_Num`自由字段。
+
+染色工具绑定自身三槽物品容器并打开来源菜单；首槽允许`forge:lingshoudai`，中槽允许`forge:ranliao`，输出槽禁止放入。未上色袋在菜单与按钮过程之间的来源断链见[Q227](#q227-未上色灵兽袋染色菜单断链)。其余染色分支按白、橙、品红、淡蓝、黄、黄绿、粉、灰、淡灰、青、紫、蓝、棕、绿、红、黑染料映射到01–16。来源复制完整输入物品NBT，目标复制组件补丁，包含袋自定义数据、自定义名称等迁移后组件；每次消耗各一个袋和染料。服务端绑定原工具容器，客户端绑定工具副本接收菜单同步，避免预测修改玩家真实工具组件。动态物品说明由来源`ItemLoreProcedure`提供。
+
+目标功能树已接入`SpiritBeastBagRuntime`、18项袋与工具工厂、菜单/屏幕/按钮Payload、物品自有`CUSTOM_DATA`和Creature中文片段。精确API静态核对后，首轮编译发现Tooltip样式变量应为`MutableComponent`，最小修正后生产/Smoke编译与六项架构检查通过。一次定向转换的18项工厂一致；转换器尚未完整保留既有手工鬼怪/首领内容，本次逐字节恢复四份转换前输出，未覆盖既有成果。18项物品保留“已注册”粒度；染色菜单经实际注册导出及开窗确认改为“已注册”。最终合并`zh_cn.json`的23个袋相关键与系统片段一致。
+
+`spiritbeastbag`修订轮覆盖主人/UUID/占用拒绝、001潜行收纳/释放/回收、字段/生命/体型/皮肤/阵营恢复、待收回拒绝、16色扣料与组件双端同步、输出占用拒绝、主副手独立容器、同存档真实退出重进和死亡只清首个关联袋。首轮余料固定槽位夹具假设失败；按原生快捷移动结果聚合全背包当前染料后，修订轮305 INFO、0 FAIL、DONE、Gradle退出0，两次全维度保存完成。组件内容相等仍使用目标精确源码的`DataComponentPatch.equals`，不比较Java对象身份。四张截图已实际查看，包含无遮挡三槽菜单、两端颜色Tooltip及重进工具，中文可读、未见原始翻译键；诊断聊天仍含UUID/实体ID。自然获取、其他妖兽完整行为、多人/专服、1.18.2 版本实机和两版本对照未执行。接收、失败、修订、截图和日志边界见[Creature月志](logs/2026-11.md#2026-11-18-灵兽袋接收与必要客户端收口)。
+
+### Q226 灵兽袋收纳入口与体型属性
+
+状态：1.18.2 版本入口与属性读取顺序已静态核实；目标多余过滤已移除，编译与必要客户端边界通过。普通狼缺体型属性异常由夹具刻意触发并捕获；来源异常保持，增补过滤或默认属性仍待统一裁定。
+
+A `RightClickEntityProcedure:570–581`只要求目标为已驯服的`TamableAnimal`、玩家潜行且主手物品属于`forge:lingshoudai`。袋UUID等于实体UUID或实体UUID为空时进入收纳过程；不匹配时显示来源提示。该入口没有`forge:yaoshou`实体标签或目标存活过滤。A `LingshoushounaProcedure:29–42`随后验证当前主人，按来源写入空袋的8字符UUID，并在允许收纳时先清待收回标志；45–49行直接读取皮肤及体型属性，体型没有判空或默认值。原版狼未附着该来源体型属性，因此能通过已驯服动物入口，却会在体型读取处异常中断；异常前袋UUID等写入仍已发生，实体尚未移除。入口可达不构成收纳成功。
+
+目标`SpiritBeastBagRuntime.interact/capture`保留该顺序，删除先前额外的妖兽标签与存活过滤，不扩大属性附着范围、不补默认体型、不吞掉属性异常。`SpiritBeastBagCheck`将原版狼用于“已进入入口、UUID已写、缺体型属性处异常且实体未移除”的必要边界，完整收放和存档的成功样本使用具备来源属性的`yaoshou_001`。目标版本必要客户端已核该异常顺序和001成功路径；每轮日志有一次预期异常，不称零错误。1.18.2 版本实机、专服及两版本对照未执行。
+
+来源文件SHA256：`RightClickEntityProcedure.java`为`e4ac00bee462c238f1208fd696e26b6232099b85db0993c900a03d52695269d7`；`LingshoushounaProcedure.java`为`de7c5bb6811c2601d6fb1010ed80b6c951c326abb63f77b49dd0f2d3dbcfaf05`。来源路径前缀见[来源入口](../../reference/legacy/README.md)。
+
+### Q227 未上色灵兽袋染色菜单断链
+
+状态：来源菜单条件与按钮分支已静态核实；目标编译与必要客户端通过，00袋拒绝入槽及有色袋16色输出已核；保持来源，扩大菜单输入仍待裁定。
+
+A `data/forge/tags/items/lingshoudai.json`仅含`lingshoudai_01`–`lingshoudai_16`，不含`lingshoudai_00`。A `LingshoudaizhuanhuanMenu:80–95`首槽只接受该标签，染料槽只接受`forge:ranliao`，输出槽禁止放入。A `LingshoudairanseProcedure:24–27`却另行接受未上色的`lingshoudai_00`，使这个按钮分支无法通过来源菜单自然放入的物品到达；按钮分支存在不能证明未上色袋有可用染色入口。
+
+目标保留`SpiritBeastBagDyeMenu`首槽的来源标签限制，同时保留`SpiritBeastBagRuntime.dye`中的00袋条件；不向标签添加00袋、不绕过槽位、不新增空袋转换方法。夹具核对00袋不能放首槽、输出槽拒绝放入；16色输出验收使用有色袋。若负责人批准允许未上色袋自然染色，需同时裁定标签/槽条件和自然获取路径后再实施。目标版本必要客户端已核00袋拒绝入槽、输出槽拒绝输入与16色有色袋染色；1.18.2 版本实机、专服及两版本对照未执行。
+
+来源文件SHA256：`lingshoudai.json`为`b96d58e2487571a28332691bac4745402a168478e8d1486b6a9e3dab247b0938`；`LingshoudaizhuanhuanMenu.java`为`de88fe5cd8fb60650ccd44e741e8bbd9b34457b50d874350569fded7c26dc612`；`LingshoudairanseProcedure.java`为`db19c95b1a7949467447bdda9cef0673ccbf2d16ba8431361a5ffaf02d5220d5`。来源路径前缀见[来源入口](../../reference/legacy/README.md)。
