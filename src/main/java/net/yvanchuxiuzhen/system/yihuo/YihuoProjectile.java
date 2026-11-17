@@ -47,8 +47,7 @@ public final class YihuoProjectile extends AbstractArrow implements ItemSupplier
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE,
-                "cailiao_" + material)));
+        return new ItemStack(Blocks.AIR);
     }
 
     @Override

@@ -212,7 +212,7 @@ final class SmokeRun {
                     case "bookquiz" -> List.of(new BookQuizCheck(report, levelId, this::shot));
                     case "treasuremedicine" -> List.of(new TreasureMedicineRewardCheck(report, levelId));
                     case "bookquizowner" -> List.of(new BookQuizOwnershipCheck(report, levelId, this::shot));
-                    case "yihuomaterial" -> List.of(new YihuoMaterialCheck(report, levelId));
+                    case "yihuomaterial" -> List.of(new YihuoMaterialCheck(report, levelId, this::shot));
                     case "demon" -> List.of(new DemonTransformationCheck(report, levelId, this::shot));
                     case "equipmentproduct" -> List.of(new EquipmentProductCheck(report, levelId, this::shot));
                     case "equipmentconsumers" -> List.of(new EquipmentConsumersCheck(report, levelId, this::shot));
