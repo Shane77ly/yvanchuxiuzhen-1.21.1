@@ -2,7 +2,7 @@
 topic: dungeon
 role: architecture
 status: partial
-updated: 2026-11-14
+updated: 2026-11-18
 ---
 
 # 副本：入口、实例、波次与私人画卷
@@ -16,6 +16,14 @@ updated: 2026-11-14
 玩家原`tizhiitem`中的副本倒计时、定义、控制点、集合点、回程点与原模式改由Dungeon玩家附件保存，死亡复制；原`chuansongitem`的私人画卷快照由独立ItemStack附件保存，死亡复制。世界SavedData保存全服实例序号、大厅生成标志及各来源维度的画卷序号。运行阶段、波次、计时、占位符与奖励随控制器保存，服务器是唯一写入者。
 
 `typed_field_accesses.csv`的`fubenweizhi`、`datingshengcheng`、`tizhiitem`副本字段、`chuansongitem`私人画卷分支、`LEVELnumber`及两种`teamwork`是本批外部边界：境界从`Cultivation.get`只读；玩家能力和本体实体临时队伍经`Relations`分开操作；结构交`WorldStructures.place`；怪物等级和临时攻击者交`DungeonCreatures.prepare`。本系统只写自己的标志/控制点，不修改其他系统玩家档案。
+
+## 普通重生游戏模式恢复（2026-11-18）
+
+`A:EntityberebornProcedure:136–159`在资源、经验与寿元修正之后读取原体质载体的`gamemoshi`，按“冒险/生存/创造/旁观”恢复四种游戏模式，随后将已识别标记置为空字符串。已处于目标模式时仍清空；空值、带空白或其他未知文本原样保留。该来源步骤不限制维度，也不根据模式是否发生变化决定后续复活位置与20刻重算。
+
+数据所有者继续为Dungeon，公开`Dungeons.restoreRespawnGameMode(ServerPlayer)`只委托本系统的附件操作；外部不读写`DungeonData.PLAYER`。`DungeonPlayers.entityJoined`复用同一操作并保留既有`supported`维度门与画卷返回顺序。新公共入口尚未挂入普通重生事件，跨系统消费者由flow编排接收，不新增第二个重生监听。`typed_field_accesses.csv`的`Entitybereborn`体质载体访问与原模式读写属于本操作边界，不改变整个来源过程的归属。
+
+本批只提供接口并抽取已存在的映射，无新增注册内容、资源、持久化字段或玩家文本。普通重生完整顺序、复活维度回程与20刻重算不在本接口单项的验收范围；实际验证与证据见[本月记录](logs/2026-11.md#2026-11-18-普通重生游戏模式公开接口)。
 
 ## 天道入口与候场
 

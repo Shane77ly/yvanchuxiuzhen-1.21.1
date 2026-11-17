@@ -97,18 +97,24 @@ public final class DungeonPlayers {
 
     public static void entityJoined(EntityJoinLevelEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player) || event.getLevel().isClientSide()) return;
-        if (supported(player.level().dimension())) {
-            CompoundTag state = player.getData(DungeonData.PLAYER);
-            GameType mode = switch (state.getString("gamemoshi")) {
-                case "冒险" -> GameType.ADVENTURE;
-                case "生存" -> GameType.SURVIVAL;
-                case "创造" -> GameType.CREATIVE;
-                case "旁观" -> GameType.SPECTATOR;
-                default -> null;
-            };
-            if (mode != null) { player.setGameMode(mode); state.putString("gamemoshi", ""); }
-        }
+        if (supported(player.level().dimension())) restoreGameMode(player);
         if (!player.level().dimension().equals(PAINTING)) PaintingRuntime.returned(player);
+    }
+
+    /** 恢复附件中来源四种游戏模式；识别成功即清空标记，未知文本保留。 */
+    public static void restoreGameMode(ServerPlayer player) {
+        CompoundTag state = player.getData(DungeonData.PLAYER);
+        GameType mode = switch (state.getString("gamemoshi")) {
+            case "冒险" -> GameType.ADVENTURE;
+            case "生存" -> GameType.SURVIVAL;
+            case "创造" -> GameType.CREATIVE;
+            case "旁观" -> GameType.SPECTATOR;
+            default -> null;
+        };
+        if (mode != null) {
+            player.setGameMode(mode);
+            state.putString("gamemoshi", "");
+        }
     }
 
     private static void enteredPainting(ServerPlayer player) {
