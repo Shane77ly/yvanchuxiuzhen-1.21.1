@@ -11,7 +11,7 @@ updated: 2026-11-17
 
 本次授权继续双Mod全量移植，Goal已建立为active；唯一排除Q28。集成分支`port/full-migration-20261112`的起始HEAD为`a368950a`。批次0完成44个D盘Git工作树盘点，主树313条默认状态对应343条展开文件记录，原25条暂存和全部旧改动受保护；详细归属、指纹和隔离边界见[批次0记录](batch0-inventory-20261117.md)。
 
-当前主工作树仍位于`port/full-migration-20261112`、HEAD `28f05bc7`，313条状态记录保持原样。用于批次集成的干净D盘工作树位于`D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-20261117`，分支`port/batch0-integration-20261117`、HEAD `cf66adf0`，以`28f05bc7`为共同基线；不把主工作树的脏改动带入该树。第一批三模块的负责人席位、功能分支、独立D盘树、完整范围和出口已在[当前调度](remaining-work.md#当前调度)登记，三名负责人已开始，模块状态为进行中。下一步接收各模块来源核对与可隔离交付，并按队列验证；旧`rebuild-world-runtime-20261116`仍有144条改动，只读复核，不作为干净基线；旧`world_plant_module`保持中断。全部重型操作交主agent串行队列，不推送、不合main。
+当前主工作树仍位于`port/full-migration-20261112`、HEAD `28f05bc7`，313条状态记录保持原样。用于批次集成的干净D盘工作树位于`D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-20261117`，分支`port/batch0-integration-20261117`，以`28f05bc7`为共同基线；当前HEAD以该树的`git log`为准，不把主工作树的脏改动带入该树。第一批三模块的负责人席位、功能分支、独立D盘树、完整范围和出口已在[当前调度](remaining-work.md#当前调度)登记，三名负责人已开始，模块状态为进行中。下一步接收各模块来源核对与可隔离交付，并按队列验证；旧`rebuild-world-runtime-20261116`仍有144条改动，只读复核，不作为干净基线；旧`world_plant_module`保持中断。全部重型操作交主agent串行队列，不推送、不合main。
 
 以下是前次交接保留记录；其中Goal暂停、尚未派工等描述属于本次授权前，不作为当前状态。
 
