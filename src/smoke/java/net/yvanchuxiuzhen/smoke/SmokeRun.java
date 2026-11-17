@@ -67,6 +67,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.neoforged.neoforge.client.gui.CreativeTabsScreenPage;
 import net.yvanchuxiuzhen.system.xiulian.XiulianRules;
+import net.yvanchuxiuzhen.system.world.diagnostic.WorldStopRequeueDiagnostics;
 
 /**
  * 客户端冒烟检查：建一个创造模式世界，在高空平台放置本 Mod 的全部方块状态，核对每个方块与物品有模型和名称，
@@ -94,6 +95,8 @@ final class SmokeRun {
     private String levelId;
     private List<SystemCheck> systemChecks;
     private boolean stopDiagnosticsArmed;
+    private boolean finishRequested;
+    private int settledExitTicks;
 
     /** 近景截图：相机所在玩家的位置与朝向，以及在服务端线程上的布置动作。 */
     private record Closeup(String name, CameraType camera, double x, double y, double z, float yRot, float xRot,
@@ -107,6 +110,10 @@ final class SmokeRun {
     void tick() {
         ticks++;
         try {
+            if (finishRequested) {
+                waitForSettledExit();
+                return;
+            }
             switch (phase) {
                 case 0 -> waitForTitle();
                 case 1 -> waitForWorld();
@@ -127,7 +134,11 @@ final class SmokeRun {
             }
         } catch (Exception exception) {
             report.add("FAIL harness " + exception);
-            finish();
+            if (finishRequested) {
+                completeExit();
+            } else {
+                finish();
+            }
         }
     }
 
@@ -280,6 +291,7 @@ final class SmokeRun {
                     case "tiandao_display" -> List.of(new TiandaoDisplayCheck(report, levelId, this::shot));
                      case "nbteditor" -> List.of(new NbtEditorCheck(report, levelId));
                      case "birthinitialrewards" -> List.of(new BirthInitialRewardsCheck(report, levelId));
+                     case "ling11" -> List.of(new Ling11GuideCheck(report, levelId, this::shot));
                      case "tiandao_multi_structure" -> List.of(new TiandaoMultiStructureCheck(report, levelId, this::shot));
                     case "economycommand" -> List.of(new EconomyCommandCheck(report, levelId));
                     case "biggrass" -> List.of(new BigGrassCheck(report, levelId));
@@ -662,12 +674,35 @@ final class SmokeRun {
     }
 
     private void finish() {
+        if (finishRequested) return;
+        finishRequested = true;
         phase = 99;
         report.add((minecraft.mouseHandler.isMouseGrabbed() ? "FAIL" : "INFO") + " 检查期间不捕获鼠标");
         report.add("WAITING_FOR_WORLD_EXIT");
         writeReport();
+    }
+
+    private void waitForSettledExit() {
+        var server = minecraft.getSingleplayerServer();
+        if (minecraft.level != null && server != null) {
+            int[] pending = new int[1];
+            WorldStopRequeueDiagnostics.Readiness[] readiness = new WorldStopRequeueDiagnostics.Readiness[1];
+            server.submit(() -> {
+                for (ServerLevel level : server.getAllLevels()) {
+                    pending[0] += level.getChunkSource().getPendingTasksCount();
+                }
+                readiness[0] = WorldStopRequeueDiagnostics.readiness(server);
+            }).join();
+            settledExitTicks = pending[0] == 0 && readiness[0].settled() ? settledExitTicks + 1 : 0;
+            if (settledExitTicks < 40) return;
+            report.add("INFO Smoke停服前区块状态连续40 tick收敛");
+        }
+
+        completeExit();
+    }
+
+    private void completeExit() {
         if (minecraft.level != null) {
-            // 与原生暂停菜单同序；phase 已停止推进，断开期间的嵌套客户端 tick 不再执行检查。
             minecraft.level.disconnect();
             minecraft.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")));
             minecraft.setScreen(new TitleScreen());

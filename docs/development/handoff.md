@@ -7,18 +7,18 @@ updated: 2026-11-18
 
 # 交接说明
 
-## 本次执行基线（2026-11-17）
+## 本次执行基线（2026-11-18）
 
 本会话从收尾提交`a98414af`接续，双Mod全量Goal为active，仅排除Q28。原生协作工具可用，已恢复`cultivation_combat_owner`、`world_plant_owner`、`creature_guchong_owner`三名完整模块负责人，均在原D盘独立树继续；三个模块全部“进行中”，职责、具体交付及下一动作只在[完整模块计划及当前调度](remaining-work.md#当前调度)维护。
 
-实际集成树是`D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-20261117`，分支`port/batch0-integration-20261117`。生产基线含`18a4c231`的模块规范和传送阵API；Q68功能`1f222223`已通过必要单项并由`f7156900`非快进合入；Q218五花型随机刻修复`c758428c`已通过受控必要单项并由`cd9227fa`非快进合入；R04异火客户端链路修订`3c9d8c1e`已通过run-02必要单项并由`1ecb095d`非快进合入；R08出身奖励与Ling11候选已由`28391ef9`接收，`compileJava`和`compileSmokeJava`在768 MB、单worker下通过，出身奖励经Q228数量及士兵同刻采样修订，受控单项已通过并保存退出，Ling11尚未运行。最新公共记录提交后的HEAD以Git为准；所有集成操作显式使用该树。
+实际集成树是`D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-20261117`，分支`port/batch0-integration-20261117`。生产基线含`18a4c231`的模块规范和传送阵API；Q68功能`1f222223`已通过必要单项并由`f7156900`非快进合入；Q218五花型随机刻修复`c758428c`已通过受控必要单项并由`cd9227fa`非快进合入；R04异火客户端链路修订`3c9d8c1e`已通过run-02必要单项并由`1ecb095d`非快进合入；R08出身奖励与Ling11已由`28391ef9`接收并通过编译，出身奖励八分支受控单项已通过。Ling11首次use单项于2026-11-18通过，双端追踪同步、可见粒子与中文截图均已核验，低视距下正常保存退出；自然获取、全部提示与真实重进仍待。最新公共记录提交后的HEAD以Git为准；所有集成操作显式使用该树。
 
 原主树`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`仍保留`port/full-migration-20261112`、`28f05bc7`及全部既有脏改动和25条暂存。本轮未前移、提交或清理它；保护证据仍在集成树`tmp/session-close-20261117/main-protection-check.json`。
 
 R06地府差异检查在功能树`worktrees/rebuild-r06-diling-packed-20261117`、分支`port/r06-diling-packed-20261117`、接收基线`97155e59`、最新WIP`eba1a0f1`继续，候选未合入。原视距run-03退出忙循环已保留线程/堆证据；run-04小模板对照及run-05原视距12/模拟12的只读停服诊断均正常保存退出，run-05为43 INFO、0 FAIL、DONE、保存约1.599秒；停服快照未复现异常holder，故具体触发原因仍待定位。完整地府首次进入与真实保存重进仍未验；World所属证据和卸载回调审查已收口，不再无变化重跑或自动加堆。Q68受控断线重开单项已集成，来源行为调整仍待裁定。
-R08单项客户端在非地府的普通出生奖励场景再次复现同一公共停服卡点：报告到达`WAITING_FOR_WORLD_EXIT`后，服务端线程持续位于`ChunkMap.processUnloads`/`scheduleUnload`。`run-03-diagnostic`实际记录同一holder从`count=1`到`count=10`的未就绪重排，回调同刻`save.done=true`、`generationRefCount=1–2`、`currentTask=none`、`pendingSame=false`，55秒仍未到达`ServerStoppedEvent`；原始日志在`build/diagnostics/birthinitialrewards-save-hang-20261117/run-03-diagnostic/`。随后Smoke退出前加入跨维度生成引用/待生成任务收敛等待，`run-04-exit-wait-fix`取得121 INFO、0 FAIL、DONE、正常保存退出和Gradle 0；证据在`build/diagnostics/birthinitialrewards-save-hang-20261117/run-04-exit-wait-fix/`。该修复只改Smoke退出时机，不修改生产保存流程。出身奖励的世家空包数量和士兵取值时点已更正，受控单项通过，见[修炼月志](../systems/xiulian/logs/2026-11.md#2026-11-17-世家初始礼包同栈回写与夹具更正)。下一步按开放清单继续Ling11自然use；公共生产入口仍保留回调诊断和待定位边界。
+R08在非地府场景先复现公共停服重排循环；此前`birthinitialrewards`退出等待修复及证据见项目月志。本次`ling11` run-03在视距/模拟距离12、768 MB下完成四项行为断言后，保存Overworld区块时于`ChunkSerializer.write`/`PalettedContainer.pack`发生OOM；停服事件到达但没有全部维度保存、`DONE`或Gradle 0。停服快照记录2601个known holders、1961个visible，原件见`build/diagnostics/ling11-guidance-20261118/run-03-common-exit-wait/`。run-04在视距4下正常保存退出，但模拟距离4被拒收且粒子设为最少，截图不作为视觉验收。run-05改用合法模拟距离5、全粒子及`zh_cn`，取得6 INFO、0 FAIL、DONE、所有维度保存和Gradle 0；停服快照1225个known holders，截图可见粒子和“远古石盘”，options已按哈希恢复，原件见`build/diagnostics/ling11-guidance-20261118/run-05-visual/`。该对照说明视距4的这次场景可在768 MB下保存完成，但不证明高视距OOM的唯一根因或生产卸载问题已闭合；公共生产入口仍保留回调诊断和待定位边界。
 
-R04机制v2已验证并集成，燃料耗尽整链、完整视觉/自然获取、真实重进、多人与专服仍开放；R08出身奖励已通过修订后的受控单项，Ling11已接收但未运行；起尸诀UUID、风刃、灵兽袋v2/指纹修复及R10地上罐等已冻结，具体路径、未验边界和接收顺序只在[当前调度](remaining-work.md#当前调度)维护。公共文档、共享入口和Git由主agent收口；转换、Gradle、客户端及专服唯一队列串行、768 MB、单worker，不推送、不合main。
+R04机制v2已验证并集成，燃料耗尽整链、完整视觉/自然获取、真实重进、多人与专服仍开放；R08出身奖励受控单项与Ling11首次use均通过，但自然奖励获取、全部提示和存档重进仍待。起尸诀UUID、风刃、灵兽袋v2/指纹修复及R10地上罐等已冻结，具体路径、未验边界和接收顺序只在[当前调度](remaining-work.md#当前调度)维护。下一步按完整模块清单继续，不重复Ling11首次use单项；公共文档、共享入口和Git由主agent收口，转换、Gradle、客户端及专服唯一队列串行、768 MB、单worker，不推送、不合main。
 
 本页只保留分支、可定位基线与下一动作；系统证据及问题详情见[开放工作清单](remaining-work.md)，跨系统协调见[项目月志](../systems/project/logs/2026-11.md#2026-11-17-q68验证集成与地府退出定位)。
 

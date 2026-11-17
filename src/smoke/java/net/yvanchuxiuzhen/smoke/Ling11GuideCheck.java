@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.smoke;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -14,7 +13,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.world.api.WorldStructures;
 
@@ -72,21 +70,14 @@ final class Ling11GuideCheck extends SystemCheck {
         originalPosition = player.position();
         originalYaw = player.getYRot();
         originalPitch = player.getXRot();
+        Vec3 look = center.orElseThrow().subtract(player.getEyePosition());
+        float yaw = (float) Math.toDegrees(Math.atan2(-look.x(), look.z()));
+        float pitch = (float) -Math.toDegrees(Math.atan2(look.y(), Math.sqrt(look.x() * look.x() + look.z() * look.z())));
+        player.connection.teleport(player.getX(), player.getY(), player.getZ(), yaw, pitch);
         originalSelected = player.getInventory().selected;
         for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
             originalInventory.add(player.getInventory().getItem(slot).copy());
         }
-
-        Vec3 target = center.orElseThrow();
-        BlockPos surface = player.serverLevel().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING,
-                BlockPos.containing(target.x() + 16, target.y(), target.z() + 16));
-        double x = surface.getX() + 0.5;
-        double y = surface.getY();
-        double z = surface.getZ() + 0.5;
-        double dx = target.x() - x;
-        double dz = target.z() - z;
-        float yaw = (float) Math.toDegrees(Math.atan2(-dx, dz));
-        player.connection.teleport(x, y, z, yaw, 0);
 
         player.getInventory().clearContent();
         ItemStack compass = new ItemStack(BuiltInRegistries.ITEM.get(

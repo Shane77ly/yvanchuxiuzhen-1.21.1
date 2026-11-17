@@ -2,7 +2,7 @@
 topic: world
 role: architecture
 status: draft
-updated: 2026-11-15
+updated: 2026-11-18
 ---
 
 # 世界：架构调查与提案
@@ -19,7 +19,7 @@ updated: 2026-11-15
 
 此前手写NBT版本同步至集成树后由`gradlew --no-daemon --max-workers=1 compileJava`编译通过，使用768 MB Gradle堆；当前Codec版本另在独立功能树以768 MB、单worker通过`compileJava`；两次编译分别登记，均不覆盖保存重进或首登行为。精确目标源码另确认Overworld的`LevelEvent.Load`在初始化出生点和`prepareLevels`之前触发，索引先于玩家登录发布；`PlayerList.placeNewPlayer`经`EventHooks.firePlayerLoggedIn`同步发布登录事件。标记仍在模板放置调用返回后写true，不读取原生放置布尔返回值，保留来源时序。
 
-来源跨系统消费者归xiulian：`PlayerJoin02Procedure`为无良商贾出身玩家生成坐标命名纸张，为流浪侠客生成`ling_11`并复制目标坐标NBT；`Ling11DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`实际重新读取全局中心坐标，未消费物品内复制值。xiulian负责人当前初始奖励与引导候选已在独立worktree以同一公开查询接入纸张坐标和Ling11三轴NBT；空查询使用`Vec3.ZERO`以保留来源全零全局字段，Ling11仍在坐标和为零时按来源生成空盘。奖励消费者通过出身界关闭后的延迟事件执行，不与通常同步Overworld首次登录生成共用回调时序。上述消费者仍是未集成候选；首次登录传送阵实际位置/画面、多人登录、保存退出重进和奖励/Ling11实际交互尚未运行。
+来源跨系统消费者归xiulian：`PlayerJoin02Procedure`为无良商贾出身玩家生成坐标命名纸张，为流浪侠客生成`ling_11`并复制目标坐标NBT；`Ling11DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`实际重新读取全局中心坐标，未消费物品内复制值。当前集成实现通过同一公开查询接入纸张坐标和Ling11三轴NBT；空查询使用`Vec3.ZERO`以保留来源全零全局字段，Ling11仍在坐标和为零时按来源生成空盘。奖励消费者通过出身界关闭后的延迟事件执行，不与通常同步Overworld首次登录生成共用回调时序。2026-11-18 `ling11` Smoke以非零中心完成首次右键、双端状态与粒子画面检查并正常保存退出；完整首次登录时序、实际奖励获取、存档重进和多人登录仍未验。
 
 ## 天道维度方块与门户来源闭包（2026-11-15）
 
