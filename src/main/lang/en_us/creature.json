@@ -305,5 +305,7 @@
   "item.yvanchuxiuzhen.ycxzboss_04_spawn_egg": "Ycxzboss 0 4 Spawn Egg",
   "message.yvanchuxiuzhen.yaoshou_interaction.healed": "Restored 6 health",
   "message.yvanchuxiuzhen.yaoshou_interaction.obedient": "The beast is more obedient",
-  "message.yvanchuxiuzhen.yaoshou_interaction.greeting": "%s( ^ V ^ )"
+  "message.yvanchuxiuzhen.yaoshou_interaction.greeting": "%s( ^ V ^ )",
+  "entity.yvanchuxiuzhen.moshou_002": "Moshou 0 0 2",
+  "item.yvanchuxiuzhen.moshou_002_spawn_egg": "Moshou 0 0 2 Spawn Egg"
 }

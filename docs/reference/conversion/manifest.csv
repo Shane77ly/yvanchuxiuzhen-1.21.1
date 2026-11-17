@@ -14089,3 +14089,7 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/zhuangshiqia
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/zhuangshitizi.json,43a01841f94b8e4e3629db22add621228b70b63f,src/main/resources/assets/yvanchuxiuzhen/models/item/zhuangshitizi.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/zhuangshi_qiantong.png,482815bbf17f0b47f9ddf7a804b92ca3eba74508,src/main/resources/assets/yvanchuxiuzhen/textures/block/zhuangshi_qiantong.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/zhuangshi_tizi.png,fabcb360a67d6d66124a1a7ba86229a075f7897c,src/main/resources/assets/yvanchuxiuzhen/textures/block/zhuangshi_tizi.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/animations/moshou002.animation.json,8c1275238739446683c62d512176970ba4c093ee,src/main/resources/assets/yvanchuxiuzhen/animations/moshou002.animation.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/geo/moshou002.geo.json,e9d8f58d464279098b88e7acec4c84633d562595,src/main/resources/assets/yvanchuxiuzhen/geo/moshou002.geo.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/moshou_002_spawn_egg.json,542435109cfe529a6f0696687e5f7efadfeb703e,src/main/resources/assets/yvanchuxiuzhen/models/item/moshou_002_spawn_egg.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/moshou002.png,a180359c71be846812f263c6b456d4d118644c1c,src/main/resources/assets/yvanchuxiuzhen/textures/entities/moshou002.png

@@ -326,5 +326,7 @@
   "tooltip.yvanchuxiuzhen.spirit_beast_bag.speed": "移动速度%s",
   "message.yvanchuxiuzhen.yaoshou_interaction.healed": "恢复6点血量",
   "message.yvanchuxiuzhen.yaoshou_interaction.obedient": "妖兽更听话了",
-  "message.yvanchuxiuzhen.yaoshou_interaction.greeting": "%s( ^ V ^ )"
+  "message.yvanchuxiuzhen.yaoshou_interaction.greeting": "%s( ^ V ^ )",
+  "entity.yvanchuxiuzhen.moshou_002": "天魔",
+  "item.yvanchuxiuzhen.moshou_002_spawn_egg": "天魔"
 }

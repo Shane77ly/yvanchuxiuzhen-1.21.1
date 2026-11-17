@@ -99,8 +99,10 @@ public abstract class MoshouEntity extends Monster implements GeoEntity, Animate
             }
             setAnimation("animation." + animationName + ".attacked");
         }
-        return super.hurt(source, amount);
+        return !immuneTo(source) && super.hurt(source, amount);
     }
+
+    protected boolean immuneTo(DamageSource source) { return false; }
 
     @Override
     public void die(DamageSource source) {
@@ -151,7 +153,7 @@ public abstract class MoshouEntity extends Monster implements GeoEntity, Animate
             if (!procedureAnimation.equals("empty")) return PlayState.STOP;
             boolean moving = state.isMoving() || !(state.getLimbSwingAmount() > -0.15F && state.getLimbSwingAmount() < 0.15F);
             if (moving && !isAggressive()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation." + animationName + ".walk"));
-            if (isDeadOrDying()) return state.setAndContinue(RawAnimation.begin().then("animation." + animationName + (animationName.equals("moshou003") ? ".death" : ".die"), Animation.LoopType.PLAY_ONCE));
+            if (isDeadOrDying()) return state.setAndContinue(RawAnimation.begin().then("animation." + animationName + (animationName.equals("moshou001") ? ".die" : ".death"), Animation.LoopType.PLAY_ONCE));
             if (isAggressive() && state.isMoving()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation." + animationName + ".attacking"));
             return state.setAndContinue(RawAnimation.begin().thenLoop("animation." + animationName + ".idle"));
         }));
