@@ -251,6 +251,7 @@ final class SmokeRun {
                     case "npcresidents" -> List.of(new NpcResidentsCheck(report, levelId, this::shot));
                     case "npcmanagement" -> List.of(new NpcManagementCheck(report, levelId, this::shot));
                     case "npcmerchanteggs" -> List.of(new NpcMerchantSpawnEggCheck(report, levelId));
+                    case "xiuzhespawn" -> List.of(new XiuzheSpawnCheck(report, levelId));
                     case "questjournal" -> List.of(new QuestJournalCheck(report, levelId, this::shot));
                     case "questeditor" -> List.of(new QuestTriggerEditorCheck(report, levelId, this::shot));
                     case "guconstitutionharvest" -> List.of(new GuConstitutionHarvestCheck(report, levelId, this::shot));

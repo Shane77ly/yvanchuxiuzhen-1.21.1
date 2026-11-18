@@ -1,0 +1,9 @@
+{
+  "type": "yvanchuxiuzhen:add_missing_creature_spawn",
+  "spawn": {
+    "type": "yvanchuxiuzhen:xiuzhe_0101",
+    "weight": 10,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}
