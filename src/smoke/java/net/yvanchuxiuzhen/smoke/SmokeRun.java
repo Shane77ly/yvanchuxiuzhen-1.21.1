@@ -309,6 +309,7 @@ final class SmokeRun {
                     case "economycommand" -> List.of(new EconomyCommandCheck(report, levelId));
                     case "biggrass" -> List.of(new BigGrassCheck(report, levelId));
                     case "plantground" -> List.of(new PlantGroundCheck(report, levelId));
+                    case "plantsupply" -> List.of(new PlantSupplyCheck(report, levelId));
                     case "plantsoils" -> List.of(new PlantSoilsCheck(report, levelId));
                     case "willowdrooping" -> List.of(new WillowDroopingCheck(report, levelId));
                     case "corpsegrass" -> List.of(new CorpseGrassCheck(report, levelId));
