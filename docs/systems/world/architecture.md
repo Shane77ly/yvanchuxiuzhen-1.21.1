@@ -11,7 +11,7 @@ updated: 2026-11-18
 
 ## 天阙七群系与门户接收（2026-11-18）
 
-本单元在`port/r06-tianqve-20261118`、`worktrees/rebuild-tianqve-20261118`自集成基线`53a8074d`接收。实际`dimensiontianqve` biome_source只包含`biometianqve_01`–`07`，来源独立seed为196079949153306047，noise范围Y0–127、格点8×4，dimension_type范围Y0–255；默认方块和全部地表保持`cloudblock`、sea_level0。转换器仅对实际引用`minecraft:end/sloped_cheese`的来源路由增加本维度第六份密度图`end_sloped_cheese`，保留end_islands、来源BlendedNoise、slide和blend_density/interpolated/0.64/squeeze顺序；人间道、妖魂道和已先行重写的画卷输出不受此分支影响。18份正式生成JSON与冻结候选逐字节相同，无关输出已恢复，证据见下方月志。
+本单元在`port/r06-tianqve-20261118`、`worktrees/rebuild-tianqve-20261118`自集成基线`53a8074d`接收，功能`9e9c4caf`已由`292d3a13`非快进合入。实际`dimensiontianqve` biome_source只包含`biometianqve_01`–`07`，来源独立seed为196079949153306047，noise范围Y0–127、格点8×4，dimension_type范围Y0–255；默认方块和全部地表保持`cloudblock`、sea_level0。转换器仅对实际引用`minecraft:end/sloped_cheese`的来源路由增加本维度第六份密度图`end_sloped_cheese`，保留end_islands、来源BlendedNoise、slide和blend_density/interpolated/0.64/squeeze顺序；人间道、妖魂道和已先行重写的画卷输出不受此分支影响。18份正式生成JSON与冻结候选逐字节相同，无关输出已恢复，证据见下方月志。
 
 七群系各38个外部地物为31矿、六随机结构和`nichanggrass_06`。来源及目标维度集合逐项相等，全部拒绝天阙。04的唯一内联橡树复用`SourceTreeFeature`的来源直干/Blob树冠、4/2/0、2/0/3、次数10及投放顺序。来源云块为Material.STONE，不满足来源树苗落点；五种来源土壤仍可承接受控树。该来源条件不提供自然云层橡树供给，也不通过补造矿、结构或植物改变来源。
 
