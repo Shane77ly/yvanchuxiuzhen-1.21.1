@@ -9,6 +9,22 @@ updated: 2026-11-18
 
 来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
 
+## 无归十群系与门户接收（2026-11-18）
+
+本单元在`port/r06-wugui-20261118`、`worktrees/rebuild-wugui-20261118`自集成`fbe4c666`接收。`dimensionwugui`实际biome_source包含幽梦01–03、尸绝01–03、百川01–03和炼渊01共十身份，六专属与四共享全部保留。来源独立seed3381820403747779834，noise范围Y0–127、格点4×8，dimension_type范围Y0–255；默认魂石、water level0、sea_level0，没有默认热油。Overworld sloped_cheese路由复用五密度图，sampling xz1/y3、因子80/60、常量terrain_shaper0及bottom2.5/4/−1、top0.9375/3/0保持来源；1536个整数Y静态slide算例相等。24份正式转换JSON与冻结候选逐字节一致，转换清单只接纳本批26条来源追溯，既有输出语义保持。
+
+十群系44个外部地物中，十矿、阴魂草、尸草、铁链、腐竹、金色板块和魔眼结构共16准入；21其他矿、nichanggrass_06与六随机结构共28拒绝。十个准入矿191–199ore及fuluzhushablock仍只替换`minecraft:stone`，不能由维度准入推导魂石层有自然矿物供给。helper的CarversAndLakes及false默认矿分支16项保持，没有ore_diamond_medium。十群系修者0101事件均为CREATURE/10/1/1，出生仍要求脚下Material.GRASS且亮度>8；魂石、幽薄土、腐土不在该来源材料集合内。上述自然出生与全域供给尚未验收。
+
+`NativeWorldFeatures`仅增加同名金色板块Delta注册，保持BLACKSTONE/RED_SAND、size16/rim2及Heightmap MOTION_BLOCKING→count25→InSquare→Y0..top→BiomeFilter。两版Delta place/isClear算法经局部变量及Random接口归一后相等。`WorldTemplateFeatures`新增魔眼结构来源参数：chance70000/1000000、count nextInt1+1、OCEAN_FLOOR_WG地下Y8..max(height,9)、腐土基底、Y+1、Mirror前2/Rotation前3、包含实体、flags2及STRUCTURE_BLOCK处理。现有193字节模板压缩指纹不同，解压原字节相等，1×6×1为五黑曜石与顶端向西魔眼；既有Plant破坏事件/Creature生成消费者复用，未另造行为。两内容台账仍归Plant，生成由World既有机制承载。
+
+铁链placed为Y0–120 uniform→count2–6→InSquare→BiomeFilter，列高60；腐竹为Y0–120 uniform→count6–16→InSquare→向下最多10格仅穿空气扫描→BiomeFilter，脚下必须腐土，列高2–5。百川01内联双蘑菇保持count1→rarity32→InSquare→MOTION_BLOCKING→BiomeFilter，原版配置为patch96/7/3及AIR谓词；既有五土壤蘑菇RETURN注入继续保留亮度<13或MUSHROOM_GROW_BLOCK条件。本批未另改光照、土壤或旧plantsoils场景。两草规则只见[Plant正文](../plant/architecture.md#无归两草生成消费者2026-11-18)。
+
+`WuguiWorldgenCheck`验证实际十群系、原点一块FULL区块的魂石、28地物真实维度拒绝、金色板块同名类型/主世界拒绝、铁链/腐竹列、受控腐土魔眼模板及两草正式configured。魔眼使用来源seed70和受控OCEAN_FLOOR_WG上界251，验证拒绝/允许、五黑曜石及180度变换后的朝东魔眼；高度图保存后恢复。两草、土壤及模板结果在真实退出重进后逐格核对，再恢复临时环境与玩家状态。金色板块在无归允许落地、完整自然地物/植物分布与出生仍未验。
+
+首次`wugui,dimensionportal`组合在进入既有人间道加载随机结构suijijiegou01/03/04的DataFixer过程中发生768 MB OOM；线程栈显示门户建门等待区块，客户端进入emergencySave，IO线程随后堆溢出。该轮留有一次九维度保存与截图，但无完整报告、最终保存或正常退出，不能算整项通过。仅新增Smoke的`wuguiportal`限定入口，复用原夹具、六工具及六主世界门户检查，只进入无归；首次及真实重进后的两次完整往返、目标门户复用/POI保存、工具耐久均通过。生产规则和内存上限未变，人间道多维组合OOM及旧停服重排问题仍开放。
+
+本单元通过后的实际资源为六个自定义维度、60个目标群系（58来源及虚空/画卷），游戏含原版三维度共九维度；修罗/地灵及余八来源群系尚未接收。十群系与两Feature仅回填已读/已注册，未提升为全项验收。两草及无归门户截图已查看；自然样点截图仍为加载地形画面，不作自然地形视觉证据。完整自然分布/供给、全部表现、多人/专服、1.18.2版本实机和两版本对照未执行。两轮原始日志、编译、转换、保存和图像证据只在[本批月志](logs/2026-11.md#2026-11-18-无归十群系接收与限定门户客户端)登记。
+
 ## 天阙七群系与门户接收（2026-11-18）
 
 本单元在`port/r06-tianqve-20261118`、`worktrees/rebuild-tianqve-20261118`自集成基线`53a8074d`接收，功能`9e9c4caf`已由`292d3a13`非快进合入。实际`dimensiontianqve` biome_source只包含`biometianqve_01`–`07`，来源独立seed为196079949153306047，noise范围Y0–127、格点8×4，dimension_type范围Y0–255；默认方块和全部地表保持`cloudblock`、sea_level0。转换器仅对实际引用`minecraft:end/sloped_cheese`的来源路由增加本维度第六份密度图`end_sloped_cheese`，保留end_islands、来源BlendedNoise、slide和blend_density/interpolated/0.64/squeeze顺序；人间道、妖魂道和已先行重写的画卷输出不受此分支影响。18份正式生成JSON与冻结候选逐字节相同，无关输出已恢复，证据见下方月志。
@@ -19,7 +35,7 @@ updated: 2026-11-18
 
 `TianqveWorldgenCheck`核验七群系实际biome_source、原点一块FULL区块的自然云块、38地物直接调用拒绝、云层和五土壤的树苗落点，以及受控水体中来源树干替水、草转泥土和叶片非含水。受控972格区域结束后恢复。自然截图可见云块地形轮廓但较暗，不能据此验收全部表面纹理或地形分布。门户夹具按目标维度实际存在性选择往返或缺失拒绝：天阙首次碰撞入场、出口建门和回程通过；真实保存重进后，六组主世界门户、已到达的人间/妖魂/天阙目标门户与POI及六工具耐久均保留。重进后的再次往返只覆盖人间道和妖魂道；天阙只核目标门户与POI保存。
 
-本树有五个自定义维度、50个目标群系资源，含48个来源群系与虚空/画卷两群系；游戏运行包括原版三维度，共八维度。七台账仅补记已读/已注册，两个既有天阙门户内容行仅更新有限运行说明。完整自然分布、出生与供给、天阙重进后的再次完整往返、全部表现、多人/专服、1.18.2版本实机及两版本对照仍未验；公共高视距OOM和停服重排未据本次成功关闭。转换、运行与截图原件只在[本批月志](logs/2026-11.md#2026-11-18-天阙七群系接收与必要客户端)登记。
+天阙单元接收时有五个自定义维度、50个目标群系资源，含48个来源群系与虚空/画卷两群系；游戏运行包括原版三维度，共八维度。七台账仅补记已读/已注册，两个既有天阙门户内容行仅更新有限运行说明。完整自然分布、出生与供给、天阙重进后的再次完整往返、全部表现、多人/专服、1.18.2版本实机及两版本对照仍未验；公共高视距OOM和停服重排未据本次成功关闭。转换、运行与截图原件只在[本批月志](logs/2026-11.md#2026-11-18-天阙七群系接收与必要客户端)登记。
 
 ## 群系目录与传送门名称（2026-11-18，历史核对基线）
 
@@ -67,7 +83,7 @@ NeoForge21.1.265精确`ChunkMap.java:532–562`在`chunkHolder.getSaveSyncFuture
 
 目标已用`DimensionPortalBlock`/`DimensionPortalItem`承载六个门户方块与耐久工具，`DimensionPortalShape`保留来源框架判定、2×3至21×21形状、`AXIS`内框和完整性拆除规则；`DimensionPortalRuntime`按门户身份分别登记POI与300刻票，保留16/128格查找、最近距离/Y排序、16格螺旋建门、天道维度方块框架、坐标倍率、实体尺寸和速度偏移。NeoForge 1.21.1 的`Portal`/`DimensionTransition`承担来源`ITeleporter`的跨维度生命周期，六组注册均共用同一实现而保留独立方块、POI、票据和目标维度身份。目标找不到对应维度时返回空，暂不补造默认维度。
 
-Q207 的运行接线已实现，门户模型路径已统一为目标`block/`目录，且已补齐来源`ling0201`–`ling0601`方块贴图。以下为2026-11-15四道资源缺失基线的历史证据；当前天阙已接收及有限往返/重进边界见[天阙正文](#天阙七群系与门户接收2026-11-18)，其余三道资源仍待接收。`runSmokeClient -PsmokeOnly=dimensionportal` 已在768 MB堆、单worker下完成：六组工具均能在生存主手点门并消耗一点耐久，六组门户均登记六个独立POI；人间道、妖魂道完成真实碰撞入场、回程、目标门户复用与保存重进后的再次往返；天阙道、修罗道、无归道、地灵道在目标维度缺失时返回空转换，真实碰撞保持主世界且不创建默认维度；保存重进后六组主世界门户、两组目标门户和POI均可再次查找。客户端退出码0、报告`DONE`、`ERROR/FATAL=0`，未覆盖多人、完整自然等待及四道目标维度资源。十三份来源类指纹、六组目标内容和实现位置见`ledger/source-evidence.csv`、`ledger/source-fingerprints.csv`；运行证据见`build/diagnostics/r06-dimensionportal-20261115-final/`。
+Q207 的运行接线已实现，门户模型路径已统一为目标`block/`目录，且已补齐来源`ling0201`–`ling0601`方块贴图。以下为2026-11-15四道资源缺失基线的历史证据；当前天阙及无归已接收，分别见[天阙正文](#天阙七群系与门户接收2026-11-18)和[无归正文](#无归十群系与门户接收2026-11-18)，修罗/地灵资源仍待接收。`runSmokeClient -PsmokeOnly=dimensionportal` 已在768 MB堆、单worker下完成：六组工具均能在生存主手点门并消耗一点耐久，六组门户均登记六个独立POI；人间道、妖魂道完成真实碰撞入场、回程、目标门户复用与保存重进后的再次往返；天阙道、修罗道、无归道、地灵道在目标维度缺失时返回空转换，真实碰撞保持主世界且不创建默认维度；保存重进后六组主世界门户、两组目标门户和POI均可再次查找。客户端退出码0、报告`DONE`、`ERROR/FATAL=0`，未覆盖多人、完整自然等待及四道目标维度资源。十三份来源类指纹、六组目标内容和实现位置见`ledger/source-evidence.csv`、`ledger/source-fingerprints.csv`；运行证据见`build/diagnostics/r06-dimensionportal-20261115-final/`。
 
 ## Q130 结构Mod实体旧属性没有升级
 

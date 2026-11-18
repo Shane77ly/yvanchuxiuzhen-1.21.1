@@ -15,11 +15,12 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.world.WorldTemplateFeature.HeightMode;
 import net.yvanchuxiuzhen.system.world.WorldTemplateFeature.Parameters;
 
-/** 24种自然景观与随机结构的来源身份及逐项放置参数。 */
+/** 25种自然景观与随机结构的来源身份及逐项放置参数。 */
 public final class WorldTemplateFeatures {
     private static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, ModId.VALUE);
     private static final Set<ResourceLocation> RENJIAN = Set.of(id("dimensionrenjian"));
     private static final Set<ResourceLocation> YAOHUN = Set.of(id("dimensionyaohun"));
+    private static final Set<ResourceLocation> WUGUI = Set.of(id("dimensionwugui"));
     private static final Set<ResourceLocation> BOTH = Set.of(id("dimensionrenjian"), id("dimensionyaohun"));
     private static final List<ResourceLocation> NO_BASE = List.of();
     private static final List<ResourceLocation> GRASS = vanilla("grass_block");
@@ -29,6 +30,7 @@ public final class WorldTemplateFeatures {
             "stone", "grass_block", "dirt_path", "mycelium", "dirt", "coarse_dirt", "podzol", "rooted_dirt", "cobblestone");
     private static final List<ResourceLocation> STONE = vanilla("stone");
     private static final List<ResourceLocation> LOESS = List.of(id("loess"));
+    private static final List<ResourceLocation> ROTTING_SOIL = List.of(id("rottingsoil"));
     private static final List<ResourceLocation> LOESS_SAND = List.of(
             id("loess"), ResourceLocation.withDefaultNamespace("sand"), ResourceLocation.withDefaultNamespace("red_sand"));
     private static final List<ResourceLocation> RED_LOESS_SAND = List.of(
@@ -107,6 +109,9 @@ public final class WorldTemplateFeatures {
         add("stonetree_07", "stone07", RENJIAN, NO_BASE, 200000, 1, 1,
                 Heightmap.Types.OCEAN_FLOOR_WG, HeightMode.GROUND, new BlockPos(5, 0, 5),
                 true, BlockIgnoreProcessor.AIR, false, false);
+        add("moyanjiegou_01", "moyanjiegou01", WUGUI, ROTTING_SOIL, 70000, 1, 1,
+                Heightmap.Types.OCEAN_FLOOR_WG, HeightMode.UNDERGROUND, new BlockPos(0, 1, 0),
+                true, BlockIgnoreProcessor.STRUCTURE_BLOCK, false, false);
     }
 
     private WorldTemplateFeatures() {

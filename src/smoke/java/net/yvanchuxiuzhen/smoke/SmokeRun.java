@@ -267,6 +267,8 @@ final class SmokeRun {
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
                     case "tianqve" -> List.of(new TianqveWorldgenCheck(report, levelId, this::shot));
+                    case "wugui" -> List.of(new WuguiWorldgenCheck(report, levelId, this::shot));
+                    case "wuguiportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, true));
                     case "questblockrefresh" -> List.of(new QuestBlockRefreshCheck(report, levelId));
                     case "handheldfirework" -> List.of(new HandheldFireworkCheck(report, levelId, this::shot));
                     case "festivalfirework" -> List.of(new FestivalFireworkCheck(report, levelId));

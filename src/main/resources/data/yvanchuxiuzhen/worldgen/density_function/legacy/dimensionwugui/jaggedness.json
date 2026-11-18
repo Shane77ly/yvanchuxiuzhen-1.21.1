@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:mul",
+        "argument1": 0.0,
+        "argument2": {
+          "type": "minecraft:add",
+          "argument1": {
+            "type": "minecraft:mul",
+            "argument1": {
+              "type": "minecraft:cache_once",
+              "argument": {
+                "type": "minecraft:blend_alpha"
+              }
+            },
+            "argument2": -1.0
+          },
+          "argument2": 1.0
+        }
+      },
+      "argument2": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "yvanchuxiuzhen:legacy_terrain_spline",
+          "continentalness": "minecraft:overworld/continents",
+          "erosion": "minecraft:overworld/erosion",
+          "weirdness": "minecraft:overworld/ridges",
+          "spline": 0,
+          "kind": "jaggedness",
+          "min_value": 0.0,
+          "max_value": 1.28
+        },
+        "argument2": {
+          "type": "minecraft:cache_once",
+          "argument": {
+            "type": "minecraft:blend_alpha"
+          }
+        }
+      }
+    }
+  }
+}
