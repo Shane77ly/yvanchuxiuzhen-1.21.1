@@ -279,6 +279,8 @@ final class SmokeRun {
                     case "wuguiportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.WUGUI));
                     case "renjianportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.RENJIAN));
                     case "renjiandeath" -> List.of(new RenjianDeathCheck(report, levelId, this::shot));
+                    case "renjiancorpseharvest" -> List.of(new RenjianCorpseHarvestCheck(report, levelId));
+                    case "renjiancorpseclient" -> List.of(new RenjianCorpseClientCheck(report, levelId));
                     case "renjianentry" -> List.of(new DimensionPortalCheck(report, levelId, this::shot,
                             DimensionPortalSpec.RENJIAN, new RenjianEntryProbe()));
                     case "xiuluoportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.XIULUO));

@@ -39,6 +39,8 @@ updated: 2026-11-18
 - [变更记录](changes.md)：按日期索引本系统批次记录。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
+普通妖兽尸体右键采集已恢复；人间道受控003原生服务端夹具未运行，见[采集正文](architecture.md#普通妖兽尸体采集)。
+
 ## 公开操作
 
 `TalismanCorpseSealing`处理来源死亡妖兽潜行收纳入口并订阅`CorpseReleaseEvent`，Creature选择封存字段和恢复实体，库存交Fulu、团队交Relation。50／5001不属于镇妖塔结构解封；字段重置及未验自然采集影响见[Q114](architecture.md#q114-尸体封存的选定字段与状态重置)。

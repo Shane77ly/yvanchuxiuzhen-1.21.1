@@ -25,7 +25,7 @@ import net.yvanchuxiuzhen.system.fulu.api.CorpseReleaseEvent;
 import net.yvanchuxiuzhen.system.fulu.api.CorpseTalismans;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
-/** 尸体收纳与释放：只搬运来源列出的妖兽字段，恢复后仍为死亡实体。 */
+/** 妖兽尸体交互与封存释放：封存只搬运来源列出的字段，恢复后仍为死亡实体。 */
 final class TalismanCorpseSealing {
     private static final TagKey<EntityType<?>> YAOSHOU = TagKey.create(Registries.ENTITY_TYPE,
             ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "yaoshou"));
@@ -54,10 +54,13 @@ final class TalismanCorpseSealing {
         ResourceLocation held = BuiltInRegistries.ITEM.getKey(player.getMainHandItem().getItem());
         if (held.getNamespace().equals(ModId.VALUE) && PRIOR_ITEMS.contains(held.getPath())) return;
         Entity corpse = event.getTarget();
-        if (!corpse.getType().is(YAOSHOU) || corpse.isAlive() || !player.isShiftKeyDown()
-                || !CorpseTalismans.hasEmptySeal(player)) return;
-        CorpseTalismans.seal(player, capture(corpse));
-        corpse.discard();
+        if (!corpse.getType().is(YAOSHOU) || corpse.isAlive()) return;
+        if (player.isShiftKeyDown() && CorpseTalismans.hasEmptySeal(player)) {
+            CorpseTalismans.seal(player, capture(corpse));
+            corpse.discard();
+        } else {
+            YaoshouCorpseHarvest.harvest(player.serverLevel(), corpse);
+        }
     }
 
     private static CompoundTag capture(Entity corpse) {
