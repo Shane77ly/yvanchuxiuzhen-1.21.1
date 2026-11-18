@@ -323,7 +323,7 @@ block,yvanchuxiuzhen:ginkgowall_04,yvanchuxiuzhen,Ginkgowall04,src/main/java/net
 block,yvanchuxiuzhen:ginkgowall_05,yvanchuxiuzhen,Ginkgowall05,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1464,decor,已读,yvanchuxiuzhen:ginkgowall_05,已注册,
 block,yvanchuxiuzhen:ginkgowall_06,yvanchuxiuzhen,Ginkgowall06,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1465,decor,已读,yvanchuxiuzhen:ginkgowall_06,已注册,
 block,yvanchuxiuzhen:grassblock,yvanchuxiuzhen,Grassblock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2044,decor,已读,yvanchuxiuzhen:grassblock,已注册,2026-11-18五土壤：Decor保留注册/草色，Plant公开工厂承担来源支持与非空战利品优先的空表回退；显式ground白名单保持；标准转换、双编译/六架构和plantsoils有限327功能检查通过（329 INFO/0 FAIL/DONE/全维度保存/Gradle0）；真实重进/自然供给未验。
-block,yvanchuxiuzhen:hotoil,yvanchuxiuzhen,Hotoil,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2040,decor,已读,yvanchuxiuzhen:hotoil,待处理,
+block,yvanchuxiuzhen:hotoil,yvanchuxiuzhen,Hotoil,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2040,decor,已读,yvanchuxiuzhen:hotoil,行为已迁移,真实源块及接触登记已实现；地灵自然生成与接触表现待验。
 block,yvanchuxiuzhen:junglebigdoorleft,yvanchuxiuzhen,Junglebigdoorleft,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1986,decor,已读,yvanchuxiuzhen:junglebigdoorleft,已注册,
 block,yvanchuxiuzhen:junglebigdoorright,yvanchuxiuzhen,Junglebigdoorright,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1987,decor,已读,yvanchuxiuzhen:junglebigdoorright,已注册,
 block,yvanchuxiuzhen:loess,yvanchuxiuzhen,Loess,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1201,decor,已读,yvanchuxiuzhen:loess,已注册,2026-11-18五土壤：Decor保留注册/草色，Plant公开工厂承担来源支持与非空战利品优先的空表回退；显式ground白名单保持；标准转换、双编译/六架构和plantsoils有限327功能检查通过（329 INFO/0 FAIL/DONE/全维度保存/Gradle0）；真实重进/自然供给未验。
@@ -560,9 +560,9 @@ entity_type,yvanchuxitong:shitiputuan,yvanchuxitong,Shitiputuan,src/main/java/ne
 entity_type,yvanchuxitong:shitiyizi,yvanchuxitong,Shitiyizi,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModEntities.java,32,decor,已读,yvanchuxiuzhen:shitiyizi,已注册,转换/编译/架构及真实拍卖椅乘坐已过；移除/伤害/完整模型表现待验
 feature,yvanchuxiuzhen:bluestone,yvanchuxiuzhen,Bluestone,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFeatures.java,338,decor,已读,yvanchuxiuzhen:bluestone,已注册,World来源生成机制与同名configured/placed已接；群系及维度装配未闭合，自然投放未验收
 feature,yvanchuxiuzhen:hotoilshengcheng,yvanchuxiuzhen,Hotoilshengcheng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFeatures.java,583,decor,候选,yvanchuxiuzhen:hotoilshengcheng,待处理,
-fluid,yvanchuxiuzhen:flowing_hotoil,yvanchuxiuzhen,Hotoil,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFluids.java,37,decor,已读,yvanchuxiuzhen:flowing_hotoil,待处理,
+fluid,yvanchuxiuzhen:flowing_hotoil,yvanchuxiuzhen,Hotoil,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFluids.java,37,decor,已读,yvanchuxiuzhen:flowing_hotoil,行为已迁移,原生流动态及水标签已实现；真实存档重进未验。
 fluid,yvanchuxiuzhen:flowing_watercloud,yvanchuxiuzhen,Watercloud,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFluids.java,31,decor,已读,yvanchuxiuzhen:flowing_watercloud,待处理,
-fluid,yvanchuxiuzhen:hotoil,yvanchuxiuzhen,Hotoil,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFluids.java,36,decor,已读,yvanchuxiuzhen:hotoil,待处理,
+fluid,yvanchuxiuzhen:hotoil,yvanchuxiuzhen,Hotoil,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFluids.java,36,decor,已读,yvanchuxiuzhen:hotoil,行为已迁移,源量8及桶/源块绑定已实现；真实存档重进未验。
 fluid,yvanchuxiuzhen:watercloud,yvanchuxiuzhen,Watercloud,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModFluids.java,30,decor,已读,yvanchuxiuzhen:watercloud,待处理,
 item,yvanchuxitong:beechfurniture_01,yvanchuxitong,Beechfurniture01,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,145,decor,已读,yvanchuxiuzhen:beechfurniture_01,已注册,
 item,yvanchuxitong:beechfurniture_02,yvanchuxitong,Beechfurniture02,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModItems.java,146,decor,已读,yvanchuxiuzhen:beechfurniture_02,已注册,
@@ -909,7 +909,7 @@ item,yvanchuxiuzhen:guaqian_05,yvanchuxiuzhen,Guaqian05,src/main/java/net/mcreat
 item,yvanchuxiuzhen:guaqian_06,yvanchuxiuzhen,Guaqian06,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2823,decor,已读,yvanchuxiuzhen:guaqian_06,已注册,
 item,yvanchuxiuzhen:guaqian_07,yvanchuxiuzhen,Guaqian07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2824,decor,已读,yvanchuxiuzhen:guaqian_07,已注册,
 item,yvanchuxiuzhen:hammer,yvanchuxiuzhen,Hammer,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1817,decor,已读,yvanchuxiuzhen:hammer,行为已迁移,2026-11-14建筑锤48瓦片升降/普通方块移动及来源配方行为必要单项通过；Q137–Q139保持，材料获取和完整视觉未验
-item,yvanchuxiuzhen:hotoil_bucket,yvanchuxiuzhen,Hotoil,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2859,decor,已读,yvanchuxiuzhen:hotoil_bucket,待处理,
+item,yvanchuxiuzhen:hotoil_bucket,yvanchuxiuzhen,Hotoil,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2859,decor,已读,yvanchuxiuzhen:hotoil_bucket,行为已迁移,原生单堆叠源桶/容器及建筑方块栏已实现；自然取得未验。
 item,yvanchuxiuzhen:junglebigdoorleft,yvanchuxiuzhen,Junglebigdoorleft,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2754,decor,已读,yvanchuxiuzhen:junglebigdoorleft,已注册,
 item,yvanchuxiuzhen:junglebigdoorright,yvanchuxiuzhen,Junglebigdoorright,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2755,decor,已读,yvanchuxiuzhen:junglebigdoorright,已注册,
 item,yvanchuxiuzhen:ling_07,yvanchuxiuzhen,Ling07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1932,decor,已读,yvanchuxiuzhen:ling_07,已注册,

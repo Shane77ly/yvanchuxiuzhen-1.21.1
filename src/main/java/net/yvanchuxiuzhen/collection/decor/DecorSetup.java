@@ -48,6 +48,7 @@ public final class DecorSetup {
 
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
+        HotOil.register(modBus);
         RabbitCageBlockEntities.register(modBus);
         FurnitureStorageContent.register(modBus);
         DisplayFurnitureContent.register(modBus);

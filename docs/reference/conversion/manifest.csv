@@ -14105,3 +14105,10 @@ yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/guancai_01.j
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/guiguai_01_spawn_egg.json,542435109cfe529a6f0696687e5f7efadfeb703e,src/main/resources/assets/yvanchuxiuzhen/models/item/guiguai_01_spawn_egg.json
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/guancai01.png,b8b3c961fa4ac999738916f7cb610ea6531a22d1,src/main/resources/assets/yvanchuxiuzhen/textures/block/guancai01.png
 yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/entities/guiguai01.png,7550cd919f68a4865784d116c92ceca929438d2c,src/main/resources/assets/yvanchuxiuzhen/textures/entities/guiguai01.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/blockstates/hotoil.json,2d8063863561327d809600e2c16f585fc3e5b1f7,src/main/resources/assets/yvanchuxiuzhen/blockstates/hotoil.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/block/hotoil.json,5428667530a89d025457c14266efa4c4591a5583,src/main/resources/assets/yvanchuxiuzhen/models/block/hotoil.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/models/item/hotoil_bucket.json,ac577c2e14f87d9e5bec7dc3630eec5575415235,src/main/resources/assets/yvanchuxiuzhen/models/item/hotoil_bucket.json
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/hot_oil_flow.png,cce0856c689655ea69f889483fd9c3d1e9e63f6d,src/main/resources/assets/yvanchuxiuzhen/textures/block/hot_oil_flow.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/hot_oil_flow.png.mcmeta,b2669e085de854e591c050f1e8bbee0116095293,src/main/resources/assets/yvanchuxiuzhen/textures/block/hot_oil_flow.png.mcmeta
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/hot_oil_still.png,a98897da84ba88dbd5096f1c8684918a7d147d5c,src/main/resources/assets/yvanchuxiuzhen/textures/block/hot_oil_still.png
+yvanchuxiuzhen/src/main/resources/assets/yvanchuxiuzhen/textures/blocks/hot_oil_still.png.mcmeta,b2669e085de854e591c050f1e8bbee0116095293,src/main/resources/assets/yvanchuxiuzhen/textures/block/hot_oil_still.png.mcmeta

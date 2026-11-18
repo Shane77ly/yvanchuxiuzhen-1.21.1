@@ -221,3 +221,9 @@ A的`recipes/zhuangshiqiantonghecheng.json`使用六根木棍和一只碗，但�
 ## 五种土壤公开工厂（2026-11-18）
 
 `scorchedsoil`、`loess`、`youbosoil`、`rottingsoil`和`grassblock`继续归Decor注册，唯一namespace、物品、基础属性、资源与既有草色绑定保持。五行factory改为`decor:plant_soil`，DecorSetup仅通过Plant公开工厂创建专用方块。Plant完整承担来源种植支持、显式ground隔离、原版前置条件适配与空战利品回退；唯一规则正文及未验边界见[Plant五土壤](../plant/architecture.md#五种来源土壤支持与掉落回退2026-11-18)，必要验证结果见[Plant月志](../plant/logs/2026-11.md#2026-11-18-五种来源土壤支持与掉落回退)。本族五条方块台账仅追加本批说明，身份、归属及整项状态保持。
+
+## 热油与滚油桶（2026-11-18）
+
+来源`HotoilFluid`、`HotoilBlock`、`HotoilItem`和`HotoilDangShengWuWanJiaPengZhuangFangKuaiShiProcedure`。保留热油源块和源流体`hotoil`、流动体`flowing_hotoil`、滚油桶`hotoil_bucket`。源量8，流动态使用等级，抗爆及方块强度100，密度850、温度550，沿用来源默认4格坡度搜索、每格衰减1、5刻流动；水标签保留，NeoForge流体类型适配水类判定。源桶仅存一件、返回空桶、进建筑方块栏。地灵的`hotoilshengcheng`只引用源块默认状态，地物仍由World装配。
+
+接触按方块原生回调次数而非每玩家刻计数：服务端每次发送烟1、云1和热油粒子2，第10次清零；玩家听到原版熄灭声，生存/冒险玩家及非玩家实体经Combat公开入口登记来源的`ManaAttackDamage=2`、`ManaAttackUUID=无`、`damagetype=火`、`Damage_multiplier=1`，不在接触中直接扣血。来源客户端本地分支也维护接触计数和熄灭声；1.21.1由服务端统一状态与广播，避免额外本地重复。保留来源方块火焰传播速度100和原色动画贴图。接触端到端、实际伤害消费、自然地灵生成和真实存档重进独立验证，不以桶测试替代。
