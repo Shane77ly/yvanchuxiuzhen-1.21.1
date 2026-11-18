@@ -285,6 +285,8 @@ final class SmokeRun {
                     case "spiritbeastbag" -> List.of(new SpiritBeastBagCheck(report, levelId, this::shot));
             case "yaoshouinteraction" -> List.of(new YaoshouInteractionCheck(report, levelId, this::shot));
             case "yaoshou017form" -> List.of(new Yaoshou017FormBagCheck(report, levelId));
+            case "boss02axe" -> List.of(new Boss02AxeCheck(report, levelId));
+            case "boss02axehit" -> List.of(new Boss02AxeHitCheck(report, levelId));
             case "yaoshouprojectileitems" -> List.of(new YaoshouProjectileItemCheck(report, levelId));
             case "coffinghost" -> List.of(new CoffinGhostCheck(report, levelId, this::shot));
             case "moshou002" -> List.of(new Moshou002Check(report, levelId, this::shot));

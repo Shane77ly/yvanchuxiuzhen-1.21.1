@@ -162,6 +162,12 @@ final class Boss02Behavior {
             Boss0201Entity axe = new Boss0201Entity(CreatureSetup.<Boss0201Entity>entityType("ycxzboss_0201").get(), boss.level(), subEntityModel);
             BlockPos pos = boss.level().clip(new ClipContext(boss.getEyePosition(), boss.getEyePosition().add(boss.getViewVector(1)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, boss)).getBlockPos();
             axe.moveTo(pos.getX(), pos.getY(), pos.getZ(), boss.getYRot(), 0);
+            axe.setYBodyRot(axe.getYRot());
+            axe.setYHeadRot(axe.getYRot());
+            axe.yRotO = axe.getYRot();
+            axe.xRotO = axe.getXRot();
+            axe.yBodyRotO = axe.getYRot();
+            axe.yHeadRotO = axe.getYRot();
             axe.setAnimation("animation.ycxzboss_02texiao.xie");
             axe.getPersistentData().putDouble("AttackDamage", boss.getPersistentData().getDouble("attack_Num") * 1.2);
             axe.getPersistentData().putString("AttackUUID", boss.getStringUUID());
