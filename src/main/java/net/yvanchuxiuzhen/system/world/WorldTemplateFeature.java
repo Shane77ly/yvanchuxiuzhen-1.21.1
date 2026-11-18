@@ -18,6 +18,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import net.yvanchuxiuzhen.system.world.diagnostic.RenjianRandomDiagnostics;
 
 /** 自然景观与随机结构模板的来源采样、基底、世界条件及放置后回调。 */
 final class WorldTemplateFeature extends Feature<NoneFeatureConfiguration> {
@@ -45,7 +46,7 @@ final class WorldTemplateFeature extends Feature<NoneFeatureConfiguration> {
         if (!parameters.dimensions().contains(level.getLevel().dimension().location())) {
             return false;
         }
-        if (template == null) {
+        if (!parameters.randomStructure() && template == null) {
             template = level.getLevel().getStructureManager().getOrCreate(parameters.template());
         }
         boolean anyPlaced = false;
@@ -74,7 +75,13 @@ final class WorldTemplateFeature extends Feature<NoneFeatureConfiguration> {
                 Rotation rotation = parameters.randomTransform() ? Rotation.values()[random.nextInt(3)] : Rotation.NONE;
                 StructurePlaceSettings settings = new StructurePlaceSettings().setMirror(mirror).setRotation(rotation)
                         .setRandom(random).addProcessor(parameters.processor()).setIgnoreEntities(false);
-                if (template.placeInWorld(level, origin, origin, settings, random, 2)) {
+                // 随机结构只在通过抽签、基底与锁定检查后读取模板，复用服务端结构管理器缓存。
+                boolean trace = RenjianRandomDiagnostics.loading(level, context.origin(), parameters.template(), origin);
+                StructureTemplate selected = parameters.randomStructure()
+                        ? level.getLevel().getStructureManager().getOrCreate(parameters.template()) : template;
+                boolean placed = selected.placeInWorld(level, origin, origin, settings, random, 2);
+                if (trace) RenjianRandomDiagnostics.placed(parameters.template(), origin, mirror, rotation, selected.getSize(), placed);
+                if (placed) {
                     if (parameters.huaguang()) {
                         appendHuaguang(level, origin);
                     }

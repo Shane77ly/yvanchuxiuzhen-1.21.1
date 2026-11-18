@@ -169,7 +169,9 @@ final class SmokeRun {
                     rules, WorldDataConfiguration.DEFAULT);
             levelId = "smoke" + System.currentTimeMillis();
             minecraft.createWorldOpenFlows().createFreshLevel(levelId, settings,
-                    WorldOptions.defaultWithRandomSeed(), WorldPresets::createNormalWorldDimensions, minecraft.screen);
+                    "renjianrandom".equals(System.getProperty("yvanchuxiuzhen.smoke.only"))
+                            ? new WorldOptions(RenjianRandomCheck.SEED, true, false) : WorldOptions.defaultWithRandomSeed(),
+                    WorldPresets::createNormalWorldDimensions, minecraft.screen);
             next();
         }
     }
@@ -268,6 +270,7 @@ final class SmokeRun {
                     case "animateddecor" -> List.of(new AnimatedDecorCheck(report, levelId, this::shot));
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
+                    case "renjianrandom" -> List.of(new RenjianRandomCheck(report, levelId));
                     case "tianqve" -> List.of(new TianqveWorldgenCheck(report, levelId, this::shot));
                     case "wugui" -> List.of(new WuguiWorldgenCheck(report, levelId, this::shot));
                     case "wuguiportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.WUGUI));
