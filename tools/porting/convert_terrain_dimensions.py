@@ -209,8 +209,12 @@ def plan(source_root: Path | None = None) -> list[tuple[Path, dict, list[tuple[s
         target_settings['spawn_target'] = spawn_target()
         outputs.append((DATA / f'worldgen/noise_settings/{dimension}.json', target_settings, [(MOD, source)]))
         target_dimension = deepcopy(document)
+        biome_source = target_dimension['generator']['biome_source']
+        for entry in biome_source['biomes']:
+            if ':' not in entry['biome']:
+                entry['biome'] = 'minecraft:' + entry['biome']
         target_dimension['generator'] = {'type': NAMESPACE + ':legacy_dimension', 'seed': generator['seed'],
-                                         'biome_source': deepcopy(generator['biome_source']),
+                                         'biome_source': biome_source,
                                          'settings': NAMESPACE + ':' + dimension}
         outputs.append((DATA / f'dimension/{dimension}.json', target_dimension, [(MOD, source)]))
         type_source = source_root / f'src/main/resources/data/{MOD}/dimension_type/{dimension}.json'

@@ -7,6 +7,8 @@ updated: 2026-11-18
 
 # 世界
 
+修罗道已接入维度、维度类型和地形资源；八份资源定向转换逐字节一致，必要客户端通过首次与真实重进后两次往返、原出口复用和耐久保存。修罗沿用原版下界荒地，不增加来源自定义群系数量；自然地形、出生与多人仍待。见[修罗正文](architecture.md#修罗道维度接线2026-11-18)。
+
 2026-11-17 在独立 R06 worktree 接续四道资源后，静态实现 Overworld 首次登录时生成传送阵及全局中心坐标查询；随机取样已按 NeoForge 21.1.265 `Mth.nextInt(RandomSource,...)` API 修正。此前手写NBT版本同步至集成树后，`gradlew --no-daemon --max-workers=1 compileJava`以768 MB堆通过；本批改用不可变`TeleportArray`和Codec读写Overworld SavedData，并在独立功能树以768 MB、单worker通过`compileJava`。首次登录结构位置/画面、保存重进、多人登录及 xiulian 消费交互仍未验证。消费者候选还未集成，见[本系统月志](logs/2026-11.md#2026-11-17-首次登录传送阵坐标与公开查询)。
 
 标识 `world`，类别：系统。职责：维度、群系、地物、结构投放（[系统设计](../../development/system-design.md)）。
