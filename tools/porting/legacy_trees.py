@@ -49,7 +49,7 @@ def normalize(value):
     if result.get('Name') == 'minecraft:grass':
         result['Name'] = 'minecraft:short_grass'
     if result.get('Name', '').endswith('_leaves'):
-        result['Properties']['waterlogged'] = 'false'
+        result.setdefault('Properties', {})['waterlogged'] = 'false'
     if kind == 'minecraft:tree':
         result['type'] = MOD + ':legacy_tree'
     elif kind == 'minecraft:root_system':

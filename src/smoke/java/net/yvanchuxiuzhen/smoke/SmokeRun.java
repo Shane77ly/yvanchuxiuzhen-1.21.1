@@ -266,6 +266,7 @@ final class SmokeRun {
                     case "animateddecor" -> List.of(new AnimatedDecorCheck(report, levelId, this::shot));
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
+                    case "tianqve" -> List.of(new TianqveWorldgenCheck(report, levelId, this::shot));
                     case "questblockrefresh" -> List.of(new QuestBlockRefreshCheck(report, levelId));
                     case "handheldfirework" -> List.of(new HandheldFireworkCheck(report, levelId, this::shot));
                     case "festivalfirework" -> List.of(new FestivalFireworkCheck(report, levelId));

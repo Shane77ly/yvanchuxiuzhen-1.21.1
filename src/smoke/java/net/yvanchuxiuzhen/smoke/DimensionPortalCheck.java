@@ -31,7 +31,7 @@ import net.yvanchuxiuzhen.system.world.portal.DimensionPortalBlock;
 import net.yvanchuxiuzhen.system.world.portal.DimensionPortalRuntime;
 import net.yvanchuxiuzhen.system.world.portal.DimensionPortalSpec;
 
-/** 六工具自然点门、两道门户碰撞往返、四道缺失目标拒绝及原生保存重进检查。 */
+/** 六工具自然点门、可用目标真实往返、缺失目标拒绝及原生保存重进检查。 */
 final class DimensionPortalCheck extends SystemCheck {
     private static final List<Gate> GATES = List.of(
             new Gate(DimensionPortalSpec.RENJIAN, new BlockPos(8, 160, 8), Direction.Axis.X, "人间道"),
@@ -55,6 +55,9 @@ final class DimensionPortalCheck extends SystemCheck {
     private int originalCooldown;
     private boolean originalNoGravity;
     private boolean prepared;
+    private boolean additionalTargetExists;
+    private int additionalPhase;
+    private int additionalPhaseStart;
 
     DimensionPortalCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("天道门户", report, levelId);
@@ -73,7 +76,7 @@ final class DimensionPortalCheck extends SystemCheck {
     }
 
     private boolean advance(int step, int local) {
-        if (step >= 2 && step <= 9) return checkMissing(step, local);
+        if (step >= 2 && step <= 9) return checkAdditionalGate(step, local);
         switch (step) {
             case 0 -> {
                 onServer(this::prepare);
@@ -150,8 +153,8 @@ final class DimensionPortalCheck extends SystemCheck {
                     player.onUpdateAbilities();
                     verifyTools(player, "真实保存重进");
                     for (Gate gate : GATES) verifyPortal(player.server.overworld(), gate.base(), gate, "重进主世界");
-                    for (int index = 0; index < 2; index++) {
-                        Gate gate = GATES.get(index);
+                    for (Gate gate : GATES) {
+                        if (!exits.containsKey(gate.spec())) continue;
                         ServerLevel level = player.server.getLevel(gate.spec().dimension());
                         BlockPos exit = exits.get(gate.spec());
                         level.getChunkAt(exit);
@@ -170,25 +173,61 @@ final class DimensionPortalCheck extends SystemCheck {
         }
     }
 
-    private boolean checkMissing(int step, int local) {
+    private boolean checkAdditionalGate(int step, int local) {
         Gate gate = GATES.get(2 + (step - 2) / 2);
         if ((step & 1) == 0) {
+            additionalPhase = 0;
+            additionalPhaseStart = 0;
             onServer(player -> {
-                if (player.server.getLevel(gate.spec().dimension()) != null) {
-                    throw new IllegalStateException(gate.name() + "已存在，当前场景需要缺失目标基线");
+                additionalTargetExists = player.server.getLevel(gate.spec().dimension()) != null;
+                if (!additionalTargetExists) {
+                    expectTrue(gate.name() + "缺失目标返回空转换", ((DimensionPortalBlock) portal(gate))
+                            .getPortalDestination(player.serverLevel(), player, gate.base()) == null);
                 }
-                expectTrue(gate.name() + "缺失目标返回空转换", ((DimensionPortalBlock) portal(gate))
-                        .getPortalDestination(player.serverLevel(), player, gate.base()) == null);
                 enter(player, gate.base(), gate.axis());
             });
             return true;
         }
-        if (!waitFor(local, gate.name() + "碰撞拒绝", local >= 12
-                && read(player -> player.level().dimension().equals(Level.OVERWORLD)), 160)) return false;
+        if (!additionalTargetExists) {
+            if (!waitFor(local, gate.name() + "碰撞拒绝", local >= 12
+                    && read(player -> player.level().dimension().equals(Level.OVERWORLD)), 160)) return false;
+            onServer(player -> {
+                expect(gate.name() + "真实门户碰撞保持原维度", Level.OVERWORLD, player.level().dimension());
+                expectTrue(gate.name() + "拒绝后仍处于当前门户内", player.position().distanceTo(center(gate.base(), gate.axis())) < 1);
+                expectTrue(gate.name() + "拒绝没有创建默认目标维度", player.server.getLevel(gate.spec().dimension()) == null);
+                park(player, gate.base(), gate.axis());
+            });
+            return true;
+        }
+        if (additionalPhase == 0) {
+            if (!arrived(local, gate.spec().dimension(), gate.name() + "真实碰撞入场")) return false;
+            onServer(player -> {
+                BlockUtil.FoundRectangle rectangle = find(player.serverLevel(), player.blockPosition(), gate);
+                verifyPortal(player.serverLevel(), rectangle.minCorner, gate, "目标");
+                expectTrue(gate.name() + "落点处于本组目标门户内", player.position().distanceTo(center(rectangle.minCorner, gate.axis())) < 3);
+                expectTrue(gate.name() + "原生传送冷却已设置", player.isOnPortalCooldown());
+                exits.put(gate.spec(), rectangle.minCorner.immutable());
+                park(player, rectangle.minCorner, gate.axis());
+            });
+            additionalPhase = 1;
+            additionalPhaseStart = local;
+            return false;
+        }
+        if (additionalPhase == 1) {
+            if (!waitFor(local - additionalPhaseStart, gate.name() + "目标画面同步",
+                    local - additionalPhaseStart >= 10 && minecraft.screen == null, 200)) return false;
+            screenshots.take("dimensionportal_" + gate.spec().dimensionName() + "_exit.png");
+            onServer(player -> enter(player, exits.get(gate.spec()), gate.axis()));
+            additionalPhase = 2;
+            additionalPhaseStart = local;
+            return false;
+        }
+        if (!arrived(local - additionalPhaseStart, Level.OVERWORLD, gate.name() + "真实碰撞回程")) return false;
         onServer(player -> {
-            expect(gate.name() + "真实门户碰撞保持原维度", Level.OVERWORLD, player.level().dimension());
-            expectTrue(gate.name() + "拒绝后仍处于当前门户内", player.position().distanceTo(center(gate.base(), gate.axis())) < 1);
-            expectTrue(gate.name() + "拒绝没有创建默认目标维度", player.server.getLevel(gate.spec().dimension()) == null);
+            BlockUtil.FoundRectangle rectangle = find(player.serverLevel(), player.blockPosition(), gate);
+            expect(gate.name() + "回程复用原主世界门户", gate.base(), rectangle.minCorner);
+            verifyPortal(player.serverLevel(), rectangle.minCorner, gate, "主世界");
+            expectTrue(gate.name() + "回程落点在原入口内", player.position().distanceTo(center(gate.base(), gate.axis())) < 3);
             park(player, gate.base(), gate.axis());
         });
         return true;

@@ -1,4 +1,4 @@
-"""转换人间道与妖魂道的来源群系；依赖未闭合时只允许导出审查计划。"""
+"""转换已接入维度的来源群系；依赖未闭合时只允许导出审查计划。"""
 from __future__ import annotations
 
 import argparse
@@ -217,7 +217,7 @@ def biome_effects(biome: dict, particles: dict) -> dict:
 
 
 def build_plan(source_root: Path | None = None, audit: dict | None = None) -> dict:
-    """构造全部41群系，包括尚未闭合依赖；不向正式资源目录写入文件。"""
+    """构造已接入维度实际引用的群系，包括尚未闭合依赖；不写入正式资源。"""
     source_root = source_root or SOURCES[MOD][0]
     audit = audit or build(source_root)
     definitions = audit['vanilla_helper_definitions']

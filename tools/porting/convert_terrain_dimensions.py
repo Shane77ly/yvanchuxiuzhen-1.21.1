@@ -1,4 +1,4 @@
-"""转换人间道与妖魂道地形，并在群系依赖闭合后生成正式维度资源。"""
+"""转换已接入来源维度的地形，并在群系依赖闭合后生成正式维度资源。"""
 from __future__ import annotations
 
 from copy import deepcopy
@@ -8,7 +8,7 @@ from pathlib import Path
 import zipfile
 
 from build_ledger import read_ledgers
-from catalog_world_biomes import DIMENSIONS
+from catalog_world_biomes import DIMENSIONS, all_json
 from convert_content import CONTENT, NAMESPACE, ROOT, SOURCES
 
 MOD = 'yvanchuxiuzhen'
@@ -159,6 +159,8 @@ def terrain_graph(noise: dict, dimension: str) -> dict[str, dict]:
 
 def rewrite_router(node, noise: dict, dimension: str):
     if isinstance(node, str):
+        if node == 'minecraft:end/sloped_cheese':
+            return f'{NAMESPACE}:legacy/{dimension}/end_sloped_cheese'
         terrain = ('offset', 'factor', 'jaggedness', 'depth', 'sloped_cheese')
         for name in terrain:
             if node == 'minecraft:overworld/' + name:
@@ -192,7 +194,12 @@ def plan(source_root: Path | None = None) -> list[tuple[Path, dict, list[tuple[s
         generator = document['generator']
         settings = generator['settings']
         noise = settings['noise']
-        for name, graph in terrain_graph(noise, dimension).items():
+        graphs = terrain_graph(noise, dimension)
+        if any(node == 'minecraft:end/sloped_cheese' for _, node in all_json(settings['noise_router'])):
+            # 来源End地形使用end_islands与本维度采样参数的BlendedNoise相加。
+            graphs[f'legacy/{dimension}/end_sloped_cheese'] = binary(
+                'add', {'type': 'minecraft:end_islands'}, graphs[f'legacy/{dimension}/sloped_cheese']['argument2'])
+        for name, graph in graphs.items():
             outputs.append((DATA / f'worldgen/density_function/{name}.json', graph, [(MOD, source)]))
         target_settings = {key: deepcopy(settings[key]) for key in (
             'default_block', 'default_fluid', 'surface_rule', 'sea_level', 'disable_mob_generation',
@@ -281,7 +288,7 @@ def require_biome_closure(outputs) -> None:
                         if not placed.is_file():
                             missing.add(feature)
     if missing:
-        raise ValueError('人间道/妖魂道维度或群系依赖尚未闭合，拒绝写出正式维度：' + '、'.join(sorted(missing)))
+        raise ValueError('已接入维度或群系依赖尚未闭合，拒绝写出正式维度：' + '、'.join(sorted(missing)))
 
 
 def generate(converter) -> int:
