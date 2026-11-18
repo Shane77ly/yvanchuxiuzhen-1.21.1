@@ -32,6 +32,7 @@ public final class DecorClientSetup {
     }
 
     public static void register(IEventBus modBus) {
+        HotOilClient.register(modBus);
         AnimatedDecorClient.register(modBus);
         modBus.addListener(DecorClientSetup::registerBlockColors);
         modBus.addListener((RegisterMenuScreensEvent event) -> {

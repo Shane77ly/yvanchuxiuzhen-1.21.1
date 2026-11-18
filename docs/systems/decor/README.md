@@ -32,6 +32,8 @@ updated: 2026-11-18
 
 ## 公开操作
 
+World按注册ID `yvanchuxiuzhen:hotoil` 在地灵配置中读取真实源块；Decor自己保存接触计数，待消费攻击字段由Combat公开`SpellDamage.markHotOilContact`登记。详见[热油正文](architecture.md#热油与滚油桶2026-11-18)。
+
 五种土壤的注册与客户端资源仍由Decor装配，玩法工厂调用Plant公开`PlantSoilSupport.create`；外部消费者只按ID引用，不直接使用Plant内部实现或写入其他系统持久状态。
 
 实体椅子由Decor独占写入；经济发布`AuctionSeatRequestEvent`请求生成、乘坐、移除最近一把或移除范围全部椅子，Decor消费事件。其他系统只经注册ID/标签引用装饰资源，不能直接改实体持久化数据。展示锁由平台布尔附件承载，Tiandao写入、本族读取；家具库存公开原生物品能力。

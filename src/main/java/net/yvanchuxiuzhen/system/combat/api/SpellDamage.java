@@ -18,6 +18,14 @@ public final class SpellDamage {
     private SpellDamage() {
     }
 
+    /** 热油的接触回调只登记待消费的无来源火系灵力攻击，不主动发起结算。 */
+    public static void markHotOilContact(Entity target) {
+        target.getPersistentData().putDouble("ManaAttackDamage", 2);
+        target.getPersistentData().putString("ManaAttackUUID", "无");
+        target.getPersistentData().putString("damagetype", "火");
+        target.getPersistentData().putDouble("Damage_multiplier", 1);
+    }
+
     /** 阴二阵法只登记来源的待消费伤害字段；本操作不发起伤害结算。 */
     public static void markFormationSoulAttack(Entity target, int rank) {
         target.getPersistentData().putInt("SoulAttackDamage", rank * 4);
