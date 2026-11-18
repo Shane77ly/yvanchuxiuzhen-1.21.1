@@ -578,7 +578,7 @@ def main() -> None:
                               'decor:cage', 'decor:memorial_tablet', 'craft:pottery_blank', 'craft:silkworm', 'craft:silkworm_gold', 'cooking:meal_food', 'treasure:reward', 'treasure:tool', 'treasure:casket',
                               'cooking:poisonous_food', 'cooking:remainder_bone', 'cooking:remainder_shicai_03401',
                               'cooking:remainder_shicai_03601', 'cooking:remainder_shicai_03701', 'cooking:wine',
-                              'cooking:lotus_seed', 'cooking:plantable_garlic', 'creature:yaoshou_023baodan',
+                              'cooking:lotus_seed', 'cooking:plantable_garlic', 'plant:peach_kernel', 'material:peach_food', 'creature:yaoshou_023baodan',
                               'creature:yaoshou_013taoziwuqi', 'creature:yaoshou_014skill_03', 'equipment:fabao_017',
                               'creature:spirit_beast_bag', 'creature:spirit_beast_dye_tool', 'creature:yaoshou_projectile',
                               'xiulian:ling_11', 'xiulian:ling_18', 'xiulian:jiazubaibaodai', 'guchong:constitution', 'guchong:guchong_01item', 'guchong:guchong_03item', 'guchong:guchong_04item', 'guchong:flute', 'guchong:tracking', 'town:scroll', 'zhenfa:flag_mother', 'zhenfa:flag_son', 'zhenfa:yang_arrow',

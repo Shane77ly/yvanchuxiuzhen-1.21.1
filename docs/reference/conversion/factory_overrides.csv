@@ -472,6 +472,7 @@ item,yvanchuxiuzhen:food_083,cooking:meal_food,cooking,原生食用后餐食、�
 item,yvanchuxiuzhen:shicai_059,cooking:poisonous_food,cooking,原生食用后餐食、毒性或返物回调
 item,yvanchuxiuzhen:food_084,cooking:remainder_bone,cooking,原生食用后餐食、毒性或返物回调
 item,yvanchuxiuzhen:shicai_060,cooking:remainder_bone,cooking,原生食用后餐食、毒性或返物回调
+item,yvanchuxiuzhen:peachpeach,material:peach_food,material,保留药材身份与食用组件，吃空返回桃核否则向非创造玩家库存交付
 item,yvanchuxiuzhen:shicai_034,cooking:remainder_shicai_03401,cooking,原生食用后餐食、毒性或返物回调
 item,yvanchuxiuzhen:shicai_036,cooking:remainder_shicai_03601,cooking,原生食用后餐食、毒性或返物回调
 item,yvanchuxiuzhen:shicai_037,cooking:remainder_shicai_03701,cooking,原生食用后餐食、毒性或返物回调
@@ -491,6 +492,7 @@ block,yvanchuxiuzhen:shicai_001_plant_06,plant:shicai001_06,plant,水稻八阶�
 block,yvanchuxiuzhen:shicai_001_plant_07,plant:shicai001_07,plant,水稻八阶段生长、骨粉与来源掉落
 block,yvanchuxiuzhen:shicai_001_plant_08,plant:shicai001_08,plant,水稻八阶段生长、骨粉与来源掉落
 item,yvanchuxiuzhen:shicai_001seed,plant:shicai001_seed,plant,水稻种子右键原版耕地播种
+item,yvanchuxiuzhen:peachkernel,plant:peach_kernel,plant,顶面直接覆写桃苗并扣一件，不增加土壤或空气检查
 block,yvanchuxiuzhen:mulberrysapling,plant:mulberry_sapling,plant,桑苗随机刻与骨粉共用5%生长和刻末根部写入
 block,yvanchuxiuzhen:mulberryleaves,plant:mulberry_leaves,plant,桑叶玩家破坏顺序独立生成普通蚕与金蚕
 block,yvanchuxiuzhen:shicai_002_plant_01,plant:shicai002_01,plant,糯稻八阶段生长、骨粉与来源掉落

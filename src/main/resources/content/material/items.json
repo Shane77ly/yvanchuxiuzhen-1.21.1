@@ -173,7 +173,7 @@
 {"id":"cailiao_218","factory":"item","order":192,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
 {"id":"cailiao_219","factory":"item","order":193,"tab":"yvanchuxiuzhen:tabyvanchu_materials"},
 {"id":"privet_01","factory":"item","order":245,"tab":"yvanchuxiuzhen:tabyvanchu_herbmedicine","tooltip":["§6二级药材"]},
-{"id":"peachpeach","factory":"item","order":249,"tab":"yvanchuxiuzhen:tabyvanchu_herbmedicine","food":{"nutrition":4,"saturation_mod":0.2},"tooltip":["§6二级药材"],"pending_hooks":["finishUsingItem"]},
+{"id":"peachpeach","factory":"material:peach_food","order":249,"tab":"yvanchuxiuzhen:tabyvanchu_herbmedicine","food":{"nutrition":4,"saturation_mod":0.2},"tooltip":["§6二级药材"]},
 {"id":"cypressseed","factory":"item","order":271,"tab":"yvanchuxiuzhen:tabyvanchu_herbmedicine","tooltip":["§6三级药材"]},
 {"id":"camphorfruit","factory":"item","order":280,"tab":"yvanchuxiuzhen:tabyvanchu_herbmedicine","tooltip":["§6一级药材"]},
 {"id":"ginkgofruit","factory":"item","order":289,"tab":"yvanchuxiuzhen:tabyvanchu_herbmedicine","tooltip":["§6四级药材"]},

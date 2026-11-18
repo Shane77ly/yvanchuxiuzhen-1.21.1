@@ -11,6 +11,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.material.content.MaterialAnalysisMenu;
 import net.yvanchuxiuzhen.system.material.content.MaterialMenus;
+import net.yvanchuxiuzhen.system.material.content.PeachFoodItem;
 import net.yvanchuxiuzhen.system.material.data.MaterialData;
 import net.yvanchuxiuzhen.system.material.network.MaterialAnalysisButtonPayload;
 import net.yvanchuxiuzhen.system.material.network.MaterialAnalysisViewPayload;
@@ -19,7 +20,8 @@ import net.yvanchuxiuzhen.system.material.network.MaterialAnalysisViewPayload;
  * 材料系统的启动装配，只在 Mod 构造时调用一次。
  */
 public final class MaterialSetup {
-    private static final ContentTables CONTENT = new ContentTables("material");
+    private static final ContentTables CONTENT = new ContentTables("material")
+            .itemFactory("material:peach_food", PeachFoodItem::new);
 
     private MaterialSetup() {
     }

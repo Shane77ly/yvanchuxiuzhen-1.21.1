@@ -304,7 +304,7 @@ item,yvanchuxiuzhen:ganodermalucidum,yvanchuxiuzhen,Ganodermalucidum,src/main/ja
 item,yvanchuxiuzhen:ginkgofruit,yvanchuxiuzhen,Ginkgofruit,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1234,material,已读,yvanchuxiuzhen:ginkgofruit,已注册,
 item,yvanchuxiuzhen:ginseng,yvanchuxiuzhen,Ginseng,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2661,material,已读,yvanchuxiuzhen:ginseng,已注册,
 item,yvanchuxiuzhen:mapleresinitem,yvanchuxiuzhen,Mapleresinitem,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1239,material,已读,yvanchuxiuzhen:mapleresinitem,已注册,
-item,yvanchuxiuzhen:peachpeach,yvanchuxiuzhen,Peachpeach,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1194,material,已读,yvanchuxiuzhen:peachpeach,已注册,
+item,yvanchuxiuzhen:peachpeach,yvanchuxiuzhen,Peachpeach,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1194,material,已读,yvanchuxiuzhen:peachpeach,行为已迁移,食用产核工厂已接；人间道实得末枚返核已验；余栈返包与满包丢出未实机。
 item,yvanchuxiuzhen:privet_01,yvanchuxiuzhen,Privet01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1190,material,已读,yvanchuxiuzhen:privet_01,已注册,
 item,yvanchuxiuzhen:tripterygiumwilfordiiitem,yvanchuxiuzhen,Tripterygiumwilfordiiitem,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2467,material,已读,yvanchuxiuzhen:tripterygiumwilfordiiitem,已注册,
 menu,yvanchuxitong:qiancailu_gui,yvanchuxitong,QiancailuGui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,109,material,已读,yvanchuxiuzhen:qiancailu_gui,行为已迁移,千材录自然右键、刷新、免费及2/4件扣仓、揭示与双端同步由内置客户端通过；库存/输入独立扣料、完整视觉和两版本待验收；管理解锁显示快照已接入；普通库存/输入扣料必要单项已补齐但本批尚未运行

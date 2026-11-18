@@ -4,7 +4,9 @@
   "package": "net.yvanchuxiuzhen.smoke.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ChunkMapUnloadFutureDiagnosticsMixin"
+    "ChunkMapUnloadFutureDiagnosticsMixin",
+    "PlantPlacedFeatureMixin",
+    "PlantConfiguredFeatureMixin"
   ],
   "injectors": {
     "defaultRequire": 1

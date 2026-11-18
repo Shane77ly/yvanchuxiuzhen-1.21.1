@@ -168,9 +168,12 @@ final class SmokeRun {
             LevelSettings settings = new LevelSettings("smoke", GameType.CREATIVE, false, Difficulty.PEACEFUL, true,
                     rules, WorldDataConfiguration.DEFAULT);
             levelId = "smoke" + System.currentTimeMillis();
-            minecraft.createWorldOpenFlows().createFreshLevel(levelId, settings,
-                    "renjianrandom".equals(System.getProperty("yvanchuxiuzhen.smoke.only"))
-                            ? new WorldOptions(RenjianRandomCheck.SEED, true, false) : WorldOptions.defaultWithRandomSeed(),
+            WorldOptions options = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
+                case "renjianrandom" -> new WorldOptions(RenjianRandomCheck.SEED, true, false);
+                case "plantsupply" -> new WorldOptions(PlantSupplyCheck.REPLAY_SEED, true, false);
+                default -> WorldOptions.defaultWithRandomSeed();
+            };
+            minecraft.createWorldOpenFlows().createFreshLevel(levelId, settings, options,
                     WorldPresets::createNormalWorldDimensions, minecraft.screen);
             next();
         }
