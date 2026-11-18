@@ -59,7 +59,9 @@ updated: 2026-11-18
 
 `A:procedures/EntityberebornProcedure:37–134` 是普通 `PlayerRespawnEvent` 入口。目标 `system/xiulian/Rebirth` 保留其资源恢复顺序：生命、灵力、神识均取对应属性最终值的 20%，先加 `RebirthCorrectHealth`、`RebirthCorrectPower`、`RebirthCorrectJingli`，再乘对应百分比；`experience_Stand` 先加 `RebirthCorrectExperience`，再乘 `RebirthCorrectExperiencePercentage`。寿元从当前值开始，先加入固定 −30 天，再按 `RebirthCorrectLifetimePercentage` 加入乘法差额；消息使用来源的增长/扣除文本与整数格式。
 
-来源在 `RebirthCorrectLifetime` 非零时把 `RebirthCorrectJingli` 加入寿元变化量，而不是读取 `RebirthCorrectLifetime`。这是已核实的来源错误，目标按来源保留，并在实现注释中标明。该批不接入来源同一过程后半段的游戏模式恢复、复活维度切换和延迟 20 刻 `Shuxingjisuan`；这些行为另有归属或待后续入口。目标入口已通过 `compileSmokeJava`；现有 `runSmokeClient -PsmokeOnly=yuanying` 不触发普通重生公式，普通重生完整游戏行为仍待专项验收。
+来源在 `RebirthCorrectLifetime` 非零时把 `RebirthCorrectJingli` 加入寿元变化量，而不是读取 `RebirthCorrectLifetime`；目标按来源保留。`PlayerRespawnFlow` 是唯一监听：以原版最大生命基准执行资源结算，再调用 Dungeon 的游戏模式恢复公开操作，处理复活维度并在第20个服务端结束刻调用属性重算。
+
+1.18.2 版本 `EntityDeathProcedure:291–303` 仅在玩家人间道死亡且伤害有来源实体时写入 `REVIVE=人间界`。目标由 `PlayerDeathRules` 经修炼接口写入，死亡附件复制；同维重生不移动、不清标记。若在其他维度重生且仍有标记，按来源回人间道 `(0,32,0)` 再清标记。目标事件早于原版替换连接对象，流程在传送前把连接指向实际重生的新玩家。实机边界见[修炼月志](logs/2026-11.md#2026-11-18-人间道死亡标记与普通重生)。
 
 ### 阶段 4（一）：金丹、元婴与丹田界面
 

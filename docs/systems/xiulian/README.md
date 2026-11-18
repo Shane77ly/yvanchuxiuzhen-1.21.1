@@ -73,7 +73,7 @@ updated: 2026-11-18
 
 已接回来源 `Entitybereborn` 的普通 `PlayerRespawnEvent` 入口（目标 `Rebirth`）。重生后按目标属性最终值的 20% 设置生命，并按 `RebirthCorrectHealth*`、`RebirthCorrectPower*`、`RebirthCorrectJingli*` 先加固定值、再乘百分比；灵力与神识写入修炼档案。待吸收修为先加 `RebirthCorrectExperience`，再按 `RebirthCorrectExperiencePercentage` 相乘。寿元每次先减 30 天，再应用来源修正并发送原文案消息。
 
-来源寿元分支在 `RebirthCorrectLifetime` 非零时误读 `RebirthCorrectJingli`，目标保留这一行为；没有把它改为同名寿元键。游戏模式恢复、复活维度切换、20 刻后的属性重算仍属其他入口，本次没有并入。`compileSmokeJava` 已通过；现有 `yuanying` 客户端入口与普通重生无直接断言，本批未宣称普通重生的完整实机验收。来源公式和实现边界见[架构正文](architecture.md#普通重生2026-11-08)。
+来源寿元分支在 `RebirthCorrectLifetime` 非零时误读 `RebirthCorrectJingli`，目标保留这一行为。人间道有来源死亡自动置位、同维保留、主世界再次死亡后返回人间道以及第20结束刻重算已在目标客户端实测。来源公式和实现边界见[架构正文](architecture.md#普通重生2026-11-08)。
 
 ## 修炼、观想与功法参悟页（2026-11-15）
 

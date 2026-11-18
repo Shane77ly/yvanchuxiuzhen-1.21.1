@@ -16,6 +16,7 @@ import net.yvanchuxiuzhen.system.combat.content.WoodenDummyEntity;
 import net.yvanchuxiuzhen.system.combat.content.WoodenDummyItem;
 import net.yvanchuxiuzhen.system.combat.damage.HurtHandler;
 import net.yvanchuxiuzhen.system.combat.damage.LightningLanding;
+import net.yvanchuxiuzhen.system.combat.damage.PlayerDeathRules;
 import net.yvanchuxiuzhen.system.combat.damage.ShanghaiCommand;
 import net.yvanchuxiuzhen.system.combat.effect.CombatEffects;
 import net.yvanchuxiuzhen.system.combat.enchant.BedrockCracking;
@@ -48,6 +49,7 @@ public final class CombatSetup {
         CombatMenus.register(modBus);
         modBus.addListener(CombatSetup::registerPayloads);
         HurtHandler.register();
+        NeoForge.EVENT_BUS.addListener(PlayerDeathRules::onDeath);
         ShanghaiCommand.register();
         LightningLanding.register(modBus);
         NeoForge.EVENT_BUS.addListener((TribulationLightningEvent event) -> Lightning.command(event.level(), event.position(), event.command()));

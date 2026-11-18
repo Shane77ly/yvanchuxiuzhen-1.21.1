@@ -1,2 +1,3 @@
 source_mod,element,type,source_file,line,owner,ownership,evidence,target,implementation
+yvanchuxiuzhen,EntityDeath-player-rewards,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/EntityDeathProcedure.java,39,combat,已读,由真实伤害来源玩家领取；死者镜像与主修加成决定待吸收值；罡煞和功德按来源顺序结算,CombatSetup / PlayerDeathRules / Cultivation.add,主世界受控两种真实近战击杀和通常修炼吸收已验；自然目标及高阶公式待验
 yvanchuxiuzhen,YvanchuGo3,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/YvanchuGo3Procedure.java,216,combat,已读,216–526五行击杀数量与属性技能熟练度十个管理分支；同一体质载体键；SHA256=6e759ce5c67aace30d4c74326ebb5177dcce4d33ce6ae7d32558efe2fe638481,PlayerCommandFlow / ElementStatistics.command / Cultivation.setTizhiDouble,已接线并静态核对十键与20条回执；编译/真实命令/同步/保存重进未执行；既有自然伤害统计未重写

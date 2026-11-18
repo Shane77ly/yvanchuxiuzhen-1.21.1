@@ -1,4 +1,6 @@
 {
+  "message.yvanchuxiuzhen.rebirth.lifetime_gain": "Lifespan increased by %s days",
+  "message.yvanchuxiuzhen.rebirth.lifetime_loss": "Lifespan reduced by %s days",
   "block.yvanchuxiuzhen.xixveshi": "Xixveshi",
   "item.yvanchuxiuzhen.xvejing": "Xvejing",
   "item.yvanchuxiuzhen.ling_09": "Ling 0 9",

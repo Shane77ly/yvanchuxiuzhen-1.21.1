@@ -20,6 +20,7 @@ import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.xiulian.BirthSelection;
 import net.yvanchuxiuzhen.system.xiulian.CultivationCommand;
 import net.yvanchuxiuzhen.system.xiulian.LevelUp;
+import net.yvanchuxiuzhen.system.xiulian.Rebirth;
 import net.yvanchuxiuzhen.system.xiulian.SkillPoints;
 import net.yvanchuxiuzhen.system.xiulian.content.SkillPointMenu;
 import net.yvanchuxiuzhen.system.xiulian.data.CultivationData;
@@ -39,6 +40,11 @@ public final class Cultivation {
             CultivationValue.ROOT_TREE, CultivationValue.ROOT_FIRE, CultivationValue.ROOT_SOIL, CultivationValue.YINYANG);
 
     private Cultivation() {
+    }
+
+    /** 普通重生的修炼片段：按来源顺序修正生命、灵力、神识、待吸收修为与寿元。 */
+    public static void rebirth(ServerPlayer player) {
+        Rebirth.rebirth(player);
     }
 
     /** 执行共享原初管理命令中的修炼分支；世界规则使用命令源维度，玩家档案使用已匹配目标。 */
