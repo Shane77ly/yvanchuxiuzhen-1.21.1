@@ -254,6 +254,10 @@ Q191（待裁定，保持来源）：`PlayerGui08jieshao`称“没有时限”�
 
 NeoForge 21.1.265同名Helper和包装器保留上述路径；目标`BirthInitialRewardsFlow.give`沿来源共享同一栈。此前“Helper未消耗临时栈所以合计3”的记录遗漏了别名回写，已更正。Q228状态为静态已核实、保持来源；若要消除库存相关差异须另行裁定，本次未改生产代码。1.18.2版本实机、已有同类栈与满包掉落未验证；当前夹具明确只断言空背包路径。
 
+## 人间道个人入场（2026-11-18）
+
+1.18.2 版本 `YijichushishengchengProcedure` 的个人分支在每次实际入场执行，不依赖世界首次初始化。1.21.1 版本 `RenjianArrival` 消费 World 的 `RenjianEnteredEvent`：有 `shengxianling` 时立即清标记，80 个服务端结束刻后移除缓慢与漂浮；没有 `chuanjiegujing` 时依次给一件 `fabao_013` 和一件 `qiankundai_06`，然后标记已领取。两个个人字段沿用修炼档案并按既有接口同步；世界场景只由 [World](../world/architecture.md#人间道固定首入2026-11-18) 管理。
+
 ## 远古石盘引导（2026-11-17）
 
 归属主表`ownership_assignment.csv`的`Ling11`物品与同名右键过程均明确归xiulian；`PlayerJoin02`发奖归flow。本包只接石盘自然use和自身`zhuangtai`，不写World坐标、不增加Equipment或Treasure实现。来源物品use返回父类结果，目标`Ling11GuideItem`同样保留返回值，由服务端`Ling11Guidance`读取World公开查询。精确来源范围与哈希见[来源证据](ledger/source-evidence.csv)。

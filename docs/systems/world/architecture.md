@@ -227,7 +227,7 @@ Q207 的运行接线已实现，门户模型路径已统一为目标`block/`目�
 
 两道采用`legacy_dimension`生成器，保存来源独立地形种子：人间道−3958683526324992456、妖魂道6901069156277239836。`ChunkMapMixin`在结构状态创建前以该种子构建`RandomState`；随机散布结构继续使用世界种子，同心环结构种子由生成器设置为来源地形种子。`legacy_terrain_spline`保持来源float坐标、山脊折叠及OFFSET常量，`legacy_blended_noise`保持来源格采样和乘除次序；`minecraft:slide`展开为保留Java截断语义的Y区间表达。生成范围Y=−64至319，海平面63；地表规则及来源默认方块、流体和开关直接复制。维度类型保留来源`minecraft:overworld`特效绑定，不切换到来源Java中未被类型引用的同Mod特效；新怪物光照字段按来源0–7规则补齐。
 
-来源JSON中的旧`structures`字段不是运行分布依据：锁定1.18.2版本`NoiseGeneratorSettings.DIRECT_CODEC`已不读取该字段，`NoiseBasedChunkGenerator`使用全局StructureSet且没有结构覆盖。目标继续由结构集与适用群系决定，不将该死字段重新解释成新规则。来源人间道玩家进入时的`YijichushishengchengProcedure`属于后续固定场景初始化范围，本批地形与自然群系接线不代表该入口完成。
+来源JSON中的旧`structures`字段不是运行分布依据：锁定1.18.2版本`NoiseGeneratorSettings.DIRECT_CODEC`已不读取该字段，`NoiseBasedChunkGenerator`使用全局StructureSet且没有结构覆盖。目标继续由结构集与适用群系决定，不将该死字段重新解释成新规则。人间道进入事件触发的固定场景不属于地形与自然群系装配，见[固定首入](#人间道固定首入2026-11-18)。
 
 只读静态复核按精确NeoForge21.1.265源码确认：Mixin配置登记及`ChunkMap`构造器目标调用相符；自定义Codec字段与落盘JSON匹配；两道21/20群系的FeatureSorter有向依赖图分别252/225节点，均无环；12份密度/噪声配置直接引用34个注册资源全部存在；两道surface_rule与来源JSON深比较相同。来源不同实体BiomeLoadingEvent的注册/加载先后仍无确定证据，转换计划仅按来源路径稳定排序并保留各事件内部顺序，不据此声称跨事件随机选择顺序完全一致。
 
@@ -236,6 +236,12 @@ Q207 的运行接线已实现，门户模型路径已统一为目标`block/`目�
 首次目标专服启动发现妖魂道地表规则的`minecraft:block`条件引用`yvanchuxiuzhen:quicksand`，但旧内容台账仍将该ID留在Decor待处理，因此注册表解码以Unknown registry key终止。回读来源发现它不是普通方块：`QuicksandBlock`继承`LiquidBlock`并连接独立source/flowing `QuicksandFluid`；流体使用来源quicksand01/02贴图、密度1650、爆炸抗性100、每格液位下降2、寻坡距离2、默认tick间隔5，无桶、无碰撞或其他附加事件。来源 `minecraft:water` 流体标签含source与flowing两项；目标保留该标签语义、白色流体基色、砂色地图色、LiquidBlock液体属性和半透明渲染，不引入来源未定义的桶或地表替代规则。注册、资源与所有权已归World；待统一转换、构建及专服重验。
 
 该故障同时暴露正式转换门禁只核对群系、实体和地物的遗漏。`convert_terrain_dimensions.require_biome_closure`现递归检查全部16份计划数据中的每个`Name`字段，覆盖noise_settings的default_block、default_fluid与任意深度surface_rule。Mod方块依据现有内容表及台账“行为已迁移”的手工注册行，原版方块依据精确NeoForge21.1.265资源归档中的blockstates，均不使用语言名称作注册依据；未知ID直接拒绝正式写出，并报告资源路径与JSON字段路径。针对性内存验证确认当前计划通过；移除可用集合中的quicksand后准确拒绝两处地表引用；分别向默认方块、默认流体及嵌套地表规则注入不存在的原版ID也均被拒绝。该检查验证转换前的身份闭包，不替代运行注册与Codec加载。
+
+## 人间道固定首入（2026-11-18）
+
+1.18.2 版本由 `DimensionrenjianDimension.onPlayerChangedDimensionEvent` 调用 `YijichushishengchengProcedure`；`qiankundaochang` 属于人间道自己的 `WorldVariables`，不是主世界共享 `MapVariables`。1.21.1 版本在玩家真正跨维后按来源顺序执行：于 `(-12,30,-29)` 放置乾坤道人居所，于 `(0,32,-2)` 以 `MOB_SUMMONED` 加入大管家，标记场景已生成，将触发玩家的强制重生点绑定到实际入门落点，再于 `(390,0,355)` 放置小尸王场景。两个模板均无旋转、无镜像、包含实体，使用完整方块更新。60 个服务端结束刻后放置榉木摆件和南向参悟台；延时任务不写入存档，保持来源的会话语义。
+
+`RenjianGeneration` 唯一写入人间道 `yvanchuxiuzhen_renjian_generation` 存档。每次实际进入都发布 `RenjianEnteredEvent`；修炼系统独立消费其[个人入场规则](../xiulian/architecture.md#人间道个人入场2026-11-18)。该入口不把玩家传至固定居所，也不替代随机结构生成、自然出生或人间道真实死亡结算。
 
 ## 1.18.2 状态与生成
 

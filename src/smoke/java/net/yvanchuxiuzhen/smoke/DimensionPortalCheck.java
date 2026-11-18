@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import net.minecraft.BlockUtil;
+import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -44,6 +45,7 @@ final class DimensionPortalCheck extends SystemCheck {
     private final Screenshots screenshots;
     private final List<String> report;
     private final DimensionPortalSpec focusedGate;
+    private final RenjianEntryProbe renjian;
     private final List<ItemStack> inventory = new ArrayList<>();
     private final Map<DimensionPortalSpec, BlockPos> exits = new EnumMap<>(DimensionPortalSpec.class);
     private ResourceKey<Level> originalDimension;
@@ -65,10 +67,16 @@ final class DimensionPortalCheck extends SystemCheck {
     }
 
     DimensionPortalCheck(List<String> report, String levelId, Screenshots screenshots, DimensionPortalSpec focusedGate) {
+        this(report, levelId, screenshots, focusedGate, null);
+    }
+
+    DimensionPortalCheck(List<String> report, String levelId, Screenshots screenshots, DimensionPortalSpec focusedGate,
+            RenjianEntryProbe renjian) {
         super(focusedGate == null ? "天道门户" : gate(focusedGate).name() + "门户", report, levelId);
         this.report = report;
         this.screenshots = screenshots;
         this.focusedGate = focusedGate;
+        this.renjian = renjian;
     }
 
     @Override
@@ -103,7 +111,10 @@ final class DimensionPortalCheck extends SystemCheck {
             case 10, 14, 22, 26 -> {
                 int index = step == 10 || step == 22 ? 0 : 1;
                 Gate gate = primaryGate(index);
-                onServer(player -> enter(player, gate.base(), gate.axis()));
+                onServer(player -> {
+                    if (renjian != null && step == 10) renjian.useAscensionToken(this, player);
+                    enter(player, gate.base(), gate.axis());
+                });
                 return true;
             }
             case 11, 15, 23, 27 -> {
@@ -119,12 +130,17 @@ final class DimensionPortalCheck extends SystemCheck {
                     } else {
                         exits.put(gate.spec(), rectangle.minCorner.immutable());
                     }
+                    if (renjian != null) renjian.entered(this, player, step == 23);
                     park(player, rectangle.minCorner, gate.axis());
                 });
                 return true;
             }
             case 12, 16, 24, 28 -> {
                 if (local < 10 || minecraft.screen != null) return false;
+                if (renjian != null && step == 12) {
+                    if (!waitFor(local, "人间入场延时摆件与升仙令效果", read(renjian::delaysElapsed), 500)) return false;
+                    onServer(player -> renjian.afterDelays(this, player));
+                }
                 Gate gate = primaryGate(step == 12 || step == 24 ? 0 : 1);
                 if (step == 12 || step == 16) screenshots.take("dimensionportal_" + gate.spec().dimensionName() + "_exit.png");
                 onServer(player -> enter(player, exits.get(gate.spec()), gate.axis()));
@@ -147,11 +163,15 @@ final class DimensionPortalCheck extends SystemCheck {
                 onServer(player -> {
                     verifyTools(player, "保存前");
                     park(player, GATES.getFirst().base(), GATES.getFirst().axis());
+                    if (renjian != null) renjian.beforeSave(player);
                 });
                 leaveWorld();
                 return true;
             }
-            case 19 -> { return reopened(local); }
+            case 19 -> {
+                if (renjian != null && local >= 20 && minecraft.screen instanceof TitleScreen) renjian.saved(this);
+                return reopened(local);
+            }
             case 20 -> { return inWorld(local); }
             case 21 -> {
                 onServer(player -> {
@@ -250,6 +270,7 @@ final class DimensionPortalCheck extends SystemCheck {
     }
 
     private void prepare(ServerPlayer player) {
+        if (renjian != null) renjian.prepare(player);
         originalDimension = player.level().dimension();
         originalPosition = player.position();
         originalYaw = player.getYRot();
@@ -287,7 +308,7 @@ final class DimensionPortalCheck extends SystemCheck {
             expect(gate.name() + "实际工具扣一点耐久", 1, tool.getDamageValue());
             verifyPortal(player.serverLevel(), gate.base(), gate, "工具创建");
         }
-        for (int index = 0; index < 2; index++) {
+        for (int index = 0; renjian == null && index < 2; index++) {
             Gate gate = GATES.get(index);
             if (player.server.getLevel(gate.spec().dimension()) == null) throw new IllegalStateException(gate.name() + "正式目标维度缺失");
         }
