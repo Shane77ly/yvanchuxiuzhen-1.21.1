@@ -273,6 +273,10 @@ GeckoLib 首次接入（版本 4.9.3）的做法写入[工程结构](../../devel
 Quest普通脚本“伤害实体/法术或精神”来源仅写ManaAttackDamage或SoulAttackDamage、对应UUID、damagetype和Damage_multiplier，本批经Combat公开操作markQuestAttack恢复该写入。A ManaDamage:50–61、SoulAttjisuan:50–61存在字段读取但无调用者；DamageIntegration另有读取但同属Q31无可达入口。目标不直接调用deal补造结算，不因恢复写入宣布Q31闭合；字段消费仍待集中核实/裁定。
 
 
+## 玩家击杀收益（2026-11-18）
+
+1.18.2 版本 `EntityDeathProcedure:39–144` 只在真实死亡且伤害来源的 `getEntity()` 为玩家时发放收益，不追溯最近攻击者。`PlayerDeathRules` 读取死者实体镜像 `LEVELnumber=L` 和 `additional_experience`。`L≥1` 时待吸收基础为 `L^2.4+4L+5+additional_experience`；否则取普通 `Mob` 生命上限的五分之一，其他实体为零。按主修功法名应用五行加成；击杀者层数不高于死者时扣 `(L−击杀者层数+1)^2` 罡煞。功德依序判定：非妖兽动物减1、亡灵加 `L+2`、其余 `Mob` 加 `L+1`。收益由修炼所有者写入，原修炼周期负责吸收；不改非玩家成长与五行击杀统计。人间道重生标记见[修炼正文](../xiulian/architecture.md#普通重生2026-11-08)。
+
 ## 五行击杀统计管理命令（2026-11-15）
 
 来源`A:YvanchuGo3Procedure:216–526`接在已注册`/yvanchu`的`experienceup`链中，五行各有击杀数量`killentitygold/water/tree/fire/soil`和属性技能熟练度`killentitypointsgold/water/tree/fire/soil`，合计十个精确关键字。每项只读取参数3是否恰为`set`：是则把参数4解析为double后赋值，否则在旧值上加参数；不是按`minus`字面值做减法。负数、小数、科学记数法和超过正常成长范围的值保持，格式错误或缺参数取0。可选参数5恰为`true`时，向目标发金色“某属性技能杀死的实体数量设置为/增减量为”或“某属性技能熟练度设置为/增减量为”，均回显原参数字符串。
