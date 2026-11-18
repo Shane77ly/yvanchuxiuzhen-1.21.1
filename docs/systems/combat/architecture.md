@@ -2,7 +2,7 @@
 topic: combat
 role: architecture
 status: current
-updated: 2026-11-15
+updated: 2026-11-18
 ---
 
 # 战斗：规则与实现状态
@@ -286,3 +286,11 @@ Quest普通脚本“伤害实体/法术或精神”来源仅写ManaAttackDamage�
 自然生产仍由`Shanghai.recordKill`在既有伤害结算位置判断“目标当前生命小于伤害总量”后累加，Q13的实际死亡边界保持；本批没有重写或额外调用伤害生产链。xiulian的丹田页读取五行熟练度显示，金丹/元婴读取同键判断门槛，继续通过其自有载体查询，保持combat→xiulian既有单向依赖。管理命令只改指定计数，不补造击杀事件、经验或成长奖励。
 
 独立算例：旧金击杀数量2.5，`/yvanchu <显示名> experienceup killentitygold minus -0.5 true`后为2.0，反馈末尾仍是`-0.5`；水熟练度10，`set 4.25e1 true`后为42.5，反馈仍是`4.25e1`；把火熟练度设为格式错误值会写0。十个映射、20条原回执和写入路径均已静态核对；新入口Java编译通过，十键真实set/非set与本人同步随修炼共同101项必要检查通过；命令专用保存重进、1.18.2版本实机与两版本对照未执行。源码定位与锁定哈希见[来源证据](ledger/source-evidence.csv)。
+
+## 普通战斗状态与脱战（2026-11-18）
+
+1.18.2 版本 `EntityHurtProcedure:79–98` 对非友方受击将 `zdztbegin` 置 1、`zdzttick` 设为受击者当时的 `HurtByTimestamp`。`EntityTickProcedure:21–27,42–98` 在生物刻先递增保存的 `zdzttick`，再以其与实体当前 `HurtByTimestamp` 的差值达到 100 为清除边界，并同时清零两个记分项。边界基于两计时值之差，而非从入战时启动固定倒计时。
+
+1.21.1 版本由 `FightingState` 在服务端玩家刻及非玩家生物刻推进原有记分板；玩家只走玩家刻分支，避免与实体刻重复推进。仍比较当前原生 `HurtByTimestamp`，不引入登录清空、附加存档字段或维度特判。xiulian 已有灵力恢复过程在战斗状态下按四分之一倍率恢复，脱战后恢复正常倍率；本实现不改变恢复公式，也不将一般受伤作为强制结束闭关的规则。
+
+`renjiancombatlifecycle` 人间道自动化客户端 run-01 以原生 `Zombie.doHurtTarget` 真正命中玩家，确认入战与战斗恢复；同档正常保存重开后，在 `PlayerLoggedInEvent` 读回 `active=1`、`count=239`、`HurtByTimestamp=528`，确认登录没有清除或倒退计数。随后实体刻运行至来源差值恰为 100，两个战斗分数均清零，实测灵力恢复从战斗中的 `0.05` 回到正常档 `0.2`。报告为 0 FAIL 并以 `DONE` 收尾；两次完整保存，Gradle 退出码 0。证据：`worktrees/rebuild-renjian-starter-20261118/build/diagnostics/renjian-combat-lifecycle/run-01/report.txt` 与同目录 `gradle.log`。本场景只覆盖人间道受控普通僵尸对玩家的单机路径，不等同自然目标全覆盖、多人、专服、其他维度、1.18.2 版本实机或两版本对照。

@@ -25,6 +25,7 @@ public final class SmokeMod {
     private static void releaseMouse() {
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.options.pauseOnLostFocus = false;
+        if (RenjianWindReplay.saveFor(System.getProperty("yvanchuxiuzhen.smoke.only", "")) != null) return;
         minecraft.setWindowActive(false);
         if (minecraft.mouseHandler.isMouseGrabbed()) {
             minecraft.mouseHandler.releaseMouse();

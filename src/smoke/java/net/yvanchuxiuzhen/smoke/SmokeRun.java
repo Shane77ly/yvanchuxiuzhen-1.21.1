@@ -94,6 +94,8 @@ final class SmokeRun {
     private final List<Closeup> closeups = new ArrayList<>();
     private final Minecraft minecraft = Minecraft.getInstance();
     private final boolean guardedFirstSpell = "renjianfirstspell".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
+    private final boolean renjianCombatLifecycle = "renjiancombatlifecycle".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
+    private final boolean guardedWorldExit = guardedFirstSpell || renjianCombatLifecycle;
     private final boolean renjianVisual = "renjianvisual".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private int ticks;
     private int phase;
@@ -158,7 +160,7 @@ final class SmokeRun {
             }
         } catch (Exception exception) {
             report.add("FAIL harness " + exception);
-            if (guardedFirstSpell) {
+            if (guardedWorldExit) {
                 blockFirstSpellExit("夹具异常：" + exception);
             } else if (finishRequested) {
                 completeExit();
@@ -196,7 +198,7 @@ final class SmokeRun {
                 });
                 return;
             }
-            if (guardedFirstSpell && (minecraft.options.renderDistance().get() != 2 || minecraft.options.simulationDistance().get() != 5)) {
+            if (guardedWorldExit && (minecraft.options.renderDistance().get() != 2 || minecraft.options.simulationDistance().get() != 5)) {
                 blockFirstSpellExit("启动配置需视距 2 / 模拟距离 5；实际 " + minecraft.options.renderDistance().get()
                         + " / " + minecraft.options.simulationDistance().get());
                 return;
@@ -208,7 +210,7 @@ final class SmokeRun {
                     rules, WorldDataConfiguration.DEFAULT);
             levelId = "smoke" + System.currentTimeMillis();
             WorldOptions options = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
-                case "renjianfirstspell" -> new WorldOptions(FIRST_SPELL_SEED, true, false);
+                case "renjianfirstspell", "renjiancombatlifecycle" -> new WorldOptions(FIRST_SPELL_SEED, true, false);
                 case "renjianrandom" -> new WorldOptions(RenjianRandomCheck.SEED, true, false);
                 case "plantsupply" -> new WorldOptions(PlantSupplyCheck.REPLAY_SEED, true, false);
                 default -> WorldOptions.defaultWithRandomSeed();
@@ -331,6 +333,11 @@ final class SmokeRun {
                     case "wuguiportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.WUGUI));
                     case "renjianportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.RENJIAN));
                     case "renjiandeath" -> List.of(new RenjianDeathCheck(report, levelId, this::shot));
+                    case "renjiancombatlifecycle" -> {
+                        if (!renjianCombatLifecycle) throw new IllegalArgumentException("renjiancombatlifecycle 需单独运行");
+                        yield List.of(new RenjianCombatLifecycleCheck(report, levelId,
+                                () -> pollFirstSpellExit("战斗中同档重进"), this::writeReport));
+                    }
                     case "renjiancorpseharvest" -> List.of(new RenjianCorpseHarvestCheck(report, levelId));
                     case "renjiancorpseclient" -> List.of(new RenjianCorpseClientCheck(report, levelId));
                     case "renjianentry" -> List.of(new DimensionPortalCheck(report, levelId, this::shot,
@@ -779,7 +786,7 @@ final class SmokeRun {
     }
 
     private void waitForSettledExit() {
-        if (guardedFirstSpell) {
+        if (guardedWorldExit) {
             if (pollFirstSpellExit("最终退出")) {
                 firstSpellCompletingExit = true;
                 completeExit();
@@ -807,9 +814,10 @@ final class SmokeRun {
     /** 闸门沿用公共跨维判据。只留一个未完成的采样；服务端忙时不在渲染线程 join。 */
     private boolean pollFirstSpellExit(String stage) {
         long now = System.nanoTime();
+        String scenario = renjianCombatLifecycle ? "人间普通战斗" : "人间首技";
         if (firstSpellExitStarted == 0) {
             firstSpellExitStarted = now;
-            report.add("INFO 人间首技 " + stage + " 等待区块收敛，存档=" + levelId);
+            report.add("INFO " + scenario + " " + stage + " 等待区块收敛，存档=" + levelId);
             writeReport();
         }
         MinecraftServer server = minecraft.getSingleplayerServer();
@@ -830,7 +838,7 @@ final class SmokeRun {
             }
             firstSpellLastServerTick = sample.serverTick();
             if (firstSpellCleanSamples >= 40) {
-                report.add("INFO 人间首技 " + stage + " 连续 40 个不同服务端刻的采样收敛；即将原生断开");
+                report.add("INFO " + scenario + " " + stage + " 连续 40 个不同服务端刻的采样收敛；即将原生断开");
                 writeReport();
                 firstSpellExitStarted = 0;
                 firstSpellCleanSamples = 0;
@@ -850,7 +858,8 @@ final class SmokeRun {
 
     private void blockFirstSpellExit(String reason) {
         firstSpellExitBlocked = true;
-        report.add("FAIL FIRST_SPELL_EXIT_BLOCKED " + reason + "；未请求新的断开或重开");
+        String code = renjianCombatLifecycle ? "COMBAT_LIFECYCLE_EXIT_BLOCKED" : "FIRST_SPELL_EXIT_BLOCKED";
+        report.add("FAIL " + code + " " + reason + "；未请求新的断开或重开");
         writeReport();
     }
 

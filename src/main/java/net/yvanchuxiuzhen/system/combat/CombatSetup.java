@@ -8,6 +8,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
+import net.yvanchuxiuzhen.system.combat.api.FightingState;
 import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.content.CombatMenus;
@@ -49,6 +50,7 @@ public final class CombatSetup {
         CombatMenus.register(modBus);
         modBus.addListener(CombatSetup::registerPayloads);
         HurtHandler.register();
+        FightingState.register();
         NeoForge.EVENT_BUS.addListener(PlayerDeathRules::onDeath);
         ShanghaiCommand.register();
         LightningLanding.register(modBus);
