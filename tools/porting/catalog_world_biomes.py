@@ -11,7 +11,7 @@ from pathlib import Path
 from convert_content import ROOT, SOURCES
 
 MOD = 'yvanchuxiuzhen'
-DIMENSIONS = ('dimensionrenjian', 'dimensionyaohun', 'dimensiontianqve', 'dimensionwugui')
+DIMENSIONS = ('dimensionrenjian', 'dimensionyaohun', 'dimensiontianqve', 'dimensionwugui', 'dimensionxiuluo')
 HELPER_ENTRY = 'net/minecraft/data/worldgen/BiomeDefaultFeatures.java'
 CALL = re.compile(r'(?P<name>[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*)\s*\(')
 

@@ -68,6 +68,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.neoforged.neoforge.client.gui.CreativeTabsScreenPage;
 import net.yvanchuxiuzhen.system.xiulian.XiulianRules;
 import net.yvanchuxiuzhen.system.world.diagnostic.WorldStopRequeueDiagnostics;
+import net.yvanchuxiuzhen.system.world.portal.DimensionPortalSpec;
 
 /**
  * 客户端冒烟检查：建一个创造模式世界，在高空平台放置本 Mod 的全部方块状态，核对每个方块与物品有模型和名称，
@@ -268,7 +269,8 @@ final class SmokeRun {
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
                     case "tianqve" -> List.of(new TianqveWorldgenCheck(report, levelId, this::shot));
                     case "wugui" -> List.of(new WuguiWorldgenCheck(report, levelId, this::shot));
-                    case "wuguiportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, true));
+                    case "wuguiportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.WUGUI));
+                    case "xiuluoportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.XIULUO));
                     case "questblockrefresh" -> List.of(new QuestBlockRefreshCheck(report, levelId));
                     case "handheldfirework" -> List.of(new HandheldFireworkCheck(report, levelId, this::shot));
                     case "festivalfirework" -> List.of(new FestivalFireworkCheck(report, levelId));

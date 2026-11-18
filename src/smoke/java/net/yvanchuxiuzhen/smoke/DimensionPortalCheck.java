@@ -43,7 +43,7 @@ final class DimensionPortalCheck extends SystemCheck {
 
     private final Screenshots screenshots;
     private final List<String> report;
-    private final boolean wuguiOnly;
+    private final DimensionPortalSpec focusedGate;
     private final List<ItemStack> inventory = new ArrayList<>();
     private final Map<DimensionPortalSpec, BlockPos> exits = new EnumMap<>(DimensionPortalSpec.class);
     private ResourceKey<Level> originalDimension;
@@ -61,14 +61,14 @@ final class DimensionPortalCheck extends SystemCheck {
     private int additionalPhaseStart;
 
     DimensionPortalCheck(List<String> report, String levelId, Screenshots screenshots) {
-        this(report, levelId, screenshots, false);
+        this(report, levelId, screenshots, null);
     }
 
-    DimensionPortalCheck(List<String> report, String levelId, Screenshots screenshots, boolean wuguiOnly) {
-        super(wuguiOnly ? "无归门户" : "天道门户", report, levelId);
+    DimensionPortalCheck(List<String> report, String levelId, Screenshots screenshots, DimensionPortalSpec focusedGate) {
+        super(focusedGate == null ? "天道门户" : gate(focusedGate).name() + "门户", report, levelId);
         this.report = report;
         this.screenshots = screenshots;
-        this.wuguiOnly = wuguiOnly;
+        this.focusedGate = focusedGate;
     }
 
     @Override
@@ -82,7 +82,7 @@ final class DimensionPortalCheck extends SystemCheck {
     }
 
     private boolean advance(int step, int local) {
-        if (wuguiOnly && (step >= 2 && step <= 9 || step >= 14 && step <= 17 || step >= 26 && step <= 29)) return true;
+        if (focusedGate != null && (step >= 2 && step <= 9 || step >= 14 && step <= 17 || step >= 26 && step <= 29)) return true;
         if (step >= 2 && step <= 9) return checkAdditionalGate(step, local);
         switch (step) {
             case 0 -> {
@@ -182,7 +182,11 @@ final class DimensionPortalCheck extends SystemCheck {
     }
 
     private Gate primaryGate(int index) {
-        return GATES.get(wuguiOnly ? 4 : index);
+        return focusedGate == null ? GATES.get(index) : gate(focusedGate);
+    }
+
+    private static Gate gate(DimensionPortalSpec spec) {
+        return GATES.stream().filter(gate -> gate.spec() == spec).findFirst().orElseThrow();
     }
 
     private boolean checkAdditionalGate(int step, int local) {
@@ -259,9 +263,10 @@ final class DimensionPortalCheck extends SystemCheck {
         for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) inventory.add(player.getInventory().getItem(slot).copy());
         prepared = true;
         report.add("INFO 天道门户 边界：独立冒烟存档受控布置框架和定位玩家；真实原生useItemOn与碰撞传送；后续入门前受控清零冷却，不验证完整自然等待或多人");
-        if (wuguiOnly) {
-            report.add("INFO 无归门户 边界：六组主世界工具/门户仍检查；只进入无归道，检查首次及真实重进后的两次完整往返，不重放其他目标维度");
-            if (player.server.getLevel(DimensionPortalSpec.WUGUI.dimension()) == null) throw new IllegalStateException("正式无归维度缺失");
+        if (focusedGate != null) {
+            String name = gate(focusedGate).name();
+            report.add("INFO " + name + "门户 边界：六组主世界工具/门户仍检查；只进入" + name + "，检查首次及真实重进后的两次完整往返");
+            if (player.server.getLevel(focusedGate.dimension()) == null) throw new IllegalStateException(name + "维度缺失");
         }
         player.closeContainer();
         player.getInventory().clearContent();
