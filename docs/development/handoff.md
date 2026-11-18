@@ -15,7 +15,7 @@ updated: 2026-11-18
 
 毒液、蓝焰火和水枪物品的原生使用/松手入口功能`478576d5`由`4a40a6fc`非快进合入；定向转换、双编译、六项架构及修订后受控客户端通过，证据与未验边界见[Creature月志](../systems/creature/logs/2026-11.md#2026-11-18-三件妖兽投射物品接收与必要客户端)。
 
-下一动作：从当前集成基线在D盘独立功能树预核棺材/游魂01冻结接收包`tmp/r07-coffin-receive-freeze-20261118/`，manifest `eb499a9d62fd9487d6552ca15bd41cbf49b8c49e19d21b565fd234cfc4b72925`（Creature owner树）。复核推进后的共享`CreatureSetup`、转换器、文档和台账冲突后，再定向转换、编译并运行限定`coffinghost`。其余冻结包、模块状态和串行队列见[当前调度](remaining-work.md#当前调度)。
+下一动作：生物与蛊虫完整模块由同一实现负责人从`63852624`在D盘独立模块树推进。首个内部接收节点是棺材/游魂01；定向转换、编译和必要客户端由主agent串行执行。冻结包、模块状态、验收出口和串行队列见[当前调度](remaining-work.md#当前调度)；内部节点通过不等于完整模块交付。
 
 原主树`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`保持`port/full-migration-20261112`、`28f05bc7`及全部既有脏改动和25条暂存；不前移、不清理。既有保护证据为集成树`tmp/session-close-20261117/main-protection-check.json`。
 
