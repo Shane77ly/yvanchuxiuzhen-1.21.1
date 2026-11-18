@@ -26,5 +26,6 @@ public final class CreatureClientSetup {
         NaturalCreatureClient.register(modBus);
         GhostCreatureClient.register(modBus);
         BossCreatureClient.register(modBus);
+        CoffinClient.register(modBus);
     }
 }

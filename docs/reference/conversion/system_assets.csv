@@ -829,3 +829,11 @@ creature,geo,yvanchuxiuzhen:moshou002
 creature,animation,yvanchuxiuzhen:moshou002
 creature,texture,yvanchuxiuzhen:entities/moshou002
 creature,item,yvanchuxiuzhen:moshou_002_spawn_egg
+creature,geo,yvanchuxiuzhen:guancai
+creature,animation,yvanchuxiuzhen:guancai
+creature,texture,yvanchuxiuzhen:blocks/guancai01
+creature,block,yvanchuxiuzhen:guancai_01
+creature,geo,yvanchuxiuzhen:guiguai01
+creature,animation,yvanchuxiuzhen:guiguai01
+creature,texture,yvanchuxiuzhen:entities/guiguai01
+creature,item,yvanchuxiuzhen:guiguai_01_spawn_egg

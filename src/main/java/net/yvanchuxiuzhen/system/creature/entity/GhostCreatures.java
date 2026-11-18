@@ -8,7 +8,7 @@ import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 
-/** 鬼火与小尸王的实体、属性及来源刷怪蛋装配；来源未启用自然生成。 */
+/** 游魂、鬼火与小尸王的实体、属性及来源刷怪蛋装配；来源未启用自然生成。 */
 public final class GhostCreatures {
     private GhostCreatures() { }
 
@@ -19,6 +19,8 @@ public final class GhostCreatures {
     public static void register(ContentTables content) {
         for (EntityModelRow row : models()) {
             switch (row.id()) {
+                case "guiguai_01" -> content.<Guiguai01Entity>livingEntity(row.id(),
+                        (type, level) -> new Guiguai01Entity(type, level, row), () -> Guiguai01Entity.attributes(row));
                 case "guiguai_02" -> content.<Guiguai02Entity>livingEntity(row.id(),
                         (type, level) -> new Guiguai02Entity(type, level, row), () -> Guiguai02Entity.attributes(row));
                 case "guiguai_03" -> content.<Guiguai03Entity>livingEntity(row.id(),

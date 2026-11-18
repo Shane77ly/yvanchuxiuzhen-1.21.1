@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/guancai.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/guancai01"
+  }
+}

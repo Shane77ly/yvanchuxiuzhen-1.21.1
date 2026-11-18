@@ -86,5 +86,6 @@
 {"id":"ycxzboss_01","category":"MONSTER","width":0.6,"height":1.8,"tracking_range":64,"update_interval":3,"fire_immune":false},
 {"id":"ycxzboss_02","category":"MONSTER","width":0.6,"height":1.8,"tracking_range":64,"update_interval":3,"fire_immune":false},
 {"id":"ycxzboss_0201","category":"MONSTER","width":0.5,"height":0.2,"tracking_range":64,"update_interval":3,"fire_immune":false},
-{"id":"ycxzboss_04","category":"MONSTER","width":1.4,"height":4.5,"tracking_range":64,"update_interval":3,"fire_immune":false}
+{"id":"ycxzboss_04","category":"MONSTER","width":1.4,"height":4.5,"tracking_range":64,"update_interval":3,"fire_immune":false},
+{"id":"guiguai_01","category":"MONSTER","width":0.6,"height":0.8,"tracking_range":64,"update_interval":3,"fire_immune":false}
 ]

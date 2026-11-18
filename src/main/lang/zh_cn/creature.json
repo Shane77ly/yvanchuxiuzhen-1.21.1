@@ -328,5 +328,8 @@
   "message.yvanchuxiuzhen.yaoshou_interaction.obedient": "妖兽更听话了",
   "message.yvanchuxiuzhen.yaoshou_interaction.greeting": "%s( ^ V ^ )",
   "entity.yvanchuxiuzhen.moshou_002": "天魔",
-  "item.yvanchuxiuzhen.moshou_002_spawn_egg": "天魔"
+  "item.yvanchuxiuzhen.moshou_002_spawn_egg": "天魔",
+  "block.yvanchuxiuzhen.guancai_01": "棺材",
+  "entity.yvanchuxiuzhen.guiguai_01": "游魂",
+  "item.yvanchuxiuzhen.guiguai_01_spawn_egg": "游魂"
 }

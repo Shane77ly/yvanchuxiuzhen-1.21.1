@@ -100,5 +100,7 @@
 {"id":"yaoshou_016duye","factory":"creature:yaoshou_projectile","order":1998},
 {"id":"yaoshou_026huoyan","factory":"creature:yaoshou_projectile","order":1999,"stack":1},
 {"id":"yaoshou_028shuiqiang","factory":"creature:yaoshou_projectile","order":2000,"stack":1},
-{"id":"yaoshou_023baodan","factory":"creature:yaoshou_023baodan","order":2001,"stack":1}
+{"id":"yaoshou_023baodan","factory":"creature:yaoshou_023baodan","order":2001,"stack":1},
+{"id":"guiguai_01_spawn_egg","factory":"creature:spawn_egg_guiguai_01","order":1626,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
+{"id":"guancai_01","factory":"creature:coffin","block":"guancai_01","order":1763,"tab":"yvanchuxiuzhen:tabyvanchu_block"}
 ]
