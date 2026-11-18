@@ -104,11 +104,19 @@ abstract class SystemCheck {
             return;
         }
         leaving = false;
+        disconnectWorld();
+    }
+
+    /** 已满足离档条件后，走原生断开；回标题前不推进场景步骤。 */
+    protected final void disconnectWorld() {
         busy = true;
-        minecraft.level.disconnect();
-        minecraft.disconnect(new GenericMessageScreen(Component.literal("saving")));
-        minecraft.setScreen(new TitleScreen());
-        busy = false;
+        try {
+            minecraft.level.disconnect();
+            minecraft.disconnect(new GenericMessageScreen(Component.literal("saving")));
+            minecraft.setScreen(new TitleScreen());
+        } finally {
+            busy = false;
+        }
     }
 
     /** 标题界面出现后重新打开同一存档，返回 true。 */

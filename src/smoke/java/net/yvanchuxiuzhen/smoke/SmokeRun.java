@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
@@ -80,12 +82,16 @@ import net.yvanchuxiuzhen.system.world.portal.DimensionPortalSpec;
  */
 final class SmokeRun {
     private static final String MOD = "yvanchuxiuzhen";
+    /** 固定首入 run-01 成功离档重进的 level.dat 种子；首技夹具仍用原点附近的既有平台。 */
+    private static final long FIRST_SPELL_SEED = 228722870480601105L;
+    private static final long FIRST_SPELL_EXIT_TIMEOUT = TimeUnit.SECONDS.toNanos(60);
     /** 俯视位置：x 坐标与方块行号。 */
     private static final int[][] VIEWS = {{14, 0}, {50, 0}, {100, 0}, {30, 40}, {70, 80}, {30, 120}, {90, 160}};
     private final Path output;
     private final List<String> report = new ArrayList<>();
     private final List<Closeup> closeups = new ArrayList<>();
     private final Minecraft minecraft = Minecraft.getInstance();
+    private final boolean guardedFirstSpell = "renjianfirstspell".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private int ticks;
     private int phase;
     private int phaseStart;
@@ -98,6 +104,19 @@ final class SmokeRun {
     private boolean stopDiagnosticsArmed;
     private boolean finishRequested;
     private int settledExitTicks;
+    private boolean firstSpellExitBlocked;
+    private boolean firstSpellCompletingExit;
+    private long firstSpellExitStarted;
+    private int firstSpellCleanSamples;
+    private int firstSpellLastServerTick = -1;
+    private ExitSample firstSpellLastSample;
+    private CompletableFuture<ExitSample> firstSpellPendingSample;
+
+    private record ExitSample(int serverTick, int pending, WorldStopRequeueDiagnostics.Readiness readiness) {
+        boolean settled() {
+            return pending == 0 && readiness.active() && readiness.settled();
+        }
+    }
 
     /** 近景截图：相机所在玩家的位置与朝向，以及在服务端线程上的布置动作。 */
     private record Closeup(String name, CameraType camera, double x, double y, double z, float yRot, float xRot,
@@ -109,6 +128,7 @@ final class SmokeRun {
     }
 
     void tick() {
+        if (firstSpellExitBlocked || firstSpellCompletingExit) return;
         ticks++;
         try {
             if (finishRequested) {
@@ -135,7 +155,9 @@ final class SmokeRun {
             }
         } catch (Exception exception) {
             report.add("FAIL harness " + exception);
-            if (finishRequested) {
+            if (guardedFirstSpell) {
+                blockFirstSpellExit("夹具异常：" + exception);
+            } else if (finishRequested) {
                 completeExit();
             } else {
                 finish();
@@ -162,15 +184,23 @@ final class SmokeRun {
             return;
         }
         if (minecraft.screen instanceof TitleScreen && minecraft.getOverlay() == null) {
+            if (guardedFirstSpell && (minecraft.options.renderDistance().get() != 2 || minecraft.options.simulationDistance().get() != 5)) {
+                blockFirstSpellExit("启动配置需视距 2 / 模拟距离 5；实际 " + minecraft.options.renderDistance().get()
+                        + " / " + minecraft.options.simulationDistance().get());
+                return;
+            }
             // 关闭首次进入的出身界面，免得内容检查期间弹出；修炼检查中再开启。
             GameRules rules = new GameRules();
             rules.getRule(XiulianRules.BIRTH_SELECTION).set(false, null);
             LevelSettings settings = new LevelSettings("smoke", GameType.CREATIVE, false, Difficulty.PEACEFUL, true,
                     rules, WorldDataConfiguration.DEFAULT);
             levelId = "smoke" + System.currentTimeMillis();
-            minecraft.createWorldOpenFlows().createFreshLevel(levelId, settings,
-                    "renjianrandom".equals(System.getProperty("yvanchuxiuzhen.smoke.only"))
-                            ? new WorldOptions(RenjianRandomCheck.SEED, true, false) : WorldOptions.defaultWithRandomSeed(),
+            WorldOptions worldOptions = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
+                case "renjianfirstspell" -> new WorldOptions(FIRST_SPELL_SEED, true, false);
+                case "renjianrandom" -> new WorldOptions(RenjianRandomCheck.SEED, true, false);
+                default -> WorldOptions.defaultWithRandomSeed();
+            };
+            minecraft.createWorldOpenFlows().createFreshLevel(levelId, settings, worldOptions,
                     WorldPresets::createNormalWorldDimensions, minecraft.screen);
             next();
         }
@@ -280,6 +310,14 @@ final class SmokeRun {
                             DimensionPortalSpec.RENJIAN, new RenjianEntryProbe()));
                     case "xiuluoportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.XIULUO));
                     case "questblockrefresh" -> List.of(new QuestBlockRefreshCheck(report, levelId));
+                    case "renjianstarter" -> List.of(new RenjianStarterCheck(report, levelId, this::shot, true));
+                    case "overworldstarter" -> List.of(new RenjianStarterCheck(report, levelId, this::shot, false));
+                    case "renjianfirstspell" -> {
+                        if (!guardedFirstSpell) throw new IllegalArgumentException("renjianfirstspell 需单独运行");
+                        yield List.of(new RenjianStarterCheck(report, levelId, this::shot, this::writeBreakthroughEvidence,
+                                () -> pollFirstSpellExit("首破后同档重进")));
+                    }
+                    case "overworldfirstspell" -> List.of(new RenjianStarterCheck(report, levelId, this::shot, false, true));
                     case "handheldfirework" -> List.of(new HandheldFireworkCheck(report, levelId, this::shot));
                     case "festivalfirework" -> List.of(new FestivalFireworkCheck(report, levelId));
                     case "boss" -> List.of(new BossCheck(report, levelId, this::shot));
@@ -714,6 +752,13 @@ final class SmokeRun {
     }
 
     private void waitForSettledExit() {
+        if (guardedFirstSpell) {
+            if (pollFirstSpellExit("最终退出")) {
+                firstSpellCompletingExit = true;
+                completeExit();
+            }
+            return;
+        }
         var server = minecraft.getSingleplayerServer();
         if (minecraft.level != null && server != null) {
             int[] pending = new int[1];
@@ -730,6 +775,67 @@ final class SmokeRun {
         }
 
         completeExit();
+    }
+
+    /** 闸门沿用公共跨维判据。只留一个未完成的采样；服务端忙时不在渲染线程 join。 */
+    private boolean pollFirstSpellExit(String stage) {
+        long now = System.nanoTime();
+        if (firstSpellExitStarted == 0) {
+            firstSpellExitStarted = now;
+            report.add("INFO 人间首技 " + stage + " 等待区块收敛，存档=" + levelId);
+            writeReport();
+        }
+        MinecraftServer server = minecraft.getSingleplayerServer();
+        if (server == null || minecraft.level == null || now - firstSpellExitStarted >= FIRST_SPELL_EXIT_TIMEOUT) {
+            blockFirstSpellExit(stage + " 未达到离档条件：最近采样=" + firstSpellLastSample
+                    + "，连续样本=" + firstSpellCleanSamples + "，采样已返回="
+                    + (firstSpellPendingSample != null && firstSpellPendingSample.isDone()));
+            return false;
+        }
+        if (firstSpellPendingSample != null) {
+            if (!firstSpellPendingSample.isDone()) return false;
+            ExitSample sample = firstSpellPendingSample.join();
+            firstSpellLastSample = sample;
+            if (!sample.settled()) {
+                firstSpellCleanSamples = 0;
+            } else if (sample.serverTick() != firstSpellLastServerTick) {
+                firstSpellCleanSamples++;
+            }
+            firstSpellLastServerTick = sample.serverTick();
+            if (firstSpellCleanSamples >= 40) {
+                report.add("INFO 人间首技 " + stage + " 连续 40 个不同服务端刻的采样收敛；即将原生断开");
+                writeReport();
+                firstSpellExitStarted = 0;
+                firstSpellCleanSamples = 0;
+                firstSpellLastServerTick = -1;
+                firstSpellLastSample = null;
+                firstSpellPendingSample = null;
+                return true;
+            }
+        }
+        firstSpellPendingSample = server.submit(() -> {
+            int pending = 0;
+            for (ServerLevel level : server.getAllLevels()) pending += level.getChunkSource().getPendingTasksCount();
+            return new ExitSample(server.getTickCount(), pending, WorldStopRequeueDiagnostics.readiness(server));
+        });
+        return false;
+    }
+
+    private void blockFirstSpellExit(String reason) {
+        firstSpellExitBlocked = true;
+        report.add("FAIL FIRST_SPELL_EXIT_BLOCKED " + reason + "；未请求新的断开或重开");
+        writeReport();
+    }
+
+    private void writeBreakthroughEvidence() {
+        List<String> evidence = new ArrayList<>(report);
+        evidence.add("CHECKPOINT FIRST_BREAKTHROUGH_BEFORE_DISCONNECT levelId=" + levelId + " seed=" + FIRST_SPELL_SEED);
+        try {
+            Files.createDirectories(output);
+            Files.write(output.resolve("renjianfirstspell-breakthrough.txt"), evidence, StandardCharsets.UTF_8);
+        } catch (IOException exception) {
+            throw new IllegalStateException(exception);
+        }
     }
 
     private void completeExit() {
