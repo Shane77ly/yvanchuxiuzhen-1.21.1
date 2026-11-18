@@ -1095,3 +1095,6 @@ item,yvanchuxiuzhen:moshou_002_spawn_egg,creature:spawn_egg_moshou_002,creature,
 item,yvanchuxiuzhen:yaoshou_016duye,creature:yaoshou_projectile,creature,来源按住松手入口和固定弹体参数
 item,yvanchuxiuzhen:yaoshou_026huoyan,creature:yaoshou_projectile,creature,来源按住松手入口和固定弹体参数
 item,yvanchuxiuzhen:yaoshou_028shuiqiang,creature:yaoshou_projectile,creature,来源按住松手入口和固定弹体参数
+block,yvanchuxiuzhen:guancai_01,creature:coffin,creature,零槽容器状态与GeckoLib来源动画方块
+item,yvanchuxiuzhen:guancai_01,creature:coffin,creature,GeckoLib来源方块物品与显示模型
+item,yvanchuxiuzhen:guiguai_01_spawn_egg,creature:spawn_egg_guiguai_01,creature,来源刷怪蛋颜色与游魂01实体类型

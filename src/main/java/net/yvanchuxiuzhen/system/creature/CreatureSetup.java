@@ -8,6 +8,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.system.creature.content.CoffinContent;
 import net.yvanchuxiuzhen.system.creature.content.SpiritBeastBagDyeMenus;
 import net.yvanchuxiuzhen.system.creature.content.SpiritBeastDyeToolInventory;
 import net.yvanchuxiuzhen.system.creature.entity.BossCreatures;
@@ -35,6 +36,7 @@ public final class CreatureSetup {
     }
 
     public static void register(IEventBus modBus) {
+        CoffinContent.register(CONTENT, modBus);
         CONTENT.effectBehavior("yaoshou_053baofengxve", new Yaoshou053BlizzardEffect());
         CONTENT.itemFactory("creature:spirit_beast_bag", SpiritBeastBagItem::new);
         CONTENT.itemFactory("creature:spirit_beast_dye_tool", SpiritBeastDyeToolItem::new);

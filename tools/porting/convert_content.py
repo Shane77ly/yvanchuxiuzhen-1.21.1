@@ -43,7 +43,7 @@ ANIMATED_BLOCK_FACTORIES = {'plant:gourd', 'lianqi:repair_table', 'fulu:inherita
                             'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:silkworm_box',
                             'treasure:chest_03', 'treasure:chest_11', 'economy:bank',
                             'dungeon:tiandaofuben', 'dungeon:fabao_009', 'world:rift',
-                            'zhenfa:marker', 'zhenfa:flagmother_display', 'zhenfa:flagson_display', 'zhenfa:compass', 'decor:fortune_container', 'decor:relocation_ladder', 'plant:animated_big_grass'}
+                            'zhenfa:marker', 'zhenfa:flagmother_display', 'zhenfa:flagson_display', 'zhenfa:compass', 'decor:fortune_container', 'decor:relocation_ladder', 'plant:animated_big_grass', 'creature:coffin'}
 # 1.18.2 原版创造栏在 1.21.1 的对应；临时对应，待负责人确认。
 VANILLA_TABS = {'TAB_MISC': 'minecraft:tools_and_utilities', 'TAB_DECORATIONS': 'minecraft:building_blocks',
                 'TAB_TOOLS': 'minecraft:tools_and_utilities'}
@@ -444,7 +444,7 @@ def main() -> None:
                        'cooking:cutting_board', 'cooking:cleaver',
                        'cooking:wooden_still', 'cooking:wine_jar',
                        'cooking:waterlogged_wine_jar', 'cooking:natural_monkey_wine', 'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:pottery_blank',
-                       'craft:silkworm_box', 'craft:chrysalis_display', 'cooking:plated_food',
+                       'craft:silkworm_box', 'craft:chrysalis_display', 'cooking:plated_food', 'creature:coffin',
                        'cooking:bowl', 'cooking:plate', 'cooking:large_bowl', 'cooking:iron_plate',
                        'plant:particle_foliage', 'plant:particle_foliage_leaves', 'plant:maple_resin', 'plant:water_plant',
                        'plant:mulberry_sapling', 'plant:mulberry_leaves',
