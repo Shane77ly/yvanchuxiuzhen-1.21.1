@@ -14,7 +14,7 @@
 {"id":"privet_02","factory":"block_item","block":"privet_02","order":246,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"privet_03","factory":"block_item","block":"privet_03","order":247,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"privet_04","factory":"block_item","block":"privet_04","order":248,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
-{"id":"peachkernel","factory":"item","order":250,"tab":"yvanchuxiuzhen:tabyvanchu_food","pending_hooks":["useOn"]},
+{"id":"peachkernel","factory":"plant:peach_kernel","order":250,"tab":"yvanchuxiuzhen:tabyvanchu_food"},
 {"id":"peachsapling","factory":"block_item","block":"peachsapling","order":251,"tab":"yvanchuxiuzhen:tabyvanchu_block","tooltip":["使用精血灌溉，会有意想不到的收获！"]},
 {"id":"peachleaves","factory":"block_item","block":"peachleaves","order":252,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"peachflower","factory":"block_item","block":"peachflower","order":253,"tab":"yvanchuxiuzhen:tabyvanchu_block"},

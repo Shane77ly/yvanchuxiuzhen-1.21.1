@@ -21,6 +21,8 @@ updated: 2026-11-15
 - [本批来源证据](ledger/source-evidence.csv)：管理解锁过程的归属、来源行为与实现边界。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
 
+林桃食用产核已接回；人间道自然实得林桃的末枚返核和后续种植、读盘见[植物月志](../plant/logs/2026-11.md#2026-11-18-人间道自然林桃至播种与重进)。余栈返包、满包落地未实机验收。
+
 ## 公开操作
 
 2026-11-09静态核对确认 `Qancailuitxtjiesuoneed`、`Qancailuitxtjiesuoneed2`、`Qancailuitxtjiesuoneed3` 只读取千材录成本显示缓存，三项从 liandan 移归 material；`Duedanhecheng` 按毒厄丹用途移归 liandan。现有 `MaterialAnalysisScreen` 已显示对应三行成本，本批未重新验收显示缓存生命周期或运行画面，来源定位见[正文](architecture.md#千材录成本显示过程归属2026-11-09)。
