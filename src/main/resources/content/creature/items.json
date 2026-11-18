@@ -97,8 +97,8 @@
 {"id":"lingshoudai_00","factory":"creature:spirit_beast_bag","order":1995,"tab":"yvanchuxiuzhen:tabyvanchu_materials","tooltip":["与染料一起制作成各种颜色的灵兽袋。"]},
 {"id":"lingshoudaizhuanhuanitem","factory":"creature:spirit_beast_dye_tool","order":1996,"tab":"yvanchuxiuzhen:tabyvanchu_weapon","stack":1,"tooltip":["用于为灵兽袋染色的工具"]},
 {"id":"yaoshou_013taoziwuqi","factory":"creature:yaoshou_013taoziwuqi","order":1997},
-{"id":"yaoshou_016duye","factory":"item","order":1998,"pending_hooks":["releaseUsing","use"]},
-{"id":"yaoshou_026huoyan","factory":"item","order":1999,"stack":1,"pending_hooks":["releaseUsing","use"]},
-{"id":"yaoshou_028shuiqiang","factory":"item","order":2000,"stack":1,"pending_hooks":["releaseUsing","use"]},
+{"id":"yaoshou_016duye","factory":"creature:yaoshou_projectile","order":1998},
+{"id":"yaoshou_026huoyan","factory":"creature:yaoshou_projectile","order":1999,"stack":1},
+{"id":"yaoshou_028shuiqiang","factory":"creature:yaoshou_projectile","order":2000,"stack":1},
 {"id":"yaoshou_023baodan","factory":"creature:yaoshou_023baodan","order":2001,"stack":1}
 ]

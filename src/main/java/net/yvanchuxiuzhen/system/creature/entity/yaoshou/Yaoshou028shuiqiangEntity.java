@@ -32,8 +32,14 @@ public final class Yaoshou028shuiqiangEntity extends AbstractArrow implements It
     }
 
     public void configure(Entity owner) {
+        configure(owner, 1, sourcePierce);
+    }
+
+    /** 玩家物品发射保留来源独立的击退和穿透参数，妖兽技能继续使用既有默认值。 */
+    public void configure(Entity owner, int knockback, byte piercing) {
         setOwner(owner);
-        sourceKnockback = 1;
+        sourceKnockback = knockback;
+        sourcePierce = piercing;
     }
 
     public static Yaoshou028shuiqiangEntity shoot(EntityType<Yaoshou028shuiqiangEntity> type, ServerLevel level,

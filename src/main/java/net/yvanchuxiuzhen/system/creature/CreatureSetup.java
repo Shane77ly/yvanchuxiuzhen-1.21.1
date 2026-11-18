@@ -19,6 +19,7 @@ import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou053BlizzardEffec
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouCreatures;
 import net.yvanchuxiuzhen.system.creature.item.SpiritBeastBagItem;
 import net.yvanchuxiuzhen.system.creature.item.SpiritBeastDyeToolItem;
+import net.yvanchuxiuzhen.system.creature.item.YaoshouProjectileItem;
 
 /**
  * 生物系统的启动装配，只在 Mod 构造时调用一次。
@@ -37,6 +38,7 @@ public final class CreatureSetup {
         CONTENT.effectBehavior("yaoshou_053baofengxve", new Yaoshou053BlizzardEffect());
         CONTENT.itemFactory("creature:spirit_beast_bag", SpiritBeastBagItem::new);
         CONTENT.itemFactory("creature:spirit_beast_dye_tool", SpiritBeastDyeToolItem::new);
+        CONTENT.itemFactory("creature:yaoshou_projectile", YaoshouProjectileItem::new);
         SpiritBeastBagDyeMenus.register(modBus);
         modBus.addListener((RegisterCapabilitiesEvent event) -> event.registerItem(Capabilities.ItemHandler.ITEM,
                 (stack, context) -> new SpiritBeastDyeToolInventory(stack), SpiritBeastBagDyeMenus.toolItem()));
