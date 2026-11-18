@@ -1,4 +1,4 @@
-"""导出人间、妖魂维度实际引用群系的完整来源结构；不生成目标资源。"""
+"""导出已接入维度实际引用群系的完整来源结构；不生成目标资源。"""
 from __future__ import annotations
 
 import argparse
@@ -11,7 +11,7 @@ from pathlib import Path
 from convert_content import ROOT, SOURCES
 
 MOD = 'yvanchuxiuzhen'
-DIMENSIONS = ('dimensionrenjian', 'dimensionyaohun')
+DIMENSIONS = ('dimensionrenjian', 'dimensionyaohun', 'dimensiontianqve')
 HELPER_ENTRY = 'net/minecraft/data/worldgen/BiomeDefaultFeatures.java'
 CALL = re.compile(r'(?P<name>[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*)\s*\(')
 
@@ -357,7 +357,7 @@ def build(source_root: Path) -> dict:
     missing_entities = sorted({spawn['entity_id'] for biome in biomes for spawn in biome['spawns']
         if spawn.get('target_mod_entity_registered') is False} | {spawn['entity_id'] for entry in spawn_events for spawn in entry.get('spawns', [])
         if spawn.get('target_mod_entity_registered') is False})
-    return {'scope': '由dimensionrenjian和dimensionyaohun实际biome_source引用闭合；不按名称归组',
+    return {'scope': '由' + '、'.join(DIMENSIONS) + '实际biome_source引用闭合；不按名称归组',
             'source_root': str(source_root), 'biome_registration': evidence(biome_registration, source_root),
             'dimensions': dimensions, 'biomes': biomes, 'vanilla_helper_definitions': helpers,
             'external_feature_loading': event, 'external_features': features, 'external_spawn_events': spawn_events,
