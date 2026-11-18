@@ -1,4 +1,4 @@
-"""转换已逐源实现的24种自然景观与随机结构模板Feature数据身份。"""
+"""转换已逐源实现的25种自然景观与随机结构模板Feature数据身份。"""
 from __future__ import annotations
 
 import re
@@ -13,7 +13,7 @@ SOURCE_FEATURES = (
     'Loessrock', 'Dingxiang01', 'Arrowpoisonwood01',
     'Zhuzidaoyv01', 'Zhuzidaoyv02', 'Zhuzidaoyv03', 'Zhuzidaoyv04', 'Fukongjiaoshi',
     'Suijijiegou01', 'Suijijiegou02', 'Suijijiegou03', 'Suijijiegou04', 'Suijijiegou05', 'Suijijiegou06',
-    'Stonetree02', 'Stonetree03', 'Stonetree04', 'Stonetree06', 'Stonetree07',
+    'Stonetree02', 'Stonetree03', 'Stonetree04', 'Stonetree06', 'Stonetree07', 'Moyanjiegou01',
 )
 CALLBACKS = {
     'Huaguangshengcheng': ('HuaguangshengchengZaiJieGouCunDangShengChengShiProcedure',),

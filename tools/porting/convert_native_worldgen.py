@@ -1,4 +1,4 @@
-"""逐来源表达式转换全部33种非矿物配置型地物，维度门由同名Feature承载。"""
+"""逐来源表达式转换已核对的34种非矿物配置型地物，维度门由同名Feature承载。"""
 from __future__ import annotations
 
 import json
@@ -15,7 +15,7 @@ DATA = ROOT / f'src/main/resources/data/{NAMESPACE}/worldgen'
 MOD = 'yvanchuxiuzhen'
 CLASSES = (
     'Barrenstonestingshengcheng', 'Bluestoneshengcheng', 'Diplidisdiandrashengcheng', 'Duckweedshengcheng',
-    'Gucidici', 'Huaguangjiegou', 'Icelakeshengcheng', 'Icerock02', 'Icerock', 'Ironropeshengcheng',
+    'Gucidici', 'Huaguangjiegou', 'Icelakeshengcheng', 'Icerock02', 'Icerock', 'Ironropeshengcheng', 'Jinsebankuai',
     'Lanhuashengcheng', 'Mushroomblue01shengcheng', 'Mushroomblue02fangzhi', 'Mushroomblue03fangzhi',
     'Mushroompinkwhite01fangzhi', 'Mushroompinkwhite02fangzhi', 'Mushroompinkwhite03fangzhi',
     'Ricciafluitansshengcheng', 'Rockpile01', 'Rottingbambooshengcheng', 'Rushesshengcheng',
@@ -149,6 +149,10 @@ class NativeParser(InlineParser):
             if expression != 'NoneFeatureConfiguration.INSTANCE':
                 raise ValueError(f'未支持的珊瑚配置：{expression}')
             return {}
+        if feature_class == 'DeltaFeature':
+            contents, rim, size, rim_size = invocation(expression, 'new DeltaFeatureConfiguration')
+            return {'contents': self.state(contents), 'rim': self.state(rim),
+                    'size': self.provider_int(size), 'rim_size': self.provider_int(rim_size)}
         if feature_class == 'BlockColumnFeature':
             height, provider = invocation(expression, 'BlockColumnConfiguration.simple')
             return {'layers': [{'height': self.provider_int(height), 'provider': self.provider(provider)}],
@@ -190,7 +194,8 @@ def read_features() -> tuple[NativeFeature, ...]:
     for source in sorted(directory.glob('*.java')):
         text = source.read_text(encoding='utf-8')
         match = re.search(r'public class \w+ extends (\w+)', text)
-        if match is not None and match[1] in FEATURE_CLASSES:
+        # Delta只开放本批已核对的金色板块；其他身份由所属维度单元接入。
+        if match is not None and (match[1] in FEATURE_CLASSES or source.stem == 'JinsebankuaiFeature'):
             sources.append((source, text, match[1]))
     expected = {name + 'Feature.java' for name in CLASSES}
     actual = {source.name for source, _, _ in sources}

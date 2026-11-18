@@ -3967,21 +3967,21 @@ yvanchuxiuzhen,Shanhu3shengcheng,feature,~/plant/ordinaryplants,plant,已读,已
 yvanchuxiuzhen,Fukongjiaoshi,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
 yvanchuxiuzhen,Zishuijing,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Zishuijingzhu,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
-yvanchuxiuzhen,Biomebaichuan01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomebaichuan02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomebaichuan03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Biomebaichuan01,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomebaichuan02,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomebaichuan03,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
 yvanchuxiuzhen,SoulgrassDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Soulgrass 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Soulgrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Youbosoil,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
-yvanchuxiuzhen,Biomeyoumeng01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomeyoumeng02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomeyoumeng03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Biomeyoumeng01,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomeyoumeng02,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomeyoumeng03,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
 yvanchuxiuzhen,Rottingsoil,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
-yvanchuxiuzhen,Biomeshijve01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomeshijve02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomeshijve03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomelianyvan01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinsebankuai,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Biomeshijve01,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomeshijve02,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomeshijve03,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomelianyvan01,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Jinsebankuai,feature,~/plant/ordinaryplants,plant,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
 yvanchuxiuzhen,IronropeDangWanJiaKaiShiPoPiShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Ironrope 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Ironrope,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Ironropeshengcheng,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
@@ -3992,7 +3992,7 @@ yvanchuxiuzhen,Corpsegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅�
 yvanchuxiuzhen,Rottingbamboo,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,MoeyeDangFangKuaiBeiWanJiaPoPiShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Moeye 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Moeye,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Moyanjiegou01,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Moyanjiegou01,structure,~/plant/ordinaryplants,plant,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
 yvanchuxiuzhen,Biomediling01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomediling02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Biomediling03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）

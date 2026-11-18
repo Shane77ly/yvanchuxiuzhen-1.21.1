@@ -9,6 +9,7 @@ import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.DeltaFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
@@ -39,6 +40,7 @@ public final class NativeWorldFeatures {
         add("icerock_02", Feature.BLOCK_COLUMN, BlockColumnConfiguration.CODEC, RENJIAN);
         add("icerock", SOURCE_BLOB, BlockStateConfiguration.CODEC, RENJIAN);
         add("ironropeshengcheng", Feature.BLOCK_COLUMN, BlockColumnConfiguration.CODEC, WUGUI);
+        add("jinsebankuai", Feature.DELTA_FEATURE, DeltaFeatureConfiguration.CODEC, WUGUI);
         add("lanhuashengcheng", Feature.RANDOM_PATCH, RandomPatchConfiguration.CODEC, YAOHUN);
         add("mushroomblue_01shengcheng", Feature.RANDOM_PATCH, RandomPatchConfiguration.CODEC, YAOHUN);
         add("mushroomblue_02fangzhi", Feature.RANDOM_PATCH, RandomPatchConfiguration.CODEC, YAOHUN);
