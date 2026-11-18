@@ -59,6 +59,7 @@ public final class WorldSetup {
                 SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (type, level, reason, pos, random) -> true, RegisterSpawnPlacementsEvent.Operation.REPLACE));
         WorldOreFeatures.register(modBus);
+        AddMissingCreatureSpawn.register(modBus);
         WorldInlineFeatures.register(modBus);
         WorldTreeDecorators.register(modBus);
         WorldTemplateFeatures.register(modBus);
