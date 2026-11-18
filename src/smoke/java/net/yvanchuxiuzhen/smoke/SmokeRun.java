@@ -21,7 +21,9 @@ import java.util.function.Consumer;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.AccessibilityOnboardingScreen;
+import net.minecraft.client.gui.screens.BackupConfirmScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -92,6 +94,7 @@ final class SmokeRun {
     private final List<Closeup> closeups = new ArrayList<>();
     private final Minecraft minecraft = Minecraft.getInstance();
     private final boolean guardedFirstSpell = "renjianfirstspell".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
+    private final boolean renjianVisual = "renjianvisual".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private int ticks;
     private int phase;
     private int phaseStart;
@@ -184,6 +187,15 @@ final class SmokeRun {
             return;
         }
         if (minecraft.screen instanceof TitleScreen && minecraft.getOverlay() == null) {
+            if (renjianVisual) {
+                levelId = "renjian-visual";
+                next();
+                minecraft.createWorldOpenFlows().openWorld(levelId, () -> {
+                    report.add("FAIL 人间道居所无法打开专用存档副本 " + levelId);
+                    finish();
+                });
+                return;
+            }
             if (guardedFirstSpell && (minecraft.options.renderDistance().get() != 2 || minecraft.options.simulationDistance().get() != 5)) {
                 blockFirstSpellExit("启动配置需视距 2 / 模拟距离 5；实际 " + minecraft.options.renderDistance().get()
                         + " / " + minecraft.options.simulationDistance().get());
@@ -208,6 +220,17 @@ final class SmokeRun {
     }
 
     private void waitForWorld() {
+        if (renjianVisual && minecraft.screen instanceof BackupConfirmScreen screen
+                && screen.getTitle().equals(Component.translatable("selectWorld.backupQuestion.experimental"))) {
+            screen.children().stream().filter(child -> child instanceof Button button
+                            && button.getMessage().equals(Component.translatable("selectWorld.backupJoinSkipButton")))
+                    .map(child -> (Button) child).findFirst().orElseThrow().onPress();
+        }
+        if (renjianVisual && ticks - phaseStart > 1200 && minecraft.player == null) {
+            report.add("FAIL 人间道居所副本未就绪：" + (minecraft.screen == null ? "无界面" : minecraft.screen.getTitle().getString()));
+            finish();
+            return;
+        }
         if (minecraft.player != null && minecraft.level != null && minecraft.getSingleplayerServer() != null
                 && ticks - phaseStart > 100) {
             if (!stopDiagnosticsArmed) {
@@ -302,6 +325,7 @@ final class SmokeRun {
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
                     case "renjianrandom" -> List.of(new RenjianRandomCheck(report, levelId));
+                    case "renjianvisual" -> List.of(new RenjianVisualCheck(report, levelId, this::shot));
                     case "tianqve" -> List.of(new TianqveWorldgenCheck(report, levelId, this::shot));
                     case "wugui" -> List.of(new WuguiWorldgenCheck(report, levelId, this::shot));
                     case "wuguiportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.WUGUI));
