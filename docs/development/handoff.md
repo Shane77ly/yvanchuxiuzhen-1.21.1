@@ -9,11 +9,11 @@ updated: 2026-11-18
 
 ## 本次执行基线（2026-11-18）
 
-双Mod全量Goal仍active，仅排除Q28。实际集成树为`D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-20261117`，分支`port/batch0-integration-20261117`；当前功能基线`292d3a13`，最新公共记录HEAD以Git为准。所有集成与公共文档操作显式使用该树。
+双Mod全量Goal仍active，仅排除Q28。实际集成树为`D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-20261117`，分支`port/batch0-integration-20261117`；当前功能基线`6e86380d`，最新公共记录HEAD以Git为准。所有集成与公共文档操作显式使用该树。
 
-天阙七群系功能`9e9c4caf`已由`292d3a13`非快进合入；标准转换、双编译/六架构与一次必要tianqve,dimensionportal通过，首次天阙往返和重进后门户/POI保存成立。当前五个自定义维度/50群系；修罗/无归/地灵及余18群系未接收。规则、有限样点与未验边界只在[World正文](../systems/world/architecture.md#天阙七群系与门户接收2026-11-18)和[月志](../systems/world/logs/2026-11.md#2026-11-18-天阙七群系接收与必要客户端)维护；低视距保存成功不关闭旧高视距OOM/停服重排问题。
+天阙七群系功能`9e9c4caf`由`292d3a13`、无归十群系功能`29f44f24`由`6e86380d`非快进合入。无归正式转换24资源、双编译/六架构及限定wugui,wuguiportal通过，受控生成真实重进与首次及重进后再次完整往返成立；当前六个自定义维度/60目标群系，修罗/地灵及余八来源群系未接收。规则、首轮一般门户人间道随机结构OOM和无效自然地形截图边界只在[World正文](../systems/world/architecture.md#无归十群系与门户接收2026-11-18)及[月志](../systems/world/logs/2026-11.md#2026-11-18-无归十群系接收与限定门户客户端)维护。必要限定单项通过不关闭旧高视距OOM/停服重排。
 
-下一动作：从本集成基线为无归道十群系建立D盘独立功能树，接收World owner的`tmp/r06-wugui-implementation-20261118/frozen/`，manifest `f778823fecca3cc546b1172814e12dce61fc596ae218e6b31fe71f185e2217ab`；先核载荷/真实来源与共享基线，再正式转换、必要编译和客户端。其余冻结包、三模块负责人及串行队列只见[当前调度](remaining-work.md#当前调度)，不得将未接收候选当作已集成或已验证。三件妖兽投射物品新包也已登记队列。
+下一动作：从本集成基线为三件妖兽投射物品建立D盘独立功能树，接收Creature owner的`tmp/r07-projectile-items-freeze-20261118/`，manifest `057aee4ddf4caf9dd6d275b83534346cd95eba0daf3aa6d293de90934548f0a2`；先核载荷/六份真实来源、精确目标API和共享基线，再正式转换、必要双编译/六架构及单项yaoshouprojectileitems。其余冻结包、模块负责人及串行队列只见[当前调度](remaining-work.md#当前调度)，不得将未接收候选当作已集成或已验证。
 
 原主树`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`保持`port/full-migration-20261112`、`28f05bc7`及全部既有脏改动和25条暂存；不前移、不清理。既有保护证据为集成树`tmp/session-close-20261117/main-protection-check.json`。
 
