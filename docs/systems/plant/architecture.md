@@ -9,6 +9,14 @@ updated: 2026-11-18
 
 来源事实与目标实现分别陈述。本批按已批准的系统职责接回来源行为，其余目标方案仍为草案；源码定位采用 [系统导航](../README.md)的 A/B 规则。
 
+## 人间道桑树、桃树与成熟水稻自然供给（2026-11-18）
+
+`mulberry_02`、`peach_01`、`shicai_001_plant_08` 已具备正式注册、配置、投放和来源群系挂载。桑树挂入 `biomewind_02`、`biomeautumn_01`、`biomefeng_02`；模板桃树挂入 `biomefeng_02`、`biomepeach_01`；成熟水稻挂入三个 `biomeautumn`。实现均保留人间/妖魂维度准入；现有这些来源群系的维度表命中在人间道，不以准入本身推定妖魂另有投放。桃林的原生树地物也可产生同一种桃叶，看到桃叶不能单独归因给模板 `peach_01`。
+
+桑叶原生掉落桑葚、桑苗或桑叶；生存破坏另有独立生蚕判定。Craft 的蚕与蚕匣按桑叶身份消费，Cooking 保留桑葚。桃叶走来源概率掉落林桃，Material 食用产核是独立前置，Plant 只接产出的桃核。成熟水稻生成上下两格、下半格产水稻种子；Cooking 配方用四份种子合成一份大米。不补造新玩家文本或跨系统写入口。
+
+`plantsupply` 只定位未经玩家采收的自然方块，检查命中状态存活和水稻双格。生存采收、拾取到库存、真实消费者、幼苗成长及完整关档重开后的方块和库存另记，不以 `give`、`place` 或概率未命中代替。本轮只静态核对。
+
 ## 1.18.2 范围
 
 来源包括农作物、树木与普通植物；当前归属阅读范围见本系统README与归属表。`Shicai*` 种子与作物的功能族横跨 plant 与 cooking 的候选归属，开工时按归属判定确认。
@@ -49,7 +57,7 @@ updated: 2026-11-18
 
 水稻成熟地物类型、configured与placed已装配；`convert_data.py` 经 `convert_plant_worldgen.py` 从锁定来源生成两份JSON并登记同一来源SHA-1，不手写manifest。来源随机patch为tries1、xz7、y3，内部SimpleBlock/ONLY_IN_AIR；外层顺序Count1→Rarity32→InSquare→MOTION_BLOCKING→BiomeFilter。仅dimensionrenjian/dimensionyaohun与biomeautumn_01/02/03；World维度/群系未接回前不安装缺引用modifier，不扩到主世界。类型注册与/place仅能证明独立入口，不代替新生成区块的自然获取。
 
-桑树野外mulberry_02的来源规则已核但本批不实现Feature：仅dimensionrenjian/dimensionyaohun与biomewind_02、biomeautumn_01、biomefeng_02；每次机会随机整数1..1000000<=50000，nextInt(1)+1恒1次，x/z各nextInt(16)，WORLD_SURFACE_WG-1，允许下方grass_block/dirt_path/mycelium/dirt/coarse_dirt/podzol/rooted_dirt；模板mulberry_02锚点(-4,+1,-4)、NONE、AIR忽略、保留实体、flags2。两结构已有转换身份，不代表自然链闭合；Mulberry02元素仍保留原归属状态，源码分支证据与实现状态分开。
+桑树野外mulberry_02仅允许dimensionrenjian/dimensionyaohun与biomewind_02、biomeautumn_01、biomefeng_02；每次机会随机整数1..1000000<=50000，nextInt(1)+1恒1次，x/z各nextInt(16)，WORLD_SURFACE_WG-1，允许下方grass_block/dirt_path/mycelium/dirt/coarse_dirt/podzol/rooted_dirt；模板mulberry_02锚点(-4,+1,-4)、NONE、AIR忽略、保留实体、flags2。当前接线与验收边界见[人间自然供给](#人间道桑树桃树与成熟水稻自然供给2026-11-18)。
 
 ### 验证边界
 
