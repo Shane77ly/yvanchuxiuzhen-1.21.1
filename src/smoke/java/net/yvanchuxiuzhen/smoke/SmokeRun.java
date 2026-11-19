@@ -101,6 +101,7 @@ final class SmokeRun {
         case "renjianvisual" -> "renjian-visual";
         case "q119" -> QiankunDialogueCheck.SAVE_ID;
         case RenjianLocustNaturalCheck.SELECTOR -> RenjianLocustNaturalCheck.SAVE;
+        case RenjianCapturedJarCheck.SELECTOR -> RenjianCapturedJarCheck.SAVE;
         default -> "";
     };
     private int ticks;
@@ -196,24 +197,25 @@ final class SmokeRun {
         }
         if (minecraft.screen instanceof TitleScreen && minecraft.getOverlay() == null) {
             String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
-            if (List.of(only.split(",")).contains(RenjianLocustNaturalCheck.SELECTOR)
-                    && !RenjianLocustNaturalCheck.SELECTOR.equals(only)) {
-                report.add("FAIL " + RenjianLocustNaturalCheck.SELECTOR + " 需单独运行");
+            List<String> selectors = List.of(only.split(",", -1));
+            if (selectors.size() > 1 && (selectors.contains(RenjianLocustNaturalCheck.SELECTOR)
+                    || selectors.contains(RenjianCapturedJarCheck.SELECTOR))) {
+                report.add("FAIL 自然飞蝗及后续装罐各需单独选择运行");
                 finish();
                 return;
             }
-            if (RenjianLocustNaturalCheck.SAVE.equals(replayLevelId)) {
+            if (RenjianLocustNaturalCheck.SAVE.equals(replayLevelId) || RenjianCapturedJarCheck.SAVE.equals(replayLevelId)) {
                 Path gameDir = minecraft.gameDirectory.toPath().toAbsolutePath().normalize();
                 Path save = gameDir.resolve("saves").resolve(replayLevelId);
                 int view = minecraft.options.renderDistance().get();
                 int simulation = minecraft.options.simulationDistance().get();
                 if (!gameDir.endsWith(Path.of("run", "smoke")) || view != 2 || simulation != 5
                         || !Files.isRegularFile(save.resolve("level.dat")) || Files.exists(save.resolve("session.lock"))) {
-                    report.add("FAIL 自然飞蝗需要未启动的固定副本和视距 2/5：" + save + "，实际=" + view + "/" + simulation);
+                    report.add("FAIL " + only + " 需要未启动的固定副本和视距 2/5：" + save + "，实际=" + view + "/" + simulation);
                     finish();
                     return;
                 }
-                report.add("INFO REPLAY_LOCUST_OPEN save=" + save + " clientView=" + view + " clientSimulation=" + simulation);
+                report.add("INFO REPLAY_LOCUST_OPEN selector=" + only + " save=" + save + " clientView=" + view + " clientSimulation=" + simulation);
             }
             if (!replayLevelId.isEmpty()) {
                 levelId = replayLevelId;
@@ -364,6 +366,7 @@ final class SmokeRun {
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
                     case "renjianrandom" -> List.of(new RenjianRandomCheck(report, levelId));
                     case RenjianLocustNaturalCheck.SELECTOR -> List.of(new RenjianLocustNaturalCheck(report, levelId));
+                    case RenjianCapturedJarCheck.SELECTOR -> List.of(new RenjianCapturedJarCheck(report, levelId, this::shot));
                     case "renjianvisual" -> List.of(new RenjianVisualCheck(report, levelId, this::shot));
                     case "tianqve" -> List.of(new TianqveWorldgenCheck(report, levelId, this::shot));
                     case "wugui" -> List.of(new WuguiWorldgenCheck(report, levelId, this::shot));
