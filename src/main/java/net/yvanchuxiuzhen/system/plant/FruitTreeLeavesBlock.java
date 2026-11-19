@@ -20,7 +20,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentLeaves;
 
-/** 两种调味树叶沿来源叶片/原木距离与枯萎生命周期；食材、树苗与枝条掉落由各自loot承担。 */
+/** 果树叶沿来源叶片/原木距离与枯萎生命周期；食材、树苗与枝条掉落由各自loot承担。 */
 public final class FruitTreeLeavesBlock extends ContentLeaves {
     public FruitTreeLeavesBlock(BlockTraits traits) {
         super(traits);
