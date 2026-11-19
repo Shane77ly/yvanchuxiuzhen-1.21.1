@@ -437,3 +437,7 @@ World接回无归实际十群系后，阴魂草在三百川、尸草在尸绝01�
 五行已有`fallback_drop`数据此前没有Java消费者且缺少对应战利品表。新专用方块先返回非空原生战利品结果；为空时四种土壤各返自身一件，grassblock返minecraft:dirt一件，分别对应来源37–42行和45–50行。其他方块不继承本回退，也不以固定表覆盖来源的非空战利品优先规则。Decor草色注册及绑定保持原指纹，本批没有渲染修改。
 
 标准`convert_content.py --owner decor`已接收五行factory及已处理pending_hooks，其他生成副作用按转换前字节恢复。生产/Smoke编译、六项架构检查与一次`PlantSoilsCheck`必要客户端通过；327项功能检查覆盖本批上述入口，10组南瓜/西瓜均在seed0的第六次原生randomTick结瓜并连接，石头256次对照未结瓜。完整结果、源码指纹及未验边界只在[本月记录](logs/2026-11.md#2026-11-18-五种来源土壤支持与掉落回退)登记。真实保存重进、自然生成/获取、非空自定义战利品注入、grassblock草色画面、多人/专服、1.18.2 版本实机和两版本对照均未执行。
+
+## 成熟双格谷物地物谓词对齐（2026-11-19）
+
+锁定1.18.2版本 `Shicai001Plant08Feature`、`Shicai002Plant08Feature`、`Shicai004Plant08Feature`、`Shicai005Plant08Feature`、`Shicai006Plant08Feature` 的 `simplePatchConfiguration` 使用空放置谓词列表。目标原五份configured feature多出 `matching_blocks: minecraft:air`，会排除来源允许的落点；现已移除，并在 `convert_plant_worldgen.py` 中对双格成熟作物生成空 `placement`，避免转换重跑回退。该修正仅覆盖五种成熟双格谷物，其他成熟Feature仍需逐族核对；未运行自然新区块、玩家采收、保存重进、专服或两版本对照。
