@@ -67,6 +67,7 @@ public final class SkillSetup {
         modBus.addListener(SkillSetup::registerPayloads);
         SkillCommands.register();
         SkillDelays.register();
+        SkillBiomeEffects.register();
         NeoForge.EVENT_BUS.addListener(SkillSetup::onRightClickItem);
         NeoForge.EVENT_BUS.addListener(SkillSetup::onPlayerTick);
         NeoForge.EVENT_BUS.addListener((LivingDeathEvent event) -> {

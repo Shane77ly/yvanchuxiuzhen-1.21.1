@@ -504,3 +504,7 @@ button0/1先把当前四技能保存到旧页，再通过 `Skills.turnPage` 减/
 沿用`skillmovement`单项客户端场景，在既有身法位移、附魔冷却、F开关、飞行扣费、资源门槛与禁空检查后，新增普通死亡重生。来源`YvanchuxiuzhenModVariables`在死亡克隆时无条件复制`flybegin`；目标`SkillData.FLYING`使用`.copyOnDeath()`，双端同步范围为本人。测试前移除前序禁空检查的`effect_035`，并临时增加`POWER_MAX`贡献，避免`Rebirth`按最大灵力20%恢复出的默认4点与御风4点消耗相等，导致飞行tick按来源门槛立即关闭状态。重生后服务端和客户端的飞行标记均保留；生存模式下原生`mayfly/flying`能力保持关闭，来源没有在克隆或重生入口恢复这两项原生能力。检查完成后移除临时属性贡献并恢复玩家原状态。
 
 单项`runSmokeClient -PsmokeOnly=skillmovement`报告12项玩法检查与1项鼠标检查全部INFO、0 FAIL、DONE；客户端正常保存六个维度并退出，日志无ERROR/Exception。初次失败来自检查时序过早触发重生，第二次失败来自禁空效果残留和重生后灵力恰等于耗费；均为检查夹具问题，未改生产逻辑。证据：`tmp/skillmovement-flight-final-report.txt`、`tmp/skillmovement-flight-final-client.log`。本次只验证死亡克隆标记和重生后的来源能力边界，不覆盖跨存档登出重登、死亡资源公式的完整分支、多人或1.18.2版本实机。
+
+## 指定群系水体反胃（2026-11-19）
+
+来源 `A:PlayerTickProcedure:398` 每个玩家结束刻调用 `FushuiProcedure:15–30`。该过程读取玩家脚下生物群系；仅在 `biomeshijve_01`、`biomeshijve_02`、`biomeshijve_03` 且玩家处于水、雨或气泡柱时，如果当前没有反胃效果，则施加持续 100 刻、等级 0 的反胃。它不检查玩家修为、职业或技能书。目标 `SkillBiomeEffects` 在服务端玩家刻按同样条件调用，使用 world 已注册的三个群系键；已有反胃时不刷新。玩家退出/死亡后的原版效果生命周期与目标版本实机表现未验证。
