@@ -39,6 +39,7 @@ public final class QuestSetup {
         NeoForge.EVENT_BUS.addListener(BountyRuntime::death);
         NeoForge.EVENT_BUS.addListener(DialogueRuntime::request);
         NeoForge.EVENT_BUS.addListener(DialogueRuntime::requestNpc);
+        NeoForge.EVENT_BUS.addListener(QiankunDialogue::request);
         NeoForge.EVENT_BUS.addListener(DialogueRuntime::tick);
         NeoForge.EVENT_BUS.addListener(DialogueRuntime::login);
         NeoForge.EVENT_BUS.addListener(QuestChatCommand::register);

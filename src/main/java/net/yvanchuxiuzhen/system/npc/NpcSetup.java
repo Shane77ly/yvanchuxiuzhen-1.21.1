@@ -14,6 +14,7 @@ import net.yvanchuxiuzhen.system.npc.content.QiankunMenus;
 import net.yvanchuxiuzhen.system.npc.content.QiankunBlockItem;
 import net.yvanchuxiuzhen.system.npc.content.QiankunBlockEntities;
 import net.yvanchuxiuzhen.system.npc.content.QiankunBlock;
+import net.yvanchuxiuzhen.system.npc.content.QiankundaorenBlockEntity;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.system.economy.api.AuctionNpcRequestEvent;
 import net.yvanchuxiuzhen.system.npc.api.NpcDefinitions;
@@ -43,6 +44,7 @@ public final class NpcSetup {
         NpcManagementMenus.register(modBus);
         modBus.addListener(NpcManagementMenus::registerPayloads);
         NeoForge.EVENT_BUS.addListener(NpcInteractions::interact);
+        NeoForge.EVENT_BUS.addListener(QiankundaorenBlockEntity::requestDialogue);
         NeoForge.EVENT_BUS.addListener(NpcProfiles::applyOwnedProfile);
         NeoForge.EVENT_BUS.addListener(NpcFollowerRuntime::tick);
         NeoForge.EVENT_BUS.addListener(EventPriority.LOW, false, StructureReleasedEvent.class, NpcStructureReleases::structureReleased);

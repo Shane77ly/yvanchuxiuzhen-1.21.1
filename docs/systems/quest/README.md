@@ -30,6 +30,7 @@ B1 已登记本单位不依赖新代码类型的内容身份与资源（方块8�
 | `QuestJournalRuntime`内部菜单操作 | U键只请求打开本人目录；八行选择、分类、页码与继续由服务端更新SESSION，本人附件同步，客户端不提交整份档案 |
 | `DialogueActions.request/snapshot/journal/finished` | 普通脚本会话、任务目录与完成状态；返回副本，启动与选择由服务端执行 |
 | `EconomyDialogueRequestEvent`、`NpcDialogueRequestEvent`订阅 | 入口只提交脚本，任务独占游标、选项与任务存储；商品和界面通过经济公开操作交接 |
+| `QiankunDialogueRequestEvent`订阅 | NPC只发送已准备的点击者；Quest持有`chujianqiankun`原脚本、选择、持久检查点和寻灵盘发放，见[Q119](architecture.md#q119-初见乾坤道人) |
 | `BountyRuntime`内部生命周期 | 公共告示牌拥有悬赏与猎人标记；生成前等级通过`CreatureBounties.prepare`提交，荧光蛊由`GuchongTracking.createBound`生产，费用和奖励交`EconomyCurrency/BankAccounts`写入 |
 
 已对照`typed_field_accesses.csv`中`Playerrightclickwithitem`、`PlayerTickxitong`、`Duihuashijian`、`PlayerJoinGame`、`PlayerRightClickEntity`和悬赏过程的外部读写：会话与任务目录由本系统写入；商品表、商店说明、菜单、补领费用与银行奖励由经济API处理，追踪物品与妖兽等级由各实体所有者处理。银行固定脚本没有“任务储存”步骤，不另造任务jindu；其他来源动作的未接范围见[普通对话正文](architecture.md#普通对话与任务目录2026-11-14)。
