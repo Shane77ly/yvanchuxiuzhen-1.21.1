@@ -231,6 +231,10 @@ Q191（待裁定，保持来源）：`PlayerGui08jieshao`称“没有时限”�
 
 当前集成基线已注册`BirthInitialRewardsFlow.register()`和`birthinitialrewards`选择器。既有夹具检查落魄家族服务端菜单关闭、同调用未提前发奖、四栈顺序/实例/中文、两书服务端use及空出身/体质边界；八出身扩展已通过`compileJava`与`compileSmokeJava`。2026-11-17单项客户端运行到八分支断言后，在公共停服阶段卡于`ChunkMap.processUnloads`，报告停在`WAITING_FOR_WORLD_EXIT`，线程/堆证据见`build/diagnostics/birthinitialrewards-save-hang-20261117/run-01/`，因此该次不产生出生奖励行为通过结论；后续修订夹具的有效单项结果见下文和系统月志。未精确采样第一/第二个服务端结束刻；真实保存重进、满包、完整自然消费、多人、专服与两个版本实机仍未验。
 
+### 出身领书至凡人闭关专项
+
+`renjianbirthsupply` 使用开启出身选择的新建生存档，验证落魄家族实际关窗领书、传送和消费奖励，再走04装配、工作台合成蒲团、放置乘坐与06单日闭关。场地、工作台和四小麦由夹具布置，不预置蒲团、修为或境界。同一存档正常退出重开后核对出身、维度、境界、修为、寿元、功法栈、技能书及蒲团位置，并检查已消耗藏宝书没有补发。运行证据见[修炼月志](logs/2026-11.md#2026-11-18-出身领书至凡人闭关专项)。
+
 ## 出身初始奖励扩展（2026-11-17）
 
 来源`A:PlayerJoin02Procedure:31–436,437–444`逐分支核对八种出身初始奖励、临时物品栈最后给出顺序及五种出身传送条件，SHA256见[来源证据](ledger/source-evidence.csv)。目标沿用既有`BirthSelection.close`第二个服务端结束刻事件和已注册`BirthInitialRewardsFlow.register()`；已集成的扩展flow，出身仍于延迟执行时读取，普通登录没有额外领取入口。来源归属主表将`PlayerJoin02`跨系统奖励归flow，体质部分由xiulian继续持有；`Ling11`物品与右键过程归xiulian，独立消费已集成，首次use结果见石盘正文。

@@ -475,6 +475,8 @@ button0/1先把当前四技能保存到旧页，再通过 `Skills.turnPage` 减/
 
 ### Q68 装配页断线保存时序
 
+出身链专项在乘坐蒲团后用K重开04。夹具等待至少10个客户端刻，并核对屏幕绑定的当前菜单、双端 `containerId`、客户端槽0的本人功法，以及服务端槽0和双端持久槽的完整组件；一致后才点击“修炼”。等待为经过生产的两服务端刻初始化，不改Q68延迟和关闭写回规则。运行边界见[技能月志](logs/2026-11.md#2026-11-18-出身链04重开等待)。
+
 来源 `PlayerGUI04Menu.removed` 先调用 `PlayerGUI04DangZheGeJieMianBeiGuanBiProcedure`，由该过程把八个槽写入玩家能力；该菜单关闭过程不在打开时持续保存。锁定来源 Forge40.1.0 的 `PlayerList.remove` 顺序为触发退出事件、保存玩家、移除玩家；断线关闭菜单发生在移除玩家时，因此在04打开期间改动的槽位可能晚于本次磁盘保存写入。来源的死亡路径不同：重生先移除旧玩家并关闭菜单，再复制其数据。
 
 目标 NeoForge21.1.265 的 `PlayerList.remove` 同样先发 `PlayerLoggedOutEvent`、调用玩家保存，再由 `ServerLevel.removePlayerImmediately` 移除玩家并触发 `Player.remove` 关闭菜单。`SkillLoadoutMenu.removed` 在关闭时才写回 `skill_state` 与 `technique_slot`；`SkillSetup` 当前没有退出事件写回。故断线前对八槽的改动可能未进入磁盘数据。普通关闭保存已由`skillui`场景验证；目标菜单打开时死亡与正常关闭后的退出重登、头顶默认入口中菜单槽04与普通箱子槽04绑定及关闭留存，已由客户端专项复核。2026-11-17打开时退出场景已实际保存并重进同档：退出前八槽标记书、玩家字段未写回、重进后双端字段与标记库存为空的断言均为INFO；原夹具此后未再发K，世界画面截图不能证明04菜单重新打开。

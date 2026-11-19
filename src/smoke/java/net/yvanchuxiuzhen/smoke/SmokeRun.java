@@ -95,7 +95,8 @@ final class SmokeRun {
     private final Minecraft minecraft = Minecraft.getInstance();
     private final boolean guardedFirstSpell = "renjianfirstspell".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private final boolean renjianCombatLifecycle = "renjiancombatlifecycle".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
-    private final boolean guardedWorldExit = guardedFirstSpell || renjianCombatLifecycle;
+    private final boolean renjianBirthSupply = "renjianbirthsupply".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
+    private final boolean guardedWorldExit = guardedFirstSpell || renjianCombatLifecycle || renjianBirthSupply;
     private final boolean renjianVisual = "renjianvisual".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private int ticks;
     private int phase;
@@ -203,14 +204,15 @@ final class SmokeRun {
                         + " / " + minecraft.options.simulationDistance().get());
                 return;
             }
-            // 关闭首次进入的出身界面，免得内容检查期间弹出；修炼检查中再开启。
+            // 出身专项保留正常首登界面；其他检查在需要时自行开启。
             GameRules rules = new GameRules();
-            rules.getRule(XiulianRules.BIRTH_SELECTION).set(false, null);
-            LevelSettings settings = new LevelSettings("smoke", GameType.CREATIVE, false, Difficulty.PEACEFUL, true,
+            rules.getRule(XiulianRules.BIRTH_SELECTION).set(renjianBirthSupply, null);
+            LevelSettings settings = new LevelSettings("smoke", renjianBirthSupply ? GameType.SURVIVAL : GameType.CREATIVE,
+                    false, Difficulty.PEACEFUL, !renjianBirthSupply,
                     rules, WorldDataConfiguration.DEFAULT);
             levelId = "smoke" + System.currentTimeMillis();
             WorldOptions options = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
-                case "renjianfirstspell", "renjiancombatlifecycle" -> new WorldOptions(FIRST_SPELL_SEED, true, false);
+                case "renjianfirstspell", "renjiancombatlifecycle", "renjianbirthsupply" -> new WorldOptions(FIRST_SPELL_SEED, true, false);
                 case "renjianrandom" -> new WorldOptions(RenjianRandomCheck.SEED, true, false);
                 case "plantsupply" -> new WorldOptions(PlantSupplyCheck.REPLAY_SEED, true, false);
                 default -> WorldOptions.defaultWithRandomSeed();
@@ -248,12 +250,16 @@ final class SmokeRun {
 
     private void checkSystems() {
         if (systemChecks == null) {
-            minecraft.setScreen(null);
+            if (!renjianBirthSupply) minecraft.setScreen(null);
             String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
             List<String> names = only.isEmpty() ? List.of("relation", "attribute", "xiulian", "gongfa", "combat", "skill") : List.of(only.split(","));
             systemChecks = new ArrayList<>();
             for (String name : names) {
                 systemChecks.addAll(switch (name) {
+                    case "renjianbirthsupply" -> {
+                        if (!renjianBirthSupply) throw new IllegalArgumentException("renjianbirthsupply 需单独运行");
+                        yield List.of(new RenjianBirthSupplyCheck(report, levelId, this::shot, () -> pollFirstSpellExit("闭关后同档重进")));
+                    }
                     case "relation" -> List.of(new RelationCheck(report, levelId, this::shot));
                     case "attribute" -> List.of(new AttributeCheck(report, levelId));
                     case "xiulian" -> List.of(new XiulianCheck(report, levelId, this::shot), new XiulianProgressCheck(report, levelId, this::shot),
@@ -814,7 +820,7 @@ final class SmokeRun {
     /** 闸门沿用公共跨维判据。只留一个未完成的采样；服务端忙时不在渲染线程 join。 */
     private boolean pollFirstSpellExit(String stage) {
         long now = System.nanoTime();
-        String scenario = renjianCombatLifecycle ? "人间普通战斗" : "人间首技";
+        String scenario = renjianCombatLifecycle ? "人间普通战斗" : renjianBirthSupply ? "人间出身供给" : "人间首技";
         if (firstSpellExitStarted == 0) {
             firstSpellExitStarted = now;
             report.add("INFO " + scenario + " " + stage + " 等待区块收敛，存档=" + levelId);
@@ -858,7 +864,8 @@ final class SmokeRun {
 
     private void blockFirstSpellExit(String reason) {
         firstSpellExitBlocked = true;
-        String code = renjianCombatLifecycle ? "COMBAT_LIFECYCLE_EXIT_BLOCKED" : "FIRST_SPELL_EXIT_BLOCKED";
+        String code = renjianCombatLifecycle ? "COMBAT_LIFECYCLE_EXIT_BLOCKED"
+                : renjianBirthSupply ? "BIRTH_SUPPLY_EXIT_BLOCKED" : "FIRST_SPELL_EXIT_BLOCKED";
         report.add("FAIL " + code + " " + reason + "；未请求新的断开或重开");
         writeReport();
     }
