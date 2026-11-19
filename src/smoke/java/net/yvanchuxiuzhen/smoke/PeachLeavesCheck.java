@@ -20,7 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.plant.FruitTreeLeavesBlock;
 
-/** 桃叶和桃花的原生放置、叶距更新与流体交互。 */
+/** 来源树叶的原生放置、叶距更新与流体交互。 */
 final class PeachLeavesCheck extends SystemCheck {
     private BlockPos logPos;
     private BlockPos leafPos;

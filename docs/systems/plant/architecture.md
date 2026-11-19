@@ -301,6 +301,8 @@ updated: 2026-11-19
 
 四种树叶钩子按来源每20刻安排更新；仅在下方为空时以20%概率发送一个粒子，中心坐标、散布和速度均逐项保留。`ginkgoleaves`用`ginkgoleaveslizi`，`mapleleaves`用`mapleleaveslizi`，两种白杨叶都用`poplarleaveslizi`。三种来源LeavesBlock保留父类距离更新，`mapleleaves`继续继承普通Block。
 
+来源`GinkgoleavesBlock`、`PoplarleavesBlock`和`PoplarleavesyellowBlock`均继承1.18.2版本原生LeavesBlock，计划刻先执行父类叶距更新，再执行粒子过程并重排20刻。目标三种粒子叶复用`FruitTreeLeavesBlock`的来源叶距、放置持久和无含水交互，再执行各自粒子和重排；不改变粒子条件、掉落表、群系装配或枫叶。
+
 `mapleresin`接入专用薄片方块：保留含水状态、水平朝向、垂直点击朝北、四向边缘形状、空视觉形状、天空光、旋转镜像及缺少loot时掉落一个`mapleresinitem`。来源与目标源码明细、逐ID参数及哈希见本批月志列出的实现报告和数据转换清单。构建及客户端冒烟通过；专服启动至Done且注册表导出包含枫脂方块和物品，但未取得原生stop/保存退出证据。自然生成、新区块分布、完整树苗成长、枫脂水桶交互与两版本对照尚未验。
 
 ## 普通植物地物与水草回调（2026-11-11）

@@ -6,11 +6,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
-import net.yvanchuxiuzhen.platform.content.block.ContentLeaves;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 
 /** 按来源周期在下方为空时广播树叶粒子。 */
-public final class ParticleFoliageLeavesBlock extends ContentLeaves {
+public final class ParticleFoliageLeavesBlock extends FruitTreeLeavesBlock {
     private static final int UPDATE_INTERVAL = 20;
     private final String particleId;
 
