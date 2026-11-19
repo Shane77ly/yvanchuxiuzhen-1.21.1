@@ -3,10 +3,12 @@ package net.yvanchuxiuzhen.smoke;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -30,6 +32,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.client.event.ClientChatReceivedEvent;
+import net.neoforged.neoforge.client.event.RenderFrameEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -57,7 +60,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.client.LevelUpScreen;
 import net.yvanchuxiuzhen.system.xiulian.client.RetreatScreen;
 
-/** 从出身归档的独立副本继续：原书研习、装配与同一技能的两次原生右键。 */
+/** 从出身归档的独立副本继续：原书研习、装配、两次原生右键与同档重进验证。 */
 final class RenjianRewardSpellCheck extends SystemCheck {
     static final String SELECTOR = "renjianrewardspell";
     static final String SAVE_ID = "renjian-reward-spell-replay";
@@ -68,17 +71,30 @@ final class RenjianRewardSpellCheck extends SystemCheck {
     private static final int LOADOUT_SLOT = 3;
     private static final int RETREAT_DAYS = 49;
     private static final int UI_TIMEOUT = 240;
+    private static final String INSUFFICIENT_SHOT = "renjian_reward_insufficient.png";
     private static final String RECOVERY_CONTROL = "smoke_reward_spell_power_recovery";
     private static final ResourceLocation PROJECTILE = id("projectile_skill_tree_01");
     private static final TagKey<Item> WEAPON = TagKey.create(Registries.ITEM, id("wuqi"));
     private static final TagKey<Item> BOW = TagKey.create(Registries.ITEM, id("yibow"));
 
+    private final Screenshots screenshots;
+    private final BooleanSupplier readyForDiskExit;
+    private final Consumer<RenderFrameEvent.Post> frame = this::captureFrame;
+    private String pendingShot;
+    private String capturedShot;
+    private Screen shotScreen;
+    private RuntimeException shotError;
+    private int insufficientVisibleUntil = -1;
     private final Consumer<PlayerInteractEvent.RightClickItem> beforeUse = this::beforeUse;
     private final Consumer<PlayerInteractEvent.RightClickItem> afterUse = this::afterUse;
     private final Consumer<EntityJoinLevelEvent> join = this::joined;
     private final Consumer<ClientChatReceivedEvent.System> chat = event -> {
-        if (event.isOverlay() && "灵力不足".equals(ChatFormatting.stripFormatting(event.getMessage().getString()))) {
+        if (!event.isOverlay()) return;
+        insufficientVisibleUntil = -1;
+        if ("灵力不足".equals(ChatFormatting.stripFormatting(event.getMessage().getString()))) {
             this.insufficientMessages++;
+            // 原版动作栏显示 60 刻，最后 20 刻淡出。
+            insufficientVisibleUntil = minecraft.gui.getGuiTicks() + 40;
         }
     };
     private ItemStack archived;
@@ -103,8 +119,10 @@ final class RenjianRewardSpellCheck extends SystemCheck {
         }
     }
 
-    RenjianRewardSpellCheck(List<String> report, String levelId) {
+    RenjianRewardSpellCheck(List<String> report, String levelId, Screenshots screenshots, BooleanSupplier readyForDiskExit) {
         super("人间奖励首技回放", report, levelId);
+        this.screenshots = screenshots;
+        this.readyForDiskExit = readyForDiskExit;
     }
 
     @Override
@@ -122,6 +140,7 @@ final class RenjianRewardSpellCheck extends SystemCheck {
         switch (step) {
             case 0 -> {
                 if (!preflight()) return false;
+                NeoForge.EVENT_BUS.addListener(frame);
                 minecraft.gameMode.useItemOn(player, InteractionHand.MAIN_HAND,
                         new BlockHitResult(Vec3.atCenterOf(SEAT).add(0, 0.5, 0), Direction.UP, SEAT, false));
             }
@@ -158,6 +177,7 @@ final class RenjianRewardSpellCheck extends SystemCheck {
                 }
                 if (!(minecraft.screen instanceof LevelUpScreen) || !breakthrough(player)
                         || !serverHas(this::breakthrough)) return await(local, 1500, "闭关未完成 49 天并打开练气突破界面");
+                if (!awaitShot("renjian_reward_breakthrough.png", local, 1500)) return false;
                 expectTrue("双方确认原生首破、寿元净变化 7300−49 且奖励书未变化；" + state(player), true);
                 minecraft.screen.children().stream().filter(TextureButton.class::isInstance).map(TextureButton.class::cast)
                         .findFirst().orElseThrow().onPress();
@@ -219,6 +239,7 @@ final class RenjianRewardSpellCheck extends SystemCheck {
                                 && menu.containerId == screen.getMenu().containerId && movedToMenu(server, menu))) {
                     return await(local, UI_TIMEOUT, "04 双端未确认原书由背包移至槽 3");
                 }
+                if (!awaitShot("renjian_reward_loadout.png", local, UI_TIMEOUT)) return false;
                 player.closeContainer();
             }
             case 14 -> {
@@ -229,7 +250,10 @@ final class RenjianRewardSpellCheck extends SystemCheck {
                 press("ganjian");
             }
             case 15 -> {
-                if (!(minecraft.screen instanceof SkillScreen) || local < 8) return await(local, UI_TIMEOUT, "G 未打开技能选择");
+                if (!(minecraft.screen instanceof SkillScreen) || local < 8 || !inLoadout(player)) {
+                    return await(local, UI_TIMEOUT, "G 未打开技能选择或原书未同步");
+                }
+                if (!awaitShot("renjian_reward_selection.png", local, UI_TIMEOUT)) return false;
                 button("技能 1").onPress();
             }
             case 16 -> {
@@ -243,12 +267,14 @@ final class RenjianRewardSpellCheck extends SystemCheck {
                 if (!player.getMainHandItem().is(Items.WOODEN_SWORD) || powerOf(player) != 0) {
                     return await(local, UI_TIMEOUT, "木剑或不足灵力未同步");
                 }
+                requestShot(INSUFFICIENT_SHOT);
                 useHand();
             }
             case 18 -> {
                 if (insufficientMessages == 0 || !serverHas(server -> completedUses >= 1 && server.tickCount >= after.tick() + 8)) {
                     return await(local, UI_TIMEOUT, "未收到服务端右键或客户端动作栏“灵力不足”");
                 }
+                if (!awaitShot(INSUFFICIENT_SHOT, local, UI_TIMEOUT)) return false;
                 if (!serverHas(this::verifyInsufficient)) {
                     stop("不足分支未通过；不进入足额施放");
                     return false;
@@ -266,8 +292,35 @@ final class RenjianRewardSpellCheck extends SystemCheck {
                 if (!serverHas(server -> completedUses >= 2 && server.tickCount >= after.tick() + 8)) {
                     return await(local, UI_TIMEOUT, "未观察到第二次服务端右键");
                 }
-                onServer(this::verifyAffordable);
+                boolean castPassed = serverHas(this::verifyAffordable);
                 expect("足额入口未额外发出不足动作栏", 1, insufficientMessages);
+                detach();
+                if (!castPassed || insufficientMessages != 1) finish();
+            }
+            case 21 -> {
+                if (!readyForDiskExit.getAsBoolean()) return false;
+                disconnectWorld();
+            }
+            case 22 -> { return reopened(local); }
+            case 23 -> {
+                if (!inWorld(local)) return false;
+                if (minecraft.screen != null) return await(local, 1200, "同档重进后未回到世界画面");
+                WorldStopDiagnostics.arm(minecraft.getSingleplayerServer());
+                boolean clientRestored = verifyRestored(minecraft.player, "本人");
+                boolean serverRestored = serverHas(server -> verifyRestored(server, "服务端"));
+                if (!clientRestored || !serverRestored) {
+                    finish();
+                    return false;
+                }
+                NeoForge.EVENT_BUS.addListener(frame);
+                press("ganjian");
+            }
+            case 24 -> {
+                if (!(minecraft.screen instanceof SkillScreen) || Skills.state(player).page() != 1 || !selected(player, learned)) {
+                    return await(local, UI_TIMEOUT, "同档重进后 G 未显示第 1 页的原选书");
+                }
+                if (!awaitShot("renjian_reward_selection_reopened.png", local, UI_TIMEOUT)) return false;
+                expectTrue("同档重进后原生 G 打开第 1 页，技能 1 和已选仍是本人研习的拈花飞叶；未重新选择或施放", true);
                 detach();
                 finish();
             }
@@ -333,13 +386,28 @@ final class RenjianRewardSpellCheck extends SystemCheck {
     }
 
     private boolean breakthrough(Player player) {
+        return firstRealm(player) && ItemStack.matches(archived, player.getInventory().getItem(BOOK_SLOT)) && countSkillBooks(player) == 1;
+    }
+
+    private boolean firstRealm(Player player) {
         return player.level().dimension().equals(DimensionPortalSpec.RENJIAN.dimension())
                 && Cultivation.get(player, CultivationValue.LEVEL_NUMBER) == 1
                 && Cultivation.get(player, CultivationText.LEVEL_NAME).equals("练气一层")
                 && Cultivation.get(player, CultivationValue.LIFETIME) == lifetime + 7300 - RETREAT_DAYS
                 && Cultivation.get(player, CultivationValue.CULTIVATION_DAYS) == 0
-                && Cultivation.get(player, CultivationValue.EXPERIENCE_STAND) == 0
-                && ItemStack.matches(archived, player.getInventory().getItem(BOOK_SLOT)) && countSkillBooks(player) == 1;
+                && Cultivation.get(player, CultivationValue.EXPERIENCE_STAND) == 0;
+    }
+
+    private boolean verifyRestored(Player player, String side) {
+        var skills = Skills.state(player);
+        boolean ok = PLAYER_ID.equals(player.getUUID()) && firstRealm(player) && skills.page() == 1 && skills.selectedKey() == 1
+                && selected(player, learned) && countSkillBooks(player) == 0 && skills.spells().stream().skip(1).allMatch(ItemStack::isEmpty)
+                && !ItemStack.isSameItemSameComponents(skills.movement(), learned)
+                && !ItemStack.isSameItemSameComponents(skills.flight(), learned)
+                && !ItemStack.isSameItemSameComponents(skills.weaponArt(), learned);
+        expectTrue("同档重进" + side + "身份、人间道、练气一层、寿元和原书保持，无重复；" + state(player)
+                + "，已选槽=" + skills.selectedSlot() + "，技能书背包数=" + countSkillBooks(player), ok);
+        return ok;
     }
 
     private boolean movedToMenu(Player player, AbstractContainerMenu menu) {
@@ -386,18 +454,21 @@ final class RenjianRewardSpellCheck extends SystemCheck {
         return ok;
     }
 
-    private void verifyAffordable(ServerPlayer player) {
+    private boolean verifyAffordable(ServerPlayer player) {
         double cooldownScale = (1 - PlayerAttributes.value(player, Stat.COOLDOWN_REDUCTION))
                 * (1 + Cultivation.tizhiDouble(player, "SkillColdCorrectPercentage"));
-        expectTrue("足额右键实际一次、原书未变化且从零木火冷却施放；入口=" + before + "，出口=" + after,
-                uses == 2 && completedUses == 2 && before.sameBook() && after.sameBook() && before.tick() == after.tick() && before.power() >= cost
-                        && before.tree() == 0 && before.fire() == 0);
-        expect("同一右键事件实际扣费", cost, before.power() - after.power());
+        boolean validUse = uses == 2 && completedUses == 2 && before.sameBook() && after.sameBook()
+                && before.tick() == after.tick() && before.power() >= cost && before.tree() == 0 && before.fire() == 0;
+        expectTrue("足额右键实际一次、原书未变化且从零木火冷却施放；入口=" + before + "，出口=" + after, validUse);
+        double spent = before.power() - after.power();
+        expect("同一右键事件实际扣费", cost, spent);
         expect("木冷却，刻", 100 * cooldownScale, after.tree());
         // 从零火冷却施放走普通累加分支，不走已有火冷却时才触发的返还分支；下一玩家刻归零。
         expect("火冷却同事件瞬时值，刻", -100 * cooldownScale, after.fire());
-        expectTrue("右键事件只生成一枚同维度本人拈花飞叶弹体",
-                before.projectiles() == 0 && after.projectiles() == 1 && after.leaves() == 1 && ownProjectiles == 1);
+        boolean oneLeaf = before.projectiles() == 0 && after.projectiles() == 1 && after.leaves() == 1 && ownProjectiles == 1;
+        expectTrue("右键事件只生成一枚同维度本人拈花飞叶弹体", oneLeaf);
+        return validUse && oneLeaf && Math.abs(cost - spent) < 1e-6
+                && Math.abs(after.tree() - 100 * cooldownScale) < 1e-6 && Math.abs(after.fire() + 100 * cooldownScale) < 1e-6;
     }
 
     private void beforeUse(PlayerInteractEvent.RightClickItem event) {
@@ -424,6 +495,7 @@ final class RenjianRewardSpellCheck extends SystemCheck {
     }
 
     private void detach() {
+        NeoForge.EVENT_BUS.unregister(frame);
         if (shooter == null) return;
         onServer(player -> {
             NeoForge.EVENT_BUS.unregister(beforeUse);
@@ -433,6 +505,31 @@ final class RenjianRewardSpellCheck extends SystemCheck {
             shooter = null;
         });
         NeoForge.EVENT_BUS.unregister(chat);
+    }
+
+    private boolean awaitShot(String name, int local, int bound) {
+        if (shotError != null) throw shotError;
+        if (name.equals(capturedShot)) return true;
+        if (pendingShot == null) requestShot(name);
+        return await(local, bound, "未拍到已绘制的画面 " + name);
+    }
+
+    private void requestShot(String name) {
+        pendingShot = name;
+        shotScreen = minecraft.screen;
+    }
+
+    private void captureFrame(RenderFrameEvent.Post event) {
+        if (pendingShot == null || shotError != null || minecraft.getOverlay() != null || minecraft.screen != shotScreen) return;
+        if (shotScreen == null && (minecraft.level == null || minecraft.options.hideGui
+                || minecraft.gui.getGuiTicks() >= insufficientVisibleUntil)) return;
+        try {
+            screenshots.take(pendingShot);
+            capturedShot = pendingShot;
+            pendingShot = null;
+        } catch (RuntimeException exception) {
+            shotError = exception;
+        }
     }
 
     private boolean serverHas(Predicate<ServerPlayer> condition) {

@@ -302,7 +302,8 @@ final class SmokeRun {
             systemChecks = new ArrayList<>();
             for (String name : names) {
                 systemChecks.addAll(switch (name) {
-                    case RenjianRewardSpellCheck.SELECTOR -> List.of(new RenjianRewardSpellCheck(report, levelId));
+                    case RenjianRewardSpellCheck.SELECTOR -> List.of(new RenjianRewardSpellCheck(report, levelId, this::shot,
+                            () -> pollFirstSpellExit("足额施放后同档重进")));
                     case "renjianbirthsupply" -> {
                         if (!renjianBirthSupply) throw new IllegalArgumentException("renjianbirthsupply 需单独运行");
                         yield List.of(new RenjianBirthSupplyCheck(report, levelId, this::shot, () -> pollFirstSpellExit("闭关后同档重进")));
