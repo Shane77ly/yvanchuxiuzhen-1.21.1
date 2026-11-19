@@ -16,6 +16,7 @@ updated: 2026-11-18
 当前阶段：C 阶段完成（2026-11-04）。候选归属 258 个元素已全部读完：留在本系统 212 个，改归其他系统 46 个（淬毒归 lianqi，状态效果与附魔按读取者改归 skill、attribute、equipment、fulu、xiulian、cooking、creature、guchong、yihuo，伤害范围指示实体归 skill）。实现与验证：伤害结算（灵力、神识伤害、命令 `/shanghai`、受伤与命中处理）、85 个附魔（数据定义，命中、护甲、挖掘类行为）、状态效果 47 个（控制、修炼、毒药、战斗类与标记；全部登记 64 个含改归其他系统的标记）、连锁采集、穿石与破碎的基岩、木人桩（首次接入 GeckoLib 的动画实体、设置界面）；开发客户端 `CombatCheck` 46 项实机检查全部符合，全系统冒烟（relation、attribute、xiulian、gongfa、combat）通过。自定义粒子（`miss`、`zhongdulizi`、`basaltlizi`、`xvedi`、`smokered`、`effect_033lizi`、`smallexplosion*`、`flash_ice`、`thunderdeeppurple`、`starlightblue`、`smokedeeporange`）属于 particle，随其登记后在本系统的发出处接入；召唤 skill、fulu 实体的 `qishi`、`lingwen`、`starsky` 经 `HitEvent` 随各自系统；xiulian 推迟的完整雷劫于 2026-11-07 接回，本系统监听其具体落雷与范围伤害请求，保持 combat → xiulian 单向依赖。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
+- 2026-11-19接回玩家的[挣脱附魔缓慢处理](architecture.md#挣脱附魔的玩家缓慢处理2026-11-19)：护甲与饰品共同缩短首次缓慢，源码接线候选尚未编译或实机。
 - 候选归属 258 个元素全部已读，去向见上；这是检索范围，不是已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。

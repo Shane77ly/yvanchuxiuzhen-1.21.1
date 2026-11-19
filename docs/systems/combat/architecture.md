@@ -300,3 +300,9 @@ Quest普通脚本“伤害实体/法术或精神”来源仅写ManaAttackDamage�
 1.21.1 版本由 `FightingState` 在服务端玩家刻及非玩家生物刻推进原有记分板；玩家只走玩家刻分支，避免与实体刻重复推进。仍比较当前原生 `HurtByTimestamp`，不引入登录清空、附加存档字段或维度特判。xiulian 已有灵力恢复过程在战斗状态下按四分之一倍率恢复，脱战后恢复正常倍率；本实现不改变恢复公式，也不将一般受伤作为强制结束闭关的规则。
 
 `renjiancombatlifecycle` 人间道自动化客户端 run-01 以原生 `Zombie.doHurtTarget` 真正命中玩家，确认入战与战斗恢复；同档正常保存重开后，在 `PlayerLoggedInEvent` 读回 `active=1`、`count=239`、`HurtByTimestamp=528`，确认登录没有清除或倒退计数。随后实体刻运行至来源差值恰为 100，两个战斗分数均清零，实测灵力恢复从战斗中的 `0.05` 回到正常档 `0.2`。报告为 0 FAIL 并以 `DONE` 收尾；两次完整保存，Gradle 退出码 0。证据：`worktrees/rebuild-renjian-starter-20261118/build/diagnostics/renjian-combat-lifecycle/run-01/report.txt` 与同目录 `gradle.log`。本场景只覆盖人间道受控普通僵尸对玩家的单机路径，不等同自然目标全覆盖、多人、专服、其他维度、1.18.2 版本实机或两版本对照。
+
+## 挣脱附魔的玩家缓慢处理（2026-11-19）
+
+来源`A:PlayerTickProcedure:28–35,384–399`在每个玩家结束刻调用`Effectslownessget`，不受每秒修炼计时门槛限制；`EffectslownessgetProcedure:21–67`在玩家有原版缓慢且体质键`slownessget`为假时，保存当前持续刻数和等级、移除缓慢，再读取头胸腿脚及头饰、项坠、腰佩、手饰的`breakfree`等级之和。持续刻数严格大于等级和×20时，以差值及原等级重新添加默认参数的缓慢；否则不重加。无附魔也会移除并重建效果，因此原效果的粒子、图标和隐藏效果状态不保证保留。最后将标志置真；后续连续有缓慢不重复处理，无缓慢且标志为真时置假。实际短于或等于减免量的效果也要置真，下一次无缓慢刻才复位。
+
+目标`SlownessResistanceFlow`订阅服务端`PlayerTickEvent.Post`，经combat的`Enchants`读护甲与装备系统的饰品快照，经xiulian体质操作读写标志；根入口注册，不引入系统之间的反向依赖。来源能力提供器不挂载FakePlayer，故假玩家每次读取默认假标志和空饰品，只计算护甲且不保存标志。来源同时在客户端玩家刻执行，目标仅服务端处理；两端瞬时显示、假玩家及效果同步顺序尚待对照。源码及哈希见[来源台账](ledger/source-evidence.csv)；已有中文附魔名称和说明、英文名称，英文说明为空，本批不改文本。编译、玩家真实受击、多件叠加、恰等于减免量、连续重新施加、保存重进、客户端和来源版本对照均未执行。

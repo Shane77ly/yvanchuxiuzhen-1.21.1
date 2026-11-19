@@ -7,6 +7,7 @@ import net.yvanchuxiuzhen.flow.SystemCommandFlow;
 import net.yvanchuxiuzhen.flow.BirthSupplyFlow;
 import net.yvanchuxiuzhen.flow.BirthInitialRewardsFlow;
 import net.yvanchuxiuzhen.flow.PlayerRespawnFlow;
+import net.yvanchuxiuzhen.flow.SlownessResistanceFlow;
 import net.yvanchuxiuzhen.collection.decor.DecorSetup;
 import net.yvanchuxiuzhen.collection.festival.FestivalSetup;
 import net.yvanchuxiuzhen.collection.tiandao.TiandaoSetup;
@@ -86,6 +87,7 @@ public final class YvanchuxiuzhenMod {
         WorldSetup.register(modBus);
         XiulianSetup.register(modBus);
         PlayerRespawnFlow.register();
+        SlownessResistanceFlow.register();
         YihuoSetup.register(modBus);
         ZhenfaSetup.register(modBus);
         DecorSetup.register(modBus);
