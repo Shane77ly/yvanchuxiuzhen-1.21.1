@@ -7,6 +7,8 @@ plugins {
 version = mod_version
 group = mod_group_id
 
+def smokeGameDirectory = layout.projectDirectory.dir('run/smoke')
+
 base {
     archivesName = mod_id
 }
@@ -35,6 +37,8 @@ neoForge {
         // 按 smokeOnly 选择场景；完整资源与系统巡检须显式设置 smokeAll=true。
         smokeClient {
             client()
+            gameDirectory.set(smokeGameDirectory)
+            disableIdeRun()
             systemProperty 'yvanchuxiuzhen.smoke', layout.buildDirectory.dir('smoke').get().asFile.absolutePath
             systemProperty 'yvanchuxiuzhen.exportRegistries', layout.buildDirectory.dir('registry-export').get().asFile.absolutePath
             def smokeMaxHeap = providers.gradleProperty('smokeMaxHeap').getOrElse('')
@@ -105,12 +109,24 @@ tasks.named('test', Test) {
 tasks.named('runSmokeClient') {
     def selectedChecks = providers.gradleProperty('smokeOnly').getOrElse('').trim()
     def fullInspection = providers.gradleProperty('smokeAll').getOrElse('false').toBoolean()
+    def smokeFmlConfig = smokeGameDirectory.file('config/fml.toml').asFile
     doFirst {
         if (selectedChecks.isEmpty() && !fullInspection) {
             throw new GradleException('请选择 -PsmokeOnly=<场景>；完整巡检需显式设置 -PsmokeAll=true')
         }
         if (!selectedChecks.isEmpty() && fullInspection) {
             throw new GradleException('smokeOnly 与 smokeAll=true 只能选择一项')
+        }
+        // FML 启动画面早于冒烟 Mixin，必须在启动进程前关闭。
+        if (!smokeFmlConfig.exists()) {
+            smokeFmlConfig.parentFile.mkdirs()
+            smokeFmlConfig.setText('earlyWindowControl = false\n', 'UTF-8')
+        }
+        def earlyWindowSettings = smokeFmlConfig.readLines('UTF-8').takeWhile { !it.stripLeading().startsWith('[') }.findAll {
+            it ==~ /\s*earlyWindowControl\s*=.*/
+        }
+        if (earlyWindowSettings.size() != 1 || !(earlyWindowSettings[0] ==~ /\s*earlyWindowControl\s*=\s*false\s*(#.*)?/)) {
+            throw new GradleException("后台客户端要求 ${smokeFmlConfig} 的 earlyWindowControl = false")
         }
     }
 }
