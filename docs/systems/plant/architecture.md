@@ -345,6 +345,12 @@ updated: 2026-11-19
 
 魔眼玩家破坏同步发布`WildPlantCreatureEvent(DEMON_EYE,玩家)`；血桃苗发布`BLOOD_PEACH`。Plant只提供事实与坐标；Creature订阅后创建已注册moshou_003/taomujing，按来源位置、独立朝向及MOB_SUMMONED初始化加入世界。魔眼在初始化前设置玩家目标。此接口无持久玩家档案写入，不引入Plant对Creature实现的依赖。
 
+### 人间道引雷草掉落（2026-11-19）
+
+1.18.2版本`ThundergrassBlock.getDrops`先调用父类掉落；非空结果原样返回，空结果回退一株自身物品。1.21.1版本`ReactiveWildBlocks.ReactiveFlower`只对注册路径`thundergrass`保留同一分支，其他反应植物的掉落结果不受影响。实现使用`Block.getDrops`的NeoForge入口承接原生战利品上下文，不绕过非空loot。
+
+静音客户端Smoke的`thundergrassdrops`单项已通过，直接调用方块掉落函数确认空loot得到一株引雷草；该结果不等价于真实生存采收、非空自定义loot优先、自然供给、织布机交互、保存重进、多人/专服、1.18.2版本实机或两版本对照验收。
+
 ### Q218 五种反应植物的随机刻委派差异
 
 2026-11-17已核实来源机制，修复已实现，集中编译与目标受控必要单项通过；此前“没有scheduleTick因而自然入口未证实”的结论失效。锁定Forge 40.1.0映射源码包中，`BlockBehaviour.java:336–337`的`randomTick`直接调用`this.tick`；`Block`、`BushBlock`和`FlowerBlock`均无中间覆写。Cannibalmoss02Block:63、Bitegrass02Block:46、ThundergrassBlock:71、Cloudgrass02Block:64、PeachsaplingxveBlock:62覆写tick并声明randomTicks，因此均有来源随机刻入口，不依赖显式scheduleTick。精确NeoForge 21.1.265的`BlockBehaviour.java:384–385`已为空实现；目标`ContentFlower`也无委派，需要由`ReactiveWildBlocks.ReactiveFlower.randomTick`显式调用tick，恢复上述来源调用链。这是版本机制适配，不是新增玩法或待裁定调整。
