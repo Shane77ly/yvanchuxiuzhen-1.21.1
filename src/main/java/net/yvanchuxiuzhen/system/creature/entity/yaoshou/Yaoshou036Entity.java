@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,12 +21,24 @@ public final class Yaoshou036Entity extends YaoshouEntity {
         xpReward = 0;
     }
 
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        goalSelector.removeAllGoals(goal -> goal instanceof FloatGoal);
+    }
+
     @Override protected void sourceSpawn(ServerLevelAccessor level) {
         YaoshouShared.initialize(this, 20, "强劲", "贫弱", "勉强", "贫弱", "贫弱", "贫弱", "强劲", "平庸", "勉强", "平庸", "贫弱", "贫弱", "勉强");
     }
 
     @Override protected void sourceTick() { Yaoshou036Behavior.tick(this); }
     @Override protected void sourceHurt(DamageSource source, float amount) { Yaoshou037054Support.hurt(this, source, "animation.yaoshou036.attacked"); }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        updateSwingTime();
+    }
 
     @Override public boolean hurt(DamageSource source, float amount) {
         if (source.is(DamageTypes.DROWN)) {
