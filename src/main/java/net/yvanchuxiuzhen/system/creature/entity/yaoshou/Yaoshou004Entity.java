@@ -20,7 +20,7 @@ public final class Yaoshou004Entity extends YaoshouEntity {
 
     public Yaoshou004Entity(EntityType<? extends YaoshouEntity> type, Level level, EntityModelRow model) {
         super(type, level, model);
-        xpReward = 0;
+        xpReward = 21;
     }
 
     @Override
