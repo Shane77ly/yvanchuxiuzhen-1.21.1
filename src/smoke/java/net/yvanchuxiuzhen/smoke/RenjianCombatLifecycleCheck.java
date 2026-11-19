@@ -31,6 +31,7 @@ final class RenjianCombatLifecycleCheck extends SystemCheck {
     private final BooleanSupplier readyToExit;
     private final Runnable recordBeforeSave;
     private UUID playerId;
+    private int arenaEntryPlayerTick;
     private Zombie attacker;
     private ServerPlayer outgoing;
     private boolean observing;
@@ -66,9 +67,11 @@ final class RenjianCombatLifecycleCheck extends SystemCheck {
         switch (step) {
             case 0 -> onServer(this::prepare);
             case 1 -> {
-                if (!inHumanRealm() || minecraft.player.distanceToSqr(8.5, 180, 8.5) > 1 || local < 20)
+                if (!inHumanRealm() || minecraft.player.distanceToSqr(8.5, 180, 8.5) > 1)
                     return await(local, "人间场地未同步");
-                onServer(this::strike);
+                if (!minecraft.getSingleplayerServer().submit(this::strikeWhenReady).join()) {
+                    return await(local, "服务端玩家仍在跨维或登录保护期");
+                }
             }
             case 2 -> {
                 if (!quarterRecovery || !expired || !fullRecovery) return await(local, "首次近战未完成战斗计数或双档恢复");
@@ -134,6 +137,7 @@ final class RenjianCombatLifecycleCheck extends SystemCheck {
             human.setBlockAndUpdate(pos, boundary ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState());
         }
         player.teleportTo(human, 8.5, 180, 8.5, 0, 0);
+        arenaEntryPlayerTick = player.tickCount;
         attacker = EntityType.ZOMBIE.create(human);
         if (attacker == null) throw new IllegalStateException("缺少受控近战目标");
         attacker.setNoAi(true);
@@ -142,6 +146,14 @@ final class RenjianCombatLifecycleCheck extends SystemCheck {
         human.addFreshEntity(attacker);
         NeoForge.EVENT_BUS.register(this);
         observing = true;
+    }
+
+    /** 等待原生登录保护结束及服务端确认跨维，不更改玩家的无敌状态。 */
+    private boolean strikeWhenReady() {
+        ServerPlayer player = attacker.getServer().getPlayerList().getPlayer(playerId);
+        if (player.isChangingDimension() || player.tickCount - arenaEntryPlayerTick < 60) return false;
+        strike(player);
+        return true;
     }
 
     private void strike(ServerPlayer player) {
