@@ -9,7 +9,7 @@ updated: 2026-11-19
 
 ## 本次执行基线（2026-11-19）
 
-本轮只排人间界。出身奖励首技及施放后重进夹具经 `3fc3f7e5` 合入。风系候选 `23d7f75e` 已取到同一自然野羊的普通盾格挡证据，但未击杀；不原样复跑。接续按[本轮人间界优先](remaining-work.md#本轮人间界优先)分别推进麻雀出生至拾取、野羊震地应对、奖励首技碰撞和剩余随机结构。
+本轮只排人间界。出身奖励首技重进 `3fc3f7e5`、Q40 提前碰撞 `a763e267`、随机结构02/05/06 `fc85caf8` 已合入。风系候选 `23d7f75e` 已取到同一自然野羊的普通盾格挡证据但未击杀；不原样复跑。接续按[本轮人间界优先](remaining-work.md#本轮人间界优先)先跑独立风三麻雀取材，再单列野羊震地应对和盾牌标签核对。
 
 双 Mod 全量移植仅排除 Q28。实际集成树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，居所合并基线 `adad8f20`，最新 HEAD 以 Git 为准。原 `rebuild-batch0-integration-20261117` 检出改挂 `codex/renjian-wind-candidate-preserved-20261119`。七个风系草稿及其原状态已逐一核对哈希，记录在新集成树 `tmp/renjian-candidate-preservation-20261119.json`。
 
