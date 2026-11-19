@@ -121,7 +121,7 @@ block,yvanchuxiuzhen:opticalprism,yvanchuxiuzhen,Opticalprism,src/main/java/net/
 block,yvanchuxiuzhen:parasolleaves,yvanchuxiuzhen,Parasolleaves,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2021,plant,已读,yvanchuxiuzhen:parasolleaves,已注册,
 block,yvanchuxiuzhen:parasolwood,yvanchuxiuzhen,Parasolwood,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2020,plant,已读,yvanchuxiuzhen:parasolwood,已注册,
 block,yvanchuxiuzhen:peachflower,yvanchuxiuzhen,Peachflower,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1092,plant,已读,yvanchuxiuzhen:peachflower,行为已迁移,2026-11-10扩大批次；来源规则与目标实现见plant/architecture.md及2026-11月志
-block,yvanchuxiuzhen:peachleaves,yvanchuxiuzhen,Peachleaves,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1091,plant,已读,yvanchuxiuzhen:peachleaves,已注册,
+block,yvanchuxiuzhen:peachleaves,yvanchuxiuzhen,Peachleaves,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1091,plant,已读,yvanchuxiuzhen:peachleaves,行为已迁移,复用来源叶距及无含水交互；定向转换、编译和受控放置/叶距/流体检查通过；自然采收与重进未验
 block,yvanchuxiuzhen:peachlog,yvanchuxiuzhen,Peachlog,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1093,plant,已读,yvanchuxiuzhen:peachlog,已注册,
 block,yvanchuxiuzhen:peachlogtop,yvanchuxiuzhen,Peachlogtop,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1094,plant,已读,yvanchuxiuzhen:peachlogtop,已注册,
 block,yvanchuxiuzhen:peachsapling,yvanchuxiuzhen,Peachsapling,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1090,plant,已读,yvanchuxiuzhen:peachsapling,行为已迁移,2026-11-10扩大批次；来源规则与目标实现见plant/architecture.md及2026-11月志

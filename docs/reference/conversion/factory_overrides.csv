@@ -668,6 +668,7 @@ block,yvanchuxiuzhen:shicai_00902,plant:fruit_tree_log,plant,009/010树木来源
 block,yvanchuxiuzhen:shicai_01001,plant:fruit_tree_log,plant,009/010树木来源生长、叶距枯萎及loot生命周期
 block,yvanchuxiuzhen:shicai_00903,plant:fruit_tree_leaves,plant,009/010树木来源生长、叶距枯萎及loot生命周期
 block,yvanchuxiuzhen:shicai_01002,plant:fruit_tree_leaves,plant,009/010树木来源生长、叶距枯萎及loot生命周期
+block,yvanchuxiuzhen:peachleaves,plant:fruit_tree_leaves,plant,桃叶来源叶距枯萎与无含水交互
 block,yvanchuxiuzhen:shicai_00904,plant:shicai009_sapling,plant,009/010树木来源生长、叶距枯萎及loot生命周期
 block,yvanchuxiuzhen:shicai_01003,plant:shicai010_sapling,plant,009/010树木来源生长、叶距枯萎及loot生命周期
 block,yvanchuxiuzhen:shicai_034_plant_01,plant:vine034_01,plant,034号蔓生作物第1阶段的来源入口、含水与掉落
