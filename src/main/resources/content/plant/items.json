@@ -338,7 +338,7 @@
 {"id":"shicai_039_plant_01","factory":"block_item","block":"shicai_039_plant_01","order":1393},
 {"id":"shicai_039_plant_02","factory":"block_item","block":"shicai_039_plant_02","order":1394},
 {"id":"shicai_039_plant_03","factory":"block_item","block":"shicai_039_plant_03","order":1395},
-{"id":"shicai_039_plant_04","factory":"plant:gourd","block":"shicai_039_plant_04","order":1396,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
+{"id":"shicai_039_plant_04","factory":"plant:gourd","block":"shicai_039_plant_04","order":1396},
 {"id":"shicai_040_plant_01","factory":"block_item","block":"shicai_040_plant_01","order":1397},
 {"id":"shicai_040_plant_02","factory":"block_item","block":"shicai_040_plant_02","order":1398},
 {"id":"shicai_040_plant_03","factory":"block_item","block":"shicai_040_plant_03","order":1399},
