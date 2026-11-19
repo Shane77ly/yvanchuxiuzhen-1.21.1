@@ -9,7 +9,7 @@ updated: 2026-11-19
 
 ## 本次执行基线（2026-11-19）
 
-本轮只排人间界。后台客户端、出身闭关重进、乾坤道人、虫蚀草掉落回退、飞蝗原生近战和旧门至原正厅的生存取证已合入。接续依[本轮人间界优先](remaining-work.md#本轮人间界优先)验证风系野羊生存击杀和麻雀自然出生至拾取。启动前核对隔离回放的维度、规则和视距，使用新冻结副本。
+本轮只排人间界。后台客户端、出身闭关重进、乾坤道人、虫蚀草掉落回退、飞蝗原生近战和旧门至原正厅的生存取证已合入。接续依[本轮人间界优先](remaining-work.md#本轮人间界优先)先核定新的自然出生观测站，再验证风系野羊生存击杀和麻雀自然出生至拾取。盾牌候选留在 `codex/renjian-wind-kill-pickup-20261119` 的 `acb27b80`，不原样复跑。
 
 双 Mod 全量移植仅排除 Q28。实际集成树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，居所合并基线 `adad8f20`，最新 HEAD 以 Git 为准。原 `rebuild-batch0-integration-20261117` 检出改挂 `codex/renjian-wind-candidate-preserved-20261119`。七个风系草稿及其原状态已逐一核对哈希，记录在新集成树 `tmp/renjian-candidate-preservation-20261119.json`。
 
