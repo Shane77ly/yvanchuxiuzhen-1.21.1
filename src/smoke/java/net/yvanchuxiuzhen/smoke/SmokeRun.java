@@ -37,6 +37,7 @@ import net.minecraft.client.sounds.WeighedSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -102,10 +103,12 @@ final class SmokeRun {
     private final boolean renjianCombatLifecycle = "renjiancombatlifecycle".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private final boolean renjianBirthSupply = "renjianbirthsupply".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private final boolean renjianResidence = RenjianResidenceCheck.SELECTOR.equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
+    private final boolean q235SpellShield = SpellShieldCheck.SELECTOR.equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private final boolean renjianRewardSpell = RenjianRewardSpellCheck.SELECTOR.equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private final boolean renjianRewardLeafImpact = RenjianRewardLeafImpactCheck.SELECTOR.equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private final boolean rewardReplay = renjianRewardSpell || renjianRewardLeafImpact;
-    private final boolean guardedWorldExit = guardedFirstSpell || renjianCombatLifecycle || renjianBirthSupply || renjianResidence || rewardReplay;
+    private final boolean guardedWorldExit = guardedFirstSpell || renjianCombatLifecycle || renjianBirthSupply || renjianResidence
+            || rewardReplay || q235SpellShield;
     private final String replayLevelId = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
         case "renjianvisual" -> "renjian-visual";
         case "q119" -> QiankunDialogueCheck.SAVE_ID;
@@ -219,6 +222,11 @@ final class SmokeRun {
         if (minecraft.screen instanceof TitleScreen && minecraft.getOverlay() == null) {
             String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
             List<String> selectors = List.of(only.split(",", -1));
+            if (!q235SpellShield && selectors.stream().map(String::strip).anyMatch(SpellShieldCheck.SELECTOR::equals)) {
+                report.add("FAIL Q235 需要单独选择 " + SpellShieldCheck.SELECTOR);
+                finish();
+                return;
+            }
             if (selectors.stream().map(String::strip).anyMatch(RenjianRandomCheck.Remainder::isSelector)
                     && (!RenjianRandomCheck.Remainder.isSelector(only) || minecraft.options.renderDistance().get() != 2
                         || minecraft.options.simulationDistance().get() != 5)) {
@@ -288,19 +296,26 @@ final class SmokeRun {
             // 出身专项保留正常首登界面；其他检查在需要时自行开启。
             GameRules rules = new GameRules();
             rules.getRule(XiulianRules.BIRTH_SELECTION).set(renjianBirthSupply, null);
-            LevelSettings settings = new LevelSettings("smoke", renjianBirthSupply ? GameType.SURVIVAL : GameType.CREATIVE,
-                    false, Difficulty.PEACEFUL, !renjianBirthSupply,
+            if (q235SpellShield) {
+                rules.getRule(GameRules.RULE_DOMOBSPAWNING).set(false, null);
+                rules.getRule(GameRules.RULE_NATURAL_REGENERATION).set(false, null);
+            }
+            LevelSettings settings = new LevelSettings("smoke", renjianBirthSupply || q235SpellShield ? GameType.SURVIVAL : GameType.CREATIVE,
+                    false, q235SpellShield ? Difficulty.NORMAL : Difficulty.PEACEFUL, !renjianBirthSupply && !q235SpellShield,
                     rules, WorldDataConfiguration.DEFAULT);
             levelId = "smoke" + System.currentTimeMillis();
+            if (q235SpellShield) report.add("INFO Q235 存档=" + levelId + "，超平坦生存，普通难度，种子=" + FIRST_SPELL_SEED);
             WorldOptions options = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
                 case "renjianfirstspell", "renjiancombatlifecycle", "renjianbirthsupply" -> new WorldOptions(FIRST_SPELL_SEED, true, false);
                 case "renjianrandom", "renjianrandom02", "renjianrandom05", "renjianrandom06" ->
                         new WorldOptions(RenjianRandomCheck.SEED, true, false);
                 case "plantsupply" -> new WorldOptions(PlantSupplyCheck.REPLAY_SEED, true, false);
+                case SpellShieldCheck.SELECTOR -> new WorldOptions(FIRST_SPELL_SEED, false, false);
                 default -> WorldOptions.defaultWithRandomSeed();
             };
-            minecraft.createWorldOpenFlows().createFreshLevel(levelId, settings, options,
-                    WorldPresets::createNormalWorldDimensions, minecraft.screen);
+            minecraft.createWorldOpenFlows().createFreshLevel(levelId, settings, options, q235SpellShield
+                    ? registry -> registry.registryOrThrow(Registries.WORLD_PRESET).getHolderOrThrow(WorldPresets.FLAT).value().createWorldDimensions()
+                    : WorldPresets::createNormalWorldDimensions, minecraft.screen);
             next();
         }
     }
@@ -421,6 +436,7 @@ final class SmokeRun {
                             new XiulianOperationsCheck(report, levelId));
                     case "gongfa" -> List.of(new GongfaCheck(report, levelId), new ComprehensionCheck(report, levelId, this::shot));
                     case "combat" -> List.of(new CombatCheck(report, levelId, this::shot));
+                    case SpellShieldCheck.SELECTOR -> List.of(new SpellShieldCheck(report, levelId));
                     case "skill" -> List.of(new SkillCheck(report, levelId), new SkillProjectileCheck(report, levelId), new SkillEntityCheck(report, levelId), new SwordArtCheck(report, levelId), new LingwenCheck(report, levelId), new FireBirdCheck(report, levelId), new CorpseCheck(report, levelId), new VoidRiftCheck(report, levelId), new DamageAreaCheck(report, levelId), new YuanyingCheck(report, levelId), new SkillArrowCheck(report, levelId), new SkillMovementCheck(report, levelId), new SkillUiCheck(report, levelId, this::shot), new SkillRemainderCheck(report, levelId));
                     case "firebird" -> List.of(new FireBirdCheck(report, levelId));
                     case "corpse" -> List.of(new CorpseCheck(report, levelId));
@@ -988,7 +1004,7 @@ final class SmokeRun {
     /** 闸门沿用公共跨维判据。只留一个未完成的采样；服务端忙时不在渲染线程 join。 */
     private boolean pollFirstSpellExit(String stage) {
         long now = System.nanoTime();
-        String scenario = renjianRewardLeafImpact ? "人间奖励拈花飞叶 Q40" : renjianRewardSpell ? "人间奖励首技回放"
+        String scenario = q235SpellShield ? "Q235 原生盾牌" : renjianRewardLeafImpact ? "人间奖励拈花飞叶 Q40" : renjianRewardSpell ? "人间奖励首技回放"
                 : renjianCombatLifecycle ? "人间普通战斗" : renjianBirthSupply ? "人间出身供给"
                 : renjianResidence ? "人间居所" : "人间首技";
         if (firstSpellExitStarted == 0) {
@@ -1034,7 +1050,8 @@ final class SmokeRun {
 
     private void blockFirstSpellExit(String reason) {
         firstSpellExitBlocked = true;
-        String code = renjianRewardLeafImpact ? "REWARD_LEAF_IMPACT_BLOCKED" : renjianRewardSpell ? "REWARD_SPELL_REPLAY_BLOCKED"
+        String code = q235SpellShield ? "Q235_SPELL_SHIELD_BLOCKED"
+                : renjianRewardLeafImpact ? "REWARD_LEAF_IMPACT_BLOCKED" : renjianRewardSpell ? "REWARD_SPELL_REPLAY_BLOCKED"
                 : renjianCombatLifecycle ? "COMBAT_LIFECYCLE_EXIT_BLOCKED"
                 : renjianBirthSupply ? "BIRTH_SUPPLY_EXIT_BLOCKED"
                 : renjianResidence ? "RESIDENCE_EXIT_BLOCKED" : "FIRST_SPELL_EXIT_BLOCKED";
