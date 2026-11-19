@@ -11,7 +11,7 @@ updated: 2026-11-19
 
 ## 人间道虫蚀草采收
 
-1.18.2 版本 `A:block/ChongshicaoBlock.java` 的 `getDrops` 保留非空原生战利品，仅在列表为空时返回自身一份。1.21.1 版本由虫蚀草专用方块消费内容表的回退数量，保留原花类存活、偏移和炖菜效果，不改其他野花。原生配置仍在人间道 `biomepeach_01`、`biomepeach_02` 投放；Forge 40.1.0 官方映射源码 `FeatureUtils.simplePatchPredicate` 将空底材列表映射到 `BlockPredicate.ONLY_IN_AIR_PREDICATE`，严格匹配 `Blocks.AIR`，等同目标 `matching_blocks`，不改生成规则。采收所得物品按既有药材定义由炼丹系统消费。[限定实机](logs/2026-11.md#2026-11-19-人间道自然虫蚀草采收与拾取)已验证一个自然样点的生存采收及原生拾取，实际制药和读盘仍待验证。
+1.18.2 版本 `A:block/ChongshicaoBlock.java` 的 `getDrops` 保留非空原生战利品，仅在列表为空时返回自身一份。1.21.1 版本由虫蚀草专用方块消费内容表的回退数量，保留原花类存活、偏移和炖菜效果，不改其他野花。原生配置仍在人间道 `biomepeach_01`、`biomepeach_02` 投放；Forge 40.1.0 官方映射源码 `FeatureUtils.simplePatchPredicate` 将空底材列表映射到 `BlockPredicate.ONLY_IN_AIR_PREDICATE`，严格匹配 `Blocks.AIR`，等同目标 `matching_blocks`，不改生成规则。采收所得物品按既有药材定义由炼丹系统消费。[限定实机](logs/2026-11.md#2026-11-19-人间道自然虫蚀草采收与拾取)已验证一个自然样点的生存采收及原生拾取，实际制药和读盘见[炼丹记录](../liandan/logs/2026-11.md#2026-11-19-人间道虫蚀草炼丹与炉次重进)。
 
 ## 人间道桑树、桃树与成熟水稻自然供给（2026-11-18）
 
