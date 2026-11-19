@@ -2,16 +2,16 @@
 topic: handoff
 role: guide
 status: current
-updated: 2026-11-18
+updated: 2026-11-19
 ---
 
 # 交接说明
 
-## 本次执行基线（2026-11-18）
+## 本次执行基线（2026-11-19）
 
-本轮只排人间界，其他维度成果保留，暂不排验证。固定居所与管家画面、普通战斗脱战及同档重进已合入。下一步用项目内 Minecraft 客户端验证乾坤道人、自然击杀与飞蝗闭环，出身闭关及同档重进的客户端证据已归档，见[本轮人间界优先](remaining-work.md#本轮人间界优先)。
+本轮只排人间界。后台客户端、出身闭关重进与乾坤道人已合入。继续用项目内隐藏窗口客户端验证自然击杀、飞蝗闭环与虫蚀草用药，见[本轮人间界优先](remaining-work.md#本轮人间界优先)。
 
-双Mod全量移植仅排除Q28。实际集成树为`D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-20261117`，分支`port/batch0-integration-20261117`；战斗合并基线`82f49511`，最新HEAD以Git为准。所有集成与公共文档操作显式使用该树。
+双Mod全量移植仅排除Q28。实际集成树为`D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-20261117`，分支`port/batch0-integration-20261117`；乾坤道人合并基线`f07f0659`，最新HEAD以Git为准。所有集成与公共文档操作显式使用该树。
 
 天阙七群系功能`9e9c4caf`由`292d3a13`、无归十群系功能`29f44f24`由`6e86380d`非快进合入。无归正式转换24资源、双编译/六架构及限定wugui,wuguiportal通过，受控生成真实重进与首次及重进后再次完整往返成立；该批完成时为六个自定义维度/60目标群系。规则、首轮一般门户人间道随机结构OOM和无效自然地形截图边界只在[World正文](../systems/world/architecture.md#无归十群系与门户接收2026-11-18)及[月志](../systems/world/logs/2026-11.md#2026-11-18-无归十群系接收与限定门户客户端)维护。必要限定单项通过不关闭旧高视距OOM/停服重排。
 
