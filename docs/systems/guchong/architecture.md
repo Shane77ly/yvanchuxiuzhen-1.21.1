@@ -73,6 +73,10 @@ R05/R10的外部收纳缺口由`GuchongCapture.captureWild`承担：`equipment`�
 
 1.18.2 版本 A `Fabao01701DangShiTiGengXinKeShiProcedure.java:78–80` 将实体显示名解析为字符串，去方括号后写为物品自定义名。B `Taoguan01ZaiFangKuaiShangYouJianProcedure.java:77` 直接把槽内物品的显示名拼接进认主消息。1.21.1 版本由 `GuchongCapture.captureWild` 与 `GuchongJarRuntime` 承接这两处行为。用默认英文客户端采集的物品留有字面名，之后切换到简体中文仍显示 `[Guchong 0 3]认主成功！`。最终简中资源的飞蝗实体、物品及精血键均存在。保持来源的自定义名持久化。全程简中从新捕获开始的动态显示及 1.18.2 版本实机待验。
 
+### Q234 普通动物死亡后的守罐目标
+
+1.18.2 版本 B `Taoguan01GengXinYouXiKeProcedure` 放虫时写入目标 UUID；A `GuchongtickProcedure.java:27–58` 按 UUID 移交原生攻击目标并清空指令，只在原生目标引用为空时回罐。1.21.1 版本由 `GuchongJarRuntime` 与 `GuchongBehavior` 承接。两版原生 `MeleeAttackGoal.stop()` 均不会仅因普通羊死亡而清掉羊的目标引用。1.21.1 版本实测在羊移除后 40 刻内引用仍在，活动数和原槽未变；不新增主动清除死目标的逻辑。实际结果见[蛊虫月志](logs/2026-11.md#2026-11-19-实捕飞蝗原生近战与战后罐状态)。
+
 ## 2026-11-13 03/04单虫释放与蛊罐生命周期
 
 03/04物品此前仍是普通工厂，来源的`useOn`没有执行者；现由`GuchongReleaseItem`承担。只有点击顶面且上方为空才在该格中心释放一只对应蛊虫并消耗物品。未认主物品只生成并执行该编号的自然初始化，不把已捕获资质带回野生实体；已认主物品先写等级、十三项资质及其数值、显示名，设置当前生命和原生生命/攻击/移动属性，再认当前使用者为原生主人，团队通过`Relations.team/setTeam`承接。最后执行来源初始化与加入世界；等级名非空时保持已有个体值。
