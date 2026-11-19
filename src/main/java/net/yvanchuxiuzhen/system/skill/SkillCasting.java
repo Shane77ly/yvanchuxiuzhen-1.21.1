@@ -15,6 +15,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.FightingState;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
@@ -47,10 +48,10 @@ public final class SkillCasting {
         return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, name));
     }
 
-    /** 右键物品时尝试施放所选技能。 */
+    /** 右键物品时尝试施放所选技能；来源开灵分支优先，即使没有发射工具也不进入施法分支。 */
     public static void onRightClick(ServerPlayer player) {
         ItemStack held = player.getMainHandItem();
-        if (!held.is(WEAPON) || held.is(BOW)) {
+        if (Enchants.mainHand(player, Enchants.key("kailing")) != 0 || !held.is(WEAPON) || held.is(BOW)) {
             return;
         }
         Optional<SkillBook> selected = Skills.book(Skills.selected(player));
