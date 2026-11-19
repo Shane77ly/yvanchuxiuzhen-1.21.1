@@ -25,8 +25,11 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.AccessibilityOnboardingScreen;
 import net.minecraft.client.gui.screens.BackupConfirmScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
+import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.sounds.WeighedSoundEvents;
@@ -69,6 +72,7 @@ import net.minecraft.world.level.levelgen.presets.WorldPresets;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import net.minecraft.world.level.storage.LevelSummary;
 import net.neoforged.neoforge.client.gui.CreativeTabsScreenPage;
 import net.yvanchuxiuzhen.system.xiulian.XiulianRules;
 import net.yvanchuxiuzhen.system.world.diagnostic.WorldStopRequeueDiagnostics;
@@ -96,10 +100,12 @@ final class SmokeRun {
     private final boolean guardedFirstSpell = "renjianfirstspell".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private final boolean renjianCombatLifecycle = "renjiancombatlifecycle".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private final boolean renjianBirthSupply = "renjianbirthsupply".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
-    private final boolean guardedWorldExit = guardedFirstSpell || renjianCombatLifecycle || renjianBirthSupply;
+    private final boolean renjianResidence = RenjianResidenceCheck.SELECTOR.equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
+    private final boolean guardedWorldExit = guardedFirstSpell || renjianCombatLifecycle || renjianBirthSupply || renjianResidence;
     private final String replayLevelId = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
         case "renjianvisual" -> "renjian-visual";
         case "q119" -> QiankunDialogueCheck.SAVE_ID;
+        case RenjianResidenceCheck.SELECTOR -> RenjianResidenceCheck.SAVE_ID;
         default -> "";
     };
     private int ticks;
@@ -147,6 +153,7 @@ final class SmokeRun {
             }
             switch (phase) {
                 case 0 -> waitForTitle();
+                case 10 -> selectResidenceWorld();
                 case 1 -> waitForWorld();
                 case 2 -> placeBlocks();
                 case 3 -> worldShots();
@@ -164,8 +171,16 @@ final class SmokeRun {
                 }
             }
         } catch (Exception exception) {
+            if (renjianResidence) {
+                SmokeMod.residenceDigging = false;
+                minecraft.options.keyUp.setDown(false);
+                minecraft.options.keyJump.setDown(false);
+                minecraft.options.keyShift.setDown(false);
+            }
             report.add("FAIL harness " + exception);
-            if (guardedWorldExit) {
+            if (renjianResidence && minecraft.getSingleplayerServer() == null && !finishRequested) {
+                finish();
+            } else if (guardedWorldExit) {
                 blockFirstSpellExit("夹具异常：" + exception);
             } else if (finishRequested) {
                 completeExit();
@@ -187,13 +202,27 @@ final class SmokeRun {
         }
     }
 
-    private void waitForTitle() {
+    private void waitForTitle() throws IOException {
         if (minecraft.getOverlay() == null && minecraft.screen instanceof AccessibilityOnboardingScreen onboarding) {
             report.add("INFO 首次启动完成原生辅助功能引导，继续进入标题页");
             onboarding.onClose();
             return;
         }
         if (minecraft.screen instanceof TitleScreen && minecraft.getOverlay() == null) {
+            String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
+            if (!renjianResidence && List.of(only.split(",", -1)).contains(RenjianResidenceCheck.SELECTOR)) {
+                report.add("FAIL 居所归档重放必须单独选择");
+                finish();
+                return;
+            }
+            if (renjianResidence) {
+                RenjianResidenceCheck.replaySave(minecraft);
+                levelId = replayLevelId;
+                phase = 10;
+                phaseStart = ticks;
+                pressMenuButton(minecraft.screen, Component.translatable("menu.singleplayer"));
+                return;
+            }
             if (!replayLevelId.isEmpty()) {
                 levelId = replayLevelId;
                 next();
@@ -227,6 +256,40 @@ final class SmokeRun {
         }
     }
 
+    /** 在原生选档列表中用存档目录标识选择副本，再按下原生进入按钮。 */
+    private void selectResidenceWorld() throws IOException, ReflectiveOperationException {
+        if (ticks - phaseStart > 400) throw new IllegalStateException("原生选档列表未出现居所专用副本 " + levelId);
+        if (!(minecraft.screen instanceof SelectWorldScreen screen) || minecraft.getOverlay() != null) return;
+        WorldSelectionList list = screen.children().stream().filter(WorldSelectionList.class::isInstance)
+                .map(WorldSelectionList.class::cast).findFirst().orElseThrow();
+        Field summaryField = WorldSelectionList.WorldListEntry.class.getDeclaredField("summary");
+        summaryField.setAccessible(true);
+        for (WorldSelectionList.Entry row : list.children()) {
+            if (!(row instanceof WorldSelectionList.WorldListEntry entry)) continue;
+            LevelSummary summary = (LevelSummary) summaryField.get(entry);
+            if (!levelId.equals(summary.getLevelId())) continue;
+            if (!entry.canJoin()) throw new IllegalStateException("原生菜单禁止进入 " + levelId);
+            if (list.getSelected() != entry) {
+                list.setSelected(entry);
+                return;
+            }
+            Path save = RenjianResidenceCheck.replaySave(minecraft);
+            Files.createFile(save.resolve(RenjianResidenceCheck.REPLAY_MARKER));
+            report.add("INFO RESIDENCE_OPEN 原生单人游戏菜单已选 " + save + "，视距 2/5，中文，无教程");
+            writeReport();
+            phase = 1;
+            phaseStart = ticks;
+            pressMenuButton(screen, LevelSummary.PLAY_WORLD);
+            return;
+        }
+    }
+
+    private static void pressMenuButton(Screen screen, Component message) {
+        screen.children().stream().filter(child -> child instanceof Button button && button.active
+                        && button.getMessage().equals(message))
+                .map(Button.class::cast).findFirst().orElseThrow().onPress();
+    }
+
     private void waitForWorld() {
         if (!replayLevelId.isEmpty() && minecraft.screen instanceof BackupConfirmScreen screen
                 && screen.getTitle().equals(Component.translatable("selectWorld.backupQuestion.experimental"))) {
@@ -234,14 +297,17 @@ final class SmokeRun {
                             && button.getMessage().equals(Component.translatable("selectWorld.backupJoinSkipButton")))
                     .map(child -> (Button) child).findFirst().orElseThrow().onPress();
         }
-        if (!replayLevelId.isEmpty() && ticks - phaseStart > 1200 && minecraft.player == null) {
+        boolean worldReady = minecraft.player != null && minecraft.level != null && minecraft.getSingleplayerServer() != null;
+        if (renjianResidence) worldReady &= minecraft.screen == null && minecraft.getOverlay() == null;
+        if (!replayLevelId.isEmpty() && (renjianResidence ? !worldReady : minecraft.player == null)
+                && (ticks - phaseStart > (renjianResidence ? 2400 : 1200)
+                || renjianResidence && minecraft.screen instanceof SelectWorldScreen)) {
             report.add("FAIL 人间道专用存档副本 " + levelId + " 未就绪："
                     + (minecraft.screen == null ? "无界面" : minecraft.screen.getTitle().getString()));
             finish();
             return;
         }
-        if (minecraft.player != null && minecraft.level != null && minecraft.getSingleplayerServer() != null
-                && ticks - phaseStart > 100) {
+        if (worldReady && ticks - phaseStart > 100) {
             if (!stopDiagnosticsArmed) {
                 WorldStopDiagnostics.arm(minecraft.getSingleplayerServer());
                 stopDiagnosticsArmed = true;
@@ -255,7 +321,7 @@ final class SmokeRun {
 
     private void checkSystems() {
         if (systemChecks == null) {
-            if (!renjianBirthSupply) minecraft.setScreen(null);
+            if (!renjianBirthSupply && !renjianResidence) minecraft.setScreen(null);
             String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
             List<String> names = only.isEmpty() ? List.of("relation", "attribute", "xiulian", "gongfa", "combat", "skill") : List.of(only.split(","));
             systemChecks = new ArrayList<>();
@@ -343,6 +409,7 @@ final class SmokeRun {
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
                     case "renjianrandom" -> List.of(new RenjianRandomCheck(report, levelId));
                     case "renjianvisual" -> List.of(new RenjianVisualCheck(report, levelId, this::shot));
+                    case RenjianResidenceCheck.SELECTOR -> List.of(new RenjianResidenceCheck(report, levelId, this::shot, this::writeReport));
                     case "tianqve" -> List.of(new TianqveWorldgenCheck(report, levelId, this::shot));
                     case "wugui" -> List.of(new WuguiWorldgenCheck(report, levelId, this::shot));
                     case "wuguiportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.WUGUI));
@@ -801,6 +868,10 @@ final class SmokeRun {
     }
 
     private void waitForSettledExit() {
+        if (renjianResidence && minecraft.getSingleplayerServer() == null && minecraft.level == null) {
+            completeExit();
+            return;
+        }
         if (guardedWorldExit) {
             if (pollFirstSpellExit("最终退出")) {
                 firstSpellCompletingExit = true;
@@ -829,7 +900,8 @@ final class SmokeRun {
     /** 闸门沿用公共跨维判据。只留一个未完成的采样；服务端忙时不在渲染线程 join。 */
     private boolean pollFirstSpellExit(String stage) {
         long now = System.nanoTime();
-        String scenario = renjianCombatLifecycle ? "人间普通战斗" : renjianBirthSupply ? "人间出身供给" : "人间首技";
+        String scenario = renjianCombatLifecycle ? "人间普通战斗" : renjianBirthSupply ? "人间出身供给"
+                : renjianResidence ? "人间居所" : "人间首技";
         if (firstSpellExitStarted == 0) {
             firstSpellExitStarted = now;
             report.add("INFO " + scenario + " " + stage + " 等待区块收敛，存档=" + levelId);
@@ -874,7 +946,8 @@ final class SmokeRun {
     private void blockFirstSpellExit(String reason) {
         firstSpellExitBlocked = true;
         String code = renjianCombatLifecycle ? "COMBAT_LIFECYCLE_EXIT_BLOCKED"
-                : renjianBirthSupply ? "BIRTH_SUPPLY_EXIT_BLOCKED" : "FIRST_SPELL_EXIT_BLOCKED";
+                : renjianBirthSupply ? "BIRTH_SUPPLY_EXIT_BLOCKED"
+                : renjianResidence ? "RESIDENCE_EXIT_BLOCKED" : "FIRST_SPELL_EXIT_BLOCKED";
         report.add("FAIL " + code + " " + reason + "；未请求新的断开或重开");
         writeReport();
     }

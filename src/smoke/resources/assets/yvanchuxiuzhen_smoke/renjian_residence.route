@@ -1,0 +1,204 @@
+M 1 -16 -3
+M 0 -16 -3
+M -1 -15 -3
+M -1 -15 -4
+M -1 -15 -5
+M -1 -15 -6
+M -1 -15 -7
+M -1 -14 -8
+M -1 -14 -9
+M 0 -14 -9
+M 1 -14 -9
+M 2 -13 -9
+B 3 -11 -9 minecraft:stone
+M 3 -12 -9
+B 3 -10 -9 minecraft:stone
+B 3 -11 -8 minecraft:stone
+B 3 -10 -8 minecraft:stone
+M 3 -11 -8
+B 3 -9 -8 minecraft:stone
+B 2 -10 -8 minecraft:stone
+B 2 -9 -8 minecraft:stone
+M 2 -10 -8
+B 2 -8 -8 minecraft:stone
+B 1 -9 -8 minecraft:stone
+B 1 -8 -8 minecraft:stone
+M 1 -9 -8
+B 1 -7 -8 minecraft:stone
+B 1 -8 -9 minecraft:stone
+B 1 -7 -9 minecraft:stone
+M 1 -8 -9
+B 1 -6 -9 minecraft:stone
+B 0 -7 -9 minecraft:stone
+M 0 -7 -9
+M 0 -6 -10
+M 1 -5 -10
+M 2 -5 -10
+M 2 -5 -9
+M 2 -5 -8
+M 3 -5 -8
+M 4 -4 -8
+M 5 -4 -8
+B 5 -3 -7 minecraft:stone
+B 5 -2 -7 minecraft:stone
+M 5 -3 -7
+M 6 -3 -7
+M 7 -3 -7
+M 8 -3 -7
+M 8 -3 -8
+B 8 -2 -9 minecraft:stone
+B 8 -1 -9 minecraft:stone
+M 8 -2 -9
+B 8 0 -9 minecraft:stone
+B 8 -1 -10 minecraft:stone
+B 8 0 -10 minecraft:stone
+M 8 -1 -10
+B 8 1 -10 minecraft:stone
+B 7 0 -10 minecraft:redstone_ore
+B 7 1 -10 minecraft:redstone_ore
+M 7 0 -10
+B 7 2 -10 minecraft:stone
+B 6 1 -10 minecraft:stone
+B 6 2 -10 minecraft:stone
+M 6 1 -10
+B 6 3 -10 minecraft:stone
+B 5 2 -10 minecraft:stone
+B 5 3 -10 minecraft:stone
+M 5 2 -10
+B 5 4 -10 minecraft:stone
+B 4 3 -10 minecraft:stone
+B 4 4 -10 minecraft:stone
+M 4 3 -10
+B 4 5 -10 minecraft:stone
+B 3 4 -10 minecraft:stone
+B 3 5 -10 minecraft:stone
+M 3 4 -10
+B 3 6 -10 minecraft:stone
+B 2 5 -10 minecraft:stone
+B 2 6 -10 minecraft:stone
+M 2 5 -10
+B 2 7 -10 minecraft:stone
+B 1 6 -10 minecraft:stone
+B 1 7 -10 minecraft:stone
+M 1 6 -10
+B 1 8 -10 minecraft:stone
+B 0 7 -10 minecraft:stone
+B 0 8 -10 minecraft:stone
+M 0 7 -10
+B 0 9 -10 minecraft:stone
+B -1 8 -10 minecraft:stone
+B -1 9 -10 minecraft:stone
+M -1 8 -10
+B -1 10 -10 minecraft:stone
+B -2 9 -10 minecraft:stone
+B -2 10 -10 minecraft:stone
+M -2 9 -10
+B -2 11 -10 minecraft:stone
+B -3 10 -10 minecraft:stone
+B -3 11 -10 minecraft:stone
+M -3 10 -10
+B -3 12 -10 minecraft:stone
+B -3 11 -9 minecraft:stone
+B -3 12 -9 minecraft:stone
+M -3 11 -9
+B -3 13 -9 minecraft:stone
+B -3 12 -8 minecraft:stone
+B -3 13 -8 minecraft:stone
+M -3 12 -8
+B -3 14 -8 minecraft:stone
+B -3 13 -7 minecraft:stone
+B -3 14 -7 minecraft:stone
+M -3 13 -7
+B -3 15 -7 minecraft:stone
+B -3 14 -6 minecraft:stone
+B -3 15 -6 minecraft:stone
+M -3 14 -6
+B -3 16 -6 minecraft:stone
+B -3 15 -5 minecraft:stone
+B -3 16 -5 minecraft:stone
+M -3 15 -5
+B -3 17 -5 minecraft:stone
+B -3 16 -4 minecraft:stone
+B -3 17 -4 minecraft:stone
+M -3 16 -4
+B -3 18 -4 minecraft:stone
+B -3 17 -3 minecraft:stone
+B -3 18 -3 minecraft:stone
+M -3 17 -3
+B -3 19 -3 minecraft:stone
+B -3 18 -2 minecraft:stone
+B -3 19 -2 minecraft:stone
+M -3 18 -2
+B -3 20 -2 minecraft:stone
+B -3 19 -1 minecraft:stone
+B -3 20 -1 minecraft:stone
+M -3 19 -1
+B -3 21 -1 minecraft:stone
+B -3 20 0 minecraft:stone
+B -3 21 0 minecraft:stone
+M -3 20 0
+B -3 22 0 minecraft:stone
+B -3 21 1 minecraft:stone
+B -3 22 1 minecraft:stone
+M -3 21 1
+B -3 23 1 minecraft:stone
+B -3 22 2 minecraft:stone
+B -3 23 2 minecraft:stone
+M -3 22 2
+B -3 24 2 minecraft:stone
+B -3 23 3 minecraft:stone
+B -3 24 3 minecraft:stone
+M -3 23 3
+B -3 25 3 minecraft:stone
+B -3 24 4 minecraft:stone
+B -3 25 4 minecraft:stone
+M -3 24 4
+B -3 26 4 minecraft:stone
+B -3 25 5 minecraft:stone
+B -3 26 5 minecraft:stone
+M -3 25 5
+B -3 27 5 minecraft:stone
+B -2 26 5 minecraft:stone
+B -2 27 5 minecraft:stone
+M -2 26 5
+B -2 28 5 minecraft:stone
+B -1 27 5 minecraft:stone
+B -1 28 5 minecraft:stone
+M -1 27 5
+B -1 29 5 minecraft:stone
+B 0 28 5 minecraft:stone
+B 0 29 5 minecraft:stone
+M 0 28 5
+B 0 30 5 minecraft:stone
+B 1 29 5 minecraft:stone
+B 1 30 5 minecraft:stone
+M 1 29 5
+B 1 31 5 minecraft:stone
+B 2 30 5 minecraft:stone
+B 2 31 5 minecraft:stone
+M 2 30 5
+B 2 32 5 minecraft:stone
+B 2 31 4 minecraft:stone
+B 2 32 4 minecraft:stone
+M 2 31 4
+M 2 31 3
+M 2 31 2
+M 2 31 1
+M 2 31 0
+M 2 31 -1
+M 2 31 -2
+M 2 31 -3
+M 2 31 -4
+M 2 31 -5
+M 2 31 -6
+M 2 31 -7
+M 2 31 -8
+M 2 31 -9
+M 2 31 -10
+M 2 32 -11
+M 2 33 -12
+M 2 34 -13
+M 2 34 -14
+M 1 34 -14
+M 0 34 -14
+M 0 34 -15

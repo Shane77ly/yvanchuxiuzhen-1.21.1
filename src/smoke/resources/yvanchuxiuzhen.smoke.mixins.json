@@ -10,7 +10,8 @@
   ],
   "client": [
     "SmokeWindowMixin",
-    "SmokeMouseHandlerMixin"
+    "SmokeMouseHandlerMixin",
+    "SmokeResidenceMiningMixin"
   ],
   "injectors": {
     "defaultRequire": 1
