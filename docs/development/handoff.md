@@ -9,7 +9,7 @@ updated: 2026-11-19
 
 ## 本次执行基线（2026-11-19）
 
-本轮只排人间界。出身奖励首技重进 `3fc3f7e5`、Q40 提前碰撞 `a763e267`、随机结构02/05/06 `fc85caf8`、Q235 正面对照 `059187d5` 已合入；Q40 原书第 5 刻碰撞和清楚绿爆帧经 `14aea08d` 合入，具体证据在技能月志。接续从当前 Git HEAD 调度[人间界接续专项](remaining-work.md#人间界接续专项)：同 UUID 野羊读盘续战和随机结构原箱取物仍待串行验收。麻雀等新的采样证据，不原样复跑。
+本轮固定人间界优先。当前集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`、分支 `port/batch0-integration-20261117`，HEAD `42e1d89e`，工作树干净。Q40 原书第 5 刻碰撞及清楚绿爆帧已由 `14aea08d` 合入，证据见技能月志，不再复跑。下一步恢复修炼与战斗、世界与植物、生物与蛊虫三个完整模块的并行实现；各模块现有未提交增量及野羊/结构候选的实际状态见[当前调度](remaining-work.md#当前调度)。先审阅原工作树差异再续改，不整体搬运；接收、必要验证和 Git 收口由主线程串行处理。
 
 双 Mod 全量移植仅排除 Q28。实际集成树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，居所合并基线 `adad8f20`，最新 HEAD 以 Git 为准。原 `rebuild-batch0-integration-20261117` 检出改挂 `codex/renjian-wind-candidate-preserved-20261119`。七个风系草稿及其原状态已逐一核对哈希，记录在新集成树 `tmp/renjian-candidate-preservation-20261119.json`。
 
@@ -19,7 +19,7 @@ updated: 2026-11-19
 
 当前仍是七个自定义维度/60目标群系。地灵接收树`a035fa96`保留密集模板同种子复验与失败证据，不合入；修炼战斗v3接收树`92a78462`保留战斗、起尸与异火耗尽/残热接触分项证据。本轮只从该树独立提取人间道所需的普通重生逻辑，不接整包。三个完整模块继续推进，候选、结果边界和下一动作见[当前调度](remaining-work.md#当前调度)。
 
-原主树`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`保持`port/full-migration-20261112`、`28f05bc7`及全部既有脏改动和25条暂存；不前移、不清理。既有保护证据为集成树`tmp/session-close-20261117/main-protection-check.json`。
+原主树`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`保持`port/full-migration-20261112`、`28f05bc7`及全部既有脏改动；本次复核为313条工作区状态项（含25条暂存），未在该树操作。不前移、不清理。既有保护证据为集成树`tmp/session-close-20261117/main-protection-check.json`。
 
 主agent统一公共进度/Git与重型队列，转换、Gradle、客户端、专服串行，768 MB、单worker；不加堆、不无变化复跑，不推送、不合main。独立功能按必要检查结果及时`merge --no-ff`，具体证据与旧失败均保留原路径。
 
