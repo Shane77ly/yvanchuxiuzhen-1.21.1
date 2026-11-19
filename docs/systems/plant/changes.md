@@ -2,7 +2,7 @@
 topic: plant
 role: changes
 status: current
-updated: 2026-11-18
+updated: 2026-11-19
 ---
 
 # 植物记录

@@ -181,7 +181,9 @@ updated: 2026-11-19
 
 ### 成熟地物、转换与证据边界
 
-28个已接成熟地物使用同一个`CropFeature`保留两维度限制；001/002既有CerealFeature及其他族的等价候选类合并，不复制完全相同实现。新增26种各有configured/placed两份数据，由`convert_plant_worldgen.py`经标准`convert_data.py`生成并追踪各自来源Java SHA-1。参数默认RandomPatch tries1/xz7/y3、simple_block成熟默认态与空气过滤；双格成熟含half=lower；外层Count1→Rarity32→InSquare→MOTION_BLOCKING→Biome。023为tries4/count1，032为tries2/count2。仅dimensionrenjian/dimensionyaohun；未装任何替代主世界或指向缺失群系的modifier。以下列出新增地物的来源群系（均省略`biome`前缀），供World后续装配；008/015没有本批成熟地物。
+28个已接成熟地物使用同一个`CropFeature`保留两维度限制；001/002既有CerealFeature及其他族的等价候选类合并，不复制完全相同实现。新增26种各有configured/placed两份数据，由`convert_plant_worldgen.py`经标准`convert_data.py`生成并追踪各自来源Java SHA-1。参数默认RandomPatch tries1/xz7/y3、simple_block成熟默认态；普通单格作物保留来源逐类谓词，001/002/004/005/006成熟双格谷物按来源`List.of()`使用空placement谓词列表，不额外要求空气落点。其余族继续按来源配置核对；双格成熟态含half=lower；外层Count1→Rarity32→InSquare→MOTION_BLOCKING→Biome。023为tries4/count1，032为tries2/count2。仅dimensionrenjian/dimensionyaohun；未装任何替代主世界或指向缺失群系的modifier。豆科成熟地物046/047/048/051/054/055/056与双株芝麻05701的来源配置同样使用空placement谓词列表；目标转换器按Feature类型输出空列表，不额外要求空气落点。其tries、成熟方块状态、外层Count/Rarity/InSquare/Heightmap/Biome顺序、群系引用与维度限制保持原规则。来源符号与未验证边界见[本批月志](logs/2026-11.md#2026-11-19-成熟豆科与芝麻地物谓词对齐)。
+
+以下列出新增地物的来源群系（均省略`biome`前缀），供World后续装配；008/015没有本批成熟地物。
 
 | 编号 | 来源群系 |
 | --- | --- |
