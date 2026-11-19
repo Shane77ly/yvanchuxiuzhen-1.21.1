@@ -136,7 +136,8 @@ public final class Organism12Entity extends PathfinderMob implements GeoEntity, 
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<Organism12Entity>(this, "movement", 4, state -> {
             if (!procedureAnimation.equals("empty")) return PlayState.STOP;
-            if (state.isMoving()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.organism12.walk"));
+            boolean moving = state.isMoving() || !(state.getLimbSwingAmount() > -.15F && state.getLimbSwingAmount() < .15F);
+            if (moving) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.organism12.walk"));
             if (isShiftKeyDown()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.organism12.sneak"));
             return state.setAndContinue(RawAnimation.begin().thenLoop(model.idle()));
         }));
