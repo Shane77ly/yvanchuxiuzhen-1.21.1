@@ -225,9 +225,9 @@ updated: 2026-11-18
 
 ### Q235 灵力与神识伤害的盾牌标签
 
-1.18.2 版本 `ShanghaiGoProcedure` 四个分支均调用 `bypassArmor()`。原版 `LivingEntity.isDamageSourceBlocked` 在方向判定前排除此标志；Forge 40.1.0 的补丁在已满足该谓词的分支内触发盾事件，不改此前过滤。1.21.1 版本 NeoForge 21.1.265 的同名谓词改查 `DamageTypeTags.BYPASSES_SHIELD`，护甲结算另查 `BYPASSES_ARMOR`。当前 `linglidamage`、`linglidamage_player`、`jinglidamage`、`jinglidamage_player` 只有后者，没有前者；带攻击者的类型存在常规方向格挡的静态可能。
+1.18.2 版本 `ShanghaiGoProcedure` 四个分支均调用 `bypassArmor()`。原版 `LivingEntity.isDamageSourceBlocked` 在方向判定前排除此标志；Forge 40.1.0 的补丁在已满足该谓词的分支内触发盾事件，不改此前过滤。1.21.1 版本 NeoForge 21.1.265 的同名谓词改查 `DamageTypeTags.BYPASSES_SHIELD`，护甲结算另查 `BYPASSES_ARMOR`。精确版本的原生资源包中，`bypasses_shield` 引用 `#minecraft:bypasses_armor`；项目以普通追加方式将 `linglidamage`、`linglidamage_player`、`jinglidamage`、`jinglidamage_player` 加入后者，因此默认数据包配置下四种类型无需另列盾牌标签。
 
-[风三野羊实测](../creature/logs/2026-11.md#2026-11-19-人间道风系自然野羊互伤)只证实两次震地在玩家举盾时仍造成伤害，未记录伤害源向量满足正向条件，不能据此否定或确认目标格挡差异。下一步先测同一正向站位的物理正例与带来源灵力伤害，再核定四个标签的保真修补及验证边界。当前未改标签，未执行来源游戏或两版本实机对照。
+[风三野羊实测](../creature/logs/2026-11.md#2026-11-19-人间道风系自然野羊互伤)只证实两次震地在玩家举盾时仍造成伤害，未记录伤害源向量满足正向条件。独立的[原生盾牌正面对照](logs/2026-11.md#2026-11-19-q235-原生盾牌正面对照)已确认默认生效标签及带来源两类伤害不挡、不损盾；不能用 `LivingShieldBlockEvent` 出现推定盾挡。未改标签，未执行来源游戏或两版本实机对照。
 
 ## 目标方案：伤害结算（2026-11-04 已实现，会话决定）
 
