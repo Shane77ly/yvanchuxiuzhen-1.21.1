@@ -23,6 +23,8 @@ updated: 2026-11-19
 
 主agent统一公共进度/Git与重型队列，转换、Gradle、客户端、专服串行，768 MB、单worker；不加堆、不无变化复跑，不推送、不合main。独立功能按必要检查结果及时`merge --no-ff`，具体证据与旧失败均保留原路径。
 
+负责人要求客户端测试静音：每次启动前检查对应工作树 `run/smoke/options.txt` 的 `soundCategory_master:0.0`，新测试目录也先配置静音；不修改系统全局音量。桃叶单项已由 `64dc5f0c` 合入，后续从[当前调度](remaining-work.md#当前调度)继续三个模块及待验路径。
+
 ## 历史状态（截至2026-11-16）
 
 - 集成主线`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`，分支`port/full-migration-20261112`；本批功能基线`5bd48e5b`，含签筒/装饰梯子功能`5c313980`与非快进合并`3fc04648`、城镇放置对齐功能`f08359d1`与非快进合并`5bd48e5b`。最新文档提交及HEAD以Git为准。此前`a7b66105`及其已合入功能保持。
