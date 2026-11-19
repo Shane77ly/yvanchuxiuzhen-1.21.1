@@ -163,13 +163,7 @@ def generate_sesame(converter) -> None:
                         },
                     },
                 },
-                'placement': [{
-                    'type': 'minecraft:block_predicate_filter',
-                    'predicate': {
-                        'type': 'minecraft:matching_blocks',
-                        'blocks': ['minecraft:air'],
-                    },
-                }],
+                'placement': [],
             },
         },
     }
@@ -212,13 +206,7 @@ def generate_legumes(converter) -> None:
                             },
                         },
                     },
-                    'placement': [{
-                        'type': 'minecraft:block_predicate_filter',
-                        'predicate': {
-                            'type': 'minecraft:matching_blocks',
-                            'blocks': ['minecraft:air'],
-                        },
-                    }],
+                'placement': [],
                 },
             },
         }
