@@ -9,7 +9,7 @@ updated: 2026-11-19
 
 ## 本次执行基线（2026-11-19）
 
-本轮固定人间界优先。当前集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`、分支 `port/batch0-integration-20261117`，HEAD `42e1d89e`，工作树干净。Q40 原书第 5 刻碰撞及清楚绿爆帧已由 `14aea08d` 合入，证据见技能月志，不再复跑。下一步恢复修炼与战斗、世界与植物、生物与蛊虫三个完整模块的并行实现；各模块现有未提交增量及野羊/结构候选的实际状态见[当前调度](remaining-work.md#当前调度)。先审阅原工作树差异再续改，不整体搬运；接收、必要验证和 Git 收口由主线程串行处理。
+本轮固定人间界优先。当前集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`、分支 `port/batch0-integration-20261117`，接手基线 `9e9675a1`；最新 HEAD 与工作树状态以 Git 为准。Q40 原书第 5 刻碰撞及清楚绿爆帧已由 `14aea08d` 合入，证据见技能月志，不再复跑。修炼与战斗、世界与植物、生物与蛊虫三个完整模块在原工作树增量推进；各模块未提交增量及野羊/结构候选状态见[当前调度](remaining-work.md#当前调度)。先审阅原工作树差异再续改，不整体搬运；接收、必要验证和 Git 收口由主线程串行处理。
 
 双 Mod 全量移植仅排除 Q28。实际集成树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，居所合并基线 `adad8f20`，最新 HEAD 以 Git 为准。原 `rebuild-batch0-integration-20261117` 检出改挂 `codex/renjian-wind-candidate-preserved-20261119`。七个风系草稿及其原状态已逐一核对哈希，记录在新集成树 `tmp/renjian-candidate-preservation-20261119.json`。
 
