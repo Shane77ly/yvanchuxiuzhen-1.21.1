@@ -1088,6 +1088,7 @@ item,yvanchuxiuzhen:lingshoudai_16,creature:spirit_beast_bag,creature,灵兽袋�
 item,yvanchuxiuzhen:lingshoudaizhuanhuanitem,creature:spirit_beast_dye_tool,creature,灵兽袋来源收放、动态说明与工具三槽染色
 block,yvanchuxiuzhen:willowdrooping,plant:willow_drooping,plant,柳树垂枝按放置上下文允许非自身物品原位替换
 block,yvanchuxiuzhen:corpsegrass,plant:corpse_grass,plant,尸草按放置上下文允许非自身物品原位替换
+block,yvanchuxiuzhen:chongshicao,plant:chongshicao,plant,保留非空原生战利品且仅在结果为空时掉落自身一份
 block,yvanchuxiuzhen:scorchedsoil,decor:plant_soil,decor,来源土壤种植支持与非空战利品优先的空表回退由Plant公开工厂承担
 block,yvanchuxiuzhen:loess,decor:plant_soil,decor,来源土壤种植支持与非空战利品优先的空表回退由Plant公开工厂承担
 block,yvanchuxiuzhen:youbosoil,decor:plant_soil,decor,来源土壤种植支持与非空战利品优先的空表回退由Plant公开工厂承担
