@@ -6,11 +6,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
-import net.yvanchuxiuzhen.platform.content.block.ContentLeaves;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 
 /** 桃花叶片每20刻更新叶距，并在下方为空时按20%概率广播来源花瓣粒子。 */
-public final class PeachFlowerBlock extends ContentLeaves {
+public final class PeachFlowerBlock extends FruitTreeLeavesBlock {
     public PeachFlowerBlock(BlockTraits traits) {
         super(traits);
     }

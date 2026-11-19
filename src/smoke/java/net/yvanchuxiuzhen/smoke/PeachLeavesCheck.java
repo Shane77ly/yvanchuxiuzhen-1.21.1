@@ -20,7 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.plant.FruitTreeLeavesBlock;
 
-/** 桃叶原生放置、叶距更新与流体交互。 */
+/** 桃叶和桃花的原生放置、叶距更新与流体交互。 */
 final class PeachLeavesCheck extends SystemCheck {
     private BlockPos logPos;
     private BlockPos leafPos;
@@ -28,9 +28,17 @@ final class PeachLeavesCheck extends SystemCheck {
     private BlockState previousLeaf;
     private ItemStack previousHeld;
     private GameType previousMode;
+    private final String leafId;
+    private final String name;
 
     PeachLeavesCheck(List<String> report, String levelId) {
-        super("桃叶生命周期", report, levelId);
+        this(report, levelId, "peachleaves", "桃叶");
+    }
+
+    PeachLeavesCheck(List<String> report, String levelId, String leafId, String name) {
+        super(name + "生命周期", report, levelId);
+        this.leafId = leafId;
+        this.name = name;
     }
 
     @Override
@@ -58,7 +66,7 @@ final class PeachLeavesCheck extends SystemCheck {
         previousHeld = player.getMainHandItem().copy();
         previousMode = player.gameMode.getGameModeForPlayer();
         Block log = block("peachlog");
-        Block leaf = block("peachleaves");
+        Block leaf = block(leafId);
         level.setBlock(leafPos, Blocks.AIR.defaultBlockState(), 3);
         level.setBlock(logPos, log.defaultBlockState(), 3);
         player.setGameMode(GameType.SURVIVAL);
@@ -66,21 +74,21 @@ final class PeachLeavesCheck extends SystemCheck {
         BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(logPos).add(0, 0.5, 0), Direction.UP, logPos, false);
         player.gameMode.useItemOn(player, level, player.getMainHandItem(), InteractionHand.MAIN_HAND, hit);
         BlockState state = level.getBlockState(leafPos);
-        expectTrue("原生放置桃叶且扣一", state.is(leaf) && player.getMainHandItem().getCount() == 1);
+        expectTrue("原生放置" + name + "且扣一", state.is(leaf) && player.getMainHandItem().getCount() == 1);
         if (!(state.getBlock() instanceof FruitTreeLeavesBlock leaves)) {
-            fail("桃叶未使用来源树叶工厂");
+            fail(name + "未使用来源树叶实现");
             return;
         }
         expectTrue("玩家放置叶片持久且邻接桃木距离为一", state.getValue(LeavesBlock.PERSISTENT)
                 && state.getValue(LeavesBlock.DISTANCE) == 1);
-        expectTrue("桃叶拒绝注水和取水", !leaves.canPlaceLiquid(player, level, leafPos, state, Fluids.WATER)
+        expectTrue(name + "拒绝注水和取水", !leaves.canPlaceLiquid(player, level, leafPos, state, Fluids.WATER)
                 && !leaves.placeLiquid(level, leafPos, state, Fluids.WATER.defaultFluidState())
                 && leaves.pickupBlock(player, level, leafPos, state).isEmpty() && state.getFluidState().isEmpty());
     }
 
     private void checkAndRemoveLog(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
-        expectTrue("邻接桃木时叶距保持一", level.getBlockState(leafPos).is(block("peachleaves"))
+        expectTrue("邻接桃木时叶距保持一", level.getBlockState(leafPos).is(block(leafId))
                 && level.getBlockState(leafPos).getValue(LeavesBlock.DISTANCE) == 1);
         level.setBlock(logPos, Blocks.AIR.defaultBlockState(), 3);
     }
@@ -88,7 +96,7 @@ final class PeachLeavesCheck extends SystemCheck {
     private void checkAndRestore(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
         BlockState state = level.getBlockState(leafPos);
-        expectTrue("移除桃木后持久叶距更新为七", state.is(block("peachleaves"))
+        expectTrue("移除桃木后持久叶距更新为七", state.is(block(leafId))
                 && state.getValue(LeavesBlock.PERSISTENT) && state.getValue(LeavesBlock.DISTANCE) == 7);
         level.setBlock(leafPos, previousLeaf, 3);
         level.setBlock(logPos, previousLog, 3);
