@@ -9,7 +9,7 @@ updated: 2026-11-19
 
 ## 本次执行基线（2026-11-19）
 
-本轮只排人间界。出身奖励首技重进 `3fc3f7e5`、Q40 提前碰撞 `a763e267`、随机结构02/05/06 `fc85caf8`、Q235 正面对照 `059187d5` 已合入。接续从 `7cdf4c9c` 调度[人间界接续专项](remaining-work.md#人间界接续专项)：同 UUID 野羊读盘续战、随机结构原箱取物、Q40 原书命中画面。按候选就绪顺序串行验证；麻雀等新的采样证据，不原样复跑。
+本轮只排人间界。出身奖励首技重进 `3fc3f7e5`、Q40 提前碰撞 `a763e267`、随机结构02/05/06 `fc85caf8`、Q235 正面对照 `059187d5` 已合入；Q40 原书第 5 刻碰撞和清楚绿爆帧经 `14aea08d` 合入，具体证据在技能月志。接续从当前 Git HEAD 调度[人间界接续专项](remaining-work.md#人间界接续专项)：同 UUID 野羊读盘续战和随机结构原箱取物仍待串行验收。麻雀等新的采样证据，不原样复跑。
 
 双 Mod 全量移植仅排除 Q28。实际集成树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，居所合并基线 `adad8f20`，最新 HEAD 以 Git 为准。原 `rebuild-batch0-integration-20261117` 检出改挂 `codex/renjian-wind-candidate-preserved-20261119`。七个风系草稿及其原状态已逐一核对哈希，记录在新集成树 `tmp/renjian-candidate-preservation-20261119.json`。
 
