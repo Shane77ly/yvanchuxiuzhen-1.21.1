@@ -34,6 +34,7 @@ final class RenjianWildJarWitness {
     private final Consumer<PlayerInteractEvent.RightClickBlock> clicking = this::onClick;
     private final Consumer<EntityJoinLevelEvent> joining = this::onJoin;
     private final List<String> report;
+    private final RenjianLocustCombatWitness combat;
     private ServerPlayer observer;
     private ItemStack capturedStack;
     private CompoundTag insect;
@@ -54,17 +55,20 @@ final class RenjianWildJarWitness {
     private boolean fed;
     private boolean complete;
 
-    RenjianWildJarWitness(List<String> report) {
+    RenjianWildJarWitness(List<String> report, RenjianLocustCombatWitness combat) {
         this.report = report;
+        this.combat = combat;
     }
 
     void start() {
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, clicking);
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, joining);
+        if (combat != null) combat.start();
     }
     void stop() {
         NeoForge.EVENT_BUS.unregister(clicking);
         NeoForge.EVENT_BUS.unregister(joining);
+        if (combat != null) combat.stop();
     }
     void capture(UUID uuid, ItemStack stack) {
         wildUuid = uuid;
@@ -207,6 +211,7 @@ final class RenjianWildJarWitness {
         if (animal == null || (controlledTarget != null && !controlledTarget.equals(animal.getUUID()))) return;
         released = fly;
         targetUuid = animal.getUUID();
+        if (combat != null) combat.track(level, released, animal, source, jarId, savedSlot);
         report.add("INFO REPLAY_JAR_RELEASE_JOIN released=" + fly.getUUID() + " target=" + targetUuid + " gameTime=" + level.getGameTime());
     }
 

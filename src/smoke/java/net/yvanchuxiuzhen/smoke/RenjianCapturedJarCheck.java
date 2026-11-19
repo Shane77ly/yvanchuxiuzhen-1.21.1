@@ -25,6 +25,7 @@ final class RenjianCapturedJarCheck extends SystemCheck {
     private static final ResourceLocation FLY_ITEM = id("guchong_03item");
     private final List<String> report;
     private final Screenshots screenshots;
+    private final RenjianLocustCombatWitness combat;
     private final RenjianWildJarWitness jar;
     private final RenjianCapturedJarDriver driver;
     private final RenjianControlledJarScene target;
@@ -36,7 +37,9 @@ final class RenjianCapturedJarCheck extends SystemCheck {
         super("人间道自然摄网飞蝗装罐", report, levelId);
         this.report = report;
         this.screenshots = screenshots;
-        jar = new RenjianWildJarWitness(report);
+        combat = "1".equals(System.getenv("YVANCHUXIUZHEN_SMOKE_LOCUST_COMBAT"))
+                ? new RenjianLocustCombatWitness(report) : null;
+        jar = new RenjianWildJarWitness(report, combat);
         driver = new RenjianCapturedJarDriver(report, screenshots);
         target = new RenjianControlledJarScene(report);
     }
@@ -68,7 +71,8 @@ final class RenjianCapturedJarCheck extends SystemCheck {
                 });
                 yield true;
             }
-            case 6 -> { afterSave(local); yield false; }
+            case 6 -> afterSave(local);
+            case 7 -> { afterRelease(local); yield false; }
             default -> throw new IllegalStateException("未知自然飞蝗装罐步骤 " + step);
         };
     }
@@ -125,7 +129,7 @@ final class RenjianCapturedJarCheck extends SystemCheck {
         return ready[0];
     }
 
-    private void afterSave(int local) {
+    private boolean afterSave(int local) {
         onServer(player -> {
             if (!player.isAlive() || local > 3600) {
                 abort("重开后未收到放虫见证：受控目标=" + targetPlaced + "；" + jar.stage());
@@ -134,7 +138,7 @@ final class RenjianCapturedJarCheck extends SystemCheck {
             jar.observe(player, flies(player));
             if (!targetPlaced && jar.releaseAreaEmpty()) targetPlaced = target.provideTarget(player, jar);
         });
-        if (!listening || !targetPlaced || !jar.complete()) return;
+        if (!listening || !targetPlaced || !jar.complete()) return false;
         if (releaseSeenAt < 0) releaseSeenAt = local;
         Entity fly = RenjianReplayPlayer.mirror(minecraft, jar.releasedTarget());
         if (fly != null && minecraft.screen == null) {
@@ -142,12 +146,26 @@ final class RenjianCapturedJarCheck extends SystemCheck {
             if (local - releaseSeenAt >= 6) {
                 screenshots.take("renjian-locust-jar-03-released.png");
                 report.add("INFO REPLAY_CAPTURED_JAR_COMPLETE wild=" + CAPTURED + " controlledTarget=true");
+                if (combat != null) return true;
                 stop();
                 finish();
-                return;
+                return false;
             }
         }
         if (local - releaseSeenAt > 100) abort("服务端已放虫，未取得同一释放飞蝗的客户端镜像截图");
+        return false;
+    }
+
+    private void afterRelease(int local) {
+        boolean[] done = {false};
+        onServer(player -> {
+            if (local > 600) combat.timeout();
+            done[0] = combat.done();
+        });
+        if (done[0]) {
+            stop();
+            finish();
+        }
     }
 
     private void abort(String message) {
