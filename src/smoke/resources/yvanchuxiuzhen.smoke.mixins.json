@@ -8,6 +8,10 @@
     "PlantPlacedFeatureMixin",
     "PlantConfiguredFeatureMixin"
   ],
+  "client": [
+    "SmokeWindowMixin",
+    "SmokeMouseHandlerMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
