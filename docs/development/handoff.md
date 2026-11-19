@@ -9,9 +9,9 @@ updated: 2026-11-19
 
 ## 本次执行基线（2026-11-19）
 
-本轮只排人间界。后台客户端、出身闭关重进、乾坤道人、虫蚀草掉落回退及自然飞蝗摄网至放出取证已合入。接续依[本轮人间界优先](remaining-work.md#本轮人间界优先)验证入口至正厅的生存通路与风系战斗拾取。启动前核对隔离回放的维度、规则和视距，使用新冻结副本。
+本轮只排人间界。后台客户端、出身闭关重进、乾坤道人、虫蚀草掉落回退、飞蝗原生近战和旧门至原正厅的生存取证已合入。接续依[本轮人间界优先](remaining-work.md#本轮人间界优先)验证风系野羊生存击杀和麻雀自然出生至拾取。启动前核对隔离回放的维度、规则和视距，使用新冻结副本。
 
-双 Mod 全量移植仅排除 Q28。实际集成树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，飞蝗战斗合并基线 `55bef4f2`，最新 HEAD 以 Git 为准。原 `rebuild-batch0-integration-20261117` 检出改挂 `codex/renjian-wind-candidate-preserved-20261119`。七个风系草稿及其原状态已逐一核对哈希，记录在新集成树 `tmp/renjian-candidate-preservation-20261119.json`。
+双 Mod 全量移植仅排除 Q28。实际集成树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，居所合并基线 `adad8f20`，最新 HEAD 以 Git 为准。原 `rebuild-batch0-integration-20261117` 检出改挂 `codex/renjian-wind-candidate-preserved-20261119`。七个风系草稿及其原状态已逐一核对哈希，记录在新集成树 `tmp/renjian-candidate-preservation-20261119.json`。
 
 天阙七群系功能`9e9c4caf`由`292d3a13`、无归十群系功能`29f44f24`由`6e86380d`非快进合入。无归正式转换24资源、双编译/六架构及限定wugui,wuguiportal通过，受控生成真实重进与首次及重进后再次完整往返成立；该批完成时为六个自定义维度/60目标群系。规则、首轮一般门户人间道随机结构OOM和无效自然地形截图边界只在[World正文](../systems/world/architecture.md#无归十群系与门户接收2026-11-18)及[月志](../systems/world/logs/2026-11.md#2026-11-18-无归十群系接收与限定门户客户端)维护。必要限定单项通过不关闭旧高视距OOM/停服重排。
 
