@@ -59,7 +59,7 @@ final class RenjianRewardLeafImpactCheck extends SystemCheck {
     static final String SELECTOR = "renjianrewardleafimpact";
     static final String SAVE_ID = "renjian-q40-impact-visual-replay";
     private static final UUID PLAYER = UUID.fromString("380df991-f603-344c-a090-369bad2a924a");
-    private static final String LEVEL_HASH = "f515052493fdda603dc90f41b183b6ea7c8165ff7ec797627400aab842b5dc9";
+    private static final String LEVEL_HASH = "f515052493fdda603dc90f41b183b6eaa7c8165ff7ec797627400aab842b5dc9";
     private static final String PLAYER_HASH = "5bcf98998122be9dced09a209fe673bd43c629b2ab914e50005f1621c5a668e6";
     private static final Vec3 ORIGIN = new Vec3(8.5, 180, 8.5);
     private static final Vec3 TARGET = ORIGIN.add(0, 0, 6);
