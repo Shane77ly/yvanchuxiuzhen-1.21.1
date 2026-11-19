@@ -103,7 +103,9 @@ final class SmokeRun {
     private final boolean renjianBirthSupply = "renjianbirthsupply".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private final boolean renjianResidence = RenjianResidenceCheck.SELECTOR.equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
     private final boolean renjianRewardSpell = RenjianRewardSpellCheck.SELECTOR.equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
-    private final boolean guardedWorldExit = guardedFirstSpell || renjianCombatLifecycle || renjianBirthSupply || renjianResidence || renjianRewardSpell;
+    private final boolean renjianRewardLeafImpact = RenjianRewardLeafImpactCheck.SELECTOR.equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
+    private final boolean rewardReplay = renjianRewardSpell || renjianRewardLeafImpact;
+    private final boolean guardedWorldExit = guardedFirstSpell || renjianCombatLifecycle || renjianBirthSupply || renjianResidence || rewardReplay;
     private final String replayLevelId = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
         case "renjianvisual" -> "renjian-visual";
         case "q119" -> QiankunDialogueCheck.SAVE_ID;
@@ -111,6 +113,7 @@ final class SmokeRun {
         case RenjianCapturedJarCheck.SELECTOR -> RenjianCapturedJarCheck.SAVE;
         case RenjianResidenceCheck.SELECTOR -> RenjianResidenceCheck.SAVE_ID;
         case RenjianRewardSpellCheck.SELECTOR -> RenjianRewardSpellCheck.SAVE_ID;
+        case RenjianRewardLeafImpactCheck.SELECTOR -> RenjianRewardLeafImpactCheck.SAVE_ID;
         default -> "";
     };
     private int ticks;
@@ -252,12 +255,16 @@ final class SmokeRun {
                 blockFirstSpellExit(RenjianRewardSpellCheck.SELECTOR + " 需单独运行；未创建世界");
                 return;
             }
-            if (renjianRewardSpell && !rewardReplayReady()) return;
+            if (!renjianRewardLeafImpact && List.of(only.split(",")).contains(RenjianRewardLeafImpactCheck.SELECTOR)) {
+                blockFirstSpellExit(RenjianRewardLeafImpactCheck.SELECTOR + " 需单独运行；未创建世界");
+                return;
+            }
+            if (rewardReplay && !rewardReplayReady()) return;
             if (!replayLevelId.isEmpty()) {
                 levelId = replayLevelId;
                 next();
                 minecraft.createWorldOpenFlows().openWorld(levelId, () -> {
-                    if (renjianRewardSpell) {
+                    if (rewardReplay) {
                         blockFirstSpellExit("无法打开人间奖励技能专用副本 " + levelId);
                         return;
                     }
@@ -336,7 +343,11 @@ final class SmokeRun {
         Path level = copy.resolve("level.dat");
         try {
             if (Files.isRegularFile(level) && copy.toRealPath().equals(saves.toRealPath().resolve(replayLevelId))
-                    && level.toRealPath().equals(copy.toRealPath().resolve("level.dat"))) return true;
+                    && level.toRealPath().equals(copy.toRealPath().resolve("level.dat"))) {
+                if (!renjianRewardLeafImpact || RenjianRewardLeafImpactCheck.matchesArchive(copy)) return true;
+                blockFirstSpellExit("Q40 副本的 level.dat 或本人玩家文件与施放后原归档不符：" + copy);
+                return false;
+            }
         } catch (IOException exception) {
             blockFirstSpellExit("无法核对回放专用副本 " + copy + "：" + exception);
             return false;
@@ -354,7 +365,7 @@ final class SmokeRun {
         }
         boolean worldReady = minecraft.player != null && minecraft.level != null && minecraft.getSingleplayerServer() != null;
         if (renjianResidence) worldReady &= minecraft.screen == null && minecraft.getOverlay() == null;
-        if (renjianRewardSpell && (!worldReady || minecraft.screen instanceof ReceivingLevelScreen)) {
+        if (rewardReplay && (!worldReady || minecraft.screen instanceof ReceivingLevelScreen)) {
             if (ticks - phaseStart > 1200) {
                 blockFirstSpellExit("人间奖励技能存档未就绪：" + (minecraft.screen == null ? "无界面" : minecraft.screen.getTitle().getString()));
             }
@@ -382,7 +393,7 @@ final class SmokeRun {
 
     private void checkSystems() {
         if (systemChecks == null) {
-            if (!renjianBirthSupply && !renjianResidence && !renjianRewardSpell) minecraft.setScreen(null);
+            if (!renjianBirthSupply && !renjianResidence && !rewardReplay) minecraft.setScreen(null);
             String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
             List<String> names = only.isEmpty() ? List.of("relation", "attribute", "xiulian", "gongfa", "combat", "skill") : List.of(only.split(","));
             systemChecks = new ArrayList<>();
@@ -390,6 +401,7 @@ final class SmokeRun {
                 systemChecks.addAll(switch (name) {
                     case RenjianRewardSpellCheck.SELECTOR -> List.of(new RenjianRewardSpellCheck(report, levelId, this::shot,
                             () -> pollFirstSpellExit("足额施放后同档重进")));
+                    case RenjianRewardLeafImpactCheck.SELECTOR -> List.of(new RenjianRewardLeafImpactCheck(report, levelId, this::shot));
                     case "renjianbirthsupply" -> {
                         if (!renjianBirthSupply) throw new IllegalArgumentException("renjianbirthsupply 需单独运行");
                         yield List.of(new RenjianBirthSupplyCheck(report, levelId, this::shot, () -> pollFirstSpellExit("闭关后同档重进")));
@@ -965,7 +977,7 @@ final class SmokeRun {
     /** 闸门沿用公共跨维判据。只留一个未完成的采样；服务端忙时不在渲染线程 join。 */
     private boolean pollFirstSpellExit(String stage) {
         long now = System.nanoTime();
-        String scenario = renjianRewardSpell ? "人间奖励首技回放"
+        String scenario = renjianRewardLeafImpact ? "人间奖励拈花飞叶 Q40" : renjianRewardSpell ? "人间奖励首技回放"
                 : renjianCombatLifecycle ? "人间普通战斗" : renjianBirthSupply ? "人间出身供给"
                 : renjianResidence ? "人间居所" : "人间首技";
         if (firstSpellExitStarted == 0) {
@@ -1011,7 +1023,8 @@ final class SmokeRun {
 
     private void blockFirstSpellExit(String reason) {
         firstSpellExitBlocked = true;
-        String code = renjianRewardSpell ? "REWARD_SPELL_REPLAY_BLOCKED" : renjianCombatLifecycle ? "COMBAT_LIFECYCLE_EXIT_BLOCKED"
+        String code = renjianRewardLeafImpact ? "REWARD_LEAF_IMPACT_BLOCKED" : renjianRewardSpell ? "REWARD_SPELL_REPLAY_BLOCKED"
+                : renjianCombatLifecycle ? "COMBAT_LIFECYCLE_EXIT_BLOCKED"
                 : renjianBirthSupply ? "BIRTH_SUPPLY_EXIT_BLOCKED"
                 : renjianResidence ? "RESIDENCE_EXIT_BLOCKED" : "FIRST_SPELL_EXIT_BLOCKED";
         report.add("FAIL " + code + " " + reason + "；未请求新的断开或重开");
