@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.plant;
 
+import java.util.List;
 import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
@@ -230,6 +232,12 @@ public final class ReactiveWildBlocks {
         protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
             super.tick(state, level, pos, random);
             advance(path, level, pos);
+        }
+
+        @Override
+        protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
+            List<ItemStack> drops = super.getDrops(state, params);
+            return path.equals("thundergrass") && drops.isEmpty() ? List.of(new ItemStack(this)) : drops;
         }
 
         @Override
