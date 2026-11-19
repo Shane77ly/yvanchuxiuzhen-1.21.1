@@ -219,6 +219,13 @@ final class SmokeRun {
         if (minecraft.screen instanceof TitleScreen && minecraft.getOverlay() == null) {
             String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
             List<String> selectors = List.of(only.split(",", -1));
+            if (selectors.stream().map(String::strip).anyMatch(RenjianRandomCheck.Remainder::isSelector)
+                    && (!RenjianRandomCheck.Remainder.isSelector(only) || minecraft.options.renderDistance().get() != 2
+                        || minecraft.options.simulationDistance().get() != 5)) {
+                report.add("FAIL 剩余随机结构需单独选择 renjianrandom02、renjianrandom05 或 renjianrandom06，并使用视距 2 / 模拟距离 5");
+                finish();
+                return;
+            }
             if (selectors.size() > 1 && (selectors.contains(RenjianLocustNaturalCheck.SELECTOR)
                     || selectors.contains(RenjianCapturedJarCheck.SELECTOR))) {
                 report.add("FAIL 自然飞蝗及后续装罐各需单独选择运行");
@@ -287,7 +294,8 @@ final class SmokeRun {
             levelId = "smoke" + System.currentTimeMillis();
             WorldOptions options = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
                 case "renjianfirstspell", "renjiancombatlifecycle", "renjianbirthsupply" -> new WorldOptions(FIRST_SPELL_SEED, true, false);
-                case "renjianrandom" -> new WorldOptions(RenjianRandomCheck.SEED, true, false);
+                case "renjianrandom", "renjianrandom02", "renjianrandom05", "renjianrandom06" ->
+                        new WorldOptions(RenjianRandomCheck.SEED, true, false);
                 case "plantsupply" -> new WorldOptions(PlantSupplyCheck.REPLAY_SEED, true, false);
                 default -> WorldOptions.defaultWithRandomSeed();
             };
@@ -483,6 +491,9 @@ final class SmokeRun {
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
                     case "renjianrandom" -> List.of(new RenjianRandomCheck(report, levelId));
+                    case "renjianrandom02" -> List.of(new RenjianRandomCheck(report, levelId, RenjianRandomCheck.Remainder.SURFACE));
+                    case "renjianrandom05" -> List.of(new RenjianRandomCheck(report, levelId, RenjianRandomCheck.Remainder.CAVERN));
+                    case "renjianrandom06" -> List.of(new RenjianRandomCheck(report, levelId, RenjianRandomCheck.Remainder.RUIN));
                     case RenjianLocustNaturalCheck.SELECTOR -> List.of(new RenjianLocustNaturalCheck(report, levelId));
                     case RenjianCapturedJarCheck.SELECTOR -> List.of(new RenjianCapturedJarCheck(report, levelId, this::shot));
                     case "renjianvisual" -> List.of(new RenjianVisualCheck(report, levelId, this::shot));
