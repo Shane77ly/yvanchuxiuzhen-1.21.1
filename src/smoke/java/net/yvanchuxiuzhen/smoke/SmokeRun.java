@@ -94,7 +94,11 @@ final class SmokeRun {
     private final List<Closeup> closeups = new ArrayList<>();
     private final Minecraft minecraft = Minecraft.getInstance();
     private final boolean guardedFirstSpell = "renjianfirstspell".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
-    private final boolean renjianVisual = "renjianvisual".equals(System.getProperty("yvanchuxiuzhen.smoke.only"));
+    private final String replayLevelId = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
+        case "renjianvisual" -> "renjian-visual";
+        case "q119" -> QiankunDialogueCheck.SAVE_ID;
+        default -> "";
+    };
     private int ticks;
     private int phase;
     private int phaseStart;
@@ -187,11 +191,11 @@ final class SmokeRun {
             return;
         }
         if (minecraft.screen instanceof TitleScreen && minecraft.getOverlay() == null) {
-            if (renjianVisual) {
-                levelId = "renjian-visual";
+            if (!replayLevelId.isEmpty()) {
+                levelId = replayLevelId;
                 next();
                 minecraft.createWorldOpenFlows().openWorld(levelId, () -> {
-                    report.add("FAIL 人间道居所无法打开专用存档副本 " + levelId);
+                    report.add("FAIL 无法打开人间道专用存档副本 " + levelId);
                     finish();
                 });
                 return;
@@ -220,14 +224,15 @@ final class SmokeRun {
     }
 
     private void waitForWorld() {
-        if (renjianVisual && minecraft.screen instanceof BackupConfirmScreen screen
+        if (!replayLevelId.isEmpty() && minecraft.screen instanceof BackupConfirmScreen screen
                 && screen.getTitle().equals(Component.translatable("selectWorld.backupQuestion.experimental"))) {
             screen.children().stream().filter(child -> child instanceof Button button
                             && button.getMessage().equals(Component.translatable("selectWorld.backupJoinSkipButton")))
                     .map(child -> (Button) child).findFirst().orElseThrow().onPress();
         }
-        if (renjianVisual && ticks - phaseStart > 1200 && minecraft.player == null) {
-            report.add("FAIL 人间道居所副本未就绪：" + (minecraft.screen == null ? "无界面" : minecraft.screen.getTitle().getString()));
+        if (!replayLevelId.isEmpty() && ticks - phaseStart > 1200 && minecraft.player == null) {
+            report.add("FAIL 人间道专用存档副本 " + levelId + " 未就绪："
+                    + (minecraft.screen == null ? "无界面" : minecraft.screen.getTitle().getString()));
             finish();
             return;
         }
@@ -314,6 +319,10 @@ final class SmokeRun {
                     case "festivalremaining" -> List.of(new FestivalRemainingCheck(report, levelId, this::shot));
                     case "doublebang" -> List.of(new DoubleBangFireworkCheck(report, levelId, this::shot));
                     case "qiankun" -> List.of(new QiankunCheck(report, levelId, this::shot));
+                    case "q119" -> {
+                        if (!QiankunDialogueCheck.SAVE_ID.equals(levelId)) throw new IllegalArgumentException("q119 需单独运行");
+                        yield List.of(new QiankunDialogueCheck(report, levelId, this::shot));
+                    }
                     case "npc08" -> List.of(new NpcFlyingShuttleCheck(report, levelId, this::shot));
                     case "npc_underworld" -> List.of(new NpcUnderworldCheck(report, levelId, this::shot));
                     case "wishlantern" -> List.of(new WishLanternCheck(report, levelId, this::shot));

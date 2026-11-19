@@ -19,9 +19,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.core.particles.ParticleTypes;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
+import net.yvanchuxiuzhen.system.npc.api.QiankunDialogueRequestEvent;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.Animation;
@@ -44,6 +47,14 @@ public final class QiankundaorenBlockEntity extends RandomizableContainerBlockEn
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
     }
     public IItemHandler handler(Direction direction) { return direction == null ? unsided : sided[direction.ordinal()]; }
+
+    public static void requestDialogue(PlayerInteractEvent.RightClickBlock event) {
+        if (!(event.getEntity() instanceof ServerPlayer player) || event.getHand() != player.getUsedItemHand()) return;
+        if (event.getLevel().getBlockEntity(event.getPos()) instanceof QiankundaorenBlockEntity dao
+                && dao.getPersistentData().getString(player.getUUID() + "zhuangtai").equals("准备")) {
+            NeoForge.EVENT_BUS.post(new QiankunDialogueRequestEvent(player));
+        }
+    }
 
     public void interact(Player player) {
         if (!(player instanceof ServerPlayer serverPlayer) || level == null || level.isClientSide) return;
