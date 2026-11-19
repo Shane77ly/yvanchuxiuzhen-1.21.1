@@ -3,8 +3,12 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,6 +28,12 @@ public final class Yaoshou048Entity extends YaoshouEntity {
         xpReward = 0;
     }
 
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        goalSelector.removeAllGoals(goal -> goal instanceof FloatGoal);
+    }
+
     public static AttributeSupplier.Builder attributes(EntityModelRow row) {
         return YaoshouEntity.attributes(row);
     }
@@ -33,12 +43,27 @@ public final class Yaoshou048Entity extends YaoshouEntity {
     }
     @Override protected void sourceTick() { Yaoshou048Behavior.tick(level(), this); }
     @Override protected void sourceHurt(DamageSource source, float amount) { Yaoshou037054Support.hurt(this, source, "animation.yaoshou048.attacked"); }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (source.is(DamageTypes.DROWN)) {
+            sourceHurt(source, amount);
+            return false;
+        }
+        return super.hurt(source, amount);
+    }
+
     @Override public void die(DamageSource source) { super.die(source); SpiritBeastBags.onCreatureDeath(this); }
     @Override public void aiStep() { super.aiStep(); updateSwingTime();  }
     @Override protected SoundEvent getAmbientSound() { return Yaoshou037054Support.sound("minecraft:entity.turtle.ambient_land"); }
     @Override protected SoundEvent getHurtSound(DamageSource source) { return Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou048attacked"); }
     @Override protected SoundEvent getDeathSound() { return Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou048die"); }
     @Override protected void playStepSound(BlockPos pos, BlockState state) { playSound(Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou048walk"), 0.15F, 1F); }
+
+    @Override
+    protected EntityDimensions getDefaultDimensions(Pose pose) {
+        return super.getDefaultDimensions(pose).withEyeHeight(1.2F);
+    }
 
     @Override public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         sourceAnimations.register(this, controllers, 4, "animation.yaoshou048.", state -> {
