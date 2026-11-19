@@ -9,9 +9,9 @@ updated: 2026-11-19
 
 ## 本次执行基线（2026-11-19）
 
-本轮固定人间界优先。当前集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`、分支 `port/batch0-integration-20261117`，接手基线 `9e9675a1`；最新 HEAD 与工作树状态以 Git 为准。Q40 原书第 5 刻碰撞及清楚绿爆帧已由 `14aea08d` 合入，证据见技能月志，不再复跑。修炼与战斗、世界与植物、生物与蛊虫三个完整模块在原工作树增量推进；各模块未提交增量及野羊/结构候选状态见[当前调度](remaining-work.md#当前调度)。先审阅原工作树差异再续改，不整体搬运；接收、必要验证和 Git 收口由主线程串行处理。
+本轮固定人间界优先。当前集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`、分支 `port/batch0-integration-20261117`，实际接手基线为当前 Git 历史中的 `7d5288dd`，早先记录的 `9e9675a1` 仅作历史定位；最新 HEAD 与工作树状态以 Git 为准。Q40 已合入且不再无变化复跑。修炼与战斗、世界与植物、生物与蛊虫三个完整模块在各自原工作树增量推进；模块负责人先以锁定的1.18.2版本源码、资源和真实调用链自行整理模块范围与缺口，再选择完整人间界玩家路径实现，不以Q编号作为路线。各模块未提交增量及野羊/结构候选状态见[当前调度](remaining-work.md#当前调度)。先审阅原工作树差异再续改，不整体搬运；接收、必要验证和 Git 收口由主线程串行处理。
 
-双 Mod 全量移植仅排除 Q28。实际集成树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，居所合并基线 `adad8f20`，最新 HEAD 以 Git 为准。原 `rebuild-batch0-integration-20261117` 检出改挂 `codex/renjian-wind-candidate-preserved-20261119`。七个风系草稿及其原状态已逐一核对哈希，记录在新集成树 `tmp/renjian-candidate-preservation-20261119.json`。
+双 Mod 全量移植仅排除 Q28。实际集成树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，当前 HEAD 为 `7d5288dd`，其中 `469f79cc` 的引雷草空战利品回退已非快进合入；最新 HEAD 以 Git 为准。原 `rebuild-batch0-integration-20261117` 检出改挂 `codex/renjian-wind-candidate-preserved-20261119`。七个风系草稿及其原状态已逐一核对哈希，记录在新集成树 `tmp/renjian-candidate-preservation-20261119.json`。
 
 天阙七群系功能`9e9c4caf`由`292d3a13`、无归十群系功能`29f44f24`由`6e86380d`非快进合入。无归正式转换24资源、双编译/六架构及限定wugui,wuguiportal通过，受控生成真实重进与首次及重进后再次完整往返成立；该批完成时为六个自定义维度/60目标群系。规则、首轮一般门户人间道随机结构OOM和无效自然地形截图边界只在[World正文](../systems/world/architecture.md#无归十群系与门户接收2026-11-18)及[月志](../systems/world/logs/2026-11.md#2026-11-18-无归十群系接收与限定门户客户端)维护。必要限定单项通过不关闭旧高视距OOM/停服重排。
 
@@ -23,7 +23,7 @@ updated: 2026-11-19
 
 主agent统一公共进度/Git与重型队列，转换、Gradle、客户端、专服串行，768 MB、单worker；不加堆、不无变化复跑，不推送、不合main。独立功能按必要检查结果及时`merge --no-ff`，具体证据与旧失败均保留原路径。
 
-负责人要求客户端测试静音：每次启动前检查对应工作树 `run/smoke/options.txt` 的 `soundCategory_master:0.0`，新测试目录也先配置静音；不修改系统全局音量。桃叶单项已由 `64dc5f0c` 合入，后续从[当前调度](remaining-work.md#当前调度)继续三个模块及待验路径。
+负责人要求客户端测试静音：每次启动前检查对应工作树 `run/smoke/options.txt` 的 `soundCategory_master:0.0`，新测试目录也先配置静音；不修改系统全局音量。引雷草空战利品回退已由 `7d5288dd` 合入，仅代表该直接掉落函数的限定验证，不提升植物模块整体状态。后续从[当前调度](remaining-work.md#当前调度)继续三个模块及待验路径。
 
 ## 历史状态（截至2026-11-16）
 

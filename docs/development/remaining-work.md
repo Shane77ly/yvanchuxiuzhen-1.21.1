@@ -182,17 +182,17 @@ Q28星宿穴位学习小游戏已于2026-11-16批准排除，保留来源登记�
 
 #### 2026-11-19 收拢快照
 
-本节为上次收拢时的历史快照；当前派工以上节为准。
+本节为上次收拢时的历史快照；当前派工以上节为准。模块负责人不按Q编号机械挑选任务，而是先从锁定的1.18.2版本模组源码、资源与调用链整理本模块的完整范围、已覆盖内容和缺口，再自主确定下一条可闭合的人间界玩家路径；Q28是唯一批准排除项。
 
 集成树 `port/batch0-integration-20261117` 的 HEAD 为 `42e1d89e`，工作树干净；本轮没有接收或验证新的生产功能。三个模块负责人在收拢要求下停止，均确认本轮未修改模块文件、未提交、未运行验证。模块树既有未提交差异全部保留，不能整体搬入集成树或据此判定完成：
 
 | 模块 | 工作树与基线 | 当前未提交状态 | 下次动作 |
 | --- | --- | --- | --- |
-| 修炼与战斗 | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-cultivation-combat-module-20261118`；`port/cultivation-combat-module-20261118`；HEAD `51377a2c` | 80个已跟踪文件修改、25个未跟踪文件、无暂存项；涉及R02–R04多个系统、资源/中文、Smoke与文档。未做本轮验证。 | 先审阅现有差异，再选一项来源明确的完整功能路径继续实现；仅运行该交付所需检查。 |
-| 世界与植物 | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-world-plant-module-20261118`；`port/world-plant-module-20261118`；HEAD `51377a2c` | 43个已跟踪文件修改、103个未跟踪文件、无暂存项；包含World/Plant及NPC、Quest、Smoke和转换工具差异。未做本轮验证。 | 先确认既有差异归属并与集成基线逐项对照，再继续来源已核的World/Plant玩家路径。 |
-| 生物与蛊虫 | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-creature-guchong-module-20261118`；`port/creature-guchong-module-20261118`；HEAD `63852624` | 56个已跟踪文件修改、59个未跟踪文件、无暂存项；涉及Creature/Guchong代码、资源、转换清单、Smoke和系统文档。未做本轮验证。 | 先审阅差异，再继续R07/R10尚未闭合的自然出生、AI/战斗/掉落或蛊虫生命周期路径。 |
+| 修炼与战斗 | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-cultivation-combat-module-20261118`；`port/cultivation-combat-module-20261118`；HEAD `51377a2c` | 既有大量未提交改动，涉及R02–R04多个系统、资源/中文、Smoke与文档；状态以该树实际 `git status` 为准，未整体接收。 | owner 先完成源码/资源/调用链整理，再自主选择并实现一条完整人间界玩家路径；不以Q编号代替模块计划，不运行大范围验证。 |
+| 世界与植物 | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-world-plant-module-20261118`；`port/world-plant-module-20261118`；HEAD `51377a2c` | 既有大量未提交改动，包含World/Plant及NPC、Quest、Smoke和转换工具差异；状态以该树实际 `git status` 为准，未整体接收。 | owner 先完成源码/资源/调用链整理，再自主选择并实现一条完整人间界玩家路径；不以Q编号代替模块计划，不运行大范围验证。 |
+| 生物与蛊虫 | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-creature-guchong-module-20261118`；`port/creature-guchong-module-20261118`；HEAD `63852624` | 既有大量未提交改动，涉及Creature/Guchong代码、资源、转换清单、Smoke和系统文档；状态以该树实际 `git status` 为准，未整体接收。 | owner 先完成源码/资源/调用链整理，再自主选择并实现一条完整人间界玩家路径；不以Q编号代替模块计划，不运行大范围验证。 |
 
-原主树仍为 `port/full-migration-20261112` / `28f05bc7`，本次状态复核为313条工作区项（含25条暂存），未在原主树操作。野羊候选 `29619325`、结构候选工作树 `codex/renjian-structure-loot-20261119` 均与集成树隔离保留；Q40专项已由`14aea08d`合入，不再复跑。下一次先从三个模块树继续实现，再由主线程按固定功能快照串行接收与验证。
+原主树仍为 `port/full-migration-20261112` / `28f05bc7`，本次状态复核为313条工作区项（含25条暂存），未在原主树操作。野羊候选 `29619325`、结构候选工作树 `codex/renjian-structure-loot-20261119` 均与集成树隔离保留；Q40已合入，不再复跑。引雷草空战利品回退已由`7d5288dd`接收，仅完成直接掉落函数的限定验证。下一步由三个模块 owner 分别从1.18.2源码整理和推进，主线程只做公共进度、串行重型验证与按功能快照接收。
 
 此前Hegel交接金魔蛛、环境生物01–12候选；Peirce冻结地府票据对照和自然水稻下游夹具；Parfit交接高档异火与原生炉鼎耗热夹具。当前负责人和动作以上方续批派工为准。寄魂蟹受控形态、原生袋与同档重进`2acc473a`已非快进合入，自然选技与形态视觉仍待；见[Creature月志](../systems/creature/logs/2026-11.md#2026-11-18-寄魂蟹原生袋与形态重进)。
 
