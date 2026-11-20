@@ -3,10 +3,12 @@ package net.yvanchuxiuzhen.system.creature;
 import java.util.function.Supplier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.creature.content.CoffinContent;
 import net.yvanchuxiuzhen.system.creature.content.SpiritBeastBagDyeMenus;
@@ -45,6 +47,7 @@ public final class CreatureSetup {
         modBus.addListener((RegisterCapabilitiesEvent event) -> event.registerItem(Capabilities.ItemHandler.ITEM,
                 (stack, context) -> new SpiritBeastDyeToolInventory(stack), SpiritBeastBagDyeMenus.toolItem()));
         NeoForge.EVENT_BUS.addListener(SpiritBeastBagRuntime::interact);
+        NeoForge.EVENT_BUS.addListener(EventPriority.HIGH, false, EntityTickEvent.Pre.class, YaoshouRecovery::onTick);
         NeoForge.EVENT_BUS.addListener(YaoshouGrowth::onDeath);
         NeoForge.EVENT_BUS.addListener(GuchongGrowthConsumer::onVictimData);
         NeoForge.EVENT_BUS.addListener(WildPlantCreatures::spawn);
