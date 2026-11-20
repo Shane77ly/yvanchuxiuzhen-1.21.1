@@ -7,6 +7,13 @@ from convert_content import ROOT, SOURCES
 DATA = ROOT / 'src/main/resources/data'
 
 
+def air_placement() -> list[dict]:
+    return [{
+        'type': 'minecraft:block_predicate_filter',
+        'predicate': {'type': 'minecraft:matching_blocks', 'blocks': ['minecraft:air']},
+    }]
+
+
 def generate(converter) -> None:
     for number in ('001', '002', '004', '005', '006'):
         generate_cereal(converter, number)
@@ -51,7 +58,7 @@ def generate_crop(converter, number: str, *, double: bool = False) -> None:
                         },
                     },
                 },
-                'placement': [],
+                'placement': air_placement(),
             },
         },
     }
@@ -108,13 +115,7 @@ def generate_fungi(converter) -> None:
                             },
                         },
                     },
-                    'placement': [{
-                        'type': 'minecraft:block_predicate_filter',
-                        'predicate': {
-                            'type': 'minecraft:matching_blocks',
-                            'blocks': ['minecraft:air'],
-                        },
-                    }],
+                    'placement': air_placement(),
                 },
             },
         }
@@ -157,7 +158,7 @@ def generate_sesame(converter) -> None:
                         },
                     },
                 },
-                'placement': [],
+                'placement': air_placement(),
             },
         },
     }
@@ -200,7 +201,7 @@ def generate_legumes(converter) -> None:
                             },
                         },
                     },
-                'placement': [],
+                    'placement': air_placement(),
                 },
             },
         }
