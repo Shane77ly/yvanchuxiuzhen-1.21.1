@@ -37,6 +37,11 @@ public final class Techniques {
         TechniqueRules.setSlot(player, stack);
     }
 
+    /** 装配页载入后，将当前功法记为来源每秒比较使用的原栈。 */
+    public static void rememberSlot(ServerPlayer player) {
+        TechniqueRules.rememberSlot(player);
+    }
+
     /** 研习手中的功法书（书籍右键的研习分支）；条件不满足时只提示。 */
     public static void study(ServerPlayer player, ItemStack stack) {
         TechniqueRules.study(player, stack);

@@ -13,7 +13,8 @@ import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
 
 /**
  * 功法系统的数据登记：书上的功法实例组件 {@code technique}，以及玩家的功法栏 {@code technique_slot}
- * （来源 {@code gongfa} 字段，全部克隆事件复制，只同步给本人）。
+ * （来源 {@code gongfa} 字段，全部克隆事件复制，只同步给本人）；上次功法比较槽仅服务端保存。
+ * 克隆保留两个来源物品引用及其已有别名关系，存档仍分别序列化两个槽。
  */
 public final class GongfaData {
     private static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ModId.VALUE);
@@ -25,7 +26,15 @@ public final class GongfaData {
             .builder(() -> ItemStack.EMPTY)
             .serialize(ItemStack.OPTIONAL_CODEC)
             .copyOnDeath()
+            .copyHandler((stack, holder, provider) -> stack)
             .sync((holder, player) -> holder == player, ItemStack.OPTIONAL_STREAM_CODEC)
+            .build());
+    /** 来源 gongfalinshi：每秒末尾比较功法种类与名称；随存档、克隆保留，不发送给客户端。 */
+    public static final Supplier<AttachmentType<ItemStack>> PREVIOUS_SLOT = ATTACHMENTS.register("previous_technique_slot", () -> AttachmentType
+            .builder(() -> ItemStack.EMPTY)
+            .serialize(ItemStack.OPTIONAL_CODEC)
+            .copyOnDeath()
+            .copyHandler((stack, holder, provider) -> stack)
             .build());
 
     private GongfaData() {

@@ -37,6 +37,7 @@ updated: 2026-11-18
 | --- | --- | --- |
 | 每二十刻推进事件 | `CultivationSecondEvent(玩家)`：闭关修炼之后、吸收与恢复之前发出 | gongfa推进功法修炼；skill按来源推进元婴出窍耗神 |
 | 突破处理后每秒事件 | `CultivationAfterBreakthroughEvent(玩家)`：同一每秒段突破处理之后、闭关冷却之前发出 | cooking 按来源顺序代谢自有酒精 |
+| 恢复后每秒事件 | `CultivationAfterRecoveryEvent(玩家)`：资源恢复之后发出 | gongfa 比较主修功法种类与名称 |
 | 查询 | `get(玩家, CultivationValue)`：境界层数、修为三项与效率、灵力、神识、灵根与阴阳、罡煞、功德、雷劫、血脉、属性点、寿元、闭关天数等 35 项；`get(玩家, CultivationText)`：境界名、种族、血脉、体质、出身、`fuhuo` | 全部读取方 |
 | 好友境界查询响应 | 监听relation的`FriendRealmNameEvent`，回填已匹配玩家当前保存的`LEVEL_NAME` | relation生成好友行；保持xiulian→relation，不写关系数据 |
 | 加减、赋值 | `add(玩家, 项, 增量)`、`set(玩家, 项, 值)`、`set(玩家, 文本项, 文本)`；乘法由调用方读后赋值 | 经济、异火、技能、战斗、装备、功法、符箓、流程等 |

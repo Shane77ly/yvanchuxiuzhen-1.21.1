@@ -1,3 +1,13 @@
 {
-  "block.yvanchuxiuzhen.canwutai_block": "Canwutai Block"
+  "block.yvanchuxiuzhen.canwutai_block": "Canwutai Block",
+  "message.yvanchuxiuzhen.gongfa.study.already_owned": "You have already studied this technique!",
+  "message.yvanchuxiuzhen.gongfa.study.owned_by_other": "This technique has already been studied by someone else.",
+  "message.yvanchuxiuzhen.gongfa.study.level_required": "You must reach at least the %s realm to study this technique.",
+  "message.yvanchuxiuzhen.gongfa.study.success": "Technique studied successfully!",
+  "message.yvanchuxiuzhen.gongfa.training.level_up": "Technique advanced to layer %s",
+  "message.yvanchuxiuzhen.gongfa.training.stopped": "Technique training ended.",
+  "message.yvanchuxiuzhen.gongfa.training.hungry": "You are too hungry to continue training.",
+  "message.yvanchuxiuzhen.gongfa.training.not_owned": "You cannot train with a technique you do not own.",
+  "message.yvanchuxiuzhen.gongfa.training.realm_limit": "Your technique cannot exceed your realm. Advance your realm before training it further.",
+  "message.yvanchuxiuzhen.gongfa.training.progress": "%s days until leaving seclusion (technique experience gained: %s)"
 }
