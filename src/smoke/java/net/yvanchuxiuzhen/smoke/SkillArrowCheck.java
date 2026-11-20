@@ -18,6 +18,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
@@ -35,6 +36,8 @@ final class SkillArrowCheck extends ActionCheck {
     private boolean originalArrowSkill;
     private boolean originalFullCharge;
     private boolean originalSneak;
+    private boolean originalCtrl;
+    private boolean originalAlt;
     private IronGolem target;
     private AbstractArrow arrow;
     private long rainLaunchedAt;
@@ -49,6 +52,8 @@ final class SkillArrowCheck extends ActionCheck {
                     originalArrowSkill = Cultivation.tizhiBoolean(p, "arrowskill");
                     originalFullCharge = Cultivation.tizhiBoolean(p, "manxvli");
                     originalSneak = p.isShiftKeyDown();
+                    originalCtrl = ModifierKeys.ctrl(p);
+                    originalAlt = ModifierKeys.alt(p);
                     for (int i = 0; i < p.getInventory().getContainerSize(); i++) inventory.add(p.getInventory().getItem(i).copy());
                     p.getInventory().clearContent();
                     p.setShiftKeyDown(false);
@@ -85,7 +90,8 @@ final class SkillArrowCheck extends ActionCheck {
                     expectTrue("火箭沿真实弹道命中并附加燃烧状态", target.getHealth() < 100 && StatusEffects.has(target, "effect_023"));
                     clear(p);
                     target(p);
-                    arrow = shot(p, 1, true, false, p.position().add(1, 1, 0), new Vec3(1, 0, 0), 1);
+                    arrow = shot(p, 1, false, false, p.position().add(1, 1, 0), new Vec3(1, 0, 0), 1);
+                    ModifierKeys.update(p, true, false);
                     rainLaunchedAt = p.serverLevel().getGameTime();
                 }),
                 new Action(8, p -> {
@@ -117,7 +123,8 @@ final class SkillArrowCheck extends ActionCheck {
                     StatusEffects.remove(target, "skill_arrow_0601");
                     expect("内爆刷新现读新等级造成四点伤害，单独移除仍结算二点", 6, before - target.getHealth());
                     clear(p);
-                    arrow = Skills.createArrow(p, 7, 0, 2, false, true, true, false);
+                    ModifierKeys.update(p, false, true);
+                    arrow = Skills.createArrow(p, 7, 0, 2, true, false);
                     arrow.setPos(p.position().add(1, 4, 0));
                     arrow.shoot(1, 0, 0, .1f, 0);
                     p.serverLevel().addFreshEntity(arrow);
@@ -160,7 +167,8 @@ final class SkillArrowCheck extends ActionCheck {
     }
 
     private static AbstractArrow shot(ServerPlayer player, int kind, boolean control, boolean alt, Vec3 origin, Vec3 direction, double damage) {
-        AbstractArrow arrow = Skills.createArrow(player, kind, 0, 0, control, alt, true, false);
+        ModifierKeys.update(player, control, alt);
+        AbstractArrow arrow = Skills.createArrow(player, kind, 0, 0, true, false);
         arrow.setBaseDamage(damage);
         arrow.setPos(origin);
         arrow.shoot(direction.x, direction.y, direction.z, 1, 0);
@@ -174,6 +182,7 @@ final class SkillArrowCheck extends ActionCheck {
         player.setData(SkillData.STATE, originalState);
         for (int i = 0; i < inventory.size(); i++) player.getInventory().setItem(i, inventory.get(i));
         player.setShiftKeyDown(originalSneak);
+        ModifierKeys.update(player, originalCtrl, originalAlt);
         Cultivation.set(player, CultivationValue.POWER, originalPower);
         Cultivation.set(player, CultivationValue.LEVEL_NUMBER, originalRank);
         Cultivation.setTizhiBoolean(player, "arrowskill", originalArrowSkill);
