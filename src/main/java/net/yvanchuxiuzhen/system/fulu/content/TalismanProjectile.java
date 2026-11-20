@@ -9,6 +9,9 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -24,6 +27,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
@@ -61,7 +65,7 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
  * 41号惊庭五雷符首刻交接独立品阶和施放者身份，16刻内命中实体时登记五轮落雷状态。
  * 18号神傀符保留使用者通用品阶，首刻记录修饰键模式，10刻内命中时分派妖兽驯服或非妖兽控制。
  * 05、29、32 的品阶由使用者的实体持久数据 {@code fulu05level}、{@code fulu29level}、{@code fulu32level} 传入。
- * 品阶在第一刻从发射者的符箓状态读取。1.21.1 版本的箭没有独立击退字段，来源 13、17 号弹体的击退 1 不再携带。
+ * 品阶在第一刻从发射者的符箓状态读取。独立击退值由具体发射入口设置。
  */
 public final class TalismanProjectile extends AbstractArrow implements ItemSupplier {
     /** 各弹体的内容表ID。 */
@@ -83,10 +87,12 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         }
     }
 
+    private static final EntityDataAccessor<Byte> PIERCE = SynchedEntityData.defineId(TalismanProjectile.class, EntityDataSerializers.BYTE);
     private static final int FLIGHT_TICKS = 14;
     private static final TagKey<Block> DANLU = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "danlu"));
     private static final TagKey<Block> DINGLU = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "dinglu"));
     private final Kind kind;
+    private int knockback;
     private double grade;
     private boolean recorded;
     private boolean splitting;
@@ -95,6 +101,34 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     public TalismanProjectile(EntityType<? extends TalismanProjectile> type, Level level, Kind kind) {
         super(type, level);
         this.kind = kind;
+        setTalismanPierce(kind == Kind.SWORD ? 5 : kind == Kind.QI_SWORD ? 10 : 0);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(PIERCE, (byte) 0);
+    }
+
+    public void setTalismanPierce(int value) {
+        entityData.set(PIERCE, (byte) value);
+    }
+
+    /** 设置来源箭实体的击退强度；该值与 1.18.2 原生箭一样不写入存档。 */
+    public TalismanProjectile launchedWithKnockback(int value) {
+        knockback = value;
+        return this;
+    }
+
+    @Override
+    protected void doKnockback(LivingEntity target, DamageSource source) {
+        if (knockback > 0) {
+            double resistance = Math.max(0.0, 1.0 - target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+            Vec3 push = getDeltaMovement().multiply(1.0, 0.0, 1.0).normalize().scale(knockback * 0.6 * resistance);
+            if (push.lengthSqr() > 0.0) {
+                target.push(push.x, 0.1, push.z);
+            }
+        }
     }
 
     /** 以来源的伤害 0.1、静音生成并按给定方向以速度 1、无散布发射。 */
@@ -104,7 +138,12 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
 
     public static void launch(ServerLevel level, EntityType<? extends TalismanProjectile> type, Entity owner, Vec3 at, Vec3 direction,
                               float speed, double baseDamage) {
-        TalismanProjectile projectile = type.create(level);
+        launch(level, type, owner, at, direction, speed, baseDamage, 0);
+    }
+
+    public static void launch(ServerLevel level, EntityType<? extends TalismanProjectile> type, Entity owner, Vec3 at, Vec3 direction,
+                              float speed, double baseDamage, int knockback) {
+        TalismanProjectile projectile = type.create(level).launchedWithKnockback(knockback);
         projectile.setOwner(owner);
         projectile.setBaseDamage(baseDamage);
         projectile.setSilent(true);
@@ -141,11 +180,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
 
     @Override
     public byte getPierceLevel() {
-        return (byte) switch (kind) {
-            case SWORD -> 5;
-            case QI_SWORD -> 10;
-            default -> 0;
-        };
+        return entityData.get(PIERCE);
     }
 
     @Override
@@ -166,6 +201,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     @Override
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
+        setTalismanPierce(0);
         impact(Vec3.atLowerCornerOf(result.getBlockPos()));
     }
 
@@ -585,6 +621,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
+        setTalismanPierce(tag.getByte("PierceLevel"));
         grade = tag.getDouble("fululevel");
         recorded = tag.getBoolean("jilu");
         ticks = tag.getInt("tick");

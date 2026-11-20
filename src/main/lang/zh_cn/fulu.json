@@ -298,5 +298,12 @@
   "gui.yvanchuxiuzhen.huafu_gui.recipe.itemfulu_45": "炮符",
   "message.yvanchuxiuzhen.reincarnation.confirm_1": "此符将使您所有属性重置为最初的样子，并且装备的功法、技能和身上的物品将全部清除。如果确认使用，请再右键3次！",
   "message.yvanchuxiuzhen.reincarnation.confirm_2": "此操作不可逆，请确认无误后再使用。如果确认使用，请再右键2次！",
-  "message.yvanchuxiuzhen.reincarnation.confirm_3": "再右键一次就没有回头路了。如果确认使用，请再右键1次！"
+  "message.yvanchuxiuzhen.reincarnation.confirm_3": "再右键一次就没有回头路了。如果确认使用，请再右键1次！",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_05": "剑气特效",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_17": "陨石特效",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_19": "剑特效",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_29": "丝线特效",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_32": "烈爆特效",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_45": "火炮特效",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_46": "火球特效"
 }
