@@ -138,11 +138,11 @@ Q28星宿穴位学习小游戏已于2026-11-16批准排除，保留来源登记�
 
 | 模块负责人 | 原工作树；分支；当前HEAD | 本轮持续范围与状态 |
 | --- | --- | --- |
-| Jason（修炼与战斗，`gpt-6.1-terra`） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-cultivation-combat-module-20261118`；`port/cultivation-combat-module-20261118`；`a1a89a94`；既有脏改动保留 | 从attribute/relation/xiulian/gongfa/combat/skill/yihuo及相关页面源码整理完整人间界成长、修炼、战斗与存档路径；负责人正在复核既有改动并定族级批次。 |
-| Franklin（世界与植物，`gpt-6.1-terra`） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-world-plant-module-20261118`；`port/world-plant-module-20261118`；`ceb96ee2`；含暂存及未暂存既有改动 | 从world/plant及自然生成消费者源码整理人间界维度、地物、植物获取/生成/成长/采收/消费路径；23个成熟单格作物地物已按族接入集成；负责人继续桑树自然生成、采收、蚕与烹饪消费及保存链。 |
-| Dewey（生物与蛊虫，`gpt-6.1-terra`） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-creature-guchong-module-20261118`；`port/creature-guchong-module-20261118`；`8f20537b`；既有脏改动保留 | 从creature/guchong/灵兽收纳源码整理人间界出生、AI/战斗/掉落、获取/收放、蛊虫培养与保存路径；负责人正在复核并定族级批次。 |
+| Jason（修炼与战斗，`gpt-6.1-terra`） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-cultivation-combat-module-20261118`；`port/cultivation-combat-module-20261118`；`a1a89a94`；既有脏改动保留 | 从attribute/relation/xiulian/gongfa/combat/skill/yihuo及相关页面源码整理完整人间界成长、修炼、战斗与存档路径；功法装配、成长和参悟传承以及技能施放消费者候选在原树继续推进；装配实例候选 `114df8e6` 尚未合入，静音 `skillui` 前置场景失败、未覆盖目标路径。 |
+| Franklin（世界与植物，`gpt-6.1-terra`） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-world-plant-module-20261118`；`port/world-plant-module-20261118`；`ceb96ee2`；含暂存及未暂存既有改动 | 从world/plant及自然生成消费者源码整理人间界维度、地物、植物获取/生成/成长/采收/消费路径；成熟作物、树木回退与叶片、人间界野生花草及玉林资源族已选择性接入；继续其他自然生成、采收、成长及消费者完整路径。 |
+| Dewey（生物与蛊虫，`gpt-6.1-terra`） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-creature-guchong-module-20261118`；`port/creature-guchong-module-20261118`；`8f20537b`；既有脏改动保留 | 从creature/guchong/灵兽收纳源码整理人间界出生、AI/战斗/掉落、获取/收放、蛊虫培养与保存路径；妖兽与蛊虫共用击杀成长族已接入；原树继续自然获取、蛊罐/蛊笛放出收回、战斗死亡及保存链。 |
 
-集成树本轮从 `port/batch0-integration-20261117` / `47cdb863` 接续，已通过 `8ae16879` 合入23个成熟单格作物地物与转换器功能 `a6d154cf`；来源与生成器静态核对及文档检查通过，具体运行验证边界见[植物月志](../systems/plant/logs/2026-11.md#2026-11-20-人间界成熟单格作物地物)。客户端任何启动前须在实际运行目录设置并核验`soundCategory_master:0.0`，不改系统全局音量。野羊候选`29619325`和结构宝箱候选继续隔离保留，尚未编译或运行；不并入模块生产工作。Q40已合入，不重跑。原主树和三个模块树现有脏改动均保持。
+集成树本轮从 `port/batch0-integration-20261117` / `47cdb863` 接续，已通过 `8ae16879` 合入23个成熟单格作物地物与转换器功能 `a6d154cf`；来源与生成器静态核对及文档检查通过，具体运行验证边界见[植物月志](../systems/plant/logs/2026-11.md#2026-11-20-人间界成熟单格作物地物)。其后已合入 `06a44985`、`820561dd` 和 `661b4397`，覆盖树木、妖兽蛊虫成长与野生植物/玉林族；运行边界见所属月志。客户端任何启动前须在实际运行目录设置并核验`soundCategory_master:0.0`，不改系统全局音量。野羊候选`29619325`和结构宝箱候选继续隔离保留，尚未编译或运行；不并入模块生产工作。Q40已合入，不重跑。原主树和三个模块树现有脏改动均保持。
 
 | 并行责任 | 本轮验收出口 |
 | --- | --- |
