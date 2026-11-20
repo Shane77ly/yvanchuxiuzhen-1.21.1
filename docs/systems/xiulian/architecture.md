@@ -281,3 +281,8 @@ NeoForge 21.1.265同名Helper和包装器保留上述路径；目标`BirthInitia
 来源`A:Ling11DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:37–64,65–102`用三轴坐标和是否为0判空，已生成的非零坐标也可能落入空盘；粒子斜率分母为`targetX-playerX`，玩家X与目标X重合时可能产生NaN/Infinity；提示使用`abs(playerX-targetX+playerZ-targetZ)`，两个方向差可能抵消，不能等同平面距离。候选保留原式、条件顺序和五种独立随机调用。上述影响是静态推断，零和坐标、X重合和抵消距离的客户端表现及两版本实机均未执行；尚未分配公共问题编号，由主agent集中登记。本节不用旧候选的临时编号。
 
 工厂`xiulian:ling_11`、单件内容表和使用实现已由`28391ef9`集成；实际语言片段英文名为`Ling 1 1`，最终合并`zh_cn.json`及运行截图中中文名为“远古石盘”。`Ling11GuideCheck`已接入`ling11`选择器，只读取World已有自然中心，保持出生区域并转向目标，不写全局坐标。2026-11-18在视距4、模拟距离5、全粒子及`zh_cn`下取得6 INFO、0 FAIL、DONE：首次真实客户端use、服务端/本人追踪状态一致、局部气流粒子和中文物品名画面通过，所有维度正常保存、Gradle退出0。截图、报告与日志见`build/diagnostics/ling11-guidance-20261118/run-05-visual/`。五点完整数量/排列、全部提示分支、自然奖励获取、真实保存重进、多人、专服、1.18.2版本实机与两版本对照仍未执行，不记为完整视觉或整系统验收。
+
+
+## 战斗击杀收益接入（2026-11-20）
+
+战斗系统通过 `PlayerDeathRewards` 按 `DamageSource.getEntity()` 识别服务端玩家攻击者，并调用 `Cultivation` 公开操作写入 `EXPERIENCE_STAND`、`VIGOROUS`、`MERITS` 及人间界 `REVIVE` 标记；`CultivationTick`、`LevelUp` 和修炼附件保存仍由本系统既有入口负责。未新增六个 `synchronous*` 镜像字段的消费者。

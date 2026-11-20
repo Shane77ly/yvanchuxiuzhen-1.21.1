@@ -306,3 +306,10 @@ Quest普通脚本“伤害实体/法术或精神”来源仅写ManaAttackDamage�
 来源`A:PlayerTickProcedure:28–35,384–399`在每个玩家结束刻调用`Effectslownessget`，不受每秒修炼计时门槛限制；`EffectslownessgetProcedure:21–67`在玩家有原版缓慢且体质键`slownessget`为假时，保存当前持续刻数和等级、移除缓慢，再读取头胸腿脚及头饰、项坠、腰佩、手饰的`breakfree`等级之和。持续刻数严格大于等级和×20时，以差值及原等级重新添加默认参数的缓慢；否则不重加。无附魔也会移除并重建效果，因此原效果的粒子、图标和隐藏效果状态不保证保留。最后将标志置真；后续连续有缓慢不重复处理，无缓慢且标志为真时置假。实际短于或等于减免量的效果也要置真，下一次无缓慢刻才复位。
 
 目标`SlownessResistanceFlow`订阅服务端`PlayerTickEvent.Post`，经combat的`Enchants`读护甲与装备系统的饰品快照，经xiulian体质操作读写标志；根入口注册，不引入系统之间的反向依赖。来源能力提供器不挂载FakePlayer，故假玩家每次读取默认假标志和空饰品，只计算护甲且不保存标志。来源同时在客户端玩家刻执行，目标仅服务端处理；两端瞬时显示、假玩家及效果同步顺序尚待对照。源码及哈希见[来源台账](ledger/source-evidence.csv)；已有中文附魔名称和说明、英文名称，英文说明为空，本批不改文本。编译、玩家真实受击、多件叠加、恰等于减免量、连续重新施加、保存重进、客户端和来源版本对照均未执行。
+
+
+## 普通玩家击杀收益与 DamageSource 归属（2026-11-20）
+
+来源 `EntityDeathProcedure.onEntityDeath/execute:37–144,291–299`：过程先要求 `event.getSource().getEntity()` 非空，再按受害者持久化 `LEVELnumber` 或生命上限计算待吸收修为，按主修功法命中候选加成，写入 `experience_Stand`，并按等级差扣 `vigorous`、按妖兽/动物/亡灵/Mob互斥顺序写 `merits`；人间界玩家死亡写入 `fuhuo = 人间界`。目标 `PlayerDeathRewards` 从 `LivingDeathEvent` 的 `DamageSource.getEntity()` 读取归属，技能伤害由 `CombatDamageTypes.source(..., attacker)` 沿用同一来源实体。
+
+本批接入中央注册并通过 `Cultivation` 公开写操作写入修为、罡煞、功德和复活标记；既有 `CultivationTick` 继续消费 `EXPERIENCE_STAND`，`LevelUp` 继续处理吸收后的境界成长。来源空攻击者仍不发放玩家击杀收益。未运行编译、客户端/专服或真实击杀，当前仅登记静态调用链与实现边界。
