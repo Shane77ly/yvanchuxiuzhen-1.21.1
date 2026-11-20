@@ -506,6 +506,7 @@ final class SmokeRun {
                     case "decor_remainder" -> List.of(new DecorRemainderCheck(report, levelId, this::shot));
                     case "animateddecor" -> List.of(new AnimatedDecorCheck(report, levelId, this::shot));
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
+                    case "globalbiomefeatures" -> List.of(new GlobalBiomeFeaturesCheck(report, levelId));
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
                     case "renjianrandom" -> List.of(new RenjianRandomCheck(report, levelId));
                     case "renjianrandom02" -> List.of(new RenjianRandomCheck(report, levelId, RenjianRandomCheck.Remainder.SURFACE));

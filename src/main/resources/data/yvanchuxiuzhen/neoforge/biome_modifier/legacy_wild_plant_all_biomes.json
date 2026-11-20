@@ -1,0 +1,5 @@
+{
+  "type": "yvanchuxiuzhen:add_missing_biome_features",
+  "features": ["yvanchuxiuzhen:nichanggrass_06"],
+  "step": "vegetal_decoration"
+}
