@@ -74,6 +74,10 @@ WILD_PLANTS = (
 )
 
 
+# 已逐项核对来源 simplePatchConfiguration 的空 placement 列表。
+EMPTY_PLACEMENT = frozenset(('purslane', 'columbinemimosa', 'goldenboilinggrass', 'asiaticdayflower', 'spiritgrass', 'fragranceflower', 'raincloud', 'scorchedgrass', 'icicleflower', 'coldleaf', 'bluegrass', 'frostflowers', 'nautilus'))
+
+
 def generate(converter) -> None:
     mod = 'yvanchuxiuzhen'
     source_root = SOURCES[mod][0] / 'src/main/java/net/mcreator/yvanchuxiuzhen/world/features/plants'
@@ -95,7 +99,7 @@ def generate(converter) -> None:
                             },
                         },
                     },
-                    'placement': [{
+                    'placement': [] if plant.name in EMPTY_PLACEMENT else [{
                         'type': 'minecraft:block_predicate_filter',
                         'predicate': {
                             'type': 'minecraft:matching_blocks',
