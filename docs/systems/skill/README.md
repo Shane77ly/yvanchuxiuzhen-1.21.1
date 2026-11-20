@@ -38,6 +38,8 @@ Skill部分实现已随 `5cdc045c` 合入主线，不代表系统完整验收。
 
 ## 公开操作
 
+轮回可调用 `Skills.resetForReincarnation` 清除装配、选中书、飞行及六系冷却，保留来源未重置的选择信息。
+
 已对照 `typed_field_accesses.csv` 汇总来源技能字段的外部读写：原归 panel 的04页读写技能栏16槽（各48处）、页 `jinengweizhi`（读29写4）、身法 `qinggong`、轻功 `flyjineng`、武器技 `wuqiskill`，本批按实际职责将装配菜单移归 skill；fulu 重置全部技能字段（各1处写）；equipment 读箭种选择 `arrowlinshi`（24读2写）与武器技 `wuqiskill`（14读）。代码为 `system/skill/api/Skills`；panel 只通过公开打开入口和导航事件协作，不再直接持有技能槽写入。完整重置随对应阶段补充。
 
 | 操作 | 形式 | 调用者 |

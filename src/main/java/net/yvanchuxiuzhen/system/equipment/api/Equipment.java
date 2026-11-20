@@ -14,9 +14,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.system.equipment.Accessories;
+import net.yvanchuxiuzhen.system.equipment.EquipmentAttributes;
 import net.yvanchuxiuzhen.system.equipment.EquipmentProducts;
 import net.yvanchuxiuzhen.system.equipment.EquipmentRefining;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
+import net.yvanchuxiuzhen.system.equipment.data.AccessoryData;
 
 /** 装备实例的公开构造与查询；调用方只负责给予、容器或奖励流程。 */
 public final class Equipment {
@@ -94,6 +96,16 @@ public final class Equipment {
 
     public static AccessoryInventory accessories(Player player) {
         return player.getData(EquipmentData.ACCESSORIES).snapshot();
+    }
+
+    /** 轮回清四个饰品槽，不触碰投掷法宝临时数据或其他装备系统持有物。 */
+    public static void clearReincarnationAccessories(ServerPlayer player) {
+        player.setData(EquipmentData.ACCESSORIES, new AccessoryData());
+    }
+
+    /** 库存与饰品归零后立即撤回旧器物贡献，不发完整重算粒子。 */
+    public static void refreshContributions(ServerPlayer player) {
+        EquipmentAttributes.submit(player);
     }
 
     public static void openAccessories(ServerPlayer player) {

@@ -22,6 +22,8 @@ import net.yvanchuxiuzhen.system.fulu.content.FuluMenus;
 import net.yvanchuxiuzhen.system.fulu.content.SootBlock;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.RepellingTalismanBlock;
+import net.yvanchuxiuzhen.system.fulu.content.ReincarnationPillItem;
+import net.yvanchuxiuzhen.system.fulu.content.ReincarnationTalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.CloudSpirit;
 import net.yvanchuxiuzhen.system.fulu.content.CorpseTalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.RangedTalismanItem;
@@ -59,6 +61,8 @@ public final class FuluSetup {
             .itemFactory("fulu:passive_23", (properties, tooltip) -> new ThresholdTalismanItem(properties, tooltip, 23))
             .itemFactory("fulu:explosive_42_item", ExplosiveTalismanItem::new)
             .itemFactory("fulu:corpse_seal", CorpseTalismanItem::new)
+            .itemFactory("fulu:reincarnation_37", ReincarnationTalismanItem::new)
+            .itemFactory("fulu:reincarnation_pill", ReincarnationPillItem::new)
             .effectBehavior("fulutexiao_41", new FiveThunderCurse())
             .effectBehavior("fulutexiao_18", new TalismanControl());
 

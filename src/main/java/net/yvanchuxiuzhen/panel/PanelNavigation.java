@@ -57,6 +57,11 @@ public final class PanelNavigation {
         openPage(player, player.getData(PAGE), player.blockPosition().above());
     }
 
+    /** 轮回把下次面板入口归第 1 页，但此时不打开属性界面。 */
+    public static void resetForReincarnation(ServerPlayer player) {
+        player.setData(PAGE, 1);
+    }
+
     private static void openPage(ServerPlayer player, int page, BlockPos pos) {
         switch (page) {
             case 2 -> openSkillPoints(player, pos);

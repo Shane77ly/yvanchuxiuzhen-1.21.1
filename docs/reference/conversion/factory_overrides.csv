@@ -1174,3 +1174,5 @@ block,yvanchuxiuzhen:parasolleaves,plant:air_fallback_leaves,plant,梧桐叶沿�
 block,yvanchuxiuzhen:parasolwood,plant:fruit_tree_log,plant,梧桐原木空战利品回落自身
 block,yvanchuxiuzhen:morningglory,plant:fallback_block,plant,牵牛花空战利品回落原版藤蔓
 block,yvanchuxiuzhen:duckweed,plant:duckweed,plant,浮萍保持来源水面与普通花草基底存活
+item,yvanchuxiuzhen:itemfulu_37,fulu:reincarnation_37,fulu,轮回符确认及轮回请求
+item,yvanchuxiuzhen:fushengdan,fulu:reincarnation_pill,fulu,浮生丹食用后请求轮回

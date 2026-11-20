@@ -21,6 +21,8 @@ updated: 2026-11-18
 
 ## 公开操作
 
+轮回可调用 `Dungeons.clearPaintingTransit` 清除画卷传送栈。
+
 本批对照 `typed_field_accesses.csv` 的 `fubenweizhi`、`datingshengcheng`、`tizhiitem` 副本字段、玩家 `LEVELnumber` 与 `teamwork` 读写点。副本玩家附件保存入场倒计时、定义、控制点、入场点、回程点与原游戏模式；全服副本序号/候场大厅生成标记及各原世界画卷序号由本系统存盘。入口、控制器与占位符保留来源独立方块实体字段和库存。修炼境界通过 `Cultivation.get` 读取，玩家能力临时队伍与本体临时队伍通过 `Relations` 分别操作，结构由 `WorldStructures.place` 放置，刷怪等级与攻击者由 `DungeonCreatures.prepare` 写入。
 
 | 操作 | 形式 | 调用者 |

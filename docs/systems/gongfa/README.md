@@ -25,6 +25,8 @@ updated: 2026-11-18
 
 ## 公开操作
 
+轮回可调用 `Techniques.resetForReincarnation` 清除主修和对照槽并重提交功法贡献。
+
 已对照 `typed_field_accesses.csv` 汇总功法栏 `gongfa` 的来源外部读写：读 388 处中本系统以外约 195 处——xiulian 读名字、品阶、层数与研习者（目标改为本系统提交 `MainTechnique`），combat 读五行值、层数与名字，book 读档位，来源 panel 页读名字与研习者，flow 与 cooking 读名字；写 6 处来自来源 panel 页（放入、取出）、fulu 与 flow（重置）。目标04共用装配菜单归 skill，panel 只导航；代码为 `system/gongfa/api/Techniques`。
 
 | 操作 | 形式 | 调用者 |

@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.xiulian;
 
 import java.util.List;
+import java.util.Random;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,6 +17,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.content.BirthMenu;
+import net.yvanchuxiuzhen.system.xiulian.data.CultivationData;
 
 /**
  * 首次进入游戏的灵根、体质与出身（来源 {@code PlayerJoinGame} 前段、出身界面 {@code PlayerJoinGUI} 的按钮
@@ -48,7 +50,27 @@ public final class BirthSelection {
         }
         updateYinyang(player);
         Cultivation.set(player, CultivationText.CONSTITUTION, Constitution.rolled(Mth.nextInt(player.getRandom(), 1, 10)).title());
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new BirthMenu(id, inventory), Component.literal("PlayerJoinGUI")));
+        open(player);
+    }
+
+    /** 轮回重抽不读取首次登录开关，也不先随机体质。 */
+    public static void rollReincarnationRoots(ServerPlayer player, ServerLevel sourceLevel, CultivationData data) {
+        int cap = sourceLevel.getGameRules().getInt(XiulianRules.ROOT_LEVEL);
+        for (CultivationValue root : ROOTS) {
+            Random random = new Random();
+            data.set(root, cap <= 0 ? 0 : random.nextInt(cap + 1));
+        }
+        data.set(CultivationValue.YINYANG, (data.get(CultivationValue.ROOT_GOLD) + data.get(CultivationValue.ROOT_FIRE))
+                - (data.get(CultivationValue.ROOT_TREE) + data.get(CultivationValue.ROOT_WATER)));
+    }
+
+    public static void openAfterReincarnation(ServerPlayer player) {
+        Delayed.run(10, () -> open(player));
+    }
+
+    private static void open(ServerPlayer player) {
+        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new BirthMenu(id, inventory),
+                Component.translatable("gui.yvanchuxiuzhen.player_join_gui.title")));
     }
 
     public static void press(ServerPlayer player, int button) {

@@ -36,6 +36,12 @@ final class PlayerCommandFlow {
             String action = argument(words, 1);
             String subject = argument(words, 2);
             String operation = argument(words, 3);
+            if (action.equals("open") && subject.equals("rebirthgui")) {
+                Entity executor = source.getEntity();
+                if (executor == null) executor = FakePlayerFactory.getMinecraft(source.getLevel());
+                ReincarnationFlow.reincarnate(executor, source.getLevel());
+                return 0;
+            }
             if (!Professions.command(player, action, subject, operation, argument(words, 4), argument(words, 5))
                     && !Cultivation.command(source.getLevel(), player, action, subject, operation, argument(words, 4), argument(words, 5))
                     && !ElementStatistics.command(player, action, subject, operation, argument(words, 4), argument(words, 5))) {
