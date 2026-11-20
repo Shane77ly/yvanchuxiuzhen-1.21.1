@@ -43,8 +43,6 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
-import net.yvanchuxiuzhen.platform.content.block.ContentFlower;
-import net.yvanchuxiuzhen.platform.content.block.ContentLeaves;
 import net.yvanchuxiuzhen.platform.content.block.WaterloggedContentBlock;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.plant.api.WildPlantCreatureEvent;
@@ -208,7 +206,7 @@ public final class ReactiveWildBlocks {
         level.addFreshEntity(entity);
     }
 
-    private static final class ReactiveFlower extends ContentFlower {
+    private static final class ReactiveFlower extends FallbackFlowerBlock {
         private final String path;
 
         private ReactiveFlower(BlockTraits traits) {
@@ -232,12 +230,6 @@ public final class ReactiveWildBlocks {
         protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
             super.tick(state, level, pos, random);
             advance(path, level, pos);
-        }
-
-        @Override
-        protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
-            List<ItemStack> drops = super.getDrops(state, params);
-            return path.equals("thundergrass") && drops.isEmpty() ? List.of(new ItemStack(this)) : drops;
         }
 
         @Override
@@ -354,9 +346,15 @@ public final class ReactiveWildBlocks {
         }
     }
 
-    private static final class SandalwoodLeaves extends ContentLeaves {
+    private static final class SandalwoodLeaves extends FruitTreeLeavesBlock {
         private SandalwoodLeaves(BlockTraits traits) {
             super(traits);
+        }
+
+        @Override
+        protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
+            List<ItemStack> drops = super.getDrops(state, params);
+            return drops.isEmpty() ? List.of(new ItemStack(Blocks.AIR)) : drops;
         }
 
         @Override

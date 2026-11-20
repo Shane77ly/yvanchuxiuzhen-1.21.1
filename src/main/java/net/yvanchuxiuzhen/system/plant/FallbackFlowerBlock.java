@@ -12,7 +12,7 @@ import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentFlower;
 
 /** 野生花草保留内容表的土壤与效果规则，空战利品按来源回落。 */
-public final class FallbackFlowerBlock extends ContentFlower {
+public class FallbackFlowerBlock extends ContentFlower {
     public FallbackFlowerBlock(BlockTraits traits) {
         super(traits);
     }
@@ -20,7 +20,7 @@ public final class FallbackFlowerBlock extends ContentFlower {
     @Override
     protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
         List<ItemStack> drops = super.getDrops(state, params);
-        if (!drops.isEmpty()) return drops;
+        if (!drops.isEmpty() || traits().row().behavior().fallbackDrop().isEmpty()) return drops;
         BlockRow.Drop fallback = traits().row().behavior().fallbackDrop().orElseThrow();
         if (fallback.item().equals("self")) return List.of(new ItemStack(this, fallback.count()));
         ResourceLocation id = fallback.item().contains(":") ? ResourceLocation.parse(fallback.item())
