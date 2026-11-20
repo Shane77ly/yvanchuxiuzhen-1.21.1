@@ -181,7 +181,7 @@ updated: 2026-11-19
 
 ### 成熟地物、转换与证据边界
 
-28个已接成熟地物使用同一个`CropFeature`保留两维度限制；001/002既有CerealFeature及其他族的等价候选类合并，不复制完全相同实现。新增26种各有configured/placed两份数据，由`convert_plant_worldgen.py`经标准`convert_data.py`生成并追踪各自来源Java SHA-1。参数默认RandomPatch tries1/xz7/y3、simple_block成熟默认态；普通单格作物保留来源逐类谓词，001/002/004/005/006成熟双格谷物按来源`List.of()`使用空placement谓词列表，不额外要求空气落点。其余族继续按来源配置核对；双格成熟态含half=lower；外层Count1→Rarity32→InSquare→MOTION_BLOCKING→Biome。023为tries4/count1，032为tries2/count2。仅dimensionrenjian/dimensionyaohun；未装任何替代主世界或指向缺失群系的modifier。豆科成熟地物046/047/048/051/054/055/056与双株芝麻05701的来源配置同样使用空placement谓词列表；目标转换器按Feature类型输出空列表，不额外要求空气落点。其tries、成熟方块状态、外层Count/Rarity/InSquare/Heightmap/Biome顺序、群系引用与维度限制保持原规则。来源符号与未验证边界见[本批月志](logs/2026-11.md#2026-11-19-成熟豆科与芝麻地物谓词对齐)。
+28个已接成熟地物使用同一个`CropFeature`保留两维度限制；001/002既有CerealFeature及其他族的等价候选类合并，不复制完全相同实现。新增26种各有configured/placed两份数据，由`convert_plant_worldgen.py`经标准`convert_data.py`生成并追踪各自来源Java SHA-1。参数默认RandomPatch tries1/xz7/y3、simple_block成熟默认态；普通单格作物保留来源逐类谓词，001/002/004/005/006成熟双格谷物来源`List.of()`为空底材列表，1.18.2辅助方法仍生成空气落点谓词。其余族继续按来源配置核对；双格成熟态含half=lower；外层Count1→Rarity32→InSquare→MOTION_BLOCKING→Biome。023为tries4/count1，032为tries2/count2。仅dimensionrenjian/dimensionyaohun；未装任何替代主世界或指向缺失群系的modifier。豆科成熟地物046/047/048/051/054/055/056与双株芝麻05701的来源配置同样使用空底材列表；目标转换器保留辅助方法生成的空气落点谓词。其tries、成熟方块状态、外层Count/Rarity/InSquare/Heightmap/Biome顺序、群系引用与维度限制保持原规则。来源符号与未验证边界见[本批月志](logs/2026-11.md#2026-11-19-成熟豆科与芝麻地物谓词对齐)。
 
 以下列出新增地物的来源群系（均省略`biome`前缀），供World后续装配；008/015没有本批成熟地物。
 
@@ -442,11 +442,11 @@ World接回无归实际十群系后，阴魂草在三百川、尸草在尸绝01�
 
 ## 成熟双格谷物地物谓词对齐（2026-11-19）
 
-锁定1.18.2版本 `Shicai001Plant08Feature`、`Shicai002Plant08Feature`、`Shicai004Plant08Feature`、`Shicai005Plant08Feature`、`Shicai006Plant08Feature` 的 `simplePatchConfiguration` 使用空放置谓词列表。目标原五份configured feature多出 `matching_blocks: minecraft:air`，会排除来源允许的落点；现已移除，并在 `convert_plant_worldgen.py` 中对双格成熟作物生成空 `placement`，避免转换重跑回退。该修正仅覆盖五种成熟双格谷物，其他成熟Feature仍需逐族核对；未运行自然新区块、玩家采收、保存重进、专服或两版本对照。
+锁定1.18.2版本 `Shicai001Plant08Feature`、`Shicai002Plant08Feature`、`Shicai004Plant08Feature`、`Shicai005Plant08Feature`、`Shicai006Plant08Feature` 的 `simplePatchConfiguration` 传入空底材列表；1.18.2 `FeatureUtils.simplePatchConfiguration` 对空列表仍使用 `ONLY_IN_AIR_PREDICATE`。此前误移除了五份configured feature中的 `matching_blocks: minecraft:air`，现已恢复并修正转换器；未运行自然新区块、玩家采收、保存重进、专服或两版本对照。
 
 ## 人间界成熟单格作物地物（2026-11-20）
 
-来源 `Shicai007/011–014/016–033Plant04Feature` 共23个成熟地物的 `simplePatchConfiguration` 均使用空谓词列表。目标原configured配置额外限制空气落点；现移除该限制，并同步 `convert_plant_worldgen.py` 的单格和双格生成规则。原有地物方块、外层投放配置与阶段生长、采收、播种和消费实现保持；023的tries为4，032的tries及外层count均为2，其余分别为1。群系引用、实际自然新区块投放、采收和消费、真实保存重进仍待验证；已注册不等于玩法链验收。
+来源 `Shicai007/011–014/016–033Plant04Feature` 共23个成熟地物的 `simplePatchConfiguration` 均传入空底材列表；1.18.2辅助方法仍加入空气落点过滤。此前误删该过滤，现已恢复并同步 `convert_plant_worldgen.py` 的单格和双格生成规则。原有地物方块、外层投放配置与阶段生长、采收、播种和消费实现保持；023的tries为4，032的tries及外层count均为2，其余分别为1。群系引用、实际自然新区块投放、采收和消费、真实保存重进仍待验证；已注册不等于玩法链验收。
 
 
 ## 人间界树木家族掉落与叶片生命周期（2026-11-20）
@@ -458,6 +458,6 @@ World接回无归实际十群系后，阴魂草在三百川、尸草在尸绝01�
 
 ## 人间界野生采集与玉林资源族（2026-11-20）
 
-13种野生花草和采集物沿用现有自然地物与群系挂载；来源 `simplePatchConfiguration` 内层谓词为空，目标与转换器同步移除额外空气过滤。花草保留原地面、碰撞和效果配置；非空战利品优先，空结果按各来源方块回落自身、空气或鹦鹉螺壳。来源未提供这组植物的种植成长阶段，本批不补造。
+13种野生花草和采集物沿用现有自然地物与群系挂载；来源 `simplePatchConfiguration` 传入空底材列表，但辅助方法仍加入空气过滤；目标资源与转换器已修正为该行为。花草保留原地面、碰撞和效果配置；非空战利品优先，空结果按各来源方块回落自身、空气或鹦鹉螺壳。来源未提供这组植物的种植成长阶段，本批不补造。
 
 玉林文玉木、玉竹保留空表掉自身，文玉树叶与玉竹叶回退空气；文玉树叶沿来源树叶生命周期，玉竹叶保持普通方块。现有人间道玉林群系使用对应树生成配置，已有文玉木及玉竹配方消费者；新区块生成、采收、配方操作、保存重进及两版本实机仍待验证。
