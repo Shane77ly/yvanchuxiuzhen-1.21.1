@@ -90,7 +90,7 @@ public final class FriendList {
     /**
      * 删除选中的好友：本人列表中该格去掉星标、标为删除，并把对方团队移出友方集合。
      * 对方在同一维度在线时，来源在本人列表里查找本人的名字（通常不存在）；找到时把那一格同样标为删除，
-     * 再把本人的整份列表写给对方（来源 {@code Playeruidel} 读取对象写错，Q19）。选中行为空时返回 false，不刷新。
+     * 再把本人的好友子表引用写给对方（来源 {@code Playeruidel} 读取对象写错，Q19）。选中行为空时返回 false，不刷新。
      */
     private static boolean delete(ServerPlayer player, PlayerRelation relation) {
         FriendRow row = relation.row(relation.selected());
@@ -102,7 +102,7 @@ public final class FriendList {
                     if (entry.name().equals(myName)) {
                         markDeleted(relation, entry);
                         PlayerRelation otherRelation = other.getData(RelationAttachments.PLAYER);
-                        otherRelation.copyFriendsFrom(relation);
+                        otherRelation.shareFriendsFrom(relation);
                         other.syncData(RelationAttachments.PLAYER);
                         break;
                     }

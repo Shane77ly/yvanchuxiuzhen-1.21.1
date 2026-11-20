@@ -7,6 +7,8 @@ updated: 2026-11-18
 
 # 关系
 
+2026-11-20接回好友子表在灵纹、出窍与玩家克隆中的共享及保存语义；针对缺失子表、共享引用和编码重读的受控数据测试通过，战斗、多人和真实重进仍待验证。
+
 标识 `relation`，类别：系统。职责：组队、好友、敌友判定（[系统设计](../../development/system-design.md)）。
 
 2026-11-13补入神傀符驯服的好友表替换与团队交接公开操作，真实001妖兽成功及保存重读必要单项通过，结果见[符箓月志](../fulu/logs/2026-11.md#2026-11-13-神傀符18完整路径)。
@@ -33,6 +35,7 @@ updated: 2026-11-18
 | 敌友判定 | `isFriendly(判定方, 对方)`：判定方的友方集合含对方团队 | combat（`EntityHurt`、`EntityBeforeHurt`、`ShanghaiGo`）、skill、fulu、creature、guchong、equipment 法宝等经 `Friendpanding*` 的全部调用 |
 | 方块友方查询 | `friendlyTeams(主人)` 返回只读视图；`isFriendly(集合, 对方)` 按对方当前团队判断 | yihuo 火块保留来源共享友方引用，序列化与重载时保存为独立集合；不允许调用者修改关系 |
 | 继承阵营 | `copyAllegiance(主人, 非玩家实体)`：团队与友方集合整体复制 | 同“查询团队”的召唤与投射物生成 |
+| 灵纹与出窍友表 | `initializeRune` / `runeCount` / `setRuneCount` / `runeOwner` / `incrementRuneForOwner` / `restoreLegacyRune`；`initializeProjection` / `projectionOwner` | skill 按来源共享和消费好友子表；旧字段迁入及实体持久化边界见正文 |
 | 共享实体阵营 | `shareEntityAllegiance(来源非玩家实体, 目标非玩家实体)`：团队值复制、友方集合运行期共享，独立存档重载后分离 | creature 008召唤007，保留来源直接赋入同一CompoundTag的后续写入效果 |
 | 蛊罐共享友方 | `shareAllegianceToBlock(主人, 方块持久数据)`与`shareBlockAllegiance(方块持久数据, 虫, 虫团队)`：共享来源friendlist子标签，团队由虫物品单独赋值 | guchong放置与地上放虫，独立存档重载后解除共享 |
 | 驯服替换好友与团队 | `replaceTamingFriends(目标)`先复制目标能力好友并移除旧实体团队；`setTamingTeam(施放者, 目标)`另写实体团队 | Creature神傀符命中；来源`Itemfulu18DangTouZhiWuJiZhongShiTiShiProcedure:225–234`，保留原生认主和粒子在两次写入之间的顺序 |
@@ -42,7 +45,7 @@ updated: 2026-11-18
 | 退出能力临时队伍 | `leaveTemporaryTeam(服务端玩家)`先按旧队名显示中文提示，再清空能力队名并仅同步本人 | Equipment 03页原生button 5；来源`Teamleave` |
 | 本体临时队伍 | `entityTemporaryTeam(实体)`、`setEntityTemporaryTeam(实体, 值)`；独立保存本体`teamwork` | Dungeon维度进入和成功/失败清理，不反写能力同名字段 |
 
-约定：普通公开写操作只用于非玩家实体，对玩家调用时抛出异常；驯服两操作与玩家本体团队刷新明确只改本体实体附件，即使目标带玩家能力也不修改能力团队/好友。玩家能力关系由本系统登录和界面流程维护。方块实体敌友查询已随 yihuo 首个调用者接入，读取者持有只读视图，不反写玩家关系。
+约定：普通团队公开写操作只用于非玩家实体，对玩家调用时抛出异常；灵纹遍历和出窍入口按其接口说明使用玩家或实体；驯服两操作与玩家本体团队刷新明确只改本体实体附件，即使目标带玩家能力也不修改能力团队/好友。玩家能力关系由本系统登录和界面流程维护。方块实体敌友查询已随 yihuo 首个调用者接入，读取者持有只读视图，不反写玩家关系。
 
 临时队伍03页来源显示/退出已接，原生K导航、真实按钮消息、本人同步与NBT编码必要单项通过；非空建立/加入断链Q123与超宽来源布局Q124见[临时队伍正文](architecture.md#临时队伍03页与退出2026-11-14)，自然组队、多人及默认窗口鼠标可达仍未验。
 
