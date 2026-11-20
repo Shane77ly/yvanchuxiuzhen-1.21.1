@@ -1178,3 +1178,7 @@ block,yvanchuxiuzhen:morningglory,plant:fallback_block,plant,牵牛花空战利�
 block,yvanchuxiuzhen:duckweed,plant:duckweed,plant,浮萍保持来源水面与普通花草基底存活
 item,yvanchuxiuzhen:itemfulu_37,fulu:reincarnation_37,fulu,轮回符确认及轮回请求
 item,yvanchuxiuzhen:fushengdan,fulu:reincarnation_pill,fulu,浮生丹食用后请求轮回
+item,yvanchuxiuzhen:yaoshou_048skill_01,creature:yaoshou_projectile,creature,来源按住松手发射对应弹体
+item,yvanchuxiuzhen:yaoshou_046skill_01,creature:yaoshou_projectile,creature,来源按住松手发射对应弹体
+item,yvanchuxiuzhen:yaoshou_040skill_0301,creature:yaoshou_projectile,creature,来源按住松手发射对应弹体
+item,yvanchuxiuzhen:yaoshou_017skill_03,creature:yaoshou_projectile,creature,来源按住松手发射对应弹体

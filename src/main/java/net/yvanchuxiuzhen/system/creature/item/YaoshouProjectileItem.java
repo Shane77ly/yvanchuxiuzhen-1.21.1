@@ -18,11 +18,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
+import net.yvanchuxiuzhen.system.creature.entity.Yaoshou046skill01Entity;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou016duyeEntity;
+import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou017skill03Entity;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou026huoyanEntity;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou028shuiqiangEntity;
+import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou031WaterProjectile;
+import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou040skill0301Entity;
 
-/** 来源三件妖兽投射物品：开始使用后松手，以固定参数生成本系统已有弹体。 */
+/** 来源妖兽投射物品：开始使用后松手，以固定参数生成本系统已有弹体。 */
 public final class YaoshouProjectileItem extends ContentItem {
     public YaoshouProjectileItem(Properties properties, List<Component> tooltip) {
         super(properties, tooltip);
@@ -67,6 +71,26 @@ public final class YaoshouProjectileItem extends ContentItem {
                 arrow.configure(player, 0, (byte) 0);
                 yield arrow;
             }
+            case "yaoshou_048skill_01" -> {
+                Yaoshou031WaterProjectile arrow = CreatureSetup.<Yaoshou031WaterProjectile>entityType("projectile_yaoshou_048skill_01").get().create(server);
+                arrow.setBaseDamage(0.1);
+                yield arrow;
+            }
+            case "yaoshou_046skill_01" -> {
+                Yaoshou046skill01Entity arrow = CreatureSetup.<Yaoshou046skill01Entity>entityType("projectile_yaoshou_046skill_01").get().create(server);
+                arrow.configure(0.1, 0, (byte) 0);
+                yield arrow;
+            }
+            case "yaoshou_040skill_0301" -> {
+                Yaoshou040skill0301Entity arrow = CreatureSetup.<Yaoshou040skill0301Entity>entityType("projectile_yaoshou_040skill_0301").get().create(server);
+                arrow.setBaseDamage(0.1);
+                yield arrow;
+            }
+            case "yaoshou_017skill_03" -> {
+                Yaoshou017skill03Entity arrow = CreatureSetup.<Yaoshou017skill03Entity>entityType("projectile_yaoshou_017skill_03").get().create(server);
+                arrow.configure(0.1, 0);
+                yield arrow;
+            }
             default -> throw new IllegalStateException("未登记的妖兽投射物品 " + itemId);
         };
         projectile.setOwner(player);
@@ -74,7 +98,7 @@ public final class YaoshouProjectileItem extends ContentItem {
         Vec3 direction = player.getViewVector(1);
         projectile.shoot(direction.x, direction.y, direction.z, 2, 0);
         projectile.setSilent(true);
-        projectile.setCritArrow(false);
+        projectile.setCritArrow(itemId.equals("yaoshou_046skill_01"));
         server.addFreshEntity(projectile);
         float pitch = 1 / (level.random.nextFloat() * 0.5F + 1) + 0.5F;
         // 来源仅026蓝焰火提供声音标识；016毒液与028水枪的标识为空。

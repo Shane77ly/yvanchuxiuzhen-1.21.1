@@ -277,6 +277,7 @@ final class Yaoshou039Behavior {
             if (world instanceof ServerLevel level) {
                 for (int index = 0; index < 3; index++) {
                     Yaoshou040skill0301Entity projectile = Yaoshou040Skills.projectile(level, entity);
+                    projectile.setSourcePierceLevel((byte) 1);
                     projectile.setPos(entity.getX(), entity.getY() + entity.getBbHeight() / 2, entity.getZ());
                     projectile.shoot(entity.getLookAngle().x + Yaoshou037054Support.randomDouble(-1, 1),
                             entity.getLookAngle().y + 0.1, entity.getLookAngle().z + Yaoshou037054Support.randomDouble(-1, 1), 1, 0);
