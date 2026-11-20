@@ -25,6 +25,13 @@ public final class Yaoshou035Entity extends YaoshouEntity {
 
     @Override protected void sourceTick() { Yaoshou035Behavior.tick(this); }
     @Override protected void sourceHurt(DamageSource source, float amount) { Yaoshou037054Support.hurt(this, source, "animation.yaoshou035.attacked"); }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        updateSwingTime();
+    }
+
     @Override public void die(DamageSource source) { super.die(source); SpiritBeastBags.onCreatureDeath(this); }
 
     @Override protected void playStepSound(BlockPos pos, BlockState state) { playSound(sound("yaoshou035walk"), 0.15F, 1); }

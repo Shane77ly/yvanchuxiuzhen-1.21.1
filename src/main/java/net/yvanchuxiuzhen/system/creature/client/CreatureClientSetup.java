@@ -27,5 +27,6 @@ public final class CreatureClientSetup {
         GhostCreatureClient.register(modBus);
         BossCreatureClient.register(modBus);
         CoffinClient.register(modBus);
+        JiantouClient.register(modBus);
     }
 }

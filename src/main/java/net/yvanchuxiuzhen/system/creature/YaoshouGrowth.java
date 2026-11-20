@@ -57,6 +57,6 @@ public final class YaoshouGrowth {
         level.playSound(null, killer.blockPosition(), BuiltInRegistries.SOUND_EVENT.get(
                 ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "littlelevelup")), SoundSource.NEUTRAL, 1, 1);
         level.sendParticles(ParticleTypes.WAX_ON, killer.getX(), killer.getY(), killer.getZ(), 20, 0, 0, 0, 1);
-        YaoshouShared.calculateUpgradeAttributes(killer, data, number);
+        YaoshouShared.calculateUpgradeAttributes((LivingEntity) killer, data, number);
     }
 }

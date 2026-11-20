@@ -1,4 +1,6 @@
 [
+{"id":"guiguai_01_spawn_egg","factory":"creature:spawn_egg_guiguai_01","order":1626,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
+{"id":"guancai_01","factory":"creature:coffin","block":"guancai_01","order":1763,"tab":"yvanchuxiuzhen:tabyvanchu_block"},
 {"id":"organism_01_spawn_egg","factory":"creature:spawn_egg_organism_01","order":462,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
 {"id":"organism_02_spawn_egg","factory":"creature:spawn_egg_organism_02","order":463,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},
 {"id":"organism_03_spawn_egg","factory":"creature:spawn_egg_organism_03","order":464,"tab":"yvanchuxiuzhen:tabyvanchu_entity"},

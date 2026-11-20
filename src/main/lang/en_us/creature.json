@@ -303,12 +303,11 @@
   "item.yvanchuxiuzhen.ycxzboss_01_spawn_egg": "Ycxzboss 0 1 Spawn Egg",
   "item.yvanchuxiuzhen.ycxzboss_02_spawn_egg": "Ycxzboss 0 2 Spawn Egg",
   "item.yvanchuxiuzhen.ycxzboss_04_spawn_egg": "Ycxzboss 0 4 Spawn Egg",
+  "entity.yvanchuxiuzhen.jiantou": "Jiantou",
+  "block.yvanchuxiuzhen.guancai_01": "Guancai 0 1",
+  "item.yvanchuxiuzhen.guiguai_01_spawn_egg": "Guiguai 0 1 Spawn Egg",
+  "entity.yvanchuxiuzhen.guiguai_01": "Guiguai 0 1",
   "message.yvanchuxiuzhen.yaoshou_interaction.healed": "Restored 6 health",
   "message.yvanchuxiuzhen.yaoshou_interaction.obedient": "The beast is more obedient",
-  "message.yvanchuxiuzhen.yaoshou_interaction.greeting": "%s( ^ V ^ )",
-  "entity.yvanchuxiuzhen.moshou_002": "Moshou 0 0 2",
-  "item.yvanchuxiuzhen.moshou_002_spawn_egg": "Moshou 0 0 2 Spawn Egg",
-  "block.yvanchuxiuzhen.guancai_01": "Guancai 0 1",
-  "entity.yvanchuxiuzhen.guiguai_01": "Guiguai 0 1",
-  "item.yvanchuxiuzhen.guiguai_01_spawn_egg": "Guiguai 0 1 Spawn Egg"
+  "message.yvanchuxiuzhen.yaoshou_interaction.greeting": "%s( ^ V ^ )"
 }

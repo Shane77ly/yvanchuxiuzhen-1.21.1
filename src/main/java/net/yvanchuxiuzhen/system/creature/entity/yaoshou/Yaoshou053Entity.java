@@ -3,7 +3,10 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -33,12 +36,27 @@ public final class Yaoshou053Entity extends YaoshouEntity {
     }
     @Override protected void sourceTick() { Yaoshou053Behavior.tick(level(), this); }
     @Override protected void sourceHurt(DamageSource source, float amount) { Yaoshou037054Support.hurt(this, source, "animation.yaoshou053.attacked"); }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (source.is(DamageTypes.FALL)) {
+            sourceHurt(source, amount);
+            return false;
+        }
+        return super.hurt(source, amount);
+    }
+
     @Override public void die(DamageSource source) { super.die(source); SpiritBeastBags.onCreatureDeath(this); }
     @Override public void aiStep() { super.aiStep(); updateSwingTime();  }
     @Override protected SoundEvent getAmbientSound() { return Yaoshou037054Support.sound("minecraft:entity.rabbit.ambient"); }
     @Override protected SoundEvent getHurtSound(DamageSource source) { return Yaoshou037054Support.sound("minecraft:entity.rabbit.hurt"); }
     @Override protected SoundEvent getDeathSound() { return Yaoshou037054Support.sound("minecraft:entity.rabbit.death"); }
     @Override protected void playStepSound(BlockPos pos, BlockState state) { playSound(Yaoshou037054Support.sound("minecraft:entity.rabbit.jump"), 0.15F, 1F); }
+
+    @Override
+    protected EntityDimensions getDefaultDimensions(Pose pose) {
+        return super.getDefaultDimensions(pose).withEyeHeight(2F);
+    }
 
     @Override public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         sourceAnimations.register(this, controllers, 4, "animation.yaoshou053.", state -> {

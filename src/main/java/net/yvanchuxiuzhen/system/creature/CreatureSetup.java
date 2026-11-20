@@ -16,6 +16,7 @@ import net.yvanchuxiuzhen.system.creature.content.SpiritBeastDyeToolInventory;
 import net.yvanchuxiuzhen.system.creature.entity.BossCreatures;
 import net.yvanchuxiuzhen.system.creature.entity.Butterflies;
 import net.yvanchuxiuzhen.system.creature.entity.GhostCreatures;
+import net.yvanchuxiuzhen.system.creature.entity.JiantouEntities;
 import net.yvanchuxiuzhen.system.creature.entity.NaturalCreatures;
 import net.yvanchuxiuzhen.system.creature.entity.Organisms;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou053BlizzardEffect;
@@ -57,6 +58,7 @@ public final class CreatureSetup {
         Organisms.register(CONTENT, modBus);
         NaturalCreatures.register(CONTENT, modBus);
         GhostCreatures.register(CONTENT);
+        JiantouEntities.register(CONTENT);
         BossCreatures.register(CONTENT);
         NichangGrassAttraction.register();
         TalismanTaming.register();
