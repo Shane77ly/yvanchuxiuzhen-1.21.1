@@ -193,6 +193,8 @@ public final class PlantSetup {
             .blockFactory("plant:fruit_tree_leaves", FruitTreeLeavesBlock::new)
             .blockFactory("plant:fallback_block", traits -> ContentBlock.create(traits, FruitTreeLogBlock::new))
             .blockFactory("plant:air_fallback_leaves", AirFallbackLeavesBlock::new)
+            .blockFactory("plant:fallback_leaves", FallbackLeavesBlock::new)
+            .blockFactory("plant:duckweed", DuckweedBlock::new)
             .blockFactory("plant:fallback_flower", FallbackFlowerBlock::new)
             .blockFactory("plant:shicai009_sapling", traits -> new FruitTreeSaplingBlock(traits, FruitTree.SHICAI_009))
             .blockFactory("plant:shicai010_sapling", traits -> new FruitTreeSaplingBlock(traits, FruitTree.SHICAI_010))

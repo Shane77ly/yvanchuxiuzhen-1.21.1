@@ -1168,3 +1168,9 @@ block,yvanchuxiuzhen:coldleaf,plant:fallback_flower,plant,人间界野生植物�
 block,yvanchuxiuzhen:bluegrass,plant:fallback_flower,plant,人间界野生植物按来源战利品空结果回落
 block,yvanchuxiuzhen:frostflowers,plant:fallback_flower,plant,人间界野生植物按来源战利品空结果回落
 block,yvanchuxiuzhen:nautilus,plant:fallback_flower,plant,人间界野生植物按来源战利品空结果回落
+block,yvanchuxiuzhen:dingxiangleaves,plant:fallback_leaves,plant,丁香叶沿来源树叶生命周期及空战利品回落丁香
+block,yvanchuxiuzhen:dingxianglog,plant:fruit_tree_log,plant,丁香树干空战利品回落自身
+block,yvanchuxiuzhen:parasolleaves,plant:air_fallback_leaves,plant,梧桐叶沿来源树叶生命周期及空战利品回落空气
+block,yvanchuxiuzhen:parasolwood,plant:fruit_tree_log,plant,梧桐原木空战利品回落自身
+block,yvanchuxiuzhen:morningglory,plant:fallback_block,plant,牵牛花空战利品回落原版藤蔓
+block,yvanchuxiuzhen:duckweed,plant:duckweed,plant,浮萍保持来源水面与普通花草基底存活
