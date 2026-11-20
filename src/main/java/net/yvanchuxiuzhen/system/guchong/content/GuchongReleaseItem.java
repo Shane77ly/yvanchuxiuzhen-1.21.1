@@ -46,11 +46,14 @@ public final class GuchongReleaseItem extends ContentItem {
             for (String key : RATINGS) {
                 data.putString(key + "_LEVEL", saved.getString(key + "_LEVEL"));
                 if (!key.equals("speed")) data.putDouble(key, saved.getDouble(key));
+                if (key.equals("health_Max")) {
+                    insect.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble(key));
+                    insect.setHealth((float) saved.getDouble("health_Num"));
+                } else if (key.equals("attack_Num")) {
+                    insect.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getDouble(key));
+                }
             }
             data.putDouble("speed_number", saved.getDouble("speed_number"));
-            insect.getAttribute(Attributes.MAX_HEALTH).setBaseValue(saved.getDouble("health_Max"));
-            insect.setHealth((float) saved.getDouble("health_Num"));
-            insect.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(saved.getDouble("attack_Num"));
             insect.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(saved.getDouble("speed_number"));
         }
         GuchongJarRuntime.finishSpawn(level, insect);

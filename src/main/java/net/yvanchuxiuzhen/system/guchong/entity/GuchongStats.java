@@ -22,12 +22,12 @@ final class GuchongStats {
         if (data.getDouble("LEVELnumber") < 1) data.putDouble("LEVELnumber", defaultLevel);
         double level = data.getDouble("LEVELnumber");
         for (int i = 0; i < KEYS.length; i++) data.putString(KEYS[i] + "_LEVEL", ratings[i]);
-        updateLevelName(entity);
         if (level <= 40 && data.getDouble("experience_Max") < 1) {
             double max = 100;
             for (int n = 1; n <= (int) level; n++) max += n * n * 10 + 10;
             data.putDouble("experience_Max", max);
         }
+        updateLevelName(entity);
         calculateAttributes(entity);
         String team = entity.getType().builtInRegistryHolder().key().location().toString().replace(':', '_');
         Relations.setTeam(entity, team);

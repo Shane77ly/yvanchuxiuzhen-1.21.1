@@ -84,10 +84,13 @@ public abstract class GuchongEntity extends TamableAnimal implements GeoEntity, 
             }
         });
         targetSelector.addGoal(7, new HurtByTargetGoal(this).setAlertOthers());
-        goalSelector.addGoal(9, new RandomStrollGoal(this, 1));
-        goalSelector.addGoal(10, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(11, new FloatGoal(this));
+        int idlePriority = idleGoalPriority();
+        goalSelector.addGoal(idlePriority, new RandomStrollGoal(this, 1));
+        goalSelector.addGoal(idlePriority + 1, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(idlePriority + 2, new FloatGoal(this));
     }
+
+    protected int idleGoalPriority() { return 9; }
 
     @Override public boolean removeWhenFarAway(double distance) { return false; }
     @Override public boolean isFood(ItemStack stack) { return false; }
@@ -122,6 +125,11 @@ public abstract class GuchongEntity extends TamableAnimal implements GeoEntity, 
 
     protected abstract void initializeSourceData();
     protected abstract void sourceTick();
+
+    @Override public void aiStep() {
+        super.aiStep();
+        updateSwingTime();
+    }
 
     @Override public void baseTick() {
         super.baseTick();

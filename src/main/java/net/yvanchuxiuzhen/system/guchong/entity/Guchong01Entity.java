@@ -74,10 +74,4 @@ public final class Guchong01Entity extends GuchongEntity {
             data.putString("linshiuuid", mob.getStringUUID());
         }
     }
-
-    @Override
-    public void aiStep() {
-        super.aiStep();
-        updateSwingTime();
-    }
 }
