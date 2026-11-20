@@ -5,6 +5,7 @@ import java.util.Locale;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -106,11 +107,18 @@ public final class GuchongJarData {
             return;
         }
         CompoundTag data = read(insect);
+        Tag previousId = jar.get("guchongid" + suffix);
         copy(data, "", jar, suffix, integers);
         if (!integers && data.getString("guchongid").isEmpty()) {
-            String path = BuiltInRegistries.ITEM.getKey(insect.getItem()).getPath();
-            if (path.equals("guchong_01item") || path.equals("guchong_03item") || path.equals("guchong_04item")) {
+            ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(insect.getItem());
+            String path = itemId.getPath();
+            if (itemId.getNamespace().equals("yvanchuxiuzhen")
+                    && (path.equals("guchong_01item") || path.equals("guchong_03item") || path.equals("guchong_04item"))) {
                 jar.putString("guchongid" + suffix, "yvanchuxiuzhen:" + path.substring(0, path.length() - 4));
+            } else if (previousId == null) {
+                jar.remove("guchongid" + suffix);
+            } else {
+                jar.put("guchongid" + suffix, previousId);
             }
         }
         jar.putString("guchongname" + suffix, insect.getDisplayName().getString());
