@@ -45,6 +45,7 @@ public final class CreatureSetup {
         modBus.addListener((RegisterCapabilitiesEvent event) -> event.registerItem(Capabilities.ItemHandler.ITEM,
                 (stack, context) -> new SpiritBeastDyeToolInventory(stack), SpiritBeastBagDyeMenus.toolItem()));
         NeoForge.EVENT_BUS.addListener(SpiritBeastBagRuntime::interact);
+        NeoForge.EVENT_BUS.addListener(YaoshouGrowth::onDeath);
         NeoForge.EVENT_BUS.addListener(GuchongGrowthConsumer::onVictimData);
         NeoForge.EVENT_BUS.addListener(WildPlantCreatures::spawn);
         NeoForge.EVENT_BUS.addListener(GuchongGrowthConsumer::onUpgrade);

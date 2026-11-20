@@ -5,7 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouShared;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongUpgradeEvent;
@@ -27,10 +26,8 @@ public final class GuchongGrowthConsumer {
         // 来源按死者的妖兽标签选择分支，命中后不重算升级蛊虫。
         if (event.victim().getType().is(BEASTS)) {
             event.selectVictimRecalculation();
-            if (event.victim() instanceof Mob mob) {
-                CompoundTag data = mob.getPersistentData();
-                YaoshouShared.calculateAttributes(mob, data, data.getDouble("LEVELnumber"));
-            }
+            CompoundTag data = event.victim().getPersistentData();
+            YaoshouShared.calculateAttributes(event.victim(), data, data.getDouble("LEVELnumber"));
         }
     }
 }

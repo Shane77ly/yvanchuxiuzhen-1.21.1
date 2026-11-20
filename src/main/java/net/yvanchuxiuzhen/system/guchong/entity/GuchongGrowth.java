@@ -6,29 +6,33 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.guchong.api.GuchongGrowths;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongUpgradeEvent;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongVictimDataEvent;
-import net.yvanchuxiuzhen.system.profession.api.Profession;
-import net.yvanchuxiuzhen.system.profession.api.Professions;
 
 /** 来源EntityDeath的蛊虫击杀经验、连续升级、挑衅标记清除与养蛊经验消费者。 */
 public final class GuchongGrowth {
     private static final TagKey<EntityType<?>> INSECTS = TagKey.create(Registries.ENTITY_TYPE,
             ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "guchongentity"));
+    private static final TagKey<EntityType<?>> BEASTS = TagKey.create(Registries.ENTITY_TYPE,
+            ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "yaoshou"));
     private GuchongGrowth() { }
 
     public static void onDeath(LivingDeathEvent event) {
-        if (!(event.getEntity().level() instanceof ServerLevel level)
-                || !(event.getSource().getEntity() instanceof GuchongEntity insect) || !insect.getType().is(INSECTS)) return;
+        if (!(event.getEntity().level() instanceof ServerLevel level)) return;
+        Entity insect = event.getSource().getEntity();
+        if (insect == null || insect instanceof Player || !insect.getType().is(INSECTS)
+                || insect.getType().is(BEASTS)) return;
         LivingEntity victim = event.getEntity();
         CompoundTag data = insect.getPersistentData();
         if (!data.getString("attackmubiao").isEmpty()) data.putString("attackmubiao", "");
@@ -49,10 +53,7 @@ public final class GuchongGrowth {
             double number = data.getDouble("LEVELnumber") + 1;
             data.putDouble("LEVELnumber", number);
             data.putDouble("experience_Max", data.getDouble("experience_Max") + number * number * 10 + 10);
-            if (!data.getString("belongToMasterUUID").isEmpty()) {
-                ServerPlayer owner = (ServerPlayer) GuchongBehavior.findEntity(level, data.getString("belongToMasterUUID"));
-                Professions.addExperience(owner, Profession.INSECT, number * 10);
-            }
+            GuchongGrowths.awardOwnerExperience(level, insect, number);
             advanced = true;
         }
         if (!advanced) return;
@@ -61,6 +62,6 @@ public final class GuchongGrowth {
         level.sendParticles(ParticleTypes.WAX_ON, insect.getX(), insect.getY(), insect.getZ(), 20, 0, 0, 0, 1);
         GuchongStats.updateLevelName(insect);
         GuchongUpgradeEvent request = NeoForge.EVENT_BUS.post(new GuchongUpgradeEvent(victim));
-        if (!request.victimRecalculationSelected()) GuchongStats.calculateAttributes(insect);
+        if (!request.victimRecalculationSelected()) GuchongStats.calculateUpgradeAttributes(insect);
     }
 }
