@@ -550,6 +550,7 @@ final class SmokeRun {
                     case "guchonglifecycle" -> List.of(new GuchongLifecycleCheck(report, levelId));
                     case "guchonggroundsave" -> List.of(new GuchongGroundSaveCheck(report, levelId, this::shot));
                     case "spiritbeastbag" -> List.of(new SpiritBeastBagCheck(report, levelId, this::shot));
+            case "yaoshourecovery" -> List.of(new YaoshouRecoveryCheck(report, levelId));
             case "yaoshouinteraction" -> List.of(new YaoshouInteractionCheck(report, levelId, this::shot));
             case "yaoshou017form" -> List.of(new Yaoshou017FormBagCheck(report, levelId));
             case "boss02axe" -> List.of(new Boss02AxeCheck(report, levelId));
