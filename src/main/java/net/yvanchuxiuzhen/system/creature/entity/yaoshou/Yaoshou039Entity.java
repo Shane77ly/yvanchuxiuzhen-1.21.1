@@ -12,13 +12,11 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.api.SpiritBeastBags;
-import net.yvanchuxiuzhen.system.creature.entity.SourceFollowOwnerGoal;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.Animation;
@@ -36,12 +34,6 @@ public final class Yaoshou039Entity extends YaoshouEntity {
 
     public static AttributeSupplier.Builder attributes(EntityModelRow row) {
         return YaoshouEntity.attributes(row).add(Attributes.FOLLOW_RANGE, 16);
-    }
-
-    @Override protected void registerGoals() {
-        super.registerGoals();
-        goalSelector.addGoal(1, new SourceFollowOwnerGoal(this, 1, 10, 2, false));
-        goalSelector.addGoal(2, new FloatGoal(this));
     }
 
     @Override protected void sourceSpawn(ServerLevelAccessor level) {

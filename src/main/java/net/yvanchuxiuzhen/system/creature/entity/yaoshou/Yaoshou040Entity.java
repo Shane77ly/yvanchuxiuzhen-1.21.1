@@ -39,7 +39,6 @@ public final class Yaoshou040Entity extends YaoshouEntity {
 
     @Override protected PathNavigation createNavigation(Level level) { return new FlyingPathNavigation(this, level); }
     @Override protected void registerGoals() {
-        super.registerGoals();
         goalSelector.addGoal(1, new SourceFollowOwnerGoal(this, 1, 10, 2, false));
     }
     @Override protected void sourceSpawn(ServerLevelAccessor level) {

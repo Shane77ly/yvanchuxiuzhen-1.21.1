@@ -30,7 +30,8 @@ public final class YaoshouShared {
         if (!data.getString("LEVELname").isEmpty()) return false;
         if (data.getDouble("LEVELnumber") < 1) data.putDouble("LEVELnumber", defaultLevel);
         double level = data.getDouble("LEVELnumber");
-        entity.getAttribute(YaoshouAttributes.SIZE).setBaseValue((new Random().nextInt(31) + 70) * 0.01 + (level / 4) * 0.1);
+        int sizeBase = entity instanceof Yaoshou040Entity ? new Random().nextInt(101) + 300 : new Random().nextInt(31) + 70;
+        entity.getAttribute(YaoshouAttributes.SIZE).setBaseValue(sizeBase * 0.01 + (level / 4) * 0.1);
         for (int i = 0; i < RATING_KEYS.length; i++) {
             data.putString(RATING_KEYS[i] + "_LEVEL", ratings[i]);
         }

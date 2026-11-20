@@ -125,7 +125,7 @@ public abstract class YaoshouEntity extends TamableAnimal implements GeoEntity, 
 
     @Override
     protected EntityDimensions getDefaultDimensions(Pose pose) {
-        return super.getDefaultDimensions(pose).scale((float) getAttributeValue(YaoshouAttributes.SIZE));
+        return super.getDefaultDimensions(pose).scale((float) getAttribute(YaoshouAttributes.SIZE).getBaseValue());
     }
 
     @Override
