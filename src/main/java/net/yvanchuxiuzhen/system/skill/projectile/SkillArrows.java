@@ -24,6 +24,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
@@ -48,12 +49,10 @@ public final class SkillArrows {
         }
     }
 
-    public static SkillProjectile create(ServerPlayer owner, int kind, int knockback, int pierce, boolean control, boolean alt,
+    public static SkillProjectile create(ServerPlayer owner, int kind, int knockback, int pierce,
                                           boolean fullCharge, boolean infinity) {
         SkillProjectile arrow = SkillSetup.<SkillProjectile>entityType(id(kind)).get().create(owner.serverLevel()).launchedWith(knockback, pierce);
         arrow.setOwner(owner);
-        arrow.getPersistentData().putBoolean("arrowControl", control);
-        arrow.getPersistentData().putBoolean("arrowAlt", alt);
         arrow.getPersistentData().putBoolean("infinity", infinity);
         Cultivation.setTizhiBoolean(owner, "arrowskill", true);
         Cultivation.setTizhiBoolean(owner, "manxvli", fullCharge);
@@ -72,8 +71,8 @@ public final class SkillArrows {
                 return;
             }
             if (owner instanceof ServerPlayer player && Cultivation.tizhiBoolean(player, "arrowskill")) {
-                boolean control = data.getBoolean("arrowControl");
-                boolean alt = data.getBoolean("arrowAlt");
+                boolean control = ModifierKeys.ctrl(player);
+                boolean alt = ModifierKeys.alt(player);
                 boolean full = Cultivation.tizhiBoolean(player, "manxvli");
                 boolean sneak = player.isShiftKeyDown();
                 String selected = switch (kind) {
