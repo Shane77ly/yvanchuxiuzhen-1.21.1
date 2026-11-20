@@ -37,7 +37,7 @@ updated: 2026-11-18
 - 提示文本（`TechniqueTooltip`，来源 `ItemLore` 功法分支与 `GongfaLore`）。
 - 管理命令（`TechniqueCommands`，来源 `TechniqueCommand` 与 `TechniqueGOProcedure`）：权限 1、贪婪字符串参数、承载物品 ID/名称/品阶/境界/灵根/简介、五行数值与十二项档位按来源顺序写入 `TechniqueDefinition`；第十三项移速档位保持空字符串；书在命令坐标生成并设置 10 刻拾取延迟。数值解析失败为 0，缺失文本为空，无效承载物不生成书。
 - 来源中 `Gongfashuaxin`、`Gongfashuaxin2` 没有调用者，不迁移。
-- 验证：冒烟 `GongfaCheck`（研习条件、提交、闭关经验与升级、提示文本、书架藏宝）与 `ComprehensionCheck`（放置说明、右键界面、参悟、切换、两次继承与 Q27），共 36 项符合，日志 ERROR 0 条，截图 `gongfa_comprehension.png`。
+- 历史验证：冒烟 `GongfaCheck` 与 `ComprehensionCheck` 曾报告 36 项符合，截图 `gongfa_comprehension.png`；其中未升级时保留典籍的旧断言因误读来源而失效，不能作为该分支正确的证据。
 
 ### 阶段 2：参悟台
 
@@ -65,4 +65,8 @@ skill 的 `SkillLoadoutMenu` 经 `Techniques.slot/setSlot` 读写真实功法栈
 
 04载入后会持有gongfa的当前栈引用。`TechniqueRules.addExperience` 因此按来源在该栈更新组件，由gongfa重新写自身附件并提交；不再以成长副本替换栈，避免打开装配页期间获得的经验或升级在关闭回写时回滚。跨系统菜单只通过公开操作归一和取得栈，成长与本人同步仍由gongfa唯一写入。
 
-本批完整 `build compileSmokeJava`（含ArchUnit）通过；现有skillui客户端29项全通过，其中功法由真实自然潜行use研习、Shift装入04并在关闭后交回所有者；开窗时发布实际 `CultivationExperienceEvent(1)`，功法经验增加1.5在本人组件和菜单原栈同步，关闭到03及重开04均保持。报告为 `tmp/study-loadout-report.txt`，完整证据见[skill验证段](../skill/architecture.md#目标依据与本批验证边界)。本批专服一次正常启动并原生stop保存四维度退出，ERROR/FATAL0。该场景未单独断言全部attribute贡献数值或升级档位，完整粒子/界面视觉、1.18.2版本实机、两版本对照和多人仍待；此前36项功法/参悟证据保持原范围。Q28当前排除范围见上方结论。
+本批完整 `build compileSmokeJava`（含ArchUnit）通过；现有skillui客户端29项全通过，其中功法由真实自然潜行use研习、Shift装入04并在关闭后交回所有者；开窗时发布实际 `CultivationExperienceEvent(1)`，功法经验增加1.5在本人组件和菜单原栈同步，关闭到03及重开04均保持。报告为 `tmp/study-loadout-report.txt`，完整证据见[skill验证段](../skill/architecture.md#目标依据与本批验证边界)。本批专服一次正常启动并原生stop保存四维度退出，ERROR/FATAL0。该场景未单独断言全部attribute贡献数值或升级档位，完整粒子/界面视觉、1.18.2版本实机、两版本对照和多人仍待；此前36项功法/参悟证据中未升级保留典籍的断言失效。Q28当前排除范围见上方结论。
+
+## 功法装配、修炼与参悟状态（2026-11-20）
+
+`PlayerGUI04DangZheGeJieMianDaKaiQiJianMeiKeFaShengProcedure:43–73` 载入功法原栈并保存比较槽；`PlayerTickProcedure:351–361` 在恢复后比较物品与功法名称，有变化才重算并更新比较槽。目标以功法系统的服务端附件保存该槽，并在克隆时保留引用关系；两个槽存档时分别序列化。闭关附带经验及主动功法修炼均按修正境界和40层门槛判断，主动修炼先扣天数和寿元。参悟继承在原栈写进度后复制，成功时无论是否升级均消耗典籍；升级时重算成长。参悟小数境界按来源精确比较，非整数且低于41时境界文字为空。静态来源与运行边界见[本月记录](logs/2026-11.md)。

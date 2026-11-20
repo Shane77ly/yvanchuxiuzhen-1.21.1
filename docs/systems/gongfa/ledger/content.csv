@@ -1,9 +1,9 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
-block,yvanchuxiuzhen:canwutai_block,yvanchuxiuzhen,CanwutaiBlock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2058,gongfa,已读,yvanchuxiuzhen:canwutai_block,行为已迁移,
+block,yvanchuxiuzhen:canwutai_block,yvanchuxiuzhen,CanwutaiBlock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2058,gongfa,已读,yvanchuxiuzhen:canwutai_block,行为已迁移,；2026-11-20功法实例与参悟交接按来源修订，验证见功法月志
 block,yvanchuxiuzhen:gongfaxvexi,yvanchuxiuzhen,Gongfaxvexi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1977,gongfa,已读,yvanchuxiuzhen:gongfaxvexi,待处理,Q28：负责人2026-11-16已批准排除学习小游戏；保留来源身份与调查记录
-block_entity_type,yvanchuxiuzhen:canwutai_block,yvanchuxiuzhen,CanwutaiBlock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,177,gongfa,已读,yvanchuxiuzhen:canwutai_block,行为已迁移,
+block_entity_type,yvanchuxiuzhen:canwutai_block,yvanchuxiuzhen,CanwutaiBlock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,177,gongfa,已读,yvanchuxiuzhen:canwutai_block,行为已迁移,；2026-11-20功法实例与参悟交接按来源修订，验证见功法月志
 block_entity_type,yvanchuxiuzhen:gongfaxvexi,yvanchuxiuzhen,Gongfaxvexi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,156,gongfa,已读,yvanchuxiuzhen:gongfaxvexi,待处理,Q28：负责人2026-11-16已批准排除学习小游戏；保留来源身份与调查记录
-item,yvanchuxiuzhen:canwutai_block,yvanchuxiuzhen,CanwutaiBlock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3060,gongfa,已读,yvanchuxiuzhen:canwutai_block,已注册,
+item,yvanchuxiuzhen:canwutai_block,yvanchuxiuzhen,CanwutaiBlock,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,3060,gongfa,已读,yvanchuxiuzhen:canwutai_block,已注册,；2026-11-20功法实例与参悟交接按来源修订，验证见功法月志
 item,yvanchuxiuzhen:gongfaxvexi,yvanchuxiuzhen,Gongfaxvexi,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2696,gongfa,已读,yvanchuxiuzhen:gongfaxvexi,待处理,Q28：负责人2026-11-16已批准排除学习小游戏；保留来源身份与调查记录
 menu,yvanchuxitong:gongfaxvexi_gui,yvanchuxitong,GongfaxvexiGui,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,101,gongfa,已读,yvanchuxiuzhen:gongfaxvexi_gui,待处理,Q28：负责人2026-11-16已批准排除学习小游戏；保留来源身份与调查记录
 menu,yvanchuxiuzhen:canwutai,yvanchuxiuzhen,Canwutai,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,108,gongfa,已读,yvanchuxiuzhen:canwutai,行为已迁移,

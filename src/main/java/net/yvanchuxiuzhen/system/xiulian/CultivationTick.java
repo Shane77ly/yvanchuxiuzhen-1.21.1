@@ -17,6 +17,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterRecoveryEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.tribulation.Tribulations;
 
@@ -72,6 +73,7 @@ public final class CultivationTick {
             NeoForge.EVENT_BUS.post(new CultivationAfterBreakthroughEvent(player));
             cooldown(player);
             Recovery.tick(player);
+            NeoForge.EVENT_BUS.post(new CultivationAfterRecoveryEvent(player));
             Cultivation.setTizhiDouble(player, "jishiqi", time);
         } else if (time < timer) {
             Cultivation.setTizhiDouble(player, "jishiqi", time);

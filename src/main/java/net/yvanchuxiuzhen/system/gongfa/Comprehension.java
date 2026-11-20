@@ -5,6 +5,7 @@ import java.util.Optional;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
+import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueDefinition;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
@@ -15,9 +16,9 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /**
  * 参悟台的规则（来源 {@code Canwutaiqiehuan}、{@code Canwutaishuaxin}、{@code Canwudianji} 与三个计算过程）。
- * 参悟：消耗寿元 参悟次数² × 品阶 + 20，使槽内功法的所需境界降一层（至少保留 1 层），只能由第一个参悟者继续参悟。
+ * 参悟：所需境界大于 1 时，消耗寿元 参悟次数² × 品阶 + 20，将所需境界减 1；只能由第一个参悟者继续参悟。
  * 继承：消耗本人研习过的书，把它的累计经验 ×（0.5 +（书的品阶 − 装备功法品阶）× 0.02）加到装备的本人功法上；
- * 只有装备功法因此升级时槽内的书才被消耗（Q27）。按钮编号：0 切换模式，1 开始参悟或继承，2 刷新说明。
+ * 成功继承后无论是否升级均清空槽内典籍；仅升级时更新功法成长属性。按钮编号：0 切换模式，1 开始参悟或继承，2 刷新说明。
  */
 public final class Comprehension {
     public static final int BUTTONS = 3;
@@ -159,14 +160,20 @@ public final class Comprehension {
             return;
         }
         TechniqueDefinition definition = book.definition();
-        if (definition.level() <= 1) {
+        if (!(definition.level() > 1)) {
             message(player, "§4此功法已无法再进行参悟了！");
             return;
         }
         Cultivation.add(player, CultivationValue.LIFETIME, -cost);
         double level = definition.level() - 1;
+        String levelText = "";
+        if (level >= 41) {
+            levelText = Cultivation.realmName(41);
+        } else if (level >= 1 && level <= 40 && level == Math.floor(level)) {
+            levelText = Cultivation.realmName((int) level);
+        }
         TechniqueDefinition lowered = new TechniqueDefinition(definition.item(), definition.name(), definition.gradeText(), definition.grade(),
-                Cultivation.realmName((int) level), level, definition.body(), definition.intro(), definition.elements(), definition.tiers());
+                levelText, level, definition.body(), definition.intro(), definition.elements(), definition.tiers());
         // 来源把槽内物品写回为数量 1 的副本。
         ItemStack result = stack.copyWithCount(1);
         result.set(GongfaData.TECHNIQUE.get(), book.withComprehension(lowered, book.comprehensions() + 1, player.getUUID()));
@@ -221,12 +228,15 @@ public final class Comprehension {
             }
         }
         TechniqueBook updated = equipped.withProgress(level, exp);
-        ItemStack slot = Techniques.slot(player).copy();
-        slot.set(GongfaData.TECHNIQUE.get(), levelled ? TechniqueRules.grown(updated) : updated);
+        ItemStack original = Techniques.slot(player);
+        original.set(GongfaData.TECHNIQUE.get(), updated);
+        ItemStack slot = original.copy();
+        if (levelled) slot.set(GongfaData.TECHNIQUE.get(), TechniqueRules.grown(updated));
         TechniqueRules.setSlot(player, slot);
         if (levelled) {
-            table.setItem(0, ItemStack.EMPTY);
+            PlayerAttributes.recalculate(player);
         }
+        table.setItem(0, ItemStack.EMPTY);
         message(player, "§6成功继承！");
         refresh(player, table);
     }

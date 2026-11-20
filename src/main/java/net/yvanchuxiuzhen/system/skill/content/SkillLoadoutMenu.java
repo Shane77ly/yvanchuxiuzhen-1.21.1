@@ -72,8 +72,10 @@ public final class SkillLoadoutMenu extends AbstractContainerMenu {
 
     /** 两刻后把持久装配栈按数量一载入当时的菜单，共享引用保留开窗期间的书籍成长。 */
     public void initialize(ServerPlayer player) {
-        Techniques.setSlot(player, Techniques.slot(player).copyWithCount(1));
-        slots.get(0).set(Techniques.slot(player));
+        ItemStack technique = Techniques.slot(player);
+        technique.setCount(1);
+        Techniques.setSlot(player, technique);
+        slots.get(0).set(technique);
         ItemStack movement = Skills.movement(player);
         movement.setCount(1);
         Skills.setMovement(player, movement);
@@ -86,6 +88,7 @@ public final class SkillLoadoutMenu extends AbstractContainerMenu {
         weaponArt.setCount(1);
         Skills.setWeaponArt(player, weaponArt);
         slots.get(7).set(weaponArt);
+        Techniques.rememberSlot(player);
         loadPage(player);
     }
 
