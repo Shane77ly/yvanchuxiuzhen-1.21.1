@@ -72,6 +72,7 @@ public final class Yaoshou016duyeEntity extends AbstractArrow implements ItemSup
 
     @Override protected void onHitBlock(BlockHitResult hit) {
         super.onHitBlock(hit);
+        setSourcePierceLevel((byte) 0);
         Yaoshou016Behavior.Yaoshou016duyeDangTouSheWuSheZhongCiFangKuai(level(), this);
     }
 
