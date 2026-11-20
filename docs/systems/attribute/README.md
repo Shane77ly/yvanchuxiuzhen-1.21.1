@@ -19,6 +19,8 @@ updated: 2026-11-15
 
 ## 公开操作
 
+轮回可调用 `PlayerAttributes.applyReincarnationBases` 写入原版基础生命、攻击与来源移速。
+
 已对照 `typed_field_accesses.csv` 覆盖属性字段的全部外部读写点，五行部分按 `DamageIntegration` 读完（来源事实见[架构与调查正文](architecture.md)“来源事实核对”）。代码为 `system/attribute/api/PlayerAttributes`。
 
 | 操作 | 形式 | 调用者（来源中的读写点） |

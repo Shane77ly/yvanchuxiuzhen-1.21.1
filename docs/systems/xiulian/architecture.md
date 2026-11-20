@@ -8,6 +8,12 @@ updated: 2026-11-18
 # 修炼、身份与生命周期：规则与实现状态
 
 来源事实与目标实现边界分别陈述；源码定位采用 [系统导航](../README.md)的 A/B 规则。
+## 寿尽与轮回生命周期（2026-11-20）
+
+1.18.2 版本 `PlayerTickProcedure` 在寿元耗尽时每次安排40个服务端结束刻后调用 `Fulutexiao37Procedure`；轮回符第四次右键、浮生丹食用结束和管理命令也各有入口。1.21.1 版本由流程层编排所属系统的公开操作：重置修炼和成长、十职业、技能与功法槽、饰品、题目、传送栈及面板，清除原版状态与库存，重抽五灵根及阴阳，保留来源未重置字段，10刻后打开出身菜单。退出菜单后的奖励和体质沿用已有出生流程。寿尽延时为进程内调度，实际中断与断线恢复未验证。
+
+轮回符受控客户端验证了三次确认保留、第四次清理修为/十职业/库存/技能与功法，以及延迟出身菜单；保存退出正常。浮生丹、寿尽与命令入口、界面打开期间写回、多人、真实重进及1.18.2版本实机对照未验证，不能视为全链验收。
+
 ## 1.18.2 数据与调用
 
 `A:PlayerTickProcedure:64–86` 按世界时间间隔区分修炼和功法研习，之后计算属性、副本、本命法宝及元婴出窍。`experience`、`experience_Stand`、`experience_Max` 分别参与已有修为、待吸收修为和突破门槛；不可合并成一个经验字段。日收益上限来自主世界 `dailyexperience`，已用额度放在玩家 `tizhiitem` 中（同文件 97–155）。
@@ -53,7 +59,7 @@ updated: 2026-11-18
 - 突破：修为达到所需值时，在 `fabao_009weidu` 与 `xvkong` 维度停在所需值减 1；非创造模式且层数为 20、30、40 或 41 以上时开启雷劫并把修为置 1；否则 `LevelUp`：层数加 1（不超过 42）、属性点 5 + ⌊层数 × 0.1⌋、按 `LevelupCorrect*` 修正成长（成长量累计后作为 attribute 的基础层贡献 `xiulian:growth` 提交）、1/11/21/31/41 层与 41 层以上加寿元（7300、36500、73000、146000、292000、18250），11、21、31 与 41 层以上另按 `RealmupCorrect*` 修正；大境界播放 `levelup`、其余 `littlelevelup`；闭关中另加闭关冷却；写升级文字 10 行，20 tick 后（记分项 `zdzttick` 为 0 时）打开升级界面。
 - 闭关修炼（`Cultivating`）：见类注释；给主修功法加经验的部分改为发出 `CultivationExperienceEvent`，由 gongfa 处理（依赖方向）。主修功法的名字、品阶、层数由 gongfa 提交 `MainTechnique`。
 - 恢复（`Recovery`）：存活玩家每秒先经relation公开操作刷新本体团队，再把当前灵力/神识复制到 `power_display/soul_display` 后恢复；团队规则与验证边界见[关系正文](../relation/architecture.md#每秒本体团队刷新2026-11-18)。显示快照随修炼档案保存并同步本人，2026-11-07 为 K 键属性页接回。恢复量读 attribute 的最终值；战斗（记分项 `zdztbegin` 为 1）或雷劫中为四分之一；效果 `effect_007` 期间不恢复生命；主修“繁星呓语”夜晚露天无雨灵力恢复 × 1.1。
-- 尚未迁移：境界提升粒子 `Jingjietishengtexiao1/2`（particle）、阳寿已尽 40 tick 后的轮回 `Fulutexiao37`、酒劲消化（`jiujing`，cooking）。
+- 尚未迁移：境界提升粒子 `Jingjietishengtexiao1/2`（particle）、酒劲消化（`jiujing`，cooking）。
 
 ### 普通重生（2026-11-08）
 
@@ -187,11 +193,11 @@ Q191（待裁定，保持来源）：`PlayerGui08jieshao`称“没有时限”�
 
 `unlock tizhi <add或其他操作> <键> [true]`（`Go:516–531`）按来源对任意体质载体键写布尔：仅add写true并使`tizhinumber +1`，其他操作写false并使计数−1；重复添加/移除不先检查标记，也不加减体质属性修正。可选true发送“获得名为/移除名为…的体质”。该计数可能与实际打开标记数不一致，保留来源，并沿用Q24的丹田排序边界，不自行去重或重算计数。
 
-`unlock|lock rebirthgui [true]`（`Go:542–548/565–571`）只切`jinruyouxichushenxvanze`，可选true使用原无色中文回执，真正首次进入仍走既有`BirthSelection.onLogin`。`open rebirthgui`调用轮回37，仍随37跨所有者清理契约处理，本批没有接入；执行目标疑点见下文Q193。
+`unlock|lock rebirthgui [true]`（`Go:542–548/565–571`）只切`jinruyouxichushenxvanze`，可选true使用原无色中文回执，真正首次进入仍走既有`BirthSelection.onLogin`。`open rebirthgui`已按来源调用执行实体的轮回流程；执行目标差异见下文Q193。
 
 ### Q193 轮回命令的执行者与目标不一致
 
-来源`A:YvanchuGoProcedure:25–27/580–583`先按参数匹配当前维度目标玩家，但`open rebirthgui`把`Fulutexiao37`施于命令执行实体`entity`，而非匹配到的`entityiterator`；坐标仍来自命令源位置且Y加1。以管理员A执行`/yvanchu B open rebirthgui`为例，匹配B后进入分支，真实传入轮回过程的是A。无执行实体来源使用FakePlayer，仍不是B。该行为来自锁定源码静态核对，两个版本实机均未执行。状态为待裁定/未实现；本批不在37跨所有者清理契约之外单独接入此入口，也不擅自改成目标B，后续按统一问题索引集中处理。
+来源`A:YvanchuGoProcedure:25–27/580–583`先按参数匹配当前维度目标玩家，但`open rebirthgui`把`Fulutexiao37`施于命令执行实体`entity`，而非匹配到的`entityiterator`；坐标仍来自命令源位置且Y加1。以管理员A执行`/yvanchu B open rebirthgui`为例，匹配B后进入分支，真实传入轮回过程的是A。无执行实体来源使用FakePlayer，仍不是B。该行为来自锁定源码静态核对，两个版本实机均未执行。目标沿用来源执行实体而非匹配玩家；命令入口尚未实机验证，来源疑点保留统一问题索引。
 
 锁定来源核对、命令接线及生产/Smoke编译通过；真实修炼/五行命令与本人同步共同101项必要检查通过。随机/满灵根、任意体质标记、轮回37、命令专用保存重进、1.18.2版本实机及两版本对照未验；本批不改变历史核心批次的已验证结论。`killentity* / killentitypoints*`是combat伤害规则维护的五行击杀数量与属性技能熟练度，目标现由`ElementStatistics.command`接回同一载体键，见[战斗正文](../combat/architecture.md#五行击杀统计管理命令2026-11-15)。本系统的丹田与金丹/元婴继续通过自有载体查询读取；不新增xiulian→combat依赖或第二份属性统计。
 

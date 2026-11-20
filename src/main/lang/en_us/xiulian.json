@@ -331,5 +331,6 @@
   "gui.yvanchuxiuzhen.player_gui_02.label_xiu_lian": "修炼",
   "gui02jiadian0301": " points",
   "gui.yvanchuxiuzhen.player_gui_02.label_shi_pin_zhuang_bei": "饰品装备",
-  "gui02jiadian0101": "  points per attribute point"
+  "gui02jiadian0101": "  points per attribute point",
+  "gui.yvanchuxiuzhen.player_join_gui.title": "Roots and Origin"
 }

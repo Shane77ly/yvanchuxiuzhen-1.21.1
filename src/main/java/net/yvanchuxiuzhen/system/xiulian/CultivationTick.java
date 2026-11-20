@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -19,13 +20,14 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterRecoveryEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
+import net.yvanchuxiuzhen.system.xiulian.api.LifetimeExhaustedEvent;
 import net.yvanchuxiuzhen.system.xiulian.tribulation.Tribulations;
 
 /**
  * 修炼的每秒推进（来源 {@code PlayerTick} 中以世界时间 {@code dayTime} 与 {@code tizhiitem.jishiqi} 相差 20 为间隔的部分）：
  * 闭关修炼、发出 {@link CultivationSecondEvent}、吸收待吸收修为（受每日上限约束）、妖化冷却、阳寿已尽提示、
  * 修为圆满时突破或开启雷劫、闭关冷却、恢复。世界时间倒退时重设计时基准。
- * 雷劫经 {@code ThunderBegin} 对应过程生成劫云；阳寿已尽 40 tick 后的轮回（来源 {@code Fulutexiao37}）尚未迁移。
+ * 雷劫经 {@code ThunderBegin} 对应过程生成劫云；阳寿已尽后延迟请求轮回。
  */
 public final class CultivationTick {
     private static final Set<ResourceKey<Level>> NO_BREAKTHROUGH = Set.of(
@@ -68,6 +70,8 @@ public final class CultivationTick {
             if (Cultivation.get(player, CultivationValue.LIFETIME) <= 0) {
                 player.displayClientMessage(Component.literal("你的阳寿已尽！"), false);
                 player.displayClientMessage(Component.literal("你的阳寿已尽！"), true);
+                ServerLevel sourceLevel = player.serverLevel();
+                Delayed.run(40, () -> NeoForge.EVENT_BUS.post(new LifetimeExhaustedEvent(player, sourceLevel)));
             }
             breakthrough(player);
             NeoForge.EVENT_BUS.post(new CultivationAfterBreakthroughEvent(player));

@@ -26,6 +26,8 @@ updated: 2026-11-15
 
 ## 公开操作
 
+轮回可调用 `Equipment.clearReincarnationAccessories` 清除四饰品槽，并在库存清理后用 `refreshContributions` 更新器物贡献。
+
 `Equipment.updateRootField(物品, 键, Tag)` 供通用NBT编辑器提交装备单键根投影与两项本命经验，保留其他装备字段；公开契约与未映射边界见[正文](architecture.md#通用nbt编辑器根字段契约2026-11-15)。
 
 修理台使用`Equipment.refiningLevel`读取嵌套等级、`flyingInstrumentNeedsRepair`按根整数值判断、`repairFlyingInstrument`按根double值修复并钳上限。直接淬毒由`recordPoisonEnchantment`保留完整累计记录并先增序号写附魔，毒锅不调用该记录接口。规则与来源见[炼器正文](../lianqi/architecture.md)。

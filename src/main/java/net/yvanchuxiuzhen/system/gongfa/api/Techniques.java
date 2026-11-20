@@ -42,6 +42,12 @@ public final class Techniques {
         TechniqueRules.rememberSlot(player);
     }
 
+    /** 轮回同时清主修槽与每秒对照槽，空栏提交不触发来源没有的完整重算粒子。 */
+    public static void resetForReincarnation(ServerPlayer player) {
+        player.setData(GongfaData.PREVIOUS_SLOT, ItemStack.EMPTY);
+        setSlot(player, ItemStack.EMPTY);
+    }
+
     /** 研习手中的功法书（书籍右键的研习分支）；条件不满足时只提示。 */
     public static void study(ServerPlayer player, ItemStack stack) {
         TechniqueRules.study(player, stack);

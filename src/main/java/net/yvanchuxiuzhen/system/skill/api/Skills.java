@@ -85,6 +85,15 @@ public final class Skills {
         player.setData(SkillData.FLYING, flying);
     }
 
+    /** 轮回清装配、当前书与键、飞行标记及六组冷却；保留连招、实际选槽和 arrowlinshi。 */
+    public static void resetForReincarnation(ServerPlayer player) {
+        SkillState previous = state(player);
+        player.setData(SkillData.STATE, new SkillState(SkillState.EMPTY.spells(), ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY,
+                1, ItemStack.EMPTY, 0, previous.selectedSlot(), previous.combo(), previous.arrow(), previous.arrowChoice()));
+        setFlying(player, false);
+        player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
+    }
+
     public static void toggleFlight(ServerPlayer player) {
         SkillFlight.toggle(player);
     }

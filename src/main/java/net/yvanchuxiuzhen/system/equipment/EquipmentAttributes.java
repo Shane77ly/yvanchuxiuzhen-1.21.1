@@ -41,6 +41,11 @@ public final class EquipmentAttributes {
 
     static void tick(PlayerTickEvent.Post event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        submit(player);
+    }
+
+    /** 提交当前器物贡献。 */
+    public static void submit(ServerPlayer player) {
         Map<Stat, Double> values = new EnumMap<>(Stat.class);
         for (ItemStack stack : player.getArmorSlots()) {
             EquipmentStats stats = stack.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY);

@@ -20,6 +20,8 @@ updated: 2026-11-17
 
 ## 公开操作
 
+轮回可调用 `BookQuizzes.clearQuestion` 清除题号并同步，保留答对计数。
+
 `ShelfBooks.technique(double等级)`与`skill(double等级)`供flow构造`book_021`书架藏宝载体，写原中文名和三个来源藏宝字段；不抽取具体功法/技能内容。`BookTexts.create(Item载体, String中文名, String原文)`由书籍所有者构造文本书，保留载体、名称和根`textdisplay`来源字段。公共书物品 `StudyBookItem` 经 `Techniques.book/study/giveTreasureBook` 和 `Skills.book/study/giveTreasureBook` 查询、分派研习与藏宝发书；随机表、境界与灵根判断留在原业务操作。书架藏宝的来源实例键由 `minecraft:custom_data` 承载，具体契约见正文。答题进度 `daduishuliang` 由 book 唯一写入，由book维护累计、答错/答满清零及仅本人同步；skill/gongfa只接答满后的所属书组件写入，不拥有答题数据。
 
 阅读通过 `Techniques.book/main` 和 `Skills.book` 查询书实例与主修档位；技能品阶/境界中文经 `SkillBook.gradeText/levelText` 委托既有计算，避免复制公式。对照 `typed_field_accesses.csv` 中 `Bookwenzi4`–`Bookwenzi10` 对 `gongfa` 的全部读取，目标只经 `Techniques.main` 取主修。图纸和丹方显示读取其生产者已经写入 `minecraft:custom_data` 的根字段，不改变配方或装备真值；文本行 `text01` 起由 book 在阅读前写入被使用的真实物品实例并同步。

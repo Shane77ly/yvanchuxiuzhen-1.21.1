@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.system.attribute.api;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.yvanchuxiuzhen.system.attribute.VanillaAttributes;
 import net.yvanchuxiuzhen.system.attribute.data.AttributeAttachments;
@@ -35,6 +36,13 @@ public final class PlayerAttributes {
 
     public static void clearContribution(ServerPlayer player, String source) {
         update(player, player.getData(AttributeAttachments.ATTRIBUTES).without(source));
+    }
+
+    /** 轮回 37 的原版基础属性写入，不直接补足现有生命；移速恢复来源重置前的非零 walkspeed。 */
+    public static void applyReincarnationBases(ServerPlayer player, double previousWalkSpeed) {
+        player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Stat.HEALTH_MAX.initial());
+        player.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(Stat.ATTACK.initial());
+        if (previousWalkSpeed != 0) player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(previousWalkSpeed);
     }
 
     /** 来源完整重算入口：按当前贡献写原版属性，并在重算前后各广播一枚天干地支粒子；普通贡献提交不触发。 */

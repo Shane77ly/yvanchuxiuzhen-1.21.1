@@ -139,8 +139,8 @@
   "item.yvanchuxiuzhen.itemfulu_36": "Itemfulu 3 6",
   "tooltip.yvanchuxiuzhen.item.itemfulu_36.1": "把地下的矿石吸上来并掉落。",
   "tooltip.yvanchuxiuzhen.item.itemfulu_36.2": "符箓品阶越高，吸取的深度越深。",
-  "item.yvanchuxiuzhen.itemfulu_37": "Itemfulu 3 7",
-  "tooltip.yvanchuxiuzhen.item.itemfulu_37.1": "右键弹出重生选项，点击后重入轮回。",
+  "item.yvanchuxiuzhen.itemfulu_37": "Reincarnation Talisman",
+  "tooltip.yvanchuxiuzhen.item.itemfulu_37.1": "Right-click to confirm. The fourth use begins reincarnation.",
   "item.yvanchuxiuzhen.itemfulu_38": "Itemfulu 3 8",
   "tooltip.yvanchuxiuzhen.item.itemfulu_38.1": "在命中位置召唤水龙，造成水属性法术伤害。",
   "tooltip.yvanchuxiuzhen.item.itemfulu_38.2": "符箓品阶越高，伤害越高。",
@@ -168,8 +168,8 @@
   "item.yvanchuxiuzhen.itemfulu_47": "Itemfulu 4 7",
   "tooltip.yvanchuxiuzhen.item.itemfulu_47.1": "【镐】连锁挖矿，附魔等级越高，连锁范围越大。",
   "tooltip.yvanchuxiuzhen.item.itemfulu_47.2": "主手手持此符，右键对副手的镐子附上连锁采集附魔。",
-  "item.yvanchuxiuzhen.fushengdan": "Fushengdan",
-  "tooltip.yvanchuxiuzhen.item.fushengdan.1": "吃下后瞬间毙命，但却能保你进入轮回，重新做人。",
+  "item.yvanchuxiuzhen.fushengdan": "Reincarnation Pill",
+  "tooltip.yvanchuxiuzhen.item.fushengdan.1": "Eat to reincarnate, reset your cultivation, and clear your carried items.",
   "item.yvanchuxiuzhen.itemfulu_48": "Itemfulu 4 8",
   "tooltip.yvanchuxiuzhen.item.itemfulu_48.1": "【斧、镐、铲、锄】可以让工具拥有自动开采的能力。",
   "tooltip.yvanchuxiuzhen.item.itemfulu_48.2": "主手手持此符，副手拿着工具，然后右键即可对工具附魔。",
@@ -295,5 +295,8 @@
   "gui.yvanchuxiuzhen.huafu_gui.recipe.itemfulu_42": "连爆符",
   "gui.yvanchuxiuzhen.huafu_gui.recipe.itemfulu_43": "震山符",
   "gui.yvanchuxiuzhen.huafu_gui.recipe.itemfulu_44": "云灵符",
-  "gui.yvanchuxiuzhen.huafu_gui.recipe.itemfulu_45": "炮符"
+  "gui.yvanchuxiuzhen.huafu_gui.recipe.itemfulu_45": "炮符",
+  "message.yvanchuxiuzhen.reincarnation.confirm_1": "This talisman resets your attributes and clears your equipped techniques, skills, and carried items. Right-click 3 more times to confirm.",
+  "message.yvanchuxiuzhen.reincarnation.confirm_2": "This cannot be undone. Right-click 2 more times to confirm.",
+  "message.yvanchuxiuzhen.reincarnation.confirm_3": "There is no turning back after this. Right-click once more to confirm."
 }

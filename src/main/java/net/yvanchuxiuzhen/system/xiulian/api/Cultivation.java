@@ -1,7 +1,9 @@
 package net.yvanchuxiuzhen.system.xiulian.api;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
@@ -22,6 +24,7 @@ import net.yvanchuxiuzhen.system.xiulian.CultivationCommand;
 import net.yvanchuxiuzhen.system.xiulian.LevelUp;
 import net.yvanchuxiuzhen.system.xiulian.Rebirth;
 import net.yvanchuxiuzhen.system.xiulian.SkillPoints;
+import net.yvanchuxiuzhen.system.xiulian.XiulianRules;
 import net.yvanchuxiuzhen.system.xiulian.content.SkillPointMenu;
 import net.yvanchuxiuzhen.system.xiulian.data.CultivationData;
 import net.yvanchuxiuzhen.system.xiulian.data.XiulianAttachments;
@@ -32,6 +35,19 @@ import net.yvanchuxiuzhen.system.xiulian.data.XiulianAttachments;
  * 写操作只在服务端调用，写入后同步给本人；客户端只能查询本人的值。
  */
 public final class Cultivation {
+    private static final List<CultivationValue> REINCARNATION_VALUES = List.of(CultivationValue.LEVEL_NUMBER,
+            CultivationValue.EXPERIENCE_MAX, CultivationValue.EXPERIENCE, CultivationValue.EXPERIENCE_STAND,
+            CultivationValue.EXPERIENCE_RATE, CultivationValue.EXPERIENCE_HINDER, CultivationValue.POWER, CultivationValue.SOUL,
+            CultivationValue.SKILL_POINTS, CultivationValue.ROOT_GOLD, CultivationValue.ROOT_WATER, CultivationValue.ROOT_TREE,
+            CultivationValue.ROOT_FIRE, CultivationValue.ROOT_SOIL, CultivationValue.YINYANG, CultivationValue.MERITS,
+            CultivationValue.VIGOROUS, CultivationValue.THUNDER_MAX, CultivationValue.THUNDER, CultivationValue.THUNDER_ATT,
+            CultivationValue.BLOOD_LINEAGE_LEVEL, CultivationValue.BLOOD_LINEAGE_MAX, CultivationValue.BLOOD_LINEAGE_NUM,
+            CultivationValue.SKILL_POINTS_HEALTH_MAX, CultivationValue.SKILL_POINTS_POWER_MAX, CultivationValue.SKILL_POINTS_SOUL_MAX,
+            CultivationValue.SKILL_POINTS_ATTACK, CultivationValue.SKILL_POINTS_MANA, CultivationValue.SKILL_POINTS_SOUL,
+            CultivationValue.LIFETIME, CultivationValue.RANDOMLIFT, CultivationValue.CULTIVATION_DAYS);
+    private static final Set<Stat> REINCARNATION_GROWTH = EnumSet.of(Stat.HEALTH_MAX, Stat.HEALTH_REC, Stat.POWER_MAX,
+            Stat.POWER_REC, Stat.SOUL_MAX, Stat.SOUL_REC, Stat.ATTACK, Stat.ATTACK_DEF, Stat.MANA_ATT, Stat.MANA_DEF,
+            Stat.SOUL_ATT, Stat.SOUL_DEF, Stat.COOLDOWN_REDUCTION);
     /** 灵根与阴阳变化后作为基础层贡献提交给 attribute 的来源键。 */
     public static final String ROOTS_SOURCE = "xiulian:roots";
     /** 属性成长（来源写入 {@code health_Max} 等基础字段的累计量）作为基础层贡献提交给 attribute 的来源键。 */
@@ -45,6 +61,53 @@ public final class Cultivation {
     /** 普通重生的修炼片段：按来源顺序修正生命、灵力、神识、待吸收修为与寿元。 */
     public static void rebirth(ServerPlayer player) {
         Rebirth.rebirth(player);
+    }
+
+    /** 轮回 37 的修炼和基础成长复位，保留本命、复活标记、闭关闭却与已有恢复显示。 */
+    public static double resetForReincarnation(ServerPlayer player) {
+        CultivationData data = player.getData(XiulianAttachments.CULTIVATION);
+        REINCARNATION_VALUES.forEach(value -> data.set(value, value.initial()));
+        for (CultivationText text : List.of(CultivationText.LEVEL_NAME, CultivationText.RACE, CultivationText.RACE_NAME,
+                CultivationText.BLOOD_LINEAGE, CultivationText.CONSTITUTION, CultivationText.BIRTH)) {
+            data.set(text, text.initial());
+        }
+        data.setThunderOpen(false);
+        double extraLocks = data.tizhi().getDouble("liftlockewai");
+        data.set(CultivationValue.LIFTLOCK, 1 + extraLocks);
+        data.growth().keySet().removeAll(REINCARNATION_GROWTH);
+        PlayerAttributes.setContribution(player, GROWTH_SOURCE, new Contribution(Layer.BASE, data.growth()));
+        submitRoots(player);
+        player.syncData(XiulianAttachments.CULTIVATION);
+        return extraLocks;
+    }
+
+    /** 轮回库存处理之后按来源规则重抽五根，替换体质标签并安排出身界面。 */
+    public static void finishReincarnation(ServerPlayer player, ServerLevel sourceLevel, double extraLocks) {
+        CultivationData data = player.getData(XiulianAttachments.CULTIVATION);
+        if (BirthSelection.ROOTS.stream().mapToDouble(data::get).sum() < 1) {
+            BirthSelection.rollReincarnationRoots(player, sourceLevel, data);
+            submitRoots(player);
+        }
+        player.getPersistentData().putDouble("LEVELnumber", data.get(CultivationValue.LEVEL_NUMBER));
+        CompoundTag tizhi = data.tizhi();
+        for (String key : Set.copyOf(tizhi.getAllKeys())) tizhi.remove(key);
+        tizhi.putDouble("liftlockewai", extraLocks);
+        player.syncData(XiulianAttachments.CULTIVATION);
+        BirthSelection.openAfterReincarnation(player);
+    }
+
+    /** 非玩家轮回仍执行来源的五次灵根随机取值，但没有玩家能力可写。 */
+    public static void rollNonPlayerReincarnationRoots(ServerLevel level) {
+        int cap = level.getGameRules().getInt(XiulianRules.ROOT_LEVEL);
+        for (int index = 0; index < 5; index++) {
+            Random random = new Random();
+            if (cap > 0) random.nextInt(cap + 1);
+        }
+    }
+
+    /** 为拥有服务端玩家界面的调用者延迟打开出身选择。 */
+    public static void openBirthAfterReincarnation(ServerPlayer player) {
+        BirthSelection.openAfterReincarnation(player);
     }
 
     /** 执行共享原初管理命令中的修炼分支；世界规则使用命令源维度，玩家档案使用已匹配目标。 */
