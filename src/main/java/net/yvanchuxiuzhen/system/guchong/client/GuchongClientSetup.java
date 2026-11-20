@@ -9,6 +9,7 @@ import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.guchong.GuchongSetup;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongCreatures;
+import net.yvanchuxiuzhen.system.guchong.entity.Guchong05Entity;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongEntity;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongMenus;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongFluteItem;
@@ -30,7 +31,7 @@ public final class GuchongClientSetup {
         modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) ->
                 event.registerLayerDefinition(Guchong05Model.LAYER, Guchong05Model::layer));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
-            event.registerEntityRenderer(GuchongSetup.entityType("guchong_05").get(), Guchong05Renderer::new);
+            event.registerEntityRenderer(GuchongSetup.<Guchong05Entity>entityType("guchong_05").get(), Guchong05Renderer::new);
             for (EntityModelRow row : GuchongCreatures.models()) {
                 event.registerEntityRenderer(GuchongSetup.<GuchongEntity>entityType(row.id()).get(),
                         context -> new AnimatedEntityRenderer<>(context, row));
@@ -38,3 +39,4 @@ public final class GuchongClientSetup {
         });
     }
 }
+
