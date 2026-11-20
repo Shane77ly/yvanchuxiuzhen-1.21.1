@@ -27,7 +27,7 @@ public final class YaoshouRenderer<T extends YaoshouEntity> extends GeoEntityRen
     @Override
     public void render(T entity, float yaw, float partialTick, PoseStack poses, MultiBufferSource buffer, int light) {
         poses.pushPose();
-        float size = (float) entity.getAttributeValue(YaoshouAttributes.SIZE);
+        float size = (float) entity.getAttribute(YaoshouAttributes.SIZE).getBaseValue();
         poses.scale(size, size, size);
         super.render(entity, yaw, partialTick, poses, buffer, light);
         poses.popPose();
