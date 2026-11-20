@@ -32,19 +32,22 @@ final class CreatureSourceStats {
             data.putDouble("experience_Max", max);
         }
         data.putDouble("health_Max", Math.ceil(120 + rating(data, "health_Max", 14, 13, 12, 11, 10) * Math.pow(level / 3, 2)));
+        mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
+        mob.setHealth((float) data.getDouble("health_Max"));
         data.putDouble("health_Rec", Math.ceil(1 + Math.pow(level / rating(data, "health_Rec", 8.4, 8.8, 9.2, 9.6, 10), 2)));
         data.putDouble("power_Max", Math.ceil(120 + rating(data, "power_Max", 28, 26, 24, 22, 20) * Math.pow(level / 3, 2)));
         data.putDouble("power_Rec", Math.ceil(Math.pow(level / rating(data, "power_Rec", 6, 6.5, 7, 7.5, 8), 2)));
         data.putDouble("soul_Max", Math.ceil(120 + rating(data, "soul_Max", 28, 26, 24, 22, 20) * Math.pow(level / 3, 2)));
         data.putDouble("soul_Rec", Math.ceil(Math.pow(level / rating(data, "soul_Rec", 6, 6.5, 7, 7.5, 8), 2)));
-        for (String key : new String[]{"attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def"})
+        for (String key : new String[]{"attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def"}) {
             data.putDouble(key, Math.ceil(2 + Math.pow(level / rating(data, key, 2.6, 2.7, 2.8, 2.9, 3), 2)));
+            if (key.equals("attack_Num")) {
+                mob.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getDouble(key));
+            }
+        }
         double speed = rating(data, "speed", .36, .32, .28, .24, .2) + level * .004;
         data.putDouble("speed_number", speed);
-        mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
-        mob.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getDouble("attack_Num"));
         mob.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(speed);
-        mob.setHealth((float) data.getDouble("health_Max"));
         if (personality) initializeCharacter(data);
         String team = mob.getType().builtInRegistryHolder().key().location().toString().replace(':', '_');
         Relations.setTeam(mob, team);
