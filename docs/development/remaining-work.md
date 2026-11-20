@@ -139,10 +139,10 @@ Q28星宿穴位学习小游戏已于2026-11-16批准排除，保留来源登记�
 | 模块负责人 | 原工作树；分支；当前HEAD | 本轮持续范围与状态 |
 | --- | --- | --- |
 | Jason（修炼与战斗，`gpt-6.1-terra`） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-cultivation-combat-module-20261118`；`port/cultivation-combat-module-20261118`；`a1a89a94`；既有脏改动保留 | 从attribute/relation/xiulian/gongfa/combat/skill/yihuo及相关页面源码整理完整人间界成长、修炼、战斗与存档路径；负责人正在复核既有改动并定族级批次。 |
-| Franklin（世界与植物，`gpt-6.1-terra`） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-world-plant-module-20261118`；`port/world-plant-module-20261118`；`ceb96ee2`；含暂存及未暂存既有改动 | 从world/plant及自然生成消费者源码整理人间界维度、地物、植物获取/生成/成长/采收/消费路径；负责人正在复核并定族级批次。 |
+| Franklin（世界与植物，`gpt-6.1-terra`） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-world-plant-module-20261118`；`port/world-plant-module-20261118`；`ceb96ee2`；含暂存及未暂存既有改动 | 从world/plant及自然生成消费者源码整理人间界维度、地物、植物获取/生成/成长/采收/消费路径；23个成熟单格作物地物已按族接入集成；负责人继续桑树自然生成、采收、蚕与烹饪消费及保存链。 |
 | Dewey（生物与蛊虫，`gpt-6.1-terra`） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-creature-guchong-module-20261118`；`port/creature-guchong-module-20261118`；`8f20537b`；既有脏改动保留 | 从creature/guchong/灵兽收纳源码整理人间界出生、AI/战斗/掉落、获取/收放、蛊虫培养与保存路径；负责人正在复核并定族级批次。 |
 
-集成树本轮接续 `port/batch0-integration-20261117` / `8cc14afd`，开始时工作树干净。客户端任何启动前须在实际运行目录设置并核验`soundCategory_master:0.0`，不改系统全局音量。野羊候选`29619325`和结构宝箱候选继续隔离保留，尚未编译或运行；不并入模块生产工作。Q40已合入，不重跑。原主树和三个模块树现有脏改动均保持。
+集成树本轮从 `port/batch0-integration-20261117` / `47cdb863` 接续，已通过 `8ae16879` 合入23个成熟单格作物地物与转换器功能 `a6d154cf`；来源与生成器静态核对及文档检查通过，具体运行验证边界见[植物月志](../systems/plant/logs/2026-11.md#2026-11-20-人间界成熟单格作物地物)。客户端任何启动前须在实际运行目录设置并核验`soundCategory_master:0.0`，不改系统全局音量。野羊候选`29619325`和结构宝箱候选继续隔离保留，尚未编译或运行；不并入模块生产工作。Q40已合入，不重跑。原主树和三个模块树现有脏改动均保持。
 
 | 并行责任 | 本轮验收出口 |
 | --- | --- |
@@ -194,15 +194,15 @@ Q28星宿穴位学习小游戏已于2026-11-16批准排除，保留来源登记�
 
 #### 2026-11-19 收拢快照
 
-本节为上次收拢时的历史快照；当前派工以上节为准。模块负责人不按Q编号机械挑选任务，而是先从锁定的1.18.2版本模组源码、资源与调用链整理本模块的完整范围、已覆盖内容和缺口，再自主确定下一条可闭合的人间界玩家路径；Q28是唯一批准排除项。
+本节为上次收拢时的历史快照；当前派工以上节为准。模块负责人不按Q编号机械挑选任务，而是先从锁定的1.18.2版本模组源码、资源与调用链整理本模块的完整族谱、覆盖矩阵和缺口，再持续推进同族或端到端人间界玩家路径；Q28是唯一批准排除项。
 
 集成树 `port/batch0-integration-20261117` 当前 HEAD 为 Git 实际值 `c6692e10`，工作树干净。本轮已从三个模块原工作树按最小功能单位接收并记录六项来源明确的生产缺口：Skill指定群系水体反胃、Combat挣脱附魔缩短缓慢、Plant八种豆科/芝麻成熟地物空placement、Creature妖兽004原版经验21及036/048原生AI对齐。六项均已完成静态来源核对与文档/台账同步；集成 `compileJava`、文档检查、转换器语法检查、八份JSON解析和 `git diff --check` 通过，未运行客户端、专服或自然游戏验收。模块树既有未提交差异全部保留，不能整体搬入集成树或据此判定完成：
 
 | 模块 | 工作树与基线 | 当前未提交状态 | 下次动作 |
 | --- | --- | --- | --- |
-| 修炼与战斗 | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-cultivation-combat-module-20261118`；`port/cultivation-combat-module-20261118`；HEAD `a1a89a94` | 已接收指定群系水体反胃与挣脱附魔缩短缓慢两个玩家刻入口；原树仍有大量R02–R04代码、资源/中文、Smoke与文档脏改动，未整体接收。 | owner 继续按1.18.2来源选择下一项当前集成缺失的真实生产功能；主线程后续串行做必要客户端/专服验证，不以Q编号代替路线。 |
-| 世界与植物 | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-world-plant-module-20261118`；`port/world-plant-module-20261118`；HEAD `ceb96ee2` | 已接收八份豆科/双株芝麻configured placement及转换器对齐；原树仍有World/Plant、NPC、Quest、Smoke和转换工具脏改动，未整体接收。 | owner 继续逐族核对来源成熟地物/自然供给缺口，选择下一项独立人间界生产功能；自然生成、采收和重进仍待真实验证。 |
-| 生物与蛊虫 | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-creature-guchong-module-20261118`；`port/creature-guchong-module-20261118`；HEAD `8f0bef82` | 已接收妖兽004经验、036原生AI、048原生行为三项最小生产对齐；原树仍有Creature/Guchong代码、资源、转换清单、Smoke和系统文档脏改动，单虫撤回候选未接收。 | owner 继续从生物/蛊虫真实来源调用链选择下一项当前缺失功能；优先生产接线和最小静态验证，避免重复已合入候选。 |
+| 修炼与战斗 | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-cultivation-combat-module-20261118`；`port/cultivation-combat-module-20261118`；HEAD `a1a89a94`；119项未提交 | 已接收指定群系水体反胃与挣脱附魔缩短缓慢两个玩家刻入口；原树当前同时覆盖修炼、战斗、技能、功法、符箓、装备和异火的代码、资源、中文、Smoke与文档增量，未整体接收。 | owner 继续维护该跨系统族谱与覆盖矩阵，按来源调用链批量闭合一条或多条玩家路径；交付按族级功能边界说明，不等待单个神通专项测试。 |
+| 世界与植物 | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-world-plant-module-20261118`；`port/world-plant-module-20261118`；HEAD `ceb96ee2`；156项未提交（含5项暂存） | 已接收八份豆科/双株芝麻configured placement及转换器对齐；原树当前同时覆盖世界生成、维度/结构、植物、材料、NPC、任务、Smoke与转换工具增量，未整体接收。 | owner 继续维护世界/植物生产族谱，优先把自然生成→获得/成长/采收→消费或人间界进入/重进链路成族推进；交付按完整链路说明，不按单个方块或单株植物切批。 |
+| 生物与蛊虫 | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-creature-guchong-module-20261118`；`port/creature-guchong-module-20261118`；HEAD `8f0bef82`；117项未提交 | 已接收妖兽004经验、036原生AI、048原生行为三项最小生产对齐；原树当前同时覆盖妖兽共同行为、鬼怪/棺材、箭头投射物、蛊虫成长/容器/资源、Smoke与系统文档增量，未整体接收，单虫撤回候选不计入。 | owner 继续维护生物/蛊虫族谱与消费者矩阵，按实体族或蛊虫持有→释放→成长/击杀经验→主人消费的端到端链路批量实现；交付按族级覆盖说明，不等待单个妖兽专项测试。 |
 
 原主树仍为 `port/full-migration-20261112` / `28f05bc7`，本次状态复核为313条工作区项（含25条暂存），未在原主树操作。野羊候选 `29619325`、结构候选工作树 `codex/renjian-structure-loot-20261119` 均与集成树隔离保留；Q40已合入，不再复跑。引雷草空战利品回退已由`7d5288dd`接收，仅完成直接掉落函数的限定验证。下一步由三个模块 owner 分别从1.18.2源码整理和推进，主线程只做公共进度、串行重型验证与按功能快照接收。
 
