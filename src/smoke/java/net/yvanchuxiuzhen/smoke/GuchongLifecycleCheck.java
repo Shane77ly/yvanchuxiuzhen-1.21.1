@@ -99,6 +99,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
                 throw new IllegalStateException("蛊罐专属方块未实际装配 " + id);
             }
         }
+        checkJarItemFields();
         originalPosition = player.position();
         originalYaw = player.getYRot();
         originalPitch = player.getXRot();
@@ -114,6 +115,29 @@ final class GuchongLifecycleCheck extends SystemCheck {
         setBlock(player, home.below(), Blocks.GRASS_BLOCK.defaultBlockState());
         originalBlocks.put(home, player.level().getBlockState(home));
         player.connection.teleport(floor.getX() + .5, floor.getY() + 1, floor.getZ() + .5, 0, 0);
+    }
+
+    private void checkJarItemFields() {
+        for (String id : List.of("guchong_01", "guchong_03", "guchong_04")) {
+            CompoundTag jar = new CompoundTag();
+            jar.putString("guchongid0", "yvanchuxiuzhen:" + id);
+            jar.putString("guchongname0", "[虫名]");
+            jar.putString("guguanuuid0", "slot-uuid");
+            jar.putString("belongToMasterUUID0", "owner");
+            jar.putDouble("experience0", 37.5);
+            jar.putDouble("health_Num0", 7);
+            ItemStack menuItem = GuchongJarData.unpack(jar, 0, true);
+            ItemStack groundItem = GuchongJarData.unpack(jar, 0, false);
+            CompoundTag menu = GuchongJarData.read(menuItem);
+            CompoundTag ground = GuchongJarData.read(groundItem);
+            expectTrue(id + "菜单与地上罐重建名称仅作为显示名",
+                    menuItem.getHoverName().getString().equals("虫名") && groundItem.getHoverName().getString().equals("虫名")
+                            && !menu.contains("guchongname") && !ground.contains("guchongname"));
+            expectTrue(id + "两条重建路径保留来源字段差异",
+                    menu.getString("guguanuuid").equals("slot-uuid") && !ground.contains("guguanuuid")
+                            && !menu.contains("health_Num") && ground.getDouble("health_Num") == 7
+                            && menu.getDouble("experience") == 37.5 && ground.getString("belongToMasterUUID").equals("owner"));
+        }
     }
 
     private void singleItems(ServerPlayer player) {

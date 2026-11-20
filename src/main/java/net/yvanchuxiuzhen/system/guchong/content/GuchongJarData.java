@@ -91,6 +91,8 @@ public final class GuchongJarData {
         ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse((insectId + "item").toLowerCase(Locale.ENGLISH))));
         CompoundTag data = new CompoundTag();
         copy(jar, suffix, data, "", false);
+        // 来源只把槽位名称设置为显示名，不写入重建物品的自定义数据。
+        data.remove("guchongname");
         if (menu) {
             data.remove("health_Num");
             data.putString("guguanuuid", jar.getString("guguanuuid" + suffix));

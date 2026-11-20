@@ -177,3 +177,12 @@ B `Taoguan01/02/03BlockEntity`分别持有2/5/10槽：1/4/9个蛊虫位与独立
 ## 地上罐与蛊笛放虫关系次序（2026-11-20）
 
 对照1.18.2版本原初系统 `Taoguan01GengXinYouXiKeProcedure`，地上罐放虫先共享罐好友表，再写等级名、槽号、等级与经验并设置名称和原生主人；之后设置守罐、认主、主人UUID、虫物品团队、坐标及属性，最后执行出生。蛊笛按原初修真 `GuchongAnniuzhixingProcedure` 在驯服及主人UUID赋值后再次读取并写入玩家团队。实机放虫、好友变化、保存重进及多人均未验证。
+
+
+## 三档罐虫物品重建与方块掉落（2026-11-20）
+
+对照1.18.2版本 A `TaoguanGuiopenProcedure:39–86` 和 `Taoguan01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure:74–124`：菜单及放置地上罐均以编号槽的 `guchongname` 设置重建物品的显示名，不写入物品的 `guchongname` 自定义字段；菜单独有 `guguanuuid` 且不复制 `health_Num`，放置地上罐则复制 `health_Num` 而不写槽位 UUID。1.21.1版本 `GuchongJarData.unpack` 按这两条路径重建字段。地上罐计划刻 B `Taoguan01GengXinYouXiKeProcedure:110–112` 的空字符串替换表达式仍按来源执行，重建物品缺省名称字段与直接插入自带名称字段物品的结果可能不同。
+
+来源 B `Taoguan01Block`、`Taoguan02Block`、`Taoguan03Block` 的 `getDrops` 先取父类战利品，空时返回空气物品；1.21.1版本三档共用方块调用父类战利品，空结果不产生掉落。目标资源当前无三档罐方块战利品表，额外数据包战利品及实际破坏尚未验证；方块实体库存掉落接线保持不变。自然获取、混合罐操作、战斗成长及同实例保存恢复未作本批验收。
+
+静音客户端 `guchonglifecycle` 中，01/03/04各两项受控重建字段检查通过；已有场景包含受控放虫、回罐及一次实际退出重进。此检查没有运行自定义数据包战利品或自然获取，不能据此推断完整混养验收。日志和范围见[月志](logs/2026-11.md#2026-11-20-三档蛊罐重建与战利品)。
