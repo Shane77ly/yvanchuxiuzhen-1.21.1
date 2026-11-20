@@ -2,10 +2,12 @@
 topic: guchong
 role: entry
 status: partial
-updated: 2026-11-19
+updated: 2026-11-20
 ---
 
 # 蛊虫
+
+2026-11-20接回妖兽与蛊虫击杀成长的来源分支顺序、逐级经验与属性重算；限定静态接线，实际战斗成长和存档仍待验证，见[成长正文](architecture.md#妖兽与蛊虫击杀成长2026-11-20)。
 
 标识 `guchong`，类别：系统。职责：蛊虫实体、蛊罐、认主与释放（[系统设计](../../development/system-design.md)）。
 
@@ -25,6 +27,8 @@ updated: 2026-11-19
 R13已接入05荧光蛊物品、飞行实体、悬赏坐标生产和释放/回收生命周期；定向`guchong05`必要单项已通过普通/追踪物品入口、中途真实保存重进、百刻返还与计时字段边界，完整自然悬赏与跨维失联仍待验。普通虫不自动获得目标，追踪虫保持同维主人查找与100刻回收顺序；具体边界及Q87/Q91见[05正文](architecture.md#2026-11-14-05荧光蛊与悬赏追踪)。
 
 ## 公开操作
+
+`GuchongGrowths.awardOwnerExperience` 在蛊虫标签实体每次升级时处理来源主人查找与养蛊经验；职业数据由 `Professions` 写入。
 
 `GuchongTracking.createBound(ServerPlayer, BlockPos)`由悬赏提交主人和目标坐标，生产来源字段的荧光蛊物品；释放、追踪、回收、计时与字段复制均由蛊虫系统维护。该路径只取实体UUID，不访问玩家能力字段。
 
