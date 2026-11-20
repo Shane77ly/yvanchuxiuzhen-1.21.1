@@ -4,15 +4,12 @@ import java.util.Comparator;
 import java.util.List;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -105,36 +102,8 @@ public final class GuchongFluteRuntime {
     }
 
     private static void spawn(ServerLevel level, Player player, CompoundTag jar, int slot) {
-        String suffix = Integer.toString(slot);
-        Entity insect = GuchongJarRuntime.create(level, jar.getString("guchongid" + suffix));
-        if (insect == null) return;
-        insect.moveTo(player.getX(), player.getY() + 1, player.getZ(), level.random.nextFloat() * 360F, 0);
-        Relations.shareEntityAllegiance(player, insect);
-        insect.setYRot(player.getYRot());
-        insect.setXRot(0);
-        insect.setYBodyRot(insect.getYRot());
-        insect.setYHeadRot(insect.getYRot());
-        insect.yRotO = insect.getYRot();
-        insect.xRotO = insect.getXRot();
-        if (insect instanceof LivingEntity living) {
-            living.yBodyRotO = living.getYRot();
-            living.yHeadRotO = living.getYRot();
-        }
-        Vec3 look = player.getLookAngle();
-        insect.setDeltaMovement(look.x, look.y + 1, look.z);
-        CompoundTag data = insect.getPersistentData();
-        data.putString("guguanuuid", jar.getString("guguanuuid"));
-        data.putDouble("guguanweizhi", slot);
-        GuchongJarData.copyEntityProgress(jar, suffix, insect, false);
-        insect.setCustomName(Component.literal(jar.getString("guchongname" + suffix).replace("[", "").replace("]", "")));
-        data.putBoolean("guchongxvnfu", jar.getBoolean("guchongxvnfu" + suffix));
-        if (insect instanceof TamableAnimal tamable) tamable.tame(player);
-        data.putString("belongToMasterUUID", jar.getString("belongToMasterUUID" + suffix));
-        Relations.setTeam(insect, Relations.team(player));
-        GuchongJarData.restoreEntityAttributes(jar, suffix, insect, false);
-        GuchongJarRuntime.finishSpawn(level, insect);
+        GuchongLifecycle.releaseOwnedJar(level, player, jar, slot, 1);
     }
-
     private static List<Entity> nearby(ServerLevel level, Player player) {
         Vec3 center = player.position();
         return level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(8), entity -> true)

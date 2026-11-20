@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.guchong.content;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,8 +17,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -92,7 +89,7 @@ public final class TaoguanItem extends ContentItem {
             } else {
                 if (data.getString("guguanuuid").isEmpty()) {
                     StringBuilder uuid = new StringBuilder();
-                    for (int letter = 0; letter < 8; letter++) uuid.append((char) ('a' + new Random().nextInt(25)));
+                    for (int letter = 0; letter < 8; letter++) uuid.append((char) ('a' + level.random.nextInt(25)));
                     data.putString("guguanuuid", uuid.toString());
                     GuchongJarData.write(stack, data);
                 }
@@ -110,38 +107,11 @@ public final class TaoguanItem extends ContentItem {
             int released = 0;
             for (int slot = 0; slot < capacity(grade); slot++) {
                 String suffix = Integer.toString(slot);
-                if (data.getString("guchongid" + suffix).isEmpty()) continue;
                 if (!data.getString("belongToMasterUUID" + suffix).equals(player.getStringUUID())) {
                     player.displayClientMessage(Component.literal("§4您不是" + data.getString("guchongname" + suffix) + "的主人，无法操控此虫。"), false);
                     continue;
                 }
-                Entity insect = GuchongJarRuntime.create(server, data.getString("guchongid" + suffix));
-                if (insect != null) {
-                    insect.moveTo(player.getX(), player.getY(), player.getZ(), level.random.nextFloat() * 360F, 0);
-                    Relations.shareEntityAllegiance(player, insect);
-                    insect.setYRot(player.getYRot());
-                    insect.setXRot(0);
-                    insect.setYBodyRot(insect.getYRot());
-                    insect.setYHeadRot(insect.getYRot());
-                    insect.yRotO = insect.getYRot();
-                    insect.xRotO = insect.getXRot();
-                    if (insect instanceof LivingEntity living) {
-                        living.yBodyRotO = living.getYRot();
-                        living.yHeadRotO = living.getYRot();
-                    }
-                    Vec3 look = player.getLookAngle();
-                    insect.setDeltaMovement(look.x, look.y + 1, look.z);
-                    CompoundTag insectData = insect.getPersistentData();
-                    insectData.putString("guguanuuid", data.getString("guguanuuid"));
-                    insectData.putDouble("guguanweizhi", slot);
-                    GuchongJarData.copyEntityProgress(data, suffix, insect, false);
-                    insectData.putBoolean("guchongxvnfu", true);
-                    insect.setCustomName(Component.literal(data.getString("guchongname" + suffix).replace("[", "").replace("]", "")));
-                    if (insect instanceof TamableAnimal tamable) tamable.tame(player);
-                    insectData.putString("belongToMasterUUID", data.getString("belongToMasterUUID" + suffix));
-                    GuchongJarData.restoreEntityAttributes(data, suffix, insect, false);
-                    GuchongJarRuntime.finishSpawn(server, insect);
-                }
+                GuchongLifecycle.releaseOwnedJar(server, player, data, slot, 0);
                 released++;
             }
             data.putDouble("shifangnum", released);

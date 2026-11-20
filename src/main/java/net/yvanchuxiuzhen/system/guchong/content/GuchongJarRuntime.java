@@ -13,9 +13,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ambient.AmbientCreature;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -28,7 +29,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
-import net.yvanchuxiuzhen.system.guchong.entity.GuchongBehavior;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 地上三档蛊罐的精血认主、装饰物、收罐和逐目标逐槽释放。 */
@@ -153,31 +153,7 @@ public final class GuchongJarRuntime {
             for (int slot = 0; slot < jar.insectSlots(); slot++) {
                 CompoundTag insectData = GuchongJarData.read(jar.getItem(slot).copy());
                 if (!insectData.getBoolean("guchongxvnfu")) continue;
-                Entity insect = create(level, insectData.getString("guchongid"));
-                if (insect != null) {
-                    insect.moveTo(pos.getX() + .5, pos.getY() + 1, pos.getZ() + .5, level.random.nextFloat() * 360F, 0);
-                    Relations.shareBlockAllegiance(data, insect, Relations.entityTeam(insect));
-                    CompoundTag insectTag = insect.getPersistentData();
-                    insectTag.putString("LEVELname", insectData.getString("LEVELname"));
-                    insectTag.putInt("guguanweizhi", slot);
-                    insectTag.putInt("LEVELnumber", insectData.getInt("LEVELnumber"));
-                    insectTag.putInt("experience_Max", insectData.getInt("experience_Max"));
-                    insectTag.putInt("experience", insectData.getInt("experience"));
-                    String name = "".replace(insectData.getString("guchongname"), "[");
-                    name = "".replace(name, "]");
-                    insect.setCustomName(Component.literal(name));
-                    if (insect instanceof TamableAnimal tamable && GuchongBehavior.findEntity(level, insectData.getString("belongToMasterUUID")) instanceof Player owner) tamable.tame(owner);
-                    insectTag.putBoolean("kanjia", true);
-                    insectTag.putBoolean("guchongxvnfu", true);
-                    insectTag.putString("belongToMasterUUID", insectData.getString("belongToMasterUUID"));
-                    Relations.setTeam(insect, insectData.getString("team"));
-                    insectTag.putInt("homeblockX", pos.getX());
-                    insectTag.putInt("homeblockY", pos.getY());
-                    insectTag.putInt("homeblockZ", pos.getZ());
-                    GuchongJarData.restoreEntityAttributes(insectData, "", insect, true);
-                    insectTag.putString("gongjimubiao", target.getStringUUID());
-                    finishSpawn(level, insect);
-                }
+                GuchongLifecycle.releaseGroundJar(level, pos, data, insectData, slot, target);
                 released++;
             }
             data.putInt("shifangnum", released);
@@ -194,7 +170,16 @@ public final class GuchongJarRuntime {
     }
 
     public static Entity create(ServerLevel level, String id) {
+        if (id.isEmpty()) return null;
         return BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(id)).create(level);
+    }
+
+    public static void applyAttributes(Entity entity, CompoundTag data) {
+        LivingEntity living = (LivingEntity) entity;
+        living.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
+        living.setHealth((float) data.getDouble("health_Num"));
+        living.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getDouble("attack_Num"));
+        living.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(data.getDouble("speed_number"));
     }
 
     public static void finishSpawn(ServerLevel level, Entity entity) {
