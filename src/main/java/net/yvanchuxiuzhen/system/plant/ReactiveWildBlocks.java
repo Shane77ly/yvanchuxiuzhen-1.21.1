@@ -27,6 +27,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -259,6 +260,17 @@ public final class ReactiveWildBlocks {
         private ReactiveBlock(BlockTraits traits) {
             super(traits);
             path = traits.row().id();
+        }
+
+        @Override
+        protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
+            List<ItemStack> drops = super.getDrops(state, params);
+            if (!drops.isEmpty()) return drops;
+            return switch (path) {
+                case "snowdrift" -> List.of(new ItemStack(Items.SNOWBALL, 16));
+                case "barrenstonesting" -> List.of(new ItemStack(Blocks.STONE));
+                default -> drops;
+            };
         }
 
         @Override
