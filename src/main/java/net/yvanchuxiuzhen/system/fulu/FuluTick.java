@@ -158,7 +158,7 @@ final class FuluTick {
                         entity.getZ() + Mth.nextDouble(entity.getRandom(), -4, 4));
                 direction = entity.getLookAngle();
             }
-            TalismanProjectile.launch(level, FuluSetup.projectile(kind).get(), entity, at, direction);
+            TalismanProjectile.launch(level, FuluSetup.projectile(kind).get(), entity, at, direction, 1, 0.1, kind == Kind.SWORD ? 0 : 1);
             count = 0;
         }
         state.putDouble(shot, count);

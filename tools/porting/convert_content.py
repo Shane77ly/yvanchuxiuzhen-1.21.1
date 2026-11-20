@@ -582,7 +582,7 @@ def main() -> None:
                               'creature:yaoshou_013taoziwuqi', 'creature:yaoshou_014skill_03', 'equipment:fabao_017',
                               'creature:spirit_beast_bag', 'creature:spirit_beast_dye_tool', 'creature:yaoshou_projectile',
                               'xiulian:ling_11', 'xiulian:ling_18', 'xiulian:jiazubaibaodai', 'guchong:constitution', 'guchong:guchong_01item', 'guchong:guchong_03item', 'guchong:guchong_04item', 'guchong:flute', 'guchong:tracking', 'town:scroll', 'zhenfa:flag_mother', 'zhenfa:flag_son', 'zhenfa:yang_arrow',
-                              'dungeon:fabao_00901', 'fulu:corpse_seal', 'world:spirit_compass', 'festival:wish_lantern', 'npc:manager', 'decor:hammer',
+                              'dungeon:fabao_00901', 'fulu:corpse_seal', 'fulu:projectile', 'world:spirit_compass', 'festival:wish_lantern', 'npc:manager', 'decor:hammer',
                               'festival:sparkler_02', 'festival:sparkler_03', 'festival:sparkler_07', 'equipment:gongjv_008', 'festival:costume_gift', 'festival:red_packet', 'festival:thrown_pao_04', 'festival:thrown_pao_05', 'festival:thrown_pao_06', 'festival:thrown_pao_04', 'festival:thrown_pao_05', 'festival:thrown_pao_06',
                               *(f'plant:shicai{number}_seed' for number in ('001', '002', '004', '005', '006', '007',
                                   '011', '012', '013', '014', '016', '025', '026', '027')),
