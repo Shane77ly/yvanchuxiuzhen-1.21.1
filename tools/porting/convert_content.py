@@ -448,7 +448,7 @@ def main() -> None:
                        'cooking:bowl', 'cooking:plate', 'cooking:large_bowl', 'cooking:iron_plate',
                        'plant:particle_foliage', 'plant:particle_foliage_leaves', 'plant:maple_resin', 'plant:water_plant',
                        'plant:mulberry_sapling', 'plant:mulberry_leaves',
-                       'plant:fruit_tree_log', 'plant:fruit_tree_leaves', 'plant:fallback_block', 'plant:air_fallback_leaves', 'plant:fallback_flower', 'plant:shicai009_sapling', 'plant:shicai010_sapling', 'plant:gourd',
+                       'plant:fallback_double', 'plant:fruit_tree_log', 'plant:fruit_tree_leaves', 'plant:fallback_block', 'plant:air_fallback_leaves', 'plant:fallback_flower', 'plant:shicai009_sapling', 'plant:shicai010_sapling', 'plant:gourd',
                        'plant:lotus_root', 'plant:lotus_stem', 'plant:lotus_pod', 'plant:lotus_leaf') or factory.startswith((
                            'decor:display_', 'decor:inscribed_', 'decor:utility_', 'decor:cushion', 'economy:', 'tiandao:nbt_editor', 'dungeon:', 'world:rift', 'guchong:taoguan_', 'fulu:explosive_', 'plant:big_grass', 'plant:animated_big_grass', 'plant:produce', 'plant:vine', 'plant:fungus', 'plant:legume',
                            'plant:reactive_wild_', 'plant:tree_sapling', 'plant:fiber_crop', 'plant:nichang_grass', 'plant:peach_flower',
@@ -578,7 +578,7 @@ def main() -> None:
                               'decor:cage', 'decor:memorial_tablet', 'craft:pottery_blank', 'craft:silkworm', 'craft:silkworm_gold', 'cooking:meal_food', 'treasure:reward', 'treasure:tool', 'treasure:casket',
                               'cooking:poisonous_food', 'cooking:remainder_bone', 'cooking:remainder_shicai_03401',
                               'cooking:remainder_shicai_03601', 'cooking:remainder_shicai_03701', 'cooking:wine',
-                              'cooking:lotus_seed', 'cooking:plantable_garlic', 'plant:peach_kernel', 'material:peach_food', 'creature:yaoshou_023baodan',
+                              'cooking:chestnut', 'cooking:lotus_seed', 'cooking:plantable_garlic', 'plant:peach_kernel', 'material:peach_food', 'creature:yaoshou_023baodan',
                               'creature:yaoshou_013taoziwuqi', 'creature:yaoshou_014skill_03', 'equipment:fabao_017',
                               'creature:spirit_beast_bag', 'creature:spirit_beast_dye_tool', 'creature:yaoshou_projectile',
                               'xiulian:ling_11', 'xiulian:ling_18', 'xiulian:jiazubaibaodai', 'guchong:constitution', 'guchong:guchong_01item', 'guchong:guchong_03item', 'guchong:guchong_04item', 'guchong:flute', 'guchong:tracking', 'town:scroll', 'zhenfa:flag_mother', 'zhenfa:flag_son', 'zhenfa:yang_arrow',

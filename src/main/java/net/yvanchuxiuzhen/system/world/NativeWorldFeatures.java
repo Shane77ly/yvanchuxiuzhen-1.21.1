@@ -36,7 +36,7 @@ public final class NativeWorldFeatures {
         add("duckweedshengcheng", Feature.RANDOM_PATCH, RandomPatchConfiguration.CODEC, RENJIAN);
         add("gucidici", Feature.BLOCK_COLUMN, BlockColumnConfiguration.CODEC, DILING);
         add("huaguangjiegou", Feature.BLOCK_COLUMN, BlockColumnConfiguration.CODEC, UNRESTRICTED);
-        add("icelakeshengcheng", Feature.LAKE, LakeFeature.Configuration.CODEC, RENJIAN);
+        add("icelakeshengcheng", new SourceLakeFeature(), LakeFeature.Configuration.CODEC, RENJIAN);
         add("icerock_02", Feature.BLOCK_COLUMN, BlockColumnConfiguration.CODEC, RENJIAN);
         add("icerock", SOURCE_BLOB, BlockStateConfiguration.CODEC, RENJIAN);
         add("ironropeshengcheng", Feature.BLOCK_COLUMN, BlockColumnConfiguration.CODEC, WUGUI);

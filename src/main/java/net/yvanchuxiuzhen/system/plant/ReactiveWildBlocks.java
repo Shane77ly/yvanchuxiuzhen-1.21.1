@@ -43,7 +43,6 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
-import net.yvanchuxiuzhen.platform.content.block.ContentDoublePlant;
 import net.yvanchuxiuzhen.platform.content.block.ContentFlower;
 import net.yvanchuxiuzhen.platform.content.block.ContentLeaves;
 import net.yvanchuxiuzhen.platform.content.block.WaterloggedContentBlock;
@@ -305,7 +304,7 @@ public final class ReactiveWildBlocks {
         }
     }
 
-    private static final class ReactiveDoublePlant extends ContentDoublePlant {
+    private static final class ReactiveDoublePlant extends FallbackDoublePlantBlock {
         private final String path;
 
         private ReactiveDoublePlant(BlockTraits traits) {

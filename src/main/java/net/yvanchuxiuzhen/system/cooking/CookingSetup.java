@@ -61,6 +61,7 @@ public final class CookingSetup {
                     row -> new TablewareBlock.Waterlogged(row, TablewareBlock.Kind.LARGE_BOWL)))
             .blockFactory("cooking:plated_food", traits -> ContentBlock.create(traits, PlatedFoodBlock::new))
             .itemFactory("cooking:meal_food", MealFoodItem::new)
+            .itemFactory("cooking:chestnut", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::chestnut))
             .itemFactory("cooking:lotus_seed", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::lotus))
             .itemFactory("cooking:plantable_garlic", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::garlic))
             .itemFactory("cooking:produce028_food", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::shicai028))
