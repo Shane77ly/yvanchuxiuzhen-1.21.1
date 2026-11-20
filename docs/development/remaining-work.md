@@ -138,9 +138,9 @@ Q28星宿穴位学习小游戏已于2026-11-16批准排除，保留来源登记�
 
 | 模块负责人 | 原工作树；分支；当前HEAD | 本轮持续范围与状态 |
 | --- | --- | --- |
-| Russell / gpt-6.1-terra（修炼与战斗） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-cultivation-combat-module-20261118`；`port/cultivation-combat-module-20261118`；`a1a89a94`；既有脏改动保留 | 以 `gpt-6.1-terra`、`xhigh` 接续；从attribute/relation/xiulian/gongfa/combat/skill/yihuo及相关页面源码整理完整人间界成长、修炼、战斗与存档路径；先把功法命中候选连到伤害、击杀归属、修为成长、突破和死亡/存档恢复，并核对六个同步字段及NaN边界。 |
-| Ptolemy / gpt-6.1-terra（世界与植物） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-world-plant-module-20261118`；`port/world-plant-module-20261118`；`ceb96ee2`；含暂存及未暂存既有改动 | 以 `gpt-6.1-terra`、`xhigh` 接续；从world/plant及自然生成消费者源码整理人间界维度、地物、植物获取/生成/成长/采收/消费路径；先修正豆科046–056来源特殊分支，再连续推进藤本或菌类族的自然生成→采收→种植/成长→消费→保存/重进链。 |
-| Gibbs / gpt-6.1-terra（生物与蛊虫） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-creature-guchong-module-20261118`；`port/creature-guchong-module-20261118`；`8f20537b`；既有脏改动保留 | 以 `gpt-6.1-terra`、`xhigh` 接续；从creature/guchong/灵兽收纳源码整理人间界出生、AI/战斗/掉落、获取/收放、蛊虫培养与保存路径；先按死亡生命周期批量核对魔兽、桃木精、鬼怪01–03，再继续自然获取、战斗成长、收放和保存链。 |
+| Hegel / `gpt-6.1-terra`（修炼与战斗） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-cultivation-combat-module-20261118`；`port/cultivation-combat-module-20261118`；`a1a89a94`；既有脏改动保留，本轮已在原树增量编辑 | 完整负责 attribute/relation/xiulian/gongfa/combat/skill/yihuo 及相关页面。负责人依据锁定的1.18.2源码、资源和调用链自行建立模块族谱/覆盖缺口，持续成组实现共享机制与端到端玩家路径；本轮人间界优先，但不缩小全量范围。不得把单个神通、Q项或专项测试作为停工点；本轮具体改动尚待负责人交付与主线程审阅。 |
+| Arendt / `gpt-6.1-terra`（世界与植物） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-world-plant-module-20261118`；`port/world-plant-module-20261118`；`ceb96ee2`；暂存及未暂存的既有改动全部保留，本轮已在原树增量编辑 | 完整负责 world/plant 及维度、群系、结构、地物、植物和消费者。负责人自行依据锁定的1.18.2源码、资源和调用链整理完整族谱与缺口，按共享生成/采收/种植/成长/消费/保存机制和来源族群连续批量移植；人间界优先，不缩减其他世界的全量范围。不得按单个编号或方块切碎停工；本轮具体改动尚待负责人交付与主线程审阅。 |
+| Bohr / `gpt-6.1-terra`（生物与蛊虫） | `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-creature-guchong-module-20261118`；`port/creature-guchong-module-20261118`；`8f20537b`；既有脏改动全部保留，本轮已在原树增量编辑 | 完整负责 creature/guchong、灵兽收纳及来源实体/物品/动画/模型/渲染。负责人自行依据锁定的1.18.2源码、资源和调用链建立族谱与覆盖缺口，持续实现跨族群共享机制及生成、战斗/成长、收放、死亡/掉落、保存恢复等完整玩家路径；人间界优先，不缩减全量范围。不得按单个妖兽/蛊虫或编号停工；本轮具体改动尚待负责人交付与主线程审阅。 |
 
 集成树本轮从 `port/batch0-integration-20261117` / `47cdb863` 接续，已通过 `8ae16879` 合入23个成熟单格作物地物与转换器功能 `a6d154cf`；来源与生成器静态核对及文档检查通过，具体运行验证边界见[植物月志](../systems/plant/logs/2026-11.md#2026-11-20-人间界成熟单格作物地物)。其后已合入 `06a44985`、`820561dd` 和 `661b4397`，覆盖树木、妖兽蛊虫成长与野生植物/玉林族；运行边界见所属月志。客户端任何启动前须在实际运行目录设置并核验`soundCategory_master:0.0`，不改系统全局音量。野羊候选`29619325`和结构宝箱候选继续隔离保留，尚未编译或运行；不并入模块生产工作。Q40已合入，不重跑。原主树和三个模块树现有脏改动均保持。
 
