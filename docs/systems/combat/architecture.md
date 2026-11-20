@@ -310,6 +310,6 @@ Quest普通脚本“伤害实体/法术或精神”来源仅写ManaAttackDamage�
 
 ## 普通玩家击杀收益与 DamageSource 归属（2026-11-20）
 
-来源 `EntityDeathProcedure.onEntityDeath/execute:37–144,291–299`：过程先要求 `event.getSource().getEntity()` 非空，再按受害者持久化 `LEVELnumber` 或生命上限计算待吸收修为，按主修功法命中候选加成，写入 `experience_Stand`，并按等级差扣 `vigorous`、按妖兽/动物/亡灵/Mob互斥顺序写 `merits`；人间界玩家死亡写入 `fuhuo = 人间界`。目标 `PlayerDeathRewards` 从 `LivingDeathEvent` 的 `DamageSource.getEntity()` 读取归属，技能伤害由 `CombatDamageTypes.source(..., attacker)` 沿用同一来源实体。
+来源 `EntityDeathProcedure.onEntityDeath/execute:37–144,291–299`：过程先要求 `event.getSource().getEntity()` 非空，再按受害者持久化 `LEVELnumber` 或生命上限计算待吸收修为，按主修功法命中候选加成，写入 `experience_Stand`，并按等级差扣 `vigorous`、按妖兽/动物/亡灵/Mob互斥顺序写 `merits`；人间界玩家死亡写入 `fuhuo = 人间界`。目标 `PlayerDeathRules` 从 `LivingDeathEvent` 的 `DamageSource.getEntity()` 读取归属，技能伤害由 `CombatDamageTypes.source(..., attacker)` 沿用同一来源实体。
 
 本批接入中央注册并通过 `Cultivation` 公开写操作写入修为、罡煞、功德和复活标记；既有 `CultivationTick` 继续消费 `EXPERIENCE_STAND`，`LevelUp` 继续处理吸收后的境界成长。来源空攻击者仍不发放玩家击杀收益。未运行编译、客户端/专服或真实击杀，当前仅登记静态调用链与实现边界。

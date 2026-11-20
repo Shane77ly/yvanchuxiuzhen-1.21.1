@@ -285,4 +285,4 @@ NeoForge 21.1.265同名Helper和包装器保留上述路径；目标`BirthInitia
 
 ## 战斗击杀收益接入（2026-11-20）
 
-战斗系统通过 `PlayerDeathRewards` 按 `DamageSource.getEntity()` 识别服务端玩家攻击者，并调用 `Cultivation` 公开操作写入 `EXPERIENCE_STAND`、`VIGOROUS`、`MERITS` 及人间界 `REVIVE` 标记；`CultivationTick`、`LevelUp` 和修炼附件保存仍由本系统既有入口负责。未新增六个 `synchronous*` 镜像字段的消费者。
+战斗系统通过 `PlayerDeathRules` 按 `DamageSource.getEntity()` 识别服务端玩家攻击者，并调用 `Cultivation` 公开操作写入 `EXPERIENCE_STAND`、`VIGOROUS`、`MERITS` 及人间界 `REVIVE` 标记；`CultivationTick`、`LevelUp` 和修炼附件保存仍由本系统既有入口负责。未新增六个 `synchronous*` 镜像字段的消费者。
