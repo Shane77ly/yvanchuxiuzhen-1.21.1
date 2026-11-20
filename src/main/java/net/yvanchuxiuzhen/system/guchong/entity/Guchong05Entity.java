@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.guchong.entity;
 
 import java.text.DecimalFormat;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
@@ -75,6 +77,11 @@ public final class Guchong05Entity extends PathfinderMob {
     @Override
     public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {
         return false;
+    }
+
+    @Override
+    protected void checkFallDamage(double motionY, boolean onGround, BlockState state, BlockPos pos) {
+        // 来源飞行实体不累积坠落距离，也不执行方块落地回调。
     }
 
     @Override

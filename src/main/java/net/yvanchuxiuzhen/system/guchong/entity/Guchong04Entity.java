@@ -9,11 +9,14 @@ import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 /** 004 号蛊虫：保留来源步行动画和 003 号吞噬目标分支。 */
 public final class Guchong04Entity extends GuchongEntity {
     public Guchong04Entity(EntityType<? extends GuchongEntity> type, Level level, EntityModelRow model) { super(type, level, model); }
+
+    @Override protected int idleGoalPriority() { return 8; }
+
     @Override protected void registerGoals() {
         super.registerGoals();
         targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Guchong03Entity.class, true, true) {
-            @Override public boolean canUse() { return StatusEffects.has(Guchong04Entity.this, "huxiangtunshi") && super.canUse(); }
-            @Override public boolean canContinueToUse() { return StatusEffects.has(Guchong04Entity.this, "huxiangtunshi") && super.canContinueToUse(); }
+            @Override public boolean canUse() { return super.canUse() && StatusEffects.has(Guchong04Entity.this, "huxiangtunshi"); }
+            @Override public boolean canContinueToUse() { return super.canContinueToUse() && StatusEffects.has(Guchong04Entity.this, "huxiangtunshi"); }
         });
     }
     @Override protected void initializeSourceData() {

@@ -20,8 +20,8 @@ public final class Guchong03Entity extends GuchongEntity {
         super.registerGoals();
         goalSelector.addGoal(8, new LeapAtTargetGoal(this, 1));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Guchong03Entity.class, true, true) {
-            @Override public boolean canUse() { return StatusEffects.has(Guchong03Entity.this, "huxiangtunshi") && super.canUse(); }
-            @Override public boolean canContinueToUse() { return StatusEffects.has(Guchong03Entity.this, "huxiangtunshi") && super.canContinueToUse(); }
+            @Override public boolean canUse() { return super.canUse() && StatusEffects.has(Guchong03Entity.this, "huxiangtunshi"); }
+            @Override public boolean canContinueToUse() { return super.canContinueToUse() && StatusEffects.has(Guchong03Entity.this, "huxiangtunshi"); }
         });
     }
     @Override protected void initializeSourceData() {

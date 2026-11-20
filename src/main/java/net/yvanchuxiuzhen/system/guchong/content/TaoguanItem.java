@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.guchong.content;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -91,7 +92,7 @@ public final class TaoguanItem extends ContentItem {
             } else {
                 if (data.getString("guguanuuid").isEmpty()) {
                     StringBuilder uuid = new StringBuilder();
-                    for (int letter = 0; letter < 8; letter++) uuid.append((char) ('a' + level.random.nextInt(25)));
+                    for (int letter = 0; letter < 8; letter++) uuid.append((char) ('a' + new Random().nextInt(25)));
                     data.putString("guguanuuid", uuid.toString());
                     GuchongJarData.write(stack, data);
                 }
