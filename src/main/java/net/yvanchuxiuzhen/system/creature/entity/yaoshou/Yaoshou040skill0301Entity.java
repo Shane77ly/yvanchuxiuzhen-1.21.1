@@ -1,5 +1,9 @@
 package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -14,11 +18,23 @@ import net.minecraft.world.phys.EntityHitResult;
 
 /** 040skill0301游离光箭型弹体：追踪、范围命中、方块命中与来源寿命。 */
 public final class Yaoshou040skill0301Entity extends AbstractArrow implements ItemSupplier {
+    private static final EntityDataAccessor<Byte> SOURCE_PIERCE = SynchedEntityData.defineId(
+            Yaoshou040skill0301Entity.class, EntityDataSerializers.BYTE);
+
     public Yaoshou040skill0301Entity(EntityType<? extends Yaoshou040skill0301Entity> type, Level level) { super(type, level); }
+    public void setSourcePierceLevel(byte piercing) { entityData.set(SOURCE_PIERCE, piercing); }
+    @Override protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SOURCE_PIERCE, (byte) 0);
+    }
+    @Override public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        setSourcePierceLevel(tag.getByte("PierceLevel"));
+    }
     @Override public ItemStack getItem() {
         return ItemStack.EMPTY;
     }
-    @Override public byte getPierceLevel() { return 1; }
+    @Override public byte getPierceLevel() { return entityData.get(SOURCE_PIERCE); }
     @Override protected ItemStack getDefaultPickupItem() {
         return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "yaoshou_040skill_0301")));
     }
@@ -33,6 +49,7 @@ public final class Yaoshou040skill0301Entity extends AbstractArrow implements It
     }
     @Override protected void onHitBlock(BlockHitResult hit) {
         super.onHitBlock(hit);
+        setSourcePierceLevel((byte) 0);
         Yaoshou040skill0301DangTouSheWuSheZhongCiFangKuai.execute(level(), getOwner(), this);
     }
     @Override public void tick() {
