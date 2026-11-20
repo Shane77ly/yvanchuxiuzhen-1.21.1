@@ -51,13 +51,7 @@ def generate_crop(converter, number: str, *, double: bool = False) -> None:
                         },
                     },
                 },
-                'placement': [] if double else [{
-                    'type': 'minecraft:block_predicate_filter',
-                    'predicate': {
-                        'type': 'minecraft:matching_blocks',
-                        'blocks': ['minecraft:air'],
-                    },
-                }],
+                'placement': [],
             },
         },
     }

@@ -443,3 +443,7 @@ World接回无归实际十群系后，阴魂草在三百川、尸草在尸绝01�
 ## 成熟双格谷物地物谓词对齐（2026-11-19）
 
 锁定1.18.2版本 `Shicai001Plant08Feature`、`Shicai002Plant08Feature`、`Shicai004Plant08Feature`、`Shicai005Plant08Feature`、`Shicai006Plant08Feature` 的 `simplePatchConfiguration` 使用空放置谓词列表。目标原五份configured feature多出 `matching_blocks: minecraft:air`，会排除来源允许的落点；现已移除，并在 `convert_plant_worldgen.py` 中对双格成熟作物生成空 `placement`，避免转换重跑回退。该修正仅覆盖五种成熟双格谷物，其他成熟Feature仍需逐族核对；未运行自然新区块、玩家采收、保存重进、专服或两版本对照。
+
+## 人间界成熟单格作物地物（2026-11-20）
+
+来源 `Shicai007/011–014/016–033Plant04Feature` 共23个成熟地物的 `simplePatchConfiguration` 均使用空谓词列表。目标原configured配置额外限制空气落点；现移除该限制，并同步 `convert_plant_worldgen.py` 的单格和双格生成规则。原有地物方块、外层投放配置与阶段生长、采收、播种和消费实现保持；023的tries为4，032的tries及外层count均为2，其余分别为1。群系引用、实际自然新区块投放、采收和消费、真实保存重进仍待验证；已注册不等于玩法链验收。
