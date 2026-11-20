@@ -41,6 +41,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.content.BlockRow;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.platform.content.block.WaterloggedContentBlock;
@@ -324,6 +325,15 @@ public final class ReactiveWildBlocks {
         private ReactiveWaterloggedBlock(BlockTraits traits) {
             super(traits);
             path = traits.row().id();
+        }
+
+        @Override
+        protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
+            List<ItemStack> drops = super.getDrops(state, params);
+            if (!drops.isEmpty()) return drops;
+            BlockRow.Drop fallback = traits().row().behavior().fallbackDrop().orElseThrow();
+            if (fallback.item().equals("self")) return List.of(new ItemStack(this, fallback.count()));
+            return List.of(new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(fallback.item())), fallback.count()));
         }
 
         @Override

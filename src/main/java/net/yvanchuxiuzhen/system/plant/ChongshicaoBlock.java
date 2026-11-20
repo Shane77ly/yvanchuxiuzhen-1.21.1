@@ -13,7 +13,8 @@ final class ChongshicaoBlock extends ContentFlower {
 
     ChongshicaoBlock(BlockTraits traits) {
         super(traits);
-        selfDropCount = traits.row().behavior().fallbackDrop().orElseThrow().count();
+        selfDropCount = traits.row().behavior().fallbackDrop()
+                .filter(drop -> drop.item().equals("self")).orElseThrow().count();
     }
 
     @Override

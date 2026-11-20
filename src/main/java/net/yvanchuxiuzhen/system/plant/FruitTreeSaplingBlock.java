@@ -29,6 +29,7 @@ public final class FruitTreeSaplingBlock extends ContentFlower implements Boneme
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        super.tick(state, level, pos, random);
         FruitTreeGrowth.grow(tree, level, pos);
     }
 
