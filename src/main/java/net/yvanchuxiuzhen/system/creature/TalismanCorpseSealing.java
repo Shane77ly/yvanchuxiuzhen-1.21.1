@@ -87,19 +87,37 @@ final class TalismanCorpseSealing {
         if (corpse == null) return;
         BlockPos pos = event.clickedPos();
         corpse.moveTo(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, event.level().random.nextFloat() * 360, 0);
-        copyState(data, corpse.getPersistentData());
+        CompoundTag state = corpse.getPersistentData();
+        state.putDouble("caijinumber", data.getDouble("caijinumber"));
         LivingEntity living = (LivingEntity) corpse;
         if (identifier.equals(ModId.VALUE + ":yaoshou_001") || identifier.equals(ModId.VALUE + ":yaoshou_002")) {
             living.getAttribute(YaoshouAttributes.SKIN).setBaseValue(data.getDouble("yaoshoupifuxianshi"));
         }
         living.getAttribute(YaoshouAttributes.SIZE).setBaseValue(data.getDouble("entitydaxiao"));
-        corpse.getPersistentData().putString("yaoshouid", identifier);
+        state.putString("yaoshouid", identifier);
         Relations.setTeam(corpse, data.getString("team"));
+        state.putString("LEVELname", data.getString("LEVELname"));
+        for (String key : new String[]{"LEVELnumber", "experience_Max", "experience"}) {
+            state.putDouble(key, data.getDouble(key));
+        }
         corpse.setCustomName(Component.literal(data.getString("yaoshouname")));
-        corpse.getPersistentData().putString("yaoshouname", data.getString("yaoshouname"));
+        state.putString("yaoshouname", data.getString("yaoshouname"));
+        state.putString("health_Max_LEVEL", data.getString("health_Max_LEVEL"));
+        state.putDouble("health_Max", data.getDouble("health_Max"));
         living.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
-        corpse.getPersistentData().putDouble("health_Num", 0);
+        state.putDouble("health_Num", 0);
         living.setHealth(0);
+        for (String key : new String[]{"health_Rec", "power_Max", "power_Rec", "soul_Max", "soul_Rec",
+                "attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def"}) {
+            state.putString(key + "_LEVEL", data.getString(key + "_LEVEL"));
+            state.putDouble(key, data.getDouble(key));
+        }
+        state.putString("speed_LEVEL", data.getString("speed_LEVEL"));
+        state.putDouble("speed_number", data.getDouble("speed_number"));
+        if (!data.getString("character").isEmpty()) {
+            state.putString("character", data.getString("character"));
+            for (String key : CHARACTER_NUMBERS) state.putDouble(key, data.getDouble(key));
+        }
         if (corpse instanceof Mob mob) {
             mob.finalizeSpawn(event.level(), event.level().getCurrentDifficultyAt(corpse.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         }

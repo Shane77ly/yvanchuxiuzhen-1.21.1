@@ -133,6 +133,7 @@ public final class SpiritBeastBagRuntime {
                     ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player));
             BlockPos position = hit.getBlockPos();
             stored.moveTo(position.getX(), position.getY(), position.getZ(), level.getRandom().nextFloat() * 360.0F, 0);
+            Relations.shareEntityAllegiance(player, stored);
             stored.setDeltaMovement(player.getLookAngle().scale(0.5).add(0, 0.3, 0));
             stored.setYRot(player.getYRot());
             stored.setXRot(player.getXRot());
@@ -147,15 +148,28 @@ public final class SpiritBeastBagRuntime {
             LivingEntity living = (LivingEntity) stored;
             if (data.getDouble("yaoshoupifuxianshi") >= 1) living.getAttribute(YaoshouAttributes.SKIN).setBaseValue(data.getDouble("yaoshoupifuxianshi"));
             living.getAttribute(YaoshouAttributes.SIZE).setBaseValue(data.getDouble("entitydaxiao"));
-            stored.getPersistentData().putString("lingshoudaiuuid", data.getString("lingshoudaiuuid"));
-            for (String key : NUMERIC_FIELDS) stored.getPersistentData().putDouble(key, data.getDouble(key));
-            for (String key : STRING_FIELDS) stored.getPersistentData().putString(key, data.getString(key));
+            CompoundTag state = stored.getPersistentData();
+            state.putString("lingshoudaiuuid", data.getString("lingshoudaiuuid"));
+            state.putString("LEVELname", data.getString("LEVELname"));
+            for (String key : List.of("LEVELnumber", "experience_Max", "experience")) {
+                state.putDouble(key, data.getDouble(key));
+            }
             stored.setCustomName(Component.literal(cleanName(data.getString("yaoshouname"))));
             if (stored instanceof TamableAnimal animal) animal.tame(player);
-            stored.getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
-            living.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
-            living.setHealth((float) data.getDouble("health_Num"));
-            living.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getDouble("attack_Num"));
+            state.putString("belongToMasterUUID", player.getStringUUID());
+            for (String key : List.of("health_Max", "health_Rec", "power_Max", "power_Rec", "soul_Max", "soul_Rec",
+                    "attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def")) {
+                state.putString(key + "_LEVEL", data.getString(key + "_LEVEL"));
+                state.putDouble(key, data.getDouble(key));
+                if (key.equals("health_Max")) {
+                    living.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble(key));
+                    living.setHealth((float) data.getDouble("health_Num"));
+                } else if (key.equals("attack_Num")) {
+                    living.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getDouble(key));
+                }
+            }
+            state.putString("speed_LEVEL", data.getString("speed_LEVEL"));
+            state.putDouble("speed_number", data.getDouble("speed_number"));
             living.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(data.getDouble("speed_number"));
             if (!data.getString("character").isEmpty()) {
                 stored.getPersistentData().putString("character", data.getString("character"));
@@ -164,9 +178,6 @@ public final class SpiritBeastBagRuntime {
                 }
             }
             if (stored instanceof Mob mob) mob.finalizeSpawn(level, level.getCurrentDifficultyAt(stored.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
-            // 来源先恢复实体字段并执行初始化，再把当前主人的阵营与友方集合交给释放实体；
-            // 否则编号妖兽的来源初始化会用自身物种队伍覆盖释放者阵营。
-            Relations.shareEntityAllegiance(player, stored);
             level.addFreshEntity(stored);
         }
         CustomData.update(DataComponents.CUSTOM_DATA, bag, tag -> tag.putBoolean("yaoshoushifang", true));
