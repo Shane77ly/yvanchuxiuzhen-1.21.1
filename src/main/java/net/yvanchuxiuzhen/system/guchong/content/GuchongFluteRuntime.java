@@ -123,16 +123,14 @@ public final class GuchongFluteRuntime {
         Vec3 look = player.getLookAngle();
         insect.setDeltaMovement(look.x, look.y + 1, look.z);
         CompoundTag data = insect.getPersistentData();
-        GuchongJarData.copy(jar, suffix, data, "", false);
         data.putString("guguanuuid", jar.getString("guguanuuid"));
         data.putDouble("guguanweizhi", slot);
+        GuchongJarData.copyEntityProgress(jar, suffix, insect, false);
         insect.setCustomName(Component.literal(jar.getString("guchongname" + suffix).replace("[", "").replace("]", "")));
+        data.putBoolean("guchongxvnfu", jar.getBoolean("guchongxvnfu" + suffix));
         if (insect instanceof TamableAnimal tamable) tamable.tame(player);
-        GuchongJarRuntime.applyAttributes(insect, data);
-        data.remove("guchongid");
-        data.remove("guchongname");
-        data.remove("health_Num");
-        data.remove("team");
+        data.putString("belongToMasterUUID", jar.getString("belongToMasterUUID" + suffix));
+        GuchongJarData.restoreEntityAttributes(jar, suffix, insect, false);
         GuchongJarRuntime.finishSpawn(level, insect);
     }
 

@@ -21,6 +21,8 @@ updated: 2026-11-18
 
 ## 2026-11-12 地上罐与手持罐生命周期
 
+2026-11-20 按来源修正三种放虫入口的状态恢复：手持罐和蛊笛读取双精度等级、经验及属性；地上罐对等级、经验和速度以外的属性按整数读取，速度仍为双精度。三者依次写入资质与数值，并在最大生命、攻击和速度写入后立即设置对应原生属性；当前生命只设置在实体生命值上，不写成个体持久字段。物品身份和名称不作为实体持久字段复制，队伍与友方关系仍经关系系统接口写入，地上坐标使用整数。来源为 A `Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:79–147`、`GuchongAnniuzhixingProcedure:83–153`，B `Taoguan01GengXinYouXiKeProcedure:98–167`。此修正已编译，实际释放、战斗和保存重进未验证；旧版实机及两版本对照未执行。
+
 `TaoguanBlockEntity` 保存容量为1/4/9的蛊虫槽及末槽装饰物。地上交互保持来源顺序：精血认主、潜行取放装饰物、Ctrl/Alt收罐；方块下方 Material 使用 `legacy_material_grass/dirt/stone/wood` 标签。`GuchongJarRuntime.release` 每20刻按距罐中心排序检查实体，保留来源局部释放标志跨目标持续的行为；一旦触发，后续每个目标迭代均会遍历全部蛊槽，实体创建返回空时仍累加释放计数。罐关系友方标签由 `Relations.shareAllegianceToBlock` 从玩家共享到罐，再由 `Relations.shareBlockAllegiance` 共享给虫；虫自身 `team` 取蛊虫物品实例字段。来源地上释放不写 `guguanuuid`，目标保持。
 
 手持罐右键放出全部归属本人且有编号的虫；再次右键按罐 UUID 收回半径8内匹配蛊虫，保存当前生命、属性、等级和经验并移除实体。潜行右键打开三档原生菜单；菜单开启从主手罐编号字段构建临时槽，关闭写回当前主手物品。放置地上罐只接受朝上且上方为空的方块使用，并按来源先主手后副手清除罐物品。UUID只在潜行开罐时为空才生成，8个字母每次取a–y，保留来源不取z的范围。

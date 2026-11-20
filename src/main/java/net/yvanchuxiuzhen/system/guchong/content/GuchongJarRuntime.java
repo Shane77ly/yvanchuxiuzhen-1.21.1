@@ -13,11 +13,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ambient.AmbientCreature;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -159,7 +157,7 @@ public final class GuchongJarRuntime {
                 if (insect != null) {
                     insect.moveTo(pos.getX() + .5, pos.getY() + 1, pos.getZ() + .5, level.random.nextFloat() * 360F, 0);
                     CompoundTag insectTag = insect.getPersistentData();
-                    GuchongJarData.copy(insectData, "", insectTag, "", true);
+                    GuchongJarData.copyEntityProgress(insectData, "", insect, true);
                     insectTag.putInt("guguanweizhi", slot);
                     String name = "".replace(insectData.getString("guchongname"), "[");
                     name = "".replace(name, "]");
@@ -167,11 +165,12 @@ public final class GuchongJarRuntime {
                     if (insect instanceof TamableAnimal tamable && GuchongBehavior.findEntity(level, insectData.getString("belongToMasterUUID")) instanceof Player owner) tamable.tame(owner);
                     insectTag.putBoolean("kanjia", true);
                     insectTag.putBoolean("guchongxvnfu", true);
-                    insectTag.putDouble("homeblockX", pos.getX());
-                    insectTag.putDouble("homeblockY", pos.getY());
-                    insectTag.putDouble("homeblockZ", pos.getZ());
+                    insectTag.putInt("homeblockX", pos.getX());
+                    insectTag.putInt("homeblockY", pos.getY());
+                    insectTag.putInt("homeblockZ", pos.getZ());
+                    insectTag.putString("belongToMasterUUID", insectData.getString("belongToMasterUUID"));
                     Relations.shareBlockAllegiance(data, insect, insectData.getString("team"));
-                    applyAttributes(insect, insectTag);
+                    GuchongJarData.restoreEntityAttributes(insectData, "", insect, true);
                     insectTag.putString("gongjimubiao", target.getStringUUID());
                     finishSpawn(level, insect);
                 }
@@ -192,14 +191,6 @@ public final class GuchongJarRuntime {
 
     public static Entity create(ServerLevel level, String id) {
         return BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(id)).create(level);
-    }
-
-    public static void applyAttributes(Entity entity, CompoundTag data) {
-        LivingEntity living = (LivingEntity) entity;
-        living.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
-        living.setHealth((float) data.getDouble("health_Num"));
-        living.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getDouble("attack_Num"));
-        living.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(data.getDouble("speed_number"));
     }
 
     public static void finishSpawn(ServerLevel level, Entity entity) {

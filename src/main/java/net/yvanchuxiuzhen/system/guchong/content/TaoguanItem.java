@@ -131,14 +131,14 @@ public final class TaoguanItem extends ContentItem {
                     Vec3 look = player.getLookAngle();
                     insect.setDeltaMovement(look.x, look.y + 1, look.z);
                     CompoundTag insectData = insect.getPersistentData();
-                    GuchongJarData.copy(data, suffix, insectData, "", false);
-                    insectData.remove("team");
                     insectData.putString("guguanuuid", data.getString("guguanuuid"));
                     insectData.putDouble("guguanweizhi", slot);
+                    GuchongJarData.copyEntityProgress(data, suffix, insect, false);
                     insectData.putBoolean("guchongxvnfu", true);
                     insect.setCustomName(Component.literal(data.getString("guchongname" + suffix).replace("[", "").replace("]", "")));
                     if (insect instanceof TamableAnimal tamable) tamable.tame(player);
-                    GuchongJarRuntime.applyAttributes(insect, insectData);
+                    insectData.putString("belongToMasterUUID", data.getString("belongToMasterUUID" + suffix));
+                    GuchongJarData.restoreEntityAttributes(data, suffix, insect, false);
                     GuchongJarRuntime.finishSpawn(server, insect);
                 }
                 released++;
