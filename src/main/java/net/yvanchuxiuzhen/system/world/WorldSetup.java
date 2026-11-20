@@ -60,6 +60,7 @@ public final class WorldSetup {
                 (type, level, reason, pos, random) -> true, RegisterSpawnPlacementsEvent.Operation.REPLACE));
         WorldOreFeatures.register(modBus);
         AddMissingCreatureSpawn.register(modBus);
+        AddMissingBiomeFeatures.register(modBus);
         WorldInlineFeatures.register(modBus);
         WorldTreeDecorators.register(modBus);
         WorldTemplateFeatures.register(modBus);
