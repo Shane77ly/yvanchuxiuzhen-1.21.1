@@ -1,6 +1,5 @@
 package net.yvanchuxiuzhen.system.guchong.content;
 
-import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -18,7 +17,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -75,8 +73,6 @@ public final class TaoguanBlock extends ContentBlock implements EntityBlock {
         GuchongBehavior.interactJar(level, pos, player, hand);
         return ItemInteractionResult.sidedSuccess(level.isClientSide);
     }
-
-    @Override protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) { return List.of(); }
 
     @Override protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState replacement, boolean moved) {
         if (!state.is(replacement.getBlock())) {
