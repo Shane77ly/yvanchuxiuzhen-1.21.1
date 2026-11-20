@@ -29,6 +29,8 @@ updated: 2026-11-18
 
 三档菜单均176×166，使用来源 `textures/screens/taoguan_01_gui.png`、`02`、`03` 原图。01槽为(79,35)；02槽为(70,26)、(88,26)、(70,44)、(88,44)；03槽为三行三列，从(61,17)每格18像素。玩家背包从(8,84)起、快捷栏从(8,142)起，蛊槽仅收蛊虫标签。来源屏幕没有按钮或文字标签，目标保持；网络菜单标题改用来源中文名称“小蛊罐 / 蛊罐 / 大蛊罐”，避免内部英文标题。
 
+2026-11-20依据三档菜单共用的 `Taoguan01GUIDangZheGeJieMianBeiGuanBiProcedure:32–46` 修正关闭时身份：有身份的虫写入该身份；无身份的01/03/04写来源默认身份；其他无身份虫保留该编号槽既有身份，空槽则清空。上述菜单写入与地上罐整数路径独立，尚未完成实际交互和重进验证。
+
 保持的来源差异：菜单开启不读回 `health_Num`；关闭存入当前主手罐，不把原罐Java引用固定为所有者。来源系统 `GuchongshuxingProcedure` 以完整registry字符串与裸路径比较三种虫物品，导致资质分支无法命中；初始虫物品可能没有 `guchongid`，地上罐放虫因此断链，源码未擅自修正。其随机team文本在同次槽循环持续累加也保持。编号03/04的自然初始化、十三项资质、跟随开关、吞噬条件、目标、死亡回调与Gecko模型已逐条读取，实体注册与完整玩法验收分别登记。
 
 精确来源：A `item/Taoguan01itemItem.java`–`03itemItem.java`、`world/inventory/Taoguan01GUIMenu.java`–`03GUIMenu.java`、`client/gui/Taoguan01GUIScreen.java`–`03GUIScreen.java`、`procedures/Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java`、`Taoguan01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure.java`、`TaoguanGuiopenProcedure.java`、`Taoguan01GUIDangZheGeJieMianBeiGuanBiProcedure.java`、`GuchongtickProcedure.java`、`Guchong01DangShiTiBeiShaSiShiProcedure.java`；B `procedures/Taoguan01GengXinYouXiKeProcedure.java`、`Taoguan01ZaiFangKuaiShangYouJianProcedure.java`、`GuchongshuxingProcedure.java`。路径前缀见[系统导航](../README.md)。
