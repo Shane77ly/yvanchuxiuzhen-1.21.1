@@ -130,6 +130,7 @@ public final class GuchongFluteRuntime {
         data.putBoolean("guchongxvnfu", jar.getBoolean("guchongxvnfu" + suffix));
         if (insect instanceof TamableAnimal tamable) tamable.tame(player);
         data.putString("belongToMasterUUID", jar.getString("belongToMasterUUID" + suffix));
+        Relations.setTeam(insect, Relations.team(player));
         GuchongJarData.restoreEntityAttributes(jar, suffix, insect, false);
         GuchongJarRuntime.finishSpawn(level, insect);
     }

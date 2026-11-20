@@ -156,20 +156,24 @@ public final class GuchongJarRuntime {
                 Entity insect = create(level, insectData.getString("guchongid"));
                 if (insect != null) {
                     insect.moveTo(pos.getX() + .5, pos.getY() + 1, pos.getZ() + .5, level.random.nextFloat() * 360F, 0);
+                    Relations.shareBlockAllegiance(data, insect, Relations.entityTeam(insect));
                     CompoundTag insectTag = insect.getPersistentData();
-                    GuchongJarData.copyEntityProgress(insectData, "", insect, true);
+                    insectTag.putString("LEVELname", insectData.getString("LEVELname"));
                     insectTag.putInt("guguanweizhi", slot);
+                    insectTag.putInt("LEVELnumber", insectData.getInt("LEVELnumber"));
+                    insectTag.putInt("experience_Max", insectData.getInt("experience_Max"));
+                    insectTag.putInt("experience", insectData.getInt("experience"));
                     String name = "".replace(insectData.getString("guchongname"), "[");
                     name = "".replace(name, "]");
                     insect.setCustomName(Component.literal(name));
                     if (insect instanceof TamableAnimal tamable && GuchongBehavior.findEntity(level, insectData.getString("belongToMasterUUID")) instanceof Player owner) tamable.tame(owner);
                     insectTag.putBoolean("kanjia", true);
                     insectTag.putBoolean("guchongxvnfu", true);
+                    insectTag.putString("belongToMasterUUID", insectData.getString("belongToMasterUUID"));
+                    Relations.setTeam(insect, insectData.getString("team"));
                     insectTag.putInt("homeblockX", pos.getX());
                     insectTag.putInt("homeblockY", pos.getY());
                     insectTag.putInt("homeblockZ", pos.getZ());
-                    insectTag.putString("belongToMasterUUID", insectData.getString("belongToMasterUUID"));
-                    Relations.shareBlockAllegiance(data, insect, insectData.getString("team"));
                     GuchongJarData.restoreEntityAttributes(insectData, "", insect, true);
                     insectTag.putString("gongjimubiao", target.getStringUUID());
                     finishSpawn(level, insect);
