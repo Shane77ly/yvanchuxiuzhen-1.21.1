@@ -193,6 +193,7 @@ public final class PlantSetup {
             .blockFactory("plant:fruit_tree_log", traits -> ContentBlock.create(traits, FruitTreeLogBlock::new))
             .blockFactory("plant:fruit_tree_leaves", FruitTreeLeavesBlock::new)
             .blockFactory("plant:fallback_block", traits -> ContentBlock.create(traits, FruitTreeLogBlock::new))
+            .blockFactory("plant:fallback_waterlogged", traits -> ContentBlock.create(traits, FallbackWaterloggedBlock::new))
             .blockFactory("plant:air_fallback_leaves", AirFallbackLeavesBlock::new)
             .blockFactory("plant:fallback_leaves", FallbackLeavesBlock::new)
             .blockFactory("plant:duckweed", DuckweedBlock::new)
