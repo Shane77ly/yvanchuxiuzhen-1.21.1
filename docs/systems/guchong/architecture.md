@@ -152,3 +152,7 @@ B `Taoguan01/02/03BlockEntity`分别持有2/5/10槽：1/4/9个蛊虫位与独立
 1.18.2版本 B `Taoguan01GengXinYouXiKeProcedure:111–113` 在地上罐计划刻放虫时，先对空字符串调用 `replace(虫名, "[")`，再对空字符串调用 `replace(前次结果, "]")` 并作为自定义名称；非空虫名与空虫名的结果不同。1.21.1版本 `GuchongJarRuntime` 当前保持同样的表达式；手持罐和蛊笛入口不得套用此规则。来源是否意欲去除括号待集中复核，未执行两版本实机。
 
 1.18.2版本 A `EntityDeathProcedure:224–266` 在蛊虫逐级升级、主人UUID非空时，从当前 `ServerLevel` 根据UUID查实体后直接访问玩家能力；找不到或无法解析UUID可能得到空值并中断。1.21.1版本 `GuchongGrowth` 当前也按当前世界查找并向 `Professions.addExperience` 传递结果，主人缺席时可能抛出异常。这里仅登记静态来源与当前路径，不扩大来源语义或推断实际触发频率；自然战斗、离线及跨维度情形均未实测。
+
+## 摄虫网与追踪虫交叉入口（2026-11-20）
+
+1.18.2版本 A `Fabao01701DangShiTiGengXinKeShiProcedure:64–130` 对范围内 `guchongxvnfu` 为假的实体，按实体完整注册名加 `item` 查询对应物品，不限定01/03/04。来源实体 `guchong_05` 和物品 `guchong_05item` 符合该命名，但复制清单只有普通蛊虫属性，不复制 `zhuizhong`、`zuobiaoX/Y/Z` 或追踪主人；认主标记为真的实体先被拒绝。1.21.1版本 `GuchongCapture.captureWild` 按相同命名检索并复制同类字段，具体可达场景仍取决于实体状态。自然悬赏链及摄虫网交叉捕获均未实机验证，不以命名关系断言某次悬赏虫一定可捕获。
