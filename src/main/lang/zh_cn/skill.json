@@ -106,5 +106,12 @@
   "gui.yvanchuxiuzhen.player_gui_04.label_fu_zhi_ye": "副职业",
   "gui.yvanchuxiuzhen.player_gui_04.label_shu_xing_xian_shi": "属性显示",
   "gui.yvanchuxiuzhen.player_gui_04.label_shu_xing_jia_dian": "属性加点",
-  "gui.yvanchuxiuzhen.player_gui_04.label_shi_pin_zhuang_bei": "饰品装备"
+  "gui.yvanchuxiuzhen.player_gui_04.label_shi_pin_zhuang_bei": "饰品装备",
+  "message.yvanchuxiuzhen.skill.projection.tribulation": "渡劫时无法出窍！",
+  "message.yvanchuxiuzhen.skill.projection.level": "必须达到元婴期才可施展元婴出窍！",
+  "message.yvanchuxiuzhen.skill.projection.dimension": "受到强大的界面压制，无法元婴出窍！",
+  "message.yvanchuxiuzhen.skill.projection.soul": "精力不足，无法元婴出窍！",
+  "message.yvanchuxiuzhen.skill.projection.death_lifetime": "因处于出窍状态下暴毙，所以额外扣除一年寿元！",
+  "message.yvanchuxiuzhen.skill.projection.body_hurt": "您感觉到本体正在遭受攻击！",
+  "message.yvanchuxiuzhen.skill.projection.body_dead": "您的本体已死亡！"
 }

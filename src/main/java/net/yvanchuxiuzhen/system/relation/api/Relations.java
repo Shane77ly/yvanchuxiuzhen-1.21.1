@@ -79,7 +79,18 @@ public final class Relations {
 
     /** 非玩家目标直接共享施放者的来源friendlist引用；团队值单独复制，存档重载后集合独立。 */
     public static void shareEntityAllegiance(Entity owner, Entity target) {
-        entityAllegiance(target).shareFrom(allegiance(owner));
+        entityAllegiance(target).shareSourceFrom(allegiance(owner));
+    }
+
+    /** 出窍本体与玩家共享友表，并以其中的 playeruuid 关联受伤、死亡和归窍。 */
+    public static void initializeProjection(Entity owner, Entity target) {
+        Allegiance friends = entityAllegiance(target);
+        friends.shareSourceFrom(allegiance(owner));
+        friends.setFriendString("playeruuid", owner.getStringUUID());
+    }
+
+    public static String projectionOwner(Entity target) {
+        return entityAllegiance(target).friendString("playeruuid");
     }
 
     /** 地上蛊罐把友方标签引用交给虫，虫的团队值来自该虫物品实例。 */
@@ -90,6 +101,47 @@ public final class Relations {
     /** 放置蛊罐时共享主人的友方标签；方块单独持久化，重载后与主人分离。 */
     public static void shareAllegianceToBlock(Entity owner, CompoundTag blockData) {
         allegiance(owner).shareToBlock(blockData);
+    }
+
+    /** 灵纹生成时把施放者的好友子表交给特效实体，保留运行期引用共享。 */
+    public static void initializeRune(Entity owner, Entity target, int enchantmentLevel) {
+        Allegiance friends = entityAllegiance(target);
+        friends.shareSourceFrom(allegiance(owner));
+        friends.setFriendInt("friendnumber", enchantmentLevel);
+        friends.setFriendInt("lingwennum", friends.friendInt("lingwennum") + 1);
+        friends.setFriendString("belongToMasterUUID", owner.getStringUUID());
+    }
+
+    /** 来源命中遍历读取实体本体子表，包括玩家本体而非玩家能力表。 */
+    public static void incrementRuneForOwner(Entity target, Entity owner) {
+        Allegiance friends = target.getData(RelationAttachments.ENTITY);
+        if (friends.friendString("belongToMasterUUID").equals(owner.getStringUUID())
+                && friends.friendInt("lingwennum") < 6) {
+            friends.setFriendInt("lingwennum", friends.friendInt("lingwennum") + 1);
+        }
+    }
+
+    /** 将旧目标版本灵纹实体的独立计数迁入友表，不覆盖已有新格式字段。 */
+    public static void restoreLegacyRune(Entity entity, int count, String owner) {
+        Allegiance friends = entityAllegiance(entity);
+        if (!friends.hasFriendKey("lingwennum")) {
+            friends.setFriendInt("lingwennum", count);
+        }
+        if (!friends.hasFriendKey("belongToMasterUUID") && !owner.isEmpty()) {
+            friends.setFriendString("belongToMasterUUID", owner);
+        }
+    }
+
+    public static int runeCount(Entity entity) {
+        return entity.getData(RelationAttachments.ENTITY).friendInt("lingwennum");
+    }
+
+    public static void setRuneCount(Entity entity, int count) {
+        entity.getData(RelationAttachments.ENTITY).setFriendInt("lingwennum", count);
+    }
+
+    public static String runeOwner(Entity entity) {
+        return entity.getData(RelationAttachments.ENTITY).friendString("belongToMasterUUID");
     }
 
     /** 设置非玩家实体的团队名，友方集合不变。 */

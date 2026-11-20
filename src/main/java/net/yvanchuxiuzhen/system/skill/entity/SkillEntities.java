@@ -137,6 +137,13 @@ public final class SkillEntities {
         self.cast().strikeRounded((ServerLevel) self.level(), other);
     }
 
+    /** 恢复旧目标版本保存的灵纹字段，以便命中遍历与实体刻共同消费。 */
+    public static void restoreLegacyRune(SkillEntity entity) {
+        if (is(entity, LingwenEntities.ID)) {
+            LingwenEntities.restoreLegacyData(entity);
+        }
+    }
+
     /** 实体是不是登记为 {@code id} 的技能实体。 */
     public static boolean is(Entity entity, String id) {
         return BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getPath().equals(id);

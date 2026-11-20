@@ -19,6 +19,7 @@ public final class RelationAttachments {
             .builder(PlayerRelation::new)
             .serialize(PlayerRelation.CODEC)
             .copyOnDeath()
+            .copyHandler((relation, holder, provider) -> relation.copyForClone())
             .sync((holder, player) -> holder == player, PlayerRelation.STREAM_CODEC)
             .build());
     public static final Supplier<AttachmentType<Allegiance>> ENTITY = TYPES.register("allegiance", () -> AttachmentType

@@ -32,7 +32,7 @@ public final class PlayerRelation {
     public static final StreamCodec<RegistryFriendlyByteBuf, PlayerRelation> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(SYNC_CODEC);
 
     private final Allegiance allegiance;
-    private final List<FriendEntry> friends;
+    private List<FriendEntry> friends;
     private String requestName;
     private String requestTeam;
     private int page;
@@ -45,13 +45,25 @@ public final class PlayerRelation {
 
     private PlayerRelation(Allegiance allegiance, List<FriendEntry> friends, String requestName, String requestTeam,
                            int page, int selected, List<FriendRow> rows) {
+        this(allegiance, friends, requestName, requestTeam, page, selected, rows, false);
+    }
+
+    private PlayerRelation(Allegiance allegiance, List<FriendEntry> friends, String requestName, String requestTeam,
+                           int page, int selected, List<FriendRow> rows, boolean shareFriends) {
         this.allegiance = allegiance;
-        this.friends = new ArrayList<>(friends);
+        this.friends = shareFriends ? friends : new ArrayList<>(friends);
         this.requestName = requestName;
         this.requestTeam = requestTeam;
         this.page = page;
         this.selected = selected;
         this.rows = List.copyOf(rows);
+    }
+
+    /** 克隆时共享来源好友物品的数据，其他能力字段各自保留。 */
+    public PlayerRelation copyForClone() {
+        Allegiance clonedAllegiance = new Allegiance();
+        clonedAllegiance.shareFrom(allegiance);
+        return new PlayerRelation(clonedAllegiance, friends, requestName, requestTeam, page, selected, rows, true);
     }
 
     public Allegiance allegiance() {
@@ -60,25 +72,35 @@ public final class PlayerRelation {
 
     /** 好友数（来源 {@code friendnumber}），含已删除的格。 */
     public int friendCount() {
-        return friends.size();
+        return allegiance.hasFriendKey("friendnumber") ? allegiance.friendInt("friendnumber") : friends.size();
     }
 
-    /** 第 {@code slot} 格（从 1 起）；超出范围时为 null，对应来源读到的空字符串与 false。 */
+    /** 第 {@code slot} 格（从 1 起）；来源计数覆盖产生的空格按空字符串与 false 读取。 */
     public FriendEntry friend(int slot) {
-        return slot >= 1 && slot <= friends.size() ? friends.get(slot - 1) : null;
+        if (slot < 1) {
+            return null;
+        }
+        while (friends.size() < slot && slot <= friendCount()) {
+            friends.add(new FriendEntry("", "", false, false));
+        }
+        return slot <= friends.size() ? friends.get(slot - 1) : null;
     }
 
     public void addFriend(String name, String team) {
-        friends.add(new FriendEntry(name, team, false, false));
+        int slot = friendCount() + 1;
+        while (friends.size() < slot) {
+            friends.add(new FriendEntry("", "", false, false));
+        }
+        FriendEntry old = friends.get(slot - 1);
+        friends.set(slot - 1, new FriendEntry(name, team, old.star(), false));
+        allegiance.setFriendInt("friendnumber", slot);
     }
 
-    /** 整体换成另一名玩家的好友格与友方集合（来源删除好友时把本人列表写入对方的分支）。 */
-    public void copyFriendsFrom(PlayerRelation other) {
-        List<FriendEntry> copied = other.friends.stream().map(FriendEntry::copy).toList();
-        friends.clear();
-        friends.addAll(copied);
+    /** 删除好友时交接同一好友子表；团队值仍由各自能力保存。 */
+    public void shareFriendsFrom(PlayerRelation other) {
+        friends = other.friends;
         String team = allegiance.team();
-        allegiance.copyFrom(other.allegiance);
+        allegiance.shareFrom(other.allegiance);
         allegiance.setTeam(team);
     }
 
