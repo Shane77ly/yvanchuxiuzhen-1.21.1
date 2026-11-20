@@ -14,6 +14,7 @@ public final class PlantSetup {
             .blockFactory("plant:reactive_wild_block", ReactiveWildBlocks::block)
             .blockFactory("plant:reactive_wild_flower", ReactiveWildBlocks::flower)
             .blockFactory("plant:reactive_wild_double", ReactiveWildBlocks::doublePlant)
+            .blockFactory("plant:fallback_double", FallbackDoublePlantBlock::new)
             .blockFactory("plant:reactive_wild_waterlogged", ReactiveWildBlocks::waterlogged)
             .blockFactory("plant:reactive_wild_leaves", ReactiveWildBlocks::leaves)
             .blockFactory("plant:big_grass", BigGrassBlock::new)

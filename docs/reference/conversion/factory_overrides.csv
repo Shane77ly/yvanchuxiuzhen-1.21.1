@@ -535,6 +535,7 @@ block,yvanchuxiuzhen:shicai_008plant_01,plant:lotus_root,plant,008莲藕专用�
 block,yvanchuxiuzhen:shicai_008plant_02,plant:lotus_stem,plant,008莲藕专用生命周期；可食播种物保留Cooking身份，经Plant公开入口写入世界
 block,yvanchuxiuzhen:shicai_008plant_03,plant:lotus_pod,plant,008莲藕专用生命周期；可食播种物保留Cooking身份，经Plant公开入口写入世界
 block,yvanchuxiuzhen:shicai_008plant_04,plant:lotus_leaf,plant,008莲藕专用生命周期；可食播种物保留Cooking身份，经Plant公开入口写入世界
+item,yvanchuxiuzhen:chestnutchestnut,cooking:chestnut,cooking,栗子通过Plant公开操作放置栗树苗
 item,yvanchuxiuzhen:shicai_00801,cooking:lotus_seed,cooking,008莲藕专用生命周期；可食播种物保留Cooking身份，经Plant公开入口写入世界
 item,yvanchuxiuzhen:shicai_01502,cooking:plantable_garlic,cooking,可食用大蒜保留Cooking食物组件，useOn调用Plant公开播种操作
 block,yvanchuxiuzhen:shicai_007_plant_01,plant:shicai007_01,plant,四编号重复采摘作物；02505骨粉普通生长与成熟掉落差异保留
@@ -1016,6 +1017,7 @@ block,yvanchuxiuzhen:bitegrass_02,plant:reactive_wild_flower,plant,按1.18.2版�
 block,yvanchuxiuzhen:thundergrass,plant:reactive_wild_flower,plant,按1.18.2版本同族方块接入碰触、计划刻、攻击及玩家破坏回调
 block,yvanchuxiuzhen:barrenstonesting,plant:reactive_wild_block,plant,按1.18.2版本同族方块接入碰触、计划刻、攻击及玩家破坏回调
 block,yvanchuxiuzhen:snowdrift,plant:reactive_wild_block,plant,按1.18.2版本同族方块接入碰触、计划刻、攻击及玩家破坏回调
+block,yvanchuxiuzhen:iceboundrock_02,plant:fallback_double,plant,双格冰冻岩按来源只在下半部返回战利品并回退霜冰
 block,yvanchuxiuzhen:iceboundrock,plant:reactive_wild_double,plant,按1.18.2版本同族方块接入碰触、计划刻、攻击及玩家破坏回调
 block,yvanchuxiuzhen:thistlesandthorns,plant:reactive_wild_flower,plant,按1.18.2版本同族方块接入碰触、计划刻、攻击及玩家破坏回调
 block,yvanchuxiuzhen:lurker,plant:reactive_wild_flower,plant,按1.18.2版本同族方块接入碰触、计划刻、攻击及玩家破坏回调
