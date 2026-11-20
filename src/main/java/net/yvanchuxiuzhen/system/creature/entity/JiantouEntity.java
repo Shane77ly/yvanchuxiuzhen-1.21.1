@@ -71,7 +71,6 @@ public final class JiantouEntity extends PathfinderMob implements GeoEntity, Ani
     @Override protected SoundEvent getDeathSound() { return null; }
     @Override public boolean causeFallDamage(float distance, float multiplier, DamageSource source) { return false; }
     @Override protected void checkFallDamage(double distance, boolean onGround, BlockState state, BlockPos pos) { }
-    @Override public boolean canBreatheUnderwater() { return true; }
     @Override public boolean isPushedByFluid() { return false; }
     @Override public boolean checkSpawnObstruction(LevelReader level) { return level.isUnobstructed(this); }
     @Override public void setNoGravity(boolean ignored) { super.setNoGravity(true); }

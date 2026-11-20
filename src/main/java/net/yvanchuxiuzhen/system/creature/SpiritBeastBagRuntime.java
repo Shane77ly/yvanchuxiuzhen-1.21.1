@@ -7,6 +7,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
@@ -216,7 +217,7 @@ public final class SpiritBeastBagRuntime {
     }
 
     private static void tell(Player player, String key, boolean darkRed) {
-        Component message = Component.translatable("message." + ModId.VALUE + ".spirit_beast_bag." + key);
+        MutableComponent message = Component.translatable("message." + ModId.VALUE + ".spirit_beast_bag." + key);
         player.displayClientMessage(darkRed ? message.withStyle(ChatFormatting.DARK_RED) : message, false);
     }
 
