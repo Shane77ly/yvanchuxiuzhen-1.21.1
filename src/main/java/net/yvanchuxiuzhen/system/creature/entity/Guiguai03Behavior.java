@@ -313,7 +313,7 @@ final class Guiguai03Behavior {
         }
         Vec3 center = entity.position();
         for (Entity hit : enemies(world, entity, center, new AABB(center, center).inflate(4.5))) {
-            if (hit.getType().is(TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("forge", "noentity")))) {
+            if (hit.getType().is(TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.parse("yvanchuxiuzhen:noentity")))) {
                 if (world instanceof ServerLevel level) {
                     level.sendParticles(Particles.type("brokenlightgray"), hit.getX(), hit.getY(), hit.getZ(), 16, 0, 0, 0, 1);
                     hit.discard();
