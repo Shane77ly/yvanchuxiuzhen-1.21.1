@@ -218,6 +218,7 @@ public final class ButterflyEntity extends TamableAnimal implements GeoEntity, A
     protected void tickDeath() {
         if (++deathTime == 20) {
             remove(RemovalReason.KILLED);
+            dropExperience(lastHurtByPlayer);
         }
     }
 

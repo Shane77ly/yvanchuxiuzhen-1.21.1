@@ -18,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -34,6 +35,7 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.MobSpawnType;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -72,25 +74,33 @@ public abstract class GuchongEntity extends TamableAnimal implements GeoEntity, 
         builder.define(ANIMATION, "undefined");
     }
 
-    @Override protected void registerGoals() {
+    /** 地面蛊虫按选择器实际遍历顺序登记目标；两种蛊虫均以飞蝗蛊为吞噬对象。 */
+    protected final void registerGroundGoals(boolean leap) {
         super.registerGoals();
         goalSelector.addGoal(1, new GuchongFollowOwnerGoal(this, 1, 10, 2, false));
         targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         goalSelector.addGoal(3, new OwnerHurtByTargetGoal(this));
         targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, true, true));
+        targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Guchong03Entity.class, true, true) {
+            @Override public boolean canUse() {
+                return super.canUse() && StatusEffects.has(GuchongEntity.this, "huxiangtunshi");
+            }
+            @Override public boolean canContinueToUse() {
+                return super.canContinueToUse() && StatusEffects.has(GuchongEntity.this, "huxiangtunshi");
+            }
+        });
         goalSelector.addGoal(6, new MeleeAttackGoal(this, 1.2, false) {
             @Override protected boolean canPerformAttack(LivingEntity target) {
                 return isTimeToAttack() && distanceToSqr(target) <= getBbWidth() * getBbWidth() + target.getBbWidth();
             }
         });
         targetSelector.addGoal(7, new HurtByTargetGoal(this).setAlertOthers());
-        int idlePriority = idleGoalPriority();
+        if (leap) goalSelector.addGoal(8, new LeapAtTargetGoal(this, 1));
+        int idlePriority = leap ? 9 : 8;
         goalSelector.addGoal(idlePriority, new RandomStrollGoal(this, 1));
         goalSelector.addGoal(idlePriority + 1, new RandomLookAroundGoal(this));
         goalSelector.addGoal(idlePriority + 2, new FloatGoal(this));
     }
-
-    protected int idleGoalPriority() { return 9; }
 
     @Override public boolean removeWhenFarAway(double distance) { return false; }
     @Override public boolean isFood(ItemStack stack) { return false; }

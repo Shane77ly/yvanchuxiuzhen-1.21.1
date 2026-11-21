@@ -1,8 +1,6 @@
 package net.yvanchuxiuzhen.system.guchong.entity;
 
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.minecraft.world.level.Level;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 
@@ -10,14 +8,8 @@ import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 public final class Guchong04Entity extends GuchongEntity {
     public Guchong04Entity(EntityType<? extends GuchongEntity> type, Level level, EntityModelRow model) { super(type, level, model); }
 
-    @Override protected int idleGoalPriority() { return 8; }
-
     @Override protected void registerGoals() {
-        super.registerGoals();
-        targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Guchong03Entity.class, true, true) {
-            @Override public boolean canUse() { return super.canUse() && StatusEffects.has(Guchong04Entity.this, "huxiangtunshi"); }
-            @Override public boolean canContinueToUse() { return super.canContinueToUse() && StatusEffects.has(Guchong04Entity.this, "huxiangtunshi"); }
-        });
+        registerGroundGoals(false);
     }
     @Override protected void initializeSourceData() {
         GuchongStats.initialize(this, "平庸", "贫弱", "贫弱", "贫弱", "贫弱", "贫弱", "贫弱", "勉强", "贫弱", "勉强", "贫弱", "贫弱", "勉强");

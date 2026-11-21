@@ -120,7 +120,13 @@ public final class Organism12Entity extends PathfinderMob implements GeoEntity, 
     @Override public boolean checkSpawnObstruction(LevelReader level) { return level.isUnobstructed(this); }
     @Override public boolean isPushedByFluid() { return false; }
     @Override public void aiStep() { super.aiStep(); updateSwingTime(); }
-    @Override protected void tickDeath() { if (++deathTime == 20) remove(RemovalReason.KILLED); }
+    @Override
+    protected void tickDeath() {
+        if (++deathTime == 20) {
+            remove(RemovalReason.KILLED);
+            dropExperience(lastHurtByPlayer);
+        }
+    }
     @Override public String texture() { return entityData.get(TEXTURE); }
     public void setTexture(String texture) { entityData.set(TEXTURE, texture); }
     public void setAnimation(String animation) { entityData.set(ANIMATION, animation); }

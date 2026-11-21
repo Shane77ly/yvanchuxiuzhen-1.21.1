@@ -145,7 +145,13 @@ public final class Organism11Entity extends TamableAnimal implements GeoEntity, 
         if (!request.equals("undefined")) { entityData.set(ANIMATION, "undefined"); procedureAnimation = request; }
         super.tick();
     }
-    @Override protected void tickDeath() { if (++deathTime == 20) remove(RemovalReason.KILLED); }
+    @Override
+    protected void tickDeath() {
+        if (++deathTime == 20) {
+            remove(RemovalReason.KILLED);
+            dropExperience(lastHurtByPlayer);
+        }
+    }
     @Override public void aiStep() { super.aiStep(); updateSwingTime(); }
     @Override public String texture() { return entityData.get(TEXTURE); }
     public void setTexture(String texture) { entityData.set(TEXTURE, texture); }

@@ -7,12 +7,12 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.api.SpiritBeastBags;
+import net.yvanchuxiuzhen.system.creature.entity.SourceFollowOwnerGoal;
 
 /** 036号妖兽的来源身份、初始化、生命周期与逐刻行为。 */
 public final class Yaoshou036Entity extends YaoshouEntity {
@@ -23,8 +23,7 @@ public final class Yaoshou036Entity extends YaoshouEntity {
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
-        goalSelector.removeAllGoals(goal -> goal instanceof FloatGoal);
+        goalSelector.addGoal(1, new SourceFollowOwnerGoal(this, 1, 10, 2, false));
     }
 
     @Override protected void sourceSpawn(ServerLevelAccessor level) {
