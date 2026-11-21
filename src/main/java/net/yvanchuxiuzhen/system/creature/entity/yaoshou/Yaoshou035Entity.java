@@ -11,9 +11,15 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.api.SpiritBeastBags;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.Animation;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 
 /** 035号妖兽的来源身份、初始化、生命周期与逐刻行为。 */
 public final class Yaoshou035Entity extends YaoshouEntity {
+    private final Yaoshou037054Animations sourceAnimations = new Yaoshou037054Animations();
+
     public Yaoshou035Entity(EntityType<? extends YaoshouEntity> type, Level level, EntityModelRow model) {
         super(type, level, model);
         xpReward = 0;
@@ -38,6 +44,20 @@ public final class Yaoshou035Entity extends YaoshouEntity {
     @Override protected SoundEvent getAmbientSound() { return sound("yaoshou035idle"); }
     @Override protected SoundEvent getHurtSound(DamageSource source) { return sound("yaoshou035attacked"); }
     @Override protected SoundEvent getDeathSound() { return sound("yaoshou035die"); }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        sourceAnimations.register(this, controllers, 4, "animation.yaoshou035.", state -> {
+            if (!procedureAnimation().equals("empty")) return PlayState.STOP;
+            if ((state.isMoving() || !(state.getLimbSwingAmount() > -0.15F && state.getLimbSwingAmount() < 0.15F)) && !isAggressive()) {
+                return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou035.walk"));
+            }
+            if (isDeadOrDying()) return state.setAndContinue(RawAnimation.begin().then("animation.yaoshou035.die", Animation.LoopType.PLAY_ONCE));
+            if (isInWaterOrBubble()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou035.swim"));
+            if (isSprinting() || isAggressive() && state.isMoving()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou035.sprint"));
+            return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou035.idle"));
+        });
+    }
 
     private static SoundEvent sound(String id) {
         return BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", id));

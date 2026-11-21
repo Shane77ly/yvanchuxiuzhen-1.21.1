@@ -14,8 +14,6 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.scores.Objective;
-import net.minecraft.world.scores.Scoreboard;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -41,15 +39,7 @@ final class Yaoshou013Behavior {
         double shunxvjishu = 0;
         double buchong = 0;
         double damage = 0;
-        if (new Object() {
-            public int getScore(String score, Entity _ent) {
-                Scoreboard _sc = _ent.level().getScoreboard();
-                Objective _so = _sc.getObjective(score);
-                if (_so != null)
-                    return _sc.getOrCreatePlayerScore(_ent, _so).get();
-                return 0;
-            }
-        }.getScore("zhaohuanwu", entity) == 1) {
+        if (Yaoshou037054Support.isSummoned(entity)) {
             if (entity.getPersistentData().getDouble("daojishi") >= 1) {
                 entity.getPersistentData().putDouble("daojishi", (entity.getPersistentData().getDouble("daojishi") - 1));
             } else {

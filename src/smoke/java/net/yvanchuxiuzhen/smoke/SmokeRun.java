@@ -528,6 +528,7 @@ final class SmokeRun {
                     }
                     case "renjiancorpseharvest" -> List.of(new RenjianCorpseHarvestCheck(report, levelId));
                     case "aquaticcorpse" -> List.of(new AquaticCorpseCheck(report, levelId));
+                    case "renjianpacks" -> List.of(new RenjianPackCheck(report, levelId));
                     case "renjiancorpseclient" -> List.of(new RenjianCorpseClientCheck(report, levelId));
                     case "renjianentry" -> List.of(new DimensionPortalCheck(report, levelId, this::shot,
                             DimensionPortalSpec.RENJIAN, new RenjianEntryProbe()));
