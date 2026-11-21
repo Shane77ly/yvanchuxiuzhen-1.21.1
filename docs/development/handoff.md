@@ -9,7 +9,7 @@ updated: 2026-11-21
 
 ## 接手基线（2026-11-21）
 
-集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，跑参分身 `aba6275a` 与装备认主、再炼和本命培养 `ee7a9a19` 已合入并通过限定客户端验证。下一批：世界侧接续桑叶与樟木到蚕盒的实际获取，生物侧接续鬼怪召唤与自爆归因。见[当前调度](remaining-work.md#当前调度)。原主树、野羊与结构宝箱候选不动，Q40 不复跑。
+集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，跑参分身 `aba6275a` 与装备认主、再炼和本命培养 `ee7a9a19` 已合入并通过限定客户端验证。蚕盒自然材料、合成放置和独立客户端重进已验（功能 `c7069e8e`）。下一批：世界侧接收九档灵石矿到原矿的获取，生物侧接续鬼怪召唤与自爆归因。见[当前调度](remaining-work.md#当前调度)。原主树、野羊与结构宝箱候选不动，Q40 不复跑。
 
 ## 前次执行基线（2026-11-21）
 
