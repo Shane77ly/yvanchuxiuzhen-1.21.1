@@ -63,6 +63,12 @@ public final class Cultivation {
         Rebirth.rebirth(player);
     }
 
+    /** 将修炼附件中的境界同步到来源兼容的玩家持久字段，供旧过程消费者读取。 */
+    public static void syncLegacyLevelMirror(ServerPlayer player) {
+        player.getPersistentData().putDouble("LEVELnumber",
+                player.getData(XiulianAttachments.CULTIVATION).get(CultivationValue.LEVEL_NUMBER));
+    }
+
     /** 轮回 37 的修炼和基础成长复位，保留本命、复活标记、闭关闭却与已有恢复显示。 */
     public static double resetForReincarnation(ServerPlayer player) {
         CultivationData data = player.getData(XiulianAttachments.CULTIVATION);
