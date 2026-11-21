@@ -9,6 +9,7 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.yvanchuxiuzhen.platform.ModId;
 
 /**
  * 来源工具的匿名 Tier。1.21.1 的 Tier 没有等级，这里保留 1.18.2 的 {@code getLevel()} 供方块的挖掘判定使用，
@@ -51,10 +52,12 @@ public record LegacyTier(int uses, float speed, float damageBonus, int level, in
         return ingredient(repair);
     }
 
-    /** 按物品 ID 列表创建修复材料，列表为空表示没有修复材料。 */
+    /** 来源内容表中的修复材料短名属于本模组，完整 ID 使用其声明的命名空间。 */
     static Ingredient ingredient(List<String> ids) {
         return ids.isEmpty() ? Ingredient.EMPTY
-                : Ingredient.of(ids.stream().map(id -> (ItemLike) BuiltInRegistries.ITEM.get(ResourceLocation.parse(id))).toArray(ItemLike[]::new));
+                : Ingredient.of(ids.stream()
+                        .map(id -> id.contains(":") ? ResourceLocation.parse(id) : ResourceLocation.fromNamespaceAndPath(ModId.VALUE, id))
+                        .map(BuiltInRegistries.ITEM::get).toArray(ItemLike[]::new));
     }
 
     public static LegacyTier of(ItemRow.LegacyTierRow row) {
