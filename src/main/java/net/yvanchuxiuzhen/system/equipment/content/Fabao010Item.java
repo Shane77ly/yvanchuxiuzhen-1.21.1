@@ -14,7 +14,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
-import net.yvanchuxiuzhen.system.equipment.api.EquipmentProduct;
 import net.yvanchuxiuzhen.system.equipment.api.FabaoFireData;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fabao010huoyan;
@@ -47,7 +46,7 @@ public final class Fabao010Item extends ContentItem {
         FabaoFireData fire = stack.getOrDefault(EquipmentData.FABAO_FIRE.get(), FabaoFireData.EMPTY);
         int selected = 0;
         for (int grade = 10; grade >= 1; grade--) {
-            if (fire.get(grade) <= 0) continue;
+            if (!(fire.get(grade) > 0)) continue;
             int cost = powerCost(grade);
             if (cost == 0 || Cultivation.get(player, CultivationValue.POWER) >= cost) {
                 selected = grade;
@@ -55,7 +54,7 @@ public final class Fabao010Item extends ContentItem {
             }
         }
         if (selected == 0) {
-            player.displayClientMessage(Component.literal(fire.get(1) <= 0 ? "§4空" : "§4您的灵力不足！"), true);
+            player.displayClientMessage(Component.literal(fire.get(1) == 0 ? "§4空" : "§4您的灵力不足！"), true);
             return;
         }
         int cost = powerCost(selected);
@@ -78,8 +77,7 @@ public final class Fabao010Item extends ContentItem {
         BlockPos center = level.clip(new ClipContext(player.getEyePosition(1),
                 player.getEyePosition(1).add(player.getViewVector(1).scale(5)), ClipContext.Block.OUTLINE,
                 ClipContext.Fluid.NONE, player)).getBlockPos();
-        int levelNumber = Equipment.product(stack).map(EquipmentProduct::level)
-                .orElse((int) Equipment.properties(stack).number("item_level_num"));
+        int levelNumber = Equipment.refiningLevel(stack);
         int maximumGrade = Yihuo.fabaoAbsorptionGrade(levelNumber);
         FabaoFireData fire = stack.getOrDefault(EquipmentData.FABAO_FIRE.get(), FabaoFireData.EMPTY);
         for (int x = -4; x < 4; x++) {
