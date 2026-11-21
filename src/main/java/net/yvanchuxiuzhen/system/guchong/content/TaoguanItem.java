@@ -107,11 +107,12 @@ public final class TaoguanItem extends ContentItem {
             int released = 0;
             for (int slot = 0; slot < capacity(grade); slot++) {
                 String suffix = Integer.toString(slot);
+                if (data.getString("guchongid" + suffix).isEmpty()) continue;
                 if (!data.getString("belongToMasterUUID" + suffix).equals(player.getStringUUID())) {
                     player.displayClientMessage(Component.literal("§4您不是" + data.getString("guchongname" + suffix) + "的主人，无法操控此虫。"), false);
                     continue;
                 }
-                GuchongLifecycle.releaseOwnedJar(server, player, data, slot, 0);
+                GuchongLifecycle.releaseOwnedJar(server, player, data, slot, 0, true);
                 released++;
             }
             data.putDouble("shifangnum", released);
