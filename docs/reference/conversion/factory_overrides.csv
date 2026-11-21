@@ -908,6 +908,15 @@ item,yvanchuxiuzhen:chengzhen_buildblock_item,town:scroll,town,按面放置规�
 block,yvanchuxiuzhen:shopblock_01,economy:shop,economy,交易方块七槽库存、经营设置和购买入口
 block,yvanchuxiuzhen:paimaiblock,economy:auction,economy,拍卖台二十一槽库存和二十刻现场状态机
 block,yvanchuxiuzhen:paimaichair,economy:auction_chair,economy,拍卖椅乘坐与令牌回收入口
+block,yvanchuxiuzhen:cailiao_191ore,economy:spirit_stone_ore,economy,灵石矿非空战利品优先且空结果回退对应原矿
+block,yvanchuxiuzhen:cailiao_192ore,economy:spirit_stone_ore,economy,灵石矿非空战利品优先且空结果回退对应原矿
+block,yvanchuxiuzhen:cailiao_193ore,economy:spirit_stone_ore,economy,灵石矿非空战利品优先且空结果回退对应原矿
+block,yvanchuxiuzhen:cailiao_194ore,economy:spirit_stone_ore,economy,灵石矿非空战利品优先且空结果回退对应原矿
+block,yvanchuxiuzhen:cailiao_195ore,economy:spirit_stone_ore,economy,灵石矿非空战利品优先且空结果回退对应原矿
+block,yvanchuxiuzhen:cailiao_196ore,economy:spirit_stone_ore,economy,灵石矿非空战利品优先且空结果回退对应原矿
+block,yvanchuxiuzhen:cailiao_197ore,economy:spirit_stone_ore,economy,灵石矿非空战利品优先且空结果回退对应原矿
+block,yvanchuxiuzhen:cailiao_198ore,economy:spirit_stone_ore,economy,灵石矿非空战利品优先且空结果回退对应原矿
+block,yvanchuxiuzhen:cailiao_199ore,economy:spirit_stone_ore,economy,灵石矿非空战利品优先且空结果回退对应原矿
 block,yvanchuxiuzhen:tiandiyinhang,economy:bank,economy,天地银行九槽库存、几何动画和自然对话入口
 item,yvanchuxiuzhen:tiandiyinhang,economy:bank,economy,天地银行物品几何渲染
 item,yvanchuxiuzhen:ling_20,economy:auction_token,economy,拍卖令牌放置、身份和回收
