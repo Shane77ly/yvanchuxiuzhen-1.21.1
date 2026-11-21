@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -97,7 +98,9 @@ final class TreasureCheck extends SystemCheck {
             case 12 -> {
                 onServer(player -> {
                     expectTrue("无钥匙自然右键保持上锁未打开", !chest(player, locked).getPersistentData().getBoolean("dakai"));
-                    stage(player, item("treasure_chest_1101").copyWithCount(2));
+                    ItemStack keys = item("treasure_chest_1101").copyWithCount(2);
+                    keys.set(DataComponents.CUSTOM_NAME, Component.literal("藏阁钥匙"));
+                    stage(player, keys);
                 });
                 screenshots.take("treasure_locked.png");
             }
@@ -151,6 +154,7 @@ final class TreasureCheck extends SystemCheck {
                 }
                 expect("通宝保存重进", money, player.getInventory().countItem(item("money_01").getItem()));
                 expect("重进保留剩余钥匙", 1, player.getMainHandItem().getCount());
+                expect("重进保留钥匙自定义名称", "藏阁钥匙", player.getMainHandItem().getHoverName().getString());
                 clearDrops(player);
             });
             case 21 -> use(saved);

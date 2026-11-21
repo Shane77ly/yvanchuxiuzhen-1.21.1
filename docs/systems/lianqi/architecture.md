@@ -43,6 +43,8 @@ lianqi 唯一写鼎内炉次和图纸；material 提供材料定义与实例；e
 
 ## 八鼎生命周期
 
+异火供热与鼎自身消费使用同一 `lianpower`，但读写类型不同：A `Cailiao221fireblockGengXinYouXiKeProcedure` 每次按 double 累加，`HuoyanxiaoshipandingProcedure` 按 double 检查残热是否至少为 1；B `LianqiTickProcedure:60–67` 在开炉且热量足够时才按整数扣 `TripodLevel`、增加进度，B `TripodPowerProcedure` 也按整数显示。供热方不提前截去小数；通常每次整单位输入时数值不变。丹炉另由炼丹系统消费。
+
 `B:Tripod01Block:118–145`及其余七鼎的`onPlace/tick/use`为自然入口：放置初始化并安排20游戏刻后的计划刻；每次推进后继续安排20刻。拆除抛出全部库存并更新比较器。
 
 | 档 | 名称 | 等级 | 火力 | 提纯 |

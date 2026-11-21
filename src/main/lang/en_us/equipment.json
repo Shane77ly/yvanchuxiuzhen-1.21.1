@@ -1,4 +1,6 @@
 {
+  "tooltip.yvanchuxiuzhen.gourd.ordinary": "Ordinary fire: %s",
+  "tooltip.yvanchuxiuzhen.gourd.graded": "Level %1$s fire: %2$s",
   "item.yvanchuxiuzhen.weaponsword_01": "Weaponsword 0 1",
   "item.yvanchuxiuzhen.weaponsword_02": "Weaponsword 0 2",
   "item.yvanchuxiuzhen.weaponsword_03": "Weaponsword 0 3",

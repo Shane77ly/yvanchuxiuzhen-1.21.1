@@ -1,4 +1,5 @@
 source_mod,element,type,source_file,line,owner,ownership,evidence,target,implementation
+yvanchuxiuzhen,Cailiao221fireblockGengXinYouXiKe,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Cailiao221fireblockGengXinYouXiKeProcedure.java,48,lianqi,已读,仅鼎的接收端：十八个火块分支以双精度叠加热量；鼎工作刻按整数扣档位,TripodRuntime.heat,收热与残热判断按双精度；完整葫芦至炉次的实机输出未验
 yvanchuxitong,Tripod01,block,src/main/java/net/mcreator/yvanchuxitong/block/Tripod01Block.java,118,lianqi,已读,方块放置初始化与每二十刻计划刻调用；右键打开真实鼎菜单；拆除掉库存并输出比较器。,content.TripodBlock,已实现；静态源码核对；构建通过；实际游戏样本与未验范围见docs/systems/lianqi/logs/2026-11.md；两版本对照待验收
 yvanchuxitong,Tripod01,block_entity,src/main/java/net/mcreator/yvanchuxitong/block/entity/Tripod01BlockEntity.java,31,lianqi,已读,完整十二槽持久化与更新包；插入禁九；侧面提取仅九和十一；01游离provider为箱子其余为炼器菜单。,content.TripodBlockEntity,已实现；静态源码核对；构建通过；实际游戏样本与未验范围见docs/systems/lianqi/logs/2026-11.md；两版本对照待验收
 yvanchuxitong,Tripod01FangZhiFangKuaiShi,procedure,src/main/java/net/mcreator/yvanchuxitong/procedures/Tripod01FangZhiFangKuaiShiProcedure.java,15,lianqi,已读,逐档核对鼎名、等级、火力和提纯；01至07记录朝向角；08不写朝向角。,TripodRuntime.initialize,已实现；静态源码核对；构建通过；实际游戏样本与未验范围见docs/systems/lianqi/logs/2026-11.md；两版本对照待验收

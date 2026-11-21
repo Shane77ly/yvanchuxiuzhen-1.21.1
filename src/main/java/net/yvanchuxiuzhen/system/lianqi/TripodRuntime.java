@@ -78,7 +78,7 @@ public final class TripodRuntime {
     public static void heat(FireHeatEvent event) {
         if (event.level().getBlockEntity(event.pos()) instanceof TripodBlockEntity furnace) {
             CompoundTag state = furnace.getPersistentData();
-            state.putInt("lianpower", (int) (state.getInt("lianpower") + event.amount()));
+            state.putDouble("lianpower", state.getDouble("lianpower") + event.amount());
             furnace.changed();
         }
     }
@@ -86,7 +86,7 @@ public final class TripodRuntime {
     public static void exhausted(FireExhaustedEvent event) {
         if (event.level().getBlockEntity(event.pos()) instanceof TripodBlockEntity furnace) {
             CompoundTag state = furnace.getPersistentData();
-            if (state.getInt("lianpower") >= 1) {
+            if (state.getDouble("lianpower") >= 1) {
                 state.putBoolean("gengxin", !state.getBoolean("gengxin"));
                 furnace.changed();
                 event.retain();

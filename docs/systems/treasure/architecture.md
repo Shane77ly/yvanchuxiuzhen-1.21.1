@@ -43,6 +43,8 @@ updated: 2026-11-14
 
 ## 来源异常的当前处理
 
+11 箱的钥匙只比物品身份，不比自定义名或其他组件。A `TreasureChest11ZaiFangKuaiShangYouJianProcedure` 的资格与扣一把使用同一身份；目标 `Inventory.contains(ItemStack)` 会额外比较组件，故资格改用谓词。抽到武器架的法宝架才进入 B `BaoxiangFabao`；保留槽 0 中转与拾取延迟，不保证开箱必得葫芦。
+
 - `B:BaoxiangzongProcedure:127–138`不校验首段长度，空串、材料空分支追加的`%cailiaolevel…`、符箓空分支追加的`0%fululeveltxt…`会在取第三字段时终止当次命令，已掉落结果保留。目标明确识别这些首段不足的来源结果并停止同次发放，不补抽或补造奖励。来源`BaoxiangOpenCommand`自身没有catch；不把这一事实写为过程吞异常。框架错误提示未实机对照。
 - `B:BaoxiangLiandantuzhiProcedure`仅一级四个分支为丹方，二级起直接返回技能书；按实际表保留，未重平衡。
 - 符箓随机池的重复、空分支及不可达分支原样保留。丹药表中重复`danyaotick0`后写覆盖、缺少`danyaotick1`读取为0；不按名字补改药效时间。
