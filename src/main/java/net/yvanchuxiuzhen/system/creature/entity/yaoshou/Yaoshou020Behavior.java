@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import java.util.Random;
-import java.util.UUID;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -41,9 +40,7 @@ public final class Yaoshou020Behavior {
     public static void tick(YaoshouEntity entity) {
         if (!entity.isAlive()) return;
         CompoundTag data = entity.getPersistentData();
-        Scoreboard scoreboard = entity.level().getScoreboard();
-        Objective objective = scoreboard.getObjective("zhaohuanwu");
-        if (objective != null && scoreboard.getOrCreatePlayerScore(entity, objective).get() == 1) {
+        if (Yaoshou037054Support.isSummoned(entity)) {
             if (data.getDouble("daojishi") >= 1) {
                 data.putDouble("daojishi", data.getDouble("daojishi") - 1);
             } else {
@@ -59,7 +56,7 @@ public final class Yaoshou020Behavior {
                 && !data.getString("gongjizhe").equals(data.getString("linshigongjizhe"))) {
             data.putString("gongjizhe", data.getString("linshigongjizhe"));
         }
-        Entity target = target(entity);
+        Entity target = Yaoshou037054Support.target(entity.level(), entity);
         if (target == null) {
             if (data.getDouble("entitytick") >= 100) {
                 entity.getNavigation().moveTo(entity.getX() + random(-3, 3), entity.getY(), entity.getZ() + random(-3, 3), 1);
@@ -98,7 +95,7 @@ public final class Yaoshou020Behavior {
 
     private static void schedule(YaoshouEntity entity, Entity target) {
         CompoundTag data = entity.getPersistentData();
-        double distance = entity.distanceTo(target) - (entity.getBbWidth() / 2 + target.getBbWidth() / 2);
+        double distance = entity.position().distanceTo(target.position()) - (entity.getBbWidth() / 2 + target.getBbWidth() / 2);
         look(entity, target);
         int count = 0;
         if (entity.isPassenger()) {
@@ -149,7 +146,7 @@ public final class Yaoshou020Behavior {
                 for (int i = 0; i < 2; i++) {
                     YaoshouEntity copy = (YaoshouEntity) entity.getType().create(level);
                     copy.moveTo(entity.getX(), entity.getY(), entity.getZ(), level.getRandom().nextFloat() * 360F, 0);
-                    Relations.copyAllegiance(entity, copy);
+                    Relations.shareEntityAllegiance(entity, copy);
                     copy.getPersistentData().putDouble("LEVELnumber", Math.ceil(data.getDouble("LEVELnumber") / 2));
                     copy.getPersistentData().putDouble("daojishi", 200);
                     Scoreboard scoreboard = level.getScoreboard();
@@ -187,15 +184,6 @@ public final class Yaoshou020Behavior {
 
     private static int random(int min, int max) {
         return min >= max ? min : new Random().nextInt(max - min + 1) + min;
-    }
-
-    private static Entity target(YaoshouEntity entity) {
-        if (!(entity.level() instanceof ServerLevel level)) return null;
-        try {
-            return level.getEntity(UUID.fromString(entity.getPersistentData().getString("gongjizhe")));
-        } catch (IllegalArgumentException exception) {
-            return null;
-        }
     }
 
     private static void look(YaoshouEntity entity, Entity target) {

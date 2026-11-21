@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import java.util.Comparator;
 import java.util.Random;
-import java.util.UUID;
 
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
@@ -50,7 +49,7 @@ public final class Yaoshou019Behavior {
                 && !data.getString("gongjizhe").equals(data.getString("linshigongjizhe"))) {
             data.putString("gongjizhe", data.getString("linshigongjizhe"));
         }
-        Entity target = target(entity);
+        Entity target = Yaoshou037054Support.target(entity.level(), entity);
         if (target == null) {
             if (data.getDouble("entitytick") >= 100) {
                 entity.getNavigation().moveTo(entity.getX() + random(-3, 3), entity.getY(),
@@ -90,7 +89,7 @@ public final class Yaoshou019Behavior {
 
     private static void schedule(YaoshouEntity entity, Entity target) {
         CompoundTag data = entity.getPersistentData();
-        double distance = entity.distanceTo(target) - (entity.getBbWidth() / 2 + target.getBbWidth() / 2);
+        double distance = entity.position().distanceTo(target.position()) - (entity.getBbWidth() / 2 + target.getBbWidth() / 2);
         look(entity, target);
         int count = 0;
         if (entity.isPassenger()) {
@@ -230,7 +229,7 @@ public final class Yaoshou019Behavior {
             entity.getNavigation().moveTo(entity.getX() + random(-16, 16), entity.getY(), entity.getZ() + random(-16, 16), 2);
             data.putString("jinengjinxing", "结束");
         } else if (phase.equals("结束") && data.getDouble("entitytick") >= 25) {
-            if (entity.distanceTo(target) >= 16) {
+            if (entity.position().distanceTo(target.position()) >= 16) {
                 data.putString("gongjizhe", "");
                 data.putString("linshigongjizhe", "");
             }
@@ -238,18 +237,6 @@ public final class Yaoshou019Behavior {
         } else if (phase.equals("结束") && entity.level() instanceof ServerLevel level) {
             level.sendParticles(Particles.type(particle), entity.getX(), entity.getY(), entity.getZ(),
                     1, entity.getBbWidth(), 0, entity.getBbWidth(), 0);
-        }
-    }
-
-    private static Entity target(YaoshouEntity entity) {
-        if (!(entity.level() instanceof ServerLevel level)) {
-            return null;
-        }
-        String value = entity.getPersistentData().getString("gongjizhe");
-        try {
-            return level.getEntity(UUID.fromString(value));
-        } catch (IllegalArgumentException exception) {
-            return null;
         }
     }
 
