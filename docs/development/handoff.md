@@ -9,7 +9,7 @@ updated: 2026-11-21
 
 ## 接手基线（2026-11-21）
 
-集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，本批代码基线 `f93c4f0c`。人间界优先；三个已集成功能包的未验路径及下一动作见[当前调度](remaining-work.md#当前调度)。原主树、野羊与结构宝箱候选不动，Q40 不复跑。
+集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，本批代码基线 `277bed97`。人间界优先；三个模块的未验路径及下一动作见[当前调度](remaining-work.md#当前调度)。原主树、野羊与结构宝箱候选不动，Q40 不复跑。
 
 ## 前次执行基线（2026-11-21）
 
