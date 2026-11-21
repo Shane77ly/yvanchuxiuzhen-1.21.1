@@ -58,6 +58,12 @@ final class PlantSupplyCheck extends SystemCheck {
             new Supply("shicai_001_plant_08", "shicai_001_plant_08", Heightmap.Types.MOTION_BLOCKING, 0,
                     List.of("biomeautumn_01", "biomeautumn_02", "biomeautumn_03")));
     private final NaturalPeachChain peach;
+    private static final List<Supply> SEASONAL_CROPS = List.of(
+            new Supply("shicai_001_plant_08", "shicai_001_plant_08", Heightmap.Types.MOTION_BLOCKING, 0,
+                    List.of("biomeautumn_01")),
+            new Supply("shicai_007_plant_04", "shicai_007_plant_04", Heightmap.Types.MOTION_BLOCKING, 0,
+                    List.of("biomewind_02")));
+    private final boolean seasonal = Boolean.getBoolean("yvanchuxiuzhen.smoke.plantSeasonalCrops");
     private final List<String> report;
     private final Set<ChunkPos> requested = new HashSet<>();
     private PlantDecorationTrace trace;
@@ -73,6 +79,15 @@ final class PlantSupplyCheck extends SystemCheck {
 
     @Override
     protected boolean step(int step, int local) {
+        if (seasonal && step > 0) {
+            if (step <= SEASONAL_CROPS.size()) {
+                onServer(player -> locate(player.server.getLevel(RENJIAN), SEASONAL_CROPS.get(step - 1)));
+            } else {
+                info("秋季与风区取样结束；主动请求的中心 FULL 区块=" + requested.size());
+                finish();
+            }
+            return true;
+        }
         if (peach != null && step > 1) return stepPeach(step - 2, local);
         if (step == 0) {
             onServer(this::prepare);
@@ -124,6 +139,11 @@ final class PlantSupplyCheck extends SystemCheck {
     }
 
     private void prepare(ServerPlayer player) {
+        if (seasonal && (peach != null || Boolean.getBoolean("yvanchuxiuzhen.smoke.plantRiceHarvest"))) {
+            fail("秋季与风区取样须单独运行");
+            finish();
+            return;
+        }
         if (peach != null && Boolean.getBoolean("yvanchuxiuzhen.smoke.plantRiceHarvest")) {
             fail("自然林桃与水稻的重进续段须分开启用");
             finish();
@@ -149,7 +169,8 @@ final class PlantSupplyCheck extends SystemCheck {
         var registry = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE);
         Map<PlacedFeature, ResourceLocation> placed = new HashMap<>();
         Map<ConfiguredFeature<?, ?>, ResourceLocation> configured = new HashMap<>();
-        for (String path : List.of("mulberry_02", "peach_01", "tree_biomepeach_01", "shicai_001_plant_08")) {
+        for (String path : seasonal ? SEASONAL_CROPS.stream().map(Supply::feature).toList()
+                : List.of("mulberry_02", "peach_01", "tree_biomepeach_01", "shicai_001_plant_08")) {
             ResourceLocation id = id(path);
             PlacedFeature value = registry.getOptional(id).orElseThrow();
             placed.put(value, id);
@@ -228,7 +249,8 @@ final class PlantSupplyCheck extends SystemCheck {
         int chunks = 0;
         int handoff = 0;
         for (Candidate candidate : candidates) {
-            if (chunks == FULL_PER_SUPPLY) break;
+            if (chunks == (seasonal ? 2 : FULL_PER_SUPPLY) || seasonal && handoff > 0) break;
+            if (seasonal && !candidate.surfaceMatch()) continue;
             ChunkPos pos = candidate.chunk();
             if (requested.contains(pos) || level.getChunkSource().getChunkNow(pos.x, pos.z) != null) continue;
             requested.add(pos);
@@ -255,6 +277,7 @@ final class PlantSupplyCheck extends SystemCheck {
             handoff += points;
             info(supply.feature() + " FULL=" + pos + " 可用采收坐标=" + points);
         }
+        if (seasonal) expectTrue(supply.feature() + " 在预算内取得当区原生供给坐标", handoff > 0);
         if (handoff == 0) info("未覆盖：" + supply.feature() + " 没有可交接采收坐标，不能用受控布置替代");
     }
 
@@ -308,7 +331,12 @@ final class PlantSupplyCheck extends SystemCheck {
             if (points == budget) break;
             BlockState state = chunk.getBlockState(point);
             if (!state.is(block) || (first != null && !supply.rice() && point.distManhattan(first) < 8)) continue;
-            if (supply.rice()) {
+            if (seasonal && (!supply.biomes().contains(biomeId(level.getBiome(point)).getPath())
+                    || !state.canSurvive(level, point) || trace.successfulOrigins(pos, id(supply.feature())).stream()
+                    .noneMatch(origin -> Math.abs(point.getX() - origin.getX()) <= 7
+                            && Math.abs(point.getY() - origin.getY()) <= 3
+                            && Math.abs(point.getZ() - origin.getZ()) <= 7))) continue;
+            if (supply.doubleCereal()) {
                 if (state.getValue(DoublePlantBlock.HALF) != DoubleBlockHalf.LOWER) continue;
                 BlockState upper = chunk.getBlockState(point.above());
                 boolean viable = upper.is(block) && upper.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER
@@ -318,7 +346,7 @@ final class PlantSupplyCheck extends SystemCheck {
             }
             if (first == null) first = point.immutable();
             info("HARVEST block=" + id(supply.block()) + " pos=" + point.toShortString()
-                    + " biome=" + biomeId(level.getBiome(point)) + (supply.rice() ? " upper=" + point.above().toShortString() : ""));
+                    + " biome=" + biomeId(level.getBiome(point)) + (supply.doubleCereal() ? " upper=" + point.above().toShortString() : ""));
             points++;
         }
         return points;
@@ -347,6 +375,10 @@ final class PlantSupplyCheck extends SystemCheck {
     private record Supply(String feature, String block, Heightmap.Types heightmap, int treeChance, List<String> biomes) {
         boolean rice() {
             return treeChance == 0;
+        }
+
+        boolean doubleCereal() {
+            return block.equals("shicai_001_plant_08");
         }
     }
 
