@@ -37,6 +37,14 @@ def main() -> int:
         return 1
     outputs = MemoryOutputs()
     convert_plant_worldgen.generate(outputs)
+    # 空底材列表不限制脚下的方块，但来源 helper 始终限制落点本身。
+    air = [{'type': 'minecraft:block_predicate_filter', 'predicate': {
+        'type': 'minecraft:matching_blocks', 'blocks': ['minecraft:air']}}]
+    invalid = [p for p, data in outputs.outputs.items() if p.parent.name == 'configured_feature'
+               and 'tries' in data['config'] and data['config']['feature']['placement'] != air]
+    if invalid:
+        print('成熟作物地物未保留来源空气谓词：', *invalid, sep='\n', file=sys.stderr)
+        return 1
     convert_wild_plant_worldgen.generate(outputs)
     mismatches = [path for path, data in outputs.outputs.items()
                   if not path.is_file() or json.loads(path.read_text(encoding='utf-8')) != data]
