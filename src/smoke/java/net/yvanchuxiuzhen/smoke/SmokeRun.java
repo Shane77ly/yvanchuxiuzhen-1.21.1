@@ -609,6 +609,7 @@ final class SmokeRun {
                     case "biggrass" -> List.of(new BigGrassCheck(report, levelId));
                     case "plantground" -> List.of(new PlantGroundCheck(report, levelId));
                     case "thundergrassdrops" -> List.of(new ThundergrassDropsCheck(report, levelId));
+                    case "jadeoredrops", JadeOreDropsCheck.EMPTY -> List.of(new JadeOreDropsCheck(report, levelId));
                     case "peachleaves" -> List.of(new PeachLeavesCheck(report, levelId));
                     case "peachflower" -> List.of(new PeachLeavesCheck(report, levelId, "peachflower", "桃花"));
                     case "particleleaves" -> List.of(

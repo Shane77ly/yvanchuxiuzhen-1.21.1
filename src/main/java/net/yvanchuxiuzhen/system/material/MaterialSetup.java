@@ -9,12 +9,11 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
-import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.system.material.content.MaterialAnalysisMenu;
 import net.yvanchuxiuzhen.system.material.content.MaterialMenus;
 import net.yvanchuxiuzhen.system.material.content.MoltenMetalItem;
 import net.yvanchuxiuzhen.system.material.content.PeachFoodItem;
-import net.yvanchuxiuzhen.system.material.content.RawMetalOreBlock;
+import net.yvanchuxiuzhen.system.material.content.MaterialOreBlock;
 import net.yvanchuxiuzhen.system.material.data.MaterialData;
 import net.yvanchuxiuzhen.system.material.network.MaterialAnalysisButtonPayload;
 import net.yvanchuxiuzhen.system.material.network.MaterialAnalysisViewPayload;
@@ -24,7 +23,7 @@ import net.yvanchuxiuzhen.system.material.network.MaterialAnalysisViewPayload;
  */
 public final class MaterialSetup {
     private static final ContentTables CONTENT = new ContentTables("material")
-            .blockFactory("material:raw_metal_ore", traits -> ContentBlock.create(traits, RawMetalOreBlock::new))
+            .blockFactory("material:ore_with_fallback", MaterialOreBlock::createOre)
             .itemFactory("material:peach_food", PeachFoodItem::new);
 
     static {

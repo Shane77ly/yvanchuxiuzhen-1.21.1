@@ -21,6 +21,9 @@ public final class SmokeMod {
     public SmokeMod() {
         String output = System.getProperty("yvanchuxiuzhen.smoke");
         if (output != null) {
+            if (JadeOreDropsCheck.EMPTY.equals(System.getProperty("yvanchuxiuzhen.smoke.only"))) {
+                NeoForge.EVENT_BUS.addListener(JadeOreDropsCheck::emptyJadeTables);
+            }
             SmokeRun run = new SmokeRun(output);
             NeoForge.EVENT_BUS.addListener((ClientTickEvent.Pre event) -> Minecraft.getInstance().options.pauseOnLostFocus = false);
             NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post event) -> run.tick());
