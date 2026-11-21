@@ -1,0 +1,8 @@
+入口,锁定1.18.2版本来源,1.21.1版本生产入口,本轮处理与边界
+棺材感应与战斗实体,Guancai01GengXinYouXiKeProcedure:48–96/193–210/327–330,CoffinBlockEntity.sourceTick/spawnRefinedZombie,59时生成炼化僵尸而非游魂；沿用既有放置和重进验收
+游魂找敌与接触,Guiguai01Entity.registerGoals及doHurtTarget；Guiguai01ShiTiChuShiShengChengShiProcedure,Guiguai01Entity.ContactAttack及出生属性,已有真实索敌及接触入口证据；不等同于未取消伤害后的玩家恢复
+玩家入战与离战,EntityHurtProcedure:81–94；EntityTickProcedure:51–98,HurtHandler→AttackStage→FightingState,非友方受击置分；战斗计数与受击时间差达到100清零；本轮不改
+玩家恢复,PlayerhuifuProcedure:24–123/125–200,CultivationTick→Recovery.tick,战斗或雷劫四分之一；生命取整且受007限制；灵力截上限而神识可先超上限；本轮未运行
+箭头碰撞文本,JiantouEntity:165–168；JiantouDangWanJiaYuGaiShiTiFaShengPengZhuangShiProcedure:8–14,JiantouEntity保留原生碰撞,箭头并非消息接收玩家；不造文本或伤害
+箭头水下呼吸,JiantouEntity:124–151/172–174,原生can_breathe_under_water实体标签；CommonHooks.onLivingBreathe,补成员；单验免溺水伤害不能证明空气值正常
+敌方箭头的爆气清除,Guiguai03DangShiTiGengXinKeShiProcedure:227；Yaoshou011baoqiProcedure:87–99；data/forge/tags/entity_types/noentity.json:38,Guiguai03Behavior.burst；data/yvanchuxiuzhen/tags/entity_type/noentity.json,修正标签查询；不改同源妖兽已正确的查询；移除非击杀
