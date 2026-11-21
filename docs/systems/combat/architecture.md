@@ -318,3 +318,7 @@ Quest普通脚本“伤害实体/法术或精神”来源仅写ManaAttackDamage�
 本批把来源 `EntityDeathProcedure` 的玩家击杀收益从单一 `DamageSource.getEntity()` 判断扩展为可追溯的共享归因链：`CombatAttribution.player` 依次检查伤害来源的致因实体与直接实体，并沿 `CombatAttributable` 技能实体、原版 `Projectile` 主人和驯服生物主人追溯到服务端玩家。直接攻击、`SkillEntity`/`TamedSkillEntity`、`SkillProjectile`（沿用 `AbstractArrow` 的 owner）以及 `ShanghaiGoProcedure` → `Shanghai.deal` 产生的伤害，均进入同一个 `PlayerDeathRules` 死亡收益入口；`Shanghai` 原有五行击杀统计仍在伤害致死阈值处独立保留。
 
 共享消费顺序对照 1.18.2 版本 `PlayerJoinGameProcedure`、`PlayerTickProcedure`、`LEVELupProcedure`、`EntityberebornProcedure` 和 `EntityDeathProcedure`：玩家境界以修炼附件为真值，在死亡收益读取死者境界、五行击杀积分及普通重生恢复前先刷新 `LEVELnumber` 镜像；收益写入待吸收修为、罡煞和功德，由既有修炼 Tick 吸收并进入突破消费者；普通重生先执行修炼重生修正，再刷新镜像并处理人间界 `REVIVE` 标记。该批只做生产接线和静态调用链核对，未执行 Gradle、转换器、客户端、专服或真实击杀/重生/存档重进验收。
+
+## 人间界死亡标记
+
+`EntityDeathProcedure` 的入口读取致因实体；若为空，直接返回。对应地，玩家在人间界因无致因伤害死亡时保留原有 `REVIVE`；若有致因实体则写入“人间界”，不要求致因者是玩家。这一条件与谁领取击杀收益分别判断。

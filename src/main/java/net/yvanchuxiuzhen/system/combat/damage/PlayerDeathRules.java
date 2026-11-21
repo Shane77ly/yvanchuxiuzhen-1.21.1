@@ -39,7 +39,8 @@ public final class PlayerDeathRules {
         if (killer != null) {
             reward(killer, victim);
         }
-        if (victim instanceof ServerPlayer player && player.level().dimension().equals(HUMAN_REALM)) {
+        if (victim instanceof ServerPlayer player && player.level().dimension().equals(HUMAN_REALM)
+                && event.getSource().getEntity() != null) {
             Cultivation.set(player, CultivationText.REVIVE, "人间界");
         }
     }
