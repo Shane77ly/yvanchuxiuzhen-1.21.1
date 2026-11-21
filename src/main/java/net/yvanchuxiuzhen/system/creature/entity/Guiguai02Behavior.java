@@ -14,7 +14,6 @@ import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouShared;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
-import com.mojang.util.UndashedUuid;
 
 /** 鬼火来源初始化、目标选择、靠近与普攻阶段。 */
 final class Guiguai02Behavior {
@@ -64,11 +63,11 @@ final class Guiguai02Behavior {
         if (data.getString("jineng").isEmpty() && !data.getString("gongjizhe").equals(data.getString("linshigongjizhe")))
             data.putString("gongjizhe", data.getString("linshigongjizhe"));
 
-        Entity target = target(entity, data.getString("gongjizhe"));
+        Entity target = GuiguaiTargeting.target(entity.level(), data.getString("gongjizhe"));
         if (target == null) {
             if (data.getDouble("entitytick") >= 40) {
-                entity.getNavigation().moveTo(entity.getX() + entity.getRandom().nextInt(7) - 3, entity.getY(),
-                        entity.getZ() + entity.getRandom().nextInt(7) - 3, 1);
+                entity.getNavigation().moveTo(entity.getX() + GuiguaiTargeting.random(-3, 3), entity.getY(),
+                        entity.getZ() + GuiguaiTargeting.random(-3, 3), 1);
                 data.putDouble("entitytick", 0);
             }
             return;
@@ -87,17 +86,8 @@ final class Guiguai02Behavior {
         switch (data.getString("jineng")) {
             case "靠近" -> approach(entity, target);
             case "挣脱" -> YaoshouShared.escape(entity);
-            case "普攻" -> attack(entity);
+            case "普攻" -> attack(entity, target);
             default -> { }
-        }
-    }
-
-    private static Entity target(Guiguai02Entity entity, String text) {
-        if (text.isEmpty() || !(entity.level() instanceof ServerLevel level)) return null;
-        try {
-            return level.getEntity(UndashedUuid.fromStringLenient(text));
-        } catch (IllegalArgumentException exception) {
-            return null;
         }
     }
 
@@ -114,7 +104,7 @@ final class Guiguai02Behavior {
             return;
         }
         entity.lookAt(EntityAnchorArgument.Anchor.EYES, target.position().add(0, target.getBbHeight() / 2, 0));
-        double distance = entity.distanceTo(target) - entity.getBbWidth() / 2 - target.getBbWidth() / 2;
+        double distance = GuiguaiTargeting.surfaceDistance(entity, target);
         data.putString("linshijineng1", "靠近");
         data.putDouble("jinengjishi1", 10);
         data.putDouble("jinengqvanzhong1", 20);
@@ -128,14 +118,15 @@ final class Guiguai02Behavior {
             data.putDouble("jinengqvanzhong2", 100);
         }
         data.putDouble("jinengshuliang", count);
-        int roll = entity.getRandom().nextInt(weight) + 1;
+        int roll = GuiguaiTargeting.random(1, weight);
         String selected = roll <= 20 ? "靠近" : "普攻";
         data.putString("yvdingjineng", selected);
         data.putDouble("yvdingjinengjishi", 10);
     }
 
     private static void clearCandidates(CompoundTag data) {
-        for (int i = 1; i <= 2; i++) {
+        int count = (int) data.getDouble("jinengshuliang");
+        for (int i = 1; i <= count; i++) {
             data.putString("linshijineng" + i, "");
             data.putDouble("jinengjishi" + i, 0);
             data.putDouble("jinengqvanzhong" + i, 0);
@@ -154,12 +145,11 @@ final class Guiguai02Behavior {
         }
     }
 
-    private static void attack(Guiguai02Entity entity) {
+    private static void attack(Guiguai02Entity entity, Entity target) {
         CompoundTag data = entity.getPersistentData();
         if (!data.getString("jinengjinxing").equals("准备")) {
             data.putString("jinengjinxing", "准备");
-            Entity target = target(entity, data.getString("gongjizhe"));
-            if (target != null) entity.lookAt(EntityAnchorArgument.Anchor.EYES, target.position().add(0, target.getBbHeight() / 2, 0));
+            entity.lookAt(EntityAnchorArgument.Anchor.EYES, target.position().add(0, target.getBbHeight() / 2, 0));
             return;
         }
         if (data.getDouble("entitytick") < 1 || !(entity.level() instanceof ServerLevel level)) return;
@@ -171,7 +161,7 @@ final class Guiguai02Behavior {
         List<Entity> nearby = level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(1.5), candidate -> true)
                 .stream().sorted(Comparator.comparingDouble(candidate -> candidate.distanceToSqr(center))).toList();
         for (Entity candidate : nearby) {
-            if (candidate != entity && !Relations.isFriendly(entity, candidate)) {
+            if (!Relations.isFriendly(entity, candidate)) {
                 level.sendParticles(Particles.type("smallexplosionskyblue"), candidate.getX(), candidate.getY() + candidate.getBbHeight() / 2,
                         candidate.getZ(), 1, 0, 0, 0, 0);
                 if (candidate instanceof LivingEntity living)
