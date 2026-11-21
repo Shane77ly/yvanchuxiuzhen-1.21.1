@@ -9,7 +9,7 @@ updated: 2026-11-21
 
 ## 接手基线（2026-11-21）
 
-集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，本批已验证基线 `ffa0f9f5`。人间界优先；模块候选与未验路径见[当前调度](remaining-work.md#当前调度)。原主树、野羊与结构宝箱候选不动，Q40 不复跑。
+集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，跑参分身合并基线 `aba6275a`。下一批接收装备认主、再炼与本命培养；世界侧接续桑叶与樟木到蚕盒的实际获取，生物侧接续鬼怪召唤与自爆归因。见[当前调度](remaining-work.md#当前调度)。原主树、野羊与结构宝箱候选不动，Q40 不复跑。
 
 ## 前次执行基线（2026-11-21）
 
