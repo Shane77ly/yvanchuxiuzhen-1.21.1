@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.api.MainTechnique;
@@ -37,19 +38,27 @@ final class GoldenCore {
             new Element("土", CultivationValue.ROOT_SOIL, "007", "soil", "Soil", "Water"));
     /**
      * 第 1–4 档的门槛与奖励。五行均衡第 1 档要求灵根之和不少于 44，其余档要求每行不少于 {@code rootEach}。
-     * 妖丹接受 {@code cailiao_<firstPill>}–{@code cailiao_189}。单一灵根结果编号为 110 + 5 × 行序 + (5 − 档)。
+     * 妖丹接受实例等级不少于 {@code pillLevel} 或物品为 {@code cailiao_<firstPill>}–{@code cailiao_189}。
+     * 单一灵根结果编号为 110 + 5 × 行序 + (5 − 档)。
      */
     private static final List<Tier> TIERS = List.of(
-            new Tier(1, 0, 31, 2500, 187, 720, 9, 400, 6, 0.08),
-            new Tier(2, 8, 21, 2200, 186, 700, 8, 300, 4, 0.06),
-            new Tier(3, 7, 11, 1900, 185, 650, 7, 200, 2, 0.04),
-            new Tier(4, 5, 1, 1500, 183, 500, 5, 100, 1, 0.02));
+            new Tier(1, 0, 31, 2500, 31, 187, 720, 9, 400, 6, 0.08),
+            new Tier(2, 8, 21, 2200, 26, 186, 700, 8, 300, 4, 0.06),
+            new Tier(3, 7, 11, 1900, 21, 185, 650, 7, 200, 2, 0.04),
+            new Tier(4, 5, 1, 1500, 11, 183, 500, 5, 100, 1, 0.02));
 
     private record Element(String name, CultivationValue root, String body, String killKey, String key, String restrained) {
     }
 
-    private record Tier(int number, double rootEach, double grade, double powerMax, int firstPill, double healthMax,
+    private record Tier(int number, double rootEach, double grade, double powerMax, int pillLevel, int firstPill, double healthMax,
                         double rootSingle, double killPoints, double attack, double defensePercentage) {
+        boolean acceptsMaterial(int level, ResourceLocation id) {
+            if (level >= pillLevel) return true;
+            for (int pill = firstPill; pill <= 189; pill++) {
+                if (id.equals(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "cailiao_" + pill))) return true;
+            }
+            return false;
+        }
     }
 
     private GoldenCore() {
@@ -164,19 +173,13 @@ final class GoldenCore {
         return tier.number() == 1 ? sum >= 44 : each;
     }
 
-    /** 本命槽是妖丹且为 {@code cailiao_<firstPill>}–{@code cailiao_189} 之一。来源另接受实例等级 {@code cailiaolevel} 达标的妖丹，随 material 接入。 */
+    /** 本命槽须为妖丹，实例等级达标或物品身份命中本档范围时满足妖丹条件。 */
     private static boolean pill(ServerPlayer player, Tier tier) {
         ItemStack benming = Cultivation.benming(player);
         if (!benming.is(YAODAN)) {
             return false;
         }
-        ResourceLocation id = BuiltInRegistries.ITEM.getKey(benming.getItem());
-        for (int pill = tier.firstPill(); pill <= 189; pill++) {
-            if (id.equals(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "cailiao_" + pill))) {
-                return true;
-            }
-        }
-        return false;
+        return tier.acceptsMaterial(Materials.instance(benming).level(), BuiltInRegistries.ITEM.getKey(benming.getItem()));
     }
 
     /** 五行均衡金丹第 1–4 档（105、104、103、102）的修正。 */
