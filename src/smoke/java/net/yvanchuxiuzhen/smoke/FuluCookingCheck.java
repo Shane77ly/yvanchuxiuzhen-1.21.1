@@ -289,8 +289,23 @@ final class FuluCookingCheck extends ActionCheck {
     private long utensilsCutStarted;
     private boolean utensilsSpectatorBowl;
 
+    private final boolean cerealOnly;
+
+    FuluCookingCheck(List<String> report, String levelId) {
+        super("cerealharvest", report, levelId);
+        cerealOnly = true;
+        script(new Action(1, this::prepareRice), new Action(1, player -> {
+            checkMatureCerealHarvest(player, "001", item("shicai_001seed", 6));
+            checkMatureCerealHarvest(player, "002", item("shicai_002seed", 6));
+            checkMatureCerealHarvest(player, "004", item("shicai_004", 6));
+            checkMatureCerealHarvest(player, "005", item("shicai_005", 6));
+            checkMatureCerealHarvest(player, "006", item("shicai_006", 2));
+        }));
+    }
+
     FuluCookingCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("fulucooking", report, levelId);
+        cerealOnly = false;
         script(
                 new Action(4, p -> {
                     naturalRegeneration = p.serverLevel().getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION);
@@ -2706,6 +2721,27 @@ final class FuluCookingCheck extends ActionCheck {
         ricePickupDelay = 0;
     }
 
+    /** 分别从两格破坏完整植株，计入另一格因邻居更新产生的实际掉落。 */
+    private void checkMatureCerealHarvest(ServerPlayer player, String number, ItemStack expected) {
+        var level = player.serverLevel();
+        BlockState mature = block("shicai_" + number + "_plant_08");
+        riceHeld(player, ItemStack.EMPTY);
+        for (DoubleBlockHalf half : DoubleBlockHalf.values()) {
+            riceReset(player, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+            DoublePlantBlock.placeAt(level, mature, ricePos, Block.UPDATE_ALL);
+            riceClearDrops();
+            BlockPos hit = half == DoubleBlockHalf.LOWER ? ricePos : ricePos.above();
+            boolean intact = level.getBlockState(ricePos).equals(mature.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+                    && level.getBlockState(ricePos.above()).equals(mature.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER));
+            boolean harvested = intact && player.gameMode.destroyBlock(hit);
+            int count = riceDrops.stream().mapToInt(drop -> drop.getItem().getCount()).sum();
+            expectTrue(number + "成熟植株破坏" + (half == DoubleBlockHalf.LOWER ? "下格" : "上格") + "整株仅结算一次，实得" + count,
+                    harvested && level.isEmptyBlock(ricePos) && level.isEmptyBlock(ricePos.above())
+                            && count == expected.getCount() && riceDrops.stream().allMatch(drop -> drop.getItem().is(expected.getItem())));
+            riceClearDrops();
+        }
+    }
+
     /** 果树检查只使用已保存的小场地；不在此范围触发完整模板生长。 */
     private void checkFruitTrees(ServerPlayer player) {
         riceHeld(player, ItemStack.EMPTY);
@@ -3465,6 +3501,7 @@ final class FuluCookingCheck extends ActionCheck {
     @Override
     protected void cleanup(ServerPlayer player) {
         restoreRice(player);
+        if (cerealOnly) return;
         minecraft.execute(this::clearMealTooltipPreview);
         restoreUtensils(player);
         player.closeContainer();
