@@ -87,7 +87,8 @@ public final class Shanghai {
                 return;
             }
             target.hurt(source, (float) total);
-            if (attacker instanceof ServerPlayer player) {
+            ServerPlayer player = CombatAttribution.player(source);
+            if (player != null) {
                 recordKill(player, target, category);
             }
         } else {
@@ -242,8 +243,13 @@ public final class Shanghai {
             return;
         }
         Cultivation.setTizhiDouble(player, "killentity" + element, Cultivation.tizhiDouble(player, "killentity" + element) + 1);
-        double points = target instanceof Player victim ? Cultivation.get(victim, CultivationValue.LEVEL_NUMBER)
-                : target.getPersistentData().getDouble("LEVELnumber");
+        double points;
+        if (target instanceof ServerPlayer victim) {
+            Cultivation.syncLegacyLevelMirror(victim);
+            points = Cultivation.get(victim, CultivationValue.LEVEL_NUMBER);
+        } else {
+            points = target.getPersistentData().getDouble("LEVELnumber");
+        }
         Cultivation.setTizhiDouble(player, "killentitypoints" + element, Cultivation.tizhiDouble(player, "killentitypoints" + element) + points);
     }
 }

@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -33,11 +32,11 @@ public final class PlayerDeathRules {
 
     public static void onDeath(LivingDeathEvent event) {
         LivingEntity victim = event.getEntity();
-        Entity source = event.getSource().getEntity();
-        if (victim.level().isClientSide || source == null) {
+        if (victim.level().isClientSide) {
             return;
         }
-        if (source instanceof ServerPlayer killer) {
+        ServerPlayer killer = CombatAttribution.player(event.getSource());
+        if (killer != null) {
             reward(killer, victim);
         }
         if (victim instanceof ServerPlayer player && player.level().dimension().equals(HUMAN_REALM)) {
@@ -46,20 +45,17 @@ public final class PlayerDeathRules {
     }
 
     private static void reward(ServerPlayer killer, LivingEntity victim) {
-        // 死者层数与额外修为按来源读取实体持久镜像，不读取死者的玩家修炼档案。
         CompoundTag data = victim.getPersistentData();
-        double level = data.getDouble("LEVELnumber");
-        double experience = 0;
-        if (level >= 1) {
-            experience = Math.pow(level, 2.4) + level * 4 + 5 + data.getDouble("additional_experience");
-        } else if (victim instanceof Mob) {
-            experience = victim.getMaxHealth() / 5.0;
-        }
+        double level = victimLevel(victim, data);
+        double experience = baseExperience(victim, data, level);
         Cultivation.add(killer, CultivationValue.EXPERIENCE_STAND, experience + experienceBonus(killer, experience));
 
         double killerLevel = Cultivation.get(killer, CultivationValue.LEVEL_NUMBER);
         if (level >= killerLevel) {
-            Cultivation.add(killer, CultivationValue.VIGOROUS, -Math.pow(level - killerLevel + 1, 2));
+            double penalty = Math.pow(level - killerLevel + 1, 2);
+            if (penalty > 0) {
+                Cultivation.add(killer, CultivationValue.VIGOROUS, -penalty);
+            }
         }
         if (victim instanceof Animal && !victim.getType().is(YAOSHOU)) {
             Cultivation.add(killer, CultivationValue.MERITS, -1);
@@ -68,6 +64,29 @@ public final class PlayerDeathRules {
         } else if (victim instanceof Mob) {
             Cultivation.add(killer, CultivationValue.MERITS, level + 1);
         }
+    }
+
+    /** 玩家境界以修炼附件为真值，读取旧字段消费者前先刷新 LEVELnumber 镜像。 */
+    private static double victimLevel(LivingEntity victim, CompoundTag data) {
+        if (victim instanceof ServerPlayer player) {
+            Cultivation.syncLegacyLevelMirror(player);
+            return Cultivation.get(player, CultivationValue.LEVEL_NUMBER);
+        }
+        return data.getDouble("LEVELnumber");
+    }
+
+    /**
+     * 来源按实体等级优先；无等级时，Mob（包括 Animal）按实际生命上限的五分之一给修为。
+     * 不属于 Mob 的实体没有默认击杀修为。
+     */
+    private static double baseExperience(LivingEntity victim, CompoundTag data, double level) {
+        if (level >= 1) {
+            return Math.pow(level, 2.4) + level * 4 + 5 + data.getDouble("additional_experience");
+        }
+        if (victim instanceof Mob) {
+            return victim.getMaxHealth() / 5.0F;
+        }
+        return 0;
     }
 
     private static double experienceBonus(ServerPlayer killer, double experience) {

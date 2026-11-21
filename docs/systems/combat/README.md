@@ -29,6 +29,7 @@ updated: 2026-11-18
 
 | 操作 | 形式 | 调用者（来源中的读写点） |
 | --- | --- | --- |
+| 统一击杀归因 | `CombatAttribution.player(DamageSource)`：按致因实体、直接实体及投射物主人、技能实体施放者、驯服主人解析服务端玩家 | `LivingDeathEvent` 的玩家收益结算；`Shanghai` 五行击杀统计复用同一归因 |
 | 五行统计管理命令 | `ElementStatistics.command(目标玩家, action, subject, operation, value, feedback)`：只接受`experienceup`和十个来源统计键；set赋值，其他操作累加 | flow的唯一`/yvanchu`入口；载体读写经xiulian公开操作 |
 | 战斗状态 | `FightingState.mark(生物)` 写开关1及受击时间；`clear(生物)` 将两项同时清0 | 受伤、技能施放、元婴出窍每二十刻推进与耗神不足归窍 |
 | 共享范围落雷 | `Lightning.command(level, 原坐标, 完整命令文本)`；命令 `/lightninglanding <攻击量> <攻击者UUID> <倍率> <队伍占位> <范围直径> <颜色> [独立]`；同步颜色的原生闪电负责显示，范围内的 Mob/Player 经 `/shanghai` 结算雷伤 | skill 的天雷术、五雷轰顶、控雷阵与 xiulian 的雷劫；队伍词只占位，缺失时按来源空白分词前移 |

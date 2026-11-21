@@ -313,3 +313,8 @@ Quest普通脚本“伤害实体/法术或精神”来源仅写ManaAttackDamage�
 来源 `EntityDeathProcedure.onEntityDeath/execute:37–144,291–299`：过程先要求 `event.getSource().getEntity()` 非空，再按受害者持久化 `LEVELnumber` 或生命上限计算待吸收修为，按主修功法命中候选加成，写入 `experience_Stand`，并按等级差扣 `vigorous`、按妖兽/动物/亡灵/Mob互斥顺序写 `merits`；人间界玩家死亡写入 `fuhuo = 人间界`。目标 `PlayerDeathRules` 从 `LivingDeathEvent` 的 `DamageSource.getEntity()` 读取归属，技能伤害由 `CombatDamageTypes.source(..., attacker)` 沿用同一来源实体。
 
 本批接入中央注册并通过 `Cultivation` 公开写操作写入修为、罡煞、功德和复活标记；既有 `CultivationTick` 继续消费 `EXPERIENCE_STAND`，`LevelUp` 继续处理吸收后的境界成长。来源空攻击者仍不发放玩家击杀收益。未运行编译、客户端/专服或真实击杀，当前仅登记静态调用链与实现边界。
+### 统一攻击者归因与修炼战斗共享链（2026-11-21）
+
+本批把来源 `EntityDeathProcedure` 的玩家击杀收益从单一 `DamageSource.getEntity()` 判断扩展为可追溯的共享归因链：`CombatAttribution.player` 依次检查伤害来源的致因实体与直接实体，并沿 `CombatAttributable` 技能实体、原版 `Projectile` 主人和驯服生物主人追溯到服务端玩家。直接攻击、`SkillEntity`/`TamedSkillEntity`、`SkillProjectile`（沿用 `AbstractArrow` 的 owner）以及 `ShanghaiGoProcedure` → `Shanghai.deal` 产生的伤害，均进入同一个 `PlayerDeathRules` 死亡收益入口；`Shanghai` 原有五行击杀统计仍在伤害致死阈值处独立保留。
+
+共享消费顺序对照 1.18.2 版本 `PlayerJoinGameProcedure`、`PlayerTickProcedure`、`LEVELupProcedure`、`EntityberebornProcedure` 和 `EntityDeathProcedure`：玩家境界以修炼附件为真值，在死亡收益读取死者境界、五行击杀积分及普通重生恢复前先刷新 `LEVELnumber` 镜像；收益写入待吸收修为、罡煞和功德，由既有修炼 Tick 吸收并进入突破消费者；普通重生先执行修炼重生修正，再刷新镜像并处理人间界 `REVIVE` 标记。该批只做生产接线和静态调用链核对，未执行 Gradle、转换器、客户端、专服或真实击杀/重生/存档重进验收。
