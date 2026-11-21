@@ -488,6 +488,7 @@ final class SmokeRun {
                     case "yihuomaterial" -> List.of(new YihuoMaterialCheck(report, levelId, this::shot));
                     case "demon" -> List.of(new DemonTransformationCheck(report, levelId, this::shot));
                     case "equipmentproduct" -> List.of(new EquipmentProductCheck(report, levelId, this::shot));
+                    case "flyinginstrumentacquisition" -> List.of(new FlyingInstrumentAcquisitionCheck(report, levelId));
                     case "equipmentconsumers" -> List.of(new EquipmentConsumersCheck(report, levelId, this::shot));
                     case "flyinginstrumentdeath" -> List.of(new FlyingInstrumentDeathCheck(report, levelId));
                     case "flyinginstrumentreentry" -> List.of(new FlyingInstrumentReentryCheck(report, levelId));

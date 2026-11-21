@@ -7,6 +7,17 @@ updated: 2026-11-13
 
 # 装备、法宝、本命与饰品：架构调查与提案
 
+## 飞行法器的普通首获与自然拾取
+
+| 物品 | 1.18.2 版本普通来源与 1.21.1 版本对应入口 |
+| --- | --- |
+| 飞叶 0101 | 花繁城 `fanhuacheng11` 局部坐标 (13.5,1,33.5) 的陈叶（businessman_23）。实例任务 `chenyeduihua` 购买分支第11步检查12枚三级灵石，第12步扣除，第13步给一件。两版结构分别在 ForgeData 和 NeoForgeData 中保留相同脚本。另有世家纨绔使用家族百宝袋第14份，袋子本身的普通来源待证。 |
+| 银盘 0201 | 落魄家族初始发传承灵物 ling_18，境界数大于旧领取次数时可取一份，第12份为银盘。见 `PlayerJoin02Procedure`、`Ling18…Procedure`、`BirthInitialRewardsFlow` 和 `BirthSupplyFlow`。 |
+| 飞舟 0401 | 财神商店出售大红包，`Fuqi06…Procedure` 抽取 [1,100)，[1,1.5) 发飞舟一件。目标 `RedPacketRewards` 保留该区间。 |
+| 花瓣 0301、千纸鹤 0501、木鱼 0601、飞毯 0701、御风舟 0801 | 锁定的两工程过程、结构、配方和数据中未定位到普通首获。召回、修理和死亡掉落均要求先持有物品或实体。 |
+
+`flyinginstrumentacquisition` 候选使用独立测试档，受控载入模板陈叶、给付灵石、新传承灵物与境界12。服务端以普通购买按钮分别支付11和12枚，经实际传承灵物使用领取第1至12份。对两种奖励分别从库存选槽召唤、骑乘，再用受控的非满储灵与致死伤害生成掉落。专项监听对应玩家与掉落实体 UUID 的原生整件拾取事件，再从库存选中组件相符的一件，核对新实体 UUID、生命1与储灵。玩家可受控移动到落点。以上受控客户端路径已通过；在世界中找到陈叶、出身创建和红包随机正向仍未验证。
+
 ## 通用NBT编辑器根字段契约（2026-11-15）
 
 `Equipment.updateRootField(ItemStack, String, Tag)` 由equipment唯一写入所属 `EquipmentProperties` 根投影：字符串保存为文字，其余八类型可表达数值按来源getDouble投影，保留其他已存字段；`benmingexp/benmingexpmax` 同步 `BenmingData` 对应经验字段，保持本命等级及另一经验字段。天道负责CUSTOM_DATA原始Tag写入，不直接访问equipment持久组件。根投影不修改炼器嵌套属性、成品或原生装备加成；`benminglevel` 来源double与目标int的差异尚未处理，其他映射的唯一问题正文见[天道Q203](../tiandao/architecture.md#q203-根nbt与目标组件消费者映射)。本包实际检查与未验范围统一记[天道月志](../tiandao/logs/2026-11.md#2026-11-15-通用物品nbt编辑器代码包)。
