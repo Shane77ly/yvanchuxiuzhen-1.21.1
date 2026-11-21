@@ -103,12 +103,10 @@ public final class Yaoshou028Entity extends YaoshouEntity {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         sourceAnimations.register(this, controllers, 4, "animation.yaoshou028.", state -> {
             if (procedureAnimation().equals("empty")) {
-                if ((state.isMoving() || !(state.getLimbSwingAmount() > -0.15F && state.getLimbSwingAmount() < 0.15F))
-                        && !isAggressive()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou028.walk"));
+                if (state.isMoving() || !(state.getLimbSwingAmount() > -0.15F && state.getLimbSwingAmount() < 0.15F))
+                    return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou028.walk"));
                 if (isDeadOrDying()) return state.setAndContinue(RawAnimation.begin().then("animation.yaoshou028.die", Animation.LoopType.PLAY_ONCE));
                 if (isInWaterOrBubble()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou028.swim"));
-                if (isShiftKeyDown()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou028.sneak"));
-                if (isSprinting() || isAggressive() && state.isMoving()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou028.sprint"));
                 return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou028.idle"));
             }
             return PlayState.STOP;
