@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.equipment.client;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -17,6 +18,8 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
+import net.yvanchuxiuzhen.system.equipment.api.FabaoFireData;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao010Item;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 
 /** 装备成品提示读取炼器实例，饰品提示读取根字段中的品质、类型与恢复和上限数值。 */
@@ -62,6 +65,21 @@ final class EquipmentTooltip {
                 lines.add(Component.literal("§f" + description.substring(start, Math.min(start + 24, description.length()))));
             }
         });
+        if (event.getEntity() != null && stack.getItem() instanceof Fabao010Item && tagged(stack, "fabao")) {
+            storedFire(event.getToolTip(), stack.getOrDefault(EquipmentData.FABAO_FIRE.get(), FabaoFireData.EMPTY));
+        }
+    }
+
+    private static void storedFire(List<Component> lines, FabaoFireData fire) {
+        DecimalFormat whole = new DecimalFormat("0");
+        for (int slot = 1; slot <= 10; slot++) {
+            double count = fire.get(slot);
+            if (count >= 1) {
+                Component amount = Component.literal(whole.format(count)).withStyle(ChatFormatting.WHITE);
+                lines.add((slot == 1 ? Component.translatable("tooltip.yvanchuxiuzhen.gourd.ordinary", amount)
+                        : Component.translatable("tooltip.yvanchuxiuzhen.gourd.graded", slot - 1, amount)).withStyle(ChatFormatting.AQUA));
+            }
+        }
     }
 
     private static void jewelry(List<Component> lines, EquipmentProperties properties) {

@@ -1,4 +1,6 @@
 {
+  "tooltip.yvanchuxiuzhen.gourd.ordinary": "普通火焰：%s",
+  "tooltip.yvanchuxiuzhen.gourd.graded": "%1$s级火焰：%2$s",
   "item.yvanchuxiuzhen.weaponsword_01": "精铁剑",
   "item.yvanchuxiuzhen.weaponsword_02": "精钢剑",
   "item.yvanchuxiuzhen.weaponsword_03": "寒铁剑",

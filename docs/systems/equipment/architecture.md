@@ -134,6 +134,10 @@ Q57：弓读取实体 `synchronizedata.rightclicking`，绑定的右键过程为
 
 静态核对依据为上述 1.18.2 版本过程；目标 API 按 NeoForge 21.1.265 源码改写。`gradlew build`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 通过。沿用现有 `runSmokeClient -PsmokeOnly=equipmentweapon`，五项既有弓与拂尘检查全部 `DONE`，客户端正常保存退出，`run/logs/latest.log` 未见 `ERROR/FATAL`。该 smoke 只证明新增物品、实体注册和客户端装配未阻塞启动，不替代覆火葫芦吸收、发射、命中、组件存档和视觉的专项验收。未执行 1.18.2 实机、两版本对照、多人及完整视觉验收。
 
+### 储火在玩家背包中的反馈
+
+来源 A `ItemLoreProcedure:180–193`：葫芦余量按储火槽 1 至 10 升序列出，只显示数量至少为 1 的档。一档标“普通火焰”，二至十档标“1级火焰”至“9级火焰”，数量按 `DecimalFormat("0")` 显示。客户端读取物品同步的 `fabao_fire` 组件，不修改物品。余量的显示门槛与施放的正数门槛不同，显示顺序也不决定施放优先级。
+
 ## 妖化（2026-11-07）
 
 ### 来源与入口

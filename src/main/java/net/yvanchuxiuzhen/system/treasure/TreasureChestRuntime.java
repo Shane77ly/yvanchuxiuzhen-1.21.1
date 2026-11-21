@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
@@ -23,15 +23,15 @@ public final class TreasureChestRuntime {
         CompoundTag data = chest.getPersistentData();
         if (data.getBoolean("dakai")) return;
         if (chest.locked()) {
-            ItemStack key = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse("yvanchuxiuzhen:treasure_chest_1101")));
-            if (!player.getInventory().contains(key)) {
+            Item key = BuiltInRegistries.ITEM.get(ResourceLocation.parse("yvanchuxiuzhen:treasure_chest_1101"));
+            if (!player.getInventory().contains(stack -> stack.is(key))) {
                 chest.animate(1);
                 return;
             }
             TreasureChestSettings.initialize(data, serverLevel.random);
             chest.animate(2);
             data.putBoolean("dakai", true);
-            player.getInventory().clearOrCountMatchingItems(stack -> stack.is(key.getItem()), 1, player.inventoryMenu.getCraftSlots());
+            player.getInventory().clearOrCountMatchingItems(stack -> stack.is(key), 1, player.inventoryMenu.getCraftSlots());
         } else {
             chest.animate(1);
             data.putBoolean("dakai", true);
