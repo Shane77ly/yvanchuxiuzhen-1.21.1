@@ -455,6 +455,7 @@ final class SmokeRun {
                     case "skillvisual" -> List.of(new SkillVisualCheck(report, levelId, this::shot));
                     case "lightning" -> List.of(new LightningCheck(report, levelId, this::shot));
                     case "tribulation" -> List.of(new TribulationCheck(report, levelId, this::shot));
+                    case "dantianrealmchain" -> List.of(new DantianTribulationLifecycleCheck(report, levelId));
                     case "equipmentweapon" -> List.of(new EquipmentWeaponCheck(report, levelId));
                     case "kailingmaterial" -> List.of(new KailingMaterialCheck(report, levelId));
                     case "reactiveplants" -> List.of(new ReactiveWildPlantsCheck(report, levelId));
