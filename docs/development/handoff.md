@@ -7,7 +7,11 @@ updated: 2026-11-21
 
 # 交接说明
 
-## 本次执行基线（2026-11-21）
+## 接手基线（2026-11-21）
+
+集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，本批代码基线 `9045fec0`。人间界优先；下一动作见[当前调度](remaining-work.md#当前调度)。原主树、野羊与结构宝箱候选不动，Q40 不复跑。
+
+## 前次执行基线（2026-11-21）
 
 本轮固定人间界优先。当前集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`、分支 `port/batch0-integration-20261117`，本次收尾 HEAD 为 `71cda008`（`fix: expose cultivation level mirror for combat consumers`），其父提交 `e43f9c49` 已选择性接收修炼与战斗共享击杀归因族，前置植物供给族已由 `6db3574f` 接收。负责人最初指定的 `9e9675a1` 仅作接续定位，未回退到旧提交；Q40 已合入且不再无变化复跑。集成树已通过 `git diff --check`、`python -B -X utf8 tools/docs/check_docs.py`（130篇、0项）和串行 `./gradlew.bat --no-daemon --max-workers=1 compileJava`；本次未启动客户端或专服，客户端静音前置仍为实际运行目录 `run/smoke/options.txt` 的 `soundCategory_master:0.0`。三个完整模块仍由各自 `gpt-6.1-terra`、`xhigh` 负责人按完整功能族和端到端路径在原模块树增量推进，不按单个妖兽、方块或神通切碎任务；模块树脏改动不整体搬运，未接收改动不视为集成或验证完成。野羊候选 `29619325` 与结构宝箱候选继续隔离，未编译或运行；原主树保持不动。
 
