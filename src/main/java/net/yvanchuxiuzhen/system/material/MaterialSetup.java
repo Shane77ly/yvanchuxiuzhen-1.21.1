@@ -14,7 +14,7 @@ import net.yvanchuxiuzhen.system.material.content.MaterialAnalysisMenu;
 import net.yvanchuxiuzhen.system.material.content.MaterialMenus;
 import net.yvanchuxiuzhen.system.material.content.MoltenMetalItem;
 import net.yvanchuxiuzhen.system.material.content.PeachFoodItem;
-import net.yvanchuxiuzhen.system.material.content.RawMetalOreBlock;
+import net.yvanchuxiuzhen.system.material.content.MaterialOreBlock;
 import net.yvanchuxiuzhen.system.material.data.MaterialData;
 import net.yvanchuxiuzhen.system.material.network.MaterialAnalysisButtonPayload;
 import net.yvanchuxiuzhen.system.material.network.MaterialAnalysisViewPayload;
@@ -24,7 +24,7 @@ import net.yvanchuxiuzhen.system.material.network.MaterialAnalysisViewPayload;
  */
 public final class MaterialSetup {
     private static final ContentTables CONTENT = new ContentTables("material")
-            .blockFactory("material:raw_metal_ore", traits -> ContentBlock.create(traits, RawMetalOreBlock::new))
+            .blockFactory("material:ore_with_fallback", traits -> ContentBlock.create(traits, MaterialOreBlock::new))
             .itemFactory("material:peach_food", PeachFoodItem::new);
 
     static {

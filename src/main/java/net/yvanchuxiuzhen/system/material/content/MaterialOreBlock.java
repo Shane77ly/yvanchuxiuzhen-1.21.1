@@ -11,13 +11,13 @@ import net.yvanchuxiuzhen.platform.content.BlockRow;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 
-/** 保留矿石战利品表中的时运等结果；仅为空时才按内容行返回粗矿。 */
-public final class RawMetalOreBlock extends ContentBlock {
-    private final BlockRow.Drop raw;
+/** 保留矿石战利品表中的时运等结果；仅为空时才按内容行返回来源指定的材料。 */
+public final class MaterialOreBlock extends ContentBlock {
+    private final BlockRow.Drop fallback;
 
-    public RawMetalOreBlock(BlockTraits traits) {
+    public MaterialOreBlock(BlockTraits traits) {
         super(traits);
-        raw = traits.row().behavior().fallbackDrop().orElseThrow();
+        fallback = traits.row().behavior().fallbackDrop().orElseThrow();
     }
 
     @Override
@@ -25,6 +25,6 @@ public final class RawMetalOreBlock extends ContentBlock {
         List<ItemStack> drops = super.getDrops(state, params);
         if (!drops.isEmpty()) return drops;
         return List.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                ResourceLocation.fromNamespaceAndPath(ModId.VALUE, raw.item())), raw.count()));
+                ResourceLocation.fromNamespaceAndPath(ModId.VALUE, fallback.item())), fallback.count()));
     }
 }
