@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,13 +14,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 
-/** 九档灵石原矿右键整组开封，并核对满背包余物掉落。 */
+/** 生存玩家依次使用低阶和达标工具采掘九档预置灵石矿，再用所得原矿开封。 */
 final class SpiritStoneBundleCheck extends SystemCheck {
     private final List<ItemStack> originalInventory = new ArrayList<>();
     private final Consumer<EntityJoinLevelEvent> dropListener = this::captureDrop;
@@ -65,10 +68,34 @@ final class SpiritStoneBundleCheck extends SystemCheck {
     private void checkTier(ServerPlayer player, int tier) {
         player.getInventory().clearContent();
         expectedOutput = item("cailiao_19" + tier).getItem();
-        ItemStack input = item("cailiao_19" + tier + "01");
-        input.setCount(3);
-        player.getInventory().setItem(0, input);
         player.getInventory().selected = 0;
+        Item raw = item("cailiao_19" + tier + "01").getItem();
+        BlockPos site = player.blockPosition().above(2);
+        BlockState ore = BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE,
+                "cailiao_19" + tier + "ore")).defaultBlockState();
+        if (!player.level().isEmptyBlock(site)) throw new IllegalStateException("采矿检查点未净空：" + site);
+        AABB area = new AABB(site).inflate(1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, pickaxe(tier - 2));
+        player.level().setBlockAndUpdate(site, ore);
+        expectTrue(tier + "级矿用门槛以下工具破坏且无原矿", player.gameMode.destroyBlock(site)
+                && player.serverLevel().getEntitiesOfClass(ItemEntity.class, area, e -> e.getItem().is(raw)).isEmpty());
+        player.setItemInHand(InteractionHand.MAIN_HAND, pickaxe(tier - 1));
+        for (int n = 0; n < 3; n++) {
+            player.level().setBlockAndUpdate(site, ore);
+            if (!player.gameMode.destroyBlock(site)) throw new IllegalStateException("达标镐未破坏矿石：" + tier);
+            List<ItemEntity> drops = player.serverLevel().getEntitiesOfClass(ItemEntity.class, area, e -> e.getItem().is(raw));
+            if (drops.size() != 1 || drops.getFirst().getItem().getCount() != 1) {
+                throw new IllegalStateException(tier + "级矿未产生唯一单件同档原矿：" + drops);
+            }
+            ItemEntity drop = drops.getFirst();
+            drop.setNoPickUpDelay();
+            drop.playerTouch(player);
+        }
+        ItemStack input = findOutput(player, raw);
+        int slot = player.getInventory().findSlotMatchingItem(input);
+        if (input.getCount() != 3 || slot < 0 || slot >= 9) throw new IllegalStateException("采得原矿未在快捷栏合为三件");
+        expect(tier + "级达标镐三次采得原矿", 3, input.getCount());
+        player.getInventory().selected = slot;
         player.inventoryMenu.broadcastChanges();
         player.gameMode.useItem(player, player.level(), player.getMainHandItem(), InteractionHand.MAIN_HAND);
 
@@ -85,6 +112,7 @@ final class SpiritStoneBundleCheck extends SystemCheck {
 
     private void checkFullInventoryDrop(ServerPlayer player) {
         player.getInventory().clearContent();
+        player.getInventory().selected = 0;
         for (int slot = 0; slot < 36; slot++) {
             player.getInventory().setItem(slot, new ItemStack(Items.STONE, 64));
         }
@@ -133,6 +161,16 @@ final class SpiritStoneBundleCheck extends SystemCheck {
             if (candidate.is(expected)) return candidate;
         }
         return ItemStack.EMPTY;
+    }
+
+    private static ItemStack pickaxe(int level) {
+        return switch (level) {
+            case -1 -> ItemStack.EMPTY;
+            case 0 -> new ItemStack(Items.WOODEN_PICKAXE);
+            case 1 -> new ItemStack(Items.STONE_PICKAXE);
+            case 2 -> new ItemStack(Items.IRON_PICKAXE);
+            default -> item("gongjv_0" + (18 + level));
+        };
     }
 
     private static ItemStack item(String path) {

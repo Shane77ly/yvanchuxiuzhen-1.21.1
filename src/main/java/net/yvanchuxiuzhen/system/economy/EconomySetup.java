@@ -18,6 +18,7 @@ import net.yvanchuxiuzhen.system.economy.content.EconomyBlock;
 import net.yvanchuxiuzhen.system.economy.content.EconomyBlockEntities;
 import net.yvanchuxiuzhen.system.economy.content.SpiritStoneBundleItem;
 import net.yvanchuxiuzhen.system.economy.content.SpiritStoneItem;
+import net.yvanchuxiuzhen.system.economy.content.SpiritStoneOreBlock;
 import net.yvanchuxiuzhen.system.economy.data.BankData;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 
@@ -29,6 +30,7 @@ public final class EconomySetup {
             .itemFactory("economy:bank_card", (properties, tooltip) -> new BankCardItem(properties, tooltip, false))
             .itemFactory("economy:bank_card_advanced", (properties, tooltip) -> new BankCardItem(properties, tooltip, true))
             .itemFactory("economy:auction_token", AuctionTokenItem::new)
+            .blockFactory("economy:spirit_stone_ore", traits -> ContentBlock.create(traits, SpiritStoneOreBlock::new))
             .blockFactory("economy:bank", traits -> ContentBlock.create(traits, BankBlock::new))
             .itemFactory("economy:bank", (properties, tooltip) -> new BankBlockItem(
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "tiandiyinhang")), properties, tooltip))
