@@ -1,7 +1,7 @@
 package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
+import com.mojang.util.UndashedUuid;
 import java.util.Random;
-import java.util.UUID;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -30,8 +30,10 @@ final class Yaoshou037054Support {
 
     static Entity target(LevelAccessor world, Entity entity) {
         if (!(world instanceof ServerLevel level)) return null;
+        String id = entity.getPersistentData().getString("gongjizhe");
+        if (id.isEmpty()) return null;
         try {
-            return level.getEntity(UUID.fromString(entity.getPersistentData().getString("gongjizhe")));
+            return level.getEntity(UndashedUuid.fromStringLenient(id));
         } catch (IllegalArgumentException exception) {
             return null;
         }

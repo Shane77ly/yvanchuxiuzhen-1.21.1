@@ -59,7 +59,7 @@ final class Yaoshou028Behavior {
 
     private static void schedule(YaoshouEntity entity, Entity target) {
         CompoundTag data = entity.getPersistentData();
-        double distance = entity.distanceTo(target) - (entity.getBbWidth() + target.getBbWidth()) / 2;
+        double distance = Math.sqrt(entity.distanceToSqr(target)) - (entity.getBbWidth() / 2 + target.getBbWidth() / 2);
         look(entity, target);
         int count = 0;
         if (entity.isPassenger()) {
@@ -149,7 +149,7 @@ final class Yaoshou028Behavior {
                 double damage = data.getDouble("attack_Num");
                 if (entity.hasEffect(MobEffects.WEAKNESS)) damage -= (entity.getEffect(MobEffects.WEAKNESS).getAmplifier() + 1) * 4;
                 if (entity.hasEffect(MobEffects.DAMAGE_BOOST)) damage += (entity.getEffect(MobEffects.DAMAGE_BOOST).getAmplifier() + 1) * 3;
-                victim.hurt(entity.damageSources().source(DamageTypes.PLAYER_ATTACK, entity), (float) Math.max(0.1, damage));
+                victim.hurt(entity.damageSources().source(DamageTypes.PLAYER_ATTACK, entity), (float) (damage <= 0 ? 0.1 : damage));
             }
             data.putString("jinengjinxing", "攻击");
         } else if (phase.equals("攻击") && data.getDouble("entitytick") >= 10) {
