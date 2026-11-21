@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.yvanchuxiuzhen.platform.ModId;
 
-/** 四种可重复采摘食材的来源编号；各阶段身份和物理属性仍取自独立内容行。 */
+/** 谷物族的编号、阶段链、种源、成熟产物和采收后回退阶段。 */
 enum GrainCrop {
     SHICAI_007("007"),
     SHICAI_025("025"),
@@ -33,18 +33,24 @@ enum GrainCrop {
         };
     }
 
+    int resetStage() {
+        return 5;
+    }
+
     ItemStack seed() {
-        return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE,
-                "shicai_" + number + "01")));
+        return item("shicai_" + number + "01");
     }
 
     ItemStack produce() {
-        return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE,
-                "shicai_" + number)));
+        return item("shicai_" + number);
     }
 
     ItemStack drop(boolean mature) {
         if (!mature || this == SHICAI_007) return seed();
         return produce().copyWithCount(2);
+    }
+
+    private static ItemStack item(String path) {
+        return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, path)));
     }
 }

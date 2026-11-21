@@ -1,6 +1,5 @@
 package net.yvanchuxiuzhen.system.plant;
 
-import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -35,8 +34,8 @@ public final class GrainMatureBlock extends GrainBlock {
     }
 
     private void harvest(Level level, BlockPos pos) {
-        level.setBlock(pos, crop.block(5).defaultBlockState(), Block.UPDATE_ALL);
-        for (int index = 0; index < new Random().nextInt(3) + 1; index++) {
+        level.setBlock(pos, crop.block(crop.resetStage()).defaultBlockState(), Block.UPDATE_ALL);
+        for (int index = 0; index < level.random.nextInt(3) + 1; index++) {
             if (!level.isClientSide) {
                 ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5,
                         pos.getZ() + 0.5, crop.produce());

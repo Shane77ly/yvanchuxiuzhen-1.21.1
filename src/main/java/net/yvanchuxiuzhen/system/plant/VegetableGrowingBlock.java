@@ -13,10 +13,10 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentFlower;
 
-/** 蔬菜01–03阶段共用随机刻、计划刻和50%骨粉入口，编号及阶段决定实际规则。 */
+/** 蔬菜族未成熟阶段共用随机刻、计划刻、骨粉和种源回退掉落。 */
 public class VegetableGrowingBlock extends ContentFlower implements BonemealableBlock {
-    private final VegetableCrop crop;
-    private final int stage;
+    protected final VegetableCrop crop;
+    protected final int stage;
 
     public VegetableGrowingBlock(BlockTraits traits, VegetableCrop crop, int stage) {
         super(traits);
@@ -26,28 +26,28 @@ public class VegetableGrowingBlock extends ContentFlower implements Bonemealable
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        VegetableGrowth.grow(crop, stage, state, level, pos);
+        VegetableGrowth.tick(crop, stage, level, pos, random);
     }
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         super.tick(state, level, pos, random);
-        VegetableGrowth.grow(crop, stage, state, level, pos);
+        VegetableGrowth.tick(crop, stage, level, pos, random);
     }
 
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-        return true;
+        return stage < 4;
     }
 
     @Override
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
-        return Math.random() < 0.5;
+        return stage < 4 && random.nextFloat() < 0.5F;
     }
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        VegetableGrowth.bonemeal(crop, stage, level, pos, state);
+        VegetableGrowth.bonemeal(crop, stage, level, pos, state, random);
     }
 
     @Override
