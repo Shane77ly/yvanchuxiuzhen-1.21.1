@@ -594,6 +594,7 @@ final class SmokeRun {
                     case "hotoil" -> List.of(new HotOilCheck(report, levelId, this::shot));
                     case "willowdrooping" -> List.of(new WillowDroopingCheck(report, levelId));
                     case "corpsegrass" -> List.of(new CorpseGrassCheck(report, levelId));
+                    case "cerealharvest" -> List.of(new FuluCookingCheck(report, levelId));
                     case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
                     case "naturalsilkchain" -> List.of(new NaturalSilkChainCheck(report, levelId));
                     case "fuluripening" -> List.of(new FuluRipeningCheck(report, levelId));
