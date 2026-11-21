@@ -28,6 +28,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
 import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -142,12 +143,35 @@ final class EquipmentConsumersCheck extends ActionCheck {
         use(player);
         expectTrue("他人已认主法宝保留原主人和精血", data(instrument).getString("belongToMasterUUID").equals("another-instrument-owner")
                 && player.getMainHandItem().getCount() == 1);
+        upgradedBinding(player, instrument);
         player.setGameMode(GameType.CREATIVE);
         player.setItemInHand(InteractionHand.OFF_HAND, item("fabao_001"));
         use(player);
         expectTrue("创造原生使用精血保留数量且fabao标签同样认主", player.getMainHandItem().getCount() == 1
                 && data(player.getOffhandItem()).getString("belongToMasterUUID").equals(player.getStringUUID()));
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+    }
+
+    private void upgradedBinding(ServerPlayer player, ItemStack foreign) {
+        CompoundTag recipe = new CompoundTag();
+        recipe.putString("fabaoid", "yvanchuxiuzhen:weaponsword_01");
+        recipe.putString("fabaotype", "武器");
+        CompoundTag materials = new CompoundTag();
+        ItemStack upgraded = Equipment.createRefinedProduct(player.registryAccess(), recipe, materials, foreign);
+        player.setItemInHand(InteractionHand.OFF_HAND, upgraded);
+        use(player);
+        expectTrue("升级件拒绝改认且不扣精血", Equipment.ownerId(upgraded).equals("another-instrument-owner")
+                && player.getMainHandItem().getCount() == 1 && data(upgraded).getString("belongToMasterUUID").isEmpty());
+
+        ItemStack unowned = Equipment.createRefinedProduct(player.registryAccess(), recipe, materials, item("weaponsword_01"));
+        player.setItemInHand(InteractionHand.OFF_HAND, unowned);
+        use(player);
+        expectTrue("无主升级件仍可正常认主", Equipment.ownerId(unowned).equals(player.getStringUUID())
+                && player.getMainHandItem().isEmpty());
+        ItemStack next = Equipment.createRefinedProduct(player.registryAccess(), recipe, materials, unowned);
+        ItemStack restored = ItemStack.parse(player.registryAccess(), next.save(player.registryAccess())).orElseThrow();
+        expect("再升级并读档后保留新主人", player.getStringUUID(), Equipment.ownerId(restored));
+        player.setItemInHand(InteractionHand.MAIN_HAND, blood(player.getStringUUID()));
     }
 
     private void fire(ServerPlayer player, ItemStack firstTickTool) {

@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.smoke;
 
 import java.util.List;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -62,11 +63,16 @@ final class BenmingCultivationCheck extends SystemCheck {
                 expectAttacks(player, "首次培养增加精神攻击", 2, 5, 200, 500);
                 expect("培养后修复一点耐久", 9, Cultivation.benming(player).getDamageValue());
                 expectTrue("首次升级切换为下次法攻", Cultivation.tizhiBoolean(player, "benmingfabaojioupanduan"));
-                expect("升级进度提交丹田显示", new BenmingProgress(true, 1, 5, 4000), Cultivation.benmingProgress(player));
+                expect("无主器物照常培养但不显示本人认主标记", new BenmingProgress(false, 1, 5, 4000), Cultivation.benmingProgress(player));
+
+                ItemStack bound = Cultivation.benming(player);
+                CustomData.update(DataComponents.CUSTOM_DATA, bound, tag -> tag.putString("belongToMasterUUID", player.getStringUUID()));
+                Cultivation.setBenming(player, bound);
 
                 seed(player, new BenmingData(1, 3995, 4000));
                 pulse(player, 21);
                 expect("第二次升级重算6000上限", new BenmingData(2, 5, 6000), progress(player));
+                expect("本人器物显示认主标记及实际进度", new BenmingProgress(true, 2, 5, 6000), Cultivation.benmingProgress(player));
                 expectAttacks(player, "第二次培养交替增加法术攻击", 3, 5, 300, 500);
                 expectTrue("第二次升级切回下次精神攻击", !Cultivation.tizhiBoolean(player, "benmingfabaojioupanduan"));
 

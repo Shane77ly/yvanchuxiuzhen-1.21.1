@@ -326,7 +326,7 @@ public final class EquipmentRefining {
     private static void copyBenming(ItemStack previous, ItemStack stack, Map<String, Value> root) {
         EquipmentProperties properties = Equipment.properties(previous);
         CompoundTag old = previous.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        for (String key : List.of("belongToMasterUUID", "benminglevel", "benmingexpmax", "benmingexp")) {
+        for (String key : List.of("benminglevel", "benmingexpmax", "benmingexp")) {
             Value value = properties.fields().get(key);
             if (value != null) {
                 if (value.kind() == EquipmentProperties.Kind.STRING) old.putString(key, value.text());
@@ -338,7 +338,7 @@ public final class EquipmentRefining {
         int level = progress == null ? old.getInt("benminglevel") : progress.level();
         int experience = progress == null ? old.getInt("benmingexp") : Mth.floor(progress.experience());
         int maximum = progress == null ? old.getInt("benmingexpmax") : Mth.floor(progress.experienceMax());
-        root.put("belongToMasterUUID", Value.text(old.getString("belongToMasterUUID")));
+        root.put("belongToMasterUUID", Value.text(Equipment.ownerId(previous)));
         root.put("benminglevel", Value.integer(level));
         root.put("benmingexpmax", Value.integer(maximum));
         root.put("benmingexp", Value.integer(experience));

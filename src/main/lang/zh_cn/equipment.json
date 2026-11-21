@@ -1,4 +1,8 @@
 {
+  "tooltip.yvanchuxiuzhen.bond.unowned": "无主之物，可滴血认主",
+  "tooltip.yvanchuxiuzhen.bond.owned": "此物已认您为主",
+  "tooltip.yvanchuxiuzhen.bond.progress": "本命法宝等级:§b%1$s§f(§b%2$s§f/§b%3$s§f)",
+  "tooltip.yvanchuxiuzhen.bond.foreign": "您不是此物之主，无法发挥其全部威能！",
   "tooltip.yvanchuxiuzhen.gourd.ordinary": "普通火焰：%s",
   "tooltip.yvanchuxiuzhen.gourd.graded": "%1$s级火焰：%2$s",
   "item.yvanchuxiuzhen.weaponsword_01": "精铁剑",

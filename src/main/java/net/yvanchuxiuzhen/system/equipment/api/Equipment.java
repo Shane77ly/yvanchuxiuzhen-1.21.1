@@ -76,6 +76,13 @@ public final class Equipment {
         return stack.getOrDefault(EquipmentData.PROPERTIES.get(), EquipmentProperties.EMPTY);
     }
 
+    /** 炉次保留的非空主人优先；未认主的升级件仍可在出炉后通过精血写入主人。 */
+    public static String ownerId(ItemStack stack) {
+        String retained = properties(stack).text("belongToMasterUUID");
+        return retained.isEmpty() ? stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
+                .copyTag().getString("belongToMasterUUID") : retained;
+    }
+
     /** 通用编辑器修改来源根字段时，由装备所有者同步根字段投影与两项本命经验组件。 */
     public static void updateRootField(ItemStack stack, String key, Tag value) {
         CompoundTag root = new CompoundTag();
