@@ -20,6 +20,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Cow;
@@ -36,6 +37,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.panel.PanelNavigation;
 import net.yvanchuxiuzhen.platform.ModId;
@@ -51,6 +53,7 @@ import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.skill.client.SkillLoadoutScreen;
 import net.yvanchuxiuzhen.system.skill.client.SkillScreen;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
+import net.yvanchuxiuzhen.system.world.portal.DimensionPortalSpec;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -77,6 +80,13 @@ final class RenjianFirstSpellCheck {
     private final Consumer<EntityJoinLevelEvent> join = this::joined;
     private final Consumer<ProjectileImpactEvent> impact = this::impacted;
     private final Consumer<LivingDamageEvent.Post> damage = this::damaged;
+    private final Consumer<LivingDeathEvent> death = this::died;
+    private Cow killTarget;
+    private SkillProjectile finalShot;
+    private long impactTick = -1;
+    private boolean survivedArrow;
+    private int deaths;
+    private double meritsBefore, vigorousBefore, experienceBefore, expectedExperience;
     private ServerPlayer shooter;
     private int selectedSlot;
     private int uses;
@@ -208,6 +218,35 @@ final class RenjianFirstSpellCheck {
                         && cow.getHealth() < cow.getMaxHealth())) return await(local, "客户端未收到指定命中实体的损血");
                 host.expectTrue("本人同步了指定实体的损血", !damagedIds.isEmpty());
                 screenshots.take(shotPrefix + "_gold_after_cast.png");
+                if ("renjianfirstspell".equals(System.getProperty("yvanchuxiuzhen.smoke.only"))) {
+                    host.onServer(player -> PlayerAttributes.clearContribution(player, RECOVERY_CONTROL));
+                    break;
+                }
+                detach();
+                host.finish();
+            }
+            case 16 -> {
+                if (!readyToShoot() || Skills.cooldown(minecraft.player, SkillElement.GOLD) > 0 || power(minecraft.player) < cost)
+                    return await(local, "收尾施放的木剑、朝向、自然冷却或灵力未就绪");
+                host.onServer(this::prepareKill);
+                use();
+            }
+            case 17 -> {
+                boolean[] observed = {false};
+                host.onServer(player -> {
+                    if (completedUses < 3 || player.tickCount < armedAt + 12) return;
+                    host.expect("收尾只增加一次原生右键", 3, uses);
+                    host.expect("收尾只增加一枚本人金芒", 2, spawned);
+                    host.expectTrue("收尾牛被本次金芒命中并扛过箭伤", impactTick >= 0 && survivedArrow);
+                    host.expect("同一头牛死亡一次（当前生命 " + killTarget.getHealth() + "）", 1, deaths);
+                    if (deaths != 1 || killTarget.isAlive()) throw new IllegalStateException("收尾未形成目标死亡，不进入吸收检查");
+                    observed[0] = true;
+                });
+                if (!observed[0]) return await(local, "未收到收尾右键或弹体寿命窗口未结束");
+            }
+            case 18 -> {
+                if (!absorbed(minecraft.player)) return await(local, "未收到金芒击杀后的正常吸收、功德或罡煞同步");
+                host.onServer(player -> host.expectTrue("服务端正常吸收且与本人收益一致", absorbed(player)));
                 detach();
                 host.finish();
             }
@@ -290,6 +329,35 @@ final class RenjianFirstSpellCheck {
         NeoForge.EVENT_BUS.addListener(join);
         NeoForge.EVENT_BUS.addListener(impact);
         NeoForge.EVENT_BUS.addListener(damage);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, death);
+    }
+
+    private void prepareKill(ServerPlayer player) {
+        if (!player.level().dimension().equals(DimensionPortalSpec.RENJIAN.dimension()) || !owned(player, Skills.selected(player)))
+            throw new IllegalStateException("收尾需要同一人间道玩家仍选中本人金芒术");
+        targets.forEach(Cow::discard);
+        killTarget = EntityType.COW.create(player.serverLevel());
+        if (killTarget == null) throw new IllegalStateException("无法创建收尾普通牛");
+        killTarget.setNoAi(true);
+        killTarget.moveTo(8.5, 180, 4.5, 0, 0);
+        // 保留原生生命上限；1 点箭伤不能单独致死，剩余生命由真实法伤结算。
+        killTarget.setHealth(1.25F);
+        if (!player.serverLevel().addFreshEntity(killTarget)) throw new IllegalStateException("收尾普通牛未加入场地");
+        host.expect("普通牛实际生命上限", 10, killTarget.getMaxHealth());
+        host.expect("普通牛层数", 0, killTarget.getPersistentData().getDouble("LEVELnumber"));
+        host.expect("收尾前待吸收为零", 0, Cultivation.get(player, CultivationValue.EXPERIENCE_STAND));
+        meritsBefore = Cultivation.get(player, CultivationValue.MERITS);
+        vigorousBefore = Cultivation.get(player, CultivationValue.VIGOROUS);
+        experienceBefore = Cultivation.get(player, CultivationValue.EXPERIENCE);
+        expectedExperience = experienceBefore + 2 * Cultivation.get(player, CultivationValue.EXPERIENCE_RATE);
+        host.expectTrue("收尾时修为效率为正", expectedExperience > experienceBefore);
+    }
+
+    private boolean absorbed(Player player) {
+        return Math.abs(Cultivation.get(player, CultivationValue.EXPERIENCE) - expectedExperience) < 1e-6
+                && Cultivation.get(player, CultivationValue.EXPERIENCE_STAND) == 0
+                && Cultivation.get(player, CultivationValue.MERITS) == meritsBefore - 1
+                && Cultivation.get(player, CultivationValue.VIGOROUS) == vigorousBefore;
     }
 
     private static double expectedCost(ServerPlayer player) {
@@ -322,10 +390,15 @@ final class RenjianFirstSpellCheck {
     }
 
     private void joined(EntityJoinLevelEvent event) {
-        if (event.getEntity() instanceof SkillProjectile shot && ownShot(shot)) spawned++;
+        if (event.getEntity() instanceof SkillProjectile shot && ownShot(shot)) {
+            spawned++;
+            if (killTarget != null) finalShot = shot;
+        }
     }
 
     private void impacted(ProjectileImpactEvent event) {
+        if (finalShot != null && event.getProjectile() == finalShot && event.getRayTraceResult() instanceof EntityHitResult hit
+                && hit.getEntity() == killTarget) impactTick = shooter.level().getGameTime();
         if (event.getProjectile() instanceof SkillProjectile shot && ownShot(shot)
                 && event.getRayTraceResult() instanceof EntityHitResult hit && hit.getEntity() instanceof Cow cow && targets.contains(cow)) {
             impacted.add(cow);
@@ -333,8 +406,22 @@ final class RenjianFirstSpellCheck {
     }
 
     private void damaged(LivingDamageEvent.Post event) {
+        if (event.getEntity() == killTarget && event.getSource().is(DamageTypes.ARROW) && event.getSource().getDirectEntity() == finalShot
+                && event.getSource().getEntity() == shooter && event.getNewDamage() > 0) survivedArrow = killTarget.isAlive();
         if (event.getEntity() instanceof Cow cow && targets.contains(cow) && event.getSource().is(SPELL_DAMAGE)
                 && event.getSource().getEntity() == shooter && event.getNewDamage() > 0) damaged.add(cow);
+    }
+
+    private void died(LivingDeathEvent event) {
+        if (event.getEntity() != killTarget) return;
+        deaths++;
+        host.expectTrue("收尾牛在金芒命中同刻由本人法伤致死，实际来源=" + event.getSource().getMsgId(),
+                survivedArrow && impactTick == shooter.level().getGameTime() && event.getSource().is(SPELL_DAMAGE)
+                        && event.getSource().getEntity() == shooter);
+        host.expect("死亡当刻待吸收修为只增加一头普通牛的收益", 2, Cultivation.get(shooter, CultivationValue.EXPERIENCE_STAND));
+        host.expect("死亡当刻仍未吸收", experienceBefore, Cultivation.get(shooter, CultivationValue.EXPERIENCE));
+        host.expect("死亡当刻功德减一", meritsBefore - 1, Cultivation.get(shooter, CultivationValue.MERITS));
+        host.expect("练气一层击杀无层数牛不扣罡煞", vigorousBefore, Cultivation.get(shooter, CultivationValue.VIGOROUS));
     }
 
     private boolean ownShot(SkillProjectile shot) {
@@ -348,6 +435,7 @@ final class RenjianFirstSpellCheck {
         NeoForge.EVENT_BUS.unregister(join);
         NeoForge.EVENT_BUS.unregister(impact);
         NeoForge.EVENT_BUS.unregister(damage);
+        NeoForge.EVENT_BUS.unregister(death);
         observing = false;
         host.onServer(player -> PlayerAttributes.clearContribution(player, RECOVERY_CONTROL));
     }
