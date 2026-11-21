@@ -345,6 +345,14 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 ## 飞行法器（2026-11-08）
 
+### 主手投放后的取回与死亡
+
+八种物品的普通右键进入同一个召唤过程。1.18.2 版本 `Flyinginstrument0101DangYouJianDianJiKongQiShiShiTiDeWeiZhi` 在两个生成分支都把原件以数量1放入实体物品能力槽0；`Flyinginstrument01DangYouJianDianJiShiTi` 从此槽复制再覆写当前生命、储灵等八项飞行字段。1.21.1 版本以原生主手装备槽保存对应原件。补丁前已经投放、主手为空但保有本类法器 ID 的实体仍可按已存字段取回；未曾保存的名称、附魔无法追补。
+
+死亡不是取回：`Flyinginstrument01DangShiTiBeiShaSiShi` 按实体类型新建物品，不带原件改名和额外组件；保留储灵，生命写1，出现在实体上方一格，延迟10刻拾取。再次召唤从1点生命开始。本条只描述过程自己的掉落，不改变原生装备掉落判定。
+
+九档灵石由主手选定种类，未满时按库存顺序扣除第一份同类，不以组件或是否在主手匹配。补能后先报实际储量，超限再提示补完并截至上限；已满仍报储量且不扣料。此处只对齐补能消费，不改变骑乘飞行费率。
+
 ### 来源行为与目标实现
 
 按 1.18.2 版本 `FlyingitemnbtshezhiProcedure`、`Flyinginstrument0101DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`、`Flyinginstrument01DangYouJianDianJiShiTiProcedure`、`Flyinginstrument01DangShiTiGengXinKeShiProcedure` 与 `Flyinginstrument01DangShiTiBeiShaSiShiProcedure` 逐行接回 8 个飞行法器。物品首次右键写入 `flyitemID`、`flyname`、`flyentityID`、`health_Max`、`health`、`power_Max`、`power`、`speed_num`，召唤对应实体、复制玩家关系、设置生命并清空手持槽；已有字段的物品保留当前生命和灵力。

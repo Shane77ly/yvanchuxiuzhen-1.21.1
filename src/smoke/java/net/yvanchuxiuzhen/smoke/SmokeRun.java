@@ -481,6 +481,7 @@ final class SmokeRun {
                     case "demon" -> List.of(new DemonTransformationCheck(report, levelId, this::shot));
                     case "equipmentproduct" -> List.of(new EquipmentProductCheck(report, levelId, this::shot));
                     case "equipmentconsumers" -> List.of(new EquipmentConsumersCheck(report, levelId, this::shot));
+                    case "flyinginstrumentdeath" -> List.of(new FlyingInstrumentDeathCheck(report, levelId));
                     case "benmingcultivation" -> List.of(new BenmingCultivationCheck(report, levelId));
                     case "accessories" -> List.of(new AccessoryCheck(report, levelId, this::shot));
                     case "storage" -> List.of(new StorageCheck(report, levelId, this::shot));
