@@ -1,4 +1,8 @@
 {
+  "tooltip.yvanchuxiuzhen.bond.unowned": "Unbound. Use a drop of your blood to claim it.",
+  "tooltip.yvanchuxiuzhen.bond.owned": "This item is bound to you.",
+  "tooltip.yvanchuxiuzhen.bond.progress": "Bound artifact level: §b%1$s§f (§b%2$s§f/§b%3$s§f)",
+  "tooltip.yvanchuxiuzhen.bond.foreign": "This item is bound to someone else. You cannot wield its full power!",
   "tooltip.yvanchuxiuzhen.gourd.ordinary": "Ordinary fire: %s",
   "tooltip.yvanchuxiuzhen.gourd.graded": "Level %1$s fire: %2$s",
   "item.yvanchuxiuzhen.weaponsword_01": "Weaponsword 0 1",

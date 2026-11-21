@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.equipment.content;
 import java.util.List;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,6 +16,7 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -55,14 +55,13 @@ public final class JingxveItem extends ContentItem {
             message(player, "blood_owner");
             return;
         }
-        CompoundTag data = instrument.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        if (!data.getString("belongToMasterUUID").isEmpty()) {
+        if (!Equipment.ownerId(instrument).isEmpty()) {
             // 来源在已认主分支重复检查精血主人，因此任意已有主人均使用此提示。
             message(player, "owned");
             return;
         }
-        data.putString("belongToMasterUUID", player.getStringUUID());
-        instrument.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        CustomData.update(DataComponents.CUSTOM_DATA, instrument,
+                data -> data.putString("belongToMasterUUID", player.getStringUUID()));
         message(player, "success");
         // 1.18.2 原生创造使用恢复当前手数量；来源过程只扣主手，恢复范围不含另一只手。
         if (hand != InteractionHand.MAIN_HAND || !player.getAbilities().instabuild) {
