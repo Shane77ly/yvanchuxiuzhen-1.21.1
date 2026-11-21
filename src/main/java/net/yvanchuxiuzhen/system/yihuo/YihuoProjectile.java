@@ -3,6 +3,9 @@ package net.yvanchuxiuzhen.system.yihuo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -32,6 +35,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 
 /** 异火材料投掷物：无重力飞行八刻，命中实体灼烧，命中方块放置或补充火块。 */
 public final class YihuoProjectile extends AbstractArrow implements ItemSupplier {
+    private static final EntityDataAccessor<Byte> PIERCE = SynchedEntityData.defineId(YihuoProjectile.class, EntityDataSerializers.BYTE);
     private static final TagKey<Block> FIRE = TagKey.create(Registries.BLOCK,
             ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "blockfire"));
     private final int material;
@@ -43,6 +47,21 @@ public final class YihuoProjectile extends AbstractArrow implements ItemSupplier
         setCritArrow(false);
         setBaseDamage(0.1);
         setSilent(true);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(PIERCE, (byte) 0);
+    }
+
+    public void setGourdPiercing() {
+        entityData.set(PIERCE, (byte) 2);
+    }
+
+    @Override
+    public byte getPierceLevel() {
+        return entityData.get(PIERCE);
     }
 
     @Override
@@ -69,6 +88,7 @@ public final class YihuoProjectile extends AbstractArrow implements ItemSupplier
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
+        entityData.set(PIERCE, tag.getByte("PierceLevel"));
         flyTicks = tag.getInt("yihuoFlyTicks");
     }
 
@@ -105,6 +125,7 @@ public final class YihuoProjectile extends AbstractArrow implements ItemSupplier
     @Override
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
+        entityData.set(PIERCE, (byte) 0);
         if (level() instanceof ServerLevel server && getOwner() != null) {
             hitBlock(server, result.getBlockPos(), getOwner());
         }
