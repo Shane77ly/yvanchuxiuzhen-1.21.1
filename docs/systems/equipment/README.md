@@ -27,6 +27,8 @@ updated: 2026-11-15
 
 03页临时队伍显示和退出已接，Relation独占能力队名写入，原生K导航与真实按钮消息等必要单项通过；来源无建立/加入及超宽布局Q123/Q124见[关系正文](../relation/architecture.md#临时队伍03页与退出2026-11-14)，不代表默认窗口鼠标可达或多人组队已验。
 
+精炼与合成锭的[铁砧修理](architecture.md#金属锭的铁砧消费)已验证30种装备的材料资格，其中六种工具验证到取出和扣料。
+
 ## 公开操作
 
 轮回可调用 `Equipment.clearReincarnationAccessories` 清除四饰品槽，并在库存清理后用 `refreshContributions` 更新器物贡献。

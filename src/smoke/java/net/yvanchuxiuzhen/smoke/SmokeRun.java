@@ -627,6 +627,7 @@ final class SmokeRun {
                     case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
                     case "naturalsilkchain" -> List.of(new NaturalSilkChainCheck(report, levelId));
                     case NaturalMetalChainCheck.SELECTOR -> List.of(new NaturalMetalChainCheck(report, levelId));
+                    case "metalrepair" -> List.of(new MetalRepairCheck(report, levelId));
                     case "silksurvival" -> List.of(new SilkSurvivalCheck(report, levelId));
                     case "silksurvivalreentry" -> List.of(new SilkSurvivalReentryCheck(report, levelId));
                     case "fuluripening" -> List.of(new FuluRipeningCheck(report, levelId));
