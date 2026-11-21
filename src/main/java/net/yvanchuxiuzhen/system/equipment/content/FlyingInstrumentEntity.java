@@ -25,6 +25,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.Item;
@@ -97,6 +98,8 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
         data.putDouble("power", item.getDouble("power"));
         data.putDouble("speed_num", item.getDouble("speed_num"));
         data.putBoolean("flying", false);
+        // 来源无方向物品能力的0号槽为原生主手，完整原物品随实体装备槽保存。
+        setItemInHand(InteractionHand.MAIN_HAND, stack.copyWithCount(1));
         Relations.copyAllegiance(owner, this);
         getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
         setHealth((float) (data.getDouble("health") > 0 ? data.getDouble("health") : data.getDouble("health_Max")));
@@ -207,13 +210,19 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
             double power = data.getDouble("power");
             double maximum = data.getDouble("power_Max");
             if (power < maximum) {
+                player.serverLevel().sendParticles(ParticleTypes.CLOUD, getX(), getY(), getZ(), 10, 1, 1, 1, .05);
                 int amount = materialPower(held);
                 if (amount > 0) {
-                    data.putDouble("power", Math.min(maximum, power + amount));
-                    held.shrink(1);
-                    player.displayClientMessage(Component.literal("飞行法器储存的灵力：" + new DecimalFormat("0").format(data.getDouble("power"))
-                            + "/" + new DecimalFormat("0").format(maximum)), false);
+                    data.putDouble("power", power + amount);
+                    Item ingredient = held.getItem();
+                    player.getInventory().clearOrCountMatchingItems(stack -> stack.is(ingredient), 1, player.inventoryMenu.getCraftSlots());
                 }
+            }
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.flyinginstrument.power",
+                    new DecimalFormat("0").format(data.getDouble("power")), new DecimalFormat("0").format(maximum)), false);
+            if (data.getDouble("power") > maximum) {
+                player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.flyinginstrument.full"), false);
+                data.putDouble("power", maximum);
             }
         } else if (isItem(held, "hammer")) {
             if (getHealth() < getMaxHealth()) {
@@ -246,18 +255,23 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
     }
 
     private ItemStack itemStack() {
+        ItemStack original = getMainHandItem().copyWithCount(1);
+        // 此前已投放的法器只保存物品 ID 和飞行字段，没有保存装备槽。
+        if (original.isEmpty() && getPersistentData().getString("flyitemID").equals(ModId.VALUE + ":" + definition.itemId())) {
+            original = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, definition.itemId())));
+        }
+        return itemStack(original, getHealth());
+    }
+
+    private ItemStack itemStack(ItemStack stack, double health) {
+        if (stack.isEmpty()) return stack;
         CompoundTag data = getPersistentData();
-        ResourceLocation id = ResourceLocation.tryParse(data.getString("flyitemID"));
-        if (id == null) return ItemStack.EMPTY;
-        Item item = BuiltInRegistries.ITEM.get(id);
-        if (item == null || item == BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("minecraft", "air"))) return ItemStack.EMPTY;
-        ItemStack stack = new ItemStack(item);
-        CompoundTag itemData = new CompoundTag();
+        CompoundTag itemData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         itemData.putString("flyitemID", data.getString("flyitemID"));
         itemData.putString("flyentityID", data.getString("flyentityID"));
         itemData.putString("flyname", data.getString("flyname"));
         itemData.putDouble("health_Max", data.getDouble("health_Max"));
-        itemData.putDouble("health", getHealth());
+        itemData.putDouble("health", health);
         itemData.putDouble("power_Max", data.getDouble("power_Max"));
         itemData.putDouble("power", data.getDouble("power"));
         itemData.putDouble("speed_num", data.getDouble("speed_num"));
@@ -302,8 +316,13 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
     public void die(DamageSource source) {
         super.die(source);
         if (!level().isClientSide()) {
-            ItemStack drop = itemStack();
-            if (!drop.isEmpty()) level().addFreshEntity(new net.minecraft.world.entity.item.ItemEntity(level(), getX(), getY() + 1, getZ(), drop));
+            Item instrument = BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, definition.itemId()));
+            ItemStack drop = itemStack(new ItemStack(instrument), 1);
+            if (!drop.isEmpty()) {
+                ItemEntity item = new ItemEntity(level(), getX(), getY() + 1, getZ(), drop);
+                item.setPickUpDelay(10);
+                level().addFreshEntity(item);
+            }
         }
     }
 
