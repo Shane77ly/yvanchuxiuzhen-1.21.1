@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.yvanchuxiuzhen.platform.ModId;
 
-/** 蔬菜族的编号、种源、阶段掉落和成熟右键采收产物。 */
+/** 蔬菜族的编号、种源与各阶段的固定破坏掉落。 */
 enum VegetableCrop {
     SHICAI_011("011", "shicai_01101"),
     SHICAI_012("012", "shicai_01201"),
@@ -37,13 +37,6 @@ enum VegetableCrop {
             };
         }
         return item(stage == 4 ? "shicai_" + number : plantingItem);
-    }
-
-    ItemStack harvestDrop(int stage) {
-        if (this == SHICAI_016 && stage >= 3) {
-            return item("shicai_016");
-        }
-        return fixedDrop(4);
     }
 
     static ItemStack item(String path) {
