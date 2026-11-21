@@ -289,11 +289,17 @@ final class FuluCookingCheck extends ActionCheck {
     private long utensilsCutStarted;
     private boolean utensilsSpectatorBowl;
 
-    private final boolean cerealOnly;
+    enum Harvest { CEREAL, VEGETABLE }
 
-    FuluCookingCheck(List<String> report, String levelId) {
-        super("cerealharvest", report, levelId);
-        cerealOnly = true;
+    private final boolean harvestOnly;
+
+    FuluCookingCheck(List<String> report, String levelId, Harvest harvest) {
+        super(harvest == Harvest.VEGETABLE ? "vegetableharvest" : "cerealharvest", report, levelId);
+        harvestOnly = true;
+        if (harvest == Harvest.VEGETABLE) {
+            script(new Action(1, this::prepareRice), new Action(1, this::checkVegetableHarvest));
+            return;
+        }
         script(new Action(1, this::prepareRice), new Action(1, player -> {
             checkMatureCerealHarvest(player, "001", item("shicai_001seed", 6));
             checkMatureCerealHarvest(player, "002", item("shicai_002seed", 6));
@@ -305,7 +311,7 @@ final class FuluCookingCheck extends ActionCheck {
 
     FuluCookingCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("fulucooking", report, levelId);
-        cerealOnly = false;
+        harvestOnly = false;
         script(
                 new Action(4, p -> {
                     naturalRegeneration = p.serverLevel().getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION);
@@ -2742,6 +2748,65 @@ final class FuluCookingCheck extends ActionCheck {
         }
     }
 
+    /** 每次独立放置待采植株，同刻记录服务端生成的实体，避免后续生长、拾取和合堆改变结果。 */
+    private void checkVegetableHarvest(ServerPlayer player) {
+        var level = player.serverLevel();
+        for (String number : List.of("011", "012", "013", "014", "015")) {
+            String id = "shicai_" + number;
+            BlockState mature = block(id + "_plant_04");
+            for (ItemStack hand : List.of(ItemStack.EMPTY, new ItemStack(Items.STICK))) {
+                placeHarvestSample(player, mature, hand);
+                riceUse(player, ricePos);
+                expectTrue(number + (hand.isEmpty() ? "空手" : "持木棍") + "右键不采收、不退阶段",
+                        level.getBlockState(ricePos).equals(mature) && riceDrops.isEmpty());
+            }
+            placeHarvestSample(player, mature, ItemStack.EMPTY);
+            boolean broken = player.gameMode.destroyBlock(ricePos);
+            boolean correct = switch (number) {
+                case "011" -> onlyVegetableDrop(id, 1);
+                case "015" -> onlyVegetableDrop("shicai_01502", 4);
+                default -> riceDrops.size() == 2 && riceDrops.stream().map(ItemEntity::getItem).allMatch(stack ->
+                        stack.is(item(id).getItem()) && stack.getCount() == 1 || stack.is(item(id + "01").getItem())
+                                && stack.getCount() <= 3 && stack.getCount() >= (number.equals("014") ? 1 : 3));
+            };
+            expectTrue(number + "生存破坏成熟蔬菜，实得" + riceDrops.stream().map(ItemEntity::getItem).toList(),
+                    broken && level.isEmptyBlock(ricePos) && correct);
+        }
+        for (int stage : List.of(3, 4)) {
+            BlockState chives = block("shicai_016_plant_0" + stage);
+            placeHarvestSample(player, chives, stage == 3 ? ItemStack.EMPTY : new ItemStack(Items.STICK));
+            InteractionResult used = riceUse(player, ricePos);
+            boolean picked = riceDrops.size() == stage - 2
+                    && riceDrops.stream().filter(drop -> drop.getItem().is(item("shicai_016").getItem())
+                            && drop.getItem().getCount() == 1).count() == 1
+                    && (stage == 3 || riceDrops.stream().anyMatch(drop -> drop.getItem().is(item("shicai_01602").getItem())
+                            && drop.getItem().getCount() == 1));
+            expectTrue("韭菜0" + stage + "采摘回02，实得" + riceDrops.stream().map(ItemEntity::getItem).toList(),
+                    used.consumesAction() && level.getBlockState(ricePos).equals(block("shicai_016_plant_02")) && picked);
+            placeHarvestSample(player, chives, ItemStack.EMPTY);
+            boolean broken = player.gameMode.destroyBlock(ricePos);
+            boolean correct = stage == 3 ? onlyVegetableDrop("shicai_01601", 1)
+                    : riceDrops.size() == 1 && riceDrops.stream().map(ItemEntity::getItem).allMatch(stack ->
+                            stack.is(item("shicai_01601").getItem()) && stack.getCount() >= 1 && stack.getCount() <= 3
+                            || stack.is(item("shicai_01602").getItem()) && stack.getCount() == 1
+                            || stack.is(item("shicai_016").getItem()) && stack.getCount() >= 1 && stack.getCount() <= 2);
+            expectTrue("韭菜0" + stage + "生存破坏，实得" + riceDrops.stream().map(ItemEntity::getItem).toList(),
+                    broken && level.isEmptyBlock(ricePos) && correct);
+        }
+    }
+
+    private void placeHarvestSample(ServerPlayer player, BlockState state, ItemStack hand) {
+        riceReset(player, Blocks.FARMLAND.defaultBlockState().setValue(BlockStateProperties.MOISTURE, 7));
+        player.serverLevel().setBlock(ricePos, state, Block.UPDATE_ALL);
+        riceHeld(player, hand);
+        riceClearDrops();
+    }
+
+    private boolean onlyVegetableDrop(String id, int count) {
+        return riceDrops.size() == 1 && riceDrops.getFirst().getItem().is(item(id).getItem())
+                && riceDrops.getFirst().getItem().getCount() == count;
+    }
+
     /** 果树检查只使用已保存的小场地；不在此范围触发完整模板生长。 */
     private void checkFruitTrees(ServerPlayer player) {
         riceHeld(player, ItemStack.EMPTY);
@@ -3501,7 +3566,7 @@ final class FuluCookingCheck extends ActionCheck {
     @Override
     protected void cleanup(ServerPlayer player) {
         restoreRice(player);
-        if (cerealOnly) return;
+        if (harvestOnly) return;
         minecraft.execute(this::clearMealTooltipPreview);
         restoreUtensils(player);
         player.closeContainer();

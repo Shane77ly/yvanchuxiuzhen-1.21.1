@@ -13,7 +13,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentFlower;
 
-/** 蔬菜族未成熟阶段共用随机刻、计划刻、骨粉和种源回退掉落。 */
+/** 蔬菜生长阶段与开花韭菜共用骨粉入口；开花韭菜不再推进阶段。 */
 public class VegetableGrowingBlock extends ContentFlower implements BonemealableBlock {
     protected final VegetableCrop crop;
     protected final int stage;
@@ -37,12 +37,12 @@ public class VegetableGrowingBlock extends ContentFlower implements Bonemealable
 
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-        return stage < 4;
+        return true;
     }
 
     @Override
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
-        return stage < 4 && random.nextFloat() < 0.5F;
+        return Math.random() < 0.5;
     }
 
     @Override
