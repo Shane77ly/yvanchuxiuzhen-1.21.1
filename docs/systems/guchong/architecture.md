@@ -2,10 +2,18 @@
 topic: guchong
 role: architecture
 status: draft
-updated: 2026-11-18
+updated: 2026-11-21
 ---
 
 # 蛊虫：架构调查与提案
+
+## 手持罐放虫与死亡清槽
+
+1.18.2 版本来源 A：`item/Taoguan01itemItem.java:49`、`Taoguan02itemItem.java:49`、`Taoguan03itemItem.java:60` 的空气右键均调用 `procedures/Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java`。第 65–84 行逐槽先查非空实体 ID，再比当前玩家 UUID；只有非空他主槽显示拒绝。第 85–114 行沿用当前玩家队友关系，写罐 UUID 和原槽号，实体认主位置真、驯服给当前玩家并写槽内主人 UUID。第 146–162 行在生成分支外按获准槽计数。不同于蛊笛的 `procedures/GuchongAnniuzhixingProcedure.java:115`，后者读取槽内认主位。
+
+死亡消费者：`entity/Guchong04Entity.java:213` 调用 `procedures/Guchong01DangShiTiBeiShaSiShiProcedure.java`。第 32 行以实体认主位为门槛；非看家虫在第 91–158 行查同维主人背包，按罐 UUID 找第一只匹配罐，清原编号槽并扣计数，最后一只死亡才解锁。主人离线、跨维或其背包中没有该罐时，来源没有补偿查找，本改动不额外回收。
+
+1.21.1 版本集成 `3c2a8a63` 已有 `TaoguanItem.use` → `GuchongLifecycle.releaseOwnedJar` 和 `GuchongEntity.die` → `GuchongBehavior.died`。缺口在放出端：普通空槽也走主人拒绝；有主人残留的空槽可被误计数；有效槽的认主位若为假，原生主人虽已设置，死亡过程仍提前返回。修正手持入口，不放宽死亡门槛，不改变蛊笛读槽规则。
 
 按项目已批准的系统边界实施；来源事实、已实现范围和待验证范围分别登记。源码定位采用 [系统导航](../README.md)的 A/B 规则。
 

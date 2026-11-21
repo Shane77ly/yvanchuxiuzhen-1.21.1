@@ -303,8 +303,18 @@ final class GuchongLifecycleCheck extends SystemCheck {
     }
 
     private void releaseForReload(ServerPlayer player) {
+        ItemStack jar = player.getMainHandItem();
+        CompoundTag slots = GuchongJarData.read(jar);
+        slots.putString("belongToMasterUUID0", player.getStringUUID());
+        GuchongJarData.pack(ownedSpecimen, slots, 7, false);
+        slots.putString("belongToMasterUUID7", "00000000-0000-0000-0000-000000000001");
+        slots.putBoolean("guchongxvnfu8", false);
+        GuchongJarData.write(jar, slots);
         useJar(player);
         active = onlyInsect(player);
+        expectTrue("空槽和他主槽不计数，第九槽按主人放出并认主", GuchongJarData.read(player.getMainHandItem()).getDouble("shifangnum") == 1
+                && active.getPersistentData().getDouble("guguanweizhi") == 8 && active.getPersistentData().getBoolean("guchongxvnfu")
+                && active.getPersistentData().getString("belongToMasterUUID").equals(player.getStringUUID()) && active.isOwnedBy(player));
         specimens.add(active);
         anchor(active);
         active.moveTo(player.position());
@@ -327,11 +337,15 @@ final class GuchongLifecycleCheck extends SystemCheck {
         expectTrue("真实退出重进保留活动虫与背包罐及归属", active.isOwnedBy(player) && active.getHealth() == 6.5F
                 && active.getPersistentData().getDouble("experience") == 23.5 && active.getPersistentData().getString("guguanuuid").equals(JAR_UUID)
                 && GuchongJarData.read(saved).getBoolean("shifangguchong") && GuchongJarData.read(saved).getDouble("shifangnum") == 1);
+        CompoundTag beforeDeath = GuchongJarData.read(saved);
+        ItemStack otherBeforeDeath = player.getInventory().getItem(10).copy();
         active.hurt(player.damageSources().generic(), 10000);
         CompoundTag result = GuchongJarData.read(player.getInventory().getItem(9));
         expectTrue("非手持背包罐按UUID清死亡槽且不修改另一只罐", result.getString("guchongid8").isEmpty()
                 && result.getDouble("shifangnum") == 0 && !result.getBoolean("shifangguchong")
-                && ItemStack.isSameItemSameComponents(untouchedJar, player.getInventory().getItem(10)));
+                && !beforeDeath.getString("guchongid7").isEmpty() && result.getString("guchongid7").equals(beforeDeath.getString("guchongid7"))
+                && result.getString("belongToMasterUUID7").equals(beforeDeath.getString("belongToMasterUUID7"))
+                && ItemStack.isSameItemSameComponents(otherBeforeDeath, player.getInventory().getItem(10)));
     }
 
     private static void useJar(ServerPlayer player) {

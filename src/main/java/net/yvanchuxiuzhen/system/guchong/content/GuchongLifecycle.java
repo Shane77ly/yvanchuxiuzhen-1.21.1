@@ -47,7 +47,7 @@ public final class GuchongLifecycle {
     }
 
     /** 手持蛊罐或蛊笛释放：对应手持罐与 GuchongAnniuzhixing 的共同来源字段。 */
-    public static Entity releaseOwnedJar(ServerLevel level, Player owner, CompoundTag jar, int slot, double yOffset) {
+    public static Entity releaseOwnedJar(ServerLevel level, Player owner, CompoundTag jar, int slot, double yOffset, boolean tamed) {
         String suffix = Integer.toString(slot);
         Entity insect = GuchongJarRuntime.create(level, jar.getString("guchongid" + suffix));
         if (insect == null) return null;
@@ -72,7 +72,7 @@ public final class GuchongLifecycle {
         data.putDouble("experience_Max", jar.getDouble("experience_Max" + suffix));
         data.putDouble("experience", jar.getDouble("experience" + suffix));
         insect.setCustomName(Component.literal(jar.getString("guchongname" + suffix).replace("[", "").replace("]", "")));
-        data.putBoolean("guchongxvnfu", jar.getBoolean("guchongxvnfu" + suffix));
+        data.putBoolean("guchongxvnfu", tamed);
         if (insect instanceof TamableAnimal tamable) tamable.tame(owner);
         data.putString("belongToMasterUUID", jar.getString("belongToMasterUUID" + suffix));
         copyJarRatings(jar, suffix, data);

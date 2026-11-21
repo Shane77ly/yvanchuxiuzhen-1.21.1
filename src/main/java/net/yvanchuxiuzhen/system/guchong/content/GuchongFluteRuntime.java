@@ -102,7 +102,7 @@ public final class GuchongFluteRuntime {
     }
 
     private static void spawn(ServerLevel level, Player player, CompoundTag jar, int slot) {
-        GuchongLifecycle.releaseOwnedJar(level, player, jar, slot, 1);
+        GuchongLifecycle.releaseOwnedJar(level, player, jar, slot, 1, jar.getBoolean("guchongxvnfu" + slot));
     }
     private static List<Entity> nearby(ServerLevel level, Player player) {
         Vec3 center = player.position();
