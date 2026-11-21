@@ -112,6 +112,7 @@ final class SmokeRun {
     private final String replayLevelId = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
         case "renjianvisual" -> "renjian-visual";
         case "silksurvival", "silksurvivalreentry" -> SilkSurvivalReentryCheck.SAVE;
+        case NaturalMetalChainCheck.SELECTOR -> NaturalMetalChainCheck.SAVE;
         case "q119" -> QiankunDialogueCheck.SAVE_ID;
         case RenjianLocustNaturalCheck.SELECTOR -> RenjianLocustNaturalCheck.SAVE;
         case RenjianCapturedJarCheck.SELECTOR -> RenjianCapturedJarCheck.SAVE;
@@ -223,6 +224,13 @@ final class SmokeRun {
         if (minecraft.screen instanceof TitleScreen && minecraft.getOverlay() == null) {
             String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
             List<String> selectors = List.of(only.split(",", -1));
+            if (selectors.stream().map(String::strip).anyMatch(NaturalMetalChainCheck.SELECTOR::equals)
+                    && (!NaturalMetalChainCheck.SAVE.equals(replayLevelId)
+                    || !NaturalMetalChainCheck.ready(minecraft.gameDirectory.toPath()))) {
+                report.add("FAIL 精铁制箭须独立选择，并使用已核对指纹的一次性开发客户端副本");
+                finish();
+                return;
+            }
             if (selectors.stream().map(String::strip).anyMatch(id -> id.equals("silksurvival") || id.equals("silksurvivalreentry"))) {
                 Path gameDir = minecraft.gameDirectory.toPath().toAbsolutePath().normalize();
                 if (!SilkSurvivalReentryCheck.SAVE.equals(replayLevelId) || !gameDir.endsWith(Path.of("run", "smoke"))
@@ -615,6 +623,7 @@ final class SmokeRun {
                     case "vegetableharvest" -> List.of(new FuluCookingCheck(report, levelId, FuluCookingCheck.Harvest.VEGETABLE));
                     case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
                     case "naturalsilkchain" -> List.of(new NaturalSilkChainCheck(report, levelId));
+                    case NaturalMetalChainCheck.SELECTOR -> List.of(new NaturalMetalChainCheck(report, levelId));
                     case "silksurvival" -> List.of(new SilkSurvivalCheck(report, levelId));
                     case "silksurvivalreentry" -> List.of(new SilkSurvivalReentryCheck(report, levelId));
                     case "fuluripening" -> List.of(new FuluRipeningCheck(report, levelId));
