@@ -16,9 +16,6 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 蛊虫跨入口的来源生命周期装配；各入口只恢复其来源实际写入的字段。 */
 public final class GuchongLifecycle {
-    private static final String[] RATINGS = {"health_Max", "health_Rec", "power_Max", "power_Rec", "soul_Max", "soul_Rec",
-            "attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def", "speed"};
-
     private GuchongLifecycle() {
     }
 
@@ -36,11 +33,7 @@ public final class GuchongLifecycle {
             insect.setCustomName(Component.literal(stack.getDisplayName().getString()));
             insect.tame(owner);
             Relations.setTeam(insect, Relations.team(owner));
-            copySingleRatings(source, data);
-            data.putDouble("speed_number", source.getDouble("speed_number"));
-            data.putDouble("health_Num", source.getDouble("health_Num"));
-            GuchongJarRuntime.applyAttributes(insect, data);
-            data.remove("health_Num");
+            GuchongJarData.restoreEntityAttributes(source, "", insect, false);
         }
         GuchongJarRuntime.finishSpawn(level, insect);
         return true;
@@ -75,11 +68,7 @@ public final class GuchongLifecycle {
         data.putBoolean("guchongxvnfu", tamed);
         if (insect instanceof TamableAnimal tamable) tamable.tame(owner);
         data.putString("belongToMasterUUID", jar.getString("belongToMasterUUID" + suffix));
-        copyJarRatings(jar, suffix, data);
-        data.putDouble("speed_number", jar.getDouble("speed_number" + suffix));
-        data.putDouble("health_Num", jar.getDouble("health_Num" + suffix));
-        GuchongJarRuntime.applyAttributes(insect, data);
-        data.remove("health_Num");
+        GuchongJarData.restoreEntityAttributes(jar, suffix, insect, false);
         GuchongJarRuntime.finishSpawn(level, insect);
         return insect;
     }
@@ -96,8 +85,10 @@ public final class GuchongLifecycle {
         data.putInt("LEVELnumber", source.getInt("LEVELnumber"));
         data.putInt("experience_Max", source.getInt("experience_Max"));
         data.putInt("experience", source.getInt("experience"));
-        // 来源生成器在此处以空字符串调用 replace；保留该实际来源结果，不改写为手持罐名称规则。
-        insect.setCustomName(Component.literal(""));
+        // 来源两次对空字符串执行替换，虫物品字段为空与非空时结果不同。
+        String name = "".replace(source.getString("guchongname"), "[");
+        name = "".replace(name, "]");
+        insect.setCustomName(Component.literal(name));
         if (GuchongBehavior.findEntity(level, source.getString("belongToMasterUUID")) instanceof Player owner
                 && insect instanceof TamableAnimal tamable) tamable.tame(owner);
         data.putBoolean("kanjia", true);
@@ -108,36 +99,10 @@ public final class GuchongLifecycle {
         data.putInt("homeblockY", pos.getY());
         data.putInt("homeblockZ", pos.getZ());
         Relations.shareBlockAllegiance(blockData, insect, source.getString("team"));
-        copyGroundRatings(source, data);
-        data.putDouble("speed_number", source.getDouble("speed_number"));
-        data.putDouble("health_Num", source.getInt("health_Num"));
-        GuchongJarRuntime.applyAttributes(insect, data);
-        data.remove("health_Num");
+        GuchongJarData.restoreEntityAttributes(source, "", insect, true);
         data.putString("gongjimubiao", target.getStringUUID());
         GuchongJarRuntime.finishSpawn(level, insect);
         return true;
     }
-
-    private static void copySingleRatings(CompoundTag source, CompoundTag target) {
-        for (String key : RATINGS) {
-            target.putString(key + "_LEVEL", source.getString(key + "_LEVEL"));
-            if (!key.equals("speed")) target.putDouble(key, source.getDouble(key));
-        }
-    }
-
-    private static void copyJarRatings(CompoundTag source, String suffix, CompoundTag target) {
-        for (String key : RATINGS) {
-            target.putString(key + "_LEVEL", source.getString(key + "_LEVEL" + suffix));
-            if (!key.equals("speed")) target.putDouble(key, source.getDouble(key + suffix));
-        }
-    }
-
-    private static void copyGroundRatings(CompoundTag source, CompoundTag target) {
-        for (String key : RATINGS) {
-            target.putString(key + "_LEVEL", source.getString(key + "_LEVEL"));
-            if (!key.equals("speed")) target.putInt(key, source.getInt(key));
-        }
-    }
-
 
 }

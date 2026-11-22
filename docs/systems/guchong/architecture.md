@@ -219,3 +219,11 @@ B `Taoguan01/02/03BlockEntity`分别持有2/5/10槽：1/4/9个蛊虫位与独立
 1.18.2版本原初系统 `Taoguan01GengXinYouXiKeProcedure.java:99–167` 从地上罐虫物品读取 `health_Num` 时使用 `getInt`，其他生命、资质数值也按整数读取；速度仍使用双精度。手持罐及蛊笛的 `Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`、`GuchongAnniuzhixingProcedure` 按双精度读取当前生命。地上罐放虫现恢复这一区别，回罐仍只减少数量并移除实体，不回写槽内生命或成长。
 
 1.18.2版本 `Guchong01Entity`、`Guchong03Entity`、`Guchong04Entity` 的死亡刻调用无参 `dropExperience()`；1.21.1版本 NeoForge 21.1.265 的 `LivingEntity.die` 已在 `dropAllDeathLoot` 调用 `dropExperience(damageSource.getEntity())`。目标共享死亡刻只按原定时间移除，不再重复调用经验掉落；三虫当前默认经验值为零，额外调用仍会重复经过经验事件。死亡清槽、放虫、生命恢复及掉落的游戏行为未因静态核对而视为验收。
+
+## 跨入口放虫字段与地上罐名称（2026-11-22）
+
+1.18.2 版本单虫 `Guchong01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure:40–69`、手持罐 `Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`、蛊笛 `GuchongAnniuzhixingProcedure` 和地上罐 `Taoguan01GengXinYouXiKeProcedure:132–167` 按资质字段顺序写入，写入生命上限后立即设置原生上限和当前生命，写入攻击后立即设置原生攻击，最后写速度并设置原生速度；当前生命直接设置，不写入实体自由字段。地上罐数值按整数读取、速度按双精度，单虫和手持罐/蛊笛按双精度读取。1.21.1 版本三条入口复用已有顺序恢复操作。
+
+地上罐来源 `Taoguan01GengXinYouXiKeProcedure:111–113` 两次以空字符串为替换对象：虫物品自定义 `guchongname` 为空时结果为空，为非空时结果为 `]`。此前目标固定为空，现按来源表达式恢复；从手持罐重建物品不写这个自定义字段，直接放入带该字段的物品则可触及另一分支。保留来源异常结果，不把显示名清理规则套用到地上罐。
+
+扩展现有 `guchonglifecycle`：单虫、地上罐和手持罐检查原生属性及自由字段；地上罐第九槽分别检查空名称字段和受控非空字段，并继续经历目标、回罐、死亡及收罐。该夹具只覆盖受控样本，尚未编译或运行；实际获取、自然战斗、蛊笛、多人、专服与两版本对照均未因静态核对而验收。

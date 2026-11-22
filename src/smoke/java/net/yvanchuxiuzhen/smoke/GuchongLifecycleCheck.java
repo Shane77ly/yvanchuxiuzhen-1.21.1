@@ -20,6 +20,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.GameRules;
@@ -68,6 +69,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
     private int originalExperience;
     private boolean originalMobLoot;
     private boolean deathReady;
+    private int groundReleases;
 
     GuchongLifecycleCheck(List<String> report, String levelId) {
         super("蛊虫生命周期", report, levelId);
@@ -191,6 +193,11 @@ final class GuchongLifecycleCheck extends SystemCheck {
                     && tamed.isOwnedBy(player) && tamed.getHealth() == 7
                     && Relations.entityTeam(tamed).equals(Relations.team(player))
                     && tamed.getPersistentData().getString("attack_Num_LEVEL").equals(data.getString("attack_Num_LEVEL")));
+            expectTrue(id + "认主单虫恢复原生属性且不写当前生命字段",
+                    tamed.getAttributeBaseValue(Attributes.MAX_HEALTH) == data.getDouble("health_Max")
+                            && tamed.getAttributeBaseValue(Attributes.ATTACK_DAMAGE) == data.getDouble("attack_Num")
+                            && tamed.getAttributeBaseValue(Attributes.MOVEMENT_SPEED) == data.getDouble("speed_number")
+                            && !tamed.getPersistentData().contains("health_Num"));
             expectTrue(id + "保留来源遗漏经验与自定义主人UUID", !tamed.getPersistentData().contains("experience")
                     && !tamed.getPersistentData().contains("belongToMasterUUID"));
             tamed.discard();
@@ -253,6 +260,15 @@ final class GuchongLifecycleCheck extends SystemCheck {
             active = onlyInsect(player);
             specimens.add(active);
             anchor(active);
+            groundReleases++;
+            CompoundTag slotData = GuchongJarData.read(jar(player).getItem(8));
+            expect("地上虫物品名称字段第" + groundReleases + "次", groundReleases == 1 ? "" : "受控名称", slotData.getString("guchongname"));
+            expect("地上罐来源名称表达式第" + groundReleases + "次", groundReleases == 1 ? "" : "]", active.getCustomName().getString());
+            expectTrue("地上放虫恢复整数生命/攻击与双精度速度且不写当前生命字段",
+                    active.getAttributeBaseValue(Attributes.MAX_HEALTH) == slotData.getInt("health_Max")
+                            && active.getAttributeBaseValue(Attributes.ATTACK_DAMAGE) == slotData.getInt("attack_Num")
+                            && active.getAttributeBaseValue(Attributes.MOVEMENT_SPEED) == slotData.getDouble("speed_number")
+                            && !active.getPersistentData().contains("health_Num"));
             expectTrue("地上罐自然计划刻释放第九槽并登记唯一计数", jar(player).jarData().getDouble("shifangnum") == 1
                     && active.getPersistentData().getBoolean("kanjia") && active.getPersistentData().getDouble("guguanweizhi") == 8
                     && active.getOwnerUUID().equals(player.getUUID()) && active.getHealth() == 7F);
@@ -267,6 +283,11 @@ final class GuchongLifecycleCheck extends SystemCheck {
         active.setHealth(5);
         active.setTarget(null);
         target.discard();
+        ItemStack controlled = jar(player).getItem(8).copy();
+        CompoundTag data = GuchongJarData.read(controlled);
+        data.putString("guchongname", "受控名称");
+        GuchongJarData.write(controlled, data);
+        jar(player).setItem(8, controlled);
     }
 
     private boolean returned(int local) {
@@ -306,6 +327,13 @@ final class GuchongLifecycleCheck extends SystemCheck {
         specimens.add(active);
         anchor(active);
         active.moveTo(player.position());
+        CompoundTag slotData = GuchongJarData.read(player.getMainHandItem());
+        expectTrue("手持放虫恢复双精度生命/攻击/速度且不写当前生命字段",
+                active.getHealth() == (float) slotData.getDouble("health_Num8")
+                        && active.getAttributeBaseValue(Attributes.MAX_HEALTH) == slotData.getDouble("health_Max8")
+                        && active.getAttributeBaseValue(Attributes.ATTACK_DAMAGE) == slotData.getDouble("attack_Num8")
+                        && active.getAttributeBaseValue(Attributes.MOVEMENT_SPEED) == slotData.getDouble("speed_number8")
+                        && !active.getPersistentData().contains("health_Num"));
         expectTrue("手持罐释放真实认主个体并冻结罐UUID和槽号", GuchongJarData.read(player.getMainHandItem()).getDouble("shifangnum") == 1
                 && active.getPersistentData().getString("guguanuuid").equals(JAR_UUID)
                 && active.getPersistentData().getDouble("guguanweizhi") == 8 && active.isOwnedBy(player));
