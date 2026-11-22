@@ -51,7 +51,7 @@ final class GuchongCheck extends ActionCheck {
         data.putDouble("health_Max", 10);
         data.putString("guguanuuid", "smoke_individual");
         GuchongJarData.write(insect, data);
-        menu.slots.get(1).set(insect);
+        menu.slots.get(1).set(insect.copy());
         menu.quickMoveStack(player, 1);
         expectTrue("蛊物品快捷移动进罐且不复制",
                 menu.slots.getFirst().getItem().is(insect.getItem()) && menu.slots.get(1).getItem().isEmpty());

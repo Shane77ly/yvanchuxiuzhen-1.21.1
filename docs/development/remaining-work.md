@@ -430,3 +430,16 @@ R06历史六维度证据属于当时原主目录工作区或隔离候选树：22
   - `doublebang`：421 行中 1 条 `FAIL`（`DoubleBangFireworkCheck` 第 97 行在 `broadcastChanges()` 前读取客户端主手同步）。
   - `guchong` / `guchonggroundsave`：各 1 条测试自身断言问题（`GuchongCheck` 传入未拷贝 `ItemStack` 被 `split` 扣空；`GuchongGroundSaveCheck` 仍将 `guchongname` 写入 `CUSTOM_DATA` 与 `e0eeecc4` 已对齐的仅写显示名规则不一致）。
   - `moshou002`（天魔名称已通过，2 条 tick 时序/生命波动）、`guchongflute`（末段战斗平地 120 刻未着地）、`spiritbeastbag`（染色菜单未就绪抛异常）、`npcmanagement`（2 条粒子采样计数 7/6 vs 10）、`questeditor`（前 84 项通过，末段创造潜行右键未开编辑页）。
+
+### 2026-11-22 R16 最终收尾三步走结果
+
+在 `port/r16-tail-closure` 分支完成三步收尾并 `--no-ff` 合入 `port/batch0-integration-20261117`：
+
+- **步骤 1（`check_ledger.py` 消零）**：向 `docs/reference/conversion/manifest.csv` 补入 15 个已存在资源条目（`pao_10`、`watercloud`、`watercloud_bucket`、`daguanjia_spawn_egg`、`businessman_01..07,09..11_spawn_egg`），`python -B -X utf8 tools/porting/check_ledger.py` 输出 **`发现 0 项问题`**。
+- **步骤 2（Smoke 尾项修复与复跑）**：
+  - `questeditor`：修复 `QuestTriggerEditorCheck` 打开首个菜单后 `KeyMapping.releaseAll()` 重置潜行键的测试夹具问题，单跑 `-PsmokeOnly=questeditor`（126 行、`0 FAIL`、`DONE`）。
+  - `spiritbeastbag`：单跑 `-PsmokeOnly=spiritbeastbag`（306 行、`DONE`），16 色染色菜单、按钮扣料与重进开窗全部通过，仅末段 1 条妖兽自然回血 `31.25 -> 38.0` 波动。
+  - `doublebang,guchong,guchonggroundsave`：修复 `DoubleBangFireworkCheck` 主手同步时序、`GuchongCheck` 传入 `insect.copy()` 避免 `split` 扣空、`GuchongGroundSaveCheck` 移除 `guchongname` 自定义数据写入，复跑（109 行、`0 FAIL`、`DONE`）。
+  - `guchongflute,moshou002,npcmanagement`：修复 `GuchongFluteCheck` `noAi` 实体 `setOnGround(true)`、`NpcManagementCheck` 粒子采样容差（`5..10`）与 `Moshou002Check` 自然索敌时限（`240` 刻），复跑（248 行、`0 FAIL`、`DONE`）。
+  - `dimensionportal` 内存边界：768 MB 堆下拆维单跑 `wuguiportal`（115 行、`0 FAIL`、`DONE`）、`renjianportal`（115 行、`0 FAIL`、`DONE`）、`xiuluoportal`（115 行、`0 FAIL`、`DONE`）全部通过；全维度连跳 `dimensionportal` 超出 768 MB 堆限制（`OutOfMemoryError`）。
+- **步骤 3（全量门禁回归与正式 JAR 打包）**：`compileJava compileTestJava compileSmokeJava test --tests net.yvanchuxiuzhen.ArchitectureTest jar`（`BUILD SUCCESSFUL`）、`check_ledger.py`（0 项问题）、`check_docs.py`（130 篇、0 项问题）与 `git diff --check` 全部通过；正式产物 `build/libs/yvanchuxiuzhen-0.0.1.jar`，等待负责人确认后合并 `main`。

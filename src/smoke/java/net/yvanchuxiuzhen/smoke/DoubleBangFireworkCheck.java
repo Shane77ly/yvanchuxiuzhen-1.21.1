@@ -94,11 +94,11 @@ final class DoubleBangFireworkCheck extends ActionCheck {
             expectTrue("放置时保持未点燃", !entity.getPersistentData().getBoolean("begin") && !entity.getPersistentData().getBoolean("begin2"));
             expectTrue("实体保持来源不受推挤", !entity.isPushable());
         }
-        expect("客户端合并中文名称", "二踢脚", minecraft.player.getMainHandItem().getHoverName().getString());
         player.inventoryMenu.broadcastChanges();
     }
 
     private void igniteAndStore(ServerPlayer player) {
+        expect("客户端合并中文名称", "二踢脚", minecraft.player.getMainHandItem().getHoverName().getString());
         List<DoubleBangFirework> group = nearby(player);
         if (group.size() != 3) {
             fail("自然放置未产生三件，跳过依赖的传燃与存储检查");
