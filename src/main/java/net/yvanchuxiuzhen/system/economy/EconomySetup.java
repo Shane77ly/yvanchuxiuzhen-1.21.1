@@ -16,6 +16,7 @@ import net.yvanchuxiuzhen.system.economy.content.BankBlock;
 import net.yvanchuxiuzhen.system.economy.content.BankBlockItem;
 import net.yvanchuxiuzhen.system.economy.content.EconomyBlock;
 import net.yvanchuxiuzhen.system.economy.content.EconomyBlockEntities;
+import net.yvanchuxiuzhen.system.economy.content.SpiritEssenceItem;
 import net.yvanchuxiuzhen.system.economy.content.SpiritStoneBundleItem;
 import net.yvanchuxiuzhen.system.economy.content.SpiritStoneItem;
 import net.yvanchuxiuzhen.system.economy.content.SpiritStoneOreBlock;
@@ -30,6 +31,8 @@ public final class EconomySetup {
             .itemFactory("economy:bank_card", (properties, tooltip) -> new BankCardItem(properties, tooltip, false))
             .itemFactory("economy:bank_card_advanced", (properties, tooltip) -> new BankCardItem(properties, tooltip, true))
             .itemFactory("economy:auction_token", AuctionTokenItem::new)
+            .itemFactory("economy:cailiao_200", (properties, tooltip) -> new SpiritEssenceItem(properties, tooltip, false))
+            .itemFactory("economy:cailiao_210", (properties, tooltip) -> new SpiritEssenceItem(properties, tooltip, true))
             .blockFactory("economy:spirit_stone_ore", traits -> ContentBlock.create(traits, SpiritStoneOreBlock::new))
             .blockFactory("economy:bank", traits -> ContentBlock.create(traits, BankBlock::new))
             .itemFactory("economy:bank", (properties, tooltip) -> new BankBlockItem(
