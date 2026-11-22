@@ -18,6 +18,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
@@ -372,12 +373,30 @@ final class GuchongLifecycleCheck extends SystemCheck {
             player.level().getGameRules().getRule(GameRules.RULE_DOMOBLOOT).set(originalMobLoot, player.server);
             return;
         }
+        boolean emptyEquipment = true;
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            if (!player.getItemBySlot(slot).isEmpty()) {
+                diagnostics.add("INFO 蛊虫生命周期 击杀玩家非空装备：" + slot + "=" + player.getItemBySlot(slot));
+                emptyEquipment = false;
+            }
+        }
+        expectTrue("经验数值前置：击杀玩家所有装备槽为空", emptyEquipment);
+        if (!emptyEquipment) {
+            player.level().getGameRules().getRule(GameRules.RULE_DOMOBLOOT).set(originalMobLoot, player.server);
+            return;
+        }
         experienceEvents = 0;
+        experiencePlayerMatches = false;
+        originalExperience = -1;
         experienceObserver = event -> {
             if (event.getEntity() != active) return;
             experienceEvents++;
             experiencePlayerMatches = event.getAttackingPlayer() == player;
             originalExperience = event.getOriginalExperience();
+            diagnostics.add("INFO 蛊虫生命周期 经验事件#" + experienceEvents
+                    + " 攻击玩家=" + (event.getAttackingPlayer() == null ? "null" : event.getAttackingPlayer().getStringUUID())
+                    + " 预期玩家=" + player.getStringUUID() + " 同一玩家=" + experiencePlayerMatches
+                    + " 原始经验=" + originalExperience + " 当前掉落经验=" + event.getDroppedExperience());
         };
         List<String> damageEvents = new ArrayList<>();
         Consumer<LivingIncomingDamageEvent> incoming = event -> {
@@ -431,7 +450,9 @@ final class GuchongLifecycleCheck extends SystemCheck {
                 return;
             }
             expect("致死时经验事件次数", 1, experienceEvents);
-            expectTrue("致死经验事件归因玩家且基础经验为零", experiencePlayerMatches && originalExperience == 0);
+            expect("致死经验事件归因击杀玩家", true, experiencePlayerMatches);
+            expectTrue("致死经验事件原始经验应为1至3，实际 " + originalExperience,
+                    originalExperience >= 1 && originalExperience <= 3);
         } catch (RuntimeException | Error exception) {
             stopExperienceObservation(player);
             throw exception;
@@ -459,8 +480,6 @@ final class GuchongLifecycleCheck extends SystemCheck {
             try {
                 expectTrue("04蛊虫到达第20死亡刻并自然移除", active.isRemoved() && active.deathTime == 20);
                 expect("整段死亡生命周期的经验掉落事件次数", 1, experienceEvents);
-                expectTrue("经验事件仍归因于击杀玩家且基础经验为零",
-                        experiencePlayerMatches && originalExperience == 0);
             } finally {
                 stopExperienceObservation(player);
             }
