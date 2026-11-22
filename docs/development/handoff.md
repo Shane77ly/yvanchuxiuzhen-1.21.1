@@ -7,6 +7,12 @@ updated: 2026-11-22
 
 # 交接说明
 
+## 接续基线（2026-11-22）
+
+实际集成树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`；接手时 HEAD `0cb7646a`、工作树干净。原主工作树 `port/full-migration-20261112` 在 `28f05bc7` 且有大量既有暂存及未暂存改动，不将其作为当前集成树。`4bd0e751` 蛊虫奇遇接口已合入；`0cb7646a` 仅增加璞玉场景夹具，九种璞玉雕琢生产逻辑仍待接入，夹具未运行，不能据此宣称行为通过。
+
+恢复世界/植物、蛊虫生命周期和璞玉三个独立模块的接续；实际交付以功能树提交与复核结果为准。串行重型验证、公共进度与 Git 收口仍由集成执行者负责；不推送或合并 `main`。
+
 ## 接手基线（2026-11-22）
 
 当前集成工作树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`；本轮从 `0a948a9d`（`docs: refresh integration handoff after caishen smoke`）接手，生产代码基线仍为 `2f543517`，接手时工作树干净。财神商店商品名现从物品槽读取、价格从同步商品表读取；受控生成财神后，经真实右键、中文对话/商店、20枚金银购买红包、保存重进、客户端使用、自然拾取一次随机奖励并再次重进，`caishenye` 客户端 Smoke 已通过。独立 `festivalremaining` 场景也覆盖生存/创造红包直接开启。报告、日志及已查看的商店和奖励背包截图归档于 `build/diagnostics/caishen-purchase-reward-20261122/`。财神自然出生与遇见、所有奖励档位、Q167多掉落合并总数、多人及专服仍未闭合。实现、证据和开放边界见[统一工作清单](remaining-work.md#当前调度)以及经济、节日月志。
