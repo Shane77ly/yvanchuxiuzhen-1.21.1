@@ -3558,7 +3558,7 @@ yvanchuxiuzhen,Androsace02hecheng,recipe,~/plant/ordinaryplants,plant,候选,第
 yvanchuxiuzhen,Lamiumamplexicaulehecheng,recipe,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jadefairyhecheng,recipe,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Setrenwu,procedure,~/tool,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,RenwufangkuaiGui,gui,~/tool,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,RenwufangkuaiGui,gui,~/tool,quest,已读,2026-11-22 代码批次5静态核对任务方块菜单接线
 yvanchuxiuzhen,PlaqueGuiDangZheGeJieMianDaKaiShi,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlaqueGui,gui,~/tool,decor,已读,1.18.2版本A菜单注册第90行；牌匾编辑界面服务于牌匾文字写入，归装饰；调用与Q210边界见装饰正文
 yvanchuxiuzhen,PlaqueTxt,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3619,7 +3619,7 @@ yvanchuxiuzhen,Businessman02ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,
 yvanchuxiuzhen,Businessman03ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman03 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Businessman05ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman05 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Businessman07ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman07 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
-yvanchuxiuzhen,TiandaoNPCset,gui,~/systemset/tiandao/tiandaonpc,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,TiandaoNPCset,gui,~/systemset/tiandao/tiandaonpc,tiandao,已读,2026-11-22 代码批次5静态核对天道NPC设置菜单接线
 yvanchuxiuzhen,TiandaoNPCset02,gui,~/systemset/tiandao/tiandaonpc,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,TiandaoNPCsetitemDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/systemset/tiandao/tiandaonpc,npc,已读,B1 归属阅读：随 TiandaoNPCsetitem 读：天道 NPC 设置：RightClickEntity 中给生物写名称与任务列表 renwulist，是 NPC 专属设置工具，按系统设计“专属工具归所属系统”
 yvanchuxiuzhen,TiandaoNPCsetitem,item,~/systemset/tiandao/tiandaonpc,npc,已读,B1 归属阅读：天道 NPC 设置：RightClickEntity 中给生物写名称与任务列表 renwulist，是 NPC 专属设置工具，按系统设计“专属工具归所属系统”
