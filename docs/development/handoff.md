@@ -9,7 +9,7 @@ updated: 2026-11-22
 
 ## 接手基线（2026-11-22）
 
-当前集成工作树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，HEAD `2f543517`（`fix: localize caishen shop products and verify purchase path`）；接手时工作树干净。财神商店商品名现从物品槽读取、价格从同步商品表读取；受控生成财神后的真实右键、中文对话/商店、20枚金银购买红包及保存退出重进库存保持，`caishenye` 代码 Smoke 已通过。受控生成不代表自然出生或自然遇见，红包奖励未开验。实现、证据和开放边界见[统一工作清单](remaining-work.md#当前调度)以及经济、节日月志。
+当前集成工作树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`；本轮从 `0a948a9d`（`docs: refresh integration handoff after caishen smoke`）接手，生产代码基线仍为 `2f543517`，接手时工作树干净。财神商店商品名现从物品槽读取、价格从同步商品表读取；受控生成财神后的真实右键、中文对话/商店、20枚金银购买红包及保存退出重进库存保持，`caishenye` 客户端 Smoke 已通过。随后独立运行的 `festivalremaining` 客户端 Smoke 又通过了生存/创造红包直接开启、奖励掉落同质单件和拾取延迟；当前 `build/smoke/report.txt` 为该场景报告，财神商店截图仍在 `build/smoke/screenshots/caishen_shop.png`。受控生成不代表自然出生或自然遇见，购买后同场开启、红包自然获取、多人与专服仍未闭合。实现、证据和开放边界见[统一工作清单](remaining-work.md#当前调度)以及经济、节日月志。
 
 当前批次继续人间界优先，三个完整模块由原独立 worktree 增量推进，主线程只选择性接收文件边界明确的功能单位：材料负责人推进九种璞玉单件/潜行批量雕琢及来源奇遇链；世界/植物负责人推进自然供给的完整玩家路径；生物/蛊虫负责人核对单虫释放并延续跨入口生命周期。三树的混合既有改动均不作为可整体接收的提交，也不等同于集成或验收；具体工作边界与未闭合项见各模块负责人交付及[统一工作清单](remaining-work.md#当前调度)。
 
