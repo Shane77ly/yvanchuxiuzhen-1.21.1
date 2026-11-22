@@ -1,21 +1,30 @@
 package net.yvanchuxiuzhen.smoke;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.yvanchuxiuzhen.collection.festival.Caishenye;
 import net.yvanchuxiuzhen.collection.festival.FestivalSetup;
 import net.yvanchuxiuzhen.system.economy.CommerceTrading;
@@ -29,14 +38,18 @@ import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 
-/** 受控生成财神后的真实右键、中文对话、红包购买及保存重进检查；不代表财神自然生成入口。 */
+/** 受控生成财神后购买、重进、使用红包及拾取奖励；不代表财神自然生成入口。 */
 final class CaishenyeCheck extends SystemCheck {
     private static final ResourceLocation CAISHEN_ID = ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", "caishenye");
     private static final ResourceLocation RED_ENVELOPE_ID = ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", "fuqi_06");
 
     private final Screenshots screenshots;
+    private final Consumer<EntityJoinLevelEvent> rewardListener = this::captureReward;
+    private final List<UUID> rewardEntities = new ArrayList<>();
+    private final List<ItemStack> rewardStacks = new ArrayList<>();
     private ListTag inventory;
     private ListTag purchasedInventory;
+    private ListTag rewardInventory;
     private CompoundTag dialogue;
     private CompoundTag commerce;
     private UUID caishenyeId;
@@ -49,6 +62,14 @@ final class CaishenyeCheck extends SystemCheck {
     private boolean shiftKey;
     private boolean prepared;
     private boolean cleaned;
+    private boolean listening;
+    private boolean rewardsDelayed = true;
+    private boolean pickupAssisted;
+    private int redEnvelopeSlot = -1;
+    private int pickedUpCount;
+    private Item rewardItem;
+    private ServerLevel rewardLevel;
+    private Vec3 rewardPosition;
 
     CaishenyeCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("财神购买红包", report, levelId);
@@ -57,8 +78,9 @@ final class CaishenyeCheck extends SystemCheck {
 
     @Override
     protected boolean step(int step, int local) {
-        if (step == 7) return reopen(local);
-        if (step == 8) return reentered(local);
+        if (step == 7 || step == 15) return reopen(local);
+        if (step == 8 || step == 16) return reentered(local);
+        if (step == 11) return awaitRewards(local);
         if (local < 10) return false;
         switch (step) {
             case 0 -> {
@@ -110,6 +132,77 @@ final class CaishenyeCheck extends SystemCheck {
                     expect("保存重进仍持有大红包", 1, count(player, "fuqi_06"));
                     expect("保存重进一文钱币仍已扣除", 0, count(player, "money_01"));
                     expectTrue("保存重进保留购买后库存", purchasedInventory.equals(player.getInventory().save(new ListTag())));
+                    for (int slot = 0; slot < 9; slot++) {
+                        if (player.getInventory().getItem(slot).is(item("fuqi_06").getItem())) {
+                            redEnvelopeSlot = slot;
+                            break;
+                        }
+                    }
+                    rewardLevel = player.serverLevel();
+                    rewardPosition = player.position();
+                    NeoForge.EVENT_BUS.addListener(rewardListener);
+                    listening = true;
+                });
+                if (redEnvelopeSlot < 0) {
+                    abort("重进后购买的红包不在快捷栏");
+                    return false;
+                }
+            }
+            case 10 -> {
+                ItemStack clientStack = minecraft.player.getInventory().getItem(redEnvelopeSlot);
+                if (!clientStack.is(item("fuqi_06").getItem()) || clientStack.getCount() != 1) {
+                    if (local > 200) abort("购买的红包未同步到客户端快捷栏");
+                    return false;
+                }
+                minecraft.player.getInventory().selected = redEnvelopeSlot;
+                expect("客户端使用买来的红包保持来源PASS", InteractionResult.PASS,
+                        minecraft.gameMode.useItem(minecraft.player, InteractionHand.MAIN_HAND));
+            }
+            case 12 -> {
+                if (local < 15) return false;
+                boolean[] pickedUp = {false};
+                onServer(player -> {
+                    if (player.getInventory().countItem(rewardItem) == 0) {
+                        for (UUID id : rewardEntities) {
+                            Entity entity = player.serverLevel().getEntity(id);
+                            if (entity instanceof ItemEntity drop && !drop.hasPickUpDelay()) {
+                                pickupAssisted = true;
+                                drop.playerTouch(player);
+                                if (player.getInventory().countItem(rewardItem) > 0) break;
+                            }
+                        }
+                    }
+                    pickedUpCount = player.getInventory().countItem(rewardItem);
+                    if (pickedUpCount > 0) {
+                        for (UUID id : rewardEntities) {
+                            Entity entity = player.serverLevel().getEntity(id);
+                            if (entity != null) entity.discard();
+                        }
+                        pickedUp[0] = true;
+                    }
+                });
+                if (!pickedUp[0]) {
+                    if (local > 200) abort("红包奖励未能进入玩家背包");
+                    return false;
+                }
+                expectTrue("买来的红包奖励进入背包（" + (pickupAssisted ? "受控触碰" : "自然拾取") + "）", pickedUpCount > 0);
+            }
+            case 13 -> minecraft.setScreen(new InventoryScreen(minecraft.player));
+            case 14 -> {
+                if (!(minecraft.screen instanceof InventoryScreen)) {
+                    if (local > 200) abort("无法打开红包奖励背包界面");
+                    return false;
+                }
+                expectTrue("客户端背包已同步红包奖励", minecraft.player.getInventory().countItem(rewardItem) > 0);
+                screenshots.take("caishenye_reward_inventory.png");
+                minecraft.player.closeContainer();
+                onServer(player -> rewardInventory = player.getInventory().save(new ListTag()));
+                leaveWorld();
+            }
+            case 17 -> {
+                onServer(player -> {
+                    expect("红包奖励拾取后再次重进仍保留", pickedUpCount, player.getInventory().countItem(rewardItem));
+                    expectTrue("红包奖励拾取后的库存再次重进保持", rewardInventory.equals(player.getInventory().save(new ListTag())));
                     cleanup(player);
                 });
                 cleaned = true;
@@ -119,6 +212,32 @@ final class CaishenyeCheck extends SystemCheck {
             default -> throw new IllegalStateException("未知财神检查步骤 " + step);
         }
         return true;
+    }
+
+    private void captureReward(EntityJoinLevelEvent event) {
+        if (event.getLevel() != rewardLevel || !(event.getEntity() instanceof ItemEntity drop)
+                || drop.position().distanceToSqr(rewardPosition) > 4) return;
+        rewardEntities.add(drop.getUUID());
+        rewardStacks.add(drop.getItem().copy());
+        rewardsDelayed &= drop.hasPickUpDelay();
+    }
+
+    private boolean awaitRewards(int local) {
+        boolean[] ready = {false};
+        onServer(player -> {
+            if (rewardStacks.isEmpty()) return;
+            NeoForge.EVENT_BUS.unregister(rewardListener);
+            listening = false;
+            ItemStack first = rewardStacks.getFirst();
+            rewardItem = first.getItem();
+            expectTrue("买来的红包逐件生成同一种奖励", rewardStacks.stream().allMatch(stack ->
+                    stack.getCount() == 1 && ItemStack.isSameItemSameComponents(first, stack)));
+            expectTrue("买来的红包奖励初始有拾取延迟", rewardsDelayed);
+            expectTrue("使用后买来的红包已消耗", player.getInventory().getItem(redEnvelopeSlot).isEmpty());
+            ready[0] = true;
+        });
+        if (!ready[0] && local > 200) abort("客户端使用红包后未生成奖励");
+        return ready[0];
     }
 
     private void prepare(ServerPlayer player) {
@@ -277,6 +396,14 @@ final class CaishenyeCheck extends SystemCheck {
     }
 
     private void cleanup(ServerPlayer player) {
+        if (listening) {
+            NeoForge.EVENT_BUS.unregister(rewardListener);
+            listening = false;
+        }
+        for (UUID id : rewardEntities) {
+            Entity reward = player.serverLevel().getEntity(id);
+            if (reward != null) reward.discard();
+        }
         player.closeContainer();
         Entity entity = player.serverLevel().getEntity(caishenyeId);
         if (entity != null) entity.discard();

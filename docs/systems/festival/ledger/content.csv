@@ -26,7 +26,7 @@ item,yvanchuxiuzhen:fuqi_03,yvanchuxiuzhen,Fuqi03,src/main/java/net/mcreator/yva
 item,yvanchuxiuzhen:fuqi_04,yvanchuxiuzhen,Fuqi04,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2589,festival,已读,yvanchuxiuzhen:fuqi_04,已注册,
 item,yvanchuxiuzhen:fuqi_0401,yvanchuxiuzhen,Fuqi0401,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2590,festival,已读,yvanchuxiuzhen:fuqi_0401,已注册,
 item,yvanchuxiuzhen:fuqi_05,yvanchuxiuzhen,Fuqi05,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2591,festival,已读,yvanchuxiuzhen:fuqi_05,行为已迁移,2026-11-15大红包58档/服装礼包/四部位Geo及胸甲独立计时已接；Q165–Q168来源疑点保持，验证边界见本月记录
-item,yvanchuxiuzhen:fuqi_06,yvanchuxiuzhen,Fuqi06,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2593,festival,已读,yvanchuxiuzhen:fuqi_06,行为已迁移,2026-11-15大红包58档/服装礼包/四部位Geo及胸甲独立计时已接；财神商店购买红包及保存重进目标版本受控路径已验；Q165–Q168来源边界与奖励使用验证见本月记录
+item,yvanchuxiuzhen:fuqi_06,yvanchuxiuzhen,Fuqi06,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2593,festival,已读,yvanchuxiuzhen:fuqi_06,行为已迁移,2026-11-15大红包58档/服装礼包/四部位Geo及胸甲独立计时已接；受控财神购买红包、两次重进及同一红包使用和一次奖励自然拾取已验；Q165–Q168来源边界及其他奖励档见本月记录
 item,yvanchuxiuzhen:pao_01,yvanchuxiuzhen,Pao01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2574,festival,已读,yvanchuxiuzhen:pao_01,已注册,
 item,yvanchuxiuzhen:pao_02,yvanchuxiuzhen,Pao02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2575,festival,已读,yvanchuxiuzhen:pao_02,行为已迁移,点燃分栈与600刻手持燃放已接；必要单项通过；真实重登与完整视觉未验
 item,yvanchuxiuzhen:pao_03,yvanchuxiuzhen,Pao03,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2576,festival,已读,yvanchuxiuzhen:pao_03,行为已迁移,随机颜色与600刻手持燃放已接；必要单项通过；真实重登与完整视觉未验
