@@ -7,6 +7,7 @@ import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -82,6 +83,7 @@ final class JadeCarvingCheck extends SystemCheck {
                     checkFamily(player);
                     checkFortunes(player);
                     checkRewards(player);
+                    checkFullInventoryDrops(player);
                     prepareClient(player);
                 });
             }
@@ -227,6 +229,141 @@ final class JadeCarvingCheck extends SystemCheck {
             expect("奇遇 " + fortune + " 土属性熟练度", totals[fortune - 106], Cultivation.tizhiDouble(player, "killentitypointssoil"));
         }
         discardSpawned();
+    }
+
+    /** 满背包时先交付再扣璞玉；只检查本次使用同步生成的实体。 */
+    private void checkFullInventoryDrops(ServerPlayer player) {
+        try {
+            fillInventory(player, 1, 0, 0, 0);
+            use(player, false);
+            List<ItemEntity> drops = capturedDrops();
+            expect("满包普通末枚生成实体总数", 1, spawned.size());
+            expect("满包普通末枚掉落成玉", 1, drops.size());
+            expectTrue("满包普通末枚扣除后手中为空", player.getMainHandItem().isEmpty());
+            expectTrue("满包普通末枚其余主背包不变", filledSlotsIntact(player));
+            expectTrue("满包普通末枚刷新体质奇遇", validFortune(player));
+            expectTrue("满包普通成玉身份等级品阶", drops.size() == 1 && jadeDropsValid(drops, 2));
+            expectTrue("满包普通成玉实际落地及拾取延迟40刻", helperDropsValid(player, drops, 1));
+            discardSpawned();
+
+            fillInventory(player, 2, 4, 0, 0);
+            use(player, false);
+            drops = capturedDrops();
+            expect("满包普通余栈生成实体总数", 1, spawned.size());
+            expect("满包普通余栈璞玉剩余", 1, player.getMainHandItem().getCount());
+            expectTrue("满包普通余栈其余主背包不变", filledSlotsIntact(player));
+            expectTrue("满包普通余栈奇遇成玉等级40并实际落地", helperDropsValid(player, drops, 1)
+                    && jadeDropsValid(drops, 40));
+            discardSpawned();
+
+            fillInventory(player, 64, 6, 97, 4);
+            use(player, true);
+            drops = capturedDrops();
+            expect("满包潜行整组逐件生成实体", 64, spawned.size());
+            expect("满包潜行整组成玉掉落实体", 64, drops.size());
+            expectTrue("满包潜行整组扣除后手中为空", player.getMainHandItem().isEmpty());
+            expectTrue("满包潜行整组其余主背包不变", filledSlotsIntact(player));
+            expect("满包潜行不刷新奇遇概率", 97, Cultivation.tizhiDouble(player, "jiyvgailv"));
+            expect("满包潜行不刷新奇遇编号", 4, Cultivation.tizhiDouble(player, "qiyvbianhao"));
+            expectTrue("满包潜行逐件成玉保留基础等级与品阶", drops.size() == 64 && jadeDropsValid(drops, 2));
+            expectTrue("满包潜行逐件实体已入世界及拾取延迟40刻", helperDropsValid(player, drops, 64));
+            discardSpawned();
+
+            checkFullInventoryReward(player, 9, "cailiao_021", true);
+            checkFullInventoryReward(player, 66, "minecraft:diamond", false);
+            checkFullInventoryReward(player, 97, "minecraft:bone_meal", false);
+            checkFullInventoryBook(player);
+        } finally {
+            discardSpawned();
+        }
+    }
+
+    private void checkFullInventoryReward(ServerPlayer player, int fortune, String id, boolean material) {
+        fillInventory(player, 1, fortune, 100, 4);
+        use(player, false);
+        List<ItemEntity> drops = capturedDrops();
+        List<ItemEntity> jade = drops.stream().filter(drop -> drop.getItem().is(item("cailiao_161"))).toList();
+        List<ItemEntity> reward = drops.stream().filter(drop -> drop.getItem().is(item(id))).toList();
+        String label = "满包奇遇" + fortune;
+        expect(label + "生成实体总数", 2, spawned.size());
+        expect(label + "成玉与奖励各一件", 1, jade.size());
+        expect(label + "奖励实体数", 1, reward.size());
+        expectTrue(label + "所有掉落实际入世界及延迟40刻", helperDropsValid(player, drops, 2));
+        expectTrue(label + "成玉实例保留", jade.size() == 1 && jadeDropsValid(jade, 2));
+        expectTrue(label + "奖励数量一件", reward.size() == 1 && reward.getFirst().getItem().getCount() == 1);
+        if (material) {
+            expectTrue(label + "奖励材料等级和品阶", reward.size() == 1
+                    && Materials.instance(reward.getFirst().getItem()).level() >= 1
+                    && Materials.instance(reward.getFirst().getItem()).level() <= 40
+                    && qualityInRange(reward.getFirst().getItem()));
+        }
+        expectTrue(label + "末枚璞玉消耗且其余主背包不变", player.getMainHandItem().isEmpty() && filledSlotsIntact(player));
+        expect(label + "物品编号不刷新体质概率", 100, Cultivation.tizhiDouble(player, "jiyvgailv"));
+        expect(label + "物品编号不刷新体质奇遇", 4, Cultivation.tizhiDouble(player, "qiyvbianhao"));
+        discardSpawned();
+    }
+
+    private void checkFullInventoryBook(ServerPlayer player) {
+        fillInventory(player, 1, 98, 0, 0);
+        use(player, false);
+        List<ItemEntity> drops = capturedDrops();
+        List<ItemEntity> jade = drops.stream().filter(drop -> drop.getItem().is(item("cailiao_161"))).toList();
+        List<ItemEntity> books = drops.stream().filter(drop -> Techniques.book(drop.getItem()).isPresent()).toList();
+        expect("满包奇遇98生成实体总数", 2, spawned.size());
+        expect("满包奇遇98成玉实体", 1, jade.size());
+        expect("满包奇遇98功法实体", 1, books.size());
+        expectTrue("满包奇遇98成玉实际落地及延迟40刻", helperDropsValid(player, jade, 1) && jadeDropsValid(jade, 2));
+        expectTrue("满包奇遇98功法按命令在玩家位置落地并延迟10刻", books.size() == 1
+                && inWorld(player, books.getFirst()) && pickupDelay(books.getFirst()) == 10
+                && atPosition(player, books.getFirst(), 0)
+                && Techniques.book(books.getFirst().getItem()).orElseThrow().definition().name().equals("尘丰诀"));
+        expectTrue("满包奇遇98末枚璞玉消耗且其余主背包不变", player.getMainHandItem().isEmpty() && filledSlotsIntact(player));
+        discardSpawned();
+    }
+
+    private void fillInventory(ServerPlayer player, int count, int fortune, double chance, double number) {
+        reset(player, 161, count, fortune, chance, number);
+        for (int slot = 1; slot < player.getInventory().items.size(); slot++) {
+            player.getInventory().setItem(slot, new ItemStack(Items.COBBLESTONE, 64));
+        }
+    }
+
+    private static boolean filledSlotsIntact(ServerPlayer player) {
+        for (int slot = 1; slot < player.getInventory().items.size(); slot++) {
+            ItemStack stack = player.getInventory().getItem(slot);
+            if (!stack.is(Items.COBBLESTONE) || stack.getCount() != 64) return false;
+        }
+        return true;
+    }
+
+    private List<ItemEntity> capturedDrops() {
+        return spawned.stream().filter(ItemEntity.class::isInstance).map(ItemEntity.class::cast).toList();
+    }
+
+    private static boolean jadeDropsValid(List<ItemEntity> drops, int level) {
+        return drops.stream().allMatch(drop -> drop.getItem().is(item("cailiao_161"))
+                && drop.getItem().getCount() == 1 && Materials.instance(drop.getItem()).level() == level
+                && qualityInRange(drop.getItem()));
+    }
+
+    private static boolean helperDropsValid(ServerPlayer player, List<ItemEntity> drops, int count) {
+        return drops.size() == count && drops.stream().allMatch(drop -> inWorld(player, drop)
+                && drop.getItem().getCount() == 1 && pickupDelay(drop) == 40 && atPosition(player, drop, 0.5)
+                && drop.getDeltaMovement().x == 0 && drop.getDeltaMovement().z == 0);
+    }
+
+    private static boolean inWorld(ServerPlayer player, ItemEntity drop) {
+        return !drop.isRemoved() && player.serverLevel().getEntity(drop.getUUID()) == drop;
+    }
+
+    private static int pickupDelay(ItemEntity drop) {
+        return drop.saveWithoutId(new CompoundTag()).getShort("PickupDelay");
+    }
+
+    private static boolean atPosition(ServerPlayer player, ItemEntity drop, double yOffset) {
+        return Math.abs(drop.getX() - player.getX()) < 1e-6
+                && Math.abs(drop.getY() - player.getY() - yOffset) < 1e-6
+                && Math.abs(drop.getZ() - player.getZ()) < 1e-6;
     }
 
     private void checkItemReward(ServerPlayer player, int fortune, String id, boolean material) {
