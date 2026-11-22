@@ -619,6 +619,7 @@ final class SmokeRun {
                             new PeachLeavesCheck(report, levelId, "poplarleaves", "白杨叶"),
                             new PeachLeavesCheck(report, levelId, "poplarleavesyellow", "黄白杨叶"));
                     case "plantsupply" -> List.of(new PlantSupplyCheck(report, levelId));
+                    case "spicetreesupply" -> List.of(new SpiceTreeSupplyCheck(report, levelId));
                     case "plantsoils" -> List.of(new PlantSoilsCheck(report, levelId));
                     case "hotoil" -> List.of(new HotOilCheck(report, levelId, this::shot));
                     case "willowdrooping" -> List.of(new WillowDroopingCheck(report, levelId));
