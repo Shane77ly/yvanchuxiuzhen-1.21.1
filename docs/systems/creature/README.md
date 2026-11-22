@@ -7,6 +7,8 @@ updated: 2026-11-20
 
 # 生物
 
+璞玉奇遇103/104的公开生成操作见[奇遇妖兽接口](architecture.md#璞玉奇遇妖兽接口2026-11-22)；来源与目标实机均待验证。
+
 [小尸王召唤与鬼火归因](architecture.md#小尸王召唤与鬼火归因)：已核对刷怪蛋入场、受敌选招、三批鬼火、锁敌、自毁和真死亡的奖励分流；预选招式的三批召唤、百刻计时、索敌爆发与玩家击杀奖励已在目标客户端验证。随机选招、触碰和重进仍待。
 
 以 `fc91489e` 为基线的[环境生物规则](architecture.md#自然出生寻路与环境生物经验)已由 `f93c4f0c` 集成；死亡经验与出生条件仍待实机对照。
@@ -86,6 +88,7 @@ updated: 2026-11-20
 
 | 操作 | 调用与数据边界 |
 | --- | --- |
+| `CreatureEncounters.spawnJadeEncounter(ServerPlayer,int)` | 奇遇103/104由生物系统创建对应妖兽并写入随机等级后初始化；玩家与编号由跨系统流程提供，详见[正文](architecture.md#璞玉奇遇妖兽接口2026-11-22) |
 | `TalismanTaming`订阅`TalismanTamingEvent` | Creature拥有妖兽限制、完整驯服概率、原生认主和状态清理；Relation替换好友表与团队，Fulu仅提供命中事实；来源定位见[驯服正文](architecture.md#神傀符妖兽驯服2026-11-13) |
 | `WildPlantCreatures`订阅`WildPlantCreatureEvent` | Creature独占魔眼破坏生成moshou_003/玩家目标及血桃苗计划刻生成taomujing，按来源顺序初始化；Plant只提供同步事实 |
 | `NichangGrassAttraction`订阅`NichangGrassBloomEvent` | Creature拥有召引目标选择、既有妖兽自由NBT及新实体生命周期；阵营经Relation操作，Plant只提供同步开花坐标 |

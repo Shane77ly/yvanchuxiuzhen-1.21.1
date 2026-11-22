@@ -4,6 +4,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.yvanchuxiuzhen.panel.PanelNavigation;
 import net.yvanchuxiuzhen.flow.SystemCommandFlow;
+import net.yvanchuxiuzhen.flow.JadeCarvingFlow;
 import net.yvanchuxiuzhen.flow.BirthSupplyFlow;
 import net.yvanchuxiuzhen.flow.BirthInitialRewardsFlow;
 import net.yvanchuxiuzhen.flow.PlayerRespawnFlow;
@@ -58,6 +59,7 @@ public final class YvanchuxiuzhenMod {
         ContentTabs.register(modBus);
         PanelNavigation.register(modBus);
         SystemCommandFlow.register();
+        JadeCarvingFlow.register();
         BirthSupplyFlow.register();
         BirthInitialRewardsFlow.register();
         ParticleSetup.register(modBus);

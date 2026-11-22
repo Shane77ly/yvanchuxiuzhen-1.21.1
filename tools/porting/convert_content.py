@@ -587,7 +587,7 @@ def main() -> None:
                               *(f'plant:shicai{number}_seed' for number in ('001', '002', '004', '005', '006', '007',
                                   '011', '012', '013', '014', '016', '025', '026', '027')),
                               *(f'cooking:produce{number:03}_food' for number in range(28, 34))) or row['factory'].startswith((
-                                  'material:molten_metal_',
+                                  'material:molten_metal_', 'material:jade_',
                                   'guchong:taoguan_', 'economy:bank_card', 'economy:spirit_stone_', 'economy:auction_token', 'fulu:talisman_', 'fulu:ranged_', 'fulu:passive_', 'fulu:explosive_', 'plant:produce', 'plant:vine', 'plant:gourd', 'plant:legume', 'plant:fiber_seed', 'plant:hemp_seed', 'plant:nichang_grass_seed', 'cooking:fungus', 'cooking:legume')):
             row.pop('pending_hooks', None)
         items_by_unit[unit].append(row)

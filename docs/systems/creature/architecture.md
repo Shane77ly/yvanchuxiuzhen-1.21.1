@@ -458,3 +458,7 @@ geo、animation和纹理与1.18.2版本资源字节相同，刷怪蛋模型仅JS
 寄魂蟹、巨鳖、金翅雀、河流龟、河流鳄、雷原巨鳄、鬼面鸮、青纹巨龟只登记优先级 1 的主人跟随和各自原生导航。不能先构造 `FloatGoal` 再从选择器删除：21.1.265 的构造器已经调用 `getNavigation().setCanFloat(true)`。保留导航原有默认值，不强制禁用浮水，也不更改玩家收放、数值或模型。
 
 逐身份来源文件、方法行号与人间道群系交集见[来源台账](ledger/renjian-ecology-source.csv)。群系列空表示来源事件在该维度没有对应条目，不表示刷怪蛋或其他生成入口无效。
+
+## 璞玉奇遇妖兽接口（2026-11-22）
+
+1.18.2 版本 `CailiaoyvshiqiyvProcedure.java` 的103、104分别在玩家位置创建妖兽045、041，以世界随机源取方向、独立随机1–35级写 `LEVELnumber`，然后按 `MOB_SUMMONED` 初始化并加入世界。1.21.1 版本公开 `CreatureEncounters.spawnJadeEncounter(ServerPlayer,int)`，参数只接受调用方已经判定的103或104；实体字段由生物系统写入。目标出生事件可能取消初始化，实际出生及属性仍待游戏验证。
