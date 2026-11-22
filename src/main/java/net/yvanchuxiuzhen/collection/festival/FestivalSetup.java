@@ -46,6 +46,14 @@ public final class FestivalSetup {
         CONTENT.itemFactory("festival:wish_lantern", WishLanternItem::new);
         CONTENT.<DoubleBangFirework>livingEntity("pao_0901", DoubleBangFirework::new, DoubleBangFirework::attributes);
         CONTENT.itemFactory("festival:double_bang", DoubleBangFireworkItem::new);
+        CONTENT.<SimpleFireworkProjectileEntity>entity("projectile_pao_01",
+                (type, level) -> new SimpleFireworkProjectileEntity(type, level, SimpleFireworkProjectileItem.Kind.PAO_01));
+        CONTENT.itemFactory("festival:pao_01", (properties, tooltip) ->
+                new SimpleFireworkProjectileItem(properties, tooltip, SimpleFireworkProjectileItem.Kind.PAO_01));
+        CONTENT.<SimpleFireworkProjectileEntity>entity("projectile_pao_08",
+                (type, level) -> new SimpleFireworkProjectileEntity(type, level, SimpleFireworkProjectileItem.Kind.PAO_08));
+        CONTENT.itemFactory("festival:pao_08", (properties, tooltip) ->
+                new SimpleFireworkProjectileItem(properties, tooltip, SimpleFireworkProjectileItem.Kind.PAO_08));
         CONTENT.<Pao13Entity>entity("projectile_pao_13", Pao13Entity::new);
         CONTENT.itemFactory("festival:pao_13", Pao13Item::new);
         CONTENT.itemFactory("festival:costume_gift", (properties, tooltip) ->
@@ -103,6 +111,14 @@ public final class FestivalSetup {
 
     public static Supplier<EntityType<DoubleBangFirework>> doubleBangType() {
         return CONTENT.entityType("pao_0901");
+    }
+
+    public static Supplier<EntityType<SimpleFireworkProjectileEntity>> pao01Type() {
+        return CONTENT.entityType("projectile_pao_01");
+    }
+
+    public static Supplier<EntityType<SimpleFireworkProjectileEntity>> pao08Type() {
+        return CONTENT.entityType("projectile_pao_08");
     }
 
     public static Supplier<EntityType<Pao13Entity>> pao13Type() {

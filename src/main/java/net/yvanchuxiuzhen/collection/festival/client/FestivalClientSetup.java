@@ -24,6 +24,8 @@ public final class FestivalClientSetup {
         }));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             event.registerEntityRenderer(FestivalSetup.doubleBangType().get(), DoubleBangFireworkRenderer::new);
+            event.registerEntityRenderer(FestivalSetup.pao01Type().get(), ThrownItemRenderer::new);
+            event.registerEntityRenderer(FestivalSetup.pao08Type().get(), ThrownItemRenderer::new);
             event.registerEntityRenderer(FestivalSetup.pao13Type().get(), ThrownItemRenderer::new);
             EntityModelRow model = FestivalSetup.caishenyeModel();
             event.registerEntityRenderer(FestivalSetup.caishenyeType().get(),

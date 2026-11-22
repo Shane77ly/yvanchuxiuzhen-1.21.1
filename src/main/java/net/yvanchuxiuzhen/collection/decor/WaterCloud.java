@@ -50,6 +50,10 @@ public final class WaterCloud {
     private WaterCloud() {
     }
 
+    public static net.minecraft.world.level.block.state.BlockState blockState() {
+        return BLOCK.get().defaultBlockState();
+    }
+
     private static BaseFlowingFluid.Properties properties() {
         return new BaseFlowingFluid.Properties(TYPE, SOURCE, FLOWING)
                 .explosionResistance(10F).tickRate(15).bucket(BUCKET).block(BLOCK);

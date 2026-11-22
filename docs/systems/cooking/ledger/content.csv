@@ -274,8 +274,8 @@ item,yvanchuxiuzhen:tiaowei_05,yvanchuxiuzhen,Tiaowei05,src/main/java/net/mcreat
 item,yvanchuxiuzhen:tiaowei_06,yvanchuxiuzhen,Tiaowei06,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2201,cooking,已读,yvanchuxiuzhen:tiaowei_06,已注册,
 item,yvanchuxiuzhen:tiaowei_07,yvanchuxiuzhen,Tiaowei07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2565,cooking,已读,yvanchuxiuzhen:tiaowei_07,已注册,
 item,yvanchuxiuzhen:tiaowei_08,yvanchuxiuzhen,Tiaowei08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2569,cooking,已读,yvanchuxiuzhen:tiaowei_08,已注册,
-menu,yvanchuxitong:shaguo_gui,yvanchuxitong,ShaguoGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,80,cooking,候选,yvanchuxiuzhen:shaguo_gui,待处理,
-menu,yvanchuxitong:tieguo_gui,yvanchuxitong,TieguoGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,78,cooking,候选,yvanchuxiuzhen:tieguo_gui,待处理,
+menu,yvanchuxitong:shaguo_gui,yvanchuxitong,ShaguoGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,80,cooking,已读,yvanchuxiuzhen:shaguo_gui,行为已迁移,2026-11-22 代码批次4完成代码与菜单/实体接线，待R16实机验收
+menu,yvanchuxitong:tieguo_gui,yvanchuxitong,TieguoGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,78,cooking,已读,yvanchuxiuzhen:tieguo_gui,行为已迁移,2026-11-22 代码批次4完成代码与菜单/实体接线，待R16实机验收
 menu,yvanchuxitong:zhengguo_gui,yvanchuxitong,ZhengguoGUI,src/main/java/net/mcreator/yvanchuxitong/init/YvanchuxitongModMenus.java,79,cooking,已读,yvanchuxiuzhen:zhengguo_gui,行为已迁移,蒸锅四层加工与笼屉库存/菜单/Geo实现接入；双扫描累计标记、失败留标与跨空层旧标消费沿来源，职业三访问走公开操作；共享启动装配处理中，构建、自动化与实机待执行
 menu,yvanchuxiuzhen:foodmuzeng_gui,yvanchuxiuzhen,FoodmuzengGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,93,cooking,已读,yvanchuxiuzhen:foodmuzeng_gui,行为已迁移,木甑八配方、八酒饮用/酒精和八坛陈酿/天然猴儿酒已正式装配；来源与独立静态复审完成，本批构建及实机待执行；世界结构/观想/蒸锅供给不计闭合
 menu,yvanchuxiuzhen:longti_gui,yvanchuxiuzhen,LongtiGui,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,84,cooking,已读,yvanchuxiuzhen:longti_gui,行为已迁移,蒸锅四层加工与笼屉库存/菜单/Geo实现接入；双扫描累计标记、失败留标与跨空层旧标消费沿来源，职业三访问走公开操作；共享启动装配处理中，构建、自动化与实机待执行
