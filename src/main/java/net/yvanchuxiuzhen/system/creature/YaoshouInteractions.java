@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouEntity;
 
 /** 已驯服活体妖兽的公共交互门槛与普通饲喂、亲近反馈。 */
 final class YaoshouInteractions {
@@ -32,7 +33,7 @@ final class YaoshouInteractions {
         ResourceLocation held = BuiltInRegistries.ITEM.getKey(player.getMainHandItem().getItem());
         if (held.getNamespace().equals(ModId.VALUE) && PRIOR_ITEMS.contains(held.getPath())) return false;
         Entity target = event.getTarget();
-        return target instanceof TamableAnimal beast && beast.isTame();
+        return target instanceof YaoshouEntity beast && beast.isTame() && beast.isAlive();
     }
 
     static void interact(Player player, TamableAnimal beast) {

@@ -399,3 +399,24 @@ R06历史六维度证据属于当时原主目录工作区或隔离候选树：22
 2026-11-20：蛊虫跨入口共享生命周期族 `309fc6f7` 经 `5b716a05` 合入，荧光蛊渲染API修正为 `c828976f`；生产/Smoke编译通过，实际放虫、战斗、掉落与保存重进仍待，见蛊虫月志。
 
 2026-11-20：妖兽与箭头共享生命周期族 `07d19b54` 经 `2a3af60a`、`027cf43c` 合入；生产/Smoke编译通过，自然出生、收放、战斗、掉落与保存重进仍待，见生物月志。
+
+### 2026-11-22 R16 阶段二客户端 Smoke 实机验证记录
+
+在 768 MB 堆限制（`-PsmokeMaxHeap=768m`、`soundCategory_master:0.0`、`renderDistance:2`、`simulationDistance:5`、`lang:zh_cn`）下按业务域分批运行 `runSmokeClient`，并同步修复 3 项产品缺口，修复后重新通过 `compileJava compileTestJava test --tests net.yvanchuxiuzhen.ArchitectureTest jar`（`BUILD SUCCESSFUL`）：
+
+- **修复项**：
+  1. `YaoshouInteractions.accepts`：限定 `target instanceof YaoshouEntity beast && beast.isTame() && beast.isAlive()`，修复对原版驯服狼使用灵兽袋触发 `YaoshouAttributes.SIZE` 空指针异常。
+  2. `src/main/lang/{zh_cn,en_us}/creature.json`：补齐 `entity.yvanchuxiuzhen.moshou_002`（天魔）与 `item.yvanchuxiuzhen.moshou_002_spawn_egg` 语言键。
+  3. `src/main/lang/{zh_cn,en_us}/quest.json`：补齐 `gui.yvanchuxiuzhen.renwufangkuai_gui.*` 全部 44 个中英文语言键（含「显示此物」「设置任务」等）。
+- **已通过场景（0 `FAIL`、`DONE`）**：
+  - 植物批（`plantsupply,plantsoils,plantground,reactiveplants,cerealharvest,vegetableharvest`）：550 行报告，`0 FAIL`，`DONE`。
+  - 修炼/装备/符箓拆分批（`reincarnation,equipmentweapon,equipmentconsumers,benmingcultivation,yihuomaterial,fuluspecial,fuluripening,fulutaming`）：428 行报告，`0 FAIL`，`DONE`。
+  - 饰品与封尸重进批（`accessories,fulucorpse`）：76 行报告，`0 FAIL`，`DONE`。
+  - 宝箱/书卷/阵法批（`treasure,casket,bookreading,bookbinding,bookquiz,formation,formationspace,formationyang`）：与 `questeditor` 同批运行，第 86–447 行 `0 FAIL`，`DONE`。
+  - 地宫批（`dungeon`）：174 行报告，`0 FAIL`，`DONE`。
+  - 前置分批中通过的单项：`hotoil`、`decor_remainder`、`festivalfirework`、`caishenye`、`festivalremaining`、`handheldfirework`、`ghostfirechain`、`coffinghost`、`yaoshourecovery`、`yaoshouinteraction`、`yaoshouprojectileitems`、`guchonglifecycle`、`dantianrealmchain`、`commerce`、`bank`、`spiritstone`、`npcmerchanteggs`、`questjournal`、`tiandao_display`、`panelpages`。
+- **已知失败/未闭合边界（测试自身问题或 768 MB 限制）**：
+  - `dimensionportal`（及含 `worldexploration` 的世界批）：768 MB 堆在全维度连跳/停服后触发 `OutOfMemoryError: Java heap space`。
+  - `doublebang`：421 行中 1 条 `FAIL`（`DoubleBangFireworkCheck` 第 97 行在 `broadcastChanges()` 前读取客户端主手同步）。
+  - `guchong` / `guchonggroundsave`：各 1 条测试自身断言问题（`GuchongCheck` 传入未拷贝 `ItemStack` 被 `split` 扣空；`GuchongGroundSaveCheck` 仍将 `guchongname` 写入 `CUSTOM_DATA` 与 `e0eeecc4` 已对齐的仅写显示名规则不一致）。
+  - `moshou002`（天魔名称已通过，2 条 tick 时序/生命波动）、`guchongflute`（末段战斗平地 120 刻未着地）、`spiritbeastbag`（染色菜单未就绪抛异常）、`npcmanagement`（2 条粒子采样计数 7/6 vs 10）、`questeditor`（前 84 项通过，末段创造潜行右键未开编辑页）。
