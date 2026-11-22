@@ -13,11 +13,25 @@ updated: 2026-11-22
 
 原集成树保留的 `build/diagnostics/`、`build/registry-export/` 与 `run/smoke/options.txt`（`soundCategory_master:0.0`）已迁回本主目录。`ef79aec2` 的蛊笛战斗平地 Smoke 夹具及今日新增/合入的合成材料实例修复、功法命中天外陨石、护甲每秒重算、境界提升粒子、战斗与附魔粒子、施法友表 API、修炼资源镜像与箭头怪经验归因均已编译、通过 ArchUnit 结构守卫与文档/台账校验，真实游戏客户端及专服运行尚未执行。
 
-下一动作（2026-11-22 负责人已确认全量代码优先单树五批次规划，详见[当前调度](remaining-work.md#2026-11-22-全量代码优先方案-b单树五批次推进规划)与[项目月志](../systems/project/logs/2026-11.md#2026-11-22-全量代码优先与单工作树五批次规划定案)）：
+下一动作（2026-11-22 负责人已确认执行**选项 1：消零 R16 技术尾项后收口待合 `main`**，详见[当前调度](remaining-work.md#4-2026-11-22-r16-最终收尾三步走任务单负责人确认选项-1)与[项目月志](../systems/project/logs/2026-11.md#2026-11-22-r16-收尾三步走任务单定案)）：
 
-1. **执行模式**：固定在唯一主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1` 内推进，不再创建额外 worktree；采用**方案 B（代码实现优先，耗时客户端实机验收统一后置到 R16）**。
-2. **已完成五批次全量代码与台账推进及 R16 阶段一/二/三首轮验收**：代码批次 1–5 全部完成并合入 `port/batch0-integration-20261117`；`runServer` 全 11 维度加载保存与全量注册表导出（1179 方块、2307 物品、150 音效、77 效果、315 粒子、272 实体、87 菜单、85 附魔、68 群系，无缺失导出项）、`test`（含 `ArchitectureTest`）、`jar` 构建、`sounds.json`（150 项/0 缺 ogg）、`zh_cn.json`（4504+ 键）与 `check_docs.py`（130 篇/0 问题）全部通过。R16 阶段二首轮客户端 Smoke 按域分批执行并修复 3 项产品缺口（`YaoshouInteractions` 限定存活 `YaoshouEntity`、`moshou_002` 与 `renwufangkuai_gui` 缺键）；详细通过/失败/768 MB OOM 边界见[剩余工作清单](remaining-work.md#2026-11-22-r16-阶段二客户端-smoke-实机验证记录)。全局台账 4939 行现余 8 行 `待处理`（均为已批准排除 Q28 或 1.18.2 孤立无入口菜单 Q20/Q135/Q151/`tiandao_gongfa_gui`）。下一动作：按需复核剩余测试时序/高堆场景（`dimensionportal`、`questeditor` 末段、`guchongflute`/`spiritbeastbag`），经负责人确认后合并 `main`。
-3. **合入门禁与后续批次**：每完成一个功能族或批次，在 768 MB、单 worker 下串行运行 `compileJava compileTestJava`、`test --tests net.yvanchuxiuzhen.ArchitectureTest`、`check_ledger.py` 与 `check_docs.py`，通过后切回 `port/batch0-integration-20261117` 执行 `git merge --no-ff` 合入并清理临时分支，随后依次推进**批次 2（`port/code-b2-creature-guchong`）**至**批次 5（`port/code-b5-social-dungeon-zhenfa`）**。1.18.2 旧版非阻断性 Bug 保真迁移并从 **Q241** 起登记至[来源问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置)及所属系统正文；不推送、不自动合并 `main`，Q28 仍为唯一批准排除项。
+1. **当前基线**：主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`、分支 `port/batch0-integration-20261117`。代码批次 1–5、全量 `pending_hooks` 专属工厂挂载、`runServer` 全 11 维度导出、`ArchitectureTest`、`jar` 与 R16 阶段二大部分客户端 Smoke 场景均已通过；全局台账 4939 行现余 8 行 `待处理`（均为已批准排除 Q28 或 1.18.2 孤立无入口菜单 Q20/Q135/Q151/`tiandao_gongfa_gui`）。
+2. **立即执行的 R16 最终收尾三步走（在唯一主工作树检出 `port/r16-tail-closure` 执行，完成后 `--no-ff` 合入 `port/batch0-integration-20261117`）**：
+   - **第一步：消零 `check_ledger.py` 的 15 项转换清单告警**
+     - 将磁盘 `src/main/resources/assets/yvanchuxiuzhen/` 下已存在的 15 个资源文件（`blockstates/pao_10.json`、`blockstates/watercloud.json`、`models/item/pao_10.json`、`models/item/watercloud_bucket.json`、`models/item/businessman_01..07_spawn_egg.json`、`models/item/businessman_09..11_spawn_egg.json`、`models/item/daguanjia_spawn_egg.json`）登记入 `docs/reference/conversion/system_assets.csv` 及 `docs/reference/conversion/manifest.csv`，运行 `python -B -X utf8 tools/porting/check_ledger.py` 确保输出 **`发现 0 项问题`**。
+   - **第二步：排查并闭合 R16 阶段二剩余客户端 Smoke 尾项**（详细现场见[实机验证记录](remaining-work.md#2026-11-22-r16-阶段二客户端-smoke-实机验证记录)）
+     1. **优先排查修复 2 项潜在交互/菜单问题**：
+        - `questeditor`：核查末段创造模式潜行右键任务方块（`renwufangkuai`）未打开 `RenwufangkuaiGui` 的原因，修复后单跑 `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=questeditor runSmokeClient` 验证 `0 FAIL`、`DONE`。
+        - `spiritbeastbag`：核查灵兽袋染色菜单（`LingshoudaizhuanhuanMenu`）未就绪抛异常的原因，修复后单跑 `-PsmokeOnly=spiritbeastbag runSmokeClient` 验证 `0 FAIL`、`DONE`。
+     2. **修正 5 项过时/时序测试夹具并复跑通过**：
+        - `doublebang`：修正 `DoubleBangFireworkCheck` 第 97 行在 `broadcastChanges()` 前读取客户端主手同步的时序，单跑 `-PsmokeOnly=doublebang` 通过。
+        - `guchong` 与 `guchonggroundsave`：修正 `GuchongCheck` 传入未拷贝 `ItemStack` 被 `split` 扣空，以及 `GuchongGroundSaveCheck` 仍将 `guchongname` 写入 `CUSTOM_DATA`（与 `e0eeecc4` 仅写显示名的来源规则不一致）的断言，单跑 `-PsmokeOnly=guchong,guchonggroundsave` 通过。
+        - `guchongflute`、`moshou002`、`npcmanagement`：修正末段平地 120 刻着地等待、tick 生命波动与粒子采样计数断言，分别单跑通过。
+     3. **验证 `dimensionportal` 多维门户边界**：针对 768 MB 堆下全维度连续跳转生成区块 OOM，按拆分维度或适当配置复核门户往返并如实记录 768 MB 内存边界。
+   - **第三步：全量门禁回归与正式 JAR 打包待合 `main`**
+     - 串行运行 `./gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test --tests net.yvanchuxiuzhen.ArchitectureTest jar`；
+     - 运行 `python -B -X utf8 tools/porting/check_ledger.py`（0 项问题）与 `python -B -X utf8 tools/docs/check_docs.py`（0 项问题）；
+     - 同步更新系统月志、[remaining-work.md](remaining-work.md) 与本文件，保持工作树干净，交负责人确认后合入 `main`（不自动推送、不擅自合并 `main`）。
 
 ## 历史接手记录（2026-11-22）
 

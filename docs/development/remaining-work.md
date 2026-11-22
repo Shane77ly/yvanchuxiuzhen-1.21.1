@@ -161,8 +161,18 @@ Q28星宿穴位学习小游戏已于2026-11-16批准排除，保留来源登记�
   - **非阻断性 Bug**（写错变量/概率截获/游离断链）100% 保持 1.18.2 实际运行行为并标为 `保持来源，待集中裁定`，在 5 个代码批次结束后汇总供负责人集中勾选取舍；**阻断性 Bug**（死循环/崩溃/1.21.1 拒绝加载）立即列出证据请示负责人，获批后实现并标为 `已批准调整，已实现`。
 - **后置统一验收三步收敛（R16）**：
   1. **全量注册表与资源静态总检（2026-11-22 已完成）**：`runServer` 全 11 维度加载保存与注册表导出（1179 方块、2307 物品、150 音效、77 效果、315 粒子、272 实体、87 菜单、85 附魔、68 群系，零导出缺失）、`sounds.json`（150 项/0 缺 ogg）、`zh_cn.json`（4504 键）、`check_docs.py`（130 篇/0 问题）及 `./gradlew.bat --no-daemon --max-workers=1 test`（含 `ArchitectureTest`）通过；`check_ledger.py` 余 15 项手工资源/模板刷怪蛋未走 `convert_assets.py` 清单的静态提示，无阻塞缺失。
-  2. **按业务域聚合的客户端实机与存档重进验收**：固定静音（`soundCategory_master:0.0`）与低视距，按 5 个批次对应业务域串行运行 `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=<场景组> runSmokeClient`，核验端到端交互、GUI 截图与同档退出重进（Save/Load），通过项台账升为 `已验收`。（当前尚未执行统一客户端 Smoke 验收）
-  3. **发布包构建与主线收口（2026-11-22 已构建校验）**：已运行 `./gradlew.bat --no-daemon --max-workers=1 jar` 校验成品 JAR 构建通过，待负责人确认后合入 `main`。 `main`。
+  2. **按业务域聚合的客户端实机与存档重进验收（首轮已执行，尾项按下方第 4 节收口）**：固定静音（`soundCategory_master:0.0`）与低视距，按 5 个批次对应业务域串行运行 `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=<场景组> runSmokeClient`，核验端到端交互、GUI 截图与同档退出重进（Save/Load）；首轮结果见[R16 阶段二客户端 Smoke 实机验证记录](#2026-11-22-r16-阶段二客户端-smoke-实机验证记录)。
+  3. **发布包构建与主线收口（2026-11-22 已构建校验）**：已运行 `./gradlew.bat --no-daemon --max-workers=1 jar` 校验成品 JAR 构建通过，完成下方第 4 节尾项消零后待负责人确认合入 `main`。
+
+#### 4. 2026-11-22 R16 最终收尾三步走任务单（负责人确认选项 1）
+
+负责人在审阅五批次代码合入与 R16 首轮实机结果后，确认采用**选项 1（先消零静态台账清单告警与剩余 Smoke 失败尾项，再重新打包收口待合 `main`）**。下一会话在唯一主工作树从 `port/batch0-integration-20261117` 检出功能分支 `port/r16-tail-closure`，依次闭合以下三步并以 `git merge --no-ff` 合入集成分支：
+
+| 步骤 | 具体任务范围 | 闭合与验证标准（768 MB、单 worker 串行） |
+| --- | --- | --- |
+| **步骤 1**<br>消零 `check_ledger.py` 15 项转换清单告警 | 将 `src/main/resources/assets/yvanchuxiuzhen/` 下已存在的 15 个资源文件（`blockstates/pao_10.json`、`blockstates/watercloud.json`、`models/item/pao_10.json`、`models/item/watercloud_bucket.json`、`models/item/businessman_01..07_spawn_egg.json`、`models/item/businessman_09..11_spawn_egg.json`、`models/item/daguanjia_spawn_egg.json`）补入 `docs/reference/conversion/system_assets.csv` 与 `docs/reference/conversion/manifest.csv`（含来源路径与 SHA-1）。 | 运行 `python -B -X utf8 tools/porting/check_ledger.py` 输出 **`发现 0 项问题`**。 |
+| **步骤 2**<br>排查修复并复跑 R16 阶段二剩余 Smoke 尾项 | 1. **优先排查潜在功能/交互问题（2 项）**：<br>   - `questeditor`：排查末段创造模式潜行右键任务方块（`renwufangkuai`）未打开 `RenwufangkuaiGui` 的原因（区分方块 `useWithoutItem`/事件拦截与夹具点击条件）并修复。<br>   - `spiritbeastbag`：排查灵兽袋染色菜单（`LingshoudaizhuanhuanMenu`）未就绪抛异常原因并修复。<br>2. **修正过时/时序夹具并复跑（5 项）**：<br>   - `doublebang`：修正 `DoubleBangFireworkCheck` 第 97 行在 `broadcastChanges()` 前读取客户端主手同步的时序。<br>   - `guchong`、`guchonggroundsave`：修正 `GuchongCheck` 传入未拷贝 `ItemStack` 被 `split` 扣空，以及 `GuchongGroundSaveCheck` 仍写旧 `CUSTOM_DATA` `guchongname`（与 `e0eeecc4` 仅写显示名的来源规则不一致）的断言。<br>   - `guchongflute`、`moshou002`、`npcmanagement`：修正末段平地 120 刻未着地、tick 生命波动及粒子采样计数断言。<br>3. **多维门户低内存验证（1 项）**：<br>   - `dimensionportal`：按拆分维度或适当配置复核门户往返，区分产品门户逻辑与 768 MB 全维度连跳区块生成 OOM 边界。 | 逐项串行运行 `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=<场景> runSmokeClient`（保持 `soundCategory_master:0.0` 静音），确认 `questeditor`、`spiritbeastbag`、`doublebang`、`guchong`、`guchonggroundsave`、`guchongflute`、`moshou002`、`npcmanagement` 均达 `0 FAIL`、`DONE`。 |
+| **步骤 3**<br>全量门禁回归与正式 JAR 打包收口 | 1. 串行运行 `./gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test --tests net.yvanchuxiuzhen.ArchitectureTest jar`。<br>2. 运行 `python -B -X utf8 tools/porting/check_ledger.py` 与 `python -B -X utf8 tools/docs/check_docs.py`。<br>3. 更新相关系统月志、本页及[交接](handoff.md)，合并回 `port/batch0-integration-20261117` 并删除临时分支。 | 编译、ArchUnit 六项守卫、JAR 构建、`check_ledger.py`（0 问题）、`check_docs.py`（0 问题）、`git diff --check` 全部通过；工作树干净，等待负责人确认后合并 `main`。 |
 
 ### 历史调度快照（截至 2026-11-22 收口前）
 
