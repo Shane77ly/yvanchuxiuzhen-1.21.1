@@ -15,26 +15,37 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.guchong.api.GuchongCapture;
 import net.yvanchuxiuzhen.system.guchong.client.GuchongReleaseScreen;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongFluteItem;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongJarRuntime;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongReleaseMenu;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongEntity;
 import net.yvanchuxiuzhen.system.guchong.network.GuchongReleaseButtonPayload;
+import net.yvanchuxiuzhen.system.profession.api.Profession;
+import net.yvanchuxiuzhen.system.profession.api.Professions;
 
 /** 蛊笛真实右键与客户端按钮；分页、空UUID和部分收回各使用独立背包样本。 */
 final class GuchongFluteCheck extends SystemCheck {
     private static final String MAIN_UUID = "r10_flute_main";
     private static final String PARTIAL_UUID = "r10_flute_partial";
+    private static final String COMBAT_UUID = "r10_flute_combat";
     private final Screenshots screenshots;
     private final List<ItemStack> inventory = new ArrayList<>();
     private final List<ItemStack> untouched = new ArrayList<>();
@@ -50,6 +61,21 @@ final class GuchongFluteCheck extends SystemCheck {
     private CompoundTag savedFlute;
     private CompoundTag savedJar;
     private CompoundTag partialBefore;
+    private Pig combatTarget;
+    private ServerPlayer combatOwner;
+    private GuchongEntity combatInsect;
+    private boolean insectKilledTarget;
+    private boolean observingCombat;
+    private double oldInsectExperience;
+    private double experienceAfterDeath;
+    private final Consumer<LivingDeathEvent> combatDeath = event -> {
+        if (event.getEntity() == combatTarget && event.getSource().is(DamageTypes.MOB_ATTACK)
+                && event.getSource().getEntity() == combatInsect && event.getSource().getDirectEntity() == combatInsect
+                && !event.isCanceled()) {
+            insectKilledTarget = true;
+            experienceAfterDeath = Professions.experience(combatOwner, Profession.INSECT);
+        }
+    };
 
     GuchongFluteCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("蛊笛分页放收", report, levelId);
@@ -162,6 +188,17 @@ final class GuchongFluteCheck extends SystemCheck {
             case 31 -> {
                 if (!screen(local)) yield false;
                 screenshots.take("guchong_flute_partial_recall.png");
+                onServer(this::prepareCombat);
+                yield true;
+            }
+            case 32 -> click(local, 2);
+            case 33 -> action(local, 6, this::startCombat);
+            case 34 -> combatFinished(local);
+            case 35 -> click(local, 2);
+            case 36 -> action(local, 6, this::checkCombatRecall);
+            case 37 -> click(local, 2);
+            case 38 -> action(local, 6, this::checkCombatRelease);
+            case 39 -> {
                 onServer(this::cleanup);
                 finish();
                 yield true;
@@ -310,6 +347,98 @@ final class GuchongFluteCheck extends SystemCheck {
         return insects;
     }
 
+    private void prepareCombat(ServerPlayer player) {
+        player.closeContainer();
+        discardSpecimens();
+        player.getInventory().clearContent();
+        player.getInventory().selected = 0;
+        player.getInventory().setItem(0, item("fabao_018"));
+        GuchongEntity wild = (GuchongEntity) GuchongJarRuntime.create(player.serverLevel(), "yvanchuxiuzhen:guchong_03");
+        wild.moveTo(player.position());
+        GuchongJarRuntime.finishSpawn(player.serverLevel(), wild);
+        wild.getPersistentData().putDouble("experience", 119);
+        expect("受控飞蝗出生经验上限", 120, wild.getPersistentData().getDouble("experience_Max"));
+        expect("摄虫网收纳操作捕获野生飞蝗", GuchongCapture.Result.CAPTURED,
+                GuchongCapture.captureWild(player.serverLevel(), wild, player.getStringUUID()));
+        ItemStack captured = player.getInventory().items.stream().filter(stack -> stack.is(item("guchong_03item").getItem()))
+                .findFirst().orElseThrow().copy();
+        player.getInventory().clearContent();
+        player.getInventory().setItem(0, item("fabao_018"));
+        CompoundTag insectData = GuchongJarData.read(captured);
+        insectData.putBoolean("guchongxvnfu", true);
+        insectData.putString("belongToMasterUUID", player.getStringUUID());
+        GuchongJarData.write(captured, insectData);
+        ItemStack jar = item("taoguan_01item");
+        CompoundTag data = new CompoundTag();
+        data.putString("guguanuuid", COMBAT_UUID);
+        GuchongJarData.pack(captured, data, 0, false);
+        GuchongJarData.write(jar, data);
+        player.getInventory().setItem(9, jar);
+        combatOwner = player;
+        oldInsectExperience = Professions.experience(player, Profession.INSECT);
+        Professions.setExperience(player, Profession.INSECT, 0);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, combatDeath);
+        observingCombat = true;
+        use(player, false);
+    }
+
+    private void startCombat(ServerPlayer player) {
+        active = capture(player, COMBAT_UUID, 1);
+        combatInsect = active.getFirst();
+        combatInsect.setNoAi(false);
+        combatTarget = EntityType.PIG.create(player.serverLevel());
+        combatTarget.moveTo(combatInsect.position());
+        combatTarget.setNoAi(true);
+        combatTarget.setNoGravity(true);
+        combatTarget.setHealth(1);
+        player.serverLevel().addFreshEntity(combatTarget);
+        expect("受控猪的原生生命上限", 10, combatTarget.getMaxHealth());
+        expectTrue("战斗前蛊笛实体保留同一捕获虫的等级与经验",
+                combatInsect.getPersistentData().getDouble("LEVELnumber") == 1
+                        && combatInsect.getPersistentData().getDouble("experience") == 119
+                        && combatInsect.getPersistentData().getDouble("experience_Max") == 120);
+        combatInsect.setTarget(combatTarget);
+    }
+
+    private boolean combatFinished(int local) {
+        boolean[] finished = {false};
+        onServer(player -> {
+            if (!insectKilledTarget || combatTarget.isAlive()) return;
+            CompoundTag insect = combatInsect.getPersistentData();
+            expectTrue("蛊笛放出的同一只飞蝗原生近战击杀受控猪", combatTarget.isDeadOrDying());
+            expectTrue("普通猪按生命上限除五升级并保留剩余经验", insect.getDouble("LEVELnumber") == 2
+                    && insect.getDouble("experience") == 1 && insect.getDouble("experience_Max") == 170
+                    && insect.getString("LEVELname").equals("一阶低级"));
+            expect("同次死亡事件后主人养蛊经验增加", 20, experienceAfterDeath);
+            expect("升级后按贫弱生命资质回满", 122, combatInsect.getHealth());
+            finished[0] = true;
+        });
+        if (!finished[0] && local > 240) {
+            onServer(player -> fail("蛊笛飞蝗未在240刻内原生击杀受控猪：死亡事件=" + insectKilledTarget
+                    + " 猪生命=" + combatTarget.getHealth() + " 蛊虫存活=" + combatInsect.isAlive()
+                    + " 蛊虫目标=" + (combatInsect.getTarget() == combatTarget)));
+            onServer(this::cleanup);
+            finish();
+        }
+        return finished[0];
+    }
+
+    private void checkCombatRecall(ServerPlayer player) {
+        CompoundTag data = GuchongJarData.read(player.getInventory().getItem(9));
+        expectTrue("蛊笛按钮收回战斗后的同一只飞蝗并保存等级经验与生命", combatInsect.isRemoved()
+                && !data.getBoolean("shifangguchong") && data.getDouble("shifangnum") == 0
+                && data.getDouble("LEVELnumber0") == 2 && data.getDouble("experience0") == 1
+                && data.getDouble("experience_Max0") == 170 && data.getDouble("health_Num0") == 122);
+    }
+
+    private void checkCombatRelease(ServerPlayer player) {
+        active = capture(player, COMBAT_UUID, 1);
+        CompoundTag data = active.getFirst().getPersistentData();
+        expectTrue("再次通过蛊笛放出保留战斗成长与主人", data.getDouble("LEVELnumber") == 2
+                && data.getDouble("experience") == 1 && data.getDouble("experience_Max") == 170
+                && active.getFirst().getHealth() == 122 && active.getFirst().isOwnedBy(player));
+    }
+
     private void stage(ServerPlayer player, String uuid, int... slots) {
         player.closeContainer();
         discardSpecimens();
@@ -371,6 +500,12 @@ final class GuchongFluteCheck extends SystemCheck {
 
     private void cleanup(ServerPlayer player) {
         player.closeContainer();
+        if (observingCombat) {
+            NeoForge.EVENT_BUS.unregister(combatDeath);
+            Professions.setExperience(player, Profession.INSECT, oldInsectExperience);
+            observingCombat = false;
+        }
+        if (combatTarget != null && !combatTarget.isRemoved()) combatTarget.discard();
         discardSpecimens();
         StatusEffects.remove(player, "effect_002");
         player.getInventory().clearContent();
