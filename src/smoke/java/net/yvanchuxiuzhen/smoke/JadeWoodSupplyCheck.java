@@ -112,7 +112,9 @@ final class JadeWoodSupplyCheck extends SystemCheck {
                         && p.containerMenu == p.inventoryMenu && p.inventoryMenu.getCarried().isEmpty(), "存档或菜单不符");
                 need(count(p, log.asItem()) == 0 && count(p, Items.CLAY) == 0 && count(p, brick.asItem()) == 0, "背包已有本链物品");
                 at(p, BASE, log); at(p, BASE.above(), log); at(p, new BlockPos(4241, 69, 4368), leaves);
-                need(p.level().getBlockState(PLACED).isAir() && p.level().getBlockState(PLACED.below()).is(Blocks.STONE), "放砖位置不符");
+                need(p.level().getBlockState(PLACED).isAir() && p.level().getBlockState(PLACED.below()).is(Blocks.GRASS_BLOCK),
+                        "放砖位置不符 " + PLACED.toShortString() + "=" + p.level().getBlockState(PLACED)
+                                + " 下方=" + p.level().getBlockState(PLACED.below()));
                 need(p.getInventory().add(new ItemStack(Items.CLAY, 2)), "无法放入夹具黏土");
                 stand(p, 4241.5, 64, 4369.5);
                 info("存档现存树体：两段文玉木及树冠已核对；两块黏土由夹具提供，不宣称树体生成已被追踪。");
