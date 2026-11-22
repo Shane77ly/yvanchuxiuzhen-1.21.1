@@ -2,23 +2,18 @@
 topic: handoff
 role: guide
 status: current
-updated: 2026-11-21
+updated: 2026-11-22
 ---
 
 # 交接说明
 
-## 接手基线（2026-11-21）
+## 接手基线（2026-11-22）
 
-功能 `1736d798` 补回修理材料短名，金属锭铁砧专项已通过；接续炼器鼎原料至产物和特殊合成入口。
+当前集成工作树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，HEAD `2f543517`（`fix: localize caishen shop products and verify purchase path`）；接手时工作树干净。财神商店商品名现从物品槽读取、价格从同步商品表读取；受控生成财神后的真实右键、中文对话/商店、20枚金银购买红包及保存退出重进库存保持，`caishenye` 代码 Smoke 已通过。受控生成不代表自然出生或自然遇见，红包奖励未开验。实现、证据和开放边界见[统一工作清单](remaining-work.md#当前调度)以及经济、节日月志。
 
-九种玉矿功能 `48fadabb` 已接收，正常表、空表及168干湿状态通过开发客户端专项；接续璞玉雕琢与奇遇，见[当前调度](remaining-work.md#当前调度)。
+当前批次继续人间界优先，三个完整模块由原独立 worktree 增量推进，主线程只选择性接收文件边界明确的功能单位：材料负责人推进九种璞玉单件/潜行批量雕琢及来源奇遇链；世界/植物负责人推进自然供给的完整玩家路径；生物/蛊虫负责人核对单虫释放并延续跨入口生命周期。三树的混合既有改动均不作为可整体接收的提交，也不等同于集成或验收；具体工作边界与未闭合项见各模块负责人交付及[统一工作清单](remaining-work.md#当前调度)。
 
-金属组 `77add965` 已核对来源、限定转换与编译；精铁自原矿至六支成箭已通过；继续其余金属来源和下游消费，生物标记与战斗恢复专项 `2556d7f4` 已通过限定客户端验证。
-
-飞行法器功能 `2417c8d6` 已在集成树通过八类受控客户端验证；预置飞叶同档重进取回 `e2dd62cf` 也已通过；飞叶购买与银盘传承两种奖励的原生拾取重召已验，接续红包等来源。详见[当前调度](remaining-work.md#当前调度)。
-
-集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`，跑参分身 `aba6275a` 与装备认主、再炼和本命培养 `ee7a9a19` 已合入并通过限定客户端验证。蚕盒自然材料、合成放置和独立客户端重进已验（功能 `c7069e8e`）。九档灵石矿工具门、空掉落回退和开封 `7538aa80` 已经受控实测。下一批：世界侧追踪已定位的自然矿点与下游消费者，小尸王召鬼火、自爆与击杀结算 `3f7d9b58` 已通过受控客户端验证；生物侧接续棺材与游魂标记，装备侧接收飞行法器生命周期。见[当前调度](remaining-work.md#当前调度)。原主树、野羊与结构宝箱候选不动，Q40 不复跑。
-
+集成树已运行 `compileSmokeJava`，`caishenye` 客户端 Smoke、文档检查（130篇、0问题）、台账检查（4939行、0问题）和 `git diff --check` 均通过；报告位于 `build/smoke/report.txt`，截图位于 `build/smoke/screenshots/caishenye_shop.png`。本批未验证财神自然生成/自然遇见、红包奖励，也未由此宣称经济系统整体验收。继续执行前先复核模块工作树差异，只接收明确功能包；重型 Gradle、转换、客户端和专服操作仍按工程规则串行。不推送、不合并 `main`。
 ## 前次执行基线（2026-11-21）
 
 本轮固定人间界优先。当前集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`、分支 `port/batch0-integration-20261117`，本次收尾 HEAD 为 `71cda008`（`fix: expose cultivation level mirror for combat consumers`），其父提交 `e43f9c49` 已选择性接收修炼与战斗共享击杀归因族，前置植物供给族已由 `6db3574f` 接收。负责人最初指定的 `9e9675a1` 仅作接续定位，未回退到旧提交；Q40 已合入且不再无变化复跑。集成树已通过 `git diff --check`、`python -B -X utf8 tools/docs/check_docs.py`（130篇、0项）和串行 `./gradlew.bat --no-daemon --max-workers=1 compileJava`；本次未启动客户端或专服，客户端静音前置仍为实际运行目录 `run/smoke/options.txt` 的 `soundCategory_master:0.0`。三个完整模块仍由各自 `gpt-6.1-terra`、`xhigh` 负责人按完整功能族和端到端路径在原模块树增量推进，不按单个妖兽、方块或神通切碎任务；模块树脏改动不整体搬运，未接收改动不视为集成或验证完成。野羊候选 `29619325` 与结构宝箱候选继续隔离，未编译或运行；原主树保持不动。
