@@ -9,9 +9,9 @@ updated: 2026-11-22
 
 ## 接续基线（2026-11-22）
 
-实际集成树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`；接手时 HEAD `0cb7646a`、工作树干净。原主工作树 `port/full-migration-20261112` 在 `28f05bc7` 且有大量既有暂存及未暂存改动，不将其作为当前集成树。`4bd0e751` 蛊虫奇遇接口已合入；`0cb7646a` 仅增加璞玉场景夹具，九种璞玉雕琢生产逻辑仍待接入，夹具未运行，不能据此宣称行为通过。
+实际集成树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`；接手时 HEAD `0cb7646a`、工作树干净。原主工作树 `port/full-migration-20261112` 在 `28f05bc7` 且有大量既有暂存及未暂存改动，不将其作为当前集成树。`4bd0e751` 蛊虫奇遇接口已合入；`0cb7646a` 增加璞玉场景夹具；后续九种璞玉生产逻辑 `b25f186d` 已由 `be58e21c` 合入，蛊虫修正 `d1f1868e` 已由 `52c168ae` 合入。
 
-花椒/八角树苗来源调用对齐 `383714e2` 已经离线单 worker 生产编译，非快进合入 `e1a4ee92`；自然生成、采收、成长和重进仍未验，见[植物月志](../systems/plant/logs/2026-11.md#2026-11-22-花椒与八角自然供给链静态核对)。接手基线 `0cb7646a` 的生产与 Smoke 源集离线编译通过，璞玉场景未运行。
+花椒/八角树苗来源调用对齐 `383714e2` 已经离线单 worker 生产编译，非快进合入 `e1a4ee92`；自然生成、采收、成长和重进仍未验，见[植物月志](../systems/plant/logs/2026-11.md#2026-11-22-花椒与八角自然供给链静态核对)。接手基线 `0cb7646a` 的生产与 Smoke 源集离线编译通过。集成 `52c168ae` 的 `guchonglifecycle` 和 `jadecarving` 客户端场景均通过，具体范围与未验边界见[蛊虫月志](../systems/guchong/logs/2026-11.md#2026-11-22-地上罐生命恢复与实体死亡经验)和[材料月志](../systems/material/logs/2026-11.md#2026-11-22-璞玉雕琢与奇遇)。
 
 恢复世界/植物、蛊虫生命周期和璞玉三个独立模块的接续；实际交付以功能树提交与复核结果为准。串行重型验证、公共进度与 Git 收口仍由集成执行者负责；不推送或合并 `main`。
 

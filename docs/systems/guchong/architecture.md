@@ -11,7 +11,7 @@ updated: 2026-11-22
 
 1.18.2 版本来源 A `Cailiao16102DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java:59–105` 在普通雕琢且奇遇命中时调用 `CailiaoyvshiqiyvProcedure`；潜行批量分支不调用。后者第301–309行在服务端创建04蛊虫，移动到玩家坐标，用世界随机源取朝向，再以独立 `Random` 抽取闭区间1–35的整数并以 `putDouble` 写入 `LEVELnumber`，然后按 `MOB_SUMMONED` 初始化并加入世界。
 
-1.21.1 版本公开 `GuchongEncounters.spawnJadeEncounter(ServerPlayer)`：由蛊虫系统负责创建、等级写入和加入世界，外部不修改蛊虫持久字段。目标 NeoForge 21.1.265 的 `EventHooks.finalizeMobSpawn` 在出生事件未取消时调用实体 `finalizeSpawn`；`Guchong04Entity` 随后经 `GuchongStats.initialize` 读取预设等级计算经验上限与属性。事件取消时不能保证该初始化发生，是否加入世界由目标出生事件行为决定。材料侧调用不在本提交；本接口仅静态核对和 Java 语法检查，未编译或运行。
+1.21.1 版本公开 `GuchongEncounters.spawnJadeEncounter(ServerPlayer)`：由蛊虫系统负责创建、等级写入和加入世界，外部不修改蛊虫持久字段。目标 NeoForge 21.1.265 的 `EventHooks.finalizeMobSpawn` 在出生事件未取消时调用实体 `finalizeSpawn`；`Guchong04Entity` 随后经 `GuchongStats.initialize` 读取预设等级计算经验上限与属性。事件取消时不能保证该初始化发生，是否加入世界由目标出生事件行为决定。材料侧调用已集成；受控璞玉奇遇105场景检查生成一只04和1–35级，见[材料月志](../material/logs/2026-11.md#2026-11-22-璞玉雕琢与奇遇)。
 
 ## 手持罐放虫与死亡清槽
 
