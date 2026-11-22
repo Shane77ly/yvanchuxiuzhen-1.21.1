@@ -3,6 +3,8 @@ package net.yvanchuxiuzhen.smoke;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
@@ -25,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.common.NeoForge;
@@ -57,6 +60,7 @@ final class GuchongFluteCheck extends SystemCheck {
     private final List<ItemStack> inventory = new ArrayList<>();
     private final List<ItemStack> untouched = new ArrayList<>();
     private final List<GuchongEntity> specimens = new ArrayList<>();
+    private final Map<BlockPos, BlockState> combatArenaBlocks = new LinkedHashMap<>();
     private List<GuchongEntity> active = List.of();
     private int selected;
     private GameType mode;
@@ -73,6 +77,7 @@ final class GuchongFluteCheck extends SystemCheck {
     private GuchongEntity combatInsect;
     private boolean insectKilledTarget;
     private boolean observingCombat;
+    private boolean combatArmed;
     private double oldInsectExperience;
     private double experienceAfterDeath;
     private long combatStartTime;
@@ -107,7 +112,7 @@ final class GuchongFluteCheck extends SystemCheck {
                 + " final=" + event.getNewDamage() + " 猪生命=" + combatTarget.getHealth());
     };
     private final Consumer<LevelTickEvent.Post> combatTick = event -> {
-        if (combatInsect != null && event.getLevel() == combatInsect.level()) sampleCombat();
+        if (combatArmed && event.getLevel() == combatInsect.level()) sampleCombat();
     };
     private final Consumer<LivingDeathEvent> combatDeath = event -> {
         if (event.getEntity() != combatTarget) return;
@@ -241,12 +246,13 @@ final class GuchongFluteCheck extends SystemCheck {
             }
             case 32 -> click(local, 2);
             case 33 -> action(local, 6, this::startCombat);
-            case 34 -> combatFinished(local);
-            case 35 -> click(local, 2);
-            case 36 -> action(local, 6, this::checkCombatRecall);
-            case 37 -> click(local, 2);
-            case 38 -> action(local, 6, this::checkCombatRelease);
-            case 39 -> {
+            case 34 -> settleCombat(local);
+            case 35 -> combatFinished(local);
+            case 36 -> click(local, 2);
+            case 37 -> action(local, 6, this::checkCombatRecall);
+            case 38 -> click(local, 2);
+            case 39 -> action(local, 6, this::checkCombatRelease);
+            case 40 -> {
                 onServer(this::cleanup);
                 finish();
                 yield true;
@@ -398,6 +404,14 @@ final class GuchongFluteCheck extends SystemCheck {
     private void prepareCombat(ServerPlayer player) {
         player.closeContainer();
         discardSpecimens();
+        if (!createCombatArena(player)) {
+            fail("战斗场地被占用，无法安全建立受控平地");
+            cleanup(player);
+            finish();
+            return;
+        }
+        player.connection.teleport(floor.getX() + .5, floor.getY() + 1, floor.getZ() + .5, 0, 0);
+        player.setDeltaMovement(Vec3.ZERO);
         player.getInventory().clearContent();
         player.getInventory().selected = 0;
         player.getInventory().setItem(0, item("fabao_018"));
@@ -435,14 +449,45 @@ final class GuchongFluteCheck extends SystemCheck {
         use(player, false);
     }
 
+    private boolean createCombatArena(ServerPlayer player) {
+        for (int x = -5; x <= 5; x++) {
+            for (int z = -5; z <= 5; z++) {
+                for (int y = 0; y <= 2; y++) {
+                    if (y == 0 && x == 0 && z == 0) continue;
+                    BlockPos pos = floor.offset(x, y, z);
+                    if (!player.level().getBlockState(pos).isAir()) return false;
+                }
+            }
+        }
+        for (int x = -5; x <= 5; x++) {
+            for (int z = -5; z <= 5; z++) {
+                BlockPos pos = floor.offset(x, 0, z);
+                if (!(x == 0 && z == 0)) {
+                    combatArenaBlocks.put(pos, player.level().getBlockState(pos));
+                    player.level().setBlock(pos, Blocks.STONE.defaultBlockState(), 3);
+                }
+                if (Math.abs(x) < 5 && Math.abs(z) < 5) continue;
+                for (int y = 1; y <= 2; y++) {
+                    pos = floor.offset(x, y, z);
+                    combatArenaBlocks.put(pos, player.level().getBlockState(pos));
+                    player.level().setBlock(pos, Blocks.STONE.defaultBlockState(), 3);
+                }
+            }
+        }
+        return true;
+    }
+
     private void startCombat(ServerPlayer player) {
         active = capture(player, COMBAT_UUID, 1);
         combatInsect = active.getFirst();
-        combatInsect.setNoAi(false);
+        combatInsect.setNoGravity(false);
+        combatInsect.setDeltaMovement(Vec3.ZERO);
+        combatInsect.moveTo(floor.getX() + 1.5, floor.getY() + 1, floor.getZ() + .5);
         combatTarget = EntityType.PIG.create(player.serverLevel());
-        combatTarget.moveTo(combatInsect.position());
+        combatTarget.moveTo(floor.getX() + 3.5, floor.getY() + 1, floor.getZ() + .5);
         combatTarget.setNoAi(true);
-        combatTarget.setNoGravity(true);
+        combatTarget.setNoGravity(false);
+        combatTarget.setDeltaMovement(Vec3.ZERO);
         combatTarget.setHealth(1);
         player.serverLevel().addFreshEntity(combatTarget);
         expect("受控猪的原生生命上限", 10, combatTarget.getMaxHealth());
@@ -450,10 +495,48 @@ final class GuchongFluteCheck extends SystemCheck {
                 combatInsect.getPersistentData().getDouble("LEVELnumber") == 1
                         && combatInsect.getPersistentData().getDouble("experience") == 119
                         && combatInsect.getPersistentData().getDouble("experience_Max") == 120);
-        combatInsect.setTarget(combatTarget);
+    }
+
+    private boolean settleCombat(int local) {
+        boolean[] ready = {false};
+        onServer(player -> {
+            if (!combatInsect.onGround() || !combatTarget.onGround()) return;
+            Path path = combatInsect.getNavigation().createPath(combatTarget, 0);
+            boolean reachable = path != null && path.canReach();
+            double ownerDistance = combatInsect.distanceToSqr(player);
+            diagnostic("INFO 蛊笛战斗 平地前置 虫着地=" + combatInsect.onGround() + " 猪着地=" + combatTarget.onGround()
+                    + " 虫重力=" + !combatInsect.isNoGravity() + " 猪重力=" + !combatTarget.isNoGravity()
+                    + " 虫猪距离平方=" + combatInsect.distanceToSqr(combatTarget) + " 主人距离平方=" + ownerDistance
+                    + " 路径=" + (path == null ? "null" : "reachable=" + path.canReach() + " target=" + path.getTarget()));
+            expectTrue("战斗前双方着地且启用重力", !combatInsect.isNoGravity() && !combatTarget.isNoGravity());
+            expectTrue("战斗前地面路径可到达受控猪", reachable);
+            expectTrue("战斗前主人距离小于跟随门槛", ownerDistance < 100);
+            if (!reachable || ownerDistance >= 100) {
+                cleanup(player);
+                finish();
+                return;
+            }
+            combatInsect.setNoAi(false);
+            combatInsect.setTarget(combatTarget);
+            beginCombat(player);
+            ready[0] = true;
+        });
+        if (!ready[0] && local > 120 && observingCombat) {
+            onServer(player -> {
+                fail("战斗平地前置未在120客户端刻内着地：虫=" + combatInsect.position() + " 虫着地=" + combatInsect.onGround()
+                        + " 猪=" + combatTarget.position() + " 猪着地=" + combatTarget.onGround());
+                cleanup(player);
+                finish();
+            });
+        }
+        return ready[0];
+    }
+
+    private void beginCombat(ServerPlayer player) {
         combatStartTime = player.serverLevel().getGameTime();
         lastCombatSample = combatStartTime - 20;
         combatStartAge = combatInsect.tickCount;
+        combatArmed = true;
         diagnostic("INFO 蛊笛战斗 初始关系 猪队伍=" + Relations.team(combatTarget)
                 + " 虫队伍=" + Relations.team(combatInsect) + " 猪视虫为友=" + Relations.isFriendly(combatTarget, combatInsect)
                 + " 虫原生攻击=" + combatInsect.getAttributeValue(Attributes.ATTACK_DAMAGE)
@@ -494,6 +577,9 @@ final class GuchongFluteCheck extends SystemCheck {
                 + " 攻击状态=" + combatInsect.isAggressive() + " 近战运行=" + melee + " 曾采到近战=" + meleeObserved
                 + " 运行目标=" + combatInsect.goalSelector.getAvailableGoals().stream().filter(goal -> goal.isRunning())
                         .map(goal -> goal.getGoal().getClass().getName()).toList()
+                + " 主人距离平方=" + combatInsect.distanceToSqr(combatOwner)
+                + " 跟随主人运行=" + combatInsect.goalSelector.getAvailableGoals().stream()
+                        .anyMatch(goal -> goal.isRunning() && goal.getGoal().getClass().getSimpleName().equals("GuchongFollowOwnerGoal"))
                 + " 目标是猪=" + (combatInsect.getTarget() == combatTarget) + " 猪生命=" + combatTarget.getHealth()
                 + " 入伤初始/末尾=" + incomingEarly + "/" + incomingLate + " 减伤前/扣血后=" + damagePre + "/" + damagePost
                 + " 死亡=" + deathEvents);
@@ -606,6 +692,7 @@ final class GuchongFluteCheck extends SystemCheck {
     private void cleanup(ServerPlayer player) {
         player.closeContainer();
         if (observingCombat) {
+            combatArmed = false;
             NeoForge.EVENT_BUS.unregister(incomingBefore);
             NeoForge.EVENT_BUS.unregister(incomingAfter);
             NeoForge.EVENT_BUS.unregister(beforeDamage);
@@ -622,6 +709,8 @@ final class GuchongFluteCheck extends SystemCheck {
         for (int index = 0; index < inventory.size(); index++) player.getInventory().setItem(index, inventory.get(index));
         player.getInventory().selected = selected;
         player.setGameMode(mode);
+        combatArenaBlocks.forEach((pos, state) -> player.level().setBlock(pos, state, 3));
+        combatArenaBlocks.clear();
         player.level().setBlock(floor, floorState, 3);
         player.connection.teleport(position.x, position.y, position.z, yaw, pitch);
         player.inventoryMenu.broadcastChanges();
