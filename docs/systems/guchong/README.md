@@ -2,7 +2,7 @@
 topic: guchong
 role: entry
 status: partial
-updated: 2026-11-21
+updated: 2026-11-22
 ---
 
 # 蛊虫
@@ -43,6 +43,8 @@ updated: 2026-11-21
 R13已接入05荧光蛊物品、飞行实体、悬赏坐标生产和释放/回收生命周期；定向`guchong05`必要单项已通过普通/追踪物品入口、中途真实保存重进、百刻返还与计时字段边界，完整自然悬赏与跨维失联仍待验。普通虫不自动获得目标，追踪虫保持同维主人查找与100刻回收顺序；具体边界及Q87/Q91见[05正文](architecture.md#2026-11-14-05荧光蛊与悬赏追踪)。
 
 ## 公开操作
+
+`GuchongEncounters.spawnJadeEncounter(ServerPlayer)` 供材料系统在普通雕琢命中奇遇105时调用一次。蛊虫系统在玩家坐标创建04，用世界随机源取朝向，再独立抽取1–35级并在出生初始化前写入 `LEVELnumber`；潜行批量雕琢不触发奇遇。详细来源和验证边界见[奇遇105接口](architecture.md#璞玉奇遇105蛊虫接口2026-11-22)。
 
 `GuchongGrowths.awardOwnerExperience` 在蛊虫标签实体每次升级时处理来源主人查找与养蛊经验；职业数据由 `Professions` 写入。
 
