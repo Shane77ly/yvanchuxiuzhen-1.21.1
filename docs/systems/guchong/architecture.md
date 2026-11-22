@@ -207,3 +207,9 @@ B `Taoguan01/02/03BlockEntity`分别持有2/5/10槽：1/4/9个蛊虫位与独立
 1.18.2 版本 `Guchong03Entity.registerGoals`、`Guchong04Entity.registerGoals` 均先登记 4 号玩家目标、5 号吞噬目标，再登记 7 号受伤反击；目标选择器与动作选择器保持独立。5 号对两种蛊虫都找飞蝗，并在原生开始/继续判定之后检查行动者的 `huxiangtunshi`。仅飞蝗在空闲动作前登记 8 号跃击；黑蚁的 8 号直接是游荡。目标版本 `GoalSelector` 按插入顺序尝试启动，数字优先级不能代替插入顺序。
 
 人间道出生名单和权重见[来源台账](../creature/ledger/renjian-ecology-source.csv)。不改变出生资质、杀敌经验、罐内存档或死亡清槽；猎物是飞蝗不等于黑蚁击杀飞蝗有同种经验。真实自然吞噬与战斗后收回仍待验。
+
+## 地上罐生命恢复与实体死亡经验（2026-11-22）
+
+1.18.2版本原初系统 `Taoguan01GengXinYouXiKeProcedure.java:99–167` 从地上罐虫物品读取 `health_Num` 时使用 `getInt`，其他生命、资质数值也按整数读取；速度仍使用双精度。手持罐及蛊笛的 `Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`、`GuchongAnniuzhixingProcedure` 按双精度读取当前生命。地上罐放虫现恢复这一区别，回罐仍只减少数量并移除实体，不回写槽内生命或成长。
+
+1.18.2版本 `Guchong01Entity`、`Guchong03Entity`、`Guchong04Entity` 的死亡刻调用无参 `dropExperience()`；1.21.1版本 NeoForge 21.1.265 的 `LivingEntity.die` 已在 `dropAllDeathLoot` 调用 `dropExperience(damageSource.getEntity())`。目标共享死亡刻只按原定时间移除，不再重复调用经验掉落；三虫当前默认经验值为零，额外调用仍会重复经过经验事件。死亡清槽、放虫、生命恢复及掉落的游戏行为未因静态核对而视为验收。
