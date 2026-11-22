@@ -2721,7 +2721,7 @@ yvanchuxiuzhen,Tripterygiumwilfordii,plant,~/plant/ordinaryplants,plant,已读,�
 yvanchuxiuzhen,Tripterygiumwilfordiiitem,item,~/item/herbmedicine,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 economy 的 Caoyaojiage；flow 的 Worldbegin；plant 的 Tripterygiumwilfordii 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Yaoshou007,animatedentity,~/entity/yaoshou/yaoshou007,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,JiantouDangWanJiaYuGaiShiTiFaShengPengZhuangShi,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jiantou,animatedentity,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jiantou,animatedentity,~/entity,creature,已读,2026-11-22 代码批次2静态核对已接入箭头实体与投射物
 yvanchuxiuzhen,Buzhencailiao,tag,~/tag/zhenfatag,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,LuopanFangZhiFangKuaiShi,procedure,~/tool,zhenfa,已读,B1 归属阅读：随 Luopan 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxiuzhen,Luopan,animatedblock,~/tool,zhenfa,已读,B1 归属阅读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
