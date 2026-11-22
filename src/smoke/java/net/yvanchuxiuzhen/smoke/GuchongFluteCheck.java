@@ -483,11 +483,13 @@ final class GuchongFluteCheck extends SystemCheck {
         combatInsect.setNoGravity(false);
         combatInsect.setDeltaMovement(Vec3.ZERO);
         combatInsect.moveTo(floor.getX() + 1.5, floor.getY() + 1, floor.getZ() + .5);
+        combatInsect.setOnGround(true);
         combatTarget = EntityType.PIG.create(player.serverLevel());
         combatTarget.moveTo(floor.getX() + 3.5, floor.getY() + 1, floor.getZ() + .5);
         combatTarget.setNoAi(true);
         combatTarget.setNoGravity(false);
         combatTarget.setDeltaMovement(Vec3.ZERO);
+        combatTarget.setOnGround(true);
         combatTarget.setHealth(1);
         player.serverLevel().addFreshEntity(combatTarget);
         expect("受控猪的原生生命上限", 10, combatTarget.getMaxHealth());

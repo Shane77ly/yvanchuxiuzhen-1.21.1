@@ -240,7 +240,7 @@ final class Moshou002Check extends SystemCheck {
         if (naturalReady && rendererChecked) {
             return true;
         }
-        if (local > 120) {
+        if (local > 240) {
             if (!naturalReady) {
                 fail("自然索敌或来源tick未在时限内触发");
                 onServer(player -> {

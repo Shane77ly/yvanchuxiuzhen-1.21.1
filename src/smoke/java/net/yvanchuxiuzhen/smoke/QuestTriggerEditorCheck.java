@@ -106,6 +106,8 @@ final class QuestTriggerEditorCheck extends SystemCheck {
                     minecraft.player.closeContainer();
                 }
                 case 5 -> {
+                    minecraft.options.keyShift.setDown(true);
+                    minecraft.player.setShiftKeyDown(true);
                     if (local < 10) return false;
                     use();
                 }

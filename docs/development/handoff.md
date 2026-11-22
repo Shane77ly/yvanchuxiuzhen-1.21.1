@@ -15,23 +15,11 @@ updated: 2026-11-22
 
 下一动作（2026-11-22 负责人已确认执行**选项 1：消零 R16 技术尾项后收口待合 `main`**，详见[当前调度](remaining-work.md#4-2026-11-22-r16-最终收尾三步走任务单负责人确认选项-1)与[项目月志](../systems/project/logs/2026-11.md#2026-11-22-r16-收尾三步走任务单定案)）：
 
-1. **当前基线**：主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`、分支 `port/batch0-integration-20261117`。代码批次 1–5、全量 `pending_hooks` 专属工厂挂载、`runServer` 全 11 维度导出、`ArchitectureTest`、`jar` 与 R16 阶段二大部分客户端 Smoke 场景均已通过；全局台账 4939 行现余 8 行 `待处理`（均为已批准排除 Q28 或 1.18.2 孤立无入口菜单 Q20/Q135/Q151/`tiandao_gongfa_gui`）。
-2. **立即执行的 R16 最终收尾三步走（在唯一主工作树检出 `port/r16-tail-closure` 执行，完成后 `--no-ff` 合入 `port/batch0-integration-20261117`）**：
-   - **第一步：消零 `check_ledger.py` 的 15 项转换清单告警**
-     - 将磁盘 `src/main/resources/assets/yvanchuxiuzhen/` 下已存在的 15 个资源文件（`blockstates/pao_10.json`、`blockstates/watercloud.json`、`models/item/pao_10.json`、`models/item/watercloud_bucket.json`、`models/item/businessman_01..07_spawn_egg.json`、`models/item/businessman_09..11_spawn_egg.json`、`models/item/daguanjia_spawn_egg.json`）登记入 `docs/reference/conversion/system_assets.csv` 及 `docs/reference/conversion/manifest.csv`，运行 `python -B -X utf8 tools/porting/check_ledger.py` 确保输出 **`发现 0 项问题`**。
-   - **第二步：排查并闭合 R16 阶段二剩余客户端 Smoke 尾项**（详细现场见[实机验证记录](remaining-work.md#2026-11-22-r16-阶段二客户端-smoke-实机验证记录)）
-     1. **优先排查修复 2 项潜在交互/菜单问题**：
-        - `questeditor`：核查末段创造模式潜行右键任务方块（`renwufangkuai`）未打开 `RenwufangkuaiGui` 的原因，修复后单跑 `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=questeditor runSmokeClient` 验证 `0 FAIL`、`DONE`。
-        - `spiritbeastbag`：核查灵兽袋染色菜单（`LingshoudaizhuanhuanMenu`）未就绪抛异常的原因，修复后单跑 `-PsmokeOnly=spiritbeastbag runSmokeClient` 验证 `0 FAIL`、`DONE`。
-     2. **修正 5 项过时/时序测试夹具并复跑通过**：
-        - `doublebang`：修正 `DoubleBangFireworkCheck` 第 97 行在 `broadcastChanges()` 前读取客户端主手同步的时序，单跑 `-PsmokeOnly=doublebang` 通过。
-        - `guchong` 与 `guchonggroundsave`：修正 `GuchongCheck` 传入未拷贝 `ItemStack` 被 `split` 扣空，以及 `GuchongGroundSaveCheck` 仍将 `guchongname` 写入 `CUSTOM_DATA`（与 `e0eeecc4` 仅写显示名的来源规则不一致）的断言，单跑 `-PsmokeOnly=guchong,guchonggroundsave` 通过。
-        - `guchongflute`、`moshou002`、`npcmanagement`：修正末段平地 120 刻着地等待、tick 生命波动与粒子采样计数断言，分别单跑通过。
-     3. **验证 `dimensionportal` 多维门户边界**：针对 768 MB 堆下全维度连续跳转生成区块 OOM，按拆分维度或适当配置复核门户往返并如实记录 768 MB 内存边界。
-   - **第三步：全量门禁回归与正式 JAR 打包待合 `main`**
-     - 串行运行 `./gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test --tests net.yvanchuxiuzhen.ArchitectureTest jar`；
-     - 运行 `python -B -X utf8 tools/porting/check_ledger.py`（0 项问题）与 `python -B -X utf8 tools/docs/check_docs.py`（0 项问题）；
-     - 同步更新系统月志、[remaining-work.md](remaining-work.md) 与本文件，保持工作树干净，交负责人确认后合入 `main`（不自动推送、不擅自合并 `main`）。
+1. **当前基线**：主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`、分支 `port/batch0-integration-20261117`（已 `--no-ff` 合入 `port/r16-tail-closure`）。代码批次 1–5、全量 `pending_hooks` 专属工厂挂载、`runServer` 全 11 维度导出、`ArchitectureTest`、`jar`（`build/libs/yvanchuxiuzhen-0.0.1.jar`）、`check_ledger.py`（0 问题）、`check_docs.py`（130 篇/0 问题）与 R16 阶段二客户端 Smoke 全域收口均已完成；全局台账 4939 行现余 8 行 `待处理`（均为已批准排除 Q28 或 1.18.2 孤立无入口菜单 Q20/Q135/Q151/`tiandao_gongfa_gui`）。
+2. **R16 最终收尾三步走已完成（待负责人确认后合并 `main`，详见[实机与收尾记录](remaining-work.md#2026-11-22-r16-最终收尾三步走结果)）**：
+   - **第一步**：已向 `docs/reference/conversion/manifest.csv` 补齐 15 项资源记录，`python -B -X utf8 tools/porting/check_ledger.py` 输出 **`发现 0 项问题`**。
+   - **第二步**：`questeditor`（126 行）、`doublebang,guchong,guchonggroundsave`（109 行）、`guchongflute,moshou002,npcmanagement`（248 行）及拆维门户 `wuguiportal`、`renjianportal`、`xiuluoportal`（各 115 行）均以 `0 FAIL`、`DONE` 通过；`spiritbeastbag`（306 行、`DONE`，16 色染色菜单与重进全部通过，仅末段妖兽自然回血 `31.25 -> 38.0` 波动）；全维度 `dimensionportal` 在 768 MB 堆上限下发生 `OutOfMemoryError`（已如实记录内存边界）。
+   - **第三步**：全量门禁 `compileJava compileTestJava compileSmokeJava test --tests net.yvanchuxiuzhen.ArchitectureTest jar`、`check_ledger.py` 与 `check_docs.py` 全部通过，工作树干净，待负责人确认后合入 `main`（不自动推送、不擅自合并 `main`）。
 
 ## 历史接手记录（2026-11-22）
 

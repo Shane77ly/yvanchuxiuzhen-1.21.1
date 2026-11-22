@@ -279,7 +279,6 @@ final class GuchongGroundSaveCheck extends SystemCheck {
         ItemStack insect = item(id + "item");
         CompoundTag data = new CompoundTag();
         data.putString("guchongid", ModId.VALUE + ":" + id);
-        data.putString("guchongname", "[" + name + "]");
         data.putString("LEVELname", "一阶初级");
         data.putString("belongToMasterUUID", "");
         data.putString("team", "r10_before_blood_" + grade + "_" + slot);
