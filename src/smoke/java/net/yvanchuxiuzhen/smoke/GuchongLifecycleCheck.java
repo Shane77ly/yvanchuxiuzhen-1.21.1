@@ -20,11 +20,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongCapture;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
@@ -52,6 +55,11 @@ final class GuchongLifecycleCheck extends SystemCheck {
     private GuchongEntity active;
     private UUID activeUuid;
     private Cow target;
+    private Consumer<LivingExperienceDropEvent> experienceObserver;
+    private int experienceEvents;
+    private boolean experiencePlayerMatches;
+    private int originalExperience;
+    private boolean originalMobLoot;
 
     GuchongLifecycleCheck(List<String> report, String levelId) {
         super("蛊虫生命周期", report, levelId);
@@ -79,7 +87,8 @@ final class GuchongLifecycleCheck extends SystemCheck {
             case 16 -> reopened(local);
             case 17 -> inWorld(local);
             case 18 -> action(step, local, 5, this::checkReloadAndDeath);
-            case 19 -> { onServer(this::cleanup); finish(); yield true; }
+            case 19 -> deathExperience(local);
+            case 20 -> { onServer(this::cleanup); finish(); yield true; }
             default -> throw new IllegalStateException("未知蛊虫检查步骤 " + step);
         };
     }
@@ -339,13 +348,58 @@ final class GuchongLifecycleCheck extends SystemCheck {
                 && GuchongJarData.read(saved).getBoolean("shifangguchong") && GuchongJarData.read(saved).getDouble("shifangnum") == 1);
         CompoundTag beforeDeath = GuchongJarData.read(saved);
         ItemStack otherBeforeDeath = player.getInventory().getItem(10).copy();
-        active.hurt(player.damageSources().generic(), 10000);
+        originalMobLoot = player.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT);
+        player.level().getGameRules().getRule(GameRules.RULE_DOMOBLOOT).set(true, player.server);
+        expectTrue("死亡经验事件前置：成年、经验未被消费、允许生物掉落",
+                BuiltInRegistries.ENTITY_TYPE.getKey(active.getType()).getPath().equals("guchong_04")
+                        && !active.isBaby() && !active.wasExperienceConsumed()
+                        && player.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT));
+        experienceEvents = 0;
+        experienceObserver = event -> {
+            if (event.getEntity() != active) return;
+            experienceEvents++;
+            experiencePlayerMatches = event.getAttackingPlayer() == player;
+            originalExperience = event.getOriginalExperience();
+        };
+        NeoForge.EVENT_BUS.addListener(experienceObserver);
+        try {
+            boolean hurt = active.hurt(player.damageSources().playerAttack(player), 10000);
+            expectTrue("玩家致命伤触发一次原生经验事件且归因正确",
+                    hurt && active.isDeadOrDying() && experienceEvents == 1 && experiencePlayerMatches && originalExperience == 0);
+        } catch (RuntimeException | Error exception) {
+            stopExperienceObservation(player);
+            throw exception;
+        }
         CompoundTag result = GuchongJarData.read(player.getInventory().getItem(9));
         expectTrue("非手持背包罐按UUID清死亡槽且不修改另一只罐", result.getString("guchongid8").isEmpty()
                 && result.getDouble("shifangnum") == 0 && !result.getBoolean("shifangguchong")
                 && !beforeDeath.getString("guchongid7").isEmpty() && result.getString("guchongid7").equals(beforeDeath.getString("guchongid7"))
                 && result.getString("belongToMasterUUID7").equals(beforeDeath.getString("belongToMasterUUID7"))
                 && ItemStack.isSameItemSameComponents(otherBeforeDeath, player.getInventory().getItem(10)));
+    }
+
+    private boolean deathExperience(int local) {
+        boolean[] finished = {false};
+        onServer(player -> {
+            if (!active.isRemoved() && local <= 200) return;
+            try {
+                expectTrue("04蛊虫到达第20死亡刻并自然移除", active.isRemoved() && active.deathTime == 20);
+                expect("整段死亡生命周期的经验掉落事件次数", 1, experienceEvents);
+                expectTrue("经验事件仍归因于击杀玩家且基础经验为零",
+                        experiencePlayerMatches && originalExperience == 0);
+            } finally {
+                stopExperienceObservation(player);
+            }
+            finished[0] = true;
+        });
+        return finished[0];
+    }
+
+    private void stopExperienceObservation(ServerPlayer player) {
+        if (experienceObserver == null) return;
+        NeoForge.EVENT_BUS.unregister(experienceObserver);
+        experienceObserver = null;
+        player.level().getGameRules().getRule(GameRules.RULE_DOMOBLOOT).set(originalMobLoot, player.server);
     }
 
     private static void useJar(ServerPlayer player) {
@@ -388,6 +442,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
     }
 
     private void cleanup(ServerPlayer player) {
+        stopExperienceObservation(player);
         for (GuchongEntity insect : specimens) if (!insect.isRemoved()) insect.discard();
         if (target != null && !target.isRemoved()) target.discard();
         player.getInventory().clearContent();
