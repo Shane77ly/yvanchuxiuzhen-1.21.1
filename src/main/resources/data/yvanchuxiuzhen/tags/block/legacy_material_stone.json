@@ -349,10 +349,7 @@
     "yvanchuxiuzhen:fuluzhushablock",
     "yvanchuxiuzhen:jiuniang_00602",
     "yvanchuxiuzhen:moeye",
-    {
-      "id": "yvanchuxiuzhen:qiankunmentu",
-      "required": false
-    },
+    "yvanchuxiuzhen:qiankunmentu",
     "yvanchuxiuzhen:soulstone",
     "yvanchuxiuzhen:stonemill",
     "yvanchuxiuzhen:stoneroller",

@@ -1007,19 +1007,10 @@
     "yvanchuxiuzhen:elm_04",
     "yvanchuxiuzhen:elm_05",
     "yvanchuxiuzhen:evilspirittree",
-    {
-      "id": "yvanchuxiuzhen:fabao_009",
-      "required": false
-    },
+    "yvanchuxiuzhen:fabao_009",
     "yvanchuxiuzhen:fendantai",
-    {
-      "id": "yvanchuxiuzhen:flagmother",
-      "required": false
-    },
-    {
-      "id": "yvanchuxiuzhen:flagson",
-      "required": false
-    },
+    "yvanchuxiuzhen:flagmother",
+    "yvanchuxiuzhen:flagson",
     "yvanchuxiuzhen:food_001",
     "yvanchuxiuzhen:food_002",
     "yvanchuxiuzhen:food_003",
@@ -1112,10 +1103,7 @@
       "required": false
     },
     "yvanchuxiuzhen:grassblock",
-    {
-      "id": "yvanchuxiuzhen:guancai_01",
-      "required": false
-    },
+    "yvanchuxiuzhen:guancai_01",
     "yvanchuxiuzhen:huafushaohui",
     "yvanchuxiuzhen:huafutai",
     "yvanchuxiuzhen:huaguang",
@@ -1148,15 +1136,9 @@
     "yvanchuxiuzhen:laurel_03",
     "yvanchuxiuzhen:laurel_04",
     "yvanchuxiuzhen:laurel_05",
-    {
-      "id": "yvanchuxiuzhen:liexi",
-      "required": false
-    },
+    "yvanchuxiuzhen:liexi",
     "yvanchuxiuzhen:loess",
-    {
-      "id": "yvanchuxiuzhen:luopan",
-      "required": false
-    },
+    "yvanchuxiuzhen:luopan",
     "yvanchuxiuzhen:makebook",
     "yvanchuxiuzhen:mangrovebigdoorleft",
     "yvanchuxiuzhen:mangrovebigdoorright",
@@ -1217,10 +1199,7 @@
     "yvanchuxiuzhen:paiwei_07",
     "yvanchuxiuzhen:paiwei_08",
     "yvanchuxiuzhen:paiwei_09",
-    {
-      "id": "yvanchuxiuzhen:pao_10",
-      "required": false
-    },
+    "yvanchuxiuzhen:pao_10",
     "yvanchuxiuzhen:pao_11",
     "yvanchuxiuzhen:pao_12",
     "yvanchuxiuzhen:parasolleaves",
@@ -1272,14 +1251,8 @@
     "yvanchuxiuzhen:privet_03",
     "yvanchuxiuzhen:privet_04",
     "yvanchuxiuzhen:putuan",
-    {
-      "id": "yvanchuxiuzhen:qiankundaoren",
-      "required": false
-    },
-    {
-      "id": "yvanchuxiuzhen:qiankunmentu",
-      "required": false
-    },
+    "yvanchuxiuzhen:qiankundaoren",
+    "yvanchuxiuzhen:qiankunmentu",
     "yvanchuxiuzhen:renwuweizhuangfangkuai",
     "yvanchuxiuzhen:rottingsoil",
     "yvanchuxiuzhen:sandalwoodleaves",
@@ -1384,18 +1357,12 @@
     "yvanchuxiuzhen:taopi",
     "yvanchuxiuzhen:tiandaodimensionblock",
     "yvanchuxiuzhen:tiandaoduojiegou",
-    {
-      "id": "yvanchuxiuzhen:tiandaofuben",
-      "required": false
-    },
+    "yvanchuxiuzhen:tiandaofuben",
     "yvanchuxiuzhen:tiandaoguding",
     "yvanchuxiuzhen:tiandaoitemnbt",
     "yvanchuxiuzhen:tiandaotuzhitai",
     "yvanchuxiuzhen:tiandaowhiteblock",
-    {
-      "id": "yvanchuxiuzhen:tiandiyinhang",
-      "required": false
-    },
+    "yvanchuxiuzhen:tiandiyinhang",
     "yvanchuxiuzhen:tileimbrexblack_01",
     "yvanchuxiuzhen:tileimbrexblack_02",
     "yvanchuxiuzhen:tileimbrexblack_03",
@@ -1494,17 +1461,11 @@
     "yvanchuxiuzhen:toothedwalldoor_04",
     "yvanchuxiuzhen:toothedwalldoor_05",
     "yvanchuxiuzhen:toothedwalldoor_06",
-    {
-      "id": "yvanchuxiuzhen:treasure_chest_03",
-      "required": false
-    },
+    "yvanchuxiuzhen:treasure_chest_03",
     "yvanchuxiuzhen:treasure_chest_04",
     "yvanchuxiuzhen:treasure_chest_05",
     "yvanchuxiuzhen:treasure_chest_06",
-    {
-      "id": "yvanchuxiuzhen:treasure_chest_11",
-      "required": false
-    },
+    "yvanchuxiuzhen:treasure_chest_11",
     "yvanchuxiuzhen:tripod_01",
     "yvanchuxiuzhen:tripod_02",
     "yvanchuxiuzhen:tripod_03",
@@ -1566,17 +1527,11 @@
     "yvanchuxiuzhen:zhibuji",
     "yvanchuxiuzhen:zhuangshi_tulong_01",
     "yvanchuxiuzhen:zhuangshi_tulong_02",
-    {
-      "id": "yvanchuxiuzhen:zhuangshiqiantong",
-      "required": false
-    },
+    "yvanchuxiuzhen:zhuangshiqiantong",
     "yvanchuxiuzhen:zhuangshishuigang",
     "yvanchuxiuzhen:zhuangshishuigangbig",
     "yvanchuxiuzhen:zhuangshishuigangtwo",
-    {
-      "id": "yvanchuxiuzhen:zhuangshitizi",
-      "required": false
-    },
+    "yvanchuxiuzhen:zhuangshitizi",
     "yvanchuxiuzhen:zisha_01",
     "yvanchuxiuzhen:zisha_02",
     "yvanchuxiuzhen:zisha_03"

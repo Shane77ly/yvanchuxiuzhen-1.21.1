@@ -356,19 +356,10 @@
     "yvanchuxiuzhen:elm_04",
     "yvanchuxiuzhen:elm_05",
     "yvanchuxiuzhen:evilspirittree",
-    {
-      "id": "yvanchuxiuzhen:fabao_009",
-      "required": false
-    },
+    "yvanchuxiuzhen:fabao_009",
     "yvanchuxiuzhen:fendantai",
-    {
-      "id": "yvanchuxiuzhen:flagmother",
-      "required": false
-    },
-    {
-      "id": "yvanchuxiuzhen:flagson",
-      "required": false
-    },
+    "yvanchuxiuzhen:flagmother",
+    "yvanchuxiuzhen:flagson",
     "yvanchuxiuzhen:foodlongti",
     "yvanchuxiuzhen:foodmuzeng",
     "yvanchuxiuzhen:fulutexiao_42",
@@ -412,10 +403,7 @@
       "id": "yvanchuxiuzhen:gongfaxvexi",
       "required": false
     },
-    {
-      "id": "yvanchuxiuzhen:guancai_01",
-      "required": false
-    },
+    "yvanchuxiuzhen:guancai_01",
     "yvanchuxiuzhen:huafutai",
     "yvanchuxiuzhen:itemdanyaohulu_01block",
     "yvanchuxiuzhen:itemdanyaohulu_03block",
@@ -431,10 +419,7 @@
     "yvanchuxiuzhen:junglebigdoorright",
     "yvanchuxiuzhen:kuzhu",
     "yvanchuxiuzhen:laurel_05",
-    {
-      "id": "yvanchuxiuzhen:luopan",
-      "required": false
-    },
+    "yvanchuxiuzhen:luopan",
     "yvanchuxiuzhen:mangrovebigdoorleft",
     "yvanchuxiuzhen:mangrovebigdoorright",
     "yvanchuxiuzhen:maplelog",
@@ -489,10 +474,7 @@
     "yvanchuxiuzhen:paiwei_07",
     "yvanchuxiuzhen:paiwei_08",
     "yvanchuxiuzhen:paiwei_09",
-    {
-      "id": "yvanchuxiuzhen:pao_10",
-      "required": false
-    },
+    "yvanchuxiuzhen:pao_10",
     "yvanchuxiuzhen:pao_11",
     "yvanchuxiuzhen:pao_12",
     "yvanchuxiuzhen:parasolwood",
@@ -538,10 +520,7 @@
     "yvanchuxiuzhen:poplarlog",
     "yvanchuxiuzhen:privet_04",
     "yvanchuxiuzhen:putuan",
-    {
-      "id": "yvanchuxiuzhen:qiankundaoren",
-      "required": false
-    },
+    "yvanchuxiuzhen:qiankundaoren",
     "yvanchuxiuzhen:sandalwoodwood",
     "yvanchuxiuzhen:saosilun",
     "yvanchuxiuzhen:scorchedwooden",
@@ -630,10 +609,7 @@
     "yvanchuxiuzhen:taolun",
     "yvanchuxiuzhen:tiandaodimensionblock",
     "yvanchuxiuzhen:tiandaotuzhitai",
-    {
-      "id": "yvanchuxiuzhen:tiandiyinhang",
-      "required": false
-    },
+    "yvanchuxiuzhen:tiandiyinhang",
     "yvanchuxiuzhen:toothedarmchair_01",
     "yvanchuxiuzhen:toothedarmchair_02",
     "yvanchuxiuzhen:toothedbutton",
@@ -671,17 +647,11 @@
     "yvanchuxiuzhen:toothedwalldoor_04",
     "yvanchuxiuzhen:toothedwalldoor_05",
     "yvanchuxiuzhen:toothedwalldoor_06",
-    {
-      "id": "yvanchuxiuzhen:treasure_chest_03",
-      "required": false
-    },
+    "yvanchuxiuzhen:treasure_chest_03",
     "yvanchuxiuzhen:treasure_chest_04",
     "yvanchuxiuzhen:treasure_chest_05",
     "yvanchuxiuzhen:treasure_chest_06",
-    {
-      "id": "yvanchuxiuzhen:treasure_chest_11",
-      "required": false
-    },
+    "yvanchuxiuzhen:treasure_chest_11",
     "yvanchuxiuzhen:warpedbigdoorleft",
     "yvanchuxiuzhen:warpedbigdoorright",
     "yvanchuxiuzhen:willowlog",
@@ -698,13 +668,7 @@
     "yvanchuxiuzhen:zhibuji",
     "yvanchuxiuzhen:zhuangshi_tulong_01",
     "yvanchuxiuzhen:zhuangshi_tulong_02",
-    {
-      "id": "yvanchuxiuzhen:zhuangshiqiantong",
-      "required": false
-    },
-    {
-      "id": "yvanchuxiuzhen:zhuangshitizi",
-      "required": false
-    }
+    "yvanchuxiuzhen:zhuangshiqiantong",
+    "yvanchuxiuzhen:zhuangshitizi"
   ]
 }

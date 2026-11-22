@@ -21,6 +21,7 @@ public final class WorldTemplateFeatures {
     private static final Set<ResourceLocation> RENJIAN = Set.of(id("dimensionrenjian"));
     private static final Set<ResourceLocation> YAOHUN = Set.of(id("dimensionyaohun"));
     private static final Set<ResourceLocation> WUGUI = Set.of(id("dimensionwugui"));
+    private static final Set<ResourceLocation> DILING = Set.of(id("dimensiondiling"));
     private static final Set<ResourceLocation> BOTH = Set.of(id("dimensionrenjian"), id("dimensionyaohun"));
     private static final List<ResourceLocation> NO_BASE = List.of();
     private static final List<ResourceLocation> GRASS = vanilla("grass_block");
@@ -29,6 +30,8 @@ public final class WorldTemplateFeatures {
     private static final List<ResourceLocation> STONY_GROUND = vanilla(
             "stone", "grass_block", "dirt_path", "mycelium", "dirt", "coarse_dirt", "podzol", "rooted_dirt", "cobblestone");
     private static final List<ResourceLocation> STONE = vanilla("stone");
+    private static final List<ResourceLocation> OBSIDIAN = vanilla("obsidian");
+    private static final List<ResourceLocation> BROKEN_BONE_PILE = List.of(id("brokenbonepile"));
     private static final List<ResourceLocation> LOESS = List.of(id("loess"));
     private static final List<ResourceLocation> ROTTING_SOIL = List.of(id("rottingsoil"));
     private static final List<ResourceLocation> LOESS_SAND = List.of(
@@ -112,6 +115,30 @@ public final class WorldTemplateFeatures {
         add("moyanjiegou_01", "moyanjiegou01", WUGUI, ROTTING_SOIL, 70000, 1, 1,
                 Heightmap.Types.OCEAN_FLOOR_WG, HeightMode.UNDERGROUND, new BlockPos(0, 1, 0),
                 true, BlockIgnoreProcessor.STRUCTURE_BLOCK, false, false);
+        add("bladegrasstree_01", "bladegrasstree01", DILING, OBSIDIAN, 10000, 1, 1,
+                Heightmap.Types.WORLD_SURFACE_WG, HeightMode.GROUND, new BlockPos(0, 0, 0),
+                true, BlockIgnoreProcessor.AIR, false, false);
+        add("bladegrasstree_02", "bladegrasstree02", DILING, OBSIDIAN, 30000, 1, 1,
+                Heightmap.Types.WORLD_SURFACE_WG, HeightMode.GROUND, new BlockPos(0, 0, 0),
+                true, BlockIgnoreProcessor.AIR, false, false);
+        add("bladegrasstree_03", "bladegrasstree03", DILING, OBSIDIAN, 50000, 1, 1,
+                Heightmap.Types.WORLD_SURFACE_WG, HeightMode.GROUND, new BlockPos(0, 0, 0),
+                true, BlockIgnoreProcessor.AIR, false, false);
+        for (int i = 1; i <= 6; i++) {
+            add("bonebone_0" + i, "bonebone0" + i, DILING, BROKEN_BONE_PILE, 400000, 1, 1,
+                    Heightmap.Types.OCEAN_FLOOR_WG, HeightMode.GROUND, new BlockPos(0, 1, 0),
+                    true, BlockIgnoreProcessor.AIR, false, false);
+        }
+        for (int i = 1; i <= 4; i++) {
+            add("kugu_0" + i, "kugu0" + i, DILING, NO_BASE, 10000, 1, 1,
+                    Heightmap.Types.OCEAN_FLOOR_WG, HeightMode.GROUND, new BlockPos(0, 0, 0),
+                    true, BlockIgnoreProcessor.AIR, false, false);
+        }
+        for (int i = 1; i <= 6; i++) {
+            add("rouchuan_0" + i, "rouchuan0" + i, DILING, NO_BASE, 50000, 1, 1,
+                    Heightmap.Types.OCEAN_FLOOR_WG, HeightMode.GROUND, new BlockPos(0, 0, 0),
+                    true, BlockIgnoreProcessor.AIR, false, false);
+        }
     }
 
     private WorldTemplateFeatures() {
