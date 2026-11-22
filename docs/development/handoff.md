@@ -7,13 +7,13 @@ updated: 2026-11-22
 
 # 交接说明
 
-## 当前交接（2026-11-22）
+## 当前交接（2026-11-22 收口干净状态）
 
-集成工作树为 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`；本次交接文档的父提交为 `51166729`，接手前工作树干净，实际 HEAD 以 Git 为准。原主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1` 在 `port/full-migration-20261112`、`28f05bc7`，有大量既有暂存、未暂存和未跟踪改动；保留原状，不作为当前集成树。原会话已中断，既有功能树和候选改动仍须逐项核对，不能当作已集成或已验收。
+主工作目录 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1` 已恢复为**唯一且干净的工作树**，当前分支为 `port/batch0-integration-20261117`（基线包含 `faf99fa1` 及其之前全部已合入成果；最新 HEAD 以 Git 为准）。除 `main`（`5cdc045c`）与 `port/batch0-integration-20261117` 之外的 325 个历史分支和 136 个冗余 worktree（含原 `rebuild-batch0-integration-continuation-20261119` 与原主树 313 条旧改动）已全部打包归档至工作区外 `D:/yuanchuxiuzhen-1.21.1-port/archive/cleanup-20261122/`（含 `all-branches-20261122.bundle` 与 `dirty-worktrees/`）后彻底移除。本批合入与取舍记录见[项目月志](../systems/project/logs/2026-11.md#2026-11-22-接手验收合并与工作树收口)。
 
-`ef79aec2` 的蛊笛战斗平地 Smoke 夹具由 `51166729` 合入，改动仅涉及夹具和蛊虫文档，未修生产玩法；新夹具尚未运行。旧报告 `build/diagnostics/guchong-flute-combat-diagnostic-20261122/` 和 `build/diagnostics/guchong-flute-combat-growth-20261122/` 均早于该合并，使用空中无重力布置，不能用于判断新夹具或认定生产战斗缺陷。已有放虫属性、名称、回罐、死亡经验和保存重进的受控证据及其范围见[蛊虫月志](../systems/guchong/logs/2026-11.md#2026-11-22-蛊笛战斗平地夹具)。
+原集成树保留的 `build/diagnostics/`、`build/registry-export/` 与 `run/smoke/options.txt`（`soundCategory_master:0.0`）已迁回本主目录。`ef79aec2` 的蛊笛战斗平地 Smoke 夹具及今日新增/合入的合成材料实例修复、功法命中天外陨石、护甲每秒重算、境界提升粒子、战斗与附魔粒子、施法友表 API、修炼资源镜像与箭头怪经验归因均已编译、通过 ArchUnit 结构守卫与文档/台账校验，真实游戏客户端及专服运行尚未执行。
 
-下一动作是在集成树先确认 `run/smoke/options.txt` 中 `soundCategory_master:0.0`，再串行运行 `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=guchongflute runSmokeClient`。依次核对平地、着地、路径可达和主人距离前置，以及原生近战、伤害、死亡、经验成长、收回和再次放出；按报告、保存与退出情况分别记录，不能以构建成功或 `DONE` 代替场景通过。测试前确认没有其他重型任务运行，默认768 MB、单 worker。继续人间界优先及其他完整功能包时从[当前调度](remaining-work.md#当前调度)选择，并核对各功能树实际差异。全量移植范围不变，Q28 功法星宿穴位学习小游戏为唯一批准排除项；不推送、不自动合并 `main`。
+下一动作可由主工作树直接串行运行 `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=guchongflute runSmokeClient` 验证平地蛊笛战斗夹具，或根据负责人确定的新推进方案按单模块/单系统从干净主线依次推进与验收；默认 768 MB、单 worker、不推送、不自动合并 `main`，Q28 仍为唯一批准排除项。
 
 ## 历史接手记录（2026-11-22）
 
