@@ -9,11 +9,11 @@ updated: 2026-11-22
 
 ## 接手基线（2026-11-22）
 
-当前集成工作树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`；本轮从 `0a948a9d`（`docs: refresh integration handoff after caishen smoke`）接手，生产代码基线仍为 `2f543517`，接手时工作树干净。财神商店商品名现从物品槽读取、价格从同步商品表读取；受控生成财神后的真实右键、中文对话/商店、20枚金银购买红包及保存退出重进库存保持，`caishenye` 客户端 Smoke 已通过。随后独立运行的 `festivalremaining` 客户端 Smoke 又通过了生存/创造红包直接开启、奖励掉落同质单件和拾取延迟；当前 `build/smoke/report.txt` 为该场景报告，财神商店截图仍在 `build/smoke/screenshots/caishen_shop.png`。受控生成不代表自然出生或自然遇见，购买后同场开启、红包自然获取、多人与专服仍未闭合。实现、证据和开放边界见[统一工作清单](remaining-work.md#当前调度)以及经济、节日月志。
+当前集成工作树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`，分支 `port/batch0-integration-20261117`；本轮从 `0a948a9d`（`docs: refresh integration handoff after caishen smoke`）接手，生产代码基线仍为 `2f543517`，接手时工作树干净。财神商店商品名现从物品槽读取、价格从同步商品表读取；受控生成财神后，经真实右键、中文对话/商店、20枚金银购买红包、保存重进、客户端使用、自然拾取一次随机奖励并再次重进，`caishenye` 客户端 Smoke 已通过。独立 `festivalremaining` 场景也覆盖生存/创造红包直接开启。报告、日志及已查看的商店和奖励背包截图归档于 `build/diagnostics/caishen-purchase-reward-20261122/`。财神自然出生与遇见、所有奖励档位、Q167多掉落合并总数、多人及专服仍未闭合。实现、证据和开放边界见[统一工作清单](remaining-work.md#当前调度)以及经济、节日月志。
 
 当前批次继续人间界优先，三个完整模块由原独立 worktree 增量推进，主线程只选择性接收文件边界明确的功能单位：材料负责人推进九种璞玉单件/潜行批量雕琢及来源奇遇链；世界/植物负责人推进自然供给的完整玩家路径；生物/蛊虫负责人核对单虫释放并延续跨入口生命周期。三树的混合既有改动均不作为可整体接收的提交，也不等同于集成或验收；具体工作边界与未闭合项见各模块负责人交付及[统一工作清单](remaining-work.md#当前调度)。
 
-集成树已运行 `compileSmokeJava`，`caishenye` 客户端 Smoke、文档检查（130篇、0问题）、台账检查（4939行、0问题）和 `git diff --check` 均通过；报告位于 `build/smoke/report.txt`，截图位于 `build/smoke/screenshots/caishenye_shop.png`。本批未验证财神自然生成/自然遇见、红包奖励，也未由此宣称经济系统整体验收。继续执行前先复核模块工作树差异，只接收明确功能包；重型 Gradle、转换、客户端和专服操作仍按工程规则串行。不推送、不合并 `main`。
+集成树已运行 `compileSmokeJava`、`caishenye` 和 `festivalremaining` 客户端 Smoke；两份报告均无失败并以 `DONE` 结束，`caishenye` 正常退出且日志三次确认全部维度保存。文档检查（130篇、0问题）、台账检查（4939行、0问题）和 `git diff --check` 已通过；本批不宣称经济或节日系统整体验收。继续执行前先复核模块工作树差异，只接收明确功能包；重型 Gradle、转换、客户端和专服操作仍按工程规则串行。不推送、不合并 `main`。
 ## 前次执行基线（2026-11-21）
 
 本轮固定人间界优先。当前集成树 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-batch0-integration-continuation-20261119`、分支 `port/batch0-integration-20261117`，本次收尾 HEAD 为 `71cda008`（`fix: expose cultivation level mirror for combat consumers`），其父提交 `e43f9c49` 已选择性接收修炼与战斗共享击杀归因族，前置植物供给族已由 `6db3574f` 接收。负责人最初指定的 `9e9675a1` 仅作接续定位，未回退到旧提交；Q40 已合入且不再无变化复跑。集成树已通过 `git diff --check`、`python -B -X utf8 tools/docs/check_docs.py`（130篇、0项）和串行 `./gradlew.bat --no-daemon --max-workers=1 compileJava`；本次未启动客户端或专服，客户端静音前置仍为实际运行目录 `run/smoke/options.txt` 的 `soundCategory_master:0.0`。三个完整模块仍由各自 `gpt-6.1-terra`、`xhigh` 负责人按完整功能族和端到端路径在原模块树增量推进，不按单个妖兽、方块或神通切碎任务；模块树脏改动不整体搬运，未接收改动不视为集成或验证完成。野羊候选 `29619325` 与结构宝箱候选继续隔离，未编译或运行；原主树保持不动。
