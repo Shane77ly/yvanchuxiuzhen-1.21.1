@@ -16,7 +16,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ambient.AmbientCreature;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -172,14 +171,6 @@ public final class GuchongJarRuntime {
     public static Entity create(ServerLevel level, String id) {
         if (id.isEmpty()) return null;
         return BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(id)).create(level);
-    }
-
-    public static void applyAttributes(Entity entity, CompoundTag data) {
-        LivingEntity living = (LivingEntity) entity;
-        living.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
-        living.setHealth((float) data.getDouble("health_Num"));
-        living.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getDouble("attack_Num"));
-        living.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(data.getDouble("speed_number"));
     }
 
     public static void finishSpawn(ServerLevel level, Entity entity) {
