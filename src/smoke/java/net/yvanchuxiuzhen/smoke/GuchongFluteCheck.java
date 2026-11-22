@@ -17,6 +17,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
@@ -27,6 +29,9 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
@@ -40,6 +45,7 @@ import net.yvanchuxiuzhen.system.guchong.entity.GuchongEntity;
 import net.yvanchuxiuzhen.system.guchong.network.GuchongReleaseButtonPayload;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 蛊笛真实右键与客户端按钮；分页、空UUID和部分收回各使用独立背包样本。 */
 final class GuchongFluteCheck extends SystemCheck {
@@ -47,6 +53,7 @@ final class GuchongFluteCheck extends SystemCheck {
     private static final String PARTIAL_UUID = "r10_flute_partial";
     private static final String COMBAT_UUID = "r10_flute_combat";
     private final Screenshots screenshots;
+    private final List<String> diagnostics;
     private final List<ItemStack> inventory = new ArrayList<>();
     private final List<ItemStack> untouched = new ArrayList<>();
     private final List<GuchongEntity> specimens = new ArrayList<>();
@@ -68,8 +75,48 @@ final class GuchongFluteCheck extends SystemCheck {
     private boolean observingCombat;
     private double oldInsectExperience;
     private double experienceAfterDeath;
+    private long combatStartTime;
+    private long lastCombatSample;
+    private int combatStartAge;
+    private int incomingEarly;
+    private int incomingLate;
+    private int damagePre;
+    private int damagePost;
+    private int deathEvents;
+    private boolean meleeObserved;
+    private double closestDistance = Double.POSITIVE_INFINITY;
+    private final Consumer<LivingIncomingDamageEvent> incomingBefore = event -> {
+        if (event.getEntity() != combatTarget) return;
+        incomingEarly++;
+        if (incomingEarly <= 4) diagnostic("INFO 蛊笛战斗 入伤初始#" + incomingEarly + " " + incomingState(event));
+    };
+    private final Consumer<LivingIncomingDamageEvent> incomingAfter = event -> {
+        if (event.getEntity() != combatTarget) return;
+        incomingLate++;
+        if (incomingLate <= 4) diagnostic("INFO 蛊笛战斗 入伤末尾#" + incomingLate + " " + incomingState(event));
+    };
+    private final Consumer<LivingDamageEvent.Pre> beforeDamage = event -> {
+        if (event.getEntity() != combatTarget) return;
+        damagePre++;
+        if (damagePre <= 4) diagnostic("INFO 蛊笛战斗 减伤前#" + damagePre + " amount=" + event.getNewDamage());
+    };
+    private final Consumer<LivingDamageEvent.Post> afterDamage = event -> {
+        if (event.getEntity() != combatTarget) return;
+        damagePost++;
+        if (damagePost <= 4) diagnostic("INFO 蛊笛战斗 扣血后#" + damagePost + " original=" + event.getOriginalDamage()
+                + " final=" + event.getNewDamage() + " 猪生命=" + combatTarget.getHealth());
+    };
+    private final Consumer<LevelTickEvent.Post> combatTick = event -> {
+        if (combatInsect != null && event.getLevel() == combatInsect.level()) sampleCombat();
+    };
     private final Consumer<LivingDeathEvent> combatDeath = event -> {
-        if (event.getEntity() == combatTarget && event.getSource().is(DamageTypes.MOB_ATTACK)
+        if (event.getEntity() != combatTarget) return;
+        deathEvents++;
+        diagnostic("INFO 蛊笛战斗 死亡事件#" + deathEvents + " canceled=" + event.isCanceled()
+                + " mobAttack=" + event.getSource().is(DamageTypes.MOB_ATTACK)
+                + " 攻击者是虫=" + (event.getSource().getEntity() == combatInsect)
+                + " 直接实体是虫=" + (event.getSource().getDirectEntity() == combatInsect));
+        if (event.getSource().is(DamageTypes.MOB_ATTACK)
                 && event.getSource().getEntity() == combatInsect && event.getSource().getDirectEntity() == combatInsect
                 && !event.isCanceled()) {
             insectKilledTarget = true;
@@ -80,6 +127,7 @@ final class GuchongFluteCheck extends SystemCheck {
     GuchongFluteCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("蛊笛分页放收", report, levelId);
         this.screenshots = screenshots;
+        this.diagnostics = report;
     }
 
     @Override
@@ -377,7 +425,12 @@ final class GuchongFluteCheck extends SystemCheck {
         combatOwner = player;
         oldInsectExperience = Professions.experience(player, Profession.INSECT);
         Professions.setExperience(player, Profession.INSECT, 0);
-        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, combatDeath);
+        NeoForge.EVENT_BUS.addListener(EventPriority.HIGHEST, true, incomingBefore);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, true, incomingAfter);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, beforeDamage);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, afterDamage);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, true, combatDeath);
+        NeoForge.EVENT_BUS.addListener(combatTick);
         observingCombat = true;
         use(player, false);
     }
@@ -398,6 +451,52 @@ final class GuchongFluteCheck extends SystemCheck {
                         && combatInsect.getPersistentData().getDouble("experience") == 119
                         && combatInsect.getPersistentData().getDouble("experience_Max") == 120);
         combatInsect.setTarget(combatTarget);
+        combatStartTime = player.serverLevel().getGameTime();
+        lastCombatSample = combatStartTime - 20;
+        combatStartAge = combatInsect.tickCount;
+        diagnostic("INFO 蛊笛战斗 初始关系 猪队伍=" + Relations.team(combatTarget)
+                + " 虫队伍=" + Relations.team(combatInsect) + " 猪视虫为友=" + Relations.isFriendly(combatTarget, combatInsect)
+                + " 虫原生攻击=" + combatInsect.getAttributeValue(Attributes.ATTACK_DAMAGE)
+                + " 猪原生免疫虫攻击=" + combatTarget.isInvulnerableTo(player.damageSources().mobAttack(combatInsect)));
+        sampleCombat();
+    }
+
+    private void diagnostic(String line) {
+        diagnostics.add(line);
+    }
+
+    private String incomingState(LivingIncomingDamageEvent event) {
+        return "canceled=" + event.isCanceled() + " original=" + event.getOriginalAmount() + " amount=" + event.getAmount()
+                + " mobAttack=" + event.getSource().is(DamageTypes.MOB_ATTACK)
+                + " 攻击者是虫=" + (event.getSource().getEntity() == combatInsect)
+                + " 直接实体是虫=" + (event.getSource().getDirectEntity() == combatInsect);
+    }
+
+    private void sampleCombat() {
+        long now = combatInsect.level().getGameTime();
+        double distance = combatInsect.distanceToSqr(combatTarget);
+        closestDistance = Math.min(closestDistance, distance);
+        boolean melee = combatInsect.goalSelector.getAvailableGoals().stream()
+                .anyMatch(goal -> goal.isRunning() && goal.getGoal() instanceof MeleeAttackGoal);
+        meleeObserved |= melee;
+        if (now - lastCombatSample < 20) return;
+        lastCombatSample = now;
+        diagnostic("INFO 蛊笛战斗 采样 gameTicks=" + (now - combatStartTime)
+                + " 虫实体刻=" + (combatInsect.tickCount - combatStartAge)
+                + " 虫=" + combatInsect.position() + " 猪=" + combatTarget.position()
+                + " 距离平方=" + distance + " 最小采样距离平方=" + closestDistance
+                + " 原生近战范围=" + combatInsect.isWithinMeleeAttackRange(combatTarget)
+                + " 自定义近战判距=" + (distance <= combatInsect.getBbWidth() * combatInsect.getBbWidth() + combatTarget.getBbWidth())
+                + " 视线=" + combatInsect.getSensing().hasLineOfSight(combatTarget)
+                + " 虫NoAI=" + combatInsect.isNoAi() + " 虫NoGravity=" + combatInsect.isNoGravity()
+                + " 虫着地=" + combatInsect.onGround() + " 猪着地=" + combatTarget.onGround()
+                + " 猪NoGravity=" + combatTarget.isNoGravity() + " 寻路结束=" + combatInsect.getNavigation().isDone()
+                + " 攻击状态=" + combatInsect.isAggressive() + " 近战运行=" + melee + " 曾采到近战=" + meleeObserved
+                + " 运行目标=" + combatInsect.goalSelector.getAvailableGoals().stream().filter(goal -> goal.isRunning())
+                        .map(goal -> goal.getGoal().getClass().getName()).toList()
+                + " 目标是猪=" + (combatInsect.getTarget() == combatTarget) + " 猪生命=" + combatTarget.getHealth()
+                + " 入伤初始/末尾=" + incomingEarly + "/" + incomingLate + " 减伤前/扣血后=" + damagePre + "/" + damagePost
+                + " 死亡=" + deathEvents);
     }
 
     private boolean combatFinished(int local) {
@@ -413,10 +512,16 @@ final class GuchongFluteCheck extends SystemCheck {
             expect("升级后按贫弱生命资质回满", 122, combatInsect.getHealth());
             finished[0] = true;
         });
-        if (!finished[0] && local > 240) {
-            onServer(player -> fail("蛊笛飞蝗未在240刻内原生击杀受控猪：死亡事件=" + insectKilledTarget
-                    + " 猪生命=" + combatTarget.getHealth() + " 蛊虫存活=" + combatInsect.isAlive()
-                    + " 蛊虫目标=" + (combatInsect.getTarget() == combatTarget)));
+        boolean[] timedOut = {false};
+        onServer(player -> timedOut[0] = player.serverLevel().getGameTime() - combatStartTime >= 240 || local > 1200);
+        if (!finished[0] && timedOut[0]) {
+            onServer(player -> fail("蛊笛飞蝗未在观察预算内原生击杀受控猪：客户端刻=" + local
+                    + " 服务端刻=" + (player.serverLevel().getGameTime() - combatStartTime)
+                    + " 虫实体刻=" + (combatInsect.tickCount - combatStartAge) + " 合格死亡事件=" + insectKilledTarget
+                    + " 死亡事件总数=" + deathEvents + " 猪生命=" + combatTarget.getHealth()
+                    + " 蛊虫存活=" + combatInsect.isAlive() + " 蛊虫目标=" + (combatInsect.getTarget() == combatTarget)
+                    + " 曾采到近战=" + meleeObserved + " 最小采样距离平方=" + closestDistance
+                    + " 入伤初始/末尾=" + incomingEarly + "/" + incomingLate + " 减伤前/扣血后=" + damagePre + "/" + damagePost));
             onServer(this::cleanup);
             finish();
         }
@@ -501,7 +606,12 @@ final class GuchongFluteCheck extends SystemCheck {
     private void cleanup(ServerPlayer player) {
         player.closeContainer();
         if (observingCombat) {
+            NeoForge.EVENT_BUS.unregister(incomingBefore);
+            NeoForge.EVENT_BUS.unregister(incomingAfter);
+            NeoForge.EVENT_BUS.unregister(beforeDamage);
+            NeoForge.EVENT_BUS.unregister(afterDamage);
             NeoForge.EVENT_BUS.unregister(combatDeath);
+            NeoForge.EVENT_BUS.unregister(combatTick);
             Professions.setExperience(player, Profession.INSECT, oldInsectExperience);
             observingCombat = false;
         }
