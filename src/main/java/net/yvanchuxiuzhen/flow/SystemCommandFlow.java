@@ -5,8 +5,10 @@ import java.util.Map;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.common.NeoForge;
@@ -14,6 +16,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.yvanchuxiuzhen.system.economy.api.EconomyCurrency;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.zhenfa.api.FormationInspection;
 
@@ -36,6 +39,42 @@ public final class SystemCommandFlow {
                 .then(Commands.argument("arguments", StringArgumentType.greedyString()).executes(context -> formationFeedback(
                         context.getSource().getLevel(), context.getSource().getEntity(), context.getInput())))
                 .executes(context -> formationFeedback(context.getSource().getLevel(), context.getSource().getEntity(), context.getInput())));
+        event.getDispatcher().register(Commands.literal("fuwuqimingling").requires(source -> source.hasPermission(2))
+                .then(Commands.argument("arguments", StringArgumentType.greedyString()).executes(context -> serverRule(
+                        context.getSource().getLevel(), context.getSource().getEntity(), StringArgumentType.getString(context, "arguments"))))
+                .executes(context -> serverRule(context.getSource().getLevel(), context.getSource().getEntity(), "")));
+    }
+
+    private static int serverRule(ServerLevel level, Entity source, String raw) {
+        Entity executor = source == null ? FakePlayerFactory.getMinecraft(level) : source;
+        String[] parts = raw.trim().split("\\s+");
+        if (parts.length < 2) return 0;
+        String key = parts[0];
+        String val = parts[1];
+        if (key.equals("sell")) {
+            if (val.equals("true")) {
+                EconomyCurrency.setShopSell(level, true);
+                notifyRule(executor, "修改规则：商店可以收购玩家资源。");
+            } else if (val.equals("false")) {
+                EconomyCurrency.setShopSell(level, false);
+                notifyRule(executor, "修改规则：商店禁止收购玩家资源。");
+            }
+        } else if (key.equals("weaponlevelup")) {
+            if (val.equals("true")) {
+                Lianqi.setWeaponLevelUp(level, true);
+                notifyRule(executor, "修改规则：炼器鼎现在可以升级武器法宝护甲。");
+            } else if (val.equals("false")) {
+                Lianqi.setWeaponLevelUp(level, false);
+                notifyRule(executor, "修改规则：炼器鼎现在禁止升级武器法宝护甲。");
+            }
+        }
+        return 0;
+    }
+
+    private static void notifyRule(Entity executor, String message) {
+        if (executor instanceof Player player && !player.level().isClientSide()) {
+            player.displayClientMessage(Component.literal(message), false);
+        }
     }
 
     private static int dispatch(CommandSourceStack source, String arguments) {

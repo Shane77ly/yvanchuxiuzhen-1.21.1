@@ -7,11 +7,16 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.yvanchuxiuzhen.system.lianqi.LianqiRules;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodBlockEntity;
 
 /** 炼器系统对外提供的图纸构造与鼎炉火力写入口。 */
 public final class Lianqi {
     private Lianqi() {
+    }
+
+    public static void setWeaponLevelUp(ServerLevel level, boolean value) {
+        level.getGameRules().getRule(LianqiRules.WEAPON_LEVEL_UP).set(value, level.getServer());
     }
 
     /** 副本奖励沿用来源根配方字段，交给普通图纸阅读与炼器入口消费。 */

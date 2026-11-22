@@ -1,44 +1,13 @@
 kind,source,reason
-tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/buried_treasure.json,群系标签引用本 Mod 的群系，随 world 迁移
-tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/desert_pyramid.json,群系标签引用本 Mod 的群系，随 world 迁移
-tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/nether_fossil.json,群系标签引用本 Mod 的群系，随 world 迁移
-tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/shipwreck.json,群系标签引用本 Mod 的群系，随 world 迁移
-tag,yvanchuxiuzhen/src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/shipwreck_beached.json,群系标签引用本 Mod 的群系，随 world 迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:treasure_chest_11 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:tiandiyinhang 未登记，由所属系统迁移
-tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:treasure_chest_03 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/block/mineable/axe.json,成员 yvanchuxiuzhen:guancai_01 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:watercloud 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_watercloud 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:hotoil 未登记，由所属系统迁移
 tag_value,src/main/resources/data/minecraft/tags/fluid/water.json,成员 yvanchuxiuzhen:flowing_hotoil 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员 yvanchuxiuzhen:yaoshou_006 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员 yvanchuxiuzhen:yaoshou_041 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员 yvanchuxiuzhen:yaoshou_043 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员 yvanchuxiuzhen:yaoshou_040 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员 yvanchuxiuzhen:yaoshou_037 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员 yvanchuxiuzhen:yaoshou_039 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员 yvanchuxiuzhen:yaoshou_026 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员 yvanchuxiuzhen:yaoshou_042 未登记，由所属系统迁移
-tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/fireentity.json,成员全部未登记，整个标签未生成，随所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/goldentity.json,成员 yvanchuxiuzhen:yaoshou_045 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/goldentity.json,成员 yvanchuxiuzhen:yaoshou_046 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/goldentity.json,成员 yvanchuxiuzhen:yaoshou_050 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/goldentity.json,成员 yvanchuxiuzhen:yaoshou_030 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/goldentity.json,成员 yvanchuxiuzhen:yaoshou_012 未登记，由所属系统迁移
-tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/goldentity.json,成员全部未登记，整个标签未生成，随所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/guchongentity.json,成员 yvanchuxiuzhen:guchong_01 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/guchongentity.json,成员 yvanchuxiuzhen:guchong_04 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/guchongentity.json,成员 yvanchuxiuzhen:guchong_03 未登记，由所属系统迁移
 tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/guchongentity.json,成员全部未登记，整个标签未生成，随所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/jiunpc.json,成员 yvanchuxiuzhen:businessman_03 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/jiunpc.json,成员 yvanchuxiuzhen:businessman_02 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/jiunpc.json,成员 yvanchuxiuzhen:businessman_06 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/jiunpc.json,成员 yvanchuxiuzhen:businessman_04 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/jiunpc.json,成员 yvanchuxiuzhen:businessman_01 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/jiunpc.json,成员 yvanchuxiuzhen:businessman_05 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/jiunpc.json,成员 yvanchuxiuzhen:businessman_07 未登记，由所属系统迁移
-tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/jiunpc.json,成员全部未登记，整个标签未生成，随所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/linghunentity.json,成员 yvanchuxiuzhen:guiguai_01 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/linghunentity.json,成员 yvanchuxiuzhen:yaoshou_01701 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/linghunentity.json,成员 yvanchuxiuzhen:yaoshou_024 未登记，由所属系统迁移
@@ -70,40 +39,6 @@ tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/npcentity.json
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/npcentity.json,成员 yvanchuxiuzhen:businessman_23 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/npcentity.json,成员 yvanchuxiuzhen:businessman_07 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/npcentity.json,成员 yvanchuxiuzhen:businessman_27 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/soilentity.json,成员 yvanchuxiuzhen:yaoshou_032 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/soilentity.json,成员 yvanchuxiuzhen:yaoshou_007 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/soilentity.json,成员 yvanchuxiuzhen:yaoshou_005 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/soilentity.json,成员 yvanchuxiuzhen:yaoshou_008 未登记，由所属系统迁移
-tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/soilentity.json,成员全部未登记，整个标签未生成，随所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_019 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_048 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_038 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:taomujing 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_033 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_023 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_013 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_020 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_014 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_016 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_001 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_015 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_027 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_022 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员 yvanchuxiuzhen:yaoshou_002 未登记，由所属系统迁移
-tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/treeentity.json,成员全部未登记，整个标签未生成，随所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/waterentity.json,成员 yvanchuxiuzhen:yaoshou_051 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/waterentity.json,成员 yvanchuxiuzhen:yaoshou_009 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/waterentity.json,成员 yvanchuxiuzhen:yaoshou_029 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/waterentity.json,成员 yvanchuxiuzhen:yaoshou_028 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/waterentity.json,成员 yvanchuxiuzhen:yaoshou_031 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/waterentity.json,成员 yvanchuxiuzhen:yaoshou_053 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/waterentity.json,成员 yvanchuxiuzhen:yaoshou_049 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/waterentity.json,成员 yvanchuxiuzhen:yaoshou_052 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/waterentity.json,成员 yvanchuxiuzhen:yaoshou_036 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/waterentity.json,成员 yvanchuxiuzhen:yaoshou_054 未登记，由所属系统迁移
-tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/waterentity.json,成员全部未登记，整个标签未生成，随所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/xiuzhe.json,成员 yvanchuxiuzhen:xiuzhe_0101 未登记，由所属系统迁移
-tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/xiuzhe.json,成员全部未登记，整个标签未生成，随所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yvanchunpc.json,成员 yvanchuxiuzhen:businessman_28 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yvanchunpc.json,成员 yvanchuxiuzhen:businessman_25 未登记，由所属系统迁移
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yvanchunpc.json,成员 yvanchuxiuzhen:businessman_22 未登记，由所属系统迁移
@@ -118,4 +53,3 @@ tag,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/yvanchunpc.json,成�
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/item/armor.json,成员 yvanchuxiuzhen:clothes_110_helmet 来源没有登记该 ID（来源标签的悬空引用）
 recipe_count_clamped,yvanchuxiuzhen/src/main/resources/data/yvanchuxiuzhen/recipes/skillarrow_10hecheng.json,产物 yvanchuxiuzhen:skill_arrow_10 数量 5 超过堆叠上限 1，改为 1（Q15 裁定）
 tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:jiantou 未登记，由所属系统迁移
-tag_value,src/main/resources/data/yvanchuxiuzhen/tags/entity_type/noentity.json,成员 yvanchuxiuzhen:shitiputuan 未登记，由所属系统迁移

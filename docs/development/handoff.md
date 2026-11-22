@@ -15,7 +15,7 @@ updated: 2026-11-22
 
 下一动作（2026-11-22 已合入 `main` 并推送 `origin/main`，负责人确认由执行会话补齐**与两个 1.18.2 源 Mod 二次比对发现的 4 处细节遗漏**，详见[当前调度](remaining-work.md#5-2026-11-22-双源-mod-二次比对-4-项补齐任务单)与[项目月志](../systems/project/logs/2026-11.md#2026-11-22-合入-main-推送与双源-mod-二次比对补齐任务单)）：
 
-1. **当前基线**：主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`，当前分支 `main`（`f1e744e0`，已通过 `--no-ff` 合入 `port/batch0-integration-20261117` 的 `503e9094` 并推送至 `origin/main`）。
+1. **当前基线**：主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`，分支 `port/source-parity-patch-20261122`（基于 `main` `a72b7b98`）。已完成第 5 节双源 Mod 二次比对全部 4 项补齐（14 个数据包标签及 `data_manifest.csv`/`data_skipped.csv`、`/fuwuqimingling` 命令及 `EconomyCurrency`/`Lianqi` API、`oxygenxianshi.png` HUD 叠加层、浓雾群系与雷劫客户端雾效）与 `ownership_assignment.csv` 6 项 `已读` 更新，并通过 `compileJava compileTestJava compileSmokeJava test --tests net.yvanchuxiuzhen.ArchitectureTest jar`、`check_ledger.py`、`check_docs.py` 与 `git diff --check` 全量门禁。待负责人确认后合入 `main`（不自动推送、不擅自合并 `main`）。
 2. **立即执行的双源比对 4 项补齐任务单（从 `main` 检出功能分支 `port/source-parity-patch-20261122` 执行）**：
    - **补项 1：数据包标签（Tags）全量重刷补齐**
      - 生成 B1 阶段因实体未注册而跳过的 7 个实体类型标签文件至 `src/main/resources/data/yvanchuxiuzhen/tags/entity_type/`：`fireentity.json`（8 项）、`goldentity.json`（5 项）、`soilentity.json`（4 项）、`treeentity.json`（15 项）、`waterentity.json`（10 项）、`jiunpc.json`（7 项）、`xiuzhe.json`（1 项），使 `Restraint.java` 五行相克与 `HurtStage.java`/`FabaoProjectile.java` 旧商人免伤在运行期生效；

@@ -72,6 +72,10 @@ public final class PanelClientSetup {
                 graphics.drawString(minecraft.font, COOLDOWN_NAMES[index] + "冷却" + remaining / 20, x + 189, y + 86 + index * 9, COOLDOWN_COLORS[index], false);
             }
         }
+        if (player.isInWater() && player.getAirSupply() < 300) {
+            blit(graphics, "oxygenxianshi", x - 136, y + 111, 9, 9);
+            graphics.drawString(minecraft.font, Integer.toString(player.getAirSupply()), x - 124, y + 111, -1, false);
+        }
         RenderSystem.disableBlend();
     }
 
