@@ -7,7 +7,12 @@ plugins {
 version = mod_version
 group = mod_group_id
 
-def smokeGameDirectory = layout.projectDirectory.dir('run/smoke')
+def smokeSelection = providers.gradleProperty('smokeOnly').getOrElse('').trim()
+def jadePickupRun = smokeSelection == 'jadepickupsave'
+def jadePickupRunId = jadePickupRun ? UUID.randomUUID().toString() : ''
+def smokeGameDirectory = layout.projectDirectory.dir(jadePickupRun ? "run/jade-pickup/${jadePickupRunId}" : 'run/smoke')
+def smokeOutputDirectory = layout.buildDirectory.dir(jadePickupRun ? "smoke/jade-pickup/${jadePickupRunId}" : 'smoke')
+
 
 base {
     archivesName = mod_id
@@ -39,8 +44,8 @@ neoForge {
             client()
             gameDirectory.set(smokeGameDirectory)
             disableIdeRun()
-            systemProperty 'yvanchuxiuzhen.smoke', layout.buildDirectory.dir('smoke').get().asFile.absolutePath
-            systemProperty 'yvanchuxiuzhen.exportRegistries', layout.buildDirectory.dir('registry-export').get().asFile.absolutePath
+            systemProperty 'yvanchuxiuzhen.smoke', smokeOutputDirectory.get().asFile.absolutePath
+            systemProperty 'yvanchuxiuzhen.exportRegistries', (jadePickupRun ? smokeOutputDirectory.map { it.dir('registry-export') } : layout.buildDirectory.dir('registry-export')).get().asFile.absolutePath
             def smokeMaxHeap = providers.gradleProperty('smokeMaxHeap').getOrElse('')
             if (!smokeMaxHeap.isEmpty()) {
                 if (!(smokeMaxHeap ==~ /\d+[kKmMgG]/)) {
@@ -107,6 +112,7 @@ tasks.named('test', Test) {
 
 // 未选择场景时阻止启动客户端，避免意外执行全部方块和系统巡检。
 tasks.named('runSmokeClient') {
+    if (jadePickupRun) notCompatibleWithConfigurationCache('每次璞玉拾取场景必须使用新的证据目录')
     def selectedChecks = providers.gradleProperty('smokeOnly').getOrElse('').trim()
     def fullInspection = providers.gradleProperty('smokeAll').getOrElse('false').toBoolean()
     def smokeFmlConfig = smokeGameDirectory.file('config/fml.toml').asFile
@@ -116,6 +122,13 @@ tasks.named('runSmokeClient') {
         }
         if (!selectedChecks.isEmpty() && fullInspection) {
             throw new GradleException('smokeOnly 与 smokeAll=true 只能选择一项')
+        }
+        if (selectedChecks.split(',').collect { it.trim() }.contains('jadepickupsave') && !jadePickupRun) {
+            throw new GradleException('jadepickupsave 必须单独运行，以隔离存档和证据')
+        }
+        if (jadePickupRun) {
+            logger.lifecycle("璞玉拾取场景游戏目录：${smokeGameDirectory.asFile.absolutePath}")
+            logger.lifecycle("璞玉拾取场景报告目录：${smokeOutputDirectory.get().asFile.absolutePath}")
         }
         // FML 启动画面早于冒烟 Mixin，必须在启动进程前关闭。
         if (!smokeFmlConfig.exists()) {
