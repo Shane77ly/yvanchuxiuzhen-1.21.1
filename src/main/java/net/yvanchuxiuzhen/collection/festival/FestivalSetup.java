@@ -30,6 +30,7 @@ public final class FestivalSetup {
 
     public static void register(IEventBus modBus) {
         BlockFireworks.register(CONTENT, modBus);
+        CONTENT.blockFactory("festival:fuqi_04", traits -> net.yvanchuxiuzhen.platform.content.block.ContentBlock.create(traits, Fuqi04Block::new));
         EntityModelRow model = caishenyeModel();
         CONTENT.<Caishenye>livingEntity("caishenye", (type, level) -> new Caishenye(type, level, model), model::attributes);
         CONTENT.itemFactory("festival:caishenye_spawn_egg", (properties, tooltip) ->
