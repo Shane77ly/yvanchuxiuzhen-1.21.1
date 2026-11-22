@@ -1,0 +1,539 @@
+{
+  "source_version": "1.18.2",
+  "structure_names": 28,
+  "placements": 42,
+  "unique_templates": 42,
+  "block_string_fields": 14,
+  "source_sha256": {
+    "SealreleaseGoProcedure.java": "42e16fadf91ae6118914889f033caa7ccd35ed0245770aadb463e60643e776b6",
+    "JiegoubudingProcedure.java": "16349bb3fe05c964c3f4b336a2bc9d5ec7bfac8b43c51008b70dde12785e3b2e"
+  },
+  "output_sha256": {
+    "src/main/java/net/yvanchuxiuzhen/system/world/StructureReleaseData.java": "8faa74f1bc8f2c28ac1e358f9dcc397fca8fed962cfbe6f62d28f8d91d789699",
+    "src/main/java/net/yvanchuxiuzhen/system/quest/QuestStructureData.java": "f9fe2325908afd54f107059b2aa39f8cbb369531c6592e8202d6dac1e19e8d46",
+    "src/main/java/net/yvanchuxiuzhen/system/npc/NpcStructureData.java": "566e0570b82e3df4943d89dbe17688f88f533470f63e5efc43374fb06f135594"
+  },
+  "placement_table": [
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng01",
+      "position": [
+        -169,
+        62,
+        -276
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng02",
+      "position": [
+        -146,
+        62,
+        -285
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng03",
+      "position": [
+        -107,
+        62,
+        -303
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng04",
+      "position": [
+        -107,
+        62,
+        -237
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng05",
+      "position": [
+        -107,
+        62,
+        -255
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng06",
+      "position": [
+        -59,
+        62,
+        -255
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng07",
+      "position": [
+        -59,
+        62,
+        -303
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng08",
+      "position": [
+        -120,
+        62,
+        -336
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng09",
+      "position": [
+        -72,
+        62,
+        -336
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng10",
+      "position": [
+        -46,
+        62,
+        -336
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng11",
+      "position": [
+        -120,
+        62,
+        -384
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng12",
+      "position": [
+        -72,
+        62,
+        -384
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng13",
+      "position": [
+        -24,
+        62,
+        -384
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "fanhuacheng14",
+      "position": [
+        -120,
+        62,
+        -303
+      ]
+    },
+    {
+      "name": "花繁城",
+      "template": "zhaowunpc",
+      "position": [
+        -811,
+        63,
+        -217
+      ]
+    },
+    {
+      "name": "冲关河村",
+      "template": "chongguanhecun",
+      "position": [
+        -688,
+        59,
+        -859
+      ]
+    },
+    {
+      "name": "雪地商店",
+      "template": "shoponsnow01",
+      "position": [
+        -324,
+        70,
+        981
+      ]
+    },
+    {
+      "name": "平原马车商店",
+      "template": "shoponplain01",
+      "position": [
+        214,
+        71,
+        368
+      ]
+    },
+    {
+      "name": "水上孤舟",
+      "template": "shoponwater01",
+      "position": [
+        22,
+        62,
+        15
+      ]
+    },
+    {
+      "name": "平原营地商店",
+      "template": "shoponplain02",
+      "position": [
+        -363,
+        71,
+        701
+      ]
+    },
+    {
+      "name": "冰封巨骨",
+      "template": "icejiegou01",
+      "position": [
+        -1315,
+        71,
+        -464
+      ]
+    },
+    {
+      "name": "裸露巨骨",
+      "template": "icejiegou02",
+      "position": [
+        885,
+        69,
+        1106
+      ]
+    },
+    {
+      "name": "冰原哨所",
+      "template": "icejiegou03",
+      "position": [
+        -1142,
+        88,
+        -240
+      ]
+    },
+    {
+      "name": "半圆冰屋",
+      "template": "icejiegou04",
+      "position": [
+        -475,
+        77,
+        77
+      ]
+    },
+    {
+      "name": "花田巨柳",
+      "template": "flower01",
+      "position": [
+        162,
+        70,
+        486
+      ]
+    },
+    {
+      "name": "马车残骸",
+      "template": "ruins01",
+      "position": [
+        -316,
+        63,
+        94
+      ]
+    },
+    {
+      "name": "炎君传承地",
+      "template": "chuancheng01",
+      "position": [
+        -2741,
+        87,
+        1593
+      ]
+    },
+    {
+      "name": "天狼王传承地",
+      "template": "chuancheng02",
+      "position": [
+        -566,
+        78,
+        -771
+      ]
+    },
+    {
+      "name": "空谷残卷其一",
+      "template": "konggucanjvan01",
+      "position": [
+        212,
+        65,
+        8
+      ]
+    },
+    {
+      "name": "空谷残卷其二",
+      "template": "konggucanjvan02",
+      "position": [
+        577,
+        71,
+        -86
+      ]
+    },
+    {
+      "name": "空谷残卷其三",
+      "template": "konggucanjvan03",
+      "position": [
+        770,
+        119,
+        -96
+      ]
+    },
+    {
+      "name": "空谷残卷其四",
+      "template": "konggucanjvan04",
+      "position": [
+        995,
+        63,
+        -121
+      ]
+    },
+    {
+      "name": "空谷残卷其五",
+      "template": "konggucanjvan05",
+      "position": [
+        2945,
+        75,
+        -143
+      ]
+    },
+    {
+      "name": "空谷残卷其六",
+      "template": "konggucanjvan06",
+      "position": [
+        1466,
+        70,
+        -1477
+      ]
+    },
+    {
+      "name": "空谷残卷其七",
+      "template": "konggucanjvan07",
+      "position": [
+        2420,
+        78,
+        -1542
+      ]
+    },
+    {
+      "name": "空谷残卷其八",
+      "template": "konggucanjvan08",
+      "position": [
+        4537,
+        71,
+        -586
+      ]
+    },
+    {
+      "name": "镇妖塔",
+      "template": "zhenyaota",
+      "position": [
+        1268,
+        63,
+        -600
+      ]
+    },
+    {
+      "name": "云清派",
+      "template": "yvnqingpai",
+      "position": [
+        -882,
+        141,
+        -267
+      ]
+    },
+    {
+      "name": "佣兵营地",
+      "template": "yongbingyingdi",
+      "position": [
+        1473,
+        91,
+        13
+      ]
+    },
+    {
+      "name": "丹王葫芦",
+      "template": "danwanghulu",
+      "position": [
+        1544,
+        73,
+        -1488
+      ]
+    },
+    {
+      "name": "孤礁小筑",
+      "template": "gujiaoxiaozhu",
+      "position": [
+        1130,
+        64,
+        -723
+      ]
+    },
+    {
+      "name": "野外营地",
+      "template": "yewaiyingdi",
+      "position": [
+        591,
+        63,
+        -1189
+      ]
+    }
+  ],
+  "field_table": [
+    {
+      "name": "冲关河村",
+      "position": [
+        -627,
+        64,
+        -749
+      ],
+      "field": "productlist1",
+      "sha256": "310dbca26b2722fcdd81faeec341daca7cc324444af31455d083a464663ae5d7"
+    },
+    {
+      "name": "冲关河村",
+      "position": [
+        -607,
+        64,
+        -786
+      ],
+      "field": "productlist1",
+      "sha256": "1d52c2c37e121ed1b99426cbeabb44853bae73ce363677a9555b5112c09e81f0"
+    },
+    {
+      "name": "云清派",
+      "position": [
+        -860,
+        176,
+        -248
+      ],
+      "field": "productlist1",
+      "sha256": "233d92ea4d4a771526e79d50ebe2c1be8a96cb973b8ddc5393331eb03b8669d1"
+    },
+    {
+      "name": "云清派",
+      "position": [
+        -861,
+        176,
+        -242
+      ],
+      "field": "productlist1",
+      "sha256": "7253378bbe6de51e714ff95b1b8e78b3c184e4a5d1a9648f5e560c14ded5e6d9"
+    },
+    {
+      "name": "佣兵营地",
+      "position": [
+        1482,
+        93,
+        38
+      ],
+      "field": "productlist1",
+      "sha256": "be084d6bf141388b52e4dea277053e9bf9bb330404051402e94542965809d47c"
+    },
+    {
+      "name": "佣兵营地",
+      "position": [
+        1483,
+        93,
+        38
+      ],
+      "field": "productlist1",
+      "sha256": "7a49e28159b090972b937e6bc59b06d90c597922b85d1143024ef55c6103a6f7"
+    },
+    {
+      "name": "佣兵营地",
+      "position": [
+        -848,
+        165,
+        -217
+      ],
+      "field": "renwulist1",
+      "sha256": "11a05a33a45e799e097f9e7e34cb60e11c7a7bf1fa8127d9fcf215109a38d0f8"
+    },
+    {
+      "name": "花繁城",
+      "position": [
+        -114,
+        64,
+        -277
+      ],
+      "field": "fangxiang",
+      "sha256": "b2f94b1034506f37163aad2674a55705a27173aa22114de7c4906cafe4c592a0"
+    },
+    {
+      "name": "花繁城",
+      "position": [
+        -114,
+        64,
+        -277
+      ],
+      "field": "renwulist1",
+      "sha256": "30624f580b4aac73b1e82b190f23c36e4b1413c386f85ac01f0faebfaee148ae"
+    },
+    {
+      "name": "花繁城",
+      "position": [
+        -114,
+        64,
+        -277
+      ],
+      "field": "shopinformation1",
+      "sha256": "3815dd69d5f9c50bd2b442c1672929880fd5b4b26880696ce50894c8f70cd43e"
+    },
+    {
+      "name": "花繁城",
+      "position": [
+        -114,
+        64,
+        -277
+      ],
+      "field": "productlist1",
+      "sha256": "96bd54f05de1ebad92353809f75a34cba4c7a1602062eabe1996c65e52feabd7"
+    },
+    {
+      "name": "花繁城",
+      "position": [
+        -70,
+        64,
+        -305
+      ],
+      "field": "productlist1",
+      "sha256": "310dbca26b2722fcdd81faeec341daca7cc324444af31455d083a464663ae5d7"
+    },
+    {
+      "name": "花繁城",
+      "position": [
+        -47,
+        67,
+        -356
+      ],
+      "field": "productlist1",
+      "sha256": "0b03a6dfd25b741bb4ce76b8da06cfccf669bd30669e90b7b8ab4e5e63e33cd0"
+    },
+    {
+      "name": "花繁城",
+      "position": [
+        -51,
+        64,
+        -320
+      ],
+      "field": "productlist1",
+      "sha256": "f26e0930c1af87991efc4c326f84ad4853421447eae22f84aa550ac453542faa"
+    }
+  ],
+  "npc21_task_sha256": "bcd206e51f89cabb8510a6b8899c7b94cf7b2268c56ec5e96a2cc3e2cc093335"
+}

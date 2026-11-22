@@ -18,6 +18,46 @@ public final class SpellDamage {
     private SpellDamage() {
     }
 
+    /** 热油的接触回调只登记待消费的无来源火系灵力攻击，不主动发起结算。 */
+    public static void markHotOilContact(Entity target) {
+        target.getPersistentData().putDouble("ManaAttackDamage", 2);
+        target.getPersistentData().putString("ManaAttackUUID", "无");
+        target.getPersistentData().putString("damagetype", "火");
+        target.getPersistentData().putDouble("Damage_multiplier", 1);
+    }
+
+    /** 阴二阵法只登记来源的待消费伤害字段；本操作不发起伤害结算。 */
+    public static void markFormationSoulAttack(Entity target, int rank) {
+        target.getPersistentData().putInt("SoulAttackDamage", rank * 4);
+        target.getPersistentData().putString("SoulAttackUUID", "wu");
+        target.getPersistentData().putString("damagetype", "阴阳");
+        target.getPersistentData().putDouble("Damage_multiplier", 0.5 + rank * 0.5);
+    }
+
+    /** 阳一和阳四仅登记整数攻击量，实际伤害消费路径保持来源边界。 */
+    public static void markFormationManaAttack(Entity target, int amount, String attackerUuid, double multiplier) {
+        target.getPersistentData().putInt("ManaAttackDamage", amount);
+        target.getPersistentData().putString("ManaAttackUUID", attackerUuid);
+        target.getPersistentData().putString("damagetype", "阴阳");
+        target.getPersistentData().putDouble("Damage_multiplier", multiplier);
+    }
+
+    /** 阳三登记浮点攻击量，攻击者字段按来源从目标自身读取后原值写回。 */
+    public static void markFormationFallingAttack(Entity target, double rank) {
+        target.getPersistentData().putDouble("ManaAttackDamage", rank * 3);
+        target.getPersistentData().putString("ManaAttackUUID", target.getPersistentData().getString("ManaAttackUUID"));
+        target.getPersistentData().putString("damagetype", "阴阳");
+        target.getPersistentData().putDouble("Damage_multiplier", rank * .5 + .5);
+    }
+
+    /** 剧情法术与精神攻击只登记来源待消费字段，不在脚本动作中提前结算。 */
+    public static void markQuestAttack(Entity target, boolean soul, double amount, String attackerUuid, String damageType, double multiplier) {
+        target.getPersistentData().putDouble(soul ? "SoulAttackDamage" : "ManaAttackDamage", amount);
+        target.getPersistentData().putString(soul ? "SoulAttackUUID" : "ManaAttackUUID", attackerUuid);
+        target.getPersistentData().putString("damagetype", damageType);
+        target.getPersistentData().putDouble("Damage_multiplier", multiplier);
+    }
+
     public static void deal(ServerLevel level, LivingEntity target, DamageCategory category, Entity attacker, boolean fixed, double base, double multiplier) {
         deal(level, target, category, attacker == null ? null : attacker.getUUID(), fixed, base, multiplier);
     }

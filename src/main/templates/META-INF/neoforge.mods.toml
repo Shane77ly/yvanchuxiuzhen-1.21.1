@@ -11,6 +11,9 @@ description = '''原初修真与原初系统的 Minecraft 1.21.1 合并移植。
 [[mixins]]
 config = "yvanchuxiuzhen.terrain.mixins.json"
 
+[[mixins]]
+config = "yvanchuxiuzhen.plant.mixins.json"
+
 [[dependencies."${mod_id}"]]
 modId = "neoforge"
 type = "required"

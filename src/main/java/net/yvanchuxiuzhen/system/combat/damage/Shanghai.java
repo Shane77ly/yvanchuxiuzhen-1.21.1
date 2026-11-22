@@ -24,6 +24,7 @@ import net.yvanchuxiuzhen.system.combat.api.DamageImmunityEvent;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.LethalDamageEvent;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -48,7 +49,7 @@ public final class Shanghai {
     }
 
     public static void deal(ServerLevel level, LivingEntity target, Request request) {
-        if (!target.isAlive() || !(target instanceof Mob || target instanceof Player) || request.base() <= 0) {
+        if (!target.isAlive() || !(target instanceof Mob || target instanceof Player) || !(request.base() > 0)) {
             return;
         }
         Entity attacker = null;
@@ -87,7 +88,8 @@ public final class Shanghai {
                 return;
             }
             target.hurt(source, (float) total);
-            if (attacker instanceof ServerPlayer player) {
+            ServerPlayer player = CombatAttribution.player(source);
+            if (player != null) {
                 recordKill(player, target, category);
             }
         } else {
@@ -218,6 +220,7 @@ public final class Shanghai {
         if (basalt != 0 && Mth.nextInt(target.getRandom(), 1, 100) <= basalt) {
             level.playSound(null, target.getX(), target.getY() + 1, target.getZ(),
                     BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "basalt")), SoundSource.NEUTRAL, 1, 1);
+            level.sendParticles(Particles.type("basaltlizi"), target.getX(), target.getY() + 1, target.getZ(), 10, 1, 1, 1, 0);
             defence += basalt * 2;
         }
         return defence;
@@ -242,8 +245,13 @@ public final class Shanghai {
             return;
         }
         Cultivation.setTizhiDouble(player, "killentity" + element, Cultivation.tizhiDouble(player, "killentity" + element) + 1);
-        double points = target instanceof Player victim ? Cultivation.get(victim, CultivationValue.LEVEL_NUMBER)
-                : target.getPersistentData().getDouble("LEVELnumber");
+        double points;
+        if (target instanceof ServerPlayer victim) {
+            Cultivation.syncLegacyLevelMirror(victim);
+            points = Cultivation.get(victim, CultivationValue.LEVEL_NUMBER);
+        } else {
+            points = target.getPersistentData().getDouble("LEVELnumber");
+        }
         Cultivation.setTizhiDouble(player, "killentitypoints" + element, Cultivation.tizhiDouble(player, "killentitypoints" + element) + points);
     }
 }

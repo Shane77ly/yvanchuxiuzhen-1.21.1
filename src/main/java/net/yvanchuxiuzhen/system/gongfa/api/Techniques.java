@@ -37,9 +37,25 @@ public final class Techniques {
         TechniqueRules.setSlot(player, stack);
     }
 
+    /** 装配页载入后，将当前功法记为来源每秒比较使用的原栈。 */
+    public static void rememberSlot(ServerPlayer player) {
+        TechniqueRules.rememberSlot(player);
+    }
+
+    /** 轮回同时清主修槽与每秒对照槽，空栏提交不触发来源没有的完整重算粒子。 */
+    public static void resetForReincarnation(ServerPlayer player) {
+        player.setData(GongfaData.PREVIOUS_SLOT, ItemStack.EMPTY);
+        setSlot(player, ItemStack.EMPTY);
+    }
+
     /** 研习手中的功法书（书籍右键的研习分支）；条件不满足时只提示。 */
     public static void study(ServerPlayer player, ItemStack stack) {
         TechniqueRules.study(player, stack);
+    }
+
+    /** 答题成功直接覆盖书的研习者，有功法名时重置为一层并重算加成；不检查研习条件或发送附赠事件。 */
+    public static void completeQuiz(ServerPlayer player, ItemStack stack) {
+        TechniqueRules.completeQuiz(player, stack);
     }
 
     /** 由定义生成一本未研习的功法书（管理命令 {@code /technique} 与给书的玩法）。 */

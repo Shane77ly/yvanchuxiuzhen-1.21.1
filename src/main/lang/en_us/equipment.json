@@ -1,4 +1,10 @@
 {
+  "tooltip.yvanchuxiuzhen.bond.unowned": "Unbound. Use a drop of your blood to claim it.",
+  "tooltip.yvanchuxiuzhen.bond.owned": "This item is bound to you.",
+  "tooltip.yvanchuxiuzhen.bond.progress": "Bound artifact level: §b%1$s§f (§b%2$s§f/§b%3$s§f)",
+  "tooltip.yvanchuxiuzhen.bond.foreign": "This item is bound to someone else. You cannot wield its full power!",
+  "tooltip.yvanchuxiuzhen.gourd.ordinary": "Ordinary fire: %s",
+  "tooltip.yvanchuxiuzhen.gourd.graded": "Level %1$s fire: %2$s",
   "item.yvanchuxiuzhen.weaponsword_01": "Weaponsword 0 1",
   "item.yvanchuxiuzhen.weaponsword_02": "Weaponsword 0 2",
   "item.yvanchuxiuzhen.weaponsword_03": "Weaponsword 0 3",
@@ -315,5 +321,6 @@
   "item.yvanchuxiuzhen.clothes_19_chestplate": "Clothes 1 9 胸甲",
   "item.yvanchuxiuzhen.clothes_19_leggings": "Clothes 1 9 护腿",
   "item.yvanchuxiuzhen.clothes_19_boots": "Clothes 1 9 靴子",
-  "block.yvanchuxiuzhen.shipintai": "Shipintai"
+  "block.yvanchuxiuzhen.shipintai": "Shipintai",
+  "entity.yvanchuxiuzhen.fabao_01701": "Fabao 0 1 7 0 1"
 }

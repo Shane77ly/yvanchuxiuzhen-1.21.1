@@ -1,12 +1,16 @@
 package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.api.SpiritBeastBags;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -16,11 +20,21 @@ import software.bernie.geckolib.animation.RawAnimation;
 
 /** 007号妖兽：来源编号身份、初始化、逐刻技能、声音、动画及死亡清袋。 */
 public final class Yaoshou007Entity extends YaoshouEntity {
+    private static final TagKey<EntityType<?>> XIUZHE = TagKey.create(Registries.ENTITY_TYPE,
+            ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "xiuzhe"));
     private final Yaoshou037054Animations sourceAnimations = new Yaoshou037054Animations();
 
     public Yaoshou007Entity(EntityType<? extends YaoshouEntity> type, Level level, EntityModelRow model) {
         super(type, level, model);
         xpReward = 0;
+    }
+
+    @Override
+    public void onAddedToLevel() {
+        super.onAddedToLevel();
+        if (!level().isClientSide() && !getType().is(XIUZHE) && Yaoshou037054Support.isSummoned(this)) {
+            setTexture("yaoshou00702");
+        }
     }
 
     @Override

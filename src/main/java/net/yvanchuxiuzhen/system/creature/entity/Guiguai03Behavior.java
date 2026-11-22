@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.creature.entity;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.UUID;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -14,7 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -61,10 +59,10 @@ final class Guiguai03Behavior {
         CompoundTag data = entity.getPersistentData();
         data.putDouble("entitytick", data.getDouble("entitytick") + 1);
         if (data.getString("jineng").isEmpty()) data.putString("gongjizhe", data.getString("linshigongjizhe"));
-        Entity target = target(world, data.getString("gongjizhe"));
+        Entity target = GuiguaiTargeting.target(world, data.getString("gongjizhe"));
         if (target == null) {
             if (data.getDouble("entitytick") >= 40) {
-                ((Mob) entity).getNavigation().moveTo(entity.getX() + random(entity, -3, 3), entity.getY(), entity.getZ() + random(entity, -3, 3), 1);
+                ((Mob) entity).getNavigation().moveTo(entity.getX() + GuiguaiTargeting.random(-3, 3), entity.getY(), entity.getZ() + GuiguaiTargeting.random(-3, 3), 1);
                 data.putDouble("entitytick", 0);
             }
             return;
@@ -111,7 +109,7 @@ final class Guiguai03Behavior {
     private static void choose(Entity entity, Entity target) {
         CompoundTag data = entity.getPersistentData();
         face(entity, target);
-        double distance = entity.distanceTo(target) - (entity.getBbWidth() + target.getBbWidth()) / 2;
+        double distance = GuiguaiTargeting.surfaceDistance(entity, target);
         int count = 0;
         if (entity.isPassenger()) {
             candidate(data, ++count, "挣脱", 10, 100);
@@ -136,7 +134,7 @@ final class Guiguai03Behavior {
         }
         int total = 0;
         for (int i = 1; i <= count; i++) total += (int) data.getDouble("jinengqvanzhong" + i);
-        int selected = random(entity, 1, total);
+        int selected = GuiguaiTargeting.random(1, total);
         int weight = 0;
         for (int i = 1; i <= count; i++) {
             weight += (int) data.getDouble("jinengqvanzhong" + i);
@@ -204,8 +202,8 @@ final class Guiguai03Behavior {
             double x = 0;
             double z = 0;
             for (int i = 0; i < 6; i++) {
-                x = target.getX() + random(entity, -2, 2);
-                z = target.getZ() + random(entity, -2, 2);
+                x = target.getX() + GuiguaiTargeting.random(-2, 2);
+                z = target.getZ() + GuiguaiTargeting.random(-2, 2);
                 if (world.isEmptyBlock(BlockPos.containing(x, target.getY(), z))) break;
             }
             entity.teleportTo(x, target.getY(), z);
@@ -272,7 +270,7 @@ final class Guiguai03Behavior {
     private static void summon(LevelAccessor world, Entity entity) {
         if (!(world instanceof ServerLevel level)) return;
         for (int i = 0; i < 3; i++) {
-            Vec3 at = ahead(entity, 1.5).add(random(entity, -1, 1), random(entity, -1, 1), random(entity, -1, 1));
+            Vec3 at = ahead(entity, 1.5).add(GuiguaiTargeting.random(-1, 1), GuiguaiTargeting.random(-1, 1), GuiguaiTargeting.random(-1, 1));
             level.sendParticles(Particles.type("smokeskyblue"), at.x, at.y, at.z, 3, 0, 0, 0, 0);
             Guiguai02Entity ghost = CreatureSetup.<Guiguai02Entity>entityType("guiguai_02").get().create(level);
             ghost.moveTo(at.x, at.y, at.z, level.getRandom().nextFloat() * 360, 0);
@@ -315,7 +313,7 @@ final class Guiguai03Behavior {
         }
         Vec3 center = entity.position();
         for (Entity hit : enemies(world, entity, center, new AABB(center, center).inflate(4.5))) {
-            if (hit.getType().is(TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("forge", "noentity")))) {
+            if (hit.getType().is(TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.parse("yvanchuxiuzhen:noentity")))) {
                 if (world instanceof ServerLevel level) {
                     level.sendParticles(Particles.type("brokenlightgray"), hit.getX(), hit.getY(), hit.getZ(), 16, 0, 0, 0, 1);
                     hit.discard();
@@ -360,25 +358,12 @@ final class Guiguai03Behavior {
         if (world instanceof ServerLevel level) level.sendParticles(Particles.type(id), entity.getX(), entity.getY() + entity.getBbHeight() / 2, entity.getZ(), count, 0, 0, 0, speed);
     }
 
-    private static Entity target(LevelAccessor world, String id) {
-        if (!(world instanceof ServerLevel level) || id.isEmpty()) return null;
-        try {
-            return level.getEntity(UUID.fromString(id));
-        } catch (IllegalArgumentException exception) {
-            return null;
-        }
-    }
-
     private static void face(Entity entity, Entity target) {
         entity.lookAt(EntityAnchorArgument.Anchor.EYES, target.position().add(0, target.getBbHeight() / 2, 0));
     }
 
     private static boolean has(Entity entity, String effect) {
         return entity instanceof LivingEntity living && living.hasEffect(StatusEffects.holder(effect));
-    }
-
-    private static int random(Entity entity, int min, int max) {
-        return Mth.nextInt(entity.level().getRandom(), min, max);
     }
 
     private static double tick(Entity entity) {

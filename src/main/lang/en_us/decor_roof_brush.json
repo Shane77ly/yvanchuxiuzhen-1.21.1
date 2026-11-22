@@ -1,0 +1,17 @@
+{
+  "message.yvanchuxiuzhen.roof_point_1": "Point one selected: %s, %s, %s",
+  "message.yvanchuxiuzhen.roof_point_2": "Point two selected: %s, %s, %s",
+  "message.yvanchuxiuzhen.roof_missing_1": "Point one is not selected",
+  "message.yvanchuxiuzhen.roof_missing_2": "Point two is not selected",
+  "message.yvanchuxiuzhen.roof_place": "Place",
+  "message.yvanchuxiuzhen.roof_parity_odd": "Odd",
+  "message.yvanchuxiuzhen.roof_parity_even": "Even",
+  "message.yvanchuxiuzhen.roof_tile_0": "Black tile",
+  "message.yvanchuxiuzhen.roof_tile_1": "Blue tile",
+  "message.yvanchuxiuzhen.roof_tile_2": "Green tile",
+  "message.yvanchuxiuzhen.roof_tile_3": "Red tile",
+  "message.yvanchuxiuzhen.roof_tile_4": "Gilded tube tile",
+  "message.yvanchuxiuzhen.roof_tile_5": "Grey tile",
+  "message.yvanchuxiuzhen.roof_overhanging": "Overhanging roof",
+  "message.yvanchuxiuzhen.roof_hard": "Hard mountain roof"
+}

@@ -5,8 +5,10 @@ import java.util.List;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
+import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.relation.api.FriendRealmNameEvent;
 import net.yvanchuxiuzhen.system.relation.content.FriendMenu;
 import net.yvanchuxiuzhen.system.relation.data.FriendEntry;
 import net.yvanchuxiuzhen.system.relation.data.FriendRow;
@@ -23,8 +25,6 @@ public final class FriendList {
     /** 按钮编号与来源 {@code FriendguiButtonMessage} 一致：0–9 选中行，10 上一页，11 下一页，12 星标，13 上移，14 下移，15 删除。 */
     public static final int BUTTONS = 16;
     private static final int PAGE_SIZE = 10;
-    /** xiulian 尚未提供境界查询；所有玩家处于来源 {@code LEVELname} 的初值“凡人”。 */
-    private static final String REALM = "凡人";
 
     private FriendList() {
     }
@@ -90,7 +90,7 @@ public final class FriendList {
     /**
      * 删除选中的好友：本人列表中该格去掉星标、标为删除，并把对方团队移出友方集合。
      * 对方在同一维度在线时，来源在本人列表里查找本人的名字（通常不存在）；找到时把那一格同样标为删除，
-     * 再把本人的整份列表写给对方（来源 {@code Playeruidel} 读取对象写错，Q19）。选中行为空时返回 false，不刷新。
+     * 再把本人的好友子表引用写给对方（来源 {@code Playeruidel} 读取对象写错，Q19）。选中行为空时返回 false，不刷新。
      */
     private static boolean delete(ServerPlayer player, PlayerRelation relation) {
         FriendRow row = relation.row(relation.selected());
@@ -102,7 +102,7 @@ public final class FriendList {
                     if (entry.name().equals(myName)) {
                         markDeleted(relation, entry);
                         PlayerRelation otherRelation = other.getData(RelationAttachments.PLAYER);
-                        otherRelation.copyFriendsFrom(relation);
+                        otherRelation.shareFriendsFrom(relation);
                         other.syncData(RelationAttachments.PLAYER);
                         break;
                     }
@@ -159,7 +159,8 @@ public final class FriendList {
         for (ServerPlayer other : player.serverLevel().players()) {
             String otherName = other.getDisplayName().getString();
             if (otherName.equals(name)) {
-                return new FriendRow(name, team, star, slot, true, "(" + REALM + ")" + otherName,
+                String realmName = NeoForge.EVENT_BUS.post(new FriendRealmNameEvent(other)).realmName();
+                return new FriendRow(name, team, star, slot, true, "(" + realmName + ")" + otherName,
                         "血量上限:" + other.getMaxHealth() + "(恢复:" + PlayerAttributes.value(other, Stat.HEALTH_REC) + ")",
                         "灵力上限:" + PlayerAttributes.value(other, Stat.POWER_MAX) + "(恢复:" + PlayerAttributes.value(other, Stat.POWER_REC) + ")",
                         "精力上限:" + PlayerAttributes.value(other, Stat.SOUL_MAX) + "(恢复:" + PlayerAttributes.value(other, Stat.SOUL_REC) + ")",

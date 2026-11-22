@@ -10,7 +10,7 @@ import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
-/** 修者来源技能对符箓系统的公开施放操作，由符箓系统写入持续效果与弹体数据。 */
+/** 修者与首领来源技能对符箓系统的公开施放操作，由符箓系统写入持续效果与弹体数据。 */
 public final class NpcTalismans {
     private NpcTalismans() { }
 
@@ -44,6 +44,18 @@ public final class NpcTalismans {
     public static void shootQiSword(ServerLevel level, Entity caster, double grade) {
         caster.getPersistentData().putDouble("fulu05level", grade);
         TalismanProjectile.launch(level, FuluSetup.projectile(TalismanProjectile.Kind.QI_SWORD).get(), caster,
+                new Vec3(caster.getX(), caster.getEyeY() - 0.1, caster.getZ()), caster.getLookAngle());
+    }
+
+    /** 首领火球术使用46号符弹体，首刻从施放者读取品阶与实体团队。 */
+    public static void shootBossFireball(ServerLevel level, Entity caster) {
+        TalismanProjectile.launch(level, FuluSetup.projectile(TalismanProjectile.Kind.FIREBALL).get(), caster,
+                new Vec3(caster.getX(), caster.getEyeY() - 0.1, caster.getZ()), caster.getLookAngle());
+    }
+
+    /** 首领飞雷符使用45号符弹体，首刻读取暂存品阶或施放者的mana_Att。 */
+    public static void shootBossCannon(ServerLevel level, Entity caster) {
+        TalismanProjectile.launch(level, FuluSetup.projectile(TalismanProjectile.Kind.CANNON).get(), caster,
                 new Vec3(caster.getX(), caster.getEyeY() - 0.1, caster.getZ()), caster.getLookAngle());
     }
 }

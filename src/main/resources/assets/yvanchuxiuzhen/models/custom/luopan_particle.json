@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/luopan.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/luopan"
+  }
+}

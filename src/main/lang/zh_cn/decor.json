@@ -1,4 +1,10 @@
 {
+  "block.yvanchuxiuzhen.hotoil": "热油",
+  "item.yvanchuxiuzhen.hotoil_bucket": "滚油桶",
+  "fluid.yvanchuxiuzhen.hotoil": "滚油",
+  "block.yvanchuxiuzhen.watercloud": "地淌云",
+  "item.yvanchuxiuzhen.watercloud_bucket": "地淌云桶",
+  "fluid.yvanchuxiuzhen.watercloud": "地淌云",
   "block.yvanchuxiuzhen.scorchedsoil": "焦土",
   "block.yvanchuxiuzhen.loess": "黄土",
   "block.yvanchuxiuzhen.bluestone": "青石",
@@ -551,5 +557,21 @@
   "item.yvanchuxiuzhen.paiwei_07item": "柞木牌位",
   "item.yvanchuxiuzhen.paiwei_08item": "香樟牌位",
   "item.yvanchuxiuzhen.paiwei_09item": "银杏牌位",
-  "subtitles.yaoqiantong": "签筒摇晃"
+  "subtitles.yaoqiantong": "签筒摇晃",
+  "gui.yvanchuxiuzhen.beechfurniture_15_gui.button_qie_huan": "切换",
+  "entity.yvanchuxiuzhen.shitiyizi": "座椅",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.button_ok": "OK",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.button_05": "+0.5",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.Zai Ci Shu Ru Bian E Nei Rong ": "",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.button_empty": ">>",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.plaquetxt": "在此输入匾额内容",
+  "gui.yvanchuxiuzhen.paiwei_gui.button_she_zhi": "设置",
+  "gui.yvanchuxiuzhen.paiwei_gui.plaquetxt": "牌位内容",
+  "gui.yvanchuxiuzhen.plaque_gui.button_05": "+0.5",
+  "gui.yvanchuxiuzhen.plaque_gui.plaquetxt": "在此输入匾额内容",
+  "gui.yvanchuxiuzhen.plaque_gui.button_empty": ">>",
+  "gui.yvanchuxiuzhen.plaque_gui.button_ok": "ok",
+  "entity.yvanchuxiuzhen.shitiputuan": "蒲团",
+  "block.yvanchuxiuzhen.zhuangshitizi": "梯子",
+  "block.yvanchuxiuzhen.zhuangshiqiantong": "签筒"
 }

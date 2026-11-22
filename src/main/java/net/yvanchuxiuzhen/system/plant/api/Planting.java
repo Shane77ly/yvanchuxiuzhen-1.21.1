@@ -1,7 +1,12 @@
 package net.yvanchuxiuzhen.system.plant.api;
 
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.block.Block;
+import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.plant.FungusCrop;
 import net.yvanchuxiuzhen.system.plant.FungusPlanting;
 import net.yvanchuxiuzhen.system.plant.LegumeCrop;
@@ -14,6 +19,16 @@ import net.yvanchuxiuzhen.system.plant.VegetablePlanting;
 /** 可食播种物的跨系统操作；只由Plant写作物状态，食用属性和物品身份仍归Cooking。 */
 public final class Planting {
     private Planting() {
+    }
+
+    /** 来源栗子物品在顶面直接放置树苗，不消耗物品。 */
+    public static InteractionResult chestnut(UseOnContext context) {
+        if (!context.getLevel().isClientSide && context.getClickedFace() == Direction.UP) {
+            Block sapling = BuiltInRegistries.BLOCK.get(
+                    ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "chestnutsapling"));
+            context.getLevel().setBlock(context.getClickedPos().above(), sapling.defaultBlockState(), Block.UPDATE_ALL);
+        }
+        return InteractionResult.SUCCESS;
     }
 
     public static InteractionResult lotus(UseOnContext context) {

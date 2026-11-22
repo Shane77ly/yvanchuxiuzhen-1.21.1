@@ -134,7 +134,13 @@ public final class Organism10Entity extends PathfinderMob implements GeoEntity, 
         super.tick();
     }
 
-    @Override protected void tickDeath() { if (++deathTime == 20) remove(RemovalReason.KILLED); }
+    @Override
+    protected void tickDeath() {
+        if (++deathTime == 20) {
+            remove(RemovalReason.KILLED);
+            dropExperience(lastHurtByPlayer);
+        }
+    }
     @Override public void aiStep() { super.aiStep(); updateSwingTime(); }
     @Override public String texture() { return entityData.get(TEXTURE); }
     public void setTexture(String texture) { entityData.set(TEXTURE, texture); }
@@ -144,7 +150,8 @@ public final class Organism10Entity extends PathfinderMob implements GeoEntity, 
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<Organism10Entity>(this, "movement", 4, state -> {
             if (!procedureAnimation.equals("empty")) return PlayState.STOP;
-            if (onGround() && state.isMoving()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.organism10.walk"));
+            boolean moving = state.isMoving() || !(state.getLimbSwingAmount() > -.15F && state.getLimbSwingAmount() < .15F);
+            if (onGround() && moving) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.organism10.walk"));
             return state.setAndContinue(RawAnimation.begin().thenLoop(onGround() ? model.idle() : model.air().orElseThrow()));
         }));
         controllers.add(new AnimationController<Organism10Entity>(this, "procedure", 4, state -> {

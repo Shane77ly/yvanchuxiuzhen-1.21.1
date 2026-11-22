@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "yvanchuxiuzhen:block/dimensiontianqve_portal_ew"
+    },
+    "axis=x": {
+      "model": "yvanchuxiuzhen:block/dimensiontianqve_portal_ns"
+    }
+  }
+}

@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
 import net.yvanchuxiuzhen.system.fulu.FuluUse;
 
-/** 持续效果符（02、03、24、31 等）：右键经共享施用过程付精力并登记效果，来源 {@code Itemfulu<编号>Item.use}。 */
+/** 成品符箓的服务端右键入口：按来源编号分派即时效果、催熟或持续效果登记。 */
 public final class TalismanItem extends ContentItem {
     private final int number;
 

@@ -2,7 +2,7 @@
 topic: gongfa
 role: architecture
 status: draft
-updated: 2026-11-08
+updated: 2026-11-18
 ---
 
 # 功法、研习与学习小游戏：架构调查与提案
@@ -20,9 +20,9 @@ updated: 2026-11-08
 
 功法定义说明属性档位、需求和升级公式；书籍组件保存绑定、等级、经验与实例值。玩家功法槽只保存真实书籍，成长不会转为永久解锁列表。参悟台保存自身输入与加工状态。
 
-学习小游戏单独保留 `LearningSession`：装置位置/维度、参与者、目标集、当前位置、剩余灵力和序列游标；其结果调用书籍学习入口。不要把 415 个显示过程机械变成 415 个服务，也不能删掉这部分交互。显示网格由会话状态计算。
+学习小游戏Q28的当前范围见[排除结论](#阶段-3学习小游戏来源核对与范围排除)。此前独立`LearningSession`与网格会话方案不再作为实施要求，来源调查证据保留。
 
-接口分别为绑定书籍、装备/取出、推进研习、参悟、创建/操作学习会话、读取属性贡献。装备界面跨功法和技能的操作由具体协调入口完成；菜单关闭与取出必须以真实物品去向验证。
+接口分别为绑定书籍、装备/取出、推进研习、参悟与读取属性贡献。装备界面跨功法和技能的操作由具体协调入口完成；菜单关闭与取出必须以真实物品去向验证。
 
 ## 实现进度（2026-11-08）
 
@@ -37,7 +37,7 @@ updated: 2026-11-08
 - 提示文本（`TechniqueTooltip`，来源 `ItemLore` 功法分支与 `GongfaLore`）。
 - 管理命令（`TechniqueCommands`，来源 `TechniqueCommand` 与 `TechniqueGOProcedure`）：权限 1、贪婪字符串参数、承载物品 ID/名称/品阶/境界/灵根/简介、五行数值与十二项档位按来源顺序写入 `TechniqueDefinition`；第十三项移速档位保持空字符串；书在命令坐标生成并设置 10 刻拾取延迟。数值解析失败为 0，缺失文本为空，无效承载物不生成书。
 - 来源中 `Gongfashuaxin`、`Gongfashuaxin2` 没有调用者，不迁移。
-- 验证：冒烟 `GongfaCheck`（研习条件、提交、闭关经验与升级、提示文本、书架藏宝）与 `ComprehensionCheck`（放置说明、右键界面、参悟、切换、两次继承与 Q27），共 36 项符合，日志 ERROR 0 条，截图 `gongfa_comprehension.png`。
+- 历史验证：冒烟 `GongfaCheck` 与 `ComprehensionCheck` 曾报告 36 项符合，截图 `gongfa_comprehension.png`；其中未升级时保留典籍的旧断言因误读来源而失效，不能作为该分支正确的证据。
 
 ### 阶段 2：参悟台
 
@@ -45,16 +45,19 @@ updated: 2026-11-08
 - 规则（`Comprehension`）：模式切换、刷新说明、参悟（寿元 参悟次数² × 品阶 + 20，所需境界降一层并改写境界文字，只能由第一个参悟者继续）、继承（经验 × (0.5 + 品阶差 × 0.02)，Q27）。参悟后槽内物品写回为数量 1。境界文字经 xiulian 公开操作 `Cultivation.realmName`。
 - 界面（`ComprehensionScreen`）：客户端菜单使用一格临时容器，内容随菜单同步，文字读取菜单所指位置的方块实体。
 
-### 阶段 3：学习小游戏的可达性；完成
+### 阶段 3：学习小游戏来源核对与范围排除
 
-- 读后结论（Q28）：研习台 `yvanchuxiuzhen:gongfaxvexi`（GeckoLib 动画方块）与原初系统的界面 `gongfaxvexi_gui`（415 个显示过程与 14 个规则过程）在来源中不可达：研习台物品 `tab(null)`、没有配方，409 个结构与全部代码都不放置它；研习台槽位的书与 `booklevellinshi` 没有写入者；界面只在菜单登记中构造，右键研习台的分支（原初系统 `PlayerRightClickBlock`）打开的是 `TripodGUI`。按 Q20 的先例记录待裁定，不迁移；研习成功过程 `Gongfashuxingjiyv` 与研习（`Techniques.study`）结果相同。
+- 来源核对（Q28）：研习台 `yvanchuxiuzhen:gongfaxvexi`（GeckoLib 动画方块）与原初系统的界面 `gongfaxvexi_gui`（415 个显示过程与 14 个规则过程）在来源中不可达：研习台物品 `tab(null)`、没有配方，409 个结构与全部代码都不放置它；研习台槽位的书与 `booklevellinshi` 没有写入者；界面只在菜单登记中构造，右键研习台的分支（原初系统 `PlayerRightClickBlock`）打开的是 `TripodGUI`。研习成功过程 `Gongfashuxingjiyv` 与研习（`Techniques.study`）结果相同，既有研习主路径不受本排除项影响。
+- 当前范围：负责人2026-11-16明确批准将功法星宿穴位学习小游戏Q28排除在移植范围之外，包含研习台方块及其方块实体/物品、学习界面与上述429个过程；不再等待可达性裁定，也不要求实现或验收独立学习会话。注册来源身份和静态调查继续保留，`content.csv`相关4行仅在备注登记已批准排除，迁移状态不提升，不能将这些行计为仍需实现的批准范围。其余功法及项目全量范围不变。
 - 完成核对（2026-11-03）：归属 478 个元素全部已读；`gradlew check`（含 JUnit）、`check_ledger.py`、`check_docs.py` 通过；开发服务端启动 ERROR 0 条；冒烟 relation、attribute、xiulian、gongfa 共 209 项全部符合（gongfa 34 项），日志 ERROR 0 条。
 
 ## 裁定与验证
 
-`Gongfashuaxin/2` 未从当前结构入口图到达；不能仅因它们做增减属性就选作目标主链，当前有效链包括 PlayerTick 的 `Shuxingjisuan/2`。学习会话同时写玩家/装置后的多人覆盖行为需明确目标操作规则。数值、实例转移、重登、普通死亡、参悟和小游戏成功/失败分别对照。
+`Gongfashuaxin/2` 未从当前结构入口图到达；不能仅因它们做增减属性就选作目标主链，当前有效链包括 PlayerTick 的 `Shuxingjisuan/2`。数值、实例转移、重登、普通死亡与参悟分别对照；Q28的实现与验收边界按上方已批准排除结论执行。
 
 ## 自然入口依赖接回（2026-11-08）
+
+出身领书专项实际开启功法藏宝书：抽到五行基础时研习原栈；若不是，则保留真实抽出的书，夹具另备未绑定五行基础，再经实际潜行右键研习。后者分别覆盖真实抽书与凡人研习的后半程，不是同一本书的全链。无层数修正时凡人一层五行基础不增长功法经验；新专项检查闭关及同档重进后原栈和零经验保持。见[功法月志](logs/2026-11.md#2026-11-18-出身书与凡人功法复验边界)。
 
 公共书 `StudyBookItem` 通过 `Techniques.book/study` 接回自然研习，本系统的公开签名保持不变。`TechniqueRules.study` 在条件通过、绑定前补齐来源成功粒子，参数与共同效果只维护于[book 正文](../book/architecture.md#研习契约与数据所有权)；事件附赠仍只发一次。公共书的失败/重复判定和答题进度由 book 按调用前后归属判断处理，gongfa 不写 book 私有数据。
 
@@ -62,4 +65,8 @@ skill 的 `SkillLoadoutMenu` 经 `Techniques.slot/setSlot` 读写真实功法栈
 
 04载入后会持有gongfa的当前栈引用。`TechniqueRules.addExperience` 因此按来源在该栈更新组件，由gongfa重新写自身附件并提交；不再以成长副本替换栈，避免打开装配页期间获得的经验或升级在关闭回写时回滚。跨系统菜单只通过公开操作归一和取得栈，成长与本人同步仍由gongfa唯一写入。
 
-本批完整 `build compileSmokeJava`（含ArchUnit）通过；现有skillui客户端29项全通过，其中功法由真实自然潜行use研习、Shift装入04并在关闭后交回所有者；开窗时发布实际 `CultivationExperienceEvent(1)`，功法经验增加1.5在本人组件和菜单原栈同步，关闭到03及重开04均保持。报告为 `tmp/study-loadout-report.txt`，完整证据见[skill验证段](../skill/architecture.md#目标依据与本批验证边界)。本批专服一次正常启动并原生stop保存四维度退出，ERROR/FATAL0。该场景未单独断言全部attribute贡献数值或升级档位，完整粒子/界面视觉、1.18.2版本实机、两版本对照和多人仍待；此前36项功法/参悟证据保持原范围。Q28学习小游戏不在本批展开。
+本批完整 `build compileSmokeJava`（含ArchUnit）通过；现有skillui客户端29项全通过，其中功法由真实自然潜行use研习、Shift装入04并在关闭后交回所有者；开窗时发布实际 `CultivationExperienceEvent(1)`，功法经验增加1.5在本人组件和菜单原栈同步，关闭到03及重开04均保持。报告为 `tmp/study-loadout-report.txt`，完整证据见[skill验证段](../skill/architecture.md#目标依据与本批验证边界)。本批专服一次正常启动并原生stop保存四维度退出，ERROR/FATAL0。该场景未单独断言全部attribute贡献数值或升级档位，完整粒子/界面视觉、1.18.2版本实机、两版本对照和多人仍待；此前36项功法/参悟证据中未升级保留典籍的断言失效。Q28当前排除范围见上方结论。
+
+## 功法装配、修炼与参悟状态（2026-11-20）
+
+`PlayerGUI04DangZheGeJieMianDaKaiQiJianMeiKeFaShengProcedure:43–73` 载入功法原栈并保存比较槽；`PlayerTickProcedure:351–361` 在恢复后比较物品与功法名称，有变化才重算并更新比较槽。目标以功法系统的服务端附件保存该槽，并在克隆时保留引用关系；两个槽存档时分别序列化。闭关附带经验及主动功法修炼均按修正境界和40层门槛判断，主动修炼先扣天数和寿元。参悟继承在原栈写进度后复制，成功时无论是否升级均消耗典籍；升级时重算成长。参悟小数境界按来源精确比较，非整数且低于41时境界文字为空。静态来源与运行边界见[本月记录](logs/2026-11.md)。

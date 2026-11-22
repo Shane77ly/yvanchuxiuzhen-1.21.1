@@ -6,11 +6,18 @@ import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongCreatures;
+import net.yvanchuxiuzhen.system.guchong.entity.GuchongGrowth;
+import net.yvanchuxiuzhen.system.guchong.entity.Guchong05Entity;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongTrackingItem;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongBlockEntities;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongConstitutionItem;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongFluteItem;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongReleaseMenu;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlock;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanItem;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanMenu;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongMenus;
+import net.yvanchuxiuzhen.system.guchong.content.GuchongReleaseItem;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -20,6 +27,10 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
  */
 public final class GuchongSetup {
     private static final ContentTables CONTENT = new ContentTables("guchong")
+            .itemFactory("guchong:constitution", GuchongConstitutionItem::new)
+            .itemFactory("guchong:tracking", GuchongTrackingItem::new)
+            .livingEntity("guchong_05", Guchong05Entity::new, Guchong05Entity::attributes)
+            .itemFactory("guchong:flute", GuchongFluteItem::new)
             .blockFactory("guchong:taoguan_01", traits -> ContentBlock.create(traits, value -> new TaoguanBlock(value, 1)))
             .blockFactory("guchong:taoguan_02", traits -> ContentBlock.create(traits, value -> new TaoguanBlock(value, 2)))
             .blockFactory("guchong:taoguan_03", traits -> ContentBlock.create(traits, value -> new TaoguanBlock(value, 3)));
@@ -33,12 +44,18 @@ public final class GuchongSetup {
             int grade = number;
             CONTENT.itemFactory("guchong:taoguan_0" + grade + "item", (properties, tooltip) -> new TaoguanItem(properties, tooltip, grade));
         }
+        for (String id : new String[]{"guchong_01", "guchong_03", "guchong_04"}) {
+            CONTENT.itemFactory("guchong:" + id + "item", (properties, tooltip) -> new GuchongReleaseItem(properties, tooltip, id));
+        }
         CONTENT.register(modBus);
         GuchongBlockEntities.register(modBus);
         GuchongMenus.register(modBus);
+        NeoForge.EVENT_BUS.addListener(GuchongGrowth::onDeath);
         NeoForge.EVENT_BUS.addListener((PlayerTickEvent.Post event) -> {
             if (event.getEntity().containerMenu instanceof TaoguanMenu menu
                     && TaoguanItem.grade(event.getEntity().getMainHandItem()) != menu.grade()) event.getEntity().closeContainer();
+            if (event.getEntity().containerMenu instanceof GuchongReleaseMenu
+                    && !(event.getEntity().getMainHandItem().getItem() instanceof GuchongFluteItem)) event.getEntity().closeContainer();
         });
     }
 

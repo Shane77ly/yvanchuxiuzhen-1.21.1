@@ -1,9 +1,10 @@
 package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
+import java.util.Random;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
-import java.util.Random;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -29,7 +30,8 @@ public final class YaoshouShared {
         if (!data.getString("LEVELname").isEmpty()) return false;
         if (data.getDouble("LEVELnumber") < 1) data.putDouble("LEVELnumber", defaultLevel);
         double level = data.getDouble("LEVELnumber");
-        entity.getAttribute(YaoshouAttributes.SIZE).setBaseValue((new Random().nextInt(31) + 70) * 0.01 + (level / 4) * 0.1);
+        int sizeBase = entity instanceof Yaoshou040Entity ? new Random().nextInt(101) + 300 : new Random().nextInt(31) + 70;
+        entity.getAttribute(YaoshouAttributes.SIZE).setBaseValue(sizeBase * 0.01 + (level / 4) * 0.1);
         for (int i = 0; i < RATING_KEYS.length; i++) {
             data.putString(RATING_KEYS[i] + "_LEVEL", ratings[i]);
         }
@@ -47,9 +49,21 @@ public final class YaoshouShared {
         return true;
     }
 
-    public static void calculateAttributes(Mob entity, CompoundTag data, double level) {
+    public static void calculateAttributes(LivingEntity entity, CompoundTag data, double level) {
+        calculateAttributes(entity, data, level, false);
+    }
+
+    /** 来源升级过程与出生计算共用数值公式，但使用独立的五档移速基值。 */
+    public static void calculateUpgradeAttributes(Entity entity, CompoundTag data, double level) {
+        calculateAttributes(entity, data, level, true);
+    }
+
+    private static void calculateAttributes(Entity entity, CompoundTag data, double level, boolean upgrade) {
         double healthScale = maxRating(data, "health_Max", 14, 13, 12, 11);
         data.putDouble("health_Max", Math.ceil(120 + healthScale * Math.pow(level / 3, 2)));
+        LivingEntity living = (LivingEntity) entity;
+        living.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
+        living.setHealth((float) data.getDouble("health_Max"));
         double healthRecovery = recoveryRating(data, "health_Rec", 8.4, 8.8, 9.2, 9.6);
         data.putDouble("health_Rec", Math.ceil(1 + Math.pow(level / healthRecovery, 2)));
         data.putDouble("power_Max", Math.ceil(120 + maxRating(data, "power_Max", 28, 26, 24, 22) * Math.pow(level / 3, 2)));
@@ -59,19 +73,17 @@ public final class YaoshouShared {
         for (String key : new String[]{"attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def"}) {
             double divisor = maxRating(data, key, 2.6, 2.7, 2.8, 2.9);
             data.putDouble(key, Math.ceil(2 + Math.pow(level / divisor, 2)));
+            if (key.equals("attack_Num")) living.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getDouble(key));
         }
         double speed = switch (data.getString("speed_LEVEL")) {
-            case "绝佳" -> 0.36;
-            case "强劲" -> 0.32;
-            case "平庸" -> 0.28;
-            case "勉强" -> 0.24;
+            case "绝佳" -> upgrade ? 0.28 : 0.36;
+            case "强劲" -> upgrade ? 0.26 : 0.32;
+            case "平庸" -> upgrade ? 0.24 : 0.28;
+            case "勉强" -> upgrade ? 0.22 : 0.24;
             default -> 0.2;
         } + level * 0.004;
         data.putDouble("speed_number", speed);
-        entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
-        entity.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getDouble("attack_Num"));
-        entity.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(speed);
-        entity.setHealth((float) data.getDouble("health_Max"));
+        living.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(speed);
     }
 
     public static void updateLevelName(CompoundTag data, double level) {

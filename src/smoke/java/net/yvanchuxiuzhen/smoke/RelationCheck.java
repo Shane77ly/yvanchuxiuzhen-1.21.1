@@ -20,18 +20,24 @@ import net.yvanchuxiuzhen.system.relation.data.PlayerRelation;
 import net.yvanchuxiuzhen.system.relation.data.Allegiance;
 import net.yvanchuxiuzhen.system.relation.data.RelationAttachments;
 import net.yvanchuxiuzhen.system.relation.network.RelationButtonPayload;
+import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 
 /**
  * 关系系统的实机检查（单人客户端，只有一名玩家）：登录得到的团队与非玩家实体的阵营判定；
  * 给本人写入 11 格好友（第 1 格是本人名字，用作“在线”的一行）后打开好友界面截图，经网络按钮选中、星标、上移、删除、翻页，
- * 核对客户端收到的界面行；向已在列表中的本人申请时不发申请；放入一名不在线者的申请后打开申请界面，
+ * 核对普通行与星标行读取实际境界文本、刷新后跟随档案变化，再恢复原境界名；向已在列表中的本人申请时不发申请；放入一名不在线者的申请后打开申请界面，
+ * 受控改写本体团队后等待服务端每秒恢复计时推进，核对本体团队恢复为能力团队；
  * 同意时因对方不在线不添加、拒绝时清除申请；死亡重生与退出重进后好友数据保持。
  * 两名玩家之间的申请与删除未覆盖。
  */
 final class RelationCheck extends SystemCheck {
+    private static final String REALM_NAME = "元婴七重";
     private final Screenshots screenshots;
     private String name;
     private String team;
+    private String originalRealmName;
+    private double recoveryTimer;
 
     RelationCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("关系", report, levelId);
@@ -56,8 +62,18 @@ final class RelationCheck extends SystemCheck {
                 if (local < 20) {
                     return false;
                 }
+                boolean[] recovered = new boolean[1];
+                onServer(player -> recovered[0] = Cultivation.tizhiDouble(player, "jishiqi") > recoveryTimer);
+                if (!recovered[0] && local < 200) {
+                    return false;
+                }
+                onServer(player -> {
+                    expectTrue("服务端每秒恢复计时已推进", recovered[0]);
+                    expect("每秒恢复将本体团队写回能力团队", team, Relations.entityTeam(player));
+                    expect("每秒恢复保留能力团队", team, Relations.team(player));
+                });
                 expectTrue("好友界面已打开", minecraft.screen instanceof FriendScreen);
-                expect("第 1 行 本人在线", "(凡人)" + name, client().row(1).level());
+                expect("普通行读取当前境界", "(" + REALM_NAME + ")" + name, client().row(1).level());
                 expectTrue("第 1 行 在线标记", client().row(1).online());
                 expect("第 2 行 未上线", "(未上线)好友01", client().row(2).level());
                 expect("显示行数", 10, client().rows().size());
@@ -77,14 +93,20 @@ final class RelationCheck extends SystemCheck {
                     return false;
                 }
                 expectTrue("第 1 格 星标", client().row(1).star());
+                expect("星标行读取当前境界", "(" + REALM_NAME + ")" + name, client().row(1).level());
                 expect("上移后 第 2 行", "(未上线)好友02", client().row(2).level());
                 expect("上移后 选中跟随名字", 2, client().selected());
+                onServer(player -> {
+                    Cultivation.set(player, CultivationText.LEVEL_NAME, originalRealmName);
+                    FriendList.refresh(player);
+                });
                 press(15);
             }
             case 4 -> {
                 if (local < 10) {
                     return false;
                 }
+                expect("刷新后境界随档案更新", "(" + originalRealmName + ")" + name, client().row(1).level());
                 expect("删除后 显示行数", 9, client().rows().size());
                 expect("删除后 取消选中", 0, client().selected());
                 expect("删除后 好友数不变", 11, client().friendCount());
@@ -205,6 +227,12 @@ final class RelationCheck extends SystemCheck {
             relation.addFriend("好友" + number, "team_" + number);
             relation.allegiance().setFriendly("team_" + number, true);
         }
+        originalRealmName = Cultivation.get(player, CultivationText.LEVEL_NAME);
+        Cultivation.set(player, CultivationText.LEVEL_NAME, REALM_NAME);
+        recoveryTimer = Cultivation.tizhiDouble(player, "jishiqi");
+        Relations.setTamingTeam(stranger, player);
+        expect("非玩家驯服来源只清本体团队", "", Relations.entityTeam(player));
+        expect("本体团队改写后能力团队保持", team, Relations.team(player));
         FriendList.open(player);
     }
 
@@ -215,6 +243,7 @@ final class RelationCheck extends SystemCheck {
     private void checkKept(String label, ServerPlayer player) {
         PlayerRelation relation = player.getData(RelationAttachments.PLAYER);
         expect(label + " 团队名", team, Relations.team(player));
+        expect(label + " 本体实体团队恢复为能力团队", team, Relations.entityTeam(player));
         expect(label + " 好友数", 11, relation.friendCount());
         expectTrue(label + " 第 1 格星标", relation.friend(1).star());
         expectTrue(label + " 第 2 格已删除", relation.friend(2).black());

@@ -10,7 +10,20 @@ import net.yvanchuxiuzhen.system.plant.content.MulberrySaplingBlock;
 /** 植物系统的启动装配，只在Mod构造时调用一次。 */
 public final class PlantSetup {
     private static final ContentTables CONTENT = new ContentTables("plant")
+            .itemFactory("plant:peach_kernel", PeachKernelItem::new)
+            .blockFactory("plant:reactive_wild_block", ReactiveWildBlocks::block)
+            .blockFactory("plant:reactive_wild_flower", ReactiveWildBlocks::flower)
+            .blockFactory("plant:reactive_wild_double", ReactiveWildBlocks::doublePlant)
+            .blockFactory("plant:fallback_double", FallbackDoublePlantBlock::new)
+            .blockFactory("plant:reactive_wild_waterlogged", ReactiveWildBlocks::waterlogged)
+            .blockFactory("plant:reactive_wild_leaves", ReactiveWildBlocks::leaves)
+            .blockFactory("plant:big_grass", BigGrassBlock::new)
+            .blockFactory("plant:animated_big_grass", traits -> ContentBlock.create(traits, AnimatedBigGrassBlock::new))
+            .itemFactory("plant:animated_big_grass", (properties, tooltip) -> new AnimatedBigGrassBlockItem(AnimatedBigGrassBlock.block(), properties, tooltip))
             .blockFactory("plant:water_plant", traits -> ContentBlock.create(traits, WaterPlantBlock::new))
+            .blockFactory("plant:willow_drooping", traits -> ContentBlock.create(traits, WillowDroopingBlock::new))
+            .blockFactory("plant:corpse_grass", CorpseGrassBlock::new)
+            .blockFactory("plant:chongshicao", ChongshicaoBlock::new)
             .blockFactory("plant:shicai001_01", traits -> new CerealSingleStageBlock(traits, CerealCrop.SHICAI_001, 1))
             .blockFactory("plant:shicai001_02", traits -> new CerealSingleStageBlock(traits, CerealCrop.SHICAI_001, 2))
             .blockFactory("plant:shicai001_03", traits -> new CerealSingleStageBlock(traits, CerealCrop.SHICAI_001, 3))
@@ -179,6 +192,12 @@ public final class PlantSetup {
             .blockFactory("plant:produce033_04", traits -> new ProduceBlock(traits, ProduceCrop.SHICAI_033, 4))
             .blockFactory("plant:fruit_tree_log", traits -> ContentBlock.create(traits, FruitTreeLogBlock::new))
             .blockFactory("plant:fruit_tree_leaves", FruitTreeLeavesBlock::new)
+            .blockFactory("plant:fallback_block", traits -> ContentBlock.create(traits, FruitTreeLogBlock::new))
+            .blockFactory("plant:fallback_waterlogged", traits -> ContentBlock.create(traits, FallbackWaterloggedBlock::new))
+            .blockFactory("plant:air_fallback_leaves", AirFallbackLeavesBlock::new)
+            .blockFactory("plant:fallback_leaves", FallbackLeavesBlock::new)
+            .blockFactory("plant:duckweed", DuckweedBlock::new)
+            .blockFactory("plant:fallback_flower", FallbackFlowerBlock::new)
             .blockFactory("plant:shicai009_sapling", traits -> new FruitTreeSaplingBlock(traits, FruitTree.SHICAI_009))
             .blockFactory("plant:shicai010_sapling", traits -> new FruitTreeSaplingBlock(traits, FruitTree.SHICAI_010))
             .blockFactory("plant:vine034_01", traits -> new VineSeedlingBlock(traits, VineCrop.SHICAI_034))
@@ -265,6 +284,7 @@ public final class PlantSetup {
         WildPlantFeatures.register(modBus);
         NaturalTreeFeatures.register(modBus);
         GourdBlockEntities.register(modBus);
+        AnimatedBigGrassBlockEntities.register(modBus);
         NeoForge.EVENT_BUS.addListener(MulberryGrowth::afterServerTick);
         NeoForge.EVENT_BUS.addListener(MulberryGrowth::stopped);
     }

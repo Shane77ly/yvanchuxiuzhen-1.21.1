@@ -1,6 +1,9 @@
 package net.yvanchuxiuzhen.system.skill.projectile;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -26,10 +29,10 @@ import net.yvanchuxiuzhen.system.skill.api.Skills;
  * 1.21.1 的箭没有这两项的设置方法，这里覆盖读取它们的方法。
  */
 public class SkillProjectile extends AbstractArrow implements ItemSupplier {
+    private static final EntityDataAccessor<Byte> PIERCE = SynchedEntityData.defineId(SkillProjectile.class, EntityDataSerializers.BYTE);
     private final ProjectileSkill skill;
     private final ItemStack icon;
     private int knockback;
-    private byte pierce;
     private int ticks;
     private double mana;
     private double multiplier;
@@ -50,13 +53,19 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
     /** 设置击退与穿透等级（来源发射时传给箭的 {@code setKnockback}、{@code setPierceLevel}）。 */
     public SkillProjectile launchedWith(int knockback, int pierce) {
         this.knockback = knockback;
-        this.pierce = (byte) pierce;
+        entityData.set(PIERCE, (byte) pierce);
         return this;
     }
 
     /** 在发射时的穿透等级上追加等级。 */
     public void addPiercing(int levels) {
-        pierce += levels;
+        entityData.set(PIERCE, (byte) (getPierceLevel() + levels));
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(PIERCE, (byte) 0);
     }
 
     @Override
@@ -77,7 +86,7 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
 
     @Override
     public byte getPierceLevel() {
-        return pierce;
+        return entityData.get(PIERCE);
     }
 
     @Override
@@ -112,7 +121,7 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
         angle = state.getDouble("angle");
         reversed = state.getBoolean("reversed");
         saved = state.getBoolean("saved");
-        pierce = tag.getByte("PierceLevel");
+        entityData.set(PIERCE, tag.getByte("PierceLevel"));
     }
 
     @Override
@@ -150,6 +159,7 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
     @Override
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
+        entityData.set(PIERCE, (byte) 0);
         if (level() instanceof ServerLevel) {
             skill.hitBlock(this, result);
         }

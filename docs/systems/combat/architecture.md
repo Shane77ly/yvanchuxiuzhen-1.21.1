@@ -2,12 +2,12 @@
 topic: combat
 role: architecture
 status: current
-updated: 2026-11-09
+updated: 2026-11-18
 ---
 
-# 战斗：架构调查与提案
+# 战斗：规则与实现状态
 
-来源事实与目标方案分别陈述。目标方案未批准；源码定位采用 [系统导航](../README.md)的 A/B 规则。
+来源事实与目标实现边界分别陈述；源码定位采用 [系统导航](../README.md)的 A/B 规则。
 ## 1.18.2 数据与入口
 
 `A:EntityHurtProcedure:49–100` 监听 `LivingAttackEvent`，处理状态、战斗记分板及后续附魔入口；`EntityBeforeHurtProcedure:45–170` 监听 `LivingHurtEvent`，判断 NPC 免伤、玩家/生物队伍、闪避和物理结算。两者是不同阶段。`EntityBeforeHurt2Procedure` 只有局部声明，不承担有效伤害计算。
@@ -223,6 +223,12 @@ updated: 2026-11-09
 
 本批来源与实现的静态核对、构建及专服加载保存退出通过。专服用原生命令确认05/07非玩家主动移除和刷新时层数归零，19主动移除、刷新及自然到期时猪转僵尸；原猪均移除，僵尸持久字段为6/4/10/1，样本主手铁剑保留、基础最大生命130、攻击6、当前生命20。内置客户端回归、首次失败与证据见[炼丹月志](../liandan/logs/2026-11.md)；自然服用/喂用、玩家分支、其他六类转换、多人及两版本对照未验收。
 
+### Q235 灵力与神识伤害的盾牌标签
+
+1.18.2 版本 `ShanghaiGoProcedure` 四个分支均调用 `bypassArmor()`。原版 `LivingEntity.isDamageSourceBlocked` 在方向判定前排除此标志；Forge 40.1.0 的补丁在已满足该谓词的分支内触发盾事件，不改此前过滤。1.21.1 版本 NeoForge 21.1.265 的同名谓词改查 `DamageTypeTags.BYPASSES_SHIELD`，护甲结算另查 `BYPASSES_ARMOR`。精确版本的原生资源包中，`bypasses_shield` 引用 `#minecraft:bypasses_armor`；项目以普通追加方式将 `linglidamage`、`linglidamage_player`、`jinglidamage`、`jinglidamage_player` 加入后者，因此默认数据包配置下四种类型无需另列盾牌标签。
+
+[风三野羊实测](../creature/logs/2026-11.md#2026-11-19-人间道风系自然野羊互伤)只证实两次震地在玩家举盾时仍造成伤害，未记录伤害源向量满足正向条件。独立的[原生盾牌正面对照](logs/2026-11.md#2026-11-19-q235-原生盾牌正面对照)已确认默认生效标签及带来源两类伤害不挡、不损盾；不能用 `LivingShieldBlockEvent` 出现推定盾挡。未改标签，未执行来源游戏或两版本实机对照。
+
 ## 目标方案：伤害结算（2026-11-04 已实现，会话决定）
 
 | 来源 | 目标 |
@@ -267,3 +273,52 @@ updated: 2026-11-09
 实机检查（`CombatCheck`）：物品放置、受击 6²/(6+0)、下一刻回满生命、设置物理与法术防御并在数字无法解析时置 0、装备槽的头盔关闭后穿在木人桩上、拿走木人桩；截图 `combat_dummy.png` 目视确认 GeckoLib 模型、待机姿态与“伤害：6.0”报告。
 
 GeckoLib 首次接入（版本 4.9.3）的做法写入[工程结构](../../development/engineering.md)“依赖治理”，目标版本 API 事实写入移植技能的 NeoForge 1.21.1 参考。
+
+## Q31 剧情伤害字段登记边界（2026-11-15）
+
+Quest普通脚本“伤害实体/法术或精神”来源仅写ManaAttackDamage或SoulAttackDamage、对应UUID、damagetype和Damage_multiplier，本批经Combat公开操作markQuestAttack恢复该写入。A ManaDamage:50–61、SoulAttjisuan:50–61存在字段读取但无调用者；DamageIntegration另有读取但同属Q31无可达入口。目标不直接调用deal补造结算，不因恢复写入宣布Q31闭合；字段消费仍待集中核实/裁定。
+
+
+## 玩家击杀收益（2026-11-18）
+
+1.18.2 版本 `EntityDeathProcedure:39–144` 只在真实死亡且伤害来源的 `getEntity()` 为玩家时发放收益，不追溯最近攻击者。`PlayerDeathRules` 读取死者实体镜像 `LEVELnumber=L` 和 `additional_experience`。`L≥1` 时待吸收基础为 `L^2.4+4L+5+additional_experience`；否则取普通 `Mob` 生命上限的五分之一，其他实体为零。按主修功法名应用五行加成；击杀者层数不高于死者时扣 `(L−击杀者层数+1)^2` 罡煞。功德依序判定：非妖兽动物减1、亡灵加 `L+2`、其余 `Mob` 加 `L+1`。收益由修炼所有者写入，原修炼周期负责吸收；不改非玩家成长与五行击杀统计。人间道重生标记见[修炼正文](../xiulian/architecture.md#普通重生2026-11-08)。
+
+## 五行击杀统计管理命令（2026-11-15）
+
+来源`A:YvanchuGo3Procedure:216–526`接在已注册`/yvanchu`的`experienceup`链中，五行各有击杀数量`killentitygold/water/tree/fire/soil`和属性技能熟练度`killentitypointsgold/water/tree/fire/soil`，合计十个精确关键字。每项只读取参数3是否恰为`set`：是则把参数4解析为double后赋值，否则在旧值上加参数；不是按`minus`字面值做减法。负数、小数、科学记数法和超过正常成长范围的值保持，格式错误或缺参数取0。可选参数5恰为`true`时，向目标发金色“某属性技能杀死的实体数量设置为/增减量为”或“某属性技能熟练度设置为/增减量为”，均回显原参数字符串。
+
+目标共享`flow.PlayerCommandFlow`按原权限1、命令源当前维度首个玩家显示名精确匹配后调用`combat.api.ElementStatistics.command`。十个分支写入`Shanghai.recordKill`已经使用的同一组体质载体键，保存和本人同步继续通过`Cultivation.setTizhiDouble`；没有另建附件、贡献项或重置其他进度。来源`typed_field_accesses`只记录变量字段，十键还须对照`nbt_key_calls`与[体质键台账](../xiulian/ledger/tizhiitem_keys.csv)；后者的写者为combat与flow，不能因命令中出现“属性”就归入attribute的Stat贡献。
+
+自然生产仍由`Shanghai.recordKill`在既有伤害结算位置判断“目标当前生命小于伤害总量”后累加，Q13的实际死亡边界保持；本批没有重写或额外调用伤害生产链。xiulian的丹田页读取五行熟练度显示，金丹/元婴读取同键判断门槛，继续通过其自有载体查询，保持combat→xiulian既有单向依赖。管理命令只改指定计数，不补造击杀事件、经验或成长奖励。
+
+独立算例：旧金击杀数量2.5，`/yvanchu <显示名> experienceup killentitygold minus -0.5 true`后为2.0，反馈末尾仍是`-0.5`；水熟练度10，`set 4.25e1 true`后为42.5，反馈仍是`4.25e1`；把火熟练度设为格式错误值会写0。十个映射、20条原回执和写入路径均已静态核对；新入口Java编译通过，十键真实set/非set与本人同步随修炼共同101项必要检查通过；命令专用保存重进、1.18.2版本实机与两版本对照未执行。源码定位与锁定哈希见[来源证据](ledger/source-evidence.csv)。
+
+## 普通战斗状态与脱战（2026-11-18）
+
+1.18.2 版本 `EntityHurtProcedure:79–98` 对非友方受击将 `zdztbegin` 置 1、`zdzttick` 设为受击者当时的 `HurtByTimestamp`。`EntityTickProcedure:21–27,42–98` 在生物刻先递增保存的 `zdzttick`，再以其与实体当前 `HurtByTimestamp` 的差值达到 100 为清除边界，并同时清零两个记分项。边界基于两计时值之差，而非从入战时启动固定倒计时。
+
+1.21.1 版本由 `FightingState` 在服务端玩家刻及非玩家生物刻推进原有记分板；玩家只走玩家刻分支，避免与实体刻重复推进。仍比较当前原生 `HurtByTimestamp`，不引入登录清空、附加存档字段或维度特判。xiulian 已有灵力恢复过程在战斗状态下按四分之一倍率恢复，脱战后恢复正常倍率；本实现不改变恢复公式，也不将一般受伤作为强制结束闭关的规则。
+
+`renjiancombatlifecycle` 人间道自动化客户端 run-01 以原生 `Zombie.doHurtTarget` 真正命中玩家，确认入战与战斗恢复；同档正常保存重开后，在 `PlayerLoggedInEvent` 读回 `active=1`、`count=239`、`HurtByTimestamp=528`，确认登录没有清除或倒退计数。随后实体刻运行至来源差值恰为 100，两个战斗分数均清零，实测灵力恢复从战斗中的 `0.05` 回到正常档 `0.2`。报告为 0 FAIL 并以 `DONE` 收尾；两次完整保存，Gradle 退出码 0。证据：`worktrees/rebuild-renjian-starter-20261118/build/diagnostics/renjian-combat-lifecycle/run-01/report.txt` 与同目录 `gradle.log`。本场景只覆盖人间道受控普通僵尸对玩家的单机路径，不等同自然目标全覆盖、多人、专服、其他维度、1.18.2 版本实机或两版本对照。
+
+## 挣脱附魔的玩家缓慢处理（2026-11-19）
+
+来源`A:PlayerTickProcedure:28–35,384–399`在每个玩家结束刻调用`Effectslownessget`，不受每秒修炼计时门槛限制；`EffectslownessgetProcedure:21–67`在玩家有原版缓慢且体质键`slownessget`为假时，保存当前持续刻数和等级、移除缓慢，再读取头胸腿脚及头饰、项坠、腰佩、手饰的`breakfree`等级之和。持续刻数严格大于等级和×20时，以差值及原等级重新添加默认参数的缓慢；否则不重加。无附魔也会移除并重建效果，因此原效果的粒子、图标和隐藏效果状态不保证保留。最后将标志置真；后续连续有缓慢不重复处理，无缓慢且标志为真时置假。实际短于或等于减免量的效果也要置真，下一次无缓慢刻才复位。
+
+目标`SlownessResistanceFlow`订阅服务端`PlayerTickEvent.Post`，经combat的`Enchants`读护甲与装备系统的饰品快照，经xiulian体质操作读写标志；根入口注册，不引入系统之间的反向依赖。来源能力提供器不挂载FakePlayer，故假玩家每次读取默认假标志和空饰品，只计算护甲且不保存标志。来源同时在客户端玩家刻执行，目标仅服务端处理；两端瞬时显示、假玩家及效果同步顺序尚待对照。源码及哈希见[来源台账](ledger/source-evidence.csv)；已有中文附魔名称和说明、英文名称，英文说明为空，本批不改文本。编译、玩家真实受击、多件叠加、恰等于减免量、连续重新施加、保存重进、客户端和来源版本对照均未执行。
+
+
+## 普通玩家击杀收益与 DamageSource 归属（2026-11-20）
+
+来源 `EntityDeathProcedure.onEntityDeath/execute:37–144,291–299`：过程先要求 `event.getSource().getEntity()` 非空，再按受害者持久化 `LEVELnumber` 或生命上限计算待吸收修为，按主修功法命中候选加成，写入 `experience_Stand`，并按等级差扣 `vigorous`、按妖兽/动物/亡灵/Mob互斥顺序写 `merits`；人间界玩家死亡写入 `fuhuo = 人间界`。目标 `PlayerDeathRules` 从 `LivingDeathEvent` 的 `DamageSource.getEntity()` 读取归属，技能伤害由 `CombatDamageTypes.source(..., attacker)` 沿用同一来源实体。
+
+本批接入中央注册并通过 `Cultivation` 公开写操作写入修为、罡煞、功德和复活标记；既有 `CultivationTick` 继续消费 `EXPERIENCE_STAND`，`LevelUp` 继续处理吸收后的境界成长。来源空攻击者仍不发放玩家击杀收益。未运行编译、客户端/专服或真实击杀，当前仅登记静态调用链与实现边界。
+### 统一攻击者归因与修炼战斗共享链（2026-11-21）
+
+本批把来源 `EntityDeathProcedure` 的玩家击杀收益从单一 `DamageSource.getEntity()` 判断扩展为可追溯的共享归因链：`CombatAttribution.player` 依次检查伤害来源的致因实体与直接实体，并沿 `CombatAttributable` 技能实体、原版 `Projectile` 主人和驯服生物主人追溯到服务端玩家。直接攻击、`SkillEntity`/`TamedSkillEntity`、`SkillProjectile`（沿用 `AbstractArrow` 的 owner）以及 `ShanghaiGoProcedure` → `Shanghai.deal` 产生的伤害，均进入同一个 `PlayerDeathRules` 死亡收益入口；`Shanghai` 原有五行击杀统计仍在伤害致死阈值处独立保留。
+
+共享消费顺序对照 1.18.2 版本 `PlayerJoinGameProcedure`、`PlayerTickProcedure`、`LEVELupProcedure`、`EntityberebornProcedure` 和 `EntityDeathProcedure`：玩家境界以修炼附件为真值，在死亡收益读取死者境界、五行击杀积分及普通重生恢复前先刷新 `LEVELnumber` 镜像；收益写入待吸收修为、罡煞和功德，由既有修炼 Tick 吸收并进入突破消费者；普通重生先执行修炼重生修正，再刷新镜像并处理人间界 `REVIVE` 标记。该批只做生产接线和静态调用链核对，未执行 Gradle、转换器、客户端、专服或真实击杀/重生/存档重进验收。
+
+## 人间界死亡标记
+
+`EntityDeathProcedure` 的入口读取致因实体；若为空，直接返回。对应地，玩家在人间界因无致因伤害死亡时保留原有 `REVIVE`；若有致因实体则写入“人间界”，不要求致因者是玩家。这一条件与谁领取击杀收益分别判断。

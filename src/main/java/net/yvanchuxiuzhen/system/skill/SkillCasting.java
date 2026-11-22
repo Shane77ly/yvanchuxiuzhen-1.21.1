@@ -2,7 +2,9 @@ package net.yvanchuxiuzhen.system.skill;
 
 import java.util.Map;
 import java.util.Optional;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,10 +13,12 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.FightingState;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
@@ -47,39 +51,41 @@ public final class SkillCasting {
         return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, name));
     }
 
-    /** 右键物品时尝试施放所选技能。 */
+    /** 右键物品时尝试施放所选技能；来源开灵分支优先，即使没有发射工具也不进入施法分支。 */
     public static void onRightClick(ServerPlayer player) {
         ItemStack held = player.getMainHandItem();
-        if (!held.is(WEAPON) || held.is(BOW)) {
+        if (Enchants.mainHand(player, Enchants.key("kailing")) != 0 || !held.is(WEAPON) || held.is(BOW)) {
             return;
         }
-        Optional<SkillBook> selected = Skills.book(Skills.selected(player));
-        if (selected.isEmpty() || !weaponFits(held, selected.get()) || !selected.get().ownedBy(player.getUUID())) {
+        ItemStack selectedStack = Skills.selected(player);
+        Optional<SkillBook> selected = Skills.book(selectedStack);
+        if (selected.isEmpty()) {
             return;
         }
+        if (weaponTooHeavy(player, selectedStack) || !weaponFits(held, selected.get()) || !selected.get().ownedBy(player.getUUID())) return;
         SkillBook book = selected.get();
         if (StatusEffects.has(player, "effect_002")) {
-            bar(player, "§4沉默");
+            bar(player, "message.yvanchuxiuzhen.skill.casting.silenced");
             return;
         }
         double cost = cost(player, held, book);
-        if (Cultivation.get(player, CultivationValue.POWER) < cost) {
-            bar(player, "§4灵力不足");
+        if (!(Cultivation.get(player, CultivationValue.POWER) >= cost)) {
+            bar(player, "message.yvanchuxiuzhen.skill.casting.insufficient_power");
             return;
         }
         if (!anyGroupOpen(player, book)) {
-            bar(player, "§4冷却中...");
+            bar(player, "message.yvanchuxiuzhen.skill.casting.cooldown");
             return;
         }
         if (StatusEffects.has(player, "skilleffect_09")) {
-            bar(player, "§4施法中...");
+            bar(player, "message.yvanchuxiuzhen.skill.casting.sealed");
             return;
         }
         if (book.seal() > 0) {
             StatusEffects.addHidden(player, "skilleffect_09", (int) book.seal(), 0);
         }
         SkillReleases.dispatch(player, book);
-        accumulateCooldowns(player, book);
+        Skills.book(Skills.selected(player)).ifPresent(current -> accumulateCooldowns(player, current));
         Cultivation.add(player, CultivationValue.POWER, -cost);
         if (Skills.state(player).combo()) {
             nextReady(player);
@@ -88,8 +94,8 @@ public final class SkillCasting {
         player.swing(InteractionHand.MAIN_HAND, true);
     }
 
-    private static void bar(ServerPlayer player, String text) {
-        player.displayClientMessage(Component.literal(text), true);
+    private static void bar(ServerPlayer player, String key) {
+        player.displayClientMessage(Component.translatable(key).withStyle(ChatFormatting.DARK_RED), true);
     }
 
     /** 武器是否符合技能的类别要求：空或“无”接受任意武器，其余要求武器带对应类别标签；未识别的类别要求不接受任何武器。 */
@@ -100,6 +106,16 @@ public final class SkillCasting {
         }
         TagKey<Item> required = NEEDED.get(needed);
         return required != null && held.is(required);
+    }
+
+    /** 来源 Jiancewuqi 从所选技能书的自定义数据读取炼器重量，超过 120 时阻止施放。 */
+    private static boolean weaponTooHeavy(ServerPlayer player, ItemStack selected) {
+        int weight = selected.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag()
+                .getCompound("lianqizong").getInt("weightnum");
+        if (weight <= 120) return false;
+        player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.weapon_too_heavy")
+                .withStyle(ChatFormatting.DARK_RED), false);
+        return true;
     }
 
     /** 灵力消耗 = (法术攻击基础值 + 武器法术攻击) × 消耗系数，再加体质固定值、乘体质百分比。 */

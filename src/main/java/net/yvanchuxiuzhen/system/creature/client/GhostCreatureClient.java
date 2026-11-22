@@ -6,10 +6,11 @@ import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
 import net.yvanchuxiuzhen.system.creature.entity.GhostCreatures;
+import net.yvanchuxiuzhen.system.creature.entity.Guiguai01Entity;
 import net.yvanchuxiuzhen.system.creature.entity.Guiguai02Entity;
 import net.yvanchuxiuzhen.system.creature.entity.Guiguai03Entity;
 
-/** 鬼火与小尸王的来源模型、半透明纹理和鬼火发光层。 */
+/** 游魂、鬼火与小尸王的来源模型、半透明纹理和发光层。 */
 public final class GhostCreatureClient {
     private GhostCreatureClient() { }
 
@@ -17,6 +18,8 @@ public final class GhostCreatureClient {
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             for (EntityModelRow row : GhostCreatures.models()) {
                 switch (row.id()) {
+                    case "guiguai_01" -> event.registerEntityRenderer(CreatureSetup.<Guiguai01Entity>entityType(row.id()).get(),
+                            context -> new AnimatedEntityRenderer<>(context, row));
                     case "guiguai_02" -> event.registerEntityRenderer(CreatureSetup.<Guiguai02Entity>entityType(row.id()).get(),
                             context -> new AnimatedEntityRenderer<>(context, row));
                     case "guiguai_03" -> event.registerEntityRenderer(CreatureSetup.<Guiguai03Entity>entityType(row.id()).get(),

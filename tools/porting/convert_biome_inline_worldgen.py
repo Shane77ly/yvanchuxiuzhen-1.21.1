@@ -1,4 +1,4 @@
-"""转换两个来源维度实际引用群系中的内联树、圆盘与放置配置。"""
+"""转换已接入来源维度实际引用群系中的内联树、圆盘与放置配置。"""
 from __future__ import annotations
 
 import json
@@ -8,8 +8,11 @@ from pathlib import Path
 
 from catalog_world_biomes import DIMENSIONS, arguments, calls, matching
 from convert_content import NAMESPACE, ROOT, SOURCES
+from legacy_trees import normalize as normalize_source_tree
 
 MOD = 'yvanchuxiuzhen'
+# 仅切换已完成树干、树冠、材料和存活谓词来源核对的内联身份。
+SOURCE_TREES = {MOD + ':tree_biometianqve_04'}
 DATA = ROOT / f'src/main/resources/data/{NAMESPACE}/worldgen'
 VANILLA_FEATURES = {
     'AquaticFeatures.SEAGRASS_SHORT': 'seagrass_short',
@@ -68,6 +71,8 @@ def selected_biomes(source_root: Path) -> list[Path]:
         ids.update(entry['biome'] for entry in entries)
     result = []
     for biome_id in sorted(ids):
+        if ':' not in biome_id:
+            continue
         namespace, path = biome_id.split(':', 1)
         if namespace != MOD:
             raise ValueError(f'来源维度出现范围外群系：{biome_id}')
@@ -240,6 +245,8 @@ def plan(source_root: Path | None = None) -> list[tuple[Path, dict, list[tuple[s
             parser.decorator_origins.clear()
             if feature == 'Feature.TREE':
                 out = {'type': 'minecraft:tree', 'config': parser.tree(config)}
+                if identifier in SOURCE_TREES:
+                    out = normalize_source_tree(out)
             elif feature == 'Feature.DISK':
                 out = {'type': NAMESPACE + ':legacy_biome_disk', 'config': parser.disk(config)}
             else:
@@ -259,8 +266,11 @@ def plan(source_root: Path | None = None) -> list[tuple[Path, dict, list[tuple[s
             namespace, path = identifier.split(':', 1)
             if namespace != MOD:
                 raise ValueError(f'内联PlacedFeature命名空间越界：{identifier}')
+            modifiers = parser.placements(placements)
+            if identifier in SOURCE_TREES:
+                modifiers = normalize_source_tree(modifiers)
             outputs.append((DATA / 'placed_feature' / f'{path}.json',
-                            {'feature': feature, 'placement': parser.placements(placements)}, [(MOD, source)]))
+                            {'feature': feature, 'placement': modifiers}, [(MOD, source)]))
     targets = [target for target, _, _ in outputs]
     if len(targets) != len(set(targets)):
         raise ValueError('群系内联注册包含重名目标，禁止覆盖')

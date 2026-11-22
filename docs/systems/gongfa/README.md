@@ -2,16 +2,19 @@
 topic: gongfa
 role: entry
 status: partial
-updated: 2026-11-08
+updated: 2026-11-18
 ---
 
 # 功法
 
-标识 `gongfa`，类别：系统。职责：功法书、研习、参悟、星宿穴位学习（[系统设计](../../development/system-design.md)）。
+2026-11-20 对齐装配比较、主动与闭关经验门槛及参悟继承消耗；静态来源与验证边界见[功法正文](architecture.md#功法装配修炼与参悟状态2026-11-20)。
 
-当前阶段：主体规则已实现（2026-11-08 补齐 `/technique` 命令）。已实现功法定义（67 本，`content/gongfa/techniques.json`）、功法书实例组件、研习、功法栏与提交、功法修炼与闭关经验、升级成长、提示文本、书架藏宝给书 API、参悟台（参悟与继承）和管理命令；既有功法/参悟客户端36项通过。本批接回 book 自然研习与 skill 共用装配页的调用链，并补功法成功粒子，完整构建与现有skillui客户端29项通过，覆盖自然研习、真实装配和开窗时获得功法经验后关闭重开的保持；具体范围见正文，不能推广到未测分支。星宿穴位学习小游戏在来源中不可达，未迁移（Q28，待裁定）；book 书架藏宝自然使用、完整两版本对照及多人仍未完成。
+标识 `gongfa`，类别：系统。当前移植职责：功法书、研习与参悟；星宿穴位学习小游戏Q28已批准排除，范围见[所属正文](architecture.md#阶段-3学习小游戏来源核对与范围排除)。原系统归属仍见[系统设计](../../development/system-design.md)。
+
+当前阶段：主体规则已实现（2026-11-08 补齐 `/technique` 命令）。已实现功法定义（67 本，`content/gongfa/techniques.json`）、功法书实例组件、研习、功法栏与提交、功法修炼与闭关经验、升级成长、提示文本、书架藏宝给书 API、参悟台（参悟与继承）和管理命令；既有功法/参悟客户端36项通过。本批接回 book 自然研习与 skill 共用装配页的调用链，并补功法成功粒子，完整构建与现有skillui客户端29项通过，覆盖自然研习、真实装配和开窗时获得功法经验后关闭重开的保持；具体范围见正文，不能推广到未测分支。book 书架藏宝自然使用、完整两版本对照及多人仍未完成，Q28按已批准范围排除。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
+- 答题答满已接入所属写操作：覆盖研习者并按来源初始化层数与加成，保留经验，不触发普通研习附赠事件；集成编译、六条架构守卫和`bookquiz`必要单项通过，规则与有限验证范围统一见[书籍答题正文](../book/architecture.md#答题2026-11-13)与[本批月志](../book/logs/2026-11.md#2026-11-13-答题菜单与答满生命周期)。
 - 候选归属 478 个元素，全部已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
@@ -22,6 +25,8 @@ updated: 2026-11-08
 
 ## 公开操作
 
+轮回可调用 `Techniques.resetForReincarnation` 清除主修和对照槽并重提交功法贡献。
+
 已对照 `typed_field_accesses.csv` 汇总功法栏 `gongfa` 的来源外部读写：读 388 处中本系统以外约 195 处——xiulian 读名字、品阶、层数与研习者（目标改为本系统提交 `MainTechnique`），combat 读五行值、层数与名字，book 读档位，来源 panel 页读名字与研习者，flow 与 cooking 读名字；写 6 处来自来源 panel 页（放入、取出）、fulu 与 flow（重置）。目标04共用装配菜单归 skill，panel 只导航；代码为 `system/gongfa/api/Techniques`。
 
 | 操作 | 形式 | 调用者 |
@@ -30,6 +35,7 @@ updated: 2026-11-08
 | 查询功法栏 | `slot(玩家)`、`main(玩家)` | combat（五行值、层数、名字）、skill装配页、flow、cooking |
 | 放入、取出功法栏 | `setSlot(玩家, 物品)`，随后提交 xiulian 主修功法信息与 attribute 加成层贡献 `gongfa:main` | skill装配菜单、fulu、flow |
 | 研习 | `study(玩家, 书)`：境界与灵根条件、记下研习者、层数 1；成功后发出 `TechniqueStudiedEvent` | book（右键）；skill 监听事件附赠技能 |
+| 答题完成 | `completeQuiz(玩家, 书)`：覆盖研习者，有功法名时重置为1层并重算十三项加成；保留经验、不检查普通研习条件、不发附赠事件 | book（答题答满） |
 | 生成功法书 | `createBook(TechniqueDefinition)` | flow、material 等给书的玩法；`/technique` 命令由本系统注册 |
 | 书架藏宝 | `giveTreasureBook(玩家, 藏宝等级)` | book（书架藏宝右键） |
 
@@ -37,4 +43,4 @@ updated: 2026-11-08
 
 自然研习分派和成功答题计数归 book，见[书籍正文](../book/architecture.md#自然研习入口2026-11-08)；04八槽生命周期只维护于[skill 装配正文](../skill/architecture.md#共用功法与技能装配页2026-11-08)。本系统只接收公开调用，不让菜单直接写 `GongfaData.SLOT`。
 
-本轮变化统一记录在 [项目月度日志](../project/logs/2026-11.md)。
+本批范围对齐见[功法月志](logs/2026-11.md#2026-11-18-q28已批准排除的模块文档对齐)，跨系统历史变化见[项目月度日志](../project/logs/2026-11.md)。

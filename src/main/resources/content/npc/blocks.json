@@ -1,0 +1,128 @@
+[
+  {
+    "id": "qiankundaoren",
+    "factory": "npc:qiankundaoren",
+    "material": "WOOD",
+    "map_color": "YELLOW",
+    "sound": "WOOD",
+    "strength": [
+      -1.0,
+      3600000.0
+    ],
+    "light": 9,
+    "no_collision": true,
+    "no_occlusion": true,
+    "post_process": true,
+    "emissive": true,
+    "redstone_conductor": false,
+    "states": [
+      "FACING"
+    ],
+    "placement": "horizontal",
+    "light_block": 0,
+    "skylight": "always",
+    "shape": {
+      "default": {
+        "box": [
+          3.0,
+          0.0,
+          7.0,
+          13.0,
+          16.0,
+          9.0
+        ]
+      },
+      "north": {
+        "box": [
+          3.0,
+          0.0,
+          7.0,
+          13.0,
+          16.0,
+          9.0
+        ]
+      },
+      "south": {
+        "box": [
+          3.0,
+          0.0,
+          7.0,
+          13.0,
+          16.0,
+          9.0
+        ]
+      },
+      "east": {
+        "box": [
+          7.0,
+          0.0,
+          3.0,
+          9.0,
+          16.0,
+          13.0
+        ]
+      },
+      "west": {
+        "box": [
+          7.0,
+          0.0,
+          3.0,
+          9.0,
+          16.0,
+          13.0
+        ]
+      }
+    },
+    "rotate": true,
+    "fallback_drop": {
+      "item": "self",
+      "count": 1
+    }
+  },
+  {
+    "id": "qiankunmentu",
+    "factory": "npc:qiankunmentu",
+    "material": "STONE",
+    "sound": "STONE",
+    "strength": [
+      -1.0,
+      3600000.0
+    ],
+    "light": 15,
+    "no_occlusion": true,
+    "redstone_conductor": false,
+    "states": [],
+    "light_block": 0,
+    "skylight": "always",
+    "shape": {
+      "default": {
+        "or": [
+          {
+            "box": [
+              3.0,
+              0.0,
+              3.0,
+              13.0,
+              12.0,
+              13.0
+            ]
+          },
+          {
+            "box": [
+              4.0,
+              18.0,
+              4.0,
+              12.0,
+              26.0,
+              12.0
+            ]
+          }
+        ]
+      }
+    },
+    "fallback_drop": {
+      "item": "minecraft:air",
+      "count": 1
+    }
+  }
+]

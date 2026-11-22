@@ -19,5 +19,21 @@
   "message.yvanchuxiuzhen.fulu.core_learned": "您已习得新符胆，可以制作更多功能的符箓了！",
   "message.yvanchuxiuzhen.fulu.player_not_found": "未找到名为“%s”的玩家",
   "message.yvanchuxiuzhen.fulu.health_changed": "Health changed to §4%s§f",
-  "message.yvanchuxiuzhen.fulu.adventure_forbidden": "Cannot be used in Adventure mode!"
+  "message.yvanchuxiuzhen.fulu.adventure_forbidden": "Cannot be used in Adventure mode!",
+  "message.yvanchuxiuzhen.fulu.taming.failure_90": "§4驯服失败！真的就只差一点点了！",
+  "message.yvanchuxiuzhen.fulu.taming.failure_80": "§4驯服失败！驯服几率相当高，这次好可惜啊。",
+  "message.yvanchuxiuzhen.fulu.taming.failure_65": "§4驯服失败！还差一点点运气，也许下次就可以了！",
+  "message.yvanchuxiuzhen.fulu.taming.failure_50": "§4驯服失败！驯服妖兽的几率五五开，再加把劲！",
+  "message.yvanchuxiuzhen.fulu.taming.failure_35": "§4驯服失败！再多努力，多给妖兽一些负面的状态！",
+  "message.yvanchuxiuzhen.fulu.taming.failure_20": "§4驯服失败！还有希望，情况不算最糟，多给妖兽一些负面状态。",
+  "message.yvanchuxiuzhen.fulu.taming.failure_10": "§4驯服失败！几率很低，但仍然有机会，多给妖兽一些负面状态，可以提高驯服几率。",
+  "message.yvanchuxiuzhen.fulu.taming.failure_5": "§4驯服失败！虽然几率相当低，但仍然有一丝机会。多给妖兽一些负面状态，可以提高驯服几率。",
+  "message.yvanchuxiuzhen.fulu.taming.failure_1": "§4驯服失败！几率渺茫，多给妖兽一些负面状态，可以提高驯服几率。",
+  "message.yvanchuxiuzhen.fulu.taming.failure_0": "§4驯服失败！完完全全没有任何驯服妖兽的机会。多给妖兽一些负面状态，可以提高驯服几率。",
+  "message.yvanchuxiuzhen.fulu.taming.success": "%s最终臣服于你，它是你的妖兽了！",
+  "message.yvanchuxiuzhen.fulu.taming.chance": "驯服几率：%s%%",
+  "message.yvanchuxiuzhen.fulu.taming.low_grade": "§4符箓等级太低了！",
+  "message.yvanchuxiuzhen.fulu.taming.summoned": "§4无法驯服召唤物。",
+  "message.yvanchuxiuzhen.fulu.taming.dungeon": "§4无法驯服副本实体。",
+  "message.yvanchuxiuzhen.fulu.taming.bounty": "§4无法驯服悬赏实体。"
 }

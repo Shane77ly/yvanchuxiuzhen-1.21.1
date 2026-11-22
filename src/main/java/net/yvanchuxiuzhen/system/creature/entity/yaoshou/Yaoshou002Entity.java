@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import java.util.Random;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.level.Level;
@@ -36,6 +37,15 @@ public final class Yaoshou002Entity extends YaoshouEntity {
 
     @Override protected void sourceTick() { Yaoshou002Behavior.tick(this); }
     @Override protected void sourceHurt(DamageSource source, float amount) { Yaoshou002Behavior.hurt(this, source); }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (source.is(DamageTypes.FALL)) {
+            sourceHurt(source, amount);
+            return false;
+        }
+        return super.hurt(source, amount);
+    }
 
     @Override
     public void die(DamageSource source) {

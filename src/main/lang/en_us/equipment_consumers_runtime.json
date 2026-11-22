@@ -1,0 +1,7 @@
+{
+  "message.yvanchuxiuzhen.jingxve.success": "§6Spiritual treasure bound successfully!",
+  "message.yvanchuxiuzhen.jingxve.owned": "§4You have already bound this treasure. There is no need to bind it again.",
+  "message.yvanchuxiuzhen.jingxve.blood_owner": "§4You are not the owner of this drop of blood essence!",
+  "message.yvanchuxiuzhen.jingxve.level": "§4Only Foundation Establishment cultivators can bind spiritual treasures",
+  "message.yvanchuxiuzhen.jingxve.offhand": "§4Hold the spiritual treasure you wish to bind in your offhand."
+}

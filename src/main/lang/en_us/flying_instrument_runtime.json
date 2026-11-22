@@ -1,0 +1,12 @@
+{
+  "entity.yvanchuxiuzhen.flyinginstrument_01": "Flyinginstrument 0 1",
+  "entity.yvanchuxiuzhen.flyinginstrument_02": "Flyinginstrument 0 2",
+  "entity.yvanchuxiuzhen.flyinginstrument_03": "Flyinginstrument 0 3",
+  "entity.yvanchuxiuzhen.flyinginstrument_04": "Flyinginstrument 0 4",
+  "entity.yvanchuxiuzhen.flyinginstrument_05": "Flyinginstrument 0 5",
+  "entity.yvanchuxiuzhen.flyinginstrument_06": "Flyinginstrument 0 6",
+  "entity.yvanchuxiuzhen.flyinginstrument_07": "Flyinginstrument 0 7",
+  "entity.yvanchuxiuzhen.flyinginstrument_08": "Flyinginstrument 0 8",
+  "message.yvanchuxiuzhen.flyinginstrument.power": "Spiritual power stored in the flying instrument: %s/%s",
+  "message.yvanchuxiuzhen.flyinginstrument.full": "§aSpiritual power replenished!"
+}

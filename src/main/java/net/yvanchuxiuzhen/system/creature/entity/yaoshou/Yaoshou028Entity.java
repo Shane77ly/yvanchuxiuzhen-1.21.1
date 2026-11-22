@@ -9,13 +9,13 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.api.SpiritBeastBags;
+import net.yvanchuxiuzhen.system.creature.entity.SourceFollowOwnerGoal;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.Animation;
 import software.bernie.geckolib.animation.PlayState;
@@ -32,8 +32,7 @@ public final class Yaoshou028Entity extends YaoshouEntity {
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
-        goalSelector.removeAllGoals(goal -> goal instanceof FloatGoal);
+        goalSelector.addGoal(1, new SourceFollowOwnerGoal(this, 1, 10, 2, false));
     }
 
     @Override
@@ -104,12 +103,10 @@ public final class Yaoshou028Entity extends YaoshouEntity {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         sourceAnimations.register(this, controllers, 4, "animation.yaoshou028.", state -> {
             if (procedureAnimation().equals("empty")) {
-                if ((state.isMoving() || !(state.getLimbSwingAmount() > -0.15F && state.getLimbSwingAmount() < 0.15F))
-                        && !isAggressive()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou028.walk"));
+                if (state.isMoving() || !(state.getLimbSwingAmount() > -0.15F && state.getLimbSwingAmount() < 0.15F))
+                    return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou028.walk"));
                 if (isDeadOrDying()) return state.setAndContinue(RawAnimation.begin().then("animation.yaoshou028.die", Animation.LoopType.PLAY_ONCE));
                 if (isInWaterOrBubble()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou028.swim"));
-                if (isShiftKeyDown()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou028.sneak"));
-                if (isSprinting() || isAggressive() && state.isMoving()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou028.sprint"));
                 return state.setAndContinue(RawAnimation.begin().thenLoop("animation.yaoshou028.idle"));
             }
             return PlayState.STOP;

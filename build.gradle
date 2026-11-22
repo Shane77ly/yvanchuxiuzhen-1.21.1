@@ -7,6 +7,16 @@ plugins {
 version = mod_version
 group = mod_group_id
 
+def smokeSelection = providers.gradleProperty('smokeOnly').getOrElse('').trim()
+def jadePickupRun = smokeSelection == 'jadepickupsave'
+def alloyRun = smokeSelection == 'naturalalloyrepair'
+def isolatedSmoke = jadePickupRun || alloyRun
+def smokeRunId = isolatedSmoke ? UUID.randomUUID().toString() : ''
+def smokeRunName = jadePickupRun ? 'jade-pickup' : 'natural-alloy'
+def smokeGameDirectory = layout.projectDirectory.dir(isolatedSmoke ? "run/${smokeRunName}/${smokeRunId}" : 'run/smoke')
+def smokeOutputDirectory = layout.buildDirectory.dir(isolatedSmoke ? "smoke/${smokeRunName}/${smokeRunId}" : 'smoke')
+
+
 base {
     archivesName = mod_id
 }
@@ -35,7 +45,10 @@ neoForge {
         // 按 smokeOnly 选择场景；完整资源与系统巡检须显式设置 smokeAll=true。
         smokeClient {
             client()
-            systemProperty 'yvanchuxiuzhen.smoke', layout.buildDirectory.dir('smoke').get().asFile.absolutePath
+            gameDirectory.set(smokeGameDirectory)
+            disableIdeRun()
+            systemProperty 'yvanchuxiuzhen.smoke', smokeOutputDirectory.get().asFile.absolutePath
+            systemProperty 'yvanchuxiuzhen.exportRegistries', (isolatedSmoke ? smokeOutputDirectory.map { it.dir('registry-export') } : layout.buildDirectory.dir('registry-export')).get().asFile.absolutePath
             def smokeMaxHeap = providers.gradleProperty('smokeMaxHeap').getOrElse('')
             if (!smokeMaxHeap.isEmpty()) {
                 if (!(smokeMaxHeap ==~ /\d+[kKmMgG]/)) {
@@ -102,14 +115,61 @@ tasks.named('test', Test) {
 
 // 未选择场景时阻止启动客户端，避免意外执行全部方块和系统巡检。
 tasks.named('runSmokeClient') {
+    if (isolatedSmoke) notCompatibleWithConfigurationCache('隔离场景每次必须使用新的存档与证据目录')
     def selectedChecks = providers.gradleProperty('smokeOnly').getOrElse('').trim()
     def fullInspection = providers.gradleProperty('smokeAll').getOrElse('false').toBoolean()
+    def smokeFmlConfig = smokeGameDirectory.file('config/fml.toml').asFile
+    def alloyFixturePath = providers.gradleProperty('alloyFixture').getOrElse('')
     doFirst {
         if (selectedChecks.isEmpty() && !fullInspection) {
             throw new GradleException('请选择 -PsmokeOnly=<场景>；完整巡检需显式设置 -PsmokeAll=true')
         }
         if (!selectedChecks.isEmpty() && fullInspection) {
             throw new GradleException('smokeOnly 与 smokeAll=true 只能选择一项')
+        }
+        if (selectedChecks.split(',').collect { it.trim() }.contains('jadepickupsave') && !jadePickupRun) {
+            throw new GradleException('jadepickupsave 必须单独运行，以隔离存档和证据')
+        }
+        if (selectedChecks.split(',').collect { it.trim() }.contains('naturalalloyrepair') && !alloyRun) {
+            throw new GradleException('naturalalloyrepair 必须单独运行，以隔离存档和证据')
+        }
+        if (alloyRun && alloyFixturePath.isEmpty()) {
+            throw new GradleException('naturalalloyrepair 需要 -PalloyFixture=<未使用过的固定存档副本路径>')
+        }
+        if (isolatedSmoke) {
+            def gameDir = smokeGameDirectory.asFile
+            if (!gameDir.mkdirs() && !gameDir.isDirectory()) {
+                throw new GradleException("无法创建隔离场景目录：${gameDir}")
+            }
+            def optionsFile = new File(gameDir, 'options.txt')
+            if (!optionsFile.createNewFile()) {
+                throw new GradleException("隔离场景配置已存在，拒绝覆盖：${optionsFile}")
+            }
+            optionsFile.setText('soundCategory_master:0.0\nrenderDistance:2\nsimulationDistance:5\nlang:zh_cn\n', 'UTF-8')
+            logger.lifecycle("隔离场景游戏目录：${gameDir.absolutePath}")
+            logger.lifecycle("隔离场景报告目录：${smokeOutputDirectory.get().asFile.absolutePath}")
+            logger.lifecycle('隔离场景启动配置：静音，视距2，模拟距离5，中文')
+        }
+        if (alloyRun) {
+            def fixture = file(alloyFixturePath)
+            if (!fixture.isDirectory() || new File(fixture, 'session.lock').exists()) {
+                throw new GradleException("天然合金需要未打开的存档副本：${fixture}")
+            }
+            def save = smokeGameDirectory.dir('saves/Renjian-Alloy-268-275').asFile
+            if (save.exists()) throw new GradleException("拒绝覆盖天然合金存档：${save}")
+            copy { from fixture; into save }
+            logger.lifecycle("天然合金只读来源副本：${fixture.absolutePath}")
+        }
+        // FML 启动画面早于冒烟 Mixin，必须在启动进程前关闭。
+        if (!smokeFmlConfig.exists()) {
+            smokeFmlConfig.parentFile.mkdirs()
+            smokeFmlConfig.setText('earlyWindowControl = false\n', 'UTF-8')
+        }
+        def earlyWindowSettings = smokeFmlConfig.readLines('UTF-8').takeWhile { !it.stripLeading().startsWith('[') }.findAll {
+            it ==~ /\s*earlyWindowControl\s*=.*/
+        }
+        if (earlyWindowSettings.size() != 1 || !(earlyWindowSettings[0] ==~ /\s*earlyWindowControl\s*=\s*false\s*(#.*)?/)) {
+            throw new GradleException("后台客户端要求 ${smokeFmlConfig} 的 earlyWindowControl = false")
         }
     }
 }

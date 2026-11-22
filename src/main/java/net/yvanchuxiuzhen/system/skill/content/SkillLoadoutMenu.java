@@ -72,8 +72,10 @@ public final class SkillLoadoutMenu extends AbstractContainerMenu {
 
     /** 两刻后把持久装配栈按数量一载入当时的菜单，共享引用保留开窗期间的书籍成长。 */
     public void initialize(ServerPlayer player) {
-        Techniques.setSlot(player, Techniques.slot(player).copyWithCount(1));
-        slots.get(0).set(Techniques.slot(player));
+        ItemStack technique = Techniques.slot(player);
+        technique.setCount(1);
+        Techniques.setSlot(player, technique);
+        slots.get(0).set(technique);
         ItemStack movement = Skills.movement(player);
         movement.setCount(1);
         Skills.setMovement(player, movement);
@@ -86,13 +88,14 @@ public final class SkillLoadoutMenu extends AbstractContainerMenu {
         weaponArt.setCount(1);
         Skills.setWeaponArt(player, weaponArt);
         slots.get(7).set(weaponArt);
+        Techniques.rememberSlot(player);
         loadPage(player);
     }
 
     private void savePage(ServerPlayer player) {
         int start = (Skills.state(player).page() - 1) * SkillState.PAGE_SIZE;
         for (int index = 0; index < SkillState.PAGE_SIZE; index++) {
-            Skills.setSpell(player, start + index + 1, slots.get(index + 3).getItem().copy());
+            Skills.setSpell(player, start + index + 1, slots.get(index + 3).getItem());
         }
     }
 
@@ -117,7 +120,10 @@ public final class SkillLoadoutMenu extends AbstractContainerMenu {
                 loadPage(serverPlayer);
             }
             case 2 -> NeoForge.EVENT_BUS.post(new SkillPageEvent(serverPlayer, 1, pos));
+            case 3 -> NeoForge.EVENT_BUS.post(new SkillPageEvent(serverPlayer, 2, pos));
             case 4 -> NeoForge.EVENT_BUS.post(new SkillPageEvent(serverPlayer, 3, pos));
+            case 5 -> NeoForge.EVENT_BUS.post(new SkillPageEvent(serverPlayer, 5, pos));
+            case 6 -> NeoForge.EVENT_BUS.post(new SkillPageEvent(serverPlayer, 6, pos));
             case 7 -> HELP.forEach(line -> serverPlayer.displayClientMessage(Component.literal(line), false));
             default -> {
                 return false;
@@ -192,9 +198,9 @@ public final class SkillLoadoutMenu extends AbstractContainerMenu {
         super.removed(player);
         if (player instanceof ServerPlayer serverPlayer) {
             Techniques.setSlot(serverPlayer, slots.get(0).getItem());
-            Skills.setMovement(serverPlayer, slots.get(1).getItem().copy());
-            Skills.setFlight(serverPlayer, slots.get(2).getItem().copy());
-            Skills.setWeaponArt(serverPlayer, slots.get(7).getItem().copy());
+            Skills.setMovement(serverPlayer, slots.get(1).getItem());
+            Skills.setFlight(serverPlayer, slots.get(2).getItem());
+            Skills.setWeaponArt(serverPlayer, slots.get(7).getItem());
             savePage(serverPlayer);
         }
     }

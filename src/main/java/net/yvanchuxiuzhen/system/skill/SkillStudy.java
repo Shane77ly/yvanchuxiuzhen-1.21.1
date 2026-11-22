@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.skill;
 
 import java.util.Optional;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,15 +26,16 @@ public final class SkillStudy {
     public static void study(ServerPlayer player, ItemStack stack) {
         SkillBook book = Skills.book(stack).orElseThrow();
         if (book.ownedBy(player.getUUID())) {
-            player.displayClientMessage(Component.literal("您已学习此功法！"), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.study.already_owned"), false);
             return;
         }
         if (book.owner().isPresent()) {
-            player.displayClientMessage(Component.literal("此功法已被别人习得。"), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.study.owned_by_other"), false);
             return;
         }
         if (Cultivation.get(player, CultivationValue.LEVEL_NUMBER) < book.level()) {
-            player.displayClientMessage(Component.literal("§4需要至少达到" + SkillText.level(book.level()) + "境界才可研习。"), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.study.level_required", SkillText.level(book.level()))
+                    .withStyle(ChatFormatting.DARK_RED), false);
             return;
         }
         Optional<String> unmet = RootRequirement.unmet(player, book.body());
@@ -44,8 +46,15 @@ public final class SkillStudy {
         player.serverLevel().sendParticles(Particles.type("tiangandizhi"), player.getX(), player.getY() + 1, player.getZ(), 20, 0, 0, 0, 1);
         player.serverLevel().sendParticles(Particles.type("tiangandizhi_2"), player.getX(), player.getY(), player.getZ(), 20, 2, 0, 2, 0);
         player.serverLevel().sendParticles(ParticleTypes.FLASH, player.getX(), player.getY(), player.getZ(), 1, 0, 0, 0, 0);
-        stack.set(SkillData.SKILL.get(), book.withOwner(player.getUUID(), player.getDisplayName().getString()));
-        player.displayClientMessage(Component.literal("§6研习成功！"), false);
+        completeQuiz(player, stack);
+        player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.study.success")
+                .withStyle(ChatFormatting.GOLD), false);
         player.closeContainer();
+    }
+
+    /** 普通研习通过条件后与答题答满共用书实例归属写入，答题自身不再重复执行研习条件。 */
+    public static void completeQuiz(ServerPlayer player, ItemStack stack) {
+        SkillBook book = Skills.book(stack).orElseThrow();
+        stack.set(SkillData.SKILL.get(), book.withOwner(player.getUUID(), player.getDisplayName().getString()));
     }
 }

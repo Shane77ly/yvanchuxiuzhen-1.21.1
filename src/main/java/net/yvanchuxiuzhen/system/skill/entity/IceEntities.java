@@ -46,6 +46,7 @@ final class IceEntities {
             target = target.above();
         }
         SkillEntity field = SkillEntities.summon(level, caster, "skill_ice_04", ICE, (int) book.manaAttack(), (int) book.damageMultiplier(), book.name());
+        Relations.initializeIceCast(caster, field, (int) book.manaAttack(), (int) book.damageMultiplier());
         SkillEntities.place(level, field, Vec3.atLowerCornerOf(target), caster, 0);
         SkillEntities.spawn(level, field, true);
     }
@@ -55,14 +56,8 @@ final class IceEntities {
         ServerLevel level = (ServerLevel) caster.level();
         BlockPos target = ProjectileSupport.lookBlock(caster, 1);
         SkillEntity spike = SkillEntities.summon(level, caster, "skill_ice_05", ICE, (int) book.manaAttack(), (int) book.damageMultiplier(), book.name());
-        CompoundTag parameters = caster.getPersistentData().getCompound("friendlist");
-        parameters.putInt("AttackDamage", (int) book.manaAttack());
-        parameters.putString("AttackUUID", caster.getStringUUID());
-        parameters.putInt("Damage_multiplier", (int) book.damageMultiplier());
-        parameters.putInt("jiaodu", (int) caster.getYRot());
-        caster.getPersistentData().put("friendlist", parameters);
-        spike.getPersistentData().put("friendlist", parameters);
-        Relations.shareEntityAllegiance(caster, spike);
+        Relations.initializeIceCast(caster, spike, (int) book.manaAttack(), (int) book.damageMultiplier());
+        Relations.setIceCastDirection(spike, (int) caster.getYRot());
         spike.moveTo(target.getX(), caster.getY(), target.getZ(), level.getRandom().nextFloat() * 360F, 0);
         SkillEntities.turn(spike, Mth.nextInt(level.getRandom(), 1, 360), 0);
         SkillEntities.spawn(level, spike, true);
@@ -83,6 +78,7 @@ final class IceEntities {
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
             CompoundTag scratch = self.getPersistentData();
+            Relations.IceCast cast = Relations.iceCast(self);
             String state = scratch.getString("zhuangtai");
             if (state.equals(STARTING)) {
                 scratch.putDouble("tick", scratch.getDouble("tick") + 1);
@@ -102,7 +98,10 @@ final class IceEntities {
                     for (Entity other : ProjectileSupport.around(level, self.position(), 3)) {
                         if (!ProjectileSupport.friendly(self, other)) {
                             ProjectileSupport.burst(other, Math.random() < 0.5 ? "smallexplosionskyblue" : "smallexplosionwhite", other.getBbHeight() / 2);
-                            SkillEntities.strike(self, other);
+                            if (other instanceof LivingEntity living) {
+                                SpellDamage.command(level, living, "shanghai 冰 " + cast.attacker() + " false "
+                                        + (double) cast.attackDamage() + " " + (double) cast.multiplier());
+                            }
                         }
                     }
                     scratch.putDouble("tick2", 0);
@@ -137,7 +136,7 @@ final class IceEntities {
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
             CompoundTag scratch = self.getPersistentData();
-            CompoundTag friendlist = scratch.getCompound("friendlist");
+            Relations.IceCast cast = Relations.iceCast(self);
             String state = scratch.getString("zhuangtai");
             if (state.equals(STARTING)) {
                 scratch.putDouble("tick", scratch.getDouble("tick") + 1);
@@ -151,8 +150,8 @@ final class IceEntities {
                     for (Entity other : ProjectileSupport.around(level, self.position(), 1)) {
                         if (!ProjectileSupport.friendly(self, other)) {
                             if (other instanceof LivingEntity living) {
-                                SpellDamage.command(level, living, "shanghai 冰 " + friendlist.getString("AttackUUID") + " false 2 "
-                                        + friendlist.getInt("Damage_multiplier"));
+                                SpellDamage.command(level, living, "shanghai 冰 " + cast.attacker() + " false 2 "
+                                        + (double) cast.multiplier());
                             }
                             other.setTicksFrozen(other.getTicksFrozen() + 40);
                         }
@@ -166,15 +165,13 @@ final class IceEntities {
             if (!scratch.getBoolean("shifang")) {
                 scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
                 if (scratch.getDouble("tick2") >= 3) {
-                    if (friendlist.getInt("AttackDamage") > 0) {
-                        double angle = Math.toRadians(friendlist.getInt("jiaodu") + 90);
-                        int remaining = friendlist.getInt("AttackDamage") - 1;
+                    if (cast.attackDamage() > 0) {
+                        double angle = Math.toRadians(cast.direction() + 90.0);
+                        int remaining = cast.attackDamage() - 1;
                         SkillEntity next = SkillEntities.chain(self, "skill_ice_05", remaining);
                         next.moveTo(self.getX() + Math.cos(angle), self.getY(), self.getZ() + Math.sin(angle), level.getRandom().nextFloat() * 360F, 0);
                         SkillEntities.turn(next, Mth.nextInt(level.getRandom(), 0, 360), 0);
-                        CompoundTag nextFriendlist = friendlist.copy();
-                        nextFriendlist.putInt("AttackDamage", remaining);
-                        next.getPersistentData().put("friendlist", nextFriendlist);
+                        Relations.setIceCastRemaining(next, remaining);
                         SkillEntities.spawn(level, next, true);
                     }
                     scratch.putBoolean("shifang", true);

@@ -3,9 +3,13 @@
   "values": [
     "yvanchuxiuzhen:quicksand",
     "yvanchuxiuzhen:flowing_quicksand",
+    "yvanchuxiuzhen:watercloud",
+    "yvanchuxiuzhen:flowing_watercloud",
     "yvanchuxiuzhen:xveliu",
     "yvanchuxiuzhen:flowing_xveliu",
     "yvanchuxiuzhen:wenqvan",
-    "yvanchuxiuzhen:flowing_wenqvan"
+    "yvanchuxiuzhen:flowing_wenqvan",
+    "yvanchuxiuzhen:hotoil",
+    "yvanchuxiuzhen:flowing_hotoil"
   ]
 }

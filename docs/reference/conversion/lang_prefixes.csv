@@ -40,3 +40,14 @@ lianqi,yvanchuxitong,lianqibiao08
 fulu,yvanchuxiuzhen,gui.yvanchuxiuzhen.chuancheng_gui.
 fulu,yvanchuxiuzhen,gui.yvanchuxiuzhen.chuancheng_gui.
 fulu,yvanchuxitong,gui.yvanchuxitong.huafushaohui_gui.
+npc,yvanchuxitong,txt.renwulist.
+town,yvanchuxitong,txt.yvanchuxitong.build
+quest,yvanchuxitong,key.yvanchuxitong.renwuanjian
+quest,yvanchuxiuzhen,gui.yvanchuxiuzhen.renwufangkuai_gui.
+festival,yvanchuxiuzhen,item.yvanchuxiuzhen.pao_09
+festival,yvanchuxiuzhen,entity.yvanchuxiuzhen.pao_0901
+xiulian,yvanchuxiuzhen,gui02
+profession,yvanchuxiuzhen,gui.yvanchuxiuzhen.player_gui_05.
+xiulian,yvanchuxiuzhen,gui.yvanchuxiuzhen.player_gui_06.
+xiulian,yvanchuxiuzhen,gui.yvanchuxiuzhen.player_gui_07.
+xiulian,yvanchuxiuzhen,gui.yvanchuxiuzhen.player_gui_08.

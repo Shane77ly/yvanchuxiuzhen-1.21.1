@@ -88,16 +88,18 @@ public final class Yaoshou026huoyanEntity extends AbstractArrow implements ItemS
     @Override
     public void tick() {
         super.tick();
-        if (isRemoved()) return;
         if (!isNoGravity()) setNoGravity(true);
         if (level() instanceof ServerLevel server) {
             SimpleParticleType particle = Particles.type("cailiao_238particle");
             server.sendParticles(particle, getX(), getY() + getBbHeight() / 2, getZ(), 5,
                     getBbWidth(), getBbHeight(), getBbWidth(), 0);
         }
-        if (level().isClientSide) return;
         flightTicks++;
-        if (flightTicks >= 40 || inGround) discard();
+        if (flightTicks >= 40) {
+            flightTicks = 0;
+            if (!level().isClientSide) discard();
+        }
+        if (inGround) discard();
     }
 
     @Override

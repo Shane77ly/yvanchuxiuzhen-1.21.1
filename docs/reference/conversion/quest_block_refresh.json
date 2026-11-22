@@ -1,0 +1,25 @@
+{
+  "source_version": "1.18.2",
+  "clothing_product_count": 11,
+  "source_sha256": {
+    "RenwubudingProcedure.java": "242915358ba5e264cee10ac04e561a90908a4e1ae22e708765f1483c85d5531f",
+    "PlayerRightClickBlockProcedure.java": "8816f6ea3fd347ea3a7d09dbd6ac50534c19e3e23f4985132cb44c3c3449c124"
+  },
+  "output_sha256": "f0dd590e395786e6c1d2b2bc8c618ff8dc6b124ad0907fcd381cb27d777d0754",
+  "string_sha256": {
+    "OLD_CLOTHING_INFORMATION": "1b60556cd97a9110da804fca3546abea4c1cd76282ebf36d2901d1a9fef33e7e",
+    "CLOTHING_INFORMATION": "23a59cd3f59b58bca961a76f05fed6473a55b038b29fa4ac36b4dbfcf8a08630",
+    "CLOTHING_PRODUCTS": "b19f8adaaac9fd4d30a6676e560044c9bcf9d00f91833b79c6452b4fb5173ee1"
+  },
+  "refresh_position": [
+    -103,
+    64,
+    -263
+  ],
+  "clothing_position": [
+    -51,
+    64,
+    -320
+  ],
+  "entry_order": "used item hand filter -> task block patch -> remaining source right-click branches"
+}

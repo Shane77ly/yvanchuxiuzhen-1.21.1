@@ -40,6 +40,7 @@ import net.yvanchuxiuzhen.system.cooking.data.CookingAttachments;
 import net.yvanchuxiuzhen.system.cooking.network.WineButtonPayload;
 import net.yvanchuxiuzhen.system.cooking.api.Alcohol;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.MeditationRefineEvent;
 import net.yvanchuxiuzhen.system.plant.api.Planting;
 
 /**
@@ -60,6 +61,7 @@ public final class CookingSetup {
                     row -> new TablewareBlock.Waterlogged(row, TablewareBlock.Kind.LARGE_BOWL)))
             .blockFactory("cooking:plated_food", traits -> ContentBlock.create(traits, PlatedFoodBlock::new))
             .itemFactory("cooking:meal_food", MealFoodItem::new)
+            .itemFactory("cooking:chestnut", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::chestnut))
             .itemFactory("cooking:lotus_seed", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::lotus))
             .itemFactory("cooking:plantable_garlic", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::garlic))
             .itemFactory("cooking:produce028_food", (properties, tooltip) -> new PlantableIngredientItem(properties, tooltip, Planting::shicai028))
@@ -131,6 +133,7 @@ public final class CookingSetup {
         WineMenus.register(modBus);
         CookingAttachments.register(modBus);
         NeoForge.EVENT_BUS.addListener((CultivationAfterBreakthroughEvent event) -> Alcohol.metabolize(event.player()));
+        NeoForge.EVENT_BUS.addListener((MeditationRefineEvent event) -> Alcohol.refine(event.player()));
         modBus.addListener(CookingSetup::payloads);
         NeoForge.EVENT_BUS.addListener(CookingRuntime::rightClick);
         NeoForge.EVENT_BUS.addListener(CookingDelays::tick);

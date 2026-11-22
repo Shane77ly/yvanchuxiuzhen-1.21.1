@@ -1,3 +1,10 @@
 [
-{"id":"tiandaodimensionblock","factory":"block","material":"WOOD","map_color":"GOLD","sound":"WOOD","light":15,"states":[],"light_block":15,"fallback_drop":{"item":"minecraft:air","count":1}}
+{"id":"tiandaodimensionblock","factory":"block","material":"WOOD","map_color":"GOLD","sound":"WOOD","light":15,"states":[],"light_block":15,"fallback_drop":{"item":"minecraft:air","count":1}},
+{"id":"dimensiontianqve_portal","factory":"world:dimension_portal","material":"GLASS","sound":"GLASS","no_collision":true,"random_ticks":true,"strength":[-1.0,3600000.0],"light":15,"states":["AXIS"],"no_drops":true},
+{"id":"dimensionxiuluo_portal","factory":"world:dimension_portal","material":"GLASS","sound":"GLASS","no_collision":true,"random_ticks":true,"strength":[-1.0,3600000.0],"light":15,"states":["AXIS"],"no_drops":true},
+{"id":"dimensionrenjian_portal","factory":"world:dimension_portal","material":"GLASS","sound":"GLASS","no_collision":true,"random_ticks":true,"strength":[-1.0,3600000.0],"light":15,"states":["AXIS"],"no_drops":true},
+{"id":"dimensionyaohun_portal","factory":"world:dimension_portal","material":"GLASS","sound":"GLASS","no_collision":true,"random_ticks":true,"strength":[-1.0,3600000.0],"light":15,"states":["AXIS"],"no_drops":true},
+{"id":"dimensionwugui_portal","factory":"world:dimension_portal","material":"GLASS","sound":"GLASS","no_collision":true,"random_ticks":true,"strength":[-1.0,3600000.0],"light":15,"states":["AXIS"],"no_drops":true},
+{"id":"dimensiondiling_portal","factory":"world:dimension_portal","material":"GLASS","sound":"GLASS","no_collision":true,"random_ticks":true,"strength":[-1.0,3600000.0],"light":15,"states":["AXIS"],"no_drops":true},
+{"id":"liexi","factory":"world:rift","material":"GLASS","sound":"GLASS","no_occlusion":true,"no_collision":true,"redstone_conductor":false,"states":["FACING"],"placement":"horizontal","light_block":0,"skylight":"always","shape":{"default":{"box":[-1.0,0.0,-1.0,17.0,18.0,17.0]},"north":{"box":[-1.0,0.0,-1.0,17.0,18.0,17.0]},"east":{"box":[-1.0,0.0,-1.0,17.0,18.0,17.0]},"west":{"box":[-1.0,0.0,-1.0,17.0,18.0,17.0]}},"rotate":true,"fallback_drop":{"item":"self","count":1},"strength":[-1.0,3600000.0]}
 ]

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8.7",
+  "package": "net.yvanchuxiuzhen.system.plant.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "CropSoilSurvivalMixin",
+    "MushroomSoilSurvivalMixin",
+    "CactusSoilSurvivalMixin",
+    "StemSoilFruitMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

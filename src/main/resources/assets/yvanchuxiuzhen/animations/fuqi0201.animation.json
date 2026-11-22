@@ -1,0 +1,56 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.fuqi0201.idle": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"rightbian": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.08": {
+							"vector": [0, 0, -10]
+						},
+						"0.16": {
+							"vector": [0, 0, 5]
+						},
+						"0.24": {
+							"vector": [0, 0, -2.5]
+						},
+						"0.32": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"leftbian": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.08": {
+							"vector": [0, 0, 10]
+						},
+						"0.16": {
+							"vector": [0, 0, -5]
+						},
+						"0.24": {
+							"vector": [0, 0, 2.5]
+						},
+						"0.32": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

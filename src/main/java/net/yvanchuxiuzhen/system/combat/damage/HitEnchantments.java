@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.combat.damage;
 
+import java.util.Comparator;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -10,9 +11,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /**
@@ -22,8 +27,7 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
  *
  * <p>召唤其他系统实体的三个附魔不在这里：{@code qishi}（召唤 skill 的阴灵）、{@code lingwen}（召唤 skill 的灵纹）、
  * {@code starsky}（发射 fulu 的星空箭）由对应系统订阅 {@link net.yvanchuxiuzhen.system.combat.api.HitEvent} 执行。
- * 粒子中带 {@code SMALLEXPLOSION*}、{@code FLASH_ICE}、{@code THUNDERDEEPPURPLE}、{@code STARLIGHTBLUE}、
- * {@code SMOKEDEEPORANGE} 的是自定义粒子，随 particle 迁移。来源的疑似错误保持原样（Q32）：
+ * 粒子类型、纹理与客户端提供器由 particle 系统维护。来源的疑似错误保持原样（Q32）：
  * {@code lingtikiller} 取 {@code zhongshang} 的等级，{@code liuqing} 的时长使用 {@code iceexplosion} 分支才赋值的等级，
  * {@code chaos} 的范围中心把视线方向的 z 分量当作 z 坐标。
  */
@@ -56,6 +60,7 @@ final class HitEnchantments {
         if (fire != 0 && Mth.nextDouble(wearer.getRandom(), 1, 100) < fire) {
             level.sendParticles(ParticleTypes.FLAME, wearer.getX(), wearer.getY() + 1, wearer.getZ(), 20, 0, 0, 0, 1);
             level.sendParticles(ParticleTypes.FLAME, wearer.getX(), wearer.getY() + 0.3, wearer.getZ(), 20, 1.5, 0, 1.5, 0);
+            areaParticles(level, wearer, wearer.getX(), wearer.getY() + 1, wearer.getZ(), "smallexplosionred");
             for (LivingEntity target : around(level, wearer.getX(), wearer.getY() + 1, wearer.getZ())) {
                 if (!Relations.isFriendly(wearer, target)) {
                     Shanghai.deal(level, target, new Shanghai.Request(DamageCategory.FIRE, wearer.getUUID(), true, fire * 2, 1));
@@ -65,6 +70,8 @@ final class HitEnchantments {
         int ice = Enchants.armorSum(wearer, Enchants.key("icearmor"));
         if (ice != 0 && Mth.nextDouble(wearer.getRandom(), 1, 100) < ice) {
             level.sendParticles(ParticleTypes.CLOUD, wearer.getX(), wearer.getY() + 1, wearer.getZ(), 20, 0, 0, 0, 1);
+            level.sendParticles(Particles.type("flash_ice"), wearer.getX(), wearer.getY() + 0.3, wearer.getZ(), 20, 1.5, 0, 1.5, 0);
+            areaParticles(level, wearer, wearer.getX(), wearer.getY() + 1, wearer.getZ(), "smallexplosionlightblue");
             for (LivingEntity target : around(level, wearer.getX(), wearer.getY() + 1, wearer.getZ())) {
                 if (!Relations.isFriendly(wearer, target)) {
                     Shanghai.deal(level, target, new Shanghai.Request(DamageCategory.ICE, wearer.getUUID(), true, ice * 2, 1));
@@ -74,6 +81,10 @@ final class HitEnchantments {
         }
         int discharge = Enchants.armorSum(wearer, Enchants.key("discharge"));
         if (discharge != 0 && Mth.nextDouble(wearer.getRandom(), 1, 100) < discharge) {
+            level.sendParticles(Particles.type("thunderdeeppurple"), wearer.getX(), wearer.getY() + 0.3, wearer.getZ(), 8, 1.5, 0, 1.5, 0);
+            new DelayedParticle(level, wearer, 10).start();
+            new DelayedParticle(level, wearer, 20).start();
+            areaParticles(level, wearer, wearer.getX(), wearer.getY() + 1, wearer.getZ(), "smallexplosiondeeppurple");
             for (LivingEntity target : around(level, wearer.getX(), wearer.getY() + 1, wearer.getZ())) {
                 if (!Relations.isFriendly(wearer, target)) {
                     Shanghai.deal(level, target, new Shanghai.Request(DamageCategory.THUNDER, wearer.getUUID(), true, discharge * 2, 1));
@@ -113,6 +124,8 @@ final class HitEnchantments {
     private static void iceExplosion(ServerLevel level, LivingEntity victim, LivingEntity attacker) {
         int explosion = Enchants.mainHand(attacker, Enchants.key("iceexplosion"));
         if (explosion != 0 && Mth.nextInt(attacker.getRandom(), 1, 100) < explosion) {
+            level.sendParticles(Particles.type("starlightblue"), victim.getX(), victim.getY() + victim.getBbHeight() / 2,
+                    victim.getZ(), 18, 0, 0, 0, 0.5);
             burst(level, victim, attacker, DamageCategory.ICE, explosion, ParticleTypes.CLOUD);
         }
     }
@@ -133,6 +146,7 @@ final class HitEnchantments {
         if (chaos == 0) {
             return;
         }
+        level.sendParticles(Particles.type("smokedeeporange"), victim.getX(), victim.getY(), victim.getLookAngle().z, 20, 3, 1, 3, 0);
         for (LivingEntity target : around(level, victim.getX(), victim.getY(), victim.getLookAngle().z)) {
             if (!Relations.isFriendly(attacker, target)) {
                 target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, chaos * 10, chaos));
@@ -161,5 +175,44 @@ final class HitEnchantments {
     private static Iterable<LivingEntity> around(ServerLevel level, double x, double y, double z) {
         Vec3 center = new Vec3(x, y, z);
         return level.getEntitiesOfClass(LivingEntity.class, new AABB(center, center).inflate(AREA), Entity::isAlive);
+    }
+
+    /** 来源的护甲特效逐个检查范围内所有实体，独立于仅对生物结算的伤害循环。 */
+    private static void areaParticles(ServerLevel level, Entity wearer, double x, double y, double z, String particle) {
+        Vec3 center = new Vec3(x, y, z);
+        level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(AREA), entity -> true).stream()
+                .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center)))
+                .forEach(entity -> {
+                    if (!Relations.isFriendly(wearer, entity)) {
+                        level.sendParticles(Particles.type(particle), entity.getX(), entity.getY() + entity.getBbHeight() / 2,
+                                entity.getZ(), 1, 0, 0, 0, 0);
+                    }
+                });
+    }
+
+    private static final class DelayedParticle {
+        private final ServerLevel level;
+        private final Entity entity;
+        private final int waitTicks;
+        private int ticks;
+
+        private DelayedParticle(ServerLevel level, Entity entity, int waitTicks) {
+            this.level = level;
+            this.entity = entity;
+            this.waitTicks = waitTicks;
+        }
+
+        private void start() {
+            NeoForge.EVENT_BUS.register(this);
+        }
+
+        @SubscribeEvent
+        public void tick(ServerTickEvent.Post ignored) {
+            ticks++;
+            if (ticks >= waitTicks) {
+                level.sendParticles(Particles.type("thunderdeeppurple"), entity.getX(), entity.getY() + 0.3, entity.getZ(), 8, 1.5, 0, 1.5, 0);
+                NeoForge.EVENT_BUS.unregister(this);
+            }
+        }
     }
 }

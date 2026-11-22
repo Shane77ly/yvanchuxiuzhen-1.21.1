@@ -13,6 +13,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.api.SpiritBeastBags;
+import net.yvanchuxiuzhen.system.creature.entity.SourceFollowOwnerGoal;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.Animation;
 import software.bernie.geckolib.animation.PlayState;
@@ -25,6 +26,11 @@ public final class Yaoshou017Entity extends YaoshouEntity {
     public Yaoshou017Entity(EntityType<? extends YaoshouEntity> type, Level level, EntityModelRow model) {
         super(type, level, model);
         xpReward = 0;
+    }
+
+    @Override
+    protected void registerGoals() {
+        goalSelector.addGoal(1, new SourceFollowOwnerGoal(this, 1, 10, 2, false));
     }
 
     public static AttributeSupplier.Builder attributes(EntityModelRow row) { return YaoshouEntity.attributes(row); }

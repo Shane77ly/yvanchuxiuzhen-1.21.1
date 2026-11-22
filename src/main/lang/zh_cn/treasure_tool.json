@@ -1,0 +1,18 @@
+{
+  "menu.yvanchuxiuzhen.treasure_tool": "天道宝箱设置",
+  "screen.yvanchuxiuzhen.treasure_tool.category": "宝箱大类型，决定主要掉落物类型",
+  "screen.yvanchuxiuzhen.treasure_tool.subtype": "宝箱小类型，决定具体掉落哪些物品",
+  "screen.yvanchuxiuzhen.treasure_tool.level": "宝箱等级，决定掉落物的珍惜程度",
+  "screen.yvanchuxiuzhen.treasure_tool.minimum": "最小掉落数",
+  "screen.yvanchuxiuzhen.treasure_tool.maximum": "最大掉落数",
+  "screen.yvanchuxiuzhen.treasure_tool.grade": "品级：",
+  "screen.yvanchuxiuzhen.treasure_tool.min": "最小：",
+  "screen.yvanchuxiuzhen.treasure_tool.max": "最多：",
+  "screen.yvanchuxiuzhen.treasure_tool.previous": "上一项",
+  "screen.yvanchuxiuzhen.treasure_tool.next": "下一项",
+  "message.yvanchuxiuzhen.treasure_tool.category": "宝箱大类型：%s",
+  "message.yvanchuxiuzhen.treasure_tool.subtype": "宝箱小类型：%s",
+  "message.yvanchuxiuzhen.treasure_tool.level": "宝箱等级：%s",
+  "message.yvanchuxiuzhen.treasure_tool.count": "掉落数量：%s~%s",
+  "message.yvanchuxiuzhen.treasure_tool.failed": "未成功设置"
+}

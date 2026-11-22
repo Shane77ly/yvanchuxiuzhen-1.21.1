@@ -1,0 +1,12 @@
+{
+  "entity.yvanchuxiuzhen.flyinginstrument_01": "飞叶飞行法器",
+  "entity.yvanchuxiuzhen.flyinginstrument_02": "银盘飞行法器",
+  "entity.yvanchuxiuzhen.flyinginstrument_03": "花瓣飞行法器",
+  "entity.yvanchuxiuzhen.flyinginstrument_04": "飞舟",
+  "entity.yvanchuxiuzhen.flyinginstrument_05": "千纸鹤",
+  "entity.yvanchuxiuzhen.flyinginstrument_06": "木鱼飞行法器",
+  "entity.yvanchuxiuzhen.flyinginstrument_07": "飞毯",
+  "entity.yvanchuxiuzhen.flyinginstrument_08": "御风舟",
+  "message.yvanchuxiuzhen.flyinginstrument.power": "飞行法器储藏的灵力：%s/%s",
+  "message.yvanchuxiuzhen.flyinginstrument.full": "§a灵力补充完毕！"
+}

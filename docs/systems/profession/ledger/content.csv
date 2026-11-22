@@ -1,0 +1,2 @@
+registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
+menu,yvanchuxiuzhen:player_gui_05,yvanchuxiuzhen,PlayerGUI05,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModMenus.java,70,profession,已读,yvanchuxiuzhen:player_gui_05,行为已迁移,十职业双列显示、36格背包与说明已接；六主分页往返和K记页5已接，按钮保留来源菜单区块存在条件；编译及客户端未执行。

@@ -7,7 +7,7 @@ import net.yvanchuxiuzhen.system.yihuo.YihuoProjectiles;
 import net.yvanchuxiuzhen.system.yihuo.YihuoProjectile;
 import net.yvanchuxiuzhen.system.yihuo.YihuoSetup;
 
-/** 异火投掷物使用原生物品投掷物渲染器，显示对应材料物品模型。 */
+/** 异火投掷物沿用原生物品投掷物渲染器与来源空气显示栈，飞行表现由异火粒子承担。 */
 public final class YihuoClientSetup {
     private YihuoClientSetup() {
     }

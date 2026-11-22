@@ -13,10 +13,10 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentFlower;
 
-/** 蔬菜01–03阶段共用随机刻、计划刻和50%骨粉入口，编号及阶段决定实际规则。 */
+/** 蔬菜生长阶段与开花韭菜共用骨粉入口；开花韭菜不再推进阶段。 */
 public class VegetableGrowingBlock extends ContentFlower implements BonemealableBlock {
-    private final VegetableCrop crop;
-    private final int stage;
+    protected final VegetableCrop crop;
+    protected final int stage;
 
     public VegetableGrowingBlock(BlockTraits traits, VegetableCrop crop, int stage) {
         super(traits);
@@ -26,13 +26,13 @@ public class VegetableGrowingBlock extends ContentFlower implements Bonemealable
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        VegetableGrowth.grow(crop, stage, state, level, pos);
+        VegetableGrowth.tick(crop, stage, level, pos, random);
     }
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         super.tick(state, level, pos, random);
-        VegetableGrowth.grow(crop, stage, state, level, pos);
+        VegetableGrowth.tick(crop, stage, level, pos, random);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class VegetableGrowingBlock extends ContentFlower implements Bonemealable
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        VegetableGrowth.bonemeal(crop, stage, level, pos, state);
+        VegetableGrowth.bonemeal(crop, stage, level, pos, state, random);
     }
 
     @Override

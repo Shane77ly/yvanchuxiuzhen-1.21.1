@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.system.skill.SkillLibrary;
@@ -57,6 +58,17 @@ public final class Skills {
         return state(player).selected();
     }
 
+    /** 在当前所选技能原栈上写入实例文本，并同步包含该栈的技能状态。 */
+    public static void setSelectedText(ServerPlayer player, String key, String value) {
+        SkillState state = state(player);
+        ItemStack selected = state.selected();
+        SkillBook book = selected.get(SkillData.SKILL.get());
+        if (book != null) {
+            selected.set(SkillData.SKILL.get(), book.withText(key, value));
+            player.setData(SkillData.STATE, state);
+        }
+    }
+
     /** 身法槽（来源 {@code qinggong}）。 */
     public static ItemStack movement(Player player) {
         return state(player).movement();
@@ -82,6 +94,15 @@ public final class Skills {
 
     public static void setFlying(ServerPlayer player, boolean flying) {
         player.setData(SkillData.FLYING, flying);
+    }
+
+    /** 轮回清装配、当前书与键、飞行标记及六组冷却；保留连招、实际选槽和 arrowlinshi。 */
+    public static void resetForReincarnation(ServerPlayer player) {
+        SkillState previous = state(player);
+        player.setData(SkillData.STATE, new SkillState(SkillState.EMPTY.spells(), ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY,
+                1, ItemStack.EMPTY, 0, previous.selectedSlot(), previous.combo(), previous.arrow(), previous.arrowChoice()));
+        setFlying(player, false);
+        player.setData(SkillData.COOLDOWNS, SkillCooldowns.EMPTY);
     }
 
     public static void toggleFlight(ServerPlayer player) {
@@ -146,11 +167,11 @@ public final class Skills {
 
     /**
      * 创建尚未加入世界的技能箭，类型为 1–10。调用者设置基础伤害、位置和速度后加入世界，并负责弓的蓄力与消耗。
-     * 修饰键由调用者提供；箭在首次飞行刻消费箭技能与满蓄力标记，按来源顺序选择模式。
+     * 箭在首次飞行刻读取修饰键并消费箭技能与满蓄力标记，按来源顺序选择模式。
      */
-    public static AbstractArrow createArrow(ServerPlayer owner, int kind, int knockback, int pierce, boolean control, boolean alt,
+    public static AbstractArrow createArrow(ServerPlayer owner, int kind, int knockback, int pierce,
                                              boolean fullCharge, boolean infinity) {
-        return SkillArrows.create(owner, kind, knockback, pierce, control, alt, fullCharge, infinity);
+        return SkillArrows.create(owner, kind, knockback, pierce, fullCharge, infinity);
     }
 
     /** 某一冷却分组的剩余刻数（来源 {@code colddownGold} 等）。 */
@@ -163,9 +184,19 @@ public final class Skills {
         SkillStudy.study(player, stack);
     }
 
+    /** 答题成功覆盖技能书的研习者，不检查境界、灵根或原研习者；提示和菜单生命周期由答题入口负责。 */
+    public static void completeQuiz(ServerPlayer player, ItemStack stack) {
+        SkillStudy.completeQuiz(player, stack);
+    }
+
     /** 由命令参数串生成一本未研习的技能书（管理命令与玩法发书）；参数格式见 {@link SkillLibrary#fromArguments}。 */
     public static ItemStack createBook(SkillKind kind, List<String> arguments) {
         return SkillLibrary.fromArguments(kind, arguments);
+    }
+
+    /** 奖励生产者按来源字段生成未研习技能书，由本系统写入技能组件。 */
+    public static ItemStack createBook(Item carrier, SkillBook book) {
+        return SkillLibrary.create(carrier, book);
     }
 
     /** 书架藏宝里的技能书（来源 {@code Jinenglistzong}）：在 13 本中随机给一本。 */

@@ -25,7 +25,7 @@ import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 
-/** 开灵附魔右键产生的无拾取弹体；十六刻后或命中方块时生成对应工具机。 */
+/** 开灵工具和隐藏物品共用的无拾取弹体；按来源首刻主手冻结类别并在命中或十六刻时分派。 */
 public final class KailingProjectile extends AbstractArrow implements ItemSupplier {
     public static final String ID = "projectile_gongjvshechu";
 
@@ -36,23 +36,17 @@ public final class KailingProjectile extends AbstractArrow implements ItemSuppli
     private boolean spawned;
 
     public KailingProjectile(EntityType<? extends KailingProjectile> type, Level level) {
-        this(type, level, ToolMachineEntity.Kind.AXE);
-    }
-
-    public KailingProjectile(EntityType<? extends KailingProjectile> type, Level level, ToolMachineEntity.Kind kind) {
         super(type, level);
-        initialKind = kind;
         setBaseDamage(.1);
         setCritArrow(false);
         setSilent(true);
     }
 
-    public static KailingProjectile shoot(ServerLevel level, LivingEntity owner, ToolMachineEntity.Kind kind) {
+    public static KailingProjectile shoot(ServerLevel level, LivingEntity owner, float speed) {
         KailingProjectile projectile = EquipmentSetup.kailingProjectileType().get().create(level);
         projectile.setOwner(owner);
-        projectile.initialKind = kind;
         projectile.setPos(owner.getX(), owner.getEyeY() - .1, owner.getZ());
-        projectile.shoot(owner.getLookAngle().x, owner.getLookAngle().y, owner.getLookAngle().z, 1, 0);
+        projectile.shoot(owner.getLookAngle().x, owner.getLookAngle().y, owner.getLookAngle().z, speed, 0);
         level.addFreshEntity(projectile);
         return projectile;
     }
@@ -82,8 +76,6 @@ public final class KailingProjectile extends AbstractArrow implements ItemSuppli
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
         if (level() instanceof ServerLevel level) {
-            initialize();
-            level.sendParticles(ParticleTypes.FLASH, getX(), getY(), getZ(), 1, 0, 0, 0, 0);
             spawnMachine(level);
             discard();
         }
@@ -92,7 +84,7 @@ public final class KailingProjectile extends AbstractArrow implements ItemSuppli
     @Override
     public void tick() {
         super.tick();
-        if (level() instanceof ServerLevel level) {
+        if (level() instanceof ServerLevel level && getOwner() != null) {
             initialize();
             ticks++;
             if (ticks >= 16 && !spawned) {
@@ -105,15 +97,15 @@ public final class KailingProjectile extends AbstractArrow implements ItemSuppli
         }
     }
 
-    /** 来源飞行过程在首刻冻结主人、工具类别和开灵等级，后续不再读取主手。 */
+    /** 来源飞行过程在首刻冻结工具类别和开灵等级，后续不再读取主手。 */
     private void initialize() {
         if (initialized) return;
         Entity owner = getOwner();
         if (owner instanceof LivingEntity living) {
             initialKind = living.getMainHandItem().getItem() instanceof AxeItem ? ToolMachineEntity.Kind.AXE
                     : living.getMainHandItem().getItem() instanceof PickaxeItem ? ToolMachineEntity.Kind.PICKAXE
-                    : living.getMainHandItem().getItem() instanceof HoeItem ? ToolMachineEntity.Kind.HOE
-                    : living.getMainHandItem().getItem() instanceof ShovelItem ? ToolMachineEntity.Kind.SHOVEL : initialKind;
+                    : living.getMainHandItem().getItem() instanceof HoeItem ? ToolMachineEntity.Kind.SHOVEL
+                    : living.getMainHandItem().getItem() instanceof ShovelItem ? ToolMachineEntity.Kind.HOE : null;
             enchantLevel = Enchants.level(living, living.getMainHandItem(), Enchants.key("kailing"));
         }
         initialized = true;
@@ -123,7 +115,10 @@ public final class KailingProjectile extends AbstractArrow implements ItemSuppli
     private void spawnMachine(ServerLevel level) {
         if (spawned) return;
         spawned = true;
-        ToolMachineEntity.spawn(level, getOwner(), initialKind, enchantLevel, position(), ToolMachineEntity.face(level, BlockPos.containing(position())));
+        level.sendParticles(ParticleTypes.FLASH, getX(), getY(), getZ(), 1, 0, 0, 0, 0);
+        if (initialKind != null) {
+            ToolMachineEntity.spawn(level, getOwner(), initialKind, enchantLevel, position(), ToolMachineEntity.face(level, BlockPos.containing(position())));
+        }
     }
 
     @Override
@@ -131,7 +126,7 @@ public final class KailingProjectile extends AbstractArrow implements ItemSuppli
         super.addAdditionalSaveData(tag);
         tag.putInt("kailing_ticks", ticks);
         tag.putInt("kailing_enchant", enchantLevel);
-        tag.putString("kailing_kind", initialKind.id());
+        tag.putString("kailing_kind", initialKind == null ? "" : initialKind.id());
         tag.putBoolean("kailing_initialized", initialized);
         tag.putBoolean("kailing_spawned", spawned);
     }
@@ -142,7 +137,7 @@ public final class KailingProjectile extends AbstractArrow implements ItemSuppli
         ticks = tag.getInt("kailing_ticks");
         enchantLevel = tag.getInt("kailing_enchant");
         initialKind = Arrays.stream(ToolMachineEntity.Kind.values())
-                .filter(kind -> kind.id().equals(tag.getString("kailing_kind"))).findFirst().orElse(ToolMachineEntity.Kind.AXE);
+                .filter(kind -> kind.id().equals(tag.getString("kailing_kind"))).findFirst().orElse(null);
         initialized = tag.getBoolean("kailing_initialized");
         spawned = tag.getBoolean("kailing_spawned");
     }

@@ -3,6 +3,8 @@ package net.yvanchuxiuzhen.system.equipment;
 import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ShovelItem;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -18,15 +20,21 @@ import net.yvanchuxiuzhen.system.equipment.content.Fabao010Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao010huoyanItem;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao011Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao012Item;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao013Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao014Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao016Item;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao017Item;
+import net.yvanchuxiuzhen.system.equipment.content.Fabao01701Entity;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao021Item;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao022Item;
 import net.yvanchuxiuzhen.system.equipment.content.FabaoProjectileItem;
 import net.yvanchuxiuzhen.system.equipment.content.FuchenItem;
 import net.yvanchuxiuzhen.system.equipment.content.Gongjv001Item;
+import net.yvanchuxiuzhen.system.equipment.content.Gongjv008Item;
+import net.yvanchuxiuzhen.system.equipment.content.GongjvshechuItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentBlockEntities;
+import net.yvanchuxiuzhen.system.equipment.content.JingxveItem;
 import net.yvanchuxiuzhen.system.equipment.content.JewelryTableBlock;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentItem;
@@ -40,6 +48,7 @@ import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fabao014;
 import net.yvanchuxiuzhen.system.equipment.projectile.FabaoProjectile;
 import net.yvanchuxiuzhen.system.equipment.projectile.FabaoPoisonFields;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
 
 /**
  * 装备系统的启动装配，只在 Mod 构造时调用一次。
@@ -53,12 +62,16 @@ public final class EquipmentSetup {
 
     public static void register(IEventBus modBus) {
         EquipmentData.register(modBus);
+        NeoForge.EVENT_BUS.addListener(EventPriority.HIGH, false, CultivationSecondEvent.class, EquipmentRecalculation::onSecond);
         EquipmentMenus.register(modBus);
         EquipmentBlockEntities.register(modBus);
         modBus.addListener(EquipmentSetup::registerPayloads);
         CONTENT.itemFactory("equipment:fuchen", FuchenItem::new);
         CONTENT.itemFactory("equipment:fabao_010", Fabao010Item::new);
         CONTENT.itemFactory("equipment:fabao_010huoyan", Fabao010huoyanItem::new);
+        CONTENT.itemFactory("equipment:fabao_017", Fabao017Item::new);
+        CONTENT.itemFactory("equipment:jingxve", JingxveItem::new);
+        CONTENT.itemFactory("equipment:gongjvshechu", GongjvshechuItem::new);
         for (FabaoProjectile.Kind kind : FabaoProjectile.Kind.values()) {
             CONTENT.itemFactory("equipment:" + kind.itemId(), (properties, tooltip) ->
                     new FabaoProjectileItem(kind, properties, tooltip));
@@ -77,6 +90,10 @@ public final class EquipmentSetup {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
                 CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Fabao012Item(tier, properties, tooltip));
             }
+            if (row.factory().equals("equipment:fabao_013")) {
+                LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
+                CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Fabao013Item(tier, properties, tooltip));
+            }
             if (row.factory().equals("equipment:fabao_014")) {
                 CONTENT.itemFactory(row.factory(), Fabao014Item::new);
             }
@@ -93,6 +110,12 @@ public final class EquipmentSetup {
             if (row.factory().equals("equipment:gongjv_001")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
                 CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Gongjv001Item(tier, properties, tooltip));
+            }
+            if (row.factory().equals("equipment:gongjv_008")) {
+                ItemRow.Tool tool = row.tool().orElseThrow();
+                LegacyTier tier = LegacyTier.of(tool.tier());
+                CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new Gongjv008Item(tier,
+                        properties.attributes(ShovelItem.createAttributes(tier, tool.damage().orElseThrow(), tool.attackSpeed().orElseThrow())), tooltip));
             }
             if (row.factory().startsWith("equipment:weaponhossu_")) {
                 LegacyTier tier = LegacyTier.of(row.tool().orElseThrow().tier());
@@ -115,6 +138,11 @@ public final class EquipmentSetup {
         CONTENT.entity(Fuchen.ID, Fuchen::new);
         CONTENT.entity(Fabao010huoyan.ID, Fabao010huoyan::new);
         for (EntityModelRow model : ContentFiles.read("content/equipment/entity_models.json", EntityModelRow.CODEC)) {
+            if (model.id().equals("fabao_01701")) {
+                CONTENT.<Fabao01701Entity>livingEntity(model.id(), (type, level) -> new Fabao01701Entity(type, level, model),
+                        () -> Fabao01701Entity.attributes(model));
+                continue;
+            }
             if (model.id().startsWith("flyinginstrument_")) {
                 FlyingInstrumentItem.Definition definition = FlyingInstrumentItem.definitionByEntity(model.id());
                 CONTENT.<FlyingInstrumentEntity>livingEntity(model.id(), (type, level) -> new FlyingInstrumentEntity(type, level, model, definition),
@@ -156,6 +184,7 @@ public final class EquipmentSetup {
         NeoForge.EVENT_BUS.addListener(EquipmentAttributes::modifiers);
         NeoForge.EVENT_BUS.addListener(BenmingCultivation::onCultivationSecond);
         NeoForge.EVENT_BUS.addListener(FabaoPoisonFields::tick);
+        NeoForge.EVENT_BUS.addListener(Fabao013Unstuck::onCultivationSecond);
         NeoForge.EVENT_BUS.addListener(FabaoPoisonFields::stopped);
     }
 
@@ -173,6 +202,10 @@ public final class EquipmentSetup {
 
     public static Supplier<EntityType<Fabao014>> fabao014Type() {
         return CONTENT.entityType(Fabao014.ID);
+    }
+
+    public static Supplier<EntityType<Fabao01701Entity>> fabao017Type() {
+        return CONTENT.entityType("fabao_01701");
     }
 
     public static Supplier<EntityType<Fabao010huoyan>> fabao010FireType() {

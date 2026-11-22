@@ -1,4 +1,10 @@
 {
+  "block.yvanchuxiuzhen.hotoil": "Hotoil",
+  "item.yvanchuxiuzhen.hotoil_bucket": "Hotoil Bucket",
+  "fluid.yvanchuxiuzhen.hotoil": "Hotoil",
+  "block.yvanchuxiuzhen.watercloud": "Watercloud",
+  "item.yvanchuxiuzhen.watercloud_bucket": "Watercloud Bucket",
+  "fluid.yvanchuxiuzhen.watercloud": "Watercloud",
   "block.yvanchuxiuzhen.scorchedsoil": "Scorchedsoil",
   "block.yvanchuxiuzhen.loess": "Loess",
   "block.yvanchuxiuzhen.bluestone": "Bluestone",
@@ -551,5 +557,21 @@
   "item.yvanchuxiuzhen.paiwei_07item": "Paiwei 0 7item",
   "item.yvanchuxiuzhen.paiwei_08item": "Paiwei 0 8item",
   "item.yvanchuxiuzhen.paiwei_09item": "Paiwei 0 9item",
-  "subtitles.yaoqiantong": "签筒摇晃"
+  "subtitles.yaoqiantong": "签筒摇晃",
+  "gui.yvanchuxiuzhen.beechfurniture_15_gui.button_qie_huan": "切换",
+  "entity.yvanchuxiuzhen.shitiyizi": "Shitiyizi",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.button_ok": "OK",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.button_05": "+0.5",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.Zai Ci Shu Ru Bian E Nei Rong ": "Enter the plaque content here",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.button_empty": ">>",
+  "gui.yvanchuxiuzhen.plaque_gui_xitong.plaquetxt": "在此输入匾额内容",
+  "gui.yvanchuxiuzhen.paiwei_gui.button_she_zhi": "设置",
+  "gui.yvanchuxiuzhen.paiwei_gui.plaquetxt": "牌位内容",
+  "gui.yvanchuxiuzhen.plaque_gui.button_05": "+0.5",
+  "gui.yvanchuxiuzhen.plaque_gui.plaquetxt": "在此输入匾额内容",
+  "gui.yvanchuxiuzhen.plaque_gui.button_empty": ">>",
+  "gui.yvanchuxiuzhen.plaque_gui.button_ok": "ok",
+  "entity.yvanchuxiuzhen.shitiputuan": "Shitiyizi",
+  "block.yvanchuxiuzhen.zhuangshitizi": "Zhuangshitizi",
+  "block.yvanchuxiuzhen.zhuangshiqiantong": "Zhuangshiqiantong"
 }

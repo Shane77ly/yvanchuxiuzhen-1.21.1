@@ -1,0 +1,24 @@
+[
+  {
+    "id": "guancai_01",
+    "factory": "creature:coffin",
+    "material": "WOOD",
+    "sound": "WOOD",
+    "strength": [5.0, 50.0],
+    "no_occlusion": true,
+    "redstone_conductor": false,
+    "states": ["FACING"],
+    "placement": "horizontal",
+    "rotate": true,
+    "light_block": 0,
+    "skylight": "always",
+    "shape": {
+      "default": {"box": [0.0, 0.0, -8.0, 16.0, 14.0, 24.0]},
+      "north": {"box": [0.0, 0.0, -8.0, 16.0, 14.0, 24.0]},
+      "east": {"box": [-8.0, 0.0, 0.0, 24.0, 14.0, 16.0]},
+      "south": {"box": [0.0, 0.0, -8.0, 16.0, 14.0, 24.0]},
+      "west": {"box": [-8.0, 0.0, 0.0, 24.0, 14.0, 16.0]}
+    },
+    "fallback_drop": {"item": "self", "count": 1}
+  }
+]

@@ -1,7 +1,7 @@
 package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
+import com.mojang.util.UndashedUuid;
 import java.util.Random;
-import java.util.UUID;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -11,6 +11,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.scores.Objective;
+import net.minecraft.world.scores.Scoreboard;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
@@ -30,11 +32,19 @@ final class Yaoshou037054Support {
 
     static Entity target(LevelAccessor world, Entity entity) {
         if (!(world instanceof ServerLevel level)) return null;
+        String id = entity.getPersistentData().getString("gongjizhe");
+        if (id.isEmpty()) return null;
         try {
-            return level.getEntity(UUID.fromString(entity.getPersistentData().getString("gongjizhe")));
+            return level.getEntity(UndashedUuid.fromStringLenient(id));
         } catch (IllegalArgumentException exception) {
             return null;
         }
+    }
+
+    static boolean isSummoned(Entity entity) {
+        Scoreboard scoreboard = entity.level().getScoreboard();
+        Objective objective = scoreboard.getObjective("zhaohuanwu");
+        return objective != null && scoreboard.getOrCreatePlayerScore(entity, objective).get() == 1;
     }
 
     static boolean isKind(Entity entity, String id) {

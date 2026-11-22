@@ -83,7 +83,7 @@ final class EquipmentWeapons {
         }
         ToolMachineEntity.Kind kind = toolKind(player.getMainHandItem());
         if (kind != null) {
-            KailingProjectile.shoot(player.serverLevel(), player, kind);
+            KailingProjectile.shoot(player.serverLevel(), player, 1);
             player.getCooldowns().addCooldown(player.getMainHandItem().getItem(), 100);
         }
     }
@@ -164,7 +164,7 @@ final class EquipmentWeapons {
             AbstractArrow arrow = switch (kind) {
                 case 0 -> ordinaryArrow(player);
                 case 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 -> Skills.createArrow(player, kind, kind == 3 || kind == 4 || kind == 6 ? 1 : 0, 0,
-                        ModifierKeys.ctrl(player), ModifierKeys.alt(player), Cultivation.tizhiBoolean(player, "manxvli"), infinity);
+                        Cultivation.tizhiBoolean(player, "manxvli"), infinity);
                 default -> null;
             };
             if (arrow != null) {

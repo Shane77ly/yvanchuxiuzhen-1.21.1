@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
@@ -20,10 +21,11 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.xiulian.api.BloodStone;
 
 /**
- * 战斗中的状态效果：流血、逃跑与幻音。僵直（{@code effect_033}）的每刻粒子随 particle 迁移，目前只是标记。
+ * 战斗中的状态效果：流血及其血滴/血烟、僵直粒子、逃跑与幻音。
  */
 final class BattleEffects {
     private static final TagKey<EntityType<?>> YAOSHOU = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "yaoshou"));
@@ -33,6 +35,15 @@ final class BattleEffects {
 
     static void register(ContentTables tables) {
         tables.effectBehavior("effect_004", EffectSupport.withStartSound("effect_004yinxiao", new Bleed()));
+        tables.effectBehavior("effect_033", new EffectBehavior() {
+            @Override
+            public boolean tick(LivingEntity entity, int amplifier) {
+                if (entity.level() instanceof ServerLevel level) {
+                    level.sendParticles(Particles.type("effect_033lizi"), entity.getX(), entity.getY() + 1, entity.getZ(), 1, 1, 1, 1, 0);
+                }
+                return true;
+            }
+        });
         tables.effectBehavior("effect_034", new Flee());
         tables.effectBehavior("effect_032", new Illusion());
     }
@@ -45,7 +56,7 @@ final class BattleEffects {
 
     /**
      * 流血：亡灵（1.21.1 以实体类型标签 {@code minecraft:undead} 判断）直接移除，受到瞬间治疗时移除。每刻计数，到达周期（20 刻；有见血封喉时 20 − (其等级 + 1) 刻）扣 (等级 + 1) 点生命，
-     * 并给脚下的吸血石加同量的充血。血滴、血烟粒子（{@code xvedi}、{@code smokered}）随 particle 迁移。
+     * 随后按当前效果等级发水中血烟或陆上血滴，并给脚下的吸血石加同量的充血；本刻移除流血后仍继续，效果等级读取为 0。
      */
     private static final class Bleed implements EffectBehavior {
         @Override
@@ -63,9 +74,14 @@ final class BattleEffects {
             entity.getPersistentData().putDouble("effect004tick", count);
             double period = StatusEffects.has(entity, "duyao_18") ? 20 - (StatusEffects.amplifier(entity, "duyao_18") + 1) : 20;
             if (count >= period) {
-                entity.setHealth((float) (entity.getHealth() - (amplifier + 1)));
+                entity.setHealth((float) (entity.getHealth() - (StatusEffects.amplifier(entity, "effect_004") + 1)));
+                if (entity.level() instanceof ServerLevel level) {
+                    level.sendParticles(Particles.type(entity.isInWaterOrBubble() ? "smokered" : "xvedi"), entity.getX(),
+                            entity.getY() + entity.getBbHeight() / 2, entity.getZ(), StatusEffects.amplifier(entity, "effect_004") + 1, 0.3, 1, 0.3, 0);
+                }
                 entity.getPersistentData().putDouble("effect004tick", 0);
-                BloodStone.addBlood(entity.level(), BlockPos.containing(entity.getX(), entity.getY() - 0.5, entity.getZ()), amplifier + 1);
+                BloodStone.addBlood(entity.level(), BlockPos.containing(entity.getX(), entity.getY() - 0.5, entity.getZ()),
+                        StatusEffects.amplifier(entity, "effect_004") + 1);
             }
             return true;
         }

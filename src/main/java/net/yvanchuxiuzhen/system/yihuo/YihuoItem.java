@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.yihuo;
 
 import java.util.List;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -40,7 +41,7 @@ public final class YihuoItem extends ContentItem {
                 .build()), tooltip);
         this.material = material;
         grade = grade(material);
-        cost = 1 << grade;
+        cost = 10 * (1 << grade);
         requiredPower = material == 234 ? 8 : cost;
     }
 
@@ -97,7 +98,8 @@ public final class YihuoItem extends ContentItem {
             return true;
         }
         if (Cultivation.get(player, CultivationValue.POWER) < requiredPower) {
-            player.displayClientMessage(Component.literal("§4灵力不足" + (int) requiredPower + "点！"), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.yihuo.insufficient_power", (int) cost)
+                    .withStyle(ChatFormatting.DARK_RED), false);
             return false;
         }
         Cultivation.add(player, CultivationValue.POWER, -cost);

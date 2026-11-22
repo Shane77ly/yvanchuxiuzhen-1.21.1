@@ -19,9 +19,15 @@ import net.yvanchuxiuzhen.panel.network.OpenPanelPayload;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.equipment.api.AccessoryPageEvent;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.profession.api.ProfessionPageEvent;
+import net.yvanchuxiuzhen.system.profession.api.Professions;
 import net.yvanchuxiuzhen.system.skill.api.SkillPageEvent;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
+import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.DantianReturnEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.RetreatPageEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.Retreats;
+import net.yvanchuxiuzhen.system.xiulian.api.SkillPointPageEvent;
 
 /** 玩家分页导航只拥有 dangqianGUI；属性汇总只读公开数据，饰品与装配菜单分别归 equipment、skill。 */
 public final class PanelNavigation {
@@ -41,14 +47,29 @@ public final class PanelNavigation {
         modBus.addListener(OpenPanelPayload::register);
         NeoForge.EVENT_BUS.addListener(PanelNavigation::fromAccessories);
         NeoForge.EVENT_BUS.addListener(PanelNavigation::fromLoadout);
+        NeoForge.EVENT_BUS.addListener(PanelNavigation::fromProfessions);
+        NeoForge.EVENT_BUS.addListener(PanelNavigation::fromSkillPoints);
+        NeoForge.EVENT_BUS.addListener(PanelNavigation::fromRetreat);
         NeoForge.EVENT_BUS.addListener(PanelNavigation::fromDantian);
     }
 
     public static void open(ServerPlayer player) {
-        switch (player.getData(PAGE)) {
-            case 3 -> openAccessories(player);
-            case 4 -> openLoadout(player);
-            default -> openAttributes(player);
+        openPage(player, player.getData(PAGE), player.blockPosition().above());
+    }
+
+    /** 轮回把下次面板入口归第 1 页，但此时不打开属性界面。 */
+    public static void resetForReincarnation(ServerPlayer player) {
+        player.setData(PAGE, 1);
+    }
+
+    private static void openPage(ServerPlayer player, int page, BlockPos pos) {
+        switch (page) {
+            case 2 -> openSkillPoints(player, pos);
+            case 3 -> openAccessories(player, pos);
+            case 4 -> openLoadout(player, pos);
+            case 5 -> openProfessions(player, pos);
+            case 6 -> openRetreat(player, pos);
+            default -> openAttributes(player, pos);
         }
     }
 
@@ -61,6 +82,15 @@ public final class PanelNavigation {
         player.setData(PAGE, 1);
     }
 
+    public static void openSkillPoints(ServerPlayer player, BlockPos pos) {
+        Cultivation.openSkillPoints(player, pos);
+        player.setData(PAGE, 2);
+    }
+
+    private static void fromSkillPoints(SkillPointPageEvent event) {
+        openPage(event.player(), event.page(), event.pos().above());
+    }
+
     public static void openAccessories(ServerPlayer player) {
         openAccessories(player, player.blockPosition().above());
     }
@@ -71,8 +101,7 @@ public final class PanelNavigation {
     }
 
     private static void fromAccessories(AccessoryPageEvent event) {
-        if (event.page() == 4) openLoadout(event.player(), event.pos().above());
-        else openAttributes(event.player(), event.pos().above());
+        openPage(event.player(), event.page(), event.pos().above());
     }
 
     public static void openLoadout(ServerPlayer player) {
@@ -85,13 +114,34 @@ public final class PanelNavigation {
     }
 
     private static void fromLoadout(SkillPageEvent event) {
-        if (event.page() == 3) openAccessories(event.player(), event.pos().above());
-        else openAttributes(event.player(), event.pos().above());
+        openPage(event.player(), event.page(), event.pos().above());
+    }
+
+    public static void openProfessions(ServerPlayer player) {
+        openProfessions(player, player.blockPosition().above());
+    }
+
+    public static void openProfessions(ServerPlayer player, BlockPos pos) {
+        Professions.openPage(player, pos);
+        player.setData(PAGE, 5);
+    }
+
+    private static void fromProfessions(ProfessionPageEvent event) {
+        openPage(event.player(), event.page(), event.pos().above());
+    }
+
+    public static void openRetreat(ServerPlayer player, BlockPos pos) {
+        Retreats.openPage(player, pos);
+        player.setData(PAGE, 6);
+    }
+
+    private static void fromRetreat(RetreatPageEvent event) {
+        openPage(event.player(), event.page(), event.pos().above());
     }
 
     private static void fromDantian(DantianReturnEvent event) {
         int page = event.player().getData(PAGE);
-        if (page == 1 || page == 3 || page == 4) {
+        if (page >= 1 && page <= 6) {
             open(event.player());
             event.setCanceled(true);
         }

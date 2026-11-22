@@ -12,6 +12,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.api.SpiritBeastBags;
+import net.yvanchuxiuzhen.system.creature.entity.SourceFollowOwnerGoal;
 
 /** 036号妖兽的来源身份、初始化、生命周期与逐刻行为。 */
 public final class Yaoshou036Entity extends YaoshouEntity {
@@ -20,12 +21,23 @@ public final class Yaoshou036Entity extends YaoshouEntity {
         xpReward = 0;
     }
 
+    @Override
+    protected void registerGoals() {
+        goalSelector.addGoal(1, new SourceFollowOwnerGoal(this, 1, 10, 2, false));
+    }
+
     @Override protected void sourceSpawn(ServerLevelAccessor level) {
         YaoshouShared.initialize(this, 20, "强劲", "贫弱", "勉强", "贫弱", "贫弱", "贫弱", "强劲", "平庸", "勉强", "平庸", "贫弱", "贫弱", "勉强");
     }
 
     @Override protected void sourceTick() { Yaoshou036Behavior.tick(this); }
     @Override protected void sourceHurt(DamageSource source, float amount) { Yaoshou037054Support.hurt(this, source, "animation.yaoshou036.attacked"); }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        updateSwingTime();
+    }
 
     @Override public boolean hurt(DamageSource source, float amount) {
         if (source.is(DamageTypes.DROWN)) {

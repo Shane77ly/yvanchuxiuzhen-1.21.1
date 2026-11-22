@@ -2,7 +2,7 @@
 topic: lianqi
 role: architecture
 status: partial
-updated: 2026-11-09
+updated: 2026-11-17
 ---
 
 # 炼器、图纸、熔炼与修理
@@ -12,6 +12,12 @@ updated: 2026-11-09
 ## 数据所有者与公开操作
 
 lianqi 唯一写鼎内炉次和图纸；material 提供材料定义与实例；equipment 唯一构造器物、解释旧累计值并映射原生属性；profession 唯一写职业；storage 唯一写玩家材料仓。客户端只读菜单和方块实体更新包，按钮仅传编号，服务端确认当前菜单绑定的真实鼎后执行。
+
+### 图纸奖励载体身份（2026-11-17）
+
+`A:PlayerJoin02Procedure.java:96–119`的世家纨绔分支在`book_030`图纸写`belongToItemID=yvanchuxiuzhen:book_030`，同时将显示名设为“精铁剑图纸”、配方名设为“精铁剑”；两种名称承担不同用途。`Lianqi.createBlueprintReward(Item, BlueprintReward, String)`由炼器构造既有配方后，追加调用方显式提交的来源载体身份。两参数入口仍供原副本奖励使用，不自动追加该字段。出身流程只传参数，不直接改炼器根字段。
+
+本次只静态核对来源字段与所有权；新增接口编译、出身实际发奖、普通阅读、炼器消费和保存重进的结果在[月志](logs/2026-11.md)分别登记，不以接口实现表示该玩家路径已验收。
 
 | 操作 | 调用与边界 |
 | --- | --- |
@@ -36,6 +42,8 @@ lianqi 唯一写鼎内炉次和图纸；material 提供材料定义与实例；e
 | `B:Lianqizidongfangru:225` | `renwuitem`写回 | `MaterialStorage.consumeForRefining`唯一扣仓与保存 |
 
 ## 八鼎生命周期
+
+异火供热与鼎自身消费使用同一 `lianpower`，但读写类型不同：A `Cailiao221fireblockGengXinYouXiKeProcedure` 每次按 double 累加，`HuoyanxiaoshipandingProcedure` 按 double 检查残热是否至少为 1；B `LianqiTickProcedure:60–67` 在开炉且热量足够时才按整数扣 `TripodLevel`、增加进度，B `TripodPowerProcedure` 也按整数显示。供热方不提前截去小数；通常每次整单位输入时数值不变。丹炉另由炼丹系统消费。
 
 `B:Tripod01Block:118–145`及其余七鼎的`onPlace/tick/use`为自然入口：放置初始化并安排20游戏刻后的计划刻；每次推进后继续安排20刻。拆除抛出全部库存并更新比较器。
 

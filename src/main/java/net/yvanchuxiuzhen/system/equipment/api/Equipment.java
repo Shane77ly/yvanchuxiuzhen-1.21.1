@@ -1,19 +1,24 @@
 package net.yvanchuxiuzhen.system.equipment.api;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.system.equipment.Accessories;
+import net.yvanchuxiuzhen.system.equipment.EquipmentAttributes;
 import net.yvanchuxiuzhen.system.equipment.EquipmentProducts;
 import net.yvanchuxiuzhen.system.equipment.EquipmentRefining;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
+import net.yvanchuxiuzhen.system.equipment.data.AccessoryData;
 
 /** 装备实例的公开构造与查询；调用方只负责给予、容器或奖励流程。 */
 public final class Equipment {
@@ -71,8 +76,43 @@ public final class Equipment {
         return stack.getOrDefault(EquipmentData.PROPERTIES.get(), EquipmentProperties.EMPTY);
     }
 
+    /** 炉次保留的非空主人优先；未认主的升级件仍可在出炉后通过精血写入主人。 */
+    public static String ownerId(ItemStack stack) {
+        String retained = properties(stack).text("belongToMasterUUID");
+        return retained.isEmpty() ? stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
+                .copyTag().getString("belongToMasterUUID") : retained;
+    }
+
+    /** 通用编辑器修改来源根字段时，由装备所有者同步根字段投影与两项本命经验组件。 */
+    public static void updateRootField(ItemStack stack, String key, Tag value) {
+        CompoundTag root = new CompoundTag();
+        root.put(key, value);
+        Map<String, EquipmentProperties.Value> fields = new LinkedHashMap<>(properties(stack).fields());
+        EquipmentProperties.Value projected = value.getId() == Tag.TAG_STRING
+                ? EquipmentProperties.Value.text(root.getString(key))
+                : EquipmentProperties.Value.decimal(root.getDouble(key));
+        fields.put(key, projected);
+        stack.set(EquipmentData.PROPERTIES.get(), new EquipmentProperties(fields));
+        if (key.equals("benmingexp") || key.equals("benmingexpmax")) {
+            BenmingData progress = stack.getOrDefault(EquipmentData.BENMING.get(), BenmingData.EMPTY);
+            stack.set(EquipmentData.BENMING.get(), key.equals("benmingexp")
+                    ? new BenmingData(progress.level(), root.getDouble(key), progress.experienceMax())
+                    : new BenmingData(progress.level(), progress.experience(), root.getDouble(key)));
+        }
+    }
+
     public static AccessoryInventory accessories(Player player) {
         return player.getData(EquipmentData.ACCESSORIES).snapshot();
+    }
+
+    /** 轮回清四个饰品槽，不触碰投掷法宝临时数据或其他装备系统持有物。 */
+    public static void clearReincarnationAccessories(ServerPlayer player) {
+        player.setData(EquipmentData.ACCESSORIES, new AccessoryData());
+    }
+
+    /** 库存与饰品归零后立即撤回旧器物贡献，不发完整重算粒子。 */
+    public static void refreshContributions(ServerPlayer player) {
+        EquipmentAttributes.submit(player);
     }
 
     public static void openAccessories(ServerPlayer player) {

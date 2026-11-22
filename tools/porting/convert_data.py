@@ -4,6 +4,7 @@
 - src/main/resources/data/yvanchuxiuzhen/recipe/<名>.json
 - src/main/resources/data/yvanchuxiuzhen/loot_table/<blocks|entities>/<名>.json
 - src/main/resources/data/yvanchuxiuzhen/advancement/<名>.json
+- src/main/resources/data/yvanchuxiuzhen/function/playerchuansuo.mcfunction
 - src/main/resources/data/<yvanchuxiuzhen|minecraft>/tags/<种类>/<路径>.json
 - src/main/resources/data/yvanchuxiuzhen/enchantment/<名>.json 与附魔相关标签（convert_enchantments.py）
 - 已核对的维度、维度类型、群系与洞穴可替换标签（convert_world.py）
@@ -26,6 +27,7 @@ from convert_content import CONTENT, CONVERSION, SOURCES
 from convert_enchantments import generate as generate_enchantments
 from convert_world import generate as generate_world
 from convert_plant_worldgen import generate as generate_plant_worldgen
+from convert_plant_item_extensions import generate as generate_plant_item_extensions
 from convert_tree_worldgen import generate as generate_tree_worldgen
 from convert_wild_plant_worldgen import generate as generate_wild_plant_worldgen
 from convert_ore_worldgen import generate as generate_ore_worldgen
@@ -35,6 +37,7 @@ from convert_native_worldgen import generate as generate_native_worldgen
 from convert_legacy_biome_vanilla import generate as generate_legacy_biome_vanilla
 from convert_source_biomes import generate as generate_source_biomes
 from convert_terrain_dimensions import generate as generate_terrain_dimensions
+from convert_painting_dimension import generate as generate_painting_dimension
 
 DATA = ROOT / 'src/main/resources/data'
 MANIFEST = CONVERSION / 'data_manifest.csv'
@@ -51,8 +54,7 @@ def read_rows(path: Path) -> list[dict]:
 
 
 class Registered:
-    """本 Mod 已登记的方块与物品（内容表）、所属系统自己登记的内容（台账状态为“行为已迁移”的行），
-    和原版 1.21.1 的方块、物品（物品模型与方块状态文件）、实体类型（语言文件中的名称键）。"""
+    """本 Mod 已登记的方块、物品、实体类型（内容表）与迁移行为，以及原版资源注册身份。"""
 
     def __init__(self) -> None:
         self.mod = {'item': set(), 'block': set()}
@@ -65,6 +67,8 @@ class Registered:
                     self.stack[f'{NAMESPACE}:{row["id"]}'] = row['stack']
         for path in sorted(CONTENT.glob('*/blocks.json')):
             self.mod['block'] |= {f'{NAMESPACE}:{row["id"]}' for row in read_rows(path)}
+        self.mod['entity_type'] = {f'{NAMESPACE}:{row["id"]}'
+                                   for path in sorted(CONTENT.glob('*/entities.json')) for row in read_rows(path)}
         # 来源注册表中出现过的 ID（目标 ID），用于区分“尚未迁移”与“来源标签引用了来源本身没有登记的 ID”。
         self.in_source = set()
         for rows in read_ledgers().values():
@@ -281,6 +285,14 @@ class Converter:
             out['parent'] = self.rename(out['parent'])
         self.write(DATA / NAMESPACE / 'advancement' / file.name, out, [(mod, file)])
 
+    def birth_function(self, mod: str, file: Path, root: Path) -> None:
+        """出身传送函数保留来源维度、选择器和坐标，只适配目标函数目录。"""
+        target = DATA / NAMESPACE / 'function' / file.name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(file.read_text(encoding='utf-8'), encoding='utf-8', newline='\n')
+        digest = hashlib.sha1(file.read_bytes()).hexdigest()
+        self.manifest.append((f'{mod}/{file.relative_to(root).as_posix()}', digest, self.rel(target)))
+
     # ---- 输出 ----
 
     def rel(self, path: Path) -> str:
@@ -328,10 +340,14 @@ class Converter:
             for file in sorted((data / 'advancements').glob('*.json')) if (data / 'advancements').is_dir() else []:
                 self.advancement(mod, file, root)
             for file in sorted((data / 'functions').glob('*.mcfunction')) if (data / 'functions').is_dir() else []:
-                self.skipped.append(('function', f'{mod}/{file.relative_to(root).as_posix()}', '函数引用本 Mod 的维度，随 world 迁移'))
+                if mod == 'yvanchuxiuzhen' and file.stem == 'playerchuansuo':
+                    self.birth_function(mod, file, root)
+                else:
+                    self.skipped.append(('function', f'{mod}/{file.relative_to(root).as_posix()}', '函数引用本 Mod 的维度，随 world 迁移'))
         for target in generated:
             self.write(target, self.tags[target], self.tag_origin[target])
         generate_enchantments(self)
+        generate_plant_item_extensions(self)
         generate_world(self)
         generate_plant_worldgen(self)
         generate_wild_plant_worldgen(self)
@@ -344,6 +360,7 @@ class Converter:
         # 群系必须在全部实体、地物及原版生成根写出后转换；维度再由已落盘的群系做完整依赖门禁。
         generate_source_biomes(self)
         generate_terrain_dimensions(self)
+        generate_painting_dimension(self)
         CONVERSION.mkdir(parents=True, exist_ok=True)
         with MANIFEST.open('w', encoding='utf-8', newline='') as handle:
             writer = csv.writer(handle, lineterminator='\n')

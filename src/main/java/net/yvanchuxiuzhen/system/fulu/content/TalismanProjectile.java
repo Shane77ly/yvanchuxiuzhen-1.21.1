@@ -9,6 +9,9 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -24,6 +27,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
@@ -38,8 +42,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.fulu.FuluUse;
+import net.yvanchuxiuzhen.system.fulu.FiveThunderCurse;
+import net.yvanchuxiuzhen.system.fulu.TalismanControl;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -55,16 +62,19 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
  * 远程符：10 号（命中的非友方随机获得 {@code 2×品阶} 次负面状态）、20 号（击中丹炉或鼎炉时把炉内火力设为品阶）、
  * 28 号（命中的非友方发光 {@code 2400×品阶²} 刻）、33 号（命中的非友方定身，对亡灵更久）、35 号（令使用者的生命比例与命中者一致）；
  * 其品阶由使用者松手时写入的持久数据 {@code fululevel} 传入，35 号取主手符箓的品阶并在第一刻扣除一张。
+ * 41号惊庭五雷符首刻交接独立品阶和施放者身份，16刻内命中实体时登记五轮落雷状态。
+ * 18号神傀符保留使用者通用品阶，首刻记录修饰键模式，10刻内命中时分派妖兽驯服或非妖兽控制。
  * 05、29、32 的品阶由使用者的实体持久数据 {@code fulu05level}、{@code fulu29level}、{@code fulu32level} 传入。
- * 品阶在第一刻从发射者的符箓状态读取。1.21.1 版本的箭没有独立击退字段，来源 13、17 号弹体的击退 1 不再携带。
+ * 品阶在第一刻从发射者的符箓状态读取。独立击退值由具体发射入口设置。
  */
 public final class TalismanProjectile extends AbstractArrow implements ItemSupplier {
-    /** 三种弹体及其内容表 ID。 */
+    /** 各弹体的内容表ID。 */
     public enum Kind {
         FIREBALL("projectile_fulutexiao_46"), METEOR("projectile_fulutexiao_17"), SWORD("projectile_fulutexiao_19"),
         QI_SWORD("projectile_fulutexiao_05"), FROST("projectile_fulutexiao_29"), CLUSTER("projectile_fulutexiao_32"),
         DEBUFF("projectile_itemfulu_10"), FURNACE("projectile_itemfulu_20"), GLOW("projectile_itemfulu_28"),
-        BIND("projectile_itemfulu_33"), BLOOD("projectile_itemfulu_35"), CANNON("projectile_fulutexiao_45");
+        BIND("projectile_itemfulu_33"), BLOOD("projectile_itemfulu_35"), CANNON("projectile_fulutexiao_45"),
+        FIVE_THUNDER("projectile_itemfulu_41"), TAMING("projectile_itemfulu_18");
 
         private final String id;
 
@@ -77,10 +87,12 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         }
     }
 
+    private static final EntityDataAccessor<Byte> PIERCE = SynchedEntityData.defineId(TalismanProjectile.class, EntityDataSerializers.BYTE);
     private static final int FLIGHT_TICKS = 14;
     private static final TagKey<Block> DANLU = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "danlu"));
     private static final TagKey<Block> DINGLU = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "dinglu"));
     private final Kind kind;
+    private int knockback;
     private double grade;
     private boolean recorded;
     private boolean splitting;
@@ -89,6 +101,34 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     public TalismanProjectile(EntityType<? extends TalismanProjectile> type, Level level, Kind kind) {
         super(type, level);
         this.kind = kind;
+        setTalismanPierce(kind == Kind.SWORD ? 5 : kind == Kind.QI_SWORD ? 10 : 0);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(PIERCE, (byte) 0);
+    }
+
+    public void setTalismanPierce(int value) {
+        entityData.set(PIERCE, (byte) value);
+    }
+
+    /** 设置来源箭实体的击退强度；该值与 1.18.2 原生箭一样不写入存档。 */
+    public TalismanProjectile launchedWithKnockback(int value) {
+        knockback = value;
+        return this;
+    }
+
+    @Override
+    protected void doKnockback(LivingEntity target, DamageSource source) {
+        if (knockback > 0) {
+            double resistance = Math.max(0.0, 1.0 - target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+            Vec3 push = getDeltaMovement().multiply(1.0, 0.0, 1.0).normalize().scale(knockback * 0.6 * resistance);
+            if (push.lengthSqr() > 0.0) {
+                target.push(push.x, 0.1, push.z);
+            }
+        }
     }
 
     /** 以来源的伤害 0.1、静音生成并按给定方向以速度 1、无散布发射。 */
@@ -98,7 +138,12 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
 
     public static void launch(ServerLevel level, EntityType<? extends TalismanProjectile> type, Entity owner, Vec3 at, Vec3 direction,
                               float speed, double baseDamage) {
-        TalismanProjectile projectile = type.create(level);
+        launch(level, type, owner, at, direction, speed, baseDamage, 0);
+    }
+
+    public static void launch(ServerLevel level, EntityType<? extends TalismanProjectile> type, Entity owner, Vec3 at, Vec3 direction,
+                              float speed, double baseDamage, int knockback) {
+        TalismanProjectile projectile = type.create(level).launchedWithKnockback(knockback);
         projectile.setOwner(owner);
         projectile.setBaseDamage(baseDamage);
         projectile.setSilent(true);
@@ -116,6 +161,8 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
             case CANNON -> new ItemStack(Items.FIRE_CHARGE);
             case GLOW -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "itemfulu_28")));
             case BLOOD -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "cailiao_118")));
+            case FIVE_THUNDER -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "itemfulu_41")));
+            case TAMING -> new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "itemfulu_18")));
             case FROST -> new ItemStack(Items.COBWEB);
             case CLUSTER -> new ItemStack(Items.FIREWORK_STAR);
         };
@@ -133,11 +180,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
 
     @Override
     public byte getPierceLevel() {
-        return (byte) switch (kind) {
-            case SWORD -> 5;
-            case QI_SWORD -> 10;
-            default -> 0;
-        };
+        return entityData.get(PIERCE);
     }
 
     @Override
@@ -158,15 +201,24 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     @Override
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
+        setTalismanPierce(0);
         impact(Vec3.atLowerCornerOf(result.getBlockPos()));
     }
 
     private void rangedHit(Entity target) {
+        if (!(level() instanceof ServerLevel level)) {
+            return;
+        }
+        if (kind == Kind.FIVE_THUNDER) {
+            FiveThunderCurse.hit(level, this, target, grade);
+            return;
+        }
         Entity owner = getOwner();
-        if (owner == null || !(level() instanceof ServerLevel level)) {
+        if (owner == null) {
             return;
         }
         switch (kind) {
+            case TAMING -> TalismanControl.hit(level, this, target, owner, grade);
             case DEBUFF -> {
                 if (!Relations.isFriendly(owner, target) && target instanceof LivingEntity living) {
                     for (int index = 0; index < (int) (grade * 2); index++) {
@@ -287,10 +339,44 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
                 case FROST -> frostTick(level);
                 case CLUSTER -> clusterTick(level);
                 case DEBUFF, FURNACE, GLOW, BIND, BLOOD -> rangedTick(level);
+                case FIVE_THUNDER -> fiveThunderTick();
+                case TAMING -> tamingTick();
                 case CANNON -> cannonTick(level);
             }
         }
         if (inGround) {
+            discard();
+        }
+    }
+
+    /** 18号弹体首刻读取品阶、名字、玩家团队与修饰键；保留使用者的通用品阶，十刻后消失。 */
+    private void tamingTick() {
+        Entity owner = getOwner();
+        if (!isNoGravity()) {
+            grade = owner.getPersistentData().getDouble("fululevel");
+            Relations.setTeam(this, owner instanceof Player ? Relations.team(owner) : "");
+            getPersistentData().putString("zhurenname", owner.getDisplayName().getString());
+            if (owner instanceof Player player && (ModifierKeys.ctrl(player) || ModifierKeys.alt(player))) {
+                getPersistentData().putBoolean("jiuxiaoguo", true);
+            }
+            setNoGravity(true);
+        }
+        if (++ticks >= 10) {
+            discard();
+        }
+    }
+
+    /** 41号弹体首刻交接独立品阶、主人和团队；命中前的首刻仍按来源由原生箭推进。 */
+    private void fiveThunderTick() {
+        Entity owner = getOwner();
+        if (!isNoGravity()) {
+            grade = owner.getPersistentData().getDouble("fulu41level");
+            owner.getPersistentData().putDouble("fulu41level", 0);
+            getPersistentData().putString("belongToMasterUUID", owner.getStringUUID());
+            Relations.setTeam(this, Relations.team(owner));
+            setNoGravity(true);
+        }
+        if (++ticks >= 16) {
             discard();
         }
     }
@@ -300,6 +386,8 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         if (!isNoGravity()) {
             double stored = FuluUse.stateValue(getOwner(), "fululevel46");
             grade = stored > 0 ? stored : 1;
+            Relations.setTeam(this, Relations.entityTeam(getOwner()));
+            getPersistentData().putString("AttackUUID", getOwner().getStringUUID());
             setNoGravity(true);
         }
         if (++ticks >= FLIGHT_TICKS) {
@@ -351,6 +439,8 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
             double stored = owner.getPersistentData().getDouble("fulu45level");
             grade = stored > 0 ? stored : owner.getPersistentData().getDouble("mana_Att");
             owner.getPersistentData().putDouble("fulu45level", 0);
+            Relations.setTeam(this, owner instanceof Player ? Relations.team(owner) : "");
+            getPersistentData().putString("belongToMasterUUID", owner.getStringUUID());
             setNoGravity(true);
         }
         if (++ticks >= FLIGHT_TICKS) {
@@ -375,8 +465,8 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         level.sendParticles(ParticleTypes.FLASH, getX(), getY(), getZ(), 1, 0, 0, 0, 0);
         level.playSound(null, BlockPos.containing(getX(), getY(), getZ()), SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1);
         for (double[] ring : new double[][] {{4, 0.2, 0.2, 5, 5}, {2, 0.5, 0.4, 15, 20}}) {
-            for (Entity target : nearby(level, position(), ring[0] / 2)) {
-                boolean hostile = strike ? !Relations.isFriendly(owner, target) : !Relations.team(target).equals(Relations.team(owner));
+            for (Entity target : nearby(level, position(), ring[0])) {
+                boolean hostile = strike ? !Relations.isFriendly(owner, target) : !Relations.entityTeam(target).equals(Relations.entityTeam(this));
                 if (!hostile) {
                     continue;
                 }
@@ -387,7 +477,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
                     }
                 } else {
                     target.getPersistentData().putDouble("ManaAttackDamage", ring[4] * grade);
-                    target.getPersistentData().putString("ManaAttackUUID", owner.getStringUUID());
+                    target.getPersistentData().putString("ManaAttackUUID", getPersistentData().getString("belongToMasterUUID"));
                     target.getPersistentData().putString("damagetype", "火");
                     target.getPersistentData().putDouble("Damage_multiplier", 1);
                     target.getPersistentData().putBoolean("attackduli", true);
@@ -531,6 +621,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
+        setTalismanPierce(tag.getByte("PierceLevel"));
         grade = tag.getDouble("fululevel");
         recorded = tag.getBoolean("jilu");
         ticks = tag.getInt("tick");

@@ -1,6 +1,5 @@
 package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
-import com.mojang.util.UndashedUuid;
 import java.util.Comparator;
 import java.util.Random;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -49,7 +48,7 @@ final class Yaoshou031Behavior {
         if (data.getString("jineng").isEmpty() && !data.getString("gongjizhe").equals(data.getString("linshigongjizhe"))) {
             data.putString("gongjizhe", data.getString("linshigongjizhe"));
         }
-        Entity target = target(entity);
+        Entity target = Yaoshou037054Support.target(entity.level(), entity);
         if (target == null) {
             if (data.getDouble("entitytick") >= 40) {
                 entity.getNavigation().moveTo(entity.getX() + random(-3, 3), entity.getY(), entity.getZ() + random(-3, 3), 1);
@@ -225,12 +224,6 @@ final class Yaoshou031Behavior {
         } else if (phase.equals("结束") && data.getDouble("entitytick") >= 12) {
             YaoshouShared.finishSkill(entity);
         }
-    }
-
-    private static Entity target(YaoshouEntity entity) {
-        if (!(entity.level() instanceof ServerLevel level)) return null;
-        try { return level.getEntity(UndashedUuid.fromStringLenient(entity.getPersistentData().getString("gongjizhe"))); }
-        catch (IllegalArgumentException exception) { return null; }
     }
 
     private static BlockPos trace(YaoshouEntity entity, double distance) {

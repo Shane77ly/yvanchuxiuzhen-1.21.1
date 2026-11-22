@@ -3,28 +3,35 @@ package net.yvanchuxiuzhen.system.xiulian;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Set;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterRecoveryEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
+import net.yvanchuxiuzhen.system.xiulian.api.LifetimeExhaustedEvent;
 import net.yvanchuxiuzhen.system.xiulian.tribulation.Tribulations;
 
 /**
  * 修炼的每秒推进（来源 {@code PlayerTick} 中以世界时间 {@code dayTime} 与 {@code tizhiitem.jishiqi} 相差 20 为间隔的部分）：
  * 闭关修炼、发出 {@link CultivationSecondEvent}、吸收待吸收修为（受每日上限约束）、妖化冷却、阳寿已尽提示、
  * 修为圆满时突破或开启雷劫、闭关冷却、恢复。世界时间倒退时重设计时基准。
- * 雷劫经 {@code ThunderBegin} 对应过程生成劫云；阳寿已尽 40 tick 后的轮回（来源 {@code Fulutexiao37}）尚未迁移。
+ * 雷劫经 {@code ThunderBegin} 对应过程生成劫云；阳寿已尽后延迟请求轮回。
  */
 public final class CultivationTick {
     private static final Set<ResourceKey<Level>> NO_BREAKTHROUGH = Set.of(
@@ -53,6 +60,7 @@ public final class CultivationTick {
     }
 
     private static void tick(ServerPlayer player) {
+        syncEntityResources(player);
         long time = player.level().getDayTime();
         double timer = Cultivation.tizhiDouble(player, "jishiqi");
         if (time >= timer + 20) {
@@ -65,17 +73,37 @@ public final class CultivationTick {
                 Cultivation.setTizhiDouble(player, "yaohualengqve", Cultivation.tizhiDouble(player, "yaohualengqve") - 1);
             }
             if (Cultivation.get(player, CultivationValue.LIFETIME) <= 0) {
-                player.displayClientMessage(Component.literal("你的阳寿已尽！"), false);
-                player.displayClientMessage(Component.literal("你的阳寿已尽！"), true);
+                player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.cultivation.lifetime_exhausted"), false);
+                player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.cultivation.lifetime_exhausted"), true);
+                ServerLevel sourceLevel = player.serverLevel();
+                Delayed.run(40, () -> NeoForge.EVENT_BUS.post(new LifetimeExhaustedEvent(player, sourceLevel)));
             }
             breakthrough(player);
             NeoForge.EVENT_BUS.post(new CultivationAfterBreakthroughEvent(player));
             cooldown(player);
             Recovery.tick(player);
+            NeoForge.EVENT_BUS.post(new CultivationAfterRecoveryEvent(player));
             Cultivation.setTizhiDouble(player, "jishiqi", time);
         } else if (time < timer) {
             Cultivation.setTizhiDouble(player, "jishiqi", time);
         }
+    }
+
+    /** 来源每 tick 在修炼结算之前发布实体持久镜像；只限制显示上限，不修改资源真值。 */
+    private static void syncEntityResources(ServerPlayer player) {
+        CompoundTag data = player.getPersistentData();
+        double powerMax = PlayerAttributes.value(player, Stat.POWER_MAX);
+        double soulMax = PlayerAttributes.value(player, Stat.SOUL_MAX);
+        double experienceMax = Cultivation.get(player, CultivationValue.EXPERIENCE_MAX);
+        double power = Cultivation.get(player, CultivationValue.POWER);
+        double soul = Cultivation.get(player, CultivationValue.SOUL);
+        double experience = Cultivation.get(player, CultivationValue.EXPERIENCE);
+        data.putDouble("synchronousPowerMax", powerMax);
+        data.putDouble("synchronousPower", power > powerMax ? powerMax : power);
+        data.putDouble("synchronousEnergyMax", soulMax);
+        data.putDouble("synchronousEnergy", soul > soulMax ? soulMax : soul);
+        data.putDouble("synchronousExperienceMax", experienceMax);
+        data.putDouble("synchronousExperience", experience > experienceMax ? experienceMax : experience);
     }
 
     /**
@@ -117,13 +145,15 @@ public final class CultivationTick {
             Cultivation.add(player, CultivationValue.EXPERIENCE, gained);
             Cultivation.setTizhiDouble(player, "dailyexperience", used + gained);
         } else if (used >= cap) {
-            player.displayClientMessage(Component.literal("§4修为无法寸进！已达到每日获得修为的上限！"), true);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.cultivation.daily_limit").withStyle(ChatFormatting.DARK_RED), true);
+            Cultivation.set(player, CultivationValue.EXPERIENCE_STAND, 0);
             return;
         } else {
             Cultivation.add(player, CultivationValue.EXPERIENCE, cap - used);
             Cultivation.setTizhiDouble(player, "dailyexperience", cap);
         }
-        player.displayClientMessage(Component.literal("每日修为获取：" + Cultivation.tizhiDouble(player, "dailyexperience") + "/" + cap), true);
+        player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.cultivation.daily_progress",
+                Cultivation.tizhiDouble(player, "dailyexperience"), cap), true);
     }
 
     /**
@@ -140,7 +170,7 @@ public final class CultivationTick {
                 Cultivation.setThunderOpen(player, true);
                 Tribulations.begin(player);
                 Cultivation.set(player, CultivationValue.EXPERIENCE, 1);
-                player.displayClientMessage(Component.literal("雷劫开始！"), false);
+                player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.cultivation.tribulation_begin"), false);
             } else {
                 LevelUp.levelUp(player);
                 Cultivation.set(player, CultivationValue.EXPERIENCE, Cultivation.get(player, CultivationValue.EXPERIENCE) - max);

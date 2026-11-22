@@ -1,10 +1,12 @@
 package net.yvanchuxiuzhen.system.skill.entity;
 
 import java.util.Map;
+import java.util.UUID;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 
 /**
@@ -27,23 +29,42 @@ final class LingwenEntities {
         skills.put(ID, new Rune());
     }
 
+    /** 旧目标版本把灵纹数存于实体本体，施法者存在 SkillCast 中。 */
+    static void restoreLegacyData(SkillEntity self) {
+        CompoundTag data = self.getPersistentData();
+        if (data.contains("lingwennum") && !data.getBoolean("lingwen_relation_migrated")) {
+            UUID attacker = self.attacker();
+            Relations.restoreLegacyRune(self, data.getInt("lingwennum"), attacker == null ? "" : attacker.toString());
+            data.putBoolean("lingwen_relation_migrated", true);
+        }
+    }
+
+    private static Entity owner(ServerLevel level, String id) {
+        try {
+            return level.getEntity(UUID.fromString(id));
+        } catch (IllegalArgumentException exception) {
+            return null;
+        }
+    }
+
     private static final class Rune implements EntitySkill {
         @Override
         public void tick(SkillEntity self) {
             CompoundTag data = self.getPersistentData();
-            int count = data.getInt("lingwennum");
+            restoreLegacyData(self);
+            int count = Relations.runeCount(self);
             if (count >= 2 && count < NUMBERS.length) {
                 self.setAnimation("animation.lingwen2." + NUMBERS[count]);
             }
             ServerLevel level = (ServerLevel) self.level();
-            Entity owner = self.attackerEntity();
+            Entity owner = owner(level, Relations.runeOwner(self));
             if (owner != null) {
                 self.teleportTo(owner.getX(), owner.getY(), owner.getZ());
             }
             data.putDouble("tick", data.getDouble("tick") + 1);
             if (data.getDouble("tick") >= DECAY) {
                 count--;
-                data.putInt("lingwennum", count);
+                Relations.setRuneCount(self, count);
                 if (count <= 0) {
                     self.discard();
                 }
@@ -58,7 +79,7 @@ final class LingwenEntities {
                                     owner.getLookAngle(), 0.1F, 0, 0, SCATTER);
                         }
                         count--;
-                        data.putInt("lingwennum", count);
+                        Relations.setRuneCount(self, count);
                         break;
                     }
                 }

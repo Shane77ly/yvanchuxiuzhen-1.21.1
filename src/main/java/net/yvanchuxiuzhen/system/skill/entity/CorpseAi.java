@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.skill.entity;
 
+import com.mojang.util.UndashedUuid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -78,7 +79,7 @@ final class CorpseAi {
         if (data.getString("jineng").isEmpty() && !data.getString("gongjizhe").equals(data.getString("linshigongjizhe"))) {
             data.putString("gongjizhe", data.getString("linshigongjizhe"));
         }
-        Entity target = data.getString("gongjizhe").isEmpty() ? null : level.getEntity(UUID.fromString(data.getString("gongjizhe")));
+        Entity target = resolveTarget(level, data.getString("gongjizhe"));
         if (target != null) {
             if (!target.isAlive()) {
                 data.putString("gongjizhe", "");
@@ -105,6 +106,20 @@ final class CorpseAi {
             level.sendParticles(ParticleTypes.LARGE_SMOKE, self.getX(), self.getY() + 1, self.getZ(), 20, 0.3, 1, 0.3, 0);
             self.discard();
         }
+    }
+
+    /** 按来源接受带连字符或无连字符的 UUID；解析失败与本维度未加载目标同样进入无目标分支。 */
+    private static Entity resolveTarget(ServerLevel level, String targetId) {
+        if (targetId.isEmpty()) {
+            return null;
+        }
+        UUID targetUuid;
+        try {
+            targetUuid = UndashedUuid.fromStringLenient(targetId);
+        } catch (IllegalArgumentException exception) {
+            return null;
+        }
+        return level.getEntity(targetUuid);
     }
 
     /** 技能结束复位（来源 {@code Entityjinengjieshu}）。 */

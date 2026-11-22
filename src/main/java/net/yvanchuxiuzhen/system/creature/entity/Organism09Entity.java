@@ -180,7 +180,10 @@ public final class Organism09Entity extends TamableAnimal implements GeoEntity, 
 
     @Override
     protected void tickDeath() {
-        if (++deathTime == 20) remove(RemovalReason.KILLED);
+        if (++deathTime == 20) {
+            remove(RemovalReason.KILLED);
+            dropExperience(lastHurtByPlayer);
+        }
     }
 
     @Override public String texture() { return entityData.get(TEXTURE); }

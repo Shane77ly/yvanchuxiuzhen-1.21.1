@@ -490,24 +490,24 @@ yvanchuxiuzhen,Waterneirong,procedure,~/GUI,panel,已读,K键按记忆分页打�
 yvanchuxiuzhen,Treeneirong,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,Fireneirong,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,Soilneirong,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
-yvanchuxiuzhen,PlayerGUI02,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,HealthUpxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PowerUpxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,SoulUpxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Att01xianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Att02xianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Att03xianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pointsxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI02,gui,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,HealthUpxianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,PowerUpxianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,SoulUpxianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,Att01xianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,Att02xianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,Att03xianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
+yvanchuxiuzhen,Pointsxianshi,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
 yvanchuxiuzhen,PlayerGUI03DangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/GUI,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxiuzhen,PlayerGUI03DangZheGeJieMianBeiGuanBi,procedure,~/GUI,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxiuzhen,PlayerGUI03,gui,~/GUI,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxiuzhen,PlayerGUI04,gui,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
-yvanchuxiuzhen,PlayerGUI05,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI05,gui,~/GUI,profession,已读,PlayerGUI05Screen/Menu/ButtonMessage及PlayerGui05jieshao：只读十职业同步进度、36格原生背包和来源三行说明；导航通过公开事件交给panel。
 yvanchuxiuzhen,OpenGUI01,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
-yvanchuxiuzhen,OpenGUI02,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,OpenGUI02,procedure,~/GUI,panel,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
 yvanchuxiuzhen,OpenGUI03,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,OpenGUI04,procedure,~/GUI,panel,已读,2026-11-08逐读OpenGUI04与玩家页导航调用链；入口记忆dangqianGUI并委托skill公开装配菜单，panel不写功法或技能存档
-yvanchuxiuzhen,OpenGUI05,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,OpenGUI05,procedure,~/GUI,panel,已读,OpenGUI05：沿用菜单坐标Y+1打开05并写记忆页5；菜单与显示归profession，导航记忆归panel。
 yvanchuxiuzhen,HealthMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
 yvanchuxiuzhen,PowerMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
 yvanchuxiuzhen,SoulMaxUp,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：面板第 2 页的加点按钮（PlayerGUI02），消耗属性点给成长加点并按体质修正加寿元；目标为公开操作 Cultivation.spendSkillPoint
@@ -695,28 +695,28 @@ yvanchuxiuzhen,Dimensionrenjian,dimension,~/Dimension,world,已读,B1 归属阅�
 yvanchuxiuzhen,Dimensionyaohun,dimension,~/Dimension,world,已读,B1 归属阅读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹；本元素无过程，被 dungeon 的 Fubenjinru；economy 的 Cailiao191ore、Cailiao192ore、Cailiao193ore、Cailiao194ore、Cailiao195ore、Cailiao196ore、Cailiao197ore、Cailiao198ore、Cailiao199ore；equipment 的 Fabao009ZaiFangKuaiShangYouJian；fulu 的 Fuluzhushablock；material 的 Cailiao16101、Cailiao16201、Cailiao16301、Cailiao16401、Cailiao16501、Cailiao16601、Cailiao16701、Cailiao16801、Cailiao16901、Cailiao20101、Cailiao20301、Cailiao20501、Cailiao20701、Cailiao20801、Cailiao20901、Cailiao21101、Cailiao21301、Cailiao21501、Cailiao21601、Cailiao21701、Cailiao21901；plant 的 Arrowpoisonwood01、Biggrass、Cassia06、Dingxiang01、Evilspirittree01、Evilspirittree02、Evilspirittree03、Evilspirittree04、Fukongjiaoshi、Ironbamboo、Ironbambootail、Lanhuashengcheng、Laurel06、Loessrock、Lurker、MaPlant04、MianPlant05、Mint、Mulberry02、Mushroomblue01shengcheng、Mushroomblue02fangzhi、Mushroomblue03fangzhi、Mushroompinkwhite01fangzhi、Mushroompinkwhite02fangzhi、Mushroompinkwhite03fangzhi、Nichanggrass06、Peach01、Privet05、Sandalwoodtree01、Shanhu2shengcheng、Shanhu3shengcheng、Shanhushengcheng、Shicai001Plant08、Shicai002Plant08、Shicai004Plant08、Shicai005Plant08、Shicai006Plant08、Shicai007Plant04、Shicai011Plant04、Shicai012Plant04、Shicai013Plant04、Shicai014Plant04、Shicai016Plant04、Shicai017Plant04、Shicai018Plant04、Shicai019Plant04、Shicai020Plant04、Shicai021Plant04、Shicai022Plant04、Shicai023Plant04、Shicai024Plant04、Shicai025Plant04、Shicai026Plant04、Shicai027Plant04、Shicai028Plant04、Shicai029Plant04、Shicai030Plant04、Shicai031Plant04、Shicai032Plant04、Shicai033Plant04、Shicai042Plant05、Shicai043Plant04、Shicai044Plant04、Shicai045Plant04、Shicai046Plant04、Shicai047Plant04、Shicai048Plant04、Shicai051Plant04、Shicai054Plant04、Shicai055Plant04、Shicai056Plant05、Shicai05701、Thistlesandthorns、Treejiegou15、Tripterygiumwilfordii、Wenqvandiwu、Zhuzidaoyv01、Zhuzidaoyv02、Zhuzidaoyv03、Zhuzidaoyv04、Zishuijing、Zishuijingzhu；skill 的 XvkongliexiDangWanJiaYuGaiShiTiFaShengPengZhuangShi；xiulian 的 Kaishixiulian；zhenfa 的 Zhenjineng08 按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Dimensionwugui,dimension,~/Dimension,world,已读,B1 归属阅读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹；本元素无过程，被 dungeon 的 Fubenjinru；economy 的 Cailiao191ore、Cailiao192ore、Cailiao193ore、Cailiao194ore、Cailiao195ore、Cailiao196ore、Cailiao197ore、Cailiao198ore、Cailiao199ore；equipment 的 Fabao009ZaiFangKuaiShangYouJian；fulu 的 Fuluzhushablock；panel 的 Tiankongxvanran；plant 的 Corpsegrass、Ironropeshengcheng、Jinsebankuai、Moyanjiegou01、Rottingbambooshengcheng、Soulgrass；skill 的 XvkongliexiDangWanJiaYuGaiShiTiFaShengPengZhuangShi；xiulian 的 Kaishixiulian；zhenfa 的 Zhenjineng08 按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Dimensiondiling,dimension,~/Dimension,world,已读,B1 归属阅读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
-yvanchuxiuzhen,Biomewind01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomewind02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomewind03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomewind04,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomepeach01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomepeach02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomeautumn01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomeautumn02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomeautumn03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomejade01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomejade02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomejade03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomecloud01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Biomewind01,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomewind02,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomewind03,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomewind04,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomepeach01,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomepeach02,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomeautumn01,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomeautumn02,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomeautumn03,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomejade01,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomejade02,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomejade03,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomecloud01,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
 yvanchuxiuzhen,Logs,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomecloud02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomecloud03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomestone01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomestone02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomestone03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomewinter01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomewinter02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomewinter03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Biomecloud02,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomecloud03,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomestone01,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomestone02,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomestone03,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomewinter01,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomewinter02,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomewinter03,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
 yvanchuxiuzhen,Wind01,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Wind02,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Wind03,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
@@ -784,27 +784,27 @@ yvanchuxiuzhen,Rushesshengcheng,feature,~/plant/ordinaryplants,plant,已读,已�
 yvanchuxiuzhen,Bluestone,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Bluestoneshengcheng,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Icelakeshengcheng,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
-yvanchuxiuzhen,Biomesand01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Biomesand01,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
 yvanchuxiuzhen,Quicksand,fluid,~/decorate,world,已读,D/E完整来源复核：独立流体族与妖魂道地表流体；源与流动注册及液体方块由World拥有，无桶与附加过程
-yvanchuxiuzhen,Biomesand02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomesand03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomesand04,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomelong01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomelong02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomelong03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomelong04,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomefeng01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomefeng02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomefeng03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomefeng04,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometiger01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometiger02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometiger03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometiger04,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometurtle01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometurtle02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometurtle03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometurtle04,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Biomesand02,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomesand03,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomesand04,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomelong01,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomelong02,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomelong03,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomelong04,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomefeng01,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomefeng02,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomefeng03,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biomefeng04,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biometiger01,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biometiger02,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biometiger03,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biometiger04,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biometurtle01,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biometurtle02,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biometurtle03,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
+yvanchuxiuzhen,Biometurtle04,biome,~/biome,world,已读,来源实读：完整群系气候/效果、直接与helper生成、出生及外部事件调用归World；现有41群系计划2973条生成、483条出生与活动集成JSON逐字段一致，跨独立事件原Forge注册先后和自然运行仍待验证
 yvanchuxiuzhen,Icerock,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Icerock02,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Shicai001,item,~/food,cooking,已读,B1 归属阅读：食材或调味：无过程；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；festival 的 Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi；liandan 的 GrindGo；npc 的 Businessman06ShiTiChuShiShengChengShi；treasure 的 BaoxiangZuowu 按 ID 引用（奖励、商品、种植产出、百宝袋或研磨），不赋予它规则；烹饪原料身份见 cooking 职责“食材”
@@ -1442,7 +1442,7 @@ yvanchuxiuzhen,Brickwallblackfloor,block,~/decorate/buildingblocks,decor,已读,
 yvanchuxiuzhen,Brickwallblackfloorslab,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Brickwallblackfloorstairs,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,HammerDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/tool,decor,已读,B1 归属阅读：随 Hammer 读：建筑锤：右键把 forge:wapian 瓦片方块在 1、2 两种形态间切换并保留朝向，属建筑方块；城镇建筑核心按 ID 检查手持
-yvanchuxiuzhen,Hammer,tool,~/tool,decor,已读,B1 归属阅读：建筑锤：右键把 forge:wapian 瓦片方块在 1、2 两种形态间切换并保留朝向，属建筑方块；城镇建筑核心按 ID 检查手持
+yvanchuxiuzhen,Hammer,tool,~/tool,decor,已读,2026-11-14完整建筑锤来源核对：48瓦片双四段升降、普通方块状态移动、城镇与飞行法器消费者；疑点Q137–Q139
 yvanchuxiuzhen,Tileimbrexblack01,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Tileimbrexblack02,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Tileimbrexblack03,block,~/decorate/buildingblocks,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
@@ -1547,28 +1547,28 @@ yvanchuxiuzhen,Gui0301,gui,~/GUI,relation,已读,C relation 归属阅读：改�
 yvanchuxiuzhen,Gui0301anniu,procedure,~/GUI,relation,已读,C relation 归属阅读：改团队名称的界面 Gui0301（输入框 teamname，确定后写 team 并提示）；打开它的 Gui03anniu 在生成代码中没有调用者，整条入口不可达
 yvanchuxiuzhen,Gui03anniu,procedure,~/GUI,relation,已读,C relation 归属阅读：改团队名称的界面 Gui0301（输入框 teamname，确定后写 team 并提示）；打开它的 Gui03anniu 在生成代码中没有调用者，整条入口不可达
 yvanchuxiuzhen,RightClickEntity,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TiandaobaoxiangGUIxianshi01,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TiandaobaoxiangGuixianshi02,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TiandaobaoxiangGuixianshi03,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TiandaobaoxiangGuixianshi04,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TiandaobaoxiangGuixianshi05,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Tiandaobaoxiang,gui,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TiandaobaoxiangitemTouZhiWuFeiXingTick,procedure,~/systemset/tiandao,treasure,已读,B1 归属阅读：随 Tiandaobaoxiangitem 读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
-yvanchuxiuzhen,TiandaobaoxiangitemDangTouSheWuSheZhongCiFangKuai,procedure,~/systemset/tiandao,treasure,已读,B1 归属阅读：随 Tiandaobaoxiangitem 读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
-yvanchuxiuzhen,TiandaobaoxiangitemKeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/systemset/tiandao,treasure,已读,B1 归属阅读：随 Tiandaobaoxiangitem 读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
-yvanchuxiuzhen,TiandaobaoxiangitemDangYuanChengWuPinShiYongShi,procedure,~/systemset/tiandao,treasure,已读,B1 归属阅读：随 Tiandaobaoxiangitem 读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
-yvanchuxiuzhen,Tiandaobaoxiangitem,rangeditem,~/systemset/tiandao,treasure,已读,B1 归属阅读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
+yvanchuxiuzhen,TiandaobaoxiangGUIxianshi01,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TiandaobaoxiangGuixianshi02,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TiandaobaoxiangGuixianshi03,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TiandaobaoxiangGuixianshi04,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TiandaobaoxiangGuixianshi05,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,Tiandaobaoxiang,gui,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TiandaobaoxiangitemTouZhiWuFeiXingTick,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TiandaobaoxiangitemDangTouSheWuSheZhongCiFangKuai,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TiandaobaoxiangitemKeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TiandaobaoxiangitemDangYuanChengWuPinShiYongShi,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,Tiandaobaoxiangitem,rangeditem,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
 yvanchuxiuzhen,RightClickBlock,procedure,~/systemset,flow,候选,仅追加已核毒锅分支：50–54按事件手筛选、149–154主手duyaofumo点击任意水位水锅，先换锅再定毒种并耗一；分支交lianqi。其余多系统分支本批未完整核读，整元素仍为flow候选。
-yvanchuxiuzhen,TreasureTypeBigup,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TreasureTypeBigdown,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TreasureTypeSmallup,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TreasureTypeSmalldown,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TreasureLEVELup,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TreasureLEVELdown,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Minimumvalueup,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Minimumvaluedown,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Maximumvalueup,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Maximumvaluedown,procedure,~/systemset/tiandao,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,TreasureTypeBigup,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TreasureTypeBigdown,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TreasureTypeSmallup,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TreasureTypeSmalldown,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TreasureLEVELup,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,TreasureLEVELdown,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,Minimumvalueup,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,Minimumvaluedown,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,Maximumvalueup,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
+yvanchuxiuzhen,Maximumvaluedown,procedure,~/systemset/tiandao,treasure,已读,2026-11-14天道宝箱工具源码核对：十按钮/客户端默认/命中当前主手，来源断链见Q140–Q143；SHA见treasure来源台账
 yvanchuxiuzhen,Yaoshoucailiao1,tag,~/tag/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshoucailiao2,tag,~/tag/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshoucailiao3,tag,~/tag/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -1623,42 +1623,42 @@ yvanchuxiuzhen,Cailiao21702,recipe,~/item/metal,material,候选,第一版批量�
 yvanchuxiuzhen,Cailiao21703,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao21902,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao21903,recipe,~/item/metal,material,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,BookGUI,gui,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi1,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi2,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi3,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi4,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi5,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi6,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi7,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi8,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi9,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi10,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bookwenzi11,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,BookGUI,gui,~/item/book,book,已读,2026-11-13：BookGUIMenu与BookGUIScreen及Bookwenzi1至11已读；公共书无槽十一行阅读归book；业务实例只读所属系统api
+yvanchuxiuzhen,Bookwenzi1,procedure,~/item/book,book,已读,2026-11-13：已核第1行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi2,procedure,~/item/book,book,已读,2026-11-13：已核第2行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi3,procedure,~/item/book,book,已读,2026-11-13：已核第3行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi4,procedure,~/item/book,book,已读,2026-11-13：已核第4行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi5,procedure,~/item/book,book,已读,2026-11-13：已核第5行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi6,procedure,~/item/book,book,已读,2026-11-13：已核第6行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi7,procedure,~/item/book,book,已读,2026-11-13：已核第7行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi8,procedure,~/item/book,book,已读,2026-11-13：已核第8行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi9,procedure,~/item/book,book,已读,2026-11-13：已核第9行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi10,procedure,~/item/book,book,已读,2026-11-13：已核第10行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
+yvanchuxiuzhen,Bookwenzi11,procedure,~/item/book,book,已读,2026-11-13：已核第11行阅读分派与实例字段；显示归book；功法技能真值经所属系统api只读
 yvanchuxiuzhen,Cailiao161,item,~/item/gemstone,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 economy 的 Putongchushouanniu、Putongshougoushuaxin；equipment 的 Shipinpeifang1、Shipinpeifang3、Shipinpeifang4；flow 的 Worldbegin；treasure 的 BaoxiangBaoshicailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao16101,block,~/item/gemstone,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,Cloudblock,block,~/decorate,decor,已读,B1 归属阅读：无过程；world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Soulstone,block,~/decorate,decor,已读,B1 归属阅读：无过程；world 的生成或可生长地面判断按 ID 引用，不赋予它规则
-yvanchuxiuzhen,Biometianqve01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometianqve02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometianqve03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometianqve04,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometianqve05,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometianqve06,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biometianqve07,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Biometianqve01,biome,~/biome,world,已读,完整来源气候/颜色、helper顺序与事件出生已读；天阙biome_source七群系及38外部地物维度门归World；来源证据见World台账和天阙正文
+yvanchuxiuzhen,Biometianqve02,biome,~/biome,world,已读,完整来源气候/颜色、helper顺序与事件出生已读；天阙biome_source七群系及38外部地物维度门归World；来源证据见World台账和天阙正文
+yvanchuxiuzhen,Biometianqve03,biome,~/biome,world,已读,完整来源气候/颜色、helper顺序与事件出生已读；天阙biome_source七群系及38外部地物维度门归World；来源证据见World台账和天阙正文
+yvanchuxiuzhen,Biometianqve04,biome,~/biome,world,已读,完整来源气候/颜色、helper顺序与事件出生已读；天阙biome_source七群系及38外部地物维度门归World；来源证据见World台账和天阙正文
+yvanchuxiuzhen,Biometianqve05,biome,~/biome,world,已读,完整来源气候/颜色、helper顺序与事件出生已读；天阙biome_source七群系及38外部地物维度门归World；来源证据见World台账和天阙正文
+yvanchuxiuzhen,Biometianqve06,biome,~/biome,world,已读,完整来源气候/颜色、helper顺序与事件出生已读；天阙biome_source七群系及38外部地物维度门归World；来源证据见World台账和天阙正文
+yvanchuxiuzhen,Biometianqve07,biome,~/biome,world,已读,完整来源气候/颜色、helper顺序与事件出生已读；天阙biome_source七群系及38外部地物维度门归World；来源证据见World台账和天阙正文
 yvanchuxiuzhen,Tiangandizhi,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
-yvanchuxiuzhen,DatiGUI,gui,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DatiGUIwenzi1,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DatiGUIwenzi2,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DatiGUIwenzi3,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DatiGUIwenzi4,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DatiGUIwenzi5,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Shengchengtimu,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xvanxiang1,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xvanxiang2,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xvanxiang3,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Xvanxiang4,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,DatiGUIwenzi6,procedure,~/item/book,book,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,DatiGUI,gui,~/item/book,book,已读,2026-11-13答题源码核对：40题及答案、四个无槽菜单按钮、累计大于10完成和答错扣最大生命十分之一、功法/技能答满所属写入；BookRightClick编辑器打开积木脱离事件且生成Java无自然调用，入口与任意栈归属边界见book正文
+yvanchuxiuzhen,DatiGUIwenzi1,procedure,~/item/book,book,已读,2026-11-13答题源码核对：40题及答案、四个无槽菜单按钮、累计大于10完成和答错扣最大生命十分之一、功法/技能答满所属写入；BookRightClick编辑器打开积木脱离事件且生成Java无自然调用，入口与任意栈归属边界见book正文
+yvanchuxiuzhen,DatiGUIwenzi2,procedure,~/item/book,book,已读,2026-11-13答题源码核对：40题及答案、四个无槽菜单按钮、累计大于10完成和答错扣最大生命十分之一、功法/技能答满所属写入；BookRightClick编辑器打开积木脱离事件且生成Java无自然调用，入口与任意栈归属边界见book正文
+yvanchuxiuzhen,DatiGUIwenzi3,procedure,~/item/book,book,已读,2026-11-13答题源码核对：40题及答案、四个无槽菜单按钮、累计大于10完成和答错扣最大生命十分之一、功法/技能答满所属写入；BookRightClick编辑器打开积木脱离事件且生成Java无自然调用，入口与任意栈归属边界见book正文
+yvanchuxiuzhen,DatiGUIwenzi4,procedure,~/item/book,book,已读,2026-11-13答题源码核对：40题及答案、四个无槽菜单按钮、累计大于10完成和答错扣最大生命十分之一、功法/技能答满所属写入；BookRightClick编辑器打开积木脱离事件且生成Java无自然调用，入口与任意栈归属边界见book正文
+yvanchuxiuzhen,DatiGUIwenzi5,procedure,~/item/book,book,已读,2026-11-13答题源码核对：40题及答案、四个无槽菜单按钮、累计大于10完成和答错扣最大生命十分之一、功法/技能答满所属写入；BookRightClick编辑器打开积木脱离事件且生成Java无自然调用，入口与任意栈归属边界见book正文
+yvanchuxiuzhen,Shengchengtimu,procedure,~/item/book,book,已读,2026-11-13答题源码核对：40题及答案、四个无槽菜单按钮、累计大于10完成和答错扣最大生命十分之一、功法/技能答满所属写入；BookRightClick编辑器打开积木脱离事件且生成Java无自然调用，入口与任意栈归属边界见book正文
+yvanchuxiuzhen,Xvanxiang1,procedure,~/item/book,book,已读,2026-11-13答题源码核对：40题及答案、四个无槽菜单按钮、累计大于10完成和答错扣最大生命十分之一、功法/技能答满所属写入；BookRightClick编辑器打开积木脱离事件且生成Java无自然调用，入口与任意栈归属边界见book正文
+yvanchuxiuzhen,Xvanxiang2,procedure,~/item/book,book,已读,2026-11-13答题源码核对：40题及答案、四个无槽菜单按钮、累计大于10完成和答错扣最大生命十分之一、功法/技能答满所属写入；BookRightClick编辑器打开积木脱离事件且生成Java无自然调用，入口与任意栈归属边界见book正文
+yvanchuxiuzhen,Xvanxiang3,procedure,~/item/book,book,已读,2026-11-13答题源码核对：40题及答案、四个无槽菜单按钮、累计大于10完成和答错扣最大生命十分之一、功法/技能答满所属写入；BookRightClick编辑器打开积木脱离事件且生成Java无自然调用，入口与任意栈归属边界见book正文
+yvanchuxiuzhen,Xvanxiang4,procedure,~/item/book,book,已读,2026-11-13答题源码核对：40题及答案、四个无槽菜单按钮、累计大于10完成和答错扣最大生命十分之一、功法/技能答满所属写入；BookRightClick编辑器打开积木脱离事件且生成Java无自然调用，入口与任意栈归属边界见book正文
+yvanchuxiuzhen,DatiGUIwenzi6,procedure,~/item/book,book,已读,2026-11-13答题源码核对：40题及答案、四个无槽菜单按钮、累计大于10完成和答错扣最大生命十分之一、功法/技能答满所属写入；BookRightClick编辑器打开积木脱离事件且生成Java无自然调用，入口与任意栈归属边界见book正文
 yvanchuxiuzhen,WorldTick,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlaySleep,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerJoinGUI,gui,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
@@ -1886,17 +1886,17 @@ yvanchuxiuzhen,Yaoshou006ShiTiChuShiShengChengShi,procedure,~/entity/yaoshou/yao
 yvanchuxiuzhen,Yaoshou006DangShiTiShouShangShi,procedure,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：随 Yaoshou006 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou006DangShiTiGengXinKeShi,procedure,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：随 Yaoshou006 读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,Yaoshou006,animatedentity,~/entity/yaoshou/yaoshou006,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
-yvanchuxiuzhen,PlayerGUI06,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06shouming,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06tianshu,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06anniu01,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06anniu02,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06anniu03,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06anniu04,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06anniu05,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06anniu06,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGUI06xiulian,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,OpenGUI06,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI06,gui,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06shouming,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06tianshu,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06anniu01,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06anniu02,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06anniu03,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06anniu04,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06anniu05,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06anniu06,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGUI06xiulian,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,OpenGUI06,procedure,~/GUI,panel,已读,OpenGUI06沿菜单坐标Y+1打开06并记主分页6；07/08子页切换保持同坐标和页6记忆，菜单归xiulian。
 yvanchuxiuzhen,Kaishixiulian,procedure,~/systemset,xiulian,已读,C xiulian 归属阅读：闭关修炼每天推进（天数、寿元、吸纳元气与额外修为、闭关冷却），其中给主修功法加经验的部分改为发出事件由 gongfa 处理
 yvanchuxiuzhen,Effect025,potioneffect,~/effect,xiulian,已读,C combat 归属阅读（改判后确认）：修炼加持标记，没有自身过程，等级由 xiulian 的修炼过程与烹饪读取
 yvanchuxiuzhen,Effect026,potioneffect,~/effect,xiulian,已读,C combat 归属阅读（改判后确认）：修炼加持标记，没有自身过程，等级由 xiulian 的修炼过程与烹饪读取
@@ -2144,9 +2144,9 @@ yvanchuxiuzhen,Fabao009,animatedblock,~/weapon/fabao,dungeon,已读,B1 归属阅
 yvanchuxiuzhen,Fabao00901DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/weapon/fabao,dungeon,已读,B1 归属阅读：随 Fabao00901 读：画里乾坤：放置后右键进入专属维度 fabao_009weidu 并记下返回位置，进入时由 Fabao009weidu 放置副本（已读归 dungeon），非主人不能收起；是玩家副本入口
 yvanchuxiuzhen,Fabao00901,item,~/weapon/fabao,dungeon,已读,B1 归属阅读：画里乾坤：放置后右键进入专属维度 fabao_009weidu 并记下返回位置，进入时由 Fabao009weidu 放置副本（已读归 dungeon），非主人不能收起；是玩家副本入口
 yvanchuxiuzhen,Tiandaowhiteblock,block,~/Dimension,dungeon,已读,B1 归属阅读：天道空间方块：进入副本 Fubenjinru 与画里乾坤维度时按 ID 放置的空间方块，属副本空间
-yvanchuxiuzhen,Fabao009weidu,dimension,~/Dimension,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao009weidu,dimension,~/Dimension,world,已读,来源实读：画里乾坤维度类型与独立种子8×4噪声配置归World；玩家进入与副本状态归Dungeon
 yvanchuxiuzhen,Fabao009GengXinYouXiKe,procedure,~/weapon/fabao,dungeon,已读,B1 归属阅读：随 Fabao009 读：画里乾坤：放置后右键进入专属维度 fabao_009weidu 并记下返回位置，进入时由 Fabao009weidu 放置副本（已读归 dungeon），非主人不能收起；是玩家副本入口
-yvanchuxiuzhen,Tiandaochunbaikongjian,biome,~/biome,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Tiandaochunbaikongjian,biome,~/biome,world,已读,来源实读：画里乾坤专用群系归World；Builder无地物/出生，但全局事件注入38地物和修者0101，保留各地物维度门及草质基底/亮度出生条件
 yvanchuxiuzhen,Fabao009weiduDangWanJiaJinRuWeiDuShi,procedure,~/Dimension,dungeon,已读,系统设计·已读裁定：进入画里乾坤时放置 fuben00x，写 fubenweizhi 与副本坐标
 yvanchuxiuzhen,Weidubianhuan,procedure,~/Dimension,world,已读,系统设计·已读裁定：拆分支：按 gamemoshi 恢复游戏模式的分支归 dungeon
 yvanchuxiuzhen,Fabao010huoyanTouZhiWuFeiXingTick,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao010huoyan 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
@@ -2721,7 +2721,7 @@ yvanchuxiuzhen,Tripterygiumwilfordii,plant,~/plant/ordinaryplants,plant,已读,�
 yvanchuxiuzhen,Tripterygiumwilfordiiitem,item,~/item/herbmedicine,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 economy 的 Caoyaojiage；flow 的 Worldbegin；plant 的 Tripterygiumwilfordii 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Yaoshou007,animatedentity,~/entity/yaoshou/yaoshou007,creature,已读,B1 归属阅读：妖兽技能投射物：飞行与命中时按敌友判定（Friendpanding*）经 /shanghai 伤害入口造成伤害或施加效果，属通用怪物技能
 yvanchuxiuzhen,JiantouDangWanJiaYuGaiShiTiFaShengPengZhuangShi,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jiantou,animatedentity,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Jiantou,animatedentity,~/entity,creature,已读,2026-11-22 代码批次2静态核对已接入箭头实体与投射物
 yvanchuxiuzhen,Buzhencailiao,tag,~/tag/zhenfatag,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,LuopanFangZhiFangKuaiShi,procedure,~/tool,zhenfa,已读,B1 归属阅读：随 Luopan 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxiuzhen,Luopan,animatedblock,~/tool,zhenfa,已读,B1 归属阅读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
@@ -2750,15 +2750,15 @@ yvanchuxiuzhen,Zhenitemlevel6,tag,~/tag/zhenfatag,zhenfa,候选,第一版批量�
 yvanchuxiuzhen,Zhenitemlevel7,tag,~/tag/zhenfatag,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhenitemlevel8,tag,~/tag/zhenfatag,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zhenitemlevel9,tag,~/tag/zhenfatag,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhenjineng03DangShiTiGengXinKeShi,procedure,~/skill/zhenfa,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Zhenjineng03,animatedentity,~/skill/zhenfa,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Zhenjineng03DangShiTiGengXinKeShi,procedure,~/skill/zhenfa,zhenfa,已读,阳系来源实体/逐刻闭包复核：由阵基生成并复制阵法参数；所有者为zhenfa
+yvanchuxiuzhen,Zhenjineng03,animatedentity,~/skill/zhenfa,zhenfa,已读,阳系来源实体/逐刻闭包复核：由阵基生成并复制阵法参数；所有者为zhenfa
 yvanchuxiuzhen,ZizhijiancefankuiGO,procedure,~/systemset/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Zizhijiancefankui,command,~/systemset/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ling11DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,xiulian,已读,B1 归属阅读：随 Ling11 读：远古石盘：出身“流浪侠客”的初始物品（PlayerJoin02），右键用粒子指向世界变量 chuansongzhen 记录的传送阵
 yvanchuxiuzhen,Ling11,item,~/item/zawu,xiulian,已读,B1 归属阅读：远古石盘：出身“流浪侠客”的初始物品（PlayerJoin02），右键用粒子指向世界变量 chuansongzhen 记录的传送阵
-yvanchuxiuzhen,Ling12DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool/yinhang,economy,已读,B1 归属阅读：随 Ling12 读：通宝玉：认主后存取各级灵石并显示余额，属银行
+yvanchuxiuzhen,Ling12DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool/yinhang,economy,已读,R13 economy 完整归属阅读：普通通宝玉潜行认主；本人普通右键逐级显示物品自身double余额；玩家bank账户与物品余额分离；见 economy 银行正文
 yvanchuxiuzhen,Ling12,item,~/tool/yinhang,economy,已读,B1 归属阅读：通宝玉：认主后存取各级灵石并显示余额，属银行
-yvanchuxiuzhen,Ling13DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool/yinhang,economy,已读,B1 归属阅读：随 Ling13 读：通宝玉：认主后存取各级灵石并显示余额，属银行
+yvanchuxiuzhen,Ling13DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool/yinhang,economy,已读,R13 economy 完整归属阅读：高级通宝玉此过程仅潜行认主；非潜行打开银行来自原初系统 Playerrightclickwithitem 银行分支；见 economy 银行正文
 yvanchuxiuzhen,Ling13,item,~/tool/yinhang,economy,已读,B1 归属阅读：通宝玉：认主后存取各级灵石并显示余额，属银行
 yvanchuxiuzhen,Bank,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,TiandiyinhangZaiFangKuaiShangYouJian,procedure,~/tool/yinhang,economy,已读,B1 归属阅读：随 Tiandiyinhang 读：商店与天地银行方块：打开商店与银行界面、刷新与取出，属商店与银行
@@ -2824,9 +2824,9 @@ yvanchuxiuzhen,Fulutexiao17TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已�
 yvanchuxiuzhen,Fulutexiao17DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Fulutexiao17 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Fulutexiao17,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu15DangFangKuaiBeiShuiFangZhiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu15 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
-yvanchuxiuzhen,Fulutexiao18,potioneffect,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fulutexiao18ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fulutexiao18DangXiaoGuoJieShuShi,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fulutexiao18,potioneffect,~/item/huafu,fulu,已读,18号神傀符控制状态的逐刻位移与结束清理；妖兽命中消费者由Creature承担，详见符箓正文
+yvanchuxiuzhen,Fulutexiao18ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/item/huafu,fulu,已读,18号神傀符控制状态的逐刻位移与结束清理；妖兽命中消费者由Creature承担，详见符箓正文
+yvanchuxiuzhen,Fulutexiao18DangXiaoGuoJieShuShi,procedure,~/item/huafu,fulu,已读,18号神傀符控制状态的逐刻位移与结束清理；妖兽命中消费者由Creature承担，详见符箓正文
 yvanchuxiuzhen,Itemfulu18TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu18 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu18DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu18 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu18,rangeditem,~/item/huafu,fulu,已读,B1 归属阅读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
@@ -2889,8 +2889,8 @@ yvanchuxiuzhen,Itemfulu39,item,~/item/huafu,fulu,已读,B1 归属阅读：符箓
 yvanchuxiuzhen,Itemfulu40DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu40 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu40,item,~/item/huafu,fulu,已读,40/43/45/47/48/49号符的物品过程与45号火炮弹已读
 yvanchuxiuzhen,Fulutexiao40,particle,~/item/huafu,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
-yvanchuxiuzhen,Fulutexiao41ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fulutexiao41,potioneffect,~/item/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fulutexiao41ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/item/huafu,fulu,已读,41号成品命中挂载的五轮落雷状态；阶段/计数/施放者身份随受击实体保存，由符箓拥有并调用共享Combat落雷
+yvanchuxiuzhen,Fulutexiao41,potioneffect,~/item/huafu,fulu,已读,41号成品命中直接施加2400刻状态，每刻执行五轮落雷过程，无开始/结束钩子；属于符箓成品释放与效果
 yvanchuxiuzhen,Itemfulu41TouZhiWuFeiXingTick,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu41 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu41DangTouZhiWuJiZhongShiTiShi,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu41 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
 yvanchuxiuzhen,Itemfulu41KeYiShiYongYuanChengWuPinDeTiaoJian,procedure,~/item/huafu,fulu,已读,B1 归属阅读：随 Itemfulu41 读：符箓：成品右键或投掷释放，效果方块与投射物按敌友判定（Friendpanding*）施加效果或经 /shanghai 造成伤害，消耗精力（Fulujinglineed）；属成品释放与效果
@@ -2970,7 +2970,7 @@ yvanchuxiuzhen,Organism11list,loottable,~/entity/environment,creature,候选,第
 yvanchuxiuzhen,Organism11DangShiTiShouShangShi,procedure,~/entity/environment,creature,已读,B1 归属阅读：随 Organism11 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Organism11DangShiTiGengXinKeShi,procedure,~/entity/environment,creature,已读,B1 归属阅读：随 Organism11 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Pao01DangTouSheWuSheZhongCiFangKuai,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao01 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao01,rangeditem,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
+yvanchuxiuzhen,Pao01,rangeditem,~/item/jieri,festival,已读,2026-11-22 代码批次4完成烟花投射与方块烟花接线
 yvanchuxiuzhen,Pao02DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao02 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao02DangWuPinZaiShouShangMeiKeFaSheng,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao02 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao02,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
@@ -2983,30 +2983,30 @@ yvanchuxiuzhen,Pao0305,particle,~/item/jieri,particle,已读,逐项读取 client
 yvanchuxiuzhen,Pao0306,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Pao03DangWuPinZaiShouShangMeiKeFaSheng,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao03 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao03,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao0401DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0401,animatedentity,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0501DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0501,animatedentity,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0601DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0601,animatedentity,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Pao0401DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao0401,animatedentity,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao0501DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao0501,animatedentity,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao0601DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao0601,animatedentity,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
 yvanchuxiuzhen,Pao04DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao04 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao04,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao05,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao06,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
+yvanchuxiuzhen,Pao04,item,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao05,item,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
+yvanchuxiuzhen,Pao06,item,~/item/jieri,festival,已读,已核对Pao04/05/06自然抛出、20刻引燃、三类燃放终点、运动/免伤/实例持久化与Geo资源；按完整冻结包接回，不补真实爆炸或伤害
 yvanchuxiuzhen,Pao07DangWuPinZaiShouShangMeiKeFaSheng,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao07 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao07,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao08TouZhiWuFeiXingTick,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao08 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao08DangTouSheWuSheZhongCiFangKuai,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao08 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao08,rangeditem,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
+yvanchuxiuzhen,Pao08,rangeditem,~/item/jieri,festival,已读,2026-11-22 代码批次4完成烟花投射与方块烟花接线
 yvanchuxiuzhen,Huoyvan,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Pao0901DangYouJianDianJiShiTi,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Pao0901DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Pao0901,livingentity,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Pao0901,livingentity,~/item/jieri,festival,已读,2026-11-22 代码批次4完成烟花投射与方块烟花接线
 yvanchuxiuzhen,Pao09DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao09 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao09,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao10ZaiFangKuaiShangYouJian,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao10 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao10GengXinYouXiKe,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao10 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
-yvanchuxiuzhen,Pao10,block,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
+yvanchuxiuzhen,Pao10,block,~/item/jieri,festival,已读,2026-11-22 代码批次4完成烟花投射与方块烟花接线
 yvanchuxiuzhen,Pao1001,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Pao11GengXinYouXiKe,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Pao11 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Pao11,block,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
@@ -3020,8 +3020,8 @@ yvanchuxiuzhen,Shipintick,procedure,~/systemset,equipment,已读,PlayerGUI03四�
 yvanchuxiuzhen,Fuqi02TouKuiShiJianMeiYouXiKe,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Fuqi02 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Fuqi02,animatedarmor,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Fuqi0201,particle,~/item/jieri,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
-yvanchuxiuzhen,Fuqi0301DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fuqi0301,animatedentity,~/item/jieri,festival,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fuqi0301DangShiTiGengXinKeShi,procedure,~/item/jieri,festival,已读,祈愿灯实体每刻旋转上升，无跨系统字段写入；指纹见festival source-evidence.csv
+yvanchuxiuzhen,Fuqi0301,animatedentity,~/item/jieri,festival,已读,祈愿灯实体/模型/资源及注册来源核对；指纹见festival source-evidence.csv
 yvanchuxiuzhen,Fuqi03DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Fuqi03 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Fuqi03,item,~/item/jieri,festival,已读,B1 归属阅读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
 yvanchuxiuzhen,Fuqi04FangZhiFangKuaiShi,procedure,~/item/jieri,festival,已读,B1 归属阅读：随 Fuqi04 读：节日：鞭炮花炮的投掷与引信、祈愿灯、红灯笼、财神与大红包的随机奖励
@@ -3049,7 +3049,7 @@ yvanchuxiuzhen,QiankunmentuZaiFangKuaiShangYouJian,procedure,~/tool/xvnlong,npc,
 yvanchuxiuzhen,Qiankunmentu,animatedblock,~/tool/xvnlong,npc,已读,B1 归属阅读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,RenwusetGo,procedure,~/systemset/zhiling,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Renwuset,command,~/systemset/zhiling,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,QiankunmentuGui,gui,~/tool/xvnlong,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,QiankunmentuGui,gui,~/tool/xvnlong,npc,已读,A:QiankunmentuGuiMenu为零槽常有效菜单；GuiScreen的0号按钮经QiankunmentuGuiButtonMessage调用MentuRenwuqiehuan；显示同一门徒方块实体renwuset，属于NPC管理路径
 yvanchuxiuzhen,MentuRenwuweizhi,procedure,~/tool/xvnlong,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,MentuRenwuqiehuan,procedure,~/tool/xvnlong,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Playerchuansuo,function,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3382,10 +3382,10 @@ yvanchuxiuzhen,LiexiGengXinYouXiKe,procedure,~/decorate/jiegou,world,已读,B1 �
 yvanchuxiuzhen,LiexiFangZhiFangKuaiShi,procedure,~/decorate/jiegou,world,已读,B1 归属阅读：随 Liexi 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
 yvanchuxiuzhen,Liexi,animatedblock,~/decorate/jiegou,world,已读,B1 归属阅读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
 yvanchuxiuzhen,JieyvnDangShiTiBeiShaSiShi,procedure,~/systemset/leijie,xiulian,已读,C xiulian 归属阅读：雷劫过程（开启标记之后的劫云、七种天雷与天劫实体），经 /lightninglanding 与 /shanghai 进入 combat 的伤害结算，在 combat 实现伤害入口之后迁移
-yvanchuxiuzhen,PlayerGUI07,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiehuan01,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiehuan02,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guanxiang,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI07,gui,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,Qiehuan01,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,Qiehuan02,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,Guanxiang,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
 yvanchuxiuzhen,Ling15DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：团队招募令；潜行使用时刷新并打开好友界面，主手持有右键玩家时向对方发好友申请并打开申请界面
 yvanchuxiuzhen,Ling15,item,~/item/zawu/ling15,relation,已读,C relation 归属阅读：团队招募令；潜行使用时刷新并打开好友界面，主手持有右键玩家时向对方发好友申请并打开申请界面
 yvanchuxiuzhen,Zuduitext,procedure,~/item/zawu/ling15,relation,已读,C relation 归属阅读：好友申请界面 ZuduiteamGui 及其按钮，读写玩家 friendlist 中的待处理申请与双方好友列表
@@ -3458,7 +3458,7 @@ yvanchuxiuzhen,Businessman05DangYouJianDianJiShiTi,procedure,~/entity/npc,npc,�
 yvanchuxiuzhen,Effect031ZaiXiaoGuoChiXuShiMeiKeFaSheng,procedure,~/effect,cooking,已读,读取 A:Effect031MobEffect 与每刻过程：辟谷按实体 baoshidu 每15刻补1饥饿值，饱食暂停；由 cooking 所有，炼丹经原生效果注册表施加。
 yvanchuxiuzhen,Effect031,potioneffect,~/effect,cooking,已读,读取 A:Effect031MobEffect 与每刻过程：辟谷按实体 baoshidu 每15刻补1饥饿值，饱食暂停；由 cooking 所有，炼丹经原生效果注册表施加。
 yvanchuxiuzhen,GuanghuanDangShiTiGengXinKeShi,procedure,~/decorate/jiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guanghuan,animatedentity,~/decorate/jiegou,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guanghuan,animatedentity,~/decorate/jiegou,world,已读,来源Guanghuan实体/每刻过程/模型及渲染完整读取；寻灵盘Y+1调用搜索，世界导航与100刻生命周期；详见World正文及Q116至Q119。
 yvanchuxiuzhen,Ling14DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/decorate/jiegou,world,已读,B1 归属阅读：随 Ling14item 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
 yvanchuxiuzhen,Moblist01,procedure,~/decorate/jiegou/moblist,world,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Yaoshou007list,loottable,~/entity/yaoshou/yaoshou007,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3507,8 +3507,8 @@ yvanchuxiuzhen,Ycxzboss02DangShiTiShouShangShi,procedure,~/entity/boss/ycxzboss0
 yvanchuxiuzhen,Ycxzboss02DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss02,creature,已读,B1 归属阅读：随 Ycxzboss02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Ycxzboss02,animatedentity,~/entity/boss/ycxzboss02,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Ycxzboss02tick2,procedure,~/entity/boss/ycxzboss02,creature,已读,B1 归属阅读：随 Ycxzboss02 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,Ycxzboss0201DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ycxzboss0201,animatedentity,~/entity/boss/ycxzboss02,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Ycxzboss0201DangShiTiGengXinKeShi,procedure,~/entity/boss/ycxzboss02,creature,已读,R07来源核读：随Ycxzboss02读取；独立tick过程承载飞斧运动与命中规则，实体由首领技能生成并维护生命周期，归Creature；行为验收另计
+yvanchuxiuzhen,Ycxzboss0201,animatedentity,~/entity/boss/ycxzboss02,creature,已读,R07来源核读：Boss02生成并管理的独立飞斧实体，保留来源导航、伤害免疫、20刻运动与移除；行为验收另计
 yvanchuxiuzhen,Cailiao162,item,~/item/gemstone,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 dungeon 的 Zhenyaotashengchengbuchong；economy 的 Putongchushouanniu、Putongshougoushuaxin；equipment 的 Shipinpeifang1、Shipinpeifang3、Shipinpeifang4；flow 的 Worldbegin；treasure 的 BaoxiangBaoshicailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao163,item,~/item/gemstone,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 equipment 的 Shipinpeifang4；flow 的 Worldbegin；treasure 的 BaoxiangBaoshicailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao164,item,~/item/gemstone,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 equipment 的 Shipinpeifang4；flow 的 Worldbegin；treasure 的 BaoxiangBaoshicailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
@@ -3558,9 +3558,9 @@ yvanchuxiuzhen,Androsace02hecheng,recipe,~/plant/ordinaryplants,plant,候选,第
 yvanchuxiuzhen,Lamiumamplexicaulehecheng,recipe,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Jadefairyhecheng,recipe,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Setrenwu,procedure,~/tool,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,RenwufangkuaiGui,gui,~/tool,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,RenwufangkuaiGui,gui,~/tool,quest,已读,2026-11-22 代码批次5静态核对任务方块菜单接线
 yvanchuxiuzhen,PlaqueGuiDangZheGeJieMianDaKaiShi,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlaqueGui,gui,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlaqueGui,gui,~/tool,decor,已读,1.18.2版本A菜单注册第90行；牌匾编辑界面服务于牌匾文字写入，归装饰；调用与Q210边界见装饰正文
 yvanchuxiuzhen,PlaqueTxt,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlaqueGuianniu,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Qingjiaoxianshi,procedure,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3619,7 +3619,7 @@ yvanchuxiuzhen,Businessman02ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,
 yvanchuxiuzhen,Businessman03ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman03 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Businessman05ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman05 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,Businessman07ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,已读,B1 归属阅读：随 Businessman07 读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
-yvanchuxiuzhen,TiandaoNPCset,gui,~/systemset/tiandao/tiandaonpc,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,TiandaoNPCset,gui,~/systemset/tiandao/tiandaonpc,tiandao,已读,2026-11-22 代码批次5静态核对天道NPC设置菜单接线
 yvanchuxiuzhen,TiandaoNPCset02,gui,~/systemset/tiandao/tiandaonpc,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,TiandaoNPCsetitemDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/systemset/tiandao/tiandaonpc,npc,已读,B1 归属阅读：随 TiandaoNPCsetitem 读：天道 NPC 设置：RightClickEntity 中给生物写名称与任务列表 renwulist，是 NPC 专属设置工具，按系统设计“专属工具归所属系统”
 yvanchuxiuzhen,TiandaoNPCsetitem,item,~/systemset/tiandao/tiandaonpc,npc,已读,B1 归属阅读：天道 NPC 设置：RightClickEntity 中给生物写名称与任务列表 renwulist，是 NPC 专属设置工具，按系统设计“专属工具归所属系统”
@@ -3747,10 +3747,10 @@ yvanchuxiuzhen,DaguanjiaDangShiTiShouShangShi,procedure,~/entity/npc,npc,已读,
 yvanchuxiuzhen,Daguanjia,animatedentity,~/entity/npc,npc,已读,B1 归属阅读：修士：商人、居民、地府 NPC 的生成、交互入口与商品初始化，乾坤道人与任务点属门徒
 yvanchuxiuzhen,JiazubaibaodaiDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,xiulian,已读,系统设计·已读裁定：校验出身“世家纨绔”后分次发放物品，没有容器规则
 yvanchuxiuzhen,Jiazubaibaodai,item,~/item/zawu,xiulian,已读,系统设计·已读裁定：校验出身“世家纨绔”后分次发放物品，没有容器规则
-yvanchuxiuzhen,BaoxiaZaiFangKuaiShangYouJian,procedure,~/baoxiang,treasure,已读,B1 归属阅读：随 Baoxia 读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
-yvanchuxiuzhen,Baoxia,block,~/baoxiang,treasure,已读,B1 归属阅读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
-yvanchuxiuzhen,BaoxiaitemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/baoxiang,treasure,已读,B1 归属阅读：随 Baoxiaitem 读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
-yvanchuxiuzhen,Baoxiaitem,item,~/baoxiang,treasure,已读,B1 归属阅读：宝箱：宝匣与宝箱按类型、等级开出奖励，钥匙开上锁宝箱，天道宝箱设置
+yvanchuxiuzhen,BaoxiaZaiFangKuaiShangYouJian,procedure,~/baoxiang,treasure,已读,2026-11-14宝匣族：库存/配置指令/开启时序及物品Tooltip属于宝匣自身；成品实例仍经equipment公开构造，来源字段差异保持并集中登记
+yvanchuxiuzhen,Baoxia,block,~/baoxiang,treasure,已读,2026-11-14宝匣族：库存/配置指令/开启时序及物品Tooltip属于宝匣自身；成品实例仍经equipment公开构造，来源字段差异保持并集中登记
+yvanchuxiuzhen,BaoxiaitemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/baoxiang,treasure,已读,2026-11-14宝匣族：库存/配置指令/开启时序及物品Tooltip属于宝匣自身；成品实例仍经equipment公开构造，来源字段差异保持并集中登记
+yvanchuxiuzhen,Baoxiaitem,item,~/baoxiang,treasure,已读,2026-11-14宝匣族：库存/配置指令/开启时序及物品Tooltip属于宝匣自身；成品实例仍经equipment公开构造，来源字段差异保持并集中登记
 yvanchuxiuzhen,Ling18DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu,xiulian,已读,B1 归属阅读：随 Ling18 读：传承灵物：出身“落魄家族”的初始物品（PlayerJoin02），多次开启依次发放材料、符箓、乾坤袋、飞行法器等
 yvanchuxiuzhen,Ling18,item,~/item/zawu,xiulian,已读,B1 归属阅读：传承灵物：出身“落魄家族”的初始物品（PlayerJoin02），多次开启依次发放材料、符箓、乾坤袋、飞行法器等
 yvanchuxiuzhen,Guiguai03ShiTiChuShiShengChengShi,procedure,~/entity/guiguai/guiguai03,creature,已读,B1 归属阅读：随 Guiguai03 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
@@ -3776,7 +3776,7 @@ yvanchuxiuzhen,Fishing,procedure,~/systemset,flow,候选,第一版批量归组�
 yvanchuxiuzhen,Foodblockyoujian,procedure,~/item/food,cooking,已读,D cooking 归属阅读：餐食消费、摆盘饱食和容器替换；毒性和返物；见cooking-food-source-audit.md
 yvanchuxiuzhen,Businessman08ShiTiChuShiShengChengShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Businessman08DangShiTiGengXinKeShi,procedure,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Businessman08,animatedentity,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Businessman08,animatedentity,~/entity/npc,npc,已读,2026-11-14来源08为独立飞梭实体；右键载人、首次移除缓降、固定世界方向移动，不初始化商人；来源无蛋/自然出生，生产者有界扫描未命中
 yvanchuxiuzhen,Moshou001ShiTiChuShiShengChengShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Moshou001DangShiTiShouShangShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Moshou001,animatedentity,~/entity/tianmo,creature,已读,B1 归属阅读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
@@ -3792,17 +3792,17 @@ yvanchuxiuzhen,Moshou001DangYouJianDianJiShiTi,procedure,~/entity/tianmo,creatur
 yvanchuxiuzhen,Moshou001DangShiTiBeiShaSiShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Moshou001DangShiTiGengXinKeShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou001 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Moshou002DangShiTiGengXinKeShi,procedure,~/entity/tianmo,creature,已读,B1 归属阅读：随 Moshou002 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,Painting01,painting,~/decorate/painting,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PaiweiGui,gui,~/tool,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Painting01,painting,~/decorate/painting,decor,已读,2026-11-22 代码批次1静态核对并实现
+yvanchuxiuzhen,PaiweiGui,gui,~/tool,decor,已读,1.18.2版本A菜单注册第94行；牌位编辑界面服务于牌位文字写入，归装饰；调用与来源行为见装饰正文
 yvanchuxiuzhen,SetPaiwei,procedure,~/tool,decor,已读,系统设计·已读裁定：牌位界面的写入过程，写 plaquetxt
 yvanchuxiuzhen,Fabao016DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao016 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
 yvanchuxiuzhen,Jingxve,item,~/item/zawu,equipment,已读,B1 归属阅读：精血：筑基期（LEVELnumber ≥ 11）以本人精血使副手武器或法宝认主，写 belongToMasterUUID；蛊罐与桃树苗按 ID 另作材料使用
 yvanchuxiuzhen,Guchong01itemDangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,procedure,~/entity/guchong,guchong,已读,B1 归属阅读：随 Guchong01item 读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
 yvanchuxiuzhen,Guchong01item,item,~/entity/guchong,guchong,已读,B1 归属阅读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
-yvanchuxiuzhen,Guchong01DangShiTiGengXinKeShi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guchong01ShiTiChuShiShengChengShi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guchong01DangShiTiBeiShaSiShi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guchong01,animatedentity,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guchong01DangShiTiGengXinKeShi,procedure,~/entity/guchong,guchong,已读,R10来源阅读：每十九刻按距离链接附近生物挑衅；七十七刻鸣叫并调用蛊罐生命周期
+yvanchuxiuzhen,Guchong01ShiTiChuShiShengChengShi,procedure,~/entity/guchong,guchong,已读,R10来源阅读：七级与十三项蛊虫资质初始化；调用蛊虫属性及团队初始化
+yvanchuxiuzhen,Guchong01DangShiTiBeiShaSiShi,procedure,~/entity/guchong,guchong,已读,R10来源阅读：认主蛊虫死亡按地上罐坐标或手持罐UUID清槽与释放计数
+yvanchuxiuzhen,Guchong01,animatedentity,~/entity/guchong,guchong,已读,R10来源阅读：鼓上蚤个体仅跟随与漫步；自身承担挑衅和蛊罐关联生命周期
 yvanchuxiuzhen,Guchongshuxing,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong02itemDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/entity/guchong,guchong,已读,B1 归属阅读：随 Guchong02item 读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
 yvanchuxiuzhen,Guchong02item,item,~/entity/guchong,guchong,已读,B1 归属阅读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
@@ -3817,10 +3817,10 @@ yvanchuxiuzhen,Chongshicao,plant,~/plant/ordinaryplants,plant,已读,逐项阅�
 yvanchuxiuzhen,Huxiangtunshi,potioneffect,~/effect,guchong,已读,C combat 归属阅读（改判后确认）：蛊虫吞噬标记，没有自身过程，读取者是蛊虫
 yvanchuxiuzhen,Guchongtunshi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongyesheng,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao017DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,B1 归属阅读：随 Fabao017 读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
-yvanchuxiuzhen,Fabao017,item,~/weapon/fabao,equipment,已读,B1 归属阅读：法宝：投掷、命中、召唤法宝实体与技能、收纳并投出异火、采血等，消耗灵力并按 relation 的敌友判定（Friendpanding*）；属法宝
-yvanchuxiuzhen,Fabao01701DangShiTiGengXinKeShi,procedure,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao01701,animatedentity,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao017DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,equipment,已读,R05/R10逐行读取物品、两过程、实体及模型渲染：法宝拥有普通摄虫与潜行困虫的入口、50/400刻冷却、36/40/200刻时序和动画；个体收纳经guchong公开操作保存，equipment不写蛊虫持久数据
+yvanchuxiuzhen,Fabao017,item,~/weapon/fabao,equipment,已读,R05/R10逐行读取物品、两过程、实体及模型渲染：法宝拥有普通摄虫与潜行困虫的入口、50/400刻冷却、36/40/200刻时序和动画；个体收纳经guchong公开操作保存，equipment不写蛊虫持久数据
+yvanchuxiuzhen,Fabao01701DangShiTiGengXinKeShi,procedure,~/weapon/fabao,equipment,已读,R05/R10逐行读取物品、两过程、实体及模型渲染：法宝拥有普通摄虫与潜行困虫的入口、50/400刻冷却、36/40/200刻时序和动画；个体收纳经guchong公开操作保存，equipment不写蛊虫持久数据
+yvanchuxiuzhen,Fabao01701,animatedentity,~/weapon/fabao,equipment,已读,R05/R10逐行读取物品、两过程、实体及模型渲染：法宝拥有普通摄虫与潜行困虫的入口、50/400刻冷却、36/40/200刻时序和动画；个体收纳经guchong公开操作保存，equipment不写蛊虫持久数据
 yvanchuxiuzhen,Fabao017hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong,tag,~/tag,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,Taoguan01GUI,gui,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
@@ -3838,35 +3838,35 @@ yvanchuxiuzhen,Qiankundai02GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,
 yvanchuxiuzhen,Qiankundai03GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
 yvanchuxiuzhen,Qiankundai04GUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/qiankundai,storage,已读,A:四档乾坤袋真实物品能力容量27/54/108/220；菜单chuwu过滤与能力同档过滤分离；409槽布局、主手类型关闭及抛出同档袋关闭已读
 yvanchuxiuzhen,Taoguan,tag,~/tag,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,GuchongshifangGUI,gui,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,GuchongshifangOpen,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,guchong,已读,B1 归属阅读：随 Fabao018 读：蛊笛：召回周围 forge:guchongentity 蛊虫并打开蛊虫释放界面 GuchongshifangGUI（GuchongshifangOpen 已读归 guchong），物品栏中须有 forge:taoguan 蛊罐
-yvanchuxiuzhen,Fabao018,animateditem,~/weapon/fabao,guchong,已读,B1 归属阅读：蛊笛：召回周围 forge:guchongentity 蛊虫并打开蛊虫释放界面 GuchongshifangGUI（GuchongshifangOpen 已读归 guchong），物品栏中须有 forge:taoguan 蛊罐
-yvanchuxiuzhen,GuchongshifangGUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonguiup,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonguidown,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniu01,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniu02,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniu03,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniu04,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniu05,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniu06,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniuxianshi01,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniuxianshi02,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniuxianshi03,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniuxianshi04,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniuxianshi05,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchonganniuxianshi06,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
+yvanchuxiuzhen,GuchongshifangGUI,gui,~/item/zawu/taoguan,guchong,已读,R10来源阅读：176x168双层原图；六格taoguan复制只读；八按钮与真实玩家库存关联；关闭不退还展示副本
+yvanchuxiuzhen,GuchongshifangOpen,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：六格清空并按玩家能力顺序复制罐；pagenum低于1仅展示按第一页；提示保存在当前主手
+yvanchuxiuzhen,Fabao018DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/weapon/fabao,guchong,已读,R10来源阅读：沉默阻止use；潜行按虫主人与罐UUID逐只收回并写真实能力槽；普通开窗无罐也显示空页
+yvanchuxiuzhen,Fabao018,animateditem,~/weapon/fabao,guchong,已读,R10来源阅读：蛊笛普通右键开六罐释放界面；潜行收本人标签虫；沉默门槛与无消耗冷却及Gecko空闲模型已核
+yvanchuxiuzhen,GuchongshifangGUIDangZheGeJieMianDaKaiQiJianMeiKeFaSheng,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：当前主手不再是FABAO_018时每刻关闭六罐释放菜单；无关闭写回
+yvanchuxiuzhen,Guchonguiup,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：罐数总页ceil(n/6)；实际页大于总页时减1，否则直接设总页；无罐不改页码
+yvanchuxiuzhen,Guchonguidown,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：罐数总页ceil(n/6)；实际页小于总页时加1，否则设1；无罐不改页码
+yvanchuxiuzhen,Guchonganniu01,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按钮2将当前主手anniunum设为0并执行GuchongAnniuzhixing；不另检查沉默
+yvanchuxiuzhen,Guchonganniu02,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按钮3将当前主手anniunum设为1并执行GuchongAnniuzhixing；不另检查沉默
+yvanchuxiuzhen,Guchonganniu03,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按钮4将当前主手anniunum设为2并执行GuchongAnniuzhixing；不另检查沉默
+yvanchuxiuzhen,Guchonganniu04,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按钮5将当前主手anniunum设为3并执行GuchongAnniuzhixing；不另检查沉默
+yvanchuxiuzhen,Guchonganniu05,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按钮6将当前主手anniunum设为4并执行GuchongAnniuzhixing；不另检查沉默
+yvanchuxiuzhen,Guchonganniu06,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按钮7将当前主手anniunum设为5并执行GuchongAnniuzhixing；不另检查沉默
+yvanchuxiuzhen,Guchonganniuxianshi01,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：界面显示当前主手xianshiweizhi0；释放或收回文字由服务端操作更新
+yvanchuxiuzhen,Guchonganniuxianshi02,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：界面显示当前主手xianshiweizhi1；释放或收回文字由服务端操作更新
+yvanchuxiuzhen,Guchonganniuxianshi03,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：界面显示当前主手xianshiweizhi2；释放或收回文字由服务端操作更新
+yvanchuxiuzhen,Guchonganniuxianshi04,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：界面显示当前主手xianshiweizhi3；释放或收回文字由服务端操作更新
+yvanchuxiuzhen,Guchonganniuxianshi05,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：界面显示当前主手xianshiweizhi4；释放或收回文字由服务端操作更新
+yvanchuxiuzhen,Guchonganniuxianshi06,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：界面显示当前主手xianshiweizhi5；释放或收回文字由服务端操作更新
 yvanchuxiuzhen,Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,Taoguan01GUIDangZheGeJieMianBeiGuanBi,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,TaoguanGuiopen,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,Guchongyeshu,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
-yvanchuxiuzhen,GuchongAnniuzhixing,procedure,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
+yvanchuxiuzhen,Guchongyeshu,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：DecimalFormat(0)直接显示当前主手pagenum；首次实际0可展示第一页
+yvanchuxiuzhen,GuchongAnniuzhixing,procedure,~/item/zawu/taoguan,guchong,已读,R10来源阅读：按罐UUID与选中复制槽匹配；释放检查主人且创建空仍计数；01/03/04只按UUID收回，全部收齐才写真实罐
 yvanchuxiuzhen,Guchonggensui,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongentity,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchongtick,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fabao018hecheng,recipe,~/weapon/fabao,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guchong01hecheng,recipe,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fabao018hecheng,recipe,~/weapon/fabao,guchong,已读,R10来源阅读：两根minecraft:bamboo与cailiao_181对角线合成fabao_018；已转换的蛊笛获取入口归guchong
+yvanchuxiuzhen,Guchong01hecheng,recipe,~/entity/guchong,guchong,已读,R10来源阅读：九个elm_01无序合成guchong_01item；属于鼓上蚤获取入口
 yvanchuxiuzhen,Chongluan,item,~/item/zawu/taoguan,guchong,已读,系统设计·已读裁定：蛊罐菜单槽位只收 forge:guchong，方块负责精血认主与按队伍释放
 yvanchuxiuzhen,ZhuangshiqiantongZaiFangKuaiShangYouJian,procedure,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：随 Zhuangshiqiantong 读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
 yvanchuxiuzhen,Zhuangshiqiantong,animatedblock,~/decorate/OtherDecorative,decor,已读,B1 归属阅读：签筒求签：右键随机显示卦签物品动画（Qianyvn），不写玩家或世界数据
@@ -3887,7 +3887,7 @@ yvanchuxiuzhen,Entityjingyanjisuan,procedure,~/entity,creature,已读,B1 归属�
 yvanchuxiuzhen,Entitylevelup,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,EntityLevelName,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,YaoshoushuxingUp,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,GuchongshuxingUp,procedure,~/entity,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,GuchongshuxingUp,procedure,~/entity,guchong,已读,R10来源阅读：仅蛊虫击杀升级调用十三项资质重算；与Guchongshuxing公式逐字归一核对相同
 yvanchuxiuzhen,Lingshoudai01,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：灵兽袋：收取与放出驯服的灵兽（Lingshoudaiyoujian），属驯服与灵兽袋
 yvanchuxiuzhen,Lingshoushouna,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Caoyao,tag,~/tag,platform,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -3967,21 +3967,21 @@ yvanchuxiuzhen,Shanhu3shengcheng,feature,~/plant/ordinaryplants,plant,已读,已
 yvanchuxiuzhen,Fukongjiaoshi,structure,~/plant/ordinaryplants,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
 yvanchuxiuzhen,Zishuijing,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Zishuijingzhu,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
-yvanchuxiuzhen,Biomebaichuan01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomebaichuan02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomebaichuan03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Biomebaichuan01,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomebaichuan02,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomebaichuan03,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
 yvanchuxiuzhen,SoulgrassDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Soulgrass 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Soulgrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,Youbosoil,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
-yvanchuxiuzhen,Biomeyoumeng01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomeyoumeng02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomeyoumeng03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Biomeyoumeng01,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomeyoumeng02,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomeyoumeng03,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
 yvanchuxiuzhen,Rottingsoil,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
-yvanchuxiuzhen,Biomeshijve01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomeshijve02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomeshijve03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomelianyvan01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jinsebankuai,feature,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Biomeshijve01,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomeshijve02,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomeshijve03,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomelianyvan01,biome,~/biome,world,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Jinsebankuai,feature,~/plant/ordinaryplants,plant,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
 yvanchuxiuzhen,IronropeDangWanJiaKaiShiPoPiShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Ironrope 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Ironrope,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Ironropeshengcheng,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
@@ -3992,32 +3992,32 @@ yvanchuxiuzhen,Corpsegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅�
 yvanchuxiuzhen,Rottingbamboo,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物，无过程；只在配方、标签或战利品表中出现
 yvanchuxiuzhen,MoeyeDangFangKuaiBeiWanJiaPoPiShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Moeye 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Moeye,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Moyanjiegou01,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomediling01,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomediling02,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomediling03,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomediling04,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomediling05,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomediling06,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomediling07,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Biomediling08,biome,~/biome,world,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Moyanjiegou01,structure,~/plant/ordinaryplants,plant,已读,无归来源十群系及44外部地物维度门、两缺失地物与植物消费者已逐源核对；World承载生成，内容归属保持；原字节指纹与有限验证见所属台账及无归正文
+yvanchuxiuzhen,Biomediling01,biome,~/biome,world,已读,2026-11-22 代码批次1静态核对并转换地灵群系
+yvanchuxiuzhen,Biomediling02,biome,~/biome,world,已读,2026-11-22 代码批次1静态核对并转换地灵群系
+yvanchuxiuzhen,Biomediling03,biome,~/biome,world,已读,2026-11-22 代码批次1静态核对并转换地灵群系
+yvanchuxiuzhen,Biomediling04,biome,~/biome,world,已读,2026-11-22 代码批次1静态核对并转换地灵群系
+yvanchuxiuzhen,Biomediling05,biome,~/biome,world,已读,2026-11-22 代码批次1静态核对并转换地灵群系
+yvanchuxiuzhen,Biomediling06,biome,~/biome,world,已读,2026-11-22 代码批次1静态核对并转换地灵群系
+yvanchuxiuzhen,Biomediling07,biome,~/biome,world,已读,2026-11-22 代码批次1静态核对并转换地灵群系
+yvanchuxiuzhen,Biomediling08,biome,~/biome,world,已读,2026-11-22 代码批次1静态核对并转换地灵群系
 yvanchuxiuzhen,Brokenbonepile,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Brokenbonepilediaoluo,loottable,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Higanbana,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
 yvanchuxiuzhen,HotoilDangShengWuWanJiaPengZhuangFangKuaiShi,procedure,~/decorate,decor,已读,B1 归属阅读：随 Hotoil 读：热油：接触时按“火”写入伤害参数，经共享伤害入口结算，属元素自身行为；生成由地物 Hotoilshengcheng
 yvanchuxiuzhen,Hotoil,fluid,~/decorate,decor,已读,B1 归属阅读：热油：接触时按“火”写入伤害参数，经共享伤害入口结算，属元素自身行为；生成由地物 Hotoilshengcheng
-yvanchuxiuzhen,Hotoilshengcheng,feature,~/decorate,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Hotoilshengcheng,feature,~/decorate,decor,已读,2026-11-22 代码批次1静态核对并实现
 yvanchuxiuzhen,Hotoillizi,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
-yvanchuxiuzhen,Rouchuan01,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Rouchuan02,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Rouchuan03,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Rouchuan04,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Rouchuan05,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Rouchuan06,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Kugu01,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Kugu02,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Kugu03,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Kugu04,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Rouchuan01,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Rouchuan02,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Rouchuan03,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Rouchuan04,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Rouchuan05,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Rouchuan06,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Kugu01,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Kugu02,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Kugu03,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Kugu04,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
 yvanchuxiuzhen,Gucidici,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Tudibankuai01,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Bladegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
@@ -4026,9 +4026,9 @@ yvanchuxiuzhen,Bladegrasszhanlipin,loottable,~/plant/ordinaryplants,plant,候选
 yvanchuxiuzhen,Tailbladegrasszhanlipin,loottable,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,BladegrassDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Bladegrass 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,TailbladegrassDangShengWuWanJiaYuZhiWuXiangZhuangShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Tailbladegrass 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Bladegrasstree01,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bladegrasstree02,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bladegrasstree03,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Bladegrasstree01,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Bladegrasstree02,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Bladegrasstree03,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
 yvanchuxiuzhen,Swampsilt,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant 的生成或可生长地面判断按 ID 引用，不赋予它规则
 yvanchuxiuzhen,Swampsiltdiwu,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Grassblock,block,~/decorate,decor,已读,B1 归属阅读：无过程；plant、world 的生成或可生长地面判断按 ID 引用，不赋予它规则
@@ -4039,12 +4039,12 @@ yvanchuxiuzhen,Witheredbone03,block,~/plant/ordinaryplants,plant,已读,B1 归�
 yvanchuxiuzhen,Witheredbone04,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Witheredbone05,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Witheredbone06,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
-yvanchuxiuzhen,Bonebone01,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bonebone02,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bonebone03,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bonebone04,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bonebone05,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Bonebone06,structure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Bonebone01,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Bonebone02,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Bonebone03,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Bonebone04,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Bonebone05,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
+yvanchuxiuzhen,Bonebone06,structure,~/plant/ordinaryplants,plant,已读,2026-11-22 代码批次1静态核对并挂载模板地物
 yvanchuxiuzhen,Tiandaofuben,animatedblock,~/fuben,dungeon,已读,系统设计·已读裁定：非创造模式打开 FubenopenMenu，是玩家副本入口
 yvanchuxiuzhen,TiandaofubenGui,gui,~/fuben,dungeon,已读,系统设计·已读裁定：非创造模式打开 FubenopenMenu，是玩家副本入口
 yvanchuxiuzhen,TiandaofubenDangShiTiZaiFangKuaiZhongPengZhuangShi,procedure,~/fuben,dungeon,已读,系统设计·已读裁定：非创造模式打开 FubenopenMenu，是玩家副本入口
@@ -4502,26 +4502,26 @@ yvanchuxiuzhen,PlayerGoTojiegou,procedure,~/systemset,flow,候选,第一版批�
 yvanchuxiuzhen,Rebirthinxiuxianfalse,procedure,~/systemset/zhiling,xiulian,已读,C xiulian 归属阅读：管理命令 /yvanchu 的 chongzhilinggen、chongzhilinggenmax 子命令重置灵根（随机 0–9 或全为 9）；目标为公开操作 Cultivation.resetRoots、maximizeRoots，命令归 flow
 yvanchuxiuzhen,Rebirthinxiuxiantrue,procedure,~/systemset/zhiling,xiulian,已读,C xiulian 归属阅读：管理命令 /yvanchu 的 chongzhilinggen、chongzhilinggenmax 子命令重置灵根（随机 0–9 或全为 9）；目标为公开操作 Cultivation.resetRoots、maximizeRoots，命令归 flow
 yvanchuxiuzhen,TiandaofubenZaiFangKuaiShangYouJian,procedure,~/fuben,dungeon,已读,系统设计·已读裁定：非创造模式打开 FubenopenMenu，是玩家副本入口
-yvanchuxiuzhen,Fubenname,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenid,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjieshao,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjiangli,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenlevelneed,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenpeoplemax,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenyvlan,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenset,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenyvlan01xianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenyvlan02xianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenyvlan03xianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenyvlan04xianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenyvlan05xianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenopen,gui,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjinru,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Playerfubentick,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjieshao01,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjieshao02,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjieshao03,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenjieshao04,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fubenname,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenid,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenjieshao,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenjiangli,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenlevelneed,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenpeoplemax,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenyvlan,procedure,~/fuben,dungeon,已读,来源实读：读取入口名称/结构ID/简介/奖励/等级区间/人数上限/预览；等级按修炼等级闭区间显示绿红色，属于Dungeon入口展示，目标DungeonScreen对应
+yvanchuxiuzhen,Fubenset,procedure,~/fuben,dungeon,已读,来源实读：管理串写入口十字段，仅应用非空输入，简介按16个UTF-16字符拆行，数值trim后解析失败写0，属于Dungeon入口配置
+yvanchuxiuzhen,Fubenyvlan01xianshi,procedure,~/fuben,dungeon,已读,来源实读：分别判断入口fubenyvlan等于1–5以显示对应预览图，属于Dungeon入口展示，目标保留相同编号判断
+yvanchuxiuzhen,Fubenyvlan02xianshi,procedure,~/fuben,dungeon,已读,来源实读：分别判断入口fubenyvlan等于1–5以显示对应预览图，属于Dungeon入口展示，目标保留相同编号判断
+yvanchuxiuzhen,Fubenyvlan03xianshi,procedure,~/fuben,dungeon,已读,来源实读：分别判断入口fubenyvlan等于1–5以显示对应预览图，属于Dungeon入口展示，目标保留相同编号判断
+yvanchuxiuzhen,Fubenyvlan04xianshi,procedure,~/fuben,dungeon,已读,来源实读：分别判断入口fubenyvlan等于1–5以显示对应预览图，属于Dungeon入口展示，目标保留相同编号判断
+yvanchuxiuzhen,Fubenyvlan05xianshi,procedure,~/fuben,dungeon,已读,来源实读：分别判断入口fubenyvlan等于1–5以显示对应预览图，属于Dungeon入口展示，目标保留相同编号判断
+yvanchuxiuzhen,Fubenopen,gui,~/fuben,dungeon,已读,A:FubenopenMenu/Screen和FubenopenButtonMessage将入口预览、门票与进入动作交给Dungeon；入口不修改其他系统真值
+yvanchuxiuzhen,Fubenjinru,procedure,~/fuben,dungeon,已读,来源实读：入口冷却/临时队伍等级人数、先扣票后最终准入、回程与控制点、实例标志、六秒候场和大厅传送归Dungeon；保留妖魂回程分支与扣票顺序Q103/Q104
+yvanchuxiuzhen,Playerfubentick,procedure,~/fuben,dungeon,已读,来源实读：推进候场倒计时，重建并启动控制器，转移大厅友方玩家，转换回程标志并回填入口冷却/坐标，属于Dungeon玩家生命周期
+yvanchuxiuzhen,Fubenjieshao01,procedure,~/fuben,dungeon,已读,来源实读：分别返回入口text01–text04，展示四行副本简介，属于Dungeon入口展示
+yvanchuxiuzhen,Fubenjieshao02,procedure,~/fuben,dungeon,已读,来源实读：分别返回入口text01–text04，展示四行副本简介，属于Dungeon入口展示
+yvanchuxiuzhen,Fubenjieshao03,procedure,~/fuben,dungeon,已读,来源实读：分别返回入口text01–text04，展示四行副本简介，属于Dungeon入口展示
+yvanchuxiuzhen,Fubenjieshao04,procedure,~/fuben,dungeon,已读,来源实读：分别返回入口text01–text04，展示四行副本简介，属于Dungeon入口展示
 yvanchuxiuzhen,TiandaofubenFangZhiFangKuaiShi,procedure,~/fuben,dungeon,已读,系统设计·已读裁定：非创造模式打开 FubenopenMenu，是玩家副本入口
 yvanchuxiuzhen,TiandaofubenGengXinYouXiKe,procedure,~/fuben,dungeon,已读,系统设计·已读裁定：非创造模式打开 FubenopenMenu，是玩家副本入口
 yvanchuxiuzhen,DimensiondilingDangWanJiaJinRuWeiDuShi,procedure,~/Dimension,world,已读,B1 归属阅读：随 Dimensiondiling 读：世界：维度与其传送门、裂隙、寻灵盘指向遗迹
@@ -4530,7 +4530,7 @@ yvanchuxiuzhen,Guchong05item,item,~/entity/guchong,guchong,已读,B1 归属阅�
 yvanchuxiuzhen,Guchong05lizi,particle,~/entity/guchong,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Guchong05DangShiTiGengXinKeShi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guchong05DangYouJianDianJiShiTi,procedure,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Guchong05,livingentity,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Guchong05,livingentity,~/entity/guchong,guchong,已读,读取Guchong05Entity与物品/每刻/交互过程：05保存同维主人和悬赏目标坐标、移动与百刻回收，状态归蛊虫；悬赏仅提供目标生产者。
 yvanchuxiuzhen,Guchong05zhizuo,recipe,~/entity/guchong,guchong,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Ling19,item,~/item/zawu,world,已读,负责人裁定（2026-11-03）：云清令（提示“云清派身份牌”）无过程、无配方，只出现在结构 yvnqingpai 的容器中，随结构投放归 world
 yvanchuxiuzhen,Clothes16,armor,~/weapon/armor,equipment,已读,B1 归属阅读：装备：武器、防具、工具或饰品，无过程；只在配方、标签或战利品表中出现
@@ -4546,12 +4546,12 @@ yvanchuxiuzhen,Suijijiegou05,structure,~/decorate/jiegou/suijijiegou,world,已�
 yvanchuxiuzhen,Suijijiegou06,structure,~/decorate/jiegou/suijijiegou,world,已读,已读24种自然模板：概率、次数、基底、高度、偏移、旋转镜像、processor、flags、条件及后置过程；植物模板归Plant，环境地形与随机结构归World
 yvanchuxiuzhen,Gongjv008hecheng,recipe,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,PlayerGui01jieshao,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
-yvanchuxiuzhen,PlayerGui02jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGui02jieshao,procedure,~/GUI,xiulian,已读,R12完整读取PlayerGUI02菜单/屏幕/按钮及显示和说明过程：属性加点页归修炼；OpenGUI02的打开与记页由panel汇总导航承担；加点复用Cultivation.spendSkillPoint
 yvanchuxiuzhen,PlayerGui03jieshao,procedure,~/GUI,panel,已读,K键按记忆分页打开；属性汇总只读属性修炼快照；OpenGUI01/03写当前页；说明保留来源文字
 yvanchuxiuzhen,PlayerGui04jieshao,procedure,~/GUI,skill,已读,2026-11-08逐读PlayerGUI04菜单、开关回调、槽位过滤和分页过程；功法与技能共用装配菜单归skill，功法值经gongfa公开API写入，页间导航经panel；规则见skill/architecture.md自然研习与装配页
-yvanchuxiuzhen,PlayerGui05jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui06jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui07jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGui05jieshao,procedure,~/GUI,profession,已读,PlayerGUI05Screen/Menu/ButtonMessage及PlayerGui05jieshao：只读十职业同步进度、36格原生背包和来源三行说明；导航通过公开事件交给panel。
+yvanchuxiuzhen,PlayerGui06jieshao,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGui07jieshao,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
 yvanchuxiuzhen,Gongjv001DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/tool,equipment,已读,B1 归属阅读：随 Gongjv001 读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,Gongjv001,tool,~/tool,equipment,已读,B1 归属阅读：工具与饰品台：镰刀、采药锄、射出类工具与饰品制作台的自身操作，属工具与饰品
 yvanchuxiuzhen,Gongjv001hecheng,recipe,~/tool,equipment,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -4616,10 +4616,10 @@ yvanchuxiuzhen,Xiulitaihecheng,recipe,~/tool/xiulitai,lianqi,已读,D炼器四�
 yvanchuxiuzhen,AltanjianAnXiaAnJianShi,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,AltanjianSongKaiAnJianShi,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Altanjian,keybind,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,TiandaoitemnbtGui,gui,~/systemset/tiandao,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,TiandaoitemnbtGui,gui,~/systemset/tiandao,tiandao,已读,B1 归属阅读：通用物品NBT编辑器的单槽菜单、输入框、八类型写入消息与服务端组件映射由天道负责；客户端屏幕仅显示与发送编辑请求
 yvanchuxiuzhen,Tiandaoitemnbt,block,~/systemset/tiandao,tiandao,已读,B1 归属阅读：天道：生存模式不可得的通用管理工具（穿梭令、物品锁、物品 NBT 编辑器、固定方块、多结构生成器）；本元素无过程
 yvanchuxiuzhen,Tiandaoitemnbtset,procedure,~/systemset/tiandao,tiandao,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Fubenitemneed,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Fubenitemneed,procedure,~/fuben,dungeon,已读,来源实读：入口槽0非空时显示进入消耗提示；实际扣票由Fubenjinru执行，属于Dungeon准入界面
 yvanchuxiuzhen,Jiunpc,tag,~/entity/npc,npc,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Cailiao201raw,item,~/item/metal,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 npc 的 Businessman09 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao203raw,item,~/item/metal,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；只在配方、标签或战利品表中出现
@@ -5275,100 +5275,100 @@ yvanchuxiuzhen,Boss04skill12,procedure,~/entity/boss/ycxzboss04,creature,已读,
 yvanchuxiuzhen,Boss04skill13,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Boss04skill14,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
 yvanchuxiuzhen,Boss04skill15,procedure,~/entity/boss/ycxzboss04,creature,已读,B1 归属阅读：随 Ycxzboss04 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
-yvanchuxiuzhen,Cassia04ranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cassia03ranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cassia05ranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Laurel03duifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Laurel04duifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Laurel05ranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cassia01duifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Laurel01duifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Elm01duifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Elm03duifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Elm04ranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Elm05ranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Privet01duifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Privet03duifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Privet04ranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Peachpeachduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Peachleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Peachflowerduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Peachlogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Peachlogtopranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Mulberrymulberryduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Mulberryleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Mulberrylogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ancienttimeswoodranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ancienttimesleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Evilspirittreeranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Arrowpoisonwoodranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Arrowpoisonwoodleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sandalwoodwoodranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sandalwoodleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sandalwoodleavesitemduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Mapleresinitemranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Mapleleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Maplelogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Parasolwoodranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Parasolleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Poplarleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Poplarleavesyellowduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Poplarlogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Willowleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Willowlogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Willowdroopingduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Jadebambooleaveduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Scorchedwoodenranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dingxiangflowerduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dingxiangflowerdryduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dingxiangleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Dingxianglogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrispinenutduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrispineconeduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrislogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrislogtopranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Strippedsylvestrislogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Strippedchestnutlogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Strippedbeechlogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Strippedcypresslogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Strippedtoothedlogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Strippedcamphorlogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Strippednanmulogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Strippedginkgologranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutchestnutduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutlogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutlogtopranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechlogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechlogtopranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressseedduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresslogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypresslogtopranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedlogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedlogtopranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorfruitduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorlogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorlogtopranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmulogranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmulogtopranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgofruitduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgoleavesduifei,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgologranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgologtopranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Sylvestrisplanksranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Chestnutplanksranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Beechplanksranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Cypressplanksranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Toothedplanksranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Camphorplanksranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Nanmuplanksranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Ginkgoplanksranliao,itemextension,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Cassia04ranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:cassia_04：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Cassia03ranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:cassia_03：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Cassia05ranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:cassia_05：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Laurel03duifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:laurel_03：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Laurel04duifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:laurel_04：燃料未启用、堆肥概率0.6、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Laurel05ranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:laurel_05：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Cassia01duifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:cassia_01：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Laurel01duifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:laurel_01：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Elm01duifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:elm_01：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Elm03duifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:elm_03：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Elm04ranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:elm_04：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Elm05ranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:elm_05：燃料未启用、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Privet01duifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:privet_01：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Privet03duifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:privet_03：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Privet04ranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:privet_04：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Peachpeachduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:peachpeach：燃料未启用、堆肥概率0.65、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Peachleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:peachleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Peachflowerduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:peachflower：燃料未启用、堆肥概率0.6、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Peachlogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:peachlog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Peachlogtopranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:peachlogtop：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Mulberrymulberryduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:mulberrymulberry：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Mulberryleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:mulberryleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Mulberrylogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:mulberrylog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Ancienttimeswoodranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:ancienttimeswood：燃料20000刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Ancienttimesleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:ancienttimesleaves：燃料300刻、堆肥概率1、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Evilspirittreeranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:evilspirittree：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Arrowpoisonwoodranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:arrowpoisonwood：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Arrowpoisonwoodleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:arrowpoisonwoodleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Sandalwoodwoodranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:sandalwoodwood：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Sandalwoodleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:sandalwoodleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Sandalwoodleavesitemduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:sandalwoodleavesitem：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Mapleresinitemranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:mapleresinitem：燃料300刻、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Mapleleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:mapleleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Maplelogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:maplelog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Parasolwoodranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:parasolwood：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Parasolleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:parasolleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Poplarleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:poplarleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Poplarleavesyellowduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:poplarleavesyellow：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Poplarlogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:poplarlog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Willowleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:willowleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Willowlogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:willowlog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Willowdroopingduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:willowdrooping：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Jadebambooleaveduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:jadebambooleave：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Scorchedwoodenranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:scorchedwooden：燃料4800刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Dingxiangflowerduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:dingxiangflower：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Dingxiangflowerdryduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:dingxiangflowerdry：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Dingxiangleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:dingxiangleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Dingxianglogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:dingxianglog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Sylvestrispinenutduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:sylvestrispinenut：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Sylvestrispineconeduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:sylvestrispinecone：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Sylvestrisleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:sylvestrisleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Sylvestrislogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:sylvestrislog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Sylvestrislogtopranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:sylvestrislogtop：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Strippedsylvestrislogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:strippedsylvestrislog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Strippedchestnutlogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:strippedchestnutlog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Strippedbeechlogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:strippedbeechlog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Strippedcypresslogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:strippedcypresslog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Strippedtoothedlogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:strippedtoothedlog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Strippedcamphorlogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:strippedcamphorlog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Strippednanmulogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:strippednanmulog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Strippedginkgologranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:strippedginkgolog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Chestnutchestnutduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:chestnutchestnut：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Chestnutleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:chestnutleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Chestnutlogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:chestnutlog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Chestnutlogtopranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:chestnutlogtop：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Beechleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:beechleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Beechlogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:beechlog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Beechlogtopranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:beechlogtop：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Cypressseedduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:cypressseed：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Cypressleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:cypressleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Cypresslogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:cypresslog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Cypresslogtopranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:cypresslogtop：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Toothedleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:toothedleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Toothedlogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:toothedlog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Toothedlogtopranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:toothedlogtop：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Camphorfruitduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:camphorfruit：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Camphorleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:camphorleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Camphorlogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:camphorlog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Camphorlogtopranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:camphorlogtop：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Nanmuleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:nanmuleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Nanmulogranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:nanmulog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Nanmulogtopranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:nanmulogtop：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Ginkgofruitduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:ginkgofruit：燃料未启用、堆肥概率1、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Ginkgoleavesduifei,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:ginkgoleaves：燃料未启用、堆肥概率0.3、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Ginkgologranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:ginkgolog：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Ginkgologtopranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:ginkgologtop：燃料1600刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Sylvestrisplanksranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:sylvestrisplanks：燃料300刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Chestnutplanksranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:chestnutplanks：燃料300刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Beechplanksranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:beechplanks：燃料300刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Cypressplanksranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:cypressplanks：燃料300刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Toothedplanksranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:toothedplanks：燃料300刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Camphorplanksranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:camphorplanks：燃料300刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Nanmuplanksranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:nanmuplanks：燃料300刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
+yvanchuxiuzhen,Ginkgoplanksranliao,itemextension,~/plant/tree,plant,已读,完整元素定义、所用物品注册身份与两份生成扩展表逐项核对；yvanchuxiuzhen:ginkgoplanks：燃料300刻、堆肥概率0、无发射器行为；来源阅读，不代表运行验收
 yvanchuxiuzhen,Cailiao241,item,~/item/lingmu,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 flow 的 Itemhecheng、Worldbegin；treasure 的 BaoxiangLingmucailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao242,item,~/item/lingmu,material,已读,B1 归属阅读：编号材料：身份、品阶与等级由 Worldbegin 材料目录定义；被 flow 的 Teshucailiaodiaoluo、Worldbegin；treasure 的 BaoxiangLingmucailiao 按 ID 引用（产物、奖励、商品、配方或消耗），不赋予它规则
 yvanchuxiuzhen,Cailiao241hecheng,recipe,~/item/lingmu,material,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5404,10 +5404,10 @@ yvanchuxiuzhen,Benmingfabaotisheng,procedure,~/GUI/dantian,equipment,已读,C xi
 yvanchuxiuzhen,Jointxt14,procedure,~/GUI,xiulian,已读,C xiulian 归属阅读：出身界面 PlayerJoinGUI（首次进入且五行灵根之和小于 1 时由 PlayerJoinGame 打开）的显示或按钮，读写灵根、锁定与随机次数、体质、出身与 tizhiitem 的 Lock* 键
 yvanchuxiuzhen,Daduan,particle,~/lizi,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
 yvanchuxiuzhen,Jinenglengqvejiance,procedure,~/skill/jineng/jinengGui,skill,已读,C skill 归属阅读：施放与冷却，右键施放的条件、消耗、冷却累加与连招；技能名到施放过程的分派表是 Jinenglist01，各技能的施放过程随各自元素族迁移
-yvanchuxiuzhen,PlayerGUI08,gui,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Qiehuan03,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui08jieshao,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,PlayerGui08xiulian,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,PlayerGUI08,gui,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,Qiehuan03,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGui08jieshao,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
+yvanchuxiuzhen,PlayerGui08xiulian,procedure,~/GUI,xiulian,已读,R12来源06/07/08完整菜单、按钮和过程：修炼/参悟启动、天数调节、观想结算、原生背包和子页切换；数据写入由xiulian负责，跨系统查询/炼化用具体事件。
 yvanchuxiuzhen,Kaishigongfa,procedure,~/systemset,gongfa,已读,C gongfa 归属阅读：xiuliankaiguan 为“功法”时每秒的功法修炼（监听 xiulian 的 CultivationSecondEvent）
 yvanchuxiuzhen,Mutanshaolian,recipe,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Mutanshaolian2,recipe,~/plant/tree,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5466,7 +5466,7 @@ yvanchuxiuzhen,Lingshoudai13hecheng,recipe,~/item/zawu/lingshoudai,creature,候�
 yvanchuxiuzhen,Lingshoudai14hecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudai15hecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudai16hecheng,recipe,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Lingshoudaizhuanhuan,gui,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Lingshoudaizhuanhuan,gui,~/item/zawu/lingshoudai,creature,已读,R07来源菜单80–95行、染色过程与工具容器已读；三槽与16色映射归Creature；Q227保持来源输入限制
 yvanchuxiuzhen,Ranliao,tag,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Lingshoudaizhuanhuanitem,item,~/item/zawu/lingshoudai,creature,已读,B1 归属阅读：生物：无过程；B1 行是其刷怪蛋
 yvanchuxiuzhen,Lingshoudairanse,procedure,~/item/zawu/lingshoudai,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -5933,7 +5933,7 @@ yvanchuxitong,LightningLanding,command,~/zhiling,combat,已读,已读LightningLa
 yvanchuxitong,LightningLandingGo,procedure,~/zhiling,combat,已读,已读LightningLanding命令、LightningLandingGo与彩色闪电实体及主入口绑定：按命令原坐标结算共享范围雷伤，队伍仅参数占位；skill与xiulian只提供生成参数，归combat。
 yvanchuxitong,Chain,enchantment,~/fumo,combat,已读,C combat 归属阅读：原初系统唯一的附魔，连锁采集由 ChainProcedure 读取等级（随 combat 迁移，代码注册转数据定义的首个实例）
 yvanchuxitong,ChainProcedure,procedure,~/fumo,combat,已读,C combat 归属阅读：连锁采集的方块破坏订阅（BlockEvent.BreakEvent），随 Chain 附魔读
-yvanchuxitong,PlayerRightClickBlock,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 蒸锅分支已读：未烹饪蒸锅自然事件开窗且不取消后续use；仅本族分支覆盖，全局编排归flow，其他分支未在此族全量核读
+yvanchuxitong,PlayerRightClickBlock,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 蒸锅分支已读：未烹饪蒸锅自然事件开窗且不取消后续use；仅本族分支覆盖，全局编排归flow，其他分支未在此族全量核读；R13 仅银行对话入口79–82及87–95已读：天地银行四选对话与普通卡10枚一级灵石购买脚本；商品表与其他分支未在本包完整核读；保留全局flow候选归属
 yvanchuxitong,Itemdanyaohulu01DangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：随 Itemdanyaohulu01 读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,Itemdanyaohulu01,item,~/yvanchuliandan/danyaoguan,liandan,已读,B1 归属阅读：炼丹：丹炉开炉与炸炉、丹药容器的装填与服用、分丹台、药理台、百草鉴与千材录的辨识
 yvanchuxitong,AlchemyName,procedure,~/yvanchuliandan,liandan,已读,LiandanGUIScreen读取丹炉自身alchemyName形成动态文字；名称为空时取方块显示名，其余按原整数格式显示，归炼丹界面。
@@ -6000,7 +6000,7 @@ yvanchuxitong,Danyaonamexianshi,procedure,~/yvanchuliandan/liandangongzuotai,lia
 yvanchuxitong,Plaque0101,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,Plaque0102,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,Plaque0103,block,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
-yvanchuxitong,PlaqueGUI,gui,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PlaqueGUI,gui,~/zhuangshiwu/plaque,decor,已读,1.18.2版本B菜单注册第77行；来源路径和菜单内容属于牌匾装饰；无自然打开者及消息断链按Q210保留
 yvanchuxitong,PlaqueGUIanniu,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,PlaquejiaziZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/plaque,decor,已读,B1 归属阅读：随 Paiwei01 读：牌匾与牌位：染料改字色（PlaquejiaziZaiFangKuaiShangYouJian）、牌位物品放置与文字（SetPaiwei 已读归 decor），只改本方块
 yvanchuxitong,PlaqueGUIqingxieanniu,procedure,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6056,9 +6056,9 @@ yvanchuxitong,BaoxiangYaodancailiao,procedure,~/baoxiang,treasure,候选,第一�
 yvanchuxitong,BaoxiangJiajv,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,BaoxiangDuyao,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,TiandaotuzhitaiGUIDangZheGeJieMianDaKaiShi,procedure,~/yvanchulianqi/tiandao,lianqi,已读,D lianqi 归属阅读：过程17–119每次开窗在13–203槽预置191栈64件材料，不设实例等级品质、不刷新预览，204–222槽保留；目录材料可实际领取。
-yvanchuxitong,TieguoGUI,gui,~/yvanchupengren/tieguo,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,TieguoGUI,gui,~/yvanchupengren/tieguo,cooking,已读,2026-11-22 代码批次4静态核对砂锅与铁锅菜单接线
 yvanchuxitong,ZhengguoGUI,gui,~/yvanchupengren,cooking,已读,第一版批量归组（目录、元素名与元素类型规则）；2026-11-10 蒸锅/笼屉族已读：Foodzhengguo/Foodlongti方块与菜单、两自然配方、两原生右键过程及Cookbegin蒸锅分支直接处理厨具状态；五次完成经profession增加厨艺经验，归cooking
-yvanchuxitong,ShaguoGUI,gui,~/yvanchupengren,cooking,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ShaguoGUI,gui,~/yvanchupengren,cooking,已读,2026-11-22 代码批次4静态核对砂锅与铁锅菜单接线
 yvanchuxitong,AnbanFangKuaiShiTiXuanRanShi,procedure,~/yvanchupengren,cooking,已读,B1 归属阅读：随 Anban 读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
 yvanchuxitong,AnbanZaiFangKuaiShangYouJian,procedure,~/yvanchupengren,cooking,已读,B1 归属阅读：随 Anban 读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
 yvanchuxitong,Anban,block,~/yvanchupengren,cooking,已读,B1 归属阅读：案板与菜刀：在案板上切配食材，LeftClickBlock 的菜刀分支按 ID 触发
@@ -6099,8 +6099,8 @@ yvanchuxitong,Zhenfajiance5,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅
 yvanchuxitong,Zhenyang01TouZhiWuFeiXingTick,procedure,~/yvanchuzhenfa/zhenfajineng,zhenfa,已读,B1 归属阅读：随 Zhenyang01 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxitong,Zhenyang01DangTouZhiWuJiZhongShiTiShi,procedure,~/yvanchuzhenfa/zhenfajineng,zhenfa,已读,B1 归属阅读：随 Zhenyang01 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxitong,Zhenyang01,rangeditem,~/yvanchuzhenfa/zhenfajineng,zhenfa,已读,B1 归属阅读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
-yvanchuxitong,ZhenfashitiDangShiTiGengXinKeShi,procedure,~/yvanchuzhenfa/zhenfajineng,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhenfashiti,livingentity,~/yvanchuzhenfa/zhenfajineng,zhenfa,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ZhenfashitiDangShiTiGengXinKeShi,procedure,~/yvanchuzhenfa/zhenfajineng,zhenfa,已读,阳系来源实体/逐刻闭包复核：由阵基生成并复制阵法参数；所有者为zhenfa
+yvanchuxitong,Zhenfashiti,livingentity,~/yvanchuzhenfa/zhenfajineng,zhenfa,已读,阳系来源实体/逐刻闭包复核：由阵基生成并复制阵法参数；所有者为zhenfa
 yvanchuxitong,Zhenjineng02,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅读：随 Zhenji 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxitong,Zhenjineng03,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅读：随 Zhenji 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxitong,Zhenjineng04,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅读：随 Zhenji 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
@@ -6110,9 +6110,9 @@ yvanchuxitong,Zhenjineng07,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅�
 yvanchuxitong,Zhenjineng08,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅读：随 Zhenji 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxitong,ZhenjiZaiFangKuaiShangYouJian,procedure,~/yvanchuzhenfa,zhenfa,已读,B1 归属阅读：随 Zhenji 读：阵法：阵基、阵元、母旗子旗布阵、罗盘与阵法技能投射物
 yvanchuxitong,Lingqi,particle,,particle,已读,逐项读取 client/particle/<元素>Particle 的原生贴图构造、刻推进、光照、渲染层和粒子 JSON；按模板与参数差异核对全部315项，仅处理粒子自身的表现、物理与生命周期，无玩法状态写入，归粒子库。妖兽与符箓七项由对应系统按ID调用，不改变粒子实现归属。
-yvanchuxitong,DuihuaGUI01,gui,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,DuihuaGUI02,gui,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Duihuashijian,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,DuihuaGUI01,gui,~/duihua,quest,已读,读取来源菜单、客户端和按钮网络回调及Duihuashijian/Xvanshang消费者：当前对话选项与悬赏状态归任务系统。
+yvanchuxitong,DuihuaGUI02,gui,~/duihua,quest,已读,读取来源菜单、客户端和按钮网络回调及Duihuashijian/Xvanshang消费者：当前对话选项与悬赏状态归任务系统。
+yvanchuxitong,Duihuashijian,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）；R13 仅银行单步所需打开界面分支792–794及812–844已读：先清脚本与游标后打开银行登录或免登银行；其他对话动作未在本包完整核读；保留整元素候选归属
 yvanchuxitong,DuihuaGUIwenben01,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,DuihuaGUIwenben02,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,DuihuaGUIwenben03,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6131,11 +6131,11 @@ yvanchuxitong,XvanxiangTXT01,procedure,~/duihua,quest,候选,第一版批量归�
 yvanchuxitong,XvanxiangTXT02,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,XvanxiangTXT03,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,XvanxiangTXT04,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,PlayerTickxitong,procedure,,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PlayerTickxitong,procedure,,quest,候选,第一版批量归组（目录、元素名与元素类型规则）；R13 仅银行单步所需END事件27–30和启动/任务记录读取47–80已读：先清begin后读任务状态与游标并调用对话；其他任务分支未在本包完整核读；保留整元素候选归属
 yvanchuxitong,Cunchurenwu,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuGUI,gui,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuanjianAnXiaAnJianShi,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Renwuanjian,keybind,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,RenwuGUI,gui,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuanjianAnXiaAnJianShi,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,Renwuanjian,keybind,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
 yvanchuxitong,Renwuliebiao01,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renwuliebiao02,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renwuliebiao03,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6144,25 +6144,25 @@ yvanchuxitong,Renwuliebiao05,procedure,~/duihua,quest,候选,第一版批量归�
 yvanchuxitong,Renwuliebiao06,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renwuliebiao07,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renwuliebiao08,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu01,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu02,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu03,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu04,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu05,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu06,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu07,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,RenwuAnniu08,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,RenwuAnniu01,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu02,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu03,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu04,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu05,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu06,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu07,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,RenwuAnniu08,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
 yvanchuxitong,Renwuname,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renwuxvqiu,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Renwujiangli,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Fanyeup,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Fanyedown,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Fanyexianshi,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Renwuleibieup,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Fanyeup,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,Fanyedown,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,Fanyexianshi,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,Renwuleibieup,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
 yvanchuxitong,Renwuliebiedown,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,RenwuUIname,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Renwujixv,procedure,~/duihua,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ShopGUI,gui,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Renwujixv,procedure,~/duihua,quest,已读,2026-11-15完整读取U键任务列表、八行/分类/翻页/继续及原生菜单；分页和0/0来源差异集中保留
+yvanchuxitong,ShopGUI,gui,~/shop,economy,已读,R13经济交易包：已完整核对来源菜单/注册与调用；七页槽位、按钮、显示及shopsell范围；实体椅子的属性、免伤、渲染和拍卖消费。正文见economy或decor architecture
 yvanchuxitong,ShopGUIopen,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopGUIDangZheGeJieMianDaKaiShi,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Money01,item,~/shop,economy,已读,B1 归属阅读：货币或灵石：无过程；被 festival 的 Fuqi02TouKuiShiJianMeiYouXiKe、Fuqi06DangYouJianDianJiKongQiShiShiTiDeWeiZhi；npc 的 Businessman01ShiTiChuShiShengChengShi；quest 的 Xvanshangzhuizongheji；treasure 的 TreasureChest06ZaiFangKuaiShangYouJian 按 ID 引用（奖励、价格、阵基与飞行器的灵石消耗、合成），不赋予它规则
@@ -6209,13 +6209,13 @@ yvanchuxitong,ShopBuy09,procedure,~/shop,economy,候选,第一版批量归组（
 yvanchuxitong,ShopBuy10,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopBuy11,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopBuy12,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUIDangZheGeJieMianDaKaiShi,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUI,gui,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,BankGUIDangZheGeJieMianDaKaiShi,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：银行打开回调两次服务端END刻后现读当前槽映射并逐槽写九级展示币再调用 Bankshuaxin；跨菜单映射边界见 economy 银行正文
+yvanchuxitong,BankGUI,gui,~/shop/yinhang,economy,已读,R13 economy 归属阅读：BankGUIMenu 的11槽银行存取与 Bankcunchu 写 bank.lingshi01…09；见 economy 银行正文
 yvanchuxitong,Storenametxt,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUIdenglu,gui,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUIdenglujinru,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Bankshuaxin,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Bankcunchu,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,BankGUIdenglu,gui,~/shop/yinhang,economy,已读,R13 economy 归属阅读：BankGUIdengluMenu 槽0收银行标签；BankGUIdenglujinru 验证通宝玉归属后复制清槽并打开银行；见 economy 银行正文
+yvanchuxitong,BankGUIdenglujinru,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：登录按钮按bank标签与owner验证槽0卡；复制清旧槽后打开银行并迁移单张卡；失败提示按来源保留；见 economy 银行正文
+yvanchuxitong,Bankshuaxin,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：读bank九级int余额并写renwuitem银行数量/主人/购买力缓存后同步；购买力先int乘法再累加double；见 economy 银行正文
+yvanchuxitong,Bankcunchu,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：槽10整栈存入bank九级账户；double数量加int余额后截断；标签未知ID仍清槽；两END刻后刷新；见 economy 银行正文
 yvanchuxitong,Banktxtlingshi01,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Banktxtlingshi02,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Banktxtlingshi03,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6236,15 +6236,15 @@ yvanchuxitong,BankBuy08,procedure,~/shop/yinhang,economy,候选,第一版批量�
 yvanchuxitong,BankBuy09,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Bankname,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Banktgoumaili,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUIjieshao,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUIguanbi,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,BankGUIshougou,gui,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,BankGUIjieshao,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：银行说明按钮依次输出三条通宝玉/银行说明；不写账户；见 economy 银行正文
+yvanchuxitong,BankGUIguanbi,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：银行和登录关闭按钮调用closeContainer；物品去向由银行菜单关闭生命周期处理；见 economy 银行正文
+yvanchuxitong,BankGUIshougou,gui,~/shop/yinhang,economy,已读,R13经济交易包：已完整核对来源菜单/注册与调用；七页槽位、按钮、显示及shopsell范围；实体椅子的属性、免伤、渲染和拍卖消费。正文见economy或decor architecture
 yvanchuxitong,BankGUIshougoushuoming,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,BankGUIshougoushuaxin,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shougoushuoming01,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shougoushuoming02,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shougousell,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Naqv,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Naqv,procedure,~/shop/yinhang,economy,已读,R13 economy 完整归属阅读：banknaqvweizhi选银行级别；扣单枚余额并给予品质4/等级位置×5的灵石；bank写回同步；见 economy 银行正文
 yvanchuxitong,Shopqianbaoshuaxin,procedure,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Money01hecheng,recipe,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Money02hecheng,recipe,~/shop,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6292,22 +6292,22 @@ yvanchuxitong,FulunameXianshi,procedure,~/huafu,fulu,候选,第一版批量归�
 yvanchuxitong,Dinglu,tag,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Huafutaihecheng,recipe,~/huafu,fulu,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ChengzhenAntai,block,~/chengzhen,town,已读,B1 归属阅读：城镇：案台存料、建筑核心与规划核心放置建筑
-yvanchuxitong,ChengzhenUi01,gui,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ChengzhenUi02,gui,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ChengzhenUi01,gui,~/chengzhen,town,已读,读取来源菜单、页面打开/按钮过程、规划核心及案台调用链：建筑输入与城镇显示状态归城镇；空按钮与仅注册页面不增设管理玩法。
+yvanchuxitong,ChengzhenUi02,gui,~/chengzhen,town,已读,读取来源菜单、页面打开/按钮过程、规划核心及案台调用链：建筑输入与城镇显示状态归城镇；空按钮与仅注册页面不增设管理玩法。
 yvanchuxitong,ChengzhenName,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Chengzhenchangzhuren,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Chengzhenfangwu,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Chengzhenliudongren,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Chengzhenlvguan,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Chengzhensiwangren,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ChengzhenUi03,gui,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ChengzhenUi03,gui,~/chengzhen,town,已读,读取来源菜单、页面打开/按钮过程、规划核心及案台调用链：建筑输入与城镇显示状态归城镇；空按钮与仅注册页面不增设管理玩法。
 yvanchuxitong,ChengzhenUi03DangZheGeJieMianDaKaiShi,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ChengzhenAntaiZaiFangKuaiShangYouJian,procedure,~/chengzhen,town,已读,B1 归属阅读：随 ChengzhenAntai 读：城镇：案台存料、建筑核心与规划核心放置建筑
-yvanchuxitong,ChengzhenUi04,gui,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ChengzhenUi04,gui,~/chengzhen,town,已读,读取来源菜单、页面打开/按钮过程、规划核心及案台调用链：建筑输入与城镇显示状态归城镇；空按钮与仅注册页面不增设管理玩法。
 yvanchuxitong,Chengzhenjvndui,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Chengzhenxiuzhe,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Chengzhenliuxiuzhe,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ChengzhenUi05,gui,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ChengzhenUi05,gui,~/chengzhen,town,已读,读取来源菜单、页面打开/按钮过程、规划核心及案台调用链：建筑输入与城镇显示状态归城镇；空按钮与仅注册页面不增设管理玩法。
 yvanchuxitong,Chengzhenguan1,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Chengzhenguan2,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ChengzhenBuildblock,block,~/chengzhen,town,已读,B1 归属阅读：城镇：案台存料、建筑核心与规划核心放置建筑
@@ -6319,7 +6319,7 @@ yvanchuxitong,PlaqueGUIDangZheGeJieMianDaKaiShi,procedure,~/zhuangshiwu/plaque,d
 yvanchuxitong,ChengzhenBuildblockZaiFangKuaiShangYouJian,procedure,~/chengzhen,town,已读,B1 归属阅读：随 ChengzhenBuildblock 读：城镇：案台存料、建筑核心与规划核心放置建筑
 yvanchuxitong,ChengzhenBuildblockFangKuaiShiTiXuanRanShi,procedure,~/chengzhen,town,已读,B1 归属阅读：随 ChengzhenBuildblock 读：城镇：案台存料、建筑核心与规划核心放置建筑
 yvanchuxitong,Jiegoufangzhi,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ChengzhenbuildGui,gui,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ChengzhenbuildGui,gui,~/chengzhen,town,已读,读取来源菜单、页面打开/按钮过程、规划核心及案台调用链：建筑输入与城镇显示状态归城镇；空按钮与仅注册页面不增设管理玩法。
 yvanchuxitong,Chengzhenbuildneed01,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Chengzhenbuildneed02,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,BuildNameTxt,procedure,~/chengzhen,town,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6340,7 +6340,7 @@ yvanchuxitong,Zhuangshitulongitem01DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi,
 yvanchuxitong,Zhuangshitulongitem01,item,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
 yvanchuxitong,Zhuangshitulongitem02,item,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
 yvanchuxitong,Zhuangshitulongitem03,item,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：装饰笼：用 forge:vegetable 或 forge:seed 引兔、鸡入笼与取出，笼体互换，只改本方块；Lore 只用于显示
-yvanchuxitong,Zhuangshitulonghecheng,recipe,~/zhuangshiwu/zawu,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Zhuangshitulonghecheng,recipe,~/zhuangshiwu/zawu,decor,已读,2026-11-14兔笼完整族来源核对：四竹四木棍生产空笼；所有者Decor，配方与NPC消费证据见系统正文
 yvanchuxitong,Zhuangshishuigang,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxitong,Zhuangshishuigangtwo,block,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：无过程；只在配方、标签或战利品表中出现
 yvanchuxitong,Plaque01itemhecheng,recipe,~/zhuangshiwu/plaque,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -6414,11 +6414,11 @@ yvanchuxitong,Beechfurniture01,block,~/zhuangshiwu/jiajv/beech furniture,decor,�
 yvanchuxitong,Beechfurniture02,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture03,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture03FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture03 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture03GUI,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture03GUI,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-15来源菜单、按钮消息及玩家刻回调已逐项读：只管理展示家具库存/切换；玩家坐标清槽疑点Q196保持来源
 yvanchuxitong,Beechfurniture03FangZhiFangKuaiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture03 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture04,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture05,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Shitiyizi,livingentity,~/zhuangshiwu/jiajv,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Shitiyizi,livingentity,~/zhuangshiwu/jiajv,decor,已读,R13经济交易包：已完整核对来源菜单/注册与调用；七页槽位、按钮、显示及shopsell范围；实体椅子的属性、免伤、渲染和拍卖消费。正文见economy或decor architecture
 yvanchuxitong,Beechfurniture06ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture06 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture06FangZhiFangKuaiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture06 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture06DangFangKuaiBeiWanJiaPoPiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture06 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
@@ -6429,18 +6429,18 @@ yvanchuxitong,Beechfurniture09,block,~/zhuangshiwu/jiajv/beech furniture,decor,�
 yvanchuxitong,Beechfurniture10,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture11,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture12,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture13Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture13,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture14Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,系统设计·已读裁定：27 格无槽位过滤，没有 storage 的规则
-yvanchuxitong,Beechfurniture14,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,系统设计·已读裁定：27 格无槽位过滤，没有 storage 的规则
-yvanchuxitong,Beechfurniture15Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture13Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture13,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture14Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture14,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture15Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-15来源菜单、按钮消息及玩家刻回调已逐项读：只管理展示家具库存/切换；玩家坐标清槽疑点Q196保持来源
 yvanchuxitong,Beechfurniture1501FangKuaiShiTiXuanRanShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1501 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1501,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1502,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1503,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1504,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1505,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture15qiehuan,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture15qiehuan,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-15来源菜单、按钮消息及玩家刻回调已逐项读：只管理展示家具库存/切换；玩家坐标清槽疑点Q196保持来源
 yvanchuxitong,Beechfurniture1601FangZhiFangKuaiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1601 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1601,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture1602,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
@@ -6455,14 +6455,14 @@ yvanchuxitong,Beechfurniture1703,block,~/zhuangshiwu/jiajv/beech furniture,decor
 yvanchuxitong,Beechfurniture1704,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurnitureshiqi,tag,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Beechfurniture17gengxin,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1701 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture18Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Beechfurniture18,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture19,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture20,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture21,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture22,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture18Gui,gui,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture18,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture19,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture20,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture21,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
+yvanchuxitong,Beechfurniture22,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
 yvanchuxitong,Beechfurniture23,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
-yvanchuxitong,Beechfurniture24,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
+yvanchuxitong,Beechfurniture24,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-14来源储物家具族：本块保存库存，三菜单按布局复用；八块与八BE、方向禁取和木匠产物调用已核；正文见Decor
 yvanchuxitong,Beechfurniture2501DangFangKuaiBeiShuiFangZhiShi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture2501 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture2501,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture2502,block,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
@@ -6533,7 +6533,7 @@ yvanchuxitong,Mujiangneed2,procedure,~/mujiangtai,craft,已读,2026-11-10完整�
 yvanchuxitong,Mujiangneed3,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
 yvanchuxitong,Mujiangneed4,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
 yvanchuxitong,Mujiangtaijianzao,procedure,~/mujiangtai,craft,已读,2026-11-10完整来源核对：木匠37配方/43按钮/42槽共享选择制作与缫丝五周期双取料路径；设备状态归craft，无玩家能力字段写入
-yvanchuxitong,Shitiputuan,livingentity,~/zhuangshiwu/jiajv,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Shitiputuan,livingentity,~/zhuangshiwu/jiajv,decor,已读,R15逐源码核对实体/渲染/模型及蒲团放置、右键乘坐、玩家破坏和爆炸移除过程；只保存本族载具，不写玩家档案
 yvanchuxitong,PutuanZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Putuan 读：蒲团：放置时生成座位实体 shitiputuan，供坐下
 yvanchuxitong,PutuanFangZhiFangKuaiShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Putuan 读：蒲团：放置时生成座位实体 shitiputuan，供坐下
 yvanchuxitong,PutuanDangFangKuaiBeiWanJiaPoPiShi,procedure,~/zhuangshiwu/zawu,decor,已读,B1 归属阅读：随 Putuan 读：蒲团：放置时生成座位实体 shitiputuan，供坐下
@@ -6979,7 +6979,7 @@ yvanchuxitong,Mubiaokaiguan26,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 
 yvanchuxitong,Mubiaokaiguan27,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
 yvanchuxitong,Mubiaokaiguan28,procedure,~/gongfa/xianshi,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
 yvanchuxitong,Kaishixvexi,procedure,~/gongfa,gongfa,已读,C gongfa 归属阅读：星宿穴位学习小游戏（研习台 gongfaxvexi 与界面 gongfaxvexi_gui）在来源中不可达——研习台物品不在创造栏、没有配方、结构与代码都不放置它，槽位没有放入书的途径，界面没有打开处（右键研习台打开的是 TripodGUI）；Q28 待裁定，未迁移
-yvanchuxitong,BankGUIshougou2,gui,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,BankGUIshougou2,gui,~/shop/yinhang,economy,已读,R13经济交易包：已完整核对来源菜单/注册与调用；七页槽位、按钮、显示及shopsell范围；实体椅子的属性、免伤、渲染和拍卖消费。正文见economy或decor architecture
 yvanchuxitong,Putongshougoushuaxin,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Putongchushouanniu,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Taskduihuashijian,procedure,~/duihua/taskbegin,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7088,10 +7088,10 @@ yvanchuxitong,Baicaojianbook,item,~/yvanchuliandan/baicaojian,liandan,已读,B1 
 yvanchuxitong,Baicaojianbookhecheng,recipe,~/yvanchuliandan/baicaojian,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
 yvanchuxitong,Fendantaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,已读,B:recipes/fendantaihecheng.json:3-30；空容器标签加木板木棍合成分丹台1个；目标配方静态一致
 yvanchuxitong,Yaolitaihecheng,recipe,~/yvanchuliandan/liandangongzuotai,liandan,已读,2026-11-09 药理台完整调用链：八草预览、丹方媒介写入、十三行显示与原生配方；证据见liandan/ledger/source-evidence.csv
-yvanchuxitong,PlayerJoinGame,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,PlayerJoinGame,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）；R13 仅银行会话所需登录初始化40–54已读：建立renwuitem载体并清脚本/游标/begin及购买显示缓存；其他登录过程未在本包完整核读；保留全局flow候选归属
 yvanchuxitong,ShipinGo,procedure,~/zhiling,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
 yvanchuxitong,Shipin,command,~/zhiling,equipment,已读,PlayerGUI03四槽首刻装入关闭保存；槽2/3标签与保存字段错位Q60；Shipintick读取腰佩并按世界时间发粒子
-yvanchuxitong,Beechfurniture15GuiDangZheGeJieMianBeiGuanBi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Beechfurniture15GuiDangZheGeJieMianBeiGuanBi,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,2026-11-15来源菜单、按钮消息及玩家刻回调已逐项读：只管理展示家具库存/切换；玩家坐标清槽疑点Q196保持来源
 yvanchuxitong,Beechfurniture1501ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture1501 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Beechfurniture03ZaiFangKuaiShangYouJian,procedure,~/zhuangshiwu/jiajv/beech furniture,decor,已读,B1 归属阅读：随 Beechfurniture03 读：家具：多格放置、展示物品放取、座位实体 shitiyizi 生成与 3 格无过滤展示栏，作用限于本方块与本系列；木工台 MujiangGui 只按 ID 列为产物
 yvanchuxitong,Guchongshuxing,procedure,~/guchong,guchong,已读,B1 归属阅读：随 Taoguan01 读：蛊虫：蛊罐的精血认主与按队伍释放、蛊虫物品放出蛊虫实体
@@ -7110,21 +7110,21 @@ yvanchuxitong,ZhenxianpoluoGuiPageDown,procedure,~/yvanchulianqi/fangzhiji,lianq
 yvanchuxitong,ZhenxianpoluoGuiDangZheGeJieMianBeiGuanBi,procedure,~/yvanchulianqi/fangzhiji,lianqi,已读,D炼器四装置来源核对：八槽真实共享预览、2刻选择、十五页配方、材料检查扣除、关闭清槽及合成；精确链见lianqi正文及source-evidence。
 yvanchuxitong,Zhenxianpoluozhizuo,procedure,~/yvanchulianqi/fangzhiji,lianqi,已读,D炼器四装置来源核对：八槽真实共享预览、2刻选择、十五页配方、材料检查扣除、关闭清槽及合成；精确链见lianqi正文及source-evidence。
 yvanchuxitong,Zhenxianpoluohecheng,recipe,~/yvanchulianqi/fangzhiji,lianqi,已读,D炼器四装置来源核对：八槽真实共享预览、2刻选择、十五页配方、材料检查扣除、关闭清槽及合成；精确链见lianqi正文及source-evidence。
-yvanchuxitong,MakebookGui,gui,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Makebook,block,~/zawu/makebook,book,已读,B1 归属阅读：装订台：方块绑定装订界面 MakebookGui，在界面中把书写内容装订为书籍，属装订
-yvanchuxitong,Makebookshuaxin,procedure,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Makebookxiaohao,procedure,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Makebookqingchu,procedure,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Makebookhecheng,recipe,~/zawu/makebook,book,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,MakebookGui,gui,~/zawu/makebook,book,已读,已读38槽菜单、槽消息与来源屏幕；固定24项空白载体目录和纸线费用归book，不读写外部玩家字段
+yvanchuxitong,Makebook,block,~/zawu/makebook,book,已读,已读方块与38槽方块实体；自然打开、侧面规则、保存、掉落和比较器归book，本台只以纸线制作空白载体
+yvanchuxitong,Makebookshuaxin,procedure,~/zawu/makebook,book,已读,已读完整固定24项目录；玩家菜单末刻满足3纸1线时刷新前24结果，欠料清空36结果槽
+yvanchuxitong,Makebookxiaohao,procedure,~/zawu/makebook,book,已读,已读结果槽onTake调用；每次从逻辑槽0移除3纸、槽1移除1线，不读取知识实例
+yvanchuxitong,Makebookqingchu,procedure,~/zawu/makebook,book,已读,已读菜单关闭调用；清空逻辑槽2至37，绑定方块实体保留输入槽0和1
+yvanchuxitong,Makebookhecheng,recipe,~/zawu/makebook,book,已读,已读来源六线一木板合成一件makebook；目标配方已转换，装订台属于book
 yvanchuxitong,Fubenblock,block,~/fuben,dungeon,已读,B1 归属阅读：副本：副本方块的阶段与波次、副本实体占位
 yvanchuxitong,Fubenentity,block,~/fuben,dungeon,已读,B1 归属阅读：副本：副本方块的阶段与波次、副本实体占位
 yvanchuxitong,FubenblockGengXinYouXiKe,procedure,~/fuben,dungeon,已读,B1 归属阅读：随 Fubenblock 读：副本：副本方块的阶段与波次、副本实体占位
-yvanchuxitong,Fubenbianchangxianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,FubenblockGui,gui,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Fubenblockset,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhanweifuidxianshi,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Zhanweifuset,procedure,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,FubenentityGui,gui,~/fuben,dungeon,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Fubenbianchangxianshi,procedure,~/fuben,dungeon,已读,来源实读：显示/配置控制器边长与中心，扫描正轴立方区域登记占位符相对坐标和原tag，累计计数不预清零，属于Dungeon区域与站位配置
+yvanchuxitong,FubenblockGui,gui,~/fuben,dungeon,已读,B:FubenblockGuiMenu/Screen和FubenblockGuiButtonMessage配置45槽控制器和扫描边长，归Dungeon
+yvanchuxitong,Fubenblockset,procedure,~/fuben,dungeon,已读,来源实读：显示/配置控制器边长与中心，扫描正轴立方区域登记占位符相对坐标和原tag，累计计数不预清零，属于Dungeon区域与站位配置
+yvanchuxitong,Zhanweifuidxianshi,procedure,~/fuben,dungeon,已读,来源实读：显示/保存占位ID，按朝向写生成角度，仅勾选时写攻击true而不清旧值，属于Dungeon刷怪站位配置；显示差异另记Q112
+yvanchuxitong,Zhanweifuset,procedure,~/fuben,dungeon,已读,来源实读：显示/保存占位ID，按朝向写生成角度，仅勾选时写攻击true而不清旧值，属于Dungeon刷怪站位配置；显示差异另记Q112
+yvanchuxitong,FubenentityGui,gui,~/fuben,dungeon,已读,B:FubenentityGuiMenu/Screen和FubenentityGuiButtonMessage配置占位ID及攻击标志，归Dungeon
 yvanchuxitong,FubenentityFangKuaiShiTiXuanRanShi,procedure,~/fuben,dungeon,已读,B1 归属阅读：随 Fubenentity 读：副本：副本方块的阶段与波次、副本实体占位
 yvanchuxitong,Fubenshujvjiexi,procedure,~/fuben,dungeon,已读,B1 归属阅读：随 Fubenblock 读：副本：副本方块的阶段与波次、副本实体占位
 yvanchuxitong,Giftgive,procedure,~/fuben,dungeon,已读,B1 归属阅读：随 Fubenblock 读：副本：副本方块的阶段与波次、副本实体占位
@@ -7156,7 +7156,7 @@ yvanchuxitong,Xvanshang05,block,~/xvanshang,quest,已读,B1 归属阅读：任�
 yvanchuxitong,Xvanshang06,block,~/xvanshang,quest,已读,B1 归属阅读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示；本元素无过程
 yvanchuxitong,XvanshangFangKuaiShiTiXuanRanShi,procedure,~/xvanshang,quest,已读,B1 归属阅读：随 Xvanshang 读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示
 yvanchuxitong,Xvanshang,block,~/xvanshang,quest,已读,B1 归属阅读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示
-yvanchuxitong,XvanshanglingGui,gui,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,XvanshanglingGui,gui,~/xvanshang,quest,已读,读取来源菜单、客户端和按钮网络回调及Duihuashijian/Xvanshang消费者：当前对话选项与悬赏状态归任务系统。
 yvanchuxitong,XvanshangZaiFangKuaiShangYouJian,procedure,~/xvanshang,quest,已读,B1 归属阅读：随 Xvanshang 读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示
 yvanchuxitong,Xvanshangblockplace,procedure,~/xvanshang,quest,已读,B1 归属阅读：随 Xvanshang 读：任务：任务伪装方块的对话与任务、悬赏公告牌与告示
 yvanchuxitong,Xvanshang1name,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7177,10 +7177,10 @@ yvanchuxitong,Xvanshang3shuaxin,procedure,~/xvanshang,quest,候选,第一版批�
 yvanchuxitong,Xvanshang4shuaxin,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Xvanshang5shuaxin,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Xvanshang6shuaxin,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,DepositinbankGo,procedure,~/zhiling,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,DepositinbankGo,procedure,~/zhiling,economy,已读,R13 economy 完整归属阅读：解析cmdparams第4项与第5项可选提示；正价值由九级到一级拆分入bank并同步；数值API已接入而命令分派仍未实现；见 economy 银行正文
 yvanchuxitong,Xvanshanghuoqv,procedure,~/xvanshang,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Entityjingyan,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Baoxialore,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Baoxialore,procedure,,treasure,已读,2026-11-14宝匣族：库存/配置指令/开启时序及物品Tooltip属于宝匣自身；成品实例仍经equipment公开构造，来源字段差异保持并集中登记
 yvanchuxitong,Entityxvnfu,procedure,,creature,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Lianqiuplevel,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎自然炉次调用链；制作、升级、材料累计、成品构造、装料及领取按职责由lianqi编排并调用所属系统API，见docs/systems/lianqi/architecture.md。
 yvanchuxitong,Xiulitai,gui,~/yvanchulianqi/xiulitai,lianqi,已读,D炼器四装置来源核对：单槽修理、旧缓存guard、41格最低等级材料消费、40刻提示、Geo表现与合成；精确链见lianqi正文及source-evidence。
@@ -7202,11 +7202,11 @@ yvanchuxitong,Danyaojiage,procedure,~/shop/yinhang,economy,候选,第一版批�
 yvanchuxitong,TaskduihuaGo,procedure,~/duihua/taskbegin,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Taskduihua,command,~/duihua/taskbegin,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shougouselljisuan,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Shopsell,gamerule,~/zhiling,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Shopsell,gamerule,~/zhiling,economy,已读,R13经济交易包：已完整核对来源菜单/注册与调用；七页槽位、按钮、显示及shopsell范围；实体椅子的属性、免伤、渲染和拍卖消费。正文见economy或decor architecture
 yvanchuxitong,FuwuqiminglingGo,procedure,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Fuwuqimingling,command,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Weaponlevelup,gamerule,~/zhiling,lianqi,已读,1.18.2版本原初系统 YvanchuxitongModGameRules.java:13 将 weaponlevelup 注册为 MISC 布尔规则、默认 true；LianqiBeginProcedure 读取其炼器升级门槛，归 lianqi。
-yvanchuxitong,Playerrightclickwithitem,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Playerrightclickwithitem,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）；R13 仅高级通宝玉银行分支41–62已读：本人主手非潜行时写固定bankbankbank脚本/游标0/启动标记；未认主与非本人提示按来源；其他交互分支未在本包完整核读；保留全局flow候选归属
 yvanchuxitong,Uidshengcheng,procedure,~/yvanchulianqi,lianqi,已读,2026-11-09 炼器剩余候选审读：随机生成四个1000至9999整数作UUID文本，仅由Lianqifangzhi属性命令调用；目标equipment按槽位/属性资源ID承载原生修饰身份，随机文本不单独形成玩家入口。
 yvanchuxitong,Shuaxin,procedure,~/yvanchulianqi/tiandao,lianqi,已读,D lianqi 归属阅读：过程23–269以九栈实际数量处理全部有序材料条目，逐次int截断，灵精基础量不除4，未知属性沿前值；附魔按名合并但不写总数，缺重材料保留异常。
 yvanchuxitong,Tiandaotuzhijisuan,procedure,~/yvanchulianqi/tiandao,lianqi,已读,D lianqi 归属阅读：过程13–126为天道台专用重量派生；物攻不衰减、资源与其他攻防按重量衰减，超重覆盖速度并追加击退抗性；只写原始量大于0的派生项。
@@ -7315,7 +7315,7 @@ yvanchuxitong,Qvchu,procedure,~/yvanchulianqi,lianqi,已读,完整读取八鼎�
 yvanchuxitong,Qiankundaihecheng,recipe,~/zawu/cailiaodai,storage,已读,D来源核对：材料袋46槽、45选槽、五品质取出、玩家材料仓数量与分页、九属性筛选及自动入库；五配方按运行JSON；见storage/architecture.md材料仓正文
 yvanchuxitong,BaoxiangBupi,procedure,~/baoxiang,treasure,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Yihuoshujvfuyv,procedure,,yihuo,已读,已读Effect024与持续过程、Fireskill和B的材料初始化：阴火持续行为及武器触发归yihuo，材料辨识循环19条；本批仅接回持续效果和火块依赖，其余保持待迁移。
-yvanchuxitong,Paimaihang,gui,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Paimaihang,gui,~/shop/paimaihang,economy,已读,R13经济交易包：已完整核对来源菜单/注册与调用；七页槽位、按钮、显示及shopsell范围；实体椅子的属性、免伤、渲染和拍卖消费。正文见economy或decor architecture
 yvanchuxitong,PaimaiblockFangKuaiShiTiXuanRanShi,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
 yvanchuxitong,PaimaiblockGengXinYouXiKe,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
 yvanchuxitong,Paimaiblock,block,~/shop/paimaihang,economy,已读,B1 归属阅读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
@@ -7329,7 +7329,7 @@ yvanchuxitong,Ling20,item,~/shop/paimaihang,economy,已读,B1 归属阅读：拍
 yvanchuxitong,Lore02,procedure,,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,PaimaiblockZaiFangKuaiShangYouJian,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
 yvanchuxitong,PaimaihangDangZheGeJieMianBeiGuanBi,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Paimaifangkuaigui,gui,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Paimaifangkuaigui,gui,~/shop/paimaihang,economy,已读,R13经济交易包：已完整核对来源菜单/注册与调用；七页槽位、按钮、显示及shopsell范围；实体椅子的属性、免伤、渲染和拍卖消费。正文见economy或decor architecture
 yvanchuxitong,Paimaihuiname,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,PaimaiTuoguan,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Paimaimoshi,procedure,~/shop/paimaihang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
@@ -7377,7 +7377,7 @@ yvanchuxitong,TiaoxinChujia,procedure,~/shop/paimaihang,economy,已读,B1 归属
 yvanchuxitong,Duihuafenhang,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
 yvanchuxitong,Fangqijingjiaduihua,procedure,~/shop/paimaihang,economy,已读,B1 归属阅读：随 Paimaiblock 读：拍卖行：拍卖方块、座位与竞拍牌，导入商品与 NPC、竞价对话，属现场拍卖
 yvanchuxitong,Jiesuocaoyao,procedure,~/zhiling,liandan,已读,2026-11-09 百草鉴完整链：玩家药草辨识、原药性揭示、四加四倍进度成本、界面与解锁；证据见liandan/ledger/source-evidence.csv
-yvanchuxitong,Jiesuocailiao,procedure,~/zhiling,material,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Jiesuocailiao,procedure,~/zhiling,material,已读,B:Jiesuocailiao 经既有 /yvanchuxitong 管理入口有序公开225材料与1451属性条目，持久化介绍并保留teshu命令附魔/open分支；来源提示/界面缓存差异见Q195。
 yvanchuxitong,YvanchuGo,procedure,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Yvanchu,command,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Xiulitaiopen,procedure,~/yvanchulianqi/xiulitai,lianqi,已读,D炼器四装置来源核对：单槽修理、旧缓存guard、41格最低等级材料消费、40刻提示、Geo表现与合成；精确链见lianqi正文及source-evidence。
@@ -7430,10 +7430,10 @@ yvanchuxitong,Cailiaoshop03,procedure,~/shop/shangdianshuaxin,economy,候选,第
 yvanchuxitong,Jiagejizhijisuan,procedure,,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Gongfajiage,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Jinzhilianqiitem,procedure,~/yvanchulianqi,lianqi,已读,完整读取炼器菜单、Screen、按钮与对应显示过程；九材料槽、成品按钮领取、九条图纸摘要和鼎属性说明归炼器界面，见docs/systems/lianqi/architecture.md。
-yvanchuxitong,ShopblockGuiset,gui,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ShopblockGuiset,gui,~/shop/shopblock,economy,已读,R13经济交易包：已完整核对来源菜单/注册与调用；七页槽位、按钮、显示及shopsell范围；实体椅子的属性、免伤、渲染和拍卖消费。正文见economy或decor architecture
 yvanchuxitong,ShopblockGuisetset,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,ShopblockGuisetshuoming,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,ShopblockGui,gui,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,ShopblockGui,gui,~/shop/shopblock,economy,已读,R13经济交易包：已完整核对来源菜单/注册与调用；七页槽位、按钮、显示及shopsell范围；实体椅子的属性、免伤、渲染和拍卖消费。正文见economy或decor architecture
 yvanchuxitong,ShopblockGuigoumai,procedure,~/shop/shopblock,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shopblock01FangKuaiShiTiXuanRanShi,procedure,~/shop/shopblock,economy,已读,B1 归属阅读：随 Shopblock01 读：商店与天地银行方块：打开商店与银行界面、刷新与取出，属商店与银行
 yvanchuxitong,Shopblock01DangFangKuaiBeiShuiFangZhiShi,procedure,~/shop/shopblock,economy,已读,B1 归属阅读：随 Shopblock01 读：商店与天地银行方块：打开商店与银行界面、刷新与取出，属商店与银行

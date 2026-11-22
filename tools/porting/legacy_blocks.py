@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import re
 
+from build_ledger import NAMESPACE
 from legacy_items import tooltip_lines
 
 BASES = ('Block', 'SlabBlock', 'StairBlock', 'WallBlock', 'LeavesBlock', 'FenceBlock', 'FenceGateBlock', 'WoodButtonBlock',
@@ -146,7 +147,7 @@ def parse_block(source: str, items: dict[str, str], blocks: dict[str, str]) -> d
         row['sound'] = dict(zip(('break', 'step', 'place', 'hit', 'fall'), re.findall(r'ResourceLocation\("([\w.]+)"\)', custom_sound.group(1))))
     else:
         row['sound'] = re.search(r'\.sound\(SoundType\.(\w+)\)', properties).group(1)
-    strength = re.search(r'\.strength\(([\d.]+)f?, ?([\d.]+)f?\)', properties)
+    strength = re.search(r'\.strength\((-?[\d.]+)f?, ?([\d.]+)f?\)', properties)
     if strength:
         row['strength'] = [_number(strength.group(1)), _number(strength.group(2))]
     for flag, key in (('instabreak', 'instabreak'), ('noOcclusion', 'no_occlusion'), ('noCollission', 'no_collision'),
@@ -276,7 +277,7 @@ def _parse_plant(source: str, chain: str, base: str, row: dict, blocks: dict[str
                 grounds.append('minecraft:' + ref.split('.', 1)[1].lower())
             else:
                 found = re.fullmatch(r'\w+ModBlocks\.(\w+)\.get\(\)', ref)
-                grounds.append(blocks[found.group(1)])
+                grounds.append(f'{NAMESPACE}:{blocks[found.group(1)]}')
         if not grounds or re.sub(r'groundState\.is\([^)]*\)?\)|\s|\|\||return|;', '', may):
             raise ValueError('可种植地面未识别：' + may.strip()[:120])
         row['ground'] = grounds

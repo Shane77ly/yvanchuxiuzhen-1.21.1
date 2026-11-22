@@ -110,13 +110,7 @@ public final class FireBlockEntity extends RandomizableContainerBlockEntity impl
 
     @Override
     protected Component getDefaultName() {
-        return Component.literal(((FireBlock) getBlockState().getBlock()).traits().row().id());
-    }
-
-    @Override
-    public Component getDisplayName() {
-        String number = ((FireBlock) getBlockState().getBlock()).traits().row().id().substring(8, 11);
-        return Component.literal("Cailiao " + number.charAt(0) + " " + number.charAt(1) + " " + number.charAt(2) + "fireblock");
+        return getBlockState().getBlock().getName();
     }
 
     @Override

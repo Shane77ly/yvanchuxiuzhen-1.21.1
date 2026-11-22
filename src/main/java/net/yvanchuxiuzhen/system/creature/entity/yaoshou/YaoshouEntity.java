@@ -9,7 +9,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -125,13 +124,13 @@ public abstract class YaoshouEntity extends TamableAnimal implements GeoEntity, 
 
     @Override
     protected EntityDimensions getDefaultDimensions(Pose pose) {
-        return super.getDefaultDimensions(pose).scale((float) getAttributeValue(YaoshouAttributes.SIZE));
+        return super.getDefaultDimensions(pose).scale((float) getAttribute(YaoshouAttributes.SIZE).getBaseValue());
     }
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
         sourceHurt(source, amount);
-        return (!model.lifecycle().ignoresFallDamage() || !source.is(DamageTypes.FALL)) && super.hurt(source, amount);
+        return super.hurt(source, amount);
     }
 
     @Override

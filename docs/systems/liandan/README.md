@@ -2,7 +2,7 @@
 topic: liandan
 role: entry
 status: partial
-updated: 2026-11-09
+updated: 2026-11-19
 ---
 
 # 炼丹
@@ -15,10 +15,13 @@ updated: 2026-11-09
 - 归属 129 个元素，全部已读；这是来源归属阅读范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。
 - [内容台账](ledger/content.csv)：来源注册的目标 ID、归属状态与迁移状态（`tools/porting/check_ledger.py` 检查）。
 - [系统导航](../README.md)记录源码引用规则与各项证据范围。
+- 人间道实采虫蚀草按方装料、扣料、无热炉次保存重进、原生加热及取丹已实机通过，设备与丹方为夹具；同一成品的最后一剂服用和空盒返还已验。完整视觉、多剂及达门槛施效不随此样本结案，见[炼丹月志](logs/2026-11.md#2026-11-19-实采虫蚀草单味丹服用)。
 
 千材录物品、辨识菜单、两份合成与相关过程已按材料辨识职责移归[material](../material/README.md)，本批进一步核实三项千材录成本显示过程同属材料。`Grind`、`GrindGo` 只服务石磨，移归[craft](../craft/README.md)后随石磨实现；毒厄丹合成 `Duedanhecheng` 从材料移归炼丹。百草鉴药材辨识仍属炼丹。
 
 ## 公开操作
+
+`Liandan.createMedicineReward`与`Liandan.createRecipeReward`承接Treasure奖励串的丹药/丹方分支，输入为有序药效或材料以及来源显示字段，实例由Liandan唯一写入；Treasure不直接写炼丹自定义数据。生成物继续使用既有服药、炼丹和公共书阅读消费者。本增量仅静态核对，运行边界见[奖励记录](logs/2026-11.md#2026-11-14-宝箱丹药与丹方实例入口)。
 
 本批按 `typed_field_accesses.csv` 核对全部 25 处访问：`playercaoyaojiexi` 20 处、`caoyaolist` 5 处，逐项去向见[字段访问覆盖](architecture.md#药草字段访问覆盖)。药草目录由 `Worldbegin` 写入、炼丹与百草鉴读取；玩家药草辨识由百草鉴与 `Jiesuocaoyao` 写入，跨系统读取只有 `Lore` 的提示分支。材料辨识与此无关。
 

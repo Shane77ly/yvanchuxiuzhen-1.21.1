@@ -36,7 +36,8 @@ def state_owner(row):
         return '待读','无外部消费时保留调查记录，不创建目标存档字段'
     if name=='tizhiitem':return 'xiulian / skill / dungeon / attribute','混合载体；体质、修炼、技能、副本与属性贡献分拆'
     if name.endswith('_display'):return 'attribute','派生展示值；保留实际读取语义，不复制为第二份真值'
-    if name in ('gongfa','gongfalinshi','gongfaxvexi'):return 'gongfa','装备书籍与比较缓存；书籍成长随实例'
+    if name in ('gongfa','gongfalinshi'):return 'gongfa','装备书籍与比较缓存；书籍成长随实例'
+    if name=='gongfaxvexi':return 'book','答题题号；与固定题库共同表示题面、选项和答案'
     if re.fullmatch(r'jineng\d+',name) or name.startswith(('colddown','jineng')) or name in ('flyjineng','qinggong','wuqiskill','gongjian','gongjianjineng','flybegin','lshift','lctrl','lalt','arrowlinshi','feibiaolinshi'):
         return 'skill','区分物品槽、施法状态、冷却及输入会话'
     if name=='benmingfabao':return 'xiulian','丹田本命槽位；槽内物品的本命培养数据归 equipment'

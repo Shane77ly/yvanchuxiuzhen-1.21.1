@@ -53,7 +53,7 @@ public final class Yaoshou01701Entity extends Animal implements GeoEntity, Anima
     @Override public String texture() { return entityData.get(TEXTURE); }
     public void setTexture(String texture) { entityData.set(TEXTURE, texture); }
     public void setAnimation(String animation) { entityData.set(ANIMATION, animation); }
-    @Override protected EntityDimensions getDefaultDimensions(Pose pose) { return super.getDefaultDimensions(pose).scale((float) getAttributeValue(YaoshouAttributes.SIZE)).withEyeHeight(0.4F); }
+    @Override protected EntityDimensions getDefaultDimensions(Pose pose) { return super.getDefaultDimensions(pose).scale((float) getAttribute(YaoshouAttributes.SIZE).getBaseValue()).withEyeHeight(0.4F); }
     @Override public boolean isFood(ItemStack stack) { return false; }
     @Override protected SoundEvent getAmbientSound() { return Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou017idle"); }
     @Override protected SoundEvent getHurtSound(DamageSource source) { return Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou017attacked"); }

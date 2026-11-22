@@ -2,10 +2,41 @@
 topic: equipment
 role: architecture
 status: partial
-updated: 2026-11-09
+updated: 2026-11-13
 ---
 
 # 装备、法宝、本命与饰品：架构调查与提案
+
+## 飞行法器的普通首获与自然拾取
+
+| 物品 | 1.18.2 版本普通来源与 1.21.1 版本对应入口 |
+| --- | --- |
+| 飞叶 0101 | 花繁城 `fanhuacheng11` 局部坐标 (13.5,1,33.5) 的陈叶（businessman_23）。实例任务 `chenyeduihua` 购买分支第11步检查12枚三级灵石，第12步扣除，第13步给一件。两版结构分别在 ForgeData 和 NeoForgeData 中保留相同脚本。另有世家纨绔使用家族百宝袋第14份，袋子本身的普通来源待证。 |
+| 银盘 0201 | 落魄家族初始发传承灵物 ling_18，境界数大于旧领取次数时可取一份，第12份为银盘。见 `PlayerJoin02Procedure`、`Ling18…Procedure`、`BirthInitialRewardsFlow` 和 `BirthSupplyFlow`。 |
+| 飞舟 0401 | 财神商店出售大红包，`Fuqi06…Procedure` 抽取 [1,100)，[1,1.5) 发飞舟一件。目标 `RedPacketRewards` 保留该区间。 |
+| 花瓣 0301、千纸鹤 0501、木鱼 0601、飞毯 0701、御风舟 0801 | 锁定的两工程过程、结构、配方和数据中未定位到普通首获。召回、修理和死亡掉落均要求先持有物品或实体。 |
+
+`flyinginstrumentacquisition` 候选使用独立测试档，受控载入模板陈叶、给付灵石、新传承灵物与境界12。服务端以普通购买按钮分别支付11和12枚，经实际传承灵物使用领取第1至12份。对两种奖励分别从库存选槽召唤、骑乘，再用受控的非满储灵与致死伤害生成掉落。专项监听对应玩家与掉落实体 UUID 的原生整件拾取事件，再从库存选中组件相符的一件，核对新实体 UUID、生命1与储灵。玩家可受控移动到落点。以上受控客户端路径已通过；在世界中找到陈叶、出身创建和红包随机正向仍未验证。
+
+## 金属锭的铁砧消费
+
+装备内容表中的修理材料短名属于本模组，带冒号的完整标识沿用其命名空间。精炼锭202、204、212、214及合成锭206、218对应的工具各认本系材料；同阶剑、重剑、矛、快弓、长弓和大刀可用本阶两系金属。铁砧继续使用原版耗材与取出规则。218的合成前置包含基岩，铁砧受控验证不构成自然取得证据。
+
+## 通用NBT编辑器根字段契约（2026-11-15）
+
+`Equipment.updateRootField(ItemStack, String, Tag)` 由equipment唯一写入所属 `EquipmentProperties` 根投影：字符串保存为文字，其余八类型可表达数值按来源getDouble投影，保留其他已存字段；`benmingexp/benmingexpmax` 同步 `BenmingData` 对应经验字段，保持本命等级及另一经验字段。天道负责CUSTOM_DATA原始Tag写入，不直接访问equipment持久组件。根投影不修改炼器嵌套属性、成品或原生装备加成；`benminglevel` 来源double与目标int的差异尚未处理，其他映射的唯一问题正文见[天道Q203](../tiandao/architecture.md#q203-根nbt与目标组件消费者映射)。本包实际检查与未验范围统一记[天道月志](../tiandao/logs/2026-11.md#2026-11-15-通用物品nbt编辑器代码包)。
+
+## 摄虫网与困虫兜（2026-11-13）
+
+R05/R10原有真实缺口为`fabao_017`仍使用普通物品工厂，`fabao_01701`未注册。现已接入专属物品、实体、属性、客户端Gecko渲染及来源三份资产，转换输入由`factory_overrides.csv`、`system_assets.csv`和实体已读台账登记，源码资产指纹保留在转换清单。既有蛊罐不是本次重写范围。
+
+物品入口先检查沉默`effect_002`。普通右键生成摄虫网，冷却50刻；潜行右键只在物品根`item_level_num≥1`时生成困虫兜，冷却400刻，否则显示来源中文提示，不扣其他资源或耐久。实体生成在玩家眼睛沿视线2格射线所得方块的整数坐标，初速度为视线向量并在Y加0.5；主人UUID、技能名与来源过程动画在生成前写入。两分支共用40生命、移速0.3、攻击3、跟踪16的实体，碰撞箱1×0.4、更新间隔3、跟踪64，不受药水/效果云/摔落/仙人掌/溺水/铁砧伤害、不被实体推动，死亡第2刻移除。
+
+摄虫网第36刻按距离顺序遍历中心各方向扩展2格的方框，只执行一次蛊虫公开收纳；第40刻移除。捕获没有虫标签或节肢生物过滤，已认主目标逐个触发怒粒子；字段、物品交付、主人缺席仍移除及蛊罐消费者规则由[蛊虫正文](../guchong/architecture.md#2026-11-13-摄虫网收纳与蛊罐消费者)唯一维护。困虫兜每20刻对同范围节肢生物施加20刻、放大值20的缓慢，第200刻移除；目标以1.21.1原生`minecraft:arthropod`标签表达来源`MobType.ARTHROPOD`，已有蛊虫04标签继续有效。所有玩法计时、范围操作与保存均在服务端执行，客户端只消费模型、动画和槽位同步。
+
+精确来源：A `item/Fabao017Item.java`、`procedures/Fabao017DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java`、`Fabao01701DangShiTiGengXinKeShiProcedure.java`、`entity/Fabao01701Entity.java`、`entity/model/Fabao01701Model.java`、`client/renderer/Fabao01701Renderer.java`及实体注册第815–818行。NeoForge21.1.265源码核对`EntityTypeTags.ARTHROPOD`、`DamageTypes.FALLING_ANVIL`，组件、原生菜单和Gecko生命周期复用同版本既有证据。两个017过程不访问其他系统玩家能力，蛊虫数据只经`guchong.api`操作，无反向系统依赖。
+
+本次最小单项`-PsmokeOnly=fabao017`已通过：普通入口→活动实体序列化重读→服务端自然刻捕获→捕获物品组件序列化→既有蛊罐菜单快捷转入、关闭、罐组件序列化与重开；另覆盖认主目标保留、沉默/品阶限制及困虫兜节肢筛选/200刻移除。夹具固定实体位置以隔离追击和弹道，不能代替完整自然投放、自然获取、地上罐全链、多人、重登、完整视觉、1.18.2版本实机或两版本对照。失败样本、修正及最终运行证据只登记[装备月志](logs/2026-11.md#2026-11-13摄虫网收纳与蛊罐保存)。
 
 来源事实与目标方案分别陈述。前半的完整系统方案尚未整体采用；本页后续各节单独记录按批准系统设计实施的批次及各自验证边界。源码定位采用 [系统导航](../README.md)的 A/B 规则。
 ## 1.18.2 实例与调用
@@ -104,7 +135,7 @@ Q57：弓读取实体 `synchronizedata.rightclicking`，绑定的右键过程为
 
 ### 来源行为与数据
 
-来源入口为 `Fabao010DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure` 的物品右键过程。普通右键按 `fire10num` 到 `fire1num` 逆序选择最高可用等级；十级至二级分别消耗 `256/128/64/32/16/8/4/2/1` 灵力，一级不消耗，高等级不足时回退低等级；没有火焰提示“空”，有火焰但全部不足提示“您的灵力不足！”。发射速度为 `0.6`、散布参数为 `10`、基础伤害为 `0.1`，二级至十级调用对应材料实体，一级调用普通火焰实体。
+来源 A `Fabao010DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure:46–397`：普通右键从十档向一档选储量大于零且灵力够用的最高档。十至二档各耗 `256/128/64/32/16/8/4/2/1` 灵力，一档免费；只扣所选档一份。没有可发档时，提示按一档储量是否恰好为零区分，并非按总储量区分。一档发普通火，二至十档发 221–229 阳火（包括以阴火攒出的储量）；十档发射参数均为速度 `0.6`、散布 `10`、基础伤害 `0.1`、穿透 `2`。
 
 潜行右键以视线前方五格的方块为中心扫描 `-4` 至 `3` 的三个坐标偏移，共 `8×8×8` 个位置。普通火与灵魂火为一级；`cailiao_221`–`229`、`231`–`239` 对应二级至十级。法宝等级门槛为 `1/6/11/16/21/26/31/36/41`，吸收后将方块清为空气并增加对应火焰数量。目标用类型化 `FabaoFireData` 组件保存十个数量，服务端是唯一真值。
 
@@ -112,9 +143,15 @@ Q57：弓读取实体 `synchronizedata.rightclicking`，绑定的右键过程为
 
 `Fabao010Item` 接收普通与潜行右键，调用 yihuo 的 `absorbFire`、`fabaoAbsorptionGrade` 和 `shootMaterial` 公开接口；不直接修改异火持久对象。`Fabao010huoyan` 为 `AbstractArrow` 弹体，保持无重力、火焰粒子、十刻寿命、插地移除、命中方块上方放置普通火和来源命中后的 `ManaAttackDamage` 等字段写入。隐藏 `fabao_010huoyan` 物品松开发射同一弹体，速度 `2`、散布 `0`、禁止拾取并扣一点耐久。两个物品使用专用工厂，弹体登记为 `projectile_fabao_010huoyan`。
 
+来源同过程 `:399–447` 读 `lianqizong.item_level_num`。基线 `fc91489e` 的最大吸收档位少一档，普通火也错误要求炼器等级至少为一。本批用 `Equipment.refiningLevel` 读取炼器组件（宝箱成品用等级投影），不设普通火门槛。异火弹体按发射入口区分穿透：葫芦为 2，材料直射为 0；穿透随实体同步，按原生 `PierceLevel` 保存并在撞块时清零。目标依据为 NeoForge 21.1.265 `AbstractArrow` 的实体碰撞循环、方块命中与存取方法。此处是生产候选，不是多目标实射证据。
+
 ### 验证范围
 
 静态核对依据为上述 1.18.2 版本过程；目标 API 按 NeoForge 21.1.265 源码改写。`gradlew build`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 通过。沿用现有 `runSmokeClient -PsmokeOnly=equipmentweapon`，五项既有弓与拂尘检查全部 `DONE`，客户端正常保存退出，`run/logs/latest.log` 未见 `ERROR/FATAL`。该 smoke 只证明新增物品、实体注册和客户端装配未阻塞启动，不替代覆火葫芦吸收、发射、命中、组件存档和视觉的专项验收。未执行 1.18.2 实机、两版本对照、多人及完整视觉验收。
+
+### 储火在玩家背包中的反馈
+
+来源 A `ItemLoreProcedure:180–193`：葫芦余量按储火槽 1 至 10 升序列出，只显示数量至少为 1 的档。一档标“普通火焰”，二至十档标“1级火焰”至“9级火焰”，数量按 `DecimalFormat("0")` 显示。客户端读取物品同步的 `fabao_fire` 组件，不修改物品。余量的显示门槛与施放的正数门槛不同，显示顺序也不决定施放优先级。
 
 ## 妖化（2026-11-07）
 
@@ -229,7 +266,7 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 `GongjvfuDangShiTiGengXinKeShiProcedure` 的斧过程保留 `寻找 → 寻路 → 采集 → 触点`，扫描范围为 `8 × fumodengji`，命中等待11刻；目标不可达时按来源每10刻调整垂直移动，邻近叶片时进入3×3×3清理并等待20刻，无目标20刻后结束。寿命达到 `fumodengji × 2400` 时使用来源的材料粒子和火焰，斧的来源缺省寿命初始化 `fumodengji × 400` 也保留。
 
-`GongjvgaoDangShiTiGengXinKeShiProcedure` 的镐过程保留按附着方向的首目标、四向螺旋搜索、移动、准备、挖掘和结束；每轮达到25个目标后从中心重新开始。来源以 `STONE`、`ICE`、`CLAY` 材料判定，目标用镐可采掘标签、冰标签和黏土块表达；挖掘等待5刻。锄和铲过程共用来源的土地扫描与移动时序，移动阶段始终位于目标方块上方；锄按 `TOP_SNOW`、`DIRT`、`GRASS`、`SAND` 材料集合，铲按 `DIRT`、`GRASS` 集合，完成后清除植物并把目标设为湿润度7的耕地。来源过程中斧与镐在寿命上限为0时写入 `fumodengji × 400`，锄和铲不补写该缺省值。
+`GongjvgaoDangShiTiGengXinKeShiProcedure` 的镐过程保留按附着方向的首目标、四向螺旋搜索、移动、准备、挖掘和结束；每轮达到25个目标后从中心重新开始。来源以 `STONE`、`ICE`、`CLAY` 材料判定，目标以专用来源材质tag表达；挖掘等待5刻。铲和锄沿用来源土地扫描与移动时序，移动阶段位于目标上方；开灵铲按 `TOP_SNOW`、`DIRT`、`GRASS`、`SAND` 材质挖掘掉落，开灵锄只处理草方块、泥土和砂土，清除上方来源植物后写湿润度7耕地。来源过程中斧与镐在寿命上限为0时写入 `fumodengji × 400`，锄和铲不补写该缺省值。
 
 主人 UUID 非空时，镐、锄、铲只在主人在线时执行来源的掉落与破坏；主人为空时按来源在目标位置掉落。来源1.18.2的 `PLANT`、`REPLACEABLE_PLANT` 材质在目标用可替换方块标签与 `BushBlock` 表达，未扩展为额外植物规则。
 
@@ -258,6 +295,14 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 目标使用 `Fabao012Item` 专用 `ContentSword` 工厂；状态效果与粒子分别调用 combat、particle 的公开接口，不直接写其他系统数据。
 
 验证：本批未新增 Test 类、冒烟选择器或 Computer Use。`gradlew build`、`runSmokeClient -PsmokeOnly=equipmentweapon`、专用服务端启动至 `Done` 后原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 均通过；客户端与服务端日志未见 `ERROR/FATAL`。smoke 只作注册、资源加载和公共客户端启动回归，不替代普通发情、潜行幻术、冷却和沉默分支的完整自然操作验收。
+
+## 穿界古镜（`fabao_013`，2026-11-12）
+
+来源入口是 `Fabao013Item.use` 与 `Fabao013DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`。主世界右键把当前 `x/y/z` 写入物品 `chuansongX/Y/Z`，读取物品 `mubiaoX/Y/Z`；三项全为 0 时用缺省 `0,120,0`，然后 `execute in yvanchuxiuzhen:dimensionrenjian run teleport @p`。人间道右键把当前坐标写入 `mubiaoX/Y/Z`，读取 `chuansongX/Y/Z`；三项全为 0 时用缺省 `0,32,0`，然后 `execute in overworld run teleport @p`。两个方向都写体质键 `kaqiangpanding=true` 并给物品 12000 刻冷却；`effect_002` 沉默时整个入口不执行。来源用命令执行传送，目标用同义的 `ServerPlayer.teleportTo(ServerLevel, …)`，保留坐标、维度与朝向。
+
+`kaqiangpanding` 的消费在来源 `PlayerTick`：世界时间距 `jishiqi` 达到 20 且玩家身体格非空气时调用 `Xiangshang`（从当前Y向上最多60格找空气后传送），随后清标记；空位保留标记。目标在 `Fabao013Unstuck.onCultivationSecond` 按同一节拍和条件执行，键经 xiulian 的体质公开操作读写。
+
+内容为 `equipment:fabao_013` 专用工厂 `Fabao013Item`（静态来源 `Fabao013Item` 的 Tier 10 次耐久、攻速 -3、防火、创造栏）。2026-11-13 单项已通过缺省落点与两方向坐标、再次进入上次落点、沉默限制、占用顶出及空位保留标记；冒烟正常断开后六维度保存完成、退出码0。此前检查期望错误、客户端卡死与被证伪的退出前置等待分别保留证据，未据此修改产品传送逻辑。完整自然往返、多物品及物品存盘、视觉、多人和两版本对照仍未执行，见[装备月志](logs/2026-11.md#2026-11-13穿界古镜单项复核与正常退出)。
 
 ## 明光镜法宝（2026-11-08）
 
@@ -315,11 +360,19 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 ## 飞行法器（2026-11-08）
 
+### 主手投放后的取回与死亡
+
+八种物品的普通右键进入同一个召唤过程。1.18.2 版本 `Flyinginstrument0101DangYouJianDianJiKongQiShiShiTiDeWeiZhi` 在两个生成分支都把原件以数量1放入实体物品能力槽0；`Flyinginstrument01DangYouJianDianJiShiTi` 从此槽复制再覆写当前生命、储灵等八项飞行字段。1.21.1 版本以原生主手装备槽保存对应原件。补丁前已经投放、主手为空但保有本类法器 ID 的实体仍可按已存字段取回；未曾保存的名称、附魔无法追补。
+
+死亡不是取回：`Flyinginstrument01DangShiTiBeiShaSiShi` 按实体类型新建物品，不带原件改名和额外组件；保留储灵，生命写1，出现在实体上方一格，延迟10刻拾取。再次召唤从1点生命开始。本条只描述过程自己的掉落，不改变原生装备掉落判定。
+
+九档灵石由主手选定种类，未满时按库存顺序扣除第一份同类，不以组件或是否在主手匹配。补能后先报实际储量，超限再提示补完并截至上限；已满仍报储量且不扣料。此处只对齐补能消费，不改变骑乘飞行费率。
+
 ### 来源行为与目标实现
 
 按 1.18.2 版本 `FlyingitemnbtshezhiProcedure`、`Flyinginstrument0101DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`、`Flyinginstrument01DangYouJianDianJiShiTiProcedure`、`Flyinginstrument01DangShiTiGengXinKeShiProcedure` 与 `Flyinginstrument01DangShiTiBeiShaSiShiProcedure` 逐行接回 8 个飞行法器。物品首次右键写入 `flyitemID`、`flyname`、`flyentityID`、`health_Max`、`health`、`power_Max`、`power`、`speed_num`，召唤对应实体、复制玩家关系、设置生命并清空手持槽；已有字段的物品保留当前生命和灵力。
 
-目标使用 `FlyingInstrumentItem` 专用工厂和 `FlyingInstrumentEntity` 共享实体，字段保存在物品 `CUSTOM_DATA` 与实体持久数据中。实体潜行右键按来源保存当前字段并取回物品；普通右键按 `lingshi` 标签和 `cailiao_191`–`199` 的 `1/4/16/64/256/1024/4096/16384/65536` 灵力值充能，手持 `hammer` 恢复 1 点生命，否则玩家骑乘。实体刻更新保留水中上浮、空气下落、骑乘能量门槛、`flying` 按视线移动、法器灵力优先扣除及 `jinkong` 复位；来源实体的药水、区域效果云、摔落、仙人掌和溺水免疫、20刻死亡移除、乘客高度偏移均已接回。
+目标使用 `FlyingInstrumentItem` 专用工厂和 `FlyingInstrumentEntity` 共享实体，字段保存在物品 `CUSTOM_DATA` 与实体持久数据中。实体潜行右键按来源保存当前字段并取回物品；普通右键按 `lingshi` 标签和 `cailiao_191`–`199` 的 `1/4/16/64/256/1024/4096/16384/65536` 灵力值充能，手持 `hammer` 在受损时发送十个HAPPY_VILLAGER并恢复1点生命、满血不骑乘，其他主手才骑乘；目标遗漏修复见[Q144](#q144-飞行法器持锤修理分支遗漏)。实体刻更新保留水中上浮、空气下落、骑乘能量门槛、`flying` 按视线移动、法器灵力优先扣除及 `jinkong` 复位；来源实体的药水、区域效果云、摔落、仙人掌和溺水免疫、20刻死亡移除、乘客高度偏移均已接回。
 
 8 个实体的 GeckoLib 几何、动画与实体纹理已从 1.18.2 版本资源接入 `assets/yvanchuxiuzhen/geo`、`animations` 与 `textures/entities`，并通过装备实体模型表与现有 `AnimatedEntityRenderer` 注册。01/02/03 的乘客偏移为 `-0.2`，05 为 `-0.7`，06 为 `0.1`，07 为 `-0.3`，04/08 沿用原生偏移。
 
@@ -328,6 +381,14 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 静态依据为上述 1.18.2 版本过程与 8 个实体类；目标 API 按 NeoForge 21.1.265 源码改写。未新增 Test 类、冒烟选择器、断言或 Computer Use。首次专用服务端启动发现 8 个实体已写入模型表但遗漏 `entities.json`，导致属性事件取不到注册句柄；补齐原来源尺寸与 `MONSTER` 类别后，`gradlew build`、专用服务端启动至 `Done`、原生 `stop`、`check_docs.py`、`check_ledger.py` 与 `git diff --check` 均通过。服务端导出 101 个实体，含 8 个飞行法器；内置 `runSmokeClient -PsmokeOnly=equipmentweapon` 的五项既有弓与拂尘检查全部 `DONE`，客户端正常进入世界并保存退出，客户端与服务端日志未见 `ERROR/FATAL`。这些检查只用于注册、资源加载和公共启动回归，不替代飞行法器召唤、骑乘、充能、取回、死亡掉落、视觉、1.18.2 实机、两版本对照和多人专项验收。
 
 ## 本命培养（2026-11-08）
+
+### 精血认主与再炼
+
+普通前置是工作台配方 `fabao_016hecheng`（四份 `cailiao_201`、两份铁锭按图摆放）和血刀潜行使用。取血时当前生命须严格大于 `10 + 3 × LEVELnumber`；绑定时须达到境界编号11，主手用本人精血，副手是 `wuqi` 或 `fabao`。这不是管理命令；也不意味着所有原料的自然供应已经实测。
+
+1.18.2 版本 `A:JingxveDangYouJianDianJiKongQiShiShiTiDeWeiZhi` 检查同一根主人字段，`B:Lianqiuplevel:75–78,465–468` 把主人和培养进度带到新件。1.21.1 版本滴血在物品根数据写主人，炉次升级件在装备属性组件保留主人。`Equipment.ownerId` 先认炉次保留的非空主人，否则读根数据；已认主不能再次绑定，空的升级投影不遮住出炉后新绑定的主人。其他旧实例字段不因此复制。
+
+`B:Lore:49–65` 的有类型成品按无主、本人、他人分别显示；本人可见等级和整数经验。`A:Dantianyoudongxi` 的本人标记要求显示开关、结丹期和主人相符；`A:Dantianbenmingfabao` 调用的却是只看境界的 `Dantianbenmingxianshi`。因此未绑定或他人器物仍按原规则增长、修复耐久和提交属性，不额外减伤或禁用器物。丹田进度沿现有修炼周期同步，不把普通换槽即时刷新列为本包证据。
 
 ### 来源行为与目标实现
 
@@ -339,7 +400,7 @@ Q60：槽0/1/2/3分别要求 `headornaments/necklaceornaments/handornaments/belt
 
 ### 验证范围
 
-静态依据为 1.18.2 版本 `DantianbenmingfabaoProcedure`、`BenmingfabaotishengProcedure`、`DantianbenmingexpProcedure` 与 `DantianbenmingxianshiProcedure`；目标 API 按 NeoForge 21.1.265 源码核对。未新增 Test 类、冒烟选择器、断言或 Computer Use。使用项目自带 `runSmokeClient -PsmokeOnly=equipmentweapon` 做注册、资源加载和公共客户端启动回归，既有弓与拂尘五项报告 `DONE`，客户端正常保存退出且日志无 `ERROR/FATAL`；该 smoke 不替代本命培养的境界门槛、经验升级、耐久消耗、属性交替、存档重载和完整界面专项验收。完整行为专项、1.18.2 实机、两版本对照、多人与完整视觉仍未执行。
+静态依据为 1.18.2 版本 `DantianbenmingfabaoProcedure`、`BenmingfabaotishengProcedure`、`DantianbenmingexpProcedure` 与 `DantianbenmingxianshiProcedure`；目标 API 按 NeoForge 21.1.265 源码核对。未新增 Test 类、冒烟选择器、断言或 Computer Use。使用项目自带 `runSmokeClient -PsmokeOnly=equipmentweapon` 做注册、资源加载和公共客户端启动回归，既有弓与拂尘五项报告 `DONE`，客户端正常保存退出且日志无 `ERROR/FATAL`；该 smoke 不替代本命培养的境界门槛、经验升级、耐久消耗、属性交替、存档重载和完整界面专项验收。2026-11-15已恢复原交付本命夹具并通过受控修炼秒事件的门槛、增量、升级/交替、耐久、保存读回和本人同步，结果见[本月记录](logs/2026-11.md#2026-11-15-采药锄upper与装备消费者必要单项收口)。自然秒调度、丹田操作、真实退出重进、1.18.2版本实机、两版本对照、多人与完整视觉仍未执行。
 
 ## 投掷法宝（`fabao_001`–`008`，2026-11-08）
 
@@ -456,6 +517,8 @@ NeoForge21.1.265的 `ArmorItem` 保留四槽耐久基数。GeckoLib4.9.3的 `Geo
 专用服务器一次启动至 `Done`，本次TTY与init脚本成功转发标准输入，执行原生 `stop` 后正常保存四维度并退出，`ERROR/FATAL=0`；证据为 `tmp/animated-equipment-server-latest.log`。注册导出物品2125个、实体109个，来源指纹检查退出码0，证据为 `tmp/equipment-animated-inventory.log`。本批文档、台账和差异检查由主会话在四文档收口后统一执行。
 
 上述运行只作公共注册、资源加载和既有场景回归。57件新防具的逐件自然穿戴、两件法宝自然持物、非空 `geckoAnim` 请求与单次动画恢复、存档重载、第一人称/第三人称/GUI完整视觉、1.18.2实机、两版本对照和多人验收未执行；不能以既有九项检查或妖化截图替代这些专项。
+
+2026-11-14补接03页临时队伍来源显示/退出，Relation拥有写操作；来源断链/坐标及验证唯一正文见[关系系统](../relation/architecture.md#临时队伍03页与退出2026-11-14)。此前穿戴单项不自动覆盖此次新增入口。
 
 ## 饰品制作台（2026-11-08）
 
@@ -623,3 +686,25 @@ Forge40.1.0精确源码的 `BaseContainerBlockEntity` 补丁与 `InvWrapper` 证
 专用服务器对 `tripod_02` 注入受控起炉状态后，由真实计划刻完成 `raw_iron ×2 → iron_ingot ×2`、`cailiao_201 ×4 → cailiao_202melt ×1`，连续炉次自动停止，热量分别由20降至2/0；没有通过按钮自然起炉，不能把该运行扩展为装备专服自然制作或升级验收。清理探针后执行原生 `stop`，四维度正常保存，退出码0、ERROR0、FATAL0；证据为 `tmp/tripod-server-latest.log`。
 
 最终文档/台账检查、逐件自然制作与升级、三恢复实际穿戴、投掷回收后再升级、完整存档生命周期、1.18.2 版本实机、两版本对照、多人和完整视觉未执行。equipment 保持部分实现。
+
+## Q144 飞行法器持锤修理分支遗漏
+
+建筑锤续批核对A `Flyinginstrument01DangYouJianDianJiShiTiProcedure`发现旧目标只在受损时进入锤分支，满血持锤误入骑乘且修理少十个HAPPY_VILLAGER。已改为主手锤先独立占分支，受损时粒子后恢复1点，满血无骑乘；生命上限由原生setHealth clamp。八法器共享该修复，必要单项使用真实物品召唤一类核验，结果见本月记录，不扩大为八类完整生命周期验收。
+
+## 采药锄自然采集与虫卵（2026-11-15）
+
+`Gongjv008Item`保留200耐久、速度2、等级1、材料攻击2、额外攻击1和攻速-3。useOn先执行原生锹行为，再取点击位置实际状态；最终返回SUCCESS。来源LEAVES/PLANT生成一件对应方块普通物品（拾取延迟10）再无原生掉落移除；REPLACEABLE_PLANT再按half为upper/lower移除下/上相邻方块。自定义采集不额外扣耐久，铺路等原生锹行为仍按原生扣费。
+
+1.21.1删除Material后，模组方块只经平台TraitedBlock读取来源材质；原版显式列出1.18.2 Blocks的8个LEAVES、51个PLANT和12个REPLACEABLE_PLANT，GRASS对应SHORT_GRASS，不按现代类继承扩大范围。每次采集后独立判定虫卵，基础1%，幸运每级增加2%，不裁剪概率；虫卵只按已注册普通物品身份生成，不访问Guchong持久数据。双高植物原生邻接和掉落影响须与来源分别核实，不能仅按显式drop次数断言总掉落。
+
+### Q164 霉运分支读取幸运等级
+
+A `Gongjv008DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhi:21–72`在有霉运时，扣减仍读幸运等级；没有幸运时使用等级索引0，即扣2%。与幸运相同索引同时存在时可抵消，概率可为负或超过1。目标保持来源，不擅自改读霉运等级或裁剪概率，待集中裁定。
+
+## 开灵材质修正（2026-11-16）
+
+`ToolMachineEntity`使用`equipment_kailing_pickaxe/shovel/plant/leaves`四个方块tag，分别含464/45/370/38个成员；依据锁定`legacy_block_materials.json`，原版grass显式改名short_grass。来源模组529份相关方块源码与原版运行材质dump指纹已核对。现代镐可采掘、可替换与叶片tag无法表达同一集合，因此只用于本族来源集合，不扩写其他工具规则。动画高草`biggrassyincang`是植物集合的必需注册成员。
+
+注册`gongjvchan`为开灵铲，对应内部`Kind.HOE`；`gongjvchu`为开灵锄，对应`Kind.SHOVEL`。`KailingProjectile`的锄/铲物品分派与此对应，不按枚举英文名交换行为。镐/铲保持前四采掘刻不动、第五刻采集，主人非空但不在当前维度保留方块；空主人在目标落物。锄只转换三种来源土壤，并按精确植物集合清上格；斧只检测/清理来源树叶集合。
+
+`kailingmaterial`是受控状态机单项，验证材质、时序和主人分支；它不替代自然寻路、完整发射回收、真实保存重进、完整视觉、多人或来源版本实机。实际运行结果统一见[本月记录](logs/2026-11.md#2026-11-16-开灵材质修正)。

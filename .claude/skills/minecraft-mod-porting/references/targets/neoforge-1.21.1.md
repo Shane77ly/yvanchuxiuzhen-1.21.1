@@ -25,6 +25,7 @@
 | 伤害入口 | `event/entity/living/LivingIncomingDamageEvent.java` | 发生于无敌检查之后、减伤之前，可取消并读取 DamageContainer |
 | 伤害应用与结果 | `event/entity/living/LivingDamageEvent.java` 的 Pre/Post | Pre 在护甲/药水减伤后、吸收前，可修改伤害；Post 在生命变化后提供结果 |
 | 爆炸掉落与破坏模式 | 1.18.2 `world/level/Explosion.java` 与 Forge40.1.0 同名补丁；1.21.1/NeoForge21.1.265 `world/level/block/state/BlockBehaviour.java`、`world/level/Level.java`、`server/level/ServerLevel.java` | 1.18.2 的 `BlockInteraction.DESTROY` 把爆炸半径写入掉落上下文，对应目标的 `DESTROY_WITH_DECAY`，不能仅按枚举同名映射。目标 `Level.explode` 会按交互类别和游戏规则选择衰减模式；来源固定模式需显式构造 `Explosion`，按原生流程调用开始事件、爆炸与收尾并通知附近客户端。已静态核对精确版本源码；受控取消事件可验证参数，不能替代实际方块破坏与掉落实测 |
+| 旧方块随机刻委派 | Forge40.1.0映射源码 `world/level/block/state/BlockBehaviour.java:336–337`、`Block`/`BushBlock`/`FlowerBlock`；NeoForge21.1.265同文件384–385 | 1.18.2基类randomTick调用this.tick，所核继承链没有中间覆写；1.21.1基类randomTick为空。迁移声明randomTicks但仅覆写tick的来源方块时，须恢复其实际随机入口，不能因未找到scheduleTick便判断没有自然入口。此项为精确版本静态核对；直接调用randomTick只验证受控入口，不代替自然等待、概率分布或完整供给验收 |
 | 箭实体穿透与存档 | `world/entity/projectile/AbstractArrow.java` 的 add/readAdditionalSaveData | 21.1.265：保存穿透时调用 getPierceLevel，读取时写原生私有字段；子类覆盖 getter 使用独立字段时也须读回 PierceLevel。1.18.2 原生箭保存穿透、不保存击退，依据为 Forge40.3.11 映射源码中的完整保存/读取方法与 Forge40.1.0 的 AbstractArrow 补丁（无此项差异）；迁移时不额外增加击退存档行为 |
 
 ## 加载器与数据格式（已核实）
@@ -45,7 +46,7 @@
 | 配方产物数量 | 产物数量大于该物品最大堆叠时解析报 `Item stack with stack size of N was larger than maximum: M`，配方不加载（2026-11-02 开发服务端实测） | 来源允许这类配方（1.18.2 产出超额堆叠），转换时须检出并裁定，不能静默改数量或堆叠 |
 | 战利品表 | 条目引用不存在的物品使整张表报 `Unknown registry key` 并不加载；`match_tool` 的附魔谓词写成 `{"predicates": {"minecraft:enchantments": [{"enchantments": "<附魔>", "levels": {...}}]}}`；`{min, max}` 数量写明 `"type": "minecraft:uniform"`；实体表里的 `apply_bonus` 缺少 `minecraft:tool` 上下文，只给验证警告，表照常加载 | 转换工具改写后 109 张表在开发服务端 ERROR 0 条；掉落效果未在游戏内核对 |
 | 进度 | `display.icon` 为 `{"id": "<物品>"}`（来源是 `{"item": ...}`）；`display.background`、`title`、`criteria` 写法不变 | 8 个进度在开发服务端加载无错误 |
-| 旧结构 NBT | `StructureTemplateManager.readStructure` 按文件里的 DataVersion 用数据修复器升级；DataVersion 2975（1.18.2）的结构可直接加载，调色板里的原版 `grass` 变为 `short_grass`（2026-11-02 实测，160 个结构）。调色板里不存在的方块名静默变成空气，没有日志 | 不必预先升级，只需把来源命名空间改写成目标命名空间；登记新方块后重新核对调色板 |
+| 旧结构 NBT | `StructureTemplateManager.readStructure` 按文件里的 DataVersion 用数据修复器升级；DataVersion 2975（1.18.2）的结构可直接加载，调色板里的原版 `grass` 变为 `short_grass`（2026-11-02 实测，160 个结构）。调色板里不存在的方块名静默变成空气，没有日志。2026-11-14在21.1.265确认：自定义Mod实体旧`Attributes`仍未升级，`LivingEntity`只读`attributes`，`AttributeMap/AttributeInstance`读取`id/base/modifiers` | 原版结构数据升级不能证明Mod实体内部NBT也已转换。按精确目标源码检查实际保存字段及属性注册ID，为自定义实体显式转换；登记新方块后另核调色板，不以模板加载成功替代实例属性验收 |
 | 结构里的额框与画 | NBT 中保存旧世界的绝对坐标 `TileX/Y/Z`，`BlockAttachedEntity` 读取时离实体超过 16 格即记 ERROR，实体位置仍由摆放代码重设 | 摆放结构会产生这类 ERROR 日志，功能不受影响 |
 | 超大结构 | 展开后 304 MB、844 万方块的模板在默认堆下解析 NBT 即 `OutOfMemoryError`（`CompoundTag` 每个方块一个哈希表） | 内容里大部分是空气的模板需要压缩、分段或提高内存，不能依赖原样加载 |
 | 流体与水 | NeoForge 21.1.265 把实体的 `FluidTags.WATER` 判断（`isInWater`、`isEyeInFluid` 等）改为判断水的流体类型；自定义流体列入 `minecraft:water` 标签不再让实体按水处理。游泳、溺水、灭火、摔落、载船、湿润耕地由 `FluidType.Properties` 决定 | 来源靠水标签获得水行为的流体，按需设置流体类型属性；标签仍影响其他按标签判断的逻辑。流体贴图在 `RegisterClientExtensionsEvent` 登记，渲染层用 `ItemBlockRenderTypes.setRenderLayer(Fluid, ..)`（未弃用） |
@@ -70,7 +71,8 @@
 - `runServer` 启动后等待控制台输入，不会自行结束；终止 Gradle 任务后，wrapper 与游戏 Java 进程可能残留，需按命令行查找并结束。
 - Windows 控制台按系统代码页显示非 ASCII 的 Mod 名称时会乱码；`run/logs/latest.log` 为 UTF-8，以日志文件核对显示名。
 - 客户端在窗口活动且没有打开界面时捕获鼠标（`MouseHandler.grabMouse` 只检查 `Minecraft.isWindowActive()`）。自动化的客户端运行在每 tick 开始时 `setWindowActive(false)` 并关闭失去焦点暂停，就不会占用开发者的鼠标；窗口启动时取得键盘焦点是操作系统行为，无法由模组避免。
-- 新建世界后很快退出时，集成服务端的停止流程可能在“等待区块工作完成”的循环中空转（某个区块尚有加载或光照待办，`isReadyForSaving` 一直为假）。自动化退出前等 `ServerChunkCache.getPendingTasksCount()` 连续一段时间为 0。
+- 已核NeoForge21.1.265：`MinecraftServer.stopServer` 在 `Saving worlds` 后先循环等待全部维度 `ChunkMap.hasWork` 清空，再调用 `saveAllChunks`；停在该日志不能直接归因为磁盘保存。新建世界快速退出曾观察到区块卸载反复等待 `isReadyForSaving` 的空转，须用现场线程栈区分。`ServerChunkCache.getPendingTasksCount()` 只计区块主线程队列，不含完整生成、光照和卸载工作，连续为0只能作为经验性时机调整，不能证明保存就绪；玩家在线时也不应要求 `ChunkMap.hasWork=false`，玩家ticket本身会使其为true。
+- 客户端自动化结束按该版本 `PauseScreen.onDisconnect` 的顺序执行 `level.disconnect()`、`Minecraft.disconnect(保存界面)`，断开正常返回后才记录世界退出完成；场景断言先落盘，退出未完成时保留未完成状态。`Minecraft.disconnect` 内部等待集成服务端 `isShutdown`，但它返回和JVM正常退出是两个事实，仍分别核对保存完成日志与构建进程退出。2026-11-13受控单项使用此路径正常保存退出，不据单次成功宣称所有快速退出问题已消除。
 - 本机内存不足时 Gradle wrapper 的 JVM 会在工作目录写 `hs_err_pid*.log`、`replay_pid*.log`；这类文件应被版本控制忽略。资源转换一次重写数千个文件后紧接构建，会给编辑器的文件监视带来很大压力，重型任务逐个运行。
 - 客户端自动化退出存档时，`Minecraft.disconnect` 在等待集成服务端关闭期间循环调用 `runTick`，`ClientTickEvent` 会嵌套触发；脚本在调用前置忙标志，嵌套的 tick 不推进。重新进入用 `WorldOpenFlows.openWorld(存档目录名, 失败回调)`（21.1.265 实测）。
 

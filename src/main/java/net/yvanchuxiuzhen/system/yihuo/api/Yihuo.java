@@ -74,9 +74,9 @@ public final class Yihuo {
         return grade;
     }
 
-    /** 1.18.2 版本的法宝品阶门槛：品阶 1 无门槛，之后每五级解锁一档。 */
+    /** 普通火始终可收；炼器等级 1、6、…、41 依次解锁二至十档。 */
     public static int fabaoAbsorptionGrade(int itemLevel) {
-        return itemLevel < 1 ? 0 : Math.min(10, (itemLevel - 1) / 5 + 1);
+        return itemLevel < 1 ? 1 : Math.min(10, (itemLevel - 1) / 5 + 2);
     }
 
     /** 从异火材料编号得到火块等级；普通火与灵魂火均为一级。 */
@@ -100,10 +100,11 @@ public final class Yihuo {
         return material % 10 + 1;
     }
 
-    /** 从指定编号发射异火材料弹体；弹体的命中与火块写入仍由 yihuo 所有。 */
+    /** 覆火葫芦从储火发射穿透二级的异火弹体；手持材料直射不经过此入口。 */
     public static YihuoProjectile shootMaterial(ServerPlayer player, int material, float velocity, float spread) {
         ServerLevel level = player.serverLevel();
         YihuoProjectile projectile = YihuoProjectiles.type(material).get().create(level);
+        projectile.setGourdPiercing();
         projectile.setOwner(player);
         projectile.setPos(player.getX(), player.getEyeY() - 0.1, player.getZ());
         projectile.shoot(player.getViewVector(1).x, player.getViewVector(1).y, player.getViewVector(1).z, velocity, spread);

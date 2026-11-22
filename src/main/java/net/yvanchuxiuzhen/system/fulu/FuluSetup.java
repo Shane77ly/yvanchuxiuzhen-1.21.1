@@ -22,10 +22,14 @@ import net.yvanchuxiuzhen.system.fulu.content.FuluMenus;
 import net.yvanchuxiuzhen.system.fulu.content.SootBlock;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.RepellingTalismanBlock;
+import net.yvanchuxiuzhen.system.fulu.content.ReincarnationPillItem;
+import net.yvanchuxiuzhen.system.fulu.content.ReincarnationTalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.CloudSpirit;
+import net.yvanchuxiuzhen.system.fulu.content.CorpseTalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.RangedTalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectileItem;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanSummon;
 import net.yvanchuxiuzhen.system.fulu.content.ThresholdTalismanItem;
 import net.yvanchuxiuzhen.system.fulu.content.ExplosiveTalismanBlock;
@@ -56,12 +60,18 @@ public final class FuluSetup {
                     BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "chuancheng")), properties, tooltip))
             .itemFactory("fulu:passive_22", (properties, tooltip) -> new ThresholdTalismanItem(properties, tooltip, 22))
             .itemFactory("fulu:passive_23", (properties, tooltip) -> new ThresholdTalismanItem(properties, tooltip, 23))
-            .itemFactory("fulu:explosive_42_item", ExplosiveTalismanItem::new);
+            .itemFactory("fulu:explosive_42_item", ExplosiveTalismanItem::new)
+            .itemFactory("fulu:corpse_seal", CorpseTalismanItem::new)
+            .itemFactory("fulu:projectile", TalismanProjectileItem::new)
+            .itemFactory("fulu:reincarnation_37", ReincarnationTalismanItem::new)
+            .itemFactory("fulu:reincarnation_pill", ReincarnationPillItem::new)
+            .effectBehavior("fulutexiao_41", new FiveThunderCurse())
+            .effectBehavior("fulutexiao_18", new TalismanControl());
 
     /** 蓄放后射出弹体的远程符编号，对应内容表工厂 {@code fulu:ranged_<编号>}。 */
-    private static final int[] RANGED = {10, 20, 28, 33, 35};
+    private static final int[] RANGED = {10, 18, 20, 28, 33, 35, 41};
     /** 共享即时与持续施用入口的符箓编号，对应内容表工厂 {@code fulu:talisman_<编号>}。 */
-    private static final int[] TALISMANS = {1, 2, 3, 4, 5, 40, 44, 43, 45, 47, 48, 49, 6, 7, 8, 9, 11, 12, 13, 14, 17, 19, 21, 24, 25, 26, 27, 29, 31, 32, 34, 36, 38, 39, 46};
+    private static final int[] TALISMANS = {1, 2, 3, 4, 5, 40, 44, 43, 45, 47, 48, 49, 6, 7, 8, 9, 11, 12, 13, 14, 17, 19, 21, 24, 25, 26, 27, 29, 30, 31, 32, 34, 36, 38, 39, 46};
 
     static {
         for (int number : TALISMANS) {

@@ -1,0 +1,13 @@
+{
+  "type": "yvanchuxiuzhen:jinsebankuai",
+  "config": {
+    "contents": {
+      "Name": "minecraft:blackstone"
+    },
+    "rim": {
+      "Name": "minecraft:red_sand"
+    },
+    "size": 16,
+    "rim_size": 2
+  }
+}

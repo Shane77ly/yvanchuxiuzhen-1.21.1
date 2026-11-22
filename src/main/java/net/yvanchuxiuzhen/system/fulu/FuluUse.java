@@ -71,11 +71,15 @@ public final class FuluUse {
     }
 
     /**
-     * 使用一张持续效果符：先付款，再判断该编号是否已生效。已生效时精力已经扣除而符不消耗（来源顺序）；
+     * 按编号分派成品施用；持续效果符先付款，再判断该编号是否已生效。已生效时精力已经扣除而符不消耗（来源顺序）；
      * 未生效时登记品阶、计入生效数、播放释放声并消耗一张。21 号符另清除低于 {@code 2×品阶−1} 的负面状态，
      * 其生效数来源读的是物品而不是玩家的 {@code fulunumber}（登记为 Q65）；39 号符释放声先于判断，已生效时仍续水下呼吸并消耗符。
      */
     public static void activate(ServerPlayer player, ItemStack stack, int number) {
+        if (number == 30) {
+            FuluRipening.use(player, stack);
+            return;
+        }
         if (FuluInstant.handles(number)) {
             FuluInstant.use(player, stack, number);
             return;

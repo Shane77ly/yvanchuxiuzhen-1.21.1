@@ -43,9 +43,10 @@ final class Yaoshou035Behavior {
             entity.getPersistentData().putString("jinengjinxing", "蓄力");
             if (!entity.level().isClientSide()) ((YaoshouEntity) entity).setAnimation("animation.yaoshou035.skill01");
         } else if (phase.equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 2) {
-            entity.level().playSound(null, entity.getX(), entity.getY() + entity.getBbHeight() / 2, entity.getZ(),
-                    Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou035skill01"), SoundSource.HOSTILE, 1, 1);
+            double y = entity.getY() + entity.getBbHeight() / 2;
             if (world instanceof ServerLevel level) {
+                level.playSound(null, BlockPos.containing(entity.getX(), y, entity.getZ()),
+                        Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou035skill01"), SoundSource.HOSTILE, 1, 1);
                 for (int index = 0; index < 2; index++) {
                     double x = entity.getX() + Yaoshou037054Support.randomInt(-2, 2);
                     double z = entity.getZ() + Yaoshou037054Support.randomInt(-2, 2);
@@ -64,6 +65,9 @@ final class Yaoshou035Behavior {
                     monkey.finalizeSpawn(level, level.getCurrentDifficultyAt(monkey.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
                     level.addFreshEntity(monkey);
                 }
+            } else if (world instanceof Level level && level.isClientSide()) {
+                level.playLocalSound(entity.getX(), y, entity.getZ(), Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou035skill01"),
+                        SoundSource.HOSTILE, 1, 1, false);
             }
             entity.getPersistentData().putString("jinengjinxing", "结束");
         } else if (phase.equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 13) {

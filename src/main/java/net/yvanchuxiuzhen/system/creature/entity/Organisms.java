@@ -4,10 +4,13 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.IEventBus;
@@ -20,6 +23,9 @@ import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 
 /** Organism09–12的独立实体工厂、刷怪蛋、属性与原生刷怪位置规则。 */
 public final class Organisms {
+    private static final TagKey<Block> GRASS_MATERIAL = TagKey.create(Registries.BLOCK,
+            ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "legacy_grass_material"));
+
     private Organisms() { }
 
     public static List<EntityModelRow> models() {
@@ -49,7 +55,7 @@ public final class Organisms {
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(content.<Organism11Entity>entityType("organism_11").get(), SpawnPlacementTypes.ON_GROUND,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) ->
-                            level.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK) && level.getRawBrightness(pos, 0) > 8,
+                            level.getBlockState(pos.below()).is(GRASS_MATERIAL) && level.getRawBrightness(pos, 0) > 8,
                     RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(content.<Organism12Entity>entityType("organism_12").get(), SpawnPlacementTypes.IN_WATER,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) ->

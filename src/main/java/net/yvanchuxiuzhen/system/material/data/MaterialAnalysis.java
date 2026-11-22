@@ -66,9 +66,9 @@ public record MaterialAnalysis(Map<String, Integer> progress, Map<String, Intege
         }
         MaterialRevealedEntry previous = entries.get(ordinal - 1);
         MaterialRevealedEntry nextEntry = switch (entry.kind()) {
-            case ATTRIBUTE -> new MaterialRevealedEntry(previous.namespace(), entry.name(), previous.open());
-            case TRAIT -> new MaterialRevealedEntry("teshu", entry.name(), previous.open());
-            case SPECIAL -> new MaterialRevealedEntry(entry.namespace(), entry.name(), true);
+            case ATTRIBUTE -> new MaterialRevealedEntry(previous.namespace(), entry.name(), previous.open(), previous.description());
+            case TRAIT -> new MaterialRevealedEntry("teshu", entry.name(), previous.open(), previous.description());
+            case SPECIAL -> new MaterialRevealedEntry(entry.namespace(), entry.name(), true, previous.description());
         };
         entries.set(ordinal - 1, nextEntry);
         nextRevealed.put(itemId, entries);
@@ -77,6 +77,29 @@ public record MaterialAnalysis(Map<String, Integer> progress, Map<String, Intege
             nextTraits.add(entry.name());
         }
         return new MaterialAnalysis(nextProgress, maximum, nextRevealed, nextTraits, yihuoInitialized);
+    }
+
+    /** 管理解锁覆盖目录范围内的条目；特殊标记走来源附魔分支，不新增全局特殊标记。 */
+    public MaterialAnalysis unlock(MaterialDefinition definition) {
+        String itemId = definition.itemId();
+        int count = definition.entryCount();
+        Map<String, Integer> nextProgress = new HashMap<>(progress);
+        Map<String, Integer> nextMaximum = new HashMap<>(maximum);
+        nextProgress.put(itemId, count);
+        nextMaximum.put(itemId, count);
+        Map<String, List<MaterialRevealedEntry>> nextRevealed = new HashMap<>(revealed);
+        List<MaterialRevealedEntry> entries = new ArrayList<>(revealed.getOrDefault(itemId, List.of()));
+        for (int index = 0; index < count; index++) {
+            MaterialDefinition.Entry entry = definition.entries().get(index);
+            if (entries.size() <= index) entries.add(MaterialRevealedEntry.EMPTY);
+            MaterialRevealedEntry previous = entries.get(index);
+            MaterialRevealedEntry unlocked = entry.kind() == MaterialDefinition.Kind.ATTRIBUTE
+                    ? new MaterialRevealedEntry(previous.namespace(), entry.name(), previous.open(), "增加" + entry.value() + "点")
+                    : new MaterialRevealedEntry(entry.namespace(), entry.name(), true, "附魔增加" + entry.value() + "点");
+            entries.set(index, unlocked);
+        }
+        nextRevealed.put(itemId, entries);
+        return new MaterialAnalysis(nextProgress, nextMaximum, nextRevealed, specialTraits, yihuoInitialized);
     }
 
     public MaterialAnalysis withYihuoInitialized() {

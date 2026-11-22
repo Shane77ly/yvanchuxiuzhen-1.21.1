@@ -4,7 +4,7 @@
 {"id":"elm_01","factory":"item","order":240,"tab":"yvanchuxiuzhen:tabyvanchu_food","food":{"nutrition":1,"saturation_mod":0.0,"always_eat":true},"tooltip":["§6食物"]},
 {"id":"sylvestrispinenut","factory":"item","order":256,"tab":"yvanchuxiuzhen:tabyvanchu_food","food":{"nutrition":1,"saturation_mod":0.3},"tooltip":["§6食物"]},
 {"id":"sylvestrispinecone","factory":"item","order":257,"tab":"yvanchuxiuzhen:tabyvanchu_food"},
-{"id":"chestnutchestnut","factory":"item","order":262,"tab":"yvanchuxiuzhen:tabyvanchu_food","tooltip":["§6食物"],"pending_hooks":["useOn"]},
+{"id":"chestnutchestnut","factory":"cooking:chestnut","order":262,"tab":"yvanchuxiuzhen:tabyvanchu_food","tooltip":["§6食物"]},
 {"id":"shicai_001","factory":"item","order":371,"tab":"yvanchuxiuzhen:tabyvanchu_food","tooltip":["§6食物"]},
 {"id":"shicai_002","factory":"item","order":372,"tab":"yvanchuxiuzhen:tabyvanchu_food","tooltip":["§6食物"]},
 {"id":"shicai_003","factory":"item","order":373,"tab":"yvanchuxiuzhen:tabyvanchu_food","tooltip":["§6食物"]},

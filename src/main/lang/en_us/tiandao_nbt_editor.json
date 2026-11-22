@@ -1,0 +1,5 @@
+{
+  "message.yvanchuxiuzhen.nbt_editor.missing_input": "Enter the corresponding content in the three input boxes above.",
+  "message.yvanchuxiuzhen.nbt_editor.choose_type": "Select one checkbox. Only one checkbox may be selected.",
+  "gui.yvanchuxiuzhen.tiandaoitemnbt_gui.button_confirm": "Set NBT"
+}

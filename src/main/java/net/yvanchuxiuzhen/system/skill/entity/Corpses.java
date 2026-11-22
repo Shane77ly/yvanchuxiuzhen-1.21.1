@@ -114,8 +114,9 @@ public final class Corpses {
 
     static void grow(Corpse corpse, Entity killed) {
         ServerLevel level = (ServerLevel) corpse.level();
-        int slot = (int) corpse.getPersistentData().getDouble("qishijveweizhi");
-        if (slot < 1 || slot > SkillState.SPELL_SLOTS) {
+        double storedSlot = corpse.getPersistentData().getDouble("qishijveweizhi");
+        int slot = (int) storedSlot;
+        if (slot != storedSlot || slot < 1 || slot > SkillState.SPELL_SLOTS) {
             return;
         }
         String master = corpse.getPersistentData().getString("belongToMasterUUID");
@@ -136,7 +137,7 @@ public final class Corpses {
     private static SkillBook advance(SkillBook book, double gained) {
         double experience = book.number("jinengExp") + gained;
         double needed = book.grade() * 30;
-        if (experience < needed) {
+        if (!(experience >= needed)) {
             return book.withNumber("jinengExp", experience);
         }
         double level = book.number("LEVELnumber") + 1;

@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.combat.damage;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.util.UndashedUuid;
 import java.util.UUID;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -16,6 +17,7 @@ import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
  * 命令 {@code /shanghai <类别> <攻击者UUID或无> <是否固定> <基础量> <倍率>}（来源 {@code ShanghaiCommand}，没有权限要求）：
  * 对命令执行者（{@code execute as} 指定的实体）造成一次灵力或神识伤害，见 {@link Shanghai}。
  * 参数按空白分隔，缺省为空串，数字解析失败为 0；“无”、{@code wu}、{@code no}、{@code false} 表示没有攻击者。
+ * 攻击者 UUID 接受标准连字符或无连字符形式；解析无效或本维度未加载的来源不造成伤害。
  */
 public final class ShanghaiCommand {
     private ShanghaiCommand() {
@@ -50,7 +52,7 @@ public final class ShanghaiCommand {
         UUID attacker = null;
         if (!(attackerWord.equals("无") || attackerWord.equals("wu") || attackerWord.equals("no") || attackerWord.equals("false"))) {
             try {
-                attacker = UUID.fromString(attackerWord);
+                attacker = UndashedUuid.fromStringLenient(attackerWord);
             } catch (IllegalArgumentException exception) {
                 // 来源按这个字符串查不到实体，随后对空来源取数据而抛出异常，命令失败，没有伤害。
                 return;

@@ -18,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -34,7 +35,7 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.MobSpawnType;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
-import net.yvanchuxiuzhen.system.relation.api.Relations;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -73,21 +74,32 @@ public abstract class GuchongEntity extends TamableAnimal implements GeoEntity, 
         builder.define(ANIMATION, "undefined");
     }
 
-    @Override protected void registerGoals() {
+    /** 地面蛊虫按选择器实际遍历顺序登记目标；两种蛊虫均以飞蝗蛊为吞噬对象。 */
+    protected final void registerGroundGoals(boolean leap) {
         super.registerGoals();
         goalSelector.addGoal(1, new GuchongFollowOwnerGoal(this, 1, 10, 2, false));
         targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         goalSelector.addGoal(3, new OwnerHurtByTargetGoal(this));
         targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, true, true));
+        targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Guchong03Entity.class, true, true) {
+            @Override public boolean canUse() {
+                return super.canUse() && StatusEffects.has(GuchongEntity.this, "huxiangtunshi");
+            }
+            @Override public boolean canContinueToUse() {
+                return super.canContinueToUse() && StatusEffects.has(GuchongEntity.this, "huxiangtunshi");
+            }
+        });
         goalSelector.addGoal(6, new MeleeAttackGoal(this, 1.2, false) {
             @Override protected boolean canPerformAttack(LivingEntity target) {
                 return isTimeToAttack() && distanceToSqr(target) <= getBbWidth() * getBbWidth() + target.getBbWidth();
             }
         });
         targetSelector.addGoal(7, new HurtByTargetGoal(this).setAlertOthers());
-        goalSelector.addGoal(9, new RandomStrollGoal(this, 1));
-        goalSelector.addGoal(10, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(11, new FloatGoal(this));
+        if (leap) goalSelector.addGoal(8, new LeapAtTargetGoal(this, 1));
+        int idlePriority = leap ? 9 : 8;
+        goalSelector.addGoal(idlePriority, new RandomStrollGoal(this, 1));
+        goalSelector.addGoal(idlePriority + 1, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(idlePriority + 2, new FloatGoal(this));
     }
 
     @Override public boolean removeWhenFarAway(double distance) { return false; }
@@ -124,6 +136,11 @@ public abstract class GuchongEntity extends TamableAnimal implements GeoEntity, 
     protected abstract void initializeSourceData();
     protected abstract void sourceTick();
 
+    @Override public void aiStep() {
+        super.aiStep();
+        updateSwingTime();
+    }
+
     @Override public void baseTick() {
         super.baseTick();
         sourceTick();
@@ -139,11 +156,11 @@ public abstract class GuchongEntity extends TamableAnimal implements GeoEntity, 
     public void setAnimation(String animation) { entityData.set(ANIMATION, animation); }
 
     @Override protected void tickDeath() {
-        if (++deathTime == 20) { remove(RemovalReason.KILLED); dropExperience(this); }
+        if (++deathTime == model.lifecycle().deathTicks()) remove(RemovalReason.KILLED);
     }
 
     @Override public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<GuchongEntity>(this, "movement", 2, state -> {
+        controllers.add(new AnimationController<GuchongEntity>(this, "movement", model.lifecycle().animationTransitionTicks(), state -> {
             if (!procedureAnimation.equals("empty")) return PlayState.STOP;
             boolean moving = state.isMoving() || !(state.getLimbSwingAmount() > -.15F && state.getLimbSwingAmount() < .15F);
             if (moving && (onGround() || model.air().isEmpty()))
@@ -152,7 +169,7 @@ public abstract class GuchongEntity extends TamableAnimal implements GeoEntity, 
                 return state.setAndContinue(RawAnimation.begin().thenLoop(model.air().get()));
             return state.setAndContinue(RawAnimation.begin().thenLoop("animation." + model.animation() + ".idle"));
         }));
-        controllers.add(new AnimationController<GuchongEntity>(this, "procedure", 2, state -> {
+        controllers.add(new AnimationController<GuchongEntity>(this, "procedure", model.lifecycle().animationTransitionTicks(), state -> {
             if (procedureAnimation.equals("empty")) return PlayState.STOP;
             AnimationController<GuchongEntity> controller = state.getController();
             if (controller.getAnimationState() == AnimationController.State.STOPPED) {

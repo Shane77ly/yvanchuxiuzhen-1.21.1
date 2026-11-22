@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8.7",
+  "package": "net.yvanchuxiuzhen.smoke.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ChunkMapUnloadFutureDiagnosticsMixin",
+    "PlantPlacedFeatureMixin",
+    "PlantConfiguredFeatureMixin"
+  ],
+  "client": [
+    "SmokeWindowMixin",
+    "SmokeMouseHandlerMixin",
+    "SmokeResidenceMiningMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

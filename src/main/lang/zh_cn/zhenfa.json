@@ -1,7 +1,12 @@
 {
+  "block.yvanchuxiuzhen.luopan": "罗盘",
+  "block.yvanchuxiuzhen.flagmother": "母旗",
+  "block.yvanchuxiuzhen.flagson": "子旗",
   "block.yvanchuxiuzhen.zhenji": "阵基",
   "block.yvanchuxiuzhen.zhenyvan": "阵元",
   "item.yvanchuxiuzhen.flagmotheritem": "母旗",
   "item.yvanchuxiuzhen.flagsonitem": "子旗",
-  "item.yvanchuxiuzhen.zhenyang_01": "Zhenyang 0 1"
+  "item.yvanchuxiuzhen.zhenyang_01": "Zhenyang 0 1",
+  "entity.yvanchuxiuzhen.zhenfashiti": "阵法",
+  "entity.yvanchuxiuzhen.zhenjineng_03": "Zhenjineng 0 3"
 }

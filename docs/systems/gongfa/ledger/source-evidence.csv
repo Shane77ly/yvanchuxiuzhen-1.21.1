@@ -1,0 +1,5 @@
+source_mod,element,type,source_file,line,owner,ownership,evidence,target,implementation
+yvanchuxiuzhen,PlayerGUI04功法载入,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/PlayerGUI04DangZheGeJieMianDaKaiQiJianMeiKeFaShengProcedure.java,43-73,gongfa,已读,延迟载入原栈并记入比较槽,SkillLoadoutMenu / Techniques,已接线；菜单真实交互与存档验证待记录
+yvanchuxiuzhen,PlayerTick功法比较,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/PlayerTickProcedure.java,351-361,gongfa,已读,恢复后比较功法物品与名称并重算,TechniqueRules / CultivationAfterRecoveryEvent,已接线；实际恢复和死亡重进待验证
+yvanchuxiuzhen,Kaishigongfa经验入口,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/KaishigongfaProcedure.java,82-145,gongfa,已读,扣费后按修正境界与40层门槛加经验,TechniqueRules,已接线；实际修炼待验证
+yvanchuxiuzhen,Canwudianji参悟继承,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/CanwudianjiProcedure.java,45-260,gongfa,已读,小数境界文字和继承成功无论是否升级均清槽,Comprehension,静音客户端验证两种继承清槽与四组小数境界；重进及两版本对照未验

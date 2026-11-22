@@ -9,6 +9,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
+import net.yvanchuxiuzhen.system.profession.content.ProfessionMenus;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionAttachments;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionData;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionProgress;
@@ -20,6 +21,7 @@ public final class ProfessionSetup {
 
     public static void register(IEventBus modBus) {
         ProfessionAttachments.register(modBus);
+        ProfessionMenus.register(modBus);
         Gathering.register();
         NeoForge.EVENT_BUS.addListener(ProfessionSetup::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(ProfessionSetup::onLogin);

@@ -145,7 +145,13 @@ public final class Organism11Entity extends TamableAnimal implements GeoEntity, 
         if (!request.equals("undefined")) { entityData.set(ANIMATION, "undefined"); procedureAnimation = request; }
         super.tick();
     }
-    @Override protected void tickDeath() { if (++deathTime == 20) remove(RemovalReason.KILLED); }
+    @Override
+    protected void tickDeath() {
+        if (++deathTime == 20) {
+            remove(RemovalReason.KILLED);
+            dropExperience(lastHurtByPlayer);
+        }
+    }
     @Override public void aiStep() { super.aiStep(); updateSwingTime(); }
     @Override public String texture() { return entityData.get(TEXTURE); }
     public void setTexture(String texture) { entityData.set(TEXTURE, texture); }
@@ -155,7 +161,8 @@ public final class Organism11Entity extends TamableAnimal implements GeoEntity, 
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<Organism11Entity>(this, "movement", model.lifecycle().animationTransitionTicks(), state -> {
             if (!procedureAnimation.equals("empty")) return PlayState.STOP;
-            if (state.isMoving()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.organism11.walk"));
+            boolean moving = state.isMoving() || !(state.getLimbSwingAmount() > -.15F && state.getLimbSwingAmount() < .15F);
+            if (moving) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.organism11.walk"));
             if (isInWaterOrBubble()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.organism11.swiming"));
             if (isSprinting()) return state.setAndContinue(RawAnimation.begin().thenLoop("animation.organism11.spring"));
             return state.setAndContinue(RawAnimation.begin().thenLoop(model.idle()));

@@ -1,0 +1,17 @@
+{
+  "message.yvanchuxiuzhen.roof_point_1": "已选择点一：%s，%s，%s",
+  "message.yvanchuxiuzhen.roof_point_2": "已选择点二：%s，%s，%s",
+  "message.yvanchuxiuzhen.roof_missing_1": "还没选择点一",
+  "message.yvanchuxiuzhen.roof_missing_2": "还没选择点二",
+  "message.yvanchuxiuzhen.roof_place": "放置",
+  "message.yvanchuxiuzhen.roof_parity_odd": "奇数",
+  "message.yvanchuxiuzhen.roof_parity_even": "偶数",
+  "message.yvanchuxiuzhen.roof_tile_0": "黑瓦",
+  "message.yvanchuxiuzhen.roof_tile_1": "蓝瓦",
+  "message.yvanchuxiuzhen.roof_tile_2": "绿瓦",
+  "message.yvanchuxiuzhen.roof_tile_3": "红瓦",
+  "message.yvanchuxiuzhen.roof_tile_4": "鎏金筒瓦",
+  "message.yvanchuxiuzhen.roof_tile_5": "灰瓦",
+  "message.yvanchuxiuzhen.roof_overhanging": "悬山",
+  "message.yvanchuxiuzhen.roof_hard": "硬山"
+}

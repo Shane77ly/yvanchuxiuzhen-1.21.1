@@ -22,7 +22,7 @@ from pathlib import Path
 
 from build_ledger import INVENTORY, NAMESPACE, ROOT, expected_rows, read_ledgers
 from legacy_blocks import BASES, parse_block
-from legacy_items import TOOL_KINDS, parse_armor_material, parse_armor_piece, parse_item, parse_item_properties, parse_tool
+from legacy_items import TOOL_KINDS, parse_armor_material, parse_armor_piece, parse_item, parse_item_properties, parse_tool, tooltip_lines
 
 WORKSPACE = Path('D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-1.21.1/reference')
 SOURCES = {
@@ -40,7 +40,10 @@ FACTORIES = {'Block': 'block', 'SlabBlock': 'slab', 'StairBlock': 'stairs', 'Wal
              'DoublePlantBlock': 'double_plant'}
 ANIMATED_BLOCK_FACTORIES = {'plant:gourd', 'lianqi:repair_table', 'fulu:inheritance', 'cooking:iron_pot', 'cooking:clay_pot',
                             'cooking:steamer', 'cooking:steaming_basket', 'cooking:cleaver',
-                            'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:silkworm_box'}
+                            'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:silkworm_box',
+                            'treasure:chest_03', 'treasure:chest_11', 'economy:bank',
+                            'dungeon:tiandaofuben', 'dungeon:fabao_009', 'world:rift',
+                            'zhenfa:marker', 'zhenfa:flagmother_display', 'zhenfa:flagson_display', 'zhenfa:compass', 'decor:fortune_container', 'decor:relocation_ladder', 'plant:animated_big_grass', 'creature:coffin'}
 # 1.18.2 原版创造栏在 1.21.1 的对应；临时对应，待负责人确认。
 VANILLA_TABS = {'TAB_MISC': 'minecraft:tools_and_utilities', 'TAB_DECORATIONS': 'minecraft:building_blocks',
                 'TAB_TOOLS': 'minecraft:tools_and_utilities'}
@@ -257,14 +260,17 @@ def convert_entities(sources: dict[str, Source]) -> dict[str, list[dict]]:
 
 
 def convert_prefix_lang(sources: dict[str, Source], add_lang) -> int:
-    """系统代码直接引用的语言键（docs/reference/conversion/lang_prefixes.csv：所属单位、来源、键前缀）原样写入所属单位的语言片段。"""
+    """系统直接引用的语言键写入所属片段，按键前缀表选择并统一按键及文本键的命名空间。"""
     count = 0
     with (CONVERSION / 'lang_prefixes.csv').open(encoding='utf-8') as handle:
         for row in csv.DictReader(handle):
             for language in LANGUAGES:
                 for key, value in sources[row['source_mod']].lang[language].items():
                     if key.startswith(row['prefix']):
-                        add_lang(row['owner'], language, key, value)
+                        target = key.replace(f"key.{row['source_mod']}.", f'key.{NAMESPACE}.', 1) if key.startswith('key.') else key
+                        if key.startswith('txt.'):
+                            target = key.replace(f"txt.{row['source_mod']}.", f'txt.{NAMESPACE}.', 1)
+                        add_lang(row['owner'], language, target, value)
                         count += 1
     return count
 
@@ -427,29 +433,28 @@ def main() -> None:
         block_tooltips[(mod, path)] = row.pop('tooltip', [])
         base = row.pop('base')
         factory = overrides[('block', target)] if ('block', target) in overrides else FACTORIES[base]
-        if factory in ('lianqi:blueprint_table', 'fulu:inheritance'):
+        if factory in ('lianqi:blueprint_table', 'fulu:inheritance', 'dungeon:tiandaofuben', 'dungeon:fabao_009', 'quest:disguised', 'world:rift', 'treasure:casket'):
             strength = re.search(r'\.strength\((-?[\d.]+)f?, ?([\d.]+)f?\)', text)
             row['strength'] = [float(strength.group(1)), float(strength.group(2))]
-        if factory in ('liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod',
+        if factory in ('tiandao:multi_structure', 'liandan:medicine_container', 'liandan:medicine_separation', 'liandan:pharmacology', 'lianqi:tripod',
                        'lianqi:repair_table', 'lianqi:sewing_basket', 'lianqi:blueprint_table', 'lianqi:poison_cauldron',
-                       'fulu:drawing_table', 'fulu:ash_burner', 'fulu:soot', 'fulu:inheritance', 'fulu:repelling_talisman',
+                       'fulu:drawing_table', 'fulu:ash_burner', 'fulu:soot', 'fulu:inheritance', 'fulu:repelling_talisman', 'book:binding_table',
+                       'decor:plant_soil', 'decor:rabbit_cage', 'decor:open_rabbit_cage', 'decor:fortune_container', 'decor:relocation_ladder', 'decor:storage_13', 'decor:storage_14', 'decor:storage_18', 'decor:storage_19', 'decor:storage_20', 'decor:storage_21', 'decor:storage_22', 'decor:storage_24', 'treasure:ground', 'treasure:chest_03', 'treasure:chest_11', 'treasure:casket', 'quest:bounty', 'quest:disguised', 'town:center', 'town:planning', 'zhenfa:element', 'zhenfa:base', 'zhenfa:marker',
                        'cooking:iron_pot', 'cooking:clay_pot', 'cooking:steamer', 'cooking:steaming_basket',
                        'cooking:cutting_board', 'cooking:cleaver',
                        'cooking:wooden_still', 'cooking:wine_jar',
                        'cooking:waterlogged_wine_jar', 'cooking:natural_monkey_wine', 'craft:stone_mill', 'craft:stone_roller', 'craft:loom', 'craft:carpentry', 'craft:silk_reel', 'craft:pottery_wheel', 'craft:pottery_blank',
-                       'craft:silkworm_box', 'craft:chrysalis_display', 'cooking:plated_food',
+                       'craft:silkworm_box', 'craft:chrysalis_display', 'cooking:plated_food', 'creature:coffin',
                        'cooking:bowl', 'cooking:plate', 'cooking:large_bowl', 'cooking:iron_plate',
                        'plant:particle_foliage', 'plant:particle_foliage_leaves', 'plant:maple_resin', 'plant:water_plant',
                        'plant:mulberry_sapling', 'plant:mulberry_leaves',
-                       'plant:fruit_tree_log', 'plant:fruit_tree_leaves', 'plant:shicai009_sapling', 'plant:shicai010_sapling', 'plant:gourd',
+                       'plant:fallback_waterlogged', 'plant:fallback_double', 'plant:fruit_tree_log', 'plant:fruit_tree_leaves', 'plant:fallback_block', 'plant:air_fallback_leaves', 'plant:fallback_flower', 'plant:shicai009_sapling', 'plant:shicai010_sapling', 'plant:gourd',
                        'plant:lotus_root', 'plant:lotus_stem', 'plant:lotus_pod', 'plant:lotus_leaf') or factory.startswith((
-                           'fulu:explosive_', 'plant:produce', 'plant:vine', 'plant:fungus', 'plant:legume',
-                           'plant:tree_sapling', 'plant:fiber_crop', 'plant:nichang_grass', 'plant:peach_flower',
+                           'decor:display_', 'decor:inscribed_', 'decor:utility_', 'decor:cushion', 'economy:', 'tiandao:nbt_editor', 'dungeon:', 'world:rift', 'guchong:taoguan_', 'fulu:explosive_', 'plant:big_grass', 'plant:animated_big_grass', 'plant:produce', 'plant:vine', 'plant:fungus', 'plant:legume',
+                           'plant:reactive_wild_', 'plant:tree_sapling', 'plant:fiber_crop', 'plant:nichang_grass', 'plant:peach_flower',
                            *(f'plant:shicai{number}_' for number in ('001', '002', '004', '005', '006', '007',
                                '011', '012', '013', '014', '015', '016', '025', '026', '027')))):
             row.pop('pending_hooks', None)
-        if factory == 'plant:nichang_grass' and target == 'nichanggrass_06':
-            row['pending_hooks'] = ['performBonemeal']
         blocks_by_unit[unit].append({'id': target, 'factory': overrides.get(('block', target), factory), **row})
         for language in LANGUAGES:
             name = source.lang[language].get(f'block.{mod}.{path}')
@@ -477,11 +482,11 @@ def main() -> None:
                 row['tooltip'] = block_tooltips[(mod, path)]
         else:
             class_name = source.item_class.get(path)
-            if overrides.get(('item', target)) in ANIMATED_BLOCK_FACTORIES:
+            if overrides.get(('item', target)) in ANIMATED_BLOCK_FACTORIES or overrides.get(('item', target)) == 'block_item':
                 row = {'id': target, 'factory': overrides[('item', target)], 'block': target,
                        'order': order, 'tab': source.tabs['TAB_YVANCHU_BLOCK']}
                 display_properties = re.search(
-                    rf'RegistryObject<Item> \w+ = REGISTRY\.register\(\w+\.({"|".join(re.escape(c) for c, p in source.block_const.items() if p == path)})\.getId\(\)\.getPath\(\), \(\) -> new \w+DisplayItem\([^;]*?, (new Item\.Properties\(\)[^;]*?)\)\);',
+                    rf'RegistryObject<Item> \w+ = REGISTRY\.register\(\w+\.({"|".join(re.escape(c) for c, p in source.block_const.items() if p == path)})\.getId\(\)\.getPath\(\),\s*\(\) -> new \w+DisplayItem\([^;]*?,\s*(new Item\.Properties\(\)[^;]*?)\)\);',
                     source.items_text)
                 if display_properties:
                     row.pop('tab', None)
@@ -518,6 +523,14 @@ def main() -> None:
                 row = {'id': target, 'factory': overrides[('item', target)], 'order': order,
                        'armor': {'material': material['id'], 'slot': slot}, 'durability_multiplier': multiplier,
                        **parse_item_properties(properties, source.tabs)}
+                # 来源动画护甲的头部专属提示只随头盔行交付。
+                if slot == 'HELMET' and 'armor.slot == EquipmentSlot.HEAD' in text:
+                    tooltip = tooltip_lines(text)
+                    if tooltip:
+                        row['tooltip'] = tooltip
+                    for number, line in enumerate(tooltip, start=1):
+                        for language in LANGUAGES:
+                            add_lang(unit, language, f'tooltip.{NAMESPACE}.item.{target}.{number}', line)
                 items_by_unit[unit].append(row)
                 for language in LANGUAGES:
                     name = source.lang[language].get(f'item.{mod}.{path}')
@@ -558,16 +571,24 @@ def main() -> None:
                     add_lang(unit, language, f'item.{NAMESPACE}.{target}', name)
         if ('item', target) in overrides:
             row['factory'] = overrides[('item', target)]
+        if row['factory'] in ('zhenfa:flag_mother', 'zhenfa:flag_son'):
+            row.pop('tool', None)
+            row['stack'] = 1
         if row['factory'] in ('liandan:medicine_container', 'liandan:medicine_container_empty_box', 'lianqi:tripod_placement',
-                              'craft:pottery_blank', 'craft:silkworm', 'craft:silkworm_gold', 'cooking:meal_food',
+                              'decor:cage', 'decor:memorial_tablet', 'craft:pottery_blank', 'craft:silkworm', 'craft:silkworm_gold', 'cooking:meal_food', 'treasure:reward', 'treasure:tool', 'treasure:casket',
                               'cooking:poisonous_food', 'cooking:remainder_bone', 'cooking:remainder_shicai_03401',
                               'cooking:remainder_shicai_03601', 'cooking:remainder_shicai_03701', 'cooking:wine',
-                              'cooking:lotus_seed', 'cooking:plantable_garlic', 'creature:yaoshou_023baodan',
-                              'creature:yaoshou_013taoziwuqi', 'creature:yaoshou_014skill_03',
+                              'cooking:chestnut', 'cooking:lotus_seed', 'cooking:plantable_garlic', 'plant:peach_kernel', 'material:peach_food', 'creature:yaoshou_023baodan',
+                              'creature:yaoshou_013taoziwuqi', 'creature:yaoshou_014skill_03', 'equipment:fabao_017',
+                              'creature:spirit_beast_bag', 'creature:spirit_beast_dye_tool', 'creature:yaoshou_projectile',
+                              'xiulian:ling_11', 'xiulian:ling_18', 'xiulian:jiazubaibaodai', 'guchong:constitution', 'guchong:guchong_01item', 'guchong:guchong_03item', 'guchong:guchong_04item', 'guchong:flute', 'guchong:tracking', 'town:scroll', 'zhenfa:flag_mother', 'zhenfa:flag_son', 'zhenfa:yang_arrow',
+                              'dungeon:fabao_00901', 'fulu:corpse_seal', 'fulu:projectile', 'world:spirit_compass', 'festival:wish_lantern', 'npc:manager', 'decor:hammer',
+                              'festival:sparkler_02', 'festival:sparkler_03', 'festival:sparkler_07', 'equipment:gongjv_008', 'festival:costume_gift', 'festival:red_packet', 'festival:thrown_pao_04', 'festival:thrown_pao_05', 'festival:thrown_pao_06', 'festival:thrown_pao_04', 'festival:thrown_pao_05', 'festival:thrown_pao_06',
                               *(f'plant:shicai{number}_seed' for number in ('001', '002', '004', '005', '006', '007',
                                   '011', '012', '013', '014', '016', '025', '026', '027')),
                               *(f'cooking:produce{number:03}_food' for number in range(28, 34))) or row['factory'].startswith((
-                                  'fulu:talisman_', 'fulu:ranged_', 'fulu:passive_', 'fulu:explosive_', 'plant:produce', 'plant:vine', 'plant:gourd', 'plant:legume', 'plant:fiber_seed', 'plant:hemp_seed', 'plant:nichang_grass_seed', 'cooking:fungus', 'cooking:legume')):
+                                  'material:molten_metal_', 'material:jade_',
+                                  'guchong:taoguan_', 'economy:bank_card', 'economy:spirit_stone_', 'economy:auction_token', 'fulu:talisman_', 'fulu:ranged_', 'fulu:passive_', 'fulu:explosive_', 'plant:produce', 'plant:vine', 'plant:gourd', 'plant:legume', 'plant:fiber_seed', 'plant:hemp_seed', 'plant:nichang_grass_seed', 'cooking:fungus', 'cooking:legume')):
             row.pop('pending_hooks', None)
         items_by_unit[unit].append(row)
         for number, line in enumerate(row.get('tooltip', []), start=1):

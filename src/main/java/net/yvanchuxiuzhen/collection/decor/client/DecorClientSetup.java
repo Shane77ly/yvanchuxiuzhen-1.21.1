@@ -8,9 +8,23 @@ import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.yvanchuxiuzhen.collection.decor.DecorSetup;
+import net.yvanchuxiuzhen.collection.decor.DisplayFurnitureContent;
+import net.yvanchuxiuzhen.collection.decor.DisplayFurnitureVariant;
+import net.yvanchuxiuzhen.collection.decor.FurnitureStorageContent;
+import net.yvanchuxiuzhen.collection.decor.FurnitureStorageVariant.Layout;
+import net.yvanchuxiuzhen.collection.decor.InscribedDecorContent;
+import net.yvanchuxiuzhen.collection.decor.InscribedDecorMenu;
+import net.yvanchuxiuzhen.collection.decor.InscribedDecorVariant;
+import net.yvanchuxiuzhen.collection.decor.OffsetBlockContent;
+import net.yvanchuxiuzhen.collection.decor.RabbitCageBlockEntities;
+import net.yvanchuxiuzhen.collection.decor.UtilityFurnitureContent;
+import net.yvanchuxiuzhen.collection.decor.UtilityFurnitureVariant;
 import net.yvanchuxiuzhen.platform.ModId;
 
-/** 装饰内容族的客户端装配：云块与草方块的模型继承 {@code block/leaves}，按所在生物群系的草色着色。 */
+/** 装饰内容族的客户端装配：家具菜单、草色方块、座椅、诱饵和展示物渲染。 */
 public final class DecorClientSetup {
     private static final BlockColor GRASS_COLOR = (state, level, pos, tintIndex) ->
             level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.get(0.5D, 1.0D);
@@ -19,7 +33,28 @@ public final class DecorClientSetup {
     }
 
     public static void register(IEventBus modBus) {
+        HotOilClient.register(modBus);
+        WaterCloudClient.register(modBus);
+        AnimatedDecorClient.register(modBus);
         modBus.addListener(DecorClientSetup::registerBlockColors);
+        modBus.addListener((RegisterMenuScreensEvent event) -> {
+            for (Layout layout : Layout.values()) event.register(FurnitureStorageContent.menuType(layout), FurnitureStorageScreen::new);
+            event.register(DisplayFurnitureContent.CABINET.get(), DisplayFurnitureScreen::new);
+            event.register(DisplayFurnitureContent.STAND.get(), DisplayFurnitureScreen::new);
+            for (InscribedDecorMenu.Kind kind : InscribedDecorMenu.Kind.values()) event.register(InscribedDecorContent.menu(kind), InscribedDecorScreen::new);
+        });
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
+            event.registerEntityRenderer(DecorSetup.seatType(), DecorSeatRenderer::new);
+            event.registerEntityRenderer(DecorSetup.cushionType(), DecorSeatRenderer::new);
+        });
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerBlockEntityRenderer(RabbitCageBlockEntities.OPEN.get(), RabbitCageRenderer::new));
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerBlockEntityRenderer(OffsetBlockContent.TYPE.get(), OffsetBlockRenderer::new));
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
+            for (DisplayFurnitureVariant variant : DisplayFurnitureVariant.values()) event.registerBlockEntityRenderer(DisplayFurnitureContent.type(variant), DisplayFurnitureRenderer::new);
+            for (InscribedDecorVariant variant : InscribedDecorVariant.VALUES) event.registerBlockEntityRenderer(InscribedDecorContent.type(variant), InscribedDecorRenderer::new);
+            for (UtilityFurnitureVariant variant : UtilityFurnitureVariant.values()) event.registerBlockEntityRenderer(UtilityFurnitureContent.type(variant), UtilityFurnitureRenderer::new);
+        });
+        modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> event.registerLayerDefinition(DecorSeatRenderer.LAYER, DecorSeatRenderer::layer));
     }
 
     private static void registerBlockColors(RegisterColorHandlersEvent.Block event) {

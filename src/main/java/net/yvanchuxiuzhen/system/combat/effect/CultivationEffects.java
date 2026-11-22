@@ -30,12 +30,12 @@ final class CultivationEffects {
     }
 
     static void register(ContentTables tables) {
-        tables.effectBehavior("effect_008", new SkillChance("effect_008", CultivationValue.SKILL_POINTS_HEALTH_MAX, "血量上限"));
-        tables.effectBehavior("effect_009", new SkillChance("effect_009", CultivationValue.SKILL_POINTS_ATTACK, "物理攻击上限"));
-        tables.effectBehavior("effect_012", new SkillChance("effect_012", CultivationValue.SKILL_POINTS_POWER_MAX, "灵力上限"));
-        tables.effectBehavior("effect_014", new SkillChance("effect_014", CultivationValue.SKILL_POINTS_MANA, "法术攻击"));
-        tables.effectBehavior("effect_019", new SkillChance("effect_019", CultivationValue.SKILL_POINTS_SOUL_MAX, "精力上限"));
-        tables.effectBehavior("effect_021", new SkillChance("effect_021", CultivationValue.SKILL_POINTS_SOUL, "精神攻击"));
+        tables.effectBehavior("effect_008", new SkillChance("effect_008", CultivationValue.SKILL_POINTS_HEALTH_MAX));
+        tables.effectBehavior("effect_009", new SkillChance("effect_009", CultivationValue.SKILL_POINTS_ATTACK));
+        tables.effectBehavior("effect_012", new SkillChance("effect_012", CultivationValue.SKILL_POINTS_POWER_MAX));
+        tables.effectBehavior("effect_014", new SkillChance("effect_014", CultivationValue.SKILL_POINTS_MANA));
+        tables.effectBehavior("effect_019", new SkillChance("effect_019", CultivationValue.SKILL_POINTS_SOUL_MAX));
+        tables.effectBehavior("effect_021", new SkillChance("effect_021", CultivationValue.SKILL_POINTS_SOUL));
         tables.effectBehavior("effect_010", new Restore("effect_010", "effect010", 20, CultivationValue.POWER, Stat.POWER_MAX, false));
         tables.effectBehavior("effect_011", new Restore("effect_011", null, 0, CultivationValue.POWER, Stat.POWER_MAX, true));
         tables.effectBehavior("effect_017", new Restore("effect_017", "effect017", 20, CultivationValue.SOUL, Stat.SOUL_MAX, false));
@@ -45,12 +45,12 @@ final class CultivationEffects {
     }
 
     /** 永久加点机会：把对应的已加点次数减 (等级 + 1)，使可再加点的次数增加，提示后移除效果。 */
-    private record SkillChance(String effect, CultivationValue counter, String label) implements EffectBehavior {
+    private record SkillChance(String effect, CultivationValue counter) implements EffectBehavior {
         @Override
         public boolean tick(LivingEntity entity, int amplifier) {
             if (entity instanceof ServerPlayer player) {
                 Cultivation.add(player, counter, -(amplifier + 1));
-                player.displayClientMessage(Component.literal("可多为" + label + "升级" + (amplifier + 1) + "次"), false);
+                player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.combat.skill_chance." + effect, amplifier + 1), false);
             }
             StatusEffects.remove(entity, effect);
             return true;
@@ -67,8 +67,9 @@ final class CultivationEffects {
             if (instant) {
                 restore(entity, Math.pow(amplifier + 1, 2) * 100);
                 StatusEffects.remove(entity, effect);
-            } else if (EffectSupport.every(entity, counterKey, period)) {
+            } else if (advanceCounter(entity, counterKey, period)) {
                 restore(entity, (amplifier + 1) * 10);
+                entity.getPersistentData().putDouble(counterKey, 0);
             }
             return true;
         }
@@ -80,6 +81,13 @@ final class CultivationEffects {
         }
     }
 
+    /** 来源先写入本刻计数，执行恢复或修为结算后再清零。 */
+    private static boolean advanceCounter(LivingEntity entity, String key, int period) {
+        double count = entity.getPersistentData().getDouble(key) + 1;
+        entity.getPersistentData().putDouble(key, count);
+        return count >= period;
+    }
+
     /** 提高修为：玩家增加待吸收修为，妖兽发出事件；持续型每 40 刻增加 ((等级 + 1) × 5)²，瞬时型一次增加 ((等级 + 1) × 20)² 并提示。 */
     private record Experience(String effect, String counterKey, int period, int factor, boolean instant) implements EffectBehavior {
         @Override
@@ -87,8 +95,9 @@ final class CultivationEffects {
             if (instant) {
                 grant(entity, Math.pow((amplifier + 1) * factor, 2), true);
                 StatusEffects.remove(entity, effect);
-            } else if (EffectSupport.every(entity, counterKey, period)) {
+            } else if (advanceCounter(entity, counterKey, period)) {
                 grant(entity, Math.pow((amplifier + 1) * factor, 2), false);
+                entity.getPersistentData().putDouble(counterKey, 0);
             }
             return true;
         }
@@ -97,7 +106,7 @@ final class CultivationEffects {
             if (entity instanceof ServerPlayer player) {
                 Cultivation.add(player, CultivationValue.EXPERIENCE_STAND, amount);
                 if (announce) {
-                    player.displayClientMessage(Component.literal("修为增加" + amount + "点"), false);
+                    player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.combat.experience_gain", amount), false);
                 }
             } else if (entity.getType().is(YAOSHOU)) {
                 NeoForge.EVENT_BUS.post(new EffectExperienceEvent(entity, amount));

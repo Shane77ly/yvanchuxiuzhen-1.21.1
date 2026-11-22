@@ -2,6 +2,9 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -13,6 +16,7 @@ import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
@@ -20,9 +24,10 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 028号妖兽的来源水枪箭：保留水中改向、粒子、穿透和36刻寿命。 */
 public final class Yaoshou028shuiqiangEntity extends AbstractArrow implements ItemSupplier {
+    private static final EntityDataAccessor<Byte> SOURCE_PIERCE = SynchedEntityData.defineId(
+            Yaoshou028shuiqiangEntity.class, EntityDataSerializers.BYTE);
     private int flightTicks;
     private int sourceKnockback;
-    private byte sourcePierce = 1;
 
     public Yaoshou028shuiqiangEntity(EntityType<? extends Yaoshou028shuiqiangEntity> type, Level level) {
         super(type, level);
@@ -31,9 +36,21 @@ public final class Yaoshou028shuiqiangEntity extends AbstractArrow implements It
         setSilent(true);
     }
 
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SOURCE_PIERCE, (byte) 1);
+    }
+
     public void configure(Entity owner) {
+        configure(owner, 1, getPierceLevel());
+    }
+
+    /** 玩家物品发射保留来源独立的击退和穿透参数，妖兽技能继续使用既有默认值。 */
+    public void configure(Entity owner, int knockback, byte piercing) {
         setOwner(owner);
-        sourceKnockback = 1;
+        sourceKnockback = knockback;
+        entityData.set(SOURCE_PIERCE, piercing);
     }
 
     public static Yaoshou028shuiqiangEntity shoot(EntityType<Yaoshou028shuiqiangEntity> type, ServerLevel level,
@@ -63,7 +80,7 @@ public final class Yaoshou028shuiqiangEntity extends AbstractArrow implements It
 
     @Override
     public byte getPierceLevel() {
-        return sourcePierce;
+        return entityData.get(SOURCE_PIERCE);
     }
 
     @Override
@@ -71,7 +88,7 @@ public final class Yaoshou028shuiqiangEntity extends AbstractArrow implements It
         super.addAdditionalSaveData(tag);
         tag.putInt("FlightTicks", flightTicks);
         tag.putInt("SourceKnockback", sourceKnockback);
-        tag.putByte("SourcePierce", sourcePierce);
+        tag.putByte("SourcePierce", getPierceLevel());
     }
 
     @Override
@@ -79,7 +96,7 @@ public final class Yaoshou028shuiqiangEntity extends AbstractArrow implements It
         super.readAdditionalSaveData(tag);
         flightTicks = tag.getInt("FlightTicks");
         sourceKnockback = tag.getInt("SourceKnockback");
-        sourcePierce = tag.getByte("SourcePierce");
+        entityData.set(SOURCE_PIERCE, tag.getByte("SourcePierce"));
     }
 
     @Override
@@ -107,23 +124,29 @@ public final class Yaoshou028shuiqiangEntity extends AbstractArrow implements It
     }
 
     @Override
+    protected void onHitBlock(BlockHitResult hit) {
+        super.onHitBlock(hit);
+        entityData.set(SOURCE_PIERCE, (byte) 0);
+    }
+
+    @Override
     public void tick() {
         super.tick();
-        if (isRemoved()) return;
         Entity owner = getOwner();
-        if (owner == null) return;
-        if (!isNoGravity()) setNoGravity(true);
-        if (level() instanceof ServerLevel server) {
-            server.sendParticles(ParticleTypes.BUBBLE, getX(), getY() + getBbHeight() / 2, getZ(), 5,
-                    getBbWidth(), getBbHeight(), getBbWidth(), 0);
-            server.sendParticles(ParticleTypes.SPLASH, getX(), getY() + getBbHeight() / 2, getZ(), 5, 0, 0, 0, 0);
+        if (owner != null) {
+            if (!isNoGravity()) setNoGravity(true);
+            if (level() instanceof ServerLevel server) {
+                server.sendParticles(ParticleTypes.BUBBLE, getX(), getY() + getBbHeight() / 2, getZ(), 5,
+                        getBbWidth(), getBbHeight(), getBbWidth(), 0);
+                server.sendParticles(ParticleTypes.SPLASH, getX(), getY() + getBbHeight() / 2, getZ(), 5, 0, 0, 0, 0);
+            }
+            flightTicks++;
+            if (flightTicks >= 36) {
+                flightTicks = 0;
+                if (!level().isClientSide) discard();
+            }
+            if (isInWaterRainOrBubble()) setDeltaMovement(owner.getLookAngle());
         }
-        if (level().isClientSide) return;
-        flightTicks++;
-        if (flightTicks >= 36 || inGround) {
-            discard();
-        } else if (isInWaterRainOrBubble()) {
-            setDeltaMovement(owner.getLookAngle());
-        }
+        if (inGround) discard();
     }
 }

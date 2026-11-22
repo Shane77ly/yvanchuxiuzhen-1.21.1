@@ -7,12 +7,29 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.yvanchuxiuzhen.platform.ModId;
 
-/** 本 Mod 状态效果的查询与移除，效果按路径名（如 {@code effect_036}）指定。 */
+/** 本 Mod 状态效果的查询、移除与实体状态标记，效果按路径名（如 {@code effect_036}）指定。 */
 public final class StatusEffects {
     private StatusEffects() {
+    }
+
+    /** 阴四阵法写入本体持久标记；来源不调用生物的 AI 开关。 */
+    public static void markEntityNoAi(Entity target) {
+        target.getPersistentData().putBoolean("NoAI", true);
+    }
+
+    /** 阵法写入来源禁空标记；技能与飞行法器各自在下一次推进时消费。 */
+    public static void markEntityFlightBlocked(Entity target) {
+        target.getPersistentData().putBoolean("jinkong", true);
+    }
+
+    public static boolean consumeEntityFlightBlock(Entity target) {
+        if (!target.getPersistentData().getBoolean("jinkong")) return false;
+        target.getPersistentData().putBoolean("jinkong", false);
+        return true;
     }
 
     public static Holder<MobEffect> holder(String effect) {

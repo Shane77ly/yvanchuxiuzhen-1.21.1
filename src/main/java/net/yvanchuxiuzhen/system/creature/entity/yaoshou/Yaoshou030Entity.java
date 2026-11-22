@@ -7,7 +7,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
@@ -15,6 +14,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.api.SpiritBeastBags;
+import net.yvanchuxiuzhen.system.creature.entity.SourceFollowOwnerGoal;
 import software.bernie.geckolib.animation.AnimatableManager;
 
 /** 030号妖兽：飞行导航、来源重力约束及金系技能流程。 */
@@ -28,8 +28,7 @@ public final class Yaoshou030Entity extends YaoshouEntity {
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
-        goalSelector.removeAllGoals(goal -> goal instanceof FloatGoal);
+        goalSelector.addGoal(1, new SourceFollowOwnerGoal(this, 1, 10, 2, false));
     }
 
     @Override

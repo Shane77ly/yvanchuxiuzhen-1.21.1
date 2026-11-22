@@ -36,8 +36,11 @@ public final class AttributeScreen extends AbstractContainerScreen<PlayerPanelMe
     @Override
     protected void init() {
         super.init();
+        addButton(69, 174, 66, 18, "guipage011", 0, "属性加点");
         addButton(69, 201, 66, 18, "guipage012", 1, "饰品装备");
         addButton(69, 228, 66, 18, "guipage013", 2, "功法与技能");
+        addButton(69, 255, 66, 18, "guipage014", 3, "副职业");
+        addButton(69, 282, 66, 18, "guipage014", 4, "修炼");
         addButton(366, 156, 12, 12, "bankgui10", 5, "属性说明");
         addButton(360, 173, 24, 24, "dantianguianniu11", 6, "丹田");
     }

@@ -1,3 +1,13 @@
 {
-  "block.yvanchuxiuzhen.canwutai_block": "参悟台"
+  "block.yvanchuxiuzhen.canwutai_block": "参悟台",
+  "message.yvanchuxiuzhen.gongfa.study.already_owned": "您已学习此功法！",
+  "message.yvanchuxiuzhen.gongfa.study.owned_by_other": "此功法已被别人习得。",
+  "message.yvanchuxiuzhen.gongfa.study.level_required": "需要至少达到%s境界才可研习。",
+  "message.yvanchuxiuzhen.gongfa.study.success": "研习成功！",
+  "message.yvanchuxiuzhen.gongfa.training.level_up": "功法升级到%s重天",
+  "message.yvanchuxiuzhen.gongfa.training.stopped": "结束研习",
+  "message.yvanchuxiuzhen.gongfa.training.hungry": "太饿了，无法继续修炼。",
+  "message.yvanchuxiuzhen.gongfa.training.not_owned": "不是我的功法，直接拒绝",
+  "message.yvanchuxiuzhen.gongfa.training.realm_limit": "功法层级无法高于您的境界，请提升境界后再修炼功法。",
+  "message.yvanchuxiuzhen.gongfa.training.progress": "距离出关%s天（功法经验获得%s点）"
 }

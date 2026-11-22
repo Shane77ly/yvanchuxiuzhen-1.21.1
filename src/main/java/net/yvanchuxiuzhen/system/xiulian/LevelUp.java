@@ -84,40 +84,37 @@ public final class LevelUp {
             Cultivation.add(player, CultivationValue.SKILL_POINTS, 5 + Math.floor(level * 0.1));
             correct(player, "LevelupCorrect");
         }
-        int level = (int) Cultivation.get(player, CultivationValue.LEVEL_NUMBER);
-        Cultivation.set(player, CultivationText.LEVEL_NAME, realmName(level));
+        double level = Cultivation.get(player, CultivationValue.LEVEL_NUMBER);
+        // 来源0至40层只有精确整数分支更新境界名，小数与负层数保持原文本。
+        if (level >= 41) {
+            Cultivation.set(player, CultivationText.LEVEL_NAME, realmName(41));
+        } else if (level >= 0 && level <= 40 && level == Math.floor(level)) {
+            Cultivation.set(player, CultivationText.LEVEL_NAME, realmName((int) level));
+        }
         String advance = "";
-        switch (level) {
-            case 1 -> {
-                Cultivation.add(player, CultivationValue.LIFETIME, 7300);
-                advance = "进阶练气";
+        if (level == 1) {
+            Cultivation.add(player, CultivationValue.LIFETIME, 7300);
+            advance = "进阶练气";
+        } else if (level == 11) {
+            advance = "进阶筑基";
+            Cultivation.add(player, CultivationValue.LIFETIME, 36500);
+            correct(player, "RealmupCorrect");
+        } else if (level == 21) {
+            advance = "进阶结丹";
+            Cultivation.add(player, CultivationValue.LIFETIME, 73000);
+            correct(player, "RealmupCorrect");
+            GoldenCore.formCore(player);
+        } else if (level == 31) {
+            advance = "进阶元婴";
+            Cultivation.add(player, CultivationValue.LIFETIME, 146000);
+            correct(player, "RealmupCorrect");
+            GoldenCore.formNascentSoul(player);
+        } else if (level >= 41) {
+            if (level == 41) {
+                advance = "进阶化神";
             }
-            case 11 -> {
-                advance = "进阶筑基";
-                Cultivation.add(player, CultivationValue.LIFETIME, 36500);
-                correct(player, "RealmupCorrect");
-            }
-            case 21 -> {
-                advance = "进阶结丹";
-                Cultivation.add(player, CultivationValue.LIFETIME, 73000);
-                correct(player, "RealmupCorrect");
-                GoldenCore.formCore(player);
-            }
-            case 31 -> {
-                advance = "进阶元婴";
-                Cultivation.add(player, CultivationValue.LIFETIME, 146000);
-                correct(player, "RealmupCorrect");
-                GoldenCore.formNascentSoul(player);
-            }
-            default -> {
-                if (level >= 41) {
-                    if (level == 41) {
-                        advance = "进阶化神";
-                    }
-                    Cultivation.add(player, CultivationValue.LIFETIME, level == 41 ? 292000 : 18250);
-                    correct(player, "RealmupCorrect");
-                }
-            }
+            Cultivation.add(player, CultivationValue.LIFETIME, level == 41 ? 292000 : 18250);
+            correct(player, "RealmupCorrect");
         }
         boolean realm = level == 11 || level == 21 || level == 31 || level == 41;
         player.level().playSound(null, player.blockPosition(),
@@ -125,9 +122,11 @@ public final class LevelUp {
                 SoundSource.NEUTRAL, 1, 1);
         if (Cultivation.get(player, CultivationValue.CULTIVATION_DAYS) >= 1) {
             Cultivation.add(player, CultivationValue.CULTIVATION_COOLDOWN, realm ? 100 : 50);
-            Cultivation.setTizhiDouble(player, "XiulianColdShangxianCorrect",
-                    Cultivation.tizhiDouble(player, "XiulianColdShangxianCorrect") + (realm ? 50 : 5));
         }
+        // 即使已出关也累计下次力量上涌的门槛；正常修炼的冷却门槛仍为100。
+        Cultivation.setTizhiDouble(player, "XiulianColdShangxianCorrect",
+                Cultivation.tizhiDouble(player, "XiulianColdShangxianCorrect") + (realm ? 50 : 5));
+        LevelUpEffects.emit(player, !advance.isEmpty());
         Cultivation.setTizhiString(player, "uplevelxianshi1", advance.isEmpty() ? "境界提升" : advance);
         Cultivation.setTizhiString(player, "uplevelxianshi2", WHOLE.format(level - 1) + "→" + WHOLE.format(level));
         Cultivation.setTizhiString(player, "uplevelxianshi3", "属性点获得：" + WHOLE.format(Cultivation.get(player, CultivationValue.SKILL_POINTS) - skillBefore));
@@ -186,6 +185,6 @@ public final class LevelUp {
     }
 
     private static void openScreen(ServerPlayer player) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new LevelUpMenu(id, inventory), Component.literal("Playershengjixianshi")));
+        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new LevelUpMenu(id, inventory), Component.translatable("gui.yvanchuxiuzhen.level_up.title")));
     }
 }

@@ -14,7 +14,9 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
@@ -42,8 +44,9 @@ final class WaterFormations {
     private static SkillEntity newOrb(ServerPlayer caster, SkillBook book, String mode, float scale) {
         ServerLevel level = (ServerLevel) caster.level();
         SkillEntity orb = SkillEntities.summon(level, caster, "skill_water_04", WATER, (int) book.manaAttack(), (int) book.damageMultiplier(), book.name());
+        Relations.initializeCopiedSkillCast(caster, orb, (int) book.manaAttack(), (int) book.damageMultiplier(), mode);
         orb.getPersistentData().putString("mode", mode);
-        orb.setHitboxScale(scale);
+        Relations.setWaterOrbScale(orb, scale);
         return orb;
     }
 
@@ -59,9 +62,10 @@ final class WaterFormations {
             boolean alt = ModifierKeys.alt(caster);
             if (caster.isShiftKeyDown() || ctrl || alt) {
                 for (Entity other : ProjectileSupport.around(level, caster.position(), 16)) {
-                    if (SkillEntities.is(other, "skill_water_04") && other instanceof SkillEntity orb && caster.getUUID().equals(orb.attacker())) {
+                    if (SkillEntities.is(other, "skill_water_04") && other instanceof SkillEntity orb
+                            && caster.getStringUUID().equals(Relations.friendCast(orb).attacker())) {
                         if (caster.isShiftKeyDown()) {
-                            orb.getPersistentData().putBoolean("baolie", true);
+                            Relations.detonateWaterOrb(orb);
                         } else if (ctrl) {
                             SkillEntities.turn(orb, caster.getYRot(), 0);
                         } else {
@@ -122,19 +126,26 @@ final class WaterFormations {
     }
 
     /** 对 3 格内的非友方实体造成伤害，并把 2 格内的非友方玩家或生物（无霸体）收为乘客。 */
-    private static void sweep(SkillEntity self, double horizontal, double vertical) {
+    private static void sweep(SkillEntity self, Relations.FriendCast cast, double horizontal, double vertical) {
         ServerLevel level = (ServerLevel) self.level();
         Vec3 center = self.position().add(0, 1, 0);
         for (Entity other : ProjectileSupport.around(level, center, 3)) {
             if (!ProjectileSupport.friendly(self, other)) {
                 ProjectileSupport.burst(other, "smallexplosionblue", other.getBbHeight() / 2);
-                SkillEntities.strike(self, other);
+                strikeOrb(self, other, cast);
             }
         }
         for (Entity other : ProjectileSupport.around(level, center, 2)) {
             if ((other instanceof Player || other instanceof Mob) && !ProjectileSupport.friendly(self, other) && SkillEntities.movable(other)) {
                 carry(self, other, horizontal, vertical);
             }
+        }
+    }
+
+    private static void strikeOrb(SkillEntity self, Entity target, Relations.FriendCast cast) {
+        if (target instanceof LivingEntity living) {
+            SpellDamage.command((ServerLevel) self.level(), living, "shanghai 水 " + cast.attacker() + " false "
+                    + (double) cast.damage() + " " + (double) cast.multiplier());
         }
     }
 
@@ -148,13 +159,14 @@ final class WaterFormations {
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
             CompoundTag scratch = self.getPersistentData();
-            String mode = scratch.getString("mode");
-            if (scratch.getBoolean("baolie")) {
+            Relations.FriendCast cast = Relations.friendCast(self);
+            String mode = cast.mode();
+            if (Relations.waterOrbDetonated(self)) {
                 ProjectileSupport.particles(level, Particles.type("brokenblue"), self.position().add(0, self.getBbHeight() / 2, 0), 30, 0, 0, 0, 1);
                 for (Entity other : ProjectileSupport.around(level, self.position(), 5)) {
                     if (!ProjectileSupport.friendly(self, other)) {
                         ProjectileSupport.burst(other, "smallexplosionblue", other.getBbHeight() / 2);
-                        SkillEntities.strike(self, other);
+                        strikeOrb(self, other, cast);
                         if (SkillEntities.movable(other)) {
                             other.setDeltaMovement(new Vec3((other.getX() - self.getX()) * 0.4, 0.5, (other.getZ() - self.getZ()) * 0.4));
                         }
@@ -170,7 +182,7 @@ final class WaterFormations {
                 }
                 scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
                 if (scratch.getDouble("tick2") >= 10) {
-                    sweep(self, 0.4, 0.5);
+                    sweep(self, cast, 0.4, 0.5);
                     scratch.putDouble("tick2", 0);
                 }
             } else if (mode.equals("陨河术正常")) {
@@ -186,7 +198,7 @@ final class WaterFormations {
                         for (Entity other : ProjectileSupport.around(level, self.position().add(0, 0.6, 0), 6)) {
                             if (!ProjectileSupport.friendly(self, other)) {
                                 ProjectileSupport.burst(other, "smallexplosionblue", other.getBbHeight() / 2);
-                                SkillEntities.strike(self, other);
+                                strikeOrb(self, other, cast);
                                 other.setDeltaMovement(new Vec3((other.getX() - self.getX()) * 0.6, 0.5, (other.getZ() - self.getZ()) * 0.6));
                             }
                         }
@@ -205,7 +217,7 @@ final class WaterFormations {
                 }
                 scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
                 if (scratch.getDouble("tick2") >= 5) {
-                    sweep(self, 0.3, 0.3);
+                    sweep(self, cast, 0.3, 0.3);
                     scratch.putDouble("tick2", 0);
                 }
             }

@@ -11,10 +11,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
-import net.yvanchuxiuzhen.system.material.MaterialLibrary;
 import net.yvanchuxiuzhen.system.material.api.MaterialRevealedEntry;
 import net.yvanchuxiuzhen.system.material.content.MaterialAnalysisMenu;
-import net.yvanchuxiuzhen.system.material.data.MaterialAnalysis;
 import net.yvanchuxiuzhen.system.material.network.MaterialAnalysisButtonPayload;
 
 /** 千材录沿用来源原生贴图、槽位、四按钮与十行效果坐标，只显示服务端已刷新和揭示的数据。 */
@@ -64,9 +62,8 @@ public final class MaterialAnalysisScreen extends AbstractContainerScreen<Materi
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         if (menu.selectedName().isEmpty()) return;
-        MaterialAnalysis analysis = MaterialLibrary.analysis(minecraft.player);
-        int progress = analysis.progress(menu.selectedId());
-        int maximum = analysis.maximum(menu.selectedId());
+        int progress = menu.selectedProgress();
+        int maximum = menu.selectedMaximum();
         graphics.drawString(font, "解析进度：" + progress + "/" + maximum, -2, 7, -13421569, false);
         graphics.drawString(font, menu.selectedName(), -2, -29, -154, false);
         if (progress >= 1 && progress >= maximum) {
@@ -76,7 +73,7 @@ public final class MaterialAnalysisScreen extends AbstractContainerScreen<Materi
             graphics.drawString(font, "需要消耗" + progress * 2 + "个", 12, 41, -16777216, false);
             graphics.drawString(font, menu.selectedName(), 12, 53, -16777216, false);
         }
-        List<MaterialRevealedEntry> entries = analysis.revealed(menu.selectedId());
+        List<MaterialRevealedEntry> entries = menu.selectedEntries();
         for (int index = 0; index < Math.min(10, entries.size()); index++) {
             MaterialRevealedEntry entry = entries.get(index);
             String key;

@@ -15,6 +15,7 @@ import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 /**
  * 技能系统的数据登记：书上的技能实例组件 {@code skill}，玩家的技能装配与选择 {@code skill_state}（来源全部克隆事件复制）、
  * 冷却 {@code skill_cooldown}（来源仅非死亡克隆复制）、飞行开关 {@code skill_flying}（来源全部克隆事件复制）；只同步给本人。
+ * 技能状态克隆时沿用各物品引用，存档仍分别序列化各槽与当前选择。
  */
 public final class SkillData {
     private static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ModId.VALUE);
@@ -26,6 +27,7 @@ public final class SkillData {
             .builder(() -> SkillState.EMPTY)
             .serialize(SkillState.CODEC)
             .copyOnDeath()
+            .copyHandler((state, holder, provider) -> state)
             .sync((holder, player) -> holder == player, SkillState.STREAM_CODEC)
             .build());
     public static final Supplier<AttachmentType<SkillCooldowns>> COOLDOWNS = ATTACHMENTS.register("skill_cooldown", () -> AttachmentType

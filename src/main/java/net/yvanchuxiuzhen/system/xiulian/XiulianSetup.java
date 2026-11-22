@@ -10,10 +10,16 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
+import net.yvanchuxiuzhen.system.relation.api.FriendRealmNameEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.BirthSupplyEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.content.AscensionTokenItem;
+import net.yvanchuxiuzhen.system.xiulian.content.BirthSupplyItem;
 import net.yvanchuxiuzhen.system.xiulian.content.BloodEssenceItem;
 import net.yvanchuxiuzhen.system.xiulian.content.BloodStoneBlock;
 import net.yvanchuxiuzhen.system.xiulian.content.ClanTokenItem;
+import net.yvanchuxiuzhen.system.xiulian.content.Ling11GuideItem;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianBlockEntities;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianFluids;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianMenus;
@@ -29,7 +35,10 @@ public final class XiulianSetup {
             .blockFactory("xiulian:xixveshi", traits -> ContentBlock.create(traits, BloodStoneBlock::new))
             .itemFactory("xiulian:xvejing", BloodEssenceItem::new)
             .itemFactory("xiulian:ling_09", AscensionTokenItem::new)
-            .itemFactory("xiulian:ling_10", ClanTokenItem::new);
+            .itemFactory("xiulian:ling_10", ClanTokenItem::new)
+            .itemFactory("xiulian:ling_11", Ling11GuideItem::new)
+            .itemFactory("xiulian:ling_18", (properties, tooltip) -> new BirthSupplyItem(properties, tooltip, BirthSupplyEvent.Kind.INHERITANCE))
+            .itemFactory("xiulian:jiazubaibaodai", (properties, tooltip) -> new BirthSupplyItem(properties, tooltip, BirthSupplyEvent.Kind.FAMILY));
 
     private XiulianSetup() {
     }
@@ -47,14 +56,26 @@ public final class XiulianSetup {
         XiulianMenus.register(modBus);
         XiulianRules.register();
         modBus.addListener(XiulianSetup::registerPayloads);
-        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent event) -> BirthSelection.onLogin((ServerPlayer) event.getEntity()));
-        NeoForge.EVENT_BUS.addListener(Rebirth::onPlayerRespawn);
+        NeoForge.EVENT_BUS.addListener(XiulianSetup::onPlayerLogin);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onLogin);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(Delayed::onServerTick);
+        NeoForge.EVENT_BUS.addListener(RenjianArrival::onEntered);
+        NeoForge.EVENT_BUS.addListener(XiulianSetup::onFriendRealmName);
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {
         event.registrar("1").playToServer(XiulianButtonPayload.TYPE, XiulianButtonPayload.STREAM_CODEC, XiulianButtonPayload::handle);
+    }
+
+    /** 存档附件装载后先恢复来源实体境界镜像，再执行出身登录门槛。 */
+    private static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        ServerPlayer player = (ServerPlayer) event.getEntity();
+        Cultivation.syncLegacyLevelMirror(player);
+        BirthSelection.onLogin(player);
+    }
+
+    private static void onFriendRealmName(FriendRealmNameEvent event) {
+        event.setRealmName(Cultivation.get(event.player(), CultivationText.LEVEL_NAME));
     }
 }

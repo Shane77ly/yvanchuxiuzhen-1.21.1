@@ -1,0 +1,27 @@
+[
+  {
+    "id": "yanwang",
+    "base_color": -13421773,
+    "spot_color": -256
+  },
+  {
+    "id": "wuchangbai",
+    "base_color": -1,
+    "spot_color": -1
+  },
+  {
+    "id": "wuchanghei",
+    "base_color": -16777216,
+    "spot_color": -16777216
+  },
+  {
+    "id": "niutou",
+    "base_color": -16777114,
+    "spot_color": -6724096
+  },
+  {
+    "id": "mamian",
+    "base_color": -10092442,
+    "spot_color": -10092544
+  }
+]

@@ -7,28 +7,39 @@ import net.yvanchuxiuzhen.collection.decor.client.DecorClientSetup;
 import net.yvanchuxiuzhen.collection.festival.client.FestivalClientSetup;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.ModifierKeysClient;
+import net.yvanchuxiuzhen.system.book.client.BookClientSetup;
 import net.yvanchuxiuzhen.system.combat.client.CombatClientSetup;
 import net.yvanchuxiuzhen.system.cooking.client.CookingClientSetup;
 import net.yvanchuxiuzhen.system.craft.client.CraftClientSetup;
 import net.yvanchuxiuzhen.system.creature.client.CreatureClientSetup;
+import net.yvanchuxiuzhen.system.dungeon.client.DungeonClientSetup;
+import net.yvanchuxiuzhen.system.economy.client.EconomyClientSetup;
 import net.yvanchuxiuzhen.system.fulu.client.FuluClientSetup;
 import net.yvanchuxiuzhen.system.fulu.client.InheritanceClientSetup;
 import net.yvanchuxiuzhen.system.equipment.client.EquipmentClientSetup;
 import net.yvanchuxiuzhen.system.gongfa.client.GongfaClientSetup;
 import net.yvanchuxiuzhen.system.guchong.client.GuchongClientSetup;
 import net.yvanchuxiuzhen.system.material.client.MaterialClientSetup;
+import net.yvanchuxiuzhen.system.npc.client.NpcClientSetup;
 import net.yvanchuxiuzhen.system.liandan.client.LiandanClientSetup;
 import net.yvanchuxiuzhen.system.lianqi.client.LianqiClientSetup;
 import net.yvanchuxiuzhen.panel.client.PanelClientSetup;
 import net.yvanchuxiuzhen.system.particle.client.ParticleClientSetup;
 import net.yvanchuxiuzhen.system.plant.client.PlantClientSetup;
+import net.yvanchuxiuzhen.system.profession.client.ProfessionClientSetup;
+import net.yvanchuxiuzhen.system.quest.client.QuestClientSetup;
 import net.yvanchuxiuzhen.system.relation.client.RelationClientSetup;
 import net.yvanchuxiuzhen.system.skill.client.SkillClientSetup;
 import net.yvanchuxiuzhen.system.storage.client.StorageClientSetup;
+import net.yvanchuxiuzhen.system.treasure.client.TreasureClientSetup;
+import net.yvanchuxiuzhen.system.town.client.TownClientSetup;
 import net.yvanchuxiuzhen.system.yihuo.client.YihuoClientSetup;
 import net.yvanchuxiuzhen.system.xiulian.client.XiulianClientSetup;
 import net.yvanchuxiuzhen.system.world.fluid.client.SpringFluidClientSetup;
 import net.yvanchuxiuzhen.system.world.fluid.client.QuicksandFluidClientSetup;
+import net.yvanchuxiuzhen.system.world.client.WorldClientSetup;
+import net.yvanchuxiuzhen.system.zhenfa.client.ZhenfaClientSetup;
+import net.yvanchuxiuzhen.collection.tiandao.client.NbtEditorClientSetup;
 
 /**
  * 客户端入口。FML 只在物理客户端构造本类，并在公共入口 {@link YvanchuxiuzhenMod} 之后构造；
@@ -38,12 +49,15 @@ import net.yvanchuxiuzhen.system.world.fluid.client.QuicksandFluidClientSetup;
 public final class YvanchuxiuzhenClient {
     public YvanchuxiuzhenClient(IEventBus modBus) {
         ModifierKeysClient.register();
+        BookClientSetup.register(modBus);
         ParticleClientSetup.register(modBus);
         PlantClientSetup.register(modBus);
         CombatClientSetup.register(modBus);
         CookingClientSetup.register(modBus);
         CraftClientSetup.register(modBus);
         CreatureClientSetup.register(modBus);
+        DungeonClientSetup.register(modBus);
+        EconomyClientSetup.register(modBus);
         FuluClientSetup.register(modBus);
         InheritanceClientSetup.register(modBus);
         EquipmentClientSetup.register(modBus);
@@ -51,10 +65,15 @@ public final class YvanchuxiuzhenClient {
         FestivalClientSetup.register(modBus);
         GongfaClientSetup.register(modBus);
         GuchongClientSetup.register(modBus);
+        NpcClientSetup.register(modBus);
+        QuestClientSetup.register(modBus);
+        TownClientSetup.register(modBus);
         PanelClientSetup.register(modBus);
+        ProfessionClientSetup.register(modBus);
         RelationClientSetup.register(modBus);
         SkillClientSetup.register(modBus);
         StorageClientSetup.register(modBus);
+        TreasureClientSetup.register(modBus);
         MaterialClientSetup.register(modBus);
         LiandanClientSetup.register(modBus);
         LianqiClientSetup.register(modBus);
@@ -62,5 +81,8 @@ public final class YvanchuxiuzhenClient {
         XiulianClientSetup.register(modBus);
         SpringFluidClientSetup.register(modBus);
         QuicksandFluidClientSetup.register(modBus);
+        WorldClientSetup.register(modBus);
+        ZhenfaClientSetup.register(modBus);
+        NbtEditorClientSetup.register(modBus);
     }
 }

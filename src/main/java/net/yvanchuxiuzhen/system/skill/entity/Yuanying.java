@@ -43,7 +43,7 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 /**
- * 元婴出窍实体（来源 {@code YvanyingchuqiaoEntity}）：记录本体 UUID，受伤时把本体生命同步到受击前的元婴生命，
+ * 元婴出窍实体（来源 {@code YvanyingchuqiaoEntity}）：从友表读取本体 UUID，受伤时把本体生命同步到受击前的元婴生命，
  * 被杀时结束出窍并杀死本体。出窍条件、神识消耗、返回位置和游戏模式由技能入口维护。
  */
 public final class Yuanying extends PathfinderMob implements GeoEntity, AnimatedLook {
@@ -67,7 +67,8 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
     }
 
     public UUID ownerId() {
-        return ownerUuid;
+        String owner = ownerKey();
+        return owner.isEmpty() ? null : UUID.fromString(owner);
     }
 
     /** 在本体位置生成元婴，保存本体生命与 UUID，并把附近正在攻击本体的生物改为攻击元婴。 */
@@ -75,8 +76,7 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
         ServerLevel level = player.serverLevel();
         Yuanying body = SkillSetup.<Yuanying>entityType(ID).get().create(level);
         body.moveTo(player.getX(), player.getY(), player.getZ(), player.getYRot(), 0);
-        body.ownerUuid = player.getUUID();
-        Relations.copyAllegiance(player, body);
+        Relations.initializeProjection(player, body);
         double healthMax = PlayerAttributes.value(player, Stat.HEALTH_MAX);
         body.getAttribute(Attributes.MAX_HEALTH).setBaseValue(healthMax);
         body.setHealth((float) Math.min(player.getHealth(), healthMax));
@@ -111,15 +111,15 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
     /** 技能按钮：未出窍时开始，已出窍时返回本体。 */
     public static void toggle(ServerPlayer player) {
         if (Cultivation.thunderOpen(player)) {
-            player.displayClientMessage(Component.literal("渡劫时无法出窍！").withStyle(ChatFormatting.DARK_RED), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.projection.tribulation").withStyle(ChatFormatting.DARK_RED), false);
             return;
         }
         if (Cultivation.get(player, CultivationValue.LEVEL_NUMBER) + Cultivation.tizhiDouble(player, "LevelNumberCorrect") < 31) {
-            player.displayClientMessage(Component.literal("必须达到元婴期才可施展元婴出窍！").withStyle(ChatFormatting.DARK_RED), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.projection.level").withStyle(ChatFormatting.DARK_RED), false);
             return;
         }
         if (player.level().dimension().location().equals(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fabao_009weidu"))) {
-            player.displayClientMessage(Component.literal("受到强大的界面压制，无法元婴出窍！").withStyle(ChatFormatting.DARK_RED), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.projection.dimension").withStyle(ChatFormatting.DARK_RED), false);
             return;
         }
         if (Cultivation.tizhiBoolean(player, "yvanyingchuqiao")) {
@@ -131,7 +131,7 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
         }
         double cost = Cultivation.get(player, CultivationValue.LEVEL_NUMBER) * 2;
         if (!player.isCreative() && Cultivation.get(player, CultivationValue.SOUL) < cost) {
-            player.displayClientMessage(Component.literal("精力不足，无法元婴出窍！").withStyle(ChatFormatting.DARK_RED), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.projection.soul").withStyle(ChatFormatting.DARK_RED), false);
             return;
         }
         Cultivation.add(player, CultivationValue.SOUL, -cost);
@@ -159,7 +159,7 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
         if (Cultivation.tizhiBoolean(player, "yvanyingchuqiao")) {
             returnToBody(player);
             Cultivation.add(player, CultivationValue.LIFETIME, -365);
-            player.displayClientMessage(Component.literal("因处于出窍状态下暴毙，所以额外扣除一年寿元！").withStyle(ChatFormatting.DARK_RED), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.projection.death_lifetime").withStyle(ChatFormatting.DARK_RED), false);
         }
     }
 
@@ -200,7 +200,7 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
         Vec3 center = player.position();
         for (Yuanying body : player.serverLevel().getEntitiesOfClass(Yuanying.class, new AABB(center, center).inflate(2)).stream()
                 .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList()) {
-            if (player.getUUID().equals(body.ownerUuid)) {
+            if (player.getStringUUID().equals(body.ownerKey())) {
                 body.discard();
                 break;
             }
@@ -209,10 +209,16 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
         restoreMode(player);
     }
 
+    /** 旧候选保存的独立 owner 字段仅在友表没有 playeruuid 时使用。 */
+    private String ownerKey() {
+        String owner = Relations.projectionOwner(this);
+        return owner.isEmpty() && ownerUuid != null ? ownerUuid.toString() : owner;
+    }
+
     private ServerPlayer owner() {
         if (level() instanceof ServerLevel level) {
             for (ServerPlayer player : level.players()) {
-                if (player.getUUID().equals(ownerUuid)) {
+                if (player.getStringUUID().equals(ownerKey())) {
                     return player;
                 }
             }
@@ -225,7 +231,7 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
         ServerPlayer player = owner();
         if (player != null) {
             player.setHealth(getHealth());
-            player.displayClientMessage(Component.literal("您感觉到本体正在遭受攻击！").withStyle(ChatFormatting.DARK_RED), true);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.projection.body_hurt").withStyle(ChatFormatting.DARK_RED), true);
         }
         return super.hurt(source, amount);
     }
@@ -240,7 +246,7 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
         if (player != null) {
             Cultivation.setTizhiBoolean(player, "yvanyingchuqiao", false);
             restoreMode(player);
-            player.displayClientMessage(Component.literal("您的本体已死亡！").withStyle(ChatFormatting.DARK_RED), true);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.projection.body_dead").withStyle(ChatFormatting.DARK_RED), true);
             player.kill();
         }
     }

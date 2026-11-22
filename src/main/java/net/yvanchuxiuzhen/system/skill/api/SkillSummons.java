@@ -8,6 +8,7 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
+import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
@@ -67,6 +68,13 @@ public final class SkillSummons {
         level.addFreshEntity(projectile);
     }
 
+    /** 首领火球术在眼部下方0.1格发射，基础伤害0、击退1、静音、速度1且无散布。 */
+    public static void shootBossFireball(ServerLevel level, Entity owner) {
+        Vec3 origin = new Vec3(owner.getX(), owner.getEyeY() - 0.1, owner.getZ());
+        ProjectileSupport.shoot(level, owner, "projectile_skill_fire_01", origin, owner.getLookAngle(), 0, 1, 0, 1, 0)
+                .setSilent(true);
+    }
+
     /**
      * 妖兽054冰爪的裂冰斩入口：来源消费者读取friendlist子标签中的整数参数；根标签的同名写入不参与结算。
      * 友方集合共享施放者引用；攻击者文字无效时不造成命令伤害，冻结和出土生命周期仍执行。
@@ -80,12 +88,12 @@ public final class SkillSummons {
         ServerLevel level = (ServerLevel) owner.level();
         SkillEntity spike = SkillSetup.<SkillEntity>entityType("skill_ice_05").get().create(level);
         spike.configure(owner, 5, 1.2, "冰", "裂冰斩");
-        Relations.shareEntityAllegiance(owner, spike);
         spike.moveTo(position.x, position.y, position.z, level.getRandom().nextFloat() * 360F, 0);
         SkillEntities.turn(spike, Mth.nextInt(level.getRandom(), 1, 360), 0);
         CompoundTag data = spike.getPersistentData();
         data.putDouble("jiaodu", owner.getYRot());
         data.put("friendlist", parameters);
+        Relations.shareBlockAllegiance(data, spike, Relations.team(owner));
         SkillEntities.spawn(level, spike, true);
     }
 }

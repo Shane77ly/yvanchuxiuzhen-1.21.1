@@ -1,11 +1,11 @@
 package net.yvanchuxiuzhen.system.guchong.content;
 
-import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -45,6 +44,16 @@ public final class TaoguanBlock extends ContentBlock implements EntityBlock {
     @Override protected VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) { return Shapes.empty(); }
     @Override public BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return new TaoguanBlockEntity(pos, state); }
 
+    @Override protected MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
+        return level.getBlockEntity(pos) instanceof MenuProvider provider ? provider : null;
+    }
+
+    @Override protected boolean triggerEvent(BlockState state, Level level, BlockPos pos, int id, int param) {
+        super.triggerEvent(state, level, pos, id, param);
+        BlockEntity entity = level.getBlockEntity(pos);
+        return entity != null && entity.triggerEvent(id, param);
+    }
+
     @Override protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean moved) {
         super.onPlace(state, level, pos, oldState, moved);
         level.scheduleTick(pos, this, 20);
@@ -64,8 +73,6 @@ public final class TaoguanBlock extends ContentBlock implements EntityBlock {
         GuchongBehavior.interactJar(level, pos, player, hand);
         return ItemInteractionResult.sidedSuccess(level.isClientSide);
     }
-
-    @Override protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) { return List.of(); }
 
     @Override protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState replacement, boolean moved) {
         if (!state.is(replacement.getBlock())) {

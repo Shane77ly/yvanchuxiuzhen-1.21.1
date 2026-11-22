@@ -17,8 +17,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -114,33 +112,7 @@ public final class TaoguanItem extends ContentItem {
                     player.displayClientMessage(Component.literal("§4您不是" + data.getString("guchongname" + suffix) + "的主人，无法操控此虫。"), false);
                     continue;
                 }
-                Entity insect = GuchongJarRuntime.create(server, data.getString("guchongid" + suffix));
-                if (insect != null) {
-                    insect.moveTo(player.getX(), player.getY(), player.getZ(), level.random.nextFloat() * 360F, 0);
-                    Relations.shareEntityAllegiance(player, insect);
-                    insect.setYRot(player.getYRot());
-                    insect.setXRot(0);
-                    insect.setYBodyRot(insect.getYRot());
-                    insect.setYHeadRot(insect.getYRot());
-                    insect.yRotO = insect.getYRot();
-                    insect.xRotO = insect.getXRot();
-                    if (insect instanceof LivingEntity living) {
-                        living.yBodyRotO = living.getYRot();
-                        living.yHeadRotO = living.getYRot();
-                    }
-                    Vec3 look = player.getLookAngle();
-                    insect.setDeltaMovement(look.x, look.y + 1, look.z);
-                    CompoundTag insectData = insect.getPersistentData();
-                    GuchongJarData.copy(data, suffix, insectData, "", false);
-                    insectData.remove("team");
-                    insectData.putString("guguanuuid", data.getString("guguanuuid"));
-                    insectData.putDouble("guguanweizhi", slot);
-                    insectData.putBoolean("guchongxvnfu", true);
-                    insect.setCustomName(Component.literal(data.getString("guchongname" + suffix).replace("[", "").replace("]", "")));
-                    if (insect instanceof TamableAnimal tamable) tamable.tame(player);
-                    GuchongJarRuntime.applyAttributes(insect, insectData);
-                    GuchongJarRuntime.finishSpawn(server, insect);
-                }
+                GuchongLifecycle.releaseOwnedJar(server, player, data, slot, 0, true);
                 released++;
             }
             data.putDouble("shifangnum", released);

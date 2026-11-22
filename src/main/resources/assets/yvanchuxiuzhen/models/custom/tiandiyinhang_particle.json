@@ -1,0 +1,6 @@
+{
+  "parent": "yvanchuxiuzhen:displaysettings/tiandiyinhang.item",
+  "textures": {
+    "particle": "yvanchuxiuzhen:block/tiandiyinhang"
+  }
+}

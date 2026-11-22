@@ -6,7 +6,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +22,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.ItemSwingEvent;
 import net.yvanchuxiuzhen.system.combat.api.HitEvent;
+import net.yvanchuxiuzhen.system.combat.api.TechniqueMeteorEvent;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStudiedEvent;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
@@ -68,6 +68,7 @@ public final class SkillSetup {
         modBus.addListener(SkillSetup::registerPayloads);
         SkillCommands.register();
         SkillDelays.register();
+        SkillBiomeEffects.register();
         NeoForge.EVENT_BUS.addListener(SkillSetup::onRightClickItem);
         NeoForge.EVENT_BUS.addListener(SkillSetup::onPlayerTick);
         NeoForge.EVENT_BUS.addListener((LivingDeathEvent event) -> {
@@ -78,6 +79,7 @@ public final class SkillSetup {
         NeoForge.EVENT_BUS.addListener((ItemSwingEvent event) -> WeaponArts.onSwing(event));
         NeoForge.EVENT_BUS.addListener((HitEvent event) -> LingwenHit.onHit(event));
         NeoForge.EVENT_BUS.addListener((HitEvent event) -> Corpses.onHit(event));
+        NeoForge.EVENT_BUS.addListener((TechniqueMeteorEvent event) -> TechniqueMeteor.spawn(event));
         NeoForge.EVENT_BUS.addListener((TechniqueStudiedEvent event) -> grantBonus(event.player(), event.technique()));
         NeoForge.EVENT_BUS.addListener((CultivationSecondEvent event) -> Yuanying.tick(event.player()));
     }
@@ -89,7 +91,7 @@ public final class SkillSetup {
     }
 
     private static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        if (event.getHand() == InteractionHand.MAIN_HAND && event.getEntity() instanceof ServerPlayer player) {
+        if (event.getEntity() instanceof ServerPlayer player && event.getHand() == player.getUsedItemHand()) {
             SkillCasting.onRightClick(player);
         }
     }

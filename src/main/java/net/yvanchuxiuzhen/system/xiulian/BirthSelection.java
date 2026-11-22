@@ -1,7 +1,9 @@
 package net.yvanchuxiuzhen.system.xiulian;
 
 import java.util.List;
+import java.util.Random;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -9,15 +11,18 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
+import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.system.xiulian.api.BirthInitialRewardsEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.content.BirthMenu;
+import net.yvanchuxiuzhen.system.xiulian.data.CultivationData;
 
 /**
  * 首次进入游戏的灵根、体质与出身（来源 {@code PlayerJoinGame} 前段、出身界面 {@code PlayerJoinGUI} 的按钮
  * {@code Lock1}–{@code 5}、{@code Suijikaijv}、{@code BirthUp}、{@code Birthdown}，以及关闭界面后 {@code PlayerJoin02} 的体质部分）。
- * 关闭界面后按出身发放物品与传送的部分涉及多个系统的物品，由 flow 在对应系统实现后接入。
+ * 关闭后等待两个服务端结束刻，先向具体flow交接初始奖励和传送，再应用体质。
  */
 public final class BirthSelection {
     /** 按钮编号与来源 {@code PlayerJoinGUIButtonMessage} 一致：0–4 锁定金水木火土，5 随机，6 上一个出身，7 下一个出身。 */
@@ -45,7 +50,27 @@ public final class BirthSelection {
         }
         updateYinyang(player);
         Cultivation.set(player, CultivationText.CONSTITUTION, Constitution.rolled(Mth.nextInt(player.getRandom(), 1, 10)).title());
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new BirthMenu(id, inventory), Component.literal("PlayerJoinGUI")));
+        open(player);
+    }
+
+    /** 轮回重抽不读取首次登录开关，也不先随机体质。 */
+    public static void rollReincarnationRoots(ServerPlayer player, ServerLevel sourceLevel, CultivationData data) {
+        int cap = sourceLevel.getGameRules().getInt(XiulianRules.ROOT_LEVEL);
+        for (CultivationValue root : ROOTS) {
+            Random random = new Random();
+            data.set(root, cap <= 0 ? 0 : random.nextInt(cap + 1));
+        }
+        data.set(CultivationValue.YINYANG, (data.get(CultivationValue.ROOT_GOLD) + data.get(CultivationValue.ROOT_FIRE))
+                - (data.get(CultivationValue.ROOT_TREE) + data.get(CultivationValue.ROOT_WATER)));
+    }
+
+    public static void openAfterReincarnation(ServerPlayer player) {
+        Delayed.run(10, () -> open(player));
+    }
+
+    private static void open(ServerPlayer player) {
+        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new BirthMenu(id, inventory),
+                Component.translatable("gui.yvanchuxiuzhen.player_join_gui.title")));
     }
 
     public static void press(ServerPlayer player, int button) {
@@ -104,8 +129,13 @@ public final class BirthSelection {
         Cultivation.add(player, CultivationValue.RANDOMLIFT, -1);
     }
 
-    /** 关闭出身界面：按体质打开标记、加修正值，体质计数 {@code tizhinumber} 加 1。 */
-    public static void close(ServerPlayer player) {
+    /** 关闭过程保留菜单打开维度，两个结束刻后读取当时的出身和体质。 */
+    public static void close(ServerPlayer player, ServerLevel sourceLevel) {
+        Delayed.run(2, () -> apply(player, sourceLevel));
+    }
+
+    private static void apply(ServerPlayer player, ServerLevel sourceLevel) {
+        NeoForge.EVENT_BUS.post(new BirthInitialRewardsEvent(player, sourceLevel));
         Constitution constitution = Constitution.applied(Cultivation.get(player, CultivationText.CONSTITUTION));
         Cultivation.setTizhiBoolean(player, constitution.openKey(), true);
         for (Constitution.Bonus bonus : constitution.bonuses()) {

@@ -16,20 +16,65 @@ import net.minecraft.nbt.CompoundTag;
 public final class Allegiance {
     public static final Codec<Allegiance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("team").forGetter(Allegiance::team),
-            Codec.STRING.listOf().fieldOf("friendly_teams").forGetter(allegiance -> List.copyOf(allegiance.friendlyTeams()))
+            Codec.STRING.listOf().fieldOf("friendly_teams").forGetter(allegiance -> allegiance.friendlyTeams.getAllKeys().stream()
+                    .filter(name -> allegiance.friendlyTeams.contains(name, 1) && allegiance.friendlyTeams.getBoolean(name)).toList()),
+            CompoundTag.CODEC.optionalFieldOf("friend_data", new CompoundTag()).forGetter(allegiance -> allegiance.friendlyTeams),
+            Codec.BOOL.optionalFieldOf("friend_data_present", true).forGetter(allegiance -> allegiance.friendDataPresent)
     ).apply(instance, Allegiance::new));
 
     private String team;
     private CompoundTag friendlyTeams;
+    private boolean friendDataPresent;
 
     public Allegiance() {
-        this("", List.of());
+        this("", List.of(), new CompoundTag(), false);
     }
 
-    private Allegiance(String team, List<String> friendlyTeams) {
+    private Allegiance(String team, List<String> friendlyTeams, CompoundTag friendData, boolean friendDataPresent) {
         this.team = team;
-        this.friendlyTeams = new CompoundTag();
+        this.friendlyTeams = friendData.copy();
+        this.friendDataPresent = friendDataPresent || !friendlyTeams.isEmpty();
         friendlyTeams.forEach(name -> this.friendlyTeams.putBoolean(name, true));
+    }
+
+    public boolean hasFriendKey(String key) {
+        return friendlyTeams.contains(key);
+    }
+
+    public int friendInt(String key) {
+        return friendlyTeams.getInt(key);
+    }
+
+    public void setFriendInt(String key, int value) {
+        friendDataPresent = true;
+        friendlyTeams.putInt(key, value);
+    }
+
+    public String friendString(String key) {
+        return friendlyTeams.getString(key);
+    }
+
+    public void setFriendString(String key, String value) {
+        friendDataPresent = true;
+        friendlyTeams.putString(key, value);
+    }
+
+    public double friendDouble(String key) {
+        return friendlyTeams.getDouble(key);
+    }
+
+    public void setFriendDouble(String key, double value) {
+        friendDataPresent = true;
+        friendlyTeams.putDouble(key, value);
+    }
+
+    public boolean friendBoolean(String key) {
+        return friendlyTeams.getBoolean(key);
+    }
+
+    public void setFriendBoolean(String key, boolean value) {
+        friendDataPresent = true;
+        friendlyTeams.putBoolean(key, value);
     }
 
     public String team() {
@@ -38,6 +83,14 @@ public final class Allegiance {
 
     public void setTeam(String team) {
         this.team = team;
+    }
+
+    /** 整体替换集合并断开既有共享引用；驯服时使用目标能力好友表的独立副本。 */
+    public void replace(String team, Set<String> friends) {
+        this.team = team;
+        friendlyTeams = new CompoundTag();
+        friendDataPresent = true;
+        friends.forEach(name -> friendlyTeams.putBoolean(name, true));
     }
 
     public boolean isFriendly(String otherTeam) {
@@ -65,6 +118,7 @@ public final class Allegiance {
     }
 
     public void setFriendly(String otherTeam, boolean friendly) {
+        friendDataPresent = true;
         if (friendly) {
             friendlyTeams.putBoolean(otherTeam, true);
         } else {
@@ -76,22 +130,32 @@ public final class Allegiance {
     public void copyFrom(Allegiance other) {
         team = other.team;
         friendlyTeams = other.friendlyTeams.copy();
+        friendDataPresent = other.friendDataPresent;
     }
 
     /** 来源直接赋入同一个friendlist子标签；运行期共享修改，独立解码后各自持有集合。 */
     public void shareFrom(Allegiance other) {
         team = other.team;
         friendlyTeams = other.friendlyTeams;
+        friendDataPresent = other.friendDataPresent;
+    }
+
+    /** 来源读取缺失子标签时取得独立临时表，再把该表赋给新实体。 */
+    public void shareSourceFrom(Allegiance other) {
+        team = other.team;
+        friendlyTeams = other.friendDataPresent ? other.friendlyTeams : new CompoundTag();
+        friendDataPresent = true;
     }
 
     /** 蛊罐放虫只共享方块的友方子标签，虫的团队仍取其物品实例字段。 */
     public void shareFromBlock(CompoundTag blockData, String insectTeam) {
         team = insectTeam;
         friendlyTeams = blockData.getCompound("friendlist");
+        friendDataPresent = true;
     }
 
     /** 方块接收主人友方标签的同一引用，保留来源放置后好友修改的可见性。 */
     public void shareToBlock(CompoundTag blockData) {
-        blockData.put("friendlist", friendlyTeams);
+        blockData.put("friendlist", friendDataPresent ? friendlyTeams : new CompoundTag());
     }
 }

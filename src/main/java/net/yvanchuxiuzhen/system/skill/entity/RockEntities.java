@@ -10,6 +10,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
@@ -86,7 +87,14 @@ final class RockEntities {
                 if (woundChance > 0 && Math.random() < woundChance && other instanceof LivingEntity living) {
                     living.addEffect(new MobEffectInstance(StatusEffects.holder("effect_007"), 1200, 1));
                 }
-                SkillEntities.strike(self, other);
+                if (SkillEntities.is(self, "skill_rock_03") && other instanceof LivingEntity living) {
+                    CompoundTag data = self.getPersistentData();
+                    String attacker = data.getString("AttackUUID");
+                    SpellDamage.command((ServerLevel) self.level(), living, "shanghai 土 " + attacker + " false "
+                            + data.getDouble("AttackDamage") + " " + data.getDouble("Damage_multiplier"));
+                } else {
+                    SkillEntities.strike(self, other);
+                }
             }
         }
     }

@@ -1,0 +1,3 @@
+[
+{"id":"fuqi_0301","geo":"fuqi03","animation":"fuqi03","rendering":{"shadow":0.1,"scale":1.0,"death_rotation":0.0},"texture":"fuqi03","glow":"fuqi0302","idle":"animation.fuqi03.idle","speed":0.1,"health":4.0,"armor":0.0,"attack":3.0,"follow":16.0,"no_ai":false,"lifecycle":{"navigation":"flying","no_gravity":true,"flying_speed":0.1,"breathes_underwater":false,"pushed_by_fluid":true,"death_ticks":2,"ignores_fall_damage":true,"damage_immunities":["fall","cactus"],"animation_transition_ticks":4}}
+]

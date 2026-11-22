@@ -1,0 +1,126 @@
+{
+  "inputs": [
+    {
+      "source": "B:Baoxiang0101Procedure",
+      "sha256": "2042540697f25aa45d6432f433139510d4722fa187eb0575fe5d5f54bb4a5166"
+    },
+    {
+      "source": "B:Baoxiang0102Procedure",
+      "sha256": "195dc8cba8ae0b7c3440daf2444158e8d852dfa707896bfd3727bab54a7a4406"
+    },
+    {
+      "source": "B:BaoxiangBaoshicailiaoProcedure",
+      "sha256": "c23634c2f819f48339be9686c40eac1f0929f96164fe373f19943866d731de52"
+    },
+    {
+      "source": "B:BaoxiangBupiProcedure",
+      "sha256": "bd5d01c172141f76cde950927a54d40a2e869762a2092db852b5db50700e2657"
+    },
+    {
+      "source": "B:BaoxiangCailiaoProcedure",
+      "sha256": "ffdb767f828729e4151b36c424742e2ad0887e9f895450fece3508130f5aa24e"
+    },
+    {
+      "source": "B:BaoxiangCaoyaoProcedure",
+      "sha256": "e5798190bfff35df7c8b8ef2116c9b739a050c495fb881ff1d7a058c2f71dde2"
+    },
+    {
+      "source": "B:BaoxiangDanyaoProcedure",
+      "sha256": "78f5226d67a1061ec39bfc150b3c55c0ad0febdc26ffa006120ee9a2ebcca8a9"
+    },
+    {
+      "source": "B:BaoxiangDuyaoProcedure",
+      "sha256": "28e8335123db3e81e5eaa8852b2680468a4e63c66783f4bc6b5e87161ebc4dad"
+    },
+    {
+      "source": "B:BaoxiangFabaoProcedure",
+      "sha256": "d260dfe37c23b687d827276483a8e74da1d84b3a87928a32cc8c188a491bd071"
+    },
+    {
+      "source": "B:BaoxiangFlyskillProcedure",
+      "sha256": "999f26c12c07994fa062ef4b15fe1161a791d269e5c6a0874ec854b4b536ccae"
+    },
+    {
+      "source": "B:BaoxiangFuluProcedure",
+      "sha256": "45d8dec35e65af6510b4a43c0b42caa9ed55e0ba78c5a087cf8a5ff288c012fb"
+    },
+    {
+      "source": "B:BaoxiangGongfaProcedure",
+      "sha256": "90746343e517bac479893a6b02711ee451e64cc54964096af439f72f4fd6f167"
+    },
+    {
+      "source": "B:BaoxiangHuifudanyaoProcedure",
+      "sha256": "0ecc52bc1a7ac4fd03106c1b42b5d76c0dbc5781c14f5882c139863fbd5a5e05"
+    },
+    {
+      "source": "B:BaoxiangHujiaProcedure",
+      "sha256": "a4f1c01d1aeb96e1f48c9bbc2fa11d6ad4cfba73ef40bc05b27f832f1ef7ed5a"
+    },
+    {
+      "source": "B:BaoxiangJinengProcedure",
+      "sha256": "f6b800563f4ac57686af62e83d0590f370c40b23190da2d60b43c65336d6decf"
+    },
+    {
+      "source": "B:BaoxiangJinshucailiaoProcedure",
+      "sha256": "cd7708ab2fc65177f2aafda58bdb8d1164d8f4967be8ae98969a570112bf1c53"
+    },
+    {
+      "source": "B:BaoxiangLiandantuzhiProcedure",
+      "sha256": "48143093f97e3f2f37dee4fe8b7d7647731ac6f47377b1c76f2e2e0f9c67d291"
+    },
+    {
+      "source": "B:BaoxiangLingmucailiaoProcedure",
+      "sha256": "046b32831d3b08d37428a084c2be449df711afff58eecc9a727824a06c7e813c"
+    },
+    {
+      "source": "B:BaoxiangLingshiProcedure",
+      "sha256": "bf3ce90c0ef636ab5a91d2db2b840c58628b0e0d25e15a57683a992e0fdc2a23"
+    },
+    {
+      "source": "B:BaoxiangShenfaProcedure",
+      "sha256": "6512b20ba0df7082e9a918d44c4cc4748f00a515041d6fdb1444d7a4b79e1c46"
+    },
+    {
+      "source": "B:BaoxiangShipinProcedure",
+      "sha256": "404f3063cb17878139bef64ecc28497d381c1e7a5528d9175524c2017cc20d6e"
+    },
+    {
+      "source": "B:BaoxiangWuqiProcedure",
+      "sha256": "f448b8753ce3b1834b41489e4076487b23dd5243f85c74d06470e043d188494e"
+    },
+    {
+      "source": "B:BaoxiangXiuweidanyaoProcedure",
+      "sha256": "9cd6f18600b5daf6295884efdd1c596ee0c7807fc77cb9b53cd4c27bb5a0d070"
+    },
+    {
+      "source": "B:BaoxiangYaodancailiaoProcedure",
+      "sha256": "8808dcc22740e3dcae791707166488912b4772b97abc565def670ba355f09800"
+    },
+    {
+      "source": "B:BaoxiangYaoshoucailiaoProcedure",
+      "sha256": "26b22120207843209624079816879c4bb8ebe61a6b428f6d1c58a1e375459a99"
+    },
+    {
+      "source": "B:BaoxiangYihuocailiaoProcedure",
+      "sha256": "0c5c56575ee476c3338ea395a2951ca0a52966c889859c16f075b9575bb8cce8"
+    },
+    {
+      "source": "B:BaoxiangZhuangbeiProcedure",
+      "sha256": "7d304ba249a69d1c76e3e5e5324bf21023f7409ef887378fcc7e70f4e0bb4571"
+    },
+    {
+      "source": "B:BaoxiangZhuangtaidanyaoProcedure",
+      "sha256": "209718537458f8e18ce0e5a0dc276bb6161e2957a2d1ca36c50242ccb0fb6a42"
+    },
+    {
+      "source": "B:BaoxiangZuowuProcedure",
+      "sha256": "46ace913a849884b96f73d15379151d7a2b986fb730392afe0e058601c7cfc97"
+    },
+    {
+      "source": "B:SetcailiaopinjieProcedure",
+      "sha256": "24e365611dc21f38c173c52d8db36605777b21a6ef1eba1b652e5e0ff27353db"
+    }
+  ],
+  "output": "src/main/java/net/yvanchuxiuzhen/system/treasure/TreasureRewardTables.java",
+  "output_sha256": "259d5d4ba460b64696dc343237479204ca601b8f10f7853bd23e7bc5dbfe974c"
+}

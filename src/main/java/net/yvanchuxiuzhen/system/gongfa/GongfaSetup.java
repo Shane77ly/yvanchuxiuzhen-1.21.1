@@ -1,23 +1,29 @@
 package net.yvanchuxiuzhen.system.gongfa;
 
 import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
+import net.yvanchuxiuzhen.system.combat.api.HitEvent;
+import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
+import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.gongfa.content.ComprehensionTableBlock;
 import net.yvanchuxiuzhen.system.gongfa.content.GongfaBlockEntities;
 import net.yvanchuxiuzhen.system.gongfa.data.GongfaData;
 import net.yvanchuxiuzhen.system.gongfa.network.GongfaButtonPayload;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterRecoveryEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationExperienceEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.RetreatTechniqueEvent;
 
 /**
  * 功法系统的启动装配，只在 Mod 构造时调用一次：内容表（参悟台换用专属方块类型）、功法组件与功法栏附件、参悟台的方块实体、
  * 菜单与按钮，以及对修炼推进的监听
- * （每秒推进时 {@code xiuliankaiguan} 为“功法”则进行功法修炼，闭关修炼吸纳元气后给主修功法加经验）。
+ * （每秒推进时 {@code xiuliankaiguan} 为“功法”则进行功法修炼，闭关修炼吸纳元气后给主修功法加经验，恢复后比较功法切换）。
  */
 public final class GongfaSetup {
     private static final ContentTables CONTENT = new ContentTables("gongfa")
@@ -32,12 +38,23 @@ public final class GongfaSetup {
         GongfaBlockEntities.register(modBus);
         TechniqueCommands.register();
         modBus.addListener(GongfaSetup::registerPayloads);
-        NeoForge.EVENT_BUS.addListener((CultivationSecondEvent event) -> onSecond(event.player()));
+        NeoForge.EVENT_BUS.addListener(EventPriority.HIGHEST, false, CultivationSecondEvent.class, event -> onSecond(event.player()));
         NeoForge.EVENT_BUS.addListener((CultivationExperienceEvent event) -> TechniqueRules.onCultivationExperience(event.player(), event.experience()));
+        NeoForge.EVENT_BUS.addListener((CultivationAfterRecoveryEvent event) -> TechniqueRules.refreshEquipped(event.player()));
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOW, false, HitEvent.class, TechniqueHit::onHit);
+        NeoForge.EVENT_BUS.addListener(GongfaSetup::retreatTechnique);
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {
         event.registrar("1").playToServer(GongfaButtonPayload.TYPE, GongfaButtonPayload.STREAM_CODEC, GongfaButtonPayload::handle);
+    }
+
+    private static void retreatTechnique(RetreatTechniqueEvent event) {
+        TechniqueBook book = Techniques.main(event.player()).orElse(null);
+        if (book == null || book.definition().name().isEmpty()) event.setAccess(RetreatTechniqueEvent.Access.NONE);
+        else if (book.owner().isEmpty()) event.setAccess(RetreatTechniqueEvent.Access.UNLEARNED);
+        else if (book.ownedBy(event.player().getUUID())) event.setAccess(RetreatTechniqueEvent.Access.OWNED);
+        else event.setAccess(RetreatTechniqueEvent.Access.OTHER);
     }
 
     private static void onSecond(ServerPlayer player) {

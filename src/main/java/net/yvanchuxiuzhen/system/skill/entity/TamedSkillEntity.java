@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.TamableAnimal;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.Level;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.combat.api.CombatAttributable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -28,7 +30,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
  * 与 {@link SkillEntity} 共用施放信息 {@link SkillCast}、纹理名与过程动画的同步和 GeckoLib 控制器；模型与属性取自 {@link EntityModelRow}。
  * 没有可喂食的物品（来源 {@code isFood} 恒为假），喂食不触发繁殖或驯服；刷怪蛋仍可通过原生交互生成后代。
  */
-public abstract class TamedSkillEntity extends TamableAnimal implements GeoEntity, AnimatedLook {
+public abstract class TamedSkillEntity extends TamableAnimal implements GeoEntity, AnimatedLook, CombatAttributable {
     private static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(TamedSkillEntity.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(TamedSkillEntity.class, EntityDataSerializers.STRING);
 
@@ -84,6 +86,16 @@ public abstract class TamedSkillEntity extends TamableAnimal implements GeoEntit
 
     public SkillCast cast() {
         return cast;
+    }
+
+    /** 优先使用原版驯服主人，旧技能存档缺少主人时回退到技能施放 UUID。 */
+    @Override
+    public Entity combatAttacker() {
+        Entity owner = getOwner();
+        if (owner != null) {
+            return owner;
+        }
+        return level() instanceof ServerLevel server ? cast.attackerEntity(server) : null;
     }
 
     @Override

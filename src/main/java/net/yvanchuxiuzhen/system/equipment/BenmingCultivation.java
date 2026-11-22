@@ -10,6 +10,7 @@ import net.minecraft.world.item.SwordItem;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.equipment.api.BenmingData;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.xiulian.api.BenmingProgress;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -31,7 +32,7 @@ final class BenmingCultivation {
         ServerPlayer player = event.player();
         ItemStack stack = Cultivation.benming(player);
         if (stack.isEmpty() || Cultivation.get(player, CultivationValue.LEVEL_NUMBER) < 21) {
-            setProgress(player, stack, false);
+            setProgress(player, BenmingProgress.NONE);
             return;
         }
 
@@ -60,7 +61,9 @@ final class BenmingCultivation {
             stack.setDamageValue(stack.getDamageValue() - 1);
         }
         Cultivation.setBenming(player, stack);
-        setProgress(player, stack, true);
+        BenmingData current = stack.get(EquipmentData.BENMING.get());
+        setProgress(player, new BenmingProgress(player.getStringUUID().equals(Equipment.ownerId(stack)),
+                current.level(), current.experience(), current.experienceMax()));
     }
 
     private static double extraSpeed(ServerPlayer player, ItemStack stack) {
@@ -80,10 +83,7 @@ final class BenmingCultivation {
         Cultivation.setTizhiBoolean(player, "benmingfabaojioupanduan", !spell);
     }
 
-    private static void setProgress(ServerPlayer player, ItemStack stack, boolean owned) {
-        BenmingData data = stack.get(EquipmentData.BENMING.get());
-        BenmingProgress next = owned && data != null
-                ? new BenmingProgress(true, data.level(), data.experience(), data.experienceMax()) : BenmingProgress.NONE;
+    private static void setProgress(ServerPlayer player, BenmingProgress next) {
         if (!next.equals(Cultivation.benmingProgress(player))) {
             Cultivation.setBenmingProgress(player, next);
         }

@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.yvanchuxiuzhen.platform.ModId;
 
-/** 011–016号四阶段蔬菜的来源身份和Java固定掉落；成熟自定义loot仍由资源承担。 */
+/** 蔬菜族的编号、种源与各阶段的固定破坏掉落。 */
 enum VegetableCrop {
     SHICAI_011("011", "shicai_01101"),
     SHICAI_012("012", "shicai_01201"),

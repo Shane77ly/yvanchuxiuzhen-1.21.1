@@ -1,5 +1,14 @@
 {
   "block.yvanchuxiuzhen.chengzhen_antai": "Chengzhen Antai",
   "block.yvanchuxiuzhen.chengzhen_buildblock": "Chengzhen Buildblock",
-  "item.yvanchuxiuzhen.chengzhen_buildblock_item": "Chengzhen Buildblock Item"
+  "item.yvanchuxiuzhen.chengzhen_buildblock_item": "Chengzhen Buildblock Item",
+  "gui.yvanchuxiuzhen.chengzhen_ui_01.label_zhan_ling": "占领",
+  "gui.yvanchuxiuzhen.chengzhen_ui_01.label_dian_ji_ci_an_niu_hou_jiang_kai_qi_zhan_ling_zhi_zhan": "点击此按钮后，将开启占领之战！",
+  "gui.yvanchuxiuzhen.chengzhen_ui_03.label_jian_zhu_lie_biao": "建筑列表",
+  "gui.yvanchuxiuzhen.chengzhenbuild_gui.button_jian_zao": "建造",
+  "txt.yvanchuxiuzhen.build01": "市镇中心",
+  "txt.yvanchuxiuzhen.build02": "茅草屋",
+  "txt.yvanchuxiuzhen.build05": "驿站",
+  "txt.yvanchuxiuzhen.build03": "瓦片屋",
+  "txt.yvanchuxiuzhen.build04": "宝阁"
 }

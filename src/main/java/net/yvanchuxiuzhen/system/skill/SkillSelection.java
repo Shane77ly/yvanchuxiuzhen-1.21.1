@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.skill;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -34,9 +35,11 @@ public final class SkillSelection {
             if (key == UNGUARDED_KEY || (!StatusEffects.has(player, "skilleffect_09") && !StatusEffects.has(player, "effect_002"))) {
                 pick(player, state, (state.page() - 1) * SkillState.PAGE_SIZE + key);
             } else if (!StatusEffects.has(player, "effect_002")) {
-                player.displayClientMessage(Component.literal("§4沉默中"), false);
+                player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.selection.silenced")
+                        .withStyle(ChatFormatting.DARK_RED), false);
             } else {
-                player.displayClientMessage(Component.literal("§4冷却中"), false);
+                player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.selection.sealed")
+                        .withStyle(ChatFormatting.DARK_RED), false);
             }
         } else if (!state.selected().isEmpty()) {
             clear(player);
@@ -49,16 +52,16 @@ public final class SkillSelection {
         SkillBook book = stack.get(SkillData.SKILL.get());
         if (book != null && book.ownedBy(player.getUUID())) {
             player.setData(SkillData.STATE, state.withSelection(stack, state.selectedKey(), slot));
-            player.displayClientMessage(Component.literal("技能" + book.name() + "准备就绪"), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.selection.ready", book.name()), false);
         } else {
-            player.displayClientMessage(Component.literal("空"), false);
+            player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.selection.empty"), false);
         }
     }
 
     /** 取消选择（来源 {@code Jinengqvxiao}，按键 B）：清空选择、按键序号与技能栏序号并提示。 */
     public static void clear(ServerPlayer player) {
         player.setData(SkillData.STATE, Skills.state(player).withSelection(ItemStack.EMPTY, 0, 0));
-        player.displayClientMessage(Component.literal("取消装备技能"), false);
+        player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.selection.cleared"), false);
     }
 
     /** 按键 Tab：翻到下一页并提示页名；第四页之后回到第一页。 */
@@ -66,7 +69,7 @@ public final class SkillSelection {
         SkillState state = Skills.state(player);
         int next = state.page() % PAGES + 1;
         player.setData(SkillData.STATE, state.withPage(next));
-        player.displayClientMessage(Component.literal("第" + "一二三四".charAt(next - 1) + "页技能"), false);
+        player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.selection.page", "一二三四".substring(next - 1, next)), false);
     }
 
     /** 技能界面的上一页、下一页按钮：循环翻页，不提示。 */

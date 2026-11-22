@@ -1,4 +1,6 @@
 {
+  "block.yvanchuxiuzhen.treasure_chest_11": "上锁的宝箱",
+  "block.yvanchuxiuzhen.treasure_chest_03": "杂物箱",
   "block.yvanchuxiuzhen.treasure_chest_04": "普通功法书堆",
   "block.yvanchuxiuzhen.treasure_chest_05": "普通技能书堆",
   "block.yvanchuxiuzhen.treasure_chest_06": "小钱袋",
@@ -10,5 +12,10 @@
   "tooltip.yvanchuxiuzhen.item.treasure_chest_1101.1": "消耗品",
   "tooltip.yvanchuxiuzhen.item.treasure_chest_1101.2": "携带此物可打开上锁的宝箱。",
   "item.yvanchuxiuzhen.baoxiaitem": "宝匣",
-  "tooltip.yvanchuxiuzhen.item.baoxiaitem.1": "放置后，右键宝匣取出里面的物品。"
+  "tooltip.yvanchuxiuzhen.item.baoxiaitem.1": "放置后，右键宝匣取出里面的物品。",
+  "gui.yvanchuxiuzhen.tiandaobaoxiang.label_bao_xiang_xiao_lei_xing_jue_ding_ju_ti_diao_luo_na_xie_wu_pin": "宝箱小类型，决定具体掉落哪些物品",
+  "gui.yvanchuxiuzhen.tiandaobaoxiang.label_zui_xiao_diao_luo_shu": "最小掉落数",
+  "gui.yvanchuxiuzhen.tiandaobaoxiang.label_zui_da_diao_luo_shu": "最大掉落数",
+  "gui.yvanchuxiuzhen.tiandaobaoxiang.label_bao_xiang_deng_ji_jue_ding_diao_luo_wu_de_zhen_xi_cheng_du": "宝箱等级，决定掉落物的珍惜程度",
+  "gui.yvanchuxiuzhen.tiandaobaoxiang.label_bao_xiang_da_lei_xing_jue_ding_zhu_yao_diao_luo_wu_lei_xing": "宝箱大类型，决定主要掉落物类型"
 }

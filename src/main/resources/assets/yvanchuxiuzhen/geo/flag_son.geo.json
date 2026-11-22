@@ -1,0 +1,115 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.flag_son",
+				"texture_width": 16,
+				"texture_height": 16,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "zong",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "qigan",
+					"parent": "zong",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{
+							"origin": [-0.5, 16, -0.5],
+							"size": [1, 11, 1],
+							"uv": {
+								"north": {"uv": [1, 11], "uv_size": [1, 5]},
+								"east": {"uv": [1, 11], "uv_size": [1, 5]},
+								"south": {"uv": [1, 11], "uv_size": [1, 5]},
+								"west": {"uv": [1, 11], "uv_size": [1, 5]},
+								"up": {"uv": [2, 12], "uv_size": [-1, -1]},
+								"down": {"uv": [2, 12], "uv_size": [-1, -1]}
+							}
+						},
+						{
+							"origin": [-0.5, 0, -0.5],
+							"size": [1, 16, 1],
+							"uv": {
+								"north": {"uv": [0, 11], "uv_size": [1, 5]},
+								"east": {"uv": [0, 11], "uv_size": [1, 5]},
+								"south": {"uv": [0, 11], "uv_size": [1, 5]},
+								"west": {"uv": [0, 11], "uv_size": [1, 5]},
+								"up": {"uv": [1, 16], "uv_size": [-1, -1]},
+								"down": {"uv": [1, 12], "uv_size": [-1, -1]}
+							}
+						}
+					]
+				},
+				{
+					"name": "qizhi1",
+					"parent": "qigan",
+					"pivot": [0, 16, 0],
+					"cubes": [
+						{
+							"origin": [0, 16, 0],
+							"size": [0, 11, 5],
+							"uv": {
+								"west": {"uv": [0, 0], "uv_size": [5, 11]}
+							}
+						}
+					]
+				},
+				{
+					"name": "qizhi2",
+					"parent": "qizhi1",
+					"pivot": [0, 16, 5],
+					"cubes": [
+						{
+							"origin": [0, 16, 5],
+							"size": [0, 11, 5],
+							"uv": {
+								"west": {"uv": [5, 0], "uv_size": [5, 11]}
+							}
+						}
+					]
+				},
+				{
+					"name": "qizhi3",
+					"parent": "qizhi2",
+					"pivot": [0, 16, 10],
+					"cubes": [
+						{
+							"origin": [0, 16, 10],
+							"size": [0, 11, 5],
+							"uv": {
+								"west": {"uv": [10, 0], "uv_size": [5, 11]}
+							}
+						}
+					]
+				},
+				{
+					"name": "qizhi4",
+					"parent": "qizhi3",
+					"pivot": [0, 16, 15],
+					"cubes": [
+						{
+							"origin": [0, 16, 15],
+							"size": [0, 1, 3],
+							"uv": {
+								"west": {"uv": [0, 0], "uv_size": [3, 1]}
+							}
+						},
+						{
+							"origin": [0, 18, 15],
+							"size": [0, 1, 1],
+							"uv": {
+								"west": {"uv": [0, 0], "uv_size": [1, 1]}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

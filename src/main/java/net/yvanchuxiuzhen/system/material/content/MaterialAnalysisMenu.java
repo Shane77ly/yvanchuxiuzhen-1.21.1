@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.material.content;
 
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -25,6 +26,7 @@ import net.yvanchuxiuzhen.system.material.MaterialLibrary;
 import net.yvanchuxiuzhen.system.material.api.MaterialDefinition;
 import net.yvanchuxiuzhen.system.material.api.MaterialInventoryRequestEvent;
 import net.yvanchuxiuzhen.system.material.api.MaterialInventoryRequestEvent.Action;
+import net.yvanchuxiuzhen.system.material.api.MaterialRevealedEntry;
 import net.yvanchuxiuzhen.system.material.data.MaterialAnalysis;
 import net.yvanchuxiuzhen.system.material.data.MaterialData;
 import net.yvanchuxiuzhen.system.material.network.MaterialAnalysisViewPayload;
@@ -37,6 +39,9 @@ public final class MaterialAnalysisMenu extends AbstractContainerMenu {
     private final BlockPos openedAt;
     private String selectedId = "";
     private String selectedName = "";
+    private int selectedProgress;
+    private int selectedMaximum;
+    private List<MaterialRevealedEntry> selectedEntries = List.of();
 
     public MaterialAnalysisMenu(int id, Inventory inventory, BlockPos openedAt) {
         super(MaterialMenus.ANALYSIS.get(), id);
@@ -68,9 +73,24 @@ public final class MaterialAnalysisMenu extends AbstractContainerMenu {
         return selectedName;
     }
 
-    public void setView(String itemId, String name) {
+    public int selectedProgress() {
+        return selectedProgress;
+    }
+
+    public int selectedMaximum() {
+        return selectedMaximum;
+    }
+
+    public List<MaterialRevealedEntry> selectedEntries() {
+        return selectedEntries;
+    }
+
+    public void setView(String itemId, String name, int progress, int maximum, List<MaterialRevealedEntry> entries) {
         selectedId = itemId;
         selectedName = name;
+        selectedProgress = progress;
+        selectedMaximum = maximum;
+        selectedEntries = List.copyOf(entries);
     }
 
     @Override
@@ -101,7 +121,10 @@ public final class MaterialAnalysisMenu extends AbstractContainerMenu {
             player.setData(MaterialData.ANALYSIS, MaterialLibrary.analysis(player).withMaximum(selectedId, definition.entryCount()));
             player.syncData(MaterialData.ANALYSIS);
         }
-        PacketDistributor.sendToPlayer(player, new MaterialAnalysisViewPayload(containerId, selectedId, selectedName));
+        MaterialAnalysis analysis = MaterialLibrary.analysis(player);
+        setView(selectedId, selectedName, analysis.progress(selectedId), analysis.maximum(selectedId), analysis.revealed(selectedId));
+        PacketDistributor.sendToPlayer(player, new MaterialAnalysisViewPayload(containerId, selectedId, selectedName,
+                selectedProgress, selectedMaximum, selectedEntries));
     }
 
     private void identify(ServerPlayer player) {

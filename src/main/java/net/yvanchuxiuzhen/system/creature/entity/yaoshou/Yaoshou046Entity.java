@@ -3,7 +3,9 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -39,6 +41,11 @@ public final class Yaoshou046Entity extends YaoshouEntity {
     @Override protected SoundEvent getHurtSound(DamageSource source) { return Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou046attacked"); }
     @Override protected SoundEvent getDeathSound() { return Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou046die"); }
     @Override protected void playStepSound(BlockPos pos, BlockState state) { playSound(Yaoshou037054Support.sound("yvanchuxiuzhen:yaoshou046walk"), 0.15F, 1F); }
+
+    @Override
+    protected EntityDimensions getDefaultDimensions(Pose pose) {
+        return super.getDefaultDimensions(pose).withEyeHeight(0.8F);
+    }
 
     @Override public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         sourceAnimations.register(this, controllers, 4, "animation.yaoshou046.", state -> {

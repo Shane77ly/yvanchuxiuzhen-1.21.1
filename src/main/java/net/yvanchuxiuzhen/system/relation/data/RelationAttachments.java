@@ -1,6 +1,8 @@
 package net.yvanchuxiuzhen.system.relation.data;
 
+import com.mojang.serialization.Codec;
 import java.util.function.Supplier;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -17,12 +19,17 @@ public final class RelationAttachments {
             .builder(PlayerRelation::new)
             .serialize(PlayerRelation.CODEC)
             .copyOnDeath()
+            .copyHandler((relation, holder, provider) -> relation.copyForClone())
             .sync((holder, player) -> holder == player, PlayerRelation.STREAM_CODEC)
             .build());
     public static final Supplier<AttachmentType<Allegiance>> ENTITY = TYPES.register("allegiance", () -> AttachmentType
             .builder(Allegiance::new)
             .serialize(Allegiance.CODEC)
             .build());
+    /** 来源玩家能力 teamwork，独立于本体实体 NBT 的同名临时字段。 */
+    public static final Supplier<AttachmentType<String>> TEMPORARY_TEAM = TYPES.register("temporary_team", () -> AttachmentType
+            .builder(() -> "").serialize(Codec.STRING).copyOnDeath()
+            .sync((holder, player) -> holder == player, ByteBufCodecs.STRING_UTF8).build());
 
     private RelationAttachments() {
     }

@@ -33,7 +33,10 @@ public final class SkillLoadoutScreen extends AbstractContainerScreen<SkillLoado
         addButton(295, 193, 8, 10, "gui0401down01", 0, "上一页技能");
         addButton(325, 193, 8, 10, "gui0401up01", 1, "下一页技能");
         addButton(69, 147, 66, 18, "guipage01", 2, "属性显示");
+        addButton(69, 174, 66, 18, "guipage011", 3, "属性加点");
         addButton(69, 201, 66, 18, "guipage012", 4, "饰品装备");
+        addButton(69, 255, 66, 18, "guipage014", 5, "副职业");
+        addButton(69, 282, 66, 18, "guipage014", 6, "修炼");
         addButton(366, 156, 12, 12, "bankgui10", 7, "装配说明");
     }
 

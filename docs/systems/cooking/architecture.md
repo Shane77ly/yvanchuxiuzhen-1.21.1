@@ -2,7 +2,7 @@
 topic: cooking
 role: architecture
 status: partial
-updated: 2026-11-10
+updated: 2026-11-15
 ---
 
 # 烹饪：架构调查与提案
@@ -286,3 +286,11 @@ Cooking拥有来源物品`shicai_040`–`shicai_056`的食材身份；这17个�
 食材物品与阶段方块虽共享来源编号，但归属不同：物品及相应工厂归Cooking，作物阶段、生长与收获归Plant。豆芽`shicai_04601`–`shicai_04901`、黑芝麻`shicai_057`和白芝麻`shicai_058`也归Cooking；05701方块、其方块物品和成熟地物归Plant。058没有独立种植或生成入口。来源四白芝麻转一份`tiaowei_08`的石磨消费者归Craft，不以消费者归属改变芝麻食材物品归属。
 
 此前目标客户端`fulucooking`报告334项INFO、0 FAIL、DONE；该报告仅对应当时菌类/豆科/芝麻及石磨场景，不覆盖后续树苗、纤维作物、霓裳草与桃花扩大批次。扩大批次验收待本月日志更新；不得用此前失败的专服记录作通过依据。自然供给、来源1.18.2实机、多人及两版本对照尚未验。
+
+## Q158 三类盘菜模型纹理警告
+
+2026-11-15目标客户端加载资源时，`food_011`、`food_027`、`food_066`模型在多个朝向和`inventory`变体报告缺失sprite，日志中的目标纹理ID为`yvanchuxiuzhen:block/`。原始警告见`build/diagnostics/r13-qiankun-20261115/first-run/client.log`。
+
+后续已静态核对A的三份`models/block/food_*.json`及其父`models/custom/food*.json`：父模型仍分别有4、4、5个面实际引用`#missing`。目标模型已将该槽绑定到各自盘菜主纹理，消除`yvanchuxiuzhen:block/`空资源路径并保留原模型几何；来源空槽差异仍登记为来源问题，不把该修复当作完整视觉验收。来源与目标指纹、逐面索引在`build/diagnostics/r13-npc-management-20261115/source-audit.json`。未执行这三类盘菜的玩家路径、完整视觉、1.18.2版本实机或两版本对照。
+
+后续由Cooking沿日志模型ID继续核对当前方块状态、模型纹理引用、转换清单及1.18.2版本来源纹理，区分来源空槽和路径转换遗漏；本批只修复客户端资源路径，不修改Cooking玩法和台账状态。
