@@ -114,6 +114,7 @@ final class SmokeRun {
         case "renjianvisual" -> "renjian-visual";
         case "silksurvival", "silksurvivalreentry" -> SilkSurvivalReentryCheck.SAVE;
         case NaturalMetalChainCheck.SELECTOR -> NaturalMetalChainCheck.SAVE;
+        case NaturalAlloyRepairCheck.SELECTOR -> NaturalAlloyRepairCheck.SAVE;
         case JadeWoodSupplyCheck.SELECTOR -> JadeWoodSupplyCheck.SAVE;
         case "q119" -> QiankunDialogueCheck.SAVE_ID;
         case RenjianLocustNaturalCheck.SELECTOR -> RenjianLocustNaturalCheck.SAVE;
@@ -225,20 +226,27 @@ final class SmokeRun {
         }
         if (minecraft.screen instanceof TitleScreen && minecraft.getOverlay() == null) {
             String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
-            if ("jadepickupsave".equals(only)) {
+            if ("jadepickupsave".equals(only) || NaturalAlloyRepairCheck.SELECTOR.equals(only)) {
                 int view = minecraft.options.renderDistance().get();
                 int simulation = minecraft.options.simulationDistance().get();
                 float volume = minecraft.options.getSoundSourceVolume(SoundSource.MASTER);
                 String language = minecraft.options.languageCode;
                 String settings = "视距=" + view + " 模拟距离=" + simulation + " 主音量=" + volume + " 语言=" + language;
                 if (view != 2 || simulation != 5 || volume != 0.0f || !"zh_cn".equals(language)) {
-                    report.add("FAIL 璞玉拾取场景启动配置不符：" + settings);
+                    report.add("FAIL " + only + " 启动配置不符：" + settings);
                     finish();
                     return;
                 }
-                report.add("INFO 璞玉拾取场景启动配置 " + settings);
+                report.add("INFO " + only + " 启动配置 " + settings);
             }
             List<String> selectors = List.of(only.split(",", -1));
+            if (selectors.stream().map(String::strip).anyMatch(NaturalAlloyRepairCheck.SELECTOR::equals)
+                    && (!NaturalAlloyRepairCheck.SAVE.equals(replayLevelId)
+                    || !NaturalAlloyRepairCheck.ready(minecraft.gameDirectory.toPath()))) {
+                report.add("FAIL 天然合金修理须独立选择，并使用核对指纹的一次性存档副本");
+                finish();
+                return;
+            }
             if (selectors.stream().map(String::strip).anyMatch(NaturalMetalChainCheck.SELECTOR::equals)
                     && (!NaturalMetalChainCheck.SAVE.equals(replayLevelId)
                     || !NaturalMetalChainCheck.ready(minecraft.gameDirectory.toPath()))) {
@@ -634,6 +642,7 @@ final class SmokeRun {
                     case "plantground" -> List.of(new PlantGroundCheck(report, levelId));
                     case "thundergrassdrops" -> List.of(new ThundergrassDropsCheck(report, levelId));
                     case "jadeoredrops", JadeOreDropsCheck.EMPTY -> List.of(new JadeOreDropsCheck(report, levelId));
+                    case NaturalAlloyRepairCheck.SELECTOR -> List.of(new NaturalAlloyRepairCheck(report, levelId, this::shot));
                     case "jadecarving" -> List.of(new JadeCarvingCheck(report, levelId, this::shot));
                     case "jadepickupsave" -> List.of(new JadePickupPersistenceCheck(report, levelId, this::shot));
                     case "peachleaves" -> List.of(new PeachLeavesCheck(report, levelId));
