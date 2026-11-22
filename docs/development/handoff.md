@@ -13,13 +13,24 @@ updated: 2026-11-22
 
 原集成树保留的 `build/diagnostics/`、`build/registry-export/` 与 `run/smoke/options.txt`（`soundCategory_master:0.0`）已迁回本主目录。`ef79aec2` 的蛊笛战斗平地 Smoke 夹具及今日新增/合入的合成材料实例修复、功法命中天外陨石、护甲每秒重算、境界提升粒子、战斗与附魔粒子、施法友表 API、修炼资源镜像与箭头怪经验归因均已编译、通过 ArchUnit 结构守卫与文档/台账校验，真实游戏客户端及专服运行尚未执行。
 
-下一动作（2026-11-22 负责人已确认执行**选项 1：消零 R16 技术尾项后收口待合 `main`**，详见[当前调度](remaining-work.md#4-2026-11-22-r16-最终收尾三步走任务单负责人确认选项-1)与[项目月志](../systems/project/logs/2026-11.md#2026-11-22-r16-收尾三步走任务单定案)）：
+下一动作（2026-11-22 已合入 `main` 并推送 `origin/main`，负责人确认由执行会话补齐**与两个 1.18.2 源 Mod 二次比对发现的 4 处细节遗漏**，详见[当前调度](remaining-work.md#5-2026-11-22-双源-mod-二次比对-4-项补齐任务单)与[项目月志](../systems/project/logs/2026-11.md#2026-11-22-合入-main-推送与双源-mod-二次比对补齐任务单)）：
 
-1. **当前基线**：主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`、分支 `port/batch0-integration-20261117`（已 `--no-ff` 合入 `port/r16-tail-closure`）。代码批次 1–5、全量 `pending_hooks` 专属工厂挂载、`runServer` 全 11 维度导出、`ArchitectureTest`、`jar`（`build/libs/yvanchuxiuzhen-0.0.1.jar`）、`check_ledger.py`（0 问题）、`check_docs.py`（130 篇/0 问题）与 R16 阶段二客户端 Smoke 全域收口均已完成；全局台账 4939 行现余 8 行 `待处理`（均为已批准排除 Q28 或 1.18.2 孤立无入口菜单 Q20/Q135/Q151/`tiandao_gongfa_gui`）。
-2. **R16 最终收尾三步走已完成（待负责人确认后合并 `main`，详见[实机与收尾记录](remaining-work.md#2026-11-22-r16-最终收尾三步走结果)）**：
-   - **第一步**：已向 `docs/reference/conversion/manifest.csv` 补齐 15 项资源记录，`python -B -X utf8 tools/porting/check_ledger.py` 输出 **`发现 0 项问题`**。
-   - **第二步**：`questeditor`（126 行）、`doublebang,guchong,guchonggroundsave`（109 行）、`guchongflute,moshou002,npcmanagement`（248 行）及拆维门户 `wuguiportal`、`renjianportal`、`xiuluoportal`（各 115 行）均以 `0 FAIL`、`DONE` 通过；`spiritbeastbag`（306 行、`DONE`，16 色染色菜单与重进全部通过，仅末段妖兽自然回血 `31.25 -> 38.0` 波动）；全维度 `dimensionportal` 在 768 MB 堆上限下发生 `OutOfMemoryError`（已如实记录内存边界）。
-   - **第三步**：全量门禁 `compileJava compileTestJava compileSmokeJava test --tests net.yvanchuxiuzhen.ArchitectureTest jar`、`check_ledger.py` 与 `check_docs.py` 全部通过，工作树干净，待负责人确认后合入 `main`（不自动推送、不擅自合并 `main`）。
+1. **当前基线**：主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`，当前分支 `main`（`f1e744e0`，已通过 `--no-ff` 合入 `port/batch0-integration-20261117` 的 `503e9094` 并推送至 `origin/main`）。
+2. **立即执行的双源比对 4 项补齐任务单（从 `main` 检出功能分支 `port/source-parity-patch-20261122` 执行）**：
+   - **补项 1：数据包标签（Tags）全量重刷补齐**
+     - 生成 B1 阶段因实体未注册而跳过的 7 个实体类型标签文件至 `src/main/resources/data/yvanchuxiuzhen/tags/entity_type/`：`fireentity.json`（8 项）、`goldentity.json`（5 项）、`soilentity.json`（4 项）、`treeentity.json`（15 项）、`waterentity.json`（10 项）、`jiunpc.json`（7 项）、`xiuzhe.json`（1 项），使 `Restraint.java` 五行相克与 `HurtStage.java`/`FabaoProjectile.java` 旧商人免伤在运行期生效；
+     - 补齐 `data/minecraft/tags/block/mineable/axe.json` 后迁的 3 个方块（`treasure_chest_03`、`treasure_chest_11`、`tiandiyinhang`）与 `data/yvanchuxiuzhen/tags/entity_type/noentity.json` 后迁的 `shitiputuan`；
+     - 生成 B1 阶段跳过（“随 world 迁移”）的 5 个原版结构群系标签至 `src/main/resources/data/minecraft/tags/worldgen/biome/has_structure/`：`buried_treasure.json`、`desert_pyramid.json`、`nether_fossil.json`、`shipwreck.json`、`shipwreck_beached.json`；同步更新 `data_manifest.csv` 与 `data_skipped.csv`。
+   - **补项 2：`/fuwuqimingling` 管理员规则切换命令（来源 B:`FuwuqiminglingCommand` / `FuwuqiminglingGoProcedure`）**
+     - 在 `SystemCommandFlow.java` 注册 `fuwuqimingling`（权限 2，支持 `sell true|false` 与 `weaponlevelup true|false`），经 `system.economy.api` 与 `system.lianqi.api` 公开接口修改对应 GameRule 并输出与 1.18.2 一致的中文提示（严守 ArchUnit 规则，不从 `flow` 直接访问非 `api` 包）。
+   - **补项 3：水下氧气数值 HUD 叠加层（来源 A:`OxygentubiaoOverlay` / `OxygenxianshiProcedure` / `OxygenProcedure`）**
+     - 迁移 `textures/screens/oxygenxianshi.png`（登记 `screen_textures.csv` 与 `manifest.csv`），在 `PanelClientSetup.java` 中当 `player.isInWater() && player.getAirSupply() < 300` 时于 `(x - 136, y + 111)` 绘制 9×9 图标、于 `(x - 124, y + 111)` 绘制氧气数值字符串。
+   - **补项 4：浓雾群系与雷劫视野雾效（来源 A:`TiankongxvanranProcedure`）**
+     - 按 1.18.2 `TiankongxvanranProcedure` 规则接入浓雾群系（`biomefog_01..04` 的 `wuqixianshi` 过渡、RGB `0,51,102` 雾色与 `[wuqixianshi, wuqixianshi + 30]` 雾距）及雷劫开启（`thunder_open` 的 RGB `10,10,10` 雾色与 `[8, 32]` 雾距）客户端雾效渲染，严格保持客户端代码在 `client` 子包内。
+3. **验证与收口门禁**：
+   - 串行运行 `./gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test --tests net.yvanchuxiuzhen.ArchitectureTest jar`；
+   - 运行 `python -B -X utf8 tools/porting/check_ledger.py`（0 项问题）、`python -B -X utf8 tools/docs/check_docs.py`（0 项问题）与 `git diff --check`；
+   - 同步更新 `ownership_assignment.csv` 中上述已处理条目的 `已读` 状态、相关系统月志、[remaining-work.md](remaining-work.md) 与本文件，保持工作树干净。
 
 ## 历史接手记录（2026-11-22）
 
