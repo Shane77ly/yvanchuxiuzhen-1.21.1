@@ -127,8 +127,18 @@ tasks.named('runSmokeClient') {
             throw new GradleException('jadepickupsave 必须单独运行，以隔离存档和证据')
         }
         if (jadePickupRun) {
-            logger.lifecycle("璞玉拾取场景游戏目录：${smokeGameDirectory.asFile.absolutePath}")
+            def gameDir = smokeGameDirectory.asFile
+            if (!gameDir.mkdirs() && !gameDir.isDirectory()) {
+                throw new GradleException("无法创建璞玉拾取场景目录：${gameDir}")
+            }
+            def optionsFile = new File(gameDir, 'options.txt')
+            if (!optionsFile.createNewFile()) {
+                throw new GradleException("璞玉拾取场景配置已存在，拒绝覆盖：${optionsFile}")
+            }
+            optionsFile.setText('soundCategory_master:0.0\nrenderDistance:2\nsimulationDistance:5\nlang:zh_cn\n', 'UTF-8')
+            logger.lifecycle("璞玉拾取场景游戏目录：${gameDir.absolutePath}")
             logger.lifecycle("璞玉拾取场景报告目录：${smokeOutputDirectory.get().asFile.absolutePath}")
+            logger.lifecycle('璞玉拾取场景启动配置：静音，视距2，模拟距离5，中文')
         }
         // FML 启动画面早于冒烟 Mixin，必须在启动进程前关闭。
         if (!smokeFmlConfig.exists()) {

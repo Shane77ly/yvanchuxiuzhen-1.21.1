@@ -48,6 +48,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -223,6 +224,19 @@ final class SmokeRun {
         }
         if (minecraft.screen instanceof TitleScreen && minecraft.getOverlay() == null) {
             String only = System.getProperty("yvanchuxiuzhen.smoke.only", "");
+            if ("jadepickupsave".equals(only)) {
+                int view = minecraft.options.renderDistance().get();
+                int simulation = minecraft.options.simulationDistance().get();
+                float volume = minecraft.options.getSoundSourceVolume(SoundSource.MASTER);
+                String language = minecraft.options.languageCode;
+                String settings = "视距=" + view + " 模拟距离=" + simulation + " 主音量=" + volume + " 语言=" + language;
+                if (view != 2 || simulation != 5 || volume != 0.0f || !"zh_cn".equals(language)) {
+                    report.add("FAIL 璞玉拾取场景启动配置不符：" + settings);
+                    finish();
+                    return;
+                }
+                report.add("INFO 璞玉拾取场景启动配置 " + settings);
+            }
             List<String> selectors = List.of(only.split(",", -1));
             if (selectors.stream().map(String::strip).anyMatch(NaturalMetalChainCheck.SELECTOR::equals)
                     && (!NaturalMetalChainCheck.SAVE.equals(replayLevelId)
