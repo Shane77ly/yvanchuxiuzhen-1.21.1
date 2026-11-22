@@ -16,7 +16,7 @@ updated: 2026-11-22
 下一动作（2026-11-22 负责人已确认全量代码优先单树五批次规划，详见[当前调度](remaining-work.md#2026-11-22-全量代码优先方案-b单树五批次推进规划)与[项目月志](../systems/project/logs/2026-11.md#2026-11-22-全量代码优先与单工作树五批次规划定案)）：
 
 1. **执行模式**：固定在唯一主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1` 内推进，不再创建额外 worktree；采用**方案 B（代码实现优先，耗时客户端实机验收统一后置到 R16）**。
-2. **已完成代码批次 3（`port/code-b3-cultivation-equipment-fulu`）并准备推进批次 4**：批次 3 已完成 Q28/Q20 排除与不可达台账收口、`equipment` 特殊法宝/武器与 `fulu`/`ReincarnationFlow` 全编号及轮回清理调用链核对，并通过 `check_docs.py` 与 `check_ledger.py`。下一动作：从 `port/batch0-integration-20261117` 检出 `port/code-b4-production-festival-decor`，推进批次 4（生活生产、烹饪菜单与节日家具）。
+2. **已完成代码批次 4（`port/code-b4-production-festival-decor`）并准备推进批次 5**：批次 4 已完成 `festival` 5 行（`pao_01/08` 投射烟花与 `pao_10/0901`）、`cooking` 2 行（`shaguo_gui`/`tieguo_gui`）与 `decor` 43 个家具方块钩子（`SeatBlock`/`YvnpenBlock`/`Zisha03Block`/`WoodDoorBlock`）。下一动作：从 `port/batch0-integration-20261117` 检出 `port/code-b5-social-dungeon-zhenfa`，推进批次 5（社会玩法、副本宝箱与阵法天道）。
 3. **合入门禁与后续批次**：每完成一个功能族或批次，在 768 MB、单 worker 下串行运行 `compileJava compileTestJava`、`test --tests net.yvanchuxiuzhen.ArchitectureTest`、`check_ledger.py` 与 `check_docs.py`，通过后切回 `port/batch0-integration-20261117` 执行 `git merge --no-ff` 合入并清理临时分支，随后依次推进**批次 2（`port/code-b2-creature-guchong`）**至**批次 5（`port/code-b5-social-dungeon-zhenfa`）**。1.18.2 旧版非阻断性 Bug 保真迁移并从 **Q241** 起登记至[来源问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置)及所属系统正文；不推送、不自动合并 `main`，Q28 仍为唯一批准排除项。
 
 ## 历史接手记录（2026-11-22）

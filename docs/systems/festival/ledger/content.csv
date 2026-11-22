@@ -1,7 +1,7 @@
 registry,legacy_id,source_mod,element,source_file,line,owner,ownership,target_id,status,note
 block,yvanchuxiuzhen:fuqi_04,yvanchuxiuzhen,Fuqi04,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1958,festival,已读,yvanchuxiuzhen:fuqi_04,已注册,
 block,yvanchuxiuzhen:fuqi_0401,yvanchuxiuzhen,Fuqi0401,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1959,festival,已读,yvanchuxiuzhen:fuqi_0401,已注册,
-block,yvanchuxiuzhen:pao_10,yvanchuxiuzhen,Pao10,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1955,festival,已读,yvanchuxiuzhen:pao_10,待处理,目标资源静态审计通过；Pao10仍受转换清单跳过项约束，客户端单项待主线
+block,yvanchuxiuzhen:pao_10,yvanchuxiuzhen,Pao10,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1955,festival,已读,yvanchuxiuzhen:pao_10,行为已迁移,2026-11-22 代码批次4完成代码与菜单/实体接线，待R16实机验收
 block,yvanchuxiuzhen:pao_11,yvanchuxiuzhen,Pao11,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1956,festival,已读,yvanchuxiuzhen:pao_11,已注册,
 block,yvanchuxiuzhen:pao_12,yvanchuxiuzhen,Pao12,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1957,festival,已读,yvanchuxiuzhen:pao_12,已注册,
 block_entity_type,yvanchuxiuzhen:pao_10,yvanchuxiuzhen,Pao10,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlockEntities.java,147,festival,已读,yvanchuxiuzhen:pao_10,已注册,Pao10–Pao13资源静态审计通过，客户端单项待主线
@@ -12,9 +12,9 @@ entity_type,yvanchuxiuzhen:fuqi_0301,yvanchuxiuzhen,Fuqi0301,src/main/java/net/m
 entity_type,yvanchuxiuzhen:pao_0401,yvanchuxiuzhen,Pao0401,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,659,festival,已读,yvanchuxiuzhen:pao_0401,行为已迁移,自然抛出、20刻引燃及04/05/06完整燃放/运动/免伤/实例保存接回；必要单项待本批收口
 entity_type,yvanchuxiuzhen:pao_0501,yvanchuxiuzhen,Pao0501,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,663,festival,已读,yvanchuxiuzhen:pao_0501,行为已迁移,自然抛出、20刻引燃及04/05/06完整燃放/运动/免伤/实例保存接回；必要单项待本批收口
 entity_type,yvanchuxiuzhen:pao_0601,yvanchuxiuzhen,Pao0601,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,667,festival,已读,yvanchuxiuzhen:pao_0601,行为已迁移,自然抛出、20刻引燃及04/05/06完整燃放/运动/免伤/实例保存接回；必要单项待本批收口
-entity_type,yvanchuxiuzhen:pao_0901,yvanchuxiuzhen,Pao0901,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,673,festival,候选,yvanchuxiuzhen:pao_0901,待处理,
-entity_type,yvanchuxiuzhen:projectile_pao_01,yvanchuxiuzhen,Pao01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,657,festival,已读,yvanchuxiuzhen:projectile_pao_01,待处理,
-entity_type,yvanchuxiuzhen:projectile_pao_08,yvanchuxiuzhen,Pao08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,671,festival,已读,yvanchuxiuzhen:projectile_pao_08,待处理,
+entity_type,yvanchuxiuzhen:pao_0901,yvanchuxiuzhen,Pao0901,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,673,festival,已读,yvanchuxiuzhen:pao_0901,行为已迁移,2026-11-22 代码批次4完成代码与菜单/实体接线，待R16实机验收
+entity_type,yvanchuxiuzhen:projectile_pao_01,yvanchuxiuzhen,Pao01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,657,festival,已读,yvanchuxiuzhen:projectile_pao_01,行为已迁移,2026-11-22 代码批次4完成代码与菜单/实体接线，待R16实机验收
+entity_type,yvanchuxiuzhen:projectile_pao_08,yvanchuxiuzhen,Pao08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,671,festival,已读,yvanchuxiuzhen:projectile_pao_08,行为已迁移,2026-11-22 代码批次4完成代码与菜单/实体接线，待R16实机验收
 entity_type,yvanchuxiuzhen:projectile_pao_13,yvanchuxiuzhen,Pao13,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModEntities.java,677,festival,已读,yvanchuxiuzhen:projectile_pao_13,已注册,Pao10–Pao13资源静态审计通过，客户端单项待主线
 item,yvanchuxiuzhen:caishenye_spawn_egg,yvanchuxiuzhen,Caishenye,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2592,festival,已读,yvanchuxiuzhen:caishenye_spawn_egg,行为已迁移,专用刷怪蛋工厂及来源颜色已实现；待构建和运行验收
 item,yvanchuxiuzhen:fuqi_01,yvanchuxiuzhen,Fuqi01,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2587,festival,已读,yvanchuxiuzhen:fuqi_01,已注册,
@@ -36,7 +36,7 @@ item,yvanchuxiuzhen:pao_06,yvanchuxiuzhen,Pao06,src/main/java/net/mcreator/yvanc
 item,yvanchuxiuzhen:pao_07,yvanchuxiuzhen,Pao07,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2580,festival,已读,yvanchuxiuzhen:pao_07,行为已迁移,分段换色与1200刻手持燃放已接；必要单项通过；真实重登与完整视觉未验
 item,yvanchuxiuzhen:pao_08,yvanchuxiuzhen,Pao08,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2581,festival,已读,yvanchuxiuzhen:pao_08,已注册,
 item,yvanchuxiuzhen:pao_09,yvanchuxiuzhen,Pao09,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2582,festival,已读,yvanchuxiuzhen:pao_09,已注册,
-item,yvanchuxiuzhen:pao_10,yvanchuxiuzhen,Pao10,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2583,festival,已读,yvanchuxiuzhen:pao_10,待处理,目标资源静态审计通过；Pao10仍受转换清单跳过项约束，客户端单项待主线
+item,yvanchuxiuzhen:pao_10,yvanchuxiuzhen,Pao10,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2583,festival,已读,yvanchuxiuzhen:pao_10,行为已迁移,2026-11-22 代码批次4完成代码与菜单/实体接线，待R16实机验收
 item,yvanchuxiuzhen:pao_11,yvanchuxiuzhen,Pao11,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2584,festival,已读,yvanchuxiuzhen:pao_11,已注册,
 item,yvanchuxiuzhen:pao_12,yvanchuxiuzhen,Pao12,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2585,festival,已读,yvanchuxiuzhen:pao_12,已注册,
 item,yvanchuxiuzhen:pao_13,yvanchuxiuzhen,Pao13,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2586,festival,已读,yvanchuxiuzhen:pao_13,已注册,
