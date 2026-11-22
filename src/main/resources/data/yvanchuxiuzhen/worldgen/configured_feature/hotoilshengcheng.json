@@ -1,0 +1,16 @@
+{
+  "type": "yvanchuxiuzhen:hotoilshengcheng",
+  "config": {
+    "contents": {
+      "Name": "yvanchuxiuzhen:hotoil",
+      "Properties": {
+        "level": "0"
+      }
+    },
+    "rim": {
+      "Name": "minecraft:netherrack"
+    },
+    "size": 16,
+    "rim_size": 2
+  }
+}

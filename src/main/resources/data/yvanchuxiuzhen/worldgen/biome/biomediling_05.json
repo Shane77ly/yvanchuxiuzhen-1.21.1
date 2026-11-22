@@ -1,0 +1,92 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.8,
+  "downfall": 0.1,
+  "effects": {
+    "fog_color": -1852491,
+    "water_color": -10548224,
+    "water_fog_color": -10548224,
+    "sky_color": -1852491,
+    "foliage_color": -8304332,
+    "grass_color": -8304332
+  },
+  "carvers": {},
+  "features": [
+    [],
+    [],
+    [],
+    [
+      "yvanchuxiuzhen:suijijiegou_05",
+      "yvanchuxiuzhen:suijijiegou_06"
+    ],
+    [
+      "yvanchuxiuzhen:bladegrasstree_01",
+      "yvanchuxiuzhen:bladegrasstree_02",
+      "yvanchuxiuzhen:bladegrasstree_03",
+      "yvanchuxiuzhen:suijijiegou_01",
+      "yvanchuxiuzhen:suijijiegou_02",
+      "yvanchuxiuzhen:suijijiegou_03",
+      "yvanchuxiuzhen:suijijiegou_04"
+    ],
+    [],
+    [
+      "yvanchuxiuzhen:cailiao_191ore",
+      "yvanchuxiuzhen:cailiao_192ore",
+      "yvanchuxiuzhen:cailiao_193ore",
+      "yvanchuxiuzhen:cailiao_194ore",
+      "yvanchuxiuzhen:cailiao_195ore",
+      "yvanchuxiuzhen:cailiao_196ore",
+      "yvanchuxiuzhen:cailiao_197ore",
+      "yvanchuxiuzhen:cailiao_198ore",
+      "yvanchuxiuzhen:cailiao_199ore",
+      "yvanchuxiuzhen:cailiao_20101",
+      "yvanchuxiuzhen:cailiao_20301",
+      "yvanchuxiuzhen:cailiao_20501",
+      "yvanchuxiuzhen:cailiao_20701",
+      "yvanchuxiuzhen:cailiao_20801",
+      "yvanchuxiuzhen:cailiao_20901",
+      "yvanchuxiuzhen:cailiao_21101",
+      "yvanchuxiuzhen:cailiao_21301",
+      "yvanchuxiuzhen:cailiao_21501",
+      "yvanchuxiuzhen:cailiao_21601",
+      "yvanchuxiuzhen:cailiao_21701",
+      "yvanchuxiuzhen:cailiao_21901",
+      "yvanchuxiuzhen:cailiao_16101",
+      "yvanchuxiuzhen:fuluzhushablock",
+      "yvanchuxiuzhen:cailiao_16201",
+      "yvanchuxiuzhen:cailiao_16301",
+      "yvanchuxiuzhen:cailiao_16401",
+      "yvanchuxiuzhen:cailiao_16501",
+      "yvanchuxiuzhen:cailiao_16601",
+      "yvanchuxiuzhen:cailiao_16701",
+      "yvanchuxiuzhen:cailiao_16801",
+      "yvanchuxiuzhen:cailiao_16901"
+    ],
+    [],
+    [],
+    [
+      "yvanchuxiuzhen:bladegrass",
+      "yvanchuxiuzhen:tailbladegrass",
+      "yvanchuxiuzhen:nichanggrass_06"
+    ],
+    []
+  ],
+  "spawners": {
+    "monster": [],
+    "creature": [
+      {
+        "type": "yvanchuxiuzhen:xiuzhe_0101",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "ambient": [],
+    "axolotls": [],
+    "underground_water_creature": [],
+    "water_creature": [],
+    "water_ambient": [],
+    "misc": []
+  },
+  "spawn_costs": {}
+}

@@ -11,7 +11,7 @@ from pathlib import Path
 from convert_content import ROOT, SOURCES
 
 MOD = 'yvanchuxiuzhen'
-DIMENSIONS = ('dimensionrenjian', 'dimensionyaohun', 'dimensiontianqve', 'dimensionwugui', 'dimensionxiuluo')
+DIMENSIONS = ('dimensionrenjian', 'dimensionyaohun', 'dimensiontianqve', 'dimensionwugui', 'dimensionxiuluo', 'dimensiondiling')
 HELPER_ENTRY = 'net/minecraft/data/worldgen/BiomeDefaultFeatures.java'
 CALL = re.compile(r'(?P<name>[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*)\s*\(')
 
@@ -297,6 +297,8 @@ def build(source_root: Path) -> dict:
     helper_names = set()
     unresolved = []
     for biome_id, membership in sorted(memberships.items()):
+        if ':' not in biome_id:
+            continue
         class_name, registration_line = registrations[biome_id]
         path = source_java / f'world/biome/{class_name}.java'
         body = path.read_text(encoding='utf-8')

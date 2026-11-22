@@ -18,6 +18,7 @@ import net.yvanchuxiuzhen.collection.decor.FurnitureStorageVariant.Layout;
 import net.yvanchuxiuzhen.collection.decor.InscribedDecorContent;
 import net.yvanchuxiuzhen.collection.decor.InscribedDecorMenu;
 import net.yvanchuxiuzhen.collection.decor.InscribedDecorVariant;
+import net.yvanchuxiuzhen.collection.decor.OffsetBlockContent;
 import net.yvanchuxiuzhen.collection.decor.RabbitCageBlockEntities;
 import net.yvanchuxiuzhen.collection.decor.UtilityFurnitureContent;
 import net.yvanchuxiuzhen.collection.decor.UtilityFurnitureVariant;
@@ -33,6 +34,7 @@ public final class DecorClientSetup {
 
     public static void register(IEventBus modBus) {
         HotOilClient.register(modBus);
+        WaterCloudClient.register(modBus);
         AnimatedDecorClient.register(modBus);
         modBus.addListener(DecorClientSetup::registerBlockColors);
         modBus.addListener((RegisterMenuScreensEvent event) -> {
@@ -46,6 +48,7 @@ public final class DecorClientSetup {
             event.registerEntityRenderer(DecorSetup.cushionType(), DecorSeatRenderer::new);
         });
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerBlockEntityRenderer(RabbitCageBlockEntities.OPEN.get(), RabbitCageRenderer::new));
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerBlockEntityRenderer(OffsetBlockContent.TYPE.get(), OffsetBlockRenderer::new));
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             for (DisplayFurnitureVariant variant : DisplayFurnitureVariant.values()) event.registerBlockEntityRenderer(DisplayFurnitureContent.type(variant), DisplayFurnitureRenderer::new);
             for (InscribedDecorVariant variant : InscribedDecorVariant.VALUES) event.registerBlockEntityRenderer(InscribedDecorContent.type(variant), InscribedDecorRenderer::new);

@@ -71,6 +71,8 @@ def selected_biomes(source_root: Path) -> list[Path]:
         ids.update(entry['biome'] for entry in entries)
     result = []
     for biome_id in sorted(ids):
+        if ':' not in biome_id:
+            continue
         namespace, path = biome_id.split(':', 1)
         if namespace != MOD:
             raise ValueError(f'来源维度出现范围外群系：{biome_id}')

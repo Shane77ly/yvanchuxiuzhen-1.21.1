@@ -16,6 +16,7 @@ public final class DecorSetup {
             .blockFactory("decor:rabbit_cage", traits -> ContentBlock.create(traits, RabbitCageBlock::new))
             .blockFactory("decor:open_rabbit_cage", traits -> ContentBlock.create(traits, OpenRabbitCageBlock::new))
             .blockFactory("decor:cushion", traits -> ContentBlock.create(traits, CushionBlock::new))
+            .blockFactory("decor:offset_block", traits -> ContentBlock.create(traits, OffsetBlock::new))
             .itemFactory("decor:cage", RabbitCageItem::new)
             .itemFactory("decor:hammer", BuildingHammerItem::new)
             .itemFactory("decor:roof_brush", RoofBrushItem::new)
@@ -49,6 +50,8 @@ public final class DecorSetup {
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
         HotOil.register(modBus);
+        WaterCloud.register(modBus);
+        OffsetBlockContent.register(modBus);
         RabbitCageBlockEntities.register(modBus);
         FurnitureStorageContent.register(modBus);
         DisplayFurnitureContent.register(modBus);
