@@ -7,3 +7,4 @@ yvanchuxiuzhen,cailiao_205hecheng_2,recipe,src/main/resources/data/yvanchuxiuzhe
 yvanchuxiuzhen,Cailiao201meltDangYouJianDianJiKongQiShiShiTiDeWeiZhi,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/Cailiao201meltDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java,12,material,已读,205和206熔液分别凝23级与28级材料，逐份确定品阶,MoltenMetalItem,生产入口已存在；完整受控路径已准备且未运行
 yvanchuxiuzhen,cailiao_206hecheng,recipe,src/main/resources/data/yvanchuxiuzhen/recipes/cailiao_206hecheng.json,1,material,已读,四寒潭精铁及四黑曜石合成206熔液,recipe/cailiao_206hecheng,生产入口已存在；完整受控路径已准备且未运行
 yvanchuxiuzhen,Gongjv016,item,src/main/java/net/mcreator/yvanchuxiuzhen/item/Gongjv016Item.java,15,material,已读,黑曜合金斧修理材料为206锭,equipment tool / NaturalAlloyRepairCheck,生产入口已存在；完整受控路径已准备且未运行
+yvanchuxiuzhen,Itemhecheng,procedure,src/main/java/net/mcreator/yvanchuxiuzhen/procedures/ItemhechengProcedure.java,18,material,已读,合成事件对桃木及九档灵石写入实例等级品阶；快捷转移副本边界见正文,MaterialSetup.onCrafted,生产事件已接入；场景准备未运行
