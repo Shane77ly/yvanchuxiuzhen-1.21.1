@@ -113,6 +113,7 @@ final class SmokeRun {
         case "renjianvisual" -> "renjian-visual";
         case "silksurvival", "silksurvivalreentry" -> SilkSurvivalReentryCheck.SAVE;
         case NaturalMetalChainCheck.SELECTOR -> NaturalMetalChainCheck.SAVE;
+        case JadeWoodSupplyCheck.SELECTOR -> JadeWoodSupplyCheck.SAVE;
         case "q119" -> QiankunDialogueCheck.SAVE_ID;
         case RenjianLocustNaturalCheck.SELECTOR -> RenjianLocustNaturalCheck.SAVE;
         case RenjianCapturedJarCheck.SELECTOR -> RenjianCapturedJarCheck.SAVE;
@@ -228,6 +229,14 @@ final class SmokeRun {
                     && (!NaturalMetalChainCheck.SAVE.equals(replayLevelId)
                     || !NaturalMetalChainCheck.ready(minecraft.gameDirectory.toPath()))) {
                 report.add("FAIL 精铁制箭须独立选择，并使用已核对指纹的一次性开发客户端副本");
+                finish();
+                return;
+            }
+            if (selectors.stream().map(String::strip).anyMatch(JadeWoodSupplyCheck.SELECTOR::equals)
+                    && (!JadeWoodSupplyCheck.SAVE.equals(replayLevelId)
+                    || !JadeWoodSupplyCheck.ready(minecraft.gameDirectory.toPath())
+                    || minecraft.options.renderDistance().get() != 2 || minecraft.options.simulationDistance().get() != 5)) {
+                report.add("FAIL 文玉木供给须独立选择，使用核对指纹的一次性副本和视距2/模拟距离5");
                 finish();
                 return;
             }
@@ -630,6 +639,7 @@ final class SmokeRun {
                     case "fulucooking" -> List.of(new FuluCookingCheck(report, levelId, this::shot));
                     case "naturalsilkchain" -> List.of(new NaturalSilkChainCheck(report, levelId));
                     case NaturalMetalChainCheck.SELECTOR -> List.of(new NaturalMetalChainCheck(report, levelId));
+                    case JadeWoodSupplyCheck.SELECTOR -> List.of(new JadeWoodSupplyCheck(report, levelId));
                     case "metalrepair" -> List.of(new MetalRepairCheck(report, levelId));
                     case "silksurvival" -> List.of(new SilkSurvivalCheck(report, levelId));
                     case "silksurvivalreentry" -> List.of(new SilkSurvivalReentryCheck(report, levelId));
