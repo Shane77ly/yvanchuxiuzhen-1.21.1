@@ -267,7 +267,7 @@ updated: 2026-11-20
 | Q165 | 红包末两档不可达；保持来源，待裁定 | roll为[1,100)，0.5档及else不命中，完整58档仍保留 | [festival Q165](../../systems/festival/architecture.md#q165-红包末两档不可达) |
 | Q166 | 财神服全套文案与胸甲独立行为；保持来源，待裁定 | 来源只检查胸甲部位，目标不补全套条件 | [festival Q166](../../systems/festival/architecture.md#q166-财神服全套说明与胸甲独立行为) |
 | Q167 | 红包多个掉落实体共享奖励栈；待核实 | 逐件发放使用同一ItemStack，实际合并/拾取影响未核，保持来源调用 | [festival Q167](../../systems/festival/architecture.md#q167-红包多掉落共享奖励栈) |
-| Q168 | 红包外部生产链静态已核实；自然购买待验 | 来源与目标均有财神20金银商店链；撤回仅见自奖结论，详细入口和指纹见所属正文 | [festival Q168](../../systems/festival/architecture.md#q168-红包外部自然生产者待核) |
+| Q168 | 红包外部生产链已静态核实；受控购买已验、自然生成待验 | 来源与目标均有财神20金银商店链；目标受控右键、中文对话、20金银购买与保存重进通过，公历三月自然出生及自然遇见仍待，详细入口和指纹见所属正文 | [festival Q168](../../systems/festival/architecture.md#q168-红包外部自然生产者待核) |
 
 这份调查提供全量架构评审依据，未完成所有内容的逐分支数值、获取链和两个版本实机对照；具体证据范围写在各正文。
 | Q169 | 连续选项命令参数错位；代码已兼容来源点击格式，待运行补核 | click多出renwuweizhi参数，名字MessageArgument吞余参；目标改为greedy参数解析末尾序号并兼容可选标记与空格显示名 | [quest Q169](../../systems/quest/architecture.md#q169-连续选项命令参数错位) |

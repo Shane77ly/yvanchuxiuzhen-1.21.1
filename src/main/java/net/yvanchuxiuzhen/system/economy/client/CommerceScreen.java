@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
+import net.yvanchuxiuzhen.system.economy.CommerceCatalog;
 import net.yvanchuxiuzhen.system.economy.EconomyLayout;
 import net.yvanchuxiuzhen.system.economy.api.BankAccounts;
 import net.yvanchuxiuzhen.system.economy.api.BankDisplay;
@@ -81,7 +82,14 @@ public final class CommerceScreen extends AbstractContainerScreen<CommerceMenu> 
     private String label(String procedure, CompoundTag session, CompoundTag block) {
         if (procedure.startsWith("Shopnametxt") || procedure.startsWith("Shopjiagetxt")) {
             int index = Integer.parseInt(procedure.substring(procedure.length() - 2)) - 1;
-            return session.getString((procedure.startsWith("Shopnametxt") ? "shopnametxt" : "shopjiagetxt") + String.format(Locale.ROOT, "%02d", index));
+            String suffix = String.format(Locale.ROOT, "%02d", index);
+            String value = session.getString((procedure.startsWith("Shopnametxt") ? "shopnametxt" : "shopjiagetxt") + suffix);
+            if (!procedure.startsWith("Shopnametxt") || menu.kind() != CommerceMenu.Kind.SHOP) return value;
+            var item = menu.getSlot(index).getItem();
+            if (item.isEmpty()) return "";
+            String[] products = CommerceCatalog.translated(session.getString("productlist")).split("%");
+            int priceIndex = session.getInt("shoppage") * 60 + index * 5 + 3;
+            return item.getHoverName().getString() + "(" + products[priceIndex] + ")";
         }
         if (procedure.startsWith("Banktxtlingshi")) {
             BankDisplay display = BankAccounts.display(player);

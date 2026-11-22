@@ -634,6 +634,7 @@ final class SmokeRun {
                     case "fuluspecial" -> List.of(new FuluSpecialCheck(report, levelId, this::shot));
                     case "fulutaming" -> List.of(new FuluTamingCheck(report, levelId, this::shot));
                     case "fulucorpse" -> List.of(new FuluCorpseCheck(report, levelId));
+                    case "caishenye" -> List.of(new CaishenyeCheck(report, levelId, this::shot));
                     default -> throw new IllegalArgumentException("没有该系统的检查：" + name);
                 });
             }
