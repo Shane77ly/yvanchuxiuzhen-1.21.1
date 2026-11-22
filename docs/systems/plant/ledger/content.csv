@@ -72,7 +72,7 @@ block,yvanchuxiuzhen:jadebambooleave,yvanchuxiuzhen,Jadebambooleave,src/main/jav
 block,yvanchuxiuzhen:jadebamboolog,yvanchuxiuzhen,Jadebamboolog,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1142,plant,已读,yvanchuxiuzhen:jadebamboolog,已注册,按来源接回空loot回退；自然采收与重进未验。
 block,yvanchuxiuzhen:jadefairy,yvanchuxiuzhen,Jadefairy,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1175,plant,已读,yvanchuxiuzhen:jadefairy,已注册,
 block,yvanchuxiuzhen:jadelogleaves,yvanchuxiuzhen,Jadelogleaves,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1139,plant,已读,yvanchuxiuzhen:jadelogleaves,已注册,按来源接回空loot回退；自然采收与重进未验。
-block,yvanchuxiuzhen:jadeloglog,yvanchuxiuzhen,Jadeloglog,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1140,plant,已读,yvanchuxiuzhen:jadeloglog,已注册,按来源接回空loot回退；自然采收与重进未验。已定位既有存档样点并编写采收、白砖配方及重进检查；未运行，生成归因未追踪。
+block,yvanchuxiuzhen:jadeloglog,yvanchuxiuzhen,Jadeloglog,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1140,plant,已读,yvanchuxiuzhen:jadeloglog,已注册,按来源接回空loot回退；自然采收与重进未验。已定位既有存档样点；检查首次采收前因放砖前置错误失败，修正后待复跑，生成归因未追踪。
 block,yvanchuxiuzhen:kuzhu,yvanchuxiuzhen,Kuzhu,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,2016,plant,已读,yvanchuxiuzhen:kuzhu,已注册,；2026-11-20来源空战利品回退已接，实际采收和重进未验
 block,yvanchuxiuzhen:lamiumamplexicaule,yvanchuxiuzhen,Lamiumamplexicaule,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1173,plant,已读,yvanchuxiuzhen:lamiumamplexicaule,已注册,
 block,yvanchuxiuzhen:laurel_02,yvanchuxiuzhen,Laurel02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModBlocks.java,1079,plant,已读,yvanchuxiuzhen:laurel_02,行为已迁移,2026-11-10扩大批次；来源规则与目标实现见plant/architecture.md及2026-11月志
@@ -660,7 +660,7 @@ item,yvanchuxiuzhen:jadebambooleave,yvanchuxiuzhen,Jadebambooleave,src/main/java
 item,yvanchuxiuzhen:jadebamboolog,yvanchuxiuzhen,Jadebamboolog,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1255,plant,已读,yvanchuxiuzhen:jadebamboolog,已注册,
 item,yvanchuxiuzhen:jadefairy,yvanchuxiuzhen,Jadefairy,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1288,plant,已读,yvanchuxiuzhen:jadefairy,已注册,
 item,yvanchuxiuzhen:jadelogleaves,yvanchuxiuzhen,Jadelogleaves,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1252,plant,已读,yvanchuxiuzhen:jadelogleaves,已注册,
-item,yvanchuxiuzhen:jadeloglog,yvanchuxiuzhen,Jadeloglog,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1253,plant,已读,yvanchuxiuzhen:jadeloglog,已注册,已定位既有存档样点并编写采收、白砖配方及重进检查；未运行，生成归因未追踪。
+item,yvanchuxiuzhen:jadeloglog,yvanchuxiuzhen,Jadeloglog,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1253,plant,已读,yvanchuxiuzhen:jadeloglog,已注册,已定位既有存档样点；检查首次采收前因放砖前置错误失败，修正后待复跑，生成归因未追踪。
 item,yvanchuxiuzhen:kuzhu,yvanchuxiuzhen,Kuzhu,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,2832,plant,已读,yvanchuxiuzhen:kuzhu,已注册,
 item,yvanchuxiuzhen:lamiumamplexicaule,yvanchuxiuzhen,Lamiumamplexicaule,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1286,plant,已读,yvanchuxiuzhen:lamiumamplexicaule,已注册,
 item,yvanchuxiuzhen:laurel_02,yvanchuxiuzhen,Laurel02,src/main/java/net/mcreator/yvanchuxiuzhen/init/YvanchuxiuzhenModItems.java,1181,plant,已读,yvanchuxiuzhen:laurel_02,已注册,
