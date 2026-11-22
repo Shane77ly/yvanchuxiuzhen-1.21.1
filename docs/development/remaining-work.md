@@ -128,6 +128,44 @@ Q28星宿穴位学习小游戏已于2026-11-16批准排除，保留来源登记�
 
 ## 当前调度
 
+### 2026-11-22 全量代码优先（方案 B）单树五批次推进规划
+
+负责人于 2026-11-22 确认采用**“方案 B（代码实现优先，验收后置）＋ 保持 1.18.2 旧版 Bug 登记规则 ＋ 单一主工作树功能分支管理”**推进全量 32 个系统单元（28 个业务系统、3 个内容族、`panel` 面板及基座）的剩余移植工作（决定记录见[项目月志](../systems/project/logs/2026-11.md#2026-11-22-全量代码优先与单工作树五批次规划定案)）：
+
+#### 1. 单 Worktree 分支管理、开发文档与代码优先门禁（板块一）
+
+- **唯一工作目录与分支流转**：固定在主目录 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1` 操作，不再新建任何额外 worktree。以 `port/batch0-integration-20261117` 为唯一集成主线；按下方 5 个代码批次依次检出功能分支 `port/code-b<1..5>-<主题>`（只读 1.18.2 源码调用链核对可并发准备），每个独立功能族完成后提交，通过最小准入门禁后切回 `port/batch0-integration-20261117` 执行 `git merge --no-ff` 合入并删除已合并临时分支；不自动推送、不擅自合并 `main`。
+- **开发文档与台账同步**：同一提交内同步更新所属系统 `docs/systems/<系统>/ledger/content.csv`（完成静态核对与代码实现的条目最高标为 `行为已迁移`，不虚标 `已验收`）、`docs/systems/<系统>/architecture.md`（规则或公开操作边界变化时）及 `docs/systems/<系统>/logs/2026-11.md`；每批次合入后更新本页与[交接](handoff.md)。
+- **代码优先最小准入门禁（每次合入主线必过，768 MB、单 worker 串行）**：
+  1. 编译检查：`./gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava`
+  2. ArchUnit 六项架构守卫：`./gradlew.bat --no-daemon --max-workers=1 test --tests net.yvanchuxiuzhen.ArchitectureTest`
+  3. 台账与文档校验：`python -B -X utf8 tools/porting/check_ledger.py` 与 `python -B -X utf8 tools/docs/check_docs.py`
+  - **统一后置项**：在 5 个代码批次期间暂不启动 `runSmokeClient` 客户端与 `runServer` 专服，实机交互、截图与存档退出重进统一后置至全量代码收口后的统一验收阶段。
+
+#### 2. 全量 32 个系统单元剩余代码缺口与 5 个单树批次编排（板块二）
+
+基于当前 4,939 行台账（`已注册` 3,146、`行为已迁移` 1,714、`待处理` 67、`已验收` 12），剥离已完成代码仅待实机验证项与已批准排除/不可达项（Q28 `gongfaxvexi` 4 行、Q20 `gui_0301` 1 行、Q135 `treasure_chest_gui` 1 行、Q151 `tiandao_np_cset_02` 1 行）后，按 5 个批次全量闭合剩余代码与台账：
+
+| 批次 | 功能分支名 | 覆盖系统与关联开放包 | 具体代码、数据转换与台账交付项 |
+| --- | --- | --- | --- |
+| **批次 1**<br>世界、植物与基础流体/地物 | `port/code-b1-world-plant-decor` | `world`、`plant`、`decor`<br>（R06 及 34 行 `待处理`） | 1. **流体与装饰待处理项（7 行）**：实现 `watercloud` 水云流体族（方块、源流体、流动流体、水云桶）、`hotoilshengcheng` 热油生成地物、`pianyifangkuai` 偏移方块实体、`painting_01` 画作变体。<br>2. **地灵界与群系（8 行）**：正式转换接入 `biomediling_01..08` 八个地灵群系、`dimensiondiling` 维度数据与地府结构加载逻辑。<br>3. **剩余植物地物（19 行）**：转换并挂载 `bladegrasstree_01..03`、`bonebone_01..06`、`kugu_01..04`、`rouchuan_01..06` 共 19 个 Feature 定义，以及剩余野生植物采收钩子。 |
+| **批次 2**<br>生物、蛊虫与灵兽收纳 | `port/code-b2-creature-guchong` | `creature`、`guchong`<br>（R07、R10 及 5 行 `待处理`） | 1. **台账与静态核对（5 行）**：核对已合入的 `guiguai_02`、`guiguai_03`（含刷怪蛋）与 `jiantou`，更新台账为 `行为已迁移`。<br>2. **妖兽与环境生物剩余钩子**：对照 52 个编号妖兽与环境生物过程，补齐尚未接线的专属 AI/技能/掉落/交互回调。<br>3. **蛊虫与灵兽收纳**：经 `guchong/api` 与 `creature/api` 闭合剩余蛊虫培养/吞噬分支及灵兽袋收放边界，守住 ArchUnit 跨包规则。 |
+| **批次 3**<br>修行战斗、装备法宝与符箓轮回 | `port/code-b3-cultivation-equipment-fulu` | `attribute`、`relation`、`xiulian`、`gongfa`、`combat`、`skill`、`yihuo`、`equipment`、`fulu`<br>（R02–R05、R08 及 5 行 `待处理`） | 1. **排除与不可达台账收口（5 行）**：对齐 `gongfaxvexi`（Q28 排除 4 行）与 `gui_0301`（Q20 不可达 1 行）的台账记录。<br>2. **装备与法宝剩余行为（R05）**：补齐 `equipment` 中仍停留在 `已注册` 的特殊法宝、飞行法器、投掷法宝及本命丹田联动过程。<br>3. **符箓与跨系统轮回（R08）**：补齐 `fulu` 剩余未迁移的 `itemfulu` 编号项行为，并通过各玩家数据所有者的 `api` 闭合 37 号符/浮生丹完整轮回清理调用链。 |
+| **批次 4**<br>生活生产、烹饪菜单与节日家具 | `port/code-b4-production-festival-decor` | `material`、`storage`、`profession`、`liandan`、`lianqi`、`craft`、`cooking`、`festival`、`decor`<br>（R09、R15 及 7 行 `待处理`） | 1. **节日烟花待处理项（5 行）**：实现 `pao_10`（方块与物品）、`pao_0901`、`projectile_pao_01`、`projectile_pao_08` 及其引信/抛射逻辑。<br>2. **烹饪与生产分支（2 行 + R09）**：核对并补齐 `shaguo_gui`、`tieguo_gui` 两个菜单接线，排查 `liandan`、`lianqi`、`craft`、`cooking` 中剩余未接线的特殊配方与装置过程。<br>3. **装饰家具行为（R15）**：排查 `decor` 983 行 `已注册` 中带有来源右键/tick 过程的方块并补齐行为钩子。 |
+| **批次 5**<br>社会玩法、副本宝箱与阵法天道 | `port/code-b5-social-dungeon-zhenfa` | `npc`、`economy`、`quest`、`town`、`dungeon`、`treasure`、`book`、`zhenfa`、`tiandao`、`panel`<br>（R11–R14 及 16 行 `待处理`） | 1. **菜单与刷怪蛋台账回填（16 行）**：核对已接入的 11 枚商人刷怪蛋、`renwufangkuai_gui`、`tiandao_gongfa_gui`、`tiandao_np_cset` 及 `treasure_chest_gui`/`tiandao_np_cset_02` 并更新台账。<br>2. **社会与探索余项（R11、R13）**：补齐 `economy`（其余收购/估价分支）、`quest`/`npc`（剩余有效对话动作）、`town`、`dungeon`/`treasure`/`book` 中尚未迁移的可达 Procedure。<br>3. **阵法与天道工具（R14）**：补齐 `zhenfa` 后期消费者调用、`tiandao` 剩余管理工具过程与 `panel` 子页面联动。 |
+
+#### 3. 1.18.2 旧版 Bug 登记流水线与后置统一验收（板块三）
+
+- **1.18.2 旧版 Bug 登记规则**：
+  - 全局唯一索引在[来源问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置)从 **Q241** 起按序递增编号；详细源码行号、实际效果与影响写入所属系统 `docs/systems/<系统>/architecture.md`。
+  - **非阻断性 Bug**（写错变量/概率截获/游离断链）100% 保持 1.18.2 实际运行行为并标为 `保持来源，待集中裁定`，在 5 个代码批次结束后汇总供负责人集中勾选取舍；**阻断性 Bug**（死循环/崩溃/1.21.1 拒绝加载）立即列出证据请示负责人，获批后实现并标为 `已批准调整，已实现`。
+- **后置统一验收三步收敛（R16）**：
+  1. **全量注册表与资源静态总检**：服务端注册表导出 + `check_ledger.py` + `zh_cn.json`/`sounds.json` 汉化覆盖核查 + `./gradlew.bat --no-daemon --max-workers=1 test`。
+  2. **按业务域聚合的客户端实机与存档重进验收**：固定静音（`soundCategory_master:0.0`）与低视距，按 5 个批次对应业务域串行运行 `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=<场景组> runSmokeClient`，核验端到端交互、GUI 截图与同档退出重进（Save/Load），通过项台账升为 `已验收`。
+  3. **发布包构建与主线收口**：运行 `./gradlew.bat --no-daemon --max-workers=1 jar` 校验成品 JAR，经负责人确认后合入 `main`。
+
+### 历史调度快照（截至 2026-11-22 收口前）
+
 2026-11-22 花椒与八角：树苗随机刻调用顺序对齐来源，功能 `383714e2` 编译通过并以 `e1a4ee92` 合入；人工预置树体的受控采叶、骨粉成长、配方和同档重进已通过，自然生成、寻访、客户端挖掘及碰撞拾取仍待，见[植物月志](../systems/plant/logs/2026-11.md#2026-11-22-调味树受控验证入口)。
 
 2026-11-22 接续与收口：2026-11-22 已完成全量分支与 worktree 清理收口，将有效增量合入主工作目录 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`（分支 `port/batch0-integration-20261117`），其余 136 个冗余 worktree 与 325 个历史分支归档至 `D:/yuanchuxiuzhen-1.21.1-port/archive/cleanup-20261122/` 后清除；原 11-18 三模块并行 worktree 已不再保留为活动工作树，详见[交接](handoff.md#当前交接2026-11-22-收口干净状态)与[项目月志](../systems/project/logs/2026-11.md#2026-11-22-接手验收合并与工作树收口)。蛊笛战斗平地夹具待串行复跑 `guchongflute`，详见[蛊虫月志](../systems/guchong/logs/2026-11.md#2026-11-22-蛊笛战斗平地夹具)。

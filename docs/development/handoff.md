@@ -13,7 +13,11 @@ updated: 2026-11-22
 
 原集成树保留的 `build/diagnostics/`、`build/registry-export/` 与 `run/smoke/options.txt`（`soundCategory_master:0.0`）已迁回本主目录。`ef79aec2` 的蛊笛战斗平地 Smoke 夹具及今日新增/合入的合成材料实例修复、功法命中天外陨石、护甲每秒重算、境界提升粒子、战斗与附魔粒子、施法友表 API、修炼资源镜像与箭头怪经验归因均已编译、通过 ArchUnit 结构守卫与文档/台账校验，真实游戏客户端及专服运行尚未执行。
 
-下一动作可由主工作树直接串行运行 `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=guchongflute runSmokeClient` 验证平地蛊笛战斗夹具，或根据负责人确定的新推进方案按单模块/单系统从干净主线依次推进与验收；默认 768 MB、单 worker、不推送、不自动合并 `main`，Q28 仍为唯一批准排除项。
+下一动作（2026-11-22 负责人已确认全量代码优先单树五批次规划，详见[当前调度](remaining-work.md#2026-11-22-全量代码优先方案-b单树五批次推进规划)与[项目月志](../systems/project/logs/2026-11.md#2026-11-22-全量代码优先与单工作树五批次规划定案)）：
+
+1. **执行模式**：固定在唯一主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1` 内推进，不再创建额外 worktree；采用**方案 B（代码实现优先，耗时客户端实机验收统一后置到 R16）**。
+2. **立即开始的下一动作（代码批次 1）**：从集成分支 `port/batch0-integration-20261117` 检出功能分支 `port/code-b1-world-plant-decor`，按顺序完成 `world`（地灵 8 群系 `biomediling_01..08` 与 `dimensiondiling`）、`plant`（19 个待处理地物 Feature `bladegrasstree`/`bonebone`/`kugu`/`rouchuan` 及剩余采收钩子）、`decor`（7 个待处理项：`watercloud` 水云流体族四项、`hotoilshengcheng` 热油生成、`pianyifangkuai` 偏移方块实体、`painting_01` 画作变体）的代码、数据转换与台账/文档同步。
+3. **合入门禁与后续批次**：每完成一个功能族或批次，在 768 MB、单 worker 下串行运行 `compileJava compileTestJava`、`test --tests net.yvanchuxiuzhen.ArchitectureTest`、`check_ledger.py` 与 `check_docs.py`，通过后切回 `port/batch0-integration-20261117` 执行 `git merge --no-ff` 合入并清理临时分支，随后依次推进**批次 2（`port/code-b2-creature-guchong`）**至**批次 5（`port/code-b5-social-dungeon-zhenfa`）**。1.18.2 旧版非阻断性 Bug 保真迁移并从 **Q241** 起登记至[来源问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置)及所属系统正文；不推送、不自动合并 `main`，Q28 仍为唯一批准排除项。
 
 ## 历史接手记录（2026-11-22）
 

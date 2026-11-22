@@ -2,10 +2,12 @@
 topic: project
 role: entry
 status: current
-updated: 2026-11-20
+updated: 2026-11-22
 ---
 
 # 项目状态与决定
+
+2026-11-22 负责人批准全量代码优先（方案 B）与单工作树五批次推进规划：不再新建额外 worktree，固定在唯一主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1` 内从 `port/batch0-integration-20261117` 按 5 个代码批次检出功能分支（`port/code-b1-world-plant-decor` 至 `port/code-b5-social-dungeon-zhenfa`），优先全量补齐 32 个系统单元剩余未迁移代码与数据转换，每次合入执行静态门禁（`compileJava compileTestJava`、ArchUnit `ArchitectureTest`、`check_ledger.py`、`check_docs.py`）并以 `git merge --no-ff` 收口；耗时的客户端 Smoke 与专服存档重进实机验收统一后置至全量代码完成后的三步收敛阶段。1.18.2 旧版 Bug 继续保持现有规则，从 Q241 起登记至[来源问题索引](../../reference/legacy/source-survey.md#具体问题与裁定位置)与所属系统正文。详见[当前调度](../../development/remaining-work.md#2026-11-22-全量代码优先方案-b单树五批次推进规划)与[项目月志](logs/2026-11.md#2026-11-22-全量代码优先与单工作树五批次规划定案)。
 
 2026-11-21 负责人要求设立持续全量移植 Goal，按完整模块委派，不以单个问题作为停点。实际派工和接手基线见[当前调度](../../development/remaining-work.md#当前调度)。
 
