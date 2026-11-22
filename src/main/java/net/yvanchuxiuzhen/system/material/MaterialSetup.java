@@ -9,6 +9,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.system.material.content.JadeRoughItem;
 import net.yvanchuxiuzhen.system.material.content.MaterialAnalysisMenu;
 import net.yvanchuxiuzhen.system.material.content.MaterialMenus;
 import net.yvanchuxiuzhen.system.material.content.MoltenMetalItem;
@@ -27,6 +28,11 @@ public final class MaterialSetup {
             .itemFactory("material:peach_food", PeachFoodItem::new);
 
     static {
+        for (int number = 161; number <= 169; number++) {
+            int jade = number;
+            CONTENT.itemFactory("material:jade_" + number,
+                    (properties, tooltip) -> new JadeRoughItem(properties, tooltip, jade));
+        }
         for (int first : new int[]{201, 211}) {
             for (int index = 0; index < 9; index++) {
                 int number = first + index;

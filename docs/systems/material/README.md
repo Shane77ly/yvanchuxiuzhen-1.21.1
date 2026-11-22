@@ -7,7 +7,7 @@ updated: 2026-11-15
 
 # 材料
 
-九种玉矿已接回[采收规则](architecture.md#玉矿采收)。璞玉使用与奇遇仍待实现。
+九种玉矿已接回[采收规则](architecture.md#玉矿采收)；九种璞玉单件与潜行批量雕琢及奇遇已接入生产路径，生产构建与游戏验收待集成执行，见[雕琢与奇遇](architecture.md#璞玉雕琢与奇遇2026-11-22)。
 
 十二种金属矿的采掘、粗矿炉方和十八种金属液的右键凝锭已静态接线；精铁已通过原生矿位至工作台制箭和客户端背包验证，其余种类未据此验收。见[材料正文](architecture.md#天然金属与凝锭)。
 
@@ -28,6 +28,8 @@ updated: 2026-11-15
 林桃食用产核已接回；人间道自然实得林桃的末枚返核和后续种植、读盘见[植物月志](../plant/logs/2026-11.md#2026-11-18-人间道自然林桃至播种与重进)。余栈返包、满包落地未实机验收。
 
 ## 公开操作
+
+- `JadeCarvingEvent`：璞玉物品在服务端使用时携带玩家、输入栈与玉种，同步交由跨系统流程处理；物品自身返回来源的 PASS。
 
 2026-11-09静态核对确认 `Qancailuitxtjiesuoneed`、`Qancailuitxtjiesuoneed2`、`Qancailuitxtjiesuoneed3` 只读取千材录成本显示缓存，三项从 liandan 移归 material；`Duedanhecheng` 按毒厄丹用途移归 liandan。现有 `MaterialAnalysisScreen` 已显示对应三行成本，本批未重新验收显示缓存生命周期或运行画面，来源定位见[正文](architecture.md#千材录成本显示过程归属2026-11-09)。
 
