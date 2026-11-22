@@ -16,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +27,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongCapture;
@@ -39,6 +44,7 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
 /** 03/04单虫入口与九槽罐自然生命周期；目标固定位置，放虫和回罐由真实服务端刻推进。 */
 final class GuchongLifecycleCheck extends SystemCheck {
     private static final String JAR_UUID = "r10_lifecycle";
+    private final List<String> diagnostics;
     private final Map<BlockPos, BlockState> originalBlocks = new LinkedHashMap<>();
     private final List<GuchongEntity> specimens = new ArrayList<>();
     private int executed = -1;
@@ -60,9 +66,11 @@ final class GuchongLifecycleCheck extends SystemCheck {
     private boolean experiencePlayerMatches;
     private int originalExperience;
     private boolean originalMobLoot;
+    private boolean deathReady;
 
     GuchongLifecycleCheck(List<String> report, String levelId) {
         super("蛊虫生命周期", report, levelId);
+        diagnostics = report;
     }
 
     @Override
@@ -354,6 +362,16 @@ final class GuchongLifecycleCheck extends SystemCheck {
                 BuiltInRegistries.ENTITY_TYPE.getKey(active.getType()).getPath().equals("guchong_04")
                         && !active.isBaby() && !active.wasExperienceConsumed()
                         && player.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT));
+        String playerTeam = Relations.team(player);
+        String insectTeam = Relations.team(active);
+        boolean friendly = Relations.isFriendly(player, active);
+        diagnostics.add("INFO 蛊虫生命周期 重进关系：玩家团队=" + playerTeam + " 虫团队=" + insectTeam + " 玩家视虫为友方=" + friendly);
+        boolean friendlyFixture = !playerTeam.isEmpty() && playerTeam.equals(insectTeam) && friendly;
+        expectTrue("重进后虫与主人同队且为友方", friendlyFixture);
+        if (!friendlyFixture) {
+            player.level().getGameRules().getRule(GameRules.RULE_DOMOBLOOT).set(originalMobLoot, player.server);
+            return;
+        }
         experienceEvents = 0;
         experienceObserver = event -> {
             if (event.getEntity() != active) return;
@@ -361,14 +379,66 @@ final class GuchongLifecycleCheck extends SystemCheck {
             experiencePlayerMatches = event.getAttackingPlayer() == player;
             originalExperience = event.getOriginalExperience();
         };
+        List<String> damageEvents = new ArrayList<>();
+        Consumer<LivingIncomingDamageEvent> incoming = event -> {
+            if (event.getEntity() == active) damageEvents.add("incoming canceled=" + event.isCanceled()
+                    + " original=" + event.getOriginalAmount() + " amount=" + event.getAmount());
+        };
+        Consumer<LivingDamageEvent.Pre> damage = event -> {
+            if (event.getEntity() == active) damageEvents.add("damagePre amount=" + event.getNewDamage());
+        };
+        Consumer<LivingDeathEvent> death = event -> {
+            if (event.getEntity() == active) damageEvents.add("death canceled=" + event.isCanceled());
+        };
         NeoForge.EVENT_BUS.addListener(experienceObserver);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, true, incoming);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, damage);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, true, death);
         try {
-            boolean hurt = active.hurt(player.damageSources().playerAttack(player), 10000);
-            expectTrue("玩家致命伤触发一次原生经验事件且归因正确",
-                    hurt && active.isDeadOrDying() && experienceEvents == 1 && experiencePlayerMatches && originalExperience == 0);
+            DamageSource source = player.damageSources().playerAttack(player);
+            float healthBefore = active.getHealth();
+            boolean immuneBefore = active.isInvulnerableTo(source);
+            int cooldownBefore = active.invulnerableTime;
+            boolean friendlyHurt = active.hurt(source, 10000);
+            diagnostics.add("INFO 蛊虫生命周期 友方伤害：原生免疫=" + immuneBefore + " 无敌刻=" + cooldownBefore
+                    + " hurt=" + friendlyHurt + " 生命=" + healthBefore + "->" + active.getHealth()
+                    + " 死亡=" + active.isDeadOrDying() + " 移除=" + active.isRemoved() + " 事件=" + damageEvents);
+            boolean friendlyBlocked = !friendlyHurt && active.getHealth() == healthBefore && !active.isDeadOrDying()
+                    && damageEvents.stream().anyMatch(value -> value.startsWith("incoming canceled=true"));
+            expectTrue("原关系下玩家攻击被伤害事件取消", friendlyBlocked);
+            if (!friendlyBlocked) {
+                stopExperienceObservation(player);
+                return;
+            }
+            damageEvents.clear();
+            // 受控改变虫的团队，保留主人与罐关联，使玩家伤害能进入正常结算。
+            Relations.setTeam(active, "");
+            healthBefore = active.getHealth();
+            immuneBefore = active.isInvulnerableTo(source);
+            cooldownBefore = active.invulnerableTime;
+            boolean hurt = active.hurt(source, 10000);
+            diagnostics.add("INFO 蛊虫生命周期 受控非友方伤害：玩家视虫为友方=" + Relations.isFriendly(player, active)
+                    + " 虫团队=" + Relations.team(active) + " 原生免疫=" + immuneBefore + " 无敌刻=" + cooldownBefore
+                    + " hurt=" + hurt + " 生命=" + healthBefore + "->" + active.getHealth()
+                    + " 死亡=" + active.isDeadOrDying() + " 移除=" + active.isRemoved() + " 事件=" + damageEvents
+                    + " 经验事件=" + experienceEvents);
+            expect("非友方玩家伤害hurt返回", true, hurt);
+            expect("伤害后死亡状态", true, active.isDeadOrDying());
+            deathReady = hurt && active.isDeadOrDying();
+            if (!deathReady) {
+                Relations.setTeam(active, insectTeam);
+                stopExperienceObservation(player);
+                return;
+            }
+            expect("致死时经验事件次数", 1, experienceEvents);
+            expectTrue("致死经验事件归因玩家且基础经验为零", experiencePlayerMatches && originalExperience == 0);
         } catch (RuntimeException | Error exception) {
             stopExperienceObservation(player);
             throw exception;
+        } finally {
+            NeoForge.EVENT_BUS.unregister(incoming);
+            NeoForge.EVENT_BUS.unregister(damage);
+            NeoForge.EVENT_BUS.unregister(death);
         }
         CompoundTag result = GuchongJarData.read(player.getInventory().getItem(9));
         expectTrue("非手持背包罐按UUID清死亡槽且不修改另一只罐", result.getString("guchongid8").isEmpty()
@@ -379,6 +449,10 @@ final class GuchongLifecycleCheck extends SystemCheck {
     }
 
     private boolean deathExperience(int local) {
+        if (!deathReady) {
+            diagnostics.add("INFO 蛊虫生命周期 未达到致死前置，跳过死亡刻与经验总次数检查");
+            return true;
+        }
         boolean[] finished = {false};
         onServer(player -> {
             if (!active.isRemoved() && local <= 200) return;
