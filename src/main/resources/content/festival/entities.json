@@ -1,5 +1,23 @@
 [
   {
+    "id": "projectile_pao_01",
+    "category": "MISC",
+    "width": 0.5,
+    "height": 0.5,
+    "tracking_range": 64,
+    "update_interval": 1,
+    "fire_immune": false
+  },
+  {
+    "id": "projectile_pao_08",
+    "category": "MISC",
+    "width": 0.5,
+    "height": 0.5,
+    "tracking_range": 64,
+    "update_interval": 1,
+    "fire_immune": false
+  },
+  {
     "id": "projectile_pao_13",
     "category": "MISC",
     "width": 0.5,

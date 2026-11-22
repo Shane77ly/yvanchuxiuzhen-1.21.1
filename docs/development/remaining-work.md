@@ -160,9 +160,9 @@ Q28星宿穴位学习小游戏已于2026-11-16批准排除，保留来源登记�
   - 全局唯一索引在[来源问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置)从 **Q241** 起按序递增编号；详细源码行号、实际效果与影响写入所属系统 `docs/systems/<系统>/architecture.md`。
   - **非阻断性 Bug**（写错变量/概率截获/游离断链）100% 保持 1.18.2 实际运行行为并标为 `保持来源，待集中裁定`，在 5 个代码批次结束后汇总供负责人集中勾选取舍；**阻断性 Bug**（死循环/崩溃/1.21.1 拒绝加载）立即列出证据请示负责人，获批后实现并标为 `已批准调整，已实现`。
 - **后置统一验收三步收敛（R16）**：
-  1. **全量注册表与资源静态总检**：服务端注册表导出 + `check_ledger.py` + `zh_cn.json`/`sounds.json` 汉化覆盖核查 + `./gradlew.bat --no-daemon --max-workers=1 test`。
-  2. **按业务域聚合的客户端实机与存档重进验收**：固定静音（`soundCategory_master:0.0`）与低视距，按 5 个批次对应业务域串行运行 `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=<场景组> runSmokeClient`，核验端到端交互、GUI 截图与同档退出重进（Save/Load），通过项台账升为 `已验收`。
-  3. **发布包构建与主线收口**：运行 `./gradlew.bat --no-daemon --max-workers=1 jar` 校验成品 JAR，经负责人确认后合入 `main`。
+  1. **全量注册表与资源静态总检（2026-11-22 已完成）**：`runServer` 全 11 维度加载保存与注册表导出（1179 方块、2307 物品、150 音效、77 效果、315 粒子、272 实体、87 菜单、85 附魔、68 群系，零导出缺失）、`sounds.json`（150 项/0 缺 ogg）、`zh_cn.json`（4504 键）、`check_docs.py`（130 篇/0 问题）及 `./gradlew.bat --no-daemon --max-workers=1 test`（含 `ArchitectureTest`）通过；`check_ledger.py` 余 15 项手工资源/模板刷怪蛋未走 `convert_assets.py` 清单的静态提示，无阻塞缺失。
+  2. **按业务域聚合的客户端实机与存档重进验收**：固定静音（`soundCategory_master:0.0`）与低视距，按 5 个批次对应业务域串行运行 `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=<场景组> runSmokeClient`，核验端到端交互、GUI 截图与同档退出重进（Save/Load），通过项台账升为 `已验收`。（当前尚未执行统一客户端 Smoke 验收）
+  3. **发布包构建与主线收口（2026-11-22 已构建校验）**：已运行 `./gradlew.bat --no-daemon --max-workers=1 jar` 校验成品 JAR 构建通过，待负责人确认后合入 `main`。 `main`。
 
 ### 历史调度快照（截至 2026-11-22 收口前）
 
