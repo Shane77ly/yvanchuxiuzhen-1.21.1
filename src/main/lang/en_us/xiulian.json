@@ -332,5 +332,10 @@
   "gui02jiadian0301": " points",
   "gui.yvanchuxiuzhen.player_gui_02.label_shi_pin_zhuang_bei": "饰品装备",
   "gui02jiadian0101": "  points per attribute point",
-  "gui.yvanchuxiuzhen.player_join_gui.title": "Roots and Origin"
+  "gui.yvanchuxiuzhen.player_join_gui.title": "Roots and Origin",
+  "gui.yvanchuxiuzhen.level_up.title": "Realm Advancement",
+  "message.yvanchuxiuzhen.cultivation.lifetime_exhausted": "Your lifespan has run out!",
+  "message.yvanchuxiuzhen.cultivation.daily_limit": "Your cultivation cannot advance! You have reached the daily limit!",
+  "message.yvanchuxiuzhen.cultivation.daily_progress": "Daily cultivation gained: %s/%s",
+  "message.yvanchuxiuzhen.cultivation.tribulation_begin": "The tribulation begins!"
 }

@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ShovelItem;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -47,6 +48,7 @@ import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fabao014;
 import net.yvanchuxiuzhen.system.equipment.projectile.FabaoProjectile;
 import net.yvanchuxiuzhen.system.equipment.projectile.FabaoPoisonFields;
+import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
 
 /**
  * 装备系统的启动装配，只在 Mod 构造时调用一次。
@@ -60,6 +62,7 @@ public final class EquipmentSetup {
 
     public static void register(IEventBus modBus) {
         EquipmentData.register(modBus);
+        NeoForge.EVENT_BUS.addListener(EventPriority.HIGH, false, CultivationSecondEvent.class, EquipmentRecalculation::onSecond);
         EquipmentMenus.register(modBus);
         EquipmentBlockEntities.register(modBus);
         modBus.addListener(EquipmentSetup::registerPayloads);

@@ -6,6 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -41,6 +42,7 @@ public final class Rebirth {
                     * (experiencePercentage + 1));
         }
 
+        Relations.refreshEntityTeam(player);
         double lifetimeBefore = Cultivation.get(player, CultivationValue.LIFETIME);
         double lifetimeChange = -30;
         if (Cultivation.tizhiDouble(player, "RebirthCorrectLifetime") != 0) {

@@ -59,6 +59,24 @@ public final class Allegiance {
         friendlyTeams.putString(key, value);
     }
 
+    public double friendDouble(String key) {
+        return friendlyTeams.getDouble(key);
+    }
+
+    public void setFriendDouble(String key, double value) {
+        friendDataPresent = true;
+        friendlyTeams.putDouble(key, value);
+    }
+
+    public boolean friendBoolean(String key) {
+        return friendlyTeams.getBoolean(key);
+    }
+
+    public void setFriendBoolean(String key, boolean value) {
+        friendDataPresent = true;
+        friendlyTeams.putBoolean(key, value);
+    }
+
     public String team() {
         return team;
     }

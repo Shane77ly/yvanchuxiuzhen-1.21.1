@@ -7,6 +7,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
+import net.yvanchuxiuzhen.system.combat.api.HitEvent;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.gongfa.content.ComprehensionTableBlock;
@@ -40,6 +41,7 @@ public final class GongfaSetup {
         NeoForge.EVENT_BUS.addListener(EventPriority.HIGHEST, false, CultivationSecondEvent.class, event -> onSecond(event.player()));
         NeoForge.EVENT_BUS.addListener((CultivationExperienceEvent event) -> TechniqueRules.onCultivationExperience(event.player(), event.experience()));
         NeoForge.EVENT_BUS.addListener((CultivationAfterRecoveryEvent event) -> TechniqueRules.refreshEquipped(event.player()));
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOW, false, HitEvent.class, TechniqueHit::onHit);
         NeoForge.EVENT_BUS.addListener(GongfaSetup::retreatTechnique);
     }
 

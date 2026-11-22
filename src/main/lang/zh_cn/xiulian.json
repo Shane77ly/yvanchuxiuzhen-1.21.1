@@ -332,5 +332,10 @@
   "gui02jiadian0301": "点精力上限，当前基值：",
   "gui.yvanchuxiuzhen.player_gui_02.label_shi_pin_zhuang_bei": "饰品装备",
   "gui02jiadian0101": "点气血上限，当前基值：",
-  "gui.yvanchuxiuzhen.player_join_gui.title": "灵根与出身"
+  "gui.yvanchuxiuzhen.player_join_gui.title": "灵根与出身",
+  "gui.yvanchuxiuzhen.level_up.title": "境界提升",
+  "message.yvanchuxiuzhen.cultivation.lifetime_exhausted": "你的阳寿已尽！",
+  "message.yvanchuxiuzhen.cultivation.daily_limit": "修为无法寸进！已达到每日获得修为的上限！",
+  "message.yvanchuxiuzhen.cultivation.daily_progress": "每日修为获取：%s/%s",
+  "message.yvanchuxiuzhen.cultivation.tribulation_begin": "雷劫开始！"
 }

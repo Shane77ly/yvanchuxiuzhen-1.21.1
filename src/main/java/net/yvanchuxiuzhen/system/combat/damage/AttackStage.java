@@ -25,6 +25,7 @@ import net.yvanchuxiuzhen.system.combat.api.FightingState;
 import net.yvanchuxiuzhen.system.combat.api.HitEvent;
 import net.yvanchuxiuzhen.system.combat.api.HeavyHitEvent;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -86,6 +87,7 @@ final class AttackStage {
     }
 
     private static void enchantments(LivingEntity victim, LivingEntity attacker, double amount) {
+        double particleY = victim.getY() + victim.getBbHeight() / 2;
         int haoyu = Enchants.mainHand(attacker, Enchants.key("haoyu"));
         if (haoyu != 0) {
             double factor = 1 - haoyu * 0.01;
@@ -109,16 +111,19 @@ final class AttackStage {
         int sawtooth = Enchants.mainHand(attacker, Enchants.key("sawtooth"));
         if (!victim.getType().is(EntityTypeTags.UNDEAD) && sawtooth != 0 && Math.random() < sawtooth * 0.1) {
             victim.addEffect(new MobEffectInstance(StatusEffects.holder("effect_004"), extended(victim, StatusEffects.holder("effect_004")), sawtooth - 1));
+            enchantmentParticles(victim, particleY);
         }
         int fluorescence = Enchants.mainHand(attacker, Enchants.key("fluorescence"));
         if (fluorescence != 0 && Math.random() < fluorescence * 0.1) {
             victim.addEffect(new MobEffectInstance(MobEffects.GLOWING, extended(victim, MobEffects.GLOWING), 0));
+            enchantmentParticles(victim, particleY);
         }
         for (String[] poison : POISONS) {
             int poisonLevel = Enchants.mainHand(attacker, Enchants.key(poison[0]));
             if (poisonLevel != 0 && Math.random() < poisonLevel * 0.01) {
                 victim.addEffect(new MobEffectInstance(StatusEffects.holder(poison[1]), extended(victim, StatusEffects.holder(poison[1])), poisonLevel - 1));
-                }
+                enchantmentParticles(victim, particleY);
+            }
         }
         int vampire = Enchants.mainHand(attacker, Enchants.key("vampire"));
         if (vampire != 0) {
@@ -126,6 +131,13 @@ final class AttackStage {
         }
         if (victim.level() instanceof ServerLevel level) {
             HitEnchantments.run(level, victim, attacker);
+        }
+    }
+
+    /** 锯齿、荧光与八种毒药附魔触发后，在附魔结算前记下的半身高广播同一组中毒粒子。 */
+    private static void enchantmentParticles(LivingEntity victim, double y) {
+        if (victim.level() instanceof ServerLevel level) {
+            level.sendParticles(Particles.type("zhongdulizi"), victim.getX(), y, victim.getZ(), 10, 0.5, 0.5, 0.5, 1);
         }
     }
 

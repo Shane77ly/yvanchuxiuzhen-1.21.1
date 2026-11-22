@@ -65,27 +65,27 @@ public final class SkillCasting {
         if (weaponTooHeavy(player, selectedStack) || !weaponFits(held, selected.get()) || !selected.get().ownedBy(player.getUUID())) return;
         SkillBook book = selected.get();
         if (StatusEffects.has(player, "effect_002")) {
-            bar(player, "§4沉默");
+            bar(player, "message.yvanchuxiuzhen.skill.casting.silenced");
             return;
         }
         double cost = cost(player, held, book);
-        if (Cultivation.get(player, CultivationValue.POWER) < cost) {
-            bar(player, "§4灵力不足");
+        if (!(Cultivation.get(player, CultivationValue.POWER) >= cost)) {
+            bar(player, "message.yvanchuxiuzhen.skill.casting.insufficient_power");
             return;
         }
         if (!anyGroupOpen(player, book)) {
-            bar(player, "§4冷却中...");
+            bar(player, "message.yvanchuxiuzhen.skill.casting.cooldown");
             return;
         }
         if (StatusEffects.has(player, "skilleffect_09")) {
-            bar(player, "§4施法中...");
+            bar(player, "message.yvanchuxiuzhen.skill.casting.sealed");
             return;
         }
         if (book.seal() > 0) {
             StatusEffects.addHidden(player, "skilleffect_09", (int) book.seal(), 0);
         }
         SkillReleases.dispatch(player, book);
-        accumulateCooldowns(player, book);
+        Skills.book(Skills.selected(player)).ifPresent(current -> accumulateCooldowns(player, current));
         Cultivation.add(player, CultivationValue.POWER, -cost);
         if (Skills.state(player).combo()) {
             nextReady(player);
@@ -94,8 +94,8 @@ public final class SkillCasting {
         player.swing(InteractionHand.MAIN_HAND, true);
     }
 
-    private static void bar(ServerPlayer player, String text) {
-        player.displayClientMessage(Component.literal(text), true);
+    private static void bar(ServerPlayer player, String key) {
+        player.displayClientMessage(Component.translatable(key).withStyle(ChatFormatting.DARK_RED), true);
     }
 
     /** 武器是否符合技能的类别要求：空或“无”接受任意武器，其余要求武器带对应类别标签；未识别的类别要求不接受任何武器。 */

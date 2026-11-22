@@ -18,7 +18,7 @@ import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 import net.yvanchuxiuzhen.system.equipment.api.FabaoFireData;
 import net.yvanchuxiuzhen.system.equipment.api.BenmingData;
 
-/** 装备实例组件随物品保存、同步；四饰品附件随玩家保存、死亡复制并只同步本人。 */
+/** 装备实例组件随物品保存、同步；饰品附件只同步本人，护甲比较槽只在服务端保存并随克隆复制。 */
 public final class EquipmentData {
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ModId.VALUE);
     public static final Supplier<AttachmentType<AccessoryData>> ACCESSORIES = ATTACHMENTS.register("accessories", () -> AttachmentType
@@ -27,6 +27,9 @@ public final class EquipmentData {
     public static final Supplier<AttachmentType<FabaoTempData>> FABAO_TEMP = ATTACHMENTS.register("fabao_temp", () -> AttachmentType
             .builder(() -> FabaoTempData.EMPTY).serialize(FabaoTempData.CODEC).copyOnDeath()
             .sync((holder, player) -> holder == player, ByteBufCodecs.fromCodecWithRegistries(FabaoTempData.CODEC)).build());
+    public static final Supplier<AttachmentType<ArmorComparison>> ARMOR_COMPARISON = ATTACHMENTS.register("armor_comparison", () -> AttachmentType
+            .builder(ArmorComparison::new).serialize(ArmorComparison.CODEC).copyOnDeath()
+            .copyHandler((comparison, holder, provider) -> comparison.copySlots()).build());
     private static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ModId.VALUE);
     public static final Supplier<DataComponentType<EquipmentProperties>> PROPERTIES = COMPONENTS.registerComponentType("equipment_properties",
             builder -> builder.persistent(EquipmentProperties.CODEC).networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(EquipmentProperties.CODEC)));

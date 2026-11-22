@@ -56,7 +56,7 @@ public final class XiulianSetup {
         XiulianMenus.register(modBus);
         XiulianRules.register();
         modBus.addListener(XiulianSetup::registerPayloads);
-        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent event) -> BirthSelection.onLogin((ServerPlayer) event.getEntity()));
+        NeoForge.EVENT_BUS.addListener(XiulianSetup::onPlayerLogin);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onLogin);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(Delayed::onServerTick);
@@ -66,6 +66,13 @@ public final class XiulianSetup {
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {
         event.registrar("1").playToServer(XiulianButtonPayload.TYPE, XiulianButtonPayload.STREAM_CODEC, XiulianButtonPayload::handle);
+    }
+
+    /** 存档附件装载后先恢复来源实体境界镜像，再执行出身登录门槛。 */
+    private static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        ServerPlayer player = (ServerPlayer) event.getEntity();
+        Cultivation.syncLegacyLevelMirror(player);
+        BirthSelection.onLogin(player);
     }
 
     private static void onFriendRealmName(FriendRealmNameEvent event) {

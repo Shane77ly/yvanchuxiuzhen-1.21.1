@@ -57,5 +57,6 @@
   "effect.yvanchuxiuzhen.effect_023": "yang fire",
   "effect.yvanchuxiuzhen.effect_023.description": "",
   "effect.yvanchuxiuzhen.effect_024": "yin fire",
-  "effect.yvanchuxiuzhen.effect_024.description": ""
+  "effect.yvanchuxiuzhen.effect_024.description": "",
+  "message.yvanchuxiuzhen.yihuo.insufficient_power": "Requires %s Spiritual Power!"
 }

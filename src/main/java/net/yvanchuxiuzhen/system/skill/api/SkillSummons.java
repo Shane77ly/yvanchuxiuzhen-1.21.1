@@ -88,12 +88,12 @@ public final class SkillSummons {
         ServerLevel level = (ServerLevel) owner.level();
         SkillEntity spike = SkillSetup.<SkillEntity>entityType("skill_ice_05").get().create(level);
         spike.configure(owner, 5, 1.2, "冰", "裂冰斩");
-        Relations.shareEntityAllegiance(owner, spike);
         spike.moveTo(position.x, position.y, position.z, level.getRandom().nextFloat() * 360F, 0);
         SkillEntities.turn(spike, Mth.nextInt(level.getRandom(), 1, 360), 0);
         CompoundTag data = spike.getPersistentData();
         data.putDouble("jiaodu", owner.getYRot());
         data.put("friendlist", parameters);
+        Relations.shareBlockAllegiance(data, spike, Relations.team(owner));
         SkillEntities.spawn(level, spike, true);
     }
 }

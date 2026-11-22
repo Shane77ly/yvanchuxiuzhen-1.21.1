@@ -109,7 +109,7 @@ public final class JiantouEntity extends PathfinderMob implements GeoEntity, Ani
     protected void tickDeath() {
         if (++deathTime == model.lifecycle().deathTicks()) {
             remove(RemovalReason.KILLED);
-            dropExperience(this);
+            dropExperience(lastHurtByPlayer);
         }
     }
 

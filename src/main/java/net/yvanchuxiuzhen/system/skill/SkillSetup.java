@@ -22,6 +22,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.ItemSwingEvent;
 import net.yvanchuxiuzhen.system.combat.api.HitEvent;
+import net.yvanchuxiuzhen.system.combat.api.TechniqueMeteorEvent;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStudiedEvent;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
@@ -78,6 +79,7 @@ public final class SkillSetup {
         NeoForge.EVENT_BUS.addListener((ItemSwingEvent event) -> WeaponArts.onSwing(event));
         NeoForge.EVENT_BUS.addListener((HitEvent event) -> LingwenHit.onHit(event));
         NeoForge.EVENT_BUS.addListener((HitEvent event) -> Corpses.onHit(event));
+        NeoForge.EVENT_BUS.addListener((TechniqueMeteorEvent event) -> TechniqueMeteor.spawn(event));
         NeoForge.EVENT_BUS.addListener((TechniqueStudiedEvent event) -> grantBonus(event.player(), event.technique()));
         NeoForge.EVENT_BUS.addListener((CultivationSecondEvent event) -> Yuanying.tick(event.player()));
     }

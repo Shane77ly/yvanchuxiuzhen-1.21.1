@@ -126,6 +126,7 @@ public final class LevelUp {
         // 即使已出关也累计下次力量上涌的门槛；正常修炼的冷却门槛仍为100。
         Cultivation.setTizhiDouble(player, "XiulianColdShangxianCorrect",
                 Cultivation.tizhiDouble(player, "XiulianColdShangxianCorrect") + (realm ? 50 : 5));
+        LevelUpEffects.emit(player, !advance.isEmpty());
         Cultivation.setTizhiString(player, "uplevelxianshi1", advance.isEmpty() ? "境界提升" : advance);
         Cultivation.setTizhiString(player, "uplevelxianshi2", WHOLE.format(level - 1) + "→" + WHOLE.format(level));
         Cultivation.setTizhiString(player, "uplevelxianshi3", "属性点获得：" + WHOLE.format(Cultivation.get(player, CultivationValue.SKILL_POINTS) - skillBefore));
@@ -184,6 +185,6 @@ public final class LevelUp {
     }
 
     private static void openScreen(ServerPlayer player) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new LevelUpMenu(id, inventory), Component.literal("Playershengjixianshi")));
+        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new LevelUpMenu(id, inventory), Component.translatable("gui.yvanchuxiuzhen.level_up.title")));
     }
 }

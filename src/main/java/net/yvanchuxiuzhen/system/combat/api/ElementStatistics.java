@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.combat.api;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
 import net.minecraft.server.level.ServerPlayer;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 
@@ -13,16 +14,9 @@ public final class ElementStatistics {
     public static boolean command(ServerPlayer player, String action, String subject, String operation, String value, String feedback) {
         if (!action.equals("experienceup")) return false;
         String title = switch (subject) {
-            case "killentitygold" -> "金属性技能杀死的实体数量";
-            case "killentitypointsgold" -> "金属性技能熟练度";
-            case "killentitywater" -> "水属性技能杀死的实体数量";
-            case "killentitypointswater" -> "水属性技能熟练度";
-            case "killentitytree" -> "木属性技能杀死的实体数量";
-            case "killentitypointstree" -> "木属性技能熟练度";
-            case "killentityfire" -> "火属性技能杀死的实体数量";
-            case "killentitypointsfire" -> "火属性技能熟练度";
-            case "killentitysoil" -> "土属性技能杀死的实体数量";
-            case "killentitypointssoil" -> "土属性技能熟练度";
+            case "killentitygold", "killentitypointsgold", "killentitywater", "killentitypointswater",
+                    "killentitytree", "killentitypointstree", "killentityfire", "killentitypointsfire",
+                    "killentitysoil", "killentitypointssoil" -> "message.yvanchuxiuzhen.combat.element_statistics." + subject;
             default -> null;
         };
         if (title == null) return false;
@@ -30,7 +24,9 @@ public final class ElementStatistics {
         double amount = number(value);
         Cultivation.setTizhiDouble(player, subject, set ? amount : Cultivation.tizhiDouble(player, subject) + amount);
         if (feedback.equals("true")) {
-            player.displayClientMessage(Component.literal("§6" + title + (set ? "设置为" : "增减量为") + value), false);
+            player.displayClientMessage(Component.translatable(
+                    "message.yvanchuxiuzhen.combat.element_statistics." + (set ? "set" : "adjust"),
+                    Component.translatable(title), value).withStyle(ChatFormatting.GOLD), false);
         }
         return true;
     }

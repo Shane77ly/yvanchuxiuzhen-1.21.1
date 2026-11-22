@@ -24,6 +24,7 @@ import net.yvanchuxiuzhen.system.combat.api.DamageImmunityEvent;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.LethalDamageEvent;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -48,7 +49,7 @@ public final class Shanghai {
     }
 
     public static void deal(ServerLevel level, LivingEntity target, Request request) {
-        if (!target.isAlive() || !(target instanceof Mob || target instanceof Player) || request.base() <= 0) {
+        if (!target.isAlive() || !(target instanceof Mob || target instanceof Player) || !(request.base() > 0)) {
             return;
         }
         Entity attacker = null;
@@ -219,6 +220,7 @@ public final class Shanghai {
         if (basalt != 0 && Mth.nextInt(target.getRandom(), 1, 100) <= basalt) {
             level.playSound(null, target.getX(), target.getY() + 1, target.getZ(),
                     BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "basalt")), SoundSource.NEUTRAL, 1, 1);
+            level.sendParticles(Particles.type("basaltlizi"), target.getX(), target.getY() + 1, target.getZ(), 10, 1, 1, 1, 0);
             defence += basalt * 2;
         }
         return defence;

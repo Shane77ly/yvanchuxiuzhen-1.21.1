@@ -58,6 +58,17 @@ public final class Skills {
         return state(player).selected();
     }
 
+    /** 在当前所选技能原栈上写入实例文本，并同步包含该栈的技能状态。 */
+    public static void setSelectedText(ServerPlayer player, String key, String value) {
+        SkillState state = state(player);
+        ItemStack selected = state.selected();
+        SkillBook book = selected.get(SkillData.SKILL.get());
+        if (book != null) {
+            selected.set(SkillData.SKILL.get(), book.withText(key, value));
+            player.setData(SkillData.STATE, state);
+        }
+    }
+
     /** 身法槽（来源 {@code qinggong}）。 */
     public static ItemStack movement(Player player) {
         return state(player).movement();

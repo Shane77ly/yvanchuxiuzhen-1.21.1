@@ -83,6 +83,7 @@ public final class Cultivation {
         data.growth().keySet().removeAll(REINCARNATION_GROWTH);
         PlayerAttributes.setContribution(player, GROWTH_SOURCE, new Contribution(Layer.BASE, data.growth()));
         submitRoots(player);
+        syncLegacyLevelMirror(player);
         player.syncData(XiulianAttachments.CULTIVATION);
         return extraLocks;
     }

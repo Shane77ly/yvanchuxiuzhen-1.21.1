@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.xiulian;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.api.SkillPoint;
@@ -9,7 +10,8 @@ import net.yvanchuxiuzhen.system.xiulian.api.SkillPoint;
 /**
  * 分配属性点：有属性点且该项已分配点数不超过层数 × 1.5 时，该项成长加“每点增量 + 体质修正”，属性点减 1、该项点数加 1，
  * 寿元加 {@code ShouyvanAddSkillCorrect} 后乘 (1 + {@code ShouyvanAddSkillCorrectPercentage})。
- * 生命上限另回复 4 点生命，灵力与神识上限另加当前值 40。成长作为 attribute 的基础层贡献提交，原版属性随之重算。
+ * 生命上限另回复 4 点生命，灵力与神识上限另加当前值 40。成长作为 attribute 的基础层贡献提交，原版属性随之重算；
+ * 灵力与神识上限成功加点末尾按来源执行完整重算表现。
  */
 public final class SkillPoints {
     private SkillPoints() {
@@ -41,6 +43,9 @@ public final class SkillPoints {
         double lifetimePercentage = Cultivation.tizhiDouble(player, "ShouyvanAddSkillCorrectPercentage");
         if (lifetimePercentage != 0) {
             Cultivation.set(player, CultivationValue.LIFETIME, Cultivation.get(player, CultivationValue.LIFETIME) * (lifetimePercentage + 1));
+        }
+        if (point == SkillPoint.POWER_MAX || point == SkillPoint.SOUL_MAX) {
+            PlayerAttributes.recalculate(player);
         }
     }
 }

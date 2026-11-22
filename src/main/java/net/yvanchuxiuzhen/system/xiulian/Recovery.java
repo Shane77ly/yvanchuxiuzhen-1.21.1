@@ -11,7 +11,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 /**
  * 每秒恢复生命、灵力、神识（来源 {@code Playerhuifu}），恢复量取 attribute 的最终值（来源 {@code *_display}）
  * 加 {@code tizhiitem} 中 {@code *RestorePercentage} × 上限。战斗中（记分项 {@code zdztbegin} 为 1）或雷劫中恢复量为四分之一，
- * 生命按四舍五入取整；效果 {@code effect_007} 期间不恢复生命。灵力不超过上限，主修“繁星呓语”时夜晚露天无雨乘 1.1；
+ * 战斗中生命恢复量按四舍五入取整；效果 {@code effect_007} 期间不恢复生命。灵力不超过上限，主修“繁星呓语”时夜晚露天无雨乘 1.1；
  * 神识恢复不截断上限（来源如此），超过上限且不满足恢复条件时压回上限。
  */
 final class Recovery {
@@ -31,8 +31,13 @@ final class Recovery {
             double rec = PlayerAttributes.value(player, Stat.HEALTH_REC);
             double percentage = Cultivation.tizhiDouble(player, "HealthRestorePercentage");
             if (player.getHealth() < player.getMaxHealth() && (rec > 0 || percentage != 0)) {
-                double amount = rec + player.getMaxHealth() * percentage;
-                player.setHealth((float) (player.getHealth() + (fighting ? Math.round(amount * 0.25) : amount)));
+                if (fighting) {
+                    double amount = rec + player.getMaxHealth() * percentage;
+                    player.setHealth(player.getHealth() + Math.round(amount * 0.25));
+                } else {
+                    double extra = percentage != 0 ? player.getMaxHealth() * percentage : 0;
+                    player.setHealth((float) (player.getHealth() + rec + extra));
+                }
             }
         }
         double power = Cultivation.get(player, CultivationValue.POWER);
@@ -43,11 +48,12 @@ final class Recovery {
             double amount = powerRec + powerMax * powerPercentage;
             ServerLevel level = player.serverLevel();
             if (Cultivation.mainTechnique(player).name().equals("繁星呓语") && level.canSeeSkyFromBelowWater(player.blockPosition())
-                    && !level.isDay() && !level.isRaining()) {
+                    && !level.isDay() && !level.getLevelData().isRaining()) {
                 amount *= 1.1;
             }
             amount *= scale;
-            Cultivation.set(player, CultivationValue.POWER, Math.min(power + amount, powerMax));
+            double recovered = power + amount;
+            Cultivation.set(player, CultivationValue.POWER, recovered <= powerMax ? recovered : powerMax);
         } else if (power > powerMax) {
             Cultivation.set(player, CultivationValue.POWER, powerMax);
         }
@@ -56,7 +62,9 @@ final class Recovery {
         double soulRec = PlayerAttributes.value(player, Stat.SOUL_REC);
         double soulPercentage = Cultivation.tizhiDouble(player, "JingliRestorePercentage");
         if (soul < soulMax && (soulRec > 0 || soulPercentage != 0)) {
-            Cultivation.set(player, CultivationValue.SOUL, soul + (soulRec + soulMax * soulPercentage) * scale);
+            double extra = soulMax * soulPercentage;
+            Cultivation.set(player, CultivationValue.SOUL,
+                    fighting ? soul + (soulRec + extra) * 0.25 : soul + soulRec + extra);
         } else if (soul > soulMax) {
             Cultivation.set(player, CultivationValue.SOUL, soulMax);
         }

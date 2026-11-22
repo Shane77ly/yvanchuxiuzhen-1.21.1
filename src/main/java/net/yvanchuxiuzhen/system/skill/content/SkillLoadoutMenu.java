@@ -95,7 +95,7 @@ public final class SkillLoadoutMenu extends AbstractContainerMenu {
     private void savePage(ServerPlayer player) {
         int start = (Skills.state(player).page() - 1) * SkillState.PAGE_SIZE;
         for (int index = 0; index < SkillState.PAGE_SIZE; index++) {
-            Skills.setSpell(player, start + index + 1, slots.get(index + 3).getItem().copy());
+            Skills.setSpell(player, start + index + 1, slots.get(index + 3).getItem());
         }
     }
 
@@ -198,9 +198,9 @@ public final class SkillLoadoutMenu extends AbstractContainerMenu {
         super.removed(player);
         if (player instanceof ServerPlayer serverPlayer) {
             Techniques.setSlot(serverPlayer, slots.get(0).getItem());
-            Skills.setMovement(serverPlayer, slots.get(1).getItem().copy());
-            Skills.setFlight(serverPlayer, slots.get(2).getItem().copy());
-            Skills.setWeaponArt(serverPlayer, slots.get(7).getItem().copy());
+            Skills.setMovement(serverPlayer, slots.get(1).getItem());
+            Skills.setFlight(serverPlayer, slots.get(2).getItem());
+            Skills.setWeaponArt(serverPlayer, slots.get(7).getItem());
             savePage(serverPlayer);
         }
     }

@@ -93,6 +93,147 @@ public final class Relations {
         return entityAllegiance(target).friendString("playeruuid");
     }
 
+    /** 冰系实体使用友方子表保存的整数伤害参数；首个实体与来源子表共享引用。 */
+    public static void initializeIceCast(Entity owner, Entity target, int attackDamage, int multiplier) {
+        Allegiance friends = entityAllegiance(target);
+        friends.shareSourceFrom(allegiance(owner));
+        friends.setFriendInt("AttackDamage", attackDamage);
+        friends.setFriendString("AttackUUID", owner.getStringUUID());
+        friends.setFriendInt("Damage_multiplier", multiplier);
+    }
+
+    public record IceCast(int attackDamage, String attacker, int multiplier, int direction) {
+    }
+
+    /** 读取实体友表；旧目标版本的实体根友表仅在新附件尚无攻击字段时迁入。 */
+    public static IceCast iceCast(Entity entity) {
+        Allegiance friends = entityAllegiance(entity);
+        CompoundTag data = entity.getPersistentData();
+        if (!friends.hasFriendKey("AttackDamage") && !friends.hasFriendKey("AttackUUID")
+                && !friends.hasFriendKey("Damage_multiplier") && !friends.hasFriendKey("jiaodu")
+                && data.contains("friendlist", 10)) {
+            CompoundTag old = data.getCompound("friendlist");
+            friends.setFriendInt("AttackDamage", old.getInt("AttackDamage"));
+            friends.setFriendString("AttackUUID", old.getString("AttackUUID"));
+            friends.setFriendInt("Damage_multiplier", old.getInt("Damage_multiplier"));
+            friends.setFriendInt("jiaodu", old.getInt("jiaodu"));
+        }
+        return new IceCast(friends.friendInt("AttackDamage"), friends.friendString("AttackUUID"),
+                friends.friendInt("Damage_multiplier"), friends.friendInt("jiaodu"));
+    }
+
+    public static void setIceCastDirection(Entity target, int direction) {
+        entityAllegiance(target).setFriendInt("jiaodu", direction);
+    }
+
+    /** 后续冰刺的阵营已由调用者复制，只修改副本中的剩余数。 */
+    public static void setIceCastRemaining(Entity target, int remaining) {
+        entityAllegiance(target).setFriendInt("AttackDamage", remaining);
+    }
+
+    /** 水系施放把参数写入取得的友表，并将同一子表交给技能实体。 */
+    public static void initializeWaterCast(Entity owner, Entity target, int damage, int multiplier, String mode) {
+        Allegiance friends = entityAllegiance(target);
+        friends.shareSourceFrom(allegiance(owner));
+        friends.setFriendInt("AttackDamage", damage);
+        friends.setFriendString("AttackUUID", owner.getStringUUID());
+        friends.setFriendString("damagetype", "水");
+        friends.setFriendInt("Damage_multiplier", multiplier);
+        if (mode != null) {
+            friends.setFriendString("jinengName", mode);
+        }
+    }
+
+    /** 木04和水04施放先复制来源友表，再写入攻击参数和当前模式。 */
+    public static void initializeCopiedSkillCast(Entity owner, Entity target, int damage, int multiplier, String mode) {
+        Allegiance friends = entityAllegiance(target);
+        friends.copyFrom(allegiance(owner));
+        friends.setFriendInt("AttackDamage", damage);
+        friends.setFriendString("AttackUUID", owner.getStringUUID());
+        friends.setFriendInt("Damage_multiplier", multiplier);
+        friends.setFriendString("jinengName", mode);
+    }
+
+    /** 同次乱枝施放的后续实体取得首实体使用的同一份复制表。 */
+    public static void shareTreeCast(Entity source, Entity target, int damage, String attacker, int multiplier, String mode) {
+        Allegiance friends = entityAllegiance(target);
+        friends.shareFrom(entityAllegiance(source));
+        friends.setFriendInt("AttackDamage", damage);
+        friends.setFriendString("AttackUUID", attacker);
+        friends.setFriendInt("Damage_multiplier", multiplier);
+        friends.setFriendString("jinengName", mode);
+    }
+
+    /** 乱枝潜行对友方枝条复制友表并写入标记。 */
+    public static void markTreeTangle(Entity target) {
+        friendCast(target);
+        Allegiance friends = entityAllegiance(target);
+        friends.copyFrom(friends);
+        friends.setFriendBoolean("baolie", true);
+    }
+
+    public record FriendCast(int damage, String attacker, int multiplier, String damageType, String mode) {
+    }
+
+    /** 读取技能实体当前友表中的来源字段。 */
+    public static FriendCast friendCast(Entity target) {
+        Allegiance friends = entityAllegiance(target);
+        CompoundTag data = target.getPersistentData();
+        if (!friends.hasFriendKey("AttackDamage") && !friends.hasFriendKey("AttackUUID")
+                && !friends.hasFriendKey("Damage_multiplier") && !friends.hasFriendKey("damagetype")
+                && !friends.hasFriendKey("jinengName") && data.contains("friendlist", 10)) {
+            friends.shareFromBlock(data, friends.team());
+        }
+        return new FriendCast(friends.friendInt("AttackDamage"), friends.friendString("AttackUUID"),
+                friends.friendInt("Damage_multiplier"), friends.friendString("damagetype"), friends.friendString("jinengName"));
+    }
+
+    /** 后续木04实体复制父级友表后只改写技能名称。 */
+    public static void setFriendCastMode(Entity target, String mode) {
+        entityAllegiance(target).setFriendString("jinengName", mode);
+    }
+
+    /** 水04引爆前复制原友表，避免改变其他实体持有的表。 */
+    public static void detonateWaterOrb(Entity target) {
+        Allegiance friends = entityAllegiance(target);
+        friends.copyFrom(friends);
+        friends.setFriendBoolean("baolie", true);
+    }
+
+    public static boolean waterOrbDetonated(Entity target) {
+        return entityAllegiance(target).friendBoolean("baolie");
+    }
+
+    public static void setWaterOrbScale(Entity target, double scale) {
+        entityAllegiance(target).setFriendDouble("pengzhuangxiang", scale);
+    }
+
+    public static void restoreWaterOrbScale(Entity target, double scale) {
+        Allegiance friends = entityAllegiance(target);
+        if (!friends.hasFriendKey("pengzhuangxiang")) {
+            friends.setFriendDouble("pengzhuangxiang", scale);
+        }
+    }
+
+    public static double waterOrbScale(Entity target) {
+        double scale = entityAllegiance(target).friendDouble("pengzhuangxiang");
+        return scale <= 0.1 ? 1 : scale;
+    }
+
+    /** 迁入旧目标存档的施放快照；新格式或已有友表字段不被覆盖。 */
+    public static void restoreFriendCast(Entity target, int damage, String attacker, int multiplier, String damageType, String mode) {
+        Allegiance friends = entityAllegiance(target);
+        if (!friends.hasFriendKey("AttackDamage") && !friends.hasFriendKey("AttackUUID")
+                && !friends.hasFriendKey("Damage_multiplier") && !friends.hasFriendKey("damagetype")
+                && !friends.hasFriendKey("jinengName")) {
+            friends.setFriendInt("AttackDamage", damage);
+            friends.setFriendString("AttackUUID", attacker);
+            friends.setFriendInt("Damage_multiplier", multiplier);
+            friends.setFriendString("damagetype", damageType);
+            friends.setFriendString("jinengName", mode);
+        }
+    }
+
     /** 地上蛊罐把友方标签引用交给虫，虫的团队值来自该虫物品实例。 */
     public static void shareBlockAllegiance(CompoundTag blockData, Entity target, String team) {
         entityAllegiance(target).shareFromBlock(blockData, team);

@@ -3,6 +3,8 @@ package net.yvanchuxiuzhen.system.skill;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.yvanchuxiuzhen.platform.content.ItemSwingEvent;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
@@ -15,7 +17,7 @@ import net.yvanchuxiuzhen.system.skill.entity.SwordEntities;
  * 每刻在 {@link #tick} 推进：窗口结束后式数归零，下一次出手从第 1 式开始。
  *
  * <p>剑、木剑、阔剑的触发要求武器技书已由本人研习（来源比较 {@code belongToMasterUUID}），重剑与枪的触发没有这个要求（来源如此）。
- * 非玩家没有武器技槽，来源里只会改动它们自己的计数而没有任何效果，这里不处理。
+ * 重剑与枪的非玩家挥动仍写入实体计数；来源玩家刻不会推进这些非玩家计数。
  */
 final class WeaponArts {
     private static final String COUNTER = "swordsmanshipnum";
@@ -27,14 +29,25 @@ final class WeaponArts {
     }
 
     static void onSwing(ItemSwingEvent event) {
-        if (!(event.entity() instanceof ServerPlayer player)) {
+        LivingEntity entity = event.entity();
+        if (entity.level().isClientSide) {
             return;
         }
         String item = BuiltInRegistries.ITEM.getKey(event.stack().getItem()).getPath();
-        if (item.startsWith("weaponsword_") || item.startsWith("weaponwoodsword_") || item.startsWith("weaponbroadsword_")) {
-            trigger(player, true);
-        } else if (item.startsWith("weaponepee_") || item.startsWith("weaponspear_")) {
-            trigger(player, false);
+        if (entity instanceof ServerPlayer player) {
+            if (item.startsWith("weaponsword_") || item.startsWith("weaponwoodsword_") || item.startsWith("weaponbroadsword_")) {
+                trigger(player, true);
+            } else if (item.startsWith("weaponepee_") || item.startsWith("weaponspear_")) {
+                trigger(player, false);
+            }
+        } else if (!(entity instanceof Player) && (item.startsWith("weaponepee_") || item.startsWith("weaponspear_"))) {
+            CompoundTag data = entity.getPersistentData();
+            if (data.getDouble(COOLDOWN) <= 0) {
+                data.putDouble(WINDOW, 30);
+                data.putDouble(COOLDOWN, 10);
+                double step = data.getDouble(COUNTER) + 1;
+                data.putDouble(COUNTER, step > 0 ? 1 : step);
+            }
         }
     }
 

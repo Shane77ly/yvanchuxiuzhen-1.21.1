@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.skill;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -29,11 +30,12 @@ public final class SkillFlight {
         SkillBook book = Skills.book(Skills.flight(player)).orElse(null);
         boolean advanced = Cultivation.get(player, CultivationValue.LEVEL_NUMBER) + Cultivation.tizhiDouble(player, "LevelNumberCorrect") >= 31;
         if (!player.isCreative() && (book == null || book.name().isEmpty()) && !advanced) {
-            message(player, "§4还没有装备飞行技能！");
+            message(player, "message.yvanchuxiuzhen.skill.flight.not_equipped");
         } else if (!player.isCreative() && (book == null || !book.ownedBy(player.getUUID())) && !advanced) {
-            message(player, book == null || book.owner().isEmpty() ? "§4还没有习得此飞行技能！" : "§4此飞行技能非您习得的，无法使用！");
+            message(player, book == null || book.owner().isEmpty() ? "message.yvanchuxiuzhen.skill.flight.not_learned"
+                    : "message.yvanchuxiuzhen.skill.flight.other_owner");
         } else if (!player.isCreative() && player.level().dimension().location().equals(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fabao_009weidu"))) {
-            message(player, "§4此维度禁止飞行！");
+            message(player, "message.yvanchuxiuzhen.skill.flight.forbidden_dimension");
         } else {
             boolean starting = !Skills.flying(player);
             if (starting) {
@@ -49,8 +51,8 @@ public final class SkillFlight {
         }
     }
 
-    private static void message(ServerPlayer player, String text) {
-        player.displayClientMessage(Component.literal(text), false);
+    private static void message(ServerPlayer player, String key) {
+        player.displayClientMessage(Component.translatable(key).withStyle(ChatFormatting.DARK_RED), false);
     }
 
     private static void abilities(ServerPlayer player, boolean flying) {

@@ -53,10 +53,12 @@ public final class WindEntities {
         SkillEntities.spawn(level, wave, true);
     }
 
-    /** 妖兽黑风的追踪风刃：攻击量由调用者计算，倍率为一，初始朝向目标脚下，最长累计追踪二百刻。 */
+    /** 妖兽黑风的追踪风刃：记录施放时团队并共享友方表，倍率为一，初始朝向目标脚下，最长累计追踪二百刻。 */
     public static void launchBlade(Entity caster, Entity target, double attackDamage) {
         ServerLevel level = (ServerLevel) caster.level();
-        SkillEntity blade = SkillEntities.summon(level, caster, "skillwind_06", WIND, attackDamage, 1, "");
+        SkillEntity blade = SkillSetup.<SkillEntity>entityType("skillwind_06").get().create(level);
+        Relations.shareEntityAllegiance(caster, blade);
+        blade.configure(caster, attackDamage, 1, WIND, "");
         blade.moveTo(caster.getX(), caster.getY() + 1, caster.getZ(), level.getRandom().nextFloat() * 360F, 0);
         blade.getPersistentData().putString("mubiaoUUID", target.getStringUUID());
         blade.getPersistentData().putDouble("endtick", 200);
