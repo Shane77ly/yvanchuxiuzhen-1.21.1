@@ -11,7 +11,7 @@ updated: 2026-11-22
 
 1.18.2 版本来源 A `Cailiao16102DangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure.java:59–105` 在普通雕琢且奇遇命中时调用 `CailiaoyvshiqiyvProcedure`；潜行批量分支不调用。后者第301–309行在服务端创建04蛊虫，移动到玩家坐标，用世界随机源取朝向，再以独立 `Random` 抽取闭区间1–35的整数并以 `putDouble` 写入 `LEVELnumber`，然后按 `MOB_SUMMONED` 初始化并加入世界。
 
-1.21.1 版本公开 `GuchongEncounters.spawnJadeEncounter(ServerPlayer)`：由蛊虫系统负责创建、等级写入和加入世界，外部不修改蛊虫持久字段。目标 NeoForge 21.1.265 的 `EventHooks.finalizeMobSpawn` 在出生事件未取消时调用实体 `finalizeSpawn`；`Guchong04Entity` 随后经 `GuchongStats.initialize` 读取预设等级计算经验上限与属性。事件取消时不能保证该初始化发生，是否加入世界由目标出生事件行为决定。材料侧调用不在本提交；本接口仅静态核对和 Java 语法检查，未编译或运行。
+1.21.1 版本公开 `GuchongEncounters.spawnJadeEncounter(ServerPlayer)`：由蛊虫系统负责创建、等级写入和加入世界，外部不修改蛊虫持久字段。目标 NeoForge 21.1.265 的 `EventHooks.finalizeMobSpawn` 在出生事件未取消时调用实体 `finalizeSpawn`；`Guchong04Entity` 随后经 `GuchongStats.initialize` 读取预设等级计算经验上限与属性。事件取消时不能保证该初始化发生，是否加入世界由目标出生事件行为决定。材料侧调用已集成；受控璞玉奇遇105场景检查生成一只04和1–35级，见[材料月志](../material/logs/2026-11.md#2026-11-22-璞玉雕琢与奇遇)。
 
 ## 手持罐放虫与死亡清槽
 
@@ -213,3 +213,9 @@ B `Taoguan01/02/03BlockEntity`分别持有2/5/10槽：1/4/9个蛊虫位与独立
 1.18.2 版本 `Guchong03Entity.registerGoals`、`Guchong04Entity.registerGoals` 均先登记 4 号玩家目标、5 号吞噬目标，再登记 7 号受伤反击；目标选择器与动作选择器保持独立。5 号对两种蛊虫都找飞蝗，并在原生开始/继续判定之后检查行动者的 `huxiangtunshi`。仅飞蝗在空闲动作前登记 8 号跃击；黑蚁的 8 号直接是游荡。目标版本 `GoalSelector` 按插入顺序尝试启动，数字优先级不能代替插入顺序。
 
 人间道出生名单和权重见[来源台账](../creature/ledger/renjian-ecology-source.csv)。不改变出生资质、杀敌经验、罐内存档或死亡清槽；猎物是飞蝗不等于黑蚁击杀飞蝗有同种经验。真实自然吞噬与战斗后收回仍待验。
+
+## 地上罐生命恢复与实体死亡经验（2026-11-22）
+
+1.18.2版本原初系统 `Taoguan01GengXinYouXiKeProcedure.java:99–167` 从地上罐虫物品读取 `health_Num` 时使用 `getInt`，其他生命、资质数值也按整数读取；速度仍使用双精度。手持罐及蛊笛的 `Taoguan01itemDangYouJianDianJiKongQiShiShiTiDeWeiZhiProcedure`、`GuchongAnniuzhixingProcedure` 按双精度读取当前生命。地上罐放虫现恢复这一区别，回罐仍只减少数量并移除实体，不回写槽内生命或成长。
+
+1.18.2版本 `Guchong01Entity`、`Guchong03Entity`、`Guchong04Entity` 的死亡刻调用无参 `dropExperience()`；1.21.1版本 NeoForge 21.1.265 的 `LivingEntity.die` 已在 `dropAllDeathLoot` 调用 `dropExperience(damageSource.getEntity())`。目标共享死亡刻只按原定时间移除，不再重复调用经验掉落；三虫当前默认经验值为零，额外调用仍会重复经过经验事件。死亡清槽、放虫、生命恢复及掉落的游戏行为未因静态核对而视为验收。

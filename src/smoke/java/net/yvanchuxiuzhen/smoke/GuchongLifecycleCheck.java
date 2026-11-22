@@ -184,7 +184,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
         CompoundTag data = new CompoundTag();
         data.putString("guguanuuid", JAR_UUID);
         CompoundTag insect = GuchongJarData.read(specimen);
-        insect.putDouble("health_Num", 7);
+        insect.putDouble("health_Num", 7.75);
         GuchongJarData.write(specimen, insect);
         GuchongJarData.pack(specimen, data, 8, false);
         GuchongJarData.write(jar, data);
@@ -237,7 +237,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
             anchor(active);
             expectTrue("地上罐自然计划刻释放第九槽并登记唯一计数", jar(player).jarData().getDouble("shifangnum") == 1
                     && active.getPersistentData().getBoolean("kanjia") && active.getPersistentData().getDouble("guguanweizhi") == 8
-                    && active.getOwnerUUID().equals(player.getUUID()));
+                    && active.getOwnerUUID().equals(player.getUUID()) && active.getHealth() == 7F);
             found[0] = true;
         });
         if (!found[0] && local > 200) throw new IllegalStateException("地上罐自然放虫超时");
@@ -256,7 +256,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
         onServer(player -> {
             done[0] = active.isRemoved() && jar(player).jarData().getDouble("shifangnum") == 0;
             if (done[0]) expectTrue("失去目标后自然回罐清计数并保留来源不回写生命的槽", !jar(player).jarData().getBoolean("shifangguchong")
-                    && GuchongJarData.read(jar(player).getItem(8)).getDouble("health_Num") == 7);
+                    && GuchongJarData.read(jar(player).getItem(8)).getDouble("health_Num") == 7.75);
         });
         if (!done[0] && local > 200) throw new IllegalStateException("地上罐自然回收超时");
         return done[0];

@@ -110,7 +110,7 @@ public final class GuchongLifecycle {
         Relations.shareBlockAllegiance(blockData, insect, source.getString("team"));
         copyGroundRatings(source, data);
         data.putDouble("speed_number", source.getDouble("speed_number"));
-        data.putDouble("health_Num", source.getDouble("health_Num"));
+        data.putDouble("health_Num", source.getInt("health_Num"));
         GuchongJarRuntime.applyAttributes(insect, data);
         data.remove("health_Num");
         data.putString("gongjimubiao", target.getStringUUID());

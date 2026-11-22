@@ -156,7 +156,7 @@ public abstract class GuchongEntity extends TamableAnimal implements GeoEntity, 
     public void setAnimation(String animation) { entityData.set(ANIMATION, animation); }
 
     @Override protected void tickDeath() {
-        if (++deathTime == model.lifecycle().deathTicks()) { remove(RemovalReason.KILLED); dropExperience(this); }
+        if (++deathTime == model.lifecycle().deathTicks()) remove(RemovalReason.KILLED);
     }
 
     @Override public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
