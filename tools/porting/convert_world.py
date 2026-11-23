@@ -33,7 +33,16 @@ def slide(input_density: dict | str, noise: dict) -> dict:
     return lerp(bottom_start, bottom_start + bottom['size'] * cell, 0, 1, bottom['target'], density)
 
 
+def generate_structure_tags(converter) -> None:
+    """结构群系标签保留来源的命名空间、成员顺序和 replace 语义。"""
+    for mod, (root, _) in SOURCES.items():
+        data = root / 'src/main/resources/data'
+        for file in sorted(data.glob('*/tags/worldgen/biome/has_structure/**/*.json')):
+            converter.write(DATA / file.relative_to(data), json.loads(file.read_text(encoding='utf-8')), [(mod, file)])
+
+
 def generate(converter) -> None:
+    generate_structure_tags(converter)
     mod = 'yvanchuxiuzhen'
     root = SOURCES[mod][0]
     source_data = root / 'src/main/resources/data' / mod
