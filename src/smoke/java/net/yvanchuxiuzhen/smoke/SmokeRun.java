@@ -504,6 +504,7 @@ final class SmokeRun {
                     case "voidrift" -> List.of(new VoidRiftCheck(report, levelId));
                     case "damagearea" -> List.of(new DamageAreaCheck(report, levelId));
                     case "yuanying" -> List.of(new YuanyingCheck(report, levelId));
+                    case "controlswolf" -> List.of(new ControlsWolfCheck(report, levelId));
                     case "skillarrow" -> List.of(new SkillArrowCheck(report, levelId));
                     case "skillmovement" -> List.of(new SkillMovementCheck(report, levelId));
                     case "skillui" -> List.of(new SkillUiCheck(report, levelId, this::shot));

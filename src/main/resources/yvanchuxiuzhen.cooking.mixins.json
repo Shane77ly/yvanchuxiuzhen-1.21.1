@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "minVersion": "0.8.7",
+  "package": "net.yvanchuxiuzhen.system.cooking.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": ["WolfFeedingMixin"],
+  "injectors": {"defaultRequire": 1}
+}

@@ -2,7 +2,7 @@
 topic: skill
 role: architecture
 status: draft
-updated: 2026-11-18
+updated: 2026-11-23
 ---
 
 # 技能：架构调查与提案
@@ -75,7 +75,7 @@ updated: 2026-11-18
 - 伤害经 `SpellDamage.dealRounded`（来源把攻击量与倍率经 `DecimalFormat("0")` 取整）；来源拼出命令字符串的调用，经 `SpellDamage.command` 复现同样的解析（Q41）。
 - 火系：`FireEntities`（大火球、火焰漩涡、火龙卷的实体刻过程，引火、控火术、火焰护盾的施放过程）。
 - 土系：`RockEntities`（滚石术、天外陨石、化石手、巨石锤）。化石手与巨石锤按 `dangqianleixing`（类型一、类型二）和 `jindu`/`zhuangtai` 分段推进，潜行施放为类型二并播放对应动画；Q42 记录巨石锤的眩晕加给自己与化石手攻击方向随机。
-- 金系：`GoldEntities`（金轮实体八种模式、金刚轮施放）与 `GoldWheel`（金轮弹体：捆妖轮、金弧轮、天堑金轮，第一刻生成跟随自己的金轮）。金轮的跟随对象记在实体的 `master`（施放者、弹体或被捆目标）。金刚轮的 Ctrl、Alt 式读玩家变量 `lctrl`、`lalt`，来源由 flow 的 Ctrl、Alt 键过程写入、多个系统读取：落在 `platform/input/ModifierKeys`（玩家附件，客户端每刻查看左 Ctrl、左 Alt 变化时通知服务端，不入存档），避免系统依赖 flow。无 AI 的生物（如冒烟检查里的目标）不会按速度移动，推开类效果只能核对速度。
+- 金系：`GoldEntities`（金轮实体八种模式、金刚轮施放）与 `GoldWheel`（金轮弹体：捆妖轮、金弧轮、天堑金轮，第一刻生成跟随自己的金轮）。金轮的跟随对象记在实体的 `master`（施放者、弹体或被捆目标）。金刚轮的 Ctrl、Alt 式读玩家变量 `lctrl`、`lalt`，来源由 flow 的 Ctrl、Alt 键过程写入、多个系统读取：落在 `platform/input/ModifierKeys`（玩家附件，两个独立 KeyMapping 默认左 Ctrl、F19（Alt 事件），可在杂项中改绑；任一按下或松开时发送两键当前状态，重复按下不重发，不入存档），避免系统依赖 flow。无 AI 的生物（如冒烟检查里的目标）不会按速度移动，推开类效果只能核对速度。
 - 冰系：`IceEntities`（冰天雪地、裂冰斩）。两种实体把攻击量与倍率截成整数记下（来源 `friendlist.putInt`）；裂冰斩的攻击量同时是后续冰刺的剩余根数，每根 3 刻后在推进方向生成下一根（`SkillEntities.chain`），初始生成过程（`finalizeSpawn`）设置“开始”状态与展开动画。
 - 光系：`LightEntities`（闪光术、万丈光芒）；万丈光芒对生命低于最大生命 10% 的直接清零，立即发一组光爆，之后在 2、4、6、8 刻各补一组（合计五组），回调保留原实体并现读位置。
 - 风系：`WindEntities`（聚风术、聚风化气、风飘术、造云术，以及由妖兽技能放出的 `skillwind_05` 到时消失和 `skillwind_06` 追踪风刃）。已按 `Yaoshou011baoqi`、`Yaoshou014heifeng` 实际生成代码提供 `Skills.showWindBurst/launchWindBlade`：风波在脚下随机朝向、继承敌友、播放 `animation.skillwind05.bodong04` 并设八刻；风刃在脚上方一格、随机朝向后面向目标脚下，记录施放者UUID、传入攻击量、倍率一、目标UUID与二百刻上限，两者均在加入世界前初始化。黑风的1.5倍法攻和第8/32/44刻三次施放由 creature 负责，技能接口不读取其他系统私有状态。构建/ArchUnit通过，实际妖兽生成者和自然路径运行仍随 creature；未新增专项。
