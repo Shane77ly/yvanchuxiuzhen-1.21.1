@@ -215,13 +215,21 @@ final class SpellShieldCheck extends SystemCheck {
             }
             attacker.setItemSlot(EquipmentSlot.MAINHAND, enchantedStick("vampire", 1));
         }
-        // 背击把物理结果压到 1，吸收也足以挡下：按原受伤量 4 判定才会耗符。
-        if (!front) {
-            defender.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
-            defender.setAbsorptionAmount(4);
-            defender.addEffect(new MobEffectInstance(StatusEffects.holder("effect_036"), 40));
-        }
         defender.setHealth(2);
+        float absorptionBefore = defender.getAbsorptionAmount();
+        int chestWearBefore = defender.getItemBySlot(EquipmentSlot.CHEST).getDamageValue();
+        if (!front) {
+            defender.addEffect(new MobEffectInstance(StatusEffects.holder("effect_036"), 40));
+            boolean equipped = defender.getItemBySlot(EquipmentSlot.CHEST).is(Items.IRON_CHESTPLATE);
+            float cap = defender.getMaxAbsorption();
+            int armor = defender.getArmorValue();
+            int wards = defender.getInventory().countItem(ward);
+            boolean ready = cap >= DAMAGE && absorptionBefore == DAMAGE && equipped && armor >= 6 && chestWearBefore == 0
+                    && wards == 2 && defender.getHealth() == 2 && defender.hasEffect(StatusEffects.holder("effect_036"));
+            expectTrue("WARD_BACK 攻击前：吸收=" + absorptionBefore + "/" + cap + "，铁胸甲=" + equipped
+                    + "，护甲值=" + armor + "，胸甲损耗=" + chestWearBefore + "，符数=" + wards + "，生命=" + defender.getHealth(), ready);
+            if (!ready) return false;
+        }
         attacker.setHealth(1);
         Vec3 direction = Vec3.directionFromRotation(0, defender.getYHeadRot()).scale(front ? 3 : -3);
         Vec3 pos = defender.position().add(direction);
@@ -251,16 +259,26 @@ final class SpellShieldCheck extends SystemCheck {
         boolean shieldOk = block != null && !block.canceled() && block.originalBlock() == front && block.blocked() == front
                 && loss == (front ? 1 + (int) DAMAGE : 0);
         boolean wardOk = count == (front ? 2 : 1) && defender.getHealth() == (front ? 2 : Math.min(12, defender.getMaxHealth()))
-                && defender.hasEffect(MobEffects.GLOWING) == !front && (front || (defender.getAbsorptionAmount() == 4
-                && defender.getItemBySlot(EquipmentSlot.CHEST).getDamageValue() == 0));
+                && defender.hasEffect(MobEffects.GLOWING) == !front;
+        ItemStack chestAfter = defender.getItemBySlot(EquipmentSlot.CHEST);
+        boolean protectionOk = front || (defender.getAbsorptionAmount() == absorptionBefore && chestAfter.is(Items.IRON_CHESTPLATE)
+                && chestAfter.getDamageValue() == chestWearBefore);
         boolean leechOk = near(attacker.getHealth(), front ? 1.2 : 1.25);
         expectTrue(trial + " 路径=" + order + "，伤前生命=" + wardHealth + "，符判定量=" + wardAmount, route);
         expectTrue(trial + " 原版盾挡=" + block + "，盾损=" + loss, shieldOk);
         expectTrue(trial + " 剩符=" + count + "，生命=" + defender.getHealth() + "，吸收=" + defender.getAbsorptionAmount(), wardOk);
         expectTrue(trial + " 攻击者生命=" + attacker.getHealth() + "（命中 +0.20，受伤全挡 +0、背击 +0.05）", leechOk);
         readyAt = defender.getServer().getTickCount() + 25;
-        if (!front) checkMobCooldown();
-        return route && shieldOk && wardOk && leechOk;
+        if (front) {
+            // 利用两次攻击之间的等待让原版应用胸甲属性；吸收 I 同时提供上限和 4 点吸收。
+            defender.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
+            defender.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200));
+        } else {
+            expectTrue("WARD_BACK 保护未消耗：吸收 " + absorptionBefore + " → " + defender.getAbsorptionAmount()
+                    + "，胸甲 " + chestAfter + "，损耗 " + chestWearBefore + " → " + chestAfter.getDamageValue(), protectionOk);
+            checkMobCooldown();
+        }
+        return route && shieldOk && wardOk && leechOk && protectionOk;
     }
 
     private void observeWard(LethalDamageEvent event) {
