@@ -2,12 +2,14 @@
 topic: storage
 role: architecture
 status: partial
-updated: 2026-11-09
+updated: 2026-11-23
 ---
 
 # 储物：架构调查与提案
 
 来源事实、已实现部分和未实现方案分别陈述；源码定位采用 [系统导航](../README.md)的 A/B 规则。
+材料袋在绑定库存已有异物时的 Shift 合并差异与千材录共用[材料 Q273](../material/architecture.md#q273-千材录与材料袋的已有栈合并跳过输入限制)。
+
 ## 已核实的两种不同所有权
 
 乾坤袋菜单的 ItemStackHandler 容量为 27/54/108/220（`A:Qiankundai01…04GUIMenu`）。蛊罐归 guchong，见[蛊虫](../guchong/architecture.md)。菜单生成模板还能绑定手持物品、实体或方块，实际入口决定所有者。来源 `stillValid` 直接返回 true 的情况要结合真实绑定重写。

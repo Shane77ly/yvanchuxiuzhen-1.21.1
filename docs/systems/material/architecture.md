@@ -2,7 +2,7 @@
 topic: material
 role: architecture
 status: partial
-updated: 2026-11-15
+updated: 2026-11-23
 ---
 
 # 材料、采集与辨识：架构调查与提案
@@ -126,3 +126,7 @@ updated: 2026-11-15
 目标 NeoForge 21.1.265 `CraftingMenu.quickMoveStack` 先移动结果，随后 `Slot.onQuickCraft` 用移动前副本触发 `ResultSlot.checkTakeAchievements` 的合成事件；该副本的组件修改不回写已转入背包的栈。1.18.2版本 Forge 40.1.0 的 `ResultSlot.java.patch` 同样在 `checkTakeAchievements` 挂事件；本机可读的 1.18.2 Forge 40.3.11 映射源码中工作台、槽位顺序相同，但不是锁定 40.1.0 的完整游戏源码，锁定版本的快捷路径及实机对照仍待核验。本批保持事件位置，不主动改变快捷合成规则。满背包快捷转移失败不消费；玩家在结果格主动丢出是另一入口，不等同自动溢出。
 
 `materialcrafting` 场景准备经原生工作台菜单验证桃木、九级灵石逐档普通取出、灵石分解、非目标合成、快捷转移副本边界与满包主动丢出的实体实例；配方材料为夹具配发，非自然采集或消费者闭环。该场景、编译、客户端、保存重进、多人/专服及1.18.2版本实机对照均未执行。
+
+### Q273 千材录与材料袋的已有栈合并跳过输入限制
+
+B `QiancailuGuiMenu:71–83,153`、`CailiaodaiGuiMenu:608–623,656` 在合并已有栈之前也检查输入槽的 `mayPlace`。目标 `MaterialAnalysisMenu:49–58,180–195` 与 `MaterialBagMenu:45–58,216–232` 只定义槽过滤，Shift 交给原生 `AbstractContainerMenu.moveItemStackTo:637–653,672–679`（21.1.265 源码包）；只有放入空槽才检查过滤。复核：让千材录绑定已有库存，槽 0 预放一块普通圆石，主背包带一块相同圆石、快捷栏留空。Shift 后来源走快捷栏，绑定槽仍为 1；目标可合为 2。空槽仍应拒收。材料袋复核时关闭自动存入、使用至少 46 槽的库存；不涉及其展示格的取出。
