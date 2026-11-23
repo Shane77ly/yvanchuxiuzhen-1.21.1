@@ -2,10 +2,12 @@
 topic: combat
 role: entry
 status: current
-updated: 2026-11-18
+updated: 2026-11-23
 ---
 
 # 战斗
+
+盾挡后的受伤、两段吸血和替死符已修正时序，已备原生盾牌回归夹具，尚未实跑。见[规则与源码位置](architecture.md#盾挡后的受伤阶段与复活符2026-11-23)。
 
 人间界死亡的复活标记只由有致因实体的伤害设置，详见[规则正文](architecture.md#人间界死亡标记)。
 

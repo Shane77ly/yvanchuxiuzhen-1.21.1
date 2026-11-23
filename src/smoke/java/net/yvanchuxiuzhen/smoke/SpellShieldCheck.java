@@ -3,12 +3,19 @@ package net.yvanchuxiuzhen.smoke;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
@@ -18,6 +25,10 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
+import net.yvanchuxiuzhen.system.combat.api.DamageImmunityEvent;
+import net.yvanchuxiuzhen.system.combat.api.Enchants;
+import net.yvanchuxiuzhen.system.combat.api.LethalDamageEvent;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.combat.damage.CombatDamageTypes;
 
 /** 同一生存玩家使用原版盾牌，从固定正面比较物理与两种项目伤害源。 */
@@ -26,7 +37,7 @@ final class SpellShieldCheck extends SystemCheck {
     private static final float DAMAGE = 4;
     private static final int TIMEOUT = 200;
 
-    private enum Trial { PHYSICAL, MANA, SOUL }
+    private enum Trial { PHYSICAL, MANA, SOUL, WARD_FRONT, WARD_BACK }
 
     private record Shield(boolean originalBlock, boolean blocked, boolean canceled, float candidateDamage, float shieldDamage) {}
 
@@ -35,6 +46,9 @@ final class SpellShieldCheck extends SystemCheck {
     private final Consumer<LivingIncomingDamageEvent> incoming = this::incoming;
     private final Consumer<LivingShieldBlockEvent> shield = this::shield;
     private final Consumer<LivingDamageEvent.Post> settled = this::settled;
+    private final Consumer<LethalDamageEvent> lethal = this::observeWard;
+    private float wardHealth;
+    private double wardAmount;
     private final List<String> order = new ArrayList<>();
     private ServerPlayer defender;
     private Cow attacker;
@@ -81,7 +95,10 @@ final class SpellShieldCheck extends SystemCheck {
                 ready[0] = player == defender && player.isBlocking() && player.getUsedItemHand() == InteractionHand.OFF_HAND
                         && player.getUseItem().is(Items.SHIELD) && player.invulnerableTime == 0
                         && player.getServer().getTickCount() >= readyAt;
-                if (ready[0]) passed[0] = hit(trial);
+                if (ready[0]) passed[0] = switch (trial) {
+                    case WARD_FRONT, WARD_BACK -> wardHit(trial);
+                    default -> hit(trial);
+                };
             });
         }
         if (!ready[0]) {
@@ -90,7 +107,9 @@ final class SpellShieldCheck extends SystemCheck {
         }
         if (trial == Trial.PHYSICAL && !passed[0]) {
             stop("物理正例未通过，不将后续灵力或神识输出用于方向对照");
-        } else if (trial == Trial.SOUL) {
+        } else if (trial == Trial.WARD_FRONT && !passed[0]) {
+            stop("全挡保符对照失败，不继续使用此玩家测试背击");
+        } else if (trial == Trial.WARD_BACK) {
             stop(null);
         }
         return true;
@@ -117,6 +136,7 @@ final class SpellShieldCheck extends SystemCheck {
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, true, incoming);
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, true, shield);
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, settled);
+        NeoForge.EVENT_BUS.addListener(EventPriority.HIGHEST, lethal);
         for (boolean soul : List.of(false, true)) {
             observeTags(CombatDamageTypes.source(player.level(), soul, null), true);
             observeTags(CombatDamageTypes.source(player.level(), soul, attacker), true);
@@ -183,6 +203,109 @@ final class SpellShieldCheck extends SystemCheck {
         return shieldResult && healthResult && wearResult;
     }
 
+    /** 在同一个服务端调用内采样，排除自然回血与下一刻副作用。 */
+    private boolean wardHit(Trial trial) {
+        boolean front = trial == Trial.WARD_FRONT;
+        Item ward = BuiltInRegistries.ITEM.get(ResourceLocation.parse("yvanchuxiuzhen:itemfulu_16"));
+        if (front) {
+            if (ward == Items.AIR || defender.getInventory().countItem(ward) != 0
+                    || !defender.getInventory().add(new ItemStack(ward, 2))) {
+                fail("残血对照需要两个新放入的替死符");
+                return false;
+            }
+            attacker.setItemSlot(EquipmentSlot.MAINHAND, enchantedStick("vampire", 1));
+        }
+        // 背击把物理结果压到 1，吸收也足以挡下：按原受伤量 4 判定才会耗符。
+        if (!front) {
+            defender.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
+            defender.setAbsorptionAmount(4);
+            defender.addEffect(new MobEffectInstance(StatusEffects.holder("effect_036"), 40));
+        }
+        defender.setHealth(2);
+        attacker.setHealth(1);
+        Vec3 direction = Vec3.directionFromRotation(0, defender.getYHeadRot()).scale(front ? 3 : -3);
+        Vec3 pos = defender.position().add(direction);
+        attacker.moveTo(pos.x, pos.y, pos.z, 0, 0);
+        int wear = defender.getOffhandItem().getDamageValue();
+        order.clear();
+        block = null;
+        resolution = null;
+        wardAmount = Double.NaN;
+        wardHealth = Float.NaN;
+        Consumer<DamageImmunityEvent> stage = event -> {
+            if (event.victim() == defender && event.attacker() == attacker) order.add("hurt-stage");
+        };
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, stage);
+        active = defender.damageSources().mobAttack(attacker);
+        try {
+            defender.hurt(active, DAMAGE);
+        } finally {
+            active = null;
+            NeoForge.EVENT_BUS.unregister(stage);
+        }
+        int loss = defender.getOffhandItem().getDamageValue() - wear;
+        int count = defender.getInventory().countItem(ward);
+        boolean route = front ? order.equals(List.of("incoming", "shield", "hurt-stage", "settled"))
+                && resolution != null && resolution.damage() == 0 && resolution.blockedDamage() == DAMAGE
+                : order.equals(List.of("incoming", "shield", "hurt-stage", "ward")) && wardAmount == DAMAGE && wardHealth == 2;
+        boolean shieldOk = block != null && !block.canceled() && block.originalBlock() == front && block.blocked() == front
+                && loss == (front ? 1 + (int) DAMAGE : 0);
+        boolean wardOk = count == (front ? 2 : 1) && defender.getHealth() == (front ? 2 : Math.min(12, defender.getMaxHealth()))
+                && defender.hasEffect(MobEffects.GLOWING) == !front && (front || (defender.getAbsorptionAmount() == 4
+                && defender.getItemBySlot(EquipmentSlot.CHEST).getDamageValue() == 0));
+        boolean leechOk = near(attacker.getHealth(), front ? 1.2 : 1.25);
+        expectTrue(trial + " 路径=" + order + "，伤前生命=" + wardHealth + "，符判定量=" + wardAmount, route);
+        expectTrue(trial + " 原版盾挡=" + block + "，盾损=" + loss, shieldOk);
+        expectTrue(trial + " 剩符=" + count + "，生命=" + defender.getHealth() + "，吸收=" + defender.getAbsorptionAmount(), wardOk);
+        expectTrue(trial + " 攻击者生命=" + attacker.getHealth() + "（命中 +0.20，受伤全挡 +0、背击 +0.05）", leechOk);
+        readyAt = defender.getServer().getTickCount() + 25;
+        if (!front) checkMobCooldown();
+        return route && shieldOk && wardOk && leechOk;
+    }
+
+    private void observeWard(LethalDamageEvent event) {
+        if (active == null || event.victim() != defender) return;
+        order.add("ward");
+        wardHealth = defender.getHealth();
+        wardAmount = event.amount();
+    }
+
+    private ItemStack enchantedStick(String id, int level) {
+        ItemStack stack = new ItemStack(Items.STICK);
+        stack.enchant(defender.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchants.key(id)), level);
+        return stack;
+    }
+
+    /** 普通牛不经过 Player 覆写。三次同刻入伤验证公式写回、等量抑制和较大攻击只结算差额。 */
+    private void checkMobCooldown() {
+        Cow mob = EntityType.COW.create(defender.serverLevel());
+        mob.moveTo(attacker.getX() + 2, attacker.getY(), attacker.getZ(), 0, 0);
+        mob.setNoAi(true);
+        if (!defender.serverLevel().addFreshEntity(mob)) {
+            fail("无敌帧对照牛未进入世界");
+            return;
+        }
+        try {
+            mob.setItemSlot(EquipmentSlot.HEAD, enchantedStick("attdef", 2));
+            mob.setHealth(10);
+            attacker.setHealth(1);
+            DamageSource source = mob.damageSources().mobAttack(attacker);
+            mob.hurt(source, 4);
+            expectTrue("普通牛 4 入伤，公式 16/(4+4)=2；两段吸血", near(mob.getHealth(), 8) && near(attacker.getHealth(), 1.3));
+            mob.hurt(source, 4);
+            expectTrue("同刻等量攻击只命中、不再受伤", near(mob.getHealth(), 8) && near(attacker.getHealth(), 1.5));
+            mob.hurt(source, 6);
+            expectTrue("同刻 6 入伤仅用差额 2，公式 4/(2+4)", near(mob.getHealth(), 8 - 2.0 / 3)
+                    && near(attacker.getHealth(), 1.8 + 0.05 * 2 / 3));
+        } finally {
+            mob.discard();
+        }
+    }
+
+    private static boolean near(float actual, double expected) {
+        return Math.abs(actual - expected) < 1e-4;
+    }
+
     private boolean observeTags(DamageSource source, boolean expected) {
         boolean armor = source.is(DamageTypeTags.BYPASSES_ARMOR);
         boolean shield = source.is(DamageTypeTags.BYPASSES_SHIELD);
@@ -217,6 +340,7 @@ final class SpellShieldCheck extends SystemCheck {
             NeoForge.EVENT_BUS.unregister(incoming);
             NeoForge.EVENT_BUS.unregister(shield);
             NeoForge.EVENT_BUS.unregister(settled);
+            NeoForge.EVENT_BUS.unregister(lethal);
             onServer(player -> attacker.discard());
         }
         finish();
