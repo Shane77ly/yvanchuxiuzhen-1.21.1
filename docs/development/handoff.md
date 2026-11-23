@@ -9,7 +9,7 @@ updated: 2026-11-23
 
 ## 当前交接（2026-11-23 双源保真修复）
 
-当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。证据与下一步见[当前调度](remaining-work.md#当前调度)。
+当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。本轮差异审计以 `cdcc561a` 为生产基线，功能实现未动；文档分支 `docs/source-parity-audit`。下一步按[统一问题索引](../reference/legacy/source-survey.md#本轮双源差异核查2026-11-23)继续核对未覆盖的调用链，确认差异与已批准调整分开处理。
 
 ## 历史交接（2026-11-22 收口干净状态）
 

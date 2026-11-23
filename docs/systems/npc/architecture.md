@@ -2,7 +2,7 @@
 topic: npc
 role: architecture
 status: partial
-updated: 2026-11-15
+updated: 2026-11-23
 ---
 
 # 修士身份、实例与交互
@@ -147,3 +147,11 @@ QiankunmentuZaiFangKuaiShangYouJian生成Java的事件根只有创造模式潜�
 ## 剧情跟随消费者（2026-11-15）
 
 `NpcFollowers`拥有gensuiplayer/gensuiplayeruid，允许来源脚本向任意Entity登记；`NpcFollowerRuntime`只在服务端LivingEntity的Pre tick消费，gensuitick每20刻清零，Mob只查询当前维度玩家UUID并向玩家XZ各±2的随机坐标寻路，Y相同、速度1。不增加主人在线跨维查找或瞬移兜底；取消只清标志和UUID。精确Forge40.1.0 LivingEntity补丁确认LivingUpdate位于tick开头，未因目标Post便利改变来源时序。本批静态接线，完整自然跟随与多人保存仍待。
+
+### Q246 NPC 管理页背景与尺寸不同
+
+来源 A `TiandaoNPCsetScreen:65–69,96–97` 把 212×250 的 `tiandao_np_cset.png` 绘作管理面板底图；1.21.1 版本 `NpcManagementScreen:46–47,195–207` 使用 420×250 面板和程序绘制的色块、边框、槽位。确认可达主面板的视觉替换；不是无入口的 `tiandao_np_cset_02`，也不是按钮功能都缺失。未核定是否接受这处改版；同窗口和 GUI 缩放对拍前不宣称视觉对齐。
+
+### Q248 乾坤门徒方块中文名不同
+
+源 A `assets/yvanchuxiuzhen/lang/zh_cn.json:1102` 的方块键 `block.yvanchuxiuzhen.qiankunmentu` 为“任务点”；注册的 `QiankunmentuDisplayItem` 继承 `BlockItem`。目标 `src/main/lang/zh_cn/npc.json:96–98` 的方块与物品文本均为“乾坤门徒”，目标方块物品同样继承 `BlockItem`。这是方块名的差异，不是 Q153 的任务脚本断链；管理菜单另有标题，不能用来反推方块名。未改命名，未对拍物品栏。
