@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -11,11 +12,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.equipment.api.BenmingData;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties;
@@ -35,6 +41,19 @@ final class EquipmentTooltip {
 
     static void tooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
+        if (event.getEntity() != null
+                && (stack.getItem() instanceof AxeItem || stack.getItem() instanceof PickaxeItem
+                || stack.getItem() instanceof ShovelItem || stack.getItem() instanceof HoeItem)
+                && Enchants.level(event.getEntity(), stack, Enchants.key("kailing")) != 0) {
+            Component hint = Component.literal("§b右键可以释放一个自主工作的工具虚影");
+            if (event.getToolTip().size() > 1) event.getToolTip().set(1, hint);
+            else event.getToolTip().add(hint);
+            return;
+        }
+        if (tagged(stack, "flyfabao")) {
+            flyingInstrument(event.getToolTip(), stack);
+            return;
+        }
         if (tagged(stack, "jewelry")) {
             jewelry(event.getToolTip(), Equipment.properties(stack));
             return;
@@ -117,6 +136,20 @@ final class EquipmentTooltip {
         nonzero(lines, "灵力恢复", properties.number("power_Rec"));
         nonzero(lines, "精力上限", properties.number("soul_Max"));
         nonzero(lines, "精力恢复", properties.number("soul_Rec"));
+    }
+
+    /** 来源 {@code ItemLoreProcedure:166-178}：飞行法器说明与耐久/灵力/速度实时状态。 */
+    private static void flyingInstrument(List<Component> lines, ItemStack stack) {
+        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        if (data.getString("flyentityID").isEmpty()) return;
+        DecimalFormat whole = new DecimalFormat("0");
+        lines.add(Component.literal("§b飞行法器是一种适合长途飞行的法宝，比飞行技能消耗的灵力更低。"));
+        lines.add(Component.literal("§b飞行法器会优先消耗自身存储的灵力，然后才会消耗驾驶法器之人的灵力。"));
+        lines.add(Component.literal("§b手持灵石右键飞行法器，即可为其充能。"));
+        lines.add(Component.literal("§b手持建筑锤右键飞行法器，可以修理法器，修理台也可以快速修理法器。"));
+        lines.add(Component.literal("§f耐久：" + whole.format(data.getDouble("health")) + "/" + whole.format(data.getDouble("health_Max"))));
+        lines.add(Component.literal("§f灵力：" + whole.format(data.getDouble("power")) + "/" + whole.format(data.getDouble("power_Max"))));
+        lines.add(Component.literal("§f速度：" + data.getDouble("speed_num")));
     }
 
     private static void nonzero(List<Component> lines, String name, double value) {

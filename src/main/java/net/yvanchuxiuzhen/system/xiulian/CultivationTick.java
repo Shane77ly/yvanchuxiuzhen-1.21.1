@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.xiulian;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Set;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,7 +15,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityTravelToDimensionEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
@@ -44,6 +47,27 @@ public final class CultivationTick {
     static void onPlayerTick(PlayerTickEvent.Post event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             tick(player);
+        }
+    }
+
+    /** 来源 {@code WorldTickProcedure}：每 24000 世界刻对当前维度在线玩家寿元减 1。 */
+    static void onLevelTick(LevelTickEvent.Post event) {
+        if (!(event.getLevel() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+        if (XiulianWorldData.levelClock(serverLevel).advanceDay()) {
+            for (ServerPlayer player : List.copyOf(serverLevel.players())) {
+                Cultivation.add(player, CultivationValue.LIFETIME, -1);
+            }
+        }
+    }
+
+    /** 来源 {@code QianwangweiduProcedure}：玩家在雷劫开启状态切换维度时关闭当前雷劫并将待渡次数加 1。 */
+    static void onDimensionTravel(EntityTravelToDimensionEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player && Cultivation.thunderOpen(player)) {
+            Cultivation.setThunderOpen(player, false);
+            Cultivation.set(player, CultivationValue.THUNDER_MAX, 0);
+            Cultivation.add(player, CultivationValue.THUNDER, 1);
         }
     }
 

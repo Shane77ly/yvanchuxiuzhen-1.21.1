@@ -59,6 +59,8 @@ public final class XiulianSetup {
         NeoForge.EVENT_BUS.addListener(XiulianSetup::onPlayerLogin);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onLogin);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(CultivationTick::onLevelTick);
+        NeoForge.EVENT_BUS.addListener(CultivationTick::onDimensionTravel);
         NeoForge.EVENT_BUS.addListener(Delayed::onServerTick);
         NeoForge.EVENT_BUS.addListener(RenjianArrival::onEntered);
         NeoForge.EVENT_BUS.addListener(XiulianSetup::onFriendRealmName);

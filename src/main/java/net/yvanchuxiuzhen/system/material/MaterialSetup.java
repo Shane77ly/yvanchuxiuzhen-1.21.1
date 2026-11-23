@@ -4,12 +4,15 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.ItemFishedEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
@@ -56,6 +59,7 @@ public final class MaterialSetup {
         CONTENT.register(modBus);
         modBus.addListener(MaterialSetup::registerPayloads);
         NeoForge.EVENT_BUS.addListener(MaterialSetup::onCrafted);
+        NeoForge.EVENT_BUS.addListener(MaterialSetup::onItemFished);
         NeoForge.EVENT_BUS.addListener((PlayerInteractEvent.RightClickItem event) -> {
             if (event.getEntity() instanceof ServerPlayer player
                     && BuiltInRegistries.ITEM.getKey(event.getItemStack().getItem()).toString().equals("yvanchuxiuzhen:qiancailubook")) {
@@ -86,6 +90,25 @@ public final class MaterialSetup {
         };
         if (level != 0) {
             MaterialLibrary.setInstance(result, level, id.getPath().equals("cailiao_241") ? 2 : 4);
+        }
+    }
+
+    /** 来源 {@code FishingProcedure}：玩家钓鱼成功时按 1–100 掷骰额外获得炼器材料。 */
+    private static void onItemFished(ItemFishedEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) {
+            return;
+        }
+        int roll = Mth.nextInt(player.getRandom(), 1, 100);
+        String reward = switch (roll) {
+            case 1, 2, 3, 4 -> "cailiao_021";
+            case 5, 6 -> "cailiao_022";
+            case 7 -> player.getRandom().nextDouble() < 0.5 ? "cailiao_027" : "cailiao_031";
+            case 8 -> player.getRandom().nextDouble() < 0.5 ? "cailiao_023" : "cailiao_032";
+            default -> "";
+        };
+        if (!reward.isEmpty()) {
+            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(BuiltInRegistries.ITEM.get(
+                    ResourceLocation.fromNamespaceAndPath(ModId.VALUE, reward))));
         }
     }
 

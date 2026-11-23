@@ -8,5 +8,7 @@
   "item.yvanchuxiuzhen.flagsonitem": "子旗",
   "item.yvanchuxiuzhen.zhenyang_01": "Zhenyang 0 1",
   "entity.yvanchuxiuzhen.zhenfashiti": "阵法",
-  "entity.yvanchuxiuzhen.zhenjineng_03": "Zhenjineng 0 3"
+  "entity.yvanchuxiuzhen.zhenjineng_03": "Zhenjineng 0 3",
+  "message.yvanchuxiuzhen.flag_bound_son": "已把子旗的坐标绑定到母旗中，可随时使用母旗来控制此子旗。",
+  "message.yvanchuxiuzhen.flag_bound_mother": "已把母旗的坐标绑定到子旗中，可随时使用子旗来共鸣母旗。"
 }
