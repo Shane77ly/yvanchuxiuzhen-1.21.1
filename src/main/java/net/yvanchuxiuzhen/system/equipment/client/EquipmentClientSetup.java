@@ -1,14 +1,19 @@
 package net.yvanchuxiuzhen.system.equipment.client;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
 import net.yvanchuxiuzhen.system.equipment.content.AnimatedFabaoItem;
+import net.yvanchuxiuzhen.system.equipment.content.CustomArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentGeoArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentMenus;
@@ -41,7 +46,9 @@ public final class EquipmentClientSetup {
             for (String model : FabaoProjectileModels.MODELS.values()) {
                 event.registerLayerDefinition(FabaoProjectileRenderer.layer(model), () -> FabaoProjectileModels.layer(model));
             }
+            CustomArmorModels.registerLayerDefinitions(event);
         });
+        modBus.addListener(EquipmentClientSetup::registerClientExtensions);
         modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
             for (var item : BuiltInRegistries.ITEM) {
                 if (item instanceof DemonArmorItem armor) armor.setRenderProvider(new DemonArmorRenderer.Provider());
@@ -49,6 +56,18 @@ public final class EquipmentClientSetup {
                 if (item instanceof AnimatedFabaoItem fabao) fabao.setRenderProvider(new AnimatedFabaoRenderer.Provider());
             }
         }));
+    }
+
+    private static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        List<Item> customArmors = new ArrayList<>();
+        for (Item item : BuiltInRegistries.ITEM) {
+            if (item instanceof CustomArmorItem) {
+                customArmors.add(item);
+            }
+        }
+        if (!customArmors.isEmpty()) {
+            event.registerItem(CustomArmorModels.extensions(), customArmors.toArray(Item[]::new));
+        }
     }
 
     private static void registerToolRenderers(EntityRenderersEvent.RegisterRenderers event) {

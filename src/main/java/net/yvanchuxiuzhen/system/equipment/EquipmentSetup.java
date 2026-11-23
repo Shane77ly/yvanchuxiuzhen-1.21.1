@@ -14,6 +14,7 @@ import net.yvanchuxiuzhen.platform.content.ItemRow;
 import net.yvanchuxiuzhen.platform.content.LegacyTier;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.equipment.content.CustomArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.DemonArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.EquipmentGeoArmorItem;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao010Item;
@@ -133,6 +134,17 @@ public final class EquipmentSetup {
                 ArmorItem.Type type = ArmorItem.Type.valueOf(armor.slot());
                 CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new EquipmentGeoArmorItem(CONTENT.armorMaterial(armor.material()), type,
                         properties.durability(type.getDurability(row.durabilityMultiplier().orElseThrow())), armor.material(), tooltip));
+            }
+            if (row.factory().equals("equipment:" + row.id()) && row.armor().isPresent()) {
+                ItemRow.Armor armor = row.armor().get();
+                CustomArmorItem.ModelSpec customSpec = CustomArmorItem.findSpec(row.id(), armor.material());
+                if (customSpec != null) {
+                    ArmorItem.Type type = ArmorItem.Type.valueOf(armor.slot());
+                    CONTENT.itemFactory(row.factory(), (properties, tooltip) -> new CustomArmorItem(
+                            CONTENT.armorMaterial(armor.material()), type,
+                            properties.durability(type.getDurability(row.durabilityMultiplier().orElseThrow())),
+                            customSpec, tooltip));
+                }
             }
         }
         CONTENT.entity(Fuchen.ID, Fuchen::new);

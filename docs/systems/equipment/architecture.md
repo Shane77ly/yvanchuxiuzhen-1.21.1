@@ -2,7 +2,7 @@
 topic: equipment
 role: architecture
 status: partial
-updated: 2026-11-13
+updated: 2026-11-23
 ---
 
 # 装备、法宝、本命与饰品：架构调查与提案
@@ -67,7 +67,7 @@ GeckoLib 盔甲（`Armor01Item`–`Armor13Item`、`Fuqi02Item`、`Clothes05Item`
 
 本批接回来源 `Clothes08`–`Clothes12`、`Clothes18`、`Clothes20` 的 28 件物品。来源 1.18.2 参数按 `BOOTS, LEGGINGS, CHESTPLATE, HELMET` 核对为：08 `[1,1,2,1]`、附魔 15、耐久倍率 5；09 `[1,1,2,1]`、附魔 25、耐久倍率 10；10 `[1,1,2,1]`、附魔 30、耐久倍率 5；11/12 `[1,1,2,1]`、附魔 30、耐久倍率 10；18 `[1,3,5,1]`、附魔 15、耐久倍率 5；20 `[1,3,4,1]`、附魔 15、耐久倍率 5。全部 toughness、knockback 为 0，来源未配置修理材料。
 
-目标使用 `factory: armor` 与 `ContentTables` 通用 `ArmorItem` 工厂，注册到原有武器创造栏；来源同时提供 `models/item` 图标模型、`textures/items/clothesXXYY.png` 图标和 `textures/entities/clothesXX.png` 穿戴纹理，已分别转换到目标资源目录。来源未提供标准 `models/armor` 两层文件，因此本批以实体纹理作为普通 armor 层资源，同时保留来源实体纹理供后续自定义模型批次使用。自定义模型、GeckoLib 渲染与视觉对照尚未在本批验收，不能以普通防具注册替代完整视觉迁移。
+目标已补回自定义服装护甲接入（2026-11-23）：`clothes_06_helmet` 及 `clothes_08`–`12`、`clothes_18`、`clothes_20`（共 29 件）改为专属 `CustomArmorItem` 工厂与 `CustomArmorModels`，在 `EntityRenderersEvent.RegisterLayerDefinitions` 注册 7 组来源于 1.18.2 的 Blockbench 模型层（`clothes_0601`/`08`/`09`/`10`/`12`/`16`/`18`，其中 `clothes_10` 与 `clothes_11` 共用 `Modelclothes10`），经 `RegisterClientExtensionsEvent` 的 `IClientItemExtensions#getHumanoidArmorModel` 按槽位映射活性部位并由 `getArmorTexture` 指向原版单张贴图（`_clothes06_layer_1.png` 或 `textures/entities/clothes*.png`）；GeckoLib 渲染与实机客户端穿戴画面对照仍待真机验收。
 
 ## 向 attribute 提交属性贡献（2026-11-03 attribute 归属阅读）
 
