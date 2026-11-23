@@ -16,7 +16,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
@@ -30,13 +30,13 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 
 /**
  * 受伤处理（来源 {@code EntityBeforeHurt}，1.18.2 版本在 {@code LivingHurtEvent} 中执行，伤害量是护甲等减免之前的值）：
- * 免伤判定、闪避、物理伤害公式、吸血、致命伤害。目标版本的 {@link LivingIncomingDamageEvent} 与它在同一位置
- * （减免之前，可取消、可改伤害量）。来源在三处各检查一次符箓复活，这里统一发出 {@link LethalDamageEvent}。
+ * 免伤判定、闪避、物理伤害公式、吸血、致命伤害。经原版盾牌处理后、护甲减免前读取伤害容器，
+ * 保留来源先盾挡后受伤的顺序。来源在三处各检查一次符箓复活，这里统一发出 {@link LethalDamageEvent}。
  *
  * <p>来源的疑似错误保持原样（Q30）：没有破甲附魔时破甲系数为 0，受击者的基础物理防御与护甲物理防御不计入；
  * 物理攻击量乘的是受击者的体质修正；暴击值被随后的物理公式覆盖，只留粒子。
  */
-final class HurtStage {
+public final class HurtStage {
     private static final TagKey<EntityType<?>> NPC = tag("npcentity");
     private static final TagKey<EntityType<?>> OLD_NPC = tag("jiunpc");
     /** 不判闪避的伤害类型。 */
@@ -53,28 +53,31 @@ final class HurtStage {
         return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, name));
     }
 
-    static void run(LivingIncomingDamageEvent event, LivingEntity victim, Entity attacker) {
+    /** 返回 true 时由调用者清零当前容器并中止本次实际受伤，不撤销已发生的盾挡。 */
+    public static boolean runAfterShield(LivingEntity victim, DamageContainer damage) {
+        Entity attacker = damage.getSource().getEntity();
+        if (attacker == null) {
+            return false;
+        }
         if (immune(victim, attacker)) {
-            event.setCanceled(true);
-            return;
+            return true;
         }
-        DamageSource source = event.getSource();
-        float amount = event.getAmount();
-        if (isAny(source, NO_DODGE)) {
-            return;
-        }
-        if (Mth.nextInt(victim.getRandom(), 1, 100) <= Enchants.armorSum(victim, Enchants.key("dodge"))) {
+        DamageSource source = damage.getSource();
+        // 此处的原值已扣盾挡和无敌帧减量；符箓始终用它比较，不受下方物理公式改写影响。
+        float amount = damage.getNewDamage();
+        boolean specialSource = isAny(source, NO_DODGE);
+        if (!specialSource
+                && Mth.nextInt(victim.getRandom(), 1, 100) <= Enchants.armorSum(victim, Enchants.key("dodge"))) {
             // 未命中提示的粒子 miss 是自定义粒子，随 particle 迁移。
-            event.setCanceled(true);
-            return;
+            return true;
         }
-        if (!isAny(source, NO_FORMULA) && amount > 0) {
+        if (!specialSource && !isAny(source, NO_FORMULA) && amount > 0) {
             double settled = settle(victim, attacker, amount);
             if (settled > 0) {
                 if (StatusEffects.has(victim, "effect_036") && settled >= victim.getHealth()) {
                     settled = victim.getHealth() - 1;
                 }
-                event.setAmount((float) settled);
+                damage.setNewDamage(Math.max(0, (float) settled));
             }
             if (attacker instanceof LivingEntity living) {
                 int vampire = Enchants.mainHand(living, Enchants.key("vampire"));
@@ -87,9 +90,10 @@ final class HurtStage {
             LethalDamageEvent lethal = new LethalDamageEvent(victim, amount);
             NeoForge.EVENT_BUS.post(lethal);
             if (lethal.survived()) {
-                event.setCanceled(true);
+                return true;
             }
         }
+        return false;
     }
 
     private static boolean isAny(DamageSource source, Set<ResourceKey<DamageType>> types) {

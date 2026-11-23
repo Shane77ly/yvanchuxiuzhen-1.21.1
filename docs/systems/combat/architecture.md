@@ -2,7 +2,7 @@
 topic: combat
 role: architecture
 status: current
-updated: 2026-11-18
+updated: 2026-11-23
 ---
 
 # 战斗：规则与实现状态
@@ -87,7 +87,7 @@ updated: 2026-11-18
    - 结算量大于 0：受击者有 `effect_036`（免死）时结算量不超过当前生命 − 1；写回伤害量。结算量不大于 0 时伤害量不变。
    - 手持武器 `vampire` 等级 n：攻击者回复 结算量 × n × 5%（结算量为 0 时也执行，不受“结算量大于 0”限制）。
    - 暴击：手持 `critical` 等级 n 时以 n × 2% 概率生成暴击粒子并把结算量记为 伤害量 × (1.5 + criticalatt × 0.2)，但这个值随即被上一条的结算量覆盖，不影响伤害（Q30）。
-5. 受击者当前生命小于原伤害量且是持有 `itemfulu_16` 的玩家：播放图腾动画与音效、发光 40 tick、生命 + (符箓等级 + 1) × 10、消耗一张符箓、取消事件。三个分支（闪避未中后的特殊伤害来源、伤害量不大于 0、普通结算之后）各有一份相同的复活判定。
+5. 受击者当前生命小于原伤害量且是持有 `itemfulu_16` 的玩家：播放图腾动画与音效、发光 40 tick、生命 + (符箓等级 + 1) × 10、消耗一张符箓、取消事件。三个分支（跳过闪避的四种来源、未闪避但跳过物理公式的特殊来源、正伤害普通结算之后）各有一份相同的复活判定。
 
 ### `LivingAttackEvent`：命中附魔与战斗状态（`EntityHurt`）
 
@@ -233,7 +233,7 @@ updated: 2026-11-18
 
 | 来源 | 目标 |
 | --- | --- |
-| `EntityHurt`（`LivingAttackEvent`）、`EntityBeforeHurt`（`LivingHurtEvent`） | 1.21.1 版本两个事件合并为 `LivingIncomingDamageEvent`：`HurtHandler` 先执行 `AttackStage`（命中处理）再执行 `HurtStage`（受伤处理），都要求有攻击者；`AttackStage` 的伤害量取原值，与来源一致 |
+| `EntityHurt`（`LivingAttackEvent`）、`EntityBeforeHurt`（`LivingHurtEvent`） | 盾前的命中与盾后的受伤分别接入，后者覆盖玩家与普通生物各自的实现，见[受伤阶段时序](#盾挡后的受伤阶段与复活符2026-11-23)。 |
 | `/shanghai` 的 `ShanghaiGo` 及两个计算过程 | `Shanghai.deal`（`damage/Shanghai`），命令 `ShanghaiCommand` 只解析参数；类别 `DamageCategory`（14 种，含“无”）承载各类别的灵根、体质键、武器附魔、护甲附魔、相克族 |
 | `DamageSource("linglidamage")` 等四种来源 | 数据包伤害类型 `linglidamage`、`linglidamage_player`、`jinglidamage`、`jinglidamage_player`（消息 ID 与来源一致，`exhaustion` 为 0），加入标签 `minecraft:bypasses_armor`；`CombatDamageTypes.source` 构造（死亡消息键与译文对不上，Q34） |
 | 记分板 `suijishu` | 来源每次先写随机数再读回，只是借用；改为局部随机数 |
@@ -322,3 +322,14 @@ Quest普通脚本“伤害实体/法术或精神”来源仅写ManaAttackDamage�
 ## 人间界死亡标记
 
 `EntityDeathProcedure` 的入口读取致因实体；若为空，直接返回。对应地，玩家在人间界因无致因伤害死亡时保留原有 `REVIVE`；若有致因实体则写入“人间界”，不要求致因者是玩家。这一条件与谁领取击杀收益分别判断。
+
+## 盾挡后的受伤阶段与复活符（2026-11-23）
+
+1.18.2 版本 Forge 40.1.0 在 `LivingEntity` 与 `Player` 两份实际受伤实现中，均先检查易伤，再调用 `onLivingHurt`，若返回值不大于 0 则不进入护甲计算。`EntityBeforeHurtProcedure` 取事件入口量作为局部 `amount`；改写物理结果不改该局部值。符箓用 `当前生命 < amount` 而不是 `<=`，也不是和扣甲后的掉血量比较。
+
+1.21.1 版本 NeoForge 21.1.265 锁定源码（21.1.228 相同）：
+
+- `LivingEntity.hurt:1153–1187` 先发 `LivingIncomingDamageEvent`，再扣盾挡量及盾耐久，处理冻结、头盔，写回容器。`AttackStage` 在前一事件按原始命中量结算，故满盾也有第一段吸血。
+- `LivingEntity.hurt:1190–1208` 的无敌帧分支拒绝不大于上次的伤害；较大的攻击先在容器扣 `INVULNERABILITY`，再传 `amount - lastHurt`。普通分支即使盾已挡成 0，仍会传 0 调用 `actuallyHurt`。不要重扣差额，也不要仅据举盾动作判定实际格挡。
+- `LivingEntity.actuallyHurt:1785–1801`、`Player.actuallyHurt:1025–1042` 各自检查易伤并从栈顶容器读取当前值，玩家不转调父类。`LivingEntityDamageStageMixin` 分别注入两份实现，在首次 `getNewDamage()` 之前取容器快照，改写后的值才进入护甲、魔法、`LivingDamageEvent.Pre`、吸收和生命结算；只改方法的浮点参数无效。容器当前值也尊重 NeoForge 对无敌帧减量的修饰。
+- 全挡的 0 仍可走受伤阶段，但不进入正伤害公式、不产生第二段吸血，不满足活玩家的复活符条件。未挡时，受伤吸血按公式结果；替死符仍按该阶段入口量决定是否消耗。成功时在护甲、吸收和扣血之前中止当次 `actuallyHurt`，容器清零供外层读取，不撤销已经发生的盾损或无敌帧记录。`/shanghai` 自有的前置符箓判断不变。

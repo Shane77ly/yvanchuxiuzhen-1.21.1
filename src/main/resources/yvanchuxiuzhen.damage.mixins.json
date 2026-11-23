@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8.7",
+  "package": "net.yvanchuxiuzhen.system.combat.damage.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "LivingEntityDamageAccess",
+    "LivingEntityDamageStageMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
