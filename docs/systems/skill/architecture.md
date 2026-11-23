@@ -527,3 +527,13 @@ A `JinengCommand`、`FlyskillCommand`、`ShenfaCommand`、`SmanshipCommand` 在�
 ### Q259 控制设置缺少来源的独立 Shift 事件键
 
 A `YvanchuxiuzhenModKeyMappings:185–201,257` 注册默认左 Shift 的独立映射，来源中文名为“shift事件按键”，允许另行改绑；`ShiftanjianAnXiaAnJianShiProcedure` 和 `ShiftanjianSongKaiAnJianShiProcedure` 分别同步玩家 `lshift=true/false`。目标 `SkillClientSetup` 及其他键注册处无此映射，简中也无该条目。核对两份来源 Java，除存档、克隆/同步及这两处写入外，未找到读取 `.lshift` 的玩法过程；不能据此宣称潜行、读书或射箭失效。与已修复的 Ctrl/Alt 箭矢修饰键不是同一项。复核控制设置的条目和改绑；是否保留无已知消费者的映射待裁定。
+
+### 任务六奖励的火球术书
+
+**领书。** 来源 B 的 PlayerRightClickBlockProcedure 与目标 QiankunDialogue 的任务六发书命令，解码 Java 转义后逐字一致。来源 A 的 JinengCommand、JinengGO 与目标 DialogueRuntime、SkillCommands、SkillLibrary 均在命令位置各轴加 0.5 掉一本书，拾取延迟 10 刻。23 项实参中，载体 book_006，技能火球术，品阶和所需境界均为 1，灵根火，武器要求「无」，攻击参数 2、倍率 1.2、消耗系数 1、禁施 0。按金、水、木、火、土、阴阳排列，冷却增量（秒）为 0、0、0、10、−2、0；可施放上限（秒）为 0、0、0、20、0、0。消耗系数 1 不等于固定扣 1 灵力。
+
+**研习与使用。** 该书由命令生成，带未绑定的 SkillBook，不属于任务四、八的 Q275。来源 A 的 BookRightClick 与目标书工厂 book:study_book、StudyBookItem、SkillStudy 均允许境界数和火灵根各至少为 1 的角色主手持原书潜行右键，将本人 UUID 写到书上。仅把火灵根降为 0，则提示需要火灵根，不绑定。对这本原书，能放入槽不等于能选中：来源 PlayerGUI04Menu 的技能槽看非空技能名，目标 SkillLoadoutMenu 看法术类别和非空技能名；翻页或关闭保存本页四槽。第一页右侧首槽对应技能槽 1，选择才查本人归属。保持选中、关闭连招，持无开灵附魔的非弓武器（wuqi 标签），灵力足、无沉默或禁施、火冷却不超过 400 刻时可施放。「无」只表示不限定武器类别。
+
+**命中。** 两版均从眼高减 0.1 格处发射，弹体在首次飞行更新读取当时选中书的攻击参数。来源 FriendpandingStoEe 与 FriendpandingStoE 都查施法者友方表中的对方队名，与目标 ProjectileSupport.friendly 方向一致。普通火球在半边长 2 格的盒内每发现一个非友方对象，就再向同一个直接命中目标请求一次火伤；邻近者不因此各挨一次，这是既有 Q63。两版普通火球的发射、飞行、命中及 ShanghaiGo／Shanghai 常规火伤分支均没有无条件点燃操作。火焰粒子不是燃烧状态，不能凭简介认定移植漏了点燃。
+
+**待实机对照。** 两版分别用任务六实际领到的书做上述正例和无火灵根反例。在干燥空地、无附加点火效果、初始冷却为零时，对数格外未着火的敌对生物施放，分别记录灵力、火冷却、直接目标与邻近生物的生命和燃烧刻。既有 SkillUiCheck 使用手造书，Q63 的直接目标与邻近傀儡记录也不覆盖任务领取整链。

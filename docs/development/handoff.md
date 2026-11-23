@@ -9,7 +9,7 @@ updated: 2026-11-23
 
 ## 当前交接（2026-11-23 双源保真修复）
 
-当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。差异审计不改玩法：Q244–Q264 已合入 `d70a570a`，Q265–Q274 已合入 `d0834be4`；Q275–Q278 已合入 `2e85c89c`。任务二、三、七的 Q279–Q281 已合入 `fd2837b3`。此后已核[任务一与五的修为丹](../systems/liandan/architecture.md#任务一与任务五的一级修为丹)，未增差异编号。下批查任务六：从实际发出的火球术书追到符合条件的角色能否研习、装入槽位并通过武器施放，不用命令预先装好的技能代替。
+当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。差异审计不改玩法：Q244–Q264 已合入 `d70a570a`，Q265–Q274 已合入 `d0834be4`；Q275–Q278 已合入 `2e85c89c`。任务二、三、七的 Q279–Q281 已合入 `fd2837b3`。此后已核[任务一与五的修为丹](../systems/liandan/architecture.md#任务一与任务五的一级修为丹)，未增差异编号。任务六的[火球术原奖](../systems/skill/architecture.md#任务六奖励的火球术书)已静态核至命中，未新增编号；任务原书整链仍未实机。下次做任务实机时，对照任务四、八与六的原奖，分别检查能否研习并在重进后选中。
 
 ## 历史交接（2026-11-22 收口干净状态）
 
