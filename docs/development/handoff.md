@@ -9,7 +9,7 @@ updated: 2026-11-23
 
 ## 当前交接（2026-11-23 双源保真修复）
 
-当前本地集成分支 `codex/parity-20261123`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..codex/parity-20261123` 定位。证据与下一步见[当前调度](remaining-work.md#当前调度)。
+当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。证据与下一步见[当前调度](remaining-work.md#当前调度)。
 
 ## 历史交接（2026-11-22 收口干净状态）
 
