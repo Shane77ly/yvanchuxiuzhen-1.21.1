@@ -9,7 +9,7 @@ updated: 2026-11-23
 
 ## 当前交接（2026-11-23 双源保真修复）
 
-当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。差异审计不改玩法：Q244–Q264 已合入 `d70a570a`，Q265–Q274 已合入 `d0834be4`；Q275–Q278 文档分支 `docs/parity-worldgen-quest-20261123` 以该点为基线。下一步按[统一问题索引](../reference/legacy/source-survey.md#本轮双源差异核查2026-11-23)从 Q279 续查，优先跟任务二的画里乾坤法宝、任务三的四道菜、任务七的大风雷火实际如何使用，不重复核奖励指令本身。
+当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。差异审计不改玩法：Q244–Q264 已合入 `d70a570a`，Q265–Q274 已合入 `d0834be4`；Q275–Q278 已合入 `2e85c89c`。本批从该点续核任务二、三、七，见[奖励使用记录](../systems/project/logs/2026-11.md#2026-11-23-双源差异续查任务奖励的实际使用)。下一批先从任务一、五实际执行的 `baoxiangopen 药架 精进修为丹药堆` 追到生成的丹药和服用效果；复用宝箱既有抽奖证据，不重做注册盘点。
 
 ## 历史交接（2026-11-22 收口干净状态）
 

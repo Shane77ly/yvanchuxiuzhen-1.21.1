@@ -2,7 +2,7 @@
 topic: dungeon
 role: architecture
 status: partial
-updated: 2026-11-18
+updated: 2026-11-23
 ---
 
 # 副本：入口、实例、波次与私人画卷
@@ -50,6 +50,12 @@ updated: 2026-11-18
 `A:Fabao00901DangYouJianDianJiFangKuaiShiFangKuaiDeWeiZhiProcedure`只取主手画卷；向上面点击在上方2格放置，其余按点击面邻格；直接替换方块、朝玩家反方向。登记主人UUID和本端坐标、把数量1写单槽、清空整个主手栈。放置物品与普通图标的画卷方块物品保持两个来源身份。
 
 `Fabao009ZaiFangKuaiShangYouJianProcedure`中主人潜行取回，非主人失败提示；首次普通点击播放动画1并开8秒窗口，第二次传送。外维度首次激活先增加本世界画卷序号，出口为`(48×序号,100,48)`，给缓降200刻并保存两端快照。进入画卷维度后清`hualiqiankun`，首次在出口偏移`(-24,0,-24)`放`fabao008jiegou`，出口上2格放画卷、出口Y加2。内维度返回写`fanhui`；普通世界实体加入时清标志并刷新入口槽0。未为入口丢失补造重建逻辑。
+
+### Q279 画卷两端被其他容器替换时的快照写入
+
+任务二的奖励能放置和传送；差异出现在传送之后更新原坐标槽 0 的步骤。1.18.2 版本 `A:WeidubianhuanProcedure:145–171`（回程）和 `A:Fabao009weiduDangWanJiaJinRuWeiDuShiProcedure:124–135`（再次进画）查询该格的无方向物品能力，只要可直接赋槽，就把一份画卷写进槽 0，不检查方块是否仍是画卷。1.21.1 版本 `PaintingRuntime.entered/returned/store:89–121` 只对 `DungeonBlockEntity` 写槽。普通画卷仍会刷新；无方块实体的空气在两版都不会重建入口。地灵与无归的回程映射另见 Q82。
+
+最小对照：在主世界放置任务奖励并进画，让第二名玩家把原入口换成黄铜炉，槽 0 放一件可识别物品，不开炉；第一名玩家从画内返回并查看丹炉。来源 `Alchemy01TileEntity:43–46,173–178` 在空方向回退容器父类（[Forge 无方向能力](../../../.claude/skills/minecraft-mod-porting/references/targets/neoforge-1.21.1.md#库存身份匹配与无方向能力2026-11-10-核对)）。按代码，来源会覆盖槽 0，目标保留原物。用未替换的画卷作对照。仅静态确认，未做双人实机；来源覆盖别的库存有损物风险，是否保留待裁定，不能据此直接放宽生产代码的写入范围。
 
 ## 镇妖塔与外部依赖
 
