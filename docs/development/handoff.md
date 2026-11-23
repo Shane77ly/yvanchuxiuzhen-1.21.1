@@ -9,7 +9,7 @@ updated: 2026-11-23
 
 ## 当前交接（2026-11-23 双源保真修复）
 
-当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。差异审计不改玩法：首批 Q244–Q264 已合入 `d70a570a`；续批文档分支 `docs/parity-events-and-transfers-20261123` 以该点为基线。下一步按[统一问题索引](../reference/legacy/source-survey.md#本轮双源差异核查2026-11-23)从 Q275 继续核对尚未覆盖的调用链（优先自然地物投放与任务物品消费者），确认差异与已批准调整分开处理。
+当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。差异审计不改玩法：Q244–Q264 已合入 `d70a570a`，Q265–Q274 已合入 `d0834be4`；Q275–Q278 文档分支 `docs/parity-worldgen-quest-20261123` 以该点为基线。下一步按[统一问题索引](../reference/legacy/source-survey.md#本轮双源差异核查2026-11-23)从 Q279 续查，优先跟任务二的画里乾坤法宝、任务三的四道菜、任务七的大风雷火实际如何使用，不重复核奖励指令本身。
 
 ## 历史交接（2026-11-22 收口干净状态）
 

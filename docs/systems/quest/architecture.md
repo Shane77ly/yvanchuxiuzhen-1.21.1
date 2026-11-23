@@ -208,3 +208,17 @@ B `TaskXvanzehouProcedure`可将记分板选择转为`playerxvanze`并继续解�
 ### Q255 连续聊天传送后指令使用旧坐标
 
 B `TaskduihuashijianProcedure:555–608,619,642–646` 在执行指令时取玩家当时位置；目标 `QuestChatRuntime:28–39,102–111,167–170` 在本轮解释开始时记住坐标。连续聊天同一轮执行 `改变坐标/100/70/100%指令/setblock ~ ~-1 ~ minecraft:gold_block%结束`，比较金块出现在传送前还是传送后位置。不外推到普通对话或下一轮解释；未证明已有自然任务含此组合，未实机。
+
+### Q275 乾坤道人奖励的五行基础和灵步不能研习
+
+B `PlayerRightClickBlockProcedure:262,274` 的任务四发 `book_022`，写 `ExercisesName=五行基础`；任务八发 `book_033`，写 `shenfaName=灵步`。`DuihuashijiantwoProcedure:106,150` 写入书的根标签并发给玩家。A `Book022Item:28`、`Book033Item:28` 均进入 `BookRightClickProcedure:134–147,251–260`：潜行使用未绑定的原书时按这些名字识别；研习成功写玩家 UUID，功法书另写层数 1。
+
+1.21.1 版本 `QiankunDialogue:71,75` 保留奖励字段，但 `DialogueRuntime.changeItems:326–347` 只写通用自定义数据和显示名；两本书都注册为 `book:study_book`。`StudyBookItem:58–59,92–109` 潜行研习只通过 `Techniques.book:21–23` 和 `Skills.book:38–40` 读取各自专用组件。任务没有创建这两个组件，导致原书在识别阶段就退出，与 Q28 排除的小游戏无关；不外推到由功法或技能系统发放的其他书。
+
+复核：在两个版本中分别用 30 枚一级灵石换任务四的书、跟随任务八对话领取身法书；合乎条件的角色用主手持原书潜行右键，比较能否识别和绑定、功法层数及灵步后续能否装备。不要用命令生成的同名书替代。已静态核对，未修、未实机。
+
+### Q276 任务按等级验收和扣除材料时读不到材料等级
+
+A `ItemhechengProcedure:61–69` 将五枚二级灵石合成三级灵石 `cailiao_193`，写材料等级 15；`ZhibujiZaiFangKuaiShangYouJianProcedure:39–48` 将棉制成 `cailiao_171`，写等级 4。B `DuihuashijiantwoProcedure:191–235,283–330` 在带字段的扣物和计数分支读取同一根标签。1.21.1 版本 `MaterialSetup:82,92`、`LoomRuntime:24,57,99` 经 `MaterialLibrary` 写材料专用组件；`DialogueRuntime:357–377,393–417` 却只从通用自定义数据读 `cailiaolevel`。这是正常生产的材料被任务读取时的差异，不是 Q253 的饰品赋值问题。
+
+复核：背包只放一件上述产物，用同 ID 和匹配的显示名执行高级判断，附 `cailiaolevel/int/15`（布料用 `4`）；源码推导分别计 1、0。另用同一等级条件要求扣两件、实际只有一件，分别扣 1、0；此例避开 Q85 的足量栈扣除次序。乾坤道人任务五收花瓣、任务七收三级灵石都只验 ID，不受此条件影响。不据此断言有内置任务在此处卡住。未修、未实机。
