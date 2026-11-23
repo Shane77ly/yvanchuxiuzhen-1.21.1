@@ -2,12 +2,16 @@
 topic: handoff
 role: guide
 status: current
-updated: 2026-11-22
+updated: 2026-11-23
 ---
 
 # 交接说明
 
-## 当前交接（2026-11-22 收口干净状态）
+## 当前交接（2026-11-23 双源保真修复）
+
+当前本地集成分支 `codex/parity-20261123`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..codex/parity-20261123` 定位。证据与下一步见[当前调度](remaining-work.md#当前调度)。
+
+## 历史交接（2026-11-22 收口干净状态）
 
 主工作目录 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1` 已恢复为**唯一且干净的工作树**，当前分支为 `port/batch0-integration-20261117`（基线包含 `faf99fa1` 及其之前全部已合入成果；最新 HEAD 以 Git 为准）。除 `main`（`5cdc045c`）与 `port/batch0-integration-20261117` 之外的 325 个历史分支和 136 个冗余 worktree（含原 `rebuild-batch0-integration-continuation-20261119` 与原主树 313 条旧改动）已全部打包归档至工作区外 `D:/yuanchuxiuzhen-1.21.1-port/archive/cleanup-20261122/`（含 `all-branches-20261122.bundle` 与 `dirty-worktrees/`）后彻底移除。本批合入与取舍记录见[项目月志](../systems/project/logs/2026-11.md#2026-11-22-接手验收合并与工作树收口)。
 
