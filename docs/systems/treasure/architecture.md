@@ -2,7 +2,7 @@
 topic: treasure
 role: architecture
 status: partial
-updated: 2026-11-14
+updated: 2026-11-23
 ---
 
 # 宝箱：奖励与开箱
@@ -115,3 +115,7 @@ A十按钮及命中过程`25/35/45/55/65`均读操作当时主手，无物品类
 ### Q143 弹体空声音标识
 
 A `TiandaobaoxiangitemEntity`两种shoot查询空ResourceLocation声音，没有有效音效ID，弹体自身silent。目标不补造原版箭声；空ID在1.18.2版本的具体异常/日志未实机，当前差异与声音表现仍待核。
+
+### Q254 宝箱设置命令权限由零升为一
+
+B `BaoxiangsetCommand:24–26,43–45` 没有权限门槛，`BaoxiangsetGoProcedure:21–53` 对七格视线内的方块实体写五项配置。目标 `TreasureCommands.register:23–30` 给 `/baoxiangset` 和 `/baoxiangopen` 都加权限 1；前者与来源不同，后者不在差异内。在隔离世界用权限 0 的生存玩家正对箱子执行 `/baoxiangset A B 2 1 1`，再换权限 1 对照。降低权限会使普通玩家能改配置，登记不等于已授权放宽。未实机。

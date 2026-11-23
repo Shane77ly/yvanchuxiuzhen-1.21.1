@@ -2,7 +2,7 @@
 topic: xiulian
 role: architecture
 status: partial
-updated: 2026-11-18
+updated: 2026-11-23
 ---
 
 # 修炼、身份与生命周期：规则与实现状态
@@ -294,3 +294,20 @@ NeoForge 21.1.265同名Helper和包装器保留上述路径；目标`BirthInitia
 ## 战斗击杀收益接入（2026-11-20）
 
 战斗系统通过 `PlayerDeathRules` 按 `DamageSource.getEntity()` 识别服务端玩家攻击者，并调用 `Cultivation` 公开操作写入 `EXPERIENCE_STAND`、`VIGOROUS`、`MERITS` 及人间界 `REVIVE` 标记；`CultivationTick`、`LevelUp` 和修炼附件保存仍由本系统既有入口负责。未新增六个 `synchronous*` 镜像字段的消费者。
+
+### Q249 创造模式对空气使用物品的扣件差异
+
+Forge 40.1.0 `ServerPlayerGameMode.useItem:291–306` 在物品回调后恢复创造玩家原栈数量；NeoForge 21.1.265 同方法 `306–338` 不再恢复。两者对方块的 `useItemOn` 不能据此类推。以下均为对空气使用的成功分支，1.18.2 版本直接扣件由外层恢复，1.21.1 版本仍无条件扣件。
+
+| 入口 | 来源 A 过程 | 目标生产位置 |
+| --- | --- | --- |
+| 血精 `xvejing` | `XvejingDangYouJianDianJiKongQiShiShiTiDeWeiZhi:15–18` | `BloodEssenceItem.use:21–28` |
+| 已配置的 01/02 物品宝箱 | `TreasureChest01DangYouJianDianJiKongQiShiShiTiDeWeiZhi:18–24` | `TreasureRewardItem.use:27–36` |
+| 书架奖励载体（功法书/技能书） | `BookRightClick:91–97` | `StudyBookItem:80–89` |
+| 即时符 01/04、持续符 02 首次激活 | `Itemfulu01…:79`、`Itemfulu04…:333`、`Itemfulu02…:104` | `FuluInstant:105`、`FuluUse:117` |
+
+复核须走真实右键或游戏模式的 `useItem`，而不是直接调用物品方法。创造主手拿 2 个血精，空副手，对空气使用一次，对比服务端槽位 2→2 与 2→1；对宝箱须先配置有效奖励。生存应正常扣件，红包与财神服礼包已有创造保护，不属于缺陷。荧光蛊仍沿用 Q180。本轮静态已核，未实机。
+
+### Q258 四项游戏规则的名称与说明未合入语言表
+
+A `ModGameRules` 注册 `linggenlevel`、`jinruyouxichushenxvanze`，B 注册 `shopsell`、`weaponlevelup`；两版本的规则名、类型、默认值和分类相同。来源简中 `gamerule.<id>` 与 `.description` 共八键，其中三项有实际中文说明（出身选择规则的原文为拼音）。1.21.1 版本 `XiulianRules`、`CommerceTrading.SHOP_SELL` 和 `LianqiRules` 均注册有效，但合并后的简中没有这八个键。目标原版 `GameRules.Key.getDescriptionId:492–493` 动态拼接键，`EditGameRulesScreen:302–310` 通过该键显示名称，仅在 description 存在时显示说明；检查 Java 中的字面量翻译调用不能发现这个遗漏。复核：创建世界→游戏规则，在简中下逐项查看标签和悬停说明，与 A/B 同语言对比。只确认资源和原生读取路径，未截图、未改玩法。

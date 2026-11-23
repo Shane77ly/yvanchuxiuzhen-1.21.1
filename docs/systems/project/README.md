@@ -2,12 +2,12 @@
 topic: project
 role: entry
 status: current
-updated: 2026-11-22
+updated: 2026-11-23
 ---
 
 # 项目状态与决定
 
-2026-11-22 负责人授权将 `port/batch0-integration-20261117`（`503e9094`）合入 `main`（合并提交 `f1e744e0`）并推送至远端 `origin/main`，同时要求与两个 1.18.2 源 Mod 进行全量二次比对。经 `inventory_legacy.py --check` 及全库交叉扫描，确认 4,931 项有效注册、561 配方、109 掉落表、8 进度、161 结构、8 维度及全部 `pending_hooks` 均已 100% 对齐；针对二次比对抓出的 4 处细节遗漏（① B1 阶段跳过未重刷的 7 个实体标签、5 个原版结构群系标签与 2 个标签后迁成员；② `/fuwuqimingling` 管理员规则命令；③ `OxygentubiaoOverlay` 水下氧气 HUD；④ `TiankongxvanranProcedure` 浓雾群系与雷劫视野雾效），负责人指示写入文档交由执行会话从 `main` 检出 `port/source-parity-patch-20261122` 补齐。详见[当前调度](../../development/remaining-work.md#5-2026-11-22-双源-mod-二次比对-4-项补齐任务单)与[项目月志](logs/2026-11.md#2026-11-22-合入-main-推送与双源-mod-二次比对补齐任务单)。
+2026-11-22 负责人授权将 `port/batch0-integration-20261117`（`503e9094`）合入 `main`（合并提交 `f1e744e0`）并推送至远端 `origin/main`，同时要求与两个 1.18.2 源 Mod 进行全量二次比对。经 `inventory_legacy.py --check` 及全库交叉扫描，确认 4,931 项有效注册、561 配方、109 掉落表、8 进度、161 结构、8 维度及全部 `pending_hooks` 已在当次静态检查范围内核对（属 11 月 22 日历史结论，不代表所有玩法或界面已逐项对齐；后续差异见[统一问题索引](../../reference/legacy/source-survey.md#本轮双源差异核查2026-11-23)）；针对二次比对抓出的 4 处细节遗漏（① B1 阶段跳过未重刷的 7 个实体标签、5 个原版结构群系标签与 2 个标签后迁成员；② `/fuwuqimingling` 管理员规则命令；③ `OxygentubiaoOverlay` 水下氧气 HUD；④ `TiankongxvanranProcedure` 浓雾群系与雷劫视野雾效），负责人指示写入文档交由执行会话从 `main` 检出 `port/source-parity-patch-20261122` 补齐。详见[当前调度](../../development/remaining-work.md#5-2026-11-22-双源-mod-二次比对-4-项补齐任务单)与[项目月志](logs/2026-11.md#2026-11-22-合入-main-推送与双源-mod-二次比对补齐任务单)。
 
 2026-11-22 负责人审阅五批次代码合入与 R16 首轮实机结果后，确认采用**选项 1（R16 最终收尾三步走）**：在唯一主工作树检出 `port/r16-tail-closure`，① 补齐 15 个已存在资源文件的转换清单登记使 `check_ledger.py` 达 0 问题；② 优先排查修复 `questeditor`（创造潜行右键任务方块）与 `spiritbeastbag`（灵兽袋染色菜单）两项潜在交互问题，修正 `doublebang`、`guchong`、`guchonggroundsave`、`guchongflute`、`moshou002`、`npcmanagement` 夹具断言/时序并复跑通过，复核 `dimensionportal` 内存边界；③ 重新执行全量静态门禁、ArchUnit 与 `jar` 打包并合入 `port/batch0-integration-20261117`，完成后待负责人确认合入 `main`。详见[当前调度](../../development/remaining-work.md#4-2026-11-22-r16-最终收尾三步走任务单负责人确认选项-1)与[项目月志](logs/2026-11.md#2026-11-22-r16-收尾三步走任务单定案)。
 

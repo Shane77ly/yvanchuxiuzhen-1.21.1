@@ -515,3 +515,15 @@ button0/1先把当前四技能保存到旧页，再通过 `Skills.turnPage` 减/
 ## 技能弹体穿透同步（2026-11-20）
 
 技能弹体及技能箭的来源穿透值改用实体同步字段，服务端设置、附加穿透与客户端读取使用同一值；沿原生 `PierceLevel` 存档键恢复，撞块原生处理后同步清零。生产编译通过，实际碰撞、网络同步及重进未验。
+
+### Q250 三类弹体的附加击退受抗性影响
+
+Forge 40.1.0 原生 `AbstractArrow.onHitEntity:337–341` 对水平单位速度乘 `击退等级×0.6`，另加垂直推力 0.1；不在这一次额外推力中乘目标击退抗性。目标 `SkillProjectile:128–134`、`FabaoProjectile:308–313` 和 `FormationArrow:44–50` 多乘 `max(0,1−抗性)`，全抗时也跳过这次垂直推力。已追到非零入口：A 水03、冰02/03、岩01和投掷法宝001/002/004；B `Zhenyang01Item.releaseUsing:40`（阳一箭，击退2）。16种手持技能发射入口的发射威力、基础伤害、击退等级及暴击标志未发现差异。不要外推到非箭伤害或零击退的弹体。最小复核：水平发射阳一箭，比较同型目标抗性 0 与 1 时命中首刻的速度；控制其他击退效果。未实机。
+
+### Q257 四个技能命令不再接受裸命令
+
+A `JinengCommand`、`FlyskillCommand`、`ShenfaCommand`、`SmanshipCommand` 在约第45行均给根节点注册执行回调；目标 `SkillCommands:35–45` 仅在参数子节点注册执行。两版权限不变（`jineng` 为0，另三项为1）。比较 `/jineng` 和有参用法的服务器反馈；旧版进入处理器不等于无参也能取得有效技能书。Q37 权限议题保留。未实机。
+
+### Q259 控制设置缺少来源的独立 Shift 事件键
+
+A `YvanchuxiuzhenModKeyMappings:185–201,257` 注册默认左 Shift 的独立映射，来源中文名为“shift事件按键”，允许另行改绑；`ShiftanjianAnXiaAnJianShiProcedure` 和 `ShiftanjianSongKaiAnJianShiProcedure` 分别同步玩家 `lshift=true/false`。目标 `SkillClientSetup` 及其他键注册处无此映射，简中也无该条目。核对两份来源 Java，除存档、克隆/同步及这两处写入外，未找到读取 `.lshift` 的玩法过程；不能据此宣称潜行、读书或射箭失效。与已修复的 Ctrl/Alt 箭矢修饰键不是同一项。复核控制设置的条目和改绑；是否保留无已知消费者的映射待裁定。
