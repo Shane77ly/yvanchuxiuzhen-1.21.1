@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
@@ -135,7 +136,7 @@ final class CommerceValuation {
         return 0;
     }
 
-    private static boolean tag(ItemStack stack, String name) { return stack.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", name))); }
+    private static boolean tag(ItemStack stack, String name) { return stack.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, name))); }
     private static boolean anyTag(ItemStack stack, String... names) {
         for (String name : names) if (tag(stack, name)) return true;
         return false;

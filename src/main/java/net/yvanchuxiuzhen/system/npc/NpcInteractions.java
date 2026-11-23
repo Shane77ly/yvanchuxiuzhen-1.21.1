@@ -99,9 +99,11 @@ public final class NpcInteractions {
     private static void refreshCatalog(Entity npc, int grade) {
         Scoreboard scoreboard = npc.level().getScoreboard();
         Objective objective = scoreboard.getObjective("keyishuaxin");
-        if (objective != null && scoreboard.getOrCreatePlayerScore(npc, objective).get() == 1) {
+        String existing = npc.getPersistentData().getString("productlist");
+        if (existing.isEmpty() || existing.startsWith("minecraft:air%")
+                || (objective != null && scoreboard.getOrCreatePlayerScore(npc, objective).get() == 1)) {
             npc.getPersistentData().putString("productlist", EconomyCatalogs.materialShop(grade));
-            scoreboard.getOrCreatePlayerScore(npc, objective).set(0);
+            if (objective != null) scoreboard.getOrCreatePlayerScore(npc, objective).set(0);
         }
     }
 }

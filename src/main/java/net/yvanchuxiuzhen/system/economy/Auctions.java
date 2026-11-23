@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.economy.api.AuctionNpcRequestEvent;
 import net.yvanchuxiuzhen.system.economy.api.AuctionSeatRequestEvent;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
@@ -269,11 +270,11 @@ public final class Auctions {
             CompoundTag npc = state.getCompound("noplayercharacter" + index);
             if (npc.getBoolean("fangqi")) continue;
             for (int need = 1; need <= 3; need++) {
-                String tag = npc.getString("veryneed" + need);
-                ResourceLocation id = ResourceLocation.tryParse(tag.toLowerCase(Locale.ENGLISH));
+                String tag = npc.getString("veryneed" + need).toLowerCase(Locale.ENGLISH).replace("forge:", ModId.VALUE + ":");
+                ResourceLocation id = ResourceLocation.tryParse(tag);
                 if (id == null || !item.is(ItemTags.create(id))) continue;
                 base = need == 1 ? 15 : need == 2 ? 10 : 5;
-                proceed = !tag.equals("forge:book") || npc.getString("veryneed" + need + "type").equals(goods.getString("goodstype"));
+                proceed = !tag.equals(ModId.VALUE + ":book") || npc.getString("veryneed" + need + "type").equals(goods.getString("goodstype"));
                 if (npc.getInt("veryneed" + need + "pinjie") >= 1) requiredQuality = npc.getInt("veryneed" + need + "pinjie");
                 requiredLevel = npc.getInt("veryneed" + need + "level");
                 maximum = goods.getInt("goodsstartingprice") * (need == 1 ? 6 : need == 2 ? 4 : 3);
@@ -292,7 +293,7 @@ public final class Auctions {
             if (!npc.getBoolean("tiaoxin") && Mth.nextInt(level.random, (int) minimum, (int) maximum) >= state.getInt("commoditymoney")) {
                 double willingness = base + goods.getInt("goodslevel") - requiredLevel - emotion / 5;
                 if (state.getInt("commodityupnumber") >= 1) willingness -= npc.getInt(state.getCompound("chujianpc").getString("npcweizhi" + state.getInt("commodityupnumber") + "uuid") + "like") / 5.0;
-                if (item.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", "cailiao")))) willingness += (custom(item).getInt("cailiaopinjie") - requiredQuality) * 5;
+                if (item.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "cailiao")))) willingness += (custom(item).getInt("cailiaopinjie") - requiredQuality) * 5;
                 npc.putInt("yiyvan", (int) (willingness + npc.getInt("chujiaqvanzhong")));
             } else {
                 int roll = level.random.nextInt(10);

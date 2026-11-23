@@ -48,7 +48,7 @@ public final class TreasureCasketItem extends ContentItem {
         super.appendHoverText(stack, context, lines, flag);
         String command = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("zhiling");
         List<String> fields = Arrays.asList(command.replace(" ", "/").split("/"));
-        if (!fields.getFirst().equals("lianqi")) return;
+        if (fields.size() < 6 || !fields.getFirst().equals("lianqi")) return;
         lines.add(Component.literal("§6" + fields.get(5)));
         lines.add(Component.literal("§b" + fields.get(4)));
         lines.add(Component.literal("§f" + fields.get(3)));
@@ -65,12 +65,16 @@ public final class TreasureCasketItem extends ContentItem {
     }
 
     private static void numberLine(List<Component> lines, List<String> fields, int condition, int value, String label) {
-        if (!fields.get(condition).equals("0")) lines.add(Component.translatable("tooltip.yvanchuxiuzhen.casket." + label, fields.get(value)));
+        if (condition < fields.size() && value < fields.size() && !fields.get(condition).equals("0")) {
+            lines.add(Component.translatable("tooltip.yvanchuxiuzhen.casket." + label, fields.get(value)));
+        }
     }
 
     private static void enchantments(List<Component> lines, List<String> fields, int countIndex, int first) {
-        for (int index = 0; index < (int) number(fields.get(countIndex)); index++) {
+        int count = (int) number(fields.get(countIndex));
+        for (int index = 0; index < count; index++) {
             int offset = first + index * 3;
+            if (offset + 2 >= fields.size()) break;
             Component name = Component.translatable("enchantment." + fields.get(offset).replace("yvanchuxitong", "yvanchuxiuzhen") + "." + fields.get(offset + 1));
             lines.add(Component.translatable("tooltip.yvanchuxiuzhen.casket.enchantment", fields.get(offset + 2), name));
         }

@@ -57,7 +57,7 @@ public final class EconomyMenus {
         CommerceMenu.Kind kind = switch (sourceName) {
             case "商店" -> CommerceMenu.Kind.SHOP;
             case "出售" -> CommerceMenu.Kind.STONE_SALE;
-            case "基础出售" -> CommerceMenu.Kind.BASIC_SALE;
+            case "基础出售", "凡物出售" -> CommerceMenu.Kind.BASIC_SALE;
             default -> throw new IllegalArgumentException("未知经济页面：" + sourceName);
         };
         open(player, pos, kind);

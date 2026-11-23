@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.economy.CommerceTrading;
 import net.yvanchuxiuzhen.system.economy.CommerceUpdates;
 import net.yvanchuxiuzhen.system.economy.Auctions;
@@ -53,7 +54,7 @@ public final class CommerceMenu extends BankInventoryMenu {
                 @Override public boolean mayPickup(Player player) { return !display; }
                 @Override public boolean mayPlace(ItemStack stack) {
                     if (display) return false;
-                    return kind != Kind.STONE_SALE || index != 0 || stack.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", "bank")));
+                    return kind != Kind.STONE_SALE || index != 0 || stack.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "bank")));
                 }
             });
         }
