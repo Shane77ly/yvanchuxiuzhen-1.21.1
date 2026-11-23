@@ -35,7 +35,7 @@ final class WorldFogClient {
                 }).orElse(false);
         if (inFogBiome) {
             if (wuqixianshi == 0) wuqixianshi = 600;
-            else if (wuqixianshi > 30) wuqixianshi -= 1;
+            else if (wuqixianshi > 8) wuqixianshi -= 1;
         } else if (wuqixianshi > 0) {
             if (wuqixianshi < 600) wuqixianshi += 1;
             else wuqixianshi = 0;
