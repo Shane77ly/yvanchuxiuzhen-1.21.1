@@ -2,7 +2,7 @@
 topic: yihuo
 role: architecture
 status: partial
-updated: 2026-11-17
+updated: 2026-11-23
 ---
 
 # 异火：来源规则与实现边界
@@ -87,6 +87,18 @@ NeoForge 21.1.265 的 `BlockEntity.saveAdditional` 保存持久数据副本，�
 [economy](../economy/README.md) 的 B `Shougouselljisuan:349–350` 按 `huoyan` 标签调用 `Yihuochushou` 返回两族同级估价，未改变异火状态。[fulu](../fulu/README.md) 的 `HuafushaohuiZaiFangKuaiShangYouJian:33` 按 `huoyvan` 标签接受火源；[craft](../craft/README.md) 的 `TaopiZaiFangKuaiShangYouJian:62–67` 按 `dahuozhuangzhi` 标签启动烧炼；[zhenfa](../zhenfa/README.md) 的 `Zhenfajiance4:120–121` 按 `buzhenfire` 累计火行阵元。标签已登记，装置与流程状态由对应系统写入；烧符台、陶坯的火块渲染引用不视为物品产出。
 
 [liandan](../liandan/README.md)、[lianqi](../lianqi/README.md) 已按上文 `FireHeatEvent/FireExhaustedEvent` 契约消费热量并决定是否保留火块。符箓、NPC等来源的炙烤施加与移除随其施放流程接回，跨系统效果操作沿用 `StatusEffects`。`Fireskill` 按上文来源不可达结论保留，不列为待补的自然武器入口。
+
+### Q280 大风雷火命中非生物时缺少碰撞粒子
+
+A `Cailiao221Entity:71–74` 在原生箭命中后调用 `Cailiao221DangTouZhiWuJiZhongShiTiShiProcedure:23–42`。对非友方目标，只有施加阳火要求是生物；服务端随后在弹体位置发 10 枚 `cailiao_221particle`，速度参数 0.5。目标 `YihuoProjectile:112–116,134–156` 在写施放者后遇非生物即返回，不发送这批粒子。来源同一分支还尝试执行伤害命令；未核定其对矿车的实际伤害，不以此计作战斗差异。
+
+复核：无沉默且灵力至少 10，用任务七原奖近射非友方空矿车，再以牛作对照。区分每飞行刻的 4 枚尾迹和一次 10 枚的命中粒子；必要时比较服务端粒子包。此前对牛的专项不覆盖矿车。本场景未实机、未修。
+
+### Q281 大风雷火不再向普通容器写入炉热
+
+A `Cailiao221fireblockGengXinYouXiKeProcedure:26–60` 扣火块燃料 1 后，给正上方任意方块实体加 `lianpower` 1，不筛炉种。目标 `FireBlock:65–77` 扣同量并发供热事件；`AlchemyRuntime:83–88` 和 `TripodRuntime:78–83` 只写本系统的炉。普通箱子不再记热，不表示来源箱子能炼制。供热和燃料耗尽后的留火条件是不同步骤。
+
+复核：用任务七原奖潜行射石基，在新火块正上方放空箱，不补料、无实体触火。第 20/40 服务端刻后，按代码两端燃料均为 9/8，来源箱子 `ForgeData.lianpower` 为 1/2，目标箱子没有对应值。换成未开工的丹炉、鼎炉作对照，两端都应记 1/2。既有耗料专项未查箱子；本场景未实机、未修，是否需要保留非炉数据待裁定。
 
 ## 未完成
 
