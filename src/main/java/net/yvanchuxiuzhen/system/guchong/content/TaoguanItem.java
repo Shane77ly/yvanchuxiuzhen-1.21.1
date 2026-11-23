@@ -15,7 +15,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -99,7 +99,7 @@ public final class TaoguanItem extends ContentItem {
                         case 2 -> "蛊罐";
                         default -> "大蛊罐";
                     });
-                    owner.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new TaoguanMenu(id, inventory, grade, player.blockPosition()), title),
+                    owner.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new TaoguanMenu(id, inventory, grade, player.blockPosition()), title),
                             buffer -> buffer.writeBlockPos(player.blockPosition()));
                 }
             }

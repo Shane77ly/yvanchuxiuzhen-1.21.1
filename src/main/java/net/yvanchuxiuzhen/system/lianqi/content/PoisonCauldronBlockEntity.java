@@ -52,4 +52,9 @@ public final class PoisonCauldronBlockEntity extends BlockEntity implements Menu
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return ChestMenu.threeRows(id, inventory);
     }
+
+    @Override
+    public boolean shouldTriggerClientSideContainerClosingOnOpen() {
+        return false;
+    }
 }

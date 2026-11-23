@@ -6,7 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -24,7 +24,7 @@ public final class QiankunMenus {
     private QiankunMenus() { }
     public static void register(IEventBus bus) { TYPES.register(bus); }
     public static void open(ServerPlayer player, BlockPos pos) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new QiankunmentuMenu(id, inventory, pos),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new QiankunmentuMenu(id, inventory, pos),
                 Component.translatable("block.yvanchuxiuzhen.qiankunmentu")), buffer -> buffer.writeBlockPos(pos));
     }
 }

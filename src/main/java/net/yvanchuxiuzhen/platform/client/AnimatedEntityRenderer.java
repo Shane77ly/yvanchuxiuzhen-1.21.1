@@ -16,6 +16,7 @@ import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
@@ -86,12 +87,14 @@ public final class AnimatedEntityRenderer<T extends Entity & GeoAnimatable & Ani
             if (Minecraft.getInstance().isPaused() && !animatable.shouldPlayAnimsWhileGamePaused()) {
                 return;
             }
-            row.head().flatMap(this::getBone).ifPresent(head -> {
-                EntityModelData data = state.getData(DataTickets.ENTITY_MODEL_DATA);
-                head.setRotX(head.getInitialSnapshot().getRotX() + data.headPitch() * Mth.DEG_TO_RAD);
-                head.setRotY(head.getInitialSnapshot().getRotY() + data.netHeadYaw() * Mth.DEG_TO_RAD);
-            });
+            row.head().flatMap(this::getBone).ifPresent(head -> applyHeadLook(head, state.getData(DataTickets.ENTITY_MODEL_DATA)));
         }
+    }
+
+    /** 以骨骼初始快照为基准叠加视角俯仰与偏航，避免无关键帧时每帧累加旋转角。 */
+    public static void applyHeadLook(GeoBone head, EntityModelData data) {
+        head.setRotX(head.getInitialSnapshot().getRotX() + data.headPitch() * Mth.DEG_TO_RAD);
+        head.setRotY(head.getInitialSnapshot().getRotY() + data.netHeadYaw() * Mth.DEG_TO_RAD);
     }
 
     /** 发光层：以固定纹理、{@code eyes} 渲染类型重画几何。 */

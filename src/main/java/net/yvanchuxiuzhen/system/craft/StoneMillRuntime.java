@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -20,7 +20,7 @@ public final class StoneMillRuntime {
         if (!(world.getBlockEntity(pos) instanceof StoneMillBlockEntity mill)) return;
         if (player.isShiftKeyDown()) {
             if (player instanceof ServerPlayer opener) {
-                opener.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new StoneMillMenu(id, inventory, pos),
+                opener.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new StoneMillMenu(id, inventory, pos),
                         Component.translatable("block.yvanchuxiuzhen." + mill.id())), pos);
             }
         } else {

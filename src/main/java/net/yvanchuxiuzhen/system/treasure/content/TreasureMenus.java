@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -31,7 +31,7 @@ public final class TreasureMenus {
 
     public static void open(ServerPlayer player) {
         BlockPos pos = player.blockPosition();
-        player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new TreasureToolMenu(id, inventory, pos),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new TreasureToolMenu(id, inventory, pos),
                 Component.translatable("menu.yvanchuxiuzhen.treasure_tool")), buffer -> buffer.writeBlockPos(pos));
     }
 }

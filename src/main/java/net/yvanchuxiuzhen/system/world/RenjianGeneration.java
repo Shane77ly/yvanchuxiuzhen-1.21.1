@@ -48,9 +48,7 @@ final class RenjianGeneration {
         ServerLevel level = player.serverLevel();
         Data data = level.getDataStorage().computeIfAbsent(new SavedData.Factory<>(Data::new, Data::load), DATA_NAME);
         if (!data.generated) {
-            sealQiankunShell(level);
-            WorldStructures.place(level, id("qiankundaorenjvsuo"), new BlockPos(-12, 30, -29));
-            clearQiankunInteriorFluids(level);
+            WorldStructures.placeSealed(level, id("qiankundaorenjvsuo"), new BlockPos(-12, 30, -29), Blocks.DEEPSLATE_BRICKS.defaultBlockState());
             Mob steward = (Mob) BuiltInRegistries.ENTITY_TYPE.get(id("daguanjia")).create(level);
             steward.moveTo(0, 32, -2, 0, 0);
             steward.setYBodyRot(0);
@@ -83,35 +81,6 @@ final class RenjianGeneration {
 
     private static void stopped(ServerStoppedEvent event) {
         FURNISHINGS.removeIf(task -> task.level.getServer() == event.getServer());
-    }
-
-    private static void sealQiankunShell(ServerLevel level) {
-        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
-        for (int x = -13; x <= 13; x++) {
-            for (int y = 29; y <= 46; y++) {
-                for (int z = -30; z <= 5; z++) {
-                    if (x != -13 && x != 13 && y != 29 && y != 46 && z != -30 && z != 5) continue;
-                    cursor.set(x, y, z);
-                    if (!level.getFluidState(cursor).isEmpty()) {
-                        level.setBlock(cursor, Blocks.DEEPSLATE_BRICKS.defaultBlockState(), Block.UPDATE_CLIENTS);
-                    }
-                }
-            }
-        }
-    }
-
-    private static void clearQiankunInteriorFluids(ServerLevel level) {
-        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
-        for (int x = -12; x <= 12; x++) {
-            for (int y = 30; y <= 45; y++) {
-                for (int z = -29; z <= 4; z++) {
-                    cursor.set(x, y, z);
-                    if (!level.getFluidState(cursor).isEmpty()) {
-                        level.setBlock(cursor, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
-                    }
-                }
-            }
-        }
     }
 
     private static ResourceLocation id(String path) {

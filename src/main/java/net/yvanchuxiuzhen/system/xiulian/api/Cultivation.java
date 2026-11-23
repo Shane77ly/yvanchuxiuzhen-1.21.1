@@ -11,7 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -232,7 +232,7 @@ public final class Cultivation {
 
     /** 在指定的最终打开坐标创建属性加点页，跨页记忆由汇总导航维护。 */
     public static void openSkillPoints(ServerPlayer player, BlockPos pos) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new SkillPointMenu(id, inventory, pos),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new SkillPointMenu(id, inventory, pos),
                 Component.translatable("gui.yvanchuxiuzhen.player_gui_02.label_shu_xing_jia_dian")), pos);
     }
 

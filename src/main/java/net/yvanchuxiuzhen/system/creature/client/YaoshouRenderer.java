@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouAttributes;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouEntity;
@@ -69,11 +69,8 @@ public final class YaoshouRenderer<T extends YaoshouEntity> extends GeoEntityRen
         public void setCustomAnimations(T entity, long instanceId, AnimationState<T> state) {
             super.setCustomAnimations(entity, instanceId, state);
             if (Minecraft.getInstance().isPaused() && !entity.shouldPlayAnimsWhileGamePaused()) return;
-            row.head().flatMap(this::getBone).ifPresent(head -> {
-                EntityModelData look = state.getData(DataTickets.ENTITY_MODEL_DATA);
-                head.setRotX(head.getRotX() + look.headPitch() * Mth.DEG_TO_RAD);
-                head.setRotY(head.getRotY() + look.netHeadYaw() * Mth.DEG_TO_RAD);
-            });
+            row.head().flatMap(this::getBone).ifPresent(head ->
+                    AnimatedEntityRenderer.applyHeadLook(head, state.getData(DataTickets.ENTITY_MODEL_DATA)));
         }
 
         private static ResourceLocation resource(String path) {

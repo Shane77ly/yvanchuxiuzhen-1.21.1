@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -38,7 +38,7 @@ public final class PotteryRuntime {
 
     public static void useWheel(Level level, BlockPos pos, Player player) {
         if (player instanceof ServerPlayer opener && level.getBlockEntity(pos) instanceof PotteryWheelBlockEntity wheel) {
-            opener.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new PotteryWheelMenu(id, inventory, wheel),
+            opener.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new PotteryWheelMenu(id, inventory, wheel),
                     Component.translatable("block.yvanchuxiuzhen.taolun")), pos);
             refresh(wheel);
         }

@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
@@ -36,7 +36,7 @@ public final class InscribedDecor {
         if (!plaque && !memorial) return;
         InscribedDecorMenu.Kind kind = plaque ? InscribedDecorMenu.Kind.PLAQUE : InscribedDecorMenu.Kind.MEMORIAL;
         BlockPos pos = event.getPos();
-        server.openMenu(new SimpleMenuProvider((container, inventory, ignored) -> new InscribedDecorMenu(kind, container, inventory, pos),
+        server.openMenu(new SeamlessMenuProvider((container, inventory, ignored) -> new InscribedDecorMenu(kind, container, inventory, pos),
                 Component.translatable("menu.yvanchuxiuzhen.decor." + kind.id())), pos);
     }
 

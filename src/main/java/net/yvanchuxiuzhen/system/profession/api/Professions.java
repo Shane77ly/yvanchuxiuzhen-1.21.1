@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.yvanchuxiuzhen.system.profession.ProfessionCommand;
 import net.yvanchuxiuzhen.system.profession.content.ProfessionMenu;
@@ -18,7 +18,7 @@ public final class Professions {
     }
 
     public static void openPage(ServerPlayer player, BlockPos pos) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new ProfessionMenu(id, inventory, pos), Component.literal("副职业")));
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new ProfessionMenu(id, inventory, pos), Component.literal("副职业")));
     }
 
     /** 执行已定位玩家的来源职业命令；不属于十职业等级或经验分支时返回 false。 */

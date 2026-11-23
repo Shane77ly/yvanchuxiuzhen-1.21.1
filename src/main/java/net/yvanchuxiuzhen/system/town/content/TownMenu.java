@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -38,7 +38,7 @@ public final class TownMenu extends AbstractContainerMenu {
     }
 
     public static void open(ServerPlayer player, BlockPos pos, int page) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new TownMenu(id, inventory, pos, page),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new TownMenu(id, inventory, pos, page),
                 Component.literal("城镇")), buffer -> buffer.writeBlockPos(pos));
     }
 

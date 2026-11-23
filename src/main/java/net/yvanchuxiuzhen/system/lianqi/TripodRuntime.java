@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -68,7 +68,7 @@ public final class TripodRuntime {
     /** 先打开当前坐标菜单，再刷新共享职业字段；运行中的炉次同样允许覆盖该字段。 */
     public static void use(Level level, BlockPos pos, Player player, TripodBlockEntity furnace) {
         if (player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new TripodMenu(id, inventory, furnace),
+            serverPlayer.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new TripodMenu(id, inventory, furnace),
                     furnace.getDisplayName()), pos);
             furnace.getPersistentData().putInt("RefinerLEVEL", (int) Professions.level(player, Profession.REFINING));
             furnace.changed();

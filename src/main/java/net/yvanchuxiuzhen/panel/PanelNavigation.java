@@ -7,7 +7,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
@@ -78,7 +78,7 @@ public final class PanelNavigation {
     }
 
     public static void openAttributes(ServerPlayer player, BlockPos pos) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new PlayerPanelMenu(id, inventory, pos), Component.literal("PlayerGUI01")));
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new PlayerPanelMenu(id, inventory, pos), Component.literal("PlayerGUI01")));
         player.setData(PAGE, 1);
     }
 

@@ -5,7 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -63,7 +63,7 @@ public final class DummyMenu extends AbstractContainerMenu {
             }
             equipment.setItem(slot, worn);
         }
-        serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new DummyMenu(id, inventory, equipment, dummy.getId()),
+        serverPlayer.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new DummyMenu(id, inventory, equipment, dummy.getId()),
                 Component.literal("MurenzhuangGui")), buffer -> buffer.writeVarInt(dummy.getId()));
     }
 

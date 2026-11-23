@@ -1,15 +1,8 @@
 package net.yvanchuxiuzhen;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.client.event.ScreenEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import org.lwjgl.glfw.GLFW;
 import net.yvanchuxiuzhen.collection.decor.client.DecorClientSetup;
 import net.yvanchuxiuzhen.collection.festival.client.FestivalClientSetup;
 import net.yvanchuxiuzhen.platform.ModId;
@@ -91,33 +84,5 @@ public final class YvanchuxiuzhenClient {
         WorldClientSetup.register(modBus);
         ZhenfaClientSetup.register(modBus);
         NbtEditorClientSetup.register(modBus);
-        NeoForge.EVENT_BUS.addListener(YvanchuxiuzhenClient::onScreenClosing);
-        NeoForge.EVENT_BUS.addListener(YvanchuxiuzhenClient::onScreenInitPost);
-    }
-
-    private static double lastScreenMouseX;
-    private static double lastScreenMouseY;
-    private static long lastScreenCloseNanos;
-
-    private static void onScreenClosing(ScreenEvent.Closing event) {
-        if (event.getScreen() == null) return;
-        Minecraft minecraft = Minecraft.getInstance();
-        lastScreenMouseX = minecraft.mouseHandler.xpos();
-        lastScreenMouseY = minecraft.mouseHandler.ypos();
-        lastScreenCloseNanos = System.nanoTime();
-    }
-
-    private static void onScreenInitPost(ScreenEvent.Init.Post event) {
-        if (!(event.getScreen() instanceof AbstractContainerScreen<?>)
-                || event.getScreen() instanceof InventoryScreen
-                || event.getScreen() instanceof CreativeModeInventoryScreen) {
-            return;
-        }
-        if (lastScreenCloseNanos == 0 || System.nanoTime() - lastScreenCloseNanos > 250_000_000L) {
-            return;
-        }
-        lastScreenCloseNanos = 0;
-        Minecraft minecraft = Minecraft.getInstance();
-        GLFW.glfwSetCursorPos(minecraft.getWindow().getWindow(), lastScreenMouseX, lastScreenMouseY);
     }
 }

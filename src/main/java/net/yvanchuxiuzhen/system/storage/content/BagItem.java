@@ -5,7 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +27,7 @@ public final class BagItem extends ContentItem {
         InteractionResultHolder<ItemStack> result = super.use(level, player, hand);
         if (player instanceof ServerPlayer serverPlayer) {
             ItemStack bag = result.getObject();
-            serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new BagMenu(id, inventory, kind, bag),
+            serverPlayer.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new BagMenu(id, inventory, kind, bag),
                     Component.literal("Qiankundai 0 " + (kind.ordinal() + 1))));
         }
         return result;

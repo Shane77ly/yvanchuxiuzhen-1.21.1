@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
@@ -41,7 +41,7 @@ public final class ComprehensionTableBlock extends ContentBlock implements Entit
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof ComprehensionTableBlockEntity table) {
-            player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new ComprehensionMenu(id, inventory, table, pos),
+            player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new ComprehensionMenu(id, inventory, table, pos),
                     Component.literal("Canwutai Block")), buffer -> buffer.writeBlockPos(pos));
         }
         return InteractionResult.SUCCESS;

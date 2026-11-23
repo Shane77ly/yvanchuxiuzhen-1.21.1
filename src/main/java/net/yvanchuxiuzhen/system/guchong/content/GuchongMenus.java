@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -40,7 +40,7 @@ public final class GuchongMenus {
 
     public static void openRelease(ServerPlayer player) {
         BlockPos position = player.blockPosition();
-        player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new GuchongReleaseMenu(id, inventory, position),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new GuchongReleaseMenu(id, inventory, position),
                 Component.translatable("menu.yvanchuxiuzhen.guchong_release")), buffer -> buffer.writeBlockPos(position));
         if (player.containerMenu instanceof GuchongReleaseMenu menu) menu.populate(player);
     }

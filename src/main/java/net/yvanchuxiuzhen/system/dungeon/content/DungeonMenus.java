@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -39,7 +39,7 @@ public final class DungeonMenus {
 
     public static void open(ServerPlayer player, DungeonBlockEntity block, int kind) {
         block.changed();
-        player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new DungeonMenu(id, inventory, block.getBlockPos(), kind),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new DungeonMenu(id, inventory, block.getBlockPos(), kind),
                 Component.translatable("menu.yvanchuxiuzhen.dungeon." + kind)), buffer -> {
                     buffer.writeBlockPos(block.getBlockPos());
                     buffer.writeVarInt(kind);

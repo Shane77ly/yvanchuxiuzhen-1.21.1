@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -55,7 +55,7 @@ public final class HerbAnalysisMenu extends AbstractContainerMenu {
 
     public static void open(ServerPlayer player) {
         BlockPos pos = player.blockPosition();
-        player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new HerbAnalysisMenu(id, inventory, pos),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new HerbAnalysisMenu(id, inventory, pos),
                 Component.literal("Baicaojian")), pos);
     }
 

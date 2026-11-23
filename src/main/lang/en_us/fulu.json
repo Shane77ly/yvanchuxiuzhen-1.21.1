@@ -298,5 +298,12 @@
   "gui.yvanchuxiuzhen.huafu_gui.recipe.itemfulu_45": "炮符",
   "message.yvanchuxiuzhen.reincarnation.confirm_1": "This talisman resets your attributes and clears your equipped techniques, skills, and carried items. Right-click 3 more times to confirm.",
   "message.yvanchuxiuzhen.reincarnation.confirm_2": "This cannot be undone. Right-click 2 more times to confirm.",
-  "message.yvanchuxiuzhen.reincarnation.confirm_3": "There is no turning back after this. Right-click once more to confirm."
+  "message.yvanchuxiuzhen.reincarnation.confirm_3": "There is no turning back after this. Right-click once more to confirm.",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_05": "Sword Aura Effect",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_17": "Meteor Effect",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_19": "Sword Effect",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_29": "Silk Thread Effect",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_32": "Blazing Blast Effect",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_45": "Cannon Effect",
+  "entity.yvanchuxiuzhen.projectile_fulutexiao_46": "Fireball Effect"
 }

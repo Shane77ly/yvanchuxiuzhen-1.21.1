@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
@@ -32,7 +32,7 @@ public final class FriendList {
     /** 团队招募令潜行使用：刷新后打开好友界面。 */
     public static void open(ServerPlayer player) {
         refresh(player);
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new FriendMenu(id, inventory), Component.literal("Friendgui")));
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new FriendMenu(id, inventory), Component.literal("Friendgui")));
     }
 
     public static void press(ServerPlayer player, int button) {

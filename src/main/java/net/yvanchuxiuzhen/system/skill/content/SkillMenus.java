@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
@@ -28,7 +28,7 @@ public final class SkillMenus {
     }
 
     public static void open(ServerPlayer player) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new SkillMenu(id, inventory), Component.literal("技能")));
+        player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new SkillMenu(id, inventory), Component.literal("技能")));
     }
 
     public static void openLoadout(ServerPlayer player) {
@@ -36,6 +36,6 @@ public final class SkillMenus {
     }
 
     public static void openLoadout(ServerPlayer player, BlockPos pos) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new SkillLoadoutMenu(id, inventory, pos), Component.literal("PlayerGUI04")), pos);
+        player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new SkillLoadoutMenu(id, inventory, pos), Component.literal("PlayerGUI04")), pos);
     }
 }

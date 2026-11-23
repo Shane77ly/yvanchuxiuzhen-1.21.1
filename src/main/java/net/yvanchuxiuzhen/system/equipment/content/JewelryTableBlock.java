@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -64,7 +64,7 @@ public final class JewelryTableBlock extends ContentBlock implements EntityBlock
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof JewelryTableBlockEntity table) {
-            player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new JewelryTableMenu(id, inventory, table),
+            player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new JewelryTableMenu(id, inventory, table),
                     Component.literal("Shipintai")), pos);
         }
         return InteractionResult.SUCCESS;

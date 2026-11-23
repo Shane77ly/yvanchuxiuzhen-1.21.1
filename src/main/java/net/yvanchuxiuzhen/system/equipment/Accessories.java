@@ -5,7 +5,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.yvanchuxiuzhen.platform.ModId;
@@ -26,7 +26,7 @@ public final class Accessories {
     }
 
     public static void open(ServerPlayer player, BlockPos pos) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new AccessoryMenu(id, inventory, pos),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new AccessoryMenu(id, inventory, pos),
                 Component.literal("PlayerGUI03")), pos);
     }
 

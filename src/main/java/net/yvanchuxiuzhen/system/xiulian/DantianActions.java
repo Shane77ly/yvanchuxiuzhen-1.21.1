@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -66,7 +66,7 @@ public final class DantianActions {
         player.syncData(XiulianAttachments.CULTIVATION);
         SimpleContainer slot = new SimpleContainer(1);
         slot.setItem(0, benming);
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new DantianMenu(id, inventory, slot), Component.literal("DantianGui")));
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new DantianMenu(id, inventory, slot), Component.literal("DantianGui")));
     }
 
     /** 关闭时槽内物品成为本命法宝；槽空则清空本命槽并取消本命显示，结丹期起放入物品时显示本命。 */

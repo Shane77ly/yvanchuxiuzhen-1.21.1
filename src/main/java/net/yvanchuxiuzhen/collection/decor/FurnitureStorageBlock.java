@@ -9,7 +9,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -51,7 +51,7 @@ public final class FurnitureStorageBlock extends WaterloggedContentBlock impleme
 
     private void open(BlockPos pos, Player player) {
         if (player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.openMenu(new SimpleMenuProvider(
+            serverPlayer.openMenu(new SeamlessMenuProvider(
                     (id, inventory, viewer) -> new FurnitureStorageMenu(variant.layout(), id, inventory, pos),
                     Component.translatable("block.yvanchuxiuzhen." + variant.id())), pos);
         }

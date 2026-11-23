@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -35,7 +35,7 @@ public final class BookMenus {
     }
 
     public static void open(ServerPlayer player) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new BookReadingMenu(id),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new BookReadingMenu(id),
                 Component.translatable("menu.yvanchuxiuzhen.book_reading")));
     }
 
@@ -43,7 +43,7 @@ public final class BookMenus {
     public static void openQuiz(ServerPlayer player) {
         BookQuizData.publish(player);
         BlockPos pos = player.blockPosition();
-        player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new BookQuizMenu(id, pos),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new BookQuizMenu(id, pos),
                 Component.translatable("menu.yvanchuxiuzhen.book_quiz")), buffer -> buffer.writeBlockPos(pos));
     }
 

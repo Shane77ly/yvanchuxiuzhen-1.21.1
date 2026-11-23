@@ -4,7 +4,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
@@ -59,7 +59,7 @@ public final class MaterialSetup {
         NeoForge.EVENT_BUS.addListener((PlayerInteractEvent.RightClickItem event) -> {
             if (event.getEntity() instanceof ServerPlayer player
                     && BuiltInRegistries.ITEM.getKey(event.getItemStack().getItem()).toString().equals("yvanchuxiuzhen:qiancailubook")) {
-                player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new MaterialAnalysisMenu(id, inventory, player.blockPosition()),
+                player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new MaterialAnalysisMenu(id, inventory, player.blockPosition()),
                         Component.literal("QiancailuGui")), player.blockPosition());
             }
         });

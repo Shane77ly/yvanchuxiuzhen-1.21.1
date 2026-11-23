@@ -6,5 +6,8 @@
   "block.yvanchuxiuzhen.dimensiontianqve_portal": "Dimensiontianqve Portal",
   "block.yvanchuxiuzhen.dimensionxiuluo_portal": "Dimensionxiuluo Portal",
   "block.yvanchuxiuzhen.dimensionwugui_portal": "Dimensionwugui Portal",
-  "block.yvanchuxiuzhen.dimensiondiling_portal": "Dimensiondiling Portal"
+  "block.yvanchuxiuzhen.dimensiondiling_portal": "Dimensiondiling Portal",
+  "message.yvanchuxiuzhen.compass_dimension": "Can only be used in the Mortal Realm.",
+  "message.yvanchuxiuzhen.structure_distance": "Distance: %s",
+  "message.yvanchuxiuzhen.structures_complete": "All sealed ruins have been unsealed. Stay tuned for future updates."
 }

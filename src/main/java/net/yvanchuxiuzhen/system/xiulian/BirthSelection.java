@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
@@ -69,7 +69,7 @@ public final class BirthSelection {
     }
 
     private static void open(ServerPlayer player) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new BirthMenu(id, inventory),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new BirthMenu(id, inventory),
                 Component.translatable("gui.yvanchuxiuzhen.player_join_gui.title")));
     }
 

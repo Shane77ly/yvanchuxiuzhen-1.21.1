@@ -6,7 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
@@ -64,7 +64,7 @@ public final class EconomyMenus {
     }
 
     public static void open(ServerPlayer player, BlockPos pos, CommerceMenu.Kind kind) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new CommerceMenu(id, inventory, pos, kind),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new CommerceMenu(id, inventory, pos, kind),
                 Component.translatable("menu.yvanchuxiuzhen." + kind.id())), buffer -> buffer.writeBlockPos(pos));
     }
 }

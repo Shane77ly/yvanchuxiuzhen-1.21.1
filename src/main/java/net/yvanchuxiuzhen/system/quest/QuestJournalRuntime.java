@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.content.QuestJournalMenu;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
@@ -23,7 +23,7 @@ public final class QuestJournalRuntime {
 
     public static void open(ServerPlayer player) {
         BlockPos pos = player.blockPosition();
-        player.openMenu(new SimpleMenuProvider((id, inventory, ignored) -> new QuestJournalMenu(id, inventory, pos),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, ignored) -> new QuestJournalMenu(id, inventory, pos),
                 Component.literal("任务列表")), pos);
         CompoundTag state = DialogueActions.snapshot(player);
         if (state.getString("rendeleibie").isEmpty()) state.putString("rendeleibie", UNFINISHED);
@@ -107,7 +107,6 @@ public final class QuestJournalRuntime {
                     state.putBoolean("renwubegin", true);
                 } else {
                     state.putBoolean("taskbegin", true);
-                    player.closeContainer();
                 }
             }
         }

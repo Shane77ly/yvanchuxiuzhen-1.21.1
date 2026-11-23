@@ -10,7 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -37,7 +37,7 @@ public final class RepairTableRuntime {
         if (event.getHand() != event.getEntity().getUsedItemHand()) return;
         if (event.getEntity() instanceof ServerPlayer player
                 && event.getLevel().getBlockEntity(event.getPos()) instanceof RepairTableBlockEntity table) {
-            player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new RepairTableMenu(id, inventory, table),
+            player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new RepairTableMenu(id, inventory, table),
                     table.getDisplayName()), event.getPos());
         }
     }

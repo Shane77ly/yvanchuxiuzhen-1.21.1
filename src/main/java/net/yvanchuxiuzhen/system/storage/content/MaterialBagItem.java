@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -23,7 +23,7 @@ public final class MaterialBagItem extends ContentItem {
         InteractionResultHolder<ItemStack> result = super.use(level, player, hand);
         if (player instanceof ServerPlayer serverPlayer) {
             BlockPos pos = BlockPos.containing(player.getX(), player.getY() + 1, player.getZ());
-            serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new MaterialBagMenu(id, inventory, pos),
+            serverPlayer.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new MaterialBagMenu(id, inventory, pos),
                     Component.literal("Cailiaodai Gui")), pos);
         }
         return result;

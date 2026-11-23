@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -41,7 +41,7 @@ public final class RetreatActions {
 
     public static void open(ServerPlayer player, BlockPos pos, int mode) {
         String title = mode == 7 ? "观想" : mode == 8 ? "参悟功法" : "修炼";
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new RetreatMenu(id, inventory, pos, mode), Component.literal(title)));
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new RetreatMenu(id, inventory, pos, mode), Component.literal(title)));
     }
 
     /** 六个按钮保留来源各自边界，减一天在一天时保持不变，加十/百天可能设置为寿元减一。 */

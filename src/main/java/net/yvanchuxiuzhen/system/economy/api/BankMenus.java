@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -31,12 +31,12 @@ public final class BankMenus {
     }
 
     public static void openLogin(ServerPlayer player, BlockPos pos) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new BankLoginMenu(id, inventory, pos),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new BankLoginMenu(id, inventory, pos),
                 Component.translatable("menu.yvanchuxiuzhen.bank_login")), buffer -> buffer.writeBlockPos(pos));
     }
 
     public static void openBank(ServerPlayer player, BlockPos pos) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new BankMenu(id, inventory, pos),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new BankMenu(id, inventory, pos),
                 Component.translatable("menu.yvanchuxiuzhen.bank")), buffer -> buffer.writeBlockPos(pos));
     }
 

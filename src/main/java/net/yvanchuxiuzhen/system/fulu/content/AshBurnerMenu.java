@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -62,7 +62,7 @@ public final class AshBurnerMenu extends AbstractContainerMenu {
     }
 
     public static void open(ServerPlayer player, BlockPos pos) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new AshBurnerMenu(id, inventory, pos),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new AshBurnerMenu(id, inventory, pos),
                 Component.translatable("block.yvanchuxiuzhen.huafushaohui")), pos);
     }
 

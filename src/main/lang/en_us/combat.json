@@ -283,5 +283,7 @@
   "message.yvanchuxiuzhen.combat.skill_chance.effect_014": "You can upgrade magic attack %s more times",
   "message.yvanchuxiuzhen.combat.skill_chance.effect_019": "You can upgrade maximum energy %s more times",
   "message.yvanchuxiuzhen.combat.skill_chance.effect_021": "You can upgrade spiritual attack %s more times",
-  "message.yvanchuxiuzhen.combat.experience_gain": "Cultivation increased by %s"
+  "message.yvanchuxiuzhen.combat.experience_gain": "Cultivation increased by %s",
+  "enchantment.yvanchuxiuzhen.haoyu.desc": "[Weapon/Treasure] Reduces enemy spirit power by (level)% on hit",
+  "enchantment.yvanchuxiuzhen.phoenix.desc": "[Weapon/Treasure] Grants (level)% chance to deal (level)^2 true damage on hit"
 }

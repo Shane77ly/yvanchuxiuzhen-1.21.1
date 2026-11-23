@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.scores.Objective;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
@@ -185,6 +185,6 @@ public final class LevelUp {
     }
 
     private static void openScreen(ServerPlayer player) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new LevelUpMenu(id, inventory), Component.translatable("gui.yvanchuxiuzhen.level_up.title")));
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new LevelUpMenu(id, inventory), Component.translatable("gui.yvanchuxiuzhen.level_up.title")));
     }
 }

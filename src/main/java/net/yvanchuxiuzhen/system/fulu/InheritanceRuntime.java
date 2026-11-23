@@ -5,7 +5,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
@@ -24,7 +24,7 @@ public final class InheritanceRuntime {
         if (!(player instanceof ServerPlayer serverPlayer)
                 || !(level.getBlockEntity(pos) instanceof InheritanceBlockEntity inheritance)) return;
         if (serverPlayer.gameMode.getGameModeForPlayer() == GameType.CREATIVE && player.isShiftKeyDown()) {
-            serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new InheritanceMenu(id, inventory, inheritance),
+            serverPlayer.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new InheritanceMenu(id, inventory, inheritance),
                     inheritance.getDisplayName()), pos);
             return;
         }

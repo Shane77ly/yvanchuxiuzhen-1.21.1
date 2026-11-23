@@ -12,7 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -83,6 +83,9 @@ public final class DialogueRuntime {
         String script = state.getString("renwulist");
         if (script.isEmpty()) {
             player.setData(QuestData.SESSION, state);
+            if (player.containerMenu != player.inventoryMenu) {
+                player.closeContainer();
+            }
             return;
         }
         String[] header = resolve(script).split("%")[0].split("/");
@@ -140,7 +143,7 @@ public final class DialogueRuntime {
                     }
                     player.setData(QuestData.SESSION, state);
                     BlockPos anchor = choices ? pos : BlockPos.containing(player.getX(), player.getY() + 1, player.getZ());
-                    player.openMenu(new SimpleMenuProvider((id, inventory, ignored) -> new DialogueMenu(id, inventory, anchor, choices),
+                    player.openMenu(new SeamlessMenuProvider((id, inventory, ignored) -> new DialogueMenu(id, inventory, anchor, choices),
                             Component.literal(choices ? "对话选项" : "对话")), anchor);
                     return;
                 }

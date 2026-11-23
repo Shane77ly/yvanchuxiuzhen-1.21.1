@@ -2,7 +2,7 @@ package net.yvanchuxiuzhen.system.relation;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.yvanchuxiuzhen.system.relation.content.TeamRequestMenu;
 import net.yvanchuxiuzhen.system.relation.data.FriendEntry;
 import net.yvanchuxiuzhen.system.relation.data.PlayerRelation;
@@ -44,7 +44,7 @@ public final class TeamRequest {
         source.displayClientMessage(Component.literal("已向" + targetName + "发送好友申请。"), false);
         target.getData(RelationAttachments.PLAYER).setRequest(source.getDisplayName().getString(), relation.allegiance().team());
         target.syncData(RelationAttachments.PLAYER);
-        target.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new TeamRequestMenu(id, inventory), Component.literal("ZuduiteamGui")));
+        target.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new TeamRequestMenu(id, inventory), Component.literal("ZuduiteamGui")));
     }
 
     public static void press(ServerPlayer player, int button) {

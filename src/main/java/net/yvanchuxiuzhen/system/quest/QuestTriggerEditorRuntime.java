@@ -3,7 +3,7 @@ package net.yvanchuxiuzhen.system.quest;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.level.GameType;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.system.quest.content.DisguisedQuestBlockEntity;
@@ -19,7 +19,7 @@ public final class QuestTriggerEditorRuntime {
         if (!(event.getEntity() instanceof ServerPlayer player) || player.gameMode.getGameModeForPlayer() != GameType.CREATIVE
                 || !player.isShiftKeyDown()) return;
         if (!(player.level().getBlockEntity(event.getPos()) instanceof DisguisedQuestBlockEntity)) return;
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new QuestTriggerEditorMenu(id, inventory, event.getPos()),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new QuestTriggerEditorMenu(id, inventory, event.getPos()),
                 Component.literal("任务方块设置")), buffer -> buffer.writeBlockPos(event.getPos()));
     }
 

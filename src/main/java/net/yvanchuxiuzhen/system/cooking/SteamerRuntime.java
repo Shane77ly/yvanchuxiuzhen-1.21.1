@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -195,7 +195,7 @@ public final class SteamerRuntime {
     }
 
     private static void open(ServerPlayer player, SteamerBlockEntity vessel) {
-        player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new SteamerMenu(id, inventory, vessel),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new SteamerMenu(id, inventory, vessel),
                 vessel.getDisplayName()), vessel.getBlockPos());
     }
 

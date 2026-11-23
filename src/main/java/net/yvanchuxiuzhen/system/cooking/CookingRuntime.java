@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -32,7 +32,7 @@ public final class CookingRuntime {
         if (event.getEntity() instanceof ServerPlayer player
                 && event.getLevel().getBlockEntity(event.getPos()) instanceof CookingPotBlockEntity pot
                 && !pot.getPersistentData().getBoolean("cooking")) {
-            player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new CookingPotMenu(id, inventory, pot),
+            player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new CookingPotMenu(id, inventory, pot),
                     pot.getDisplayName()), event.getPos());
         }
     }

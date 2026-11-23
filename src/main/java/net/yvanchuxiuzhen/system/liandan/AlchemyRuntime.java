@@ -11,7 +11,7 @@ import net.minecraft.network.protocol.game.ClientboundExplodePacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -65,7 +65,7 @@ public final class AlchemyRuntime {
         Player player = event.getEntity();
         if (event.getHand() == player.getUsedItemHand() && player instanceof ServerPlayer
                 && event.getLevel().getBlockEntity(event.getPos()) instanceof AlchemyBlockEntity furnace) {
-            player.openMenu(new SimpleMenuProvider((id, inventory, opener) -> new AlchemyMenu(id, inventory, furnace),
+            player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new AlchemyMenu(id, inventory, furnace),
                     Component.literal("LiandanGUI")), event.getPos());
         }
     }

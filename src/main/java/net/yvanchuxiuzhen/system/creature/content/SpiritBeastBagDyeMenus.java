@@ -6,7 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.SimpleMenuProvider;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -33,7 +33,7 @@ public final class SpiritBeastBagDyeMenus {
 
     public static void open(ServerPlayer player, InteractionHand hand) {
         BlockPos position = player.blockPosition();
-        player.openMenu(new SimpleMenuProvider((id, inventory, owner) -> new SpiritBeastBagDyeMenu(id, inventory, position, hand),
+        player.openMenu(new SeamlessMenuProvider((id, inventory, owner) -> new SpiritBeastBagDyeMenu(id, inventory, position, hand),
                 Component.translatable("menu." + ModId.VALUE + ".spirit_beast_dye")), buffer -> {
                     buffer.writeBlockPos(position);
                     buffer.writeByte(hand == InteractionHand.MAIN_HAND ? 0 : 1);
