@@ -166,3 +166,7 @@ updated: 2026-11-23
 ### Q256 玩家商铺材料不足反馈次数不同
 
 B `ShopblockGuigoumaiProcedure:121–146,232` 在首项不足时置拒绝标志，后项受门控；目标 `ShopTrading:126–141` 遍历各需求槽，对每个不足槽发一次提示。有货、灵石价 0、需 2 石头和 2 泥土，各带 1：来源仅报第一项，目标服务端分派可报两项，两者均不发货、不扣料。完全未带材料是既有 Q93；直接服务端分派和 Q245 导致玩家无购买按钮也是两件事。未实机。
+
+### Q266 替换拍卖椅方块时扩大了座椅实体清理范围
+
+B `PaimaichairBlock:112–122` 只在玩家破坏或爆炸时清除小范围内的全部实体椅；令牌收椅或收台走 `PaimaichairZaiFangKuaiShangYouJian:56–67` / `PaimaiblockZaiFangKuaiShangYouJian:62–77`，只选最近的一把。目标 `AuctionChairBlock.onRemove:24–27` 在任何不同方块替换时都发 `REMOVE_ALL`，`AuctionSeats:29–35` 清掉范围内所有实体椅。令牌显式请求 `REMOVE` 不会限制额外的全清。复核：用令牌建一椅，以普通 `/setblock … air` 替换方块（不用 destroy），立即数原坐标的实体椅；再对照玩家直接拆椅。与 Q98 的令牌身份、台账计数无关。

@@ -2,7 +2,7 @@
 topic: world
 role: architecture
 status: draft
-updated: 2026-11-20
+updated: 2026-11-23
 ---
 
 # 世界：架构调查与提案
@@ -342,3 +342,31 @@ B `SearchingforstructureGoProcedure:48,89–105,139`用distance=0表示尚未选
 ## 人间道冬季冰湖（2026-11-20）
 
 锁定1.18.2版本 `IcelakeshengchengFeature` 继承来源湖泊算法，并限制人间道冬季03群系；目标沿用已核对的 `SourceLakeFeature` 与来源材料标签，保留既有配置与维度门。自然新区块的形状、分布与保存重进尚未验证。
+
+## 双源差异续查：六组天道门户
+
+适用于六套同构的维度工具、门户方块与传送器（以下用人间道定位），目标原生符号均取自项目的 NeoForge 21.1.265 源码包。Q207 的既有往返与保存样本仍有效；以下为源码差异，不是本次实机结果。
+
+### Q267 生存玩家短暂穿门不再立即传送
+
+A `DimensionrenjianPortalBlock.entityInside:82–97` 在无传送冷却时直接换维度；目标 `DimensionPortalBlock` 继承原生 `NetherPortalBlock:107–125`。`PortalProcessor:21–27` 累加接触时间，`GameRules:136–138` 的生存默认门槛是 80 刻（约 4 秒）。复核：在人间道已有出口时，无冷却的生存玩家先走穿门面不停留，再回到门中站定。分别记录第一次穿过和最终传送；不是比较出门后的冷却。
+
+### Q268 非玩家首入也会尝试建出口
+
+A `DimensionrenjianTeleporter:197–204,229–244` 仅为服务端玩家创建缺失的门；找不到出口时用原坐标和零速度构造落点，普通实体仍能到目标维度。目标 `DimensionPortalRuntime.destination:153–171` 不区分实体类型，先尝试建门，失败返回空转换。复核：目标维度已加载且查找范围内无同类门，玩家不要先过，送一头牛进入；记录落点、是否生成门框及门户兴趣点。缺少整份维度资源不属于本项。
+
+### Q269 载有乘客的载具不再被门户入口排除
+
+A `DimensionrenjianPortalBlock:82–84` 同时排除乘客与载客实体。目标继承 `NetherPortalBlock:107–110`，原生 `Entity.canUsePortal:2781–2783` 在这里排除乘客但不排除载具；`Entity.changeDimension:2723–2731,2748–2750` 包含逐个转移及恢复乘坐的路径。复核：两侧都有门时，将载有动物的矿车推进入口，分别记录矿车、动物所在维度及乘坐关系。
+
+### Q270 门边云粒子变为下界门粒子并增加环境音
+
+A `DimensionrenjianPortalBlock.animateTick:61–79` 每次产生四个 `CLOUD`，不播环境音。目标 `DimensionPortalBlock` 没有覆写这个方法，原生 `NetherPortalBlock:237–267` 使用 `PORTAL`，且随机播放 `PORTAL_AMBIENT`。复核：开启方块音量和全部粒子，站门旁不触碰，区分环境音与跨维度瞬间的声音。
+
+### Q271 副手点门工具破损反馈选槽不同
+
+A `DimensionrenjianItem.useOn:33–38` 按本次交互的 `context.getHand()` 广播破损；目标 `DimensionPortalItem.useOn:30–41` 扣正确的交互物品，但用表示持续使用的 `player.getUsedItemHand()` 选反馈槽（原生 `LivingEntity:3133–3135,3590–3592`）。复核：生存玩家主手空，副手用最后 1 点耐久点门，不持续使用其他物品，比较收到的破损事件手位，而不是只看哪件工具消失。
+
+### Q272 极限坐标附近寻找出口的中心偏移
+
+A `DimensionrenjianTeleporter:209–217` 对缩放后的 X/Z 同时施加世界边界内缩 16 格与 ±29,999,872 的硬限制。目标 `DimensionPortalRuntime:160–165` 只有前一层。数值反例：缩放后 X 为 29,999,900、边界内缩后仍容得下它，查找中心分别取 29,999,872 与 29,999,900；实际会否选中不同出口取决于地形和已有门的位置。

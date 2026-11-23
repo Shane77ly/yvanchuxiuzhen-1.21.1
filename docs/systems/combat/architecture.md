@@ -250,7 +250,7 @@ updated: 2026-11-23
 
 ## 连锁采集与穿石（2026-11-04 已实现，会话决定）
 
-- **连锁采集**（`chain`，原初系统的 `ChainProcedure`，`enchant/ChainMining`）：`BlockEvent.BreakEvent` 中，主手工具对被挖方块有效且有 `chain` 时，从该方块按 3×3×3 邻域展开挖掉相同方块，展开条目不超过 附魔等级 × 5 + 1（条目可重复，来源如此）；每挖一块工具损耗 1 点；掉落不带工具，不受时运与精准采集影响，掉在被挖的方块位置。矿石（`c:ores` 与本 Mod 命名空间的 `ores`，后者收有来源 `forge:ores` 中本 Mod 的矿石）按玩家持久化数据的 `collection_LEVEL`（采集等级，随 profession 写入）以 等级 × 0.5% 的概率额外掉 3 份、等级 % 概率额外掉 2 份，每个矿石 2 点采集经验，经 `GatherExperienceEvent` 交给 profession（来源执行命令 `collection experience add`）。
+- **连锁采集**（`chain`，原初系统的 `ChainProcedure`，`enchant/ChainMining`）：`BlockEvent.BreakEvent` 中，主手工具对被挖方块有效且有 `chain` 时，从该方块按 3×3×3 邻域展开挖掉相同方块，展开条目不超过 附魔等级 × 5 + 1（条目可重复，来源如此）；每挖一块工具损耗 1 点；掉落不带工具，不受时运与精准采集影响，掉在被挖的方块位置。矿石（`c:ores` 与本 Mod 命名空间的 `ores`，后者收有来源 `forge:ores` 中本 Mod 的矿石）按玩家持久化数据的 `collection_LEVEL`（采集等级，随 profession 写入）以 等级 × 0.5% 的概率额外掉 3 份、等级 % 概率额外掉 2 份，每个矿石累计 2 点待分发值；来源裸命令与目标 `GatherExperienceEvent` 都没有实际的职业经验消费者，见[职业消费断链](../profession/architecture.md#连锁采集命令消费断链)。此处不含职业系统对原始破坏事件的独立结算。
 - **穿石**（`chuanshi`，`enchant/BedrockCracking`）：主手镐带穿石时左键方块给自己急迫 II（100 刻）；点到基岩且其下不是虚空空气时把基岩换成 `bedrock_01`，镐损耗 10 点。`bedrock_01`、`bedrock_02` 由 `CrackedBedrockBlock` 在被玩家破坏后原位变成下一阶段，`bedrock_03` 破坏后掉出基岩（内容表的兜底掉落）。
 - 来源 `LeftClickBlock` 的这段在 flow 的过程里，每次左键末尾还把玩家变量 `collection_LEVEL` 抄进持久化数据，由 profession 写入时直接维护持久化数据即可。
 
@@ -345,3 +345,7 @@ A `Effect015…Procedure:18`、`Effect016…Procedure:19` 在妖兽分支写入�
 ### Q264 孢子效果的本机状态抽取不同
 
 A `Duyao17…Procedure:53` 每 100 刻从七种状态中抽一种并施加 100 刻，玩家客户端也独立执行。目标 `PoisonEffects.Spore:377` 只在服务端抽取，再同步给客户端。服务端候选池与时长相同。用无其他效果的生存玩家，分别记录服务端和本人客户端的状态添加来源，观察多个 100 刻窗口。两端抽到相同结果时画面可能一致，实际图标差异待对拍。
+
+### Q265 连锁工具损坏后仍会扩挖
+
+B `ChainProcedureProcedure:70,138–140` 在每轮展开前重新取主手附魔，扣光耐久后，当前 3×3×3 邻域会扫完，但不再展开下一项。目标 `ChainMining:44–56,76–79` 在开始时只读一次等级；工具碎了，仍按原等级展开后续邻域。复核：生存模式，用仅余 1 耐久、无耐久附魔的连锁 I 镐，从一端挖直线上三块相连的相同石头；比较距起点两格的第三块是否还在。
