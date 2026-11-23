@@ -1,18 +1,23 @@
 package net.yvanchuxiuzhen.system.xiulian.client;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.AnimatedEntityRenderer;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.xiulian.XiulianSetup;
+import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianBlockEntities;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianFluids;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianMenus;
@@ -32,6 +37,24 @@ public final class XiulianClientSetup {
         modBus.addListener(XiulianClientSetup::registerRenderers);
         modBus.addListener(XiulianClientSetup::registerExtensions);
         modBus.addListener(XiulianClientSetup::setup);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOW, XiulianClientSetup::onThunderFogColor);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOW, XiulianClientSetup::onThunderRenderFog);
+    }
+
+    private static void onThunderFogColor(ViewportEvent.ComputeFogColor event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.player == null || !Cultivation.thunderOpen(minecraft.player)) return;
+        event.setRed(10f / 255f);
+        event.setGreen(10f / 255f);
+        event.setBlue(10f / 255f);
+    }
+
+    private static void onThunderRenderFog(ViewportEvent.RenderFog event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.player == null || !Cultivation.thunderOpen(minecraft.player)) return;
+        event.setNearPlaneDistance(8f);
+        event.setFarPlaneDistance(32f);
+        event.setCanceled(true);
     }
 
     private static void registerScreens(RegisterMenuScreensEvent event) {

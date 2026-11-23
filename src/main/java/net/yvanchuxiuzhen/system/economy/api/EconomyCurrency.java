@@ -4,6 +4,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.yvanchuxiuzhen.system.economy.CommerceGoods;
@@ -17,6 +18,10 @@ public final class EconomyCurrency {
     public static void giveCoins(ServerPlayer player, double value) { CommerceTrading.giveCoins(player, value); }
 
     public static void giveStones(ServerPlayer player, double value) { CommerceTrading.giveStones(player, value); }
+
+    public static void setShopSell(ServerLevel level, boolean value) {
+        level.getGameRules().getRule(CommerceTrading.SHOP_SELL).set(value, level.getServer());
+    }
 
     /** 寻踪虫补领优先消耗20文，其次消耗2贯，不合并两种币值。 */
     public static boolean payTrackingReissue(ServerPlayer player) {

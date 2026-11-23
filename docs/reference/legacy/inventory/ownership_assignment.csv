@@ -3369,9 +3369,9 @@ yvanchuxiuzhen,Tileimbrexgilding05hecheng,recipe,~/decorate/buildingblocks,decor
 yvanchuxiuzhen,Tileimbrexgilding09hecheng,recipe,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Tileimbrexgilding10hecheng,recipe,~/decorate/buildingblocks,decor,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Playershuxingjisuan,procedure,~/systemset,attribute,已读,C attribute 归属阅读：空过程（只声明局部变量），两个来源中没有调用者，无行为
-yvanchuxiuzhen,Oxygen,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Oxygenxianshi,procedure,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxiuzhen,Oxygentubiao,overlay,~/GUI,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Oxygen,procedure,~/GUI,panel,已读,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Oxygenxianshi,procedure,~/GUI,panel,已读,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Oxygentubiao,overlay,~/GUI,panel,已读,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Gongfashuaxin2,procedure,~/systemset,gongfa,已读,C gongfa 归属阅读：功法属性刷新，来源中没有调用者，不迁移（有效链为 PlayerTick 的属性计算）
 yvanchuxiuzhen,PlayerLeaveGame,procedure,~/systemset,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Guiguai01ShiTiChuShiShengChengShi,procedure,~/entity/guiguai/guiguai01,creature,已读,B1 归属阅读：随 Guiguai01 读：生物：妖兽、Boss、鬼怪、天魔、绿林修士、环境生物与桃木精的 AI、技能、受伤与死亡过程；伤害经 combat 的 /shanghai 入口，敌友经 relation 的 Friendpanding* 判定；B1 行是其刷怪蛋
@@ -3985,7 +3985,7 @@ yvanchuxiuzhen,Jinsebankuai,feature,~/plant/ordinaryplants,plant,已读,无归�
 yvanchuxiuzhen,IronropeDangWanJiaKaiShiPoPiShi,procedure,~/plant/ordinaryplants,plant,已读,B1 归属阅读：随 Ironrope 读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Ironrope,block,~/plant/ordinaryplants,plant,已读,B1 归属阅读：野生植物：接触伤害或减速、温泉回复、破坏掉落或生成动物、引雷等，只作用于接触者与本方块；自然生成由本单位地物负责
 yvanchuxiuzhen,Ironropeshengcheng,feature,~/plant/ordinaryplants,world,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
-yvanchuxiuzhen,Tiankongxvanran,procedure,~/systemset,panel,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxiuzhen,Tiankongxvanran,procedure,~/systemset,panel,已读,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Fushui,procedure,~/plant/ordinaryplants,plant,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxiuzhen,Rottingbambooshengcheng,feature,~/plant/ordinaryplants,plant,已读,已读33种普通配置型地物：逐项配置、默认态、维度门、placement及来源原版算法；非植物环境归World，植物生长供给归Plant；来源和实现见两系统本月正文
 yvanchuxiuzhen,Corpsegrass,plant,~/plant/ordinaryplants,plant,已读,逐项阅读Feature来源放置方块或模板调色板与群系投放链；普通植物和树木模板归Plant，World装配地物到群系
@@ -7203,8 +7203,8 @@ yvanchuxitong,TaskduihuaGo,procedure,~/duihua/taskbegin,quest,候选,第一版�
 yvanchuxitong,Taskduihua,command,~/duihua/taskbegin,quest,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shougouselljisuan,procedure,~/shop/yinhang,economy,候选,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Shopsell,gamerule,~/zhiling,economy,已读,R13经济交易包：已完整核对来源菜单/注册与调用；七页槽位、按钮、显示及shopsell范围；实体椅子的属性、免伤、渲染和拍卖消费。正文见economy或decor architecture
-yvanchuxitong,FuwuqiminglingGo,procedure,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
-yvanchuxitong,Fuwuqimingling,command,~/zhiling,flow,候选,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,FuwuqiminglingGo,procedure,~/zhiling,flow,已读,第一版批量归组（目录、元素名与元素类型规则）
+yvanchuxitong,Fuwuqimingling,command,~/zhiling,flow,已读,第一版批量归组（目录、元素名与元素类型规则）
 yvanchuxitong,Weaponlevelup,gamerule,~/zhiling,lianqi,已读,1.18.2版本原初系统 YvanchuxitongModGameRules.java:13 将 weaponlevelup 注册为 MISC 布尔规则、默认 true；LianqiBeginProcedure 读取其炼器升级门槛，归 lianqi。
 yvanchuxitong,Playerrightclickwithitem,procedure,,flow,候选,第一版批量归组（目录、元素名与元素类型规则）；R13 仅高级通宝玉银行分支41–62已读：本人主手非潜行时写固定bankbankbank脚本/游标0/启动标记；未认主与非本人提示按来源；其他交互分支未在本包完整核读；保留全局flow候选归属
 yvanchuxitong,Uidshengcheng,procedure,~/yvanchulianqi,lianqi,已读,2026-11-09 炼器剩余候选审读：随机生成四个1000至9999整数作UUID文本，仅由Lianqifangzhi属性命令调用；目标equipment按槽位/属性资源ID承载原生修饰身份，随机文本不单独形成玩家入口。

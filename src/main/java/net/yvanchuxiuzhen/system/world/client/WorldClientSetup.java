@@ -16,6 +16,7 @@ public final class WorldClientSetup {
     private WorldClientSetup() { }
 
     public static void register(IEventBus modBus) {
+        WorldFogClient.register();
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             event.registerEntityRenderer(WorldSetup.<GuidanceHalo>entityType("guanghuan").get(), GuidanceHaloRenderer::new);
             event.registerBlockEntityRenderer(WorldBlockEntities.RIFT.get(), RiftRenderer::new);
