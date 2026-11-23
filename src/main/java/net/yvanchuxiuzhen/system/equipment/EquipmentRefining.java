@@ -315,10 +315,14 @@ public final class EquipmentRefining {
             String prefix = "fumo" + index;
             int level = (int) Math.floor(data.getDouble(prefix + "num") * scale / 100);
             if (level < 1) continue;
+            int slot = index;
             ResourceLocation sourceId = ResourceLocation.fromNamespaceAndPath(data.getString(prefix + "kongjian"), data.getString(prefix));
-            stack.enchant(registries.lookupOrThrow(Registries.ENCHANTMENT)
-                    .getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, targetId(sourceId))), level);
-            enchantments.add(new Enchantment(index, sourceId, level));
+            registries.lookupOrThrow(Registries.ENCHANTMENT)
+                    .get(ResourceKey.create(Registries.ENCHANTMENT, targetId(sourceId)))
+                    .ifPresent(holder -> {
+                        stack.enchant(holder, level);
+                        enchantments.add(new Enchantment(slot, sourceId, level));
+                    });
         }
         return enchantments;
     }

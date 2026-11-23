@@ -43,7 +43,7 @@ public final class BlueprintTableRuntime {
             ItemStack input = table.getItem(slot);
             MaterialDefinition definition = Materials.definition(input);
             if (definition == null) continue;
-            int unitWeight = definition.fixedWeight().orElseThrow();
+            int unitWeight = definition.fixedWeight().orElse(0);
             weight += unitWeight * input.getCount();
             accumulator.add(definition, Materials.instance(input), input.getCount());
         }
@@ -192,14 +192,14 @@ public final class BlueprintTableRuntime {
                         default -> attribute;
                     };
                     attribute *= multiplier;
-                    attribute *= definition.fixedWeight().orElseThrow();
+                    attribute *= definition.fixedWeight().orElse(0);
                     attribute *= .2;
                     raw.putInt(name, (int) (raw.getInt(name) + attribute * count));
                 } else if (entry.namespace().equals("teshu")) {
                     raw.putBoolean(name, true);
                 } else if (!entry.namespace().isEmpty()) {
                     double amount = (level + 5) * multiplier;
-                    amount *= definition.fixedWeight().orElseThrow();
+                    amount *= definition.fixedWeight().orElse(0);
                     amount *= .2;
                     for (int group = 0; group <= enchantments; group++) {
                         String key = "fumo" + group;

@@ -69,8 +69,8 @@ final class TripodRecipes {
         IItemHandler inventory = player.getCapability(Capabilities.ItemHandler.ENTITY);
         for (int slot = 0; slot <= 8; slot++) {
             String id = recipe.getString("cailiao0" + slot);
-            if (id.isEmpty()) continue;
             int required = recipe.getInt("cailiao0" + slot + "num");
+            if (id.isEmpty() || id.equals("minecraft:air") || id.equals("空") || required <= 0) continue;
             if (MaterialStorage.snapshot(player).preferences().spending()) {
                 MaterialStorage.RefiningWithdrawal withdrawal = MaterialStorage.consumeForRefining(player, id, required, stopped);
                 for (ItemStack replacement : withdrawal.replacements()) furnace.setItem(slot, replacement);

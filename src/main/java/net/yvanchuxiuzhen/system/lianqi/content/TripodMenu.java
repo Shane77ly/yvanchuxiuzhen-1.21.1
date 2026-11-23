@@ -94,15 +94,17 @@ public final class TripodMenu extends AbstractContainerMenu {
     public String recipeLine(int slot) {
         CompoundTag recipe = container.getItem(10).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         String key = "cailiao0" + slot;
+        String itemId = recipe.getString(key);
+        int count = recipe.getInt(key + "num");
         String name = recipe.getString(key + "name");
-        if (name.isEmpty() || name.equals("无")) return "§4无";
+        if (itemId.equals("minecraft:air") || count <= 0 || name.isEmpty() || name.equals("无")) return "§4无";
         if (recipe.contains(key + "name_component")) {
             name = Component.Serializer.fromJson(recipe.getString(key + "name_component"), level.registryAccess()).getString();
         }
         ItemStack input = container.getItem(slot);
-        boolean enough = BuiltInRegistries.ITEM.getKey(input.getItem()).toString().equals(recipe.getString(key))
-                && input.getCount() >= recipe.getInt(key + "num");
-        return (enough ? "§f" : "§4") + name + "（" + recipe.getInt(key + "num") + "）";
+        boolean enough = BuiltInRegistries.ITEM.getKey(input.getItem()).toString().equals(itemId)
+                && input.getCount() >= count;
+        return (enough ? "§f" : "§4") + name + "（" + count + "）";
     }
 
     /** 按钮只操作当前菜单所绑定的真实鼎；来源允许开窗后离开装置距离。 */

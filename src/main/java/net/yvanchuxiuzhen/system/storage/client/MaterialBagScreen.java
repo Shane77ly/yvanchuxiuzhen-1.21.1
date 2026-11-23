@@ -137,8 +137,11 @@ public final class MaterialBagScreen extends AbstractContainerScreen<MaterialBag
             Component label = Component.literal(selected.isEmpty() ? " " : "§4暂未鉴定");
             if (index < entries.size()) {
                 MaterialRevealedEntry entry = entries.get(index);
-                label = Component.translatable(entry.open() ? "enchantment." + entry.namespace() + "." + entry.name()
-                        : "attribute.yvanchuxiuzhen." + entry.name());
+                String key;
+                if (entry.namespace().equals("teshu")) key = "teshu.yvanchuxiuzhen." + entry.name();
+                else if (!entry.open()) key = "attribute.yvanchuxiuzhen." + entry.name();
+                else key = "enchantment." + (entry.namespace().equals("yvanchuxitong") ? ModId.VALUE : entry.namespace()) + "." + entry.name();
+                label = Component.translatable(key);
             }
             graphics.drawString(font, label, 231, 132 + index * 12, -6697729);
         }

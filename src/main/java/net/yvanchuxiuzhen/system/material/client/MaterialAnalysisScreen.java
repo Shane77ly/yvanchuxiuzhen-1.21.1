@@ -76,11 +76,8 @@ public final class MaterialAnalysisScreen extends AbstractContainerScreen<Materi
         List<MaterialRevealedEntry> entries = menu.selectedEntries();
         for (int index = 0; index < Math.min(10, entries.size()); index++) {
             MaterialRevealedEntry entry = entries.get(index);
-            String key;
-            if (entry.namespace().equals("teshu")) key = "teshu.yvanchuxiuzhen." + entry.name();
-            else if (!entry.open()) key = "attribute.yvanchuxiuzhen." + entry.name();
-            else key = "enchantment." + entry.namespace() + "." + entry.name();
-            graphics.drawString(font, Component.translatable(key).withStyle(ChatFormatting.AQUA), 91, -29 + index * 10, -12829636, false);
+            graphics.drawString(font, Component.translatable(MaterialTooltip.translationKey(entry)).withStyle(ChatFormatting.AQUA),
+                    91, -29 + index * 10, -12829636, false);
         }
     }
 }

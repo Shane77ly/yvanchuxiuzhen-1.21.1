@@ -26,6 +26,10 @@ import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 
 /** 装备成品提示读取炼器实例，饰品提示读取根字段中的品质、类型与恢复和上限数值。 */
 final class EquipmentTooltip {
+    private static final List<String> SPECIAL_TRAITS = List.of(
+            "fenglei", "bahuang", "kongbao", "liedi", "zaijie", "sanmei", "xiuluo", "tianqing", "zhiyang",
+            "youluo", "ziwei", "yejin", "bihua", "yvanmo", "youming", "huian", "zhiyin", "xingyvn");
+
     private EquipmentTooltip() {
     }
 
@@ -56,21 +60,29 @@ final class EquipmentTooltip {
             lines.add(Component.literal("§6" + product.grade()));
             lines.add(Component.literal("§6" + product.type()));
             EquipmentStats stats = stack.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY);
+            CompoundTag refinement = stack.getOrDefault(EquipmentData.REFINEMENT.get(), CustomData.EMPTY).copyTag();
             if (weapon) {
                 positive(lines, "物理攻击力", stats.physicalAttack());
                 positive(lines, "法术攻击力", stats.spellAttack());
                 positive(lines, "精神攻击力", stats.soulAttack());
+                for (String trait : SPECIAL_TRAITS) {
+                    if (refinement.getBoolean(trait)) {
+                        lines.add(Component.literal("§b" + Component.translatable("teshu.yvanchuxiuzhen." + trait).getString()));
+                    }
+                }
             } else {
                 positive(lines, "血量上限", stats.health());
+                positive(lines, "血量恢复", stats.recovery().health());
                 positive(lines, "灵力上限", stats.power());
+                positive(lines, "灵力恢复", stats.recovery().power());
                 positive(lines, "精力上限", stats.soul());
+                positive(lines, "精力恢复", stats.recovery().soul());
                 positive(lines, "物理防御", stats.physicalDefense());
                 positive(lines, "法术防御", stats.spellDefense());
                 positive(lines, "精神防御", stats.soulDefense());
             }
             lines.add(Component.literal("§f重量：" + product.weight()));
             String description = product.description();
-            CompoundTag refinement = stack.getOrDefault(EquipmentData.REFINEMENT.get(), CustomData.EMPTY).copyTag();
             HolderLookup.Provider registries = event.getContext().registries();
             if (registries != null && refinement.contains("fabaoshuoming_component", Tag.TAG_STRING)) {
                 description = Component.Serializer.fromJson(refinement.getString("fabaoshuoming_component"), registries).getString();

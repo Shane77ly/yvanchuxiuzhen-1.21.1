@@ -35,7 +35,7 @@ final class TripodMaterials {
             MaterialDefinition definition = Materials.definition(input);
             if (definition == null) continue;
             int count = upgrade ? input.getCount() : recipe.getInt("cailiao0" + slot + "num");
-            int unitWeight = definition.fixedWeight().orElseThrow();
+            int unitWeight = definition.fixedWeight().orElse(0);
             weight += unitWeight * count;
             state.putInt("lianqiTickMax", state.getInt("lianqiTickMax") + count * 5);
             accumulator.add(definition, Materials.instance(input), count);
@@ -103,13 +103,13 @@ final class TripodMaterials {
                         default -> attribute;
                     };
                     attribute *= multiplier;
-                    attribute *= definition.fixedWeight().orElseThrow() * .2;
+                    attribute *= definition.fixedWeight().orElse(0) * .2;
                     raw.putDouble(name, raw.getDouble(name) + attribute * count);
                 } else if (entry.namespace().equals("teshu")) {
                     raw.putBoolean(name, true);
                 } else if (!entry.namespace().isEmpty()) {
                     double amount = (level + 5) * multiplier;
-                    amount *= definition.fixedWeight().orElseThrow() * .2;
+                    amount *= definition.fixedWeight().orElse(0) * .2;
                     for (int group = 0; group <= enchantments; group++) {
                         String key = "fumo" + group;
                         if (raw.getString(key).isEmpty()) {
