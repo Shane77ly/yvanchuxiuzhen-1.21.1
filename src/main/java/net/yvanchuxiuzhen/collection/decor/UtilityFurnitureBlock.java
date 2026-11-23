@@ -25,6 +25,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 
 /** 都承盘和衣架打开来源菜单；紫砂壶按主手杯子顺序装入、逆序取回。 */
@@ -63,7 +64,9 @@ public class UtilityFurnitureBlock extends ContentBlock implements EntityBlock {
         if (level.isClientSide()) return;
         UtilityFurnitureBlockEntity furniture = (UtilityFurnitureBlockEntity) level.getBlockEntity(pos);
         if (variant != UtilityFurnitureVariant.TEAPOT) {
-            if (player instanceof ServerPlayer server) server.openMenu(furniture, pos);
+            if (player instanceof ServerPlayer server) {
+                server.openMenu(new SeamlessMenuProvider(furniture::createMenu, furniture.getDisplayName()), pos);
+            }
             return;
         }
         ItemStack held = player.getMainHandItem();

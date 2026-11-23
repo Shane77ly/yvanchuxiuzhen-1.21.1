@@ -104,7 +104,7 @@ public final class BankBlockEntity extends RandomizableContainerBlockEntity impl
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Tiandiyinhang");
+        return Component.translatable("block.yvanchuxiuzhen.tiandiyinhang");
     }
 
     /** 来源提供者保留独立箱子菜单；自然右键通过全局入口打开对话。 */

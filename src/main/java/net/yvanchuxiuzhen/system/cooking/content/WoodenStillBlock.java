@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.system.cooking.WoodenStillRuntime;
 
@@ -40,8 +41,8 @@ public final class WoodenStillBlock extends ContentBlock implements EntityBlock 
     }
 
     private void open(Level level, BlockPos pos, Player player) {
-        if (player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.openMenu((WineVesselBlockEntity) level.getBlockEntity(pos), pos);
+        if (player instanceof ServerPlayer serverPlayer && level.getBlockEntity(pos) instanceof WineVesselBlockEntity vessel) {
+            serverPlayer.openMenu(new SeamlessMenuProvider(vessel::createMenu, vessel.getDisplayName()), pos);
         }
     }
 

@@ -65,7 +65,7 @@ public final class JewelryTableBlock extends ContentBlock implements EntityBlock
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof JewelryTableBlockEntity table) {
             player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new JewelryTableMenu(id, inventory, table),
-                    Component.literal("Shipintai")), pos);
+                    Component.translatable("block.yvanchuxiuzhen.shipintai")), pos);
         }
         return InteractionResult.SUCCESS;
     }

@@ -25,7 +25,7 @@ public final class FestivalClientSetup {
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             event.registerEntityRenderer(FestivalSetup.doubleBangType().get(), DoubleBangFireworkRenderer::new);
             event.registerEntityRenderer(FestivalSetup.pao01Type().get(), ThrownItemRenderer::new);
-            event.registerEntityRenderer(FestivalSetup.pao08Type().get(), ThrownItemRenderer::new);
+            event.registerEntityRenderer(FestivalSetup.pao08Type().get(), SimpleFireworkProjectileRenderer::new);
             event.registerEntityRenderer(FestivalSetup.pao13Type().get(), ThrownItemRenderer::new);
             EntityModelRow model = FestivalSetup.caishenyeModel();
             event.registerEntityRenderer(FestivalSetup.caishenyeType().get(),
@@ -40,7 +40,9 @@ public final class FestivalClientSetup {
                         context -> new AnimatedEntityRenderer<>(context, firework));
             }
         });
-        modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) ->
-                event.registerLayerDefinition(DoubleBangFireworkRenderer.LAYER, DoubleBangFireworkRenderer::layer));
+        modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> {
+            event.registerLayerDefinition(DoubleBangFireworkRenderer.LAYER, DoubleBangFireworkRenderer::layer);
+            event.registerLayerDefinition(SimpleFireworkProjectileRenderer.LAYER, SimpleFireworkProjectileRenderer::layer);
+        });
     }
 }

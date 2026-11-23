@@ -22,9 +22,17 @@ public final class FuluClientSetup {
             event.register(FuluMenus.ASH_BURNER.get(), AshBurnerScreen::new);
         });
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerBlockEntityRenderer(FuluBlockEntities.ASH_BURNER.get(), AshBurnerRenderer::new));
+        modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> {
+            event.registerLayerDefinition(TalismanProjectileRenderer.LAYER_QI_SWORD, TalismanProjectileRenderer::qiSwordLayer);
+            event.registerLayerDefinition(TalismanProjectileRenderer.LAYER_SWORD, TalismanProjectileRenderer::swordLayer);
+        });
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
             for (Kind kind : Kind.values()) {
-                event.registerEntityRenderer(FuluSetup.projectile(kind).get(), ThrownItemRenderer::new);
+                if (kind == Kind.QI_SWORD || kind == Kind.SWORD) {
+                    event.registerEntityRenderer(FuluSetup.projectile(kind).get(), context -> new TalismanProjectileRenderer(context, kind));
+                } else {
+                    event.registerEntityRenderer(FuluSetup.projectile(kind).get(), ThrownItemRenderer::new);
+                }
             }
         });
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> event.registerEntityRenderer(FuluSetup.summon().get(), TalismanSummonRenderer::new));

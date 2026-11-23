@@ -26,6 +26,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.content.BlockDisplayLock;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 
 /** 展示柜开三槽菜单；博古架右键换件、潜行依来源保存并切换形态。 */
@@ -55,7 +56,9 @@ public class DisplayFurnitureBlock extends ContentBlock implements EntityBlock {
         DisplayFurnitureBlockEntity display = (DisplayFurnitureBlockEntity) level.getBlockEntity(pos);
         if (BlockDisplayLock.locked(display)) return;
         if (variant.cabinet()) {
-            if (player instanceof ServerPlayer server) server.openMenu(display, pos);
+            if (player instanceof ServerPlayer server) {
+                server.openMenu(new SeamlessMenuProvider(display::createMenu, display.getDisplayName()), pos);
+            }
         } else if (player.isShiftKeyDown()) {
             CompoundTag saved = display.saveWithFullMetadata(level.registryAccess());
             display.setRemoved();

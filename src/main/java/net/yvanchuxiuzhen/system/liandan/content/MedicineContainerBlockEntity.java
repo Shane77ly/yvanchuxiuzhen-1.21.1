@@ -85,7 +85,7 @@ public final class MedicineContainerBlockEntity extends RandomizableContainerBlo
     @Override
     public Component getDisplayName() {
         String variant = ((MedicineContainerBlock) getBlockState().getBlock()).variant();
-        return Component.literal("Itemdanyaohulu " + String.join(" ", variant.split("")) + "block");
+        return Component.translatable("block.yvanchuxiuzhen.itemdanyaohulu_" + variant + "block");
     }
 
     @Override

@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 
 /** 天道编辑器右键打开原生菜单，破坏时归还槽内物品并提供来源比较器输出。 */
@@ -31,7 +32,7 @@ public final class NbtEditorBlock extends ContentBlock implements EntityBlock {
 
     private static void open(Level level, BlockPos pos, Player player) {
         if (player instanceof ServerPlayer serverPlayer && level.getBlockEntity(pos) instanceof NbtEditorBlockEntity editor) {
-            serverPlayer.openMenu(editor, buffer -> buffer.writeBlockPos(pos));
+            serverPlayer.openMenu(new SeamlessMenuProvider(editor::createMenu, editor.getDisplayName()), buffer -> buffer.writeBlockPos(pos));
         }
     }
 

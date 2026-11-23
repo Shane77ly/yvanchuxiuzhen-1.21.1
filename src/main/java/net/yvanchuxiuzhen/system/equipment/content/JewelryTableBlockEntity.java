@@ -125,7 +125,7 @@ public final class JewelryTableBlockEntity extends RandomizableContainerBlockEnt
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Shipintai");
+        return Component.translatable("block.yvanchuxiuzhen.shipintai");
     }
 
     @Override

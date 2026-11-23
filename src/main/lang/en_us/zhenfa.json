@@ -10,5 +10,7 @@
   "entity.yvanchuxiuzhen.zhenfashiti": "Zhenfashiti",
   "entity.yvanchuxiuzhen.zhenjineng_03": "Zhenjineng 0 3",
   "message.yvanchuxiuzhen.flag_bound_son": "Bound child flag coordinates to the mother flag; use the mother flag to control this child flag.",
-  "message.yvanchuxiuzhen.flag_bound_mother": "Bound mother flag coordinates to the child flag; use the child flag to resonate with the mother flag."
+  "message.yvanchuxiuzhen.flag_bound_mother": "Bound mother flag coordinates to the child flag; use the child flag to resonate with the mother flag.",
+  "message.yvanchuxiuzhen.flag_power_single": "Formation remaining spirit power: %s",
+  "message.yvanchuxiuzhen.flag_power_indexed": "Formation %s remaining spirit power: %s"
 }

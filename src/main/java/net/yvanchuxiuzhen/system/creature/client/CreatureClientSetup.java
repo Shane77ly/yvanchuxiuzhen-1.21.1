@@ -15,6 +15,7 @@ public final class CreatureClientSetup {
     public static void register(IEventBus modBus) {
         modBus.addListener((RegisterMenuScreensEvent event) -> event.register(SpiritBeastBagDyeMenus.TYPE.get(), SpiritBeastBagDyeScreen::new));
         NeoForge.EVENT_BUS.addListener((ItemTossEvent event) -> {
+            if (!event.getEntity().level().isClientSide()) return;
             Minecraft minecraft = Minecraft.getInstance();
             if (minecraft.screen instanceof SpiritBeastBagDyeScreen && event.getEntity().getItem().is(SpiritBeastBagDyeMenus.toolItem())) {
                 minecraft.player.closeContainer();

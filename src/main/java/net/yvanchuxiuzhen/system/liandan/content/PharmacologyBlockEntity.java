@@ -89,7 +89,7 @@ public final class PharmacologyBlockEntity extends RandomizableContainerBlockEnt
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Yaolitaiblock");
+        return Component.translatable("block.yvanchuxiuzhen.yaolitaiblock");
     }
 
     @Override

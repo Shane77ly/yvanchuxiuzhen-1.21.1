@@ -83,7 +83,7 @@ public final class MedicineSeparationBlockEntity extends RandomizableContainerBl
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Fendantai");
+        return Component.translatable("block.yvanchuxiuzhen.fendantai");
     }
 
     @Override
