@@ -89,7 +89,9 @@ public final class CommerceScreen extends AbstractContainerScreen<CommerceMenu> 
             if (item.isEmpty()) return "";
             String[] products = CommerceCatalog.translated(session.getString("productlist")).split("%");
             int priceIndex = session.getInt("shoppage") * 60 + index * 5 + 3;
-            return item.getHoverName().getString() + "(" + products[priceIndex] + ")";
+            return priceIndex >= 0 && priceIndex < products.length
+                    ? item.getHoverName().getString() + "(" + products[priceIndex] + ")"
+                    : item.getHoverName().getString();
         }
         if (procedure.startsWith("Banktxtlingshi")) {
             BankDisplay display = BankAccounts.display(player);

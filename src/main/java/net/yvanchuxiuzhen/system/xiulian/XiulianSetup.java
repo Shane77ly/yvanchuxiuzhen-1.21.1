@@ -58,6 +58,7 @@ public final class XiulianSetup {
         modBus.addListener(XiulianSetup::registerPayloads);
         NeoForge.EVENT_BUS.addListener(XiulianSetup::onPlayerLogin);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onLogin);
+        NeoForge.EVENT_BUS.addListener(CultivationTick::onPlayerLogout);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onLevelTick);
         NeoForge.EVENT_BUS.addListener(CultivationTick::onDimensionTravel);

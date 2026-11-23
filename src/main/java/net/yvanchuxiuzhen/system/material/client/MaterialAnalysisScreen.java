@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.client.ScreenBounds;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.material.api.MaterialRevealedEntry;
 import net.yvanchuxiuzhen.system.material.content.MaterialAnalysisMenu;
@@ -42,6 +43,13 @@ public final class MaterialAnalysisScreen extends AbstractContainerScreen<Materi
     private void addButton(int x, int y, int size, String name, int button) {
         addRenderableWidget(new TextureButton(leftPos + x, topPos + y, size, size, texture("atlas/" + name), size, size * 2,
                 pressed -> PacketDistributor.sendToServer(new MaterialAnalysisButtonPayload(menu.containerId, button))));
+    }
+
+    @Override
+    protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
+        return ScreenBounds.isOutside(mouseX, mouseY, guiLeft, guiTop, imageWidth, imageHeight,
+                new ScreenBounds.PanelRect(-12, -39, 202, 120),
+                new ScreenBounds.PanelRect(195, -38, 12, 30));
     }
 
     @Override

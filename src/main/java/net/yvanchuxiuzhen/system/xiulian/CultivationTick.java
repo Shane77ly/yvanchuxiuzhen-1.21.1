@@ -14,6 +14,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityTravelToDimensionEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -28,6 +30,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterRecoveryEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.xiulian.api.LifetimeExhaustedEvent;
+import net.yvanchuxiuzhen.system.xiulian.tribulation.TribulationCloud;
 import net.yvanchuxiuzhen.system.xiulian.tribulation.Tribulations;
 
 /**
@@ -65,10 +68,26 @@ public final class CultivationTick {
     /** 来源 {@code QianwangweiduProcedure}：玩家在雷劫开启状态切换维度时关闭当前雷劫并将待渡次数加 1。 */
     static void onDimensionTravel(EntityTravelToDimensionEvent event) {
         if (event.getEntity() instanceof ServerPlayer player && Cultivation.thunderOpen(player)) {
-            Cultivation.setThunderOpen(player, false);
-            Cultivation.set(player, CultivationValue.THUNDER_MAX, 0);
-            Cultivation.add(player, CultivationValue.THUNDER, 1);
+            interruptTribulation(player);
         }
+    }
+
+    /** 来源 {@code PlayerLeaveGameProcedure}：玩家在雷劫开启状态登出时关闭雷劫、补回待渡次数并清除头顶劫云。 */
+    static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player) || !Cultivation.thunderOpen(player)) {
+            return;
+        }
+        interruptTribulation(player);
+        Vec3 center = new Vec3(player.getX(), player.getY() + 64, player.getZ());
+        for (TribulationCloud cloud : player.serverLevel().getEntitiesOfClass(TribulationCloud.class, new AABB(center, center).inflate(5))) {
+            cloud.discard();
+        }
+    }
+
+    private static void interruptTribulation(ServerPlayer player) {
+        Cultivation.setThunderOpen(player, false);
+        Cultivation.set(player, CultivationValue.THUNDER_MAX, 0);
+        Cultivation.add(player, CultivationValue.THUNDER, 1);
     }
 
     /** 来源 {@code PlayerJoinGame}：设置了每日修为上限且记录日期不是今天（现实日期）时清零当日已获修为。 */

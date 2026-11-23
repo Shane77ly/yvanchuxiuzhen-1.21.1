@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.client.ScreenBounds;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.lianqi.content.RepairTableMenu;
 import net.yvanchuxiuzhen.system.lianqi.network.RepairTableButtonPayload;
@@ -34,6 +35,14 @@ public final class RepairTableScreen extends AbstractContainerScreen<RepairTable
                 pressed -> PacketDistributor.sendToServer(new RepairTableButtonPayload(id)));
         button.setMessage(Component.literal(message));
         addRenderableWidget(button);
+    }
+
+    @Override
+    protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
+        return ScreenBounds.isOutside(mouseX, mouseY, guiLeft, guiTop, imageWidth, imageHeight,
+                new ScreenBounds.PanelRect(38, -67, 98, 98),
+                new ScreenBounds.PanelRect(-12, 32, 200, 40),
+                new ScreenBounds.PanelRect(189, 32, 12, 12));
     }
 
     @Override

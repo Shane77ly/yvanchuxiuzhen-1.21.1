@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.client.ScreenBounds;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.liandan.LiandanHerbAnalysis;
 import net.yvanchuxiuzhen.system.liandan.content.HerbAnalysisMenu;
@@ -42,6 +43,12 @@ public final class HerbAnalysisScreen extends AbstractContainerScreen<HerbAnalys
                 pressed -> PacketDistributor.sendToServer(new HerbAnalysisPayload(menu.containerId, button)));
         control.setMessage(Component.literal(button == 0 ? "刷新药草" : "辨识药草"));
         addRenderableWidget(control);
+    }
+
+    @Override
+    protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
+        return ScreenBounds.isOutside(mouseX, mouseY, guiLeft, guiTop, imageWidth, imageHeight,
+                new ScreenBounds.PanelRect(-12, -39, 202, 120));
     }
 
     @Override

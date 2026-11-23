@@ -1,10 +1,13 @@
 package net.yvanchuxiuzhen.system.combat;
 
 import java.util.function.Supplier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
@@ -23,6 +26,7 @@ import net.yvanchuxiuzhen.system.combat.effect.CombatEffects;
 import net.yvanchuxiuzhen.system.combat.enchant.BedrockCracking;
 import net.yvanchuxiuzhen.system.combat.enchant.ChainMining;
 import net.yvanchuxiuzhen.system.combat.network.DummyButtonPayload;
+import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.xiulian.api.TribulationDamageEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.TribulationLightningEvent;
 
@@ -51,6 +55,7 @@ public final class CombatSetup {
         modBus.addListener(CombatSetup::registerPayloads);
         HurtHandler.register();
         FightingState.register();
+        NeoForge.EVENT_BUS.addListener(CombatSetup::onTargetChanged);
         NeoForge.EVENT_BUS.addListener(PlayerDeathRules::onDeath);
         ShanghaiCommand.register();
         LightningLanding.register(modBus);
@@ -58,6 +63,18 @@ public final class CombatSetup {
         NeoForge.EVENT_BUS.addListener((TribulationDamageEvent event) -> SpellDamage.command(event.level(), event.target(), event.command()));
         ChainMining.register();
         BedrockCracking.register();
+    }
+
+    /** 来源 {@code FindTheEnemyProcedure}：目标首次被锁定仇恨时在索敌者头顶播放惊叹号粒子。 */
+    private static void onTargetChanged(LivingChangeTargetEvent event) {
+        LivingEntity target = event.getNewAboutToBeSetTarget();
+        LivingEntity attacker = event.getEntity();
+        if (target == null || target.getPersistentData().getBoolean("findtheenemy") || !(attacker.level() instanceof ServerLevel level)) {
+            return;
+        }
+        level.sendParticles(Particles.type("exclamation_mark"), attacker.getX(), attacker.getY() + attacker.getBbHeight() + 0.5,
+                attacker.getZ(), 1, 0, 0, 0, 0);
+        target.getPersistentData().putBoolean("findtheenemy", true);
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {

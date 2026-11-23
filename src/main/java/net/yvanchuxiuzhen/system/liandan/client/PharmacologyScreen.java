@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.client.ScreenBounds;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.liandan.content.PharmacologyBlockEntity;
 import net.yvanchuxiuzhen.system.liandan.content.PharmacologyMenu;
@@ -59,6 +60,13 @@ public final class PharmacologyScreen extends AbstractContainerScreen<Pharmacolo
             return true;
         }
         return name.isFocused() ? name.keyPressed(key, scanCode, modifiers) : super.keyPressed(key, scanCode, modifiers);
+    }
+
+    @Override
+    protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
+        return ScreenBounds.isOutside(mouseX, mouseY, guiLeft, guiTop, imageWidth, imageHeight,
+                new ScreenBounds.PanelRect(177, 0, 104, 166),
+                new ScreenBounds.PanelRect(27, -21, 160, 21));
     }
 
     @Override
