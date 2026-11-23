@@ -88,8 +88,8 @@ public final class AnimatedEntityRenderer<T extends Entity & GeoAnimatable & Ani
             }
             row.head().flatMap(this::getBone).ifPresent(head -> {
                 EntityModelData data = state.getData(DataTickets.ENTITY_MODEL_DATA);
-                head.setRotX(head.getRotX() + data.headPitch() * Mth.DEG_TO_RAD);
-                head.setRotY(head.getRotY() + data.netHeadYaw() * Mth.DEG_TO_RAD);
+                head.setRotX(head.getInitialSnapshot().getRotX() + data.headPitch() * Mth.DEG_TO_RAD);
+                head.setRotY(head.getInitialSnapshot().getRotY() + data.netHeadYaw() * Mth.DEG_TO_RAD);
             });
         }
     }

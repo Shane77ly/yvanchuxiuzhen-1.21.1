@@ -18,9 +18,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
+import net.yvanchuxiuzhen.system.npc.api.QiankunQuestRequestEvent;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.Animation;
@@ -46,8 +48,20 @@ public final class QiankunmentuBlockEntity extends RandomizableContainerBlockEnt
     public IItemHandler handler(Direction direction) { return direction == null ? unsided : sided[direction.ordinal()]; }
 
     public void interact(Player player) {
-        if (level != null && !level.isClientSide && player.isCreative() && player.isShiftKeyDown() && player instanceof ServerPlayer serverPlayer) {
+        if (level == null || level.isClientSide || !(player instanceof ServerPlayer serverPlayer)) {
+            return;
+        }
+        if (player.isCreative() && player.isShiftKeyDown()) {
             QiankunMenus.open(serverPlayer, worldPosition);
+            return;
+        }
+        if (!player.isShiftKeyDown()) {
+            int questIndex = (int) renwuset();
+            if (questIndex == 0) {
+                serverPlayer.displayClientMessage(Component.literal("......"), false);
+            } else if (questIndex >= 1) {
+                NeoForge.EVENT_BUS.post(new QiankunQuestRequestEvent(serverPlayer, questIndex));
+            }
         }
     }
 

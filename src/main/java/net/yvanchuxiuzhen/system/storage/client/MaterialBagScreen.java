@@ -40,6 +40,8 @@ public final class MaterialBagScreen extends AbstractContainerScreen<MaterialBag
     @Override
     protected void init() {
         super.init();
+        leftPos += 79;
+        topPos -= 30;
         button(0, 52, 292, 26, 13, "07");
         button(1, 86, 292, 26, 13, "09");
         button(2, 58, 320, 69, 18, "03");
