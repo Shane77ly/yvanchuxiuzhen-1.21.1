@@ -96,6 +96,7 @@ updated: 2026-11-18
 
 - 加点（`SkillPoints`，来源 `HealthMaxUp` 等六个过程，面板第 2 页按钮）：见类注释；成长作为 attribute 基础层贡献，原版属性随之重算。
 - 灵根重置（来源 `Rebirthinxiuxianfalse`、`Rebirthinxiuxiantrue`，管理命令 `/yvanchu` 的子命令，命令归 flow）：随机 0–9 或全为 9。
+- 升仙令与传承灵物的跨系统自然任务脚本入口由任务系统监听原生物品交互承接；修炼物品实现仍只保留本系统的效果与领取职责，来源与验证边界见[任务正文](../quest/architecture.md#升仙令与传承灵物自然任务入口2026-11-23)。
 - 升仙令（`AscensionTokenItem`）与家族令牌（`ClanTokenItem`）：见类注释。传承灵物与家族百宝袋已接分次奖励，见[下文](#出身分次补给2026-11-15)；远古石盘坐标API已存在，自然消费已接入并通过首次客户端use。
 - 读后改变归属：元婴出窍（`Yvanyingchuqiao` 等 6 个元素）是技能界面施展的技能，归 skill；被闪电击中时按主修功法给效果的 `EntityThunder` 归 gongfa；境界提升粒子留在本系统，随 particle 接入。
 - 完成核对（2026-11-03）：`gradlew check`、`check_ledger.py`、`check_docs.py` 通过；开发服务端启动 ERROR 0 条；冒烟 relation、attribute、xiulian 共 175 项全部符合（其中 xiulian 131 项），日志 ERROR 0 条。

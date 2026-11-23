@@ -19,10 +19,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.wrapper.PlayerInvWrapper;
@@ -39,11 +41,29 @@ import net.yvanchuxiuzhen.system.world.api.StructureSearch;
 
 /** 来源普通对话的顺序执行器；会话、任务目录和剧情扩展数据均由服务端维护。 */
 public final class DialogueRuntime {
+    private static final ResourceLocation ASCENSION_TOKEN = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "ling_09");
+    private static final ResourceLocation INHERITANCE_RELIC = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "ling_18");
+    private static final String ASCENSION_SCRIPT = "升仙令/sxling/激活升仙令，跟随门派接引使前往修仙世界。/0/未完成/完成对话/进入人间界%文字/你激活了升仙令，升仙令散发出奇特的波动，这个波动穿越了空间，前往了一个你不知道的地方。%文字/但是等了很久，却也不见有什么其它变化，你不禁开始失望起来。%文字/就在这时，一道强横的意志扫过你所处的位置，并立刻锁定了你。%文字/你感觉头皮发麻，就连周围的树木也反常地躁动起来。%文字/一道光柱从天而降，你来不及躲避，被光柱当头罩住！%文字/你试着移开，却发现身体一动不能动。%自发文字/难道这是接引的光束吗？难道不应该是一艘飞舟接我走吗？%文字/这时，光柱缓缓带你飞离地面，你看到山川大地越来越小，看到这个世界越来越小，直到什么也看不到。你在虚空中飘荡，不知是否还在上升，亦或是已经停滞不动了。%文字/突然！%指令/execute in yvanchuxiuzhen:dimensionrenjian run teleport @p 0 32 0%物品/减/yvanchuxiuzhen:ling_09/1/无%结束";
+    private static final String INHERITANCE_SCRIPT = "传承灵物任务/chuanchenglingwurenwu/在此得知身世，并获得最终传承/0/未完成/无/最终传承%文字/扫把星：不错不错！我还是有一些可靠的后人呀，能修炼到结丹也是不易。%自发文字/难道……前辈就是……！%文字/扫把星：没错，我就是你的老祖宗，哈哈哈哈哈！%自发文字/（我是扫把星的后代，我是扫把星的后代，我是扫把星的后代……）%文字/扫把星：别这么一脸颓丧，好歹我还是个神！%自发文字/……！%自发文字/总感觉心里五味杂陈。%文字/扫把星：好了，废话不多说，我这缕神念能看到后辈崛起，也算不白等这几千年了。%自发文字/祖先大人您的这缕神念不能保留吗？%文字/扫把星：我的这缕神念会回归本体身边，如果本体还活着的话。%文字/扫把星：好了，这是你进阶结丹的奖励——我的符头！哈哈哈哈……%自发文字/……%指令/futouget 3%任务进度更改/完成%任务储存/16%结束";
+
     private DialogueRuntime() {
     }
 
     public static void request(EconomyDialogueRequestEvent event) {
         DialogueActions.request(event.player(), event.script());
+    }
+
+    /** 全局右键先读取主手物品，再由物品 use 处理效果或增加领取次数。 */
+    public static void rightClickItem(PlayerInteractEvent.RightClickItem event) {
+        if (!(event.getEntity() instanceof ServerPlayer player) || event.getHand() != player.getUsedItemHand()) return;
+        ItemStack stack = player.getMainHandItem();
+        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        if (itemId.equals(ASCENSION_TOKEN)) {
+            DialogueActions.request(player, ASCENSION_SCRIPT);
+        } else if (player.isShiftKeyDown() && itemId.equals(INHERITANCE_RELIC)
+                && stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("yikaiqi") == 30) {
+            DialogueActions.request(player, INHERITANCE_SCRIPT);
+        }
     }
 
     public static void requestNpc(NpcDialogueRequestEvent event) {
@@ -195,7 +215,7 @@ public final class DialogueRuntime {
                 }
                 case "删除方块" -> {
                     for (int i = 1; i + 2 < action.length; i += 3) {
-                        player.serverLevel().removeBlock(BlockPos.containing(number(action[i]), number(action[i + 1]), number(action[i + 2])), false);
+                        player.serverLevel().setBlock(BlockPos.containing(number(action[i]), number(action[i + 1]), number(action[i + 2])), Blocks.AIR.defaultBlockState(), 3);
                     }
                     state.putInt("renwuweizhi", cursor + 1);
                 }

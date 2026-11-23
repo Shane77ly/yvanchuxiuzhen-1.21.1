@@ -488,6 +488,7 @@ final class SmokeRun {
                         if (!renjianBirthSupply) throw new IllegalArgumentException("renjianbirthsupply 需单独运行");
                         yield List.of(new RenjianBirthSupplyCheck(report, levelId, this::shot, () -> pollFirstSpellExit("闭关后同档重进")));
                     }
+                    case "birthitemdialogue" -> List.of(new BirthItemDialogueCheck(report, levelId));
                     case "reincarnation" -> List.of(new ReincarnationCheck(report, levelId));
                     case "relation" -> List.of(new RelationCheck(report, levelId, this::shot));
                     case "attribute" -> List.of(new AttributeCheck(report, levelId));
