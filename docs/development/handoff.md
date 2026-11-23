@@ -9,7 +9,7 @@ updated: 2026-11-23
 
 ## 当前交接（2026-11-23 双源保真修复）
 
-当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。差异审计不改玩法：Q244–Q264 已合入 `d70a570a`，Q265–Q274 已合入 `d0834be4`；Q275–Q278 已合入 `2e85c89c`。本批从该点续核任务二、三、七，见[奖励使用记录](../systems/project/logs/2026-11.md#2026-11-23-双源差异续查任务奖励的实际使用)。下一批先从任务一、五实际执行的 `baoxiangopen 药架 精进修为丹药堆` 追到生成的丹药和服用效果；复用宝箱既有抽奖证据，不重做注册盘点。
+当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。差异审计不改玩法：Q244–Q264 已合入 `d70a570a`，Q265–Q274 已合入 `d0834be4`；Q275–Q278 已合入 `2e85c89c`。任务二、三、七的 Q279–Q281 已合入 `fd2837b3`。此后已核[任务一与五的修为丹](../systems/liandan/architecture.md#任务一与任务五的一级修为丹)，未增差异编号。下批查任务六：从实际发出的火球术书追到符合条件的角色能否研习、装入槽位并通过武器施放，不用命令预先装好的技能代替。
 
 ## 历史交接（2026-11-22 收口干净状态）
 

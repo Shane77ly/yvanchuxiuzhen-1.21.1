@@ -119,6 +119,17 @@ L 至少 1 时以权限 4、无执行实体、屏蔽输出的来源执行 `effec
 
 药效行为由原数据所有者承担：既有回灵力、修为、精力和毒药效果继续走 combat；`effect_031` 辟谷计数由 cooking 接回。`effect_037`、`huxiangtunshi` 的妖兽/蛊虫消费者分别随 creature、guchong 实现；取得效果标记不等于这些后续消费者已完成。
 
+### 任务一与任务五的一级修为丹
+
+这里的“药架”是奖励表类别，不是要寻找或开启的方块。B `PlayerRightClickBlockProcedure` 和目标 `QiankunDialogue:68,72` 两条任务的第 13 段都从玩家当前位置执行 `baoxiangopen 药架 精进修为丹药堆 1 1 1`。经 B `BaoxiangzongProcedure`／目标 `TreasureCommands.open`、`TreasureRewards.open/create`，两版均在玩家位置偏移 `(0.5,1,0.5)` 掉落一盒，拾取延迟 10 刻。B `BaoxiangXiuweidanyaoProcedure:15–21,72–74` 与目标 `TreasureRewardTables.tableXiuweidanyao` 等概率二选一，盒为 `itemdanyaohulu_0501`，内含 4–16 剂同一种药。`danyaobaoxiang=true`，所以下列时长按秒，不按刻。
+
+| 自服一剂（生存、单手持原盒，无已有同类效果） | 两版服务端源码推导 |
+| --- | --- |
+| 一级腾龙丹 | 新盒时长为 0。服药先取本次时长，再把盒内字段改为 1；两版原生命令都拒绝 0 秒，但照扣首剂。因此首剂不加修为；间隔效果刻再服第二剂，以 1 秒成功施加 `effect_016`，首次效果刻给待吸收修为 `(1×20)² = 400`，随后移除。 |
+| 一级培元丹 | `effect_015` 持续 40 秒（800 游戏刻）；从计数 0 开始，不续药、不提前移除，每 40 个效果刻给待吸收修为 `(1×5)² = 25`，共 20 次、合计 500。不是服用当刻直接加 500。 |
+
+自服与耗尽换空盒（0501→05）见上节；A `Effect015ZaiXiaoGuoChiXuShiMeiKeFaShengProcedure`、`Effect016ZaiXiaoGuoChiXuShiMeiKeFaShengProcedure` 与目标 `CultivationEffects.Experience` 均先写待吸收池。A `PlayerTickProcedure:87–200`／目标 `CultivationTick.absorb` 再按吸收率、额外修为、每日上限与雷劫状态结算，不能保证面板净增 400／500。复核应从任务原奖分别留取新盒，用无额外加成、吸收率 1、无日限、未渡劫且不触发突破的玩家对照首剂、次剂与最终空盒。此为两版本源码对照，不是任务领药实机；首剂落空是两版共有的既有行为，不新增移植差异编号。
+
 ## 药瓶 Tooltip
 
 `B:LoreProcedure:186–221` 在前置装备标签分支未命中、存在玩家且物品属于 `danyaoguan` 时追加药瓶信息。该标签只有 01、02、03、06、0401、0501，04/05 空盒不在其中。`danyaonum >= 1` 时依次显示青色说明、白色剩余数量和药效；空说明仍保留空行。
