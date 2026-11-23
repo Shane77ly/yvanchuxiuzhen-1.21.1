@@ -343,6 +343,7 @@ updated: 2026-11-20
 | Q221 | 动态楼梯遗漏来源实体材质导致墙牌脱落；已确认迁移遗漏、已修复且有限复验通过 | 30种来源楼梯均为WOOD/STONE且dynamicShape；ContentStairs以forceSolidOn保留来源实体性，四向工筑堂墙牌/BE建造及真实重进后保持，其他材质实例/全部消费者未验 | [装饰](../../systems/decor/architecture.md#q221-动态楼梯的来源实体材质) |
 | Q222 | 工筑堂东向物品框含来源旧绝对坐标；保持来源，目标加载ERROR待核 | build02east保留Tile坐标(88,-57,-167)，加载时1条ERROR；最终保存重进后的世界文件确认重定位并保留铁斧，未当作全部实体通过或零ERROR | [城镇](../../systems/town/architecture.md#q222-工筑堂东向物品框的旧绝对坐标诊断) |
 | Q223 | 动态建筑文本键仍为旧命名空间；已确认资源遗漏、已修复，合并核对通过/显示实机待验 | 代码引用txt.yvanchuxiuzhen.build01–05而转换输出仍为旧键；修convert_prefix_lang及双语Town片段并重建合并资源，保留来源文案，未重拍卷轴名/中心列表 | [城镇](../../systems/town/architecture.md#q223-动态建筑文本的语言键命名空间遗漏) |
+| Q241 | 1.18.2 炼器材料计算与天道图纸台预览未单独分支 `quality == 2`，中品落入 `0.85` 与次品同档；2026-11-23 负责人已裁定中品改用 `1.00`、已实现，待门禁与实机复验 | `B:Lianqijisuan`、`B:Lianqiuplevel` 与 `B:Shuaxin` 仅判断品质 4/3/1 分别乘 `1.15`/`1.05`/`0.95`，其余（含 `quality == 2` 中品与 `0` 次品）均乘 `0.85`；目标版本 `TripodMaterials` 与 `BlueprintTableRuntime` 已按负责人裁定将 `quality == 2` 调整为 `1.00`，`quality == 0` 仍保持 `0.85` | [炼器](../../systems/lianqi/architecture.md#材料累计与成品) |
 
 ## 源码位置
 

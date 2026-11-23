@@ -177,7 +177,8 @@ public final class BlueprintTableRuntime {
         private void add(MaterialDefinition definition, MaterialInstance instance, int count) {
             int level = Math.max(1, instance.level());
             int quality = instance.quality();
-            double multiplier = quality == 4 ? 1.15 : quality == 3 ? 1.05 : quality == 1 ? .95 : .85;
+            // 2026-11-23 负责人裁定：中品(quality=2)系数由来源 0.85 调整为 1.00
+            double multiplier = quality == 4 ? 1.15 : quality == 3 ? 1.05 : quality == 2 ? 1.0 : quality == 1 ? .95 : .85;
             for (MaterialDefinition.Entry entry : definition.entries()) {
                 String name = entry.name();
                 if (entry.namespace().equals("attribute")) {
