@@ -56,8 +56,8 @@ public final class EconomyMenus {
         if (sourceName.equals("免登银行")) { BankMenus.openBank(player, pos); return; }
         CommerceMenu.Kind kind = switch (sourceName) {
             case "商店" -> CommerceMenu.Kind.SHOP;
-            case "出售" -> CommerceMenu.Kind.STONE_SALE;
-            case "基础出售", "凡物出售" -> CommerceMenu.Kind.BASIC_SALE;
+            case "出售", "基础出售" -> CommerceMenu.Kind.STONE_SALE;
+            case "凡物出售" -> CommerceMenu.Kind.BASIC_SALE;
             default -> throw new IllegalArgumentException("未知经济页面：" + sourceName);
         };
         open(player, pos, kind);

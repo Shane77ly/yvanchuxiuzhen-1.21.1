@@ -62,8 +62,8 @@ final class CommerceCheck extends SystemCheck {
 
     @Override
     protected boolean step(int step, int local) {
-        if (step == 35) return reopened(local);
-        if (step == 36) return inWorld(local);
+        if (step == 39) return reopened(local);
+        if (step == 40) return inWorld(local);
         if (local < 10) return false;
         switch (step) {
             case 0 -> onServer(this::prepare);
@@ -160,24 +160,49 @@ final class CommerceCheck extends SystemCheck {
                 dialogueButton(3);
             }
             case 27 -> {
+                if (!waitCommerce(local, CommerceMenu.Kind.STONE_SALE)) return false;
+                onServer(player -> {
+                    expect("银行出售页为两槽加玩家库存", 38, player.containerMenu.slots.size());
+                    ItemStack card = item("ling_12");
+                    BankCards.bind(player, card);
+                    player.containerMenu.getSlot(0).set(card);
+                    player.containerMenu.getSlot(1).set(item("cailiao_191").copyWithCount(3));
+                    player.containerMenu.broadcastChanges();
+                });
+                commerceButton(3);
+            }
+            case 28 -> {
+                onServer(player -> expectTrue("三枚灵石估价", EconomyMenus.snapshot(player).getString("bankceshi2").contains("一级灵石3枚")));
+                commerceButton(2);
+            }
+            case 29 -> {
+                onServer(player -> {
+                    expect("出售所得存入本人通宝玉账户", 3, BankAccounts.balance(player, 1));
+                    expectTrue("售出后货物槽已清空", player.containerMenu.getSlot(1).getItem().isEmpty());
+                    expect("灵石收购不发钱币", 0, count(player, "money_01"));
+                });
+                minecraft.player.closeContainer();
+            }
+            case 30 -> onServer(player -> EconomyMenus.open(player, player.blockPosition().above(), "凡物出售"));
+            case 31 -> {
                 if (!waitCommerce(local, CommerceMenu.Kind.BASIC_SALE)) return false;
                 onServer(player -> {
-                    expect("自然出售页为一槽加玩家库存", 37, player.containerMenu.slots.size());
+                    expect("凡物出售页为一槽加玩家库存", 37, player.containerMenu.slots.size());
                     player.getInventory().setItem(9, new ItemStack(Items.STONE, 37));
                     player.containerMenu.broadcastChanges();
                 });
             }
-            case 28 -> inventoryClick(1, ClickType.QUICK_MOVE);
-            case 29 -> {
+            case 32 -> inventoryClick(1, ClickType.QUICK_MOVE);
+            case 33 -> {
                 onServer(player -> expect("真实快速移动将37石头放入出售槽", 37, player.containerMenu.getSlot(0).getItem().getCount()));
                 commerceButton(1);
             }
-            case 30 -> {
+            case 34 -> {
                 onServer(player -> expectTrue("基础收购中文估价按来源石头单价一文", EconomyMenus.snapshot(player).getString("bankceshi1").contains("单价1文，总价值为37文")));
                 screenshots.take("commerce_basic_sale.png");
                 commerceButton(0);
             }
-            case 31 -> {
+            case 35 -> {
                 onServer(player -> {
                     expectTrue("基础出售清空实际输入", player.containerMenu.getSlot(0).getItem().isEmpty());
                     expect("37文拆成三枚十文钱币", 3, count(player, "money_02"));
@@ -187,17 +212,18 @@ final class CommerceCheck extends SystemCheck {
                     player.containerMenu.broadcastChanges();
                 });
             }
-            case 32 -> inventoryClick(1, ClickType.QUICK_MOVE);
-            case 33 -> minecraft.player.closeContainer();
-            case 34 -> {
+            case 36 -> inventoryClick(1, ClickType.QUICK_MOVE);
+            case 37 -> minecraft.player.closeContainer();
+            case 38 -> {
                 onServer(player -> {
                     expect("关闭出售页归还三块未售玻璃", 3, player.getInventory().countItem(Items.GLASS));
                     for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) savedInventory.add(player.getInventory().getItem(slot).copy());
                 });
                 leaveWorld();
             }
-            case 37 -> {
+            case 41 -> {
                 onServer(player -> {
+                    expect("正常保存重进保留灵石出售入账", 3, BankAccounts.balance(player, 1));
                     expect("正常保存重进保留扣款后账户", 1, BankAccounts.balance(player, 9));
                     for (int slot = 0; slot < savedInventory.size(); slot++) {
                         expectTrue("正常重进保留购买/找零/余料库存槽" + slot,
