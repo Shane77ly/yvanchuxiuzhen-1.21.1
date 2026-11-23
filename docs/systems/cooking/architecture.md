@@ -2,7 +2,7 @@
 topic: cooking
 role: architecture
 status: partial
-updated: 2026-11-15
+updated: 2026-11-23
 ---
 
 # 烹饪：架构调查与提案
@@ -187,6 +187,8 @@ typed_field_accesses.csv中Jiuniang及Muzeng相关共39行：tizhi读2/写1，ji
 `A:Shicai059Item`营养2、saturationMod0.3、64堆叠；super完成食用后独立Math.random()<0.3施加POISON1200/0，不依赖余栈标签、玩家身份或创造模式。目标仅在服务端决定随机玩法效果。
 
 food_084和shicai_060返默认骨头，shicai_034/036/037分别返各自01果核。来源先构建默认返物，再super食用：原栈空则直接返回返物一件；原栈非空时只给非创造玩家背包，add失败drop；创造和非玩家余栈不额外给返物，最终返回原栈。目标保留这些分支，未换成usingConvertsTo而改变非玩家语义或重复发物。客户端只保留原生消费返回栈预测，服务端独占额外库存和效果写入。
+
+喂狼不走物品的 `finishUsingItem`。`minecraft:wolf_food` 追加 `yvanchuxiuzhen:shicai_060` 和 `yvanchuxiuzhen:food_084`；仅在原版驯服狼残血喂食分支，两件指定物品按营养值的 1 倍而非 2 倍治疗。检查交互开始时取出的 `Item` 完整注册名，不读取消费后的空栈。满血成年狼仍由原版判断求偶资格；不另返骨、不加效果、不改玩家食用或其他狼食。
 
 ### 未闭合范围
 

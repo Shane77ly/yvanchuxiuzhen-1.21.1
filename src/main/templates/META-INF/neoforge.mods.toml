@@ -17,6 +17,9 @@ config = "yvanchuxiuzhen.plant.mixins.json"
 [[mixins]]
 config = "yvanchuxiuzhen.damage.mixins.json"
 
+[[mixins]]
+config = "yvanchuxiuzhen.cooking.mixins.json"
+
 [[dependencies."${mod_id}"]]
 modId = "neoforge"
 type = "required"

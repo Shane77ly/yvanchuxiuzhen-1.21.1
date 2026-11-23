@@ -90,6 +90,8 @@
   "effect.yvanchuxiuzhen.skilleffect_09": "施法中，无法移动",
   "effect.yvanchuxiuzhen.skilleffect_09.description": "施法时，本体无法移动也无法释放其它法术。 ",
   "effect.yvanchuxiuzhen.skillwind_04": "飞行消耗减少",
+  "key.yvanchuxiuzhen.ctrlanjian": "Ctrl事件按键",
+  "key.yvanchuxiuzhen.altanjian": "Alt事件按键",
   "key.yvanchuxiuzhen.jinengqvxiao": "技能强制取消",
   "key.yvanchuxiuzhen.tabanjian": "技能页切换",
   "key.yvanchuxiuzhen.ganjian": "技能选择",

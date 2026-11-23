@@ -1,37 +1,45 @@
 package net.yvanchuxiuzhen.platform.client;
 
-import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import org.lwjgl.glfw.GLFW;
 
-/** 客户端每刻查看左 Ctrl 与左 Alt 是否按住，变化时通知服务端（见 {@link ModifierKeys}）。 */
+/** 两个独立键位在按下或松开时将当前组合发送给服务端。 */
 public final class ModifierKeysClient {
-    private static boolean ctrl;
-    private static boolean alt;
+    private static final HeldKey CTRL = new HeldKey("ctrlanjian", GLFW.GLFW_KEY_LEFT_CONTROL);
+    private static final HeldKey ALT = new HeldKey("altanjian", GLFW.GLFW_KEY_F19);
 
     private ModifierKeysClient() {
     }
 
-    public static void register() {
-        NeoForge.EVENT_BUS.addListener(ModifierKeysClient::onClientTick);
+    public static void register(IEventBus modBus) {
+        modBus.addListener((RegisterKeyMappingsEvent event) -> {
+            event.register(CTRL);
+            event.register(ALT);
+        });
     }
 
-    private static void onClientTick(ClientTickEvent.Post event) {
-        Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player == null) {
-            return;
+    private static final class HeldKey extends KeyMapping {
+        private boolean held;
+
+        private HeldKey(String name, int defaultKey) {
+            super("key.yvanchuxiuzhen." + name, defaultKey, KeyMapping.CATEGORY_MISC);
         }
-        long window = minecraft.getWindow().getWindow();
-        boolean nowCtrl = InputConstants.isKeyDown(window, GLFW.GLFW_KEY_LEFT_CONTROL);
-        boolean nowAlt = InputConstants.isKeyDown(window, GLFW.GLFW_KEY_LEFT_ALT);
-        if (nowCtrl != ctrl || nowAlt != alt) {
-            ctrl = nowCtrl;
-            alt = nowAlt;
-            PacketDistributor.sendToServer(new ModifierKeys.StatePayload(ctrl, alt));
+
+        @Override
+        public void setDown(boolean down) {
+            super.setDown(down);
+            if (held == down) {
+                return;
+            }
+            held = down;
+            if (Minecraft.getInstance().player != null) {
+                PacketDistributor.sendToServer(new ModifierKeys.StatePayload(CTRL.held, ALT.held));
+            }
         }
     }
 }
