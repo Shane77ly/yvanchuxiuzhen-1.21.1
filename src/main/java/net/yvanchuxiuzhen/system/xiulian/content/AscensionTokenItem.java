@@ -15,7 +15,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 
 /**
  * 升仙令（来源 {@code Ling09}，出身“他乡故知”的初始物品）：右键记下体质键 {@code shengxianling}，并给 600 秒的漂浮 VI 与缓慢 XXI
- * （不显示粒子与图标）。进入人间时据该键安置玩家的部分归 world。不消耗。
+ * （不显示粒子与图标）。人间入场逻辑读取该标志；本方法不扣物品，接引对话在末页扣一枚。
  */
 public final class AscensionTokenItem extends ContentItem {
     private static final int TICKS = 12000;

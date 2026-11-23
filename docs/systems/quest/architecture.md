@@ -169,6 +169,16 @@ B `Fanyexianshi.execute()`没有玩家参数，从新建ItemStack.EMPTY读取ren
 
 剧情法术/精神动作只交付ManaAttackDamage/SoulAttackDamage、对应UUID、damagetype和Damage_multiplier；来源另一版消费过程无调用者，Q31保持开放，不能把字段登记写成已完成实际伤害结算。运行与未验范围只在本月记录维护。
 
+## 升仙令与传承灵物自然任务入口（2026-11-23）
+
+原初系统 `PlayerrightclickwithitemProcedure:24,64–93` 先过滤使用手，再读主手物品。升仙令分支在潜行判断之外；传承灵物必须潜行，且交互前主手栈的 `getInt("yikaiqi") == 30`。修真物品的 `use` 排在全局右键事件之后：从 29 领到 30 的那次不启动任务，之后再潜行使用才启动。`DialogueActions.request` 只设置会话，下一个服务端 tick 打开首个文字页。
+
+- `sxling`：9 页文字后原样执行 `execute in yvanchuxiuzhen:dimensionrenjian run teleport @p 0 32 0`，再扣一枚主手所持类型的升仙令并结束。保留 `@p`，不是强制选定使用者。
+- `chuanchenglingwurenwu`：12 页文字后执行裸命令 `futouget 3`。`DuihuashijianProcedure:718–732` 用玩家位置、权限 4、无实体的命令源原样分派第二段，不加前缀，不依赖命令成功才推进。两份来源的 Java 注册均未找到该命令根；`YvanchuGoProcedure` 的 `unlock futou` 是另一入口。保留这个断链：不代发符头，接着标为“完成”、储存进度 16 并结束。
+- 普通任务的“删除方块”按 `DuihuashijianthreeProcedure:84–115` 的每组三坐标写入 `Blocks.AIR`，更新标志 3。与 `removeBlock` 不同，含水方块被删除的当刻不会留下水源。
+
+`birthitemdialogue` 是单人新档的定向 Smoke：服务端实际使用物品，经 tick 打开首页、逐页点击菜单；区分 29→30、未潜行、潜行和 double 30.5 的整型读取，检查目录与符头不变。升仙令检查副手负例、站立和潜行启动、无需过门到达人间并扣一枚。删除动作用单独的普通对话一次处理含水半砖和石块，立即检查两处空气及会话结束。此为已编写的验证，不是实机结果。
+
 ## 连续聊天任务与选择命令（2026-11-15）
 
 `DialogueRuntime`在没有启动标志、tasksustained为真且xvanxiang为假时累计tasktick，每60刻调用`QuestChatRuntime`并清零计时。来源首分支仍先消费renwubegin/taskbegin，Q11保持。文字推进后仅允许第二、第三扩展过程动作在本次继续，下一条文字等待下一节拍；选项暂停。动作覆盖文字、自发文字、原始tellraw选项、条件/物品/任务/坐标/维度判断、库存、NPC控制、传送、效果/命令、跳转、目录/头部修改、裂隙解封、删除方块与结束清理。法术/精神动作仅登记字段，Q31没有因此闭合。
