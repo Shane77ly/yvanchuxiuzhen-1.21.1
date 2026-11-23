@@ -36,6 +36,14 @@ final class BirthItemDialogueCheck extends SystemCheck {
     protected boolean step(int step, int local) {
         if (step == 0) {
             onServer(p -> {
+                probe = new BlockPos(p.getBlockX(), p.level().getMaxBuildHeight() - 2, p.getBlockZ());
+                DialogueActions.request(p, "删除验证/delete_probe/坐标组/0/未完成/无/无%文字/删除前%删除方块/" + coords(probe) + "/" + coords(probe.east()) + "%结束");
+            });
+        } else if (step == 1) {
+            if (!awaitFirst("delete_probe", local)) return false;
+            onServer(this::checkDeletion);
+        } else if (step == 2) {
+            onServer(p -> {
                 ItemStack relic = stack("ling_18");
                 setCount(relic, 29);
                 Cultivation.set(p, CultivationValue.LEVEL_NUMBER, 30);
@@ -48,7 +56,7 @@ final class BirthItemDialogueCheck extends SystemCheck {
                 use(p, true);
                 expectTrue("旧次数 30 潜行启动", pending(p, RELIC));
             });
-        } else if (step == 1) {
+        } else if (step == 3) {
             if (!awaitFirst(RELIC, local)) return false;
             onServer(p -> {
                 p.closeContainer();
@@ -56,7 +64,7 @@ final class BirthItemDialogueCheck extends SystemCheck {
                 use(p, true);
                 expectTrue("double 30.5 按来源 getInt 重新启动", pending(p, RELIC));
             });
-        } else if (step == 2) {
+        } else if (step == 4) {
             if (!awaitFirst(RELIC, local)) return false;
             onServer(p -> {
                 expectTrue("新档没有符头3", !Fulu.knowledge(p).heads().contains(3));
@@ -77,47 +85,44 @@ final class BirthItemDialogueCheck extends SystemCheck {
                 use(p, false);
                 expectTrue("站立使用升仙令启动", pending(p, TOKEN));
             });
-        } else if (step == 3) {
+        } else if (step == 5) {
             if (!awaitFirst(TOKEN, local)) return false;
             onServer(p -> {
                 p.closeContainer();
                 use(p, true);
                 expectTrue("潜行使用升仙令同样重新启动", pending(p, TOKEN));
             });
-        } else if (step == 4) {
+        } else {
             if (!awaitFirst(TOKEN, local)) return false;
             onServer(p -> {
                 if (!advance(p, 9)) return;
                 expect("未经过传送门，剧情将玩家送入人间", ModId.VALUE + ":dimensionrenjian", p.level().dimension().location().toString());
                 expect("剧情只扣一枚升仙令", tokensBefore - 1, p.getInventory().countItem(stack("ling_09").getItem()));
                 expect("升仙令会话结束", "", script(p));
-                probe = new BlockPos(p.getBlockX(), p.level().getMaxBuildHeight() - 2, p.getBlockZ());
-                DialogueActions.request(p, "删除验证/delete_probe/坐标组/0/未完成/无/无%文字/删除前%删除方块/" + coords(probe) + "/" + coords(probe.east()) + "%结束");
-            });
-        } else {
-            if (!awaitFirst("delete_probe", local)) return false;
-            onServer(p -> {
-                ServerLevel level = p.serverLevel();
-                BlockPos pos = probe;
-                if (!level.isEmptyBlock(pos) || !level.isEmptyBlock(pos.east())) {
-                    fail("删除探针需要两个空位");
-                    return;
-                }
-                try {
-                    level.setBlockAndUpdate(pos, Blocks.OAK_SLAB.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true));
-                    level.setBlockAndUpdate(pos.east(), Blocks.STONE.defaultBlockState());
-                    expectTrue("删除前探针含水", !level.getFluidState(pos).isEmpty());
-                    if (!advance(p, 1)) return;
-                    expectTrue("同一动作将含水方块和第二个坐标立即设为空气", level.getBlockState(pos).is(Blocks.AIR) && level.getBlockState(pos.east()).is(Blocks.AIR));
-                    expect("删除后继续到结束", "", script(p));
-                } finally {
-                    level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-                    level.setBlockAndUpdate(pos.east(), Blocks.AIR.defaultBlockState());
-                }
             });
             finish();
         }
         return true;
+    }
+
+    private void checkDeletion(ServerPlayer p) {
+        ServerLevel level = p.serverLevel();
+        BlockPos pos = probe;
+        if (!level.isEmptyBlock(pos) || !level.isEmptyBlock(pos.east())) {
+            fail("删除探针需要两个空位");
+            return;
+        }
+        try {
+            level.setBlockAndUpdate(pos, Blocks.OAK_SLAB.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true));
+            level.setBlockAndUpdate(pos.east(), Blocks.STONE.defaultBlockState());
+            expectTrue("删除前探针含水", !level.getFluidState(pos).isEmpty());
+            if (!advance(p, 1)) return;
+            expectTrue("同一动作将含水方块和第二个坐标立即设为空气", level.getBlockState(pos).is(Blocks.AIR) && level.getBlockState(pos.east()).is(Blocks.AIR));
+            expect("删除后继续到结束", "", script(p));
+        } finally {
+            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+            level.setBlockAndUpdate(pos.east(), Blocks.AIR.defaultBlockState());
+        }
     }
 
     private boolean awaitFirst(String id, int local) {
