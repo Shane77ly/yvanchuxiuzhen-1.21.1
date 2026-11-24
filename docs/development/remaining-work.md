@@ -128,6 +128,42 @@ Q28星宿穴位学习小游戏已于2026-11-16批准排除，保留来源登记�
 
 ## 当前调度
 
+### 2026-11-24 底层架构四大痛点重构方案与执行路线（零旧存档兼容、一步到位数据驱动）
+
+负责人于 2026-11-24 明确项目后续进入**定位 B（为自创玩法、长期维护与 JSON 数据驱动扩展做准备）**，授权先暂停新增内容，集中重构现有 1.21.1 代码库的**四大底层架构痛点**，并明确指示：**“不需要考虑任何旧存档兼容问题，直接按最优架构和路径实施”**（决定记录见[项目状态](../systems/project/README.md)与[项目月志](../systems/project/logs/2026-11.md#2026-11-24-底层架构四大痛点重构方案与执行路线定案)）。
+
+#### 1. 核心架构原则与工程红线
+
+1. **零旧存档兼容、零运行期回退胶水**：
+   - 运行时 Java 代码**彻底废除双轨制**，不保留任何旧存档/旧 NBT 的运行期读取回退或 `attachFromLegacyTag` 胶水逻辑。
+   - 项目内置的 161 个 `.nbt` 结构模板文件（如 `data/yvanchuxiuzhen/structure/*.nbt`）中预置的箱子物品与方块实体数据，一律在**构建前通过 Python 脚本（`tools/porting/convert_structures.py`）一次性离线升级为 1.21.1 原生组件格式**，确保运行时代码 100% 纯净。
+2. **结构重构与原版 Bug 清理严格解耦**：
+   - **阶段 1～3（纯架构重构）**：只替换底层数据载体、将硬编码大表/分隔符脚本抽为 `Codec` + JSON 数据驱动、消除运行期命令拼接与高频字符串查找，**不改变既有业务数值与判定语义**，确保全部单元/架构测试与 Smoke 场景零退化。
+   - **阶段 4（1.18.2 原版遗留 Bug 清理）**：在阶段 1～3 架构稳定后，专门清理 `docs/reference/legacy/source-survey.md` 中为迁就 1.18.2 行为而保留的原版 Bug（Q01–Q281），并同步更新对应测试断言与系统文档。
+3. **单工作树分支管理与合入门禁**：
+   - 固定在唯一主工作树 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1` 执行，以当前集成分支 `port/20261123-parity-integration`（或合入后的集成分支）为基线，按下方批次依次检出 `refactor/p<阶段>-<主题>` 功能分支；
+   - 每完成一个子批次，必须串行通过：
+     1. `./gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test`（含 `ArchitectureTest`）
+     2. 对应系统的最小客户端 Smoke 场景（`./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=<场景> runSmokeClient`，保持 `soundCategory_master:0.0` 静音）
+     3. `python -B -X utf8 tools/porting/check_ledger.py`、`python -B -X utf8 tools/docs/check_docs.py` 与 `git diff --check`
+   - 验证通过后以 `git merge --no-ff` 合入集成分支并删除临时分支；不自动推送、不擅自合并 `main`。
+
+#### 2. 四大痛点问题清单与四阶段执行路线
+
+| 阶段与子批次分支 | 解决的架构痛点与目标范围 | 具体重构任务与技术标准 | 验收与闭合门禁 |
+| --- | --- | --- | --- |
+| **阶段 1（子批 1A）**<br>`refactor/p1a-production-components` | **痛点 1（消除双轨制数据载体 - 生产与符箓物品）**：<br>覆盖 `liandan`（10 文件）、`lianqi`（5 文件）、`cooking`（4 文件）、`fulu`（12 文件）共 **31 个文件**的 `DataComponents.CUSTOM_DATA`（`CustomData`）读写。 | 1. 在各系统定义不可变 Java `record` + `Codec` + `StreamCodec` 的专属 `DataComponentType<T>`（如丹药药效/剂数/丹毒组件、炼器胚胎温度/杂质/进度组件、烹饪食材/属性组件、符箓耐久/冷却/绑定组件）。<br>2. 将 31 个文件中的 `CustomData.update(...)` 与 `getOrDefault(DataComponents.CUSTOM_DATA, ...)` 全部替换为 `stack.get(TYPE)` / `stack.set(TYPE, value)`。<br>3. 不保留任何 `CUSTOM_DATA` 双写或旧标签读取分支。 | `liandan`、`lianqi`、`cooking`、`fulu` 零 `CustomData` 引用；`compileJava`、`test` 及炼丹/炼器/烹饪/符箓 Smoke 场景 `0 FAIL`。 |
+| **阶段 1（子批 1B）**<br>`refactor/p1b-equipment-creature-components` | **痛点 1（消除双轨制数据载体 - 装备、灵兽、蛊虫、书籍与藏宝）**：<br>覆盖 `equipment`（14 文件）、`creature`（5 文件）、`guchong`（3 文件）、`book`（5 文件）、`treasure`（5 文件）共 **32 个文件**的 `DataComponents.CUSTOM_DATA` 读写。 | 1. 为法宝/飞剑/护甲耐久与词条（`equipment`）、灵兽袋捕获快照（`creature`）、蛊罐与单虫元数据（`guchong`）、装订书籍/答题/契约（`book`）、藏宝图与钥匙（`treasure`）建立强类型 `DataComponentType<T>`。<br>2. 将 `gongfa`（`Techniques`）与 `skill`（`Skills`）已有的组件进一步扩展覆盖 `book` 与 `treasure`，**直接删除** `attachFromLegacyTag` 等旧 NBT 兼容方法。 | 上述 5 个系统零 `CustomData` 引用；`spiritbeastbag`、`guchong`、`treasurerecipe`、`book` 相关测试与 Smoke 场景 `0 FAIL`。 |
+| **阶段 1（子批 1C）**<br>`refactor/p1c-pure-components-and-structures` | **痛点 1（消除双轨制数据载体 - 剩余系统组件化与 161 个 `.nbt` 结构离线升级）**：<br>覆盖其余 **31 个文件**（`economy` 6、`decor` 4、`festival` 2、`xiulian` 3、`dungeon` 3、`town` 2、`npc` 2、`tiandao` 1、`world` 1、`quest` 1、`zhenfa` 1、`craft` 1、`flow` 1 等）及 **161 个 `.nbt` 结构文件**。 | 1. 将剩余 31 个文件中的物品自定义数据全部替换为强类型 `DataComponentType<T>`；将天道编辑器（`NbtEditorMenu`）重构为读写目标系统的强类型 `DataComponentType`。<br>2. 扩展 `tools/porting/convert_structures.py`，离线扫描并转换 `src/main/resources/data/yvanchuxiuzhen/structure/*.nbt` 中预置箱子物品与方块实体的 `minecraft:custom_data`，直接写为 1.21.1 注册的强类型组件 ID（`yvanchuxiuzhen:<component>`）。 | 全仓业务代码零 `DataComponents.CUSTOM_DATA` 引用；161 个 `.nbt` 结构转换脚本幂等通过；`nbteditor` 等测试通过。 |
+| **阶段 1（子批 1D）**<br>`refactor/p1d-entity-attachments-and-guard` | **痛点 1（消除双轨制数据载体 - 实体/方块实体 `getPersistentData()` 收口与 ArchUnit 封锁）**：<br>覆盖全仓 **331 个文件**中的 `entity.getPersistentData()` / `blockEntity.getPersistentData()` 字符串键值读写。 | 1. **方块实体（`BlockEntity`）**：全部改为 Java 类强类型成员变量 + `saveAdditional` / `loadAdditional`（或 `Codec`）序列化，废除通过 `getPersistentData()` 存取业务状态。<br>2. **实体与玩家（`Entity` / `Player`）**：按系统职责收口为强类型 `AttachmentType<T>`（`Codec` 持久化 + 必要的 `StreamCodec` 同步），禁止散落的字符串键 `getDouble`/`putDouble`。<br>3. **新增 ArchUnit 规则 7**：在 `ArchitectureTest.java` 新增守卫，**永久禁止** `net.yvanchuxiuzhen.system..` 与 `flow..` 调用 `DataComponents.CUSTOM_DATA`、`CustomData` 及 `getPersistentData()`。 | `ArchitectureTest`（含新增规则 7）全绿通过；全仓 `CustomData` 与 `getPersistentData()` 业务调用清零。 |
+| **阶段 2（子批 2A）**<br>`refactor/p2a-treasure-codec-json` | **痛点 2（从硬编码转向 JSON 数据驱动 - 宝箱与宝匣 3,000 行奖励表）**：<br>重构全项目最大单文件 `TreasureRewardTables.java`（**3,048 行**）。 | 1. 设计统一的宝箱/宝匣/红包奖励池数据结构 `TreasurePoolDefinition`（支持权重/概率分段、固定与随机数量区间、强类型组件注入、多物品掉落组合）并编写 `Codec<TreasurePoolDefinition>`。<br>2. 编写一次性提取脚本将 `TreasureRewardTables.java` 中上千条 `if (random < ...)` 分支与 `%`/`/` 拼接字符串导出为结构化 JSON 文件（置于 `src/main/resources/content/treasure/reward_tables.json` 或数据包目录）。<br>3. `TreasureRewardTables.java` 缩减为不足 200 行的 JSON 加载与按 `Codec` 抽样分发器。 | `TreasureRewardTables.java` 硬编码大表彻底移除；生成的 JSON 通过 Schema/`Codec` 全量解析校验；宝箱与宝匣单元测试、Smoke 场景 `0 FAIL`。 |
+| **阶段 2（子批 2B）**<br>`refactor/p2b-quest-economy-codec-json` | **痛点 2（从硬编码转向 JSON 数据驱动 - 对话树、任务与商店商品表）**：<br>重构 `DialogueRuntime.java`、`QuestStructureData.java`、`CommerceGoods.java` 等依赖 `%` 和 `/` 分隔符长字符串的代码。 | 1. 定义强类型的 `DialogueNodeDefinition`（NPC 文本、选项列表、前置条件、奖励动作）、`QuestTemplateDefinition` 与 `ShopCatalogDefinition` `record` 及对应 `Codec`。<br>2. 将散落在 Java 代码和旧组件里的 `"对话%选项1/选项2%动作"`、`"商品名/价格/数量"` 分隔符字符串离线转换为可读、可校验的 JSON 资源文件（`content/quest/`、`content/economy/`）。<br>3. 移除运行期 `String.split("%")` / `split("/")` 解析逻辑，直接按强类型对象执行对话跳转、任务发放与商店估价交易。 | `quest` 与 `economy` 系统不再使用 `%`/`/` 魔法分隔符解析业务配置；新增/修改一条对话、任务或商品只需编辑 JSON；相关测试与 Smoke 通过。 |
+| **阶段 2（子批 2C）**<br>`refactor/p2c-creature-ai-codec-json` | **痛点 2（从硬编码转向 JSON 数据驱动 - 52 个妖兽行为类与 NPC 技能模板化）**：<br>重构 `creature` 下 52 个 `Yaoshou001..054Behavior.java`（单文件 500～773 行，共约 **25,000 行**）与 `NpcMeleeSkills.java`（**1,076 行**）。 | 1. 提炼数据驱动的生物战斗配置 `CreatureCombatProfile`（技能槽位、冷却 Tick、触发距离/血量阈值、蓄力时长、AOE 半径、投射物 ID、状态效果、音效与粒子列表、脱战回血参数）及 `Codec<CreatureCombatProfile>`。<br>2. 将 52 个妖兽和通用 NPC 高度同质化的技能循环导出为 `src/main/resources/content/creature/combat_profiles/*.json`，由通用执行器 `DataDrivenCreatureBehavior` 统一驱动；仅对极少数真正独特的机制保留轻量级动作钩子（Action Hook）。 | 删除或大幅收敛 52 个重复的 `Yaoshou*Behavior.java` 模板代码；妖兽技能、蓄力、投射与脱战行为由 JSON 配置驱动，战斗与妖兽 Smoke 场景通过。 |
+| **阶段 3**<br>`refactor/p3-runtime-performance` | **痛点 3（消灭运行期反射式命令拼接与高频字符串查找，优化大结构内存）**：<br>清理 `DialogueRuntime`、实体行为、阵法与结构释放中的 `performPrefixedCommand` / `performCommand` 及大结构加载峰值。 | 1. **废除运行期拼命令调自身功能**：将业务代码中通过拼接 `/effect give`、`/shanghai`、`/teleport`、`/playsound`、`/particle`、`/kill` 等字符串再交由命令分发器解析执行的逻辑，全部替换为直接调用 `Entity.addEffect`、战斗系统公开 API `Combat.applyDamage`、`Entity.teleportTo` 等强类型 Java 方法（仅保留玩家/管理员在聊天框手动输入命令的入口）。<br>2. **大结构与多维加载优化**：复核 `difujiegou` 等超大结构生成与多维传送门（`dimensionportal`）的区块/结构模板缓存释放策略，降低 768 MB 堆内存下的 GC 压力。 | 业务流程零运行期命令字符串拼接自调用；`compileJava`、`test` 及低内存（768 MB）下核心与多维 Smoke 场景稳定通过。 |
+| **阶段 4**<br>`refactor/p4-legacy-bug-cleanup` | **痛点 4（集中清理 1.18.2 原版遗留 Bug Q01–Q281）**：<br>在阶段 1～3 架构重构全部完成并验证无退化后，清理 `docs/reference/legacy/source-survey.md` 中登记的 1.18.2 原版 Bug。 | 按系统分批修正此前为“1:1 保真 1.18.2”而刻意保留的原版错误，重点包括：<br>1. **数据与拼写 Bug**：Q177 宝箱奖励物品 ID 拼写错误（`leggins` → `leggings`、`cailiao_153` → 正确丹方/材料 ID）、Q26 藏宝功法抽样表漏项（补齐 `gongfa_15`/`21`/`25`）、Q176 宝匣消息错用天道提示键。<br>2. **数值与公式 Bug**：Q30 无破甲时物理防御被乘 0 失效及暴击覆盖破甲分支、Q18 同属性功法减伤正负号写反变增伤、Q19 异火伤害加成未闭合、Q17/Q35 散修与阴兵流血伤害固定为 1。<br>3. **交互与经济刷钱 Bug**：Q05 商店单栈购买吞找零、Q71 银行高级通宝玉重复上线无限领灵石、Q64 拍卖交割扣款顺序错误、Q84 任务删除方块维度判断多写右括号导致非主世界恒成立。<br>4. **安全与死代码清理**：将 `Q246`、`Q248`、`Q252`、`Q254`、`Q259`、`Q264`、`Q279`、`Q281` 的合理化修正正式固化为 1.21.1 标准规则，并移除 Q20/Q135/Q151 等 1.18.2 废弃死入口残留。 | `source-survey.md` 中目标遗留 Bug 全部更新为 `已修正并验证`；对应单元测试、系统正文与 Smoke 场景同步更新并全绿通过。 |
+
+---
+
 ### 2026-11-24 双源差异 Q244–Q281 修复进展与未验边界
 
 [统一问题索引](../reference/legacy/source-survey.md#本轮双源差异核查2026-11-23)跟踪 Q244–Q281：其中 30 项已完成代码/资源/标签/语言修复（[项目月志](../systems/project/logs/2026-11.md#2026-11-24-双源差异-q244q281-批量修复与保留边界收口)），两版本实机、多人与动态表现仍待后续实测。`Q246`、`Q248`、`Q252`、`Q254`、`Q259`、`Q264`、`Q279`、`Q281` 共 8 项因已通过 Smoke 契约冲突、权限与服务端安全边界或跨块破坏风险保留当前实现、待裁定。任务四、八与六的原奖整链、Q276 带等级条件、Q277/Q278 特定地形，以及 Q280/Q281 空矿车与普通箱子实机对照仍待客户端场景验证。

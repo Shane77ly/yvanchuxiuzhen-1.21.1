@@ -7,7 +7,27 @@ updated: 2026-11-24
 
 # 交接说明
 
-## 当前交接（2026-11-24 双源保真修复与边界收口）
+## 当前交接（2026-11-24 底层架构四大痛点重构启动：零旧存档兼容、全面转向强类型组件与 JSON 数据驱动）
+
+1. **当前基线**：
+   - 主工作树：`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`（唯一工作树，禁止新建额外 worktree）。
+   - 当前集成分支：`port/20261123-parity-integration`（已包含 Q244–Q281 中 30 项双源差异修复与 8 项安全边界收口，工作树干净）。
+2. **负责人最新决定（2026-11-24）**：
+   - 项目进入**定位 B（为自创内容与长期迭代打底）**，暂停新增业务内容，集中执行**底层架构四大痛点重构**。
+   - **明确不考虑任何旧存档兼容问题**：不保留任何运行期旧 NBT 回退代码（如 `attachFromLegacyTag`）；项目内置 161 个 `.nbt` 结构模板通过 Python 脚本离线一次性升级为 1.21.1 原生组件格式，运行时 Java 代码一步到位保持 100% 纯净。
+3. **立即执行的下一动作（按[当前调度：底层架构四大痛点重构方案与执行路线](remaining-work.md#2026-11-24-底层架构四大痛点重构方案与执行路线零旧存档兼容一步到位数据驱动)分 4 阶段依次推进）**：
+   - **阶段 1（消除双轨制数据载体，100% 统一为强类型 `DataComponentType` 与 `AttachmentType`）**：
+     - 从当前集成分支依次检出 `refactor/p1a-production-components`（`liandan`/`lianqi`/`cooking`/`fulu` 31 文件组件化）→ `refactor/p1b-equipment-creature-components`（`equipment`/`creature`/`guchong`/`book`/`treasure` 32 文件组件化并删除 `attachFromLegacyTag`）→ `refactor/p1c-pure-components-and-structures`（其余 31 文件组件化、天道编辑器组件化、161 个 `.nbt` 结构离线升级为 1.21.1 组件格式）→ `refactor/p1d-entity-attachments-and-guard`（331 个文件的 `getPersistentData()` 收口为 `BlockEntity` 强类型字段与实体 `AttachmentType<T>`，并在 `ArchitectureTest.java` 新增**规则 7** 永久封禁业务代码使用 `CustomData`/`DataComponents.CUSTOM_DATA` 与 `getPersistentData()`）。
+   - **阶段 2（从 Java 硬编码大表与 `%`/`/` 分隔符字符串全面转向 `Codec` + JSON 数据驱动）**：
+     - 依次检出 `refactor/p2a-treasure-codec-json`（将 3,048 行的 `TreasureRewardTables.java` 抽为 JSON + `Codec`）→ `refactor/p2b-quest-economy-codec-json`（将 `DialogueRuntime`/`QuestStructureData`/`CommerceGoods` 的 `%`、`/` 分隔符脚本转为结构化 JSON + `Codec`）→ `refactor/p2c-creature-ai-codec-json`（将 52 个 `Yaoshou001..054Behavior.java` 与 `NpcMeleeSkills.java` 提炼为 `CreatureCombatProfile` `Codec` + JSON 驱动）。
+   - **阶段 3（消灭运行期命令字符串拼接与高频哈希查找）**：
+     - 检出 `refactor/p3-runtime-performance`，将业务代码中拼接 `/effect`、`/shanghai`、`/teleport` 等调用 `performPrefixedCommand` 的逻辑全部改为直接调用强类型 Java API，并优化 `difujiegou` 等超大结构内存释放。
+   - **阶段 4（集中清理 1.18.2 原版遗留 Bug Q01–Q281）**：
+     - 在阶段 1～3 架构重构全部通过且零退化后，检出 `refactor/p4-legacy-bug-cleanup`，按[统一问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置)集中修正 1.18.2 原版拼写错误（Q177）、伤害/抗性公式 Bug（Q18/Q19/Q30）、商店与银行刷钱漏洞（Q05/Q71）及维度判断括号错误（Q84）等，同步更新测试断言与系统文档。
+4. **每子批次合入门禁**：
+   - 每个 `refactor/*` 分支完成后，串行执行 `./gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test`、对应系统的 `runSmokeClient`（保持 `soundCategory_master:0.0` 静音）、`python -B -X utf8 tools/porting/check_ledger.py`、`python -B -X utf8 tools/docs/check_docs.py` 与 `git diff --check`，通过后以 `git merge --no-ff` 合入集成分支并更新交接进度；不自动推送、不擅自合并 `main`。
+
+## 历史交接（2026-11-24 双源保真修复与边界收口）
 
 当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。在完成 Q244–Q281 与任务一、五、六审计后，本轮已在同一集成线完成 Q244–Q281 中 30 项差异的代码/资源/标签/语言修复；`Q246`、`Q248`、`Q252`、`Q254`、`Q259`、`Q264`、`Q279`、`Q281` 共 8 项因既存 Smoke 契约、权限安全、服务端权威或跨块破坏风险保留当前实现并明确登记在[项目月志](../systems/project/logs/2026-11.md#2026-11-24-双源差异-q244q281-批量修复与保留边界收口)与[统一问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置)。任务原书、新按钮界面与实机行为链仍待按实际验证门禁执行客户端/专服实测。
 

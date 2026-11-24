@@ -2,10 +2,12 @@
 topic: project
 role: entry
 status: current
-updated: 2026-11-23
+updated: 2026-11-24
 ---
 
 # 项目状态与决定
+
+2026-11-24 负责人明确项目后续进入**定位 B（开发自创内容与长期迭代演进）**，决定在添加新内容前先集中重构现有 1.21.1 代码库的**四大底层架构痛点**，并强调**不需要考虑任何旧存档兼容问题，直接按最优架构和路径实施**：① **阶段 1（消除双轨制数据载体）**：将全仓 94 个文件的 `DataComponents.CUSTOM_DATA`（`CustomData`）与 331 个文件的 `getPersistentData()` 100% 替换为强类型不可变 `record` + `Codec`/`StreamCodec` 的 `DataComponentType<T>`、`AttachmentType<T>` 及 `BlockEntity` 强类型字段，删除一切 `attachFromLegacyTag` 旧 NBT 运行期回退胶水，通过 Python 脚本离线升级 161 个内置 `.nbt` 结构文件，并在 `ArchitectureTest` 新增规则 7 永久封禁业务代码直接读写 `CustomData` 与 `getPersistentData()`；② **阶段 2（从 Java 硬编码与分隔符字符串转向 `Codec` + JSON 数据驱动）**：将 3,048 行的 `TreasureRewardTables.java`、`DialogueRuntime`/`QuestStructureData`/`CommerceGoods` 的 `%` 与 `/` 分隔符长字符串、以及 52 个 `Yaoshou001..054Behavior.java` 与 `NpcMeleeSkills.java` 全部重构为结构化 JSON + `Codec` 驱动；③ **阶段 3（消灭运行期命令字符串拼接与高频查找）**：将业务流程中通过 `performPrefixedCommand` 拼接 `/shanghai`、`/effect` 等命令的自调用全部改为直接 Java API 调用，并优化大结构内存占用；④ **阶段 4（集中清理 1.18.2 原版遗留 Bug）**：在前三阶段架构稳定后，集中修正 `source-survey.md` 中 Q01–Q281 为迁就 1.18.2 而保留的原版公式、拼写与刷钱 Bug。详见[当前调度](../../development/remaining-work.md#2026-11-24-底层架构四大痛点重构方案与执行路线零旧存档兼容一步到位数据驱动)与[项目月志](logs/2026-11.md#2026-11-24-底层架构四大痛点重构方案与执行路线定案)。
 
 2026-11-22 负责人授权将 `port/batch0-integration-20261117`（`503e9094`）合入 `main`（合并提交 `f1e744e0`）并推送至远端 `origin/main`，同时要求与两个 1.18.2 源 Mod 进行全量二次比对。经 `inventory_legacy.py --check` 及全库交叉扫描，确认 4,931 项有效注册、561 配方、109 掉落表、8 进度、161 结构、8 维度及全部 `pending_hooks` 已在当次静态检查范围内核对（属 11 月 22 日历史结论，不代表所有玩法或界面已逐项对齐；后续差异见[统一问题索引](../../reference/legacy/source-survey.md#本轮双源差异核查2026-11-23)）；针对二次比对抓出的 4 处细节遗漏（① B1 阶段跳过未重刷的 7 个实体标签、5 个原版结构群系标签与 2 个标签后迁成员；② `/fuwuqimingling` 管理员规则命令；③ `OxygentubiaoOverlay` 水下氧气 HUD；④ `TiankongxvanranProcedure` 浓雾群系与雷劫视野雾效），负责人指示写入文档交由执行会话从 `main` 检出 `port/source-parity-patch-20261122` 补齐。详见[当前调度](../../development/remaining-work.md#5-2026-11-22-双源-mod-二次比对-4-项补齐任务单)与[项目月志](logs/2026-11.md#2026-11-22-合入-main-推送与双源-mod-二次比对补齐任务单)。
 
