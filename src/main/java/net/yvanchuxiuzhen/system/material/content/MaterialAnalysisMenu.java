@@ -22,6 +22,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.content.LegacyContainerMove;
 import net.yvanchuxiuzhen.system.material.MaterialLibrary;
 import net.yvanchuxiuzhen.system.material.api.MaterialDefinition;
 import net.yvanchuxiuzhen.system.material.api.MaterialInventoryRequestEvent;
@@ -195,6 +196,11 @@ public final class MaterialAnalysisMenu extends AbstractContainerMenu {
         if (stack.getCount() == original.getCount()) return ItemStack.EMPTY;
         slot.onTake(player, stack);
         return original;
+    }
+
+    @Override
+    protected boolean moveItemStackTo(ItemStack stack, int start, int end, boolean reverse) {
+        return LegacyContainerMove.moveItemStackTo(slots, stack, start, end, reverse);
     }
 
     @Override

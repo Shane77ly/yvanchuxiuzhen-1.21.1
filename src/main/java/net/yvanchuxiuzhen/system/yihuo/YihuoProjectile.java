@@ -144,6 +144,7 @@ public final class YihuoProjectile extends AbstractArrow implements ItemSupplier
             target.getPersistentData().putString("fireteam", team);
             target.getPersistentData().putString("fireAttackUUID", attacker);
         }
+        level.sendParticles(Particles.type("cailiao_" + material + "particle"), getX(), getY(), getZ(), 10, 0, 0, 0, 0.5);
         if (!(target instanceof LivingEntity living)) {
             return;
         }
@@ -153,7 +154,6 @@ public final class YihuoProjectile extends AbstractArrow implements ItemSupplier
         MobEffectInstance previous = living.getEffect(StatusEffects.holder(effect));
         int duration = previous == null ? 200 : previous.getDuration() + 200;
         living.addEffect(new MobEffectInstance(StatusEffects.holder(effect), duration, grade, true, true));
-        level.sendParticles(Particles.type("cailiao_" + material + "particle"), getX(), getY(), getZ(), 10, 0, 0, 0, 0.5);
         if (delayedReset(material)) {
             YihuoEffects.resetInvulnerabilityNextTick(living);
         } else {

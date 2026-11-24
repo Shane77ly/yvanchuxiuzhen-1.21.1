@@ -75,13 +75,13 @@ def mod_items_by_tag() -> dict[str, list[str]]:
         for row in json.loads(path.read_text(encoding='utf-8')):
             id_ = f'{NAMESPACE}:{row["id"]}'
             tool = row.get('tool')
-            if tool and tool['kind'] == 'sword':
+            if (tool and tool['kind'] == 'sword') or row.get('factory') in ('zhenfa:flag_mother', 'zhenfa:flag_son'):
                 result['weapon'].append(id_)
             elif tool and tool['kind'] in ('axe', 'pickaxe', 'shovel', 'hoe'):
                 result['digger'].append(id_)
-            if row.get('factory') == 'armor':
+            if row.get('armor'):
                 result['armor'].append(id_)
-            if (tool and tool['tier']['uses'] > 0) or (row.get('factory') == 'armor' and row['durability_multiplier'] > 0) or row.get('durability', 0) > 0:
+            if (tool and tool['tier']['uses'] > 0) or (row.get('armor') and row.get('durability_multiplier', 0) > 0) or row.get('durability', 0) > 0:
                 result['breakable'].append(id_)
     return result
 

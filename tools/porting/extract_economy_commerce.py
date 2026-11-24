@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = ROOT.parents[2] / 'yuanchuxiuzhen-1.21.1/reference/1.18.2yvanchuxitong'
+SOURCE = ROOT.parent / 'yuanchuxiuzhen-1.21.1/reference/1.18.2yvanchuxitong'
 if not SOURCE.exists():
     SOURCE = Path('D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-1.21.1/reference/1.18.2yvanchuxitong')
 JAVA = SOURCE / 'src/main/java/net/mcreator/yvanchuxitong'
@@ -51,6 +51,21 @@ def main() -> None:
     for page in pages:
         text = (JAVA / f'client/gui/{page}Screen.java').read_text(encoding='utf-8')
         layers = []
+        field_textures = dict(re.findall(r'private static final ResourceLocation (\w+)\s*=\s*new ResourceLocation\("yvanchuxitong:textures/screens/([^"\n]+)"\);', text))
+        for field_name, x, y, width, height, tw, th in re.findall(r'RenderSystem\.setShaderTexture\(0,\s*(\w+)\);\s*this\.blit\(ms,\s*([^,]+),\s*([^,]+),\s*0,\s*0,\s*([^,]+),\s*([^,]+),\s*([^,]+),\s*([^)]+)\);', text):
+            if field_name not in field_textures:
+                continue
+            name = field_textures[field_name]
+            dim_w = int(re.search(r'this\.imageWidth = (\d+);', text)[1])
+            dim_h = int(re.search(r'this\.imageHeight = (\d+);', text)[1])
+            lx = 0 if 'leftPos +' not in x else int(x.split('+')[1].strip())
+            ly = 0 if 'topPos +' not in y else int(y.split('+')[1].strip())
+            lw = dim_w if 'imageWidth' in width else int(width.strip())
+            lh = dim_h if 'imageHeight' in height else int(height.strip())
+            ltw = dim_w if 'imageWidth' in tw else int(tw.strip())
+            lth = dim_h if 'imageHeight' in th else int(th.strip())
+            layers.append({'texture': name, 'x': lx, 'y': ly, 'width': lw, 'height': lh, 'texture_width': ltw, 'texture_height': lth})
+            assets[name] = name
         for name, x, y, width, height, tw, th in re.findall(r'new ResourceLocation\("yvanchuxitong:textures/screens/([^"\n]+)"\)\);\s*this.blit\(ms, this.leftPos \+ (-?\d+), this.topPos \+ (-?\d+), 0, 0, (\d+), (\d+), (\d+), (\d+)\);', text):
             layers.append({'texture': name, 'x': int(x), 'y': int(y), 'width': int(width), 'height': int(height), 'texture_width': int(tw), 'texture_height': int(th)})
             assets[name] = name
@@ -60,6 +75,11 @@ def main() -> None:
             action = re.search(r'new \w+ButtonMessage\((\d+),', body)
             buttons.append({'texture': name, 'x': int(x), 'y': int(y), 'width': int(width), 'height': int(height), 'texture_width': int(tw), 'texture_height': int(th), 'operation': int(action[1]) if action else -1})
             assets[name] = name
+        plain_buttons = []
+        for match in re.finditer(r'new Button\(this.leftPos \+ (-?\d+), this.topPos \+ (-?\d+), (\d+), (\d+), new TranslatableComponent\("([^"]+)"\), e -> \{([\s\S]*?)\}\)', text):
+            x, y, width, height, key, body = match.groups()
+            action = re.search(r'new \w+ButtonMessage\((\d+),', body)
+            plain_buttons.append({'key': key.replace('yvanchuxitong', 'yvanchuxiuzhen'), 'x': int(x), 'y': int(y), 'width': int(width), 'height': int(height), 'operation': int(action[1]) if action else -1})
         labels = []
         for match in re.finditer(r'this.font.draw\((?:ms|poseStack),\s*([^;]*?), (-?\d+), (-?\d+), (-?\d+)\);', text):
             value, x, y, color = match.groups()
@@ -74,7 +94,7 @@ def main() -> None:
         slots = [[int(i), int(x), int(y)] for i, x, y in re.findall(r'customSlots.put\((\d+), this.addSlot\(new SlotItemHandler\(internal, \d+, (-?\d+), (-?\d+)\)', menu)]
         player_inventory = re.search(r'new Slot\(inv, sj \+ \(si \+ 1\) \* 9, (\d+) \+ 8 \+ sj \* 18, (\d+) \+ 84 \+ si \* 18\)', menu)
         dimensions = [int(re.search(fr'this.image{axis} = (\d+);', text)[1]) for axis in ('Width', 'Height')]
-        screens[page] = {'width': dimensions[0], 'height': dimensions[1], 'layers': layers, 'buttons': buttons, 'labels': labels, 'slots': slots,
+        screens[page] = {'width': dimensions[0], 'height': dimensions[1], 'layers': layers, 'buttons': buttons, 'plain_buttons': plain_buttons, 'labels': labels, 'slots': slots,
                          'inventory_x': int(player_inventory[1]) + 8, 'inventory_y': int(player_inventory[2]) + 84}
     (OUT / 'screens.json').write_text(json.dumps(screens, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     language = json.loads((SOURCE / 'src/main/resources/assets/yvanchuxitong/lang/zh_cn.json').read_text(encoding='utf-8'))
@@ -85,7 +105,7 @@ def main() -> None:
                      'gui.yvanchuxiuzhen.commerce.close': '关闭', 'gui.yvanchuxiuzhen.commerce.explain': '说明',
                      'gui.yvanchuxiuzhen.commerce.next': '下一页', 'gui.yvanchuxiuzhen.commerce.previous': '上一页'})
     selected.update({'menu.yvanchuxiuzhen.' + identity: title for identity, title in {'shop_gui': '通宝商店', 'bank_gu_ishougou': '通宝商盟收购', 'bank_gu_ishougou_2': '基础物品收购', 'shopblock_gui': '交易方块', 'shopblock_guiset': '交易方块设置', 'paimaifangkuaigui': '拍卖行设置', 'paimaihang': '现场拍卖'}.items()})
-    selected['gui.yvanchuxiuzhen.paimaihang.jiage'] = language['gui.yvanchuxitong.paimaihang.jiage']
+    selected['gui.yvanchuxiuzhen.paimaihang.jiage'] = language['gui.yvanchuxitong.paimaihang.jiage'] or '在此输入价格'
     (OUT / 'language_zh_cn.json').write_text(json.dumps(selected, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     (OUT / 'assets.json').write_text(json.dumps(sorted(assets), ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     descriptions = (JAVA / 'procedures/ShopblockGuisetshuomingProcedure.java').read_text(encoding='utf-8')

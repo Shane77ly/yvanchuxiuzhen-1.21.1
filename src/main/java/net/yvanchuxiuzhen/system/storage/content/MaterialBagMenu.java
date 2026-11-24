@@ -20,6 +20,7 @@ import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import net.yvanchuxiuzhen.platform.content.LegacyContainerMove;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.storage.api.MaterialStorage;
 import net.yvanchuxiuzhen.system.storage.api.MaterialWarehouse;
@@ -230,6 +231,11 @@ public final class MaterialBagMenu extends AbstractContainerMenu {
         if (stack.getCount() == previous.getCount()) return ItemStack.EMPTY;
         slot.onTake(player, stack);
         return previous;
+    }
+
+    @Override
+    protected boolean moveItemStackTo(ItemStack stack, int start, int end, boolean reverse) {
+        return LegacyContainerMove.moveItemStackTo(slots, stack, start, end, reverse);
     }
 
     private record Display(String itemId, int level) {

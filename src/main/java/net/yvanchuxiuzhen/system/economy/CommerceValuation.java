@@ -34,8 +34,10 @@ final class CommerceValuation {
         double unit = 0;
         double total = 0;
         int count = stack.getCount();
-        if (data.getInt("money") >= 1) {
-            unit = data.getInt("money");
+        double money = data.getInt("money");
+        if (money < 1) money = Equipment.properties(stack).number("money");
+        if (money >= 1) {
+            unit = money;
             total = count * unit;
         } else if (tag(stack, "book")) {
             int grade = Techniques.book(stack).map(book -> (int) book.definition().grade())

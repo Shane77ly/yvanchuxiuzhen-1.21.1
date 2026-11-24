@@ -52,7 +52,7 @@ public final class ChainMining {
         queue.add(origin);
         int processed = 0;
         double experience = 0;
-        while (processed <= chain * 5 && queue.size() != processed) {
+        while (processed <= Enchants.mainHand(player, Enchants.key("chain")) * 5 && queue.size() != processed) {
             BlockPos center = queue.get(processed);
             processed++;
             for (int dz = -1; dz <= 1; dz++) {

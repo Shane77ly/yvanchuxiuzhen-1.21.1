@@ -114,7 +114,9 @@ public final class FuluUse {
                 cleanse(player, 2 * grade - 1);
             }
         }
-        stack.shrink(1);
+        if (!player.getAbilities().instabuild) {
+            stack.shrink(1);
+        }
     }
 
     /** 在玩家位置上方一格播放释放声。 */

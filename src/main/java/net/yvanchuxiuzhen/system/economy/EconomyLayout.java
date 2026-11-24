@@ -13,9 +13,10 @@ public final class EconomyLayout {
 
     public static Page page(String sourceName) { return GSON.fromJson(SOURCE.get(sourceName), Page.class); }
 
-    public record Page(int width, int height, List<Layer> layers, List<ImageButton> buttons, List<Label> labels,
-                       List<List<Integer>> slots, int inventory_x, int inventory_y) { }
+    public record Page(int width, int height, List<Layer> layers, List<ImageButton> buttons, List<PlainButton> plain_buttons,
+                       List<Label> labels, List<List<Integer>> slots, int inventory_x, int inventory_y) { }
     public record Layer(String texture, int x, int y, int width, int height, int texture_width, int texture_height) { }
     public record ImageButton(String texture, int x, int y, int width, int height, int texture_width, int texture_height, int operation) { }
+    public record PlainButton(String key, int x, int y, int width, int height, int operation) { }
     public record Label(String procedure, String key, int x, int y, int color) { }
 }

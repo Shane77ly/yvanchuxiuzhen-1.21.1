@@ -8,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
@@ -158,16 +159,23 @@ public final class DimensionPortalRuntime {
             return null;
         }
         WorldBorder border = destination.getWorldBorder();
+        double minX = Math.max(-29999872.0, border.getMinX() + 16.0);
+        double minZ = Math.max(-29999872.0, border.getMinZ() + 16.0);
+        double maxX = Math.min(29999872.0, border.getMaxX() - 16.0);
+        double maxZ = Math.min(29999872.0, border.getMaxZ() - 16.0);
         double scale = DimensionType.getTeleportationScale(source.dimensionType(), destination.dimensionType());
-        BlockPos exit = BlockPos.containing(Mth.clamp(entity.getX() * scale, border.getMinX() + 16.0, border.getMaxX() - 16.0),
-                entity.getY(), Mth.clamp(entity.getZ() * scale, border.getMinZ() + 16.0, border.getMaxZ() - 16.0));
+        BlockPos exit = BlockPos.containing(Mth.clamp(entity.getX() * scale, minX, maxX),
+                entity.getY(), Mth.clamp(entity.getZ() * scale, minZ, maxZ));
         Optional<BlockUtil.FoundRectangle> portal = findPortalAround(destination, exit, false, border, spec);
         Direction.Axis axis = source.getBlockState(entryPos).getOptionalValue(NetherPortalBlock.AXIS).orElse(Direction.Axis.X);
-        if (portal.isEmpty()) {
+        if (portal.isEmpty() && entity instanceof ServerPlayer) {
             portal = createPortal(destination, exit, axis, spec);
         }
+        DimensionTransition.PostDimensionTransition post = DimensionTransition.PLAY_PORTAL_SOUND
+                .then(DimensionTransition.PLACE_PORTAL_TICKET);
         if (portal.isEmpty()) {
-            return null;
+            return entity instanceof ServerPlayer ? null
+                    : new DimensionTransition(destination, entity.position(), Vec3.ZERO, entity.getYRot(), entity.getXRot(), post);
         }
         BlockUtil.FoundRectangle rectangle = portal.get();
         BlockState sourceState = source.getBlockState(entryPos);
@@ -175,8 +183,6 @@ public final class DimensionPortalRuntime {
                 ? entity.getRelativePortalPosition(axis, BlockUtil.getLargestRectangleAround(entryPos, axis, 21, Direction.Axis.Y, 21,
                         candidate -> source.getBlockState(candidate) == sourceState))
                 : new Vec3(0.5, 0.0, 0.0);
-        DimensionTransition.PostDimensionTransition post = DimensionTransition.PLAY_PORTAL_SOUND
-                .then(DimensionTransition.PLACE_PORTAL_TICKET);
         return DimensionPortalShape.createTransition(destination, rectangle, axis, relative, entity,
                 entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), post);
     }

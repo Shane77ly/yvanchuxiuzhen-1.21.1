@@ -307,6 +307,30 @@ final class PoisonEffects {
             }
             return true;
         }
+
+        @Override
+        public void clientTick(LivingEntity entity, int amplifier) {
+            if (!entity.isAlive() || (entity instanceof Player player && (player.isCreative() || player.isSpectator()))
+                    || !EffectSupport.every(entity, "duyao06tick_client", 5)) {
+                return;
+            }
+            var data = entity.getPersistentData();
+            long x = Math.round(entity.getX());
+            long z = Math.round(entity.getZ());
+            if (entity.isInLava() || entity.isInWaterOrBubble() || entity.isPassenger() || !entity.onGround()) {
+                data.putDouble("duyao06clientX", 0);
+                data.putDouble("duyao06clientZ", 0);
+            } else if (data.getDouble("duyao06clientX") + data.getDouble("duyao06clientZ") != 0
+                    && (data.getDouble("duyao06clientX") != x || data.getDouble("duyao06clientZ") != z)) {
+                entity.level().playLocalSound(entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(),
+                        SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1, false);
+                data.putDouble("duyao06clientX", 0);
+                data.putDouble("duyao06clientZ", 0);
+            } else {
+                data.putDouble("duyao06clientX", x);
+                data.putDouble("duyao06clientZ", z);
+            }
+        }
     }
 
     /** 一日丧命散：每 20 刻累积 1 层，满 1200 层（20 分钟）毙命；玩家的灵力每次被压到 1，生物则被沉默 2 秒。 */
@@ -451,6 +475,17 @@ final class PoisonEffects {
                     spread(entity, other);
                 }
             }
+        }
+
+        @Override
+        public void clientTick(LivingEntity entity, int amplifier) {
+            if (!entity.isAlive() || (entity instanceof Player player && (player.isCreative() || player.isSpectator()))
+                    || !EffectSupport.every(entity, "duyao20tick_client", 40)) {
+                return;
+            }
+            entity.level().playLocalSound(entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(),
+                    BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "yaoshou033skill01")),
+                    SoundSource.NEUTRAL, 1, 1, false);
         }
 
         private static void spread(LivingEntity from, LivingEntity to) {

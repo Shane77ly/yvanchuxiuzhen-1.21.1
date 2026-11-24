@@ -102,6 +102,17 @@ final class BattleEffects {
             }
             return true;
         }
+
+        @Override
+        public void clientTick(LivingEntity entity, int amplifier) {
+            if (EffectSupport.every(entity, "effect032_client", 20)) {
+                String sound = ILLUSION_SOUNDS.get(Mth.nextInt(entity.getRandom(), 1, 20) - 1);
+                double atX = entity.getX() + Mth.nextInt(entity.getRandom(), -5, 5);
+                double atZ = entity.getZ() + Mth.nextInt(entity.getRandom(), -5, 5);
+                entity.level().playLocalSound(atX, entity.getY(), atZ,
+                        BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.withDefaultNamespace(sound)), SoundSource.NEUTRAL, 1, 1, false);
+            }
+        }
     }
 
     /** 逃跑：妖兽被连续击打到 8 层（等级 7）时，向视线反方向 8 格处跑开，加速与沉默各 1 秒，然后移除。 */

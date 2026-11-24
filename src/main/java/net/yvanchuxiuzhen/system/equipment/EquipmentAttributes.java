@@ -115,6 +115,11 @@ public final class EquipmentAttributes {
 
     static void modifiers(ItemAttributeModifierEvent event) {
         ItemStack stack = event.getItemStack();
+        if (stack.is(tag("yispear"))) {
+            event.addModifier(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(
+                    ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "equipment/yispear_attack_range"),
+                    2.0, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        }
         EquipmentStats stats = stack.get(EquipmentData.STATS.get());
         if (stats == null) return;
         for (EquipmentSlot slot : new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}) {

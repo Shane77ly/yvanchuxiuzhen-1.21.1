@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import java.text.DecimalFormat;
 import java.util.Locale;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
@@ -45,6 +46,13 @@ public final class CommerceScreen extends AbstractContainerScreen<CommerceMenu> 
                     });
             button.setMessage(Component.translatable("gui.yvanchuxiuzhen.commerce.action"));
             addRenderableWidget(button);
+        }
+        if (layout.plain_buttons() != null) {
+            for (EconomyLayout.PlainButton source : layout.plain_buttons()) {
+                addRenderableWidget(Button.builder(Component.translatable(source.key()), pressed -> {
+                    if (source.operation() >= 0) PacketDistributor.sendToServer(new CommerceButtonPayload(menu.containerId, source.operation()));
+                }).bounds(leftPos + source.x(), topPos + source.y(), source.width(), source.height()).build());
+            }
         }
         if (menu.kind() == CommerceMenu.Kind.AUCTION) {
             Component prompt = Component.translatable("gui.yvanchuxiuzhen.paimaihang.jiage");

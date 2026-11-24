@@ -127,8 +127,7 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
     @Override
     protected void doKnockback(LivingEntity entity, DamageSource damageSource) {
         if (knockback > 0) {
-            double resistance = Math.max(0.0, 1.0 - entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-            Vec3 push = getDeltaMovement().multiply(1.0, 0.0, 1.0).normalize().scale(knockback * 0.6 * resistance);
+            Vec3 push = getDeltaMovement().multiply(1.0, 0.0, 1.0).normalize().scale(knockback * 0.6);
             if (push.lengthSqr() > 0.0) {
                 entity.push(push.x, 0.1, push.z);
             }

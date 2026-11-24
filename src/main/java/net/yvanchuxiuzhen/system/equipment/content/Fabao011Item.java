@@ -3,9 +3,12 @@ package net.yvanchuxiuzhen.system.equipment.content;
 import java.util.Comparator;
 import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -35,8 +38,10 @@ public final class Fabao011Item extends ContentSword {
         if (level instanceof ServerLevel serverLevel && player instanceof ServerPlayer serverPlayer
                 && !StatusEffects.has(serverPlayer, "effect_002")) {
             if (serverPlayer.isShiftKeyDown()) {
+                castRingParticles(serverLevel, serverPlayer);
                 cast(serverLevel, serverPlayer, serverPlayer.position(), 5, 200, result.getObject());
             } else {
+                castDirectionalParticles(serverLevel, serverPlayer);
                 BlockPos block = serverLevel.clip(new ClipContext(serverPlayer.getEyePosition(1),
                         serverPlayer.getEyePosition(1).add(serverPlayer.getViewVector(1).scale(5)), ClipContext.Block.OUTLINE,
                         ClipContext.Fluid.NONE, serverPlayer)).getBlockPos();
@@ -44,6 +49,29 @@ public final class Fabao011Item extends ContentSword {
             }
         }
         return result;
+    }
+
+    private static void castRingParticles(ServerLevel level, ServerPlayer player) {
+        level.sendParticles(ParticleTypes.CLOUD, player.getX(), player.getY(), player.getZ(), 20, 0, 0, 0, 1);
+        double y = player.getY() + player.getBbHeight() * 0.5;
+        for (int index = 0; index < 40; index++) {
+            double angle = index * (360.0 / 40);
+            double cos = Math.cos(angle);
+            double sin = Math.sin(angle);
+            level.sendParticles(ParticleTypes.CLOUD, player.getX() + 2 * cos, y, player.getZ() + 2 * sin,
+                    0, 0.5 * cos, 0, 0.5 * sin, 0.5);
+        }
+    }
+
+    private static void castDirectionalParticles(ServerLevel level, ServerPlayer player) {
+        Vec3 look = player.getLookAngle();
+        RandomSource random = player.getRandom();
+        for (int index = 0; index < 20; index++) {
+            level.sendParticles(ParticleTypes.CLOUD, player.getX(), player.getY() + 1, player.getZ(), 0,
+                    look.x + Mth.nextDouble(random, -0.5, 0.5),
+                    look.y + Mth.nextDouble(random, -0.5, 0.5),
+                    look.z + Mth.nextDouble(random, -0.5, 0.5), 1);
+        }
     }
 
     private static void cast(ServerLevel level, ServerPlayer player, Vec3 center, double radius, int cooldown, ItemStack stack) {

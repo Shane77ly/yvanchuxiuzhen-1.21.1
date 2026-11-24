@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.system.world.portal;
 import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -47,6 +48,39 @@ public final class DimensionPortalBlock extends NetherPortalBlock {
     @Override
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         // 来源门户禁用随机刻，不生成僵尸猪人。
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        for (int i = 0; i < 4; i++) {
+            double px = pos.getX() + random.nextFloat();
+            double py = pos.getY() + random.nextFloat();
+            double pz = pos.getZ() + random.nextFloat();
+            double vx = (random.nextFloat() - 0.5) / 2.0;
+            double vy = (random.nextFloat() - 0.5) / 2.0;
+            double vz = (random.nextFloat() - 0.5) / 2.0;
+            int offset = random.nextInt(4) - 1;
+            if (!level.getBlockState(pos.west()).is(this) && !level.getBlockState(pos.east()).is(this)) {
+                px = pos.getX() + 0.5 + 0.25 * offset;
+                vx = random.nextFloat() * 2 * offset;
+            } else {
+                pz = pos.getZ() + 0.5 + 0.25 * offset;
+                vz = random.nextFloat() * 2 * offset;
+            }
+            level.addParticle(ParticleTypes.CLOUD, px, py, pz, vx, vy, vz);
+        }
+    }
+
+    @Override
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        if (!entity.isVehicle() && entity.canUsePortal(false)) {
+            entity.setAsInsidePortal(this, pos);
+        }
+    }
+
+    @Override
+    public int getPortalTransitionTime(ServerLevel level, Entity entity) {
+        return 0;
     }
 
     @Nullable

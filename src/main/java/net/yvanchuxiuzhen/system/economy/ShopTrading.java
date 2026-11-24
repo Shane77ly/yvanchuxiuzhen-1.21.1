@@ -136,7 +136,11 @@ public final class ShopTrading {
                     if (candidate.getItem() == requirement.getItem() && (currency(requirement).isEmpty() || currency(requirement).equals(currency(candidate)))) count += candidate.getCount();
                 }
             }
-            if (count < requirement.getCount()) { message(player, "§4" + requirement.getDisplayName().getString() + "数量不够！"); rejected = true; }
+            if (count < requirement.getCount()) {
+                message(player, "§4" + requirement.getDisplayName().getString() + "数量不够！");
+                rejected = true;
+                break;
+            }
         }
         if (rejected) return;
         if (price >= 1) {

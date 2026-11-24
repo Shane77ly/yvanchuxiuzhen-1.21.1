@@ -31,7 +31,7 @@ public final class TreasureRewardItem extends ContentItem {
         if (level instanceof ServerLevel serverLevel && !data.getString("TreasureTypeBig").isEmpty()) {
             TreasureRewards.open(serverLevel, player.position().add(0.5, 0.5, 0.5), data.getString("TreasureTypeBig"), data.getString("TreasureTypeSmall"),
                     Math.rint(data.getDouble("TreasureLEVEL")), (int) Math.rint(data.getDouble("minimumvalue")), (int) Math.rint(data.getDouble("Maximumvalue")));
-            stack.shrink(1);
+            if (!player.getAbilities().instabuild) stack.shrink(1);
         }
         return result;
     }

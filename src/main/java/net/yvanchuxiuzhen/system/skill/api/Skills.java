@@ -3,6 +3,7 @@ package net.yvanchuxiuzhen.system.skill.api;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -197,6 +198,11 @@ public final class Skills {
     /** 奖励生产者按来源字段生成未研习技能书，由本系统写入技能组件。 */
     public static ItemStack createBook(Item carrier, SkillBook book) {
         return SkillLibrary.create(carrier, book);
+    }
+
+    /** 为带有来源技能/身法自定义标签的书补充 {@link SkillBook} 组件。 */
+    public static void attachFromLegacyTag(ItemStack stack, CompoundTag data) {
+        SkillLibrary.attachFromLegacyTag(stack, data);
     }
 
     /** 书架藏宝里的技能书（来源 {@code Jinenglistzong}）：在 13 本中随机给一本。 */

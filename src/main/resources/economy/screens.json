@@ -183,6 +183,7 @@
         "operation": 14
       }
     ],
+    "plain_buttons": [],
     "labels": [
       {
         "procedure": "Shopnametxt01",
@@ -576,6 +577,7 @@
         "operation": 3
       }
     ],
+    "plain_buttons": [],
     "labels": [
       {
         "procedure": "Shougoushuoming01",
@@ -668,6 +670,7 @@
         "operation": 1
       }
     ],
+    "plain_buttons": [],
     "labels": [
       {
         "procedure": "",
@@ -720,6 +723,15 @@
     "height": 166,
     "layers": [
       {
+        "texture": "shopblock_gui.png",
+        "x": 0,
+        "y": 0,
+        "width": 176,
+        "height": 166,
+        "texture_width": 176,
+        "texture_height": 166
+      },
+      {
         "texture": "bankgui18.png",
         "x": 177,
         "y": 2,
@@ -730,6 +742,16 @@
       }
     ],
     "buttons": [],
+    "plain_buttons": [
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_gui.button_gou_mai",
+        "x": 132,
+        "y": 61,
+        "width": 35,
+        "height": 20,
+        "operation": 0
+      }
+    ],
     "labels": [
       {
         "procedure": "",
@@ -865,7 +887,17 @@
   "ShopblockGuiset": {
     "width": 176,
     "height": 166,
-    "layers": [],
+    "layers": [
+      {
+        "texture": "shopblock_guiset.png",
+        "x": 0,
+        "y": 0,
+        "width": 176,
+        "height": 166,
+        "texture_width": 176,
+        "texture_height": 166
+      }
+    ],
     "buttons": [
       {
         "texture": "atlas/imagebutton_bankgui10.png",
@@ -876,6 +908,152 @@
         "texture_width": 12,
         "texture_height": 24,
         "operation": 18
+      }
+    ],
+    "plain_buttons": [
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_set",
+        "x": 177,
+        "y": 123,
+        "width": 40,
+        "height": 20,
+        "operation": 0
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_hui_shou_shang_dian",
+        "x": 177,
+        "y": 144,
+        "width": 46,
+        "height": 20,
+        "operation": 1
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty",
+        "x": 178,
+        "y": 15,
+        "width": 35,
+        "height": 20,
+        "operation": 2
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty1",
+        "x": 228,
+        "y": 15,
+        "width": 35,
+        "height": 20,
+        "operation": 3
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_0",
+        "x": 2,
+        "y": 25,
+        "width": 30,
+        "height": 20,
+        "operation": 4
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty4",
+        "x": 2,
+        "y": 44,
+        "width": 25,
+        "height": 20,
+        "operation": 5
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty5",
+        "x": 26,
+        "y": 44,
+        "width": 25,
+        "height": 20,
+        "operation": 6
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty6",
+        "x": 50,
+        "y": 44,
+        "width": 25,
+        "height": 20,
+        "operation": 7
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty7",
+        "x": 74,
+        "y": 44,
+        "width": 25,
+        "height": 20,
+        "operation": 8
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty8",
+        "x": 98,
+        "y": 44,
+        "width": 25,
+        "height": 20,
+        "operation": 9
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty9",
+        "x": 122,
+        "y": 44,
+        "width": 25,
+        "height": 20,
+        "operation": 10
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty10",
+        "x": 146,
+        "y": 44,
+        "width": 25,
+        "height": 20,
+        "operation": 11
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty11",
+        "x": 146,
+        "y": 25,
+        "width": 25,
+        "height": 20,
+        "operation": 12
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty2",
+        "x": 178,
+        "y": 52,
+        "width": 25,
+        "height": 20,
+        "operation": 13
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty3",
+        "x": 202,
+        "y": 52,
+        "width": 25,
+        "height": 20,
+        "operation": 14
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty12",
+        "x": 226,
+        "y": 52,
+        "width": 25,
+        "height": 20,
+        "operation": 15
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty13",
+        "x": 250,
+        "y": 52,
+        "width": 25,
+        "height": 20,
+        "operation": 16
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.shopblock_guiset.button_empty14",
+        "x": 274,
+        "y": 52,
+        "width": 25,
+        "height": 20,
+        "operation": 17
       }
     ],
     "labels": [
@@ -950,8 +1128,68 @@
   "Paimaifangkuaigui": {
     "width": 230,
     "height": 230,
-    "layers": [],
+    "layers": [
+      {
+        "texture": "paimaifangkuaigui.png",
+        "x": 0,
+        "y": 0,
+        "width": 230,
+        "height": 230,
+        "texture_width": 230,
+        "texture_height": 230
+      }
+    ],
     "buttons": [],
+    "plain_buttons": [
+      {
+        "key": "gui.yvanchuxiuzhen.paimaifangkuaigui.button_tuo_guan_mo_shi",
+        "x": 6,
+        "y": 29,
+        "width": 46,
+        "height": 20,
+        "operation": 0
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.paimaifangkuaigui.button_pai_mai_mo_shi",
+        "x": 6,
+        "y": 57,
+        "width": 46,
+        "height": 20,
+        "operation": 1
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.paimaifangkuaigui.button_pai_mai_deng_ji",
+        "x": 6,
+        "y": 79,
+        "width": 46,
+        "height": 20,
+        "operation": 2
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.paimaifangkuaigui.button_pai_mai_he_fa",
+        "x": 6,
+        "y": 101,
+        "width": 46,
+        "height": 20,
+        "operation": 3
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.paimaifangkuaigui.button_empty",
+        "x": 37,
+        "y": 123,
+        "width": 30,
+        "height": 20,
+        "operation": 4
+      },
+      {
+        "key": "gui.yvanchuxiuzhen.paimaifangkuaigui.button_empty1",
+        "x": 6,
+        "y": 123,
+        "width": 30,
+        "height": 20,
+        "operation": 5
+      }
+    ],
     "labels": [
       {
         "procedure": "Paimaihuiname",
@@ -1263,6 +1501,7 @@
         "operation": -1
       }
     ],
+    "plain_buttons": [],
     "labels": [
       {
         "procedure": "Paimainame",

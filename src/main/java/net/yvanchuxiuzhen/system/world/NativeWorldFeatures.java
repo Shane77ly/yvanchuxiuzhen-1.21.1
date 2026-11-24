@@ -61,7 +61,7 @@ public final class NativeWorldFeatures {
         add("stonetree_05", Feature.REPLACE_BLOBS, ReplaceSphereConfiguration.CODEC, UNRESTRICTED);
         add("swampsiltdiwu", Feature.REPLACE_BLOBS, ReplaceSphereConfiguration.CODEC, DILING);
         add("tudibankuai_01", Feature.REPLACE_BLOBS, ReplaceSphereConfiguration.CODEC, DILING);
-        add("wenqvandiwu", Feature.LAKE, LakeFeature.Configuration.CODEC, YAOHUN);
+        add("wenqvandiwu", new SourceLakeFeature(), LakeFeature.Configuration.CODEC, YAOHUN);
         add("witheredshrubshengcheng", Feature.SIMPLE_BLOCK, SimpleBlockConfiguration.CODEC, RENJIAN);
         add("zishuijing", Feature.RANDOM_PATCH, RandomPatchConfiguration.CODEC, YAOHUN);
         add("zishuijingzhu", Feature.BLOCK_COLUMN, BlockColumnConfiguration.CODEC, YAOHUN);

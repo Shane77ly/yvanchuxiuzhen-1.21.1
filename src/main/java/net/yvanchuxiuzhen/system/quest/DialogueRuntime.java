@@ -32,11 +32,17 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.economy.api.EconomyDialogueRequestEvent;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties;
+import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
+import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
+import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.npc.api.NpcDialogueRequestEvent;
 import net.yvanchuxiuzhen.system.npc.api.NpcFollowers;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
+import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.world.api.StructureSearch;
 
 /** 来源普通对话的顺序执行器；会话、任务目录和剧情扩展数据均由服务端维护。 */
@@ -343,33 +349,21 @@ public final class DialogueRuntime {
                     }
                 }
             }
-            if (!data.isEmpty()) stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+            if (!data.isEmpty()) {
+                stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+                Techniques.attachFromLegacyTag(stack, data);
+                Skills.attachFromLegacyTag(stack, data);
+            }
             ItemHandlerHelper.giveItemToPlayer(player, stack);
         } else if (action[4].equals("无") || action[4].isEmpty()) {
             player.getInventory().clearOrCountMatchingItems(stack -> stack.is(kind), amount, player.inventoryMenu.getCraftSlots());
         } else {
             // 来源带NBT扣除在足量栈分支先把剩余数清零，再按零删除；此分支保持该实际次序。
             PlayerInvWrapper inventory = new PlayerInvWrapper(player.getInventory());
-            int nbtIndex = 4;
             for (int slot = 0; slot < inventory.getSlots(); slot++) {
                 ItemStack stack = inventory.getStackInSlot(slot);
                 if (!stack.is(kind)) continue;
-                CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-                boolean matches = false;
-                for (int i = 0; i < (action.length - 4) / 3; i++) {
-                    String key = action[nbtIndex];
-                    String value = action[nbtIndex + 2];
-                    matches = switch (action[nbtIndex + 1]) {
-                        case "char", "str" -> data.getString(key).equals(value);
-                        case "logic" -> data.getBoolean(key) == value.equals("真");
-                        case "int" -> data.getInt(key) == number(value);
-                        case "double" -> data.getDouble(key) == number(value);
-                        default -> false;
-                    };
-                    if (!matches) break;
-                    nbtIndex += 3;
-                }
-                if (!matches) continue;
+                if (!matchesFields(stack, action, 4)) continue;
                 if (amount < 1) break;
                 if (stack.getCount() >= amount) amount = 0;
                 else {
@@ -398,25 +392,46 @@ public final class DialogueRuntime {
         for (int slot = 0; slot < inventory.getSlots(); slot++) {
             ItemStack stack = inventory.getStackInSlot(slot);
             if (!stack.is(expected.getItem()) || !stack.getDisplayName().getString().equals(expected.getDisplayName().getString())) continue;
-            boolean matches = true;
-            if (!action[6].equals("无")) {
-                CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-                for (int field = 6; field + 2 < action.length; field += 3) {
-                    String key = action[field];
-                    String value = action[field + 2];
-                    matches = switch (action[field + 1]) {
-                        case "char", "str" -> data.getString(key).equals(value);
-                        case "logic" -> value.equals(data.getBoolean(key) ? "真" : "假");
-                        case "int" -> data.getInt(key) == number(value);
-                        case "double" -> data.getDouble(key) == number(value);
-                        default -> true;
-                    };
-                    if (!matches) break;
-                }
-            }
-            if (matches) count += stack.getCount();
+            if (action[6].equals("无") || matchesFields(stack, action, 6)) count += stack.getCount();
         }
         return count;
+    }
+
+    /** 兼容普通自定义数据、材料组件等级（Q276）与饰品命令属性组件（Q253）。 */
+    private static boolean matchesFields(ItemStack stack, String[] action, int startField) {
+        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        EquipmentProperties properties = Equipment.properties(stack);
+        MaterialInstance material = Materials.instance(stack);
+        for (int field = startField; field + 2 < action.length; field += 3) {
+            String key = action[field];
+            String kind = action[field + 1];
+            String value = action[field + 2];
+            boolean matched = switch (kind) {
+                case "char", "str" -> fieldText(data, properties, key).equals(value);
+                case "logic" -> fieldLogic(data, properties, key) == value.equals("真");
+                case "int", "double" -> fieldNumber(data, properties, material, key) == number(value);
+                default -> false;
+            };
+            if (!matched) return false;
+        }
+        return true;
+    }
+
+    private static String fieldText(CompoundTag data, EquipmentProperties properties, String key) {
+        if (data.contains(key)) return data.getString(key);
+        return properties.text(key);
+    }
+
+    private static boolean fieldLogic(CompoundTag data, EquipmentProperties properties, String key) {
+        if (data.contains(key)) return data.getBoolean(key);
+        return properties.fields().containsKey(key) && properties.number(key) != 0;
+    }
+
+    private static double fieldNumber(CompoundTag data, EquipmentProperties properties, MaterialInstance material, String key) {
+        if (data.contains(key)) return data.getDouble(key);
+        if (key.equals("cailiaolevel") && !material.equals(MaterialInstance.EMPTY)) return material.level();
+        if (properties.fields().containsKey(key)) return properties.number(key);
+        return 0;
     }
 
     static void controlEntities(ServerPlayer player, String[] action) {

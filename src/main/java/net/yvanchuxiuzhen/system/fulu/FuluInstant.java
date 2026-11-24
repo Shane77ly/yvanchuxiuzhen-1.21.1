@@ -102,7 +102,9 @@ final class FuluInstant {
             case 46 -> fireball(level, player, grade);
             default -> throw new IllegalArgumentException("not an instant talisman: " + number);
         }
-        stack.shrink(1);
+        if (!player.getAbilities().instabuild) {
+            stack.shrink(1);
+        }
     }
 
     /** 04：20 枚符箓 21 粒子；速度提升 100 刻（等级 {@code 3+2×品阶}）；3 格内非友方被向外上抛。 */
@@ -367,7 +369,9 @@ final class FuluInstant {
             Holder<Enchantment> enchantment = player.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchants.key(name));
             EnchantmentHelper.updateEnchantments(target, mutable -> mutable.set(enchantment, level));
         }
-        stack.shrink(1);
+        if (!player.getAbilities().instabuild) {
+            stack.shrink(1);
+        }
     }
 
     /**

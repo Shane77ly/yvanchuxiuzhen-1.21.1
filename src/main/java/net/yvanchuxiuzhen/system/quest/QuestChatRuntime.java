@@ -27,7 +27,6 @@ final class QuestChatRuntime {
 
     static void run(ServerPlayer player) {
         CompoundTag state = DialogueActions.snapshot(player);
-        Vec3 anchor = player.position();
         if (state.getInt("playerxvanze") != 0) {
             state.putInt("renwuweizhi", state.getInt("playerxvanze"));
             state.putInt("playerxvanze", 0);
@@ -45,7 +44,7 @@ final class QuestChatRuntime {
                     if (!EXTENDED.contains(steps[cursor + 1].split("/")[0])) return;
                 }
                 case "选项" -> {
-                    prepareOptions(player, anchor);
+                    prepareOptions(player);
                     player.displayClientMessage(Component.literal(action[1]), false);
                     StringBuilder command = new StringBuilder("tellraw " + player.getDisplayName().getString() + " [");
                     for (int option = 1; option <= DialogueRuntime.integer(action[2]); option++) {
@@ -56,15 +55,15 @@ final class QuestChatRuntime {
                     }
                     state.putBoolean("xvanxiang", true);
                     player.setData(QuestData.SESSION, state);
-                    command(player, anchor, command.append(']').toString());
+                    command(player, command.append(']').toString());
                     return;
                 }
                 case "文本插入选项" -> {
-                    prepareOptions(player, anchor);
+                    prepareOptions(player);
                     state.putBoolean("xvanxiang", true);
                     state.putInt("renwuxvanzeweizhi", DialogueRuntime.integer(action[4]));
                     player.setData(QuestData.SESSION, state);
-                    command(player, anchor, "tellraw " + player.getDisplayName().getString() + " [{\"text\":\"" + action[1]
+                    command(player, "tellraw " + player.getDisplayName().getString() + " [{\"text\":\"" + action[1]
                             + "\",\"color\":\"white\"},{\"text\":\"<" + action[2]
                             + ">\",\"color\":\"aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/scoreboard players set -2\"}},{\"text\":\""
                             + action[3] + "\",\"color\":\"white\"}]");
@@ -107,7 +106,7 @@ final class QuestChatRuntime {
                     String command = action[0].equals("指令") ? action[1] : action[1].equals("加")
                             ? "effect give " + player.getDisplayName().getString() + " " + action[2] + " " + action[4] + " " + action[3]
                             : "effect clear " + player.getDisplayName().getString() + " " + action[2];
-                    command(player, anchor, command);
+                    command(player, command);
                     state.putInt("renwuweizhi", cursor + 1);
                 }
                 case "跳转" -> state.putInt("renwuweizhi", DialogueRuntime.integer(action[1]));
@@ -132,7 +131,7 @@ final class QuestChatRuntime {
                     state.putInt("renwuweizhi", cursor + 1);
                 }
                 case "裂隙解封" -> {
-                    StructureSearch.search(player.serverLevel(), anchor, player.getStringUUID());
+                    StructureSearch.search(player.serverLevel(), player.position(), player.getStringUUID());
                     state.putInt("renwuweizhi", cursor + 1);
                 }
                 case "删除方块" -> {
@@ -159,13 +158,13 @@ final class QuestChatRuntime {
         }
     }
 
-    private static void prepareOptions(ServerPlayer player, Vec3 anchor) {
-        command(player, anchor, "scoreboard objectives add renwuweizhi dummy \"任务选项位置\"");
+    private static void prepareOptions(ServerPlayer player) {
+        command(player, "scoreboard objectives add renwuweizhi dummy \"任务选项位置\"");
         player.serverLevel().getGameRules().getRule(GameRules.RULE_SENDCOMMANDFEEDBACK).set(false, player.server);
     }
 
-    private static void command(ServerPlayer player, Vec3 anchor, String command) {
-        CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, anchor, Vec2.ZERO, player.serverLevel(), 4,
+    private static void command(ServerPlayer player, String command) {
+        CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, player.position(), Vec2.ZERO, player.serverLevel(), 4,
                 "", Component.empty(), player.server, null).withSuppressedOutput();
         player.server.getCommands().performPrefixedCommand(source, command);
     }

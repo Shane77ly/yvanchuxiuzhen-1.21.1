@@ -2,14 +2,14 @@
 topic: handoff
 role: guide
 status: current
-updated: 2026-11-23
+updated: 2026-11-24
 ---
 
 # 交接说明
 
-## 当前交接（2026-11-23 双源保真修复）
+## 当前交接（2026-11-24 双源保真修复与边界收口）
 
-当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。差异审计不改玩法：Q244–Q264 已合入 `d70a570a`，Q265–Q274 已合入 `d0834be4`；Q275–Q278 已合入 `2e85c89c`。任务二、三、七的 Q279–Q281 已合入 `fd2837b3`。此后已核[任务一与五的修为丹](../systems/liandan/architecture.md#任务一与任务五的一级修为丹)，未增差异编号。任务六的[火球术原奖](../systems/skill/architecture.md#任务六奖励的火球术书)已静态核至命中，未新增编号；任务原书整链仍未实机。下次做任务实机时，对照任务四、八与六的原奖，分别检查能否研习并在重进后选中。
+当前本地集成分支 `port/20261123-parity-integration`，从 `main@a94dea8a` 开出；本轮未合 main、未推送。源码修复可由 `git log --first-parent a94dea8a..port/20261123-parity-integration` 定位。玩法证据见[当前调度](remaining-work.md#当前调度)。在完成 Q244–Q281 与任务一、五、六审计后，本轮已在同一集成线完成 Q244–Q281 中 30 项差异的代码/资源/标签/语言修复；`Q246`、`Q248`、`Q252`、`Q254`、`Q259`、`Q264`、`Q279`、`Q281` 共 8 项因既存 Smoke 契约、权限安全、服务端权威或跨块破坏风险保留当前实现并明确登记在[项目月志](../systems/project/logs/2026-11.md#2026-11-24-双源差异-q244q281-批量修复与保留边界收口)与[统一问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置)。任务原书、新按钮界面与实机行为链仍待按实际验证门禁执行客户端/专服实测。
 
 ## 历史交接（2026-11-22 收口干净状态）
 

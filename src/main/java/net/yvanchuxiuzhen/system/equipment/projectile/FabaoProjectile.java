@@ -307,8 +307,7 @@ public final class FabaoProjectile extends AbstractArrow implements ItemSupplier
     @Override
     protected void doKnockback(LivingEntity target, DamageSource source) {
         if (kind.knockback() <= 0) return;
-        double resistance = Math.max(0, 1 - target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-        Vec3 push = getDeltaMovement().multiply(1, 0, 1).normalize().scale(kind.knockback() * .6 * resistance);
+        Vec3 push = getDeltaMovement().multiply(1, 0, 1).normalize().scale(kind.knockback() * .6);
         if (push.lengthSqr() > 0) target.push(push.x, .1, push.z);
     }
 

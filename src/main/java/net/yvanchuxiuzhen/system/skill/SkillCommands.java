@@ -41,11 +41,13 @@ public final class SkillCommands {
 
     private static LiteralArgumentBuilder<CommandSourceStack> command(String name, int permission, SkillKind kind) {
         return Commands.literal(name).requires(source -> source.hasPermission(permission))
-                .then(Commands.argument("arguments", StringArgumentType.greedyString()).executes(context -> run(context, kind)));
+                .then(Commands.argument("arguments", StringArgumentType.greedyString())
+                        .executes(context -> run(context, kind, StringArgumentType.getString(context, "arguments"))))
+                .executes(context -> run(context, kind, ""));
     }
 
-    private static int run(CommandContext<CommandSourceStack> context, SkillKind kind) {
-        List<String> arguments = Arrays.asList(StringArgumentType.getString(context, "arguments").trim().split("\\s+"));
+    private static int run(CommandContext<CommandSourceStack> context, SkillKind kind, String rawArguments) {
+        List<String> arguments = Arrays.asList(rawArguments.trim().split("\\s+"));
         ItemStack book = SkillLibrary.fromArguments(kind, arguments);
         if (book.isEmpty()) {
             return 0;

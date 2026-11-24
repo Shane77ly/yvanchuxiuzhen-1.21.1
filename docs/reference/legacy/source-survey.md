@@ -356,44 +356,44 @@ updated: 2026-11-23
 | Q241 | 1.18.2 炼器材料计算与天道图纸台预览未单独分支 `quality == 2`，中品落入 `0.85` 与次品同档；2026-11-23 负责人已裁定中品改用 `1.00`、已实现，待门禁与实机复验 | `B:Lianqijisuan`、`B:Lianqiuplevel` 与 `B:Shuaxin` 仅判断品质 4/3/1 分别乘 `1.15`/`1.05`/`0.95`，其余（含 `quality == 2` 中品与 `0` 次品）均乘 `0.85`；目标版本 `TripodMaterials` 与 `BlueprintTableRuntime` 已按负责人裁定将 `quality == 2` 调整为 `1.00`，`quality == 0` 仍保持 `0.85` | [炼器](../../systems/lianqi/architecture.md#材料累计与成品) |
 | Q242 | 传承灵物末页调用未注册的裸命令；按来源保留 | 未补造符头奖励，不阻止任务继续完成 | [任务](../../systems/quest/architecture.md#升仙令与传承灵物自然任务入口2026-11-23) |
 | Q243 | 喂狼最后一件肉在 1.18.2 版本可能先扣空再读取食物属性；静态风险，未实机复现 | 保留可确认的治疗数值，1.21.1 版本沿用先治疗后消费，不人为制造崩溃 | [烹饪记录](../../systems/cooking/logs/2026-11.md#2026-11-23-小肉与烤小肉喂狼) |
-| Q244 | 长枪主手缺少普通攻击距离 +2；静态确认、未修 | 九柄枪不分是否炼制；副手不应补加成 | [装备](../../systems/equipment/architecture.md#q244-主手长枪缺少两格攻击距离) |
-| Q245 | 玩家商铺、商铺设置、拍卖方块设置缺普通按钮及底图；静态确认、未修 | 25 个普通按钮未生成，包括商铺购买；不等同于服务端交易逻辑缺失 | [经济](../../systems/economy/architecture.md#q245-三个经济页面缺少普通按钮与底图) |
-| Q246 | 可达 NPC 管理页以宽版色块布局替换来源底图；确认表现差异、未裁定 | 不与孤立的 02 页混记 | [NPC](../../systems/npc/architecture.md#q246-npc-管理页背景与尺寸不同) |
-| Q247 | 好友页少了右下角无操作图标；确认表现差异 | 来源回调为空，不新增玩法 | [关系](../../systems/relation/architecture.md#q247-好友页右下角空回调按钮未绘制) |
-| Q248 | 乾坤门徒方块名“任务点”变为“乾坤门徒”；确认文案差异 | 不等同于任务实现差异 | [NPC](../../systems/npc/architecture.md#q248-乾坤门徒方块中文名不同) |
-| Q249 | 创造模式对空气使用物品的扣件差异 | 确认规则差异；四类入口，未修 | [修炼](../../systems/xiulian/architecture.md#q249-创造模式对空气使用物品的扣件差异) |
-| Q250 | 三类弹体的附加击退受抗性影响 | 确认命中公式不同；未修 | [技能](../../systems/skill/architecture.md#q250-三类弹体的附加击退受抗性影响) |
-| Q251 | 飓风扇两种施放缺云粒子 | 确认表现遗漏；未修 | [装备](../../systems/equipment/architecture.md#q251-飓风扇两种施放缺云粒子) |
-| Q252 | 穿界古镜传送对象待多人对照 | 两种选人方式不同；影响待双人实测 | [装备](../../systems/equipment/architecture.md#q252-穿界古镜传送对象待多人对照) |
-| Q253 | 饰品命令自定义字段不被收购与任务读取 | 确认跨系统读写不一致；未修 | [装备](../../systems/equipment/architecture.md#q253-饰品命令自定义字段不被收购与任务读取) |
-| Q254 | 宝箱设置命令权限由零升为一 | 确认可用权限不同；未修、待裁定 | [宝箱](../../systems/treasure/architecture.md#q254-宝箱设置命令权限由零升为一) |
-| Q255 | 连续聊天传送后指令使用旧坐标 | 确认解释器时序差异；内置剧情影响待核 | [任务](../../systems/quest/architecture.md#q255-连续聊天传送后指令使用旧坐标) |
-| Q256 | 玩家商铺材料不足反馈次数不同 | 确认提示分支不同；不改变成交结果 | [经济](../../systems/economy/architecture.md#q256-玩家商铺材料不足反馈次数不同) |
-| Q257 | 四个技能命令不再接受裸命令 | 确认命令解析不同；不等于缺少发书奖励 | [技能](../../systems/skill/architecture.md#q257-四个技能命令不再接受裸命令) |
-| Q258 | 四项游戏规则缺少来源简中名称及说明 | 8 个动态键；规则本身已注册且默认值一致 | [修炼（跨系统）](../../systems/xiulian/architecture.md#q258-四项游戏规则的名称与说明未合入语言表) |
-| Q259 | 独立 Shift 事件键未注册 | 确认控制列表差异；来源未找到玩法读者，不报成潜行失效 | [技能](../../systems/skill/architecture.md#q259-控制设置缺少来源的独立-shift-事件键) |
-| Q260 | 65 件自定义护甲缺护甲与耐久类附魔资格 | 静态确认，含四件财神服 | [装备](../../systems/equipment/architecture.md#q260-自定义护甲缺少附魔适用标签) |
-| Q261 | 重转附魔标签会移除两件旗与 29 件衣物 | 内存重转已复现，当前资源仍含这些成员 | [装备](../../systems/equipment/architecture.md#q261-重转附魔会丢失现有标签成员) |
-| Q262 | 妖兽未收到两种修为效果的经验 | 确认缺少经验消费者，涉及两项效果 | [战斗](../../systems/combat/architecture.md#q262-妖兽未收到两种修为效果的经验) |
-| Q263 | 四个效果触发点少了本人客户端音效 | 确认播放路径差异，听感待验 | [战斗](../../systems/combat/architecture.md#q263-四个效果触发点少了本人客户端音效) |
-| Q264 | 孢子效果的本机状态抽取不同 | 确认服务端和客户端取值方式不同，画面待验 | [战斗](../../systems/combat/architecture.md#q264-孢子效果的本机状态抽取不同) |
-| Q265 | 连锁工具损坏后仍会扩挖 | 断镐后继续展开，不是职业经验差异 | [战斗](../../systems/combat/architecture.md#q265-连锁工具损坏后仍会扩挖) |
-| Q266 | 替换拍卖椅方块时扩大了座椅实体清理范围 | 普通替换与令牌收椅不同于玩家直接破坏；未裁定 | [经济](../../systems/economy/architecture.md#q266-替换拍卖椅方块时扩大了座椅实体清理范围) |
-| Q267 | 生存玩家短暂穿门不再立即传送 | 默认门槛由立即传送变为约四秒 | [世界](../../systems/world/architecture.md#q267-生存玩家短暂穿门不再立即传送) |
-| Q268 | 非玩家首入也会尝试建出口 | 目标侧地形及无出口时的去向均可不同 | [世界](../../systems/world/architecture.md#q268-非玩家首入也会尝试建出口) |
-| Q269 | 载有乘客的载具不再被门户入口排除 | 入口不再拒绝载客实体；实机待验 | [世界](../../systems/world/architecture.md#q269-载有乘客的载具不再被门户入口排除) |
-| Q270 | 门边云粒子变为下界门粒子并增加环境音 | 确认表现实现不同，不否定玩家往返 | [世界](../../systems/world/architecture.md#q270-门边云粒子变为下界门粒子并增加环境音) |
-| Q271 | 副手点门工具破损反馈选槽不同 | 可能反馈到主手，不是扣错物品 | [世界](../../systems/world/architecture.md#q271-副手点门工具破损反馈选槽不同) |
-| Q272 | 极限坐标附近寻找出口的中心偏移 | 影响边界附近，不影响普通坐标 | [世界](../../systems/world/architecture.md#q272-极限坐标附近寻找出口的中心偏移) |
-| Q273 | 千材录与材料袋的已有栈合并跳过输入限制 | 同类异物已在输入槽才触发，空槽不受影响 | [材料](../../systems/material/architecture.md#q273-千材录与材料袋的已有栈合并跳过输入限制) |
-| Q274 | 百草鉴将无方块实体的物品能力当成样本库存 | 确认绑定条件不同；实际库存后果未实测 | [炼丹](../../systems/liandan/architecture.md#q274-百草鉴将无方块实体的物品能力当成样本库存) |
-| Q275 | 乾坤道人奖励的五行基础和灵步不能研习 | 两个内置任务能发书，原书不被研习入口识别 | [任务](../../systems/quest/architecture.md#q275-乾坤道人奖励的五行基础和灵步不能研习) |
-| Q276 | 按等级验收和扣除材料时读不到材料等级 | 带字段的条件有差异；只验物品 ID 不受影响 | [任务](../../systems/quest/architecture.md#q276-任务按等级验收和扣除材料时读不到材料等级) |
-| Q277 | 妖魂道温泉对无碰撞木块的地基判定不同 | 单次投放可能被拒；自然频率未测 | [世界](../../systems/world/architecture.md#q277-妖魂道温泉对无碰撞木块的地基判定不同) |
-| Q278 | 人间道采用外部群系时缺六种随机结构入口 | 默认人间道的 21 个群系均有入口 | [世界](../../systems/world/architecture.md#q278-人间道采用外部群系时缺六种随机结构入口) |
-| Q279 | 画卷两端被其他容器替换时的快照写入 | 以黄铜炉替换原入口，回程是否覆盖槽 0 不同；正常往返不受此差异影响 | [副本](../../systems/dungeon/architecture.md#q279-画卷两端被其他容器替换时的快照写入) |
-| Q280 | 大风雷火命中非生物时缺少碰撞粒子 | 非友方空矿车缺命中迸发；不推断伤害差异 | [异火](../../systems/yihuo/architecture.md#q280-大风雷火命中非生物时缺少碰撞粒子) |
-| Q281 | 大风雷火不再向普通容器写入炉热 | 炉上换成箱子时热量字段不同；两种正规炉仍能收热 | [异火](../../systems/yihuo/architecture.md#q281-大风雷火不再向普通容器写入炉热) |
+| Q244 | 长枪主手缺少普通攻击距离 +2；已修复（待实机验收） | 九柄枪已在 `EquipmentAttributes` 主手补充 `+2.0` `ENTITY_INTERACTION_RANGE`；副手不加 | [装备](../../systems/equipment/architecture.md#q244-主手长枪缺少两格攻击距离) |
+| Q245 | 玩家商铺、商铺设置、拍卖方块设置缺普通按钮及底图；已修复（待实机验收） | 已补齐 3 张底图与 25 个 `PlainButton` 按钮及交互包，待客户端画面复核 | [经济](../../systems/economy/architecture.md#q245-三个经济页面缺少普通按钮与底图) |
+| Q246 | 可达 NPC 管理页以宽版色块布局替换来源底图；保留现实现状（待裁定） | 既有 `NpcManagementCheck` 依赖四页结构与输入框契约，不破坏现有验收基线 | [NPC](../../systems/npc/architecture.md#q246-npc-管理页背景与尺寸不同) |
+| Q247 | 好友页少了右下角无操作图标；已修复（待实机验收） | 已迁入 `imagebutton_friendpailie09.png` 并在 `(232, 198)` 绘制 20×20 空回调按钮 | [关系](../../systems/relation/architecture.md#q247-好友页右下角空回调按钮未绘制) |
+| Q248 | 乾坤门徒方块名“任务点”变为“乾坤门徒”；保留现实现状（待裁定） | `QiankunCheck` 明确断言标题 `"乾坤门徒"`，不强行回退破坏既有 Smoke 校验 | [NPC](../../systems/npc/architecture.md#q248-乾坤门徒方块中文名不同) |
+| Q249 | 创造模式对空气使用物品的扣件差异；已修复（待实机验收） | 五处空气使用扣件已补充 `!instabuild` 创造模式守卫 | [修炼](../../systems/xiulian/architecture.md#q249-创造模式对空气使用物品的扣件差异) |
+| Q250 | 三类弹体的附加击退受抗性影响；已修复（待实机验收） | 三类弹体 `doKnockback` 已移除 `KNOCKBACK_RESISTANCE` 缩放 | [技能](../../systems/skill/architecture.md#q250-三类弹体的附加击退受抗性影响) |
+| Q251 | 飓风扇两种施放缺云粒子；已修复（待实机验收） | `Fabao011Item` 潜行 20+40、普通 20 颗 `CLOUD` 粒子已接入 | [装备](../../systems/equipment/architecture.md#q251-飓风扇两种施放缺云粒子) |
+| Q252 | 穿界古镜传送对象不同；保留精确目标玩家实现（待裁定） | 保持直传 `serverPlayer`，避免 `@p` 在玩家重叠时误传 | [装备](../../systems/equipment/architecture.md#q252-穿界古镜传送对象待多人对照) |
+| Q253 | 饰品命令自定义字段不被收购与任务读取；已修复（待实机验收） | `CommerceValuation` 与 `DialogueRuntime` 已补齐装备 `money` 与通用字段匹配 | [装备](../../systems/equipment/architecture.md#q253-饰品命令自定义字段不被收购与任务读取) |
+| Q254 | 宝箱设置命令权限由零升为一；保留权限 1 防生存越权（待裁定） | 避免降回 0 后生存玩家任意修改宝箱配置 | [宝箱](../../systems/treasure/architecture.md#q254-宝箱设置命令权限由零升为一) |
+| Q255 | 连续聊天传送后指令使用旧坐标；已修复（待实机验收） | `QuestChatRuntime` 选项、命令与结构搜索改为实时读取 `player.position()` | [任务](../../systems/quest/architecture.md#q255-连续聊天传送后指令使用旧坐标) |
+| Q256 | 玩家商铺材料不足反馈次数不同；已修复（待实机验收） | `ShopTrading` 首个不足槽位输出提示后即 `break` | [经济](../../systems/economy/architecture.md#q256-玩家商铺材料不足反馈次数不同) |
+| Q257 | 四个技能命令不再接受裸命令；已修复（待实机验收） | `SkillCommands` 已为四条命令补回无参数根 `executes` | [技能](../../systems/skill/architecture.md#q257-四个技能命令不再接受裸命令) |
+| Q258 | 四项游戏规则缺少来源简中名称及说明；已修复（待实机验收） | 双语 `xiulian.json` 已补全 8 组 `gamerule.*` 翻译键 | [修炼（跨系统）](../../systems/xiulian/architecture.md#q258-四项游戏规则的名称与说明未合入语言表) |
+| Q259 | 独立 Shift 事件键未注册；保留现状（来源无读者） | 来源双模组均未消费该按键包，不额外注册无用键绑定 | [技能](../../systems/skill/architecture.md#q259-控制设置缺少来源的独立-shift-事件键) |
+| Q260 | 65 件自定义护甲缺护甲与耐久类附魔资格；已修复（脚本重建） | 修复 `convert_enchantments.py` 并重生成 4 份 `enchantable/*.json` | [装备](../../systems/equipment/architecture.md#q260-自定义护甲缺少附魔适用标签) |
+| Q261 | 重转附魔标签会移除两件旗与 29 件衣物；已修复（脚本同步） | 生成脚本已按 `armor` 字段与阵法旗成员对齐现行资源标签 | [装备](../../systems/equipment/architecture.md#q261-重转附魔会丢失现有标签成员) |
+| Q262 | 妖兽未收到两种修为效果的经验；已修复（待实机验收） | `YaoshouCombat` 已订阅 `EffectExperienceEvent` 并触发升级属性/名称重算 | [战斗](../../systems/combat/architecture.md#q262-妖兽未收到两种修为效果的经验) |
+| Q263 | 四个效果触发点少了本人客户端音效；已修复（待实机验收） | 四处效应已在 `clientTick` 经 `Level.playLocalSound` 补齐本地音效 | [战斗](../../systems/combat/architecture.md#q263-四个效果触发点少了本人客户端音效) |
+| Q264 | 孢子效果的本机状态抽取；保留服务端权威实现（待裁定） | 避免客户端非权威随机抽样 `addEffect` 造成双端状态失步 | [战斗](../../systems/combat/architecture.md#q264-孢子效果的本机状态抽取不同) |
+| Q265 | 连锁工具损坏后仍会扩挖；已修复（待实机验收） | `ChainMining` 循环每次读取主手实时 `chain` 附魔等级 | [战斗](../../systems/combat/architecture.md#q265-连锁工具损坏后仍会扩挖) |
+| Q266 | 替换拍卖椅方块时扩大了座椅实体清理范围；已修复（待实机验收） | `AuctionChairBlock` 改回 `onDestroyedByPlayer` 与 `wasExploded` 清理 | [经济](../../systems/economy/architecture.md#q266-替换拍卖椅方块时扩大了座椅实体清理范围) |
+| Q267 | 生存玩家短暂穿门不再立即传送；已修复（待实机验收） | `DimensionPortalBlock#getPortalTransitionTime` 返回 `0` 恢复瞬传 | [世界](../../systems/world/architecture.md#q267-生存玩家短暂穿门不再立即传送) |
+| Q268 | 非玩家首入也会尝试建出口；已修复（待实机验收） | `DimensionPortalRuntime` 仅允许 `ServerPlayer` 建门，非玩家无门降级落点 | [世界](../../systems/world/architecture.md#q268-非玩家首入也会尝试建出口) |
+| Q269 | 载有乘客的载具不再被门户入口排除；已修复（待实机验收） | `DimensionPortalBlock#entityInside` 补充 `!entity.isVehicle()` 拦截 | [世界](../../systems/world/architecture.md#q269-载有乘客的载具不再被门户入口排除) |
+| Q270 | 门边云粒子变为下界门粒子并增加环境音；已修复（待实机验收） | `DimensionPortalBlock#animateTick` 改为发出 4 颗 `ParticleTypes.CLOUD` | [世界](../../systems/world/architecture.md#q270-门边云粒子变为下界门粒子并增加环境音) |
+| Q271 | 副手点门工具破损反馈选槽不同；已修复（待实机验收） | `DimensionPortalItem` 的 `hurtAndBreak` 传入 `context.getHand()` | [世界](../../systems/world/architecture.md#q271-副手点门工具破损反馈选槽不同) |
+| Q272 | 极限坐标附近寻找出口的中心偏移；已修复（待实机验收） | `DimensionPortalRuntime` 出口坐标夹紧到 `±29999872.0` | [世界](../../systems/world/architecture.md#q272-极限坐标附近寻找出口的中心偏移) |
+| Q273 | 千材录与材料袋的已有栈合并跳过输入限制；已修复（待实机验收） | 抽取 `LegacyContainerMove` 检查已有栈合并时的 `slot.mayPlace(stack)` | [材料](../../systems/material/architecture.md#q273-千材录与材料袋的已有栈合并跳过输入限制) |
+| Q274 | 百草鉴将无方块实体的物品能力当成样本库存；已修复（待实机验收） | `HerbAnalysisMenu` 校验 `getBlockEntity != null` 与 `IItemHandlerModifiable` 后绑槽 | [炼丹](../../systems/liandan/architecture.md#q274-百草鉴将无方块实体的物品能力当成样本库存) |
+| Q275 | 乾坤道人奖励的五行基础和灵步不能研习；已修复（待实机验收） | `DialogueRuntime` 与功法/技能库已补齐从任务旧 NBT 挂载研习组件 | [任务](../../systems/quest/architecture.md#q275-乾坤道人奖励的五行基础和灵步不能研习) |
+| Q276 | 按等级验收和扣除材料时读不到材料等级；已修复（待实机验收） | `DialogueRuntime#matchesFields` 已兼容 `Materials.instance` 写入的材料等级 | [任务](../../systems/quest/architecture.md#q276-任务按等级验收和扣除材料时读不到材料等级) |
+| Q277 | 妖魂道温泉对无碰撞木块的地基判定不同；已修复（待实机验收） | `NativeWorldFeatures` 已将 `wenqvandiwu` 切回 `SourceLakeFeature` | [世界](../../systems/world/architecture.md#q277-妖魂道温泉对无碰撞木块的地基判定不同) |
+| Q278 | 人间道采用外部群系时缺六种随机结构入口；已修复（待实机验收） | 已新增地表与地下群系修改器通过 `add_missing_biome_features` 挂载 `suijijiegou_01..06` | [世界](../../systems/world/architecture.md#q278-人间道采用外部群系时缺六种随机结构入口) |
+| Q279 | 画卷两端被其他容器替换时的快照写入；保留安全边界（待裁定） | 禁止非副本画卷方块写入外部容器槽 0，防止破坏玩家正常炉具存档 | [副本](../../systems/dungeon/architecture.md#q279-画卷两端被其他容器替换时的快照写入) |
+| Q280 | 大风雷火命中非生物时缺少碰撞粒子；已修复（待实机验收） | `YihuoProjectile` 已在非生物早退前发出 10 颗 `cailiao_<N>particle` | [异火](../../systems/yihuo/architecture.md#q280-大风雷火命中非生物时缺少碰撞粒子) |
+| Q281 | 大风雷火不再向普通容器写入炉热；保留安全边界（待裁定） | 保持仅正规炉具写入热量，避免污染普通储物箱实体数据 | [异火](../../systems/yihuo/architecture.md#q281-大风雷火不再向普通容器写入炉热) |
 
 ## 源码位置
 

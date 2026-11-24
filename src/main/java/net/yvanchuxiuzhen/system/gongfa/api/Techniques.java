@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.gongfa.api;
 
 import java.util.Optional;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -61,6 +62,11 @@ public final class Techniques {
     /** 由定义生成一本未研习的功法书（管理命令 {@code /technique} 与给书的玩法）。 */
     public static ItemStack createBook(TechniqueDefinition definition) {
         return TechniqueLibrary.book(definition);
+    }
+
+    /** 为带有来源 {@code ExercisesName} 等自定义标签的功法书补写功法组件。 */
+    public static void attachFromLegacyTag(ItemStack stack, CompoundTag data) {
+        TechniqueLibrary.attachFromLegacyTag(stack, data);
     }
 
     /** 书架藏宝里的功法书（来源 {@code BookGiveGongfa}）：按藏宝等级取表随机给一本，没有书时不给。 */

@@ -44,8 +44,7 @@ public final class FormationArrow extends AbstractArrow implements ItemSupplier 
     @Override
     protected void doKnockback(LivingEntity entity, DamageSource damageSource) {
         if (knockback <= 0) return;
-        double resistance = Math.max(0, 1 - entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-        Vec3 push = getDeltaMovement().multiply(1, 0, 1).normalize().scale(knockback * .6 * resistance);
+        Vec3 push = getDeltaMovement().multiply(1, 0, 1).normalize().scale(knockback * .6);
         if (push.lengthSqr() > 0) entity.push(push.x, .1, push.z);
     }
 

@@ -67,6 +67,20 @@ public final class YihuoEffects {
             }
             return true;
         }
+
+        @Override
+        public void clientTick(LivingEntity entity, int amplifier) {
+            if (!yang || !eligible(entity) || !StatusEffects.has(entity, "effect_024")) {
+                return;
+            }
+            double elapsed = entity.getPersistentData().getDouble("yanghuotick_client") + 1;
+            entity.getPersistentData().putDouble("yanghuotick_client", elapsed);
+            if (elapsed >= 20) {
+                entity.level().playLocalSound(entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(),
+                        SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1, false);
+                entity.getPersistentData().putDouble("yanghuotick_client", 0);
+            }
+        }
     }
 
     private static boolean eligible(LivingEntity entity) {

@@ -80,12 +80,12 @@ public final class StudyBookItem extends ContentItem {
     private static void openTreasure(ServerPlayer player, ItemStack stack, CompoundTag data) {
         if (data.getString("TreasureTypeSmall").equals("功法书")) {
             Techniques.giveTreasureBook(player, data.getDouble("TreasureLEVEL"));
-            stack.shrink(1);
+            if (!player.getAbilities().instabuild) stack.shrink(1);
         } else if (data.getString("TreasureTypeSmall").equals("技能书")) {
             if (data.getDouble("TreasureLEVEL") >= 1) {
                 Skills.giveTreasureBook(player);
             }
-            stack.shrink(1);
+            if (!player.getAbilities().instabuild) stack.shrink(1);
         }
     }
 
