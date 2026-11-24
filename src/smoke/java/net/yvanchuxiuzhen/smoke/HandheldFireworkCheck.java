@@ -12,8 +12,10 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
+import net.yvanchuxiuzhen.collection.festival.FestivalData;
+import net.yvanchuxiuzhen.collection.festival.HandheldFireworkState;
+import net.yvanchuxiuzhen.collection.tiandao.NbtEditorData;
 import net.yvanchuxiuzhen.platform.ModId;
 
 /** 手持烟花的自然右键分栈、选择槽生命周期、组件保存和创造模式来源分支。 */
@@ -41,10 +43,10 @@ final class HandheldFireworkCheck extends ActionCheck {
                 player.getInventory().clearContent();
                 select(player, 0);
                 ItemStack input = item(id, 4);
-                CustomData.update(DataComponents.CUSTOM_DATA, input, data -> {
-                    data.putDouble("tick", 37);
-                    data.putString("smoke_marker", "保留原栈");
-                });
+                input.set(FestivalData.FIREWORK_STATE.get(), new HandheldFireworkState(false, 37));
+                CompoundTag marker = new CompoundTag();
+                marker.putString("smoke_marker", "保留原栈");
+                input.set(NbtEditorData.TAGS.get(), marker);
                 player.getInventory().setItem(0, input);
                 player.inventoryMenu.broadcastChanges();
             }));
@@ -53,8 +55,8 @@ final class HandheldFireworkCheck extends ActionCheck {
             actions.add(new Action(6, player -> {
                 burning = player.getMainHandItem();
                 expectTrue(id + " 自然右键留下点燃的一件并继续已有计时", burning.getCount() == 1
-                        && data(burning).getBoolean("dianran") && data(burning).getDouble("tick") > 37);
-                expect(id + " 原栈保留其他组件", "保留原栈", data(burning).getString("smoke_marker"));
+                        && state(burning).lit() && state(burning).ticks() > 37);
+                expect(id + " 原栈保留其他组件", "保留原栈", marker(burning));
                 expect(id + " 分出三件无点燃或原栈数据的同种物品", 3, blankCount(player, id));
                 String name = switch (id) {
                     case "pao_02" -> "电光花";
@@ -63,7 +65,7 @@ final class HandheldFireworkCheck extends ActionCheck {
                 };
                 expect(id + " 合并语言中文名称", name, minecraft.player.getMainHandItem().getHoverName().getString());
                 minecraft.execute(() -> screenshots.take("festival_" + id + ".png"));
-                pausedTick = data(burning).getDouble("tick");
+                pausedTick = state(burning).ticks();
                 int unlitSlot = blankSlot(player, id);
                 ItemStack unlit = player.getInventory().getItem(unlitSlot);
                 player.getInventory().setItem(0, ItemStack.EMPTY);
@@ -73,15 +75,15 @@ final class HandheldFireworkCheck extends ActionCheck {
                 player.inventoryMenu.broadcastChanges();
             }));
             actions.add(new Action(6, player -> {
-                expect(id + " 收起后计时暂停", pausedTick, data(burning).getDouble("tick"));
+                expect(id + " 收起后计时暂停", pausedTick, state(burning).ticks());
                 burning = ItemStack.parse(player.registryAccess(), burning.save(player.registryAccess())).orElseThrow();
-                expectTrue(id + " 物品序列化保留点燃与计时", data(burning).getBoolean("dianran")
-                        && data(burning).getDouble("tick") == pausedTick && data(burning).getString("smoke_marker").equals("保留原栈"));
+                expectTrue(id + " 物品序列化保留点燃与计时", state(burning).lit()
+                        && state(burning).ticks() == pausedTick && marker(burning).equals("保留原栈"));
                 ItemStack unlit = player.getMainHandItem();
                 ItemStack unlitRestored = ItemStack.parse(player.registryAccess(), unlit.save(player.registryAccess())).orElseThrow();
                 expectTrue(id + " 来源选中未点燃栈写入并保存空标签且阻止合栈",
-                        unlit.has(DataComponents.CUSTOM_DATA) && data(unlit).isEmpty()
-                                && unlitRestored.has(DataComponents.CUSTOM_DATA) && data(unlitRestored).isEmpty()
+                        unlit.has(FestivalData.FIREWORK_STATE.get()) && !state(unlit).lit()
+                                && unlitRestored.has(FestivalData.FIREWORK_STATE.get()) && !state(unlitRestored).lit()
                                 && !ItemStack.isSameItemSameComponents(unlitRestored, item(id, 3)));
                 player.getInventory().setItem(9, ItemStack.EMPTY);
                 player.getInventory().setItem(Inventory.SLOT_OFFHAND, burning);
@@ -89,17 +91,16 @@ final class HandheldFireworkCheck extends ActionCheck {
                 player.inventoryMenu.broadcastChanges();
             }));
             actions.add(new Action(6, player -> {
-                expect(id + " 第二快捷栏选中时副手燃烧暂停", pausedTick, data(burning).getDouble("tick"));
+                expect(id + " 第二快捷栏选中时副手燃烧暂停", pausedTick, state(burning).ticks());
                 select(player, 0);
             }));
             actions.add(new Action(2, player -> {
-                expectTrue(id + " 第一快捷栏选中时副手按来源继续燃烧", data(burning).getDouble("tick") > pausedTick);
-                double before = data(burning).getDouble("tick");
+                expectTrue(id + " 第一快捷栏选中时副手按来源继续燃烧", state(burning).ticks() > pausedTick);
+                double before = state(burning).ticks();
                 InteractionResult result = player.gameMode.useItem(player, player.level(), burning, InteractionHand.OFF_HAND);
                 expect(id + " 重复点燃保持PASS结果", InteractionResult.PASS, result);
-                expect(id + " 重复点燃不清零计时", before, data(burning).getDouble("tick"));
-                CustomData.update(DataComponents.CUSTOM_DATA, burning,
-                        data -> data.putDouble("tick", id.equals("pao_07") ? 1199 : 599));
+                expect(id + " 重复点燃不清零计时", before, state(burning).ticks());
+                burning.set(FestivalData.FIREWORK_STATE.get(), new HandheldFireworkState(true, id.equals("pao_07") ? 1199 : 599));
                 burning.getItem().inventoryTick(burning, player.level(), player, Inventory.SLOT_OFFHAND, false);
                 expectTrue(id + " 燃放到600或1200刻消费最后一件", burning.isEmpty());
             }));
@@ -112,11 +113,11 @@ final class HandheldFireworkCheck extends ActionCheck {
             player.getInventory().setItem(0, stack);
             player.gameMode.useItem(player, player.level(), stack, InteractionHand.MAIN_HAND);
             expectTrue("创造模式保留来源整栈四件点燃并额外分出三件", stack.getCount() == 4
-                    && data(stack).getBoolean("dianran") && blankCount(player, "pao_02") == 3);
-            CustomData.update(DataComponents.CUSTOM_DATA, stack, data -> data.putDouble("tick", 599));
+                    && state(stack).lit() && blankCount(player, "pao_02") == 3);
+            stack.set(FestivalData.FIREWORK_STATE.get(), new HandheldFireworkState(true, 599));
             stack.getItem().inventoryTick(stack, player.level(), player, 0, true);
             expectTrue("整栈点燃只消费一件且其余点燃状态与零计时保留", stack.getCount() == 3
-                    && data(stack).getBoolean("dianran") && data(stack).getDouble("tick") == 0);
+                    && state(stack).lit() && state(stack).ticks() == 0);
         }));
         script(actions.toArray(Action[]::new));
     }
@@ -130,15 +131,19 @@ final class HandheldFireworkCheck extends ActionCheck {
         return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, id)), count);
     }
 
-    private static CompoundTag data(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    private static HandheldFireworkState state(ItemStack stack) {
+        return stack.getOrDefault(FestivalData.FIREWORK_STATE.get(), HandheldFireworkState.UNLIT);
+    }
+
+    private static String marker(ItemStack stack) {
+        return stack.getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag()).getString("smoke_marker");
     }
 
     private static int blankCount(ServerPlayer player, String id) {
         Item item = item(id, 1).getItem();
         int count = 0;
         for (ItemStack stack : player.getInventory().items) {
-            if (stack.is(item) && !stack.has(DataComponents.CUSTOM_DATA)) count += stack.getCount();
+            if (stack.is(item) && !stack.has(FestivalData.FIREWORK_STATE.get()) && !stack.has(NbtEditorData.TAGS.get())) count += stack.getCount();
         }
         return count;
     }
@@ -147,7 +152,7 @@ final class HandheldFireworkCheck extends ActionCheck {
         Item item = item(id, 1).getItem();
         for (int slot = 0; slot < Inventory.INVENTORY_SIZE; slot++) {
             ItemStack stack = player.getInventory().getItem(slot);
-            if (stack.is(item) && !stack.has(DataComponents.CUSTOM_DATA)) return slot;
+            if (stack.is(item) && !stack.has(FestivalData.FIREWORK_STATE.get()) && !stack.has(NbtEditorData.TAGS.get())) return slot;
         }
         throw new IllegalStateException("没有来源点燃时分出的未点燃烟花");
     }

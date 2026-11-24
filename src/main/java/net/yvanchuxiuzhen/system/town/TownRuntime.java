@@ -17,7 +17,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
@@ -29,6 +28,8 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.town.content.TownBlockEntity;
 import net.yvanchuxiuzhen.system.town.content.TownBuildMenu;
 import net.yvanchuxiuzhen.system.town.content.TownMenu;
+import net.yvanchuxiuzhen.system.town.data.TownBuildPlan;
+import net.yvanchuxiuzhen.system.town.data.TownData;
 
 /** 城镇规划与材料建设只写本系统方块状态。 */
 public final class TownRuntime {
@@ -71,9 +72,7 @@ public final class TownRuntime {
 
     private static ItemStack scroll(CompoundTag build) {
         ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "chengzhen_buildblock_item")));
-        CompoundTag data = new CompoundTag();
-        data.put("build_data", build.copy());
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        stack.set(TownData.BUILD_PLAN.get(), new TownBuildPlan(build));
         return stack;
     }
 

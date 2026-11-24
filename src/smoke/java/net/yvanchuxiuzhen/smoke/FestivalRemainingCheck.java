@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -18,10 +17,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.yvanchuxiuzhen.collection.festival.FestivalData;
 import net.yvanchuxiuzhen.collection.festival.FestivalSetup;
 import net.yvanchuxiuzhen.collection.festival.ThrownFirework;
 import net.yvanchuxiuzhen.platform.ModId;
@@ -101,21 +100,21 @@ final class FestivalRemainingCheck extends ActionCheck {
 
     private void costume(ServerPlayer player) {
         ItemStack chest = item("fuqi_02_chestplate", 1);
-        CustomData.update(DataComponents.CUSTOM_DATA, chest, data -> data.putDouble("fuqitick", 7));
+        chest.set(FestivalData.COSTUME_TICK.get(), 7.0);
         player.setItemSlot(EquipmentSlot.CHEST, chest);
         NeoForge.EVENT_BUS.post(new PlayerTickEvent.Post(player));
-        expect("只穿胸甲即可推进金币计时", 8, data(chest).getDouble("fuqitick"));
+        expect("只穿胸甲即可推进金币计时", 8, costumeTick(chest));
         chest = ItemStack.parse(player.registryAccess(), chest.save(player.registryAccess())).orElseThrow();
-        expect("胸甲物品存储保留计时", 8, data(chest).getDouble("fuqitick"));
+        expect("胸甲物品存储保留计时", 8, costumeTick(chest));
         player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
         player.getInventory().setItem(9, chest);
         for (int tick = 0; tick < 5; tick++) NeoForge.EVENT_BUS.post(new PlayerTickEvent.Post(player));
-        expect("脱下胸甲后计时暂停", 8, data(chest).getDouble("fuqitick"));
+        expect("脱下胸甲后计时暂停", 8, costumeTick(chest));
         player.getInventory().setItem(9, ItemStack.EMPTY);
         player.setItemSlot(EquipmentSlot.CHEST, chest);
-        CustomData.update(DataComponents.CUSTOM_DATA, chest, tag -> tag.putDouble("fuqitick", 19));
+        chest.set(FestivalData.COSTUME_TICK.get(), 19.0);
         NeoForge.EVENT_BUS.post(new PlayerTickEvent.Post(player));
-        expect("穿回胸甲在二十刻周期归零", 0, data(chest).getDouble("fuqitick"));
+        expect("穿回胸甲在二十刻周期归零", 0, costumeTick(chest));
         for (String slot : List.of("helmet", "leggings", "boots")) {
             EquipmentSlot equipment = switch (slot) {
                 case "helmet" -> EquipmentSlot.HEAD;
@@ -210,8 +209,8 @@ final class FestivalRemainingCheck extends ActionCheck {
         return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, id)), amount);
     }
 
-    private static CompoundTag data(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    private static double costumeTick(ItemStack stack) {
+        return stack.getOrDefault(FestivalData.COSTUME_TICK.get(), 0.0);
     }
 
     private static int count(ServerPlayer player, String id) {

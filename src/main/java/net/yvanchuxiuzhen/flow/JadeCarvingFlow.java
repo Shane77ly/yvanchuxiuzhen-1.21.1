@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.flow;
 
 import java.util.Random;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +10,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
@@ -149,7 +147,7 @@ public final class JadeCarvingFlow {
             return;
         }
         int grade = quality();
-        double itemFortune = input.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("qiyvbianhao");
+        double itemFortune = Materials.fortuneIndex(input);
         boolean active = itemFortune >= 1 || Cultivation.tizhiDouble(player, "jiyvgailv") >= 94;
         double fortune = itemFortune >= 1 ? itemFortune : Cultivation.tizhiDouble(player, "qiyvbianhao");
         if (active) {

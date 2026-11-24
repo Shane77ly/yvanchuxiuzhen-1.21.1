@@ -26,8 +26,9 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
+import net.yvanchuxiuzhen.system.zhenfa.data.FormationAttachments;
+import net.yvanchuxiuzhen.system.zhenfa.data.FormationFlagData;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -209,10 +210,9 @@ final class FormationCheck extends SystemCheck {
         ItemStack mother = new ItemStack(item("flagmotheritem"));
         player.setItemInHand(InteractionHand.MAIN_HAND, mother);
         InteractionResult bound = mother.getItem().useOn(context(player, flagPos, Direction.NORTH));
-        CompoundTag binding = mother.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        FormationFlagData binding = mother.getOrDefault(FormationAttachments.FLAG.get(), FormationFlagData.EMPTY);
         expectTrue("母旗绑定同队子旗且只记录目标坐标", bound.consumesAction() && placedMarker.childBound()
-                && binding.getInt("ziqishuliang") == 1 && binding.getDouble("qimubiaoX1") == flagPos.getX()
-                && binding.getDouble("qimubiaoY1") == flagPos.getY() && binding.getDouble("qimubiaoZ1") == flagPos.getZ());
+                && binding.children().size() == 1 && binding.children().getFirst().equals(flagPos));
         player.setItemInHand(InteractionHand.MAIN_HAND, mother);
         mother.getItem().use(player.level(), player, InteractionHand.MAIN_HAND);
         CompoundTag control = base.formationSnapshot();

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Locale;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -20,7 +19,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -94,7 +92,7 @@ public final class RoofBrushItem extends ContentTieredItem {
         InteractionResultHolder<ItemStack> result = super.use(level, player, hand);
         if (level.isClientSide()) return result;
         ItemStack stack = result.getObject();
-        CompoundTag item = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        RoofBrushConfig config = stack.getOrDefault(DecorData.ROOF_BRUSH.get(), RoofBrushConfig.DEFAULT);
         if (ModifierKeys.ctrl(player)) {
             CompoundTag points = player.getPersistentData();
             if (points.getInt("Xp1") == 0 || points.getInt("Xp2") == 0) {
@@ -109,11 +107,13 @@ public final class RoofBrushItem extends ContentTieredItem {
                     points.putInt(axis + "p2", first);
                 }
             }
-            if (item.getString("wapian").isEmpty()) item.putString("wapian", "tileimbrexgrey");
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(item));
-            String roof = item.getString("wuding");
+            if (config.tileType().isEmpty()) {
+                config = new RoofBrushConfig(config.roofType(), "tileimbrexgrey");
+                stack.set(DecorData.ROOF_BRUSH.get(), config);
+            }
+            String roof = config.roofType();
             boolean curved = roof.equals("悬山") || roof.equals("歇山") || roof.equals("庑殿");
-            String tile = roof.equals("歇山") || roof.equals("庑殿") ? "tileimbrexblack" : item.getString("wapian");
+            String tile = roof.equals("歇山") || roof.equals("庑殿") ? "tileimbrexblack" : config.tileType();
             double width = Math.abs((double) (northSouth ? points.getInt("Zp1") : points.getInt("Xp1"))
                     - (northSouth ? points.getInt("Zp2") : points.getInt("Xp2")));
             player.displayClientMessage(Component.translatable(curved ? "message.yvanchuxiuzhen.roof_place"
@@ -123,14 +123,12 @@ public final class RoofBrushItem extends ContentTieredItem {
                     (x, y, z, block, facing) -> place(level, BlockPos.containing(x, y, z), block, Direction.from2DDataValue(facing)),
                     value -> points.putDouble("linshi", value));
         } else if (player.isShiftKeyDown()) {
-            int next = (TILES.indexOf(item.getString("wapian")) + 1) % TILES.size();
-            item.putString("wapian", TILES.get(next));
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(item));
+            int next = (TILES.indexOf(config.tileType()) + 1) % TILES.size();
+            stack.set(DecorData.ROOF_BRUSH.get(), new RoofBrushConfig(config.roofType(), TILES.get(next)));
             player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.roof_tile_" + next), false);
         } else {
-            boolean hard = item.getString("wuding").equals("悬山");
-            item.putString("wuding", hard ? "硬山" : "悬山");
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(item));
+            boolean hard = config.roofType().equals("悬山");
+            stack.set(DecorData.ROOF_BRUSH.get(), new RoofBrushConfig(hard ? "硬山" : "悬山", config.tileType()));
             player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.roof_" + (hard ? "hard" : "overhanging")), false);
         }
         return result;

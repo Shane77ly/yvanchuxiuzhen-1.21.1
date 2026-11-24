@@ -27,6 +27,7 @@ import net.yvanchuxiuzhen.system.craft.content.CarpentryBlock;
 import net.yvanchuxiuzhen.system.craft.content.CarpentryBlockItem;
 import net.yvanchuxiuzhen.system.craft.content.SilkReelBlock;
 import net.yvanchuxiuzhen.system.craft.content.SilkReelBlockItem;
+import net.yvanchuxiuzhen.system.craft.data.CraftData;
 import net.yvanchuxiuzhen.system.craft.network.CarpentryButtonPayload;
 import net.yvanchuxiuzhen.system.craft.content.LoomBlock;
 import net.yvanchuxiuzhen.system.craft.content.LoomBlockItem;
@@ -83,6 +84,7 @@ public final class CraftSetup {
                     silkworm(kind), gold ? -52 : -1, gold ? -154 : -3355444, properties));
         }
         CONTENT.register(modBus);
+        CraftData.register(modBus);
         CraftBlockEntities.register(modBus);
         CraftMenus.register(modBus);
         modBus.addListener((RegisterPayloadHandlersEvent event) -> event.registrar("1").playToServer(

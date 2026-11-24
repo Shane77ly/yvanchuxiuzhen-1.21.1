@@ -70,7 +70,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -80,10 +79,12 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.yvanchuxiuzhen.collection.tiandao.NbtEditorData;
 import net.yvanchuxiuzhen.system.craft.client.CarpentryScreen;
 import net.yvanchuxiuzhen.system.craft.content.CarpentryBlockEntity;
 import net.yvanchuxiuzhen.system.craft.content.CarpentryMenu;
 import net.yvanchuxiuzhen.system.craft.content.SilkReelBlockEntity;
+import net.yvanchuxiuzhen.system.craft.data.CraftData;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.entity.EntityTypeTest;
@@ -1336,8 +1337,9 @@ final class FuluCookingCheck extends ActionCheck {
                                     && restored.getItem(9).getCount() == 3
                                     && ItemStack.matches(restored.getItem(0), wheel.getItem(0)));
                     potteryBlankStack = wheel.getItem(0).copy();
-                    CustomData.update(DataComponents.CUSTOM_DATA, potteryBlankStack,
-                            data -> data.putString("smoke_marker", "pottery_followup"));
+                    CompoundTag marker = new CompoundTag();
+                    marker.putString("smoke_marker", "pottery_followup");
+                    potteryBlankStack.set(NbtEditorData.TAGS.get(), marker);
                     p.getInventory().clearContent();
                     p.getInventory().selected = HOTBAR;
                     p.getInventory().setItem(HOTBAR, potteryBlankStack.copyWithCount(2));
@@ -1359,8 +1361,8 @@ final class FuluCookingCheck extends ActionCheck {
                             potteryPlacementOkay && p.serverLevel().isEmptyBlock(potteryPlacedPos)
                                     && craftFollowupCount(p, "taopiitem") == 2
                                     && potteryOutput(inventoryItem(p, "taopiitem")).equals("yvanchuxiuzhen:taoguan_03item")
-                                    && inventoryItem(p, "taopiitem").getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
-                                            .copyTag().getString("smoke_marker").equals("pottery_followup")
+                                    && inventoryItem(p, "taopiitem").getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag())
+                                            .getString("smoke_marker").equals("pottery_followup")
                                     && p.getMainHandItem().is(Items.STICK));
                     stoneMillSneak(false);
                     p.serverLevel().setBlockAndUpdate(potterySkyPos, block("taopi"));
@@ -1586,7 +1588,9 @@ final class FuluCookingCheck extends ActionCheck {
                     p.getInventory().clearContent();
                     ItemStack wine = item("jiuniang_001", 2);
                     Cooking.setWineAge(wine, 9);
-                    CustomData.update(DataComponents.CUSTOM_DATA, wine, data -> data.putString("smoke_marker", "wine_followup"));
+                    CompoundTag marker = new CompoundTag();
+                    marker.putString("smoke_marker", "wine_followup");
+                    wine.set(NbtEditorData.TAGS.get(), marker);
                     p.getInventory().setItem(HOTBAR, wine);
                     p.inventoryMenu.broadcastChanges();
                 }),
@@ -1608,8 +1612,8 @@ final class FuluCookingCheck extends ActionCheck {
                             winePlacementOkay && p.getMainHandItem().getCount() == 1
                                     && jar.getBlockState().is(block("jiuniang_00101").getBlock())
                                     && jar.getItem(0).getCount() == 1 && wineAge(jar.getItem(0)) == 9
-                                    && jar.getItem(0).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
-                                            .copyTag().getString("smoke_marker").equals("wine_followup") && naturalPeriod);
+                                    && jar.getItem(0).getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag())
+                                            .getString("smoke_marker").equals("wine_followup") && naturalPeriod);
                     jar.getPersistentData().putDouble("agenum", 7);
                     scheduleCraftFollowup(p, wineJarPos);
                 }),
@@ -1620,8 +1624,8 @@ final class FuluCookingCheck extends ActionCheck {
                             jar.getBlockState(), jar.saveWithFullMetadata(p.registryAccess()), p.registryAccess());
                     expectTrue("酒坛受控推进真实计划刻跨9到10年，组件保留、BE年龄清零且保存重读一致",
                             wineAge(jar.getItem(0)) == 10 && jar.getPersistentData().getDouble("agenum") == 0
-                                    && jar.getItem(0).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
-                                            .copyTag().getString("smoke_marker").equals("wine_followup")
+                                    && jar.getItem(0).getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag())
+                                            .getString("smoke_marker").equals("wine_followup")
                                     && restored != null && ItemStack.matches(restored.getItem(0), jar.getItem(0)));
                     p.getInventory().setItem(0, p.getMainHandItem().copy());
                     p.getInventory().setItem(HOTBAR, ItemStack.EMPTY);
@@ -1637,8 +1641,8 @@ final class FuluCookingCheck extends ActionCheck {
                     }
                     expectTrue("酒坛真实空手潜行收取删除坛且不重复，取回10年酒仍带实例组件",
                             p.serverLevel().isEmptyBlock(wineJarPos) && craftFollowupCount(p, "jiuniang_001") == 2
-                                    && aged.getCount() == 1 && aged.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
-                                            .copyTag().getString("smoke_marker").equals("wine_followup"));
+                                    && aged.getCount() == 1 && aged.getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag())
+                                            .getString("smoke_marker").equals("wine_followup"));
                     stoneMillSneak(false);
                     p.getInventory().clearContent();
                     p.getInventory().setItem(HOTBAR, aged);
@@ -3426,7 +3430,7 @@ final class FuluCookingCheck extends ActionCheck {
     }
 
     private static String potteryOutput(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("chengpinid");
+        return stack.getOrDefault(CraftData.POTTERY_PRODUCT.get(), "");
     }
 
     private static int craftFollowupCount(ServerPlayer player, String id) {

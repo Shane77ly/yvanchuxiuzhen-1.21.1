@@ -4,20 +4,22 @@ import com.google.gson.JsonObject;
 import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import net.minecraft.core.component.DataComponents;
+import java.util.Optional;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
@@ -31,26 +33,26 @@ final class CommerceValuation {
     private CommerceValuation() { }
 
     static double value(ServerLevel level, ItemStack stack, CompoundTag state) {
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         EconomyPrices prices = EconomyPrices.get(level);
         String id = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
         double unit = 0;
         double total = 0;
         int count = stack.getCount();
-        double money = data.getInt("money");
-        if (money < 1) money = Equipment.properties(stack).number("money");
+        double money = Equipment.properties(stack).number("money");
+        if (money < 1) money = stack.getOrDefault(CommerceData.MARKET_VALUE.get(), 0.0);
         if (money >= 1) {
             unit = money;
             total = count * unit;
         } else if (tag(stack, "book")) {
             int grade = Techniques.book(stack).map(book -> (int) book.definition().grade())
-                    .orElseGet(() -> Skills.book(stack).map(book -> (int) book.grade()).orElse(data.getInt("belongTopinjie")));
-            boolean technique = Techniques.book(stack).isPresent() || !data.getString("ExercisesName").isEmpty();
+                    .orElseGet(() -> Skills.book(stack).map(book -> (int) book.grade()).orElse(0));
+            boolean technique = Techniques.book(stack).isPresent();
+            Optional<LianqiBlueprint> blueprint = Lianqi.blueprint(stack);
             if (grade >= 1) {
                 unit = table("Gongfajiage", grade) * prices.multiplier("gongfajiage") * (technique ? 2 : 1);
                 total = count * unit;
-            } else if (data.getInt("item_level_num") >= 1) {
-                int blueprintLevel = data.getInt("item_level_num");
+            } else if (blueprint.isPresent() && blueprint.get().level() >= 1) {
+                int blueprintLevel = blueprint.get().level();
                 unit = 9 * Math.pow(4, Math.min(8, (blueprintLevel - 1) / 5)) * prices.multiplier("tuzhijiage");
                 // 来源重量过程把材料列表索引1的“attribute”交给数字解释器，所有匹配条目均加0。
                 total = count * unit;
@@ -80,7 +82,7 @@ final class CommerceValuation {
             total = count * unit;
         } else if (anyTag(stack, "headornaments", "necklaceornaments", "handornaments", "beltornaments")) {
             int accessoryLevel = Equipment.properties(stack).fields().containsKey("item_level_num")
-                    ? (int) Equipment.properties(stack).number("item_level_num") : data.getInt("item_level_num");
+                    ? (int) Equipment.properties(stack).number("item_level_num") : Equipment.refiningLevel(stack);
             if (accessoryLevel >= 1) {
                 unit = (accessoryLevel <= 40 ? table("accessories", accessoryLevel) : 98304)
                         * prices.multiplier("shipinjiage") * 2;
@@ -94,9 +96,7 @@ final class CommerceValuation {
             else if (tag(stack, "huoyan")) unit = fixedTier(id, 221, 229, 10) + fixedTier(id, 231, 239, 10);
             else {
                 MaterialInstance instance = Materials.instance(stack);
-                int materialLevel = data.contains("cailiaolevel") ? data.getInt("cailiaolevel") : instance.level();
-                int quality = data.contains("cailiaopinjie") ? data.getInt("cailiaopinjie") : instance.quality();
-                unit = table("Cailiaochushou", Math.max(1, materialLevel)) * (quality + 1) * prices.multiplier("cailiaojiage");
+                unit = table("Cailiaochushou", Math.max(1, instance.level())) * (instance.quality() + 1) * prices.multiplier("cailiaojiage");
             }
             total = count * unit;
         }

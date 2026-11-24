@@ -3,14 +3,12 @@ package net.yvanchuxiuzhen.system.dungeon;
 import java.util.Comparator;
 import java.util.List;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -125,7 +123,7 @@ public final class DungeonEntrances {
     }
 
     private static boolean pay(ServerPlayer player, ItemStack ticket) {
-        String identity = ticket.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("fubenitem");
+        String identity = ticket.getOrDefault(DungeonData.TICKET_ID.get(), "");
         IItemHandler inventory = player.getCapability(Capabilities.ItemHandler.ENTITY);
         int total = 0;
         if (inventory != null) {
@@ -150,7 +148,7 @@ public final class DungeonEntrances {
     }
 
     private static boolean matches(ItemStack stack, ItemStack ticket, String identity) {
-        return stack.is(ticket.getItem()) && (identity.isEmpty() || stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("fubenitem").equals(identity));
+        return stack.is(ticket.getItem()) && (identity.isEmpty() || stack.getOrDefault(DungeonData.TICKET_ID.get(), "").equals(identity));
     }
 
     static List<ServerPlayer> nearby(ServerPlayer leader, BlockPos pos, double radius) {

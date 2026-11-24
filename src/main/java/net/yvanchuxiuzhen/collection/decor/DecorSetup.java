@@ -60,6 +60,7 @@ public final class DecorSetup {
 
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
+        DecorData.register(modBus);
         HotOil.register(modBus);
         WaterCloud.register(modBus);
         OffsetBlockContent.register(modBus);

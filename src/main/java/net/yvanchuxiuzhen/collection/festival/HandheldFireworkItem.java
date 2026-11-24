@@ -3,9 +3,7 @@ package net.yvanchuxiuzhen.collection.festival;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,7 +13,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -43,7 +40,8 @@ public final class HandheldFireworkItem extends ContentItem {
             ItemStack stack = result.getObject();
             int count = stack.getCount();
             stack.setCount(1);
-            CustomData.update(DataComponents.CUSTOM_DATA, stack, data -> data.putBoolean("dianran", true));
+            HandheldFireworkState current = stack.getOrDefault(FestivalData.FIREWORK_STATE.get(), HandheldFireworkState.UNLIT);
+            stack.set(FestivalData.FIREWORK_STATE.get(), new HandheldFireworkState(true, current.ticks()));
             ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(this, count - 1));
             // 1.18.2 原生右键在创造模式恢复调用栈数量，分出的余量仍保留在背包或掉落物中。
             if (player.isCreative()) stack.setCount(count);
@@ -55,13 +53,15 @@ public final class HandheldFireworkItem extends ContentItem {
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean selected) {
         super.inventoryTick(stack, level, entity, slotId, selected);
         if (!(level instanceof ServerLevel serverLevel) || !sourceSelected(entity, slotId, selected)) return;
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        if (!data.getBoolean("dianran")) {
+        HandheldFireworkState state = stack.getOrDefault(FestivalData.FIREWORK_STATE.get(), HandheldFireworkState.UNLIT);
+        if (!state.lit()) {
             // 来源 getOrCreateTag 的空标签也参与同种物品的合栈身份比较。
-            if (!stack.has(DataComponents.CUSTOM_DATA)) stack.set(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+            if (!stack.has(FestivalData.FIREWORK_STATE.get())) {
+                stack.set(FestivalData.FIREWORK_STATE.get(), HandheldFireworkState.UNLIT);
+            }
             return;
         }
-        double tick = data.getDouble("tick") + 1;
+        double tick = state.ticks() + 1;
         if (kind == Kind.ELECTRIC) {
             BlockPos target = level.clip(new ClipContext(entity.getEyePosition(1),
                     entity.getEyePosition(1).add(entity.getViewVector(1).scale(5)),
@@ -72,8 +72,7 @@ public final class HandheldFireworkItem extends ContentItem {
             for (int index = 0; index < 5; index++) directedParticle(serverLevel, entity, "pao_0201");
         }
         boolean expired = tick >= (kind == Kind.SEQUENCE_COLOR ? 1200 : 600);
-        data.putDouble("tick", expired ? 0 : tick);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        stack.set(FestivalData.FIREWORK_STATE.get(), new HandheldFireworkState(true, expired ? 0 : tick));
         if (expired) stack.shrink(1);
         if (kind == Kind.RANDOM_COLOR) {
             directedParticle(serverLevel, entity, "pao_030" + randomColor());

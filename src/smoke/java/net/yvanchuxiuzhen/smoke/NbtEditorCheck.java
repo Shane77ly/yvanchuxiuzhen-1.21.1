@@ -6,7 +6,6 @@ import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.CompoundTag;
@@ -23,12 +22,12 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.collection.tiandao.NbtEditorBlockEntity;
+import net.yvanchuxiuzhen.collection.tiandao.NbtEditorData;
 import net.yvanchuxiuzhen.collection.tiandao.client.NbtEditorScreen;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 
@@ -93,8 +92,20 @@ final class NbtEditorCheck extends SystemCheck {
                 player.teleportTo(pos.getX() + .5, pos.getY() + 1, pos.getZ() + .5);
                 prepared = true;
             });
-            case 1 -> minecraft.gameMode.useItemOn(minecraft.player, InteractionHand.MAIN_HAND,
-                    new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false));
+            case 1 -> {
+                if (!minecraft.level.getBlockState(pos).is(BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", "tiandaoitemnbt")))
+                        || minecraft.player.distanceToSqr(Vec3.atCenterOf(pos)) > 16) {
+                    if (local > 200) {
+                        fail("客户端未同步天道NBT编辑器方块或传送位置");
+                        restore();
+                        finish();
+                        return true;
+                    }
+                    return false;
+                }
+                minecraft.gameMode.useItemOn(minecraft.player, InteractionHand.MAIN_HAND,
+                        new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false));
+            }
             case 18 -> send("power_Max", "12.5", 3);
             case 19 -> {
                 expect("装备根字段本人同步", 12.5, Equipment.properties(minecraft.player.containerMenu.getSlot(0).getItem()).number("power_Max"));
@@ -141,7 +152,7 @@ final class NbtEditorCheck extends SystemCheck {
     private List<EditBox> inputs() { return minecraft.screen.children().stream().filter(EditBox.class::isInstance).map(EditBox.class::cast).toList(); }
     private List<Checkbox> checks() { return minecraft.screen.children().stream().filter(Checkbox.class::isInstance).map(Checkbox.class::cast).toList(); }
     private List<Button> buttons() { return minecraft.screen.children().stream().filter(Button.class::isInstance).map(Button.class::cast).toList(); }
-    private static CompoundTag data(ItemStack stack) { return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag(); }
+    private static CompoundTag data(ItemStack stack) { return stack.getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag()).copy(); }
     private NbtEditorBlockEntity editor(ServerPlayer player) { return (NbtEditorBlockEntity) player.level().getBlockEntity(pos); }
 
     private void restore() {

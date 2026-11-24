@@ -31,6 +31,7 @@ public final class NbtEditorSetup {
     }
 
     public static void register(IEventBus modBus) {
+        NbtEditorData.register(modBus);
         BLOCK_ENTITIES.register(modBus);
         MENUS.register(modBus);
         modBus.addListener(NbtEditorSetup::capabilities);

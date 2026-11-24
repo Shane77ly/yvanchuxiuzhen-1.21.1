@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +20,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -48,21 +46,21 @@ final class RabbitCages {
         if (!level.isEmptyBlock(pos)) return;
         level.setBlock(pos, block(false).defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, facing), 3);
         ItemStack stack = context.getItemInHand();
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        CritterCageData cageData = stack.getOrDefault(DecorData.CRITTER_CAGE.get(), CritterCageData.EMPTY);
         Vec3 center = new Vec3(pos.getX() + .5, pos.getY() + .3, pos.getZ() + .5);
         if (stack.is(item(2))) {
-            int number = Math.max(1, data.getInt("rabbitnumber"));
+            int number = Math.max(1, cageData.rabbitCount());
             for (int index = 0; index < number; index++) {
                 spawn(level, new Rabbit(EntityType.RABBIT, level), center);
                 for (Entity entity : nearby(level, center, .5)) {
                     CompoundTag saved = new CompoundTag();
                     entity.saveWithoutId(saved);
-                    saved.putDouble("RabbitType", data.getInt("RabbitType"));
+                    saved.putDouble("RabbitType", cageData.rabbitVariant());
                     entity.load(saved);
                 }
             }
         } else if (stack.is(item(3))) {
-            int number = Math.max(1, data.getInt("chickennumber"));
+            int number = Math.max(1, cageData.chickenCount());
             for (int index = 0; index < number; index++) spawn(level, new Chicken(EntityType.CHICKEN, level), center);
         }
         stack.shrink(1);
@@ -97,16 +95,11 @@ final class RabbitCages {
             for (Entity entity : nearby(level, Vec3.atCenterOf(pos), .5)) {
                 if (entity instanceof Rabbit rabbit) {
                     result = new ItemStack(item(2));
-                    CompoundTag data = new CompoundTag();
-                    data.putInt("rabbitnumber", 1);
-                    data.putInt("RabbitType", rabbit.getVariant().id());
-                    result.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+                    result.set(DecorData.CRITTER_CAGE.get(), new CritterCageData(1, rabbit.getVariant().id(), 0));
                     rabbit.discard();
                 } else if (entity instanceof Chicken chicken) {
                     result = new ItemStack(item(3));
-                    CompoundTag data = new CompoundTag();
-                    data.putInt("chickennumber", 1);
-                    result.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+                    result.set(DecorData.CRITTER_CAGE.get(), new CritterCageData(0, 0, 1));
                     chicken.discard();
                 }
             }

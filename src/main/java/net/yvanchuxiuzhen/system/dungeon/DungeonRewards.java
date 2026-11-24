@@ -13,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.system.lianqi.api.BlueprintReward;
 import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
@@ -74,10 +73,6 @@ final class DungeonRewards {
             stack = new ItemStack(item);
             if (data.contains("cailiaolevel") || data.contains("cailiaopinjie")) Materials.setInstance(stack, data.getInt("cailiaolevel"), data.getInt("cailiaopinjie"));
         }
-        // 所有者已写入的根字段优先；其余来源字段随奖励保存，不反写类型化业务组件。
-        CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> {
-            for (String key : data.getAllKeys()) if (!tag.contains(key)) tag.put(key, data.get(key).copy());
-        });
         if (!fields[1].equals("无")) stack.set(DataComponents.CUSTOM_NAME, Component.literal(fields[1]));
         stack.setCount((int) number(fields[3]));
         return stack;

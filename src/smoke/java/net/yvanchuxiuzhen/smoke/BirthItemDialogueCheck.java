@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.smoke;
 
 import java.util.List;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -10,7 +9,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -18,6 +16,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
+import net.yvanchuxiuzhen.system.xiulian.api.BirthItems;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -50,7 +49,7 @@ final class BirthItemDialogueCheck extends SystemCheck {
                 p.setItemInHand(InteractionHand.MAIN_HAND, relic);
                 use(p, true);
                 expect("29 次潜行先走领取，不在本次启动", "", script(p));
-                expect("领取后同一灵物增至 30", 30, relic.get(DataComponents.CUSTOM_DATA).copyTag().getInt("yikaiqi"));
+                expect("领取后同一灵物增至 30", 30, (int) BirthItems.supplyCount(relic));
                 use(p, false);
                 expect("30 次但未潜行不启动", "", script(p));
                 use(p, true);
@@ -161,7 +160,7 @@ final class BirthItemDialogueCheck extends SystemCheck {
     }
 
     private static void setCount(ItemStack stack, double count) {
-        CustomData.update(DataComponents.CUSTOM_DATA, stack, data -> data.putDouble("yikaiqi", count));
+        BirthItems.setSupplyCount(stack, count);
     }
 
     private static ItemStack stack(String path) {

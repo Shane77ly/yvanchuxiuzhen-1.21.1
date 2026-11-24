@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.material.data;
 
+import com.mojang.serialization.Codec;
 import java.util.function.Supplier;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -18,6 +19,8 @@ public final class MaterialData {
 
     public static final Supplier<DataComponentType<MaterialInstance>> INSTANCE = COMPONENTS.registerComponentType("material_instance",
             builder -> builder.persistent(MaterialInstance.CODEC).networkSynchronized(MaterialInstance.STREAM_CODEC));
+    public static final Supplier<DataComponentType<Double>> FORTUNE_INDEX = COMPONENTS.registerComponentType("fortune_index",
+            builder -> builder.persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE));
     public static final Supplier<AttachmentType<MaterialAnalysis>> ANALYSIS = ATTACHMENTS.register("material_analysis", () -> AttachmentType
             .builder(() -> MaterialAnalysis.EMPTY)
             .serialize(MaterialAnalysis.CODEC)

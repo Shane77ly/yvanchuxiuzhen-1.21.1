@@ -1,8 +1,6 @@
 package net.yvanchuxiuzhen.system.world.content;
 
 import java.util.List;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,7 +11,6 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
@@ -21,6 +18,7 @@ import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.world.WorldSetup;
 import net.yvanchuxiuzhen.system.world.api.StructureSearch;
+import net.yvanchuxiuzhen.system.world.data.WorldData;
 import net.yvanchuxiuzhen.system.world.entity.GuidanceHalo;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.client.GeoRenderProvider;
@@ -61,16 +59,12 @@ public final class SpiritCompassItem extends ContentItem implements GeoItem {
         }
         ItemStack stack = result.getObject();
         if (ModifierKeys.alt(player)) {
-            CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-            data.putDouble("dangqianX", player.getX());
-            data.putDouble("dangqianY", player.getY());
-            data.putDouble("dangqianZ", player.getZ());
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+            stack.set(WorldData.COMPASS_ANCHOR.get(), new CompassAnchor(true, player.getX(), player.getY(), player.getZ()));
             owner.connection.teleport(0, 32, 0, player.getYRot(), player.getXRot());
         } else if (ModifierKeys.ctrl(player)) {
-            CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-            if (data.getDouble("dangqianX") + data.getDouble("dangqianY") + data.getDouble("dangqianZ") != 0) {
-                owner.connection.teleport(data.getDouble("dangqianX"), data.getDouble("dangqianY"), data.getDouble("dangqianZ"), player.getYRot(), player.getXRot());
+            CompassAnchor anchor = stack.getOrDefault(WorldData.COMPASS_ANCHOR.get(), CompassAnchor.EMPTY);
+            if (anchor.present() && anchor.x() + anchor.y() + anchor.z() != 0) {
+                owner.connection.teleport(anchor.x(), anchor.y(), anchor.z(), player.getYRot(), player.getXRot());
             } else {
                 owner.connection.teleport(-70, 63, -275, player.getYRot(), player.getXRot());
             }

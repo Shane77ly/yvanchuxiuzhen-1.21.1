@@ -20,6 +20,7 @@ import gzip
 import hashlib
 import struct
 from pathlib import Path
+from typing import Any
 
 from build_ledger import NAMESPACE, ROOT
 from convert_content import CONVERSION, SOURCES
@@ -28,6 +29,19 @@ DATA = ROOT / 'src/main/resources/data' / NAMESPACE / 'structure'
 MANIFEST = CONVERSION / 'structure_manifest.csv'
 OLD_PREFIXES = tuple(f'{mod}:'.encode() for mod in SOURCES if mod != NAMESPACE)
 FIXED_SIZES = {1: 1, 2: 2, 3: 4, 4: 8, 5: 4, 6: 8}
+TECHNIQUE_TIER_KEYS = (
+    'TechniqueHealth', 'TechniqueHeathRec', 'Techniquepower', 'TechniquepowerRec',
+    'TechniqueSoul', 'TechniqueSoulRec', 'TechniqueAttack', 'TechniqueAttackDef',
+    'TechniqueMana', 'TechniqueManaDef', 'TechniqueSouatt', 'TechniqueSouDef', 'TechniqueSpeed',
+)
+ELEMENT_KEYS = (('gold', 'ExercisesGold'), ('water', 'ExercisesWater'), ('tree', 'ExercisesTree'),
+                ('fire', 'ExercisesFire'), ('soil', 'ExercisesSoil'))
+SKILL_TEXT_KEYS = {'jinengneeditem', 'smanshiptype', 'smanshipID', 'flyskilltexiao'}
+SKILL_META_KEYS = {'jinengName', 'smanshipName', 'shenfaName', 'flyskillName',
+                   'belongTopinjie', 'belongTopinjietext', 'belongToLevel', 'belongToLeveltext',
+                   'belongTobody', 'belongTojianjie', 'belongToItemID'}
+CUSTOM_ITEM_MARKERS = {'bubianzhi', 'agenum', 'danyaoid', 'danyaoname', 'tuzhiname',
+                       'jinengName', 'ExercisesName', 'belongToMasterUUID', 'belongToName'}
 INHERITANCE_ID = f'{NAMESPACE}:chuancheng'
 INHERITANCE_HEADS = {name: index for index, name in enumerate((
     '风来神王', '炎君', '扫把星', '紫微帝君', '丹王', '八方剑魂',
@@ -55,6 +69,173 @@ def named_string(name: str, value: str) -> bytes:
     return bytes((8,)) + nbt_string(name) + nbt_string(value)
 
 
+def encode_payload(kind: int, value: Any) -> bytes:
+    if kind == 1:
+        return struct.pack('>b', int(value))
+    if kind == 3:
+        return struct.pack('>i', int(value))
+    if kind == 6:
+        return struct.pack('>d', float(value))
+    if kind == 8:
+        return nbt_string(str(value))
+    if kind == 9:
+        element_kind, elements = value
+        out = bytearray(struct.pack('>Bi', element_kind, len(elements)))
+        for item in elements:
+            out += encode_payload(element_kind, item)
+        return bytes(out)
+    if kind == 10:
+        out = bytearray()
+        for key, (child_kind, child_value) in value.items():
+            out.append(child_kind)
+            out += nbt_string(key)
+            out += encode_payload(child_kind, child_value)
+        out.append(0)
+        return bytes(out)
+    raise ValueError(f'不支持编码 NBT 标签类型 {kind}')
+
+
+def read_nbt_string(data: bytes, pos: int) -> tuple[str, int]:
+    length = struct.unpack_from('>H', data, pos)[0]
+    return data[pos + 2:pos + 2 + length].decode('utf-8', 'replace'), pos + 2 + length
+
+
+def parse_payload(kind: int, data: bytes, pos: int) -> tuple[Any, int]:
+    if kind in FIXED_SIZES:
+        fmt = {1: '>b', 2: '>h', 3: '>i', 4: '>q', 5: '>f', 6: '>d'}[kind]
+        return struct.unpack_from(fmt, data, pos)[0], pos + FIXED_SIZES[kind]
+    if kind in (7, 11, 12):
+        count = struct.unpack_from('>i', data, pos)[0]
+        width = {7: 1, 11: 4, 12: 8}[kind]
+        return None, pos + 4 + count * width
+    if kind == 8:
+        return read_nbt_string(data, pos)
+    if kind == 9:
+        element_kind = data[pos]
+        count = struct.unpack_from('>i', data, pos + 1)[0]
+        pos += 5
+        elements = []
+        for _ in range(count):
+            value, pos = parse_payload(element_kind, data, pos)
+            elements.append(value)
+        return (element_kind, elements), pos
+    if kind == 10:
+        entries: dict[str, tuple[int, Any]] = {}
+        while True:
+            child_kind = data[pos]
+            pos += 1
+            if child_kind == 0:
+                return entries, pos
+            name, pos = read_nbt_string(data, pos)
+            value, pos = parse_payload(child_kind, data, pos)
+            entries[name] = (child_kind, value)
+    raise ValueError(f'未知 NBT 标签类型 {kind}')
+
+
+def tag_str(tag: dict[str, tuple[int, Any]], key: str, default: str = '') -> str:
+    entry = tag.get(key)
+    return str(entry[1]) if entry and entry[0] == 8 else default
+
+
+def tag_num(tag: dict[str, tuple[int, Any]], key: str, default: float = 0.0) -> float:
+    entry = tag.get(key)
+    return float(entry[1]) if entry and entry[0] in (1, 2, 3, 4, 5, 6) else default
+
+
+def upgrade_item_tag(item_id: str, tag: dict[str, tuple[int, Any]]) -> dict[str, tuple[int, Any]] | None:
+    if not any(key in CUSTOM_ITEM_MARKERS for key in tag):
+        return None
+    components: dict[str, tuple[int, Any]] = {}
+    if 'Damage' in tag and int(tag_num(tag, 'Damage')) > 0:
+        components['minecraft:damage'] = (3, int(tag_num(tag, 'Damage')))
+    if 'RepairCost' in tag and int(tag_num(tag, 'RepairCost')) > 0:
+        components['minecraft:repair_cost'] = (3, int(tag_num(tag, 'RepairCost')))
+    display = tag.get('display')
+    if display and display[0] == 10 and 'Name' in display[1]:
+        components['minecraft:custom_name'] = (8, tag_str(display[1], 'Name'))
+
+    if 'bubianzhi' in tag:
+        components[f'{NAMESPACE}:equipment_properties'] = (10, {
+            'fields': (10, {
+                'bubianzhi': (10, {'kind': (8, 'STRING'), 'text': (8, tag_str(tag, 'bubianzhi')), 'number': (6, 0.0)}),
+            }),
+        })
+    if 'agenum' in tag:
+        components[f'{NAMESPACE}:wine'] = (10, {'age_years': (6, tag_num(tag, 'agenum'))})
+    if 'danyaoid' in tag or 'danyaoname' in tag:
+        count = int(tag_num(tag, 'shuliang'))
+        effects = []
+        for index in range(count):
+            effects.append({
+                'id': (8, tag_str(tag, f'danyaoxiaoguo{index}')),
+                'level': (3, int(tag_num(tag, f'danyaolevel{index}'))),
+                'duration': (3, int(tag_num(tag, f'danyaotick{index}'))),
+            })
+        components[f'{NAMESPACE}:medicine'] = (10, {
+            'output_item_id': (8, tag_str(tag, 'danyaoid')),
+            'name': (8, tag_str(tag, 'danyaoname')),
+            'description': (8, ''),
+            'doses': (3, int(tag_num(tag, 'danyaonum'))),
+            'treasure': (1, 1 if tag.get('danyaobaoxiang', (0, 0))[1] else 0),
+            'effects': (9, (10, effects)),
+        })
+    if 'tuzhiname' in tag:
+        ingredients = []
+        for slot in range(9):
+            prefix = f'cailiao0{slot}'
+            ingredients.append({
+                'id': (8, tag_str(tag, prefix)),
+                'name': (8, tag_str(tag, prefix + 'name')),
+                'count': (3, int(tag_num(tag, prefix + 'num'))),
+            })
+        components[f'{NAMESPACE}:lianqi_blueprint'] = (10, {
+            'name': (8, tag_str(tag, 'tuzhiname')),
+            'description': (8, tag_str(tag, 'tuzhishuoming')),
+            'item_id': (8, tag_str(tag, 'fabaoid')),
+            'item_description': (8, tag_str(tag, 'fabaoshuoming')),
+            'type': (8, tag_str(tag, 'fabaotype')),
+            'level_text': (8, tag_str(tag, 'item_level')),
+            'level': (3, int(tag_num(tag, 'item_level_num'))),
+            'source_carrier_id': (8, tag_str(tag, 'belongToItemID')),
+            'ingredients': (9, (10, ingredients)),
+        })
+    if 'jinengName' in tag:
+        numbers = {k: (6, tag_num(tag, k)) for k, (t, _) in tag.items()
+                   if k not in SKILL_META_KEYS and k not in {'Damage', 'RepairCost', 'display'} and t in (1, 2, 3, 4, 5, 6)}
+        texts = {k: (8, tag_str(tag, k)) for k in SKILL_TEXT_KEYS if k in tag}
+        components[f'{NAMESPACE}:skill'] = (10, {
+            'kind': (8, 'jineng'),
+            'name': (8, tag_str(tag, 'jinengName')),
+            'grade': (6, tag_num(tag, 'belongTopinjie')),
+            'level': (6, tag_num(tag, 'belongToLevel')),
+            'body': (8, tag_str(tag, 'belongTobody')),
+            'intro': (8, tag_str(tag, 'belongTojianjie')),
+            'numbers': (10, numbers),
+            'texts': (10, texts),
+        })
+    if 'ExercisesName' in tag:
+        elements = {target: (6, tag_num(tag, source)) for target, source in ELEMENT_KEYS}
+        tiers = [tag_str(tag, key) for key in TECHNIQUE_TIER_KEYS]
+        components[f'{NAMESPACE}:technique'] = (10, {
+            'item': (8, tag_str(tag, 'belongToItemID', item_id)),
+            'name': (8, tag_str(tag, 'ExercisesName')),
+            'grade_text': (8, tag_str(tag, 'belongTopinjietext')),
+            'grade': (6, tag_num(tag, 'belongTopinjie')),
+            'level_text': (8, tag_str(tag, 'belongToLeveltext')),
+            'level': (6, tag_num(tag, 'belongToLevel')),
+            'body': (8, tag_str(tag, 'belongTobody')),
+            'intro': (8, tag_str(tag, 'belongTojianjie')),
+            'elements': (10, elements),
+            'tiers': (9, (8, tiers)),
+        })
+    if ('belongToMasterUUID' in tag or 'belongToName' in tag) and 'ExercisesName' not in tag and 'jinengName' not in tag:
+        components[f'{NAMESPACE}:quiz_owner'] = (10, {
+            'owner_uuid': (8, tag_str(tag, 'belongToMasterUUID')),
+            'owner_name': (8, tag_str(tag, 'belongToName')),
+        })
+    return components
+
+
 class Rewriter:
     """按标签走一遍 NBT 字节流并改写字符串；记录调色板中的方块名。"""
 
@@ -70,6 +251,7 @@ class Rewriter:
         self.attribute_entries = 0
         self.attribute_modifiers = 0
         self.attribute_id_mappings = 0
+        self.upgraded_item_components = 0
         self.unmapped_attribute_ids: dict[str, int] = {}
 
     def copy(self, count: int) -> None:
@@ -140,6 +322,7 @@ class Rewriter:
             inheritance_fields: list[tuple[int, int, str]] = []
             attribute_fields: list[tuple[int, int]] = []
             edits: list[tuple[int, int, bytes]] = []
+            item_tag_span: tuple[int, int, int] | None = None
             modifier_name = ''
             modifier_name_span = (0, 0)
             while True:
@@ -157,6 +340,13 @@ class Rewriter:
                     if context == 'entity' and entity_id.partition(':')[0] in SOURCES:
                         for start, end in attribute_fields:
                             edits.append((start, end, self.attributes(start, end)))
+                    if entity_id and item_tag_span is not None:
+                        span_start, payload_start, span_end = item_tag_span
+                        parsed_tag, _ = parse_payload(10, bytes(self.out[payload_start:span_end]), 0)
+                        components = upgrade_item_tag(entity_id, parsed_tag)
+                        if components is not None:
+                            edits.append((span_start, span_end, bytes((10,)) + nbt_string('components') + encode_payload(10, components)))
+                            self.upgraded_item_components += 1
                     if context == 'attribute':
                         self.attribute_entries += 1
                     if context == 'modifier':
@@ -181,6 +371,7 @@ class Rewriter:
                     self.out += nbt_string(converted_name)
                 else:
                     self.copy(2 + length)
+                payload_start = len(self.out)
                 fields = inheritance_fields if key == 'nbt' and kind == 10 and name == 'ForgeData' else None
                 child_context = ''
                 if context == 'structure' and kind == 9 and name == 'entities':
@@ -203,8 +394,10 @@ class Rewriter:
                     value = None
                 else:
                     value = self.payload(kind, name, fields, child_context)
-                if (key == 'nbt' or context == 'entity') and kind == 8 and name == 'id':
+                if kind == 8 and name == 'id':
                     entity_id = value
+                if kind == 10 and name == 'tag':
+                    item_tag_span = (tag_start, payload_start, len(self.out))
                 if context == 'entity' and kind == 9 and name == 'Attributes':
                     attribute_fields.append((tag_start, len(self.out)))
                 if context == 'modifier' and name == 'UUID':
@@ -252,6 +445,7 @@ def main(argv: list[str] | None = None) -> None:
     attribute_entries = 0
     attribute_modifiers = 0
     attribute_id_mappings = 0
+    upgraded_item_components = 0
     unmapped_attribute_ids: dict[str, int] = {}
     targets: dict[str, str] = {}
     files = []
@@ -279,6 +473,7 @@ def main(argv: list[str] | None = None) -> None:
         attribute_entries += rewriter.attribute_entries
         attribute_modifiers += rewriter.attribute_modifiers
         attribute_id_mappings += rewriter.attribute_id_mappings
+        upgraded_item_components += rewriter.upgraded_item_components
         for identity, count in rewriter.unmapped_attribute_ids.items():
             unmapped_attribute_ids[identity] = unmapped_attribute_ids.get(identity, 0) + count
         remaining = rewritten.count(b'yvanchuxitong')
@@ -300,7 +495,8 @@ def main(argv: list[str] | None = None) -> None:
         writer.writerows(manifest)
     print('structures', generated, 'persistent_data_tags', persistent_data_tags, 'inheritance_fields', inheritance_fields,
           'attribute_entities', attribute_entities, 'attribute_entries', attribute_entries,
-          'attribute_modifiers', attribute_modifiers, 'attribute_id_mappings', attribute_id_mappings)
+          'attribute_modifiers', attribute_modifiers, 'attribute_id_mappings', attribute_id_mappings,
+          'upgraded_item_components', upgraded_item_components)
     if unmapped_attribute_ids:
         print('unmapped_attribute_ids', dict(sorted(unmapped_attribute_ids.items())))
 

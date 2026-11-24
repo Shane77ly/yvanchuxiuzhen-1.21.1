@@ -39,6 +39,7 @@ public final class NpcSetup {
         NpcCreatures.register(CONTENT);
         NpcUnderworldCreatures.register(CONTENT);
         CONTENT.register(modBus);
+        NpcData.register(modBus);
         QiankunBlockEntities.register(modBus);
         QiankunMenus.register(modBus);
         NpcManagementMenus.register(modBus);

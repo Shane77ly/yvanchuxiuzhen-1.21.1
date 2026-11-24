@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.craft;
 
 import java.util.Locale;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -15,7 +14,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -26,6 +24,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.craft.content.PotteryBlankBlockEntity;
 import net.yvanchuxiuzhen.system.craft.content.PotteryWheelBlockEntity;
 import net.yvanchuxiuzhen.system.craft.content.PotteryWheelMenu;
+import net.yvanchuxiuzhen.system.craft.data.CraftData;
 
 /** 陶轮制作、陶坯点火和计划刻烧制；蛊罐只按注册物品标识生成。 */
 public final class PotteryRuntime {
@@ -103,8 +102,7 @@ public final class PotteryRuntime {
         }
         if (count < cost) return;
         ItemStack blank = stack("taopiitem");
-        CustomData.update(DataComponents.CUSTOM_DATA, blank,
-                data -> data.putString("chengpinid", state.getString("chengpinid" + selected)));
+        blank.set(CraftData.POTTERY_PRODUCT.get(), state.getString("chengpinid" + selected));
         wheel.setItem(0, blank);
         player.getInventory().clearOrCountMatchingItems(material -> material.is(Items.CLAY_BALL), cost,
                 player.inventoryMenu.getCraftSlots());
@@ -139,8 +137,7 @@ public final class PotteryRuntime {
         state.putInt("firetick", progress);
         int required = blank.getLevel().canSeeSkyFromBelowWater(blank.getBlockPos().above()) ? 48 : 12;
         if (progress >= required) {
-            String output = blank.getItem(0).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag()
-                    .getString("chengpinid").toLowerCase(Locale.ENGLISH);
+            String output = blank.getItem(0).getOrDefault(CraftData.POTTERY_PRODUCT.get(), "").toLowerCase(Locale.ENGLISH);
             blank.setItem(0, new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(output))));
             state.putInt("firetick", 0);
             state.putBoolean("starfire", true);

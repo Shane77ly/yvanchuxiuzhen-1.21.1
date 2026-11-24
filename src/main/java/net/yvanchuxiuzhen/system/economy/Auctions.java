@@ -7,7 +7,6 @@ import java.util.Locale;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -18,7 +17,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -31,7 +29,10 @@ import net.yvanchuxiuzhen.system.economy.api.AuctionSeatRequestEvent;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
 import net.yvanchuxiuzhen.system.economy.content.CommerceMenu;
 import net.yvanchuxiuzhen.system.economy.content.EconomyBlockEntity;
+import net.yvanchuxiuzhen.system.economy.data.AuctionLots;
+import net.yvanchuxiuzhen.system.economy.data.AuctionTokenData;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
+import net.yvanchuxiuzhen.system.material.api.Materials;
 
 /** 拍卖令牌、座椅和来源20刻状态机；缺失商品或合格NPC时在启动前一次反馈。 */
 public final class Auctions {
@@ -39,27 +40,26 @@ public final class Auctions {
     private Auctions() { }
 
     public static void place(ServerPlayer player, ItemStack token, BlockPos clicked, Direction face) {
-        CompoundTag data = custom(token);
-        if (data.getString("paimaihanguuid").isEmpty()) {
+        AuctionTokenData data = tokenData(token);
+        if (data.auctionUuid().isEmpty()) {
             StringBuilder identity = new StringBuilder();
             for (int index = 0; index < 12; index++) identity.append("qwertyuiopasdfghjklmnbvcxz".charAt(player.getRandom().nextInt(26)));
-            data.putString("paimaihanguuid", identity.toString());
+            data = data.withUuid(identity.toString());
         }
         String clickedId = BuiltInRegistries.BLOCK.getKey(player.level().getBlockState(clicked).getBlock()).getPath();
         BlockPos target = clicked.above();
         if (!clickedId.equals("paimaiblock") && !clickedId.equals("paimaichair") && face == Direction.UP
-                && player.level().isEmptyBlock(target) && data.getInt("paimaifangzhi") < 11) {
-            int count = data.getInt("paimaifangzhi") + 1;
-            data.putInt("paimaifangzhi", count);
+                && player.level().isEmptyBlock(target) && data.placedCount() < 11) {
+            int count = data.placedCount() + 1;
+            data = data.addSeat(count, target);
             Block block = BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", count == 1 ? "paimaiblock" : "paimaichair"));
             player.level().setBlock(target, block.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING,
                     player.getDirection().getOpposite()), Block.UPDATE_ALL);
-            coordinates(data, count, target);
             if (count == 1 && player.level().getBlockEntity(target) instanceof EconomyBlockEntity controller) {
                 CompoundTag state = controller.state();
                 state.putInt("paimaifangzhi", 1);
                 state.putString("paimaihuiname", token.getDisplayName().getString());
-                state.putString("paimaihanguuid", data.getString("paimaihanguuid"));
+                state.putString("paimaihanguuid", data.auctionUuid());
                 state.putString("paimaimoshi", "大量npc");
                 state.putString("paimaidengji", "筑基期拍卖会");
                 state.putString("paimaihefaxing", "正规拍卖");
@@ -68,7 +68,7 @@ public final class Auctions {
                 message(player, "可以在其它位置放置座位", true);
             } else if (count > 1) {
                 seat(player, target, AuctionSeatRequestEvent.Operation.CREATE);
-                if (player.level().getBlockEntity(coordinates(data, 1)) instanceof EconomyBlockEntity controller) {
+                if (player.level().getBlockEntity(data.seat(1)) instanceof EconomyBlockEntity controller) {
                     coordinates(controller.state(), count, target);
                     controller.state().putInt("paimaifangzhi", count);
                     controller.changed();
@@ -76,45 +76,36 @@ public final class Auctions {
                 message(player, "已放置" + (count - 1) + "个座位", true);
             }
         }
-        token.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        token.set(CommerceData.AUCTION_TOKEN.get(), data);
         player.getCooldowns().addCooldown(token.getItem(), 10);
     }
 
     public static void interact(ServerPlayer player, EconomyBlockEntity controller) {
         ItemStack token = player.getMainHandItem();
         if (!isToken(token)) { EconomyMenus.open(player, controller.getBlockPos(), CommerceMenu.Kind.AUCTION_SETTINGS); return; }
-        CompoundTag data = custom(token);
-        if (!data.getString("paimaihanguuid").equals(controller.state().getString("paimaihanguuid"))) {
+        AuctionTokenData data = tokenData(token);
+        if (!data.auctionUuid().equals(controller.state().getString("paimaihanguuid"))) {
             message(player, "§4此令牌不是这个拍卖方块的令牌，无法收起拍卖方块", false);
         } else if (controller.state().getBoolean("tuoguan") && !player.isCreative()) {
             message(player, "§4必须要创造模式才可收起此拍卖行", false);
         } else {
-            for (int index = 2; index <= data.getInt("paimaifangzhi"); index++) {
-                BlockPos chair = coordinates(data, index);
+            for (int index = 2; index <= data.placedCount(); index++) {
+                BlockPos chair = data.seat(index);
                 player.level().setBlock(chair, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-                coordinates(data, index, BlockPos.ZERO);
                 seat(player, chair, AuctionSeatRequestEvent.Operation.REMOVE);
             }
-            data.putInt("paimaifangzhi", 0);
             player.level().setBlock(controller.getBlockPos(), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-            token.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+            token.set(CommerceData.AUCTION_TOKEN.get(), data.resetPlacements());
         }
     }
 
     public static void chair(ServerPlayer player, BlockPos pos) {
         ItemStack token = player.getMainHandItem();
         if (isToken(token)) {
-            CompoundTag data = custom(token);
-            int count = data.getInt("paimaifangzhi");
-            for (int index = 2; index < count + 2; index++) if (coordinates(data, index).equals(pos)) {
-                coordinates(data, index, coordinates(data, count));
-                coordinates(data, count, BlockPos.ZERO);
-                break;
-            }
+            AuctionTokenData data = tokenData(token);
             seat(player, pos, AuctionSeatRequestEvent.Operation.REMOVE);
-            data.putInt("paimaifangzhi", count - 1);
             player.level().setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-            token.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+            token.set(CommerceData.AUCTION_TOKEN.get(), data.removeChair(pos));
         } else {
             seat(player, pos, AuctionSeatRequestEvent.Operation.RIDE);
             EconomyMenus.open(player, pos, CommerceMenu.Kind.AUCTION);
@@ -263,7 +254,7 @@ public final class Auctions {
     private static void willingness(ServerLevel level, EconomyBlockEntity block) {
         CompoundTag state = block.state();
         ItemStack item = block.getItem(20);
-        CompoundTag goods = custom(item).getCompound("goodsitem" + state.getInt("commodityweizhi"));
+        AuctionLots.Entry goods = item.getOrDefault(CommerceData.AUCTION_LOTS.get(), AuctionLots.EMPTY).lot(state.getInt("commodityweizhi"));
         double base = 0, requiredLevel = 0, requiredQuality = 0, maximum = 0, minimum = 0;
         boolean proceed = false, existing = false;
         for (int index = 1; index <= state.getInt("paimainpcnumber"); index++) {
@@ -274,11 +265,11 @@ public final class Auctions {
                 ResourceLocation id = ResourceLocation.tryParse(tag);
                 if (id == null || !item.is(ItemTags.create(id))) continue;
                 base = need == 1 ? 15 : need == 2 ? 10 : 5;
-                proceed = !tag.equals(ModId.VALUE + ":book") || npc.getString("veryneed" + need + "type").equals(goods.getString("goodstype"));
+                proceed = !tag.equals(ModId.VALUE + ":book") || npc.getString("veryneed" + need + "type").equals(goods.type());
                 if (npc.getInt("veryneed" + need + "pinjie") >= 1) requiredQuality = npc.getInt("veryneed" + need + "pinjie");
                 requiredLevel = npc.getInt("veryneed" + need + "level");
-                maximum = goods.getInt("goodsstartingprice") * (need == 1 ? 6 : need == 2 ? 4 : 3);
-                minimum = goods.getInt("goodsstartingprice") * (need == 1 ? 4 : need == 2 ? 3 : 2);
+                maximum = goods.startingPrice() * (need == 1 ? 6 : need == 2 ? 4 : 3);
+                minimum = goods.startingPrice() * (need == 1 ? 4 : need == 2 ? 3 : 2);
                 break;
             }
             if (!proceed) continue;
@@ -291,9 +282,9 @@ public final class Auctions {
             if (state.getInt("jingjianpcnumber") < 1) for (int previous = 1; previous <= state.getInt("jingjianpcnumber"); previous++) if (bidders.getInt("npcweizhi" + previous) == index) { existing = true; break; }
             if (!existing) { state.putInt("jingjianpcnumber", state.getInt("jingjianpcnumber") + 1); bidders.putInt("npcweizhi" + state.getInt("jingjianpcnumber"), index); }
             if (!npc.getBoolean("tiaoxin") && Mth.nextInt(level.random, (int) minimum, (int) maximum) >= state.getInt("commoditymoney")) {
-                double willingness = base + goods.getInt("goodslevel") - requiredLevel - emotion / 5;
+                double willingness = base + goods.level() - requiredLevel - emotion / 5;
                 if (state.getInt("commodityupnumber") >= 1) willingness -= npc.getInt(state.getCompound("chujianpc").getString("npcweizhi" + state.getInt("commodityupnumber") + "uuid") + "like") / 5.0;
-                if (item.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "cailiao")))) willingness += (custom(item).getInt("cailiaopinjie") - requiredQuality) * 5;
+                if (item.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "cailiao")))) willingness += (Materials.instance(item).quality() - requiredQuality) * 5;
                 npc.putInt("yiyvan", (int) (willingness + npc.getInt("chujiaqvanzhong")));
             } else {
                 int roll = level.random.nextInt(10);
@@ -350,7 +341,7 @@ public final class Auctions {
 
     private static void seat(ServerPlayer player, BlockPos pos, AuctionSeatRequestEvent.Operation operation) { NeoForge.EVENT_BUS.post(new AuctionSeatRequestEvent(player.serverLevel(), player, pos, operation)); }
     private static boolean isToken(ItemStack item) { return BuiltInRegistries.ITEM.getKey(item.getItem()).toString().equals("yvanchuxiuzhen:ling_20"); }
-    private static CompoundTag custom(ItemStack item) { return item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag(); }
+    private static AuctionTokenData tokenData(ItemStack item) { return item.getOrDefault(CommerceData.AUCTION_TOKEN.get(), AuctionTokenData.EMPTY); }
     private static BlockPos coordinates(CompoundTag data, int index) { return new BlockPos(data.getInt("paiblockX" + index), data.getInt("paiblockY" + index), data.getInt("paiblockZ" + index)); }
     private static void coordinates(CompoundTag data, int index, BlockPos pos) { data.putInt("paiblockX" + index, pos.getX()); data.putInt("paiblockY" + index, pos.getY()); data.putInt("paiblockZ" + index, pos.getZ()); }
     private static void message(ServerPlayer player, String text, boolean actionbar) { player.displayClientMessage(Component.literal(text), actionbar); }
