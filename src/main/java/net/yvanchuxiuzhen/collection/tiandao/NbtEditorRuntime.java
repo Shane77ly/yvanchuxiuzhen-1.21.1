@@ -7,7 +7,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.item.component.Unbreakable;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
@@ -40,7 +39,7 @@ public final class NbtEditorRuntime {
         }
         ItemStack stack = slot.getItem();
         if (stack.isEmpty()) return;
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        CompoundTag data = stack.getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag()).copy();
         boolean written = true;
         if (type == 0) {
             if (content.equals("true")) data.putBoolean(name, true);
@@ -61,7 +60,7 @@ public final class NbtEditorRuntime {
             }
         }
         if (written) {
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+            stack.set(NbtEditorData.TAGS.get(), data.copy());
             nativeField(stack, name, data);
             Equipment.updateRootField(stack, name, data.get(name));
         }

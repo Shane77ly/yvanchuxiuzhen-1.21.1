@@ -30,6 +30,8 @@ import net.yvanchuxiuzhen.system.economy.content.EconomyBlockEntity;
 import net.yvanchuxiuzhen.system.town.TownRuntime;
 import net.yvanchuxiuzhen.system.town.client.TownBuildScreen;
 import net.yvanchuxiuzhen.system.town.content.TownBlockEntity;
+import net.yvanchuxiuzhen.system.town.data.TownBuildPlan;
+import net.yvanchuxiuzhen.system.town.data.TownData;
 
 /** Q69启动拒绝与Q70结构替换的针对性实机检查，使用可丢弃世界中的受控装置。 */
 final class ConstructionCheck extends SystemCheck {
@@ -111,7 +113,7 @@ final class ConstructionCheck extends SystemCheck {
                     player.level().setBlock(plan.below(), Blocks.STONE.defaultBlockState(), 3);
                     player.level().setBlock(plan, BuiltInRegistries.BLOCK.get(id("chengzhen_buildblock")).defaultBlockState(), 3);
                     TownBlockEntity next = (TownBlockEntity) player.level().getBlockEntity(plan);
-                    CompoundTag build = TownRuntime.centerScroll().get(DataComponents.CUSTOM_DATA).copyTag().getCompound("build_data");
+                    CompoundTag build = TownRuntime.centerScroll().getOrDefault(TownData.BUILD_PLAN.get(), TownBuildPlan.EMPTY).data();
                     build.putString("build_type", "工筑堂");
                     build.putString("build_direction", "坐北朝南");
                     next.getPersistentData().put("build_data", build);
@@ -126,6 +128,13 @@ final class ConstructionCheck extends SystemCheck {
                 });
             }
             case 10 -> {
+                if (minecraft.level.getBlockState(plan).is(Blocks.VOID_AIR) || minecraft.player.distanceToSqr(Vec3.atCenterOf(plan)) >= 16) {
+                    if (local > 200) {
+                        fail("受控工筑堂客户端区块或传送未同步");
+                        finish();
+                    }
+                    return false;
+                }
                 onServer(player -> {
                     expectTrue("受控工筑堂交互距离小于四格", player.distanceToSqr(Vec3.atCenterOf(plan)) < 16);
                     expectTrue("受控工筑堂服务端仍为规划核心", player.level().getBlockEntity(plan) instanceof TownBlockEntity town && town.getContainerSize() == 18);
@@ -147,7 +156,16 @@ final class ConstructionCheck extends SystemCheck {
                 minecraft.player.closeContainer();
             }
             case 13 -> onServer(this::prepareBuild03);
-            case 14 -> use(plan);
+            case 14 -> {
+                if (minecraft.level.getBlockState(plan).is(Blocks.VOID_AIR) || minecraft.player.distanceToSqr(Vec3.atCenterOf(plan)) >= 16) {
+                    if (local > 200) {
+                        fail("灰瓦民居客户端区块或传送未同步");
+                        finish();
+                    }
+                    return false;
+                }
+                use(plan);
+            }
             case 15 -> {
                 if (!waitScreen(local, minecraft.screen instanceof TownBuildScreen, "灰瓦民居物资页")) return false;
                 buildButton();
@@ -225,7 +243,7 @@ final class ConstructionCheck extends SystemCheck {
         player.level().setBlock(plan.below(), Blocks.STONE.defaultBlockState(), 3);
         player.level().setBlock(plan, BuiltInRegistries.BLOCK.get(id("chengzhen_buildblock")).defaultBlockState(), 3);
         TownBlockEntity next = (TownBlockEntity) player.level().getBlockEntity(plan);
-        CompoundTag build = TownRuntime.centerScroll().get(DataComponents.CUSTOM_DATA).copyTag().getCompound("build_data");
+        CompoundTag build = TownRuntime.centerScroll().getOrDefault(TownData.BUILD_PLAN.get(), TownBuildPlan.EMPTY).data();
         build.putString("build_type", "灰瓦民居");
         build.putString("build_direction", "坐南朝北");
         build.putInt("construction_need_log", 6);
@@ -282,7 +300,7 @@ final class ConstructionCheck extends SystemCheck {
     }
 
     private List<ItemEntity> fixtureDrops(ServerPlayer player, BlockPos target) {
-        return player.level().getEntitiesOfClass(ItemEntity.class, new AABB(target).inflate(6), entity -> entity.getItem().getHoverName().getString().startsWith("r13-town-"));
+        return player.level().getEntitiesOfClass(ItemEntity.class, new AABB(target).inflate(16), entity -> entity.getItem().getHoverName().getString().startsWith("r13-town-"));
     }
 
     private void freezeDrops(EntityJoinLevelEvent event) {

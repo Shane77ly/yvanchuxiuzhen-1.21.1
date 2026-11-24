@@ -16,7 +16,6 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -53,17 +52,15 @@ public final class InscribedDecor {
             block.syncText();
         } else if (block.variant().memorial() && player.isShiftKeyDown()) {
             ItemStack item = new ItemStack(BuiltInRegistries.ITEM.get(id(block.variant().itemId())));
-            if (!data.getString("plaquetxt").isEmpty()) {
-                item.set(DataComponents.CUSTOM_NAME, Component.literal(data.getString("plaquetxt")));
-                CompoundTag saved = new CompoundTag();
-                saved.putString("plaquetxt", data.getString("plaquetxt"));
-                saved.putString("fangxiang", data.getString("fangxiang"));
-                saved.putInt("zishu", data.getInt("zishu"));
-                for (int index = 0; index < data.getInt("zishu"); index++) {
-                    saved.putString("zidi" + index, data.getString("zidi" + index));
-                    saved.putDouble("ziweizhi" + index, data.getDouble("ziweizhi" + index));
+            String plaqueText = data.getString("plaquetxt");
+            if (!plaqueText.isEmpty()) {
+                item.set(DataComponents.CUSTOM_NAME, Component.literal(plaqueText));
+                int count = data.getInt("zishu");
+                java.util.List<PlaqueInscription.Glyph> glyphs = new java.util.ArrayList<>(count);
+                for (int index = 0; index < count; index++) {
+                    glyphs.add(new PlaqueInscription.Glyph(data.getString("zidi" + index), data.getDouble("ziweizhi" + index)));
                 }
-                item.set(DataComponents.CUSTOM_DATA, CustomData.of(saved));
+                item.set(DecorData.PLAQUE_INSCRIPTION.get(), new PlaqueInscription(plaqueText, data.getString("fangxiang"), glyphs));
             }
             ItemHandlerHelper.giveItemToPlayer(player, item);
             block.getLevel().setBlock(block.getBlockPos(), Blocks.AIR.defaultBlockState(), 3);

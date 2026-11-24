@@ -16,6 +16,7 @@ import net.yvanchuxiuzhen.system.world.content.RiftBlock;
 import net.yvanchuxiuzhen.system.world.content.RiftItem;
 import net.yvanchuxiuzhen.system.world.content.SpiritCompassItem;
 import net.yvanchuxiuzhen.system.world.content.WorldBlockEntities;
+import net.yvanchuxiuzhen.system.world.data.WorldData;
 import net.yvanchuxiuzhen.system.world.entity.GuidanceHalo;
 import net.yvanchuxiuzhen.system.world.fluid.QuicksandFluids;
 import net.yvanchuxiuzhen.system.world.fluid.SpringFluids;
@@ -53,6 +54,7 @@ public final class WorldSetup {
 
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
+        WorldData.register(modBus);
         DimensionPortalTypes.register(modBus);
         WorldBlockEntities.register(modBus);
         modBus.addListener((RegisterSpawnPlacementsEvent event) -> event.register(EntityType.BEE,

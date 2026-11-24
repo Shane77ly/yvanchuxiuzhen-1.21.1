@@ -24,6 +24,7 @@ import net.yvanchuxiuzhen.system.xiulian.content.XiulianBlockEntities;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianFluids;
 import net.yvanchuxiuzhen.system.xiulian.content.XiulianMenus;
 import net.yvanchuxiuzhen.system.xiulian.data.XiulianAttachments;
+import net.yvanchuxiuzhen.system.xiulian.data.XiulianData;
 import net.yvanchuxiuzhen.system.xiulian.network.XiulianButtonPayload;
 import net.yvanchuxiuzhen.system.xiulian.tribulation.Tribulations;
 
@@ -53,6 +54,7 @@ public final class XiulianSetup {
         XiulianFluids.register(modBus);
         XiulianBlockEntities.register(modBus);
         XiulianAttachments.register(modBus);
+        XiulianData.register(modBus);
         XiulianMenus.register(modBus);
         XiulianRules.register();
         modBus.addListener(XiulianSetup::registerPayloads);

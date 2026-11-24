@@ -1,16 +1,16 @@
 package net.yvanchuxiuzhen.system.xiulian;
 
 import java.util.Optional;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.world.api.WorldStructures;
+import net.yvanchuxiuzhen.system.xiulian.api.BirthItems;
+import net.yvanchuxiuzhen.system.xiulian.api.SpiritDiscData;
 
 /** 灵盘右键时读取世界传送阵坐标，绘制气流并按来源状态提示方向。 */
 public final class Ling11Guidance {
@@ -45,11 +45,11 @@ public final class Ling11Guidance {
             offset += negativeDirection ? -0.5 : 0.5;
         }
 
-        String state = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("zhuangtai");
-        if (state.isEmpty()) {
+        SpiritDiscData disc = BirthItems.spiritDisc(stack);
+        if (disc.state().isEmpty()) {
             message(player, "好像有一道气流在指引我。");
-            CustomData.update(DataComponents.CUSTOM_DATA, stack, data -> data.putString("zhuangtai", "追踪"));
-        } else if (state.equals("追踪")) {
+            BirthItems.setSpiritDisc(stack, disc.withState("追踪"));
+        } else if (disc.state().equals("追踪")) {
             giveDirectionHint(player, target);
         }
     }

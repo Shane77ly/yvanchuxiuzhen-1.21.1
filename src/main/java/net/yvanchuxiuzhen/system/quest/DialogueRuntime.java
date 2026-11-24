@@ -22,7 +22,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.AABB;
@@ -53,6 +52,7 @@ import net.yvanchuxiuzhen.system.skill.api.SkillElement;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.world.api.StructureSearch;
+import net.yvanchuxiuzhen.system.xiulian.api.BirthItems;
 
 /** 来源普通对话的顺序执行器；会话、任务目录和剧情扩展数据均由服务端维护。 */
 public final class DialogueRuntime {
@@ -76,7 +76,7 @@ public final class DialogueRuntime {
         if (itemId.equals(ASCENSION_TOKEN)) {
             DialogueActions.request(player, ASCENSION_SCRIPT);
         } else if (player.isShiftKeyDown() && itemId.equals(INHERITANCE_RELIC)
-                && stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("yikaiqi") == 30) {
+                && (int) BirthItems.supplyCount(stack) == 30) {
             DialogueActions.request(player, INHERITANCE_SCRIPT);
         }
     }
@@ -360,8 +360,11 @@ public final class DialogueRuntime {
             }
             if (!data.isEmpty()) {
                 stack = attachQuestBook(kind, stack, data);
-                if (!stack.has(DataComponents.CUSTOM_DATA) && Techniques.book(stack).isEmpty() && Skills.book(stack).isEmpty()) {
-                    stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+                if (data.contains("cailiaolevel") || data.contains("cailiaopinjie")) {
+                    Materials.setInstance(stack, data.getInt("cailiaolevel"), data.getInt("cailiaopinjie"));
+                }
+                if (data.contains("yikaiqi") || data.contains("geiyvcishu")) {
+                    BirthItems.setSupplyCount(stack, data.contains("yikaiqi") ? data.getDouble("yikaiqi") : data.getDouble("geiyvcishu"));
                 }
             }
             ItemHandlerHelper.giveItemToPlayer(player, stack);
@@ -407,9 +410,8 @@ public final class DialogueRuntime {
         return count;
     }
 
-    /** 兼容普通自定义数据、材料组件等级（Q276）与饰品命令属性组件（Q253）。 */
+    /** 读取材料组件等级（Q276）、饰品命令属性组件（Q253）与出生补给计数。 */
     private static boolean matchesFields(ItemStack stack, String[] action, int startField) {
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         EquipmentProperties properties = Equipment.properties(stack);
         MaterialInstance material = Materials.instance(stack);
         for (int field = startField; field + 2 < action.length; field += 3) {
@@ -417,9 +419,9 @@ public final class DialogueRuntime {
             String kind = action[field + 1];
             String value = action[field + 2];
             boolean matched = switch (kind) {
-                case "char", "str" -> fieldText(data, properties, key).equals(value);
-                case "logic" -> fieldLogic(data, properties, key) == value.equals("真");
-                case "int", "double" -> fieldNumber(data, properties, material, key) == number(value);
+                case "char", "str" -> properties.text(key).equals(value);
+                case "logic" -> properties.fields().containsKey(key) && properties.number(key) != 0 == value.equals("真");
+                case "int", "double" -> fieldNumber(stack, properties, material, key) == number(value);
                 default -> false;
             };
             if (!matched) return false;
@@ -427,19 +429,13 @@ public final class DialogueRuntime {
         return true;
     }
 
-    private static String fieldText(CompoundTag data, EquipmentProperties properties, String key) {
-        if (data.contains(key)) return data.getString(key);
-        return properties.text(key);
-    }
-
-    private static boolean fieldLogic(CompoundTag data, EquipmentProperties properties, String key) {
-        if (data.contains(key)) return data.getBoolean(key);
-        return properties.fields().containsKey(key) && properties.number(key) != 0;
-    }
-
-    private static double fieldNumber(CompoundTag data, EquipmentProperties properties, MaterialInstance material, String key) {
-        if (data.contains(key)) return data.getDouble(key);
+    private static double fieldNumber(ItemStack stack, EquipmentProperties properties, MaterialInstance material, String key) {
+        if (key.equals("yikaiqi") || key.equals("geiyvcishu")) {
+            double count = BirthItems.supplyCount(stack);
+            if (count > 0) return count;
+        }
         if (key.equals("cailiaolevel") && !material.equals(MaterialInstance.EMPTY)) return material.level();
+        if (key.equals("cailiaopinjie") && !material.equals(MaterialInstance.EMPTY)) return material.quality();
         if (properties.fields().containsKey(key)) return properties.number(key);
         return 0;
     }

@@ -26,7 +26,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -34,6 +33,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.collection.tiandao.NbtEditorData;
 import net.yvanchuxiuzhen.panel.PanelNavigation;
 import net.yvanchuxiuzhen.panel.PlayerPanelMenu;
 import net.yvanchuxiuzhen.panel.client.AttributeScreen;
@@ -72,7 +72,9 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationExperienceEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import net.yvanchuxiuzhen.system.yihuo.FireBlockEntity;
+import net.yvanchuxiuzhen.system.yihuo.api.DanFireData;
 import net.yvanchuxiuzhen.system.yihuo.api.FireHeatEvent;
+import net.yvanchuxiuzhen.system.yihuo.api.Yihuo;
 
 /** 自然研习与藏宝、装配与选择、丹火与格挡，以及装配页死亡、关闭和打开期间退出重登的真实客户端链。 */
 final class SkillUiCheck extends SystemCheck {
@@ -128,6 +130,7 @@ final class SkillUiCheck extends SystemCheck {
     private boolean unitHeat = true;
     private boolean treasureValid;
     private boolean waitingSavedLoadout;
+    private boolean wantSneak;
     private String treasureResult;
     private final Consumer<FireHeatEvent> fireHeat = event -> {
         if (event.level() == fireLevel && event.pos().equals(firePos.above())) {
@@ -182,29 +185,32 @@ final class SkillUiCheck extends SystemCheck {
                     for (int i = 1; i <= 9; i++) p.getInventory().add(item("skill_arrow_%02d".formatted(i)));
                     p.inventoryMenu.broadcastChanges();
                 }),
-                new Action(8, p -> sneak(true)),
-                new Action(8, p -> useBook(0)),
+                new Action(8, p -> { sneak(true); p.setShiftKeyDown(true); }),
+                new Action(8, p -> { p.setShiftKeyDown(true); useBook(0); }),
                 new Action(8, p -> {
                     expectTrue("自然潜行右键在境界不足时不绑定、不消耗整栈且不清答题计数", Skills.book(p.getMainHandItem()).orElseThrow().owner().isEmpty()
                             && p.getMainHandItem().getCount() == 2 && p.getPersistentData().getDouble("daduishuliang") == 5 && inventorySynced(p));
                     Cultivation.set(p, CultivationValue.LEVEL_NUMBER, 11);
+                    p.setShiftKeyDown(true);
                     useBook(0);
                 }),
                 new Action(8, p -> {
                     expectTrue("自然潜行研习整栈绑定并清答题计数，客户端收到书组件", Skills.book(p.getMainHandItem()).orElseThrow().ownedBy(p.getUUID())
                             && p.getMainHandItem().getCount() == 2 && p.getPersistentData().getDouble("daduishuliang") == 0 && inventorySynced(p));
                     p.getPersistentData().putDouble("daduishuliang", 7);
+                    p.setShiftKeyDown(true);
                     useBook(0);
                 }),
                 new Action(8, p -> {
                     expectTrue("本人重复自然研习保留答题计数与整栈", p.getPersistentData().getDouble("daduishuliang") == 7
                             && p.getMainHandItem().getCount() == 2 && inventorySynced(p));
+                    p.setShiftKeyDown(true);
                     useBook(1);
                 }),
-                new Action(8, p -> useBook(2)),
-                new Action(8, p -> useBook(3)),
-                new Action(8, p -> useBook(4)),
-                new Action(8, p -> useBook(5)),
+                new Action(8, p -> { p.setShiftKeyDown(true); useBook(2); }),
+                new Action(8, p -> { p.setShiftKeyDown(true); useBook(3); }),
+                new Action(8, p -> { p.setShiftKeyDown(true); useBook(4); }),
+                new Action(8, p -> { p.setShiftKeyDown(true); useBook(5); }),
                 new Action(8, p -> {
                     boolean owned = true;
                     for (int slot = 0; slot < 5; slot++) {
@@ -217,6 +223,7 @@ final class SkillUiCheck extends SystemCheck {
                             && Techniques.book(studiedTechnique).orElseThrow().ownedBy(p.getUUID())
                             && p.getPersistentData().getDouble("daduishuliang") == 0);
                     sneak(false);
+                    p.setShiftKeyDown(false);
                 }),
                 new Action(8, p -> {
                     key("guicaidan", true);
@@ -427,20 +434,17 @@ final class SkillUiCheck extends SystemCheck {
                 new Action(8, p -> click("召唤丹火")),
                 new Action(8, p -> {
                     ItemStack fire = p.getInventory().items.stream().filter(s -> s.is(item("danhuo").getItem())).findFirst().orElseThrow();
+                    DanFireData fireData = Yihuo.danFire(fire);
                     expectTrue("丹火按钮扣费并给出本人和火力数据" + " 实际灵力=" + Cultivation.get(p, CultivationValue.POWER)
-                                    + "，数量=" + fire.getCount() + "，物品数据=" + fire.get(DataComponents.CUSTOM_DATA).copyTag(), Cultivation.get(p, CultivationValue.POWER) == 178
+                                    + "，数量=" + fire.getCount() + "，物品数据=" + fireData, Cultivation.get(p, CultivationValue.POWER) == 178
                             && fire.getCount() == 1 && fire.getMaxStackSize() == 1 && inventorySynced(p)
-                            && fire.get(DataComponents.CUSTOM_DATA).copyTag().getDouble("power") == 22
-                            && fire.get(DataComponents.CUSTOM_DATA).copyTag().getString("ManaAttackUUID").equals(p.getStringUUID()) && !(p.containerMenu instanceof SkillMenu));
+                            && fireData.power() == 22
+                            && fireData.ownerUuid().equals(p.getStringUUID()) && !(p.containerMenu instanceof SkillMenu));
                     fireSelectedSlot = p.getInventory().selected;
                     p.getInventory().removeItemNoUpdate(p.getInventory().items.indexOf(fire));
                     for (int slot = 4; slot <= 7; slot++) fireHotbar.add(p.getInventory().getItem(slot).copy());
                     p.getInventory().setItem(4, fire);
-                    ItemStack foreign = fire.copy();
-                    CompoundTag tags = foreign.get(DataComponents.CUSTOM_DATA).copyTag();
-                    tags.putString("ManaAttackUUID", "00000000-0000-0000-0000-000000000003");
-                    tags.putDouble("power", 7);
-                    foreign.set(DataComponents.CUSTOM_DATA, CustomData.of(tags));
+                    ItemStack foreign = Yihuo.createDanFire("00000000-0000-0000-0000-000000000003", 7);
                     p.getInventory().setItem(5, foreign);
                     p.getInventory().setItem(6, fire.copy());
                     p.getInventory().setItem(7, fire.copy());
@@ -537,6 +541,7 @@ final class SkillUiCheck extends SystemCheck {
                     clearFireScene(p);
                     treasureHotbar = p.getInventory().getItem(8).copy();
                     treasureSelectedSlot = p.getInventory().selected;
+                    p.setGameMode(GameType.SURVIVAL);
                     stageTreasure(p, "技能书", 0);
                 }),
                 new Action(8, p -> useBook(8)),
@@ -568,6 +573,7 @@ final class SkillUiCheck extends SystemCheck {
                     expectTrue("藏宝自然右键各消费一本，技能零级无奖励、一级只新增一本未绑定书、功法一级只新增一本未研习功法 实际总量/未绑定技能/未研习功法变化："
                                     + treasureResult + "；功法一级=" + Arrays.toString(delta) + "，余量=" + left + "，同步=" + synced,
                             treasureValid && left == 1 && Arrays.equals(delta, new int[]{0, 0, 1}) && synced);
+                    p.setGameMode(gameMode);
                     p.getInventory().setItem(8, treasureHotbar);
                     p.getInventory().selected = treasureSelectedSlot;
                     p.getInventory().setChanged();
@@ -847,9 +853,9 @@ final class SkillUiCheck extends SystemCheck {
         List<ItemStack> sources = List.of(studiedTechnique, learned.get(1), learned.get(2), learned.get(0), learned.get(4), learned.get(0), learned.get(4), learned.get(3));
         for (int slot = 0; slot < sources.size(); slot++) {
             ItemStack stack = sources.get(slot).copyWithCount(1);
-            CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+            CompoundTag data = stack.getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag()).copy();
             data.putString("smoke_loadout_lifecycle", stage + ":" + slot);
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+            stack.set(NbtEditorData.TAGS.get(), data);
             lifecycleBooks.add(stack.copy());
             player.getInventory().setItem(slot, stack);
         }
@@ -906,7 +912,7 @@ final class SkillUiCheck extends SystemCheck {
     }
 
     private static boolean lifecycleItem(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().contains("smoke_loadout_lifecycle");
+        return stack.getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag()).contains("smoke_loadout_lifecycle");
     }
 
     private static ItemStack item(String id) {
@@ -921,6 +927,7 @@ final class SkillUiCheck extends SystemCheck {
     }
 
     private void sneak(boolean down) {
+        wantSneak = down;
         minecraft.execute(() -> {
             if (minecraft.options.keyShift.isDown() != down) {
                 minecraft.options.keyShift.setDown(down || minecraft.options.toggleCrouch().get());
@@ -930,6 +937,10 @@ final class SkillUiCheck extends SystemCheck {
 
     private void useBook(int hotbar) {
         minecraft.execute(() -> {
+            if (wantSneak) {
+                minecraft.options.keyShift.setDown(true);
+                minecraft.player.setShiftKeyDown(true);
+            }
             minecraft.player.getInventory().selected = hotbar;
             minecraft.gameMode.useItem(minecraft.player, InteractionHand.MAIN_HAND);
         });
@@ -1015,9 +1026,9 @@ final class SkillUiCheck extends SystemCheck {
 
     private ItemStack markedPageBook(int page) {
         ItemStack stack = learned.get(4).copyWithCount(2);
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        CompoundTag data = stack.getOrDefault(NbtEditorData.TAGS.get(), new CompoundTag()).copy();
         data.putString("smoke_skill_page", Integer.toString(page));
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        stack.set(NbtEditorData.TAGS.get(), data);
         return stack;
     }
 

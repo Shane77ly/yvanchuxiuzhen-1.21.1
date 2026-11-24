@@ -29,7 +29,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
@@ -47,9 +46,11 @@ import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.world.WorldSetup;
+import net.yvanchuxiuzhen.system.world.content.CompassAnchor;
 import net.yvanchuxiuzhen.system.world.content.RiftBlockEntity;
 import net.yvanchuxiuzhen.system.world.content.RiftItem;
 import net.yvanchuxiuzhen.system.world.content.SpiritCompassItem;
+import net.yvanchuxiuzhen.system.world.data.WorldData;
 import net.yvanchuxiuzhen.system.world.entity.GuidanceHalo;
 
 /** 在独立冒烟存档内，以真实玩家主手验证遗迹搜索、裂隙计划刻、指引和保存重进。 */
@@ -85,7 +86,7 @@ final class WorldExplorationCheck extends SystemCheck {
     private String originalProgress;
     private String stagedProgress;
     private String persistedProgress;
-    private CompoundTag persistedCompass;
+    private CompassAnchor persistedCompass;
     private StructureTemplate previousBoat;
     private Vec3i boatSize;
     private AABB boatArea;
@@ -203,14 +204,14 @@ final class WorldExplorationCheck extends SystemCheck {
                     ModifierKeys.update(player, true, true);
                     use(player);
                     expect("Alt与Ctrl同时按住时优先Alt", new Vec3(0, 32, 0), player.position());
-                    persistedCompass = custom(player.getMainHandItem());
-                    expectTrue("Alt把精确回程坐标写入实际手持栈", persistedCompass.getDouble("dangqianX") == STAND.x
-                            && persistedCompass.getDouble("dangqianY") == STAND.y && persistedCompass.getDouble("dangqianZ") == STAND.z);
+                    persistedCompass = anchor(player.getMainHandItem());
+                    expectTrue("Alt把精确回程坐标写入实际手持栈", persistedCompass.present() && persistedCompass.x() == STAND.x
+                            && persistedCompass.y() == STAND.y && persistedCompass.z() == STAND.z);
                     expectTrue("Alt不添加普通冷却", !player.getCooldowns().isOnCooldown(compass()));
                     ModifierKeys.update(player, true, false);
                     use(player);
                     expect("Ctrl从同一物品实例返回保存坐标", STAND, player.position());
-                    expect("Ctrl保留回程记录", persistedCompass, custom(player.getMainHandItem()));
+                    expect("Ctrl保留回程记录", persistedCompass, anchor(player.getMainHandItem()));
                     expectTrue("寻灵盘不消耗数量或耐久", player.getMainHandItem().getCount() == 1 && player.getMainHandItem().getDamageValue() == 0);
                     ModifierKeys.update(player, false, false);
                     persistedProgress = progress(player.server);
@@ -228,7 +229,7 @@ final class WorldExplorationCheck extends SystemCheck {
             case 7 -> {
                 onServer(player -> {
                     expect("正常保存重进保留全服遗迹进度", persistedProgress, progress(player.server));
-                    expect("正常保存重进保留寻灵盘实例回程", persistedCompass, custom(player.getInventory().getItem(0)));
+                    expect("正常保存重进保留寻灵盘实例回程", persistedCompass, anchor(player.getInventory().getItem(0)));
                     cleanup(player);
                 });
                 finish();
@@ -421,7 +422,7 @@ final class WorldExplorationCheck extends SystemCheck {
     private static RiftBlockEntity rift(ServerLevel level) {
         return level.getBlockEntity(RIFT) instanceof RiftBlockEntity block ? block : null;
     }
-    private static CompoundTag custom(ItemStack stack) { return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag(); }
+    private static CompassAnchor anchor(ItemStack stack) { return stack.getOrDefault(WorldData.COMPASS_ANCHOR.get(), CompassAnchor.EMPTY); }
     private static Item compass() { return item("ling_14item"); }
     private static Item item(String path) { return BuiltInRegistries.ITEM.get(id(path)); }
     private static Block block(String path) { return BuiltInRegistries.BLOCK.get(id(path)); }

@@ -8,12 +8,10 @@ import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -25,6 +23,7 @@ import net.yvanchuxiuzhen.system.economy.api.BankAccounts;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
 import net.yvanchuxiuzhen.system.economy.content.CommerceMenu;
 import net.yvanchuxiuzhen.system.economy.content.EconomyBlockEntity;
+import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 
 /** 玩家商铺的货物、三项物物交换、账户付款、收益和来源按次限购。 */
 public final class ShopTrading {
@@ -190,7 +189,7 @@ public final class ShopTrading {
         player.containerMenu.broadcastChanges();
     }
 
-    private static String currency(ItemStack stack) { return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("huobi"); }
+    private static String currency(ItemStack stack) { return stack.getOrDefault(CommerceData.CURRENCY.get(), ""); }
     private static void explain(ServerPlayer player) {
         try (var stream = ShopTrading.class.getResourceAsStream("/economy/shop_explanation.json"); var reader = new InputStreamReader(stream, StandardCharsets.UTF_8)) {
             for (var line : JsonParser.parseReader(reader).getAsJsonArray()) message(player, line.getAsString());

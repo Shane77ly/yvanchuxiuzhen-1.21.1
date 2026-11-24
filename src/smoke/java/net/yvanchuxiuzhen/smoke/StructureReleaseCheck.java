@@ -114,6 +114,7 @@ final class StructureReleaseCheck extends SystemCheck {
             }
             case 3 -> {
                 if (!elapsed(15, local)) return false;
+                if (messages.stream().noneMatch(text -> text.contains("解锁结构冰封巨骨")) && local <= 200) return false;
                 expectTrue("找不到玩家的中文提示", messages.stream().anyMatch(text -> text.contains("未找到名为")));
                 expectTrue("来源解锁中文提示含实际结构名", messages.stream().anyMatch(text -> text.contains("解锁结构冰封巨骨")));
                 onServer(player -> {

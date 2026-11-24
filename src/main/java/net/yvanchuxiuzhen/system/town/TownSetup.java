@@ -8,6 +8,7 @@ import net.yvanchuxiuzhen.system.town.content.TownBlock;
 import net.yvanchuxiuzhen.system.town.content.TownBlockEntities;
 import net.yvanchuxiuzhen.system.town.content.TownMenus;
 import net.yvanchuxiuzhen.system.town.content.TownPlanningItem;
+import net.yvanchuxiuzhen.system.town.data.TownData;
 
 /**
  * 城镇系统的启动装配，只在 Mod 构造时调用一次。
@@ -23,6 +24,7 @@ public final class TownSetup {
 
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
+        TownData.register(modBus);
         TownBlockEntities.register(modBus);
         TownMenus.register(modBus);
         NeoForge.EVENT_BUS.addListener(TownRuntime::commands);

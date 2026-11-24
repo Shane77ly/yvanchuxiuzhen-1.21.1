@@ -76,6 +76,7 @@ public final class FestivalSetup {
                     new ThrownFireworkItem(properties, tooltip, kind));
         }
         CONTENT.register(modBus);
+        FestivalData.register(modBus);
         NeoForge.EVENT_BUS.addListener(FestivalFireworkDelays::tick);
         NeoForge.EVENT_BUS.addListener(FestivalFireworkDelays::stopped);
         NeoForge.EVENT_BUS.addListener(EventPriority.HIGH, false, PlayerTickEvent.Post.class, FortuneCostumeRuntime::tick);

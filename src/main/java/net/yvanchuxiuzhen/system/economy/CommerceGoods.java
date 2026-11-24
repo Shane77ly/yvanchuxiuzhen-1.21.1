@@ -12,7 +12,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.system.book.api.BookTextData;
 import net.yvanchuxiuzhen.system.book.api.BookTexts;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
@@ -80,7 +79,6 @@ public final class CommerceGoods {
             }
         }
         if (values.contains("cailiaolevel") || values.contains("cailiaopinjie")) Materials.setInstance(result, values.getInt("cailiaolevel"), values.getInt("cailiaopinjie"));
-        if (!values.isEmpty()) result.set(DataComponents.CUSTOM_DATA, CustomData.of(values));
         attachProductionComponents(result, values);
         if (!name.equals("无")) result.set(DataComponents.CUSTOM_NAME, Component.literal(name));
         if (!attributes.equals("无")) {

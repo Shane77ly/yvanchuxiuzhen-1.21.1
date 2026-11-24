@@ -31,6 +31,8 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.yvanchuxiuzhen.system.town.TownRuntime;
 import net.yvanchuxiuzhen.system.town.client.TownBuildScreen;
 import net.yvanchuxiuzhen.system.town.content.TownBlockEntity;
+import net.yvanchuxiuzhen.system.town.data.TownBuildPlan;
+import net.yvanchuxiuzhen.system.town.data.TownData;
 
 /** 三类城镇建筑十二个模板的真实建造、材料结算与保存重进检查。 */
 final class TownTemplatePlacementCheck extends SystemCheck {
@@ -150,7 +152,7 @@ final class TownTemplatePlacementCheck extends SystemCheck {
         level.setBlock(plan.below(), Blocks.STONE.defaultBlockState(), 3);
         level.setBlock(plan, planningBlock.defaultBlockState(), 3);
         TownBlockEntity town = (TownBlockEntity) level.getBlockEntity(plan);
-        CompoundTag build = TownRuntime.centerScroll().get(DataComponents.CUSTOM_DATA).copyTag().getCompound("build_data");
+        CompoundTag build = TownRuntime.centerScroll().getOrDefault(TownData.BUILD_PLAN.get(), TownBuildPlan.EMPTY).data();
         build.putString("build_type", BUILD_TYPES[type]);
         build.putString("build_name", BUILD_TYPES[type]);
         build.putString("build_direction", DIRECTIONS[direction]);

@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.dungeon;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -11,7 +10,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
@@ -19,6 +17,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.dungeon.content.DungeonBlockEntity;
 import net.yvanchuxiuzhen.system.dungeon.data.DungeonData;
 import net.yvanchuxiuzhen.system.dungeon.data.DungeonWorldData;
+import net.yvanchuxiuzhen.system.dungeon.data.PaintingState;
 import net.yvanchuxiuzhen.system.world.api.WorldStructures;
 
 /** 画里乾坤的双次交互、私人结构生成与两端物品快照由副本系统保存。 */
@@ -40,9 +39,9 @@ public final class PaintingRuntime {
 
     public static void use(DungeonBlockEntity block, ServerPlayer player) {
         ItemStack painting = block.getItem(0).copy();
-        CompoundTag item = data(painting);
+        PaintingState item = state(painting);
         if (player.isShiftKeyDown()) {
-            if (item.getString("belongToMasterUUID").equals(player.getStringUUID())) {
+            if (item.ownerUuid().equals(player.getStringUUID())) {
                 painting.setCount(1);
                 ItemHandlerHelper.giveItemToPlayer(player, painting);
                 block.setItem(0, ItemStack.EMPTY);
@@ -62,42 +61,35 @@ public final class PaintingRuntime {
             return;
         }
         if (inside) {
-            item.putBoolean("fanhui", true);
+            item = item.withReturning(true);
             save(painting, item);
             player.setData(DungeonData.PAINTING_TRANSIT, painting);
-            ResourceKey<Level> destination = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(returnDimension(item.getString("mubiaoweidu"))));
-            DungeonPlayers.travel(player, destination, item.getDouble("rukouX") + 0.5, item.getDouble("rukouY") + 2, item.getDouble("rukouZ") + 0.5);
+            ResourceKey<Level> destination = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(returnDimension(item.returnDimension())));
+            DungeonPlayers.travel(player, destination, item.rukouX() + 0.5, item.rukouY() + 2, item.rukouZ() + 0.5);
             return;
         }
         player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 200, 0));
-        item.putBoolean("hualiqiankun", true);
-        if (!item.getBoolean("jihuo")) {
-            item.putBoolean("jihuo", true);
-            double number = DungeonWorldData.get(player.server).nextPainting(player.serverLevel());
-            item.putDouble("liebiao", number);
-            item.putBoolean("fangzhi", false);
-            DungeonPlayers.coordinates(item, "chukou", 48 * number, 100, 48);
-        } else item.putBoolean("fangzhi", true);
-        item.putString("mubiaoweidu", dimensionName(player.level().dimension()));
+        double number = !item.activated() ? DungeonWorldData.get(player.server).nextPainting(player.serverLevel()) : item.paintingNumber();
+        item = item.enter(dimensionName(player.level().dimension()), !item.activated(), number);
         save(painting, item);
         player.setData(DungeonData.PAINTING_TRANSIT, painting.copy());
         block.setItem(0, painting.copyWithCount(1));
         block.changed();
-        DungeonPlayers.travel(player, DungeonPlayers.PAINTING, item.getDouble("chukouX") + 0.5, item.getDouble("chukouY") + 2, item.getDouble("chukouZ") + 0.5);
+        DungeonPlayers.travel(player, DungeonPlayers.PAINTING, item.chukouX() + 0.5, item.chukouY() + 2, item.chukouZ() + 0.5);
     }
 
     static void entered(ServerPlayer player) {
         ItemStack painting = player.getData(DungeonData.PAINTING_TRANSIT);
-        CompoundTag item = data(painting);
-        if (!item.getBoolean("hualiqiankun")) return;
-        item.putBoolean("hualiqiankun", false);
-        BlockPos exit = DungeonPlayers.position(item, "chukou");
-        if (!item.getBoolean("fangzhi")) {
+        PaintingState item = state(painting);
+        if (!item.entering()) return;
+        BlockPos exit = item.chukouPos();
+        if (!item.placed()) {
             WorldStructures.place(player.serverLevel(), ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fabao008jiegou"), exit.offset(-24, 0, -24));
             exit = exit.above(2);
             player.level().setBlock(exit, DungeonPlayers.block("fabao_009").defaultBlockState(), 3);
-            item.putBoolean("fangzhi", true);
-            item.putDouble("chukouY", item.getDouble("chukouY") + 2);
+            item = item.withPlacedExitRaised();
+        } else {
+            item = item.withEntering(false);
         }
         save(painting, item);
         store(player, exit, painting);
@@ -105,12 +97,12 @@ public final class PaintingRuntime {
 
     static void returned(ServerPlayer player) {
         ItemStack painting = player.getData(DungeonData.PAINTING_TRANSIT);
-        CompoundTag item = data(painting);
-        if (!item.getBoolean("fanhui")) return;
-        item.putBoolean("fanhui", false);
+        PaintingState item = state(painting);
+        if (!item.returning()) return;
+        item = item.withReturning(false);
         save(painting, item);
         player.setData(DungeonData.PAINTING_TRANSIT, painting.copy());
-        store(player, DungeonPlayers.position(item, "rukou"), painting);
+        store(player, item.rukouPos(), painting);
     }
 
     private static void store(ServerPlayer player, BlockPos pos, ItemStack stack) {
@@ -120,8 +112,8 @@ public final class PaintingRuntime {
         }
     }
 
-    public static CompoundTag data(ItemStack stack) { return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag(); }
-    public static void save(ItemStack stack, CompoundTag tag) { stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag)); }
+    public static PaintingState state(ItemStack stack) { return stack.getOrDefault(DungeonData.PAINTING_STATE.get(), PaintingState.EMPTY); }
+    public static void save(ItemStack stack, PaintingState state) { stack.set(DungeonData.PAINTING_STATE.get(), state); }
 
     private static String dimensionName(ResourceKey<Level> dimension) {
         return switch (dimension.location().toString()) {
