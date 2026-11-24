@@ -28,6 +28,9 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.yvanchuxiuzhen.system.cooking.api.Alcohol;
+import net.yvanchuxiuzhen.system.cooking.api.Cooking;
+import net.yvanchuxiuzhen.system.cooking.api.CookingRecipeData;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.cooking.client.WoodenStillScreen;
 import net.yvanchuxiuzhen.system.cooking.content.WineVesselBlockEntity;
 import net.yvanchuxiuzhen.system.cooking.content.WoodenStillMenu;
@@ -414,10 +417,10 @@ final class FuluCookingCheck extends ActionCheck {
                     table.setItem(1, item("motiao_01", 3));
                     DrawingTableRuntime.button(table, p, 6);
                     ItemStack result = table.getItem(2);
-                    CompoundTag data = result.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    int level = Fulu.talisman(result).level();
                     expectTrue("绘制：产出对应符箓并记天地柱品阶，扣一张符纸与两份墨，画符经验增加 8（实际 "
                                     + (Professions.experience(p, Profession.RUNE) - runeBefore) + "）",
-                            result.is(item("itemfulu_01").getItem()) && data.getInt("fululevel") == 1
+                            result.is(item("itemfulu_01").getItem()) && level == 1
                                     && table.getItem(0).isEmpty() && table.getItem(1).getCount() == 1
                                     && Professions.experience(p, Profession.RUNE) - runeBefore == 8);
                     DrawingTableBlockEntity restored = (DrawingTableBlockEntity) BlockEntity.loadStatic(tablePos, p.serverLevel().getBlockState(tablePos),
@@ -442,14 +445,8 @@ final class FuluCookingCheck extends ActionCheck {
                     p.serverLevel().setBlockAndUpdate(clayPos.below(), Blocks.CAMPFIRE.defaultBlockState());
                     p.serverLevel().setBlockAndUpdate(clayPos, block("fooddunguo"));
                     ItemStack recipe = new ItemStack(Items.PAPER);
-                    CompoundTag recipeData = new CompoundTag();
-                    recipeData.putString("MenuType", "砂锅");
-                    recipeData.putString("MenuName", "测试菜谱");
-                    recipeData.putString("Menuid", ModId.VALUE + ":food_007");
-                    recipeData.putString("needcontainer", "无");
-                    recipeData.putString("cailiao00", ModId.VALUE + ":shicai_001");
-                    recipeData.putInt("cookanimation", 2);
-                    recipe.set(DataComponents.CUSTOM_DATA, CustomData.of(recipeData));
+                    Cooking.setRecipe(recipe, new CookingRecipeData("测试菜谱", 0, "", "", 2, "无",
+                            ModId.VALUE + ":food_007", "砂锅", List.of(ModId.VALUE + ":shicai_001")));
                     CookingPotBlockEntity clay = pot(p, clayPos);
                     clay.setItem(13, recipe);
                     clay.setItem(5, item("shicai_001", 2));
@@ -1539,7 +1536,7 @@ final class FuluCookingCheck extends ActionCheck {
                     still.setItem(2, item("shicai_002", 64));
                     still.setItem(3, item("shicai_002", 64));
                     ItemStack old = item("jiuniang_001", 64);
-                    CustomData.update(DataComponents.CUSTOM_DATA, old, data -> data.putDouble("agenum", 80));
+                    Cooking.setWineAge(old, 80);
                     still.setItem(4, old);
                     still.changed();
                     p.containerMenu.broadcastChanges();
@@ -1588,10 +1585,8 @@ final class FuluCookingCheck extends ActionCheck {
                     p.closeContainer();
                     p.getInventory().clearContent();
                     ItemStack wine = item("jiuniang_001", 2);
-                    CustomData.update(DataComponents.CUSTOM_DATA, wine, data -> {
-                        data.putDouble("agenum", 9);
-                        data.putString("smoke_marker", "wine_followup");
-                    });
+                    Cooking.setWineAge(wine, 9);
+                    CustomData.update(DataComponents.CUSTOM_DATA, wine, data -> data.putString("smoke_marker", "wine_followup"));
                     p.getInventory().setItem(HOTBAR, wine);
                     p.inventoryMenu.broadcastChanges();
                 }),
@@ -2028,24 +2023,24 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("菜谱管理命令权限0不能生成物品", !p.getInventory().contains(new ItemStack(Items.PAPER)));
                     p.server.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(1).withSuppressedOutput(), command);
                     ItemStack recipe = p.getInventory().getItem(0);
-                    CompoundTag data = recipe.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    CookingRecipeData data = Cooking.recipe(recipe);
                     ItemStack restored = ItemStack.parse(p.registryAccess(), recipe.save(p.registryAccess())).orElseThrow();
                     expectTrue("权限1菜谱命令生成中文纸载体与Double字段，保存读回仍缺来源未写的MenuName",
                             recipe.is(Items.PAPER) && recipe.getHoverName().getString().equals("竹笼蒸菜")
-                                    && data.getDouble("belongTopinjie") == 2 && data.getString("belongTopinjietext").equals("二级")
-                                    && data.getDouble("cookanimation") == 2 && data.getString("MenuType").equals("蒸锅")
-                                    && data.getString("cailiao00").equals("minecraft:carrot")
-                                    && data.getString("cailiao01").equals("minecraft:potato")
-                                    && !data.contains("cailiao02") && !data.contains("MenuName")
+                                    && data.grade() == 2 && data.gradeText().equals("二级")
+                                    && data.animation() == 2 && data.potType().equals("蒸锅")
+                                    && data.ingredient(0).equals("minecraft:carrot")
+                                    && data.ingredient(1).equals("minecraft:potato")
+                                    && data.ingredient(2).isEmpty() && data.menuName().isEmpty()
                                     && ItemStack.isSameItemSameComponents(recipe, restored));
                     p.getInventory().clearContent();
                     p.server.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(1).withSuppressedOutput(),
                             "shipu minecraft:paper 简谱 非数字 简介 非数字");
-                    CompoundTag fallback = p.getInventory().getItem(0).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    CookingRecipeData fallback = Cooking.recipe(p.getInventory().getItem(0));
                     expectTrue("菜谱命令数字解析失败写零，缺失容器材料为空且品阶文字沿来源",
-                            fallback.getDouble("belongTopinjie") == 0 && fallback.getDouble("cookanimation") == 0
-                                    && fallback.getString("belongTopinjietext").equals("无品级")
-                                    && fallback.getString("needcontainer").isEmpty() && !fallback.contains("cailiao00"));
+                            fallback.grade() == 0 && fallback.animation() == 0
+                                    && fallback.gradeText().equals("无品级")
+                                    && fallback.neededContainer().isEmpty() && fallback.ingredient(0).isEmpty());
                     p.getInventory().clearContent();
                     p.inventoryMenu.broadcastChanges();
                 }),
@@ -3295,17 +3290,9 @@ final class FuluCookingCheck extends ActionCheck {
     }
 
     private static ItemStack steamerRecipe(int grade) {
-        CompoundTag recipe = new CompoundTag();
-        recipe.putString("MenuType", "蒸锅");
-        recipe.putString("MenuName", "竹笼蒸菜");
-        recipe.putString("Menuid", ModId.VALUE + ":food_007");
-        recipe.putString("needcontainer", "无");
-        recipe.putString("cailiao00", "minecraft:carrot");
-        recipe.putString("cailiao01", "minecraft:potato");
-        recipe.putInt("belongTopinjie", grade);
-        recipe.putInt("cookanimation", 2);
         ItemStack result = new ItemStack(Items.PAPER);
-        result.set(DataComponents.CUSTOM_DATA, CustomData.of(recipe));
+        Cooking.setRecipe(result, new CookingRecipeData("竹笼蒸菜", grade, "", "", 2, "无",
+                ModId.VALUE + ":food_007", "蒸锅", List.of("minecraft:carrot", "minecraft:potato")));
         return result;
     }
 
@@ -3364,7 +3351,7 @@ final class FuluCookingCheck extends ActionCheck {
     }
 
     private static double wineAge(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("agenum");
+        return Cooking.wineAge(stack);
     }
 
     private void wineButton(int operation) {
@@ -3500,10 +3487,8 @@ final class FuluCookingCheck extends ActionCheck {
     }
 
     private static ItemStack talisman(String path, int count, int grade) {
-        ItemStack stack = item(path, count);
-        CompoundTag data = new CompoundTag();
-        data.putInt("fululevel", grade);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        ItemStack stack = Fulu.createReward(item(path, 1).getItem(), grade);
+        stack.setCount(count);
         return stack;
     }
 

@@ -1,14 +1,16 @@
 package net.yvanchuxiuzhen.system.lianqi;
 
-import net.minecraft.core.component.DataComponents;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodBlockEntity;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
@@ -28,26 +30,26 @@ final class TripodRecipes {
         int type = TripodRuntime.equipmentType(equipment);
         if (type < 0 || !TripodRuntime.hasMaterial(furnace)) return;
         ItemStack carrier = furnace.getItem(10).copy();
-        CompoundTag recipe = TripodMaterials.data(carrier);
-        if (!recipe.getString("fabaotype").isEmpty()) {
+        LianqiBlueprint existing = Lianqi.blueprint(carrier).orElse(LianqiBlueprint.EMPTY);
+        if (!existing.type().isEmpty()) {
             player.displayClientMessage(Component.literal("§4[").append(new ItemStack(carrier.getItem()).getHoverName())
                     .append("]内已有一份图纸，不可覆盖。"), false);
             return;
         }
-        recipe.putString("tuzhiname", equipment.getDisplayName().getString());
-        recipe.putString("tuzhiname_component", Component.Serializer.toJson(equipment.getHoverName().copy(), player.registryAccess()));
-        recipe.putString("fabaoid", TripodRuntime.itemId(equipment));
-        recipe.putString("fabaotype", TYPES[type]);
+        String nameJson = Component.Serializer.toJson(equipment.getHoverName().copy(), player.registryAccess());
+        List<LianqiBlueprint.Ingredient> ingredients = new ArrayList<>(9);
+        ingredients.add(LianqiBlueprint.Ingredient.EMPTY);
         for (int slot = 1; slot <= 8; slot++) {
             ItemStack material = furnace.getItem(slot);
-            String key = "cailiao0" + slot;
-            recipe.putString(key, TripodRuntime.itemId(material));
-            recipe.putInt(key + "num", material.getCount());
-            recipe.putString(key + "name", material.getDisplayName().getString());
-            recipe.putString(key + "name_component", Component.Serializer.toJson(
-                    Component.literal("[").append(material.getHoverName().copy()).append("]"), player.registryAccess()));
+            String componentJson = Component.Serializer.toJson(
+                    Component.literal("[").append(material.getHoverName().copy()).append("]"), player.registryAccess());
+            ingredients.add(new LianqiBlueprint.Ingredient(TripodRuntime.itemId(material),
+                    material.getDisplayName().getString(), componentJson, material.getCount()));
         }
-        carrier.set(DataComponents.CUSTOM_DATA, CustomData.of(recipe));
+        Lianqi.setBlueprint(carrier, new LianqiBlueprint(equipment.getDisplayName().getString(), nameJson,
+                existing.description(), TripodRuntime.itemId(equipment), existing.itemDescription(),
+                existing.itemDescriptionComponentJson(), TYPES[type], existing.levelText(), existing.level(),
+                existing.sourceCarrierId(), ingredients));
         carrier.setCount(1);
         furnace.setItem(10, carrier);
         furnace.changed();
@@ -55,12 +57,12 @@ final class TripodRecipes {
     }
 
     static void load(TripodBlockEntity furnace, ServerPlayer player) {
-        CompoundTag recipe = TripodMaterials.data(furnace.getItem(10));
-        if (recipe.getString("fabaotype").isEmpty()) {
+        LianqiBlueprint recipe = Lianqi.blueprint(furnace.getItem(10)).orElse(LianqiBlueprint.EMPTY);
+        if (recipe.type().isEmpty()) {
             TripodRuntime.message(player, "§4请在左边的物品栏放入图纸。");
             return;
         }
-        furnace.getPersistentData().putString("lianqiwenzi", recipe.getString("fabaotype"));
+        furnace.getPersistentData().putString("lianqiwenzi", recipe.type());
         for (int slot = 0; slot <= 8; slot++) {
             ItemHandlerHelper.giveItemToPlayer(player, furnace.getItem(slot).copy());
             furnace.setItem(slot, ItemStack.EMPTY);
@@ -68,8 +70,9 @@ final class TripodRecipes {
         boolean stopped = false;
         IItemHandler inventory = player.getCapability(Capabilities.ItemHandler.ENTITY);
         for (int slot = 0; slot <= 8; slot++) {
-            String id = recipe.getString("cailiao0" + slot);
-            int required = recipe.getInt("cailiao0" + slot + "num");
+            LianqiBlueprint.Ingredient ingredient = recipe.ingredient(slot);
+            String id = ingredient.id();
+            int required = ingredient.count();
             if (id.isEmpty() || id.equals("minecraft:air") || id.equals("空") || required <= 0) continue;
             if (MaterialStorage.snapshot(player).preferences().spending()) {
                 MaterialStorage.RefiningWithdrawal withdrawal = MaterialStorage.consumeForRefining(player, id, required, stopped);

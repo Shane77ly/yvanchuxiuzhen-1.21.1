@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,6 +11,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.cooking.CookingRecipes;
+import net.yvanchuxiuzhen.system.cooking.api.CookingRecipeData;
 import net.yvanchuxiuzhen.system.cooking.content.CookingPotMenu;
 import net.yvanchuxiuzhen.system.cooking.network.CookingButtonPayload;
 
@@ -60,14 +60,14 @@ public final class CookingPotScreen extends AbstractContainerScreen<CookingPotMe
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        CompoundTag recipe = CookingRecipes.data(menu.recipe());
-        graphics.drawString(font, recipe.getString("MenuName"), 362, 192, -26368, false);
-        String container = recipe.getString("needcontainer");
+        CookingRecipeData recipe = CookingRecipes.data(menu.recipe());
+        graphics.drawString(font, recipe.menuName(), 362, 192, -26368, false);
+        String container = recipe.neededContainer();
         Component containerName = container.isEmpty() || container.equals("无")
                 ? Component.literal("不需要盛装菜品的容器") : CookingRecipes.stack(container).getDisplayName();
         graphics.drawString(font, containerName, 357, 211, -16724788, false);
         for (int ingredient = 0; ingredient < 9; ingredient++) {
-            String identity = recipe.getString("cailiao0" + ingredient);
+            String identity = recipe.ingredient(ingredient);
             if (!identity.isEmpty()) graphics.drawString(font, CookingRecipes.stack(identity).getDisplayName(),
                     357, 247 + ingredient * 9, -16777216, false);
         }

@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.fulu;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,10 +12,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.LethalDamageEvent;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 
 /** 承担替死符在致命伤害前的保护与消耗。 */
 public final class FuluDeathWard {
@@ -42,7 +41,7 @@ public final class FuluDeathWard {
                 continue;
             }
 
-            double grade = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("fululevel");
+            int grade = Fulu.talisman(stack).level();
             inventory.removeItem(slot, 1);
 
             ServerLevel level = player.serverLevel();

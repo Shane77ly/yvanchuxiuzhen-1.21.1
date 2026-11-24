@@ -1,8 +1,6 @@
 package net.yvanchuxiuzhen.system.liandan;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -10,8 +8,9 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyMenu;
 
 /** 分丹台只搬移三个槽位的丹药实例，数量、容器转换和来源分支顺序在服务端结算。 */
@@ -25,8 +24,8 @@ public final class MedicineSeparation {
             tell(player, "请先把需要分开的丹药放到最上面。");
             return;
         }
-        CompoundTag data = data(source);
-        if (data.getString("danyaoname").isEmpty()) {
+        MedicineInstance data = Liandan.medicine(source);
+        if (data.name().isEmpty()) {
             tell(player, "最上面的槽位内的物品不是丹药。");
             return;
         }
@@ -40,9 +39,9 @@ public final class MedicineSeparation {
         }
         // 来源把有效接收瓶复制成同一临时物品后比较 Item；不比较丹名或药效是否一致。
         boolean both = leftBottle && rightBottle
-                || (!leftBottle || data(left).getString("danyaoname").isEmpty())
-                && (!rightBottle || data(right).getString("danyaoname").isEmpty());
-        int count = data.getInt("danyaonum");
+                || (!leftBottle || Liandan.medicine(left).name().isEmpty())
+                && (!rightBottle || Liandan.medicine(right).name().isEmpty());
+        int count = data.doses();
         if (both) {
             if (count < 1) {
                 tell(player, "需要拆分的丹药瓶内没有丹药！");
@@ -65,35 +64,30 @@ public final class MedicineSeparation {
             tell(player, "需要在最下面放置一个可以盛放丹药的容器。");
             return;
         }
-        if (!data(target).getString("danyaoname").isEmpty()) {
+        if (!Liandan.medicine(target).name().isEmpty()) {
             tell(player, "下面槽位内的容器里已有其它种类的丹药，无法作为上面两种丹药合并的容器。");
             return;
         }
         ItemStack left = menu.getSlot(0).getItem();
         ItemStack right = menu.getSlot(1).getItem();
-        CompoundTag leftData = data(left);
-        CompoundTag rightData = data(right);
-        boolean leftPresent = !left.isEmpty() && !leftData.getString("danyaoname").isEmpty();
-        boolean rightPresent = !right.isEmpty() && !rightData.getString("danyaoname").isEmpty();
+        MedicineInstance leftData = Liandan.medicine(left);
+        MedicineInstance rightData = Liandan.medicine(right);
+        boolean leftPresent = !left.isEmpty() && !leftData.name().isEmpty();
+        boolean rightPresent = !right.isEmpty() && !rightData.name().isEmpty();
         if (!leftPresent) tell(player, "请在上面左边的槽位内放置需要合并的丹药。");
         if (!rightPresent) tell(player, "请在上面右边的槽位内放置需要合并的丹药。");
         if (!leftPresent || !rightPresent) return;
 
-        if (leftData.getString("danyaoname").equals(rightData.getString("danyaoname"))) {
-            for (int index = 0; !leftData.getString("danyaoxiaoguo" + index).isEmpty()
-                    || !rightData.getString("danyaoxiaoguo" + index).isEmpty(); index++) {
-                if (!leftData.getString("danyaoxiaoguo" + index).equals(rightData.getString("danyaoxiaoguo" + index))
-                        || leftData.getInt("danyaolevel" + index) != rightData.getInt("danyaolevel" + index)
-                        || leftData.getInt("danyaotick" + index) != rightData.getInt("danyaotick" + index)) {
-                    tell(player, "上面两个槽位内的丹药必须是相同的才可以合并。");
-                    return;
-                }
+        if (leftData.name().equals(rightData.name())) {
+            if (!leftData.effects().equals(rightData.effects())) {
+                tell(player, "上面两个槽位内的丹药必须是相同的才可以合并。");
+                return;
             }
         } else {
             // 来源名称不同时只提示，没有设置阻止合并的标记。
             tell(player, "上面两个槽位内的丹药必须是相同的才可以合并。");
         }
-        fill(menu.getSlot(2), left, leftData.getInt("danyaonum") + rightData.getInt("danyaonum"));
+        fill(menu.getSlot(2), left, leftData.doses() + rightData.doses());
         empty(menu.getSlot(0));
         empty(menu.getSlot(1));
     }
@@ -105,9 +99,7 @@ public final class MedicineSeparation {
         if (target.is(item("04"))) target = new ItemStack(item("0401"));
         else if (target.is(item("05"))) target = new ItemStack(item("0501"));
         ItemStack result = source.transmuteCopy(target.getItem(), target.getCount());
-        CompoundTag data = data(source);
-        data.putInt("danyaonum", count);
-        result.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        Liandan.setMedicine(result, Liandan.medicine(source).withDoses(count));
         slot.set(result);
     }
 
@@ -122,10 +114,6 @@ public final class MedicineSeparation {
             }
         }
         slot.set(replacement);
-    }
-
-    private static CompoundTag data(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
     }
 
     private static Item item(String variant) {

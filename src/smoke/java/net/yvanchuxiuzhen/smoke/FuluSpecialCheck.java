@@ -39,6 +39,7 @@ import net.yvanchuxiuzhen.system.combat.content.ColoredLightningBolt;
 import net.yvanchuxiuzhen.system.fulu.DrawingTableRuntime;
 import net.yvanchuxiuzhen.system.fulu.FiveThunderCurse;
 import net.yvanchuxiuzhen.system.fulu.FuluSetup;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
@@ -243,7 +244,7 @@ final class FuluSpecialCheck extends SystemCheck {
         DrawingTableRuntime.button(table, player, 6);
         drawn = table.getItem(2).copy();
         expectTrue("符头11符胆1制作两张二阶符并消耗24墨2纸", drawn.is(item("itemfulu_41", 1).getItem())
-                && drawn.getCount() == 2 && drawn.get(DataComponents.CUSTOM_DATA).copyTag().getInt("fululevel") == 2
+                && drawn.getCount() == 2 && Fulu.talisman(drawn).level() == 2
                 && table.getItem(0).isEmpty() && table.getItem(1).isEmpty());
         expect("两张二阶画符经验", 40, Professions.experience(player, Profession.RUNE) - experience);
         table.setItem(2, ItemStack.EMPTY);
@@ -362,7 +363,7 @@ final class FuluSpecialCheck extends SystemCheck {
         naturalProjectile = restored;
         for (lifeTicks = 1; lifeTicks < 16 && !restored.isRemoved(); lifeTicks++) restored.tick();
         ItemStack loadedItem = ItemStack.parseOptional(player.registryAccess(), (CompoundTag) drawn.save(player.registryAccess()));
-        expectTrue("剩余符品阶和数量保存重读", loadedItem.getCount() == 1 && loadedItem.get(DataComponents.CUSTOM_DATA).copyTag().getInt("fululevel") == 2);
+        expectTrue("剩余符品阶和数量保存重读", loadedItem.getCount() == 1 && Fulu.talisman(loadedItem).level() == 2);
     }
 
     private void cleanup(ServerPlayer player) {

@@ -1,6 +1,8 @@
 package net.yvanchuxiuzhen.system.liandan;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,11 +16,13 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlockEntity;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
@@ -34,7 +38,6 @@ public final class LiandanBrewing {
         if (state.getBoolean("liandanBegin")) return;
 
         ItemStack result = new ItemStack(Items.GUNPOWDER);
-        CompoundTag medicine = new CompoundTag();
         Item container = furnace.getItem(0).getItem();
         String outputId = BuiltInRegistries.ITEM.getKey(container).toString();
         if (container == item("itemdanyaohulu_04")) {
@@ -42,16 +45,18 @@ public final class LiandanBrewing {
         } else if (container == item("itemdanyaohulu_05")) {
             outputId = ModId.VALUE + ":itemdanyaohulu_0501";
         }
-        medicine.putString("danyaoid", outputId);
+        String name;
+        String description = "";
         if (!furnace.getItem(10).isEmpty()) {
-            CompoundTag recipe = data(furnace.getItem(10));
-            medicine.putString("danyaoname", recipe.getString("danyaoname"));
-            medicine.putString("danyaoshuoming", recipe.getString("danyaoshuoming"));
+            MedicineRecipe recipe = Liandan.recipe(furnace.getItem(10));
+            name = recipe.name();
+            description = recipe.medicineDescription();
         } else {
-            medicine.putString("danyaoname", furnace.getItem(1).getDisplayName().getString().substring(1, 3) + "丹");
+            name = furnace.getItem(1).getDisplayName().getString().substring(1, 3) + "丹";
         }
 
         CompoundTag herbs = state.getCompound("zong");
+        List<MedicineInstance.Effect> effects = new ArrayList<>();
         boolean monsterCoreSeen = false;
         int baseDuration = 0;
         for (int slot = 1; slot <= 8; slot++) {
@@ -61,38 +66,13 @@ public final class LiandanBrewing {
                 monsterCoreSeen = true;
             }
             String herb = BuiltInRegistries.ITEM.getKey(ingredient.getItem()).toString();
-            for (int effect = 0; effect < herbs.getInt(herb + "number"); effect++) {
-                String prefix = herb + "effect" + effect;
-                String name = herbs.getString(prefix + "name");
-                int index = 0;
-                boolean existing = false;
-                for (; index < medicine.getInt("shuliang") + 1; index++) {
-                    if (medicine.getString("danyaoxiaoguo" + index).equals(name)) {
-                        combine(medicine, "danyaolevel" + index, herbs.getString(prefix + "symbollevel"),
-                                herbs.getInt(prefix + "symbollevelnum"), false);
-                        combine(medicine, "danyaotick" + index, herbs.getString(prefix + "symboltime"),
-                                herbs.getInt(prefix + "symboltimenum"), true);
-                        existing = true;
-                        break;
-                    }
-                }
-                if (!existing) {
-                    index--;
-                    medicine.putString("danyaoxiaoguo" + index, name);
-                    initialize(medicine, "danyaolevel" + index, herbs.getString(prefix + "symbollevel"),
-                            herbs.getInt(prefix + "symbollevelnum"));
-                    initialize(medicine, "danyaotick" + index, herbs.getString(prefix + "symboltime"),
-                            herbs.getInt(prefix + "symboltimenum"));
-                    medicine.putInt("shuliang", medicine.getInt("shuliang") + 1);
-                }
-                baseDuration += 4;
-            }
+            baseDuration += accumulateEffects(herbs, herb, effects) * 4;
             ItemStack remainder = ingredient.copy();
             remainder.shrink(1);
             furnace.setItem(slot, remainder);
         }
-        medicine.putInt("danyaonum", 1 + Mth.nextInt(RandomSource.create(), 0, state.getInt("alchemyDannum")));
-        result.set(DataComponents.CUSTOM_DATA, CustomData.of(medicine));
+        int doses = 1 + Mth.nextInt(RandomSource.create(), 0, state.getInt("alchemyDannum"));
+        Liandan.setMedicine(result, new MedicineInstance(outputId, name, description, doses, false, effects));
         result.set(DataComponents.CUSTOM_NAME, Component.literal("丹药残渣"));
         furnace.setItem(11, result);
         ItemStack containerRemainder = furnace.getItem(0).copy();
@@ -102,9 +82,9 @@ public final class LiandanBrewing {
         state.putBoolean("liandanBegin", true);
 
         double maximumEffect = 0;
-        for (int index = 0; index < medicine.getInt("shuliang"); index++) {
-            if (medicine.getInt("danyaolevel" + index) > maximumEffect) {
-                maximumEffect = medicine.getInt("danyaolevel" + index);
+        for (MedicineInstance.Effect effect : effects) {
+            if (effect.level() > maximumEffect) {
+                maximumEffect = effect.level();
             }
         }
         maximumEffect /= 100;
@@ -121,8 +101,8 @@ public final class LiandanBrewing {
 
     /** 丹方自动装料先退回八槽全部物品，再按玩家物品能力中的顺序各取一件匹配物品。 */
     public static void loadRecipe(AlchemyBlockEntity furnace, ServerPlayer player) {
-        CompoundTag recipe = data(furnace.getItem(10));
-        if (recipe.getString("danyaoname").isEmpty()) {
+        MedicineRecipe recipe = Liandan.recipe(furnace.getItem(10));
+        if (recipe.name().isEmpty()) {
             player.displayClientMessage(Component.literal("§4请在左边的物品栏放入丹方。"), false);
             return;
         }
@@ -135,7 +115,7 @@ public final class LiandanBrewing {
         }
         IItemHandler inventory = player.getCapability(Capabilities.ItemHandler.ENTITY);
         for (int slot = 1; slot <= 8; slot++) {
-            String id = recipe.getString("cailiao0" + slot);
+            String id = recipe.ingredient(slot).id();
             if (id.isEmpty()) continue;
             Item ingredient = BuiltInRegistries.ITEM.get(ResourceLocation.parse(id.toLowerCase(Locale.ENGLISH)));
             if (inventory != null) {
@@ -157,7 +137,7 @@ public final class LiandanBrewing {
         ItemStack recipe = furnace.getItem(10);
         if (recipe.isEmpty()) {
             player.displayClientMessage(Component.literal("§4请放置一个承载丹方的媒介，比如线装书。"), false);
-        } else if (data(recipe).getString("danyaoname").isEmpty()) {
+        } else if (Liandan.recipe(recipe).name().isEmpty()) {
             player.displayClientMessage(Component.literal("§4此物已承载了一份丹方，无法覆盖。"), false);
         } else {
             int count = 0;
@@ -205,24 +185,50 @@ public final class LiandanBrewing {
         for (String line : lines) player.displayClientMessage(Component.literal(line), false);
     }
 
-    static void combine(CompoundTag medicine, String key, String operation, int amount, boolean duration) {
-        int current = medicine.getInt(key);
-        switch (operation) {
-            case "加" -> medicine.putInt(key, current + amount);
-            case "减" -> medicine.putInt(key, current - amount);
-            case "乘" -> medicine.putInt(key, (int) (current * (amount / 100.0)));
-            // 来源持续时间的除法使用整数百分比，等级的除法使用小数百分比。
-            case "除" -> medicine.putInt(key, duration ? current / (amount / 100) : (int) (current / (amount / 100.0)));
+    /** 丹炉与药理台共用的单味药草效果叠加，返回本次处理的药效条目数。 */
+    static int accumulateEffects(CompoundTag herbs, String herb, List<MedicineInstance.Effect> effects) {
+        int count = herbs.getInt(herb + "number");
+        for (int entry = 0; entry < count; entry++) {
+            String prefix = herb + "effect" + entry;
+            String id = herbs.getString(prefix + "name");
+            String levelOp = herbs.getString(prefix + "symbollevel");
+            int levelArg = herbs.getInt(prefix + "symbollevelnum");
+            String timeOp = herbs.getString(prefix + "symboltime");
+            int timeArg = herbs.getInt(prefix + "symboltimenum");
+            int match = -1;
+            for (int index = 0; index < effects.size(); index++) {
+                if (effects.get(index).id().equals(id)) {
+                    match = index;
+                    break;
+                }
+            }
+            if (match >= 0) {
+                MedicineInstance.Effect current = effects.get(match);
+                effects.set(match, new MedicineInstance.Effect(id,
+                        applyOperation(current.level(), levelOp, levelArg, false),
+                        applyOperation(current.duration(), timeOp, timeArg, true)));
+            } else {
+                effects.add(new MedicineInstance.Effect(id, initialize(levelOp, levelArg), initialize(timeOp, timeArg)));
+            }
         }
+        return count;
     }
 
-    static void initialize(CompoundTag medicine, String key, String operation, int amount) {
-        if (operation.equals("加")) medicine.putInt(key, amount);
-        else if (operation.equals("减")) medicine.putInt(key, -amount);
+    private static int applyOperation(int current, String operation, int amount, boolean duration) {
+        return switch (operation) {
+            case "加" -> current + amount;
+            case "减" -> current - amount;
+            case "乘" -> (int) (current * (amount / 100.0));
+            // 来源持续时间的除法使用整数百分比，等级的除法使用小数百分比。
+            case "除" -> duration ? current / (amount / 100) : (int) (current / (amount / 100.0));
+            default -> current;
+        };
     }
 
-    private static CompoundTag data(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    private static int initialize(String operation, int amount) {
+        if (operation.equals("加")) return amount;
+        if (operation.equals("减")) return -amount;
+        return 0;
     }
 
     private static Item item(String name) {

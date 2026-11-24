@@ -15,7 +15,6 @@ import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
@@ -23,6 +22,8 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlock;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlockEntity;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyMenu;
@@ -127,10 +128,10 @@ public final class AlchemyRuntime {
                     } else {
                         animate(level, furnace, 4);
                         ItemStack intermediate = furnace.getItem(11);
-                        CompoundTag medicine = intermediate.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-                        ItemStack result = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(medicine.getString("danyaoid").toLowerCase(Locale.ENGLISH))));
+                        MedicineInstance medicine = Liandan.medicine(intermediate);
+                        ItemStack result = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(medicine.outputItemId().toLowerCase(Locale.ENGLISH))));
                         result.applyComponents(intermediate.getComponentsPatch());
-                        result.set(DataComponents.CUSTOM_NAME, Component.literal(medicine.getString("danyaoname")));
+                        result.set(DataComponents.CUSTOM_NAME, Component.literal(medicine.name()));
                         furnace.setItem(9, result);
                     }
                     furnace.setItem(11, ItemStack.EMPTY);

@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.fulu.content;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -13,7 +12,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -22,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 
 /** 按物品品阶在点击方块相邻的空格放置爆裂符。 */
 public final class ExplosiveTalismanItem extends ContentItem {
@@ -42,7 +41,7 @@ public final class ExplosiveTalismanItem extends ContentItem {
         }
 
         ItemStack stack = context.getItemInHand();
-        double grade = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("fululevel");
+        int grade = Fulu.talisman(stack).level();
         String blockId = grade < 1 ? "fulutexiao_42"
                 : grade == 1 ? "fulutexiao_42"
                 : grade == 2 ? "fulutexiao_4202"

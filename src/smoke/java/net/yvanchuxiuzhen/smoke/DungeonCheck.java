@@ -33,6 +33,10 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -504,18 +508,19 @@ final class DungeonCheck extends SystemCheck {
         expectTrue("技能所有者组件与未消费身份字段均保留", skill.kind() == SkillKind.SPELL && skill.name().equals("字段法术")
                 && skill.grade() == 12 && skill.level() == 11 && skill.damageMultiplier() == 1.75
                 && data(controller.getItem(1)).getString("belongToItemID").equals("yvanchuxiuzhen:book_006"));
-        CompoundTag blueprint = data(controller.getItem(2));
-        expectTrue("图纸所有者转换ID优先于额外根字段", blueprint.getString("fabaoid").equals("yvanchuxiuzhen:fabao_001"));
+        LianqiBlueprint blueprint = Lianqi.blueprint(controller.getItem(2)).orElse(LianqiBlueprint.EMPTY);
+        expectTrue("图纸所有者转换ID优先于额外根字段", blueprint.itemId().equals("yvanchuxiuzhen:fabao_001"));
         for (int slot = 0; slot < 9; slot++) expectTrue("图纸九材料" + slot,
-                blueprint.getString("cailiao0" + slot).equals("yvanchuxiuzhen:cailiao_001")
-                        && blueprint.getString("cailiao0" + slot + "name").equals("材料" + slot)
-                        && blueprint.getInt("cailiao0" + slot + "num") == slot + 1);
-        CompoundTag recipe = data(controller.getItem(3));
-        expectTrue("丹方所有者信息与未消费danfangid保留", recipe.getString("danyaoname").equals("字段丹方")
-                && recipe.getString("danfangid").equals("独立丹方标记"));
+                blueprint.ingredient(slot).id().equals("yvanchuxiuzhen:cailiao_001")
+                        && blueprint.ingredient(slot).name().equals("材料" + slot)
+                        && blueprint.ingredient(slot).count() == slot + 1);
+        MedicineRecipe recipe = Liandan.recipe(controller.getItem(3));
+        CompoundTag recipeExtra = data(controller.getItem(3));
+        expectTrue("丹方所有者信息与未消费danfangid保留", recipe.name().equals("字段丹方")
+                && recipeExtra.getString("danfangid").equals("独立丹方标记"));
         for (int slot = 1; slot <= 8; slot++) expectTrue("丹方八材料" + slot,
-                recipe.getString("cailiao0" + slot).equals("yvanchuxiuzhen:cailiao_001")
-                        && recipe.getString("cailiao0" + slot + "name").equals("药草" + slot));
+                recipe.ingredient(slot).id().equals("yvanchuxiuzhen:cailiao_001")
+                        && recipe.ingredient(slot).name().equals("药草" + slot));
         CompoundTag chest = data(controller.getItem(4));
         expectTrue("宝箱所有者五字段完整", chest.getString("TreasureTypeBig").equals("材料") && chest.getString("TreasureTypeSmall").equals("全部")
                 && chest.getDouble("TreasureLEVEL") == 11 && chest.getDouble("minimumvalue") == 2 && chest.getDouble("Maximumvalue") == 4);

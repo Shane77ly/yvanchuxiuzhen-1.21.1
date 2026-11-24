@@ -14,7 +14,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
@@ -73,10 +76,10 @@ final class CommerceValuation {
                 else if (weight > 100) total *= 0.9;
             }
         } else if (tag(stack, "danyaoguan")) {
-            unit = medicine(data) * prices.multiplier("danyaojiage");
+            unit = medicine(Liandan.medicine(stack)) * prices.multiplier("danyaojiage");
             total = count * unit;
         } else if (tag(stack, "fulu")) {
-            int talismanLevel = data.getInt("fululevel");
+            int talismanLevel = Fulu.talisman(stack).level();
             unit = talismanLevel <= 1 ? 12 : talismanLevel == 2 ? 192 : talismanLevel == 3 ? 3072 : 49152;
             if (TALISMANS.containsKey(id)) unit = Math.ceil(unit * TALISMANS.get(id) * 1.5);
             unit *= prices.multiplier("fulujiage");
@@ -108,21 +111,22 @@ final class CommerceValuation {
         return total;
     }
 
-    private static double medicine(CompoundTag data) {
+    private static double medicine(MedicineInstance data) {
         boolean positive = false;
         String effect = "";
         double sum = 0;
         double sideEffects = 0;
         JsonObject effects = TABLES.getAsJsonObject("medicine_effects");
-        for (int index = 0; data.getInt("danyaolevel" + index) >= 1; index++) {
-            effect = data.getString("danyaoxiaoguo" + index);
-            int effectLevel = data.getInt("danyaolevel" + index);
-            if (!data.getBoolean("danyaobaoxiang")) effectLevel /= 100;
+        for (MedicineInstance.Effect entry : data.effects()) {
+            if (entry.level() < 1) break;
+            effect = entry.id();
+            int effectLevel = entry.level();
+            if (!data.treasure()) effectLevel /= 100;
             if (effects.has(effect)) positive = effects.get(effect).getAsBoolean();
             sum += (positive ? 1 : -1) * Math.pow(3, effectLevel);
             if (!positive) sideEffects += effectLevel;
         }
-        double unit = Math.abs(sum) * data.getInt("danyaonum");
+        double unit = Math.abs(sum) * data.doses();
         if (sideEffects > 5) unit = Math.max(1, unit - unit * (sideEffects - 10) * 0.2);
         if (unit <= 0 && !effect.isEmpty()) unit = 1;
         return unit;

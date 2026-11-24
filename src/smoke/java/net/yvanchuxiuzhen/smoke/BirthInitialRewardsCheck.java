@@ -30,6 +30,8 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
@@ -202,11 +204,12 @@ final class BirthInitialRewardsCheck extends SystemCheck {
             expect("家族功法藏宝书", "功法书", data(rewards.get(3)).getString("TreasureTypeSmall"));
             expect("家族技能藏宝书", "技能书", data(rewards.get(4)).getString("TreasureTypeSmall"));
             expect("家族图纸末位发放", "yvanchuxiuzhen:book_030", itemId(rewards.get(5)));
-            expect("图纸载体身份", "yvanchuxiuzhen:book_030", data(rewards.get(5)).getString("belongToItemID"));
+            LianqiBlueprint blueprint = Lianqi.blueprint(rewards.get(5)).orElse(LianqiBlueprint.EMPTY);
+            expect("图纸载体身份", "yvanchuxiuzhen:book_030", blueprint.sourceCarrierId());
             expect("家族图纸名称", "精铁剑图纸", rewards.get(5).getHoverName().getString());
-            expect("图纸配方名称保持精铁剑", "精铁剑", data(rewards.get(5)).getString("tuzhiname"));
+            expect("图纸配方名称保持精铁剑", "精铁剑", blueprint.name());
             expect("家族图纸含三项配方", 3, IntStream.range(0, 3)
-                    .filter(index -> data(rewards.get(5)).getString("cailiao0" + index).equals("yvanchuxiuzhen:cailiao_201"))
+                    .filter(index -> blueprint.ingredient(index).id().equals("yvanchuxiuzhen:cailiao_201"))
                     .count());
             expect("家族关闭后体质计次", countBefore + 2, Cultivation.tizhiDouble(player, "tizhinumber"));
         } catch (RuntimeException error) {

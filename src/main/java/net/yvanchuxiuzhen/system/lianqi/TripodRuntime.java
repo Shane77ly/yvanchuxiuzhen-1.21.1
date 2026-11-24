@@ -25,6 +25,8 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.neoforged.neoforge.event.EventHooks;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodBlockEntity;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodHelp;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodMenu;
@@ -149,14 +151,15 @@ public final class TripodRuntime {
                 state.putString("lianqiwenzi", "精炼");
             }
         } else {
-            CompoundTag recipe = TripodMaterials.data(furnace.getItem(10));
-            if (recipe.getString("fabaoid").isEmpty()) return;
+            LianqiBlueprint recipe = Lianqi.blueprint(furnace.getItem(10)).orElse(LianqiBlueprint.EMPTY);
+            if (recipe.itemId().isEmpty()) return;
             int cursor = 0;
             for (int index = 0; index < 9; index++) {
                 ItemStack stack = furnace.getItem(cursor);
-                String required = recipe.getString("cailiao0" + cursor);
+                LianqiBlueprint.Ingredient ing = recipe.ingredient(cursor);
+                String required = ing.id();
                 if (itemId(stack).equals(required)) {
-                    if (stack.getCount() >= recipe.getInt("cailiao0" + cursor + "num")) cursor++;
+                    if (stack.getCount() >= ing.count()) cursor++;
                     else message(player, "§4材料" + (cursor + 1) + "的数量小于图纸内记录材料数量");
                 } else if (required.isEmpty() || required.equals("空")) cursor++;
                 else {
@@ -187,7 +190,7 @@ public final class TripodRuntime {
             }
         }
         if (!state.getBoolean("lianqiBegin")) {
-            String type = TripodMaterials.data(furnace.getItem(10)).getString("fabaotype");
+            String type = Lianqi.blueprint(furnace.getItem(10)).map(LianqiBlueprint::type).orElse("");
             state.putString("lianqiwenzi", type.isEmpty() ? "升级" : type);
         }
         if (state.getBoolean("lianqiBegin") && state.getInt("lianpower") >= state.getInt("TripodLevel")) {

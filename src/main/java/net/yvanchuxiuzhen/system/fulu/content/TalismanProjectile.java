@@ -5,7 +5,6 @@ import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -33,7 +32,6 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -47,6 +45,7 @@ import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.fulu.FuluUse;
 import net.yvanchuxiuzhen.system.fulu.FiveThunderCurse;
 import net.yvanchuxiuzhen.system.fulu.TalismanControl;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -282,7 +281,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         if (!isNoGravity()) {
             if (kind == Kind.BLOOD) {
                 ItemStack held = owner instanceof LivingEntity living ? living.getMainHandItem() : ItemStack.EMPTY;
-                grade = held.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("fululevel");
+                grade = Fulu.talisman(held).level();
                 held.shrink(1);
             } else {
                 grade = owner.getPersistentData().getDouble("fululevel");

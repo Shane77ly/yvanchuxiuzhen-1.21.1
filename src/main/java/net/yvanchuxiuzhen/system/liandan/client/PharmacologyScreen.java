@@ -5,16 +5,15 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.ScreenBounds;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.liandan.content.PharmacologyBlockEntity;
 import net.yvanchuxiuzhen.system.liandan.content.PharmacologyMenu;
 import net.yvanchuxiuzhen.system.liandan.network.PharmacologyPayload;
@@ -92,8 +91,7 @@ public final class PharmacologyScreen extends AbstractContainerScreen<Pharmacolo
             for (int index = 0; index < 13; index++) {
                 graphics.drawString(font, state.getString("effectxianshi" + index), 186, 34 + index * 9, -1, false);
             }
-            CompoundTag preview = table.getItem(11).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-            graphics.drawString(font, preview.getString("danyaoname"), 200, 11, -13210, false);
+            graphics.drawString(font, Liandan.medicine(table.getItem(11)).name(), 200, 11, -13210, false);
         }
         graphics.drawString(font, text("label_dan_fang"), 150, -20, -1, false);
         graphics.drawString(font, text("label_jian_jie"), 150, -11, -1, false);

@@ -22,6 +22,10 @@ import net.yvanchuxiuzhen.system.gongfa.api.TechniqueDefinition;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStat;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.gongfa.data.GongfaData;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
@@ -121,16 +125,14 @@ final class BookReadingCheck extends ActionCheck {
             }));
         }
         actions.add(new Action(5, player -> {
-            CompoundTag data = new CompoundTag();
-            data.putString("fabaotype", "武器");
-            data.putString("tuzhiname", "青锋图纸");
-            data.putString("item_level", "下品");
-            data.putString("fabaoshuoming", "炼器材料说明");
+            List<LianqiBlueprint.Ingredient> ingredients = new ArrayList<>(9);
             for (int slot = 0; slot < 9; slot++) {
-                data.putString("cailiao0" + slot + "name", "材料" + slot);
-                data.putDouble("cailiao0" + slot + "num", slot + 1);
+                ingredients.add(new LianqiBlueprint.Ingredient("", "材料" + slot, "", slot + 1));
             }
-            stage(player, dataBook("book_031", data));
+            ItemStack book = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "book_031")));
+            Lianqi.setBlueprint(book, new LianqiBlueprint("青锋图纸", "", "", "", "炼器材料说明", "",
+                    "武器", "下品", 0, "", ingredients));
+            stage(player, book);
         }));
         actions.add(new Action(8, player -> use()));
         actions.add(new Action(8, player -> {
@@ -141,11 +143,11 @@ final class BookReadingCheck extends ActionCheck {
             minecraft.execute(() -> screenshots.take("book_reading_blueprint.png"));
         }));
         actions.add(new Action(5, player -> {
-            CompoundTag data = new CompoundTag();
-            data.putString("danyaoname", "清心丹方");
-            data.putString("danfangshuoming", "炼丹材料说明");
-            for (int slot = 1; slot <= 8; slot++) data.putString("cailiao0" + slot + "name", "药草" + slot);
-            stage(player, dataBook("book_021", data));
+            List<MedicineRecipe.Ingredient> ingredients = new ArrayList<>(8);
+            for (int slot = 1; slot <= 8; slot++) ingredients.add(new MedicineRecipe.Ingredient("", "药草" + slot));
+            ItemStack book = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "book_021")));
+            Liandan.setRecipe(book, new MedicineRecipe("清心丹方", "炼丹材料说明", "", "", 0, "", ingredients));
+            stage(player, book);
         }));
         actions.add(new Action(8, player -> use()));
         actions.add(new Action(8, player -> {

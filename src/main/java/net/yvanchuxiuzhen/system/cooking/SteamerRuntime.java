@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.cooking.api.CookingRecipeData;
 import net.yvanchuxiuzhen.system.cooking.content.SteamerBlockEntity;
 import net.yvanchuxiuzhen.system.cooking.content.SteamerMenu;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
@@ -92,16 +93,16 @@ public final class SteamerRuntime {
             return;
         }
         if (pot.getItem(13).isEmpty()) return;
-        CompoundTag recipe = CookingRecipes.data(pot.getItem(13));
-        if (!recipe.getString("MenuType").equals("蒸锅")) {
-            message(player, "wrong_appliance", recipe.getString("MenuType"));
+        CookingRecipeData recipe = CookingRecipes.data(pot.getItem(13));
+        if (!recipe.potType().equals("蒸锅")) {
+            message(player, "wrong_appliance", recipe.potType());
             return;
         }
-        if (recipe.getInt("belongTopinjie") > state.getInt("playercooklevel")) {
+        if ((int) recipe.grade() > state.getInt("playercooklevel")) {
             message(player, "insufficient_level");
             return;
         }
-        if (!hasContainer(player, pot, recipe.getString("needcontainer"))) return;
+        if (!hasContainer(player, pot, recipe.neededContainer())) return;
         int matching = matches(pot, recipe);
         ServerLevel level = player.serverLevel();
         BlockPos pos = pot.getBlockPos();
@@ -124,9 +125,9 @@ public final class SteamerRuntime {
         }
         state.putBoolean("cooking", true);
         player.closeContainer();
-        state.putInt("cookanimation", recipe.getInt("cookanimation"));
+        state.putInt("cookanimation", recipe.animation());
         consume(pot, recipe);
-        ItemStack output = CookingRecipes.stack(recipe.getString("Menuid").toLowerCase(Locale.ROOT));
+        ItemStack output = CookingRecipes.stack(recipe.outputId().toLowerCase(Locale.ROOT));
         pot.setItem(4, output.copy());
         double experience = Math.pow(state.getInt("belongToLevel"), 2) + 5;
         double extra = 0;
@@ -156,18 +157,18 @@ public final class SteamerRuntime {
         return false;
     }
 
-    private static int matches(SteamerBlockEntity vessel, CompoundTag recipe) {
+    private static int matches(SteamerBlockEntity vessel, CookingRecipeData recipe) {
         int count = 0;
         for (int ingredient = 0; ingredient < 9; ingredient++) {
-            String identity = recipe.getString("cailiao0" + ingredient);
+            String identity = recipe.ingredient(ingredient);
             if (identity.isEmpty() || find(vessel, identity) >= 0) count++;
         }
         return count;
     }
 
-    private static void consume(SteamerBlockEntity vessel, CompoundTag recipe) {
+    private static void consume(SteamerBlockEntity vessel, CookingRecipeData recipe) {
         for (int ingredient = 0; ingredient < 9; ingredient++) {
-            String identity = recipe.getString("cailiao0" + ingredient);
+            String identity = recipe.ingredient(ingredient);
             if (!identity.isEmpty()) {
                 int slot = find(vessel, identity);
                 if (slot >= 0) vessel.removeItem(slot, 1);

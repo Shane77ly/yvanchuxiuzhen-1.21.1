@@ -2,19 +2,21 @@ package net.yvanchuxiuzhen.system.cooking;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.yvanchuxiuzhen.system.cooking.api.Cooking;
+import net.yvanchuxiuzhen.system.cooking.api.CookingRecipeData;
 
 /** 菜谱命令按来源空白分词构建单件载体，名称组件与烹饪字段分别保存。 */
 public final class CookingRecipeCommands {
@@ -37,19 +39,20 @@ public final class CookingRecipeCommands {
         ItemStack recipe = CookingRecipes.stack(argument(words, 0).toLowerCase(Locale.ENGLISH));
         recipe.set(DataComponents.CUSTOM_NAME, Component.literal(argument(words, 1)));
         double grade = number(argument(words, 2));
-        CompoundTag data = new CompoundTag();
-        data.putDouble("belongTopinjie", grade);
-        data.putString("belongTopinjietext", gradeText(grade));
-        data.putString("belongTojianjie", argument(words, 3));
-        data.putDouble("cookanimation", number(argument(words, 4)));
-        data.putString("needcontainer", argument(words, 5));
-        data.putString("Menuid", argument(words, 6));
-        data.putString("MenuType", argument(words, 7));
+        List<String> ingredients = new ArrayList<>(9);
         for (int ingredient = 0; ingredient < 9; ingredient++) {
-            String identity = argument(words, ingredient + 8);
-            if (!identity.isEmpty()) data.putString("cailiao0" + ingredient, identity);
+            ingredients.add(argument(words, ingredient + 8));
         }
-        recipe.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        Cooking.setRecipe(recipe, new CookingRecipeData(
+                "",
+                grade,
+                gradeText(grade),
+                argument(words, 3),
+                (int) number(argument(words, 4)),
+                argument(words, 5),
+                argument(words, 6),
+                argument(words, 7),
+                ingredients));
         if (entity instanceof Player player) {
             recipe.setCount(1);
             ItemHandlerHelper.giveItemToPlayer(player, recipe);

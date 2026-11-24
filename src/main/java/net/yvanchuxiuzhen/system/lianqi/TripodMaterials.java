@@ -5,8 +5,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodBlockEntity;
 import net.yvanchuxiuzhen.system.material.api.MaterialDefinition;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
@@ -19,22 +20,29 @@ final class TripodMaterials {
 
     static void calculate(TripodBlockEntity furnace, boolean upgrade) {
         ItemStack previous = upgrade ? furnace.getItem(0).copy() : ItemStack.EMPTY;
-        CompoundTag recipe = upgrade ? Equipment.refiningMaterials(previous) : data(furnace.getItem(10));
+        CompoundTag recipe = upgrade ? Equipment.refiningMaterials(previous) : new CompoundTag();
+        LianqiBlueprint blueprint = upgrade ? LianqiBlueprint.EMPTY : Lianqi.blueprint(furnace.getItem(10)).orElse(LianqiBlueprint.EMPTY);
+        if (!upgrade) {
+            recipe = blueprint.toRecipeTag();
+        }
         CompoundTag raw = upgrade ? recipe.copy() : new CompoundTag();
         if (upgrade) furnace.setItem(0, ItemStack.EMPTY);
-        else for (String key : new String[] {"tuzhiname", "fabaoid", "fabaoshuoming", "fabaotype"}) {
-            raw.putString(key, recipe.getString(key));
+        else {
+            raw.putString("tuzhiname", blueprint.name());
+            raw.putString("fabaoid", blueprint.itemId());
+            raw.putString("fabaoshuoming", blueprint.itemDescription());
+            raw.putString("fabaotype", blueprint.type());
         }
         CompoundTag state = furnace.getPersistentData();
         Accumulator accumulator = new Accumulator(raw);
         double weight = 0;
         for (int slot = upgrade ? 1 : 0; slot <= 8; slot++) {
-            String requirement = recipe.getString("cailiao0" + slot);
+            String requirement = upgrade ? "" : blueprint.ingredient(slot).id();
             if (!upgrade && (requirement.isEmpty() || requirement.equals("空"))) continue;
             ItemStack input = furnace.getItem(slot);
             MaterialDefinition definition = Materials.definition(input);
             if (definition == null) continue;
-            int count = upgrade ? input.getCount() : recipe.getInt("cailiao0" + slot + "num");
+            int count = upgrade ? input.getCount() : blueprint.ingredient(slot).count();
             int unitWeight = definition.fixedWeight().orElse(0);
             weight += unitWeight * count;
             state.putInt("lianqiTickMax", state.getInt("lianqiTickMax") + count * 5);
@@ -66,10 +74,6 @@ final class TripodMaterials {
             state.putBoolean("lianqishibai", difference > 0 && Math.random() < difference * .1);
         }
         furnace.changed();
-    }
-
-    static CompoundTag data(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
     }
 
     /** 来源工作变量在未知属性间保留，材料顺序和品阶分支均直接影响累计结果。 */

@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.fulu;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,8 +13,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -39,8 +38,7 @@ public final class FuluUse {
 
     /** 成品组件 {@code fululevel}；低于 1 按 1 计，品阶与付款共用。 */
     static double grade(ItemStack stack) {
-        double level = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("fululevel");
-        return level < 1 ? 1 : level;
+        return Fulu.talisman(stack).effectiveGrade();
     }
 
     /**
@@ -99,7 +97,7 @@ public final class FuluUse {
             cast(player);
         }
         if (!active) {
-            double itemCount = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("fulunumber");
+            double itemCount = Fulu.talisman(stack).bonusCount();
             Cultivation.editTizhi(player, tizhi -> {
                 tizhi.putBoolean(flag, true);
                 tizhi.putDouble("fulu" + suffix + "level", grade);
