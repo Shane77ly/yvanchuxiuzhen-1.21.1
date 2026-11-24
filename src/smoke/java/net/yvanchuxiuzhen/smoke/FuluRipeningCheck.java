@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
@@ -197,7 +198,7 @@ final class FuluRipeningCheck extends ActionCheck {
         }
         ItemStack loaded = ItemStack.parseOptional(player.registryAccess(), (CompoundTag) stack.save(player.registryAccess()));
         expect("剩余符保存数量", 1, loaded.getCount());
-        expect("剩余符保存品阶", 2, loaded.get(DataComponents.CUSTOM_DATA).copyTag().getInt("fululevel"));
+        expect("剩余符保存品阶", 2, Fulu.talisman(loaded).level());
     }
 
     private void emptyRange(ServerPlayer player) {
@@ -257,10 +258,8 @@ final class FuluRipeningCheck extends ActionCheck {
     }
 
     private static ItemStack talisman(int grade, int count) {
-        ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(id("itemfulu_30")), count);
-        CompoundTag data = new CompoundTag();
-        data.putInt("fululevel", grade);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        ItemStack stack = Fulu.createReward(BuiltInRegistries.ITEM.get(id("itemfulu_30")), grade);
+        stack.setCount(count);
         return stack;
     }
 

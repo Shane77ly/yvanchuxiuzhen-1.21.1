@@ -1,15 +1,14 @@
 package net.yvanchuxiuzhen.system.fulu.api;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 
 /** 尸体收纳符的库存条件与载体写入；尸体字段由生物系统按来源选择。 */
 public final class CorpseTalismans {
@@ -25,7 +24,7 @@ public final class CorpseTalismans {
         Item empty = item("itemfulu_50");
         player.getInventory().clearOrCountMatchingItems(stack -> stack.is(empty), 1, player.inventoryMenu.getCraftSlots());
         ItemStack sealed = new ItemStack(item("itemfulu_5001"));
-        sealed.set(DataComponents.CUSTOM_DATA, CustomData.of(corpse));
+        sealed.set(FuluData.SEALED_CORPSE.get(), new SealedCorpse(corpse));
         ItemHandlerHelper.giveItemToPlayer(player, sealed);
     }
 

@@ -16,8 +16,12 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec2;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
+import net.yvanchuxiuzhen.system.fulu.api.FuluLearningBook;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 
@@ -38,9 +42,10 @@ public final class StudyBookItem extends ContentItem {
             return result;
         }
         CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        FuluLearningBook learning = Fulu.learningBook(stack);
         if (!data.getString("textdisplay").isEmpty()) {
-            if (data.getBoolean("fuluget") && player.isShiftKeyDown()) {
-                String command = data.getString("fulumingling").replace("aaa", player.getDisplayName().getString());
+            if (learning.enabled() && player.isShiftKeyDown()) {
+                String command = learning.command().replace("aaa", player.getDisplayName().getString());
                 CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, player.position(), Vec2.ZERO,
                         serverPlayer.serverLevel(), 4, "", Component.empty(), serverPlayer.server, null).withSuppressedOutput();
                 serverPlayer.server.getCommands().performPrefixedCommand(source, command);
@@ -53,7 +58,7 @@ public final class StudyBookItem extends ContentItem {
         }
         if (data.getString("TreasureTypeBig").equals("书架")) {
             openTreasure(serverPlayer, stack, data);
-        } else if (!data.getString("fabaotype").isEmpty() || !data.getString("danyaoname").isEmpty()) {
+        } else if (Lianqi.blueprint(stack).isPresent() || Liandan.recipe(stack).isPresent()) {
             BookMenus.open(serverPlayer);
         } else if (player.isShiftKeyDown()) {
             study(serverPlayer, stack);

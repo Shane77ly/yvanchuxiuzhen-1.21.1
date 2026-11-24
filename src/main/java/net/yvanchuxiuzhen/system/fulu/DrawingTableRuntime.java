@@ -3,19 +3,18 @@ package net.yvanchuxiuzhen.system.fulu;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.fulu.api.FuluKnowledge;
+import net.yvanchuxiuzhen.system.fulu.api.TalismanInstance;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
@@ -126,12 +125,10 @@ public final class DrawingTableRuntime {
             return;
         }
         ItemStack result = new ItemStack(BuiltInRegistries.ITEM.get(recipe.item()));
-        CompoundTag data = new CompoundTag();
-        data.putInt("fululevel", grade);
-        data.putString("fululeveltxt", grade == 0 ? "" : knowledgeKey("tiandizhu", grade));
-        result.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        String levelText = grade == 0 ? "" : knowledgeKey("tiandizhu", grade);
+        Fulu.setTalisman(result, new TalismanInstance(grade, levelText, 0, 0));
         if (!previous.isEmpty()) {
-            if (previous.is(result.getItem()) && previous.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("fululevel") == grade) {
+            if (previous.is(result.getItem()) && Fulu.talisman(previous).level() == grade) {
                 result.setCount(previous.getCount() + 1);
             } else ItemHandlerHelper.giveItemToPlayer(player, previous.copy());
         }

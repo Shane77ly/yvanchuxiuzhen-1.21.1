@@ -1,5 +1,7 @@
 package net.yvanchuxiuzhen.system.liandan;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -10,8 +12,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
 
 /** 药理台按八槽次序预览药效，并把名称、说明与材料清单写入丹方媒介。 */
 public final class Pharmacology {
@@ -20,42 +24,19 @@ public final class Pharmacology {
 
     /** 预览使用装置药性快照，保留材料及媒介；槽十一保存一件临时钻石。 */
     public static void refresh(BlockEntity table, Container inventory, String inputName) {
-        CompoundTag medicine = new CompoundTag();
-        medicine.putString("danyaoname", inputName.isEmpty() || inputName.equals("丹方名称")
-                ? defaultName(inventory.getItem(1)) : inputName);
+        String name = inputName.isEmpty() || inputName.equals("丹方名称")
+                ? defaultName(inventory.getItem(1)) : inputName;
         CompoundTag herbs = table.getPersistentData().getCompound("zong");
+        List<MedicineInstance.Effect> effects = new ArrayList<>();
         for (int slot = 1; slot <= 8; slot++) {
             ItemStack ingredient = inventory.getItem(slot);
             if (ingredient.isEmpty()) continue;
             String herb = BuiltInRegistries.ITEM.getKey(ingredient.getItem()).toString();
-            for (int effect = 0; effect < herbs.getInt(herb + "number"); effect++) {
-                String prefix = herb + "effect" + effect;
-                String name = herbs.getString(prefix + "name");
-                int index = 0;
-                boolean existing = false;
-                for (; index < medicine.getInt("shuliang") + 1; index++) {
-                    if (medicine.getString("danyaoxiaoguo" + index).equals(name)) {
-                        LiandanBrewing.combine(medicine, "danyaolevel" + index, herbs.getString(prefix + "symbollevel"),
-                                herbs.getInt(prefix + "symbollevelnum"), false);
-                        LiandanBrewing.combine(medicine, "danyaotick" + index, herbs.getString(prefix + "symboltime"),
-                                herbs.getInt(prefix + "symboltimenum"), true);
-                        existing = true;
-                        break;
-                    }
-                }
-                if (!existing) {
-                    index--;
-                    medicine.putString("danyaoxiaoguo" + index, name);
-                    LiandanBrewing.initialize(medicine, "danyaolevel" + index, herbs.getString(prefix + "symbollevel"),
-                            herbs.getInt(prefix + "symbollevelnum"));
-                    LiandanBrewing.initialize(medicine, "danyaotick" + index, herbs.getString(prefix + "symboltime"),
-                            herbs.getInt(prefix + "symboltimenum"));
-                    medicine.putInt("shuliang", medicine.getInt("shuliang") + 1);
-                }
-            }
+            LiandanBrewing.accumulateEffects(herbs, herb, effects);
         }
+        MedicineInstance medicine = new MedicineInstance("", name, "", 0, false, effects);
         ItemStack preview = new ItemStack(Items.DIAMOND);
-        preview.set(DataComponents.CUSTOM_DATA, CustomData.of(medicine));
+        Liandan.setMedicine(preview, medicine);
         inventory.setItem(11, preview);
         updateDisplay(table, medicine);
     }
@@ -75,32 +56,36 @@ public final class Pharmacology {
             return;
         }
         String name = inputName.isEmpty() ? defaultName(menu.getSlot(1).getItem()) : inputName;
-        CompoundTag recipe = new CompoundTag();
-        recipe.putString("danyaoname", name);
-        recipe.putString("danfangshuoming", menu.getSlot(9).getItem().getDisplayName().getString());
-        recipe.putString("danyaoshuoming", menu.getSlot(10).getItem().getDisplayName().getString());
+        List<MedicineRecipe.Ingredient> ingredients = new ArrayList<>(8);
         for (int slot = 1; slot <= 8; slot++) {
             ItemStack ingredient = menu.getSlot(slot).getItem();
-            recipe.putString("cailiao0" + slot + "name", ingredient.getDisplayName().getString());
-            recipe.putString("cailiao0" + slot, BuiltInRegistries.ITEM.getKey(ingredient.getItem()).toString());
+            ingredients.add(new MedicineRecipe.Ingredient(
+                    BuiltInRegistries.ITEM.getKey(ingredient.getItem()).toString(),
+                    ingredient.getDisplayName().getString()));
         }
         ItemStack result = new ItemStack(medium.getItem(), medium.getCount());
-        result.set(DataComponents.CUSTOM_DATA, CustomData.of(recipe));
+        Liandan.setRecipe(result, new MedicineRecipe(name,
+                menu.getSlot(9).getItem().getDisplayName().getString(),
+                menu.getSlot(10).getItem().getDisplayName().getString(),
+                "", 0, "", ingredients));
         result.set(DataComponents.CUSTOM_NAME, Component.literal(name));
         menu.getSlot(0).set(result);
     }
 
     /** 来源每次只清前十行缓存，药效行仍按原索引写入，不压缩无效等级。 */
-    private static void updateDisplay(BlockEntity table, CompoundTag medicine) {
+    private static void updateDisplay(BlockEntity table, MedicineInstance medicine) {
         CompoundTag state = table.getPersistentData();
         for (int index = 0; index < 10; index++) state.putString("effectxianshi" + index, "");
-        for (int index = 0; !medicine.getString("danyaoxiaoguo" + index).isEmpty(); index++) {
-            int level = medicine.getInt("danyaolevel" + index);
+        List<MedicineInstance.Effect> effects = medicine.effects();
+        for (int index = 0; index < effects.size(); index++) {
+            MedicineInstance.Effect effect = effects.get(index);
+            if (effect.id().isEmpty()) break;
+            int level = effect.level();
             if (level < 100) continue;
-            String name = medicine.getString("danyaoxiaoguo" + index);
+            String name = effect.id();
             String translation = name.contains(":") ? "effect." + name.replace(':', '.') : "effect.minecraft." + name;
             state.putString("effectxianshi" + index, level / 100 + "级" + Component.translatable(translation).getString()
-                    + "：" + medicine.getInt("danyaotick" + index) / 20 + "秒");
+                    + "：" + effect.duration() / 20 + "秒");
         }
     }
 

@@ -1,8 +1,7 @@
 package net.yvanchuxiuzhen.system.liandan;
 
-import net.minecraft.core.component.DataComponents;
+import java.util.List;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,11 +13,12 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
 import net.yvanchuxiuzhen.system.liandan.content.DuedanItem;
 
 /** 毒厄丹优先处理生物喂用，药瓶潜行喂药沿用来源的任务交互分派条件。 */
@@ -51,8 +51,8 @@ public final class MedicineFeeding {
         if (!stack.is(MEDICINE)) {
             return;
         }
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        if (data.getInt("danyaonum") < 1) {
+        MedicineInstance data = Liandan.medicine(stack);
+        if (data.doses() < 1) {
             return;
         }
         if (!target.isAlive()) {
@@ -74,10 +74,11 @@ public final class MedicineFeeding {
             return;
         }
 
-        LiandanMedicine.applyEffects(data, target.createCommandSourceStack().withSuppressedOutput().withPermission(4), "@s", false);
-        data.putInt("danyaonum", data.getInt("danyaonum") - 1);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
-        if (data.getInt("danyaonum") <= 0) {
+        List<MedicineInstance.Effect> clamped = LiandanMedicine.applyEffects(data,
+                target.createCommandSourceStack().withSuppressedOutput().withPermission(4), "@s", false);
+        int remaining = data.doses() - 1;
+        Liandan.setMedicine(stack, data.withDosesAndEffects(remaining, clamped));
+        if (remaining <= 0) {
             player.setItemInHand(InteractionHand.MAIN_HAND, LiandanMedicine.emptyContainer(stack.getItem()));
             player.getInventory().setChanged();
         }

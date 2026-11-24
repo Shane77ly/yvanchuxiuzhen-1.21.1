@@ -5,7 +5,6 @@ import java.util.Locale;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,6 +12,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.cooking.CookingRecipes;
+import net.yvanchuxiuzhen.system.cooking.api.CookingRecipeData;
 import net.yvanchuxiuzhen.system.cooking.content.SteamerMenu;
 import net.yvanchuxiuzhen.system.cooking.network.SteamerButtonPayload;
 
@@ -67,15 +67,15 @@ public final class SteamerScreen extends AbstractContainerScreen<SteamerMenu> {
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         if (menu.tray()) return;
-        CompoundTag recipe = CookingRecipes.data(menu.recipe());
-        graphics.drawString(font, recipe.getString("MenuName"), 362, 192, -26368, false);
-        String container = recipe.getString("needcontainer");
+        CookingRecipeData recipe = CookingRecipes.data(menu.recipe());
+        graphics.drawString(font, recipe.menuName(), 362, 192, -26368, false);
+        String container = recipe.neededContainer();
         Component containerName = container.isEmpty() || container.equals("无")
                 ? Component.translatable("gui.yvanchuxiuzhen.cooking.steamer.no_container")
                 : CookingRecipes.stack(container.toLowerCase(Locale.ROOT)).getDisplayName();
         graphics.drawString(font, containerName, 357, 211, -16724788, false);
         for (int ingredient = 0; ingredient < 9; ingredient++) {
-            String identity = recipe.getString("cailiao0" + ingredient);
+            String identity = recipe.ingredient(ingredient);
             if (!identity.isEmpty()) graphics.drawString(font, CookingRecipes.stack(identity.toLowerCase(Locale.ROOT)).getDisplayName(),
                     357, 247 + ingredient * 9, -16777216, false);
         }

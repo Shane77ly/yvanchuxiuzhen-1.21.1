@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.lianqi.content;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -19,11 +18,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.lianqi.TripodRuntime;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 
 /** 炼器菜单显示九材料、成品与图纸槽；成品由领取按钮交付，隐藏槽十一只保存在鼎内。 */
 public final class TripodMenu extends AbstractContainerMenu {
@@ -92,14 +92,15 @@ public final class TripodMenu extends AbstractContainerMenu {
     }
 
     public String recipeLine(int slot) {
-        CompoundTag recipe = container.getItem(10).getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        String key = "cailiao0" + slot;
-        String itemId = recipe.getString(key);
-        int count = recipe.getInt(key + "num");
-        String name = recipe.getString(key + "name");
-        if (itemId.equals("minecraft:air") || count <= 0 || name.isEmpty() || name.equals("无")) return "§4无";
-        if (recipe.contains(key + "name_component")) {
-            name = Component.Serializer.fromJson(recipe.getString(key + "name_component"), level.registryAccess()).getString();
+        LianqiBlueprint.Ingredient ingredient = Lianqi.blueprint(container.getItem(10))
+                .map(blueprint -> blueprint.ingredient(slot))
+                .orElse(LianqiBlueprint.Ingredient.EMPTY);
+        String itemId = ingredient.id();
+        int count = ingredient.count();
+        String name = ingredient.name();
+        if (itemId.isEmpty() || itemId.equals("minecraft:air") || count <= 0 || name.isEmpty() || name.equals("无")) return "§4无";
+        if (!ingredient.nameComponentJson().isEmpty()) {
+            name = Component.Serializer.fromJson(ingredient.nameComponentJson(), level.registryAccess()).getString();
         }
         ItemStack input = container.getItem(slot);
         boolean enough = BuiltInRegistries.ITEM.getKey(input.getItem()).toString().equals(itemId)

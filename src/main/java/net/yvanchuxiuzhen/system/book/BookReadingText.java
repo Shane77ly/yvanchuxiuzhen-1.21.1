@@ -11,6 +11,10 @@ import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStat;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.SkillElement;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
@@ -40,8 +44,10 @@ public final class BookReadingText {
         for (int index = 1; index <= 11; index++) lines.add(data.getString("text" + (index < 10 ? "0" : "") + index));
         TechniqueBook technique = Techniques.book(stack).filter(book -> !book.definition().name().isEmpty()).orElse(null);
         SkillBook skill = Skills.book(stack).filter(book -> !book.name().isEmpty()).orElse(null);
-        boolean blueprint = !data.getString("fabaotype").isEmpty();
-        boolean recipe = !data.getString("danyaoname").isEmpty();
+        LianqiBlueprint blueprint = Lianqi.blueprint(stack).orElse(null);
+        MedicineRecipe recipe = Liandan.recipe(stack);
+        boolean isBlueprint = blueprint != null;
+        boolean isRecipe = recipe.isPresent();
         if (technique != null) {
             lines.set(0, "§6" + technique.definition().name() + "(" + technique.definition().gradeText() + ")");
             lines.set(1, owner(technique.owner().isEmpty(), technique.ownerName()));
@@ -51,21 +57,21 @@ public final class BookReadingText {
             String weapon = skill.kind() == SkillKind.SPELL ? skill.neededWeapon()
                     : skill.kind() == SkillKind.WEAPON_ART ? skill.text("smanshiptype") : "";
             lines.set(1, owner + (weapon.isEmpty() ? "" : " 需求武器：" + weapon));
-        } else if (blueprint) {
-            lines.set(0, "§6" + data.getString("tuzhiname") + "(" + data.getString("item_level") + " " + data.getString("fabaotype") + ")");
-            lines.set(1, "§3" + data.getString(data.getString("tuzhishuoming").isEmpty() ? "fabaoshuoming" : "tuzhishuoming"));
-        } else if (recipe) {
-            lines.set(0, "§6" + data.getString("danyaoname"));
-            lines.set(1, "§3" + data.getString("danfangshuoming"));
+        } else if (isBlueprint) {
+            lines.set(0, "§6" + blueprint.name() + "(" + blueprint.levelText() + " " + blueprint.type() + ")");
+            lines.set(1, "§3" + blueprint.displayDescription());
+        } else if (isRecipe) {
+            lines.set(0, "§6" + recipe.name());
+            lines.set(1, "§3" + recipe.description());
         }
         DecimalFormat whole = new DecimalFormat("0");
-        if (blueprint) {
+        if (isBlueprint) {
             for (int index = 0; index < 9; index++) {
-                String key = "cailiao0" + index;
-                lines.set(index + 2, data.getString(key + "name") + "(" + whole.format(data.getDouble(key + "num")) + ")");
+                LianqiBlueprint.Ingredient ingredient = blueprint.ingredient(index);
+                lines.set(index + 2, ingredient.name() + "(" + whole.format(ingredient.count()) + ")");
             }
-        } else if (recipe) {
-            for (int index = 1; index <= 8; index++) lines.set(index + 1, data.getString("cailiao0" + index + "name"));
+        } else if (isRecipe) {
+            for (int index = 1; index <= 8; index++) lines.set(index + 1, recipe.ingredient(index).name());
         } else if (technique != null) {
             techniqueLines(lines, player, technique, whole);
         } else if (skill != null) {

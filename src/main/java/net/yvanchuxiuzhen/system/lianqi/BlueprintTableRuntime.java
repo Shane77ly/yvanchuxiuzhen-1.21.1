@@ -1,7 +1,8 @@
 package net.yvanchuxiuzhen.system.lianqi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -9,8 +10,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.lianqi.content.BlueprintTableBlockEntity;
 import net.yvanchuxiuzhen.system.material.api.MaterialDefinition;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
@@ -62,28 +64,26 @@ public final class BlueprintTableRuntime {
         ItemStack template = table.getItem(10);
         type(raw, template);
         ItemStack result = table.getItem(9).copy();
-        CompoundTag recipe = result.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        recipe.putString("tuzhiname", inputName.isEmpty() ? template.getDisplayName().getString() : inputName);
+        String nameText = inputName.isEmpty() ? template.getDisplayName().getString() : inputName;
         Component name = inputName.isEmpty() ? template.getHoverName().copy()
                 : Component.literal(inputName.replace("[", "").replace("]", ""));
-        recipe.putString("tuzhiname_component", Component.Serializer.toJson(name, table.getLevel().registryAccess()));
-        recipe.putString("fabaoid", BuiltInRegistries.ITEM.getKey(template.getItem()).toString());
-        recipe.putString("fabaoshuoming", table.getItem(11).getDisplayName().getString());
-        recipe.putString("fabaoshuoming_component", Component.Serializer.toJson(
-                Component.literal("[").append(table.getItem(11).getHoverName().copy()).append("]"), table.getLevel().registryAccess()));
-        recipe.putString("fabaotype", raw.getString("fabaotype"));
+        String nameComponentJson = Component.Serializer.toJson(name, table.getLevel().registryAccess());
+        String itemDescription = table.getItem(11).getDisplayName().getString();
+        String itemDescriptionJson = Component.Serializer.toJson(
+                Component.literal("[").append(table.getItem(11).getHoverName().copy()).append("]"), table.getLevel().registryAccess());
+        List<LianqiBlueprint.Ingredient> ingredients = new ArrayList<>(9);
         for (int slot = 0; slot < 9; slot++) {
             ItemStack ingredient = table.getItem(slot);
-            String key = "cailiao0" + slot;
-            recipe.putString(key, BuiltInRegistries.ITEM.getKey(ingredient.getItem()).toString());
-            recipe.putString(key + "name", ingredient.getDisplayName().getString());
-            recipe.putString(key + "name_component", Component.Serializer.toJson(
-                    Component.literal("[").append(ingredient.getHoverName().copy()).append("]"), table.getLevel().registryAccess()));
-            recipe.putInt(key + "num", ingredient.getCount());
+            String componentJson = Component.Serializer.toJson(
+                    Component.literal("[").append(ingredient.getHoverName().copy()).append("]"), table.getLevel().registryAccess());
+            ingredients.add(new LianqiBlueprint.Ingredient(BuiltInRegistries.ITEM.getKey(ingredient.getItem()).toString(),
+                    ingredient.getDisplayName().getString(), componentJson, ingredient.getCount()));
         }
-        recipe.putString("item_level", raw.getString("item_level"));
-        recipe.putInt("item_level_num", raw.getInt("item_level_num"));
-        result.set(DataComponents.CUSTOM_DATA, CustomData.of(recipe));
+        String sourceCarrierId = Lianqi.blueprint(result).map(LianqiBlueprint::sourceCarrierId).orElse("");
+        Lianqi.setBlueprint(result, new LianqiBlueprint(nameText, nameComponentJson, "",
+                BuiltInRegistries.ITEM.getKey(template.getItem()).toString(), itemDescription, itemDescriptionJson,
+                raw.getString("fabaotype"), raw.getString("item_level"), raw.getInt("item_level_num"),
+                sourceCarrierId, ingredients));
         result.setCount(1);
         table.setItem(9, result);
         table.changed();

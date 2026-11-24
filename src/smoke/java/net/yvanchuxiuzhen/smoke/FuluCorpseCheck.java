@@ -30,6 +30,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
+import net.yvanchuxiuzhen.system.fulu.api.SealedCorpse;
+import net.yvanchuxiuzhen.system.fulu.api.TalismanInstance;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.platform.ModId;
@@ -196,9 +200,7 @@ final class FuluCorpseCheck extends SystemCheck {
         expectTrue("来源优先物品阻断收纳", !corpse.isRemoved());
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.STONE));
         player.setGameMode(GameType.CREATIVE);
-        CompoundTag grade = new CompoundTag();
-        grade.putInt("fululevel", 2);
-        player.getInventory().getItem(8).set(DataComponents.CUSTOM_DATA, CustomData.of(grade));
+        Fulu.setTalisman(player.getInventory().getItem(8), new TalismanInstance(2, "", 0, 0));
         corpse.getAttribute(YaoshouAttributes.SKIN).setBaseValue(5);
         interact(player, corpse, InteractionHand.MAIN_HAND);
         expectTrue("创造携带有品阶空符仍收纳", corpse.isRemoved());
@@ -279,7 +281,7 @@ final class FuluCorpseCheck extends SystemCheck {
     }
 
     private static CompoundTag data(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        return stack.getOrDefault(FuluData.SEALED_CORPSE.get(), SealedCorpse.EMPTY).corpse();
     }
 
     private void cleanup(ServerPlayer player) {

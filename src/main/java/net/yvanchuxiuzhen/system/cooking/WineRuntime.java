@@ -5,7 +5,6 @@ import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -19,7 +18,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -31,6 +29,7 @@ import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.cooking.api.Alcohol;
+import net.yvanchuxiuzhen.system.cooking.api.Cooking;
 import net.yvanchuxiuzhen.system.cooking.content.WineVesselBlockEntity;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -48,7 +47,7 @@ public final class WineRuntime {
     }
 
     public static double age(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("agenum");
+        return Cooking.wineAge(stack);
     }
 
     public static void place(UseOnContext context) {
@@ -72,7 +71,7 @@ public final class WineRuntime {
     public static void age(ServerLevel level, BlockPos pos) {
         WineVesselBlockEntity jar = (WineVesselBlockEntity) level.getBlockEntity(pos);
         ItemStack wine = jar.getItem(0).copy();
-        if (!wine.isEmpty()) CustomData.update(DataComponents.CUSTOM_DATA, wine, data -> data.putDouble("agenum", data.getDouble("agenum") + 1));
+        if (!wine.isEmpty()) Cooking.setWineAge(wine, Cooking.wineAge(wine) + 1);
         wine.setCount(1);
         jar.setItem(0, wine);
         jar.getPersistentData().putDouble("agenum", 0);

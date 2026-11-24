@@ -1,13 +1,10 @@
 package net.yvanchuxiuzhen.system.fulu.api;
 
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.system.fulu.FuluKnowledgeRuntime;
 import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 
@@ -16,20 +13,32 @@ public final class Fulu {
     private Fulu() {
     }
 
+    public static TalismanInstance talisman(ItemStack stack) {
+        return stack.getOrDefault(FuluData.TALISMAN.get(), TalismanInstance.EMPTY);
+    }
+
+    public static void setTalisman(ItemStack stack, TalismanInstance talisman) {
+        stack.set(FuluData.TALISMAN.get(), talisman);
+    }
+
+    public static FuluLearningBook learningBook(ItemStack stack) {
+        return stack.getOrDefault(FuluData.LEARNING_BOOK.get(), FuluLearningBook.EMPTY);
+    }
+
+    public static void setLearningBook(ItemStack stack, FuluLearningBook book) {
+        stack.set(FuluData.LEARNING_BOOK.get(), book);
+    }
+
     /** 成品奖励的品阶由符箓系统写入，沿用自然施用和提示的同一实例格式。 */
     public static ItemStack createReward(Item carrier, int level, String levelText) {
-        ItemStack stack = createReward(carrier, level);
-        CustomData.update(DataComponents.CUSTOM_DATA, stack, data -> data.putString("fululeveltxt", levelText));
+        ItemStack stack = new ItemStack(carrier);
+        setTalisman(stack, new TalismanInstance(level, levelText, 0, 0));
         return stack;
     }
 
     /** 来源仅赋品阶数值的奖励不额外生成品阶文字字段。 */
     public static ItemStack createReward(Item carrier, int level) {
-        ItemStack stack = new ItemStack(carrier);
-        CompoundTag data = new CompoundTag();
-        data.putInt("fululevel", level);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
-        return stack;
+        return createReward(carrier, level, "");
     }
 
     public static FuluKnowledge knowledge(Player player) {

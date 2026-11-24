@@ -13,9 +13,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.yvanchuxiuzhen.system.fulu.api.Fulu;
+import net.yvanchuxiuzhen.system.fulu.api.FuluLearningBook;
+import net.yvanchuxiuzhen.system.fulu.api.TalismanInstance;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueDefinition;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStat;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
+import net.yvanchuxiuzhen.system.liandan.api.Liandan;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
+import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
+import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
+import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
@@ -69,6 +77,7 @@ public final class CommerceGoods {
         }
         if (values.contains("cailiaolevel") || values.contains("cailiaopinjie")) Materials.setInstance(result, values.getInt("cailiaolevel"), values.getInt("cailiaopinjie"));
         if (!values.isEmpty()) result.set(DataComponents.CUSTOM_DATA, CustomData.of(values));
+        attachProductionComponents(result, values);
         if (!name.equals("无")) result.set(DataComponents.CUSTOM_NAME, Component.literal(name));
         if (!attributes.equals("无")) {
             String[] fields = attributes.split("/");
@@ -77,6 +86,40 @@ public final class CommerceGoods {
             }
         }
         return result;
+    }
+
+    private static void attachProductionComponents(ItemStack result, CompoundTag values) {
+        if (values.getBoolean("fuluget")) {
+            Fulu.setLearningBook(result, new FuluLearningBook(true, values.getString("fulumingling")));
+        }
+        if (values.contains("fululevel")) {
+            Fulu.setTalisman(result, new TalismanInstance(
+                    values.getInt("fululevel"), values.getString("fululeveltxt"), 0, 0));
+        }
+        if (!values.getString("danyaoname").isEmpty() && !values.getString("danfangid").isEmpty()) {
+            List<MedicineRecipe.Ingredient> ingredients = new ArrayList<>(8);
+            for (int slot = 1; slot <= 8; slot++) {
+                String key = "cailiao0" + slot;
+                ingredients.add(new MedicineRecipe.Ingredient(values.getString(key), values.getString(key + "name")));
+            }
+            Liandan.setRecipe(result, new MedicineRecipe(values.getString("danyaoname"),
+                    values.getString("danfangshuoming"), values.getString("danyaoshuoming"),
+                    values.getString("item_level"), values.getInt("item_level_num"),
+                    values.getString("danfangid"), ingredients));
+        }
+        if (!values.getString("tuzhiname").isEmpty()) {
+            List<LianqiBlueprint.Ingredient> ingredients = new ArrayList<>(9);
+            for (int slot = 0; slot < 9; slot++) {
+                String key = "cailiao0" + slot;
+                ingredients.add(new LianqiBlueprint.Ingredient(values.getString(key), values.getString(key + "name"),
+                        "", values.getInt(key + "num")));
+            }
+            Lianqi.setBlueprint(result, new LianqiBlueprint(values.getString("tuzhiname"), "",
+                    values.getString("tuzhishuoming"), values.getString("fabaoid"),
+                    values.getString("fabaoshuoming"), "", values.getString("fabaotype"),
+                    values.getString("item_level"), values.getInt("item_level_num"),
+                    values.getString("belongToItemID"), ingredients));
+        }
     }
 
     /** 来源数字解释器对无效数字返回0，限定为来源商品与脚本数值格式。 */
