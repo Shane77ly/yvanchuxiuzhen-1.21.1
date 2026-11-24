@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.creature.entity;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -36,16 +37,31 @@ import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-/** 桃木精：技能阶段写入主手物品 CUSTOM_DATA，保持来源物品承载状态。 */
+/** 桃木精：技能阶段保存于实体自身 AI 状态字段。 */
 public final class TaomujingEntity extends Monster implements GeoEntity, AnimatedLook {
     private static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(TaomujingEntity.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(TaomujingEntity.class, EntityDataSerializers.STRING);
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private String procedureAnimation = "empty";
+    private CompoundTag aiState = new CompoundTag();
 
     public TaomujingEntity(EntityType<? extends TaomujingEntity> type, Level level) {
         super(type, level);
         xpReward = 0;
+    }
+
+    public CompoundTag aiState() {
+        return aiState;
+    }
+
+    @Override public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.put("AiState", aiState.copy());
+    }
+
+    @Override public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        aiState = tag.contains("AiState") ? tag.getCompound("AiState").copy() : new CompoundTag();
     }
 
     public static AttributeSupplier.Builder attributes() {

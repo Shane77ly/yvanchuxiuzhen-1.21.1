@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Optional;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,7 +12,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
@@ -108,10 +106,9 @@ public final class SkillCasting {
         return required != null && held.is(required);
     }
 
-    /** 来源 Jiancewuqi 从所选技能书的自定义数据读取炼器重量，超过 120 时阻止施放。 */
+    /** 来源 Jiancewuqi 读取武器炼器重量，超过 120 时阻止施放。 */
     private static boolean weaponTooHeavy(ServerPlayer player, ItemStack selected) {
-        int weight = selected.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag()
-                .getCompound("lianqizong").getInt("weightnum");
+        double weight = NeoForge.EVENT_BUS.post(new WeaponStatEvent(selected, "lianqizong.weightnum")).total();
         if (weight <= 120) return false;
         player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.weapon_too_heavy")
                 .withStyle(ChatFormatting.DARK_RED), false);

@@ -13,6 +13,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.yvanchuxiuzhen.system.book.api.BookTextData;
+import net.yvanchuxiuzhen.system.book.api.BookTexts;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.fulu.api.FuluLearningBook;
 import net.yvanchuxiuzhen.system.fulu.api.TalismanInstance;
@@ -27,6 +29,8 @@ import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 
 /** 商品五元组的来源实例构造；功法、技能和材料通过其所有者API生成可用实例。 */
 public final class CommerceGoods {
@@ -119,6 +123,14 @@ public final class CommerceGoods {
                     values.getString("fabaoshuoming"), "", values.getString("fabaotype"),
                     values.getString("item_level"), values.getInt("item_level_num"),
                     values.getString("belongToItemID"), ingredients));
+        }
+        if (!values.getString("textdisplay").isEmpty()) {
+            BookTexts.set(result, new BookTextData(values.getString("textdisplay"), List.of()));
+        }
+        if (!values.getString("TreasureTypeBig").isEmpty()) {
+            TreasureContainers.setConfig(result, new TreasureContainerConfig(values.getString("TreasureTypeBig"),
+                    values.getString("TreasureTypeSmall"), values.getDouble("TreasureLEVEL"),
+                    values.getDouble("minimumvalue"), values.getDouble("Maximumvalue")));
         }
     }
 

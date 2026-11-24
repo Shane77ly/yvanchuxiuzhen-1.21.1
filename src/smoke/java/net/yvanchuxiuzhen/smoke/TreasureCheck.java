@@ -24,6 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 import net.yvanchuxiuzhen.system.treasure.content.TreasureChestBlockEntity;
 
 /** 物品与地面宝箱自然消费、奖励实例和开箱状态的必要生命周期检查。 */
@@ -248,14 +249,8 @@ final class TreasureCheck extends SystemCheck {
     }
 
     private static ItemStack chestItem(String name, String category, String subtype, int level) {
-        ItemStack stack = item(name).copyWithCount(2);
-        CompoundTag data = new CompoundTag();
-        data.putString("TreasureTypeBig", category);
-        data.putString("TreasureTypeSmall", subtype);
-        data.putDouble("TreasureLEVEL", level);
-        data.putDouble("minimumvalue", 1);
-        data.putDouble("Maximumvalue", 1);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        ItemStack stack = TreasureContainers.create(item(name).getItem(), category, subtype, level, 1, 1);
+        stack.setCount(2);
         return stack;
     }
 

@@ -200,11 +200,6 @@ public final class Skills {
         return SkillLibrary.create(carrier, book);
     }
 
-    /** 为带有来源技能/身法自定义标签的书补充 {@link SkillBook} 组件。 */
-    public static void attachFromLegacyTag(ItemStack stack, CompoundTag data) {
-        SkillLibrary.attachFromLegacyTag(stack, data);
-    }
-
     /** 书架藏宝里的技能书（来源 {@code Jinenglistzong}）：在 13 本中随机给一本。 */
     public static void giveTreasureBook(ServerPlayer player) {
         ItemHandlerHelper.giveItemToPlayer(player, SkillLibrary.treasure(player.getRandom()));

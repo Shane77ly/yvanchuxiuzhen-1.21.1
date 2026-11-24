@@ -5,26 +5,19 @@ import java.util.List;
 import java.util.UUID;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -33,7 +26,7 @@ import net.yvanchuxiuzhen.system.skill.api.SkillDelays;
 import net.yvanchuxiuzhen.system.skill.api.SkillSummons;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 
-/** 04号首领的来源物品状态、目标选择和十五种技能阶段。 */
+/** 04号首领的实体 AI 状态、目标选择和十五种技能阶段。 */
 final class Boss04Behavior {
     private static final String[] CLOSE_SKILLS = {"抓取", "铁山靠", "撼地锤", "快拳连打", "蓄力重拳", "正蹬", "力量提升", "二连蓄力重拳", "地脉拳", "冲击拳"};
     private static final String[] FAR_SKILLS = {"跃空槌", "冲拳", "飞跃", "拳炮", "二连拳炮", "赶路"};
@@ -42,12 +35,7 @@ final class Boss04Behavior {
 
     static void tick(Boss04Entity boss) {
         if (boss.level().isClientSide || !boss.isAlive()) return;
-        ItemStack stack = boss.getMainHandItem().copy();
-        if (stack.isEmpty()) {
-            stack = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "cailiao_201")));
-            stack.setCount(1);
-        }
-        CompoundTag state = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        CompoundTag state = boss.aiState();
         if (!state.getString("gongjizhe").equals(state.getString("linshigongjizhe"))) state.putString("gongjizhe", state.getString("linshigongjizhe"));
         Entity target = find(boss, state.getString("gongjizhe"));
         if (target != null) {
@@ -55,13 +43,11 @@ final class Boss04Behavior {
             if (skill.isEmpty()) selectSkill(boss, target, state);
             else executeSkill(boss, target, skill, state);
         }
-        writeState(boss, stack, state);
     }
 
     static void hurt(Boss04Entity boss, Entity attacker) {
         if (attacker == null || boss.level().isClientSide) return;
-        ItemStack stack = boss.getMainHandItem().copy();
-        CompoundTag state = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        CompoundTag state = boss.aiState();
         if (boss.isAlive()) {
             if (!StatusEffects.has(boss, "skilleffect_08")) {
                 boss.setAnimation("empty");
@@ -82,7 +68,6 @@ final class Boss04Behavior {
             }
             state.putString("linshigongjizhe", attacker.getStringUUID());
         }
-        writeState(boss, stack, state);
     }
 
     private static void selectSkill(Boss04Entity boss, Entity target, CompoundTag state) {
@@ -455,12 +440,5 @@ final class Boss04Behavior {
         try { return level.getEntity(UUID.fromString(uuid)); }
         // 来源 UUID 解析失败时把目标视为空，技能流程保留原状态。
         catch (IllegalArgumentException exception) { return null; }
-    }
-
-    private static void writeState(Boss04Entity boss, ItemStack stack, CompoundTag state) {
-        if (stack.isEmpty()) return;
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(state));
-        stack.setCount(1);
-        boss.setItemSlot(EquipmentSlot.MAINHAND, stack);
     }
 }

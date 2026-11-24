@@ -15,6 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.book.BookReadingText;
+import net.yvanchuxiuzhen.system.book.api.BookTextData;
+import net.yvanchuxiuzhen.system.book.api.BookTexts;
 import net.yvanchuxiuzhen.system.book.client.BookReadingScreen;
 import net.yvanchuxiuzhen.system.book.content.BookReadingMenu;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
@@ -28,6 +30,9 @@ import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
 import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
+import net.yvanchuxiuzhen.system.skill.data.SkillData;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 
 /** 公共书自然阅读检查覆盖文本行持久化、阅读分派、无槽库存和双端显示。 */
@@ -56,35 +61,32 @@ final class BookReadingCheck extends ActionCheck {
             Techniques.setSlot(player, ItemStack.EMPTY);
             player.setShiftKeyDown(false);
             minecraft.execute(() -> minecraft.options.keyShift.setDown(false));
-            CompoundTag data = new CompoundTag();
-            data.putString("textdisplay", "甲".repeat(22) + "乙".repeat(22) + "丙");
-            data.putString("TreasureTypeBig", "书架");
-            data.putString("TreasureTypeSmall", "技能书");
-            data.putDouble("TreasureLEVEL", 1);
-            data.putString("text11", "旧行");
-            data.putString("text12", "旧十二行");
-            stage(player, dataBook("book_020", data).copyWithCount(2));
+            ItemStack firstBook = book("book_020").copyWithCount(2);
+            BookTexts.set(firstBook, new BookTextData("甲".repeat(22) + "乙".repeat(22) + "丙",
+                    List.of("", "", "", "", "", "", "", "", "", "", "旧行", "旧十二行")));
+            TreasureContainers.setConfig(firstBook, new TreasureContainerConfig("书架", "技能书", 1, 0, 0));
+            stage(player, firstBook);
         }));
         actions.add(new Action(10, player -> use()));
         actions.add(new Action(8, player -> {
             if (!checkMenu(player, "文本书自然右键打开中文阅读页且不消费整栈")) return;
-            CompoundTag data = data(player.getMainHandItem());
-            expect("每二十二字符切第一行", "甲".repeat(22), data.getString("text01"));
-            expect("每二十二字符切第二行", "乙".repeat(22), data.getString("text02"));
+            BookTextData text = BookTexts.get(player.getMainHandItem());
+            expect("每二十二字符切第一行", "甲".repeat(22), text.line(1));
+            expect("每二十二字符切第二行", "乙".repeat(22), text.line(2));
             expect("尾行与十一行清理", List.of("丙", "", "旧十二行"),
-                    List.of(data.getString("text03"), data.getString("text11"), data.getString("text12")));
+                    List.of(text.line(3), text.line(11), text.line(12)));
             expect("文本书整栈数量", 2, player.getMainHandItem().getCount());
             minecraft.execute(() -> screenshots.take("book_reading_text.png"));
         }));
         actions.add(new Action(5, player -> {
-            CompoundTag data = new CompoundTag();
-            data.putString("textdisplay", "甲".repeat(242) + "尾行");
-            stage(player, dataBook("book_032", data));
+            ItemStack longBook = book("book_032");
+            BookTexts.set(longBook, new BookTextData("甲".repeat(242) + "尾行", List.of()));
+            stage(player, longBook);
         }));
         actions.add(new Action(8, player -> use()));
         actions.add(new Action(5, player -> {
             if (!checkMenu(player, "长文本仍只有十一可见行")) return;
-            expect("第十二行照来源持久化", "尾行", data(player.getMainHandItem()).getString("text12"));
+            expect("第十二行照来源持久化", "尾行", BookTexts.get(player.getMainHandItem()).line(12));
             expect("可见行数", 11, BookReadingText.lines(player).size());
             stage(player, techniqueBook());
         }));
@@ -190,14 +192,8 @@ final class BookReadingCheck extends ActionCheck {
         return true;
     }
 
-    private static ItemStack dataBook(String item, CompoundTag data) {
-        ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, item)));
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
-        return stack;
-    }
-
-    private static CompoundTag data(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    private static ItemStack book(String item) {
+        return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, item)));
     }
 
     private static ItemStack techniqueBook() {
@@ -207,7 +203,7 @@ final class BookReadingCheck extends ActionCheck {
     }
 
     private static ItemStack skillBook(SkillKind kind, ServerPlayer player) {
-        ItemStack stack = dataBook("book_006", new CompoundTag());
+        ItemStack stack = book("book_006");
         stack.set(SkillData.SKILL.get(), new SkillBook(kind, "阅读检查技能", 1, 1, "无", "阅读检查简介", Optional.of(player.getUUID()),
                 player.getDisplayName().getString(), Map.of("jinengmanaatt", 2.0, "jinengshanghai", 3.0, "jinengxiaohao", 4.0,
                 "Goldcolddown", 2.0, "Watercolddown", -3.0, "Goldcoldignore", 5.0, "yinyangcoldignore", 6.0),

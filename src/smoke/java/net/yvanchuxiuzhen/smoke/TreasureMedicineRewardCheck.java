@@ -21,6 +21,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
 import net.yvanchuxiuzhen.system.liandan.data.LiandanData;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 
 /** 01宝箱状态丹药的随机生产、原生药瓶服用、剂数保存及服尽返空瓶的跨系统检查。 */
 final class TreasureMedicineRewardCheck extends SystemCheck {
@@ -108,14 +109,7 @@ final class TreasureMedicineRewardCheck extends SystemCheck {
         player.getInventory().selected = 0;
         area = new AABB(player.blockPosition()).inflate(8);
         clearDrops(player);
-        CompoundTag data = new CompoundTag();
-        data.putString("TreasureTypeBig", "药架");
-        data.putString("TreasureTypeSmall", "状态类丹药堆");
-        data.putDouble("TreasureLEVEL", 1);
-        data.putDouble("minimumvalue", 1);
-        data.putDouble("Maximumvalue", 1);
-        ItemStack chest = new ItemStack(item("treasure_chest_01"));
-        chest.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        ItemStack chest = TreasureContainers.create(item("treasure_chest_01"), "药架", "状态类丹药堆", 1, 1, 1);
         player.setItemInHand(InteractionHand.MAIN_HAND, chest);
         player.inventoryMenu.broadcastChanges();
     }

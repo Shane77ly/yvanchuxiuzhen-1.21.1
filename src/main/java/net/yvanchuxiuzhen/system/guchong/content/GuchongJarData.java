@@ -8,11 +8,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.yvanchuxiuzhen.system.guchong.api.GuchongState;
+import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 
 /** 蛊虫物品、蛊罐编号槽和实体之间的来源字段搬运。 */
 public final class GuchongJarData {
@@ -25,11 +26,13 @@ public final class GuchongJarData {
     private GuchongJarData() { }
 
     public static CompoundTag read(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        return stack.getOrDefault(GuchongData.STATE.get(), GuchongState.EMPTY).toTag();
     }
 
     public static void write(ItemStack stack, CompoundTag data) {
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        GuchongState state = GuchongState.fromTag(data);
+        if (state.isEmpty()) stack.remove(GuchongData.STATE.get());
+        else stack.set(GuchongData.STATE.get(), state);
     }
 
     public static void copy(CompoundTag from, String sourceSuffix, CompoundTag to, String suffix, boolean integers) {

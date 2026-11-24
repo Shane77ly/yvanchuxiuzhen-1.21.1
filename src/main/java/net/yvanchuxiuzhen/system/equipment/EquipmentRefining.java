@@ -28,7 +28,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.equipment.api.BenmingData;
@@ -38,6 +37,7 @@ import net.yvanchuxiuzhen.system.equipment.api.EquipmentProduct.Enchantment;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProduct.Materials;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties.Value;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats.Recovery;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
@@ -94,7 +94,7 @@ public final class EquipmentRefining {
         int level = sourceLevel(data.getInt("expnum"));
         data.putInt("item_level_num", level);
         data.putString("item_level", grade(level));
-        stack.set(EquipmentData.REFINEMENT.get(), CustomData.of(data));
+        stack.set(EquipmentData.REFINEMENT.get(), EquipmentRefinement.fromTag(data));
         stack.set(EquipmentData.PROPERTIES.get(), new EquipmentProperties(root));
         stack.set(EquipmentData.STATS.get(), stats(data));
         stack.set(EquipmentData.PRODUCT.get(), new EquipmentProduct(data.getString("fabaoid"), data.getString("tuzhiname"),
@@ -141,7 +141,7 @@ public final class EquipmentRefining {
         data.putString(prefix, enchantmentPath);
         data.putString(prefix + "kongjian", ModId.VALUE);
         data.putInt(prefix + "num", 100);
-        stack.set(EquipmentData.REFINEMENT.get(), CustomData.of(data));
+        stack.set(EquipmentData.REFINEMENT.get(), EquipmentRefinement.fromTag(data));
         EquipmentProduct product = stack.get(EquipmentData.PRODUCT.get());
         if (product != null) {
             List<Enchantment> enchantments = new ArrayList<>(product.enchantments());
@@ -155,8 +155,8 @@ public final class EquipmentRefining {
 
     /** 从持久实例读取完整记录；宝箱成品的投影只还原已有字段，不执行升级反推。 */
     private static CompoundTag storedRecord(ItemStack stack) {
-        CustomData refinement = stack.get(EquipmentData.REFINEMENT.get());
-        if (refinement != null) return refinement.copyTag();
+        EquipmentRefinement refinement = stack.get(EquipmentData.REFINEMENT.get());
+        if (refinement != null) return refinement.toTag();
         EquipmentProduct product = stack.get(EquipmentData.PRODUCT.get());
         if (product == null) return new CompoundTag();
         CompoundTag data = new CompoundTag();
@@ -198,12 +198,11 @@ public final class EquipmentRefining {
         EquipmentStats current = stack.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY);
         EquipmentStats next = spell ? current.addSpellAttack(1) : current.addSoulAttack(1);
         stack.set(EquipmentData.STATS.get(), next);
-        if (stack.has(EquipmentData.REFINEMENT.get())) {
-            CustomData.update(EquipmentData.REFINEMENT.get(), stack, data -> {
-                data.putInt(spell ? "mana_Att" : "soul_Att", spell ? next.spellAttack() : next.soulAttack());
-                String key = spell ? "mananum" : "soulnum";
-                data.putInt(key, data.getInt(key) + 100);
-            });
+        EquipmentRefinement refinement = stack.get(EquipmentData.REFINEMENT.get());
+        if (refinement != null) {
+            stack.set(EquipmentData.REFINEMENT.get(), refinement
+                    .withIntSet(spell ? "mana_Att" : "soul_Att", spell ? next.spellAttack() : next.soulAttack())
+                    .withIntAdded(spell ? "mananum" : "soulnum", 100));
         }
         EquipmentProduct product = stack.get(EquipmentData.PRODUCT.get());
         if (product != null) {
@@ -329,19 +328,10 @@ public final class EquipmentRefining {
 
     private static void copyBenming(ItemStack previous, ItemStack stack, Map<String, Value> root) {
         EquipmentProperties properties = Equipment.properties(previous);
-        CompoundTag old = previous.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        for (String key : List.of("benminglevel", "benmingexpmax", "benmingexp")) {
-            Value value = properties.fields().get(key);
-            if (value != null) {
-                if (value.kind() == EquipmentProperties.Kind.STRING) old.putString(key, value.text());
-                else if (value.kind() == EquipmentProperties.Kind.INTEGER) old.putInt(key, (int) value.number());
-                else old.putDouble(key, value.number());
-            }
-        }
         BenmingData progress = previous.get(EquipmentData.BENMING.get());
-        int level = progress == null ? old.getInt("benminglevel") : progress.level();
-        int experience = progress == null ? old.getInt("benmingexp") : Mth.floor(progress.experience());
-        int maximum = progress == null ? old.getInt("benmingexpmax") : Mth.floor(progress.experienceMax());
+        int level = progress == null ? (int) properties.number("benminglevel") : progress.level();
+        int experience = progress == null ? (int) properties.number("benmingexp") : Mth.floor(progress.experience());
+        int maximum = progress == null ? (int) properties.number("benmingexpmax") : Mth.floor(progress.experienceMax());
         root.put("belongToMasterUUID", Value.text(Equipment.ownerId(previous)));
         root.put("benminglevel", Value.integer(level));
         root.put("benmingexpmax", Value.integer(maximum));

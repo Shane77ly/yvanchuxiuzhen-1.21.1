@@ -17,6 +17,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.equipment.api.SpatialPocketCoords;
+import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
 
@@ -57,9 +59,9 @@ final class Fabao013Check extends ActionCheck {
                     expectTrue("主世界右键进入人间道并保存主世界坐标",
                             player.level().dimension() == RENJIAN
                                     && player.position().x() == 0 && player.position().y() == 120 && player.position().z() == 0
-                                    && tag(player).getDouble("chuansongX") == 7.5
-                                    && tag(player).getDouble("chuansongY") == 100
-                                    && tag(player).getDouble("chuansongZ") == -3.5
+                                    && coords(player).x() == 7.5
+                                    && coords(player).y() == 100
+                                    && coords(player).z() == -3.5
                                     && player.getCooldowns().isOnCooldown(tool.getItem())
                                     && Cultivation.tizhiBoolean(player, "kaqiangpanding"));
                     reloadTool(player);
@@ -71,9 +73,9 @@ final class Fabao013Check extends ActionCheck {
                     expectTrue("人间道右键返回主世界并保存人间道坐标",
                             player.level().dimension() == Level.OVERWORLD
                                     && player.position().x() == 7.5 && player.position().y() == 100 && player.position().z() == -3.5
-                                    && tag(player).getDouble("mubiaoX") == 21.5
-                                    && tag(player).getDouble("mubiaoY") == 64
-                                    && tag(player).getDouble("mubiaoZ") == 18.5);
+                                    && coords(player).targetX() == 21.5
+                                    && coords(player).targetY() == 64
+                                    && coords(player).targetZ() == 18.5);
                     reloadTool(player);
                 }),
                 new Action(2, player -> {
@@ -109,8 +111,8 @@ final class Fabao013Check extends ActionCheck {
         );
     }
 
-    private static CompoundTag tag(ServerPlayer player) {
-        return player.getMainHandItem().getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+    private static SpatialPocketCoords coords(ServerPlayer player) {
+        return player.getMainHandItem().getOrDefault(EquipmentData.SPATIAL_COORDS.get(), SpatialPocketCoords.EMPTY);
     }
 
     private static void use(ServerPlayer player) {

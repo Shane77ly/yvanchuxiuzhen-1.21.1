@@ -28,7 +28,6 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -37,6 +36,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.data.FabaoTempData;
@@ -146,10 +146,6 @@ public final class FabaoProjectile extends AbstractArrow implements ItemSupplier
             if (source.has(EquipmentData.STATS.get())) refinement.set(EquipmentData.STATS.get(), source.get(EquipmentData.STATS.get()));
             if (source.has(EquipmentData.PRODUCT.get())) refinement.set(EquipmentData.PRODUCT.get(), source.get(EquipmentData.PRODUCT.get()));
             if (source.has(EquipmentData.REFINEMENT.get())) refinement.set(EquipmentData.REFINEMENT.get(), source.get(EquipmentData.REFINEMENT.get()));
-            CompoundTag sourceData = source.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-            if (sourceData.contains("lianqizong")) {
-                CustomData.update(DataComponents.CUSTOM_DATA, refinement, data -> data.put("lianqizong", sourceData.getCompound("lianqizong").copy()));
-            }
             Component name = temporary.consumed() ? source.getOrDefault(DataComponents.CUSTOM_NAME, Items.AIR.getName(ItemStack.EMPTY)) : source.getDisplayName();
             refinement.set(DataComponents.CUSTOM_NAME, Component.literal(name.getString().replace("[", "").replace("]", "")));
             initialized = true;
@@ -242,14 +238,8 @@ public final class FabaoProjectile extends AbstractArrow implements ItemSupplier
         if (initialized) {
             returned.applyComponents(refinement.getComponentsPatch());
             if (blockHit) {
-                if (returned.has(EquipmentData.REFINEMENT.get())) {
-                    CustomData.update(EquipmentData.REFINEMENT.get(), returned, data -> data.putBoolean("tebiefabao", true));
-                }
-                CustomData.update(DataComponents.CUSTOM_DATA, returned, data -> {
-                    CompoundTag lianqi = data.getCompound("lianqizong");
-                    lianqi.putBoolean("tebiefabao", true);
-                    data.put("lianqizong", lianqi);
-                });
+                EquipmentRefinement current = returned.getOrDefault(EquipmentData.REFINEMENT.get(), EquipmentRefinement.EMPTY);
+                returned.set(EquipmentData.REFINEMENT.get(), current.withFlag("tebiefabao", true));
                 if (kind.ordinal() >= Kind.FABAO_005.ordinal()) {
                     for (int i = 0; i < poison.length; i++) {
                         if (poison[i] != 0) returned.enchant(level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchants.key(ENCHANTMENTS[i])), poison[i]);

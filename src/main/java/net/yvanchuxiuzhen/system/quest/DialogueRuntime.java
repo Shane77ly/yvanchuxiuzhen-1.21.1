@@ -1,8 +1,12 @@
 package net.yvanchuxiuzhen.system.quest;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
@@ -34,6 +38,8 @@ import net.yvanchuxiuzhen.system.economy.api.EconomyDialogueRequestEvent;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties;
+import net.yvanchuxiuzhen.system.gongfa.api.TechniqueDefinition;
+import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStat;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
 import net.yvanchuxiuzhen.system.material.api.Materials;
@@ -42,6 +48,9 @@ import net.yvanchuxiuzhen.system.npc.api.NpcFollowers;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
+import net.yvanchuxiuzhen.system.skill.api.SkillBook;
+import net.yvanchuxiuzhen.system.skill.api.SkillElement;
+import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.world.api.StructureSearch;
 
@@ -350,9 +359,10 @@ public final class DialogueRuntime {
                 }
             }
             if (!data.isEmpty()) {
-                stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
-                Techniques.attachFromLegacyTag(stack, data);
-                Skills.attachFromLegacyTag(stack, data);
+                stack = attachQuestBook(kind, stack, data);
+                if (!stack.has(DataComponents.CUSTOM_DATA) && Techniques.book(stack).isEmpty() && Skills.book(stack).isEmpty()) {
+                    stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+                }
             }
             ItemHandlerHelper.giveItemToPlayer(player, stack);
         } else if (action[4].equals("无") || action[4].isEmpty()) {
@@ -481,6 +491,60 @@ public final class DialogueRuntime {
         } catch (NumberFormatException exception) {
             return 0;
         }
+    }
+
+    private static ItemStack attachQuestBook(Item carrier, ItemStack stack, CompoundTag data) {
+        Component customName = stack.get(DataComponents.CUSTOM_NAME);
+        int count = stack.getCount();
+        ItemStack built = ItemStack.EMPTY;
+        if (!data.getString("ExercisesName").isEmpty()) {
+            List<String> tiers = new ArrayList<>();
+            for (TechniqueStat stat : TechniqueStat.values()) tiers.add(data.getString(stat.tierKey()));
+            Map<String, Double> elements = Map.of(
+                    "gold", data.getDouble("Exercisesgold"),
+                    "water", data.getDouble("Exerciseswater"),
+                    "tree", data.getDouble("Exercisestree"),
+                    "fire", data.getDouble("Exercisesfire"),
+                    "soil", data.getDouble("Exercisessoil"));
+            ResourceLocation itemKey = ResourceLocation.tryParse(data.getString("belongToItemID"));
+            if (itemKey == null) itemKey = BuiltInRegistries.ITEM.getKey(carrier);
+            built = Techniques.createBook(new TechniqueDefinition(itemKey, data.getString("ExercisesName"),
+                    data.getString("belongTopinjietext"), data.getDouble("belongTopinjie"),
+                    data.getString("belongToLeveltext"), data.getDouble("belongToLevel"),
+                    data.getString("belongTobody"), data.getString("belongTojianjie"), elements, List.copyOf(tiers)));
+        } else {
+            SkillKind kind = !data.getString("jinengName").isEmpty() ? SkillKind.SPELL
+                    : !data.getString("smanshipName").isEmpty() ? SkillKind.WEAPON_ART
+                    : !data.getString("shenfaName").isEmpty() ? SkillKind.MOVEMENT
+                    : !data.getString("flyjinengName").isEmpty() ? SkillKind.FLIGHT : null;
+            if (kind != null) {
+                String skillName = data.getString(kind == SkillKind.SPELL ? "jinengName"
+                        : kind == SkillKind.WEAPON_ART ? "smanshipName"
+                        : kind == SkillKind.MOVEMENT ? "shenfaName" : "flyjinengName");
+                Map<String, Double> numbers = new HashMap<>();
+                Map<String, String> texts = new HashMap<>();
+                for (String key : List.of("jinengmanaatt", "jinengshanghai", "jinengxiaohao", "jinengjieyin",
+                        "smanshipnumMax", "flyskillxiaohao", "flyskillspeed",
+                        "shenfatick", "shenfatickMax", "shenfajumptick", "shenfajumptickMax",
+                        "shenfaWjump", "shenfaSjump", "shenfaAjump", "shenfaDjump", "shenfaWspeed")) {
+                    if (data.contains(key)) numbers.put(key, data.getDouble(key));
+                }
+                for (SkillElement element : SkillElement.values()) {
+                    if (data.contains(element.cooldownKey())) numbers.put(element.cooldownKey(), data.getDouble(element.cooldownKey()));
+                    if (data.contains(element.ignoreKey())) numbers.put(element.ignoreKey(), data.getDouble(element.ignoreKey()));
+                }
+                for (String key : List.of("jinengneeditem", "smanshiptype", "smanshipID", "flyskilltexiao")) {
+                    if (data.contains(key)) texts.put(key, data.getString(key));
+                }
+                built = Skills.createBook(carrier, new SkillBook(kind, skillName, data.getDouble("belongTopinjie"),
+                        data.getDouble("belongToLevel"), data.getString("belongTobody"), data.getString("belongTojianjie"),
+                        Optional.empty(), "", numbers, texts));
+            }
+        }
+        if (built.isEmpty()) return stack;
+        built.setCount(count);
+        if (customName != null) built.set(DataComponents.CUSTOM_NAME, customName);
+        return built;
     }
 
     private static void clearScript(CompoundTag state) {

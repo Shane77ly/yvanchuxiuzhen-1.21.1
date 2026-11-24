@@ -52,6 +52,7 @@ import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProduct;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
@@ -709,7 +710,7 @@ final class EquipmentProductCheck extends ActionCheck {
                     ItemStack damaged = new ItemStack(Items.IRON_SWORD);
                     CompoundTag refinement = new CompoundTag();
                     refinement.putInt("item_level_num", 2);
-                    damaged.set(EquipmentData.REFINEMENT.get(), CustomData.of(refinement));
+                    damaged.set(EquipmentData.REFINEMENT.get(), EquipmentRefinement.fromTag(refinement));
                     damaged.setDamageValue(200);
                     p.getInventory().setItem(12, damaged);
                     p.inventoryMenu.broadcastChanges();
@@ -896,12 +897,12 @@ final class EquipmentProductCheck extends ActionCheck {
                 new Action(6, p -> useMedicine()),
                 new Action(6, p -> {
                     ItemStack result = p.getOffhandItem();
-                    CompoundTag raw = result.getOrDefault(EquipmentData.REFINEMENT.get(), CustomData.EMPTY).copyTag();
+                    EquipmentRefinement raw = result.getOrDefault(EquipmentData.REFINEMENT.get(), EquipmentRefinement.EMPTY);
                     expectTrue("毒材真实右键空气淬副手耗一件，一级附魔与先增总数后写fumo1完整同步", p.getMainHandItem().getCount() == 1
                             && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), result) == 1
-                            && raw.getInt("fumozongshu") == 1 && raw.getString("fumo1").equals("sinomeninevine")
-                            && raw.getString("fumo1kongjian").equals(ModId.VALUE) && raw.getInt("fumo1num") == 100 && !raw.contains("fumo0")
-                            && ItemStack.matches(result, minecraft.player.getOffhandItem()));
+                            && raw.integer("fumozongshu") == 1 && raw.text("fumo1").equals("sinomeninevine")
+                            && raw.text("fumo1kongjian").equals(ModId.VALUE) && raw.integer("fumo1num") == 100
+                            && raw.text("fumo0").isEmpty() && ItemStack.matches(result, minecraft.player.getOffhandItem()));
                 }));
     }
 

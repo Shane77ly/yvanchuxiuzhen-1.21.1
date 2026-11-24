@@ -8,10 +8,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.equipment.api.BenmingData;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.xiulian.api.BenmingProgress;
@@ -51,7 +52,7 @@ final class BenmingCultivationCheck extends SystemCheck {
                 raw.putInt("soul_Att", 4);
                 raw.putInt("mananum", 200);
                 raw.putInt("soulnum", 400);
-                sword.set(EquipmentData.REFINEMENT.get(), CustomData.of(raw));
+                sword.set(EquipmentData.REFINEMENT.get(), EquipmentRefinement.fromTag(raw));
                 Cultivation.setBenming(player, sword);
                 NeoForge.EVENT_BUS.post(new CultivationSecondEvent(player));
                 expect("境界20不推进本命经验", new BenmingData(0, 1995, 2000), progress(player));
@@ -66,7 +67,7 @@ final class BenmingCultivationCheck extends SystemCheck {
                 expect("无主器物照常培养但不显示本人认主标记", new BenmingProgress(false, 1, 5, 4000), Cultivation.benmingProgress(player));
 
                 ItemStack bound = Cultivation.benming(player);
-                CustomData.update(DataComponents.CUSTOM_DATA, bound, tag -> tag.putString("belongToMasterUUID", player.getStringUUID()));
+                Equipment.bindOwner(bound, player.getStringUUID());
                 Cultivation.setBenming(player, bound);
 
                 seed(player, new BenmingData(1, 3995, 4000));
@@ -133,9 +134,9 @@ final class BenmingCultivationCheck extends SystemCheck {
     private void expectAttacks(ServerPlayer player, String label, int spell, int soul, int spellRaw, int soulRaw) {
         ItemStack stack = Cultivation.benming(player);
         EquipmentStats stats = stack.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY);
-        CompoundTag raw = stack.getOrDefault(EquipmentData.REFINEMENT.get(), CustomData.EMPTY).copyTag();
+        EquipmentRefinement raw = stack.getOrDefault(EquipmentData.REFINEMENT.get(), EquipmentRefinement.EMPTY);
         expectTrue(label + "且原料累计量增加100", stats.spellAttack() == spell && stats.soulAttack() == soul
-                && raw.getInt("mana_Att") == spell && raw.getInt("soul_Att") == soul
-                && raw.getInt("mananum") == spellRaw && raw.getInt("soulnum") == soulRaw);
+                && raw.integer("mana_Att") == spell && raw.integer("soul_Att") == soul
+                && raw.integer("mananum") == spellRaw && raw.integer("soulnum") == soulRaw);
     }
 }

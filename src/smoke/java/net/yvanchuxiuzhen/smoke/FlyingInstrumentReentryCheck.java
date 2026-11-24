@@ -15,6 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.equipment.api.FlyingInstrumentData;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 
 /** 普通主手投放飞叶，真实退出并重开同档后，由原玩家潜行取回该 UUID 的法器。 */
@@ -121,9 +123,9 @@ final class FlyingInstrumentReentryCheck extends SystemCheck {
             for (ItemStack stack : player.getInventory().items) {
                 if (!marked(stack)) continue;
                 expectTrue("取回同型法器并保留完整自定义名和额外组件", original(stack));
-                CompoundTag data = stack.get(DataComponents.CUSTOM_DATA).copyTag();
-                expect("取回物品生命", HEALTH, data.getDouble("health"));
-                expect("取回物品储灵", POWER, data.getDouble("power"));
+                FlyingInstrumentData data = Equipment.flyingInstrument(stack);
+                expect("取回物品生命", HEALTH, data.health());
+                expect("取回物品储灵", POWER, data.power());
             }
             if (!entity.isRemoved()) entity.discard();
         } finally {

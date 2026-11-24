@@ -9,7 +9,6 @@ import java.util.Locale;
 import java.util.Map;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -81,32 +80,6 @@ public final class TechniqueLibrary {
         stack.set(DataComponents.CUSTOM_NAME, Component.literal(definition.name()));
         stack.set(GongfaData.TECHNIQUE.get(), TechniqueBook.unstudied(definition));
         return stack;
-    }
-
-    /** 根据任务等流程写入的来源根标签字段为功法书补充 {@link TechniqueBook} 组件。 */
-    public static void attachFromLegacyTag(ItemStack stack, CompoundTag data) {
-        String name = data.getString("ExercisesName");
-        if (name.isEmpty()) {
-            return;
-        }
-        List<String> tiers = new ArrayList<>();
-        for (TechniqueStat stat : TechniqueStat.values()) {
-            tiers.add(data.getString(stat.tierKey()));
-        }
-        Map<String, Double> elements = Map.of(
-                "gold", data.getDouble("Exercisesgold"),
-                "water", data.getDouble("Exerciseswater"),
-                "tree", data.getDouble("Exercisestree"),
-                "fire", data.getDouble("Exercisesfire"),
-                "soil", data.getDouble("Exercisessoil"));
-        ResourceLocation itemKey = ResourceLocation.tryParse(data.getString("belongToItemID"));
-        if (itemKey == null) {
-            itemKey = BuiltInRegistries.ITEM.getKey(stack.getItem());
-        }
-        TechniqueDefinition definition = new TechniqueDefinition(itemKey, name, data.getString("belongTopinjietext"),
-                data.getDouble("belongTopinjie"), data.getString("belongToLeveltext"), data.getDouble("belongToLevel"),
-                data.getString("belongTobody"), data.getString("belongTojianjie"), elements, List.copyOf(tiers));
-        stack.set(GongfaData.TECHNIQUE.get(), TechniqueBook.unstudied(definition));
     }
 
     /** 按来源 {@code TechniqueGOProcedure} 的 0–22 号参数生成未研习功法书。 */
