@@ -24,6 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.treasure.TreasureSetup;
 import net.yvanchuxiuzhen.system.treasure.TreasureToolSettings;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
 
 /** 设置弹体在命中时读取射手当前主手，把五参数写入任意方块实体；寿命随实体持久数据保存。 */
 public final class TreasureToolProjectile extends AbstractArrow implements ItemSupplier {
@@ -91,17 +92,15 @@ public final class TreasureToolProjectile extends AbstractArrow implements ItemS
         if (owner == null) return;
         BlockPos pos = hit.getBlockPos();
         BlockEntity target = level.getBlockEntity(pos);
-        CompoundTag held = TreasureToolSettings.data(owner instanceof LivingEntity living ? living.getMainHandItem() : ItemStack.EMPTY);
+        TreasureContainerConfig held = TreasureToolSettings.config(owner instanceof LivingEntity living ? living.getMainHandItem() : ItemStack.EMPTY);
         if (target != null) {
             CompoundTag data = target.getPersistentData();
-            for (String key : new String[]{"TreasureTypeBig", "TreasureTypeSmall"}) {
-                data.putString(key, held.getString(key));
-                level.sendBlockUpdated(pos, target.getBlockState(), target.getBlockState(), Block.UPDATE_ALL);
-            }
-            for (String key : new String[]{"TreasureLEVEL", "minimumvalue", "Maximumvalue"}) {
-                data.putDouble(key, held.getDouble(key));
-                level.sendBlockUpdated(pos, target.getBlockState(), target.getBlockState(), Block.UPDATE_ALL);
-            }
+            data.putString("TreasureTypeBig", held.category());
+            data.putString("TreasureTypeSmall", held.subtype());
+            data.putDouble("TreasureLEVEL", held.level());
+            data.putDouble("minimumvalue", held.minimum());
+            data.putDouble("Maximumvalue", held.maximum());
+            level.sendBlockUpdated(pos, target.getBlockState(), target.getBlockState(), Block.UPDATE_ALL);
             target.setChanged();
         }
         CompoundTag data = target == null ? new CompoundTag() : target.getPersistentData();

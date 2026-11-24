@@ -24,6 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
@@ -184,11 +185,12 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
         require(!dead.isAlive(), "法器未死亡");
         var newDrops = p.serverLevel().getEntitiesOfClass(ItemEntity.class, area, e -> !prior.contains(e.getUUID()));
         created.addAll(newDrops);
-        var matches = newDrops.stream().filter(e -> e.getItem().is(current) && data(e.getItem()).getDouble("health") == 1).toList();
+        var matches = newDrops.stream().filter(e -> e.getItem().is(current)
+                && Equipment.flyingInstrument(e.getItem()).health() == 1).toList();
         require(matches.size() == 1, "死亡没有唯一的一点生命专有掉落");
         drop = matches.getFirst();
         expected = drop.getItem().copy(); // 仅作组件比较，不作为背包或重召输入。
-        require(expected.getCount() == 1 && data(expected).getDouble("power") == power && drop.hasPickUpDelay()
+        require(expected.getCount() == 1 && Equipment.flyingInstrument(expected).power() == power && drop.hasPickUpDelay()
                 && p.getInventory().countItem(current) == 0, "拾取前数量、储灵或延迟错误");
         witnessed = false;
     }

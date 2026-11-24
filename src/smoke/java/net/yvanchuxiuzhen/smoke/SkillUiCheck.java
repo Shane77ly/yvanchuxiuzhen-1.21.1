@@ -63,6 +63,8 @@ import net.yvanchuxiuzhen.system.skill.client.SkillScreen;
 import net.yvanchuxiuzhen.system.skill.content.SkillLoadoutMenu;
 import net.yvanchuxiuzhen.system.skill.content.SkillMenu;
 import net.yvanchuxiuzhen.system.skill.data.SkillCooldowns;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 import net.yvanchuxiuzhen.system.skill.data.SkillState;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
@@ -935,11 +937,7 @@ final class SkillUiCheck extends SystemCheck {
 
     private void stageTreasure(ServerPlayer player, String type, double level) {
         ItemStack stack = item("book_006").copyWithCount(2);
-        CompoundTag data = new CompoundTag();
-        data.putString("TreasureTypeBig", "书架");
-        data.putString("TreasureTypeSmall", type);
-        data.putDouble("TreasureLEVEL", level);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        TreasureContainers.setConfig(stack, new TreasureContainerConfig("书架", type, level, 0, 0));
         player.getInventory().setItem(8, stack);
         treasureBefore = treasureCounts(player);
         player.getInventory().setChanged();

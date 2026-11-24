@@ -30,7 +30,7 @@ public final class TreasureToolItem extends ContentItem {
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
         boolean result = super.onEntitySwing(stack, entity, hand);
         if (entity instanceof ServerPlayer player && (entity.isShiftKeyDown()
-                || TreasureToolSettings.data(stack).getString("TreasureTypeBig").isEmpty())) {
+                || !TreasureToolSettings.config(stack).isPresent())) {
             TreasureMenus.open(player);
         }
         return result;
@@ -49,7 +49,7 @@ public final class TreasureToolItem extends ContentItem {
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
         if (entity instanceof ServerPlayer player && !entity.isShiftKeyDown()
-                && !TreasureToolSettings.data(stack).getString("TreasureTypeBig").isEmpty()) {
+                && TreasureToolSettings.config(stack).isPresent()) {
             TreasureToolProjectile.shoot(player);
             stack.hurtAndBreak(1, entity, entity.getUsedItemHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
         }

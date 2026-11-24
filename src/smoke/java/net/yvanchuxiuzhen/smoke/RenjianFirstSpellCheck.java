@@ -53,6 +53,8 @@ import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.skill.client.SkillLoadoutScreen;
 import net.yvanchuxiuzhen.system.skill.client.SkillScreen;
 import net.yvanchuxiuzhen.system.skill.projectile.SkillProjectile;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 import net.yvanchuxiuzhen.system.world.portal.DimensionPortalSpec;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -477,8 +479,8 @@ final class RenjianFirstSpellCheck {
     }
 
     private static boolean isShelf(ItemStack stack) {
-        var tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        return tag.getString("TreasureTypeBig").equals("书架") && tag.getString("TreasureTypeSmall").equals("技能书") && tag.getDouble("TreasureLEVEL") == 1;
+        TreasureContainerConfig config = TreasureContainers.config(stack);
+        return config.category().equals("书架") && config.subtype().equals("技能书") && config.level() == 1;
     }
 
     private static Optional<SkillBook> goldBook(ItemStack stack) {

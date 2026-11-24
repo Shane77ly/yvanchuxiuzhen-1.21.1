@@ -3,11 +3,10 @@ package net.yvanchuxiuzhen.system.book;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
+import net.yvanchuxiuzhen.system.book.api.BookTextData;
+import net.yvanchuxiuzhen.system.book.api.BookTexts;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStat;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
@@ -39,9 +38,9 @@ public final class BookReadingText {
 
     public static List<String> lines(Player player) {
         ItemStack stack = player.getMainHandItem();
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        BookTextData text = BookTexts.get(stack);
         List<String> lines = new ArrayList<>(11);
-        for (int index = 1; index <= 11; index++) lines.add(data.getString("text" + (index < 10 ? "0" : "") + index));
+        for (int index = 1; index <= 11; index++) lines.add(text.line(index));
         TechniqueBook technique = Techniques.book(stack).filter(book -> !book.definition().name().isEmpty()).orElse(null);
         SkillBook skill = Skills.book(stack).filter(book -> !book.name().isEmpty()).orElse(null);
         LianqiBlueprint blueprint = Lianqi.blueprint(stack).orElse(null);

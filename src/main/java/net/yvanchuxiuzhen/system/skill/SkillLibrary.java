@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Optional;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -89,44 +88,6 @@ public final class SkillLibrary {
         stack.set(DataComponents.CUSTOM_NAME, Component.literal(book.name()));
         stack.set(SkillData.SKILL.get(), book);
         return stack;
-    }
-
-    /** 根据任务等流程写入的来源根标签字段为技能/身法/武器技/轻功书补充 {@link SkillBook} 组件。 */
-    public static void attachFromLegacyTag(ItemStack stack, CompoundTag data) {
-        SkillKind kind;
-        String name;
-        if (!data.getString("jinengName").isEmpty()) {
-            kind = SkillKind.SPELL;
-            name = data.getString("jinengName");
-        } else if (!data.getString("smanshipName").isEmpty()) {
-            kind = SkillKind.WEAPON_ART;
-            name = data.getString("smanshipName");
-        } else if (!data.getString("shenfaName").isEmpty()) {
-            kind = SkillKind.MOVEMENT;
-            name = data.getString("shenfaName");
-        } else if (!data.getString("flyjinengName").isEmpty()) {
-            kind = SkillKind.FLIGHT;
-            name = data.getString("flyjinengName");
-        } else {
-            return;
-        }
-        Map<String, Double> numbers = new HashMap<>();
-        Map<String, String> texts = new HashMap<>();
-        for (String key : List.of("jinengmanaatt", "jinengshanghai", "jinengxiaohao", "jinengjieyin",
-                "smanshipnumMax", "flyskillxiaohao", "flyskillspeed",
-                "shenfatick", "shenfatickMax", "shenfajumptick", "shenfajumptickMax",
-                "shenfaWjump", "shenfaSjump", "shenfaAjump", "shenfaDjump", "shenfaWspeed")) {
-            if (data.contains(key)) numbers.put(key, data.getDouble(key));
-        }
-        for (SkillElement element : SkillElement.values()) {
-            if (data.contains(element.cooldownKey())) numbers.put(element.cooldownKey(), data.getDouble(element.cooldownKey()));
-            if (data.contains(element.ignoreKey())) numbers.put(element.ignoreKey(), data.getDouble(element.ignoreKey()));
-        }
-        for (String key : List.of("jinengneeditem", "smanshiptype", "smanshipID", "flyskilltexiao")) {
-            if (data.contains(key)) texts.put(key, data.getString(key));
-        }
-        stack.set(SkillData.SKILL.get(), new SkillBook(kind, name, data.getDouble("belongTopinjie"), data.getDouble("belongToLevel"),
-                data.getString("belongTobody"), data.getString("belongTojianjie"), Optional.empty(), "", numbers, texts));
     }
 
     /**

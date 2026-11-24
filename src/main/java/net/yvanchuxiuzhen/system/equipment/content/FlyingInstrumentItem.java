@@ -1,20 +1,20 @@
 package net.yvanchuxiuzhen.system.equipment.content;
 
-import java.util.Map;
 import java.util.List;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
+import java.util.Map;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.equipment.api.FlyingInstrumentData;
+import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 
 /** 飞行法器物品：首次右键写入来源字段，随后召唤对应的飞行法器实体并清空手持槽。 */
 public final class FlyingInstrumentItem extends ContentItem {
@@ -61,17 +61,13 @@ public final class FlyingInstrumentItem extends ContentItem {
     }
 
     private void initialize(ItemStack stack) {
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        data.putString("flyitemID", ModId.VALUE + ":" + definition.itemId());
-        if (data.getString("flyname").isEmpty()) {
-            data.putString("flyname", definition.name());
-            data.putString("flyentityID", ModId.VALUE + ":" + definition.entityId());
-            data.putDouble("health_Max", definition.health());
-            data.putDouble("power_Max", definition.power());
-            data.putDouble("speed_num", definition.speed());
-            data.putDouble("health", definition.health());
-            data.putDouble("power", definition.power());
-        }
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        FlyingInstrumentData current = Equipment.flyingInstrument(stack);
+        String itemId = ModId.VALUE + ":" + definition.itemId();
+        FlyingInstrumentData updated = current.name().isEmpty()
+                ? new FlyingInstrumentData(itemId, ModId.VALUE + ":" + definition.entityId(), definition.name(),
+                        definition.health(), definition.health(), definition.power(), definition.power(), definition.speed())
+                : new FlyingInstrumentData(itemId, current.entityId(), current.name(),
+                        current.healthMax(), current.health(), current.powerMax(), current.power(), current.speed());
+        stack.set(EquipmentData.FLYING_INSTRUMENT.get(), updated);
     }
 }

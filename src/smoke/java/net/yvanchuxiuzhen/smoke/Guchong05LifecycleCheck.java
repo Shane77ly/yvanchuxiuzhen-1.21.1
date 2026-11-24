@@ -27,6 +27,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongTracking;
+import net.yvanchuxiuzhen.system.guchong.api.GuchongTrackingData;
 import net.yvanchuxiuzhen.system.guchong.entity.Guchong05Entity;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 
@@ -126,8 +127,8 @@ final class Guchong05LifecycleCheck extends SystemCheck {
         ordinary.mobInteract(player, InteractionHand.MAIN_HAND);
         ItemStack recovered = findItem(player);
         expectTrue("实体主人UUID与当前玩家不同时仍可右键回收", ordinary.isRemoved() && !recovered.isEmpty()
-                && !tag(recovered).getBoolean("zhuizhong") && tag(recovered).getString("belongToMasterUUID").equals(unrelatedOwner)
-                && !tag(recovered).contains("entitytick") && !tag(recovered).contains("entitytick2"));
+                && !GuchongTracking.get(recovered).tracking()
+                && GuchongTracking.get(recovered).ownerUuid().equals(unrelatedOwner));
         player.getInventory().clearContent();
     }
 
@@ -218,15 +219,15 @@ final class Guchong05LifecycleCheck extends SystemCheck {
             if (returned.isEmpty()) {
                 throw new IllegalStateException("追踪荧光蛊百刻移除后未返还主人物品");
             }
-            CompoundTag data = tag(returned);
+            GuchongTrackingData data = GuchongTracking.get(returned);
             expectTrue("百刻返还发生在重进后计时继续推进之后", resumedProgress);
             expectTrue("追踪荧光蛊百刻返还唯一物品并保留来源身份字段", returned.getCount() == 1
-                    && data.getBoolean("zhuizhong") && data.getString("belongToMasterUUID").equals(player.getStringUUID())
-                    && data.getDouble("zuobiaoX") == destination.getX() && data.getDouble("zuobiaoY") == destination.getY()
-                    && data.getDouble("zuobiaoZ") == destination.getZ() && !data.getBoolean("guchongxvnfu")
-                    && !data.getBoolean("kanjia") && data.getDouble("homeblockX") == 0
-                    && data.getDouble("homeblockY") == 0 && data.getDouble("homeblockZ") == 0);
-            expectTrue("返还物品不复制两个实体计时器", !data.contains("entitytick") && !data.contains("entitytick2"));
+                    && data.tracking() && data.ownerUuid().equals(player.getStringUUID())
+                    && data.targetX() == destination.getX() && data.targetY() == destination.getY()
+                    && data.targetZ() == destination.getZ() && !data.tamed()
+                    && !data.cutPrice() && data.homeX() == 0
+                    && data.homeY() == 0 && data.homeZ() == 0);
+            expectTrue("返还物品不复制两个实体计时器", !tag(returned).contains("entitytick") && !tag(returned).contains("entitytick2"));
             done[0] = true;
         });
         if (!done[0] && local > 180) throw new IllegalStateException("荧光蛊百刻返还超时");

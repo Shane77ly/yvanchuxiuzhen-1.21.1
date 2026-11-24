@@ -23,6 +23,8 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.client.event.ClientChatReceivedEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.equipment.api.FlyingInstrumentData;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 
 /** 八种飞行法器分别检查来源补能、实体和物品保存、潜行取回、死亡掉落及一点生命重召唤。 */
@@ -95,10 +97,11 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
         loaded.mobInteract(player, InteractionHand.MAIN_HAND);
         player.setShiftKeyDown(false);
         ItemStack returned = inventoryItem(player, initial);
+        FlyingInstrumentData returnedData = Equipment.flyingInstrument(returned);
         expectTrue(path + "潜行取回保留原组件并写入当前生命灵力", loaded.isRemoved()
                 && data(returned).getInt("smoke_marker") == 27
                 && initial.get(DataComponents.CUSTOM_NAME).equals(returned.get(DataComponents.CUSTOM_NAME))
-                && data(returned).getDouble("health") == 7.5 && data(returned).getDouble("power") == 73.25);
+                && returnedData.health() == 7.5 && returnedData.power() == 73.25);
         if (returned.isEmpty()) return;
 
         ItemStack restoredItem = ItemStack.parse(player.registryAccess(), returned.save(player.registryAccess())).orElseThrow();
@@ -117,21 +120,22 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
                 dropped -> !previousDrops.contains(dropped.getUUID()));
         created.addAll(drops);
         List<ItemEntity> deathDrops = drops.stream().filter(dropped -> dropped.getItem().is(initial.getItem()))
-                .filter(dropped -> data(dropped.getItem()).getDouble("health") == 1).toList();
+                .filter(dropped -> Equipment.flyingInstrument(dropped.getItem()).health() == 1).toList();
         expectTrue(path + "死亡生成独立的一点生命法器物品", !entity.isAlive() && deathDrops.size() == 1);
         if (deathDrops.size() != 1) return;
 
         ItemEntity dropped = deathDrops.getFirst();
-        CompoundTag dropData = data(dropped.getItem());
+        CompoundTag dropCustom = data(dropped.getItem());
+        FlyingInstrumentData dropData = Equipment.flyingInstrument(dropped.getItem());
         expectTrue(path + "死亡掉落保留八字段且拾取延迟精确十刻", dropped.saveWithoutId(new CompoundTag()).getShort("PickupDelay") == 10
-                && dropped.getY() == entity.getY() + 1 && dropData.getDouble("power") == 73.25
-                && dropData.getDouble("health_Max") == entity.getMaxHealth()
-                && dropData.getDouble("power_Max") == data(returned).getDouble("power_Max")
-                && dropData.getDouble("speed_num") == data(returned).getDouble("speed_num")
-                && dropData.getString("flyname").equals(data(returned).getString("flyname"))
-                && dropData.getString("flyitemID").equals(data(returned).getString("flyitemID"))
-                && dropData.getString("flyentityID").equals(data(returned).getString("flyentityID"))
-                && !dropData.contains("smoke_marker") && !dropped.getItem().has(DataComponents.CUSTOM_NAME));
+                && dropped.getY() == entity.getY() + 1 && dropData.power() == 73.25
+                && dropData.healthMax() == entity.getMaxHealth()
+                && dropData.powerMax() == returnedData.powerMax()
+                && dropData.speed() == returnedData.speed()
+                && dropData.name().equals(returnedData.name())
+                && dropData.itemId().equals(returnedData.itemId())
+                && dropData.entityId().equals(returnedData.entityId())
+                && !dropCustom.contains("smoke_marker") && !dropped.getItem().has(DataComponents.CUSTOM_NAME));
         ItemStack recovered = ItemStack.parse(player.registryAccess(), dropped.getItem().save(player.registryAccess())).orElseThrow();
         expectTrue(path + "死亡物品完整组件保存重读一致", ItemStack.isSameItemSameComponents(dropped.getItem(), recovered));
         dropped.discard();
@@ -151,8 +155,9 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
         loaded.mobInteract(player, InteractionHand.MAIN_HAND);
         player.setShiftKeyDown(false);
         ItemStack returned = inventoryItem(player, initial);
+        FlyingInstrumentData returnedData = Equipment.flyingInstrument(returned);
         expectTrue("补丁前空装备槽的已投放法器仍能取回", loaded.isRemoved() && !returned.isEmpty()
-                && data(returned).getDouble("power") == 73.25 && data(returned).getDouble("health") == 7.5
+                && returnedData.power() == 73.25 && returnedData.health() == 7.5
                 && !returned.has(DataComponents.CUSTOM_NAME));
         player.getInventory().clearContent();
     }

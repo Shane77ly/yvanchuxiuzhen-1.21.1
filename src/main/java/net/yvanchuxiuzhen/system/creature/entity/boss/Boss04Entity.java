@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.creature.entity.boss;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -34,6 +35,7 @@ public final class Boss04Entity extends PathfinderMob implements GeoEntity, Anim
     private static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(Boss04Entity.class, EntityDataSerializers.STRING);
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private String procedureAnimation = "empty";
+    private CompoundTag aiState = new CompoundTag();
 
     public Boss04Entity(EntityType<? extends Boss04Entity> type, Level level, EntityModelRow model) {
         super(type, level);
@@ -41,6 +43,22 @@ public final class Boss04Entity extends PathfinderMob implements GeoEntity, Anim
         xpReward = 0;
         setNoAi(false);
         setPersistenceRequired();
+    }
+
+    public CompoundTag aiState() {
+        return aiState;
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.put("AiState", aiState.copy());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        aiState = tag.contains("AiState") ? tag.getCompound("AiState").copy() : new CompoundTag();
     }
 
     public static AttributeSupplier.Builder attributes(EntityModelRow model) {

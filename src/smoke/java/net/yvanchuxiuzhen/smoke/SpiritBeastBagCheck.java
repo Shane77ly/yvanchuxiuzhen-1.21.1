@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
 import net.yvanchuxiuzhen.system.creature.SpiritBeastBagRuntime;
 import net.yvanchuxiuzhen.system.creature.client.SpiritBeastBagDyeScreen;
@@ -389,6 +390,7 @@ final class SpiritBeastBagCheck extends SystemCheck {
         active.moveTo(player.position().add(2, 0, 0));
         activeUuid = active.getUUID();
         verifyEntity(player, "染色后再次释放");
+        StatusEffects.add(active, "effect_007", 2400, 0);
         savedBag = player.getMainHandItem().copy();
         player.getInventory().setItem(20, player.getMainHandItem());
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);

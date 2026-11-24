@@ -35,6 +35,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.treasure.api.Caskets;
 import net.yvanchuxiuzhen.system.treasure.content.TreasureCasketBlockEntity;
 
 /** 通过原生服务端玩家右键验证来源宝匣配置、成品消费、库存保存及五个真实结束刻的移除。 */
@@ -181,11 +182,7 @@ final class TreasureCasketCheck extends SystemCheck {
     }
 
     private static ItemStack configured(String command, int count) {
-        ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(id("baoxiaitem")), count);
-        CompoundTag data = new CompoundTag();
-        data.putString("zhiling", command);
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
-        return stack;
+        return Caskets.create(command).copyWithCount(count);
     }
 
     private static void use(ServerPlayer player, BlockPos pos, Direction face) {

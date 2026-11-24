@@ -30,7 +30,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
@@ -38,6 +37,9 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.equipment.api.FlyingInstrumentData;
+import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -87,16 +89,16 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
     }
 
     private void configure(ServerPlayer owner, ItemStack stack) {
-        CompoundTag item = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        FlyingInstrumentData item = Equipment.flyingInstrument(stack);
         CompoundTag data = getPersistentData();
-        data.putString("flyitemID", item.getString("flyitemID"));
-        data.putString("flyentityID", item.getString("flyentityID"));
-        data.putString("flyname", item.getString("flyname"));
-        data.putDouble("health_Max", item.getDouble("health_Max"));
-        data.putDouble("health", item.getDouble("health"));
-        data.putDouble("power_Max", item.getDouble("power_Max"));
-        data.putDouble("power", item.getDouble("power"));
-        data.putDouble("speed_num", item.getDouble("speed_num"));
+        data.putString("flyitemID", item.itemId());
+        data.putString("flyentityID", item.entityId());
+        data.putString("flyname", item.name());
+        data.putDouble("health_Max", item.healthMax());
+        data.putDouble("health", item.health());
+        data.putDouble("power_Max", item.powerMax());
+        data.putDouble("power", item.power());
+        data.putDouble("speed_num", item.speed());
         data.putBoolean("flying", false);
         // 来源无方向物品能力的0号槽为原生主手，完整原物品随实体装备槽保存。
         setItemInHand(InteractionHand.MAIN_HAND, stack.copyWithCount(1));
@@ -266,16 +268,15 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
     private ItemStack itemStack(ItemStack stack, double health) {
         if (stack.isEmpty()) return stack;
         CompoundTag data = getPersistentData();
-        CompoundTag itemData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        itemData.putString("flyitemID", data.getString("flyitemID"));
-        itemData.putString("flyentityID", data.getString("flyentityID"));
-        itemData.putString("flyname", data.getString("flyname"));
-        itemData.putDouble("health_Max", data.getDouble("health_Max"));
-        itemData.putDouble("health", health);
-        itemData.putDouble("power_Max", data.getDouble("power_Max"));
-        itemData.putDouble("power", data.getDouble("power"));
-        itemData.putDouble("speed_num", data.getDouble("speed_num"));
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(itemData));
+        stack.set(EquipmentData.FLYING_INSTRUMENT.get(), new FlyingInstrumentData(
+                data.getString("flyitemID"),
+                data.getString("flyentityID"),
+                data.getString("flyname"),
+                data.getDouble("health_Max"),
+                health,
+                data.getDouble("power_Max"),
+                data.getDouble("power"),
+                data.getDouble("speed_num")));
         return stack;
     }
 

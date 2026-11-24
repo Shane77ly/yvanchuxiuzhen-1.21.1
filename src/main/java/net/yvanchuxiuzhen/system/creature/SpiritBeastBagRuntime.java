@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.creature;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -24,12 +23,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.creature.api.SpiritBeastBagData;
 import net.yvanchuxiuzhen.system.creature.content.SpiritBeastBagDyeMenu;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou001Entity;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou002Entity;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouAttributes;
@@ -169,7 +169,7 @@ public final class SpiritBeastBagRuntime {
             Relations.shareEntityAllegiance(player, stored);
             level.addFreshEntity(stored);
         }
-        CustomData.update(DataComponents.CUSTOM_DATA, bag, tag -> tag.putBoolean("yaoshoushifang", true));
+        bag.set(CreatureData.SPIRIT_BEAST_BAG.get(), bag.getOrDefault(CreatureData.SPIRIT_BEAST_BAG.get(), SpiritBeastBagData.EMPTY).withReleased(true));
     }
 
     public static void dye(Player player, SpiritBeastBagDyeMenu menu) {
@@ -208,12 +208,18 @@ public final class SpiritBeastBagRuntime {
         return stack.is(BAGS);
     }
 
+    public static String bagUuid(ItemStack stack) {
+        return stack.getOrDefault(CreatureData.SPIRIT_BEAST_BAG.get(), SpiritBeastBagData.EMPTY).bagUuid();
+    }
+
     public static CompoundTag read(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        return stack.getOrDefault(CreatureData.SPIRIT_BEAST_BAG.get(), SpiritBeastBagData.EMPTY).toTag();
     }
 
     public static void write(ItemStack stack, CompoundTag data) {
-        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        SpiritBeastBagData parsed = SpiritBeastBagData.fromTag(data);
+        if (parsed.isEmpty()) stack.remove(CreatureData.SPIRIT_BEAST_BAG.get());
+        else stack.set(CreatureData.SPIRIT_BEAST_BAG.get(), parsed);
     }
 
     private static void tell(Player player, String key, boolean darkRed) {

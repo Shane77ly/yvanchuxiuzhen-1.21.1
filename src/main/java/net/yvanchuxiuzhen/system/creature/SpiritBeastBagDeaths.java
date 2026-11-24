@@ -11,7 +11,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.scores.Objective;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -64,8 +63,7 @@ public final class SpiritBeastBagDeaths {
         if (inventory == null) return;
         for (int slot = 0; slot < inventory.getSlots(); slot++) {
             ItemStack previous = inventory.getStackInSlot(slot);
-            if (!previous.is(BAGS) || !previous.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag()
-                    .getString("lingshoudaiuuid").equals(bagUuid)) continue;
+            if (!previous.is(BAGS) || !SpiritBeastBagRuntime.bagUuid(previous).equals(bagUuid)) continue;
             ItemStack replacement = new ItemStack(previous.getItem());
             String name = previous.getDisplayName().getString().replace("[", "").replace("]", "");
             replacement.set(DataComponents.CUSTOM_NAME, Component.literal(name));

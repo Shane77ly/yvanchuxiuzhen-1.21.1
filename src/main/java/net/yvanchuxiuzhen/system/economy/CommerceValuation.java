@@ -56,15 +56,9 @@ final class CommerceValuation {
                 total = count * unit;
             }
         } else if (anyTag(stack, "wuqi", "fabao", "toukui", "xiongjia", "kuzi", "zhanxve")) {
-            String owner = Equipment.properties(stack).text("belongToMasterUUID");
-            if (owner.isEmpty()) owner = data.getString("belongToMasterUUID");
+            String owner = Equipment.ownerId(stack);
             int equipmentLevel = Equipment.refiningLevel(stack);
-            int weight = Equipment.product(stack).map(product -> product.weight()).orElseGet(() -> Equipment.refiningMaterials(stack).getInt("weightnum"));
-            if (equipmentLevel == 0) {
-                CompoundTag refinement = data.getCompound("lianqizong");
-                equipmentLevel = refinement.getInt("item_level_num");
-                weight = refinement.getInt("weightnum");
-            }
+            int weight = Equipment.weight(stack);
             if (owner.isEmpty() && equipmentLevel >= 1) {
                 unit = table("Lianqishoumaijizhi", equipmentLevel) * 60 * prices.multiplier("zhuangbeijiage");
                 total = count * unit;

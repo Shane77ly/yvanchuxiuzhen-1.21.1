@@ -18,6 +18,7 @@ import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
+import net.yvanchuxiuzhen.system.treasure.api.Caskets;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -120,7 +121,7 @@ final class BirthSupplyCheck extends SystemCheck {
         expect("回春养元丹第二效果", "yvanchuxiuzhen:effect_016", medicine.effects().get(1).id());
         carrier = prepare(player, "jiazubaibaodai", "geiyvcishu", 3);
         use(player, carrier);
-        expectTrue("第四份飓风扇宝匣保留命令", data(find(player, "baoxiaitem")).getString("zhiling")
+        expectTrue("第四份飓风扇宝匣保留命令", Caskets.command(find(player, "baoxiaitem"))
                 .startsWith("lianqi yvanchuxiuzhen:fabao_011 飓风扇 "));
         carrier = prepare(player, "jiazubaibaodai", "geiyvcishu", 5);
         use(player, carrier);
@@ -131,7 +132,7 @@ final class BirthSupplyCheck extends SystemCheck {
         use(player, carrier);
         expect("第八份四个独立宝匣", 4, count(player, "baoxiaitem"));
         long commands = inventory(player).stream().filter(stack -> stack.is(item("baoxiaitem")))
-                .map(stack -> data(stack).getString("zhiling")).distinct().count();
+                .map(Caskets::command).distinct().count();
         expect("四个宝匣指令独立", 4, commands);
         carrier = prepare(player, "jiazubaibaodai", "geiyvcishu", 9);
         use(player, carrier);

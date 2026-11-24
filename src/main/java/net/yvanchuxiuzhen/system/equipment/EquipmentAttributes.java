@@ -108,6 +108,8 @@ public final class EquipmentAttributes {
         if (event.key().equals("lianqizong.item_level_num")) {
             EquipmentProduct product = event.weapon().get(EquipmentData.PRODUCT.get());
             if (product != null) event.add(product.level());
+        } else if (event.key().equals("lianqizong.weightnum")) {
+            event.add(Equipment.weight(event.weapon()));
         } else if (event.key().equals("mana_Att")) {
             event.add(Equipment.properties(event.weapon()).number("mana_Att"));
         }

@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.equipment.content;
 
 import java.util.List;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -10,13 +9,13 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 
 /** 摄虫网的普通捕获与潜行困虫入口，保持来源品阶条件和两档冷却。 */
 public final class Fabao017Item extends ContentItem {
@@ -30,7 +29,7 @@ public final class Fabao017Item extends ContentItem {
         if (!(level instanceof ServerLevel server) || StatusEffects.has(player, "effect_002")) return result;
         ItemStack stack = result.getObject();
         boolean trapping = player.isShiftKeyDown();
-        if (trapping && stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("item_level_num") < 1) {
+        if (trapping && Math.max(Equipment.refiningLevel(stack), Equipment.properties(stack).number("item_level_num")) < 1) {
             player.displayClientMessage(Component.literal("§4需要法宝等级在黄阶一级以上，才可释放此技能"), false);
             return result;
         }

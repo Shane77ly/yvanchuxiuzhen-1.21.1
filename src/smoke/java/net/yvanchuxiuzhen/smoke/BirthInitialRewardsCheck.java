@@ -19,22 +19,29 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.system.book.api.BookTexts;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
 import net.yvanchuxiuzhen.system.lianqi.api.LianqiBlueprint;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
+import net.yvanchuxiuzhen.system.treasure.api.Caskets;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 import net.yvanchuxiuzhen.system.world.api.WorldStructures;
 import net.yvanchuxiuzhen.system.xiulian.BirthSelection;
 import net.yvanchuxiuzhen.system.xiulian.api.BirthInitialRewardsEvent;
@@ -57,6 +64,7 @@ final class BirthInitialRewardsCheck extends SystemCheck {
     private float originalHealth;
     private int originalFood;
     private float originalSaturation;
+    private GameType originalMode;
     private MobEffectInstance originalBadOmen;
     private double countBefore;
     private int readyTick;
@@ -133,10 +141,14 @@ final class BirthInitialRewardsCheck extends SystemCheck {
         originalHealth = player.getHealth();
         originalFood = player.getFoodData().getFoodLevel();
         originalSaturation = player.getFoodData().getSaturationLevel();
+        originalMode = player.gameMode.getGameModeForPlayer();
+        player.setGameMode(GameType.SURVIVAL);
+        player.serverLevel().getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(16)).forEach(Entity::discard);
         MobEffectInstance badOmen = player.getEffect(MobEffects.BAD_OMEN);
         originalBadOmen = badOmen == null ? null : new MobEffectInstance(badOmen);
         player.removeEffect(MobEffects.BAD_OMEN);
         Cultivation.editTizhi(player, data -> originalTizhi = data.copy());
+        Cultivation.setTizhiBoolean(player, "chuanjiegujing", true);
         countBefore = Cultivation.tizhiDouble(player, "tizhinumber");
         player.getInventory().clearContent();
         Cultivation.set(player, CultivationText.BIRTH, "落魄家族");
@@ -163,10 +175,10 @@ final class BirthInitialRewardsCheck extends SystemCheck {
             expect("传承物第二个发放", "yvanchuxiuzhen:ling_18", itemId(rewards.get(1)));
             expect("功法书保留藏宝载体", "yvanchuxiuzhen:book_021", itemId(rewards.get(2)));
             expect("技能书保留藏宝载体", "yvanchuxiuzhen:book_021", itemId(rewards.get(3)));
-            expect("功法藏宝书第三个", "功法书", data(rewards.get(2)).getString("TreasureTypeSmall"));
-            expect("技能藏宝书第四个", "技能书", data(rewards.get(3)).getString("TreasureTypeSmall"));
-            expect("初始藏宝书等级", 1, data(rewards.get(2)).getDouble("TreasureLEVEL"));
-            expect("技能藏宝书等级", 1, data(rewards.get(3)).getDouble("TreasureLEVEL"));
+            expect("功法藏宝书第三个", "功法书", TreasureContainers.config(rewards.get(2)).subtype());
+            expect("技能藏宝书第四个", "技能书", TreasureContainers.config(rewards.get(3)).subtype());
+            expect("初始藏宝书等级", 1, TreasureContainers.config(rewards.get(2)).level());
+            expect("技能藏宝书等级", 1, TreasureContainers.config(rewards.get(3)).level());
             expect("初始功法书中文名", "一本功法书", rewards.get(2).getHoverName().getString());
             expect("初始技能书中文名", "一本技能书", rewards.get(3).getHoverName().getString());
             expect("延迟结束后体质计次", countBefore + 1, Cultivation.tizhiDouble(player, "tizhinumber"));
@@ -201,8 +213,8 @@ final class BirthInitialRewardsCheck extends SystemCheck {
             expect("身法书类型", SkillKind.MOVEMENT, Skills.book(rewards.get(2)).orElseThrow().kind());
             expect("身法书名称", "灵步身法", Skills.book(rewards.get(2)).orElseThrow().name());
             expect("身法书冷却", 20, Skills.book(rewards.get(2)).orElseThrow().number("shenfatick"));
-            expect("家族功法藏宝书", "功法书", data(rewards.get(3)).getString("TreasureTypeSmall"));
-            expect("家族技能藏宝书", "技能书", data(rewards.get(4)).getString("TreasureTypeSmall"));
+            expect("家族功法藏宝书", "功法书", TreasureContainers.config(rewards.get(3)).subtype());
+            expect("家族技能藏宝书", "技能书", TreasureContainers.config(rewards.get(4)).subtype());
             expect("家族图纸末位发放", "yvanchuxiuzhen:book_030", itemId(rewards.get(5)));
             LianqiBlueprint blueprint = Lianqi.blueprint(rewards.get(5)).orElse(LianqiBlueprint.EMPTY);
             expect("图纸载体身份", "yvanchuxiuzhen:book_030", blueprint.sourceCarrierId());
@@ -223,14 +235,15 @@ final class BirthInitialRewardsCheck extends SystemCheck {
         expect("凡人奇遇两个奖励栈", 2, rewards.size());
         expect("无名修士储物袋物品", "yvanchuxiuzhen:treasure_chest_02", itemId(rewards.getFirst()));
         expect("无名修士储物袋名称", "无名修士储物袋", rewards.getFirst().getHoverName().getString());
-        expect("无名修士储物袋类别", "宝箱", data(rewards.getFirst()).getString("TreasureTypeBig"));
-        expect("无名修士储物袋子类", "综合", data(rewards.getFirst()).getString("TreasureTypeSmall"));
-        expect("无名修士储物袋固定下限", 8, data(rewards.getFirst()).getDouble("minimumvalue"));
-        expect("无名修士储物袋固定上限", 8, data(rewards.getFirst()).getDouble("Maximumvalue"));
+        TreasureContainerConfig bagConfig = TreasureContainers.config(rewards.getFirst());
+        expect("无名修士储物袋类别", "宝箱", bagConfig.category());
+        expect("无名修士储物袋子类", "综合", bagConfig.subtype());
+        expect("无名修士储物袋固定下限", 8, bagConfig.minimum());
+        expect("无名修士储物袋固定上限", 8, bagConfig.maximum());
         expect("风语弓宝匣身份", "yvanchuxiuzhen:baoxiaitem", itemId(rewards.get(1)));
         expect("风语弓宝匣名称", "一个装有修仙武器的宝匣", rewards.get(1).getHoverName().getString());
         expect("风语弓宝匣保留来源完整指令", "lianqi yvanchuxiuzhen:weaponspeedbow_01 风语弓 快弓类武器是有一定近战能力的远程武器，并且射击频率很高。 武器 黄阶二级 2 7 7 0 0 0 0 100",
-                data(rewards.get(1)).getString("zhiling"));
+                Caskets.command(rewards.get(1)));
         expect("凡人奇遇关闭后体质计次", countBefore + 3, Cultivation.tizhiDouble(player, "tizhinumber"));
     }
 
@@ -274,7 +287,7 @@ final class BirthInitialRewardsCheck extends SystemCheck {
         expect("远古秘辛文本书载体", "yvanchuxiuzhen:book_030", itemId(rewards.get(1)));
         expect("远古秘辛文本书名称", "风雷谷修士曾经的信件。", rewards.get(1).getHoverName().getString());
         expect("远古秘辛文本书正文", "那个邪修逃到400 2 400的位置去了，师兄们说不用管他，反正也活不了多久了。",
-                data(rewards.get(1)).getString("textdisplay"));
+                BookTexts.get(rewards.get(1)).textDisplay());
         expect("远古秘辛铁剑身份", Items.IRON_SWORD, rewards.get(2).getItem());
         var enchantments = player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
         expect("远古秘辛锋利等级", 1, EnchantmentHelper.getItemEnchantmentLevel(enchantments.getOrThrow(Enchantments.SHARPNESS), rewards.get(2)));
@@ -406,7 +419,7 @@ final class BirthInitialRewardsCheck extends SystemCheck {
         Cultivation.set(player, CultivationText.CONSTITUTION, originalConstitution);
         originalRoots.forEach((root, value) -> Cultivation.set(player, root, value));
         Cultivation.editTizhi(player, data -> {
-            for (String key : List.of("tizhiopen_001", "LevelupCorrectXiuweixishou", "tizhinumber", "tizhiopen_012", "AttackAttCorrectPercentage")) {
+            for (String key : List.of("tizhiopen_001", "LevelupCorrectXiuweixishou", "tizhinumber", "tizhiopen_012", "AttackAttCorrectPercentage", "chuanjiegujing")) {
                 if (originalTizhi.contains(key)) data.put(key, originalTizhi.get(key).copy());
                 else data.remove(key);
             }
@@ -414,6 +427,7 @@ final class BirthInitialRewardsCheck extends SystemCheck {
         player.setHealth(Math.min(originalHealth, player.getMaxHealth()));
         player.getFoodData().setFoodLevel(originalFood);
         player.getFoodData().setSaturation(originalSaturation);
+        player.setGameMode(originalMode);
         player.removeEffect(MobEffects.BAD_OMEN);
         if (originalBadOmen != null) player.addEffect(originalBadOmen);
         player.teleportTo(originalLevel, originalPosition.x, originalPosition.y, originalPosition.z, originalYaw, originalPitch);

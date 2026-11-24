@@ -79,10 +79,10 @@ final class TreasureToolCheck extends SystemCheck {
             case 2 -> {
                 expectTrue("空配置工具实际挥动打开管理页", minecraft.screen instanceof TreasureToolScreen);
                 expect("菜单中文", "天道宝箱设置", minecraft.screen.getTitle().getString());
-                expect("客户端显示默认大类", "书架", TreasureToolSettings.data(minecraft.player.getMainHandItem()).getString("TreasureTypeBig"));
-                expect("客户端显示默认小类", "书桶", TreasureToolSettings.data(minecraft.player.getMainHandItem()).getString("TreasureTypeSmall"));
+                expect("客户端显示默认大类", "书架", TreasureToolSettings.config(minecraft.player.getMainHandItem()).category());
+                expect("客户端显示默认小类", "书桶", TreasureToolSettings.config(minecraft.player.getMainHandItem()).subtype());
                 onServer(player -> expect("保留来源客户端默认未生成服务端类别", "",
-                        TreasureToolSettings.data(player.getMainHandItem()).getString("TreasureTypeBig")));
+                        TreasureToolSettings.config(player.getMainHandItem()).category()));
                 shot.accept("treasure_tool_menu.png");
             }
             case 3 -> {
@@ -93,7 +93,7 @@ final class TreasureToolCheck extends SystemCheck {
             case 4 -> {
                 onServer(player -> {
                     expect("类别按钮未给来源空服务端类别补默认", "",
-                            TreasureToolSettings.data(player.getMainHandItem()).getString("TreasureTypeBig"));
+                            TreasureToolSettings.config(player.getMainHandItem()).category());
                     numeric(player);
                 });
                 minecraft.player.closeContainer();
@@ -129,7 +129,7 @@ final class TreasureToolCheck extends SystemCheck {
                             chest.saveWithFullMetadata(player.registryAccess()), player.registryAccess());
                     expect("命中参数与开箱状态随方块序列化", data, restored.getPersistentData());
                     expectTrue("设置工具不扣件数", firedTool.is(item("tiandaobaoxiangitem").getItem()) && firedTool.getCount() == 1
-                            && TreasureToolSettings.data(firedTool).getString("TreasureTypeBig").equals("书架"));
+                            && TreasureToolSettings.config(firedTool).category().equals("书架"));
                 });
                 shot.accept("treasure_tool_hit.png");
             }
@@ -207,29 +207,29 @@ final class TreasureToolCheck extends SystemCheck {
         ItemStack configured = configured(new ItemStack(Items.STONE), "书架", "书籍堆", 8, 64, 64);
         stage(player, configured);
         menu.clickMenuButton(player, 1);
-        expect("类别上调同时重置对应小类", "草药堆", TreasureToolSettings.data(configured).getString("TreasureTypeSmall"));
+        expect("类别上调同时重置对应小类", "草药堆", TreasureToolSettings.config(configured).subtype());
         menu.clickMenuButton(player, 0);
         menu.clickMenuButton(player, 3);
-        expect("小类上调", "书桶", TreasureToolSettings.data(configured).getString("TreasureTypeSmall"));
+        expect("小类上调", "书桶", TreasureToolSettings.config(configured).subtype());
         menu.clickMenuButton(player, 2);
-        expect("小类下调", "书籍堆", TreasureToolSettings.data(configured).getString("TreasureTypeSmall"));
+        expect("小类下调", "书籍堆", TreasureToolSettings.config(configured).subtype());
         menu.clickMenuButton(player, 5);
-        expect("等级八上调回一", 1, TreasureToolSettings.data(configured).getDouble("TreasureLEVEL"));
+        expect("等级八上调回一", 1, TreasureToolSettings.config(configured).level());
         menu.clickMenuButton(player, 4);
-        expect("等级一下调回八", 8, TreasureToolSettings.data(configured).getDouble("TreasureLEVEL"));
+        expect("等级一下调回八", 8, TreasureToolSettings.config(configured).level());
         menu.clickMenuButton(player, 7);
-        expect("最小六十四上调回一", 1, TreasureToolSettings.data(configured).getDouble("minimumvalue"));
+        expect("最小六十四上调回一", 1, TreasureToolSettings.config(configured).minimum());
         menu.clickMenuButton(player, 6);
-        expect("来源最小值一下调保留服务端零", 0, TreasureToolSettings.data(configured).getDouble("minimumvalue"));
+        expect("来源最小值一下调保留服务端零", 0, TreasureToolSettings.config(configured).minimum());
         menu.clickMenuButton(player, 6);
-        expect("最小零下调回六十四", 64, TreasureToolSettings.data(configured).getDouble("minimumvalue"));
+        expect("最小零下调回六十四", 64, TreasureToolSettings.config(configured).minimum());
         menu.clickMenuButton(player, 9);
-        expect("最大值上调回一后仍被最小六十四抬高", 64, TreasureToolSettings.data(configured).getDouble("Maximumvalue"));
+        expect("最大值上调回一后仍被最小六十四抬高", 64, TreasureToolSettings.config(configured).maximum());
         stage(player, configured(new ItemStack(Items.EMERALD), "纳戒", "炼器师纳戒", 1, 1, 1));
         menu.clickMenuButton(player, 8);
-        expect("最大值一下调回六十四", 64, TreasureToolSettings.data(player.getMainHandItem()).getDouble("Maximumvalue"));
+        expect("最大值一下调回六十四", 64, TreasureToolSettings.config(player.getMainHandItem()).maximum());
         menu.clickMenuButton(player, 2);
-        expect("来源菜单操作切换后的普通主手物品", "机关术师纳戒", TreasureToolSettings.data(player.getMainHandItem()).getString("TreasureTypeSmall"));
+        expect("来源菜单操作切换后的普通主手物品", "机关术师纳戒", TreasureToolSettings.config(player.getMainHandItem()).subtype());
     }
 
     private void stageTarget(ServerPlayer player) {

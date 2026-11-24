@@ -13,6 +13,7 @@ import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 
 /** 财神服只读取本人穿戴的四槽；金币周期保存在胸甲实例，不要求穿齐其他部位。 */
@@ -25,12 +26,9 @@ final class FortuneCostumeRuntime {
         for (EquipmentSlot slot : List.of(EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET)) {
             ItemStack stack = player.getItemBySlot(slot);
             if (!(stack.getItem() instanceof FortuneCostumeItem armor)) continue;
+            String animation = Equipment.consumeGeckoAnimation(stack);
+            if (!animation.isEmpty() && player.level().isClientSide()) armor.requestAnimation(animation);
             CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-            String animation = data.getString("geckoAnim");
-            if (!animation.isEmpty()) {
-                CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.putString("geckoAnim", ""));
-                if (player.level().isClientSide()) armor.requestAnimation(animation);
-            }
             if (slot != EquipmentSlot.CHEST || !(player.level() instanceof ServerLevel level)) continue;
             double tick = data.getDouble("fuqitick") + 1;
             if (tick >= 20) {

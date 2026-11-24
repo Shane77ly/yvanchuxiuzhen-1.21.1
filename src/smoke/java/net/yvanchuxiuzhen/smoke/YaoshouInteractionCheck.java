@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -31,6 +32,8 @@ import net.minecraft.world.level.GameType;
 import net.neoforged.neoforge.client.event.ClientChatReceivedEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.yvanchuxiuzhen.system.creature.api.SpiritBeastBagData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouAttributes;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouEntity;
 
@@ -201,7 +204,7 @@ final class YaoshouInteractionCheck extends SystemCheck {
         YaoshouEntity observed = beast(player);
         observed.getPersistentData().putDouble("tame_num", 7);
         ItemStack prior = item("fabao_015");
-        CustomData.update(DataComponents.CUSTOM_DATA, prior, tag -> tag.putDouble("tame_num", 50));
+        prior.set(CreatureData.TAME_VALUE.get(), 50.0);
         player.setItemInHand(InteractionHand.MAIN_HAND, prior);
         post(player, observed, InteractionHand.MAIN_HAND);
         expect("来源前置物品分支不继续执行普通加驯服度", 7, observed.getPersistentData().getDouble("tame_num"));
@@ -221,14 +224,14 @@ final class YaoshouInteractionCheck extends SystemCheck {
         ItemStack plain = new ItemStack(Items.PAPER);
         player.setItemInHand(InteractionHand.MAIN_HAND, plain);
         player.interactOn(beast, InteractionHand.MAIN_HAND);
-        expectTrue("来源读取无驯服度物品后保留空自定义数据写入", plain.has(DataComponents.CUSTOM_DATA)
-                && data(plain).isEmpty());
+        expectTrue("读取无驯服度物品不写入多余自定义数据", !plain.has(DataComponents.CUSTOM_DATA)
+                && !plain.has(CreatureData.TAME_VALUE.get()));
         ItemStack held = tamingItem(0.5, 2);
         player.setItemInHand(InteractionHand.MAIN_HAND, held);
         player.interactOn(beast, InteractionHand.MAIN_HAND);
         expectTrue("非主人以物品小数驯服度进入实体加五并越过100", held.getCount() == 1
                 && beast.getPersistentData().getDouble("tame_num") == 104 && beast.getHealth() == 10
-                && data(held).getDouble("tame_num") == 0.5 && !beast.isOwnedBy(player));
+                && held.getOrDefault(CreatureData.TAME_VALUE.get(), 0.0) == 0.5 && !beast.isOwnedBy(player));
         held = tamingItem(99.5, 2);
         player.setItemInHand(InteractionHand.MAIN_HAND, held);
         player.setGameMode(GameType.CREATIVE);
@@ -297,16 +300,17 @@ final class YaoshouInteractionCheck extends SystemCheck {
 
     private void bagPriority(ServerPlayer player, YaoshouEntity beast) {
         ItemStack bag = item("lingshoudai_02");
-        CompoundTag stored = new CompoundTag();
-        stored.putString("lingshoudaiuuid", "different_bag");
-        stored.putDouble("tame_num", 50);
-        bag.set(DataComponents.CUSTOM_DATA, CustomData.of(stored));
+        SpiritBeastBagData stored = new SpiritBeastBagData(
+                "different_bag", "", "", "", "", false, false, 0, 0, "", 0, 0, 0, 0, Map.of(), Map.of());
+        bag.set(CreatureData.SPIRIT_BEAST_BAG.get(), stored);
+        bag.set(CreatureData.TAME_VALUE.get(), 50.0);
         beast.getPersistentData().putString("lingshoudaiuuid", "creature_bag");
         player.setItemInHand(InteractionHand.MAIN_HAND, bag);
         player.setShiftKeyDown(true);
         player.interactOn(beast, InteractionHand.MAIN_HAND);
         expectTrue("潜行持袋先执行袋UUID分支且不落入普通加五", !beast.isRemoved() && bag.getCount() == 1
-                && data(bag).equals(stored) && beast.getPersistentData().getDouble("tame_num") == 114);
+                && stored.equals(bag.get(CreatureData.SPIRIT_BEAST_BAG.get()))
+                && beast.getPersistentData().getDouble("tame_num") == 114);
         player.setShiftKeyDown(false);
         player.interactOn(beast, InteractionHand.MAIN_HAND);
         expectTrue("不潜行持袋进入普通物品阈值分支", !beast.isRemoved() && bag.isEmpty()
@@ -350,7 +354,7 @@ final class YaoshouInteractionCheck extends SystemCheck {
 
     private static ItemStack tamingItem(double itemTameness, int count) {
         ItemStack stack = new ItemStack(Items.PAPER, count);
-        CustomData.update(DataComponents.CUSTOM_DATA, stack, data -> data.putDouble("tame_num", itemTameness));
+        stack.set(CreatureData.TAME_VALUE.get(), itemTameness);
         return stack;
     }
 

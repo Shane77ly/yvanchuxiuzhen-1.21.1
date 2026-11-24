@@ -4,10 +4,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -18,15 +15,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.ShovelItem;
-import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.equipment.api.BenmingData;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentProperties;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
 import net.yvanchuxiuzhen.system.equipment.api.FabaoFireData;
+import net.yvanchuxiuzhen.system.equipment.api.FlyingInstrumentData;
 import net.yvanchuxiuzhen.system.equipment.content.Fabao010Item;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 
@@ -79,13 +77,13 @@ final class EquipmentTooltip {
             lines.add(Component.literal("§6" + product.grade()));
             lines.add(Component.literal("§6" + product.type()));
             EquipmentStats stats = stack.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY);
-            CompoundTag refinement = stack.getOrDefault(EquipmentData.REFINEMENT.get(), CustomData.EMPTY).copyTag();
+            EquipmentRefinement refinement = stack.getOrDefault(EquipmentData.REFINEMENT.get(), EquipmentRefinement.EMPTY);
             if (weapon) {
                 positive(lines, "物理攻击力", stats.physicalAttack());
                 positive(lines, "法术攻击力", stats.spellAttack());
                 positive(lines, "精神攻击力", stats.soulAttack());
                 for (String trait : SPECIAL_TRAITS) {
-                    if (refinement.getBoolean(trait)) {
+                    if (refinement.flag(trait)) {
                         lines.add(Component.literal("§b" + Component.translatable("teshu.yvanchuxiuzhen." + trait).getString()));
                     }
                 }
@@ -103,8 +101,9 @@ final class EquipmentTooltip {
             lines.add(Component.literal("§f重量：" + product.weight()));
             String description = product.description();
             HolderLookup.Provider registries = event.getContext().registries();
-            if (registries != null && refinement.contains("fabaoshuoming_component", Tag.TAG_STRING)) {
-                description = Component.Serializer.fromJson(refinement.getString("fabaoshuoming_component"), registries).getString();
+            String descriptionComponent = refinement.text("fabaoshuoming_component");
+            if (registries != null && !descriptionComponent.isEmpty()) {
+                description = Component.Serializer.fromJson(descriptionComponent, registries).getString();
             }
             for (int start = 0; start < description.length(); start += 24) {
                 lines.add(Component.literal("§f" + description.substring(start, Math.min(start + 24, description.length()))));
@@ -140,16 +139,16 @@ final class EquipmentTooltip {
 
     /** 来源 {@code ItemLoreProcedure:166-178}：飞行法器说明与耐久/灵力/速度实时状态。 */
     private static void flyingInstrument(List<Component> lines, ItemStack stack) {
-        CompoundTag data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        if (data.getString("flyentityID").isEmpty()) return;
+        FlyingInstrumentData data = Equipment.flyingInstrument(stack);
+        if (data.entityId().isEmpty()) return;
         DecimalFormat whole = new DecimalFormat("0");
         lines.add(Component.literal("§b飞行法器是一种适合长途飞行的法宝，比飞行技能消耗的灵力更低。"));
         lines.add(Component.literal("§b飞行法器会优先消耗自身存储的灵力，然后才会消耗驾驶法器之人的灵力。"));
         lines.add(Component.literal("§b手持灵石右键飞行法器，即可为其充能。"));
         lines.add(Component.literal("§b手持建筑锤右键飞行法器，可以修理法器，修理台也可以快速修理法器。"));
-        lines.add(Component.literal("§f耐久：" + whole.format(data.getDouble("health")) + "/" + whole.format(data.getDouble("health_Max"))));
-        lines.add(Component.literal("§f灵力：" + whole.format(data.getDouble("power")) + "/" + whole.format(data.getDouble("power_Max"))));
-        lines.add(Component.literal("§f速度：" + data.getDouble("speed_num")));
+        lines.add(Component.literal("§f耐久：" + whole.format(data.health()) + "/" + whole.format(data.healthMax())));
+        lines.add(Component.literal("§f灵力：" + whole.format(data.power()) + "/" + whole.format(data.powerMax())));
+        lines.add(Component.literal("§f速度：" + data.speed()));
     }
 
     private static void nonzero(List<Component> lines, String name, double value) {
