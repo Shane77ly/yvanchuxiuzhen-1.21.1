@@ -18,6 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
@@ -36,7 +37,6 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
  * 风压对玩家目标只改服务端运动量，不补发运动包，与来源一致。
  */
 final class FuluTick {
-    private static final String FIRE = "火";
 
     private interface EffectState {
         boolean active(String suffix);
@@ -314,7 +314,7 @@ final class FuluTick {
     /** 来源经 {@code /shanghai 火 <施放者> true <伤害> 1} 命令结算，随后清除目标的受伤无敌时间以便逐刻命中。 */
     private static void fireStrike(ServerLevel level, Entity caster, Entity target, double damage) {
         if (target instanceof LivingEntity living) {
-            SpellDamage.command(level, living, "shanghai " + FIRE + " " + caster.getStringUUID() + " true " + damage + " 1");
+            SpellDamage.deal(level, living, DamageCategory.FIRE, caster, true, damage, 1);
             living.invulnerableTime = 0;
         }
     }

@@ -11,6 +11,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -69,9 +70,7 @@ final class FireEntities {
      */
     private static void controlFire(ServerPlayer caster, SkillBook book) {
         ServerLevel level = (ServerLevel) caster.level();
-        double[] values = {book.manaAttack(), book.damageMultiplier()};
         BlockPos center = ProjectileSupport.lookBlock(caster, 4);
-        String attackUuid = "";
         for (int dx = -4; dx <= 4; dx++) {
             for (int dy = -4; dy <= 4; dy++) {
                 for (int dz = -4; dz <= 4; dz++) {
@@ -85,7 +84,7 @@ final class FireEntities {
                         if (!ProjectileSupport.friendly(caster, other)) {
                             ProjectileSupport.burst(other, "smallexplosionred", other.getBbHeight() / 2);
                             if (other instanceof LivingEntity living) {
-                                SpellDamage.command(level, living, "shanghai " + FIRE + " " + attackUuid + " false " + values[0] + " " + values[1]);
+                                SpellDamage.deal(living, DamageCategory.FIRE, null, false, book.damageMultiplier(), 0);
                             }
                             ProjectileSupport.ignite(other, 5);
                         }

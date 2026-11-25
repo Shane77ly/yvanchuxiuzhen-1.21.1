@@ -43,6 +43,7 @@ import net.neoforged.neoforge.fluids.FluidType;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -248,9 +249,9 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
         pauseDone = tag.getBoolean("xiayibu2");
     }
 
-    private void strike(ServerLevel level, Entity target, String label, double damage) {
+    private void strike(ServerLevel level, Entity target, DamageCategory category, double damage) {
         if (target instanceof LivingEntity living) {
-            SpellDamage.command(level, living, "shanghai " + label + " " + masterUuid + " true " + damage + " 1");
+            SpellDamage.dealSaved(level, living, category, masterUuid, true, damage, 1);
         }
     }
 
@@ -273,7 +274,7 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
             double damage = grade * 20;
             for (Entity target : nearby(level, position(), 4.5)) {
                 if (!Relations.isFriendly(this, target)) {
-                    strike(level, target, "雷", damage);
+                    strike(level, target, DamageCategory.THUNDER, damage);
                 }
             }
             tickCount = 0;
@@ -304,7 +305,7 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
                 double damage = 20 * grade;
                 for (Entity target : nearby(level, position(), 3.5)) {
                     if (!Relations.isFriendly(this, target)) {
-                        strike(level, target, "土", damage);
+                        strike(level, target, DamageCategory.SOIL, damage);
                         if (target instanceof LivingEntity living) {
                             living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 10));
                             living.addEffect(new MobEffectInstance(effect("effect_002"), 40, 9));
@@ -412,7 +413,7 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
         for (Entity target : nearby(level, position(), 4)) {
             if (!Relations.isFriendly(this, target)) {
                 target.setDeltaMovement(new Vec3((getX() - target.getX()) * 0.3, 0, (getZ() - target.getZ()) * 0.3));
-                strike(level, target, "暗", damage);
+                strike(level, target, DamageCategory.DARK, damage);
             }
         }
     }
@@ -435,7 +436,7 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
                 level.sendParticles(ParticleTypes.SPLASH, target.getX(), target.getY(), target.getZ(), 5, 0, 1, 0, 0.5);
                 level.sendParticles(ParticleTypes.BUBBLE, target.getX(), target.getY(), target.getZ(), 5, 0, 1, 0, 0.5);
                 target.setDeltaMovement(new Vec3(0, 0.1, 0));
-                strike(level, target, "水", damage);
+                strike(level, target, DamageCategory.WATER, damage);
             }
         }
     }

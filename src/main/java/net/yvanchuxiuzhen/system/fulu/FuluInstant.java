@@ -35,6 +35,7 @@ import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.Lightning;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.fulu.content.CloudSpirit;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanBeast;
@@ -330,7 +331,7 @@ final class FuluInstant {
             if (!Relations.isFriendly(player, target)) {
                 target.setDeltaMovement(new Vec3((target.getX() - player.getX()) * 0.85, 0.5, (target.getZ() - player.getZ()) * 0.85));
                 if (target instanceof LivingEntity living) {
-                    SpellDamage.command(level, living, "shanghai 火 " + player.getStringUUID() + " true " + 25 * grade + " 1");
+                    SpellDamage.deal(level, living, DamageCategory.FIRE, player, true, 25 * grade, 1);
                 }
             }
         }

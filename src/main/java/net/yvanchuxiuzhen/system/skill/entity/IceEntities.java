@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
@@ -96,8 +97,7 @@ final class IceEntities {
                         if (!ProjectileSupport.friendly(self, other)) {
                             ProjectileSupport.burst(other, Math.random() < 0.5 ? "smallexplosionskyblue" : "smallexplosionwhite", other.getBbHeight() / 2);
                             if (other instanceof LivingEntity living) {
-                                SpellDamage.command(level, living, "shanghai 冰 " + cast.attacker() + " false "
-                                        + (double) cast.attackDamage() + " " + (double) cast.multiplier());
+                                SpellDamage.dealSaved(level, living, DamageCategory.ICE, cast.attacker(), false, cast.attackDamage(), cast.multiplier());
                             }
                         }
                     }
@@ -145,8 +145,7 @@ final class IceEntities {
                     for (Entity other : ProjectileSupport.around(level, self.position(), 1)) {
                         if (!ProjectileSupport.friendly(self, other)) {
                             if (other instanceof LivingEntity living) {
-                                SpellDamage.command(level, living, "shanghai 冰 " + cast.attacker() + " false 2 "
-                                        + (double) cast.multiplier());
+                                SpellDamage.dealSaved(level, living, DamageCategory.ICE, cast.attacker(), false, 2, cast.multiplier());
                             }
                             other.setTicksFrozen(other.getTicksFrozen() + 40);
                         }

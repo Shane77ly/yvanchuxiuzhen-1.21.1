@@ -2,8 +2,6 @@ package net.yvanchuxiuzhen.system.combat.damage;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import com.mojang.util.UndashedUuid;
-import java.util.UUID;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerLevel;
@@ -42,38 +40,15 @@ public final class ShanghaiCommand {
         return 0;
     }
 
-    /**
-     * 按命令行文字（含命令名在内的完整输入）结算一次伤害。来源里别的系统用字符串拼出命令再执行，拼接的某一项为空时空白合并，
-     * 后面的参数整体前移；其他系统用这个入口复现同样的解析，见 {@code SpellDamage.command}。
-     */
-    public static void execute(ServerLevel level, LivingEntity target, String input) {
+    /** 手动命令按空白取词，缺省数字与非法数字均按零结算。 */
+    private static void execute(ServerLevel level, LivingEntity target, String input) {
         String[] words = input.trim().split("\\s+");
-        Shanghai.Request request = request(DamageCategory.byLabel(word(words, 1)), word(words, 2), word(words, 3).equals("true"), number(word(words, 4)), number(word(words, 5)));
+        Shanghai.Request request = DamageFields.request(DamageCategory.byLabel(word(words, 1)), word(words, 2), word(words, 3).equals("true"), DamageFields.number(word(words, 4)), DamageFields.number(word(words, 5)));
         if (request != null) Shanghai.deal(level, target, request);
-    }
-
-    static Shanghai.Request request(DamageCategory category, String attackerWord, boolean fixed, double base, double multiplier) {
-        UUID attacker = null;
-        if (!(attackerWord.equals("无") || attackerWord.equals("wu") || attackerWord.equals("no") || attackerWord.equals("false"))) {
-            try {
-                attacker = UndashedUuid.fromStringLenient(attackerWord);
-            } catch (IllegalArgumentException exception) {
-                // 来源按这个字符串查不到实体，随后对空来源取数据而抛出异常，命令失败，没有伤害。
-                return null;
-            }
-        }
-        return new Shanghai.Request(category, attacker, fixed, base, multiplier);
     }
 
     private static String word(String[] words, int index) {
         return index < words.length ? words[index] : "";
     }
 
-    private static double number(String text) {
-        try {
-            return Double.parseDouble(text.trim());
-        } catch (NumberFormatException exception) {
-            return 0;
-        }
-    }
 }

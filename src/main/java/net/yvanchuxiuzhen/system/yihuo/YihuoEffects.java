@@ -16,6 +16,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -63,7 +64,7 @@ public final class YihuoEffects {
                 if (yang && StatusEffects.has(entity, "effect_024")) {
                     explode(level, entity, attacker);
                 } else {
-                    SpellDamage.command(level, entity, "shanghai 火 " + attacker + " true " + (8 * (amplifier + 1)) + " 1" + (yang ? " 异火" : ""));
+                    SpellDamage.dealSaved(level, entity, DamageCategory.FIRE, attacker, true, 8 * (amplifier + 1), 1);
                     if (yang) RESET_INVULNERABILITY.add(entity);
                 }
                 if (yang) state.setYangTick(0);
@@ -99,7 +100,7 @@ public final class YihuoEffects {
         for (Mob target : level.getEntitiesOfClass(Mob.class, new AABB(entity.position(), entity.position()).inflate(2)).stream()
                 .sorted(Comparator.comparingDouble(entity::distanceToSqr)).toList()) {
             int damage = 10 * (StatusEffects.amplifier(entity, "effect_023") + StatusEffects.amplifier(entity, "effect_024") + 2);
-            SpellDamage.command(level, target, "shanghai 火 " + attacker + " false " + damage + " 1");
+            SpellDamage.dealSaved(level, target, DamageCategory.FIRE, attacker, false, damage, 1);
         }
         double y = entity.getY() + entity.getBbHeight() * .5;
         level.playSound(null, BlockPos.containing(entity.getX(), y, entity.getZ()), SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1);

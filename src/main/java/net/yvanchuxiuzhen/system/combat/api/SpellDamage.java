@@ -5,8 +5,8 @@ import java.util.UUID;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.yvanchuxiuzhen.system.combat.damage.DamageFields;
 import net.yvanchuxiuzhen.system.combat.damage.Shanghai;
-import net.yvanchuxiuzhen.system.combat.damage.ShanghaiCommand;
 import net.yvanchuxiuzhen.system.combat.data.CombatData;
 
 /**
@@ -70,12 +70,9 @@ public final class SpellDamage {
         Shanghai.deal(level, target, new Shanghai.Request(category, attacker, fixed, base, multiplier));
     }
 
-    /**
-     * 按 {@code /shanghai} 命令行文字（含命令名在内的完整输入，如 {@code "shanghai 火 <UUID> false 3 1"}）结算，
-     * 解析与命令完全相同。来源用字符串拼命令时，某一项为空会让后面的参数前移，调用处原样拼出同样的字符串即可复现。
-     */
-    public static void command(ServerLevel level, LivingEntity target, String input) {
-        ShanghaiCommand.execute(level, target, input);
+    /** 按保存的攻击者字段结算；空字段、多词、无来源标志与未加载实体保持来源行为。 */
+    public static void dealSaved(ServerLevel level, LivingEntity target, DamageCategory category, String owner, boolean fixed, double base, double multiplier) {
+        DamageFields.dealSaved(level, target, category, owner, fixed, base, multiplier);
     }
 
     /**

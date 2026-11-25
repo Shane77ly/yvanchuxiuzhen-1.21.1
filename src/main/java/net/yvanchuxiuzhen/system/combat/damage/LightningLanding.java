@@ -61,7 +61,7 @@ public final class LightningLanding {
         boolean fixed = word(words, 7).equals("独立");
         // 缺失攻击者时，内层伤害命令的 false 前移为无来源，基础量位置为空。
         Shanghai.Request damage = attacker.isEmpty() ? new Shanghai.Request(DamageCategory.THUNDER, null, false, 0, 0)
-                : ShanghaiCommand.request(DamageCategory.THUNDER, attacker, fixed, number(word(words, 1)), number(word(words, 3)));
+                : DamageFields.request(DamageCategory.THUNDER, attacker, fixed, number(word(words, 1)), number(word(words, 3)));
         strike(level, center, number(word(words, 5)), word(words, 6), damage);
     }
 
@@ -77,13 +77,13 @@ public final class LightningLanding {
     /** 存档来源可能是无来源标志、未加载或非法 UUID；无效伤害不取消闪电。 */
     public static void castSaved(ServerLevel level, Vec3 center, String owner, double base, double multiplier, String team, int diameter, String color, boolean fixed) {
         if (singleWord(owner) && singleWord(team)) {
-            strike(level, center, diameter, color, ShanghaiCommand.request(DamageCategory.THUNDER, owner, fixed, base, multiplier));
+            strike(level, center, diameter, color, DamageFields.request(DamageCategory.THUNDER, owner, fixed, base, multiplier));
             return;
         }
         // 空字段不占词位，多词字段跨越后续槽位。只对这类存档重排字段，不再分发命令。
         String[] fields = Stream.of(owner, Double.toString(multiplier), team, Integer.toString(diameter), color, fixed ? "独立" : "")
                 .flatMap(FIELD_SEPARATOR::splitAsStream).filter(field -> !field.isEmpty()).toArray(String[]::new);
-        Shanghai.Request damage = ShanghaiCommand.request(DamageCategory.THUNDER, word(fields, 0), word(fields, 5).equals("独立"), base, number(word(fields, 1)));
+        Shanghai.Request damage = DamageFields.request(DamageCategory.THUNDER, word(fields, 0), word(fields, 5).equals("独立"), base, number(word(fields, 1)));
         strike(level, center, number(word(fields, 3)), word(fields, 4), damage);
     }
 

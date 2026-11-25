@@ -13,6 +13,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -143,8 +144,7 @@ final class WaterFormations {
 
     private static void strikeOrb(SkillEntity self, Entity target, Relations.FriendCast cast) {
         if (target instanceof LivingEntity living) {
-            SpellDamage.command((ServerLevel) self.level(), living, "shanghai 水 " + cast.attacker() + " false "
-                    + (double) cast.damage() + " " + (double) cast.multiplier());
+            SpellDamage.dealSaved((ServerLevel) self.level(), living, DamageCategory.WATER, cast.attacker(), false, cast.damage(), cast.multiplier());
         }
     }
 

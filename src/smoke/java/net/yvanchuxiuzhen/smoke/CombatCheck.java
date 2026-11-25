@@ -35,6 +35,7 @@ import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.combat.CombatSetup;
@@ -329,6 +330,20 @@ final class CombatCheck extends SystemCheck {
         lifecycleStart = player.serverLevel().getGameTime();
     }
 
+    private void compareSavedDamage(ServerPlayer player, String owner, boolean fixed) {
+        IronGolem reference = golem(player, 100);
+        IronGolem direct = golem(player, 100);
+        reference.getRandom().setSeed(1);
+        direct.getRandom().setSeed(1);
+        player.server.getCommands().performPrefixedCommand(reference.createCommandSourceStack().withSuppressedOutput(),
+                "shanghai 火 " + owner + " " + fixed + " 6 1.5");
+        SpellDamage.dealSaved(player.serverLevel(), direct, DamageCategory.FIRE, owner, fixed, 6, 1.5);
+        near("存档伤害：主人[" + owner + "] 固定=" + fixed, reference.getHealth(), direct.getHealth());
+        if (owner.isEmpty()) near("空主人单独核对前移基础量", fixed ? 0 : 1.5 * 1.5 / 4.5, 100 - direct.getHealth());
+        direct.discard();
+        reference.discard();
+    }
+
     private void damage(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
         effectLifecycle(player);
@@ -398,6 +413,11 @@ final class CombatCheck extends SystemCheck {
         near("命令 /shanghai 无 无 true 6 1", 4, before - golem.getHealth());
         golem.discard();
 
+        for (String owner : List.of("", "无", "非法", "00000000-0000-0000-0000-000000000001",
+                player.getStringUUID(), player.getStringUUID().replace("-", ""), "wu true 9 2")) {
+            compareSavedDamage(player, owner, false);
+            compareSavedDamage(player, owner, true);
+        }
         enchantments(player, level);
         blocks(player, level);
 
