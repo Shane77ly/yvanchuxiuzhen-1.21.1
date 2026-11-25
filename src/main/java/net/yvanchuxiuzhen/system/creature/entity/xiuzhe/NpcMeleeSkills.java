@@ -21,6 +21,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -755,12 +757,7 @@ public final class NpcMeleeSkills {
                         if (world instanceof ServerLevel _level)
                             _level.sendParticles(Particles.type("smallexplosionlightblue"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()), 1, 0,
                                     0, 0, 0);
-                        {
-                            Entity _ent = entityiterator;
-                            if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                        ("shanghai" + " " + "金" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "1.7"));
-                        }
+                        SpellDamage.deal(entityiterator, DamageCategory.GOLD, entity, false, 2, 1.7);
                     }
                 }
             }
@@ -822,12 +819,7 @@ public final class NpcMeleeSkills {
                                         1, 1, false);
                             }
                         }
-                        {
-                            Entity _ent = entityiterator;
-                            if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                        ("shanghai" + " " + "水" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "1.2"));
-                        }
+                        SpellDamage.deal(entityiterator, DamageCategory.WATER, entity, false, 2, 1.2);
                     }
                 }
             }
@@ -887,12 +879,7 @@ public final class NpcMeleeSkills {
                         if (world instanceof ServerLevel _level)
                             _level.sendParticles(Particles.type("smallexplosiongreen"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()), 1, 0, 0,
                                     0, 0);
-                        {
-                            Entity _ent = entityiterator;
-                            if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                        ("shanghai" + " " + "木" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "1.2"));
-                        }
+                        SpellDamage.deal(entityiterator, DamageCategory.TREE, entity, false, 2, 1.2);
                         if (entityiterator instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MobEffects.POISON) : false) {
                             if (entityiterator instanceof LivingEntity _entity)
                                 _entity.addEffect(
@@ -965,12 +952,7 @@ public final class NpcMeleeSkills {
                         }
                         if (entityiterator instanceof LivingEntity _entity)
                             _entity.addEffect(new MobEffectInstance(StatusEffects.holder("effect_023"), 200, 0));
-                        {
-                            Entity _ent = entityiterator;
-                            if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                        ("shanghai" + " " + "火" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "1.5"));
-                        }
+                        SpellDamage.deal(entityiterator, DamageCategory.FIRE, entity, false, 2, 1.5);
                     }
                 }
             }
@@ -1035,12 +1017,7 @@ public final class NpcMeleeSkills {
                         if (world instanceof ServerLevel _level)
                             _level.sendParticles(Particles.type("smallexplosiondeeporange"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()), 1, 0,
                                     0, 0, 0);
-                        {
-                            Entity _ent = entityiterator;
-                            if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                        ("shanghai" + " " + "土" + " " + entity.getStringUUID() + " " + "false" + " " + "1" + " " + "1.5"));
-                        }
+                        SpellDamage.deal(entityiterator, DamageCategory.SOIL, entity, false, 1, 1.5);
                         if (!(entityiterator instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("skilleffect_08")) : false)) {
                             entityiterator.setDeltaMovement(new Vec3(((entityiterator.getX() - entity.getX()) * 1), 0.3, ((entityiterator.getZ() - entity.getZ()) * 1)));
                         }

@@ -22,6 +22,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
@@ -354,7 +355,7 @@ final class Yaoshou035Behavior {
                             _level.sendParticles(Particles.type("smallexplosiondarkgrey"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()), 1, 0,
                                     0, 0, 0);
                         if (world instanceof ServerLevel level && entityiterator instanceof LivingEntity living) {
-                            SpellDamage.command(level, living, "shanghai 音波 " + entity.getStringUUID() + " false 5 1");
+                            SpellDamage.deal(level, living, DamageCategory.SOUND, entity, false, 5, 1);
                         }
                     }
                 }

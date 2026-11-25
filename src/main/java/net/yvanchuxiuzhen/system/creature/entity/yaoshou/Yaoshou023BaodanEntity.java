@@ -22,6 +22,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.core.particles.ParticleTypes;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -112,7 +113,7 @@ public final class Yaoshou023BaodanEntity extends AbstractArrow implements ItemS
             level.sendParticles(Particles.type("smallexplosiondarkgreen"), target.getX(), target.getY() + target.getBbHeight() / 2,
                     target.getZ(), 1, 0, 0, 0, 0);
             if (target instanceof LivingEntity living) {
-                SpellDamage.command(level, living, "shanghai 木 " + owner.getStringUUID() + " false 2 0.5");
+                SpellDamage.deal(level, living, DamageCategory.TREE, owner, false, 2, 0.5);
                 living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1));
             }
         }

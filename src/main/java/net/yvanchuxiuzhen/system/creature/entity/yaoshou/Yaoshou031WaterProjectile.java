@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -53,7 +54,7 @@ public final class Yaoshou031WaterProjectile extends AbstractArrow implements It
         if (!Relations.isFriendly(owner, target)) {
             level.sendParticles(Particles.type("smallexplosionblue"), target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(), 1, 0, 0, 0, 0);
             if (target instanceof LivingEntity living) {
-                SpellDamage.command(level, living, "shanghai 水 " + owner.getStringUUID() + " false 1 1");
+                SpellDamage.deal(level, living, DamageCategory.WATER, owner, false, 1, 1);
             }
         }
     }

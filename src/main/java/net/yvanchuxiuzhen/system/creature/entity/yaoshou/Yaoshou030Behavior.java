@@ -15,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -217,8 +218,7 @@ public final class Yaoshou030Behavior {
                     if (!YaoshouShared.isFriendly(entity, victim) && entity.level() instanceof ServerLevel level) {
                         level.sendParticles(Particles.type("smallexplosiongolden"), victim.getX(), victim.getY() + victim.getBbHeight() / 2,
                                 victim.getZ(), 1, 0, 0, 0, 0);
-                        if (victim instanceof LivingEntity living) SpellDamage.command(level, living,
-                                "shanghai 金 " + entity.getStringUUID() + " false 2 1");
+                        if (victim instanceof LivingEntity living) SpellDamage.deal(level, living, DamageCategory.GOLD, entity, false, 2, 1);
                     }
                 }
                 data.setDestX(target.getX() + random(-8, 8));
@@ -271,8 +271,7 @@ public final class Yaoshou030Behavior {
                 if (!YaoshouShared.isFriendly(entity, victim) && entity.level() instanceof ServerLevel level) {
                     level.sendParticles(Particles.type("smallexplosiongolden"), victim.getX(), victim.getY() + victim.getBbHeight() / 2,
                             victim.getZ(), 1, 0, 0, 0, 0);
-                    if (victim instanceof LivingEntity living) SpellDamage.command(level, living,
-                            "shanghai 金 " + entity.getStringUUID() + " false 8 0.5");
+                    if (victim instanceof LivingEntity living) SpellDamage.deal(level, living, DamageCategory.GOLD, entity, false, 8, 0.5);
                 }
             }
             data.setTick2(data.tick2() + 1);

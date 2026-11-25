@@ -20,6 +20,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -185,7 +186,7 @@ final class Boss04Behavior {
             particle(boss, boss.position(), Particles.type("bigbangdeeporange"), 1, 0);
             for (Entity victim : nearby(boss, boss.position(), 6)) if (victim != boss && !Relations.isFriendly(boss, victim)) {
                 particle(victim, Particles.type("smallexplosiondeeporange"), 1);
-                runDamage(boss, victim, "土", 2, 1.5);
+                SpellDamage.deal(victim, DamageCategory.SOIL, boss, false, 2, 1.5);
                 if (!hasSkillGuard(victim)) victim.setDeltaMovement(new Vec3(0, 1, 0));
             }
             state.putString("jinengjinxing", "结束");
@@ -215,7 +216,7 @@ final class Boss04Behavior {
         if (tick > 20 && phase.equals("打")) {
             for (Entity victim : forwardTargets(boss, 3, 2)) if (victim != boss && !Relations.isFriendly(boss, victim)) {
                 if (skill.equals("蓄力重拳")) damage(boss, victim, EntityAttributes.stat(boss, Stat.ATTACK) * 1.5);
-                else if (skill.equals("地脉拳")) { particle(victim, Particles.type("smallexplosiondeeporange"), 1); runDamage(boss, victim, "土", 10, 1.5); }
+                else if (skill.equals("地脉拳")) { particle(victim, Particles.type("smallexplosiondeeporange"), 1); SpellDamage.deal(victim, DamageCategory.SOIL, boss, false, 10, 1.5); }
                 else if (!hasSkillGuard(victim)) victim.setDeltaMovement(new Vec3(victim.getX() - boss.getX(), .5, victim.getZ() - boss.getZ()));
             }
             state.putString("jinengjinxing", "结束");
@@ -401,12 +402,6 @@ final class Boss04Behavior {
 
     private static void damage(Entity owner, Entity victim, double amount) {
         victim.hurt(owner.damageSources().source(DamageTypes.PLAYER_ATTACK, owner), (float) amount);
-    }
-
-    private static void runDamage(Entity owner, Entity victim, String element, int base, double multiplier) {
-        if (victim.level() instanceof ServerLevel level && victim instanceof LivingEntity living) {
-            SpellDamage.command(level, living, "shanghai " + element + " " + owner.getStringUUID() + " false " + base + " " + multiplier);
-        }
     }
 
     private static void particle(Entity target, ParticleOptions type, int count) {

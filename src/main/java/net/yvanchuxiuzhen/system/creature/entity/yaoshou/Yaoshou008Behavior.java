@@ -23,6 +23,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -441,12 +443,7 @@ final class Yaoshou008Behavior {
                         if (world instanceof ServerLevel _level)
                             _level.sendParticles(Particles.type("smallexplosionpurple"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()), 1, 0, 0,
                                     0, 0);
-                        {
-                            Entity _ent = entityiterator;
-                            if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                        ("shanghai" + " " + "雷" + " " + entity.getStringUUID() + " " + "false" + " " + "3" + " " + "1.3"));
-                        }
+                        SpellDamage.deal(entityiterator, DamageCategory.THUNDER, entity, false, 3, 1.3);
                         if (entityiterator instanceof LivingEntity _entity)
                             _entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 20));
                         if (entityiterator instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("effect_004")) : false) {

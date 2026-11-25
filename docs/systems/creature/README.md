@@ -2,10 +2,12 @@
 topic: creature
 role: entry
 status: partial
-updated: 2026-11-20
+updated: 2026-11-25
 ---
 
 # 生物
+
+生物技能命中以战斗系统的 `SpellDamage.deal` 结算，不再拼接 `/shanghai`。选招、伤害数值与命中顺序未调整；见[阶段 3 核对与验证](../project/logs/2026-11.md#2026-11-25-阶段-3-生物技能伤害)。
 
 璞玉奇遇103/104的公开生成操作见[奇遇妖兽接口](architecture.md#璞玉奇遇妖兽接口2026-11-22)；来源与目标实机均待验证。
 

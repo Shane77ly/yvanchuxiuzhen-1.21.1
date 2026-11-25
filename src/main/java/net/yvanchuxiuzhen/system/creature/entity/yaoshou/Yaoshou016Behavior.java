@@ -19,6 +19,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -339,12 +341,7 @@ final class Yaoshou016Behavior {
                         if (world instanceof ServerLevel _level)
                             _level.sendParticles(Particles.type("smallexplosiondarkgreen"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()), 1, 0,
                                     0, 0, 0);
-                        {
-                            Entity _ent = entityiterator;
-                            if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                        ("shanghai" + " " + "木" + " " + entity.getStringUUID() + " " + "false" + " " + "5" + " " + "1.2"));
-                        }
+                        SpellDamage.deal(entityiterator, DamageCategory.TREE, entity, false, 5, 1.2);
                         if (entityiterator instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("duyao_11")) : false) {
                             if (entityiterator instanceof LivingEntity _entity)
                                 _entity.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_11"),
@@ -377,11 +374,7 @@ final class Yaoshou016Behavior {
         if (entity == null || sourceentity == null)
             return;
         if (!Relations.isFriendly(sourceentity, entity)) {
-            {
-                Entity _ent = entity;
-                if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                    _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4), ("shanghai" + " " + "木" + " " + sourceentity.getStringUUID() + " " + "false" + " " + "2" + " " + "0.5"));
-            }
+            SpellDamage.deal(entity, DamageCategory.TREE, sourceentity, false, 2, 0.5);
             if (entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("duyao_11")) : false) {
                 if (entity instanceof LivingEntity _entity)
                     _entity.addEffect(new MobEffectInstance(StatusEffects.holder("duyao_11"),

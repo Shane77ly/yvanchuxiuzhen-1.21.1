@@ -31,6 +31,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.creature.data.CreatureState;
@@ -126,7 +127,7 @@ public final class Yaoshou050safengentityEntity extends PathfinderMob implements
                     level.sendParticles(Particles.type("smallexplosionlightgray"), target.getX(), target.getY() + target.getBbHeight() / 2,
                             target.getZ(), 16, 2, 2, 2, 0);
                     if (target instanceof LivingEntity living)
-                        SpellDamage.command(level, living, "shanghai 风 " + getStringUUID() + " false 2 1");
+                        SpellDamage.deal(level, living, DamageCategory.WIND, this, false, 2, 1);
                 }
             }
             setDeltaMovement(new Vec3(-Math.sin(state.angle() * (Math.PI / 180)),

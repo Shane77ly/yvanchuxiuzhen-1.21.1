@@ -14,6 +14,8 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -274,12 +276,7 @@ final class Yaoshou018Behavior {
                                 if (world instanceof ServerLevel _level)
                                     _level.sendParticles(Particles.type("smallexplosionskyblue"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()),
                                             1, 0, 0, 0, 0);
-                                {
-                                    Entity _ent = entityiterator;
-                                    if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                        _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                                ("shanghai" + " " + "光" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "0.8"));
-                                }
+                                SpellDamage.deal(entityiterator, DamageCategory.LIGHT, entity, false, 2, 0.8);
                                 if (!(entityiterator instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("skilleffect_08")) : false)) {
                                     entityiterator.setDeltaMovement(new Vec3(((entityiterator.getX() - entity.getX()) * 0.4), 0.3, ((entityiterator.getZ() - entity.getZ()) * 0.4)));
                                 }
@@ -345,12 +342,7 @@ final class Yaoshou018Behavior {
                             if (world instanceof ServerLevel _level)
                                 _level.sendParticles(Particles.type("smallexplosionskyblue"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()), 1,
                                         0, 0, 0, 0);
-                            {
-                                Entity _ent = entityiterator;
-                                if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                    _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                            ("shanghai" + " " + "光" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "0.8"));
-                            }
+                            SpellDamage.deal(entityiterator, DamageCategory.LIGHT, entity, false, 2, 0.8);
                             if (!(entityiterator instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("skilleffect_08")) : false)) {
                                 entityiterator.setDeltaMovement(new Vec3(((entityiterator.getX() - entity.getX()) * 0.4), 0.3, ((entityiterator.getZ() - entity.getZ()) * 0.4)));
                             }
@@ -405,12 +397,7 @@ final class Yaoshou018Behavior {
                             if (world instanceof ServerLevel _level)
                                 _level.sendParticles(Particles.type("smallexplosionskyblue"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()), 1,
                                         0, 0, 0, 0);
-                            {
-                                Entity _ent = entityiterator;
-                                if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                    _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                            ("shanghai" + " " + "光" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "0.8"));
-                            }
+                            SpellDamage.deal(entityiterator, DamageCategory.LIGHT, entity, false, 2, 0.8);
                             if (!(entityiterator instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("skilleffect_08")) : false)) {
                                 entityiterator.setDeltaMovement(new Vec3(((entityiterator.getX() - entity.getX()) * 0.4), 0.3, ((entityiterator.getZ() - entity.getZ()) * 0.4)));
                             }

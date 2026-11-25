@@ -8,6 +8,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -42,12 +44,7 @@ final class Yaoshou040skill0301TouZhiWuFeiXingTick {
                             .toList();
                     for (Entity entityiterator : _entfound) {
                         if (!Relations.isFriendly(entity, entityiterator)) {
-                            {
-                                Entity _ent = entityiterator;
-                                if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                    _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                            ("shanghai" + " " + "光" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "1"));
-                            }
+                            SpellDamage.deal(entityiterator, DamageCategory.LIGHT, entity, false, 2, 1);
                         }
                     }
                 }
