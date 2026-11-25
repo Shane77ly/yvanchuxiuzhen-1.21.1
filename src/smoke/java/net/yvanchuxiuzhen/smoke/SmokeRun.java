@@ -657,6 +657,7 @@ final class SmokeRun {
                     case "jadeoredrops", JadeOreDropsCheck.EMPTY -> List.of(new JadeOreDropsCheck(report, levelId));
                     case NaturalAlloyRepairCheck.SELECTOR -> List.of(new NaturalAlloyRepairCheck(report, levelId, this::shot));
                     case "jadecarving" -> List.of(new JadeCarvingCheck(report, levelId, this::shot));
+                    case "birthsupply" -> List.of(new BirthSupplyCheck(report, levelId));
                     case "jadepickupsave" -> List.of(new JadePickupPersistenceCheck(report, levelId, this::shot));
                     case "peachleaves" -> List.of(new PeachLeavesCheck(report, levelId));
                     case "peachflower" -> List.of(new PeachLeavesCheck(report, levelId, "peachflower", "桃花"));
