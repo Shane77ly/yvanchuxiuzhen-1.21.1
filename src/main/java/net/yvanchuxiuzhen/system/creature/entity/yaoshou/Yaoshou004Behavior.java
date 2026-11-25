@@ -2,11 +2,8 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import java.util.Comparator;
 import java.util.List;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,7 +14,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
@@ -319,18 +315,6 @@ final class Yaoshou004Behavior {
     /** 来源 Yaoshou004jiantaProcedure：保留阶段条件、候选顺序及随机调用。 */
     static void Yaoshou004jianta(LevelAccessor world, Entity entity) {
         Entity linshientity = null;
-        String zhilingjihe = "";
-        String particleID = "";
-        double xiangliangY = 0;
-        double xiangliangX = 0;
-        double R = 0;
-        double particlenumber = 0;
-        double xiangliangZ = 0;
-        double shengchengZ = 0;
-        double shengchengX = 0;
-        double shengchengY = 0;
-        double xvnhuan = 0;
-        double speed = 0;
         if ((CreatureData.state(entity).phase()).equals("")) {
             CreatureData.state(entity).setPhase("践踏开始");
             if (!entity.level().isClientSide) {
@@ -345,24 +329,7 @@ final class Yaoshou004Behavior {
                 }
             }
         } else if ((CreatureData.state(entity).phase()).equals("践踏开始") && CreatureData.state(entity).tick() >= 24) {
-            R = 3;
-            speed = 0.5;
-            particleID = "minecraft:smoke_large";
-            particlenumber = 30;
-            xvnhuan = 0;
-            shengchengY = entity.getY() + entity.getBbHeight() * 0.5;
-            xiangliangY = 0;
-            for (int index0 = 0; index0 < (int) (particlenumber); index0++) {
-                shengchengX = entity.getX() + R * Math.cos(xvnhuan);
-                shengchengZ = entity.getZ() + R * Math.sin(xvnhuan);
-                xiangliangX = speed * Math.cos(xvnhuan);
-                xiangliangZ = speed * Math.sin(xvnhuan);
-                zhilingjihe = "particle " + particleID + " " + shengchengX + " " + shengchengY + " " + shengchengZ + " " + xiangliangX + " " + xiangliangY + " " + xiangliangZ + " " + speed + " 0";
-                if (world instanceof ServerLevel _level)
-                    _level.getServer().getCommands().performPrefixedCommand(
-                            new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(), zhilingjihe);
-                xvnhuan = xvnhuan + 360 / particlenumber;
-            }
+            // 来源烟环使用未注册的 minecraft:smoke_large，不产生可见粒子。
             if (world instanceof ServerLevel _level)
                 _level.sendParticles(ParticleTypes.EXPLOSION, (entity.getX()), (entity.getY()), (entity.getZ()), 8, (entity.getBbWidth() / 2), 0, (entity.getBbWidth() / 2), 0);
             {

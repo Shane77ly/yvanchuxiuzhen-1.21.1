@@ -182,7 +182,7 @@ final class Boss04Behavior {
             boss.setAnimation("animation.ycxzboss_04.skill01"); state.putString("jinengjinxing", "撼地"); return;
         }
         if (tick >= 20 && phase.equals("撼地")) {
-            ring(boss, 6, "minecraft:large_smoke", 60, .5);
+            ring(boss, 6, 60, .5);
             particle(boss, boss.position(), Particles.type("bigbangdeeporange"), 1, 0);
             for (Entity victim : nearby(boss, boss.position(), 6)) if (victim != boss && !Relations.isFriendly(boss, victim)) {
                 particle(victim, Particles.type("smallexplosiondeeporange"), 1);
@@ -281,7 +281,7 @@ final class Boss04Behavior {
             boss.setDeltaMovement(new Vec3(state.getDouble("xzengliang"), state.getDouble("yzengliang"), state.getDouble("zzengliang")));
             if (tick >= 20) state.putString("jinengjinxing", "砸落");
         } else if (tick > 20 && phase.equals("砸落")) {
-            ring(boss, 2, "minecraft:large_smoke", 60, .5);
+            ring(boss, 2, 60, .5);
             for (Entity victim : forwardTargets(boss, 3, 5)) if (victim != boss && !Relations.isFriendly(boss, victim)) {
                 damage(boss, victim, EntityAttributes.stat(boss, Stat.ATTACK) * 1.5);
                 if (!hasSkillGuard(victim)) victim.setDeltaMovement(new Vec3(0, 1, 0));
@@ -318,7 +318,7 @@ final class Boss04Behavior {
             boss.setDeltaMovement(new Vec3(state.getDouble("xzengliang"), state.getDouble("yzengliang"), state.getDouble("zzengliang")));
             if (tick >= 28) state.putString("jinengjinxing", "砸落");
         } else if (tick > 28 && phase.equals("砸落")) {
-            ring(boss, 2, "minecraft:large_smoke", 60, .5);
+            ring(boss, 2, 60, .5);
             for (Entity victim : forwardTargets(boss, 3, 3)) if (victim != boss && !Relations.isFriendly(boss, victim)) {
                 damage(boss, victim, EntityAttributes.stat(boss, Stat.ATTACK) * 1.5);
                 if (victim instanceof LivingEntity living) StatusEffects.add(living, "effect_001", 40, 0);
@@ -412,14 +412,13 @@ final class Boss04Behavior {
         if (boss.level() instanceof ServerLevel level) level.sendParticles(type, position.x, position.y, position.z, count, 0, 0, 0, speed);
     }
 
-    private static void ring(Boss04Entity boss, double radius, String particle, int count, double speed) {
+    private static void ring(Boss04Entity boss, double radius, int count, double speed) {
         if (!(boss.level() instanceof ServerLevel level)) return;
         double angle = 0;
         for (int i = 0; i < count; i++) {
             double x = boss.getX() + radius * Math.cos(angle), z = boss.getZ() + radius * Math.sin(angle);
             double vx = speed * Math.cos(angle), vz = speed * Math.sin(angle);
-            level.getServer().getCommands().performPrefixedCommand(boss.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                    "particle " + particle + " " + x + " " + (boss.getY() + boss.getBbHeight() * .5) + " " + z + " " + vx + " 0 " + vz + " " + speed + " 0");
+            Particles.directed(level, ParticleTypes.LARGE_SMOKE, x, boss.getY() + boss.getBbHeight() * .5, z, vx, 0, vz, speed);
             angle += 360.0 / count;
         }
     }

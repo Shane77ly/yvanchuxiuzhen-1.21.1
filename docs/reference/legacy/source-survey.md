@@ -2,7 +2,7 @@
 topic: source-architecture-survey
 role: data
 status: partial
-updated: 2026-11-23
+updated: 2026-11-25
 ---
 
 # 1.18.2 版本架构调查
@@ -394,6 +394,7 @@ updated: 2026-11-23
 | Q279 | 画卷两端被其他容器替换时的快照写入；保留安全边界（待裁定） | 禁止非副本画卷方块写入外部容器槽 0，防止破坏玩家正常炉具存档 | [副本](../../systems/dungeon/architecture.md#q279-画卷两端被其他容器替换时的快照写入) |
 | Q280 | 大风雷火命中非生物时缺少碰撞粒子；已修复（待实机验收） | `YihuoProjectile` 已在非生物早退前发出 10 颗 `cailiao_<N>particle` | [异火](../../systems/yihuo/architecture.md#q280-大风雷火命中非生物时缺少碰撞粒子) |
 | Q281 | 大风雷火不再向普通容器写入炉热；保留安全边界（待裁定） | 保持仅正规炉具写入热量，避免污染普通储物箱实体数据 | [异火](../../systems/yihuo/architecture.md#q281-大风雷火不再向普通容器写入炉热) |
+| Q282 | 004 践踏、027 连打砸地的来源烟环名在目标版本未注册（待裁定） | `Yaoshou004jiantaProcedure:62`、`Yaoshou027liandazadiProcedure:141` 均写 `minecraft:smoke_large`；暂保留不显示 | [生物](../../systems/creature/README.md) |
 
 ## 源码位置
 
