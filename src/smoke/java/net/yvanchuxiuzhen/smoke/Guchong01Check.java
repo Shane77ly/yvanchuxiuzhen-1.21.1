@@ -29,10 +29,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongCapture;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarRuntime;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlockEntity;
+import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 import net.yvanchuxiuzhen.system.guchong.entity.Guchong01Entity;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongEntity;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
@@ -129,13 +134,13 @@ final class Guchong01Check extends SystemCheck {
         active = onlyInsect(player);
         player.setGameMode(GameType.CREATIVE);
         actors.add(active);
-        CompoundTag data = active.getPersistentData();
+        EntityStats stats = EntityAttributes.get(active);
         expectTrue("单虫自然初始化为二阶低级且保持来源十三资质", player.getMainHandItem().isEmpty()
-                && data.getDouble("LEVELnumber") == 7 && data.getString("LEVELname").equals("二阶低级")
-                && data.getString("health_Max_LEVEL").equals("平庸") && data.getString("attack_Def_LEVEL").equals("勉强")
-                && data.getString("speed_LEVEL").equals("贫弱") && !active.isTame());
+                && stats.level() == 7 && stats.realmName().equals("二阶低级")
+                && stats.rating(Stat.HEALTH_MAX).equals("平庸") && stats.rating(Stat.ATTACK_DEF).equals("勉强")
+                && stats.rating(Stat.MOVE_SPEED).equals("贫弱") && !active.isTame());
         expect("七级来源生命", 148, active.getMaxHealth());
-        expect("七级来源经验上限", 1570, data.getDouble("experience_Max"));
+        expect("七级来源经验上限", 1570, stats.experienceMax());
         expect("七级来源攻击", 4, active.getAttributeValue(Attributes.ATTACK_DAMAGE));
         expect("七级来源移速", .135, active.getAttributeValue(Attributes.MOVEMENT_SPEED));
         pig = EntityType.PIG.create(player.serverLevel());
@@ -152,11 +157,12 @@ final class Guchong01Check extends SystemCheck {
     }
 
     private void checkProvokeAndCapture(ServerPlayer player) {
-        expectTrue("自然十九刻挑衅驱动原生AI攻击前一只生物", zombie.getPersistentData().getString("attackmubiao").equals(pig.getStringUUID())
+        expectTrue("自然十九刻挑衅驱动原生AI攻击前一只生物", zombie.getData(GuchongData.PROVOKE_TARGET).equals(pig.getStringUUID())
                 && (pig.getHealth() < pig.getMaxHealth() || !pig.isAlive()));
         expectTrue("鼓上蚤本身没有近战或主动选敌", active.getTarget() == null && active.getHealth() == active.getMaxHealth());
-        String marker = zombie.getPersistentData().getString("attackmubiao");
-        expectTrue("挑衅标记随原生实体完整保存", zombie.saveWithoutId(new CompoundTag()).getCompound("NeoForgeData").getString("attackmubiao").equals(marker));
+        String marker = zombie.getData(GuchongData.PROVOKE_TARGET);
+        expectTrue("挑衅标记随原生实体完整保存", zombie.saveWithoutId(new CompoundTag())
+                .getCompound("neoforge:attachments").getString("yvanchuxiuzhen:guchong_provoke_target").equals(marker));
         zombie.discard();
         pig.discard();
         GuchongCapture.captureWild(player.serverLevel(), active, player.getStringUUID());
@@ -176,9 +182,9 @@ final class Guchong01Check extends SystemCheck {
         Guchong01Entity restored = onlyInsect(player);
         actors.add(restored);
         expectTrue("认主单虫恢复七级资质和当前生命并认当前使用者", restored.isOwnedBy(player) && restored.getHealth() == 7
-                && restored.getPersistentData().getDouble("LEVELnumber") == 7
+                && EntityAttributes.level(restored) == 7
                 && Relations.entityTeam(restored).equals(Relations.team(player))
-                && restored.getPersistentData().getString("belongToMasterUUID").isEmpty());
+                && restored.getData(GuchongData.RUNTIME).ownerUuid().isEmpty());
         restored.discard();
         player.setGameMode(GameType.CREATIVE);
     }
@@ -221,7 +227,7 @@ final class Guchong01Check extends SystemCheck {
             active = insects.getFirst();
             actors.add(active);
             releasedAt = player.level().getGameTime();
-            expectTrue("地上罐自然放出认主编号01", active.isOwnedBy(player) && active.getPersistentData().getBoolean("kanjia"));
+            expectTrue("地上罐自然放出认主编号01", active.isOwnedBy(player) && active.getData(GuchongData.RUNTIME).guarding());
             pig.moveTo(origin.getX() + 15.5, origin.getY() + 1, origin.getZ() + .5);
             found[0] = true;
         });
@@ -264,18 +270,18 @@ final class Guchong01Check extends SystemCheck {
 
     private void growthAndSave(ServerPlayer player) {
         expectTrue("手持释放的认主鼓上蚤自然跟随主人", active.isOwnedBy(player) && active.distanceToSqr(player) < followDistance / 2);
-        CompoundTag data = active.getPersistentData();
-        data.putDouble("experience", 1560);
-        data.putString("attackmubiao", "provocation_marker");
+        EntityAttributes.setExperience(active, 1560);
+        active.setData(GuchongData.PROVOKE_TARGET, "provocation_marker");
         Guchong01Entity victim = (Guchong01Entity) GuchongJarRuntime.create(player.serverLevel(), "yvanchuxiuzhen:guchong_01");
         victim.moveTo(active.position());
         GuchongJarRuntime.finishSpawn(player.serverLevel(), victim);
         actors.add(victim);
         double profession = Professions.experience(player, Profession.INSECT);
         victim.hurt(player.damageSources().mobAttack(active), 10000);
-        expectTrue("同种击杀按经验上限四分之一结算并升级", data.getDouble("LEVELnumber") == 8
-                && data.getDouble("experience") == 382.5 && data.getDouble("experience_Max") == 2220
-                && data.getString("LEVELname").equals("二阶中级") && data.getString("attackmubiao").isEmpty());
+        EntityStats stats = EntityAttributes.get(active);
+        expectTrue("同种击杀按经验上限四分之一结算并升级", stats.level() == 8
+                && stats.experience() == 382.5 && stats.experienceMax() == 2220
+                && stats.realmName().equals("二阶中级") && active.getData(GuchongData.PROVOKE_TARGET).isEmpty());
         expect("升级回满来源生命", 156, active.getHealth());
         expect("养蛊经验通过公开接口按新等级增加", profession + 80, Professions.experience(player, Profession.INSECT));
         Pig ordinary = EntityType.PIG.create(player.serverLevel());
@@ -283,7 +289,7 @@ final class Guchong01Check extends SystemCheck {
         player.serverLevel().addFreshEntity(ordinary);
         actors.add(ordinary);
         ordinary.hurt(player.damageSources().mobAttack(active), 10000);
-        expect("非同种普通生物按原生生命除五结算", 384.5, data.getDouble("experience"));
+        expect("非同种普通生物按原生生命除五结算", 384.5, EntityAttributes.experience(active));
         for (String id : List.of("guchong_03", "guchong_04")) {
             GuchongEntity other = (GuchongEntity) GuchongJarRuntime.create(player.serverLevel(), "yvanchuxiuzhen:" + id);
             other.moveTo(active.position());
@@ -294,7 +300,7 @@ final class Guchong01Check extends SystemCheck {
             player.serverLevel().addFreshEntity(ordinaryVictim);
             actors.add(ordinaryVictim);
             ordinaryVictim.hurt(player.damageSources().mobAttack(other), 10000);
-            expect(id + "实际实体标签接入同一新增击杀消费者", 2, other.getPersistentData().getDouble("experience"));
+            expect(id + "实际实体标签接入同一新增击杀消费者", 2, EntityAttributes.experience(other));
             other.discard();
         }
         checkBeastVictimBranch(player);
@@ -309,20 +315,20 @@ final class Guchong01Check extends SystemCheck {
         killer.moveTo(active.position());
         GuchongJarRuntime.finishSpawn(player.serverLevel(), killer);
         actors.add(killer);
-        killer.getPersistentData().putDouble("experience", 119);
+        EntityAttributes.setExperience(killer, 119);
         Mob beast = (Mob) GuchongJarRuntime.create(player.serverLevel(), "yvanchuxiuzhen:yaoshou_004");
         beast.moveTo(active.position());
         GuchongJarRuntime.finishSpawn(player.serverLevel(), beast);
         actors.add(beast);
-        beast.getPersistentData().putDouble("LEVELnumber", 1);
-        beast.getPersistentData().putDouble("additional_experience", 0);
-        beast.getPersistentData().putDouble("health_Max", -1);
+        EntityAttributes.setLevel(beast, 1);
+        CreatureData.state(beast).setAdditionalExperience(0);
+        EntityAttributes.setStat(beast, Stat.HEALTH_MAX, -1);
         beast.getAttribute(Attributes.MAX_HEALTH).setBaseValue(1);
         beast.setHealth(1);
         beast.hurt(player.damageSources().mobAttack(killer), 10000);
-        expectTrue("不同种等级公式通过Creature查询并触发升级", killer.getPersistentData().getDouble("LEVELnumber") == 2
-                && killer.getPersistentData().getDouble("experience") == 9);
-        expectTrue("来源死者妖兽分支只重算死者且不重算升级虫", beast.getPersistentData().getDouble("health_Max") == 122
+        expectTrue("不同种等级公式通过Creature查询并触发升级", EntityAttributes.level(killer) == 2
+                && EntityAttributes.experience(killer) == 9);
+        expectTrue("来源死者妖兽分支只重算死者且不重算升级虫", EntityAttributes.stat(beast, Stat.HEALTH_MAX) == 122
                 && beast.getMaxHealth() == 122 && killer.getMaxHealth() == 121);
         killer.discard();
         beast.discard();
@@ -333,8 +339,8 @@ final class Guchong01Check extends SystemCheck {
         if (active == null) throw new IllegalStateException("真实重进未恢复编号01");
         actors.add(active);
         expectTrue("真实退出重进保存编号01主人等级经验属性和罐关联", active.isOwnedBy(player)
-                && active.getPersistentData().getDouble("LEVELnumber") == 8 && active.getPersistentData().getDouble("experience") == 384.5
-                && active.getMaxHealth() == 156 && active.getPersistentData().getString("guguanuuid").equals("r10_01"));
+                && EntityAttributes.level(active) == 8 && EntityAttributes.experience(active) == 384.5
+                && active.getMaxHealth() == 156 && active.getData(GuchongData.RUNTIME).jarUuid().equals("r10_01"));
         active.hurt(player.damageSources().generic(), 10000);
         expectTrue("编号01死亡清理背包罐对应槽", GuchongJarData.read(player.getInventory().getItem(9)).getString("guchongid0").isEmpty());
     }

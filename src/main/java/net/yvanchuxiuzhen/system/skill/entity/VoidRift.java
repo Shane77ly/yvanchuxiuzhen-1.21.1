@@ -54,6 +54,9 @@ public final class VoidRift extends PathfinderMob implements GeoEntity, Animated
     private final EntityModelRow model;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private final SkillAnimations animationState;
+    private double lifeTicks;
+    private boolean enterable;
+    private boolean used;
 
     public VoidRift(EntityType<VoidRift> type, Level level, EntityModelRow model) {
         super(type, level);
@@ -64,6 +67,12 @@ public final class VoidRift extends PathfinderMob implements GeoEntity, Animated
         setPersistenceRequired();
         moveControl = new FlyingMoveControl(this, 10, true);
     }
+
+    public double lifeTicks() { return lifeTicks; }
+    public void setLifeTicks(double lifeTicks) { this.lifeTicks = lifeTicks; }
+    public boolean isEnterable() { return enterable; }
+    public void setEnterable(boolean enterable) { this.enterable = enterable; }
+    public boolean isUsed() { return used; }
 
     public static AttributeSupplier.Builder attributes(EntityModelRow model) {
         return model.attributes().add(Attributes.FLYING_SPEED, 0.3);
@@ -96,15 +105,13 @@ public final class VoidRift extends PathfinderMob implements GeoEntity, Animated
         super.baseTick();
         if (level() instanceof ServerLevel level) {
             level.sendParticles(ParticleTypes.WHITE_ASH, getX(), getY() + getBbHeight() / 2, getZ(), 10, 2, 2, 2, 0);
-            CompoundTag state = getPersistentData();
-            double age = state.getDouble("xiaoshitick") + 1;
-            state.putDouble("xiaoshitick", age);
-            if (!state.getBoolean("keyijinru") && age >= 32) {
-                state.putBoolean("keyijinru", true);
-            } else if (age >= 332) {
+            lifeTicks += 1;
+            if (!enterable && lifeTicks >= 32) {
+                enterable = true;
+            } else if (lifeTicks >= 332) {
                 discard();
                 level.sendParticles(ParticleTypes.CLOUD, getX(), getY() + getBbHeight() / 2, getZ(), 40, 0, 0, 0, 0.4);
-                state.putDouble("xiaoshitick", 0);
+                lifeTicks = 0;
             }
         }
         refreshDimensions();
@@ -119,8 +126,7 @@ public final class VoidRift extends PathfinderMob implements GeoEntity, Animated
     }
 
     private void travel(ServerPlayer player) {
-        CompoundTag state = getPersistentData();
-        if (!state.getBoolean("keyijinru") || state.getBoolean("shifouyichuanyve")) {
+        if (!enterable || used) {
             return;
         }
         ResourceKey<Level> current = player.level().dimension();
@@ -156,7 +162,23 @@ public final class VoidRift extends PathfinderMob implements GeoEntity, Animated
                 player.connection.send(new ClientboundLevelEventPacket(1032, BlockPos.ZERO, 0, false));
             }
         }
-        state.putBoolean("shifouyichuanyve", true);
+        used = true;
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putDouble("lifeTicks", lifeTicks);
+        tag.putBoolean("enterable", enterable);
+        tag.putBoolean("used", used);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        lifeTicks = tag.getDouble("lifeTicks");
+        enterable = tag.getBoolean("enterable");
+        used = tag.getBoolean("used");
     }
 
     private static ResourceKey<Level> dimension(String id) {

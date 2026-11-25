@@ -58,7 +58,6 @@ final class ProfessionCommandCheck extends SystemCheck {
             command(player, "experienceup " + WORDS[index] + " minus -2.25");
             expect(profession.displayName() + "经验命令累加负小数", 8.25, Professions.experience(player, profession));
         }
-        expect("采集等级命令维护来源持久键", 2, player.getPersistentData().getDouble("collection_LEVEL"));
         structuresAllowed = WorldGeneration.randomStructuresAllowed(player.server);
         command(player, "lock jiegoushengcheng true");
         expectTrue("共享分派保留世界结构关闭命令", !WorldGeneration.randomStructuresAllowed(player.server));

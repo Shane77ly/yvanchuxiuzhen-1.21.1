@@ -50,13 +50,12 @@ public final class DisguisedQuestBlock extends ContentBlock implements EntityBlo
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
         if (level.getBlockEntity(pos) instanceof DisguisedQuestBlockEntity block) {
-            block.getPersistentData().putString("fangxiang", switch (state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+            block.setDisplayDirection(switch (state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
                 case NORTH -> "北";
                 case SOUTH -> "南";
                 case WEST -> "西";
                 default -> "东";
             });
-            block.setChanged();
         }
     }
 

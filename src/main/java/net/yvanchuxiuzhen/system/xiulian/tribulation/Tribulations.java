@@ -93,14 +93,14 @@ public final class Tribulations {
         cloud.moveTo(player.getX(), player.getY() + 64, player.getZ(), level.getRandom().nextFloat() * 360, 0);
         Relations.setTeam(cloud, "tianjiejieyvn");
         Relations.addFriendlyTeam(cloud, "tianjiejieyvn");
-        cloud.getPersistentData().putString("playerUUID", player.getStringUUID());
-        cloud.getPersistentData().putDouble("thundernum", 1);
+        cloud.setPlayerUuid(player.getStringUUID());
+        cloud.setPatternIndex(1);
         MobEffectInstance resistance = player.getEffect(BuiltInRegistries.MOB_EFFECT.getHolder(
                 ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "effect_022")).orElseThrow());
-        cloud.getPersistentData().putDouble("thunder_Att", attack + Cultivation.get(player, CultivationValue.THUNDER_ATT)
+        cloud.setThunderAttack(attack + Cultivation.get(player, CultivationValue.THUNDER_ATT)
                 - (resistance == null ? 0 : resistance.getAmplifier() + 1));
         for (int i = 1; i <= (int) Cultivation.get(player, CultivationValue.THUNDER_MAX); i++) {
-            cloud.getPersistentData().putString("thunder" + i, "雷" + (level.getRandom().nextInt(7) + 1));
+            cloud.setPattern(i, "雷" + (level.getRandom().nextInt(7) + 1));
         }
         Cultivation.set(player, CultivationValue.THUNDER, 0);
         cloud.finalizeSpawn(level, level.getCurrentDifficultyAt(cloud.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
@@ -108,7 +108,7 @@ public final class Tribulations {
     }
 
     static ServerPlayer player(TribulationEntity self) {
-        String id = self.getPersistentData().getString("playerUUID");
+        String id = self.playerUuid();
         return ((ServerLevel) self.level()).players().stream().filter(player -> player.getStringUUID().equals(id)).findFirst().orElse(null);
     }
 
@@ -128,7 +128,7 @@ public final class Tribulations {
             }
             if (target instanceof LivingEntity living) {
                 NeoForge.EVENT_BUS.post(new TribulationDamageEvent(level, living, "shanghai 雷 " + self.getStringUUID() + " false "
-                        + WHOLE.format(self.getPersistentData().getDouble("thunder_Att")) + " " + multiplier));
+                        + WHOLE.format(self.thunderAttack()) + " " + multiplier));
             }
         }
     }

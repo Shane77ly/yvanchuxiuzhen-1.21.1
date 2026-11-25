@@ -28,27 +28,25 @@ public final class DisguisedQuestRuntime {
                     "renwuweizhuangfangkuai")).defaultBlockState(), 3);
             if (level.getBlockEntity(pos) instanceof DisguisedQuestBlockEntity block) {
                 block.setItem(0, new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "book_022"))));
-                block.getPersistentData().putBoolean("lizixianshi", true);
-                block.setChanged();
+                block.setShowParticles(true);
             }
         }
         QuestStructureData.apply(level, event.structureName());
     }
 
     public static void interact(ServerPlayer player, DisguisedQuestBlockEntity block) {
-        CompoundTag data = block.getPersistentData();
         CompoundTag journal = DialogueActions.journal(player);
-        for (int index = 1; ; index++) {
-            String script = data.getString("renwulist" + index);
-            if (script.isEmpty()) script = data.getString("tasklist" + index);
+        for (int index = 1; index <= 10; index++) {
+            String script = block.renwulist(index);
+            if (script.isEmpty()) script = block.tasklist(index);
             if (script.isEmpty()) return;
             script = Component.translatable(script).getString();
             String id = script.split("%")[0].split("/")[1];
             if (journal.getString(id + "UUID").equals(id) && DialogueActions.finished(player, id)) continue;
-            String information = data.getString("shopinformation" + index);
+            String information = block.shopInformation(index);
             if (!information.isEmpty()) {
                 EconomyMenus.setShopInformation(player, information);
-                EconomyMenus.setProductList(player, data.getString("productlist" + index));
+                EconomyMenus.setProductList(player, block.productList(index));
             }
             DialogueActions.request(player, script);
             return;
@@ -57,17 +55,15 @@ public final class DisguisedQuestRuntime {
 
     public static void tick(ServerLevel level, DisguisedQuestBlockEntity block) {
         BlockPos pos = block.getBlockPos();
-        CompoundTag data = block.getPersistentData();
-        if (data.getBoolean("lizixianshi")) {
+        if (block.showParticles()) {
             level.sendParticles(ParticleTypes.ELECTRIC_SPARK, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5,
                     3, .5, .5, .5, 0);
         }
-        int last = data.getInt("shuaxintick");
+        int last = block.refreshTick();
         long now = level.getDayTime();
         if (last + 24000 <= now || last > now || last == 0) {
-            data.putBoolean("shuaxin", true);
-            data.putInt("shuaxintick", (int) now);
-            block.setChanged();
+            block.setRefreshDue(true);
+            block.setRefreshTick((int) now);
         }
     }
 }

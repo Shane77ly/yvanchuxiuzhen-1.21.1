@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.cooking;
 
 import java.util.Locale;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -30,8 +29,7 @@ public final class CookingRecipes {
             CookingRuntime.message(player, "§4此菜谱记录的菜肴需要" + type + "烹饪。");
             return;
         }
-        CompoundTag state = pot.getPersistentData();
-        if ((int) recipe.grade() > state.getInt("playercooklevel")) {
+        if ((int) recipe.grade() > (int) pot.playerCookLevel()) {
             CookingRuntime.message(player, "§4您的厨艺等级并不能支撑您炒完这盘菜！可以先尝试做一些简单的烹饪。");
             return;
         }
@@ -44,9 +42,9 @@ public final class CookingRecipes {
             }
         }
         if (!CookingRuntime.heated(player, pot)) return;
-        state.putBoolean("cooking", true);
+        pot.setCooking(true);
         player.closeContainer();
-        state.putInt("cookanimation", recipe.animation());
+        pot.setCookAnimation(recipe.animation());
         for (int ingredient = 0; ingredient < 9; ingredient++) {
             String identity = recipe.ingredient(ingredient);
             if (!identity.isEmpty()) {
@@ -55,7 +53,7 @@ public final class CookingRecipes {
             }
         }
         pot.setItem(4, stack(recipe.outputId().toLowerCase(Locale.ROOT)));
-        state.putInt("cookexp", (int) (Math.pow(state.getInt("belongToLevel"), 2) + 5));
+        pot.setCookExp((int) (Math.pow(pot.belongToLevel(), 2) + 5));
         pot.changed();
         CookingRuntime.message(player, "烹饪开始！请不断右键铁锅翻炒食材。");
     }

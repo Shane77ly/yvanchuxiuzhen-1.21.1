@@ -34,8 +34,11 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.world.WorldSetup;
 import net.yvanchuxiuzhen.system.world.api.StructureSearch;
+import net.yvanchuxiuzhen.system.world.data.StructureNavigation;
+import net.yvanchuxiuzhen.system.world.data.WorldData;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -46,8 +49,10 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 /** 寻灵盘光环每刻跟随同维度主人，每二十刻搜索，一百刻后消失。 */
 public final class GuidanceHalo extends TamableAnimal implements GeoEntity {
     private static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(GuidanceHalo.class, EntityDataSerializers.STRING);
-    private static final String NAVIGATION = "structure_navigation";
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private StructureNavigation navigation = new StructureNavigation();
+    private double lifetimeTicks;
+    private double searchTicks;
 
     public GuidanceHalo(EntityType<? extends GuidanceHalo> type, Level level) {
         super(type, level);
@@ -64,22 +69,19 @@ public final class GuidanceHalo extends TamableAnimal implements GeoEntity {
     }
 
     public String texture() { return entityData.get(TEXTURE); }
+    public String masterUuid() { return navigation.masterUuid(); }
+    public Vec3 targetPosition() { return navigation.target(); }
 
-    /** 同一主人已召出的光环共享世界系统导航标签，重载存档后各自独立。 */
+    /** 同一主人已召出的光环共享世界系统导航对象，重载存档后各自独立。 */
     public void shareNavigation(Player owner) {
-        CompoundTag navigation = owner.getPersistentData().getCompound(NAVIGATION);
-        owner.getPersistentData().put(NAVIGATION, navigation);
-        navigation.putString("belongToMasterUUID", owner.getStringUUID());
-        navigation.putString("playeruuid", owner.getStringUUID());
-        getPersistentData().put(NAVIGATION, navigation);
-        getPersistentData().putString("team", "");
+        StructureNavigation shared = owner.getData(WorldData.NAVIGATION);
+        shared.setOwner(owner.getStringUUID());
+        this.navigation = shared;
+        Relations.setTeam(this, "");
     }
 
     public void target(Vec3 position) {
-        CompoundTag navigation = getPersistentData().getCompound(NAVIGATION);
-        navigation.putDouble("mubiaoX", position.x);
-        navigation.putDouble("mubiaoY", position.y);
-        navigation.putDouble("mubiaoZ", position.z);
+        navigation.setTarget(position);
     }
 
     @Override protected PathNavigation createNavigation(Level level) { return new FlyingPathNavigation(this, level); }
@@ -125,32 +127,51 @@ public final class GuidanceHalo extends TamableAnimal implements GeoEntity {
     @Override
     public void baseTick() {
         super.baseTick();
-        CompoundTag data = getPersistentData();
-        CompoundTag navigation = data.getCompound(NAVIGATION);
-        data.putDouble("guanghuantick", data.getDouble("guanghuantick") + 1);
-        if (data.getDouble("guanghuantick") >= 100) {
-            data.putDouble("guanghuantick", 0);
+        lifetimeTicks += 1;
+        if (lifetimeTicks >= 100) {
+            lifetimeTicks = 0;
             if (!level().isClientSide) discard();
         }
-        String owner = navigation.getString("belongToMasterUUID");
+        String owner = navigation.masterUuid();
         if (!owner.isEmpty()) {
             boolean present = false;
             for (Player player : new ArrayList<>(level().players())) {
                 if (!player.getStringUUID().equals(owner)) continue;
                 present = true;
                 teleportTo(player.getX(), player.getY() + 1, player.getZ());
-                lookAt(EntityAnchorArgument.Anchor.EYES,
-                        new Vec3(navigation.getDouble("mubiaoX"), navigation.getDouble("mubiaoY"), navigation.getDouble("mubiaoZ")));
-                data.putDouble("guanghuantick2", data.getDouble("guanghuantick2") + 1);
-                if (data.getDouble("guanghuantick2") >= 20) {
+                lookAt(EntityAnchorArgument.Anchor.EYES, navigation.target());
+                searchTicks += 1;
+                if (searchTicks >= 20) {
                     if (level() instanceof ServerLevel server) StructureSearch.search(server, position(), player.getStringUUID());
-                    data.putDouble("guanghuantick2", 0);
+                    searchTicks = 0;
                 }
                 break;
             }
             if (!present && !level().isClientSide) discard();
         }
         refreshDimensions();
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putString("belongToMasterUUID", navigation.masterUuid());
+        tag.putString("playeruuid", navigation.playerUuid());
+        Vec3 target = navigation.target();
+        tag.putDouble("mubiaoX", target.x);
+        tag.putDouble("mubiaoY", target.y);
+        tag.putDouble("mubiaoZ", target.z);
+        tag.putDouble("guanghuantick", lifetimeTicks);
+        tag.putDouble("guanghuantick2", searchTicks);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        navigation = new StructureNavigation(tag.getString("belongToMasterUUID"), tag.getString("playeruuid"),
+                tag.getDouble("mubiaoX"), tag.getDouble("mubiaoY"), tag.getDouble("mubiaoZ"));
+        lifetimeTicks = tag.getDouble("guanghuantick");
+        searchTicks = tag.getDouble("guanghuantick2");
     }
 
     @Override

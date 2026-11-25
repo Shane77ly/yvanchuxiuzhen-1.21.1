@@ -165,13 +165,12 @@ final class FestivalRemainingCheck extends ActionCheck {
         ThrownFirework entity = FestivalSetup.thrownFireworkType(kind).get().create(player.level());
         entity.moveTo(player.getX(), player.getY() + 2, player.getZ(), 0, 0);
         for (int tick = 0; tick < 19; tick++) entity.baseTick();
-        expectTrue(kind.id() + " 第十九刻尚未引燃", !entity.getPersistentData().getBoolean("yinran"));
+        expectTrue(kind.id() + " 第十九刻尚未引燃", !entity.lit());
         CompoundTag saved = new CompoundTag();
         entity.save(saved);
         entity = (ThrownFirework) EntityType.loadEntityRecursive(saved, player.level(), restored -> restored);
         entity.baseTick();
-        expectTrue(kind.id() + " 存储重读后第二十刻引燃并归零", entity.getPersistentData().getBoolean("yinran")
-                && entity.getPersistentData().getDouble("paotick") == 0);
+        expectTrue(kind.id() + " 存储重读后第二十刻引燃并归零", entity.lit() && entity.fireworkTicks() == 0);
         entity.baseTick();
         if (kind == ThrownFirework.Kind.PAO_05) expect("五号引燃下一刻向上速度", .78, entity.getDeltaMovement().y);
         if (kind == ThrownFirework.Kind.PAO_06) expect("六号引燃下一刻向上速度", .06, entity.getDeltaMovement().y);
@@ -184,7 +183,7 @@ final class FestivalRemainingCheck extends ActionCheck {
             case PAO_05 -> 39;
             case PAO_06 -> 159;
         };
-        entity.getPersistentData().putDouble("paotick", lastTick - 1);
+        entity.setFireworkTicks(lastTick - 1);
         entity.baseTick();
         expectTrue(kind.id() + " 燃放末刻前保留实体", !entity.isRemoved());
         entity.save(saved = new CompoundTag());

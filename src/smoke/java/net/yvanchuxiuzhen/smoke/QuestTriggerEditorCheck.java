@@ -85,8 +85,8 @@ final class QuestTriggerEditorCheck extends SystemCheck {
                 }
                 case 3 -> {
                     if (local < 15) return false;
-                    onServer(player -> checkFirst(block(player).getPersistentData()));
-                    checkFirst(clientBlock().getPersistentData());
+                    onServer(player -> checkFirst(block(player)));
+                    checkFirst(clientBlock());
                     expectTrue("设置按钮不关闭编辑页", minecraft.screen instanceof QuestTriggerEditorScreen);
                     screenshots.take("quest-trigger-editor-configured.png");
                     for (EditBox input : inputs()) input.setValue("");
@@ -99,10 +99,10 @@ final class QuestTriggerEditorCheck extends SystemCheck {
                 case 4 -> {
                     if (local < 15) return false;
                     onServer(player -> {
-                        checkSecond(block(player).getPersistentData());
-                        configured = block(player).getPersistentData().copy();
+                        checkSecond(block(player));
+                        configured = block(player).saveWithFullMetadata(player.registryAccess());
                     });
-                    checkSecond(clientBlock().getPersistentData());
+                    checkSecond(clientBlock());
                     minecraft.player.closeContainer();
                 }
                 case 5 -> {
@@ -123,7 +123,7 @@ final class QuestTriggerEditorCheck extends SystemCheck {
                 case 9 -> {
                     if (!inWorld(local)) return false;
                     onServer(player -> {
-                        CompoundTag data = block(player).getPersistentData();
+                        CompoundTag data = block(player).saveWithFullMetadata(player.registryAccess());
                         for (String key : configured.getAllKeys()) {
                             if (key.startsWith("renwulist") || key.startsWith("tasklist") || key.startsWith("shopinformation")
                                     || key.startsWith("productlist") || key.equals("lizixianshi")) {
@@ -191,24 +191,23 @@ final class QuestTriggerEditorCheck extends SystemCheck {
         player.inventoryMenu.broadcastChanges();
     }
 
-    private void checkFirst(CompoundTag data) {
+    private void checkFirst(DisguisedQuestBlockEntity block) {
         for (int row = 1; row <= 10; row++) {
-            String prefix = row % 2 == 1 ? "renwulist" : "tasklist";
-            expect("第" + row + "行来源任务类型", script(row), data.getString(prefix + row));
-            expect("第" + row + "行商店信息", "商店" + row, data.getString("shopinformation" + row));
-            expect("第" + row + "行商品列表", "商品" + row, data.getString("productlist" + row));
+            expect("第" + row + "行来源任务类型", script(row), row % 2 == 1 ? block.renwulist(row) : block.tasklist(row));
+            expect("第" + row + "行商店信息", "商店" + row, block.shopInformation(row));
+            expect("第" + row + "行商品列表", "商品" + row, block.productList(row));
         }
-        expectTrue("来源粒子配置开启", data.getBoolean("lizixianshi"));
+        expectTrue("来源粒子配置开启", block.showParticles());
     }
 
-    private void checkSecond(CompoundTag data) {
-        expect("改普通保留另一类型高级旧值", script(1), data.getString("renwulist1"));
-        expect("普通任务写入独立字段", ordinary(), data.getString("tasklist1"));
-        expect("空输入保留原任务", script(10), data.getString("tasklist10"));
-        expect("空信息保留原商店", "商店1", data.getString("shopinformation1"));
-        expect("非空信息允许写空商品", "", data.getString("productlist2"));
-        expect("二次商店信息已写入", "商店二次设置", data.getString("shopinformation2"));
-        expectTrue("取消勾选不关闭来源粒子", data.getBoolean("lizixianshi"));
+    private void checkSecond(DisguisedQuestBlockEntity block) {
+        expect("改普通保留另一类型高级旧值", script(1), block.renwulist(1));
+        expect("普通任务写入独立字段", ordinary(), block.tasklist(1));
+        expect("空输入保留原任务", script(10), block.tasklist(10));
+        expect("空信息保留原商店", "商店1", block.shopInformation(1));
+        expect("非空信息允许写空商品", "", block.productList(2));
+        expect("二次商店信息已写入", "商店二次设置", block.shopInformation(2));
+        expectTrue("取消勾选不关闭来源粒子", block.showParticles());
     }
 
     private static String script(int row) {

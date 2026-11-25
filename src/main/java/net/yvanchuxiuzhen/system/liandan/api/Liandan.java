@@ -63,7 +63,7 @@ public final class Liandan {
 
     public static void boostHeat(ServerLevel level, BlockPos pos, double power) {
         if (level.getBlockEntity(pos) instanceof AlchemyBlockEntity furnace) {
-            furnace.getPersistentData().putDouble("firepower", power);
+            furnace.setFirePower(power);
             furnace.changed();
         }
     }

@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.quest;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.system.economy.api.EconomyCatalogs;
@@ -21,17 +20,15 @@ public final class QuestBlockRefresh {
         BlockPos pos = event.getPos();
         if (!pos.equals(MATERIAL_SHOP) && !pos.equals(CLOTHING_SHOP)) return;
         if (!(level.getBlockEntity(pos) instanceof DisguisedQuestBlockEntity block)) return;
-        CompoundTag data = block.getPersistentData();
         if (pos.equals(MATERIAL_SHOP)) {
-            if (!data.getBoolean("shuaxin")) return;
-            data.putBoolean("shuaxin", false);
-            data.putString("productlist1", EconomyCatalogs.materialShop(1));
+            if (!block.refreshDue()) return;
+            block.setRefreshDue(false);
+            block.setProductList(1, EconomyCatalogs.materialShop(1));
         } else {
-            if (!data.getString("shopinformation1").equals(QuestBlockRefreshData.OLD_CLOTHING_INFORMATION)) return;
-            data.putString("shopinformation1", QuestBlockRefreshData.CLOTHING_INFORMATION);
-            data.putString("productlist1", QuestBlockRefreshData.CLOTHING_PRODUCTS);
+            if (!block.shopInformation(1).equals(QuestBlockRefreshData.OLD_CLOTHING_INFORMATION)) return;
+            block.setShopInformation(1, QuestBlockRefreshData.CLOTHING_INFORMATION);
+            block.setProductList(1, QuestBlockRefreshData.CLOTHING_PRODUCTS);
         }
-        block.setChanged();
         level.sendBlockUpdated(pos, block.getBlockState(), block.getBlockState(), 3);
     }
 }

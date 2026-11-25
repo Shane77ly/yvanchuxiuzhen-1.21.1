@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.skill.entity;
 
 import java.util.Map;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -78,7 +77,7 @@ final class WaterEntities {
             }
         }
         whip.setAnimation(animation);
-        whip.getPersistentData().putString("mode", mode);
+        whip.setMode(mode);
         SkillEntities.spawn(level, whip, false);
         if (mode.equals("激流波")) {
             for (int reach : new int[] {2, 5}) {
@@ -127,7 +126,7 @@ final class WaterEntities {
     private static void hit(SkillEntity self, Vec3 center, double inflate, boolean knock, double horizontal, double vertical, boolean stun) {
         for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), center, inflate)) {
             if (!ProjectileSupport.friendly(self, other)) {
-                if (!self.getPersistentData().getString("mode").equals("水连鞭正常")) {
+                if (!self.mode().equals("水连鞭正常")) {
                     ProjectileSupport.particles((ServerLevel) self.level(), Particles.type("brokenlightblue"), other.position().add(0, other.getBbHeight() / 2, 0), 10, 0, 0, 0, 1);
                     ProjectileSupport.burst(other, "smallexplosionblue", other.getBbHeight() / 2);
                 }
@@ -152,27 +151,26 @@ final class WaterEntities {
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
-            String mode = scratch.getString("mode");
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            double tick = scratch.getDouble("tick");
+            String mode = self.mode();
+            self.setSkillTick(self.skillTick() + 1);
+            double tick = self.skillTick();
             if (follows(mode)) {
                 Entity master = level.getEntity(self.attacker());
                 if (master != null) {
                     self.teleportTo(master.getX(), master.getY(), master.getZ());
                 }
             }
-            String stage = scratch.getString("jieduan");
+            String stage = self.stage();
             switch (mode) {
                 case "水蛇鞭正常" -> {
                     if (stage.isEmpty()) {
                         if (tick >= 3) {
                             hit(self, Vec3.atLowerCornerOf(ProjectileSupport.lookBlock(self, 3.5)), 3.5, false, 0, 0, false);
-                            scratch.putString("jieduan", STAGE_TWO);
+                            self.setStage(STAGE_TWO);
                         }
                     } else if (stage.equals(STAGE_TWO) && tick >= 10) {
                         ProjectileSupport.particles(level, Particles.type("brokenlightblue"), self.position(), 10, 0, 0, 0, 0.4);
-                        scratch.putDouble("tick", 0);
+                        self.setSkillTick(0);
                         self.discard();
                     }
                 }
@@ -180,11 +178,11 @@ final class WaterEntities {
                     if (stage.isEmpty()) {
                         if (tick >= 8) {
                             hit(self, Vec3.atLowerCornerOf(ProjectileSupport.lookBlock(self, 3.5)), 3.5, false, 0, 0, true);
-                            scratch.putString("jieduan", STAGE_TWO);
+                            self.setStage(STAGE_TWO);
                         }
                     } else if (stage.equals(STAGE_TWO) && tick >= 16) {
                         ProjectileSupport.particles(level, Particles.type("brokenlightblue"), self.position(), 10, 0, 0, 0, 0.4);
-                        scratch.putDouble("tick", 0);
+                        self.setSkillTick(0);
                         self.discard();
                     }
                 }
@@ -192,26 +190,26 @@ final class WaterEntities {
                     if (stage.isEmpty()) {
                         if (tick >= 8) {
                             hit(self, Vec3.atLowerCornerOf(ProjectileSupport.lookBlock(self, 2)), 2.5, true, 0.1, 1, false);
-                            scratch.putString("jieduan", STAGE_TWO);
+                            self.setStage(STAGE_TWO);
                         }
                     } else if (stage.equals(STAGE_TWO) && tick >= 16) {
                         ProjectileSupport.particles(level, Particles.type("brokenlightblue"), self.position(), 10, 0, 0, 0, 0.4);
-                        scratch.putDouble("tick", 0);
+                        self.setSkillTick(0);
                         self.discard();
                     }
                 }
                 case "水蛇鞭alt", "水连鞭潜行" -> {
                     if (tick >= 6) {
                         hit(self, self.position(), 6.5, true, 0.4, 0.5, false);
-                        scratch.putString("jieduan", STAGE_TWO);
-                        scratch.putDouble("tick", 0);
-                        scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-                        if (scratch.getDouble("tick2") >= 4) {
+                        self.setStage(STAGE_TWO);
+                        self.setSkillTick(0);
+                        self.setSkillTick2(self.skillTick2() + 1);
+                        if (self.skillTick2() >= 4) {
                             self.discard();
-                            scratch.putDouble("tick2", 0);
+                            self.setSkillTick2(0);
                         }
                     }
-                    if (scratch.getDouble("tick2") >= 3) {
+                    if (self.skillTick2() >= 3) {
                         ProjectileSupport.particles(level, Particles.type("brokenlightblue"), self.position(), 10, 2, 0, 2, 0);
                     }
                 }
@@ -222,17 +220,17 @@ final class WaterEntities {
                         BlockPos front = ProjectileSupport.lookBlock(self, 2);
                         ProjectileSupport.particles(level, Particles.type("brokenlightblue"), new Vec3(front.getX(), self.getY(), front.getZ()), 8, 0, 0, 0, 1);
                     }
-                    scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-                    double second = scratch.getDouble("tick2");
+                    self.setSkillTick2(self.skillTick2() + 1);
+                    double second = self.skillTick2();
                     Vec3 center = Vec3.atLowerCornerOf(ProjectileSupport.lookBlock(self, 3.5));
                     if (second >= 25 && stage.equals("第二")) {
-                        scratch.putString("jieduan", "第三");
+                        self.setStage("第三");
                         hit(self, center, 3.5, true, 0.2, 0.5, false);
                     } else if (second >= 14 && stage.equals("第一")) {
-                        scratch.putString("jieduan", "第二");
+                        self.setStage("第二");
                         hit(self, center, 3.5, false, 0, 0, false);
                     } else if (second >= 4 && stage.isEmpty()) {
-                        scratch.putString("jieduan", "第一");
+                        self.setStage("第一");
                         hit(self, center, 3.5, false, 0, 0, false);
                     }
                 }
@@ -261,15 +259,14 @@ final class WaterEntities {
     private static final class Dragon implements EntitySkill {
         @Override
         public void tick(SkillEntity self) {
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
+            self.setSkillTick(self.skillTick() + 1);
             ProjectileSupport.particles((ServerLevel) self.level(), Particles.type("brokenblue"), self.position(), 10, 2, 0, 2, 0);
-            if (scratch.getDouble("tick") >= 90) {
-                scratch.putDouble("tick", 0);
+            if (self.skillTick() >= 90) {
+                self.setSkillTick(0);
                 self.discard();
             }
-            scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-            if (scratch.getDouble("tick2") >= 10) {
+            self.setSkillTick2(self.skillTick2() + 1);
+            if (self.skillTick2() >= 10) {
                 for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), self.position().add(0, self.getBbHeight() / 2, 0), 3.5)) {
                     if (!ProjectileSupport.friendly(self, other)) {
                         SkillEntities.strike(self, other);
@@ -278,7 +275,7 @@ final class WaterEntities {
                         }
                     }
                 }
-                scratch.putDouble("tick2", 0);
+                self.setSkillTick2(0);
             }
         }
     }

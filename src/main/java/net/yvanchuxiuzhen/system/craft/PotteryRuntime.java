@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.craft;
 import java.util.Locale;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,15 +44,14 @@ public final class PotteryRuntime {
 
     /** 每页固定八项，现有三项只占第一页；开窗和翻页均清显示文本并保留结果槽。 */
     public static void refresh(PotteryWheelBlockEntity wheel) {
-        CompoundTag state = wheel.getPersistentData();
-        for (int line = 1; line <= 3; line++) state.putString("wenben" + line, "");
-        int page = Math.max(1, state.getInt("yeshu"));
-        state.putInt("yeshumax", 1);
+        for (int line = 1; line <= 3; line++) wheel.setText(line, "");
+        int page = Math.max(1, wheel.page());
+        wheel.setMaxPage(1);
         for (int index = 0; index < 8; index++) {
             wheel.setItem(index + 1, ItemStack.EMPTY);
-            state.putInt("needitem" + index, 0);
-            state.putString("itemname" + index, "");
-            state.putString("chengpinid" + index, "");
+            wheel.setNeedItem(index, 0);
+            wheel.setItemName(index, "");
+            wheel.setOutputId(index, "");
         }
         int start = (page - 1) * 8;
         for (int index = 0; index < 8; index++) {
@@ -61,37 +59,34 @@ public final class PotteryRuntime {
             if (tripleIndex + 2 > OUTPUTS.length * 3) break;
             int recipe = tripleIndex / 3;
             ItemStack output = stack(OUTPUTS[recipe]);
-            state.putInt("needitem" + index, CLAY_COSTS[recipe]);
-            state.putString("itemname" + index, output.getDisplayName().getString());
-            state.putString("chengpinid" + index, ModId.VALUE + ":" + OUTPUTS[recipe]);
+            wheel.setNeedItem(index, CLAY_COSTS[recipe]);
+            wheel.setItemName(index, output.getDisplayName().getString());
+            wheel.setOutputId(index, ModId.VALUE + ":" + OUTPUTS[recipe]);
             wheel.setItem(index + 1, output);
         }
         wheel.changed();
     }
 
     public static void changePage(PotteryWheelBlockEntity wheel, boolean forward) {
-        CompoundTag state = wheel.getPersistentData();
-        int page = state.getInt("yeshu") + (forward ? 1 : -1);
-        int max = state.getInt("yeshumax");
-        state.putInt("yeshu", forward && page > max ? 1 : !forward && page < 1 ? max : page);
+        int page = wheel.page() + (forward ? 1 : -1);
+        int max = wheel.maxPage();
+        wheel.setPage(forward && page > max ? 1 : !forward && page < 1 ? max : page);
         refresh(wheel);
     }
 
     public static void select(PotteryWheelBlockEntity wheel, int index) {
-        CompoundTag state = wheel.getPersistentData();
-        state.putInt("xvanzeweizhi", index);
-        state.putString("wenben1", state.getString("itemname" + index).replace("[", "").replace("]", ""));
-        state.putString("wenben2", "黏土球：");
-        state.putString("wenben3", state.getInt("needitem" + index) + "个");
+        wheel.setSelected(index);
+        wheel.setText(1, wheel.itemName(index).replace("[", "").replace("]", ""));
+        wheel.setText(2, "黏土球：");
+        wheel.setText(3, wheel.needItem(index) + "个");
         wheel.changed();
     }
 
     /** 能力库存用于数量预检，原版背包及合成格用于扣除；已有成品直接覆盖。 */
     public static void craft(PotteryWheelBlockEntity wheel, Player player) {
-        CompoundTag state = wheel.getPersistentData();
-        if (state.getString("wenben1").isEmpty()) return;
-        int selected = state.getInt("xvanzeweizhi");
-        int cost = state.getInt("needitem" + selected);
+        if (wheel.text(1).isEmpty()) return;
+        int selected = wheel.selected();
+        int cost = wheel.needItem(selected);
         int count = 0;
         IItemHandler inventory = player.getCapability(Capabilities.ItemHandler.ENTITY);
         if (inventory != null) {
@@ -102,7 +97,7 @@ public final class PotteryRuntime {
         }
         if (count < cost) return;
         ItemStack blank = stack("taopiitem");
-        blank.set(CraftData.POTTERY_PRODUCT.get(), state.getString("chengpinid" + selected));
+        blank.set(CraftData.POTTERY_PRODUCT.get(), wheel.outputId(selected));
         wheel.setItem(0, blank);
         player.getInventory().clearOrCountMatchingItems(material -> material.is(Items.CLAY_BALL), cost,
                 player.inventoryMenu.getCraftSlots());
@@ -118,7 +113,7 @@ public final class PotteryRuntime {
         } else if (blank.getItem(0).is(item("taopiitem"))) {
             ItemStack held = player.getMainHandItem();
             if (held.is(Items.FLINT) || held.is(IGNITERS)) {
-                blank.getPersistentData().putBoolean("starfire", true);
+                blank.setBurning(true);
                 blank.changed();
                 player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.craft.pottery_started"), false);
             } else if (blank.burning()) {
@@ -132,15 +127,14 @@ public final class PotteryRuntime {
     /** 方块每一百刻调用；烧成后仍保持点火，下一周期继续读取当前物品的成品标识。 */
     public static void fireStep(PotteryBlankBlockEntity blank) {
         if (!blank.burning()) return;
-        CompoundTag state = blank.getPersistentData();
-        int progress = state.getInt("firetick") + 1;
-        state.putInt("firetick", progress);
+        int progress = blank.fireTick() + 1;
+        blank.setFireTick(progress);
         int required = blank.getLevel().canSeeSkyFromBelowWater(blank.getBlockPos().above()) ? 48 : 12;
         if (progress >= required) {
             String output = blank.getItem(0).getOrDefault(CraftData.POTTERY_PRODUCT.get(), "").toLowerCase(Locale.ENGLISH);
             blank.setItem(0, new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(output))));
-            state.putInt("firetick", 0);
-            state.putBoolean("starfire", true);
+            blank.setFireTick(0);
+            blank.setBurning(true);
         }
         blank.changed();
     }

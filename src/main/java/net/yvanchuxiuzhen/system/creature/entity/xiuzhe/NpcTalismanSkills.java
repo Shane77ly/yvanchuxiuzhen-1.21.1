@@ -24,6 +24,8 @@ import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.fulu.api.NpcTalismans;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 
 /** 修者0101来源六种符箓技能，符箓状态与召唤物由所属系统公开接口写入。 */
 public final class NpcTalismanSkills {
@@ -36,26 +38,26 @@ public final class NpcTalismanSkills {
         double Zzuobiao = 0;
         Entity linshientity = null;
         linshientity = Xiuzhe0101Support.target(world, entity);
-        if ((entity.getPersistentData().getString("jinengjinxing")).equals("开始")) {
+        if ((CreatureData.state(entity).phase()).equals("开始")) {
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 36, 1, (false), (false)));
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 36, 20, (false), (false)));
             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY()), (linshientity.getZ())));
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 16) {
+            CreatureData.state(entity).setPhase("蓄力");
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力") && CreatureData.state(entity).tick() >= 16) {
             if (world instanceof ServerLevel _level)
                 _level.sendParticles(Particles.type("fulubagua"), (entity.getX()), (entity.getY() + 1.5), (entity.getZ()), 1, 0, 0, 0, 0);
-            entity.getPersistentData().putString("jinengjinxing", "释放");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("释放") && entity.getPersistentData().getDouble("entitytick") >= 20) {
-            if (entity.getPersistentData().getDouble("LEVELnumber") <= 10) {
-                entity.getPersistentData().putDouble("jinengfululevel", 1);
-            } else if (entity.getPersistentData().getDouble("LEVELnumber") <= 20) {
-                entity.getPersistentData().putDouble("jinengfululevel", 2);
-            } else if (entity.getPersistentData().getDouble("LEVELnumber") <= 30) {
-                entity.getPersistentData().putDouble("jinengfululevel", 3);
+            CreatureData.state(entity).setPhase("释放");
+        } else if ((CreatureData.state(entity).phase()).equals("释放") && CreatureData.state(entity).tick() >= 20) {
+            if (EntityAttributes.level(entity) <= 10) {
+                CreatureData.state(entity).setTalismanLevel(1);
+            } else if (EntityAttributes.level(entity) <= 20) {
+                CreatureData.state(entity).setTalismanLevel(2);
+            } else if (EntityAttributes.level(entity) <= 30) {
+                CreatureData.state(entity).setTalismanLevel(3);
             } else {
-                entity.getPersistentData().putDouble("jinengfululevel", 4);
+                CreatureData.state(entity).setTalismanLevel(4);
             }
             if (world instanceof Level _level) {
                 if (!_level.isClientSide()) {
@@ -73,13 +75,13 @@ public final class NpcTalismanSkills {
                 Yzuobiao = Yzuobiao - 1;
             }
             if (world instanceof ServerLevel serverLevel) {
-                NpcTalismans.summonThunderPull(serverLevel, entity, new Vec3(Xzuobiao, Yzuobiao, Zzuobiao), entity.getPersistentData().getDouble("jinengfululevel"));
+                NpcTalismans.summonThunderPull(serverLevel, entity, new Vec3(Xzuobiao, Yzuobiao, Zzuobiao), CreatureData.state(entity).talismanLevel());
             }
-            entity.getPersistentData().putString("jinengjinxing", "结束");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 36) {
-            entity.getPersistentData().putString("jineng", "");
-            entity.getPersistentData().putString("jinengjinxing", "");
-            entity.getPersistentData().putDouble("entitytick", 0);
+            CreatureData.state(entity).setPhase("结束");
+        } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 36) {
+            CreatureData.state(entity).setSkill("");
+            CreatureData.state(entity).setPhase("");
+            CreatureData.state(entity).setTick(0);
         }
     }
 
@@ -87,26 +89,26 @@ public final class NpcTalismanSkills {
     public static void Npcskill0302(LevelAccessor world, Entity entity) {
         Entity linshientity = null;
         linshientity = Xiuzhe0101Support.target(world, entity);
-        if ((entity.getPersistentData().getString("jinengjinxing")).equals("开始")) {
+        if ((CreatureData.state(entity).phase()).equals("开始")) {
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 36, 1, (false), (false)));
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 36, 20, (false), (false)));
             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY()), (linshientity.getZ())));
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 16) {
+            CreatureData.state(entity).setPhase("蓄力");
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力") && CreatureData.state(entity).tick() >= 16) {
             if (world instanceof ServerLevel _level)
                 _level.sendParticles(Particles.type("fulubagua"), (entity.getX()), (entity.getY() + 1.5), (entity.getZ()), 1, 0, 0, 0, 0);
-            entity.getPersistentData().putString("jinengjinxing", "释放");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("释放") && entity.getPersistentData().getDouble("entitytick") >= 20) {
-            if (entity.getPersistentData().getDouble("LEVELnumber") <= 10) {
-                entity.getPersistentData().putDouble("jinengfululevel", 1);
-            } else if (entity.getPersistentData().getDouble("LEVELnumber") <= 20) {
-                entity.getPersistentData().putDouble("jinengfululevel", 2);
-            } else if (entity.getPersistentData().getDouble("LEVELnumber") <= 30) {
-                entity.getPersistentData().putDouble("jinengfululevel", 3);
+            CreatureData.state(entity).setPhase("释放");
+        } else if ((CreatureData.state(entity).phase()).equals("释放") && CreatureData.state(entity).tick() >= 20) {
+            if (EntityAttributes.level(entity) <= 10) {
+                CreatureData.state(entity).setTalismanLevel(1);
+            } else if (EntityAttributes.level(entity) <= 20) {
+                CreatureData.state(entity).setTalismanLevel(2);
+            } else if (EntityAttributes.level(entity) <= 30) {
+                CreatureData.state(entity).setTalismanLevel(3);
             } else {
-                entity.getPersistentData().putDouble("jinengfululevel", 4);
+                CreatureData.state(entity).setTalismanLevel(4);
             }
             if (world instanceof Level _level) {
                 if (!_level.isClientSide()) {
@@ -115,12 +117,12 @@ public final class NpcTalismanSkills {
                     _level.playLocalSound((entity.getX()), (entity.getY() + 1.5), (entity.getZ()), Xiuzhe0101Support.sound("yvanchuxiuzhen:fulushifang"), SoundSource.NEUTRAL, 1, 1, false);
                 }
             }
-            NpcTalismans.activateFlameJet(entity, entity.getPersistentData().getDouble("jinengfululevel"));
-            entity.getPersistentData().putString("jinengjinxing", "结束");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 36) {
-            entity.getPersistentData().putString("jineng", "");
-            entity.getPersistentData().putString("jinengjinxing", "");
-            entity.getPersistentData().putDouble("entitytick", 0);
+            NpcTalismans.activateFlameJet(entity, CreatureData.state(entity).talismanLevel());
+            CreatureData.state(entity).setPhase("结束");
+        } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 36) {
+            CreatureData.state(entity).setSkill("");
+            CreatureData.state(entity).setPhase("");
+            CreatureData.state(entity).setTick(0);
         }
     }
 
@@ -128,26 +130,26 @@ public final class NpcTalismanSkills {
     public static void Npcskill0303(LevelAccessor world, Entity entity) {
         Entity linshientity = null;
         linshientity = Xiuzhe0101Support.target(world, entity);
-        if ((entity.getPersistentData().getString("jinengjinxing")).equals("开始")) {
+        if ((CreatureData.state(entity).phase()).equals("开始")) {
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 36, 1, (false), (false)));
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 36, 20, (false), (false)));
             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY()), (linshientity.getZ())));
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 16) {
+            CreatureData.state(entity).setPhase("蓄力");
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力") && CreatureData.state(entity).tick() >= 16) {
             if (world instanceof ServerLevel _level)
                 _level.sendParticles(Particles.type("fulubagua"), (entity.getX()), (entity.getY() + 1.5), (entity.getZ()), 1, 0, 0, 0, 0);
-            entity.getPersistentData().putString("jinengjinxing", "释放");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("释放") && entity.getPersistentData().getDouble("entitytick") >= 20) {
-            if (entity.getPersistentData().getDouble("LEVELnumber") <= 10) {
-                entity.getPersistentData().putDouble("jinengfululevel", 1);
-            } else if (entity.getPersistentData().getDouble("LEVELnumber") <= 20) {
-                entity.getPersistentData().putDouble("jinengfululevel", 2);
-            } else if (entity.getPersistentData().getDouble("LEVELnumber") <= 30) {
-                entity.getPersistentData().putDouble("jinengfululevel", 3);
+            CreatureData.state(entity).setPhase("释放");
+        } else if ((CreatureData.state(entity).phase()).equals("释放") && CreatureData.state(entity).tick() >= 20) {
+            if (EntityAttributes.level(entity) <= 10) {
+                CreatureData.state(entity).setTalismanLevel(1);
+            } else if (EntityAttributes.level(entity) <= 20) {
+                CreatureData.state(entity).setTalismanLevel(2);
+            } else if (EntityAttributes.level(entity) <= 30) {
+                CreatureData.state(entity).setTalismanLevel(3);
             } else {
-                entity.getPersistentData().putDouble("jinengfululevel", 4);
+                CreatureData.state(entity).setTalismanLevel(4);
             }
             if (world instanceof Level _level) {
                 if (!_level.isClientSide()) {
@@ -156,12 +158,12 @@ public final class NpcTalismanSkills {
                     _level.playLocalSound((entity.getX()), (entity.getY() + 1.5), (entity.getZ()), Xiuzhe0101Support.sound("yvanchuxiuzhen:fulushifang"), SoundSource.NEUTRAL, 1, 1, false);
                 }
             }
-            NpcTalismans.activateWindPressure(entity, entity.getPersistentData().getDouble("jinengfululevel"));
-            entity.getPersistentData().putString("jinengjinxing", "结束");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 36) {
-            entity.getPersistentData().putString("jineng", "");
-            entity.getPersistentData().putString("jinengjinxing", "");
-            entity.getPersistentData().putDouble("entitytick", 0);
+            NpcTalismans.activateWindPressure(entity, CreatureData.state(entity).talismanLevel());
+            CreatureData.state(entity).setPhase("结束");
+        } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 36) {
+            CreatureData.state(entity).setSkill("");
+            CreatureData.state(entity).setPhase("");
+            CreatureData.state(entity).setTick(0);
         }
     }
 
@@ -169,26 +171,26 @@ public final class NpcTalismanSkills {
     public static void Npcskill0304(LevelAccessor world, Entity entity) {
         Entity linshientity = null;
         linshientity = Xiuzhe0101Support.target(world, entity);
-        if ((entity.getPersistentData().getString("jinengjinxing")).equals("开始")) {
+        if ((CreatureData.state(entity).phase()).equals("开始")) {
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 36, 1, (false), (false)));
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 36, 20, (false), (false)));
             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY()), (linshientity.getZ())));
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 16) {
+            CreatureData.state(entity).setPhase("蓄力");
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力") && CreatureData.state(entity).tick() >= 16) {
             if (world instanceof ServerLevel _level)
                 _level.sendParticles(Particles.type("fulubagua"), (entity.getX()), (entity.getY() + 1.5), (entity.getZ()), 1, 0, 0, 0, 0);
-            entity.getPersistentData().putString("jinengjinxing", "释放");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("释放") && entity.getPersistentData().getDouble("entitytick") >= 20) {
-            if (entity.getPersistentData().getDouble("LEVELnumber") <= 10) {
-                entity.getPersistentData().putDouble("jinengfululevel", 1);
-            } else if (entity.getPersistentData().getDouble("LEVELnumber") <= 20) {
-                entity.getPersistentData().putDouble("jinengfululevel", 2);
-            } else if (entity.getPersistentData().getDouble("LEVELnumber") <= 30) {
-                entity.getPersistentData().putDouble("jinengfululevel", 3);
+            CreatureData.state(entity).setPhase("释放");
+        } else if ((CreatureData.state(entity).phase()).equals("释放") && CreatureData.state(entity).tick() >= 20) {
+            if (EntityAttributes.level(entity) <= 10) {
+                CreatureData.state(entity).setTalismanLevel(1);
+            } else if (EntityAttributes.level(entity) <= 20) {
+                CreatureData.state(entity).setTalismanLevel(2);
+            } else if (EntityAttributes.level(entity) <= 30) {
+                CreatureData.state(entity).setTalismanLevel(3);
             } else {
-                entity.getPersistentData().putDouble("jinengfululevel", 4);
+                CreatureData.state(entity).setTalismanLevel(4);
             }
             if (world instanceof Level _level) {
                 if (!_level.isClientSide()) {
@@ -198,13 +200,13 @@ public final class NpcTalismanSkills {
                 }
             }
             if (world instanceof ServerLevel serverLevel) {
-                NpcTalismans.shootQiSword(serverLevel, entity, entity.getPersistentData().getDouble("jinengfululevel"));
+                NpcTalismans.shootQiSword(serverLevel, entity, CreatureData.state(entity).talismanLevel());
             }
-            entity.getPersistentData().putString("jinengjinxing", "结束");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 36) {
-            entity.getPersistentData().putString("jineng", "");
-            entity.getPersistentData().putString("jinengjinxing", "");
-            entity.getPersistentData().putDouble("entitytick", 0);
+            CreatureData.state(entity).setPhase("结束");
+        } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 36) {
+            CreatureData.state(entity).setSkill("");
+            CreatureData.state(entity).setPhase("");
+            CreatureData.state(entity).setTick(0);
         }
     }
 
@@ -215,26 +217,26 @@ public final class NpcTalismanSkills {
         double shijiaoY = 0;
         Entity linshientity = null;
         linshientity = Xiuzhe0101Support.target(world, entity);
-        if ((entity.getPersistentData().getString("jinengjinxing")).equals("开始")) {
+        if ((CreatureData.state(entity).phase()).equals("开始")) {
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 36, 1, (false), (false)));
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 36, 20, (false), (false)));
             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY()), (linshientity.getZ())));
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 16) {
+            CreatureData.state(entity).setPhase("蓄力");
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力") && CreatureData.state(entity).tick() >= 16) {
             if (world instanceof ServerLevel _level)
                 _level.sendParticles(Particles.type("fulubagua"), (entity.getX()), (entity.getY() + 1.5), (entity.getZ()), 1, 0, 0, 0, 0);
-            entity.getPersistentData().putString("jinengjinxing", "释放");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("释放") && entity.getPersistentData().getDouble("entitytick") >= 20) {
-            if (entity.getPersistentData().getDouble("LEVELnumber") <= 10) {
-                entity.getPersistentData().putDouble("jinengfululevel", 1);
-            } else if (entity.getPersistentData().getDouble("LEVELnumber") <= 20) {
-                entity.getPersistentData().putDouble("jinengfululevel", 2);
-            } else if (entity.getPersistentData().getDouble("LEVELnumber") <= 30) {
-                entity.getPersistentData().putDouble("jinengfululevel", 3);
+            CreatureData.state(entity).setPhase("释放");
+        } else if ((CreatureData.state(entity).phase()).equals("释放") && CreatureData.state(entity).tick() >= 20) {
+            if (EntityAttributes.level(entity) <= 10) {
+                CreatureData.state(entity).setTalismanLevel(1);
+            } else if (EntityAttributes.level(entity) <= 20) {
+                CreatureData.state(entity).setTalismanLevel(2);
+            } else if (EntityAttributes.level(entity) <= 30) {
+                CreatureData.state(entity).setTalismanLevel(3);
             } else {
-                entity.getPersistentData().putDouble("jinengfululevel", 4);
+                CreatureData.state(entity).setTalismanLevel(4);
             }
             if (world instanceof Level _level) {
                 if (!_level.isClientSide()) {
@@ -255,12 +257,12 @@ public final class NpcTalismanSkills {
             }
             if (world instanceof ServerLevel _level)
                 _level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(shijiaoX, shijiaoY, shijiaoZ), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
-                        ("lightninglanding " + (30 + entity.getPersistentData().getDouble("jinengfululevel") * 20) + " " + entity.getStringUUID() + " 1 " + Relations.entityTeam(entity) + " 4 红色 独立"));
-            entity.getPersistentData().putString("jinengjinxing", "结束");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 36) {
-            entity.getPersistentData().putString("jineng", "");
-            entity.getPersistentData().putString("jinengjinxing", "");
-            entity.getPersistentData().putDouble("entitytick", 0);
+                        ("lightninglanding " + (30 + CreatureData.state(entity).talismanLevel() * 20) + " " + entity.getStringUUID() + " 1 " + Relations.entityTeam(entity) + " 4 红色 独立"));
+            CreatureData.state(entity).setPhase("结束");
+        } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 36) {
+            CreatureData.state(entity).setSkill("");
+            CreatureData.state(entity).setPhase("");
+            CreatureData.state(entity).setTick(0);
         }
     }
 
@@ -271,26 +273,26 @@ public final class NpcTalismanSkills {
         double shijiaoY = 0;
         Entity linshientity = null;
         linshientity = Xiuzhe0101Support.target(world, entity);
-        if ((entity.getPersistentData().getString("jinengjinxing")).equals("开始")) {
+        if ((CreatureData.state(entity).phase()).equals("开始")) {
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 36, 1, (false), (false)));
             if (entity instanceof LivingEntity _entity)
                 _entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 36, 20, (false), (false)));
             entity.lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3((linshientity.getX()), (linshientity.getY()), (linshientity.getZ())));
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("蓄力") && entity.getPersistentData().getDouble("entitytick") >= 16) {
+            CreatureData.state(entity).setPhase("蓄力");
+        } else if ((CreatureData.state(entity).phase()).equals("蓄力") && CreatureData.state(entity).tick() >= 16) {
             if (world instanceof ServerLevel _level)
                 _level.sendParticles(Particles.type("fulubagua"), (entity.getX()), (entity.getY() + 1.5), (entity.getZ()), 1, 0, 0, 0, 0);
-            entity.getPersistentData().putString("jinengjinxing", "释放");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("释放") && entity.getPersistentData().getDouble("entitytick") >= 20) {
-            if (entity.getPersistentData().getDouble("LEVELnumber") <= 10) {
-                entity.getPersistentData().putDouble("jinengfululevel", 1);
-            } else if (entity.getPersistentData().getDouble("LEVELnumber") <= 20) {
-                entity.getPersistentData().putDouble("jinengfululevel", 2);
-            } else if (entity.getPersistentData().getDouble("LEVELnumber") <= 30) {
-                entity.getPersistentData().putDouble("jinengfululevel", 3);
+            CreatureData.state(entity).setPhase("释放");
+        } else if ((CreatureData.state(entity).phase()).equals("释放") && CreatureData.state(entity).tick() >= 20) {
+            if (EntityAttributes.level(entity) <= 10) {
+                CreatureData.state(entity).setTalismanLevel(1);
+            } else if (EntityAttributes.level(entity) <= 20) {
+                CreatureData.state(entity).setTalismanLevel(2);
+            } else if (EntityAttributes.level(entity) <= 30) {
+                CreatureData.state(entity).setTalismanLevel(3);
             } else {
-                entity.getPersistentData().putDouble("jinengfululevel", 4);
+                CreatureData.state(entity).setTalismanLevel(4);
             }
             if (world instanceof Level _level) {
                 if (!_level.isClientSide()) {
@@ -315,16 +317,16 @@ public final class NpcTalismanSkills {
                         if (world instanceof ServerLevel _level)
                             _level.sendParticles(ParticleTypes.FLAME, (entityiterator.getX()), (entityiterator.getY() + 1), (entityiterator.getZ()), 20, 0.5, 0.8, 0.5, 0.1);
                         if (entityiterator instanceof LivingEntity _entity)
-                            _entity.addEffect(new MobEffectInstance(StatusEffects.holder("effect_023"), (int) (400 + entity.getPersistentData().getDouble("jinengfululevel") * 200),
-                                    (int) ((entity.getPersistentData().getDouble("jinengfululevel") - 1) * 2)));
+                            _entity.addEffect(new MobEffectInstance(StatusEffects.holder("effect_023"), (int) (400 + CreatureData.state(entity).talismanLevel() * 200),
+                                    (int) ((CreatureData.state(entity).talismanLevel() - 1) * 2)));
                     }
                 }
             }
-            entity.getPersistentData().putString("jinengjinxing", "结束");
-        } else if ((entity.getPersistentData().getString("jinengjinxing")).equals("结束") && entity.getPersistentData().getDouble("entitytick") >= 36) {
-            entity.getPersistentData().putString("jineng", "");
-            entity.getPersistentData().putString("jinengjinxing", "");
-            entity.getPersistentData().putDouble("entitytick", 0);
+            CreatureData.state(entity).setPhase("结束");
+        } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 36) {
+            CreatureData.state(entity).setSkill("");
+            CreatureData.state(entity).setPhase("");
+            CreatureData.state(entity).setTick(0);
         }
     }
 }

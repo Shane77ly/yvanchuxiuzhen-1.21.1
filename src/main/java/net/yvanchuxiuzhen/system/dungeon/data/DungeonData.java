@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.dungeon.data;
 
 import com.mojang.serialization.Codec;
 import java.util.function.Supplier;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -19,6 +20,10 @@ public final class DungeonData {
     private static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ModId.VALUE);
     public static final Supplier<AttachmentType<CompoundTag>> PLAYER = TYPES.register("dungeon_player", () -> AttachmentType
             .builder(() -> new CompoundTag()).serialize(CompoundTag.CODEC).copyOnDeath().build());
+    public static final Supplier<AttachmentType<CompoundTag>> PLAYER_TRANSIENT = TYPES.register("dungeon_player_transient", () -> AttachmentType
+            .builder(() -> new CompoundTag()).serialize(CompoundTag.CODEC).build());
+    public static final Supplier<AttachmentType<BlockPos>> CONTROLLER_POS = TYPES.register("dungeon_controller_pos", () -> AttachmentType
+            .builder(() -> BlockPos.ZERO).serialize(BlockPos.CODEC).build());
     public static final Supplier<AttachmentType<ItemStack>> PAINTING_TRANSIT = TYPES.register("dungeon_painting_transit", () -> AttachmentType
             .builder(() -> ItemStack.EMPTY).serialize(ItemStack.OPTIONAL_CODEC).copyOnDeath().build());
     public static final Supplier<DataComponentType<PaintingState>> PAINTING_STATE = COMPONENTS.registerComponentType("painting_state",

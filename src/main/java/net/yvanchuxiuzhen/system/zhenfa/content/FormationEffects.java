@@ -21,12 +21,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.zhenfa.ZhenfaSetup;
 import net.yvanchuxiuzhen.system.zhenfa.api.FormationProtection;
+import net.yvanchuxiuzhen.system.zhenfa.entity.FormationActor;
 import net.yvanchuxiuzhen.system.zhenfa.entity.FormationFalling;
 import net.yvanchuxiuzhen.system.zhenfa.entity.FormationLauncher;
 
@@ -35,7 +37,7 @@ final class FormationEffects {
     private FormationEffects() { }
 
     static void execute(FormationBaseBlockEntity base) {
-        CompoundTag data = base.getPersistentData();
+        CompoundTag data = base.state();
         switch (data.getString("jinengleibie")) {
             case "阳" -> yang(base, data);
             case "阴", "金", "水", "木", "火", "土" -> yin(base, data);
@@ -68,7 +70,7 @@ final class FormationEffects {
                         "", Component.literal(""), level.getServer(), null).withSuppressedOutput();
                 level.getServer().getCommands().performPrefixedCommand(source, "summon yvanchuxiuzhen:zhenjineng_03");
                 for (Entity entity : sortedEntities(level, point, .5)) {
-                    if (entity instanceof FormationFalling) configureActor(base, entity, "阳3");
+                    if (entity instanceof FormationFalling actor) configureActor(base, actor, "阳3");
                 }
             }
             case "阳4" -> {
@@ -93,18 +95,11 @@ final class FormationEffects {
         }
     }
 
-    private static void configureActor(FormationBaseBlockEntity base, Entity entity, String name) {
-        CompoundTag source = base.getPersistentData();
-        CompoundTag target = entity.getPersistentData();
-        target.putString("jinengname", name);
-        target.putString("jinengleibie", "阳");
+    private static void configureActor(FormationBaseBlockEntity base, FormationActor entity, String name) {
+        CompoundTag source = base.state();
         FormationMarkerBlockEntity marker = (FormationMarkerBlockEntity) base.getLevel().getBlockEntity(base.getBlockPos().above());
         Relations.setTeam(entity, marker.team());
-        target.putInt("zhenLEVEL", source.getInt("zhenLEVEL"));
-        target.putString("ManaAttackUUID", source.getString("ManaAttackUUID"));
-        for (String key : List.of("zhenqian", "zhenshijiao", "zhenmubiao", "zhenjiaodu", "zhenchufaX", "zhenchufaY", "zhenchufaZ")) {
-            target.putInt(key, source.getInt(key));
-        }
+        entity.configure(name, source.getInt("zhenLEVEL"), source.getInt("zhenmubiao"), source.getString("ManaAttackUUID"));
         entity.setYRot(source.getInt("zhenjiaodu"));
         entity.setXRot(source.getInt("zhentaitou"));
         entity.setYBodyRot(entity.getYRot());
@@ -148,7 +143,7 @@ final class FormationEffects {
                 if (!allowed) continue;
                 switch (name) {
                     case "空间1" -> {
-                        if (entity.getPersistentData().getInt("LEVELnumber") <= data.getInt("zhenLEVEL") && entity instanceof LivingEntity living) {
+                        if ((int) EntityAttributes.level(entity) <= data.getInt("zhenLEVEL") && entity instanceof LivingEntity living) {
                             living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 20, true, false));
                         }
                     }

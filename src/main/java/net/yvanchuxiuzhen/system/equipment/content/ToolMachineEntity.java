@@ -113,6 +113,24 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
     private final EntityModelRow model;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private String procedure = EMPTY;
+    private String ownerUuid = EMPTY;
+    private String facing = EMPTY;
+    private int enchantLevel;
+    private double maxLifeTicks;
+    private double centerX;
+    private double centerY;
+    private double centerZ;
+    private double lifeTicks;
+    private double actionTicks;
+    private String phase = EMPTY;
+    private double targetX;
+    private double targetY;
+    private double targetZ;
+    private String searchDirection = EMPTY;
+    private double searchSteps;
+    private double searchLimit;
+    private String stepStage = EMPTY;
+    private double dugCount;
 
     public ToolMachineEntity(EntityType<ToolMachineEntity> type, Level level, EntityModelRow model, Kind kind) {
         super(type, level);
@@ -125,6 +143,22 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
         setPersistenceRequired();
         xpReward = 0;
         setTexture(model.texture());
+    }
+
+    public String phase() { return phase; }
+    public void setPhase(String phase) { this.phase = phase; }
+    public int enchantLevel() { return enchantLevel; }
+    public void setEnchantLevel(int enchantLevel) { this.enchantLevel = enchantLevel; }
+    public double maxLifeTicks() { return maxLifeTicks; }
+    public void setMaxLifeTicks(double maxLifeTicks) { this.maxLifeTicks = maxLifeTicks; }
+    public double actionTicks() { return actionTicks; }
+    public void setActionTicks(double actionTicks) { this.actionTicks = actionTicks; }
+    public void setOwnerUuid(String ownerUuid) { this.ownerUuid = ownerUuid; }
+    public void setTargetX(double targetX) { this.targetX = targetX; }
+    public void setTarget(double x, double y, double z) {
+        this.targetX = x;
+        this.targetY = y;
+        this.targetZ = z;
     }
 
     public static AttributeSupplier.Builder attributes(EntityModelRow model) {
@@ -159,14 +193,13 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
     }
 
     private void configure(Entity source, int enchantLevel, Vec3 position, Direction face) {
-        CompoundTag data = getPersistentData();
-        data.putString("zhurenuuid", source == null ? EMPTY : source.getStringUUID());
-        data.putString("fangxiang", directionName(face));
-        data.putDouble("fumodengji", enchantLevel);
-        data.putDouble("xiaoshitickMax", enchantLevel * 2400d);
-        data.putDouble("zhongxinX", position.x);
-        data.putDouble("zhongxinY", position.y);
-        data.putDouble("zhongxinZ", position.z);
+        ownerUuid = source == null ? EMPTY : source.getStringUUID();
+        facing = directionName(face);
+        this.enchantLevel = enchantLevel;
+        maxLifeTicks = enchantLevel * 2400d;
+        centerX = position.x;
+        centerY = position.y;
+        centerZ = position.z;
     }
 
     private static String directionName(Direction direction) {
@@ -221,21 +254,19 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
 
     private void process() {
         if (!isAlive()) return;
-        CompoundTag data = getPersistentData();
-        double enchant = data.getDouble("fumodengji");
-        if (data.getDouble("xiaoshitickMax") == 0 && (kind == Kind.AXE || kind == Kind.PICKAXE)) {
-            data.putDouble("xiaoshitickMax", enchant * 400);
+        if (maxLifeTicks == 0 && (kind == Kind.AXE || kind == Kind.PICKAXE)) {
+            maxLifeTicks = enchantLevel * 400d;
         }
-        data.putDouble("xiaoshitick", data.getDouble("xiaoshitick") + 1);
-        if (data.getDouble("xiaoshitick") >= data.getDouble("xiaoshitickMax")) {
+        lifeTicks += 1;
+        if (lifeTicks >= maxLifeTicks) {
             expire();
             return;
         }
         switch (kind) {
-            case AXE -> processAxe(data, (int) enchant);
-            case PICKAXE -> processPickaxe(data);
-            case HOE -> processSoilTool(data, false);
-            case SHOVEL -> processSoilTool(data, true);
+            case AXE -> processAxe(enchantLevel);
+            case PICKAXE -> processPickaxe();
+            case HOE -> processSoilTool(false);
+            case SHOVEL -> processSoilTool(true);
         }
         if (getHealth() < getMaxHealth()) setHealth(getMaxHealth());
     }
@@ -254,46 +285,45 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
         discard();
     }
 
-    private void processAxe(CompoundTag data, int enchant) {
-        String phase = data.getString("jinxing");
-        if (phase.equals(EMPTY)) data.putString("jinxing", FIND);
-        else if (phase.equals(FIND)) findLog(data, enchant);
-        else if (phase.equals(PATH)) followAxeTarget(data);
+    private void processAxe(int enchant) {
+        if (phase.equals(EMPTY)) phase = FIND;
+        else if (phase.equals(FIND)) findLog(enchant);
+        else if (phase.equals(PATH)) followAxeTarget();
         else if (phase.equals(COLLECT)) {
-            lookAtTarget(data);
+            lookAtTarget();
             setDeltaMovement(Vec3.ZERO);
             setAnimation(kind.attack);
-            data.putString("jinxing", CONTACT);
+            phase = CONTACT;
         } else if (phase.equals(CONTACT)) {
-            lookAtTarget(data);
-            data.putDouble("xiaoshitick2", data.getDouble("xiaoshitick2") + 1);
-            if (data.getDouble("xiaoshitick2") >= 11) {
+            lookAtTarget();
+            actionTicks += 1;
+            if (actionTicks >= 11) {
                 BlockPos hit = rayBlock();
                 if (level().getBlockState(hit).getDestroySpeed(level(), hit) >= 0 && level().getBlockState(hit).is(BlockTags.LOGS)) {
-                    ServerPlayer owner = ownerPlayer(data);
+                    ServerPlayer owner = ownerPlayer();
                     if (owner != null) ItemHandlerHelper.giveItemToPlayer(owner, new ItemStack(level().getBlockState(hit).getBlock().asItem()));
                     level().destroyBlock(hit, false);
                 }
-                data.putString("jinxing", FIND);
-                data.putDouble("xiaoshitick2", 0);
+                phase = FIND;
+                actionTicks = 0;
             }
         } else if (phase.equals(NONE)) {
-            data.putDouble("xiaoshitick2", data.getDouble("xiaoshitick2") + 1);
-            if (data.getDouble("xiaoshitick2") >= 20) expireWithoutTarget();
+            actionTicks += 1;
+            if (actionTicks >= 20) expireWithoutTarget();
         } else if (phase.equals(CLEAR_LEAVES)) {
             setAnimation(kind.alternate);
             clearLeaves();
-            data.putString("jinxing", CLEARING);
+            phase = CLEARING;
         } else if (phase.equals(CLEARING)) {
-            data.putDouble("xiaoshitick2", data.getDouble("xiaoshitick2") + 1);
-            if (data.getDouble("xiaoshitick2") >= 20) {
-                data.putString("jinxing", PATH);
-                data.putDouble("xiaoshitick2", 0);
+            actionTicks += 1;
+            if (actionTicks >= 20) {
+                phase = PATH;
+                actionTicks = 0;
             }
         }
     }
 
-    private void findLog(CompoundTag data, int enchant) {
+    private void findLog(int enchant) {
         int range = 8 * enchant;
         int start = -Math.round(range / 2f);
         int misses = 0;
@@ -302,37 +332,37 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
                 for (int z = start; z < start + range; z++) {
                     BlockPos pos = BlockPos.containing(getX() + x, getY() + y, getZ() + z);
                     if (level().getBlockState(pos).is(BlockTags.LOGS)) {
-                        data.putDouble("mubiaoX", getX() + x);
-                        data.putDouble("mubiaoY", getY() + y);
-                        data.putDouble("mubiaoZ", getZ() + z);
-                        lookAtTarget(data);
-                        data.putString("jinxing", PATH);
+                        targetX = getX() + x;
+                        targetY = getY() + y;
+                        targetZ = getZ() + z;
+                        lookAtTarget();
+                        phase = PATH;
                     } else misses++;
                 }
             }
         }
-        if (misses >= Math.pow(range, 3)) data.putString("jinxing", NONE);
+        if (misses >= Math.pow(range, 3)) phase = NONE;
     }
 
-    private void followAxeTarget(CompoundTag data) {
-        lookAtTarget(data);
-        setDeltaMovement(new Vec3(data.getDouble("mubiaoX") - getX(), data.getDouble("mubiaoY") - getY(), data.getDouble("mubiaoZ") - getZ()));
+    private void followAxeTarget() {
+        lookAtTarget();
+        setDeltaMovement(new Vec3(targetX - getX(), targetY - getY(), targetZ - getZ()));
         BlockPos hit = rayBlock();
         BlockState state = level().getBlockState(hit);
         if (state.getDestroySpeed(level(), hit) >= 0 && state.is(BlockTags.LOGS)) {
-            data.putDouble("xiaoshitick2", 0);
-            data.putString("jinxing", COLLECT);
+            actionTicks = 0;
+            phase = COLLECT;
         } else if (hasLeavesAround()) {
-            data.putDouble("xiaoshitick2", 0);
-            data.putString("jinxing", CLEAR_LEAVES);
+            actionTicks = 0;
+            phase = CLEAR_LEAVES;
         } else {
-            data.putDouble("xiaoshitick2", data.getDouble("xiaoshitick2") + 1);
-            if (data.getDouble("xiaoshitick2") >= 10) {
-                double delta = data.getDouble("mubiaoY") - getY();
+            actionTicks += 1;
+            if (actionTicks >= 10) {
+                double delta = targetY - getY();
                 if (delta > 0) setDeltaMovement(0, 1, 0);
                 else if (delta < 0) setDeltaMovement(0, -1, 0);
-                else data.putString("jinxing", FIND);
-                data.putDouble("xiaoshitick2", 0);
+                else phase = FIND;
+                actionTicks = 0;
             }
         }
     }
@@ -353,217 +383,209 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
         }
     }
 
-    private void processPickaxe(CompoundTag data) {
-        String phase = data.getString("jinxing");
+    private void processPickaxe() {
         if (phase.equals(EMPTY)) {
-            data.putString("fangxianglinshi", LEFT);
-            data.putDouble("zongbushu", 0);
-            if (data.getDouble("zongwajvenum") >= 25) {
-                setMiningTarget(data);
-                data.putDouble("zongwajvenum", 0);
-                data.putString("jinxing", EMPTY);
+            searchDirection = LEFT;
+            searchLimit = 0;
+            if (dugCount >= 25) {
+                setMiningTarget();
+                dugCount = 0;
+                phase = EMPTY;
             } else {
-                setInitialPickaxeTarget(data);
-                data.putString("jinxing", PREPARE);
+                setInitialPickaxeTarget();
+                phase = PREPARE;
             }
         } else if (phase.equals(FIND)) {
-            advanceSearch(data);
-            data.putString("jinxing", MOVE);
+            advanceSearch();
+            phase = MOVE;
         } else if (phase.equals(MOVE)) {
-            moveToMiningTarget(data);
-            data.putString("jinxing", PREPARE);
+            moveToMiningTarget();
+            phase = PREPARE;
         } else if (phase.equals(PREPARE)) {
-            data.putDouble("xiaoshitick2", data.getDouble("xiaoshitick2") + 1);
-            if (data.getDouble("xiaoshitick2") >= 1) {
-                BlockPos target = target(data);
-                if (isPickaxeBlock(target)) data.putString("jinxing", MINE);
+            actionTicks += 1;
+            if (actionTicks >= 1) {
+                BlockPos target = target();
+                if (isPickaxeBlock(target)) phase = MINE;
                 else {
-                    data.putDouble("zongwajvenum", data.getDouble("zongwajvenum") + 1);
-                    data.putString("jinxing", FINISH);
+                    dugCount += 1;
+                    phase = FINISH;
                 }
-                data.putDouble("xiaoshitick2", 0);
+                actionTicks = 0;
             }
         } else if (phase.equals(MINE)) {
-            setAnimation(pickaxeAnimation(data));
-            data.putString("jinxing", MINING);
+            setAnimation(pickaxeAnimation());
+            phase = MINING;
         } else if (phase.equals(MINING)) {
-            data.putDouble("xiaoshitick2", data.getDouble("xiaoshitick2") + 1);
-            if (data.getDouble("xiaoshitick2") >= 5) {
-                destroyForOwner(data, target(data));
-                data.putDouble("zongwajvenum", data.getDouble("zongwajvenum") + 1);
-                data.putDouble("xiaoshitick2", 0);
-                data.putString("jinxing", FINISH);
+            actionTicks += 1;
+            if (actionTicks >= 5) {
+                destroyForOwner(target());
+                dugCount += 1;
+                actionTicks = 0;
+                phase = FINISH;
             }
-        } else if (phase.equals(FINISH)) data.putString("jinxing", data.getDouble("zongwajvenum") >= 25 ? EMPTY : FIND);
+        } else if (phase.equals(FINISH)) phase = dugCount >= 25 ? EMPTY : FIND;
     }
 
-    private void processSoilTool(CompoundTag data, boolean shovel) {
-        String phase = data.getString("jinxing");
+    private void processSoilTool(boolean shovel) {
         if (phase.equals(EMPTY)) {
-            initializeMining(data);
-            data.putString("jinxing", PREPARE);
+            initializeMining();
+            phase = PREPARE;
         } else if (phase.equals(FIND)) {
-            advanceSearch(data);
-            data.putString("jinxing", MOVE);
+            advanceSearch();
+            phase = MOVE;
         } else if (phase.equals(MOVE)) {
-            moveToMiningTarget(data);
-            data.putString("jinxing", PREPARE);
+            moveToMiningTarget();
+            phase = PREPARE;
         } else if (phase.equals(PREPARE)) {
-            data.putDouble("xiaoshitick2", data.getDouble("xiaoshitick2") + 1);
-            if (data.getDouble("xiaoshitick2") >= 1) {
-                BlockPos target = target(data);
-                if (isSoilBlock(target, shovel)) data.putString("jinxing", MINE);
+            actionTicks += 1;
+            if (actionTicks >= 1) {
+                BlockPos target = target();
+                if (isSoilBlock(target, shovel)) phase = MINE;
                 else {
-                    data.putDouble("zongwajvenum", data.getDouble("zongwajvenum") + 1);
-                    data.putString("jinxing", FINISH);
+                    dugCount += 1;
+                    phase = FINISH;
                 }
-                data.putDouble("xiaoshitick2", 0);
+                actionTicks = 0;
             }
         } else if (phase.equals(MINE)) {
             setAnimation(kind.attack);
-            data.putString("jinxing", MINING);
+            phase = MINING;
         } else if (phase.equals(MINING)) {
-            data.putDouble("xiaoshitick2", data.getDouble("xiaoshitick2") + 1);
-            if (data.getDouble("xiaoshitick2") >= 5) {
-                if (shovel) till(target(data));
-                else destroyForOwner(data, target(data));
-                data.putDouble("xiaoshitick2", 0);
-                data.putString("jinxing", FINISH);
+            actionTicks += 1;
+            if (actionTicks >= 5) {
+                if (shovel) till(target());
+                else destroyForOwner(target());
+                actionTicks = 0;
+                phase = FINISH;
             }
-        } else if (phase.equals(FINISH)) data.putString("jinxing", FIND);
+        } else if (phase.equals(FINISH)) phase = FIND;
     }
 
-    private void initializeMining(CompoundTag data) {
-        data.putString("fangxianglinshi", LEFT);
-        data.putDouble("zongbushu", 0);
-        data.putDouble("mubiaoX", data.getDouble("zhongxinX"));
-        data.putDouble("mubiaoY", data.getDouble("zhongxinY") - 1);
-        data.putDouble("mubiaoZ", data.getDouble("zhongxinZ"));
+    private void initializeMining() {
+        searchDirection = LEFT;
+        searchLimit = 0;
+        targetX = centerX;
+        targetY = centerY - 1;
+        targetZ = centerZ;
     }
 
-    private void setInitialPickaxeTarget(CompoundTag data) {
-        String facing = data.getString("fangxiang");
+    private void setInitialPickaxeTarget() {
         if (facing.equals(DOWN)) {
-            data.putDouble("mubiaoX", data.getDouble("zhongxinX"));
-            data.putDouble("mubiaoY", data.getDouble("zhongxinY") - 1);
-            data.putDouble("mubiaoZ", data.getDouble("zhongxinZ"));
+            targetX = centerX;
+            targetY = centerY - 1;
+            targetZ = centerZ;
         } else if (facing.equals("south")) {
-            data.putDouble("mubiaoX", data.getDouble("zhongxinX"));
-            data.putDouble("mubiaoY", data.getDouble("zhongxinY"));
-            data.putDouble("mubiaoZ", data.getDouble("zhongxinZ") + 1);
+            targetX = centerX;
+            targetY = centerY;
+            targetZ = centerZ + 1;
         } else if (facing.equals("north")) {
-            data.putDouble("mubiaoX", data.getDouble("zhongxinX"));
-            data.putDouble("mubiaoY", data.getDouble("zhongxinY"));
-            data.putDouble("mubiaoZ", data.getDouble("zhongxinZ") - 1);
+            targetX = centerX;
+            targetY = centerY;
+            targetZ = centerZ - 1;
         } else if (facing.equals("east")) {
-            data.putDouble("mubiaoX", data.getDouble("zhongxinX") + 1);
-            data.putDouble("mubiaoY", data.getDouble("zhongxinY"));
-            data.putDouble("mubiaoZ", data.getDouble("zhongxinZ"));
+            targetX = centerX + 1;
+            targetY = centerY;
+            targetZ = centerZ;
         } else if (facing.equals("west")) {
-            data.putDouble("mubiaoX", data.getDouble("zhongxinX") - 1);
-            data.putDouble("mubiaoY", data.getDouble("zhongxinY"));
-            data.putDouble("mubiaoZ", data.getDouble("zhongxinZ"));
+            targetX = centerX - 1;
+            targetY = centerY;
+            targetZ = centerZ;
         } else {
-            data.putDouble("mubiaoX", data.getDouble("zhongxinX"));
-            data.putDouble("mubiaoY", data.getDouble("zhongxinY") + 1);
-            data.putDouble("mubiaoZ", data.getDouble("zhongxinZ"));
+            targetX = centerX;
+            targetY = centerY + 1;
+            targetZ = centerZ;
         }
     }
 
-    private void advanceSearch(CompoundTag data) {
-        String local = data.getString("fangxianglinshi");
-        data.putDouble("dangqianbushu", data.getDouble("dangqianbushu") + 1);
-        if (data.getDouble("dangqianbushu") >= data.getDouble("zongbushu")) {
+    private void advanceSearch() {
+        String local = searchDirection;
+        searchSteps += 1;
+        if (searchSteps >= searchLimit) {
             local = switch (local) {
                 case RIGHT -> UP;
                 case UP -> LEFT;
                 case DOWN -> RIGHT;
                 default -> DOWN;
             };
-            data.putString("fangxianglinshi", local);
-            if (data.getDouble("zongbushu") == 0) {
-                data.putDouble("zongbushu", 1);
-                data.putString("bushujieduan", EMPTY);
-            } else if (data.getString("bushujieduan").equals(EMPTY)) data.putString("bushujieduan", "one");
+            searchDirection = local;
+            if (searchLimit == 0) {
+                searchLimit = 1;
+                stepStage = EMPTY;
+            } else if (stepStage.equals(EMPTY)) stepStage = "one";
             else {
-                data.putDouble("zongbushu", data.getDouble("zongbushu") + 1);
-                data.putString("bushujieduan", EMPTY);
+                searchLimit += 1;
+                stepStage = EMPTY;
             }
-            data.putDouble("dangqianbushu", 0);
+            searchSteps = 0;
         }
-        moveSearchTarget(data, local);
+        moveSearchTarget(local);
     }
 
-    private void moveSearchTarget(CompoundTag data, String local) {
-        String facing = data.getString("fangxiang");
+    private void moveSearchTarget(String local) {
         if (facing.equals(UP) || facing.equals(DOWN)) {
-            if (local.equals(DOWN)) data.putDouble("mubiaoZ", data.getDouble("mubiaoZ") + 1);
-            else if (local.equals(UP)) data.putDouble("mubiaoZ", data.getDouble("mubiaoZ") - 1);
-            else if (local.equals(RIGHT)) data.putDouble("mubiaoX", data.getDouble("mubiaoX") + 1);
-            else if (local.equals(LEFT)) data.putDouble("mubiaoX", data.getDouble("mubiaoX") - 1);
+            if (local.equals(DOWN)) targetZ += 1;
+            else if (local.equals(UP)) targetZ -= 1;
+            else if (local.equals(RIGHT)) targetX += 1;
+            else if (local.equals(LEFT)) targetX -= 1;
         } else if (facing.equals("south") || facing.equals("north")) {
-            if (local.equals(DOWN)) data.putDouble("mubiaoY", data.getDouble("mubiaoY") - 1);
-            else if (local.equals(UP)) data.putDouble("mubiaoY", data.getDouble("mubiaoY") + 1);
-            else if (local.equals(RIGHT)) data.putDouble("mubiaoX", data.getDouble("mubiaoX") + 1);
-            else if (local.equals(LEFT)) data.putDouble("mubiaoX", data.getDouble("mubiaoX") - 1);
+            if (local.equals(DOWN)) targetY -= 1;
+            else if (local.equals(UP)) targetY += 1;
+            else if (local.equals(RIGHT)) targetX += 1;
+            else if (local.equals(LEFT)) targetX -= 1;
         } else {
-            if (local.equals(DOWN)) data.putDouble("mubiaoY", data.getDouble("mubiaoY") - 1);
-            else if (local.equals(UP)) data.putDouble("mubiaoY", data.getDouble("mubiaoY") + 1);
-            else if (local.equals(RIGHT)) data.putDouble("mubiaoZ", data.getDouble("mubiaoZ") - 1);
-            else if (local.equals(LEFT)) data.putDouble("mubiaoZ", data.getDouble("mubiaoZ") + 1);
+            if (local.equals(DOWN)) targetY -= 1;
+            else if (local.equals(UP)) targetY += 1;
+            else if (local.equals(RIGHT)) targetZ -= 1;
+            else if (local.equals(LEFT)) targetZ += 1;
         }
     }
 
-    private void setMiningTarget(CompoundTag data) {
-        String facing = data.getString("fangxiang");
+    private void setMiningTarget() {
         if (facing.equals(DOWN)) {
-            data.putDouble("mubiaoX", data.getDouble("zhongxinX"));
-            data.putDouble("mubiaoY", data.getDouble("mubiaoY") - 1);
-            data.putDouble("mubiaoZ", data.getDouble("zhongxinZ"));
+            targetX = centerX;
+            targetY -= 1;
+            targetZ = centerZ;
         } else if (facing.equals("south")) {
-            data.putDouble("mubiaoX", data.getDouble("zhongxinX"));
-            data.putDouble("mubiaoY", data.getDouble("zhongxinY"));
-            data.putDouble("mubiaoZ", data.getDouble("mubiaoZ") + 1);
+            targetX = centerX;
+            targetY = centerY;
+            targetZ += 1;
         } else if (facing.equals("north")) {
-            data.putDouble("mubiaoX", data.getDouble("zhongxinX"));
-            data.putDouble("mubiaoY", data.getDouble("zhongxinY"));
-            data.putDouble("mubiaoZ", data.getDouble("mubiaoZ") - 1);
+            targetX = centerX;
+            targetY = centerY;
+            targetZ -= 1;
         } else if (facing.equals("east")) {
-            data.putDouble("mubiaoX", data.getDouble("mubiaoX") + 1);
-            data.putDouble("mubiaoY", data.getDouble("zhongxinY"));
-            data.putDouble("mubiaoZ", data.getDouble("zhongxinZ"));
+            targetX += 1;
+            targetY = centerY;
+            targetZ = centerZ;
         } else if (facing.equals("west")) {
-            data.putDouble("mubiaoX", data.getDouble("mubiaoX") - 1);
-            data.putDouble("mubiaoY", data.getDouble("zhongxinY"));
-            data.putDouble("mubiaoZ", data.getDouble("zhongxinZ"));
+            targetX -= 1;
+            targetY = centerY;
+            targetZ = centerZ;
         } else {
-            data.putDouble("mubiaoX", data.getDouble("zhongxinX"));
-            data.putDouble("mubiaoY", data.getDouble("mubiaoY") + 1);
-            data.putDouble("mubiaoZ", data.getDouble("zhongxinZ"));
+            targetX = centerX;
+            targetY += 1;
+            targetZ = centerZ;
         }
     }
 
-    private void moveToMiningTarget(CompoundTag data) {
-        lookAtTarget(data);
-        double x = data.getDouble("mubiaoX");
-        double y = data.getDouble("mubiaoY");
-        double z = data.getDouble("mubiaoZ");
+    private void moveToMiningTarget() {
+        lookAtTarget();
         if (kind == Kind.HOE || kind == Kind.SHOVEL) {
-            teleportTo(x, y + 1, z);
+            teleportTo(targetX, targetY + 1, targetZ);
             return;
         }
-        switch (data.getString("fangxiang")) {
-            case DOWN -> teleportTo(x, y + 1, z);
-            case "south" -> teleportTo(x, y, z - 1);
-            case "north" -> teleportTo(x, y, z + 1);
-            case "east" -> teleportTo(x - 1, y, z);
-            case "west" -> teleportTo(x + 1, y, z);
-            default -> teleportTo(x, y - 1, z);
+        switch (facing) {
+            case DOWN -> teleportTo(targetX, targetY + 1, targetZ);
+            case "south" -> teleportTo(targetX, targetY, targetZ - 1);
+            case "north" -> teleportTo(targetX, targetY, targetZ + 1);
+            case "east" -> teleportTo(targetX - 1, targetY, targetZ);
+            case "west" -> teleportTo(targetX + 1, targetY, targetZ);
+            default -> teleportTo(targetX, targetY - 1, targetZ);
         }
     }
 
-    private String pickaxeAnimation(CompoundTag data) {
-        return switch (data.getString("fangxiang")) {
+    private String pickaxeAnimation() {
+        return switch (facing) {
             case DOWN -> "animation.gongjvgao.attackup";
             case UP -> "animation.gongjvgao.attackdown";
             default -> kind.attack;
@@ -591,34 +613,32 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
         if (farmland.hasProperty(BlockStateProperties.MOISTURE)) level().setBlock(pos, farmland.setValue(BlockStateProperties.MOISTURE, 7), 3);
     }
 
-    private void destroyForOwner(CompoundTag data, BlockPos pos) {
-        String ownerId = data.getString("zhurenuuid");
-        if (!ownerId.isEmpty()) {
-            ServerPlayer owner = ownerPlayer(data);
+    private void destroyForOwner(BlockPos pos) {
+        if (!ownerUuid.isEmpty()) {
+            ServerPlayer owner = ownerPlayer();
             if (owner == null) return;
             Block.dropResources(level().getBlockState(pos), level(), owner.blockPosition());
         } else Block.dropResources(level().getBlockState(pos), level(), pos);
         level().destroyBlock(pos, false);
     }
 
-    private ServerPlayer ownerPlayer(CompoundTag data) {
+    private ServerPlayer ownerPlayer() {
         if (!(level() instanceof ServerLevel server)) return null;
-        String ownerId = data.getString("zhurenuuid");
-        if (ownerId.isEmpty()) return null;
+        if (ownerUuid.isEmpty()) return null;
         try {
-            Player player = server.getPlayerByUUID(UUID.fromString(ownerId));
+            Player player = server.getPlayerByUUID(UUID.fromString(ownerUuid));
             return player instanceof ServerPlayer serverPlayer ? serverPlayer : null;
         } catch (IllegalArgumentException ignored) {
             return null;
         }
     }
 
-    private BlockPos target(CompoundTag data) {
-        return BlockPos.containing(data.getDouble("mubiaoX"), data.getDouble("mubiaoY"), data.getDouble("mubiaoZ"));
+    private BlockPos target() {
+        return BlockPos.containing(targetX, targetY, targetZ);
     }
 
-    private void lookAtTarget(CompoundTag data) {
-        lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(data.getDouble("mubiaoX"), data.getDouble("mubiaoY"), data.getDouble("mubiaoZ")));
+    private void lookAtTarget() {
+        lookAt(EntityAnchorArgument.Anchor.EYES, new Vec3(targetX, targetY, targetZ));
     }
 
     private BlockPos rayBlock() {
@@ -682,12 +702,48 @@ public final class ToolMachineEntity extends PathfinderMob implements GeoEntity,
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putString("texture", texture());
+        tag.putString("ownerUuid", ownerUuid);
+        tag.putString("facing", facing);
+        tag.putInt("enchantLevel", enchantLevel);
+        tag.putDouble("maxLifeTicks", maxLifeTicks);
+        tag.putDouble("centerX", centerX);
+        tag.putDouble("centerY", centerY);
+        tag.putDouble("centerZ", centerZ);
+        tag.putDouble("lifeTicks", lifeTicks);
+        tag.putDouble("actionTicks", actionTicks);
+        tag.putString("phase", phase);
+        tag.putDouble("targetX", targetX);
+        tag.putDouble("targetY", targetY);
+        tag.putDouble("targetZ", targetZ);
+        tag.putString("searchDirection", searchDirection);
+        tag.putDouble("searchSteps", searchSteps);
+        tag.putDouble("searchLimit", searchLimit);
+        tag.putString("stepStage", stepStage);
+        tag.putDouble("dugCount", dugCount);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         setTexture(tag.getString("texture"));
+        ownerUuid = tag.getString("ownerUuid");
+        facing = tag.getString("facing");
+        enchantLevel = tag.getInt("enchantLevel");
+        maxLifeTicks = tag.getDouble("maxLifeTicks");
+        centerX = tag.getDouble("centerX");
+        centerY = tag.getDouble("centerY");
+        centerZ = tag.getDouble("centerZ");
+        lifeTicks = tag.getDouble("lifeTicks");
+        actionTicks = tag.getDouble("actionTicks");
+        phase = tag.getString("phase");
+        targetX = tag.getDouble("targetX");
+        targetY = tag.getDouble("targetY");
+        targetZ = tag.getDouble("targetZ");
+        searchDirection = tag.getString("searchDirection");
+        searchSteps = tag.getDouble("searchSteps");
+        searchLimit = tag.getDouble("searchLimit");
+        stepStage = tag.getString("stepStage");
+        dugCount = tag.getDouble("dugCount");
     }
 
     @Override

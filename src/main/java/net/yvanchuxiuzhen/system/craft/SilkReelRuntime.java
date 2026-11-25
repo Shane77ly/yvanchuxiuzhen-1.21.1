@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -39,25 +38,22 @@ public final class SilkReelRuntime {
 
     public static void use(Level level, BlockPos pos, BlockState state) {
         if (!(level.getBlockEntity(pos) instanceof SilkReelBlockEntity reel)) return;
-        CompoundTag data = reel.getPersistentData();
-        if (data.getBoolean("saosi")) return;
+        if (reel.reeling()) return;
         reel.animate(1);
         if (level.isClientSide) return;
-        data.putBoolean("saosi", true);
-        reel.sync();
-        data.putString("fangxiang", state.getValue(BlockStateProperties.HORIZONTAL_FACING).getName());
+        reel.setReeling(true);
+        reel.setDirection(state.getValue(BlockStateProperties.HORIZONTAL_FACING).getName());
         reel.sync();
     }
 
     public static void tick(ServerLevel level, BlockPos pos) {
         if (!(level.getBlockEntity(pos) instanceof SilkReelBlockEntity reel)) return;
-        CompoundTag data = reel.getPersistentData();
-        if (!data.getBoolean("saosi")) return;
-        double tick = data.getDouble("tick") + 1;
-        data.putDouble("tick", tick);
+        if (!reel.reeling()) return;
+        double tick = reel.tick() + 1;
+        reel.setTick(tick);
         reel.sync();
         if (!(tick >= 5)) return;
-        BlockPos input = switch (data.getString("fangxiang")) {
+        BlockPos input = switch (reel.direction()) {
             case "north" -> pos.north().below();
             case "south" -> pos.south().below();
             case "west" -> pos.west().below();
@@ -65,9 +61,8 @@ public final class SilkReelRuntime {
             default -> null;
         };
         if (input != null) process(level, pos, input);
-        data.putBoolean("saosi", false);
-        reel.sync();
-        data.putDouble("tick", 0);
+        reel.setReeling(false);
+        reel.setTick(0);
         reel.sync();
     }
 

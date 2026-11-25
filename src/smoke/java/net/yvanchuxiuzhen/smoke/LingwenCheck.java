@@ -76,7 +76,7 @@ final class LingwenCheck extends ActionCheck {
                 new Action(3, player -> {
                     stage(player, 2, 0, false);
                     hit(player);
-                    runes(player).get(0).getPersistentData().putDouble("tick", 99);
+                    runes(player).get(0).setSkillTick(99);
                 }),
                 new Action(2, player -> expect("自然衰减到零后消失", 0, runes(player).size()))
         );
@@ -91,7 +91,7 @@ final class LingwenCheck extends ActionCheck {
     }
 
     private static int count(ServerPlayer player) {
-        return runes(player).get(0).getPersistentData().getInt("lingwennum");
+        return Relations.runeCount(runes(player).get(0));
     }
 
     private void clearArea(ServerPlayer player) {

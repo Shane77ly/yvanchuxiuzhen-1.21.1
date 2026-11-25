@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongBehavior;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
@@ -23,7 +24,7 @@ public final class GuchongGrowths {
 
     public static void awardOwnerExperience(ServerLevel level, Entity insect, double newLevel) {
         if (!insect.getType().is(INSECTS)) return;
-        String ownerId = insect.getPersistentData().getString("belongToMasterUUID");
+        String ownerId = insect.getData(GuchongData.RUNTIME).ownerUuid();
         if (ownerId.isEmpty()) return;
         Entity owner = Objects.requireNonNull(GuchongBehavior.findEntity(level, ownerId));
         // 来源玩家能力只附着真实玩家；其他实体和假玩家没有职业数据。

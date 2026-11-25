@@ -20,6 +20,8 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
 import net.yvanchuxiuzhen.system.fulu.api.TalismanTamingEvent;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -30,10 +32,10 @@ public final class TalismanControl implements EffectBehavior {
             ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "yaoshou"));
 
     public static void hit(ServerLevel level, Entity projectile, Entity target, Entity shooter, double grade) {
-        target.getPersistentData().putString("beikongzhi", shooter.getDisplayName().getString());
+        target.setData(FuluData.CONTROL_OWNER, shooter.getDisplayName().getString());
         if (target.getType().is(BEASTS)) {
             NeoForge.EVENT_BUS.post(new TalismanTamingEvent(level, target, shooter, grade));
-        } else if (projectile.getPersistentData().getBoolean("jiuxiaoguo")) {
+        } else if (projectile instanceof TalismanProjectile talisman && talisman.isNineEffects()) {
             if (target instanceof LivingEntity living) {
                 living.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.getHolder(EFFECT).orElseThrow(),
                         (int) (grade * grade * 300), 0));
@@ -55,12 +57,12 @@ public final class TalismanControl implements EffectBehavior {
         Vec3 center = entity.position();
         for (Entity controller : entity.level().getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(16))
                 .stream().sorted(Comparator.comparingDouble(other -> other.distanceToSqr(center))).toList()) {
-            if (!controller.getDisplayName().getString().equals(entity.getPersistentData().getString("beikongzhi"))) {
+            if (!controller.getDisplayName().getString().equals(entity.getData(FuluData.CONTROL_OWNER))) {
                 continue;
             }
             if (controller.isShiftKeyDown()) {
                 entity.setDeltaMovement(entity.position().subtract(controller.position()).scale(1.5));
-                entity.getPersistentData().putString("beikongzhi", "");
+                entity.setData(FuluData.CONTROL_OWNER, "");
                 active = false;
             } else {
                 Vec3 eye = controller.getEyePosition(1);
@@ -74,6 +76,6 @@ public final class TalismanControl implements EffectBehavior {
 
     @Override
     public void ended(LivingEntity entity, int amplifier) {
-        entity.getPersistentData().putString("beikongzhi", "");
+        entity.setData(FuluData.CONTROL_OWNER, "");
     }
 }

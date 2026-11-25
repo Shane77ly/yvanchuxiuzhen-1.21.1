@@ -58,6 +58,8 @@ public final class ThrownFirework extends PathfinderMob implements GeoEntity, An
     private final Kind kind;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private String procedureAnimation = "empty";
+    private boolean lit;
+    private double fireworkTicks;
 
     public ThrownFirework(EntityType<? extends ThrownFirework> type, Level level, EntityModelRow model, Kind kind) {
         super(type, level);
@@ -67,6 +69,10 @@ public final class ThrownFirework extends PathfinderMob implements GeoEntity, An
         setNoAi(model.noAi());
         entityData.set(TEXTURE, model.texture());
     }
+
+    public boolean lit() { return lit; }
+    public double fireworkTicks() { return fireworkTicks; }
+    public void setFireworkTicks(double value) { fireworkTicks = value; }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
@@ -78,29 +84,42 @@ public final class ThrownFirework extends PathfinderMob implements GeoEntity, An
     @Override
     public void baseTick() {
         super.baseTick();
-        CompoundTag data = getPersistentData();
-        double tick = data.getDouble("paotick") + 1;
-        if (!data.getBoolean("yinran")) {
-            data.putDouble("paotick", tick >= 20 ? 0 : tick);
+        double tick = fireworkTicks + 1;
+        if (!lit) {
+            fireworkTicks = tick >= 20 ? 0 : tick;
             if (tick >= 20) {
                 if (kind == Kind.PAO_06) setAnimation("animation.pao0401.luoxva");
-                data.putBoolean("yinran", true);
+                lit = true;
             }
         } else {
             if (level() instanceof ServerLevel server) {
                 double spread = kind == Kind.PAO_06 ? 1.2 : 0.3;
                 server.sendParticles(Particles.type("pao_0201"), getX(), getY(), getZ(), 5, spread, 0, spread, 0);
             }
-            data.putDouble("paotick", tick);
+            fireworkTicks = tick;
             if (tick >= kind.duration) {
                 if (kind != Kind.PAO_06) burst();
-                data.putDouble("paotick", 0);
+                fireworkTicks = 0;
                 if (!level().isClientSide()) discard();
             }
-            if (kind == Kind.PAO_05) setDeltaMovement(new Vec3(0, (40 - data.getDouble("paotick")) * 0.02, 0));
+            if (kind == Kind.PAO_05) setDeltaMovement(new Vec3(0, (40 - fireworkTicks) * 0.02, 0));
             if (kind == Kind.PAO_06) setDeltaMovement(new Vec3(0, 0.06, 0));
         }
         refreshDimensions();
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("yinran", lit);
+        tag.putDouble("paotick", fireworkTicks);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        lit = tag.getBoolean("yinran");
+        fireworkTicks = tag.getDouble("paotick");
     }
 
     private void burst() {

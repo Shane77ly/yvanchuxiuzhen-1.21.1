@@ -19,6 +19,8 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.guchong.api.GuchongRuntimeState;
+import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 import net.yvanchuxiuzhen.system.guchong.entity.Guchong01Entity;
 import net.yvanchuxiuzhen.system.guchong.entity.Guchong03Entity;
 import net.yvanchuxiuzhen.system.guchong.entity.Guchong04Entity;
@@ -36,15 +38,16 @@ public final class GuchongFluteRuntime {
     /** 潜行收回本人名下的标签蛊虫，每只虫立即写回第一个匹配 UUID 的真实蛊罐。 */
     public static void recall(ServerLevel level, Player player) {
         for (Entity insect : nearby(level, player)) {
+            GuchongRuntimeState runtime = insect.getData(GuchongData.RUNTIME);
             if (!insect.getType().is(INSECT_ENTITIES)
-                    || !insect.getPersistentData().getString("belongToMasterUUID").equals(player.getStringUUID())) continue;
+                    || !runtime.ownerUuid().equals(player.getStringUUID())) continue;
             IItemHandler inventory = player.getCapability(Capabilities.ItemHandler.ENTITY, null);
             if (inventory == null) continue;
             for (int index = 0; index < inventory.getSlots(); index++) {
                 ItemStack jar = inventory.getStackInSlot(index).copy();
                 if (!jar.is(JARS)) continue;
                 CompoundTag data = GuchongJarData.read(jar);
-                if (!insect.getPersistentData().getString("guguanuuid").equals(data.getString("guguanuuid"))) continue;
+                if (!runtime.jarUuid().equals(data.getString("guguanuuid"))) continue;
                 GuchongJarData.capture(insect, data, Relations.team(player));
                 if (data.getDouble("shifangnum") < 1) data.putBoolean("shifangguchong", false);
                 insect.discard();
@@ -85,7 +88,7 @@ public final class GuchongFluteRuntime {
                 count = data.getDouble("shifangnum");
                 for (Entity insect : nearby(level, player)) {
                     if (!(insect instanceof Guchong01Entity || insect instanceof Guchong03Entity || insect instanceof Guchong04Entity)) continue;
-                    if (!insect.getPersistentData().getString("guguanuuid").equals(data.getString("guguanuuid"))) continue;
+                    if (!insect.getData(GuchongData.RUNTIME).jarUuid().equals(data.getString("guguanuuid"))) continue;
                     GuchongJarData.capture(insect, data, Relations.team(player));
                     count = data.getDouble("shifangnum");
                     insect.discard();

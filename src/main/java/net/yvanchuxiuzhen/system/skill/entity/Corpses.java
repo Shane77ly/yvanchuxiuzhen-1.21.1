@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.HitEvent;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -58,7 +59,7 @@ public final class Corpses {
         if (master instanceof Player player) {
             corpse.tame(player);
         }
-        corpse.getPersistentData().putString("belongToMasterUUID", master.getStringUUID());
+        corpse.setMasterUuid(master.getStringUUID());
         corpse.empower(rank);
         return corpse;
     }
@@ -78,7 +79,7 @@ public final class Corpses {
             }
             Corpse corpse = create(level, caster, rank);
             corpse.moveTo(x, y, z, level.getRandom().nextFloat() * 360F, 0);
-            corpse.getPersistentData().putDouble("qishijveweizhi", Skills.state(caster).selectedSlot());
+            corpse.setStoredSlot(Skills.state(caster).selectedSlot());
             corpse.finalizeSpawn(level, level.getCurrentDifficultyAt(corpse.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
             level.addFreshEntity(corpse);
         }
@@ -114,12 +115,12 @@ public final class Corpses {
 
     static void grow(Corpse corpse, Entity killed) {
         ServerLevel level = (ServerLevel) corpse.level();
-        double storedSlot = corpse.getPersistentData().getDouble("qishijveweizhi");
+        double storedSlot = corpse.storedSlot();
         int slot = (int) storedSlot;
         if (slot != storedSlot || slot < 1 || slot > SkillState.SPELL_SLOTS) {
             return;
         }
-        String master = corpse.getPersistentData().getString("belongToMasterUUID");
+        String master = corpse.masterUuid();
         for (ServerPlayer player : level.players()) {
             if (!player.getStringUUID().equals(master)) {
                 continue;
@@ -127,7 +128,7 @@ public final class Corpses {
             ItemStack stack = Skills.spell(player, slot);
             Optional<SkillBook> found = Skills.book(stack).filter(book -> book.name().equals(SPELL) && book.grade() < 40);
             if (found.isPresent()) {
-                stack.set(SkillData.SKILL.get(), advance(found.get(), killed.getPersistentData().getDouble("LEVELnumber")));
+                stack.set(SkillData.SKILL.get(), advance(found.get(), EntityAttributes.level(killed)));
                 Skills.setSpell(player, slot, stack);
             }
             return;

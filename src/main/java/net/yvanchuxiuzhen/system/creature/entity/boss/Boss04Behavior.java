@@ -18,6 +18,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -143,7 +145,7 @@ final class Boss04Behavior {
             for (int i = 0; i < times.length; i++) if (tick >= times[i] && phase.equals(phases[i])) {
                 for (Entity victim : forwardTargets(boss, 1, 1.5)) if (victim != boss && !Relations.isFriendly(boss, victim)) {
                     particle(victim, ParticleTypes.CRIT, 20);
-                    damage(boss, victim, boss.getPersistentData().getDouble("attack_Num"));
+                    damage(boss, victim, EntityAttributes.stat(boss, Stat.ATTACK));
                 }
                 if (!boss.isVehicle()) abortGrab(boss, state);
                 else state.putString("jinengjinxing", i == 7 ? "结束" : phases[i + 1]);
@@ -163,7 +165,7 @@ final class Boss04Behavior {
         int[] times = {12, 20, 28, 36};
         for (int i = 0; i < times.length; i++) if (tick >= times[i] && phase.equals(phases[i])) {
             for (Entity victim : forwardTargets(boss, 3, 2)) if (victim != boss && !Relations.isFriendly(boss, victim)) {
-                particle(boss, ParticleTypes.CRIT, 20); damage(boss, victim, Math.round(boss.getPersistentData().getDouble("attack_Num") * .3));
+                particle(boss, ParticleTypes.CRIT, 20); damage(boss, victim, Math.round(EntityAttributes.stat(boss, Stat.ATTACK) * .3));
                 if (!hasSkillGuard(victim)) victim.setDeltaMovement(new Vec3((victim.getX() - boss.getX()) * .5, .5, (victim.getZ() - boss.getZ()) * .5));
             }
             state.putString("jinengjinxing", i == 3 ? "结束" : phases[i + 1]); break;
@@ -197,7 +199,7 @@ final class Boss04Behavior {
             if (tick >= 48) state.putString("jinengjinxing", "结束");
             else if (state.getDouble("entitytick2") + 1 >= 3) {
                 particle(boss, forwardParticlePosition(boss, 3), ParticleTypes.EXPLOSION, 1, 0);
-                for (Entity victim : forwardTargets(boss, 3, 2)) if (victim != boss && !Relations.isFriendly(boss, victim)) damage(boss, victim, Math.round(boss.getPersistentData().getDouble("attack_Num") * .2));
+                for (Entity victim : forwardTargets(boss, 3, 2)) if (victim != boss && !Relations.isFriendly(boss, victim)) damage(boss, victim, Math.round(EntityAttributes.stat(boss, Stat.ATTACK) * .2));
                 state.putDouble("entitytick2", 0);
             } else state.putDouble("entitytick2", state.getDouble("entitytick2") + 1);
         } else if (tick >= 69 && phase.equals("结束")) finish(state, true);
@@ -212,7 +214,7 @@ final class Boss04Behavior {
         }
         if (tick > 20 && phase.equals("打")) {
             for (Entity victim : forwardTargets(boss, 3, 2)) if (victim != boss && !Relations.isFriendly(boss, victim)) {
-                if (skill.equals("蓄力重拳")) damage(boss, victim, boss.getPersistentData().getDouble("attack_Num") * 1.5);
+                if (skill.equals("蓄力重拳")) damage(boss, victim, EntityAttributes.stat(boss, Stat.ATTACK) * 1.5);
                 else if (skill.equals("地脉拳")) { particle(victim, Particles.type("smallexplosiondeeporange"), 1); runDamage(boss, victim, "土", 10, 1.5); }
                 else if (!hasSkillGuard(victim)) victim.setDeltaMovement(new Vec3(victim.getX() - boss.getX(), .5, victim.getZ() - boss.getZ()));
             }
@@ -226,7 +228,7 @@ final class Boss04Behavior {
         if (tick > 20 && phase.equals("打")) {
             for (Entity victim : forwardTargets(boss, 3, 2)) if (victim != boss && !Relations.isFriendly(boss, victim)) {
                 if (!hasSkillGuard(victim)) victim.setDeltaMovement(new Vec3(victim.getX() - boss.getX(), .5, victim.getZ() - boss.getZ()));
-                damage(boss, victim, boss.getPersistentData().getDouble("attack_Num") * .8);
+                damage(boss, victim, EntityAttributes.stat(boss, Stat.ATTACK) * .8);
                 if (victim instanceof LivingEntity living) living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 20));
             }
             state.putString("jinengjinxing", "结束");
@@ -257,11 +259,11 @@ final class Boss04Behavior {
         int tick = increment(state); String phase = state.getString("jinengjinxing");
         if (phase.isEmpty()) { StatusEffects.add(boss, "skilleffect_08", 10, 0); boss.setAnimation("animation.ycxzboss_04.skill10"); state.putString("jinengjinxing", "打一"); return; }
         if (tick > 20 && phase.equals("打一")) {
-            for (Entity victim : forwardTargets(boss, 3, 2)) if (victim != boss && !Relations.isFriendly(boss, victim)) damage(boss, victim, boss.getPersistentData().getDouble("attack_Num") * 1.5);
+            for (Entity victim : forwardTargets(boss, 3, 2)) if (victim != boss && !Relations.isFriendly(boss, victim)) damage(boss, victim, EntityAttributes.stat(boss, Stat.ATTACK) * 1.5);
             state.putString("jinengjinxing", "打二");
         } else if (tick > 20 && phase.equals("打二")) {
             for (Entity victim : forwardTargets(boss, 3, 2)) {
-                if (victim != boss && !Relations.isFriendly(boss, victim)) damage(boss, victim, boss.getPersistentData().getDouble("attack_Num") * 2);
+                if (victim != boss && !Relations.isFriendly(boss, victim)) damage(boss, victim, EntityAttributes.stat(boss, Stat.ATTACK) * 2);
                 if (!hasSkillGuard(victim)) victim.setDeltaMovement(new Vec3((victim.getX() - boss.getX()) * .5, .2, (victim.getZ() - boss.getZ()) * .5));
             }
             state.putString("jinengjinxing", "结束");
@@ -280,7 +282,7 @@ final class Boss04Behavior {
         } else if (tick > 20 && phase.equals("砸落")) {
             ring(boss, 2, "minecraft:large_smoke", 60, .5);
             for (Entity victim : forwardTargets(boss, 3, 5)) if (victim != boss && !Relations.isFriendly(boss, victim)) {
-                damage(boss, victim, boss.getPersistentData().getDouble("attack_Num") * 1.5);
+                damage(boss, victim, EntityAttributes.stat(boss, Stat.ATTACK) * 1.5);
                 if (!hasSkillGuard(victim)) victim.setDeltaMovement(new Vec3(0, 1, 0));
             }
             state.putString("jinengjinxing", "结束");
@@ -297,7 +299,7 @@ final class Boss04Behavior {
             if (tick >= 38) state.putString("jinengjinxing", "结束");
             else if (next >= 3) {
                 for (Entity victim : nearby(boss, new Vec3(boss.getX(), boss.getY() + boss.getBbHeight() / 2, boss.getZ()), 2)) if (victim != boss && !Relations.isFriendly(boss, victim)) {
-                    damage(boss, victim, boss.getPersistentData().getDouble("attack_Num") * 1.5);
+                    damage(boss, victim, EntityAttributes.stat(boss, Stat.ATTACK) * 1.5);
                     if (!hasSkillGuard(victim)) victim.setDeltaMovement(new Vec3((victim.getX() - boss.getX()) * .3, .2, (victim.getZ() - boss.getZ()) * .3));
                 }
                 state.putDouble("entitytick2", 0);
@@ -317,7 +319,7 @@ final class Boss04Behavior {
         } else if (tick > 28 && phase.equals("砸落")) {
             ring(boss, 2, "minecraft:large_smoke", 60, .5);
             for (Entity victim : forwardTargets(boss, 3, 3)) if (victim != boss && !Relations.isFriendly(boss, victim)) {
-                damage(boss, victim, boss.getPersistentData().getDouble("attack_Num") * 1.5);
+                damage(boss, victim, EntityAttributes.stat(boss, Stat.ATTACK) * 1.5);
                 if (victim instanceof LivingEntity living) StatusEffects.add(living, "effect_001", 40, 0);
                 if (victim instanceof LivingEntity living) living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 20));
             }

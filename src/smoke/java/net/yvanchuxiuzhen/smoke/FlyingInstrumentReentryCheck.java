@@ -95,7 +95,7 @@ final class FlyingInstrumentReentryCheck extends SystemCheck {
         FlyingInstrumentEntity entity = spawned.getFirst();
         instrumentId = entity.getUUID();
         entity.setHealth(HEALTH);
-        entity.getPersistentData().putDouble("power", POWER);
+        entity.setPower(POWER);
         expectTrue("投放原件的标记、改名和额外组件已进入实体 " + instrumentId, original(entity.getMainHandItem()));
     }
 
@@ -114,7 +114,7 @@ final class FlyingInstrumentReentryCheck extends SystemCheck {
             }
             expectTrue("同一 UUID 实体重进后仍持有原件 " + instrumentId, original(entity.getMainHandItem()));
             expect("重进实体生命", HEALTH, entity.getHealth());
-            expect("重进实体储灵", POWER, entity.getPersistentData().getDouble("power"));
+            expect("重进实体储灵", POWER, entity.power());
             expect("取回前背包内没有本次标记物品", 0, markedCount(player));
             player.setShiftKeyDown(true);
             player.interactOn(entity, InteractionHand.MAIN_HAND);

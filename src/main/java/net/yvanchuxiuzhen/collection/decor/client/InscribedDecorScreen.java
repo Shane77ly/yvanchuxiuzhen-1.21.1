@@ -4,7 +4,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -52,7 +51,7 @@ public final class InscribedDecorScreen extends AbstractContainerScreen<Inscribe
         super.containerTick();
         InscribedDecorBlockEntity block = menu.block();
         if (++ticks == 2 && !menu.kind().memorial() && block != null
-                && !block.getPersistentData().getString("plaquetxt").isEmpty()) text.setValue(block.getPersistentData().getString("plaquetxt"));
+                && !block.plaqueText().isEmpty()) text.setValue(block.plaqueText());
     }
     @Override protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "textures/screens/" + (menu.kind().memorial() ? "paiwei_gui" : "plaque_gui") + ".png");
@@ -60,11 +59,11 @@ public final class InscribedDecorScreen extends AbstractContainerScreen<Inscribe
     }
     @Override protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         if (menu.kind().memorial() || menu.block() == null) return;
-        CompoundTag data = menu.block().getPersistentData();
+        InscribedDecorBlockEntity block = menu.block();
         boolean legacy = menu.kind() == InscribedDecorMenu.Kind.LEGACY_PLAQUE;
-        graphics.drawString(font, data.getString("plaquetxt"), 6, 34, -3368704, false);
-        graphics.drawString(font, Component.translatable("gui.yvanchuxiuzhen.plaque_gui.angle", data.getDouble("qingjiao")), legacy ? 45 : 51, legacy ? 78 : 76, -12829636, false);
-        graphics.drawString(font, Component.translatable("gui.yvanchuxiuzhen.plaque_gui." + (data.getBoolean("plaqueaddfive") ? "half_on" : "half_off")),
+        graphics.drawString(font, block.plaqueText(), 6, 34, -3368704, false);
+        graphics.drawString(font, Component.translatable("gui.yvanchuxiuzhen.plaque_gui.angle", block.pitchAngle()), legacy ? 45 : 51, legacy ? 78 : 76, -12829636, false);
+        graphics.drawString(font, Component.translatable("gui.yvanchuxiuzhen.plaque_gui." + (block.addHalf() ? "half_on" : "half_off")),
                 60, legacy ? 106 : 103, -12829636, false);
     }
     @Override public boolean keyPressed(int key, int scanCode, int modifiers) {

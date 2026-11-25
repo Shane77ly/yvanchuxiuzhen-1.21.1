@@ -37,6 +37,8 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongCapture;
 import net.yvanchuxiuzhen.system.guchong.client.GuchongReleaseScreen;
@@ -44,6 +46,7 @@ import net.yvanchuxiuzhen.system.guchong.content.GuchongFluteItem;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarRuntime;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongReleaseMenu;
+import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 import net.yvanchuxiuzhen.system.guchong.entity.GuchongEntity;
 import net.yvanchuxiuzhen.system.guchong.network.GuchongReleaseButtonPayload;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
@@ -171,7 +174,7 @@ final class GuchongFluteCheck extends SystemCheck {
                 active = capture(player, MAIN_UUID, 2);
                 expect("来源按钮在已开界面时不检查沉默", 2.0,
                         GuchongJarData.read(player.getInventory().getItem(22)).getDouble("shifangnum"));
-                active.get(1).getPersistentData().putString("belongToMasterUUID", UUID.randomUUID().toString());
+                active.get(1).setData(GuchongData.RUNTIME, active.get(1).getData(GuchongData.RUNTIME).withOwnerUuid(UUID.randomUUID().toString()));
                 player.closeContainer();
             });
             case 17 -> action(local, 4, player -> {
@@ -187,7 +190,7 @@ final class GuchongFluteCheck extends SystemCheck {
                         && data.getBoolean("shifangguchong") && data.getDouble("shifangnum") == 1);
             });
             case 19 -> action(local, 4, player -> {
-                active.get(1).getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
+                active.get(1).setData(GuchongData.RUNTIME, active.get(1).getData(GuchongData.RUNTIME).withOwnerUuid(player.getStringUUID()));
                 use(player, true);
                 CompoundTag data = GuchongJarData.read(player.getInventory().getItem(22));
                 expectTrue("潜行收齐最后一只后清释放标记", active.get(1).isRemoved()
@@ -228,7 +231,7 @@ final class GuchongFluteCheck extends SystemCheck {
             case 28 -> action(local, 6, player -> {
                 active = capture(player, PARTIAL_UUID, 2);
                 partialBefore = GuchongJarData.read(player.getInventory().getItem(9));
-                active.get(0).getPersistentData().putString("belongToMasterUUID", UUID.randomUUID().toString());
+                active.get(0).setData(GuchongData.RUNTIME, active.get(0).getData(GuchongData.RUNTIME).withOwnerUuid(UUID.randomUUID().toString()));
                 active.get(0).setHealth(4.5F);
                 active.get(1).moveTo(player.getX() + 20, player.getY() + 1, player.getZ());
             });
@@ -373,23 +376,23 @@ final class GuchongFluteCheck extends SystemCheck {
         expectTrue("按钮按缓存UUID找到移动后的真实槽位释放", player.getInventory().getItem(9).isEmpty()
                 && data.getBoolean("shifangguchong") && data.getDouble("shifangnum") == 2);
         expect("释放展示同步移动后真实罐", data, GuchongJarData.read(menu(player).getSlot(0).getItem()));
-        expect("来源编号槽0和3随实体保存", List.of(0.0, 3.0), active.stream()
-                .map(insect -> insect.getPersistentData().getDouble("guguanweizhi")).toList());
+        expect("来源编号槽0和3随实体保存", List.of(0, 3), active.stream()
+                .map(insect -> insect.getData(GuchongData.RUNTIME).jarSlot()).toList());
         active.get(0).setHealth(6.5F);
-        active.get(0).getPersistentData().putDouble("experience", 15);
+        EntityAttributes.setExperience(active.get(0), 15);
         active.get(1).setHealth(8.5F);
-        active.get(1).getPersistentData().putDouble("experience", 25);
+        EntityAttributes.setExperience(active.get(1), 25);
         checkUntouched(player);
     }
 
     private List<GuchongEntity> capture(ServerPlayer player, String uuid, int count) {
         List<GuchongEntity> insects = player.serverLevel().getEntitiesOfClass(GuchongEntity.class,
                 player.getBoundingBox().inflate(40), insect -> !insect.isRemoved()
-                        && insect.getPersistentData().getString("guguanuuid").equals(uuid)).stream()
-                .sorted(Comparator.comparingDouble(insect -> insect.getPersistentData().getDouble("guguanweizhi"))).toList();
+                        && insect.getData(GuchongData.RUNTIME).jarUuid().equals(uuid)).stream()
+                .sorted(Comparator.comparingInt(insect -> insect.getData(GuchongData.RUNTIME).jarSlot())).toList();
         if (insects.size() != count) throw new IllegalStateException("预期 " + count + " 只来源罐蛊虫，实际 " + insects.size() + "，UUID=" + uuid);
         expectTrue("释放真实蛊虫保留主人与罐UUID", insects.stream().allMatch(insect -> insect.isOwnedBy(player)
-                && insect.getPersistentData().getString("belongToMasterUUID").equals(player.getStringUUID())));
+                && insect.getData(GuchongData.RUNTIME).ownerUuid().equals(player.getStringUUID())));
         for (int index = 0; index < insects.size(); index++) {
             GuchongEntity insect = insects.get(index);
             insect.setNoAi(true);
@@ -418,8 +421,8 @@ final class GuchongFluteCheck extends SystemCheck {
         GuchongEntity wild = (GuchongEntity) GuchongJarRuntime.create(player.serverLevel(), "yvanchuxiuzhen:guchong_03");
         wild.moveTo(player.position());
         GuchongJarRuntime.finishSpawn(player.serverLevel(), wild);
-        wild.getPersistentData().putDouble("experience", 119);
-        expect("受控飞蝗出生经验上限", 120, wild.getPersistentData().getDouble("experience_Max"));
+        EntityAttributes.setExperience(wild, 119);
+        expect("受控飞蝗出生经验上限", 120, EntityAttributes.experienceMax(wild));
         expect("摄虫网收纳操作捕获野生飞蝗", GuchongCapture.Result.CAPTURED,
                 GuchongCapture.captureWild(player.serverLevel(), wild, player.getStringUUID()));
         ItemStack captured = player.getInventory().items.stream().filter(stack -> stack.is(item("guchong_03item").getItem()))
@@ -494,9 +497,9 @@ final class GuchongFluteCheck extends SystemCheck {
         player.serverLevel().addFreshEntity(combatTarget);
         expect("受控猪的原生生命上限", 10, combatTarget.getMaxHealth());
         expectTrue("战斗前蛊笛实体保留同一捕获虫的等级与经验",
-                combatInsect.getPersistentData().getDouble("LEVELnumber") == 1
-                        && combatInsect.getPersistentData().getDouble("experience") == 119
-                        && combatInsect.getPersistentData().getDouble("experience_Max") == 120);
+                EntityAttributes.level(combatInsect) == 1
+                        && EntityAttributes.experience(combatInsect) == 119
+                        && EntityAttributes.experienceMax(combatInsect) == 120);
     }
 
     private boolean settleCombat(int local) {
@@ -591,11 +594,11 @@ final class GuchongFluteCheck extends SystemCheck {
         boolean[] finished = {false};
         onServer(player -> {
             if (!insectKilledTarget || combatTarget.isAlive()) return;
-            CompoundTag insect = combatInsect.getPersistentData();
+            EntityStats insect = EntityAttributes.get(combatInsect);
             expectTrue("蛊笛放出的同一只飞蝗原生近战击杀受控猪", combatTarget.isDeadOrDying());
-            expectTrue("普通猪按生命上限除五升级并保留剩余经验", insect.getDouble("LEVELnumber") == 2
-                    && insect.getDouble("experience") == 1 && insect.getDouble("experience_Max") == 170
-                    && insect.getString("LEVELname").equals("一阶低级"));
+            expectTrue("普通猪按生命上限除五升级并保留剩余经验", insect.level() == 2
+                    && insect.experience() == 1 && insect.experienceMax() == 170
+                    && insect.realmName().equals("一阶低级"));
             expect("同次死亡事件后主人养蛊经验增加", 20, experienceAfterDeath);
             expect("升级后按贫弱生命资质回满", 122, combatInsect.getHealth());
             finished[0] = true;
@@ -626,9 +629,9 @@ final class GuchongFluteCheck extends SystemCheck {
 
     private void checkCombatRelease(ServerPlayer player) {
         active = capture(player, COMBAT_UUID, 1);
-        CompoundTag data = active.getFirst().getPersistentData();
-        expectTrue("再次通过蛊笛放出保留战斗成长与主人", data.getDouble("LEVELnumber") == 2
-                && data.getDouble("experience") == 1 && data.getDouble("experience_Max") == 170
+        EntityStats data = EntityAttributes.get(active.getFirst());
+        expectTrue("再次通过蛊笛放出保留战斗成长与主人", data.level() == 2
+                && data.experience() == 1 && data.experienceMax() == 170
                 && active.getFirst().getHealth() == 122 && active.getFirst().isOwnedBy(player));
     }
 

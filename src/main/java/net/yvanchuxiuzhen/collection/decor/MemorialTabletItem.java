@@ -4,7 +4,6 @@ import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
@@ -29,15 +28,13 @@ public final class MemorialTabletItem extends ContentItem {
             PlaqueInscription inscription = context.getItemInHand().getOrDefault(DecorData.PLAQUE_INSCRIPTION.get(), PlaqueInscription.EMPTY);
             if (!inscription.text().isEmpty()) {
                 InscribedDecorBlockEntity block = (InscribedDecorBlockEntity) level.getBlockEntity(pos);
-                CompoundTag data = block.getPersistentData();
-                data.putString("plaquetxt", inscription.text());
-                data.putInt("zishu", inscription.glyphs().size());
-                data.putString("fangxiang", InscribedDecor.direction(context.getPlayer().getDirection().getOpposite()));
-                for (int index = 0; index < inscription.glyphs().size(); index++) {
-                    PlaqueInscription.Glyph glyph = inscription.glyphs().get(index);
-                    data.putString("zidi" + index, glyph.glyph());
-                    data.putDouble("ziweizhi" + index, glyph.offset());
+                List<String> chars = new java.util.ArrayList<>(inscription.glyphs().size());
+                List<Double> offsets = new java.util.ArrayList<>(inscription.glyphs().size());
+                for (PlaqueInscription.Glyph glyph : inscription.glyphs()) {
+                    chars.add(glyph.glyph());
+                    offsets.add(glyph.offset());
                 }
+                block.setGlyphs(inscription.text(), InscribedDecor.direction(context.getPlayer().getDirection().getOpposite()), chars, offsets);
                 block.syncText();
             }
             context.getItemInHand().shrink(1);

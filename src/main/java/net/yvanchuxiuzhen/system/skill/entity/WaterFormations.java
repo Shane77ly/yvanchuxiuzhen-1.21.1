@@ -4,7 +4,6 @@ import java.util.Map;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -45,7 +44,7 @@ final class WaterFormations {
         ServerLevel level = (ServerLevel) caster.level();
         SkillEntity orb = SkillEntities.summon(level, caster, "skill_water_04", WATER, (int) book.manaAttack(), (int) book.damageMultiplier(), book.name());
         Relations.initializeCopiedSkillCast(caster, orb, (int) book.manaAttack(), (int) book.damageMultiplier(), mode);
-        orb.getPersistentData().putString("mode", mode);
+        orb.setMode(mode);
         Relations.setWaterOrbScale(orb, scale);
         return orb;
     }
@@ -158,7 +157,6 @@ final class WaterFormations {
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
             Relations.FriendCast cast = Relations.friendCast(self);
             String mode = cast.mode();
             if (Relations.waterOrbDetonated(self)) {
@@ -175,24 +173,24 @@ final class WaterFormations {
                 self.discard();
             } else if (mode.equals("空浮球正常")) {
                 self.setDeltaMovement(new Vec3(self.getLookAngle().x * 0.2, 0, self.getLookAngle().z * 0.2));
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 120) {
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 120) {
                     ProjectileSupport.particles(level, Particles.type("brokenblue"), self.position().add(0, self.getBbHeight() / 2, 0), 20, 1, 1, 1, 0.2);
                     self.discard();
                 }
-                scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-                if (scratch.getDouble("tick2") >= 10) {
+                self.setSkillTick2(self.skillTick2() + 1);
+                if (self.skillTick2() >= 10) {
                     sweep(self, cast, 0.4, 0.5);
-                    scratch.putDouble("tick2", 0);
+                    self.setSkillTick2(0);
                 }
             } else if (mode.equals("陨河术正常")) {
                 self.setAnimation("animation.skillWater04.skill1");
                 if (self.onGround() || self.isInWater() || self.isInLava()) {
-                    scratch.putBoolean("kaishi", true);
+                    self.setStarted(true);
                 }
-                if (scratch.getBoolean("kaishi")) {
-                    scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                    if (scratch.getDouble("tick") >= 5) {
+                if (self.started()) {
+                    self.setSkillTick(self.skillTick() + 1);
+                    if (self.skillTick() >= 5) {
                         ProjectileSupport.particles(level, ParticleTypes.SPLASH, self.position().add(0, 0.6, 0), 40, 3, 3, 3, 1);
                         ProjectileSupport.particles(level, Particles.type("brokenblue"), self.position().add(0, self.getBbHeight() / 2, 0), 30, 0.5, 0.5, 0.5, 1);
                         for (Entity other : ProjectileSupport.around(level, self.position().add(0, 0.6, 0), 6)) {
@@ -202,23 +200,23 @@ final class WaterFormations {
                                 other.setDeltaMovement(new Vec3((other.getX() - self.getX()) * 0.6, 0.5, (other.getZ() - self.getZ()) * 0.6));
                             }
                         }
-                        scratch.putDouble("tick", 0);
+                        self.setSkillTick(0);
                         self.discard();
                     }
                 }
             } else if (mode.equals("陨河术潜行")) {
                 self.setAnimation("animation.skillWater04.skill2");
                 self.setDeltaMovement(new Vec3(self.getLookAngle().x * 0.5, 0, self.getLookAngle().z * 0.5));
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 40) {
-                    scratch.putDouble("tick", 0);
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 40) {
+                    self.setSkillTick(0);
                     ProjectileSupport.particles(level, Particles.type("brokenblue"), self.position().add(0, self.getBbHeight() / 2, 0), 20, 0, 0, 0, 1);
                     self.discard();
                 }
-                scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-                if (scratch.getDouble("tick2") >= 5) {
+                self.setSkillTick2(self.skillTick2() + 1);
+                if (self.skillTick2() >= 5) {
                     sweep(self, cast, 0.3, 0.3);
-                    scratch.putDouble("tick2", 0);
+                    self.setSkillTick2(0);
                 }
             }
         }
@@ -229,39 +227,38 @@ final class WaterFormations {
         @Override
         public void spawned(SkillEntity self) {
             self.setAnimation("animation.skillWater06.start");
-            self.getPersistentData().putString("shunxv", "进行");
+            self.setSequence("进行");
         }
 
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
-            String stage = scratch.getString("shunxv");
+            String stage = self.sequence();
             if (stage.equals("进行")) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 40) {
-                    scratch.putString("shunxv", "释放");
-                    scratch.putDouble("tick", 0);
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 40) {
+                    self.setSequence("释放");
+                    self.setSkillTick(0);
                 }
             } else if (stage.equals("释放")) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 160) {
-                    scratch.putString("shunxv", "收尾");
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 160) {
+                    self.setSequence("收尾");
                     self.setAnimation("animation.skillWater06.close");
-                    scratch.putDouble("tick", 0);
+                    self.setSkillTick(0);
                 }
-                scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-                if (scratch.getDouble("tick2") >= 7) {
+                self.setSkillTick2(self.skillTick2() + 1);
+                if (self.skillTick2() >= 7) {
                     Entity caster = level.getEntity(self.attacker());
                     double x = Mth.nextDouble(level.random, -3, 3);
                     double y = Mth.nextDouble(level.random, 1, 4);
                     double z = Mth.nextDouble(level.random, -3, 3);
                     ProjectileSupport.shoot(level, caster, "projectile_skill_water_05", self.position().add(x, y, z), new Vec3(-x, -(y - 2), -z), 0.1F, 0, 0);
-                    scratch.putDouble("tick2", 0);
+                    self.setSkillTick2(0);
                 }
             } else if (stage.equals("收尾")) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 40) {
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 40) {
                     self.discard();
                 }
             }
@@ -272,44 +269,42 @@ final class WaterFormations {
     private static final class HealingFormation implements EntitySkill {
         @Override
         public void spawned(SkillEntity self) {
-            CompoundTag scratch = self.getPersistentData();
-            if (scratch.getString("zhuangtai").isEmpty()) {
+            if (self.skillState().isEmpty()) {
                 self.setAnimation("animation.skillWater07.start");
-                scratch.putString("zhuangtai", "开始");
+                self.setSkillState("开始");
             }
         }
 
         @Override
         public void tick(SkillEntity self) {
-            CompoundTag scratch = self.getPersistentData();
-            String state = scratch.getString("zhuangtai");
+            String state = self.skillState();
             if (state.equals("开始")) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 40) {
-                    scratch.putString("zhuangtai", "进行");
-                    scratch.putDouble("tick", 0);
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 40) {
+                    self.setSkillState("进行");
+                    self.setSkillTick(0);
                 }
             } else if (state.equals("进行")) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 600) {
-                    scratch.putString("zhuangtai", "结束");
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 600) {
+                    self.setSkillState("结束");
                     self.setAnimation("animation.skillWater07.close");
-                    scratch.putDouble("tick", 0);
+                    self.setSkillTick(0);
                 }
-                scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-                if (scratch.getDouble("tick2") >= 20) {
+                self.setSkillTick2(self.skillTick2() + 1);
+                if (self.skillTick2() >= 20) {
                     for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), self.position(), 3)) {
                         if (ProjectileSupport.friendly(self, other) && other instanceof LivingEntity living) {
                             living.setHealth((float) (living.getHealth() + self.attackDamage()));
                         }
                     }
-                    scratch.putDouble("tick2", 0);
+                    self.setSkillTick2(0);
                 }
             } else if (state.equals("结束")) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 20) {
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 20) {
                     self.discard();
-                    scratch.putDouble("tick", 0);
+                    self.setSkillTick(0);
                 }
             }
         }

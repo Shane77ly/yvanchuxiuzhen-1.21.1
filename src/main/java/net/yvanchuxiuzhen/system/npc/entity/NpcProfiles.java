@@ -1,20 +1,24 @@
 package net.yvanchuxiuzhen.system.npc.entity;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.npc.NpcData;
+import net.yvanchuxiuzhen.system.npc.NpcDialogueProfile;
 import net.yvanchuxiuzhen.system.npc.NpcToolProfile;
+import net.yvanchuxiuzhen.system.npc.api.NpcDefinitions;
 import net.yvanchuxiuzhen.system.npc.api.NpcManagementApplyEvent;
 
 /** 管理工具处理原生姓名、装备及粒子，持久配置交给实体所有者。 */
@@ -58,8 +62,7 @@ public final class NpcProfiles {
             applyGenericMobProfile(event, npc);
             return;
         }
-        CompoundTag data = npc.getPersistentData();
-        writeProfileData(event, data);
+        writeProfileData(event, npc);
         event.applyEquipment();
         NpcStats.calculate(npc);
     }
@@ -71,29 +74,33 @@ public final class NpcProfiles {
      */
     private static void applyGenericMobProfile(NpcManagementApplyEvent event, Mob npc) {
         if (npc.getAttribute(Attributes.ATTACK_DAMAGE) == null) return;
-        CompoundTag data = npc.getPersistentData();
-        writeProfileData(event, data);
+        writeProfileData(event, npc);
         event.applyEquipment();
         NpcStats.calculate(npc);
     }
 
-    private static void writeProfileData(NpcManagementApplyEvent event, CompoundTag data) {
+    private static void writeProfileData(NpcManagementApplyEvent event, Mob npc) {
+        NpcDialogueProfile profile = npc.getData(NpcData.PROFILE);
         for (int index = 0; index < event.scripts().size(); index++) {
-            String key = "renwulist" + (index + 1);
             String script = event.scripts().get(index);
             if (!script.isEmpty()) {
-                data.putString(key, script);
-                data.putBoolean("renwuzuopen", true);
+                profile = profile.withScript(index, script);
+                NpcDefinitions.setInteractiveNpc(npc, true);
             }
         }
         String products = event.products();
         if (!products.isEmpty()) {
-            data.putString("productlist", products);
-            data.putString("shopinformation", event.information());
+            profile = profile.withProducts(products).withShopInfo(event.information());
         }
-        data.putDouble("LEVELnumber", event.level());
-        event.ratings().forEach(data::putString);
-        if (event.fixed()) data.putBoolean("npcset", true);
+        if (event.fixed()) profile = profile.withFixed(true);
+        npc.setData(NpcData.PROFILE, profile);
+
+        Map<Stat, String> ratings = new EnumMap<>(Stat.class);
+        for (int index = 0; index < NPC_RATINGS.length; index++) {
+            String value = event.ratings().get(NPC_RATINGS[index]);
+            if (value != null) ratings.put(EntityAttributes.COMBAT_STATS.get(index), value);
+        }
+        EntityAttributes.update(npc, stats -> stats.withLevel(event.level()).withRatings(ratings));
     }
 
     private static List<ItemStack> equipment(NpcToolProfile profile) {

@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -27,20 +26,19 @@ public final class AshBurnerRuntime {
         AshBurnerBlockEntity burner = (AshBurnerBlockEntity) player.level().getBlockEntity(pos);
         if (player.getMainHandItem().is(ItemTags.create(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "huoyvan")))) {
             if (!burner.isEmpty()) {
-                burner.getPersistentData().putBoolean("begin", true);
+                burner.setActive(true);
                 burner.changed();
             }
         } else AshBurnerMenu.open(player, pos);
     }
 
     public static void tick(ServerLevel level, AshBurnerBlockEntity burner) {
-        CompoundTag data = burner.getPersistentData();
-        if (!data.getBoolean("begin")) return;
+        if (!burner.isActive()) return;
         BlockPos pos = burner.getBlockPos();
         level.sendParticles(Particles.type("smokeblack"), pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, 5, 0.2, 0.2, 0.2, 0);
         level.sendParticles(ParticleTypes.FLAME, pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, 5, 0.5, 0.5, 0.5, 0);
-        int elapsed = data.getInt("ranshaotick") + 1;
-        data.putInt("ranshaotick", elapsed);
+        int elapsed = burner.burnTick() + 1;
+        burner.setBurnTick(elapsed);
         if (elapsed >= 40) {
             for (int slot = 8; slot >= 0; slot--) {
                 if (!burner.getItem(slot).isEmpty()) {
@@ -49,9 +47,9 @@ public final class AshBurnerRuntime {
                     level.updateNeighborsAt(pos, burner.getBlockState().getBlock());
                     break;
                 }
-                if (slot == 0) data.putBoolean("begin", false);
+                if (slot == 0) burner.setActive(false);
             }
-            data.putInt("ranshaotick", 0);
+            burner.setBurnTick(0);
         }
         burner.changed();
     }

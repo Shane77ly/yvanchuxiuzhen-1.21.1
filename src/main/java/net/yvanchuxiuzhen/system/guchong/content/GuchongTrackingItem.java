@@ -33,7 +33,7 @@ public final class GuchongTrackingItem extends ContentItem {
                     ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player)).getBlockPos();
             Guchong05Entity insect = GuchongSetup.<Guchong05Entity>entityType("guchong_05").get().create(serverLevel);
             insect.moveTo(pos.getX(), pos.getY(), pos.getZ(), level.random.nextFloat() * 360, 0);
-            GuchongTracking.get(stack).writeToEntity(insect.getPersistentData());
+            insect.setTracking(GuchongTracking.get(stack));
             EventHooks.finalizeMobSpawn(insect, serverLevel, level.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, null);
             serverLevel.addFreshEntity(insect);
             stack.shrink(1);

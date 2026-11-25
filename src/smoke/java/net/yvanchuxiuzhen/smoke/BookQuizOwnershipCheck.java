@@ -32,7 +32,6 @@ final class BookQuizOwnershipCheck extends SystemCheck {
     private ItemStack openingStack;
     private int selected;
     private int originalQuestion;
-    private boolean hadProgress;
     private double originalProgress;
 
     BookQuizOwnershipCheck(List<String> report, String levelId, Screenshots screenshots) {
@@ -75,7 +74,7 @@ final class BookQuizOwnershipCheck extends SystemCheck {
                             ItemStack.matches(saved, minecraft.player.getInventory().getItem(9 + option)));
                     verifyOwner(player, saved, "选项" + (option + 1) + "重进");
                 }
-                expect("重进后答题计数仍为零", 0, player.getPersistentData().getDouble("daduishuliang"));
+                expect("重进后答题计数仍为零", 0, BookQuizData.answerCount(player));
                 cleanup(player);
                 finish();
             });
@@ -96,8 +95,7 @@ final class BookQuizOwnershipCheck extends SystemCheck {
         }
         selected = player.getInventory().selected;
         originalQuestion = player.getData(BookQuizData.QUESTION);
-        hadProgress = player.getPersistentData().contains("daduishuliang");
-        originalProgress = player.getPersistentData().getDouble("daduishuliang");
+        originalProgress = BookQuizData.answerCount(player);
         player.getInventory().clearContent();
         player.getInventory().selected = 0;
     }
@@ -109,7 +107,7 @@ final class BookQuizOwnershipCheck extends SystemCheck {
         player.setItemInHand(InteractionHand.MAIN_HAND, openingStack.copy());
         player.getInventory().setItem(9 + option, candidate.copy());
         player.setData(BookQuizData.QUESTION, QUESTIONS[option]);
-        player.getPersistentData().putDouble("daduishuliang", 10);
+        BookQuizData.setAnswerCount(player, 10);
         player.inventoryMenu.broadcastChanges();
         BookMenus.openQuiz(player);
     }
@@ -148,7 +146,7 @@ final class BookQuizOwnershipCheck extends SystemCheck {
                 == option + 2);
         expectTrue(label + "普通栈归属与其他组件双端一致", ItemStack.matches(actual, minecraft.player.getMainHandItem()));
         expectTrue(label + "完成后关闭菜单并同步清零", !(player.containerMenu instanceof BookQuizMenu)
-                && player.getPersistentData().getDouble("daduishuliang") == 0
+                && BookQuizData.answerCount(player) == 0
                 && BookQuizData.state(minecraft.player).progress() == 0);
         completed.add(actual.copy());
         player.getInventory().setItem(9 + option, actual.copy());
@@ -195,8 +193,7 @@ final class BookQuizOwnershipCheck extends SystemCheck {
         for (int slot = 0; slot < inventory.size(); slot++) player.getInventory().setItem(slot, inventory.get(slot));
         player.getInventory().selected = selected;
         player.setData(BookQuizData.QUESTION, originalQuestion);
-        if (hadProgress) player.getPersistentData().putDouble("daduishuliang", originalProgress);
-        else player.getPersistentData().remove("daduishuliang");
+        BookQuizData.setAnswerCount(player, originalProgress);
         BookQuizData.publish(player);
         player.inventoryMenu.broadcastChanges();
     }

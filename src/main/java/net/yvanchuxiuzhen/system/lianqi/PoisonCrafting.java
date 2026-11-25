@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -41,8 +40,8 @@ public final class PoisonCrafting {
             PoisonCauldronBlockEntity cauldron = (PoisonCauldronBlockEntity) level.getBlockEntity(event.getPos());
             String poison = poison(material);
             if (poison != null) {
-                cauldron.getPersistentData().putString("linshikongjian", ModId.VALUE);
-                cauldron.getPersistentData().putString("linshifumo", poison);
+                cauldron.setPoisonNamespace(ModId.VALUE);
+                cauldron.setPoisonId(poison);
                 cauldron.changed();
             }
             material.shrink(1);
@@ -65,12 +64,12 @@ public final class PoisonCrafting {
 
     public static void useCauldron(Level level, BlockPos pos, Player player) {
         if (level.isClientSide()) return;
-        CompoundTag data = ((PoisonCauldronBlockEntity) level.getBlockEntity(pos)).getPersistentData();
-        String poison = data.getString("linshifumo");
+        PoisonCauldronBlockEntity cauldron = (PoisonCauldronBlockEntity) level.getBlockEntity(pos);
+        String poison = cauldron.poisonId();
         ItemStack target = player.getMainHandItem();
         if (poison.isEmpty() || target.isEmpty() || !POISONS.containsValue(poison)) return;
         Holder<Enchantment> enchantment = enchantment(level,
-                ResourceLocation.fromNamespaceAndPath(data.getString("linshikongjian"), poison));
+                ResourceLocation.fromNamespaceAndPath(cauldron.poisonNamespace(), poison));
         boolean enchanted = EnchantmentHelper.getItemEnchantmentLevel(enchantment, target) != 0;
         if (poison.equals("beepoison") ? enchanted : !enchanted) return;
         // 来源追加同名附魔后，命中消费者仍读取首项；组件升级保留已有有效等级。

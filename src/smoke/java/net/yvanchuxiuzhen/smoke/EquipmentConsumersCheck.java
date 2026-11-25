@@ -75,7 +75,7 @@ final class EquipmentConsumersCheck extends ActionCheck {
                     List<ToolMachineEntity> machines = machines(player);
                     expectTrue("Hoe弹体十六刻只生成gongjvchu且换手后等级仍为一", machines.size() == 1
                             && entityId(machines.getFirst()).equals("gongjvchu")
-                            && machines.getFirst().getPersistentData().getDouble("fumodengji") == 1);
+                            && machines.getFirst().enchantLevel() == 1);
                     created.addAll(machines);
                     soil(player, machines.getFirst(), true);
                     clearMachines(player);
@@ -198,12 +198,9 @@ final class EquipmentConsumersCheck extends ActionCheck {
     private void soil(ServerPlayer player, ToolMachineEntity machine, boolean farming) {
         setBlock(player, site, Blocks.DIRT.defaultBlockState());
         setBlock(player, site.above(), Blocks.AIR.defaultBlockState());
-        CompoundTag state = machine.getPersistentData();
-        state.putString("jinxing", "mining");
-        state.putDouble("xiaoshitick2", 4);
-        state.putDouble("mubiaoX", site.getX());
-        state.putDouble("mubiaoY", site.getY());
-        state.putDouble("mubiaoZ", site.getZ());
+        machine.setPhase("mining");
+        machine.setActionTicks(4);
+        machine.setTarget(site.getX(), site.getY(), site.getZ());
         machine.tick();
         BlockState result = player.serverLevel().getBlockState(site);
         if (farming) {

@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 
@@ -40,6 +41,13 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
     private double angle;
     private boolean reversed;
     private boolean saved;
+    private double attackNumber;
+    private boolean manaRecorded;
+    private boolean infinity;
+    private boolean canDrop;
+    private boolean initialized;
+    private boolean inRainOrWater;
+    private int waterTicks;
 
     public SkillProjectile(EntityType<SkillProjectile> type, Level level, ProjectileSkill skill, ItemStack icon) {
         super(type, level);
@@ -95,7 +103,7 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
         target.setArrowCount(target.getArrowCount() - 1);
     }
 
-    /** 来源实体持久化数据中的施放快照、计时与轨迹；穿透继续使用原生 PierceLevel。 */
+    /** 弹体的施放快照、计时与轨迹；穿透继续使用原生 PierceLevel。 */
     @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
@@ -107,6 +115,13 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
         state.putDouble("angle", angle);
         state.putBoolean("reversed", reversed);
         state.putBoolean("saved", saved);
+        state.putDouble("attackNumber", attackNumber);
+        state.putBoolean("manaRecorded", manaRecorded);
+        state.putBoolean("infinity", infinity);
+        state.putBoolean("canDrop", canDrop);
+        state.putBoolean("initialized", initialized);
+        state.putBoolean("inRainOrWater", inRainOrWater);
+        state.putInt("waterTicks", waterTicks);
         tag.put("skillProjectile", state);
     }
 
@@ -121,6 +136,13 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
         angle = state.getDouble("angle");
         reversed = state.getBoolean("reversed");
         saved = state.getBoolean("saved");
+        attackNumber = state.getDouble("attackNumber");
+        manaRecorded = state.getBoolean("manaRecorded");
+        infinity = state.getBoolean("infinity");
+        canDrop = state.getBoolean("canDrop");
+        initialized = state.getBoolean("initialized");
+        inRainOrWater = state.getBoolean("inRainOrWater");
+        waterTicks = state.getInt("waterTicks");
         entityData.set(PIERCE, tag.getByte("PierceLevel"));
     }
 
@@ -174,7 +196,7 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
     }
 
     /**
-     * 记下发射者所选技能的攻击量与倍率，各乘给定系数；发射者不是玩家时攻击量取其 {@code LEVELnumber}，倍率取 {@code mobMultiplier}。
+     * 记下发射者所选技能的攻击量与倍率，各乘给定系数；发射者不是玩家时攻击量取其境界等级，倍率取 {@code mobMultiplier}。
      */
     public void snapshot(Entity owner, double manaScale, double playerMultiplierScale, double mobMultiplier) {
         if (owner instanceof Player player) {
@@ -183,7 +205,7 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
             multiplier = book == null ? 0 : book.damageMultiplier() * playerMultiplierScale;
             skillName = book == null ? "" : book.name();
         } else {
-            mana = owner.getPersistentData().getDouble("LEVELnumber");
+            mana = EntityAttributes.level(owner);
             multiplier = mobMultiplier;
         }
     }
@@ -197,12 +219,32 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
         return ticks;
     }
 
+    public void setTicks(int ticks) {
+        this.ticks = ticks;
+    }
+
     public double mana() {
         return mana;
     }
 
+    public void setMana(double mana) {
+        this.mana = mana;
+    }
+
     public double multiplier() {
         return multiplier;
+    }
+
+    public void setMultiplier(double multiplier) {
+        this.multiplier = multiplier;
+    }
+
+    public boolean manaRecorded() {
+        return manaRecorded;
+    }
+
+    public void markManaRecorded() {
+        manaRecorded = true;
     }
 
     public String skillName() {
@@ -236,5 +278,53 @@ public class SkillProjectile extends AbstractArrow implements ItemSupplier {
 
     public void setReversed(boolean reversed) {
         this.reversed = reversed;
+    }
+
+    public double attackNumber() {
+        return attackNumber;
+    }
+
+    public void setAttackNumber(double attackNumber) {
+        this.attackNumber = attackNumber;
+    }
+
+    public boolean infinity() {
+        return infinity;
+    }
+
+    public void setInfinity(boolean infinity) {
+        this.infinity = infinity;
+    }
+
+    public boolean canDrop() {
+        return canDrop;
+    }
+
+    public void setCanDrop(boolean canDrop) {
+        this.canDrop = canDrop;
+    }
+
+    public boolean initialized() {
+        return initialized;
+    }
+
+    public void markInitialized() {
+        initialized = true;
+    }
+
+    public boolean inRainOrWater() {
+        return inRainOrWater;
+    }
+
+    public void setInRainOrWater(boolean inRainOrWater) {
+        this.inRainOrWater = inRainOrWater;
+    }
+
+    public int waterTicks() {
+        return waterTicks;
+    }
+
+    public void setWaterTicks(int waterTicks) {
+        this.waterTicks = waterTicks;
     }
 }

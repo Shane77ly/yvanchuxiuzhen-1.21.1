@@ -63,7 +63,7 @@ final class RabbitCageCheck extends SystemCheck {
             case 2 -> onServer(player -> {
                 player.serverLevel().getEntity(rabbitId).move(MoverType.SELF, Vec3.ZERO);
                 expectTrue("保护时段动物碰撞仍保持开笼", player.level().getBlockState(cage).is(block("zhuangshi_tulong_02")));
-                expectTrue("保护状态已随开笼建立", cage(player, cage).getPersistentData().getBoolean("qiangzhi"));
+                expectTrue("保护状态已随开笼建立", cage(player, cage).forcedOpen());
                 IItemHandler unsided = player.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, cage, null);
                 IItemHandler sided = player.serverLevel().getCapability(Capabilities.ItemHandler.BLOCK, cage, Direction.UP);
                 expect("无方向能力单槽上限", 1, unsided.getSlotLimit(0));
@@ -175,7 +175,7 @@ final class RabbitCageCheck extends SystemCheck {
         expectTrue("满笼物品随玩家存档恢复", saved.is(item("zhuangshitulongitem_02")));
         expect("满笼兔种随存档恢复", Rabbit.Variant.GOLD.id(), saved.getOrDefault(DecorData.CRITTER_CAGE.get(), CritterCageData.EMPTY).rabbitVariant());
         expectTrue("开笼诱饵随方块存档恢复", cage(player, savedCage).getItem(0).is(Items.CARROT));
-        expectTrue("保护计数由自然二十刻更新结束", !cage(player, savedCage).getPersistentData().getBoolean("qiangzhi"));
+        expectTrue("保护计数由自然二十刻更新结束", !cage(player, savedCage).forcedOpen());
         player.setItemInHand(InteractionHand.MAIN_HAND, saved.copy());
         player.getInventory().setItem(9, ItemStack.EMPTY);
         player.connection.teleport(cage.getX() + .5, cage.getY(), cage.getZ() - 2, 0, 20);

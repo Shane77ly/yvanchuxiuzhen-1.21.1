@@ -46,11 +46,11 @@ public final class TownPlanningItem extends ContentItem {
         });
         TownBlockEntity town = (TownBlockEntity) context.getLevel().getBlockEntity(pos);
         for (String axis : new String[]{"X", "Y", "Z"}) {
-            town.getPersistentData().putInt("shifting" + axis, build.getInt("shifting0" + orientation + axis));
-            town.getPersistentData().putInt("lengthof" + axis, build.getInt("lengthof0" + orientation + axis));
+            town.setShiftingAxis(axis, build.getInt("shifting0" + orientation + axis));
+            town.setLengthOfAxis(axis, build.getInt("lengthof0" + orientation + axis));
         }
-        town.getPersistentData().putString("team", Relations.entityTeam(context.getPlayer()));
-        town.getPersistentData().put("build_data", build);
+        town.setTeam(Relations.entityTeam(context.getPlayer()));
+        town.setBuildData(build);
         context.getItemInHand().set(TownData.BUILD_PLAN.get(), new TownBuildPlan(build));
         town.sync();
         return InteractionResult.SUCCESS;

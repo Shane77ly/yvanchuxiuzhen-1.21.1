@@ -47,6 +47,11 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
     private final EntityModelRow model;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private final SkillAnimations animationState;
+    private String skillName = "";
+    private double remaining;
+    private double attackDamage;
+    private String attackerUuid = "";
+    private double timer;
 
     public DamageArea(EntityType<DamageArea> type, Level level, EntityModelRow model) {
         super(type, level);
@@ -57,6 +62,14 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
         setPersistenceRequired();
         moveControl = new FlyingMoveControl(this, 10, true);
     }
+
+    public String skillName() { return skillName; }
+    public void setSkillName(String skillName) { this.skillName = skillName; }
+    public double remaining() { return remaining; }
+    public void setRemaining(double remaining) { this.remaining = remaining; }
+    public double attackDamage() { return attackDamage; }
+    public double timer() { return timer; }
+    public void setTimer(double timer) { this.timer = timer; }
 
     public static AttributeSupplier.Builder attributes(EntityModelRow model) {
         return model.attributes().add(Attributes.FLYING_SPEED, 0.3).add(NeoForgeMod.SWIM_SPEED, 0.3);
@@ -78,7 +91,6 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
         DamageArea area = SkillSetup.<DamageArea>entityType(ID).get().create(level);
         area.moveTo(at.x, at.y, at.z, level.getRandom().nextFloat() * 360, 0);
         area.setAnimation(animation);
-        CompoundTag state = area.getPersistentData();
         if (sharedEntityFriends) {
             Relations.shareEntityAllegiance(owner, area);
         } else if (skillName.isEmpty()) {
@@ -86,11 +98,11 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
         } else {
             Relations.setTeam(area, Relations.team(owner));
         }
-        state.putString("jinengname", skillName);
-        state.putDouble("daojishi", duration);
+        area.skillName = skillName;
+        area.remaining = duration;
         if (skillName.equals("控雷阵")) {
-            state.putDouble("AttackDamage", attackDamage);
-            state.putString("AttackUUID", owner.getStringUUID());
+            area.attackDamage = attackDamage;
+            area.attackerUuid = owner.getStringUUID();
         }
         area.finalizeSpawn(level, level.getCurrentDifficultyAt(area.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(area);
@@ -122,29 +134,45 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
     }
 
     private void tickSkill(ServerLevel level) {
-        CompoundTag state = getPersistentData();
-        String skill = state.getString("jinengname");
-        if (skill.equals("控雷阵") || skill.equals("惊蛰闻雷")) {
-            double age = state.getDouble("jishiqi") + 1;
-            state.putDouble("jishiqi", age);
-            if (age >= (skill.equals("控雷阵") ? 20 : 40)) {
-                if (skill.equals("控雷阵")) {
+        if (skillName.equals("控雷阵") || skillName.equals("惊蛰闻雷")) {
+            timer += 1;
+            if (timer >= (skillName.equals("控雷阵") ? 20 : 40)) {
+                if (skillName.equals("控雷阵")) {
                     CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, position(), Vec2.ZERO, level,
                             4, "", Component.empty(), level.getServer(), null).withSuppressedOutput();
-                    String command = "lightninglanding " + new DecimalFormat("0").format(state.getDouble("AttackDamage"))
-                            + " " + state.getString("AttackUUID") + " 1 " + Relations.team(this) + " 2 白色";
+                    String command = "lightninglanding " + new DecimalFormat("0").format(attackDamage)
+                            + " " + attackerUuid + " 1 " + Relations.team(this) + " 2 白色";
                     level.getServer().getCommands().performPrefixedCommand(source, command);
                 }
-                state.putDouble("jishiqi", 0);
+                timer = 0;
                 discard();
             }
         } else {
-            double remaining = state.getDouble("daojishi") - 1;
-            state.putDouble("daojishi", remaining);
+            remaining -= 1;
             if (remaining <= 0) {
                 discard();
             }
         }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putString("skillName", skillName);
+        tag.putDouble("remaining", remaining);
+        tag.putDouble("attackDamage", attackDamage);
+        tag.putString("attackerUuid", attackerUuid);
+        tag.putDouble("timer", timer);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        skillName = tag.getString("skillName");
+        remaining = tag.getDouble("remaining");
+        attackDamage = tag.getDouble("attackDamage");
+        attackerUuid = tag.getString("attackerUuid");
+        timer = tag.getDouble("timer");
     }
 
     @Override

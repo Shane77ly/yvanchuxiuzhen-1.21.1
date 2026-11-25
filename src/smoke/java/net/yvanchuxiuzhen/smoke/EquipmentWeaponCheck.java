@@ -27,6 +27,7 @@ import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
+import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fuchen;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
@@ -42,7 +43,7 @@ final class EquipmentWeaponCheck extends ActionCheck {
     private final List<ItemStack> inventory = new ArrayList<>();
     private CultivationData cultivation;
     private SkillState skill;
-    private CompoundTag persistent;
+    private boolean rightClicking;
     private ItemStack hossu;
     private IronGolem enemy;
     private IronGolem ally;
@@ -59,7 +60,7 @@ final class EquipmentWeaponCheck extends ActionCheck {
                 new Action(12, p -> {
                     cultivation = p.getData(XiulianAttachments.CULTIVATION);
                     skill = Skills.state(p);
-                    persistent = p.getPersistentData().copy();
+                    rightClicking = Boolean.TRUE.equals(p.getData(EquipmentData.RIGHT_CLICKING));
                     selectedSlot = p.getInventory().selected;
                     control = ModifierKeys.ctrl(p);
                     alt = ModifierKeys.alt(p);
@@ -116,12 +117,12 @@ final class EquipmentWeaponCheck extends ActionCheck {
                     p.getInventory().setItem(0, item("weaponspeedbow_01"));
                     p.getInventory().setItem(1, new ItemStack(Items.ARROW, 3));
                     Skills.selectArrow(p, 2);
-                    p.getPersistentData().remove("synchronizedata");
+                    p.setData(EquipmentData.RIGHT_CLICKING, false);
                     Cultivation.setTizhiDouble(p, "lagongtick", 0);
                     p.getMainHandItem().getItem().use(p.level(), p, InteractionHand.MAIN_HAND);
                 }),
                 new Action(2, p -> {
-                    expectTrue("来源右键空过程不会产生 rightclicking、蓄力或弹体", !p.getPersistentData().getCompound("synchronizedata").getBoolean("rightclicking")
+                    expectTrue("来源右键空过程不会产生 rightclicking、蓄力或弹体", !Boolean.TRUE.equals(p.getData(EquipmentData.RIGHT_CLICKING))
                             && Cultivation.tizhiDouble(p, "lagongtick") == 0 && arrows(p).isEmpty());
                     injectedBow(p);
                 }),
@@ -147,9 +148,7 @@ final class EquipmentWeaponCheck extends ActionCheck {
     }
 
     private void injectedBow(ServerPlayer player) {
-        CompoundTag input = new CompoundTag();
-        input.putBoolean("rightclicking", true);
-        player.getPersistentData().put("synchronizedata", input);
+        player.setData(EquipmentData.RIGHT_CLICKING, true);
         player.setShiftKeyDown(true);
         ItemStack speed = player.getMainHandItem();
         speed.enchant(player.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.QUICK_CHARGE), 2);
@@ -164,7 +163,7 @@ final class EquipmentWeaponCheck extends ActionCheck {
         boolean longCharge = Cultivation.tizhiDouble(player, "lagongtick") == 3;
         Cultivation.setTizhiDouble(player, "lagongtick", 100);
         tickEquipment(player);
-        input.putBoolean("rightclicking", false);
+        player.setData(EquipmentData.RIGHT_CLICKING, false);
         ModifierKeys.update(player, true, true);
         tickEquipment(player);
         Arrow arrow = (Arrow) arrows(player).getFirst();
@@ -218,7 +217,6 @@ final class EquipmentWeaponCheck extends ActionCheck {
         player.getInventory().selected = selectedSlot;
         player.setShiftKeyDown(sneak);
         ModifierKeys.update(player, control, alt);
-        for (String key : List.copyOf(player.getPersistentData().getAllKeys())) player.getPersistentData().remove(key);
-        player.getPersistentData().merge(persistent);
+        player.setData(EquipmentData.RIGHT_CLICKING, rightClicking);
     }
 }

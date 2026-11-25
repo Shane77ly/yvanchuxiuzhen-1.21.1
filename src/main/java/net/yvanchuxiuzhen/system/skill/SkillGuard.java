@@ -11,7 +11,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.skill.api.WeaponStatEvent;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 
-/** C 键的格挡显示计时（来源 Canjian 与 PlayerTick），不参与伤害结算。计时保存在实体持久数据，只向本人同步显示值。 */
+/** C 键的格挡显示计时（来源 Canjian 与 PlayerTick），不参与伤害结算。计时保存在玩家附件，剩余值同步给本人。 */
 public final class SkillGuard {
     private static final TagKey<Item> SHIELDS = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "dunpai"));
 
@@ -19,7 +19,7 @@ public final class SkillGuard {
     }
 
     public static void press(ServerPlayer player) {
-        if (player.getPersistentData().getDouble("canjianjishicolddown") > 0) {
+        if (player.getData(SkillData.GUARD_COOLDOWN) > 0) {
             return;
         }
         boolean shield = player.getOffhandItem().is(SHIELDS);
@@ -28,7 +28,7 @@ public final class SkillGuard {
             grade += level(player.getOffhandItem());
         }
         setRemaining(player, (shield ? 21 : 20) + grade / 2);
-        player.getPersistentData().putDouble("canjianjishicolddown", 20);
+        player.setData(SkillData.GUARD_COOLDOWN, 20.0);
     }
 
     public static void release(ServerPlayer player) {
@@ -42,16 +42,15 @@ public final class SkillGuard {
     }
 
     public static void tick(ServerPlayer player) {
-        double cooldown = player.getPersistentData().getDouble("canjianjishicolddown");
+        double cooldown = player.getData(SkillData.GUARD_COOLDOWN);
         if (cooldown > 0) {
-            player.getPersistentData().putDouble("canjianjishicolddown", cooldown - 1);
+            player.setData(SkillData.GUARD_COOLDOWN, cooldown - 1);
         }
-        double remaining = player.getPersistentData().getDouble("canjianjishi");
+        double remaining = player.getData(SkillData.GUARD_REMAINING);
         setRemaining(player, remaining > 0 ? remaining - 1 : remaining);
     }
 
     private static void setRemaining(ServerPlayer player, double value) {
-        player.getPersistentData().putDouble("canjianjishi", value);
         if (player.getData(SkillData.GUARD_REMAINING) != value) {
             player.setData(SkillData.GUARD_REMAINING, value);
         }

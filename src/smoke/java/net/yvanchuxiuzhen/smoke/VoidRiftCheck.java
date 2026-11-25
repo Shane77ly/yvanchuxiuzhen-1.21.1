@@ -65,11 +65,11 @@ final class VoidRiftCheck extends ActionCheck {
                     Skills.openVoidRift(player);
                     entrance = nearby(player).get(0);
                     expectTrue("只替换目标周围八格内的裂隙", first.isRemoved() && !distant.isRemoved());
-                    entrance.getPersistentData().putDouble("xiaoshitick", 30);
+                    entrance.setLifeTicks(30);
                     entrance.baseTick();
                     entrance.playerTouch(player);
                     expectTrue("31 刻时碰撞不能进入，也不消耗裂隙", player.level().dimension().equals(Level.OVERWORLD)
-                            && !entrance.getPersistentData().getBoolean("shifouyichuanyve"));
+                            && !entrance.isUsed());
                     entrance.baseTick();
                     entrance.playerTouch(player);
                     expectTrue("32 刻进入：裂隙三轴坐标除五十并四舍五入，保存原维度",
@@ -81,7 +81,7 @@ final class VoidRiftCheck extends ActionCheck {
                 }),
                 new Action(20, player -> {
                     exit = spawn(player.serverLevel(), new Vec3(3, 2, -1));
-                    exit.getPersistentData().putBoolean("keyijinru", true);
+                    exit.setEnterable(true);
                     // 玩家与裂隙重叠，下一服务端刻由 Player 的真实碰撞入口触发返回。
                 }),
                 new Action(12, player -> {
@@ -90,23 +90,23 @@ final class VoidRiftCheck extends ActionCheck {
                     player.teleportTo(player.server.getLevel(VOID), 0, 100, 0, 0, 0);
                     Cultivation.setTizhiDouble(player, "weidu", 4);
                     VoidRift missing = spawn(player.serverLevel(), new Vec3(5, 100, 5));
-                    missing.getPersistentData().putBoolean("keyijinru", true);
+                    missing.setEnterable(true);
                     missing.playerTouch(player);
                     expectTrue("目标维度未迁移时不传送，仍按来源清编号并消耗裂隙", player.level().dimension().equals(VOID)
-                            && Cultivation.tizhiDouble(player, "weidu") == 0 && missing.getPersistentData().getBoolean("shifouyichuanyve"));
+                            && Cultivation.tizhiDouble(player, "weidu") == 0 && missing.isUsed());
                     expectTrue("拒绝玩家、闪电与仙人掌伤害", !missing.hurt(player.damageSources().playerAttack(player), 1)
                             && !missing.hurt(player.damageSources().lightningBolt(), 1) && !missing.hurt(player.damageSources().cactus(), 1));
-                    missing.getPersistentData().putDouble("xiaoshitick", 77);
+                    missing.setLifeTicks(77);
                     CompoundTag saved = missing.saveWithoutId(new CompoundTag());
                     VoidRift restored = SkillSetup.<VoidRift>entityType(VoidRift.ID).get().create(player.serverLevel());
                     restored.load(saved);
-                    expectTrue("保存重读保留年龄、可进入和已使用状态", restored.getPersistentData().getDouble("xiaoshitick") == 77
-                            && restored.getPersistentData().getBoolean("keyijinru") && restored.getPersistentData().getBoolean("shifouyichuanyve"));
-                    restored.getPersistentData().putDouble("xiaoshitick", 330);
+                    expectTrue("保存重读保留年龄、可进入和已使用状态", restored.lifeTicks() == 77
+                            && restored.isEnterable() && restored.isUsed());
+                    restored.setLifeTicks(330);
                     restored.baseTick();
                     expectTrue("331 刻仍存续", !restored.isRemoved());
                     restored.baseTick();
-                    expectTrue("332 刻移除并复位计数", restored.isRemoved() && restored.getPersistentData().getDouble("xiaoshitick") == 0);
+                    expectTrue("332 刻移除并复位计数", restored.isRemoved() && restored.lifeTicks() == 0);
                     missing.discard();
                 })
         );

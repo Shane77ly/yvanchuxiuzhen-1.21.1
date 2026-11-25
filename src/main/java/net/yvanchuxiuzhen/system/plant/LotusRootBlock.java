@@ -38,7 +38,7 @@ public final class LotusRootBlock extends ContentBlock {
         for (int height = 1; height <= 10; height++) {
             BlockState above = level.getBlockState(pos.above(height));
             if (above.is(LotusGrowth.block(3)) || above.is(LotusGrowth.block(4))) {
-                player.getPersistentData().putDouble("caiou", 1 + Math.floor(height * 0.5));
+                player.setData(PlantData.LOTUS_HARVEST, 1 + Math.floor(height * 0.5));
                 break;
             }
         }
@@ -49,14 +49,14 @@ public final class LotusRootBlock extends ContentBlock {
             boolean willHarvest, FluidState fluid) {
         boolean removed = super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
         if (level instanceof ServerLevel server) {
-            int count = (int) player.getPersistentData().getDouble("caiou");
+            int count = (int) player.getData(PlantData.LOTUS_HARVEST).doubleValue();
             for (int index = 0; index < count; index++) {
                 ItemEntity drop = new ItemEntity(server, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
                         LotusGrowth.item("shicai_008", 1));
                 drop.setPickUpDelay(10);
                 server.addFreshEntity(drop);
             }
-            player.getPersistentData().putDouble("caiou", 0);
+            player.setData(PlantData.LOTUS_HARVEST, 0.0);
         }
         return removed;
     }

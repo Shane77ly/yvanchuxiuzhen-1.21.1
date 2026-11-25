@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.xiulian.tribulation;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -19,9 +20,30 @@ import software.bernie.geckolib.animation.RawAnimation;
 
 /** 化灵雷龙：徘徊、下坠与范围终结按来源互斥分支推进；死亡粒子独立于终结伤害。 */
 public final class ThunderDragon extends TribulationEntity {
+    private double entityTicks;
+    private String stage = "";
+
     public ThunderDragon(EntityType<ThunderDragon> type, Level level, EntityModelRow model) {
         super(type, level, model, 0, 1);
         refreshDimensions();
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putDouble("entitytick", entityTicks);
+        tag.putString("jinengjinxing", stage);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        entityTicks = tag.getDouble("entitytick");
+        stage = tag.getString("jinengjinxing");
     }
 
     @Override
@@ -56,16 +78,14 @@ public final class ThunderDragon extends TribulationEntity {
             discard();
             return;
         }
-        double tick = getPersistentData().getDouble("entitytick") + 1;
-        getPersistentData().putDouble("entitytick", tick);
-        String stage = getPersistentData().getString("jinengjinxing");
+        double tick = ++entityTicks;
         if (stage.isEmpty()) {
-            getPersistentData().putString("jinengjinxing", "徘徊");
+            stage = "徘徊";
             triggerAnim("main", "thunder");
         } else if (stage.equals("徘徊") && tick >= 40) {
-            getPersistentData().putString("jinengjinxing", "开始下坠");
+            stage = "开始下坠";
         } else if (stage.equals("开始下坠") && tick >= 160) {
-            getPersistentData().putString("jinengjinxing", "结束");
+            stage = "结束";
         } else if (stage.equals("结束")) {
             Tribulations.particles(this, "brokenyellow", position(), 40, 0, 0, 0, 1);
             Tribulations.damage(this, 12, "5", true);
@@ -77,7 +97,7 @@ public final class ThunderDragon extends TribulationEntity {
             Tribulations.particles(this, "thunderyellow", position(), 1, 2, 0, 2, 0);
             setDeltaMovement(new Vec3((player.getX() - getX()) * 0.5, -1, (player.getZ() - getZ()) * 0.5));
             if (getY() - player.getY() <= 2) {
-                getPersistentData().putString("jinengjinxing", "结束");
+                stage = "结束";
             } else if (onGround() && level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
                 level().explode(null, getX(), getY(), getZ(), 4, Level.ExplosionInteraction.BLOCK);
             }

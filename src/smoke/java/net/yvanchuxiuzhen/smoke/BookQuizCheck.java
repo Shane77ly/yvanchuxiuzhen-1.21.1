@@ -40,7 +40,6 @@ final class BookQuizCheck extends SystemCheck {
     private int selected;
     private int originalQuestion;
     private int retainedQuestion;
-    private boolean hadProgress;
     private double originalProgress;
     private boolean regeneration;
     private float originalHealth;
@@ -86,7 +85,7 @@ final class BookQuizCheck extends SystemCheck {
                     expectTrue(kind + "答满覆盖既有研习者并保留技能参数", book.ownedBy(player.getUUID())
                             && book.level() == 40 && book.body().equals("五") && book.number("jinengmanaatt") == 3);
                     expectTrue(kind + "答满关闭且计数清零", !(player.containerMenu instanceof BookQuizMenu)
-                            && player.getPersistentData().getDouble("daduishuliang") == 0);
+                            && BookQuizData.answerCount(player) == 0);
                     expectTrue(kind + "答满书组件双端一致", ItemStack.matches(player.getMainHandItem(), minecraft.player.getMainHandItem()));
                 });
             };
@@ -96,13 +95,13 @@ final class BookQuizCheck extends SystemCheck {
             case 9 -> action(local, 8, player -> {
                 checkCorrect(player, "第四选项");
                 retainedQuestion = player.getData(BookQuizData.QUESTION);
-                player.getPersistentData().putDouble("daduishuliang", 3.5);
+                BookQuizData.setAnswerCount(player, 3.5);
                 BookQuizData.publish(player);
                 player.closeContainer();
             });
             case 10 -> action(local, 8, player -> {
                 expect("手动关闭保留题目", retainedQuestion, player.getData(BookQuizData.QUESTION).intValue());
-                expect("手动关闭保留非整数题数", 3.5, player.getPersistentData().getDouble("daduishuliang"));
+                expect("手动关闭保留非整数题数", 3.5, BookQuizData.answerCount(player));
                 BookMenus.openQuiz(player);
             });
             case 11 -> {
@@ -119,7 +118,7 @@ final class BookQuizCheck extends SystemCheck {
                 yield true;
             }
             case 12 -> action(local, 8, player -> {
-                expect("非法选项和旧容器请求不改计数", 3.5, player.getPersistentData().getDouble("daduishuliang"));
+                expect("非法选项和旧容器请求不改计数", 3.5, BookQuizData.answerCount(player));
                 stage(player, 4, 6);
                 failedHealth = player.getHealth() - player.getMaxHealth() * 0.1;
             });
@@ -132,7 +131,7 @@ final class BookQuizCheck extends SystemCheck {
             case 14 -> action(local, 8, player -> {
                 expectTrue("答错关闭答题页", !(player.containerMenu instanceof BookQuizMenu));
                 expect("答错直接减最大生命十分之一", failedHealth, player.getHealth());
-                expect("答错计数清零", 0, player.getPersistentData().getDouble("daduishuliang"));
+                expect("答错计数清零", 0, BookQuizData.answerCount(player));
                 player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
                 stage(player, 4, 10);
             });
@@ -170,7 +169,7 @@ final class BookQuizCheck extends SystemCheck {
             case 33 -> inWorld(local);
             case 34 -> action(local, 8, player -> {
                 expect("真实重进保留题号", 1, player.getData(BookQuizData.QUESTION).intValue());
-                expect("真实重进保留实体答题数", 7, player.getPersistentData().getDouble("daduishuliang"));
+                expect("真实重进保留实体答题数", 7, BookQuizData.answerCount(player));
                 expectTrue("真实重进保留答满后技能书归属", Skills.book(player.getMainHandItem()).orElseThrow().ownedBy(player.getUUID()));
                 BookMenus.openQuiz(player);
             });
@@ -182,7 +181,7 @@ final class BookQuizCheck extends SystemCheck {
                 yield true;
             }
             case 36 -> action(local, 8, player -> {
-                expect("重进后实际按钮继续累计", 8, player.getPersistentData().getDouble("daduishuliang"));
+                expect("重进后实际按钮继续累计", 8, BookQuizData.answerCount(player));
                 cleanup(player);
                 finish();
             });
@@ -201,8 +200,7 @@ final class BookQuizCheck extends SystemCheck {
         for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) inventory.add(player.getInventory().getItem(slot).copy());
         selected = player.getInventory().selected;
         originalQuestion = player.getData(BookQuizData.QUESTION);
-        hadProgress = player.getPersistentData().contains("daduishuliang");
-        originalProgress = player.getPersistentData().getDouble("daduishuliang");
+        originalProgress = BookQuizData.answerCount(player);
         originalHealth = player.getHealth();
         regeneration = player.serverLevel().getGameRules().getBoolean(GameRules.RULE_NATURAL_REGENERATION);
         player.serverLevel().getGameRules().getRule(GameRules.RULE_NATURAL_REGENERATION).set(false, player.server);
@@ -215,13 +213,13 @@ final class BookQuizCheck extends SystemCheck {
         if (progress == 0 && player.containerMenu instanceof BookQuizMenu) checkCorrect(player, "前一选项");
         player.closeContainer();
         player.setData(BookQuizData.QUESTION, question);
-        player.getPersistentData().putDouble("daduishuliang", progress);
+        BookQuizData.setAnswerCount(player, progress);
         player.inventoryMenu.broadcastChanges();
         BookMenus.openQuiz(player);
     }
 
     private void checkCorrect(ServerPlayer player, String label) {
-        expect(label + "经真实按钮累计一次", 1, player.getPersistentData().getDouble("daduishuliang"));
+        expect(label + "经真实按钮累计一次", 1, BookQuizData.answerCount(player));
         int question = player.getData(BookQuizData.QUESTION);
         expectTrue(label + "继续均匀题库范围", question >= 1 && question <= 40);
         expectTrue(label + "题号和计数双端一致", BookQuizData.state(player).equals(BookQuizData.state(minecraft.player)));
@@ -274,8 +272,7 @@ final class BookQuizCheck extends SystemCheck {
         player.setHealth(originalHealth);
         player.serverLevel().getGameRules().getRule(GameRules.RULE_NATURAL_REGENERATION).set(regeneration, player.server);
         player.setData(BookQuizData.QUESTION, originalQuestion);
-        if (hadProgress) player.getPersistentData().putDouble("daduishuliang", originalProgress);
-        else player.getPersistentData().remove("daduishuliang");
+        BookQuizData.setAnswerCount(player, originalProgress);
         BookQuizData.publish(player);
         player.inventoryMenu.broadcastChanges();
     }

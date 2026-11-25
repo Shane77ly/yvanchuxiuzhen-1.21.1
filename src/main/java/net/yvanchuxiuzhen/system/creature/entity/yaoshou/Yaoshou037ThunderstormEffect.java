@@ -9,6 +9,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
@@ -20,8 +21,9 @@ public final class Yaoshou037ThunderstormEffect implements EffectBehavior {
         double weizhiX = 0;
         double weizhiY = 0;
         double weizhiZ = 0;
-        entity.getPersistentData().putDouble("leibaotick", (entity.getPersistentData().getDouble("leibaotick") + 1));
-        if (entity.getPersistentData().getDouble("leibaotick") >= 5) {
+        double ticks = entity.getData(CreatureData.THUNDERSTORM_TICK) + 1;
+        entity.setData(CreatureData.THUNDERSTORM_TICK, ticks);
+        if (ticks >= 5) {
             for (int index0 = 0; index0 < (int) (3); index0++) {
                 weizhiX = entity.getX() + Yaoshou037054Support.randomInt(-12, 12);
                 weizhiY = entity.getY();
@@ -32,7 +34,7 @@ public final class Yaoshou037ThunderstormEffect implements EffectBehavior {
                     _level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(weizhiX, weizhiY, weizhiZ), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
                             ("lightninglanding 3 " + entity.getStringUUID() + " 1 " + Relations.entityTeam(entity) + " 2 黄色"));
             }
-            entity.getPersistentData().putDouble("leibaotick", 0);
+            entity.setData(CreatureData.THUNDERSTORM_TICK, 0.0);
         }
         return true;
     }

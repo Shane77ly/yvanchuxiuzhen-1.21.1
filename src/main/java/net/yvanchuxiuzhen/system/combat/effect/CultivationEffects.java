@@ -15,6 +15,8 @@ import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.EffectExperienceEvent;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.combat.data.CombatData;
+import net.yvanchuxiuzhen.system.combat.data.CombatEntityState;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -69,7 +71,7 @@ final class CultivationEffects {
                 StatusEffects.remove(entity, effect);
             } else if (advanceCounter(entity, counterKey, period)) {
                 restore(entity, (amplifier + 1) * 10);
-                entity.getPersistentData().putDouble(counterKey, 0);
+                clearCounter(entity, counterKey);
             }
             return true;
         }
@@ -83,9 +85,14 @@ final class CultivationEffects {
 
     /** 来源先写入本刻计数，执行恢复或修为结算后再清零。 */
     private static boolean advanceCounter(LivingEntity entity, String key, int period) {
-        double count = entity.getPersistentData().getDouble(key) + 1;
-        entity.getPersistentData().putDouble(key, count);
+        CombatEntityState state = entity.getData(CombatData.ENTITY_STATE);
+        double count = state.tick(key) + 1;
+        entity.setData(CombatData.ENTITY_STATE, state.withTick(key, count));
         return count >= period;
+    }
+
+    private static void clearCounter(LivingEntity entity, String key) {
+        entity.setData(CombatData.ENTITY_STATE, entity.getData(CombatData.ENTITY_STATE).withTick(key, 0));
     }
 
     /** 提高修为：玩家增加待吸收修为，妖兽发出事件；持续型每 40 刻增加 ((等级 + 1) × 5)²，瞬时型一次增加 ((等级 + 1) × 20)² 并提示。 */
@@ -97,7 +104,7 @@ final class CultivationEffects {
                 StatusEffects.remove(entity, effect);
             } else if (advanceCounter(entity, counterKey, period)) {
                 grant(entity, Math.pow((amplifier + 1) * factor, 2), false);
-                entity.getPersistentData().putDouble(counterKey, 0);
+                clearCounter(entity, counterKey);
             }
             return true;
         }

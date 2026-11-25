@@ -36,11 +36,42 @@ public final class CuttingBlockEntity extends RandomizableContainerBlockEntity i
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private int angle;
+    private boolean cutting;
+    private double tick;
 
     public CuttingBlockEntity(BlockPos pos, BlockState state) {
         super(CuttingBlockEntities.type(state), pos, state);
         items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
+    }
+
+    public int angle() {
+        return angle;
+    }
+
+    public void setAngle(int value) {
+        angle = value;
+    }
+
+    public boolean cutting() {
+        return cutting;
+    }
+
+    public void setCutting(boolean value) {
+        cutting = value;
+    }
+
+    public double tick() {
+        return tick;
+    }
+
+    public int tickInt() {
+        return (int) tick;
+    }
+
+    public void setTick(double value) {
+        tick = value;
     }
 
     public boolean board() {
@@ -74,12 +105,18 @@ public final class CuttingBlockEntity extends RandomizableContainerBlockEntity i
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        angle = tag.getInt("jiaodu");
+        cutting = tag.getBoolean("qiecaibegin");
+        tick = tag.getDouble("tick");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (angle != 0) tag.putInt("jiaodu", angle);
+        if (cutting) tag.putBoolean("qiecaibegin", true);
+        if (tick != 0) tag.putDouble("tick", tick);
     }
 
     @Override

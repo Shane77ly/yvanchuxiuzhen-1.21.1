@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
 import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
+import net.yvanchuxiuzhen.system.liandan.content.PharmacologyBlockEntity;
 
 /** 药理台按八槽次序预览药效，并把名称、说明与材料清单写入丹方媒介。 */
 public final class Pharmacology {
@@ -26,7 +27,7 @@ public final class Pharmacology {
     public static void refresh(BlockEntity table, Container inventory, String inputName) {
         String name = inputName.isEmpty() || inputName.equals("丹方名称")
                 ? defaultName(inventory.getItem(1)) : inputName;
-        CompoundTag herbs = table.getPersistentData().getCompound("zong");
+        CompoundTag herbs = table instanceof PharmacologyBlockEntity pharmacology ? pharmacology.herbs() : new CompoundTag();
         List<MedicineInstance.Effect> effects = new ArrayList<>();
         for (int slot = 1; slot <= 8; slot++) {
             ItemStack ingredient = inventory.getItem(slot);
@@ -38,7 +39,7 @@ public final class Pharmacology {
         ItemStack preview = new ItemStack(Items.DIAMOND);
         Liandan.setMedicine(preview, medicine);
         inventory.setItem(11, preview);
-        updateDisplay(table, medicine);
+        if (table instanceof PharmacologyBlockEntity pharmacology) updateDisplay(pharmacology, medicine);
     }
 
     /** 丹方写入只在服务端修改真实菜单槽，完整替换媒介原有实例组件且不扣除材料。 */
@@ -73,9 +74,8 @@ public final class Pharmacology {
     }
 
     /** 来源每次只清前十行缓存，药效行仍按原索引写入，不压缩无效等级。 */
-    private static void updateDisplay(BlockEntity table, MedicineInstance medicine) {
-        CompoundTag state = table.getPersistentData();
-        for (int index = 0; index < 10; index++) state.putString("effectxianshi" + index, "");
+    private static void updateDisplay(PharmacologyBlockEntity table, MedicineInstance medicine) {
+        for (int index = 0; index < 10; index++) table.setEffectLine(index, "");
         List<MedicineInstance.Effect> effects = medicine.effects();
         for (int index = 0; index < effects.size(); index++) {
             MedicineInstance.Effect effect = effects.get(index);
@@ -84,7 +84,7 @@ public final class Pharmacology {
             if (level < 100) continue;
             String name = effect.id();
             String translation = name.contains(":") ? "effect." + name.replace(':', '.') : "effect.minecraft." + name;
-            state.putString("effectxianshi" + index, level / 100 + "级" + Component.translatable(translation).getString()
+            table.setEffectLine(index, level / 100 + "级" + Component.translatable(translation).getString()
                     + "：" + effect.duration() / 20 + "秒");
         }
     }

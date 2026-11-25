@@ -23,6 +23,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
@@ -57,8 +58,8 @@ final class CoffinGhostMarkerCheck extends SystemCheck {
                     wet.setAirSupply(80);
                     control.setAirSupply(80);
                     armed = true;
-                    king.getPersistentData().putString("gongjizhe", ordinary.getStringUUID());
-                    king.getPersistentData().putString("jineng", "爆气");
+                    CreatureData.state(king).setAttackerUuid(ordinary.getStringUUID());
+                    CreatureData.state(king).setSkill("爆气");
                 } else if (!hit && wetSamples >= 12 && controlSamples >= 12 && observedBurst && p.tickCount > 65) {
                     control.discard();
                     wet.discard();
@@ -157,7 +158,7 @@ final class CoffinGhostMarkerCheck extends SystemCheck {
             expectTrue("友方箭头留场且未受击退", ally.isAlive() && ally.getDeltaMovement().lengthSqr() < 1e-8);
             Vec3 push = new Vec3(ordinary.getX() - king.getX(), 0.5, ordinary.getZ() - king.getZ());
             expectTrue("普通敌方留场且沿径向击退", ordinary.isAlive() && ordinary.getDeltaMovement().distanceToSqr(push) < 1e-8);
-            expect("爆气已收招", "", king.getPersistentData().getString("jineng"));
+            expect("爆气已收招", "", CreatureData.state(king).skill());
         }
     }
 

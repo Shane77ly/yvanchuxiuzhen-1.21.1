@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.guchong.api;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
@@ -33,17 +32,8 @@ public record GuchongTrackingData(boolean tracking, String ownerUuid,
                 || homeX != 0 || homeY != 0 || homeZ != 0;
     }
 
-    /** 将物品承载的十个追踪字段写入实体持久化标签。 */
-    public void writeToEntity(CompoundTag target) {
-        target.putBoolean("zhuizhong", tracking);
-        target.putString("belongToMasterUUID", ownerUuid);
-        target.putDouble("zuobiaoX", targetX);
-        target.putDouble("zuobiaoY", targetY);
-        target.putDouble("zuobiaoZ", targetZ);
-        target.putDouble("homeblockX", homeX);
-        target.putDouble("homeblockY", homeY);
-        target.putDouble("homeblockZ", homeZ);
-        target.putBoolean("guchongxvnfu", tamed);
-        target.putBoolean("kanjia", cutPrice);
+    public GuchongTrackingData withOwnerUuid(String nextOwnerUuid) {
+        return new GuchongTrackingData(tracking, nextOwnerUuid == null ? "" : nextOwnerUuid,
+                targetX, targetY, targetZ, homeX, homeY, homeZ, tamed, cutPrice);
     }
 }

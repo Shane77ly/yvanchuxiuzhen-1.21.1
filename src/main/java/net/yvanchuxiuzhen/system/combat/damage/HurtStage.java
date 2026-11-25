@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.ArmorStatEvent;
@@ -135,7 +136,7 @@ public final class HurtStage {
             resistance = Cultivation.tizhiDouble(player, "AttackDefCorrectPercentage") + 1;
             attackScale = Cultivation.tizhiDouble(player, "AttackAttCorrectPercentage") + 1;
         } else {
-            defense = victim.getPersistentData().getDouble("attack_Def");
+            defense = EntityAttributes.stat(victim, Stat.ATTACK_DEF);
             resistance = 1;
         }
         double breakArmor = 0;

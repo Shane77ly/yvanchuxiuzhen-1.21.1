@@ -1,8 +1,8 @@
 package net.yvanchuxiuzhen.system.treasure;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
 
 /** 上锁宝箱首次开箱时的二十三类、八档等级和数量上限，按来源抽样顺序生成。 */
 final class TreasureChestSettings {
@@ -17,15 +17,12 @@ final class TreasureChestSettings {
     private TreasureChestSettings() {
     }
 
-    static void initialize(CompoundTag data, RandomSource random) {
+    static TreasureContainerConfig initialize(RandomSource random) {
         int type = Mth.nextInt(random, 1, 23) - 1;
         int roll = Mth.nextInt(random, 1, 100);
         int grade = roll >= 98 ? 8 : roll >= 95 ? 7 : roll >= 90 ? 6 : roll >= 82 ? 5
                 : roll >= 65 ? 4 : roll >= 48 ? 3 : roll >= 25 ? 2 : 1;
-        data.putDouble("TreasureLEVEL", grade);
-        data.putDouble("minimumvalue", 1);
-        data.putString("TreasureTypeBig", CATEGORIES[type]);
-        data.putString("TreasureTypeSmall", SUBTYPES[type]);
-        data.putDouble("Maximumvalue", type >= 16 ? Mth.nextInt(random, 1, MAXIMA[type]) : MAXIMA[type]);
+        return new TreasureContainerConfig(CATEGORIES[type], SUBTYPES[type], grade, 1,
+                type >= 16 ? Mth.nextInt(random, 1, MAXIMA[type]) : MAXIMA[type]);
     }
 }

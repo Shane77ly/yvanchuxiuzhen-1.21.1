@@ -5,7 +5,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -87,9 +86,8 @@ public final class PharmacologyScreen extends AbstractContainerScreen<Pharmacolo
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         PharmacologyBlockEntity table = menu.table();
         if (table != null) {
-            CompoundTag state = table.getPersistentData();
             for (int index = 0; index < 13; index++) {
-                graphics.drawString(font, state.getString("effectxianshi" + index), 186, 34 + index * 9, -1, false);
+                graphics.drawString(font, table.effectLine(index), 186, 34 + index * 9, -1, false);
             }
             graphics.drawString(font, Liandan.medicine(table.getItem(11)).name(), 200, 11, -13210, false);
         }

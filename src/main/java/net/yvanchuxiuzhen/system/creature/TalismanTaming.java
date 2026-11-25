@@ -19,7 +19,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.scores.Objective;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
+import net.yvanchuxiuzhen.system.creature.api.CreatureBounties;
+import net.yvanchuxiuzhen.system.creature.api.DungeonCreatures;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.fulu.api.TalismanTamingEvent;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -40,11 +45,11 @@ final class TalismanTaming {
         ServerLevel level = event.level();
         Entity target = event.target();
         Entity shooter = event.shooter();
-        if (target.getPersistentData().getBoolean("fubenentity")) {
+        if (DungeonCreatures.isDungeonEntity(target)) {
             message(shooter, "dungeon");
             return;
         }
-        if (target.getPersistentData().getBoolean("gaoshipaientity")) {
+        if (CreatureBounties.isBounty(target)) {
             message(shooter, "bounty");
             return;
         }
@@ -73,8 +78,9 @@ final class TalismanTaming {
                 living.addEffect(new MobEffectInstance(effect("effect_002"), 100, 0));
                 living.addEffect(new MobEffectInstance(effect("effect_033"), 100, 0));
             }
-            target.getPersistentData().putString("gongjizhe", "");
-            target.getPersistentData().putString("linshigongjizhe", "");
+            CreatureState state = CreatureData.state(target);
+            state.setAttackerUuid("");
+            state.setTempAttackerUuid("");
         } else {
             int threshold = chance.value() >= 90 ? 90 : chance.value() >= 80 ? 80 : chance.value() >= 65 ? 65
                     : chance.value() >= 50 ? 50 : chance.value() >= 35 ? 35 : chance.value() >= 20 ? 20
@@ -94,7 +100,7 @@ final class TalismanTaming {
         float health = target instanceof LivingEntity living ? living.getHealth() : -1;
         float maxHealth = target instanceof LivingEntity living ? living.getMaxHealth() : -1;
         double value = (1 - health / maxHealth) * 20;
-        double delta = grade * 10 - target.getPersistentData().getDouble("LEVELnumber");
+        double delta = grade * 10 - EntityAttributes.level(target);
         value += delta >= 0 ? delta : -delta * delta;
         if (target instanceof LivingEntity living) {
             MobEffectInstance slow = living.getEffect(MobEffects.MOVEMENT_SLOWDOWN);

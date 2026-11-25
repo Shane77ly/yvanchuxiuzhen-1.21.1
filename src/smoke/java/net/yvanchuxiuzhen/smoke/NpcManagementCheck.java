@@ -36,10 +36,15 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.npc.NpcData;
+import net.yvanchuxiuzhen.system.npc.NpcDialogueProfile;
 import net.yvanchuxiuzhen.system.npc.NpcManagementMenu;
 import net.yvanchuxiuzhen.system.npc.NpcSetup;
 import net.yvanchuxiuzhen.system.npc.NpcToolProfile;
+import net.yvanchuxiuzhen.system.npc.api.NpcDefinitions;
 import net.yvanchuxiuzhen.system.npc.client.NpcManagementScreen;
 import net.yvanchuxiuzhen.system.npc.entity.NpcMob;
 import net.yvanchuxiuzhen.system.npc.entity.NpcProfiles;
@@ -321,13 +326,14 @@ final class NpcManagementCheck extends SystemCheck {
     private void checkManagedNpc(ServerPlayer player) {
         NpcMob target = (NpcMob) player.serverLevel().getEntity(npcId);
         if (target == null) throw new IllegalStateException("管理NPC未加载");
-        CompoundTag data = target.getPersistentData();
+        NpcDialogueProfile profile = target.getData(NpcData.PROFILE);
+        EntityStats stats = EntityAttributes.get(target);
         expect("NPC显示自定义中文姓名", NAME, target.getDisplayName().getString());
-        expect("NPC等级持久数据来自管理工具", 2, data.getDouble("LEVELnumber"));
-        expect("NPC持久化任务脚本", TASK, data.getString("renwulist1"));
-        expect("NPC持久化商品与说明", PRODUCTS, data.getString("productlist"));
-        expect("NPC资质由唯一所有者消费", "绝佳", data.getString("health_Max_LEVEL"));
-        expect("NPC固定位置标记传播", true, data.getBoolean("npcset"));
+        expect("NPC等级持久数据来自管理工具", 2, stats.level());
+        expect("NPC持久化任务脚本", TASK, profile.script(0));
+        expect("NPC持久化商品与说明", PRODUCTS, profile.products());
+        expect("NPC资质由唯一所有者消费", "绝佳", stats.rating(Stat.HEALTH_MAX));
+        expect("NPC固定位置标记传播", true, profile.fixed());
         expect("主手装备的数量为一", 1, target.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.MAINHAND).getCount());
         expect("主手装备身份", Items.IRON_SWORD, target.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.MAINHAND).getItem());
         npcInventory = target.saveWithoutId(new CompoundTag()).getList("HandItems", Tag.TAG_COMPOUND);
@@ -340,7 +346,7 @@ final class NpcManagementCheck extends SystemCheck {
         expect("原版Mob主手装备数量为一", 1, ((Mob) target).getItemBySlot(net.minecraft.world.entity.EquipmentSlot.MAINHAND).getCount());
         expect("原版Mob主手装备身份", Items.IRON_SWORD, ((Mob) target).getItemBySlot(net.minecraft.world.entity.EquipmentSlot.MAINHAND).getItem());
         expectTrue("Q149/Q159仍开放：原版Mob只验证姓名装备，未消费完整档案",
-                !target.getPersistentData().contains("renwulist1") && !target.getPersistentData().contains("LEVELnumber"));
+                !target.hasData(NpcData.PROFILE) && !EntityAttributes.hasStats(target));
         cowInventory = target.saveWithoutId(new CompoundTag()).getList("HandItems", Tag.TAG_COMPOUND);
     }
 
@@ -348,7 +354,7 @@ final class NpcManagementCheck extends SystemCheck {
         Entity npc = player.serverLevel().getEntity(npcId);
         Entity cow = player.serverLevel().getEntity(cowId);
         expectTrue("NPC存档重读保持原身份及管理任务", npc instanceof NpcMob
-                && npc.getPersistentData().getString("renwulist1").equals(TASK));
+                && npc.getData(NpcData.PROFILE).script(0).equals(TASK));
         if (npc != null) expectTrue("NPC存档重读保持单件装备", npcInventory.equals(npc.saveWithoutId(new CompoundTag()).getList("HandItems", Tag.TAG_COMPOUND)));
         expectTrue("原版Mob存档重读保持管理姓名及装备", cow != null && cow.getDisplayName().getString().equals(NAME)
                 && cowInventory.equals(cow.saveWithoutId(new CompoundTag()).getList("HandItems", Tag.TAG_COMPOUND)));
@@ -374,14 +380,14 @@ final class NpcManagementCheck extends SystemCheck {
             tool.set(NpcData.TOOL_PROFILE.get(), new NpcToolProfile(current.name(), OWNED_LEVELS[index], scripts,
                     current.products(), current.shopInfo(), ratings, current.fixed(), current.equipment()));
             NpcProfiles.apply(player.serverLevel(), npcBlock, target, tool);
-            expect("受控应用 " + OWNED_IDS[index] + " 同步气血公式", EXPECTED[index][0], target.getPersistentData().getDouble("health_Max"));
+            expect("受控应用 " + OWNED_IDS[index] + " 同步气血公式", EXPECTED[index][0], EntityAttributes.stat(target, Stat.HEALTH_MAX));
             double originalMaximum = target.getAttributeBaseValue(Attributes.MAX_HEALTH);
             // 注册与档案应用位于同一服务端任务；第19次END读旧属性，第20次END在档案回调之后检查。
             SkillDelays.after(19, () -> expect("回调前十九刻 " + BuiltInRegistries.ENTITY_TYPE.getKey(target.getType()), originalMaximum,
                     target.getAttributeBaseValue(Attributes.MAX_HEALTH)));
             SkillDelays.after(20, () -> expect("第二十刻采用最新气血 " + BuiltInRegistries.ENTITY_TYPE.getKey(target.getType()), 777,
                     target.getAttributeBaseValue(Attributes.MAX_HEALTH)));
-            SkillDelays.after(10, () -> target.getPersistentData().putDouble("health_Max", 777));
+            SkillDelays.after(10, () -> EntityAttributes.setStat(target, Stat.HEALTH_MAX, 777));
         }
         SkillDelays.after(20, () -> ownedCallbacksChecked = true);
     }
@@ -392,22 +398,23 @@ final class NpcManagementCheck extends SystemCheck {
             String label = stage + " " + OWNED_IDS[index];
             expectTrue(label + " 原实体已加载", entity instanceof Mob && BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).equals(id(OWNED_IDS[index])));
             if (!(entity instanceof Mob target)) return;
-            CompoundTag data = target.getPersistentData();
+            NpcDialogueProfile profile = target.getData(NpcData.PROFILE);
+            EntityStats stats = EntityAttributes.get(target);
             boolean ratingsMatch = true;
             boolean formulasMatch = true;
-            for (int field = 0; field < PROFILE_FIELDS.length; field++) {
-                ratingsMatch &= data.getString(PROFILE_FIELDS[field] + "_LEVEL").equals(RATINGS[field]);
-                String key = field == 12 ? "speed_number" : PROFILE_FIELDS[field];
+            for (int field = 0; field < EntityAttributes.COMBAT_STATS.size(); field++) {
+                Stat stat = EntityAttributes.COMBAT_STATS.get(field);
+                ratingsMatch &= stats.rating(stat).equals(RATINGS[field]);
                 double expected = field == 0 ? 777 : EXPECTED[index][field];
-                formulasMatch &= Math.abs(data.getDouble(key) - expected) < 1e-6;
+                formulasMatch &= Math.abs(stats.stat(stat) - expected) < 1e-6;
             }
-            boolean scriptsMatch = data.getBoolean("renwuzuopen");
-            for (int task = 1; task <= 10; task++) scriptsMatch &= data.getString("renwulist" + task).equals(TASK + task);
+            boolean scriptsMatch = NpcDefinitions.isInteractiveNpc(target);
+            for (int task = 0; task < 10; task++) scriptsMatch &= profile.script(task).equals(TASK + (task + 1));
             expectTrue(label + " 十三资质与来源公式字段", ratingsMatch && formulasMatch);
-            expectTrue(label + " 十任务、商品说明与固定标记", scriptsMatch && data.getString("productlist").equals(PRODUCTS)
-                    && data.getString("shopinformation").equals(SHOP) && data.getBoolean("npcset"));
-            expect(label + " 小数等级", OWNED_LEVELS[index], data.getDouble("LEVELnumber"));
-            expect(label + " 境界名称", OWNED_NAMES[index], data.getString("LEVELname"));
+            expectTrue(label + " 十任务、商品说明与固定标记", scriptsMatch && profile.products().equals(PRODUCTS)
+                    && profile.shopInfo().equals(SHOP) && profile.fixed());
+            expect(label + " 小数等级", OWNED_LEVELS[index], stats.level());
+            expect(label + " 境界名称", OWNED_NAMES[index], stats.realmName());
             expect(label + " 原生攻击", EXPECTED[index][6], target.getAttributeBaseValue(Attributes.ATTACK_DAMAGE));
             expect(label + " 原生速度", EXPECTED[index][12], target.getAttributeBaseValue(Attributes.MOVEMENT_SPEED));
             expect(label + " 最大气血与回满", 777, target.getMaxHealth());

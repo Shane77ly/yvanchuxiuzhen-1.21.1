@@ -14,6 +14,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.yvanchuxiuzhen.system.combat.api.ArmorPierceMarkEvent;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
@@ -104,8 +105,8 @@ final class HitEnchantments {
             level.sendParticles(ParticleTypes.FLAME, victim.getX(), victim.getY() + victim.getBbHeight() / 2, victim.getZ(), 10, 0, 0, 0, 0.5);
             burst(level, victim, attacker, DamageCategory.FIRE, burning, ParticleTypes.FLAME);
         }
-        if (Enchants.mainHand(attacker, Enchants.key("pojia")) != 0 && victim.isAlive() && victim.getPersistentData().getDouble("caijinumber") < 1) {
-            victim.getPersistentData().putDouble("caijinumber", 1);
+        if (Enchants.mainHand(attacker, Enchants.key("pojia")) != 0 && victim.isAlive()) {
+            NeoForge.EVENT_BUS.post(new ArmorPierceMarkEvent(victim));
         }
         control(victim, attacker, "yvnxvan", 10, "effect_001");
         control(victim, attacker, "chenmo", 10, "effect_002");

@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.skill.entity;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -66,9 +65,9 @@ final class RockEntities {
         hand.moveTo(target.getX(), caster.getY(), target.getZ(), level.getRandom().nextFloat() * 360F, 0);
         if (caster.isShiftKeyDown()) {
             hand.setAnimation(sneakAnimation);
-            hand.getPersistentData().putString("dangqianleixing", TYPE_TWO);
+            hand.setCurrentType(TYPE_TWO);
         } else {
-            hand.getPersistentData().putString("dangqianleixing", TYPE_ONE);
+            hand.setCurrentType(TYPE_ONE);
         }
         SkillEntities.spawn(level, hand, false);
     }
@@ -88,10 +87,7 @@ final class RockEntities {
                     living.addEffect(new MobEffectInstance(StatusEffects.holder("effect_007"), 1200, 1));
                 }
                 if (SkillEntities.is(self, "skill_rock_03") && other instanceof LivingEntity living) {
-                    CompoundTag data = self.getPersistentData();
-                    String attacker = data.getString("AttackUUID");
-                    SpellDamage.command((ServerLevel) self.level(), living, "shanghai 土 " + attacker + " false "
-                            + data.getDouble("AttackDamage") + " " + data.getDouble("Damage_multiplier"));
+                    SpellDamage.command((ServerLevel) self.level(), living, "shanghai 土  false 0.0 0.0");
                 } else {
                     SkillEntities.strike(self, other);
                 }
@@ -105,14 +101,13 @@ final class RockEntities {
         public void tick(SkillEntity self) {
             double yaw = Math.toRadians(self.getYRot());
             self.setDeltaMovement(new Vec3(-0.2 * Math.sin(yaw), -0.2, 0.2 * Math.cos(yaw)));
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            if (scratch.getDouble("tick") >= 200) {
-                scratch.putDouble("tick", 0);
+            self.setSkillTick(self.skillTick() + 1);
+            if (self.skillTick() >= 200) {
+                self.setSkillTick(0);
                 self.discard();
             }
-            scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-            if (scratch.getDouble("tick2") >= 12) {
+            self.setSkillTick2(self.skillTick2() + 1);
+            if (self.skillTick2() >= 12) {
                 for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), self.position(), 2)) {
                     if (!ProjectileSupport.friendly(self, other)) {
                         ProjectileSupport.burst(other, "smallexplosiondeeporange", other.getBbHeight() / 2);
@@ -122,7 +117,7 @@ final class RockEntities {
                         }
                     }
                 }
-                scratch.putDouble("tick2", 0);
+                self.setSkillTick2(0);
             }
         }
     }
@@ -133,17 +128,16 @@ final class RockEntities {
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
             level.sendParticles(ParticleTypes.FLAME, self.getX(), self.getY(), self.getZ(), 4, 0.5, 0.5, 0.5, 0.05);
-            CompoundTag scratch = self.getPersistentData();
             if (self.onGround() || self.isInLava() || self.isInWater()) {
-                scratch.putBoolean("kaishi", true);
+                self.setStarted(true);
             }
-            if (scratch.getBoolean("kaishi")) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 5) {
+            if (self.started()) {
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 5) {
                     level.sendParticles(ParticleTypes.FLAME, self.getX(), self.getY(), self.getZ(), 20, 0, 0, 0, 0.5);
                     smoke(self, self.position(), 20, 0, 0.5);
                     crush(self, self.position(), 3, 0);
-                    scratch.putDouble("tick", 0);
+                    self.setSkillTick(0);
                     self.discard();
                 }
             }
@@ -158,23 +152,22 @@ final class RockEntities {
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            String type = scratch.getString("dangqianleixing");
-            String progress = scratch.getString("jindu");
+            self.setSkillTick(self.skillTick() + 1);
+            String type = self.currentType();
+            String progress = self.progressLabel();
             if (type.equals(TYPE_ONE)) {
-                if (progress.isEmpty() && scratch.getDouble("tick") >= 21) {
+                if (progress.isEmpty() && self.skillTick() >= 21) {
                     BlockPos block = ProjectileSupport.lookBlock(self, 3.5);
                     smoke(self, new Vec3(block.getX(), self.getY(), block.getZ()), 20, 2, 0.2);
                     crush(self, new Vec3(block.getX(), self.getY(), block.getZ()), 2.5, 0.3);
-                    scratch.putString("jindu", "攻击");
-                } else if (progress.equals("攻击") && scratch.getDouble("tick") >= 39) {
-                    scratch.putString("jindu", "清除");
-                    scratch.putDouble("tick", 0);
+                    self.setProgressLabel("攻击");
+                } else if (progress.equals("攻击") && self.skillTick() >= 39) {
+                    self.setProgressLabel("清除");
+                    self.setSkillTick(0);
                     self.discard();
                 }
             } else if (type.equals(TYPE_TWO)) {
-                if (progress.isEmpty() && scratch.getDouble("tick") >= 2) {
+                if (progress.isEmpty() && self.skillTick() >= 2) {
                     BlockPos block = ProjectileSupport.lookBlock(self, 1);
                     Vec3 center = Vec3.atLowerCornerOf(block);
                     smoke(self, center, 20, 0.5, 0.4);
@@ -190,10 +183,10 @@ final class RockEntities {
                             }
                         }
                     }
-                    scratch.putString("jindu", "收尾");
-                } else if (progress.equals("收尾") && scratch.getDouble("tick") >= 19) {
-                    scratch.putString("jindu", "清除");
-                    scratch.putDouble("tick", 0);
+                    self.setProgressLabel("收尾");
+                } else if (progress.equals("收尾") && self.skillTick() >= 19) {
+                    self.setProgressLabel("清除");
+                    self.setSkillTick(0);
                     self.discard();
                 }
             }
@@ -207,36 +200,35 @@ final class RockEntities {
     private static final class BoulderHammer implements EntitySkill {
         @Override
         public void tick(SkillEntity self) {
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            String type = scratch.getString("dangqianleixing");
-            String state = scratch.getString("zhuangtai");
+            self.setSkillTick(self.skillTick() + 1);
+            String type = self.currentType();
+            String state = self.skillState();
             if (type.equals(TYPE_ONE)) {
-                if (state.isEmpty() && scratch.getDouble("tick") >= 11) {
+                if (state.isEmpty() && self.skillTick() >= 11) {
                     smoke(self, self.position(), 20, 0.5, 0.5);
                     hammer(self, true);
-                    scratch.putString("zhuangtai", "攻击");
-                } else if (state.equals("攻击") && scratch.getDouble("tick") >= 33) {
+                    self.setSkillState("攻击");
+                } else if (state.equals("攻击") && self.skillTick() >= 33) {
                     smoke(self, self.position(), 20, 0.5, 0.5);
                     hammer(self, true);
-                    scratch.putString("zhuangtai", "收尾");
-                } else if (state.equals("收尾") && scratch.getDouble("tick") >= 46) {
+                    self.setSkillState("收尾");
+                } else if (state.equals("收尾") && self.skillTick() >= 46) {
                     self.discard();
                 }
             } else if (type.equals(TYPE_TWO)) {
                 if (self.onGround() || self.isInLava() || self.isInWater()) {
-                    scratch.putBoolean("kaishi", true);
+                    self.setStarted(true);
                 }
-                if (scratch.getBoolean("kaishi")) {
-                    scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-                    if (scratch.getDouble("tick2") >= 5) {
+                if (self.started()) {
+                    self.setSkillTick2(self.skillTick2() + 1);
+                    if (self.skillTick2() >= 5) {
                         smoke(self, self.position(), 20, 0.5, 0.5);
                         hammer(self, true);
-                        scratch.putDouble("tick2", 0);
+                        self.setSkillTick2(0);
                         self.discard();
                     }
                 }
-                if (scratch.getDouble("tick") >= 20) {
+                if (self.skillTick() >= 20) {
                     smoke(self, self.position(), 20, 0.5, 0.5);
                     hammer(self, false);
                     self.discard();

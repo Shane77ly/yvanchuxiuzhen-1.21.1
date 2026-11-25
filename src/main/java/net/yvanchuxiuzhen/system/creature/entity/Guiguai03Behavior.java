@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -27,14 +26,18 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouShared;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 
-/** 鬼怪03的来源技能选择、分阶段攻击与鬼火召唤；阶段保存在来源实体字段。 */
+/** 鬼怪03的来源技能选择、分阶段攻击与鬼火召唤；阶段保存在来源实体附件。 */
 final class Guiguai03Behavior {
     private Guiguai03Behavior() { }
 
@@ -45,52 +48,50 @@ final class Guiguai03Behavior {
 
     static void hurt(Entity entity, Entity attacker) {
         if (entity.level().isClientSide || attacker == null || !entity.isAlive() || Relations.isFriendly(entity, attacker)) return;
-        CompoundTag data = entity.getPersistentData();
-        data.putString("linshigongjizhe", attacker.getStringUUID());
-        if (data.getBoolean("beidaduan")) {
+        CreatureState state = CreatureData.state(entity);
+        state.setTempAttackerUuid(attacker.getStringUUID());
+        if (state.interrupted()) {
             animate(entity, "empty");
-            data.putBoolean("beidaduan", false);
+            state.setInterrupted(false);
         }
-        if (data.getString("jineng").isEmpty()) animate(entity, "animation.guiguai03.attacked");
+        if (state.skill().isEmpty()) animate(entity, "animation.guiguai03.attacked");
     }
 
     static void tick(LevelAccessor world, Entity entity) {
         if (entity.level().isClientSide || !entity.isAlive()) return;
-        CompoundTag data = entity.getPersistentData();
-        data.putDouble("entitytick", data.getDouble("entitytick") + 1);
-        if (data.getString("jineng").isEmpty()) data.putString("gongjizhe", data.getString("linshigongjizhe"));
-        Entity target = GuiguaiTargeting.target(world, data.getString("gongjizhe"));
+        CreatureState state = CreatureData.state(entity);
+        state.setTick(state.tick() + 1);
+        if (state.skill().isEmpty()) state.setAttackerUuid(state.tempAttackerUuid());
+        Entity target = GuiguaiTargeting.target(world, state.attackerUuid());
         if (target == null) {
-            if (data.getDouble("entitytick") >= 40) {
+            if (state.tick() >= 40) {
                 ((Mob) entity).getNavigation().moveTo(entity.getX() + GuiguaiTargeting.random(-3, 3), entity.getY(), entity.getZ() + GuiguaiTargeting.random(-3, 3), 1);
-                data.putDouble("entitytick", 0);
+                state.setTick(0);
             }
             return;
         }
         if (!target.isAlive()) {
-            data.putString("gongjizhe", "");
-            data.putString("linshigongjizhe", "");
+            state.setAttackerUuid("");
+            state.setTempAttackerUuid("");
             YaoshouShared.finishSkill(entity);
             return;
         }
-        if (data.getString("jineng").isEmpty()) {
-            if (data.getString("yvdingjineng").isEmpty()) {
+        if (state.skill().isEmpty()) {
+            if (state.queuedSkill().isEmpty()) {
                 choose(entity, target);
-            } else if (data.getDouble("entitytick") >= data.getDouble("yvdingjinengjishi")) {
-                data.putString("jineng", data.getString("yvdingjineng"));
-                data.putString("yvdingjineng", "");
-                data.putDouble("yvdingjinengjishi", 0);
-                data.putDouble("entitytick", 0);
-                for (int i = 1; i <= data.getDouble("jinengshuliang"); i++) {
-                    data.putString("linshijineng" + i, "");
-                    data.putDouble("jinengjishi" + i, 0);
-                    data.putDouble("jinengqvanzhong" + i, 0);
+            } else if (state.tick() >= state.queuedTimer()) {
+                state.setSkill(state.queuedSkill());
+                state.setQueuedSkill("");
+                state.setQueuedTimer(0);
+                state.setTick(0);
+                for (int i = 1; i <= state.candidateCount(); i++) {
+                    state.clearCandidate(i);
                 }
-                data.putDouble("jinengshuliang", 0);
+                state.setCandidateCount(0);
             }
             return;
         }
-        switch (data.getString("jineng")) {
+        switch (state.skill()) {
             case "靠近" -> approach(entity, target);
             case "挣脱" -> YaoshouShared.escape(entity);
             case "普攻" -> basic(world, entity, target);
@@ -107,76 +108,76 @@ final class Guiguai03Behavior {
     }
 
     private static void choose(Entity entity, Entity target) {
-        CompoundTag data = entity.getPersistentData();
+        CreatureState state = CreatureData.state(entity);
         face(entity, target);
         double distance = GuiguaiTargeting.surfaceDistance(entity, target);
         int count = 0;
         if (entity.isPassenger()) {
-            candidate(data, ++count, "挣脱", 10, 100);
+            candidate(state, ++count, "挣脱", 10, 100);
         } else {
             if (!has(entity, "effect_002") && !has(entity, "effect_033")) {
                 if (distance > 3) {
-                    candidate(data, ++count, "靠近", 5, 30);
-                    candidate(data, ++count, "冲刺", 5, 30);
-                    candidate(data, ++count, "瞬身", 5, 30);
-                    candidate(data, ++count, "召唤鬼火", 5, 30);
+                    candidate(state, ++count, "靠近", 5, 30);
+                    candidate(state, ++count, "冲刺", 5, 30);
+                    candidate(state, ++count, "瞬身", 5, 30);
+                    candidate(state, ++count, "召唤鬼火", 5, 30);
                 } else {
-                    candidate(data, ++count, "普攻", 10, 20);
-                    candidate(data, ++count, "三连击", 5, 30);
-                    candidate(data, ++count, "力劈", 5, 30);
-                    candidate(data, ++count, "熊抱", 5, 30);
-                    candidate(data, ++count, "横扫", 5, 30);
+                    candidate(state, ++count, "普攻", 10, 20);
+                    candidate(state, ++count, "三连击", 5, 30);
+                    candidate(state, ++count, "力劈", 5, 30);
+                    candidate(state, ++count, "熊抱", 5, 30);
+                    candidate(state, ++count, "横扫", 5, 30);
                     int amplifier = has(entity, "effect_034") ? ((LivingEntity) entity).getEffect(StatusEffects.holder("effect_034")).getAmplifier() : 0;
-                    candidate(data, ++count, "爆气", 10, 10 + 10 * amplifier);
+                    candidate(state, ++count, "爆气", 10, 10 + 10 * amplifier);
                 }
             }
-            if (!has(entity, "effect_033") && distance < 3) candidate(data, ++count, "普攻", 10, 20);
+            if (!has(entity, "effect_033") && distance < 3) candidate(state, ++count, "普攻", 10, 20);
         }
         int total = 0;
-        for (int i = 1; i <= count; i++) total += (int) data.getDouble("jinengqvanzhong" + i);
+        for (int i = 1; i <= count; i++) total += (int) state.candidateWeight(i);
         int selected = GuiguaiTargeting.random(1, total);
         int weight = 0;
         for (int i = 1; i <= count; i++) {
-            weight += (int) data.getDouble("jinengqvanzhong" + i);
+            weight += (int) state.candidateWeight(i);
             if (weight >= selected) {
-                data.putString("yvdingjineng", data.getString("linshijineng" + i));
-                data.putDouble("yvdingjinengjishi", data.getDouble("jinengjishi" + i));
+                state.setQueuedSkill(state.candidateSkill(i));
+                state.setQueuedTimer(state.candidateTimer(i));
                 break;
             }
         }
-        data.putDouble("jinengshuliang", count);
+        state.setCandidateCount(count);
     }
 
-    private static void candidate(CompoundTag data, int index, String skill, int delay, int weight) {
-        data.putString("linshijineng" + index, skill);
-        data.putDouble("jinengjishi" + index, delay);
-        data.putDouble("jinengqvanzhong" + index, weight);
+    private static void candidate(CreatureState state, int index, String skill, int delay, int weight) {
+        state.setCandidateSkill(index, skill);
+        state.setCandidateTimer(index, delay);
+        state.setCandidateWeight(index, weight);
     }
 
     private static void approach(Entity entity, Entity target) {
-        CompoundTag data = entity.getPersistentData();
+        CreatureState state = CreatureData.state(entity);
         if (phase(entity).isEmpty()) {
             face(entity, target);
             ((Mob) entity).getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 1.5);
-            data.putString("jinengjinxing", "移动中");
+            state.setPhase("移动中");
         } else if (phase(entity).equals("移动中") && tick(entity) >= 40) YaoshouShared.finishSkill(entity);
     }
 
     private static void basic(LevelAccessor world, Entity entity, Entity target) {
         if (phase(entity).isEmpty()) {
-            entity.getPersistentData().putString("jinengjinxing", "准备");
+            CreatureData.state(entity).setPhase("准备");
             animate(entity, "animation.guiguai03.attack");
             face(entity, target);
         } else if (phase(entity).equals("准备") && tick(entity) >= 4) {
             Vec3 center = ahead(entity, 1);
             for (Entity hit : enemies(world, entity, center, new AABB(center, center).inflate(1.5))) {
                 crit(world, hit, 5, .5);
-                double amount = entity.getPersistentData().getDouble("attack_Num");
+                double amount = EntityAttributes.stat(entity, Stat.ATTACK);
                 if (((LivingEntity) entity).hasEffect(MobEffects.WEAKNESS)) amount -= (((LivingEntity) entity).getEffect(MobEffects.WEAKNESS).getAmplifier() + 1) * 4;
                 if (((LivingEntity) entity).hasEffect(MobEffects.DAMAGE_BOOST)) amount += (((LivingEntity) entity).getEffect(MobEffects.DAMAGE_BOOST).getAmplifier() + 1) * 3;
                 hit.hurt(entity.damageSources().source(DamageTypes.PLAYER_ATTACK, entity), (float) Math.max(.1, amount));
             }
-            entity.getPersistentData().putString("jinengjinxing", "攻击");
+            CreatureData.state(entity).setPhase("攻击");
         } else if (phase(entity).equals("攻击") && tick(entity) >= 9) YaoshouShared.finishSkill(entity);
     }
 
@@ -184,7 +185,7 @@ final class Guiguai03Behavior {
         if (phase(entity).isEmpty()) {
             face(entity, target);
             entity.setDeltaMovement(entity.getLookAngle().x, .4, entity.getLookAngle().z);
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
+            CreatureData.state(entity).setPhase("蓄力");
             animate(entity, "animation.guiguai03.skill01");
         } else if (phase(entity).equals("蓄力") && tick(entity) >= 10) {
             face(entity, target);
@@ -197,7 +198,7 @@ final class Guiguai03Behavior {
             face(entity, target);
             ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 10, 0, false, false));
             particles(world, entity, "brokenblack", 20, .5);
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
+            CreatureData.state(entity).setPhase("蓄力");
         } else if (phase(entity).equals("蓄力") && tick(entity) >= 10) {
             double x = 0;
             double z = 0;
@@ -207,7 +208,7 @@ final class Guiguai03Behavior {
                 if (world.isEmptyBlock(BlockPos.containing(x, target.getY(), z))) break;
             }
             entity.teleportTo(x, target.getY(), z);
-            entity.getPersistentData().putString("jinengjinxing", "结束");
+            CreatureData.state(entity).setPhase("结束");
             particles(world, entity, "starblack", 20, .5);
         } else if (phase(entity).equals("结束") && tick(entity) >= 12) {
             face(entity, target);
@@ -220,10 +221,10 @@ final class Guiguai03Behavior {
             if (hug) ((LivingEntity) entity).addEffect(new MobEffectInstance(StatusEffects.holder("skilleffect_08"), 20, 10, false, false));
             face(entity, target);
             Skills.showDamageArea(entity, ahead(entity, hug ? 1.5 : 2), "animation.shanghaifanwei.sige1", "", 20, 0);
-            entity.getPersistentData().putString("jinengjinxing", hug ? "准备" : "序");
+            CreatureData.state(entity).setPhase(hug ? "准备" : "序");
         } else if (phase(entity).equals(hug ? "准备" : "序") && tick(entity) >= (hug ? 6 : 4)) {
             animate(entity, hug ? "animation.guiguai03.skill04" : "animation.guiguai03.skill03");
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
+            CreatureData.state(entity).setPhase("蓄力");
         } else if (phase(entity).equals("蓄力") && tick(entity) >= 20) {
             if (!hug) face(entity, target);
             Vec3 center = ahead(entity, hug ? 1.5 : 2);
@@ -234,14 +235,14 @@ final class Guiguai03Behavior {
                     if (hit instanceof LivingEntity living) living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 20));
                 } else if (!has(hit, "skilleffect_08")) hit.setDeltaMovement((hit.getX() - entity.getX()) * 1.3, .5, (hit.getZ() - entity.getZ()) * 1.3);
             }
-            entity.getPersistentData().putString("jinengjinxing", "结束");
+            CreatureData.state(entity).setPhase("结束");
         } else if (phase(entity).equals("结束") && tick(entity) >= (hug ? 28 : 26)) YaoshouShared.finishSkill(entity);
     }
 
     private static void combo(LevelAccessor world, Entity entity, Entity target, boolean summon) {
         if (phase(entity).isEmpty()) {
             face(entity, target);
-            entity.getPersistentData().putString("jinengjinxing", "第一击");
+            CreatureData.state(entity).setPhase("第一击");
             animate(entity, "animation.guiguai03.skill02");
             return;
         }
@@ -263,7 +264,7 @@ final class Guiguai03Behavior {
                     bleed(hit, 100, 1);
                 }
             }
-            entity.getPersistentData().putString("jinengjinxing", strike == 1 ? "第二击" : strike == 2 ? "第三击" : "结束");
+            CreatureData.state(entity).setPhase(strike == 1 ? "第二击" : strike == 2 ? "第三击" : "结束");
         } else if (phase(entity).equals("结束") && tick(entity) >= 36) YaoshouShared.finishSkill(entity);
     }
 
@@ -280,7 +281,7 @@ final class Guiguai03Behavior {
             scoreboard.getOrCreatePlayerScore(ghost, objective).set(1);
             ghost.setDeltaMovement(entity.getLookAngle());
             Relations.shareEntityAllegiance(entity, ghost);
-            ghost.getPersistentData().putString("gongjizhe", entity.getPersistentData().getString("gongjizhe"));
+            CreatureData.state(ghost).setAttackerUuid(CreatureData.state(entity).attackerUuid());
             ghost.finalizeSpawn(level, level.getCurrentDifficultyAt(ghost.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
             level.addFreshEntity(ghost);
         }
@@ -289,7 +290,7 @@ final class Guiguai03Behavior {
     private static void sweep(LevelAccessor world, Entity entity, Entity target) {
         if (phase(entity).isEmpty()) {
             face(entity, target);
-            entity.getPersistentData().putString("jinengjinxing", "蓄力");
+            CreatureData.state(entity).setPhase("蓄力");
             animate(entity, "animation.guiguai03.skill05");
         } else if ((phase(entity).equals("蓄力") && tick(entity) >= 12) || (phase(entity).equals("续") && tick(entity) >= 17)) {
             boolean first = phase(entity).equals("蓄力");
@@ -301,7 +302,7 @@ final class Guiguai03Behavior {
                 bleed(hit, 600, 0);
             }
             if (first) entity.setDeltaMovement(entity.getLookAngle());
-            entity.getPersistentData().putString("jinengjinxing", first ? "续" : "结束");
+            CreatureData.state(entity).setPhase(first ? "续" : "结束");
         } else if (phase(entity).equals("结束") && tick(entity) >= 20) YaoshouShared.finishSkill(entity);
     }
 
@@ -347,7 +348,7 @@ final class Guiguai03Behavior {
     }
 
     private static void damage(Entity entity, Entity hit, double multiplier) {
-        hit.hurt(entity.damageSources().source(DamageTypes.PLAYER_ATTACK, entity), (float) (entity.getPersistentData().getDouble("attack_Num") * multiplier));
+        hit.hurt(entity.damageSources().source(DamageTypes.PLAYER_ATTACK, entity), (float) (EntityAttributes.stat(entity, Stat.ATTACK) * multiplier));
     }
 
     private static void crit(LevelAccessor world, Entity hit, int count, double speed) {
@@ -367,11 +368,11 @@ final class Guiguai03Behavior {
     }
 
     private static double tick(Entity entity) {
-        return entity.getPersistentData().getDouble("entitytick");
+        return CreatureData.state(entity).tick();
     }
 
     private static String phase(Entity entity) {
-        return entity.getPersistentData().getString("jinengjinxing");
+        return CreatureData.state(entity).phase();
     }
 
     private static void animate(Entity entity, String animation) {

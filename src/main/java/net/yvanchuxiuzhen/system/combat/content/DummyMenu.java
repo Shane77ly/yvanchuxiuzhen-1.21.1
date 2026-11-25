@@ -13,6 +13,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 
 /**
@@ -23,6 +25,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 public final class DummyMenu extends AbstractContainerMenu {
     private static final EquipmentSlot[] ARMOR = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
     private static final String[] DEFENSE_KEYS = {"attack_Def", "mana_Def", "soul_Def"};
+    private static final Stat[] DEFENSE_STATS = {Stat.ATTACK_DEF, Stat.MANA_DEF, Stat.SOUL_DEF};
     private final Container equipment;
     private final int dummyId;
 
@@ -52,8 +55,8 @@ public final class DummyMenu extends AbstractContainerMenu {
         if (!(player instanceof ServerPlayer serverPlayer)) {
             return;
         }
-        for (String key : DEFENSE_KEYS) {
-            Cultivation.setTizhiDouble(serverPlayer, key, dummy.getPersistentData().getDouble(key));
+        for (int index = 0; index < DEFENSE_KEYS.length; index++) {
+            Cultivation.setTizhiDouble(serverPlayer, DEFENSE_KEYS[index], EntityAttributes.stat(dummy, DEFENSE_STATS[index]));
         }
         SimpleContainer equipment = new SimpleContainer(4);
         for (int slot = 0; slot < 4; slot++) {
@@ -77,7 +80,7 @@ public final class DummyMenu extends AbstractContainerMenu {
             return;
         }
         double value = number(text);
-        dummy.getPersistentData().putDouble(DEFENSE_KEYS[button], value);
+        EntityAttributes.setStat(dummy, DEFENSE_STATS[button], value);
         Cultivation.setTizhiDouble(player, DEFENSE_KEYS[button], value);
     }
 

@@ -1,7 +1,10 @@
 package net.yvanchuxiuzhen.system.xiulian.tribulation;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,11 +28,80 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /** 劫云跟随同维度渡劫玩家，逐组分派天雷；死亡与跳过分支按来源分别修改玩家状态。 */
 public final class TribulationCloud extends TribulationEntity {
+    private double trackingTicks;
+    private double patternIndex;
+    private double windupTicks;
+    private double remainingCount;
+    private double boltTicks;
+    private double boltSecondaryTicks;
+    private boolean dragonPhase;
+    private final Map<Integer, String> patterns = new LinkedHashMap<>();
+
     public TribulationCloud(EntityType<TribulationCloud> type, Level level, EntityModelRow model) {
         super(type, level, model, 4, 20);
         moveControl = new FlyingMoveControl(this, 10, true);
         setNoGravity(true);
         refreshDimensions();
+    }
+
+    public double patternIndex() { return patternIndex; }
+    public void setPatternIndex(double patternIndex) { this.patternIndex = patternIndex; }
+    public double windupTicks() { return windupTicks; }
+    public void setWindupTicks(double windupTicks) { this.windupTicks = windupTicks; }
+    public double remainingCount() { return remainingCount; }
+    public void setRemainingCount(double remainingCount) { this.remainingCount = remainingCount; }
+    public double boltTicks() { return boltTicks; }
+    public void setBoltTicks(double boltTicks) { this.boltTicks = boltTicks; }
+    public double boltSecondaryTicks() { return boltSecondaryTicks; }
+    public void setBoltSecondaryTicks(double boltSecondaryTicks) { this.boltSecondaryTicks = boltSecondaryTicks; }
+    public boolean dragonPhase() { return dragonPhase; }
+    public void setDragonPhase(boolean dragonPhase) { this.dragonPhase = dragonPhase; }
+
+    public String pattern(int index) {
+        return patterns.getOrDefault(index, "");
+    }
+
+    public void setPattern(int index, String type) {
+        if (type == null || type.isEmpty()) patterns.remove(index);
+        else patterns.put(index, type);
+    }
+
+    public void removePattern(int index) {
+        patterns.remove(index);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putDouble("zhuizongtick", trackingTicks);
+        tag.putDouble("thundernum", patternIndex);
+        tag.putDouble("qianyao", windupTicks);
+        tag.putDouble("number", remainingCount);
+        tag.putDouble("leipitick", boltTicks);
+        tag.putDouble("leipitick2", boltSecondaryTicks);
+        tag.putBoolean("jieduan", dragonPhase);
+        patterns.forEach((index, type) -> tag.putString("thunder" + index, type));
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        trackingTicks = tag.getDouble("zhuizongtick");
+        patternIndex = tag.getDouble("thundernum");
+        windupTicks = tag.getDouble("qianyao");
+        remainingCount = tag.getDouble("number");
+        boltTicks = tag.getDouble("leipitick");
+        boltSecondaryTicks = tag.getDouble("leipitick2");
+        dragonPhase = tag.getBoolean("jieduan");
+        patterns.clear();
+        for (String key : tag.getAllKeys()) {
+            if (key.startsWith("thunder") && !key.equals("thunder_Att") && !key.equals("thundernum")) {
+                try {
+                    patterns.put(Integer.parseInt(key.substring("thunder".length())), tag.getString(key));
+                } catch (NumberFormatException ignored) {
+                }
+            }
+        }
     }
 
     @Override
@@ -97,9 +169,7 @@ public final class TribulationCloud extends TribulationEntity {
         ServerLevel level = (ServerLevel) level();
         level.sendParticles(ParticleTypes.LARGE_SMOKE, getX(), getY(), getZ(), 100, 30, 5, 30, 0);
         ServerPlayer player = Tribulations.player(this);
-        double tracking = getPersistentData().getDouble("zhuizongtick") + 1;
-        getPersistentData().putDouble("zhuizongtick", tracking);
-        if (tracking >= 5) {
+        if (++trackingTicks >= 5) {
             if (player == null) {
                 discard();
             } else if (!player.isAlive()) {
@@ -110,7 +180,7 @@ public final class TribulationCloud extends TribulationEntity {
                 Cultivation.setTizhiBoolean(player, "tiaoguo", false);
                 success(player);
             }
-            getPersistentData().putDouble("zhuizongtick", 0);
+            trackingTicks = 0;
         }
         if (player != null) teleportTo(player.getX(), player.getY() + 64, player.getZ());
         if (!ThunderPatterns.current(this).isEmpty()) {

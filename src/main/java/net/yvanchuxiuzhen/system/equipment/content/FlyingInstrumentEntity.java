@@ -64,6 +64,16 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
     private final FlyingInstrumentItem.Definition definition;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private String procedure = "";
+    private String flyItemId = "";
+    private String flyEntityId = "";
+    private String flyName = "";
+    private double healthMax;
+    private double powerMax;
+    private double power;
+    private double speedNum;
+    private boolean flying;
+    private double directionYaw;
+    private double anglePitch;
 
     public FlyingInstrumentEntity(EntityType<? extends FlyingInstrumentEntity> type, Level level, EntityModelRow model,
             FlyingInstrumentItem.Definition definition) {
@@ -75,6 +85,9 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
         xpReward = 0;
         setTexture(model.texture());
     }
+
+    public double power() { return power; }
+    public void setPower(double power) { this.power = power; }
 
     public static AttributeSupplier.Builder attributes(EntityModelRow model) {
         return model.attributes();
@@ -90,21 +103,19 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
 
     private void configure(ServerPlayer owner, ItemStack stack) {
         FlyingInstrumentData item = Equipment.flyingInstrument(stack);
-        CompoundTag data = getPersistentData();
-        data.putString("flyitemID", item.itemId());
-        data.putString("flyentityID", item.entityId());
-        data.putString("flyname", item.name());
-        data.putDouble("health_Max", item.healthMax());
-        data.putDouble("health", item.health());
-        data.putDouble("power_Max", item.powerMax());
-        data.putDouble("power", item.power());
-        data.putDouble("speed_num", item.speed());
-        data.putBoolean("flying", false);
+        flyItemId = item.itemId();
+        flyEntityId = item.entityId();
+        flyName = item.name();
+        healthMax = item.healthMax();
+        powerMax = item.powerMax();
+        power = item.power();
+        speedNum = item.speed();
+        flying = false;
         // 来源无方向物品能力的0号槽为原生主手，完整原物品随实体装备槽保存。
         setItemInHand(InteractionHand.MAIN_HAND, stack.copyWithCount(1));
         Relations.copyAllegiance(owner, this);
-        getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
-        setHealth((float) (data.getDouble("health") > 0 ? data.getDouble("health") : data.getDouble("health_Max")));
+        getAttribute(Attributes.MAX_HEALTH).setBaseValue(healthMax);
+        setHealth((float) (item.health() > 0 ? item.health() : healthMax));
     }
 
     @Override
@@ -146,7 +157,6 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
     }
 
     private void updateFlight() {
-        CompoundTag data = getPersistentData();
         if (!isVehicle()) {
             if (isInWater()) {
                 setDeltaMovement(new Vec3(0, .1, 0));
@@ -162,18 +172,18 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
         }
         for (Entity passenger : getPassengers()) {
             if (!(passenger instanceof ServerPlayer player)) continue;
-            double speed = data.getDouble("speed_num");
-            if (Cultivation.get(player, CultivationValue.POWER) + data.getDouble("power") >= speed) {
-                data.putDouble("fangxiang", player.getYRot());
-                data.putDouble("jiaodu", player.getXRot());
-                if (data.getBoolean("flying")) {
-                    if (data.getDouble("power") >= 0) {
-                        data.putDouble("power", data.getDouble("power") - speed);
+            double speed = speedNum;
+            if (Cultivation.get(player, CultivationValue.POWER) + power >= speed) {
+                directionYaw = player.getYRot();
+                anglePitch = player.getXRot();
+                if (flying) {
+                    if (power >= 0) {
+                        power -= speed;
                     } else {
                         Cultivation.add(player, CultivationValue.POWER, -speed);
                     }
-                    setYRot((float) data.getDouble("fangxiang"));
-                    setXRot((float) data.getDouble("jiaodu"));
+                    setYRot((float) directionYaw);
+                    setXRot((float) anglePitch);
                     setYBodyRot(getYRot());
                     setYHeadRot(getYRot());
                     yRotO = getYRot();
@@ -207,24 +217,22 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
 
     private void handleUse(ServerPlayer player) {
         ItemStack held = player.getMainHandItem();
-        CompoundTag data = getPersistentData();
         if (held.is(LINGSHI)) {
-            double power = data.getDouble("power");
-            double maximum = data.getDouble("power_Max");
+            double maximum = powerMax;
             if (power < maximum) {
                 player.serverLevel().sendParticles(ParticleTypes.CLOUD, getX(), getY(), getZ(), 10, 1, 1, 1, .05);
                 int amount = materialPower(held);
                 if (amount > 0) {
-                    data.putDouble("power", power + amount);
+                    power += amount;
                     Item ingredient = held.getItem();
                     player.getInventory().clearOrCountMatchingItems(stack -> stack.is(ingredient), 1, player.inventoryMenu.getCraftSlots());
                 }
             }
             player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.flyinginstrument.power",
-                    new DecimalFormat("0").format(data.getDouble("power")), new DecimalFormat("0").format(maximum)), false);
-            if (data.getDouble("power") > maximum) {
+                    new DecimalFormat("0").format(power), new DecimalFormat("0").format(maximum)), false);
+            if (power > maximum) {
                 player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.flyinginstrument.full"), false);
-                data.putDouble("power", maximum);
+                power = maximum;
             }
         } else if (isItem(held, "hammer")) {
             if (getHealth() < getMaxHealth()) {
@@ -259,7 +267,7 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
     private ItemStack itemStack() {
         ItemStack original = getMainHandItem().copyWithCount(1);
         // 此前已投放的法器只保存物品 ID 和飞行字段，没有保存装备槽。
-        if (original.isEmpty() && getPersistentData().getString("flyitemID").equals(ModId.VALUE + ":" + definition.itemId())) {
+        if (original.isEmpty() && flyItemId.equals(ModId.VALUE + ":" + definition.itemId())) {
             original = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, definition.itemId())));
         }
         return itemStack(original, getHealth());
@@ -267,16 +275,15 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
 
     private ItemStack itemStack(ItemStack stack, double health) {
         if (stack.isEmpty()) return stack;
-        CompoundTag data = getPersistentData();
         stack.set(EquipmentData.FLYING_INSTRUMENT.get(), new FlyingInstrumentData(
-                data.getString("flyitemID"),
-                data.getString("flyentityID"),
-                data.getString("flyname"),
-                data.getDouble("health_Max"),
+                flyItemId,
+                flyEntityId,
+                flyName,
+                healthMax,
                 health,
-                data.getDouble("power_Max"),
-                data.getDouble("power"),
-                data.getDouble("speed_num")));
+                powerMax,
+                power,
+                speedNum));
         return stack;
     }
 
@@ -333,16 +340,41 @@ public final class FlyingInstrumentEntity extends PathfinderMob implements GeoEn
         if (deathTime == 20) remove(RemovalReason.KILLED);
     }
 
+    public double powerMax() { return powerMax; }
+    public boolean flying() { return flying; }
+    public void setFlying(boolean flying) { this.flying = flying; }
+    public String flyItemId() { return flyItemId; }
+
     @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putString("texture", texture());
+        tag.putString("flyItemId", flyItemId);
+        tag.putString("flyEntityId", flyEntityId);
+        tag.putString("flyName", flyName);
+        tag.putDouble("healthMax", healthMax);
+        tag.putDouble("powerMax", powerMax);
+        tag.putDouble("power", power);
+        tag.putDouble("speedNum", speedNum);
+        tag.putBoolean("flying", flying);
+        tag.putDouble("directionYaw", directionYaw);
+        tag.putDouble("anglePitch", anglePitch);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         setTexture(tag.getString("texture"));
+        flyItemId = tag.getString("flyItemId");
+        flyEntityId = tag.getString("flyEntityId");
+        flyName = tag.getString("flyName");
+        healthMax = tag.getDouble("healthMax");
+        powerMax = tag.getDouble("powerMax");
+        power = tag.getDouble("power");
+        speedNum = tag.getDouble("speedNum");
+        flying = tag.getBoolean("flying");
+        directionYaw = tag.getDouble("directionYaw");
+        anglePitch = tag.getDouble("anglePitch");
     }
 
     @Override

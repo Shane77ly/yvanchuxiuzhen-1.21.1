@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.guchong.api;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -23,19 +22,9 @@ public final class GuchongTracking {
                 destination.getX(), destination.getY(), destination.getZ(), 0, 0, 0, false, false));
     }
 
-    /** 实体回收保留来源明确复制的十个字段，两个计时器属于当前实体实例。 */
-    public static ItemStack fromState(CompoundTag source) {
-        return item(new GuchongTrackingData(
-                source.getBoolean("zhuizhong"),
-                source.getString("belongToMasterUUID"),
-                source.getDouble("zuobiaoX"),
-                source.getDouble("zuobiaoY"),
-                source.getDouble("zuobiaoZ"),
-                source.getDouble("homeblockX"),
-                source.getDouble("homeblockY"),
-                source.getDouble("homeblockZ"),
-                source.getBoolean("guchongxvnfu"),
-                source.getBoolean("kanjia")));
+    /** 实体回收保留物品组件的十个追踪字段，两个计时器属于当前实体实例。 */
+    public static ItemStack fromState(GuchongTrackingData data) {
+        return item(data == null ? GuchongTrackingData.EMPTY : data);
     }
 
     private static ItemStack item(GuchongTrackingData data) {

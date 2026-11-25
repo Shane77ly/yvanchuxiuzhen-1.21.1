@@ -42,6 +42,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.panel.PanelNavigation;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.Contribution;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
@@ -346,7 +347,7 @@ final class RenjianFirstSpellCheck {
         killTarget.setHealth(1.25F);
         if (!player.serverLevel().addFreshEntity(killTarget)) throw new IllegalStateException("收尾普通牛未加入场地");
         host.expect("普通牛实际生命上限", 10, killTarget.getMaxHealth());
-        host.expect("普通牛层数", 0, killTarget.getPersistentData().getDouble("LEVELnumber"));
+        host.expect("普通牛层数", 0, EntityAttributes.level(killTarget));
         host.expect("收尾前待吸收为零", 0, Cultivation.get(player, CultivationValue.EXPERIENCE_STAND));
         meritsBefore = Cultivation.get(player, CultivationValue.MERITS);
         vigorousBefore = Cultivation.get(player, CultivationValue.VIGOROUS);

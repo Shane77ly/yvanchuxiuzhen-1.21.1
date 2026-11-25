@@ -33,7 +33,7 @@ final class InkBlankCooking {
     }
 
     static void begin(ServerPlayer player, CookingPotBlockEntity pot) {
-        CompoundTag temporary = pot.getPersistentData().getCompound("kong");
+        CompoundTag temporary = pot.inkScratch();
         double levelSum = 0;
         double materialSlots = 0;
         for (int slot = 0; slot < 9; slot++) {
@@ -82,8 +82,8 @@ final class InkBlankCooking {
                 else if (identity.equals(CINNABAR)) consumePowder(pot, temporary, slot, "item2num");
             }
         }
-        pot.getPersistentData().putBoolean("cooking", true);
-        if (pot.iron()) pot.getPersistentData().putInt("cookanimation", 9);
+        pot.setCooking(true);
+        if (pot.iron()) pot.setCookAnimation(9);
         pot.changed();
         player.closeContainer();
     }

@@ -34,6 +34,7 @@ public final class JewelryTableBlockEntity extends RandomizableContainerBlockEnt
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private String category = "";
 
     public JewelryTableBlockEntity(BlockPos pos, BlockState state) {
         super(EquipmentBlockEntities.JEWELRY_TABLE.get(), pos, state);
@@ -43,11 +44,11 @@ public final class JewelryTableBlockEntity extends RandomizableContainerBlockEnt
     }
 
     public String category() {
-        return getPersistentData().getString("shipintainame");
+        return category;
     }
 
     public void setCategory(String category) {
-        getPersistentData().putString("shipintainame", category);
+        this.category = category == null ? "" : category;
         setChanged();
         level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
     }
@@ -78,6 +79,7 @@ public final class JewelryTableBlockEntity extends RandomizableContainerBlockEnt
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
+        category = tag.getString("shipintainame");
         items = NonNullList.withSize(4, ItemStack.EMPTY);
         if (!tryLoadLootTable(tag)) ContainerHelper.loadAllItems(tag, items, registries);
     }
@@ -85,6 +87,7 @@ public final class JewelryTableBlockEntity extends RandomizableContainerBlockEnt
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
+        tag.putString("shipintainame", category);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
     }
 

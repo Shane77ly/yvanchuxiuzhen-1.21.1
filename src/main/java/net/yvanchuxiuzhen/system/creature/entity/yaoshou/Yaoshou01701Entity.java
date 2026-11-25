@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import java.util.Random;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -27,7 +26,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.creature.api.SpiritBeastBags;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -65,26 +69,32 @@ public final class Yaoshou01701Entity extends Animal implements GeoEntity, Anima
     @Override public boolean hurt(DamageSource source, float amount) {
         Entity attacker = source.getEntity();
         if (isAlive() && attacker != null && !Relations.isFriendly(this, attacker)) {
-            getPersistentData().putString("linshigongjizhe", attacker.getStringUUID());
-            if (getPersistentData().getBoolean("beidaduan")) { setAnimation("empty"); getPersistentData().putBoolean("beidaduan", false); }
-            if (getPersistentData().getString("jineng").isEmpty() && !level().isClientSide()) setAnimation("animation.yaoshou01701.attacked");
+            CreatureState state = CreatureData.state(this);
+            state.setTempAttackerUuid(attacker.getStringUUID());
+            if (state.interrupted()) { setAnimation("empty"); state.setInterrupted(false); }
+            if (state.skill().isEmpty() && !level().isClientSide()) setAnimation("animation.yaoshou01701.attacked");
         }
         return !source.is(DamageTypes.DROWN) && super.hurt(source, amount);
     }
     @Override public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData data) {
         SpawnGroupData result = super.finalizeSpawn(level, difficulty, reason, data);
-        CompoundTag scratch = getPersistentData();
-        if (scratch.getString("LEVELname").isEmpty()) {
-            if (scratch.getDouble("LEVELnumber") < 1) scratch.putDouble("LEVELnumber", 1);
-            double number = scratch.getDouble("LEVELnumber");
+        if (EntityAttributes.realmName(this).isEmpty()) {
+            double number = EntityAttributes.level(this) < 1 ? 1 : EntityAttributes.level(this);
             getAttribute(YaoshouAttributes.SIZE).setBaseValue((new Random().nextInt(31) + 70) * 0.01 + (number / 4) * 0.1);
-            String[] keys = {"health_Max", "health_Rec", "power_Max", "power_Rec", "soul_Max", "soul_Rec", "attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def", "speed"};
+            Stat[] stats = {Stat.HEALTH_MAX, Stat.HEALTH_REC, Stat.POWER_MAX, Stat.POWER_REC, Stat.SOUL_MAX, Stat.SOUL_REC,
+                    Stat.ATTACK, Stat.ATTACK_DEF, Stat.MANA_ATT, Stat.MANA_DEF, Stat.SOUL_ATT, Stat.SOUL_DEF, Stat.MOVE_SPEED};
             String[] ratings = {"勉强", "贫弱", "贫弱", "勉强", "贫弱", "贫弱", "平庸", "贫弱", "勉强", "贫弱", "强劲", "贫弱", "贫弱"};
-            for (int index = 0; index < keys.length; index++) scratch.putString(keys[index] + "_LEVEL", ratings[index]);
-            YaoshouShared.updateLevelName(scratch, number);
-            if (number <= 40 && scratch.getDouble("experience_Max") < 1) { double maximum = 100; for (int index = 1; index <= (int) number; index++) maximum += index * index * 10 + 10; scratch.putDouble("experience_Max", maximum); }
-            YaoshouShared.calculateAttributes(this, scratch, number);
-            YaoshouShared.initializeCharacter(this, scratch);
+            double maxExp = EntityAttributes.experienceMax(this);
+            if (number <= 40 && maxExp < 1) { maxExp = 100; for (int index = 1; index <= (int) number; index++) maxExp += index * index * 10 + 10; }
+            double finalMaxExp = maxExp;
+            EntityAttributes.update(this, current -> {
+                EntityStats updated = current.withLevel(number).withExperienceMax(finalMaxExp);
+                for (int index = 0; index < stats.length; index++) updated = updated.withRating(stats[index], ratings[index]);
+                return updated;
+            });
+            YaoshouShared.updateLevelName(this, number);
+            YaoshouShared.calculateAttributes(this, number);
+            YaoshouShared.initializeCharacter(this, CreatureData.state(this));
             String team = getType().builtInRegistryHolder().key().location().toString().replace(':', '_');
             Relations.setTeam(this, team); Relations.addFriendlyTeam(this, team);
         }

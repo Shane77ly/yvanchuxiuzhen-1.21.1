@@ -49,6 +49,7 @@ import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fabao014;
 import net.yvanchuxiuzhen.system.equipment.projectile.FabaoProjectile;
 import net.yvanchuxiuzhen.system.equipment.projectile.FabaoPoisonFields;
+import net.yvanchuxiuzhen.system.skill.api.MountToggleFlightEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
 
 /**
@@ -64,6 +65,11 @@ public final class EquipmentSetup {
     public static void register(IEventBus modBus) {
         EquipmentData.register(modBus);
         NeoForge.EVENT_BUS.addListener(EventPriority.HIGH, false, CultivationSecondEvent.class, EquipmentRecalculation::onSecond);
+        NeoForge.EVENT_BUS.addListener((MountToggleFlightEvent event) -> {
+            if (event.vehicle() instanceof FlyingInstrumentEntity instrument) {
+                instrument.setFlying(!instrument.flying());
+            }
+        });
         EquipmentMenus.register(modBus);
         EquipmentBlockEntities.register(modBus);
         modBus.addListener(EquipmentSetup::registerPayloads);

@@ -32,6 +32,8 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.creature.content.CoffinBlock;
 import net.yvanchuxiuzhen.system.creature.content.CoffinBlockEntity;
 import net.yvanchuxiuzhen.system.creature.content.CoffinBlockItem;
@@ -171,7 +173,7 @@ final class CoffinGhostCheck extends SystemCheck {
         onServer(player -> {
             if (player.serverLevel().getGameTime() - intervalStart < 25) return;
             ready[0] = true;
-            expect(mode + "玩家经过自然计划刻不触发", 0, coffin(player).getPersistentData().getDouble("opentick"));
+            expect(mode + "玩家经过自然计划刻不触发", 0, coffin(player).openTick());
             player.setGameMode(next);
         });
         if (!ready[0] && local > 200) onServer(player -> abort(player, mode + "排除检查未推进二十五个服务端刻"));
@@ -186,7 +188,7 @@ final class CoffinGhostCheck extends SystemCheck {
     private boolean naturalSpawn(int local) {
         boolean[] ready = {false};
         onServer(player -> {
-            double remaining = coffin(player).getPersistentData().getDouble("opentick");
+            double remaining = coffin(player).openTick();
             if (remaining <= 0 || remaining > 59) return;
             ready[0] = true;
             checkNaturalSpawn(player);
@@ -198,12 +200,12 @@ final class CoffinGhostCheck extends SystemCheck {
     private void checkNaturalSpawn(ServerPlayer player) {
         CoffinBlockEntity coffin = coffin(player);
         expectTrue("生存玩家由自然二十刻计划刻触发并推进倒计时",
-                coffin.getPersistentData().getDouble("opentick") > 0 && coffin.getPersistentData().getDouble("opentick") <= 59);
+                coffin.openTick() > 0 && coffin.openTick() <= 59);
         expectTrue("来源感应随机动画保持1至3", coffin.getBlockState().getValue(CoffinBlock.ANIMATION) >= 1
                 && coffin.getBlockState().getValue(CoffinBlock.ANIMATION) <= 3);
         List<Zombie> zombies = zombies(player);
         expect("自然六十到五十九只生成一只僵尸", 1, zombies.size());
-        expectTrue("生成标记已持久化", coffin.getPersistentData().getBoolean("shengcheng"));
+        expectTrue("生成标记已持久化", coffin.spawned());
         if (zombies.size() != 1) {
             abort(player, "自然僵尸生成数量前置失败，停止依赖步骤");
             return;
@@ -232,39 +234,39 @@ final class CoffinGhostCheck extends SystemCheck {
             expectTrue("来源僵尸服装部件匹配 " + piece, BuiltInRegistries.ITEM.getKey(zombie.getItemBySlot(slot).getItem())
                     .getPath().equals("clothes_" + armorSet + "_" + piece));
         }
-        expect("来源物防", 24, zombie.getPersistentData().getDouble("attack_Def"));
-        expect("来源法防", 15, zombie.getPersistentData().getDouble("mana_Def"));
-        expect("来源魂防", 40, zombie.getPersistentData().getDouble("soul_Def"));
+        expect("来源物防", 24, EntityAttributes.stat(zombie, Stat.ATTACK_DEF));
+        expect("来源法防", 15, EntityAttributes.stat(zombie, Stat.MANA_DEF));
+        expect("来源魂防", 40, EntityAttributes.stat(zombie, Stat.SOUL_DEF));
     }
 
     private boolean scheduledBoundary(int step, int local, double before, double expected) {
         if (executed != step) {
             executed = step;
             onServer(player -> {
-                CompoundTag data = coffin(player).getPersistentData();
-                data.putDouble("opentick", before);
-                data.putBoolean("shengcheng", true);
-                coffin(player).setChanged();
+                CoffinBlockEntity coffin = coffin(player);
+                coffin.setOpenTick(before);
+                coffin.setSpawned(true);
+                coffin.setChanged();
                 intervalStart = player.serverLevel().getGameTime();
             });
         }
         boolean[] ready = {false};
         onServer(player -> {
-            CompoundTag data = coffin(player).getPersistentData();
-            if (data.getDouble("opentick") != expected) return;
+            CoffinBlockEntity coffin = coffin(player);
+            if (coffin.openTick() != expected) return;
             ready[0] = true;
             expectTrue("受控" + (int) expected + "边界由后续自然计划刻推进",
                     player.serverLevel().getGameTime() > intervalStart);
             if (expected == 59) expect("生成标记已为真时不重复生成", 1, zombies(player).size());
             if (expected == 49) expect("自然计划刻四十九边界播放来源动画四", 4,
-                    coffin(player).getBlockState().getValue(CoffinBlock.ANIMATION).intValue());
+                    coffin.getBlockState().getValue(CoffinBlock.ANIMATION).intValue());
             if (expected == 47) expect("自然计划刻四十七边界恢复来源动画零", 0,
-                    coffin(player).getBlockState().getValue(CoffinBlock.ANIMATION).intValue());
+                    coffin.getBlockState().getValue(CoffinBlock.ANIMATION).intValue());
             if (expected == 0) {
-                expectTrue("自然计划刻冷却归零清除生成标记", !data.getBoolean("shengcheng"));
-                data.putDouble("opentick", 42);
-                data.putBoolean("shengcheng", true);
-                coffin(player).setChanged();
+                expectTrue("自然计划刻冷却归零清除生成标记", !coffin.spawned());
+                coffin.setOpenTick(42);
+                coffin.setSpawned(true);
+                coffin.setChanged();
             }
         });
         if (!ready[0] && local > 200) onServer(player -> abort(player, "自然计划刻未到达受控" + (int) expected + "边界"));
@@ -288,8 +290,8 @@ final class CoffinGhostCheck extends SystemCheck {
         ghost.setNoGravity(false);
         expectTrue("来源飞行移动控制、导航与强制无重力", ghost.getMoveControl() instanceof FlyingMoveControl
                 && ghost.getNavigation() instanceof FlyingPathNavigation && ghost.isNoGravity());
-        expect("原生蛋触发来源等级初始化", 3, ghost.getPersistentData().getDouble("LEVELnumber"));
-        expect("原生蛋触发来源境界初始化", "一阶中级", ghost.getPersistentData().getString("LEVELname"));
+        expect("原生蛋触发来源等级初始化", 3, EntityAttributes.level(ghost));
+        expect("原生蛋触发来源境界初始化", "一阶中级", EntityAttributes.realmName(ghost));
         expect("原生蛋触发来源资质生命公式", 131, ghost.getMaxHealth());
         expect("来源默认透明基础纹理", "kong", ghost.texture());
         ghost.getPersistentData().putBoolean("IsAngry", true);
@@ -366,10 +368,10 @@ final class CoffinGhostCheck extends SystemCheck {
             onServer(player -> {
                 ghost.moveTo(origin.getX() + 4.5, origin.getY() + 0.8, origin.getZ() + 0.5, 180, 0);
                 ghost.setDeltaMovement(Vec3.ZERO);
-                CompoundTag data = coffin(player).getPersistentData();
-                data.putDouble("opentick", 42);
-                data.putBoolean("shengcheng", true);
-                coffin(player).setChanged();
+                CoffinBlockEntity coffin = coffin(player);
+                coffin.setOpenTick(42);
+                coffin.setSpawned(true);
+                coffin.setChanged();
                 player.teleportTo(player.serverLevel(), origin.getX() + 2.5, origin.getY() + 0.6,
                         origin.getZ() + 6.5, 180, 10);
             });
@@ -404,9 +406,9 @@ final class CoffinGhostCheck extends SystemCheck {
             abort(player, "真实重进缺少棺材方块实体，停止依赖步骤");
             return;
         }
-        CompoundTag data = coffin(player).getPersistentData();
-        expectTrue("真实保存重进保留开棺计时并继续自然推进", data.getDouble("opentick") > 0 && data.getDouble("opentick") < 42);
-        expectTrue("真实保存重进保留生成标记", data.getBoolean("shengcheng"));
+        CoffinBlockEntity coffin = coffin(player);
+        expectTrue("真实保存重进保留开棺计时并继续自然推进", coffin.openTick() > 0 && coffin.openTick() < 42);
+        expectTrue("真实保存重进保留生成标记", coffin.spawned());
         expectTrue("真实保存重进保留原僵尸且未重复生成", player.serverLevel().getEntity(zombieId) instanceof Zombie
                 && zombies(player).size() == 1);
         Entity loaded = player.serverLevel().getEntity(ghostId);
@@ -415,8 +417,8 @@ final class CoffinGhostCheck extends SystemCheck {
             return;
         }
         ghost = restored;
-        expectTrue("真实保存重进保留游魂类型与来源资质", ghost.getPersistentData().getDouble("LEVELnumber") == 3
-                && ghost.getPersistentData().getString("soul_Att_LEVEL").equals("强劲") && ghost.getMaxHealth() == 131);
+        expectTrue("真实保存重进保留游魂类型与来源资质", EntityAttributes.level(ghost) == 3
+                && EntityAttributes.rating(ghost, Stat.SOUL_ATT).equals("强劲") && ghost.getMaxHealth() == 131);
     }
 
     private void killGhost(ServerPlayer player) {

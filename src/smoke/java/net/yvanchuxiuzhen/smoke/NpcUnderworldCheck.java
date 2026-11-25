@@ -25,7 +25,10 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.npc.NpcData;
+import net.yvanchuxiuzhen.system.npc.NpcDialogueProfile;
 import net.yvanchuxiuzhen.system.npc.NpcSetup;
+import net.yvanchuxiuzhen.system.npc.api.NpcDefinitions;
 import net.yvanchuxiuzhen.system.npc.entity.NpcUnderworldGuard;
 import net.yvanchuxiuzhen.system.npc.entity.NpcUnderworldJudge;
 
@@ -134,7 +137,7 @@ final class NpcUnderworldCheck extends SystemCheck {
         boolean undead = kind.equals("niutou") || kind.equals("mamian");
         expectTrue(kind + " 默认启用 AI 且持久存在", !entity.isNoAi() && entity.isPersistenceRequired() && !entity.removeWhenFarAway(10000));
         expectTrue(kind + " 来源并无火焰免疫或内置对话标签", !entity.getType().fireImmune() && !entity.getType().is(NPC)
-                && !entity.getPersistentData().getBoolean("renwuzuopen"));
+                && !NpcDefinitions.isInteractiveNpc(entity));
         expectTrue(kind + " 亡灵总标签", entity.getType().is(EntityTypeTags.UNDEAD) == undead);
         expectTrue(kind + " 治疗伤害反转", entity.isInvertedHealAndHarm() == undead);
         expectTrue(kind + " 毒与再生接收条件", entity.canBeAffected(new MobEffectInstance(MobEffects.POISON, 20)) != undead
@@ -153,14 +156,14 @@ final class NpcUnderworldCheck extends SystemCheck {
             expectTrue("阎王初生当前和上次朝向清零", entity.getYRot() == 0 && entity.getXRot() == 0 && entity.yRotO == 0
                     && entity.xRotO == 0 && entity.yBodyRot == 0 && entity.yBodyRotO == 0 && entity.yHeadRot == 0 && entity.yHeadRotO == 0);
         }
-        entity.getPersistentData().putBoolean("renwuzuopen", true);
-        entity.getPersistentData().putString("renwulist1", "阴司实例脚本存档检查");
+        NpcDefinitions.setInteractiveNpc(entity, true);
+        entity.setData(NpcData.PROFILE, entity.getData(NpcData.PROFILE).withScript(0, "阴司实例脚本存档检查"));
         setTexture(entity, "temporary_underworld_texture");
         CompoundTag saved = entity.saveWithoutId(new CompoundTag());
         Mob restored = fresh(player, kind);
         restored.load(saved);
-        expectTrue(kind + " 保留实例脚本字段", restored.getPersistentData().getBoolean("renwuzuopen")
-                && restored.getPersistentData().getString("renwulist1").equals("阴司实例脚本存档检查"));
+        expectTrue(kind + " 保留实例脚本字段", NpcDefinitions.isInteractiveNpc(restored)
+                && restored.getData(NpcData.PROFILE).script(0).equals("阴司实例脚本存档检查"));
         expectTrue(kind + " 来源纹理并不单独持久化", !saved.contains("Texture") && !texture(restored).equals("temporary_underworld_texture"));
         int deathTicks = undead ? 120 : 20;
         Mob dying = fresh(player, kind);

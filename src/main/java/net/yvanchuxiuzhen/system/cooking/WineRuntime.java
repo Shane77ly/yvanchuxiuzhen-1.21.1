@@ -74,7 +74,7 @@ public final class WineRuntime {
         if (!wine.isEmpty()) Cooking.setWineAge(wine, Cooking.wineAge(wine) + 1);
         wine.setCount(1);
         jar.setItem(0, wine);
-        jar.getPersistentData().putDouble("agenum", 0);
+        jar.setAgeCounter(0);
         jar.changed();
     }
 

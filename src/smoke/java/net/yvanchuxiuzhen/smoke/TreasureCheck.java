@@ -14,7 +14,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,8 +23,10 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
+import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
 import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 import net.yvanchuxiuzhen.system.treasure.content.TreasureChestBlockEntity;
+import net.yvanchuxiuzhen.system.treasure.data.TreasureData;
 
 /** 物品与地面宝箱自然消费、奖励实例和开箱状态的必要生命周期检查。 */
 final class TreasureCheck extends SystemCheck {
@@ -98,7 +99,7 @@ final class TreasureCheck extends SystemCheck {
             }
             case 12 -> {
                 onServer(player -> {
-                    expectTrue("无钥匙自然右键保持上锁未打开", !chest(player, locked).getPersistentData().getBoolean("dakai"));
+                    expectTrue("无钥匙自然右键保持上锁未打开", !chest(player, locked).opened());
                     ItemStack keys = item("treasure_chest_1101").copyWithCount(2);
                     keys.set(DataComponents.CUSTOM_NAME, Component.literal("藏阁钥匙"));
                     stage(player, keys);
@@ -109,16 +110,19 @@ final class TreasureCheck extends SystemCheck {
             case 14 -> {
                 onServer(player -> {
                     TreasureChestBlockEntity chest = chest(player, locked);
-                    CompoundTag state = chest.getPersistentData();
+                    TreasureContainerConfig config = chest.getData(TreasureData.BLOCK_CONTAINER);
                     expect("钥匙自然开箱消耗一个", 1, player.getMainHandItem().getCount());
-                    expectTrue("锁箱自然初始化类别等级及数量", state.getBoolean("dakai")
-                            && !state.getString("TreasureTypeBig").isEmpty() && !state.getString("TreasureTypeSmall").isEmpty()
-                            && state.getDouble("TreasureLEVEL") >= 1 && state.getDouble("TreasureLEVEL") <= 8
-                            && state.getDouble("minimumvalue") == 1 && state.getDouble("Maximumvalue") >= 1);
+                    expectTrue("锁箱自然初始化类别等级及数量", chest.opened()
+                            && !config.category().isEmpty() && !config.subtype().isEmpty()
+                            && config.level() >= 1 && config.level() <= 8
+                            && config.minimum() == 1 && config.maximum() >= 1);
                     CompoundTag serialized = chest.saveWithFullMetadata(player.registryAccess());
                     TreasureChestBlockEntity restored = new TreasureChestBlockEntity(locked, chest.getBlockState());
                     restored.loadWithComponents(serialized, player.registryAccess());
-                    expect("开箱中持久字段真实序列化重读", state, restored.getPersistentData());
+                    expect("开箱中打开标志真实序列化重读", chest.opened(), restored.opened());
+                    expect("开箱中计时真实序列化重读", chest.tickCount(), restored.tickCount());
+                    expect("开箱中状态真实序列化重读", chest.openState(), restored.openState());
+                    expect("开箱中容器配置真实序列化重读", config, restored.getData(TreasureData.BLOCK_CONTAINER));
                     clearDrops(player);
                 });
             }
@@ -133,8 +137,8 @@ final class TreasureCheck extends SystemCheck {
             case 16 -> {
                 onServer(player -> {
                     TreasureChestBlockEntity chest = chest(player, ordinary);
-                    expectTrue("03二十刻计划刻推进至发奖状态", chest != null && chest.getPersistentData().getDouble("tick") >= 2
-                            && chest.getPersistentData().getString("zhuangtai").equals("爆物品"));
+                    expectTrue("03二十刻计划刻推进至发奖状态", chest != null && chest.tickCount() >= 2
+                            && chest.openState().equals("爆物品"));
                     int count = drops(player).stream().mapToInt(entity -> entity.getItem().getCount()).sum();
                     expectTrue("03自然开箱发放二至五件来源材料", count >= 2 && count <= 5);
                     clearDrops(player);
@@ -149,7 +153,7 @@ final class TreasureCheck extends SystemCheck {
                 expectTrue("正常保存重进后已开两箱按第五次计划刻移除", player.level().isEmptyBlock(ordinary) && player.level().isEmptyBlock(locked));
                 TreasureChestBlockEntity chest = chest(player, saved);
                 expectTrue("正常重进保留未开锁箱和唯一真实库存", chest != null
-                        && !chest.getPersistentData().getBoolean("dakai") && chest.getItem(0).is(Items.DIAMOND));
+                        && !chest.opened() && chest.getItem(0).is(Items.DIAMOND));
                 for (int index = 0; index < persisted.size(); index++) {
                     expectTrue("奖励实例保存重进槽" + (9 + index), ItemStack.matches(persisted.get(index), player.getInventory().getItem(9 + index)));
                 }

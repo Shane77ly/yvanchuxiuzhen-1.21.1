@@ -10,6 +10,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
+import net.yvanchuxiuzhen.system.combat.data.CombatData;
+import net.yvanchuxiuzhen.system.combat.data.CombatEntityState;
 
 /**
  * 控制与削弱类状态效果：眩晕、沉默、剧痛、无力、发抖、重伤。开始时在身体中部播放同名音效（{@code effect_00Nyinxiao}）。
@@ -68,14 +70,15 @@ final class ControlEffects {
 
         @Override
         public void clientTick(LivingEntity entity, int amplifier) {
-            double count = entity.getPersistentData().getDouble("effect003tick") + 1;
+            CombatEntityState state = entity.getData(CombatData.ENTITY_STATE);
+            double count = state.tick("effect003tick") + 1;
             if (count >= 90) {
                 count = 0;
             } else if (count >= 80) {
                 int reach = (amplifier + 1) * 5;
                 turn(entity, entity.getYRot() + Mth.nextInt(entity.getRandom(), reach - (amplifier + 1) * 10, reach), entity.getXRot() + 1);
             }
-            entity.getPersistentData().putDouble("effect003tick", count);
+            entity.setData(CombatData.ENTITY_STATE, state.withTick("effect003tick", count));
         }
     }
 

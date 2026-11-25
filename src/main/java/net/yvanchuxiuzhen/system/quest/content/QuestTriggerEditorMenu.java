@@ -39,7 +39,7 @@ public final class QuestTriggerEditorMenu extends AbstractContainerMenu {
 
     public boolean advanced(Player player, int row) {
         DisguisedQuestBlockEntity block = block(player);
-        return block != null && !block.getPersistentData().getString("renwulist" + row).isEmpty();
+        return block != null && !block.renwulist(row).isEmpty();
     }
 
     private DisguisedQuestBlockEntity block(Player player) {

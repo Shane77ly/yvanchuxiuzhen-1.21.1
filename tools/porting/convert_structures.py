@@ -47,6 +47,66 @@ INHERITANCE_HEADS = {name: index for index, name in enumerate((
     '风来神王', '炎君', '扫把星', '紫微帝君', '丹王', '八方剑魂',
     '大梦圣君', '天狼王', '六界渡者', '星河龟灵', '雷帝',
 ), 1)}
+# 实体/方块实体：将 1.18.2 的 ForgeData 离线转换为 1.21.1 原生方块实体根字段、状态子复合或 neoforge:attachments。
+ROOT_BLOCK_ENTITY_PREFIXES = (
+    f'{NAMESPACE}:beechfurniture_',
+    f'{NAMESPACE}:jiuniang_',
+    f'{NAMESPACE}:paiwei_',
+    f'{NAMESPACE}:plaque_',
+)
+ROOT_BLOCK_ENTITIES = {
+    f'{NAMESPACE}:alchemy_02',
+    f'{NAMESPACE}:anban',
+    f'{NAMESPACE}:flagson',
+    f'{NAMESPACE}:fooddaguo',
+    f'{NAMESPACE}:fooddunguo',
+    f'{NAMESPACE}:foodzhengguo',
+    f'{NAMESPACE}:mugongtai',
+    f'{NAMESPACE}:pianyifangkuai',
+    f'{NAMESPACE}:qiankunmentu',
+    f'{NAMESPACE}:renwuweizhuangfangkuai',
+    f'{NAMESPACE}:saosilun',
+    f'{NAMESPACE}:shipintai',
+    f'{NAMESPACE}:tripod_01',
+    f'{NAMESPACE}:yaolitaiblock',
+    f'{NAMESPACE}:zhuangshi_tulong_02',
+}
+COMPOUND_WRAPPED_BLOCK_ENTITIES = {
+    f'{NAMESPACE}:fubenblock': 'dungeon_state',
+    f'{NAMESPACE}:fubenentity': 'dungeon_state',
+    f'{NAMESPACE}:tiandaofuben': 'dungeon_state',
+    f'{NAMESPACE}:zhenji': 'formation_state',
+}
+LEGACY_STAT_KEYS = (
+    ('health_Max', 'health_max'),
+    ('health_Rec', 'health_rec'),
+    ('power_Max', 'power_max'),
+    ('power_Rec', 'power_rec'),
+    ('soul_Max', 'soul_max'),
+    ('soul_Rec', 'soul_rec'),
+    ('attack_Num', 'attack'),
+    ('attack_Def', 'attack_def'),
+    ('mana_Att', 'mana_att'),
+    ('mana_Def', 'mana_def'),
+    ('soul_Att', 'soul_att'),
+    ('soul_Def', 'soul_def'),
+    ('speed_number', 'move_speed'),
+)
+LEGACY_RATING_KEYS = (
+    ('health_Max_LEVEL', 'health_max'),
+    ('health_Rec_LEVEL', 'health_rec'),
+    ('power_Max_LEVEL', 'power_max'),
+    ('power_Rec_LEVEL', 'power_rec'),
+    ('soul_Max_LEVEL', 'soul_max'),
+    ('soul_Rec_LEVEL', 'soul_rec'),
+    ('attack_Num_LEVEL', 'attack'),
+    ('attack_Def_LEVEL', 'attack_def'),
+    ('mana_Att_LEVEL', 'mana_att'),
+    ('mana_Def_LEVEL', 'mana_def'),
+    ('soul_Att_LEVEL', 'soul_att'),
+    ('soul_Def_LEVEL', 'soul_def'),
+    ('speed_LEVEL', 'move_speed'),
+)
 ATTRIBUTE_IDS = {
     'forge:entity_gravity': 'minecraft:generic.gravity',
     'forge:swim_speed': 'neoforge:swim_speed',
@@ -74,6 +134,8 @@ def encode_payload(kind: int, value: Any) -> bytes:
         return struct.pack('>b', int(value))
     if kind == 3:
         return struct.pack('>i', int(value))
+    if kind == 5:
+        return struct.pack('>f', float(value))
     if kind == 6:
         return struct.pack('>d', float(value))
     if kind == 8:
@@ -236,6 +298,137 @@ def upgrade_item_tag(item_id: str, tag: dict[str, tuple[int, Any]]) -> dict[str,
     return components
 
 
+def upgrade_block_entity_forge_data(block_id: str, raw_compound: bytes, forge: dict[str, tuple[int, Any]]) -> tuple[bytes, int]:
+    """将方块实体 1.18.2 ForgeData 转为 1.21.1 原生根字段、状态子复合或块实体附件。"""
+    if not forge:
+        return b'', 0
+    if block_id == INHERITANCE_ID:
+        entry = forge.get('weizhi')
+        if entry is None:
+            raise ValueError(f'传承台缺少 weizhi：{list(forge)}')
+        val = INHERITANCE_HEADS[entry[1]] if entry[0] == 8 and entry[1] in INHERITANCE_HEADS else int(entry[1])
+        return bytes((3,)) + nbt_string('selection') + struct.pack('>i', val), 1
+    if block_id == f'{NAMESPACE}:huafutai':
+        return bytes((6,)) + nbt_string('rune_level') + encode_payload(6, tag_num(forge, 'RuneLEVEL')), 0
+    if block_id == f'{NAMESPACE}:zhenyvan':
+        element = {
+            'OriginX': (3, int(tag_num(forge, 'Xzuobiao'))),
+            'OriginY': (3, int(tag_num(forge, 'Yzuobiao'))),
+            'OriginZ': (3, int(tag_num(forge, 'Zzuobiao'))),
+            'DisplayAngle': (5, float(tag_num(forge, 'jiaodu'))),
+        }
+        return bytes((10,)) + nbt_string('FormationElement') + encode_payload(10, element), 0
+    if block_id == f'{NAMESPACE}:treasure_chest_11':
+        config = {
+            'category': (8, tag_str(forge, 'TreasureTypeBig')),
+            'subtype': (8, tag_str(forge, 'TreasureTypeSmall')),
+            'level': (6, tag_num(forge, 'TreasureLEVEL')),
+            'minimum': (6, tag_num(forge, 'minimumvalue')),
+            'maximum': (6, tag_num(forge, 'Maximumvalue')),
+        }
+        attachments = {f'{NAMESPACE}:block_treasure_container': (10, config)}
+        return bytes((10,)) + nbt_string('neoforge:attachments') + encode_payload(10, attachments), 0
+    if block_id in COMPOUND_WRAPPED_BLOCK_ENTITIES:
+        return bytes((10,)) + nbt_string(COMPOUND_WRAPPED_BLOCK_ENTITIES[block_id]) + raw_compound, 0
+    if block_id in ROOT_BLOCK_ENTITIES or any(block_id.startswith(prefix) for prefix in ROOT_BLOCK_ENTITY_PREFIXES):
+        return raw_compound[:-1], 0
+    raise ValueError(f'未配置转换规则的方块实体 ForgeData：{block_id} -> {sorted(forge)}')
+
+
+OBSOLETE_ENTITY_KEYS = {
+    'attack_Def_equip', 'health_Rec_equip', 'mana_Att_equip', 'mana_Def_equip',
+    'power_Max_equip', 'power_Rec_equip', 'soul_Att_equip', 'soul_Def_equip',
+    'soul_Max_equip', 'soul_Rec_equip', 'shuxingtickjisuan', 'CreateNetheriteDivingBits',
+    'guchongtick', 'tick', 'buzhunshoushang', 'zdztbegin', 'zdzttick',
+}
+HANDLED_ENTITY_KEYS = (
+    OBSOLETE_ENTITY_KEYS
+    | {k for k, _ in LEGACY_STAT_KEYS}
+    | {k for k, _ in LEGACY_RATING_KEYS}
+    | {
+        'LEVELnumber', 'LEVELname', 'experience', 'experience_Max', 'power', 'soul', 'team',
+        'character', 'character_def', 'character_att', 'character_interval', 'character_resist',
+        'entityhuifutick', 'entitytick', 'renwulist1', 'npcset', 'renwuzuopen',
+    }
+)
+
+
+def upgrade_entity_forge_data(entity_id: str, forge: dict[str, tuple[int, Any]]) -> bytes:
+    """将实体 1.18.2 ForgeData 转为 1.21.1 原生 neoforge:attachments。"""
+    unknown = set(forge) - HANDLED_ENTITY_KEYS
+    if unknown:
+        raise ValueError(f'未配置转换规则的实体 ForgeData：{entity_id} -> {sorted(unknown)}')
+    attachments: dict[str, tuple[int, Any]] = {}
+    stats_tag: dict[str, tuple[int, Any]] = {}
+    if 'LEVELnumber' in forge:
+        stats_tag['level'] = (6, tag_num(forge, 'LEVELnumber'))
+    if 'LEVELname' in forge and tag_str(forge, 'LEVELname'):
+        stats_tag['realm_name'] = (8, tag_str(forge, 'LEVELname'))
+    if 'experience' in forge:
+        stats_tag['experience'] = (6, tag_num(forge, 'experience'))
+    if 'experience_Max' in forge:
+        stats_tag['experience_max'] = (6, tag_num(forge, 'experience_Max'))
+    if 'power' in forge:
+        stats_tag['power'] = (6, tag_num(forge, 'power'))
+    values = {dst: (6, tag_num(forge, src)) for src, dst in LEGACY_STAT_KEYS if src in forge}
+    if values:
+        stats_tag['values'] = (10, values)
+    ratings = {dst: (8, tag_str(forge, src)) for src, dst in LEGACY_RATING_KEYS if src in forge and tag_str(forge, src)}
+    if ratings:
+        stats_tag['ratings'] = (10, ratings)
+    if stats_tag:
+        attachments[f'{NAMESPACE}:entity_stats'] = (10, stats_tag)
+
+    team = tag_str(forge, 'team')
+    if team:
+        attachments[f'{NAMESPACE}:allegiance'] = (10, {
+            'team': (8, team),
+            'friendly_teams': (9, (8, [])),
+            'friend_data': (10, {}),
+            'friend_data_present': (1, 0),
+        })
+
+    if 'soul' in forge and tag_num(forge, 'soul') != 0.0:
+        attachments[f'{NAMESPACE}:entity_soul'] = (6, tag_num(forge, 'soul'))
+
+    is_npc = entity_id.startswith(f'{NAMESPACE}:businessman_')
+    is_guchong = entity_id.startswith(f'{NAMESPACE}:guchong_')
+    if not is_npc and not is_guchong:
+        state_tag: dict[str, tuple[int, Any]] = {}
+        identity: dict[str, tuple[int, Any]] = {}
+        if 'character' in forge and tag_str(forge, 'character'):
+            identity['character'] = (8, tag_str(forge, 'character'))
+        for src, dst in (
+            ('character_def', 'character_def'),
+            ('character_att', 'character_att'),
+            ('character_interval', 'character_interval'),
+            ('character_resist', 'character_resist'),
+            ('entityhuifutick', 'recovery_ticks'),
+        ):
+            if src in forge and tag_num(forge, src) != 0.0:
+                identity[dst] = (6, tag_num(forge, src))
+        if identity:
+            state_tag['identity'] = (10, identity)
+        if 'entitytick' in forge and tag_num(forge, 'entitytick') != 0.0:
+            state_tag['ai'] = (10, {'tick': (6, tag_num(forge, 'entitytick'))})
+        if state_tag:
+            attachments[f'{NAMESPACE}:state'] = (10, state_tag)
+
+    if 'renwulist1' in forge or 'npcset' in forge:
+        script = tag_str(forge, 'renwulist1')
+        scripts = [script] if script else []
+        attachments[f'{NAMESPACE}:npc_profile'] = (10, {
+            'scripts': (9, (8, scripts)),
+            'fixed': (1, 1 if tag_num(forge, 'npcset') else 0),
+        })
+    if tag_num(forge, 'renwuzuopen'):
+        attachments[f'{NAMESPACE}:interactive_npc'] = (1, 1)
+
+    if not attachments:
+        return b''
+    return bytes((10,)) + nbt_string('neoforge:attachments') + encode_payload(10, attachments)
+
+
 class Rewriter:
     """按标签走一遍 NBT 字节流并改写字符串；记录调色板中的方块名。"""
 
@@ -290,8 +483,7 @@ class Rewriter:
             self.unmapped_attribute_ids[identity] = self.unmapped_attribute_ids.get(identity, 0) + count
         return bytes(reader.out)
 
-    def payload(self, tag: int, key: str = '', persistent_fields: list[tuple[int, int, str]] | None = None,
-                context: str = '') -> str | None:
+    def payload(self, tag: int, key: str = '', context: str = '') -> str | None:
         data = self.data
         if tag in FIXED_SIZES:
             self.copy(FIXED_SIZES[tag])
@@ -312,14 +504,14 @@ class Rewriter:
             else:
                 in_palette = key in ('palette', 'palettes')
                 self.in_palette += in_palette
-                child_context = {'entity_list': 'entity_wrapper', 'passengers': 'entity',
-                                 'attributes': 'attribute', 'modifiers': 'modifier'}.get(context, '')
+                child_context = {'block_list': 'block_wrapper', 'entity_list': 'entity_wrapper',
+                                 'passengers': 'entity', 'attributes': 'attribute', 'modifiers': 'modifier'}.get(context, '')
                 for _ in range(count):
                     self.payload(element, key, context=child_context)
                 self.in_palette -= in_palette
         elif tag == 10:
             entity_id = ''
-            inheritance_fields: list[tuple[int, int, str]] = []
+            forge_data_span: tuple[int, int, int] | None = None
             attribute_fields: list[tuple[int, int]] = []
             edits: list[tuple[int, int, bytes]] = []
             item_tag_span: tuple[int, int, int] | None = None
@@ -330,13 +522,17 @@ class Rewriter:
                 tag_start = len(self.out)
                 self.copy(1)
                 if kind == 0:
-                    if key == 'nbt' and entity_id == INHERITANCE_ID:
-                        # 来源结构的 id 位于 ForgeData 之后，复合标签读完再按身份替换。
-                        for start, end, value in inheritance_fields:
-                            if value in INHERITANCE_HEADS:
-                                name = b'weizhi'
-                                edits.append((start, end, bytes((3,)) + struct.pack('>H', len(name)) + name + struct.pack('>i', INHERITANCE_HEADS[value])))
-                                self.inheritance_fields += 1
+                    if forge_data_span is not None:
+                        span_start, payload_start, span_end = forge_data_span
+                        raw_forge = bytes(self.out[payload_start:span_end])
+                        parsed_forge, _ = parse_payload(10, raw_forge, 0)
+                        if context == 'block_entity':
+                            replacement, inh = upgrade_block_entity_forge_data(entity_id, raw_forge, parsed_forge)
+                            self.inheritance_fields += inh
+                        else:
+                            replacement = upgrade_entity_forge_data(entity_id, parsed_forge)
+                        edits.append((span_start, span_end, replacement))
+                        self.persistent_data_tags += 1
                     if context == 'entity' and entity_id.partition(':')[0] in SOURCES:
                         for start, end in attribute_fields:
                             edits.append((start, end, self.attributes(start, end)))
@@ -363,18 +559,18 @@ class Rewriter:
                 converted_name = ATTRIBUTE_FIELDS.get(name) if context == 'attribute' else None
                 if context == 'modifier' and name in ('Amount', 'Operation'):
                     converted_name = name.lower()
-                if key == 'nbt' and kind == 10 and name == 'ForgeData':
-                    converted_name = 'NeoForgeData'
-                    self.persistent_data_tags += 1
                 if converted_name is not None:
                     self.position += 2 + length
                     self.out += nbt_string(converted_name)
                 else:
                     self.copy(2 + length)
                 payload_start = len(self.out)
-                fields = inheritance_fields if key == 'nbt' and kind == 10 and name == 'ForgeData' else None
                 child_context = ''
-                if context == 'structure' and kind == 9 and name == 'entities':
+                if context == 'structure' and kind == 9 and name == 'blocks':
+                    child_context = 'block_list'
+                elif context == 'block_wrapper' and kind == 10 and name == 'nbt':
+                    child_context = 'block_entity'
+                elif context == 'structure' and kind == 9 and name == 'entities':
                     child_context = 'entity_list'
                 elif context == 'entity_wrapper' and kind == 10 and name == 'nbt':
                     child_context = 'entity'
@@ -393,9 +589,11 @@ class Rewriter:
                     self.out += nbt_string(MODIFIER_OPERATIONS[operation])
                     value = None
                 else:
-                    value = self.payload(kind, name, fields, child_context)
+                    value = self.payload(kind, name, child_context)
                 if kind == 8 and name == 'id':
                     entity_id = value
+                if key == 'nbt' and context in ('block_entity', 'entity') and kind == 10 and name == 'ForgeData':
+                    forge_data_span = (tag_start, payload_start, len(self.out))
                 if kind == 10 and name == 'tag':
                     item_tag_span = (tag_start, payload_start, len(self.out))
                 if context == 'entity' and kind == 9 and name == 'Attributes':
@@ -405,8 +603,6 @@ class Rewriter:
                 if context == 'modifier' and kind == 8 and name == 'Name':
                     modifier_name = value
                     modifier_name_span = (tag_start, len(self.out))
-                if persistent_fields is not None and kind == 8 and name == 'weizhi':
-                    persistent_fields.append((tag_start, len(self.out), value))
         else:
             raise ValueError(f'未知 NBT 标签类型 {tag}')
 

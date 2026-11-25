@@ -280,6 +280,7 @@ public final class PlantSetup {
 
     public static void register(IEventBus modBus) {
         CONTENT.register(modBus);
+        PlantData.register(modBus);
         PlantFeatures.register(modBus);
         WildPlantFeatures.register(modBus);
         NaturalTreeFeatures.register(modBus);

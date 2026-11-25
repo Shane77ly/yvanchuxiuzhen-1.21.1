@@ -6,7 +6,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundExplodePacket;
 import net.minecraft.resources.ResourceLocation;
@@ -46,18 +45,17 @@ public final class TripodRuntime {
     }
 
     public static void initialize(TripodBlockEntity furnace) {
-        CompoundTag state = furnace.getPersistentData();
-        state.putString("TripodName", NAMES[furnace.tier() - 1]);
-        state.putInt("TripodLevel", furnace.tier());
-        state.putInt("TripodFire", furnace.tier());
-        state.putInt("TripodPurification", furnace.tier() - 1);
-        state.putString("lianqiwenzi", "升级");
-        state.putBoolean("lianqiBegin", false);
-        state.putInt("lianpower", 0);
+        furnace.setTripodName(NAMES[furnace.tier() - 1]);
+        furnace.setTripodLevel(furnace.tier());
+        furnace.setTripodFire(furnace.tier());
+        furnace.setTripodPurification(furnace.tier() - 1);
+        furnace.setRefiningLabel("升级");
+        furnace.setRefining(false);
+        furnace.setLianPower(0);
         if (furnace.tier() <= 7) {
             Direction facing = furnace.getBlockState().getBlock().getStateDefinition().getProperty("facing") instanceof DirectionProperty property
                     ? furnace.getBlockState().getValue(property) : Direction.NORTH;
-            state.putInt("fangxiang", switch (facing) {
+            furnace.setDirection(switch (facing) {
                 case NORTH -> 180;
                 case SOUTH -> 0;
                 case EAST -> -90;
@@ -72,24 +70,22 @@ public final class TripodRuntime {
         if (player instanceof ServerPlayer serverPlayer) {
             serverPlayer.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new TripodMenu(id, inventory, furnace),
                     furnace.getDisplayName()), pos);
-            furnace.getPersistentData().putInt("RefinerLEVEL", (int) Professions.level(player, Profession.REFINING));
+            furnace.setRefinerLevel((int) Professions.level(player, Profession.REFINING));
             furnace.changed();
         }
     }
 
     public static void heat(FireHeatEvent event) {
         if (event.level().getBlockEntity(event.pos()) instanceof TripodBlockEntity furnace) {
-            CompoundTag state = furnace.getPersistentData();
-            state.putDouble("lianpower", state.getDouble("lianpower") + event.amount());
+            furnace.setLianPower(furnace.lianPower() + event.amount());
             furnace.changed();
         }
     }
 
     public static void exhausted(FireExhaustedEvent event) {
         if (event.level().getBlockEntity(event.pos()) instanceof TripodBlockEntity furnace) {
-            CompoundTag state = furnace.getPersistentData();
-            if (state.getDouble("lianpower") >= 1) {
-                state.putBoolean("gengxin", !state.getBoolean("gengxin"));
+            if (furnace.lianPower() >= 1) {
+                furnace.setFireToggle(!furnace.fireToggle());
                 furnace.changed();
                 event.retain();
             }
@@ -108,8 +104,7 @@ public final class TripodRuntime {
     }
 
     private static void begin(ServerPlayer player, TripodBlockEntity furnace) {
-        CompoundTag state = furnace.getPersistentData();
-        if (state.getBoolean("lianqiBegin")) {
+        if (furnace.refining()) {
             message(player, "§4正在炼制");
             return;
         }
@@ -122,7 +117,7 @@ public final class TripodRuntime {
                 message(player, "§4此物并不是由炼器鼎制作，也没有炼制痕迹，无法为其升级。");
             } else {
                 message(player, "开始炼制");
-                state.putBoolean("lianqiBegin", true);
+                furnace.setRefining(true);
                 TripodMaterials.calculate(furnace, true);
             }
         } else if (furnace.getItem(10).isEmpty()) {
@@ -132,9 +127,9 @@ public final class TripodRuntime {
             }
             for (int slot = 0; slot <= 8; slot++) {
                 if (!smelted(player.serverLevel(), furnace.getItem(slot)).isEmpty()) {
-                    state.putBoolean("lianqiBegin", true);
-                    state.putInt("lianqiTickMax", 3);
-                    state.putString("lianqiwenzi", "矿石");
+                    furnace.setRefining(true);
+                    furnace.setLianqiTickMax(3);
+                    furnace.setRefiningLabel("矿石");
                     return;
                 }
             }
@@ -146,9 +141,9 @@ public final class TripodRuntime {
             int count = 0;
             for (String input : REFINING_INPUTS) count += count(furnace, ModId.VALUE + ":" + input);
             if (count >= 4) {
-                state.putBoolean("lianqiBegin", true);
-                state.putInt("lianqiTickMax", 5);
-                state.putString("lianqiwenzi", "精炼");
+                furnace.setRefining(true);
+                furnace.setLianqiTickMax(5);
+                furnace.setRefiningLabel("精炼");
             }
         } else {
             LianqiBlueprint recipe = Lianqi.blueprint(furnace.getItem(10)).orElse(LianqiBlueprint.EMPTY);
@@ -169,58 +164,57 @@ public final class TripodRuntime {
             }
             if (cursor >= 9) {
                 message(player, "开始炼制");
-                state.putBoolean("lianqiBegin", true);
+                furnace.setRefining(true);
                 TripodMaterials.calculate(furnace, false);
             }
         }
     }
 
     public static void tick(ServerLevel level, TripodBlockEntity furnace) {
-        CompoundTag state = furnace.getPersistentData();
         BlockPos pos = furnace.getBlockPos();
         double x = pos.getX();
         double y = pos.getY();
         double z = pos.getZ();
-        if (state.getInt("firepower") >= 1) {
+        if (furnace.firePowerInt() >= 1) {
             level.sendParticles(ParticleTypes.LAVA, x + .5, y + .5, z + .5, 5, 0, 0, 0, 1);
-            state.putInt("firepowertick", state.getInt("firepowertick") + 1);
-            if (state.getInt("firepowertick") >= 12000) {
-                state.putInt("firepowertick", 0);
-                state.putInt("firepower", 0);
+            furnace.setFirePowerTick(furnace.firePowerTick() + 1);
+            if (furnace.firePowerTick() >= 12000) {
+                furnace.setFirePowerTick(0);
+                furnace.setFirePower(0);
             }
         }
-        if (!state.getBoolean("lianqiBegin")) {
+        if (!furnace.refining()) {
             String type = Lianqi.blueprint(furnace.getItem(10)).map(LianqiBlueprint::type).orElse("");
-            state.putString("lianqiwenzi", type.isEmpty() ? "升级" : type);
+            furnace.setRefiningLabel(type.isEmpty() ? "升级" : type);
         }
-        if (state.getBoolean("lianqiBegin") && state.getInt("lianpower") >= state.getInt("TripodLevel")) {
+        if (furnace.refining() && furnace.lianPowerInt() >= furnace.tripodLevel()) {
             level.sendParticles(ParticleTypes.FLAME, x + .5, y, z + .5, 10, 1, .2, 1, 0);
-            state.putInt("lianqiTick", state.getInt("lianqiTick") + 1 + state.getInt("firepower"));
-            state.putInt("lianpower", state.getInt("lianpower") - state.getInt("TripodLevel"));
-            if (state.getInt("lianqiTick") >= state.getInt("lianqiTickMax")) {
-                switch (state.getString("lianqiwenzi")) {
+            furnace.setLianqiTick(furnace.lianqiTick() + 1 + furnace.firePowerInt());
+            furnace.setLianPower(furnace.lianPowerInt() - furnace.tripodLevel());
+            if (furnace.lianqiTick() >= furnace.lianqiTickMax()) {
+                switch (furnace.refiningLabel()) {
                     case "矿石" -> smelt(level, furnace);
                     case "精炼" -> purify(furnace);
                     default -> {
-                        if (state.getBoolean("lianqishibai")) {
+                        if (furnace.failed()) {
                             level.sendParticles(ParticleTypes.LARGE_SMOKE, x + .5, y + .5, z + .5, 30, .2, .2, .2, 1);
                             ItemStack ash = new ItemStack(Items.GUNPOWDER);
                             ash.set(DataComponents.CUSTOM_NAME, Component.literal("灰烬"));
                             furnace.setItem(9, ash);
-                        } else furnace.setItem(9, ItemStack.parseOptional(level.registryAccess(), state.getCompound("item")));
+                        } else furnace.setItem(9, ItemStack.parseOptional(level.registryAccess(), furnace.plannedItem()));
                         furnace.setItem(11, ItemStack.EMPTY);
-                        finish(state);
+                        finish(furnace);
                     }
                 }
             }
-            double progress = (double) state.getInt("lianqiTick") / state.getInt("lianqiTickMax") * 100;
-            state.putInt("lianzhijindu", (int) Math.ceil(progress));
-        } else if (state.getBoolean("lianqiBegin")) {
+            double progress = (double) furnace.lianqiTick() / furnace.lianqiTickMax() * 100;
+            furnace.setProgress((int) Math.ceil(progress));
+        } else if (furnace.refining()) {
             level.sendParticles(ParticleTypes.ANGRY_VILLAGER, x + .5, y, z + .5, 5, .5, .2, .5, .1);
         }
-        if (state.getInt("zhadingtick") >= 1) {
-            state.putInt("zhadingtick", state.getInt("zhadingtick") - 1);
-            if (state.getInt("zhadingtick") <= 0) explode(level, pos, state.getInt("zhadinglevel"));
+        if (furnace.explodeTick() >= 1) {
+            furnace.setExplodeTick(furnace.explodeTick() - 1);
+            if (furnace.explodeTick() <= 0) explode(level, pos, furnace.explodeLevel());
         }
         if (!furnace.isRemoved()) furnace.changed();
     }
@@ -240,18 +234,18 @@ public final class TripodRuntime {
                     if (!output.isEmpty()) result = output.copyWithCount(output.getCount() + 1);
                     furnace.setItem(9, result);
                     furnace.getItem(slot).shrink(1);
-                    furnace.getPersistentData().putInt("lianqiTick", 0);
+                    furnace.setLianqiTick(0);
                     return;
                 }
             }
         }
-        finish(furnace.getPersistentData());
+        finish(furnace);
     }
 
     private static void purify(TripodBlockEntity furnace) {
         ItemStack output = furnace.getItem(9);
         if (output.getCount() >= 64) {
-            finish(furnace.getPersistentData());
+            finish(furnace);
             return;
         }
         int selected = -1;
@@ -272,7 +266,7 @@ public final class TripodRuntime {
             }
         }
         if (selected < 0) {
-            finish(furnace.getPersistentData());
+            finish(furnace);
             return;
         }
         furnace.setItem(9, new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE,
@@ -287,7 +281,7 @@ public final class TripodRuntime {
                 remaining -= consumed;
             }
         }
-        furnace.getPersistentData().putInt("lianqiTick", 0);
+        furnace.setLianqiTick(0);
     }
 
     private static int count(TripodBlockEntity furnace, String id) {
@@ -296,10 +290,10 @@ public final class TripodRuntime {
         return count;
     }
 
-    private static void finish(CompoundTag state) {
-        state.putBoolean("lianqiBegin", false);
-        state.putInt("lianqiTick", 0);
-        state.putInt("lianqiTickMax", 0);
+    private static void finish(TripodBlockEntity furnace) {
+        furnace.setRefining(false);
+        furnace.setLianqiTick(0);
+        furnace.setLianqiTickMax(0);
     }
 
     /** 来源 DESTROY 直接采用爆炸掉落衰减，不额外经过生物破坏或新增世界规则分派。 */

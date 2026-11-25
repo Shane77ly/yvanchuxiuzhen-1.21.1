@@ -69,6 +69,15 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
 
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private final EntityModelRow model;
+    private double grade;
+    private String talismanName = "";
+    private String masterUuid = "";
+    private double tickCount;
+    private double attackTick;
+    private double strikeCount;
+    private String phase = "";
+    private boolean slamDone;
+    private boolean pauseDone;
 
     public TalismanBeast(EntityType<? extends TalismanBeast> type, Level level, EntityModelRow model) {
         super(type, level);
@@ -84,6 +93,24 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
         }
         xpReward = 0;
         setNoAi(model.noAi());
+    }
+
+    public void configure(double grade, String talismanName, String masterUuid) {
+        this.grade = grade;
+        this.talismanName = talismanName;
+        this.masterUuid = masterUuid;
+    }
+
+    public double grade() {
+        return grade;
+    }
+
+    public String talismanName() {
+        return talismanName;
+    }
+
+    public String masterUuid() {
+        return masterUuid;
     }
 
     public static AttributeSupplier.Builder attributes(EntityModelRow row) {
@@ -193,19 +220,37 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
         }
     }
 
-    private CompoundTag data() {
-        return getPersistentData();
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putDouble("fululevel", grade);
+        tag.putString("fuluname", talismanName);
+        tag.putString("belongToMasterUUID", masterUuid);
+        tag.putDouble("tick", tickCount);
+        tag.putDouble("tick2", attackTick);
+        tag.putDouble("jishu", strikeCount);
+        tag.putString("jieduan", phase);
+        tag.putBoolean("xiayibu", slamDone);
+        tag.putBoolean("xiayibu2", pauseDone);
     }
 
-    private double count(String key) {
-        double value = data().getDouble(key) + 1;
-        data().putDouble(key, value);
-        return value;
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        grade = tag.getDouble("fululevel");
+        talismanName = tag.getString("fuluname");
+        masterUuid = tag.getString("belongToMasterUUID");
+        tickCount = tag.getDouble("tick");
+        attackTick = tag.getDouble("tick2");
+        strikeCount = tag.getDouble("jishu");
+        phase = tag.getString("jieduan");
+        slamDone = tag.getBoolean("xiayibu");
+        pauseDone = tag.getBoolean("xiayibu2");
     }
 
     private void strike(ServerLevel level, Entity target, String label, double damage) {
         if (target instanceof LivingEntity living) {
-            SpellDamage.command(level, living, "shanghai " + label + " " + data().getString("belongToMasterUUID") + " true " + damage + " 1");
+            SpellDamage.command(level, living, "shanghai " + label + " " + masterUuid + " true " + damage + " 1");
         }
     }
 
@@ -219,19 +264,19 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
      * 满 80 刻时落下一道仅视觉的闪电，4.5 格内非友方受雷属性固定伤害 {@code 20×品阶} 后消失。
      */
     private void thunderPullTick(ServerLevel level) {
-        double ticks = count("tick");
+        double ticks = ++tickCount;
         if (ticks >= 80) {
             LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level);
             bolt.moveTo(Vec3.atBottomCenterOf(BlockPos.containing(getX(), getY(), getZ())));
             bolt.setVisualOnly(true);
             level.addFreshEntity(bolt);
-            double damage = data().getDouble("fululevel") * 20;
+            double damage = grade * 20;
             for (Entity target : nearby(level, position(), 4.5)) {
                 if (!Relations.isFriendly(this, target)) {
                     strike(level, target, "雷", damage);
                 }
             }
-            data().putDouble("tick", 0);
+            tickCount = 0;
             discard();
             return;
         }
@@ -242,7 +287,7 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
             level.sendParticles(ParticleTypes.CLOUD, x, y, z, 0, (getX() - x) * 0.05, (getY() - y) * 0.05, (getZ() - z) * 0.05, 1);
         }
         for (Entity target : nearby(level, position(), 4.5)) {
-            if (!(target instanceof TalismanBeast) && !target.getStringUUID().equals(data().getString("belongToMasterUUID"))
+            if (!(target instanceof TalismanBeast) && !target.getStringUUID().equals(masterUuid)
                     && !Relations.isFriendly(this, target)) {
                 target.setDeltaMovement(new Vec3((getX() - target.getX()) * 0.2, 0, (getZ() - target.getZ()) * 0.2));
             }
@@ -251,12 +296,12 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
 
     /** 神压符：阶段一 20 刻后拍击 3.5 格内非友方（土属性 {@code 20×品阶}，缓慢、效果 002、虚弱各 40 刻）；阶段二停顿 5 刻；阶段三碎裂粒子 15 刻后消失。 */
     private void earthHandTick(ServerLevel level) {
-        if (!data().getBoolean("xiayibu")) {
-            if (count("tick") >= 20) {
+        if (!slamDone) {
+            if (++tickCount >= 20) {
                 level.playSound(null, BlockPos.containing(getX(), getY(), getZ()), SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1);
                 level.sendParticles(Particles.type("smallexplosiongolden"), getX(), getY(), getZ(), 20, 2, 0, 2, 0);
                 level.sendParticles(Particles.type("smokegolden"), getX(), getY(), getZ(), 40, 3, 0, 3, 0.1);
-                double damage = 20 * data().getDouble("fululevel");
+                double damage = 20 * grade;
                 for (Entity target : nearby(level, position(), 3.5)) {
                     if (!Relations.isFriendly(this, target)) {
                         strike(level, target, "土", damage);
@@ -267,19 +312,19 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
                         }
                     }
                 }
-                data().putBoolean("xiayibu", true);
-                data().putDouble("tick", 0);
+                slamDone = true;
+                tickCount = 0;
             }
-        } else if (!data().getBoolean("xiayibu2")) {
-            if (count("tick") >= 5) {
-                data().putBoolean("xiayibu2", true);
-                data().putDouble("tick", 0);
+        } else if (!pauseDone) {
+            if (++tickCount >= 5) {
+                pauseDone = true;
+                tickCount = 0;
             }
         } else {
             level.sendParticles(Particles.type("brokengolden"), getX(), getY(), getZ(), 10, 0, 0, 0, 0.5);
-            if (count("tick") >= 15) {
+            if (++tickCount >= 15) {
                 discard();
-                data().putDouble("tick", 0);
+                tickCount = 0;
             }
         }
     }
@@ -293,42 +338,41 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
      * 每击对以自身为中心的 3×3 个（间距 3、半边 1.5）范围内非友方造成 {@code 20×品阶} 物理伤害，伤害来源为召唤者。
      */
     private void swordSoulTick(ServerLevel level) {
-        if (count("tick") >= 186) {
+        if (++tickCount >= 186) {
             discard();
             for (double[] offset : new double[][] {{0, 5.5}, {0, -5.5}, {-5.5, 0}, {5.5, 0}}) {
                 level.sendParticles(ParticleTypes.LARGE_SMOKE, getX() + offset[0], getY() + 1, getZ() + offset[1], 20, 0, 1, 0, 0.1);
             }
-            data().putDouble("tick", 0);
+            tickCount = 0;
         }
         boolean attack = false;
-        String phase = data().getString("jieduan");
         if (phase.isEmpty()) {
-            if (count("tick2") >= 22) {
+            if (++attackTick >= 22) {
                 attack = true;
-                data().putString("jieduan", "正式开始");
-                data().putDouble("tick2", 0);
+                phase = "正式开始";
+                attackTick = 0;
             }
         } else if (phase.equals("正式开始")) {
-            if (count("tick2") >= 9) {
-                double strikes = count("jishu");
+            if (++attackTick >= 9) {
+                double strikes = ++strikeCount;
                 attack = true;
-                data().putDouble("tick2", 0);
+                attackTick = 0;
                 if (strikes >= 3) {
-                    data().putDouble("tick2", 0);
-                    data().putDouble("jishu", 0);
-                    data().putString("jieduan", "暂缓");
+                    attackTick = 0;
+                    strikeCount = 0;
+                    phase = "暂缓";
                 }
             }
         } else if (phase.equals("暂缓")) {
-            if (count("tick2") >= 13) {
+            if (++attackTick >= 13) {
                 attack = true;
-                data().putString("jieduan", "正式开始");
-                data().putDouble("tick2", 0);
+                phase = "正式开始";
+                attackTick = 0;
             }
         }
         if (attack) {
             Entity master = master(level);
-            float damage = (float) (20 * data().getDouble("fululevel"));
+            float damage = (float) (20 * grade);
             for (int row = 0; row < 3; row++) {
                 for (int column = 0; column < 3; column++) {
                     Vec3 center = new Vec3(getX() - 3 + column * 3, getY() + 1, getZ() - 3 + row * 3);
@@ -344,7 +388,7 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
 
     private Entity master(ServerLevel level) {
         try {
-            return level.getEntity(UUID.fromString(data().getString("belongToMasterUUID")));
+            return level.getEntity(UUID.fromString(masterUuid));
         } catch (IllegalArgumentException exception) {
             return null;
         }
@@ -360,11 +404,11 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
 
     /** 命轮符：120 刻后消失；4 格内非友方被水平拉向自身并逐刻受暗属性固定伤害 {@code 12×品阶}。 */
     private void fateWheelTick(ServerLevel level) {
-        if (count("tick") >= 120) {
+        if (++tickCount >= 120) {
             discard();
-            data().putDouble("tick", 0);
+            tickCount = 0;
         }
-        double damage = 12 * data().getDouble("fululevel");
+        double damage = 12 * grade;
         for (Entity target : nearby(level, position(), 4)) {
             if (!Relations.isFriendly(this, target)) {
                 target.setDeltaMovement(new Vec3((getX() - target.getX()) * 0.3, 0, (getZ() - target.getZ()) * 0.3));
@@ -375,17 +419,17 @@ public final class TalismanBeast extends PathfinderMob implements GeoEntity, Ani
 
     /** 水龙符：110 刻后消失（100 刻起在上空飘云）；4 格内非友方被轻抬并逐刻受水属性固定伤害 {@code 8×品阶}。 */
     private void waterDragonTick(ServerLevel level) {
-        double ticks = count("tick");
+        double ticks = ++tickCount;
         if (ticks >= 110) {
             discard();
-            data().putDouble("tick", 0);
+            tickCount = 0;
         } else if (ticks >= 100) {
             level.sendParticles(ParticleTypes.CLOUD, getX(), getY() + 8, getZ(), 30, 0.5, 1, 0.5, 0.1);
         }
-        double height = getY() + data().getDouble("tick") * 0.1;
+        double height = getY() + tickCount * 0.1;
         level.sendParticles(ParticleTypes.CLOUD, getX(), height, getZ(), 5, 4, 3, 4, 0.1);
         level.sendParticles(ParticleTypes.SPLASH, getX(), height, getZ(), 5, 4, 3, 4, 0.1);
-        double damage = data().getDouble("fululevel") * 8;
+        double damage = grade * 8;
         for (Entity target : nearby(level, position(), 4)) {
             if (!Relations.isFriendly(this, target)) {
                 level.sendParticles(ParticleTypes.SPLASH, target.getX(), target.getY(), target.getZ(), 5, 0, 1, 0, 0.5);

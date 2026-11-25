@@ -8,6 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.entity.GoldEntities;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntity;
@@ -36,7 +37,7 @@ final class GoldWheel implements ProjectileSkill {
                     default -> "捆妖轮";
                 };
             } else {
-                mode = switch (owner.getPersistentData().getCompound("friendlist").getString("jinengName")) {
+                mode = switch (Relations.friendCast(owner).mode()) {
                     case "金弧轮左旋" -> "金弧轮左旋";
                     case "金弧轮右旋" -> "金弧轮右旋";
                     case "天堑金轮" -> "天堑金轮";

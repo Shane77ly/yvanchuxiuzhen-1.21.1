@@ -2,7 +2,7 @@
 topic: handoff
 role: guide
 status: current
-updated: 2026-11-24
+updated: 2026-11-25
 ---
 
 # 交接说明
@@ -11,15 +11,15 @@ updated: 2026-11-24
 
 1. **当前基线**：
    - 主工作树：`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`（唯一工作树，禁止新建额外 worktree）。
-   - 当前集成分支：`port/20261123-parity-integration`（已依次通过 `--no-ff` 合入阶段 1A `refactor/p1a-production-components`、阶段 1B `refactor/p1b-equipment-creature-components` 与阶段 1C `refactor/p1c-pure-components-and-structures`，全仓生产代码已无运行时 `CustomData`/`CUSTOM_DATA` 引用，161 个 `.nbt` 结构模板已完成离线 1.21.1 组件升级且对应编译、单元测试、各批 Smoke、台账与文档门禁通过）。
+   - 当前集成分支：`port/20261123-parity-integration`（已依次通过 `--no-ff` 合入阶段 1A `refactor/p1a-production-components`、阶段 1B `refactor/p1b-equipment-creature-components`、阶段 1C `refactor/p1c-pure-components-and-structures` 与阶段 1D `refactor/p1d-entity-attachments-and-guard`，阶段 1 全部完成：全仓 `src/main/java` 已无运行时 `CustomData`/`CUSTOM_DATA`/`getPersistentData()` 引用，161 个 `.nbt` 结构模板已完成实体附件与方块实体字段/附件原生升级，`ArchitectureTest` 规则 7 已永久封禁双轨旧 API）。
 2. **负责人最新决定（2026-11-24）**：
    - 项目进入**定位 B（为自创内容与长期迭代打底）**，暂停新增业务内容，集中执行**底层架构四大痛点重构**。
    - **明确不考虑任何旧存档兼容问题**：不保留任何运行期旧 NBT 回退代码（如 `attachFromLegacyTag`）；项目内置 161 个 `.nbt` 结构模板通过 Python 脚本离线一次性升级为 1.21.1 原生组件格式，运行时 Java 代码一步到位保持 100% 纯净。
 3. **立即执行的下一动作（按[当前调度：底层架构四大痛点重构方案与执行路线](remaining-work.md#2026-11-24-底层架构四大痛点重构方案与执行路线零旧存档兼容一步到位数据驱动)继续按 4 阶段依次推进）**：
    - **阶段 1（消除双轨制数据载体，100% 统一为强类型 `DataComponentType` 与 `AttachmentType`）**：
-     - 阶段 1A～1C 已完成并合入；当前立即从 `port/20261123-parity-integration` 检出 `refactor/p1d-entity-attachments-and-guard`（全仓 `getPersistentData()` 收口为 `BlockEntity` 强类型成员变量与实体 `AttachmentType<T>`，并在 `ArchitectureTest.java` 新增**规则 7** 永久封禁业务代码使用 `CustomData`/`DataComponents.CUSTOM_DATA` 与 `getPersistentData()`）。
+     - 阶段 1A～1D 已全部完成并合入 `port/20261123-parity-integration`。
    - **阶段 2（从 Java 硬编码大表与 `%`/`/` 分隔符字符串全面转向 `Codec` + JSON 数据驱动）**：
-     - 依次检出 `refactor/p2a-treasure-codec-json`（将 3,048 行的 `TreasureRewardTables.java` 抽为 JSON + `Codec`）→ `refactor/p2b-quest-economy-codec-json`（将 `DialogueRuntime`/`QuestStructureData`/`CommerceGoods` 的 `%`、`/` 分隔符脚本转为结构化 JSON + `Codec`）→ `refactor/p2c-creature-ai-codec-json`（将 52 个 `Yaoshou001..054Behavior.java` 与 `NpcMeleeSkills.java` 提炼为 `CreatureCombatProfile` `Codec` + JSON 驱动）。
+     - 当前立即从 `port/20261123-parity-integration` 检出 `refactor/p2a-treasure-codec-json`（将 3,048 行的 `TreasureRewardTables.java` 抽为 JSON + `Codec`），完成后依次推进 `refactor/p2b-quest-economy-codec-json`（将 `DialogueRuntime`/`QuestStructureData`/`CommerceGoods` 的 `%`、`/` 分隔符脚本转为结构化 JSON + `Codec`）→ `refactor/p2c-creature-ai-codec-json`（将 52 个 `Yaoshou001..054Behavior.java` 与 `NpcMeleeSkills.java` 提炼为 `CreatureCombatProfile` `Codec` + JSON 驱动）。
    - **阶段 3（消灭运行期命令字符串拼接与高频哈希查找）**：
      - 检出 `refactor/p3-runtime-performance`，将业务代码中拼接 `/effect`、`/shanghai`、`/teleport` 等调用 `performPrefixedCommand` 的逻辑全部改为直接调用强类型 Java API，并优化 `difujiegou` 等超大结构内存释放。
    - **阶段 4（集中清理 1.18.2 原版遗留 Bug Q01–Q281）**：

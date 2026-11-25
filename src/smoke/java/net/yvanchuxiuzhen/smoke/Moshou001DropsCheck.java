@@ -76,7 +76,7 @@ final class Moshou001DropsCheck extends SystemCheck {
             player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(coldVein));
             player.interactOn(ordinary, InteractionHand.OFF_HAND);
             expectTrue("仅副手寒脉不消费、不升格、不加速度", player.getOffhandItem().is(coldVein)
-                    && player.getOffhandItem().getCount() == 1 && !ordinary.getPersistentData().getBoolean("shengge")
+                    && player.getOffhandItem().getCount() == 1 && !ordinary.elevated()
                     && !ordinary.hasEffect(MobEffects.MOVEMENT_SPEED));
 
             player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
@@ -84,7 +84,7 @@ final class Moshou001DropsCheck extends SystemCheck {
             player.interactOn(enriched, InteractionHand.MAIN_HAND);
             var speed = enriched.getEffect(MobEffects.MOVEMENT_SPEED);
             expectTrue("主手交互实际消耗一件并升格", player.getMainHandItem().is(coldVein)
-                    && player.getMainHandItem().getCount() == 1 && enriched.getPersistentData().getBoolean("shengge"));
+                    && player.getMainHandItem().getCount() == 1 && enriched.elevated());
             expectTrue("喂食立即获得2400刻速度II", speed != null && speed.getDuration() == 2400 && speed.getAmplifier() == 1);
 
             checkDrops("未进食", ordinary, List.of(PLAIN, PLAIN, PLAIN, PLAIN));

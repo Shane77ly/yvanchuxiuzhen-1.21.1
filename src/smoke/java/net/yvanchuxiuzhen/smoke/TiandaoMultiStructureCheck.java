@@ -69,11 +69,10 @@ final class TiandaoMultiStructureCheck extends SystemCheck {
             case 1 -> {
                 if (!elapsed(local)) return false;
                 onServer(player -> {
-                    expectTrue("普通放置经过两轮计划刻仍为空分组", generator(player).getPersistentData().getString("jiegouzu").isEmpty());
+                    expectTrue("普通放置经过两轮计划刻仍为空分组", generator(player).group().isEmpty());
                     expectTrue("Q199空配置保持空转并继续安排计划刻", player.serverLevel().getBlockTicks().hasScheduledTick(origin, generatorBlock()));
                     expect("空配置没有生成寻木", 0, woodCount(player));
-                    generator(player).getPersistentData().putString("jiegouzu", "受控保存分组");
-                    generator(player).setChanged();
+                    generator(player).setGroup("受控保存分组");
                 });
                 leaveWorld();
             }
@@ -84,11 +83,10 @@ final class TiandaoMultiStructureCheck extends SystemCheck {
                     ready = player.level().getBlockEntity(origin) instanceof MultiStructureBlockEntity;
                     expectTrue("真实保存重进恢复多结构方块实体", ready);
                     if (!ready) return;
-                    expect("真实保存重进恢复自定义分组", "受控保存分组", generator(player).getPersistentData().getString("jiegouzu"));
+                    expect("真实保存重进恢复自定义分组", "受控保存分组", generator(player).group());
                     expectTrue("重进后来源计划刻仍持续", player.serverLevel().getBlockTicks().hasScheduledTick(origin, generatorBlock()));
                     expect("不匹配分组不生成寻木", 0, woodCount(player));
-                    generator(player).getPersistentData().putString("jiegouzu", "寻木");
-                    generator(player).setChanged();
+                    generator(player).setGroup("寻木");
                     deadline = player.serverLevel().getGameTime() + 25;
                 });
                 if (!ready) {

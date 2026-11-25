@@ -1,6 +1,5 @@
 package net.yvanchuxiuzhen.system.skill.projectile;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,9 +16,8 @@ final class LingwenBolt implements ProjectileSkill {
 
     @Override
     public void tick(SkillProjectile projectile, Entity owner) {
-        CompoundTag data = projectile.getPersistentData();
         if (projectile.begin() && owner instanceof LivingEntity living) {
-            data.putDouble("attacknumber", Enchants.mainHand(living, Enchants.key("lingwen")) * 4);
+            projectile.setAttackNumber(Enchants.mainHand(living, Enchants.key("lingwen")) * 4);
         }
         if (projectile.advance() >= LIFETIME) {
             projectile.discard();
@@ -33,7 +31,7 @@ final class LingwenBolt implements ProjectileSkill {
             ProjectileSupport.burst(projectile, "smallexplosionskyblue");
             if (target instanceof LivingEntity living) {
                 SpellDamage.dealRounded((ServerLevel) projectile.level(), living, DamageCategory.NONE, owner.getUUID(), true,
-                        projectile.getPersistentData().getDouble("attacknumber"), 1);
+                        projectile.attackNumber(), 1);
             }
         }
     }

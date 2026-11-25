@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -17,6 +16,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.economy.api.EconomyCatalogs;
+import net.yvanchuxiuzhen.system.npc.api.NpcDefinitions;
 import net.yvanchuxiuzhen.system.npc.api.NpcDialogueRequestEvent;
 import net.yvanchuxiuzhen.system.npc.entity.NpcProfiles;
 
@@ -36,74 +36,57 @@ public final class NpcInteractions {
             if (npc instanceof Mob managed) NpcProfiles.apply(player.serverLevel(), event.getPos(), managed, player.getMainHandItem());
             return;
         }
-        CompoundTag data = npc.getPersistentData();
+        NpcDialogueProfile profile = npc.getData(NpcData.PROFILE);
         if (npc.getType().is(NPC)) {
             String id = BuiltInRegistries.ENTITY_TYPE.getKey(npc.getType()).getPath();
-            switch (id) {
-                case "businessman_01" -> data.putString("renwulist1", "txt.renwulist.npc01");
+            profile = switch (id) {
+                case "businessman_01" -> profile.withScript(0, "txt.renwulist.npc01");
                 case "businessman_02", "businessman_05", "businessman_06", "businessman_07" -> {
                     String key = "npc" + id.substring(id.length() - 2);
-                    data.putString("renwulist1", "txt.renwulist." + key);
-                    data.putString("productlist", "txt.shoplist." + key);
-                    data.putString("shopinformation", "txt.shopdescribe." + key);
+                    yield profile.withScript(0, "txt.renwulist." + key)
+                            .withProducts("txt.shoplist." + key)
+                            .withShopInfo("txt.shopdescribe." + key);
                 }
-                case "businessman_03" -> {
-                    refreshCatalog(npc, 1);
-                    data.putString("renwulist1", "txt.renwulist.npc03");
-                    data.putString("shopinformation", "txt.shopdescribe.npc03");
-                }
-                case "businessman_04" -> {
-                    data.putString("tasklist1", "");
-                    data.putString("renwulist1", "txt.renwulist.npc04");
-                    data.putString("productlist", "");
-                    data.putString("shopinformation", "");
-                }
-                case "daguanjia" -> {
-                    // 来源查询NPC自身的玩家能力，非玩家没有该能力，实际进入普通对话。
-                    data.putString("renwulist1", "txt.renwulist.npcdaguanjia04");
-                    data.putString("renwulist2", "");
-                    data.putString("renwulist3", "");
-                }
-                case "caishenye" -> {
-                    data.putString("renwulist1", "txt.renwulist.npccaishenye");
-                    data.putString("productlist", "txt.shoplist.npccaishenye");
-                    data.putString("shopinformation", "txt.shopdescribe.npccaishenye");
-                }
-                case "businessman_09" -> {
-                    data.putString("renwulist1", SHOP_SCRIPT);
-                    data.putString("shopinformation", "矿石商人%矿石商人%在这里可以买到很多矿石材料。");
-                    data.putString("productlist", ORES);
-                }
+                case "businessman_03" -> refreshCatalog(npc, profile, 1)
+                        .withScript(0, "txt.renwulist.npc03")
+                        .withShopInfo("txt.shopdescribe.npc03");
+                case "businessman_04" -> profile.withScript(0, "txt.renwulist.npc04")
+                        .withProducts("")
+                        .withShopInfo("");
+                case "daguanjia" -> profile.withScript(0, "txt.renwulist.npcdaguanjia04")
+                        .withScript(1, "")
+                        .withScript(2, "");
+                case "caishenye" -> profile.withScript(0, "txt.renwulist.npccaishenye")
+                        .withProducts("txt.shoplist.npccaishenye")
+                        .withShopInfo("txt.shopdescribe.npccaishenye");
+                case "businessman_09" -> profile.withScript(0, SHOP_SCRIPT)
+                        .withShopInfo("矿石商人%矿石商人%在这里可以买到很多矿石材料。")
+                        .withProducts(ORES);
                 case "businessman_10", "businessman_11" -> {
                     boolean high = id.equals("businessman_11");
-                    data.putString("renwulist1", SHOP_SCRIPT);
-                    data.putString("shopinformation", high ? "高级材料商%高级材料%在此购买高级材料" : "中级材料商%中级材料%在此购买中级材料");
-                    refreshCatalog(npc, high ? 3 : 2);
+                    yield refreshCatalog(npc, profile, high ? 3 : 2)
+                            .withScript(0, SHOP_SCRIPT)
+                            .withShopInfo(high ? "高级材料商%高级材料%在此购买高级材料" : "中级材料商%中级材料%在此购买中级材料");
                 }
-                default -> { }
-            }
-            data.putBoolean("renwuzuopen", true);
+                default -> profile;
+            };
+            npc.setData(NpcData.PROFILE, profile);
+            NpcDefinitions.setInteractiveNpc(npc, true);
         }
-        if (!data.getBoolean("renwuzuopen") || BuiltInRegistries.ITEM.getKey(player.getMainHandItem().getItem())
+        if (!NpcDefinitions.isInteractiveNpc(npc) || BuiltInRegistries.ITEM.getKey(player.getMainHandItem().getItem())
                 .equals(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "tiandao_np_csetitem"))) return;
-        List<String> scripts = new ArrayList<>();
-        for (int index = 1; ; index++) {
-            String dialogue = data.getString("renwulist" + index);
-            String task = data.getString("tasklist" + index);
-            if (dialogue.isEmpty() && task.isEmpty()) break;
-            scripts.add(dialogue.isEmpty() ? task : dialogue);
-        }
-        NeoForge.EVENT_BUS.post(new NpcDialogueRequestEvent(player, scripts, data.getString("productlist"), data.getString("shopinformation")));
+        NeoForge.EVENT_BUS.post(new NpcDialogueRequestEvent(player, profile.activeScripts(), profile.products(), profile.shopInfo()));
     }
 
-    private static void refreshCatalog(Entity npc, int grade) {
+    private static NpcDialogueProfile refreshCatalog(Entity npc, NpcDialogueProfile profile, int grade) {
         Scoreboard scoreboard = npc.level().getScoreboard();
         Objective objective = scoreboard.getObjective("keyishuaxin");
-        String existing = npc.getPersistentData().getString("productlist");
+        String existing = profile.products();
         if (existing.isEmpty() || existing.startsWith("minecraft:air%")
                 || (objective != null && scoreboard.getOrCreatePlayerScore(npc, objective).get() == 1)) {
-            npc.getPersistentData().putString("productlist", EconomyCatalogs.materialShop(grade));
             if (objective != null) scoreboard.getOrCreatePlayerScore(npc, objective).set(0);
+            return profile.withProducts(EconomyCatalogs.materialShop(grade));
         }
+        return profile;
     }
 }

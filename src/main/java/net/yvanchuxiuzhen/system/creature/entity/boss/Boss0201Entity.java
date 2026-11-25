@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.creature.entity.boss;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -36,6 +37,11 @@ public final class Boss0201Entity extends PathfinderMob implements GeoEntity, An
     private final EntityModelRow model;
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private String procedureAnimation = "empty";
+    private String skillName = "";
+    private String attackUuid = "";
+    private double attackDamage;
+    private double skillTick;
+    private int direction;
 
     public Boss0201Entity(EntityType<? extends Boss0201Entity> type, Level level, EntityModelRow model) {
         super(type, level);
@@ -44,6 +50,40 @@ public final class Boss0201Entity extends PathfinderMob implements GeoEntity, An
         xpReward = 0;
         setPersistenceRequired();
         moveControl = new FlyingMoveControl(this, 10, true);
+    }
+
+    public void configureSkill(double attackDamage, String attackUuid, String skillName, int direction) {
+        this.attackDamage = attackDamage;
+        this.attackUuid = attackUuid == null ? "" : attackUuid;
+        this.skillName = skillName == null ? "" : skillName;
+        this.direction = direction;
+    }
+
+    public String skillName() { return skillName; }
+    public String attackUuid() { return attackUuid; }
+    public double attackDamage() { return attackDamage; }
+    public double skillTick() { return skillTick; }
+    public void setSkillTick(double skillTick) { this.skillTick = skillTick; }
+    public int direction() { return direction; }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putString("jinengname", skillName);
+        tag.putString("AttackUUID", attackUuid);
+        tag.putDouble("AttackDamage", attackDamage);
+        tag.putDouble("jinengtick", skillTick);
+        tag.putInt("fangxiang", direction);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        skillName = tag.getString("jinengname");
+        attackUuid = tag.getString("AttackUUID");
+        attackDamage = tag.getDouble("AttackDamage");
+        skillTick = tag.getDouble("jinengtick");
+        direction = tag.getInt("fangxiang");
     }
 
     public static AttributeSupplier.Builder attributes(EntityModelRow row) {

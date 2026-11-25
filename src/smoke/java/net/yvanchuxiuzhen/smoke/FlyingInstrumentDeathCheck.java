@@ -81,7 +81,7 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
         if (entity == null) return;
 
         recharge(player, entity, path);
-        entity.getPersistentData().putDouble("power", 73.25);
+        entity.setPower(73.25);
         entity.setHealth(7.5f);
         CompoundTag saved = entity.saveWithoutId(new CompoundTag());
         if (path.equals(ITEMS.getFirst())) checkPreviousSave(player, initial, entity, saved);
@@ -90,7 +90,7 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
         created.add(loaded);
         entity.discard();
         expectTrue(path + "实体保存重读保留当前生命灵力及完整原物品", loaded.getHealth() == 7.5
-                && loaded.getPersistentData().getDouble("power") == 73.25
+                && loaded.power() == 73.25
                 && ItemStack.isSameItemSameComponents(loaded.getMainHandItem(), entity.getMainHandItem()));
 
         player.setShiftKeyDown(true);
@@ -108,7 +108,7 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
         player.getInventory().clearContent();
         entity = summon(player, restoredItem);
         expectTrue(path + "取回物品保存重读后重召保留受损生命灵力", entity != null && entity.getHealth() == 7.5
-                && entity.getPersistentData().getDouble("power") == 73.25
+                && entity.power() == 73.25
                 && ItemStack.isSameItemSameComponents(returned, restoredItem));
         if (entity == null) return;
 
@@ -141,7 +141,7 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
         dropped.discard();
         FlyingInstrumentEntity resummoned = summon(player, recovered);
         expectTrue(path + "死亡物品重召保持一点生命和储存灵力", resummoned != null && resummoned.getHealth() == 1
-                && resummoned.getPersistentData().getDouble("power") == 73.25);
+                && resummoned.power() == 73.25);
         created.forEach(Entity::discard);
         player.getInventory().clearContent();
     }
@@ -163,8 +163,7 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
     }
 
     private void recharge(ServerPlayer player, FlyingInstrumentEntity entity, String path) {
-        CompoundTag state = entity.getPersistentData();
-        double maximum = state.getDouble("power_Max");
+        double maximum = entity.powerMax();
         String formattedMaximum = Integer.toString((int) maximum);
         ItemStack reserve = item("cailiao_191");
         reserve.setCount(3);
@@ -174,38 +173,38 @@ final class FlyingInstrumentDeathCheck extends ActionCheck {
         held.set(DataComponents.CUSTOM_NAME, Component.literal("后扣主手"));
         player.getInventory().setItem(0, reserve);
         player.setItemInHand(InteractionHand.MAIN_HAND, held);
-        state.putDouble("power", 0);
+        entity.setPower(0);
         entity.mobInteract(player, InteractionHand.MAIN_HAND);
         expectedMessages.add(new Message(POWER_MESSAGE, List.of("1", formattedMaximum)));
-        expectTrue(path + "补能按物品身份从最早匹配库存槽扣一件", state.getDouble("power") == 1
+        expectTrue(path + "补能按物品身份从最早匹配库存槽扣一件", entity.power() == 1
                 && reserve.getCount() == 2 && held.getCount() == 2 && !player.isPassenger());
 
-        state.putDouble("power", maximum - 1);
+        entity.setPower(maximum - 1);
         entity.mobInteract(player, InteractionHand.MAIN_HAND);
         expectedMessages.add(new Message(POWER_MESSAGE, List.of(formattedMaximum, formattedMaximum)));
-        expectTrue(path + "补能恰好到上限仍只扣一件", state.getDouble("power") == maximum
+        expectTrue(path + "补能恰好到上限仍只扣一件", entity.power() == maximum
                 && reserve.getCount() == 1 && held.getCount() == 2);
 
         player.getInventory().clearContent();
         held = item("cailiao_192");
         held.setCount(2);
         player.setItemInHand(InteractionHand.MAIN_HAND, held);
-        state.putDouble("power", maximum - 1);
+        entity.setPower(maximum - 1);
         entity.mobInteract(player, InteractionHand.MAIN_HAND);
         expectedMessages.add(new Message(POWER_MESSAGE, List.of(Integer.toString((int) maximum + 3), formattedMaximum)));
         expectedMessages.add(new Message(FULL_MESSAGE, List.of()));
-        expectTrue(path + "补能超过上限时扣一件并最终钳到上限", state.getDouble("power") == maximum && held.getCount() == 1);
+        expectTrue(path + "补能超过上限时扣一件并最终钳到上限", entity.power() == maximum && held.getCount() == 1);
 
         entity.mobInteract(player, InteractionHand.MAIN_HAND);
         expectedMessages.add(new Message(POWER_MESSAGE, List.of(formattedMaximum, formattedMaximum)));
-        expectTrue(path + "已满储灵交互不扣料或进入骑乘", state.getDouble("power") == maximum && held.getCount() == 1
+        expectTrue(path + "已满储灵交互不扣料或进入骑乘", entity.power() == maximum && held.getCount() == 1
                 && !player.isPassenger());
 
-        state.putDouble("power", maximum + 4);
+        entity.setPower(maximum + 4);
         entity.mobInteract(player, InteractionHand.MAIN_HAND);
         expectedMessages.add(new Message(POWER_MESSAGE, List.of(Integer.toString((int) maximum + 4), formattedMaximum)));
         expectedMessages.add(new Message(FULL_MESSAGE, List.of()));
-        expectTrue(path + "已有超限储灵交互只钳值且不额外扣料", state.getDouble("power") == maximum && held.getCount() == 1);
+        expectTrue(path + "已有超限储灵交互只钳值且不额外扣料", entity.power() == maximum && held.getCount() == 1);
         player.getInventory().clearContent();
     }
 

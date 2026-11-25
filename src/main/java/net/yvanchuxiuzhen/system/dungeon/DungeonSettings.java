@@ -18,7 +18,7 @@ public final class DungeonSettings {
 
     public static void entrance(DungeonBlockEntity block, String settings) {
         String[] fields = settings.split(",");
-        CompoundTag data = block.getPersistentData();
+        CompoundTag data = block.state();
         for (int field = 0; field < FIELDS.size(); field++) {
             String key = FIELDS.get(field);
             int selected = 0;
@@ -43,7 +43,7 @@ public final class DungeonSettings {
     }
 
     public static void marker(DungeonBlockEntity block, String id, boolean attack) {
-        CompoundTag data = block.getPersistentData();
+        CompoundTag data = block.state();
         data.putString("zhanweifuid", id);
         Direction direction = block.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
         data.putInt("entityshengchengchaoxiang", switch (direction) {

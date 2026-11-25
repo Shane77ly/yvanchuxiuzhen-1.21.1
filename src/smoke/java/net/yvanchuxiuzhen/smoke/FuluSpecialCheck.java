@@ -43,6 +43,9 @@ import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.fulu.content.DrawingTableBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
+import net.yvanchuxiuzhen.system.fulu.data.FuluCasterState;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
+import net.yvanchuxiuzhen.system.fulu.data.FuluThunderState;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
 import net.yvanchuxiuzhen.system.profession.api.Professions;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionAttachments;
@@ -76,7 +79,7 @@ final class FuluSpecialCheck extends SystemCheck {
     private double fixed;
     private double percentage;
     private ProfessionProgress rune;
-    private CompoundTag playerData;
+    private FuluCasterState casterSnapshot;
     private Pig target;
     private TalismanProjectile naturalProjectile;
     private ItemStack drawn;
@@ -137,12 +140,12 @@ final class FuluSpecialCheck extends SystemCheck {
                 if (!hitReady) flightTrace.forEach(line -> report.add("INFO 惊庭五雷符 诊断 " + line));
                 expect("二阶发射时精力扣40", soulBeforeLaunch - 40, soulAtLaunch);
                 expect("自然发射消耗制作成品", 1, player.getMainHandItem().getCount());
-                expect("独立交接清零fulu41level", 0, player.getPersistentData().getDouble("fulu41level"));
-                expect("普通远程符fululevel不被41改写", 77, player.getPersistentData().getDouble("fululevel"));
+                expect("独立交接清零fulu41level", 0, player.getData(FuluData.CASTER).level41());
+                expect("普通远程符fululevel不被41改写", 77, player.getData(FuluData.CASTER).pendingLevel());
                 if (!hitReady) return;
                 expect("命中品阶等级", 1, target.getEffect(effect()).getAmplifier());
-                expect("主人UUID", player.getStringUUID(), target.getPersistentData().getString("belongToMasterUUID"));
-                expect("主人团队", Relations.team(player), target.getPersistentData().getString("belongToMasterteam"));
+                expect("主人UUID", player.getStringUUID(), target.getData(FuluData.THUNDER_CURSE).masterUuid());
+                expect("主人团队", Relations.team(player), target.getData(FuluData.THUNDER_CURSE).masterTeam());
             });
             if (!hitReady) {
                 onServer(this::cleanup);
@@ -197,7 +200,7 @@ final class FuluSpecialCheck extends SystemCheck {
         fixed = Cultivation.tizhiDouble(player, "FuluConsumeJingli");
         percentage = Cultivation.tizhiDouble(player, "FuluConsumeJingliPercentage");
         rune = player.getData(ProfessionAttachments.PROGRESS).get(Profession.RUNE);
-        playerData = player.getPersistentData().copy();
+        casterSnapshot = player.getData(FuluData.CASTER);
         player.setGameMode(GameType.SURVIVAL);
         player.setNoGravity(true);
         player.setInvulnerable(true);
@@ -232,11 +235,10 @@ final class FuluSpecialCheck extends SystemCheck {
         BlockPos pos = player.blockPosition().offset(3, 0, 0);
         put(player, pos, BuiltInRegistries.BLOCK.get(id("huafutai")).defaultBlockState());
         DrawingTableBlockEntity table = (DrawingTableBlockEntity) player.serverLevel().getBlockEntity(pos);
-        CompoundTag data = table.getPersistentData();
-        data.putInt("futou", 11);
-        data.putInt("fudan", 1);
-        data.putInt("tiandizhu", 2);
-        data.putInt("RuneLEVEL", 1);
+        table.setHead(11);
+        table.setCore(1);
+        table.setPillar(2);
+        table.setRuneLevel(1);
         table.setItem(0, item("fulufuzhi", 2));
         table.setItem(1, item("motiao_02", 24));
         double experience = Professions.experience(player, Profession.RUNE);
@@ -250,13 +252,13 @@ final class FuluSpecialCheck extends SystemCheck {
         table.setItem(2, ItemStack.EMPTY);
         player.setItemInHand(InteractionHand.MAIN_HAND, drawn);
         Cultivation.set(player, CultivationValue.SOUL, 39);
-        player.getPersistentData().putDouble("fulu41level", 19);
+        player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withLevel41(19));
         drawn.getItem().releaseUsing(drawn, player.level(), player, 71990);
         expect("不足精力不扣费", 39, Cultivation.get(player, CultivationValue.SOUL));
         expect("不足精力不耗符", 2, drawn.getCount());
-        expect("不足精力不改独立品阶", 19, player.getPersistentData().getDouble("fulu41level"));
+        expect("不足精力不改独立品阶", 19, player.getData(FuluData.CASTER).level41());
         expectTrue("不足精力没有弹体", projectiles(player).isEmpty());
-        player.getPersistentData().putDouble("fululevel", 77);
+        player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withPendingLevel(77));
         soulBeforeLaunch = PlayerAttributes.value(player, Stat.SOUL_MAX);
         Cultivation.set(player, CultivationValue.SOUL, soulBeforeLaunch);
         player.inventoryMenu.broadcastChanges();
@@ -272,7 +274,7 @@ final class FuluSpecialCheck extends SystemCheck {
                     projectile.position().add(projectile.getDeltaMovement().scale(4))).isPresent();
         }
         if (event.getEntity() instanceof ColoredLightningBolt bolt && target != null && target.hasEffect(effect())) {
-            strikes.add(new Strike(target.getPersistentData().getString("fulu41jindu"), bolt.position(), bolt.color(), event.getLevel().getGameTime()));
+            strikes.add(new Strike(target.getData(FuluData.THUNDER_CURSE).phase(), bolt.position(), bolt.color(), event.getLevel().getGameTime()));
             created.add(bolt);
         }
     }
@@ -302,9 +304,9 @@ final class FuluSpecialCheck extends SystemCheck {
 
     private void verifyNaturalCycle(ServerPlayer player) {
         expectTrue("首轮真实雷伤已命中目标", damageObserved);
+        FuluThunderState state = target.getData(FuluData.THUNDER_CURSE);
         expectTrue("五轮自然结束移除效果并清阶段计数", !target.hasEffect(effect())
-                && target.getPersistentData().getString("fulu41jindu").isEmpty()
-                && target.getPersistentData().getDouble("fulu41tick") == 0 && target.getPersistentData().getDouble("fulu41num") == 0);
+                && state.phase().isEmpty() && state.tick() == 0 && state.count() == 0);
         expect("完整五轮总83道雷", 83, strikes.size());
         expect("首轮白雷十道", 10, strikes.stream().filter(strike -> strike.phase().isEmpty() && strike.color() == -1).count());
         expect("次轮红雷十六道", 16, strikes.stream().filter(strike -> strike.phase().equals("二雷") && strike.color() == 0xffff0000).count());
@@ -320,34 +322,33 @@ final class FuluSpecialCheck extends SystemCheck {
     }
 
     private void verifyPersistenceAndBoundaries(ServerPlayer player) {
-        target.getPersistentData().putString("fulu41jindu", "四雷");
-        target.getPersistentData().putDouble("fulu41tick", 3);
-        target.getPersistentData().putDouble("fulu41num", 7);
+        target.setData(FuluData.THUNDER_CURSE, target.getData(FuluData.THUNDER_CURSE).withProgress("四雷", 3, 7));
         TalismanProjectile projectile = FuluSetup.projectile(Kind.FIVE_THUNDER).get().create(player.serverLevel());
-        projectile.getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
+        projectile.setMasterUuid(player.getStringUUID());
         Relations.setTeam(projectile, "fulu41_target");
         FiveThunderCurse.hit(player.serverLevel(), projectile, target, 3);
         expectTrue("同实体团队拒绝效果", !target.hasEffect(effect()));
         Relations.setTeam(projectile, Relations.team(player));
         FiveThunderCurse.hit(player.serverLevel(), projectile, target, 3);
+        FuluThunderState state = target.getData(FuluData.THUNDER_CURSE);
         expectTrue("重施使用新等级且保留旧进度", target.getEffect(effect()).getAmplifier() == 2
-                && target.getPersistentData().getString("fulu41jindu").equals("四雷")
-                && target.getPersistentData().getDouble("fulu41tick") == 3 && target.getPersistentData().getDouble("fulu41num") == 7);
+                && state.phase().equals("四雷") && state.tick() == 3 && state.count() == 7);
         CompoundTag saved = new CompoundTag();
         target.save(saved);
         Pig loaded = (Pig) EntityType.loadEntityRecursive(saved, player.serverLevel(), entity -> entity);
+        FuluThunderState loadedState = loaded.getData(FuluData.THUNDER_CURSE);
         expectTrue("效果与阶段完整保存重读", loaded.getEffect(effect()).getAmplifier() == 2 && loaded.getEffect(effect()).getDuration() == 2400
-                && loaded.getPersistentData().equals(target.getPersistentData()) && Relations.entityTeam(loaded).equals("fulu41_target"));
+                && loadedState.equals(state) && Relations.entityTeam(loaded).equals("fulu41_target"));
         loaded.removeEffect(effect());
-        expectTrue("提前移除不清来源残余阶段", loaded.getPersistentData().getString("fulu41jindu").equals("四雷")
-                && loaded.getPersistentData().getDouble("fulu41tick") == 3 && loaded.getPersistentData().getDouble("fulu41num") == 7);
+        loadedState = loaded.getData(FuluData.THUNDER_CURSE);
+        expectTrue("提前移除不清来源残余阶段", loadedState.phase().equals("四雷") && loadedState.tick() == 3 && loadedState.count() == 7);
         loaded.discard();
         target.removeEffect(effect());
         projectile.discard();
         NeoForge.EVENT_BUS.unregister(joined);
         NeoForge.EVENT_BUS.unregister(flight);
         NeoForge.EVENT_BUS.unregister(impact);
-        player.getPersistentData().putDouble("fulu41level", 4);
+        player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withLevel41(4));
         naturalProjectile = FuluSetup.projectile(Kind.FIVE_THUNDER).get().create(player.serverLevel());
         naturalProjectile.setOwner(player);
         naturalProjectile.setPos(player.position().add(0, 10, 0));
@@ -356,7 +357,7 @@ final class FuluSpecialCheck extends SystemCheck {
         CompoundTag arrow = new CompoundTag();
         naturalProjectile.save(arrow);
         expectTrue("弹体首刻交接身份品阶且原生内部物品可编码", arrow.getDouble("fululevel") == 4 && naturalProjectile.isNoGravity()
-                && naturalProjectile.getPersistentData().getString("belongToMasterUUID").equals(player.getStringUUID())
+                && naturalProjectile.masterUuid().equals(player.getStringUUID())
                 && Relations.entityTeam(naturalProjectile).equals(Relations.team(player)));
         TalismanProjectile restored = (TalismanProjectile) EntityType.loadEntityRecursive(arrow, player.serverLevel(), entity -> entity);
         naturalProjectile.discard();
@@ -385,10 +386,7 @@ final class FuluSpecialCheck extends SystemCheck {
         });
         player.getData(ProfessionAttachments.PROGRESS).set(Profession.RUNE, rune);
         player.syncData(ProfessionAttachments.PROGRESS);
-        for (String key : List.of("fululevel", "fulu41level")) {
-            if (playerData.contains(key)) player.getPersistentData().put(key, playerData.get(key).copy());
-            else player.getPersistentData().remove(key);
-        }
+        player.setData(FuluData.CASTER, casterSnapshot);
     }
 
     private Pig pig(ServerPlayer player, Vec3 at) {

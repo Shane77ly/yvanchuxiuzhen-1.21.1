@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.skill.entity;
 
 import java.util.Map;
 import java.util.UUID;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
@@ -11,7 +10,7 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 
 /**
  * 灵纹特效（来源 {@code Lingwentexiao2DangShiTiGengXinKeShi}，由主手武器的灵纹附魔命中时生成，见 {@link LingwenHit}）：
- * 一个跟随施放者的灵纹实体，{@code lingwennum} 记剩余的灵纹数（至多 6），按数量播放 {@code two}–{@code six} 动画；
+ * 一个跟随施放者的灵纹实体，剩余灵纹数（至多 6）保存在关系附件中，按数量播放 {@code two}–{@code six} 动画；
  * 每 100 刻减一枚，每 20 刻检查 10 格内最近的非友方实体，找到时以主人的眼睛为起点、沿主人的视线射出一枚灵纹弹
  * （散布 20，不是朝目标）并减一枚，数量归零后消失。
  */
@@ -29,16 +28,6 @@ final class LingwenEntities {
         skills.put(ID, new Rune());
     }
 
-    /** 旧目标版本把灵纹数存于实体本体，施法者存在 SkillCast 中。 */
-    static void restoreLegacyData(SkillEntity self) {
-        CompoundTag data = self.getPersistentData();
-        if (data.contains("lingwennum") && !data.getBoolean("lingwen_relation_migrated")) {
-            UUID attacker = self.attacker();
-            Relations.restoreLegacyRune(self, data.getInt("lingwennum"), attacker == null ? "" : attacker.toString());
-            data.putBoolean("lingwen_relation_migrated", true);
-        }
-    }
-
     private static Entity owner(ServerLevel level, String id) {
         try {
             return level.getEntity(UUID.fromString(id));
@@ -50,8 +39,6 @@ final class LingwenEntities {
     private static final class Rune implements EntitySkill {
         @Override
         public void tick(SkillEntity self) {
-            CompoundTag data = self.getPersistentData();
-            restoreLegacyData(self);
             int count = Relations.runeCount(self);
             if (count >= 2 && count < NUMBERS.length) {
                 self.setAnimation("animation.lingwen2." + NUMBERS[count]);
@@ -61,17 +48,17 @@ final class LingwenEntities {
             if (owner != null) {
                 self.teleportTo(owner.getX(), owner.getY(), owner.getZ());
             }
-            data.putDouble("tick", data.getDouble("tick") + 1);
-            if (data.getDouble("tick") >= DECAY) {
+            self.setSkillTick(self.skillTick() + 1);
+            if (self.skillTick() >= DECAY) {
                 count--;
                 Relations.setRuneCount(self, count);
                 if (count <= 0) {
                     self.discard();
                 }
-                data.putDouble("tick", 0);
+                self.setSkillTick(0);
             }
-            data.putDouble("tick2", data.getDouble("tick2") + 1);
-            if (data.getDouble("tick2") >= SCAN) {
+            self.setSkillTick2(self.skillTick2() + 1);
+            if (self.skillTick2() >= SCAN) {
                 for (Entity other : ProjectileSupport.around(level, self.position(), 10)) {
                     if (!ProjectileSupport.friendly(self, other)) {
                         if (owner != null) {
@@ -86,7 +73,7 @@ final class LingwenEntities {
                 if (count <= 0) {
                     self.discard();
                 }
-                data.putDouble("tick2", 0);
+                self.setSkillTick2(0);
             }
         }
     }

@@ -73,10 +73,9 @@ public final class XiulianSetup {
         event.registrar("1").playToServer(XiulianButtonPayload.TYPE, XiulianButtonPayload.STREAM_CODEC, XiulianButtonPayload::handle);
     }
 
-    /** 存档附件装载后先恢复来源实体境界镜像，再执行出身登录门槛。 */
+    /** 存档附件装载后执行出身登录门槛。 */
     private static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         ServerPlayer player = (ServerPlayer) event.getEntity();
-        Cultivation.syncLegacyLevelMirror(player);
         BirthSelection.onLogin(player);
     }
 

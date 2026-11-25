@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.skill.entity;
 
 import java.util.Map;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -17,8 +16,8 @@ import net.yvanchuxiuzhen.system.skill.projectile.ProjectileSupport;
 /**
  * 金系的金轮实体与金刚轮施放（来源 {@code SkillGold0201}、{@code SkillGold02}）。金轮实体按模式（来源放在 {@code friendlist.jinengName}）
  * 分八种：金刚轮的正常、潜行、Ctrl、Alt 四式，金弧轮的左旋与右旋、天堑金轮、捆妖轮、捆妖轮锁住；后四种由金轮弹体
- * （{@code SkillGold03}，见 {@link net.yvanchuxiuzhen.system.skill.projectile.GoldWheel}）生成并跟随它。模式、跟随对象（{@code belongToMasterUUID}）
- * 与角度记在实体的 {@code getPersistentData} 里；各模式到期时发出黄色破碎粒子。
+ * （{@code SkillGold03}，见 {@link net.yvanchuxiuzhen.system.skill.projectile.GoldWheel}）生成并跟随它。模式、跟随对象
+ * 与角度记在 {@link SkillEntity} 的字段中并随实体存档；各模式到期时发出黄色破碎粒子。
  */
 public final class GoldEntities {
     public static final String ID = "skill_gold_0201";
@@ -34,8 +33,8 @@ public final class GoldEntities {
 
     /** 记下模式与跟随对象。 */
     public static void setMode(SkillEntity wheel, String mode, Entity master) {
-        wheel.getPersistentData().putString("mode", mode);
-        wheel.getPersistentData().putString("master", master.getStringUUID());
+        wheel.setMode(mode);
+        wheel.setMasterUuid(master.getStringUUID());
     }
 
     /**
@@ -53,7 +52,7 @@ public final class GoldEntities {
             mode = "金刚轮潜行";
         } else if (ModifierKeys.ctrl(caster)) {
             mode = "金刚轮ctrl";
-            wheel.getPersistentData().putInt("jiaodu", (int) caster.getXRot());
+            wheel.setStoredPitch((int) caster.getXRot());
             SkillEntities.turn(wheel, caster.getYRot(), caster.getXRot());
         } else if (ModifierKeys.alt(caster)) {
             wheel.setAnimation("animation.skillGold02.skill04");
@@ -79,8 +78,7 @@ public final class GoldEntities {
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
-            String mode = scratch.getString("mode");
+            String mode = self.mode();
             switch (mode) {
                 case "金刚轮正常" -> expire(self, 16);
                 case "金刚轮潜行" -> {
@@ -90,7 +88,7 @@ public final class GoldEntities {
                 }
                 case "金刚轮ctrl" -> {
                     double yaw = Math.toRadians(self.getYRot());
-                    self.setDeltaMovement(new Vec3(-0.8 * Math.sin(yaw), -0.8 * Math.sin(Math.toRadians(scratch.getInt("jiaodu"))), 0.8 * Math.cos(yaw)));
+                    self.setDeltaMovement(new Vec3(-0.8 * Math.sin(yaw), -0.8 * Math.sin(Math.toRadians((int) self.storedPitch())), 0.8 * Math.cos(yaw)));
                     for (Entity other : ProjectileSupport.around(level, self.position(), 2.5)) {
                         if (!ProjectileSupport.friendly(self, other) && !(other instanceof LivingEntity living && StatusEffects.has(living, "skilleffect_08"))) {
                             other.setDeltaMovement(new Vec3((other.getX() - self.getX()) * 0.7, 0.5, (other.getZ() - self.getZ()) * 0.7));
@@ -100,21 +98,21 @@ public final class GoldEntities {
                 }
                 case "金刚轮alt" -> {
                     self.setAnimation("animation.skillGold02.skill04");
-                    scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-                    if (scratch.getDouble("tick2") >= 5) {
-                        for (Entity other : ProjectileSupport.around(level, self.position(), scratch.getDouble("fanwei") / 2)) {
+                    self.setSkillTick2(self.skillTick2() + 1);
+                    if (self.skillTick2() >= 5) {
+                        for (Entity other : ProjectileSupport.around(level, self.position(), self.range() / 2)) {
                             if (!ProjectileSupport.friendly(self, other) && !(other instanceof LivingEntity living && StatusEffects.has(living, "skilleffect_08"))) {
                                 other.setDeltaMovement(new Vec3((other.getX() - self.getX()) * 0.4, 0.3, (other.getZ() - self.getZ()) * 0.4));
                             }
                         }
-                        if (scratch.getDouble("fanwei") <= 13) {
-                            if (scratch.getDouble("suojian") == 0) {
-                                scratch.putDouble("suojian", 1);
+                        if (self.range() <= 13) {
+                            if (self.shrink() == 0) {
+                                self.setShrink(1);
                             }
-                            scratch.putDouble("suojian", Math.round(scratch.getDouble("suojian") + Math.pow(scratch.getDouble("suojian"), 0.2)));
-                            scratch.putDouble("fanwei", scratch.getDouble("fanwei") + 4 - scratch.getDouble("suojian"));
+                            self.setShrink(Math.round(self.shrink() + Math.pow(self.shrink(), 0.2)));
+                            self.setRange(self.range() + 4 - self.shrink());
                         }
-                        scratch.putDouble("tick2", 0);
+                        self.setSkillTick2(0);
                     }
                     expire(self, 56);
                 }
@@ -142,18 +140,17 @@ public final class GoldEntities {
 
         /** 计时加一，到达寿命时散出金色粒子并消失。 */
         private static void expire(SkillEntity self, int lifetime) {
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            if (scratch.getDouble("tick") >= lifetime) {
+            self.setSkillTick(self.skillTick() + 1);
+            if (self.skillTick() >= lifetime) {
                 ProjectileSupport.particles((ServerLevel) self.level(), Particles.type("brokenyellow"), self.position().add(0, 1, 0), 30, 1, 0, 1, 0.2);
                 self.discard();
-                scratch.putDouble("tick", 0);
+                self.setSkillTick(0);
             }
         }
 
         /** 把自己传送到跟随对象（盒内 {@code inflate} 格内找到的那个实体）的位置，纵向偏移 {@code lift}。 */
         private static void follow(SkillEntity self, double inflate, double lift) {
-            String master = self.getPersistentData().getString("master");
+            String master = self.masterUuid();
             for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), self.position(), inflate)) {
                 if (other.getStringUUID().equals(master)) {
                     self.teleportTo(other.getX(), other.getY() + lift, other.getZ());

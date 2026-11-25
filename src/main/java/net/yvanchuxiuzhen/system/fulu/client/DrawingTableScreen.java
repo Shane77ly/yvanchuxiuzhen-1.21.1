@@ -5,7 +5,6 @@ import java.util.Locale;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -62,10 +61,9 @@ public final class DrawingTableScreen extends AbstractContainerScreen<DrawingTab
         drawTexture(graphics, "lianqi_gui_slot", 312, 174, 18, 18);
         DrawingTableBlockEntity table = menu.table();
         if (table != null) {
-            CompoundTag state = table.getPersistentData();
-            drawSelection(graphics, "futou", state.getInt("futou"), 11, 135, 135, 58, 58);
-            drawSelection(graphics, "chiling", state.getInt("tiandizhu"), 4, 135, 194, 58, 168);
-            drawSelection(graphics, "fudan", state.getInt("fudan"), 8, 152, 255, 24, 104);
+            drawSelection(graphics, "futou", table.head(), 11, 135, 135, 58, 58);
+            drawSelection(graphics, "chiling", table.pillar(), 4, 135, 194, 58, 168);
+            drawSelection(graphics, "fudan", table.core(), 8, 152, 255, 24, 104);
         }
         RenderSystem.disableBlend();
     }
@@ -81,17 +79,20 @@ public final class DrawingTableScreen extends AbstractContainerScreen<DrawingTab
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         DrawingTableBlockEntity table = menu.table();
-        CompoundTag state = table == null ? new CompoundTag() : table.getPersistentData();
-        graphics.drawString(font, text("head", selection(state, "futou")), 249, 138, -1, false);
-        graphics.drawString(font, text("pillar", selection(state, "tiandizhu")), 249, 147, -1, false);
-        graphics.drawString(font, text("core", selection(state, "fudan")), 249, 156, -1, false);
-        Component preview = state.getString("fuluname").isEmpty() ? text("none") : text("preview",
-                DrawingRecipes.name(ResourceLocation.parse(state.getString("fuluname"))), selection(state, "tiandizhu"), state.getInt("needmotiao"));
+        int head = table == null ? 0 : table.head();
+        int pillar = table == null ? 0 : table.pillar();
+        int core = table == null ? 0 : table.core();
+        String fuluName = table == null ? "" : table.fuluName();
+        int needInk = table == null ? 0 : table.needInk();
+        graphics.drawString(font, text("head", selection("futou", head)), 249, 138, -1, false);
+        graphics.drawString(font, text("pillar", selection("tiandizhu", pillar)), 249, 147, -1, false);
+        graphics.drawString(font, text("core", selection("fudan", core)), 249, 156, -1, false);
+        Component preview = fuluName.isEmpty() ? text("none") : text("preview",
+                DrawingRecipes.name(ResourceLocation.parse(fuluName)), selection("tiandizhu", pillar), needInk);
         graphics.drawString(font, preview, 249, 129, -12829636, false);
     }
 
-    private static Component selection(CompoundTag state, String category) {
-        int selected = state.getInt(category);
+    private static Component selection(String category, int selected) {
         return selected == 0 ? Component.empty() : Component.translatable(DrawingTableRuntime.knowledgeKey(category, selected));
     }
 

@@ -28,7 +28,7 @@ public final class DungeonEntrances {
     }
 
     public static void initialize(DungeonBlockEntity block) {
-        CompoundTag data = block.getPersistentData();
+        CompoundTag data = block.state();
         data.putString("fubenname", "花妖连战");
         data.putString("fubenid", "fuben002");
         data.putString("text01", "这是一个放置传送门就自动生成的");
@@ -44,7 +44,7 @@ public final class DungeonEntrances {
     }
 
     public static void tick(DungeonBlockEntity block) {
-        CompoundTag data = block.getPersistentData();
+        CompoundTag data = block.state();
         if (data.getBoolean("fubenbegin")) {
             data.putDouble("fubenjieshujishi", data.getDouble("fubenjieshujishi") + 1);
             if (data.getDouble("fubenjieshujishi") >= data.getDouble("fubenjieshujishiMax")) {
@@ -56,7 +56,7 @@ public final class DungeonEntrances {
     }
 
     public static void enter(ServerPlayer leader, DungeonBlockEntity block) {
-        CompoundTag entrance = block.getPersistentData();
+        CompoundTag entrance = block.state();
         ServerLevel origin = leader.serverLevel();
         boolean refused = false;
         int people = 0;

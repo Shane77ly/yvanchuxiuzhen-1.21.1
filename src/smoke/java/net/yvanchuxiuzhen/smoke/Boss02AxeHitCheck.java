@@ -22,7 +22,10 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.creature.entity.boss.Boss0201Entity;
 import net.yvanchuxiuzhen.system.creature.entity.boss.Boss02Entity;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -92,8 +95,8 @@ final class Boss02AxeHitCheck extends SystemCheck {
                 samples.add(new Sample(pig, tick, friend));
             }
         }
-        boss.getPersistentData().putDouble("attack_Num", 10);
-        boss.getPersistentData().putString("jineng", "飞斧");
+        EntityAttributes.setStat(boss, Stat.ATTACK, 10);
+        CreatureData.state(boss).setSkill("飞斧");
         NeoForge.EVENT_BUS.addListener(joinListener);
         NeoForge.EVENT_BUS.addListener(tickListener);
         NeoForge.EVENT_BUS.addListener(EventPriority.HIGHEST, incoming);
@@ -124,13 +127,13 @@ final class Boss02AxeHitCheck extends SystemCheck {
 
     private void onJoin(EntityJoinLevelEvent event) {
         if (event.getLevel() == level && event.getEntity() instanceof Boss0201Entity axe
-                && axe.getPersistentData().getString("AttackUUID").equals(boss.getStringUUID())) axes.add(axe);
+                && axe.attackUuid().equals(boss.getStringUUID())) axes.add(axe);
     }
 
     private void beforeTick(EntityTickEvent.Pre event) {
         if (axes.isEmpty() || event.getEntity() != axes.getFirst()) return;
         Boss0201Entity axe = axes.getFirst();
-        int tick = axe.getPersistentData().getInt("jinengtick") + 1;
+        int tick = (int) axe.skillTick() + 1;
         Vec3 center = axe.position();
         for (Sample sample : samples) {
             if (tick == sample.tick) {
@@ -161,7 +164,7 @@ final class Boss02AxeHitCheck extends SystemCheck {
     }
 
     private Hit hit(DamageSource source, float amount) {
-        int elapsed = axes.isEmpty() ? -1 : axes.getFirst().getPersistentData().getInt("jinengtick");
+        int elapsed = axes.isEmpty() ? -1 : (int) axes.getFirst().skillTick();
         return new Hit(elapsed, amount, source.is(DamageTypes.PLAYER_ATTACK)
                 && source.getEntity() == boss && source.getDirectEntity() == boss);
     }

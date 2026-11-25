@@ -18,6 +18,7 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentSword;
 import net.yvanchuxiuzhen.platform.content.LegacyTier;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.equipment.api.BloodEssenceData;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
@@ -62,7 +63,7 @@ public final class Fabao016Item extends ContentSword {
             return;
         }
         // 来源过程读取未赋值的 ItemStack.EMPTY，其 lianqizong.item_level 默认值为 0。
-        double levelNumber = target.getPersistentData().getDouble("LEVELnumber");
+        double levelNumber = EntityAttributes.level(target);
         if (levelNumber <= 1) {
             StatusEffects.add(target, "effect_004", 600, (int) (1 - levelNumber));
         }

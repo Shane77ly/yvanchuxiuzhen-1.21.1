@@ -22,6 +22,11 @@ public final class BookQuizData {
             .serialize(Codec.intRange(0, 40))
             .copyOnDeath()
             .build());
+    public static final Supplier<AttachmentType<Double>> ANSWER_COUNT = TYPES.register("book_quiz_answers", () -> AttachmentType
+            .builder(() -> 0.0)
+            .serialize(Codec.DOUBLE)
+            .copyOnDeath()
+            .build());
     public static final Supplier<AttachmentType<BookQuizState>> SESSION = TYPES.register("book_quiz_session", () -> AttachmentType
             .builder(() -> BookQuizState.EMPTY)
             .sync((holder, player) -> holder == player, BookQuizState.STREAM_CODEC)
@@ -38,8 +43,16 @@ public final class BookQuizData {
         return player.getData(SESSION);
     }
 
+    public static double answerCount(Player player) {
+        return player.getData(ANSWER_COUNT);
+    }
+
+    public static void setAnswerCount(Player player, double count) {
+        player.setData(ANSWER_COUNT, count);
+    }
+
     public static void publish(Player player) {
-        player.setData(SESSION, new BookQuizState(player.getData(QUESTION), player.getPersistentData().getDouble("daduishuliang")));
+        player.setData(SESSION, new BookQuizState(player.getData(QUESTION), answerCount(player)));
     }
 
     public static void register(IEventBus modBus) {

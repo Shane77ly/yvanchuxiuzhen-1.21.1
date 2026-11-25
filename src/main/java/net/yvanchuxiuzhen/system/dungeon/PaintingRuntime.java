@@ -26,7 +26,7 @@ public final class PaintingRuntime {
     }
 
     public static void tick(DungeonBlockEntity block) {
-        CompoundTag data = block.getPersistentData();
+        CompoundTag data = block.state();
         if (data.getBoolean("chuanyve")) {
             data.putDouble("blocktick", data.getDouble("blocktick") + 1);
             if (data.getDouble("blocktick") >= 8) {
@@ -54,9 +54,9 @@ public final class PaintingRuntime {
             player.displayClientMessage(Component.literal("§4在这个维度无法使用。"), false);
             return;
         }
-        if (!block.getPersistentData().getBoolean("chuanyve")) {
+        if (!block.state().getBoolean("chuanyve")) {
             block.animate(1);
-            block.getPersistentData().putBoolean("chuanyve", true);
+            block.state().putBoolean("chuanyve", true);
             block.changed();
             return;
         }

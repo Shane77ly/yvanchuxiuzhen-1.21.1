@@ -38,6 +38,7 @@ public final class DungeonBlockEntity extends RandomizableContainerBlockEntity i
     private final IItemHandler[] sided = new IItemHandler[6];
     private final IItemHandler unsided = new InvWrapper(this);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private CompoundTag state = new CompoundTag();
 
     public DungeonBlockEntity(BlockPos pos, BlockState state) {
         super(DungeonBlockEntities.typeFor(BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath()), pos, state);
@@ -47,6 +48,7 @@ public final class DungeonBlockEntity extends RandomizableContainerBlockEntity i
     }
 
     public String kind() { return kind; }
+    public CompoundTag state() { return state; }
     public IItemHandler handler(Direction direction) { return isRemoved() ? null : direction == null ? unsided : sided[direction.ordinal()]; }
 
     public void changed() {
@@ -78,12 +80,14 @@ public final class DungeonBlockEntity extends RandomizableContainerBlockEntity i
         items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         tryLoadLootTable(tag);
         ContainerHelper.loadAllItems(tag, items, registries);
+        state = tag.getCompound("dungeon_state").copy();
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!state.isEmpty()) tag.put("dungeon_state", state);
     }
 
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }

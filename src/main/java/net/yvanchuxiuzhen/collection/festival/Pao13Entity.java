@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.collection.festival;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -18,7 +19,11 @@ import net.yvanchuxiuzhen.system.particle.api.Particles;
 
 /** Pao12 发射及 Pao13 物品发射共用的烟花弹体；八档燃放保持来源的时序和随机范围。 */
 public final class Pao13Entity extends AbstractArrow implements ItemSupplier {
+    private double tick;
+    private int fireType;
+
     public Pao13Entity(EntityType<? extends Pao13Entity> type, Level level) { super(type, level); }
+    public void setFireType(int value) { fireType = value; }
     public Pao13Entity(EntityType<? extends Pao13Entity> type, LivingEntity owner, Level level) {
         super(type, owner, level, ItemStack.EMPTY, ItemStack.EMPTY);
     }
@@ -35,17 +40,28 @@ public final class Pao13Entity extends AbstractArrow implements ItemSupplier {
         super.tick();
         if (!(level() instanceof ServerLevel server)) return;
         if (!isNoGravity()) {
-            getPersistentData().putDouble("firetype", 1 + server.random.nextInt(8));
+            fireType = 1 + server.random.nextInt(8);
             setNoGravity(true);
         }
-        getPersistentData().putDouble("tick", getPersistentData().getDouble("tick") + 1);
+        tick += 1;
         server.sendParticles(Particles.type("pao_0201"), getX(), getY(), getZ(), 5, 0, 0, 0, 0);
-        if (getPersistentData().getDouble("tick") >= 16) {
-            int firetype = getPersistentData().getInt("firetype");
-            Pao13Fireworks.emit(server, this, firetype);
+        if (tick >= 16) {
+            Pao13Fireworks.emit(server, this, fireType);
             discard();
         }
         if (inGround) discard();
+    }
+
+    @Override public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putDouble("tick", tick);
+        tag.putInt("firetype", fireType);
+    }
+
+    @Override public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        tick = tag.getDouble("tick");
+        fireType = tag.getInt("firetype");
     }
 
     @Override protected void doPostHurtEffects(LivingEntity entity) {

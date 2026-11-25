@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.book.BookReadingText;
+import net.yvanchuxiuzhen.system.book.api.BookQuizzes;
 import net.yvanchuxiuzhen.system.book.api.BookTextData;
 import net.yvanchuxiuzhen.system.book.api.BookTexts;
 import net.yvanchuxiuzhen.system.book.client.BookReadingScreen;
@@ -42,7 +43,6 @@ final class BookReadingCheck extends ActionCheck {
     private int selected;
     private boolean sneaking;
     private boolean shift;
-    private boolean hadAnswers;
     private double answers;
 
     BookReadingCheck(List<String> report, String levelId, Screenshots screenshots) {
@@ -54,9 +54,8 @@ final class BookReadingCheck extends ActionCheck {
             selected = player.getInventory().selected;
             sneaking = player.isShiftKeyDown();
             shift = minecraft.options.keyShift.isDown();
-            hadAnswers = player.getPersistentData().contains("daduishuliang");
-            answers = player.getPersistentData().getDouble("daduishuliang");
-            player.getPersistentData().putDouble("daduishuliang", 5);
+            answers = BookQuizzes.answerCount(player);
+            BookQuizzes.setAnswerCount(player, 5);
             player.getInventory().clearContent();
             Techniques.setSlot(player, ItemStack.EMPTY);
             player.setShiftKeyDown(false);
@@ -157,7 +156,7 @@ final class BookReadingCheck extends ActionCheck {
             List<String> lines = BookReadingText.lines(player);
             expect("丹方标题说明首尾药草", List.of("§6清心丹方", "§3炼丹材料说明", "药草1", "药草8", ""),
                     List.of(lines.get(0), lines.get(1), lines.get(2), lines.get(9), lines.get(10)));
-            expect("阅读全程保留答题计数", 5, player.getPersistentData().getDouble("daduishuliang"));
+            expect("阅读全程保留答题计数", 5, BookQuizzes.answerCount(player));
             minecraft.execute(() -> screenshots.take("book_reading_recipe.png"));
         }));
         script(actions.toArray(Action[]::new));
@@ -219,8 +218,7 @@ final class BookReadingCheck extends ActionCheck {
         player.getInventory().selected = selected;
         player.setShiftKeyDown(sneaking);
         Techniques.setSlot(player, technique);
-        if (hadAnswers) player.getPersistentData().putDouble("daduishuliang", answers);
-        else player.getPersistentData().remove("daduishuliang");
+        BookQuizzes.setAnswerCount(player, answers);
         player.inventoryMenu.broadcastChanges();
         minecraft.execute(() -> {
             minecraft.player.getInventory().selected = selected;

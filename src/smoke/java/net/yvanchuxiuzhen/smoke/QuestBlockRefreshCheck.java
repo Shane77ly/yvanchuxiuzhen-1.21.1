@@ -75,51 +75,49 @@ final class QuestBlockRefreshCheck extends SystemCheck {
     }
 
     private void material(ServerPlayer player, DisguisedQuestBlockEntity block, InteractionHand current, InteractionHand other) {
-        CompoundTag data = block.getPersistentData();
-        data.putBoolean("shuaxin", true);
-        data.putString("productlist1", SENTINEL_PRODUCTS);
+        block.setRefreshDue(true);
+        block.setProductList(1, SENTINEL_PRODUCTS);
         use(player, MATERIAL_SHOP, current);
-        String firstProducts = data.getString("productlist1");
+        String firstProducts = block.productList(1);
         expectTrue("材料店当前手右键消费刷新标记并生成六十件商品",
-                !data.getBoolean("shuaxin") && firstProducts.split("%", -1).length == 300);
+                !block.refreshDue() && firstProducts.split("%", -1).length == 300);
         use(player, MATERIAL_SHOP, current);
-        expect("刷新标记消费后再次右键保留货架", firstProducts, data.getString("productlist1"));
+        expect("刷新标记消费后再次右键保留货架", firstProducts, block.productList(1));
 
-        data.putBoolean("shuaxin", true);
-        data.putString("productlist1", SENTINEL_PRODUCTS);
+        block.setRefreshDue(true);
+        block.setProductList(1, SENTINEL_PRODUCTS);
         use(player, MATERIAL_SHOP, other);
-        expectTrue("非当前手右键不消费标记或修改货架", data.getBoolean("shuaxin")
-                && data.getString("productlist1").equals(SENTINEL_PRODUCTS));
+        expectTrue("非当前手右键不消费标记或修改货架", block.refreshDue()
+                && block.productList(1).equals(SENTINEL_PRODUCTS));
 
         player.setShiftKeyDown(true);
         use(player, MATERIAL_SHOP, current);
         player.setShiftKeyDown(false);
-        String sneakingProducts = data.getString("productlist1");
+        String sneakingProducts = block.productList(1);
         expectTrue("持物潜行绕过方块交互前仍修补材料货架",
-                !data.getBoolean("shuaxin") && sneakingProducts.split("%", -1).length == 300);
+                !block.refreshDue() && sneakingProducts.split("%", -1).length == 300);
         DisguisedQuestBlockEntity restored = read(player, block);
-        expectTrue("材料店保存重读保留消费后的标记与完整货架", !restored.getPersistentData().getBoolean("shuaxin")
-                && restored.getPersistentData().getString("productlist1").equals(sneakingProducts));
+        expectTrue("材料店保存重读保留消费后的标记与完整货架", !restored.refreshDue()
+                && restored.productList(1).equals(sneakingProducts));
     }
 
     private void clothing(ServerPlayer player, DisguisedQuestBlockEntity block, InteractionHand current) {
-        CompoundTag data = block.getPersistentData();
         String mismatch = OLD_INFORMATION + " ";
-        data.putString("shopinformation1", mismatch);
-        data.putString("productlist1", SENTINEL_PRODUCTS);
+        block.setShopInformation(1, mismatch);
+        block.setProductList(1, SENTINEL_PRODUCTS);
         use(player, CLOTHING_SHOP, current);
-        expectTrue("陈氏旧说明只差末尾空格时不改说明或商品", data.getString("shopinformation1").equals(mismatch)
-                && data.getString("productlist1").equals(SENTINEL_PRODUCTS));
+        expectTrue("陈氏旧说明只差末尾空格时不改说明或商品", block.shopInformation(1).equals(mismatch)
+                && block.productList(1).equals(SENTINEL_PRODUCTS));
 
-        data.putString("shopinformation1", OLD_INFORMATION);
+        block.setShopInformation(1, OLD_INFORMATION);
         use(player, CLOTHING_SHOP, current);
-        expect("精确旧说明替换为来源中文说明", NEW_INFORMATION, data.getString("shopinformation1"));
-        String products = data.getString("productlist1");
+        expect("精确旧说明替换为来源中文说明", NEW_INFORMATION, block.shopInformation(1));
+        String products = block.productList(1);
         expectTrue("陈氏整份十一件商品与来源提取摘要一致", products.split("%", -1).length == 55
                 && sha256(products).equals(CLOTHING_SHA256));
         DisguisedQuestBlockEntity restored = read(player, block);
-        expectTrue("陈氏保存重读保留中文说明与完整商品", restored.getPersistentData().getString("shopinformation1").equals(NEW_INFORMATION)
-                && restored.getPersistentData().getString("productlist1").equals(products));
+        expectTrue("陈氏保存重读保留中文说明与完整商品", restored.shopInformation(1).equals(NEW_INFORMATION)
+                && restored.productList(1).equals(products));
     }
 
     private static void use(ServerPlayer player, BlockPos pos, InteractionHand hand) {

@@ -46,9 +46,6 @@ final class LingwenHit {
         List<SkillEntity> nearby = level.getEntitiesOfClass(SkillEntity.class, new AABB(at, at).inflate(2), entity -> SkillEntities.is(entity, "lingwentexiao_2"));
         if (!nearby.isEmpty()) {
             for (Entity other : ProjectileSupport.around(level, at, 2)) {
-                if (other instanceof SkillEntity skill) {
-                    SkillEntities.restoreLegacyRune(skill);
-                }
                 Relations.incrementRuneForOwner(other, attacker);
             }
             return;

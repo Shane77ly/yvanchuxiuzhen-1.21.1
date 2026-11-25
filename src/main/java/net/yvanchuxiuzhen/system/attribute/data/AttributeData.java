@@ -12,6 +12,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.yvanchuxiuzhen.system.attribute.api.Contribution;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
 import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.attribute.rule.AttributeTotals;
@@ -21,19 +22,14 @@ import net.yvanchuxiuzhen.system.attribute.rule.AttributeTotals;
  * 值不可变，修改时生成新对象并通过 {@code setData} 写回，写回即同步给本人。
  */
 public final class AttributeData {
-    private static final Map<String, Stat> STATS_BY_ID = Arrays.stream(Stat.values())
-            .collect(Collectors.toUnmodifiableMap(Stat::id, Function.identity()));
     private static final Map<String, Layer> LAYERS_BY_ID = Arrays.stream(Layer.values())
             .collect(Collectors.toUnmodifiableMap(Layer::id, Function.identity()));
-    private static final Codec<Stat> STAT_CODEC = Codec.STRING.comapFlatMap(
-            id -> STATS_BY_ID.containsKey(id) ? DataResult.success(STATS_BY_ID.get(id)) : DataResult.error(() -> "未知属性项 " + id),
-            Stat::id);
     private static final Codec<Layer> LAYER_CODEC = Codec.STRING.comapFlatMap(
             id -> LAYERS_BY_ID.containsKey(id) ? DataResult.success(LAYERS_BY_ID.get(id)) : DataResult.error(() -> "未知贡献层 " + id),
             Layer::id);
     private static final Codec<Contribution> CONTRIBUTION_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             LAYER_CODEC.fieldOf("layer").forGetter(Contribution::layer),
-            Codec.unboundedMap(STAT_CODEC, Codec.DOUBLE).fieldOf("values").forGetter(Contribution::values)
+            Codec.unboundedMap(EntityStats.STAT_CODEC, Codec.DOUBLE).fieldOf("values").forGetter(Contribution::values)
     ).apply(instance, Contribution::new));
     public static final Codec<AttributeData> CODEC = Codec.unboundedMap(Codec.STRING, CONTRIBUTION_CODEC)
             .xmap(AttributeData::new, AttributeData::contributions);

@@ -36,6 +36,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.BonemealEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -183,7 +184,7 @@ final class FuluRipeningCheck extends ActionCheck {
         expect("树苗受控骨粉尝试次数", 12, bonemealCalls);
         expectTrue("来源标签作物已安排生长刻", level.getBlockTicks().hasScheduledTick(taggedCrop, block("shicai_011_plant_01")));
         expect("已有妖兽团队", "xiyinerlai", Relations.entityTeam(existingBeast));
-        expect("已有妖兽仇恨", player.getStringUUID(), existingBeast.getPersistentData().getString("linshigongjizhe"));
+        expect("已有妖兽仇恨", player.getStringUUID(), CreatureData.state(existingBeast).tempAttackerUuid());
         List<Entity> summoned = level.getEntitiesOfClass(Entity.class, new AABB(center).inflate(40),
                 entity -> !before.contains(entity.getUUID()) && entity.getType().builtInRegistryHolder().key().location().getPath().startsWith("yaoshou_"));
         expect("秋林03七槽全部生成", 7, summoned.size());
@@ -194,7 +195,7 @@ final class FuluRipeningCheck extends ActionCheck {
             ((Mob) entity).setNoAi(true);
             expectTrue("召引共享友方表", Relations.friendlyTeams(entity).containsAll(Set.of("xiyinerlai", "yvanchuxiuzhen_yaoshou_001", "yvanchuxiuzhen_yaoshou_002")));
             expect("召引保留初始化后物种团队", entity.getType().builtInRegistryHolder().key().location().toString().replace(':', '_'), Relations.entityTeam(entity));
-            expect("召引仇恨", player.getStringUUID(), entity.getPersistentData().getString("linshigongjizhe"));
+            expect("召引仇恨", player.getStringUUID(), CreatureData.state(entity).tempAttackerUuid());
         }
         ItemStack loaded = ItemStack.parseOptional(player.registryAccess(), (CompoundTag) stack.save(player.registryAccess()));
         expect("剩余符保存数量", 1, loaded.getCount());

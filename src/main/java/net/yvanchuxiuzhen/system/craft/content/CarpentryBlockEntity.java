@@ -37,6 +37,12 @@ public final class CarpentryBlockEntity extends RandomizableContainerBlockEntity
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private String category = "";
+    private int selected;
+    private String furnitureName = "";
+    private final String[] requirementIds = {"", "", "", "", ""};
+    private final int[] requirementCounts = new int[5];
+    private final String[] requirementNames = {"", "", "", "", ""};
 
     public CarpentryBlockEntity(BlockPos pos, BlockState state) {
         super(CraftBlockEntities.CARPENTRY.get(), pos, state);
@@ -65,12 +71,28 @@ public final class CarpentryBlockEntity extends RandomizableContainerBlockEntity
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(42, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        category = tag.getString("fenlei");
+        selected = tag.getInt("xvanze");
+        furnitureName = tag.getString("jiajvname");
+        for (int row = 0; row < 5; row++) {
+            requirementIds[row] = tag.getString("needitem" + row + "id");
+            requirementCounts[row] = tag.getInt("needitem" + row + "num");
+            requirementNames[row] = tag.getString("needitem" + row + "name");
+        }
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!category.isEmpty()) tag.putString("fenlei", category);
+        if (selected != 0) tag.putInt("xvanze", selected);
+        if (!furnitureName.isEmpty()) tag.putString("jiajvname", furnitureName);
+        for (int row = 0; row < 5; row++) {
+            if (!requirementIds[row].isEmpty()) tag.putString("needitem" + row + "id", requirementIds[row]);
+            if (requirementCounts[row] != 0) tag.putInt("needitem" + row + "num", requirementCounts[row]);
+            if (!requirementNames[row].isEmpty()) tag.putString("needitem" + row + "name", requirementNames[row]);
+        }
     }
 
     @Override
@@ -106,27 +128,38 @@ public final class CarpentryBlockEntity extends RandomizableContainerBlockEntity
     }
 
     public String category() {
-        return getPersistentData().getString("fenlei");
+        return category;
     }
 
     public void category(String category) {
-        getPersistentData().putString("fenlei", category);
+        this.category = category == null ? "" : category;
     }
 
     public int selected() {
-        return getPersistentData().getInt("xvanze");
+        return selected;
     }
 
     public void selected(int selected) {
-        getPersistentData().putInt("xvanze", selected);
+        this.selected = selected;
+    }
+
+    public void setFurnitureName(String name) {
+        furnitureName = name == null ? "" : name;
+    }
+
+    public void setRequirement(int row, String id, int count, String name) {
+        if (row < 0 || row >= 5) return;
+        requirementIds[row] = id == null ? "" : id;
+        requirementCounts[row] = count;
+        requirementNames[row] = name == null ? "" : name;
     }
 
     public String requirementId(int row) {
-        return getPersistentData().getString("needitem" + row + "id");
+        return row >= 0 && row < 5 ? requirementIds[row] : "";
     }
 
     public int requirementCount(int row) {
-        return getPersistentData().getInt("needitem" + row + "num");
+        return row >= 0 && row < 5 ? requirementCounts[row] : 0;
     }
 
     @Override

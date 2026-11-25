@@ -43,7 +43,7 @@ public final class DungeonMenus {
                 Component.translatable("menu.yvanchuxiuzhen.dungeon." + kind)), buffer -> {
                     buffer.writeBlockPos(block.getBlockPos());
                     buffer.writeVarInt(kind);
-                    buffer.writeNbt(block.getPersistentData());
+                    buffer.writeNbt(block.state());
                 });
     }
 }

@@ -33,6 +33,9 @@ public final class EquipmentData {
     public static final Supplier<AttachmentType<ArmorComparison>> ARMOR_COMPARISON = ATTACHMENTS.register("armor_comparison", () -> AttachmentType
             .builder(ArmorComparison::new).serialize(ArmorComparison.CODEC).copyOnDeath()
             .copyHandler((comparison, holder, provider) -> comparison.copySlots()).build());
+    public static final Supplier<AttachmentType<Boolean>> RIGHT_CLICKING = ATTACHMENTS.register("right_clicking", () -> AttachmentType
+            .builder(() -> false).serialize(Codec.BOOL)
+            .sync((holder, player) -> holder == player, ByteBufCodecs.BOOL).build());
     private static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ModId.VALUE);
     public static final Supplier<DataComponentType<EquipmentProperties>> PROPERTIES = COMPONENTS.registerComponentType("equipment_properties",
             builder -> builder.persistent(EquipmentProperties.CODEC).networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(EquipmentProperties.CODEC)));

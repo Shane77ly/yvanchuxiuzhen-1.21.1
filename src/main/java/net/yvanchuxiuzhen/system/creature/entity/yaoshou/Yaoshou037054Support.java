@@ -14,6 +14,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.Scoreboard;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 本批编号妖兽共用的来源随机、目标查找、动作结束与受击记录。 */
@@ -32,7 +34,7 @@ final class Yaoshou037054Support {
 
     static Entity target(LevelAccessor world, Entity entity) {
         if (!(world instanceof ServerLevel level)) return null;
-        String id = entity.getPersistentData().getString("gongjizhe");
+        String id = CreatureData.state(entity).attackerUuid();
         if (id.isEmpty()) return null;
         try {
             return level.getEntity(UndashedUuid.fromStringLenient(id));
@@ -67,14 +69,14 @@ final class Yaoshou037054Support {
     static void hurt(YaoshouEntity entity, DamageSource source, String animation) {
         Entity attacker = source.getEntity();
         if (!entity.isAlive() || attacker == null || Relations.isFriendly(entity, attacker)) return;
-        CompoundTag data = entity.getPersistentData();
-        data.putString("linshigongjizhe", attacker.getStringUUID());
-        if (data.getBoolean("beidaduan")) {
+        CreatureState data = CreatureData.state(entity);
+        data.setTempAttackerUuid(attacker.getStringUUID());
+        if (data.interrupted()) {
             entity.setAnimation("empty");
-            data.putBoolean("beidaduan", false);
+            data.setInterrupted(false);
             if (isKind(entity, "yaoshou_041")) entity.removeEffect(MobEffects.SLOW_FALLING);
         }
-        if (data.getString("jineng").isEmpty() && !entity.level().isClientSide()) {
+        if (data.skill().isEmpty() && !entity.level().isClientSide()) {
             entity.setAnimation(animation);
         }
     }

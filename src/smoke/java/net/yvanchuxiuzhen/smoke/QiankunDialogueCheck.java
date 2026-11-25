@@ -284,7 +284,7 @@ final class QiankunDialogueCheck extends SystemCheck {
 
     private static String daoStage(ServerPlayer player) {
         if (RENJIAN.equals(player.serverLevel().dimension()) && player.level().getBlockEntity(DAO) instanceof QiankundaorenBlockEntity dao) {
-            return dao.getPersistentData().getString(player.getUUID() + "zhuangtai");
+            return dao.playerStage(player.getUUID());
         }
         return "未找到人间道道人";
     }

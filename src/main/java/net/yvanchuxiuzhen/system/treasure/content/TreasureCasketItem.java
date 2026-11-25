@@ -33,7 +33,7 @@ public final class TreasureCasketItem extends ContentItem {
             level.setBlock(pos, BuiltInRegistries.BLOCK.get(ResourceLocation.parse("yvanchuxiuzhen:baoxia")).defaultBlockState()
                     .setValue(BlockStateProperties.HORIZONTAL_FACING, player.getDirection().getOpposite()), Block.UPDATE_ALL);
             if (level.getBlockEntity(pos) instanceof TreasureCasketBlockEntity casket) {
-                casket.getPersistentData().putString("zhiling", Caskets.command(context.getItemInHand()));
+                casket.setCommand(Caskets.command(context.getItemInHand()));
                 casket.sync();
             }
             context.getItemInHand().shrink(1);

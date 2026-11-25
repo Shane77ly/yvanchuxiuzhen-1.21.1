@@ -34,8 +34,7 @@ public final class DisplayFurnitureMenuActions {
             ItemHandlerHelper.giveItemToPlayer(player, handler.getStackInSlot(0).copyWithCount(1));
             if (handler instanceof IItemHandlerModifiable inventory) inventory.setStackInSlot(0, ItemStack.EMPTY);
         }
-        BlockEntity previous = level.getBlockEntity(pos);
-        String direction = previous.getPersistentData().getString("fangxiang");
+        String direction = level.getBlockEntity(pos) instanceof DisplayFurnitureBlockEntity furniture ? furniture.displayDirection() : "";
         BlockState state = level.getBlockState(pos);
         Direction facing = state.hasProperty(BlockStateProperties.HORIZONTAL_FACING) ? state.getValue(BlockStateProperties.HORIZONTAL_FACING)
                 : state.hasProperty(BlockStateProperties.FACING) ? state.getValue(BlockStateProperties.FACING)
@@ -46,7 +45,7 @@ public final class DisplayFurnitureMenuActions {
             if (!variant.cabinet() && state.is(DisplayFurnitureContent.block(variant))) { next = variant.next(); break; }
         }
         level.setBlock(pos, DisplayFurnitureContent.block(next).defaultBlockState(), 3);
-        level.getBlockEntity(pos).getPersistentData().putString("fangxiang", direction);
+        if (level.getBlockEntity(pos) instanceof DisplayFurnitureBlockEntity updated) updated.setDisplayDirection(direction);
         BlockState changed = level.getBlockState(pos);
         if (BlockStateProperties.HORIZONTAL_FACING.getPossibleValues().contains(facing)) {
             level.setBlock(pos, changed.setValue(BlockStateProperties.HORIZONTAL_FACING, facing), 3);

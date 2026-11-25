@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.fulu.data;
 
+import com.mojang.serialization.Codec;
 import java.util.function.Supplier;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -14,7 +15,7 @@ import net.yvanchuxiuzhen.system.fulu.api.FuluLearningBook;
 import net.yvanchuxiuzhen.system.fulu.api.SealedCorpse;
 import net.yvanchuxiuzhen.system.fulu.api.TalismanInstance;
 
-/** 符箓物品组件与玩家知识附件注册；由符箓系统统一管理读写。 */
+/** 符箓物品组件与实体附件注册；由符箓系统统一管理读写。 */
 public final class FuluData {
     private static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ModId.VALUE);
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ModId.VALUE);
@@ -30,6 +31,18 @@ public final class FuluData {
             .serialize(FuluKnowledge.CODEC)
             .copyOnDeath()
             .sync((holder, player) -> holder == player, ByteBufCodecs.fromCodec(FuluKnowledge.CODEC))
+            .build());
+    public static final Supplier<AttachmentType<FuluCasterState>> CASTER = ATTACHMENTS.register("fulu_caster", () -> AttachmentType
+            .builder(() -> FuluCasterState.EMPTY)
+            .serialize(FuluCasterState.CODEC)
+            .build());
+    public static final Supplier<AttachmentType<String>> CONTROL_OWNER = ATTACHMENTS.register("fulu_control_owner", () -> AttachmentType
+            .builder(() -> "")
+            .serialize(Codec.STRING)
+            .build());
+    public static final Supplier<AttachmentType<FuluThunderState>> THUNDER_CURSE = ATTACHMENTS.register("fulu_thunder_curse", () -> AttachmentType
+            .builder(() -> FuluThunderState.EMPTY)
+            .serialize(FuluThunderState.CODEC)
             .build());
 
     private FuluData() {

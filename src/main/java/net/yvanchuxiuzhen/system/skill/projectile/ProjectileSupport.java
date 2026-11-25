@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -53,13 +55,13 @@ public final class ProjectileSupport {
         }
     }
 
-    /** 发射者当前所选技能的攻击量与伤害倍率；发射者不是玩家时攻击量取其 {@code LEVELnumber}、倍率为 1（命中时现读，不是发射时的快照）。 */
+    /** 发射者当前所选技能的攻击量与伤害倍率；发射者不是玩家时攻击量取其境界等级、倍率为 1（命中时现读，不是发射时的快照）。 */
     public static double[] liveValues(Entity owner) {
         if (owner instanceof Player player) {
             SkillBook book = Skills.book(Skills.selected(player)).orElse(null);
             return book == null ? new double[] {0, 0} : new double[] {book.manaAttack(), book.damageMultiplier()};
         }
-        return new double[] {owner.getPersistentData().getDouble("LEVELnumber"), 1};
+        return new double[] {EntityAttributes.level(owner), 1};
     }
 
     public static void particles(ServerLevel level, ParticleOptions particle, Vec3 at, int count, double spreadX, double spreadY, double spreadZ, double speed) {

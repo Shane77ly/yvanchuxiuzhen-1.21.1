@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.system.dungeon.content;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
@@ -25,6 +26,7 @@ import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.system.dungeon.DungeonEntrances;
 import net.yvanchuxiuzhen.system.dungeon.PaintingRuntime;
 import net.yvanchuxiuzhen.system.dungeon.api.Dungeons;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonData;
 
 /** 天道副本和画卷保留各自动画范围、含水与来源交互触发。 */
 public class DungeonPortalBlock extends DungeonBlock implements SimpleWaterloggedBlock {
@@ -63,9 +65,12 @@ public class DungeonPortalBlock extends DungeonBlock implements SimpleWaterlogge
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         super.entityInside(state, level, pos, entity);
         if (entity instanceof ServerPlayer player && level.getBlockEntity(pos) instanceof DungeonBlockEntity block
-                && block.kind().equals("tiandaofuben") && !player.getPersistentData().getBoolean("openfubengui")) {
-            player.getPersistentData().putBoolean("openfubengui", true);
-            Dungeons.open(player, pos, false);
+                && block.kind().equals("tiandaofuben")) {
+            CompoundTag transientState = player.getData(DungeonData.PLAYER_TRANSIENT);
+            if (!transientState.getBoolean("openfubengui")) {
+                transientState.putBoolean("openfubengui", true);
+                Dungeons.open(player, pos, false);
+            }
         }
     }
 

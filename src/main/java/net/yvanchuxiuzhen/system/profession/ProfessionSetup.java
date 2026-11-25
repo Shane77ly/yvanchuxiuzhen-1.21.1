@@ -8,7 +8,6 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.yvanchuxiuzhen.system.profession.api.Profession;
-import net.yvanchuxiuzhen.system.profession.api.Professions;
 import net.yvanchuxiuzhen.system.profession.content.ProfessionMenus;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionAttachments;
 import net.yvanchuxiuzhen.system.profession.data.ProfessionData;
@@ -40,9 +39,6 @@ public final class ProfessionSetup {
                 double level = current.level() + 1;
                 data.set(profession, new ProfessionProgress(level,
                         current.experience() - current.experienceMax(), level * 100));
-                if (profession == Profession.GATHERING) {
-                    mirrorGatheringLevel(player);
-                }
                 player.syncData(ProfessionAttachments.PROGRESS);
                 player.displayClientMessage(Component.literal(profession.levelUpMessage()).withStyle(ChatFormatting.GOLD), false);
             }
@@ -62,12 +58,6 @@ public final class ProfessionSetup {
     }
 
     private static void sync(ServerPlayer player) {
-        mirrorGatheringLevel(player);
         player.syncData(ProfessionAttachments.PROGRESS);
-    }
-
-    /** 来源 {@code LeftClickBlock} 向原初系统复制采集等级；兼容现有 combat 对该持久字段的读取。 */
-    private static void mirrorGatheringLevel(ServerPlayer player) {
-        player.getPersistentData().putDouble("collection_LEVEL", Professions.level(player, Profession.GATHERING));
     }
 }
