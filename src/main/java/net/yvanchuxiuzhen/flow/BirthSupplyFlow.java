@@ -93,8 +93,10 @@ public final class BirthSupplyFlow {
             case 20 -> give(player, Fulu.createReward(item("itemfulu_10"), 2, "玄阶"), 10);
             case 21 -> material(player, "cailiao_195", 10, 25);
             case 22 -> material(player, "cailiao_222", 1, 10);
-            case 23 -> player.server.getCommands().performPrefixedCommand(player.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                    "shenfa yvanchuxiuzhen:book_012 分形捉影 21 11 无 双击W时，朝向鼠标方向快速弹射过去，同时隐形，并且玩家可以三连跳。 20 60 20 60 1.5 0 0 0 0");
+            case 23 -> give(player, Skills.createBook(item("book_012"), new SkillBook(SkillKind.MOVEMENT, "分形捉影", 21, 11, "无",
+                    "双击W时，朝向鼠标方向快速弹射过去，同时隐形，并且玩家可以三连跳。", Optional.empty(), "",
+                    Map.of("shenfatick", 20.0, "shenfatickMax", 60.0, "shenfajumptick", 20.0, "shenfajumptickMax", 60.0,
+                            "shenfaWjump", 1.5, "shenfaSjump", 0.0, "shenfaAjump", 0.0, "shenfaDjump", 0.0, "shenfaWspeed", 0.0), Map.of())), 1);
             case 24 -> give(player, Fulu.createReward(item("itemfulu_46"), 3, "地阶"), 10);
             case 25 -> plain(player, "money_04", 10);
             case 26 -> material(player, "cailiao_196", 10, 30);

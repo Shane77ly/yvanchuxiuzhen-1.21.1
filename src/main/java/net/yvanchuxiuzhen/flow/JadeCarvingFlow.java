@@ -1,5 +1,7 @@
 package net.yvanchuxiuzhen.flow;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -8,12 +10,15 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.system.creature.api.CreatureEncounters;
+import net.yvanchuxiuzhen.system.gongfa.api.TechniqueDefinition;
+import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongEncounters;
 import net.yvanchuxiuzhen.system.material.api.JadeCarvingEvent;
 import net.yvanchuxiuzhen.system.material.api.Materials;
@@ -112,11 +117,14 @@ public final class JadeCarvingFlow {
             "minecraft:bone",
             "minecraft:bone_meal"
     };
-    private static final String[] BOOK_COMMANDS = {
-            "technique yvanchuxiuzhen:book_017 尘丰诀 13 13 土 土属性进阶功法，额外增加土系技能攻击力。 0 0 0 0 2 下档 下档 下档 下档 下档 下档 中档 中档 下档 中档 下档 下档 最下档",
-            "technique yvanchuxiuzhen:book_017 重峦真经 23 23 土 土属性高级功法，额外增加土系技能攻击力。 0 0 0 0 3 中档 中档 中档 中档 中档 中档 上档 上档 中档 中档 中档 中档 最下档",
-            "technique yvanchuxiuzhen:book_017 擎山震地功 33 33 土 土属性顶级功法之一，额外增加土系技能攻击力。 0 0 0 0 4 上档 上档 上档 上档 上档 上档 上档 最上档 上档 上档 上档 上档 最下档"
-    };
+    // 玉石来源只写前十二个属性档；移速档为空，与书架奖励表中的同名书不同。
+    private static final List<TechniqueDefinition> BOOKS = List.of(
+            jadeBook("尘丰诀", "玄阶三级", 13, "筑基三阶", "土属性进阶功法，额外增加土系技能攻击力。", 2,
+                    List.of("下档", "下档", "下档", "下档", "下档", "下档", "中档", "中档", "下档", "中档", "下档", "下档", "")),
+            jadeBook("重峦真经", "地阶三级", 23, "结丹三转", "土属性高级功法，额外增加土系技能攻击力。", 3,
+                    List.of("中档", "中档", "中档", "中档", "中档", "中档", "上档", "上档", "中档", "中档", "中档", "中档", "")),
+            jadeBook("擎山震地功", "天阶三级", 33, "元婴三重", "土属性顶级功法之一，额外增加土系技能攻击力。", 4,
+                    List.of("上档", "上档", "上档", "上档", "上档", "上档", "上档", "最上档", "上档", "上档", "上档", "上档", "")));
     private static final String[] SOIL_MESSAGES = {
             "观察玉石纹路，稍微对土属性技能加深了了解。土属性熟练度+10",
             "观察玉石纹路，对土属性技能加深了了解。土属性熟练度+20",
@@ -177,6 +185,12 @@ public final class JadeCarvingFlow {
         ItemHandlerHelper.giveItemToPlayer(player, stack);
     }
 
+    private static TechniqueDefinition jadeBook(String name, String gradeText, int grade, String levelText, String intro,
+                                               double soil, List<String> tiers) {
+        return new TechniqueDefinition(ResourceLocation.parse("yvanchuxiuzhen:book_017"), name, gradeText, grade,
+                levelText, grade, "土", intro, Map.of("gold", 0.0, "water", 0.0, "tree", 0.0, "fire", 0.0, "soil", soil), tiers);
+    }
+
     private static ItemStack item(String id) {
         return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(id)));
     }
@@ -190,7 +204,10 @@ public final class JadeCarvingFlow {
             }
         } else if (fortune >= 97 && fortune <= 101) {
             if (fortune >= 98 && fortune <= 100 && fortune == Math.rint(fortune)) {
-                player.server.getCommands().performPrefixedCommand(player.createCommandSourceStack().withPermission(4).withSuppressedOutput(), BOOK_COMMANDS[(int) fortune - 98]);
+                ItemStack book = Techniques.createBook(BOOKS.get((int) fortune - 98));
+                ItemEntity drop = new ItemEntity(player.serverLevel(), player.getX(), player.getY(), player.getZ(), book);
+                drop.setPickUpDelay(10);
+                player.serverLevel().addFreshEntity(drop);
             }
             player.displayClientMessage(Component.literal("你居然在玉石的沟壑纹理之间悟出了一部功法！"), false);
         } else if (fortune == 102) {

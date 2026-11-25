@@ -86,8 +86,8 @@ final class BirthSupplyCheck extends SystemCheck {
         expectTrue("第十份不补造品阶文字", talismanData.levelText().isEmpty());
         carrier = prepare(player, "ling_18", 22);
         use(player, carrier);
-        expectTrue("第二十三份经真实身法命令", Skills.book(find(player, "book_012"))
-                .filter(book -> book.name().equals("分形捉影") && book.kind() == SkillKind.MOVEMENT).isPresent());
+        ItemStack reference = Skills.createBook(SkillKind.MOVEMENT, List.of("yvanchuxiuzhen:book_012 分形捉影 21 11 无 双击W时，朝向鼠标方向快速弹射过去，同时隐形，并且玩家可以三连跳。 20 60 20 60 1.5 0 0 0 0".split(" ")));
+        expectTrue("第二十三份背包身法书与手动命令生成的完整物品一致", ItemStack.matches(reference, find(player, "book_012")));
         carrier = prepare(player, "ling_18", 29);
         use(player, carrier);
         expect("Q197第三十次仍自增", 30, BirthItems.supplyCount(carrier));
