@@ -2,11 +2,8 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import java.util.Comparator;
 import java.util.List;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,8 +14,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -253,9 +250,7 @@ final class Yaoshou043Behavior {
             if (world instanceof ServerLevel _level)
                 _level.sendParticles(Particles.type("thunderyellow"), shijiaoX, (entity.getY()), shijiaoZ, 2, 2, 1, 2, 0);
             if (world instanceof ServerLevel _level)
-                _level.getServer().getCommands().performPrefixedCommand(
-                        new CommandSourceStack(CommandSource.NULL, new Vec3(shijiaoX, (entity.getY()), shijiaoZ), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
-                        ("lightninglanding 3 " + entity.getStringUUID() + " 1 " + Relations.team(entity) + " 2 金色"));
+                Lightning.cast(_level, new Vec3(shijiaoX, (entity.getY()), shijiaoZ), entity, 3, 1, Relations.team(entity), 2, "金色", false);
             CreatureData.state(entity).setPhase("结束");
         } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 16) {
             Yaoshou037054Support.finish(entity);
@@ -293,9 +288,7 @@ final class Yaoshou043Behavior {
                 if (world instanceof ServerLevel _level)
                     _level.sendParticles(Particles.type("thunderpurple"), shijiaoX, (entity.getY()), shijiaoZ, 4, 3, 1, 3, 0);
                 if (world instanceof ServerLevel _level)
-                    _level.getServer().getCommands().performPrefixedCommand(
-                            new CommandSourceStack(CommandSource.NULL, new Vec3(shijiaoX, (entity.getY()), shijiaoZ), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
-                            ("lightninglanding 3 " + entity.getStringUUID() + " 1 " + Relations.team(entity) + " 2 紫色"));
+                    Lightning.cast(_level, new Vec3(shijiaoX, (entity.getY()), shijiaoZ), entity, 3, 1, Relations.team(entity), 2, "紫色", false);
                 CreatureData.state(entity).setStartFlag((CreatureData.state(entity).startFlag() + 1));
                 CreatureData.state(entity).setTick2(0);
             }
@@ -332,9 +325,7 @@ final class Yaoshou043Behavior {
                 if (world instanceof ServerLevel _level)
                     _level.sendParticles(Particles.type("thunderyellow"), shijiaoX, (entity.getY()), shijiaoZ, 5, 3, 1, 3, 0);
                 if (world instanceof ServerLevel _level)
-                    _level.getServer().getCommands().performPrefixedCommand(
-                            new CommandSourceStack(CommandSource.NULL, new Vec3(shijiaoX, (entity.getY()), shijiaoZ), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
-                            ("lightninglanding 3 " + entity.getStringUUID() + " 1 " + Relations.team(entity) + " 2 黄色"));
+                    Lightning.cast(_level, new Vec3(shijiaoX, (entity.getY()), shijiaoZ), entity, 3, 1, Relations.team(entity), 2, "黄色", false);
                 CreatureData.state(entity).setTick2(0);
             }
         } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 140) {

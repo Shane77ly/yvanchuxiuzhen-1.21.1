@@ -47,12 +47,11 @@ final class ThunderEntities {
                 break;
             }
         }
-        String input = "lightninglanding " + book.manaAttack() + " " + caster.getStringUUID() + " " + book.damageMultiplier()
-                + " " + Relations.team(caster) + " 4 白色";
+        String team = Relations.team(caster);
         for (BlockPos offset : book.name().equals("五雷轰顶")
                 ? new BlockPos[]{BlockPos.ZERO, new BlockPos(3, 0, 0), new BlockPos(-3, 0, 0), new BlockPos(0, 0, 3), new BlockPos(0, 0, -3)}
                 : new BlockPos[]{BlockPos.ZERO}) {
-            Lightning.command(level, Vec3.atLowerCornerOf(target.offset(offset)), input);
+            Lightning.cast(level, Vec3.atLowerCornerOf(target.offset(offset)), caster, book.manaAttack(), book.damageMultiplier(), team, 4, "白色", false);
         }
     }
 

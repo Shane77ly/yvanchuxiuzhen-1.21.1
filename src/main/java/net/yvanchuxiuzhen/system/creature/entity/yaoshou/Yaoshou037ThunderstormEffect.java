@@ -1,13 +1,10 @@
 package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
 import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -31,8 +28,7 @@ public final class Yaoshou037ThunderstormEffect implements EffectBehavior {
                 if (world instanceof ServerLevel _level)
                     _level.sendParticles(Particles.type("thunderyellow"), weizhiX, weizhiY, weizhiZ, 2, 0, 0, 0, 0);
                 if (world instanceof ServerLevel _level)
-                    _level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(weizhiX, weizhiY, weizhiZ), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
-                            ("lightninglanding 3 " + entity.getStringUUID() + " 1 " + Relations.entityTeam(entity) + " 2 黄色"));
+                    Lightning.cast(_level, new Vec3(weizhiX, weizhiY, weizhiZ), entity, 3, 1, Relations.entityTeam(entity), 2, "黄色", false);
             }
             entity.setData(CreatureData.THUNDERSTORM_TICK, 0.0);
         }

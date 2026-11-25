@@ -2,12 +2,9 @@ package net.yvanchuxiuzhen.system.creature.entity.xiuzhe;
 
 import java.util.Comparator;
 import java.util.List;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -18,8 +15,8 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.fulu.api.NpcTalismans;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -256,8 +253,7 @@ public final class NpcTalismanSkills {
                 shijiaoY = shijiaoY - 1;
             }
             if (world instanceof ServerLevel _level)
-                _level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(shijiaoX, shijiaoY, shijiaoZ), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
-                        ("lightninglanding " + (30 + CreatureData.state(entity).talismanLevel() * 20) + " " + entity.getStringUUID() + " 1 " + Relations.entityTeam(entity) + " 4 红色 独立"));
+                Lightning.cast(_level, new Vec3(shijiaoX, shijiaoY, shijiaoZ), entity, 30 + CreatureData.state(entity).talismanLevel() * 20, 1, Relations.entityTeam(entity), 4, "红色", true);
             CreatureData.state(entity).setPhase("结束");
         } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 36) {
             CreatureData.state(entity).setSkill("");
