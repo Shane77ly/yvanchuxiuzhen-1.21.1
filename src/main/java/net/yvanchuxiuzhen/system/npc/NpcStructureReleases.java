@@ -29,7 +29,7 @@ public final class NpcStructureReleases {
                 for (Entity entity : level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(2)).stream()
                         .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList()) {
                     if (hasIdentity(entity, "businessman_21")) {
-                        entity.setData(NpcData.PROFILE, entity.getData(NpcData.PROFILE).withScript(1, NpcStructureData.TAVERN_TASK));
+                        entity.setData(NpcData.PROFILE, entity.getData(NpcData.PROFILE).withScript(1, "yiqizhuatuzier"));
                     }
                 }
                 spawn(level, "businessman_09", -75, 63, -360);

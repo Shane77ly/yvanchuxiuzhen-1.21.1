@@ -167,7 +167,7 @@ public final class Auctions {
             AuctionNpcRequestEvent request = new AuctionNpcRequestEvent(level);
             NeoForge.EVENT_BUS.post(request);
             List<CompoundTag> npcs = eligibleNpcs(state, request.definitions());
-            List<String> goods = goods(state);
+            List<AuctionGoodDefinition> goods = goods(state);
             boolean missingNpc = npcCount(state) > 0 && npcs.isEmpty();
             if (goods.isEmpty() || missingNpc) {
                 block.rejectAuction();
@@ -188,7 +188,7 @@ public final class Auctions {
                 NeoForge.EVENT_BUS.post(request);
                 List<CompoundTag> npcs = eligibleNpcs(state, request.definitions());
                 for (int index = 1; index < count; index++) state.put("noplayercharacter" + index, npcs.get(level.random.nextInt(npcs.size())).copy());
-                List<String> goods = goods(state);
+                List<AuctionGoodDefinition> goods = goods(state);
                 AuctionGoods.fill(block, goods, level.random);
                 state.putInt("commodityweizhi", 0);
             }
@@ -235,20 +235,10 @@ public final class Auctions {
         return result;
     }
 
-    private static List<String> goods(CompoundTag state) {
-        int start = state.getString("paimaidengji").equals("筑基期拍卖会") ? 0 : state.getString("paimaidengji").equals("结丹期拍卖会") ? 1001 : 2000;
-        int minimum = start == 0 ? 1 : start == 1001 ? 1000 : 2001;
-        int end = start;
-        String key = "auction.itemdata.goods" + end;
-        while (!CommerceCatalog.translated(key).equals(key) && CommerceCatalog.translated(key).length() > 17) { end++; key = "auction.itemdata.goods" + end; }
-        List<String> result = new ArrayList<>();
-        for (int index = minimum; index <= end; index++) {
-            String name = "auction.itemdata.goods" + index;
-            String value = CommerceCatalog.translated(name);
-            if (value.equals(name)) return List.of();
-            result.add(value);
-        }
-        return result;
+    private static List<AuctionGoodDefinition> goods(CompoundTag state) {
+        int tier = state.getString("paimaidengji").equals("筑基期拍卖会") ? 1
+                : state.getString("paimaidengji").equals("结丹期拍卖会") ? 2 : 3;
+        return AuctionGoods.byTier(tier);
     }
 
     private static void willingness(ServerLevel level, EconomyBlockEntity block) {

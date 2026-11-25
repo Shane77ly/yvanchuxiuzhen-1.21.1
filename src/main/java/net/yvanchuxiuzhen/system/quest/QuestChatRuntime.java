@@ -1,6 +1,5 @@
 package net.yvanchuxiuzhen.system.quest;
 
-import java.util.Set;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
@@ -14,14 +13,13 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 import net.yvanchuxiuzhen.system.world.api.StructureSearch;
 
-/** 来源连续任务在聊天栏输出，文字按60刻节拍推进，条件与扩展动作在本次调用内继续。 */
+/** 连续任务在聊天栏输出，按 60 刻节拍推进强类型节点；条件与扩展动作在本次调用内继续。 */
 final class QuestChatRuntime {
-    private static final Set<String> EXTENDED = Set.of("任务进度更改", "任务储存", "物品", "文本插入选项", "判断任务", "高级物品判断",
-            "判断当前坐标", "判断当前维度", "跟随玩家", "取消跟随", "删除实体", "伤害实体", "移动到坐标", "任务设定修改", "裂隙解封", "删除方块");
-
     private QuestChatRuntime() {
     }
 
@@ -31,117 +29,137 @@ final class QuestChatRuntime {
             state.putInt("renwuweizhi", state.getInt("playerxvanze"));
             state.putInt("playerxvanze", 0);
         }
-        while (!state.getString("renwulist").isEmpty()) {
-            String[] steps = state.getString("renwulist").split("%");
+        while (true) {
+            QuestTemplateDefinition template = DialogueActions.readTemplate(state).orElse(null);
+            if (template == null) return;
             int cursor = state.getInt("renwuweizhi");
-            String[] action = steps[cursor].split("/");
-            switch (action[0]) {
-                case "文字", "自发文字" -> {
-                    player.displayClientMessage(Component.literal((action[0].equals("自发文字") ? player.getDisplayName().getString() + "：" : "") + action[1]), false);
+            DialogueNodeDefinition node = template.node(cursor).orElse(null);
+            if (node == null) {
+                player.setData(QuestData.SESSION, state);
+                return;
+            }
+            switch (node) {
+                case DialogueNodeDefinition.TextNode text -> {
+                    String prefix = text.playerSpeak() ? player.getDisplayName().getString() + "：" : "";
+                    player.displayClientMessage(Component.literal(prefix + text.text()), false);
                     state.putInt("renwuweizhi", cursor + 1);
                     player.setData(QuestData.SESSION, state.copy());
                     // 来源主过程在文字后只调用第二、第三扩展过程，下一条主过程文字留到下一节拍。
-                    if (!EXTENDED.contains(steps[cursor + 1].split("/")[0])) return;
+                    if (!isChatExtended(template.node(cursor + 1).orElse(null))) return;
                 }
-                case "选项" -> {
+                case DialogueNodeDefinition.ChoiceNode choice -> {
                     prepareOptions(player);
-                    player.displayClientMessage(Component.literal(action[1]), false);
+                    player.displayClientMessage(Component.literal(choice.prompt()), false);
                     StringBuilder command = new StringBuilder("tellraw " + player.getDisplayName().getString() + " [");
-                    for (int option = 1; option <= DialogueRuntime.integer(action[2]); option++) {
-                        if (option > 1) command.append(',');
-                        command.append("{\"text\":\"<").append(action[option * 2 + 1]).append(" >\",\"color\":\"aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/taskduihua ")
-                                .append(player.getDisplayName().getString()).append(" renwuweizhi ").append(option).append("\"}}");
-                        state.putInt("daan" + option, DialogueRuntime.integer(action[option * 2 + 2]));
+                    int count = Math.min(4, choice.options().size());
+                    for (int index = 0; index < count; index++) {
+                        DialogueNodeDefinition.ChoiceOption option = choice.options().get(index);
+                        if (index > 0) command.append(',');
+                        command.append("{\"text\":\"<").append(option.label()).append(" >\",\"color\":\"aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/taskduihua ")
+                                .append(player.getDisplayName().getString()).append(" renwuweizhi ").append(index + 1).append("\"}}");
+                        state.putInt("daan" + (index + 1), option.target());
                     }
                     state.putBoolean("xvanxiang", true);
                     player.setData(QuestData.SESSION, state);
                     command(player, command.append(']').toString());
                     return;
                 }
-                case "文本插入选项" -> {
+                case DialogueNodeDefinition.InsertChatOptionNode insert -> {
                     prepareOptions(player);
                     state.putBoolean("xvanxiang", true);
-                    state.putInt("renwuxvanzeweizhi", DialogueRuntime.integer(action[4]));
+                    state.putInt("renwuxvanzeweizhi", insert.target());
                     player.setData(QuestData.SESSION, state);
-                    command(player, "tellraw " + player.getDisplayName().getString() + " [{\"text\":\"" + action[1]
-                            + "\",\"color\":\"white\"},{\"text\":\"<" + action[2]
+                    command(player, "tellraw " + player.getDisplayName().getString() + " [{\"text\":\"" + insert.prefix()
+                            + "\",\"color\":\"white\"},{\"text\":\"<" + insert.option()
                             + ">\",\"color\":\"aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/scoreboard players set -2\"}},{\"text\":\""
-                            + action[3] + "\",\"color\":\"white\"}]");
+                            + insert.suffix() + "\",\"color\":\"white\"}]");
                     return;
                 }
-                case "改变nbt" -> {
-                    DialogueRuntime.changeFlag(player, state, action);
+                case DialogueNodeDefinition.ModifyFlagNode modify -> {
+                    DialogueRuntime.changeFlag(player, state, modify);
                     state.putInt("renwuweizhi", cursor + 1);
                 }
-                case "判断nbt", "判断数值" -> state.putInt("renwuweizhi", DialogueRuntime.compareFlag(player, action));
-                case "判断物品" -> state.putInt("renwuweizhi", DialogueRuntime.integer(action[DialogueRuntime.count(player, DialogueRuntime.item(action[1])) >= DialogueRuntime.number(action[2]) ? 3 : 4]));
-                case "高级物品判断" -> state.putInt("renwuweizhi", DialogueRuntime.integer(action[DialogueRuntime.countAdvancedItems(player, action) >= DialogueRuntime.number(action[2]) ? 3 : 4]));
-                case "物品" -> {
-                    if (action[1].equals("加")) DialogueRuntime.changeItems(player, action);
-                    else player.getInventory().clearOrCountMatchingItems(stack -> stack.is(DialogueRuntime.item(action[2])), DialogueRuntime.integer(action[3]), player.inventoryMenu.getCraftSlots());
+                case DialogueNodeDefinition.CheckFlagNode check ->
+                        state.putInt("renwuweizhi", DialogueRuntime.compareFlag(player, check));
+                case DialogueNodeDefinition.CheckItemNode check -> state.putInt("renwuweizhi",
+                        DialogueRuntime.count(player, DialogueRuntime.item(check.item())) >= check.count()
+                                ? check.passTarget() : check.failTarget());
+                case DialogueNodeDefinition.CheckAdvancedItemNode check -> state.putInt("renwuweizhi",
+                        DialogueRuntime.countAdvancedItems(player, check) >= check.count()
+                                ? check.passTarget() : check.failTarget());
+                case DialogueNodeDefinition.ItemActionNode itemAction -> {
+                    if (itemAction.give()) DialogueRuntime.giveItem(player, itemAction);
+                    else player.getInventory().clearOrCountMatchingItems(
+                            stack -> stack.is(DialogueRuntime.item(itemAction.item())),
+                            itemAction.count(), player.inventoryMenu.getCraftSlots());
                     state.putInt("renwuweizhi", cursor + 1);
                 }
-                case "判断当前坐标" -> {
-                    Vec3 center = new Vec3(DialogueRuntime.number(action[1]), DialogueRuntime.number(action[2]), DialogueRuntime.number(action[3]));
-                    boolean present = player.serverLevel().getEntitiesOfClass(Player.class, new AABB(center, center).inflate(DialogueRuntime.number(action[4]) / 2), candidate -> candidate == player).contains(player);
-                    state.putInt("renwuweizhi", DialogueRuntime.integer(action[present ? 5 : 6]));
+                case DialogueNodeDefinition.CheckPosNode checkPos -> {
+                    Vec3 center = new Vec3(checkPos.x(), checkPos.y(), checkPos.z());
+                    boolean present = player.serverLevel().getEntitiesOfClass(Player.class,
+                            new AABB(center, center).inflate(checkPos.size() / 2), candidate -> candidate == player).contains(player);
+                    state.putInt("renwuweizhi", present ? checkPos.insideTarget() : checkPos.outsideTarget());
                 }
-                case "判断当前维度" -> {
-                    String dimension = "ResourceKey[minecraft:dimension / ]" + action[1] + "]";
-                    state.putInt("renwuweizhi", DialogueRuntime.integer(action[player.level().dimension().toString().equals(dimension) ? 2 : 3]));
+                case DialogueNodeDefinition.CheckDimensionNode checkDim -> {
+                    String dimension = "ResourceKey[minecraft:dimension / ]" + checkDim.dimension() + "]";
+                    state.putInt("renwuweizhi", player.level().dimension().toString().equals(dimension)
+                            ? checkDim.matchTarget() : checkDim.mismatchTarget());
                 }
-                case "判断任务" -> {
-                    String status = DialogueActions.journal(player).getString(action[1] + "zhuangtai");
-                    state.putInt("renwuweizhi", DialogueRuntime.integer(action[status.equals("完成") ? 2 : status.equals("失败") ? 3 : 4]));
+                case DialogueNodeDefinition.CheckQuestNode checkQuest -> {
+                    String status = DialogueActions.journal(player).getString(checkQuest.questId() + "zhuangtai");
+                    state.putInt("renwuweizhi", status.equals("完成") ? checkQuest.completedTarget()
+                            : status.equals("失败") ? checkQuest.failedTarget() : checkQuest.otherwiseTarget());
                 }
-                case "跟随玩家", "取消跟随", "删除实体", "伤害实体", "移动到坐标" -> {
-                    DialogueRuntime.controlEntities(player, action);
+                case DialogueNodeDefinition.EntityControlNode entityControl -> {
+                    DialogueRuntime.controlEntities(player, entityControl);
                     state.putInt("renwuweizhi", cursor + 1);
                 }
-                case "改变坐标" -> {
-                    player.connection.teleport(DialogueRuntime.number(action[1]), DialogueRuntime.number(action[2]), DialogueRuntime.number(action[3]), player.getYRot(), player.getXRot());
+                case DialogueNodeDefinition.TeleportNode teleport -> {
+                    player.connection.teleport(teleport.x(), teleport.y(), teleport.z(), player.getYRot(), player.getXRot());
                     state.putInt("renwuweizhi", cursor + 1);
                 }
-                case "药剂效果", "指令" -> {
-                    String command = action[0].equals("指令") ? action[1] : action[1].equals("加")
-                            ? "effect give " + player.getDisplayName().getString() + " " + action[2] + " " + action[4] + " " + action[3]
-                            : "effect clear " + player.getDisplayName().getString() + " " + action[2];
+                case DialogueNodeDefinition.EffectNode effect -> {
+                    String command = effect.op().equals("加")
+                            ? "effect give " + player.getDisplayName().getString() + " " + effect.effectId() + " " + effect.duration() + " " + effect.amplifier()
+                            : "effect clear " + player.getDisplayName().getString() + " " + effect.effectId();
                     command(player, command);
                     state.putInt("renwuweizhi", cursor + 1);
                 }
-                case "跳转" -> state.putInt("renwuweizhi", DialogueRuntime.integer(action[1]));
-                case "任务进度更改" -> {
-                    state.putString("renwuzhuangtai", action[1]);
+                case DialogueNodeDefinition.CommandNode cmd -> {
+                    command(player, cmd.command());
                     state.putInt("renwuweizhi", cursor + 1);
                 }
-                case "任务储存" -> {
+                case DialogueNodeDefinition.JumpNode jump -> state.putInt("renwuweizhi", jump.target());
+                case DialogueNodeDefinition.SetQuestStatusNode status -> {
+                    state.putString("renwuzhuangtai", status.status());
+                    state.putInt("renwuweizhi", cursor + 1);
+                }
+                case DialogueNodeDefinition.SaveQuestNode save -> {
                     if (state.getString("renwuzhuangtai").isEmpty()) state.putString("renwuzhuangtai", "未完成");
-                    DialogueRuntime.saveTask(player, state, steps[0].split("/"), action);
+                    DialogueRuntime.saveTask(player, state, template, save.resumeCursor());
                     state.putInt("renwuweizhi", cursor + 1);
                 }
-                case "任务设定修改" -> {
-                    String[] header = steps[0].split("/");
-                    String changed = "";
-                    if (action[1].equals("名称") || action[1].equals("说明")) {
-                        header[action[1].equals("名称") ? 0 : 2] = action[2];
-                        changed = String.join("/", header);
-                    }
-                    steps[0] = changed;
-                    state.putString("renwulist", String.join("%", steps));
+                case DialogueNodeDefinition.ModifyQuestHeaderNode modify -> {
+                    QuestTemplateDefinition updated = modify.field().equals("名称")
+                            ? template.withHeader(modify.value(), template.description())
+                            : modify.field().equals("说明")
+                                    ? template.withHeader(template.title(), modify.value())
+                                    : template;
+                    DialogueActions.writeTemplate(state, updated);
                     state.putInt("renwuweizhi", cursor + 1);
                 }
-                case "裂隙解封" -> {
+                case DialogueNodeDefinition.UnsealRiftNode ignored -> {
                     StructureSearch.search(player.serverLevel(), player.position(), player.getStringUUID());
                     state.putInt("renwuweizhi", cursor + 1);
                 }
-                case "删除方块" -> {
-                    for (int index = 1; index + 2 < action.length; index += 3) {
-                        player.serverLevel().setBlock(BlockPos.containing(DialogueRuntime.number(action[index]), DialogueRuntime.number(action[index + 1]), DialogueRuntime.number(action[index + 2])), Blocks.AIR.defaultBlockState(), 3);
+                case DialogueNodeDefinition.RemoveBlocksNode remove -> {
+                    for (BlockPos blockPos : remove.positions()) {
+                        player.serverLevel().setBlock(blockPos, Blocks.AIR.defaultBlockState(), 3);
                     }
                     state.putInt("renwuweizhi", cursor + 1);
                 }
-                case "结束" -> {
-                    state.putString("renwulist", "");
+                case DialogueNodeDefinition.EndNode ignored -> {
+                    DialogueActions.clearTemplate(state);
                     state.putInt("renwuweizhi", 0);
                     state.putBoolean("tasksustained", false);
                     state.putBoolean("xvanxiang", false);
@@ -149,13 +167,32 @@ final class QuestChatRuntime {
                     player.setData(QuestData.SESSION, state);
                     return;
                 }
-                default -> {
+                case DialogueNodeDefinition.OpenMenuNode ignored -> {
+                    player.setData(QuestData.SESSION, state);
+                    return;
+                }
+                case DialogueNodeDefinition.TransferQuestNode ignored -> {
                     player.setData(QuestData.SESSION, state);
                     return;
                 }
             }
             player.setData(QuestData.SESSION, state.copy());
         }
+    }
+
+    private static boolean isChatExtended(DialogueNodeDefinition node) {
+        return node instanceof DialogueNodeDefinition.SetQuestStatusNode
+                || node instanceof DialogueNodeDefinition.SaveQuestNode
+                || node instanceof DialogueNodeDefinition.ItemActionNode
+                || node instanceof DialogueNodeDefinition.InsertChatOptionNode
+                || node instanceof DialogueNodeDefinition.CheckQuestNode
+                || node instanceof DialogueNodeDefinition.CheckAdvancedItemNode
+                || node instanceof DialogueNodeDefinition.CheckPosNode
+                || node instanceof DialogueNodeDefinition.CheckDimensionNode
+                || node instanceof DialogueNodeDefinition.EntityControlNode
+                || node instanceof DialogueNodeDefinition.ModifyQuestHeaderNode
+                || node instanceof DialogueNodeDefinition.UnsealRiftNode
+                || node instanceof DialogueNodeDefinition.RemoveBlocksNode;
     }
 
     private static void prepareOptions(ServerPlayer player) {

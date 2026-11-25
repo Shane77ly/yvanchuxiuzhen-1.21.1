@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
-import net.yvanchuxiuzhen.system.economy.CommerceGoods;
 import net.yvanchuxiuzhen.system.economy.CommerceTrading;
 import net.yvanchuxiuzhen.system.economy.EconomyPrices;
 
@@ -44,7 +43,7 @@ public final class EconomyCurrency {
         boolean deposit = arguments[1].equals("numerical") && arguments[2].equals("depositinbank");
         boolean price = arguments[1].equals("set") && EconomyPrices.KEYS.contains(arguments[2]);
         if (!deposit && !price) return false;
-        double value = CommerceGoods.number(arguments.length > 3 ? arguments[3] : "");
+        double value = parseDouble(arguments.length > 3 ? arguments[3] : "");
         for (ServerPlayer player : source.getLevel().players()) {
             if (player.getDisplayName().getString().equals(arguments[0])) {
                 if (deposit) BankAccounts.creditValue(player, value);
@@ -57,6 +56,12 @@ public final class EconomyCurrency {
             }
         }
         return true;
+    }
+
+    private static double parseDouble(String value) {
+        if (value == null || value.isEmpty()) return 0;
+        try { return Double.parseDouble(value.trim()); }
+        catch (NumberFormatException error) { return 0; }
     }
 
     private static String priceName(String key) {

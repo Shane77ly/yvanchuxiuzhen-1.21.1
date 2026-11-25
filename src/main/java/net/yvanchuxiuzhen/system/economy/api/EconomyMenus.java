@@ -4,6 +4,8 @@ import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
@@ -39,16 +41,17 @@ public final class EconomyMenus {
 
     public static CompoundTag snapshot(Player player) { return player.getData(CommerceData.SESSION).copy(); }
 
-    public static void setProductList(ServerPlayer player, String productList) {
+    public static void setShopCatalog(ServerPlayer player, ShopCatalogDefinition catalog) {
         CompoundTag state = snapshot(player);
-        state.putString("productlist", productList);
+        ShopCatalogDefinition value = catalog == null ? ShopCatalogDefinition.EMPTY : catalog;
+        state.put("shop_catalog", ShopCatalogDefinition.CODEC.encodeStart(NbtOps.INSTANCE, value).getOrThrow());
         player.setData(CommerceData.SESSION, state);
     }
 
-    public static void setShopInformation(ServerPlayer player, String information) {
-        CompoundTag state = snapshot(player);
-        state.putString("shopinformation", information);
-        player.setData(CommerceData.SESSION, state);
+    public static ShopCatalogDefinition shopCatalog(Player player) {
+        Tag raw = player.getData(CommerceData.SESSION).get("shop_catalog");
+        if (raw == null) return ShopCatalogDefinition.EMPTY;
+        return ShopCatalogDefinition.CODEC.parse(NbtOps.INSTANCE, raw).result().orElse(ShopCatalogDefinition.EMPTY);
     }
 
     public static void open(ServerPlayer player, BlockPos pos, String sourceName) {

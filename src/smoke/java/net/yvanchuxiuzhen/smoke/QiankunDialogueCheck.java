@@ -30,6 +30,7 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.npc.content.QiankundaorenBlockEntity;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 
@@ -83,7 +84,7 @@ final class QiankunDialogueCheck extends SystemCheck {
                     String stage = daoStage(player);
                     CompoundTag session = DialogueActions.snapshot(player);
                     expect("首次普通右键只写入准备态", "准备", stage);
-                    boolean noDialogue = session.getString("renwulist").isEmpty() && !session.getBoolean("renwubegin");
+                    boolean noDialogue = DialogueActions.activeTemplate(player).isEmpty() && !session.getBoolean("renwubegin");
                     expectTrue("首次右键未启动服务端对话会话", noDialogue);
                     ready[0] = "准备".equals(stage) && noDialogue;
                 });
@@ -114,7 +115,7 @@ final class QiankunDialogueCheck extends SystemCheck {
                 if (minecraft.screen != null) return await(local, 200, "「一会儿再说」未结束会话");
                 onServer(player -> expectTrue("稍后分支不传送，并保留未完成检查点43与一枚寻灵盘",
                         player.serverLevel().dimension().equals(RENJIAN) && player.position().distanceToSqr(STAND) < 0.01
-                                && DialogueActions.snapshot(player).getString("renwulist").isEmpty()
+                                && DialogueActions.activeTemplate(player).isEmpty()
                                 && checkpoint(player, "未完成", 43) && compassCount(player) == 1));
                 leaveWorld();
             }
@@ -125,7 +126,7 @@ final class QiankunDialogueCheck extends SystemCheck {
                 boolean[] persisted = {false};
                 onServer(player -> persisted[0] = "准备".equals(daoStage(player))
                         && checkpoint(player, "未完成", 43) && compassCount(player) == 1
-                        && DialogueActions.snapshot(player).getString("renwulist").isEmpty());
+                        && DialogueActions.activeTemplate(player).isEmpty());
                 if (!persisted[0]) return abort("原生保存重进后准备态、未完成检查点43、寻灵盘或清空的会话不符");
                 expectTrue("原生保存重进保留准备态、未完成检查点43及一枚寻灵盘，临时会话清空", true);
                 submittedMenuId = -1;
@@ -156,7 +157,7 @@ final class QiankunDialogueCheck extends SystemCheck {
                 onServer(player -> {
                     expect("传送后服务端维度", RENJIAN.location(), player.serverLevel().dimension().location());
                     expectTrue("出发分支结束并把任务标为完成、存53", checkpoint(player, "完成", 53)
-                            && DialogueActions.snapshot(player).getString("renwulist").isEmpty());
+                            && DialogueActions.activeTemplate(player).isEmpty());
                     expect("完成任务后寻灵盘数量恰好一枚", 1, compassCount(player));
                 });
                 end();
@@ -291,7 +292,10 @@ final class QiankunDialogueCheck extends SystemCheck {
 
     private static boolean isTaskAt(ServerPlayer player, int cursor) {
         CompoundTag session = DialogueActions.snapshot(player);
-        return session.getString("renwulist").startsWith("初见乾坤道人/" + QUEST_ID + "/")
+        return DialogueActions.activeTemplate(player)
+                .map(QuestTemplateDefinition::questId)
+                .filter(QUEST_ID::equals)
+                .isPresent()
                 && session.getInt("renwuweizhi") == cursor;
     }
 

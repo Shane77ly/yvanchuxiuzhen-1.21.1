@@ -8,7 +8,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.system.quest.content.DisguisedQuestBlockEntity;
 import net.yvanchuxiuzhen.system.quest.content.QuestTriggerEditorMenu;
 
-/** 任务方块编辑页只更新本系统持有的脚本和商店配置。 */
+/** 任务方块编辑页只更新本系统持有的模板 ID 与商店 ID 配置。 */
 public final class QuestTriggerEditorRuntime {
     private QuestTriggerEditorRuntime() {
     }
@@ -27,15 +27,17 @@ public final class QuestTriggerEditorRuntime {
         if (block == null) return;
         String[] entries = state.split(",");
         for (int row = 1; row <= 10; row++) {
-            String script = value(entries, "renwulist" + row + ":");
-            if (!script.isEmpty()) {
-                if (value(entries, "gaojirenwu" + row + "-").equals("1")) block.setRenwulist(row, script);
-                else block.setTasklist(row, script);
+            String questId = value(entries, "renwulist" + row + ":");
+            if (!questId.isEmpty()) {
+                if (value(entries, "gaojirenwu" + row + "-").equals("1")) block.setAdvancedQuest(row, questId);
+                else block.setOrdinaryQuest(row, questId);
             }
             String information = value(entries, "shopinformation" + row + ":");
+            String productId = value(entries, "productlist" + row + ":");
             if (!information.isEmpty()) {
-                block.setShopInformation(row, information);
-                block.setProductList(row, value(entries, "productlist" + row + ":"));
+                block.setShopId(row, productId.isEmpty() ? information : productId);
+            } else if (!productId.isEmpty()) {
+                block.setShopId(row, productId);
             }
         }
         if (value(entries, "lizi-").equals("1")) block.setShowParticles(true);

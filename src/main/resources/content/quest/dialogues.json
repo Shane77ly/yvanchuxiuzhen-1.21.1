@@ -1,0 +1,7225 @@
+[
+  {
+    "id": "npc01",
+    "quest_id": "dangpuzhanggui",
+    "title": "当铺掌柜任务",
+    "description": "可以出售物品与兑换钱币",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：想要卖点啥？"
+      },
+      {
+        "kind": "choice",
+        "prompt": "想要兑换钱币还是卖出一些材料？",
+        "options": [
+          {
+            "label": "兑换钱币",
+            "target": 4
+          },
+          {
+            "label": "卖出材料",
+            "target": 3
+          }
+        ]
+      },
+      {
+        "kind": "open_menu",
+        "menu": "基础出售"
+      },
+      {
+        "kind": "choice",
+        "prompt": "要换一些金元宝吗？",
+        "options": [
+          {
+            "label": "用10银元宝换",
+            "target": 5
+          },
+          {
+            "label": "用100小贯钱换",
+            "target": 12
+          },
+          {
+            "label": "用1000文钱来换",
+            "target": 19
+          },
+          {
+            "label": "换一些其它的",
+            "target": 26
+          }
+        ]
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:money_03",
+        "count": 10,
+        "pass_target": 6,
+        "fail_target": 10
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:money_03",
+        "count": 10
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:money_04",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：这是1个金元宝，请收好。"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：不行，拿出10个银元宝才能换。"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:money_02",
+        "count": 100,
+        "pass_target": 13,
+        "fail_target": 17
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:money_02",
+        "count": 100
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:money_04",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：这是1个金元宝，请收好。"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：不行，拿出100小贯钱才能换。"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:money_01",
+        "count": 1000,
+        "pass_target": 20,
+        "fail_target": 24
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:money_01",
+        "count": 1000
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:money_04",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：这是1个金元宝，请收好。"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：不行，拿出1000文钱才能换。"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "choice",
+        "prompt": "要换一些银元宝吗？",
+        "options": [
+          {
+            "label": "用10小贯钱换",
+            "target": 27
+          },
+          {
+            "label": "用100文钱换",
+            "target": 34
+          },
+          {
+            "label": "换一些其它的",
+            "target": 41
+          }
+        ]
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:money_02",
+        "count": 10,
+        "pass_target": 28,
+        "fail_target": 32
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:money_02",
+        "count": 10
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:money_03",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：这是1个银元宝，请收好。"
+      },
+      {
+        "kind": "jump",
+        "target": 26
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：不行，拿出10小贯钱才能换。"
+      },
+      {
+        "kind": "jump",
+        "target": 26
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:money_01",
+        "count": 100,
+        "pass_target": 35,
+        "fail_target": 39
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:money_01",
+        "count": 100
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:money_03",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：这是1个银元宝，请收好。"
+      },
+      {
+        "kind": "jump",
+        "target": 26
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：不行，拿出100文钱才能换。"
+      },
+      {
+        "kind": "jump",
+        "target": 26
+      },
+      {
+        "kind": "choice",
+        "prompt": "要换一些小贯钱吗？",
+        "options": [
+          {
+            "label": "用10文钱换",
+            "target": 42
+          },
+          {
+            "label": "先不换了",
+            "target": 49
+          }
+        ]
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:money_01",
+        "count": 10,
+        "pass_target": 43,
+        "fail_target": 47
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:money_01",
+        "count": 10
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:money_02",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：这是1小贯钱，请收好。"
+      },
+      {
+        "kind": "jump",
+        "target": 41
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当铺掌柜：不行，拿出10文钱才能换。"
+      },
+      {
+        "kind": "jump",
+        "target": 41
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "npc03",
+    "quest_id": "cailiaoshangren",
+    "title": "材料商任务",
+    "description": "可以购买材料。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "材料商：在妖兽还没多少加入的现在，购买可能是唯一获得材料的方式了。"
+      },
+      {
+        "kind": "choice",
+        "prompt": "买点材料？",
+        "options": [
+          {
+            "label": "进店看看",
+            "target": 3
+          },
+          {
+            "label": "下次再说",
+            "target": 4
+          }
+        ]
+      },
+      {
+        "kind": "open_menu",
+        "menu": "商店"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "npc02",
+    "quest_id": "fulushangren",
+    "title": "符箓商任务",
+    "description": "可以购买成品符箓、绘符相关材料和学习符胆。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "符箓商：符箓可是好东西啊，瞬发的同时威力也大，功能还那么多样。"
+      },
+      {
+        "kind": "choice",
+        "prompt": "买点符箓防身吧？",
+        "options": [
+          {
+            "label": "进店看看",
+            "target": 3
+          },
+          {
+            "label": "下次再说",
+            "target": 4
+          }
+        ]
+      },
+      {
+        "kind": "open_menu",
+        "menu": "商店"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "npc05",
+    "quest_id": "hvsdgfsdhfs",
+    "title": "商店任务",
+    "description": "一个通用的商店任务。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "open_menu",
+        "menu": "商店"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "npc04",
+    "quest_id": "huafanchengzhu",
+    "title": "花繁城主的感谢",
+    "description": "你帮助花繁城解封，城主为了感谢你，特意为你准备了一些东西。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "根据引导完成任务",
+    "reward_summary": "传承之地试炼",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：感谢道友为本城黎民做的贡献，在下就是花繁城的城主。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "前辈不必客气，晚辈只是恰巧路过罢了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：道友你于本人有大恩，咱们就以平辈论交吧。是受乾坤道人所托前来解除封印的吧？"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "那在下就恭敬不如从命了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：哈哈哈好，道友是爽快人！冒昧问一下，道友是受乾坤道人所托前来解除封印的吧？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：其实道友是受乾坤道人所托前来解除封印的吧？"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "道友知道乾坤道人？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：道友不必惊讶，经历了此次大魔潮，不知道乾坤道人的人都死光了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（汗）"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：在下知道道友是专程来此解除封印的，这点心意希望你千万不要推脱。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:cailiao_231",
+        "count": 1
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 14
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "异火！这太贵重了吧。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：看来道友还不清楚，为本城解封的重大意义呀。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "此话怎讲？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：我的城镇作为第一个被解封的大型城镇，可以比其它城镇有更多的时间发展。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：乾坤道人派你解封，而不是等待封印自行解除，想来肯定是遇到大麻烦了吧？"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "道友不愧是一城之主，果然高瞻远瞩。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：我比其它城镇有更多时间来应对将来的大麻烦，这就等于提高了本城的生存几率。虽然可能你并没有这方面的考量，但我作为既得利益者，还是必须要对你表示感谢的。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：话又说回来，究竟是发生了何事，竟然连乾坤道人都被惊动了？"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "道友就算不问，我也会说的。乾坤道人发现修罗界魔族蠢蠢欲动，好像要大规模入侵咱们的位面，所以派人来解除封印，为将来可能的大战做准备。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：这对我们这些被封印起来的人而言，确实是灭顶之灾……多谢道友告知。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：看来刚刚的谢礼分量不够了，这样吧，道友你前往这个地方解除这里的封印，里面有大能留下的传承，运气好的话，你就能得到炎君的传承之力，可以借取一点炎君的力量绘制符箓了。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:book_006",
+        "count": 1,
+        "payload": {
+          "kind": "book_text",
+          "text": "炎君传承地坐标：-2734,88,1600"
+        }
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 28
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "感谢道友相告，那在下就出发了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花繁城主：道友不必心急，我为道友准备了一套小院，就在城主府的东北方向，名叫“博智居”，道友可在那里歇歇脚，顺便在此城多逛几日，购买些补给再出发。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 32
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "npc07",
+    "quest_id": "hvsdgfsdhfs",
+    "title": "商店任务",
+    "description": "一个通用的商店任务。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "open_menu",
+        "menu": "商店"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "npc06",
+    "quest_id": "hvsdgfsdhfs",
+    "title": "商店任务",
+    "description": "一个通用的商店任务。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "open_menu",
+        "menu": "商店"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "npcdaguanjia01",
+    "quest_id": "guanjiadeduihuayi",
+    "title": "与管家对话",
+    "description": "和家族管家对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "叙述一下家族近况。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：少爷，家族以跨位面贸易起家，在妖魂界也有一定资产，但家产大部分都在人间界。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：这次咱们从妖魂界来到人间界，一是为了打探消息，二是历练少爷您。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：而且家主也说了，打探消息要量力而行，所以您不必着急，先提升自己最重要。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：听乾坤前辈的意思，咱们在人间界的家眷资产估计也被封印起来了，一时半刻不用担心安全问题。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "可以了，你跟我来，咱们先到地表找个容身之所。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：少爷，恐怕在下无法同您前往了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "为何？难道是乾坤道人在作怪？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：少爷您慎言！家主吩咐我每天都要向他发送消息汇报近况，但我感应到，只有这里才能维持飞信简的通讯稳定，故而只能留在这里。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "好吧，那我自己一个人出发了，你自己保重。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：少爷稍等，这里有家族传送过来的专门给您的包裹，您带上后再出发吧。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "哦？是什么包裹？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：应该是帮助您在人间界活动的一大助力吧。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "有意思，我收下了。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:jiazubaibaodai",
+        "count": 1
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 18
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "npcdaguanjia04",
+    "quest_id": "guanjiadeduihuaputong",
+    "title": "与管家对话",
+    "description": "和家族管家对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：道友一看就是拥有大气运之人，将来一定能飞黄腾达。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "借道友吉言！"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "npcdaguanjia03",
+    "quest_id": "guanjiadeduihuasan",
+    "title": "与管家对话",
+    "description": "和家族管家对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "10坛桃花酿",
+    "reward_summary": "一本技能书",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：少爷您来啦，家主要我向您转述，人间界生存虽苦，但万不可走邪道，不得修习邪道功法。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：一旦沾染邪道，清除邪道气息的代价是您承受不起的。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：如果实在找不到合适的功法，就回家里，家族藏经阁里的收藏不用也是落灰。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "我明白了，我是万不会走向邪路的。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：这次家主又为您布置了一个任务，放心，这个任务也很简单。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：家主说要您收集10坛桃花酿，事成之后会给您一本技能书。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "好的，我会找到桃花酿的。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 11
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:jiuniang_007",
+        "count": 10,
+        "pass_target": 14,
+        "fail_target": 12
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：家主说，十坛桃花酿一坛也不能少。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "这是十坛桃花酿，老爸给我准备了什么技能书？"
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:jiuniang_007",
+        "count": 10
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 18
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：家主准备了五本技能书，但您只能选择一本。"
+      },
+      {
+        "kind": "choice",
+        "prompt": "五本书对应五个属性，选择哪一本好呢？",
+        "options": [
+          {
+            "label": "金弧轮（玄阶五级金系技能）",
+            "target": 20
+          },
+          {
+            "label": "陨河术（玄阶四级水系技能）",
+            "target": 22
+          },
+          {
+            "label": "地蔓鞭（玄阶五级木系技能）",
+            "target": 24
+          },
+          {
+            "label": "大火球术（玄阶四级火系技能）",
+            "target": 26
+          },
+          {
+            "label": "化石手（玄阶六级土系技能）",
+            "target": 28
+          },
+          {
+            "label": "下次再说",
+            "target": 32
+          }
+        ]
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:book_003",
+        "count": 1,
+        "payload": {
+          "kind": "skill",
+          "skill_kind": "jineng",
+          "name": "金弧轮",
+          "grade": 15.0,
+          "level": 15.0,
+          "body": "金",
+          "intro": "发射一个金轮，金轮会以弧线飞向固定地点造成高额范围伤害。潜行状态下可改变金弧飞遁的方向。",
+          "numbers": {
+            "jinengmanaatt": 10.0,
+            "jinengshanghai": 2.0,
+            "jinengxiaohao": 1.5,
+            "jinengjieyin": 0.0,
+            "Goldcolddown": 5.0,
+            "Watercolddown": -1.0,
+            "Goldcoldignore": 20.0
+          },
+          "texts": {
+            "jinengneeditem": "无"
+          }
+        }
+      },
+      {
+        "kind": "jump",
+        "target": 30
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:book_005",
+        "count": 1,
+        "payload": {
+          "kind": "skill",
+          "skill_kind": "jineng",
+          "name": "陨河术",
+          "grade": 14.0,
+          "level": 14.0,
+          "body": "水",
+          "intro": "前方召唤一个巨大水球，对中心敌方实体破除霸体，造成大量伤害，并大幅击退周围敌方实体。",
+          "numbers": {
+            "jinengmanaatt": 5.0,
+            "jinengshanghai": 1.5,
+            "jinengxiaohao": 1.5,
+            "jinengjieyin": 20.0,
+            "Watercolddown": 20.0,
+            "Treecolddown": -4.0,
+            "Watercoldignore": 10.0
+          },
+          "texts": {
+            "jinengneeditem": "无"
+          }
+        }
+      },
+      {
+        "kind": "jump",
+        "target": 30
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:book_012",
+        "count": 1,
+        "payload": {
+          "kind": "skill",
+          "skill_kind": "jineng",
+          "name": "地蔓鞭",
+          "grade": 15.0,
+          "level": 15.0,
+          "body": "木",
+          "intro": "在前方召唤一个藤鞭，会自动攻击附近敌方实体。",
+          "numbers": {
+            "jinengmanaatt": 3.0,
+            "jinengshanghai": 1.5,
+            "jinengxiaohao": 2.0,
+            "jinengjieyin": 20.0,
+            "Treecolddown": 15.0,
+            "Firecolddown": -5.0,
+            "Treecoldignore": 40.0
+          },
+          "texts": {
+            "jinengneeditem": "无"
+          }
+        }
+      },
+      {
+        "kind": "jump",
+        "target": 30
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:book_006",
+        "count": 1,
+        "payload": {
+          "kind": "skill",
+          "skill_kind": "jineng",
+          "name": "大火球",
+          "grade": 14.0,
+          "level": 14.0,
+          "body": "火",
+          "intro": "发射一枚巨大火球砸向前方，造成范围伤害并引燃。",
+          "numbers": {
+            "jinengmanaatt": 6.0,
+            "jinengshanghai": 2.0,
+            "jinengxiaohao": 3.0,
+            "jinengjieyin": 20.0,
+            "Firecolddown": 20.0,
+            "Soilcolddown": -4.0,
+            "Firecoldignore": 60.0
+          },
+          "texts": {
+            "jinengneeditem": "无"
+          }
+        }
+      },
+      {
+        "kind": "jump",
+        "target": 30
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:book_008",
+        "count": 1,
+        "payload": {
+          "kind": "skill",
+          "skill_kind": "jineng",
+          "name": "化石手",
+          "grade": 16.0,
+          "level": 16.0,
+          "body": "土",
+          "intro": "前方召唤一个巨大的岩石巨手，此手会向前狠狠拍下，造成高额伤害，一定几率造成重伤。",
+          "numbers": {
+            "jinengmanaatt": 5.0,
+            "jinengshanghai": 1.6,
+            "jinengxiaohao": 3.0,
+            "jinengjieyin": 20.0,
+            "Soilcolddown": 20.0,
+            "Goldcolddown": -10.0,
+            "Soilcoldignore": 70.0
+          },
+          "texts": {
+            "jinengneeditem": "无"
+          }
+        }
+      },
+      {
+        "kind": "jump",
+        "target": 30
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 32
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "npcdaguanjia02",
+    "quest_id": "guanjiadeduihuaer",
+    "title": "与管家对话",
+    "description": "和家族管家对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：少爷您回来啦，有什么我能效劳的吗？"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "你一直在保持和家族的联系吧，最近家里有发生什么事吗？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：由于人间界的变故，家族无法继续维持跨位面贸易，不过不用担心，靠着仓库储藏的物资，短期内还是没有问题的。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：家主所在的一脉，有长老护持，是最稳定的，您不必担心。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：家主询问了您的近况，我说您比往常更加刻苦，最近的境界提升也很快。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：家主又说，要您收集一些资源，给家族补充一点货源。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "我看是老爸怕我偷懒，给我设置的考验吧，我一个人又能找多少货呢。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：家主说要您收集64块栗树原木。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "这还不简单？等我回来。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 13
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:chestnutlog",
+        "count": 64,
+        "pass_target": 17,
+        "fail_target": 14
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：（微笑）"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "64块栗树原木而已，等我回来。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：少爷您说到做到，家主也会因您感到骄傲。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "管家：家主让我看到您带来足够的原木后，把这些东西给您。"
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:chestnutlog",
+        "count": 64
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:ling_12",
+        "count": 10
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "替我谢谢老爸，他也不容易呀。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 24
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "npccaishenye",
+    "quest_id": "caishen",
+    "title": "财神驾到",
+    "description": "与财神互动购买新年福利啦！",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "财神：恭喜发财呀帅哥美女！"
+      },
+      {
+        "kind": "choice",
+        "prompt": "来看看新年新获吗？",
+        "options": [
+          {
+            "label": "逛逛商店",
+            "target": 3
+          },
+          {
+            "label": "马上有钱",
+            "target": 4
+          }
+        ]
+      },
+      {
+        "kind": "open_menu",
+        "menu": "商店"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "财神：祝你暴富！"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "default_shop",
+    "quest_id": "hvsdgfsdhfs",
+    "title": "商店任务",
+    "description": "一个通用的商店任务。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "open_menu",
+        "menu": "商店"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "default_fanwu_shop",
+    "quest_id": "hvsdgfsdhfs",
+    "title": "商店任务",
+    "description": "一个通用的商店任务。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "open_menu",
+        "menu": "凡物出售"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "bank_dialogue",
+    "quest_id": "bankbankbank",
+    "title": "打开银行",
+    "description": "一个打开银行系统的任务",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "open_menu",
+        "menu": "银行"
+      }
+    ]
+  },
+  {
+    "id": "bank_block_dialogue",
+    "quest_id": "bankshangcheng",
+    "title": "打开通宝商城系统",
+    "description": "可以打开商会的商店页面或银行系统",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "欢迎使用通宝商盟瞬传商贸阵盘"
+      },
+      {
+        "kind": "choice",
+        "prompt": "请问您要办理什么业务？",
+        "options": [
+          {
+            "label": "逛逛商店",
+            "target": 3
+          },
+          {
+            "label": "打开银行",
+            "target": 4
+          },
+          {
+            "label": "购买新通宝玉",
+            "target": 5
+          },
+          {
+            "label": "出售",
+            "target": 15
+          }
+        ]
+      },
+      {
+        "kind": "open_menu",
+        "menu": "商店"
+      },
+      {
+        "kind": "open_menu",
+        "menu": "银行"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "购买一个新通宝玉需要10枚一品灵石，并且无论有多少通宝玉都只有一个账户！"
+      },
+      {
+        "kind": "choice",
+        "prompt": "确认需要购买新的通宝玉吗？",
+        "options": [
+          {
+            "label": "确认",
+            "target": 7
+          },
+          {
+            "label": "返回",
+            "target": 2
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "购买通宝玉需要10枚一品灵石。"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:cailiao_191",
+        "count": 10,
+        "pass_target": 9,
+        "fail_target": 13
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:cailiao_191",
+        "count": 10
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:ling_12",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "恭喜获得新通宝玉，请绑定后使用！"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "您身上的一品灵石不足10枚，无法购买新的通宝玉，请下次再来。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "open_menu",
+        "menu": "基础出售"
+      }
+    ]
+  },
+  {
+    "id": "ascension",
+    "quest_id": "sxling",
+    "title": "升仙令",
+    "description": "激活升仙令，跟随门派接引使前往修仙世界。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "完成对话",
+    "reward_summary": "进入人间界",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你激活了升仙令，升仙令散发出奇特的波动，这个波动穿越了空间，前往了一个你不知道的地方。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "但是等了很久，却也不见有什么其它变化，你不禁开始失望起来。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "就在这时，一道强横的意志扫过你所处的位置，并立刻锁定了你。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你感觉头皮发麻，就连周围的树木也反常地躁动起来。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "一道光柱从天而降，你来不及躲避，被光柱当头罩住！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你试着移开，却发现身体一动不能动。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "难道这是接引的光束吗？难道不应该是一艘飞舟接我走吗？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "这时，光柱缓缓带你飞离地面，你看到山川大地越来越小，看到这个世界越来越小，直到什么也看不到。你在虚空中飘荡，不知是否还在上升，亦或是已经停滞不动了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "突然！"
+      },
+      {
+        "kind": "command",
+        "command": "execute in yvanchuxiuzhen:dimensionrenjian run teleport @p 0 32 0"
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:ling_09",
+        "count": 1
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "inheritance",
+    "quest_id": "chuanchenglingwurenwu",
+    "title": "传承灵物任务",
+    "description": "在此得知身世，并获得最终传承",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "最终传承",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "扫把星：不错不错！我还是有一些可靠的后人呀，能修炼到结丹也是不易。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "难道……前辈就是……！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "扫把星：没错，我就是你的老祖宗，哈哈哈哈哈！"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（我是扫把星的后代，我是扫把星的后代，我是扫把星的后代……）"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "扫把星：别这么一脸颓丧，好歹我还是个神！"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "……！"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "总感觉心里五味杂陈。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "扫把星：好了，废话不多说，我这缕神念能看到后辈崛起，也算不白等这几千年了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "祖先大人您的这缕神念不能保留吗？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "扫把星：我的这缕神念会回归本体身边，如果本体还活着的话。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "扫把星：好了，这是你进阶结丹的奖励——我的符头！哈哈哈哈……"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "……"
+      },
+      {
+        "kind": "command",
+        "command": "futouget 3"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 16
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "qiankun_intro",
+    "quest_id": "chujianqiankun",
+    "title": "初见乾坤道人",
+    "description": "这个天书一样的前辈自称是乾坤道人，并且在未过问你的想法下就把你带了过来。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你看到此书散发出无尽威能，但却没有对你造成伤害，于是你再次靠近。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：道友不必紧张，贫道道号乾坤道人。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "一个声音想起，这个声音分辨不出性别，也分辨不出年龄，仿佛直接作用在你的大脑中，但你却很清楚的知道这个声音源自前面这本天书。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你骤然感受到前方天书传来的阵阵威压，这个威压明显不是针对你，但却让你感受到威压主人那无比浩瀚的灵力，这绝对是一位实力恐怖的大修士！"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "晚辈无意闯入此地，打扰到前辈清修，晚辈向前辈赔罪了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：哈哈，无妨，是贫道出手召唤道友过来的。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "晚辈有什么可以效劳的吗？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：现在的人间界刚刚被魔潮席卷，无论到哪里都是危机四伏，所以在贫道将道友接引到此处，失礼之处还请多多包涵。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "不敢不敢，前辈为了晚辈安全，晚辈已是非常庆幸。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（个鬼啦！）"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：我知道道友肯定还是有所顾虑，但只要道友你出去走走，就知道贫道所言非虚了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "晚辈可以离开此地？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：那是自然，贫道只是不想让道友突兀地面对未知的环境。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：如果道友喜欢这里的话，也可以像其他人那样在此定居。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "晚辈多谢前辈！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：看样子你确实是想要离开这里了，那么在离开这里之前，贫道想委托你一件事。放心，不是什么难事，对你而言反而是机缘。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "前辈请讲，晚辈洗耳恭听。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：大概一百年前，一股魔潮席卷了整个人间界，数万亿生灵在此浩劫中消亡。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "竟会有如此惨剧！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：此魔潮与众不同，它竟含有一丝混沌之气。也正是这一缕混沌之气，导致所有修为低于元婴期的生灵灭亡，而我却连魔潮从何而来都不知道。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：为了避免整个位面的崩溃，贫道联合数位大能，逐一把所有灵气聚集点，也就是各个城镇和妖兽聚落，封印到人间界与妖魂界的夹层中，为整个人间界保留下了最后的火种。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "前辈大义。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：这些封印本可以在数百年的时间中慢慢消化掉周围的魔潮气息，然后自然解封，释放出里面封印的城镇与修者，但奈何发生了一件大事。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：居住在修罗界的魔族开始蠢蠢欲动了，它们已经开始召集人手，准备大举进攻人间界。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：一旦它们在人间界各个城镇的封印解开之前占领了整个位面，那么尚在封印中的任何事物都将会是魔族砧板上的鱼肉，任魔宰割。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "所以，前辈您是想要晚辈……"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：贫道想让道友帮忙解开这些封印，提前释放出被封印的建筑与修者。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（这一听就是超级麻烦的差事啊，我可不想卷入位面级的战斗中啊。）"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "如此义举，晚辈本应勇于担当，但奈何晚辈实力低微，怕没有实力担此重任，反而耽搁了复兴位面的大计呀。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：不必担心，道友只需要拿着此寻灵罗盘右键，就会看到指引圆环。靠近各个封印之地后再次右键寻灵盘，封印就会自行解开。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:ling_14item",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（0_0!!）（这就把任务道具强塞给我了？这任务不接也得接了？）"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人似是看出了你的疑虑，只见他轻笑一声，说道："
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：道友可还记得我刚刚说过的，这对你而言也是场机缘吗？"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "晚辈自是记得。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：如果道友帮忙解开封印，封印内的所有人都算欠你一份人情。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（和位面大战比起来，人情……）"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：封印内有很多宝箱。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "此间重任，舍我其谁！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：哈哈哈好！那这件事就交给你了。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 43
+      },
+      {
+        "kind": "choice",
+        "prompt": "现在需要贫道送你到地面上吗？",
+        "options": [
+          {
+            "label": "一会儿再说",
+            "target": 44
+          },
+          {
+            "label": "现在就出发",
+            "target": 46
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：道友准备好后，贫道就帮你传送到上面。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人：落点附近就有一个封印之地，用你的寻灵盘右键试一下吧。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "晚辈记住了。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 53
+      },
+      {
+        "kind": "teleport",
+        "x": 20.0,
+        "y": 65.0,
+        "z": 13.0
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "说好的地面呢，怎么传送到海里了……"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "算了，先试一试寻灵盘吧，我记得是……拿着寻灵盘右键。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "qiankun_1",
+    "quest_id": "qiankundaorenyi",
+    "title": "乾坤道人的任务一",
+    "description": "这是乾坤道人留下的任务，此任务帮助你学会如何完成任务。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "根据引导完成任务",
+    "reward_summary": "提升修为的丹药",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "为了培养你的能力，乾坤道人为你留下一些挑战任务。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你将通过此任务，知道如何打开、关闭任务面板，并知道如何继续一个未完成的任务。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 9
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "现在，此任务已经保存进你的任务列表中了，按下“U”键打开任务面板，并选中《乾坤道人的任务一》任务。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "然后右侧就会显示出任务的细节，点击任务面板右上角的箭头就能继续任务。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "亲自试一试吧。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "很好！现在你已经知道如何继续任务了，那么接下来就是完成这个任务。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "一般任务会让你搜集一些材料，或者完成一些事情，一般这些需求都会在任务面板右下角显示出来。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你在做完这些事情后再进行此任务，根据引导一步步进行，就能完成了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "现在，任务完成！"
+      },
+      {
+        "kind": "command",
+        "command": "baoxiangopen 药架 精进修为丹药堆 1 1 1"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 16
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "qiankun_2",
+    "quest_id": "qiankundaorener",
+    "title": "乾坤道人的任务二",
+    "description": "这是乾坤道人留下的任务，完成任务可以获得画里乾坤法宝。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "16枚九级灵石",
+    "reward_summary": "画里乾坤法宝*1",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "为了培养你的能力，乾坤道人为你留下一些挑战任务，并留下了丰厚奖励。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "此任务完成后，你将获得画里乾坤法宝。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "乾坤道人需要恢复自身实力，所以需要大量高阶灵石。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "带16枚九级灵石来，就可以换取画里乾坤法宝了。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 8
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:cailiao_199",
+        "count": 16,
+        "pass_target": 9,
+        "fail_target": 15
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你带来了足够的九级灵石！这是你的奖励。"
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:cailiao_199",
+        "count": 16
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:fabao_00901",
+        "count": 1
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 14
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你没有足够的九级灵石，继续努力吧。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "qiankun_3",
+    "quest_id": "qiankundaorensan",
+    "title": "乾坤道人的任务三",
+    "description": "这是一个循环任务，你可以无限次完成此任务。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "32个生猪肉",
+    "reward_summary": "四道美食",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "为了培养你的能力，乾坤道人为你留下一些挑战任务，并留下了丰厚奖励。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "这是一个循环任务，你可以无限次完成此任务并领取奖励。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大部分人无法抵挡美食的诱惑，而按照顺序食用可以获得额外增益效果！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "先食用“主食”、“汤水”、“菜肴”类食物（此三种食用顺序无所谓），最后再食用“茶点”时，就可以获得增益效果了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "一些菜品需要像方块一样放置，然后右键菜品就可以食用了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "拿出来32个生猪肉来换取一顿丰盛的宴席吧！"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 10
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "用32个生猪肉换取1菜肴类食物，1主食类食物，1汤水类食物，1茶点类食物。"
+      },
+      {
+        "kind": "check_item",
+        "item": "minecraft:porkchop",
+        "count": 32,
+        "pass_target": 12,
+        "fail_target": 19
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "一顿美味丰盛的宴席！"
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "minecraft:porkchop",
+        "count": 32
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:food_007",
+        "count": 1
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:food_020",
+        "count": 1
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:food_009",
+        "count": 1
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:food_002",
+        "count": 1
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你还没有带来足够的生猪肉。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "qiankun_4",
+    "quest_id": "qiankundaorensi",
+    "title": "乾坤道人的任务四",
+    "description": "通过这个任务，获得年轻人的第一本功法！",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "30枚一级灵石",
+    "reward_summary": "五行基础功法",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "为了培养你的能力，乾坤道人为你留下一些挑战任务，并留下了丰厚奖励。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "按下“K”键即可打开属性面板。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "第一页显示你的各个属性。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "第二页是属性点分配页，每次升级都会获得数量不等的属性点，根据你的喜好来分配，落子无悔！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "第三页是饰品栏，在此你可以装备饰品。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "第四页是功法技能装备页。你可以在此装备一本功法，16个技能，一个技法，一个飞行技能，一个身法。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "但是要注意！必须要学会功法、技能后才能装备，否则是无效的。学习的方式也很简单，拿着功法书先按下“shift”键再按下右键即可学习。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "第五页你可以在此查看你各个职业的等级。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "第六页是修炼页，你需要先装备一本功法，然后在下面选择需要闭关多少天，然后点击修炼，你就能快速获得大量经验。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "但是要注意！修炼非常消耗寿元，寿元消耗完毕就只能重入轮回，重新开始了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "最后，拿出30枚一级灵石来，换取一本基础功法吧！"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 15
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "用30枚一级灵石，换取一本基础功法。"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:cailiao_191",
+        "count": 30,
+        "pass_target": 17,
+        "fail_target": 23
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:cailiao_191",
+        "count": 30
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:book_022",
+        "count": 1,
+        "payload": {
+          "kind": "technique",
+          "item": "yvanchuxiuzhen:book_022",
+          "name": "五行基础",
+          "grade_text": "黄阶一级",
+          "grade": 1.0,
+          "level_text": "无",
+          "level": 0.0,
+          "body": "无",
+          "intro": "玩家最最基础的功法，没有特殊之处。",
+          "elements": {},
+          "tiers": [
+            "下档",
+            "最下档",
+            "最下档",
+            "最下档",
+            "最下档",
+            "最下档",
+            "最下档",
+            "最下档",
+            "最下档",
+            "最下档",
+            "最下档",
+            "最下档",
+            "最下档"
+          ]
+        }
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "五行基础功法到手！"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 22
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你还没有带来足够的灵石。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "qiankun_5",
+    "quest_id": "qiankundaorenwu",
+    "title": "乾坤道人的任务五",
+    "description": "通过这个任务，你将知道如何狩猎妖兽。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "10个花瓣",
+    "reward_summary": "提升修为的丹药。",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "为了培养你的能力，乾坤道人为你留下一些挑战任务，并留下了丰厚奖励。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "干掉妖兽时你会发现，妖兽的尸体并不会立刻消失，此时你连续右键尸体就可以获取战利品了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "妖兽尸体一般持续30秒就会消失，所以搜刮战利品一定要快！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "那么现在，用十个花瓣来换取一些精进修为的丹药吧。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花瓣由花妖和蔷薇花妖掉落。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 9
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你带来足够的花瓣了吗？"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:cailiao_087",
+        "count": 10,
+        "pass_target": 11,
+        "fail_target": 17
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "现在，你正式拥有自保能力了。"
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:cailiao_087",
+        "count": 10
+      },
+      {
+        "kind": "command",
+        "command": "baoxiangopen 药架 精进修为丹药堆 1 1 1"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 16
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你还没有足够的花瓣。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "qiankun_6",
+    "quest_id": "qiankundaorenliu",
+    "title": "乾坤道人的任务六",
+    "description": "通过这个任务，你将知道如何释放技能。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "根据引导完成任务",
+    "reward_summary": "火球术技能书*1",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "为了培养你的能力，乾坤道人为你留下一些挑战任务，并留下了丰厚奖励。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "作为修仙中必不可少的要素，技能的使用方式一定需要掌握。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "这里有一本《火球术》技能书，送给你了。"
+      },
+      {
+        "kind": "command",
+        "command": "jineng yvanchuxiuzhen:book_006 火球术 1 1 火 发射一枚火球，命中时引燃敌方实体。 无 2 1.2 1 0 0 0 0 10 -2 0 0 0 0 20 0 0"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 7
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "现在你要掌握如何学习、装备和使用这个技能。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "手持此技能书右键可以查看此技能的各项属性。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "手持此技能书，在潜行状态下右键就可以学习，只要你拥有对应属性的灵根，等级也达到要求就能学习成功。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "按下“K”键打开面板，选择“功法与技能”，把技能书放进右侧四个槽位中的一个。如果都满了，可以点物品槽上面的按钮换下一页，一共可以装备16个技能。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "按下键盘按键“G”就打开了技能选择轮盘，选择任意技能即可让技能进入待命状态。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "此时手持一把武器，点击鼠标右键，如果灵力充足，技能就会释放了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "如果你装备了很多技能，那么点击键盘“Tab”键即可切换技能页。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "如果你想让装备的技能轮流释放，可以按下“G”键，点击右上角的“连招”按钮。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "注意！五行技能的冷却时间是通用的，不同技能使用后增加的五行冷却时间是不同的。比如水连鞭在冷却时间小于等于20时可以释放，每次释放增加10点水属性冷却，最终结果就是可以连续释放两次水连鞭后，就要等待冷却了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "而此时如果想要释放陨河术，由于陨河术需要冷却小于10时才可释放，故而此时是无法释放陨河术的。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "不过不要担心，因为五行中金生水，所以此时你释放金属性技能，可以有效减少水属性的冷却时间。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "根据五行相生原理，合理搭配技能释放吧。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 16
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "qiankun_7",
+    "quest_id": "qiankundaorenqi",
+    "title": "乾坤道人的任务七",
+    "description": "通过这个任务，你便可以自行炼丹炼器了。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "根据引导完成任务",
+    "reward_summary": "大风雷火*1",
+    "nodes": [
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 3
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "为了培养你的能力，乾坤道人为你留下一些挑战任务，并留下了丰厚奖励。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "为了更好了解炼制之法，先换取一团异火吧。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "用10枚三级灵石来换一团大风雷火。"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:cailiao_193",
+        "count": 10,
+        "pass_target": 7,
+        "fail_target": 13
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:cailiao_193",
+        "count": 10
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:cailiao_221",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "大风雷火！"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 15
+      },
+      {
+        "kind": "jump",
+        "target": 15
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "三级灵石不够呀，一会儿再来换取吧。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "炼丹炼器大同小异，简单来说就是放置丹炉鼎炉，下面点燃异火，炉里放入图纸或丹方，点击自动放置材料，点击炼制即可。"
+      },
+      {
+        "kind": "choice",
+        "prompt": "但细节却有不同，你想要先了解哪个？",
+        "options": [
+          {
+            "label": "炼丹",
+            "target": 17
+          },
+          {
+            "label": "炼器",
+            "target": 25
+          },
+          {
+            "label": "结束",
+            "target": 14
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "炼丹在没有丹方的时候依然可以炼丹，如果你已经背过一些配方，那么无需丹方也能炼制出你想要的丹药。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "但如果你不知道丹方，盲目炼丹可能会没有效果，也可能会有很多负面作用。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "不过不用担心，你可以自制丹方，在配药台中，你可以尝试不同草药的配比。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "注意两点："
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "第一点是，你需要手持异火在丹炉下方一格位置，潜行右键释放一团火焰为丹炉充能。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "第二点是，丹炉中间那一排物品槽位的第一个位置，一定需要一个空的盛放丹药的容器，比如瓷瓶、葫芦等。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "结束。"
+      },
+      {
+        "kind": "jump",
+        "target": 15
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "炼器鼎不光可以炼制装备，还可以充当熔炉和合成金属锭。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "这里说一下合成金属锭："
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "四个精铁锭炼成一个精钢锭"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "四个霜铁锭炼成一个霜金锭"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "四个玄铁锭炼成一个玄钢锭"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "四个陨铁锭炼成一个陨钢锭"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "然后说说炼制武器法宝装备："
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "需要在鼎炉下面一格的位置，手持异火潜行状态下右键，点燃一团火焰为鼎炉充能。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "在左上角的物品栏放置图纸，然后点击旁边的自动放入按钮，只要你带够足够的材料，就可以自动放置进鼎炉内了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "材料放置好后，点击中间的炼制按钮即可炼制。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "结束。"
+      },
+      {
+        "kind": "jump",
+        "target": 15
+      }
+    ]
+  },
+  {
+    "id": "qiankun_8",
+    "quest_id": "qiankundaorenba",
+    "title": "乾坤道人的任务八",
+    "description": "通过这个任务，让你了解一下渡劫相关事项。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "根据引导完成任务",
+    "reward_summary": "灵步身法技能",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "为了培养你的能力，乾坤道人为你留下一些挑战任务，并留下了丰厚奖励。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你在筑基晋级结丹、结丹晋级元婴、元婴晋级化神的时候会经历天劫。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "现阶段是雷劫，未来可能会有五行大劫。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "现阶段有七种雷劫，在渡劫时会随机排列组合出场顺序，不同雷劫有不同应对方式。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "注意！尽量不要在自己的洞府中渡劫，容易误伤你的宠物，损坏你的洞府。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "躲在一个封闭环境内，对某些劫难确实有一定效果，但更多时候是连闪避的机会都没有。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "渡过天劫后，寿元就会增长一大截。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "但在将来，渡劫失败将会使你修为全无！注意注意。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:book_033",
+        "count": 1,
+        "color_code": "f",
+        "display_name": "灵步",
+        "payload": {
+          "kind": "skill",
+          "skill_kind": "shenfa",
+          "name": "灵步",
+          "grade": 1.0,
+          "level": 0.0,
+          "body": "无",
+          "intro": "双击W、A、S、D可以向四方跳跃，但冷却时间稍微长一些。",
+          "numbers": {
+            "shenfatick": 40.0,
+            "shenfatickMax": 40.0,
+            "shenfaWjump": 0.6,
+            "shenfaSjump": 0.6,
+            "shenfaAjump": 0.6,
+            "shenfaDjump": 0.6
+          },
+          "texts": {}
+        }
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 11
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "yiqizhuatuzier",
+    "quest_id": "yiqizhuatuzier",
+    "title": "吃得太饱",
+    "description": "路边的小孩哥手里拿着几串糖葫芦，正在东张西望。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "完成对话",
+    "reward_summary": "糖葫芦*5",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：唉！唉！这里！"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "怎么又是你？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：嘿嘿，上次吃得太饱，回家就吃不下饭了，被娘狠狠骂了一通。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：然后娘就让我吃了两个山楂消食，你别说，还挺管用。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：你吃撑了吗？也来几串尝尝吧！"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:food_017",
+        "count": 5
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 9
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：我去上学啦！"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "xvliduihuayi",
+    "quest_id": "xvliduihuayi",
+    "title": "徐栎",
+    "description": "在泽灵井和徐栎对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "check_quest",
+        "quest_id": "zhaofengyveduihua",
+        "completed_target": 4,
+        "failed_target": 2,
+        "otherwise_target": 2
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "我还是先去找炼器峰峰顶的赵枫月师姐吧。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "remove_blocks",
+        "positions": [
+          [
+            -847,
+            166,
+            -219
+          ],
+          [
+            -847,
+            166,
+            -218
+          ],
+          [
+            -846,
+            166,
+            -217
+          ],
+          [
+            -845,
+            166,
+            -217
+          ],
+          [
+            -846,
+            166,
+            -220
+          ],
+          [
+            -845,
+            166,
+            -220
+          ]
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "在云清派中，大师兄是师傅从小带大的，赵家姐弟是师傅的熟人修仙家族子嗣，而还有一位是来自曾经宗门落末峰一位峰主流落在外的子嗣传承。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "据说此子性格怪异，常年深居井底，甚至有过会吃人的传闻，不过这些都是听五师弟说的，赵焐的话听一半就好已经是写进门派规定的事了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "所以你还是决定把这小子扔在炼器峰自己去见见三师兄，不过刚到了井口你就咽了咽口水，这口井底下真的有人吗，而且这井里甚至都有蜘蛛网了，但是不见也不行，于是鼓足勇气。"
+      },
+      {
+        "kind": "teleport",
+        "x": -845.0,
+        "y": 157.0,
+        "z": -218.0
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你一口气直接跳进了井口，还好，看着很深，其实也没多深，而且你还看见了一些腐烂的梯子，或许以前其他人都是用这个梯子上下的，随后你看着门上的闲人免进和危险请勿入内陷入沉思，最后鼓起最后一点勇气推开了门。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "里面很黑，但是有很好闻的风干草药味，还有一些迷惑……"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "迷烟的味道，这是你昏倒之前最后一个想法。"
+      },
+      {
+        "kind": "teleport",
+        "x": -839.0,
+        "y": 158.0,
+        "z": -229.0
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "“啪哒，刷刷刷”。这是你醒来听到的第一个声音，似乎是写字的声音。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "，随后是一个低沉的男性的声音“不对，雷公藤不能直接加入三钱，必须先经过寒水炮制，然后加入新青藤蛇的毒囊，然后试试。”"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "他摇了摇瓷瓶“不，还需要改良，乙田的雷公藤亲水测试是成功的，这个思路是对的，看来是妖兽商给的毒纯度太差，下次还要找人去抓才行。”"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "他放下了笔，转头看着你：门口应该写了“闲人勿进”。这里挺危险的，毒道的入门也是毕业真谛就是，不要进入不熟悉的位置不携带解毒丹，"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "师弟，这是第一课。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你稍微能站起来了，于是朝他点点头，他随后介绍了一下自己，徐栎，云清派三弟子，同时也是铠毒峰的传承人。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "至于他上一次离开泽灵井，已经是半年前的事情了，不过他也有利用特殊灵植感知派里的事情，至于你刚到门口的时候，第一个感觉到你的应该也是他。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "至于他为什么同时是凯毒峰的传承人，就要讲到封印前的三十几年前了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当时的凯毒派掌门突然找上云蕴真人，并且托付了传承与年仅几岁徐栎后便消失了，掌门占星算得凯毒派的掌门离开一段时间后就身亡了，于是将徐栎收入门下，视如己出，并且徐栎展现出了完美的木水灵根，并且完美的契合凯毒派的功法。"
+      },
+      {
+        "kind": "teleport",
+        "x": -849.0,
+        "y": 165.0,
+        "z": -218.0
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "等你从井里爬上来的时候，你确认了两件事，第一件事，三师兄是好人，他赠送并且给你配了一整套各种毒的防治丹药，普及了基础的毒道知识；"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "第二件事，你确实需要去把赵焐打一顿，因为他骗你确实骗的很惨。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:itemdanyaohulu_02",
+        "count": 1,
+        "color_code": "f",
+        "display_name": "四级回春丹",
+        "payload": {
+          "kind": "medicine",
+          "name": "四级回春丹",
+          "dose": 20,
+          "pack_count": 1,
+          "treasure": false,
+          "effects": [
+            {
+              "id": "regeneration",
+              "level": 400,
+              "duration": 400
+            }
+          ]
+        }
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:itemdanyaohulu_02",
+        "count": 1,
+        "color_code": "f",
+        "display_name": "四级止血丹",
+        "payload": {
+          "kind": "medicine",
+          "name": "四级止血丹",
+          "dose": 20,
+          "pack_count": 2,
+          "treasure": false,
+          "effects": [
+            {
+              "id": "regeneration",
+              "level": 400,
+              "duration": 140
+            },
+            {
+              "id": "instant_health",
+              "level": 400,
+              "duration": 1
+            }
+          ]
+        }
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 29
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "chongguanhecunxiaonvtong",
+    "quest_id": "chongguanhecunxiaonvtong",
+    "title": "小女童的烦恼",
+    "description": "路边的小孩想要一串糖葫芦。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "糖葫芦*1",
+    "reward_summary": "木簪*1",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小女童：大哥哥，大哥哥，你是神仙吗？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小女童：大哥哥，大哥哥，你能变出一个糖葫芦吗？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小女童：大哥哥，大哥哥，我想吃糖葫芦了，脆脆的，甜甜的，串串的那个。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小女童：大哥哥，大哥哥，你给我糖葫芦，我……我就给你一个头簪！"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 4
+      },
+      {
+        "kind": "choice",
+        "prompt": "送给小女童一串糖葫芦吗？",
+        "options": [
+          {
+            "label": "送糖葫芦",
+            "target": 9
+          },
+          {
+            "label": "送糖葫芦但不收头簪",
+            "target": 18
+          },
+          {
+            "label": "暂时没有糖葫芦",
+            "target": 8
+          },
+          {
+            "label": "就是不送",
+            "target": 13
+          }
+        ]
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:food_017",
+        "count": 1,
+        "pass_target": 10,
+        "fail_target": 16
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:food_017",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小女童：谢谢大哥哥！这是妈妈的头簪，大哥哥一定要保护好呀。"
+      },
+      {
+        "kind": "command",
+        "command": "shipin yvanchuxiuzhen:headornaments_01 小女童的头簪 小女童妈妈给她买的头饰，有着妈妈对女儿浓浓的爱。 饰品 黄阶三级 3 yvanchuxiuzhen colddown 1"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 15
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "没有糖葫芦。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:food_017",
+        "count": 1,
+        "pass_target": 19,
+        "fail_target": 16
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:food_017",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "诺，糖葫芦给你，头簪你自己要好好保管，不要随便给别人。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小女童：谢谢大哥哥！大哥哥最好了！"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 24
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "chongguanhecuncunzhang",
+    "quest_id": "chongguanhecuncunzhang",
+    "title": "村长",
+    "description": "和冲关河村的村长对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "村长：拜见前辈，多谢前辈出手相救！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "村长：如果没有上仙，我们恐怕早就是虚空中的一具具尸体了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "不用客气，在下初来乍到，对附近的事物都不甚了解。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "不知村长大人可曾听说过附近哪里有上仙的传承？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "村长：前辈您算是问对人了，我知道有两处神仙传承之地。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（大喜）不知是哪位上仙的传承？又坐落何方？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "村长：一处是紫微星君的传承地，在云清派驻地，由云清派门主亲自保管。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "村长：另一处是天狼王上仙的传承地。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "在何处？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "村长：嘿嘿，远在天边，近在眼前，就在村庄旁边的山洞之中。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "多谢告知，在下即刻出发！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "村长：上仙不用着急，在村庄里转一转，说不定还会有些收获呢。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "chongguanhecuncunzhangfuren",
+    "quest_id": "chongguanhecuncunzhangfuren",
+    "title": "村长夫人",
+    "description": "和冲关河村的村长夫人对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "村长夫人：哎呀这孩子，长得可真俊呀。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "村长夫人：老伴你看，像不像咱们儿子？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "村长：不得对上仙无礼！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "村长：（转过头来对你）内人不知礼数，还请前辈莫要怪罪。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（擦汗）无妨无妨……"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "村长夫人：又温柔又贴心，长得还耐看，哎对了孩他爹，咱们不是还有几坛状元红吗，不如赠与上仙如何？也算为咱们儿子求个福了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（擦汗）"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:jiuniang_001",
+        "count": 3
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 11
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "chongguanhecunyvfu",
+    "quest_id": "chongguanhecunyvfu",
+    "title": "渔夫对话",
+    "description": "和冲关河村的渔夫对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "渔夫：刚刚网上的大鱼，上仙来一条吗？"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "chongguanhecunnongfudabo",
+    "quest_id": "chongguanhecunnongfudabo",
+    "title": "农夫大伯的传家宝",
+    "description": "和冲关河村的农夫大伯对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "开灵符",
+    "reward_summary": "大伯的传家宝",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大伯：我这老骨头，算是快要干不动这体力活了，唉……"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大伯：听说仙家的锄头可以自行飞起，自己耕地，我若有此宝便不愁吃喝了。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 2
+      },
+      {
+        "kind": "choice",
+        "prompt": "送一张开灵符，帮组大伯劳作？",
+        "options": [
+          {
+            "label": "送开灵符",
+            "target": 7
+          },
+          {
+            "label": "暂时没有",
+            "target": 6
+          },
+          {
+            "label": "就是不送",
+            "target": 12
+          }
+        ]
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:itemfulu_48",
+        "count": 1,
+        "pass_target": 8,
+        "fail_target": 15
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:itemfulu_48",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大伯：多谢前辈大恩大德，小的没齿难忘！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大伯：小的有一个家传法宝，我也没有什么子嗣，所以就赠与上仙了。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:baoxiaitem",
+        "count": 1,
+        "color_code": "b",
+        "display_name": "覆火葫芦",
+        "payload": {
+          "kind": "casket_command",
+          "command": "lianqi yvanchuxiuzhen:fabao_010 覆火葫芦 右键释放存储在内的火焰，潜行右键可以把前方的火焰收起，葫芦的品级越高，能收起的火焰等级越高。 法宝 玄阶一级 11 1 17 0 0 0 0 80"
+        }
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 14
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "没有开灵符。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "chongguanhecunliehu",
+    "quest_id": "chongguanhecunliehu",
+    "title": "猎户对话",
+    "description": "和冲关河村的猎户对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "猎户：感谢上仙救我们全村人的性命，如今又见到这大好河山的样貌，我又可以重操旧业了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "猎户：这些是刚刚狩猎得到的妖兽材料，还新鲜着呢，前辈需要吗？"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "chongguanhecunnongfudama",
+    "quest_id": "chongguanhecunnongfudama",
+    "title": "农夫大妈",
+    "description": "和冲关河村的农夫大妈对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大妈：看一看我家种的青菜吧，便宜新鲜着呢！"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "chongguanhecunxvnshanren",
+    "quest_id": "chongguanhecunxvnshanren",
+    "title": "巡山人的苦衷",
+    "description": "你看到瞭望台上有人默默叹息。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "强压符*3",
+    "reward_summary": "珍惜妖兽材料",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "巡山人：唉。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "道友为何叹息？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "巡山人：啊！（吓了一跳）原来是上仙大人！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "巡山人：感谢大人救我等性命！只是我观林中妖兽活动越来愈频繁了，怕是猎户杀生太多，要遭妖兽报复了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "巡山人：我等实力低微，如果真遇到妖兽举族报复，又该如何是好呀。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "巡山人：想到我那小女儿今年才5岁，尚无自保之力，唉……"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 9
+      },
+      {
+        "kind": "choice",
+        "prompt": "是否送给巡山人三张强压符用于自保？",
+        "options": [
+          {
+            "label": "送送送！",
+            "target": 11
+          },
+          {
+            "label": "暂时没有强压符",
+            "target": 10
+          },
+          {
+            "label": "就是不送",
+            "target": 17
+          }
+        ]
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:itemfulu_03",
+        "count": 3,
+        "pass_target": 12,
+        "fail_target": 20
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:itemfulu_03",
+        "count": 3
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "巡山人：多谢上仙，救我全家老小！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "巡山人：在下无以为报，就送大人一些妖兽材料吧！"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:cailiao_110",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（……其实是你自己怕被报复吧）"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 19
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "没有强压符"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "hfczdldl",
+    "quest_id": "hfczdldl",
+    "title": "花繁城主的炼丹炉",
+    "description": "一个短小的对话任务。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "这是城主的炼丹炉，还是不要动了。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "yiqizhuatuzi",
+    "quest_id": "yiqizhuatuzi",
+    "title": "一起去抓兔子吧",
+    "description": "路边的小孩哥手里拿着两根木棍，嘴里不住吸溜着口水，你忍不住好奇询问。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "木棍和胡萝卜",
+    "reward_summary": "兔肉煲*4",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：私塾还没开学，我也不用上学，买油看到洞穴，流连好似点穴。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "说人话！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：我饿了（擦嘴），想吃兔子肉。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：这附近好多兔子呀（吸溜），你能帮我抓一只吗？（再擦嘴）"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：我知道怎么抓兔子（吸溜）。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "哦？你会抓兔子，那你为什么不自己去抓呢？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：你知道我一天到晚有多忙吗？我又要出恭又要吃饭的（口水留到脚面上）。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "……"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你转身要走"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：哎哎别走别走（硬拉住你，口水溅到你的身上）我可以教你怎么做抓兔子笼！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：你只要给我八根木棍就可以了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你见再不答应，你的全身都会被他口水浸透，慌忙一边点头一边躲开飞溅过来的口水。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 16
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：你带来木棍了吗？"
+      },
+      {
+        "kind": "check_item",
+        "item": "minecraft:stick",
+        "count": 8,
+        "pass_target": 20,
+        "fail_target": 18
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：你可要快点呀，我快饿死了。（吸溜吸溜）"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：太好了！你只要这样，然后这样，再这样，就做好一个兔子笼了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：我跟你说，这种做兔笼的方法独我一个，你要是想做兔笼，需要四个竹子和四个木棍才行。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：做好了，给你！"
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "minecraft:stick",
+        "count": 8
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:zhuangshitulongitem_01",
+        "count": 1
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 30
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：放下笼子后，在里面放一个胡萝卜，兔子就会自己走过去了。（吸溜溜）"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：快帮我抓一只兔子！快！快！（吸溜溜）"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥眼巴巴望着你。"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:zhuangshitulongitem_02",
+        "count": 1,
+        "pass_target": 34,
+        "fail_target": 32
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：咕噜噜噜~~~~"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：太好了！太好了！"
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:zhuangshitulongitem_02",
+        "count": 1
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:zhuangshitulongitem_01",
+        "count": 1
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "minecraft:cooked_rabbit",
+        "count": 1
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 40
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：烤好了，好香呀！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小孩哥：遇到你真好，下次也和你一起玩！"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "nanhaishangmengcailiaoshang",
+    "quest_id": "nanhaishangmengcailiaoshang",
+    "title": "南海商盟材料商",
+    "description": "与商盟的商人对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "商人：前辈您好，晚辈不知前辈驾到，未曾远迎还请恕罪。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "道友不必多礼，我只是随意转转，还怕惊扰道友休息。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "商人：不敢不敢！前辈能来小店，是在下的福气。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "我想看一看贵店有哪些材料。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "商人：自然，前辈您看到面前这本书了吗？里面记录了小店所有商品。"
+      },
+      {
+        "kind": "command",
+        "command": "particle electric_spark -103 64 -263 0.5 0.5 0.5 0.25 5 normal"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "yvfudeduihua",
+    "quest_id": "yvfudeduihua",
+    "title": "渔夫的对话",
+    "description": "渔夫在码头钓鱼，脸上洋溢着期待的神色",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "老人家，你为何如此开心？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "钓鱼老翁：原来是前辈啊，昨日王六来此钓鱼，竟然钓到了妖兽骨架，卖了不少钱，所以我也来此碰碰运气。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "不知收成如何？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "钓鱼老翁：若只论钓鱼，那收成也还可以，但若说有没有钓到妖兽骨架，那自然一个也没有。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你看他面露难色，又回想到一分钟前还洋溢喜色的老翁，撇了撇嘴，心想：他肯定是钓到了，但又怕我抢他的钓位，所以撒谎了吧。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "jiuguanlaoban",
+    "quest_id": "jiuguanlaoban",
+    "title": "酒馆掌柜",
+    "description": "和酒馆掌柜对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "掌柜：前辈，需要帮您安排餐位吗？"
+      },
+      {
+        "kind": "choice",
+        "prompt": "这间酒楼规模不小，并且干净整洁，想必会有不错的用餐体验。",
+        "options": [
+          {
+            "label": "我想向贵店的主厨学习厨艺",
+            "target": 3
+          },
+          {
+            "label": "我想打听一些事情",
+            "target": 5
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "掌柜：好说好说，李主厨就在旁边的厨房内。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "前辈您请讲。"
+      },
+      {
+        "kind": "choice",
+        "prompt": "想打听哪些事情？",
+        "options": [
+          {
+            "label": "城主是个怎样的人？",
+            "target": 7
+          },
+          {
+            "label": "如何挣钱？",
+            "target": 9
+          },
+          {
+            "label": "如何赚取灵石？",
+            "target": 13
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "掌柜：城主吗？他对我们都很好，在最混乱的年代还坚持维护秩序，我们现在能在这里安居乐业，全靠他对我们的庇护呀。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "掌柜：前辈一定有大能耐，又恰逢现在百废待兴，正是赚钱的好机会呀。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "掌柜：前辈无论是挖矿还是伐木，都能卖钱。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "掌柜：我听说有人在城内收购原木，价格比市场价要高一些，但每次收购的量非常大，您可以去看一看。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "掌柜：我们这些小修可不敢想赚灵石的事，前辈如果愿意，可以打造一些好兵器去卖钱，也可以到城外猎杀妖兽，卖材料赚钱。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "掌柜：还有就是，城里佣兵栈会有悬赏任务，您也可以去看看。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "掌柜：灵气枯竭应该是有周期性变化的原因在，至于灵石矿变少了，在下实在不知，您还是要去问问城主大人。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "jiuguanzhuchu",
+    "quest_id": "jiuguanzhuchu",
+    "title": "酒馆主厨的指教",
+    "description": "你想要学习如何做菜，于是便请教酒馆主厨，主厨推荐给你一些菜谱，并教导如何使用。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：前辈，您找我有事？"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "您做的菜肴香飘百里，满城食客无不交口称赞！我想向您拜师学艺，学习如何做一名仙厨。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：哈哈哈前辈过奖了，我只是一名普通厨师，根本没有收徒的资格。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：不过前辈若是不嫌弃，我倒是可以送给前辈您一些初级食谱，您只要跟着食谱做菜，厨艺肯定水涨船高。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "我怎么能白拿你的东西呢？我用一些食材来换吧。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：哎呀那在下就却之不恭了！"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 9
+      },
+      {
+        "kind": "choice",
+        "prompt": "是否换一些食谱？",
+        "options": [
+          {
+            "label": "用4条生鳕鱼换食谱",
+            "target": 15
+          },
+          {
+            "label": "请教食谱使用方法",
+            "target": 10
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "我该如何使用这些食谱呢？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：您找个锅，右键打开，把食谱放在右面那个位置，就自然会显示出需要哪些食材了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：等您找到食材，把食材放进锅里，不用在意顺序，点击下面的火焰形状的按钮，现在就开始做饭了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：然后您需要不断右键锅，直到锅自然打开，您就能获得美味的菜肴了！"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：前辈，您带来鳕鱼了吗？"
+      },
+      {
+        "kind": "check_item",
+        "item": "minecraft:cod",
+        "count": 4,
+        "pass_target": 17,
+        "fail_target": 23
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "minecraft:cod",
+        "count": 4
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "minecraft:paper",
+        "count": 1,
+        "payload": {
+          "kind": "cooking_recipe",
+          "recipe": {
+            "menu_name": "馒头",
+            "grade": 0.0,
+            "grade_text": "无",
+            "description": "无",
+            "animation": 1,
+            "needed_container": "",
+            "output_id": "yvanchuxiuzhen:food_007",
+            "pot_type": "蒸锅",
+            "ingredients": [
+              "yvanchuxiuzhen:shicai_003"
+            ]
+          }
+        }
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：这个馒头的做法就交给您了！"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 25
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：您可以随时来找我。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "choice",
+        "prompt": "李主厨：前辈您做出馒头了吗？",
+        "options": [
+          {
+            "label": "我一会儿就去试试",
+            "target": 24
+          },
+          {
+            "label": "请教食谱使用方法",
+            "target": 11
+          },
+          {
+            "label": "换一份新的菜谱",
+            "target": 26
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：酒店需要一些大白菜，您能拿3颗大白菜来吗？"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 30
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：前辈，您带来大白菜了吗？"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:shicai_024",
+        "count": 3,
+        "pass_target": 32,
+        "fail_target": 37
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:shicai_024",
+        "count": 3
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "minecraft:paper",
+        "count": 1,
+        "payload": {
+          "kind": "cooking_recipe",
+          "recipe": {
+            "menu_name": "驴打滚",
+            "grade": 2.0,
+            "grade_text": "二级仙厨",
+            "description": "无",
+            "animation": 1,
+            "needed_container": "",
+            "output_id": "yvanchuxiuzhen:food_019",
+            "pot_type": "炒锅",
+            "ingredients": [
+              "yvanchuxiuzhen:shicai_004",
+              "yvanchuxiuzhen:shicai_046",
+              "minecraft:sugar",
+              "yvanchuxiuzhen:tiaowei_01",
+              "yvanchuxiuzhen:shicai_002"
+            ]
+          }
+        }
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：这个驴打滚的做法就交给您了！"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 38
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "我该如何使用这些食谱呢？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：您找个锅，右键打开，把食谱放在右面那个位置，就自然会显示出需要哪些食材了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：等您找到食材，把食材放进锅里，不用在意顺序，点击下面的火焰形状的按钮，现在就开始做饭了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李主厨：然后您需要不断右键锅，直到锅自然打开，您就能获得美味的菜肴了！"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "shougouyvanmu",
+    "quest_id": "shougouyvanmu",
+    "title": "收购原木",
+    "description": "建筑大师的学徒正在帮老师收购原木",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "建筑学徒：前辈，您要卖原木吗？我的老师正在收购榉木原木。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "建筑学徒：每次收购32个榉木原木，付给您100文钱。"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:beechlog",
+        "count": 32,
+        "pass_target": 4,
+        "fail_target": 9
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:beechlog",
+        "count": 32
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:money_03",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "建筑学徒：太好了！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "建筑学徒：如果您还想出售，我会一直在这里等着您的。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "建筑学徒：您还没有收集到足够的榉木原木（山毛榉原木）。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "pujiazaocandian",
+    "quest_id": "pujiazaocandian",
+    "title": "浦家早餐店",
+    "description": "如果你和老浦关系好，就可以请教一招半式。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "老浦：前辈，来份刚蒸好的大肉包子吗？"
+      },
+      {
+        "kind": "choice",
+        "prompt": "我家的包子味道足，用料新鲜，绝对好吃！",
+        "options": [
+          {
+            "label": "进店看看",
+            "target": 3
+          },
+          {
+            "label": "闲聊",
+            "target": 5
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "老浦：大包子都在这个闪闪发光的笼屉里了。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "听说今年粮食要大丰收了？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "老浦：嘿嘿，趁着其它城市还没解封，各地太平，赶快多种一些麦子，反正荒地那么多。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "老浦：种粮食的人有了更多的地，产量肯定就多了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "老浦：您可千万要慢点解封别的城市呀，最好脱个十年，让我们好好发展发展。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "……"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "话说，你们家的包子味道不错呀，这肉馅嫩的能挤出水来，能教教我吗？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "老浦：这个好说！"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "minecraft:paper",
+        "count": 1,
+        "payload": {
+          "kind": "cooking_recipe",
+          "recipe": {
+            "menu_name": "狗不理包子",
+            "grade": 3.0,
+            "grade_text": "三级仙厨",
+            "description": "无",
+            "animation": 1,
+            "needed_container": "",
+            "output_id": "yvanchuxiuzhen:food_024",
+            "pot_type": "蒸锅",
+            "ingredients": [
+              "yvanchuxiuzhen:shicai_003",
+              "minecraft:porkchop",
+              "yvanchuxiuzhen:shicai_028",
+              "yvanchuxiuzhen:tiaowei_03",
+              "yvanchuxiuzhen:shicai_013",
+              "yvanchuxiuzhen:tiaowei_02",
+              "yvanchuxiuzhen:tiaowei_01"
+            ]
+          }
+        }
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "老浦：这是我家传的配方，蒸出来的包子绝对美味！您把这个菜谱放进蒸锅的右边那个位置，就会显示需要的食材了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "老浦：根据上面写的这些把食材准备好，放进蒸锅里，点击中间的按钮，然后右键蒸锅几次就可以出锅了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "老浦：对了，还要注意，如果您本身的厨艺达不到三级，那你就做不成这个包子。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "那我应该怎么提升厨艺呢？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "老浦：我想想……对了！你可以找大厨师拜师学艺，或者找一些不需要厨艺的菜谱练习。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "多谢老先生。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "xvazaishuohua",
+    "quest_id": "xvazaishuohua",
+    "title": "徐阿的招待",
+    "description": "与卖肉的对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "徐阿：前辈大驾光临，真让小店蓬荜生辉阿！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "徐阿：我是这个小店的店主，您想买什么，尽管和我说就是了。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "yvfandeduihua",
+    "quest_id": "yvfandeduihua",
+    "title": "渔贩的对话",
+    "description": "与卖鱼的对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "鱼贩：最近渔夫勤快的很呀，隔三岔五就来供货。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "鱼贩：平常都没见过这么勤快的人。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "ranzhifangshijian",
+    "quest_id": "ranzhifangshijian",
+    "title": "陈氏的染织坊",
+    "description": "与陈氏的对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "陈氏：前辈万福金安！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "陈氏：今日染织房有新布料做出来了，前辈要不要来看看？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "陈氏：还有多款潮流服装，都给前辈您打八折。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "ranzhifangshijianer",
+    "quest_id": "ranzhifangshijianer",
+    "title": "染织坊姑娘小红",
+    "description": "与姑娘的对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：嘻嘻，前辈万福金安！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：前辈有型哇！"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "咳咳...我想问问，如何纺织布料？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：前辈也对女红之事感兴趣嘛？纺织并不难的，就是不同织物的纺织工艺都有不同。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：如果前辈想要灵布，可以种植一些棉花，然后拿着棉花对着织布机右键就可以获得灵布了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：如果前辈想要韧麻布，可以种植一些韧麻，然后拿着韧麻对着织布机右键就可以获得韧麻布了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：倚罗布需要白狼毛，狩猎一些月狼对前辈而言应该不是难事吧？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：倚罗布需要白狼毛，狩猎一些月狼对前辈而言应该不是难事吧？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：妆花缎和龙绡缎则要难一些了，需要分别喂养灵蚕和独角蚕，喂养桑叶直到化蛹，然后取蛹。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：前辈您看到那边起锅烧水的缫丝机器了吗？您把蛹丢进烧水锅中，然后使用缫丝机器，就能获得丝线了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：前辈要注意！一次只能丢一个蛹，多的会消失！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：获得的灵丝线和金丝线，在织布机里就能分别纺织成妆花缎和龙绡缎。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：听说还有更高级的牵花丝绸，需要喂给独角蚕活木，使其变异，然后获得变异独角蚕蛹，再缫丝织布获得，不过小女子没有试过，就不知道了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "多谢姑娘相告！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小红姑娘：嘻嘻不客气！"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "ranzhifangshijiansan",
+    "quest_id": "ranzhifangshijiansan",
+    "title": "染织坊姑娘小春",
+    "description": "与姑娘的对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小春姑娘：嘻嘻，前辈好帅好漂亮！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "小春姑娘：前辈可以在这里买一些纺织用品。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "shibingdeqingqiuer",
+    "quest_id": "shibingdeqingqiuer",
+    "title": "守备司长的请求",
+    "description": "制作一批箭矢",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "箭矢*16",
+    "reward_summary": "神秘礼物",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "守备司司长：被封印在虚空的日子里，没有外敌没有叛乱，导致大家都懈怠了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "守备司司长：前辈您看，我堂堂一个司长，还要替士兵站岗！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "守备司司长：可是城中箭矢不足，守备力量空虚，如果遇到兽潮定会万劫不复。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "守备司司长：前辈能否替在下制作一批普通的箭矢？在下定会厚礼相谢。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 8
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "minecraft:arrow",
+        "count": 16,
+        "pass_target": 9,
+        "fail_target": 16
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "minecraft:arrow",
+        "count": 16
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "守备司司长：多谢前辈！我这里有一个记录有快弓图纸的玉简。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "守备司司长：快弓可近战退敌也可远程击杀，拉弓速度比长弓快很多，前辈一定会喜欢的。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:book_030",
+        "count": 1,
+        "color_code": "f",
+        "display_name": "特制风语弓图纸",
+        "payload": {
+          "kind": "blueprint",
+          "blueprint_name": "风语弓",
+          "blueprint_description": "风语弓，可近战退敌，也可远程击杀。同时作为一张快弓，也有着不错的射击速度，推荐为武器增加快速装填附魔。",
+          "artifact_id": "yvanchuxiuzhen:weaponspeedbow_01",
+          "artifact_description": "快弓，可近战退敌亦可远程击杀。",
+          "artifact_type": "武器",
+          "level_text": "黄阶四级",
+          "level": 4,
+          "belong_to_item_id": "yvanchuxiuzhen:book_030",
+          "ingredients": [
+            {
+              "id": "yvanchuxiuzhen:cailiao_201",
+              "name": "精铁锭",
+              "count": 2
+            },
+            {
+              "id": "yvanchuxiuzhen:cailiao_201",
+              "name": "精铁锭",
+              "count": 2
+            },
+            {
+              "id": "yvanchuxiuzhen:cailiao_201",
+              "name": "精铁锭",
+              "count": 2
+            },
+            {
+              "id": "yvanchuxiuzhen:cailiao_201",
+              "name": "精铁锭",
+              "count": 2
+            },
+            {
+              "id": "yvanchuxiuzhen:cailiao_201",
+              "name": "精铁锭",
+              "count": 1
+            },
+            {
+              "id": "yvanchuxiuzhen:cailiao_092",
+              "name": "蜥蜴尾",
+              "count": 3
+            }
+          ]
+        }
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 15
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "没有足够的箭矢。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "chenyeduihua",
+    "quest_id": "chenyeduihua",
+    "title": "陈叶",
+    "description": "和陈家陈叶对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "陈叶：前辈您好，在下陈叶，现任花叶会会长，不知前辈大驾光临有何贵干？"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "道友可知何处妖兽最多？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "陈叶：在下游历时，曾听闻各地都有锁妖塔，里面关押着各种妖兽。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "陈叶：只可惜我游历时间尚短，就回来操办花叶会，无缘亲身前往。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "陈叶：前辈可需要一件飞行法器来赶路吗？在下正好炼制出一艘飞叶飞行法器。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "陈叶：前辈作为花繁城贵客，在下就只收成本价了，只需要12枚三级灵石即可获得飞叶飞行法器。"
+      },
+      {
+        "kind": "choice",
+        "prompt": "是否花费12枚三级灵石，购买一艘飞叶飞行法器？",
+        "options": [
+          {
+            "label": "购买",
+            "target": 11
+          },
+          {
+            "label": "暂时不要",
+            "target": 10
+          },
+          {
+            "label": "就是不要",
+            "target": 15
+          }
+        ]
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 7
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:cailiao_193",
+        "count": 12,
+        "pass_target": 12,
+        "fail_target": 18
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:cailiao_193",
+        "count": 12
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:flyinginstrument_0101",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "获得飞叶飞行法器"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "陈叶：祝前辈一路顺风。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 18
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "zhaowuduihuayi",
+    "quest_id": "zhaowuduihuayi",
+    "title": "赵焐",
+    "description": "和花繁城的赵焐对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "云清派坐标",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "从墙上悉悉索索传来一阵声响，你抬头向上看去"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "“？”"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "？？：“嘻嘻”（你看见一红衣少年蹲在墙沿对你嘻嘻笑着）"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "“彭！”那少年一跃而下，围着你上下打量，嗅嗅闻闻。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "“嗯？”"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "？？：嗯~~嗯~嗯！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "？？：是哩是哩。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你本想询问少年何事相求，他等不及你说话遍冒出一句：“四师兄！”"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你一时间摸不到头脑，又顾不得有点惊慌：“少侠莫不是认错了人哩，我怎是你家师兄？”"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵焐：嘻嘻，错不了错不了，你就是我家师兄，我是云清派赵焐。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵焐：在花繁城封印前，师傅曾经占星算卜，我云清派有一命中注定的弟子流落在外，道是魔潮压境，命数乱理，难以测算，于是便推演出会在解封后出现在花繁城里，所以特派我来此等候。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "“哦？（恐怕这便是某种江湖骗术吧，没想到自己一次解封，居然连江湖敲诈的人都复苏了）在下正有要事找城主相商（其实没有），那就先师弟一步告辞了。”"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵焐：QAQ 呜呜，别呀，师兄你就和我去解封门派吧，师傅交代过了，门派晚了解封，便要拿我是问的。（抱住你的衣袖）（你嫌弃的扯了扯手臂）"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵焐：再，，，，再不济我贴你点灵石？"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "哈哈，在下正是奉城主的命，要去解封桃花源各处封印，开我人族盛世呢（两眼冒出星星）。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "（汗(lll￢ω￢)）赵焐心想，看来这位大师兄和姐姐一样也是个不见兔子不撒鹰的主。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵焐：好吧好吧，那师兄便来此处寻我吧。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:book_010",
+        "count": 1,
+        "color_code": "f",
+        "display_name": "云清派坐标",
+        "payload": {
+          "kind": "book_text",
+          "text": "云清派坐标x：-810 y：64 z:-217"
+        }
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 21
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "fanhuacheng12_25_5_28_r1_default_shop",
+    "quest_id": "hvsdgfsdhfs",
+    "title": "商店任务",
+    "description": "一个通用的商店任务。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "道清：这里都是技能书。"
+      },
+      {
+        "kind": "open_menu",
+        "menu": "商店"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "shibingdeqingqiuyi",
+    "quest_id": "shibingdeqingqiuyi",
+    "title": "嘴馋的士兵",
+    "description": "取一些酒来，士兵会给予不同的礼物",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "任意一种酒",
+    "reward_summary": "神秘礼物",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "士兵：好天色，好风光！可惜没有好酒，也没有对饮之人。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "士兵：原来是前辈来了！嘿嘿嘿，酒楼就在不远处，那飘过来的阵阵酒香太勾魂了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "士兵：城主大人对前辈您如此器重，想必肯定收藏颇丰吧，不知前辈可有美酒？前辈请放心，不耽误我巡逻的，越喝我越精神！"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 6
+      },
+      {
+        "kind": "choice",
+        "prompt": "是否给与美酒？",
+        "options": [
+          {
+            "label": "状元红",
+            "target": 8
+          },
+          {
+            "label": "女儿红",
+            "target": 18
+          },
+          {
+            "label": "杜康酒",
+            "target": 28
+          },
+          {
+            "label": "鸿茅药酒",
+            "target": 38
+          },
+          {
+            "label": "地瓜烧",
+            "target": 48
+          },
+          {
+            "label": "猴儿酒",
+            "target": 58
+          },
+          {
+            "label": "桃花酿",
+            "target": 68
+          },
+          {
+            "label": "碧血琼浆",
+            "target": 78
+          }
+        ]
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:jiuniang_001",
+        "count": 1,
+        "pass_target": 9,
+        "fail_target": 16
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:jiuniang_001",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "给予状元红一坛"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "士兵：好酒哇！痛快。前辈收藏着状元红，一定也渴望金榜题名！我这里正好有一些墨，还请前辈笑纳！"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:motiao_01",
+        "count": 16
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 17
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "没有状元红。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:jiuniang_002",
+        "count": 1,
+        "pass_target": 19,
+        "fail_target": 26
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:jiuniang_002",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "给予女儿红一坛"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "士兵：好酒好酒！前辈收藏着女儿红，难道也放不下这红尘因果？我这里正好有一些炮仗，前辈可以稍解思乡之苦。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:pao_12",
+        "count": 8
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 27
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "没有女儿红。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:jiuniang_003",
+        "count": 1,
+        "pass_target": 29,
+        "fail_target": 36
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:jiuniang_003",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "给予杜康酒一坛"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "士兵：何以解忧，唯有杜康！前辈莫忧，我这里有几张神傀符，前辈可收服一些妖兽陪伴自己。一定要先把妖兽打到残血，再使用神傀符！"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:itemfulu_18",
+        "count": 4
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 37
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "没有杜康酒。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:jiuniang_004",
+        "count": 1,
+        "pass_target": 39,
+        "fail_target": 46
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:jiuniang_004",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "给予鸿茅药酒一坛"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "士兵：前辈竟收藏着药酒，一定非常喜欢养生吧？正巧我也喜欢养生，我这里有一些丹药，还请前辈笑纳！"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:itemdanyaohulu_0501",
+        "count": 1,
+        "color_code": "b",
+        "display_name": "秘制回春丹",
+        "payload": {
+          "kind": "medicine",
+          "name": "秘制回春丹",
+          "dose": 8,
+          "pack_count": 1,
+          "treasure": false,
+          "effects": [
+            {
+              "id": "minecraft:regeneration",
+              "level": 100,
+              "duration": 600
+            }
+          ]
+        }
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 49
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "没有鸿茅药酒。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:jiuniang_005",
+        "count": 1,
+        "pass_target": 49,
+        "fail_target": 56
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:jiuniang_005",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "给予地瓜烧一坛"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "士兵：哈哈哈前辈也是不拘小节的人呀！我这里有一些妖兽材料，还请前辈笑纳！"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:cailiao_061",
+        "count": 8
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 57
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "没有地瓜烧。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:jiuniang_006",
+        "count": 1,
+        "pass_target": 59,
+        "fail_target": 66
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:jiuniang_006",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "给予猴儿酒一坛"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "士兵：前辈竟愿意拿出如此奇酒相赠！想必前辈一定非常喜欢寻宝吧？我这里有一些用不上的钥匙，还请前辈笑纳！"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:treasure_chest_1101",
+        "count": 10
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 67
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "没有地瓜烧。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:jiuniang_007",
+        "count": 1,
+        "pass_target": 69,
+        "fail_target": 76
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:jiuniang_007",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "给予桃花酿一坛"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "士兵：桃花酿最是芬芳，好酒好酒！前辈若不嫌弃，我这里有一些遁甲符，可防那桃花螳的攻击，还请前辈笑纳！"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:itemfulu_11",
+        "count": 6
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 77
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "没有桃花酿。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:jiuniang_008",
+        "count": 1,
+        "pass_target": 79,
+        "fail_target": 86
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:jiuniang_008",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "给予碧血琼浆一坛"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "士兵：嘶……前辈竟有如此邪酒，想必一定是位用毒大师！昔年我曾杀过几只毒物，偶然获得一些毒药，还请前辈笑纳！"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:cailiao_146",
+        "count": 4
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 87
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "没有碧血琼浆。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "changjingge",
+    "quest_id": "changjingge",
+    "title": "藏经阁任务",
+    "description": "与藏经阁的阁主道清对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "道清：老道道清，参见前辈，多谢前辈出手相助救我等于水火之中。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "道友客气了！不过是受人之托罢了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "在下想找一些高级功法，助我提高修为。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "道清：前辈恕罪，在下这里最高只有玄阶的功法。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "这是为何？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "道清：老道实力低微，无法保存贵重物品。往往得到了高级功法也不敢久留啊。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "道清：况且，高级功法都在大门大派的手中，那些宗门是不允许有高级功法流通的。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "原来是这样，这倒是怪不得阁下。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "konggucanjvanliu",
+    "quest_id": "konggucanjvanliu",
+    "title": "空谷残卷 其六",
+    "description": "你找到了一段时间的回响。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "成就",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "凭君莫话封侯事，一将功成万骨枯。"
+      },
+      {
+        "kind": "command",
+        "command": "advancement grant @p only yvanchuxiuzhen:chengjiu_006"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 5
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "aihaihaihaijitanglailou",
+    "quest_id": "aihaihaihaijitanglailou",
+    "title": "鸡汤",
+    "description": "这喝汤多是一件美事呀",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "啊哈哈哈鸡汤来喽！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "这喝汤，多是一件美事呀。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "fantongshangdian",
+    "quest_id": "fantongshangdian",
+    "title": "范统",
+    "description": "和范统对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "范统：oi！"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "yongbingyingdihuadaoshouer",
+    "quest_id": "yongbingyingdihuadaoshouer",
+    "title": "花刀手的生意",
+    "description": "你在房间里发现了一枚红色灵石，想必就是花刀手提到的宝贝了吧。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "妖灵晶",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "想必这个就是花刀手提到的宝贝了吧。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:cailiao_200",
+        "count": 1
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 5
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "yongbingyingdihuadaoshou",
+    "quest_id": "yongbingyingdihuadaoshou",
+    "title": "花刀手",
+    "description": "和佣兵营地的花刀手对话",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花刀手：嘿嘿嘿嘿……"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（？）"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花刀手：小兄弟想必也是苦求长生之道的道友，我这里有好宝贝。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花刀手：（神秘兮兮地拿出了一块血红色的灵石）诺，吸收这个，能提升你百分之十的修为！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花刀手：多少人梦寐以求的……（当！当！当！远处大块头望着这边，用木棍敲了敲墙壁。）"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大块头：花刀！你给我老实呆着，再让我看到你给好兄弟兜售你那破烂货，我剥了你的皮！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花刀手缩了缩身体，也不答话，转身慢悠悠走开了，一道细若飞蚊的声音传入你的耳朵里。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "花刀手（传音）：嘁，头还是那么不识时务。关于那个宝贝，你若想要，便去房间里取罢。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "yongbingyingdisanliangjin",
+    "quest_id": "yongbingyingdisanliangjin",
+    "title": "三两金",
+    "description": "和佣兵营地的三两金对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "三两金：嘿嘿嘿，嘿嘿嘿，少侠果然英气非凡。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "三两金：不知少侠驾到，有何贵干呀？"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "听闻三两金道友这里珍惜法宝列如麻，特地来参观参观，不妨事吧？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "三两金：少侠是头儿的贵客，也是我们的救命恩人，这当然没有问题！少侠请看旁边的箱子。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "yongbingyingdijiulixiang",
+    "quest_id": "yongbingyingdijiulixiang",
+    "title": "九里香",
+    "description": "和佣兵营地的炼丹师九里香对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：道友安康，我是此佣兵营地的炼丹师，九里香。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "道友你好，有些问题我想请教一下。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：（盈盈一笑）道友请讲。"
+      },
+      {
+        "kind": "choice",
+        "prompt": "我的问题。",
+        "options": [
+          {
+            "label": "大块头是怎样的人？",
+            "target": 5
+          },
+          {
+            "label": "花刀手是怎样的人？",
+            "target": 24
+          },
+          {
+            "label": "能介绍一下你自己吗？",
+            "target": 28
+          },
+          {
+            "label": "重锋是怎样的人？",
+            "target": 34
+          },
+          {
+            "label": "三两金是怎样的人？",
+            "target": 39
+          },
+          {
+            "label": "铁人佣兵团是个什么组织？",
+            "target": 44
+          },
+          {
+            "label": "请教一些炼丹的知识",
+            "target": 51
+          },
+          {
+            "label": "没什么了",
+            "target": 60
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：想必道友一定见过大哥了，大哥的为人，你所见即所得。他对我们都很照顾，哪怕是花刀那样的人，大哥都不会赶走。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：在我还是孩子的时候，村子里遭了马匪，全村只有我一个人逃了出来。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：我无依无靠，孤苦伶仃，还正值天寒地冻的腊月，由于妖兽泛滥，附近百里也没有第二个村庄。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：我顶着风雪硬走了两天，就在我快饿死冻死的时候，遇到了大哥。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：大哥给我饭，又收留了我。当我把遭遇讲给大哥听的时候，大哥二话不说便带着全部人马直奔我的村子。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：（眼神略微暗淡）当我们赶到村庄，整个村庄已然是一片焦炭了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：而那批马匪，早就跑的无影无踪了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：（眸中波光流转）大哥注视了良久，然后对我说，一定会替我报仇。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：之后大哥便一边追踪马匪，一边把我送入最近的城市，找了位炼丹大师，让我在其府中修行。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：我也不负大哥期望，逐渐成为一名合格的炼丹师。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：就在我十八岁生日那天，大哥说给我一个惊喜。（笑）"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：原来大哥不久前找到了那伙马匪，并且围困在一座孤山上一月有余。我赶到大哥身边时，看到那伙马匪一个个面黄肌瘦的样子，实在滑稽。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：大哥看我赶到了，便下令放火，他说，这帮畜生杀人放火无恶不作，今天也让它们尝尝被烧的滋味。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：那帮马匪被烧的受不了了，便下山要和大哥单挑。大哥神勇无比，连挑三人不费吹灰之力。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：马匪头子在临死前终于想起了我是什么人，不知道在它看到阎王的时候，是会悔不当初，还是后悔放跑了我。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "不管那个畜生怎么想，反正阎王一定会把它丢进十八层地狱的，所有的马匪都会被丢进十八层地狱的。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：（微笑）那之后，大哥便带领佣兵团和我一起回到了镇子上，镇子上的居民听说了大哥的英雄事迹，全都自发出门夹道欢迎。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：我在大哥身边看得最清楚，大哥看向我的时候笑得最灿烂。"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：你看到花刀手了？道友，无论他对你说了什么，给你推荐了什么“宝贝”，你都不要听也不要用！"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "这是为何？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：大哥不让我们私下里讨论，我也不便多说。总之，勿听，勿看，也切莫传扬。"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：我本是普通人家的小女孩，自从家中遭难便跟着大哥过日子了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：后来大哥听说有个城镇，那里有位非常有实力的炼丹大师，便把我送去，想让我学个一招半式。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：大哥没说，但我知道，他是不想让我跟着他们四处流浪。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：我努力用工，最终从底层的药童晋升为学徒，又一路晋升到和老师一样的炼丹水平。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：（微笑）而现在，我是一名七阶战地炼药师。"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：重锋呀，他是个外冷心善的人，对大哥死心塌地。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：道友千万别被他的冷酷吓到了，他就是那样，总是板着个脸，三年笑不了两次。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：花刀打趣过他，说他的脸中风（重锋）了，所以才没表情，被重锋拿着巨剑追着削了一晚上。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：后来每次大哥说要教训花刀的时候，重锋都默默代劳了。（笑）"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：三两金是铁人佣兵团的库房掌柜，掌管着我们所有人的衣食住行，包括大哥的。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：没错，每次大哥要取一些钱财办事，也都需要三两金的批准。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：不过也不能怪他，就大哥那豪放的性格，多少钱都存不住。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：他那里的好东西可是不少，道友一定要去看看。"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：（微笑）铁人佣兵团是我们的家，大哥就是家长。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：铁人佣兵团无论是实力还是信誉，在附近的城镇里都是有口皆碑的。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：但我们不是最大的佣兵团，附近还有一个名叫“胡狼”的佣兵团，光是战斗人员就超过了三百。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：但“胡狼”佣兵团行事乖张，而且收留的也多是一些不法之徒。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：请他们做事的也是三教九流什么人都有。你若遇到了，一定不要招惹，那等势力连我们铁人佣兵团都不敢轻易得罪的。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "多谢道友提醒，我会注意的。"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：炼丹之术其实说难也不难，只要有好火，好炉，好药，好丹方，便可炼丹。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：好火需要道友四处留意，任何地方可能都有其踪影。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：好炉是基础，用不同等级的金属可以制作各个等阶的丹炉，丹炉等级越高炼制速度越快，甚至还能在分丹时分出更多丹药。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：好药很好理解，不同药材的药效都不相同，道友可以用佰草鉴来鉴定各种药材的药效。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：佰草鉴也很容易获得，只需要一本书和任意草药一株进行合成，即可获得。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：好丹方，可以让炼丹师少走很多弯路，但也不是必须品。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：优秀的炼丹师，懂得如何搭配药材的药效，中和药材里不利的成分，创作自己的丹方。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "九里香：先放置炼丹炉，然后在其下方点火，异火效果最佳。丹方放入丹炉，如果你有足够的药材，便可点击丹方旁边的按钮自动放置药材，最后点击中间的按钮开始炼制就好了。"
+      },
+      {
+        "kind": "jump",
+        "target": 4
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "yongbingyingdizhongfeng",
+    "quest_id": "yongbingyingdizhongfeng",
+    "title": "重锋",
+    "description": "和佣兵营地的重锋对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "重锋朝你点了点头。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "那冷酷的双眸，一看就是从尸山血海里爬出来的。你知道他并不是在针对你，而是自然而然流露出来的气势。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（不愧是大块头，手下精明能干的人如此之多。）"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "yongbingyingdidakuaitou",
+    "quest_id": "yongbingyingdidakuaitou",
+    "title": "大块头",
+    "description": "和佣兵营地的大块头对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "三选一的技能书",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大块头：多谢兄弟及时出手相助，我们铁人佣兵团都欠兄弟你一条命！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大块头：在下是此地佣兵组织的队长，兄弟有什么困难尽管找我们就是了！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大块头：只是，刚刚解困，手头没什么拿得出手的宝贝，谈灵石又太俗气了！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大块头：唉！不如这样，想必兄弟也是酷爱习武之人，我这里有三套绝学，任你选择一套！"
+      },
+      {
+        "kind": "choice",
+        "prompt": "点击下面的按钮查看技能说明，然后再选择一套。",
+        "options": [
+          {
+            "label": "陨河术",
+            "target": 6
+          },
+          {
+            "label": "地蔓鞭",
+            "target": 8
+          },
+          {
+            "label": "火焰漩涡",
+            "target": 10
+          },
+          {
+            "label": "我已全部看完说明，准备选择。",
+            "target": 12
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "陨河术：前方召唤一个巨大水球，对中心敌方实体破除霸体，造成大量伤害，并大幅击退周围敌方实体。"
+      },
+      {
+        "kind": "jump",
+        "target": 5
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "地蔓鞭：在前方召唤一个藤鞭，会自动攻击附近敌方实体。"
+      },
+      {
+        "kind": "jump",
+        "target": 5
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "火焰漩涡：召唤火焰漩涡，把周围敌方实体吸到中心，并持续造成火属性伤害。"
+      },
+      {
+        "kind": "jump",
+        "target": 5
+      },
+      {
+        "kind": "choice",
+        "prompt": "我准备选择……",
+        "options": [
+          {
+            "label": "陨河术",
+            "target": 13
+          },
+          {
+            "label": "地蔓鞭",
+            "target": 19
+          },
+          {
+            "label": "火焰漩涡",
+            "target": 25
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "我选择陨河术！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大块头：好！兄弟果然眼光独到，现在的妖兽一个个硬的跟石头似的，破除霸体的能力太有用处了。"
+      },
+      {
+        "kind": "command",
+        "command": "jineng yvanchuxiuzhen:book_005 陨河术 14 14 水 前方召唤一个巨大水球，对中心敌方实体破除霸体，造成大量伤害，并大幅击退周围敌方实体。 无 5 1.5 1.5 20 0 20 -4 0 0 0 10 0 0 0 0 0"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 36
+      },
+      {
+        "kind": "jump",
+        "target": 30
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "我选择地蔓鞭！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大块头：好！当年我被妖兽追杀，一路逃亡的时候，就是一边跑一边布置陷阱，最后就靠这招耗死了那头畜生。"
+      },
+      {
+        "kind": "command",
+        "command": "jineng yvanchuxiuzhen:book_012 地蔓鞭 15 15 木 在前方召唤一个藤鞭，会自动攻击附近敌方实体。 无 3 1.5 2 20 0 0 15 -5 0 0 0 0 40 0 0 0"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 36
+      },
+      {
+        "kind": "jump",
+        "target": 30
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "我选择火焰漩涡！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大块头：好！兄弟眼力毒辣，这技能品阶最高，而且又有输出又有控制，威力奇大无比！"
+      },
+      {
+        "kind": "command",
+        "command": "jineng yvanchuxiuzhen:book_006 火焰漩涡 18 18 火 召唤火焰漩涡，把周围敌方实体吸到中心，并持续造成火属性伤害。 无 2 1.2 4 20 0 0 0 20 -5 0 0 0 0 40 0 0"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 36
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大块头：兄弟身手不俗，眼光独到，要不要考虑加入我们铁人佣兵团？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大块头：有你加入，我看谁还敢招惹咱们！"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（微笑）多谢大哥好意，在下闲云野鹤惯了，以后有机会再说吧。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大块头：那好吧，兄弟你哪天逛烦了，随时回来，咱们还是一家子的人。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "大块头：至于现在，兄弟也别着急赶路呢，先在这里主上十天半个月。这附近的妖兽应该还很多，等我的哨兵回来，标记出那些畜生的位置，你尽可去取来换些盘缠！"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "（微笑）多谢大哥好意，那在下就叨扰些时日了。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "yvnqingpai_34_24_50_r1_xvliduihuayi",
+    "quest_id": "xvliduihuayi",
+    "title": "徐栎",
+    "description": "在泽灵井和徐栎对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "check_quest",
+        "quest_id": "zhaofengyveduihua",
+        "completed_target": 4,
+        "failed_target": 2,
+        "otherwise_target": 2
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "我还是先去找炼器峰峰顶的赵枫月师姐吧。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "remove_blocks",
+        "positions": [
+          [
+            -847,
+            166,
+            -219
+          ],
+          [
+            -847,
+            166,
+            -218
+          ],
+          [
+            -846,
+            166,
+            -217
+          ],
+          [
+            -845,
+            166,
+            -217
+          ],
+          [
+            -846,
+            166,
+            -220
+          ],
+          [
+            -845,
+            166,
+            -220
+          ]
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "在云清派中，大师兄是师傅从小带大的，赵家姐弟是师傅的熟人修仙家族子嗣，而还有一位是来自曾经宗门落末峰一位峰主流落在外的子嗣传承。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "据说此子性格怪异，常年深居井底，甚至有过会吃人的传闻，不过这些都是听五师弟说的，赵焐的话听一半就好已经是写进门派规定的事了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "所以你还是决定把这小子扔在炼器峰自己去见见三师兄，不过刚到了井口你就咽了咽口水，这口井底下真的有人吗，而且这井里甚至都有蜘蛛网了，但是不见也不行，于是鼓足勇气。"
+      },
+      {
+        "kind": "teleport",
+        "x": -845.0,
+        "y": 157.0,
+        "z": -218.0
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你一口气直接跳进了井口，还好，看着很深，其实也没多深，而且你还看见了一些腐烂的梯子，或许以前其他人都是用这个梯子上下的，随后你看着门上的闲人免进和危险请勿入内陷入沉思，最后鼓起最后一点勇气推开了门。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "里面很黑，但是有很好闻的风干草药味，还有一些迷惑……"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "迷烟的味道，这是你昏倒之前最后一个想法。"
+      },
+      {
+        "kind": "teleport",
+        "x": -839.0,
+        "y": 158.0,
+        "z": -229.0
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "“啪哒，刷刷刷”。这是你醒来听到的第一个声音，似乎是写字的声音。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "，随后是一个低沉的男性的声音“不对，雷公藤不能直接加入三钱，必须先经过寒水炮制，然后加入新青藤蛇的毒囊，然后试试。”"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "他摇了摇瓷瓶“不，还需要改良，乙田的雷公藤亲水测试是成功的，这个思路是对的，看来是妖兽商给的毒纯度太差，下次还要找人去抓才行。”"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "他放下了笔，转头看着你：门口应该写了“闲人勿进”。这里挺危险的，毒道的入门也是毕业真谛就是，不要进入不熟悉的位置不携带解毒丹，"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "师弟，这是第一课。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你稍微能站起来了，于是朝他点点头，他随后介绍了一下自己，徐栎，云清派三弟子，同时也是铠毒峰的传承人。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "至于他上一次离开泽灵井，已经是半年前的事情了，不过他也有利用特殊灵植感知派里的事情，至于你刚到门口的时候，第一个感觉到你的应该也是他。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "至于他为什么同时是凯毒峰的传承人，就要讲到封印前的三十几年前了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "当时的凯毒派掌门突然找上云蕴真人，并且托付了传承与年仅几岁徐栎后便消失了，掌门占星算得凯毒派的掌门离开一段时间后就身亡了，于是将徐栎收入门下，视如己出，并且徐栎展现出了完美的木水灵根，并且完美的契合凯毒派的功法。"
+      },
+      {
+        "kind": "teleport",
+        "x": -839.0,
+        "y": 158.0,
+        "z": -229.0
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "等你从井里爬上来的时候，你确认了两件事，第一件事，三师兄是好人，他赠送并且给你配了一整套各种毒的防治丹药，普及了基础的毒道知识；"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "第二件事，你确实需要去把赵焐打一顿，因为他骗你确实骗的很惨。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:itemdanyaohulu_02",
+        "count": 1,
+        "color_code": "f",
+        "display_name": "四级回春丹",
+        "payload": {
+          "kind": "medicine",
+          "name": "四级回春丹",
+          "dose": 20,
+          "pack_count": 1,
+          "treasure": false,
+          "effects": [
+            {
+              "id": "regeneration",
+              "level": 4,
+              "duration": 150
+            }
+          ]
+        }
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:itemdanyaohulu_02",
+        "count": 1,
+        "color_code": "f",
+        "display_name": "四级止血丹",
+        "payload": {
+          "kind": "medicine",
+          "name": "四级止血丹",
+          "dose": 20,
+          "pack_count": 2,
+          "treasure": false,
+          "effects": [
+            {
+              "id": "regeneration",
+              "level": 4,
+              "duration": 150
+            },
+            {
+              "id": "instant_health",
+              "level": 4,
+              "duration": 0
+            }
+          ]
+        }
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 29
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "zhaofengyveduihua",
+    "quest_id": "zhaofengyveduihua",
+    "title": "赵枫月",
+    "description": "在炼器峰峰顶和赵枫月对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你一边感慨着炼器峰的高度，一边往上看去，山巅被改造成了一个炼器小屋，屋顶的排烟管每隔一段时间就要喷出一阵黑烟，烟尘散去后里面就会传来叮叮咚咚的铁器敲击声。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "但是这次似乎里面的人发现了你和五师弟上山，随后屋里蹿出来一个身高五尺左右的小姑娘。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵枫月：嗯嗯？"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "嗯？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵枫月：嗯？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "在她即将要嗅闻你的时候你及时制止了她。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵枫月：你便是师傅说的那个小师弟吧，有事可以来找我。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "据大师兄所说，赵家姐弟的性格完全相反，弟弟不仅话痨顽皮，一整天也没个正型，姐姐赵枫月则惜字如金，但是也是个好人。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "平时比较正经，但是可惜和弟弟有同样顽劣的时候，就是和五师弟靠在一起的时候。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "刚好这时五师弟爬上炼器峰，随后你就感觉到了前面那个师姐似乎换了个人。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵枫月：小焐~~~~你可终于回来了，你不在的时候，都没有人来替我偷吃背黑锅了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "她一把把五师弟抓进怀里，五师弟察觉坏事了，想跑已经跑不掉了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵枫月：嘻嘻，但是我要你先来解释一下，我放在阁楼的桂花糕呢？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "随后，整个山门都缠绕着师弟的惨叫。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "不过从那些挂在墙上的武器来说，师姐确实是十分老练的炼器师，并且据大师兄所说，二师姐赵枫月有着非常顶尖的炼器灵根，金火皆是顶尖灵根。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你告辞了正在殴打师弟的师姐，现在要去找一位最难对付，也是最难见到的师兄了。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 19
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "lifuyvnduihua",
+    "quest_id": "lifuyvnduihua",
+    "title": "李茯云",
+    "description": "在演武场和李茯云对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "云清派功法",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "他带着和煦的微笑一边拉开了你这边的座椅，另一只手御气将两只茶杯摊开，然后让一尊玉茶壶将红茶缓缓倒出，随后坐在了你对面的位置。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：道友请上座。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你自道一声“叨扰了”便坐在了位置上。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "道友的门派好生气派啊，不愧是封印前桃花源附近数一数二的中型门派。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：哈哈，道友别看这山门宽阔，周遭尽数是些仙家道气，我门派上上下下，带着道友也只有五人。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "哦？难道贵派是封印前夕不久才建立的吗？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：非也非也，（他抿了一口茶水）我云清派，本是化神宗门。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "啊？？？！！！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "“哈哈。”李茯云轻笑两声，随后看向桃树，慢慢讲解起来：我云清派，本是几千年前森罗万化宗，一上古宗门的千峰中其中一峰，还叫云清峰。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：当年祖师也是元婴圆满半步化神的真君，当年的森罗万化宗虽然类似宗庙会门，千峰之称其实也就只有百来个峰派，庙主虽然有化神中期，但是在几家同样横跨几界的大宗门直接，也算数一数二，据传，宗门巅峰时期，能有百位元婴峰主，三位化神庙主，这股势力不说是独霸几域，也可以称之一域巅峰势力了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：但是后来发生变故，两位庙主离开，与同样是化神势力的几家宗门起了冲突，虽然惨胜对方，但是可惜剩下的几十峰之间道统观念不合，再之后便和解散伙了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "真是令人唏嘘，虽然宗门分崩离析，但也算是修仙界极少数得以善终解散的宗门吧。对了，我还想问问赵焐之前说的占星，师兄可知是什么意思？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：哈哈，道友有所不知，在下的师傅正是号称人界星算子的云蕴真人，师傅的传承正是来自远古时期的森罗万化宗。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：而在宗门传承后方有师祖特别批注“大劫后，人间界，花繁城，大吉”，虽然远古已经不可考究，但是这一句话也一直传承了百代，无论是元婴真君，还是筑基掌门，都把这句话牢牢记在心里。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "他又抿了口茶水，道：而且，师傅在闭关之前，又测算了一次，这一次，天星震荡，案台上册书被西风翻开，正好就是那句“花繁城，大劫”，所以才特意派师弟去花繁城等着。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 18
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "原来如此，看来还真是这样，容我考虑。"
+      },
+      {
+        "kind": "choice",
+        "prompt": "是否加入云清派？",
+        "options": [
+          {
+            "label": "加入",
+            "target": 29
+          },
+          {
+            "label": "拒绝",
+            "target": 22
+          },
+          {
+            "label": "再考虑考虑",
+            "target": 20
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "容我思量些时日。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "在下是这样想的，现在大劫刚过，人间界生灵涂炭，在下无法坐视，还请让在下考虑一段时间，多游历一些地方，再考虑吧！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：那便不多留道友了，祝道友好运，也时常欢迎道友回来。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：师傅交代了，如若道友不愿加入，便送你一本筑基功法，送你下山归去。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:book_010",
+        "count": 1,
+        "color_code": "b",
+        "display_name": "清云上风",
+        "payload": {
+          "kind": "technique",
+          "item": "yvanchuxiuzhen:book_015",
+          "name": "清云上风",
+          "grade_text": "玄阶五级",
+          "grade": 15.0,
+          "level_text": "筑基五阶",
+          "level": 15.0,
+          "body": "木火水",
+          "intro": "云清派的秘传功法，有着不错的属性，还会增加不俗的移动速度。",
+          "elements": {
+            "water": 1.0,
+            "fire": 1.0
+          },
+          "tiers": [
+            "下档",
+            "下档",
+            "中档",
+            "中档",
+            "下档",
+            "最下档",
+            "中档",
+            "中档",
+            "中档",
+            "中档",
+            "下档",
+            "下档",
+            "中档"
+          ]
+        }
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 28
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "哎，如今大劫刚过，人间界生灵涂炭，在下还是希望能先去拯救更多的地方。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：可是如今魔潮滚滚，外面妖族横行，散修之路，虽然十分自由，但是等到了道友需要自身实力的时候，或是需要晋级之时，就不那么好受了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "嗯……这我自然晓得。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：此外容我多嘴，也请道友保密一事。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "嗯？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：其实最大的麻烦不是妖兽，是同为修仙者的人族。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "嗯？！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：据我师弟所说，和师傅闭关前的推测，并不是所有人都认为魔潮是坏事，例如一些不怀好意的罪修和散修，他们或修习魔功，或形单影只，封印之力不会过多倾注在他们身上，如今魔潮退去，他们的封印会很快解除。况且现在还没有恢复多少秩序，他们自然如鱼得水。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "这……"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：此外，我也不妨直说，泪城主虽然名震桃花源，但是出了桃花源这地界，城主的通行令也不一定能服众，并且，有些魔道渣滓，似乎也通过特殊的方法躲过了魔潮。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "啊，这，这怎可能？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：事实确实如此，师弟在花繁城也收集到了不少渣滓的影子，所以道友修为若是不够，在外行走若是被发现是解除封印的天命人……"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "那道友可有办法？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：哎，倒也不算办法，师傅，闭关前说，若是你不愿意加入门派，我们便赠你一本筑基功法，送你下山归去。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：若是你愿意（他把你左手边桌盒打开，里面是一张身份牌）你也看见了，师傅一直为你留着四弟子的位置，他仍然相信，师祖说的那个能振兴云清派的人，就是你。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你望着李茯云的眼睛，那蓝色的瞳孔告诉你，他确实没撒谎，于是，你握住了那张身份牌。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "好，那等师傅出关，我想见见他，再问问他，他信任是否白费。"
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:book_010",
+        "count": 1,
+        "color_code": "b",
+        "display_name": "清云上风",
+        "payload": {
+          "kind": "technique",
+          "item": "yvanchuxiuzhen:book_015",
+          "name": "清云上风",
+          "grade_text": "玄阶五级",
+          "grade": 15.0,
+          "level_text": "筑基五阶",
+          "level": 15.0,
+          "body": "木火水",
+          "intro": "云清派的秘传功法，有着不错的属性，还会增加不俗的移动速度。",
+          "elements": {
+            "water": 1.0,
+            "fire": 1.0
+          },
+          "tiers": [
+            "下档",
+            "下档",
+            "中档",
+            "中档",
+            "下档",
+            "最下档",
+            "中档",
+            "中档",
+            "中档",
+            "中档",
+            "下档",
+            "下档",
+            "中档"
+          ]
+        }
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:ling_19",
+        "count": 1
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "未完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 50
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云笑了笑，看着窗外桃花出神，“啪！”门被打开了，赵焐端着一盘的桂花糕，塞的满嘴都是：“嗯哼哼嗯哼（你们聊完了吗）？”"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云笑着说：小焐，还不见过你四师兄？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你伸手去拿桂花糕，结果五师弟一口就咬在了你的手上。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "这家伙咋还护食啊。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "旁边的李茯云只是讪笑，顺带说着：那师弟过会儿你就可以去见见师姐师兄们了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "得嘞，一会就去。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "随后书亭里就传来了你和五师弟打闹的声音。"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 59
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "xvliduihuaer",
+    "quest_id": "xvliduihuaer",
+    "title": "徐栎",
+    "description": "在泽灵井和徐栎对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "徐栎：应该再减一钱烙毒……"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "我还是不要打扰他研究了。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "zhaowuduihuaer",
+    "quest_id": "zhaowuduihuaer",
+    "title": "赵焐",
+    "description": "和云清派山下水边的赵焐对话。",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵焐：师兄，这里，师兄！！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你远远的就看见一身红衣服的赵焐在远处挥手"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "随即你拿出寻灵盘，一阵震动过后，一座宏伟的仙山就浮现在你的面前，只道是"
+      },
+      {
+        "kind": "unseal_rift"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "仙鹤飞山越云川，桃树枝叶漏暄风。雄赳赳炼烽烧火铁作响，齐刷刷诗亭起笔画卷出。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "云上道人浮尘洒扫案台，古井上落叶随风舞动飘洒。红衣少年笑指牌坊登阶去，命中少年踱步山尾才望去  于是，命中注定的道路呈现在少年眼前"
+      },
+      {
+        "kind": "teleport",
+        "x": -852.0,
+        "y": 165.0,
+        "z": -206.0
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵焐：哈哈，我回来了！"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "是赵焐那憨货一边大喊一边往山上跑去，你一边漫步，一边往山上走去，这云清派也真是气派。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "？？：小焐，此去花繁，可还安好？"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "赵焐：师兄放心，事情已经办完了，我要去山上偷吃姐姐的桂花糕了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "也没个正型，赵焐一边回答一边就往山上跑去了，留下那位白衣年轻人对着你走下来。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：道友一路奔波，在下李茯云，是本派第一弟子，请道友来我亭中歇息吧，在下备了热茶两盏，正要好好酬谢道友帮本派解除封印呢。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "一阵风吹来，露出被桃树遮挡的阳光，桃叶飘散"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "你才正视对方，好一个白衣剑仙，白袍无暇无风自动，腰间执剑心执道。一头黑发不沾尘与叶，一双蓝眸如见晨与夜，交替生辉的眼镜如同月空轮转，不用问也能知道，这是冰蓝天李家人的特征。"
+      },
+      {
+        "kind": "text",
+        "player_speak": true,
+        "text": "那便恭敬不如从命了。"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "李茯云：道友便跟我来吧！"
+      },
+      {
+        "kind": "set_quest_status",
+        "status": "完成"
+      },
+      {
+        "kind": "save_quest",
+        "resume_cursor": 20
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  },
+  {
+    "id": "jvjvetansuo",
+    "quest_id": "jvjvetansuo",
+    "title": "通用拒绝",
+    "description": "禁止玩家前进",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "前面的区域，以后再来探索吧。"
+      },
+      {
+        "kind": "end"
+      }
+    ]
+  }
+]

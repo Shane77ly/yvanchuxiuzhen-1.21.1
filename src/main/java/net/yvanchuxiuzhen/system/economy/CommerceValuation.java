@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.economy;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
@@ -143,16 +144,18 @@ final class CommerceValuation {
     }
     private static String format(double value) { return new DecimalFormat("0").format(value); }
     private static Map<String, Double> herbs() {
-        String[] values = TABLES.get("herbs").getAsString().split("%");
-        Map<String, Double> result = new LinkedHashMap<>();
-        for (int index = 0; index < values.length / 2; index++) result.putIfAbsent(values[index * 2], CommerceGoods.number(values[index * 2 + 1]));
-        return Map.copyOf(result);
+        return doubleMap("herbs");
     }
+
     private static Map<String, Double> talismans() {
+        return doubleMap("talismans");
+    }
+
+    private static Map<String, Double> doubleMap(String key) {
+        JsonObject table = TABLES.getAsJsonObject(key);
         Map<String, Double> result = new LinkedHashMap<>();
-        for (String entry : TABLES.get("talismans").getAsString().split("%")) {
-            String[] values = entry.split("/");
-            result.put(values[0], CommerceGoods.number(values[1]));
+        for (Map.Entry<String, JsonElement> entry : table.entrySet()) {
+            result.put(entry.getKey(), entry.getValue().getAsDouble());
         }
         return Map.copyOf(result);
     }
