@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.smoke;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -10,7 +11,10 @@ import net.minecraft.server.level.ServerPlayer;
  * 全部完成后调用 {@link #cleanup} 收尾。{@link SystemCheck} 的步内计数不从 0 起，所以用执行标记而不是 {@code local == 0} 判断首次调用。
  */
 abstract class ActionCheck extends SystemCheck {
-    protected record Action(int ticks, Consumer<ServerPlayer> run) {
+    protected record Action(int ticks, Consumer<ServerPlayer> run, BooleanSupplier ready) {
+        protected Action(int ticks, Consumer<ServerPlayer> run) {
+            this(ticks, run, null);
+        }
     }
 
     private List<Action> actions = List.of();
@@ -39,6 +43,6 @@ abstract class ActionCheck extends SystemCheck {
             executed = step;
             onServer(action.run());
         }
-        return local >= action.ticks();
+        return local >= action.ticks() || action.ready() != null && action.ready().getAsBoolean();
     }
 }

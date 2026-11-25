@@ -43,6 +43,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.fulu.FuluUse;
 import net.yvanchuxiuzhen.system.fulu.FiveThunderCurse;
@@ -507,7 +508,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
                 if (strike) {
                     target.setDeltaMovement(new Vec3((target.getX() - getX()) * ring[1], ring[2], (target.getZ() - getZ()) * ring[1]));
                     if (target instanceof LivingEntity living) {
-                        SpellDamage.command(level, living, "shanghai 火 " + owner.getStringUUID() + " true " + ring[3] * grade + " 1");
+                        SpellDamage.deal(level, living, DamageCategory.FIRE, owner, true, ring[3] * grade, 1);
                     }
                 } else {
                     SpellDamage.markCannonBlast(target, ring[4] * grade, masterUuid);
@@ -598,7 +599,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         level.playSound(null, BlockPos.containing(getX(), getY(), getZ()), SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1);
         for (Entity target : nearby(level, position(), 2)) {
             if (!Relations.isFriendly(owner, target) && target instanceof LivingEntity living) {
-                SpellDamage.command(level, living, "shanghai 火 " + owner.getStringUUID() + " true " + 16 * grade + " 1");
+                SpellDamage.deal(level, living, DamageCategory.FIRE, owner, true, 16 * grade, 1);
             }
         }
     }
@@ -629,7 +630,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         double damage = (fire ? 15 : 20) * grade;
         for (Entity target : nearby(level, position(), 1.5)) {
             if (!Relations.isFriendly(owner, target) && target instanceof LivingEntity living) {
-                SpellDamage.command(level, living, "shanghai 火 " + owner.getStringUUID() + " true " + damage + " 1");
+                SpellDamage.deal(level, living, DamageCategory.FIRE, owner, true, damage, 1);
             }
         }
     }

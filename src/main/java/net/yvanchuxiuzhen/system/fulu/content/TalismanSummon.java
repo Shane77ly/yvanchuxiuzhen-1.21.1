@@ -36,6 +36,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.yvanchuxiuzhen.system.combat.api.Lightning;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -236,7 +237,7 @@ public final class TalismanSummon extends PathfinderMob {
             double damage = grade * 20;
             for (Entity target : nearby(level, position(), 5)) {
                 if (!Relations.isFriendly(this, target) && target instanceof LivingEntity living) {
-                    SpellDamage.command(level, living, "shanghai 风 " + masterUuid + " true " + damage + " 1");
+                    SpellDamage.dealSaved(level, living, DamageCategory.WIND, masterUuid, true, damage, 1);
                 }
             }
             tickCount = 0;

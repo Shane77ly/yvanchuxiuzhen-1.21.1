@@ -23,6 +23,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.BlockTraits;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -92,7 +93,7 @@ public final class FireBlock extends ContentBlock implements EntityBlock {
         Yihuo.markBurnTarget(entity, team, attacker);
         if (fire.power() >= unit) {
             if (entity instanceof LivingEntity target) {
-                SpellDamage.command(server, target, "shanghai 火 " + attacker + " false " + (3 * (grade + 1)) + " 1.5");
+                SpellDamage.dealSaved(server, target, DamageCategory.FIRE, attacker, false, 3 * (grade + 1), 1.5);
                 MobEffectInstance previous = target.getEffect(StatusEffects.holder(effect));
                 int duration = previous == null ? 100 : previous.getDuration() + 100;
                 target.addEffect(new MobEffectInstance(StatusEffects.holder(effect), duration, grade, true, true));

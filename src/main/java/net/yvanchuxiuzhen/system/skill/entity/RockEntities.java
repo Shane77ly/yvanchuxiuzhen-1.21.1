@@ -9,7 +9,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
-import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.skill.SkillReleases;
 import net.yvanchuxiuzhen.system.skill.api.SkillBook;
@@ -86,9 +85,8 @@ final class RockEntities {
                 if (woundChance > 0 && Math.random() < woundChance && other instanceof LivingEntity living) {
                     living.addEffect(new MobEffectInstance(StatusEffects.holder("effect_007"), 1200, 1));
                 }
-                if (SkillEntities.is(self, "skill_rock_03") && other instanceof LivingEntity living) {
-                    SpellDamage.command((ServerLevel) self.level(), living, "shanghai 土  false 0.0 0.0");
-                } else {
+                // 天外陨石缺少攻击者且攻倍率均为零，不结算伤害。
+                if (!SkillEntities.is(self, "skill_rock_03")) {
                     SkillEntities.strike(self, other);
                 }
             }
@@ -122,7 +120,7 @@ final class RockEntities {
         }
     }
 
-    /** 天外陨石：下落时拖火焰，落地或入水后 5 刻爆炸，对 3 格内的非友方实体造成土系伤害，然后消失。 */
+    /** 天外陨石：下落时拖火焰，落地或入水后 5 刻爆炸，播放粒子后消失，来源伤害参数为零。 */
     private static final class Meteor implements EntitySkill {
         @Override
         public void tick(SkillEntity self) {

@@ -27,6 +27,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -148,7 +149,7 @@ public final class YihuoProjectile extends AbstractArrow implements ItemSupplier
             return;
         }
         int grade = material % 10 - 1;
-        SpellDamage.command(level, living, "shanghai 火 " + attacker + " false " + (3 * (grade + 1)) + " 1.5");
+        SpellDamage.dealSaved(level, living, DamageCategory.FIRE, attacker, false, 3 * (grade + 1), 1.5);
         String effect = material < 230 ? "effect_023" : "effect_024";
         MobEffectInstance previous = living.getEffect(StatusEffects.holder(effect));
         int duration = previous == null ? 200 : previous.getDuration() + 200;

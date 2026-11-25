@@ -349,10 +349,14 @@ final class FuluCookingCheck extends ActionCheck {
                     pot.setItem(4, item("fuluzhushaitem", 3));
                     pot.changed();
                 }),
-                new Action(6, p -> useBlock(potPos)),
+                new Action(120, p -> useBlock(potPos), () -> minecraft.player.containerMenu instanceof CookingPotMenu
+                        && minecraft.screen instanceof CookingPotScreen),
                 new Action(6, p -> {
-                    expectTrue("真实右键铁锅打开双方 14 槽菜单与原生界面", p.containerMenu instanceof CookingPotMenu
-                            && minecraft.player.containerMenu instanceof CookingPotMenu && minecraft.screen instanceof CookingPotScreen);
+                    boolean opened = p.containerMenu instanceof CookingPotMenu serverPot && serverPot.slots.size() == 14 + 36
+                            && minecraft.player.containerMenu instanceof CookingPotMenu clientPot && clientPot.slots.size() == 14 + 36
+                            && minecraft.screen instanceof CookingPotScreen;
+                    expectTrue("真实右键铁锅打开双方 14 槽菜单与原生界面", opened);
+                    if (!opened) return;
                     minecraft.execute(() -> {
                         screenshots.take("cooking-iron-pot.png");
                         minecraft.screen.children().stream()

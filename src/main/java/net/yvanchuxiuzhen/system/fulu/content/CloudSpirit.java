@@ -32,6 +32,7 @@ import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -249,7 +250,7 @@ public final class CloudSpirit extends TamableAnimal implements GeoEntity, Anima
                     .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList();
             for (Entity target : targets) {
                 if (!Relations.isFriendly(this, target) && target instanceof LivingEntity living) {
-                    SpellDamage.command(level, living, "shanghai 雷 " + masterUuid + " true " + damage + " 1");
+                    SpellDamage.dealSaved(level, living, DamageCategory.THUNDER, masterUuid, true, damage, 1);
                 }
             }
         }
