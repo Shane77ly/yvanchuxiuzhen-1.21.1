@@ -46,8 +46,8 @@ updated: 2026-11-18
 | 出身分次补给 | `BirthSupplyEvent(玩家, INHERITANCE/FAMILY, double次数)`：服务端条件通过且载体次数写入后同步发出 | flow按来源精确整数分支生成奖励，材料、符箓、丹药、技能与宝匣实例归各内容所有者 |
 | 出身初始奖励 | `BirthInitialRewardsEvent(玩家, 菜单打开维度)`：关闭后第二个服务端结束刻、应用体质之前同步发出 | flow按执行时出身发奖，跨系统实例交所属公开API构造；随后保持来源函数条件 |
 | 石盘初始实例 | `BirthItems.ancientStoneDisc(Vec3全局坐标)`：构造`ling_11`并按来源写三个double副本 | flow查询World后提交坐标；石盘右键另读全局值 |
-| 雷劫落雷请求 | `TribulationLightningEvent`：服务端维度、原始落点、完整落雷命令文本 | combat 监听并进入共享落雷 |
-| 雷劫实体伤害请求 | `TribulationDamageEvent`：服务端维度、目标生物、完整伤害命令文本 | combat 监听并结算雷伤 |
+| 雷劫落雷请求 | `TribulationLightningEvent`：服务端维度、原始落点、攻击量、倍率、直径、颜色 | combat 监听并进入共享落雷 |
+| 雷劫实体伤害请求 | `TribulationDamageEvent`：服务端维度、目标生物、施法实体、整数攻击量、小数倍率 | combat 监听并结算雷伤 |
 | 妖兽雷柱生成 | `CultivationSummons.summonLightPillars(服务端世界, 施放者, 目标, 攻击量)`：按来源目标四角偏移、团队共享、目标UUID和攻击量写入后生成`tianjie_05` | creature 040来源落雷过程 |
 | 本命槽位 | `benming`、`setBenming` | equipment |
 | 修炼三页 | `Retreats.openPage(玩家, 坐标)`；`RetreatPageEvent` 请求其他主分页 | panel 打开06；07/08内部切换保持坐标和主分页6 |

@@ -18,6 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.content.CommandAmount;
 import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
@@ -117,7 +118,7 @@ public final class Tribulations {
     }
 
     /** 来源按原始坐标的 AABB 和距离顺序遍历，非生物仍可接收命中特效。 */
-    static void damage(TribulationEntity self, double diameter, String multiplier, boolean hitParticles) {
+    static void damage(TribulationEntity self, double diameter, double multiplier, boolean hitParticles) {
         Vec3 center = self.position();
         ServerLevel level = (ServerLevel) self.level();
         for (Entity target : level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(diameter / 2), entity -> true)
@@ -127,8 +128,8 @@ public final class Tribulations {
                 particles(self, "smallexplosionyellow", target.position().add(0, target.getBbHeight() / 2, 0), 1, 0, 0, 0, 0);
             }
             if (target instanceof LivingEntity living) {
-                NeoForge.EVENT_BUS.post(new TribulationDamageEvent(level, living, "shanghai 雷 " + self.getStringUUID() + " false "
-                        + WHOLE.format(self.thunderAttack()) + " " + multiplier));
+                NeoForge.EVENT_BUS.post(new TribulationDamageEvent(level, living, self,
+                        CommandAmount.formatted(WHOLE, self.thunderAttack()), multiplier));
             }
         }
     }

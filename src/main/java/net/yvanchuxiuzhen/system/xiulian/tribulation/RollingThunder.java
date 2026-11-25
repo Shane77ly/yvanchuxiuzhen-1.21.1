@@ -74,7 +74,7 @@ public final class RollingThunder extends TribulationEntity {
         if (level().isEmptyBlock(blockPosition())) level().setBlock(blockPosition(), Blocks.SOUL_FIRE.defaultBlockState(), 3);
         burstParticles();
         for (int delay = 1; delay <= 21; delay += 10) Delayed.run(delay, this::burstParticles);
-        Tribulations.damage(this, 5, "2", false);
+        Tribulations.damage(this, 5, 2, false);
         fuseTicks = 0;
         if (level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
             level().explode(null, getX(), getY(), getZ(), 4, Level.ExplosionInteraction.BLOCK);

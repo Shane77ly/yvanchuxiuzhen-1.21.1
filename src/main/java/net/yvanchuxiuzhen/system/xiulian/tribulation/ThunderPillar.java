@@ -75,7 +75,7 @@ public final class ThunderPillar extends TribulationEntity {
                 0.5 * Math.cos(Math.toRadians(getYRot()))));
         Tribulations.particles(this, "thunderlightyellow", position(), 1, 1, 0, 1, 0);
         if (++hitTicks >= 10) {
-            Tribulations.damage(this, 3, "0.7", false);
+            Tribulations.damage(this, 3, 0.7, false);
             hitTicks = 0;
         }
         if (++lifeTicks >= 320) {
