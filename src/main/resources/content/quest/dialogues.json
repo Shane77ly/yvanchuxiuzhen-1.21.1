@@ -1257,6 +1257,116 @@
     ]
   },
   {
+    "id": "bank_block_dialogue",
+    "quest_id": "bankshangcheng",
+    "title": "打开通宝商城系统",
+    "description": "可以打开商会的商店页面或银行系统",
+    "initial_progress": 0,
+    "initial_status": "未完成",
+    "requirement": "无",
+    "reward_summary": "无",
+    "nodes": [
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "欢迎使用通宝商盟瞬传商贸阵盘"
+      },
+      {
+        "kind": "choice",
+        "prompt": "请问您要办理什么业务？",
+        "options": [
+          {
+            "label": "逛逛商店",
+            "target": 3
+          },
+          {
+            "label": "打开银行",
+            "target": 4
+          },
+          {
+            "label": "购买新通宝玉",
+            "target": 5
+          },
+          {
+            "label": "出售",
+            "target": 15
+          }
+        ]
+      },
+      {
+        "kind": "open_menu",
+        "menu": "商店"
+      },
+      {
+        "kind": "open_menu",
+        "menu": "银行"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "购买一个新通宝玉需要10枚一品灵石，并且无论有多少通宝玉都只有一个账户！"
+      },
+      {
+        "kind": "choice",
+        "prompt": "确认需要购买新的通宝玉吗？",
+        "options": [
+          {
+            "label": "确认",
+            "target": 7
+          },
+          {
+            "label": "返回",
+            "target": 2
+          }
+        ]
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "购买通宝玉需要10枚一品灵石。"
+      },
+      {
+        "kind": "check_item",
+        "item": "yvanchuxiuzhen:cailiao_191",
+        "count": 10,
+        "pass_target": 9,
+        "fail_target": 13
+      },
+      {
+        "kind": "item_action",
+        "give": false,
+        "item": "yvanchuxiuzhen:cailiao_191",
+        "count": 10
+      },
+      {
+        "kind": "item_action",
+        "give": true,
+        "item": "yvanchuxiuzhen:ling_12",
+        "count": 1
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "恭喜获得新通宝玉，请绑定后使用！"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "text",
+        "player_speak": false,
+        "text": "您身上的一品灵石不足10枚，无法购买新的通宝玉，请下次再来。"
+      },
+      {
+        "kind": "end"
+      },
+      {
+        "kind": "open_menu",
+        "menu": "基础出售"
+      }
+    ]
+  },
+  {
     "id": "ascension",
     "quest_id": "sxling",
     "title": "升仙令",

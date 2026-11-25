@@ -17,6 +17,6 @@ public final class CommerceEntrances {
         String block = BuiltInRegistries.BLOCK.getKey(event.getLevel().getBlockState(event.getPos()).getBlock()).toString();
         if (!block.equals("yvanchuxiuzhen:tiandiyinhang")) return;
         EconomyMenus.setShopCatalog(player, EconomyCatalogs.catalog("bank"));
-        NeoForge.EVENT_BUS.post(new EconomyDialogueRequestEvent(player, "bank_dialogue"));
+        NeoForge.EVENT_BUS.post(new EconomyDialogueRequestEvent(player, "bank_block_dialogue"));
     }
 }

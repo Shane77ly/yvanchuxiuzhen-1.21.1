@@ -557,7 +557,7 @@ def main() -> None:
     register_shop("npc11_info", "高级材料商%高级材料%在此购买高级材料", "")
 
     refresh_src = (ROOT / "src/main/java/net/yvanchuxiuzhen/system/quest/QuestBlockRefreshData.java").read_text(encoding="utf-8")
-    cloth_info = re.search(r'CLOTHING_INFORMATION = "([^"]+)"', refresh_src).group(1)
+    cloth_info = re.search(r'(?<!OLD_)CLOTHING_INFORMATION = "([^"]+)"', refresh_src).group(1)
     cloth_prod = re.search(r'CLOTHING_PRODUCTS = "([^"]+)"', refresh_src).group(1)
     register_shop("huafancheng_clothing_repaired", cloth_info, cloth_prod)
 

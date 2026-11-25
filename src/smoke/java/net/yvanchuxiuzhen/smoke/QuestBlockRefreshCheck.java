@@ -29,7 +29,7 @@ import net.yvanchuxiuzhen.system.quest.content.DisguisedQuestBlockEntity;
 final class QuestBlockRefreshCheck extends SystemCheck {
     private static final BlockPos MATERIAL_SHOP = new BlockPos(-103, 64, -263);
     private static final BlockPos CLOTHING_SHOP = new BlockPos(-51, 64, -320);
-    private static final String OLD_SHOP_ID = "preset_n51_64_n320";
+    private static final String OLD_SHOP_ID = "fanhuacheng09_21_2_16_s1";
     private static final String REPAIRED_SHOP_ID = "huafancheng_clothing_repaired";
     private static final String OLD_DESCRIPTION = "在这里可以买到初级服饰。";
     private static final String NEW_DESCRIPTION = "在这里可以买到初级服饰和一些布匹。";
