@@ -7,21 +7,18 @@ updated: 2026-11-25
 
 # 交接说明
 
-## 当前交接（2026-11-25 底层架构重构阶段 2B WIP 交接）
+## 当前交接（2026-11-25 底层架构重构阶段 2B 完成，待负责人确认后进入 2C）
 
 1. **当前基线**：
    - 主工作树：`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`（唯一工作树，禁止新建额外 worktree）。
-   - 当前分支：`refactor/p2b-quest-economy-codec-json`（从 `port/20261123-parity-integration@7d35dad3` 检出，收尾提交为 `wip: 阶段2B对话与商店JSON/Codec重构待完成烟测交接`，以实际 `git log -1` 为准；**尚未合入**集成分支）。
-   - 集成分支 `port/20261123-parity-integration@7d35dad3` 已依次通过 `--no-ff` 合入阶段 1A～1D 与阶段 2A `refactor/p2a-treasure-codec-json`。
+   - 当前分支：集成分支 `port/20261123-parity-integration`，已依次通过 `--no-ff` 合入阶段 1A～1D、2A 与 2B `refactor/p2b-quest-economy-codec-json`（临时分支已删除）；实际 HEAD 以 `git log -1` 为准。未推送、未动 `main`。
 2. **负责人最新决定（2026-11-24）与阶段 2B 当前完成度**：
    - 继续执行**定位 B（零旧存档兼容、全面转向强类型组件与 JSON 数据驱动）**；不保留任何运行期旧 NBT 回退代码，不自动推送、不擅自合并 `main`。
-   - 阶段 2B 已完成 JSON 提取（`tools/porting/extract_quest_economy_json.py`，生成 `shop_catalogs.json` 39 商店、`dialogues.json` 70 对话树、`structure_presets.json` 11 结构预设、`auction_goods.json` 与 `valuation.json`）、14 个 `.nbt` 结构离线升级、`spawn_data.json` 更新、`economy`/`quest`/`npc` 全套强类型 `Codec` 重构（删除 `CommerceGoods.java`、`NpcStructureData.java`、`QuestBlockRefreshData.java`，运行期 `split("%")` / `split("/")` 清零）及 7 个对应 Smoke 用例更新（详情见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-阶段-2b-对话与商店-jsoncodec-重构wip-交接)）。
-   - **已验证**：`.\gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test`（退出码 `0`，`BUILD SUCCESSFUL in 4m 37s`）；**未验证**：阶段 2B 对应 `runSmokeClient` 场景尚未启动运行。
+   - 阶段 2B 已完成 JSON 提取（`tools/porting/extract_quest_economy_json.py`，生成 `shop_catalogs.json` 39 商店、`dialogues.json` 70 对话树、`structure_presets.json` 11 结构预设、`auction_goods.json` 与 `valuation.json`）、14 个 `.nbt` 结构离线升级、`spawn_data.json` 更新、`economy`/`quest`/`npc` 全套强类型 `Codec` 重构（删除 `CommerceGoods.java`、`NpcStructureData.java`、`QuestBlockRefreshData.java`，运行期 `split("%")` / `split("/")` 清零）及 7 个对应 Smoke 用例更新（详情见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2b-完成对话树任务与商店商品表转向-codec--json-数据驱动)）。
+   - **2B 收尾已完成**：Smoke 暴露并修复银行方块四选项脚本丢失、陈氏服饰说明取错常量、`QuestBlockRefreshCheck` 旧商店 ID 错误三处问题（`525a3968`）；`compileJava compileTestJava compileSmokeJava test`、`check_ledger.py`、`check_docs.py`、`git diff --check` 通过；`commerce`、`bank,questjournal,questblockrefresh,questeditor,birthitemdialogue,qiankun`、`npcmanagement`、`npc08,npcresidents` 分批各为 `DONE` 且 0 `FAIL`。
+   - **2B 未验证边界**：`q119`（初见乾坤道人任务两个选项、断点恢复与传送）因存档副本 `renjian-q119` 只剩 `session.lock` 而无法加载，未验证，需重建夹具后补跑；`npcvillage` 在 `src` 中无对应场景；10 个场景合跑时出现过的 yanwang 气血 777/762 与 `fanhuacheng03` 加载 OOM 单跑未复现，原因未查明。场景名更正：`qiankundialogue` 实为 `qiankun`/`q119`，`npcflyingshuttle` 实为 `npc08`。详见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2b-完成对话树任务与商店商品表转向-codec--json-数据驱动)。
 3. **立即执行的下一动作（按[当前调度：底层架构四大痛点重构方案与执行路线](remaining-work.md#2026-11-24-底层架构四大痛点重构方案与执行路线零旧存档兼容一步到位数据驱动)继续推进）**：
-   - **阶段 2B 收尾（当前分支 `refactor/p2b-quest-economy-codec-json`）**：串行运行客户端 Smoke（保持 `run/smoke/options.txt` 中 `soundCategory_master:0.0` 静音）：
-     `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=commerce,bank,questjournal,questblockrefresh,questeditor,birthitemdialogue,qiankundialogue,npcmanagement,npcflyingshuttle,npcvillage,npcresidents runSmokeClient`
-     如有 Smoke 断言或布局问题修复并重跑全量门禁，随后切回 `port/20261123-parity-integration` 执行 `git merge --no-ff refactor/p2b-quest-economy-codec-json`、删除临时分支并更新月志/路线。
-   - **阶段 2C**：检出 `refactor/p2c-creature-ai-codec-json`，将 52 个 `Yaoshou001..054Behavior.java` 与 `NpcMeleeSkills.java` 提炼为 `CreatureCombatProfile` `Codec` + JSON 驱动。
+   - **阶段 2C**：待负责人确认后检出 `refactor/p2c-creature-ai-codec-json`，将 52 个 `Yaoshou001..054Behavior.java` 与 `NpcMeleeSkills.java` 提炼为 `CreatureCombatProfile` `Codec` + JSON 驱动。
    - **阶段 3**：检出 `refactor/p3-runtime-performance`，消除运行期命令拼接（`performPrefixedCommand`/`performCommand`）并优化大结构缓存。
    - **阶段 4**：检出 `refactor/p4-legacy-bug-cleanup`，集中清理 `source-survey.md` 中登记的 Q01–Q281 原版遗留 Bug 并更新测试断言与系统文档。
 4. **每子批次合入门禁**：
