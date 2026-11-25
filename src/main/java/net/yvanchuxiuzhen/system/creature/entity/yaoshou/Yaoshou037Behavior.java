@@ -2,12 +2,9 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import java.util.Comparator;
 import java.util.List;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -22,8 +19,8 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -544,11 +541,7 @@ final class Yaoshou037Behavior {
             CreatureData.state(entity).setTick2((CreatureData.state(entity).tick2() + 1));
             if (CreatureData.state(entity).tick2() >= 10) {
                 if (world instanceof ServerLevel _level)
-                    _level.getServer().getCommands()
-                            .performPrefixedCommand(
-                                    new CommandSourceStack(CommandSource.NULL, new Vec3((CreatureData.state(entity).dropX()), (CreatureData.state(entity).dropY()), (CreatureData.state(entity).dropZ())),
-                                            Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
-                                    ("lightninglanding 3 " + entity.getStringUUID() + " 1 " + Relations.team(entity) + " 2 金色"));
+                    Lightning.cast(_level, new Vec3((CreatureData.state(entity).dropX()), (CreatureData.state(entity).dropY()), (CreatureData.state(entity).dropZ())), entity, 3, 1, Relations.team(entity), 2, "金色", false);
                 CreatureData.state(entity).setTick2(0);
                 CreatureData.state(entity).setPhase("落雷");
             }

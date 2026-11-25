@@ -48,18 +48,21 @@ public final class ShanghaiCommand {
      */
     public static void execute(ServerLevel level, LivingEntity target, String input) {
         String[] words = input.trim().split("\\s+");
-        String attackerWord = word(words, 2);
+        Shanghai.Request request = request(DamageCategory.byLabel(word(words, 1)), word(words, 2), word(words, 3).equals("true"), number(word(words, 4)), number(word(words, 5)));
+        if (request != null) Shanghai.deal(level, target, request);
+    }
+
+    static Shanghai.Request request(DamageCategory category, String attackerWord, boolean fixed, double base, double multiplier) {
         UUID attacker = null;
         if (!(attackerWord.equals("无") || attackerWord.equals("wu") || attackerWord.equals("no") || attackerWord.equals("false"))) {
             try {
                 attacker = UndashedUuid.fromStringLenient(attackerWord);
             } catch (IllegalArgumentException exception) {
                 // 来源按这个字符串查不到实体，随后对空来源取数据而抛出异常，命令失败，没有伤害。
-                return;
+                return null;
             }
         }
-        Shanghai.deal(level, target, new Shanghai.Request(
-                DamageCategory.byLabel(word(words, 1)), attacker, word(words, 3).equals("true"), number(word(words, 4)), number(word(words, 5))));
+        return new Shanghai.Request(category, attacker, fixed, base, multiplier);
     }
 
     private static String word(String[] words, int index) {

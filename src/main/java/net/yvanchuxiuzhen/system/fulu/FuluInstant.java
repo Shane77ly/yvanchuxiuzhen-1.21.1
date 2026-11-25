@@ -125,8 +125,7 @@ final class FuluInstant {
     /** 06：视线 7 格处（下移至空气）落下红色独立落雷，伤害基数 {@code 30+20×品阶}。 */
     private static void lightning(ServerLevel level, ServerPlayer player, double grade) {
         BlockPos spot = lowered(level, player, 7);
-        Lightning.command(level, new Vec3(spot.getX(), spot.getY(), spot.getZ()),
-                "lightninglanding " + (30 + grade * 20) + " " + player.getStringUUID() + " 1 " + Relations.team(player) + " 4 红色 独立");
+        Lightning.cast(level, Vec3.atLowerCornerOf(spot), player, 30 + grade * 20, 1, Relations.team(player), 4, "红色", true);
     }
 
     /** 07：向前喷 20 枚火焰；视线 6 格处 3 格内非友方记录点燃来源，并受 {@code effect_023}（{@code 400+200×品阶} 刻，等级 {@code 2×(品阶−1)}）。 */
