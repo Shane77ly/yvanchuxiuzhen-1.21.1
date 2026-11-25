@@ -1,18 +1,23 @@
 package net.yvanchuxiuzhen.system.quest;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplates;
 import net.yvanchuxiuzhen.system.quest.content.QuestJournalMenu;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 
-/** 任务列表由服务端会话保存分类、原始目录页码、八行快照及当前选择。 */
+/** 任务列表由服务端会话保存分类、原始目录页码、八行快照及当前选择，目录列表以强类型 ListTag 存储。 */
 public final class QuestJournalRuntime {
     private static final String UNFINISHED = "未完成任务";
     private static final String FINISHED = "已完成任务";
@@ -34,7 +39,9 @@ public final class QuestJournalRuntime {
             state.putString("text0" + row, "");
         }
         CompoundTag journal = DialogueActions.journal(player);
-        List<String> ids = Arrays.asList(journal.getString("renwulist").split("%"));
+        ListTag idList = journal.getList("quest_ids", Tag.TAG_STRING);
+        List<String> ids = new ArrayList<>(idList.size());
+        for (int index = 0; index < idList.size(); index++) ids.add(idList.getString(index));
         // 来源先以整数除以八，再求上取整；页码范围也包含该结果。
         state.putInt("renwuzongye", ids.size() / 8);
         int row = 1;
@@ -101,12 +108,20 @@ public final class QuestJournalRuntime {
                 player.displayClientMessage(Component.literal("???任务是空的"), false);
             } else {
                 CompoundTag journal = DialogueActions.journal(player);
-                state.putString("renwulist", journal.getString(id + "zhengti"));
-                state.putInt("renwuweizhi", journal.getInt(id + "jindu"));
-                if (state.getBoolean("gaojirenwu")) {
-                    state.putBoolean("renwubegin", true);
+                QuestTemplateDefinition template = QuestTemplateDefinition.CODEC.parse(NbtOps.INSTANCE,
+                                journal.get(id + "template")).result()
+                        .or(() -> QuestTemplates.find(journal.getString(id + "template_id")))
+                        .orElse(null);
+                if (template == null) {
+                    player.displayClientMessage(Component.literal("???任务模板缺失：" + id), false);
                 } else {
-                    state.putBoolean("taskbegin", true);
+                    DialogueActions.writeTemplate(state, template);
+                    state.putInt("renwuweizhi", journal.getInt(id + "jindu"));
+                    if (state.getBoolean("gaojirenwu")) {
+                        state.putBoolean("renwubegin", true);
+                    } else {
+                        state.putBoolean("taskbegin", true);
+                    }
                 }
             }
         }

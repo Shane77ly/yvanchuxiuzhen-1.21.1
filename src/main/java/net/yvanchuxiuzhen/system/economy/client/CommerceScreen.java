@@ -16,11 +16,11 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
-import net.yvanchuxiuzhen.system.economy.CommerceCatalog;
 import net.yvanchuxiuzhen.system.economy.EconomyLayout;
 import net.yvanchuxiuzhen.system.economy.api.BankAccounts;
 import net.yvanchuxiuzhen.system.economy.api.BankDisplay;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
+import net.yvanchuxiuzhen.system.economy.api.ShopCatalogDefinition;
 import net.yvanchuxiuzhen.system.economy.content.CommerceMenu;
 import net.yvanchuxiuzhen.system.economy.content.EconomyBlockEntity;
 import net.yvanchuxiuzhen.system.economy.network.CommerceButtonPayload;
@@ -95,11 +95,13 @@ public final class CommerceScreen extends AbstractContainerScreen<CommerceMenu> 
             if (!procedure.startsWith("Shopnametxt") || menu.kind() != CommerceMenu.Kind.SHOP) return value;
             var item = menu.getSlot(index).getItem();
             if (item.isEmpty()) return "";
-            String[] products = CommerceCatalog.translated(session.getString("productlist")).split("%");
-            int priceIndex = session.getInt("shoppage") * 60 + index * 5 + 3;
-            return priceIndex >= 0 && priceIndex < products.length
-                    ? item.getHoverName().getString() + "(" + products[priceIndex] + ")"
-                    : item.getHoverName().getString();
+            var products = EconomyMenus.shopCatalog(player).products();
+            int productIndex = session.getInt("shoppage") * 12 + index;
+            if (productIndex >= 0 && productIndex < products.size()) {
+                ShopCatalogDefinition.Product product = products.get(productIndex);
+                return item.getHoverName().getString() + "(" + new DecimalFormat("0.##").format(product.price()) + ")";
+            }
+            return item.getHoverName().getString();
         }
         if (procedure.startsWith("Banktxtlingshi")) {
             BankDisplay display = BankAccounts.display(player);

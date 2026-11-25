@@ -34,6 +34,7 @@ import net.yvanchuxiuzhen.system.npc.NpcStructureReleases;
 import net.yvanchuxiuzhen.system.npc.entity.NpcResident;
 import net.yvanchuxiuzhen.system.npc.entity.NpcResidentAnimated;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 import net.yvanchuxiuzhen.system.world.api.StructureReleasedEvent;
@@ -87,7 +88,8 @@ final class NpcResidentsCheck extends SystemCheck {
                 if (!dialogue(local, "小孩哥")) return false;
                 screenshots.take("npc_resident_first_dialogue.png");
                 onServer(player -> {
-                    expectTrue("模板首任务经原生右键进入会话", DialogueActions.snapshot(player).getString("renwulist").contains("/yiqizhuatuzi/"));
+                    expectTrue("模板首任务经原生右键进入会话", DialogueActions.activeTemplate(player)
+                            .map(QuestTemplateDefinition::questId).orElse("").equals("yiqizhuatuzi"));
                     expect("原生居民回调转向玩家反面", player.getYRot() - 180, player.serverLevel().getEntity(child).getYRot());
                     player.closeContainer();
                     CompoundTag completed = DialogueActions.journal(player);
@@ -100,7 +102,8 @@ final class NpcResidentsCheck extends SystemCheck {
                 if (!dialogue(local, "唉")) return false;
                 screenshots.take("npc_resident_second_dialogue.png");
                 onServer(player -> {
-                    expectTrue("首任务完成后自然选择结构追加第二任务", DialogueActions.snapshot(player).getString("renwulist").contains("/yiqizhuatuzier/"));
+                    expectTrue("首任务完成后自然选择结构追加第二任务", DialogueActions.activeTemplate(player)
+                            .map(QuestTemplateDefinition::questId).orElse("").equals("yiqizhuatuzier"));
                     childProfile = player.serverLevel().getEntity(child).getData(NpcData.PROFILE);
                     player.closeContainer();
                 });
@@ -228,13 +231,12 @@ final class NpcResidentsCheck extends SystemCheck {
         expect("模板姓名按中文保存", "小孩哥", resident.getDisplayName().getString());
         expect("模板实例生命上限覆盖默认值", 100, resident.getMaxHealth());
         expect("模板实例攻击覆盖默认值", 2, resident.getAttributeValue(Attributes.ATTACK_DAMAGE));
-        expectTrue("结构组件读取到首任务", resident.getData(NpcData.PROFILE).script(0).contains("/yiqizhuatuzi/"));
-        expectTrue("结构首任务物品已统一命名空间", !resident.getData(NpcData.PROFILE).script(0).contains("yvanchuxitong:"));
+        expect("结构组件读取到首任务模板 ID", "yiqizhuatuzi", resident.getData(NpcData.PROFILE).script(0));
         AABB merchants = new AABB(-77, 61, -366, -62, 67, -353);
         List<UUID> previous = player.serverLevel().getEntitiesOfClass(Entity.class, merchants).stream().map(Entity::getUUID).toList();
         NpcStructureReleases.structureReleased(new StructureReleasedEvent(player.serverLevel(), "花繁城"));
-        expectTrue("结构消费者为真实21号追加第二任务", resident.getData(NpcData.PROFILE).script(1).contains("/yiqizhuatuzier/"));
-        expectTrue("结构消费者保留第一任务", resident.getData(NpcData.PROFILE).script(0).contains("/yiqizhuatuzi/"));
+        expect("结构消费者为真实21号追加第二任务模板 ID", "yiqizhuatuzier", resident.getData(NpcData.PROFILE).script(1));
+        expect("结构消费者保留第一任务模板 ID", "yiqizhuatuzi", resident.getData(NpcData.PROFILE).script(0));
         for (Entity entity : player.serverLevel().getEntitiesOfClass(Entity.class, merchants)) {
             String name = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getPath();
             if (!previous.contains(entity.getUUID()) && (name.equals("businessman_09") || name.equals("businessman_10") || name.equals("businessman_11"))) {

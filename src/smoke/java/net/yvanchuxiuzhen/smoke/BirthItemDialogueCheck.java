@@ -15,6 +15,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
 import net.yvanchuxiuzhen.system.xiulian.api.BirthItems;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
@@ -36,7 +38,11 @@ final class BirthItemDialogueCheck extends SystemCheck {
         if (step == 0) {
             onServer(p -> {
                 probe = new BlockPos(p.getBlockX(), p.level().getMaxBuildHeight() - 2, p.getBlockZ());
-                DialogueActions.request(p, "删除验证/delete_probe/坐标组/0/未完成/无/无%文字/删除前%删除方块/" + coords(probe) + "/" + coords(probe.east()) + "%结束");
+                DialogueActions.request(p, new QuestTemplateDefinition("delete_probe", "delete_probe", "删除验证",
+                        "坐标组", 0, "未完成", "无", "无", List.of(
+                        new DialogueNodeDefinition.TextNode(false, "删除前"),
+                        new DialogueNodeDefinition.RemoveBlocksNode(List.of(probe, probe.east())),
+                        DialogueNodeDefinition.EndNode.INSTANCE)));
             });
         } else if (step == 1) {
             if (!awaitFirst("delete_probe", local)) return false;
@@ -128,7 +134,7 @@ final class BirthItemDialogueCheck extends SystemCheck {
         boolean[] ready = {false};
         onServer(p -> {
             CompoundTag s = DialogueActions.snapshot(p);
-            ready[0] = p.containerMenu instanceof DialogueMenu && s.getString("renwulist").contains("/" + id + "/")
+            ready[0] = p.containerMenu instanceof DialogueMenu && script(p).equals(id)
                     && !s.getBoolean("renwubegin") && s.getInt("renwuweizhi") == 1 && !s.getString("TXTxianshi").isEmpty();
         });
         if (!ready[0] && local > 200) {
@@ -150,7 +156,7 @@ final class BirthItemDialogueCheck extends SystemCheck {
 
     private static boolean pending(ServerPlayer p, String id) {
         CompoundTag s = DialogueActions.snapshot(p);
-        return s.getBoolean("renwubegin") && s.getInt("renwuweizhi") == 0 && s.getString("renwulist").contains("/" + id + "/");
+        return s.getBoolean("renwubegin") && s.getInt("renwuweizhi") == 0 && script(p).equals(id);
     }
 
     private static void use(ServerPlayer p, boolean sneaking) {
@@ -167,6 +173,7 @@ final class BirthItemDialogueCheck extends SystemCheck {
         return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, path)));
     }
 
-    private static String script(ServerPlayer p) { return DialogueActions.snapshot(p).getString("renwulist"); }
-    private static String coords(BlockPos p) { return p.getX() + "/" + p.getY() + "/" + p.getZ(); }
+    private static String script(ServerPlayer p) {
+        return DialogueActions.activeTemplate(p).map(QuestTemplateDefinition::questId).orElse("");
+    }
 }

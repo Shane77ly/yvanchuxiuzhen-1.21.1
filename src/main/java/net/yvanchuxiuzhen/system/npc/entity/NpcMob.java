@@ -123,7 +123,6 @@ public class NpcMob extends PathfinderMob {
         SpawnGroupData result = super.finalizeSpawn(level, difficulty, reason, data);
         if (EntityAttributes.realmName(this).isEmpty()) {
             CompoundTag state = profile.getCompound("state");
-            CompoundTag localized = profile.getCompound("localized");
             Map<Stat, String> ratings = new EnumMap<>(Stat.class);
             for (int index = 0; index < RATING_KEYS.length; index++) {
                 String value = state.getString(RATING_KEYS[index]);
@@ -134,18 +133,10 @@ public class NpcMob extends PathfinderMob {
                 return stats.withLevel(nextLevel).withRatings(ratings);
             });
             NpcDialogueProfile dialogueProfile = getData(NpcData.PROFILE);
-            String script = localized.contains("renwulist1")
-                    ? Component.translatable(localized.getString("renwulist1")).getString()
-                    : state.getString("renwulist1");
-            String products = localized.contains("productlist")
-                    ? Component.translatable(localized.getString("productlist")).getString()
-                    : state.getString("productlist");
-            String shopInfo = localized.contains("shopinformation")
-                    ? Component.translatable(localized.getString("shopinformation")).getString()
-                    : state.getString("shopinformation");
-            if (!script.isEmpty()) dialogueProfile = dialogueProfile.withScript(0, script);
-            if (!products.isEmpty()) dialogueProfile = dialogueProfile.withProducts(products);
-            if (!shopInfo.isEmpty()) dialogueProfile = dialogueProfile.withShopInfo(shopInfo);
+            String dialogueId = state.getString("dialogue_id");
+            String shopId = state.getString("shop_id");
+            if (!dialogueId.isEmpty()) dialogueProfile = dialogueProfile.withScript(0, dialogueId);
+            if (!shopId.isEmpty()) dialogueProfile = dialogueProfile.withShopId(shopId);
             if (state.getBoolean("npcset")) dialogueProfile = dialogueProfile.withFixed(true);
             setData(NpcData.PROFILE, dialogueProfile);
             if (state.getBoolean("renwuzuopen")) NpcDefinitions.setInteractiveNpc(this, true);

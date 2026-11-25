@@ -4,12 +4,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.system.economy.api.EconomyCatalogs;
+import net.yvanchuxiuzhen.system.economy.api.ShopCatalogDefinition;
 import net.yvanchuxiuzhen.system.quest.content.DisguisedQuestBlockEntity;
 
 /** 全局方块右键在来源手别筛选后先修补任务方块配置，随后由原生方块交互消费。 */
 public final class QuestBlockRefresh {
     private static final BlockPos MATERIAL_SHOP = new BlockPos(-103, 64, -263);
     private static final BlockPos CLOTHING_SHOP = new BlockPos(-51, 64, -320);
+    private static final String OLD_CLOTHING_DESC = "在这里可以买到初级服饰。";
 
     private QuestBlockRefresh() {
     }
@@ -23,11 +25,11 @@ public final class QuestBlockRefresh {
         if (pos.equals(MATERIAL_SHOP)) {
             if (!block.refreshDue()) return;
             block.setRefreshDue(false);
-            block.setProductList(1, EconomyCatalogs.materialShop(1));
+            block.setCustomShop(1, EconomyCatalogs.materialShop(1, block.resolveShop(1).info()));
         } else {
-            if (!block.shopInformation(1).equals(QuestBlockRefreshData.OLD_CLOTHING_INFORMATION)) return;
-            block.setShopInformation(1, QuestBlockRefreshData.CLOTHING_INFORMATION);
-            block.setProductList(1, QuestBlockRefreshData.CLOTHING_PRODUCTS);
+            if (!block.resolveShop(1).info().description().equals(OLD_CLOTHING_DESC)) return;
+            block.setShopId(1, "huafancheng_clothing_repaired");
+            block.setCustomShop(1, ShopCatalogDefinition.EMPTY);
         }
         level.sendBlockUpdated(pos, block.getBlockState(), block.getBlockState(), 3);
     }

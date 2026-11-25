@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -23,7 +24,9 @@ import net.yvanchuxiuzhen.system.economy.api.BankAccount;
 import net.yvanchuxiuzhen.system.economy.api.BankAccounts;
 import net.yvanchuxiuzhen.system.economy.api.BankCards;
 import net.yvanchuxiuzhen.system.economy.api.BankDisplay;
+import net.yvanchuxiuzhen.system.economy.api.EconomyCatalogs;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
+import net.yvanchuxiuzhen.system.economy.api.ShopCatalogDefinition;
 import net.yvanchuxiuzhen.system.economy.client.BankLoginScreen;
 import net.yvanchuxiuzhen.system.economy.client.CommerceScreen;
 import net.yvanchuxiuzhen.system.economy.content.CommerceMenu;
@@ -31,6 +34,8 @@ import net.yvanchuxiuzhen.system.economy.data.BankData;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplates;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
@@ -66,7 +71,19 @@ final class CommerceCheck extends SystemCheck {
         if (step == 40) return inWorld(local);
         if (local < 10) return false;
         switch (step) {
-            case 0 -> onServer(this::prepare);
+            case 0 -> onServer(player -> {
+                for (ShopCatalogDefinition shop : EconomyCatalogs.allList()) {
+                    var encoded = ShopCatalogDefinition.CODEC.encodeStart(NbtOps.INSTANCE, shop).getOrThrow();
+                    var decoded = ShopCatalogDefinition.CODEC.parse(NbtOps.INSTANCE, encoded).getOrThrow();
+                    expect("商店目录 Codec 往返：" + shop.id(), shop, decoded);
+                }
+                for (QuestTemplateDefinition template : QuestTemplates.allList()) {
+                    var encoded = QuestTemplateDefinition.CODEC.encodeStart(NbtOps.INSTANCE, template).getOrThrow();
+                    var decoded = QuestTemplateDefinition.CODEC.parse(NbtOps.INSTANCE, encoded).getOrThrow();
+                    expect("对话模板 Codec 往返：" + template.id(), template, decoded);
+                }
+                prepare(player);
+            });
             case 1, 6, 10, 17, 24 -> useBank();
             case 2, 7, 11, 18, 25 -> {
                 if (!waitDialogue(local, false, "欢迎使用通宝商盟")) return false;

@@ -7,9 +7,14 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition;
+import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.client.QuestJournalScreen;
 import net.yvanchuxiuzhen.system.quest.content.DialogueMenu;
@@ -169,19 +174,28 @@ final class QuestJournalCheck extends SystemCheck {
         prepared = true;
         player.closeContainer();
         fixture = new CompoundTag();
-        fixture.putString("renwulist", String.join("%", IntStream.rangeClosed(1, 18).mapToObj(QuestJournalCheck::id).toList()));
+        ListTag ids = new ListTag();
         for (int row = 1; row <= 18; row++) {
             String id = id(row);
+            String status = row <= 8 || row == 11 ? "未完成" : row == 9 ? "失败" : "完成";
+            ids.add(StringTag.valueOf(id));
             fixture.putString(id + "name", "烟测任务" + row);
             fixture.putString(id + "UUID", id);
             fixture.putString(id + "shuoming", DESCRIPTION);
             fixture.putString(id + "xvqiu", "需求" + row);
             fixture.putString(id + "jiangli", "奖励" + row);
             fixture.putBoolean(id + "gaojirenwu", row % 2 == 1);
-            fixture.putString(id + "zhuangtai", row <= 8 || row == 11 ? "未完成" : row == 9 ? "失败" : "完成");
+            fixture.putString(id + "zhuangtai", status);
             fixture.putInt(id + "jindu", 2);
-            fixture.putString(id + "zhengti", "烟测任务" + row + "/" + id + "/说明/无/无/需求/奖励%文字/错误初始位置%文字/继续任务" + row + "成功%结束");
+            QuestTemplateDefinition template = new QuestTemplateDefinition(id, id, "烟测任务" + row, "说明",
+                    0, status, "需求" + row, "奖励" + row, List.of(
+                    new DialogueNodeDefinition.TextNode(false, "错误初始位置"),
+                    new DialogueNodeDefinition.TextNode(false, "继续任务" + row + "成功"),
+                    DialogueNodeDefinition.EndNode.INSTANCE));
+            fixture.putString(id + "template_id", id);
+            fixture.put(id + "template", QuestTemplateDefinition.CODEC.encodeStart(NbtOps.INSTANCE, template).getOrThrow());
         }
+        fixture.put("quest_ids", ids);
         player.setData(QuestData.JOURNAL, fixture.copy());
         player.setData(QuestData.SESSION, new CompoundTag());
     }

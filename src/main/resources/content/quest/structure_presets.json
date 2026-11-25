@@ -1,0 +1,103 @@
+[
+  {
+    "structure_name": "冲关河村",
+    "pos": [
+      -627,
+      64,
+      -749
+    ],
+    "shop_catalog_id": "preset_n627_64_n749"
+  },
+  {
+    "structure_name": "冲关河村",
+    "pos": [
+      -607,
+      64,
+      -786
+    ],
+    "shop_catalog_id": "preset_n607_64_n786"
+  },
+  {
+    "structure_name": "云清派",
+    "pos": [
+      -860,
+      176,
+      -248
+    ],
+    "shop_catalog_id": "preset_n860_176_n248"
+  },
+  {
+    "structure_name": "云清派",
+    "pos": [
+      -861,
+      176,
+      -242
+    ],
+    "shop_catalog_id": "preset_n861_176_n242"
+  },
+  {
+    "structure_name": "佣兵营地",
+    "pos": [
+      1482,
+      93,
+      38
+    ],
+    "shop_catalog_id": "preset_1482_93_38"
+  },
+  {
+    "structure_name": "佣兵营地",
+    "pos": [
+      1483,
+      93,
+      38
+    ],
+    "shop_catalog_id": "preset_1483_93_38"
+  },
+  {
+    "structure_name": "佣兵营地",
+    "pos": [
+      -848,
+      165,
+      -217
+    ],
+    "dialogue_id": "xvliduihuayi"
+  },
+  {
+    "structure_name": "花繁城",
+    "pos": [
+      -114,
+      64,
+      -277
+    ],
+    "display_direction": "南",
+    "dialogue_id": "npc05",
+    "shop_catalog_id": "preset_n114_64_n277"
+  },
+  {
+    "structure_name": "花繁城",
+    "pos": [
+      -70,
+      64,
+      -305
+    ],
+    "shop_catalog_id": "preset_n627_64_n749"
+  },
+  {
+    "structure_name": "花繁城",
+    "pos": [
+      -47,
+      67,
+      -356
+    ],
+    "shop_catalog_id": "preset_n47_67_n356"
+  },
+  {
+    "structure_name": "花繁城",
+    "pos": [
+      -51,
+      64,
+      -320
+    ],
+    "shop_catalog_id": "preset_n51_64_n320"
+  }
+]

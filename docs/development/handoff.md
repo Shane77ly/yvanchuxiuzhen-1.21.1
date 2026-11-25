@@ -7,22 +7,23 @@ updated: 2026-11-25
 
 # 交接说明
 
-## 当前交接（2026-11-24 底层架构四大痛点重构启动：零旧存档兼容、全面转向强类型组件与 JSON 数据驱动）
+## 当前交接（2026-11-25 底层架构重构阶段 2B WIP 交接）
 
 1. **当前基线**：
    - 主工作树：`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`（唯一工作树，禁止新建额外 worktree）。
-   - 当前集成分支：`port/20261123-parity-integration`（已依次通过 `--no-ff` 合入阶段 1A～1D 与阶段 2A `refactor/p2a-treasure-codec-json`：双轨制 `CustomData`/`getPersistentData()` 已清零并由 `ArchitectureTest` 规则 7 守卫，161 个 `.nbt` 结构已升级，原 3,048 行 `TreasureRewardTables.java` 已收缩为 130 行 JSON/`Codec` 加载抽样器）。
-2. **负责人最新决定（2026-11-24）**：
-   - 项目进入**定位 B（为自创内容与长期迭代打底）**，暂停新增业务内容，集中执行**底层架构四大痛点重构**。
-   - **明确不考虑任何旧存档兼容问题**：不保留任何运行期旧 NBT 回退代码（如 `attachFromLegacyTag`）；项目内置 161 个 `.nbt` 结构模板通过 Python 脚本离线一次性升级为 1.21.1 原生组件格式，运行时 Java 代码一步到位保持 100% 纯净。
-3. **立即执行的下一动作（按[当前调度：底层架构四大痛点重构方案与执行路线](remaining-work.md#2026-11-24-底层架构四大痛点重构方案与执行路线零旧存档兼容一步到位数据驱动)继续按 4 阶段依次推进）**：
-   - **阶段 1（消除双轨制数据载体）**：1A～1D 已全部完成并合入 `port/20261123-parity-integration`。
-   - **阶段 2（从 Java 硬编码大表与 `%`/`/` 分隔符字符串全面转向 `Codec` + JSON 数据驱动）**：
-     - 阶段 2A（`refactor/p2a-treasure-codec-json`）已完成并合入；当前立即检出 `refactor/p2b-quest-economy-codec-json`（将 `DialogueRuntime`/`QuestStructureData`/`CommerceGoods` 的 `%`、`/` 分隔符脚本转为结构化 JSON + `Codec`），完成后继续推进 `refactor/p2c-creature-ai-codec-json`（将 52 个 `Yaoshou001..054Behavior.java` 与 `NpcMeleeSkills.java` 提炼为 `CreatureCombatProfile` `Codec` + JSON 驱动）。
-   - **阶段 3（消灭运行期命令字符串拼接与高频哈希查找）**：
-     - 检出 `refactor/p3-runtime-performance`，将业务代码中拼接 `/effect`、`/shanghai`、`/teleport` 等调用 `performPrefixedCommand` 的逻辑全部改为直接调用强类型 Java API，并优化 `difujiegou` 等超大结构内存释放。
-   - **阶段 4（集中清理 1.18.2 原版遗留 Bug Q01–Q281）**：
-     - 在阶段 1～3 架构重构全部通过且零退化后，检出 `refactor/p4-legacy-bug-cleanup`，按[统一问题索引](../reference/legacy/source-survey.md#具体问题与裁定位置)集中修正 1.18.2 原版拼写错误（Q177）、伤害/抗性公式 Bug（Q18/Q19/Q30）、商店与银行刷钱漏洞（Q05/Q71）及维度判断括号错误（Q84）等，同步更新测试断言与系统文档。
+   - 当前分支：`refactor/p2b-quest-economy-codec-json`（从 `port/20261123-parity-integration@7d35dad3` 检出，收尾提交为 `wip: 阶段2B对话与商店JSON/Codec重构待完成烟测交接`，以实际 `git log -1` 为准；**尚未合入**集成分支）。
+   - 集成分支 `port/20261123-parity-integration@7d35dad3` 已依次通过 `--no-ff` 合入阶段 1A～1D 与阶段 2A `refactor/p2a-treasure-codec-json`。
+2. **负责人最新决定（2026-11-24）与阶段 2B 当前完成度**：
+   - 继续执行**定位 B（零旧存档兼容、全面转向强类型组件与 JSON 数据驱动）**；不保留任何运行期旧 NBT 回退代码，不自动推送、不擅自合并 `main`。
+   - 阶段 2B 已完成 JSON 提取（`tools/porting/extract_quest_economy_json.py`，生成 `shop_catalogs.json` 39 商店、`dialogues.json` 70 对话树、`structure_presets.json` 11 结构预设、`auction_goods.json` 与 `valuation.json`）、14 个 `.nbt` 结构离线升级、`spawn_data.json` 更新、`economy`/`quest`/`npc` 全套强类型 `Codec` 重构（删除 `CommerceGoods.java`、`NpcStructureData.java`、`QuestBlockRefreshData.java`，运行期 `split("%")` / `split("/")` 清零）及 7 个对应 Smoke 用例更新（详情见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-阶段-2b-对话与商店-jsoncodec-重构wip-交接)）。
+   - **已验证**：`.\gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test`（退出码 `0`，`BUILD SUCCESSFUL in 4m 37s`）；**未验证**：阶段 2B 对应 `runSmokeClient` 场景尚未启动运行。
+3. **立即执行的下一动作（按[当前调度：底层架构四大痛点重构方案与执行路线](remaining-work.md#2026-11-24-底层架构四大痛点重构方案与执行路线零旧存档兼容一步到位数据驱动)继续推进）**：
+   - **阶段 2B 收尾（当前分支 `refactor/p2b-quest-economy-codec-json`）**：串行运行客户端 Smoke（保持 `run/smoke/options.txt` 中 `soundCategory_master:0.0` 静音）：
+     `./gradlew.bat --no-daemon --max-workers=1 -PsmokeOnly=commerce,bank,questjournal,questblockrefresh,questeditor,birthitemdialogue,qiankundialogue,npcmanagement,npcflyingshuttle,npcvillage,npcresidents runSmokeClient`
+     如有 Smoke 断言或布局问题修复并重跑全量门禁，随后切回 `port/20261123-parity-integration` 执行 `git merge --no-ff refactor/p2b-quest-economy-codec-json`、删除临时分支并更新月志/路线。
+   - **阶段 2C**：检出 `refactor/p2c-creature-ai-codec-json`，将 52 个 `Yaoshou001..054Behavior.java` 与 `NpcMeleeSkills.java` 提炼为 `CreatureCombatProfile` `Codec` + JSON 驱动。
+   - **阶段 3**：检出 `refactor/p3-runtime-performance`，消除运行期命令拼接（`performPrefixedCommand`/`performCommand`）并优化大结构缓存。
+   - **阶段 4**：检出 `refactor/p4-legacy-bug-cleanup`，集中清理 `source-survey.md` 中登记的 Q01–Q281 原版遗留 Bug 并更新测试断言与系统文档。
 4. **每子批次合入门禁**：
    - 每个 `refactor/*` 分支完成后，串行执行 `./gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test`、对应系统的 `runSmokeClient`（保持 `soundCategory_master:0.0` 静音）、`python -B -X utf8 tools/porting/check_ledger.py`、`python -B -X utf8 tools/docs/check_docs.py` 与 `git diff --check`，通过后以 `git merge --no-ff` 合入集成分支并更新交接进度；不自动推送、不擅自合并 `main`。
 

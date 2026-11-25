@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.economy;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -20,7 +19,9 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.economy.api.BankAccount;
 import net.yvanchuxiuzhen.system.economy.api.BankAccounts;
 import net.yvanchuxiuzhen.system.economy.api.BankCards;
+import net.yvanchuxiuzhen.system.economy.api.EconomyItems;
 import net.yvanchuxiuzhen.system.economy.api.EconomyMenus;
+import net.yvanchuxiuzhen.system.economy.api.ShopCatalogDefinition;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 
@@ -46,7 +47,7 @@ public final class CommerceTrading {
 
     public static void page(ServerPlayer player, int direction) {
         CompoundTag state = EconomyMenus.snapshot(player);
-        int maximum = products(state).size() / 5 / 12;
+        int maximum = EconomyMenus.shopCatalog(player).products().size() / 12;
         int page = state.getInt("shoppage");
         page = direction > 0 ? page < maximum ? page + 1 : 0 : page > 0 ? page - 1 : maximum;
         state.putInt("shoppage", page);
@@ -54,32 +55,29 @@ public final class CommerceTrading {
         refreshShop(player);
     }
 
-    private static List<String> products(CompoundTag state) {
-        return Arrays.asList(CommerceCatalog.translated(state.getString("productlist")).split("%"));
-    }
-
     public static void refreshShop(ServerPlayer player) {
         CompoundTag state = EconomyMenus.snapshot(player);
-        String[] information = CommerceCatalog.translated(state.getString("shopinformation")).split("%");
-        state.putString("storename", information[0]);
-        state.putString("storeowner", information[1]);
-        state.putString("storedescription", information[2]);
+        ShopCatalogDefinition catalog = EconomyMenus.shopCatalog(player);
+        ShopCatalogDefinition.ShopInfo info = catalog.info();
+        state.putString("storename", info.storeName());
+        state.putString("storeowner", info.ownerName());
+        state.putString("storedescription", info.description());
         for (int index = 0; index < 12; index++) {
             Slot target = slot(player, index);
             if (target != null) target.set(ItemStack.EMPTY);
             state.putString("shopjiagetxt" + suffix(index), "");
             state.putString("shopnametxt" + suffix(index), "");
         }
-        List<String> products = products(state);
+        List<ShopCatalogDefinition.Product> products = catalog.products();
         int page = Math.max(0, state.getInt("shoppage"));
-        int count = Math.min(12, products.size() / 5 - page * 12);
+        int count = Math.min(12, Math.max(0, products.size() - page * 12));
         for (int index = 0; index < count; index++) {
-            int offset = page * 60 + index * 5;
-            ItemStack item = CommerceGoods.create(products.get(offset), products.get(offset + 1), products.get(offset + 4));
+            ShopCatalogDefinition.Product product = products.get(page * 12 + index);
+            ItemStack item = EconomyItems.create(product);
             Slot target = slot(player, index);
             if (target != null) target.set(item);
-            state.putString("shopnametxt" + suffix(index), item.getDisplayName().getString() + "(" + products.get(offset + 3) + ")");
-            state.putString("shopjiagetxt" + suffix(index), priceText(CommerceGoods.number(products.get(offset + 3)), products.get(offset + 2).equals("灵石"), true));
+            state.putString("shopnametxt" + suffix(index), item.getDisplayName().getString() + "(" + format(product.price()) + ")");
+            state.putString("shopjiagetxt" + suffix(index), priceText(product.price(), product.currency().isStones(), true));
         }
         player.containerMenu.broadcastChanges();
         player.setData(CommerceData.SESSION, state);
@@ -88,13 +86,12 @@ public final class CommerceTrading {
     public static void buy(ServerPlayer player, int selection) {
         CompoundTag state = EconomyMenus.snapshot(player);
         state.putInt("playerxvanze", selection);
-        List<String> products = products(state);
-        int offset = selection * 5 + state.getInt("shoppage") * 60;
-        if (offset <= products.size() - 1) {
-            String currency = products.get(offset + 2);
-            double price = CommerceGoods.number(products.get(offset + 3));
-            if (currency.equals("金银")) buyCoins(player, selection, price);
-            else if (currency.equals("灵石")) buyStones(player, selection, price);
+        List<ShopCatalogDefinition.Product> products = EconomyMenus.shopCatalog(player).products();
+        int offset = selection + state.getInt("shoppage") * 12;
+        if (offset >= 0 && offset < products.size()) {
+            ShopCatalogDefinition.Product product = products.get(offset);
+            if (product.currency().isStones()) buyStones(player, selection, product.price());
+            else buyCoins(player, selection, product.price());
         } else message(player, "空");
         CompoundTag current = EconomyMenus.snapshot(player);
         current.putInt("playerxvanze", 0);
