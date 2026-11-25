@@ -2,13 +2,10 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import java.util.Comparator;
 import java.util.List;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,7 +21,6 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
@@ -298,8 +294,6 @@ final class Yaoshou024Behavior {
     /** 来源 Yaoshou011baoqiProcedure：保留阶段条件、候选顺序及随机调用。 */
     static void Yaoshou011baoqi(LevelAccessor world, Entity entity) {
         String team = "";
-        String zhilingjihe = "";
-        String particleID = "";
         double xiangliangY = 0;
         double xiangliangX = 0;
         double R = 0;
@@ -339,7 +333,6 @@ final class Yaoshou024Behavior {
         }
         R = entity.getBbWidth();
         speed = 0.5;
-        particleID = "minecraft:cloud";
         particlenumber = 20;
         xvnhuan = 0;
         shengchengY = entity.getY() + entity.getBbHeight() * 0.5;
@@ -349,10 +342,8 @@ final class Yaoshou024Behavior {
             shengchengZ = entity.getZ() + R * Math.sin(xvnhuan);
             xiangliangX = speed * Math.cos(xvnhuan);
             xiangliangZ = speed * Math.sin(xvnhuan);
-            zhilingjihe = "particle " + particleID + " " + shengchengX + " " + shengchengY + " " + shengchengZ + " " + xiangliangX + " " + xiangliangY + " " + xiangliangZ + " " + speed + " 0";
             if (world instanceof ServerLevel _level)
-                _level.getServer().getCommands().performPrefixedCommand(
-                        new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(), zhilingjihe);
+                Particles.directed(_level, ParticleTypes.CLOUD, shengchengX, shengchengY, shengchengZ, xiangliangX, xiangliangY, xiangliangZ, speed);
             xvnhuan = xvnhuan + 360 / particlenumber;
         }
         Yaoshou037054Support.finish(entity);

@@ -2,11 +2,8 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import java.util.Comparator;
 import java.util.List;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,7 +14,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
@@ -289,22 +285,10 @@ final class Yaoshou027Behavior {
     /** 来源 Yaoshou027liandazadiProcedure：保持来源动作阶段、数值及分支顺序。 */
     static void Yaoshou027liandazadi(LevelAccessor world, Entity entity) {
         Entity linshientity = null;
-        String zhilingjihe = "";
-        String particleID = "";
         double shijiaoX = 0;
         double shijiaoZ = 0;
         double shijiaoY = 0;
-        double xvnhuan = 0;
         double buchong = 0;
-        double xiangliangY = 0;
-        double xiangliangX = 0;
-        double R = 0;
-        double particlenumber = 0;
-        double xiangliangZ = 0;
-        double shengchengZ = 0;
-        double shengchengX = 0;
-        double shengchengY = 0;
-        double speed = 0;
         double damage = 0;
         linshientity = Yaoshou037054Support.target(world, entity);
         if ((CreatureData.state(entity).phase()).equals("")) {
@@ -374,24 +358,7 @@ final class Yaoshou027Behavior {
                 }
             }
             CreatureData.state(entity).setPhase("结束");
-            R = 2;
-            speed = 0.5;
-            particleID = "minecraft:smoke_large";
-            particlenumber = 20;
-            xvnhuan = 0;
-            shengchengY = entity.getY() + entity.getBbHeight() * 0.5;
-            xiangliangY = 0;
-            for (int index0 = 0; index0 < (int) (particlenumber); index0++) {
-                shengchengX = entity.getX() + R * Math.cos(xvnhuan);
-                shengchengZ = entity.getZ() + R * Math.sin(xvnhuan);
-                xiangliangX = speed * Math.cos(xvnhuan);
-                xiangliangZ = speed * Math.sin(xvnhuan);
-                zhilingjihe = "particle " + particleID + " " + shengchengX + " " + shengchengY + " " + shengchengZ + " " + xiangliangX + " " + xiangliangY + " " + xiangliangZ + " " + speed + " 0";
-                if (world instanceof ServerLevel _level)
-                    _level.getServer().getCommands().performPrefixedCommand(
-                            new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(), zhilingjihe);
-                xvnhuan = xvnhuan + 360 / particlenumber;
-            }
+            // 来源烟环使用未注册的 minecraft:smoke_large，不产生可见粒子。
         } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 41) {
             Yaoshou037054Support.finish(entity);
         }

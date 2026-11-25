@@ -2,12 +2,9 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import java.util.Comparator;
 import java.util.List;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -24,7 +21,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
@@ -235,8 +231,6 @@ final class Yaoshou054Behavior {
     /** 来源 Yaoshou054jvedongkaojinProcedure：保留阶段条件、候选顺序及随机调用。 */
     static void Yaoshou054jvedongkaojin(LevelAccessor world, Entity entity) {
         Entity linshientity = null;
-        String zhilingjihe = "";
-        String particleID = "";
         linshientity = Yaoshou037054Support.target(world, entity);
         if ((CreatureData.state(entity).phase()).equals("")) {
             if (world instanceof Level _level) {
@@ -293,11 +287,10 @@ final class Yaoshou054Behavior {
                 }
             }
             for (int index0 = 0; index0 < (int) (16); index0++) {
-                particleID = "yvanchuxiuzhen:disappearblue";
-                zhilingjihe = "particle " + particleID + " " + entity.getX() + " " + entity.getY() + " " + entity.getZ() + " " + Yaoshou037054Support.randomDouble(-0.5, 0.5) + " " + 1 + " " + Yaoshou037054Support.randomDouble(-0.5, 0.5) + " " + 1 + " 0";
+                double dx = Yaoshou037054Support.randomDouble(-0.5, 0.5);
+                double dz = Yaoshou037054Support.randomDouble(-0.5, 0.5);
                 if (world instanceof ServerLevel _level)
-                    _level.getServer().getCommands().performPrefixedCommand(
-                            new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(), zhilingjihe);
+                    Particles.directed(_level, Particles.type("disappearblue"), entity.getX(), entity.getY(), entity.getZ(), dx, 1, dz, 1);
             }
             {
                 final Vec3 _center = new Vec3((entity.getX()), (entity.getY() - 1), (entity.getZ()));
@@ -327,8 +320,6 @@ final class Yaoshou054Behavior {
         Entity linshientity = null;
         double shijiaoX = 0;
         double shijiaoZ = 0;
-        String zhilingjihe = "";
-        String particleID = "";
         linshientity = Yaoshou037054Support.target(world, entity);
         if ((CreatureData.state(entity).phase()).equals("")) {
             if (world instanceof Level _level) {
@@ -392,11 +383,10 @@ final class Yaoshou054Behavior {
                 }
             }
             for (int index1 = 0; index1 < (int) (16); index1++) {
-                particleID = "yvanchuxiuzhen:disappearblue";
-                zhilingjihe = "particle " + particleID + " " + entity.getX() + " " + entity.getY() + " " + entity.getZ() + " " + Yaoshou037054Support.randomDouble(-0.5, 0.5) + " " + 1 + " " + Yaoshou037054Support.randomDouble(-0.5, 0.5) + " " + 1 + " 0";
+                double dx = Yaoshou037054Support.randomDouble(-0.5, 0.5);
+                double dz = Yaoshou037054Support.randomDouble(-0.5, 0.5);
                 if (world instanceof ServerLevel _level)
-                    _level.getServer().getCommands().performPrefixedCommand(
-                            new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(), zhilingjihe);
+                    Particles.directed(_level, Particles.type("disappearblue"), entity.getX(), entity.getY(), entity.getZ(), dx, 1, dz, 1);
             }
             {
                 final Vec3 _center = new Vec3((entity.getX()), (entity.getY() - 1), (entity.getZ()));

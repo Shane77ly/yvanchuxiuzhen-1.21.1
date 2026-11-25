@@ -1,12 +1,10 @@
 package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
+import net.minecraft.core.particles.SimpleParticleType;
 import java.util.Comparator;
 import java.util.List;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,7 +15,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
@@ -587,8 +584,6 @@ final class Yaoshou003Behavior {
     /** 来源 Yaoshou003skillzhendiProcedure：保留阶段条件、候选顺序及随机调用。 */
     static void Yaoshou003skillzhendi(LevelAccessor world, Entity entity) {
         Entity linshientity = null;
-        String zhilingjihe = "";
-        String particleID = "";
         double xiangliangY = 0;
         double xiangliangX = 0;
         double R = 0;
@@ -624,12 +619,13 @@ final class Yaoshou003Behavior {
         } else if ((CreatureData.state(entity).phase()).equals("释放") && CreatureData.state(entity).tick() >= 20) {
             R = 2;
             speed = 0.5;
+            SimpleParticleType particle = null;
             if (Yaoshou037054Support.isKind(entity, "yaoshou_003")) {
-                particleID = "yvanchuxiuzhen:smokedeeporange";
+                particle = Particles.type("smokedeeporange");
             } else if (Yaoshou037054Support.isKind(entity, "yaoshou_021")) {
-                particleID = "yvanchuxiuzhen:smokelightgreen";
+                particle = Particles.type("smokelightgreen");
             } else if (Yaoshou037054Support.isKind(entity, "yaoshou_042")) {
-                particleID = "yvanchuxiuzhen:smokegolden";
+                particle = Particles.type("smokegolden");
             }
             particlenumber = 30;
             xvnhuan = 0;
@@ -640,10 +636,8 @@ final class Yaoshou003Behavior {
                 shengchengZ = entity.getZ() + R * Math.sin(xvnhuan);
                 xiangliangX = speed * Math.cos(xvnhuan);
                 xiangliangZ = speed * Math.sin(xvnhuan);
-                zhilingjihe = "particle " + particleID + " " + shengchengX + " " + shengchengY + " " + shengchengZ + " " + xiangliangX + " " + xiangliangY + " " + xiangliangZ + " " + speed + " 0";
-                if (world instanceof ServerLevel _level)
-                    _level.getServer().getCommands().performPrefixedCommand(
-                            new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(), zhilingjihe);
+                if (world instanceof ServerLevel _level && particle != null)
+                    Particles.directed(_level, particle, shengchengX, shengchengY, shengchengZ, xiangliangX, xiangliangY, xiangliangZ, speed);
                 xvnhuan = xvnhuan + 360 / particlenumber;
             }
             if (Yaoshou037054Support.isKind(entity, "yaoshou_003")) {

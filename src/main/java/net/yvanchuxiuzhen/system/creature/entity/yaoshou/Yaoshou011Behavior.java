@@ -2,13 +2,10 @@ package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import java.util.Comparator;
 import java.util.List;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -23,7 +20,6 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
@@ -263,8 +259,6 @@ final class Yaoshou011Behavior {
 
     /** 来源 Yaoshou011baoqiProcedure：保留阶段、条件、数值和调用顺序。 */
     static void Yaoshou011baoqi(LevelAccessor world, Entity entity) {
-        String zhilingjihe = "";
-        String particleID = "";
         double xiangliangY = 0;
         double xiangliangX = 0;
         double R = 0;
@@ -303,7 +297,6 @@ final class Yaoshou011Behavior {
         }
         R = entity.getBbWidth();
         speed = 0.5;
-        particleID = "minecraft:cloud";
         particlenumber = 20;
         xvnhuan = 0;
         shengchengY = entity.getY() + entity.getBbHeight() * 0.5;
@@ -313,10 +306,8 @@ final class Yaoshou011Behavior {
             shengchengZ = entity.getZ() + R * Math.sin(xvnhuan);
             xiangliangX = speed * Math.cos(xvnhuan);
             xiangliangZ = speed * Math.sin(xvnhuan);
-            zhilingjihe = "particle " + particleID + " " + shengchengX + " " + shengchengY + " " + shengchengZ + " " + xiangliangX + " " + xiangliangY + " " + xiangliangZ + " " + speed + " 0";
             if (world instanceof ServerLevel _level)
-                _level.getServer().getCommands().performPrefixedCommand(
-                        new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(), zhilingjihe);
+                Particles.directed(_level, ParticleTypes.CLOUD, shengchengX, shengchengY, shengchengZ, xiangliangX, xiangliangY, xiangliangZ, speed);
             xvnhuan = xvnhuan + 360 / particlenumber;
         }
         Yaoshou037054Support.finish(entity);
@@ -579,11 +570,10 @@ final class Yaoshou011Behavior {
             }
             for (int index1 = 0; index1 < (int) (32); index1++) {
                 if (world instanceof ServerLevel _level)
-                    _level.getServer().getCommands().performPrefixedCommand(
-                            new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY() + entity.getBbHeight() / 2), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null)
-                                    .withSuppressedOutput(),
-                            ("particle minecraft:cloud ~ ~ ~ " + entity.getLookAngle().x * Yaoshou037054Support.randomDouble(0.5, 1.5) + " " + entity.getLookAngle().y * Yaoshou037054Support.randomDouble(0.5, 1.5) + " "
-                                    + entity.getLookAngle().z * Yaoshou037054Support.randomDouble(0.5, 1.5) + " 1 0 force"));
+                    Particles.distantCloud(_level, entity,
+                            entity.getLookAngle().x * Yaoshou037054Support.randomDouble(0.5, 1.5),
+                            entity.getLookAngle().y * Yaoshou037054Support.randomDouble(0.5, 1.5),
+                            entity.getLookAngle().z * Yaoshou037054Support.randomDouble(0.5, 1.5));
             }
             CreatureData.state(entity).setPhase("结束");
         } else if ((CreatureData.state(entity).phase()).equals("结束") && CreatureData.state(entity).tick() >= 48) {
