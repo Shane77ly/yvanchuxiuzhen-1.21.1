@@ -33,9 +33,13 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.combat.damage.Shanghai;
+import net.yvanchuxiuzhen.system.combat.data.CombatData;
+import net.yvanchuxiuzhen.system.combat.data.CombatEntityState;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -161,10 +165,10 @@ final class PoisonEffects {
         }
         zombie.getAttribute(Attributes.MAX_HEALTH).setBaseValue(130);
         zombie.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(6);
-        zombie.getPersistentData().putDouble("attack_Def", 6);
-        zombie.getPersistentData().putDouble("mana_Def", 4);
-        zombie.getPersistentData().putDouble("soul_Def", 10);
-        zombie.getPersistentData().putDouble("LEVELnumber", 1);
+        EntityAttributes.setStat(zombie, Stat.ATTACK_DEF, 6);
+        EntityAttributes.setStat(zombie, Stat.MANA_DEF, 4);
+        EntityAttributes.setStat(zombie, Stat.SOUL_DEF, 10);
+        EntityAttributes.setLevel(zombie, 1);
         zombie.finalizeSpawn(level, level.getCurrentDifficultyAt(zombie.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(zombie);
         entity.discard();
@@ -250,7 +254,9 @@ final class PoisonEffects {
 
         @Override
         public void ended(LivingEntity entity, int amplifier) {
-            if (!(entity instanceof Player)) entity.getPersistentData().putDouble("Duyao05level", 0);
+            if (!(entity instanceof Player)) {
+                entity.setData(CombatData.ENTITY_STATE, entity.getData(CombatData.ENTITY_STATE).withMiasmaLevel(0));
+            }
         }
 
         @Override
@@ -263,9 +269,10 @@ final class PoisonEffects {
                     Cultivation.setTizhiDouble((ServerPlayer) player, "Duyao05level", level);
                     hurt(entity, scale(entity, level * (1 + amplifier)));
                 } else {
-                    double stored = entity.getPersistentData().getDouble("Duyao05level");
+                    CombatEntityState state = entity.getData(CombatData.ENTITY_STATE);
+                    double stored = state.miasmaLevel();
                     level = stored == 0 ? 1 : stored + 0.1;
-                    entity.getPersistentData().putDouble("Duyao05level", level);
+                    entity.setData(CombatData.ENTITY_STATE, state.withMiasmaLevel(level));
                     hurt(entity, level * (1 + amplifier));
                 }
                 CLEARED.forEach(entity::removeEffect);
@@ -281,29 +288,25 @@ final class PoisonEffects {
             if (!EffectSupport.eligible(entity) || !EffectSupport.every(entity, "duyao06tick", 5)) {
                 return true;
             }
-            var data = entity.getPersistentData();
+            CombatEntityState state = entity.getData(CombatData.ENTITY_STATE);
             long x = Math.round(entity.getX());
             long z = Math.round(entity.getZ());
             if (entity.isInLava() || entity.isInWaterOrBubble() || entity.isPassenger() || !entity.onGround()) {
-                data.putDouble("duyao06weizhiX", 0);
-                data.putDouble("duyao06weizhiZ", 0);
-            } else if (data.getDouble("duyao06weizhiX") + data.getDouble("duyao06weizhiZ") != 0) {
-                if (data.getDouble("duyao06weizhiX") != x || data.getDouble("duyao06weizhiZ") != z) {
+                entity.setData(CombatData.ENTITY_STATE, state.withStep(0, 0));
+            } else if (state.stepX() + state.stepZ() != 0) {
+                if (state.stepX() != x || state.stepZ() != z) {
                     entity.hurt(entity.damageSources().wither(), 100);
                     entity.level().playSound(null, entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(),
                             SoundEvents.GENERIC_EXPLODE, SoundSource.NEUTRAL, 1, 1);
                     if (entity.level() instanceof ServerLevel level) {
                         level.sendParticles(ParticleTypes.EXPLOSION_EMITTER, entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(), 1, 0, 0, 0, 0);
                     }
-                    data.putDouble("duyao06weizhiX", 0);
-                    data.putDouble("duyao06weizhiZ", 0);
+                    entity.setData(CombatData.ENTITY_STATE, state.withStep(0, 0));
                 } else {
-                    data.putDouble("duyao06weizhiX", x);
-                    data.putDouble("duyao06weizhiZ", z);
+                    entity.setData(CombatData.ENTITY_STATE, state.withStep(x, z));
                 }
             } else {
-                data.putDouble("duyao06weizhiX", x);
-                data.putDouble("duyao06weizhiZ", z);
+                entity.setData(CombatData.ENTITY_STATE, state.withStep(x, z));
             }
             return true;
         }
@@ -314,21 +317,18 @@ final class PoisonEffects {
                     || !EffectSupport.every(entity, "duyao06tick_client", 5)) {
                 return;
             }
-            var data = entity.getPersistentData();
+            CombatEntityState state = entity.getData(CombatData.ENTITY_STATE);
             long x = Math.round(entity.getX());
             long z = Math.round(entity.getZ());
             if (entity.isInLava() || entity.isInWaterOrBubble() || entity.isPassenger() || !entity.onGround()) {
-                data.putDouble("duyao06clientX", 0);
-                data.putDouble("duyao06clientZ", 0);
-            } else if (data.getDouble("duyao06clientX") + data.getDouble("duyao06clientZ") != 0
-                    && (data.getDouble("duyao06clientX") != x || data.getDouble("duyao06clientZ") != z)) {
+                entity.setData(CombatData.ENTITY_STATE, state.withClientStep(0, 0));
+            } else if (state.clientStepX() + state.clientStepZ() != 0
+                    && (state.clientStepX() != x || state.clientStepZ() != z)) {
                 entity.level().playLocalSound(entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ(),
                         SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1, false);
-                data.putDouble("duyao06clientX", 0);
-                data.putDouble("duyao06clientZ", 0);
+                entity.setData(CombatData.ENTITY_STATE, state.withClientStep(0, 0));
             } else {
-                data.putDouble("duyao06clientX", x);
-                data.putDouble("duyao06clientZ", z);
+                entity.setData(CombatData.ENTITY_STATE, state.withClientStep(x, z));
             }
         }
     }
@@ -338,7 +338,7 @@ final class PoisonEffects {
         @Override
         public void ended(LivingEntity entity, int amplifier) {
             if (entity instanceof ServerPlayer player) Cultivation.setTizhiDouble(player, "duyao07level", 0);
-            else entity.getPersistentData().putDouble("duyao07level", 0);
+            else entity.setData(CombatData.ENTITY_STATE, entity.getData(CombatData.ENTITY_STATE).withDayDeathLevel(0));
         }
 
         @Override
@@ -356,12 +356,13 @@ final class PoisonEffects {
                     Cultivation.setTizhiDouble(player, "duyao07level", level);
                 }
             } else {
-                double level = entity.getPersistentData().getDouble("duyao07level") + 1;
+                CombatEntityState state = entity.getData(CombatData.ENTITY_STATE);
+                double level = state.dayDeathLevel() + 1;
                 if (level >= 1200) {
-                    entity.getPersistentData().putDouble("duyao07level", 0);
+                    entity.setData(CombatData.ENTITY_STATE, state.withDayDeathLevel(0));
                     entity.kill();
                 } else {
-                    entity.getPersistentData().putDouble("duyao07level", level);
+                    entity.setData(CombatData.ENTITY_STATE, state.withDayDeathLevel(level));
                 }
                 entity.addEffect(new MobEffectInstance(StatusEffects.holder("effect_002"), 40, 0, false, false));
             }
@@ -421,7 +422,8 @@ final class PoisonEffects {
             if (entity instanceof ServerPlayer player) {
                 Cultivation.setTizhiDouble(player, "duyao20level", Cultivation.tizhiDouble(player, "duyao20level") + 1);
             } else {
-                entity.getPersistentData().putDouble("duyao20level", entity.getPersistentData().getDouble("duyao20level") + 1);
+                CombatEntityState state = entity.getData(CombatData.ENTITY_STATE);
+                entity.setData(CombatData.ENTITY_STATE, state.withCorpsePoisonLevel(state.corpsePoisonLevel() + 1));
             }
         }
 
@@ -434,12 +436,12 @@ final class PoisonEffects {
                 if (entity instanceof ServerPlayer player) {
                     Cultivation.setTizhiDouble(player, "duyao20level", 0);
                 } else {
-                    entity.getPersistentData().putDouble("duyao20level", 0);
+                    entity.setData(CombatData.ENTITY_STATE, entity.getData(CombatData.ENTITY_STATE).withCorpsePoisonLevel(0));
                 }
             }
             if (!resisted(entity)) {
                 double level = entity instanceof Player player ? Cultivation.tizhiDouble(player, "duyao20level")
-                        : entity.getPersistentData().getDouble("duyao20level");
+                        : entity.getData(CombatData.ENTITY_STATE).corpsePoisonLevel();
                 hurt(entity, amplifier + 1 + level);
             }
             return true;

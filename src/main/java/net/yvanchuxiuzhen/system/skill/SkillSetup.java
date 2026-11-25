@@ -24,11 +24,13 @@ import net.yvanchuxiuzhen.platform.content.ItemSwingEvent;
 import net.yvanchuxiuzhen.system.combat.api.HitEvent;
 import net.yvanchuxiuzhen.system.combat.api.TechniqueMeteorEvent;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueStudiedEvent;
+import net.yvanchuxiuzhen.system.skill.api.ProjectionRedirectEvent;
 import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 import net.yvanchuxiuzhen.system.skill.data.SkillData;
 import net.yvanchuxiuzhen.system.skill.content.SkillMenus;
 import net.yvanchuxiuzhen.system.skill.content.SkillLoadoutMenu;
 import net.yvanchuxiuzhen.system.skill.effect.SkillEffects;
+import net.yvanchuxiuzhen.system.skill.entity.Corpse;
 import net.yvanchuxiuzhen.system.skill.entity.Corpses;
 import net.yvanchuxiuzhen.system.skill.entity.SkillEntities;
 import net.yvanchuxiuzhen.system.skill.entity.Yuanying;
@@ -82,6 +84,12 @@ public final class SkillSetup {
         NeoForge.EVENT_BUS.addListener((TechniqueMeteorEvent event) -> TechniqueMeteor.spawn(event));
         NeoForge.EVENT_BUS.addListener((TechniqueStudiedEvent event) -> grantBonus(event.player(), event.technique()));
         NeoForge.EVENT_BUS.addListener((CultivationSecondEvent event) -> Yuanying.tick(event.player()));
+        NeoForge.EVENT_BUS.addListener((ProjectionRedirectEvent event) -> {
+            if (event.mob() instanceof Corpse corpse && event.targetPlayerId().equals(corpse.attackerUuid())) {
+                corpse.setTempAttackerUuid(event.projectionId());
+                corpse.setAttackerUuid(event.projectionId());
+            }
+        });
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {

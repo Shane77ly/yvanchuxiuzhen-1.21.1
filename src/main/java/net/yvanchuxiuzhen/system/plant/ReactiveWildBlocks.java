@@ -350,7 +350,6 @@ public final class ReactiveWildBlocks {
                 server.sendParticles(ParticleTypes.FLAME, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 5, 0, 0, 0, 0.1);
             }
             if (!player.getMainHandItem().isCorrectToolForDrops(state)) {
-                player.getPersistentData().putBoolean("manaattackbegin", true);
                 player.hurt(player.damageSources().inFire(), 5);
             }
         }

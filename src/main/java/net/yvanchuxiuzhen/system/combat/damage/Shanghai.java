@@ -16,6 +16,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.ArmorStatEvent;
@@ -142,7 +143,7 @@ public final class Shanghai {
                 multiplier += Cultivation.tizhiDouble(player, "SoulattofjingAttCorrectPercentage");
             }
         } else if (attacker instanceof Mob) {
-            base += attacker.getPersistentData().getDouble(category.isSoul() ? "soul_Att" : "mana_Att");
+            base += EntityAttributes.stat(attacker, category.isSoul() ? Stat.SOUL_ATT : Stat.MANA_ATT);
         }
         if (attacker instanceof LivingEntity living) {
             for (String enchantment : category.attackEnchantments()) {
@@ -204,14 +205,14 @@ public final class Shanghai {
             if (target instanceof Player player) {
                 defence += PlayerAttributes.value(player, Stat.SOUL_DEF);
             } else if (target instanceof Mob) {
-                defence += target.getPersistentData().getDouble("soul_Def");
+                defence += EntityAttributes.stat(target, Stat.SOUL_DEF);
             }
             defence += armorStat(target, "soul_Def");
         } else {
             if (target instanceof Player player) {
                 defence += PlayerAttributes.value(player, Stat.MANA_DEF);
             } else if (target instanceof Mob) {
-                defence += target.getPersistentData().getDouble("mana_Def");
+                defence += EntityAttributes.stat(target, Stat.MANA_DEF);
             }
             defence += armorStat(target, "mana_Att");
             defence += Enchants.armorSquares(target, Enchants.key("manadef"));
@@ -234,7 +235,7 @@ public final class Shanghai {
 
     /**
      * 击杀统计：受击方当前生命低于伤害总量时（不等于确实死亡，Q13），攻击方玩家的体质对应五行的击杀数加 1，
-     * 击杀积分加受击方的境界层数（玩家）或持久化 {@code LEVELnumber}（其他生物）。只统计金水木火土。
+     * 击杀积分加受击方的境界层数（玩家）或实体属性 {@link EntityAttributes#level}。只统计金水木火土。
      */
     private static void recordKill(ServerPlayer player, LivingEntity target, DamageCategory category) {
         String element = switch (category) {
@@ -247,10 +248,9 @@ public final class Shanghai {
         Cultivation.setTizhiDouble(player, "killentity" + element, Cultivation.tizhiDouble(player, "killentity" + element) + 1);
         double points;
         if (target instanceof ServerPlayer victim) {
-            Cultivation.syncLegacyLevelMirror(victim);
             points = Cultivation.get(victim, CultivationValue.LEVEL_NUMBER);
         } else {
-            points = target.getPersistentData().getDouble("LEVELnumber");
+            points = EntityAttributes.level(target);
         }
         Cultivation.setTizhiDouble(player, "killentitypoints" + element, Cultivation.tizhiDouble(player, "killentitypoints" + element) + points);
     }

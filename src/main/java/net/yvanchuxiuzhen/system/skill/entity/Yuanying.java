@@ -26,15 +26,18 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.FightingState;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
+import net.yvanchuxiuzhen.system.skill.api.ProjectionRedirectEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -80,10 +83,10 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
         double healthMax = PlayerAttributes.value(player, Stat.HEALTH_MAX);
         body.getAttribute(Attributes.MAX_HEALTH).setBaseValue(healthMax);
         body.setHealth((float) Math.min(player.getHealth(), healthMax));
-        body.getPersistentData().putDouble("health_Max", healthMax);
-        body.getPersistentData().putDouble("attack_Def", PlayerAttributes.value(player, Stat.ATTACK_DEF));
-        body.getPersistentData().putDouble("mana_Def", PlayerAttributes.value(player, Stat.MANA_DEF));
-        body.getPersistentData().putDouble("soul_Def", PlayerAttributes.value(player, Stat.SOUL_DEF));
+        EntityAttributes.setStat(body, Stat.HEALTH_MAX, healthMax);
+        EntityAttributes.setStat(body, Stat.ATTACK_DEF, PlayerAttributes.value(player, Stat.ATTACK_DEF));
+        EntityAttributes.setStat(body, Stat.MANA_DEF, PlayerAttributes.value(player, Stat.MANA_DEF));
+        EntityAttributes.setStat(body, Stat.SOUL_DEF, PlayerAttributes.value(player, Stat.SOUL_DEF));
         body.setYBodyRot(body.getYRot());
         body.setYHeadRot(body.getYRot());
         body.yBodyRotO = body.getYRot();
@@ -98,9 +101,8 @@ public final class Yuanying extends PathfinderMob implements GeoEntity, Animated
                     if (mob.getTarget() == player) {
                         mob.setTarget(body);
                     }
-                } else if (playerId.equals(mob.getPersistentData().getString("gongjizhe"))) {
-                    mob.getPersistentData().putString("linshigongjizhe", bodyId);
-                    mob.getPersistentData().putString("gongjizhe", bodyId);
+                } else {
+                    NeoForge.EVENT_BUS.post(new ProjectionRedirectEvent(mob, playerId, bodyId));
                 }
             }
         }

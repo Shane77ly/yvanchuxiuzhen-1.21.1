@@ -4,7 +4,6 @@ import java.util.Locale;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -38,7 +37,7 @@ public final class SteamerRuntime {
         if (event.getHand() != event.getEntity().getUsedItemHand()) return;
         if (event.getEntity() instanceof ServerPlayer player
                 && event.getLevel().getBlockEntity(event.getPos()) instanceof SteamerBlockEntity vessel
-                && !vessel.tray() && !vessel.getPersistentData().getBoolean("cooking")) open(player, vessel);
+                && !vessel.tray() && !vessel.cooking()) open(player, vessel);
     }
 
     public static void used(Level world, BlockPos pos, Player player) {
@@ -48,27 +47,26 @@ public final class SteamerRuntime {
             vessel.animate(level.isEmptyBlock(pos.above()) ? 1 : 2);
             for (int depth = 1; depth <= 4; depth++) {
                 if (level.getBlockEntity(pos.below(depth)) instanceof SteamerBlockEntity below
-                        && !below.tray() && below.getPersistentData().getBoolean("cooking")) return;
+                        && !below.tray() && below.cooking()) return;
             }
             open(serverPlayer, vessel);
             return;
         }
-        CompoundTag state = vessel.getPersistentData();
-        state.putDouble("playercooklevel", Professions.level(player, Profession.COOKING));
-        if (state.getBoolean("cooking")) {
-            double count = state.getDouble("cooknumber") + 1;
-            state.putDouble("cooknumber", count);
+        vessel.setPlayerCookLevel(Professions.level(player, Profession.COOKING));
+        if (vessel.cooking()) {
+            double count = vessel.cookNumber() + 1;
+            vessel.setCookNumber(count);
             if (count >= 5) {
                 level.sendParticles(ParticleTypes.CLOUD, pos.getX() + 0.5, pos.getY() + 0.6, pos.getZ() + 0.5,
                         15, 0.2, 0.2, 0.2, 0.8);
                 level.sendParticles(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, pos.getX() + 0.5, pos.getY() + 0.6, pos.getZ() + 0.5,
                         5, 0.5, 0.2, 0.5, 0.3);
-                state.putBoolean("cooking", false);
-                state.putDouble("cooknumber", 0);
-                state.putDouble("cookanimation", 0);
-                if (state.getDouble("cookexp") >= 1) {
-                    Professions.addExperience(serverPlayer, Profession.COOKING, state.getDouble("cookexp"));
-                    state.putDouble("cookexp", 0);
+                vessel.setCooking(false);
+                vessel.setCookNumber(0);
+                vessel.setCookAnimation(0);
+                if (vessel.cookExp() >= 1) {
+                    Professions.addExperience(serverPlayer, Profession.COOKING, vessel.cookExp());
+                    vessel.setCookExp(0);
                 }
             }
         } else {
@@ -87,8 +85,7 @@ public final class SteamerRuntime {
 
     /** 上层累计检查先于本锅食材和热源判定；失败留下的上层标记沿来源保留。 */
     private static void begin(ServerPlayer player, SteamerBlockEntity pot) {
-        CompoundTag state = pot.getPersistentData();
-        if (state.getBoolean("cooking")) {
+        if (pot.cooking()) {
             message(player, "busy");
             return;
         }
@@ -98,7 +95,7 @@ public final class SteamerRuntime {
             message(player, "wrong_appliance", recipe.potType());
             return;
         }
-        if ((int) recipe.grade() > state.getInt("playercooklevel")) {
+        if ((int) recipe.grade() > (int) pot.playerCookLevel()) {
             message(player, "insufficient_level");
             return;
         }
@@ -111,7 +108,7 @@ public final class SteamerRuntime {
             if (!(level.getBlockEntity(pos.above(height)) instanceof SteamerBlockEntity tray) || !tray.tray()) break;
             cumulative += matches(tray, recipe);
             if (cumulative >= 9) {
-                tray.getPersistentData().putBoolean("cooking", true);
+                tray.setCooking(true);
                 tray.changed();
             }
         }
@@ -123,24 +120,24 @@ public final class SteamerRuntime {
             message(player, "missing_heat");
             return;
         }
-        state.putBoolean("cooking", true);
+        pot.setCooking(true);
         player.closeContainer();
-        state.putInt("cookanimation", recipe.animation());
+        pot.setCookAnimation(recipe.animation());
         consume(pot, recipe);
         ItemStack output = CookingRecipes.stack(recipe.outputId().toLowerCase(Locale.ROOT));
         pot.setItem(4, output.copy());
-        double experience = Math.pow(state.getInt("belongToLevel"), 2) + 5;
+        double experience = Math.pow(pot.belongToLevel(), 2) + 5;
         double extra = 0;
         for (int height = 1; height <= 4; height++) {
             if (!(level.getBlockEntity(pos.above(height)) instanceof SteamerBlockEntity tray) || !tray.tray()
-                    || !tray.getPersistentData().getBoolean("cooking")) continue;
+                    || !tray.cooking()) continue;
             consume(tray, recipe);
             tray.setItem(4, output.copy());
             extra += experience;
-            tray.getPersistentData().putBoolean("cooking", false);
+            tray.setCooking(false);
             tray.changed();
         }
-        state.putInt("cookexp", (int) (experience + extra));
+        pot.setCookExp((int) (experience + extra));
         pot.changed();
         message(player, "started");
     }

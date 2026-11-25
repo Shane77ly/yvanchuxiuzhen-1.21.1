@@ -3,7 +3,7 @@ package net.yvanchuxiuzhen.system.quest;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.yvanchuxiuzhen.system.quest.content.DisguisedQuestBlockEntity;
 
 /** 由extract_structure_releases.py生成；结构任务和商店字段按来源坐标与字符串逐字迁移。 */
 final class QuestStructureData {
@@ -29,9 +29,8 @@ final class QuestStructureData {
     static void apply(ServerLevel level, String name) {
         for (Field field : FIELDS) {
             if (!field.name().equals(name)) continue;
-            BlockEntity block = level.getBlockEntity(field.pos());
-            if (block != null) {
-                block.getPersistentData().putString(field.key(), field.value());
+            if (level.getBlockEntity(field.pos()) instanceof DisguisedQuestBlockEntity block) {
+                block.setField(field.key(), field.value());
                 block.setChanged();
                 level.sendBlockUpdated(field.pos(), block.getBlockState(), block.getBlockState(), 3);
             }

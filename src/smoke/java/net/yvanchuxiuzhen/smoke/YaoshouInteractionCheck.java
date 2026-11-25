@@ -194,32 +194,32 @@ final class YaoshouInteractionCheck extends SystemCheck {
         player.setShiftKeyDown(false);
         YaoshouEntity wild = beast(player);
         wild.setTame(false, false);
-        wild.getPersistentData().putDouble("tame_num", 7);
+        CreatureData.state(wild).setTameNum(7);
         ItemStack food = tamingItem(50, 2);
         player.setItemInHand(InteractionHand.MAIN_HAND, food);
         player.interactOn(wild, InteractionHand.MAIN_HAND);
-        expectTrue("未驯服妖兽不进入普通喂养", wild.getPersistentData().getDouble("tame_num") == 7 && food.getCount() == 2);
+        expectTrue("未驯服妖兽不进入普通喂养", CreatureData.state(wild).tameNum() == 7 && food.getCount() == 2);
         wild.discard();
 
         YaoshouEntity observed = beast(player);
-        observed.getPersistentData().putDouble("tame_num", 7);
+        CreatureData.state(observed).setTameNum(7);
         ItemStack prior = item("fabao_015");
         prior.set(CreatureData.TAME_VALUE.get(), 50.0);
         player.setItemInHand(InteractionHand.MAIN_HAND, prior);
         post(player, observed, InteractionHand.MAIN_HAND);
-        expect("来源前置物品分支不继续执行普通加驯服度", 7, observed.getPersistentData().getDouble("tame_num"));
+        expect("来源前置物品分支不继续执行普通加驯服度", 7, CreatureData.state(observed).tameNum());
         observed.discard();
     }
 
     private void tameCases(ServerPlayer player, YaoshouEntity beast) {
-        beast.getPersistentData().putDouble("tame_num", 99);
+        CreatureData.state(beast).setTameNum(99);
         beast.setHealth(10);
         for (double bound : new double[] {0, 100}) {
             ItemStack held = tamingItem(bound, 2);
             player.setItemInHand(InteractionHand.MAIN_HAND, held);
             player.interactOn(beast, InteractionHand.MAIN_HAND);
             expectTrue("物品驯服度严格边界" + bound + "只反馈不消费", held.getCount() == 2
-                    && beast.getPersistentData().getDouble("tame_num") == 99 && beast.getHealth() == 10);
+                    && CreatureData.state(beast).tameNum() == 99 && beast.getHealth() == 10);
         }
         ItemStack plain = new ItemStack(Items.PAPER);
         player.setItemInHand(InteractionHand.MAIN_HAND, plain);
@@ -230,14 +230,14 @@ final class YaoshouInteractionCheck extends SystemCheck {
         player.setItemInHand(InteractionHand.MAIN_HAND, held);
         player.interactOn(beast, InteractionHand.MAIN_HAND);
         expectTrue("非主人以物品小数驯服度进入实体加五并越过100", held.getCount() == 1
-                && beast.getPersistentData().getDouble("tame_num") == 104 && beast.getHealth() == 10
+                && CreatureData.state(beast).tameNum() == 104 && beast.getHealth() == 10
                 && held.getOrDefault(CreatureData.TAME_VALUE.get(), 0.0) == 0.5 && !beast.isOwnedBy(player));
         held = tamingItem(99.5, 2);
         player.setItemInHand(InteractionHand.MAIN_HAND, held);
         player.setGameMode(GameType.CREATIVE);
         player.interactOn(beast, InteractionHand.MAIN_HAND);
         expectTrue("接近100的物品阈值仍有效且创造模式照样消耗", held.getCount() == 1
-                && beast.getPersistentData().getDouble("tame_num") == 109);
+                && CreatureData.state(beast).tameNum() == 109);
         player.setGameMode(GameType.SURVIVAL);
     }
 
@@ -258,7 +258,7 @@ final class YaoshouInteractionCheck extends SystemCheck {
                 player.setItemInHand(InteractionHand.MAIN_HAND, held);
                 player.interactOn(beast, InteractionHand.MAIN_HAND);
                 expectTrue("临时食物成员优先恢复六点且不增加实体驯服度", beast.getHealth() == 16
-                        && beast.getPersistentData().getDouble("tame_num") == 109 && held.getCount() == 1);
+                        && CreatureData.state(beast).tameNum() == 109 && held.getCount() == 1);
                 beast.setHealth(97);
                 held = tamingItem(50, 2);
                 player.setItemInHand(InteractionHand.MAIN_HAND, held);
@@ -269,7 +269,7 @@ final class YaoshouInteractionCheck extends SystemCheck {
                 player.setItemInHand(InteractionHand.MAIN_HAND, held);
                 player.interactOn(beast, InteractionHand.MAIN_HAND);
                 expectTrue("满血和创造模式仍消费一件来源食物", beast.getHealth() == 100
-                        && held.getCount() == 1 && beast.getPersistentData().getDouble("tame_num") == 109);
+                        && held.getCount() == 1 && CreatureData.state(beast).tameNum() == 109);
                 player.setGameMode(GameType.SURVIVAL);
             } finally {
                 bindTags.invoke(holder, Set.copyOf(original));
@@ -285,14 +285,14 @@ final class YaoshouInteractionCheck extends SystemCheck {
         player.setItemInHand(InteractionHand.MAIN_HAND, held);
         post(player, beast, InteractionHand.OFF_HAND);
         expectTrue("与当前使用手不同的事件不消费主手物品", held.getCount() == 3
-                && beast.getPersistentData().getDouble("tame_num") == 109);
+                && CreatureData.state(beast).tameNum() == 109);
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.BOW));
         player.startUsingItem(InteractionHand.OFF_HAND);
         post(player, beast, InteractionHand.MAIN_HAND);
         expectTrue("正在使用副手时主手事件被来源入口排除", player.getUsedItemHand() == InteractionHand.OFF_HAND && held.getCount() == 3);
         PlayerInteractEvent.EntityInteract accepted = post(player, beast, InteractionHand.OFF_HAND);
         expectTrue("匹配副手事件仍读取主手物品并保留原生后续交互", held.getCount() == 2
-                && beast.getPersistentData().getDouble("tame_num") == 114 && player.getOffhandItem().is(Items.BOW)
+                && CreatureData.state(beast).tameNum() == 114 && player.getOffhandItem().is(Items.BOW)
                 && !accepted.isCanceled());
         player.stopUsingItem();
         selectUsedHand(player, InteractionHand.MAIN_HAND);
@@ -304,17 +304,17 @@ final class YaoshouInteractionCheck extends SystemCheck {
                 "different_bag", "", "", "", "", false, false, 0, 0, "", 0, 0, 0, 0, Map.of(), Map.of());
         bag.set(CreatureData.SPIRIT_BEAST_BAG.get(), stored);
         bag.set(CreatureData.TAME_VALUE.get(), 50.0);
-        beast.getPersistentData().putString("lingshoudaiuuid", "creature_bag");
+        CreatureData.state(beast).setBagUuid("creature_bag");
         player.setItemInHand(InteractionHand.MAIN_HAND, bag);
         player.setShiftKeyDown(true);
         player.interactOn(beast, InteractionHand.MAIN_HAND);
         expectTrue("潜行持袋先执行袋UUID分支且不落入普通加五", !beast.isRemoved() && bag.getCount() == 1
                 && stored.equals(bag.get(CreatureData.SPIRIT_BEAST_BAG.get()))
-                && beast.getPersistentData().getDouble("tame_num") == 114);
+                && CreatureData.state(beast).tameNum() == 114);
         player.setShiftKeyDown(false);
         player.interactOn(beast, InteractionHand.MAIN_HAND);
         expectTrue("不潜行持袋进入普通物品阈值分支", !beast.isRemoved() && bag.isEmpty()
-                && beast.getPersistentData().getDouble("tame_num") == 119);
+                && CreatureData.state(beast).tameNum() == 119);
     }
 
     private void nativeSave(ServerPlayer player, YaoshouEntity beast) {
@@ -322,7 +322,7 @@ final class YaoshouInteractionCheck extends SystemCheck {
         YaoshouEntity restored = (YaoshouEntity) beast.getType().create(player.serverLevel());
         samples.add(restored);
         restored.load(saved);
-        expectTrue("原生实体保存重读保留普通交互驯服度生命与原主人", restored.getPersistentData().getDouble("tame_num") == 119
+        expectTrue("原生实体保存重读保留普通交互驯服度生命与原主人", CreatureData.state(restored).tameNum() == 119
                 && restored.getHealth() == 100 && restored.getOwnerUUID().equals(beast.getOwnerUUID()) && restored.isTame());
     }
 

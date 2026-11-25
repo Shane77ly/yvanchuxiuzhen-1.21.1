@@ -56,9 +56,6 @@ public final class Professions {
         ProfessionProgress current = player.getData(ProfessionAttachments.PROGRESS).get(profession);
         player.getData(ProfessionAttachments.PROGRESS).set(profession,
                 new ProfessionProgress(level, current.experience(), current.experienceMax()));
-        if (profession == Profession.GATHERING) {
-            player.getPersistentData().putDouble("collection_LEVEL", level);
-        }
         player.syncData(ProfessionAttachments.PROGRESS);
     }
 
@@ -68,7 +65,6 @@ public final class Professions {
         for (Profession profession : Profession.values()) {
             data.set(profession, ProfessionProgress.initial());
         }
-        player.getPersistentData().putDouble("collection_LEVEL", 0);
         player.syncData(ProfessionAttachments.PROGRESS);
     }
 

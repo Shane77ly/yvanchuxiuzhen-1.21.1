@@ -31,6 +31,7 @@ public final class MultiStructureBlockEntity extends RandomizableContainerBlockE
     private NonNullList<ItemStack> items = NonNullList.withSize(0, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[6];
+    private String structureGroup = "";
 
     public MultiStructureBlockEntity(BlockPos pos, BlockState state) {
         super(MultiStructureContent.TYPE.get(), pos, state);
@@ -39,12 +40,21 @@ public final class MultiStructureBlockEntity extends RandomizableContainerBlockE
         }
     }
 
+    public String group() {
+        return structureGroup;
+    }
+
+    public void setGroup(String group) {
+        this.structureGroup = group == null ? "" : group;
+        setChanged();
+    }
+
     public IItemHandler handler(Direction direction) {
         return isRemoved() ? null : direction == null ? unsided : sided[direction.ordinal()];
     }
 
     void generate(ServerLevel level) {
-        if (!getPersistentData().getString("jiegouzu").equals("寻木")) {
+        if (!structureGroup.equals("寻木")) {
             return;
         }
         int thickness = Mth.nextInt(RandomSource.create(), 10, 15);
@@ -77,6 +87,7 @@ public final class MultiStructureBlockEntity extends RandomizableContainerBlockE
             items = NonNullList.withSize(0, ItemStack.EMPTY);
         }
         ContainerHelper.loadAllItems(tag, items, registries);
+        structureGroup = tag.getString("jiegouzu");
     }
 
     @Override
@@ -85,6 +96,7 @@ public final class MultiStructureBlockEntity extends RandomizableContainerBlockE
         if (!trySaveLootTable(tag)) {
             ContainerHelper.saveAllItems(tag, items, registries);
         }
+        if (!structureGroup.isEmpty()) tag.putString("jiegouzu", structureGroup);
     }
 
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }

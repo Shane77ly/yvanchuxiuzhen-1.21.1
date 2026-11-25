@@ -6,6 +6,7 @@ import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
 
 /**
  * 属性系统的玩家附件。来源中这些字段在全部克隆事件中复制（{@code clone_policy.csv}：all_clone_events），
@@ -18,6 +19,10 @@ public final class AttributeAttachments {
             .serialize(AttributeData.CODEC)
             .copyOnDeath()
             .sync((holder, player) -> holder == player, AttributeData.STREAM_CODEC)
+            .build());
+    public static final Supplier<AttachmentType<EntityStats>> ENTITY_STATS = TYPES.register("entity_stats", () -> AttachmentType
+            .builder(() -> EntityStats.EMPTY)
+            .serialize(EntityStats.CODEC)
             .build());
 
     private AttributeAttachments() {

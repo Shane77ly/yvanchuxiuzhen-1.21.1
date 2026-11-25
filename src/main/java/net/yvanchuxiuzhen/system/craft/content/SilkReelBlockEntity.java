@@ -36,6 +36,9 @@ public final class SilkReelBlockEntity extends RandomizableContainerBlockEntity 
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private boolean reeling;
+    private double tick;
+    private String direction = "";
 
     public SilkReelBlockEntity(BlockPos pos, BlockState state) {
         super(CraftBlockEntities.SILK_REEL.get(), pos, state);
@@ -51,7 +54,32 @@ public final class SilkReelBlockEntity extends RandomizableContainerBlockEntity 
     }
 
     public void sync() {
+        setChanged();
         level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+    }
+
+    public boolean reeling() {
+        return reeling;
+    }
+
+    public void setReeling(boolean value) {
+        reeling = value;
+    }
+
+    public double tick() {
+        return tick;
+    }
+
+    public void setTick(double value) {
+        tick = value;
+    }
+
+    public String direction() {
+        return direction;
+    }
+
+    public void setDirection(String value) {
+        direction = value == null ? "" : value;
     }
 
     @Override
@@ -59,12 +87,18 @@ public final class SilkReelBlockEntity extends RandomizableContainerBlockEntity 
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(9, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        reeling = tag.getBoolean("saosi");
+        tick = tag.getDouble("tick");
+        direction = tag.getString("fangxiang");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (reeling) tag.putBoolean("saosi", true);
+        if (tick != 0) tag.putDouble("tick", tick);
+        if (!direction.isEmpty()) tag.putString("fangxiang", direction);
     }
 
     @Override

@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.cooking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -41,7 +40,7 @@ public final class CuttingRuntime {
                 case WEST -> -90;
                 default -> 90;
             };
-            board.getPersistentData().putInt("jiaodu", angle);
+            board.setAngle(angle);
             board.changed();
             server.getServer().getPlayerList().broadcastSystemMessage(
                     Component.translatable("message.yvanchuxiuzhen.cutting.direction." + direction.getName()), false);
@@ -80,12 +79,11 @@ public final class CuttingRuntime {
 
     public static void boardTick(ServerLevel level, BlockPos pos) {
         CuttingBlockEntity board = (CuttingBlockEntity) level.getBlockEntity(pos);
-        CompoundTag data = board.getPersistentData();
-        if (data.getBoolean("qiecaibegin")) {
-            data.putInt("tick", data.getInt("tick") + 1);
-            if (data.getInt("tick") >= 8) {
-                data.putBoolean("qiecaibegin", false);
-                data.putInt("tick", 0);
+        if (board.cutting()) {
+            board.setTick(board.tickInt() + 1);
+            if (board.tickInt() >= 8) {
+                board.setCutting(false);
+                board.setTick(0);
             }
             board.changed();
         }
@@ -93,10 +91,9 @@ public final class CuttingRuntime {
 
     public static void cleaverTick(ServerLevel level, BlockPos pos) {
         CuttingBlockEntity cleaver = (CuttingBlockEntity) level.getBlockEntity(pos);
-        CompoundTag data = cleaver.getPersistentData();
-        data.putDouble("tick", data.getDouble("tick") + 1);
+        cleaver.setTick(cleaver.tick() + 1);
         cleaver.changed();
-        if (data.getDouble("tick") >= 8) level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        if (cleaver.tick() >= 8) level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
     }
 
     public static void leftClick(PlayerInteractEvent.LeftClickBlock event) {
@@ -113,7 +110,7 @@ public final class CuttingRuntime {
                     board.getValue(BlockStateProperties.HORIZONTAL_FACING)), Block.UPDATE_ALL);
             level.setBlock(pos.above(), level.getBlockState(pos.above()).setValue(CleaverBlock.ANIMATION, 1), Block.UPDATE_ALL);
             CuttingBlockEntity entity = (CuttingBlockEntity) level.getBlockEntity(pos);
-            entity.getPersistentData().putBoolean("qiecaibegin", true);
+            entity.setCutting(true);
             entity.changed();
         }
     }

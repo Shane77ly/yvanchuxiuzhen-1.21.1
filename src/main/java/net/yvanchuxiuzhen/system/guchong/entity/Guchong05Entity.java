@@ -24,17 +24,43 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongTracking;
+import net.yvanchuxiuzhen.system.guchong.api.GuchongTrackingData;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 
 /** 荧光蛊仅用来源粒子显示；追踪一百刻后回到同维主人，普通个体随机飞行。 */
 public final class Guchong05Entity extends PathfinderMob {
+    private GuchongTrackingData tracking = GuchongTrackingData.EMPTY;
+    private double entityTick;
+    private double entityTick2;
+
     public Guchong05Entity(EntityType<? extends Guchong05Entity> type, Level level) {
         super(type, level);
         setPersistenceRequired();
         moveControl = new FlyingMoveControl(this, 10, true);
+    }
+
+    public GuchongTrackingData tracking() {
+        return tracking;
+    }
+
+    public void setTracking(GuchongTrackingData tracking) {
+        this.tracking = tracking == null ? GuchongTrackingData.EMPTY : tracking;
+    }
+
+    public double entityTick() {
+        return entityTick;
+    }
+
+    public double entityTick2() {
+        return entityTick2;
+    }
+
+    public void setEntityTick(double entityTick) {
+        this.entityTick = entityTick;
     }
 
     public static AttributeSupplier.Builder attributes() {
@@ -102,10 +128,28 @@ public final class Guchong05Entity extends PathfinderMob {
     }
 
     @Override
+    public void addAdditionalSaveData(CompoundTag data) {
+        super.addAdditionalSaveData(data);
+        data.put("tracking", GuchongTrackingData.CODEC.encodeStart(NbtOps.INSTANCE, tracking).getOrThrow());
+        data.putDouble("entity_tick", entityTick);
+        data.putDouble("entity_tick2", entityTick2);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag data) {
+        super.readAdditionalSaveData(data);
+        tracking = data.contains("tracking")
+                ? GuchongTrackingData.CODEC.parse(NbtOps.INSTANCE, data.get("tracking")).result().orElse(GuchongTrackingData.EMPTY)
+                : GuchongTrackingData.EMPTY;
+        entityTick = data.getDouble("entity_tick");
+        entityTick2 = data.getDouble("entity_tick2");
+    }
+
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         super.mobInteract(player, hand);
         if (!level().isClientSide()) {
-            ItemHandlerHelper.giveItemToPlayer(player, GuchongTracking.fromState(getPersistentData()));
+            ItemHandlerHelper.giveItemToPlayer(player, GuchongTracking.fromState(tracking));
             discard();
         }
         return InteractionResult.sidedSuccess(level().isClientSide());
@@ -116,30 +160,29 @@ public final class Guchong05Entity extends PathfinderMob {
         super.baseTick();
         if (!(level() instanceof ServerLevel level)) return;
         level.sendParticles(Particles.type("guchong_05lizi"), getX(), getY(), getZ(), 1, .2, .2, .2, .1);
-        CompoundTag data = getPersistentData();
-        if (!data.getBoolean("zhuizhong")) return;
-        Vec3 destination = new Vec3(data.getDouble("zuobiaoX"), data.getDouble("zuobiaoY"), data.getDouble("zuobiaoZ"));
+        if (!tracking.tracking()) return;
+        Vec3 destination = new Vec3(tracking.targetX(), tracking.targetY(), tracking.targetZ());
         lookAt(EntityAnchorArgument.Anchor.EYES, destination);
         setDeltaMovement(getLookAngle().scale(.2));
-        data.putDouble("entitytick", data.getDouble("entitytick") + 1);
-        if (data.getDouble("entitytick") >= 100) {
-            data.putDouble("entitytick", 0);
+        entityTick += 1;
+        if (entityTick >= 100) {
+            entityTick = 0;
             level.sendParticles(Particles.type("yaoshou_040skill_03"), getX(), getY(), getZ(), 8, 0, 0, 0, 1);
             for (Player player : level.players()) {
-                if (player.getStringUUID().equals(data.getString("belongToMasterUUID"))) {
-                    ItemHandlerHelper.giveItemToPlayer(player, GuchongTracking.fromState(data));
+                if (player.getStringUUID().equals(tracking.ownerUuid())) {
+                    ItemHandlerHelper.giveItemToPlayer(player, GuchongTracking.fromState(tracking));
                 }
             }
             discard();
         }
-        data.putDouble("entitytick2", data.getDouble("entitytick2") + 1);
-        if (data.getDouble("entitytick2") >= 5) {
+        entityTick2 += 1;
+        if (entityTick2 >= 5) {
             for (Player player : level.players()) {
-                if (player.getStringUUID().equals(data.getString("belongToMasterUUID"))) {
+                if (player.getStringUUID().equals(tracking.ownerUuid())) {
                     player.displayClientMessage(Component.literal("距离：" + new DecimalFormat("0").format(destination.distanceTo(player.position()))), true);
                 }
             }
-            data.putDouble("entitytick2", 0);
+            entityTick2 = 0;
         }
     }
 }

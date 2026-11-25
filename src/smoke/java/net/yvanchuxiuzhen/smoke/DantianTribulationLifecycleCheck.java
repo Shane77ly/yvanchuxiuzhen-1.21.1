@@ -86,11 +86,10 @@ final class DantianTribulationLifecycleCheck extends SystemCheck {
                 boolean[] found = {false};
                 onServer(p -> {
                     for (TribulationCloud cloud : p.serverLevel().getEntitiesOfClass(TribulationCloud.class, p.getBoundingBox().inflate(100))) {
-                        var data = cloud.getPersistentData();
-                        if (!p.getStringUUID().equals(data.getString("playerUUID"))) continue;
+                        if (!p.getStringUUID().equals(cloud.playerUuid())) continue;
                         expectTrue("满修为自然发劫且尚未晋级", Cultivation.thunderOpen(p) && Cultivation.get(p, CultivationValue.THUNDER_MAX) == 1
-                                && Cultivation.get(p, CultivationValue.LEVEL_NUMBER) == (step == 5 ? 20 : 30) && !data.getString("thunder1").isEmpty());
-                        data.putString("thunder1", "雷1");
+                                && Cultivation.get(p, CultivationValue.LEVEL_NUMBER) == (step == 5 ? 20 : 30) && !cloud.pattern(1).isEmpty());
+                        cloud.setPattern(1, "雷1");
                         strikes = 0;
                         observer = event -> { if (event.level() == p.serverLevel()) strikes++; };
                         NeoForge.EVENT_BUS.addListener(observer);

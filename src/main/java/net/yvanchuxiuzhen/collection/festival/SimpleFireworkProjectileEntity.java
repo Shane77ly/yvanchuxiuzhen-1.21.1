@@ -2,6 +2,7 @@ package net.yvanchuxiuzhen.collection.festival;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -20,6 +21,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 /** 炮竹（projectile_pao_01）与窜天猴（projectile_pao_08）的飞行与爆裂弹体。 */
 public final class SimpleFireworkProjectileEntity extends AbstractArrow implements ItemSupplier {
     private final SimpleFireworkProjectileItem.Kind kind;
+    private double tick;
 
     public SimpleFireworkProjectileEntity(EntityType<? extends SimpleFireworkProjectileEntity> type, Level level,
             SimpleFireworkProjectileItem.Kind kind) {
@@ -70,15 +72,26 @@ public final class SimpleFireworkProjectileEntity extends AbstractArrow implemen
         if (!(level() instanceof ServerLevel server)) return;
         if (kind == SimpleFireworkProjectileItem.Kind.PAO_08) {
             if (!isNoGravity()) setNoGravity(true);
-            double ticks = getPersistentData().getDouble("tick") + 1;
-            getPersistentData().putDouble("tick", ticks);
-            if (ticks >= 11) {
+            tick += 1;
+            if (tick >= 11) {
                 explode();
                 discard();
                 return;
             }
         }
         if (inGround) discard();
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putDouble("tick", tick);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        tick = tag.getDouble("tick");
     }
 
     private void explode() {

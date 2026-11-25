@@ -59,13 +59,9 @@ public final class NpcAnimated extends NpcMob implements GeoEntity, AnimatedLook
         if (kind().equals("daguanjia")) entityData.set(ANIMATION, "animation.dahuguanjia.attacked");
         if (!kind().equals("businessman_04") || !isAlive() || hasEffect(BuiltInRegistries.MOB_EFFECT
                 .getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "skilleffect_08")).orElseThrow())) return;
-        CompoundTag data = getPersistentData();
-        if (!data.getString("jineng").isEmpty()) {
+        if (hasActiveSkill()) {
             entityData.set(ANIMATION, "empty");
-            data.putDouble("entitytick", 0);
-            data.putString("jineng", "");
-            data.putString("jinengjinxing", "");
-            data.putDouble("entitytick2", 0);
+            clearSkillState();
         }
         entityData.set(ANIMATION, "animation.businessman04.attacked");
     }

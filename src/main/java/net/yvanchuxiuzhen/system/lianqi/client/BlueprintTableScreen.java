@@ -80,7 +80,7 @@ public final class BlueprintTableScreen extends AbstractContainerScreen<Blueprin
         graphics.drawString(font, text("label_yu_jian"), 374, 163, -16751002, false);
         graphics.drawString(font, text("label_diu_qi"), 437, 163, -10092493, false);
         if (menu.table() == null) return;
-        CompoundTag data = menu.table().getPersistentData().getCompound("zong");
+        CompoundTag data = menu.table().previewData();
         boolean armor = Set.of("头盔", "胸甲", "裤子", "战靴").contains(data.getString("fabaotype"));
         String support = armor ? "§b" : "§4";
         String attack = armor ? "§4" : "§b";

@@ -36,6 +36,13 @@ public final class PotteryWheelBlockEntity extends RandomizableContainerBlockEnt
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private final String[] texts = {"", "", ""};
+    private int page;
+    private int maxPage;
+    private int selected;
+    private final int[] needItems = new int[8];
+    private final String[] itemNames = {"", "", "", "", "", "", "", ""};
+    private final String[] outputIds = {"", "", "", "", "", "", "", ""};
 
     public PotteryWheelBlockEntity(BlockPos pos, BlockState state) {
         super(CraftBlockEntities.POTTERY_WHEEL.get(), pos, state);
@@ -61,17 +68,93 @@ public final class PotteryWheelBlockEntity extends RandomizableContainerBlockEnt
         level.setBlock(worldPosition, getBlockState().setValue(PotteryWheelBlock.ANIMATION, animation), Block.UPDATE_ALL);
     }
 
+    public String text(int line1Based) {
+        return line1Based >= 1 && line1Based <= texts.length ? texts[line1Based - 1] : "";
+    }
+
+    public void setText(int line1Based, String value) {
+        if (line1Based >= 1 && line1Based <= texts.length) texts[line1Based - 1] = value == null ? "" : value;
+    }
+
+    public int page() {
+        return page;
+    }
+
+    public void setPage(int value) {
+        page = value;
+    }
+
+    public int maxPage() {
+        return maxPage;
+    }
+
+    public void setMaxPage(int value) {
+        maxPage = value;
+    }
+
+    public int selected() {
+        return selected;
+    }
+
+    public void setSelected(int value) {
+        selected = value;
+    }
+
+    public int needItem(int index) {
+        return index >= 0 && index < needItems.length ? needItems[index] : 0;
+    }
+
+    public void setNeedItem(int index, int value) {
+        if (index >= 0 && index < needItems.length) needItems[index] = value;
+    }
+
+    public String itemName(int index) {
+        return index >= 0 && index < itemNames.length ? itemNames[index] : "";
+    }
+
+    public void setItemName(int index, String value) {
+        if (index >= 0 && index < itemNames.length) itemNames[index] = value == null ? "" : value;
+    }
+
+    public String outputId(int index) {
+        return index >= 0 && index < outputIds.length ? outputIds[index] : "";
+    }
+
+    public void setOutputId(int index, String value) {
+        if (index >= 0 && index < outputIds.length) outputIds[index] = value == null ? "" : value;
+    }
+
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(10, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        for (int line = 1; line <= texts.length; line++) texts[line - 1] = tag.getString("wenben" + line);
+        page = tag.getInt("yeshu");
+        maxPage = tag.getInt("yeshumax");
+        selected = tag.getInt("xvanzeweizhi");
+        for (int i = 0; i < 8; i++) {
+            needItems[i] = tag.getInt("needitem" + i);
+            itemNames[i] = tag.getString("itemname" + i);
+            outputIds[i] = tag.getString("chengpinid" + i);
+        }
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        for (int line = 1; line <= texts.length; line++) {
+            if (!texts[line - 1].isEmpty()) tag.putString("wenben" + line, texts[line - 1]);
+        }
+        if (page != 0) tag.putInt("yeshu", page);
+        if (maxPage != 0) tag.putInt("yeshumax", maxPage);
+        if (selected != 0) tag.putInt("xvanzeweizhi", selected);
+        for (int i = 0; i < 8; i++) {
+            if (needItems[i] != 0) tag.putInt("needitem" + i, needItems[i]);
+            if (!itemNames[i].isEmpty()) tag.putString("itemname" + i, itemNames[i]);
+            if (!outputIds[i].isEmpty()) tag.putString("chengpinid" + i, outputIds[i]);
+        }
     }
 
     @Override

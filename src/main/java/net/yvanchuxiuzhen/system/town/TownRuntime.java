@@ -79,8 +79,8 @@ public final class TownRuntime {
     public static void usePlan(ServerPlayer player, TownBlockEntity town) {
         if (!player.isShiftKeyDown()) {
             TownBuildMenu.open(player, town.getBlockPos());
-        } else if (!town.getPersistentData().getBoolean("construction_completed")) {
-            ItemHandlerHelper.giveItemToPlayer(player, scroll(town.getPersistentData().getCompound("build_data")));
+        } else if (!town.completed()) {
+            ItemHandlerHelper.giveItemToPlayer(player, scroll(town.buildData()));
             player.level().setBlock(town.getBlockPos(), Blocks.AIR.defaultBlockState(), 3);
         } else if (BuiltInRegistries.ITEM.getKey(player.getMainHandItem().getItem()).equals(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "hammer"))) {
             player.level().setBlock(town.getBlockPos(), Blocks.AIR.defaultBlockState(), 3);
@@ -88,22 +88,21 @@ public final class TownRuntime {
     }
 
     public static void useCenter(ServerPlayer player, TownBlockEntity town) {
-        CompoundTag data = town.getPersistentData();
-        if (data.getString("belongToMasterUUID").isEmpty()) {
-            if (data.getString("town_name").isEmpty()) data.putString("town_name", "无名村落");
-            if (data.getString("town_uuid").isEmpty()) {
+        if (town.masterUuid().isEmpty()) {
+            if (town.townName().isEmpty()) town.setTownName("无名村落");
+            if (town.townUuid().isEmpty()) {
                 StringBuilder id = new StringBuilder();
                 for (int index = 0; index < 8; index++) id.append((char) ('a' + player.getRandom().nextInt(26)));
-                data.putString("town_uuid", id.toString());
+                town.setTownUuid(id.toString());
             }
-            if (data.getInt("town_levelnumber") < 1) {
-                data.putInt("town_levelnumber", 1);
-                data.putString("town_levelname", "村落");
+            if (town.townLevelNumber() < 1) {
+                town.setTownLevelNumber(1);
+                town.setTownLevelName("村落");
             }
-            data.putString("belongToMasterUUID", player.getStringUUID());
+            town.setMasterUuid(player.getStringUUID());
             town.sync();
         }
-        TownMenu.open(player, town.getBlockPos(), data.getString("belongToMasterUUID").equals(player.getStringUUID()) ? 2 : 1);
+        TownMenu.open(player, town.getBlockPos(), town.masterUuid().equals(player.getStringUUID()) ? 2 : 1);
     }
 
     private static int material(ItemStack stack) {
@@ -120,16 +119,15 @@ public final class TownRuntime {
             int type = material(stack);
             if (type >= 0) counts[type] += stack.getCount();
         }
-        CompoundTag build = town.getPersistentData().getCompound("build_data");
+        CompoundTag build = town.buildData();
         for (int type = 0; type < 3; type++) build.putInt("construction_need_" + MATERIALS[type] + "_number", counts[type]);
-        town.getPersistentData().put("build_data", build);
+        town.setBuildData(build);
         town.sync();
     }
 
     public static void build(ServerPlayer player, TownBlockEntity plan) {
         countMaterials(plan);
-        CompoundTag old = plan.getPersistentData().copy();
-        CompoundTag build = old.getCompound("build_data");
+        CompoundTag build = plan.buildData();
         int[] required = new int[3];
         for (int type = 0; type < 3; type++) {
             required[type] = build.getInt("construction_need_" + MATERIALS[type]);
@@ -148,14 +146,19 @@ public final class TownRuntime {
             stack.shrink(taken);
             required[type] -= taken;
         }
+        CompoundTag buildSnapshot = plan.buildData();
+        int sx = plan.shiftingX(), sy = plan.shiftingY(), sz = plan.shiftingZ();
+        int lx = plan.lengthOfX(), ly = plan.lengthOfY(), lz = plan.lengthOfZ();
+        String team = plan.team();
         // 建筑模板可以把十八槽规划核心替换为一槽中心案台，清空旧库存后再放置，避免替换掉落重复结算。
         plan.clearContent();
-        placeStructure(player.serverLevel(), plan.getBlockPos(), old);
+        placeStructure(player.serverLevel(), plan.getBlockPos(), buildSnapshot, sx, sy, sz);
         TownBlockEntity current = (TownBlockEntity) player.level().getBlockEntity(plan.getBlockPos());
-        for (String key : new String[]{"shiftingX", "shiftingY", "shiftingZ", "lengthofX", "lengthofY", "lengthofZ"}) current.getPersistentData().putInt(key, old.getInt(key));
-        current.getPersistentData().putString("team", old.getString("team"));
-        current.getPersistentData().put("build_data", old.getCompound("build_data"));
-        current.getPersistentData().putBoolean("construction_completed", true);
+        current.setShifting(sx, sy, sz);
+        current.setLengthOf(lx, ly, lz);
+        current.setTeam(team);
+        current.setBuildData(buildSnapshot);
+        current.setCompleted(true);
         if (current.getContainerSize() == 18) {
             for (int slot = 0; slot < 18; slot++) current.setItem(slot, remaining.get(slot));
         } else {
@@ -168,8 +171,7 @@ public final class TownRuntime {
         if (current != plan) player.closeContainer();
     }
 
-    private static void placeStructure(ServerLevel level, BlockPos pos, CompoundTag data) {
-        CompoundTag build = data.getCompound("build_data");
+    private static void placeStructure(ServerLevel level, BlockPos pos, CompoundTag build, int sx, int sy, int sz) {
         String prefix = switch (build.getString("build_type")) {
             case "市镇中心" -> "build01";
             case "工筑堂" -> "build02";
@@ -184,7 +186,7 @@ public final class TownRuntime {
             default -> "";
         };
         if (prefix.isEmpty() || suffix.isEmpty()) return;
-        BlockPos origin = pos.offset(-data.getInt("shiftingX"), -data.getInt("shiftingY"), -data.getInt("shiftingZ"));
+        BlockPos origin = pos.offset(-sx, -sy, -sz);
         level.getStructureManager().getOrCreate(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, prefix + suffix))
                 .placeInWorld(level, origin, origin, new StructurePlaceSettings().setRotation(Rotation.NONE).setMirror(Mirror.NONE).setIgnoreEntities(false), level.random, 3);
     }

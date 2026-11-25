@@ -10,6 +10,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.GameType;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
+import net.yvanchuxiuzhen.system.combat.data.CombatData;
+import net.yvanchuxiuzhen.system.combat.data.CombatEntityState;
 
 /** 状态效果行为共用的读取与表现操作。 */
 final class EffectSupport {
@@ -34,14 +36,15 @@ final class EffectSupport {
         return entity instanceof Mob;
     }
 
-    /** 每次调用计数加 1，到达阈值后清零并返回真（来源把计数存在实体持久化数据中）。 */
+    /** 每次调用计数加 1，到达阈值后清零并返回真。 */
     static boolean every(LivingEntity entity, String key, int ticks) {
-        double count = entity.getPersistentData().getDouble(key) + 1;
+        CombatEntityState state = entity.getData(CombatData.ENTITY_STATE);
+        double count = state.tick(key) + 1;
         if (count >= ticks) {
-            entity.getPersistentData().putDouble(key, 0);
+            entity.setData(CombatData.ENTITY_STATE, state.withTick(key, 0));
             return true;
         }
-        entity.getPersistentData().putDouble(key, count);
+        entity.setData(CombatData.ENTITY_STATE, state.withTick(key, count));
         return false;
     }
 

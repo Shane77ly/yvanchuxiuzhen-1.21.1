@@ -51,23 +51,19 @@ public final class CarpentryRuntime {
     public static void select(CarpentryBlockEntity table, int selected) {
         table.selected(selected);
         table.setItem(40, ItemStack.EMPTY);
-        table.getPersistentData().putString("jiajvname", "");
+        table.setFurnitureName("");
         for (int row = 0; row < 5; row++) {
-            table.getPersistentData().putString("needitem" + row + "id", "");
-            table.getPersistentData().putInt("needitem" + row + "num", 0);
-            table.getPersistentData().putString("needitem" + row + "name", "");
+            table.setRequirement(row, "", 0, "");
         }
         List<Recipe> recipes = CarpentryRecipes.category(table.category());
         if (selected < recipes.size()) {
             Recipe recipe = recipes.get(selected);
             ItemStack preview = new ItemStack(recipe.item());
             table.setItem(40, preview);
-            table.getPersistentData().putString("jiajvname", preview.getDisplayName().getString());
+            table.setFurnitureName(preview.getDisplayName().getString());
             for (int row = 0; row < recipe.costs().size(); row++) {
                 Cost cost = recipe.costs().get(row);
-                table.getPersistentData().putString("needitem" + row + "id", cost.itemId());
-                table.getPersistentData().putInt("needitem" + row + "num", cost.count());
-                table.getPersistentData().putString("needitem" + row + "name",
+                table.setRequirement(row, cost.itemId(), cost.count(),
                         new ItemStack(cost.item()).getDisplayName().getString() + "：" + cost.count());
             }
         }

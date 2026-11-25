@@ -26,6 +26,9 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
 /** 火块保存燃料与施放者；友方表在放置后共享只读引用，重载后独立，容器为零槽。 */
 public final class FireBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
     private NonNullList<ItemStack> items = NonNullList.withSize(0, ItemStack.EMPTY);
+    private double power;
+    private String manaAttackUuid = "";
+    private String team = "";
     private Set<String> friendlyTeams = Set.of();
     private final IItemHandler[] handlers = new IItemHandler[Direction.values().length];
 
@@ -34,33 +37,33 @@ public final class FireBlockEntity extends RandomizableContainerBlockEntity impl
         for (Direction direction : Direction.values()) handlers[direction.ordinal()] = new SidedInvWrapper(this, direction);
     }
 
-    double power() {
-        return getPersistentData().getDouble("power");
+    public double power() {
+        return power;
     }
 
-    void power(double value) {
-        getPersistentData().putDouble("power", value);
+    public void power(double value) {
+        power = value;
         changed();
     }
 
+    public String manaAttackUuid() {
+        return manaAttackUuid;
+    }
+
+    public String team() {
+        return team;
+    }
+
     public void initialize(Player owner, double power) {
-        CompoundTag data = getPersistentData();
-        data.putDouble("power", power);
-        data.putString("ManaAttackUUID", owner.getStringUUID());
-        data.putString("team", Relations.entityTeam(owner));
+        this.power = power;
+        this.manaAttackUuid = owner.getStringUUID();
+        this.team = Relations.entityTeam(owner);
         friendlyTeams = Relations.friendlyTeams(owner);
-        storeFriendlyTeams();
         changed();
     }
 
     Set<String> friendlyTeams() {
         return friendlyTeams;
-    }
-
-    private void storeFriendlyTeams() {
-        CompoundTag friends = new CompoundTag();
-        for (String team : friendlyTeams) friends.putBoolean(team, true);
-        getPersistentData().put("friendlist", friends);
     }
 
     IItemHandler handler(Direction direction) {
@@ -69,7 +72,7 @@ public final class FireBlockEntity extends RandomizableContainerBlockEntity impl
 
     private void changed() {
         setChanged();
-        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+        if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
     }
 
     @Override
@@ -77,15 +80,25 @@ public final class FireBlockEntity extends RandomizableContainerBlockEntity impl
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(0, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
-        CompoundTag friends = getPersistentData().getCompound("friendlist");
+        power = tag.getDouble("power");
+        manaAttackUuid = tag.getString("ManaAttackUUID");
+        team = tag.getString("team");
+        CompoundTag friends = tag.getCompound("friendlist");
         friendlyTeams = friends.getAllKeys().stream().filter(friends::getBoolean).collect(Collectors.toUnmodifiableSet());
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        storeFriendlyTeams();
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        tag.putDouble("power", power);
+        if (!manaAttackUuid.isEmpty()) tag.putString("ManaAttackUUID", manaAttackUuid);
+        if (!team.isEmpty()) tag.putString("team", team);
+        if (!friendlyTeams.isEmpty()) {
+            CompoundTag friends = new CompoundTag();
+            for (String entry : friendlyTeams) friends.putBoolean(entry, true);
+            tag.put("friendlist", friends);
+        }
     }
 
     @Override

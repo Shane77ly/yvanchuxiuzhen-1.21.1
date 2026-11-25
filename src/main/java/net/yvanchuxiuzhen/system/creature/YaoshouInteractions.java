@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouEntity;
 
 /** 已驯服活体妖兽的公共交互门槛与普通饲喂、亲近反馈。 */
@@ -46,7 +47,8 @@ final class YaoshouInteractions {
             double itemTameness = held.getOrDefault(CreatureData.TAME_VALUE.get(), 0.0);
             if (itemTameness > 0 && itemTameness < 100) {
                 particles(beast);
-                beast.getPersistentData().putDouble("tame_num", beast.getPersistentData().getDouble("tame_num") + 5);
+                CreatureState state = CreatureData.state(beast);
+                state.setTameNum(state.tameNum() + 5);
                 held.shrink(1);
                 player.displayClientMessage(Component.translatable("message." + ModId.VALUE + ".yaoshou_interaction.obedient"), false);
             } else {

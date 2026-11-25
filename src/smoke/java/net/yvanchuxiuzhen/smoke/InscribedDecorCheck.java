@@ -296,8 +296,8 @@ final class InscribedDecorCheck extends SystemCheck {
     private void clientData(String phase) {
         for (int index = 0; index < VARIANTS.size(); index++) expect(phase + "客户端完整文字字段 " + VARIANTS.get(index).id(), savedText.get(index), clientData(index));
     }
-    private CompoundTag clientData(int index) { return minecraft.level.getBlockEntity(pos(index)).getPersistentData(); }
-    private CompoundTag data(ServerPlayer player, int index) { return player.level().getBlockEntity(pos(index)).getPersistentData(); }
+    private CompoundTag clientData(int index) { return minecraft.level.getBlockEntity(pos(index)).saveWithoutMetadata(minecraft.level.registryAccess()); }
+    private CompoundTag data(ServerPlayer player, int index) { return player.level().getBlockEntity(pos(index)).saveWithoutMetadata(player.registryAccess()); }
     private BlockPos pos(int index) { return origin.offset((index % 6) * 4, 0, (index / 6) * 4); }
     private static Item item(String path) { return BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, path)); }
     private void place(ServerPlayer player, int index, ItemStack stack, float rotation) {

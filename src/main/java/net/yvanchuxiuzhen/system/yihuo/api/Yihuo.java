@@ -5,12 +5,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -35,6 +35,39 @@ public final class Yihuo {
         return stack.getOrDefault(YihuoData.DAN_FIRE.get(), DanFireData.EMPTY);
     }
 
+    public static void markBurnTarget(Entity target, String team, String attackerUuid) {
+        target.getData(YihuoData.BURN_STATE).setBurnTarget(team, attackerUuid);
+    }
+
+    public static String burnAttacker(Entity target) {
+        return target.getData(YihuoData.BURN_STATE).fireAttackUuid();
+    }
+
+    public static void setYangTick(Entity target, double value) {
+        target.getData(YihuoData.BURN_STATE).setYangTick(value);
+    }
+
+    public static void setYinTick(Entity target, double value) {
+        target.getData(YihuoData.BURN_STATE).setYinTick(value);
+    }
+
+    public static double firePower(BlockEntity block) {
+        if (block instanceof FireBlockEntity fire) return fire.power();
+        return block == null ? Double.NaN : block.getData(YihuoData.BLOCK_FIRE_POWER);
+    }
+
+    public static void addPower(BlockEntity block, double amount) {
+        if (block instanceof FireBlockEntity fire) {
+            fire.power(fire.power() + amount);
+        } else if (block != null) {
+            block.setData(YihuoData.BLOCK_FIRE_POWER, block.getData(YihuoData.BLOCK_FIRE_POWER) + amount);
+            block.setChanged();
+            if (block.getLevel() != null) {
+                block.getLevel().sendBlockUpdated(block.getBlockPos(), block.getBlockState(), block.getBlockState(), Block.UPDATE_ALL);
+            }
+        }
+    }
+
     public static ItemStack createDanFire(String ownerUuid, double power) {
         ItemStack fire = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "danhuo")));
         fire.set(YihuoData.DAN_FIRE.get(), new DanFireData(ownerUuid, power));
@@ -50,13 +83,7 @@ public final class Yihuo {
         DanFireData fire = danFire(stack);
         if (level.getBlockState(clicked).is(FIRE)) {
             flame(level, clicked, 20);
-            BlockEntity block = level.getBlockEntity(clicked);
-            if (block != null) {
-                CompoundTag data = block.getPersistentData();
-                data.putDouble("power", data.getDouble("power") + fire.power());
-                block.setChanged();
-                level.sendBlockUpdated(clicked, block.getBlockState(), block.getBlockState(), Block.UPDATE_ALL);
-            }
+            addPower(level.getBlockEntity(clicked), fire.power());
             stack.shrink(1);
         } else if (context.getClickedFace() == Direction.UP && level.isEmptyBlock(clicked.above())) {
             BlockPos pos = clicked.above();

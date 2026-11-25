@@ -25,10 +25,28 @@ public final class TreasureCasketBlockEntity extends RandomizableContainerBlockE
     private NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
+    private String command = "";
+    private boolean opened;
 
     public TreasureCasketBlockEntity(BlockPos pos, BlockState state) {
         super(TreasureBlockEntities.CASKET.get(), pos, state);
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
+    }
+
+    public String command() {
+        return command;
+    }
+
+    public void setCommand(String command) {
+        this.command = command == null ? "" : command;
+    }
+
+    public boolean opened() {
+        return opened;
+    }
+
+    public void setOpened(boolean opened) {
+        this.opened = opened;
     }
 
     public IItemHandler handler(Direction direction) {
@@ -45,12 +63,16 @@ public final class TreasureCasketBlockEntity extends RandomizableContainerBlockE
         super.loadAdditional(tag, registries);
         items = NonNullList.withSize(1, ItemStack.EMPTY);
         if (!tryLoadLootTable(tag)) ContainerHelper.loadAllItems(tag, items, registries);
+        command = tag.getString("zhiling");
+        opened = tag.getBoolean("yikaiqi");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!command.isEmpty()) tag.putString("zhiling", command);
+        if (opened) tag.putBoolean("yikaiqi", true);
     }
 
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }

@@ -236,7 +236,7 @@ final class SkillEntityCheck extends SystemCheck {
                     Kind kind = spell.kind();
                     if (kind == Kind.BALL || kind == Kind.METEOR || kind == Kind.ORB_DROP) {
                         SkillEntity ball = found.get(0);
-                        ready[0] = ball.getPersistentData().getBoolean("kaishi");
+                        ready[0] = ball.started();
                         if (ready[0]) {
                             golem = placeGolem(player, ball.getX(), ball.getY(), ball.getZ());
                         }
@@ -247,7 +247,7 @@ final class SkillEntityCheck extends SystemCheck {
                             expectTrue(spell.name() + " 目标缓慢（命中后）", !ready[0] || golem.hasEffect(MobEffects.MOVEMENT_SLOWDOWN));
                         }
                     } else if (kind == Kind.GOLD_CTRL) {
-                        expectTrue(spell.name() + " 金轮是 Ctrl 式", !found.isEmpty() && found.get(0).getPersistentData().getString("mode").equals("金刚轮ctrl"));
+                        expectTrue(spell.name() + " 金轮是 Ctrl 式", !found.isEmpty() && found.get(0).mode().equals("金刚轮ctrl"));
                     } else if (kind == Kind.TREE_TANGLE) {
                         expectTrue(spell.name() + " 目标缓慢", golem.hasEffect(MobEffects.MOVEMENT_SLOWDOWN));
                     } else if (kind == Kind.TREE_GROUND) {

@@ -46,6 +46,7 @@ import net.yvanchuxiuzhen.system.yihuo.FireBlockEntity;
 import net.yvanchuxiuzhen.system.yihuo.YihuoProjectile;
 import net.yvanchuxiuzhen.system.yihuo.YihuoProjectiles;
 import net.yvanchuxiuzhen.system.yihuo.api.FireHeatEvent;
+import net.yvanchuxiuzhen.system.yihuo.api.Yihuo;
 
 /** 真实客户端逐类使用十八种异火材料，并检查弹体碰撞、燃料同步和首标签选择。 */
 final class YihuoMaterialCheck extends SystemCheck {
@@ -304,9 +305,9 @@ final class YihuoMaterialCheck extends SystemCheck {
                 BuiltInRegistries.BLOCK.getKey(player.serverLevel().getBlockState(firePos).getBlock()).toString());
         expect("潜行右键" + material + "初始化燃料", fuel(material), fuel(fire));
         expect("潜行右键" + material + "记录施放者", player.getStringUUID(),
-                fire == null ? "" : fire.getPersistentData().getString("ManaAttackUUID"));
+                fire instanceof FireBlockEntity fireBlock ? fireBlock.manaAttackUuid() : "");
         expect("潜行右键" + material + "记录团队", Relations.entityTeam(player),
-                fire == null ? "" : fire.getPersistentData().getString("team"));
+                fire instanceof FireBlockEntity fireBlock ? fireBlock.team() : "");
         expect("潜行右键" + material + "客户端火块燃料同步", fuel(material), fuel(minecraft.level.getBlockEntity(firePos)));
         expect("潜行右键" + material + "生成对应弹体", projectileId(material), observedTypeId);
         expect("潜行右键" + material + "弹体实际命中", hitPos, observedHit);
@@ -350,7 +351,7 @@ final class YihuoMaterialCheck extends SystemCheck {
         expect("非友方弹体" + material + "施加炙烤等级", material % 10 - 1,
                 serverEffect == null ? -1 : serverEffect.getAmplifier());
         expectTrue("非友方弹体" + material + "保留来源攻击者", player.getStringUUID().equals(
-                contactTarget.getPersistentData().getString("fireAttackUUID")));
+                Yihuo.burnAttacker(contactTarget)));
         Entity clientEntity = minecraft.level.getEntity(contactTarget.getId());
         List<String> expectedParticles = List.of(particleSignature(new MobEffectInstance(
                 StatusEffects.holder(effectId), 200, material % 10 - 1, true, true).getParticleOptions()));
@@ -538,7 +539,7 @@ final class YihuoMaterialCheck extends SystemCheck {
     }
 
     private static double fuel(BlockEntity block) {
-        return block == null ? Double.NaN : block.getPersistentData().getDouble("power");
+        return block instanceof FireBlockEntity fire ? fire.power() : Double.NaN;
     }
 
     /** 同一测试格先清除旧方块与尚未执行的计划刻，再触发新方块的放置生命周期。 */
@@ -569,10 +570,7 @@ final class YihuoMaterialCheck extends SystemCheck {
     }
 
     private static void setPower(ServerLevel level, BlockPos pos, double value) {
-        BlockEntity block = level.getBlockEntity(pos);
-        block.getPersistentData().putDouble("power", value);
-        block.setChanged();
-        level.sendBlockUpdated(pos, block.getBlockState(), block.getBlockState(), Block.UPDATE_ALL);
+        if (level.getBlockEntity(pos) instanceof FireBlockEntity fire) fire.power(value);
     }
 
     private static boolean inventorySynced(ServerPlayer player) {

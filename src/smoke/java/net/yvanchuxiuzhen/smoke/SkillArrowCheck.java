@@ -97,9 +97,9 @@ final class SkillArrowCheck extends ActionCheck {
                 new Action(8, p -> {
                     List<SkillProjectile> rain = arrows(p).stream().filter(a -> a.getOwner() == target).toList();
                     expectTrue("命中实体的箭雨产生二十支新箭，射手为受击者且未继承箭雨模式；实际数量=" + rain.size()
-                                    + "，主箭模式=" + arrow.getPersistentData().getString("jinengName") + "，主箭位置=" + arrow.position()
+                                    + "，主箭模式=" + ((SkillProjectile) arrow).skillName() + "，主箭位置=" + arrow.position()
                                     + "，主箭移除=" + arrow.isRemoved() + "，服务端经过刻数=" + (p.serverLevel().getGameTime() - rainLaunchedAt),
-                            rain.size() == 20 && rain.stream().allMatch(a -> a.getPersistentData().getString("jinengName").isEmpty()));
+                            rain.size() == 20 && rain.stream().allMatch(a -> a.skillName().isEmpty()));
                     clear(p);
                     shot(p, 10, false, false, p.position().add(3, 3, 0), new Vec3(0, -1, 0), .1);
                 }),
@@ -134,7 +134,7 @@ final class SkillArrowCheck extends ActionCheck {
                     AbstractArrow restored = (AbstractArrow) arrow.getType().create(p.serverLevel());
                     restored.load(saved);
                     expectTrue("震灵在已有穿透上加六、保持无重力并随箭保存", restored.getPierceLevel() == 8 && restored.isNoGravity()
-                            && restored.getPersistentData().getString("jinengName").equals("震灵"));
+                            && ((SkillProjectile) restored).skillName().equals("震灵"));
                 })
         );
     }

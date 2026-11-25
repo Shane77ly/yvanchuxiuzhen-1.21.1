@@ -30,22 +30,22 @@ final class DamageAreaCheck extends ActionCheck {
                     expectTrue("拒绝玩家与环境伤害，普通伤害仍可生效", !area.hurt(player.damageSources().playerAttack(player), 1)
                             && !area.hurt(player.damageSources().lightningBolt(), 1) && !area.hurt(player.damageSources().cactus(), 1)
                             && area.hurt(player.damageSources().generic(), 1) && area.getHealth() < health);
-                    area.getPersistentData().putDouble("daojishi", 2);
+                    area.setRemaining(2);
                     DamageArea restored = create(player);
                     restored.load(area.saveWithoutId(new CompoundTag()));
                     restored.baseTick();
                     expectTrue("保存重读保留倒计时和阵营，最后一刻仍存续", !restored.isRemoved()
-                            && restored.getPersistentData().getDouble("daojishi") == 1 && Relations.isFriendly(restored, player));
+                            && restored.remaining() == 1 && Relations.isFriendly(restored, player));
                     restored.baseTick();
-                    expectTrue("倒计时归零移除", restored.isRemoved() && restored.getPersistentData().getDouble("daojishi") == 0);
+                    expectTrue("倒计时归零移除", restored.isRemoved() && restored.remaining() == 0);
                     DamageArea thunder = create(player);
-                    thunder.getPersistentData().putString("jinengname", "惊蛰闻雷");
-                    thunder.getPersistentData().putDouble("jishiqi", 38);
+                    thunder.setSkillName("惊蛰闻雷");
+                    thunder.setTimer(38);
                     thunder.baseTick();
                     boolean aliveAt39 = !thunder.isRemoved();
                     thunder.baseTick();
                     expectTrue("惊蛰闻雷忽略普通倒计时，在第 40 刻移除并清计时", aliveAt39 && thunder.isRemoved()
-                            && thunder.getPersistentData().getDouble("jishiqi") == 0);
+                            && thunder.timer() == 0);
                     DamageArea empty = create(player);
                     empty.baseTick();
                     expectTrue("未提供倒计时的普通提示首刻移除", empty.isRemoved());

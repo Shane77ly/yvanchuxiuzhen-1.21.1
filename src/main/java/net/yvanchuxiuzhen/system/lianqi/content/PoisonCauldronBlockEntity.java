@@ -19,9 +19,27 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 /** 毒锅持久化毒种和命名空间，来源零槽能力不提供可用库存。 */
 public final class PoisonCauldronBlockEntity extends BlockEntity implements MenuProvider {
     private final IItemHandler emptyInventory = new ItemStackHandler(0);
+    private String poisonNamespace = "";
+    private String poisonId = "";
 
     public PoisonCauldronBlockEntity(BlockPos pos, BlockState state) {
         super(LianqiBlockEntities.POISON_CAULDRON.get(), pos, state);
+    }
+
+    public String poisonNamespace() {
+        return poisonNamespace;
+    }
+
+    public void setPoisonNamespace(String value) {
+        poisonNamespace = value == null ? "" : value;
+    }
+
+    public String poisonId() {
+        return poisonId;
+    }
+
+    public void setPoisonId(String value) {
+        poisonId = value == null ? "" : value;
     }
 
     public IItemHandler handler(Direction direction) {
@@ -31,6 +49,20 @@ public final class PoisonCauldronBlockEntity extends BlockEntity implements Menu
     public void changed() {
         setChanged();
         level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+    }
+
+    @Override
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        poisonNamespace = tag.getString("linshikongjian");
+        poisonId = tag.getString("linshifumo");
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        if (!poisonNamespace.isEmpty()) tag.putString("linshikongjian", poisonNamespace);
+        if (!poisonId.isEmpty()) tag.putString("linshifumo", poisonId);
     }
 
     @Override

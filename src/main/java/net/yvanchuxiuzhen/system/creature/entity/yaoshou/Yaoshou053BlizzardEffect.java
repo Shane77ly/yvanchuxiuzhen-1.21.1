@@ -8,6 +8,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
@@ -24,11 +25,11 @@ public final class Yaoshou053BlizzardEffect implements EffectBehavior {
         for (Entity target : level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(32, 16, 32))
                 .stream().sorted(Comparator.comparingDouble(candidate -> candidate.distanceToSqr(center))).toList()) {
             if (!Relations.isFriendly(entity, target)) {
-                double ticks = target.getPersistentData().getDouble("yaoshou053tick") + 1;
-                target.getPersistentData().putDouble("yaoshou053tick", ticks);
+                double ticks = target.getData(CreatureData.BLIZZARD_TICK) + 1;
+                target.setData(CreatureData.BLIZZARD_TICK, ticks);
                 if (ticks >= 10) {
                     target.setTicksFrozen(target.getTicksFrozen() + (StatusEffects.amplifier(entity, EFFECT_ID) + 1) * 4);
-                    target.getPersistentData().putDouble("yaoshou053tick", 0);
+                    target.setData(CreatureData.BLIZZARD_TICK, 0.0);
                 }
             }
         }

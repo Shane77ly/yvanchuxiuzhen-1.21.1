@@ -51,6 +51,25 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
     private final SkillCast cast = new SkillCast();
     private final boolean fixedNoGravity;
     private float hitboxScale = 1;
+    private double tick;
+    private double tick2;
+    private double tick02;
+    private double endTicks;
+    private String mode = "";
+    private String stage = "";
+    private String state = "";
+    private String sequence = "";
+    private String skillStage = "";
+    private String currentType = "";
+    private String progressLabel = "";
+    private boolean started;
+    private boolean released;
+    private double range;
+    private double yaw;
+    private double pitch;
+    private double shrink;
+    private String masterUuid = "";
+    private String targetUuid = "";
 
     public SkillEntity(EntityType<SkillEntity> type, Level level, EntityModelRow model, EntitySkill skill) {
         super(type, level);
@@ -75,6 +94,45 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
         setPersistenceRequired();
         setTexture(model.texture());
     }
+
+    public double skillTick() { return tick; }
+    public void setSkillTick(double tick) { this.tick = tick; }
+    public double skillTick2() { return tick2; }
+    public void setSkillTick2(double tick2) { this.tick2 = tick2; }
+    public double skillTick02() { return tick02; }
+    public void setSkillTick02(double tick02) { this.tick02 = tick02; }
+    public double endTicks() { return endTicks; }
+    public void setEndTicks(double endTicks) { this.endTicks = endTicks; }
+    public String mode() { return mode; }
+    public void setMode(String mode) { this.mode = mode; }
+    public String stage() { return stage; }
+    public void setStage(String stage) { this.stage = stage; }
+    public String skillState() { return state; }
+    public void setSkillState(String state) { this.state = state; }
+    public String sequence() { return sequence; }
+    public void setSequence(String sequence) { this.sequence = sequence; }
+    public String skillStage() { return skillStage; }
+    public void setSkillStage(String skillStage) { this.skillStage = skillStage; }
+    public String currentType() { return currentType; }
+    public void setCurrentType(String currentType) { this.currentType = currentType; }
+    public String progressLabel() { return progressLabel; }
+    public void setProgressLabel(String progressLabel) { this.progressLabel = progressLabel; }
+    public boolean started() { return started; }
+    public void setStarted(boolean started) { this.started = started; }
+    public boolean released() { return released; }
+    public void setReleased(boolean released) { this.released = released; }
+    public double range() { return range; }
+    public void setRange(double range) { this.range = range; }
+    public double storedYaw() { return yaw; }
+    public void setStoredYaw(double yaw) { this.yaw = yaw; }
+    public double storedPitch() { return pitch; }
+    public void setStoredPitch(double pitch) { this.pitch = pitch; }
+    public double shrink() { return shrink; }
+    public void setShrink(double shrink) { this.shrink = shrink; }
+    public String masterUuid() { return masterUuid; }
+    public void setMasterUuid(String masterUuid) { this.masterUuid = masterUuid; }
+    public String targetUuid() { return targetUuid; }
+    public void setTargetUuid(String targetUuid) { this.targetUuid = targetUuid; }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
@@ -256,6 +314,25 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
         tag.putString("texture", texture());
         cast.save(tag);
         tag.putFloat("hitbox_scale", hitboxScale);
+        tag.putDouble("skillTick", tick);
+        tag.putDouble("skillTick2", tick2);
+        tag.putDouble("skillTick02", tick02);
+        tag.putDouble("endTicks", endTicks);
+        tag.putString("mode", mode);
+        tag.putString("stage", stage);
+        tag.putString("skillState", state);
+        tag.putString("sequence", sequence);
+        tag.putString("skillStage", skillStage);
+        tag.putString("currentType", currentType);
+        tag.putString("progressLabel", progressLabel);
+        tag.putBoolean("started", started);
+        tag.putBoolean("released", released);
+        tag.putDouble("range", range);
+        tag.putDouble("storedYaw", yaw);
+        tag.putDouble("storedPitch", pitch);
+        tag.putDouble("shrink", shrink);
+        tag.putString("masterUuid", masterUuid);
+        tag.putString("targetUuid", targetUuid);
     }
 
     @Override
@@ -264,6 +341,25 @@ public final class SkillEntity extends PathfinderMob implements GeoEntity, Anima
         setTexture(tag.getString("texture"));
         cast.load(tag);
         setHitboxScale(tag.contains("hitbox_scale") ? tag.getFloat("hitbox_scale") : 1);
+        tick = tag.getDouble("skillTick");
+        tick2 = tag.getDouble("skillTick2");
+        tick02 = tag.getDouble("skillTick02");
+        endTicks = tag.getDouble("endTicks");
+        mode = tag.getString("mode");
+        stage = tag.getString("stage");
+        state = tag.getString("skillState");
+        sequence = tag.getString("sequence");
+        skillStage = tag.getString("skillStage");
+        currentType = tag.getString("currentType");
+        progressLabel = tag.getString("progressLabel");
+        started = tag.getBoolean("started");
+        released = tag.getBoolean("released");
+        range = tag.getDouble("range");
+        yaw = tag.getDouble("storedYaw");
+        pitch = tag.getDouble("storedPitch");
+        shrink = tag.getDouble("shrink");
+        masterUuid = tag.getString("masterUuid");
+        targetUuid = tag.getString("targetUuid");
     }
 
     @Override

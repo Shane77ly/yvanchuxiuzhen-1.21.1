@@ -23,7 +23,11 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.fulu.api.NpcTalismans;
+import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.api.SkillSummons;
 
@@ -150,9 +154,8 @@ final class BossCheck extends SystemCheck {
         Entity owner = player.serverLevel().getEntity(entities.get("ycxzboss_02"));
         owner.setYRot(90);
         owner.setXRot(0);
-        owner.getPersistentData().putDouble("fulu45level", 0);
-        owner.getPersistentData().putDouble("mana_Att", 3);
-        owner.getPersistentData().putDouble("fululevel46", 2);
+        owner.setData(FuluData.CASTER, owner.getData(FuluData.CASTER).withLevel45(0).withLevel46(2));
+        EntityAttributes.setStat(owner, Stat.MANA_ATT, 3);
         NpcTalismans.shootBossCannon(player.serverLevel(), owner);
         NpcTalismans.shootBossFireball(player.serverLevel(), owner);
         SkillSummons.shootBossFireball(player.serverLevel(), owner);
@@ -170,11 +173,9 @@ final class BossCheck extends SystemCheck {
         Entity talismanFireball = projectiles.get("projectile_fulutexiao_46");
         Entity skillFireball = projectiles.get("projectile_skill_fire_01");
         expectTrue("首领公开入口生成45号飞雷弹体", cannon != null);
-        expectTrue("45号弹体首刻记录实体主人", cannon != null
-                && cannon.getPersistentData().getString("belongToMasterUUID").equals(uuid));
+        expectTrue("45号弹体首刻记录实体主人", cannon instanceof TalismanProjectile tp && tp.masterUuid().equals(uuid));
         expectTrue("首领公开入口生成46号火球弹体", talismanFireball != null);
-        expectTrue("46号弹体首刻记录攻击者", talismanFireball != null
-                && talismanFireball.getPersistentData().getString("AttackUUID").equals(uuid));
+        expectTrue("46号弹体首刻记录攻击者", talismanFireball instanceof TalismanProjectile tp && tp.attackUuid().equals(uuid));
         expectTrue("技能系统首领火球入口生成独立技能弹体", skillFireball != null);
         expectTrue("46号弹体继承首领实体团队", talismanFireball != null
                 && Relations.entityTeam(talismanFireball).equals(Relations.entityTeam(owner)));

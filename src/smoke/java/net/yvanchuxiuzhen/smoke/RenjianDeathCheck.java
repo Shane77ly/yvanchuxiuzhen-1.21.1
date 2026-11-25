@@ -23,6 +23,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.world.portal.DimensionPortalSpec;
@@ -187,7 +188,7 @@ final class RenjianDeathCheck extends SystemCheck {
             }
             expectTrue("主世界原生近战伤害双重归属", killer.level().dimension().equals(Level.OVERWORLD)
                     && event.getSource().getDirectEntity() == killer);
-            expect("死者未分配层数镜像", 0, target.getPersistentData().getDouble("LEVELnumber"));
+            expect("死者未分配层数镜像", 0, EntityAttributes.level(target));
             gained = killCase == 0 ? 2 : 4;
             expect("死亡当刻仍未吸收", beforeExperience, Cultivation.get(killer, CultivationValue.EXPERIENCE));
             expect("死亡当刻待吸收", gained, Cultivation.get(killer, CultivationValue.EXPERIENCE_STAND));

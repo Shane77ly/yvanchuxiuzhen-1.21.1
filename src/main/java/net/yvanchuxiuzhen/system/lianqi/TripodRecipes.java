@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.lianqi;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -25,7 +24,7 @@ final class TripodRecipes {
     }
 
     static void save(TripodBlockEntity furnace, ServerPlayer player) {
-        if (furnace.getPersistentData().getBoolean("lianqiBegin")) return;
+        if (furnace.refining()) return;
         ItemStack equipment = furnace.getItem(0);
         int type = TripodRuntime.equipmentType(equipment);
         if (type < 0 || !TripodRuntime.hasMaterial(furnace)) return;
@@ -62,7 +61,7 @@ final class TripodRecipes {
             TripodRuntime.message(player, "§4请在左边的物品栏放入图纸。");
             return;
         }
-        furnace.getPersistentData().putString("lianqiwenzi", recipe.type());
+        furnace.setRefiningLabel(recipe.type());
         for (int slot = 0; slot <= 8; slot++) {
             ItemHandlerHelper.giveItemToPlayer(player, furnace.getItem(slot).copy());
             furnace.setItem(slot, ItemStack.EMPTY);
@@ -93,12 +92,11 @@ final class TripodRecipes {
     }
 
     static void claim(TripodBlockEntity furnace, ServerPlayer player) {
-        CompoundTag state = furnace.getPersistentData();
-        int experience = state.getInt("jingyanhuoqv");
+        int experience = furnace.pendingExperience();
         if (experience >= 1) {
             Professions.addExperience(player, Profession.REFINING, experience);
             TripodRuntime.message(player, "§6炼器经验增减量为" + experience);
-            state.putInt("jingyanhuoqv", 0);
+            furnace.setPendingExperience(0);
         }
         ItemStack result = furnace.getItem(9);
         if (TripodRuntime.tagged(result, "cailiao")) {

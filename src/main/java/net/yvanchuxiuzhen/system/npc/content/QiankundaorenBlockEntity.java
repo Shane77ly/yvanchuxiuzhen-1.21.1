@@ -1,5 +1,8 @@
 package net.yvanchuxiuzhen.system.npc.content;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -41,6 +44,9 @@ public final class QiankundaorenBlockEntity extends RandomizableContainerBlockEn
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private boolean smokeBurst;
+    private double smokeTick;
+    private final Map<String, String> playerStages = new LinkedHashMap<>();
 
     public QiankundaorenBlockEntity(BlockPos pos, BlockState state) {
         super(QiankunBlockEntities.DAO.get(), pos, state);
@@ -48,49 +54,67 @@ public final class QiankundaorenBlockEntity extends RandomizableContainerBlockEn
     }
     public IItemHandler handler(Direction direction) { return direction == null ? unsided : sided[direction.ordinal()]; }
 
+    public boolean isSmokeBurst() { return smokeBurst; }
+    public double smokeTick() { return smokeTick; }
+    public String playerStage(UUID playerId) { return playerStages.getOrDefault(playerId.toString(), ""); }
+
     public static void requestDialogue(PlayerInteractEvent.RightClickBlock event) {
         if (!(event.getEntity() instanceof ServerPlayer player) || event.getHand() != player.getUsedItemHand()) return;
         if (event.getLevel().getBlockEntity(event.getPos()) instanceof QiankundaorenBlockEntity dao
-                && dao.getPersistentData().getString(player.getUUID() + "zhuangtai").equals("准备")) {
+                && dao.playerStage(player.getUUID()).equals("准备")) {
             NeoForge.EVENT_BUS.post(new QiankunDialogueRequestEvent(player));
         }
     }
 
     public void interact(Player player) {
         if (!(player instanceof ServerPlayer serverPlayer) || level == null || level.isClientSide) return;
-        String key = serverPlayer.getUUID() + "zhuangtai";
-        CompoundTag data = getPersistentData();
-        if (data.getString(key).isEmpty()) {
+        String key = serverPlayer.getUUID().toString();
+        if (playerStages.getOrDefault(key, "").isEmpty()) {
             level.setBlock(worldPosition, getBlockState().setValue(QiankunBlock.ANIMATION, 1), Block.UPDATE_ALL);
-            data.putBoolean("yanwubaofa", true);
-            data.putString(key, "准备");
+            smokeBurst = true;
+            playerStages.put(key, "准备");
             setChanged();
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
     }
 
     public void tickSmoke(ServerLevel level) {
-        CompoundTag data = getPersistentData();
-        if (!data.getBoolean("yanwubaofa")) return;
+        if (!smokeBurst) return;
         double x = worldPosition.getX() + 0.5;
         double y = worldPosition.getY() + 0.5;
         double z = worldPosition.getZ() + 0.5;
         level.sendParticles(ParticleTypes.SMOKE, x, y, z, 10, 0, 0, 0, 1);
         level.sendParticles(ParticleTypes.CLOUD, x, y, z, 10, 0, 0, 0, 1);
-        double tick = data.getDouble("yanwutick") + 1;
-        data.putDouble("yanwutick", tick);
+        smokeTick += 1;
         setChanged();
         level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
-        if (tick >= 54) {
-            data.putBoolean("yanwubaofa", false);
+        if (smokeTick >= 54) {
+            smokeBurst = false;
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
-            data.putDouble("yanwutick", 0);
+            smokeTick = 0;
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
     }
 
-    @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) { super.loadAdditional(tag, registries); }
-    @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) { super.saveAdditional(tag, registries); }
+    @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        smokeBurst = tag.getBoolean("yanwubaofa");
+        smokeTick = tag.getDouble("yanwutick");
+        playerStages.clear();
+        CompoundTag stages = tag.getCompound("player_stages");
+        for (String key : stages.getAllKeys()) {
+            playerStages.put(key, stages.getString(key));
+        }
+    }
+
+    @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putBoolean("yanwubaofa", smokeBurst);
+        tag.putDouble("yanwutick", smokeTick);
+        CompoundTag stages = new CompoundTag();
+        playerStages.forEach(stages::putString);
+        tag.put("player_stages", stages);
+    }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }
     @Override public int getContainerSize() { return 0; }

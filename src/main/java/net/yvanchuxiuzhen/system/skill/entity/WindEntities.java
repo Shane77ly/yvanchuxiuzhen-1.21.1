@@ -6,7 +6,6 @@ import java.util.UUID;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -49,7 +48,7 @@ public final class WindEntities {
         wave.moveTo(caster.getX(), caster.getY(), caster.getZ(), level.getRandom().nextFloat() * 360F, 0);
         Relations.copyAllegiance(caster, wave);
         wave.setAnimation("animation.skillwind05.bodong04");
-        wave.getPersistentData().putDouble("endtick", 8);
+        wave.setEndTicks(8);
         SkillEntities.spawn(level, wave, true);
     }
 
@@ -60,8 +59,8 @@ public final class WindEntities {
         Relations.shareEntityAllegiance(caster, blade);
         blade.configure(caster, attackDamage, 1, WIND, "");
         blade.moveTo(caster.getX(), caster.getY() + 1, caster.getZ(), level.getRandom().nextFloat() * 360F, 0);
-        blade.getPersistentData().putString("mubiaoUUID", target.getStringUUID());
-        blade.getPersistentData().putDouble("endtick", 200);
+        blade.setTargetUuid(target.getStringUUID());
+        blade.setEndTicks(200);
         blade.lookAt(EntityAnchorArgument.Anchor.EYES, target.position());
         SkillEntities.spawn(level, blade, true);
     }
@@ -77,8 +76,8 @@ public final class WindEntities {
         gale.moveTo(target.getX(), target.getY(), target.getZ(), level.getRandom().nextFloat() * 360F, 0);
         SkillEntities.turn(gale, caster.getYRot(), moving ? caster.getXRot() : 0);
         if (moving) {
-            gale.getPersistentData().putDouble("fangxiang", caster.getYRot());
-            gale.getPersistentData().putDouble("jiaodu", caster.getXRot());
+            gale.setStoredYaw(caster.getYRot());
+            gale.setStoredPitch(caster.getXRot());
         }
         SkillEntities.spawn(level, gale, false);
     }
@@ -113,10 +112,9 @@ public final class WindEntities {
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
             if (self.skillName().equals("聚风化气")) {
-                double yaw = Math.toRadians(scratch.getDouble("fangxiang"));
-                double pitch = Math.toRadians(scratch.getDouble("jiaodu"));
+                double yaw = Math.toRadians(self.storedYaw());
+                double pitch = Math.toRadians(self.storedPitch());
                 self.setDeltaMovement(new Vec3(-0.1 * Math.sin(yaw), -0.1 * Math.sin(pitch), 0.1 * Math.cos(yaw)));
                 level.sendParticles(ParticleTypes.CLOUD, self.getX(), self.getY(), self.getZ(), 4, 0, 0, 0, 0.2);
                 for (Entity other : ProjectileSupport.around(level, self.position(), 4)) {
@@ -124,8 +122,8 @@ public final class WindEntities {
                         other.setDeltaMovement(self.position().subtract(other.position()).scale(0.3));
                     }
                 }
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (!scratch.getBoolean("kaishi") && scratch.getDouble("tick") >= 200) {
+                self.setSkillTick(self.skillTick() + 1);
+                if (!self.started() && self.skillTick() >= 200) {
                     self.setAnimation("animation.skillwind02.skill02");
                     for (Entity other : ProjectileSupport.around(level, self.position(), 4)) {
                         if (!ProjectileSupport.friendly(self, other)) {
@@ -135,9 +133,9 @@ public final class WindEntities {
                             }
                         }
                     }
-                    scratch.putDouble("tick", 0);
-                    scratch.putBoolean("kaishi", true);
-                } else if (scratch.getBoolean("kaishi") && scratch.getDouble("tick") >= 14) {
+                    self.setSkillTick(0);
+                    self.setStarted(true);
+                } else if (self.started() && self.skillTick() >= 14) {
                     level.sendParticles(ParticleTypes.CLOUD, self.getX(), self.getY(), self.getZ(), 30, 0, 0, 0, 1);
                     self.discard();
                 }
@@ -148,9 +146,9 @@ public final class WindEntities {
                         other.setDeltaMovement(self.position().subtract(other.position()).scale(0.4));
                     }
                 }
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 200) {
-                    scratch.putDouble("tick", 0);
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 200) {
+                    self.setSkillTick(0);
                     level.sendParticles(ParticleTypes.CLOUD, self.getX(), self.getY(), self.getZ(), 20, 2, 2, 2, 0.1);
                     self.discard();
                 }
@@ -162,11 +160,10 @@ public final class WindEntities {
     private static final class Timed implements EntitySkill {
         @Override
         public void tick(SkillEntity self) {
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            if (scratch.getDouble("tick") >= scratch.getDouble("endtick")) {
+            self.setSkillTick(self.skillTick() + 1);
+            if (self.skillTick() >= self.endTicks()) {
                 self.discard();
-                scratch.putDouble("tick", 0);
+                self.setSkillTick(0);
             }
         }
     }
@@ -179,8 +176,7 @@ public final class WindEntities {
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
-            String targetId = scratch.getString("mubiaoUUID");
+            String targetId = self.targetUuid();
             if (targetId.isEmpty()) {
                 return;
             }
@@ -195,14 +191,14 @@ public final class WindEntities {
             if (target == null) {
                 return;
             }
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            if (scratch.getDouble("tick") >= scratch.getDouble("endtick")) {
+            self.setSkillTick(self.skillTick() + 1);
+            if (self.skillTick() >= self.endTicks()) {
                 self.discard();
-                scratch.putDouble("tick", 0);
+                self.setSkillTick(0);
             }
-            String stage = scratch.getString("jinengjieduan");
+            String stage = self.skillStage();
             if (stage.isEmpty()) {
-                scratch.putString("jinengjieduan", "追踪");
+                self.setSkillStage("追踪");
             } else if (stage.equals("追踪")) {
                 self.lookAt(EntityAnchorArgument.Anchor.EYES, target.position());
                 double yaw = Math.toRadians(self.getYRot());
@@ -211,24 +207,24 @@ public final class WindEntities {
                 double gap = self.position().distanceTo(target.position()) - (self.getBbWidth() / 2 + target.getBbWidth() / 2);
                 if (gap <= 1) {
                     self.setAnimation("animation.skillwind06.skill03");
-                    scratch.putDouble("tick02", 0);
-                    scratch.putString("jinengjieduan", "自旋");
+                    self.setSkillTick02(0);
+                    self.setSkillStage("自旋");
                 } else {
-                    scratch.putDouble("tick02", scratch.getDouble("tick02") + 1);
-                    if (scratch.getDouble("tick02") >= 10) {
+                    self.setSkillTick02(self.skillTick02() + 1);
+                    if (self.skillTick02() >= 10) {
                         for (Entity other : ProjectileSupport.around(level, self.position(), (self.getBbWidth() + 2) / 2)) {
                             if (!ProjectileSupport.friendly(self, other)) {
                                 ProjectileSupport.burst(other, "smallexplosionblack", other.getBbHeight() / 2);
                                 SkillEntities.strike(self, other);
                             }
                         }
-                        scratch.putDouble("tick02", 0);
+                        self.setSkillTick02(0);
                     }
                 }
             } else if (stage.equals("自旋")) {
-                scratch.putDouble("tick02", scratch.getDouble("tick02") + 1);
-                if (scratch.getDouble("tick02") >= 14) {
-                    scratch.putDouble("tick02", 0);
+                self.setSkillTick02(self.skillTick02() + 1);
+                if (self.skillTick02() >= 14) {
+                    self.setSkillTick02(0);
                     level.sendParticles(ParticleTypes.LARGE_SMOKE, self.getX(), self.getY(), self.getZ(), 12, 0, 0, 0, 0.3);
                     ProjectileSupport.particles(level, Particles.type("smokeblack"), self.position(), 12, 0, 0, 0, 0.3);
                     self.discard();

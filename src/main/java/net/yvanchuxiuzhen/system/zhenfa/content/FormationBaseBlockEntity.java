@@ -38,6 +38,7 @@ public final class FormationBaseBlockEntity extends RandomizableContainerBlockEn
     private NonNullList<ItemStack> items = NonNullList.withSize(0, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] handlers = new IItemHandler[6];
+    private final CompoundTag state = new CompoundTag();
 
     public FormationBaseBlockEntity(BlockPos pos, BlockState state) {
         super(ZhenfaBlockEntities.BASE.get(), pos, state);
@@ -45,16 +46,17 @@ public final class FormationBaseBlockEntity extends RandomizableContainerBlockEn
     }
 
     public IItemHandler handler(Direction direction) { return direction == null ? unsided : handlers[direction.ordinal()]; }
-    public int power() { return getPersistentData().getInt("power"); }
-    public CompoundTag formationSnapshot() { return getPersistentData().copy(); }
+    public int power() { return state.getInt("power"); }
+    public CompoundTag state() { return state; }
+    public CompoundTag formationSnapshot() { return state.copy(); }
 
     public void detect() {
-        FormationLayout.detect(level, worldPosition, getPersistentData());
+        FormationLayout.detect(level, worldPosition, state);
         changed();
     }
 
     public void redstone(boolean powered) {
-        if (!powered || getPersistentData().getInt("zhenchufa") == 1) getPersistentData().putBoolean("zhenhongshi", powered);
+        if (!powered || state.getInt("zhenchufa") == 1) state.putBoolean("zhenhongshi", powered);
         setChanged();
     }
 
@@ -66,7 +68,7 @@ public final class FormationBaseBlockEntity extends RandomizableContainerBlockEn
         for (int rank = 0; rank < 9; rank++) {
             if (id.equals("cailiao_" + (191 + rank))) value = 1 << (rank * 2);
         }
-        getPersistentData().putInt("power", power() + value);
+        state.putInt("power", power() + value);
         held.shrink(1);
         player.getInventory().setChanged();
         ((ServerLevel) level).sendParticles(Particles.type("lingqi"), worldPosition.getX() + 0.5, worldPosition.getY() + 0.5,
@@ -76,54 +78,52 @@ public final class FormationBaseBlockEntity extends RandomizableContainerBlockEn
 
     /** 旗物品只提交控制者及射线结果；参数仍由本阵基读取，坐标维持来源的 double 写入。 */
     public void control(Player player) {
-        CompoundTag data = getPersistentData();
-        data.putDouble("zhenjiaodu", player.getYRot());
-        data.putDouble("zhentaitou", player.getXRot());
-        data.putString("ManaAttackUUID", player.getStringUUID());
-        data.putDouble("playerX", player.getX());
-        data.putDouble("playerY", player.getY());
-        data.putDouble("playerZ", player.getZ());
-        if (data.getDouble("zhenshijiao") > 0) {
-            double distance = 1 + data.getDouble("zhenshijiao") * 0.5 * data.getDouble("zhenjvli");
+        state.putDouble("zhenjiaodu", player.getYRot());
+        state.putDouble("zhentaitou", player.getXRot());
+        state.putString("ManaAttackUUID", player.getStringUUID());
+        state.putDouble("playerX", player.getX());
+        state.putDouble("playerY", player.getY());
+        state.putDouble("playerZ", player.getZ());
+        if (state.getDouble("zhenshijiao") > 0) {
+            double distance = 1 + state.getDouble("zhenshijiao") * 0.5 * state.getDouble("zhenjvli");
             Vec3 eye = player.getEyePosition(1);
             BlockPos hit = level.clip(new ClipContext(eye, eye.add(player.getViewVector(1).scale(distance)),
                     ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player)).getBlockPos();
-            data.putDouble("zhenchufaX", hit.getX());
-            data.putDouble("zhenchufaY", hit.getY());
-            data.putDouble("zhenchufaZ", hit.getZ());
-        } else if (data.getDouble("zhenqian") == 3) {
-            data.putDouble("zhenchufaX", player.getX());
-            data.putDouble("zhenchufaY", player.getY());
-            data.putDouble("zhenchufaZ", player.getZ());
+            state.putDouble("zhenchufaX", hit.getX());
+            state.putDouble("zhenchufaY", hit.getY());
+            state.putDouble("zhenchufaZ", hit.getZ());
+        } else if (state.getDouble("zhenqian") == 3) {
+            state.putDouble("zhenchufaX", player.getX());
+            state.putDouble("zhenchufaY", player.getY());
+            state.putDouble("zhenchufaZ", player.getZ());
         }
-        data.putBoolean("zhenbegin", true);
+        state.putBoolean("zhenbegin", true);
         changed();
     }
 
     public void scheduledTick(ServerLevel level) {
-        CompoundTag data = getPersistentData();
-        if (data.getBoolean("zhenfazhengqve")) {
-            int cost = data.getInt("powerneed");
+        if (state.getBoolean("zhenfazhengqve")) {
+            int cost = state.getInt("powerneed");
             if (cost > 0 && power() > cost) {
-                data.putInt("tick", data.getInt("tick") + 1);
-                if (data.getInt("tick") >= 10) {
-                    if (data.getInt("zhenchufa") == 3) {
+                state.putInt("tick", state.getInt("tick") + 1);
+                if (state.getInt("tick") >= 10) {
+                    if (state.getInt("zhenchufa") == 3) {
                         Vec3 center = new Vec3(worldPosition.getX() + 0.5, worldPosition.getY(), worldPosition.getZ() + 0.5);
-                        for (Entity entity : level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(data.getInt("zhenjvli") / 2d))
+                        for (Entity entity : level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(state.getInt("zhenjvli") / 2d))
                                 .stream().sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList()) {
                             if (matchesTeam(entity)) FormationEffects.execute(this);
-                            data.putInt("power", power() - cost);
+                            state.putInt("power", power() - cost);
                         }
-                    } else if (data.getBoolean("zhenhongshi")) {
+                    } else if (state.getBoolean("zhenhongshi")) {
                         FormationEffects.execute(this);
-                        data.putInt("power", power() - cost);
+                        state.putInt("power", power() - cost);
                     }
-                    data.putInt("tick", 0);
+                    state.putInt("tick", 0);
                 }
-                if (data.getBoolean("zhenbegin") || data.getInt("zhenchufa") == 2) {
+                if (state.getBoolean("zhenbegin") || state.getInt("zhenchufa") == 2) {
                     FormationEffects.execute(this);
-                    data.putInt("power", power() - cost);
-                    data.putBoolean("zhenbegin", false);
+                    state.putInt("power", power() - cost);
+                    state.putBoolean("zhenbegin", false);
                 }
             } else {
                 level.sendParticles(ParticleTypes.LARGE_SMOKE, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5,
@@ -131,13 +131,13 @@ public final class FormationBaseBlockEntity extends RandomizableContainerBlockEn
             }
         }
         if (!(level.getBlockEntity(worldPosition.above()) instanceof FormationMarkerBlockEntity marker) || marker.compass()) {
-            data.putBoolean("zhenfazhengqve", false);
+            state.putBoolean("zhenfazhengqve", false);
         }
         setChanged();
     }
 
     boolean matchesTeam(Entity entity) {
-        int mode = getPersistentData().getInt("zhenmubiao");
+        int mode = state.getInt("zhenmubiao");
         String team = level.getBlockEntity(worldPosition.above()) instanceof FormationMarkerBlockEntity marker ? marker.team() : "";
         return mode == 1 ? team.equals(Relations.entityTeam(entity)) : mode != 2 || !team.equals(Relations.entityTeam(entity));
     }
@@ -161,6 +161,12 @@ public final class FormationBaseBlockEntity extends RandomizableContainerBlockEn
     @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         items = NonNullList.withSize(0, ItemStack.EMPTY);
+        state.getAllKeys().clear();
+        if (tag.contains("formation_state")) state.merge(tag.getCompound("formation_state"));
+    }
+    @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        if (!state.isEmpty()) tag.put("formation_state", state.copy());
     }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }

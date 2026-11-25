@@ -53,14 +53,14 @@ public final class BlueprintTableRuntime {
         derive(raw);
         type(raw, table.getItem(10));
         grade(raw);
-        table.getPersistentData().put("zong", raw);
+        table.setPreviewData(raw);
         table.changed();
     }
 
     /** 保存沿用载体原有组件，将九槽配方写入根字段，并把载体栈数量设为一。 */
     public static void save(BlueprintTableBlockEntity table, String inputName) {
         refresh(table);
-        CompoundTag raw = table.getPersistentData().getCompound("zong");
+        CompoundTag raw = table.previewData();
         ItemStack template = table.getItem(10);
         type(raw, template);
         ItemStack result = table.getItem(9).copy();

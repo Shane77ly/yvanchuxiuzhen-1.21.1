@@ -66,7 +66,7 @@ public final class WoodenStillMenu extends AbstractContainerMenu {
     }
 
     public double progress() {
-        return level.getBlockEntity(pos) instanceof WineVesselBlockEntity vessel ? vessel.getPersistentData().getDouble("jindu") : 0;
+        return level.getBlockEntity(pos) instanceof WineVesselBlockEntity vessel ? vessel.progress() : 0;
     }
 
     public void press(ServerPlayer player, int button) {

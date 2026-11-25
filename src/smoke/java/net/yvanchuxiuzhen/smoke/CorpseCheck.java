@@ -18,6 +18,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.HitEvent;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
@@ -72,8 +74,8 @@ final class CorpseCheck extends ActionCheck {
                     Corpse first = corpses.get(0);
                     expectTrue("主人是施放者且同队", first.isTame() && first.getOwnerUUID().equals(player.getUUID()) && Relations.isFriendly(first, player));
                     expect("最大生命 40 + 20 × 等级（等级 ceil(品阶 × 0.5)）", 80.0, first.getMaxHealth());
-                    expect("攻击 4 + 2 × 等级", 8.0, first.getPersistentData().getDouble("attack_Num"));
-                    expect("技能栏序号", 1.0, first.getPersistentData().getDouble("qishijveweizhi"));
+                    expect("攻击 4 + 2 × 等级", 8.0, EntityAttributes.stat(first, Stat.ATTACK));
+                    expect("技能栏序号", 1, first.storedSlot());
                     expectTrue("亡灵", first.getType().is(EntityTypeTags.UNDEAD));
                     expect("四个角各一只", 4, corpses.stream().map(corpse -> (corpse.getX() > player.getX() ? 1 : 0) + (corpse.getZ() > player.getZ() ? 2 : 0)).distinct().count());
                 }),
@@ -81,20 +83,20 @@ final class CorpseCheck extends ActionCheck {
                     clearArea(player);
                     Corpse corpse = spawnCorpse(player, 0);
                     golem = placeGolem(player, 8);
-                    corpse.getPersistentData().putString("linshigongjizhe", golem.getStringUUID());
+                    corpse.setTempAttackerUuid(golem.getStringUUID());
                     startDistance = corpse.distanceTo(golem);
                 }),
                 new Action(2, player -> {
                     Corpse corpse = corpses(player).get(0);
                     expectTrue("远处的目标：靠近后距离缩短 " + corpse.distanceTo(golem), corpse.distanceTo(golem) < startDistance - 1);
-                    expect("目标已记下", golem.getStringUUID(), corpse.getPersistentData().getString("gongjizhe"));
+                    expect("目标已记下", golem.getStringUUID(), corpse.attackerUuid());
                 }),
                 new Action(26, player -> {
                     clearArea(player);
                     Corpse corpse = spawnCorpse(player, 0);
                     StatusEffects.add(corpse, "effect_002", 600, 0);
                     golem = placeGolem(player, 1.2);
-                    corpse.getPersistentData().putString("linshigongjizhe", golem.getStringUUID());
+                    corpse.setTempAttackerUuid(golem.getStringUUID());
                 }),
                 new Action(2, player -> expectTrue("沉默时近身只有普攻：目标受伤 " + golem.getHealth(), golem.getHealth() < HEALTH)),
                 new Action(4, player -> {
@@ -108,10 +110,10 @@ final class CorpseCheck extends ActionCheck {
                 new Action(50, player -> {
                     expectTrue("喷射粘液：目标中毒", StatusEffects.has(golem, "duyao_20"));
                     expectTrue("喷射粘液：目标受伤", golem.getHealth() < HEALTH);
-                    expect("喷射粘液：阶段", "结束", corpses(player).get(0).getPersistentData().getString("jinengjinxing"));
+                    expect("喷射粘液：阶段", "结束", corpses(player).get(0).phase());
                 }),
                 new Action(28, player -> {
-                    expect("喷射粘液：60 刻后复位", "", corpses(player).get(0).getPersistentData().getString("jineng"));
+                    expect("喷射粘液：60 刻后复位", "", corpses(player).get(0).skill());
                     clearArea(player);
                     Corpse corpse = spawnCorpse(player, 0);
                     golem = placeGolem(player, HUG_DISTANCE);
@@ -129,15 +131,15 @@ final class CorpseCheck extends ActionCheck {
                     stand.moveTo(corpse.getX(), corpse.getY(), corpse.getZ());
                     player.serverLevel().addFreshEntity(stand);
                     corpse.startRiding(stand, true);
-                    corpse.getPersistentData().putString("linshigongjizhe", golem.getStringUUID());
+                    corpse.setTempAttackerUuid(golem.getStringUUID());
                 }),
                 new Action(26, player -> expectTrue("被骑乘时先选挣脱并准备，期间仍被骑乘", corpses(player).get(0).isPassenger())),
                 new Action(2, player -> expectTrue("挣脱后脱离骑乘", !corpses(player).get(0).isPassenger())),
                 new Action(2, player -> {
                     clearArea(player);
                     Corpse corpse = spawnCorpse(player, 0);
-                    corpse.getPersistentData().putDouble("cunxvtick", 599);
-                    corpse.getPersistentData().putDouble("qishijveweizhi", 1);
+                    corpse.setStayTicks(599);
+                    corpse.setStoredSlot(1);
                     savedCorpse = corpse.saveWithoutId(new CompoundTag());
                     corpse.discard();
                 }),
@@ -146,12 +148,12 @@ final class CorpseCheck extends ActionCheck {
                     restored.load(savedCorpse);
                     player.serverLevel().addFreshEntity(restored);
                     expectTrue("存档恢复：主人及友方关系", restored.isOwnedBy(player) && Relations.isFriendly(restored, player));
-                    expect("存档恢复：技能栏序号", 1.0, restored.getPersistentData().getDouble("qishijveweizhi"));
-                    expect("存档恢复：等级", RANK, restored.getPersistentData().getDouble("LEVELnumber"));
+                    expect("存档恢复：技能栏序号", 1, restored.storedSlot());
+                    expect("存档恢复：等级", (double) RANK, EntityAttributes.level(restored));
                     expect("存档恢复：生命上限", 240.0, restored.getMaxHealth());
-                    expect("存档恢复：剩余寿命计时", 599.0, restored.getPersistentData().getDouble("cunxvtick"));
+                    expect("存档恢复：剩余寿命计时", 599, restored.stayTicks());
                 }),
-                new Action(46, player -> expect("存续到期：进入清除自身", "清除自身", corpses(player).get(0).getPersistentData().getString("jineng"))),
+                new Action(46, player -> expect("存续到期：进入清除自身", "清除自身", corpses(player).get(0).skill())),
                 new Action(2, player -> expect("清除自身后消失", 0, corpses(player).size())),
                 new Action(6, player -> {
                     clearArea(player);
@@ -185,7 +187,7 @@ final class CorpseCheck extends ActionCheck {
                     NeoForge.EVENT_BUS.post(new HitEvent(golem, player, 5, false));
                     List<Corpse> corpses = corpses(player);
                     expect("起尸诀附魔命中放出一只", 1, corpses.size());
-                    expect("附魔等级 × 2", 510.0, corpses.get(0).getPersistentData().getDouble("LEVELnumber"));
+                    expect("附魔等级 × 2", 510.0, EntityAttributes.level(corpses.get(0)));
                 })
         );
     }
@@ -210,9 +212,9 @@ final class CorpseCheck extends ActionCheck {
     private void startGrowthKill(ServerPlayer player) {
         golem = placeGolem(player, 1.2);
         golem.setHealth(1);
-        golem.getPersistentData().putDouble("LEVELnumber", 100);
+        EntityAttributes.setLevel(golem, 100);
         Corpse corpse = spawnCorpse(player, 0);
-        corpse.getPersistentData().putDouble("qishijveweizhi", 1);
+        corpse.setStoredSlot(1);
         stiffen(corpse);
         start(corpse, "普攻");
     }
@@ -222,7 +224,7 @@ final class CorpseCheck extends ActionCheck {
         Corpse corpse = SkillSetup.<Corpse>entityType(Corpse.ID).get().create(player.serverLevel());
         Relations.copyAllegiance(player, corpse);
         corpse.tame(player);
-        corpse.getPersistentData().putString("belongToMasterUUID", player.getStringUUID());
+        corpse.setMasterUuid(player.getStringUUID());
         corpse.empower(RANK);
         corpse.moveTo(player.getX() + dx, player.getY(), player.getZ(), -90, 0);
         player.serverLevel().addFreshEntity(corpse);
@@ -247,11 +249,11 @@ final class CorpseCheck extends ActionCheck {
 
     /** 直接让尸体以 {@code golem} 为目标开始一个技能（跳过随机选择）。 */
     private void start(Corpse corpse, String skill) {
-        corpse.getPersistentData().putString("gongjizhe", golem.getStringUUID());
-        corpse.getPersistentData().putString("linshigongjizhe", golem.getStringUUID());
-        corpse.getPersistentData().putString("jineng", skill);
-        corpse.getPersistentData().putString("jinengjinxing", "");
-        corpse.getPersistentData().putDouble("entitytick", 0);
+        corpse.setAttackerUuid(golem.getStringUUID());
+        corpse.setTempAttackerUuid(golem.getStringUUID());
+        corpse.setSkill(skill);
+        corpse.setPhase("");
+        corpse.setEntityTicks(0);
     }
 
     private void enchant(ServerPlayer player, int level) {

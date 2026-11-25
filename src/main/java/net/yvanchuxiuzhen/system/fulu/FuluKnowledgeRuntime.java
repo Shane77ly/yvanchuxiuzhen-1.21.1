@@ -37,7 +37,7 @@ public final class FuluKnowledgeRuntime {
                         .withUnderlined(false).withStrikethrough(false).withObfuscated(false));
         player.connection.send(new ClientboundSetTitleTextPacket(title));
         player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.fulu.head_learned").withStyle(ChatFormatting.GOLD), false);
-        player.getPersistentData().putBoolean("shaohui", true);
+        player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withBurnedKnowledge(true));
         return true;
     }
 

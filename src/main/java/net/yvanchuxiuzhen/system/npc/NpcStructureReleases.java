@@ -28,7 +28,9 @@ public final class NpcStructureReleases {
                 Vec3 center = new Vec3(-99, 63, -278);
                 for (Entity entity : level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(2)).stream()
                         .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList()) {
-                    if (hasIdentity(entity, "businessman_21")) entity.getPersistentData().putString("renwulist2", NpcStructureData.TAVERN_TASK);
+                    if (hasIdentity(entity, "businessman_21")) {
+                        entity.setData(NpcData.PROFILE, entity.getData(NpcData.PROFILE).withScript(1, NpcStructureData.TAVERN_TASK));
+                    }
                 }
                 spawn(level, "businessman_09", -75, 63, -360);
                 spawn(level, "businessman_10", -65, 63, -363);

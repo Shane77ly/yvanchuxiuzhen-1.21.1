@@ -24,6 +24,11 @@ public final class BountyBoardBlockEntity extends RandomizableContainerBlockEnti
     private NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
+    private final CompoundTag[] entries = new CompoundTag[]{
+            new CompoundTag(), new CompoundTag(), new CompoundTag(),
+            new CompoundTag(), new CompoundTag(), new CompoundTag()
+    };
+    private long refreshClearAt;
 
     public BountyBoardBlockEntity(BlockPos pos, BlockState state) {
         super(BountyBlockEntities.BOARD.get(), pos, state);
@@ -35,13 +40,24 @@ public final class BountyBoardBlockEntity extends RandomizableContainerBlockEnti
     }
 
     public CompoundTag entry(int index) {
-        return getPersistentData().getCompound("xvanshangweizhi" + index).copy();
+        if (index < 1 || index > 6) return new CompoundTag();
+        return entries[index - 1].copy();
     }
 
     public void entry(int index, CompoundTag value) {
-        getPersistentData().put("xvanshangweizhi" + index, value);
+        if (index < 1 || index > 6) return;
+        entries[index - 1] = value == null ? new CompoundTag() : value.copy();
         setChanged();
         if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+    }
+
+    public long refreshClearAt() {
+        return refreshClearAt;
+    }
+
+    public void setRefreshClearAt(long gameTime) {
+        this.refreshClearAt = gameTime;
+        setChanged();
     }
 
     @Override
@@ -49,12 +65,20 @@ public final class BountyBoardBlockEntity extends RandomizableContainerBlockEnti
         super.loadAdditional(tag, registries);
         items = NonNullList.withSize(6, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        for (int index = 1; index <= 6; index++) {
+            entries[index - 1] = tag.getCompound("xvanshangweizhi" + index).copy();
+        }
+        refreshClearAt = tag.getLong("refresh_clear_at");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         ContainerHelper.saveAllItems(tag, items, registries);
+        for (int index = 1; index <= 6; index++) {
+            tag.put("xvanshangweizhi" + index, entries[index - 1]);
+        }
+        if (refreshClearAt > 0) tag.putLong("refresh_clear_at", refreshClearAt);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package net.yvanchuxiuzhen.system.quest;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
@@ -26,21 +25,20 @@ public final class QuestTriggerEditorRuntime {
     public static void apply(ServerPlayer player, DisguisedQuestBlockEntity block, String state) {
         player.displayClientMessage(Component.literal("设置任务事件"), false);
         if (block == null) return;
-        CompoundTag data = block.getPersistentData();
         String[] entries = state.split(",");
         for (int row = 1; row <= 10; row++) {
             String script = value(entries, "renwulist" + row + ":");
             if (!script.isEmpty()) {
-                String prefix = value(entries, "gaojirenwu" + row + "-").equals("1") ? "renwulist" : "tasklist";
-                data.putString(prefix + row, script);
+                if (value(entries, "gaojirenwu" + row + "-").equals("1")) block.setRenwulist(row, script);
+                else block.setTasklist(row, script);
             }
             String information = value(entries, "shopinformation" + row + ":");
             if (!information.isEmpty()) {
-                data.putString("shopinformation" + row, information);
-                data.putString("productlist" + row, value(entries, "productlist" + row + ":"));
+                block.setShopInformation(row, information);
+                block.setProductList(row, value(entries, "productlist" + row + ":"));
             }
         }
-        if (value(entries, "lizi-").equals("1")) data.putBoolean("lizixianshi", true);
+        if (value(entries, "lizi-").equals("1")) block.setShowParticles(true);
         block.setChanged();
         player.serverLevel().sendBlockUpdated(block.getBlockPos(), block.getBlockState(), block.getBlockState(), 3);
     }

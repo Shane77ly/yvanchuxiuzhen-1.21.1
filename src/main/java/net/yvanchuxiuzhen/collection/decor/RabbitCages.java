@@ -108,7 +108,7 @@ final class RabbitCages {
         } else {
             level.setBlock(pos, changeState(level.getBlockState(pos), true), 3);
             RabbitCageBlockEntity cage = (RabbitCageBlockEntity) level.getBlockEntity(pos);
-            cage.getPersistentData().putBoolean("qiangzhi", true);
+            cage.setForcedOpen(true);
             cage.sync();
         }
     }
@@ -122,12 +122,11 @@ final class RabbitCages {
                     mob.getNavigation().moveTo(pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, 1.5);
             }
         }
-        CompoundTag data = cage.getPersistentData();
-        if (data.getBoolean("qiangzhi")) {
-            data.putInt("longzitick", data.getInt("longzitick") + 1);
-            if (data.getInt("longzitick") >= 5) {
-                data.putBoolean("qiangzhi", false);
-                data.putInt("longzitick", 0);
+        if (cage.forcedOpen()) {
+            cage.setOpenTicks(cage.openTicks() + 1);
+            if (cage.openTicks() >= 5) {
+                cage.setForcedOpen(false);
+                cage.setOpenTicks(0);
             }
             cage.sync();
         }
@@ -135,7 +134,7 @@ final class RabbitCages {
 
     static void capture(ServerLevel level, BlockPos pos, Entity entity) {
         RabbitCageBlockEntity cage = (RabbitCageBlockEntity) level.getBlockEntity(pos);
-        if (cage.getPersistentData().getBoolean("qiangzhi") || !(entity instanceof Rabbit || entity instanceof Chicken)) return;
+        if (cage.forcedOpen() || !(entity instanceof Rabbit || entity instanceof Chicken)) return;
         entity.teleportTo(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
         cage.setItem(0, ItemStack.EMPTY);
         level.setBlock(pos, changeState(level.getBlockState(pos), false), 3);

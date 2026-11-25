@@ -22,6 +22,7 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.Animation;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 
 /** 039号妖兽的来源实体身份、基础属性、伤害与动画。 */
 public final class Yaoshou039Entity extends YaoshouEntity {
@@ -45,12 +46,12 @@ public final class Yaoshou039Entity extends YaoshouEntity {
     @Override protected void sourceHurt(DamageSource source, float amount) {
         Entity attacker = source.getEntity();
         if (!isAlive() || attacker == null || Relations.isFriendly(this, attacker)) return;
-        getPersistentData().putString("linshigongjizhe", attacker.getStringUUID());
-        if (getPersistentData().getBoolean("beidaduan")) {
+        CreatureData.state(this).setTempAttackerUuid(attacker.getStringUUID());
+        if (CreatureData.state(this).interrupted()) {
             setAnimation("empty");
-            getPersistentData().putBoolean("beidaduan", false);
+            CreatureData.state(this).setInterrupted(false);
         }
-        if (getPersistentData().getString("jineng").isEmpty() && !level().isClientSide()) setAnimation("animation.yaoshou039.attacked");
+        if (CreatureData.state(this).skill().isEmpty() && !level().isClientSide()) setAnimation("animation.yaoshou039.attacked");
     }
 
     @Override public boolean hurt(DamageSource source, float amount) {

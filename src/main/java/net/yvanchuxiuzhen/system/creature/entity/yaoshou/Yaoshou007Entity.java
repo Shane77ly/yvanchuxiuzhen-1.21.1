@@ -17,6 +17,7 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.Animation;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 
 /** 007号妖兽：来源编号身份、初始化、逐刻技能、声音、动画及死亡清袋。 */
 public final class Yaoshou007Entity extends YaoshouEntity {
@@ -39,7 +40,7 @@ public final class Yaoshou007Entity extends YaoshouEntity {
 
     @Override
     protected void sourceSpawn(ServerLevelAccessor level) {
-        if (getPersistentData().getString("LEVELname").isEmpty() && getPersistentData().getDouble("LEVELnumber") < 1) getPersistentData().putDouble("LEVELnumber", Yaoshou037054Support.randomInt(8, 9));
+        if (EntityAttributes.realmName(this).isEmpty() && EntityAttributes.level(this) < 1) EntityAttributes.setLevel(this, Yaoshou037054Support.randomInt(8, 9));
         YaoshouShared.initialize(this, 8, "平庸", "勉强", "勉强", "贫弱", "勉强", "贫弱", "强劲", "平庸", "平庸", "平庸", "勉强", "平庸", "强劲");
     }
 

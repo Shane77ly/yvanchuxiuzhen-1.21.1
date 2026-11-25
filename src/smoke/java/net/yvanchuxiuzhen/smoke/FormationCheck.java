@@ -40,6 +40,10 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.combat.api.PendingSpellAttack;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
+import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.equipment.EquipmentSetup;
 import net.yvanchuxiuzhen.system.equipment.content.FlyingInstrumentEntity;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -234,7 +238,7 @@ final class FormationCheck extends SystemCheck {
         BlockPos targetPos = basePos.offset(-3, 2, 0);
         Zombie target = spawn(player, targetPos);
         target.setNoAi(true);
-        target.getPersistentData().putInt("LEVELnumber", 3);
+        EntityAttributes.setLevel(target, 3);
         configureSpace(base, "空间1", 2, targetPos);
         base.scheduledTick(player.serverLevel());
         expectTrue("空间一不减速高于阵阶的目标", !target.hasEffect(MobEffects.MOVEMENT_SLOWDOWN));
@@ -245,7 +249,7 @@ final class FormationCheck extends SystemCheck {
                 && target.getEffect(MobEffects.MOVEMENT_SLOWDOWN).getAmplifier() == 20);
         configureSpace(base, "空间2", 3, targetPos);
         base.scheduledTick(player.serverLevel());
-        expectTrue("空间二向实体写入禁空标记", target.getPersistentData().getBoolean("jinkong"));
+        expectTrue("空间二向实体写入禁空标记", StatusEffects.isEntityFlightBlocked(target));
 
         boolean flying = Skills.flying(player);
         boolean airborne = Cultivation.tizhiBoolean(player, "takong");
@@ -256,7 +260,7 @@ final class FormationCheck extends SystemCheck {
         base.scheduledTick(player.serverLevel());
         SkillFlight.tick(player);
         expectTrue("空间二标记经技能推进关闭轻功与踏空并消费一次", !Skills.flying(player)
-                && !Cultivation.tizhiBoolean(player, "takong") && !player.getPersistentData().getBoolean("jinkong"));
+                && !Cultivation.tizhiBoolean(player, "takong") && !StatusEffects.isEntityFlightBlocked(player));
         Skills.setFlying(player, flying);
         Cultivation.setTizhiBoolean(player, "takong", airborne);
         player.setGameMode(GameType.SURVIVAL);
@@ -272,21 +276,21 @@ final class FormationCheck extends SystemCheck {
         base.scheduledTick(player.serverLevel());
         instrument.baseTick();
         expectTrue("空间二标记经骑乘法器推进恢复重力并消费一次", !instrument.isNoGravity()
-                && !instrument.getPersistentData().getBoolean("jinkong"));
+                && !StatusEffects.isEntityFlightBlocked(instrument));
         player.stopRiding();
         instrument.discard();
 
         Zombie teleported = spawn(player, basePos.south());
         BlockPos destination = basePos.offset(10, 3, 10);
         configureSpace(base, "空间4", 3, destination);
-        base.getPersistentData().putInt("zhenjvli", 4);
+        base.state().putInt("zhenjvli", 4);
         base.scheduledTick(player.serverLevel());
         expectTrue("空间四将阵基范围目标传送到绝对坐标", teleported.position().distanceToSqr(Vec3.atLowerCornerOf(destination)) < 1e-6);
 
         player.connection.teleport(basePos.getX() + .25, basePos.getY(), basePos.getZ() + .25, yaw, pitch);
         configureSpace(base, "空间5", 3, destination);
-        for (String key : List.of("zhenkun", "zhenli", "zhenqian", "zhenkan")) base.getPersistentData().putBoolean(key, false);
-        for (String key : List.of("zhenzhen", "zhendui", "zhenxvn", "zhengen")) base.getPersistentData().putBoolean(key, true);
+        for (String key : List.of("zhenkun", "zhenli", "zhenqian", "zhenkan")) base.state().putBoolean(key, false);
+        for (String key : List.of("zhenzhen", "zhendui", "zhenxvn", "zhengen")) base.state().putBoolean(key, true);
         base.scheduledTick(player.serverLevel());
         expectTrue("空间五主世界阵位映射经来源显示名命令传送玩家", player.level() == player.server.overworld()
                 && player.position().distanceToSqr(Vec3.atLowerCornerOf(destination)) < 1e-6);
@@ -295,7 +299,7 @@ final class FormationCheck extends SystemCheck {
 
     private void configureSpace(FormationBaseBlockEntity base, String name, int rank, BlockPos target) {
         configureEffect(base, name, rank, 1, target);
-        base.getPersistentData().putString("jinengleibie", "空间");
+        base.state().putString("jinengleibie", "空间");
     }
 
     private void checkEffectsAndSerialization(ServerPlayer player) {
@@ -308,23 +312,23 @@ final class FormationCheck extends SystemCheck {
         BlockPos soulPos = basePos.offset(-3, 2, 0);
         Zombie soulTarget = spawn(player, soulPos);
         configureEffect(base, "阴1", 3, 2, soulPos);
-        base.getPersistentData().putInt("power", 2);
+        base.state().putInt("power", 2);
         base.scheduledTick(player.serverLevel());
-        expectTrue("余额等于费用时不执行且不扣费", soulTarget.getPersistentData().getInt("soul") == 0 && base.power() == 2);
-        base.getPersistentData().putInt("power", 3);
-        base.getPersistentData().putBoolean("zhenbegin", true);
+        expectTrue("余额等于费用时不执行且不扣费", Cultivation.entitySoul(soulTarget) == 0 && base.power() == 2);
+        base.state().putInt("power", 3);
+        base.state().putBoolean("zhenbegin", true);
         base.scheduledTick(player.serverLevel());
-        expect("阴一按阵阶增加实体 soul", 6, soulTarget.getPersistentData().getInt("soul"));
+        expect("阴一按阵阶增加实体 soul", 6, (int) Cultivation.entitySoul(soulTarget));
         expect("阴一执行扣除来源费用", 1, base.power());
 
         BlockPos attackPos = basePos.offset(0, 2, -3);
         Zombie attackTarget = spawn(player, attackPos);
         configureEffect(base, "阴2", 3, 1, attackPos);
         base.scheduledTick(player.serverLevel());
-        CompoundTag attack = attackTarget.getPersistentData();
-        expectTrue("阴二仅写入来源待消费伤害字段", attack.getInt("SoulAttackDamage") == 12
-                && attack.getString("SoulAttackUUID").equals("wu") && attack.getString("damagetype").equals("阴阳")
-                && attack.getDouble("Damage_multiplier") == 2.0);
+        PendingSpellAttack attack = SpellDamage.pendingAttack(attackTarget);
+        expectTrue("阴二仅写入来源待消费伤害字段", attack.soul() && attack.amount() == 12
+                && attack.attackerUuid().equals("wu") && attack.damageType().equals("阴阳")
+                && attack.multiplier() == 2.0);
 
         BlockPos discardPos = basePos.offset(3, 2, -3);
         Zombie discardTarget = spawn(player, discardPos);
@@ -336,7 +340,7 @@ final class FormationCheck extends SystemCheck {
         Zombie noAiTarget = spawn(player, noAiPos);
         configureEffect(base, "阴4", 3, 1, noAiPos);
         base.scheduledTick(player.serverLevel());
-        expectTrue("阴四仅写入来源 NoAI 持久标记", noAiTarget.getPersistentData().getBoolean("NoAI"));
+        expectTrue("阴四仅写入来源 NoAI 持久标记", StatusEffects.isEntityNoAi(noAiTarget));
 
         CompoundTag baseSaved = base.saveWithFullMetadata(player.registryAccess());
         FormationBaseBlockEntity restoredBase = new FormationBaseBlockEntity(basePos, base.getBlockState());
@@ -360,11 +364,11 @@ final class FormationCheck extends SystemCheck {
         if (base == null || element == null || marker == null) return;
 
         configureEffect(base, "阳2", 3, 1, elementPos);
-        base.getPersistentData().putString("jinengleibie", "阳");
+        base.state().putString("jinengleibie", "阳");
         base.scheduledTick(player.serverLevel());
         expect("阳二经阵基入口向目标方块累加三点罡气", 3, FormationProtection.amount(element));
-        base.getPersistentData().putBoolean("zhenbegin", true);
-        base.getPersistentData().putInt("power", 2);
+        base.state().putBoolean("zhenbegin", true);
+        base.state().putInt("power", 2);
         base.scheduledTick(player.serverLevel());
         expect("阳二重复执行累加原罡气", 6, FormationProtection.amount(element));
         FormationElementBlockEntity restored = new FormationElementBlockEntity(elementPos, element.getBlockState());
@@ -373,17 +377,17 @@ final class FormationCheck extends SystemCheck {
 
         BlockPos target = basePos.offset(-3, 4, -3);
         configureEffect(base, "阳1", 3, 1, target);
-        base.getPersistentData().putString("jinengleibie", "阳");
-        base.getPersistentData().putString("ManaAttackUUID", player.getStringUUID());
+        base.state().putString("jinengleibie", "阳");
+        base.state().putString("ManaAttackUUID", player.getStringUUID());
         base.scheduledTick(player.serverLevel());
         List<FormationLauncher> launchers = player.level().getEntitiesOfClass(FormationLauncher.class, new AABB(target).inflate(4));
         expect("阳一真实阵基入口只生成一个发射体", 1, launchers.size());
         if (launchers.size() == 1) {
             FormationLauncher launcher = launchers.getFirst();
             createdEntities.add(launcher.getUUID());
-            expectTrue("阳一复制阵阶、队伍与攻击者", launcher.getPersistentData().getInt("zhenLEVEL") == 3
+            expectTrue("阳一复制阵阶、队伍与攻击者", launcher.zhenLevel() == 3
                     && Relations.entityTeam(launcher).equals(marker.team())
-                    && launcher.getPersistentData().getString("ManaAttackUUID").equals(player.getStringUUID()));
+                    && launcher.manaAttackUuid().equals(player.getStringUUID()));
             launcher.baseTick();
             List<FormationArrow> arrows = player.level().getEntitiesOfClass(FormationArrow.class, launcher.getBoundingBox().inflate(4));
             expect("阳一受控首刻生成一个原生箭弹体", 1, arrows.size());
@@ -392,12 +396,12 @@ final class FormationCheck extends SystemCheck {
                 createdEntities.add(arrow.getUUID());
                 arrow.tick();
                 expectTrue("箭首刻复制阵阶倍率且保持来源漏写攻击者和筛选模式", arrow.isNoGravity()
-                        && arrow.getPersistentData().getInt("ManaAttackDamage") == 3
-                        && arrow.getPersistentData().getDouble("Damage_multiplier") == 2
-                        && arrow.getPersistentData().getString("ManaAttackUUID").isEmpty()
-                        && arrow.getPersistentData().getInt("zhenmubiao") == 0
+                        && arrow.manaAttackDamage() == 3
+                        && arrow.damageMultiplier() == 2
+                        && arrow.manaAttackUuid().isEmpty()
+                        && arrow.targetMode() == 0
                         && arrow.getPierceLevel() == 5 && arrow.getBaseDamage() == .1);
-                arrow.getPersistentData().putInt("tick", 19);
+                arrow.setArrowTick(19);
                 arrow.tick();
                 expectTrue("箭有所有者时第二十刻执行来源移除", arrow.isRemoved());
             }
@@ -406,7 +410,7 @@ final class FormationCheck extends SystemCheck {
         }
 
         configureEffect(base, "阳3", 4, 1, target);
-        base.getPersistentData().putString("jinengleibie", "阳");
+        base.state().putString("jinengleibie", "阳");
         base.scheduledTick(player.serverLevel());
         Vec3 high = Vec3.atLowerCornerOf(target).add(0, 32, 0);
         List<FormationFalling> falling = player.level().getEntitiesOfClass(FormationFalling.class, new AABB(high, high).inflate(1));
@@ -414,7 +418,7 @@ final class FormationCheck extends SystemCheck {
         if (falling.size() == 1) {
             FormationFalling entity = falling.getFirst();
             createdEntities.add(entity.getUUID());
-            expectTrue("阳三复制来源字段与旗队伍", entity.getPersistentData().getInt("zhenLEVEL") == 4
+            expectTrue("阳三复制来源字段与旗队伍", entity.zhenLevel() == 4
                     && Relations.entityTeam(entity).equals(marker.team()));
             entity.baseTick();
             expectTrue("阳三下方空气时受控首刻即移除", entity.isRemoved());
@@ -423,13 +427,13 @@ final class FormationCheck extends SystemCheck {
         Zombie unchanged = spawn(player, target);
         for (String category : List.of("金", "水", "木", "火", "土")) {
             configureEffect(base, category + "1", 3, 1, target);
-            base.getPersistentData().putString("jinengleibie", category);
+            base.state().putString("jinengleibie", category);
             base.scheduledTick(player.serverLevel());
             expectTrue(category + "系保持来源阴名分支错配并扣来源费用",
-                    unchanged.getPersistentData().getInt("soul") == 0 && base.power() == 1);
+                    Cultivation.entitySoul(unchanged) == 0 && base.power() == 1);
         }
         configureEffect(base, "阳2", 3, 0, elementPos);
-        base.getPersistentData().putString("jinengleibie", "阳");
+        base.state().putString("jinengleibie", "阳");
         base.scheduledTick(player.serverLevel());
         expectTrue("零费用来源门槛保持不执行也不扣费", FormationProtection.amount(element) == 6 && base.power() == 1);
     }
@@ -463,7 +467,7 @@ final class FormationCheck extends SystemCheck {
     }
 
     private void configureEffect(FormationBaseBlockEntity base, String name, int rank, int cost, BlockPos target) {
-        CompoundTag data = base.getPersistentData();
+        CompoundTag data = base.state();
         data.putBoolean("zhenfazhengqve", true);
         data.putBoolean("zhenbegin", true);
         data.putBoolean("zhenzuobiao", true);

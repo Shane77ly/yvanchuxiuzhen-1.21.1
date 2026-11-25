@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.creature;
 
+import java.util.List;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,6 +19,11 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou001Entity;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou002Entity;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouAttributes;
@@ -30,17 +36,15 @@ final class TalismanCorpseSealing {
     private static final TagKey<EntityType<?>> YAOSHOU = TagKey.create(Registries.ENTITY_TYPE,
             ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "yaoshou"));
     private static final Set<String> PRIOR_ITEMS = Set.of("fabao_015", "duedan", "tiandao_np_csetitem");
-    private static final String[] NUMBERS = {
-            "caijinumber", "LEVELnumber", "experience_Max", "experience", "health_Max", "health_Rec",
-            "power_Max", "power_Rec", "soul_Max", "soul_Rec", "attack_Num", "attack_Def", "mana_Att",
-            "mana_Def", "soul_Att", "soul_Def", "speed_number"
-    };
-    private static final String[] STRINGS = {
-            "LEVELname", "health_Max_LEVEL", "health_Rec_LEVEL", "power_Max_LEVEL", "power_Rec_LEVEL",
-            "soul_Max_LEVEL", "soul_Rec_LEVEL", "attack_Num_LEVEL", "attack_Def_LEVEL", "mana_Att_LEVEL",
-            "mana_Def_LEVEL", "soul_Att_LEVEL", "soul_Def_LEVEL", "speed_LEVEL"
-    };
-    private static final String[] CHARACTER_NUMBERS = {"character_def", "character_att", "character_interval", "character_resist"};
+    private static final List<Stat> STATS = List.of(
+            Stat.HEALTH_MAX, Stat.HEALTH_REC, Stat.POWER_MAX, Stat.POWER_REC, Stat.SOUL_MAX, Stat.SOUL_REC,
+            Stat.ATTACK, Stat.ATTACK_DEF, Stat.MANA_ATT, Stat.MANA_DEF, Stat.SOUL_ATT, Stat.SOUL_DEF, Stat.MOVE_SPEED);
+    private static final List<String> STAT_KEYS = List.of(
+            "health_Max", "health_Rec", "power_Max", "power_Rec", "soul_Max", "soul_Rec",
+            "attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def", "speed_number");
+    private static final List<String> RATING_KEYS = List.of(
+            "health_Max_LEVEL", "health_Rec_LEVEL", "power_Max_LEVEL", "power_Rec_LEVEL", "soul_Max_LEVEL", "soul_Rec_LEVEL",
+            "attack_Num_LEVEL", "attack_Def_LEVEL", "mana_Att_LEVEL", "mana_Def_LEVEL", "soul_Att_LEVEL", "soul_Def_LEVEL", "speed_LEVEL");
 
     private TalismanCorpseSealing() { }
 
@@ -65,7 +69,7 @@ final class TalismanCorpseSealing {
 
     private static CompoundTag capture(Entity corpse) {
         CompoundTag data = new CompoundTag();
-        copyState(corpse.getPersistentData(), data);
+        copyState(corpse, data);
         LivingEntity living = (LivingEntity) corpse;
         data.putDouble("entitydaxiao", living.getAttribute(YaoshouAttributes.SIZE).getBaseValue());
         data.putString("yaoshouid", BuiltInRegistries.ENTITY_TYPE.getKey(corpse.getType()).toString());
@@ -87,36 +91,34 @@ final class TalismanCorpseSealing {
         if (corpse == null) return;
         BlockPos pos = event.clickedPos();
         corpse.moveTo(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, event.level().random.nextFloat() * 360, 0);
-        CompoundTag state = corpse.getPersistentData();
-        state.putDouble("caijinumber", data.getDouble("caijinumber"));
+        CreatureState state = CreatureData.state(corpse);
+        state.setHarvestCount(data.getDouble("caijinumber"));
         LivingEntity living = (LivingEntity) corpse;
         if (identifier.equals(ModId.VALUE + ":yaoshou_001") || identifier.equals(ModId.VALUE + ":yaoshou_002")) {
             living.getAttribute(YaoshouAttributes.SKIN).setBaseValue(data.getDouble("yaoshoupifuxianshi"));
         }
         living.getAttribute(YaoshouAttributes.SIZE).setBaseValue(data.getDouble("entitydaxiao"));
-        state.putString("yaoshouid", identifier);
         Relations.setTeam(corpse, data.getString("team"));
-        state.putString("LEVELname", data.getString("LEVELname"));
-        for (String key : new String[]{"LEVELnumber", "experience_Max", "experience"}) {
-            state.putDouble(key, data.getDouble(key));
-        }
+        EntityAttributes.update(corpse, current -> {
+            EntityStats updated = current.withLevel(data.getDouble("LEVELnumber"))
+                    .withRealmName(data.getString("LEVELname"))
+                    .withExperienceMax(data.getDouble("experience_Max"))
+                    .withExperience(data.getDouble("experience"));
+            for (int i = 0; i < STATS.size(); i++) {
+                updated = updated.withStat(STATS.get(i), data.getDouble(STAT_KEYS.get(i)))
+                        .withRating(STATS.get(i), data.getString(RATING_KEYS.get(i)));
+            }
+            return updated;
+        });
         corpse.setCustomName(Component.literal(data.getString("yaoshouname")));
-        state.putString("yaoshouname", data.getString("yaoshouname"));
-        state.putString("health_Max_LEVEL", data.getString("health_Max_LEVEL"));
-        state.putDouble("health_Max", data.getDouble("health_Max"));
         living.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
-        state.putDouble("health_Num", 0);
         living.setHealth(0);
-        for (String key : new String[]{"health_Rec", "power_Max", "power_Rec", "soul_Max", "soul_Rec",
-                "attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def"}) {
-            state.putString(key + "_LEVEL", data.getString(key + "_LEVEL"));
-            state.putDouble(key, data.getDouble(key));
-        }
-        state.putString("speed_LEVEL", data.getString("speed_LEVEL"));
-        state.putDouble("speed_number", data.getDouble("speed_number"));
         if (!data.getString("character").isEmpty()) {
-            state.putString("character", data.getString("character"));
-            for (String key : CHARACTER_NUMBERS) state.putDouble(key, data.getDouble(key));
+            state.setCharacter(data.getString("character"));
+            state.setCharacterDef(data.getDouble("character_def"));
+            state.setCharacterAtt(data.getDouble("character_att"));
+            state.setCharacterInterval(data.getDouble("character_interval"));
+            state.setCharacterResist(data.getDouble("character_resist"));
         }
         if (corpse instanceof Mob mob) {
             mob.finalizeSpawn(event.level(), event.level().getCurrentDifficultyAt(corpse.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
@@ -124,12 +126,24 @@ final class TalismanCorpseSealing {
         event.level().addFreshEntity(corpse);
     }
 
-    private static void copyState(CompoundTag source, CompoundTag target) {
-        for (String key : NUMBERS) target.putDouble(key, source.getDouble(key));
-        for (String key : STRINGS) target.putString(key, source.getString(key));
-        if (!source.getString("character").isEmpty()) {
-            target.putString("character", source.getString("character"));
-            for (String key : CHARACTER_NUMBERS) target.putDouble(key, source.getDouble(key));
+    private static void copyState(Entity corpse, CompoundTag target) {
+        CreatureState state = CreatureData.state(corpse);
+        EntityStats stats = EntityAttributes.get(corpse);
+        target.putDouble("caijinumber", state.harvestCount());
+        target.putDouble("LEVELnumber", stats.level());
+        target.putString("LEVELname", stats.realmName());
+        target.putDouble("experience_Max", stats.experienceMax());
+        target.putDouble("experience", stats.experience());
+        for (int i = 0; i < STATS.size(); i++) {
+            target.putDouble(STAT_KEYS.get(i), stats.stat(STATS.get(i)));
+            target.putString(RATING_KEYS.get(i), stats.rating(STATS.get(i)));
+        }
+        if (!state.character().isEmpty()) {
+            target.putString("character", state.character());
+            target.putDouble("character_def", state.characterDef());
+            target.putDouble("character_att", state.characterAtt());
+            target.putDouble("character_interval", state.characterInterval());
+            target.putDouble("character_resist", state.characterResist());
         }
     }
 }

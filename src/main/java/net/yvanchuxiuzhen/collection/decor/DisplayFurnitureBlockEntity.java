@@ -25,6 +25,7 @@ public final class DisplayFurnitureBlockEntity extends RandomizableContainerBloc
     private NonNullList<ItemStack> items;
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[6];
+    private String displayDirection = "";
 
     public DisplayFurnitureBlockEntity(DisplayFurnitureVariant variant, BlockPos pos, BlockState state) {
         super(DisplayFurnitureContent.type(variant), pos, state);
@@ -35,26 +36,31 @@ public final class DisplayFurnitureBlockEntity extends RandomizableContainerBloc
 
     public DisplayFurnitureVariant variant() { return variant; }
     public IItemHandler handler(Direction direction) { return direction == null ? unsided : sided[direction.ordinal()]; }
-    public String displayDirection() { return getPersistentData().getString("fangxiang"); }
+    public String displayDirection() { return displayDirection; }
+    public void setDisplayDirection(String direction) {
+        this.displayDirection = direction == null ? "" : direction;
+        setChanged();
+    }
     public void placed(Direction direction) {
-        getPersistentData().putString("fangxiang", switch (direction) {
+        setDisplayDirection(switch (direction) {
             case NORTH -> "北";
             case SOUTH -> "南";
             case WEST -> "西";
             case EAST -> "东";
             default -> throw new IllegalArgumentException("展示家具只使用水平方向");
         });
-        setChanged();
     }
 
     @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        displayDirection = tag.getString("fangxiang");
     }
     @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!displayDirection.isEmpty()) tag.putString("fangxiang", displayDirection);
     }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithFullMetadata(registries); }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }

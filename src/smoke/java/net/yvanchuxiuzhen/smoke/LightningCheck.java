@@ -131,7 +131,7 @@ final class LightningCheck extends SystemCheck {
                 Vec3 at = player.position().add(0, 0, 6);
                 Skills.showDamageArea(player, at, "animation.shanghaifanwei.shiliuge3", "控雷阵", 20, 4);
                 DamageArea area = player.serverLevel().getEntitiesOfClass(DamageArea.class, new AABB(at, at).inflate(1)).getFirst();
-                area.getPersistentData().putDouble("jishiqi", 19);
+                area.setTimer(19);
                 area.baseTick();
                 expectTrue("控雷阵结束时调用已登记落雷命令并移除提示", area.isRemoved() && bolts(player).size() == 1);
                 bolts(player).forEach(ColoredLightningBolt::discard);

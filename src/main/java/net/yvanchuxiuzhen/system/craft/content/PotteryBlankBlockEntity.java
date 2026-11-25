@@ -25,6 +25,8 @@ public final class PotteryBlankBlockEntity extends RandomizableContainerBlockEnt
     private NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
+    private boolean burning;
+    private int fireTick;
 
     public PotteryBlankBlockEntity(BlockPos pos, BlockState state) {
         super(CraftBlockEntities.POTTERY_BLANK.get(), pos, state);
@@ -41,7 +43,19 @@ public final class PotteryBlankBlockEntity extends RandomizableContainerBlockEnt
     }
 
     public boolean burning() {
-        return getPersistentData().getBoolean("starfire");
+        return burning;
+    }
+
+    public void setBurning(boolean value) {
+        burning = value;
+    }
+
+    public int fireTick() {
+        return fireTick;
+    }
+
+    public void setFireTick(int value) {
+        fireTick = value;
     }
 
     @Override
@@ -49,12 +63,16 @@ public final class PotteryBlankBlockEntity extends RandomizableContainerBlockEnt
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(1, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        burning = tag.getBoolean("starfire");
+        fireTick = tag.getInt("firetick");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (burning) tag.putBoolean("starfire", true);
+        if (fireTick != 0) tag.putInt("firetick", fireTick);
     }
 
     @Override

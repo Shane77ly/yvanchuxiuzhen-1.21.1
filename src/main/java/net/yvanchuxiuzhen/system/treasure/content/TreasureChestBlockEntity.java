@@ -36,6 +36,9 @@ public final class TreasureChestBlockEntity extends RandomizableContainerBlockEn
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private boolean opened;
+    private double tickCount;
+    private String state = "";
 
     public TreasureChestBlockEntity(BlockPos pos, BlockState state) {
         super(BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath().equals("treasure_chest_11")
@@ -43,6 +46,30 @@ public final class TreasureChestBlockEntity extends RandomizableContainerBlockEn
         for (Direction direction : Direction.values()) {
             sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
         }
+    }
+
+    public boolean opened() {
+        return opened;
+    }
+
+    public void setOpened(boolean opened) {
+        this.opened = opened;
+    }
+
+    public double tickCount() {
+        return tickCount;
+    }
+
+    public void setTickCount(double tickCount) {
+        this.tickCount = tickCount;
+    }
+
+    public String openState() {
+        return state;
+    }
+
+    public void setOpenState(String state) {
+        this.state = state == null ? "" : state;
     }
 
     public boolean locked() {
@@ -72,12 +99,18 @@ public final class TreasureChestBlockEntity extends RandomizableContainerBlockEn
         items = NonNullList.withSize(1, ItemStack.EMPTY);
         tryLoadLootTable(tag);
         ContainerHelper.loadAllItems(tag, items, registries);
+        opened = tag.getBoolean("dakai");
+        tickCount = tag.getDouble("tick");
+        state = tag.getString("zhuangtai");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (opened) tag.putBoolean("dakai", true);
+        if (tickCount != 0) tag.putDouble("tick", tickCount);
+        if (!state.isEmpty()) tag.putString("zhuangtai", state);
     }
 
     @Override

@@ -1,15 +1,18 @@
 package net.yvanchuxiuzhen.system.guchong.entity;
 
-import net.minecraft.nbt.CompoundTag;
+import java.util.EnumMap;
+import java.util.Map;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 01、03、04号蛊虫的来源等级与十三项资质计算。 */
 final class GuchongStats {
-    private static final String[] KEYS = {"health_Max", "health_Rec", "power_Max", "power_Rec", "soul_Max", "soul_Rec", "attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def", "speed"};
     private GuchongStats() { }
 
     static void initialize(GuchongEntity entity, String... ratings) {
@@ -17,17 +20,21 @@ final class GuchongStats {
     }
 
     static void initialize(GuchongEntity entity, int defaultLevel, String... ratings) {
-        CompoundTag data = entity.getPersistentData();
-        if (!data.getString("LEVELname").isEmpty()) return;
-        if (data.getDouble("LEVELnumber") < 1) data.putDouble("LEVELnumber", defaultLevel);
-        double level = data.getDouble("LEVELnumber");
-        for (int i = 0; i < KEYS.length; i++) data.putString(KEYS[i] + "_LEVEL", ratings[i]);
-        if (level <= 40 && data.getDouble("experience_Max") < 1) {
+        EntityStats current = EntityAttributes.get(entity);
+        if (!current.realmName().isEmpty()) return;
+        double level = current.level() < 1 ? defaultLevel : current.level();
+        Map<Stat, String> nextRatings = new EnumMap<>(Stat.class);
+        for (int i = 0; i < EntityAttributes.COMBAT_STATS.size(); i++) {
+            nextRatings.put(EntityAttributes.COMBAT_STATS.get(i), ratings[i]);
+        }
+        double experienceMax = current.experienceMax();
+        if (level <= 40 && experienceMax < 1) {
             double max = 100;
             for (int n = 1; n <= (int) level; n++) max += n * n * 10 + 10;
-            data.putDouble("experience_Max", max);
+            experienceMax = max;
         }
-        updateLevelName(entity);
+        EntityAttributes.set(entity, current.withLevel(level).withExperienceMax(experienceMax)
+                .withRealmName(realmNameForLevel(level)).withRatings(nextRatings));
         calculateAttributes(entity);
         String team = entity.getType().builtInRegistryHolder().key().location().toString().replace(':', '_');
         Relations.setTeam(entity, team);
@@ -35,12 +42,14 @@ final class GuchongStats {
     }
 
     static void updateLevelName(Entity entity) {
-        CompoundTag data = entity.getPersistentData();
-        double level = data.getDouble("LEVELnumber");
+        EntityAttributes.setRealmName(entity, realmNameForLevel(EntityAttributes.level(entity)));
+    }
+
+    private static String realmNameForLevel(double level) {
         int rank = Mth.clamp(((int) level - 1) / 5 + 1, 1, 10);
         int step = Mth.clamp((int) level - (rank - 1) * 5, 1, 5);
-        data.putString("LEVELname", new String[]{"初级", "低级", "中级", "高级", "圆满"}[step - 1]);
-        data.putString("LEVELname", new String[]{"一", "二", "三", "四", "五", "六", "七", "八", "九", "十"}[rank - 1] + "阶" + data.getString("LEVELname"));
+        String stepText = new String[]{"初级", "低级", "中级", "高级", "圆满"}[step - 1];
+        return new String[]{"一", "二", "三", "四", "五", "六", "七", "八", "九", "十"}[rank - 1] + "阶" + stepText;
     }
 
     static void calculateUpgradeAttributes(Entity entity) {
@@ -48,28 +57,32 @@ final class GuchongStats {
     }
 
     static void calculateAttributes(Entity entity) {
-        CompoundTag data = entity.getPersistentData();
-        double level = data.getDouble("LEVELnumber");
-        data.putDouble("health_Max", Math.ceil(120 + rating(data, "health_Max", 7, 6, 5, 4, 3) * Math.pow(level / 3, 2)));
+        EntityStats current = EntityAttributes.get(entity);
+        double level = current.level();
+        Map<Stat, Double> values = new EnumMap<>(Stat.class);
+        double healthMax = Math.ceil(120 + rating(current, Stat.HEALTH_MAX, 7, 6, 5, 4, 3) * Math.pow(level / 3, 2));
+        values.put(Stat.HEALTH_MAX, healthMax);
         LivingEntity living = (LivingEntity) entity;
-        living.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getDouble("health_Max"));
-        living.setHealth((float) data.getDouble("health_Max"));
-        data.putDouble("health_Rec", Math.ceil(1 + Math.pow(level / rating(data, "health_Rec", 16, 18, 20, 22, 24), 2)));
-        data.putDouble("power_Max", Math.ceil(120 + rating(data, "power_Max", 14, 13, 12, 11, 10) * Math.pow(level / 3, 2)));
-        data.putDouble("power_Rec", Math.ceil(Math.pow(level / rating(data, "power_Rec", 24, 22, 20, 18, 16), 2)));
-        data.putDouble("soul_Max", Math.ceil(120 + rating(data, "soul_Max", 14, 13, 12, 11, 10) * Math.pow(level / 3, 2)));
-        data.putDouble("soul_Rec", Math.ceil(Math.pow(level / rating(data, "soul_Rec", 24, 22, 20, 18, 16), 2)));
-        for (String key : new String[]{"attack_Num", "attack_Def", "mana_Att", "mana_Def", "soul_Att", "soul_Def"}) {
-            data.putDouble(key, Math.ceil(2 + Math.pow(level / rating(data, key, 2.6, 3.2, 3.8, 4.4, 5), 2)));
-            if (key.equals("attack_Num")) living.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getDouble(key));
+        living.getAttribute(Attributes.MAX_HEALTH).setBaseValue(healthMax);
+        living.setHealth((float) healthMax);
+        values.put(Stat.HEALTH_REC, Math.ceil(1 + Math.pow(level / rating(current, Stat.HEALTH_REC, 16, 18, 20, 22, 24), 2)));
+        values.put(Stat.POWER_MAX, Math.ceil(120 + rating(current, Stat.POWER_MAX, 14, 13, 12, 11, 10) * Math.pow(level / 3, 2)));
+        values.put(Stat.POWER_REC, Math.ceil(Math.pow(level / rating(current, Stat.POWER_REC, 24, 22, 20, 18, 16), 2)));
+        values.put(Stat.SOUL_MAX, Math.ceil(120 + rating(current, Stat.SOUL_MAX, 14, 13, 12, 11, 10) * Math.pow(level / 3, 2)));
+        values.put(Stat.SOUL_REC, Math.ceil(Math.pow(level / rating(current, Stat.SOUL_REC, 24, 22, 20, 18, 16), 2)));
+        for (Stat stat : new Stat[]{Stat.ATTACK, Stat.ATTACK_DEF, Stat.MANA_ATT, Stat.MANA_DEF, Stat.SOUL_ATT, Stat.SOUL_DEF}) {
+            double value = Math.ceil(2 + Math.pow(level / rating(current, stat, 2.6, 3.2, 3.8, 4.4, 5), 2));
+            values.put(stat, value);
+            if (stat == Stat.ATTACK) living.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(value);
         }
-        double speed = rating(data, "speed", .3, .25, .2, .15, .1) + level * .005;
-        data.putDouble("speed_number", speed);
+        double speed = rating(current, Stat.MOVE_SPEED, .3, .25, .2, .15, .1) + level * .005;
+        values.put(Stat.MOVE_SPEED, speed);
         living.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(speed);
+        EntityAttributes.set(entity, current.withValues(values));
     }
 
-    private static double rating(CompoundTag data, String key, double excellent, double strong, double average, double weak, double poor) {
-        return switch (data.getString(key + "_LEVEL")) {
+    private static double rating(EntityStats stats, Stat key, double excellent, double strong, double average, double weak, double poor) {
+        return switch (stats.rating(key)) {
             case "绝佳" -> excellent;
             case "强劲" -> strong;
             case "平庸" -> average;

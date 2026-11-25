@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.yihuo;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,6 +30,7 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.yihuo.api.FireExhaustedEvent;
 import net.yvanchuxiuzhen.system.yihuo.api.FireHeatEvent;
+import net.yvanchuxiuzhen.system.yihuo.api.Yihuo;
 
 /** 十八种阴阳火块共用的燃料、二十刻供热与接触灼烧；物理差异保留在内容表。 */
 public final class FireBlock extends ContentBlock implements EntityBlock {
@@ -83,16 +83,13 @@ public final class FireBlock extends ContentBlock implements EntityBlock {
         if (!(level instanceof ServerLevel server)) return;
         FireBlockEntity fire = (FireBlockEntity) server.getBlockEntity(pos);
         if (Relations.isFriendly(fire.friendlyTeams(), entity)) return;
-        CompoundTag data = fire.getPersistentData();
-        String team = data.getString("team");
-        String attacker = data.getString("ManaAttackUUID");
+        String team = fire.team();
+        String attacker = fire.manaAttackUuid();
         if (entity instanceof ServerPlayer player) {
             Cultivation.setTizhiString(player, "fireteam", team);
             Cultivation.setTizhiString(player, "fireAttackUUID", attacker);
-        } else {
-            entity.getPersistentData().putString("fireteam", team);
-            entity.getPersistentData().putString("fireAttackUUID", attacker);
         }
+        Yihuo.markBurnTarget(entity, team, attacker);
         if (fire.power() >= unit) {
             if (entity instanceof LivingEntity target) {
                 SpellDamage.command(server, target, "shanghai 火 " + attacker + " false " + (3 * (grade + 1)) + " 1.5");

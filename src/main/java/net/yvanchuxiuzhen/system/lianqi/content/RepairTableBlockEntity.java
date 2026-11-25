@@ -35,10 +35,37 @@ public final class RepairTableBlockEntity extends RandomizableContainerBlockEnti
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private String requirement = "";
+    private int requiredLevel;
+    private String repairType = "";
 
     public RepairTableBlockEntity(BlockPos pos, BlockState state) {
         super(LianqiBlockEntities.REPAIR_TABLE.get(), pos, state);
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
+    }
+
+    public String requirement() {
+        return requirement;
+    }
+
+    public void setRequirement(String value) {
+        requirement = value == null ? "" : value;
+    }
+
+    public int requiredLevel() {
+        return requiredLevel;
+    }
+
+    public void setRequiredLevel(int value) {
+        requiredLevel = value;
+    }
+
+    public String repairType() {
+        return repairType;
+    }
+
+    public void setRepairType(String value) {
+        repairType = value == null ? "" : value;
     }
 
     public IItemHandler handler(Direction direction) {
@@ -55,12 +82,18 @@ public final class RepairTableBlockEntity extends RandomizableContainerBlockEnti
         super.loadAdditional(tag, registries);
         items = NonNullList.withSize(1, ItemStack.EMPTY);
         if (!tryLoadLootTable(tag)) ContainerHelper.loadAllItems(tag, items, registries);
+        requirement = tag.getString("needcailiao");
+        requiredLevel = tag.getInt("needcailiaolevel");
+        repairType = tag.getString("xiulileixing");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!requirement.isEmpty()) tag.putString("needcailiao", requirement);
+        if (requiredLevel != 0) tag.putInt("needcailiaolevel", requiredLevel);
+        if (!repairType.isEmpty()) tag.putString("xiulileixing", repairType);
     }
 
     @Override

@@ -159,15 +159,10 @@ final class TownTemplatePlacementCheck extends SystemCheck {
         build.putInt("construction_need_log", 5);
         build.putInt("construction_need_stone", 6);
         build.putInt("construction_need_wool", 2);
-        town.getPersistentData().put("build_data", build);
-        CompoundTag data = town.getPersistentData();
-        data.putInt("shiftingX", core.getX());
-        data.putInt("shiftingY", core.getY());
-        data.putInt("shiftingZ", core.getZ());
-        data.putInt("lengthofX", template.getSize().getX());
-        data.putInt("lengthofY", template.getSize().getY());
-        data.putInt("lengthofZ", template.getSize().getZ());
-        data.putString("team", "");
+        town.setBuildData(build);
+        town.setShifting(core.getX(), core.getY(), core.getZ());
+        town.setLengthOf(template.getSize().getX(), template.getSize().getY(), template.getSize().getZ());
+        town.setTeam("");
         town.setItem(0, fixture(Items.OAK_LOG, 4, index, "log-0"));
         town.setItem(1, fixture(Items.OAK_LOG, 3, index, "log-1"));
         town.setItem(2, fixture(Items.COBBLESTONE, 2, index, "stone-0"));
@@ -192,24 +187,23 @@ final class TownTemplatePlacementCheck extends SystemCheck {
         }
         int type = index / SUFFIXES.length;
         int direction = index % SUFFIXES.length;
-        CompoundTag data = town.getPersistentData();
-        CompoundTag build = data.getCompound("build_data");
+        CompoundTag build = town.buildData();
         Block expectedCore = BuiltInRegistries.BLOCK.get(id(type == 0 ? "chengzhen_antai" : "chengzhen_buildblock"));
         expect(templateName + " 实际核心方块", id(type == 0 ? "chengzhen_antai" : "chengzhen_buildblock"),
                 BuiltInRegistries.BLOCK.getKey(level.getBlockState(plan).getBlock()));
         expect(templateName + " 核心容器槽数", type == 0 ? 1 : 18, town.getContainerSize());
-        expect(templateName + " 完工状态", true, data.getBoolean("construction_completed"));
+        expect(templateName + " 完工状态", true, town.completed());
         expect(templateName + " 建筑类型元数据", BUILD_TYPES[type], build.getString("build_type"));
         expect(templateName + " 建筑方向元数据", DIRECTIONS[direction], build.getString("build_direction"));
-        expect(templateName + " 保存团队字段", "", data.getString("team"));
-        expect(templateName + " 核心偏移X", cores[index].getX(), data.getInt("shiftingX"));
-        expect(templateName + " 核心偏移Y", cores[index].getY(), data.getInt("shiftingY"));
-        expect(templateName + " 核心偏移Z", cores[index].getZ(), data.getInt("shiftingZ"));
+        expect(templateName + " 保存团队字段", "", town.team());
+        expect(templateName + " 核心偏移X", cores[index].getX(), town.shiftingX());
+        expect(templateName + " 核心偏移Y", cores[index].getY(), town.shiftingY());
+        expect(templateName + " 核心偏移Z", cores[index].getZ(), town.shiftingZ());
 
         StructureTemplate template = level.getStructureManager().getOrCreate(id(templateName));
-        expect(templateName + " 保存结构宽度", template.getSize().getX(), data.getInt("lengthofX"));
-        expect(templateName + " 保存结构高度", template.getSize().getY(), data.getInt("lengthofY"));
-        expect(templateName + " 保存结构深度", template.getSize().getZ(), data.getInt("lengthofZ"));
+        expect(templateName + " 保存结构宽度", template.getSize().getX(), town.lengthOfX());
+        expect(templateName + " 保存结构高度", template.getSize().getY(), town.lengthOfY());
+        expect(templateName + " 保存结构深度", template.getSize().getZ(), town.lengthOfZ());
         expect(templateName + " 保存木材需求", 5, build.getInt("construction_need_log"));
         expect(templateName + " 保存石材需求", 6, build.getInt("construction_need_stone"));
         expect(templateName + " 保存羊毛需求", 2, build.getInt("construction_need_wool"));
@@ -306,7 +300,7 @@ final class TownTemplatePlacementCheck extends SystemCheck {
         BlockPos plan = plans[index];
         if (minecraft.player.distanceToSqr(Vec3.atCenterOf(plan)) < 16
                 && minecraft.level.getBlockEntity(plan) instanceof TownBlockEntity town
-                && town.getPersistentData().getCompound("build_data").getString("build_name")
+                && town.buildData().getString("build_name")
                         .equals(BUILD_TYPES[index / SUFFIXES.length])) return true;
         if (local > 400) {
             fail(templateNames[index] + " 客户端尚未同步玩家传送、规划方块或受控建造数据");

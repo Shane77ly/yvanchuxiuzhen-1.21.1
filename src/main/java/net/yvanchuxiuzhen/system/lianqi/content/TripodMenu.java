@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.lianqi.content;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -78,17 +77,19 @@ public final class TripodMenu extends AbstractContainerMenu {
         return pos;
     }
 
-    public CompoundTag data() {
-        return level.getBlockEntity(pos) instanceof TripodBlockEntity tripod ? tripod.getPersistentData() : new CompoundTag();
+    public TripodBlockEntity tripod() {
+        return level.getBlockEntity(pos) instanceof TripodBlockEntity tripod ? tripod : null;
     }
 
     public String tripodName() {
-        String name = data().getString("TripodName");
+        TripodBlockEntity tripod = tripod();
+        String name = tripod == null ? "" : tripod.tripodName();
         return name.isEmpty() ? "普通鼎炉" : name;
     }
 
     public int progress() {
-        return level.getBlockState(pos).is(DEVICES) ? data().getInt("lianzhijindu") : 0;
+        TripodBlockEntity tripod = tripod();
+        return tripod != null && level.getBlockState(pos).is(DEVICES) ? tripod.progress() : 0;
     }
 
     public String recipeLine(int slot) {

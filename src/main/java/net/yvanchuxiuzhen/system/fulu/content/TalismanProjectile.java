@@ -41,11 +41,15 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.fulu.FuluUse;
 import net.yvanchuxiuzhen.system.fulu.FiveThunderCurse;
 import net.yvanchuxiuzhen.system.fulu.TalismanControl;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
+import net.yvanchuxiuzhen.system.fulu.data.FuluCasterState;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.lianqi.api.Lianqi;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -96,11 +100,39 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     private boolean recorded;
     private boolean splitting;
     private int ticks;
+    private String masterUuid = "";
+    private String attackUuid = "";
+    private String ownerName = "";
+    private boolean nineEffects;
 
     public TalismanProjectile(EntityType<? extends TalismanProjectile> type, Level level, Kind kind) {
         super(type, level);
         this.kind = kind;
         setTalismanPierce(kind == Kind.SWORD ? 5 : kind == Kind.QI_SWORD ? 10 : 0);
+    }
+
+    public String masterUuid() {
+        return masterUuid;
+    }
+
+    public void setMasterUuid(String masterUuid) {
+        this.masterUuid = masterUuid;
+    }
+
+    public String attackUuid() {
+        return attackUuid;
+    }
+
+    public String ownerName() {
+        return ownerName;
+    }
+
+    public boolean isNineEffects() {
+        return nineEffects;
+    }
+
+    public void setNineEffects(boolean nineEffects) {
+        this.nineEffects = nineEffects;
     }
 
     @Override
@@ -284,9 +316,10 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
                 grade = Fulu.talisman(held).level();
                 held.shrink(1);
             } else {
-                grade = owner.getPersistentData().getDouble("fululevel");
+                FuluCasterState state = owner.getData(FuluData.CASTER);
+                grade = state.pendingLevel();
                 if (kind != Kind.BIND) {
-                    owner.getPersistentData().putDouble("fululevel", 0);
+                    owner.setData(FuluData.CASTER, state.withPendingLevel(0));
                 }
             }
             setNoGravity(true);
@@ -352,11 +385,11 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     private void tamingTick() {
         Entity owner = getOwner();
         if (!isNoGravity()) {
-            grade = owner.getPersistentData().getDouble("fululevel");
+            grade = owner.getData(FuluData.CASTER).pendingLevel();
             Relations.setTeam(this, owner instanceof Player ? Relations.team(owner) : "");
-            getPersistentData().putString("zhurenname", owner.getDisplayName().getString());
+            ownerName = owner.getDisplayName().getString();
             if (owner instanceof Player player && (ModifierKeys.ctrl(player) || ModifierKeys.alt(player))) {
-                getPersistentData().putBoolean("jiuxiaoguo", true);
+                nineEffects = true;
             }
             setNoGravity(true);
         }
@@ -369,9 +402,10 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     private void fiveThunderTick() {
         Entity owner = getOwner();
         if (!isNoGravity()) {
-            grade = owner.getPersistentData().getDouble("fulu41level");
-            owner.getPersistentData().putDouble("fulu41level", 0);
-            getPersistentData().putString("belongToMasterUUID", owner.getStringUUID());
+            FuluCasterState state = owner.getData(FuluData.CASTER);
+            grade = state.level41();
+            owner.setData(FuluData.CASTER, state.withLevel41(0));
+            masterUuid = owner.getStringUUID();
             Relations.setTeam(this, Relations.team(owner));
             setNoGravity(true);
         }
@@ -386,7 +420,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
             double stored = FuluUse.stateValue(getOwner(), "fululevel46");
             grade = stored > 0 ? stored : 1;
             Relations.setTeam(this, Relations.entityTeam(getOwner()));
-            getPersistentData().putString("AttackUUID", getOwner().getStringUUID());
+            attackUuid = getOwner().getStringUUID();
             setNoGravity(true);
         }
         if (++ticks >= FLIGHT_TICKS) {
@@ -427,7 +461,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     }
 
     /**
-     * 火炮弹（45 号符）每刻：火焰与消散粒子；第一刻品阶取使用者的 {@code fulu45level}（没有则取其 {@code mana_Att}）并清零；
+     * 火炮弹（45 号符）每刻：火焰与消散粒子；第一刻品阶取使用者的 {@code level45}（没有则取其 {@link Stat#MANA_ATT}）并清零；
      * 满 14 刻时爆炸，只记录击飞与伤害标记（不经命令造成伤害），随后消失。
      */
     private void cannonTick(ServerLevel level) {
@@ -435,11 +469,12 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         level.sendParticles(ParticleTypes.FLAME, getX(), getY() + 0.3, getZ(), 2, 0.2, 0.2, 0.2, 0);
         level.sendParticles(Particles.type("disappearorange"), getX(), getY() + 0.3, getZ(), 1, 0, 0, 0, 0);
         if (!isNoGravity()) {
-            double stored = owner.getPersistentData().getDouble("fulu45level");
-            grade = stored > 0 ? stored : owner.getPersistentData().getDouble("mana_Att");
-            owner.getPersistentData().putDouble("fulu45level", 0);
+            FuluCasterState state = owner.getData(FuluData.CASTER);
+            double stored = state.level45();
+            grade = stored > 0 ? stored : EntityAttributes.stat(owner, Stat.MANA_ATT);
+            owner.setData(FuluData.CASTER, state.withLevel45(0));
             Relations.setTeam(this, owner instanceof Player ? Relations.team(owner) : "");
-            getPersistentData().putString("belongToMasterUUID", owner.getStringUUID());
+            masterUuid = owner.getStringUUID();
             setNoGravity(true);
         }
         if (++ticks >= FLIGHT_TICKS) {
@@ -450,7 +485,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
 
     /**
      * 火炮弹爆炸：粒子、音效，4 格内非友方被击飞，2 格内更远更高；命中时（{@code strike}）另经 {@code /shanghai 火}
-     * 对 4 格内造成 {@code 5×品阶}、2 格内造成 {@code 15×品阶}；到期时只写目标的 {@code ManaAttack*} 标记（来源，无读取者）。
+     * 对 4 格内造成 {@code 5×品阶}、2 格内造成 {@code 15×品阶}；到期时通过 {@link SpellDamage#markCannonBlast} 记录目标状态。
      */
     private void cannonBlast(boolean strike) {
         Entity owner = getOwner();
@@ -475,11 +510,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
                         SpellDamage.command(level, living, "shanghai 火 " + owner.getStringUUID() + " true " + ring[3] * grade + " 1");
                     }
                 } else {
-                    target.getPersistentData().putDouble("ManaAttackDamage", ring[4] * grade);
-                    target.getPersistentData().putString("ManaAttackUUID", getPersistentData().getString("belongToMasterUUID"));
-                    target.getPersistentData().putString("damagetype", "火");
-                    target.getPersistentData().putDouble("Damage_multiplier", 1);
-                    target.getPersistentData().putBoolean("attackduli", true);
+                    SpellDamage.markCannonBlast(target, ring[4] * grade, masterUuid);
                     target.setDeltaMovement(new Vec3((target.getX() - getX()) * ring[1], ring[2], (target.getZ() - getZ()) * ring[1]));
                 }
             }
@@ -489,8 +520,9 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     private void qiSwordTick(ServerLevel level) {
         Entity owner = getOwner();
         if (!isNoGravity()) {
-            grade = owner.getPersistentData().getDouble("fulu05level");
-            owner.getPersistentData().putDouble("fulu05level", 0);
+            FuluCasterState state = owner.getData(FuluData.CASTER);
+            grade = state.level05();
+            owner.setData(FuluData.CASTER, state.withLevel05(0));
             setNoGravity(true);
         }
         if (++ticks >= FLIGHT_TICKS) {
@@ -506,7 +538,7 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     private void frostTick(ServerLevel level) {
         level.sendParticles(ParticleTypes.INSTANT_EFFECT, getX(), getY() + 0.3, getZ(), 1, 0, 0, 0, 0);
         if (!isNoGravity()) {
-            grade = getOwner().getPersistentData().getDouble("fulu29level");
+            grade = getOwner().getData(FuluData.CASTER).level29();
             setNoGravity(true);
         }
         if (++ticks >= FLIGHT_TICKS) {
@@ -514,13 +546,13 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         }
     }
 
-    /** 冰锥命中：命中处 2 格内的非友方生物缓慢 600 刻，等级取使用者当前的 {@code fulu29level}。 */
+    /** 冰锥命中：命中处 2 格内的非友方生物缓慢 600 刻，等级取使用者当前的 {@code level29}。 */
     private void chill(Vec3 at) {
         Entity owner = getOwner();
         if (owner == null || !(level() instanceof ServerLevel level)) {
             return;
         }
-        int amplifier = (int) (owner.getPersistentData().getDouble("fulu29level") * 2 - 1);
+        int amplifier = (int) (owner.getData(FuluData.CASTER).level29() * 2 - 1);
         for (Entity target : nearby(level, at, 2)) {
             if (!Relations.isFriendly(owner, target) && target instanceof LivingEntity living) {
                 living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 600, amplifier));
@@ -529,19 +561,18 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     }
 
     /**
-     * 子母弹每刻：来源以使用者的 {@code kaiqi}（从不被写入）判断初始化，所以每刻都重新读取品阶；
-     * 使用者带 {@code fulu32shoufa} 时本弹成为会分裂的主弹，并清掉使用者的标记；主弹满 16 刻爆炸。
+     * 子母弹每刻：读取使用者的 {@link FuluCasterState#level32()}；
+     * 使用者带 {@code splitFirst32} 时本弹成为会分裂的主弹，并清掉使用者的标记；主弹满 16 刻爆炸。
      */
     private void clusterTick(ServerLevel level) {
         Entity owner = getOwner();
         level.sendParticles(ParticleTypes.FLAME, getX(), getY() + 0.3, getZ(), 2, 0.2, 0.2, 0.2, 0);
-        if (!owner.getPersistentData().getBoolean("kaiqi")) {
-            grade = owner.getPersistentData().getDouble("fulu32level");
-            if (owner.getPersistentData().getBoolean("fulu32shoufa")) {
-                setNoGravity(true);
-                splitting = true;
-                owner.getPersistentData().putBoolean("fulu32shoufa", false);
-            }
+        FuluCasterState state = owner.getData(FuluData.CASTER);
+        grade = state.level32();
+        if (state.splitFirst32()) {
+            setNoGravity(true);
+            splitting = true;
+            owner.setData(FuluData.CASTER, state.withCluster32(grade, false));
         }
         if (splitting && ++ticks >= 16) {
             detonate();
@@ -615,6 +646,10 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         tag.putBoolean("jilu", recorded);
         tag.putInt("tick", ticks);
         tag.putBoolean("fulu32shoufa", splitting);
+        tag.putString("belongToMasterUUID", masterUuid);
+        tag.putString("AttackUUID", attackUuid);
+        tag.putString("zhurenname", ownerName);
+        tag.putBoolean("jiuxiaoguo", nineEffects);
     }
 
     @Override
@@ -625,5 +660,9 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         recorded = tag.getBoolean("jilu");
         ticks = tag.getInt("tick");
         splitting = tag.getBoolean("fulu32shoufa");
+        masterUuid = tag.getString("belongToMasterUUID");
+        attackUuid = tag.getString("AttackUUID");
+        ownerName = tag.getString("zhurenname");
+        nineEffects = tag.getBoolean("jiuxiaoguo");
     }
 }

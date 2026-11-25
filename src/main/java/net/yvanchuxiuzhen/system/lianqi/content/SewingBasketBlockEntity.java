@@ -23,10 +23,28 @@ public final class SewingBasketBlockEntity extends RandomizableContainerBlockEnt
     private NonNullList<ItemStack> items = NonNullList.withSize(8, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
+    private int selectedPage;
+    private int maxPage;
 
     public SewingBasketBlockEntity(BlockPos pos, BlockState state) {
         super(LianqiBlockEntities.SEWING_BASKET.get(), pos, state);
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
+    }
+
+    public int selectedPage() {
+        return selectedPage;
+    }
+
+    public void setSelectedPage(int value) {
+        selectedPage = value;
+    }
+
+    public int maxPage() {
+        return maxPage;
+    }
+
+    public void setMaxPage(int value) {
+        maxPage = value;
     }
 
     public IItemHandler handler(Direction direction) {
@@ -43,12 +61,16 @@ public final class SewingBasketBlockEntity extends RandomizableContainerBlockEnt
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(8, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        selectedPage = tag.getInt("xvanze");
+        maxPage = tag.getInt("pagemax");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (selectedPage != 0) tag.putInt("xvanze", selectedPage);
+        if (maxPage != 0) tag.putInt("pagemax", maxPage);
     }
 
     @Override

@@ -30,6 +30,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.Contribution;
 import net.yvanchuxiuzhen.system.attribute.api.DamageElement;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
@@ -145,8 +146,9 @@ final class CombatCheck extends SystemCheck {
         expect("木人桩物品放置出一个木人桩", 1, found.size());
         expect("放置消耗一个木人桩物品（创造模式不消耗）", player.isCreative() ? 2 : 1, player.getMainHandItem().getCount());
         dummy = found.get(0);
+        dummy.setHealth((float) dummy.getMaxHealth());
         expect("木人桩最大生命", 1024, dummy.getMaxHealth());
-        dummy.getPersistentData().putDouble("mana_Def", 0);
+        EntityAttributes.setStat(dummy, Stat.MANA_DEF, 0);
         double dealt = hit(player, dummy, new Shanghai.Request(DamageCategory.NONE, player.getUUID(), true, 6, 1));
         near("木人桩受击 6²/(6+0)", 6, dealt);
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
@@ -157,9 +159,9 @@ final class CombatCheck extends SystemCheck {
         menu.press(player, 0, "12.5");
         menu.press(player, 1, "7");
         menu.press(player, 2, "不是数字");
-        expect("设置物理防御基值", 12.5, dummy.getPersistentData().getDouble("attack_Def"));
-        expect("设置法术防御基值", 7, dummy.getPersistentData().getDouble("mana_Def"));
-        expect("数字解析失败设为 0", 0, dummy.getPersistentData().getDouble("soul_Def"));
+        expect("设置物理防御基值", 12.5, EntityAttributes.stat(dummy, Stat.ATTACK_DEF));
+        expect("设置法术防御基值", 7, EntityAttributes.stat(dummy, Stat.MANA_DEF));
+        expect("数字解析失败设为 0", 0, EntityAttributes.stat(dummy, Stat.SOUL_DEF));
         expect("界面标签读到玩家体质里的物理防御基值", 12.5, Cultivation.tizhiDouble(player, "attack_Def"));
         menu.getSlot(0).set(new ItemStack(Items.IRON_HELMET));
         player.closeContainer();
@@ -192,8 +194,8 @@ final class CombatCheck extends SystemCheck {
         prepareSpace(level, golem.getBoundingBox());
         golem.setNoAi(true);
         golem.setHealth((float) health);
-        golem.getPersistentData().putDouble("mana_Def", 3);
-        golem.getPersistentData().putDouble("soul_Def", 2);
+        EntityAttributes.setStat(golem, Stat.MANA_DEF, 3);
+        EntityAttributes.setStat(golem, Stat.SOUL_DEF, 2);
         level.addFreshEntity(golem);
         return golem;
     }

@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.skill.entity;
 
 import java.util.Map;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -135,9 +134,8 @@ public final class SwordEntities {
     private static final class SwordShadow implements EntitySkill {
         @Override
         public void tick(SkillEntity self) {
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            if (scratch.getDouble("tick") >= LIFETIME) {
+            self.setSkillTick(self.skillTick() + 1);
+            if (self.skillTick() >= LIFETIME) {
                 self.discard();
             }
         }

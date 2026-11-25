@@ -13,7 +13,9 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouEntity;
 
 /** 预选两种亲代的召援技能，以正式逐刻回调生成援兵，检查同档重进后的服务端状态。 */
@@ -61,11 +63,11 @@ final class RenjianPackCheck extends SystemCheck {
         mob.moveTo(x + 0.5, 180, 9.5, 0, 0);
         mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(mob);
-        var data = mob.getPersistentData();
-        data.putString("gongjizhe", player.getStringUUID());
-        data.putString("linshigongjizhe", player.getStringUUID());
-        data.putString("jineng", skill);
-        data.putDouble("entitytick", 0);
+        var data = CreatureData.state(mob);
+        data.setAttackerUuid(player.getStringUUID());
+        data.setTempAttackerUuid(player.getStringUUID());
+        data.setSkill(skill);
+        data.setTick(0);
         parents.add(mob);
     }
 
@@ -77,9 +79,9 @@ final class RenjianPackCheck extends SystemCheck {
                     mob -> BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).equals(type));
             expect(type + " 召出两只", 2, mobs.size());
             for (var mob : mobs) {
-                var data = mob.getPersistentData();
-                expect(type + " 继承半级向上取整", Math.ceil(parents.get(i).getPersistentData().getDouble("LEVELnumber") / 2), data.getDouble("LEVELnumber"));
-                double time = data.getDouble("daojishi");
+                var data = CreatureData.state(mob);
+                expect(type + " 继承半级向上取整", Math.ceil(EntityAttributes.level(parents.get(i)) / 2), EntityAttributes.level(mob));
+                double time = data.countdown();
                 expectTrue(type + " 召援倒计时已启动", time > 0 && time < 600);
                 if (i == 0) expect("召唤月狼外观", "yaoshou00702", mob.texture());
                 children.add(new Child(mob.getUUID(), type, time));
@@ -96,7 +98,7 @@ final class RenjianPackCheck extends SystemCheck {
                 continue;
             }
             expect("援兵保持类型", child.type(), BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()));
-            double time = mob.getPersistentData().getDouble("daojishi");
+            double time = CreatureData.state(mob).countdown();
             expectTrue(child.type() + " 重进后倒计时继续：" + time, time > 0 && time < child.time());
             if (child.type().equals(id("yaoshou_007"))) expect("同档恢复月狼外观", "yaoshou00702", mob.texture());
         }

@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.xiulian.data;
 
+import com.mojang.serialization.Codec;
 import java.util.function.Supplier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -8,7 +9,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.yvanchuxiuzhen.platform.ModId;
 
 /**
- * 修炼系统的玩家附件。来源这些字段全部在所有克隆事件中复制（{@code clone_policy.csv}：all_clone_events），只同步给本人。
+ * 修炼系统的实体附件。玩家修炼在所有克隆事件中复制，只同步给本人；非玩家神识计数随实体保存。
  */
 public final class XiulianAttachments {
     private static final DeferredRegister<AttachmentType<?>> TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ModId.VALUE);
@@ -17,6 +18,10 @@ public final class XiulianAttachments {
             .serialize(CultivationData.CODEC)
             .copyOnDeath()
             .sync((holder, player) -> holder == player, CultivationData.STREAM_CODEC)
+            .build());
+    public static final Supplier<AttachmentType<Double>> ENTITY_SOUL = TYPES.register("entity_soul", () -> AttachmentType
+            .builder(() -> 0.0)
+            .serialize(Codec.DOUBLE)
             .build());
 
     private XiulianAttachments() {

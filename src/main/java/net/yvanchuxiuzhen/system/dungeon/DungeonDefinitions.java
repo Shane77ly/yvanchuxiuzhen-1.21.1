@@ -11,7 +11,7 @@ final class DungeonDefinitions {
     }
 
     static void reset(DungeonBlockEntity block) {
-        CompoundTag data = block.getPersistentData();
+        CompoundTag data = block.state();
         for (int wave = 1; wave <= 5; wave++) data.putInt("fybenboci" + wave + "num", 0);
         for (String key : new String[]{"fubentick", "fubenbociMax", "fubenbocinum", "fubenjieshutime", "fubenentityspawnnum", "fubenentitynum"}) data.putInt(key, 0);
         for (int index = 1; data.getCompound("zhanwei" + index).getInt("entityshengchengX") != 0; index++) {
@@ -24,7 +24,7 @@ final class DungeonDefinitions {
     }
 
     static void parse(DungeonBlockEntity block) {
-        CompoundTag data = block.getPersistentData();
+        CompoundTag data = block.state();
         String[] fields = data.getString("fubenshujv").split("%");
         data.putInt("fubenbociMax", (int) DungeonRewards.number(fields[1]));
         data.putInt("fubenjieshutime", (int) DungeonRewards.number(fields[2]));
@@ -57,7 +57,7 @@ final class DungeonDefinitions {
     }
 
     static void configure(DungeonBlockEntity block, double side) {
-        CompoundTag data = block.getPersistentData();
+        CompoundTag data = block.state();
         if (side >= 1) {
             data.putInt("fubenbianchang", (int) side);
             for (String axis : new String[]{"X", "Y", "Z"}) data.putInt("fubenzhongxin" + axis, (int) (side / 2));
@@ -66,7 +66,7 @@ final class DungeonDefinitions {
             for (int y = 0; y < (int) side; y++) {
                 for (int z = 0; z < (int) side; z++) {
                     if (block.getLevel().getBlockEntity(block.getBlockPos().offset(x, y, z)) instanceof DungeonBlockEntity marker && marker.kind().equals("fubenentity")) {
-                        CompoundTag tag = marker.getPersistentData();
+                        CompoundTag tag = marker.state();
                         tag.putInt("entityshengchengX", x);
                         tag.putInt("entityshengchengY", y);
                         tag.putInt("entityshengchengZ", z);

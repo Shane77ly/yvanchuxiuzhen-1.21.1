@@ -24,11 +24,18 @@ public final class AshBurnerBlockEntity extends RandomizableContainerBlockEntity
     private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
+    private boolean active;
+    private int burnTick;
 
     public AshBurnerBlockEntity(BlockPos pos, BlockState state) {
         super(FuluBlockEntities.ASH_BURNER.get(), pos, state);
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
     }
+
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
+    public int burnTick() { return burnTick; }
+    public void setBurnTick(int burnTick) { this.burnTick = burnTick; }
 
     public IItemHandler handler(Direction direction) {
         return direction == null ? unsided : sided[direction.ordinal()];
@@ -44,12 +51,16 @@ public final class AshBurnerBlockEntity extends RandomizableContainerBlockEntity
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(9, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        active = tag.getBoolean("begin");
+        burnTick = tag.getInt("burn_tick");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        tag.putBoolean("begin", active);
+        tag.putInt("burn_tick", burnTick);
     }
 
     @Override

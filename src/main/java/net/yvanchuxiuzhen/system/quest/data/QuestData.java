@@ -15,6 +15,8 @@ public final class QuestData {
     public static final Supplier<AttachmentType<CompoundTag>> SESSION = register("quest_dialogue", true);
     public static final Supplier<AttachmentType<CompoundTag>> JOURNAL = register("quest_journal", true);
     public static final Supplier<AttachmentType<CompoundTag>> FLAGS = register("quest_story_flags", false);
+    public static final Supplier<AttachmentType<BountyTargetData>> BOUNTY_TARGET = TYPES.register("bounty_target",
+            () -> AttachmentType.builder(() -> BountyTargetData.EMPTY).serialize(BountyTargetData.CODEC).build());
 
     private QuestData() {
     }

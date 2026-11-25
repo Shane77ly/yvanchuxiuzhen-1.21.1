@@ -24,10 +24,19 @@ public final class BlueprintTableBlockEntity extends RandomizableContainerBlockE
     private NonNullList<ItemStack> items = NonNullList.withSize(223, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
+    private CompoundTag previewData = new CompoundTag();
 
     public BlueprintTableBlockEntity(BlockPos pos, BlockState state) {
         super(LianqiBlockEntities.BLUEPRINT_TABLE.get(), pos, state);
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
+    }
+
+    public CompoundTag previewData() {
+        return previewData;
+    }
+
+    public void setPreviewData(CompoundTag value) {
+        previewData = value == null ? new CompoundTag() : value.copy();
     }
 
     /** 发布完整库存和预览数值快照。 */
@@ -45,12 +54,14 @@ public final class BlueprintTableBlockEntity extends RandomizableContainerBlockE
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(223, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        previewData = tag.getCompound("zong").copy();
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!previewData.isEmpty()) tag.put("zong", previewData);
     }
 
     @Override

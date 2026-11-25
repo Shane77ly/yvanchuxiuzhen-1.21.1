@@ -142,7 +142,8 @@ final class DecorRemainderCheck extends SystemCheck {
                 onServer(player -> {
                     expectTrue("Q219原生网络按钮默认转一号博古架且只返一件并清整槽", player.level().getBlockState(pos(1)).is(block("beechfurniture_1501"))
                             && player.getInventory().countItem(Items.DIAMOND) == 1);
-                    expect("都承盘网络换型保留文字朝向", displayDirections.get(1), player.level().getBlockEntity(pos(1)).getPersistentData().getString("fangxiang"));
+                    expect("都承盘网络换型保留文字朝向", displayDirections.get(1),
+                            ((UtilityFurnitureBlockEntity) player.level().getBlockEntity(pos(1))).displayDirection());
                     player.closeContainer();
                     use(player, pos(0));
                     expectTrue("重进后蒲团可以再次乘坐原载具", player.getVehicle() != null && player.getVehicle().getUUID().equals(cushionId));

@@ -122,13 +122,13 @@ final class QiankunCheck extends SystemCheck {
             case 10 -> {
                 if (local < 10) return false;
                 onServer(player -> {
-                    CompoundTag data = dao(player).getPersistentData();
-                    expect("道人普通右键按UUID写准备状态", "准备", data.getString(player.getStringUUID() + "zhuangtai"));
-                    expectTrue("道人自然定时刻推进烟雾计数", data.getBoolean("yanwubaofa")
-                            && data.getDouble("yanwutick") > 0 && data.getDouble("yanwutick") < 54);
+                    QiankundaorenBlockEntity dao = dao(player);
+                    expect("道人普通右键按UUID写准备状态", "准备", dao.playerStage(player.getUUID()));
+                    expectTrue("道人自然定时刻推进烟雾计数", dao.isSmokeBurst()
+                            && dao.smokeTick() > 0 && dao.smokeTick() < 54);
                 });
                 expectTrue("烟雾中间计数同步到客户端", minecraft.level.getBlockEntity(daoPos) instanceof QiankundaorenBlockEntity entity
-                        && entity.getPersistentData().getDouble("yanwutick") > 0);
+                        && entity.smokeTick() > 0);
             }
             case 11 -> {
                 if (local < 130) return false;
@@ -148,7 +148,7 @@ final class QiankunCheck extends SystemCheck {
                 checkIndex("真实保存重进", 3);
                 checkSmokeFinished("真实保存重进");
                 onServer(player -> {
-                    expect("真实保存重进保留道人UUID状态", "准备", dao(player).getPersistentData().getString(player.getStringUUID() + "zhuangtai"));
+                    expect("真实保存重进保留道人UUID状态", "准备", dao(player).playerStage(player.getUUID()));
                     ItemStack material = disciple(player).getItem(0);
                     expectTrue("真实保存重进保留一槽物品及实例组件", material.is(Items.DIAMOND)
                             && material.getCount() == 1 && MATERIAL_NAME.equals(material.get(DataComponents.CUSTOM_NAME)));
@@ -224,13 +224,13 @@ final class QiankunCheck extends SystemCheck {
     }
 
     private void checkSmokeFinished(String label) {
-        onServer(player -> expectTrue(label + "服务端关闭并清零", finished(dao(player).getPersistentData())));
+        onServer(player -> expectTrue(label + "服务端关闭并清零", finished(dao(player))));
         expectTrue(label + "客户端关闭并清零", minecraft.level.getBlockEntity(daoPos) instanceof QiankundaorenBlockEntity entity
-                && finished(entity.getPersistentData()));
+                && finished(entity));
     }
 
-    private static boolean finished(CompoundTag data) {
-        return !data.getBoolean("yanwubaofa") && data.getDouble("yanwutick") == 0;
+    private static boolean finished(QiankundaorenBlockEntity dao) {
+        return !dao.isSmokeBurst() && dao.smokeTick() == 0;
     }
 
     private Button button() {

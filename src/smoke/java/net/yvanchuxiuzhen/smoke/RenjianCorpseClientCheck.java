@@ -26,6 +26,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.Yaoshou003Entity;
 
 /** 在受控003身上验证客户端准星拾取、使用键、服务端交互及实际落物。 */
@@ -74,7 +75,7 @@ final class RenjianCorpseClientCheck extends SystemCheck {
         onServer(player -> {
             state[0] = accepted;
             state[1] = drops;
-            state[2] = (int) sheep.getPersistentData().getDouble("caijinumber");
+            state[2] = (int) CreatureData.state(sheep).harvestCount();
         });
         int expected = clicks;
         if (state[0] > expected || state[1] > expected || state[2] > expected) {

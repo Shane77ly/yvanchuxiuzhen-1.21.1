@@ -120,8 +120,10 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
         var template = p.server.getStructureManager().get(id("fanhuacheng11")).orElseThrow();
         var entries = template.save(new CompoundTag()).getList("entities", Tag.TAG_COMPOUND);
         var matches = entries.stream().map(tag -> ((CompoundTag) tag).getCompound("nbt"))
-                .filter(nbt -> nbt.getString("id").equals(id("businessman_23").toString()) && nbt.getCompound("NeoForgeData")
-                        .getString("renwulist1").startsWith("陈叶/chenyeduihua/")).toList();
+                .filter(nbt -> nbt.getString("id").equals(id("businessman_23").toString())
+                        && nbt.getCompound("neoforge:attachments").getCompound("yvanchuxiuzhen:npc_profile")
+                                .getList("scripts", Tag.TAG_STRING).stream()
+                                .findFirst().map(Tag::getAsString).orElse("").startsWith("陈叶/chenyeduihua/")).toList();
         require(matches.size() == 1, "模板中没有唯一的陈叶任务居民");
         CompoundTag resident = matches.getFirst().copy();
         resident.remove("UUID");
@@ -172,12 +174,12 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
         select(p, reward, null);
         dead = summon(p);
         require(dead.getType() == BuiltInRegistries.ENTITY_TYPE.get(id(entityId)) && dead.getHealth() == health
-                && dead.getPersistentData().getDouble("power") == capacity, "首次召唤实体类型或初始生命、储灵不符");
+                && dead.power() == capacity, "首次召唤实体类型或初始生命、储灵不符");
         p.interactOn(dead, InteractionHand.MAIN_HAND);
         require(p.getVehicle() == dead, "空手交互未骑上奖励法器");
         p.stopRiding();
         power = capacity - 17.25;
-        dead.getPersistentData().putDouble("power", power);
+        dead.setPower(power);
         var area = dead.getBoundingBox().inflate(4);
         Set<UUID> prior = p.serverLevel().getEntitiesOfClass(ItemEntity.class, area).stream()
                 .map(Entity::getUUID).collect(Collectors.toSet());
@@ -207,7 +209,7 @@ final class FlyingInstrumentAcquisitionCheck extends SystemCheck {
         var replacement = summon(p);
         expectTrue("拾取 " + drop.getUUID() + " 后从背包重召 " + replacement.getUUID(), replacement.getType() == dead.getType()
                 && !replacement.getUUID().equals(dead.getUUID()) && replacement.getHealth() == 1
-                && replacement.getPersistentData().getDouble("power") == power);
+                && replacement.power() == power);
         replacement.discard();
         drop = null;
     }

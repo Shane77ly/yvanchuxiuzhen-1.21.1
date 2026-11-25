@@ -16,7 +16,7 @@ public final class DungeonMarkerRenderer implements BlockEntityRenderer<DungeonB
 
     @Override
     public void render(DungeonBlockEntity block, float partialTick, PoseStack pose, MultiBufferSource buffers, int light, int overlay) {
-        String id = block.getPersistentData().getString("zhanweifuid");
+        String id = block.state().getString("zhanweifuid");
         if (id.isEmpty()) return;
         pose.pushPose();
         pose.translate(.5, 1.5, .5);

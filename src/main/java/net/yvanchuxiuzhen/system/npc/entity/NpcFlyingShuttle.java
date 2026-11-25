@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.npc.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -51,6 +52,7 @@ public final class NpcFlyingShuttle extends PathfinderMob implements GeoEntity, 
     private final AnimatableInstanceCache animations = GeckoLibUtil.createInstanceCache(this);
     private String procedure = "empty";
     private boolean procedureStarted;
+    private boolean cutOff;
 
     public NpcFlyingShuttle(EntityType<? extends NpcFlyingShuttle> type, Level level) {
         super(type, level);
@@ -58,6 +60,8 @@ public final class NpcFlyingShuttle extends PathfinderMob implements GeoEntity, 
         setPersistenceRequired();
         moveControl = new FlyingMoveControl(this, 10, true);
     }
+
+    public boolean isCutOff() { return cutOff; }
 
     public static EntityModelRow model() { return MODEL; }
 
@@ -118,13 +122,23 @@ public final class NpcFlyingShuttle extends PathfinderMob implements GeoEntity, 
         super.tick();
     }
 
+    @Override public void addAdditionalSaveData(CompoundTag data) {
+        super.addAdditionalSaveData(data);
+        data.putBoolean("cut_off", cutOff);
+    }
+
+    @Override public void readAdditionalSaveData(CompoundTag data) {
+        super.readAdditionalSaveData(data);
+        cutOff = data.getBoolean("cut_off");
+    }
+
     @Override public void baseTick() {
         super.baseTick();
         if (isVehicle()) {
             setDeltaMovement(new Vec3(0, .1, -.1));
-            if (!getPersistentData().getBoolean("jieduan")) {
+            if (!cutOff) {
                 removeEffect(MobEffects.SLOW_FALLING);
-                getPersistentData().putBoolean("jieduan", true);
+                cutOff = true;
             }
         }
         refreshDimensions();

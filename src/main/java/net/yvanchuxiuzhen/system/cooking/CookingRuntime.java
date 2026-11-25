@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.cooking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -31,7 +30,7 @@ public final class CookingRuntime {
         if (event.getHand() != event.getEntity().getUsedItemHand()) return;
         if (event.getEntity() instanceof ServerPlayer player
                 && event.getLevel().getBlockEntity(event.getPos()) instanceof CookingPotBlockEntity pot
-                && !pot.getPersistentData().getBoolean("cooking")) {
+                && !pot.cooking()) {
             player.openMenu(new SeamlessMenuProvider((id, inventory, opener) -> new CookingPotMenu(id, inventory, pot),
                     pot.getDisplayName()), event.getPos());
         }
@@ -40,31 +39,30 @@ public final class CookingRuntime {
     public static void used(Level world, BlockPos pos, Player player) {
         if (!(world instanceof ServerLevel level) || !(player instanceof ServerPlayer serverPlayer)
                 || !(level.getBlockEntity(pos) instanceof CookingPotBlockEntity pot)) return;
-        CompoundTag data = pot.getPersistentData();
-        data.putDouble("playercooklevel", Professions.level(player, Profession.COOKING));
-        if (data.getBoolean("cooking")) {
+        pot.setPlayerCookLevel(Professions.level(player, Profession.COOKING));
+        if (pot.cooking()) {
             if (pot.iron()) {
-                double animation = data.getDouble("cookanimation");
-                for (int number = 1; number <= 9; number++) if (animation == number) pot.animate(number);
+                int animation = pot.cookAnimation();
+                if (animation >= 1 && animation <= 9) pot.animate(animation);
             } else {
                 pot.animate(2);
                 particles(level, pos, ParticleTypes.CLOUD, 12, 0.2);
                 particles(level, pos, ParticleTypes.CAMPFIRE_COSY_SMOKE, 4, 0);
             }
-            double count = data.getDouble("cooknumber") + 1;
-            data.putDouble("cooknumber", count);
+            double count = pot.cookNumber() + 1;
+            pot.setCookNumber(count);
             if (count >= 5) {
                 if (pot.iron()) {
                     particles(level, pos, ParticleTypes.FLAME, 20, 0.8);
                     particles(level, pos, ParticleTypes.CLOUD, 15, 0.3);
                     particles(level, pos, ParticleTypes.WAX_OFF, 10, 1);
                 }
-                data.putBoolean("cooking", false);
-                data.putDouble("cooknumber", 0);
-                data.putDouble("cookanimation", 0);
-                if (data.getDouble("cookexp") >= 1) {
-                    Professions.addExperience(serverPlayer, Profession.COOKING, data.getDouble("cookexp"));
-                    data.putDouble("cookexp", 0);
+                pot.setCooking(false);
+                pot.setCookNumber(0);
+                pot.setCookAnimation(0);
+                if (pot.cookExp() >= 1) {
+                    Professions.addExperience(serverPlayer, Profession.COOKING, pot.cookExp());
+                    pot.setCookExp(0);
                 }
             } else if (pot.iron()) {
                 if (count == 4) {
@@ -98,7 +96,7 @@ public final class CookingRuntime {
             }
             message(player, "制作好的料坯，可以在工作台处切割成墨。");
         } else if (button == 0) {
-            if (pot.getPersistentData().getBoolean("cooking")) message(player, "§4正在烹饪！");
+            if (pot.cooking()) message(player, "§4正在烹饪！");
             else if (!pot.getItem(13).isEmpty()) CookingRecipes.begin(player, pot);
             else if (heated(player, pot)) InkBlankCooking.begin(player, pot);
         }

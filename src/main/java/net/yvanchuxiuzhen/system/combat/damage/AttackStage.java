@@ -20,10 +20,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.combat.api.FightingState;
 import net.yvanchuxiuzhen.system.combat.api.HitEvent;
 import net.yvanchuxiuzhen.system.combat.api.HeavyHitEvent;
+import net.yvanchuxiuzhen.system.combat.api.PetAssistEvent;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -91,7 +93,7 @@ final class AttackStage {
         int haoyu = Enchants.mainHand(attacker, Enchants.key("haoyu"));
         if (haoyu != 0) {
             double factor = 1 - haoyu * 0.01;
-            victim.getPersistentData().putDouble("power", victim.getPersistentData().getDouble("power") * factor);
+            EntityAttributes.setPower(victim, EntityAttributes.power(victim) * factor);
             if (victim instanceof ServerPlayer player) {
                 Cultivation.set(player, CultivationValue.POWER, Cultivation.get(player, CultivationValue.POWER) * factor);
             }
@@ -147,12 +149,12 @@ final class AttackStage {
         return (existing == null ? 0 : existing.getDuration()) * 20 + 600;
     }
 
-    /** 以 center 为中心、边长 64 的方体内主人是 center 的已驯服动物，把 target 记为它们的临时攻击目标。 */
+    /** 以 center 为中心、边长 64 的方体内主人是 center 的已驯服动物，通知宠物协助锁定 target。 */
     private static void directPets(Player center, Entity target) {
         AABB area = new AABB(center.position(), center.position()).inflate(32);
         for (TamableAnimal pet : center.level().getEntitiesOfClass(TamableAnimal.class, area, TamableAnimal::isTame)) {
             if (pet.getOwner() == center) {
-                pet.getPersistentData().putString("linshigongjizhe", target.getStringUUID());
+                NeoForge.EVENT_BUS.post(new PetAssistEvent(pet, target));
             }
         }
     }

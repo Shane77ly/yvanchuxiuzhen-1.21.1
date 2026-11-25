@@ -22,23 +22,19 @@ public final class RepellingTalismanBlockEntity extends BlockEntity {
     private static final String FRIENDLIST = "friendlist";
     private static final String TEAM = "team";
     private Set<String> friendlyTeams = Set.of();
+    private String team = "";
 
     public RepellingTalismanBlockEntity(BlockPos pos, BlockState state) {
         super(FuluBlockEntities.REPELLING.get(), pos, state);
     }
 
-    public void captureAllegiance(Entity placer) {
-        CompoundTag data = getPersistentData();
-        friendlyTeams = placer instanceof Player ? Relations.friendlyTeams(placer) : Set.of();
-        storeFriendlyTeams();
-        data.putString(TEAM, placer instanceof Player ? Relations.team(placer) : "");
-        setChanged();
-    }
+    public String team() { return team; }
+    public Set<String> friendlyTeams() { return friendlyTeams; }
 
-    private void storeFriendlyTeams() {
-        CompoundTag friendlist = new CompoundTag();
-        for (String team : friendlyTeams) friendlist.putBoolean(team, true);
-        getPersistentData().put(FRIENDLIST, friendlist);
+    public void captureAllegiance(Entity placer) {
+        friendlyTeams = placer instanceof Player ? Relations.friendlyTeams(placer) : Set.of();
+        team = placer instanceof Player ? Relations.team(placer) : "";
+        setChanged();
     }
 
     public void repel(ServerLevel level) {
@@ -57,15 +53,19 @@ public final class RepellingTalismanBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        CompoundTag friendlist = getPersistentData().getCompound(FRIENDLIST);
+        team = tag.getString(TEAM);
+        CompoundTag friendlist = tag.getCompound(FRIENDLIST);
         friendlyTeams = friendlist.getAllKeys().stream().filter(friendlist::getBoolean)
                 .collect(Collectors.toUnmodifiableSet());
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        storeFriendlyTeams();
         super.saveAdditional(tag, registries);
+        tag.putString(TEAM, team);
+        CompoundTag friendlist = new CompoundTag();
+        for (String member : friendlyTeams) friendlist.putBoolean(member, true);
+        tag.put(FRIENDLIST, friendlist);
     }
 
     @Override

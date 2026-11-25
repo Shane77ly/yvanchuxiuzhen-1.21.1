@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.skill.entity;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -65,14 +64,14 @@ final class FireEntities {
 
     /**
      * 控火术：以视线 4 格处为中心，扫描 9 × 9 × 9 范围内的火焰与灵魂火，每处火焰对周围 2.5 格内的非友方实体造成一次火系伤害并点燃 5 秒，
-     * 然后熄灭。攻击者取施放者自己 {@code getPersistentData} 里的 {@code AttackUUID}，玩家没有这个键，命令行里这一项为空，后面的参数前移，
-     * 实际按“无攻击者、基础量 = 伤害倍率、倍率 0”结算（Q41）。施放者不是玩家时攻击量为 {@code LEVELnumber ÷ 2 + 1}、倍率 1.2。
+     * 然后熄灭。玩家施放时攻击者为空，命令行里这一项为空，后面的参数前移，
+     * 实际按“无攻击者、基础量 = 伤害倍率、倍率 0”结算（Q41）。
      */
     private static void controlFire(ServerPlayer caster, SkillBook book) {
         ServerLevel level = (ServerLevel) caster.level();
         double[] values = {book.manaAttack(), book.damageMultiplier()};
         BlockPos center = ProjectileSupport.lookBlock(caster, 4);
-        String attackUuid = caster.getPersistentData().getString("AttackUUID");
+        String attackUuid = "";
         for (int dx = -4; dx <= 4; dx++) {
             for (int dy = -4; dy <= 4; dy++) {
                 for (int dz = -4; dz <= 4; dz++) {
@@ -142,13 +141,12 @@ final class FireEntities {
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
             level.sendParticles(ParticleTypes.FLAME, self.getX(), self.getY(), self.getZ(), 4, 0, 0, 0, 0.05);
-            CompoundTag scratch = self.getPersistentData();
             if (self.onGround() || self.isInLava() || self.isInWater()) {
-                scratch.putBoolean("kaishi", true);
+                self.setStarted(true);
             }
-            if (scratch.getBoolean("kaishi")) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 5) {
+            if (self.started()) {
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 5) {
                     level.sendParticles(ParticleTypes.FLAME, self.getX(), self.getY(), self.getZ(), 20, 0, 0, 0, 0.5);
                     burn(self, self.position(), 3, false);
                     self.discard();
@@ -163,9 +161,8 @@ final class FireEntities {
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
             level.sendParticles(ParticleTypes.FLAME, self.getX(), self.getY(), self.getZ(), 10, 3, 3, 3, 0.2);
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-            if (scratch.getDouble("tick2") >= 20) {
+            self.setSkillTick2(self.skillTick2() + 1);
+            if (self.skillTick2() >= 20) {
                 Vec3 center = self.position().add(0, 2, 0);
                 burn(self, center, 2.5, true);
                 for (Entity other : ProjectileSupport.around(level, center, 4)) {
@@ -173,10 +170,10 @@ final class FireEntities {
                         other.setDeltaMovement(self.position().subtract(other.position()).scale(0.2));
                     }
                 }
-                scratch.putDouble("tick2", 0);
+                self.setSkillTick2(0);
             }
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            if (scratch.getDouble("tick") >= 400) {
+            self.setSkillTick(self.skillTick() + 1);
+            if (self.skillTick() >= 400) {
                 level.sendParticles(ParticleTypes.FLAME, self.getX(), self.getY() + self.getBbHeight() / 3, self.getZ(), 20, 0, 0, 0, 0.8);
                 Vec3 at = self.position().add(0, self.getBbHeight() / 3, 0);
                 for (String id : new String[]{"brokenorange", "brokenlightorange", "brokengolden"}) {
@@ -200,15 +197,14 @@ final class FireEntities {
                 }
             }
             level.sendParticles(ParticleTypes.FLAME, self.getX(), self.getY(), self.getZ(), 5, 0, 6, 0, 0.1);
-            CompoundTag scratch = self.getPersistentData();
-            scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-            if (scratch.getDouble("tick2") >= 20) {
+            self.setSkillTick2(self.skillTick2() + 1);
+            if (self.skillTick2() >= 20) {
                 burn(self, self.position().add(0, 2, 0), 2, true);
                 burn(self, self.position().add(0, 6, 0), 2, true);
-                scratch.putDouble("tick2", 0);
+                self.setSkillTick2(0);
             }
-            scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-            if (scratch.getDouble("tick") >= 400) {
+            self.setSkillTick(self.skillTick() + 1);
+            if (self.skillTick() >= 400) {
                 level.sendParticles(ParticleTypes.FLAME, self.getX(), self.getY(), self.getZ(), 20, 0, 0, 0, 0.8);
                 self.discard();
             }

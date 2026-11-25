@@ -21,6 +21,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.plant.api.NichangGrassBloomEvent;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
@@ -50,7 +51,7 @@ final class NichangGrassAttraction {
             for (Entity entity : nearby) {
                 if (entity.isAlive() && entity.getType().is(BEASTS)) {
                     Relations.addFriendlyTeam(entity, TEAM);
-                    entity.getPersistentData().putString("linshigongjizhe", target.getStringUUID());
+                    CreatureData.state(entity).setTempAttackerUuid(target.getStringUUID());
                     Relations.setTeam(entity, TEAM);
                 }
             }
@@ -79,7 +80,7 @@ final class NichangGrassAttraction {
                     Relations.shareEntityAllegiance(sharedAllegiance, entity);
                 }
                 Relations.setTeam(entity, TEAM);
-                entity.getPersistentData().putString("linshigongjizhe", target.getStringUUID());
+                CreatureData.state(entity).setTempAttackerUuid(target.getStringUUID());
                 entity.lookAt(EntityAnchorArgument.Anchor.EYES, target.position());
             }
             if (entity instanceof Mob mob) {

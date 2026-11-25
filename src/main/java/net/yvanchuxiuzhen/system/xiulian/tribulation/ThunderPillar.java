@@ -1,6 +1,7 @@
 package net.yvanchuxiuzhen.system.xiulian.tribulation;
 
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -17,10 +18,31 @@ import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 
 /** 九霄雷柱：追随同维度的存活目标，每十刻结算近身雷伤，三百二十刻后消散；保留来源水生导航。 */
 public final class ThunderPillar extends TribulationEntity {
+    private double hitTicks;
+    private double lifeTicks;
+
     public ThunderPillar(EntityType<ThunderPillar> type, Level level, EntityModelRow model) {
         super(type, level, model, 4, 2);
         setPathfindingMalus(PathType.WATER, 0);
         moveControl = new PillarMoveControl(this);
+    }
+
+    public void setLifeTicks(double lifeTicks) {
+        this.lifeTicks = lifeTicks;
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putDouble("tick", hitTicks);
+        tag.putDouble("tick2", lifeTicks);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        hitTicks = tag.getDouble("tick");
+        lifeTicks = tag.getDouble("tick2");
     }
 
     @Override
@@ -52,19 +74,15 @@ public final class ThunderPillar extends TribulationEntity {
         setDeltaMovement(new Vec3(-0.5 * Math.sin(Math.toRadians(getYRot())), player.getY() > getY() ? 0.5 : -0.5 * Math.sin(Math.toRadians(getXRot())),
                 0.5 * Math.cos(Math.toRadians(getYRot()))));
         Tribulations.particles(this, "thunderlightyellow", position(), 1, 1, 0, 1, 0);
-        double tick = getPersistentData().getDouble("tick") + 1;
-        getPersistentData().putDouble("tick", tick);
-        if (tick >= 10) {
+        if (++hitTicks >= 10) {
             Tribulations.damage(this, 3, "0.7", false);
-            getPersistentData().putDouble("tick", 0);
+            hitTicks = 0;
         }
-        double life = getPersistentData().getDouble("tick2") + 1;
-        getPersistentData().putDouble("tick2", life);
-        if (life >= 320) {
+        if (++lifeTicks >= 320) {
             Vec3 at = position().add(0, getBbHeight() / 2, 0);
             Tribulations.particles(this, "disappearlightyellow", at, 30, 0, 8, 0, 0);
             Tribulations.particles(this, "disappearyellow", at, 30, 0, 8, 0, 0);
-            getPersistentData().putDouble("tick2", 0);
+            lifeTicks = 0;
             discard();
         }
     }

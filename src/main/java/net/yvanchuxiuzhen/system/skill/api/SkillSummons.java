@@ -1,6 +1,5 @@
 package net.yvanchuxiuzhen.system.skill.api;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -76,24 +75,21 @@ public final class SkillSummons {
     }
 
     /**
-     * 妖兽054冰爪的裂冰斩入口：来源消费者读取friendlist子标签中的整数参数；根标签的同名写入不参与结算。
-     * 友方集合共享施放者引用；攻击者文字无效时不造成命令伤害，冻结和出土生命周期仍执行。
+     * 妖兽054冰爪的裂冰斩入口：使用关系系统共享施放者阵营并写入冰刺伤害参数。
      */
     public static void summonEntityIceSpike(Entity owner, Vec3 position) {
-        summonEntityIceSpike(owner, position, owner.getPersistentData().getCompound("friendlist"));
+        summonEntityIceSpike(owner, position, 0, 1);
     }
 
-    /** 来源需要局部改写friendlist参数时，复制传入的子标签但不写回施放者。 */
-    public static void summonEntityIceSpike(Entity owner, Vec3 position, CompoundTag parameters) {
+    /** 以指定攻击量（同时作为后续冰刺剩余根数）与倍率召唤裂冰斩。 */
+    public static void summonEntityIceSpike(Entity owner, Vec3 position, int attackDamage, int multiplier) {
         ServerLevel level = (ServerLevel) owner.level();
         SkillEntity spike = SkillSetup.<SkillEntity>entityType("skill_ice_05").get().create(level);
         spike.configure(owner, 5, 1.2, "冰", "裂冰斩");
         spike.moveTo(position.x, position.y, position.z, level.getRandom().nextFloat() * 360F, 0);
         SkillEntities.turn(spike, Mth.nextInt(level.getRandom(), 1, 360), 0);
-        CompoundTag data = spike.getPersistentData();
-        data.putDouble("jiaodu", owner.getYRot());
-        data.put("friendlist", parameters);
-        Relations.shareBlockAllegiance(data, spike, Relations.team(owner));
+        Relations.initializeIceCast(owner, spike, attackDamage, multiplier);
+        Relations.setIceCastDirection(spike, (int) owner.getYRot());
         SkillEntities.spawn(level, spike, true);
     }
 }

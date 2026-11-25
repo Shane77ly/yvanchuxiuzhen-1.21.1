@@ -23,10 +23,19 @@ public final class PharmacologyBlockEntity extends RandomizableContainerBlockEnt
     private NonNullList<ItemStack> items = NonNullList.withSize(12, ItemStack.EMPTY);
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
+    private CompoundTag herbs = new CompoundTag();
+    private final String[] effectLines = new String[]{"", "", "", "", "", "", "", "", "", "", "", "", ""};
 
     public PharmacologyBlockEntity(BlockPos pos, BlockState state) {
         super(LiandanBlockEntities.PHARMACOLOGY.get(), pos, state);
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
+    }
+
+    public CompoundTag herbs() { return herbs; }
+    public void setHerbs(CompoundTag value) { herbs = value == null ? new CompoundTag() : value.copy(); }
+    public String effectLine(int index) { return index >= 0 && index < effectLines.length ? effectLines[index] : ""; }
+    public void setEffectLine(int index, String value) {
+        if (index >= 0 && index < effectLines.length) effectLines[index] = value == null ? "" : value;
     }
 
     /** 实体放置时广播来源药性快照；按钮刷新显示由两端分别计算。 */
@@ -44,12 +53,20 @@ public final class PharmacologyBlockEntity extends RandomizableContainerBlockEnt
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(12, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        herbs = tag.getCompound("zong").copy();
+        for (int index = 0; index < effectLines.length; index++) {
+            effectLines[index] = tag.getString("effectxianshi" + index);
+        }
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!herbs.isEmpty()) tag.put("zong", herbs);
+        for (int index = 0; index < effectLines.length; index++) {
+            if (!effectLines[index].isEmpty()) tag.putString("effectxianshi" + index, effectLines[index]);
+        }
     }
 
     @Override

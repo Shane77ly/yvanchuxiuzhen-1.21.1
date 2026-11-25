@@ -54,7 +54,8 @@ public final class DungeonPlayers {
     public static void tick(CultivationSecondEvent event) {
         ServerPlayer player = event.player();
         CompoundTag state = player.getData(DungeonData.PLAYER);
-        if (player.getPersistentData().getBoolean("openfubengui") && !player.level().getBlockState(player.blockPosition()).is(block("tiandaofuben"))) player.getPersistentData().putBoolean("openfubengui", false);
+        CompoundTag transientState = player.getData(DungeonData.PLAYER_TRANSIENT);
+        if (transientState.getBoolean("openfubengui") && !player.level().getBlockState(player.blockPosition()).is(block("tiandaofuben"))) transientState.putBoolean("openfubengui", false);
         if (state.getBoolean("fubenstate")) {
             state.putDouble("daojishi", state.getDouble("daojishi") - 1);
             List<ServerPlayer> members = waitingPlayers(player);
@@ -65,7 +66,7 @@ public final class DungeonPlayers {
                 replaceController(level, pos);
                 for (ServerPlayer member : members) member.teleportTo(state.getDouble("fubenplayerX"), state.getDouble("fubenplayerY"), state.getDouble("fubenplayerZ"));
                 if (level.getBlockEntity(pos) instanceof DungeonBlockEntity controller) {
-                    CompoundTag data = controller.getPersistentData();
+                    CompoundTag data = controller.state();
                     for (String key : new String[]{"fubenname", "fubenshujv", "chuansongid"}) data.putString(key, state.getString(key));
                     for (String axis : new String[]{"X", "Y", "Z"}) data.putDouble("chuansong" + axis, state.getDouble("chuansong" + axis));
                     data.putBoolean("fubenopen", true);
@@ -73,19 +74,17 @@ public final class DungeonPlayers {
                 }
                 state.putBoolean("fubenstate", false);
             }
-        } else if (player.getPersistentData().getBoolean("fubenfanhui")) {
+        } else if (transientState.getBoolean("fubenfanhui")) {
             state.putBoolean("fubenfanhui", true);
-            player.getPersistentData().putBoolean("fubenfanhui", false);
+            transientState.putBoolean("fubenfanhui", false);
         } else if (!player.level().dimension().equals(PAINTING) && state.getBoolean("fubenfanhui")) {
-            BlockEntity block = player.level().getBlockEntity(position(state, "chuansong"));
-            if (block != null) {
-                CompoundTag data = block.getPersistentData();
+            if (player.level().getBlockEntity(position(state, "chuansong")) instanceof DungeonBlockEntity entrance) {
+                CompoundTag data = entrance.state();
                 data.putBoolean("fubenbegin", false);
                 for (String prefix : new String[]{"fubenzuobiao", "fubenplayer"}) {
                     if (data.getDouble(prefix + "X") == 0) for (String axis : new String[]{"X", "Y", "Z"}) data.putDouble(prefix + axis, state.getDouble(prefix + axis));
                 }
-                block.setChanged();
-                player.level().sendBlockUpdated(block.getBlockPos(), block.getBlockState(), block.getBlockState(), 3);
+                entrance.changed();
             }
             state.putBoolean("fubenfanhui", false);
         }
@@ -137,7 +136,7 @@ public final class DungeonPlayers {
                     WorldStructures.place(level, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "fuben002"), BlockPos.containing(x, 98, -100));
                     coordinates(state, "fubenzuobiao", x, 98, -100);
                     coordinates(state, "fubenplayer", x + 16, 100, -96);
-                    player.getPersistentData().putString("gamemoshi", state.getString("gamemoshi"));
+                    player.getData(DungeonData.PLAYER_TRANSIENT).putString("gamemoshi", state.getString("gamemoshi"));
                 }
                 global.advanceInstance();
                 state.putBoolean("needfubenshengcheng", false);
@@ -177,7 +176,7 @@ public final class DungeonPlayers {
 
     /** 返回true对应来源在同维度命中时直接退出调用过程。 */
     static boolean returnFromController(ServerPlayer player, DungeonBlockEntity controller) {
-        CompoundTag data = controller.getPersistentData();
+        CompoundTag data = controller.state();
         ResourceKey<Level> target = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(data.getString("chuansongid")));
         return travel(player, target, data.getInt("chuansongX"), data.getInt("chuansongY"), data.getInt("chuansongZ"));
     }

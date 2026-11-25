@@ -123,7 +123,7 @@ final class StructureReleaseCheck extends SystemCheck {
                     for (BlockPos pos : TOWER) if (player.serverLevel().getBlockEntity(pos) instanceof DungeonBlockEntity) present++;
                     expect("真实模板放置四十四个副本入口", 44, present);
                     DungeonBlockEntity first = (DungeonBlockEntity) player.serverLevel().getBlockEntity(TOWER.getFirst());
-                    beforeTower = first.getPersistentData().getString("fubenshujv");
+                    beforeTower = first.state().getString("fubenshujv");
                     commandTick = player.server.getTickCount();
                 });
                 return true;
@@ -136,7 +136,7 @@ final class StructureReleaseCheck extends SystemCheck {
                     int floors = 0;
                     for (BlockPos pos : TOWER) {
                         if (player.serverLevel().getBlockEntity(pos) instanceof DungeonBlockEntity block) {
-                            String definition = block.getPersistentData().getString("fubenshujv");
+                            String definition = block.state().getString("fubenshujv");
                             if (!definition.isEmpty()) configured++;
                             if (definition.contains("%")) fullHeaders++;
                         }
@@ -145,9 +145,9 @@ final class StructureReleaseCheck extends SystemCheck {
                     expect("四十刻后四十四点均补充来源定义", 44, configured);
                     expect("来源四十三份波次头保持", 43, fullHeaders);
                     expect("四十四点楼板均为坐标Y减一", 44, floors);
-                    String after = ((DungeonBlockEntity) player.serverLevel().getBlockEntity(TOWER.getFirst())).getPersistentData().getString("fubenshujv");
+                    String after = ((DungeonBlockEntity) player.serverLevel().getBlockEntity(TOWER.getFirst())).state().getString("fubenshujv");
                     expectTrue("四十刻后处理已覆盖模板中的原定义", !after.equals(beforeTower));
-                    String broken = ((DungeonBlockEntity) player.serverLevel().getBlockEntity(MALFORMED)).getPersistentData().getString("fubenshujv");
+                    String broken = ((DungeonBlockEntity) player.serverLevel().getBlockEntity(MALFORMED)).state().getString("fubenshujv");
                     expectTrue("Q81畸形定义保持且未自行补造波次头", !broken.isEmpty() && !broken.contains("%"));
                     player.closeContainer();
                 });

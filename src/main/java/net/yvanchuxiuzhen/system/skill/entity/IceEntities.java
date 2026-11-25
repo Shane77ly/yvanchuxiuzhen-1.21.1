@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.skill.entity;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -67,34 +66,32 @@ final class IceEntities {
     private static final class FrozenField implements EntitySkill {
         @Override
         public void spawned(SkillEntity self) {
-            CompoundTag scratch = self.getPersistentData();
-            if (scratch.getString("zhuangtai").isEmpty()) {
+            if (self.skillState().isEmpty()) {
                 self.setAnimation("animation.skillIce04.start");
-                scratch.putString("zhuangtai", STARTING);
+                self.setSkillState(STARTING);
             }
         }
 
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
             Relations.IceCast cast = Relations.iceCast(self);
-            String state = scratch.getString("zhuangtai");
+            String state = self.skillState();
             if (state.equals(STARTING)) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 20) {
-                    scratch.putString("zhuangtai", RUNNING);
-                    scratch.putDouble("tick", 0);
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 20) {
+                    self.setSkillState(RUNNING);
+                    self.setSkillTick(0);
                 }
             } else if (state.equals(RUNNING)) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 600) {
-                    scratch.putString("zhuangtai", ENDING);
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 600) {
+                    self.setSkillState(ENDING);
                     self.setAnimation("animation.skillIce04.close");
-                    scratch.putDouble("tick", 0);
+                    self.setSkillTick(0);
                 }
-                scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-                if (scratch.getDouble("tick2") >= 20) {
+                self.setSkillTick2(self.skillTick2() + 1);
+                if (self.skillTick2() >= 20) {
                     for (Entity other : ProjectileSupport.around(level, self.position(), 3)) {
                         if (!ProjectileSupport.friendly(self, other)) {
                             ProjectileSupport.burst(other, Math.random() < 0.5 ? "smallexplosionskyblue" : "smallexplosionwhite", other.getBbHeight() / 2);
@@ -104,14 +101,14 @@ final class IceEntities {
                             }
                         }
                     }
-                    scratch.putDouble("tick2", 0);
+                    self.setSkillTick2(0);
                 }
                 level.sendParticles(ParticleTypes.SNOWFLAKE, self.getX(), self.getY(), self.getZ(), 10, 6, 6, 6, 0.5);
             } else if (state.equals(ENDING)) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 20) {
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 20) {
                     self.discard();
-                    scratch.putDouble("tick", 0);
+                    self.setSkillTick(0);
                 }
             }
         }
@@ -125,28 +122,26 @@ final class IceEntities {
     private static final class IceSpike implements EntitySkill {
         @Override
         public void spawned(SkillEntity self) {
-            CompoundTag scratch = self.getPersistentData();
-            if (scratch.getString("zhuangtai").isEmpty()) {
+            if (self.skillState().isEmpty()) {
                 self.setAnimation("animation.skillIce05.start2");
-                scratch.putString("zhuangtai", STARTING);
+                self.setSkillState(STARTING);
             }
         }
 
         @Override
         public void tick(SkillEntity self) {
             ServerLevel level = (ServerLevel) self.level();
-            CompoundTag scratch = self.getPersistentData();
             Relations.IceCast cast = Relations.iceCast(self);
-            String state = scratch.getString("zhuangtai");
+            String state = self.skillState();
             if (state.equals(STARTING)) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 4) {
-                    scratch.putString("zhuangtai", RUNNING);
-                    scratch.putDouble("tick", 0);
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 4) {
+                    self.setSkillState(RUNNING);
+                    self.setSkillTick(0);
                 }
             } else if (state.equals(RUNNING)) {
-                scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-                if (scratch.getDouble("tick") >= 20) {
+                self.setSkillTick(self.skillTick() + 1);
+                if (self.skillTick() >= 20) {
                     for (Entity other : ProjectileSupport.around(level, self.position(), 1)) {
                         if (!ProjectileSupport.friendly(self, other)) {
                             if (other instanceof LivingEntity living) {
@@ -156,15 +151,15 @@ final class IceEntities {
                             other.setTicksFrozen(other.getTicksFrozen() + 40);
                         }
                     }
-                    scratch.putString("zhuangtai", ENDING);
+                    self.setSkillState(ENDING);
                     ProjectileSupport.breakEffect(level, self.position(), Blocks.ICE.defaultBlockState());
-                    scratch.putDouble("tick", 0);
+                    self.setSkillTick(0);
                     self.discard();
                 }
             }
-            if (!scratch.getBoolean("shifang")) {
-                scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-                if (scratch.getDouble("tick2") >= 3) {
+            if (!self.released()) {
+                self.setSkillTick2(self.skillTick2() + 1);
+                if (self.skillTick2() >= 3) {
                     if (cast.attackDamage() > 0) {
                         double angle = Math.toRadians(cast.direction() + 90.0);
                         int remaining = cast.attackDamage() - 1;
@@ -174,7 +169,7 @@ final class IceEntities {
                         Relations.setIceCastRemaining(next, remaining);
                         SkillEntities.spawn(level, next, true);
                     }
-                    scratch.putBoolean("shifang", true);
+                    self.setReleased(true);
                 }
             }
         }

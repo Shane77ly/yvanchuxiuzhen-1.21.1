@@ -50,6 +50,7 @@ import net.yvanchuxiuzhen.system.world.content.CompassAnchor;
 import net.yvanchuxiuzhen.system.world.content.RiftBlockEntity;
 import net.yvanchuxiuzhen.system.world.content.RiftItem;
 import net.yvanchuxiuzhen.system.world.content.SpiritCompassItem;
+import net.yvanchuxiuzhen.system.world.data.StructureNavigation;
 import net.yvanchuxiuzhen.system.world.data.WorldData;
 import net.yvanchuxiuzhen.system.world.entity.GuidanceHalo;
 
@@ -62,7 +63,6 @@ final class WorldExplorationCheck extends SystemCheck {
     private static final Vec3 STAND = new Vec3(44, 63, 22);
     private static final Vec3 MIDPOINT = new Vec3(120, 65.5, 18);
     private static final Vec3 SCROLL = new Vec3(212, 67, 14);
-    private static final String NAVIGATION = "structure_navigation";
     private static final Field RELEASED = field("net.yvanchuxiuzhen.system.world.StructureExplorationData", "released");
     private static final Method WORLD_DATA = method("net.yvanchuxiuzhen.system.world.StructureExplorationData", "get", MinecraftServer.class);
     private static final Field CATALOG = field("net.yvanchuxiuzhen.system.world.StructureCatalog", "ENTRIES");
@@ -81,8 +81,7 @@ final class WorldExplorationCheck extends SystemCheck {
     private GameType originalMode;
     private int originalSelected;
     private CompoundTag originalAbilities;
-    private CompoundTag originalNavigation;
-    private boolean hadNavigation;
+    private StructureNavigation originalNavigation;
     private String originalProgress;
     private String stagedProgress;
     private String persistedProgress;
@@ -148,8 +147,8 @@ final class WorldExplorationCheck extends SystemCheck {
                     RiftBlockEntity rift = rift(player.serverLevel());
                     expectTrue("恰好16格的原生主手使用生成裂隙并立即登记", rift != null
                             && progress(player.server).equals(stagedProgress + "%shuishangguzhou"));
-                    expect("裂隙保存实际结构名", "水上孤舟", rift.getPersistentData().getString("jiegouname"));
-                    expect("裂隙保存当前玩家显示名", player.getDisplayName().getString(), rift.getPersistentData().getString("playername"));
+                    expect("裂隙保存实际结构名", "水上孤舟", rift.structureName());
+                    expect("裂隙保存当前玩家显示名", player.getDisplayName().getString(), rift.playerName());
                     expectTrue("正常使用添加100刻冷却", player.getCooldowns().isOnCooldown(compass())
                             && Math.abs(player.getCooldowns().getCooldownPercent(compass(), 0) - 1) < 1e-6);
                     List<GuidanceHalo> active = player.serverLevel().getEntitiesOfClass(GuidanceHalo.class, new AABB(STAND, STAND).inflate(4));
@@ -157,9 +156,8 @@ final class WorldExplorationCheck extends SystemCheck {
                     GuidanceHalo halo = active.getFirst();
                     halos.add(halo.getUUID());
                     haloEntityId = halo.getId();
-                    CompoundTag navigation = halo.getPersistentData().getCompound(NAVIGATION);
                     expectTrue("召唤光环保留原生主人与导航UUID", halo.isOwnedBy(player)
-                            && navigation.getString("belongToMasterUUID").equals(player.getStringUUID()));
+                            && halo.masterUuid().equals(player.getStringUUID()));
                     expect("光环写入孤舟目标", new Vec3(28, 64, 22), target(halo));
                     use(player);
                     expect("原生玩家冷却阻断重复召唤", 1,
@@ -248,8 +246,7 @@ final class WorldExplorationCheck extends SystemCheck {
         originalSelected = player.getInventory().selected;
         originalAbilities = new CompoundTag();
         player.getAbilities().addSaveData(originalAbilities);
-        hadNavigation = player.getPersistentData().contains(NAVIGATION, Tag.TAG_COMPOUND);
-        originalNavigation = player.getPersistentData().getCompound(NAVIGATION).copy();
+        originalNavigation = player.getData(WorldData.NAVIGATION).copy();
         for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) inventory.add(player.getInventory().getItem(slot).copy());
         originalProgress = progress(player.server);
         ChunkPos overworldChunk = new ChunkPos(BlockPos.containing(STAND));
@@ -321,7 +318,6 @@ final class WorldExplorationCheck extends SystemCheck {
         GuidanceHalo other = WorldSetup.<GuidanceHalo>entityType("guanghuan").get().create(level);
         for (GuidanceHalo specimen : List.of(halo, other)) {
             specimen.moveTo(position.x, position.y, position.z);
-            specimen.getPersistentData().put(NAVIGATION, new CompoundTag());
             level.addFreshEntity(specimen);
         }
         level.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack().withLevel(level)
@@ -337,8 +333,7 @@ final class WorldExplorationCheck extends SystemCheck {
         long elapsed = level.getGameTime() - creationTime;
         if (elapsed < 0 || elapsed > 85) return;
         RiftBlockEntity block = rift(level);
-        riftTicks.put(elapsed, block == null ? "released" : block.getPersistentData().getBoolean("kaishi")
-                + ":" + block.getPersistentData().getDouble("MobcomeTick"));
+        riftTicks.put(elapsed, block == null ? "released" : block.releasing() + ":" + block.releaseTicks());
     }
 
     private void force(ServerLevel level, int x, int z) {
@@ -368,8 +363,7 @@ final class WorldExplorationCheck extends SystemCheck {
         player.server.overworld().setChunkForced(overworldChunk.x, overworldChunk.z, originalOverworldForced);
         setProgress(player.server, originalProgress);
         ModifierKeys.update(player, false, false);
-        if (hadNavigation) player.getPersistentData().put(NAVIGATION, originalNavigation);
-        else player.getPersistentData().remove(NAVIGATION);
+        player.getData(WorldData.NAVIGATION).copyFrom(originalNavigation);
         player.getCooldowns().removeCooldown(compass());
         player.teleportTo(player.server.getLevel(originalDimension), originalPosition.x, originalPosition.y, originalPosition.z, originalYaw, originalPitch);
         player.getInventory().clearContent();
@@ -415,8 +409,7 @@ final class WorldExplorationCheck extends SystemCheck {
     }
 
     private static Vec3 target(GuidanceHalo halo) {
-        CompoundTag navigation = halo.getPersistentData().getCompound(NAVIGATION);
-        return new Vec3(navigation.getDouble("mubiaoX"), navigation.getDouble("mubiaoY"), navigation.getDouble("mubiaoZ"));
+        return halo.targetPosition();
     }
 
     private static RiftBlockEntity rift(ServerLevel level) {

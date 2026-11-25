@@ -27,6 +27,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.MobSpawnType;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouAttributes;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -92,7 +93,7 @@ public final class TaomujingEntity extends Monster implements GeoEntity, Animate
 
     @Override public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData data) {
         SpawnGroupData result = super.finalizeSpawn(level, difficulty, reason, data);
-        if (getPersistentData().getString("LEVELname").isEmpty()) initializeSourceData();
+        if (EntityAttributes.realmName(this).isEmpty()) initializeSourceData();
         return result;
     }
 
@@ -103,8 +104,8 @@ public final class TaomujingEntity extends Monster implements GeoEntity, Animate
                 ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "lingtikiller"))), 2);
         sword.enchant(enchantments.getOrThrow(Enchantments.SMITE), 2);
         setItemInHand(InteractionHand.MAIN_HAND, sword);
-        if (getPersistentData().getDouble("LEVELnumber") < 1) getPersistentData().putDouble("LEVELnumber", 11 + random.nextInt(5));
-        double level = getPersistentData().getDouble("LEVELnumber");
+        double level = EntityAttributes.level(this) < 1 ? 11 + random.nextInt(5) : EntityAttributes.level(this);
+        EntityAttributes.setLevel(this, level);
         getAttribute(YaoshouAttributes.SIZE).setBaseValue((random.nextInt(31) + 70) * .01 + level / 4 * .1);
         CreatureSourceStats.initialize(this, 11, true, false,
                 "平庸", "绝佳", "勉强", "勉强", "贫弱", "贫弱", "平庸", "强劲", "贫弱", "平庸", "贫弱", "贫弱", "贫弱");

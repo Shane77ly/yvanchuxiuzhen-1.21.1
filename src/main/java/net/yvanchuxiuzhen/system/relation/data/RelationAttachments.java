@@ -30,6 +30,9 @@ public final class RelationAttachments {
     public static final Supplier<AttachmentType<String>> TEMPORARY_TEAM = TYPES.register("temporary_team", () -> AttachmentType
             .builder(() -> "").serialize(Codec.STRING).copyOnDeath()
             .sync((holder, player) -> holder == player, ByteBufCodecs.STRING_UTF8).build());
+    /** 实体本体临时队伍 teamwork，供副本维度进入与结束切换阵营。 */
+    public static final Supplier<AttachmentType<String>> ENTITY_TEMPORARY_TEAM = TYPES.register("entity_temporary_team", () -> AttachmentType
+            .builder(() -> "").serialize(Codec.STRING).build());
 
     private RelationAttachments() {
     }

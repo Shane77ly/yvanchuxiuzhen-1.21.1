@@ -52,10 +52,18 @@ public final class FireBird extends TamedSkillEntity {
     private static final int BURST_DELAY = 3;
     private static final String FLY_ANIMATION = "animation.skillFire06.fly";
 
+    private int ageTicks;
+    private int animTicks;
+    private boolean triggered;
+    private int burstTicks;
+
     public FireBird(EntityType<FireBird> type, Level level, EntityModelRow model) {
         super(type, level, model);
         moveControl = new FlyingMoveControl(this, 10, true);
     }
+
+    public int ageTicks() { return ageTicks; }
+    public void setAgeTicks(int ageTicks) { this.ageTicks = ageTicks; }
 
     public static AttributeSupplier.Builder attributes(EntityModelRow model) {
         return model.attributes().add(Attributes.FLYING_SPEED, FLYING_SPEED);
@@ -155,16 +163,15 @@ public final class FireBird extends TamedSkillEntity {
     /** 每刻过程：寿命、飞行动画、有目标时沿朝向前冲、近身探测与爆发（来源按此次序，寿命到期后同一刻的其余部分照常执行）。 */
     private void tickSkill() {
         ServerLevel level = (ServerLevel) level();
-        CompoundTag scratch = getPersistentData();
-        scratch.putDouble("tick", scratch.getDouble("tick") + 1);
-        if (scratch.getDouble("tick") >= LIFETIME) {
-            scratch.putDouble("tick", 0);
+        ageTicks += 1;
+        if (ageTicks >= LIFETIME) {
+            ageTicks = 0;
             discard();
         }
-        scratch.putDouble("tick2", scratch.getDouble("tick2") + 1);
-        if (scratch.getDouble("tick2") >= FLY_ANIMATION_INTERVAL) {
+        animTicks += 1;
+        if (animTicks >= FLY_ANIMATION_INTERVAL) {
             setAnimation(FLY_ANIMATION);
-            scratch.putDouble("tick2", 0);
+            animTicks = 0;
         }
         if (getTarget() != null) {
             double yaw = Math.toRadians(getYRot());
@@ -173,13 +180,13 @@ public final class FireBird extends TamedSkillEntity {
         }
         for (Entity other : ProjectileSupport.around(level, position(), 1.5)) {
             if (!ProjectileSupport.friendly(this, other)) {
-                scratch.putBoolean("kaishi", true);
+                triggered = true;
                 break;
             }
         }
-        if (scratch.getBoolean("kaishi")) {
-            scratch.putDouble("tick3", scratch.getDouble("tick3") + 1);
-            if (scratch.getDouble("tick3") >= BURST_DELAY) {
+        if (triggered) {
+            burstTicks += 1;
+            if (burstTicks >= BURST_DELAY) {
                 for (Entity other : ProjectileSupport.around(level, position(), 2.5)) {
                     if (!ProjectileSupport.friendly(this, other)) {
                         ProjectileSupport.burst(other, "smallexplosionred", other.getBbHeight() / 2);
@@ -191,6 +198,24 @@ public final class FireBird extends TamedSkillEntity {
                 discard();
             }
         }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt("ageTicks", ageTicks);
+        tag.putInt("animTicks", animTicks);
+        tag.putBoolean("triggered", triggered);
+        tag.putInt("burstTicks", burstTicks);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        ageTicks = tag.getInt("ageTicks");
+        animTicks = tag.getInt("animTicks");
+        triggered = tag.getBoolean("triggered");
+        burstTicks = tag.getInt("burstTicks");
     }
 
     /** 有目标且没有在移动时飞向目标的眼睛，接触时冲撞，4 格内持续修正落点（来源的自定义目标）。 */

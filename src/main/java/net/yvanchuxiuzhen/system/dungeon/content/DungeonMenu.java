@@ -65,7 +65,7 @@ public final class DungeonMenu extends AbstractContainerMenu {
     }
 
     public int kind() { return kind; }
-    public CompoundTag data() { return block == null || block.getPersistentData().isEmpty() ? initial : block.getPersistentData(); }
+    public CompoundTag data() { return block == null || block.state().isEmpty() ? initial : block.state(); }
 
     public void action(ServerPlayer player, String value, boolean attack) {
         if (!player.level().hasChunkAt(position) || player.level().getBlockEntity(position) != block || block == null) return;

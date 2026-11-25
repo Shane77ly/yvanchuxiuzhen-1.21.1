@@ -64,11 +64,10 @@ public final class BountyBoardBlock extends WaterloggedContentBlock implements E
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (level.getBlockEntity(pos) instanceof BountyBoardBlockEntity board) {
-            long clearAt = board.getPersistentData().getLong("refresh_clear_at");
+            long clearAt = board.refreshClearAt();
             if (clearAt > 0 && level.getGameTime() >= clearAt) {
                 level.setBlock(pos.above(), Blocks.AIR.defaultBlockState(), 3);
-                board.getPersistentData().remove("refresh_clear_at");
-                board.setChanged();
+                board.setRefreshClearAt(0);
             }
             level.sendBlockUpdated(pos, state, state, 3);
         }

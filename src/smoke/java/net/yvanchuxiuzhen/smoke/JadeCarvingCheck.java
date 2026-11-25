@@ -22,6 +22,7 @@ import net.minecraft.world.level.GameType;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.gongfa.api.TechniqueBook;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.material.api.MaterialInstance;
@@ -405,7 +406,7 @@ final class JadeCarvingCheck extends SystemCheck {
         expect("奇遇 " + fortune + " 出生数量", count, matching.size());
         for (Entity entity : matching) {
             if (hasLevel) {
-                double level = entity.getPersistentData().getDouble("LEVELnumber");
+                double level = EntityAttributes.level(entity);
                 expectTrue("奇遇 " + fortune + " 出生等级在1至35", level >= 1 && level <= 35);
             }
         }

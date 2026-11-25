@@ -88,7 +88,7 @@ final class FireBirdCheck extends ActionCheck {
                         expect("友方不受伤", HEALTH, (double) golem.getHealth());
                         clearArea(player);
                         cast(player);
-                        withBird(player, "寿命检查生成一只火鸟", lifetimeBird -> lifetimeBird.getPersistentData().putDouble("tick", 1199));
+                        withBird(player, "寿命检查生成一只火鸟", lifetimeBird -> lifetimeBird.setAgeTicks(1199));
                     });
                 }),
                 new Action(2, player -> expect("寿命到期消失", 0, birds(player).size())),
@@ -103,7 +103,7 @@ final class FireBirdCheck extends ActionCheck {
                 new Action(50, player -> {
                     withBird(player, "追击目标：寿命内继续存在", bird -> {
                         expectTrue("追击目标：与目标距离缩短", bird.distanceTo(golem) < pursuitStartDistance - 0.25);
-                        expectTrue("追击目标：未提前到期", bird.getPersistentData().getDouble("tick") < 1200);
+                        expectTrue("追击目标：未提前到期", bird.ageTicks() < 1200);
                     });
                 }),
                 new Action(2, player -> {

@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.neoforged.neoforge.event.EventHooks;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
 
 /** 璞玉奇遇妖兽的生成操作。 */
@@ -18,7 +19,7 @@ public final class CreatureEncounters {
         ServerLevel level = player.serverLevel();
         Mob creature = CreatureSetup.<Mob>entityType(id).get().create(level);
         creature.moveTo(player.getX(), player.getY(), player.getZ(), level.getRandom().nextFloat() * 360F, 0F);
-        creature.getPersistentData().putDouble("LEVELnumber", new Random().nextInt(1, 36));
+        EntityAttributes.setLevel(creature, new Random().nextInt(1, 36));
         EventHooks.finalizeMobSpawn(creature, level, level.getCurrentDifficultyAt(creature.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         level.addFreshEntity(creature);
     }

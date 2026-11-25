@@ -41,11 +41,11 @@ public final class Relations {
 
     /** 来源本体实体 teamwork；副本维度进入与结束只操作这一份字段。 */
     public static String entityTemporaryTeam(Entity entity) {
-        return entity.getPersistentData().getString("teamwork");
+        return entity.getData(RelationAttachments.ENTITY_TEMPORARY_TEAM);
     }
 
     public static void setEntityTemporaryTeam(Entity entity, String team) {
-        entity.getPersistentData().putString("teamwork", team);
+        entity.setData(RelationAttachments.ENTITY_TEMPORARY_TEAM, team);
     }
 
     /** {@code judge} 是否把 {@code other} 视为友方。 */
@@ -105,19 +105,9 @@ public final class Relations {
     public record IceCast(int attackDamage, String attacker, int multiplier, int direction) {
     }
 
-    /** 读取实体友表；旧目标版本的实体根友表仅在新附件尚无攻击字段时迁入。 */
+    /** 读取实体友表。 */
     public static IceCast iceCast(Entity entity) {
         Allegiance friends = entityAllegiance(entity);
-        CompoundTag data = entity.getPersistentData();
-        if (!friends.hasFriendKey("AttackDamage") && !friends.hasFriendKey("AttackUUID")
-                && !friends.hasFriendKey("Damage_multiplier") && !friends.hasFriendKey("jiaodu")
-                && data.contains("friendlist", 10)) {
-            CompoundTag old = data.getCompound("friendlist");
-            friends.setFriendInt("AttackDamage", old.getInt("AttackDamage"));
-            friends.setFriendString("AttackUUID", old.getString("AttackUUID"));
-            friends.setFriendInt("Damage_multiplier", old.getInt("Damage_multiplier"));
-            friends.setFriendInt("jiaodu", old.getInt("jiaodu"));
-        }
         return new IceCast(friends.friendInt("AttackDamage"), friends.friendString("AttackUUID"),
                 friends.friendInt("Damage_multiplier"), friends.friendInt("jiaodu"));
     }
@@ -178,12 +168,6 @@ public final class Relations {
     /** 读取技能实体当前友表中的来源字段。 */
     public static FriendCast friendCast(Entity target) {
         Allegiance friends = entityAllegiance(target);
-        CompoundTag data = target.getPersistentData();
-        if (!friends.hasFriendKey("AttackDamage") && !friends.hasFriendKey("AttackUUID")
-                && !friends.hasFriendKey("Damage_multiplier") && !friends.hasFriendKey("damagetype")
-                && !friends.hasFriendKey("jinengName") && data.contains("friendlist", 10)) {
-            friends.shareFromBlock(data, friends.team());
-        }
         return new FriendCast(friends.friendInt("AttackDamage"), friends.friendString("AttackUUID"),
                 friends.friendInt("Damage_multiplier"), friends.friendString("damagetype"), friends.friendString("jinengName"));
     }

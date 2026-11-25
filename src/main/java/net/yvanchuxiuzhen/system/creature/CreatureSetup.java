@@ -10,10 +10,14 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
+import net.yvanchuxiuzhen.system.combat.api.ArmorPierceMarkEvent;
+import net.yvanchuxiuzhen.system.combat.api.PetAssistEvent;
+import net.yvanchuxiuzhen.system.combat.api.VictimBonusExperienceEvent;
 import net.yvanchuxiuzhen.system.creature.content.CoffinContent;
 import net.yvanchuxiuzhen.system.creature.content.SpiritBeastBagDyeMenus;
 import net.yvanchuxiuzhen.system.creature.content.SpiritBeastDyeToolInventory;
 import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.creature.entity.BossCreatures;
 import net.yvanchuxiuzhen.system.creature.entity.Butterflies;
 import net.yvanchuxiuzhen.system.creature.entity.GhostCreatures;
@@ -25,6 +29,7 @@ import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouCreatures;
 import net.yvanchuxiuzhen.system.creature.item.SpiritBeastBagItem;
 import net.yvanchuxiuzhen.system.creature.item.SpiritBeastDyeToolItem;
 import net.yvanchuxiuzhen.system.creature.item.YaoshouProjectileItem;
+import net.yvanchuxiuzhen.system.skill.api.ProjectionRedirectEvent;
 
 /**
  * 生物系统的启动装配，只在 Mod 构造时调用一次。
@@ -55,6 +60,20 @@ public final class CreatureSetup {
         NeoForge.EVENT_BUS.addListener(GuchongGrowthConsumer::onVictimData);
         NeoForge.EVENT_BUS.addListener(WildPlantCreatures::spawn);
         NeoForge.EVENT_BUS.addListener(GuchongGrowthConsumer::onUpgrade);
+        NeoForge.EVENT_BUS.addListener((PetAssistEvent event) ->
+                CreatureData.state(event.pet()).setTempAttackerUuid(event.target().getStringUUID()));
+        NeoForge.EVENT_BUS.addListener((ArmorPierceMarkEvent event) -> {
+            CreatureState state = CreatureData.state(event.victim());
+            if (state.harvestCount() == 0) state.setHarvestCount(1);
+        });
+        NeoForge.EVENT_BUS.addListener((VictimBonusExperienceEvent event) ->
+                CreatureData.existingState(event.victim()).ifPresent(state -> event.addBonus(state.additionalExperience())));
+        NeoForge.EVENT_BUS.addListener((ProjectionRedirectEvent event) -> CreatureData.existingState(event.mob()).ifPresent(state -> {
+            if (event.targetPlayerId().equals(state.attackerUuid())) {
+                state.setTempAttackerUuid(event.projectionId());
+                state.setAttackerUuid(event.projectionId());
+            }
+        }));
         YaoshouCreatures.register(CONTENT, modBus);
         Butterflies.register(CONTENT, modBus);
         Organisms.register(CONTENT, modBus);

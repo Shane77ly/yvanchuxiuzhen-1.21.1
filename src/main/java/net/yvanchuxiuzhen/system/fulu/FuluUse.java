@@ -15,6 +15,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
+import net.yvanchuxiuzhen.system.fulu.data.FuluCasterState;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
@@ -22,8 +24,8 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
  * 符箓施用的共享前半段：精力付款（来源 {@code Fulujinglineed}）与持续效果的激活登记
  * （来源 {@code Itemfulu02DangYouJianDianJiKongQiShiShiTiDeWeiZhi}，02、03、13、17、19、24、31 号符共用）。
  *
- * <p>效果状态保存在玩家体质标签：{@code fuluxiaoguo<编号>} 为是否生效，{@code fulu<编号>level} 为生效时的品阶，
- * {@code fulunumber} 为同时生效的符箓数；逐刻推进与结束见 {@link FuluTick}。
+ * <p>玩家效果状态保存在体质标签，非玩家实体保存在 {@link FuluData#CASTER}：{@code fuluxiaoguo<编号>} 为是否生效，
+ * {@code fulu<编号>level} 为生效时的品阶，{@code fulunumber} 为同时生效的符箓数；逐刻推进与结束见 {@link FuluTick}。
  */
 public final class FuluUse {
     private static final double BASE_COST_PER_SQUARE = 10;
@@ -31,9 +33,22 @@ public final class FuluUse {
     private FuluUse() {
     }
 
-    /** 符箓状态键的当前值：玩家在体质标签，其他实体在实体持久数据（弹体读取发射者的品阶用）。 */
+    /** 符箓状态键的当前值：玩家在体质标签，其他实体在 {@link FuluData#CASTER}（弹体读取发射者的品阶用）。 */
     public static double stateValue(Entity owner, String key) {
-        return owner instanceof Player player ? Cultivation.tizhiDouble(player, key) : owner.getPersistentData().getDouble(key);
+        if (owner instanceof Player player) {
+            return Cultivation.tizhiDouble(player, key);
+        }
+        FuluCasterState state = owner.getData(FuluData.CASTER);
+        return switch (key) {
+            case "fululevel46" -> state.level46();
+            case "fulunumber" -> state.activeCount();
+            default -> {
+                if (key.startsWith("fulu") && key.endsWith("level") && key.length() == 11) {
+                    yield state.effectLevel(key.substring(4, 6));
+                }
+                yield 0;
+            }
+        };
     }
 
     /** 成品组件 {@code fululevel}；低于 1 按 1 计，品阶与付款共用。 */

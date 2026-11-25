@@ -1,5 +1,7 @@
 package net.yvanchuxiuzhen.system.craft.content;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -35,6 +37,7 @@ public final class SilkwormBoxBlockEntity extends RandomizableContainerBlockEnti
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private final Map<String, Double> stats = new LinkedHashMap<>();
 
     public SilkwormBoxBlockEntity(BlockPos pos, BlockState state) {
         super(CraftBlockEntities.SILKWORM_BOX.get(), pos, state);
@@ -50,12 +53,14 @@ public final class SilkwormBoxBlockEntity extends RandomizableContainerBlockEnti
     }
 
     public double value(String field) {
-        return getPersistentData().getDouble(field);
+        return stats.getOrDefault(field, 0.0);
     }
 
     public void value(String field, double value) {
-        getPersistentData().putDouble(field, value);
-        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+        if (value == 0.0) stats.remove(field);
+        else stats.put(field, value);
+        setChanged();
+        if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
     }
 
     @Override
@@ -63,12 +68,22 @@ public final class SilkwormBoxBlockEntity extends RandomizableContainerBlockEnti
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(1, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        stats.clear();
+        CompoundTag savedStats = tag.getCompound("silkworm_stats");
+        for (String key : savedStats.getAllKeys()) {
+            stats.put(key, savedStats.getDouble(key));
+        }
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!stats.isEmpty()) {
+            CompoundTag savedStats = new CompoundTag();
+            stats.forEach(savedStats::putDouble);
+            tag.put("silkworm_stats", savedStats);
+        }
     }
 
     @Override

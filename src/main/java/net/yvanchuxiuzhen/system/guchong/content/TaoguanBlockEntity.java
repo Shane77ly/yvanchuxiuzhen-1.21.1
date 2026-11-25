@@ -27,6 +27,7 @@ public final class TaoguanBlockEntity extends RandomizableContainerBlockEntity i
     private NonNullList<ItemStack> items;
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
+    private CompoundTag jarData = new CompoundTag();
 
     public TaoguanBlockEntity(BlockPos pos, BlockState state) {
         super(GuchongBlockEntities.type(grade(state)), pos, state);
@@ -57,7 +58,7 @@ public final class TaoguanBlockEntity extends RandomizableContainerBlockEntity i
     }
 
     public CompoundTag jarData() {
-        return getPersistentData();
+        return jarData;
     }
 
     public void sync() {
@@ -70,12 +71,14 @@ public final class TaoguanBlockEntity extends RandomizableContainerBlockEntity i
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        jarData = tag.contains("jar_data") ? tag.getCompound("jar_data").copy() : new CompoundTag();
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!jarData.isEmpty()) tag.put("jar_data", jarData.copy());
     }
 
     @Override

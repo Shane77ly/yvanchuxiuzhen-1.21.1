@@ -1,7 +1,12 @@
 package net.yvanchuxiuzhen.system.equipment.projectile;
 
 import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -24,6 +29,8 @@ import net.yvanchuxiuzhen.system.relation.api.Relations;
 public final class Fuchen extends AbstractArrow implements ItemSupplier {
     public static final String ID = "projectile_fuchen";
     private byte pierce;
+    private double ticks;
+    private final Set<String> hitTargets = new LinkedHashSet<>();
 
     public Fuchen(EntityType<? extends Fuchen> type, Level level) {
         super(type, level);
@@ -63,9 +70,22 @@ public final class Fuchen extends AbstractArrow implements ItemSupplier {
     }
 
     @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putDouble("fuchentick", ticks);
+        ListTag hitList = new ListTag();
+        for (String uuid : hitTargets) hitList.add(StringTag.valueOf(uuid));
+        tag.put("hitTargets", hitList);
+    }
+
+    @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         pierce = tag.getByte("PierceLevel");
+        ticks = tag.getDouble("fuchentick");
+        hitTargets.clear();
+        ListTag hitList = tag.getList("hitTargets", Tag.TAG_STRING);
+        for (int index = 0; index < hitList.size(); index++) hitTargets.add(hitList.getString(index));
     }
 
     @Override
@@ -85,19 +105,16 @@ public final class Fuchen extends AbstractArrow implements ItemSupplier {
                 Vec3 center = position();
                 for (Entity target : level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(2), entity -> true).stream()
                         .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList()) {
-                    String key = "uid" + target.getStringUUID();
-                    if (!Relations.isFriendly(owner, target) && !getPersistentData().getBoolean(key)) {
+                    String uuid = target.getStringUUID();
+                    if (!Relations.isFriendly(owner, target) && hitTargets.add(uuid)) {
                         if (target instanceof LivingEntity living) {
                             SpellDamage.deal(level, living, DamageCategory.NONE, owner, false, 2, 1);
                         }
-                        getPersistentData().putBoolean(key, true);
                     }
                 }
-                double ticks = getPersistentData().getDouble("fuchentick") + 1;
-                getPersistentData().putDouble("fuchentick", ticks);
-                if (ticks >= 10) {
+                if (++ticks >= 10) {
                     discard();
-                    getPersistentData().putDouble("fuchentick", 0);
+                    ticks = 0;
                 }
             }
         }

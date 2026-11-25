@@ -34,8 +34,7 @@ public final class LiandanBrewing {
 
     /** 开炉只排除正在炼制的炉次，材料槽逐格消耗一件，第一颗妖丹之后的槽位保留。 */
     public static void begin(AlchemyBlockEntity furnace) {
-        CompoundTag state = furnace.getPersistentData();
-        if (state.getBoolean("liandanBegin")) return;
+        if (furnace.brewing()) return;
 
         ItemStack result = new ItemStack(Items.GUNPOWDER);
         Item container = furnace.getItem(0).getItem();
@@ -55,7 +54,7 @@ public final class LiandanBrewing {
             name = furnace.getItem(1).getDisplayName().getString().substring(1, 3) + "丹";
         }
 
-        CompoundTag herbs = state.getCompound("zong");
+        CompoundTag herbs = furnace.herbs();
         List<MedicineInstance.Effect> effects = new ArrayList<>();
         boolean monsterCoreSeen = false;
         int baseDuration = 0;
@@ -71,15 +70,15 @@ public final class LiandanBrewing {
             remainder.shrink(1);
             furnace.setItem(slot, remainder);
         }
-        int doses = 1 + Mth.nextInt(RandomSource.create(), 0, state.getInt("alchemyDannum"));
+        int doses = 1 + Mth.nextInt(RandomSource.create(), 0, furnace.alchemyDannumInt());
         Liandan.setMedicine(result, new MedicineInstance(outputId, name, description, doses, false, effects));
         result.set(DataComponents.CUSTOM_NAME, Component.literal("丹药残渣"));
         furnace.setItem(11, result);
         ItemStack containerRemainder = furnace.getItem(0).copy();
         containerRemainder.shrink(1);
         furnace.setItem(0, containerRemainder);
-        state.putInt("lianqiTickMax", (int) (baseDuration * (1 - (state.getInt("alchemyFire") + state.getInt("Alchemy_LEVEL")) * 0.05)));
-        state.putBoolean("liandanBegin", true);
+        furnace.setBrewTickMax((int) (baseDuration * (1 - (furnace.alchemyFireInt() + furnace.alchemistLevelInt()) * 0.05)));
+        furnace.setBrewing(true);
 
         double maximumEffect = 0;
         for (MedicineInstance.Effect effect : effects) {
@@ -88,13 +87,13 @@ public final class LiandanBrewing {
             }
         }
         maximumEffect /= 100;
-        state.putInt("jingyanhuoqv", (int) (maximumEffect * 4));
-        int supportedLevel = state.getInt("Alchemy_LEVEL") + state.getInt("alchemyLevel");
+        furnace.setPendingExperience((int) (maximumEffect * 4));
+        int supportedLevel = furnace.alchemistLevelInt() + furnace.alchemyLevelInt();
         if (maximumEffect > supportedLevel) {
-            state.putBoolean("zhalu", true);
-            state.putDouble("zhalugailv", supportedLevel / Math.ceil(maximumEffect));
+            furnace.setExplodeRisk(true);
+            furnace.setExplodeSurvivalChance(supportedLevel / Math.ceil(maximumEffect));
         } else {
-            state.putBoolean("zhalu", false);
+            furnace.setExplodeRisk(false);
         }
         furnace.changed();
     }
@@ -148,17 +147,16 @@ public final class LiandanBrewing {
 
     /** 结果槽变化时领取炉内经验；炸炉先除四，再按来源 DecimalFormat 的整数文本交付。 */
     public static void claimExperience(AlchemyBlockEntity furnace, ServerPlayer player) {
-        CompoundTag state = furnace.getPersistentData();
-        if (state.getBoolean("liandanBegin") || state.getInt("jingyanhuoqv") < 1) return;
-        double experience = state.getInt("jingyanhuoqv");
-        if (state.getBoolean("zhenzhale")) {
+        if (furnace.brewing() || furnace.pendingExperience() < 1) return;
+        double experience = furnace.pendingExperience();
+        if (furnace.explodedFlag()) {
             experience /= 4;
-            state.putBoolean("zhenzhale", false);
+            furnace.setExplodedFlag(false);
         }
         String amount = new DecimalFormat("0").format(experience);
         Professions.addExperience(player, Profession.ALCHEMY, Double.parseDouble(amount));
         player.displayClientMessage(Component.literal("§6炼丹经验增减量为" + amount), false);
-        state.putInt("jingyanhuoqv", 0);
+        furnace.setPendingExperience(0);
         furnace.changed();
     }
 

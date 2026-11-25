@@ -14,6 +14,8 @@ import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.Animation;
 import software.bernie.geckolib.animation.AnimationController;
@@ -37,28 +39,103 @@ public final class Corpse extends TamedSkillEntity {
     private static final String ATTACK = "animation.skillyin01.attack";
     private boolean attackSwinging;
     private long lastSwing;
+    private String masterUuid = "";
+    private double storedSlot;
+    private String attackerUuid = "";
+    private String tempAttackerUuid = "";
+    private String skill = "";
+    private String phase = "";
+    private String pendingSkill = "";
+    private double pendingDelay;
+    private boolean interrupted;
+    private boolean clearingSelf;
+    private double entityTicks;
+    private double entityTicks2;
+    private double stayTicks;
 
     public Corpse(EntityType<Corpse> type, Level level, EntityModelRow model) {
         super(type, level, model);
         setPersistenceRequired();
     }
 
-    /** 按等级设定生命、攻击与来源放在 {@code getPersistentData} 的战斗数值（攻击 {@code 4 + 2 × 等级}、生命 {@code 40 + 20 × 等级}），并回满生命。 */
+    public String masterUuid() { return masterUuid; }
+    public void setMasterUuid(String masterUuid) { this.masterUuid = masterUuid; }
+    public double storedSlot() { return storedSlot; }
+    public void setStoredSlot(double storedSlot) { this.storedSlot = storedSlot; }
+    public String attackerUuid() { return attackerUuid; }
+    public void setAttackerUuid(String attackerUuid) { this.attackerUuid = attackerUuid; }
+    public String tempAttackerUuid() { return tempAttackerUuid; }
+    public void setTempAttackerUuid(String tempAttackerUuid) { this.tempAttackerUuid = tempAttackerUuid; }
+    public String skill() { return skill; }
+    public void setSkill(String skill) { this.skill = skill; }
+    public String phase() { return phase; }
+    public void setPhase(String phase) { this.phase = phase; }
+    public String pendingSkill() { return pendingSkill; }
+    public void setPendingSkill(String pendingSkill) { this.pendingSkill = pendingSkill; }
+    public double pendingDelay() { return pendingDelay; }
+    public void setPendingDelay(double pendingDelay) { this.pendingDelay = pendingDelay; }
+    public boolean interrupted() { return interrupted; }
+    public void setInterrupted(boolean interrupted) { this.interrupted = interrupted; }
+    public boolean clearingSelf() { return clearingSelf; }
+    public void setClearingSelf(boolean clearingSelf) { this.clearingSelf = clearingSelf; }
+    public double entityTicks() { return entityTicks; }
+    public void setEntityTicks(double entityTicks) { this.entityTicks = entityTicks; }
+    public double entityTicks2() { return entityTicks2; }
+    public void setEntityTicks2(double entityTicks2) { this.entityTicks2 = entityTicks2; }
+    public double stayTicks() { return stayTicks; }
+    public void setStayTicks(double stayTicks) { this.stayTicks = stayTicks; }
+
+    /** 按等级设定生命、攻击与属性系统中的战斗数值（攻击 {@code 4 + 2 × 等级}、生命 {@code 40 + 20 × 等级}），并回满生命。 */
     public void empower(double level) {
         double health = 40 + level * 20;
         double attack = 4 + level * 2;
-        CompoundTag data = getPersistentData();
-        data.putDouble("LEVELnumber", level);
-        data.putDouble("health_Max", health);
+        EntityAttributes.setLevel(this, level);
+        EntityAttributes.setStat(this, Stat.HEALTH_MAX, health);
         getAttribute(Attributes.MAX_HEALTH).setBaseValue(health);
         setHealth((float) health);
-        data.putDouble("attack_Num", attack);
+        EntityAttributes.setStat(this, Stat.ATTACK, attack);
         getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(attack);
-        data.putDouble("attack_Def", Math.round(attack * 0.6));
-        data.putDouble("mana_Att", attack);
-        data.putDouble("mana_Def", Math.round(attack * 0.6));
-        data.putDouble("soul_Att", Math.round(attack * 0.2));
-        data.putDouble("soul_Def", attack);
+        EntityAttributes.setStat(this, Stat.ATTACK_DEF, Math.round(attack * 0.6));
+        EntityAttributes.setStat(this, Stat.MANA_ATT, attack);
+        EntityAttributes.setStat(this, Stat.MANA_DEF, Math.round(attack * 0.6));
+        EntityAttributes.setStat(this, Stat.SOUL_ATT, Math.round(attack * 0.2));
+        EntityAttributes.setStat(this, Stat.SOUL_DEF, attack);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putString("masterUuid", masterUuid);
+        tag.putDouble("storedSlot", storedSlot);
+        tag.putString("attackerUuid", attackerUuid);
+        tag.putString("tempAttackerUuid", tempAttackerUuid);
+        tag.putString("skill", skill);
+        tag.putString("phase", phase);
+        tag.putString("pendingSkill", pendingSkill);
+        tag.putDouble("pendingDelay", pendingDelay);
+        tag.putBoolean("interrupted", interrupted);
+        tag.putBoolean("clearingSelf", clearingSelf);
+        tag.putDouble("entityTicks", entityTicks);
+        tag.putDouble("entityTicks2", entityTicks2);
+        tag.putDouble("stayTicks", stayTicks);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        masterUuid = tag.getString("masterUuid");
+        storedSlot = tag.getDouble("storedSlot");
+        attackerUuid = tag.getString("attackerUuid");
+        tempAttackerUuid = tag.getString("tempAttackerUuid");
+        skill = tag.getString("skill");
+        phase = tag.getString("phase");
+        pendingSkill = tag.getString("pendingSkill");
+        pendingDelay = tag.getDouble("pendingDelay");
+        interrupted = tag.getBoolean("interrupted");
+        clearingSelf = tag.getBoolean("clearingSelf");
+        entityTicks = tag.getDouble("entityTicks");
+        entityTicks2 = tag.getDouble("entityTicks2");
+        stayTicks = tag.getDouble("stayTicks");
     }
 
     @Override

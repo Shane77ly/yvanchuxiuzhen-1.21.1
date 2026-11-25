@@ -26,6 +26,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.npc.NpcData;
+import net.yvanchuxiuzhen.system.npc.NpcDialogueProfile;
 import net.yvanchuxiuzhen.system.npc.NpcSetup;
 import net.yvanchuxiuzhen.system.npc.NpcStructureReleases;
 import net.yvanchuxiuzhen.system.npc.entity.NpcResident;
@@ -46,7 +49,7 @@ final class NpcResidentsCheck extends SystemCheck {
     private final Map<Long, Boolean> forced = new LinkedHashMap<>();
     private CompoundTag journal;
     private CompoundTag session;
-    private CompoundTag childState;
+    private NpcDialogueProfile childProfile;
     private UUID child;
     private Vec3 position;
     private float yaw;
@@ -98,7 +101,7 @@ final class NpcResidentsCheck extends SystemCheck {
                 screenshots.take("npc_resident_second_dialogue.png");
                 onServer(player -> {
                     expectTrue("首任务完成后自然选择结构追加第二任务", DialogueActions.snapshot(player).getString("renwulist").contains("/yiqizhuatuzier/"));
-                    childState = player.serverLevel().getEntity(child).getPersistentData().copy();
+                    childProfile = player.serverLevel().getEntity(child).getData(NpcData.PROFILE);
                     player.closeContainer();
                 });
             }
@@ -108,8 +111,9 @@ final class NpcResidentsCheck extends SystemCheck {
                 onServer(player -> {
                     Entity loaded = player.serverLevel().getEntity(child);
                     expectTrue("正常重进保留真实模板居民身份", loaded instanceof NpcResidentAnimated);
-                    expect("正常重进保留首项任务", childState.getString("renwulist1"), loaded.getPersistentData().getString("renwulist1"));
-                    expect("正常重进保留结构追加任务", childState.getString("renwulist2"), loaded.getPersistentData().getString("renwulist2"));
+                    NpcDialogueProfile reloaded = loaded.getData(NpcData.PROFILE);
+                    expect("正常重进保留首项任务", childProfile.script(0), reloaded.script(0));
+                    expect("正常重进保留结构追加任务", childProfile.script(1), reloaded.script(1));
                     expect("正常重进保持模板居民生命上限", 100, ((NpcResident) loaded).getMaxHealth());
                     expect("正常重进保留模板姓名", "小孩哥", loaded.getDisplayName().getString());
                     expectTrue("居民模型已注册", minecraft.getEntityRenderDispatcher().getRenderer(minecraft.level.getEntity(loaded.getId())) != null);
@@ -158,8 +162,8 @@ final class NpcResidentsCheck extends SystemCheck {
             NpcResident resident = residents.getFirst();
             expect("新生居民来源默认生命" + number, number <= 22 ? 20 : 100, resident.getMaxHealth());
             expect("新生居民来源默认攻击" + number, 1, resident.getAttributeValue(Attributes.ATTACK_DAMAGE));
-            expectTrue("新生居民未经过商人档案初始化" + number, resident.getPersistentData().getString("LEVELname").isEmpty()
-                    && resident.getPersistentData().getString("renwulist1").isEmpty());
+            expectTrue("新生居民未经过商人档案初始化" + number, EntityAttributes.realmName(resident).isEmpty()
+                    && resident.getData(NpcData.PROFILE).script(0).isEmpty());
             if (resident instanceof NpcResidentAnimated) {
                 expect("首刻更新前仍为注册碰撞宽度" + number, .5F, resident.getBbWidth());
                 expect("首刻更新前仍为注册碰撞高度" + number, 1.5F, resident.getBbHeight());
@@ -180,17 +184,17 @@ final class NpcResidentsCheck extends SystemCheck {
             NpcResident resident = NpcSetup.<NpcResident>entityType("businessman_" + number).get().create(player.level());
             resident.finalizeSpawn(player.serverLevel(), player.serverLevel().getCurrentDifficultyAt(player.blockPosition()), MobSpawnType.COMMAND, null);
             if (resident instanceof NpcResidentAnimated animated) {
-                resident.getPersistentData().putDouble("tick", 99);
+                animated.setSmileTick(99);
                 resident.setHealth(resident.getMaxHealth() * .89F);
                 resident.baseTick();
-                expect("低于九成血仍在百刻清计数" + number, 0, resident.getPersistentData().getDouble("tick"));
+                expect("低于九成血仍在百刻清计数" + number, 0, animated.smileTick());
                 expect("低于九成血不请求微笑" + number, "undefined", animated.getSyncedAnimation());
-                resident.getPersistentData().putDouble("tick", 98);
+                animated.setSmileTick(98);
                 resident.setHealth(resident.getMaxHealth());
                 resident.baseTick();
-                expect("百刻前保留累计" + number, 99, resident.getPersistentData().getDouble("tick"));
+                expect("百刻前保留累计" + number, 99, animated.smileTick());
                 resident.baseTick();
-                expect("满血百刻清计数" + number, 0, resident.getPersistentData().getDouble("tick"));
+                expect("满血百刻清计数" + number, 0, animated.smileTick());
                 expect("满血百刻产生来源微笑同步请求" + number, "animation.businessman" + number + ".smile", animated.getSyncedAnimation());
                 resident.tick();
                 expect("下一实体刻先消费上一刻同步动画" + number, "undefined", animated.getSyncedAnimation());
@@ -224,13 +228,13 @@ final class NpcResidentsCheck extends SystemCheck {
         expect("模板姓名按中文保存", "小孩哥", resident.getDisplayName().getString());
         expect("模板实例生命上限覆盖默认值", 100, resident.getMaxHealth());
         expect("模板实例攻击覆盖默认值", 2, resident.getAttributeValue(Attributes.ATTACK_DAMAGE));
-        expectTrue("结构NeoForgeData读取到首任务", resident.getPersistentData().getString("renwulist1").contains("/yiqizhuatuzi/"));
-        expectTrue("结构首任务物品已统一命名空间", !resident.getPersistentData().getString("renwulist1").contains("yvanchuxitong:"));
+        expectTrue("结构组件读取到首任务", resident.getData(NpcData.PROFILE).script(0).contains("/yiqizhuatuzi/"));
+        expectTrue("结构首任务物品已统一命名空间", !resident.getData(NpcData.PROFILE).script(0).contains("yvanchuxitong:"));
         AABB merchants = new AABB(-77, 61, -366, -62, 67, -353);
         List<UUID> previous = player.serverLevel().getEntitiesOfClass(Entity.class, merchants).stream().map(Entity::getUUID).toList();
         NpcStructureReleases.structureReleased(new StructureReleasedEvent(player.serverLevel(), "花繁城"));
-        expectTrue("结构消费者为真实21号追加第二任务", resident.getPersistentData().getString("renwulist2").contains("/yiqizhuatuzier/"));
-        expectTrue("结构消费者保留第一任务", resident.getPersistentData().getString("renwulist1").contains("/yiqizhuatuzi/"));
+        expectTrue("结构消费者为真实21号追加第二任务", resident.getData(NpcData.PROFILE).script(1).contains("/yiqizhuatuzier/"));
+        expectTrue("结构消费者保留第一任务", resident.getData(NpcData.PROFILE).script(0).contains("/yiqizhuatuzi/"));
         for (Entity entity : player.serverLevel().getEntitiesOfClass(Entity.class, merchants)) {
             String name = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getPath();
             if (!previous.contains(entity.getUUID()) && (name.equals("businessman_09") || name.equals("businessman_10") || name.equals("businessman_11"))) {

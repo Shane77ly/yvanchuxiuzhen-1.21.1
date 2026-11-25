@@ -35,10 +35,20 @@ public final class InheritanceBlockEntity extends RandomizableContainerBlockEnti
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private int selection;
 
     public InheritanceBlockEntity(BlockPos pos, BlockState state) {
         super(InheritanceContent.BLOCK_ENTITY.get(), pos, state);
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
+    }
+
+    public int selection() {
+        return selection;
+    }
+
+    public void setSelection(int selection) {
+        this.selection = selection;
+        changed();
     }
 
     public IItemHandler handler(Direction direction) {
@@ -53,6 +63,7 @@ public final class InheritanceBlockEntity extends RandomizableContainerBlockEnti
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
+        selection = tag.getInt("selection");
         items = NonNullList.withSize(0, ItemStack.EMPTY);
         if (!tryLoadLootTable(tag)) ContainerHelper.loadAllItems(tag, items, registries);
     }
@@ -60,6 +71,7 @@ public final class InheritanceBlockEntity extends RandomizableContainerBlockEnti
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
+        tag.putInt("selection", selection);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
     }
 

@@ -39,13 +39,19 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.attribute.api.Contribution;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.creature.api.CreatureBounties;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.api.DungeonCreatures;
 import net.yvanchuxiuzhen.system.fulu.FuluSetup;
 import net.yvanchuxiuzhen.system.fulu.TalismanControl;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile;
 import net.yvanchuxiuzhen.system.fulu.content.TalismanProjectile.Kind;
+import net.yvanchuxiuzhen.system.fulu.data.FuluCasterState;
+import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -68,7 +74,8 @@ final class FuluTamingCheck extends SystemCheck {
     private double soul;
     private double fixed;
     private double percentage;
-    private CompoundTag playerData;
+    private FuluCasterState casterSnapshot;
+    private String controlOwnerSnapshot;
     private Pig target;
     private TalismanProjectile natural;
     private boolean releasedModifier;
@@ -105,10 +112,10 @@ final class FuluTamingCheck extends SystemCheck {
                 expectTrue("自然松手生成18号弹体", natural != null);
                 expectTrue("普通模式原生箭命中并给予四级缓慢", target.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
                         && target.getEffect(MobEffects.MOVEMENT_SLOWDOWN).getAmplifier() == 3);
-                expect("命中先记录施放者显示名", player.getDisplayName().getString(), target.getPersistentData().getString("beikongzhi"));
+                expect("命中先记录施放者显示名", player.getDisplayName().getString(), target.getData(FuluData.CONTROL_OWNER));
                 expect("二阶普通发射扣40精力", 760, Cultivation.get(player, CultivationValue.SOUL));
                 expect("二阶普通发射耗一张", 2, player.getMainHandItem().getCount());
-                expect("首刻保留通用品阶", 2, player.getPersistentData().getDouble("fululevel"));
+                expect("首刻保留通用品阶", 2, player.getData(FuluData.CASTER).pendingLevel());
                 target.discard();
                 target = pig(player);
                 natural = null;
@@ -129,8 +136,8 @@ final class FuluTamingCheck extends SystemCheck {
             onServer(player -> {
                 expectTrue("客户端Ctrl松开载荷抵达服务端", releasedModifier && !ModifierKeys.ctrl(player));
                 expectTrue("真实第二次命中进入控制模式", natural != null && target.hasEffect(effect("fulutexiao_18")));
-                expectTrue("松开Ctrl后弹体仍保留首刻模式与主人名字", natural != null && natural.getPersistentData().getBoolean("jiuxiaoguo")
-                        && natural.getPersistentData().getString("zhurenname").equals(player.getDisplayName().getString())
+                expectTrue("松开Ctrl后弹体仍保留首刻模式与主人名字", natural != null && natural.isNineEffects()
+                        && natural.ownerName().equals(player.getDisplayName().getString())
                         && Relations.entityTeam(natural).equals(Relations.team(player)));
                 expect("两次发射累计扣80精力", 720, Cultivation.get(player, CultivationValue.SOUL));
                 expect("两次发射剩一张", 1, player.getMainHandItem().getCount());
@@ -169,7 +176,8 @@ final class FuluTamingCheck extends SystemCheck {
         soul = Cultivation.get(player, CultivationValue.SOUL);
         fixed = Cultivation.tizhiDouble(player, "FuluConsumeJingli");
         percentage = Cultivation.tizhiDouble(player, "FuluConsumeJingliPercentage");
-        playerData = player.getPersistentData().copy();
+        casterSnapshot = player.getData(FuluData.CASTER);
+        controlOwnerSnapshot = player.getData(FuluData.CONTROL_OWNER);
         player.setGameMode(GameType.SURVIVAL);
         player.setNoGravity(true);
         player.setInvulnerable(true);
@@ -193,7 +201,7 @@ final class FuluTamingCheck extends SystemCheck {
         player.setItemInHand(InteractionHand.MAIN_HAND, talisman);
         Cultivation.set(player, CultivationValue.SOUL, 39);
         talisman.getItem().releaseUsing(talisman, player.level(), player, 71990);
-        expect("不足精力仍先写通用品阶", 2, player.getPersistentData().getDouble("fululevel"));
+        expect("不足精力仍先写通用品阶", 2, player.getData(FuluData.CASTER).pendingLevel());
         expect("不足精力保留符箓", 3, talisman.getCount());
         expect("不足精力不扣费", 39, Cultivation.get(player, CultivationValue.SOUL));
         Cultivation.set(player, CultivationValue.SOUL, 800);
@@ -213,18 +221,18 @@ final class FuluTamingCheck extends SystemCheck {
         Pig loaded = (Pig) EntityType.loadEntityRecursive(saved, player.serverLevel(), entity -> entity);
         created.add(loaded);
         expectTrue("控制效果和显示名保存重读", loaded.hasEffect(effect("fulutexiao_18"))
-                && loaded.getPersistentData().getString("beikongzhi").equals(player.getDisplayName().getString()));
+                && loaded.getData(FuluData.CONTROL_OWNER).equals(player.getDisplayName().getString()));
         loaded.removeEffect(effect("fulutexiao_18"));
-        expectTrue("移除效果清控制显示名", loaded.getPersistentData().getString("beikongzhi").isEmpty());
+        expectTrue("移除效果清控制显示名", loaded.getData(FuluData.CONTROL_OWNER).isEmpty());
         player.setShiftKeyDown(true);
         target.tick();
         player.setShiftKeyDown(false);
         expectTrue("潜行控制者令目标解除效果", !target.hasEffect(effect("fulutexiao_18"))
-                && target.getPersistentData().getString("beikongzhi").isEmpty());
+                && target.getData(FuluData.CONTROL_OWNER).isEmpty());
         TalismanProjectile probe = FuluSetup.projectile(Kind.TAMING).get().create(player.serverLevel());
         probe.setOwner(player);
         probe.setPos(player.position().add(0, 10, 0));
-        player.getPersistentData().putDouble("fululevel", 4);
+        player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withPendingLevel(4));
         ModifierKeys.update(player, false, true);
         probe.tick();
         ModifierKeys.update(player, false, false);
@@ -234,8 +242,8 @@ final class FuluTamingCheck extends SystemCheck {
         created.add(probe);
         created.add(restored);
         expectTrue("弹体保存首刻品阶模式团队名字与计数", arrow.getDouble("fululevel") == 4 && arrow.getInt("tick") == 1
-                && restored.getPersistentData().getBoolean("jiuxiaoguo") && restored.isNoGravity()
-                && restored.getPersistentData().getString("zhurenname").equals(player.getDisplayName().getString())
+                && restored.isNineEffects() && restored.isNoGravity()
+                && restored.ownerName().equals(player.getDisplayName().getString())
                 && Relations.entityTeam(restored).equals(Relations.team(player)));
         for (int index = 1; index < 9; index++) restored.tick();
         expectTrue("弹体第九刻仍存在", !restored.isRemoved());
@@ -245,7 +253,7 @@ final class FuluTamingCheck extends SystemCheck {
         expectTrue("修饰键玩家目标只加控制不减精力", player.hasEffect(effect("fulutexiao_18"))
                 && Cultivation.get(player, CultivationValue.SOUL) == 720);
         player.removeEffect(effect("fulutexiao_18"));
-        probe.getPersistentData().putBoolean("jiuxiaoguo", false);
+        probe.setNineEffects(false);
         TalismanControl.hit(player.serverLevel(), probe, player, player, 2);
         expect("普通玩家目标精力减少160", 560, Cultivation.get(player, CultivationValue.SOUL));
         TalismanControl.hit(player.serverLevel(), probe, player, player, 4);
@@ -257,7 +265,7 @@ final class FuluTamingCheck extends SystemCheck {
         Pig victim = pig(player);
         Pig shooter = pig(player);
         victim.setHealth(victim.getMaxHealth() / 2);
-        victim.getPersistentData().putDouble("LEVELnumber", 10);
+        EntityAttributes.setLevel(victim, 10);
         expect("半血与正等级差概率20", 20, TamingProbe.chance(victim, shooter, 2));
         victim.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 1200, 9));
         expect("缓慢十级分支加20", 40, TamingProbe.chance(victim, shooter, 2));
@@ -278,12 +286,12 @@ final class FuluTamingCheck extends SystemCheck {
         expect("首与18号毒药凋零及施放者幸运厄运", 30, TamingProbe.chance(victim, shooter, 2));
         victim.removeAllEffects();
         shooter.removeAllEffects();
-        victim.getPersistentData().putDouble("LEVELnumber", 25);
+        EntityAttributes.setLevel(victim, 25);
         expect("负等级差平方扣分且不截断", -15, TamingProbe.chance(victim, shooter, 2));
         expect("高等级差概率超过100保留", 185, TamingProbe.chance(victim, shooter, 20));
         victim.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20);
         victim.setHealth(17);
-        victim.getPersistentData().putDouble("LEVELnumber", 0);
+        EntityAttributes.setLevel(victim, 0);
         double boundary = TamingProbe.chance(victim, shooter, 7);
         expect("17/20生命先float运算的概率精度", Double.toHexString(72.99999952316284), Double.toHexString(boundary));
         expectTrue("来源随机73在此精度边界仍失败", boundary < 73 && boundary >= 72);
@@ -301,15 +309,15 @@ final class FuluTamingCheck extends SystemCheck {
         Relations.setTeam(beast, "former");
         Relations.addFriendlyTeam(beast, "former");
         Relations.addFriendlyTeam(beast, "unrelated");
-        beast.getPersistentData().putBoolean("fubenentity", true);
+        DungeonCreatures.setDungeonEntity(beast, true);
         TalismanControl.hit(player.serverLevel(), probe, beast, player, 20);
         expectTrue("副本妖兽拒绝驯服但先写控制名", !beast.isTame()
-                && beast.getPersistentData().getString("beikongzhi").equals(player.getDisplayName().getString()));
-        beast.getPersistentData().putBoolean("fubenentity", false);
-        beast.getPersistentData().putBoolean("gaoshipaientity", true);
+                && beast.getData(FuluData.CONTROL_OWNER).equals(player.getDisplayName().getString()));
+        DungeonCreatures.setDungeonEntity(beast, false);
+        CreatureBounties.setBounty(beast, true);
         TalismanControl.hit(player.serverLevel(), probe, beast, player, 20);
         expectTrue("悬赏妖兽拒绝驯服", !beast.isTame());
-        beast.getPersistentData().putBoolean("gaoshipaientity", false);
+        CreatureBounties.setBounty(beast, false);
         Objective objective = player.serverLevel().getScoreboard().getObjective("zhaohuanwu");
         if (objective == null) objective = player.serverLevel().getScoreboard().addObjective("zhaohuanwu", ObjectiveCriteria.DUMMY,
                 Component.literal("zhaohuanwu"), ObjectiveCriteria.RenderType.INTEGER, true, null);
@@ -317,12 +325,12 @@ final class FuluTamingCheck extends SystemCheck {
         TalismanControl.hit(player.serverLevel(), probe, beast, player, 20);
         expectTrue("召唤物分数1拒绝驯服", !beast.isTame());
         player.serverLevel().getScoreboard().getOrCreatePlayerScore(beast, objective).set(0);
-        beast.getPersistentData().putDouble("LEVELnumber", 100);
+        EntityAttributes.setLevel(beast, 100);
         TalismanControl.hit(player.serverLevel(), probe, beast, player, 1);
         expectTrue("负概率真实失败且阵营保留", !beast.isTame() && Relations.entityTeam(beast).equals("former"));
-        beast.getPersistentData().putDouble("LEVELnumber", 0);
-        beast.getPersistentData().putString("gongjizhe", "prior");
-        beast.getPersistentData().putString("linshigongjizhe", "prior");
+        EntityAttributes.setLevel(beast, 0);
+        CreatureData.state(beast).setAttackerUuid("prior");
+        CreatureData.state(beast).setTempAttackerUuid("prior");
         beast.addEffect(new MobEffectInstance(MobEffects.POISON, 1200, 0));
         TalismanControl.hit(player.serverLevel(), probe, beast, player, 20);
         expectTrue("大于100概率真实驯服并绑定原生主人", beast.isTame() && player.getUUID().equals(beast.getOwnerUUID()));
@@ -330,8 +338,8 @@ final class FuluTamingCheck extends SystemCheck {
                 && Relations.team(beast).equals(Relations.team(player)));
         expectTrue("成功清全效果再给002及033各100刻", beast.getActiveEffects().size() == 2
                 && beast.getEffect(effect("effect_002")).getDuration() == 100 && beast.getEffect(effect("effect_033")).getDuration() == 100);
-        expectTrue("成功清两个仇恨UUID", beast.getPersistentData().getString("gongjizhe").isEmpty()
-                && beast.getPersistentData().getString("linshigongjizhe").isEmpty());
+        expectTrue("成功清两个仇恨UUID", CreatureData.state(beast).attackerUuid().isEmpty()
+                && CreatureData.state(beast).tempAttackerUuid().isEmpty());
         CompoundTag saved = beast.saveWithoutId(new CompoundTag());
         saved.putString("id", id("yaoshou_001").toString());
         TamableAnimal restored = (TamableAnimal) EntityType.loadEntityRecursive(saved, player.serverLevel(), entity -> entity);
@@ -358,10 +366,8 @@ final class FuluTamingCheck extends SystemCheck {
             data.putDouble("FuluConsumeJingli", fixed);
             data.putDouble("FuluConsumeJingliPercentage", percentage);
         });
-        for (String key : List.of("fululevel", "beikongzhi")) {
-            if (playerData.contains(key)) player.getPersistentData().put(key, playerData.get(key).copy());
-            else player.getPersistentData().remove(key);
-        }
+        player.setData(FuluData.CASTER, casterSnapshot);
+        player.setData(FuluData.CONTROL_OWNER, controlOwnerSnapshot);
     }
 
     private Pig pig(ServerPlayer player) {

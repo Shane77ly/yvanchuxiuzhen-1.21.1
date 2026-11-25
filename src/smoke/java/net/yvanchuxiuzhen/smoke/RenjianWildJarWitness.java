@@ -20,9 +20,14 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.EntityStats;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.guchong.api.GuchongRuntimeState;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlockEntity;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanMenu;
+import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 import net.yvanchuxiuzhen.system.guchong.entity.Guchong03Entity;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
@@ -195,17 +200,18 @@ final class RenjianWildJarWitness {
                 || !(event.getEntity() instanceof Guchong03Entity fly)
                 || !level.hasChunkAt(placement) || !(level.getBlockEntity(placement) instanceof TaoguanBlockEntity source)
                 || !jarId.equals(source.jarData().getString("guguanuuid"))) return;
-        CompoundTag data = fly.getPersistentData();
-        String target = data.getString("gongjimubiao");
-        if (!fly.isAlive() || fly.getUUID().equals(wildUuid) || !data.getBoolean("kanjia") || !data.getBoolean("guchongxvnfu")
-                || !observer.getUUID().equals(fly.getOwnerUUID()) || !data.contains("guguanweizhi") || data.getInt("guguanweizhi") != 0
-                || !placement.equals(new BlockPos(data.getInt("homeblockX"), data.getInt("homeblockY"), data.getInt("homeblockZ")))) return;
+        GuchongRuntimeState runtime = fly.getData(GuchongData.RUNTIME);
+        String target = runtime.commandTargetUuid();
+        if (!fly.isAlive() || fly.getUUID().equals(wildUuid) || !runtime.guarding() || !runtime.tamed()
+                || !observer.getUUID().equals(fly.getOwnerUUID()) || runtime.jarUuid().isEmpty() || runtime.jarSlot() != 0
+                || !placement.equals(runtime.homePos())) return;
         if (!reopened) {
             releasedBeforeSave = true;
             return;
         }
         CompoundTag slot = GuchongJarData.read(savedSlot);
-        if (!matchesStats(data, "") || data.getInt("health_Num") != slot.getInt("health_Num")) return;
+        EntityStats flyStats = EntityAttributes.get(fly);
+        if (!matchesEntityStats(flyStats) || fly.getHealth() != slot.getInt("health_Num")) return;
         Animal animal = eligibleAnimals(level, source).stream().filter(candidate -> candidate.getStringUUID().equals(target))
                 .findFirst().orElse(null);
         if (animal == null || (controlledTarget != null && !controlledTarget.equals(animal.getUUID()))) return;
@@ -229,6 +235,12 @@ final class RenjianWildJarWitness {
     private boolean matches(CompoundTag data, String slot) {
         return matchesStats(data, slot) && !data.getBoolean("guchongxvnfu" + slot)
                 && data.getDouble("health_Num" + slot) == insect.getDouble("health_Num");
+    }
+
+    private boolean matchesEntityStats(EntityStats stats) {
+        return stats.level() == insect.getDouble("LEVELnumber")
+                && stats.stat(Stat.ATTACK) == insect.getDouble("attack_Num")
+                && stats.stat(Stat.MOVE_SPEED) == insect.getDouble("speed_number");
     }
 
     private boolean matchesStats(CompoundTag data, String slot) {

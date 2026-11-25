@@ -47,8 +47,7 @@ public final class RepairTableMenu extends AbstractContainerMenu {
     }
 
     public String requirement() {
-        return level.getBlockEntity(pos) instanceof RepairTableBlockEntity table
-                ? table.getPersistentData().getString("needcailiao") : "";
+        return level.getBlockEntity(pos) instanceof RepairTableBlockEntity table ? table.requirement() : "";
     }
 
     /** 服务端只操作当前菜单绑定且仍存在的同一台实体。 */

@@ -20,6 +20,8 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.Animation;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 
 /** 028号妖兽：保留来源水生属性、溺水免疫和水枪技能。 */
 public final class Yaoshou028Entity extends YaoshouEntity {
@@ -39,7 +41,7 @@ public final class Yaoshou028Entity extends YaoshouEntity {
     protected void sourceSpawn(ServerLevelAccessor level) {
         if (YaoshouShared.initialize(this, 8,
                 "平庸", "平庸", "平庸", "勉强", "贫弱", "贫弱", "勉强", "绝佳", "贫弱", "强劲", "贫弱", "贫弱", "贫弱")) {
-            getAttribute(NeoForgeMod.SWIM_SPEED).setBaseValue(getPersistentData().getDouble("speed_number") * 6.5);
+            getAttribute(NeoForgeMod.SWIM_SPEED).setBaseValue(EntityAttributes.stat(this, Stat.MOVE_SPEED) * 6.5);
         }
     }
 

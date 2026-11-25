@@ -30,6 +30,7 @@ import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
+import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.projectile.Fuchen;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
 import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
@@ -103,7 +104,11 @@ final class EquipmentWeapons {
     }
 
     private static boolean rightClicking(Player player) {
-        return player.getPersistentData().getCompound("synchronizedata").getBoolean("rightclicking");
+        return Boolean.TRUE.equals(player.getData(EquipmentData.RIGHT_CLICKING));
+    }
+
+    public static void setRightClicking(Player player, boolean rightClicking) {
+        player.setData(EquipmentData.RIGHT_CLICKING, rightClicking);
     }
 
     private static ToolMachineEntity.Kind toolKind(ItemStack stack) {

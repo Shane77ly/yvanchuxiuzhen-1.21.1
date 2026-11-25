@@ -22,6 +22,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.system.creature.api.DungeonCreatures;
 import net.yvanchuxiuzhen.system.dungeon.content.DungeonBlockEntity;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonData;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 控制器每秒推进来源阶段；胜利、失败、超时和延后回程各自保留原顺序。 */
@@ -33,7 +34,7 @@ public final class DungeonController {
 
     public static void tick(DungeonBlockEntity block) {
         if (!block.kind().equals("fubenblock")) return;
-        CompoundTag data = block.getPersistentData();
+        CompoundTag data = block.state();
         if (data.getBoolean("fubenopen")) {
             DungeonDefinitions.reset(block);
             DungeonDefinitions.parse(block);
@@ -57,7 +58,7 @@ public final class DungeonController {
             } else if (phase.equals("监测敌人是否死亡")) {
                 List<Entity> entities = entities(block);
                 long players = entities.stream().filter(ServerPlayer.class::isInstance).count();
-                long enemies = entities.stream().filter(entity -> !(entity instanceof ServerPlayer) && entity.getPersistentData().getBoolean("fubenentity")).count();
+                long enemies = entities.stream().filter(entity -> !(entity instanceof ServerPlayer) && DungeonCreatures.isDungeonEntity(entity)).count();
                 if (players <= 0) {
                     data.putString("fubenjindu", "失败");
                     data.putInt("fubentick", 0);
@@ -74,11 +75,12 @@ public final class DungeonController {
                 data.putInt("fubenjieshutime", 0);
                 data.putBoolean("fubenstate", false);
                 data.putString("fubenjindu", "");
-                for (Entity entity : entities(block)) if (entity.getPersistentData().getBoolean("fubenentity")) entity.discard();
+                for (Entity entity : entities(block)) if (DungeonCreatures.isDungeonEntity(entity)) entity.discard();
                 for (ServerPlayer player : players(block)) {
                     title(player, "失 败", "black", true);
-                    if (player.gameMode.getGameModeForPlayer() == GameType.ADVENTURE && !player.getPersistentData().getString("gamemoshi").equals("冒险")) player.setGameMode(GameType.SURVIVAL);
-                    player.getPersistentData().putBoolean("fubenfanhui", true);
+                    CompoundTag transientState = player.getData(DungeonData.PLAYER_TRANSIENT);
+                    if (player.gameMode.getGameModeForPlayer() == GameType.ADVENTURE && !transientState.getString("gamemoshi").equals("冒险")) player.setGameMode(GameType.SURVIVAL);
+                    transientState.putBoolean("fubenfanhui", true);
                     if (!Relations.entityTemporaryTeam(player).isEmpty()) Relations.setEntityTemporaryTeam(player, "");
                     RETURNS.add(new ReturnTask(player, block, 2));
                 }
@@ -86,7 +88,7 @@ public final class DungeonController {
                 data.putInt("fubentick", 0);
                 for (ServerPlayer player : players(block)) {
                     title(player, "通 关", "gold", true);
-                    player.getPersistentData().putBoolean("fubenfanhui", true);
+                    player.getData(DungeonData.PLAYER_TRANSIENT).putBoolean("fubenfanhui", true);
                     if (!Relations.entityTemporaryTeam(player).isEmpty()) Relations.setEntityTemporaryTeam(player, "");
                 }
                 give(block);
@@ -117,7 +119,7 @@ public final class DungeonController {
 
     private static void spawn(DungeonBlockEntity block) {
         ServerLevel level = (ServerLevel) block.getLevel();
-        CompoundTag data = block.getPersistentData();
+        CompoundTag data = block.state();
         int spawn = data.getInt("fubenentityspawnnum");
         int count = data.getInt("fybenboci" + data.getInt("fubenbocinum") + "num");
         Entity first = null;
@@ -135,11 +137,8 @@ public final class DungeonController {
             entity.yRotO = angle;
             entity.xRotO = 0;
             if (entity instanceof LivingEntity living) { living.yBodyRotO = angle; living.yHeadRotO = angle; }
-            CompoundTag state = entity.getPersistentData();
-            state.putBoolean("fubenentity", true);
-            state.putInt("fubenzuobiaoX", block.getBlockPos().getX());
-            state.putInt("fubenzuobiaoY", block.getBlockPos().getY());
-            state.putInt("fubenzuobiaoZ", block.getBlockPos().getZ());
+            DungeonCreatures.setDungeonEntity(entity, true);
+            entity.setData(DungeonData.CONTROLLER_POS, block.getBlockPos());
             if (first == null) {
                 first = entity;
                 Relations.addFriendlyTeam(entity, "isfubenentity");
@@ -160,13 +159,13 @@ public final class DungeonController {
         for (ServerPlayer player : players(block)) {
             for (int slot = 0; slot < 18; slot++) {
                 ItemStack reward = block.getItem(slot);
-                if (!reward.isEmpty() && Mth.nextInt(level.random, 1, 100) <= block.getPersistentData().getInt("gift" + slot + "qvanzhong")) ItemHandlerHelper.giveItemToPlayer(player, reward.copy());
+                if (!reward.isEmpty() && Mth.nextInt(level.random, 1, 100) <= block.state().getInt("gift" + slot + "qvanzhong")) ItemHandlerHelper.giveItemToPlayer(player, reward.copy());
             }
         }
     }
 
     private static List<Entity> entities(DungeonBlockEntity block) {
-        CompoundTag data = block.getPersistentData();
+        CompoundTag data = block.state();
         Vec3 center = Vec3.atLowerCornerOf(block.getBlockPos()).add(data.getInt("fubenzhongxinX"), data.getInt("fubenzhongxinY"), data.getInt("fubenzhongxinZ"));
         return block.getLevel().getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(data.getInt("fubenbianchang") / 2.0), entity -> true).stream()
                 .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList();

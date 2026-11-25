@@ -1,5 +1,6 @@
 package net.yvanchuxiuzhen.system.xiulian.tribulation;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -22,6 +23,8 @@ public abstract class TribulationEntity extends PathfinderMob implements GeoEnti
     private final EntityModelRow model;
     private final int transition;
     private final int deathTicks;
+    private String playerUuid = "";
+    private double thunderAttack;
 
     protected TribulationEntity(EntityType<? extends TribulationEntity> type, Level level, EntityModelRow model, int transition, int deathTicks) {
         super(type, level);
@@ -31,6 +34,28 @@ public abstract class TribulationEntity extends PathfinderMob implements GeoEnti
         xpReward = 0;
         setNoAi(model.noAi());
         setPersistenceRequired();
+    }
+
+    public String playerUuid() { return playerUuid; }
+
+    public void setPlayerUuid(String playerUuid) { this.playerUuid = playerUuid; }
+
+    public double thunderAttack() { return thunderAttack; }
+
+    public void setThunderAttack(double thunderAttack) { this.thunderAttack = thunderAttack; }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putString("playerUUID", playerUuid);
+        tag.putDouble("thunder_Att", thunderAttack);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        playerUuid = tag.getString("playerUUID");
+        thunderAttack = tag.getDouble("thunder_Att");
     }
 
     @Override

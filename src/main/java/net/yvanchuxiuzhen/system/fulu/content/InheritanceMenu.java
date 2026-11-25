@@ -34,8 +34,7 @@ public final class InheritanceMenu extends AbstractContainerMenu {
     }
 
     public Component selection() {
-        int head = level.getBlockEntity(pos) instanceof InheritanceBlockEntity current
-                ? current.getPersistentData().getInt("weizhi") : 0;
+        int head = level.getBlockEntity(pos) instanceof InheritanceBlockEntity current ? current.selection() : 0;
         return head == 0 ? Component.literal("选择大修士")
                 : Component.translatable(String.format(Locale.ROOT, "txt.yvanchuxiuzhen.huafu_futou_%02d", head));
     }

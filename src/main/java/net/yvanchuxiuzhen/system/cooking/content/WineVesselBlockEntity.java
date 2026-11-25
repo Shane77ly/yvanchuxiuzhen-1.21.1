@@ -28,12 +28,48 @@ public final class WineVesselBlockEntity extends RandomizableContainerBlockEntit
     private NonNullList<ItemStack> items;
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
+    private boolean brewing;
+    private double progress;
+    private String wineId = "";
+    private double ageCounter;
 
     public WineVesselBlockEntity(BlockPos pos, BlockState state) {
         super(WineBlockEntities.type(state), pos, state);
         still = state.getBlock() instanceof WoodenStillBlock;
         items = NonNullList.withSize(still ? 5 : 1, ItemStack.EMPTY);
         for (Direction direction : Direction.values()) sided[direction.ordinal()] = new SidedInvWrapper(this, direction);
+    }
+
+    public boolean brewing() {
+        return brewing;
+    }
+
+    public void setBrewing(boolean value) {
+        brewing = value;
+    }
+
+    public double progress() {
+        return progress;
+    }
+
+    public void setProgress(double value) {
+        progress = value;
+    }
+
+    public String wineId() {
+        return wineId;
+    }
+
+    public void setWineId(String value) {
+        wineId = value == null ? "" : value;
+    }
+
+    public double ageCounter() {
+        return ageCounter;
+    }
+
+    public void setAgeCounter(double value) {
+        ageCounter = value;
     }
 
     public IItemHandler handler(Direction direction) {
@@ -50,12 +86,20 @@ public final class WineVesselBlockEntity extends RandomizableContainerBlockEntit
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
+        brewing = tag.getBoolean("begin");
+        progress = tag.getDouble("jindu");
+        wineId = tag.getString("jiuniangid");
+        ageCounter = tag.getDouble("agenum");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (brewing) tag.putBoolean("begin", true);
+        if (progress != 0) tag.putDouble("jindu", progress);
+        if (!wineId.isEmpty()) tag.putString("jiuniangid", wineId);
+        if (ageCounter != 0) tag.putDouble("agenum", ageCounter);
     }
 
     @Override

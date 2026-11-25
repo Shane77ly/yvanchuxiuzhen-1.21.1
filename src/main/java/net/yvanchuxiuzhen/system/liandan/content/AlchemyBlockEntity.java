@@ -36,6 +36,25 @@ public final class AlchemyBlockEntity extends RandomizableContainerBlockEntity i
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private CompoundTag herbs = new CompoundTag();
+    private String alchemyName = "";
+    private double alchemyLevel;
+    private double alchemyFire;
+    private double alchemyDannum;
+    private double alchemistLevel;
+    private double lianPower;
+    private boolean fireToggle;
+    private double firePower;
+    private double firePowerTick;
+    private boolean brewing;
+    private double stepTick;
+    private double brewTick;
+    private double brewTickMax;
+    private boolean explodeRisk;
+    private double explodeSurvivalChance;
+    private boolean explodedFlag;
+    private double brewProgress;
+    private int pendingExperience;
 
     public AlchemyBlockEntity(BlockPos pos, BlockState state) {
         super(LiandanBlockEntities.type(((AlchemyBlock) state.getBlock()).tier()), pos, state);
@@ -46,9 +65,51 @@ public final class AlchemyBlockEntity extends RandomizableContainerBlockEntity i
         return ((AlchemyBlock) getBlockState().getBlock()).tier();
     }
 
+    public CompoundTag herbs() { return herbs; }
+    public void setHerbs(CompoundTag value) { herbs = value == null ? new CompoundTag() : value.copy(); }
+    public String alchemyName() { return alchemyName; }
+    public void setAlchemyName(String value) { alchemyName = value == null ? "" : value; }
+    public double alchemyLevel() { return alchemyLevel; }
+    public int alchemyLevelInt() { return (int) alchemyLevel; }
+    public void setAlchemyLevel(double value) { alchemyLevel = value; }
+    public double alchemyFire() { return alchemyFire; }
+    public int alchemyFireInt() { return (int) alchemyFire; }
+    public void setAlchemyFire(double value) { alchemyFire = value; }
+    public int alchemyDannumInt() { return (int) alchemyDannum; }
+    public void setAlchemyDannum(double value) { alchemyDannum = value; }
+    public int alchemistLevelInt() { return (int) alchemistLevel; }
+    public void setAlchemistLevel(double value) { alchemistLevel = value; }
+    public double lianPower() { return lianPower; }
+    public int lianPowerInt() { return (int) lianPower; }
+    public void setLianPower(double value) { lianPower = value; }
+    public boolean fireToggle() { return fireToggle; }
+    public void setFireToggle(boolean value) { fireToggle = value; }
+    public double firePower() { return firePower; }
+    public void setFirePower(double value) { firePower = value; }
+    public double firePowerTick() { return firePowerTick; }
+    public void setFirePowerTick(double value) { firePowerTick = value; }
+    public boolean brewing() { return brewing; }
+    public void setBrewing(boolean value) { brewing = value; }
+    public double stepTick() { return stepTick; }
+    public void setStepTick(double value) { stepTick = value; }
+    public double brewTick() { return brewTick; }
+    public void setBrewTick(double value) { brewTick = value; }
+    public double brewTickMax() { return brewTickMax; }
+    public void setBrewTickMax(double value) { brewTickMax = value; }
+    public boolean explodeRisk() { return explodeRisk; }
+    public void setExplodeRisk(boolean value) { explodeRisk = value; }
+    public double explodeSurvivalChance() { return explodeSurvivalChance; }
+    public void setExplodeSurvivalChance(double value) { explodeSurvivalChance = value; }
+    public boolean explodedFlag() { return explodedFlag; }
+    public void setExplodedFlag(boolean value) { explodedFlag = value; }
+    public int brewProgressInt() { return (int) brewProgress; }
+    public void updateBrewProgress() { brewProgress = brewTickMax > 0 ? brewTick / brewTickMax * 100 : 0; }
+    public int pendingExperience() { return pendingExperience; }
+    public void setPendingExperience(int value) { pendingExperience = value; }
+
     public void changed() {
         setChanged();
-        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+        if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
     }
 
     public IItemHandler handler(Direction direction) {
@@ -60,12 +121,50 @@ public final class AlchemyBlockEntity extends RandomizableContainerBlockEntity i
         super.loadAdditional(tag, registries);
         items = NonNullList.withSize(12, ItemStack.EMPTY);
         if (!tryLoadLootTable(tag)) ContainerHelper.loadAllItems(tag, items, registries);
+        herbs = tag.getCompound("zong").copy();
+        alchemyName = tag.getString("alchemyName");
+        alchemyLevel = tag.getDouble("alchemyLevel");
+        alchemyFire = tag.getDouble("alchemyFire");
+        alchemyDannum = tag.getDouble("alchemyDannum");
+        alchemistLevel = tag.getDouble("Alchemy_LEVEL");
+        lianPower = tag.getDouble("lianpower");
+        fireToggle = tag.getBoolean("gengxin");
+        firePower = tag.getDouble("firepower");
+        firePowerTick = tag.getDouble("firepowertick");
+        brewing = tag.getBoolean("liandanBegin");
+        stepTick = tag.getDouble("tick");
+        brewTick = tag.getDouble("lianqiTick");
+        brewTickMax = tag.getDouble("lianqiTickMax");
+        explodeRisk = tag.getBoolean("zhalu");
+        explodeSurvivalChance = tag.getDouble("zhalugailv");
+        explodedFlag = tag.getBoolean("zhenzhale");
+        brewProgress = tag.getDouble("lianzhijindu");
+        pendingExperience = tag.getInt("jingyanhuoqv");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
+        if (!herbs.isEmpty()) tag.put("zong", herbs);
+        if (!alchemyName.isEmpty()) tag.putString("alchemyName", alchemyName);
+        if (alchemyLevel != 0) tag.putDouble("alchemyLevel", alchemyLevel);
+        if (alchemyFire != 0) tag.putDouble("alchemyFire", alchemyFire);
+        if (alchemyDannum != 0) tag.putDouble("alchemyDannum", alchemyDannum);
+        if (alchemistLevel != 0) tag.putDouble("Alchemy_LEVEL", alchemistLevel);
+        if (lianPower != 0) tag.putDouble("lianpower", lianPower);
+        if (fireToggle) tag.putBoolean("gengxin", true);
+        if (firePower != 0) tag.putDouble("firepower", firePower);
+        if (firePowerTick != 0) tag.putDouble("firepowertick", firePowerTick);
+        if (brewing) tag.putBoolean("liandanBegin", true);
+        if (stepTick != 0) tag.putDouble("tick", stepTick);
+        if (brewTick != 0) tag.putDouble("lianqiTick", brewTick);
+        if (brewTickMax != 0) tag.putDouble("lianqiTickMax", brewTickMax);
+        if (explodeRisk) tag.putBoolean("zhalu", true);
+        if (explodeSurvivalChance != 0) tag.putDouble("zhalugailv", explodeSurvivalChance);
+        if (explodedFlag) tag.putBoolean("zhenzhale", true);
+        if (brewProgress != 0) tag.putDouble("lianzhijindu", brewProgress);
+        if (pendingExperience != 0) tag.putInt("jingyanhuoqv", pendingExperience);
     }
 
     @Override

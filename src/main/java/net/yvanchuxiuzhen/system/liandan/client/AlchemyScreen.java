@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,6 +13,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
+import net.yvanchuxiuzhen.system.liandan.content.AlchemyBlockEntity;
 import net.yvanchuxiuzhen.system.liandan.content.AlchemyMenu;
 import net.yvanchuxiuzhen.system.liandan.network.AlchemyButtonPayload;
 
@@ -73,12 +73,12 @@ public final class AlchemyScreen extends AbstractContainerScreen<AlchemyMenu> {
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        CompoundTag data = menu.data();
+        AlchemyBlockEntity furnace = menu.furnace();
         graphics.drawString(font, menu.furnaceName(), 366, 129, -13312, false);
-        graphics.drawString(font, Component.translatable("lianqibiao01").getString() + "：" + data.getInt("lianpower"), 366, 147, -16711732, false);
-        graphics.drawString(font, "丹炉等级：" + data.getInt("alchemyLevel"), 366, 160, -26368, false);
-        graphics.drawString(font, "丹炉火力：" + data.getInt("alchemyFire"), 366, 171, -26368, false);
-        graphics.drawString(font, "分丹能力：" + data.getInt("alchemyDannum"), 366, 182, -26368, false);
+        graphics.drawString(font, Component.translatable("lianqibiao01").getString() + "：" + (furnace != null ? furnace.lianPowerInt() : 0), 366, 147, -16711732, false);
+        graphics.drawString(font, "丹炉等级：" + (furnace != null ? furnace.alchemyLevelInt() : 0), 366, 160, -26368, false);
+        graphics.drawString(font, "丹炉火力：" + (furnace != null ? furnace.alchemyFireInt() : 0), 366, 171, -26368, false);
+        graphics.drawString(font, "分丹能力：" + (furnace != null ? furnace.alchemyDannumInt() : 0), 366, 182, -26368, false);
         ItemStack bottle = menu.getSlot(0).getItem();
         String container = bottle.is(AlchemyMenu.BOTTLES) ? "§f容器：" + bottle.getDisplayName().getString() : "§4请在第一个位置放置一个容器！";
         graphics.drawString(font, container, 51, 147, -10066330, false);

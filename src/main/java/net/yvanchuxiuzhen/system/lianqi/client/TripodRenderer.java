@@ -19,7 +19,7 @@ public final class TripodRenderer implements BlockEntityRenderer<TripodBlockEnti
     @Override
     public void render(TripodBlockEntity tripod, float partialTick, PoseStack pose, MultiBufferSource buffers, int light, int overlay) {
         ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
-        int angle = tripod.getPersistentData().getInt("jiaodulinshi");
+        int angle = tripod.tempAngle();
         for (int slot = 0; slot < 9; slot++) {
             pose.pushPose();
             pose.translate(0.5 + 1.5 * Math.cos(angle + slot * 40), 2, 0.5 + 1.5 * Math.sin(angle + slot * 40));

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -20,6 +19,9 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 
 /** 妖兽尸体普通右键采集；使用独立采集表，不更改实体的死亡掉落。 */
@@ -36,7 +38,7 @@ final class YaoshouCorpseHarvest {
     private YaoshouCorpseHarvest() { }
 
     static void harvest(ServerLevel level, Entity corpse) {
-        CompoundTag data = corpse.getPersistentData();
+        CreatureState state = CreatureData.state(corpse);
         String type = BuiltInRegistries.ENTITY_TYPE.getKey(corpse.getType()).toString();
         String tableName = type.replace(ModId.VALUE + ":", "");
         ResourceKey<LootTable> tableId = ResourceKey.create(Registries.LOOT_TABLE, id("entities/" + tableName + "list"));
@@ -48,12 +50,12 @@ final class YaoshouCorpseHarvest {
                 .withParameter(LootContextParams.TOOL, Items.DIAMOND_PICKAXE.getDefaultInstance())
                 .create(HARVEST_CONTEXT);
         ItemStack reward = draw(level, table, params);
-        int rank = (int) data.getDouble("LEVELnumber");
-        if (reward.is(CORE) && !data.getBoolean("yaodandiaoluo")) {
+        int rank = (int) EntityAttributes.level(corpse);
+        if (reward.is(CORE) && !state.beastCoreDropped()) {
             int tier = Mth.clamp((rank - 1) / 5, 0, 8);
             reward = new ItemStack(BuiltInRegistries.ITEM.get(id("cailiao_" + (181 + tier))));
             Materials.setInstance(reward, rank, quality());
-            data.putBoolean("yaodandiaoluo", true);
+            state.setBeastCoreDropped(true);
         } else {
             // 同一尸体已出妖丹后，命中妖丹项时按来源重新抽整表。
             while (reward.is(CORE)) reward = draw(level, table, params);
@@ -62,8 +64,8 @@ final class YaoshouCorpseHarvest {
         ItemEntity drop = new ItemEntity(level, corpse.getX(), corpse.blockPosition().getY() + 1, corpse.getZ(), reward);
         drop.setPickUpDelay(10);
         level.addFreshEntity(drop);
-        double count = data.getDouble("caijinumber") + 1;
-        data.putDouble("caijinumber", count);
+        double count = state.harvestCount() + 1;
+        state.setHarvestCount(count);
         if (count >= 5) corpse.discard();
     }
 

@@ -23,6 +23,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -83,10 +85,11 @@ public final class Boss02Entity extends Monster implements GeoEntity, AnimatedLo
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if (!level().isClientSide && isAlive() && !StatusEffects.has(this, "skilleffect_08")) {
-            if (!getPersistentData().getString("jineng").isEmpty()) {
+            CreatureState state = CreatureData.state(this);
+            if (!state.skill().isEmpty()) {
                 setAnimation("empty");
                 Boss02Behavior.finish(this);
-                getPersistentData().putDouble("entitytick2", 0);
+                state.setTick2(0);
             }
             setAnimation("animation.ycxzboss_02.attacked");
         }

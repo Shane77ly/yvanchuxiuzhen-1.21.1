@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.creature.entity.yaoshou;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -9,8 +8,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.tags.TagKey;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.combat.api.EffectExperienceEvent;
 import net.yvanchuxiuzhen.system.combat.api.HeavyHitEvent;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 
 /** 妖兽对来源重击与修为效果事件的响应。 */
@@ -28,25 +29,25 @@ public final class YaoshouCombat {
     private static void onEffectExperience(EffectExperienceEvent event) {
         LivingEntity entity = event.entity();
         if (!entity.getType().is(YAOSHOU)) return;
-        CompoundTag data = entity.getPersistentData();
-        double experience = data.getDouble("experience") + event.experience();
-        data.putDouble("experience", experience);
-        double maximum = data.getDouble("experience_Max");
+        double experience = EntityAttributes.experience(entity) + event.experience();
+        double maximum = EntityAttributes.experienceMax(entity);
         if (experience >= maximum) {
-            data.putDouble("experience", experience - maximum);
-            double level = data.getDouble("LEVELnumber") + 1;
-            data.putDouble("LEVELnumber", level);
-            data.putDouble("experience_Max", maximum + Math.pow(level, 2) * 10 + 10);
-            YaoshouShared.updateLevelName(data, level);
-            YaoshouShared.calculateUpgradeAttributes(entity, data, level);
+            EntityAttributes.setExperience(entity, experience - maximum);
+            double level = EntityAttributes.level(entity) + 1;
+            EntityAttributes.setLevel(entity, level);
+            EntityAttributes.setExperienceMax(entity, maximum + Math.pow(level, 2) * 10 + 10);
+            YaoshouShared.updateLevelName(entity, level);
+            YaoshouShared.calculateUpgradeAttributes(entity, level);
+        } else {
+            EntityAttributes.setExperience(entity, experience);
         }
     }
 
     private static void onHeavyHit(HeavyHitEvent event) {
         if (!event.victim().getType().is(YAOSHOU)) return;
         if (!(event.victim() instanceof YaoshouEntity entity)) return;
-        if (entity.getPersistentData().getString("jineng").isEmpty()) return;
-        entity.getPersistentData().putBoolean("beidaduan", true);
+        if (CreatureData.state(entity).skill().isEmpty()) return;
+        CreatureData.state(entity).setInterrupted(true);
         YaoshouShared.finishSkill(entity);
         if (entity.level() instanceof ServerLevel level) {
             level.sendParticles(Particles.type("daduan"), entity.getX(), entity.getY() + entity.getBbHeight() / 2,

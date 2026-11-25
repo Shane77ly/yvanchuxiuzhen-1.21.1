@@ -59,7 +59,7 @@ final class TribulationCheck extends SystemCheck {
                         && Cultivation.get(player, CultivationValue.THUNDER_MAX) == 14
                         && Cultivation.get(player, CultivationValue.THUNDER) == 0
                         && Cultivation.get(player, CultivationValue.MERITS) == 50
-                        && cloud.getPersistentData().getString("thunder14").startsWith("雷"));
+                        && cloud.pattern(14).startsWith("雷"));
                 player.setGameMode(GameType.CREATIVE);
                 player.connection.teleport(player.getX(), player.getY(), player.getZ(), 0, -75);
             });
@@ -70,11 +70,11 @@ final class TribulationCheck extends SystemCheck {
             shot.accept("tribulation-cloud.png");
             onServer(player -> {
                 target = pig(player, player.position().add(0.5, 0, 0));
-                for (int i = 2; i <= 14; i++) cloud.getPersistentData().remove("thunder" + i);
-                cloud.getPersistentData().putString("thunder1", "雷1");
-                cloud.getPersistentData().putDouble("number", 1);
-                cloud.getPersistentData().putDouble("qianyao", 61);
-                cloud.getPersistentData().putDouble("leipitick", 14);
+                for (int i = 2; i <= 14; i++) cloud.removePattern(i);
+                cloud.setPattern(1, "雷1");
+                cloud.setRemainingCount(1);
+                cloud.setWindupTicks(61);
+                cloud.setBoltTicks(14);
                 Cultivation.setTizhiDouble(player, "jishiqi", player.level().getDayTime());
             });
             return true;
@@ -93,33 +93,32 @@ final class TribulationCheck extends SystemCheck {
                 Cultivation.setThunderOpen(player, true);
                 Tribulations.begin(player);
                 cloud = cloud(player);
-                cloud.getPersistentData().putString("thunder1", "雷3");
-                cloud.getPersistentData().putDouble("number", 1);
-                cloud.getPersistentData().putDouble("qianyao", 101);
-                cloud.getPersistentData().putDouble("leipitick", 9);
+                cloud.setPattern(1, "雷3");
+                cloud.setRemainingCount(1);
+                cloud.setWindupTicks(101);
+                cloud.setBoltTicks(9);
                 cloud.baseTick();
                 RollingThunder rolling = player.serverLevel().getEntitiesOfClass(RollingThunder.class, player.getBoundingBox().inflate(30)).getFirst();
                 rolling.setPos(target.position());
-                rolling.getPersistentData().putBoolean("keyi", true);
-                rolling.getPersistentData().putDouble("tick", 1);
+                rolling.arm(true, 1);
                 rolling.baseTick();
                 float afterRolling = target.getHealth();
                 target.invulnerableTime = 0;
-                cloud.getPersistentData().putDouble("thundernum", 1);
-                cloud.getPersistentData().putString("thunder1", "雷5");
-                cloud.getPersistentData().putDouble("number", 0);
-                cloud.getPersistentData().putDouble("qianyao", 201);
+                cloud.setPatternIndex(1);
+                cloud.setPattern(1, "雷5");
+                cloud.setRemainingCount(0);
+                cloud.setWindupTicks(201);
                 cloud.baseTick();
                 ThunderPillar pillar = player.serverLevel().getEntitiesOfClass(ThunderPillar.class, player.getBoundingBox().inflate(10)).getFirst();
-                pillar.getPersistentData().putDouble("tick2", 319);
+                pillar.setLifeTicks(319);
                 pillar.baseTick();
-                cloud.getPersistentData().putDouble("thundernum", 1);
-                cloud.getPersistentData().putString("thunder1", "雷7");
-                cloud.getPersistentData().putDouble("qianyao", 199);
+                cloud.setPatternIndex(1);
+                cloud.setPattern(1, "雷7");
+                cloud.setWindupTicks(199);
                 cloud.baseTick();
                 ThunderDragon dragon = player.serverLevel().getEntitiesOfClass(ThunderDragon.class, player.getBoundingBox().inflate(40)).getFirst();
                 dragon.setPos(target.position());
-                dragon.getPersistentData().putString("jinengjinxing", "结束");
+                dragon.setStage("结束");
                 dragon.baseTick();
                 expectTrue("劫云生成三类天雷实体，地滚雷与雷龙伤害生效，雷柱按寿命消散", rolling.isRemoved()
                         && afterRolling < target.getMaxHealth() && target.getHealth() < afterRolling && pillar.isRemoved() && dragon.isRemoved());

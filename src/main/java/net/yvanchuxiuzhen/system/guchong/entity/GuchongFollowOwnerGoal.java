@@ -11,6 +11,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 
 /** 保留1.18.2环境生物的主人跟随门槛、远距传送与随机取样顺序。 */
 final class GuchongFollowOwnerGoal extends Goal {
@@ -39,7 +40,7 @@ final class GuchongFollowOwnerGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (animal.getPersistentData().getBoolean("kanjia")) return false;
+        if (animal.getData(GuchongData.RUNTIME).guarding()) return false;
         LivingEntity candidate = animal.getOwner();
         if (candidate == null || candidate.isSpectator() || animal.isOrderedToSit()
                 || animal.distanceToSqr(candidate) < startDistance * startDistance) {
@@ -51,7 +52,7 @@ final class GuchongFollowOwnerGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return !animal.getPersistentData().getBoolean("kanjia") && !navigation.isDone() && !animal.isOrderedToSit() && animal.distanceToSqr(owner) > stopDistance * stopDistance;
+        return !animal.getData(GuchongData.RUNTIME).guarding() && !navigation.isDone() && !animal.isOrderedToSit() && animal.distanceToSqr(owner) > stopDistance * stopDistance;
     }
 
     @Override

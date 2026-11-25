@@ -3,7 +3,7 @@ package net.yvanchuxiuzhen.system.dungeon;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.yvanchuxiuzhen.system.dungeon.content.DungeonBlockEntity;
 
 /** 由extract_dungeon_definitions.py生成；默认定义与镇妖塔44个坐标逐字保留锁定来源。 */
 public final class DungeonSourceData {
@@ -60,11 +60,9 @@ public final class DungeonSourceData {
     public static void configureTower(ServerLevel level) {
         for (Tower tower : TOWERS) {
             BlockPos pos = new BlockPos(tower.x(), tower.y(), tower.z());
-            BlockEntity block = level.getBlockEntity(pos);
-            if (block != null) {
-                block.getPersistentData().putString("fubenshujv", tower.definition());
-                block.setChanged();
-                level.sendBlockUpdated(pos, block.getBlockState(), block.getBlockState(), 3);
+            if (level.getBlockEntity(pos) instanceof DungeonBlockEntity block) {
+                block.state().putString("fubenshujv", tower.definition());
+                block.changed();
             }
             level.setBlock(pos.below(), DungeonPlayers.block("ginkgofloor").defaultBlockState(), 3);
         }

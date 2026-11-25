@@ -4,13 +4,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
+import net.yvanchuxiuzhen.system.lianqi.content.TripodBlockEntity;
 import net.yvanchuxiuzhen.system.lianqi.content.TripodMenu;
 import net.yvanchuxiuzhen.system.lianqi.network.TripodButtonPayload;
 
@@ -68,14 +68,14 @@ public final class TripodScreen extends AbstractContainerScreen<TripodMenu> {
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        CompoundTag data = menu.data();
+        TripodBlockEntity tripod = menu.tripod();
         for (int slot = 0; slot < 9; slot++) graphics.drawString(font, menu.recipeLine(slot), 51, 147 + slot * 9, -12829636, false);
-        graphics.drawString(font, data.getString("lianqiwenzi"), 242, 224, -26368, false);
+        graphics.drawString(font, tripod == null ? "" : tripod.refiningLabel(), 242, 224, -26368, false);
         graphics.drawString(font, menu.tripodName(), 366, 129, -13312, false);
-        label(graphics, "lianqibiao01", data.getInt("lianpower"), 147, -16724788);
-        label(graphics, "lianqibiao02", data.getInt("TripodLevel"), 161, -26368);
-        label(graphics, "lianqibiao03", data.getInt("TripodFire"), 172, -26368);
-        label(graphics, "lianqibiao04", data.getInt("TripodPurification"), 183, -26368);
+        label(graphics, "lianqibiao01", tripod == null ? 0 : tripod.lianPowerInt(), 147, -16724788);
+        label(graphics, "lianqibiao02", tripod == null ? 0 : tripod.tripodLevel(), 161, -26368);
+        label(graphics, "lianqibiao03", tripod == null ? 0 : tripod.tripodFire(), 172, -26368);
+        label(graphics, "lianqibiao04", tripod == null ? 0 : tripod.tripodPurification(), 183, -26368);
     }
 
     private void label(GuiGraphics graphics, String key, int value, int y, int color) {

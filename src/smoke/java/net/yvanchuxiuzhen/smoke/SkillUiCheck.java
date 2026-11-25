@@ -43,6 +43,7 @@ import net.yvanchuxiuzhen.system.attribute.api.Contribution;
 import net.yvanchuxiuzhen.system.attribute.api.Layer;
 import net.yvanchuxiuzhen.system.attribute.api.PlayerAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.book.api.BookQuizzes;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.equipment.api.AccessoryInventory;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
@@ -123,7 +124,6 @@ final class SkillUiCheck extends SystemCheck {
     private double answerCount;
     private double techniqueExperience;
     private double heatAmount;
-    private boolean hadAnswerCount;
     private boolean shiftKey;
     private boolean sneaking;
     private boolean foreignFireRejected;
@@ -152,8 +152,7 @@ final class SkillUiCheck extends SystemCheck {
                     gameMode = p.gameMode.getGameModeForPlayer();
                     panelPage = p.getData(PanelNavigation.PAGE);
                     selectedSlot = p.getInventory().selected;
-                    hadAnswerCount = p.getPersistentData().contains("daduishuliang");
-                    answerCount = p.getPersistentData().getDouble("daduishuliang");
+                    answerCount = BookQuizzes.answerCount(p);
                     shiftKey = minecraft.options.keyShift.isDown();
                     sneaking = p.isShiftKeyDown();
                     for (int i = 0; i < p.getInventory().getContainerSize(); i++) inventory.add(p.getInventory().getItem(i).copy());
@@ -179,7 +178,7 @@ final class SkillUiCheck extends SystemCheck {
                     p.getInventory().setItem(5, Techniques.createBook(new TechniqueDefinition(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "book_002"),
                             "检查功法", "黄阶一级", 1, "锻体期", 1, "无", "", Map.of(), Collections.nCopies(TechniqueStat.values().length, ""))));
                     p.getInventory().selected = 0;
-                    p.getPersistentData().putDouble("daduishuliang", 5);
+                    BookQuizzes.setAnswerCount(p, 5);
                     p.getInventory().add(new ItemStack(Items.ARROW, 8));
                     p.getInventory().add(new ItemStack(Items.SPECTRAL_ARROW));
                     for (int i = 1; i <= 9; i++) p.getInventory().add(item("skill_arrow_%02d".formatted(i)));
@@ -189,20 +188,20 @@ final class SkillUiCheck extends SystemCheck {
                 new Action(8, p -> { p.setShiftKeyDown(true); useBook(0); }),
                 new Action(8, p -> {
                     expectTrue("自然潜行右键在境界不足时不绑定、不消耗整栈且不清答题计数", Skills.book(p.getMainHandItem()).orElseThrow().owner().isEmpty()
-                            && p.getMainHandItem().getCount() == 2 && p.getPersistentData().getDouble("daduishuliang") == 5 && inventorySynced(p));
+                            && p.getMainHandItem().getCount() == 2 && BookQuizzes.answerCount(p) == 5 && inventorySynced(p));
                     Cultivation.set(p, CultivationValue.LEVEL_NUMBER, 11);
                     p.setShiftKeyDown(true);
                     useBook(0);
                 }),
                 new Action(8, p -> {
                     expectTrue("自然潜行研习整栈绑定并清答题计数，客户端收到书组件", Skills.book(p.getMainHandItem()).orElseThrow().ownedBy(p.getUUID())
-                            && p.getMainHandItem().getCount() == 2 && p.getPersistentData().getDouble("daduishuliang") == 0 && inventorySynced(p));
-                    p.getPersistentData().putDouble("daduishuliang", 7);
+                            && p.getMainHandItem().getCount() == 2 && BookQuizzes.answerCount(p) == 0 && inventorySynced(p));
+                    BookQuizzes.setAnswerCount(p, 7);
                     p.setShiftKeyDown(true);
                     useBook(0);
                 }),
                 new Action(8, p -> {
-                    expectTrue("本人重复自然研习保留答题计数与整栈", p.getPersistentData().getDouble("daduishuliang") == 7
+                    expectTrue("本人重复自然研习保留答题计数与整栈", BookQuizzes.answerCount(p) == 7
                             && p.getMainHandItem().getCount() == 2 && inventorySynced(p));
                     p.setShiftKeyDown(true);
                     useBook(1);
@@ -221,7 +220,7 @@ final class SkillUiCheck extends SystemCheck {
                     studiedTechnique = p.getInventory().getItem(5).copy();
                     expectTrue("四类技能书与功法均经自然入口研习并同步，后续成功清零答题计数", owned && inventorySynced(p)
                             && Techniques.book(studiedTechnique).orElseThrow().ownedBy(p.getUUID())
-                            && p.getPersistentData().getDouble("daduishuliang") == 0);
+                            && BookQuizzes.answerCount(p) == 0);
                     sneak(false);
                     p.setShiftKeyDown(false);
                 }),
@@ -463,15 +462,19 @@ final class SkillUiCheck extends SystemCheck {
                 new Action(4, p -> {
                     BlockEntity serverFire = fireLevel.getBlockEntity(firePos);
                     BlockEntity clientFire = minecraft.level.getBlockEntity(firePos);
-                    CompoundTag data = serverFire == null ? new CompoundTag() : serverFire.getPersistentData();
-                    CompoundTag clientData = clientFire == null ? new CompoundTag() : clientFire.getPersistentData();
+                    FireBlockEntity serverFireEntity = serverFire instanceof FireBlockEntity fire ? fire : null;
+                    FireBlockEntity clientFireEntity = clientFire instanceof FireBlockEntity fire ? fire : null;
+                    String serverOwner = serverFireEntity != null ? serverFireEntity.manaAttackUuid() : "";
+                    String serverTeam = serverFireEntity != null ? serverFireEntity.team() : "";
+                    String clientOwner = clientFireEntity != null ? clientFireEntity.manaAttackUuid() : "";
+                    String clientTeam = clientFireEntity != null ? clientFireEntity.team() : "";
                     boolean spent = p.getInventory().getItem(4).isEmpty() && minecraft.player.getInventory().getItem(4).isEmpty();
                     expectTrue("本人丹火经客户端放置并同步燃料与身份 实际燃料=" + fuel(serverFire) + "/" + fuel(clientFire)
-                                    + "，累计供热=" + heatAmount + "，已消费=" + spent + "，UUID=" + data.getString("ManaAttackUUID") + "/" + clientData.getString("ManaAttackUUID")
-                                    + "，团队=" + data.getString("team") + "/" + clientData.getString("team"),
-                            serverFire instanceof FireBlockEntity && fuel(serverFire) + heatAmount == 10 && fuel(clientFire) == fuel(serverFire)
-                                    && spent && data.getString("ManaAttackUUID").equals(p.getStringUUID()) && data.getString("team").equals(Relations.entityTeam(p))
-                                    && clientData.getString("ManaAttackUUID").equals(p.getStringUUID()) && clientData.getString("team").equals(Relations.entityTeam(p)));
+                                    + "，累计供热=" + heatAmount + "，已消费=" + spent + "，UUID=" + serverOwner + "/" + clientOwner
+                                    + "，团队=" + serverTeam + "/" + clientTeam,
+                            serverFireEntity != null && fuel(serverFire) + heatAmount == 10 && fuel(clientFire) == fuel(serverFire)
+                                    && spent && serverOwner.equals(p.getStringUUID()) && serverTeam.equals(Relations.entityTeam(p))
+                                    && clientOwner.equals(p.getStringUUID()) && clientTeam.equals(Relations.entityTeam(p)));
                     minecraft.execute(() -> useFire(5, foreignFirePos.below()));
                 }),
                 new Action(4, p -> {
@@ -529,7 +532,7 @@ final class SkillUiCheck extends SystemCheck {
                     Relations.setTeam(fireYin, "smoke_fire_neighbor");
                     Relations.addFriendlyTeam(fireYang, "smoke_fire_neighbor");
                     StatusEffects.add(fireYang, "effect_024", 200, 2);
-                    fireYang.getPersistentData().putDouble("yinhuotick", 0);
+                    Yihuo.setYinTick(fireYang, 0);
                     burn(fireYang, "effect_023", 1, "yanghuotick", fireMissingSource.getStringUUID());
                 }),
                 new Action(8, p -> {
@@ -587,7 +590,7 @@ final class SkillUiCheck extends SystemCheck {
                     expectTrue("扫描按钮扣除神识并关闭菜单", Cultivation.get(p, CultivationValue.SOUL) == 178 && !(p.containerMenu instanceof SkillMenu));
                     p.setData(SkillData.COOLDOWNS, new SkillCooldowns(List.of(200.0, 400.0, 600.0, 800.0, 1000.0, 1200.0)));
                     Cultivation.setTizhiDouble(p, "lagongtick", 85);
-                    p.getPersistentData().putDouble("canjianjishicolddown", 0);
+                    p.setData(SkillData.GUARD_COOLDOWN, 0.0);
                     key("canjian", true);
                     guard = SkillSetup.<SkillEntity>entityType("gedang").get().create(p.serverLevel());
                     guard.setPos(p.getX() + 2, p.getY(), p.getZ());
@@ -975,7 +978,7 @@ final class SkillUiCheck extends SystemCheck {
     }
 
     private static double fuel(BlockEntity block) {
-        return block == null ? Double.NaN : block.getPersistentData().getDouble("power");
+        return Yihuo.firePower(block);
     }
 
     private Cow fireCow(BlockPos pos) {
@@ -993,8 +996,9 @@ final class SkillUiCheck extends SystemCheck {
 
     /** 效果与计时是前置数据；伤害由下一次自然实体刻结算。 */
     private static void burn(Cow target, String effect, int amplifier, String timer, String attacker) {
-        target.getPersistentData().putString("fireAttackUUID", attacker);
-        target.getPersistentData().putDouble(timer, 19);
+        Yihuo.markBurnTarget(target, "", attacker);
+        if ("yanghuotick".equals(timer)) Yihuo.setYangTick(target, 19);
+        else Yihuo.setYinTick(target, 19);
         target.invulnerableTime = 0;
         target.getRandom().setSeed(1);
         StatusEffects.add(target, effect, 200, amplifier);
@@ -1068,15 +1072,14 @@ final class SkillUiCheck extends SystemCheck {
         Techniques.setSlot(p, technique);
         p.getInventory().selected = selectedSlot;
         p.setShiftKeyDown(sneaking);
-        if (hadAnswerCount) p.getPersistentData().putDouble("daduishuliang", answerCount);
-        else p.getPersistentData().remove("daduishuliang");
+        BookQuizzes.setAnswerCount(p, answerCount);
         minecraft.execute(() -> minecraft.player.getInventory().selected = selectedSlot);
         sneak(shiftKey);
         PlayerAttributes.clearContribution(p, CONTRIBUTION);
         for (int i = 0; i < VALUES.length; i++) Cultivation.set(p, VALUES[i], oldValues[i]);
         for (int i = 0; i < TIZHI.length; i++) Cultivation.setTizhiDouble(p, TIZHI[i], oldTizhi[i]);
-        p.getPersistentData().remove("canjianjishi");
-        p.getPersistentData().remove("canjianjishicolddown");
+        p.setData(SkillData.GUARD_REMAINING, 0.0);
+        p.setData(SkillData.GUARD_COOLDOWN, 0.0);
         if (guard != null && !guard.isRemoved()) guard.discard();
         p.inventoryMenu.broadcastChanges();
     }

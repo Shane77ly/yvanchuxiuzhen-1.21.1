@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec2;
 import net.yvanchuxiuzhen.platform.content.ContentItem;
+import net.yvanchuxiuzhen.system.book.api.BookQuizzes;
 import net.yvanchuxiuzhen.system.book.api.BookTextData;
 import net.yvanchuxiuzhen.system.book.api.BookTexts;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
@@ -103,7 +104,7 @@ public final class StudyBookItem extends ContentItem {
             boolean unowned = technique.get().owner().isEmpty();
             Techniques.study(player, stack);
             if (unowned && Techniques.book(stack).orElseThrow().ownedBy(player.getUUID())) {
-                player.getPersistentData().putDouble("daduishuliang", 0);
+                BookQuizzes.setAnswerCount(player, 0);
             }
             return;
         }
@@ -112,7 +113,7 @@ public final class StudyBookItem extends ContentItem {
             boolean unowned = skill.get().owner().isEmpty();
             Skills.study(player, stack);
             if (unowned && Skills.book(stack).orElseThrow().ownedBy(player.getUUID())) {
-                player.getPersistentData().putDouble("daduishuliang", 0);
+                BookQuizzes.setAnswerCount(player, 0);
             }
         }
     }

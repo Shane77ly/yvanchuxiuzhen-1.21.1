@@ -33,7 +33,6 @@ final class TripodMaterials {
             raw.putString("fabaoshuoming", blueprint.itemDescription());
             raw.putString("fabaotype", blueprint.type());
         }
-        CompoundTag state = furnace.getPersistentData();
         Accumulator accumulator = new Accumulator(raw);
         double weight = 0;
         for (int slot = upgrade ? 1 : 0; slot <= 8; slot++) {
@@ -45,33 +44,33 @@ final class TripodMaterials {
             int count = upgrade ? input.getCount() : blueprint.ingredient(slot).count();
             int unitWeight = definition.fixedWeight().orElse(0);
             weight += unitWeight * count;
-            state.putInt("lianqiTickMax", state.getInt("lianqiTickMax") + count * 5);
+            furnace.setLianqiTickMax(furnace.lianqiTickMax() + count * 5);
             accumulator.add(definition, Materials.instance(input), count);
             if (upgrade) furnace.setItem(slot, ItemStack.EMPTY);
             else input.shrink(count);
         }
         raw.putInt("fumozongshu", accumulator.enchantments);
-        state.putInt("lianqiTickMax", (int) (state.getInt("lianqiTickMax") * (1 - state.getInt("TripodFire") * .05)));
-        weight *= 1 - state.getInt("TripodPurification") * .01;
+        furnace.setLianqiTickMax((int) (furnace.lianqiTickMax() * (1 - furnace.tripodFire() * .05)));
+        weight *= 1 - furnace.tripodPurification() * .01;
         if (upgrade) weight = Math.max(raw.getInt("weightnum"), raw.getInt("weightnum") + Math.max(1, weight));
         raw.putInt("weightnum", (int) weight);
         if (raw.getInt("weightnum") >= 160) {
             ItemStack waste = new ItemStack(Items.IRON_BLOCK);
             waste.set(DataComponents.CUSTOM_NAME, Component.literal("废弃金属"));
-            state.put("item", waste.save(furnace.getLevel().registryAccess()));
+            furnace.setPlannedItem((CompoundTag) waste.save(furnace.getLevel().registryAccess()));
             if (raw.getInt("weightnum") >= 250) {
-                state.putInt("zhadingtick", 2);
-                state.putInt("zhadinglevel", (int) Math.round(raw.getDouble("weightnum") / 20));
+                furnace.setExplodeTick(2);
+                furnace.setExplodeLevel((int) Math.round(raw.getDouble("weightnum") / 20));
             }
         } else {
             ItemStack result = Equipment.createRefinedProduct(furnace.getLevel().registryAccess(), recipe, raw, previous);
             furnace.setItem(11, result);
-            state.put("item", result.save(furnace.getLevel().registryAccess()));
+            furnace.setPlannedItem((CompoundTag) result.save(furnace.getLevel().registryAccess()));
             int level = Equipment.product(result).orElseThrow().level();
-            state.putInt("jingyanhuoqv", level);
+            furnace.setPendingExperience(level);
             furnace.setItem(11, ItemStack.EMPTY);
-            int difference = level - (state.getInt("TripodLevel") + state.getInt("RefinerLEVEL")) * 5;
-            state.putBoolean("lianqishibai", difference > 0 && Math.random() < difference * .1);
+            int difference = level - (furnace.tripodLevel() + furnace.refinerLevel()) * 5;
+            furnace.setFailed(difference > 0 && Math.random() < difference * .1);
         }
         furnace.changed();
     }

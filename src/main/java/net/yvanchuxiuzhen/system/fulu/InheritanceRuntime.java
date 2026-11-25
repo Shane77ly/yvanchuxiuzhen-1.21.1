@@ -28,7 +28,7 @@ public final class InheritanceRuntime {
                     inheritance.getDisplayName()), pos);
             return;
         }
-        int head = inheritance.getPersistentData().getInt("weizhi");
+        int head = inheritance.selection();
         if (head == 0) {
             player.displayClientMessage(Component.literal("空"), true);
         } else if (head >= 1 && head <= 11) {
@@ -39,8 +39,7 @@ public final class InheritanceRuntime {
     }
 
     public static void cycle(InheritanceBlockEntity inheritance) {
-        int current = inheritance.getPersistentData().getInt("weizhi");
-        inheritance.getPersistentData().putInt("weizhi", current >= 1 && current < 11 ? current + 1 : 1);
-        inheritance.changed();
+        int current = inheritance.selection();
+        inheritance.setSelection(current >= 1 && current < 11 ? current + 1 : 1);
     }
 }

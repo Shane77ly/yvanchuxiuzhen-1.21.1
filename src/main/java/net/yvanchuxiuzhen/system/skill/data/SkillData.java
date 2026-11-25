@@ -42,10 +42,26 @@ public final class SkillData {
             .copyOnDeath()
             .sync((holder, player) -> holder == player, ByteBufCodecs.BOOL)
             .build());
-    /** 格挡计时的本人快照，真值及存盘沿用实体 canjianjishi，不参与玩家克隆。 */
+    /** 格挡剩余时间（序列化且同步给本人）。 */
     public static final Supplier<AttachmentType<Double>> GUARD_REMAINING = ATTACHMENTS.register("skill_guard", () -> AttachmentType
             .builder(() -> 0.0)
+            .serialize(Codec.DOUBLE)
             .sync((holder, player) -> holder == player, ByteBufCodecs.DOUBLE)
+            .build());
+    /** 格挡冷却计数。 */
+    public static final Supplier<AttachmentType<Double>> GUARD_COOLDOWN = ATTACHMENTS.register("skill_guard_cooldown", () -> AttachmentType
+            .builder(() -> 0.0)
+            .serialize(Codec.DOUBLE)
+            .build());
+    /** 身法双击窗口与共享冷却。 */
+    public static final Supplier<AttachmentType<SkillMovementState>> MOVEMENT = ATTACHMENTS.register("skill_movement", () -> AttachmentType
+            .builder(() -> SkillMovementState.EMPTY)
+            .serialize(SkillMovementState.CODEC)
+            .build());
+    /** 武器技连招式数、窗口与冷却。 */
+    public static final Supplier<AttachmentType<WeaponArtState>> WEAPON_ART = ATTACHMENTS.register("skill_weapon_art", () -> AttachmentType
+            .builder(() -> WeaponArtState.EMPTY)
+            .serialize(WeaponArtState.CODEC)
             .build());
 
     private SkillData() {

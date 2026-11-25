@@ -21,6 +21,8 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.EffectBehavior;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.combat.data.CombatData;
+import net.yvanchuxiuzhen.system.combat.data.CombatEntityState;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.xiulian.api.BloodStone;
 
@@ -70,8 +72,9 @@ final class BattleEffects {
             if (entity.hasEffect(MobEffects.HEAL)) {
                 StatusEffects.remove(entity, "effect_004");
             }
-            double count = entity.getPersistentData().getDouble("effect004tick") + 1;
-            entity.getPersistentData().putDouble("effect004tick", count);
+            CombatEntityState state = entity.getData(CombatData.ENTITY_STATE);
+            double count = state.tick("effect004tick") + 1;
+            entity.setData(CombatData.ENTITY_STATE, state.withTick("effect004tick", count));
             double period = StatusEffects.has(entity, "duyao_18") ? 20 - (StatusEffects.amplifier(entity, "duyao_18") + 1) : 20;
             if (count >= period) {
                 entity.setHealth((float) (entity.getHealth() - (StatusEffects.amplifier(entity, "effect_004") + 1)));
@@ -79,7 +82,7 @@ final class BattleEffects {
                     level.sendParticles(Particles.type(entity.isInWaterOrBubble() ? "smokered" : "xvedi"), entity.getX(),
                             entity.getY() + entity.getBbHeight() / 2, entity.getZ(), StatusEffects.amplifier(entity, "effect_004") + 1, 0.3, 1, 0.3, 0);
                 }
-                entity.getPersistentData().putDouble("effect004tick", 0);
+                entity.setData(CombatData.ENTITY_STATE, state.withTick("effect004tick", 0));
                 BloodStone.addBlood(entity.level(), BlockPos.containing(entity.getX(), entity.getY() - 0.5, entity.getZ()),
                         StatusEffects.amplifier(entity, "effect_004") + 1);
             }

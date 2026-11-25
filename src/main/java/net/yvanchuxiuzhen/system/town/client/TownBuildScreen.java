@@ -41,7 +41,7 @@ public final class TownBuildScreen extends AbstractContainerScreen<TownBuildMenu
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         if (!(minecraft.level.getBlockEntity(menu.pos) instanceof TownBlockEntity town)) return;
-        CompoundTag build = town.getPersistentData().getCompound("build_data");
+        CompoundTag build = town.buildData();
         graphics.drawString(font, build.getString("build_name"), 6, 8, 0xFF9900, false);
         String[] keys = {"log", "stone", "wool"};
         String[] names = {"原木", "石料", "羊毛"};

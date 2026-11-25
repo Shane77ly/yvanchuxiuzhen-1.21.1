@@ -112,27 +112,24 @@ final class FestivalFireworkCheck extends ActionCheck {
             InteractionResult result = player.gameMode.useItemOn(player, player.level(), ItemStack.EMPTY, InteractionHand.MAIN_HAND,
                     new BlockHitResult(Vec3.atCenterOf(entry.getValue()), Direction.UP, entry.getValue(), false));
             expectTrue(entry.getKey() + " 空手点燃入口返回成功", accepted(result));
-            expectTrue(entry.getKey() + " 写入 begin", entity(player, entry.getValue()).getPersistentData().getBoolean("begin"));
+            expectTrue(entry.getKey() + " 写入 begin", entity(player, entry.getValue()).begin());
         }
 
         BlockFireworkBlockEntity firecracker = entity(player, pao10);
         for (int tick = 0; tick < 20; tick++) firecracker.scheduledTick(player.serverLevel());
-        expectTrue("Pao10 延迟二十刻进入第二阶段", firecracker.getPersistentData().getBoolean("begin2")
-                && !firecracker.getPersistentData().getBoolean("begin"));
-        firecracker.getPersistentData().putDouble("tick", 599);
+        expectTrue("Pao10 延迟二十刻进入第二阶段", firecracker.begin2() && !firecracker.begin());
+        firecracker.setTick(599);
         firecracker.scheduledTick(player.serverLevel());
-        expectTrue("Pao10 燃尽时传燃相邻爆竹", entity(player, pao10Neighbor).getPersistentData().getBoolean("begin"));
+        expectTrue("Pao10 燃尽时传燃相邻爆竹", entity(player, pao10Neighbor).begin());
         expectTrue("Pao10 燃尽后清除方块", player.level().getBlockState(pao10).isAir());
 
         BlockFireworkBlockEntity fountain = entity(player, pao11);
         for (int tick = 0; tick < 20; tick++) fountain.scheduledTick(player.serverLevel());
-        expectTrue("Pao11 延迟二十刻进入第二阶段", fountain.getPersistentData().getBoolean("begin2")
-                && !fountain.getPersistentData().getBoolean("begin"));
+        expectTrue("Pao11 延迟二十刻进入第二阶段", fountain.begin2() && !fountain.begin());
 
         BlockFireworkBlockEntity battery = entity(player, pao12);
         for (int tick = 0; tick < 2; tick++) battery.scheduledTick(player.serverLevel());
-        expectTrue("Pao12 两次计划刻后进入第二阶段", battery.getPersistentData().getBoolean("begin2")
-                && !battery.getPersistentData().getBoolean("begin"));
+        expectTrue("Pao12 两次计划刻后进入第二阶段", battery.begin2() && !battery.begin());
         int before = pao13(player).size();
         battery.scheduledTick(player.serverLevel());
         List<Pao13Entity> launched = pao13(player);
@@ -147,7 +144,7 @@ final class FestivalFireworkCheck extends ActionCheck {
         projectile = new Pao13Entity(FestivalSetup.pao13Type().get(), player.level());
         projectile.moveTo(base.east(3).north(3).getX() + .5, base.getY() + 3, base.getZ() + .5, 0, 0);
         projectile.setNoGravity(true);
-        projectile.getPersistentData().putInt("firetype", 5);
+        projectile.setFireType(5);
         spawned.add(projectile.getUUID());
         player.serverLevel().addFreshEntity(projectile);
     }

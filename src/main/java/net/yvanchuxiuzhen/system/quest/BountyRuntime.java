@@ -28,6 +28,8 @@ import net.yvanchuxiuzhen.system.economy.api.BankAccounts;
 import net.yvanchuxiuzhen.system.economy.api.EconomyCurrency;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongTracking;
 import net.yvanchuxiuzhen.system.quest.content.BountyBoardBlockEntity;
+import net.yvanchuxiuzhen.system.quest.data.BountyTargetData;
+import net.yvanchuxiuzhen.system.quest.data.QuestData;
 
 /** 公共告示牌状态、追踪实例和按指定猎人结算的悬赏生命周期。 */
 public final class BountyRuntime {
@@ -70,7 +72,7 @@ public final class BountyRuntime {
         board.entry(index, entry);
         if (refresh) {
             level.setBlock(origin.above(), Blocks.RED_WOOL.defaultBlockState(), 3);
-            board.getPersistentData().putLong("refresh_clear_at", level.getGameTime() + 5);
+            board.setRefreshClearAt(level.getGameTime() + 5);
             level.scheduleTick(origin, board.getBlockState().getBlock(), 5);
         }
     }
@@ -96,13 +98,10 @@ public final class BountyRuntime {
             if (entity != null) {
                 entity.moveTo(destination.getX(), destination.getY(), destination.getZ(), player.level().random.nextFloat() * 360, 0);
                 entity.setCustomName(Component.literal(entity.getDisplayName().getString() + "(悬赏)"));
-                CompoundTag data = entity.getPersistentData();
-                data.putInt("gaoshipaiX", board.getBlockPos().getX());
-                data.putInt("gaoshipaiY", board.getBlockPos().getY());
-                data.putInt("gaoshipaiZ", board.getBlockPos().getZ());
-                data.putInt("gaoshipaiweizhi", index);
-                data.putBoolean("gaoshipaientity", true);
-                data.putString("shangjinlierenuuid", player.getStringUUID());
+                CreatureBounties.setBounty(entity, true);
+                entity.setData(QuestData.BOUNTY_TARGET, new BountyTargetData(true,
+                        board.getBlockPos().getX(), board.getBlockPos().getY(), board.getBlockPos().getZ(),
+                        index, player.getStringUUID()));
                 if (entity instanceof Mob mob) {
                     CreatureBounties.prepare(mob, entry.getInt("LEVELnumber"));
                     mob.setPersistenceRequired();
@@ -125,15 +124,17 @@ public final class BountyRuntime {
         Entity victim = event.getEntity();
         Entity attacker = event.getSource().getEntity();
         if (!(victim.level() instanceof ServerLevel level) || attacker == null) return;
-        boolean failed = victim instanceof ServerPlayer && attacker.getPersistentData().getBoolean("gaoshipaientity");
+        BountyTargetData attackerTarget = attacker.getData(QuestData.BOUNTY_TARGET);
+        BountyTargetData victimTarget = victim.getData(QuestData.BOUNTY_TARGET);
+        boolean failed = victim instanceof ServerPlayer && attackerTarget.active();
         boolean succeeded = !(victim instanceof ServerPlayer) && victim.getType().is(TagKey.create(Registries.ENTITY_TYPE,
-                ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "yaoshou"))) && victim.getPersistentData().getBoolean("gaoshipaientity");
+                ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "yaoshou"))) && victimTarget.active();
         if (!failed && !succeeded) return;
         Entity bounty = failed ? attacker : victim;
-        CompoundTag data = bounty.getPersistentData();
-        BlockPos pos = new BlockPos(data.getInt("gaoshipaiX"), data.getInt("gaoshipaiY"), data.getInt("gaoshipaiZ"));
+        BountyTargetData target = failed ? attackerTarget : victimTarget;
+        BlockPos pos = target.boardPos();
         BountyBoardBlockEntity board = (BountyBoardBlockEntity) level.getBlockEntity(pos);
-        int index = data.getInt("gaoshipaiweizhi");
+        int index = target.slotIndex();
         CompoundTag entry = board.entry(index);
         entry.putBoolean("zhuizhong", false);
         board.entry(index, entry);
@@ -145,7 +146,7 @@ public final class BountyRuntime {
             bounty.discard();
         } else {
             for (ServerPlayer player : level.players()) {
-                if (player.getStringUUID().equals(data.getString("shangjinlierenuuid"))) {
+                if (player.getStringUUID().equals(target.hunterUuid())) {
                     player.connection.send(new ClientboundSetTitleTextPacket(Component.literal("成 功").withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD)));
                     int reward = entry.getInt("xvanshangmoney");
                     player.displayClientMessage(Component.literal("§6" + new DecimalFormat("0").format(reward) + "灵石已入账！"), false);

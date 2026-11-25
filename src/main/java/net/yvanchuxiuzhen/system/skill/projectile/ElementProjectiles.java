@@ -396,8 +396,9 @@ public final class ElementProjectiles {
             int ticks = projectile.advance();
             if (ticks >= 10) {
                 SkillBook book = owner instanceof Player player ? Skills.book(Skills.selected(player)).orElse(null) : null;
-                projectile.getPersistentData().putDouble("AttackDamage", book == null ? 0 : book.number("ManaAttackDamage"));
-                projectile.getPersistentData().putDouble("Damage_multiplier", book == null ? 0 : book.damageMultiplier());
+                projectile.setMana(book == null ? 0 : book.number("ManaAttackDamage"));
+                projectile.setMultiplier(book == null ? 0 : book.damageMultiplier());
+                projectile.markManaRecorded();
                 projectile.discard();
             } else if (ticks >= 4 && owner instanceof LivingEntity living && StatusEffects.has(living, "skill_tree_03")) {
                 for (Entity other : ProjectileSupport.around((ServerLevel) projectile.level(), projectile.position(), 3)) {
@@ -414,7 +415,7 @@ public final class ElementProjectiles {
             if (hostile(owner, target)) {
                 ProjectileSupport.burst(projectile, "smallexplosiongreen");
                 ProjectileSupport.deal((ServerLevel) projectile.level(), target, owner, "木",
-                        projectile.getPersistentData().getDouble("AttackDamage"), projectile.getPersistentData().getDouble("Damage_multiplier"));
+                        projectile.mana(), projectile.multiplier());
             }
         }
     }

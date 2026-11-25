@@ -3,7 +3,6 @@ package net.yvanchuxiuzhen.system.creature;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -15,7 +14,10 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
+import net.yvanchuxiuzhen.system.creature.data.CreatureData;
+import net.yvanchuxiuzhen.system.creature.data.CreatureState;
 import net.yvanchuxiuzhen.system.creature.entity.yaoshou.YaoshouShared;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongGrowths;
 
@@ -31,32 +33,34 @@ public final class YaoshouGrowth {
         Entity killer = event.getSource().getEntity();
         if (killer == null || killer instanceof Player || !killer.getType().is(BEASTS)) return;
         LivingEntity victim = event.getEntity();
-        CompoundTag victimData = victim.getPersistentData();
-        double victimLevel = victimData.getDouble("LEVELnumber");
+        double victimLevel = EntityAttributes.level(victim);
+        double bonus = CreatureData.existingState(victim).map(CreatureState::additionalExperience).orElse(0.0);
         double gain = victimLevel >= 1
-                ? Math.pow(victimLevel, 2.4) + victimLevel * 4 + 5 + victimData.getDouble("additional_experience")
+                ? Math.pow(victimLevel, 2.4) + victimLevel * 4 + 5 + bonus
                 : victim instanceof Mob ? victim.getMaxHealth() / 5 : 0;
         if (killer instanceof LivingEntity living && StatusEffects.has(living, "effect_037")) {
             // 来源先对效果等级执行整数除法，再将所得倍率乘入经验。
             gain *= (StatusEffects.amplifier(living, "effect_037") + 1) / 5 + 1;
         }
-        CompoundTag data = killer.getPersistentData();
-        data.putDouble("experience", data.getDouble("experience") + gain);
+        double experience = EntityAttributes.experience(killer) + gain;
+        double maximum = EntityAttributes.experienceMax(killer);
+        double number = EntityAttributes.level(killer);
         boolean advanced = false;
-        while (data.getDouble("experience") >= data.getDouble("experience_Max")) {
-            data.putDouble("experience", data.getDouble("experience") - data.getDouble("experience_Max"));
-            double number = data.getDouble("LEVELnumber") + 1;
-            data.putDouble("LEVELnumber", number);
-            data.putDouble("experience_Max", data.getDouble("experience_Max") + number * number * 10 + 10);
+        while (experience >= maximum) {
+            experience -= maximum;
+            number += 1;
+            maximum += number * number * 10 + 10;
             GuchongGrowths.awardOwnerExperience(level, killer, number);
             advanced = true;
         }
+        EntityAttributes.setExperience(killer, experience);
+        EntityAttributes.setExperienceMax(killer, maximum);
+        EntityAttributes.setLevel(killer, number);
         if (!advanced) return;
-        double number = data.getDouble("LEVELnumber");
-        YaoshouShared.updateLevelName(data, number);
+        YaoshouShared.updateLevelName(killer, number);
         level.playSound(null, killer.blockPosition(), BuiltInRegistries.SOUND_EVENT.get(
                 ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "littlelevelup")), SoundSource.NEUTRAL, 1, 1);
         level.sendParticles(ParticleTypes.WAX_ON, killer.getX(), killer.getY(), killer.getZ(), 20, 0, 0, 0, 1);
-        YaoshouShared.calculateUpgradeAttributes((LivingEntity) killer, data, number);
+        YaoshouShared.calculateUpgradeAttributes(killer, number);
     }
 }
