@@ -1,7 +1,10 @@
 package net.yvanchuxiuzhen.smoke;
 
+import com.google.gson.JsonElement;
+import com.mojang.serialization.JsonOps;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -10,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +27,18 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
+import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition;
+import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition.FuluReward;
+import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition.IntRange;
+import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition.ItemReward;
+import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition.LevelTier;
+import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition.MaterialReward;
+import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition.MultiDropReward;
+import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition.RecipeRewardSpec;
+import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition.TierContext;
+import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition.WeightedEntry;
+import net.yvanchuxiuzhen.system.treasure.TreasureRewardTables;
+import net.yvanchuxiuzhen.system.treasure.TreasureRewardTables.Selection;
 import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
 import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 import net.yvanchuxiuzhen.system.treasure.content.TreasureChestBlockEntity;
@@ -56,7 +72,10 @@ final class TreasureCheck extends SystemCheck {
         if (step == 19) return inWorld(local);
         if (local < (step == 16 ? 45 : step == 15 || step == 22 ? 110 : 8)) return false;
         switch (step) {
-            case 0 -> onServer(this::prepare);
+            case 0 -> {
+                verifyRewardPools();
+                onServer(this::prepare);
+            }
             case 1 -> useItem();
             case 2 -> onServer(player -> {
                 expect("01物品自然使用只消费一个", 1, player.getMainHandItem().getCount());
@@ -175,6 +194,49 @@ final class TreasureCheck extends SystemCheck {
             default -> throw new IllegalStateException("未知宝箱检查步骤 " + step);
         }
         return true;
+    }
+
+    private void verifyRewardPools() {
+        List<TreasurePoolDefinition> pools = TreasureRewardTables.pools();
+        expect("JSON 奖励池总数", 29, pools.size());
+        expect("JSON 分派总数", 24, pools.stream().mapToInt(pool -> pool.dispatches().size()).sum());
+        for (TreasurePoolDefinition pool : pools) {
+            JsonElement encoded = TreasurePoolDefinition.CODEC.encodeStart(JsonOps.INSTANCE, pool).getOrThrow();
+            TreasurePoolDefinition decoded = TreasurePoolDefinition.CODEC.parse(JsonOps.INSTANCE, encoded).getOrThrow();
+            expect("奖励池 Codec 往返一致：" + pool.id(), pool, decoded);
+        }
+        RandomSource random = RandomSource.create(20261125L);
+        for (TreasurePoolDefinition pool : pools) {
+            for (TreasurePoolDefinition.DispatchKey key : pool.dispatches()) {
+                TreasureRewardTables.select(key.category(), key.subtype(), 1.0, random);
+            }
+        }
+        expectTrue("未知分类与子类返回空", TreasureRewardTables.select("未知大类", "不存在", 1.0, random).isEmpty());
+        expectTrue("一级宝石表解析强类型材料奖励", TreasureRewardTables.select("宝箱", "宝石", 1.0, random)
+                .map(list -> list.getFirst().reward() instanceof MaterialReward material
+                        && material.item().equals(id("cailiao_161")))
+                .orElse(false));
+        expectTrue("一级丹方表解析强类型丹方奖励", TreasureRewardTables.select("书架", "丹方", 1.0, random)
+                .map(list -> list.getFirst().reward() instanceof RecipeRewardSpec)
+                .orElse(false));
+        Optional<List<Selection>> fulu1 = TreasureRewardTables.select("书架", "符箓堆", 1.0, random);
+        expectTrue("一级符箓表注入黄阶上下文", fulu1.map(list -> list.getFirst().reward() instanceof FuluReward
+                && list.getFirst().context().fuluLevel().equals(Optional.of(1))
+                && list.getFirst().context().fuluTierText().equals(Optional.of("黄阶"))).orElse(false));
+        Optional<List<Selection>> fulu9 = TreasureRewardTables.select("书架", "符箓堆", 9.0, random);
+        expectTrue("九级符箓表保留空等阶回退", fulu9.map(list -> list.getFirst().context().fuluLevel().equals(Optional.of(0))).orElse(false));
+        expectTrue("七级法宝表保留空分支语义", TreasureRewardTables.select("武器架", "法宝架", 7.0, random).isEmpty());
+
+        TreasurePoolDefinition bundle = new TreasurePoolDefinition("custom_bundle", List.of(), List.of(new LevelTier(
+                Optional.empty(), Optional.empty(), Optional.of(TierContext.EMPTY),
+                List.of(new WeightedEntry(1, new MultiDropReward(List.of(
+                        new ItemReward(id("money_01"), Optional.of(new IntRange(2, 5)), Optional.of("测试红包")),
+                        new ItemReward(id("cailiao_191"), Optional.empty(), Optional.empty())
+                )))))));
+        TreasurePoolDefinition decodedBundle = TreasurePoolDefinition.CODEC.parse(JsonOps.INSTANCE,
+                TreasurePoolDefinition.CODEC.encodeStart(JsonOps.INSTANCE, bundle).getOrThrow()).getOrThrow();
+        List<Selection> bundleDrops = TreasureRewardTables.samplePool(decodedBundle, 1.0, random).orElseThrow();
+        expect("多物品组合抽样数量", 2, bundleDrops.size());
     }
 
     private void prepare(ServerPlayer player) {
