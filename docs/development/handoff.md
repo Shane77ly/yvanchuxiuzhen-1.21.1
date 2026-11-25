@@ -7,18 +7,35 @@ updated: 2026-11-25
 
 # 交接说明
 
-## 当前交接（2026-11-25 底层架构重构阶段 2B 完成，待负责人确认后进入 2C）
+## 当前交接（2026-11-25 底层架构重构阶段 2B 已合入，2C 已摸底、尚未写代码）
 
 1. **当前基线**：
    - 主工作树：`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`（唯一工作树，禁止新建额外 worktree）。
-   - 当前分支：集成分支 `port/20261123-parity-integration`，已依次通过 `--no-ff` 合入阶段 1A～1D、2A 与 2B `refactor/p2b-quest-economy-codec-json`（临时分支已删除）；实际 HEAD 以 `git log -1` 为准。未推送、未动 `main`。
+   - 集成分支 `port/20261123-parity-integration`：已依次通过 `--no-ff` 合入阶段 1A～1D、2A 与 2B（合并提交 `a3534371`，`refactor/p2b-quest-economy-codec-json` 已删除）。未推送、未动 `main`。
+   - 当前所在分支：`refactor/p2c-creature-ai-codec-json`，从 `a3534371` 检出，只有本次交接的文档提交，没有生产代码改动；新会话先用 `git status`、`git log -1` 确认实际分支，不要从集成分支重新开 2C。
+2. **阶段 2C 的决定与摸底结论**（详见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2c-启动妖兽选技能规则数据化摸底未改代码)）：
+   - **负责人决定走方案 A**：只把妖兽的“选技能规则”（条件、候选技能、延迟、权重）变成 JSON + `Codec`；技能本体仍是 Java，按技能名注册。方案 B（技能本体用 JSON 动作描述语言）留给后续的玩家功法、神通，所以“技能名到技能本体”的注册表要做成可替换结构，不要把选技能规则和某个 Java 技能类绑死。
+   - 目标实况：53 个 `Yaoshou*Behavior.java`（路线图写的 52 个有误）加 `NpcMeleeSkills.java`。选技能代码都是同一套“条件到候选槽位再加权抽签”的结构，42 个内联写法、11 个辅助方法写法。
+   - 只读解析器对 53 个文件全部定位成功，解析出 440 个常量候选；另有 25 种共 35 处条件未归类，约 30 个槽位的权重或延迟不是常量（条件二选一、按 `effect_034` 等级加成、按距离），035 的选技能代码里还夹着 `removeEffect`。
+   - 路线图修正：`NpcMeleeSkills` 放的是技能本体，选技能在 `Xiuzhe0101Behavior`，所以方案 A 下 `NpcMeleeSkills` 本身不会变小。
+   - 摸底用的调查脚本在被 git 忽略的 `tmp/`（`selection_parser.py`、`survey_run.py`、`survey_run_lib.py`、`survey_irregular.py`、`survey_selection.py`），不在版本库里，可能丢失，丢了就重写。
+3. **2B 遗留的未验证边界**（不阻塞 2C，需要时补验）：
+   - `q119`（初见乾坤道人任务两个选项、断点恢复与传送）因存档副本 `renjian-q119` 只剩 `session.lock` 而无法加载，未验证，需重建夹具后补跑。
+   - `npcvillage` 在 `src` 中无对应场景。场景名更正：`qiankundialogue` 实为 `qiankun`/`q119`，`npcflyingshuttle` 实为 `npc08`。
+   - 10 个场景合跑时出现过 `npcmanagement` 的 yanwang 气血 777/762 与 `fanhuacheng03` 加载 OOM，拆批单跑未复现，原因未查明。
+   - 2B 的完成记录见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2b-完成对话树任务与商店商品表转向-codec--json-数据驱动)。
 2. **负责人最新决定（2026-11-24）与阶段 2B 当前完成度**：
    - 继续执行**定位 B（零旧存档兼容、全面转向强类型组件与 JSON 数据驱动）**；不保留任何运行期旧 NBT 回退代码，不自动推送、不擅自合并 `main`。
    - 阶段 2B 已完成 JSON 提取（`tools/porting/extract_quest_economy_json.py`，生成 `shop_catalogs.json` 39 商店、`dialogues.json` 70 对话树、`structure_presets.json` 11 结构预设、`auction_goods.json` 与 `valuation.json`）、14 个 `.nbt` 结构离线升级、`spawn_data.json` 更新、`economy`/`quest`/`npc` 全套强类型 `Codec` 重构（删除 `CommerceGoods.java`、`NpcStructureData.java`、`QuestBlockRefreshData.java`，运行期 `split("%")` / `split("/")` 清零）及 7 个对应 Smoke 用例更新（详情见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2b-完成对话树任务与商店商品表转向-codec--json-数据驱动)）。
    - **2B 收尾已完成**：Smoke 暴露并修复银行方块四选项脚本丢失、陈氏服饰说明取错常量、`QuestBlockRefreshCheck` 旧商店 ID 错误三处问题（`525a3968`）；`compileJava compileTestJava compileSmokeJava test`、`check_ledger.py`、`check_docs.py`、`git diff --check` 通过；`commerce`、`bank,questjournal,questblockrefresh,questeditor,birthitemdialogue,qiankun`、`npcmanagement`、`npc08,npcresidents` 分批各为 `DONE` 且 0 `FAIL`。
    - **2B 未验证边界**：`q119`（初见乾坤道人任务两个选项、断点恢复与传送）因存档副本 `renjian-q119` 只剩 `session.lock` 而无法加载，未验证，需重建夹具后补跑；`npcvillage` 在 `src` 中无对应场景；10 个场景合跑时出现过的 yanwang 气血 777/762 与 `fanhuacheng03` 加载 OOM 单跑未复现，原因未查明。场景名更正：`qiankundialogue` 实为 `qiankun`/`q119`，`npcflyingshuttle` 实为 `npc08`。详见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2b-完成对话树任务与商店商品表转向-codec--json-数据驱动)。
 3. **立即执行的下一动作（按[当前调度：底层架构四大痛点重构方案与执行路线](remaining-work.md#2026-11-24-底层架构四大痛点重构方案与执行路线零旧存档兼容一步到位数据驱动)继续推进）**：
-   - **阶段 2C**：待负责人确认后检出 `refactor/p2c-creature-ai-codec-json`，将 52 个 `Yaoshou001..054Behavior.java` 与 `NpcMeleeSkills.java` 提炼为 `CreatureCombatProfile` `Codec` + JSON 驱动。
+   - **阶段 2C（当前分支 `refactor/p2c-creature-ai-codec-json`，方案 A）**，按下列顺序做：
+     1. 先写通用引擎：选技能规则的数据类型与 `Codec`（条件树、可变权重、选中后移除效果）、JSON 加载、条件求值、加权抽签。抽签保持“一次 `randomInt(1, 总权重)`，累加到达即停”，随机调用次数与顺序不变；不做通用表达式语言，条件和权重只支持有限的几种类型。
+     2. 用 `Yaoshou004`（内联写法、条件简单）做第一个试点，并写对比检查：同一组实体状态下，旧代码与新引擎生成的候选列表（技能名、延迟、权重、顺序）完全一致。通过后再批量处理其余 52 个。
+     3. 25 种未归类条件和约 30 个权重不固定的槽位，逐个核对原文再定类型，不靠猜；035、037、053 的 `removeEffect` 要核对。
+     4. 每个妖兽迁移前后都要比对候选列表；完成后跑对应妖兽 Smoke 场景（`yaoshourecovery`、`yaoshouinteraction`、`moshou001drops`、`temporarybeasts`、`coffinghost` 等，以 `SmokeRun.java` 里实际注册的场景名为准），再走合入门禁。
+     5. 门禁与月志：2C 完成后更新项目月志、本页、`remaining-work.md` 的 2C 行；`NpcMeleeSkills` 不变。
    - **阶段 3**：检出 `refactor/p3-runtime-performance`，消除运行期命令拼接（`performPrefixedCommand`/`performCommand`）并优化大结构缓存。
    - **阶段 4**：检出 `refactor/p4-legacy-bug-cleanup`，集中清理 `source-survey.md` 中登记的 Q01–Q281 原版遗留 Bug 并更新测试断言与系统文档。
 4. **每子批次合入门禁**：
