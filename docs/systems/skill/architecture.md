@@ -80,7 +80,7 @@ updated: 2026-11-23
 - 光系：`LightEntities`（闪光术、万丈光芒）；万丈光芒对生命低于最大生命 10% 的直接清零，立即发一组光爆，之后在 2、4、6、8 刻各补一组（合计五组），回调保留原实体并现读位置。
 - 风系：`WindEntities`（聚风术、聚风化气、风飘术、造云术，以及由妖兽技能放出的 `skillwind_05` 到时消失和 `skillwind_06` 追踪风刃）。已按 `Yaoshou011baoqi`、`Yaoshou014heifeng` 实际生成代码提供 `Skills.showWindBurst/launchWindBlade`：风波在脚下随机朝向、继承敌友、播放 `animation.skillwind05.bodong04` 并设八刻；风刃在脚上方一格、随机朝向后面向目标脚下，记录施放者UUID、传入攻击量、倍率一、目标UUID与二百刻上限，两者均在加入世界前初始化。黑风的1.5倍法攻和第8/32/44刻三次施放由 creature 负责，技能接口不读取其他系统私有状态。构建/ArchUnit通过，实际妖兽生成者和自然路径运行仍随 creature；未新增专项。
 - 黑风风刃目标解析对齐1.18.2版本`Skillwind06DangShiTiGengXinKeShiProcedure:29–44`的`UUIDTypeAdapter.fromString`及解析失败返回空目标语义：改用目标authlib6.0.54的`UndashedUuid.fromStringLenient`，带/不带连字符的合法UUID均可解析；仅捕获解析异常，空值、无效值及本维度未加载目标均保持阶段、计时和速度，目标恢复后续接原状态，不新增超时清理。定向`WindBladeTargetCheck`覆盖标准/无连字符、空值/无效值/未加载、NBT重读后暂停、恢复、二百刻和自旋十四刻；2026-11-18生产/Smoke编译和目标客户端必要单项通过：10条行为检查均符合，报告12 INFO、0 FAIL、DONE，完整保存及Gradle退出0；原件和准确边界见[本月记录](logs/2026-11.md#2026-11-18-风刃目标解析必要单项)。该受控探针不代替自然妖兽三段施放、客户端同步、真实存档重进、伤害或表现验收。
-- 雷系：`ThunderEntities`（掌心雷、地滚雷、惊雷阵、天雷术、五雷轰顶）。后两者调用 combat 的 `Lightning.command` 落白色雷。Q43 记录地滚雷无转向，并已更正玩家团队镜像的旧结论；目标以 `Relations.team` 读取真实团队。
+- 雷系：`ThunderEntities`（掌心雷、地滚雷、惊雷阵、天雷术、五雷轰顶）。后两者调用 combat 的 `Lightning.cast` 落白色雷。Q43 记录地滚雷无转向，并已更正玩家团队镜像的旧结论；目标以 `Relations.team` 读取真实团队。
 - 水系：`WaterEntities`（水蛇鞭、水连鞭、激流波的鞭影实体与水龙吟）。鞭影实体按模式（潜行、Ctrl、Alt、正常）分阶段出手并每刻传送到施放者处；激流波施放时抛出目标、把视线 5 格处的非物品目标记为体质里的追踪目标（`mubiaouid`，小水弹读取），再延时放出 9 枚小水弹（`SkillDelays`，对应来源 `new Object(){…}.start(world, 刻数)`；任务只存内存，服务端停止即丢弃）。
 - 水系后半：`WaterFormations`（空浮球、陨河术、水灵阵、玲珑阵）。`SkillEntity` 增加碰撞箱比例（`setHitboxScale`，来源重写 `getDimensions` 乘以实体里记下的比例，随存档保存）：空浮球放大 2 倍，陨河术正常式 3 倍、潜行式 1 倍。空浮球的潜行、Ctrl、Alt 作用于 16 格内自己放出的空浮球（引爆、转向施放者朝向、面向施放者）；空浮球与潜行式陨河术每隔一段时间伤害并把身边的非友方玩家或生物（无霸体）收为乘客，已有乘客时把其余目标推开；陨河术正常式落地或入水后爆发。水灵阵展开后每 7 刻向阵中放出一枚由施放者发射的水灵弹；玲珑阵每 20 刻为 3 格内的友方实体回复相当于攻击量的生命。
 - 木系：`TreeEntities`（乱枝、灰木剑四式、乱木之种与爆裂、灰木树梯共用 `skill_tree_04`，以技能名区分模式；木篱术 `skill_tree_05`；毒蔓鞭、回身鞭、地蔓鞭 `skill_tree_06`）。乱木之种按施放者 16 格内枝条数 n 给木系冷却直接加 2 的 n−1 次方刻；毒蔓鞭的范围是水平 4 格、垂直 1 格，经 `ProjectileSupport.around` 的三向重载。来源的四处疑似疏漏（木篱永久不消失、回身鞭只抛起霸体目标、乱枝潜行无效果、灰木树梯计数加两次）保持来源行为，记为 Q44。
@@ -337,7 +337,7 @@ Q54：`SkillGold0201DangSiWangShiJianDaoShiProcedure` 中虽有黄色破碎粒�
 
 ## 天雷术与五雷轰顶（2026-11-07）
 
-`A:SkillThunder09shifangProcedure` 实际由“火”分组分派；在视线六格的方块位置上下找地面，最多六次。天雷术在中心落一道，五雷轰顶依次在中心、X+3、X−3、Z+3、Z−3 落五道；白色、直径 4、攻击量与倍率取技能书，施放者 UUID 与团队取公开操作。`ThunderEntities` 调用 combat 的 `Lightning.command`，范围伤害、同步颜色和原生闪电生命周期归 combat；队伍占位的来源解析问题见 Q55 和[战斗正文](../combat/architecture.md)。控雷阵原有计时命令也已接回。
+`A:SkillThunder09shifangProcedure` 实际由“火”分组分派；在视线六格的方块位置上下找地面，最多六次。天雷术在中心落一道，五雷轰顶依次在中心、X+3、X−3、Z+3、Z−3 落五道；白色、直径 4、攻击量与倍率取技能书，施放者 UUID 与团队取公开操作。`ThunderEntities` 调用 combat 的 `Lightning.cast`，范围伤害、同步颜色和原生闪电生命周期归 combat；队伍占位的来源解析问题见 Q55 和[战斗正文](../combat/architecture.md)。控雷阵计时结束后以 `Lightning.castSaved` 使用保存的攻击者与取整攻击量。
 
 当次历史验证（2026-11-07）：一次 `lightning` 检查3过1失败，报告DONE。范围雷伤、红色同步/渲染器及控雷阵命令通过；两个技能的合并断言因辅助方法连续选同槽、第二次取消而失败，随后在选择前清空并编译。该次build（含ArchUnit）及专服正常保存退出通过、ERROR0、实体导出63个；早期截图不能认可完整视觉，完整xiulian雷劫未在该次运行。原始失败保留于 `tmp/lightning-report.txt`，已由下述后续通过覆盖，不再列作未闭合专项。
 

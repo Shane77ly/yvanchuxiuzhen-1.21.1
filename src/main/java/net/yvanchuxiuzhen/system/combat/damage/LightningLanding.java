@@ -3,6 +3,8 @@ package net.yvanchuxiuzhen.system.combat.damage;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import java.util.Comparator;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
@@ -27,6 +29,7 @@ import net.yvanchuxiuzhen.system.combat.content.ColoredLightningBolt;
 
 /** 来源 LightningLandingCommand / LightningLandingGo：先生成彩色闪电，再按命令位置的包围盒逐目标调用伤害入口。 */
 public final class LightningLanding {
+    private static final Pattern FIELD_SEPARATOR = Pattern.compile("\\s+");
     private static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, ModId.VALUE);
     public static final DeferredHolder<EntityType<?>, EntityType<ColoredLightningBolt>> TYPE = ENTITIES.register("colorful_lightning_bolt",
             () -> EntityType.Builder.<ColoredLightningBolt>of(ColoredLightningBolt::new, MobCategory.MISC).noSave().sized(0, 0)
@@ -62,22 +65,34 @@ public final class LightningLanding {
         strike(level, center, number(word(words, 5)), word(words, 6), damage);
     }
 
-    /** 队伍在来源中占一个参数，空队伍及带空白的队名按实际占用的词数影响后三个字段。 */
+    /** 实体施法者直接保留 UUID；只有队名词数异常时才需要重现字段错位。 */
     public static void cast(ServerLevel level, Vec3 center, Entity caster, double base, double multiplier, String team, int diameter, String color, boolean fixed) {
-        String trimmed = team.trim();
-        double range = diameter;
-        if (trimmed.isEmpty()) {
-            range = number(color);
-            color = "";
-            fixed = false;
-        } else if (trimmed.chars().anyMatch(c -> c == ' ' || c >= '\t' && c <= '\r')) {
-            String[] tokens = trimmed.split("\\s+");
-            range = number(tokens[1]);
-            boolean shiftedFixed = tokens.length > 3 ? tokens[3].equals("独立") : tokens.length == 2 && color.equals("独立");
-            color = tokens.length > 2 ? tokens[2] : "";
-            fixed = shiftedFixed;
+        if (singleWord(team)) {
+            strike(level, center, diameter, color, new Shanghai.Request(DamageCategory.THUNDER, caster.getUUID(), fixed, base, multiplier));
+        } else {
+            castSaved(level, center, caster.getStringUUID(), base, multiplier, team, diameter, color, fixed);
         }
-        strike(level, center, range, color, new Shanghai.Request(DamageCategory.THUNDER, caster.getUUID(), fixed, base, multiplier));
+    }
+
+    /** 存档来源可能是无来源标志、未加载或非法 UUID；无效伤害不取消闪电。 */
+    public static void castSaved(ServerLevel level, Vec3 center, String owner, double base, double multiplier, String team, int diameter, String color, boolean fixed) {
+        if (singleWord(owner) && singleWord(team)) {
+            strike(level, center, diameter, color, ShanghaiCommand.request(DamageCategory.THUNDER, owner, fixed, base, multiplier));
+            return;
+        }
+        // 空字段不占词位，多词字段跨越后续槽位。只对这类存档重排字段，不再分发命令。
+        String[] fields = Stream.of(owner, Double.toString(multiplier), team, Integer.toString(diameter), color, fixed ? "独立" : "")
+                .flatMap(FIELD_SEPARATOR::splitAsStream).filter(field -> !field.isEmpty()).toArray(String[]::new);
+        Shanghai.Request damage = ShanghaiCommand.request(DamageCategory.THUNDER, word(fields, 0), word(fields, 5).equals("独立"), base, number(word(fields, 1)));
+        strike(level, center, number(word(fields, 3)), word(fields, 4), damage);
+    }
+
+    public static void tribulation(ServerLevel level, Vec3 center, double base, double multiplier, int diameter, String color) {
+        strike(level, center, diameter, color, new Shanghai.Request(DamageCategory.THUNDER, null, false, base, multiplier));
+    }
+
+    private static boolean singleWord(String value) {
+        return !value.isEmpty() && value.chars().noneMatch(c -> c == ' ' || c >= '\t' && c <= '\r');
     }
 
     private static void strike(ServerLevel level, Vec3 center, double diameter, String colorName, Shanghai.Request damage) {

@@ -88,7 +88,7 @@ public final class ThunderDragon extends TribulationEntity {
             stage = "结束";
         } else if (stage.equals("结束")) {
             Tribulations.particles(this, "brokenyellow", position(), 40, 0, 0, 0, 1);
-            Tribulations.damage(this, 12, "5", true);
+            Tribulations.damage(this, 12, 5, true);
             for (int delay = 1; delay <= 26; delay += 5) Delayed.run(delay, this::finishParticles);
             discard();
         } else if (stage.equals("徘徊")) {

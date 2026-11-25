@@ -96,8 +96,7 @@ public final class FiveThunderCurse implements EffectBehavior {
     }
 
     private static void strike(ServerLevel level, FuluThunderState state, Vec3 at, double damage, int diameter, String color) {
-        Lightning.command(level, at, "lightninglanding " + damage + " " + state.masterUuid()
-                + " 1 " + state.masterTeam() + " " + diameter + " " + color + " 独立");
+        Lightning.castSaved(level, at, state.masterUuid(), damage, 1, state.masterTeam(), diameter, color, true);
     }
 
     private static Holder<MobEffect> effect() {

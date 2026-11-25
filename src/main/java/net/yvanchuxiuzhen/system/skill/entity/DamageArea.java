@@ -1,11 +1,8 @@
 package net.yvanchuxiuzhen.system.skill.entity;
 
 import java.text.DecimalFormat;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -24,12 +21,13 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.FluidType;
+import net.yvanchuxiuzhen.platform.content.CommandAmount;
 import net.yvanchuxiuzhen.platform.content.entity.AnimatedLook;
 import net.yvanchuxiuzhen.platform.content.entity.EntityModelRow;
+import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.skill.SkillSetup;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -39,7 +37,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 /**
  * 伤害范围提示（来源 {@code Shanghaifanwei}）：动画显示判定范围，普通提示按倒计时移除，惊蛰闻雷存续 40 刻。
- * 控雷阵在第 20 刻以该实体的位置和持久数据调用落雷命令；其余技能的伤害由各自的生成者结算。
+ * 控雷阵在第 20 刻以该实体的位置和持久数据发起落雷；其余技能的伤害由各自的生成者结算。
  */
 public final class DamageArea extends PathfinderMob implements GeoEntity, AnimatedLook {
     public static final String ID = "shanghaifanwei";
@@ -138,11 +136,8 @@ public final class DamageArea extends PathfinderMob implements GeoEntity, Animat
             timer += 1;
             if (timer >= (skillName.equals("控雷阵") ? 20 : 40)) {
                 if (skillName.equals("控雷阵")) {
-                    CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, position(), Vec2.ZERO, level,
-                            4, "", Component.empty(), level.getServer(), null).withSuppressedOutput();
-                    String command = "lightninglanding " + new DecimalFormat("0").format(attackDamage)
-                            + " " + attackerUuid + " 1 " + Relations.team(this) + " 2 白色";
-                    level.getServer().getCommands().performPrefixedCommand(source, command);
+                    Lightning.castSaved(level, position(), attackerUuid, CommandAmount.formatted(new DecimalFormat("0"), attackDamage),
+                            1, Relations.team(this), 2, "白色", false);
                 }
                 timer = 0;
                 discard();

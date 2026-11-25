@@ -209,8 +209,8 @@ public final class TalismanSummon extends PathfinderMob {
 
     private void thunderstormTick(ServerLevel level) {
         if (++shotTick >= 5) {
-            Lightning.command(level, new Vec3(getX() + Mth.nextInt(random, -10, 10), getY(), getZ() + Mth.nextInt(random, -10, 10)),
-                    "lightninglanding " + 20 * grade + " " + masterUuid + " 1 " + Relations.team(this) + " 4 紫色 独立");
+            Lightning.castSaved(level, new Vec3(getX() + Mth.nextInt(random, -10, 10), getY(), getZ() + Mth.nextInt(random, -10, 10)),
+                    masterUuid, 20 * grade, 1, Relations.team(this), 4, "紫色", true);
             shotTick = 0;
         }
         if (++tickCount >= 160) {

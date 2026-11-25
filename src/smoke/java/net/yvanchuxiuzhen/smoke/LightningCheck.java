@@ -101,6 +101,9 @@ final class LightningCheck extends SystemCheck {
                 bolts(player).forEach(ColoredLightningBolt::discard);
                 checkTeamField(player, "");
                 checkTeamField(player, "占位");
+                for (String owner : List.of("", "无", "非法", "00000000-0000-0000-0000-000000000001", player.getStringUUID())) {
+                    checkSavedField(player, owner);
+                }
                 checkTeamField(player, "原 4 金色 独立");
                 player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SWORD));
                 player.getInventory().setChanged();
@@ -172,6 +175,26 @@ final class LightningCheck extends SystemCheck {
             int expected = team.isEmpty() ? -1 : team.equals("占位") ? 0xffff0000 : 0xffffcc66;
             expectTrue((direct ? "直接落雷" : "手动命令") + "队伍[" + team + "]的颜色与范围", spawned.size() == 1
                     && spawned.getFirst().color() == expected && (victim.getHealth() < victim.getMaxHealth()) == !team.isEmpty());
+            spawned.forEach(ColoredLightningBolt::discard);
+            victim.discard();
+        }
+    }
+
+    private void checkSavedField(ServerPlayer player, String owner) {
+        Vec3 at = player.position().add(-2, .5, 5);
+        float referenceHealth = 0;
+        for (boolean direct : List.of(false, true)) {
+            Pig victim = pig(player, at.add(.8, -.5, 0));
+            victim.getRandom().setSeed(1);
+            if (direct) Lightning.castSaved(player.serverLevel(), at, owner, 4, 1, "占位", 4, "红色", true);
+            else player.server.getCommands().performPrefixedCommand(player.createCommandSourceStack().withPosition(at),
+                    "lightninglanding 4 " + owner + " 1 占位 4 红色 独立");
+            if (!direct) referenceHealth = victim.getHealth();
+            List<ColoredLightningBolt> spawned = bolts(player);
+            expectTrue((direct ? "存档落雷" : "手动命令") + "主人[" + owner + "]的落点、颜色和伤害", spawned.size() == 1
+                    && spawned.getFirst().position().equals(Vec3.atBottomCenterOf(BlockPos.containing(at)))
+                    && spawned.getFirst().color() == (owner.isEmpty() ? -1 : 0xffff0000)
+                    && victim.getHealth() == referenceHealth && (victim.getHealth() < victim.getMaxHealth()) == (owner.equals("无") || owner.equals(player.getStringUUID())));
             spawned.forEach(ColoredLightningBolt::discard);
             victim.discard();
         }

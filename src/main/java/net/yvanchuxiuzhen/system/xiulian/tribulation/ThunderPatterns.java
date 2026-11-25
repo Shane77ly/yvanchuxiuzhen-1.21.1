@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
+import net.yvanchuxiuzhen.platform.content.CommandAmount;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.Delayed;
 import net.yvanchuxiuzhen.system.xiulian.XiulianSetup;
@@ -78,9 +79,9 @@ final class ThunderPatterns {
 
     private static Vec3 ground(TribulationCloud cloud) { return cloud.position().add(0, -64, 0); }
 
-    private static void strike(TribulationCloud cloud, Vec3 at, double attackFactor, String multiplier, int diameter, String color) {
-        NeoForge.EVENT_BUS.post(new TribulationLightningEvent((ServerLevel) cloud.level(), at, "lightninglanding "
-                + ATTACK.format(cloud.thunderAttack() * attackFactor) + " 无 " + multiplier + " 天劫 " + diameter + " " + color));
+    private static void strike(TribulationCloud cloud, Vec3 at, double attackFactor, double multiplier, int diameter, String color) {
+        NeoForge.EVENT_BUS.post(new TribulationLightningEvent((ServerLevel) cloud.level(), at,
+                CommandAmount.formatted(ATTACK, cloud.thunderAttack() * attackFactor), multiplier, diameter, color));
     }
 
     private static void particle(TribulationCloud cloud, String id, Vec3 at, int count, double spread) {
@@ -91,7 +92,7 @@ final class ThunderPatterns {
         if (!ready(cloud, 60)) return;
         initialize(cloud, "瞬雷连闪", 9);
         if (nextBoltTick(cloud) >= 15) {
-            strike(cloud, ground(cloud), 1, "2", 4, "白色");
+            strike(cloud, ground(cloud), 1, 2, 4, "白色");
             particle(cloud, "thunderwhite", ground(cloud), 2, 2);
             particle(cloud, "thunderlightgray", ground(cloud), 2, 2);
             used(cloud);
@@ -103,14 +104,14 @@ final class ThunderPatterns {
         if (initialize(cloud, "青雷", 24)) cloud.setBoltSecondaryTicks(0);
         if (nextBoltTick(cloud) >= 4) {
             Vec3 at = ground(cloud).add(cloud.getRandom().nextInt(17) - 8, 0, cloud.getRandom().nextInt(17) - 8);
-            strike(cloud, at, 0.8, "1", 4, "天蓝");
+            strike(cloud, at, 0.8, 1, 4, "天蓝");
             particle(cloud, "thunderskyblue", at, 4, 2);
             used(cloud);
         }
         double secondary = cloud.boltSecondaryTicks() + 1;
         cloud.setBoltSecondaryTicks(secondary);
         if (secondary >= 30) {
-            strike(cloud, ground(cloud), 1.2, "1", 4, "天蓝");
+            strike(cloud, ground(cloud), 1.2, 1, 4, "天蓝");
             particle(cloud, "thunderskyblue", ground(cloud), 4, 3);
             for (int delay = 5; delay <= 20; delay += 5) {
                 Delayed.run(delay, () -> particle(cloud, "thunderskyblue", ground(cloud), 4, 3));
@@ -144,14 +145,14 @@ final class ThunderPatterns {
         if (!ready(cloud, 200)) return;
         initialize(cloud, "五雷轰顶", 5);
         if (nextBoltTick(cloud) >= 40) {
-            strike(cloud, ground(cloud), 1, "3", 4, "金色");
+            strike(cloud, ground(cloud), 1, 3, 4, "金色");
             particle(cloud, "thundergolden", ground(cloud), 2, 1);
             for (int delay = 1; delay <= 16; delay += 5) {
                 Delayed.run(delay, () -> particle(cloud, "thundergolden", ground(cloud), 2, 1));
             }
             for (int dx : new int[] {2, -2}) {
                 for (int dz : new int[] {2, -2}) {
-                    strike(cloud, ground(cloud).add(dx, 0, dz), 1, "2", 2, "金色");
+                    strike(cloud, ground(cloud).add(dx, 0, dz), 1, 2, 2, "金色");
                     particle(cloud, "thundergolden", ground(cloud).add(dx, 0, dz), 2, 1);
                     Delayed.run(5, () -> particle(cloud, "thundergolden", ground(cloud).add(dx, 0, dz), 2, 1));
                 }
@@ -182,7 +183,7 @@ final class ThunderPatterns {
         if (!ready(cloud, 160)) return;
         initialize(cloud, "紫金神雷", 9);
         if (nextBoltTick(cloud) >= 20) {
-            strike(cloud, ground(cloud), 1, "1", 4, "紫色");
+            strike(cloud, ground(cloud), 1, 1, 4, "紫色");
             purpleParticles(cloud);
             for (int delay = 1; delay <= 16; delay += 5) Delayed.run(delay, () -> purpleParticles(cloud));
             used(cloud);

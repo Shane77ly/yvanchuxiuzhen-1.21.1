@@ -12,6 +12,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.yvanchuxiuzhen.platform.content.ContentTables;
 import net.yvanchuxiuzhen.platform.content.block.ContentBlock;
 import net.yvanchuxiuzhen.system.combat.api.FightingState;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.Lightning;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.content.CombatMenus;
@@ -62,8 +63,10 @@ public final class CombatSetup {
         NeoForge.EVENT_BUS.addListener(PlayerDeathRules::onDeath);
         ShanghaiCommand.register();
         LightningLanding.register(modBus);
-        NeoForge.EVENT_BUS.addListener((TribulationLightningEvent event) -> Lightning.command(event.level(), event.position(), event.command()));
-        NeoForge.EVENT_BUS.addListener((TribulationDamageEvent event) -> SpellDamage.command(event.level(), event.target(), event.command()));
+        NeoForge.EVENT_BUS.addListener((TribulationLightningEvent event) -> Lightning.tribulation(
+                event.level(), event.position(), event.base(), event.multiplier(), event.diameter(), event.color()));
+        NeoForge.EVENT_BUS.addListener((TribulationDamageEvent event) -> SpellDamage.deal(
+                event.level(), event.target(), DamageCategory.THUNDER, event.attacker(), false, event.base(), event.multiplier()));
         ChainMining.register();
         BedrockCracking.register();
     }
