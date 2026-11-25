@@ -25,6 +25,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -352,12 +354,7 @@ final class Yaoshou011Behavior {
                         if (entity.onGround()) {
                             if (world instanceof ServerLevel _level)
                                 _level.sendParticles(Particles.type("smallexplosiondeeporange"), (entityiterator.getX()), (entityiterator.getY()), (entityiterator.getZ()), 1, 0, 0, 0, 0);
-                            {
-                                Entity _ent = entityiterator;
-                                if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                    _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                            ("shanghai" + " " + "火" + " " + entity.getStringUUID() + " " + "false" + " " + "15" + " " + "1"));
-                            }
+                            SpellDamage.deal(entityiterator, DamageCategory.FIRE, entity, false, 15, 1);
                         }
                     }
                 }
@@ -412,12 +409,7 @@ final class Yaoshou011Behavior {
                         if (entity.onGround()) {
                             if (world instanceof ServerLevel _level)
                                 _level.sendParticles(Particles.type("smallexplosiondeeporange"), (entityiterator.getX()), (entityiterator.getY()), (entityiterator.getZ()), 1, 0, 0, 0, 0);
-                            {
-                                Entity _ent = entityiterator;
-                                if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                    _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                            ("shanghai" + " " + "土" + " " + entity.getStringUUID() + " " + "false" + " " + "10" + " " + "1.5"));
-                            }
+                            SpellDamage.deal(entityiterator, DamageCategory.SOIL, entity, false, 10, 1.5);
                             if (entityiterator instanceof LivingEntity _entity)
                                 _entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 20));
                         }
@@ -576,12 +568,7 @@ final class Yaoshou011Behavior {
                             .toList();
                     for (Entity entityiterator : _entfound) {
                         if (!Relations.isFriendly(entity, entityiterator)) {
-                            {
-                                Entity _ent = entityiterator;
-                                if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                    _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                            ("shanghai" + " " + "音波" + " " + entity.getStringUUID() + " " + "false" + " " + "5" + " " + "0.7"));
-                            }
+                            SpellDamage.deal(entityiterator, DamageCategory.SOUND, entity, false, 5, 0.7);
                             if (!(entityiterator instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("skilleffect_08")) : false)) {
                                 entityiterator.setDeltaMovement(new Vec3((entity.getLookAngle().x), (entity.getLookAngle().y), (entity.getLookAngle().z)));
                             }

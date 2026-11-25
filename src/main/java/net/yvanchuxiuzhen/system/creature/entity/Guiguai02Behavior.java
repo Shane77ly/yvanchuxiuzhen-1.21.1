@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.creature.data.CreatureData;
 import net.yvanchuxiuzhen.system.creature.data.CreatureState;
@@ -165,7 +166,7 @@ final class Guiguai02Behavior {
                 level.sendParticles(Particles.type("smallexplosionskyblue"), candidate.getX(), candidate.getY() + candidate.getBbHeight() / 2,
                         candidate.getZ(), 1, 0, 0, 0, 0);
                 if (candidate instanceof LivingEntity living)
-                    SpellDamage.command(level, living, "shanghai 火 " + entity.getStringUUID() + " false 1 3");
+                    SpellDamage.deal(level, living, DamageCategory.FIRE, entity, false, 1, 3);
             }
         }
         entity.discard();

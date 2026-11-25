@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
@@ -119,7 +120,7 @@ public final class Yaoshou028shuiqiangEntity extends AbstractArrow implements It
         Entity owner = getOwner();
         if (owner != null && result.getEntity() instanceof LivingEntity target && level() instanceof ServerLevel server
                 && !Relations.isFriendly(owner, target)) {
-            SpellDamage.command(server, target, "shanghai 水 " + owner.getStringUUID() + " false 1 0.3");
+            SpellDamage.deal(server, target, DamageCategory.WATER, owner, false, 1, 0.3);
         }
     }
 

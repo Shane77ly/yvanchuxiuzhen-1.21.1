@@ -15,6 +15,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
@@ -277,7 +278,7 @@ final class Yaoshou036Behavior {
                             _level.sendParticles(Particles.type("smallexplosiondarkblue"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()), 1, 0,
                                     0, 0, 0);
                         if (world instanceof ServerLevel level && entityiterator instanceof LivingEntity living) {
-                            SpellDamage.command(level, living, ("shanghai" + " " + "水" + " " + entity.getStringUUID() + " " + "false" + " " + "5" + " " + "1"));
+                            SpellDamage.deal(level, living, DamageCategory.WATER, entity, false, 5, 1);
                         }
                         if (!(entityiterator instanceof LivingEntity _livEnt ? _livEnt.hasEffect(StatusEffects.holder("skilleffect_08")) : false)) {
                             entityiterator.setDeltaMovement(new Vec3((entity.getLookAngle().x * 1.3), 0.5, (entity.getLookAngle().z * 1.3)));

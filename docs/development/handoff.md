@@ -7,20 +7,24 @@ updated: 2026-11-25
 
 # 交接说明
 
-## 当前交接（2026-11-25 底层架构重构阶段 2B 完成，待负责人确认后进入 2C）
+## 当前交接（2026-11-25 阶段 2C 暂缓，阶段 3 开始）
 
 1. **当前基线**：
    - 主工作树：`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`（唯一工作树，禁止新建额外 worktree）。
-   - 当前分支：集成分支 `port/20261123-parity-integration`，已依次通过 `--no-ff` 合入阶段 1A～1D、2A 与 2B `refactor/p2b-quest-economy-codec-json`（临时分支已删除）；实际 HEAD 以 `git log -1` 为准。未推送、未动 `main`。
+   - 集成分支 `port/20261123-parity-integration`：已依次通过 `--no-ff` 合入阶段 1A～1D、2A 与 2B（合并提交 `a3534371`，`refactor/p2b-quest-economy-codec-json` 已删除）。未推送、未动 `main`。
+   - 阶段 3 首批分支 `refactor/p3-runtime-performance` 承接 `2da3f7f3` 的暂缓决定，生产代码起点仍为 `a3534371`。实际检出分支与最新提交以 Git 为准。
+2. **2C 暂缓**：妖兽选招与招式执行继续使用现有 Java。53 个行为类的调查见[摸底记录](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2c-启动妖兽选技能规则数据化摸底未改代码)，不作为待执行任务。
+3. **2B 遗留的未验证边界**：
+   - `q119`（初见乾坤道人任务两个选项、断点恢复与传送）因存档副本 `renjian-q119` 只剩 `session.lock` 而无法加载，未验证，需重建夹具后补跑。
+   - `npcvillage` 在 `src` 中无对应场景。场景名更正：`qiankundialogue` 实为 `qiankun`/`q119`，`npcflyingshuttle` 实为 `npc08`。
+   - 10 个场景合跑时出现过 `npcmanagement` 的 yanwang 气血 777/762 与 `fanhuacheng03` 加载 OOM，拆批单跑未复现，原因未查明。
+   - 2B 的完成记录见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2b-完成对话树任务与商店商品表转向-codec--json-数据驱动)。
 2. **负责人最新决定（2026-11-24）与阶段 2B 当前完成度**：
    - 继续执行**定位 B（零旧存档兼容、全面转向强类型组件与 JSON 数据驱动）**；不保留任何运行期旧 NBT 回退代码，不自动推送、不擅自合并 `main`。
    - 阶段 2B 已完成 JSON 提取（`tools/porting/extract_quest_economy_json.py`，生成 `shop_catalogs.json` 39 商店、`dialogues.json` 70 对话树、`structure_presets.json` 11 结构预设、`auction_goods.json` 与 `valuation.json`）、14 个 `.nbt` 结构离线升级、`spawn_data.json` 更新、`economy`/`quest`/`npc` 全套强类型 `Codec` 重构（删除 `CommerceGoods.java`、`NpcStructureData.java`、`QuestBlockRefreshData.java`，运行期 `split("%")` / `split("/")` 清零）及 7 个对应 Smoke 用例更新（详情见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2b-完成对话树任务与商店商品表转向-codec--json-数据驱动)）。
    - **2B 收尾已完成**：Smoke 暴露并修复银行方块四选项脚本丢失、陈氏服饰说明取错常量、`QuestBlockRefreshCheck` 旧商店 ID 错误三处问题（`525a3968`）；`compileJava compileTestJava compileSmokeJava test`、`check_ledger.py`、`check_docs.py`、`git diff --check` 通过；`commerce`、`bank,questjournal,questblockrefresh,questeditor,birthitemdialogue,qiankun`、`npcmanagement`、`npc08,npcresidents` 分批各为 `DONE` 且 0 `FAIL`。
    - **2B 未验证边界**：`q119`（初见乾坤道人任务两个选项、断点恢复与传送）因存档副本 `renjian-q119` 只剩 `session.lock` 而无法加载，未验证，需重建夹具后补跑；`npcvillage` 在 `src` 中无对应场景；10 个场景合跑时出现过的 yanwang 气血 777/762 与 `fanhuacheng03` 加载 OOM 单跑未复现，原因未查明。场景名更正：`qiankundialogue` 实为 `qiankun`/`q119`，`npcflyingshuttle` 实为 `npc08`。详见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2b-完成对话树任务与商店商品表转向-codec--json-数据驱动)。
-3. **立即执行的下一动作（按[当前调度：底层架构四大痛点重构方案与执行路线](remaining-work.md#2026-11-24-底层架构四大痛点重构方案与执行路线零旧存档兼容一步到位数据驱动)继续推进）**：
-   - **阶段 2C**：待负责人确认后检出 `refactor/p2c-creature-ai-codec-json`，将 52 个 `Yaoshou001..054Behavior.java` 与 `NpcMeleeSkills.java` 提炼为 `CreatureCombatProfile` `Codec` + JSON 驱动。
-   - **阶段 3**：检出 `refactor/p3-runtime-performance`，消除运行期命令拼接（`performPrefixedCommand`/`performCommand`）并优化大结构缓存。
-   - **阶段 4**：检出 `refactor/p4-legacy-bug-cleanup`，集中清理 `source-survey.md` 中登记的 Q01–Q281 原版遗留 Bug 并更新测试断言与系统文档。
+3. **接手动作**：继续阶段 3；生物伤害命令首批见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-阶段-3-生物技能伤害)。下一批核对生物粒子命令的参数与可见范围；大结构内存专项另行测量。2C 不启动，阶段 4 尚未开始。
 4. **每子批次合入门禁**：
    - 每个 `refactor/*` 分支完成后，串行执行 `./gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test`、对应系统的 `runSmokeClient`（保持 `soundCategory_master:0.0` 静音）、`python -B -X utf8 tools/porting/check_ledger.py`、`python -B -X utf8 tools/docs/check_docs.py` 与 `git diff --check`，通过后以 `git merge --no-ff` 合入集成分支并更新交接进度；不自动推送、不擅自合并 `main`。
 

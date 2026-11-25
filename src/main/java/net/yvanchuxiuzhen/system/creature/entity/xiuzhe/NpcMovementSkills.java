@@ -22,6 +22,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -226,12 +228,7 @@ public final class NpcMovementSkills {
                             if (world instanceof ServerLevel _level)
                                 _level.sendParticles(Particles.type("smallexplosiondeeporange"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()),
                                         1, 0, 0, 0, 0);
-                            {
-                                Entity _ent = entityiterator;
-                                if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                    _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                            ("shanghai" + " " + "土" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "1"));
-                            }
+                            SpellDamage.deal(entityiterator, DamageCategory.SOIL, entity, false, 2, 1);
                         }
                     }
                 }
@@ -275,12 +272,7 @@ public final class NpcMovementSkills {
                             if (world instanceof ServerLevel _level)
                                 _level.sendParticles(Particles.type("smallexplosiondeeporange"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2), (entityiterator.getZ()),
                                         1, 0, 0, 0, 0);
-                            {
-                                Entity _ent = entityiterator;
-                                if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                    _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                            ("shanghai" + " " + "土" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "1.5"));
-                            }
+                            SpellDamage.deal(entityiterator, DamageCategory.SOIL, entity, false, 2, 1.5);
                         }
                     }
                 }

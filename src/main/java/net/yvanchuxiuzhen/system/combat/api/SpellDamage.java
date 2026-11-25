@@ -54,6 +54,13 @@ public final class SpellDamage {
         target.setData(CombatData.PENDING_ATTACK, new PendingSpellAttack(false, amount, attackerUuid, "火", 1, true));
     }
 
+    /** 范围命中可包含非生物；仅服务端活体类型进入伤害结算，与命令执行者的类型筛选一致。 */
+    public static void deal(Entity target, DamageCategory category, Entity attacker, boolean fixed, double base, double multiplier) {
+        if (target instanceof LivingEntity living && target.level() instanceof ServerLevel level) {
+            deal(level, living, category, attacker, fixed, base, multiplier);
+        }
+    }
+
     public static void deal(ServerLevel level, LivingEntity target, DamageCategory category, Entity attacker, boolean fixed, double base, double multiplier) {
         deal(level, target, category, attacker == null ? null : attacker.getUUID(), fixed, base, multiplier);
     }

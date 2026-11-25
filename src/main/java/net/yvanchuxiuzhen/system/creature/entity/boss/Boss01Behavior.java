@@ -19,6 +19,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.creature.data.CreatureData;
@@ -141,7 +142,7 @@ final class Boss01Behavior {
                 if (!Relations.isFriendly(boss, entity)) {
                     level.sendParticles(ParticleTypes.FLAME, entity.getX(), entity.getY() + 1, entity.getZ(), 5, .2, .5, .2, .1);
                     if (entity instanceof LivingEntity living) {
-                        SpellDamage.command(level, living, "shanghai 火 " + boss.getStringUUID() + " false 2 1");
+                        SpellDamage.deal(level, living, DamageCategory.FIRE, boss, false, 2, 1);
                     }
                 }
             }
@@ -253,7 +254,7 @@ final class Boss01Behavior {
         Vec3 center = boss.position();
         List<LivingEntity> enemies = level.getEntitiesOfClass(LivingEntity.class, new AABB(center, center).inflate(4), entity -> !Relations.isFriendly(boss, entity))
                 .stream().sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList();
-        for (LivingEntity enemy : enemies) SpellDamage.command(level, enemy, "shanghai 火 " + boss.getStringUUID() + " false 10 1.2");
+        for (LivingEntity enemy : enemies) SpellDamage.deal(level, enemy, DamageCategory.FIRE, boss, false, 10, 1.2);
         finish(boss, false);
     }
 

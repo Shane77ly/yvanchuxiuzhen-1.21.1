@@ -18,6 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.creature.CreatureSetup;
@@ -248,7 +249,7 @@ final class Yaoshou026Behavior {
                 particles(entity, victim, Particles.type("smallexplosiondarkblue"), 1, 0);
                 particles(entity, victim, Particles.type("cailiao_238particle"), 10, 0.5);
                 if (entity.level() instanceof ServerLevel level && victim instanceof LivingEntity living) {
-                    SpellDamage.command(level, living, "shanghai 火 " + entity.getStringUUID() + " false 3 1.5");
+                    SpellDamage.deal(level, living, DamageCategory.FIRE, entity, false, 3, 1.5);
                 }
                 if (!hasSuperArmor(victim)) victim.setDeltaMovement(entity.getLookAngle().x, 0.4, entity.getLookAngle().z);
             }
@@ -278,7 +279,7 @@ final class Yaoshou026Behavior {
                 particles(entity, victim, Particles.type("smallexplosiondarkblue"), 1, 0);
                 particles(entity, victim, Particles.type("cailiao_238particle"), 10, 0.5);
                 if (entity.level() instanceof ServerLevel level && victim instanceof LivingEntity living) {
-                    SpellDamage.command(level, living, "shanghai 火 " + entity.getStringUUID() + " false 5 1");
+                    SpellDamage.deal(level, living, DamageCategory.FIRE, entity, false, 5, 1);
                     living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 20));
                 }
             }
@@ -353,7 +354,7 @@ final class Yaoshou026Behavior {
                 particles(entity, victim, Particles.type("cailiao_238particle"), 20, 0.5);
                 particles(entity, victim, Particles.type("smallexplosionblue"), 1, 0);
                 if (entity.level() instanceof ServerLevel level && victim instanceof LivingEntity living) {
-                    SpellDamage.command(level, living, "shanghai 火 " + entity.getStringUUID() + " false 5 1.5");
+                    SpellDamage.deal(level, living, DamageCategory.FIRE, entity, false, 5, 1.5);
                 }
                 if (!hasSuperArmor(victim)) victim.setDeltaMovement(entity.getLookAngle());
             }

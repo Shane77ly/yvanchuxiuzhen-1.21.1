@@ -21,6 +21,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.attribute.api.Stat;
+import net.yvanchuxiuzhen.system.combat.api.DamageCategory;
+import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
@@ -102,12 +104,7 @@ final class TaomujingBehavior {
                                             if (world instanceof ServerLevel _level)
                                                 _level.sendParticles(Particles.type("smallexplosiondarkgreen"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2),
                                                         (entityiterator.getZ()), 1, 0, 0, 0, 0);
-                                            {
-                                                Entity _ent = entityiterator;
-                                                if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                                    _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                                            ("shanghai" + " " + "木" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "1"));
-                                            }
+                                            SpellDamage.deal(entityiterator, DamageCategory.TREE, entity, false, 2, 1);
                                         }
                                     }
                                 }
@@ -141,12 +138,7 @@ final class TaomujingBehavior {
                                                 if (world instanceof ServerLevel _level)
                                                     _level.sendParticles(Particles.type("smallexplosiondarkgreen"), (entityiterator.getX()), (entityiterator.getY() + entityiterator.getBbHeight() / 2),
                                                             (entityiterator.getZ()), 1, 0, 0, 0, 0);
-                                                {
-                                                    Entity _ent = entityiterator;
-                                                    if (!_ent.level().isClientSide() && _ent.getServer() != null)
-                                                        _ent.getServer().getCommands().performPrefixedCommand(_ent.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                                                                ("shanghai" + " " + "木" + " " + entity.getStringUUID() + " " + "false" + " " + "2" + " " + "1"));
-                                                }
+                                                SpellDamage.deal(entityiterator, DamageCategory.TREE, entity, false, 2, 1);
                                             }
                                         }
                                     }
