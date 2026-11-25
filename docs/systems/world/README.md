@@ -55,7 +55,7 @@ updated: 2026-11-20
 
 `StructureSearch.search(ServerLevel, Vec3, String)`供Quest调用遗迹搜索；World独占28目录/主世界共享已寻进度，盘、光环、裂隙及来源两命令复用同一入口。规则与Q116–Q119见[自然遗迹链](architecture.md#寻灵盘与自然遗迹链2026-11-14)，本批结果见[月志](logs/2026-11.md#2026-11-14-寻灵盘光环与自然裂隙)。
 
-`StructureReleases.release(ServerLevel, Vec3, String)`是World内部固定结构释放写入口；公开`StructureReleasedEvent(level, structureName)`在来源40/60/100刻后同步通知内容所有者。Quest、NPC、Dungeon只处理自身数据，World不反向依赖消费者。实际管理命令语法见[结构解封正文](architecture.md#固定结构解封命令2026-11-14)。
+`StructureReleases.release(ServerLevel, ServerPlayer, String, boolean)`是World内部固定结构释放写入口；公开`StructureReleasedEvent(level, structureName)`在来源40/60/100刻后同步通知内容所有者。Quest、NPC、Dungeon只处理自身数据，World不反向依赖消费者。实际管理命令语法见[结构解封正文](architecture.md#固定结构解封命令2026-11-14)。
 
 其他系统通过原生服务端查找`yvanchuxiuzhen:xvkong`、`dimensionrenjian`、`dimensionyaohun`、`fabao_009weidu`及本批`dimensiontianqve`。六组天道门户通过`DimensionPortalBlock`和`DimensionPortalItem`公开接入，门户方块、POI、出口建门和`DimensionTransition`由World独占。人间道/妖魂道既有往返与保存证据复用；天阙首次入场回程及真实重进后门户/POI保存见[天阙正文](architecture.md#天阙七群系与门户接收2026-11-18)。修罗/无归/地灵仍只沿用资源缺失时拒绝的有限证据，历史原主树四道候选不计当前集成。画里乾坤、虚空及两道历史样点的边界保持各自正文；全分布、自然地物/出生和多人仍待验收。
 

@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
@@ -89,8 +88,7 @@ public final class RiftBlockEntity extends RandomizableContainerBlockEntity impl
             }
             changed();
         } else {
-            StructureExploration.release(level, new Vec3(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()),
-                    playerName, structureName);
+            StructureExploration.release(level, playerName, structureName);
             level.setBlock(worldPosition, Blocks.AIR.defaultBlockState(), 3);
         }
     }
