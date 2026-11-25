@@ -2,12 +2,13 @@ package net.yvanchuxiuzhen.system.world;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -25,7 +26,7 @@ public final class StructureReleases {
         NeoForge.EVENT_BUS.addListener(StructureReleases::stop);
     }
 
-    public static void release(ServerLevel level, Vec3 commandPosition, String name) {
+    public static void release(ServerLevel level, ServerPlayer player, String name, boolean feedback) {
         StructureReleaseData.place(level, name);
         int delay = switch (name) {
             case "花繁城", "雪地商店", "平原马车商店", "平原营地商店", "野外营地" -> 60;
@@ -37,9 +38,16 @@ public final class StructureReleases {
             PENDING.add(new Pending(level, delay, () -> NeoForge.EVENT_BUS.post(new StructureReleasedEvent(level, name))));
         }
         // 来源无条件执行原版选择器，清理全服各维度已加载物品，包括未知结构名字。
-        PENDING.add(new Pending(level, 10, () -> level.getServer().getCommands().performPrefixedCommand(
-                new CommandSourceStack(CommandSource.NULL, commandPosition, Vec2.ZERO, level, 4, "", Component.empty(),
-                        level.getServer(), null).withSuppressedOutput(), "kill @e[type=item]")));
+        PENDING.add(new Pending(level, 10, () -> clearDrops(level.getServer())));
+        if (feedback) player.displayClientMessage(Component.literal("§6解锁结构" + name), false);
+    }
+
+    private static void clearDrops(MinecraftServer server) {
+        List<ItemEntity> drops = new ArrayList<>();
+        for (ServerLevel level : server.getAllLevels()) {
+            level.getEntities(EntityType.ITEM, Entity::isAlive, drops);
+        }
+        drops.forEach(Entity::kill);
     }
 
     private static void tick(ServerTickEvent.Post event) {

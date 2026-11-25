@@ -17,6 +17,7 @@ import net.neoforged.neoforge.client.event.ClientChatReceivedEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.yvanchuxiuzhen.system.dungeon.DungeonPlayers;
 import net.yvanchuxiuzhen.system.dungeon.content.DungeonBlockEntity;
+import net.yvanchuxiuzhen.system.world.StructureExploration;
 
 /** 真实管理命令检查：目标匹配、未知结构清理、固定模板放置与镇妖塔四十刻补充；不重跑副本战斗。 */
 final class StructureReleaseCheck extends SystemCheck {
@@ -69,6 +70,8 @@ final class StructureReleaseCheck extends SystemCheck {
                     player.serverLevel().setBlock(ICE_SAMPLE, Blocks.AIR.defaultBlockState(), 3);
                     command(player, "__不存在的玩家__ unlock sealrelease 冰封巨骨 true");
                     expectTrue("显示名不匹配时不放置固定结构", player.serverLevel().isEmptyBlock(ICE_SAMPLE));
+                    StructureExploration.release(player.serverLevel(), target(player) + " unlock sealrelease 冰封巨骨", "镇妖塔");
+                    expectTrue("裂隙中的多词玩家名不能改变解封目标", player.serverLevel().isEmptyBlock(ICE_SAMPLE));
                     localDrop = drop(player.serverLevel(), player.getX() + 8, player.getY() + 8, player.getZ());
                     ServerLevel painting = player.server.getLevel(DungeonPlayers.PAINTING);
                     paintingWasForced = painting.getForcedChunks().contains(new ChunkPos(0, 0).toLong());
@@ -105,7 +108,7 @@ final class StructureReleaseCheck extends SystemCheck {
                     expectTrue("无空间限定的来源命令跨维度清理已加载掉落物", remote == null || remote.isRemoved());
                     if (remote != null) remote.discard();
                     if (!paintingWasForced) player.server.getLevel(DungeonPlayers.PAINTING).setChunkForced(0, 0, false);
-                    command(player, target(player) + " unlock sealrelease 冰封巨骨 true");
+                    StructureExploration.release(player.serverLevel(), target(player), "冰封巨骨 true");
                     expect("冰封巨骨固定坐标的来源方块", "yvanchuxiuzhen:iceboundrock",
                             BuiltInRegistries.BLOCK.getKey(player.serverLevel().getBlockState(ICE_SAMPLE).getBlock()).toString());
                     commandTick = player.server.getTickCount();
