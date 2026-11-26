@@ -579,6 +579,7 @@ final class SmokeRun {
                     case "globalbiomefeatures" -> List.of(new GlobalBiomeFeaturesCheck(report, levelId));
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
                     case "difutemplate" -> List.of(new DifuTemplateCheck(report, levelId, false));
+                    case "difuwindoworder" -> List.of(new DifuWindowOrderCheck(report, levelId));
                     case "difumetadataexport" -> List.of(new DifuTemplateCheck(report, levelId, true));
                     case "renjianrandom" -> List.of(new RenjianRandomCheck(report, levelId));
                     case "renjianrandom02" -> List.of(new RenjianRandomCheck(report, levelId, RenjianRandomCheck.Remainder.SURFACE));
