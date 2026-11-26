@@ -241,7 +241,7 @@ Q191（待裁定，保持来源）：`PlayerGui08jieshao`称“没有时限”�
 
 ### Q200 出身传送使用无实体最近玩家选择器
 
-来源`PlayerJoin02:437–444`对五种出身以无实体命令源执行函数，函数原文为`execute in yvanchuxiuzhen:dimensionrenjian run teleport @p 0 32 0`。它在切换至人间道的执行上下文中用`@p`选最近玩家，没有明确绑定关闭菜单的玩家；在多人或跨维度场景可能命中人间道内其他最近玩家。这是静态推断，两个版本实机均未执行。状态为待裁定、目标保持来源；本批不把选择器改成本人，未声称传送已验证。
+来源`PlayerJoin02:437–444`对五种出身以无实体命令源执行函数，函数原文为`execute in yvanchuxiuzhen:dimensionrenjian run teleport @p 0 32 0`。它在切换至人间道的执行上下文中用`@p`选最近玩家，没有明确绑定关闭菜单的玩家；在多人或跨维度场景可能命中人间道内其他最近玩家。1.21.1 版本在奖励时从服务器函数管理器查找当前数据包的函数，不缓存函数体，沿用原版函数执行上下文。单人落魄家族到达人间道已验证；多人选人结果和 1.18.2 版本实机仍未验，Q200 保持待裁定。
 
 当前集成基线已注册`BirthInitialRewardsFlow.register()`和`birthinitialrewards`选择器。既有夹具检查落魄家族服务端菜单关闭、同调用未提前发奖、四栈顺序/实例/中文、两书服务端use及空出身/体质边界；八出身扩展已通过`compileJava`与`compileSmokeJava`。2026-11-17单项客户端运行到八分支断言后，在公共停服阶段卡于`ChunkMap.processUnloads`，报告停在`WAITING_FOR_WORLD_EXIT`，线程/堆证据见`build/diagnostics/birthinitialrewards-save-hang-20261117/run-01/`，因此该次不产生出生奖励行为通过结论；后续修订夹具的有效单项结果见下文和系统月志。未精确采样第一/第二个服务端结束刻；真实保存重进、满包、完整自然消费、多人、专服与两个版本实机仍未验。
 

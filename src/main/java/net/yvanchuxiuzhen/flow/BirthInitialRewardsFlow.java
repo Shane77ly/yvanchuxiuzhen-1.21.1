@@ -12,6 +12,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.commands.FunctionCommand;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -42,6 +43,8 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 
 /** 按来源出身分支发放初始物品、装备与状态，并执行原传送函数。 */
 public final class BirthInitialRewardsFlow {
+    private static final ResourceLocation BIRTH_FUNCTION = ResourceLocation.fromNamespaceAndPath("yvanchuxiuzhen", "playerchuansuo");
+
     private BirthInitialRewardsFlow() {
     }
 
@@ -191,7 +194,8 @@ public final class BirthInitialRewardsFlow {
     private static void teleportBySourceFunction(ServerPlayer player, BirthInitialRewardsEvent event) {
         CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, player.position(), Vec2.ZERO,
                 event.sourceLevel(), 4, "", Component.empty(), player.server, null);
-        player.server.getCommands().performPrefixedCommand(source, "function yvanchuxiuzhen:playerchuansuo");
+        var functions = player.server.getFunctions();
+        functions.get(BIRTH_FUNCTION).ifPresent(function -> functions.execute(function, FunctionCommand.modifySenderForExecution(source)));
     }
 
     private static ItemStack item(String id) {
