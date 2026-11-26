@@ -1,5 +1,8 @@
 package net.yvanchuxiuzhen.smoke;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -11,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtIo;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -24,7 +28,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.NetherPortalBlock;
+import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
@@ -46,6 +52,7 @@ final class DimensionPortalCheck extends SystemCheck {
     private final List<String> report;
     private final DimensionPortalSpec focusedGate;
     private final RenjianEntryProbe renjian;
+    private final boolean savedDifu;
     private final List<ItemStack> inventory = new ArrayList<>();
     private final Map<DimensionPortalSpec, BlockPos> exits = new EnumMap<>(DimensionPortalSpec.class);
     private ResourceKey<Level> originalDimension;
@@ -72,11 +79,21 @@ final class DimensionPortalCheck extends SystemCheck {
 
     DimensionPortalCheck(List<String> report, String levelId, Screenshots screenshots, DimensionPortalSpec focusedGate,
             RenjianEntryProbe renjian) {
+        this(report, levelId, screenshots, focusedGate, renjian, false);
+    }
+
+    static DimensionPortalCheck savedDifu(List<String> report, String levelId, Screenshots screenshots) {
+        return new DimensionPortalCheck(report, levelId, screenshots, DimensionPortalSpec.DILING, null, true);
+    }
+
+    private DimensionPortalCheck(List<String> report, String levelId, Screenshots screenshots, DimensionPortalSpec focusedGate,
+            RenjianEntryProbe renjian, boolean savedDifu) {
         super(focusedGate == null ? "天道门户" : gate(focusedGate).name() + "门户", report, levelId);
         this.report = report;
         this.screenshots = screenshots;
         this.focusedGate = focusedGate;
         this.renjian = renjian;
+        this.savedDifu = savedDifu;
     }
 
     @Override
@@ -131,6 +148,22 @@ final class DimensionPortalCheck extends SystemCheck {
                         exits.put(gate.spec(), rectangle.minCorner.immutable());
                     }
                     if (renjian != null) renjian.entered(this, player, step == 23);
+                    if (focusedGate == DimensionPortalSpec.DILING) {
+                        BlockPos origin = new BlockPos(500000, 61, 500000);
+                        BlockPos sample = savedDifu ? origin : origin.offset(0, 0, 1);
+                        var world = player.serverLevel();
+                        if (step == 11) {
+                            if (savedDifu) {
+                                expectTrue("首入地府读取磁盘替换模板的钻石块", world.getBlockState(sample).is(Blocks.DIAMOND_BLOCK));
+                            } else {
+                                expectTrue("首入地府实际放置泥土和黑石", world.getBlockState(sample).is(Blocks.DIRT) && world.getBlockState(origin.offset(0, 0, 104)).is(Blocks.BLACKSTONE));
+                                expectTrue("首入地府实际放置头颅方块实体", world.getBlockEntity(origin.offset(115, 3, 497)) instanceof SkullBlockEntity);
+                            }
+                            world.setBlock(sample, Blocks.GOLD_BLOCK.defaultBlockState(), 3);
+                        } else if (step == 23) {
+                            expectTrue("重进后人工改动保留，地府未重复放置", world.getBlockState(sample).is(Blocks.GOLD_BLOCK));
+                        }
+                    }
                     park(player, rectangle.minCorner, gate.axis());
                 });
                 return true;
@@ -270,6 +303,7 @@ final class DimensionPortalCheck extends SystemCheck {
     }
 
     private void prepare(ServerPlayer player) {
+        if (savedDifu) installSavedDifu(player.serverLevel());
         if (renjian != null) renjian.prepare(player);
         originalDimension = player.level().dimension();
         originalPosition = player.position();
@@ -397,6 +431,27 @@ final class DimensionPortalCheck extends SystemCheck {
 
     private static Vec3 center(BlockPos base, Direction.Axis axis) {
         return Vec3.atBottomCenterOf(base).add(axis == Direction.Axis.X ? new Vec3(0.5, 0, 0) : new Vec3(0, 0, 0.5));
+    }
+
+    private static void installSavedDifu(ServerLevel level) {
+        var manager = level.getStructureManager();
+        var id = id("difujiegou");
+        var file = manager.createAndValidatePathToGeneratedStructure(id, ".nbt");
+        var source = GATES.getFirst().base().above(5);
+        var previous = level.getBlockState(source);
+        if (!previous.isAir() || Files.exists(file)) throw new IllegalStateException("地府替换模板要求独立新档");
+        var template = new StructureTemplate();
+        level.setBlock(source, Blocks.DIAMOND_BLOCK.defaultBlockState(), 2);
+        try {
+            template.fillFromWorld(level, source, new BlockPos(1, 1, 1), false, null);
+            Files.createDirectories(file.getParent());
+            NbtIo.writeCompressed(template.save(new CompoundTag()), file);
+            manager.remove(id);
+        } catch (IOException exception) {
+            throw new UncheckedIOException(exception);
+        } finally {
+            level.setBlock(source, previous, 2);
+        }
     }
 
     private static Block portal(Gate gate) { return DimensionPortalRuntime.portalBlock(gate.spec()); }

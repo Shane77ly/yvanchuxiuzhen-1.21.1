@@ -588,6 +588,8 @@ final class SmokeRun {
                     case "tianqve" -> List.of(new TianqveWorldgenCheck(report, levelId, this::shot));
                     case "wugui" -> List.of(new WuguiWorldgenCheck(report, levelId, this::shot));
                     case "wuguiportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.WUGUI));
+                    case "dilingportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.DILING));
+                    case "dilingsavedportal" -> List.of(DimensionPortalCheck.savedDifu(report, levelId, this::shot));
                     case "renjianportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot, DimensionPortalSpec.RENJIAN));
                     case "renjiandeath" -> List.of(new RenjianDeathCheck(report, levelId, this::shot));
                     case "renjiancombatlifecycle" -> {
