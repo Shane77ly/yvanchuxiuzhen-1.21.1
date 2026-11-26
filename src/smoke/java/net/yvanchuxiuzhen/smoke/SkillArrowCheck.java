@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -105,6 +106,13 @@ final class SkillArrowCheck extends ActionCheck {
                 }),
                 new Action(12, p -> {
                     expectTrue("光灵箭命中方块掉落原版光灵箭", p.serverLevel().getEntitiesOfClass(ItemEntity.class, area(p)).stream().anyMatch(e -> e.getItem().is(Items.SPECTRAL_ARROW)));
+                    clear(p);
+                    shot(p, 8, false, false, p.position().add(3, 3, 0), new Vec3(0, -1, 0), .1);
+                }),
+                new Action(12, p -> {
+                    expectTrue("暗箭实际命中方块并掉落暗箭", p.serverLevel().getEntitiesOfClass(ItemEntity.class, area(p)).stream()
+                            .anyMatch(e -> e.getItem().is(item("skill_arrow_08").getItem())));
+                    expectTrue("暗箭落地未生成药水云", p.serverLevel().getEntitiesOfClass(AreaEffectCloud.class, area(p)).isEmpty());
                     clear(p);
                     target(p);
                     shot(p, 6, true, false, p.position().add(1, 1, 0), new Vec3(1, 0, 0), .1);

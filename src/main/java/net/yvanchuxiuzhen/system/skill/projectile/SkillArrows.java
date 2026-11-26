@@ -1,7 +1,6 @@
 package net.yvanchuxiuzhen.system.skill.projectile;
 
 import java.util.List;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -273,7 +272,6 @@ public final class SkillArrows {
                 case 5 -> fireArea(arrow, owner);
                 case 6 -> { if (mode(arrow).equals("震爆")) shock(arrow, owner); }
                 case 7 -> earthArea(arrow, owner);
-                case 8 -> darkCloud(arrow);
                 default -> { }
             }
             rain(arrow, owner);
@@ -383,14 +381,5 @@ public final class SkillArrows {
             }
         }
 
-        private static void darkCloud(SkillProjectile arrow) {
-            ServerLevel level = (ServerLevel) arrow.level();
-            CommandSourceStack source = level.getServer().createCommandSourceStack().withLevel(level)
-                    .withPosition(arrow.position().add(0, .5, 0)).withPermission(4).withSuppressedOutput();
-            // 保留来源命令：Potion 的命名空间值未加引号，SNBT 解析失败，不生成药水云。
-            level.getServer().getCommands().performPrefixedCommand(source,
-                    "summon minecraft:area_effect_cloud ~ ~1 ~ {CustomNameVisible:0b,Potion:minecraft:bad_luck,WaitTime:0,ReapplicationDelay:20,Age:0,"
-                            + "Duration:60,DurationOnUse:100,Particle:spell,Color:5242960,Radius:2,RadiusOnUse:0,RadiusPerTick:0}");
-        }
     }
 }
