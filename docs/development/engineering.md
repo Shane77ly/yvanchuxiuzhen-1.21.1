@@ -208,7 +208,7 @@ B1 步骤 6 结果（2026-11-03）：方块与物品行对应的 2,211 个元素
 
 `runSmokeClient` 使用独立的 `run/smoke` 游戏目录。语言和视距设置读取 `run/smoke/options.txt`，回放存档副本放在 `run/smoke/saves/`，原生日志在 `run/smoke/logs/`。Gradle 在启动前校验 NeoForge 启动画面已关闭。Smoke 在隐藏窗口保留游戏渲染并拦截 Minecraft 的鼠标捕获，由游戏内夹具驱动交互和保存帧缓冲截图。
 
-内存受限时不要并行启动构建和游戏。`-PsmokeOnly=<系统>` 仍会启动完整客户端并创建集成世界，但跳过资源放置、结构加载和创造栏巡检，仅运行所选系统。`-PsmokeAll=true` 才运行完整巡检；两者不可同时设置。Gradle默认堆768 MB、单worker、关闭并行与常驻daemon；JUnit单进程堆512 MB；客户端默认堆768 MB，可用`-PsmokeMaxHeap`覆盖。它们是各自的Java堆上限，不是进程或整机总内存上限。优先静态检查与单次`compileJava`，不默认运行完整`build`、聚合场景或无关系统回归。游戏检查一次只选本批必要场景，例如`gradlew --no-daemon --max-workers=1 -PsmokeOnly=skillui runSmokeClient`。堆不足或内存紧张时记录尚未验收，不自动提高上限或反复重试；不能以启动至`DONE`代替行为与视觉验收。
+内存受限时不要并行启动构建和游戏。`-PsmokeOnly=<系统>` 仍会启动完整客户端并创建集成世界，但跳过资源放置、结构加载和创造栏巡检，仅运行所选系统。`-PsmokeAll=true` 才运行完整巡检；两者不可同时设置。Gradle默认堆768 MB、单worker、关闭并行与常驻daemon；JUnit单进程堆512 MB；集成冒烟客户端默认堆 2 GiB；`-PsmokeMaxHeap=768m` 仅用于可选低内存压力对照，不作阶段 3 出口。它们是各自的Java堆上限，不是进程或整机总内存上限。优先静态检查与单次`compileJava`，不默认运行完整`build`、聚合场景或无关系统回归。游戏检查一次只选本批必要场景，例如`gradlew --no-daemon --max-workers=1 -PsmokeOnly=skillui runSmokeClient`。堆不足或内存紧张时记录尚未验收，不自动提高上限或反复重试；不能以启动至`DONE`代替行为与视觉验收。
 
 远端已建立，CI 尚未配置；配置后在 CI 执行构建、`check` 与文档/台账检查。来源工作区不在仓库中，`inventory_legacy.py --check` 只能在有来源的机器上执行。
 
