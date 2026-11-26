@@ -11,12 +11,17 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
@@ -58,7 +63,10 @@ final class TreasureMedicineRewardCheck extends SystemCheck {
                     onServer(player -> verifyDose(player, remaining, "重进后第" + (index / 2 + 1) + "次服用"));
                 }
             } else {
-                onServer(this::cleanup);
+                onServer(player -> {
+                    verifyFeeding(player);
+                    cleanup(player);
+                });
                 finish();
             }
             return true;
@@ -188,9 +196,31 @@ final class TreasureMedicineRewardCheck extends SystemCheck {
             if (active == null) continue;
             expect("药效 " + expected.id() + " 产生零基放大值", expected.level() - 1, active.getAmplifier());
             int maximumTicks = expected.id().equals("saturation") ? expected.tick() : expected.tick() * 20;
-            expectTrue("药效 " + expected.id() + " 时间经命令准确施效", active.getDuration() > maximumTicks - 40
+            expectTrue("药效 " + expected.id() + " 实际时长符合药效单位", active.getDuration() > maximumTicks - 40
                     && active.getDuration() <= maximumTicks);
             if (expected.id().equals("absorption")) expectTrue("铁肤丹实际授予伤害吸收", player.getAbsorptionAmount() > 0);
+        }
+    }
+
+    private void verifyFeeding(ServerPlayer player) {
+        Cow cow = EntityType.COW.create(player.serverLevel());
+        cow.setPos(player.position());
+        player.serverLevel().addFreshEntity(cow);
+        try {
+            ItemStack bottle = new ItemStack(item("itemdanyaohulu_01"));
+            Liandan.setMedicine(bottle, new MedicineInstance("", "", "", 2, false, List.of(
+                    new MedicineInstance.Effect("speed", 100, 0),
+                    new MedicineInstance.Effect("resistance", 900, 201))));
+            player.setItemInHand(InteractionHand.MAIN_HAND, bottle);
+            player.setShiftKeyDown(true);
+            NeoForge.EVENT_BUS.post(new PlayerInteractEvent.EntityInteract(player, InteractionHand.MAIN_HAND, cow));
+            MobEffectInstance resistance = cow.getEffect(MobEffects.DAMAGE_RESISTANCE);
+            expectTrue("喂药不施加零秒效果，继续对目标施加未封顶的十秒抗性九级", !cow.hasEffect(MobEffects.MOVEMENT_SPEED)
+                    && resistance != null && resistance.getAmplifier() == 8 && resistance.getDuration() == 200);
+            expectTrue("喂药扣一剂并回写原零时长", Liandan.medicine(bottle).doses() == 1
+                    && Liandan.medicine(bottle).effects().getFirst().duration() == 1);
+        } finally {
+            cow.discard();
         }
     }
 

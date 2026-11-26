@@ -2,30 +2,28 @@ package net.yvanchuxiuzhen.system.liandan;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
 
-/** 药瓶实例的数量合并与服用；药效经原版命令交由已注册效果的所有者执行。 */
+/** 药瓶实例的数量合并与服用；药效使用注册表中的效果实例结算。 */
 public final class LiandanMedicine {
     private LiandanMedicine() {
     }
 
-    public static void use(Level level, Player player, ItemStack stack, Vec3 position) {
+    public static void use(Level level, Player player, ItemStack stack) {
         if (!(level instanceof ServerLevel serverLevel) || player.isShiftKeyDown()) {
             return;
         }
@@ -38,9 +36,7 @@ public final class LiandanMedicine {
             return;
         }
 
-        CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, position, Vec2.ZERO, serverLevel, 4,
-                "", Component.empty(), serverLevel.getServer(), null).withSuppressedOutput();
-        List<MedicineInstance.Effect> clamped = applyEffects(data, source, player.getStringUUID(), true);
+        List<MedicineInstance.Effect> clamped = applyEffects(data, serverLevel.getEntity(player.getUUID()), true);
         int remaining = data.doses() - 1;
         Liandan.setMedicine(stack, data.withDosesAndEffects(remaining, clamped));
         if (remaining <= 0) {
@@ -48,9 +44,8 @@ public final class LiandanMedicine {
         }
     }
 
-    /** 自服与喂药共用实例换算和命令边界；只有自服限制抗性提升的等级。 */
-    static List<MedicineInstance.Effect> applyEffects(MedicineInstance data, CommandSourceStack source,
-                                                      String selector, boolean capResistance) {
+    /** 自服与喂药共用实例换算；只有自服限制抗性等级，喂药的施效来源为目标自身。 */
+    static List<MedicineInstance.Effect> applyEffects(MedicineInstance data, Entity target, boolean selfUse) {
         boolean treasure = data.treasure();
         List<MedicineInstance.Effect> updated = new ArrayList<>(data.effects());
         boolean stopped = false;
@@ -60,16 +55,22 @@ public final class LiandanMedicine {
                 int effectLevel = treasure ? entry.level() : entry.level() / 100;
                 int seconds = treasure ? entry.duration() : entry.duration() / 20;
                 String effect = entry.id();
-                if (capResistance && (effect.equals("resistance") || effect.equals("minecraft:resistance")) && effectLevel > 3) {
+                if (selfUse && (effect.equals("resistance") || effect.equals("minecraft:resistance")) && effectLevel > 3) {
                     effectLevel = 3;
                 }
-                // 来源先计算本次秒数，再修正实例字段；本次零秒仍由 effect 命令判为无效。
+                // 来源先计算本次秒数，再修正实例字段；本次零秒不生效。
                 if (entry.duration() < 1) {
                     updated.set(index, new MedicineInstance.Effect(effect, entry.level(), 1));
                 }
-                if (effectLevel >= 1) {
-                    source.getServer().getCommands().performPrefixedCommand(source,
-                            "effect give " + selector + " " + effect + " " + seconds + " " + (effectLevel - 1));
+                if (target instanceof LivingEntity living && effectLevel >= 1 && effectLevel <= 256
+                        && seconds >= 1 && seconds <= 1_000_000) {
+                    ResourceLocation id = ResourceLocation.tryParse(effect);
+                    if (id == null) continue;
+                    int amplifier = effectLevel - 1;
+                    BuiltInRegistries.MOB_EFFECT.getHolder(id).ifPresent(holder -> {
+                        int ticks = holder.value().isInstantenous() ? seconds : seconds * 20;
+                        living.addEffect(new MobEffectInstance(holder, ticks, amplifier), selfUse ? null : target);
+                    });
                 }
             } else {
                 stopped = true;
