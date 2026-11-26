@@ -184,6 +184,30 @@ def spawn_target() -> list[dict]:
             for weirdness in ([-1.0, -0.16], [0.16, 1.0])]
 
 
+def diling_surface(surface: dict) -> dict:
+    """基岩仍先判断；只在可能铺设表土的深度查询互斥的地灵群系。"""
+    bedrock, *biomes = surface['sequence']
+    above = biomes[0]['then_run']['if_true']
+    depths = [rule['if_true'] for rule in biomes[0]['then_run']['then_run']['sequence']]
+    biome_ids = [name for branch in biomes for name in branch['if_true']['biome_is']]
+    if (above != {'type': 'minecraft:above_preliminary_surface'}
+            or any(depth['type'] != 'minecraft:stone_depth' for depth in depths)
+            or len(biome_ids) != len(set(biome_ids))
+            or any(branch['if_true']['type'] != 'minecraft:biome' or branch['then_run']['if_true'] != above
+                   or [rule['if_true'] for rule in branch['then_run']['then_run']['sequence']] != depths for branch in biomes)):
+        raise ValueError('地灵来源地表规则不再满足共同深度与互斥群系条件')
+
+    def condition(predicate, rule):
+        return {'type': 'minecraft:condition', 'if_true': predicate, 'then_run': rule}
+
+    def sequence(rules):
+        return {'type': 'minecraft:sequence', 'sequence': rules}
+
+    layers = [condition(depth, sequence([condition(branch['if_true'], branch['then_run']['then_run']['sequence'][i]['then_run'])
+                                         for branch in biomes])) for i, depth in enumerate(depths)]
+    return sequence([bedrock, condition(above, sequence(layers))])
+
+
 def plan(source_root: Path | None = None) -> list[tuple[Path, dict, list[tuple[str, Path]]]]:
     """生成完整维度计划供内存核对；正式写出由generate的群系依赖门禁控制。"""
     source_root = source_root or SOURCES[MOD][0]
@@ -204,6 +228,8 @@ def plan(source_root: Path | None = None) -> list[tuple[Path, dict, list[tuple[s
         target_settings = {key: deepcopy(settings[key]) for key in (
             'default_block', 'default_fluid', 'surface_rule', 'sea_level', 'disable_mob_generation',
             'aquifers_enabled', 'ore_veins_enabled', 'legacy_random_source')}
+        if dimension == 'dimensiondiling':
+            target_settings['surface_rule'] = diling_surface(settings['surface_rule'])
         target_settings['noise'] = {key: noise[key] for key in ('min_y', 'height', 'size_horizontal', 'size_vertical')}
         target_settings['noise_router'] = rewrite_router(settings['noise_router'], noise, dimension)
         target_settings['spawn_target'] = spawn_target()

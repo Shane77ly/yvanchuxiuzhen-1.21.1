@@ -19,7 +19,9 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.TicketType;
 import net.minecraft.world.Clearable;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.EmptyBlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -105,8 +107,15 @@ final class DifuPlacement {
     }
 
     private void placeAll() {
+        int finalChunkX = (origin.getX() + sx - 1) >> 4;
         for (int group = 0; group < 3; group++) {
             for (int i = 0; i < volume; i++) {
+                // 原点对齐区块；沿模板底层首次扫过 X 时预订下一列，不改变原生三组写入顺序。
+                if (group == 0 && i < sx * sz && i % (16 * sz) == 0) {
+                    int nextX = ((origin.getX() + i / sz) >> 4) + 1;
+                    if (i == 0) requestColumn(nextX - 1);
+                    if (nextX <= finalChunkX) requestColumn(nextX);
+                }
                 int state = state(i);
                 if (group == group(i, state)) placeBlock(i, palette[state]);
             }
@@ -133,6 +142,13 @@ final class DifuPlacement {
     }
 
     private int state(int index) { return Byte.toUnsignedInt(cells[index]) - 1; }
+
+    private void requestColumn(int x) {
+        for (int z = origin.getZ() >> 4; z <= (origin.getZ() + sz - 1) >> 4; z++) {
+            var chunk = new ChunkPos(x, z);
+            level.getChunkSource().addRegionTicket(TicketType.UNKNOWN, chunk, 0, chunk);
+        }
+    }
 
     private int group(int i, int state) { return annotated.get(i) ? 2 : full[state] ? 0 : 1; }
 
