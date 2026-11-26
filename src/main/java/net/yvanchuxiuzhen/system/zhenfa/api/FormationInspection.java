@@ -56,7 +56,10 @@ public final class FormationInspection {
             if (inspected instanceof Player player) {
                 reportPlayer(recipient, player, rank);
             } else {
+                // 来源命令在没有相应属性时结束该次反馈，保留已经发出的消息。
+                if (rank >= 4 && !(inspected instanceof LivingEntity)) return;
                 if (rank >= 4) send(recipient, "血量上限：" + ((LivingEntity) inspected).getAttribute(Attributes.MAX_HEALTH).getBaseValue());
+                if (rank >= 5 && !((LivingEntity) inspected).getAttributes().hasAttribute(Attributes.ATTACK_DAMAGE)) return;
                 if (rank >= 5) send(recipient, "物理攻击：" + ((LivingEntity) inspected).getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue());
                 if (rank >= 5) send(recipient, "法术攻击：" + entityStats.stat(Stat.MANA_ATT));
                 if (rank >= 6) send(recipient, "精神攻击：" + entityStats.stat(Stat.SOUL_ATT));
