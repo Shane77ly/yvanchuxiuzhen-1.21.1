@@ -38,7 +38,7 @@ final class DifuPlacement {
     private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "difujiegou");
     private static final String SHA256 = "ab3e3cf6587eecc6d195058ccf0ddd2fc64ee9ad4f2f4de7f0ae2e17da12000b";
     private static final Direction[] WATER_NEIGHBORS = {Direction.UP, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
-    private final DifuTemplate template;
+    private final byte[] cells;
     private final ServerLevel level;
     private final BlockPos origin;
     private final int sx, sy, sz, volume;
@@ -63,15 +63,13 @@ final class DifuPlacement {
                         for (int n; (n = in.read(buf)) >= 0;) hasher.putBytes(buf, 0, n);
                     }
                     if (hasher.hash().toString().equals(SHA256)) {
-                        try (var in = resource.get().open()) {
-                            var placement = new DifuPlacement(DifuTemplate.read(in), level, origin);
-                            var notifications = (DifuStructureNotifications) level;
-                            notifications.yvanchuxiuzhen$compactDifuNotifications(true);
-                            try {
-                                placement.placeAll();
-                            } finally {
-                                notifications.yvanchuxiuzhen$compactDifuNotifications(false);
-                            }
+                        var placement = new DifuPlacement(level, origin);
+                        var notifications = (DifuStructureNotifications) level;
+                        notifications.yvanchuxiuzhen$compactDifuNotifications(true);
+                        try {
+                            placement.placeAll();
+                        } finally {
+                            notifications.yvanchuxiuzhen$compactDifuNotifications(false);
                         }
                         return;
                     }
@@ -81,12 +79,14 @@ final class DifuPlacement {
         WorldStructures.place(level, ID, origin);
     }
 
-    private DifuPlacement(DifuTemplate template, ServerLevel level, BlockPos origin) {
-        this.template = template;
+    private DifuPlacement(ServerLevel level, BlockPos origin) throws IOException {
+        cells = DifuTemplate.bundledCells();
         this.level = level;
         this.origin = origin;
-        sx = template.size().getX(); sy = template.size().getY(); sz = template.size().getZ(); volume = sx * sy * sz;
-        metadata = template.upgradedMetadata(level.getServer().getFixerUpper());
+        metadata = DifuTemplate.bundledMetadata();
+        var size = metadata.getList("size", Tag.TAG_INT);
+        sx = size.getInt(0); sy = size.getInt(1); sz = size.getInt(2); volume = sx * sy * sz;
+        if (cells.length != volume) throw new IOException("内置地府状态表尺寸不符");
         var states = metadata.getList("palette", Tag.TAG_COMPOUND);
         palette = new BlockState[states.size()]; full = new boolean[states.size()];
         var lookup = level.registryAccess().lookupOrThrow(Registries.BLOCK);
@@ -105,10 +105,9 @@ final class DifuPlacement {
     }
 
     private void placeAll() {
-        DifuTerrain.prepare(level, origin, template.size());
         for (int group = 0; group < 3; group++) {
             for (int i = 0; i < volume; i++) {
-                int state = template.state(i);
+                int state = state(i);
                 if (group == group(i, state)) placeBlock(i, palette[state]);
             }
         }
@@ -117,7 +116,7 @@ final class DifuPlacement {
             StructureTemplate.updateShapeAtEdge(level, 3, shape, origin);
             for (int group = 0; group < 3; group++) {
                 for (int i = changed.nextSetBit(0); i >= 0; i = changed.nextSetBit(i + 1)) {
-                    if (group != group(i, template.state(i))) continue;
+                    if (group != group(i, state(i))) continue;
                     var pos = pos(i);
                     var old = level.getBlockState(pos);
                     var next = Block.updateFromNeighbourShapes(old, level, pos);
@@ -132,6 +131,8 @@ final class DifuPlacement {
         entities.load(level.registryAccess().lookupOrThrow(Registries.BLOCK), metadata);
         entities.placeInWorld(level, origin, origin, new StructurePlaceSettings(), level.random, 3);
     }
+
+    private int state(int index) { return Byte.toUnsignedInt(cells[index]) - 1; }
 
     private int group(int i, int state) { return annotated.get(i) ? 2 : full[state] ? 0 : 1; }
 
@@ -163,7 +164,7 @@ final class DifuPlacement {
             progressed = false;
             for (int group = 0; group < 3; group++) {
                 for (int i = pending.nextSetBit(0); i >= 0; i = pending.nextSetBit(i + 1)) {
-                    if (group != group(i, template.state(i))) continue;
+                    if (group != group(i, state(i))) continue;
                     var pos = pos(i);
                     var fluid = level.getFluidState(pos);
                     for (var direction : WATER_NEIGHBORS) {

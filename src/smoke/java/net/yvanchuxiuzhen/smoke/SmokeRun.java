@@ -365,6 +365,7 @@ final class SmokeRun {
             levelId = "smoke" + System.currentTimeMillis();
             if (q235SpellShield) report.add("INFO Q235 存档=" + levelId + "，超平坦生存，普通难度，种子=" + FIRST_SPELL_SEED);
             WorldOptions options = switch (System.getProperty("yvanchuxiuzhen.smoke.only", "")) {
+                case "dilingportal" -> new WorldOptions(-7329712849286513803L, true, false);
                 case "renjianfirstspell", "renjiancombatlifecycle", "renjianbirthsupply" -> new WorldOptions(FIRST_SPELL_SEED, true, false);
                 case "renjianrandom", "renjianrandom02", "renjianrandom05", "renjianrandom06" ->
                         new WorldOptions(RenjianRandomCheck.SEED, true, false);
@@ -576,7 +577,8 @@ final class SmokeRun {
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
                     case "globalbiomefeatures" -> List.of(new GlobalBiomeFeaturesCheck(report, levelId));
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
-                    case "difutemplate" -> List.of(new DifuTemplateCheck(report, levelId));
+                    case "difutemplate" -> List.of(new DifuTemplateCheck(report, levelId, false));
+                    case "difumetadataexport" -> List.of(new DifuTemplateCheck(report, levelId, true));
                     case "renjianrandom" -> List.of(new RenjianRandomCheck(report, levelId));
                     case "renjianrandom02" -> List.of(new RenjianRandomCheck(report, levelId, RenjianRandomCheck.Remainder.SURFACE));
                     case "renjianrandom05" -> List.of(new RenjianRandomCheck(report, levelId, RenjianRandomCheck.Remainder.CAVERN));
