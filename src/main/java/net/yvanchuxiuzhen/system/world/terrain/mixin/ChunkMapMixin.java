@@ -19,7 +19,7 @@ import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.blending.BlendingData;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.yvanchuxiuzhen.system.world.DifuStructureNotifications;
-import net.yvanchuxiuzhen.system.world.terrain.DifuProtoChunk;
+import net.yvanchuxiuzhen.system.world.terrain.LazySectionProtoChunk;
 import net.yvanchuxiuzhen.system.world.terrain.LegacyDimensionChunkGenerator;
 import net.yvanchuxiuzhen.system.world.diagnostic.WorldStopRequeueDiagnostics;
 import org.spongepowered.asm.mixin.Final;
@@ -44,10 +44,11 @@ public abstract class ChunkMapMixin {
     private RandomState randomState;
 
     @WrapOperation(method = "createEmptyChunk", at = @At(value = "NEW", target = "net/minecraft/world/level/chunk/ProtoChunk"))
-    private ProtoChunk yvanchuxiuzhen$emptyDifuChunk(ChunkPos pos, UpgradeData upgrade, LevelHeightAccessor height,
+    private ProtoChunk yvanchuxiuzhen$createEmptyChunk(ChunkPos pos, UpgradeData upgrade, LevelHeightAccessor height,
             Registry<Biome> biomes, BlendingData blending, Operation<ProtoChunk> original) {
-        if (((DifuStructureNotifications) level).yvanchuxiuzhen$difuPlacementActive()) {
-            return new DifuProtoChunk(pos, upgrade, height, biomes, blending);
+        if (((DifuStructureNotifications) level).yvanchuxiuzhen$difuPlacementActive()
+                || level.getChunkSource().getGenerator() instanceof LegacyDimensionChunkGenerator) {
+            return new LazySectionProtoChunk(pos, upgrade, height, biomes, blending);
         }
         return original.call(pos, upgrade, height, biomes, blending);
     }

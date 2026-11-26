@@ -12,12 +12,12 @@ import net.minecraft.world.level.chunk.UpgradeData;
 import net.minecraft.world.level.levelgen.blending.BlendingData;
 import net.minecraft.world.ticks.ProtoChunkTicks;
 
-/** 地府首入邻域的新区块。只有结构起点及引用的外围区块不需要先建立全部空分段。 */
-public final class DifuProtoChunk extends ProtoChunk {
+/** 只计算结构起点及引用的外围新区块共用块内空分段，首次访问内容时再展开。 */
+public final class LazySectionProtoChunk extends ProtoChunk {
     private final Registry<Biome> biomeRegistry;
     private volatile boolean materialized;
 
-    public DifuProtoChunk(ChunkPos pos, UpgradeData upgrade, LevelHeightAccessor height, Registry<Biome> biomes, BlendingData blending) {
+    public LazySectionProtoChunk(ChunkPos pos, UpgradeData upgrade, LevelHeightAccessor height, Registry<Biome> biomes, BlendingData blending) {
         super(pos, upgrade, emptySections(height, biomes), new ProtoChunkTicks<>(), new ProtoChunkTicks<>(), height, biomes, blending);
         biomeRegistry = biomes;
     }
