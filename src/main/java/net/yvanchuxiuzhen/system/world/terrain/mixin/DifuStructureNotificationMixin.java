@@ -20,6 +20,11 @@ public abstract class DifuStructureNotificationMixin implements DifuStructureNot
     @Unique private volatile boolean yvanchuxiuzhen$compactStarts;
 
     @Override
+    public boolean yvanchuxiuzhen$difuPlacementActive() {
+        return yvanchuxiuzhen$compactStarts;
+    }
+
+    @Override
     public void yvanchuxiuzhen$compactDifuNotifications(boolean enabled) {
         yvanchuxiuzhen$compactStarts = enabled;
     }
