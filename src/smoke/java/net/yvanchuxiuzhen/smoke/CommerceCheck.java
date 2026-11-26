@@ -33,6 +33,8 @@ import net.yvanchuxiuzhen.system.economy.content.CommerceMenu;
 import net.yvanchuxiuzhen.system.economy.data.BankData;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.treasure.api.Caskets;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplates;
@@ -247,6 +249,29 @@ final class CommerceCheck extends SystemCheck {
                                 ItemStack.matches(savedInventory.get(slot), player.getInventory().getItem(slot)));
                     }
                     expectTrue("登录清除普通对话会话", DialogueActions.snapshot(player).isEmpty());
+                    EconomyMenus.setShopCatalog(player, EconomyCatalogs.catalog("preset_n51_64_n320"));
+                    BankAccounts.setBalance(player, 1, 1170);
+                    EconomyMenus.open(player, player.blockPosition(), CommerceMenu.Kind.SHOP);
+                });
+            }
+            case 42 -> {
+                if (!waitCommerce(local, CommerceMenu.Kind.SHOP)) return false;
+                commerceButton(10);
+            }
+            case 43 -> {
+                onServer(player -> expect("罩甲护腿扣除270灵石", 900, BankAccounts.balance(player, 1)));
+                commerceButton(2);
+            }
+            case 44 -> {
+                onServer(player -> {
+                    expect("铁胄甲护腿扣除900灵石", 0, BankAccounts.balance(player, 1));
+                    List<ItemStack> bought = player.getInventory().items.stream().filter(stack -> !Caskets.command(stack).isEmpty())
+                            .map(Caskets::command).filter(command -> command.startsWith("lianqi "))
+                            .map(command -> Equipment.createProduct(player.registryAccess(), List.of(command.substring(7).split(" ")))).toList();
+                    for (int tier = 1; tier <= 2; tier++) {
+                        var leggings = item("armor_0" + tier + "_leggings").getItem();
+                        expect("实购宝匣可产出护腿" + tier, 1L, bought.stream().filter(stack -> stack.is(leggings) && Equipment.product(stack).isPresent()).count());
+                    }
                     cleanup(player);
                 });
                 finish();

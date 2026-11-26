@@ -2,7 +2,7 @@
 topic: treasure
 role: architecture
 status: partial
-updated: 2026-11-23
+updated: 2026-11-26
 ---
 
 # 宝箱：奖励与开箱
@@ -17,9 +17,9 @@ updated: 2026-11-23
 
 宝箱定义（容器类型、类别、等级与奖励表）归本系统；奖励物品由所属系统的生成入口创建，本系统组合结果。
 
-`tools/porting/extract_treasure_rewards.py`从B的锁定来源递归提取30个纯奖励过程，生成`src/main/resources/content/treasure/reward_tables.json`（29个奖励池、24项分派、843条加权条目）及[输入/输出指纹](../../reference/conversion/treasure_reward_tables.json)。保留原有条件顺序、随机上下界、重复项、空分支与不可达分支过滤语义，以强类型`TreasurePoolDefinition` `Codec`结构代替`%`/`/`拼接串与硬编码Java大表；完整类别映射见生成脚本的`CATEGORIES`与JSON的`dispatches`，不另复制概率表。
+`tools/porting/extract_treasure_rewards.py`从B的锁定来源递归提取30个纯奖励过程，生成`src/main/resources/content/treasure/reward_tables.json`（29个奖励池、24项分派、976条加权条目）及[输入/输出指纹](../../reference/conversion/treasure_reward_tables.json)。相邻的独立抽签判断链按来源顺序读取；六个变动池的签位与权重仍待逐项复核，以强类型`TreasurePoolDefinition` `Codec`结构代替`%`/`/`拼接串与硬编码Java大表；完整类别映射见生成脚本的`CATEGORIES`与JSON的`dispatches`，不另复制概率表。
 
-`B:BaoxiangzongProcedure:41–68`先随机次数，再逐次从`TreasureRewardTables`抽样奖励。普通物品、材料、符箓、丹药、丹方、功法与技能书按强类型规约直接构造并在命令位置加`(0.5,1,0.5)`掉落、拾取延迟10刻；空分段与空奖励分支中止本次开箱循环。指令奖励以加`(0.5,0.5,0.5)`、权限4、隐藏输出的来源执行，待阶段3再替换为直调Java接口。
+`B:BaoxiangzongProcedure:41–68`先随机次数，再逐次从`TreasureRewardTables`抽样奖励。普通物品、材料、符箓、丹药、丹方、功法与技能书按强类型规约直接构造并在命令位置加`(0.5,1,0.5)`掉落、拾取延迟10刻；空分段与空奖励分支中止本次开箱循环。指令奖励以加`(0.5,0.5,0.5)`、权限4、隐藏输出的来源执行，作为可配置命令保留。
 
 宝箱只读取规约中的强类型参数，不直接写功法、技能、丹药、丹方、符箓或材料的业务实例。六类由各所有者API构造，公共书既有阅读/研习链消费功法、技能与丹方实例。炼丹API保留有序药效和材料，技能书使用现有类型化组件。
 

@@ -25,7 +25,7 @@ import net.yvanchuxiuzhen.system.economy.api.ShopCatalogDefinition;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 
-/** 商品分页、两种货币购买及普通/灵石收购；保留来源扣款顺序与一级找零变量。 */
+/** 商品分页、两种货币购买及普通/灵石收购；灵石按面额从低到高扣款。 */
 public final class CommerceTrading {
     public static final GameRules.Key<GameRules.BooleanValue> SHOP_SELL = GameRules.register("shopsell", GameRules.Category.MISC, GameRules.BooleanValue.create(true));
     private CommerceTrading() { }
@@ -129,17 +129,15 @@ public final class CommerceTrading {
             account = account.withBalance(tier, 0);
             if (available >= price) {
                 double change = available - price;
-                double second = 0;
                 for (int lower = tier; lower >= 2; lower--) {
                     int unit = BankAccount.weight(lower);
                     if (change >= unit) {
                         double count = Math.floor(change / unit);
                         change -= count * unit;
                         account = account.withBalance(lower, (int) (account.balance(lower) + count));
-                        if (lower == 2) second = count;
                     }
                 }
-                if (change >= 1) account = account.withBalance(1, (int) (account.balance(1) + second));
+                if (change >= 1) account = account.withBalance(1, (int) (account.balance(1) + change));
                 break;
             }
             price -= available;

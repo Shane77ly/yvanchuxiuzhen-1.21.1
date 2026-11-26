@@ -25,6 +25,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
+import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition;
@@ -263,9 +264,24 @@ final class TreasureCheck extends SystemCheck {
         player.getInventory().clearContent();
         player.connection.teleport(platform.getX() + .5, platform.getY() + 1, platform.getZ() + .5, 90, 15);
         player.level().setBlock(ordinary, block("treasure_chest_03"), 3);
+        verifyLeggingDrops(player);
         player.level().setBlock(locked, block("treasure_chest_11"), 3);
         player.level().setBlock(saved, block("treasure_chest_11"), 3);
         stage(player, chestItem("treasure_chest_01", "宝箱", "宝石", 1));
+    }
+
+    private void verifyLeggingDrops(ServerPlayer player) {
+        var pool = TreasureRewardTables.pools().stream().filter(p -> p.id().equals("hujia")).findFirst().orElseThrow();
+        var level = player.serverLevel();
+        var source = level.getServer().createCommandSourceStack().withLevel(level).withPosition(Vec3.atCenterOf(ordinary));
+        for (int grade = 1; grade <= 8; grade++) {
+            var tier = pool.tiers().get(grade - 1);
+            var leggings = (TreasurePoolDefinition.CommandReward) tier.entries().get(2).reward();
+            level.getServer().getCommands().performPrefixedCommand(source, leggings.command());
+            ItemStack drop = takeSingleDrop(player);
+            expectTrue("盔甲架第" + grade + "档护腿掉落并携带成品组件", drop.is(item("armor_0" + grade + "_leggings").getItem())
+                    && Equipment.product(drop).filter(product -> product.type().equals("裤子")).isPresent());
+        }
     }
 
     private void stageGround(ServerPlayer player, String name) {

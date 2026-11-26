@@ -100,7 +100,7 @@ updated: 2026-11-26
 | Q02 | 制造职业快照与当前玩家/装置绑定，决定多人协作规则 | [炼器](../../systems/lianqi/architecture.md) |
 | Q03 | 炼丹等级检查在图中为游离块，Java 与已连接图一致；恢复门槛属于行为调整 | [炼丹](../../systems/liandan/architecture.md) |
 | Q04 | 阵法五行费用倍率缺失、分派名称错配、火2类别错配及部分伤害链未闭合 | [阵法](../../systems/zhenfa/architecture.md) |
-| Q05 | 商店找零变量不一致；明确修正输入与结果 | [经济](../../systems/economy/architecture.md) |
+| Q05 | 商店灵石购买：已修正一级找零错用二级金额 | [经济正文](../../systems/economy/architecture.md)、[复现与验证范围](../../systems/economy/logs/2026-11.md#阶段-4-首批商店找零) |
 | Q06 | 世界定义在初始化门外重写，静态定义/实例/管理覆盖需分开 | [世界](../../systems/world/architecture.md) |
 | Q07 | 真实容器绑定、材料仓玩家归属、关闭与死亡后的资产去向 | [容器](../../systems/storage/architecture.md) |
 | Q08 | GeckoLib 实际依赖与元数据 optional 标记不一致 | [整体架构](../../development/architecture.md) |
@@ -289,7 +289,7 @@ updated: 2026-11-26
 | Q174 | 任务方块编辑器空值与事件顺序差异；待核实/保持来源 | 空输入保留旧值、切换高级/普通保留另一类脚本、粒子勾选不能取消；右键事件不取消，潜行空手可能继续执行原对话，已接入但未做客户端复核 | [quest 月志](../../systems/quest/logs/2026-11.md) |
 | Q175 | 固定商人刷怪蛋转换未完成；待验证 | 11枚蛋的生产注册、来源颜色、内容条目、双语名称和模型已接回，仍待客户端显示/自然生成验证，未提升为行为已迁移 | [npc 月志](../../systems/npc/logs/2026-11.md) |
 | Q176 | Pao10 资源静态核对已完成；客户端显示待验证 | 资源审计确认Pao10–Pao13所需方块状态、模型、物品模型、贴图和Pao10粒子图集均存在；来源`pao1002.png`无JSON/Java调用，记录为来源孤儿资源，不复制；客户端显示与表现单项仍待 | [festival 月志](../../systems/festival/logs/2026-11.md) |
-| Q177 | 宝箱奖励消费存在来源拼写/未注册ID候选；待裁定/待核实 | `TreasureRewardTables.java:1265,1284,1303,1322,1341,1360,1379,1398`使用`armor_01..08_leggins`，目标注册为`armor_*_leggings`；`QuestStructureData.java`花繁城商品串复用该拼写；`TreasureRewardTables.java:2482`单独引用未注册`cailiao_153`。2026-11-15静态24分派、30个来源指纹和所有者API核验通过；未批准前保持来源，不擅自映射邻近材料或修正商品串 | [treasure 月志](../../systems/treasure/logs/2026-11.md#2026-11-15-奖励表24分派与解释器静态核验) |
+| Q177 | 8 档护腿及花繁城两档宝匣的命令已修正；材料未决 | 奖励池 `hujia` 及商店 `preset_n51_64_n320` 只修正 `leggins` 拼写。`BaoxiangYaoshoucailiaoProcedure.java:129` 三级第 22 签为未注册 `cailiao_153`，不推断替代物品。 | [宝箱记录](../../systems/treasure/logs/2026-11.md#阶段-4-首批奖励表) |
 | Q208 | 来源答题自然打开入口断链；保持现状，待集中复核 | DatiGUIMenu只在客户端菜单工厂注册处构造，BookRightClick.mod.json生成题目/打开菜单积木脱离event_trigger，全A源码未发现普通书右键调用；目标仅保留显式BookMenus.openQuiz夹具入口，不补造自然入口 | [书籍](../../systems/book/architecture.md#答题2026-11-13) |
 | Q209 | 符箓学习载体生产者未发现；保持消费链，待集中复核 | B FudangetGoProcedure只读取主手/副手fuluget并成功后扣除；A/B源码未发现向物品写入fuluget的生产者。目标保留FuluKnowledgeRuntime、DrawingTableRuntime及Fulu.createReward，不补造来源没有的学习载体生产入口 | [符箓](../../systems/fulu/architecture.md#q209-符箓学习载体生产者未发现) |
 | Q210 | 原初系统旧牌匾菜单无自然打开者，按钮消息不提交文本；保持独立注册身份、不补造输入路径 | `PlaqueGUIMenu`、`PlaqueGUIScreen`与`PlaqueGUIButtonMessage`来源调用闭包未找到自然打开者；按钮payload仅含按钮号，服务端过程读取静态EditBox并带调试广播，不形成可信文本提交链 | [装饰](../../systems/decor/architecture.md#q210-旧系统牌匾菜单缺少自然文本提交链) |
