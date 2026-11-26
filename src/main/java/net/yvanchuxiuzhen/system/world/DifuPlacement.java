@@ -64,7 +64,14 @@ final class DifuPlacement {
                     }
                     if (hasher.hash().toString().equals(SHA256)) {
                         try (var in = resource.get().open()) {
-                            new DifuPlacement(DifuTemplate.read(in), level, origin).placeAll();
+                            var placement = new DifuPlacement(DifuTemplate.read(in), level, origin);
+                            var notifications = (DifuStructureNotifications) level;
+                            notifications.yvanchuxiuzhen$compactDifuNotifications(true);
+                            try {
+                                placement.placeAll();
+                            } finally {
+                                notifications.yvanchuxiuzhen$compactDifuNotifications(false);
+                            }
                         }
                         return;
                     }
