@@ -6,6 +6,7 @@
   "mixins": [
     "BlendedNoiseAccessor",
     "ChunkMapMixin",
+    "DifuChunkStorageMixin",
     "ChunkGeneratorStructureStateMixin",
     "LargeDripstoneOffsetMixin",
     "StructureRepositoryAccess"

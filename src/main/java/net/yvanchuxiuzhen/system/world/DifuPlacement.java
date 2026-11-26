@@ -98,6 +98,7 @@ final class DifuPlacement {
     }
 
     private void placeAll() {
+        DifuTerrain.prepare(level, origin, template.size());
         for (int group = 0; group < 3; group++) {
             for (int i = 0; i < volume; i++) {
                 int state = template.state(i);
