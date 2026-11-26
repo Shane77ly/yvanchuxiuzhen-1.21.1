@@ -4,8 +4,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,7 +22,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -262,14 +259,11 @@ public final class DialogueRuntime {
                     state.putInt("renwuweizhi", cursor + 1);
                 }
                 case DialogueNodeDefinition.EffectNode effect -> {
-                    String command = effect.op().equals("加")
-                            ? "effect give " + player.getDisplayName().getString() + " " + effect.effectId() + " " + effect.duration() + " " + effect.amplifier()
-                            : "effect clear " + player.getDisplayName().getString() + " " + effect.effectId();
-                    executeCommand(player, command);
+                    QuestScriptActions.effect(player, effect);
                     state.putInt("renwuweizhi", cursor + 1);
                 }
                 case DialogueNodeDefinition.CommandNode cmd -> {
-                    executeCommand(player, cmd.command());
+                    QuestScriptActions.command(player, cmd.command());
                     state.putInt("renwuweizhi", cursor + 1);
                 }
                 case DialogueNodeDefinition.TransferQuestNode transfer -> {
@@ -295,12 +289,6 @@ public final class DialogueRuntime {
             }
             player.setData(QuestData.SESSION, state.copy());
         }
-    }
-
-    private static void executeCommand(ServerPlayer player, String command) {
-        CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, player.position(), Vec2.ZERO, player.serverLevel(), 4,
-                "", Component.empty(), player.server, null).withSuppressedOutput();
-        player.server.getCommands().performPrefixedCommand(source, command);
     }
 
     static void saveTask(ServerPlayer player, CompoundTag state, QuestTemplateDefinition template, int resumeCursor) {

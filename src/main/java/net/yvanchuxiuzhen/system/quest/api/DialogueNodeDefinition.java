@@ -405,7 +405,7 @@ public sealed interface DialogueNodeDefinition permits
         }
     }
 
-    /** 给予或清除药水效果（暂通过既有执行器转发，阶段 3 统一直调 API）。 */
+    /** 添加或清除状态效果；等级使用从零起算的放大值。 */
     record EffectNode(String op, String effectId, int amplifier, int duration) implements DialogueNodeDefinition {
         public static final MapCodec<EffectNode> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.fieldOf("op").forGetter(EffectNode::op),
@@ -420,7 +420,7 @@ public sealed interface DialogueNodeDefinition permits
         }
     }
 
-    /** 保留至阶段 3 重构的对话指令节点。 */
+    /** 在会话的位置执行任务作者配置的命令。 */
     record CommandNode(String command) implements DialogueNodeDefinition {
         public static final MapCodec<CommandNode> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.fieldOf("command").forGetter(CommandNode::command)

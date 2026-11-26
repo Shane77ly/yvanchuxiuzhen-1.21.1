@@ -1,7 +1,5 @@
 package net.yvanchuxiuzhen.system.quest;
 
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -10,7 +8,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition;
@@ -61,7 +58,7 @@ final class QuestChatRuntime {
                     }
                     state.putBoolean("xvanxiang", true);
                     player.setData(QuestData.SESSION, state);
-                    command(player, command.append(']').toString());
+                    QuestScriptActions.command(player, command.append(']').toString());
                     return;
                 }
                 case DialogueNodeDefinition.InsertChatOptionNode insert -> {
@@ -69,7 +66,7 @@ final class QuestChatRuntime {
                     state.putBoolean("xvanxiang", true);
                     state.putInt("renwuxvanzeweizhi", insert.target());
                     player.setData(QuestData.SESSION, state);
-                    command(player, "tellraw " + player.getDisplayName().getString() + " [{\"text\":\"" + insert.prefix()
+                    QuestScriptActions.command(player, "tellraw " + player.getDisplayName().getString() + " [{\"text\":\"" + insert.prefix()
                             + "\",\"color\":\"white\"},{\"text\":\"<" + insert.option()
                             + ">\",\"color\":\"aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/scoreboard players set -2\"}},{\"text\":\""
                             + insert.suffix() + "\",\"color\":\"white\"}]");
@@ -119,14 +116,11 @@ final class QuestChatRuntime {
                     state.putInt("renwuweizhi", cursor + 1);
                 }
                 case DialogueNodeDefinition.EffectNode effect -> {
-                    String command = effect.op().equals("加")
-                            ? "effect give " + player.getDisplayName().getString() + " " + effect.effectId() + " " + effect.duration() + " " + effect.amplifier()
-                            : "effect clear " + player.getDisplayName().getString() + " " + effect.effectId();
-                    command(player, command);
+                    QuestScriptActions.effect(player, effect);
                     state.putInt("renwuweizhi", cursor + 1);
                 }
                 case DialogueNodeDefinition.CommandNode cmd -> {
-                    command(player, cmd.command());
+                    QuestScriptActions.command(player, cmd.command());
                     state.putInt("renwuweizhi", cursor + 1);
                 }
                 case DialogueNodeDefinition.JumpNode jump -> state.putInt("renwuweizhi", jump.target());
@@ -196,13 +190,8 @@ final class QuestChatRuntime {
     }
 
     private static void prepareOptions(ServerPlayer player) {
-        command(player, "scoreboard objectives add renwuweizhi dummy \"任务选项位置\"");
+        QuestScriptActions.command(player, "scoreboard objectives add renwuweizhi dummy \"任务选项位置\"");
         player.serverLevel().getGameRules().getRule(GameRules.RULE_SENDCOMMANDFEEDBACK).set(false, player.server);
     }
 
-    private static void command(ServerPlayer player, String command) {
-        CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, player.position(), Vec2.ZERO, player.serverLevel(), 4,
-                "", Component.empty(), player.server, null).withSuppressedOutput();
-        player.server.getCommands().performPrefixedCommand(source, command);
-    }
 }
