@@ -2,7 +2,7 @@
 topic: dungeon
 role: architecture
 status: partial
-updated: 2026-11-23
+updated: 2026-11-26
 ---
 
 # 副本：入口、实例、波次与私人画卷
@@ -91,7 +91,7 @@ updated: 2026-11-23
 
 ### Q107 区域统计与标题
 
-`B:FubenblockGengXinYouXiKeProcedure`统计区域所有玩家与副本怪物标志，不核实例坐标；副本名不经JSON转义直接拼标题命令。目标不补过滤或转义。
+`B:FubenblockGengXinYouXiKeProcedure`统计区域所有玩家与副本怪物标志，不核实例坐标；副本名不经JSON转义直接拼标题命令。目标不补过滤或转义。准备时只解析一次名称组件；无法解析不发标题。每名区域玩家分别以自身位置在全服在线列表取最近者，等距保留列表顺序，不排除旁观者、不限定维度。准备组件仍按执行者与实际接收者解析；成功、失败直接发送原文字与样式。
 
 ### Q108 同维度失败回调不注销
 
