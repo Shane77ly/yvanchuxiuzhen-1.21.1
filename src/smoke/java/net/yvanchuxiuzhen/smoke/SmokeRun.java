@@ -576,6 +576,7 @@ final class SmokeRun {
                     case "worldexploration" -> List.of(new WorldExplorationCheck(report, levelId, this::shot));
                     case "globalbiomefeatures" -> List.of(new GlobalBiomeFeaturesCheck(report, levelId));
                     case "dimensionportal" -> List.of(new DimensionPortalCheck(report, levelId, this::shot));
+                    case "difutemplate" -> List.of(new DifuTemplateCheck(report, levelId));
                     case "renjianrandom" -> List.of(new RenjianRandomCheck(report, levelId));
                     case "renjianrandom02" -> List.of(new RenjianRandomCheck(report, levelId, RenjianRandomCheck.Remainder.SURFACE));
                     case "renjianrandom05" -> List.of(new RenjianRandomCheck(report, levelId, RenjianRandomCheck.Remainder.CAVERN));
