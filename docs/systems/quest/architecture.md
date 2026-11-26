@@ -2,7 +2,7 @@
 topic: quest
 role: architecture
 status: partial
-updated: 2026-11-23
+updated: 2026-11-26
 ---
 
 # 任务、对话动作、悬赏与成就
@@ -168,6 +168,10 @@ B `Fanyexianshi.execute()`没有玩家参数，从新建ItemStack.EMPTY读取ren
 `chengjiu_001`至`008`定义均已迁入目标singular `advancement`目录；八份来源与目标的criterion均为`minecraft:impossible`、奖励20经验、隐藏显示，001无父项、002–008依次以前一项为父项。`tools/porting/check_quest_advancement_chain.py`逐个解析来源/目标NBT与JSON，已核对八个块索引、相对坐标、`ForgeData`→`NeoForgeData`、任务方块ID、脚本SHA-256和001–008命令对应关系，输出见`build/diagnostics/q162-advancement-chain/static-parity.json`。来源Java全文仍未发现`award`/`getAdvancements`等直接API授予调用。本结论来自源码与NBT/JSON静态核对，未执行1.18.2版本实机、1.21.1版本成就自然授予、多人与两版本对照，完整授予及任务完成/重进表现待必要运行核实。
 
 剧情法术/精神动作只交付ManaAttackDamage/SoulAttackDamage、对应UUID、damagetype和Damage_multiplier；来源另一版消费过程无调用者，Q31保持开放，不能把字段登记写成已完成实际伤害结算。运行与未验范围只在本月记录维护。
+
+## 对话效果节点
+
+两种解释器共用原版实体目标参数解析，从玩家位置、无施法实体的上下文按显示名选目标，未匹配不改效果。加效果接受 1 至 1000000 秒、0 至 255 级；普通效果换算为刻，瞬时效果直接使用秒数参数作为刻数。其他操作按 ID 只清指定效果，不使用等级和时长；未生效也推进游标。该动作不执行命令分发，作者配置的命令节点仍按原文执行。
 
 ## 升仙令与传承灵物自然任务入口（2026-11-23）
 
