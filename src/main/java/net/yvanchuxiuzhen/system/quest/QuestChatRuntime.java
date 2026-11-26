@@ -9,6 +9,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
@@ -47,18 +48,18 @@ final class QuestChatRuntime {
                 case DialogueNodeDefinition.ChoiceNode choice -> {
                     prepareOptions(player);
                     player.displayClientMessage(Component.literal(choice.prompt()), false);
-                    StringBuilder command = new StringBuilder("tellraw " + player.getDisplayName().getString() + " [");
+                    StringBuilder message = new StringBuilder("[");
                     int count = Math.min(4, choice.options().size());
                     for (int index = 0; index < count; index++) {
                         DialogueNodeDefinition.ChoiceOption option = choice.options().get(index);
-                        if (index > 0) command.append(',');
-                        command.append("{\"text\":\"<").append(option.label()).append(" >\",\"color\":\"aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/taskduihua ")
+                        if (index > 0) message.append(',');
+                        message.append("{\"text\":\"<").append(option.label()).append(" >\",\"color\":\"aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/taskduihua ")
                                 .append(player.getDisplayName().getString()).append(" renwuweizhi ").append(index + 1).append("\"}}");
                         state.putInt("daan" + (index + 1), option.target());
                     }
                     state.putBoolean("xvanxiang", true);
                     player.setData(QuestData.SESSION, state);
-                    QuestScriptActions.command(player, command.append(']').toString());
+                    QuestScriptActions.tell(player, message.append(']').toString());
                     return;
                 }
                 case DialogueNodeDefinition.InsertChatOptionNode insert -> {
@@ -66,7 +67,7 @@ final class QuestChatRuntime {
                     state.putBoolean("xvanxiang", true);
                     state.putInt("renwuxvanzeweizhi", insert.target());
                     player.setData(QuestData.SESSION, state);
-                    QuestScriptActions.command(player, "tellraw " + player.getDisplayName().getString() + " [{\"text\":\"" + insert.prefix()
+                    QuestScriptActions.tell(player, "[{\"text\":\"" + insert.prefix()
                             + "\",\"color\":\"white\"},{\"text\":\"<" + insert.option()
                             + ">\",\"color\":\"aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/scoreboard players set -2\"}},{\"text\":\""
                             + insert.suffix() + "\",\"color\":\"white\"}]");
@@ -190,8 +191,10 @@ final class QuestChatRuntime {
     }
 
     private static void prepareOptions(ServerPlayer player) {
-        QuestScriptActions.command(player, "scoreboard objectives add renwuweizhi dummy \"任务选项位置\"");
+        var board = player.server.getScoreboard();
+        if (board.getObjective("renwuweizhi") == null) {
+            board.addObjective("renwuweizhi", ObjectiveCriteria.DUMMY, Component.literal("任务选项位置"), ObjectiveCriteria.RenderType.INTEGER, false, null);
+        }
         player.serverLevel().getGameRules().getRule(GameRules.RULE_SENDCOMMANDFEEDBACK).set(false, player.server);
     }
-
 }
