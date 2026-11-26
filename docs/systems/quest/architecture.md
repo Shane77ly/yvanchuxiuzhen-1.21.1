@@ -193,6 +193,8 @@ B `Fanyexianshi.execute()`没有玩家参数，从新建ItemStack.EMPTY读取ren
 
 B `Taskduihuashijian:91–92`生成`/taskduihua <显示名> renwuweizhi <序号>`，而`TaskduihuaCommand:26–65`注册名字后直接接数字；名字使用MessageArgument读取剩余输入，下级数字不可稳定到达。目标改为单个greedy参数解析末尾数字和可选`renwuweizhi`标记，兼容来源点击字符串、带空格显示名和带引号显示名；保留原命令无权限限制及当前维度显示名匹配。静态修复完成，必要客户端命令点击仍待运行补核。
 
+选项内容依来源直接嵌入组件参数，按会话显示名解析玩家并直接发系统消息；解析失败不清除选择锁。目标 `renwuweizhi` 只在不存在时创建为整数 dummy 并命名“任务选项位置”，关闭命令反馈仍在其后执行。
+
 ### Q170 内嵌选项命令缺少参数
 
 B `Taskduihuashijian2:185–186`内嵌选项仅生成`/scoreboard players set -2`，缺少完整玩家、目标与数值参数。目标保留该字符串，未擅自补参；自然点击与后续流程未验，待集中裁定。

@@ -555,6 +555,7 @@ final class SmokeRun {
                     case "xiuzhespawn" -> List.of(new XiuzheSpawnCheck(report, levelId));
                     case "questjournal" -> List.of(new QuestJournalCheck(report, levelId, this::shot));
                     case "questeffect" -> List.of(new QuestEffectCheck(report, levelId));
+                    case "questchatoptions" -> List.of(new QuestChatOptionsCheck(report, levelId));
                     case "questeditor" -> List.of(new QuestTriggerEditorCheck(report, levelId, this::shot));
                     case "guconstitutionharvest" -> List.of(new GuConstitutionHarvestCheck(report, levelId, this::shot));
                     case "festivalremaining" -> List.of(new FestivalRemainingCheck(report, levelId, this::shot));
