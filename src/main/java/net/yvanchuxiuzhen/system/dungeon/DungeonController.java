@@ -46,7 +46,7 @@ public final class DungeonController {
             data.putInt("fubentick", data.getInt("fubentick") + 1);
             String phase = data.getString("fubenjindu");
             if (phase.equals("准备") && data.getInt("fubentick") >= 7) {
-                for (ServerPlayer player : players(block)) title(player, data.getString("fubenname"), "black", false);
+                DungeonTitles.prepare(players(block), data.getString("fubenname"));
                 data.putInt("fubentick", 0);
                 data.putInt("fubenbocinum", 1);
                 data.putInt("fubenentitynum", data.getInt("fybenboci1num"));
@@ -77,7 +77,7 @@ public final class DungeonController {
                 data.putString("fubenjindu", "");
                 for (Entity entity : entities(block)) if (DungeonCreatures.isDungeonEntity(entity)) entity.discard();
                 for (ServerPlayer player : players(block)) {
-                    title(player, "失 败", "black", true);
+                    DungeonTitles.result(player, false);
                     CompoundTag transientState = player.getData(DungeonData.PLAYER_TRANSIENT);
                     if (player.gameMode.getGameModeForPlayer() == GameType.ADVENTURE && !transientState.getString("gamemoshi").equals("冒险")) player.setGameMode(GameType.SURVIVAL);
                     transientState.putBoolean("fubenfanhui", true);
@@ -87,7 +87,7 @@ public final class DungeonController {
             } else if (phase.equals("成功")) {
                 data.putInt("fubentick", 0);
                 for (ServerPlayer player : players(block)) {
-                    title(player, "通 关", "gold", true);
+                    DungeonTitles.result(player, true);
                     player.getData(DungeonData.PLAYER_TRANSIENT).putBoolean("fubenfanhui", true);
                     if (!Relations.entityTemporaryTeam(player).isEmpty()) Relations.setEntityTemporaryTeam(player, "");
                 }
@@ -173,11 +173,6 @@ public final class DungeonController {
 
     private static List<ServerPlayer> players(DungeonBlockEntity block) {
         return entities(block).stream().filter(ServerPlayer.class::isInstance).map(ServerPlayer.class::cast).toList();
-    }
-
-    private static void title(ServerPlayer player, String text, String color, boolean bold) {
-        player.server.getCommands().performPrefixedCommand(player.createCommandSourceStack().withSuppressedOutput().withPermission(4),
-                "title @p title [{\"text\":\"" + text + "\",\"color\":\"" + color + "\",\"bold\":" + bold + ",\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]");
     }
 
     public static void endTick(ServerTickEvent.Post event) {

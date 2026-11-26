@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.IntStream;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.components.EditBox;
@@ -14,11 +16,11 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -77,7 +79,9 @@ final class DungeonCheck extends SystemCheck {
     private static final BlockPos PAINTING = SUPPORT.south();
     private static final Vec3 ENTRANCE_STAND = Vec3.atBottomCenterOf(ENTRANCE).add(0, 0, -3);
     private static final Vec3 PAINTING_STAND = Vec3.atBottomCenterOf(FLOOR.above()).add(0, 0, -1.5);
-    private static final Field AWAITING_TELEPORT = awaitingTeleportField();
+    private static final Field AWAITING_TELEPORT = field(ServerGamePacketListenerImpl.class, "awaitingPositionFromClient");
+    private static final Field HUD_TITLE = field(Gui.class, "title");
+    private static final Field HUD_SUBTITLE = field(Gui.class, "subtitle");
     private static final List<List<String>> WAVES = List.of(
             List.of("yaoshou_001:1", "yaoshou_001:1", "yaoshou_001:2"),
             List.of("yaoshou_001:1", "yaoshou_001:2", "yaoshou_002:3"),
@@ -105,6 +109,9 @@ final class DungeonCheck extends SystemCheck {
     private BlockPos controllerPosition;
     private BlockPos privateExit;
     private Vec3 privateStand;
+    private boolean sawName;
+    private boolean sawSuccess;
+    private boolean sawFailure;
     private int clearedWaves;
     private int visibleMenuId = -1;
     private int visibleMenuTicks;
@@ -119,6 +126,7 @@ final class DungeonCheck extends SystemCheck {
     @Override
     protected boolean step(int step, int local) {
         try {
+            if (step >= 16 && step <= 21 && !(sawName && sawSuccess && sawFailure)) sampleTitle();
             return advance(step, local);
         } catch (RuntimeException exception) {
             abort("步骤" + step + "异常：" + exception);
@@ -342,6 +350,9 @@ final class DungeonCheck extends SystemCheck {
             case 21 -> {
                 if (!returned(local, "受控超时失败经延后任务回程并复位入口")) return false;
                 onServer(p -> {
+                    expectTrue("客户端中央收到黑色非粗体副本名", sawName);
+                    expectTrue("客户端中央收到金色粗体通关标题", sawSuccess);
+                    expectTrue("客户端中央收到黑色粗体失败标题", sawFailure);
                     expect("失败不新增成功奖励", 10, leather(p));
                     expectTrue("失败控制器停止且清空倒计时", !block(p.server.getLevel(DungeonPlayers.PAINTING), controllerPosition).state().getBoolean("fubenstate")
                             && block(p.server.getLevel(DungeonPlayers.PAINTING), controllerPosition).state().getInt("fubenjieshutime") == 0);
@@ -441,6 +452,24 @@ final class DungeonCheck extends SystemCheck {
                             && recovered.ownerUuid().equals(p.getStringUUID())
                             && recovered.chukouPos().equals(privateExit));
                 });
+                return true;
+            }
+            case 31 -> {
+                onServer(p -> {
+                    DungeonBlockEntity sample = block(p.serverLevel(), SAMPLE);
+                    sampleTitleName(sample, "甲\\\"乙\\\\丙");
+                    sampleTitleName(sample, "甲\"乙");
+                    sampleTitleName(sample, "甲\\乙");
+                    sampleTitleName(sample, "甲\"}]尾");
+                    p.connection.send(new ClientboundSetSubtitleTextPacket(Component.literal("副本名称样本结束")));
+                });
+                return true;
+            }
+            case 32 -> {
+                Component marker = hudText(HUD_SUBTITLE);
+                if (!waitFor(local, "收到所有名称样本之后的副标题", marker != null && marker.getString().equals("副本名称样本结束"), 100)) return false;
+                Component title = hudText(HUD_TITLE);
+                expect("合法转义显示引号与反斜杠，三个非法名称均未覆盖中央标题", "甲\"乙\\丙", title == null ? "" : title.getString());
                 return true;
             }
             default -> {
@@ -623,9 +652,42 @@ final class DungeonCheck extends SystemCheck {
         }
     }
 
-    private static Field awaitingTeleportField() {
+    private static void sampleTitleName(DungeonBlockEntity sample, String name) {
+        CompoundTag state = sample.state();
+        state.putBoolean("fubenstate", true);
+        state.putString("fubenjindu", "准备");
+        state.putString("fubenname", name);
+        state.putInt("fubenbianchang", 40);
+        state.putInt("fubentick", 6);
+        state.putInt("fubenjieshutime", 100);
+        DungeonController.tick(sample);
+        state.putBoolean("fubenstate", false);
+    }
+
+    private void sampleTitle() {
+        Component title = hudText(HUD_TITLE);
+        if (title == null) return;
+        var style = title.getStyle();
+        if (style.getColor() == null || style.isItalic() || style.isUnderlined() || style.isStrikethrough() || style.isObfuscated()) return;
+        int color = style.getColor().getValue();
+        switch (title.getString()) {
+            case "花妖连战" -> sawName |= color == ChatFormatting.BLACK.getColor() && !style.isBold();
+            case "通 关" -> sawSuccess |= color == ChatFormatting.GOLD.getColor() && style.isBold();
+            case "失 败" -> sawFailure |= color == ChatFormatting.BLACK.getColor() && style.isBold();
+        }
+    }
+
+    private Component hudText(Field field) {
         try {
-            Field field = ServerGamePacketListenerImpl.class.getDeclaredField("awaitingPositionFromClient");
+            return (Component) field.get(minecraft.gui);
+        } catch (IllegalAccessException exception) {
+            throw new IllegalStateException(exception);
+        }
+    }
+
+    private static Field field(Class<?> owner, String name) {
+        try {
+            Field field = owner.getDeclaredField(name);
             field.setAccessible(true);
             return field;
         } catch (ReflectiveOperationException exception) {
