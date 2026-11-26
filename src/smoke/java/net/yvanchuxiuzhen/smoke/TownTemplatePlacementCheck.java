@@ -18,6 +18,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -59,6 +60,7 @@ final class TownTemplatePlacementCheck extends SystemCheck {
     private Vec3 originalPosition;
     private int originalSelected;
     private boolean originalFlying;
+    private boolean originalVinesSpread;
 
     TownTemplatePlacementCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("城镇十二模板真实建造", report, levelId);
@@ -119,6 +121,10 @@ final class TownTemplatePlacementCheck extends SystemCheck {
     }
 
     private void prepare(ServerPlayer player) {
+        // 建造后与重进后比较的是模板初态，排除等待期间藤蔓的自然生长。
+        var vines = player.serverLevel().getGameRules().getRule(GameRules.RULE_DO_VINES_SPREAD);
+        originalVinesSpread = vines.get();
+        vines.set(false, player.server);
         originalPosition = player.position();
         originalSelected = player.getInventory().selected;
         originalFlying = player.getAbilities().flying;
@@ -277,6 +283,7 @@ final class TownTemplatePlacementCheck extends SystemCheck {
     }
 
     private void restorePlayer(ServerPlayer player) {
+        player.serverLevel().getGameRules().getRule(GameRules.RULE_DO_VINES_SPREAD).set(originalVinesSpread, player.server);
         player.getInventory().clearContent();
         for (int slot = 0; slot < inventory.size(); slot++) player.getInventory().setItem(slot, inventory.get(slot).copy());
         player.getInventory().selected = originalSelected;

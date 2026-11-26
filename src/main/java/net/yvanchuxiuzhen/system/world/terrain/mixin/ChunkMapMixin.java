@@ -1,14 +1,25 @@
 package net.yvanchuxiuzhen.system.world.terrain.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ChunkMap;
 import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.LevelHeightAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.chunk.ChunkGeneratorStructureState;
+import net.minecraft.world.level.chunk.ProtoChunk;
+import net.minecraft.world.level.chunk.UpgradeData;
 import net.minecraft.world.level.levelgen.RandomState;
+import net.minecraft.world.level.levelgen.blending.BlendingData;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
+import net.yvanchuxiuzhen.system.world.DifuStructureNotifications;
+import net.yvanchuxiuzhen.system.world.terrain.LazySectionProtoChunk;
 import net.yvanchuxiuzhen.system.world.terrain.LegacyDimensionChunkGenerator;
 import net.yvanchuxiuzhen.system.world.diagnostic.WorldStopRequeueDiagnostics;
 import org.spongepowered.asm.mixin.Final;
@@ -31,6 +42,16 @@ public abstract class ChunkMapMixin {
     @Final
     @Mutable
     private RandomState randomState;
+
+    @WrapOperation(method = "createEmptyChunk", at = @At(value = "NEW", target = "net/minecraft/world/level/chunk/ProtoChunk"))
+    private ProtoChunk yvanchuxiuzhen$createEmptyChunk(ChunkPos pos, UpgradeData upgrade, LevelHeightAccessor height,
+            Registry<Biome> biomes, BlendingData blending, Operation<ProtoChunk> original) {
+        if (((DifuStructureNotifications) level).yvanchuxiuzhen$difuPlacementActive()
+                || level.getChunkSource().getGenerator() instanceof LegacyDimensionChunkGenerator) {
+            return new LazySectionProtoChunk(pos, upgrade, height, biomes, blending);
+        }
+        return original.call(pos, upgrade, height, biomes, blending);
+    }
 
     @Inject(method = "lambda$scheduleUnload$12", at = @At("HEAD"), require = 1)
     private void yvanchuxiuzhen$observeScheduleUnload(ChunkHolder holder, long chunkPos, CallbackInfo callback) {

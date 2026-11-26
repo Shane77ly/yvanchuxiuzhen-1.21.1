@@ -18,6 +18,7 @@ public final class WorldTerrainTypes {
     static {
         DENSITY_TYPES.register("legacy_terrain_spline", () -> LegacyTerrainSpline.CODEC.codec());
         DENSITY_TYPES.register("legacy_blended_noise", () -> LegacyBlendedNoise.CODEC.codec());
+        DENSITY_TYPES.register("legacy_noise_slide", () -> LegacyNoiseSlide.CODEC.codec());
         GENERATORS.register("legacy_dimension", () -> LegacyDimensionChunkGenerator.CODEC);
     }
 

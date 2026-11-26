@@ -3,14 +3,11 @@ package net.yvanchuxiuzhen.system.world;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.yvanchuxiuzhen.platform.ModId;
-import net.yvanchuxiuzhen.system.world.api.WorldStructures;
 import net.yvanchuxiuzhen.system.world.portal.DimensionPortalSpec;
 
 /** 地灵界地府固定结构只在首次跨维进入时放置，生成标记保存在地灵界本身。 */
@@ -33,8 +30,7 @@ final class DilingGeneration {
         ServerLevel level = player.serverLevel();
         Data data = level.getDataStorage().computeIfAbsent(new SavedData.Factory<>(Data::new, Data::load), DATA_NAME);
         if (!data.generated) {
-            WorldStructures.place(level, ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "difujiegou"),
-                    new BlockPos(500000, 61, 500000));
+            DifuPlacement.place(level, new BlockPos(500000, 61, 500000));
             data.generated = true;
             data.setDirty();
         }

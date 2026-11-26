@@ -3,16 +3,20 @@ package net.yvanchuxiuzhen.system.world;
 import com.mojang.datafixers.DataFixer;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtAccounter;
+import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.nbt.TagTypes;
@@ -36,6 +40,25 @@ public final class DifuTemplate {
     public int state(int index) { return Byte.toUnsignedInt(cells[index]) - 1; }
     public CompoundTag metadata() { return metadata; }
     public Map<Integer, CompoundTag> blockData() { return blockData; }
+
+    public void exportCells(OutputStream output) throws IOException {
+        try (var gzip = new GZIPOutputStream(output)) { gzip.write(cells); }
+    }
+
+    public static byte[] bundledCells() throws IOException {
+        try (var stream = DifuTemplate.class.getResourceAsStream("/net/yvanchuxiuzhen/world/difu-cells.gz")) {
+            if (stream == null) throw new FileNotFoundException("缺少内置地府状态表");
+            try (var gzip = new GZIPInputStream(stream)) { return gzip.readNBytes(227 * 69 * 539 + 1); }
+        }
+    }
+
+    /** 与内置模板摘要绑定的 1.21.1 结构元数据；数据包替换不使用此资源。 */
+    public static CompoundTag bundledMetadata() throws IOException {
+        try (var stream = DifuTemplate.class.getResourceAsStream("/net/yvanchuxiuzhen/world/difu-metadata.nbt")) {
+            if (stream == null) throw new FileNotFoundException("缺少内置地府的升级元数据");
+            return NbtIo.readCompressed(stream, NbtAccounter.create(4L << 20));
+        }
+    }
 
     /** 普通格只有坐标与状态编号；对同一调色板及全部嵌套实体数据执行原版结构升级。 */
     public CompoundTag upgradedMetadata(DataFixer fixer) {
