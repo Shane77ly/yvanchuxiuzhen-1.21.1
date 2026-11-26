@@ -21,6 +21,8 @@ updated: 2026-11-26
 
 ## 无归十群系与门户接收（2026-11-18）
 
+无归最终密度中的高度滑移现在由 `legacy_noise_slide` 读取单份输入密度图。Y 除以单元高度时向零截断；先算顶部再算底部，端点沿用目标值或原密度，中间保留 `target + weight * (value - target)`。仅无归改变内部表示，其余维度仍按各自转换规则生成。对照与内存证据见[世界月志](logs/2026-11.md#2026-11-26-无归滑移去重)。
+
 本单元在`port/r06-wugui-20261118`、`worktrees/rebuild-wugui-20261118`自集成`fbe4c666`接收，功能`29f44f24`已由`6e86380d`非快进合入。`dimensionwugui`实际biome_source包含幽梦01–03、尸绝01–03、百川01–03和炼渊01共十身份，六专属与四共享全部保留。来源独立seed3381820403747779834，noise范围Y0–127、格点4×8，dimension_type范围Y0–255；默认魂石、water level0、sea_level0，没有默认热油。Overworld sloped_cheese路由复用五密度图，sampling xz1/y3、因子80/60、常量terrain_shaper0及bottom2.5/4/−1、top0.9375/3/0保持来源；1536个整数Y静态slide算例相等。24份正式转换JSON与冻结候选逐字节一致，转换清单只接纳本批26条来源追溯，既有输出语义保持。
 
 十群系44个外部地物中，十矿、阴魂草、尸草、铁链、腐竹、金色板块和魔眼结构共16准入；21其他矿、nichanggrass_06与六随机结构共28拒绝。十个准入矿191–199ore及fuluzhushablock仍只替换`minecraft:stone`，不能由维度准入推导魂石层有自然矿物供给。helper的CarversAndLakes及false默认矿分支16项保持，没有ore_diamond_medium。十群系修者0101事件均为CREATURE/10/1/1，出生仍要求脚下Material.GRASS且亮度>8；魂石、幽薄土、腐土不在该来源材料集合内。上述自然出生与全域供给尚未验收。

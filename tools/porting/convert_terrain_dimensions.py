@@ -172,7 +172,13 @@ def rewrite_router(node, noise: dict, dimension: str):
         if node.get('type') == 'minecraft:slide':
             if set(node) != {'type', 'argument'}:
                 raise ValueError(f'未知来源slide字段：{node}')
-            return convert_slide(noise, rewrite_router(node['argument'], noise, dimension))
+            value = rewrite_router(node['argument'], noise, dimension)
+            if dimension == 'dimensionwugui':
+                height = noise['size_vertical'] * 4
+                return {'type': NAMESPACE + ':legacy_noise_slide', 'input': value, 'cell_height': height,
+                        'min_cell': noise['min_y'] // height, 'cells': noise['height'] // height,
+                        'top': noise['top_slide'], 'bottom': noise['bottom_slide']}
+            return convert_slide(noise, value)
         return {key: rewrite_router(value, noise, dimension) for key, value in node.items()}
     return node
 
