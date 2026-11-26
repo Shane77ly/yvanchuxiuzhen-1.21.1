@@ -265,7 +265,7 @@ Q207 的运行接线已实现，门户模型路径已统一为目标`block/`目�
 
 ## 人间道固定首入（2026-11-18）
 
-1.18.2 版本由 `DimensionrenjianDimension.onPlayerChangedDimensionEvent` 调用 `YijichushishengchengProcedure`；`qiankundaochang` 属于人间道自己的 `WorldVariables`，不是主世界共享 `MapVariables`。1.21.1 版本在玩家真正跨维后按来源顺序执行：于 `(-12,30,-29)` 放置乾坤道人居所，于 `(0,32,-2)` 以 `MOB_SUMMONED` 加入大管家，标记场景已生成，将触发玩家的强制重生点绑定到实际入门落点，再于 `(390,0,355)` 放置小尸王场景。两个模板均无旋转、无镜像、包含实体，使用完整方块更新。60 个服务端结束刻后放置榉木摆件和南向参悟台；延时任务不写入存档，保持来源的会话语义。
+1.18.2 版本由 `DimensionrenjianDimension.onPlayerChangedDimensionEvent` 调用 `YijichushishengchengProcedure`；`qiankundaochang` 属于人间道自己的 `WorldVariables`，不是主世界共享 `MapVariables`。1.21.1 版本在玩家真正跨维后按来源顺序执行：于 `(-12,30,-29)` 放置乾坤道人居所，于 `(0,32,-2)` 以 `MOB_SUMMONED` 加入大管家，标记场景已生成，将触发玩家的强制重生点绑定到实际入门落点，再于 `(390,0,355)` 放置小尸王场景。两个模板均无旋转、无镜像、包含实体，使用完整方块更新。内置小尸王结构在构建前使用 1.21.1 版本的原生 STRUCTURE 数据升级器转换为 DataVersion 3955，运行时仍由原生结构管理器选择与加载。60 个服务端结束刻后放置榉木摆件和南向参悟台；延时任务不写入存档，保持来源的会话语义。
 
 `RenjianGeneration` 唯一写入人间道 `yvanchuxiuzhen_renjian_generation` 存档。每次实际进入都发布 `RenjianEnteredEvent`；修炼系统独立消费其[个人入场规则](../xiulian/architecture.md#人间道个人入场2026-11-18)。该入口不把玩家传至固定居所，也不替代随机结构生成、自然出生或人间道真实死亡结算。
 

@@ -1,7 +1,7 @@
 """把两个 1.18.2 来源的结构 NBT 迁入 1.21.1 数据包。
 
 输出：
-- src/main/resources/data/yvanchuxiuzhen/structure/<名>.nbt（GZip，DataVersion 保持 2975）
+- src/main/resources/data/yvanchuxiuzhen/structure/<名>.nbt（GZip；通常保留 DataVersion 2975，已离线升级的模板验证后保留）
 - docs/reference/conversion/structure_manifest.csv（来源、来源 SHA-1、目标、调色板中的方块名）
 
 把字符串值里出现的来源命名空间（`yvanchuxitong:`）换成本 Mod 的命名空间，覆盖方块调色板、方块实体 ID、
@@ -29,6 +29,13 @@ DATA = ROOT / 'src/main/resources/data' / NAMESPACE / 'structure'
 MANIFEST = CONVERSION / 'structure_manifest.csv'
 OLD_PREFIXES = tuple(f'{mod}:'.encode() for mod in SOURCES if mod != NAMESPACE)
 FIXED_SIZES = {1: 1, 2: 2, 3: 4, 4: 8, 5: 4, 6: 8}
+# 元组依次是项目字段转换后的 NBT 和原版 STRUCTURE 升级后的 NBT 摘要。
+OFFLINE_DATAFIX = {
+    'xiaoshiwangjiegou.nbt': (
+        '56a18fd8634481440e1ec90f36ab37ad6506b1f6c8181e0e95a7d7c8766fa9bf',
+        'aa64c7529f71ea308fb7a942153d5b2667960a491686d62f97b0fc1bad5e509f',
+    ),
+}
 TECHNIQUE_TIER_KEYS = (
     'TechniqueHealth', 'TechniqueHeathRec', 'Techniquepower', 'TechniquepowerRec',
     'TechniqueSoul', 'TechniqueSoulRec', 'TechniqueAttack', 'TechniqueAttackDef',
@@ -676,8 +683,14 @@ def main(argv: list[str] | None = None) -> None:
         if remaining:
             print(f'{file.name}: 改写后仍有 {remaining} 处 yvanchuxitong（不是“命名空间:”形式）')
         target = DATA / file.name
-        # mtime 固定为 0，重复转换得到相同的字节。
-        target.write_bytes(gzip.compress(rewritten, compresslevel=6, mtime=0))
+        if file.name in OFFLINE_DATAFIX:
+            before, after = OFFLINE_DATAFIX[file.name]
+            if (hashlib.sha256(rewritten).hexdigest() != before or not target.is_file()
+                    or hashlib.sha256(gzip.decompress(target.read_bytes())).hexdigest() != after):
+                raise ValueError(f'{file.name} 输入或离线升级产物与已核摘要不符，请重新执行目标版本 STRUCTURE 升级并核对')
+        else:
+            # mtime 固定为 0，重复转换得到相同的字节。
+            target.write_bytes(gzip.compress(rewritten, compresslevel=6, mtime=0))
         manifest.append((f'{mod}/{file.relative_to(root).as_posix()}', hashlib.sha1(source).hexdigest(),
                          target.relative_to(ROOT).as_posix(), ' '.join(sorted(rewriter.palette_names))))
     generated = len(manifest)
