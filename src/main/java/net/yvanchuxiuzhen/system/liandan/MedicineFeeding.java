@@ -76,8 +76,7 @@ public final class MedicineFeeding {
             return;
         }
 
-        List<MedicineInstance.Effect> clamped = LiandanMedicine.applyEffects(data,
-                target.createCommandSourceStack().withSuppressedOutput().withPermission(4), "@s", false);
+        List<MedicineInstance.Effect> clamped = LiandanMedicine.applyEffects(data, target, false);
         int remaining = data.doses() - 1;
         Liandan.setMedicine(stack, data.withDosesAndEffects(remaining, clamped));
         if (remaining <= 0) {

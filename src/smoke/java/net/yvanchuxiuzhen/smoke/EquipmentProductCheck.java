@@ -98,6 +98,7 @@ import net.yvanchuxiuzhen.system.storage.api.MaterialWarehouse;
 import net.yvanchuxiuzhen.system.storage.api.MaterialWarehouse.Preferences;
 import net.yvanchuxiuzhen.system.storage.data.StorageData;
 import net.yvanchuxiuzhen.system.yihuo.FireBlockEntity;
+import net.yvanchuxiuzhen.system.yihuo.api.Yihuo;
 
 /** 核对成品、丹炉及炼器工作台的自然交互、库存消费、实例保存和双端同步。 */
 final class EquipmentProductCheck extends ActionCheck {
@@ -125,6 +126,7 @@ final class EquipmentProductCheck extends ActionCheck {
     private BlockPos bottlePos;
     private BlockState bottleBlock;
     private ItemStack bottledMedicine;
+    private int equippedTick;
     private Cow feedingTarget;
     private BlockPos separationPos;
     private BlockState separationBlock;
@@ -149,7 +151,7 @@ final class EquipmentProductCheck extends ActionCheck {
     EquipmentProductCheck(List<String> report, String levelId, Screenshots screenshots) {
         super("equipmentproduct", report, levelId);
         script(
-                new Action(4, p -> {
+                new Action(200, p -> {
                     inventory = new ArrayList<>();
                     gameMode = p.gameMode.getGameModeForPlayer();
                     p.getFoodData().addAdditionalSaveData(food);
@@ -197,7 +199,9 @@ final class EquipmentProductCheck extends ActionCheck {
                     p.setItemSlot(EquipmentSlot.MAINHAND, weapon);
                     p.setItemSlot(EquipmentSlot.HEAD, restored);
                     p.inventoryMenu.broadcastChanges();
-                }),
+                    equippedTick = p.tickCount;
+                }, () -> minecraft.getSingleplayerServer().submit(() -> minecraft.getSingleplayerServer().getPlayerList()
+                        .getPlayers().getFirst().tickCount - equippedTick >= 2).join()),
                 new Action(6, p -> {
                     expectTrue("成品覆盖默认修饰，生命和物攻各计一次，负移速只在武器生效（生命/护甲/攻速/移速："
                             + p.getMaxHealth() + "/" + p.getAttributeValue(Attributes.ARMOR) + "/"
@@ -238,16 +242,8 @@ final class EquipmentProductCheck extends ActionCheck {
                     p.serverLevel().setBlockAndUpdate(alchemyPos.below(), Blocks.STONE.defaultBlockState());
                     p.serverLevel().setBlockAndUpdate(alchemyPos.below(2), Blocks.STONE.defaultBlockState());
                     p.getInventory().setItem(4, alchemyItem("alchemy_01", 1));
-                    ItemStack fire = alchemyItem("danhuo", 1);
-                    CompoundTag fuel = new CompoundTag();
-                    fuel.putDouble("power", 10);
-                    fuel.putString("ManaAttackUUID", p.getStringUUID());
-                    fire.set(DataComponents.CUSTOM_DATA, CustomData.of(fuel));
-                    p.getInventory().setItem(5, fire);
-                    ItemStack supplement = fire.copy();
-                    fuel.putDouble("power", 20);
-                    supplement.set(DataComponents.CUSTOM_DATA, CustomData.of(fuel));
-                    p.getInventory().setItem(7, supplement);
+                    p.getInventory().setItem(5, Yihuo.createDanFire(p.getStringUUID(), 10));
+                    p.getInventory().setItem(7, Yihuo.createDanFire(p.getStringUUID(), 20));
                     p.getInventory().setItem(6, ItemStack.EMPTY);
                     p.getInventory().setItem(9, alchemyItem("itemdanyaohulu_04", 2));
                     p.getInventory().setItem(10, alchemyItem("spiritgrass", 2));
@@ -589,16 +585,8 @@ final class EquipmentProductCheck extends ActionCheck {
                     p.setData(StorageData.WAREHOUSE, MaterialWarehouse.EMPTY);
                     p.getInventory().clearContent();
                     p.getInventory().setItem(4, alchemyItem("tripod_01", 1));
-                    CompoundTag fuel = new CompoundTag();
-                    fuel.putString("ManaAttackUUID", p.getStringUUID());
-                    fuel.putDouble("power", 10);
-                    ItemStack fire = alchemyItem("danhuo", 1);
-                    fire.set(DataComponents.CUSTOM_DATA, CustomData.of(fuel));
-                    p.getInventory().setItem(5, fire);
-                    ItemStack supplement = fire.copy();
-                    fuel.putDouble("power", 20);
-                    supplement.set(DataComponents.CUSTOM_DATA, CustomData.of(fuel));
-                    p.getInventory().setItem(7, supplement);
+                    p.getInventory().setItem(5, Yihuo.createDanFire(p.getStringUUID(), 10));
+                    p.getInventory().setItem(7, Yihuo.createDanFire(p.getStringUUID(), 20));
                     p.inventoryMenu.broadcastChanges();
                 }),
                 new Action(6, p -> useBlock(4, tripodPos.below())),
