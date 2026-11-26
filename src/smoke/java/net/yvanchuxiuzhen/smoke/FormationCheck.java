@@ -12,7 +12,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -21,6 +23,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.Item;
@@ -29,7 +32,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.yvanchuxiuzhen.system.zhenfa.data.FormationAttachments;
 import net.yvanchuxiuzhen.system.zhenfa.data.FormationFlagData;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -38,6 +43,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.client.event.ClientChatReceivedEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
@@ -60,6 +67,10 @@ import net.yvanchuxiuzhen.system.zhenfa.entity.FormationLauncher;
 
 /** 阵基布局、供能、阴系效果、阵旗绑定控制、保存和掉落必要单项。 */
 final class FormationCheck extends SystemCheck {
+    private boolean receivedInspection;
+    private BlockPos crossDestination;
+    private UUID crossEntity;
+    private boolean wasForced;
     private final boolean spaceOnly;
     private final boolean yangOnly;
     private final List<ItemStack> inventory = new ArrayList<>();
@@ -92,7 +103,12 @@ final class FormationCheck extends SystemCheck {
     FormationCheck(List<String> report, String levelId, boolean spaceOnly, boolean yangOnly) {
         super("阵法", report, levelId);
         this.spaceOnly = spaceOnly;
+        if (spaceOnly) NeoForge.EVENT_BUS.addListener(this::chat);
         this.yangOnly = yangOnly;
+    }
+
+    private void chat(ClientChatReceivedEvent event) {
+        if (event.getMessage().getString().equals("阵法检测样本")) receivedInspection = true;
     }
 
     @Override
@@ -109,13 +125,21 @@ final class FormationCheck extends SystemCheck {
                 }
                 if (spaceOnly) {
                     onServer(this::checkSpaceEffects);
-                    onServer(this::cleanup);
-                    finish();
                     return true;
                 }
                 onServer(this::checkLayoutFlagsAndFuel);
             }
             case 2 -> {
+                if (spaceOnly) {
+                    boolean[] visible = {false};
+                    onServer(player -> visible[0] = player.server.getLevel(Level.NETHER).getEntity(crossEntity) != null);
+                    if ((!receivedInspection || !visible[0]) && local < 200) return false;
+                    onServer(player -> verifyCrossDimension(player));
+                    expectTrue("空间三向控制坐标附近玩家发送被检测目标名称", receivedInspection);
+                    onServer(this::cleanup);
+                    finish();
+                    return true;
+                }
                 if (local < 1) return false;
                 onServer(this::checkEffectsAndSerialization);
                 leaveWorld();
@@ -251,6 +275,13 @@ final class FormationCheck extends SystemCheck {
         base.scheduledTick(player.serverLevel());
         expectTrue("空间二向实体写入禁空标记", StatusEffects.isEntityFlightBlocked(target));
 
+        target.setCustomName(Component.literal("阵法检测样本"));
+        configureSpace(base, "空间3", 4, targetPos);
+        base.state().putInt("playerX", player.blockPosition().getX());
+        base.state().putInt("playerY", player.blockPosition().getY());
+        base.state().putInt("playerZ", player.blockPosition().getZ());
+        base.scheduledTick(player.serverLevel());
+
         boolean flying = Skills.flying(player);
         boolean airborne = Cultivation.tizhiBoolean(player, "takong");
         player.setGameMode(GameType.CREATIVE);
@@ -292,9 +323,48 @@ final class FormationCheck extends SystemCheck {
         for (String key : List.of("zhenkun", "zhenli", "zhenqian", "zhenkan")) base.state().putBoolean(key, false);
         for (String key : List.of("zhenzhen", "zhendui", "zhenxvn", "zhengen")) base.state().putBoolean(key, true);
         base.scheduledTick(player.serverLevel());
-        expectTrue("空间五主世界阵位映射经来源显示名命令传送玩家", player.level() == player.server.overworld()
+        expectTrue("空间五主世界阵位按原版名字选择玩家并传送", player.level() == player.server.overworld()
                 && player.position().distanceToSqr(Vec3.atLowerCornerOf(destination)) < 1e-6);
+        Cow alias = EntityType.COW.create(player.serverLevel());
+        alias.moveTo(Vec3.atBottomCenterOf(basePos));
+        player.serverLevel().addFreshEntity(alias);
+        createdEntities.add(alias.getUUID());
+        Vec3 original = alias.position();
+        alias.setCustomName(Component.literal(player.getGameProfile().getName()));
+        BlockPos second = destination.east(3);
+        configureSpace(base, "空间5", 3, second);
+        base.scheduledTick(player.serverLevel());
+        expectTrue("空间五使用目标显示名选中同名玩家而非扫描到的牛", player.position().distanceToSqr(Vec3.atLowerCornerOf(second)) < 1e-6
+                && alias.position().equals(original));
+        // 用显示名中的 UUID 精确指向源维度的牛，不把测试玩家送离阵基。
+        alias.setCustomName(Component.literal(alias.getStringUUID()));
+        alias.setNoAi(true);
+        alias.setNoGravity(true);
+        crossEntity = alias.getUUID();
+        crossDestination = new BlockPos(second.getX(), 180, second.getZ());
+        ServerLevel nether = player.server.getLevel(Level.NETHER);
+        ChunkPos chunk = new ChunkPos(second);
+        wasForced = nether.getForcedChunks().contains(chunk.toLong());
+        nether.setChunkForced(chunk.x, chunk.z, true);
+        nether.getChunk(chunk.x, chunk.z);
+        for (String key : List.of("zhenkun", "zhenli", "zhenqian", "zhenkan")) base.state().putBoolean(key, true);
+        for (String key : List.of("zhenzhen", "zhendui", "zhenxvn", "zhengen")) base.state().putBoolean(key, false);
+        configureSpace(base, "空间5", 3, crossDestination);
+        base.scheduledTick(player.serverLevel());
+        expectTrue("空间五下界阵位从源维度移除目标", alias.isRemoved());
         expectTrue("空间三检测反馈命令已接入真实分派器", player.server.getCommands().getDispatcher().getRoot().getChild("zizhijiancefankui") != null);
+    }
+
+    private void verifyCrossDimension(ServerPlayer player) {
+        ServerLevel nether = player.server.getLevel(Level.NETHER);
+        Entity arrived = nether.getEntity(crossEntity);
+        expectTrue("空间五下界阵位：期望 " + crossDestination + "，实际 " + (arrived == null ? "未查到" : arrived.position())
+                + "，源维度残留=" + (player.serverLevel().getEntity(crossEntity) != null), arrived != null
+                && arrived.position().distanceToSqr(Vec3.atLowerCornerOf(crossDestination)) < 1e-6
+                && player.serverLevel().getEntity(crossEntity) == null);
+        if (arrived != null) arrived.discard();
+        ChunkPos chunk = new ChunkPos(crossDestination);
+        if (!wasForced) nether.setChunkForced(chunk.x, chunk.z, false);
     }
 
     private void configureSpace(FormationBaseBlockEntity base, String name, int rank, BlockPos target) {
@@ -414,7 +484,7 @@ final class FormationCheck extends SystemCheck {
         base.scheduledTick(player.serverLevel());
         Vec3 high = Vec3.atLowerCornerOf(target).add(0, 32, 0);
         List<FormationFalling> falling = player.level().getEntitiesOfClass(FormationFalling.class, new AABB(high, high).inflate(1));
-        expect("阳三真实命令在指定点上方三十二格生成落实体", 1, falling.size());
+        expect("阳三在指定点上方三十二格生成落实体", 1, falling.size());
         if (falling.size() == 1) {
             FormationFalling entity = falling.getFirst();
             createdEntities.add(entity.getUUID());

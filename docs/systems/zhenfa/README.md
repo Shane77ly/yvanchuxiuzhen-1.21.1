@@ -18,7 +18,7 @@ updated: 2026-11-15
 
 ## 公开操作
 
-阵元BlockEntity公开 `material()`、`disguise()`、`formationOrigin()`、`displayAngle()` 查询，`assignFormation(origin, angle)`用于阵基检测写入实例坐标与展示角；`handler(direction)`返回对应方向的物品能力。`FormationInspection.report(level, inspected, rank, center)`由flow命令入口调用并向检测坐标附近玩家发送来源可达的名称、境界、属性、功法与修炼参数反馈；灵根分支保持来源不可达。阵元仍为数据所有者，其他系统不得直接写入其库存或持久标签。后续接入继续对照 `typed_field_accesses.csv` 更新完整跨系统访问。
+阵元BlockEntity公开 `material()`、`disguise()`、`formationOrigin()`、`displayAngle()` 查询，`assignFormation(origin, angle)`用于阵基检测写入实例坐标与展示角；`handler(direction)`返回对应方向的物品能力。`FormationInspection.report(level, inspected, rank, center)`由空间三和 flow 手动命令入口共用并向检测坐标附近玩家发送来源可达的名称、境界、属性、功法与修炼参数反馈；灵根分支保持来源不可达。阵元仍为数据所有者，其他系统不得直接写入其库存或持久标签。后续接入继续对照 `typed_field_accesses.csv` 更新完整跨系统访问。
 
 `FormationProtection.amount(blockEntity)`查询阳二附着的罡气计数，`add(blockEntity, int)`按来源整数累加；该附件属于阵法并随目标方块实体持久化，没有另外的减伤消费者。阳系目标的临时伤害字段交combat公开接口登记，实体团队经relation公开操作复制，均不直接修改其他系统的数据对象。
 

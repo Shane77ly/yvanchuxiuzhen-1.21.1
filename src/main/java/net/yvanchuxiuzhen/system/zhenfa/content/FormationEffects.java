@@ -1,32 +1,45 @@
 package net.yvanchuxiuzhen.system.zhenfa.content;
 
-import java.text.DecimalFormat;
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.commands.SummonCommand;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.RelativeMovement;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.EventHooks;
 import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
 import net.yvanchuxiuzhen.system.combat.api.SpellDamage;
 import net.yvanchuxiuzhen.system.combat.api.StatusEffects;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.zhenfa.ZhenfaSetup;
+import net.yvanchuxiuzhen.system.zhenfa.api.FormationInspection;
 import net.yvanchuxiuzhen.system.zhenfa.api.FormationProtection;
 import net.yvanchuxiuzhen.system.zhenfa.entity.FormationActor;
 import net.yvanchuxiuzhen.system.zhenfa.entity.FormationFalling;
@@ -66,9 +79,12 @@ final class FormationEffects {
             }
             case "阳3" -> {
                 Vec3 point = destination.add(offset).add(0, 32, 0);
-                CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, point, Vec2.ZERO, level, 4,
-                        "", Component.literal(""), level.getServer(), null).withSuppressedOutput();
-                level.getServer().getCommands().performPrefixedCommand(source, "summon yvanchuxiuzhen:zhenjineng_03");
+                try {
+                    SummonCommand.createEntity(level.getServer().createCommandSourceStack().withLevel(level),
+                            ZhenfaSetup.entityType("zhenjineng_03").get().builtInRegistryHolder(), point, new CompoundTag(), true);
+                } catch (CommandSyntaxException ignored) {
+                    // 召唤被拒绝时仍检查原位置已有的落实体。
+                }
                 for (Entity entity : sortedEntities(level, point, .5)) {
                     if (entity instanceof FormationFalling actor) configureActor(base, actor, "阳3");
                 }
@@ -148,7 +164,8 @@ final class FormationEffects {
                         }
                     }
                     case "空间2" -> StatusEffects.markEntityFlightBlocked(entity);
-                    case "空间3" -> inspectFrom(entity, data);
+                    case "空间3" -> FormationInspection.report((ServerLevel) level, entity, data.getInt("zhenLEVEL"),
+                            new Vec3(data.getInt("playerX"), data.getInt("playerY"), data.getInt("playerZ")));
                     default -> { }
                 }
             }
@@ -193,15 +210,6 @@ final class FormationEffects {
                 .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList();
     }
 
-    private static void inspectFrom(Entity entity, CompoundTag data) {
-        if (entity.getServer() == null) return;
-        String command = "zizhijiancefankui " + new DecimalFormat("0").format(data.getInt("zhenLEVEL")) + " "
-                + new DecimalFormat("0").format(data.getInt("playerX")) + " "
-                + new DecimalFormat("0").format(data.getInt("playerY")) + " "
-                + new DecimalFormat("0").format(data.getInt("playerZ"));
-        entity.getServer().getCommands().performPrefixedCommand(entity.createCommandSourceStack().withSuppressedOutput().withPermission(4), command);
-    }
-
     private static void teleportAcrossDimension(ServerLevel level, BlockPos origin, Vec3 destination, Entity entity, CompoundTag data) {
         String dimension = "";
         boolean kun = data.getBoolean("zhenkun");
@@ -226,10 +234,34 @@ final class FormationEffects {
             else if (rank >= 6) dimension = "yvanchuxiuzhen:dimensionxiuluo";
             else if (rank >= 4) dimension = "yvanchuxiuzhen:dimensionrenjian";
         }
-        String command = "execute in " + dimension + " run teleport " + entity.getDisplayName().getString() + " "
-                + destination.x + " " + destination.y + " " + destination.z;
-        CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, new Vec3(origin.getX(), origin.getY(), origin.getZ()),
-                Vec2.ZERO, level, 4, "", Component.literal(""), level.getServer(), null).withSuppressedOutput();
-        level.getServer().getCommands().performPrefixedCommand(source, command);
+        if (dimension.isEmpty()) return;
+        ServerLevel targetLevel = level.getServer().getLevel(ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(dimension)));
+        if (targetLevel == null) return;
+        // 显示名只解析为一个目标参数；选择器的参考点按目标维度缩放，绝对落点不缩放。
+        CommandSourceStack source = new CommandSourceStack(CommandSource.NULL, Vec3.atLowerCornerOf(origin), Vec2.ZERO, level,
+                4, "", Component.empty(), level.getServer(), null).withLevel(targetLevel);
+        StringReader name = new StringReader(entity.getDisplayName().getString());
+        Collection<? extends Entity> targets;
+        try {
+            var selector = EntityArgument.entities().parse(name, source);
+            if (name.canRead()) return;
+            targets = selector.findEntities(source);
+        } catch (CommandSyntaxException invalidTarget) {
+            return;
+        }
+        for (Entity target : targets) {
+            var event = EventHooks.onEntityTeleportCommand(target, destination.x, destination.y, destination.z);
+            if (event.isCanceled()) continue;
+            double x = event.getTargetX(), y = event.getTargetY(), z = event.getTargetZ();
+            if (!Level.isInSpawnableBounds(BlockPos.containing(x, y, z))) break;
+            if (target.teleportTo(targetLevel, x, y, z, Set.of(RelativeMovement.X_ROT, RelativeMovement.Y_ROT),
+                    Mth.wrapDegrees(target.getYRot()), Mth.wrapDegrees(target.getXRot()))) {
+                if (!(target instanceof LivingEntity living) || !living.isFallFlying()) {
+                    target.setDeltaMovement(target.getDeltaMovement().multiply(1, 0, 1));
+                    target.setOnGround(true);
+                }
+                if (target instanceof PathfinderMob mob) mob.getNavigation().stop();
+            }
+        }
     }
 }
