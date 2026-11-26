@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -25,7 +24,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameType;
@@ -43,8 +41,10 @@ import net.yvanchuxiuzhen.system.treasure.api.Caskets;
 import net.yvanchuxiuzhen.system.treasure.api.TreasureContainerConfig;
 import net.yvanchuxiuzhen.system.treasure.api.TreasureContainers;
 import net.yvanchuxiuzhen.system.world.api.WorldStructures;
+import net.yvanchuxiuzhen.system.world.portal.DimensionPortalSpec;
 import net.yvanchuxiuzhen.system.xiulian.BirthSelection;
 import net.yvanchuxiuzhen.system.xiulian.api.BirthInitialRewardsEvent;
+import net.yvanchuxiuzhen.system.xiulian.api.BirthItems;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -167,6 +167,7 @@ final class BirthInitialRewardsCheck extends SystemCheck {
     private void checkFallenRewards(ServerPlayer player) {
         try {
             List<ItemStack> rewards = inventory(player).stream().filter(stack -> !stack.isEmpty()).toList();
+            expect("落魄家族执行当前数据包函数后抵达人间道", DimensionPortalSpec.RENJIAN.dimension(), player.level().dimension());
             expect("完整初始包四个栈", 4, rewards.size());
             expect("初始材料身份", "yvanchuxiuzhen:cailiao_191", itemId(rewards.getFirst()));
             expect("材料数量二十", 20, rewards.getFirst().getCount());
@@ -320,11 +321,11 @@ final class BirthInitialRewardsCheck extends SystemCheck {
         expect("流浪侠客钻石剑锋利", 1, EnchantmentHelper.getItemEnchantmentLevel(enchantments.getOrThrow(Enchantments.SHARPNESS), sword));
         expect("流浪侠客钻石剑亡灵杀手", 1, EnchantmentHelper.getItemEnchantmentLevel(enchantments.getOrThrow(Enchantments.SMITE), sword));
         ItemStack compass = find(rewards, BuiltInRegistries.ITEM.get(ResourceLocation.parse("yvanchuxiuzhen:ling_11")));
-        CompoundTag compassData = data(compass);
+        var compassData = BirthItems.spiritDisc(compass);
         Vec3 center = WorldStructures.teleportArrayCenter(player.serverLevel()).orElse(Vec3.ZERO);
-        expect("流浪侠客石盘全局X坐标副本", center.x(), compassData.getDouble("mubiaoX"));
-        expect("流浪侠客石盘全局Y坐标副本", center.y(), compassData.getDouble("mubiaoY"));
-        expect("流浪侠客石盘全局Z坐标副本", center.z(), compassData.getDouble("mubiaoZ"));
+        expect("流浪侠客石盘全局X坐标副本", center.x(), compassData.targetX());
+        expect("流浪侠客石盘全局Y坐标副本", center.y(), compassData.targetY());
+        expect("流浪侠客石盘全局Z坐标副本", center.z(), compassData.targetZ());
         for (EquipmentSlot slot : List.of(EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET)) {
             ItemStack armor = player.getItemBySlot(slot);
             expect("流浪侠客随机铁甲身份 " + slot, expectedArmor(slot), armor.getItem());
@@ -395,10 +396,6 @@ final class BirthInitialRewardsCheck extends SystemCheck {
         player.getInventory().clearContent();
         player.setItemInHand(InteractionHand.MAIN_HAND, book);
         book.getItem().use(player.serverLevel(), player, InteractionHand.MAIN_HAND);
-    }
-
-    private static CompoundTag data(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
     }
 
     private static String itemId(ItemStack stack) {
