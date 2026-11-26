@@ -2,7 +2,7 @@
 topic: world
 role: architecture
 status: draft
-updated: 2026-11-23
+updated: 2026-11-26
 ---
 
 # 世界：架构调查与提案
@@ -307,9 +307,11 @@ world 提供投放、维度与结构放置、结构管理操作；creature 负�
 
 目标保留该远点、时序和“存在方块实体才写”的条件，故结果依赖云清派结构是否已生成；不将远点移动到佣兵营地，也不据此认定完全没有消费者。商品字符串作为Quest方块对话配置保存，玩家经济会话通过Economy公开操作写入。来源意图及不同解封顺序的实机结果未确认，纳入[统一问题索引](../../reference/legacy/source-survey.md#具体问题与裁定位置)后集中复核。
 
-## 实现前须定（B1 实测）
+## 地府模板加载
 
-结构 `difujiegou` 展开后 304 MB、8,442,357 个方块，其中约 92% 是同一个状态（调色板索引 41，应为空气），来源在 `DimensiondilingDangWanJiaJinRuWeiDuShiProcedure` 里进入地府维度时 `getOrCreate` 加载并摆放。1.21.1 开发客户端默认堆下加载它在解析 NBT 时 `OutOfMemoryError`（2026-11-02 实测，15.9 秒后失败，与数据版本升级无关）。实现地府维度时从三个办法中选：压缩掉空气条目并在摆放前清空区域（改变模板内容，需对照来源摆放结果）、拆成多个较小模板分段摆放、把它保持原样并提高运行内存要求。裁定前文件原样放在 `data/yvanchuxiuzhen/structure/difujiegou.nbt`。
+内置模板为 227 × 69 × 539，完整覆盖每个坐标。紧凑读取器每格保留一个调色板编号，显式空气仍在原坐标；调色板、带 NBT 的方块和实体单独交给原版结构数据修复器。仅针对内置单调色板的已核实格式，尚未替代正式放置或数据包覆盖入口。以下为原生整表的历史内存基线。
+
+结构 `difujiegou` 展开后 304 MB、8,442,357 个方块，其中约 92% 是同一个状态（调色板索引 41，已核实为 minecraft:air），来源在 `DimensiondilingDangWanJiaJinRuWeiDuShiProcedure` 里进入地府维度时 `getOrCreate` 加载并摆放。1.21.1 开发客户端默认堆下加载它在解析 NBT 时 `OutOfMemoryError`（2026-11-02 实测，15.9 秒后失败，与数据版本升级无关）。实现地府维度时从三个办法中选：压缩掉空气条目并在摆放前清空区域（改变模板内容，需对照来源摆放结果）、拆成多个较小模板分段摆放、把它保持原样并提高运行内存要求。裁定前文件原样放在 `data/yvanchuxiuzhen/structure/difujiegou.nbt`。
 
 ## 寻灵盘与自然遗迹链（2026-11-14）
 
