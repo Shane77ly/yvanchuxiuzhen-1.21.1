@@ -10,8 +10,8 @@ updated: 2026-11-27
 ## 当前交接（2026-11-27 阶段 4）
 
 - **从这里接手**：主工作目录 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`，功能分支 `refactor/p4-legacy-bug-cleanup` 的 HEAD。集成基线 `port/20261123-parity-integration@22f39761` 已合入阶段 1、2A、2B 和 3。阶段 4 首批留在功能分支，未合入、未推送；不要动 `main` 或其他工作树。
-- **Q176 已补测**：2026-11-27 重跑静音 `festivalfirework`（`DONE`、0 `FAIL`、全部维度正常保存退出），已查看并归档 `festival_firework_pao13.png`，清晰可见飞行中的 `pao_13` 弹体外形与粒子尾迹（另核得 1.18.2 原版 `Pao13Entity.getItem()` 返回 `Blocks.AIR`，目标返回 `yvanchuxiuzhen:pao_13`）。两版本同场景实机对照仍待后续开展，详情见[节日月志](../systems/festival/logs/2026-11.md#q176-客户端画面交接)。
-- **已验证与待裁定**：六个奖励池的 598 个等级与签号组合逐签通过。8 级和 8.5 级符箓已通过客户端回归。Q177 的 `cailiao_153` 缺少映射依据，Q71 玩家商铺重复领取、Q26、Q84、Q18/Q29/Q30 等阶段 4 后续改动需确认取舍后分批实施。参见[剩余工作](remaining-work.md)。
+- **Q176 与第二批已验证**：2026-11-27 补齐 `festivalfirework`（`pao_13` 飞行弹体近景 `DONE`/0 `FAIL`）及 Q26（第 6/7 表 `max=8/12`）、Q71（玩家商铺领取清零）、Q84（维度条件 `ResourceLocation` 比对），合跑 `gongfa,commerce,questjournal`（350 行、`0 FAIL`、`DONE`）与全套编译/单测通过。
+- **已验证与待裁定**：六个奖励池 598 签、8/8.5 级符箓、Q05、Q177 护腿、Q176、Q26、Q71、Q84 已验。`cailiao_153`（1.18.2 物品表本身跳过 147..160）及伤害/符箓公式（Q18/Q29/Q30、Q64–Q67 等）待裁定后分批继续。参见[剩余工作](remaining-work.md)。
 - **既定边界**：2C 暂缓，妖兽 AI 保留 Java。阶段 3 的连续六维、地灵直入及十二城镇模板已按正式代码、2 GiB 客户端验收；768 MiB 客户端只用于可选压力测试。重型验证串行，Gradle 768 MiB、单 worker。
 - **2B 遗留**：`q119` 需重建存档夹具；`npcvillage` 无对应场景；合跑时 `npcmanagement` 气血差异和 `fanhuacheng03` 内存不足单跑未复现。见[项目月志](../systems/project/logs/2026-11.md)。
 

@@ -110,7 +110,7 @@ updated: 2026-11-26
 | 编号／集中索引 | 入口与来源实际效果 | 当前处理及未完成边界 |
 | --- | --- | --- |
 | R13-E01／Q05 | `B:ShopBuy:264–266` 已计算 money01，却将 money02 计入一级账户 | `CommerceTrading.buyStones` 按实际一级余款入账；来源中错误的结果不保留。有限场景见[经济月志](logs/2026-11.md#阶段-4-首批商店找零)。 |
-| R13-E02／Q71 | `B:Shopblockqvchu:37–90`不清cunchulingshi，可重复入账；反馈在计算前读取局部值，显示0 | 两项均保留来源；运行对照和修改待裁定 |
+| R13-E02／Q71 | `B:Shopblockqvchu:37–90`不清cunchulingshi，可重复入账；反馈在计算前读取局部值，显示0 | 已修复并验证：`ShopTrading.claim` 入账前将 `cunchulingshi` 清零并输出实际金额（`gongfa,commerce,questjournal` 烟测验证首次入账 25、暂存归 0、二次打开不重复入账，见[经济月志](logs/2026-11.md#阶段-4-续批q71-玩家商铺领取清零)） |
 | R13-E03／Q72 | `B:ShopblockGuigoumai:798–801`写getCompound返回值；生存放置无playerxiangou时写入临时tag，创意刷新会初始化 | 保留有/无compound差异，不补回put |
 | R13-E04 | `B:ShopblockGuigoumai`仅Inventory.contains为真才核需求数；整类需求缺失时仍能购买 | 保留来源检查顺序；待集中裁定 |
 | R13-E05 | 同过程需求不足栈先shrink为0，再减getCount，后续所需数不减少 | 保留来源扣料顺序；待集中裁定 |

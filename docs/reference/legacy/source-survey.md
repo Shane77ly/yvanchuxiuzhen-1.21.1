@@ -120,7 +120,7 @@ updated: 2026-11-26
 | Q23 | 孕育元婴时体质数 `tizhinumber` 加在空物品上，体质数不变（元婴不进入丹田体质列表的计数）。评估为轻微，保持来源行为 | [修炼](../../systems/xiulian/architecture.md) |
 | Q24 | 丹田体质排序在打开的体质少于 `tizhinumber` 时无限循环（服务端卡死）；翻页时最后一页恰好 9 个体质则第 9 行不显示。评估为轻微：排序扫描到最后一个三位编号为止，第 9 行保持来源 | [修炼](../../systems/xiulian/architecture.md) |
 | Q25 | 丹田本命槽上限 64，放入多个妖丹后关闭再打开只剩 1 个，其余消失。评估为轻微，保持来源行为，待裁定 | [修炼](../../systems/xiulian/architecture.md) |
-| Q26 | 书架藏宝的功法表：第 6 表随机 1–10 但只有 8 个分支，取到 9、10 时不给书而书架物品照常消耗；第 7 表有 12 个分支但随机只到 11，第 12 本取不到。评估为轻微，保持来源行为 | [功法](../../systems/gongfa/architecture.md) |
+| Q26 | 已在阶段 4 修正并验证 | 1.18.2 第 6 表随机 1–10 但仅有 8 本、第 7 表有 12 本但随机上限为 11；目标已在 `technique_lists.json`（及 `extract_techniques.py`）改为 `max=8` 与 `max=12`，`GongfaCheck` 抽样全达且非空 | [功法](../../systems/gongfa/architecture.md) |
 | Q27 | 原先误读参悟台继承清槽条件：`CanwudianjiProcedure:213–260` 的清槽位于升级分支之外，成功继承无论是否升级均消耗典籍；原疑点撤销，目标按来源修正，验证边界见正文 | [功法](../../systems/gongfa/architecture.md) |
 | Q28 | 星宿穴位学习小游戏不可达：研习台 `gongfaxvexi` 的物品不在创造栏、没有配方，结构与代码都不放置它，槽位没有放入书的途径；界面 `gongfaxvexi_gui` 只登记、从未打开（右键研习台打开的是 `TripodGUI`）。负责人已于2026-11-16明确批准排除这部分（研习台方块、界面与429个过程）；保留来源身份与不可达证据，不再作为待裁定或开放移植项 | [功法](../../systems/gongfa/architecture.md) |
 | Q29 | `/shanghai` 的防御 `Zhilingdefence` 把玩家体质物品读入 `itemlinshi`，之后的体质防御修正与神识、法术防御倍率却读从未赋值的 `tizhi`（空物品）：体质对 `/shanghai` 防御的全部修正（`*DefCorrect`、`*DefCorrectPercentage`、`Souldefof*AttCorrectPercentage`、`ManaDefDefCorrectPercentage`）不生效。评估为轻微，保持来源行为，待裁定 | [战斗](../../systems/combat/architecture.md) |
@@ -181,7 +181,7 @@ updated: 2026-11-26
 | --- | --- | --- | --- |
 | Q69 | 来源缺定义；已批准实现，拒启动必要单项通过 | 拍卖商品语言定义缺失，且仅34级NPC不满足筑基/结丹候选区间，原无限扫描不能结束。缺商品或合格NPC时拒绝启动并中文提示，真实入座后进度0、中文原因及同次失败只提示一次已验证，保留有效场次规则；未运行来源挂起分支或有效拍卖 | [经济](../../systems/economy/architecture.md)、[批准记录](../../systems/project/logs/2026-11.md#2026-11-14-拍卖缺定义时拒绝启动) |
 | Q70 | 来源库存替换与扣料异常；已批准实现，有限守恒/重进通过 | B:`BuildingProcedure:31–220`先放结构再读18槽扣料；B的12个`build01/02/03`四向来源模板均清空核心库存，01变为一槽案台，02/03仍为18槽，可能丢材料并越界。已实现保存原库存、按原费用扣料，18槽回写余料、一槽原位掉落；中心与受控02模板跨栈余料/无关物品守恒及十八槽保存重进已过；03/全向/刚好足量仍待 | [城镇](../../systems/town/architecture.md#q70-模板替换与材料扣费)、[批准记录](../../systems/project/logs/2026-11.md#2026-11-14-城镇扣料与差异集中登记) |
-| Q71 | 已核来源异常；保持来源，待集中裁定 | B:`ShopblockqvchuProcedure:37–90`领取入账后不清`cunchulingshi`，主人可重复领取历史灵石；尚未实机对照 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q71 | 已在阶段 4 修复并验证 | B:`ShopblockqvchuProcedure:37–90` 原先领取不清除 `cunchulingshi` 且先输出 `0`；`ShopTrading.claim` 已改用实际金额并清零暂存，`CommerceCheck` 验证不再重复入账 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q72 | 已核来源载体疑点；保持来源，待集中裁定 | B:`ShopblockGuigoumaiProcedure:798–801`写`getCompound("playerxiangou")`；生存放置未初始化该compound，限购写入可能只落在临时空tag，创意刷新会初始化。具体两版本运行仍待核 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q73 | 已核字段误读；保持来源，待集中裁定 | B:`Tuzhizhongliang`对材料列表误读attribute索引1，读数为0，自然图纸估价的折价因子恒1；不按名称修正材料重量 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q74 | 来源空表异常；保留中断结果，错误提示待对照 | B:`Baoxiangzong:127–138`读取奖励首段第三字段，空串/畸形首段会终止同次发放。目标明确终止并保留此前掉落，不补抽；来源框架错误文案及空分支实机未对照 | [宝箱](../../systems/treasure/architecture.md#来源异常的当前处理) |
@@ -194,7 +194,7 @@ updated: 2026-11-26
 | Q81 | 来源配置畸形；保持异常串，待核实运行影响 | 镇妖塔固定点共44个，其中`(1278,83,-587)`的`fubenshujv`只有奖励列表、无波次头；源解析读取`fields[1]`会越界。保留原配置，不补造波次头，未运行此分支 | [副本](../../systems/dungeon/architecture.md) |
 | Q82 | 来源映射与动画疑点；保持来源，待集中复核 | 私人画卷地灵界与无归界的回程映射互换，首次动画实际选择1；按实际分支迁移，不依据名称交换，未作两版本实机对照 | [副本](../../systems/dungeon/architecture.md) |
 | Q83 | 来源载体误读；保持来源，待集中裁定 | B:`Duihuashijian:185–190`字符串“加”从会话读取旧串，却写剧情持久域；连续累加不接续剧情域旧值 | [任务Q83](../../systems/quest/architecture.md#q83-字符串累加读取会话载体) |
-| Q84 | 来源维度字符串异常；保持来源，待集中裁定 | B:`Duihuashijiantwo:452–470`拼接当前维度时多出括号，正常文本比较失败；脚本消费者与实际运行仍待核 | [任务Q84](../../systems/quest/architecture.md#q84-当前维度字符串拼接) |
+| Q84 | 已在阶段 4 修复并验证 | B:`Duihuashijiantwo:452–470` 拼错右括号；`DialogueRuntime.matchesDimension`（与 `QuestChatRuntime` 共用）改用 `ResourceLocation` 直接比对，`QuestJournalCheck` 分支检查通过 | [任务Q84](../../systems/quest/architecture.md#q84-当前维度字符串拼接) |
 | Q85 | 来源扣料与参数索引异常；保持来源，待集中裁定 | B:`Duihuashijiantwo:153–241`带NBT扣物品先将足量需求清0再删除，参数索引跨栈持续递增；完整多栈影响未实机复核 | [任务Q85](../../systems/quest/architecture.md#q85-带nbt扣料与跨栈索引) |
 | Q86 | 来源目录与生成数量不符；保持来源，待集中裁定 | B:`Worldbegin:51`为045悬赏定义数量8，追踪`Xvanshangzhuizongheji:40–57`仅生成一次；不补造七只 | [任务Q86](../../systems/quest/architecture.md#q86-045目录数量与生成数) |
 | Q87 | 来源失联移除风险；保持来源，待集中裁定 | A:`Guchong05DangShiTiGengXinKeShi:32–57`百刻返还只找当前维度在线主人，未找到仍移除，可能不返还物品 | [蛊虫Q87](../../systems/guchong/architecture.md#q87-同维主人缺席仍移除) |

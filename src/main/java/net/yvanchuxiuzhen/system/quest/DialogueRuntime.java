@@ -206,9 +206,7 @@ public final class DialogueRuntime {
                     state.putInt("renwuweizhi", present ? checkPos.insideTarget() : checkPos.outsideTarget());
                 }
                 case DialogueNodeDefinition.CheckDimensionNode checkDim -> {
-                    // 来源在维度字符串中多拼一个右括号，因此按实际比较结果保留失败分支。
-                    String dimension = "ResourceKey[minecraft:dimension / ]" + checkDim.dimension() + "]";
-                    state.putInt("renwuweizhi", player.level().dimension().toString().equals(dimension)
+                    state.putInt("renwuweizhi", matchesDimension(player, checkDim.dimension())
                             ? checkDim.matchTarget() : checkDim.mismatchTarget());
                 }
                 case DialogueNodeDefinition.ItemActionNode itemAction -> {
@@ -484,6 +482,13 @@ public final class DialogueRuntime {
             location = ResourceLocation.fromNamespaceAndPath(ModId.VALUE, location.getPath());
         }
         return BuiltInRegistries.ITEM.get(location);
+    }
+
+    static boolean matchesDimension(ServerPlayer player, String dimension) {
+        ResourceLocation id = ResourceLocation.tryParse(dimension.trim());
+        return id != null
+                ? player.level().dimension().location().equals(id)
+                : player.level().dimension().toString().equals(dimension);
     }
 
     static double number(String value) {

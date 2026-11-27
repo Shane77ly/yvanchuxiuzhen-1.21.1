@@ -28,7 +28,7 @@ updated: 2026-11-18
 
 ### 阶段 1：功法定义、书、研习、功法栏与成长
 
-- 定义：`tools/porting/extract_techniques.py` 从 `Gongfalist01`–`08` 提取 67 本功法（物品、名字、品阶、所需境界、灵根要求、简介、五行值、十三项档位）与各表的随机上限，`TechniqueLibrary` 读取。书架藏宝按藏宝等级取第 1–8 表（Q26）。
+- 定义：`tools/porting/extract_techniques.py` 从 `Gongfalist01`–`08` 提取 67 本功法（物品、名字、品阶、所需境界、灵根要求、简介、五行值、十三项档位）与各表的随机上限，`TechniqueLibrary` 读取。书架藏宝按藏宝等级取第 1–8 表；阶段 4（Q26）已将第 6 表上限由 10 改为 8（消除 9/10 空抽）、第 7 表上限由 11 改为 12（使第 12 本可达）。
 - 书：物品组件 `yvanchuxiuzhen:technique`（`TechniqueBook`），显示名为功法名；来源 NBT 键与字段的对应见类注释。
 - 研习（`TechniqueRules.study`，来源 `BookRightClick` 的研习分支与 `Gongfashuxingjisuan`）：本人/他人已研习、实际境界与灵根条件沿用共同研习契约，见[书籍正文](../book/architecture.md#研习契约与数据所有权)。功法成功后层数1、按档位算出十三项加成，发出 `TechniqueStudiedEvent`（行尸御火、真言吒雷诀附赠的技能由 skill 处理）；答题计数由 book 持有。
 - 成长（`TechniqueStat`）：十三项加成 = 分段基础值(层数) × 档位系数（0.6–1.4），除移速外向上取整；研习初值等于层数 1 的值（JUnit `TechniqueStatTest`）。

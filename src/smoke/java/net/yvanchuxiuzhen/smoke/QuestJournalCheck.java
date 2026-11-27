@@ -12,6 +12,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.yvanchuxiuzhen.system.quest.DialogueRuntime;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
 import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
@@ -160,7 +161,11 @@ final class QuestJournalCheck extends SystemCheck {
                 if (!journalOpen(local)) return false;
                 checkPage(0, UNFINISHED, id(1));
                 expect("重进八行目录及中文保持", "烟测任务8（进行中）", DialogueActions.snapshot(minecraft.player).getString("renwuxianshi8name"));
-                onServer(this::restore);
+                onServer(player -> {
+                    verifyDimensionCheck(player, "minecraft:overworld", "匹配当前维度");
+                    verifyDimensionCheck(player, "minecraft:the_nether", "不匹配其他维度");
+                    restore(player);
+                });
                 finish();
             }
             default -> throw new IllegalStateException("未知任务目录步骤 " + step);
@@ -273,6 +278,20 @@ final class QuestJournalCheck extends SystemCheck {
 
     private static String id(int row) {
         return "smoke_quest_journal_" + row;
+    }
+
+    private void verifyDimensionCheck(ServerPlayer player, String dimensionId, String expected) {
+        QuestTemplateDefinition template = new QuestTemplateDefinition("smoke_dim", "smoke_dim", "维度校验", "",
+                0, "未完成", "", "", List.of(
+                new DialogueNodeDefinition.CheckDimensionNode(dimensionId, 2, 3),
+                new DialogueNodeDefinition.TextNode(false, "匹配当前维度"),
+                new DialogueNodeDefinition.TextNode(false, "不匹配其他维度")));
+        CompoundTag state = new CompoundTag();
+        DialogueActions.writeTemplate(state, template);
+        state.putInt("renwuweizhi", 1);
+        player.setData(QuestData.SESSION, state);
+        DialogueRuntime.run(player, player.blockPosition());
+        expect("Q84 维度条件分支 " + dimensionId, expected, DialogueActions.snapshot(player).getString("TXTxianshi"));
     }
 
     private void restore(ServerPlayer player) {

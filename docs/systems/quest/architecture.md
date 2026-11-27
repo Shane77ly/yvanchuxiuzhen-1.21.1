@@ -76,7 +76,7 @@ Q11为已确认分支矛盾：`PlayerTickxitongProcedure:47` 首分支条件为 
 
 ### Q84 当前维度字符串拼接
 
-确认来源缺陷，当前保留。B `DuihuashijiantwoProcedure:452–470`“判断当前维度”分支将`ResourceKey[minecraft:dimension / ]`与维度ID及`]`连接，多出括号；正常维度文本比较失败。目标保留相同字符串和失败分支，不因目标ResourceKey API可直接比较而修正。实际脚本消费者与两版本实机仍待。
+1.18.2 `B:DuihuashijiantwoProcedure:452–470`“判断当前维度”分支拼接 `"ResourceKey[minecraft:dimension / ]" + id + "]"` 多出右括号导致维度匹配恒失败。阶段 4 已在 `DialogueRuntime.matchesDimension`（被 `DialogueRuntime` 与 `QuestChatRuntime` 共用）改用 `ResourceLocation.tryParse` 直接比对 `player.level().dimension().location()`（保留非常规完整 `ResourceKey` 字符串精确回退）；在 `QuestJournalCheck` 补充 `minecraft:overworld` 与 `minecraft:the_nether` 受控分支校验，随 `gongfa,commerce,questjournal` 烟测通过（当前生成的 `dialogues.json` 暂未包含 `check_dimension` 节点）。
 
 ### Q85 带NBT扣料与跨栈索引
 

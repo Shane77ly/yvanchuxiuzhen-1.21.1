@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.economy.EconomyLayout;
+import net.yvanchuxiuzhen.system.economy.ShopTrading;
 import net.yvanchuxiuzhen.system.economy.api.BankAccount;
 import net.yvanchuxiuzhen.system.economy.api.BankAccounts;
 import net.yvanchuxiuzhen.system.economy.api.BankCards;
@@ -30,6 +31,7 @@ import net.yvanchuxiuzhen.system.economy.api.ShopCatalogDefinition;
 import net.yvanchuxiuzhen.system.economy.client.BankLoginScreen;
 import net.yvanchuxiuzhen.system.economy.client.CommerceScreen;
 import net.yvanchuxiuzhen.system.economy.content.CommerceMenu;
+import net.yvanchuxiuzhen.system.economy.content.EconomyBlockEntity;
 import net.yvanchuxiuzhen.system.economy.data.BankData;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.gongfa.api.Techniques;
@@ -272,6 +274,18 @@ final class CommerceCheck extends SystemCheck {
                         var leggings = item("armor_0" + tier + "_leggings").getItem();
                         expect("实购宝匣可产出护腿" + tier, 1L, bought.stream().filter(stack -> stack.is(leggings) && Equipment.product(stack).isPresent()).count());
                     }
+                    player.closeContainer();
+                    player.level().setBlock(bank, BuiltInRegistries.BLOCK.get(id("shopblock_01")).defaultBlockState(), 3);
+                    EconomyBlockEntity shop = (EconomyBlockEntity) player.level().getBlockEntity(bank);
+                    ShopTrading.placed(player, shop);
+                    shop.state().putInt("cunchulingshi", 25);
+                    int beforeClaim = totalBalance(player);
+                    ShopTrading.interact(player, shop);
+                    expect("Q71 首次领取商铺灵石总价值入账", beforeClaim + 25, totalBalance(player));
+                    expect("Q71 领取后清零历史暂存", 0, shop.state().getInt("cunchulingshi"));
+                    player.closeContainer();
+                    ShopTrading.interact(player, shop);
+                    expect("Q71 再次打开商铺不重复入账", beforeClaim + 25, totalBalance(player));
                     cleanup(player);
                 });
                 finish();
@@ -369,6 +383,13 @@ final class CommerceCheck extends SystemCheck {
 
     private void inventoryClick(int slot, ClickType type) {
         minecraft.gameMode.handleInventoryMouseClick(minecraft.player.containerMenu.containerId, slot, 0, type, minecraft.player);
+    }
+
+    private static int totalBalance(ServerPlayer player) {
+        BankAccount snapshot = BankAccounts.snapshot(player);
+        int sum = 0;
+        for (int tier = 1; tier <= 9; tier++) sum += snapshot.balance(tier) * BankAccount.weight(tier);
+        return sum;
     }
 
     private static int count(ServerPlayer player, String name) {

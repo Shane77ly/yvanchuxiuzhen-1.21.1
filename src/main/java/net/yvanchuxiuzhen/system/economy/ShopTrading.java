@@ -60,9 +60,9 @@ public final class ShopTrading {
     private static void claim(ServerPlayer player, EconomyBlockEntity block) {
         int value = block.state().getInt("cunchulingshi");
         if (value >= 1) {
-            // 来源领取仅入账，不清零历史收益；后续右键仍按该字段领取。
+            block.state().putInt("cunchulingshi", 0);
             BankAccounts.creditValue(player, value);
-            message(player, "§60灵石已入账！");
+            message(player, "§6" + value + "灵石已入账！");
         }
         boolean items = false;
         for (int slot = 4; slot <= 6; slot++) if (!block.getItem(slot).isEmpty()) {
