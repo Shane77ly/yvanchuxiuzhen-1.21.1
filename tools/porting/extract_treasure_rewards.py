@@ -418,8 +418,9 @@ def build_pool(name: str, body: str, dispatches: list[dict[str, str]],
                 if max_lvl is None and int(min_lvl) == 8:
                     tier_8 = {'min_level': 8.0, 'max_level': 8.0, 'context': dict(tier_ctx), 'entries': entries}
                     tiers.append(tier_8)
-                    ctx_9 = {**tier_ctx, 'fulu_level': 0, 'fulu_tier_text': ''}
-                    tiers.append({'min_level': 9.0, 'context': ctx_9, 'entries': entries})
+                    # 等级为 double；恰好 8 优先匹配上一段，其余大于 8 的等级品阶为空。
+                    above_8 = {**tier_ctx, 'fulu_level': 0, 'fulu_tier_text': ''}
+                    tiers.append({'min_level': 8.0, 'context': above_8, 'entries': entries})
                     continue
             tier: dict[str, Any] = dict(bounds)
             if tier_ctx:

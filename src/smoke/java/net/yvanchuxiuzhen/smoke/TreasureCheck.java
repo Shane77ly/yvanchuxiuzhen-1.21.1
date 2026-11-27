@@ -225,6 +225,10 @@ final class TreasureCheck extends SystemCheck {
                 && list.getFirst().context().fuluLevel().equals(Optional.of(1))
                 && list.getFirst().context().fuluTierText().equals(Optional.of("黄阶"))).orElse(false));
         Optional<List<Selection>> fulu9 = TreasureRewardTables.select("书架", "符箓堆", 9.0, random);
+        expect("八级符箓保留天阶", Optional.of("天阶"), TreasureRewardTables.select("书架", "符箓堆", 8.0, random)
+                .flatMap(list -> list.getFirst().context().fuluTierText()));
+        expect("八级半符箓仍能抽出且等阶为空", Optional.of(""), TreasureRewardTables.select("书架", "符箓堆", 8.5, random)
+                .filter(list -> list.getFirst().reward() instanceof FuluReward).flatMap(list -> list.getFirst().context().fuluTierText()));
         expectTrue("九级符箓表保留空等阶回退", fulu9.map(list -> list.getFirst().context().fuluLevel().equals(Optional.of(0))).orElse(false));
         expectTrue("七级法宝表保留空分支语义", TreasureRewardTables.select("武器架", "法宝架", 7.0, random).isEmpty());
 

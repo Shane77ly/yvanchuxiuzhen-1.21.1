@@ -2,15 +2,16 @@
 topic: handoff
 role: guide
 status: current
-updated: 2026-11-26
+updated: 2026-11-27
 ---
 
 # 交接说明
 
-## 当前交接（2026-11-26 阶段 4 首批）
+## 当前交接（2026-11-27 阶段 4）
 
 - **从这里接手**：主工作目录 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`，功能分支 `refactor/p4-legacy-bug-cleanup` 的 HEAD。集成基线 `port/20261123-parity-integration@22f39761` 已合入阶段 1、2A、2B 和 3。阶段 4 首批留在功能分支，未合入、未推送；不要动 `main` 或其他工作树。
-- **下一动作**：先逐签比对六个有变化的奖励池，与 1.18.2 版本来源核实权重、顺序、空分支和重复项。范围及客户端证据见[宝箱月志](../systems/treasure/logs/2026-11.md#阶段-4-首批奖励表)与[经济月志](../systems/economy/logs/2026-11.md#阶段-4-首批商店找零)。`cailiao_153` 缺映射依据，保持开放。之后按[剩余工作](remaining-work.md)与[问题索引](../reference/legacy/source-survey.md)选下一项，不能只凭路线中的编号改行为。
+- **接手先看 Q176**。2026-11-26 的 `treasure,festivalfirework` 客户端合跑已正常保存退出，报告 `DONE`、0 `FAIL`。模型、燃放与炮筒三张截图已逐图检查。下一步单独捕捉一帧能辨认 `pao_13` 飞行弹体的近景，补齐节庆烟花视觉验收。场景和原件位置见[节日月志](../systems/festival/logs/2026-11.md#q176-客户端画面交接)。
+- **已验证与待裁定**。六个奖励池的 598 个等级与签号组合逐签通过。8 级和 8.5 级符箓已通过客户端回归。Q177 的 `cailiao_153` 缺少映射依据，Q71 玩家商铺重复领取仍待裁定。参见[剩余工作](remaining-work.md)。
 - **既定边界**：2C 暂缓，妖兽 AI 保留 Java。阶段 3 的连续六维、地灵直入及十二城镇模板已按正式代码、2 GiB 客户端验收；768 MiB 客户端只用于可选压力测试。重型验证串行，Gradle 768 MiB、单 worker。
 - **2B 遗留**：`q119` 需重建存档夹具；`npcvillage` 无对应场景；合跑时 `npcmanagement` 气血差异和 `fanhuacheng03` 内存不足单跑未复现。见[项目月志](../systems/project/logs/2026-11.md)。
 

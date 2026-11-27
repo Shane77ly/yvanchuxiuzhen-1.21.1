@@ -122,5 +122,5 @@
     }
   ],
   "output": "src/main/resources/content/treasure/reward_tables.json",
-  "output_sha256": "680e1740c311af9709775cc05f38616df74078c8d2d4d50f141dbf8ff131569a"
+  "output_sha256": "21772fdde0b702e4cf20cb614839986cb075f9d3eb1562acbea08275ccc141b9"
 }
