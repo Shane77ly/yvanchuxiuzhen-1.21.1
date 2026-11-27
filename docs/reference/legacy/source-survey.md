@@ -288,7 +288,7 @@ updated: 2026-11-26
 | Q173 | 任务列表固定画布裁切；待裁定/保持来源 | 854×480截图可见中文八行，500×500画布部分越界，完整视觉不判通过 | [quest Q173](../../systems/quest/architecture.md#q173-任务列表固定画布裁切) |
 | Q174 | 任务方块编辑器空值与事件顺序差异；待核实/保持来源 | 空输入保留旧值、切换高级/普通保留另一类脚本、粒子勾选不能取消；右键事件不取消，潜行空手可能继续执行原对话，已接入但未做客户端复核 | [quest 月志](../../systems/quest/logs/2026-11.md) |
 | Q175 | 固定商人刷怪蛋转换未完成；待验证 | 11枚蛋的生产注册、来源颜色、内容条目、双语名称和模型已接回，仍待客户端显示/自然生成验证，未提升为行为已迁移 | [npc 月志](../../systems/npc/logs/2026-11.md) |
-| Q176 | 模型与燃放画面已核，弹体近景待补 | 资源审计确认Pao10–Pao13所需方块状态、模型、物品模型、贴图和Pao10粒子图集均存在；来源`pao1002.png`无JSON/Java调用，记录为来源孤儿资源，不复制；1.21.1 版本客户端已核放置模型、燃放和发射轨迹，`pao_13` 外形仍待近景 | [festival 月志](../../systems/festival/logs/2026-11.md#q176-客户端画面交接) |
+| Q176 | 1.21.1 四类画面及 `pao_13` 近景已核；两版本实机对照待核 | 资源审计确认Pao10–Pao13所需方块状态、模型、物品模型、贴图和Pao10粒子图集均存在；来源`pao1002.png`无JSON/Java调用，记录为来源孤儿资源；1.21.1 版本客户端已核放置模型、燃放、发射轨迹及 `pao_13` 飞行弹体近景（注：1.18.2 `Pao13Entity.getItem()` 原返回 `Blocks.AIR`，目标返回 `pao_13` 使弹体可见） | [festival 月志](../../systems/festival/logs/2026-11.md#q176-客户端画面交接) |
 | Q177 | 8 档护腿及花繁城两档宝匣的命令已修正；材料未决 | 奖励池 `hujia` 及商店 `preset_n51_64_n320` 只修正 `leggins` 拼写。`BaoxiangYaoshoucailiaoProcedure.java:129` 三级第 22 签为未注册 `cailiao_153`，不推断替代物品。 | [宝箱记录](../../systems/treasure/logs/2026-11.md#阶段-4-首批奖励表) |
 | Q208 | 来源答题自然打开入口断链；保持现状，待集中复核 | DatiGUIMenu只在客户端菜单工厂注册处构造，BookRightClick.mod.json生成题目/打开菜单积木脱离event_trigger，全A源码未发现普通书右键调用；目标仅保留显式BookMenus.openQuiz夹具入口，不补造自然入口 | [书籍](../../systems/book/architecture.md#答题2026-11-13) |
 | Q209 | 符箓学习载体生产者未发现；保持消费链，待集中复核 | B FudangetGoProcedure只读取主手/副手fuluget并成功后扣除；A/B源码未发现向物品写入fuluget的生产者。目标保留FuluKnowledgeRuntime、DrawingTableRuntime及Fulu.createReward，不补造来源没有的学习载体生产入口 | [符箓](../../systems/fulu/architecture.md#q209-符箓学习载体生产者未发现) |

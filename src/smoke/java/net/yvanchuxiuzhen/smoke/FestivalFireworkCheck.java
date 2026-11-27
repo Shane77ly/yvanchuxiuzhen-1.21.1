@@ -66,7 +66,10 @@ final class FestivalFireworkCheck extends ActionCheck {
                 new Action(65, player -> {
                     entity(player, pao12).ignite();
                     player.connection.teleport(base.getX() + 6.5, base.getY() + 1, base.getZ() - 4, 0, -16);
-                }), new Action(3, player -> minecraft.execute(() -> screenshots.take("festival_firework_battery.png"))));
+                }), new Action(3, player -> minecraft.execute(() -> screenshots.take("festival_firework_battery.png"))),
+                new Action(15, player -> { }),
+                new Action(1, this::aimAtFlyingShell),
+                new Action(1, player -> minecraft.execute(() -> screenshots.take("festival_firework_pao13.png"))));
     }
 
     private void prepare(ServerPlayer player) {
@@ -173,6 +176,21 @@ final class FestivalFireworkCheck extends ActionCheck {
         expect("Pao13 十六刻延迟队列再加入一枚", 3, rocketJoins);
     }
 
+    private void aimAtFlyingShell(ServerPlayer player) {
+        Pao13Entity target = pao13(player).stream()
+                .filter(shell -> shell.tickCount >= 2 && shell.tickCount <= 12)
+                .max((a, b) -> Double.compare(a.getY(), b.getY()))
+                .orElse(pao13(player).stream().findFirst().orElse(null));
+        expectTrue("找到高空飞行的 Pao13 弹体用于近景取景", target != null);
+        if (target == null) return;
+        Vec3 predicted = target.position().add(target.getDeltaMovement());
+        double camX = predicted.x;
+        double camEyeY = predicted.y;
+        double camZ = predicted.z - 2.0;
+        player.setNoGravity(true);
+        player.connection.teleport(camX, camEyeY - player.getEyeHeight(), camZ, 0, 0);
+    }
+
     private void joined(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide()) return;
         if (event.getEntity() instanceof Pao13Entity shell && shell.position().distanceToSqr(Vec3.atCenterOf(pao12)) < 16) {
@@ -202,6 +220,7 @@ final class FestivalFireworkCheck extends ActionCheck {
 
     @Override
     protected void cleanup(ServerPlayer player) {
+        player.setNoGravity(false);
         NeoForge.EVENT_BUS.unregister(joined);
         for (UUID uuid : spawned) {
             Entity entity = player.serverLevel().getEntity(uuid);
