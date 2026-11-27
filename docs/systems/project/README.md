@@ -2,10 +2,12 @@
 topic: project
 role: entry
 status: current
-updated: 2026-11-26
+updated: 2026-11-27
 ---
 
 # 项目状态与决定
+
+2026-11-27 里程碑：阶段 4 已批准批（`Q05`、`Q18`、`Q26`、`Q29`、`Q30`、`Q64–Q67`、`Q71`、`Q84`、`Q176`、`Q177`）在 `refactor/p4-legacy-bug-cleanup` 完成代码修正与客户端 Smoke/单测验证，以 `--no-ff` 合入本地集成分支 `port/20261123-parity-integration`（阶段 2C 继续暂缓，未合 `main`、未推送）。见[本轮记录](logs/2026-11.md#2026-11-27-阶段-4-遗留问题分批修复合入集成分支)与[当前调度](../../development/remaining-work.md)。
 
 2026-11-26 负责人同意提高冒烟客户端内存，不再以 768 MiB 限制阶段 3；[验证配置](../../development/engineering.md)与[本轮记录](logs/2026-11.md#2026-11-26-调整冒烟客户端内存)。
 

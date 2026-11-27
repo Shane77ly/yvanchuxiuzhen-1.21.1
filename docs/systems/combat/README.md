@@ -2,10 +2,12 @@
 topic: combat
 role: entry
 status: current
-updated: 2026-11-25
+updated: 2026-11-27
 ---
 
 # 战斗
+
+阶段 4 已按裁定修复 Q18/Q29/Q30（受击同属性功法减伤与负伤保护、`Shanghai.defence` 玩家体质防御及法防/神识防御倍率、`ArmorStatEvent` 法防改读 `mana_Def`、物理 `breakArmor=1`/攻击者 `AttackAttCorrectPercentage`/暴击倍率、`Shanghai.deal` 闪避 `1–100`、`AttackStage` 移除重复吸血、`Shanghai.friendly` 空团队不免伤）；见[本月记录](logs/2026-11.md#2026-11-27-阶段-4q18q29q30-战斗与防御修复)。
 
 落雷：已知施法实体使用 `Lightning.cast`。玩家命令与直接入口保留 Q55 队伍占位语义，伤害不再逐目标拼命令。[本批验证](../project/logs/2026-11.md#2026-11-25-阶段-3-实体施法者落雷)。
 

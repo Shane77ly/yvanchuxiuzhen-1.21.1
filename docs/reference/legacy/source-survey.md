@@ -100,7 +100,7 @@ updated: 2026-11-26
 | Q02 | 制造职业快照与当前玩家/装置绑定，决定多人协作规则 | [炼器](../../systems/lianqi/architecture.md) |
 | Q03 | 炼丹等级检查在图中为游离块，Java 与已连接图一致；恢复门槛属于行为调整 | [炼丹](../../systems/liandan/architecture.md) |
 | Q04 | 阵法五行费用倍率缺失、分派名称错配、火2类别错配及部分伤害链未闭合 | [阵法](../../systems/zhenfa/architecture.md) |
-| Q05 | 商店找零变量不一致；明确修正输入与结果 | [经济](../../systems/economy/architecture.md) |
+| Q05 | 商店灵石购买：已修正一级找零错用二级金额 | [经济正文](../../systems/economy/architecture.md)、[复现与验证范围](../../systems/economy/logs/2026-11.md#阶段-4-首批商店找零) |
 | Q06 | 世界定义在初始化门外重写，静态定义/实例/管理覆盖需分开 | [世界](../../systems/world/architecture.md) |
 | Q07 | 真实容器绑定、材料仓玩家归属、关闭与死亡后的资产去向 | [容器](../../systems/storage/architecture.md) |
 | Q08 | GeckoLib 实际依赖与元数据 optional 标记不一致 | [整体架构](../../development/architecture.md) |
@@ -112,7 +112,7 @@ updated: 2026-11-26
 | Q14 | 本命成长交替标记在玩家体质载体，迁到物品会改变换装行为 | [装备](../../systems/equipment/architecture.md) |
 | Q15 | 配方 `skillarrow_10hecheng` 一次产出 5 个最大堆叠为 1 的 `skill_arrow_10`，1.21.1 拒绝此类配方；2026-11-02 已裁定：物品保持 1，配方产出改为 1 | [技能](../../systems/skill/architecture.md) |
 | Q17 | 防具与武器的炼器数值（`lianqizong.health_Max`、`attack_num`）计入显示值与战斗结算，但实际最大生命只在妖化防具上生效、近战伤害基础值不含武器数值；2026-11-03 已裁定：实际属性计入炼器数值，与显示一致 | [属性](../../systems/attribute/architecture.md) |
-| Q18 | 伤害结算把受击方主修功法与伤害同属性的五行值 × 层数 / 4 加到伤害上（功法五行值全为正），受击方修同属性功法反而受伤更多；系统设计称其为“抗性”；2026-11-03 负责人指示暂按来源行为，作为待处理问题保留，之后再议 | [属性](../../systems/attribute/architecture.md) |
+| Q18 | 已在阶段 4 修正并验证（2026-11-27）：`AttributeTotals.receivedElementBonus` 改为负向减伤（`-(gongfa * level / 4)`），`Shanghai.attack` 改按受击方 `target` 读取并在 `damage <= 0` 时归零；`AttributeTotalsTest`、`AttributeCheck`（减伤项）与 `CombatCheck` 实机通过 | [属性](../../systems/attribute/architecture.md) |
 | Q19 | 好友功能的来源缺陷：申请时向申请者打印调试文字；同意时重复判定比较对象写错，会重复添加；删除在线好友时读错对象，通常只删除本人一侧；删除时把该团队整体移出友方集合。2026-11-03 评估为轻微，保持来源行为，待再议 | [关系](../../systems/relation/architecture.md) |
 | Q20 | 改团队名界面 `Gui0301` 的唯一入口 `Gui03anniu` 没有调用者；`ling_15` 提示文本描述的改名功能不存在；`Playeraddplayer` 没有调用者。保留台账、不实现，待裁定 | [关系](../../systems/relation/architecture.md) |
 | Q21 | 随机体质只取 1–10，第 11、12 种体质随机取不到；关闭出身界面时其他体质（含空）按第 12 种生效；体质锁定键 `tizhilock` 没有写入者。评估为轻微，保持来源行为 | [修炼](../../systems/xiulian/architecture.md) |
@@ -120,11 +120,11 @@ updated: 2026-11-26
 | Q23 | 孕育元婴时体质数 `tizhinumber` 加在空物品上，体质数不变（元婴不进入丹田体质列表的计数）。评估为轻微，保持来源行为 | [修炼](../../systems/xiulian/architecture.md) |
 | Q24 | 丹田体质排序在打开的体质少于 `tizhinumber` 时无限循环（服务端卡死）；翻页时最后一页恰好 9 个体质则第 9 行不显示。评估为轻微：排序扫描到最后一个三位编号为止，第 9 行保持来源 | [修炼](../../systems/xiulian/architecture.md) |
 | Q25 | 丹田本命槽上限 64，放入多个妖丹后关闭再打开只剩 1 个，其余消失。评估为轻微，保持来源行为，待裁定 | [修炼](../../systems/xiulian/architecture.md) |
-| Q26 | 书架藏宝的功法表：第 6 表随机 1–10 但只有 8 个分支，取到 9、10 时不给书而书架物品照常消耗；第 7 表有 12 个分支但随机只到 11，第 12 本取不到。评估为轻微，保持来源行为 | [功法](../../systems/gongfa/architecture.md) |
+| Q26 | 已在阶段 4 修正并验证 | 1.18.2 第 6 表随机 1–10 但仅有 8 本、第 7 表有 12 本但随机上限为 11；目标已在 `technique_lists.json`（及 `extract_techniques.py`）改为 `max=8` 与 `max=12`，`GongfaCheck` 抽样全达且非空 | [功法](../../systems/gongfa/architecture.md) |
 | Q27 | 原先误读参悟台继承清槽条件：`CanwudianjiProcedure:213–260` 的清槽位于升级分支之外，成功继承无论是否升级均消耗典籍；原疑点撤销，目标按来源修正，验证边界见正文 | [功法](../../systems/gongfa/architecture.md) |
 | Q28 | 星宿穴位学习小游戏不可达：研习台 `gongfaxvexi` 的物品不在创造栏、没有配方，结构与代码都不放置它，槽位没有放入书的途径；界面 `gongfaxvexi_gui` 只登记、从未打开（右键研习台打开的是 `TripodGUI`）。负责人已于2026-11-16明确批准排除这部分（研习台方块、界面与429个过程）；保留来源身份与不可达证据，不再作为待裁定或开放移植项 | [功法](../../systems/gongfa/architecture.md) |
-| Q29 | `/shanghai` 的防御 `Zhilingdefence` 把玩家体质物品读入 `itemlinshi`，之后的体质防御修正与神识、法术防御倍率却读从未赋值的 `tizhi`（空物品）：体质对 `/shanghai` 防御的全部修正（`*DefCorrect`、`*DefCorrectPercentage`、`Souldefof*AttCorrectPercentage`、`ManaDefDefCorrectPercentage`）不生效。评估为轻微，保持来源行为，待裁定 | [战斗](../../systems/combat/architecture.md) |
-| Q30 | 物理伤害与 `/shanghai` 结算的疑似错误：① 破甲系数 `pojia` 初值 0，没有 `pojia` 附魔时受击者基础物理防御与护甲 `lianqizong.attack_Def` 乘 0 后不计入，只有附魔 `attdef` 与 `basalt` 起作用；② 暴击结算值紧接着被物理公式覆盖，暴击只有粒子；③ 物理攻击量乘的 `AttackAttCorrectPercentage` 读的是受击者体质而不是攻击者；④ 法术防御的护甲项读 `lianqizong.mana_Att`（神识项读 `soul_Def`）；⑤ `/shanghai` 没有“任一方团队为空则不免伤”的判断，而 `LivingHurtEvent` 有；⑥ `/shanghai` 闪避随机数为 0 时即使没有闪避附魔也使伤害无效（约 1/101）；⑦ 吸血在 `LivingAttackEvent` 与 `LivingHurtEvent` 各回复一次。评估为轻微，保持来源行为，待裁定（与 Q13 的关系读取、击杀计数时机同属战斗） | [战斗](../../systems/combat/architecture.md) |
+| Q29 | 已在阶段 4 修正并验证（2026-11-27）：`Shanghai.defence` 恢复玩家体质防御修正（`<前缀>DefCorrect`/`<前缀>DefCorrectPercentage`、`Souldefof*AttCorrectPercentage`、`ManaDefDefCorrectPercentage`）；`CombatCheck` 实机通过 | [战斗](../../systems/combat/architecture.md) |
+| Q30 | 已在阶段 4 修正并验证（2026-11-27）：`HurtStage.settle` 默认破甲系数改为 1（有 `pojia` 为 `max(0, 1 - pojia * 0.1)`）、暴击倍率生效且 `AttackAttCorrectPercentage` 改读攻击者；`Shanghai.defence`/`ArmorStatEvent`/`EquipmentAttributes` 法防改读 `mana_Def`；`Shanghai.deal` 闪避改为 `1–100`；移除 `AttackStage` 重复吸血仅留 `HurtStage`；`Shanghai.friendly` 对齐空团队不免伤；`CombatCheck` 与 `q235spellshield` 实机通过（Q13 的关系读取、击杀计数时机另案待定） | [战斗](../../systems/combat/architecture.md) |
 | Q31 | `DamageIntegration`、`DamageDefense`、`ManaDamage`、`ManaDefense`、`SoulAttjisuan`、`SoulDefjisuan`、`DamageXiaoguo`、`EntityBeforeHurt2` 没有过程调用者、事件订阅或元素触发（后两者是空壳），经受击者持久化键 `ManaAttackDamage`、`ManaAttackUUID`、`damagetype`、`Damage_multiplier` 传值的另一版伤害计算不可达。评估为轻微：不迁移，待裁定（与 Q13 的未闭合字段链同属一处） | [战斗](../../systems/combat/architecture.md) |
 | Q32 | 命中附魔的疑似错误：毒药类与 `sawtooth` 的效果时长为“已有同效果剩余 tick × 20 + 600”；`lingtikiller` 取 `zhongshang` 的等级，`lingwen` 的灵力消耗取 `qishi` 的等级；`liuqing` 的时长使用此前分支才赋值的 `fumolevel`（单独触发时时长为 0）；`chaos` 的范围中心把受击者视线方向的 z 分量当作 z 坐标；无队伍的生物穿戴 `firearmor`、`icearmor`、`discharge` 时自己不是自己的友方（空队伍名取不到友方集合），会被自己的范围伤害击中。评估为轻微，保持来源行为，待裁定 | [战斗](../../systems/combat/architecture.md) |
 | Q33 | 状态效果的疑似错误：`duyao_13` 的伤害读 `duyao_01` 的等级；`duyao_20`（尸毒）对玩家的伤害先乘体质放大再被赋值覆盖，放大不生效；`duyao_21`（曼陀罗）与 `duyao_20` 共用计数键 `duyao20tick`，伤害读 `duyao_07` 的等级；`effect_010`、`effect_017` 的说明文本写“每两秒恢复等级 × 5”，实际每秒恢复 (等级 + 1) × 10；`duyao_09`（番木鳖）把体质放大乘在目标生命上而不是伤害上。评估为轻微，保持来源行为，待裁定 | [战斗](../../systems/combat/architecture.md) |
@@ -167,10 +167,10 @@ updated: 2026-11-26
 | Q61 | 火箭施加阳火没有写持续来源UUID，普通炙烤命令可能因空参数失效或沿用先前接触来源；阴阳爆燃只遍历Mob且不按受燃者友方预筛，实际命令仍执行combat敌友判定。丹火给已有火补燃料不验归属，普通火无方块实体也消耗物品；放置共用玩家友方表引用，重载后分开，并读取登录时复制的实体团队。影响限上述路径，评估轻微，保留来源载体、调用顺序与结果；不补箭射手、不加归属校验、不擅改为冻结快照 | [异火](../../systems/yihuo/architecture.md) |
 | Q62 | `ShanghaifanweiEntity.movementPredicate` 默认请求 `animation.ycxzboss_01.idle`，但其绑定的 `shanghaifanwei.animation.json` 不含该动画；动态范围过程提供的有效动画另行播放。静态核对35个来源默认/离地/濒死名称，仅该默认名缺失。影响限范围提示默认待机，评估轻微，保留实际引用，不替换为猜测动画；1.18.2实机及目标可见回退未验收 | [技能](../../systems/skill/architecture.md#过程动画调用链与控制器复核2026-11-07) |
 | Q63 | `SkillFire01` 的火球命中过程遍历弹体周围 2 格的非友方对象；循环变量只控制粒子次数，伤害请求仍把直接命中目标作为目标，因此邻近对象不会因该循环额外受伤。评估轻微，按来源保留；目标已补入相同的循环与目标引用，内置客户端回归覆盖直接目标与邻近傀儡 | [技能](../../systems/skill/architecture.md#弹体实际过程与发射入口复核2026-11-08) |
-| Q64 | `Fulujinglineed` 在体质 `FuluConsumeJingliPercentage` 非 0 时，实际乘的是 `(FuluConsumeJingli + 1)` 而不是该百分比字段自身；`FuluConsumeJingli` 为 0 时百分比修正等于乘 1，非 0 时二者相互牵连。疑似字段误用，目标保持来源（`FuluUse.pay`），不自行改平衡，待负责人裁定。两个来源 Mod 中均未找到这两个键的写入者，当前实际不触发。 |
-| Q65 | `Itemfulu21...` 登记 21 号符生效数时写 `fulunumber = round(物品的 fulunumber + 1)`，读的是物品组件而不是玩家体质（39 号符同类位置读的是体质）。物品上没有该键，所以 21 号符生效时把玩家的生效数直接置为 1，覆盖其他仍在生效的符。疑似字段误用，目标保持来源，待负责人裁定。 |
-| Q66 | `Itemfulu04...` 的 46 号符分支先射出火球，再把品阶写入玩家的实体持久数据 `fululevel46`；火球 tick 过程对玩家发射者读的是体质里的 `fululevel46`（仅 13 号符写入）。所以玩家直接使用 46 号符时火球按品阶 1 结算（体质值为 0 时回退 1），符箓品阶对伤害无影响。疑似存储位置误用，目标保持来源，待负责人裁定。 |
-| Q67 | `Fulutexiao32TouZhiWuFeiXingTick` 用使用者的 `kaiqi` 判断是否已初始化，却把 `kaiqi` 写在子母弹自己身上，使用者的 `kaiqi` 永不为真，所以每刻都重复读取品阶与分裂标记；使用者只要持有 `fulu32shoufa`，下一刻存在的任意子母弹都会抢走它成为主弹。疑似写错对象，目标保持来源，待负责人裁定。 |
+| Q64 | 已在阶段 4 修正并验证（2026-11-27）：`FuluUse.pay` 改乘 `(FuluConsumeJingliPercentage + 1)`，`fulucooking` 验证 21 号符 `(10+5)×1.2=18` 精力扣款通过 | [符箓](../../systems/fulu/architecture.md) |
+| Q65 | 已在阶段 4 修正并验证（2026-11-27）：`FuluUse.activate` 为 21 号符改读玩家体质 `fulunumber + 1`，`fulucooking` 验证原有 3 项生效累加至 4 | [符箓](../../systems/fulu/architecture.md) |
+| Q66 | 已在阶段 4 修正并验证（2026-11-27）：`FuluInstant.fireball` 先写 `CASTER.level46` 再发射，`TalismanProjectile.fireballTick`/`explode` 首刻读并清零 `CASTER.level46`（回退 13 号体质键），`fulucooking` 验证二阶 46 号符命中造成 30 伤 | [符箓](../../systems/fulu/architecture.md) |
+| Q67 | 已在阶段 4 核对并复验（2026-11-27）：目标已通过 `FuluData.CASTER.splitFirst32()` 仅首刻交接并清零，不再每刻复读或抢夺分裂权；`fulucooking` 验证炸出 8 枚子弹并清零标记 | [符箓](../../systems/fulu/architecture.md) |
 | Q68 | 04 装配页只在菜单 `removed()` 时写回八槽；1.18.2 Forge40.1.0 与 NeoForge21.1.265 的断线移除顺序均先保存玩家、再移除实体并关闭菜单，退出时刚修改的装配可能未入档。2026-11-17目标客户端真实同档断线重进确认未关闭菜单的编辑丢失，K重开双端八空槽及中文画面通过；保持来源还是改为保存前写回仍待负责人裁定 | [技能](../../systems/skill/architecture.md#q68-装配页断线保存时序) |
 
 ### 2026-11-14 续批差异与不确定项
@@ -181,7 +181,7 @@ updated: 2026-11-26
 | --- | --- | --- | --- |
 | Q69 | 来源缺定义；已批准实现，拒启动必要单项通过 | 拍卖商品语言定义缺失，且仅34级NPC不满足筑基/结丹候选区间，原无限扫描不能结束。缺商品或合格NPC时拒绝启动并中文提示，真实入座后进度0、中文原因及同次失败只提示一次已验证，保留有效场次规则；未运行来源挂起分支或有效拍卖 | [经济](../../systems/economy/architecture.md)、[批准记录](../../systems/project/logs/2026-11.md#2026-11-14-拍卖缺定义时拒绝启动) |
 | Q70 | 来源库存替换与扣料异常；已批准实现，有限守恒/重进通过 | B:`BuildingProcedure:31–220`先放结构再读18槽扣料；B的12个`build01/02/03`四向来源模板均清空核心库存，01变为一槽案台，02/03仍为18槽，可能丢材料并越界。已实现保存原库存、按原费用扣料，18槽回写余料、一槽原位掉落；中心与受控02模板跨栈余料/无关物品守恒及十八槽保存重进已过；03/全向/刚好足量仍待 | [城镇](../../systems/town/architecture.md#q70-模板替换与材料扣费)、[批准记录](../../systems/project/logs/2026-11.md#2026-11-14-城镇扣料与差异集中登记) |
-| Q71 | 已核来源异常；保持来源，待集中裁定 | B:`ShopblockqvchuProcedure:37–90`领取入账后不清`cunchulingshi`，主人可重复领取历史灵石；尚未实机对照 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
+| Q71 | 已在阶段 4 修复并验证 | B:`ShopblockqvchuProcedure:37–90` 原先领取不清除 `cunchulingshi` 且先输出 `0`；`ShopTrading.claim` 已改用实际金额并清零暂存，`CommerceCheck` 验证不再重复入账 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q72 | 已核来源载体疑点；保持来源，待集中裁定 | B:`ShopblockGuigoumaiProcedure:798–801`写`getCompound("playerxiangou")`；生存放置未初始化该compound，限购写入可能只落在临时空tag，创意刷新会初始化。具体两版本运行仍待核 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q73 | 已核字段误读；保持来源，待集中裁定 | B:`Tuzhizhongliang`对材料列表误读attribute索引1，读数为0，自然图纸估价的折价因子恒1；不按名称修正材料重量 | [经济](../../systems/economy/architecture.md#来源差异与当前处理) |
 | Q74 | 来源空表异常；保留中断结果，错误提示待对照 | B:`Baoxiangzong:127–138`读取奖励首段第三字段，空串/畸形首段会终止同次发放。目标明确终止并保留此前掉落，不补抽；来源框架错误文案及空分支实机未对照 | [宝箱](../../systems/treasure/architecture.md#来源异常的当前处理) |
@@ -194,7 +194,7 @@ updated: 2026-11-26
 | Q81 | 来源配置畸形；保持异常串，待核实运行影响 | 镇妖塔固定点共44个，其中`(1278,83,-587)`的`fubenshujv`只有奖励列表、无波次头；源解析读取`fields[1]`会越界。保留原配置，不补造波次头，未运行此分支 | [副本](../../systems/dungeon/architecture.md) |
 | Q82 | 来源映射与动画疑点；保持来源，待集中复核 | 私人画卷地灵界与无归界的回程映射互换，首次动画实际选择1；按实际分支迁移，不依据名称交换，未作两版本实机对照 | [副本](../../systems/dungeon/architecture.md) |
 | Q83 | 来源载体误读；保持来源，待集中裁定 | B:`Duihuashijian:185–190`字符串“加”从会话读取旧串，却写剧情持久域；连续累加不接续剧情域旧值 | [任务Q83](../../systems/quest/architecture.md#q83-字符串累加读取会话载体) |
-| Q84 | 来源维度字符串异常；保持来源，待集中裁定 | B:`Duihuashijiantwo:452–470`拼接当前维度时多出括号，正常文本比较失败；脚本消费者与实际运行仍待核 | [任务Q84](../../systems/quest/architecture.md#q84-当前维度字符串拼接) |
+| Q84 | 已在阶段 4 修复并验证 | B:`Duihuashijiantwo:452–470` 拼错右括号；`DialogueRuntime.matchesDimension`（与 `QuestChatRuntime` 共用）改用 `ResourceLocation` 直接比对，`QuestJournalCheck` 分支检查通过 | [任务Q84](../../systems/quest/architecture.md#q84-当前维度字符串拼接) |
 | Q85 | 来源扣料与参数索引异常；保持来源，待集中裁定 | B:`Duihuashijiantwo:153–241`带NBT扣物品先将足量需求清0再删除，参数索引跨栈持续递增；完整多栈影响未实机复核 | [任务Q85](../../systems/quest/architecture.md#q85-带nbt扣料与跨栈索引) |
 | Q86 | 来源目录与生成数量不符；保持来源，待集中裁定 | B:`Worldbegin:51`为045悬赏定义数量8，追踪`Xvanshangzhuizongheji:40–57`仅生成一次；不补造七只 | [任务Q86](../../systems/quest/architecture.md#q86-045目录数量与生成数) |
 | Q87 | 来源失联移除风险；保持来源，待集中裁定 | A:`Guchong05DangShiTiGengXinKeShi:32–57`百刻返还只找当前维度在线主人，未找到仍移除，可能不返还物品 | [蛊虫Q87](../../systems/guchong/architecture.md#q87-同维主人缺席仍移除) |
@@ -288,8 +288,8 @@ updated: 2026-11-26
 | Q173 | 任务列表固定画布裁切；待裁定/保持来源 | 854×480截图可见中文八行，500×500画布部分越界，完整视觉不判通过 | [quest Q173](../../systems/quest/architecture.md#q173-任务列表固定画布裁切) |
 | Q174 | 任务方块编辑器空值与事件顺序差异；待核实/保持来源 | 空输入保留旧值、切换高级/普通保留另一类脚本、粒子勾选不能取消；右键事件不取消，潜行空手可能继续执行原对话，已接入但未做客户端复核 | [quest 月志](../../systems/quest/logs/2026-11.md) |
 | Q175 | 固定商人刷怪蛋转换未完成；待验证 | 11枚蛋的生产注册、来源颜色、内容条目、双语名称和模型已接回，仍待客户端显示/自然生成验证，未提升为行为已迁移 | [npc 月志](../../systems/npc/logs/2026-11.md) |
-| Q176 | Pao10 资源静态核对已完成；客户端显示待验证 | 资源审计确认Pao10–Pao13所需方块状态、模型、物品模型、贴图和Pao10粒子图集均存在；来源`pao1002.png`无JSON/Java调用，记录为来源孤儿资源，不复制；客户端显示与表现单项仍待 | [festival 月志](../../systems/festival/logs/2026-11.md) |
-| Q177 | 宝箱奖励消费存在来源拼写/未注册ID候选；待裁定/待核实 | `TreasureRewardTables.java:1265,1284,1303,1322,1341,1360,1379,1398`使用`armor_01..08_leggins`，目标注册为`armor_*_leggings`；`QuestStructureData.java`花繁城商品串复用该拼写；`TreasureRewardTables.java:2482`单独引用未注册`cailiao_153`。2026-11-15静态24分派、30个来源指纹和所有者API核验通过；未批准前保持来源，不擅自映射邻近材料或修正商品串 | [treasure 月志](../../systems/treasure/logs/2026-11.md#2026-11-15-奖励表24分派与解释器静态核验) |
+| Q176 | 1.21.1 四类画面及 `pao_13` 近景已核；两版本实机对照待核 | 资源审计确认Pao10–Pao13所需方块状态、模型、物品模型、贴图和Pao10粒子图集均存在；来源`pao1002.png`无JSON/Java调用，记录为来源孤儿资源；1.21.1 版本客户端已核放置模型、燃放、发射轨迹及 `pao_13` 飞行弹体近景（注：1.18.2 `Pao13Entity.getItem()` 原返回 `Blocks.AIR`，目标返回 `pao_13` 使弹体可见） | [festival 月志](../../systems/festival/logs/2026-11.md#q176-客户端画面交接) |
+| Q177 | 已在阶段 4 全部修复并验证 | 奖励池 `hujia` 及商店 `preset_n51_64_n320` 修正 `leggings` 拼写；三级妖兽材料第 22 签 `cailiao_153`（1.18.2 物品表本身跳过 147..160）按裁定从奖池移除余 21 签，`check_treasure_reward_rolls.py`（598 签）与 `TreasureCheck` 实开均通过 | [宝箱记录](../../systems/treasure/logs/2026-11.md#阶段-4-首批奖励表) |
 | Q208 | 来源答题自然打开入口断链；保持现状，待集中复核 | DatiGUIMenu只在客户端菜单工厂注册处构造，BookRightClick.mod.json生成题目/打开菜单积木脱离event_trigger，全A源码未发现普通书右键调用；目标仅保留显式BookMenus.openQuiz夹具入口，不补造自然入口 | [书籍](../../systems/book/architecture.md#答题2026-11-13) |
 | Q209 | 符箓学习载体生产者未发现；保持消费链，待集中复核 | B FudangetGoProcedure只读取主手/副手fuluget并成功后扣除；A/B源码未发现向物品写入fuluget的生产者。目标保留FuluKnowledgeRuntime、DrawingTableRuntime及Fulu.createReward，不补造来源没有的学习载体生产入口 | [符箓](../../systems/fulu/architecture.md#q209-符箓学习载体生产者未发现) |
 | Q210 | 原初系统旧牌匾菜单无自然打开者，按钮消息不提交文本；保持独立注册身份、不补造输入路径 | `PlaqueGUIMenu`、`PlaqueGUIScreen`与`PlaqueGUIButtonMessage`来源调用闭包未找到自然打开者；按钮payload仅含按钮号，服务端过程读取静态EditBox并带调试广播，不形成可信文本提交链 | [装饰](../../systems/decor/architecture.md#q210-旧系统牌匾菜单缺少自然文本提交链) |

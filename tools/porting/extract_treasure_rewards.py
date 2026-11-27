@@ -14,6 +14,7 @@ from typing import Any
 
 from build_ledger import ROOT
 from convert_content import SOURCES
+from equipment_commands import equipment_command
 
 SOURCE = SOURCES['yvanchuxitong'][0] / 'src/main/java/net/mcreator/yvanchuxitong/procedures'
 OUTPUT = ROOT / 'src/main/resources/content/treasure/reward_tables.json'
@@ -135,7 +136,7 @@ def parse_reward_string(raw: str) -> dict[str, Any]:
     if not raw:
         return {'kind': 'empty'}
     if raw.startswith('指令%'):
-        return {'kind': 'command', 'command': raw.split('%', 1)[1]}
+        return {'kind': 'command', 'command': equipment_command(raw.split('%', 1)[1])}
 
     tokens = re.split(r'%(?=(?:[A-Za-z0-9_]+/(?:char|int|double|doube|logic)/|无(?:%|$)))', raw)
     identity = tokens[0].split('/')
@@ -307,24 +308,33 @@ def parse_choice_block(block: str, has_material_ctx: bool, quality_dist: list[di
         lo, hi = int(roll_m.group(1)), int(roll_m.group(2))
         if_pos = block.find('if', roll_m.end())
         cases: dict[int, str] = {}
-        else_lit: str | None = None
-        if if_pos != -1:
-            branches, _ = split_if_chain(block, if_pos)
+        while if_pos != -1:
+            branches, end = split_if_chain(block, if_pos)
+            matched: set[int] = set()
             for cond, sub in branches:
                 lit_m = re.search(r'neirong\s*=\s*"([^"]*)";', sub)
                 call_m = re.search(r'(Baoxiang\w+Procedure)\.execute', sub)
                 val = f'__CALL__:{pool_id(call_m.group(1))}' if call_m else (lit_m.group(1) if lit_m else '')
                 if cond is None:
-                    else_lit = val
+                    for roll in range(lo, hi + 1):
+                        if roll not in matched:
+                            cases[roll] = val
                 else:
                     eq_m = re.match(r'suijizhi\s*==\s*(\d+)$', cond)
                     assert eq_m is not None, f'未支持随机条件：{cond}'
-                    cases[int(eq_m.group(1))] = val
+                    roll = int(eq_m.group(1))
+                    matched.add(roll)
+                    cases[roll] = val
+            # 来源有相邻但独立的抽签判断链，后段只覆盖命中的签位。
+            if_pos = end if re.match(r'if\s*\(suijizhi\s*==', block[end:]) else -1
         for roll in range(lo, hi + 1):
-            raw = cases.get(roll, else_lit if else_lit is not None else '')
+            raw = cases.get(roll, '')
             reward = {'kind': 'pool', 'pool': raw.split(':', 1)[1]} if raw.startswith('__CALL__:') else parse_reward_string(raw)
             if has_material_ctx and reward.get('kind') == 'item':
                 reward = {'kind': 'material', 'item': reward['item']}
+            # 阶段 4（Q177）：1.18.2 注册表跳过 147..160，此处 cailiao_153 为未注册空签，从奖池移除使 1–21 均等掉落。
+            if reward == {'kind': 'material', 'item': 'yvanchuxiuzhen:cailiao_153'}:
+                continue
             entries.append({'weight': 1, 'reward': reward})
     else:
         lit_m = re.search(r'neirong\s*=\s*"([^"]*)";', block)
@@ -411,8 +421,9 @@ def build_pool(name: str, body: str, dispatches: list[dict[str, str]],
                 if max_lvl is None and int(min_lvl) == 8:
                     tier_8 = {'min_level': 8.0, 'max_level': 8.0, 'context': dict(tier_ctx), 'entries': entries}
                     tiers.append(tier_8)
-                    ctx_9 = {**tier_ctx, 'fulu_level': 0, 'fulu_tier_text': ''}
-                    tiers.append({'min_level': 9.0, 'context': ctx_9, 'entries': entries})
+                    # 等级为 double；恰好 8 优先匹配上一段，其余大于 8 的等级品阶为空。
+                    above_8 = {**tier_ctx, 'fulu_level': 0, 'fulu_tier_text': ''}
+                    tiers.append({'min_level': 8.0, 'context': above_8, 'entries': entries})
                     continue
             tier: dict[str, Any] = dict(bounds)
             if tier_ctx:

@@ -2,10 +2,12 @@
 topic: economy
 role: entry
 status: partial
-updated: 2026-11-22
+updated: 2026-11-26
 ---
 
 # 经济
+
+阶段 4 功能分支已修正 Q05 商店一级灵石找零；修前复现与本批验证边界见[经济月志](logs/2026-11.md#阶段-4-首批商店找零)。
 
 标识 `economy`，类别：系统。职责：灵石货币、银行、商店、现场拍卖（[系统设计](../../development/system-design.md)）。
 

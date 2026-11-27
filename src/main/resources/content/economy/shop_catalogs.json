@@ -6759,7 +6759,7 @@
         "display_name": "罩甲护腿",
         "payload": {
           "kind": "casket_command",
-          "command": "lianqi yvanchuxiuzhen:armor_01_leggins 罩甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 黄阶四级 4 4 30 10 6 0 0.03 1 1 1 100"
+          "command": "lianqi yvanchuxiuzhen:armor_01_leggings 罩甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 黄阶四级 4 4 30 10 6 0 0.03 1 1 1 100"
         }
       },
       {
@@ -6799,7 +6799,7 @@
         "display_name": "铁胄甲护腿",
         "payload": {
           "kind": "casket_command",
-          "command": "lianqi yvanchuxiuzhen:armor_02_leggins 铁胄甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 黄阶九级 9 8 54 18 6 0 0.06 1 1 1 100"
+          "command": "lianqi yvanchuxiuzhen:armor_02_leggings 铁胄甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 黄阶九级 9 8 54 18 6 0 0.06 1 1 1 100"
         }
       },
       {

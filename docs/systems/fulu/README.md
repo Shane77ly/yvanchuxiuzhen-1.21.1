@@ -2,10 +2,12 @@
 topic: fulu
 role: entry
 status: partial
-updated: 2026-11-15
+updated: 2026-11-27
 ---
 
 # 符箓
+
+2026-11-27 阶段 4 已按批准裁定完成并验证 Q64–Q67 符箓修正（`FuluUse.pay` 百分比乘法修正、`FuluUse.activate` 21 号符保留 `fulunumber` 累加、46 号符先写 `CASTER.level46` 再发射且 `fireballTick`/`explode` 消费清零并保留 13 号体质回退，以及 32 号子母弹 `splitFirst32` 单次交接），见[本月志](logs/2026-11.md#2026-11-27-阶段-4q64q67-符箓修正)。
 
 2026-11-20接回七种符箓特效物品自身的发射入口，区分对应弹体的穿透和击退；编译通过，实际发射与重进未验，见[发射规则](architecture.md#符箓特效物品与弹体发射2026-11-20)。
 

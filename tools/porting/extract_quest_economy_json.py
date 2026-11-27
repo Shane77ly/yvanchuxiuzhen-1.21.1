@@ -12,6 +12,7 @@ import pathlib
 import re
 from typing import Any
 import nbtlib
+from equipment_commands import equipment_command
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 RESOURCES = ROOT / "src/main/resources"
@@ -77,7 +78,7 @@ def parse_item_payload(item_id: str, triples: list[tuple[str, str, str]]) -> dic
 
     # 1. Casket command item (zhiling)
     if "zhiling" in kv:
-        return {"kind": "casket_command", "command": kv["zhiling"][1]}
+        return {"kind": "casket_command", "command": equipment_command(kv["zhiling"][1])}
 
     # 2. Material level/quality
     if "cailiaolevel" in kv or "cailiaopinjie" in kv:

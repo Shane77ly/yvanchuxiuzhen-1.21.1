@@ -621,7 +621,7 @@ final class SmokeRun {
                     }
                     case "overworldfirstspell" -> List.of(new RenjianStarterCheck(report, levelId, this::shot, false, true));
                     case "handheldfirework" -> List.of(new HandheldFireworkCheck(report, levelId, this::shot));
-                    case "festivalfirework" -> List.of(new FestivalFireworkCheck(report, levelId));
+                    case "festivalfirework" -> List.of(new FestivalFireworkCheck(report, levelId, this::shot));
                     case "boss" -> List.of(new BossCheck(report, levelId, this::shot));
                     case "treasure" -> List.of(new TreasureCheck(report, levelId, this::shot));
                     case "treasuretool" -> List.of(new TreasureToolCheck(report, levelId, this::shot));

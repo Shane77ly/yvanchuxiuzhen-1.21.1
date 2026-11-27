@@ -23,6 +23,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.NeoForge;
@@ -43,15 +45,16 @@ import net.yvanchuxiuzhen.system.combat.content.DummyMenu;
 import net.yvanchuxiuzhen.system.combat.content.WoodenDummyEntity;
 import net.yvanchuxiuzhen.system.combat.content.WoodenDummyItem;
 import net.yvanchuxiuzhen.system.combat.damage.Shanghai;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentStats;
+import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /**
  * 战斗系统的实机检查：以铁傀儡（无 AI，100 点生命，法术防御 3、神识防御 2）为靶，核对灵力与神识伤害的结算数值、
- * 命令 {@code /shanghai}、闪避、手下留情，以及加点机会、灵力恢复和毒药效果在服务端的结果。
- * 期望值按 docs/systems/combat/architecture.md 的公式手算；闪避随机数为 0 时本次伤害无效（约 1/101，Q30），
- * 每次结算最多重试 5 次，取第一次产生的伤害。
+ * 命令 {@code /shanghai}、闪避、手下留情，以及 Q18/Q29/Q30 修复与加点、恢复、毒药效果在服务端的结果。
+ * 期望值按 docs/systems/combat/architecture.md 的公式手算。
  */
 final class CombatCheck extends SystemCheck {
     private IronGolem poisoned;
@@ -107,6 +110,7 @@ final class CombatCheck extends SystemCheck {
                     poisoned.discard();
                     mandrake.discard();
                     bystander.discard();
+                    verifyStage4CombatFixes(player, player.serverLevel());
                     clean(player);
                     dummy(player);
                 });
@@ -210,6 +214,93 @@ final class CombatCheck extends SystemCheck {
         }
         for (BlockPos pos : BlockPos.betweenClosed(min.below(), new BlockPos(max.getX(), min.getY() - 1, max.getZ()))) {
             level.setBlock(pos, Blocks.STONE.defaultBlockState(), Block.UPDATE_ALL);
+        }
+    }
+
+    /** 阶段 4 战斗修复核对：Q18 受击功法减伤及不反转正伤、Q29 体质防御修正、Q30 物理破甲/攻击体质/法防mana_Def/空队不免伤。 */
+    private void verifyStage4CombatFixes(ServerPlayer player, ServerLevel level) {
+        double savedManaDef = PlayerAttributes.value(player, Stat.MANA_DEF);
+        double savedSoulDef = PlayerAttributes.value(player, Stat.SOUL_DEF);
+        double fireDefCorrect = Cultivation.tizhiDouble(player, "FireDefCorrect");
+        double fireDefPct = Cultivation.tizhiDouble(player, "FireDefCorrectPercentage");
+        double manaDefPct = Cultivation.tizhiDouble(player, "ManaDefDefCorrectPercentage");
+        double soulJingPct = Cultivation.tizhiDouble(player, "SouldefofjingAttCorrectPercentage");
+        double attackAttPct = Cultivation.tizhiDouble(player, "AttackAttCorrectPercentage");
+
+        IronGolem caster = golem(player, 100);
+        EntityAttributes.setStat(caster, Stat.MANA_ATT, 0);
+        GameType prevMode = player.gameMode.getGameModeForPlayer();
+        Difficulty prevDifficulty = level.getDifficulty();
+        try {
+            player.setGameMode(GameType.SURVIVAL);
+            level.getServer().setDifficulty(Difficulty.NORMAL, true);
+            Cultivation.setTizhiDouble(player, "FireDefCorrect", 0);
+            Cultivation.setTizhiDouble(player, "FireDefCorrectPercentage", 0);
+            Cultivation.setTizhiDouble(player, "ManaDefDefCorrectPercentage", 0);
+            Cultivation.setTizhiDouble(player, "SouldefofjingAttCorrectPercentage", 0);
+            player.setHealth(player.getMaxHealth());
+
+            double q18Before = player.getHealth();
+            player.invulnerableTime = 0;
+            Shanghai.deal(level, player, new Shanghai.Request(DamageCategory.FIRE, caster.getUUID(), false, 13, 1));
+            near("Q18 玩家火功法减伤 13 − 10 = 3", 9.0 / (3.0 + savedManaDef), q18Before - player.getHealth());
+
+            double overMitigatedBefore = player.getHealth();
+            player.invulnerableTime = 0;
+            Shanghai.deal(level, player, new Shanghai.Request(DamageCategory.FIRE, caster.getUUID(), false, 8, 1));
+            near("Q18 减伤超出后不反转正伤 8 − 10 ≤ 0", 0, overMitigatedBefore - player.getHealth());
+
+            Cultivation.setTizhiDouble(player, "FireDefCorrect", 3);
+            Cultivation.setTizhiDouble(player, "ManaDefDefCorrectPercentage", 1);
+            double q29FireBefore = player.getHealth();
+            player.invulnerableTime = 0;
+            Shanghai.deal(level, player, new Shanghai.Request(DamageCategory.FIRE, null, true, 6, 1));
+            near("Q29 体质火防修正+法防倍率", 36.0 / (6.0 + (3.0 + savedManaDef) * 2.0), q29FireBefore - player.getHealth());
+
+            Cultivation.setTizhiDouble(player, "SouldefofjingAttCorrectPercentage", 1);
+            double q29SoulBefore = player.getHealth();
+            player.invulnerableTime = 0;
+            Shanghai.deal(level, player, new Shanghai.Request(DamageCategory.SOUL, null, true, 12, 1));
+            near("Q29 体质神识防御倍率", Math.max(0, 12.0 - savedSoulDef * 2.0), q29SoulBefore - player.getHealth());
+
+            IronGolem armorTarget = golem(player, 100, 6);
+            EntityAttributes.setStat(armorTarget, Stat.ATTACK_DEF, 4);
+            ItemStack statsHelm = new ItemStack(Items.IRON_HELMET);
+            statsHelm.set(EquipmentData.STATS.get(), new EquipmentStats(0, 0, 0, 6, 10, 0, 0, 0, 0, 0, 99, 0, 0));
+            armorTarget.setItemSlot(EquipmentSlot.HEAD, statsHelm);
+            double manaDefDmg = hit(player, armorTarget, new Shanghai.Request(DamageCategory.FIRE, null, true, 6, 1));
+            near("Q30 护甲法防读 mana_Def(=10) 而非 mana_Att(=99)", 36.0 / (6.0 + 3.0 + 10.0), manaDefDmg);
+
+            Cultivation.setTizhiDouble(player, "AttackAttCorrectPercentage", 1);
+            double physBefore = armorTarget.getHealth();
+            armorTarget.invulnerableTime = 0;
+            armorTarget.hurt(armorTarget.damageSources().playerAttack(player), 4);
+            near("Q30 物理无破甲保留防御(4+6)且读攻击者 AttackAttCorrectPercentage(+100%)", 64.0 / (8.0 + 10.0),
+                    physBefore - armorTarget.getHealth());
+
+            player.setItemInHand(InteractionHand.MAIN_HAND, enchanted(level, Items.STICK, Map.of("critical", 50, "criticalatt", 5)));
+            double critBefore = armorTarget.getHealth();
+            armorTarget.invulnerableTime = 0;
+            armorTarget.hurt(armorTarget.damageSources().playerAttack(player), 4);
+            // 4 × (1.5 + 5×0.2) × (1 + 1) = 20，公式 20² / (20 + 10)
+            near("Q30 物理暴击倍率生效 20²/(20+10)", 400.0 / 30.0, critBefore - armorTarget.getHealth());
+            player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+
+            Relations.setTeam(caster, "smoketeam");
+            Relations.addFriendlyTeam(caster, "");
+            double emptyTeamDmg = hit(player, armorTarget, new Shanghai.Request(DamageCategory.NONE, caster.getUUID(), true, 6, 1));
+            expectTrue("Q30 空团队不触发友方免伤 实际 " + emptyTeamDmg, emptyTeamDmg > 0);
+            armorTarget.discard();
+        } finally {
+            caster.discard();
+            Cultivation.setTizhiDouble(player, "FireDefCorrect", fireDefCorrect);
+            Cultivation.setTizhiDouble(player, "FireDefCorrectPercentage", fireDefPct);
+            Cultivation.setTizhiDouble(player, "ManaDefDefCorrectPercentage", manaDefPct);
+            Cultivation.setTizhiDouble(player, "SouldefofjingAttCorrectPercentage", soulJingPct);
+            Cultivation.setTizhiDouble(player, "AttackAttCorrectPercentage", attackAttPct);
+            level.getServer().setDifficulty(prevDifficulty, true);
+            player.setGameMode(prevMode);
+            player.setHealth(player.getMaxHealth());
         }
     }
 
@@ -366,7 +457,7 @@ final class CombatCheck extends SystemCheck {
         double attackBase = (4 + PlayerAttributes.value(player, Stat.MANA_ATT)) * (Cultivation.tizhiDouble(player, "ManaattAttCorrectPercentage") + 1);
         attackBase = (attackBase + Cultivation.tizhiDouble(player, "FireAttCorrect")) * (Cultivation.tizhiDouble(player, "FireAttCorrectPercentage") + 1);
         double attack = attackBase * (1 + PlayerAttributes.elementCoefficient(player, DamageElement.FIRE))
-                + PlayerAttributes.receivedElementBonus(player, DamageElement.FIRE);
+                + PlayerAttributes.receivedElementBonus(golem, DamageElement.FIRE);
         near("玩家火伤害 攻击量 " + attack, attack * attack / (attack + 3), damage);
         expectTrue("重击上僵直", StatusEffects.has(golem, "effect_033"));
         golem.discard();

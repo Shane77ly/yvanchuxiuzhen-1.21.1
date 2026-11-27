@@ -2,31 +2,18 @@
 topic: handoff
 role: guide
 status: current
-updated: 2026-11-26
+updated: 2026-11-27
 ---
 
 # 交接说明
 
-## 当前交接（2026-11-26 阶段 3 通过，下一步阶段 4）
+## 当前交接（2026-11-27 阶段 4）
 
-1. **当前基线**：
-   - 主工作树：`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`（唯一工作树，禁止新建额外 worktree）。
-   - 集成分支 `port/20261123-parity-integration`：已依次通过 `--no-ff` 合入阶段 1A～1D、2A 与 2B（合并提交 `a3534371`，`refactor/p2b-quest-economy-codec-json` 已删除）。未推送、未动 `main`。
-   - 阶段 3 功能分支 `codex/stage3-difu-placement` 从集成起点 `091a7e2b` 继续推进。正式代码基线 `d3e56cc8`，验收配置及夹具修正在本次收口提交；集成位置以 Git 为准。
-2. **2C 暂缓**：妖兽选招与招式执行继续使用现有 Java。53 个行为类的调查见[摸底记录](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2c-启动妖兽选技能规则数据化摸底未改代码)，不作为待执行任务。
-3. **2B 遗留的未验证边界**：
-   - `q119`（初见乾坤道人任务两个选项、断点恢复与传送）因存档副本 `renjian-q119` 只剩 `session.lock` 而无法加载，未验证，需重建夹具后补跑。
-   - `npcvillage` 在 `src` 中无对应场景。场景名更正：`qiankundialogue` 实为 `qiankun`/`q119`，`npcflyingshuttle` 实为 `npc08`。
-   - 10 个场景合跑时出现过 `npcmanagement` 的 yanwang 气血 777/762 与 `fanhuacheng03` 加载 OOM，拆批单跑未复现，原因未查明。
-   - 2B 的完成记录见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2b-完成对话树任务与商店商品表转向-codec--json-数据驱动)。
-2. **负责人最新决定（2026-11-24）与阶段 2B 当前完成度**：
-   - 继续执行**定位 B（零旧存档兼容、全面转向强类型组件与 JSON 数据驱动）**；不保留任何运行期旧 NBT 回退代码，不自动推送、不擅自合并 `main`。
-   - 阶段 2B 已完成 JSON 提取（`tools/porting/extract_quest_economy_json.py`，生成 `shop_catalogs.json` 39 商店、`dialogues.json` 70 对话树、`structure_presets.json` 11 结构预设、`auction_goods.json` 与 `valuation.json`）、14 个 `.nbt` 结构离线升级、`spawn_data.json` 更新、`economy`/`quest`/`npc` 全套强类型 `Codec` 重构（删除 `CommerceGoods.java`、`NpcStructureData.java`、`QuestBlockRefreshData.java`，运行期 `split("%")` / `split("/")` 清零）及 7 个对应 Smoke 用例更新（详情见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2b-完成对话树任务与商店商品表转向-codec--json-数据驱动)）。
-   - **2B 收尾已完成**：Smoke 暴露并修复银行方块四选项脚本丢失、陈氏服饰说明取错常量、`QuestBlockRefreshCheck` 旧商店 ID 错误三处问题（`525a3968`）；`compileJava compileTestJava compileSmokeJava test`、`check_ledger.py`、`check_docs.py`、`git diff --check` 通过；`commerce`、`bank,questjournal,questblockrefresh,questeditor,birthitemdialogue,qiankun`、`npcmanagement`、`npc08,npcresidents` 分批各为 `DONE` 且 0 `FAIL`。
-   - **2B 未验证边界**：`q119`（初见乾坤道人任务两个选项、断点恢复与传送）因存档副本 `renjian-q119` 只剩 `session.lock` 而无法加载，未验证，需重建夹具后补跑；`npcvillage` 在 `src` 中无对应场景；10 个场景合跑时出现过的 yanwang 气血 777/762 与 `fanhuacheng03` 加载 OOM 单跑未复现，原因未查明。场景名更正：`qiankundialogue` 实为 `qiankun`/`q119`，`npcflyingshuttle` 实为 `npc08`。详见[项目月志](../systems/project/logs/2026-11.md#2026-11-25-底层架构重构阶段-2b-完成对话树任务与商店商品表转向-codec--json-数据驱动)。
-3. **接手动作**：阶段 3 固定业务命令清理与大结构验收完成。书、宝箱、宝匣、任务的配置命令保留。2 GiB 下连续六维、地灵直入和城镇十二模板均已通过，证据见[项目月志](../systems/project/logs/2026-11.md#2026-11-26-调整冒烟客户端内存)。开始阶段 4：先核对 Q177 护腿注册名、宝箱和花繁城商店的引用与对应场景。缺少依据的材料映射不猜；按统一问题索引逐项处理。
-4. **每子批次合入门禁**：
-   - 每个 `refactor/*` 分支完成后，串行执行 `./gradlew.bat --no-daemon --max-workers=1 compileJava compileTestJava compileSmokeJava test`、对应系统的 `runSmokeClient`（保持 `soundCategory_master:0.0` 静音）、`python -B -X utf8 tools/porting/check_ledger.py`、`python -B -X utf8 tools/docs/check_docs.py` 与 `git diff --check`，通过后以 `git merge --no-ff` 合入集成分支并更新交接进度；不自动推送、不擅自合并 `main`。
+- **从这里接手**：主工作目录 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`，当前分支已切至集成分支 `port/20261123-parity-integration`（已以 `--no-ff` 合入阶段 1、2A、2B、3 以及阶段 4 已批准批 `refactor/p4-legacy-bug-cleanup`）。未合 `main`、未推送；不要动 `main` 或其他工作树。
+- **已验证并合入的阶段 4 批次（2026-11-27）**：`festivalfirework`（`pao_13` 近景）、Q05、Q26（第 6/7 表 `max=8/12`）、Q71（玩家商铺领取清零）、Q84（维度直接比较）、Q177（护腿与删去三级妖兽材料 `cailiao_153` 余 21 签）、战斗批 Q18/Q29/Q30（受击同属性功法减伤及负伤保护、体质防御修正、`mana_Def` 护甲项、物理破甲=1/暴击倍率/攻击者 `AttackAttCorrectPercentage`/闪避 1–100/去重吸血/空团队不免伤；`combat` 与 `q235spellshield` 0 `FAIL`/`DONE`）以及符箓批 Q64–Q67（`FuluConsumeJingliPercentage` 乘法、21 号保留 `fulunumber` 累加、46 号先写 `CASTER.level46` 再发射且首刻读并清零、32 号单次分裂；`fulucooking` 0 `FAIL`/`DONE`）。
+- **已验证与待裁定**：合入后全量编译、`AttributeTotalsTest`、ArchUnit 与 `jar` 门禁及台账/文档校验通过；`attribute` 先前合跑中仅 2026-11-03 旧夹具“重生后 当前生命 30.0”因后续 `Rebirth` 二成回血机制变化而报 11.0（`受击方火功法项 -10.0` 通过）。其余未批复的阶段 4 候选项（Q13/Q19/Q25/Q32/Q33/Q35/Q72/Q73 等）待负责人指示后再另行开批或评估是否合入 `main`，参见[剩余工作](remaining-work.md)。
+- **既定边界**：2C 暂缓，妖兽 AI 保留 Java。阶段 3 的连续六维、地灵直入及十二城镇模板已按正式代码、2 GiB 客户端验收；768 MiB 客户端只用于可选压力测试。重型验证串行，Gradle 768 MiB、单 worker。
+- **2B 遗留**：`q119` 需重建存档夹具；`npcvillage` 无对应场景；合跑时 `npcmanagement` 气血差异和 `fanhuacheng03` 内存不足单跑未复现。见[项目月志](../systems/project/logs/2026-11.md)。
 
 ## 历史交接（2026-11-24 双源保真修复与边界收口）
 

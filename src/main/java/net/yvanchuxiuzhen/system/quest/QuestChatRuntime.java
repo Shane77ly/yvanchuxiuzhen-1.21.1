@@ -98,11 +98,9 @@ final class QuestChatRuntime {
                             new AABB(center, center).inflate(checkPos.size() / 2), candidate -> candidate == player).contains(player);
                     state.putInt("renwuweizhi", present ? checkPos.insideTarget() : checkPos.outsideTarget());
                 }
-                case DialogueNodeDefinition.CheckDimensionNode checkDim -> {
-                    String dimension = "ResourceKey[minecraft:dimension / ]" + checkDim.dimension() + "]";
-                    state.putInt("renwuweizhi", player.level().dimension().toString().equals(dimension)
-                            ? checkDim.matchTarget() : checkDim.mismatchTarget());
-                }
+                case DialogueNodeDefinition.CheckDimensionNode checkDim ->
+                        state.putInt("renwuweizhi", DialogueRuntime.matchesDimension(player, checkDim.dimension())
+                                ? checkDim.matchTarget() : checkDim.mismatchTarget());
                 case DialogueNodeDefinition.CheckQuestNode checkQuest -> {
                     String status = DialogueActions.journal(player).getString(checkQuest.questId() + "zhuangtai");
                     state.putInt("renwuweizhi", status.equals("完成") ? checkQuest.completedTarget()

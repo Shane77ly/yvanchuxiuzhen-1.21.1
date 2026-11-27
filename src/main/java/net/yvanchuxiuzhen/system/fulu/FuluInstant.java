@@ -421,12 +421,11 @@ final class FuluInstant {
     }
 
     /**
-     * 46：从眼前射出一枚火球。来源把品阶写进 {@link FuluData#CASTER}，而火球读的是玩家体质里的 {@code fululevel46}（仅 13 号符写入），
-     * 所以玩家直接使用 46 号符的火球按品阶 1 结算；保持来源（登记为 Q66）。
+     * 46：先将品阶写入 {@link FuluData#CASTER} 再射出火球，由火球首刻读取并清零（Q66 已修正）。
      */
     private static void fireball(ServerLevel level, ServerPlayer player, double grade) {
-        TalismanProjectile.launch(level, FuluSetup.projectile(Kind.FIREBALL).get(), player, eyeFront(player), player.getLookAngle());
         player.setData(FuluData.CASTER, player.getData(FuluData.CASTER).withLevel46(grade));
+        TalismanProjectile.launch(level, FuluSetup.projectile(Kind.FIREBALL).get(), player, eyeFront(player), player.getLookAngle());
     }
 
     private static BlockPos looked(ServerLevel level, Entity viewer, double distance) {

@@ -3328,9 +3328,31 @@
             }
           },
           {
-            "weight": 4,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_28"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_29"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_36"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_42"
             }
           }
         ]
@@ -3494,9 +3516,31 @@
             }
           },
           {
-            "weight": 4,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_39"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_40"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_44"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_45"
             }
           }
         ]
@@ -3580,9 +3624,45 @@
             }
           },
           {
-            "weight": 6,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_39"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_40"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_44"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_45"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_10"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_12"
             }
           }
         ]
@@ -3666,9 +3746,24 @@
             }
           },
           {
-            "weight": 3,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_19"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_20"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "fulu",
+              "item": "yvanchuxiuzhen:itemfulu_21"
             }
           }
         ]
@@ -3886,7 +3981,7 @@
         ]
       },
       {
-        "min_level": 9.0,
+        "min_level": 8.0,
         "context": {
           "fulu_level": 0,
           "fulu_tier_text": ""
@@ -6957,7 +7052,7 @@
             "weight": 1,
             "reward": {
               "kind": "command",
-              "command": "lianqi yvanchuxiuzhen:armor_01_leggins 罩甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 黄阶四级 4 4 30 10 6 0 0.03 1 1 1 100"
+              "command": "lianqi yvanchuxiuzhen:armor_01_leggings 罩甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 黄阶四级 4 4 30 10 6 0 0.03 1 1 1 100"
             }
           },
           {
@@ -6991,7 +7086,7 @@
             "weight": 1,
             "reward": {
               "kind": "command",
-              "command": "lianqi yvanchuxiuzhen:armor_02_leggins 铁胄甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 黄阶九级 9 8 54 18 6 0 0.06 1 1 1 100"
+              "command": "lianqi yvanchuxiuzhen:armor_02_leggings 铁胄甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 黄阶九级 9 8 54 18 6 0 0.06 1 1 1 100"
             }
           },
           {
@@ -7025,7 +7120,7 @@
             "weight": 1,
             "reward": {
               "kind": "command",
-              "command": "lianqi yvanchuxiuzhen:armor_03_leggins 山甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 玄阶四级 14 15 95 32 6 0 0.09 2 2 1 100"
+              "command": "lianqi yvanchuxiuzhen:armor_03_leggings 山甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 玄阶四级 14 15 95 32 6 0 0.09 2 2 1 100"
             }
           },
           {
@@ -7059,7 +7154,7 @@
             "weight": 1,
             "reward": {
               "kind": "command",
-              "command": "lianqi yvanchuxiuzhen:armor_04_leggins 漆铜战甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 玄阶九级 19 23 140 47 6 0 0.12 3 3 1 100"
+              "command": "lianqi yvanchuxiuzhen:armor_04_leggings 漆铜战甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 玄阶九级 19 23 140 47 6 0 0.12 3 3 1 100"
             }
           },
           {
@@ -7093,7 +7188,7 @@
             "weight": 1,
             "reward": {
               "kind": "command",
-              "command": "lianqi yvanchuxiuzhen:armor_05_leggins 银铁战甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 地阶四级 24 37 199 67 6 0 0.15 3 3 2 100"
+              "command": "lianqi yvanchuxiuzhen:armor_05_leggings 银铁战甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 地阶四级 24 37 199 67 6 0 0.15 3 3 2 100"
             }
           },
           {
@@ -7127,7 +7222,7 @@
             "weight": 1,
             "reward": {
               "kind": "command",
-              "command": "lianqi yvanchuxiuzhen:armor_06_leggins 风林战甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 地阶九级 29 53 262 88 6 0 0.18 4 4 2 100"
+              "command": "lianqi yvanchuxiuzhen:armor_06_leggings 风林战甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 地阶九级 29 53 262 88 6 0 0.18 4 4 2 100"
             }
           },
           {
@@ -7161,7 +7256,7 @@
             "weight": 1,
             "reward": {
               "kind": "command",
-              "command": "lianqi yvanchuxiuzhen:armor_07_leggins 金漆山纹甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 天阶四级 34 82 342 114 6 0 0.21 6 6 3 100"
+              "command": "lianqi yvanchuxiuzhen:armor_07_leggings 金漆山纹甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 天阶四级 34 82 342 114 6 0 0.21 6 6 3 100"
             }
           },
           {
@@ -7194,7 +7289,7 @@
             "weight": 1,
             "reward": {
               "kind": "command",
-              "command": "lianqi yvanchuxiuzhen:armor_08_leggins 明光甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 天阶九级 39 114 426 142 6 0 0.24 7 7 3 100"
+              "command": "lianqi yvanchuxiuzhen:armor_08_leggings 明光甲裤子 重甲类的物理防御优异，但精神防御很弱。 裤子 天阶九级 39 114 426 142 6 0 0.24 7 7 3 100"
             }
           },
           {
@@ -7471,9 +7566,153 @@
             }
           },
           {
-            "weight": 6,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_010",
+              "skill_kind": "jineng",
+              "name": "风弹术",
+              "grade": 3.0,
+              "level": 3.0,
+              "body": "木火",
+              "intro": "发射一枚风弹，击退命中的敌方实体。",
+              "numbers": {
+                "jinengmanaatt": 1.0,
+                "jinengshanghai": 0.8,
+                "jinengxiaohao": 1.0,
+                "jinengjieyin": 0.0,
+                "Treecolddown": 5.0,
+                "Firecolddown": -1.0,
+                "Treecoldignore": 30.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_010",
+              "skill_kind": "jineng",
+              "name": "造云术",
+              "grade": 5.0,
+              "level": 5.0,
+              "body": "木火",
+              "intro": "制造一片白云，把自身隐藏其中。",
+              "numbers": {
+                "jinengmanaatt": 1.0,
+                "jinengshanghai": 1.0,
+                "jinengxiaohao": 2.0,
+                "jinengjieyin": 20.0,
+                "Treecolddown": 20.0,
+                "Firecolddown": -4.0,
+                "Treecoldignore": 60.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_006",
+              "skill_kind": "jineng",
+              "name": "火球术",
+              "grade": 1.0,
+              "level": 1.0,
+              "body": "火",
+              "intro": "发射一枚火球，命中时引燃敌方实体。",
+              "numbers": {
+                "jinengmanaatt": 2.0,
+                "jinengshanghai": 1.2,
+                "jinengxiaohao": 1.2,
+                "jinengjieyin": 0.0,
+                "Firecolddown": 10.0,
+                "Soilcolddown": -2.0,
+                "Firecoldignore": 40.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_026",
+              "skill_kind": "jineng",
+              "name": "引火",
+              "grade": 4.0,
+              "level": 4.0,
+              "body": "火",
+              "intro": "引燃前方范围内的敌方实体。",
+              "numbers": {
+                "jinengmanaatt": 1.0,
+                "jinengshanghai": 1.0,
+                "jinengxiaohao": 0.5,
+                "jinengjieyin": 0.0,
+                "Firecolddown": 10.0,
+                "Soilcolddown": -2.0,
+                "Firecoldignore": 80.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_029",
+              "skill_kind": "jineng",
+              "name": "光弹术",
+              "grade": 3.0,
+              "level": 3.0,
+              "body": "火",
+              "intro": "伤害较低，但冷却很短的光弹，速度也是极快。",
+              "numbers": {
+                "jinengmanaatt": 2.0,
+                "jinengshanghai": 0.8,
+                "jinengxiaohao": 0.8,
+                "jinengjieyin": 0.0,
+                "Firecolddown": 3.0,
+                "Soilcolddown": -1.0,
+                "Firecoldignore": 20.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_008",
+              "skill_kind": "jineng",
+              "name": "飞石术",
+              "grade": 1.0,
+              "level": 1.0,
+              "body": "土",
+              "intro": "向前投掷一个低消耗低冷却，且有抛物线的石头。",
+              "numbers": {
+                "jinengmanaatt": 3.0,
+                "jinengshanghai": 1.0,
+                "jinengxiaohao": 1.0,
+                "jinengjieyin": 0.0,
+                "Soilcolddown": 5.0,
+                "Goldcolddown": -1.0,
+                "Soilcoldignore": 60.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
             }
           }
         ]
@@ -7939,9 +8178,278 @@
             }
           },
           {
-            "weight": 11,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_004",
+              "skill_kind": "jineng",
+              "name": "木篱术",
+              "grade": 11.0,
+              "level": 11.0,
+              "body": "木",
+              "intro": "围绕自身生长木篱，用于抵挡远程伤害。",
+              "numbers": {
+                "jinengmanaatt": 1.0,
+                "jinengshanghai": 1.0,
+                "jinengxiaohao": 3.0,
+                "jinengjieyin": 0.0,
+                "Treecolddown": 20.0,
+                "Firecolddown": -4.0,
+                "Treecoldignore": 60.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_004",
+              "skill_kind": "jineng",
+              "name": "乱木之种",
+              "grade": 13.0,
+              "level": 13.0,
+              "body": "木",
+              "intro": "前方种植一个隐蔽的小芽，会在一段时间后生长出一堆枯枝，造成小范围禁锢和伤害。",
+              "numbers": {
+                "jinengmanaatt": 5.0,
+                "jinengshanghai": 2.0,
+                "jinengxiaohao": 2.0,
+                "jinengjieyin": 0.0,
+                "Treecolddown": 5.0,
+                "Firecolddown": -1.0,
+                "Treecoldignore": 30.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_012",
+              "skill_kind": "jineng",
+              "name": "地蔓鞭",
+              "grade": 15.0,
+              "level": 15.0,
+              "body": "木",
+              "intro": "在前方召唤一个藤鞭，会自动攻击附近敌方实体。",
+              "numbers": {
+                "jinengmanaatt": 3.0,
+                "jinengshanghai": 1.5,
+                "jinengxiaohao": 2.0,
+                "jinengjieyin": 20.0,
+                "Treecolddown": 15.0,
+                "Firecolddown": -5.0,
+                "Treecoldignore": 40.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_010",
+              "skill_kind": "jineng",
+              "name": "聚风术",
+              "grade": 15.0,
+              "level": 15.0,
+              "body": "木火",
+              "intro": "前方召唤一个飓风漩涡，让范围内敌方实体聚拢到中心。",
+              "numbers": {
+                "jinengmanaatt": 3.0,
+                "jinengshanghai": 1.0,
+                "jinengxiaohao": 2.0,
+                "jinengjieyin": 5.0,
+                "Treecolddown": 20.0,
+                "Firecolddown": -4.0,
+                "Treecoldignore": 60.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_010",
+              "skill_kind": "jineng",
+              "name": "风飘术",
+              "grade": 12.0,
+              "level": 12.0,
+              "body": "木火",
+              "intro": "给自身加速一段时间，并且期间内飞行技能的速度更快，消耗更小。",
+              "numbers": {
+                "jinengmanaatt": 1.0,
+                "jinengshanghai": 1.0,
+                "jinengxiaohao": 2.0,
+                "jinengjieyin": 0.0,
+                "Treecolddown": 20.0,
+                "Firecolddown": -4.0,
+                "Treecoldignore": 60.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_006",
+              "skill_kind": "jineng",
+              "name": "连环火球术",
+              "grade": 11.0,
+              "level": 11.0,
+              "body": "火",
+              "intro": "发射伤害虽降低一点，但冷却更短的小火球。",
+              "numbers": {
+                "jinengmanaatt": 2.0,
+                "jinengshanghai": 1.5,
+                "jinengxiaohao": 1.5,
+                "jinengjieyin": 0.0,
+                "Firecolddown": 5.0,
+                "Soilcolddown": -1.0,
+                "Firecoldignore": 40.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_006",
+              "skill_kind": "jineng",
+              "name": "大火球",
+              "grade": 14.0,
+              "level": 14.0,
+              "body": "火",
+              "intro": "发射一枚巨大火球砸向前方，造成范围伤害并引燃。",
+              "numbers": {
+                "jinengmanaatt": 6.0,
+                "jinengshanghai": 2.0,
+                "jinengxiaohao": 3.0,
+                "jinengjieyin": 20.0,
+                "Firecolddown": 20.0,
+                "Soilcolddown": -4.0,
+                "Firecoldignore": 60.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_026",
+              "skill_kind": "jineng",
+              "name": "火焰护盾",
+              "grade": 12.0,
+              "level": 12.0,
+              "body": "火",
+              "intro": "一段时间内，受到的火系法术伤害降低30%",
+              "numbers": {
+                "jinengmanaatt": 1.0,
+                "jinengshanghai": 1.0,
+                "jinengxiaohao": 2.0,
+                "jinengjieyin": 20.0,
+                "Firecolddown": 20.0,
+                "Soilcolddown": -4.0,
+                "Firecoldignore": 40.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_023",
+              "skill_kind": "jineng",
+              "name": "天雷术",
+              "grade": 15.0,
+              "level": 15.0,
+              "body": "火",
+              "intro": "在前方召唤一道落雷，造成范围伤害。",
+              "numbers": {
+                "jinengmanaatt": 5.0,
+                "jinengshanghai": 1.5,
+                "jinengxiaohao": 1.5,
+                "jinengjieyin": 0.0,
+                "Firecolddown": 10.0,
+                "Soilcolddown": -1.0,
+                "Firecoldignore": 40.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_029",
+              "skill_kind": "jineng",
+              "name": "幻光术",
+              "grade": 14.0,
+              "level": 14.0,
+              "body": "火",
+              "intro": "发射一个缓慢飞行的粉色光弹，对命中的敌方实体造成伤害并给予混乱效果。",
+              "numbers": {
+                "jinengmanaatt": 2.0,
+                "jinengshanghai": 1.2,
+                "jinengxiaohao": 1.5,
+                "jinengjieyin": 0.0,
+                "Firecolddown": 10.0,
+                "Soilcolddown": -1.0,
+                "Firecoldignore": 40.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_008",
+              "skill_kind": "jineng",
+              "name": "滚石术",
+              "grade": 11.0,
+              "level": 11.0,
+              "body": "土",
+              "intro": "召唤一个巨大滚石，滚石向前方碾去，对范围内敌方实体造成伤害。",
+              "numbers": {
+                "jinengmanaatt": 5.0,
+                "jinengshanghai": 1.5,
+                "jinengxiaohao": 3.0,
+                "jinengjieyin": 0.0,
+                "Soilcolddown": 12.0,
+                "Goldcolddown": -4.0,
+                "Soilcoldignore": 60.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
             }
           }
         ]
@@ -9410,9 +9918,278 @@
             }
           },
           {
-            "weight": 11,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_004",
+              "skill_kind": "jineng",
+              "name": "木篱术",
+              "grade": 11.0,
+              "level": 11.0,
+              "body": "木",
+              "intro": "围绕自身生长木篱，用于抵挡远程伤害。",
+              "numbers": {
+                "jinengmanaatt": 1.0,
+                "jinengshanghai": 1.0,
+                "jinengxiaohao": 3.0,
+                "jinengjieyin": 0.0,
+                "Treecolddown": 20.0,
+                "Firecolddown": -4.0,
+                "Treecoldignore": 60.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_004",
+              "skill_kind": "jineng",
+              "name": "乱木之种",
+              "grade": 13.0,
+              "level": 13.0,
+              "body": "木",
+              "intro": "前方种植一个隐蔽的小芽，会在一段时间后生长出一堆枯枝，造成小范围禁锢和伤害。",
+              "numbers": {
+                "jinengmanaatt": 5.0,
+                "jinengshanghai": 2.0,
+                "jinengxiaohao": 2.0,
+                "jinengjieyin": 0.0,
+                "Treecolddown": 5.0,
+                "Firecolddown": -1.0,
+                "Treecoldignore": 30.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_012",
+              "skill_kind": "jineng",
+              "name": "地蔓鞭",
+              "grade": 15.0,
+              "level": 15.0,
+              "body": "木",
+              "intro": "在前方召唤一个藤鞭，会自动攻击附近敌方实体。",
+              "numbers": {
+                "jinengmanaatt": 3.0,
+                "jinengshanghai": 1.5,
+                "jinengxiaohao": 2.0,
+                "jinengjieyin": 20.0,
+                "Treecolddown": 15.0,
+                "Firecolddown": -5.0,
+                "Treecoldignore": 40.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_010",
+              "skill_kind": "jineng",
+              "name": "聚风术",
+              "grade": 15.0,
+              "level": 15.0,
+              "body": "木火",
+              "intro": "前方召唤一个飓风漩涡，让范围内敌方实体聚拢到中心。",
+              "numbers": {
+                "jinengmanaatt": 3.0,
+                "jinengshanghai": 1.0,
+                "jinengxiaohao": 2.0,
+                "jinengjieyin": 5.0,
+                "Treecolddown": 20.0,
+                "Firecolddown": -4.0,
+                "Treecoldignore": 60.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_010",
+              "skill_kind": "jineng",
+              "name": "风飘术",
+              "grade": 12.0,
+              "level": 12.0,
+              "body": "木火",
+              "intro": "给自身加速一段时间，并且期间内飞行技能的速度更快，消耗更小。",
+              "numbers": {
+                "jinengmanaatt": 1.0,
+                "jinengshanghai": 1.0,
+                "jinengxiaohao": 2.0,
+                "jinengjieyin": 0.0,
+                "Treecolddown": 20.0,
+                "Firecolddown": -4.0,
+                "Treecoldignore": 60.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_006",
+              "skill_kind": "jineng",
+              "name": "连环火球术",
+              "grade": 11.0,
+              "level": 11.0,
+              "body": "火",
+              "intro": "发射伤害虽降低一点，但冷却更短的小火球。",
+              "numbers": {
+                "jinengmanaatt": 2.0,
+                "jinengshanghai": 1.5,
+                "jinengxiaohao": 1.5,
+                "jinengjieyin": 0.0,
+                "Firecolddown": 5.0,
+                "Soilcolddown": -1.0,
+                "Firecoldignore": 40.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_006",
+              "skill_kind": "jineng",
+              "name": "大火球",
+              "grade": 14.0,
+              "level": 14.0,
+              "body": "火",
+              "intro": "发射一枚巨大火球砸向前方，造成范围伤害并引燃。",
+              "numbers": {
+                "jinengmanaatt": 6.0,
+                "jinengshanghai": 2.0,
+                "jinengxiaohao": 3.0,
+                "jinengjieyin": 20.0,
+                "Firecolddown": 20.0,
+                "Soilcolddown": -4.0,
+                "Firecoldignore": 60.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_026",
+              "skill_kind": "jineng",
+              "name": "火焰护盾",
+              "grade": 12.0,
+              "level": 12.0,
+              "body": "火",
+              "intro": "一段时间内，受到的火系法术伤害降低30%",
+              "numbers": {
+                "jinengmanaatt": 1.0,
+                "jinengshanghai": 1.0,
+                "jinengxiaohao": 2.0,
+                "jinengjieyin": 20.0,
+                "Firecolddown": 20.0,
+                "Soilcolddown": -4.0,
+                "Firecoldignore": 40.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_023",
+              "skill_kind": "jineng",
+              "name": "天雷术",
+              "grade": 15.0,
+              "level": 15.0,
+              "body": "火",
+              "intro": "在前方召唤一道落雷，造成范围伤害。",
+              "numbers": {
+                "jinengmanaatt": 5.0,
+                "jinengshanghai": 1.5,
+                "jinengxiaohao": 1.5,
+                "jinengjieyin": 0.0,
+                "Firecolddown": 10.0,
+                "Soilcolddown": -1.0,
+                "Firecoldignore": 40.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_029",
+              "skill_kind": "jineng",
+              "name": "幻光术",
+              "grade": 14.0,
+              "level": 14.0,
+              "body": "火",
+              "intro": "发射一个缓慢飞行的粉色光弹，对命中的敌方实体造成伤害并给予混乱效果。",
+              "numbers": {
+                "jinengmanaatt": 2.0,
+                "jinengshanghai": 1.2,
+                "jinengxiaohao": 1.5,
+                "jinengjieyin": 0.0,
+                "Firecolddown": 10.0,
+                "Soilcolddown": -1.0,
+                "Firecoldignore": 40.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "skill",
+              "item": "yvanchuxiuzhen:book_008",
+              "skill_kind": "jineng",
+              "name": "滚石术",
+              "grade": 11.0,
+              "level": 11.0,
+              "body": "土",
+              "intro": "召唤一个巨大滚石，滚石向前方碾去，对范围内敌方实体造成伤害。",
+              "numbers": {
+                "jinengmanaatt": 5.0,
+                "jinengshanghai": 1.5,
+                "jinengxiaohao": 3.0,
+                "jinengjieyin": 0.0,
+                "Soilcolddown": 12.0,
+                "Goldcolddown": -4.0,
+                "Soilcoldignore": 60.0
+              },
+              "texts": {
+                "jinengneeditem": "无"
+              }
             }
           }
         ]
@@ -12258,9 +13035,24 @@
             }
           },
           {
-            "weight": 3,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_092"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_093"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_094"
             }
           }
         ]
@@ -12528,9 +13320,66 @@
             }
           },
           {
-            "weight": 10,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_074"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_079"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_080"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_098"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_099"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_100"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_101"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_102"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_142"
             }
           }
         ]
@@ -12784,9 +13633,80 @@
             }
           },
           {
-            "weight": 11,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_063"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_064"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_082"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_108"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_109"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_110"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_111"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_112"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_113"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_114"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_145"
             }
           }
         ]
@@ -13033,9 +13953,80 @@
             }
           },
           {
-            "weight": 11,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_083"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_084"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_121"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_122"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_123"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_124"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_125"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_126"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_127"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_128"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_129"
             }
           }
         ]
@@ -13149,9 +14140,87 @@
             }
           },
           {
-            "weight": 12,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_086"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_130"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_131"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_132"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_133"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_134"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_135"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_136"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_137"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_138"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_139"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "material",
+              "item": "yvanchuxiuzhen:cailiao_140"
             }
           }
         ]
@@ -14152,9 +15221,381 @@
             }
           },
           {
-            "weight": 54,
+            "weight": 1,
             "reward": {
-              "kind": "empty"
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_010"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_011"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_012"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_013"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_014"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_015"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_01501"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_01502"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_016"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_01602"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_017"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_018"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_019"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_020"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_021"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_022"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_023"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_024"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_025"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_026"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_027"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_028"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_029"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_030"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_031"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_032"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_033"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_034"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_035"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_036"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_037"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_038"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_039"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_040"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_041"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_042"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_043"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_044"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_045"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_046"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_04601"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_047"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_04701"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_048"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_04801"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_049"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_04901"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_050"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_051"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_052"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_053"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_054"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_055"
+            }
+          },
+          {
+            "weight": 1,
+            "reward": {
+              "kind": "item",
+              "item": "yvanchuxiuzhen:shicai_056"
             }
           }
         ]

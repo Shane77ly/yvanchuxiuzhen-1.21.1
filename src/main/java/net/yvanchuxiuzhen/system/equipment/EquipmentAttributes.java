@@ -97,8 +97,8 @@ public final class EquipmentAttributes {
             event.add(switch (event.key()) {
                 case "attack_Def" -> stats.physicalDefense();
                 case "soul_Def" -> stats.soulDefense();
-                // 来源伤害链的法术护甲项实际读取 mana_Att，不能替换成 mana_Def。
-                case "mana_Att" -> stats.spellAttack();
+                // Q30 修正：法术护甲防御项改读 mana_Def（原 1.18.2 误读 mana_Att）。
+                case "mana_Def" -> stats.spellDefense();
                 default -> throw new IllegalArgumentException("护甲查询项：" + event.key());
             });
         }

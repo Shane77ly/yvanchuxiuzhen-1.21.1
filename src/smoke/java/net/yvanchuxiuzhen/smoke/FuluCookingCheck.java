@@ -112,6 +112,9 @@ import net.yvanchuxiuzhen.system.craft.content.StoneMillMenu;
 import net.yvanchuxiuzhen.system.craft.content.LoomBlockEntity;
 import net.yvanchuxiuzhen.system.fulu.DrawingTableRuntime;
 import net.yvanchuxiuzhen.system.fulu.FuluRanged;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.yvanchuxiuzhen.system.attribute.api.EntityAttributes;
+import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.fulu.FuluUse;
 import net.yvanchuxiuzhen.system.fulu.api.Fulu;
 import net.yvanchuxiuzhen.system.fulu.api.FuluKnowledge;
@@ -162,7 +165,8 @@ final class FuluCookingCheck extends ActionCheck {
     private BlockPos inheritancePos;
     private final Map<BlockPos, BlockState> inheritanceBlocks = new LinkedHashMap<>();
     private final Map<BlockPos, BlockState> burnerBlocks = new LinkedHashMap<>();
-    private static final List<String> TALISMAN_KEYS = List.of("fulunumber", "fuluxiaoguo02", "fulu02level", "fulu02tick", "fuluxiaoguo24",
+    private static final List<String> TALISMAN_KEYS = List.of("fulunumber", "FuluConsumeJingli", "FuluConsumeJingliPercentage",
+            "fuluxiaoguo02", "fulu02level", "fulu02tick", "fuluxiaoguo24",
             "fulu24level", "fulu24tick", "fuluxiaoguo13", "fulu13level", "fulu13tick", "fulu1301tick", "fululevel46", "fuluxiaoguo17",
             "fulu17level", "fulu17tick", "fulu1701tick", "fuluxiaoguo21", "fulu21level", "fulu21tick", "fuluxiaoguo39", "fulu39level", "fulu39tick");
     private GameType gameMode;
@@ -603,6 +607,8 @@ final class FuluCookingCheck extends ActionCheck {
                     p.removeAllEffects();
                     Cultivation.editTizhi(p, tizhi -> TALISMAN_KEYS.stream().filter(key -> key.startsWith("fuluxiaoguo")).forEach(key -> tizhi.putBoolean(key, false)));
                     Cultivation.set(p, CultivationValue.SOUL, 20);
+                    Cultivation.setTizhiDouble(p, "FuluConsumeJingli", 5);
+                    Cultivation.setTizhiDouble(p, "FuluConsumeJingliPercentage", 0.2);
                     p.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "duyao_01")).orElseThrow(), 600, 0));
                     p.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 600, 5));
                     p.getInventory().setItem(HOTBAR, talisman("itemfulu_21", 1, 1));
@@ -610,9 +616,14 @@ final class FuluCookingCheck extends ActionCheck {
                     useHeld();
                 }),
                 new Action(4, p -> {
-                    expectTrue("21 号符一阶：清除等级不高于 1 的毒药 01，保留等级 5 的虚弱，登记生效",
-                            !p.hasEffect(BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "duyao_01")).orElseThrow())
+                    expectTrue("21 号符一阶与 Q64/Q65：扣 (10+5)×1.2=18 精力、保留已有生效数累加至 4（而非清回 1）、清 duyao_01、留虚弱 5（精力 "
+                                    + Cultivation.get(p, CultivationValue.SOUL) + "，生效数 " + Cultivation.tizhiDouble(p, "fulunumber") + "）",
+                            Math.abs(Cultivation.get(p, CultivationValue.SOUL) - 2) < 2.5
+                                    && Cultivation.tizhiDouble(p, "fulunumber") == 4
+                                    && !p.hasEffect(BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "duyao_01")).orElseThrow())
                                     && p.hasEffect(MobEffects.WEAKNESS) && Cultivation.tizhiBoolean(p, "fuluxiaoguo21") && p.getInventory().getItem(HOTBAR).isEmpty());
+                    Cultivation.setTizhiDouble(p, "FuluConsumeJingli", 0);
+                    Cultivation.setTizhiDouble(p, "FuluConsumeJingliPercentage", 0);
                     Cultivation.set(p, CultivationValue.SOUL, 20);
                     p.getInventory().setItem(HOTBAR, talisman("itemfulu_39", 1, 1));
                     p.inventoryMenu.broadcastChanges();
@@ -642,15 +653,44 @@ final class FuluCookingCheck extends ActionCheck {
                     expectTrue("11 号符一阶：吸收等级 6、抗性等级 0（精力 " + Cultivation.get(p, CultivationValue.SOUL) + "，效果 " + p.getActiveEffects() + "）",
                             p.hasEffect(MobEffects.ABSORPTION) && p.getEffect(MobEffects.ABSORPTION).getAmplifier() == 6
                                     && p.hasEffect(MobEffects.DAMAGE_RESISTANCE) && p.getEffect(MobEffects.DAMAGE_RESISTANCE).getAmplifier() == 0);
+                    p.connection.teleport(p.getX(), p.getY(), p.getZ(), 0f, 0f);
+                    for (BlockPos pos : BlockPos.betweenClosed(p.blockPosition().offset(-1, -1, 0), p.blockPosition().offset(1, 2, 5))) {
+                        BlockPos saved = pos.immutable();
+                        clusterAir.putIfAbsent(saved, p.serverLevel().getBlockState(saved));
+                        p.serverLevel().setBlockAndUpdate(saved, saved.getY() == p.blockPosition().getY() - 1
+                                ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState());
+                    }
+                    minecraft.execute(() -> {
+                        minecraft.player.setYRot(0f);
+                        minecraft.player.setXRot(0f);
+                    });
+                }),
+                new Action(4, p -> {
                     Cultivation.set(p, CultivationValue.SOUL, 20);
+                    Cultivation.setTizhiDouble(p, "FuluConsumeJingliPercentage", -0.6);
                     Cultivation.setTizhiDouble(p, "fululevel46", 0);
-                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_46", 1, 1));
+                    dummy = EntityType.IRON_GOLEM.create(p.serverLevel());
+                    dummy.moveTo(p.getX(), p.getY(), p.getZ() + 3.5, 0, 0);
+                    dummy.setNoAi(true);
+                    dummy.setPersistenceRequired();
+                    EntityAttributes.setStat(dummy, Stat.MANA_DEF, 0);
+                    p.serverLevel().addFreshEntity(dummy);
+                    p.getInventory().setItem(HOTBAR, talisman("itemfulu_46", 1, 2));
                     p.inventoryMenu.broadcastChanges();
                     useHeld();
                 }),
-                new Action(4, p -> {
-                    expectTrue("46 号符使用后品阶写入实体附着而非体质（来源 Q66；精力 " + Cultivation.get(p, CultivationValue.SOUL) + "，附着 " + p.getData(FuluData.CASTER).level46() + "，体质 " + Cultivation.tizhiDouble(p, "fululevel46") + "）",
-                            p.getData(FuluData.CASTER).level46() == 1 && Cultivation.tizhiDouble(p, "fululevel46") == 0);
+                new Action(10, p -> {
+                    expectTrue("46 号符二阶 Q66：消耗符箓、先写附着、火球首刻读二阶并清零且不改体质，命中铁傀儡造成 30 伤（消耗 "
+                                    + p.getInventory().getItem(HOTBAR).isEmpty() + "，附着 " + p.getData(FuluData.CASTER).level46()
+                                    + "，体质 " + Cultivation.tizhiDouble(p, "fululevel46")
+                                    + "，傀儡生命 " + dummy.getHealth() + "）",
+                            p.getInventory().getItem(HOTBAR).isEmpty()
+                                    && p.getData(FuluData.CASTER).level46() == 0
+                                    && Cultivation.tizhiDouble(p, "fululevel46") == 0
+                                    && dummy.getHealth() <= 75);
+                    dummy.discard();
+                    dummy = null;
+                    Cultivation.setTizhiDouble(p, "FuluConsumeJingliPercentage", 0);
                 
                     Cultivation.set(p, CultivationValue.SOUL, 20);
                     p.getInventory().setItem(HOTBAR, talisman("itemfulu_05", 1, 1));
@@ -665,7 +705,7 @@ final class FuluCookingCheck extends ActionCheck {
                     p.inventoryMenu.broadcastChanges();
                     for (BlockPos pos : BlockPos.betweenClosed(p.blockPosition().offset(-4, 2, -4), p.blockPosition().offset(4, 38, 4))) {
                         BlockPos saved = pos.immutable();
-                        clusterAir.put(saved, p.serverLevel().getBlockState(saved));
+                        clusterAir.putIfAbsent(saved, p.serverLevel().getBlockState(saved));
                         p.serverLevel().setBlockAndUpdate(saved, Blocks.AIR.defaultBlockState());
                     }
                     minecraft.execute(() -> {

@@ -58,8 +58,8 @@ public final class FuluUse {
 
     /**
      * 精力付款：非创造玩家扣除 {@code 品阶² × 10}，体质 {@code FuluConsumeJingli} 非 0 时加上固定值；
-     * {@code FuluConsumeJingliPercentage} 非 0 时来源乘的是 {@code (FuluConsumeJingli + 1)} 而不是自己的值，
-     * 疑似字段误用，保持来源（登记为 Q64）。精力不足返回 false 且不扣；创造模式与非玩家直接通过。
+     * {@code FuluConsumeJingliPercentage} 非 0 时乘以 {@code (FuluConsumeJingliPercentage + 1)}（Q64 已修正）。
+     * 精力不足返回 false 且不扣；创造模式与非玩家直接通过。
      */
     static boolean pay(Entity entity, ItemStack stack) {
         if (!(entity instanceof Player player) || player.isCreative()) {
@@ -70,8 +70,9 @@ public final class FuluUse {
         if (fixed != 0) {
             cost += fixed;
         }
-        if (Cultivation.tizhiDouble(player, "FuluConsumeJingliPercentage") != 0) {
-            cost *= fixed + 1;
+        double percentage = Cultivation.tizhiDouble(player, "FuluConsumeJingliPercentage");
+        if (percentage != 0) {
+            cost *= percentage + 1;
         }
         double soul = Cultivation.get(player, CultivationValue.SOUL);
         if (soul < cost) {
@@ -86,7 +87,7 @@ public final class FuluUse {
     /**
      * 按编号分派成品施用；持续效果符先付款，再判断该编号是否已生效。已生效时精力已经扣除而符不消耗（来源顺序）；
      * 未生效时登记品阶、计入生效数、播放释放声并消耗一张。21 号符另清除低于 {@code 2×品阶−1} 的负面状态，
-     * 其生效数来源读的是物品而不是玩家的 {@code fulunumber}（登记为 Q65）；39 号符释放声先于判断，已生效时仍续水下呼吸并消耗符。
+     * 生效数与其余持续符同样按玩家体质的 {@code fulunumber + 1} 累计（Q65 已修正）；39 号符释放声先于判断，已生效时仍续水下呼吸并消耗符。
      */
     public static void activate(ServerPlayer player, ItemStack stack, int number) {
         if (number == 30) {
@@ -112,11 +113,10 @@ public final class FuluUse {
             cast(player);
         }
         if (!active) {
-            double itemCount = Fulu.talisman(stack).bonusCount();
             Cultivation.editTizhi(player, tizhi -> {
                 tizhi.putBoolean(flag, true);
                 tizhi.putDouble("fulu" + suffix + "level", grade);
-                tizhi.putDouble("fulunumber", Math.round((number == 21 ? itemCount : tizhi.getDouble("fulunumber")) + 1));
+                tizhi.putDouble("fulunumber", Math.round(tizhi.getDouble("fulunumber") + 1));
             });
         }
         if (breath) {
