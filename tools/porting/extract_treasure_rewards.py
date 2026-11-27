@@ -332,6 +332,9 @@ def parse_choice_block(block: str, has_material_ctx: bool, quality_dist: list[di
             reward = {'kind': 'pool', 'pool': raw.split(':', 1)[1]} if raw.startswith('__CALL__:') else parse_reward_string(raw)
             if has_material_ctx and reward.get('kind') == 'item':
                 reward = {'kind': 'material', 'item': reward['item']}
+            # 阶段 4（Q177）：1.18.2 注册表跳过 147..160，此处 cailiao_153 为未注册空签，从奖池移除使 1–21 均等掉落。
+            if reward == {'kind': 'material', 'item': 'yvanchuxiuzhen:cailiao_153'}:
+                continue
             entries.append({'weight': 1, 'reward': reward})
     else:
         lit_m = re.search(r'neirong\s*=\s*"([^"]*)";', block)

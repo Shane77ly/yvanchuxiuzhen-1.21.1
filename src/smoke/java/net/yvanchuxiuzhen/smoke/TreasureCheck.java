@@ -29,6 +29,7 @@ import net.yvanchuxiuzhen.system.equipment.api.Equipment;
 import net.yvanchuxiuzhen.system.material.api.Materials;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition;
+import net.yvanchuxiuzhen.system.treasure.TreasureRewards;
 import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition.FuluReward;
 import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition.IntRange;
 import net.yvanchuxiuzhen.system.treasure.TreasurePoolDefinition.ItemReward;
@@ -150,6 +151,9 @@ final class TreasureCheck extends SystemCheck {
                 onServer(player -> {
                     expectTrue("11首次自然开箱按第五次计划刻移除", player.level().isEmptyBlock(locked));
                     clearDrops(player);
+                    for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+                        if (slot != 0 && (slot < 9 || slot > 12)) player.getInventory().setItem(slot, ItemStack.EMPTY);
+                    }
                 });
                 use(ordinary);
                 lookAt(ordinary);
@@ -159,8 +163,15 @@ final class TreasureCheck extends SystemCheck {
                     TreasureChestBlockEntity chest = chest(player, ordinary);
                     expectTrue("03二十刻计划刻推进至发奖状态", chest != null && chest.tickCount() >= 2
                             && chest.openState().equals("爆物品"));
-                    int count = drops(player).stream().mapToInt(entity -> entity.getItem().getCount()).sum();
-                    expectTrue("03自然开箱发放二至五件来源材料", count >= 2 && count <= 5);
+                    int groundCount = drops(player).stream().mapToInt(entity -> entity.getItem().getCount()).sum();
+                    int pickedCount = 0;
+                    for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+                        if (slot == 0 || (slot >= 9 && slot <= 12)) continue;
+                        pickedCount += player.getInventory().getItem(slot).getCount();
+                    }
+                    int count = groundCount + pickedCount;
+                    expectTrue("03自然开箱发放二至五件来源材料（地面=" + groundCount + "，拾取=" + pickedCount + "）",
+                            count >= 2 && count <= 5);
                     clearDrops(player);
                     chest(player, saved).setItem(0, new ItemStack(Items.DIAMOND));
                     chest(player, saved).sync();
@@ -269,6 +280,7 @@ final class TreasureCheck extends SystemCheck {
         player.connection.teleport(platform.getX() + .5, platform.getY() + 1, platform.getZ() + .5, 90, 15);
         player.level().setBlock(ordinary, block("treasure_chest_03"), 3);
         verifyLeggingDrops(player);
+        verifyTier3MonsterMaterials(player);
         player.level().setBlock(locked, block("treasure_chest_11"), 3);
         player.level().setBlock(saved, block("treasure_chest_11"), 3);
         stage(player, chestItem("treasure_chest_01", "宝箱", "宝石", 1));
@@ -286,6 +298,21 @@ final class TreasureCheck extends SystemCheck {
             expectTrue("盔甲架第" + grade + "档护腿掉落并携带成品组件", drop.is(item("armor_0" + grade + "_leggings").getItem())
                     && Equipment.product(drop).filter(product -> product.type().equals("裤子")).isPresent());
         }
+    }
+
+    private void verifyTier3MonsterMaterials(ServerPlayer player) {
+        var pool = TreasureRewardTables.pools().stream().filter(p -> p.id().equals("yaoshoucailiao")).findFirst().orElseThrow();
+        var tier3 = pool.tiers().stream().filter(t -> t.minLevel().orElse(0.0) == 3.0).findFirst().orElseThrow();
+        expect("Q177 三级妖兽材料移除空签后条目数", 21, tier3.entries().size());
+        expectTrue("Q177 三级妖兽材料不含未注册 cailiao_153", tier3.entries().stream()
+                .noneMatch(entry -> entry.reward() instanceof TreasurePoolDefinition.MaterialReward m
+                        && m.item().getPath().equals("cailiao_153")));
+        expectTrue("Q177 三级妖兽材料其余 21 签均已注册", tier3.entries().stream()
+                .allMatch(entry -> entry.reward() instanceof TreasurePoolDefinition.MaterialReward m
+                        && BuiltInRegistries.ITEM.get(m.item()) != Items.AIR));
+        var level = player.serverLevel();
+        TreasureRewards.open(level, Vec3.atCenterOf(ordinary), "宝箱", "妖兽材料", 3.0, 1, 1);
+        expectTrue("Q177 三级妖兽材料实开掉落非空", !takeSingleDrop(player).isEmpty());
     }
 
     private void stageGround(ServerPlayer player, String name) {

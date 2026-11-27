@@ -68,11 +68,18 @@ def main():
                      if t.get('min_level', -float('inf')) <= level <= t.get('max_level', float('inf'))), None)
         entries = [] if tier is None else [e['reward'] for e in tier['entries'] for _ in range(e['weight'])]
         label = f'{name} 等级 {level} 签 {roll}/{high}'
-        if len(entries) != high:
-            raise ValueError(f'{label}: 目标共 {len(entries)} 签')
         reward = parse_reward_string(raw.replace('yvanchuxitong:', 'yvanchuxiuzhen:'))
         if name == 'Yaoshoucailiao' and reward['kind'] == 'item':
             reward['kind'] = 'material'
+        # 阶段 4（Q177）：三级妖兽材料池第 22 签 cailiao_153（1.18.2 未注册）已移除，共保留 21 签。
+        if name == 'Yaoshoucailiao' and level == 3.0 and roll == 22:
+            if reward != {'kind': 'material', 'item': 'yvanchuxiuzhen:cailiao_153'} or len(entries) != 21:
+                raise ValueError(f'{label}: 预期移除未注册 cailiao_153 后剩 21 签')
+            counts[name] += 1
+            continue
+        expected_total = 21 if (name == 'Yaoshoucailiao' and level == 3.0) else high
+        if len(entries) != expected_total:
+            raise ValueError(f'{label}: 目标共 {len(entries)} 签，期望 {expected_total}')
         if entries[roll - 1] != reward:
             raise ValueError(f'{label}: 来源 {reward}，目标 {entries[roll - 1]}')
         if name == 'Fulu' and reward['kind'] == 'fulu':
