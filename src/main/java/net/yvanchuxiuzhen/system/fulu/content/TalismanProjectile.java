@@ -418,16 +418,32 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
     private void fireballTick(ServerLevel level) {
         level.sendParticles(ParticleTypes.FLAME, getX(), getY() + 0.3, getZ(), 2, 0.2, 0.2, 0.2, 0);
         if (!isNoGravity()) {
-            double stored = FuluUse.stateValue(getOwner(), "fululevel46");
-            grade = stored > 0 ? stored : 1;
-            Relations.setTeam(this, Relations.entityTeam(getOwner()));
-            attackUuid = getOwner().getStringUUID();
+            Entity owner = getOwner();
+            initFireballGrade(owner);
+            Relations.setTeam(this, Relations.entityTeam(owner));
+            attackUuid = owner.getStringUUID();
             setNoGravity(true);
         }
         if (++ticks >= FLIGHT_TICKS) {
             explode();
             ticks = 0;
             discard();
+        }
+    }
+
+    /** 46/13 号火球首次读取品阶：46 号优先消费并清零附着 {@code level46}，13 号读取玩家体质或实体附着。 */
+    private void initFireballGrade(Entity owner) {
+        if (grade > 0 || owner == null) {
+            return;
+        }
+        FuluCasterState state = owner.getData(FuluData.CASTER);
+        double instantLevel = state.level46();
+        if (instantLevel > 0) {
+            owner.setData(FuluData.CASTER, state.withLevel46(0));
+            grade = instantLevel;
+        } else {
+            double stored = FuluUse.stateValue(owner, "fululevel46");
+            grade = stored > 0 ? stored : 1;
         }
     }
 
@@ -620,6 +636,9 @@ public final class TalismanProjectile extends AbstractArrow implements ItemSuppl
         }
         level.playSound(null, BlockPos.containing(getX(), getY(), getZ()), SoundEvents.GENERIC_EXPLODE.value(), SoundSource.NEUTRAL, 1, 1);
         boolean fire = kind == Kind.FIREBALL;
+        if (fire) {
+            initFireballGrade(owner);
+        }
         level.sendParticles(Particles.type(fire ? "smallexplosionred" : "smallexplosionpurple"), getX(), getY(), getZ(), 1, 0, 0, 0, 0);
         if (fire) {
             level.sendParticles(ParticleTypes.SMOKE, getX(), getY(), getZ(), 20, 0, 0, 0, 0.5);

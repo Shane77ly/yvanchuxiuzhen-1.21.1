@@ -167,10 +167,10 @@ updated: 2026-11-26
 | Q61 | 火箭施加阳火没有写持续来源UUID，普通炙烤命令可能因空参数失效或沿用先前接触来源；阴阳爆燃只遍历Mob且不按受燃者友方预筛，实际命令仍执行combat敌友判定。丹火给已有火补燃料不验归属，普通火无方块实体也消耗物品；放置共用玩家友方表引用，重载后分开，并读取登录时复制的实体团队。影响限上述路径，评估轻微，保留来源载体、调用顺序与结果；不补箭射手、不加归属校验、不擅改为冻结快照 | [异火](../../systems/yihuo/architecture.md) |
 | Q62 | `ShanghaifanweiEntity.movementPredicate` 默认请求 `animation.ycxzboss_01.idle`，但其绑定的 `shanghaifanwei.animation.json` 不含该动画；动态范围过程提供的有效动画另行播放。静态核对35个来源默认/离地/濒死名称，仅该默认名缺失。影响限范围提示默认待机，评估轻微，保留实际引用，不替换为猜测动画；1.18.2实机及目标可见回退未验收 | [技能](../../systems/skill/architecture.md#过程动画调用链与控制器复核2026-11-07) |
 | Q63 | `SkillFire01` 的火球命中过程遍历弹体周围 2 格的非友方对象；循环变量只控制粒子次数，伤害请求仍把直接命中目标作为目标，因此邻近对象不会因该循环额外受伤。评估轻微，按来源保留；目标已补入相同的循环与目标引用，内置客户端回归覆盖直接目标与邻近傀儡 | [技能](../../systems/skill/architecture.md#弹体实际过程与发射入口复核2026-11-08) |
-| Q64 | `Fulujinglineed` 在体质 `FuluConsumeJingliPercentage` 非 0 时，实际乘的是 `(FuluConsumeJingli + 1)` 而不是该百分比字段自身；`FuluConsumeJingli` 为 0 时百分比修正等于乘 1，非 0 时二者相互牵连。疑似字段误用，目标保持来源（`FuluUse.pay`），不自行改平衡，待负责人裁定。两个来源 Mod 中均未找到这两个键的写入者，当前实际不触发。 |
-| Q65 | `Itemfulu21...` 登记 21 号符生效数时写 `fulunumber = round(物品的 fulunumber + 1)`，读的是物品组件而不是玩家体质（39 号符同类位置读的是体质）。物品上没有该键，所以 21 号符生效时把玩家的生效数直接置为 1，覆盖其他仍在生效的符。疑似字段误用，目标保持来源，待负责人裁定。 |
-| Q66 | `Itemfulu04...` 的 46 号符分支先射出火球，再把品阶写入玩家的实体持久数据 `fululevel46`；火球 tick 过程对玩家发射者读的是体质里的 `fululevel46`（仅 13 号符写入）。所以玩家直接使用 46 号符时火球按品阶 1 结算（体质值为 0 时回退 1），符箓品阶对伤害无影响。疑似存储位置误用，目标保持来源，待负责人裁定。 |
-| Q67 | `Fulutexiao32TouZhiWuFeiXingTick` 用使用者的 `kaiqi` 判断是否已初始化，却把 `kaiqi` 写在子母弹自己身上，使用者的 `kaiqi` 永不为真，所以每刻都重复读取品阶与分裂标记；使用者只要持有 `fulu32shoufa`，下一刻存在的任意子母弹都会抢走它成为主弹。疑似写错对象，目标保持来源，待负责人裁定。 |
+| Q64 | 已在阶段 4 修正并验证（2026-11-27）：`FuluUse.pay` 改乘 `(FuluConsumeJingliPercentage + 1)`，`fulucooking` 验证 21 号符 `(10+5)×1.2=18` 精力扣款通过 | [符箓](../../systems/fulu/architecture.md) |
+| Q65 | 已在阶段 4 修正并验证（2026-11-27）：`FuluUse.activate` 为 21 号符改读玩家体质 `fulunumber + 1`，`fulucooking` 验证原有 3 项生效累加至 4 | [符箓](../../systems/fulu/architecture.md) |
+| Q66 | 已在阶段 4 修正并验证（2026-11-27）：`FuluInstant.fireball` 先写 `CASTER.level46` 再发射，`TalismanProjectile.fireballTick`/`explode` 首刻读并清零 `CASTER.level46`（回退 13 号体质键），`fulucooking` 验证二阶 46 号符命中造成 30 伤 | [符箓](../../systems/fulu/architecture.md) |
+| Q67 | 已在阶段 4 核对并复验（2026-11-27）：目标已通过 `FuluData.CASTER.splitFirst32()` 仅首刻交接并清零，不再每刻复读或抢夺分裂权；`fulucooking` 验证炸出 8 枚子弹并清零标记 | [符箓](../../systems/fulu/architecture.md) |
 | Q68 | 04 装配页只在菜单 `removed()` 时写回八槽；1.18.2 Forge40.1.0 与 NeoForge21.1.265 的断线移除顺序均先保存玩家、再移除实体并关闭菜单，退出时刚修改的装配可能未入档。2026-11-17目标客户端真实同档断线重进确认未关闭菜单的编辑丢失，K重开双端八空槽及中文画面通过；保持来源还是改为保存前写回仍待负责人裁定 | [技能](../../systems/skill/architecture.md#q68-装配页断线保存时序) |
 
 ### 2026-11-14 续批差异与不确定项

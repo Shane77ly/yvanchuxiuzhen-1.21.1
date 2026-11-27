@@ -10,8 +10,8 @@ updated: 2026-11-27
 ## 当前交接（2026-11-27 阶段 4）
 
 - **从这里接手**：主工作目录 `D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`，功能分支 `refactor/p4-legacy-bug-cleanup` 的 HEAD。集成基线 `port/20261123-parity-integration@22f39761` 已合入阶段 1、2A、2B 和 3。阶段 4 首批留在功能分支，未合入、未推送；不要动 `main` 或其他工作树。
-- **Q176 与第二批已验证**：2026-11-27 补齐 `festivalfirework`（`pao_13` 飞行弹体近景 `DONE`/0 `FAIL`）及 Q26（第 6/7 表 `max=8/12`）、Q71（玩家商铺领取清零）、Q84（维度条件 `ResourceLocation` 比对），合跑 `gongfa,commerce,questjournal`（350 行、`0 FAIL`、`DONE`）与全套编译/单测通过。
-- **已验证与待裁定**：六个奖励池 598 签、8/8.5 级符箓、Q05、Q177 护腿、Q176、Q26、Q71、Q84 已验。`cailiao_153`（1.18.2 物品表本身跳过 147..160）及伤害/符箓公式（Q18/Q29/Q30、Q64–Q67 等）待裁定后分批继续。参见[剩余工作](remaining-work.md)。
+- **已验证阶段 4 批次（2026-11-27）**：`festivalfirework`（`pao_13` 近景）、Q05、Q26（第 6/7 表 `max=8/12`）、Q71（玩家商铺领取清零）、Q84（维度直接比较）、Q177（护腿与删去三级妖兽材料 `cailiao_153` 余 21 签）、战斗批 Q18/Q29/Q30（受击同属性功法减伤及负伤保护、体质防御修正、`mana_Def` 护甲项、物理破甲=1/暴击倍率/攻击者 `AttackAttCorrectPercentage`/闪避 1–100/去重吸血/空团队不免伤；`combat` 与 `q235spellshield` 0 `FAIL`/`DONE`）以及符箓批 Q64–Q67（`FuluConsumeJingliPercentage` 乘法、21 号保留 `fulunumber` 累加、46 号先写 `CASTER.level46` 再发射且首刻读并清零、32 号单次分裂；`fulucooking` 0 `FAIL`/`DONE`）。
+- **已验证与待裁定**：`AttributeTotalsTest` 与 ArchUnit 全绿；`attribute` 合跑中仅 2026-11-03 旧夹具“重生后 当前生命 30.0”因后续 `Rebirth` 二成回血规则变化而报 11.0（`受击方火功法项 -10.0` 通过）。其余未批复的阶段 4 候选项（Q13/Q19/Q25/Q32/Q33/Q35/Q72/Q73 等）待负责人指示后再推进，参见[剩余工作](remaining-work.md)。
 - **既定边界**：2C 暂缓，妖兽 AI 保留 Java。阶段 3 的连续六维、地灵直入及十二城镇模板已按正式代码、2 GiB 客户端验收；768 MiB 客户端只用于可选压力测试。重型验证串行，Gradle 768 MiB、单 worker。
 - **2B 遗留**：`q119` 需重建存档夹具；`npcvillage` 无对应场景；合跑时 `npcmanagement` 气血差异和 `fanhuacheng03` 内存不足单跑未复现。见[项目月志](../systems/project/logs/2026-11.md)。
 
