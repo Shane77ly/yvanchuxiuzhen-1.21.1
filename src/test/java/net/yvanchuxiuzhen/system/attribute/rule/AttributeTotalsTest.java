@@ -33,10 +33,10 @@ class AttributeTotalsTest {
         assertEquals(13, totals.value(Stat.ATTACK));
     }
 
-    /** Q18：火属性伤害 10、攻击方火灵根 3 时为 10 ×（0.3 + 1）= 13；受击方主修火功法 5、层数 8 时再加 10，共 23。 */
+    /** Q18：火属性伤害 10、攻击方火灵根 3 时为 10 ×（0.3 + 1）= 13；受击方主修火功法 5、层数 8 时减伤 10，共 3。 */
     @Test
     void fireDamageExample() {
         double damage = 10 * (AttributeTotals.elementCoefficient(3) + 1) + AttributeTotals.receivedElementBonus(5, 8);
-        assertEquals(23, damage, 1e-9);
+        assertEquals(3, damage, 1e-9);
     }
 }

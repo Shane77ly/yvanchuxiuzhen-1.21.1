@@ -263,11 +263,11 @@ final class SpellShieldCheck extends SystemCheck {
         ItemStack chestAfter = defender.getItemBySlot(EquipmentSlot.CHEST);
         boolean protectionOk = front || (defender.getAbsorptionAmount() == absorptionBefore && chestAfter.is(Items.IRON_CHESTPLATE)
                 && chestAfter.getDamageValue() == chestWearBefore);
-        boolean leechOk = near(attacker.getHealth(), front ? 1.2 : 1.25);
+        boolean leechOk = near(attacker.getHealth(), front ? 1.0 : 1.05);
         expectTrue(trial + " 路径=" + order + "，伤前生命=" + wardHealth + "，符判定量=" + wardAmount, route);
         expectTrue(trial + " 原版盾挡=" + block + "，盾损=" + loss, shieldOk);
         expectTrue(trial + " 剩符=" + count + "，生命=" + defender.getHealth() + "，吸收=" + defender.getAbsorptionAmount(), wardOk);
-        expectTrue(trial + " 攻击者生命=" + attacker.getHealth() + "（命中 +0.20，受伤全挡 +0、背击 +0.05）", leechOk);
+        expectTrue(trial + " 攻击者生命=" + attacker.getHealth() + "（Q30 去重后仅 HurtStage 吸血：全挡 +0、背击 +0.05）", leechOk);
         readyAt = defender.getServer().getTickCount() + 25;
         if (front) {
             // 利用两次攻击之间的等待让原版应用胸甲属性；吸收 I 同时提供上限和 4 点吸收。
@@ -309,12 +309,12 @@ final class SpellShieldCheck extends SystemCheck {
             attacker.setHealth(1);
             DamageSource source = mob.damageSources().mobAttack(attacker);
             mob.hurt(source, 4);
-            expectTrue("普通牛 4 入伤，公式 16/(4+4)=2；两段吸血", near(mob.getHealth(), 8) && near(attacker.getHealth(), 1.3));
+            expectTrue("普通牛 4 入伤，公式 16/(4+4)=2；仅 HurtStage 吸血 +0.10", near(mob.getHealth(), 8) && near(attacker.getHealth(), 1.1));
             mob.hurt(source, 4);
-            expectTrue("同刻等量攻击只命中、不再受伤", near(mob.getHealth(), 8) && near(attacker.getHealth(), 1.5));
+            expectTrue("同刻等量攻击无伤，不再吸血", near(mob.getHealth(), 8) && near(attacker.getHealth(), 1.1));
             mob.hurt(source, 6);
             expectTrue("同刻 6 入伤仅用差额 2，公式 4/(2+4)", near(mob.getHealth(), 8 - 2.0 / 3)
-                    && near(attacker.getHealth(), 1.8 + 0.05 * 2 / 3));
+                    && near(attacker.getHealth(), 1.1 + 0.05 * 2 / 3));
         } finally {
             mob.discard();
         }

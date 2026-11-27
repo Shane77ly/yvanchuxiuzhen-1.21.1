@@ -34,8 +34,8 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
  * 免伤判定、闪避、物理伤害公式、吸血、致命伤害。经原版盾牌处理后、护甲减免前读取伤害容器，
  * 保留来源先盾挡后受伤的顺序。来源在三处各检查一次符箓复活，这里统一发出 {@link LethalDamageEvent}。
  *
- * <p>来源的疑似错误保持原样（Q30）：没有破甲附魔时破甲系数为 0，受击者的基础物理防御与护甲物理防御不计入；
- * 物理攻击量乘的是受击者的体质修正；暴击值被随后的物理公式覆盖，只留粒子。
+ * <p>已按阶段 4 裁定修正 Q30：无破甲附魔时破甲系数为 1（有破甲时为 {@code max(0, 1 − 等级 × 0.1)}）；
+ * 物理攻击倍率 {@code AttackAttCorrectPercentage} 改读攻击者体质；暴击倍率写入最终物理攻击量。
  */
 public final class HurtStage {
     private static final TagKey<EntityType<?>> NPC = tag("npcentity");
@@ -119,34 +119,33 @@ public final class HurtStage {
         return event.immune();
     }
 
-    /** 物理伤害公式：攻击量² / (攻击量 + (防御 × 破甲系数 + 护甲物理减免²之和) × 体质抗性)，再减玄武岩。 */
+    /** 物理伤害公式：(攻击量 × 暴击倍率 × 攻击者体质修正)² / (前项 + (防御 × 破甲系数 + 护甲物理减免²之和) × 体质抗性)，再减玄武岩。 */
     private static double settle(LivingEntity victim, Entity attacker, float amount) {
-        // 暴击只剩粒子：来源算出的暴击值随即被下面的结果覆盖（Q30）。
+        double critMultiplier = 1;
         if (attacker instanceof LivingEntity living && victim.level() instanceof ServerLevel level) {
             int critical = Enchants.mainHand(living, Enchants.key("critical"));
             if (critical != 0 && Math.random() < critical * 0.02) {
                 level.sendParticles(ParticleTypes.CRIT, victim.getX(), victim.getY() + 1, victim.getZ(), 10, 0, 0, 0, 1);
+                critMultiplier = 1.5 + Enchants.mainHand(living, Enchants.key("criticalatt")) * 0.2;
             }
         }
         double defense;
         double resistance;
-        double attackScale = 1;
         if (victim instanceof Player player) {
             defense = PlayerAttributes.baseValue(player, Stat.ATTACK_DEF);
             resistance = Cultivation.tizhiDouble(player, "AttackDefCorrectPercentage") + 1;
-            attackScale = Cultivation.tizhiDouble(player, "AttackAttCorrectPercentage") + 1;
         } else {
             defense = EntityAttributes.stat(victim, Stat.ATTACK_DEF);
             resistance = 1;
         }
-        double breakArmor = 0;
+        double attackScale = attacker instanceof Player attackerPlayer
+                ? Cultivation.tizhiDouble(attackerPlayer, "AttackAttCorrectPercentage") + 1
+                : 1;
         int pojia = attacker instanceof LivingEntity living ? Enchants.mainHand(living, Enchants.key("pojia")) : 0;
-        if (pojia != 0) {
-            breakArmor = 1 - pojia * 0.1;
-        }
+        double breakArmor = Math.max(0, 1 - pojia * 0.1);
         ArmorStatEvent armor = new ArmorStatEvent(victim, "attack_Def");
         NeoForge.EVENT_BUS.post(armor);
-        double attack = amount * attackScale;
+        double attack = amount * critMultiplier * attackScale;
         double settled = Math.pow(attack, 2) / (attack
                 + ((defense + armor.sum()) * breakArmor + Enchants.armorSquares(victim, Enchants.key("attdef"))) * resistance);
         int basalt = Enchants.armorSum(victim, Enchants.key("basalt")) * 2;

@@ -36,7 +36,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
  *
  * <p>流程：敌友与免伤 → 闪避 → 攻击量（非固定且有来源时按攻击方属性、五行、功法、附魔计算）→ 防御 → 总量
  * （神识类 {@code 攻击 − 防御}，其余 {@code 攻击² / (攻击 + 防御)}）→ 手下留情限制 → 以 {@code linglidamage} 或
- * {@code jinglidamage}（绕过护甲）扣血。来源已知的疑似错误保持原样（见战斗架构 Q29、Q30）。
+ * {@code jinglidamage}（绕过护甲）扣血。已按阶段 4 裁定修正 Q18、Q29 与 Q30。
  */
 public final class Shanghai {
     private Shanghai() {
@@ -64,14 +64,17 @@ public final class Shanghai {
                 return;
             }
         }
-        // 来源把 0–100 的随机数写进目标的记分板 suijishu 再读回，只是借用，这里直接用局部随机数。
-        if (Mth.nextInt(target.getRandom(), 0, 100) <= Enchants.armorSum(target, Enchants.key("dodge"))) {
+        // Q30 修正：改为 1–100，消除 dodge == 0 时约 1/101 的无附魔闪避。
+        if (Mth.nextInt(target.getRandom(), 1, 100) <= Enchants.armorSum(target, Enchants.key("dodge"))) {
             return;
         }
         DamageCategory category = request.category();
         double damage = request.base();
         if (attacker != null && !request.fixed()) {
             damage = attack(level, target, attacker, request);
+        }
+        if (!(damage > 0)) {
+            return;
         }
         double defence = defence(level, target, category);
         double total = category.isSoul() ? damage - defence : Math.pow(damage, 2) / (damage + defence);
@@ -98,10 +101,12 @@ public final class Shanghai {
         }
     }
 
-    /** 攻击方是否把受击方视为友方，按攻击方与受击方是否玩家四种组合取友方集合与团队，见战斗架构。 */
+    /** 攻击方是否把受击方视为友方；与物理流程对齐（Q30），涉及非玩家实体或空团队时不判为友方。 */
     private static boolean friendly(LivingEntity target, Entity attacker) {
+        boolean targetTeam = !Relations.team(target).isEmpty();
         if (attacker instanceof Player) {
-            boolean listed = !Relations.team(target).isEmpty() && Relations.isFriendly(attacker, target);
+            boolean listed = targetTeam && Relations.isFriendly(attacker, target)
+                    && (target instanceof Player || !Relations.team(attacker).isEmpty());
             if (target instanceof Player) {
                 return listed;
             }
@@ -111,7 +116,8 @@ public final class Shanghai {
             // 来源读受击玩家持久化数据里的友方集合与攻击者的玩家变量团队，两者都是空，不会判为友方。
             return false;
         }
-        return (!Relations.team(attacker).isEmpty() && Relations.isFriendly(target, attacker)) || immune(target, attacker);
+        boolean listed = targetTeam && !Relations.team(attacker).isEmpty() && Relations.isFriendly(target, attacker);
+        return listed || immune(target, attacker);
     }
 
     private static boolean immune(LivingEntity target, Entity attacker) {
@@ -125,7 +131,9 @@ public final class Shanghai {
         DamageCategory category = request.category();
         double base = request.base();
         double multiplier = request.multiplier();
-        double techniqueDamage = 0;
+        double techniqueDamage = category.element() != null
+                ? PlayerAttributes.receivedElementBonus(target, category.element())
+                : 0;
         if (attacker instanceof Player player) {
             if (category.isSoul()) {
                 base += PlayerAttributes.value(player, Stat.SOUL_ATT);
@@ -134,7 +142,6 @@ public final class Shanghai {
             }
             if (category.element() != null) {
                 multiplier += PlayerAttributes.elementCoefficient(player, category.element());
-                techniqueDamage = PlayerAttributes.receivedElementBonus(player, category.element());
                 String prefix = category.tizhiPrefix();
                 base = (base + Cultivation.tizhiDouble(player, prefix + "AttCorrect")) * (Cultivation.tizhiDouble(player, prefix + "AttCorrectPercentage") + 1);
             } else if (category == DamageCategory.SOUND) {
@@ -186,9 +193,7 @@ public final class Shanghai {
     }
 
     /**
-     * {@code Zhilingdefence}：护甲附魔 + 受击方的防御属性 + 护甲炼器数值 + 玄武岩。
-     * 来源中体质对防御的修正读取的是从未赋值的空物品，不生效（Q29），所以玩家只加防御属性的最终值；
-     * 法术防御的护甲项读取 {@code mana_Att} 而不是 {@code mana_Def}（Q30）。
+     * {@code Zhilingdefence}：护甲附魔 + 玩家体质防御修正（Q29）+ 受击方的防御属性与体质百分比 + 护甲炼器数值（Q30 改读 {@code mana_Def}）+ 玄武岩。
      */
     private static double defence(ServerLevel level, LivingEntity target, DamageCategory category) {
         double defence = 0;
@@ -201,20 +206,27 @@ public final class Shanghai {
         if (category == DamageCategory.THUNDER && StatusEffects.has(target, "effect_022")) {
             defence += Math.pow(StatusEffects.amplifier(target, "effect_022") + 1, 2);
         }
+        if (target instanceof Player player && !category.isSoul() && category.tizhiPrefix() != null) {
+            String prefix = category.tizhiPrefix();
+            defence = (defence + Cultivation.tizhiDouble(player, prefix + "DefCorrect"))
+                    * (Cultivation.tizhiDouble(player, prefix + "DefCorrectPercentage") + 1);
+        }
         if (category.isSoul()) {
             if (target instanceof Player player) {
-                defence += PlayerAttributes.value(player, Stat.SOUL_DEF);
+                String pctKey = category == DamageCategory.SOUND ? "SouldefofyinAttCorrectPercentage" : "SouldefofjingAttCorrectPercentage";
+                defence = (defence + PlayerAttributes.value(player, Stat.SOUL_DEF)) * (Cultivation.tizhiDouble(player, pctKey) + 1);
             } else if (target instanceof Mob) {
                 defence += EntityAttributes.stat(target, Stat.SOUL_DEF);
             }
             defence += armorStat(target, "soul_Def");
         } else {
             if (target instanceof Player player) {
-                defence += PlayerAttributes.value(player, Stat.MANA_DEF);
+                defence = (defence + PlayerAttributes.value(player, Stat.MANA_DEF))
+                        * (Cultivation.tizhiDouble(player, "ManaDefDefCorrectPercentage") + 1);
             } else if (target instanceof Mob) {
                 defence += EntityAttributes.stat(target, Stat.MANA_DEF);
             }
-            defence += armorStat(target, "mana_Att");
+            defence += armorStat(target, "mana_Def");
             defence += Enchants.armorSquares(target, Enchants.key("manadef"));
         }
         int basalt = Enchants.armorSum(target, Enchants.key("basalt"));

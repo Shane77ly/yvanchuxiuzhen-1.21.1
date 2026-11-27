@@ -2,7 +2,7 @@
 topic: combat
 role: architecture
 status: current
-updated: 2026-11-23
+updated: 2026-11-27
 ---
 
 # 战斗：规则与实现状态
@@ -273,6 +273,13 @@ updated: 2026-11-23
 实机检查（`CombatCheck`）：物品放置、受击 6²/(6+0)、下一刻回满生命、设置物理与法术防御并在数字无法解析时置 0、装备槽的头盔关闭后穿在木人桩上、拿走木人桩；截图 `combat_dummy.png` 目视确认 GeckoLib 模型、待机姿态与“伤害：6.0”报告。
 
 GeckoLib 首次接入（版本 4.9.3）的做法写入[工程结构](../../development/engineering.md)“依赖治理”，目标版本 API 事实写入移植技能的 NeoForge 1.21.1 参考。
+
+### 阶段 4：Q18 / Q29 / Q30 战斗与防御公式修复（2026-11-27）
+
+按阶段 4 已批准裁定在 `refactor/p4-legacy-bug-cleanup` 完成以下修正：
+- **Q18**：`AttributeTotals.receivedElementBonus` 改为负向减伤（`-gongfa * level / 4`）；`Shanghai.attack` 改为读取受击方 `target` 的同属性功法减伤，并在 `Shanghai.deal` 拒绝 `damage <= 0` 进入 `damage²/(damage+defence)`。
+- **Q29**：`Shanghai.defence` 为受击玩家恢复体质属性防御修正（`<前缀>DefCorrect` 与 `<前缀>DefCorrectPercentage`）以及神识/音波倍率（`SouldefofjingAttCorrectPercentage` / `SouldefofyinAttCorrectPercentage`）与法防倍率（`ManaDefDefCorrectPercentage`）。
+- **Q30**：`HurtStage.settle` 默认破甲系数改为 `1`（有 `pojia` 时为 `max(0, 1 - pojia * 0.1)`）、应用 `critical`/`criticalatt` 暴击倍率并改为读取攻击者 `AttackAttCorrectPercentage`；`Shanghai.defence` 与 `EquipmentAttributes.armorStat` 的非神识护甲法防改为查询 `mana_Def`（`ArmorStatEvent`）；`Shanghai.deal` 闪避改为 `1–100`；移除 `AttackStage` 重复吸血，仅保留 `HurtStage` 结算后吸血；`Shanghai.friendly` 对齐物理空团队不免伤判断。
 
 ## Q31 剧情伤害字段登记边界（2026-11-15）
 

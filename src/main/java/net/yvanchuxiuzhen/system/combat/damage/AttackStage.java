@@ -127,10 +127,6 @@ final class AttackStage {
                 enchantmentParticles(victim, particleY);
             }
         }
-        int vampire = Enchants.mainHand(attacker, Enchants.key("vampire"));
-        if (vampire != 0) {
-            attacker.setHealth((float) (attacker.getHealth() + amount * vampire * 5 * 0.01));
-        }
         if (victim.level() instanceof ServerLevel level) {
             HitEnchantments.run(level, victim, attacker);
         }
