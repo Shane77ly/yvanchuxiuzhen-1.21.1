@@ -40,7 +40,7 @@ import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
 /** 弓的选中蓄力与发射、拂尘的选中冷却及挥动入口；玩法状态经所属系统公开操作写入。 */
-final class EquipmentWeapons {
+public final class EquipmentWeapons {
     private static final Set<String> BOWS = Set.of(
             "weaponspeedbow_01", "weaponspeedbow_02", "weaponspeedbow_03", "weaponspeedbow_04", "weaponspeedbow_05",
             "weaponspeedbow_06", "weaponspeedbow_07", "weaponspeedbow_08", "weaponspeedbow_09",
@@ -109,6 +109,19 @@ final class EquipmentWeapons {
 
     public static void setRightClicking(Player player, boolean rightClicking) {
         player.setData(EquipmentData.RIGHT_CLICKING, rightClicking);
+    }
+
+    public static void releaseBow(ServerPlayer player) {
+        setRightClicking(player, false);
+        ItemStack selected = Skills.arrow(player);
+        if (!selected.isEmpty() && BOWS.contains(BuiltInRegistries.ITEM.getKey(player.getMainHandItem().getItem()).getPath())) {
+            bow(player, selected);
+        }
+    }
+
+    public static void cancelBow(ServerPlayer player) {
+        setRightClicking(player, false);
+        Cultivation.setTizhiDouble(player, "lagongtick", 0);
     }
 
     private static ToolMachineEntity.Kind toolKind(ItemStack stack) {

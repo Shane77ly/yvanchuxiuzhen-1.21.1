@@ -20,10 +20,13 @@ import net.yvanchuxiuzhen.system.skill.api.SkillPageEvent;
 import net.yvanchuxiuzhen.system.skill.api.Skills;
 import net.yvanchuxiuzhen.system.skill.data.SkillState;
 
-/** 来源 PlayerGUI04 的八个装配槽；技能翻页时保存当前四槽，其余装配在关闭时交回各数据所有者。 */
+/** 来源 PlayerGUI04 的八个装配槽；槽位改动、翻页、关闭与玩家登出前均同步写回各数据所有者（Q68）。 */
 public final class SkillLoadoutMenu extends AbstractContainerMenu {
     private static final int LOADOUT_SLOTS = 8;
     private final BlockPos pos;
+    private final Player owner;
+    private boolean initialized;
+    private boolean loading;
     private static final List<String> HELP = List.of(
             "此界面的所有槽位对应的功法、技能，均需要您在手持功法技能书时，潜行并右键进行学习后，才可装备。",
             "左上角最大的槽位放置功法。",
@@ -38,12 +41,19 @@ public final class SkillLoadoutMenu extends AbstractContainerMenu {
     public SkillLoadoutMenu(int id, Inventory inventory, BlockPos pos) {
         super(SkillMenus.LOADOUT.get(), id);
         this.pos = pos.immutable();
+        this.owner = inventory.player;
         IItemHandler bound = inventory.player.level().getCapability(Capabilities.ItemHandler.BLOCK, pos, null);
         IItemHandler items = bound == null ? new ItemStackHandler(LOADOUT_SLOTS) : bound;
         addSlot(new SlotItemHandler(items, 0, 173, 168) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return Techniques.book(stack).filter(book -> !book.definition().name().isEmpty()).isPresent();
+            }
+
+            @Override
+            public void setChanged() {
+                super.setChanged();
+                syncChanges();
             }
         });
         addSkillSlot(items, 1, 167, 206, SkillKind.MOVEMENT);
@@ -67,29 +77,55 @@ public final class SkillLoadoutMenu extends AbstractContainerMenu {
             public boolean mayPlace(ItemStack stack) {
                 return Skills.book(stack).filter(book -> book.kind() == kind && !book.name().isEmpty()).isPresent();
             }
+
+            @Override
+            public void setChanged() {
+                super.setChanged();
+                syncChanges();
+            }
         });
     }
 
     /** 两刻后把持久装配栈按数量一载入当时的菜单，共享引用保留开窗期间的书籍成长。 */
     public void initialize(ServerPlayer player) {
-        ItemStack technique = Techniques.slot(player);
-        technique.setCount(1);
-        Techniques.setSlot(player, technique);
-        slots.get(0).set(technique);
-        ItemStack movement = Skills.movement(player);
-        movement.setCount(1);
-        Skills.setMovement(player, movement);
-        slots.get(1).set(movement);
-        ItemStack flight = Skills.flight(player);
-        flight.setCount(1);
-        Skills.setFlight(player, flight);
-        slots.get(2).set(flight);
-        ItemStack weaponArt = Skills.weaponArt(player);
-        weaponArt.setCount(1);
-        Skills.setWeaponArt(player, weaponArt);
-        slots.get(7).set(weaponArt);
-        Techniques.rememberSlot(player);
-        loadPage(player);
+        loading = true;
+        try {
+            ItemStack technique = Techniques.slot(player);
+            technique.setCount(1);
+            Techniques.setSlot(player, technique);
+            slots.get(0).set(technique);
+            ItemStack movement = Skills.movement(player);
+            movement.setCount(1);
+            Skills.setMovement(player, movement);
+            slots.get(1).set(movement);
+            ItemStack flight = Skills.flight(player);
+            flight.setCount(1);
+            Skills.setFlight(player, flight);
+            slots.get(2).set(flight);
+            ItemStack weaponArt = Skills.weaponArt(player);
+            weaponArt.setCount(1);
+            Skills.setWeaponArt(player, weaponArt);
+            slots.get(7).set(weaponArt);
+            Techniques.rememberSlot(player);
+            loadPage(player);
+        } finally {
+            loading = false;
+            initialized = true;
+        }
+    }
+
+    private void syncChanges() {
+        if (initialized && !loading && owner instanceof ServerPlayer serverPlayer) {
+            saveToPlayer(serverPlayer);
+        }
+    }
+
+    public void saveToPlayer(ServerPlayer player) {
+        Techniques.setSlot(player, slots.get(0).getItem());
+        Skills.setMovement(player, slots.get(1).getItem());
+        Skills.setFlight(player, slots.get(2).getItem());
+        Skills.setWeaponArt(player, slots.get(7).getItem());
+        savePage(player);
     }
 
     private void savePage(ServerPlayer player) {
@@ -100,14 +136,20 @@ public final class SkillLoadoutMenu extends AbstractContainerMenu {
     }
 
     private void loadPage(ServerPlayer player) {
-        int start = (Skills.state(player).page() - 1) * SkillState.PAGE_SIZE;
-        for (int index = 0; index < SkillState.PAGE_SIZE; index++) {
-            ItemStack spell = Skills.spell(player, start + index + 1);
-            spell.setCount(1);
-            Skills.setSpell(player, start + index + 1, spell);
-            slots.get(index + 3).set(spell);
+        boolean previous = loading;
+        loading = true;
+        try {
+            int start = (Skills.state(player).page() - 1) * SkillState.PAGE_SIZE;
+            for (int index = 0; index < SkillState.PAGE_SIZE; index++) {
+                ItemStack spell = Skills.spell(player, start + index + 1);
+                spell.setCount(1);
+                Skills.setSpell(player, start + index + 1, spell);
+                slots.get(index + 3).set(spell);
+            }
+            broadcastChanges();
+        } finally {
+            loading = previous;
         }
-        broadcastChanges();
     }
 
     @Override

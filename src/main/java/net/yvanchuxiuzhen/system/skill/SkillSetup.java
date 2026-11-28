@@ -78,6 +78,11 @@ public final class SkillSetup {
         });
         NeoForge.EVENT_BUS.addListener(SkillSetup::onCrafted);
         NeoForge.EVENT_BUS.addListener(SkillSetup::onMenuOpened);
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent event) -> {
+            if (event.getEntity() instanceof ServerPlayer player && player.containerMenu instanceof SkillLoadoutMenu menu) {
+                menu.saveToPlayer(player);
+            }
+        });
         NeoForge.EVENT_BUS.addListener((ItemSwingEvent event) -> WeaponArts.onSwing(event));
         NeoForge.EVENT_BUS.addListener((HitEvent event) -> LingwenHit.onHit(event));
         NeoForge.EVENT_BUS.addListener((HitEvent event) -> Corpses.onHit(event));

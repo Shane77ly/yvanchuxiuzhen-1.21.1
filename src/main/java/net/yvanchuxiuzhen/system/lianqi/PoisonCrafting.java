@@ -71,8 +71,8 @@ public final class PoisonCrafting {
         Holder<Enchantment> enchantment = enchantment(level,
                 ResourceLocation.fromNamespaceAndPath(cauldron.poisonNamespace(), poison));
         boolean enchanted = EnchantmentHelper.getItemEnchantmentLevel(enchantment, target) != 0;
-        if (poison.equals("beepoison") ? enchanted : !enchanted) return;
-        // 来源追加同名附魔后，命中消费者仍读取首项；组件升级保留已有有效等级。
+        if (enchanted) return;
+        // 统一要求目标武器尚未拥有该毒药附魔（Q35）。
         target.enchant(enchantment, 1);
         level.setBlock(pos, Blocks.CAULDRON.defaultBlockState(), 3);
     }

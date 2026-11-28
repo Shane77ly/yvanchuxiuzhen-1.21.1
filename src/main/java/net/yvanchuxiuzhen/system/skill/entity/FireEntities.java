@@ -65,8 +65,7 @@ final class FireEntities {
 
     /**
      * 控火术：以视线 4 格处为中心，扫描 9 × 9 × 9 范围内的火焰与灵魂火，每处火焰对周围 2.5 格内的非友方实体造成一次火系伤害并点燃 5 秒，
-     * 然后熄灭。玩家施放时攻击者为空，命令行里这一项为空，后面的参数前移，
-     * 实际按“无攻击者、基础量 = 伤害倍率、倍率 0”结算（Q41）。
+     * 然后熄灭（Q41 已补回施放者自身为攻击者并按基础攻击与伤害倍率结算）。
      */
     private static void controlFire(ServerPlayer caster, SkillBook book) {
         ServerLevel level = (ServerLevel) caster.level();
@@ -84,7 +83,7 @@ final class FireEntities {
                         if (!ProjectileSupport.friendly(caster, other)) {
                             ProjectileSupport.burst(other, "smallexplosionred", other.getBbHeight() / 2);
                             if (other instanceof LivingEntity living) {
-                                SpellDamage.deal(living, DamageCategory.FIRE, null, false, book.damageMultiplier(), 0);
+                                SpellDamage.deal(living, DamageCategory.FIRE, caster, false, book.manaAttack(), book.damageMultiplier());
                             }
                             ProjectileSupport.ignite(other, 5);
                         }

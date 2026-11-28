@@ -192,8 +192,8 @@ final class RockEntities {
     }
 
     /**
-     * 巨石锤：类型一在第 11、33 刻对 2 格内的非友方实体各造成一次土系伤害，第 46 刻消失；类型二落地后 5 刻（或生成 20 刻）造成一次伤害并消失。
-     * 来源的 20% 眩晕（{@code effect_001}）加给了实体自己而不是受击者（Q42），保持。
+     * 巨石锤：类型一在第 11、33 刻对 2 格内的非友方实体各造成一次土系伤害，第 46 刻消失；类型二落地后 5 刻（或生成 20 刻）造成一次伤害并消失，
+     * 20% 几率对受击生物施加 600 刻眩晕（{@code effect_001}，Q42）。
      */
     private static final class BoulderHammer implements EntitySkill {
         @Override
@@ -234,14 +234,14 @@ final class RockEntities {
             }
         }
 
-        /** 对 2 格内的非友方实体造成一次土系伤害；{@code stun} 为真时有 20% 几率给实体自己加 600 刻眩晕。 */
+        /** 对 2 格内的非友方实体造成一次土系伤害；{@code stun} 为真时有 20% 几率给受击生物加 600 刻眩晕（Q42）。 */
         private static void hammer(SkillEntity self, boolean stun) {
             for (Entity other : ProjectileSupport.around((ServerLevel) self.level(), self.position(), 2)) {
                 if (!ProjectileSupport.friendly(self, other)) {
                     ProjectileSupport.burst(other, "smallexplosiondeeporange", other.getBbHeight() / 2);
                     SkillEntities.strike(self, other);
-                    if (stun && Math.random() < 0.2) {
-                        self.addEffect(new MobEffectInstance(StatusEffects.holder("effect_001"), 600, 0));
+                    if (stun && other instanceof LivingEntity living && Math.random() < 0.2) {
+                        living.addEffect(new MobEffectInstance(StatusEffects.holder("effect_001"), 600, 0));
                     }
                 }
             }

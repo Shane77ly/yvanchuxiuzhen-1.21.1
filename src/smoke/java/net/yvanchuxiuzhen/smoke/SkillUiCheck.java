@@ -246,13 +246,14 @@ final class SkillUiCheck extends SystemCheck {
                     });
                 }),
                 new Action(8, p -> {
-                    expectTrue("普通左右点击装入一本技能，Shift搬入功法与三类槽，双端库存与鼠标余件一致", syncedSlot(p, 3, learned.get(0).copyWithCount(1))
+                    expectTrue("普通左右点击装入一本技能，Shift搬入功法与三类槽，双端库存与鼠标余件一致且立即写回（Q68）", syncedSlot(p, 3, learned.get(0).copyWithCount(1))
                             && syncedSlot(p, 0, studiedTechnique)
                             && syncedSlot(p, 1, learned.get(1)) && syncedSlot(p, 2, learned.get(2)) && syncedSlot(p, 7, learned.get(3))
                             && p.getInventory().getItem(0).getCount() == 1 && p.getInventory().getItem(1).isEmpty()
                             && p.getInventory().getItem(2).isEmpty() && p.getInventory().getItem(3).isEmpty() && p.getInventory().getItem(5).isEmpty() && inventorySynced(p)
                             && p.containerMenu.getCarried().isEmpty() && minecraft.player.containerMenu.getCarried().isEmpty()
-                            && Skills.spell(p, 1).isEmpty() && Skills.movement(p).isEmpty());
+                            && ItemStack.matches(Skills.spell(p, 1), learned.get(0).copyWithCount(1))
+                            && ItemStack.matches(Skills.movement(p), learned.get(1)));
                     p.closeContainer();
                     Skills.openLoadout(p);
                     p.closeContainer();
@@ -647,8 +648,8 @@ final class SkillUiCheck extends SystemCheck {
                 if (opened) minecraft.execute(this::fillLifecycleLoadout);
             });
             case 3 -> after(local, 10, p -> {
-                expectTrue("死亡前八本书经真实Shift点击进入菜单，尚未写回装配字段", lifecycleMenuMatches(p)
-                        && lifecycleStateEmpty(p) && lifecycleInventoryEmpty(p) && inventorySynced(p));
+                expectTrue("死亡前八本书经真实Shift点击进入菜单并同步写回装配字段（Q68）", lifecycleMenuMatches(p)
+                        && lifecycleStateMatches(p) && lifecycleInventoryEmpty(p) && inventorySynced(p));
                 loadoutDeathPos = p.blockPosition();
                 p.kill();
             });
@@ -679,13 +680,13 @@ final class SkillUiCheck extends SystemCheck {
                 if (opened) minecraft.execute(this::fillLifecycleLoadout);
             });
             case 9 -> after(local, 10, p -> {
-                expectTrue("重登前八槽真实装入新书，正常关闭前不提前写回", lifecycleMenuMatches(p)
-                        && lifecycleStateEmpty(p) && lifecycleInventoryEmpty(p) && inventorySynced(p));
+                expectTrue("重登前八槽真实装入新书并立即同步至玩家字段（Q68）", lifecycleMenuMatches(p)
+                        && lifecycleStateMatches(p) && lifecycleInventoryEmpty(p) && inventorySynced(p));
                 minecraft.execute(() -> minecraft.player.closeContainer());
             });
             case 10 -> {
                 if (local < 10) yield false;
-                onServer(p -> expectTrue("正常关闭04先写回八槽并同步本人，再退出存档", p.containerMenu == p.inventoryMenu
+                onServer(p -> expectTrue("正常关闭04写回八槽并同步本人，再退出存档", p.containerMenu == p.inventoryMenu
                         && lifecycleStateMatches(p) && lifecycleInventoryEmpty(p) && inventorySynced(p)));
                 leaveWorld();
                 yield true;
@@ -718,8 +719,8 @@ final class SkillUiCheck extends SystemCheck {
                 minecraft.execute(this::fillLifecycleLoadout);
             });
             case 17 -> after(local, 10, p -> {
-                boolean ready = lifecycleMenuMatches(p) && lifecycleStateEmpty(p) && lifecycleInventoryEmpty(p) && inventorySynced(p);
-                expectTrue("断线前八槽真实装入标记书且仍未写回玩家字段", ready);
+                boolean ready = lifecycleMenuMatches(p) && lifecycleStateMatches(p) && lifecycleInventoryEmpty(p) && inventorySynced(p);
+                expectTrue("断线前八槽真实装入标记书并同步写回玩家字段（Q68）", ready);
                 if (!ready) {
                     cleanup(p);
                     finish();
@@ -731,10 +732,10 @@ final class SkillUiCheck extends SystemCheck {
             case 18 -> reopened(local);
             case 19 -> inWorld(local);
             case 20 -> after(local, 10, p -> {
-                boolean saved = lifecycleStateEmpty(p)
-                        && lifecycleStateEmpty(minecraft.player) && lifecycleInventoryEmpty(p) && inventorySynced(p)
+                boolean saved = lifecycleStateMatches(p)
+                        && lifecycleInventoryEmpty(p) && inventorySynced(p)
                         && p.getData(PanelNavigation.PAGE) == 4 && minecraft.player.getData(PanelNavigation.PAGE) == 4;
-                expectTrue("04打开期间退出按来源保存顺序保留未写回状态", saved);
+                expectTrue("04打开期间断开重登保留八槽完整组件与分页（Q68）", saved);
                 if (!saved) {
                     cleanup(p);
                     finish();
@@ -744,10 +745,10 @@ final class SkillUiCheck extends SystemCheck {
                 key("guicaidan", false);
             });
             case 21 -> {
-                if (!awaitLoadout(local, p -> lifecycleSlotsEmpty(p) && lifecycleStateEmpty(p)
-                        && lifecycleStateEmpty(minecraft.player) && lifecycleInventoryEmpty(p) && inventorySynced(p)
+                if (!awaitLoadout(local, p -> lifecycleMenuMatches(p) && lifecycleStateMatches(p)
+                        && lifecycleInventoryEmpty(p) && inventorySynced(p)
                         && Skills.state(p).page() == 1 && Skills.state(minecraft.player).page() == 1,
-                        "04打开期间断线重登，K重开真实04且八空槽与保存字段双端同步并稳定")) yield false;
+                        "04打开期间断线重登，K重开真实04且八槽装配书双端同步并稳定")) yield false;
                 screenshots.take("skill-loadout-open-disconnect-reloaded.png");
                 yield true;
             }

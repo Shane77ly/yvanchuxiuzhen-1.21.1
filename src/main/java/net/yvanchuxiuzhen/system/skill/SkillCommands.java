@@ -19,8 +19,8 @@ import net.yvanchuxiuzhen.system.skill.api.SkillKind;
 
 /**
  * 生成技能书的四个命令（来源 {@code JinengCommand}、{@code SmanshipCommand}、{@code ShenfaCommand}、{@code FlyskillCommand}）：
- * 参数按空白分隔，含义见 {@link SkillLibrary#fromArguments}。{@code /jineng} 把书掉落在命令位置（加 0.5），拾取延迟 10 刻，
- * 没有权限要求（Q36）；其余三个要求权限 1，书直接放进执行者的背包，执行者不是玩家时没有效果。
+ * 参数按空白分隔，含义见 {@link SkillLibrary#fromArguments}。{@code /jineng} 把书掉落在命令位置（加 0.5），拾取延迟 10 刻；
+ * 四个命令均要求权限 1（Q37），其余三个把书直接放进执行者的背包，执行者不是玩家时没有效果。
  */
 public final class SkillCommands {
     private static final int PICKUP_DELAY = 10;
@@ -33,7 +33,7 @@ public final class SkillCommands {
     }
 
     private static void onRegister(RegisterCommandsEvent event) {
-        event.getDispatcher().register(command("jineng", 0, SkillKind.SPELL));
+        event.getDispatcher().register(command("jineng", 1, SkillKind.SPELL));
         event.getDispatcher().register(command("smanship", 1, SkillKind.WEAPON_ART));
         event.getDispatcher().register(command("shenfa", 1, SkillKind.MOVEMENT));
         event.getDispatcher().register(command("flyskill", 1, SkillKind.FLIGHT));

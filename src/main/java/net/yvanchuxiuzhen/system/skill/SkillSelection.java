@@ -16,15 +16,13 @@ import net.yvanchuxiuzhen.system.skill.data.SkillState;
  */
 public final class SkillSelection {
     private static final int PAGES = 4;
-    /** 按键序号 1 的选择不检查禁施与沉默，与来源 {@code AnjianZ} 一致。 */
-    private static final int UNGUARDED_KEY = 1;
 
     private SkillSelection() {
     }
 
     /**
      * 选择当前页第 {@code key}（1–4）个键对应的技能。同一页再次按同一个键取消选择；选择在禁施（{@code skilleffect_09}）或
-     * 沉默（{@code effect_002}）时只提示。槽为空或技能书不属于本人时提示“空”，原选择不变。最后关闭当前界面。
+     * 沉默（{@code effect_002}）时按状态提示并拒绝切换（Q39）。槽为空或技能书不属于本人时提示“空”，原选择不变。最后关闭当前界面。
      */
     public static void select(ServerPlayer player, int key) {
         SkillState state = Skills.state(player);
@@ -32,9 +30,9 @@ public final class SkillSelection {
         if (state.page() != selectedPage || state.selectedKey() != key) {
             state = state.withKey(key);
             player.setData(SkillData.STATE, state);
-            if (key == UNGUARDED_KEY || (!StatusEffects.has(player, "skilleffect_09") && !StatusEffects.has(player, "effect_002"))) {
+            if (!StatusEffects.has(player, "skilleffect_09") && !StatusEffects.has(player, "effect_002")) {
                 pick(player, state, (state.page() - 1) * SkillState.PAGE_SIZE + key);
-            } else if (!StatusEffects.has(player, "effect_002")) {
+            } else if (StatusEffects.has(player, "effect_002")) {
                 player.displayClientMessage(Component.translatable("message.yvanchuxiuzhen.skill.selection.silenced")
                         .withStyle(ChatFormatting.DARK_RED), false);
             } else {

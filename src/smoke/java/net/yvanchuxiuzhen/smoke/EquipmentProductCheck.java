@@ -879,21 +879,23 @@ final class EquipmentProductCheck extends ActionCheck {
                             && restored.poisonId().equals(cauldron.poisonId())
                             && clientCauldron.poisonNamespace().equals(cauldron.poisonNamespace())
                             && clientCauldron.poisonId().equals(cauldron.poisonId()));
-                    p.getInventory().setItem(4, new ItemStack(Items.IRON_SWORD));
+                    ItemStack enchantedSword = new ItemStack(Items.IRON_SWORD);
+                    enchantedSword.enchant(poisonEnchantment(p), 3);
+                    p.getInventory().setItem(4, enchantedSword);
                     p.inventoryMenu.broadcastChanges();
                 }),
                 new Action(6, p -> useBlock(4, poisonPos)),
                 new Action(6, p -> {
                     poisonRejected = p.serverLevel().getBlockEntity(poisonPos) instanceof PoisonCauldronBlockEntity
-                            && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), p.getMainHandItem()) == 0;
-                    p.getMainHandItem().enchant(poisonEnchantment(p), 3);
+                            && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), p.getMainHandItem()) == 3;
+                    p.getInventory().setItem(4, new ItemStack(Items.IRON_SWORD));
                     p.inventoryMenu.broadcastChanges();
                 }),
                 new Action(6, p -> useBlock(4, poisonPos)),
                 new Action(6, p -> {
-                    expectTrue("毒藤锅保留已有附魔前置：未附魔不消费，三级剑淬毒后保三级并返空锅", poisonRejected
+                    expectTrue("毒藤锅仅在未附魔时淬毒（Q35）：已有附魔不消费且保三级，未附魔淬为一级并返空锅", poisonRejected
                             && p.serverLevel().getBlockState(poisonPos).is(Blocks.CAULDRON)
-                            && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), p.getMainHandItem()) == 3
+                            && EnchantmentHelper.getItemEnchantmentLevel(poisonEnchantment(p), p.getMainHandItem()) == 1
                             && ItemStack.matches(p.getMainHandItem(), minecraft.player.getMainHandItem()));
                     p.getInventory().setItem(4, alchemyItem("cailiao_141", 2));
                     p.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.IRON_SWORD));

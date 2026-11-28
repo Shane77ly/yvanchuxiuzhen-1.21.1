@@ -500,6 +500,8 @@ final class SmokeRun {
                     case "gongfa" -> List.of(new GongfaCheck(report, levelId), new ComprehensionCheck(report, levelId, this::shot));
                     case "combat" -> List.of(new CombatCheck(report, levelId, this::shot));
                     case "lingwen" -> List.of(new LingwenCheck(report, levelId));
+                    case "skillcore" -> List.of(new SkillCheck(report, levelId));
+                    case "skillentity" -> List.of(new SkillEntityCheck(report, levelId));
                     case SpellShieldCheck.SELECTOR -> List.of(new SpellShieldCheck(report, levelId));
                     case "skill" -> List.of(new SkillCheck(report, levelId), new SkillProjectileCheck(report, levelId), new SkillEntityCheck(report, levelId), new SwordArtCheck(report, levelId), new LingwenCheck(report, levelId), new FireBirdCheck(report, levelId), new CorpseCheck(report, levelId), new VoidRiftCheck(report, levelId), new DamageAreaCheck(report, levelId), new YuanyingCheck(report, levelId), new SkillArrowCheck(report, levelId), new SkillMovementCheck(report, levelId), new SkillUiCheck(report, levelId, this::shot), new SkillRemainderCheck(report, levelId));
                     case "firebird" -> List.of(new FireBirdCheck(report, levelId));

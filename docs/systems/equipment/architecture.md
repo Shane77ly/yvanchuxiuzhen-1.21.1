@@ -83,7 +83,7 @@ attribute 的归属阅读把下列元素归入本系统，实现时按 [attribut
 
 18 把弓为 `Weaponspeedbow01–09Item` 和 `Weaponlongbow01–09Item`，实际均继承 `SwordItem`，选中更新共用 `A:Weaponspeedbow01DangGongJuChuXianZaiShouZhongShiProcedure`。九把拂尘为 `Weaponhossu01–09Item`，共用选中与挥动过程 `Weaponhossu01DangGongJuChuXianZaiShouZhongShi`、`Weaponhossu01DangShiTiHuiDongWuPinShi`；第一把为剑，其余八把为多用途 `TieredItem`。隐藏物品、实体与飞行过程分别是 `FuchenItem`、`FuchenEntity`、`FuchenTouZhiWuFeiXingTick`。本批接回这些入口及其消费者，其他装备尚未实现。验证结果见本节末尾及项目月度记录。
 
-Q57：弓读取实体 `synchronizedata.rightclicking`，绑定的右键过程为空。两个来源的 `src` 与 `elements` 全检只找到弓过程读取与 B 的 `Zxc` 游离实验块（另含 `rifhtclicking` 拼写），未找到有效写入。目标保留来源条件流程与剑类型，不新增鼠标同步；自然右键不能开始蓄力。该断链的修复取舍待负责人裁定，人工注入标记的检查只证明条件分支运行。
+Q57（已在阶段 4 子批 5 修复并验证，2026-11-28）：18 把弓通过 `content/equipment/items.json` 的专属工厂 `equipment:weaponspeedbow_*` / `equipment:weaponlongbow_*` 绑定至 `BowWeaponItem`（继承 `ContentSword` 保留全部剑属性与词条兼容），主手选中有效箭矢后右键按下调用 `startUsingItem` 并开启 `EquipmentData.RIGHT_CLICKING` 开始蓄力、松手 `releaseUsing` 立即调用 `EquipmentWeapons.releaseBow` 发射、中断使用 `onStopUsing` 调用 `cancelBow` 清空蓄力计数；`EquipmentWeaponCheck` 已通过自然右键蓄力、满蓄及松手发射实机检验。
 
 ### 弓的条件流程
 
