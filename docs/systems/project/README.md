@@ -2,10 +2,12 @@
 topic: project
 role: entry
 status: current
-updated: 2026-11-27
+updated: 2026-11-28
 ---
 
 # 项目状态与决定
+
+2026-11-28 里程碑：**阶段 5A/5B/5C（去套壳与剩余配方 JSON 化）、阶段 4B/4C/4D（全量严重原版 Bug 清理）与阶段 6（`AttributeCheck`/`q119` 夹具收口、已合入子 worktree 与临时分支清理、`main` 黄金基线合入）7 个子批次全部完成**（阶段 2C 妖兽 AI 保持暂缓不做）：`compileJava/compileTestJava/compileSmokeJava/test`（含升级版 `ArchitectureTest` 规则 7）、`jar`、各批 Smoke 场景、`check_ledger.py`（4,939 行 0 问题）、`check_docs.py`（130 篇 0 问题）与 `git diff --check` 全通后以 `git merge --no-ff` 合入本地 `main`（未推送远端）。另检测到 `rebuild-terrain-generation-research`（`port/20261124-terrain-generation-research`）尚有 16 个未合入提交及未提交地形研究文件，已暂保留待负责人确认是否保留或单独处置；详情见[本月记录](logs/2026-11.md#2026-11-28-架构终极收尾阶段-4-全量清理与本地-main-黄金基线合入)与[交接说明](../../development/handoff.md)。
 
 2026-11-27 负责人在审阅全仓架构体检报告后决定：**阶段 2C（妖兽 AI 选技能规则 JSON 拆分）保持暂缓、保留现有 Java 代码；体检发现的其余三方面优化与清理全部执行**：① **阶段 5（去套壳与剩余 4 类硬编码配方 JSON 化）**：将副本波次/奖励（`dungeon`）、阵法 17 种配方（`zhenfa`）、烹饪锅具/蒸笼/切菜/酿酒配方（`cooking`）、生活木工/陶轮/纺织配方（`craft`）全部转为 `Codec` + JSON 数据驱动，并彻底剥离 `QuestData`、`CommerceData`、`DungeonData`、`TownBuildPlan`、`CultivationData.tizhi`、`EquipmentRefinement` 及相关 `BlockEntity` 中的“套壳 `CompoundTag` / 万能字典”，升级 `ArchitectureTest` 规则 7；② **阶段 4 续批（4B/4C/4D 全量严重玩法 Bug 清理）**：全面修复 18 把弓无法右键蓄力射箭（Q57）、淬毒炼药锅 7 种毒药条件写反（Q35）、命中附魔与毒药效果串台及反伤甲炸自己（Q32/Q33/Q45）、灵力/神识死亡消息乱码（Q34）、技能冷却串台与上限错读（Q36）、`/jineng` 缺权限（Q37）、武器超重与禁施/沉默按键（Q38/Q39）、控火术/巨石锤晕自己/木篱术永久残留（Q41/Q42/Q44）、装配页断线丢数据（Q68）、丹田本命槽吞妖丹（Q25）、先天体质 11/12 不可达（Q21）、商店以物易物白嫖与吞材料（Q93）、副本准入拒绝仍扣门票（Q103）等 1.18.2 遗留 Bug；③ **阶段 6（夹具修补、分支清理与合入 `main`）**：修补 `AttributeCheck` 与 `q119` 两个遗留 Smoke 夹具，清理 4 个冗余子工作树与已合并临时分支，全量门禁通过后以 `git merge --no-ff` 合入本地 `main` 确立自创内容（定位 B）黄金基线。详见[当前调度](../../development/remaining-work.md#2026-11-27-架构终极收尾去套壳与剩余配方-json-化阶段-4-全量原版-bug-清理与黄金基线收口)与[项目月志](logs/2026-11.md#2026-11-27-架构终极收尾与阶段-4-全量原版-bug-清理方案定案)。
 

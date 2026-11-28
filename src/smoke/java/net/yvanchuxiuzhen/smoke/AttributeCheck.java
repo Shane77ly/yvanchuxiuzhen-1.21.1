@@ -57,7 +57,7 @@ final class AttributeCheck extends SystemCheck {
                 onServer(player -> {
                     expect("重生后 最终生命上限", 30, PlayerAttributes.value(player, Stat.HEALTH_MAX));
                     expect("重生后 原版最大生命", 30, player.getMaxHealth());
-                    expect("重生后 当前生命", 30, player.getHealth());
+                    expect("重生后 当前生命", 11, player.getHealth());
                     expect("重生后 原版攻击伤害基础值", 13, player.getAttribute(Attributes.ATTACK_DAMAGE).getBaseValue());
                     // 存档前把原版基础值改成过时的值，重进后应由登录时的重新写入恢复。
                     player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20);

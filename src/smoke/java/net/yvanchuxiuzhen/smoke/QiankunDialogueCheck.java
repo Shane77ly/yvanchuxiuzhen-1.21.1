@@ -35,12 +35,11 @@ import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 
-/** 在人间道存档副本中检查初见任务的两个选项、断点恢复与客户端收到的原生传送。 */
+/** 在新建烟测世界的人间道维度自举放置乾坤道人，检查初见任务的两个选项、断点恢复与客户端收到的原生传送。 */
 final class QiankunDialogueCheck extends SystemCheck {
-    static final String SAVE_ID = "renjian-q119";
     private static final String QUEST_ID = "chujianqiankun";
     private static final ResourceKey<Level> RENJIAN = ResourceKey.create(Registries.DIMENSION, id("dimensionrenjian"));
-    private static final BlockPos FLOOR = new BlockPos(4, 179, -24);
+    private static final BlockPos FLOOR = new BlockPos(4, 220, -24);
     private static final BlockPos DAO = FLOOR.offset(0, 1, 2);
     private static final Vec3 STAND = Vec3.atBottomCenterOf(FLOOR.above());
     private static final Vec3 LANDING = new Vec3(20, 65, 13);

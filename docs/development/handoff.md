@@ -7,21 +7,15 @@ updated: 2026-11-28
 
 # 交接说明
 
-## 当前交接（2026-11-27 架构终极收尾、阶段 4 全量原版 Bug 清理与黄金基线收口任务单）
+## 当前交接（2026-11-28 架构终极收尾、阶段 4 全量清理与黄金基线本地 `main` 合入完成）
 
 1. **当前基线**：
-   - 主工作树：`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`（唯一工作目录）。
-   - 当前集成分支：`port/20261123-parity-integration`（HEAD `3d3df3f1` 及本批文档提交，已完成阶段 1、2A、2B、3 与阶段 4 首批 13 项，阶段 2C 妖兽 AI 保持暂缓不拆）。
-2. **负责人最新决定（2026-11-27）**：
-   - 经全仓架构体检后，负责人确认**阶段 2C（妖兽 AI 数据驱动拆分）保持暂缓不做**，而**体检发现的其余三块内容全部执行**：① 剩余 4 类硬编码/分隔符配方转 `Codec` + JSON 数据驱动，并彻底剥离所有“套壳 `CompoundTag` / 万能字典”；② 阶段 4 剩余全量 1.18.2 严重玩法 Bug（18 把弓无法射箭、淬毒锅条件写反、附魔/毒药/技能冷却串台、巨石锤晕自己、丹田本命槽吞妖丹、商店以物易物白嫖/吞材料、副本拒入扣票、`/jineng` 权限、死亡消息乱码等）一次性修干净；③ 修补 2 个遗留 Smoke 夹具（`AttributeCheck` 与 `q119`）、清理 4 个冗余子 worktree 与已合并临时分支，并在全量门禁通过后以 `git merge --no-ff` 合入本地 `main`，确立**定位 B（自创内容开发）黄金基线**。
-3. **立即执行的七大收尾子批次（详见[当前调度：2026-11-27 架构终极收尾、阶段 4 全量原版 Bug 清理与黄金基线收口](remaining-work.md#2026-11-27-架构终极收尾去套壳与剩余配方-json-化阶段-4-全量原版-bug-清理与黄金基线收口)）**：
-   - **子批 1（`refactor/p5a-dungeon-zhenfa-codec-json`，已完成并合入）**：副本波次/奖励（`DungeonDefinitions`/`DungeonRewards`）消除 `split("%/&//")` 转为 `dungeons.json` + `Codec`（已修 Q81/Q109），阵法 33 种配方（`FormationRecipes`/`FormationLayout`）转为 `formations.json` + `Codec`（已修 Q04 倍率与火 2 类别），剥离 `DungeonData`/`DungeonBlockEntity`/`FormationBaseBlockEntity` 套壳 `CompoundTag` 并离线升级 5 份 `.nbt`。
-   - **子批 2（`refactor/p5b-cooking-craft-codec-json`，已完成并合入）**：木甑/饮酒/墨料坯/摆盘/容器与木工/石磨/缫丝/织布/陶轮配方全部提取为 `content/cooking/recipes.json`（25 条）与 `content/craft/recipes.json`（68 条）+ `Codec`，消除 `CookingPotBlockEntity.inkScratch` 与 `SilkwormBoxBlockEntity.silkworm_stats` 套壳。
-   - **子批 3（`refactor/p5c-unbox-compoundtag-wrappers`，已完成并合入）**：已剥离 `QuestData`、`BountyBoardBlockEntity`、`CommerceData.SESSION`、`EconomyBlockState`、`TownBuildRegistry`/`TownBuildPlan`（消除 `TownMenu` `split("/")`）、`ConstitutionState`、`EquipmentRefinement.Mutable`、`HerbAnalysis`、`TaoguanJarState` 等套壳 `CompoundTag` 与 `.toTag()` 中转运算，并升级 `ArchitectureTest` 规则 7 封禁套壳 `AttachmentType<CompoundTag>`、`DataComponentType<CompoundTag>`、`record` 与 `BlockEntity` `CompoundTag` 字段。
-   - **子批 4（`refactor/p4b-combat-enchant-poison-fixes`，已完成并合入）**：已修复 Q32/Q45 命中附魔（毒药/锯齿取消误乘 20、`lingtikiller`/`liuqing`/`lingwen` 读自身等级、灵纹扣攻击者灵力且用 `copyFrom` 不污染好友表、`chaos` 世界 Z 坐标、火/冰/雷甲豁免自身）、Q33 毒药与恢复说明（`duyao_09`/`13`/`20`/`21` 与 `effect_010`/`017`）及 Q34 死亡消息语言键；`-PsmokeOnly=combat,lingwen`（110 行，`0 FAIL`/`DONE`）与单测全部通过。
-   - **子批 5（`refactor/p4c-skill-equipment-bow-fixes`，已完成并合入）**：已修复装备、炼器与技能神通 Bug（**Q57** 18 把速弓/长弓接入 `BowWeaponItem` 右键蓄力射箭；**Q35** 淬毒炼药锅 8 毒条件统一；**Q36** 冷却增量跨组重置与阴阳上限读自身；**Q37** `/jineng` 权限 1；**Q38/Q39** 超重读主手、禁施/沉默文案与 Z 键校验；**Q41/Q42/Q44** 控火术攻击者与伤害、巨石锤眩晕敌方、木篱消散/回身鞭无霸体/灰木树梯 52 刻；**Q68** 04 装配页槽位改动与登出保存）；`compileJava/compileTestJava/compileSmokeJava/test`、`equipmentweapon`/`equipmentproduct`/`skillloadoutcontainer`/`skillcore`/`skillentity`/`skillui` Smoke 全部 `0 FAIL`/`DONE`。
-   - **子批 6（`refactor/p4d-cultivation-economy-dungeon-fixes`，已完成并合入）**：已清理修炼、经济与副本交互 Bug（**Q25** 丹田本命槽限 `1` 防吞妖丹；**Q21/Q22/Q19** 先天体质 `1..12` 随机全可达、突破第 9/10 行文案与标签修正、好友调试字/查重/双向删除修复；**Q93** 商店以物易物预检防白嫖与精确扣减；**Q72/Q73/Q88/Q94/Q96** 生存商铺限购、图纸重量折价、商人`"强筋"`识别、材料店三档均可达、拍卖托管 `managed` 对齐；**Q103/Q192/Q214** 副本准入拒入不扣票、博古架全 ID 排除 `yvanchuxiuzhen:ling_16`、签筒 `1..36` 均匀随机）；相关 Smoke（`relation,commerce,npcmanagement,tiandao_display,animateddecor`、`commerce,npcmanagement,animateddecor`、`npcmanagement,benmingcultivation,dungeon` 与 `xiulian`）全部通过。
-   - **子批 7（`refactor/p6-test-fixtures-and-main-closure`）**：修补 `AttributeCheck`（重生二成回血 11.0）与 `q119`（代码自举乾坤道人前置，脱离缺失存档目录）两个 Smoke 夹具；清理 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/` 下 4 个冗余子工作树与本地已合并临时分支；全量门禁通过后将 `port/20261123-parity-integration` 以 `git merge --no-ff` 合入本地 `main`（不自动推送远端）。
+   - 主工作树：`D:/yuanchuxiuzhen-1.21.1-port/yuanchuxiuzhen-rebuild-1.21.1`。
+   - 当前分支：本地 `main`（已通过 `git merge --no-ff` 完整合入 `port/20261123-parity-integration` 及其全部 7 个收尾子批次，未自动推送远端）。
+   - 阶段 2C（妖兽 AI 选技能规则 JSON 拆分）按负责人决定保持暂缓、保留现有 Java 实现。
+2. **七大收尾子批次完成状态（详见[当前调度](remaining-work.md#2026-11-27-架构终极收尾去套壳与剩余配方-json-化阶段-4-全量原版-bug-清理与黄金基线收口)）**：
+   - **子批 1–6**：`p5a`（副本/阵法 `Codec` + JSON 与去套壳）、`p5b`（烹饪/生活制造 25+68 配方 JSON 化与去套壳）、`p5c`（剥离全仓套壳 `CompoundTag` & 升级 `ArchitectureTest` 规则 7）、`p4b`（Q32/Q33/Q34/Q45 命中附魔/毒药/死亡消息）、`p4c`（Q57 18 把弓/Q35 淬毒锅/Q36–Q39/Q41/Q42/Q44/Q68）、`p4d`（Q25/Q21/Q22/Q19/Q93/Q72/Q73/Q88/Q94/Q96/Q103/Q192/Q214）全部完成验证并 `--no-ff` 合入。
+   - **子批 7（`refactor/p6-test-fixtures-and-main-closure`，已完成并合入本地 `main`）**：已将 `AttributeCheck`（重生当前生命 `11.0`）与 `QiankunDialogueCheck`（`q119` 代码自举建坛，脱离 `renjian-q119`）修补并通过 `-PsmokeOnly=attribute,q119`（51 行、`0 FAIL`、`DONE`）；已移除 3 个干净且已合入的 parity 子工作树与 28 个已合入临时分支；已保留含 16 个未合入提交及未提交地形研究文件的 `D:/yuanchuxiuzhen-1.21.1-port/worktrees/rebuild-terrain-generation-research`（`port/20261124-terrain-generation-research`）待负责人确认；全量 `compileJava/compileTestJava/compileSmokeJava/test/jar`、`check_ledger.py`、`check_docs.py` 与 `git diff --check` 全部 0 问题通过后合入本地 `main`。
 
 ## 历史交接（2026-11-27 阶段 4 首批合入）
 

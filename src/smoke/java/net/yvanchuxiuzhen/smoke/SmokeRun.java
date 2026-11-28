@@ -117,7 +117,6 @@ final class SmokeRun {
         case NaturalAlloyRepairCheck.SELECTOR -> NaturalAlloyRepairCheck.SAVE;
         case JadeWoodSupplyCheck.SELECTOR -> JadeWoodSupplyCheck.SAVE;
         case JadeBambooSupplyCheck.SELECTOR -> JadeBambooSupplyCheck.SAVE;
-        case "q119" -> QiankunDialogueCheck.SAVE_ID;
         case RenjianLocustNaturalCheck.SELECTOR -> RenjianLocustNaturalCheck.SAVE;
         case RenjianCapturedJarCheck.SELECTOR -> RenjianCapturedJarCheck.SAVE;
         case RenjianResidenceCheck.SELECTOR -> RenjianResidenceCheck.SAVE_ID;
@@ -566,10 +565,7 @@ final class SmokeRun {
                     case "festivalremaining" -> List.of(new FestivalRemainingCheck(report, levelId, this::shot));
                     case "doublebang" -> List.of(new DoubleBangFireworkCheck(report, levelId, this::shot));
                     case "qiankun" -> List.of(new QiankunCheck(report, levelId, this::shot));
-                    case "q119" -> {
-                        if (!QiankunDialogueCheck.SAVE_ID.equals(levelId)) throw new IllegalArgumentException("q119 需单独运行");
-                        yield List.of(new QiankunDialogueCheck(report, levelId, this::shot));
-                    }
+                    case "q119" -> List.of(new QiankunDialogueCheck(report, levelId, this::shot));
                     case "npc08" -> List.of(new NpcFlyingShuttleCheck(report, levelId, this::shot));
                     case "npc_underworld" -> List.of(new NpcUnderworldCheck(report, levelId, this::shot));
                     case "wishlantern" -> List.of(new WishLanternCheck(report, levelId, this::shot));

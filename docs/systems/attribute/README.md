@@ -2,10 +2,12 @@
 topic: attribute
 role: entry
 status: partial
-updated: 2026-11-27
+updated: 2026-11-28
 ---
 
 # 属性
+
+2026-11-28 阶段 6 将 `AttributeCheck` 重生后当前生命断言从 `30.0` 对齐为当前 `Rebirth` 二成回血机制实测值 `11.0`，随 `-PsmokeOnly=attribute,q119` 通过（[本月记录](logs/2026-11.md#2026-11-28-阶段-6attributecheck-重生生命夹具对齐)）。
 
 标识 `attribute`，类别：系统。职责：基础属性、贡献汇总、派生值，含灵根与功法的五行加成和抗性（[系统设计](../../development/system-design.md)）。
 
