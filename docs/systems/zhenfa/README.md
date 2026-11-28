@@ -2,14 +2,14 @@
 topic: zhenfa
 role: entry
 status: partial
-updated: 2026-11-15
+updated: 2026-11-28
 ---
 
 # 阵法
 
 标识 `zhenfa`，类别：系统。职责：阵位、阵元、阵旗、阵法效果（[系统设计](../../development/system-design.md)）。
 
-当前状态：阵元、阵基、母旗/子旗与罗盘已接入方块实体、内容工厂和来源资源；阵基布局扫描、供能、阵旗绑定/控制、阴1–4、空间1–5、阳1–4及五行来源复制分支已实现接线。阳系三实体、箭物品、原生模型与Geo渲染已接，模型表与资产正式定向转换已完成，目标检查按本月实际记录接续；五行继续保持Q04的费用/名称错配，伤害标记继续保持Q31消费断链，不代表已获得推测的五行效果。此前内容/资源转换、`compileSmokeJava`和`formation` Smoke已通过；报告归档于`build/diagnostics/r15-zhenfa-formation-20261114/`，含54条INFO、0 FAIL、DONE，保存重进和正常退出完成。本批空间8项及阳/五行19项受控必要检查通过，定向转换工厂回归已修复；阳四19×19破坏、自然阵基全链、后期消费者、跨维度、多人、1.18.2版本实机或完整表现仍未验。Q148经来源父类复核，确认六面及空方向能力均属来源行为，目标保持共库。
+当前状态：阵元、阵基、母旗/子旗与罗盘已接入方块实体、内容工厂和来源资源；阵基布局扫描、供能、阵旗绑定/控制、阴1–4、空间1–5、阳1–4及五行来源复制分支已实现接线。子批 1 已将 33 份阵法配方提取至 `content/zhenfa/formations.json` + `FormationRecipeDefinition.CODEC`（修正 Q04 火 2 错归“金”类及五行阶梯耗能倍率 `[0.5, 1.0, 1.5, 2.0]`），并剥离 `FormationBaseBlockEntity.state` 套壳 `CompoundTag`（离线升级 3 份结构模板）。五行继续保留来源阴执器分派错配（Q04 其余子项），伤害标记继续保持Q31消费断链。阳系三实体、箭物品、原生模型与Geo渲染已接，模型表与资产正式定向转换已完成。本批 `compileJava compileTestJava compileSmokeJava test` 与 `formation,structurerelease` Smoke（71 行、`0 FAIL`、`DONE`）通过；阳四19×19破坏、自然阵基全链、后期消费者、跨维度、多人、1.18.2版本实机或完整表现仍未验。Q148经来源父类复核，确认六面及空方向能力均属来源行为，目标保持共库。
 
 - [架构与调查正文](architecture.md)：来源入口、数据所有者、调用契约、生命周期和裁定事项。
 - 候选归属 59 个元素，其中 40 个已读；这是检索范围，不是该单位已验证功能数。见[归属表](../../reference/legacy/inventory/ownership_assignment.csv)。

@@ -9,7 +9,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -18,11 +17,12 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.dungeon.DungeonSettings;
 import net.yvanchuxiuzhen.system.dungeon.content.DungeonMenu;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonMenuSnapshot;
 import net.yvanchuxiuzhen.system.dungeon.network.DungeonActionPayload;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
 
-/** 副本四页保留来源贴图、输入和槽坐标；配置值由当前方块快照展示，按钮只提交输入。 */
+/** 副本四页保留来源贴图、输入和槽坐标；配置值由强类型方块快照展示，按钮只提交输入。 */
 public final class DungeonScreen extends AbstractContainerScreen<DungeonMenu> {
     private static final List<String> BACKGROUNDS = List.of("fubenopen", "tiandaofuben_gui", "fubenblock_gui", "fubenentity_gui");
     private static final DecimalFormat WHOLE = new DecimalFormat("0");
@@ -68,13 +68,8 @@ public final class DungeonScreen extends AbstractContainerScreen<DungeonMenu> {
     private static ResourceLocation texture(String path) { return ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "textures/screens/" + path + ".png"); }
 
     private void send() {
-        String value = "";
-        if (menu.kind() == DungeonMenu.MANAGE) {
-            List<String> fields = new ArrayList<>();
-            for (int index = 0; index < inputs.size(); index++) fields.add(DungeonSettings.FIELDS.get(index) + ":" + inputs.get(index).getValue());
-            value = String.join(",", fields);
-        } else if (!inputs.isEmpty()) value = inputs.getFirst().getValue();
-        PacketDistributor.sendToServer(new DungeonActionPayload(menu.containerId, value, attack != null && attack.selected()));
+        List<String> values = inputs.stream().map(EditBox::getValue).toList();
+        PacketDistributor.sendToServer(new DungeonActionPayload(menu.containerId, values, attack != null && attack.selected()));
     }
 
     @Override
@@ -84,7 +79,7 @@ public final class DungeonScreen extends AbstractContainerScreen<DungeonMenu> {
         graphics.blit(texture(BACKGROUNDS.get(menu.kind())), leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
         if (menu.kind() == DungeonMenu.OPEN) {
             graphics.blit(texture("fubengui"), leftPos - 49, topPos - 17, 0, 0, 272, 162, 272, 162);
-            double preview = menu.data().getDouble("fubenyvlan");
+            double preview = menu.snapshot().preview();
             for (int image = 1; image <= 5; image++) {
                 if (preview == image) graphics.blit(texture("fubenguitupian0" + image), leftPos + 163, topPos + 55, 0, 0, 45, 71, 45, 71);
             }
@@ -94,31 +89,34 @@ public final class DungeonScreen extends AbstractContainerScreen<DungeonMenu> {
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        CompoundTag data = menu.data();
+        DungeonMenuSnapshot snapshot = menu.snapshot();
         if (menu.kind() == DungeonMenu.OPEN) {
-            graphics.drawString(font, data.getString("fubenname"), -31, 2, -13312, false);
+            graphics.drawString(font, snapshot.dungeonName(), -31, 2, -13312, false);
             int[] lines = {16, 26, 37, 48};
-            for (int line = 1; line <= 4; line++) graphics.drawString(font, data.getString("text0" + line), -31, lines[line - 1], -12829636, false);
+            String[] textLines = {snapshot.text01(), snapshot.text02(), snapshot.text03(), snapshot.text04()};
+            for (int line = 0; line < 4; line++) graphics.drawString(font, textLines[line], -31, lines[line], -12829636, false);
             double level = Cultivation.get(minecraft.player, CultivationValue.LEVEL_NUMBER);
-            String color = level >= data.getDouble("fubenminlevel") && level <= data.getDouble("fubenmaxlevel") ? "§a" : "§4";
-            graphics.drawString(font, color + "Lv：" + WHOLE.format(data.getDouble("fubenminlevel")) + "~" + WHOLE.format(data.getDouble("fubenmaxlevel")), -31, 63, -12829636, false);
+            String color = level >= snapshot.minLevel() && level <= snapshot.maxLevel() ? "§a" : "§4";
+            graphics.drawString(font, color + "Lv：" + WHOLE.format(snapshot.minLevel()) + "~" + WHOLE.format(snapshot.maxLevel()), -31, 63, -12829636, false);
             if (menu.slots.getFirst().hasItem()) graphics.drawString(font, text("ticket"), -31, 82, -12829636, false);
-            graphics.drawString(font, text("people").copy().append(WHOLE.format(data.getDouble("fubenpeoplemax"))), -32, 95, -16764007, false);
-            graphics.drawString(font, text("reward").copy().append(data.getString("fubenjiangli")), -32, 106, -13312, false);
+            graphics.drawString(font, text("people").copy().append(WHOLE.format(snapshot.maxPeople())), -32, 95, -16764007, false);
+            graphics.drawString(font, text("reward").copy().append(snapshot.rewardSummary()), -32, 106, -13312, false);
         } else if (menu.kind() == DungeonMenu.MANAGE) {
-            graphics.drawString(font, data.getString("fubenname"), 6, 9, 0xFF000000, false);
-            graphics.drawString(font, text("current_id").copy().append(data.getString("fubenid")), 6, 45, 0xFF000000, false);
-            graphics.drawString(font, data.getString("fubenjieshao"), 6, 81, 0xFF000000, false);
-            graphics.drawString(font, text("reward").copy().append(data.getString("fubenjiangli")), 6, 117, 0xFF000000, false);
+            graphics.drawString(font, snapshot.dungeonName(), 6, 9, 0xFF000000, false);
+            graphics.drawString(font, text("current_id").copy().append(snapshot.templateId()), 6, 45, 0xFF000000, false);
+            graphics.drawString(font, snapshot.description(), 6, 81, 0xFF000000, false);
+            graphics.drawString(font, text("reward").copy().append(snapshot.rewardSummary()), 6, 117, 0xFF000000, false);
             double level = Cultivation.get(minecraft.player, CultivationValue.LEVEL_NUMBER);
-            String color = level >= data.getDouble("fubenminlevel") && level <= data.getDouble("fubenmaxlevel") ? "§a" : "§4";
-            graphics.drawString(font, color + "Lv：" + WHOLE.format(data.getDouble("fubenminlevel")) + "~" + WHOLE.format(data.getDouble("fubenmaxlevel")), 177, 9, -1, false);
-            graphics.drawString(font, text("people").copy().append(WHOLE.format(data.getDouble("fubenpeoplemax"))), 177, 63, -1, false);
-            graphics.drawString(font, text("preview").copy().append(WHOLE.format(data.getDouble("fubenyvlan"))), 177, 99, -1, false);
+            String color = level >= snapshot.minLevel() && level <= snapshot.maxLevel() ? "§a" : "§4";
+            graphics.drawString(font, color + "Lv：" + WHOLE.format(snapshot.minLevel()) + "~" + WHOLE.format(snapshot.maxLevel()), 177, 9, -1, false);
+            graphics.drawString(font, text("people").copy().append(WHOLE.format(snapshot.maxPeople())), 177, 63, -1, false);
+            graphics.drawString(font, text("preview").copy().append(WHOLE.format(snapshot.preview())), 177, 99, -1, false);
             graphics.drawString(font, text("cost"), 177, 180, -1, false);
         } else if (menu.kind() == DungeonMenu.CONTROLLER) {
-            graphics.drawString(font, text("fubenbianchang").copy().append("：" + data.getInt("fubenbianchang")), 6, 5, 0x404040, false);
-        } else graphics.drawString(font, text("zhanweifuid").copy().append("：" + data.getString("zhanweifuid")), 6, 11, 0x404040, false);
+            graphics.drawString(font, text("fubenbianchang").copy().append("：" + snapshot.sideLength()), 6, 5, 0x404040, false);
+        } else {
+            graphics.drawString(font, text("zhanweifuid").copy().append("：" + snapshot.markerId()), 6, 11, 0x404040, false);
+        }
     }
 
     @Override

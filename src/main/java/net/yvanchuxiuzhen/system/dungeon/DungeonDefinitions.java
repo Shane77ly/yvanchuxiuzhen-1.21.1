@@ -1,22 +1,61 @@
 package net.yvanchuxiuzhen.system.dungeon;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
+import net.yvanchuxiuzhen.platform.content.ContentFiles;
 import net.yvanchuxiuzhen.system.dungeon.content.DungeonBlockEntity;
+import net.yvanchuxiuzhen.system.dungeon.data.ControllerMobSpawn;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition.DungeonMobSpawn;
+import net.yvanchuxiuzhen.system.dungeon.data.DungeonDefinition.DungeonRewardEntry;
+import net.yvanchuxiuzhen.system.dungeon.data.MarkerInfo;
 
-/** 控制器把来源百分号定义展开为连续刷怪记录和原槽奖励，保留五波清理及零X占位符终止规则。 */
-final class DungeonDefinitions {
+/** 副本强类型定义加载器，以及控制器重置、波次/奖励展开和镇妖塔44点配置。 */
+public final class DungeonDefinitions {
+    public static final String RESOURCE_PATH = "content/dungeon/dungeons.json";
+    public static final String DEFAULT_ID = "default";
+    private static Map<String, DungeonDefinition> byId;
+
     private DungeonDefinitions() {
     }
 
+    public static List<DungeonDefinition> all() {
+        return List.copyOf(index().values());
+    }
+
+    public static DungeonDefinition byId(String id) {
+        return index().getOrDefault(id, DungeonDefinition.EMPTY);
+    }
+
+    public static void configureTower(ServerLevel level) {
+        for (DungeonDefinition definition : all()) {
+            if (definition.towerPos().isEmpty()) continue;
+            BlockPos pos = definition.towerPos().get();
+            if (level.getBlockEntity(pos) instanceof DungeonBlockEntity block) {
+                block.setDefinitionId(definition.id());
+                block.changed();
+            }
+            level.setBlock(pos.below(), DungeonPlayers.block("ginkgofloor").defaultBlockState(), 3);
+        }
+    }
+
     static void reset(DungeonBlockEntity block) {
-        CompoundTag data = block.state();
-        for (int wave = 1; wave <= 5; wave++) data.putInt("fybenboci" + wave + "num", 0);
-        for (String key : new String[]{"fubentick", "fubenbociMax", "fubenbocinum", "fubenjieshutime", "fubenentityspawnnum", "fubenentitynum"}) data.putInt(key, 0);
-        for (int index = 1; data.getCompound("zhanwei" + index).getInt("entityshengchengX") != 0; index++) {
-            CompoundTag marker = data.getCompound("zhanwei" + index);
-            BlockPos pos = block.getBlockPos().offset(marker.getInt("entityshengchengX"), marker.getInt("entityshengchengY"), marker.getInt("entityshengchengZ"));
+        block.resetWaveCounts();
+        block.setControllerTick(0);
+        block.setWaveMax(0);
+        block.setWaveIndex(0);
+        block.setEndTime(0);
+        block.setSpawnCursor(0);
+        block.setWaveEntityCount(0);
+        block.resetMobSpawns();
+        // Q106：沿列表顺序遇到 X 偏移为 0 的占位符即停止清理。
+        for (MarkerInfo marker : block.markers()) {
+            if (marker.x() == 0) break;
+            BlockPos pos = block.getBlockPos().offset(marker.x(), marker.y(), marker.z());
             if (block.getLevel().getBlockEntity(pos) instanceof DungeonBlockEntity found && found.kind().equals("fubenentity")) {
                 block.getLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
             }
@@ -24,59 +63,61 @@ final class DungeonDefinitions {
     }
 
     static void parse(DungeonBlockEntity block) {
-        CompoundTag data = block.state();
-        String[] fields = data.getString("fubenshujv").split("%");
-        data.putInt("fubenbociMax", (int) DungeonRewards.number(fields[1]));
-        data.putInt("fubenjieshutime", (int) DungeonRewards.number(fields[2]));
-        data.putString("giftlist", fields[3]);
-        int cursor = 4;
-        int spawn = 0;
-        for (int wave = 1; wave <= data.getInt("fubenbociMax"); wave++) {
-            int count = (int) DungeonRewards.number(fields[cursor++]);
-            data.putInt("fybenboci" + wave + "num", count);
-            for (int index = 0; index < count; index++) {
-                CompoundTag mob = data.getCompound("mobtagdata" + spawn);
-                mob.putString("entityshengchengid", DungeonRewards.remap(fields[cursor]));
-                mob.putInt("entityshengchenglevel", (int) DungeonRewards.number(fields[cursor + 1]));
-                CompoundTag marker = data.getCompound(fields[cursor + 2]);
-                for (String key : new String[]{"entityshengchengX", "entityshengchengY", "entityshengchengZ", "entityshengchengchaoxiang"}) mob.putInt(key, marker.getInt(key));
-                mob.putBoolean("entityshengchenggongji", marker.getBoolean("entityshengchenggongji"));
-                data.put("mobtagdata" + spawn++, mob);
-                cursor += 3;
+        DungeonDefinition definition = block.customDefinition()
+                .orElseGet(() -> byId(block.definitionId()));
+        List<List<DungeonMobSpawn>> waves = definition.waves();
+        block.setWaveMax(waves.size());
+        block.setEndTime(definition.timeLimit());
+        for (int waveIndex = 0; waveIndex < waves.size(); waveIndex++) {
+            List<DungeonMobSpawn> mobs = waves.get(waveIndex);
+            block.setWaveCount(waveIndex + 1, mobs.size());
+            for (DungeonMobSpawn mob : mobs) {
+                MarkerInfo marker = block.findMarker(mob.markerId()).orElse(MarkerInfo.EMPTY);
+                block.addMobSpawn(new ControllerMobSpawn(
+                        mob.entityId(), mob.level(),
+                        marker.x(), marker.y(), marker.z(), marker.facing(), marker.attack()));
             }
         }
-        if (!fields[3].isEmpty()) {
-            for (int slot = 0; slot < 18; slot++) data.putInt("gift" + slot + "qvanzhong", 0);
-            String[] gifts = fields[3].split("&");
-            for (int slot = 0; slot < gifts.length; slot++) {
-                String[] gift = gifts[slot].split("/");
-                data.putInt("gift" + slot + "qvanzhong", (int) DungeonRewards.number(gift[2]));
-                block.setItem(slot, DungeonRewards.create(gift));
-            }
+        block.resetRewardWeights();
+        List<DungeonRewardEntry> rewards = definition.rewards();
+        for (int slot = 0; slot < Math.min(18, rewards.size()); slot++) {
+            DungeonRewardEntry reward = rewards.get(slot);
+            block.setRewardWeight(slot, reward.weight());
+            block.setItem(slot, DungeonRewards.create(reward));
         }
     }
 
     static void configure(DungeonBlockEntity block, double side) {
-        CompoundTag data = block.state();
+        int length = (int) side;
         if (side >= 1) {
-            data.putInt("fubenbianchang", (int) side);
-            for (String axis : new String[]{"X", "Y", "Z"}) data.putInt("fubenzhongxin" + axis, (int) (side / 2));
+            block.setSideLength(length);
+            int half = length / 2;
+            block.setCenterOffset(half, half, half);
         }
-        for (int x = 0; x < (int) side; x++) {
-            for (int y = 0; y < (int) side; y++) {
-                for (int z = 0; z < (int) side; z++) {
-                    if (block.getLevel().getBlockEntity(block.getBlockPos().offset(x, y, z)) instanceof DungeonBlockEntity marker && marker.kind().equals("fubenentity")) {
-                        CompoundTag tag = marker.state();
-                        tag.putInt("entityshengchengX", x);
-                        tag.putInt("entityshengchengY", y);
-                        tag.putInt("entityshengchengZ", z);
-                        data.put(tag.getString("zhanweifuid"), tag);
-                        data.putInt("zhanweifunum", data.getInt("zhanweifunum") + 1);
+        for (int x = 0; x < length; x++) {
+            for (int y = 0; y < length; y++) {
+                for (int z = 0; z < length; z++) {
+                    if (block.getLevel().getBlockEntity(block.getBlockPos().offset(x, y, z)) instanceof DungeonBlockEntity marker
+                            && marker.kind().equals("fubenentity")) {
+                        marker.setMarkerOffset(x, y, z);
+                        block.addMarker(marker.toMarkerInfo());
+                        block.incrementMarkerCount();
                         marker.changed();
                     }
                 }
             }
         }
         block.changed();
+    }
+
+    private static Map<String, DungeonDefinition> index() {
+        if (byId == null) {
+            Map<String, DungeonDefinition> loaded = new LinkedHashMap<>();
+            for (DungeonDefinition definition : ContentFiles.read(RESOURCE_PATH, DungeonDefinition.CODEC)) {
+                loaded.put(definition.id(), definition);
+            }
+            byId = Map.copyOf(loaded);
+        }
+        return byId;
     }
 }

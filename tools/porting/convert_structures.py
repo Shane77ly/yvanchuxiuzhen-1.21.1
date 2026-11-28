@@ -68,21 +68,19 @@ ROOT_BLOCK_ENTITIES = {
     f'{NAMESPACE}:fooddaguo',
     f'{NAMESPACE}:fooddunguo',
     f'{NAMESPACE}:foodzhengguo',
+    f'{NAMESPACE}:fubenblock',
+    f'{NAMESPACE}:fubenentity',
     f'{NAMESPACE}:mugongtai',
     f'{NAMESPACE}:pianyifangkuai',
     f'{NAMESPACE}:qiankunmentu',
     f'{NAMESPACE}:renwuweizhuangfangkuai',
     f'{NAMESPACE}:saosilun',
     f'{NAMESPACE}:shipintai',
+    f'{NAMESPACE}:tiandaofuben',
     f'{NAMESPACE}:tripod_01',
     f'{NAMESPACE}:yaolitaiblock',
+    f'{NAMESPACE}:zhenji',
     f'{NAMESPACE}:zhuangshi_tulong_02',
-}
-COMPOUND_WRAPPED_BLOCK_ENTITIES = {
-    f'{NAMESPACE}:fubenblock': 'dungeon_state',
-    f'{NAMESPACE}:fubenentity': 'dungeon_state',
-    f'{NAMESPACE}:tiandaofuben': 'dungeon_state',
-    f'{NAMESPACE}:zhenji': 'formation_state',
 }
 LEGACY_STAT_KEYS = (
     ('health_Max', 'health_max'),
@@ -335,8 +333,6 @@ def upgrade_block_entity_forge_data(block_id: str, raw_compound: bytes, forge: d
         }
         attachments = {f'{NAMESPACE}:block_treasure_container': (10, config)}
         return bytes((10,)) + nbt_string('neoforge:attachments') + encode_payload(10, attachments), 0
-    if block_id in COMPOUND_WRAPPED_BLOCK_ENTITIES:
-        return bytes((10,)) + nbt_string(COMPOUND_WRAPPED_BLOCK_ENTITIES[block_id]) + raw_compound, 0
     if block_id in ROOT_BLOCK_ENTITIES or any(block_id.startswith(prefix) for prefix in ROOT_BLOCK_ENTITY_PREFIXES):
         return raw_compound[:-1], 0
     raise ValueError(f'未配置转换规则的方块实体 ForgeData：{block_id} -> {sorted(forge)}')

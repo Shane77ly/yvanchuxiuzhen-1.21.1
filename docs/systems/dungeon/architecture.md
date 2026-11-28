@@ -59,15 +59,15 @@ updated: 2026-11-26
 
 ## 镇妖塔与外部依赖
 
-`tools/porting/extract_dungeon_definitions.py`从锁定A源码提取默认定义1份、镇妖塔44份及楼板，生成`DungeonSourceData`和[来源/输出指纹](../../reference/conversion/dungeon_definitions.json)。楼板逐一为固定点Y-1；43份有完整百分号头，第44份保持Q81。`Dungeons.configureTower`提供固定点补充操作。
+`tools/porting/extract_dungeon_zhenfa_json.py`从锁定A源码与模板提取默认定义1份、镇妖塔44份至`src/main/resources/content/dungeon/dungeons.json`（强类型`DungeonDefinition` `Codec`加载），同步将5份含阵基/副本方块实体的`.nbt`模板离线升级为根部强类型字段并移除`DungeonSourceData`及`fubenshujv`魔法分隔串。楼板逐一为固定点Y-1；44份固定点均包含完整波次头与奖励，`Dungeons.configureTower`按JSON定义补充`definition_id`、楼板与配置。
 
 来源调用者`A:SealreleaseGoProcedure:444`属于World结构释放命令：`YvanchuGo:536–537`在`unlock sealrelease`分支调用，镇妖塔固定放置后40服务端刻补充44点定义；与Fulu的50→5001妖兽尸体封存没有调用关系。2026-11-14已接入World发布的`StructureReleasedEvent`和Dungeon消费者，保持既有Dungeon→World依赖方向；管理命令路径与运行边界见[World正文](../world/architecture.md#固定结构解封命令2026-11-14)。寻灵盘/裂隙自然生产者已接，孤舟最近目标/82刻释放与共享进度必要单项通过；镇妖塔自然整链未单独验，见[World月志](../world/logs/2026-11.md#2026-11-14-寻灵盘光环与自然裂隙)。
 
 ## 来源异常与当前处理
 
-### Q81 镇妖塔第44点缺少波次头
+### Q81 镇妖塔第44点缺少波次头（已在子批 1 修复并验证）
 
-`A:ZhenyaotashengchengbuchongProcedure`最后点`(1278,83,-587)`只写奖励串，无`%`头；`B:FubenshujvjiexiProcedure`取第1字段时越界。目标逐字保留，不补波次或奖励入口；1.18.2版本实机未执行。
+1.18.2 版本`A:ZhenyaotashengchengbuchongProcedure`最后点`(1278,83,-587)`只写奖励串、遗漏`%`头，但结构模板`zhenyaota.nbt`同点位原已保存“山中无老虎”3波与480秒完整波次头。子批 1 已合并完整波次头与更新后5条奖励写入`dungeons.json`（`tower_1278_83_-587`），`DungeonCheck`已验证可正常解析不越界。
 
 ### Q82 私人画卷地灵与无归返回互换
 
@@ -97,9 +97,9 @@ updated: 2026-11-26
 
 来源两刻延后回程若已在目标维度直接退出回调，未注销监听器；目标保留任务后续继续尝试，服务器结束清空运行期任务。
 
-### Q109 火焰护盾奖励错位
+### Q109 火焰护盾奖励错位（已在子批 1 修复并验证）
 
-镇妖塔两份“火焰护盾”简介含`30//jinengneeditem…`，斜线拆分使后续三元组错位，后续数值/冷却未写；“火鸟术”空`jinengjieyin/int/`按来源转0。逐字保留，不修字符串。
+1.18.2 版本镇妖塔两份“火焰护盾”简介含`降低30//jinengneeditem/`，导致三元组错位；“火鸟术”含空`/jinengjieyin/int//`。子批 1 提取`dungeons.json`时已修复为`降低30%/jinengneeditem/`与`/jinengjieyin/int/0/`，并通过反序列化与内容检查。
 
 ### Q77 未使用的三行菜单
 

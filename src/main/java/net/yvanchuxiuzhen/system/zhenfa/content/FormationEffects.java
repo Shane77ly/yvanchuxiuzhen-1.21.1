@@ -50,21 +50,20 @@ final class FormationEffects {
     private FormationEffects() { }
 
     static void execute(FormationBaseBlockEntity base) {
-        CompoundTag data = base.state();
-        switch (data.getString("jinengleibie")) {
-            case "阳" -> yang(base, data);
-            case "阴", "金", "水", "木", "火", "土" -> yin(base, data);
-            case "空间" -> space(base, data);
+        switch (base.skillCategory()) {
+            case "阳" -> yang(base);
+            case "阴", "金", "水", "木", "火", "土" -> yin(base);
+            case "空间" -> space(base);
             default -> { }
         }
     }
 
-    private static void yang(FormationBaseBlockEntity base, CompoundTag data) {
+    private static void yang(FormationBaseBlockEntity base) {
         ServerLevel level = (ServerLevel) base.getLevel();
         BlockPos origin = base.getBlockPos();
-        Vec3 destination = targetWithoutRandom(data, origin);
-        Vec3 offset = randomOffset(data, level);
-        switch (data.getString("jinengname")) {
+        Vec3 destination = targetWithoutRandom(base, origin);
+        Vec3 offset = randomOffset(base, level);
+        switch (base.skillName()) {
             case "阳1" -> {
                 FormationLauncher launcher = new FormationLauncher(ZhenfaSetup.<FormationLauncher>entityType("zhenfashiti").get(), level);
                 launcher.moveTo(destination.x + offset.x, destination.y + 2 + offset.y, destination.z + offset.z, level.random.nextFloat() * 360, 0);
@@ -73,7 +72,7 @@ final class FormationEffects {
                 level.addFreshEntity(launcher);
             }
             case "阳2" -> {
-                FormationProtection.add(level.getBlockEntity(BlockPos.containing(destination)), data.getInt("zhenLEVEL"));
+                FormationProtection.add(level.getBlockEntity(BlockPos.containing(destination)), base.rank());
                 level.sendParticles(ParticleTypes.CLOUD, destination.x + .5, destination.y + .5, destination.z + .5, 5, .5, 3, .5, 1);
                 level.sendParticles(ParticleTypes.CLOUD, origin.getX() + .5, origin.getY() + .5, origin.getZ() + .5, 5, .5, 3, .5, 1);
             }
@@ -94,8 +93,8 @@ final class FormationEffects {
                 level.sendParticles(ParticleTypes.FLASH, point.x, point.y, point.z, 1, 0, 0, 0, 0);
                 level.sendParticles(ParticleTypes.EXPLOSION_EMITTER, point.x, point.y, point.z, 3, .5, 0, .5, 0);
                 level.sendParticles(ParticleTypes.LARGE_SMOKE, point.x, point.y, point.z, 50, 1, 1, 1, 1);
-                int rank = data.getInt("zhenLEVEL");
-                for (Entity entity : sortedEntities(level, point, data.getInt("zhenjvli") / 2d)) {
+                int rank = base.rank();
+                for (Entity entity : sortedEntities(level, point, base.range() / 2d)) {
                     SpellDamage.markFormationManaAttack(entity, rank * 10, "wu", .5 + rank * .5);
                 }
                 for (int z = -9; z <= 9; z++) {
@@ -112,12 +111,11 @@ final class FormationEffects {
     }
 
     private static void configureActor(FormationBaseBlockEntity base, FormationActor entity, String name) {
-        CompoundTag source = base.state();
         FormationMarkerBlockEntity marker = (FormationMarkerBlockEntity) base.getLevel().getBlockEntity(base.getBlockPos().above());
         Relations.setTeam(entity, marker.team());
-        entity.configure(name, source.getInt("zhenLEVEL"), source.getInt("zhenmubiao"), source.getString("ManaAttackUUID"));
-        entity.setYRot(source.getInt("zhenjiaodu"));
-        entity.setXRot(source.getInt("zhentaitou"));
+        entity.configure(name, base.rank(), base.targetMode(), base.manaAttackUuid());
+        entity.setYRot(Mth.floor(base.yaw()));
+        entity.setXRot(Mth.floor(base.pitch()));
         entity.setYBodyRot(entity.getYRot());
         entity.setYHeadRot(entity.getYRot());
         entity.yRotO = entity.getYRot();
@@ -128,16 +126,16 @@ final class FormationEffects {
         }
     }
 
-    private static void yin(FormationBaseBlockEntity base, CompoundTag data) {
+    private static void yin(FormationBaseBlockEntity base) {
         Level level = base.getLevel();
         BlockPos pos = base.getBlockPos();
-        Vec3 center = target(data, pos, level);
+        Vec3 center = target(base, pos, level);
         boolean allowed = false;
-        for (Entity entity : sortedEntities(level, center, data.getInt("zhenjvli") / 2d)) {
+        for (Entity entity : sortedEntities(level, center, base.range() / 2d)) {
             if (base.matchesTeam(entity)) allowed = true;
             if (!allowed) continue;
-            int rank = data.getInt("zhenLEVEL");
-            switch (data.getString("jinengname")) {
+            int rank = base.rank();
+            switch (base.skillName()) {
                 case "阴1" -> Cultivation.addEntitySoul(entity, rank * 2);
                 case "阴2" -> SpellDamage.markFormationSoulAttack(entity, rank);
                 case "阴3" -> entity.discard();
@@ -147,25 +145,25 @@ final class FormationEffects {
         }
     }
 
-    private static void space(FormationBaseBlockEntity base, CompoundTag data) {
+    private static void space(FormationBaseBlockEntity base) {
         Level level = base.getLevel();
         BlockPos origin = base.getBlockPos();
-        Vec3 destination = target(data, origin, level);
-        String name = data.getString("jinengname");
+        Vec3 destination = target(base, origin, level);
+        String name = base.skillName();
         if (name.equals("空间1") || name.equals("空间2") || name.equals("空间3")) {
             boolean allowed = false;
-            for (Entity entity : sortedEntities(level, destination, data.getInt("zhenjvli") / 2d)) {
+            for (Entity entity : sortedEntities(level, destination, base.range() / 2d)) {
                 if (base.matchesTeam(entity)) allowed = true;
                 if (!allowed) continue;
                 switch (name) {
                     case "空间1" -> {
-                        if ((int) EntityAttributes.level(entity) <= data.getInt("zhenLEVEL") && entity instanceof LivingEntity living) {
+                        if ((int) EntityAttributes.level(entity) <= base.rank() && entity instanceof LivingEntity living) {
                             living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 20, true, false));
                         }
                     }
                     case "空间2" -> StatusEffects.markEntityFlightBlocked(entity);
-                    case "空间3" -> FormationInspection.report((ServerLevel) level, entity, data.getInt("zhenLEVEL"),
-                            new Vec3(data.getInt("playerX"), data.getInt("playerY"), data.getInt("playerZ")));
+                    case "空间3" -> FormationInspection.report((ServerLevel) level, entity, base.rank(),
+                            new Vec3(Mth.floor(base.playerX()), Mth.floor(base.playerY()), Mth.floor(base.playerZ())));
                     default -> { }
                 }
             }
@@ -174,7 +172,7 @@ final class FormationEffects {
 
         Vec3 center = new Vec3(origin.getX(), origin.getY(), origin.getZ());
         boolean allowed = false;
-        for (Entity entity : sortedEntities(level, center, data.getInt("zhenjvli") / 2d)) {
+        for (Entity entity : sortedEntities(level, center, base.range() / 2d)) {
             if (base.matchesTeam(entity)) allowed = true;
             if (!allowed) continue;
             if (name.equals("空间4")) {
@@ -183,25 +181,25 @@ final class FormationEffects {
                     player.connection.teleport(destination.x, destination.y, destination.z, entity.getYRot(), entity.getXRot());
                 }
             } else if (name.equals("空间5") && level instanceof ServerLevel serverLevel) {
-                teleportAcrossDimension(serverLevel, origin, destination, entity, data);
+                teleportAcrossDimension(serverLevel, origin, destination, entity, base);
             }
         }
     }
 
-    private static Vec3 target(CompoundTag data, BlockPos origin, Level level) {
-        return targetWithoutRandom(data, origin).add(randomOffset(data, level));
+    private static Vec3 target(FormationBaseBlockEntity base, BlockPos origin, Level level) {
+        return targetWithoutRandom(base, origin).add(randomOffset(base, level));
     }
 
-    private static Vec3 targetWithoutRandom(CompoundTag data, BlockPos origin) {
-        boolean absolute = data.getBoolean("zhenzuobiao");
-        double x = data.getInt("zhenchufaX") + (absolute ? 0 : origin.getX());
-        double y = data.getInt("zhenchufaY") + (absolute ? 0 : origin.getY());
-        double z = data.getInt("zhenchufaZ") + (absolute ? 0 : origin.getZ());
+    private static Vec3 targetWithoutRandom(FormationBaseBlockEntity base, BlockPos origin) {
+        boolean absolute = base.absoluteCoords();
+        double x = Mth.floor(base.triggerX()) + (absolute ? 0 : origin.getX());
+        double y = Mth.floor(base.triggerY()) + (absolute ? 0 : origin.getY());
+        double z = Mth.floor(base.triggerZ()) + (absolute ? 0 : origin.getZ());
         return new Vec3(x, y, z);
     }
 
-    private static Vec3 randomOffset(CompoundTag data, Level level) {
-        return data.getBoolean("zhensuiji")
+    private static Vec3 randomOffset(FormationBaseBlockEntity base, Level level) {
+        return base.randomOffset()
                 ? new Vec3(level.random.nextInt(11) - 5, level.random.nextInt(6), level.random.nextInt(11) - 5) : Vec3.ZERO;
     }
 
@@ -210,17 +208,17 @@ final class FormationEffects {
                 .sorted(Comparator.comparingDouble(entity -> entity.distanceToSqr(center))).toList();
     }
 
-    private static void teleportAcrossDimension(ServerLevel level, BlockPos origin, Vec3 destination, Entity entity, CompoundTag data) {
+    private static void teleportAcrossDimension(ServerLevel level, BlockPos origin, Vec3 destination, Entity entity, FormationBaseBlockEntity base) {
         String dimension = "";
-        boolean kun = data.getBoolean("zhenkun");
-        boolean zhen = data.getBoolean("zhenzhen");
-        boolean li = data.getBoolean("zhenli");
-        boolean dui = data.getBoolean("zhendui");
-        boolean qian = data.getBoolean("zhenqian");
-        boolean xvn = data.getBoolean("zhenxvn");
-        boolean kan = data.getBoolean("zhenkan");
-        boolean gen = data.getBoolean("zhengen");
-        int rank = data.getInt("zhenLEVEL");
+        boolean kun = base.kun();
+        boolean zhen = base.zhen();
+        boolean li = base.li();
+        boolean dui = base.dui();
+        boolean qian = base.qian();
+        boolean xvn = base.xvn();
+        boolean kan = base.kan();
+        boolean gen = base.gen();
+        int rank = base.rank();
         if (!kun && zhen && !li && dui && !qian && xvn && !kan && gen) {
             dimension = "minecraft:overworld";
         } else if (kun && !zhen && li && !dui && qian && !xvn && kan && !gen) {

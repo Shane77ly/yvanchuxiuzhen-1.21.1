@@ -2,7 +2,7 @@
 topic: handoff
 role: guide
 status: current
-updated: 2026-11-27
+updated: 2026-11-28
 ---
 
 # 交接说明
@@ -15,7 +15,7 @@ updated: 2026-11-27
 2. **负责人最新决定（2026-11-27）**：
    - 经全仓架构体检后，负责人确认**阶段 2C（妖兽 AI 数据驱动拆分）保持暂缓不做**，而**体检发现的其余三块内容全部执行**：① 剩余 4 类硬编码/分隔符配方转 `Codec` + JSON 数据驱动，并彻底剥离所有“套壳 `CompoundTag` / 万能字典”；② 阶段 4 剩余全量 1.18.2 严重玩法 Bug（18 把弓无法射箭、淬毒锅条件写反、附魔/毒药/技能冷却串台、巨石锤晕自己、丹田本命槽吞妖丹、商店以物易物白嫖/吞材料、副本拒入扣票、`/jineng` 权限、死亡消息乱码等）一次性修干净；③ 修补 2 个遗留 Smoke 夹具（`AttributeCheck` 与 `q119`）、清理 4 个冗余子 worktree 与已合并临时分支，并在全量门禁通过后以 `git merge --no-ff` 合入本地 `main`，确立**定位 B（自创内容开发）黄金基线**。
 3. **立即执行的七大收尾子批次（详见[当前调度：2026-11-27 架构终极收尾、阶段 4 全量原版 Bug 清理与黄金基线收口](remaining-work.md#2026-11-27-架构终极收尾去套壳与剩余配方-json-化阶段-4-全量原版-bug-清理与黄金基线收口)）**：
-   - **子批 1（`refactor/p5a-dungeon-zhenfa-codec-json`）**：副本波次/奖励（`DungeonDefinitions`/`DungeonRewards`）消除 `split("%/&//")` 转为 `dungeons.json` + `Codec`（顺修 Q81/Q109），阵法 17 种配方（`FormationLayout`）转为 `formations.json` + `Codec`（顺修 Q04），剥离 `DungeonData`/`DungeonBlockEntity`/`FormationBaseBlockEntity` 的套壳 `CompoundTag`。
+   - **子批 1（`refactor/p5a-dungeon-zhenfa-codec-json`，已完成并合入）**：副本波次/奖励（`DungeonDefinitions`/`DungeonRewards`）消除 `split("%/&//")` 转为 `dungeons.json` + `Codec`（已修 Q81/Q109），阵法 33 种配方（`FormationRecipes`/`FormationLayout`）转为 `formations.json` + `Codec`（已修 Q04 倍率与火 2 类别），剥离 `DungeonData`/`DungeonBlockEntity`/`FormationBaseBlockEntity` 套壳 `CompoundTag` 并离线升级 5 份 `.nbt`。
    - **子批 2（`refactor/p5b-cooking-craft-codec-json`）**：铁锅/砂锅/蒸笼/切菜/酿酒（`cooking`）与木工/陶轮/织布/缫丝/石磨（`craft`）硬编码配方全部提取为 `content/cooking/recipes.json` 与 `content/craft/recipes.json` + `Codec`，消除 `CookingPotBlockEntity.inkScratch` 套壳 `CompoundTag`。
    - **子批 3（`refactor/p5c-unbox-compoundtag-wrappers`）**：剥离 `QuestData`（`SESSION`/`JOURNAL`/`FLAGS`）、`CommerceData.SESSION`、`EconomyBlockEntity`、`TownBuildPlan`/`TownBlockEntity`（消除 `TownMenu` `split("/")`）、`CultivationData.tizhi`（丹田体质去动态键）、`EquipmentRefinement`/`LianqiBlueprint`/`HerbAnalysis`/`TaoguanBlockEntity` 的套壳 `CompoundTag` 与 `.toTag()` 中转运算，并升级 `ArchitectureTest` 规则 7 封禁套壳 `AttachmentType<CompoundTag>`。
    - **子批 4（`refactor/p4b-combat-enchant-poison-fixes`）**：清理战斗、武器/护甲命中附魔与毒药 Bug（**Q32** 毒药/锯齿时长乘 20、斩灵读错重伤、留情时长 0、混乱 Z 坐标错用视线向量、火/冰/雷甲炸穿戴者自己；**Q45** 灵纹读错起尸、扣受击者灵力与污染好友表；**Q33** 毒药 09/13/20/21 读错等级与覆盖体质放大；**Q34** 灵力/神识伤害死亡消息语言键乱码）。
