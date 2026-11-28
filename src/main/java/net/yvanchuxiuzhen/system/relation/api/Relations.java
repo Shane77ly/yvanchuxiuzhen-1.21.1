@@ -228,12 +228,12 @@ public final class Relations {
         return allegiance(owner).friendlyTeamList();
     }
 
-    /** 灵纹生成时把施放者的好友子表交给特效实体，保留运行期引用共享。 */
+    /** 灵纹生成时复制施放者的团队与友方列表，避免把灵纹计数与主人标识写回攻击者的好友表（Q45）。 */
     public static void initializeRune(Entity owner, Entity target, int enchantmentLevel) {
         Allegiance friends = entityAllegiance(target);
-        friends.shareSourceFrom(allegiance(owner));
+        friends.copyFrom(allegiance(owner));
         friends.setFriendInt("friendnumber", enchantmentLevel);
-        friends.setFriendInt("lingwennum", friends.friendInt("lingwennum") + 1);
+        friends.setFriendInt("lingwennum", 1);
         friends.setFriendString("belongToMasterUUID", owner.getStringUUID());
     }
 
