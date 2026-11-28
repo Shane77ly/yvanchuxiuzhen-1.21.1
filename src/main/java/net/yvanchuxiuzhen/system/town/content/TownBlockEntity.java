@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
@@ -18,6 +19,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
+import net.yvanchuxiuzhen.system.town.data.TownBuildPlan;
+import net.yvanchuxiuzhen.system.town.data.TownBuildRegistry;
 
 /** 城镇容器与规划、所有权状态随方块保存；全部槽允许来源侧面物品操作。 */
 public final class TownBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
@@ -29,8 +32,8 @@ public final class TownBlockEntity extends RandomizableContainerBlockEntity impl
     private int shiftingX, shiftingY, shiftingZ;
     private int lengthOfX, lengthOfY, lengthOfZ;
     private String team = "";
-    private CompoundTag buildData = new CompoundTag();
-    private CompoundTag townBuild = new CompoundTag();
+    private TownBuildPlan buildPlan = TownBuildPlan.EMPTY;
+    private TownBuildRegistry townBuild = TownBuildRegistry.EMPTY;
     private String masterUuid = "";
     private String townName = "";
     private String townUuid = "";
@@ -70,10 +73,10 @@ public final class TownBlockEntity extends RandomizableContainerBlockEntity impl
     }
     public String team() { return team; }
     public void setTeam(String value) { team = value == null ? "" : value; }
-    public CompoundTag buildData() { return buildData.copy(); }
-    public void setBuildData(CompoundTag value) { buildData = value == null ? new CompoundTag() : value.copy(); }
-    public CompoundTag townBuild() { return townBuild.copy(); }
-    public void setTownBuild(CompoundTag value) { townBuild = value == null ? new CompoundTag() : value.copy(); }
+    public TownBuildPlan buildPlan() { return buildPlan; }
+    public void setBuildPlan(TownBuildPlan value) { buildPlan = value == null ? TownBuildPlan.EMPTY : value; }
+    public TownBuildRegistry townBuild() { return townBuild; }
+    public void setTownBuild(TownBuildRegistry value) { townBuild = value == null ? TownBuildRegistry.EMPTY : value; }
     public String masterUuid() { return masterUuid; }
     public void setMasterUuid(String value) { masterUuid = value == null ? "" : value; }
     public String townName() { return townName; }
@@ -105,7 +108,7 @@ public final class TownBlockEntity extends RandomizableContainerBlockEntity impl
         lengthOfY = source.lengthOfY;
         lengthOfZ = source.lengthOfZ;
         team = source.team;
-        buildData = source.buildData.copy();
+        buildPlan = source.buildPlan;
     }
 
     public void sync() {
@@ -126,8 +129,13 @@ public final class TownBlockEntity extends RandomizableContainerBlockEntity impl
         lengthOfY = tag.getInt("lengthofY");
         lengthOfZ = tag.getInt("lengthofZ");
         team = tag.getString("team");
-        buildData = tag.getCompound("build_data").copy();
-        townBuild = tag.getCompound("town_build").copy();
+        var ops = registries.createSerializationContext(NbtOps.INSTANCE);
+        buildPlan = tag.contains("build_data")
+                ? TownBuildPlan.CODEC.parse(ops, tag.get("build_data")).result().orElse(TownBuildPlan.EMPTY)
+                : TownBuildPlan.EMPTY;
+        townBuild = tag.contains("town_build")
+                ? TownBuildRegistry.CODEC.parse(ops, tag.get("town_build")).result().orElse(TownBuildRegistry.EMPTY)
+                : TownBuildRegistry.EMPTY;
         masterUuid = tag.getString("belongToMasterUUID");
         townName = tag.getString("town_name");
         townUuid = tag.getString("town_uuid");
@@ -159,8 +167,13 @@ public final class TownBlockEntity extends RandomizableContainerBlockEntity impl
         if (lengthOfY != 0) tag.putInt("lengthofY", lengthOfY);
         if (lengthOfZ != 0) tag.putInt("lengthofZ", lengthOfZ);
         if (!team.isEmpty()) tag.putString("team", team);
-        if (!buildData.isEmpty()) tag.put("build_data", buildData);
-        if (!townBuild.isEmpty()) tag.put("town_build", townBuild);
+        var ops = registries.createSerializationContext(NbtOps.INSTANCE);
+        if (!buildPlan.equals(TownBuildPlan.EMPTY)) {
+            TownBuildPlan.CODEC.encodeStart(ops, buildPlan).result().ifPresent(nbt -> tag.put("build_data", nbt));
+        }
+        if (!townBuild.isEmpty()) {
+            TownBuildRegistry.CODEC.encodeStart(ops, townBuild).result().ifPresent(nbt -> tag.put("town_build", nbt));
+        }
         if (!masterUuid.isEmpty()) tag.putString("belongToMasterUUID", masterUuid);
         if (!townName.isEmpty()) tag.putString("town_name", townName);
         if (!townUuid.isEmpty()) tag.putString("town_uuid", townUuid);

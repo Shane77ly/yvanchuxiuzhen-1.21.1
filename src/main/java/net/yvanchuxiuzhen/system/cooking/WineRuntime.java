@@ -98,8 +98,8 @@ public final class WineRuntime {
 
     public static void snapshot(ServerPlayer player, ItemStack stack) {
         Cultivation.editTizhi(player, data -> {
-            data.putString("jiuniangid", BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
-            data.putDouble("agenum", age(stack));
+            data.setText("jiuniangid", BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
+            data.setNumber("agenum", age(stack));
         });
     }
 

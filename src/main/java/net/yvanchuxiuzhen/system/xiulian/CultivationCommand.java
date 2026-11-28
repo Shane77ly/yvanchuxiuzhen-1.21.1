@@ -44,11 +44,11 @@ public final class CultivationCommand {
             case "tizhi" -> {
                 boolean add = operation.equals("add");
                 Cultivation.editTizhi(player, tag -> {
-                    tag.putBoolean(value, add);
+                    tag.setFlag(value, add);
                     if (feedback.equals("true")) {
                         message(player, "§6" + (add ? "获得名为" : "移除名为") + value + "的体质");
                     }
-                    tag.putDouble("tizhinumber", tag.getDouble("tizhinumber") + (add ? 1 : -1));
+                    tag.setNumber("tizhinumber", tag.number("tizhinumber") + (add ? 1 : -1));
                 });
             }
             default -> { return false; }

@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.town.client;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -10,6 +9,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.town.content.TownBlockEntity;
 import net.yvanchuxiuzhen.system.town.content.TownMenu;
+import net.yvanchuxiuzhen.system.town.data.TownBuildRegistry;
 
 /** 五个来源城镇展示页；空监听按钮保持来源没有动作的边界。 */
 public final class TownScreen extends AbstractContainerScreen<TownMenu> {
@@ -62,11 +62,11 @@ public final class TownScreen extends AbstractContainerScreen<TownMenu> {
             text(graphics, "死亡人数：" + town.deathCount(), 15, 52, 0x333333);
         } else if (menu.page == 3) {
             text(graphics, "建筑列表", 6, -20, 0xFFCC66);
-            CompoundTag build = town.townBuild();
+            TownBuildRegistry build = town.townBuild();
             StringBuilder list = new StringBuilder();
             for (int index = 1; index <= 5; index++) {
                 String key = "txt.yvanchuxiuzhen.build0" + index;
-                int amount = build.getInt(key);
+                int amount = build.countOf(key);
                 if (index > 1 && amount < 1) continue;
                 if (!list.isEmpty()) list.append('、');
                 list.append(Component.translatable(key).getString()).append('（').append(amount).append('）');

@@ -4,7 +4,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.scores.Objective;
@@ -12,6 +11,7 @@ import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 
 /** 来源聊天选择命令兼容显示名、renwuweizhi标记和序号，并把选择交回当前任务会话。 */
@@ -30,12 +30,10 @@ final class QuestChatCommand {
         for (ServerPlayer player : context.getSource().getLevel().players()) {
             if (!player.getDisplayName().getString().equals(selection.name()) && !player.getName().getString().equals(selection.name())) continue;
             writeScoreboard(player, selection.number());
-            CompoundTag state = DialogueActions.snapshot(player);
-            int target = state.getInt("daan" + selection.number());
-            if (!state.getBoolean("xvanxiang") || target <= 0) continue;
-            state.putInt("playerxvanze", target);
-            state.putBoolean("xvanxiang", false);
-            player.setData(QuestData.SESSION, state);
+            QuestDialogueSession state = DialogueActions.snapshot(player);
+            int target = state.choiceTarget(selection.number());
+            if (!state.choicePending() || target <= 0) continue;
+            player.setData(QuestData.SESSION, state.toBuilder().playerChoice(target).choicePending(false).build());
             QuestChatRuntime.run(player);
             break;
         }

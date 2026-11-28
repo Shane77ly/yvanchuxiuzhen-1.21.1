@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.network.chat.Component;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -27,7 +28,7 @@ public final class TaoguanBlockEntity extends RandomizableContainerBlockEntity i
     private NonNullList<ItemStack> items;
     private final IItemHandler unsided = new InvWrapper(this);
     private final IItemHandler[] sided = new IItemHandler[Direction.values().length];
-    private CompoundTag jarData = new CompoundTag();
+    private TaoguanJarState jarState = new TaoguanJarState();
 
     public TaoguanBlockEntity(BlockPos pos, BlockState state) {
         super(GuchongBlockEntities.type(grade(state)), pos, state);
@@ -57,8 +58,8 @@ public final class TaoguanBlockEntity extends RandomizableContainerBlockEntity i
         return direction == null ? unsided : sided[direction.ordinal()];
     }
 
-    public CompoundTag jarData() {
-        return jarData;
+    public TaoguanJarState jarData() {
+        return jarState;
     }
 
     public void sync() {
@@ -71,14 +72,20 @@ public final class TaoguanBlockEntity extends RandomizableContainerBlockEntity i
         super.loadAdditional(tag, registries);
         if (!tryLoadLootTable(tag)) items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
-        jarData = tag.contains("jar_data") ? tag.getCompound("jar_data").copy() : new CompoundTag();
+        jarState = tag.contains("jar_data")
+                ? TaoguanJarState.CODEC.parse(registries.createSerializationContext(NbtOps.INSTANCE), tag.get("jar_data"))
+                        .result().orElseGet(TaoguanJarState::new)
+                : new TaoguanJarState();
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, items, registries);
-        if (!jarData.isEmpty()) tag.put("jar_data", jarData.copy());
+        if (!jarState.isEmpty()) {
+            TaoguanJarState.CODEC.encodeStart(registries.createSerializationContext(NbtOps.INSTANCE), jarState)
+                    .result().ifPresent(nbt -> tag.put("jar_data", nbt));
+        }
     }
 
     @Override

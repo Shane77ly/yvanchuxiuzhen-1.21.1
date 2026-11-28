@@ -6,7 +6,6 @@ import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -33,7 +32,6 @@ import net.yvanchuxiuzhen.system.town.data.TownData;
 
 /** 城镇规划与材料建设只写本系统方块状态。 */
 public final class TownRuntime {
-    private static final String[] MATERIALS = {"log", "stone", "wool"};
     private static final TagKey<Item> STONE = ItemTags.create(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "stone"));
     private static final TagKey<Item> WOOL = ItemTags.create(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "wool"));
 
@@ -51,28 +49,24 @@ public final class TownRuntime {
     }
 
     public static ItemStack centerScroll() {
-        CompoundTag build = new CompoundTag();
-        build.putString("build_name", "市镇中心案台");
-        build.putString("build_type", "市镇中心");
-        int[][] shifts = {{18,2,3},{29,2,44},{44,2,18},{3,2,29}};
-        String[] axes = {"X", "Y", "Z"};
-        for (int direction = 0; direction < 4; direction++) {
-            for (int axis = 0; axis < 3; axis++) {
-                build.putInt("shifting0" + (direction + 1) + axes[axis], shifts[direction][axis]);
-                build.putInt("lengthof0" + (direction + 1) + axes[axis], axis == 1 ? 17 : 48);
-            }
-        }
-        build.putInt("construction_need_log", 60);
-        build.putInt("construction_need_stone", 60);
-        build.putInt("construction_need_wool", 3);
+        List<BlockPos> shifts = List.of(
+                new BlockPos(18, 2, 3),
+                new BlockPos(29, 2, 44),
+                new BlockPos(44, 2, 18),
+                new BlockPos(3, 2, 29));
+        BlockPos standardLength = new BlockPos(48, 17, 48);
+        TownBuildPlan build = new TownBuildPlan(
+                "市镇中心案台", "市镇中心", "",
+                shifts, List.of(standardLength, standardLength, standardLength, standardLength),
+                60, 60, 3, 0, 0, 0);
         ItemStack stack = scroll(build);
         stack.set(DataComponents.CUSTOM_NAME, Component.translatable("txt.yvanchuxiuzhen.build01"));
         return stack;
     }
 
-    private static ItemStack scroll(CompoundTag build) {
+    private static ItemStack scroll(TownBuildPlan build) {
         ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "chengzhen_buildblock_item")));
-        stack.set(TownData.BUILD_PLAN.get(), new TownBuildPlan(build));
+        stack.set(TownData.BUILD_PLAN.get(), build);
         return stack;
     }
 
@@ -80,7 +74,7 @@ public final class TownRuntime {
         if (!player.isShiftKeyDown()) {
             TownBuildMenu.open(player, town.getBlockPos());
         } else if (!town.completed()) {
-            ItemHandlerHelper.giveItemToPlayer(player, scroll(town.buildData()));
+            ItemHandlerHelper.giveItemToPlayer(player, scroll(town.buildPlan()));
             player.level().setBlock(town.getBlockPos(), Blocks.AIR.defaultBlockState(), 3);
         } else if (BuiltInRegistries.ITEM.getKey(player.getMainHandItem().getItem()).equals(ResourceLocation.fromNamespaceAndPath(ModId.VALUE, "hammer"))) {
             player.level().setBlock(town.getBlockPos(), Blocks.AIR.defaultBlockState(), 3);
@@ -119,19 +113,17 @@ public final class TownRuntime {
             int type = material(stack);
             if (type >= 0) counts[type] += stack.getCount();
         }
-        CompoundTag build = town.buildData();
-        for (int type = 0; type < 3; type++) build.putInt("construction_need_" + MATERIALS[type] + "_number", counts[type]);
-        town.setBuildData(build);
+        town.setBuildPlan(town.buildPlan().withOwned(counts[0], counts[1], counts[2]));
         town.sync();
     }
 
     public static void build(ServerPlayer player, TownBlockEntity plan) {
         countMaterials(plan);
-        CompoundTag build = plan.buildData();
+        TownBuildPlan build = plan.buildPlan();
         int[] required = new int[3];
         for (int type = 0; type < 3; type++) {
-            required[type] = build.getInt("construction_need_" + MATERIALS[type]);
-            if (build.getInt("construction_need_" + MATERIALS[type] + "_number") < required[type]) {
+            required[type] = build.need(type);
+            if (build.owned(type) < required[type]) {
                 player.displayClientMessage(Component.literal("§4材料不足！"), false);
                 return;
             }
@@ -146,7 +138,7 @@ public final class TownRuntime {
             stack.shrink(taken);
             required[type] -= taken;
         }
-        CompoundTag buildSnapshot = plan.buildData();
+        TownBuildPlan buildSnapshot = plan.buildPlan();
         int sx = plan.shiftingX(), sy = plan.shiftingY(), sz = plan.shiftingZ();
         int lx = plan.lengthOfX(), ly = plan.lengthOfY(), lz = plan.lengthOfZ();
         String team = plan.team();
@@ -157,7 +149,7 @@ public final class TownRuntime {
         current.setShifting(sx, sy, sz);
         current.setLengthOf(lx, ly, lz);
         current.setTeam(team);
-        current.setBuildData(buildSnapshot);
+        current.setBuildPlan(buildSnapshot);
         current.setCompleted(true);
         if (current.getContainerSize() == 18) {
             for (int slot = 0; slot < 18; slot++) current.setItem(slot, remaining.get(slot));
@@ -171,14 +163,14 @@ public final class TownRuntime {
         if (current != plan) player.closeContainer();
     }
 
-    private static void placeStructure(ServerLevel level, BlockPos pos, CompoundTag build, int sx, int sy, int sz) {
-        String prefix = switch (build.getString("build_type")) {
+    private static void placeStructure(ServerLevel level, BlockPos pos, TownBuildPlan build, int sx, int sy, int sz) {
+        String prefix = switch (build.buildType()) {
             case "市镇中心" -> "build01";
             case "工筑堂" -> "build02";
             case "灰瓦民居" -> "build03";
             default -> "";
         };
-        String suffix = switch (build.getString("build_direction")) {
+        String suffix = switch (build.buildDirection()) {
             case "坐北朝南" -> "nouth";
             case "坐南朝北" -> "south";
             case "坐东朝西" -> "east";

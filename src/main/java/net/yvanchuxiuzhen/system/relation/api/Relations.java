@@ -1,8 +1,8 @@
 package net.yvanchuxiuzhen.system.relation.api;
 
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -218,14 +218,14 @@ public final class Relations {
         }
     }
 
-    /** 地上蛊罐把友方标签引用交给虫，虫的团队值来自该虫物品实例。 */
-    public static void shareBlockAllegiance(CompoundTag blockData, Entity target, String team) {
-        entityAllegiance(target).shareFromBlock(blockData, team);
+    /** 地上蛊罐把友方团队列表交给虫，虫的团队值来自该虫物品实例。 */
+    public static void shareBlockAllegiance(List<String> friendTeams, Entity target, String team) {
+        entityAllegiance(target).replace(team, Set.copyOf(friendTeams));
     }
 
-    /** 放置蛊罐时共享主人的友方标签；方块单独持久化，重载后与主人分离。 */
-    public static void shareAllegianceToBlock(Entity owner, CompoundTag blockData) {
-        allegiance(owner).shareToBlock(blockData);
+    /** 放置蛊罐时拍摄主人友方团队列表；方块单独持久化，重载后与主人分离。 */
+    public static List<String> friendTeamsForBlock(Entity owner) {
+        return allegiance(owner).friendlyTeamList();
     }
 
     /** 灵纹生成时把施放者的好友子表交给特效实体，保留运行期引用共享。 */

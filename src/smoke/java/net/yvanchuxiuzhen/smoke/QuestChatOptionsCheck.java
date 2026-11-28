@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -21,6 +20,7 @@ import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition;
 import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition.ChoiceNode;
 import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition.ChoiceOption;
 import net.yvanchuxiuzhen.system.quest.api.DialogueNodeDefinition.InsertChatOptionNode;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
 
@@ -66,7 +66,7 @@ final class QuestChatOptionsCheck extends SystemCheck {
         var board = player.getScoreboard();
         var feedback = player.serverLevel().getGameRules().getRule(GameRules.RULE_SENDCOMMANDFEEDBACK);
         boolean wasEnabled = feedback.get();
-        CompoundTag session = DialogueActions.snapshot(player);
+        QuestDialogueSession session = DialogueActions.snapshot(player);
         Objective existing = board.getObjective("renwuweizhi");
         Component oldLabel = existing == null ? null : existing.getDisplayName();
         try {
@@ -75,13 +75,13 @@ final class QuestChatOptionsCheck extends SystemCheck {
             run(player, new ChoiceNode("四择一", List.of(new ChoiceOption("甲", 8), new ChoiceOption("乙", 9), new ChoiceOption("丙", 10), new ChoiceOption("丁", 11), new ChoiceOption("戊", 12))));
             Objective objective = board.getObjective("renwuweizhi");
             var state = DialogueActions.snapshot(player);
-            expectTrue("创建目标并关闭反馈，只写前四个选项", objective != null && (existing != null || objective.getDisplayName().getString().equals("任务选项位置")) && !feedback.get() && state.getInt("daan1") == 8 && state.getInt("daan4") == 11 && !state.contains("daan5"));
+            expectTrue("创建目标并关闭反馈，只写前四个选项", objective != null && (existing != null || objective.getDisplayName().getString().equals("任务选项位置")) && !feedback.get() && state.choiceTarget(1) == 8 && state.choiceTarget(4) == 11 && state.choiceTarget(5) == 0);
             if (objective != null) objective.setDisplayName(Component.literal("管理员自定义"));
             run(player, new InsertChatOptionNode("起", "内嵌", "止", 37));
-            expectTrue("保留旧目标及内嵌跳转位", objective != null && board.getObjective("renwuweizhi") == objective && objective.getDisplayName().getString().equals("管理员自定义") && DialogueActions.snapshot(player).getInt("renwuxvanzeweizhi") == 37);
+            expectTrue("保留旧目标及内嵌跳转位", objective != null && board.getObjective("renwuweizhi") == objective && objective.getDisplayName().getString().equals("管理员自定义") && DialogueActions.snapshot(player).chatChoiceCursor() == 37);
             run(player, new ChoiceNode("坏格式", List.of(new ChoiceOption("非法选项\"", 13))));
             state = DialogueActions.snapshot(player);
-            expectTrue("无效文字仍锁定选择并保留目标", state.getBoolean("xvanxiang") && state.getInt("daan1") == 13);
+            expectTrue("无效文字仍锁定选择并保留目标", state.choicePending() && state.choiceTarget(1) == 13);
             player.sendSystemMessage(Component.literal("样本结束"));
         } finally {
             if (existing != null) existing.setDisplayName(oldLabel);
@@ -92,11 +92,12 @@ final class QuestChatOptionsCheck extends SystemCheck {
     }
 
     private static void run(ServerPlayer player, DialogueNodeDefinition node) {
-        CompoundTag state = new CompoundTag();
-        DialogueActions.writeTemplate(state, new QuestTemplateDefinition("options", "options", "", "", 0, "", "", "", List.of(node)));
-        state.putInt("renwuweizhi", 1);
-        state.putInt("tasktick", 59);
-        state.putBoolean("tasksustained", true);
+        QuestDialogueSession state = QuestDialogueSession.EMPTY.toBuilder()
+                .template(java.util.Optional.of(new QuestTemplateDefinition("options", "options", "", "", 0, "", "", "", List.of(node))))
+                .cursor(1)
+                .taskTick(59)
+                .taskSustained(true)
+                .build();
         player.setData(QuestData.SESSION, state);
         DialogueRuntime.tick(new PlayerTickEvent.Post(player));
     }

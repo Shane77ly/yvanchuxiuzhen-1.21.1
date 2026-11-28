@@ -10,8 +10,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.network.chat.MutableComponent;
@@ -51,56 +49,57 @@ public final class EquipmentRefining {
     private EquipmentRefining() {
     }
 
-    public static ItemStack create(HolderLookup.Provider registries, CompoundTag recipe, CompoundTag raw, ItemStack previous) {
-        CompoundTag data = raw.copy();
+    public static ItemStack create(HolderLookup.Provider registries, EquipmentRefinement recipe,
+                                   EquipmentRefinement raw, ItemStack previous) {
+        EquipmentRefinement.Mutable data = raw.toMutable();
         for (String key : List.of("tuzhiname", "fabaoid", "fabaoshuoming", "fabaotype")) {
-            data.putString(key, recipe.getString(key));
+            data.putString(key, recipe.text(key));
         }
         for (String key : List.of("tuzhiname_component", "fabaoshuoming_component")) {
-            if (recipe.contains(key, Tag.TAG_STRING)) data.putString(key, recipe.getString(key));
-            else data.remove(key);
+            if (recipe.hasText(key)) data.putString(key, recipe.text(key));
+            else data.removeText(key);
         }
         convert(data);
-        Item item = BuiltInRegistries.ITEM.get(targetId(data.getString("fabaoid").toLowerCase(Locale.ENGLISH)));
+        Item item = BuiltInRegistries.ITEM.get(targetId(data.text("fabaoid").toLowerCase(Locale.ENGLISH)));
         if (item == Items.AIR) return ItemStack.EMPTY;
         ItemStack stack = new ItemStack(item);
         boolean weapon = stack.is(tag("wuqi")) || stack.is(tag("fabao"));
-        EquipmentSlotGroup slot = weapon ? EquipmentSlotGroup.MAINHAND : switch (data.getString("fabaotype")) {
+        EquipmentSlotGroup slot = weapon ? EquipmentSlotGroup.MAINHAND : switch (data.text("fabaotype")) {
             case "头盔" -> EquipmentSlotGroup.HEAD;
             case "胸甲" -> EquipmentSlotGroup.CHEST;
             case "裤子" -> EquipmentSlotGroup.LEGS;
             case "战靴" -> EquipmentSlotGroup.FEET;
             default -> null;
         };
-        if (slot == null && (data.getInt("health_Max") > 0 || data.getDouble("speed_num") != 0
-                || data.getDouble("attack_speed") != 0 || data.getInt("knockback_resistance") > 0
-                || data.getInt("armor_num") > 0 || data.getInt("Armor_Toughness") > 0)) return ItemStack.EMPTY;
+        if (slot == null && (data.integer("health_Max") > 0 || data.number("speed_num") != 0
+                || data.number("attack_speed") != 0 || data.integer("knockback_resistance") > 0
+                || data.integer("armor_num") > 0 || data.integer("Armor_Toughness") > 0)) return ItemStack.EMPTY;
         stack.set(DataComponents.ATTRIBUTE_MODIFIERS, modifiers(data, weapon, slot));
 
         Map<String, Value> root = new LinkedHashMap<>();
         // 来源先在放置结果时写顶层等级，随后才计算嵌套等级；升级保留旧等级，首次制作通常为0。
-        root.put("item_level_num", Value.integer(data.getInt("item_level_num")));
+        root.put("item_level_num", Value.integer(data.integer("item_level_num")));
         if (!previous.isEmpty()) copyBenming(previous, stack, root);
         List<Enchantment> enchantments = enchant(registries, stack, data);
-        String name = data.getString("tuzhiname");
+        String name = data.text("tuzhiname");
         if (previous.isEmpty() || !name.isEmpty()) {
             name = name.replace("[", "").replace("]", "");
             if (!previous.isEmpty()) data.putString("tuzhiname", name);
-            Component displayName = data.contains("tuzhiname_component", Tag.TAG_STRING)
-                    ? Component.Serializer.fromJson(data.getString("tuzhiname_component"), registries)
+            Component displayName = data.hasText("tuzhiname_component")
+                    ? Component.Serializer.fromJson(data.text("tuzhiname_component"), registries)
                     : Component.literal(name);
             stack.set(DataComponents.CUSTOM_NAME, withoutNameBrackets(displayName));
         }
-        int level = sourceLevel(data.getInt("expnum"));
+        int level = sourceLevel(data.integer("expnum"));
         data.putInt("item_level_num", level);
         data.putString("item_level", grade(level));
-        stack.set(EquipmentData.REFINEMENT.get(), EquipmentRefinement.fromTag(data));
+        stack.set(EquipmentData.REFINEMENT.get(), data.toImmutable());
         stack.set(EquipmentData.PROPERTIES.get(), new EquipmentProperties(root));
         stack.set(EquipmentData.STATS.get(), stats(data));
-        stack.set(EquipmentData.PRODUCT.get(), new EquipmentProduct(data.getString("fabaoid"), data.getString("tuzhiname"),
-                data.getString("fabaoshuoming"), data.getString("fabaotype"), data.getString("item_level"),
-                level, data.getInt("expnum"), data.getInt("weightnum"), materialProjection(data),
-                data.getInt("fumozongshu"), enchantments));
+        stack.set(EquipmentData.PRODUCT.get(), new EquipmentProduct(data.text("fabaoid"), data.text("tuzhiname"),
+                data.text("fabaoshuoming"), data.text("fabaotype"), data.text("item_level"),
+                level, data.integer("expnum"), data.integer("weightnum"), materialProjection(data),
+                data.integer("fumozongshu"), enchantments));
         return stack;
     }
 
@@ -125,23 +124,23 @@ public final class EquipmentRefining {
     }
 
     /** 新炉次读取完整累计量，宝箱实例按已有字段重建；两种来源均执行升级前的整数反推。 */
-    public static CompoundTag materials(ItemStack stack) {
-        CompoundTag data = storedRecord(stack);
-        if (!stack.has(EquipmentData.REFINEMENT.get()) && !stack.has(EquipmentData.PRODUCT.get())) return data;
+    public static EquipmentRefinement materials(ItemStack stack) {
+        EquipmentRefinement.Mutable data = storedRecord(stack);
+        if (!stack.has(EquipmentData.REFINEMENT.get()) && !stack.has(EquipmentData.PRODUCT.get())) return data.toImmutable();
         writeFinalStats(data, stack.getOrDefault(EquipmentData.STATS.get(), EquipmentStats.EMPTY));
-        return prepareUpgrade(data);
+        return prepareUpgrade(data).toImmutable();
     }
 
     /** 淬毒沿来源先增加总数再写该序号，保留已有累计量、编号空缺与其他实例字段。 */
     public static void recordPoisonEnchantment(ItemStack stack, String enchantmentPath) {
-        CompoundTag data = storedRecord(stack);
-        int slot = data.getInt("fumozongshu") + 1;
+        EquipmentRefinement.Mutable data = storedRecord(stack);
+        int slot = data.integer("fumozongshu") + 1;
         String prefix = "fumo" + slot;
         data.putInt("fumozongshu", slot);
         data.putString(prefix, enchantmentPath);
         data.putString(prefix + "kongjian", ModId.VALUE);
         data.putInt(prefix + "num", 100);
-        stack.set(EquipmentData.REFINEMENT.get(), EquipmentRefinement.fromTag(data));
+        stack.set(EquipmentData.REFINEMENT.get(), data.toImmutable());
         EquipmentProduct product = stack.get(EquipmentData.PRODUCT.get());
         if (product != null) {
             List<Enchantment> enchantments = new ArrayList<>(product.enchantments());
@@ -154,12 +153,12 @@ public final class EquipmentRefining {
     }
 
     /** 从持久实例读取完整记录；宝箱成品的投影只还原已有字段，不执行升级反推。 */
-    private static CompoundTag storedRecord(ItemStack stack) {
+    private static EquipmentRefinement.Mutable storedRecord(ItemStack stack) {
         EquipmentRefinement refinement = stack.get(EquipmentData.REFINEMENT.get());
-        if (refinement != null) return refinement.toTag();
+        if (refinement != null) return refinement.toMutable();
         EquipmentProduct product = stack.get(EquipmentData.PRODUCT.get());
-        if (product == null) return new CompoundTag();
-        CompoundTag data = new CompoundTag();
+        if (product == null) return EquipmentRefinement.mutable();
+        EquipmentRefinement.Mutable data = EquipmentRefinement.mutable();
         data.putString("tuzhiname", product.name());
         data.putString("fabaoid", product.itemId());
         data.putString("fabaoshuoming", product.description());
@@ -217,9 +216,9 @@ public final class EquipmentRefining {
         }
     }
 
-    private static CompoundTag prepareUpgrade(CompoundTag data) {
-        if (data.getInt("expnum") == 0) {
-            data.putInt("expnum", REVERSED_EXPERIENCE[Math.min(data.getInt("item_level_num"), 41)]);
+    private static EquipmentRefinement.Mutable prepareUpgrade(EquipmentRefinement.Mutable data) {
+        if (data.integer("expnum") == 0) {
+            data.putInt("expnum", REVERSED_EXPERIENCE[Math.min(data.integer("item_level_num"), 41)]);
         }
         reverse(data, "heanum", "health_Max", 5);
         reverse(data, "hearecnum", "health_Rec", 1);
@@ -241,16 +240,16 @@ public final class EquipmentRefining {
         return data;
     }
 
-    private static void reverse(CompoundTag data, String raw, String value, int divisor) {
-        if (data.getInt(raw) == 0) data.putInt(raw, data.getInt(value) / divisor * 100);
+    private static void reverse(EquipmentRefinement.Mutable data, String raw, String value, int divisor) {
+        if (data.integer(raw) == 0) data.putInt(raw, data.integer(value) / divisor * 100);
     }
 
-    private static void reverseMultiplier(CompoundTag data, String raw, String value) {
-        if (data.getInt(raw) == 0) data.putInt(raw, (int) (data.getInt(value) / .05 * 100));
+    private static void reverseMultiplier(EquipmentRefinement.Mutable data, String raw, String value) {
+        if (data.integer(raw) == 0) data.putInt(raw, (int) (data.integer(value) / .05 * 100));
     }
 
-    private static void convert(CompoundTag data) {
-        int weight = data.getInt("weightnum");
+    private static void convert(EquipmentRefinement.Mutable data) {
+        int weight = data.integer("weightnum");
         double scale = weight > 150 ? 0 : weight >= 140 ? .1 : weight >= 130 ? .4 : weight >= 120 ? .65
                 : weight >= 110 ? .85 : weight > 100 ? .95 : 1;
         convert(data, "heanum", "health_Max", scale, 5);
@@ -273,29 +272,29 @@ public final class EquipmentRefining {
         if (weight > 100) {
             double penalty = weight > 150 ? 1 : weight >= 140 ? .9 : weight >= 130 ? .6
                     : weight >= 120 ? .35 : weight >= 110 ? .15 : .05;
-            data.putDouble("attack_speed", weight >= 110 ? -penalty : data.getDouble("attack_speed") - penalty);
-            data.putDouble("speed_num", weight >= 110 ? -penalty : data.getDouble("speed_num") - penalty);
-            data.putDouble("knockback_resistance", data.getDouble("knockback_resistance") + penalty);
+            data.putDouble("attack_speed", weight >= 110 ? -penalty : data.number("attack_speed") - penalty);
+            data.putDouble("speed_num", weight >= 110 ? -penalty : data.number("speed_num") - penalty);
+            data.putDouble("knockback_resistance", data.number("knockback_resistance") + penalty);
         }
     }
 
-    private static void convert(CompoundTag data, String raw, String value, double scale, int multiplier) {
-        if (data.getDouble(raw) > 0) data.putInt(value, (int) (Math.floor(data.getDouble(raw) * scale / 100) * multiplier));
+    private static void convert(EquipmentRefinement.Mutable data, String raw, String value, double scale, int multiplier) {
+        if (data.number(raw) > 0) data.putInt(value, (int) (Math.floor(data.number(raw) * scale / 100) * multiplier));
     }
 
-    private static void convertMultiplier(CompoundTag data, String raw, String value) {
-        if (data.getDouble(raw) > 0) data.putDouble(value, Math.floor(data.getDouble(raw) / 100) * .05);
+    private static void convertMultiplier(EquipmentRefinement.Mutable data, String raw, String value) {
+        if (data.number(raw) > 0) data.putDouble(value, Math.floor(data.number(raw) / 100) * .05);
     }
 
-    private static ItemAttributeModifiers modifiers(CompoundTag data, boolean weapon, EquipmentSlotGroup slot) {
+    private static ItemAttributeModifiers modifiers(EquipmentRefinement.Mutable data, boolean weapon, EquipmentSlotGroup slot) {
         ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
         if (weapon) add(builder, Attributes.ATTACK_SPEED, "attack_speed_base", -2.6, AttributeModifier.Operation.ADD_VALUE, slot);
-        if (data.getDouble("attack_speed") != 0) add(builder, Attributes.ATTACK_SPEED, "attack_speed", data.getDouble("attack_speed"), AttributeModifier.Operation.ADD_MULTIPLIED_BASE, slot);
-        if (data.getDouble("speed_num") != 0) add(builder, Attributes.MOVEMENT_SPEED, "move_speed", data.getDouble("speed_num"), AttributeModifier.Operation.ADD_MULTIPLIED_BASE, slot);
-        if (data.getInt("knockback_resistance") > 0) add(builder, Attributes.KNOCKBACK_RESISTANCE, "knockback",
-                weapon ? data.getInt("knockback_resistance") : data.getDouble("knockback_resistance"), AttributeModifier.Operation.ADD_MULTIPLIED_BASE, slot);
-        if (data.getInt("armor_num") > 0) add(builder, Attributes.ARMOR, "armor", data.getInt("armor_num"), AttributeModifier.Operation.ADD_VALUE, slot);
-        if (data.getInt("Armor_Toughness") > 0) add(builder, Attributes.ARMOR_TOUGHNESS, "toughness", data.getInt("Armor_Toughness"), AttributeModifier.Operation.ADD_VALUE, slot);
+        if (data.number("attack_speed") != 0) add(builder, Attributes.ATTACK_SPEED, "attack_speed", data.number("attack_speed"), AttributeModifier.Operation.ADD_MULTIPLIED_BASE, slot);
+        if (data.number("speed_num") != 0) add(builder, Attributes.MOVEMENT_SPEED, "move_speed", data.number("speed_num"), AttributeModifier.Operation.ADD_MULTIPLIED_BASE, slot);
+        if (data.integer("knockback_resistance") > 0) add(builder, Attributes.KNOCKBACK_RESISTANCE, "knockback",
+                weapon ? data.integer("knockback_resistance") : data.number("knockback_resistance"), AttributeModifier.Operation.ADD_MULTIPLIED_BASE, slot);
+        if (data.integer("armor_num") > 0) add(builder, Attributes.ARMOR, "armor", data.integer("armor_num"), AttributeModifier.Operation.ADD_VALUE, slot);
+        if (data.integer("Armor_Toughness") > 0) add(builder, Attributes.ARMOR_TOUGHNESS, "toughness", data.integer("Armor_Toughness"), AttributeModifier.Operation.ADD_VALUE, slot);
         // Q17：生命与物攻由统一最终值写入原生基础属性，只计算一次。
         return builder.build();
     }
@@ -306,16 +305,16 @@ public final class EquipmentRefining {
                 "equipment/refining/" + slot.getSerializedName() + "/" + name), amount, operation), slot);
     }
 
-    private static List<Enchantment> enchant(HolderLookup.Provider registries, ItemStack stack, CompoundTag data) {
-        double weight = data.getDouble("weightnum");
+    private static List<Enchantment> enchant(HolderLookup.Provider registries, ItemStack stack, EquipmentRefinement.Mutable data) {
+        double weight = data.number("weightnum");
         double scale = weight >= 150 ? 0 : weight >= 140 ? .2 : weight >= 130 ? .5 : weight >= 120 ? .75 : weight >= 110 ? .9 : 1;
         List<Enchantment> enchantments = new ArrayList<>();
-        for (int index = 0; index < data.getInt("fumozongshu"); index++) {
+        for (int index = 0; index < data.integer("fumozongshu"); index++) {
             String prefix = "fumo" + index;
-            int level = (int) Math.floor(data.getDouble(prefix + "num") * scale / 100);
+            int level = (int) Math.floor(data.number(prefix + "num") * scale / 100);
             if (level < 1) continue;
             int slot = index;
-            ResourceLocation sourceId = ResourceLocation.fromNamespaceAndPath(data.getString(prefix + "kongjian"), data.getString(prefix));
+            ResourceLocation sourceId = ResourceLocation.fromNamespaceAndPath(data.text(prefix + "kongjian"), data.text(prefix));
             registries.lookupOrThrow(Registries.ENCHANTMENT)
                     .get(ResourceKey.create(Registries.ENCHANTMENT, targetId(sourceId)))
                     .ifPresent(holder -> {
@@ -339,15 +338,15 @@ public final class EquipmentRefining {
         stack.set(EquipmentData.BENMING.get(), new BenmingData(level, experience, maximum));
     }
 
-    private static EquipmentStats stats(CompoundTag data) {
-        return new EquipmentStats(data.getInt("health_Max"), data.getInt("power_Max"), data.getInt("soul_Max"),
-                data.getInt("attack_Def"), data.getInt("mana_Def"), data.getInt("soul_Def"), data.getDouble("knockback_resistance"),
-                data.getDouble("attack_speed"), data.getDouble("speed_num"), data.getInt("attack_num"), data.getInt("mana_Att"),
-                data.getInt("soul_Att"), data.getInt("armor_num"),
-                new Recovery(data.getInt("health_Rec"), data.getInt("power_Rec"), data.getInt("soul_Rec")), data.getInt("Armor_Toughness"));
+    private static EquipmentStats stats(EquipmentRefinement.Mutable data) {
+        return new EquipmentStats(data.integer("health_Max"), data.integer("power_Max"), data.integer("soul_Max"),
+                data.integer("attack_Def"), data.integer("mana_Def"), data.integer("soul_Def"), data.number("knockback_resistance"),
+                data.number("attack_speed"), data.number("speed_num"), data.integer("attack_num"), data.integer("mana_Att"),
+                data.integer("soul_Att"), data.integer("armor_num"),
+                new Recovery(data.integer("health_Rec"), data.integer("power_Rec"), data.integer("soul_Rec")), data.integer("Armor_Toughness"));
     }
 
-    private static void writeFinalStats(CompoundTag data, EquipmentStats stats) {
+    private static void writeFinalStats(EquipmentRefinement.Mutable data, EquipmentStats stats) {
         data.putInt("health_Max", stats.health());
         data.putInt("health_Rec", stats.recovery().health());
         data.putInt("power_Max", stats.power());
@@ -367,11 +366,11 @@ public final class EquipmentRefining {
         data.putInt("Armor_Toughness", stats.toughness());
     }
 
-    private static Materials materialProjection(CompoundTag data) {
-        return new Materials(data.getDouble("attnum"), data.getDouble("mananum"), data.getDouble("soulnum"),
-                data.getDouble("heanum"), data.getDouble("powernum"), data.getDouble("jingnum"), data.getDouble("armnum"),
-                data.getDouble("attdefnum"), data.getDouble("manadefnum"), data.getDouble("souldefnum"),
-                data.getDouble("knockbacknum"), data.getDouble("attspeednum"), data.getDouble("spenum"));
+    private static Materials materialProjection(EquipmentRefinement.Mutable data) {
+        return new Materials(data.number("attnum"), data.number("mananum"), data.number("soulnum"),
+                data.number("heanum"), data.number("powernum"), data.number("jingnum"), data.number("armnum"),
+                data.number("attdefnum"), data.number("manadefnum"), data.number("souldefnum"),
+                data.number("knockbacknum"), data.number("attspeednum"), data.number("spenum"));
     }
 
     private static int sourceLevel(int experience) {

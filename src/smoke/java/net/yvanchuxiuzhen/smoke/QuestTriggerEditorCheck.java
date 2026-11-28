@@ -21,6 +21,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
+import net.yvanchuxiuzhen.system.quest.api.QuestJournalState;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.client.QuestTriggerEditorScreen;
 import net.yvanchuxiuzhen.system.quest.content.DisguisedQuestBlockEntity;
@@ -40,8 +42,8 @@ final class QuestTriggerEditorCheck extends SystemCheck {
     private int selected;
     private boolean shift;
     private boolean shiftKey;
-    private CompoundTag session;
-    private CompoundTag journal;
+    private QuestDialogueSession session;
+    private QuestJournalState journal;
     private CompoundTag configured;
     private boolean prepared;
 
@@ -145,11 +147,11 @@ final class QuestTriggerEditorCheck extends SystemCheck {
                 }
                 case 11 -> {
                     if (!(minecraft.screen instanceof DialogueScreen)
-                            || !DialogueActions.snapshot(minecraft.player).getString("TXTxianshi").equals("当铺掌柜：想要卖点啥？")) {
+                            || !DialogueActions.snapshot(minecraft.player).displayText().equals("当铺掌柜：想要卖点啥？")) {
                         if (local > 200) throw new IllegalStateException("保存的高级模板没有经普通方块右键启动");
                         return false;
                     }
-                    expect("高级模板优先普通旧值", "当铺掌柜：想要卖点啥？", DialogueActions.snapshot(minecraft.player).getString("TXTxianshi"));
+                    expect("高级模板优先普通旧值", "当铺掌柜：想要卖点啥？", DialogueActions.snapshot(minecraft.player).displayText());
                     onServer(this::restore);
                     finish();
                 }
@@ -178,7 +180,7 @@ final class QuestTriggerEditorCheck extends SystemCheck {
         if (player.level().getBlockEntity(pos) != null || player.level().getBlockEntity(floor) != null) throw new IllegalStateException("夹具位置有原方块实体");
         prepared = true;
         player.closeContainer();
-        player.setData(QuestData.SESSION, new CompoundTag());
+        player.setData(QuestData.SESSION, QuestDialogueSession.EMPTY);
         player.getInventory().clearContent();
         player.getInventory().setItem(selected, new ItemStack(Items.STICK));
         player.setGameMode(GameType.CREATIVE);
@@ -259,8 +261,8 @@ final class QuestTriggerEditorCheck extends SystemCheck {
         player.getInventory().selected = selected;
         player.setGameMode(mode);
         player.setShiftKeyDown(shift);
-        player.setData(QuestData.SESSION, session.copy());
-        player.setData(QuestData.JOURNAL, journal.copy());
+        player.setData(QuestData.SESSION, session);
+        player.setData(QuestData.JOURNAL, journal);
         player.connection.teleport(position.x, position.y, position.z, 0, 0);
         player.inventoryMenu.broadcastChanges();
         minecraft.execute(() -> {

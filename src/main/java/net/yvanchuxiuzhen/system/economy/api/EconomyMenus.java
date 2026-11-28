@@ -3,12 +3,8 @@ package net.yvanchuxiuzhen.system.economy.api;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
@@ -16,11 +12,12 @@ import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.platform.content.SeamlessMenuProvider;
 import net.yvanchuxiuzhen.system.economy.content.CommerceMenu;
 import net.yvanchuxiuzhen.system.economy.data.CommerceData;
 import net.yvanchuxiuzhen.system.economy.network.CommerceButtonPayload;
 
-/** 对话和NPC只经此入口设置商品会话、打开来源页面；账户操作由经济系统执行。 */
+/** 对话和NPC只经此入口设置强类型商品会话、打开来源页面；账户操作由经济系统执行。 */
 public final class EconomyMenus {
     private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, ModId.VALUE);
     public static final Supplier<MenuType<CommerceMenu>> SHOP = MENUS.register("shop_gui", () -> IMenuTypeExtension.create(CommerceMenu::shop));
@@ -39,19 +36,15 @@ public final class EconomyMenus {
                 CommerceButtonPayload.TYPE, CommerceButtonPayload.STREAM_CODEC, CommerceButtonPayload::handle));
     }
 
-    public static CompoundTag snapshot(Player player) { return player.getData(CommerceData.SESSION).copy(); }
+    public static CommerceSession snapshot(Player player) { return player.getData(CommerceData.SESSION); }
 
     public static void setShopCatalog(ServerPlayer player, ShopCatalogDefinition catalog) {
-        CompoundTag state = snapshot(player);
         ShopCatalogDefinition value = catalog == null ? ShopCatalogDefinition.EMPTY : catalog;
-        state.put("shop_catalog", ShopCatalogDefinition.CODEC.encodeStart(NbtOps.INSTANCE, value).getOrThrow());
-        player.setData(CommerceData.SESSION, state);
+        player.setData(CommerceData.SESSION, snapshot(player).toBuilder().shopCatalog(value).build());
     }
 
     public static ShopCatalogDefinition shopCatalog(Player player) {
-        Tag raw = player.getData(CommerceData.SESSION).get("shop_catalog");
-        if (raw == null) return ShopCatalogDefinition.EMPTY;
-        return ShopCatalogDefinition.CODEC.parse(NbtOps.INSTANCE, raw).result().orElse(ShopCatalogDefinition.EMPTY);
+        return player.getData(CommerceData.SESSION).shopCatalog();
     }
 
     public static void open(ServerPlayer player, BlockPos pos, String sourceName) {

@@ -27,6 +27,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.input.ModifierKeys;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlockEntity;
+import net.yvanchuxiuzhen.system.guchong.content.TaoguanJarState;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
 
 /** 三档满槽地上罐与末槽装饰物的真实保存重进、原生取物和收罐再放置检查。 */
@@ -41,7 +42,7 @@ final class GuchongGroundSaveCheck extends SystemCheck {
     private final List<ItemStack> originalInventory = new ArrayList<>();
     private final List<BlockPos> homes = new ArrayList<>();
     private final List<List<ItemStack>> expectedInsects = new ArrayList<>();
-    private final List<CompoundTag> expectedJarData = new ArrayList<>();
+    private final List<TaoguanJarState> expectedJarData = new ArrayList<>();
     private final List<TaoguanBlockEntity> originalJars = new ArrayList<>();
     private int executed = -1;
     private Vec3 originalPosition;
@@ -189,8 +190,8 @@ final class GuchongGroundSaveCheck extends SystemCheck {
             TaoguanBlockEntity restored = jar(player, grade);
             List<ItemStack> expected = expectedInsects.get(grade - 1);
             expectTrue(grade + "档真实重进创建新方块实体并保留罐UUID阵营及友方数据", restored != originalJars.get(grade - 1)
-                    && restored.jarData().equals(expectedJarData.get(grade - 1)) && restored.jarData().getString("guguanuuid").equals(uuid(grade))
-                    && !restored.jarData().getBoolean("shifangguchong"));
+                    && restored.jarData().equals(expectedJarData.get(grade - 1)) && restored.jarData().uuid.equals(uuid(grade))
+                    && !restored.jarData().released);
             for (int slot = 0; slot < expected.size(); slot++) {
                 expectTrue(grade + "档真实重进第" + (slot + 1) + "槽保持完整个体组件且与客户端一致",
                         ItemStack.matches(expected.get(slot), restored.getItem(slot))
@@ -268,7 +269,7 @@ final class GuchongGroundSaveCheck extends SystemCheck {
             for (int slot = 0; slot < expected.size(); slot++) {
                 expectTrue(grade + "档收罐再放置第" + (slot + 1) + "槽保持完整字段及来源取整", ItemStack.matches(expected.get(slot), placed.getItem(slot)));
             }
-            expectTrue(grade + "档再次放置保持UUID且装饰物不重复", placed.jarData().getString("guguanuuid").equals(uuid(grade))
+            expectTrue(grade + "档再次放置保持UUID且装饰物不重复", placed.jarData().uuid.equals(uuid(grade))
                     && placed.getItem(expected.size()).isEmpty());
         }
     }

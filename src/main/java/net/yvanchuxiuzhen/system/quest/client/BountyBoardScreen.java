@@ -2,7 +2,6 @@ package net.yvanchuxiuzhen.system.quest.client;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -10,6 +9,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.platform.client.TextureButton;
 import net.yvanchuxiuzhen.system.quest.content.BountyBoardBlockEntity;
 import net.yvanchuxiuzhen.system.quest.content.BountyBoardMenu;
+import net.yvanchuxiuzhen.system.quest.data.BountyEntry;
 
 /** 来源500方形画布中的六行悬赏目录与背包，整行按钮直接开始追踪。 */
 public final class BountyBoardScreen extends AbstractContainerScreen<BountyBoardMenu> {
@@ -52,10 +52,10 @@ public final class BountyBoardScreen extends AbstractContainerScreen<BountyBoard
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         if (!(minecraft.level.getBlockEntity(menu.pos) instanceof BountyBoardBlockEntity board)) return;
         for (int index = 1; index <= 6; index++) {
-            CompoundTag entry = board.entry(index);
-            String text = "§4" + Component.translatable(entry.getString("entityname")).getString() + "(LV:" + entry.getInt("LEVELnumber")
-                    + " 赏金:" + entry.getInt("xvanshangmoney") + ")距离:" + entry.getInt("zuobiaojvli") + "米"
-                    + (entry.getBoolean("zhuizhong") ? "(进行)" : "");
+            BountyEntry entry = board.entry(index);
+            String text = "§4" + Component.translatable(entry.entityName()).getString() + "(LV:" + entry.levelNumber()
+                    + " 赏金:" + entry.rewardMoney() + ")距离:" + entry.distance() + "米"
+                    + (entry.tracking() ? "(进行)" : "");
             graphics.drawString(font, text, 169, 145 + (index - 1) * 16, 0x990000, false);
         }
     }

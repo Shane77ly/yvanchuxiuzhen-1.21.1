@@ -29,13 +29,13 @@ public final class Equipment {
     }
 
     /** 由自然炼器累计量重建单件器物；旧实例仅用于复制来源的四个本命字段。 */
-    public static ItemStack createRefinedProduct(HolderLookup.Provider registries, CompoundTag recipe,
-                                                CompoundTag raw, ItemStack previous) {
+    public static ItemStack createRefinedProduct(HolderLookup.Provider registries, EquipmentRefinement recipe,
+                                                EquipmentRefinement raw, ItemStack previous) {
         return EquipmentRefining.create(registries, recipe, raw, previous);
     }
 
     /** 返回供下一炉升级使用的原始累计量副本，不修改输入物品。 */
-    public static CompoundTag refiningMaterials(ItemStack stack) {
+    public static EquipmentRefinement refiningMaterials(ItemStack stack) {
         return EquipmentRefining.materials(stack);
     }
 

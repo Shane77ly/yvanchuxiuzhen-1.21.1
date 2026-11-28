@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Locale;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,6 +19,9 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.yvanchuxiuzhen.platform.ModId;
+import net.yvanchuxiuzhen.system.liandan.LiandanHerbs.Effect;
+import net.yvanchuxiuzhen.system.liandan.LiandanHerbs.Herb;
+import net.yvanchuxiuzhen.system.liandan.LiandanHerbs.HerbCatalogSnapshot;
 import net.yvanchuxiuzhen.system.liandan.api.Liandan;
 import net.yvanchuxiuzhen.system.liandan.api.MedicineInstance;
 import net.yvanchuxiuzhen.system.liandan.api.MedicineRecipe;
@@ -54,7 +56,7 @@ public final class LiandanBrewing {
             name = furnace.getItem(1).getDisplayName().getString().substring(1, 3) + "丹";
         }
 
-        CompoundTag herbs = furnace.herbs();
+        HerbCatalogSnapshot herbs = furnace.herbs();
         List<MedicineInstance.Effect> effects = new ArrayList<>();
         boolean monsterCoreSeen = false;
         int baseDuration = 0;
@@ -184,15 +186,15 @@ public final class LiandanBrewing {
     }
 
     /** 丹炉与药理台共用的单味药草效果叠加，返回本次处理的药效条目数。 */
-    static int accumulateEffects(CompoundTag herbs, String herb, List<MedicineInstance.Effect> effects) {
-        int count = herbs.getInt(herb + "number");
-        for (int entry = 0; entry < count; entry++) {
-            String prefix = herb + "effect" + entry;
-            String id = herbs.getString(prefix + "name");
-            String levelOp = herbs.getString(prefix + "symbollevel");
-            int levelArg = herbs.getInt(prefix + "symbollevelnum");
-            String timeOp = herbs.getString(prefix + "symboltime");
-            int timeArg = herbs.getInt(prefix + "symboltimenum");
+    static int accumulateEffects(HerbCatalogSnapshot herbs, String herbId, List<MedicineInstance.Effect> effects) {
+        Herb herb = herbs.herb(herbId);
+        if (herb == null) return 0;
+        for (Effect effect : herb.effects()) {
+            String id = effect.name();
+            String levelOp = effect.levelOp();
+            int levelArg = effect.level();
+            String timeOp = effect.timeOp();
+            int timeArg = effect.time();
             int match = -1;
             for (int index = 0; index < effects.size(); index++) {
                 if (effects.get(index).id().equals(id)) {
@@ -209,7 +211,7 @@ public final class LiandanBrewing {
                 effects.add(new MedicineInstance.Effect(id, initialize(levelOp, levelArg), initialize(timeOp, timeArg)));
             }
         }
-        return count;
+        return herb.effects().size();
     }
 
     private static int applyOperation(int current, String operation, int amount, boolean duration) {

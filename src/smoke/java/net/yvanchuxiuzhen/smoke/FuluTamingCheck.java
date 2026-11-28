@@ -193,8 +193,8 @@ final class FuluTamingCheck extends SystemCheck {
         player.setYBodyRot(0);
         PlayerAttributes.setContribution(player, "smoke:fulu18", new Contribution(Layer.BASE, Map.of(Stat.SOUL_MAX, 1000.0)));
         Cultivation.editTizhi(player, data -> {
-            data.putDouble("FuluConsumeJingli", 0);
-            data.putDouble("FuluConsumeJingliPercentage", 0);
+            data.setNumber("FuluConsumeJingli", 0);
+            data.setNumber("FuluConsumeJingliPercentage", 0);
         });
         ItemStack talisman = new ItemStack(BuiltInRegistries.ITEM.get(id("itemfulu_18")), 3);
         Fulu.setTalisman(talisman, new TalismanInstance(2, "", 0, 0));
@@ -363,8 +363,8 @@ final class FuluTamingCheck extends SystemCheck {
         PlayerAttributes.clearContribution(player, "smoke:fulu18");
         Cultivation.set(player, CultivationValue.SOUL, soul);
         Cultivation.editTizhi(player, data -> {
-            data.putDouble("FuluConsumeJingli", fixed);
-            data.putDouble("FuluConsumeJingliPercentage", percentage);
+            data.setNumber("FuluConsumeJingli", fixed);
+            data.setNumber("FuluConsumeJingliPercentage", percentage);
         });
         player.setData(FuluData.CASTER, casterSnapshot);
         player.setData(FuluData.CONTROL_OWNER, controlOwnerSnapshot);

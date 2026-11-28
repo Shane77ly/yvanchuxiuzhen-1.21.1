@@ -97,7 +97,7 @@ public final class GuchongBehavior {
     private static void updateHomeCount(ServerLevel level, GuchongEntity entity, GuchongRuntimeState state, boolean clearSlot) {
         BlockPos home = state.homePos();
         if (!(level.getBlockEntity(home) instanceof TaoguanBlockEntity jar)) return;
-        decrement(jar.jarData());
+        jar.jarData().decrementReleased();
         if (clearSlot) {
             IItemHandler inventory = level.getCapability(Capabilities.ItemHandler.BLOCK, home, null);
             if (inventory instanceof IItemHandlerModifiable modifiable) modifiable.setStackInSlot(state.jarSlot(), ItemStack.EMPTY);

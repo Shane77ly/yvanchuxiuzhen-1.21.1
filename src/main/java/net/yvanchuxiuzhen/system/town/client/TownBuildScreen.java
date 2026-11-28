@@ -3,13 +3,13 @@ package net.yvanchuxiuzhen.system.town.client;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.town.content.TownBlockEntity;
 import net.yvanchuxiuzhen.system.town.content.TownBuildMenu;
+import net.yvanchuxiuzhen.system.town.data.TownBuildPlan;
 
 /** 来源十八槽建设页展示已拥有数量与建造按钮。 */
 public final class TownBuildScreen extends AbstractContainerScreen<TownBuildMenu> {
@@ -41,12 +41,11 @@ public final class TownBuildScreen extends AbstractContainerScreen<TownBuildMenu
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         if (!(minecraft.level.getBlockEntity(menu.pos) instanceof TownBlockEntity town)) return;
-        CompoundTag build = town.buildData();
-        graphics.drawString(font, build.getString("build_name"), 6, 8, 0xFF9900, false);
-        String[] keys = {"log", "stone", "wool"};
+        TownBuildPlan build = town.buildPlan();
+        graphics.drawString(font, build.buildName(), 6, 8, 0xFF9900, false);
         String[] names = {"原木", "石料", "羊毛"};
         for (int index = 0; index < 3; index++) graphics.drawString(font, "需求" + names[index] + "（已拥有）："
-                + build.getInt("construction_need_" + keys[index]) + "（" + build.getInt("construction_need_" + keys[index] + "_number") + "）",
+                + build.need(index) + "（" + build.owned(index) + "）",
                 6, 26 + index * 9, 0x3C3C3C, false);
     }
 }

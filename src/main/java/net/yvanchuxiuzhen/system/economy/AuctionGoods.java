@@ -25,7 +25,7 @@ final class AuctionGoods {
 
     static void fill(EconomyBlockEntity block, List<AuctionGoodDefinition> goods, RandomSource random) {
         if (goods.isEmpty()) return;
-        for (int slot = 0; slot < block.state().getInt("paimaiitemnumber"); slot++) {
+        for (int slot = 0; slot < block.state().auction().auctionItemCount; slot++) {
             AuctionGoodDefinition def = goods.get(random.nextInt(goods.size()));
             ItemStack result = new ItemStack(BuiltInRegistries.ITEM.get(def.item()), 1);
             if (def.materialLevel().isPresent() || def.materialQuality().isPresent()) {

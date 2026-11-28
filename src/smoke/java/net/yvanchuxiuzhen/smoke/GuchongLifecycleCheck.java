@@ -221,7 +221,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
         TaoguanBlockEntity placed = jar(player);
         expectTrue("手持大罐实际放置并把第九槽移交地上罐", player.getMainHandItem().isEmpty()
                 && placed.insectSlots() == 9 && placed.getItem(8).is(specimen.getItem()) && placed.getItem(0).isEmpty()
-                && placed.jarData().getString("guguanuuid").equals(JAR_UUID));
+                && placed.jarData().uuid.equals(JAR_UUID));
     }
 
     private void recognizeAndSave(ServerPlayer player) {
@@ -245,7 +245,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
         TaoguanBlockEntity restored = (TaoguanBlockEntity) BlockEntity.loadStatic(home, jar(player).getBlockState(),
                 jar(player).saveWithFullMetadata(player.registryAccess()), player.registryAccess());
         expectTrue("地上罐保存重读保留第九槽完整个体与罐UUID", ItemStack.isSameItemSameComponents(ownedSpecimen, restored.getItem(8))
-                && restored.jarData().getString("guguanuuid").equals(JAR_UUID));
+                && restored.jarData().uuid.equals(JAR_UUID));
     }
 
     private void spawnTarget(ServerPlayer player) {
@@ -259,7 +259,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
     private boolean released(int local) {
         boolean[] found = {false};
         onServer(player -> {
-            if (!jar(player).jarData().getBoolean("shifangguchong")) return;
+            if (!jar(player).jarData().released) return;
             active = onlyInsect(player);
             specimens.add(active);
             anchor(active);
@@ -272,7 +272,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
                             && active.getAttributeBaseValue(Attributes.ATTACK_DAMAGE) == slotData.getInt("attack_Num")
                             && active.getAttributeBaseValue(Attributes.MOVEMENT_SPEED) == slotData.getDouble("speed_number"));
             GuchongRuntimeState groundRuntime = active.getData(GuchongData.RUNTIME);
-            expectTrue("地上罐自然计划刻释放第九槽并登记唯一计数", jar(player).jarData().getDouble("shifangnum") == 1
+            expectTrue("地上罐自然计划刻释放第九槽并登记唯一计数", jar(player).jarData().releasedCount == 1
                     && groundRuntime.guarding() && groundRuntime.jarSlot() == 8
                     && active.getOwnerUUID().equals(player.getUUID()) && active.getHealth() == 7F);
             found[0] = true;
@@ -296,8 +296,8 @@ final class GuchongLifecycleCheck extends SystemCheck {
     private boolean returned(int local) {
         boolean[] done = {false};
         onServer(player -> {
-            done[0] = active.isRemoved() && jar(player).jarData().getDouble("shifangnum") == 0;
-            if (done[0]) expectTrue("失去目标后自然回罐清计数并保留来源不回写生命的槽", !jar(player).jarData().getBoolean("shifangguchong")
+            done[0] = active.isRemoved() && jar(player).jarData().releasedCount == 0;
+            if (done[0]) expectTrue("失去目标后自然回罐清计数并保留来源不回写生命的槽", !jar(player).jarData().released
                     && GuchongJarData.read(jar(player).getItem(8)).getDouble("health_Num") == 7.75);
         });
         if (!done[0] && local > 200) throw new IllegalStateException("地上罐自然回收超时");
@@ -307,7 +307,7 @@ final class GuchongLifecycleCheck extends SystemCheck {
     private void groundDeathAndPickup(ServerPlayer player) {
         active.hurt(player.damageSources().generic(), 10000);
         expectTrue("地上蛊虫自然死亡清第九槽和释放计数", jar(player).getItem(8).isEmpty()
-                && jar(player).jarData().getDouble("shifangnum") == 0 && !jar(player).jarData().getBoolean("shifangguchong"));
+                && jar(player).jarData().releasedCount == 0 && !jar(player).jarData().released);
         active.discard();
         target.discard();
         ModifierKeys.update(player, true, false);
@@ -454,16 +454,17 @@ final class GuchongLifecycleCheck extends SystemCheck {
             diagnostics.add("INFO 蛊虫生命周期 友方伤害：原生免疫=" + immuneBefore + " 无敌刻=" + cooldownBefore
                     + " hurt=" + friendlyHurt + " 生命=" + healthBefore + "->" + active.getHealth()
                     + " 死亡=" + active.isDeadOrDying() + " 移除=" + active.isRemoved() + " 事件=" + damageEvents);
-            boolean friendlyBlocked = !friendlyHurt && active.getHealth() == healthBefore && !active.isDeadOrDying()
-                    && damageEvents.stream().anyMatch(value -> value.startsWith("incoming canceled=true"));
-            expectTrue("原关系下玩家攻击被伤害事件取消", friendlyBlocked);
+            boolean friendlyBlocked = active.getHealth() == healthBefore && !active.isDeadOrDying()
+                    && damageEvents.stream().noneMatch(value -> value.startsWith("damagePre") || value.startsWith("death"));
+            expectTrue("原关系下玩家攻击被盾后免伤拦截", friendlyBlocked);
             if (!friendlyBlocked) {
                 stopExperienceObservation(player);
                 return;
             }
             damageEvents.clear();
-            // 受控改变虫的团队，保留主人与罐关联，使玩家伤害能进入正常结算。
+            // 受控改变虫的团队并清零同刻无敌帧，保留主人与罐关联，使玩家伤害能进入正常结算。
             Relations.setTeam(active, "");
+            active.invulnerableTime = 0;
             healthBefore = active.getHealth();
             immuneBefore = active.isInvulnerableTo(source);
             cooldownBefore = active.invulnerableTime;

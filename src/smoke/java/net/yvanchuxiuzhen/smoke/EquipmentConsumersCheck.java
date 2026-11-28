@@ -30,6 +30,7 @@ import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.combat.api.Enchants;
 import net.yvanchuxiuzhen.system.equipment.api.BloodEssenceData;
 import net.yvanchuxiuzhen.system.equipment.api.Equipment;
+import net.yvanchuxiuzhen.system.equipment.api.EquipmentRefinement;
 import net.yvanchuxiuzhen.system.equipment.content.ToolMachineEntity;
 import net.yvanchuxiuzhen.system.equipment.data.EquipmentData;
 import net.yvanchuxiuzhen.system.equipment.projectile.KailingProjectile;
@@ -154,10 +155,11 @@ final class EquipmentConsumersCheck extends ActionCheck {
     }
 
     private void upgradedBinding(ServerPlayer player, ItemStack foreign) {
-        CompoundTag recipe = new CompoundTag();
-        recipe.putString("fabaoid", "yvanchuxiuzhen:weaponsword_01");
-        recipe.putString("fabaotype", "武器");
-        CompoundTag materials = new CompoundTag();
+        EquipmentRefinement.Mutable recipeBuilder = EquipmentRefinement.mutable();
+        recipeBuilder.putString("fabaoid", "yvanchuxiuzhen:weaponsword_01");
+        recipeBuilder.putString("fabaotype", "武器");
+        EquipmentRefinement recipe = recipeBuilder.toImmutable();
+        EquipmentRefinement materials = EquipmentRefinement.EMPTY;
         ItemStack upgraded = Equipment.createRefinedProduct(player.registryAccess(), recipe, materials, foreign);
         player.setItemInHand(InteractionHand.OFF_HAND, upgraded);
         use(player);

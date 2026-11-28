@@ -34,6 +34,10 @@ import net.yvanchuxiuzhen.system.npc.NpcStructureReleases;
 import net.yvanchuxiuzhen.system.npc.entity.NpcResident;
 import net.yvanchuxiuzhen.system.npc.entity.NpcResidentAnimated;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
+import net.yvanchuxiuzhen.system.quest.api.QuestJournalState;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
+import net.yvanchuxiuzhen.system.quest.api.QuestJournalState;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
@@ -48,8 +52,8 @@ final class NpcResidentsCheck extends SystemCheck {
     private final List<BlockPos> floors = new ArrayList<>();
     private final List<BlockState> floorStates = new ArrayList<>();
     private final Map<Long, Boolean> forced = new LinkedHashMap<>();
-    private CompoundTag journal;
-    private CompoundTag session;
+    private QuestJournalState journal;
+    private QuestDialogueSession session;
     private NpcDialogueProfile childProfile;
     private UUID child;
     private Vec3 position;
@@ -92,8 +96,7 @@ final class NpcResidentsCheck extends SystemCheck {
                             .map(QuestTemplateDefinition::questId).orElse("").equals("yiqizhuatuzi"));
                     expect("原生居民回调转向玩家反面", player.getYRot() - 180, player.serverLevel().getEntity(child).getYRot());
                     player.closeContainer();
-                    CompoundTag completed = DialogueActions.journal(player);
-                    completed.putString("yiqizhuatuzizhuangtai", "完成");
+                    QuestJournalState completed = DialogueActions.journal(player).withStatus("yiqizhuatuzi", "完成");
                     player.setData(QuestData.JOURNAL, completed);
                 });
             }
@@ -142,8 +145,8 @@ final class NpcResidentsCheck extends SystemCheck {
         player.getInventory().selected = 8;
         player.setGameMode(GameType.SURVIVAL);
         player.setShiftKeyDown(false);
-        player.setData(QuestData.SESSION, new CompoundTag());
-        player.setData(QuestData.JOURNAL, new CompoundTag());
+        player.setData(QuestData.SESSION, QuestDialogueSession.EMPTY);
+        player.setData(QuestData.JOURNAL, QuestJournalState.EMPTY);
         for (ChunkPos chunk : List.of(new ChunkPos(BlockPos.containing(CHILD_POSITION)), new ChunkPos(new BlockPos(-75, 63, -360)))) {
             forced.put(chunk.toLong(), player.serverLevel().getForcedChunks().contains(chunk.toLong()));
             player.serverLevel().setChunkForced(chunk.x, chunk.z, true);
@@ -269,7 +272,7 @@ final class NpcResidentsCheck extends SystemCheck {
     }
 
     private boolean dialogue(int local, String text) {
-        if (minecraft.screen instanceof DialogueScreen && DialogueActions.snapshot(minecraft.player).getString("TXTxianshi").contains(text)) return true;
+        if (minecraft.screen instanceof DialogueScreen && DialogueActions.snapshot(minecraft.player).displayText().contains(text)) return true;
         if (local > 200) { fail("居民自然右键未打开预期中文对话：" + text); finish(); }
         return false;
     }

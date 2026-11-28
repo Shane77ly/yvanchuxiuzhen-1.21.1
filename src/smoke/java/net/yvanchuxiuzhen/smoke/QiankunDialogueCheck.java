@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -30,6 +29,8 @@ import net.minecraft.world.phys.Vec3;
 import net.yvanchuxiuzhen.platform.ModId;
 import net.yvanchuxiuzhen.system.npc.content.QiankundaorenBlockEntity;
 import net.yvanchuxiuzhen.system.quest.api.DialogueActions;
+import net.yvanchuxiuzhen.system.quest.api.QuestDialogueSession;
+import net.yvanchuxiuzhen.system.quest.api.QuestJournalState;
 import net.yvanchuxiuzhen.system.quest.api.QuestTemplateDefinition;
 import net.yvanchuxiuzhen.system.quest.client.DialogueScreen;
 import net.yvanchuxiuzhen.system.quest.data.QuestData;
@@ -52,8 +53,8 @@ final class QiankunDialogueCheck extends SystemCheck {
     private ChannelPipeline pipeline;
     private BlockState oldFloor;
     private BlockState oldDao;
-    private CompoundTag oldSession;
-    private CompoundTag oldJournal;
+    private QuestDialogueSession oldSession;
+    private QuestJournalState oldJournal;
     private ResourceKey<Level> originalDimension;
     private GameType gameType;
     private Vec3 position;
@@ -82,9 +83,9 @@ final class QiankunDialogueCheck extends SystemCheck {
                 boolean[] ready = {false};
                 onServer(player -> {
                     String stage = daoStage(player);
-                    CompoundTag session = DialogueActions.snapshot(player);
+                    QuestDialogueSession session = DialogueActions.snapshot(player);
                     expect("首次普通右键只写入准备态", "准备", stage);
-                    boolean noDialogue = DialogueActions.activeTemplate(player).isEmpty() && !session.getBoolean("renwubegin");
+                    boolean noDialogue = DialogueActions.activeTemplate(player).isEmpty() && !session.dialogueBegin();
                     expectTrue("首次右键未启动服务端对话会话", noDialogue);
                     ready[0] = "准备".equals(stage) && noDialogue;
                 });
@@ -191,10 +192,10 @@ final class QiankunDialogueCheck extends SystemCheck {
         for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
             inventory.add(player.getInventory().getItem(slot).copy());
         }
-        oldSession = player.getData(QuestData.SESSION).copy();
-        oldJournal = player.getData(QuestData.JOURNAL).copy();
-        player.setData(QuestData.SESSION, new CompoundTag());
-        player.setData(QuestData.JOURNAL, new CompoundTag());
+        oldSession = player.getData(QuestData.SESSION);
+        oldJournal = player.getData(QuestData.JOURNAL);
+        player.setData(QuestData.SESSION, QuestDialogueSession.EMPTY);
+        player.setData(QuestData.JOURNAL, QuestJournalState.EMPTY);
         player.getInventory().clearContent();
         player.setGameMode(GameType.SURVIVAL);
         level.setBlockAndUpdate(FLOOR, Blocks.STONE.defaultBlockState());
@@ -254,8 +255,8 @@ final class QiankunDialogueCheck extends SystemCheck {
 
     private void cleanup(ServerPlayer player) {
         player.closeContainer();
-        player.setData(QuestData.SESSION, oldSession.copy());
-        player.setData(QuestData.JOURNAL, oldJournal.copy());
+        player.setData(QuestData.SESSION, oldSession);
+        player.setData(QuestData.JOURNAL, oldJournal);
         player.getInventory().clearContent();
         for (int slot = 0; slot < inventory.size(); slot++) player.getInventory().setItem(slot, inventory.get(slot));
         player.getInventory().selected = selected;
@@ -291,18 +292,19 @@ final class QiankunDialogueCheck extends SystemCheck {
     }
 
     private static boolean isTaskAt(ServerPlayer player, int cursor) {
-        CompoundTag session = DialogueActions.snapshot(player);
+        QuestDialogueSession session = DialogueActions.snapshot(player);
         return DialogueActions.activeTemplate(player)
                 .map(QuestTemplateDefinition::questId)
                 .filter(QUEST_ID::equals)
                 .isPresent()
-                && session.getInt("renwuweizhi") == cursor;
+                && session.cursor() == cursor;
     }
 
     private static boolean checkpoint(ServerPlayer player, String state, int cursor) {
-        CompoundTag journal = DialogueActions.journal(player);
-        return QUEST_ID.equals(journal.getString(QUEST_ID + "UUID"))
-                && state.equals(journal.getString(QUEST_ID + "zhuangtai")) && journal.getInt(QUEST_ID + "jindu") == cursor;
+        QuestJournalState journal = DialogueActions.journal(player);
+        QuestJournalState.QuestJournalEntry entry = journal.entry(QUEST_ID);
+        return entry != null && QUEST_ID.equals(entry.uuid())
+                && state.equals(entry.status()) && entry.progress() == cursor;
     }
 
     private static int compassCount(ServerPlayer player) {

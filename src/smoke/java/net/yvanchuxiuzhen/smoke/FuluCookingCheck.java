@@ -35,6 +35,7 @@ import net.yvanchuxiuzhen.system.cooking.client.WoodenStillScreen;
 import net.yvanchuxiuzhen.system.cooking.content.WineVesselBlockEntity;
 import net.yvanchuxiuzhen.system.cooking.content.WoodenStillMenu;
 import net.yvanchuxiuzhen.system.plant.PlantData;
+import net.yvanchuxiuzhen.system.xiulian.api.ConstitutionState;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationAfterBreakthroughEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationSecondEvent;
 import net.yvanchuxiuzhen.system.craft.content.SilkwormBoxBlockEntity;
@@ -214,7 +215,7 @@ final class FuluCookingCheck extends ActionCheck {
 
     private BlockPos wineStillPos;
     private BlockPos wineJarPos;
-    private CompoundTag wineTizhiBefore;
+    private ConstitutionState wineTizhiBefore;
     private final Map<CultivationValue, Double> wineValuesBefore = new LinkedHashMap<>();
     private final List<MobEffectInstance> wineEffectsBefore = new ArrayList<>();
     private final CompoundTag wineFoodBefore = new CompoundTag();
@@ -605,7 +606,7 @@ final class FuluCookingCheck extends ActionCheck {
                                     && volleySpawns[0] >= 2 && volleySpawns[1] >= 2);
                     shots.forEach(shot -> shot.discard());
                     p.removeAllEffects();
-                    Cultivation.editTizhi(p, tizhi -> TALISMAN_KEYS.stream().filter(key -> key.startsWith("fuluxiaoguo")).forEach(key -> tizhi.putBoolean(key, false)));
+                    Cultivation.editTizhi(p, tizhi -> TALISMAN_KEYS.stream().filter(key -> key.startsWith("fuluxiaoguo")).forEach(key -> tizhi.setFlag(key, false)));
                     Cultivation.set(p, CultivationValue.SOUL, 20);
                     Cultivation.setTizhiDouble(p, "FuluConsumeJingli", 5);
                     Cultivation.setTizhiDouble(p, "FuluConsumeJingliPercentage", 0.2);
@@ -1699,8 +1700,8 @@ final class FuluCookingCheck extends ActionCheck {
                     p.removeAllEffects();
                     Alcohol.add(p, -Alcohol.amount(p));
                     Cultivation.editTizhi(p, data -> {
-                        data.putDouble("AlcoholPatience", 0);
-                        data.putDouble("AlcoholPatiencePercentage", 0);
+                        data.setNumber("AlcoholPatience", 0);
+                        data.setNumber("AlcoholPatiencePercentage", 0);
                     });
                     Cultivation.set(p, CultivationValue.EXPERIENCE_STAND, 0);
                     p.inventoryMenu.broadcastChanges();
@@ -1751,12 +1752,12 @@ final class FuluCookingCheck extends ActionCheck {
                     Cultivation.set(p, CultivationValue.EXPERIENCE_RATE, 0);
                     Cultivation.set(p, CultivationValue.CULTIVATION_COOLDOWN, 2);
                     Cultivation.editTizhi(p, data -> {
-                        data.putString("xiuliankaiguan", "");
-                        data.putBoolean("jinji", false);
-                        data.putDouble("xiulianlengqve", 14);
-                        data.putDouble("XiulianColdCorrect", 0);
-                        data.putDouble("AlcoholDigestion", 0.5);
-                        data.putDouble("AlcoholDigestionPercentage", 0.02);
+                        data.setText("xiuliankaiguan", "");
+                        data.setFlag("jinji", false);
+                        data.setNumber("xiulianlengqve", 14);
+                        data.setNumber("XiulianColdCorrect", 0);
+                        data.setNumber("AlcoholDigestion", 0.5);
+                        data.setNumber("AlcoholDigestionPercentage", 0.02);
                     });
                     Alcohol.add(p, 5 - Alcohol.amount(p));
                     wineArmSecond = true;
@@ -3442,8 +3443,7 @@ final class FuluCookingCheck extends ActionCheck {
             for (String key : List.of("jiuniangid", "agenum", "jishiqi", "xiuliankaiguan", "jinji", "xiulianlengqve",
                     "XiulianColdCorrect", "dailyexperience", "yaohualengqve", "AlcoholPatience", "AlcoholPatiencePercentage",
                     "AlcoholDigestion", "AlcoholDigestionPercentage")) {
-                data.remove(key);
-                if (wineTizhiBefore.contains(key)) data.put(key, wineTizhiBefore.get(key).copy());
+                data.copyKeyFrom(wineTizhiBefore, key);
             }
         });
         wineValuesBefore.forEach((value, amount) -> Cultivation.set(player, value, amount));
@@ -3659,9 +3659,9 @@ final class FuluCookingCheck extends ActionCheck {
             Cultivation.set(player, CultivationValue.SOUL, soul);
             Cultivation.editTizhi(player, tizhi -> talismanState.forEach((key, value) -> {
                 if (key.startsWith("fuluxiaoguo")) {
-                    tizhi.putBoolean(key, value != 0);
+                    tizhi.setFlag(key, value != 0);
                 } else {
-                    tizhi.putDouble(key, value);
+                    tizhi.setNumber(key, value);
                 }
             }));
         }

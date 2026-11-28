@@ -73,7 +73,7 @@ public final class GuchongLifecycle {
     }
 
     /** 地上蛊罐自然释放：保留看家、回罐坐标和目标UUID等罐专属字段。 */
-    public static boolean releaseGroundJar(ServerLevel level, BlockPos pos, CompoundTag blockData,
+    public static boolean releaseGroundJar(ServerLevel level, BlockPos pos, TaoguanJarState blockData,
             CompoundTag source, int slot, Entity target) {
         Entity insect = GuchongJarRuntime.create(level, source.getString("guchongid"));
         if (insect == null) return false;
@@ -93,7 +93,7 @@ public final class GuchongLifecycle {
                 true,
                 pos,
                 target.getStringUUID()));
-        Relations.shareBlockAllegiance(blockData, insect, source.getString("team"));
+        Relations.shareBlockAllegiance(blockData.friendTeams, insect, source.getString("team"));
         GuchongJarData.restoreEntityAttributes(source, "", insect, true);
         GuchongJarRuntime.finishSpawn(level, insect);
         return true;

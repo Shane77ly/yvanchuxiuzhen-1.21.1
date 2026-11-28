@@ -26,6 +26,7 @@ import net.yvanchuxiuzhen.system.attribute.api.Stat;
 import net.yvanchuxiuzhen.system.guchong.api.GuchongRuntimeState;
 import net.yvanchuxiuzhen.system.guchong.content.GuchongJarData;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanBlockEntity;
+import net.yvanchuxiuzhen.system.guchong.content.TaoguanJarState;
 import net.yvanchuxiuzhen.system.guchong.content.TaoguanMenu;
 import net.yvanchuxiuzhen.system.guchong.data.GuchongData;
 import net.yvanchuxiuzhen.system.guchong.entity.Guchong03Entity;
@@ -54,7 +55,7 @@ final class RenjianWildJarWitness {
     private UUID targetUuid;
     private UUID controlledTarget;
     private ItemStack savedSlot = ItemStack.EMPTY;
-    private CompoundTag savedJar;
+    private TaoguanJarState savedJar;
     private boolean releasedBeforeSave;
     private boolean reopened;
     private boolean fed;
@@ -86,7 +87,7 @@ final class RenjianWildJarWitness {
     boolean fed() { return fed; }
     boolean complete() { return complete; }
     BlockPos position() { return placement; }
-    String team() { return groundJar.jarData().getString("team"); }
+    String team() { return groundJar.jarData().team; }
     RenjianReplayPlayer.Target releasedTarget() { return new RenjianReplayPlayer.Target(released); }
 
     boolean releaseAreaEmpty() { return eligibleAnimals(observer.serverLevel(), groundJar).isEmpty(); }
@@ -115,7 +116,7 @@ final class RenjianWildJarWitness {
         if (releasedBeforeSave || !player.serverLevel().hasChunkAt(placement)
                 || !(player.serverLevel().getBlockEntity(placement) instanceof TaoguanBlockEntity restored)
                 || restored == groundJar || restored.grade() != 1 || active(restored)
-                || !jarId.equals(restored.jarData().getString("guguanuuid")) || !savedJar.equals(restored.jarData())
+                || !jarId.equals(restored.jarData().uuid) || !savedJar.equals(restored.jarData())
                 || !ItemStack.matches(savedSlot, restored.getItem(0)) || !eligibleAnimals(player.serverLevel(), restored).isEmpty()
                 || !player.serverLevel().getBlockTicks().hasScheduledTick(placement, restored.getBlockState().getBlock())) return false;
         groundJar = restored;
@@ -155,7 +156,7 @@ final class RenjianWildJarWitness {
         }
         if (groundJar == null) {
             if (placement != null && level.getBlockEntity(placement) instanceof TaoguanBlockEntity candidate
-                    && candidate.grade() == 1 && jarId.equals(candidate.jarData().getString("guguanuuid"))
+                    && candidate.grade() == 1 && jarId.equals(candidate.jarData().uuid)
                     && candidate.getItem(0).getCount() == 1 && matches(GuchongJarData.read(candidate.getItem(0)), "")
                     && player.getMainHandItem() != handJar) {
                 groundJar = candidate;
@@ -172,8 +173,8 @@ final class RenjianWildJarWitness {
             report.add("INFO 真实精血右键扣1，原槽0飞蝗认当前玩家");
         }
         if (!complete && reopened && released != null && released.isAlive() && level.getEntity(released.getUUID()) == released
-                && ItemStack.matches(savedSlot, groundJar.getItem(0)) && jarId.equals(groundJar.jarData().getString("guguanuuid"))
-                && groundJar.jarData().getBoolean("shifangguchong") && groundJar.jarData().getInt("shifangnum") == 1) {
+                && ItemStack.matches(savedSlot, groundJar.getItem(0)) && jarId.equals(groundJar.jarData().uuid)
+                && groundJar.jarData().released && groundJar.jarData().releasedCount == 1) {
             complete = true;
             report.add("INFO REPLAY_JAR_RELEASE wild=" + wildUuid + " released=" + released.getUUID() + " jar=" + jarId
                     + " slot=0 pos=" + placement + " owner=" + observer.getUUID() + " target=" + targetUuid + " active=1");
@@ -199,7 +200,7 @@ final class RenjianWildJarWitness {
                 || !(event.getLevel() instanceof ServerLevel level) || !level.dimension().location().equals(id("dimensionrenjian"))
                 || !(event.getEntity() instanceof Guchong03Entity fly)
                 || !level.hasChunkAt(placement) || !(level.getBlockEntity(placement) instanceof TaoguanBlockEntity source)
-                || !jarId.equals(source.jarData().getString("guguanuuid"))) return;
+                || !jarId.equals(source.jarData().uuid)) return;
         GuchongRuntimeState runtime = fly.getData(GuchongData.RUNTIME);
         String target = runtime.commandTargetUuid();
         if (!fly.isAlive() || fly.getUUID().equals(wildUuid) || !runtime.guarding() || !runtime.tamed()
@@ -223,13 +224,13 @@ final class RenjianWildJarWitness {
 
     private static List<Animal> eligibleAnimals(ServerLevel level, TaoguanBlockEntity jar) {
         Vec3 center = Vec3.atCenterOf(jar.getBlockPos());
-        String team = jar.jarData().getString("team");
+        String team = jar.jarData().team;
         return level.getEntitiesOfClass(Animal.class, new AABB(center, center).inflate(8),
                 animal -> animal.isAlive() && !Relations.entityTeam(animal).equals(team));
     }
 
     private static boolean active(TaoguanBlockEntity jar) {
-        return jar.jarData().getBoolean("shifangguchong") || jar.jarData().getInt("shifangnum") != 0;
+        return jar.jarData().released || jar.jarData().releasedCount != 0;
     }
 
     private boolean matches(CompoundTag data, String slot) {

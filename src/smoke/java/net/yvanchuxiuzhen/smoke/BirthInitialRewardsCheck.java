@@ -9,7 +9,6 @@ import java.util.function.Consumer;
 import java.util.stream.IntStream;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -45,6 +44,7 @@ import net.yvanchuxiuzhen.system.world.portal.DimensionPortalSpec;
 import net.yvanchuxiuzhen.system.xiulian.BirthSelection;
 import net.yvanchuxiuzhen.system.xiulian.api.BirthInitialRewardsEvent;
 import net.yvanchuxiuzhen.system.xiulian.api.BirthItems;
+import net.yvanchuxiuzhen.system.xiulian.api.ConstitutionState;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationText;
 import net.yvanchuxiuzhen.system.xiulian.api.CultivationValue;
@@ -54,7 +54,7 @@ import net.yvanchuxiuzhen.system.xiulian.content.BirthMenu;
 final class BirthInitialRewardsCheck extends SystemCheck {
     private final List<ItemStack> originalInventory = new ArrayList<>();
     private final Map<CultivationValue, Double> originalRoots = new EnumMap<>(CultivationValue.class);
-    private CompoundTag originalTizhi;
+    private ConstitutionState originalTizhi;
     private String originalBirth;
     private String originalConstitution;
     private ServerLevel originalLevel;
@@ -417,8 +417,7 @@ final class BirthInitialRewardsCheck extends SystemCheck {
         originalRoots.forEach((root, value) -> Cultivation.set(player, root, value));
         Cultivation.editTizhi(player, data -> {
             for (String key : List.of("tizhiopen_001", "LevelupCorrectXiuweixishou", "tizhinumber", "tizhiopen_012", "AttackAttCorrectPercentage", "chuanjiegujing")) {
-                if (originalTizhi.contains(key)) data.put(key, originalTizhi.get(key).copy());
-                else data.remove(key);
+                data.copyKeyFrom(originalTizhi, key);
             }
         });
         player.setHealth(Math.min(originalHealth, player.getMaxHealth()));

@@ -5,7 +5,6 @@ import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -26,6 +25,7 @@ import net.yvanchuxiuzhen.system.fulu.data.FuluCasterState;
 import net.yvanchuxiuzhen.system.fulu.data.FuluData;
 import net.yvanchuxiuzhen.system.particle.api.Particles;
 import net.yvanchuxiuzhen.system.relation.api.Relations;
+import net.yvanchuxiuzhen.system.xiulian.api.ConstitutionState;
 import net.yvanchuxiuzhen.system.xiulian.api.Cultivation;
 
 /**
@@ -70,49 +70,49 @@ final class FuluTick {
         }
     }
 
-    private static EffectState tagState(CompoundTag state) {
+    private static EffectState tagState(ConstitutionState state) {
         return new EffectState() {
             @Override
             public boolean active(String suffix) {
-                return state.getBoolean("fuluxiaoguo" + suffix);
+                return state.flag("fuluxiaoguo" + suffix);
             }
 
             @Override
             public double level(String suffix) {
-                return state.getDouble("fulu" + suffix + "level");
+                return state.number("fulu" + suffix + "level");
             }
 
             @Override
             public double tick(String suffix) {
-                return state.getDouble("fulu" + suffix + "tick");
+                return state.number("fulu" + suffix + "tick");
             }
 
             @Override
             public void setTick(String suffix, double value) {
-                state.putDouble("fulu" + suffix + "tick", value);
+                state.setNumber("fulu" + suffix + "tick", value);
             }
 
             @Override
             public void clearEffect(String suffix) {
-                state.putDouble("fulu" + suffix + "tick", 0);
-                state.putBoolean("fuluxiaoguo" + suffix, false);
-                state.putDouble("fulu" + suffix + "level", 0);
-                state.putDouble("fulunumber", state.getDouble("fulunumber") - 1);
+                state.setNumber("fulu" + suffix + "tick", 0);
+                state.setFlag("fuluxiaoguo" + suffix, false);
+                state.setNumber("fulu" + suffix + "level", 0);
+                state.setNumber("fulunumber", state.number("fulunumber") - 1);
             }
 
             @Override
             public double volleyTick(String suffix) {
-                return state.getDouble("fulu" + suffix + "01tick");
+                return state.number("fulu" + suffix + "01tick");
             }
 
             @Override
             public void setVolleyTick(String suffix, double value) {
-                state.putDouble("fulu" + suffix + "01tick", value);
+                state.setNumber("fulu" + suffix + "01tick", value);
             }
 
             @Override
             public void setFireballLevel(double grade) {
-                state.putDouble("fululevel46", grade);
+                state.setNumber("fululevel46", grade);
             }
         };
     }
